@@ -5,10 +5,10 @@ const apps = [
   expenses
 ]
 
-const server = maha({
-  apps
-})
+export default () => {
 
-server.listen(process.env.SERVER_PORT, () => {
-  console.log('Server listening on port', process.env.SERVER_PORT)
-})
+   maha({ apps }).listen(process.env.SERVER_PORT, () => {
+    console.log('Server listening on port', process.env.SERVER_PORT)
+  })
+
+}
