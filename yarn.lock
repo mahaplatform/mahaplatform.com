@@ -2,12 +2,6 @@
 # yarn lockfile v1
 
 
-maha-expenses@latest:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/maha-expenses/-/maha-expenses-0.0.1.tgz#3ddb0841a8e1c667b608ec1789b838fb3e23c131"
-  dependencies:
-    maha latest
-
 maha@latest:
   version "0.0.1"
   resolved "https://registry.yarnpkg.com/maha/-/maha-0.0.1.tgz#e969c7183a3866f4a20f86a9dea24c2ab513f931"
