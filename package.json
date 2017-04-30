@@ -15,7 +15,5 @@
   "dependencies": {
     "maha": "latest"
   },
-  "devDependencies": {
-    "babel-polyfill": "^6.23.0"
-  }
+  "devDependencies": {}
 }
