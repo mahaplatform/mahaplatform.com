@@ -13,7 +13,8 @@
   },
   "homepage": "https://github.com/ccetc/mycce2#readme",
   "dependencies": {
-    "maha": "latest"
+    "maha-competencies": "^0.0.4",
+    "maha-platform": "^0.0.2"
   },
   "devDependencies": {}
 }
