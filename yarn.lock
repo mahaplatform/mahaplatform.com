@@ -309,6 +309,10 @@ base64id@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/base64id/-/base64id-1.0.0.tgz#47688cb99bb6804f0e06d3e763b1c32e57d8e6b6"
 
+bcrypt-nodejs@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/bcrypt-nodejs/-/bcrypt-nodejs-0.0.3.tgz#c60917f26dc235661566c681061c303c2b28842b"
+
 bcrypt-pbkdf@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/bcrypt-pbkdf/-/bcrypt-pbkdf-1.0.1.tgz#63bc5dcb61331b92bc05fd528953c33462a06f8d"
@@ -479,6 +483,13 @@ chalk@^1.0.0, chalk@^1.1.1, chalk@^1.1.3:
     has-ansi "^2.0.0"
     strip-ansi "^3.0.0"
     supports-color "^2.0.0"
+
+checkit@^0.7.0:
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/checkit/-/checkit-0.7.0.tgz#14979abc93018346bfcfdcbabc19ab54c0bfd74a"
+  dependencies:
+    inherits "^2.0.1"
+    lodash "^4.0.0"
 
 chownr@~1.0.1:
   version "1.0.1"
@@ -1925,7 +1936,7 @@ lodash.without@~4.4.0:
   version "4.4.0"
   resolved "https://registry.yarnpkg.com/lodash.without/-/lodash.without-4.4.0.tgz#3cd4574a00b67bae373a94b748772640507b7aac"
 
-lodash@^4.0.1, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.6.0, lodash@^4.8.0:
+lodash@^4.0.0, lodash@^4.0.1, lodash@^4.13.1, lodash@^4.14.0, lodash@^4.17.4, lodash@^4.2.0, lodash@^4.2.1, lodash@^4.6.0, lodash@^4.8.0:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.4.tgz#78203a4d1c328ae1d86dca6460e369b57f4055ae"
 
@@ -1950,13 +1961,15 @@ maha-competencies@^0.0.4:
   version "0.0.4"
   resolved "https://registry.yarnpkg.com/maha-competencies/-/maha-competencies-0.0.4.tgz#50f35dfef68b1d83c8a4c47a1d9a2928bb5c3382"
 
-maha-platform@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.yarnpkg.com/maha-platform/-/maha-platform-0.0.2.tgz#ee357933149ef914cb4d694f33fecdb239c9594e"
+maha@^0.0.9:
+  version "0.0.9"
+  resolved "https://registry.yarnpkg.com/maha/-/maha-0.0.9.tgz#8b29ded1ad784329cd9cb4e85113d31386e5a20a"
   dependencies:
     backframe "^1.0.31"
+    bcrypt-nodejs "^0.0.3"
     body-parser "^1.17.1"
     chalk "^1.1.3"
+    checkit "^0.7.0"
     commander "^2.9.0"
     connect-multiparty "^2.0.0"
     dotenv "^4.0.0"
@@ -1982,12 +1995,9 @@ maha-platform@^0.0.2:
     redux-api-request "^1.0.0"
     redux-local-storage "^0.0.4"
     redux-logger "^3.0.1"
-    redux-observable "^0.14.1"
     redux-rubberstamp "1.1.7"
     redux-thunk "^2.2.0"
     reframe "^0.0.13"
-    rest "^2.0.0"
-    rxjs "5.0.0"
     socket.io "^1.7.3"
     socket.io-redis "^4.0.0"
     sqlite3 "^3.1.8"
@@ -3058,10 +3068,6 @@ redux-logger@^3.0.1:
   dependencies:
     deep-diff "0.3.4"
 
-redux-observable@^0.14.1:
-  version "0.14.1"
-  resolved "https://registry.yarnpkg.com/redux-observable/-/redux-observable-0.14.1.tgz#9f3d870c69388fdc427ded6770a3e326f3b69693"
-
 redux-rubberstamp@1.1.7:
   version "1.1.7"
   resolved "https://registry.yarnpkg.com/redux-rubberstamp/-/redux-rubberstamp-1.1.7.tgz#5e9d56fe56ace606def4b1c7274da09fd9c148ed"
@@ -3251,12 +3257,6 @@ run-queue@^1.0.0, run-queue@^1.0.3:
   resolved "https://registry.yarnpkg.com/run-queue/-/run-queue-1.0.3.tgz#e848396f057d223f24386924618e25694161ec47"
   dependencies:
     aproba "^1.1.1"
-
-rxjs@5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.0.0.tgz#4c31630a35cb36acde83afa4baeeba6ccede2405"
-  dependencies:
-    symbol-observable "^1.0.1"
 
 safe-buffer@^5.0.1:
   version "5.0.1"
@@ -3550,7 +3550,7 @@ supports-color@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-2.0.0.tgz#535d045ce6b6363fa40117084629995e9df324c7"
 
-symbol-observable@^1.0.1, symbol-observable@^1.0.2:
+symbol-observable@^1.0.2:
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.4.tgz#29bf615d4aa7121bdd898b22d4b3f9bc4e2aa03d"
 
