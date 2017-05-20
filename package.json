@@ -13,6 +13,7 @@
   },
   "homepage": "https://github.com/ccetc/mycce2#readme",
   "dependencies": {
+    "aws-sdk": "2.54.0",
     "maha": "^0.0.9",
     "maha-competencies": "^0.0.4",
     "maha-eatfresh": "^0.0.2"
