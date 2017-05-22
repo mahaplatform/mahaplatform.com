@@ -16,7 +16,8 @@
     "aws-sdk": "2.54.0",
     "maha": "^0.0.9",
     "maha-competencies": "^0.0.4",
-    "maha-eatfresh": "^0.0.2"
+    "maha-eatfresh": "^0.0.2",
+    "maha-expenses": "^0.0.2"
   },
   "devDependencies": {}
 }
