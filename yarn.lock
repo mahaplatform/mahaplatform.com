@@ -2328,6 +2328,10 @@ normalize-path@^2.0.0, normalize-path@^2.0.1:
   dependencies:
     remove-trailing-separator "^1.0.1"
 
+notepack.io@~1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/notepack.io/-/notepack.io-1.0.1.tgz#a27d12185edd8b87b63a8188e9cc92268058aab8"
+
 npm-cache-filename@~1.0.2:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/npm-cache-filename/-/npm-cache-filename-1.0.2.tgz#ded306c5b0bfc870a9e9faf823bc5f283e05ae11"
@@ -3474,12 +3478,30 @@ socket.io-client@1.7.3:
     socket.io-parser "2.3.1"
     to-array "0.1.4"
 
+socket.io-emitter@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/socket.io-emitter/-/socket.io-emitter-3.0.1.tgz#32b535ee207f993b9699c7ecaed0b600f99fecd6"
+  dependencies:
+    debug "2.3.3"
+    notepack.io "~1.0.1"
+    redis "2.6.3"
+    socket.io-parser "2.3.2"
+
 socket.io-parser@2.3.1:
   version "2.3.1"
   resolved "https://registry.yarnpkg.com/socket.io-parser/-/socket.io-parser-2.3.1.tgz#dd532025103ce429697326befd64005fcfe5b4a0"
   dependencies:
     component-emitter "1.1.2"
     debug "2.2.0"
+    isarray "0.0.1"
+    json3 "3.3.2"
+
+socket.io-parser@2.3.2:
+  version "2.3.2"
+  resolved "https://registry.yarnpkg.com/socket.io-parser/-/socket.io-parser-2.3.2.tgz#ae64f90cd8d0b5316556280d98cb744f7422cd94"
+  dependencies:
+    component-emitter "1.2.1"
+    debug "2.3.3"
     isarray "0.0.1"
     json3 "3.3.2"
 
