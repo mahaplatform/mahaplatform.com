@@ -2,6 +2,5 @@
 npm-debug.log
 .env
 apps.js
-/dist
 /public
 data.sqlite3
