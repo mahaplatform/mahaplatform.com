@@ -3,8 +3,8 @@ export default {
   records: [
     {
       id: 1,
-      title: 'Cornell Cooperative Extension of Tompkins County',
-      subdomain: 'ccetc',
+      title: 'CCE Tompkins',
+      subdomain: 'ccetompkins',
       logo_id: 1
     }
   ]

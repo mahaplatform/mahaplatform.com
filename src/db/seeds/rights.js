@@ -19,18 +19,28 @@ export default {
     }, {
       id: 4,
       app_id: 2,
-      text: 'APPROVE ALL EXPENSES',
-      description: 'approve advances, expense, and trip reports for all projects'
+      text: 'MANAGE EXPENSES',
+      description: 'manage their own advances, expenses, and trips'
     }, {
       id: 5,
+      app_id: 2,
+      text: 'APPROVE EXPENSES',
+      description: 'approve other users advances, expense, and trip reports for projects they own'
+    }, {
+      id: 6,
       app_id: 2,
       text: 'ACCESS REPORTS',
       description: 'access advance, expense, and trip reports'
     }, {
-      id: 6,
-      app_id: 2,
-      text: 'MANAGE EXPENSES',
-      description: 'manage their own advances, expenses, and trips'
+      id: 7,
+      app_id: 3,
+      text: 'MANAGE CONFIGURATION',
+      description: 'manage supervisors, competencies, and resources'
+    }, {
+      id: 8,
+      app_id: 3,
+      text: 'MANAGE PLANS',
+      description: 'manage their plans'
     }
   ]
 }

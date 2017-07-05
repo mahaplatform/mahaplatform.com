@@ -1,4 +1,4 @@
-import Task from 'maha'
+import { Task } from 'maha'
 import Promise from 'bluebird'
 import fs from 'fs'
 import path from 'path'
@@ -6,7 +6,6 @@ import parse from 'csv-parse/lib/sync'
 import moment from 'moment'
 import _ from 'lodash'
 import mime from 'mime-types'
-import aws from 'platform/services/aws'
 
 export default (commander) => {
 
@@ -23,10 +22,13 @@ const import_20170622 = async () => {
 
   try {
 
-    const users = toMatrix('20170622/users.tsv', '\t')
+    const employees = toMatrix('20170622/employees.tsv', '\t')
     const projects = toMatrix('20170622/projects.tsv', '\t')
     const expenses = toMatrix('20170622/expense_types.tsv', '|')
     const members = toMatrix('20170622/members.tsv', '|')
+    const competencies = toMatrix('20170622/competencies.tsv', '\t')
+
+    const supervisors = {}
 
     const assets = [{
       id: 1,
@@ -41,7 +43,7 @@ const import_20170622 = async () => {
     }]
 
 
-    const userData = users.reduce((data, record) => {
+    const userData = employees.reduce((data, record) => {
 
       const user_id = (data.users.length + 1)
 
@@ -83,16 +85,17 @@ const import_20170622 = async () => {
         updated_at: moment()
       })
 
-      const roles = [3,4,5,6,7,8]
+      if(!supervisors[record[3]]) supervisors[record[3]] = []
+
+      supervisors[record[3]].push(user_id)
+
+      const roles = [4,5,6,7,8]
 
       roles.map(index => {
         if(record[index] == 1) {
           data.users_roles.push({
-            team_id: 1,
             user_id,
-            role_id: index - 2,
-            created_at: moment(),
-            updated_at: moment()
+            role_id: index - 3
           })
         }
       })
@@ -100,6 +103,34 @@ const import_20170622 = async () => {
       return data
 
     }, { assets, users: [], users_roles: [] })
+
+    const supervisorData = Object.keys(supervisors).reduce((data, name) => {
+
+      const [,first_name,last_name] = name.match(/(.*) (.*)/)
+
+      const supervisor = _.find(userData.users, { first_name, last_name })
+
+      data.supervisors.push({
+        team_id: 1,
+        user_id: supervisor.id,
+        created_at: moment(),
+        updated_at: moment()
+      })
+
+      data.supervisions = [
+        ...data.supervisions,
+        ...supervisors[name].map(employee_id => ({
+          team_id: 1,
+          supervisor_id: supervisor.id,
+          employee_id,
+          created_at: moment(),
+          updated_at: moment()
+        }))
+      ]
+
+      return data
+
+    }, { supervisors: [], supervisions: [] })
 
     const projectData = projects.reduce((data, record) => {
 
@@ -179,41 +210,46 @@ const import_20170622 = async () => {
 
     }, { members: projectData.members })
 
-    await fs.writeFileSync(path.join(__dirname, '..', 'db', 'seeds', 'assets.js'), `module.exports = ${toJSON({ tableName: 'assets', records: userData.assets })}`, reject)
+    const competencyData = competencies.reduce((data, record) => {
 
-    await fs.writeFileSync(path.join(__dirname, '..', 'db', 'seeds', 'users.js'), `module.exports = ${toJSON({ tableName: 'users', records: userData.users })}`, reject)
+      const category = findOrCreate(data.categories, { title: sanitize(record[0]) }, true)
 
-    await fs.writeFileSync(path.join(__dirname, '..', 'db', 'seeds', 'users_roles.js'), `module.exports = ${toJSON({ tableName: 'users_roles', records: userData.users_roles })}`, reject)
+      const competency = findOrCreate(data.competencies, { category_id: category.id, title: sanitize(record[1]), level: parseInt(record[2]), description: sanitize(record[3]) }, true, { title: sanitize(record[1]) })
 
-    await fs.writeFileSync(path.join(__dirname, '..', 'db', 'seeds', 'projects.js'), `module.exports = ${toJSON({ tableName: 'expenses_projects', records: projectData.projects })}`, reject)
+      const resource = findOrCreate(data.resources, { title: sanitize(record[4]), description: sanitize(record[5]), url: record[6] }, true, { title: sanitize(record[4]) })
 
-    await fs.writeFileSync(path.join(__dirname, '..', 'db', 'seeds', 'members.js'), `module.exports = ${toJSON({ tableName: 'expenses_members', records: memberData.members })}`, reject)
-
-    await fs.writeFileSync(path.join(__dirname, '..', 'db', 'seeds', 'expense_types.js'), `module.exports = ${toJSON({ tableName: 'expenses_expense_types', records: expenseData.expense_types })}`, reject)
-
-    const s3 = new aws.S3()
-
-    await userData.assets.map(async () => {
-
-      const filename = asset.file_name
-
-      const contentType = asset.content_type
-
-      const filepath = path.join(__dirname, '..', '..', '..', 'data', 'photos', asset.file_name)
-
-      await s3.upload({
-        Bucket: process.env.AWS_BUCKET,
-        Key: `assets/${asset.id}/${filename}`,
-        ACL: 'public-read',
-        Body: fs.readFileSync(filepath),
-        ContentType: contentType
-      }).promise().catch(err => {
-        console.log('Unable to upload asset')
+      data.competencies_resources.push({
+        competency_id: competency.id,
+        resource_id: resource.id
       })
 
-    })
+      return data
 
-    return Promise.map(userData.assets, )
+    }, { categories: [], competencies: [], resources: [], competencies_resources: [] })
+
+    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'assets.js'), `export default ${toJSON({ tableName: 'maha_assets', records: userData.assets })}`)
+
+    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'users.js'), `export default ${toJSON({ tableName: 'maha_users', records: userData.users })}`)
+
+    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'users_roles.js'), `export default ${toJSON({ tableName: 'maha_users_roles', records: userData.users_roles })}`)
+
+    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'projects.js'), `export default ${toJSON({ tableName: 'expenses_projects', records: projectData.projects })}`)
+
+    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'members.js'), `export default ${toJSON({ tableName: 'expenses_members', records: memberData.members })}`)
+
+    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'expense_types.js'), `export default ${toJSON({ tableName: 'expenses_expense_types', records: expenseData.expense_types })}`)
+
+    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'supervisors.js'), `export default ${toJSON({ tableName: 'competencies_supervisors', records: supervisorData.supervisors })}`)
+
+    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'supervisions.js'), `export default ${toJSON({ tableName: 'competencies_supervisions', records: supervisorData.supervisions })}`)
+
+    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'categories.js'), `export default ${toJSON({ tableName: 'competencies_categories', records: competencyData.categories })}`)
+
+    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'competencies.js'), `export default ${toJSON({ tableName: 'competencies_competencies', records: competencyData.competencies })}`)
+
+    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'resources.js'), `export default ${toJSON({ tableName: 'competencies_resources', records: competencyData.resources })}`)
+
+    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'competencies_resources.js'), `export default ${toJSON({ tableName: 'competencies_competencies_resources', records: competencyData.competencies_resources })}`)
 
   } catch(e) {
 
@@ -228,5 +264,30 @@ const toJSON = (object) => {
 }
 
 const toMatrix = (filename, delimiter) => {
-  return parse(fs.readFileSync(path.join(__dirname, '..', 'files', filename), 'utf8'), { delimiter, quote: '^' })
+  return parse(fs.readFileSync(path.join(__dirname, '..', '..', 'files', filename), 'utf8'), { delimiter, quote: '^' })
+}
+
+const sanitize = (string) => {
+  return string.replace(/\'/g,'').trim()
+}
+
+const findOrCreate = (collection, data, withId, compare = null) => {
+
+  const item = _.find(collection, compare || data)
+
+  if(item) return item
+
+  const id = collection.length + 1
+
+  const base = (withId) ? { id, team_id: 1 } : { team_id: 1 }
+
+  const newitem = _.assign(base, data, {
+    created_at: moment(),
+    updated_at: moment()
+  })
+
+  collection.push(newitem)
+
+  return newitem
+
 }

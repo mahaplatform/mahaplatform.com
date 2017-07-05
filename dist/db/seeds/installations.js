@@ -17,5 +17,15 @@ exports.default = {
     settings: {
       mileage_rate: 2.50
     }
+  }, {
+    id: 3,
+    team_id: 1,
+    app_id: 3,
+    settings: {}
+  }, {
+    id: 4,
+    team_id: 1,
+    app_id: 4,
+    settings: {}
   }]
 };

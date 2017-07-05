@@ -12,13 +12,23 @@ var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
+var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
+
+var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
+
+var _slicedToArray2 = require('babel-runtime/helpers/slicedToArray');
+
+var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
+
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
 var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 var _maha = require('maha');
-
-var _maha2 = _interopRequireDefault(_maha);
 
 var _bluebird = require('bluebird');
 
@@ -48,15 +58,11 @@ var _mimeTypes = require('mime-types');
 
 var _mimeTypes2 = _interopRequireDefault(_mimeTypes);
 
-var _aws = require('platform/services/aws');
-
-var _aws2 = _interopRequireDefault(_aws);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (commander) {
 
-  (0, _maha2.default)({
+  (0, _maha.Task)({
     commander: commander,
     command: 'ccetc:import:20170622',
     description: 'Migrate database',
@@ -65,17 +71,19 @@ exports.default = function (commander) {
 };
 
 var import_20170622 = function () {
-  var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
-    var users, projects, expenses, members, assets, userData, projectData, expenseData, memberData, s3;
-    return _regenerator2.default.wrap(function _callee2$(_context2) {
+  var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
+    var employees, projects, expenses, members, competencies, supervisors, assets, userData, supervisorData, projectData, expenseData, memberData, competencyData;
+    return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context.prev = _context.next) {
           case 0:
-            _context2.prev = 0;
-            users = toMatrix('20170622/users.tsv', '\t');
+            _context.prev = 0;
+            employees = toMatrix('20170622/employees.tsv', '\t');
             projects = toMatrix('20170622/projects.tsv', '\t');
             expenses = toMatrix('20170622/expense_types.tsv', '|');
             members = toMatrix('20170622/members.tsv', '|');
+            competencies = toMatrix('20170622/competencies.tsv', '\t');
+            supervisors = {};
             assets = [{
               id: 1,
               team_id: 1,
@@ -87,7 +95,7 @@ var import_20170622 = function () {
               created_at: (0, _moment2.default)(),
               updated_at: (0, _moment2.default)()
             }];
-            userData = users.reduce(function (data, record) {
+            userData = employees.reduce(function (data, record) {
 
               var user_id = data.users.length + 1;
 
@@ -128,22 +136,50 @@ var import_20170622 = function () {
                 updated_at: (0, _moment2.default)()
               });
 
-              var roles = [3, 4, 5, 6, 7, 8];
+              if (!supervisors[record[3]]) supervisors[record[3]] = [];
+
+              supervisors[record[3]].push(user_id);
+
+              var roles = [4, 5, 6, 7, 8];
 
               roles.map(function (index) {
                 if (record[index] == 1) {
                   data.users_roles.push({
-                    team_id: 1,
                     user_id: user_id,
-                    role_id: index - 2,
-                    created_at: (0, _moment2.default)(),
-                    updated_at: (0, _moment2.default)()
+                    role_id: index - 3
                   });
                 }
               });
 
               return data;
             }, { assets: assets, users: [], users_roles: [] });
+            supervisorData = (0, _keys2.default)(supervisors).reduce(function (data, name) {
+              var _name$match = name.match(/(.*) (.*)/),
+                  _name$match2 = (0, _slicedToArray3.default)(_name$match, 3),
+                  first_name = _name$match2[1],
+                  last_name = _name$match2[2];
+
+              var supervisor = _lodash2.default.find(userData.users, { first_name: first_name, last_name: last_name });
+
+              data.supervisors.push({
+                team_id: 1,
+                user_id: supervisor.id,
+                created_at: (0, _moment2.default)(),
+                updated_at: (0, _moment2.default)()
+              });
+
+              data.supervisions = [].concat((0, _toConsumableArray3.default)(data.supervisions), (0, _toConsumableArray3.default)(supervisors[name].map(function (employee_id) {
+                return {
+                  team_id: 1,
+                  supervisor_id: supervisor.id,
+                  employee_id: employee_id,
+                  created_at: (0, _moment2.default)(),
+                  updated_at: (0, _moment2.default)()
+                };
+              })));
+
+              return data;
+            }, { supervisors: [], supervisions: [] });
             projectData = projects.reduce(function (data, record) {
 
               var project_id = data.projects.length + 1;
@@ -215,76 +251,85 @@ var import_20170622 = function () {
 
               return data;
             }, { members: projectData.members });
-            _context2.next = 12;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', 'db', 'seeds', 'assets.js'), 'module.exports = ' + toJSON({ tableName: 'assets', records: userData.assets }), reject);
+            competencyData = competencies.reduce(function (data, record) {
 
-          case 12:
-            _context2.next = 14;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', 'db', 'seeds', 'users.js'), 'module.exports = ' + toJSON({ tableName: 'users', records: userData.users }), reject);
+              var category = findOrCreate(data.categories, { title: sanitize(record[0]) }, true);
 
-          case 14:
-            _context2.next = 16;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', 'db', 'seeds', 'users_roles.js'), 'module.exports = ' + toJSON({ tableName: 'users_roles', records: userData.users_roles }), reject);
+              var competency = findOrCreate(data.competencies, { category_id: category.id, title: sanitize(record[1]), level: parseInt(record[2]), description: sanitize(record[3]) }, true, { title: sanitize(record[1]) });
+
+              var resource = findOrCreate(data.resources, { title: sanitize(record[4]), description: sanitize(record[5]), url: record[6] }, true, { title: sanitize(record[4]) });
+
+              data.competencies_resources.push({
+                competency_id: competency.id,
+                resource_id: resource.id
+              });
+
+              return data;
+            }, { categories: [], competencies: [], resources: [], competencies_resources: [] });
+            _context.next = 16;
+            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'assets.js'), 'export default ' + toJSON({ tableName: 'maha_assets', records: userData.assets }));
 
           case 16:
-            _context2.next = 18;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', 'db', 'seeds', 'projects.js'), 'module.exports = ' + toJSON({ tableName: 'expenses_projects', records: projectData.projects }), reject);
+            _context.next = 18;
+            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'users.js'), 'export default ' + toJSON({ tableName: 'maha_users', records: userData.users }));
 
           case 18:
-            _context2.next = 20;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', 'db', 'seeds', 'members.js'), 'module.exports = ' + toJSON({ tableName: 'expenses_members', records: memberData.members }), reject);
+            _context.next = 20;
+            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'users_roles.js'), 'export default ' + toJSON({ tableName: 'maha_users_roles', records: userData.users_roles }));
 
           case 20:
-            _context2.next = 22;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', 'db', 'seeds', 'expense_types.js'), 'module.exports = ' + toJSON({ tableName: 'expenses_expense_types', records: expenseData.expense_types }), reject);
+            _context.next = 22;
+            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'projects.js'), 'export default ' + toJSON({ tableName: 'expenses_projects', records: projectData.projects }));
 
           case 22:
-            s3 = new _aws2.default.S3();
-            _context2.next = 25;
-            return userData.assets.map((0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
-              var filename, contentType, filepath;
-              return _regenerator2.default.wrap(function _callee$(_context) {
-                while (1) {
-                  switch (_context.prev = _context.next) {
-                    case 0:
-                      filename = asset.file_name;
-                      contentType = asset.content_type;
-                      filepath = _path2.default.join(__dirname, '..', '..', '..', 'data', 'photos', asset.file_name);
-                      _context.next = 5;
-                      return s3.upload({
-                        Bucket: process.env.AWS_BUCKET,
-                        Key: 'assets/' + asset.id + '/' + filename,
-                        ACL: 'public-read',
-                        Body: _fs2.default.readFileSync(filepath),
-                        ContentType: contentType
-                      }).promise().catch(function (err) {
-                        console.log('Unable to upload asset');
-                      });
+            _context.next = 24;
+            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'members.js'), 'export default ' + toJSON({ tableName: 'expenses_members', records: memberData.members }));
 
-                    case 5:
-                    case 'end':
-                      return _context.stop();
-                  }
-                }
-              }, _callee, undefined);
-            })));
+          case 24:
+            _context.next = 26;
+            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'expense_types.js'), 'export default ' + toJSON({ tableName: 'expenses_expense_types', records: expenseData.expense_types }));
 
-          case 25:
-            return _context2.abrupt('return', _bluebird2.default.map(userData.assets));
+          case 26:
+            _context.next = 28;
+            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'supervisors.js'), 'export default ' + toJSON({ tableName: 'competencies_supervisors', records: supervisorData.supervisors }));
 
           case 28:
-            _context2.prev = 28;
-            _context2.t0 = _context2['catch'](0);
+            _context.next = 30;
+            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'supervisions.js'), 'export default ' + toJSON({ tableName: 'competencies_supervisions', records: supervisorData.supervisions }));
+
+          case 30:
+            _context.next = 32;
+            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'categories.js'), 'export default ' + toJSON({ tableName: 'competencies_categories', records: competencyData.categories }));
+
+          case 32:
+            _context.next = 34;
+            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'competencies.js'), 'export default ' + toJSON({ tableName: 'competencies_competencies', records: competencyData.competencies }));
+
+          case 34:
+            _context.next = 36;
+            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'resources.js'), 'export default ' + toJSON({ tableName: 'competencies_resources', records: competencyData.resources }));
+
+          case 36:
+            _context.next = 38;
+            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'competencies_resources.js'), 'export default ' + toJSON({ tableName: 'competencies_competencies_resources', records: competencyData.competencies_resources }));
+
+          case 38:
+            _context.next = 43;
+            break;
+
+          case 40:
+            _context.prev = 40;
+            _context.t0 = _context['catch'](0);
 
 
-            console.log(_context2.t0);
+            console.log(_context.t0);
 
-          case 31:
+          case 43:
           case 'end':
-            return _context2.stop();
+            return _context.stop();
         }
       }
-    }, _callee2, undefined, [[0, 28]]);
+    }, _callee, undefined, [[0, 40]]);
   }));
 
   return function import_20170622() {
@@ -297,5 +342,31 @@ var toJSON = function toJSON(object) {
 };
 
 var toMatrix = function toMatrix(filename, delimiter) {
-  return (0, _sync2.default)(_fs2.default.readFileSync(_path2.default.join(__dirname, '..', 'files', filename), 'utf8'), { delimiter: delimiter, quote: '^' });
+  return (0, _sync2.default)(_fs2.default.readFileSync(_path2.default.join(__dirname, '..', '..', 'files', filename), 'utf8'), { delimiter: delimiter, quote: '^' });
+};
+
+var sanitize = function sanitize(string) {
+  return string.replace(/\'/g, '').trim();
+};
+
+var findOrCreate = function findOrCreate(collection, data, withId) {
+  var compare = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : null;
+
+
+  var item = _lodash2.default.find(collection, compare || data);
+
+  if (item) return item;
+
+  var id = collection.length + 1;
+
+  var base = withId ? { id: id, team_id: 1 } : { team_id: 1 };
+
+  var newitem = _lodash2.default.assign(base, data, {
+    created_at: (0, _moment2.default)(),
+    updated_at: (0, _moment2.default)()
+  });
+
+  collection.push(newitem);
+
+  return newitem;
 };
