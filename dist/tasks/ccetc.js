@@ -97,59 +97,69 @@ var import_20170622 = function () {
             }];
             userData = employees.reduce(function (data, record) {
 
-              var user_id = data.users.length + 1;
+              var user = _lodash2.default.find(data.users, { email: record[2] + '@cornell.edu' });
 
-              var filename = record[2] + '.jpg';
+              var user_id = null;
 
-              var filepath = _path2.default.join(__dirname, '..', '..', '..', 'data', 'photos', filename);
+              if (!user) {
 
-              var photoExists = _fs2.default.existsSync(filepath);
+                user_id = data.users.length + 1;
 
-              var asset_id = photoExists ? data.assets.length + 1 : null;
+                var filename = record[2] + '.jpg';
 
-              if (photoExists) {
+                var filepath = _path2.default.join(__dirname, '..', '..', '..', 'data', 'photos', filename);
 
-                data.assets.push({
-                  id: asset_id,
+                var photoExists = _fs2.default.existsSync(filepath);
+
+                var asset_id = photoExists ? data.assets.length + 1 : null;
+
+                if (photoExists) {
+
+                  data.assets.push({
+                    id: asset_id,
+                    team_id: 1,
+                    original_file_name: filename,
+                    file_name: filename,
+                    content_type: _mimeTypes2.default.lookup(filepath),
+                    file_size: _fs2.default.statSync(filepath).size,
+                    chunks_total: 1,
+                    created_at: (0, _moment2.default)(),
+                    updated_at: (0, _moment2.default)()
+                  });
+                }
+
+                data.users.push({
+                  id: user_id,
                   team_id: 1,
-                  original_file_name: filename,
-                  file_name: filename,
-                  content_type: _mimeTypes2.default.lookup(filepath),
-                  file_size: _fs2.default.statSync(filepath).size,
-                  chunks_total: 1,
+                  first_name: record[0],
+                  last_name: record[1],
+                  email: record[2] + '@cornell.edu',
+                  password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+                  password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+                  is_active: true,
+                  photo_id: asset_id,
                   created_at: (0, _moment2.default)(),
                   updated_at: (0, _moment2.default)()
                 });
-              }
 
-              data.users.push({
-                id: user_id,
-                team_id: 1,
-                first_name: record[0],
-                last_name: record[1],
-                email: record[2] + '@cornell.edu',
-                password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-                password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-                is_active: true,
-                photo_id: asset_id,
-                created_at: (0, _moment2.default)(),
-                updated_at: (0, _moment2.default)()
-              });
+                var roles = [4, 5, 6, 7, 8];
+
+                roles.map(function (index) {
+                  if (record[index] == 1) {
+                    data.users_roles.push({
+                      user_id: user_id,
+                      role_id: index - 3
+                    });
+                  }
+                });
+              } else {
+
+                user_id = user.id;
+              }
 
               if (!supervisors[record[3]]) supervisors[record[3]] = [];
 
               supervisors[record[3]].push(user_id);
-
-              var roles = [4, 5, 6, 7, 8];
-
-              roles.map(function (index) {
-                if (record[index] == 1) {
-                  data.users_roles.push({
-                    user_id: user_id,
-                    role_id: index - 3
-                  });
-                }
-              });
 
               return data;
             }, { assets: assets, users: [], users_roles: [] });

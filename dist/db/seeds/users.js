@@ -15,8 +15,8 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.931Z',
-    updated_at: '2017-07-05T19:47:55.931Z'
+    created_at: '2017-07-07T19:37:57.454Z',
+    updated_at: '2017-07-07T19:37:57.454Z'
   }, {
     id: 2,
     team_id: 1,
@@ -27,8 +27,8 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.932Z',
-    updated_at: '2017-07-05T19:47:55.932Z'
+    created_at: '2017-07-07T19:37:57.455Z',
+    updated_at: '2017-07-07T19:37:57.455Z'
   }, {
     id: 3,
     team_id: 1,
@@ -39,8 +39,8 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.932Z',
-    updated_at: '2017-07-05T19:47:55.932Z'
+    created_at: '2017-07-07T19:37:57.455Z',
+    updated_at: '2017-07-07T19:37:57.455Z'
   }, {
     id: 4,
     team_id: 1,
@@ -51,8 +51,8 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.932Z',
-    updated_at: '2017-07-05T19:47:55.932Z'
+    created_at: '2017-07-07T19:37:57.455Z',
+    updated_at: '2017-07-07T19:37:57.455Z'
   }, {
     id: 5,
     team_id: 1,
@@ -63,8 +63,8 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.932Z',
-    updated_at: '2017-07-05T19:47:55.932Z'
+    created_at: '2017-07-07T19:37:57.455Z',
+    updated_at: '2017-07-07T19:37:57.455Z'
   }, {
     id: 6,
     team_id: 1,
@@ -75,8 +75,8 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.932Z',
-    updated_at: '2017-07-05T19:47:55.932Z'
+    created_at: '2017-07-07T19:37:57.455Z',
+    updated_at: '2017-07-07T19:37:57.455Z'
   }, {
     id: 7,
     team_id: 1,
@@ -87,8 +87,8 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.932Z',
-    updated_at: '2017-07-05T19:47:55.932Z'
+    created_at: '2017-07-07T19:37:57.455Z',
+    updated_at: '2017-07-07T19:37:57.455Z'
   }, {
     id: 8,
     team_id: 1,
@@ -99,8 +99,8 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.932Z',
-    updated_at: '2017-07-05T19:47:55.932Z'
+    created_at: '2017-07-07T19:37:57.455Z',
+    updated_at: '2017-07-07T19:37:57.455Z'
   }, {
     id: 9,
     team_id: 1,
@@ -111,8 +111,8 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.932Z',
-    updated_at: '2017-07-05T19:47:55.932Z'
+    created_at: '2017-07-07T19:37:57.455Z',
+    updated_at: '2017-07-07T19:37:57.455Z'
   }, {
     id: 10,
     team_id: 1,
@@ -123,8 +123,8 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.932Z',
-    updated_at: '2017-07-05T19:47:55.932Z'
+    created_at: '2017-07-07T19:37:57.455Z',
+    updated_at: '2017-07-07T19:37:57.455Z'
   }, {
     id: 11,
     team_id: 1,
@@ -135,8 +135,8 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.932Z',
-    updated_at: '2017-07-05T19:47:55.932Z'
+    created_at: '2017-07-07T19:37:57.456Z',
+    updated_at: '2017-07-07T19:37:57.456Z'
   }, {
     id: 12,
     team_id: 1,
@@ -147,8 +147,8 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.932Z',
-    updated_at: '2017-07-05T19:47:55.932Z'
+    created_at: '2017-07-07T19:37:57.456Z',
+    updated_at: '2017-07-07T19:37:57.456Z'
   }, {
     id: 13,
     team_id: 1,
@@ -159,8 +159,8 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.932Z',
-    updated_at: '2017-07-05T19:47:55.932Z'
+    created_at: '2017-07-07T19:37:57.456Z',
+    updated_at: '2017-07-07T19:37:57.456Z'
   }, {
     id: 14,
     team_id: 1,
@@ -171,8 +171,8 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.932Z',
-    updated_at: '2017-07-05T19:47:55.932Z'
+    created_at: '2017-07-07T19:37:57.456Z',
+    updated_at: '2017-07-07T19:37:57.456Z'
   }, {
     id: 15,
     team_id: 1,
@@ -183,8 +183,8 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.933Z',
-    updated_at: '2017-07-05T19:47:55.933Z'
+    created_at: '2017-07-07T19:37:57.456Z',
+    updated_at: '2017-07-07T19:37:57.456Z'
   }, {
     id: 16,
     team_id: 1,
@@ -195,8 +195,8 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.933Z',
-    updated_at: '2017-07-05T19:47:55.933Z'
+    created_at: '2017-07-07T19:37:57.456Z',
+    updated_at: '2017-07-07T19:37:57.456Z'
   }, {
     id: 17,
     team_id: 1,
@@ -207,8 +207,8 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.933Z',
-    updated_at: '2017-07-05T19:47:55.933Z'
+    created_at: '2017-07-07T19:37:57.457Z',
+    updated_at: '2017-07-07T19:37:57.457Z'
   }, {
     id: 18,
     team_id: 1,
@@ -219,8 +219,8 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.933Z',
-    updated_at: '2017-07-05T19:47:55.933Z'
+    created_at: '2017-07-07T19:37:57.457Z',
+    updated_at: '2017-07-07T19:37:57.457Z'
   }, {
     id: 19,
     team_id: 1,
@@ -231,22 +231,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.933Z',
-    updated_at: '2017-07-05T19:47:55.933Z'
+    created_at: '2017-07-07T19:37:57.457Z',
+    updated_at: '2017-07-07T19:37:57.457Z'
   }, {
     id: 20,
-    team_id: 1,
-    first_name: 'Jim',
-    last_name: 'Blizzard',
-    email: 'jpb27@cornell.edu',
-    password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-    password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
-    photo_id: null,
-    created_at: '2017-07-05T19:47:55.933Z',
-    updated_at: '2017-07-05T19:47:55.933Z'
-  }, {
-    id: 21,
     team_id: 1,
     first_name: 'Katie',
     last_name: 'Bower',
@@ -255,10 +243,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.933Z',
-    updated_at: '2017-07-05T19:47:55.933Z'
+    created_at: '2017-07-07T19:37:57.457Z',
+    updated_at: '2017-07-07T19:37:57.457Z'
   }, {
-    id: 22,
+    id: 21,
     team_id: 1,
     first_name: 'Barry',
     last_name: 'Briggs',
@@ -267,34 +255,22 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.933Z',
-    updated_at: '2017-07-05T19:47:55.933Z'
+    created_at: '2017-07-07T19:37:57.457Z',
+    updated_at: '2017-07-07T19:37:57.457Z'
+  }, {
+    id: 22,
+    team_id: 1,
+    first_name: 'Edna',
+    last_name: 'Brown',
+    email: 'esb11@cornell.edu',
+    password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+    password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+    is_active: true,
+    photo_id: null,
+    created_at: '2017-07-07T19:37:57.457Z',
+    updated_at: '2017-07-07T19:37:57.457Z'
   }, {
     id: 23,
-    team_id: 1,
-    first_name: 'Edna',
-    last_name: 'Brown',
-    email: 'esb11@cornell.edu',
-    password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-    password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
-    photo_id: null,
-    created_at: '2017-07-05T19:47:55.933Z',
-    updated_at: '2017-07-05T19:47:55.933Z'
-  }, {
-    id: 24,
-    team_id: 1,
-    first_name: 'Edna',
-    last_name: 'Brown',
-    email: 'esb11@cornell.edu',
-    password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-    password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
-    photo_id: null,
-    created_at: '2017-07-05T19:47:55.933Z',
-    updated_at: '2017-07-05T19:47:55.933Z'
-  }, {
-    id: 25,
     team_id: 1,
     first_name: 'Sarah',
     last_name: 'Brown',
@@ -303,10 +279,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.933Z',
-    updated_at: '2017-07-05T19:47:55.933Z'
+    created_at: '2017-07-07T19:37:57.457Z',
+    updated_at: '2017-07-07T19:37:57.457Z'
   }, {
-    id: 26,
+    id: 24,
     team_id: 1,
     first_name: 'Phoebe',
     last_name: 'Brown',
@@ -315,10 +291,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.934Z',
-    updated_at: '2017-07-05T19:47:55.934Z'
+    created_at: '2017-07-07T19:37:57.457Z',
+    updated_at: '2017-07-07T19:37:57.457Z'
   }, {
-    id: 27,
+    id: 25,
     team_id: 1,
     first_name: 'Judith',
     last_name: 'Burrill',
@@ -327,10 +303,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.934Z',
-    updated_at: '2017-07-05T19:47:55.934Z'
+    created_at: '2017-07-07T19:37:57.457Z',
+    updated_at: '2017-07-07T19:37:57.457Z'
   }, {
-    id: 28,
+    id: 26,
     team_id: 1,
     first_name: 'Andrew',
     last_name: 'Canfield',
@@ -339,10 +315,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.934Z',
-    updated_at: '2017-07-05T19:47:55.934Z'
+    created_at: '2017-07-07T19:37:57.457Z',
+    updated_at: '2017-07-07T19:37:57.457Z'
   }, {
-    id: 29,
+    id: 27,
     team_id: 1,
     first_name: 'Brenda',
     last_name: 'Carpenter',
@@ -351,10 +327,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.934Z',
-    updated_at: '2017-07-05T19:47:55.934Z'
+    created_at: '2017-07-07T19:37:57.457Z',
+    updated_at: '2017-07-07T19:37:57.457Z'
   }, {
-    id: 30,
+    id: 28,
     team_id: 1,
     first_name: 'Terrance',
     last_name: 'Carroll',
@@ -363,10 +339,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.934Z',
-    updated_at: '2017-07-05T19:47:55.934Z'
+    created_at: '2017-07-07T19:37:57.458Z',
+    updated_at: '2017-07-07T19:37:57.458Z'
   }, {
-    id: 31,
+    id: 29,
     team_id: 1,
     first_name: 'Eric',
     last_name: 'Carter',
@@ -375,10 +351,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.935Z',
-    updated_at: '2017-07-05T19:47:55.935Z'
+    created_at: '2017-07-07T19:37:57.458Z',
+    updated_at: '2017-07-07T19:37:57.458Z'
   }, {
-    id: 32,
+    id: 30,
     team_id: 1,
     first_name: 'Michael',
     last_name: 'Cederstrom',
@@ -387,10 +363,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.935Z',
-    updated_at: '2017-07-05T19:47:55.935Z'
+    created_at: '2017-07-07T19:37:57.458Z',
+    updated_at: '2017-07-07T19:37:57.458Z'
   }, {
-    id: 33,
+    id: 31,
     team_id: 1,
     first_name: 'Hector',
     last_name: 'Chang',
@@ -399,10 +375,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.935Z',
-    updated_at: '2017-07-05T19:47:55.935Z'
+    created_at: '2017-07-07T19:37:57.458Z',
+    updated_at: '2017-07-07T19:37:57.458Z'
   }, {
-    id: 34,
+    id: 32,
     team_id: 1,
     first_name: 'Kevin',
     last_name: 'Chieco',
@@ -411,10 +387,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.935Z',
-    updated_at: '2017-07-05T19:47:55.935Z'
+    created_at: '2017-07-07T19:37:57.459Z',
+    updated_at: '2017-07-07T19:37:57.459Z'
   }, {
-    id: 35,
+    id: 33,
     team_id: 1,
     first_name: 'John',
     last_name: 'Chilkotowsky',
@@ -423,10 +399,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.935Z',
-    updated_at: '2017-07-05T19:47:55.935Z'
+    created_at: '2017-07-07T19:37:57.459Z',
+    updated_at: '2017-07-07T19:37:57.459Z'
   }, {
-    id: 36,
+    id: 34,
     team_id: 1,
     first_name: 'Maria',
     last_name: 'Christian',
@@ -435,10 +411,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.935Z',
-    updated_at: '2017-07-05T19:47:55.935Z'
+    created_at: '2017-07-07T19:37:57.459Z',
+    updated_at: '2017-07-07T19:37:57.459Z'
   }, {
-    id: 37,
+    id: 35,
     team_id: 1,
     first_name: 'Fabina',
     last_name: 'Colon',
@@ -447,10 +423,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.935Z',
-    updated_at: '2017-07-05T19:47:55.935Z'
+    created_at: '2017-07-07T19:37:57.459Z',
+    updated_at: '2017-07-07T19:37:57.459Z'
   }, {
-    id: 38,
+    id: 36,
     team_id: 1,
     first_name: 'Cruz',
     last_name: 'Colon',
@@ -459,10 +435,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.935Z',
-    updated_at: '2017-07-05T19:47:55.935Z'
+    created_at: '2017-07-07T19:37:57.459Z',
+    updated_at: '2017-07-07T19:37:57.459Z'
   }, {
-    id: 39,
+    id: 37,
     team_id: 1,
     first_name: 'Ramona',
     last_name: 'Cornell',
@@ -471,10 +447,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.935Z',
-    updated_at: '2017-07-05T19:47:55.935Z'
+    created_at: '2017-07-07T19:37:57.459Z',
+    updated_at: '2017-07-07T19:37:57.459Z'
   }, {
-    id: 40,
+    id: 38,
     team_id: 1,
     first_name: 'Sean',
     last_name: 'Cornell',
@@ -483,10 +459,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.935Z',
-    updated_at: '2017-07-05T19:47:55.935Z'
+    created_at: '2017-07-07T19:37:57.459Z',
+    updated_at: '2017-07-07T19:37:57.459Z'
   }, {
-    id: 41,
+    id: 39,
     team_id: 1,
     first_name: 'Katie',
     last_name: 'Cox',
@@ -495,10 +471,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.935Z',
-    updated_at: '2017-07-05T19:47:55.935Z'
+    created_at: '2017-07-07T19:37:57.459Z',
+    updated_at: '2017-07-07T19:37:57.459Z'
   }, {
-    id: 42,
+    id: 40,
     team_id: 1,
     first_name: 'Jennie',
     last_name: 'Cramer',
@@ -507,10 +483,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.935Z',
-    updated_at: '2017-07-05T19:47:55.935Z'
+    created_at: '2017-07-07T19:37:57.460Z',
+    updated_at: '2017-07-07T19:37:57.460Z'
   }, {
-    id: 43,
+    id: 41,
     team_id: 1,
     first_name: 'Ethan',
     last_name: 'Cramton',
@@ -519,10 +495,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.935Z',
-    updated_at: '2017-07-05T19:47:55.935Z'
+    created_at: '2017-07-07T19:37:57.460Z',
+    updated_at: '2017-07-07T19:37:57.460Z'
   }, {
-    id: 44,
+    id: 42,
     team_id: 1,
     first_name: 'Tim',
     last_name: 'Crowley',
@@ -531,10 +507,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.935Z',
-    updated_at: '2017-07-05T19:47:55.935Z'
+    created_at: '2017-07-07T19:37:57.460Z',
+    updated_at: '2017-07-07T19:37:57.460Z'
   }, {
-    id: 45,
+    id: 43,
     team_id: 1,
     first_name: 'Paige',
     last_name: 'Demun',
@@ -543,10 +519,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.935Z',
-    updated_at: '2017-07-05T19:47:55.935Z'
+    created_at: '2017-07-07T19:37:57.460Z',
+    updated_at: '2017-07-07T19:37:57.460Z'
   }, {
-    id: 46,
+    id: 44,
     team_id: 1,
     first_name: 'Emma',
     last_name: 'Dennis',
@@ -555,10 +531,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.935Z',
-    updated_at: '2017-07-05T19:47:55.935Z'
+    created_at: '2017-07-07T19:37:57.460Z',
+    updated_at: '2017-07-07T19:37:57.460Z'
   }, {
-    id: 47,
+    id: 45,
     team_id: 1,
     first_name: 'Terrell',
     last_name: 'Dickson',
@@ -567,10 +543,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.936Z',
-    updated_at: '2017-07-05T19:47:55.936Z'
+    created_at: '2017-07-07T19:37:57.460Z',
+    updated_at: '2017-07-07T19:37:57.460Z'
   }, {
-    id: 48,
+    id: 46,
     team_id: 1,
     first_name: 'Nicole',
     last_name: 'Dietz',
@@ -579,10 +555,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.936Z',
-    updated_at: '2017-07-05T19:47:55.936Z'
+    created_at: '2017-07-07T19:37:57.460Z',
+    updated_at: '2017-07-07T19:37:57.460Z'
   }, {
-    id: 49,
+    id: 47,
     team_id: 1,
     first_name: 'Peter',
     last_name: 'Dodge',
@@ -591,10 +567,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.936Z',
-    updated_at: '2017-07-05T19:47:55.936Z'
+    created_at: '2017-07-07T19:37:57.460Z',
+    updated_at: '2017-07-07T19:37:57.460Z'
   }, {
-    id: 50,
+    id: 48,
     team_id: 1,
     first_name: 'Joshua',
     last_name: 'Dolan',
@@ -603,10 +579,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.936Z',
-    updated_at: '2017-07-05T19:47:55.936Z'
+    created_at: '2017-07-07T19:37:57.460Z',
+    updated_at: '2017-07-07T19:37:57.460Z'
   }, {
-    id: 51,
+    id: 49,
     team_id: 1,
     first_name: 'Britton',
     last_name: 'Doughtery',
@@ -615,10 +591,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.936Z',
-    updated_at: '2017-07-05T19:47:55.936Z'
+    created_at: '2017-07-07T19:37:57.460Z',
+    updated_at: '2017-07-07T19:37:57.460Z'
   }, {
-    id: 52,
+    id: 50,
     team_id: 1,
     first_name: 'Timothy',
     last_name: 'Drake',
@@ -627,10 +603,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.936Z',
-    updated_at: '2017-07-05T19:47:55.936Z'
+    created_at: '2017-07-07T19:37:57.460Z',
+    updated_at: '2017-07-07T19:37:57.460Z'
   }, {
-    id: 53,
+    id: 51,
     team_id: 1,
     first_name: 'Katherine',
     last_name: 'Duell',
@@ -639,22 +615,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.936Z',
-    updated_at: '2017-07-05T19:47:55.936Z'
+    created_at: '2017-07-07T19:37:57.460Z',
+    updated_at: '2017-07-07T19:37:57.460Z'
   }, {
-    id: 54,
-    team_id: 1,
-    first_name: 'Katherine',
-    last_name: 'Duell',
-    email: 'khd28@cornell.edu',
-    password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-    password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
-    photo_id: null,
-    created_at: '2017-07-05T19:47:55.936Z',
-    updated_at: '2017-07-05T19:47:55.936Z'
-  }, {
-    id: 55,
+    id: 52,
     team_id: 1,
     first_name: 'Monica',
     last_name: 'Dykeman',
@@ -663,10 +627,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.936Z',
-    updated_at: '2017-07-05T19:47:55.936Z'
+    created_at: '2017-07-07T19:37:57.460Z',
+    updated_at: '2017-07-07T19:37:57.460Z'
   }, {
-    id: 56,
+    id: 53,
     team_id: 1,
     first_name: 'Corinne',
     last_name: 'Eisenman',
@@ -675,10 +639,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.936Z',
-    updated_at: '2017-07-05T19:47:55.936Z'
+    created_at: '2017-07-07T19:37:57.461Z',
+    updated_at: '2017-07-07T19:37:57.461Z'
   }, {
-    id: 57,
+    id: 54,
     team_id: 1,
     first_name: 'Lisa',
     last_name: 'Ellin',
@@ -687,10 +651,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.936Z',
-    updated_at: '2017-07-05T19:47:55.936Z'
+    created_at: '2017-07-07T19:37:57.461Z',
+    updated_at: '2017-07-07T19:37:57.461Z'
   }, {
-    id: 58,
+    id: 55,
     team_id: 1,
     first_name: 'John',
     last_name: 'Elliott',
@@ -699,10 +663,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.936Z',
-    updated_at: '2017-07-05T19:47:55.936Z'
+    created_at: '2017-07-07T19:37:57.461Z',
+    updated_at: '2017-07-07T19:37:57.461Z'
   }, {
-    id: 59,
+    id: 56,
     team_id: 1,
     first_name: 'Theresa',
     last_name: 'Emerick',
@@ -711,10 +675,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.936Z',
-    updated_at: '2017-07-05T19:47:55.936Z'
+    created_at: '2017-07-07T19:37:57.461Z',
+    updated_at: '2017-07-07T19:37:57.461Z'
   }, {
-    id: 60,
+    id: 57,
     team_id: 1,
     first_name: 'Kialisha',
     last_name: 'Emerson',
@@ -723,10 +687,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.936Z',
-    updated_at: '2017-07-05T19:47:55.936Z'
+    created_at: '2017-07-07T19:37:57.461Z',
+    updated_at: '2017-07-07T19:37:57.461Z'
   }, {
-    id: 61,
+    id: 58,
     team_id: 1,
     first_name: 'Stephanie',
     last_name: 'Espinosa',
@@ -735,10 +699,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.936Z',
-    updated_at: '2017-07-05T19:47:55.936Z'
+    created_at: '2017-07-07T19:37:57.461Z',
+    updated_at: '2017-07-07T19:37:57.461Z'
   }, {
-    id: 62,
+    id: 59,
     team_id: 1,
     first_name: 'Jennifer',
     last_name: 'Feingold',
@@ -747,10 +711,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.936Z',
-    updated_at: '2017-07-05T19:47:55.936Z'
+    created_at: '2017-07-07T19:37:57.461Z',
+    updated_at: '2017-07-07T19:37:57.461Z'
   }, {
-    id: 63,
+    id: 60,
     team_id: 1,
     first_name: 'Kayla',
     last_name: 'Ferris',
@@ -759,10 +723,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.936Z',
-    updated_at: '2017-07-05T19:47:55.936Z'
+    created_at: '2017-07-07T19:37:57.461Z',
+    updated_at: '2017-07-07T19:37:57.461Z'
   }, {
-    id: 64,
+    id: 61,
     team_id: 1,
     first_name: 'Carole',
     last_name: 'Fisher',
@@ -771,10 +735,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.937Z',
-    updated_at: '2017-07-05T19:47:55.937Z'
+    created_at: '2017-07-07T19:37:57.462Z',
+    updated_at: '2017-07-07T19:37:57.462Z'
   }, {
-    id: 65,
+    id: 62,
     team_id: 1,
     first_name: 'Avis',
     last_name: 'Frasier',
@@ -783,10 +747,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.937Z',
-    updated_at: '2017-07-05T19:47:55.938Z'
+    created_at: '2017-07-07T19:37:57.462Z',
+    updated_at: '2017-07-07T19:37:57.462Z'
   }, {
-    id: 66,
+    id: 63,
     team_id: 1,
     first_name: 'Jean',
     last_name: 'Freese Popowitch',
@@ -795,10 +759,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.938Z',
-    updated_at: '2017-07-05T19:47:55.938Z'
+    created_at: '2017-07-07T19:37:57.462Z',
+    updated_at: '2017-07-07T19:37:57.462Z'
   }, {
-    id: 67,
+    id: 64,
     team_id: 1,
     first_name: 'Chrys',
     last_name: 'Gardener',
@@ -807,10 +771,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.938Z',
-    updated_at: '2017-07-05T19:47:55.938Z'
+    created_at: '2017-07-07T19:37:57.462Z',
+    updated_at: '2017-07-07T19:37:57.462Z'
   }, {
-    id: 68,
+    id: 65,
     team_id: 1,
     first_name: 'Catherine',
     last_name: 'Gee',
@@ -819,10 +783,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.938Z',
-    updated_at: '2017-07-05T19:47:55.938Z'
+    created_at: '2017-07-07T19:37:57.462Z',
+    updated_at: '2017-07-07T19:37:57.464Z'
   }, {
-    id: 69,
+    id: 66,
     team_id: 1,
     first_name: 'Lauren',
     last_name: 'Gillott',
@@ -831,10 +795,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.938Z',
-    updated_at: '2017-07-05T19:47:55.938Z'
+    created_at: '2017-07-07T19:37:57.464Z',
+    updated_at: '2017-07-07T19:37:57.464Z'
   }, {
-    id: 70,
+    id: 67,
     team_id: 1,
     first_name: 'Andrew',
     last_name: 'Ginter',
@@ -843,10 +807,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.938Z',
-    updated_at: '2017-07-05T19:47:55.938Z'
+    created_at: '2017-07-07T19:37:57.464Z',
+    updated_at: '2017-07-07T19:37:57.464Z'
   }, {
-    id: 71,
+    id: 68,
     team_id: 1,
     first_name: 'Martha',
     last_name: 'Gioumousis',
@@ -855,10 +819,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.938Z',
-    updated_at: '2017-07-05T19:47:55.938Z'
+    created_at: '2017-07-07T19:37:57.464Z',
+    updated_at: '2017-07-07T19:37:57.464Z'
   }, {
-    id: 72,
+    id: 69,
     team_id: 1,
     first_name: 'Kyle',
     last_name: 'Glavey-Weiss',
@@ -867,10 +831,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
+    created_at: '2017-07-07T19:37:57.464Z',
+    updated_at: '2017-07-07T19:37:57.464Z'
   }, {
-    id: 73,
+    id: 70,
     team_id: 1,
     first_name: 'Britta',
     last_name: 'Goncarovs',
@@ -879,10 +843,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
+    created_at: '2017-07-07T19:37:57.464Z',
+    updated_at: '2017-07-07T19:37:57.464Z'
   }, {
-    id: 74,
+    id: 71,
     team_id: 1,
     first_name: 'Jennifer',
     last_name: 'Gray',
@@ -891,10 +855,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
+    created_at: '2017-07-07T19:37:57.464Z',
+    updated_at: '2017-07-07T19:37:57.464Z'
   }, {
-    id: 75,
+    id: 72,
     team_id: 1,
     first_name: 'Samuel',
     last_name: 'Greenhouse',
@@ -903,10 +867,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
+    created_at: '2017-07-07T19:37:57.464Z',
+    updated_at: '2017-07-07T19:37:57.464Z'
   }, {
-    id: 76,
+    id: 73,
     team_id: 1,
     first_name: 'Gillian',
     last_name: 'Grose',
@@ -915,10 +879,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
+    created_at: '2017-07-07T19:37:57.464Z',
+    updated_at: '2017-07-07T19:37:57.464Z'
   }, {
-    id: 77,
+    id: 74,
     team_id: 1,
     first_name: 'Holly',
     last_name: 'Gump',
@@ -927,10 +891,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
+    created_at: '2017-07-07T19:37:57.464Z',
+    updated_at: '2017-07-07T19:37:57.464Z'
   }, {
-    id: 78,
+    id: 75,
     team_id: 1,
     first_name: 'Norma',
     last_name: 'Gutierrez',
@@ -939,10 +903,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
+    created_at: '2017-07-07T19:37:57.465Z',
+    updated_at: '2017-07-07T19:37:57.465Z'
   }, {
-    id: 79,
+    id: 76,
     team_id: 1,
     first_name: 'Cecilia',
     last_name: 'Hagen',
@@ -951,10 +915,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
+    created_at: '2017-07-07T19:37:57.465Z',
+    updated_at: '2017-07-07T19:37:57.465Z'
   }, {
-    id: 80,
+    id: 77,
     team_id: 1,
     first_name: 'Pat',
     last_name: 'Haggerty',
@@ -963,10 +927,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
+    created_at: '2017-07-07T19:37:57.465Z',
+    updated_at: '2017-07-07T19:37:57.465Z'
   }, {
-    id: 81,
+    id: 78,
     team_id: 1,
     first_name: 'Gibrian',
     last_name: 'Hagood',
@@ -975,22 +939,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
+    created_at: '2017-07-07T19:37:57.465Z',
+    updated_at: '2017-07-07T19:37:57.465Z'
   }, {
-    id: 82,
-    team_id: 1,
-    first_name: 'Gibrian',
-    last_name: 'Hagood',
-    email: 'gah225@cornell.edu',
-    password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-    password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
-    photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
-  }, {
-    id: 83,
+    id: 79,
     team_id: 1,
     first_name: 'David',
     last_name: 'Hall',
@@ -999,10 +951,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
+    created_at: '2017-07-07T19:37:57.465Z',
+    updated_at: '2017-07-07T19:37:57.465Z'
   }, {
-    id: 84,
+    id: 80,
     team_id: 1,
     first_name: 'Evan',
     last_name: 'Halloran',
@@ -1011,10 +963,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
+    created_at: '2017-07-07T19:37:57.465Z',
+    updated_at: '2017-07-07T19:37:57.465Z'
   }, {
-    id: 85,
+    id: 81,
     team_id: 1,
     first_name: 'Monica',
     last_name: 'Hargraves',
@@ -1023,10 +975,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
+    created_at: '2017-07-07T19:37:57.465Z',
+    updated_at: '2017-07-07T19:37:57.465Z'
   }, {
-    id: 86,
+    id: 82,
     team_id: 1,
     first_name: 'Venda',
     last_name: 'Harris',
@@ -1035,10 +987,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
+    created_at: '2017-07-07T19:37:57.465Z',
+    updated_at: '2017-07-07T19:37:57.465Z'
   }, {
-    id: 87,
+    id: 83,
     team_id: 1,
     first_name: 'William',
     last_name: 'Harrod',
@@ -1047,10 +999,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
+    created_at: '2017-07-07T19:37:57.465Z',
+    updated_at: '2017-07-07T19:37:57.465Z'
   }, {
-    id: 88,
+    id: 84,
     team_id: 1,
     first_name: 'Skye',
     last_name: 'Hart',
@@ -1059,10 +1011,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
+    created_at: '2017-07-07T19:37:57.465Z',
+    updated_at: '2017-07-07T19:37:57.465Z'
   }, {
-    id: 89,
+    id: 85,
     team_id: 1,
     first_name: 'Alexandra',
     last_name: 'Hartley',
@@ -1071,10 +1023,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
+    created_at: '2017-07-07T19:37:57.465Z',
+    updated_at: '2017-07-07T19:37:57.465Z'
   }, {
-    id: 90,
+    id: 86,
     team_id: 1,
     first_name: 'Nathaniel',
     last_name: 'Haviland-Markowitz',
@@ -1083,10 +1035,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.939Z',
-    updated_at: '2017-07-05T19:47:55.939Z'
+    created_at: '2017-07-07T19:37:57.466Z',
+    updated_at: '2017-07-07T19:37:57.466Z'
   }, {
-    id: 91,
+    id: 87,
     team_id: 1,
     first_name: 'Sophia',
     last_name: 'Heyerdahl',
@@ -1095,10 +1047,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.940Z',
-    updated_at: '2017-07-05T19:47:55.940Z'
+    created_at: '2017-07-07T19:37:57.466Z',
+    updated_at: '2017-07-07T19:37:57.466Z'
   }, {
-    id: 92,
+    id: 88,
     team_id: 1,
     first_name: 'Jared',
     last_name: 'Hibshman',
@@ -1107,10 +1059,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.940Z',
-    updated_at: '2017-07-05T19:47:55.940Z'
+    created_at: '2017-07-07T19:37:57.466Z',
+    updated_at: '2017-07-07T19:37:57.466Z'
   }, {
-    id: 93,
+    id: 89,
     team_id: 1,
     first_name: 'Mary',
     last_name: 'Hicks',
@@ -1119,22 +1071,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.940Z',
-    updated_at: '2017-07-05T19:47:55.940Z'
+    created_at: '2017-07-07T19:37:57.466Z',
+    updated_at: '2017-07-07T19:37:57.466Z'
   }, {
-    id: 94,
-    team_id: 1,
-    first_name: 'Mary',
-    last_name: 'Hicks',
-    email: 'mlh39@cornell.edu',
-    password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-    password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
-    photo_id: null,
-    created_at: '2017-07-05T19:47:55.940Z',
-    updated_at: '2017-07-05T19:47:55.940Z'
-  }, {
-    id: 95,
+    id: 90,
     team_id: 1,
     first_name: 'Cate',
     last_name: 'Hicks',
@@ -1143,10 +1083,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.940Z',
-    updated_at: '2017-07-05T19:47:55.940Z'
+    created_at: '2017-07-07T19:37:57.466Z',
+    updated_at: '2017-07-07T19:37:57.466Z'
   }, {
-    id: 96,
+    id: 91,
     team_id: 1,
     first_name: 'Margo',
     last_name: 'Hittleman',
@@ -1155,10 +1095,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.940Z',
-    updated_at: '2017-07-05T19:47:55.940Z'
+    created_at: '2017-07-07T19:37:57.466Z',
+    updated_at: '2017-07-07T19:37:57.466Z'
   }, {
-    id: 97,
+    id: 92,
     team_id: 1,
     first_name: 'Joann',
     last_name: 'Huddle',
@@ -1167,10 +1107,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.940Z',
-    updated_at: '2017-07-05T19:47:55.940Z'
+    created_at: '2017-07-07T19:37:57.466Z',
+    updated_at: '2017-07-07T19:37:57.466Z'
   }, {
-    id: 98,
+    id: 93,
     team_id: 1,
     first_name: 'Emem-Esther',
     last_name: 'Ikpot',
@@ -1179,10 +1119,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.940Z',
-    updated_at: '2017-07-05T19:47:55.940Z'
+    created_at: '2017-07-07T19:37:57.466Z',
+    updated_at: '2017-07-07T19:37:57.466Z'
   }, {
-    id: 99,
+    id: 94,
     team_id: 1,
     first_name: 'Maroua',
     last_name: 'Jabouri',
@@ -1191,10 +1131,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.940Z',
-    updated_at: '2017-07-05T19:47:55.940Z'
+    created_at: '2017-07-07T19:37:57.466Z',
+    updated_at: '2017-07-07T19:37:57.466Z'
   }, {
-    id: 100,
+    id: 95,
     team_id: 1,
     first_name: 'Alice',
     last_name: 'Jenkins',
@@ -1203,10 +1143,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.940Z',
-    updated_at: '2017-07-05T19:47:55.940Z'
+    created_at: '2017-07-07T19:37:57.466Z',
+    updated_at: '2017-07-07T19:37:57.466Z'
   }, {
-    id: 101,
+    id: 96,
     team_id: 1,
     first_name: 'Elizabeth',
     last_name: 'Jesch',
@@ -1215,10 +1155,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.940Z',
-    updated_at: '2017-07-05T19:47:55.940Z'
+    created_at: '2017-07-07T19:37:57.466Z',
+    updated_at: '2017-07-07T19:37:57.466Z'
   }, {
-    id: 102,
+    id: 97,
     team_id: 1,
     first_name: 'Kathy',
     last_name: 'Jett',
@@ -1227,10 +1167,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.940Z',
-    updated_at: '2017-07-05T19:47:55.940Z'
+    created_at: '2017-07-07T19:37:57.466Z',
+    updated_at: '2017-07-07T19:37:57.466Z'
   }, {
-    id: 103,
+    id: 98,
     team_id: 1,
     first_name: 'Jamieson',
     last_name: 'Johnson',
@@ -1239,10 +1179,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.940Z',
-    updated_at: '2017-07-05T19:47:55.940Z'
+    created_at: '2017-07-07T19:37:57.466Z',
+    updated_at: '2017-07-07T19:37:57.467Z'
   }, {
-    id: 104,
+    id: 99,
     team_id: 1,
     first_name: 'Michele',
     last_name: 'Jones',
@@ -1251,10 +1191,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.940Z',
-    updated_at: '2017-07-05T19:47:55.940Z'
+    created_at: '2017-07-07T19:37:57.467Z',
+    updated_at: '2017-07-07T19:37:57.467Z'
   }, {
-    id: 105,
+    id: 100,
     team_id: 1,
     first_name: 'David',
     last_name: 'Jordan',
@@ -1263,10 +1203,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.940Z',
-    updated_at: '2017-07-05T19:47:55.940Z'
+    created_at: '2017-07-07T19:37:57.467Z',
+    updated_at: '2017-07-07T19:37:57.467Z'
   }, {
-    id: 106,
+    id: 101,
     team_id: 1,
     first_name: 'Barbara',
     last_name: 'Jordan',
@@ -1275,10 +1215,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.941Z',
-    updated_at: '2017-07-05T19:47:55.941Z'
+    created_at: '2017-07-07T19:37:57.467Z',
+    updated_at: '2017-07-07T19:37:57.467Z'
   }, {
-    id: 107,
+    id: 102,
     team_id: 1,
     first_name: 'Travis',
     last_name: 'Judd',
@@ -1287,10 +1227,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.941Z',
-    updated_at: '2017-07-05T19:47:55.941Z'
+    created_at: '2017-07-07T19:37:57.467Z',
+    updated_at: '2017-07-07T19:37:57.467Z'
   }, {
-    id: 108,
+    id: 103,
     team_id: 1,
     first_name: 'Chris',
     last_name: 'Kai-Jones',
@@ -1299,10 +1239,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.941Z',
-    updated_at: '2017-07-05T19:47:55.941Z'
+    created_at: '2017-07-07T19:37:57.467Z',
+    updated_at: '2017-07-07T19:37:57.467Z'
   }, {
-    id: 109,
+    id: 104,
     team_id: 1,
     first_name: 'Lara',
     last_name: 'Kaltman',
@@ -1311,10 +1251,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.941Z',
-    updated_at: '2017-07-05T19:47:55.941Z'
+    created_at: '2017-07-07T19:37:57.467Z',
+    updated_at: '2017-07-07T19:37:57.467Z'
   }, {
-    id: 110,
+    id: 105,
     team_id: 1,
     first_name: 'Elizabeth',
     last_name: 'Karabinakis',
@@ -1323,10 +1263,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.941Z',
-    updated_at: '2017-07-05T19:47:55.941Z'
+    created_at: '2017-07-07T19:37:57.467Z',
+    updated_at: '2017-07-07T19:37:57.467Z'
   }, {
-    id: 111,
+    id: 106,
     team_id: 1,
     first_name: 'Harichandana',
     last_name: 'Karne',
@@ -1335,10 +1275,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.941Z',
-    updated_at: '2017-07-05T19:47:55.941Z'
+    created_at: '2017-07-07T19:37:57.467Z',
+    updated_at: '2017-07-07T19:37:57.467Z'
   }, {
-    id: 112,
+    id: 107,
     team_id: 1,
     first_name: 'Patricia',
     last_name: 'Karr-Segal',
@@ -1347,10 +1287,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.941Z',
-    updated_at: '2017-07-05T19:47:55.941Z'
+    created_at: '2017-07-07T19:37:57.467Z',
+    updated_at: '2017-07-07T19:37:57.467Z'
   }, {
-    id: 113,
+    id: 108,
     team_id: 1,
     first_name: 'Ian',
     last_name: 'Kim',
@@ -1359,10 +1299,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.941Z',
-    updated_at: '2017-07-05T19:47:55.941Z'
+    created_at: '2017-07-07T19:37:57.467Z',
+    updated_at: '2017-07-07T19:37:57.467Z'
   }, {
-    id: 114,
+    id: 109,
     team_id: 1,
     first_name: 'Minjae',
     last_name: 'Kim',
@@ -1371,10 +1311,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.941Z',
-    updated_at: '2017-07-05T19:47:55.941Z'
+    created_at: '2017-07-07T19:37:57.468Z',
+    updated_at: '2017-07-07T19:37:57.468Z'
   }, {
-    id: 115,
+    id: 110,
     team_id: 1,
     first_name: 'Cathy',
     last_name: 'Kinder',
@@ -1383,22 +1323,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.941Z',
-    updated_at: '2017-07-05T19:47:55.941Z'
+    created_at: '2017-07-07T19:37:57.468Z',
+    updated_at: '2017-07-07T19:37:57.468Z'
   }, {
-    id: 116,
-    team_id: 1,
-    first_name: 'Cathy',
-    last_name: 'Kinder',
-    email: 'cmk22@cornell.edu',
-    password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-    password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
-    photo_id: null,
-    created_at: '2017-07-05T19:47:55.941Z',
-    updated_at: '2017-07-05T19:47:55.941Z'
-  }, {
-    id: 117,
+    id: 111,
     team_id: 1,
     first_name: 'Hannah',
     last_name: 'Kinsella',
@@ -1407,22 +1335,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.941Z',
-    updated_at: '2017-07-05T19:47:55.941Z'
+    created_at: '2017-07-07T19:37:57.468Z',
+    updated_at: '2017-07-07T19:37:57.468Z'
   }, {
-    id: 118,
-    team_id: 1,
-    first_name: 'Hannah',
-    last_name: 'Kinsella',
-    email: 'hdk29@cornell.edu',
-    password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-    password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
-    photo_id: null,
-    created_at: '2017-07-05T19:47:55.941Z',
-    updated_at: '2017-07-05T19:47:55.941Z'
-  }, {
-    id: 119,
+    id: 112,
     team_id: 1,
     first_name: 'Laura',
     last_name: 'Komor',
@@ -1431,10 +1347,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.941Z',
-    updated_at: '2017-07-05T19:47:55.941Z'
+    created_at: '2017-07-07T19:37:57.468Z',
+    updated_at: '2017-07-07T19:37:57.468Z'
   }, {
-    id: 120,
+    id: 113,
     team_id: 1,
     first_name: 'Allison',
     last_name: 'Kootsikas',
@@ -1443,10 +1359,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.941Z',
-    updated_at: '2017-07-05T19:47:55.941Z'
+    created_at: '2017-07-07T19:37:57.468Z',
+    updated_at: '2017-07-07T19:37:57.468Z'
   }, {
-    id: 121,
+    id: 114,
     team_id: 1,
     first_name: 'Gregory',
     last_name: 'Kops',
@@ -1455,10 +1371,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.941Z',
-    updated_at: '2017-07-05T19:47:55.941Z'
+    created_at: '2017-07-07T19:37:57.468Z',
+    updated_at: '2017-07-07T19:37:57.468Z'
   }, {
-    id: 122,
+    id: 115,
     team_id: 1,
     first_name: 'Sara',
     last_name: 'Koste',
@@ -1467,10 +1383,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.941Z',
-    updated_at: '2017-07-05T19:47:55.941Z'
+    created_at: '2017-07-07T19:37:57.468Z',
+    updated_at: '2017-07-07T19:37:57.468Z'
   }, {
-    id: 123,
+    id: 116,
     team_id: 1,
     first_name: 'Thomas',
     last_name: 'Kowalik',
@@ -1479,10 +1395,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.941Z',
-    updated_at: '2017-07-05T19:47:55.941Z'
+    created_at: '2017-07-07T19:37:57.468Z',
+    updated_at: '2017-07-07T19:37:57.468Z'
   }, {
-    id: 124,
+    id: 117,
     team_id: 1,
     first_name: 'Zachary',
     last_name: 'Kozlowski',
@@ -1491,10 +1407,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.942Z',
-    updated_at: '2017-07-05T19:47:55.942Z'
+    created_at: '2017-07-07T19:37:57.468Z',
+    updated_at: '2017-07-07T19:37:57.468Z'
   }, {
-    id: 125,
+    id: 118,
     team_id: 1,
     first_name: 'Rosalie',
     last_name: 'Krasnoff',
@@ -1503,10 +1419,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.942Z',
-    updated_at: '2017-07-05T19:47:55.942Z'
+    created_at: '2017-07-07T19:37:57.468Z',
+    updated_at: '2017-07-07T19:37:57.468Z'
   }, {
-    id: 126,
+    id: 119,
     team_id: 1,
     first_name: 'Annalise',
     last_name: 'Kukor',
@@ -1515,10 +1431,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.942Z',
-    updated_at: '2017-07-05T19:47:55.942Z'
+    created_at: '2017-07-07T19:37:57.468Z',
+    updated_at: '2017-07-07T19:37:57.468Z'
   }, {
-    id: 127,
+    id: 120,
     team_id: 1,
     first_name: 'Ixchel',
     last_name: 'Lec-Cutter',
@@ -1527,10 +1443,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.942Z',
-    updated_at: '2017-07-05T19:47:55.942Z'
+    created_at: '2017-07-07T19:37:57.468Z',
+    updated_at: '2017-07-07T19:37:57.468Z'
   }, {
-    id: 128,
+    id: 121,
     team_id: 1,
     first_name: 'Matthew',
     last_name: 'LeRoux',
@@ -1539,10 +1455,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.942Z',
-    updated_at: '2017-07-05T19:47:55.942Z'
+    created_at: '2017-07-07T19:37:57.469Z',
+    updated_at: '2017-07-07T19:37:57.469Z'
   }, {
-    id: 129,
+    id: 122,
     team_id: 1,
     first_name: 'Shelley',
     last_name: 'Lester',
@@ -1551,10 +1467,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.942Z',
-    updated_at: '2017-07-05T19:47:55.942Z'
+    created_at: '2017-07-07T19:37:57.469Z',
+    updated_at: '2017-07-07T19:37:57.469Z'
   }, {
-    id: 130,
+    id: 123,
     team_id: 1,
     first_name: 'Thena',
     last_name: 'LeVan',
@@ -1563,10 +1479,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.942Z',
-    updated_at: '2017-07-05T19:47:55.942Z'
+    created_at: '2017-07-07T19:37:57.469Z',
+    updated_at: '2017-07-07T19:37:57.469Z'
   }, {
-    id: 131,
+    id: 124,
     team_id: 1,
     first_name: 'Min',
     last_name: 'Liu',
@@ -1575,10 +1491,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.942Z',
-    updated_at: '2017-07-05T19:47:55.942Z'
+    created_at: '2017-07-07T19:37:57.469Z',
+    updated_at: '2017-07-07T19:37:57.469Z'
   }, {
-    id: 132,
+    id: 125,
     team_id: 1,
     first_name: 'Sidney',
     last_name: 'Lok',
@@ -1587,10 +1503,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.942Z',
-    updated_at: '2017-07-05T19:47:55.942Z'
+    created_at: '2017-07-07T19:37:57.470Z',
+    updated_at: '2017-07-07T19:37:57.470Z'
   }, {
-    id: 133,
+    id: 126,
     team_id: 1,
     first_name: 'Bambi',
     last_name: 'Lott',
@@ -1599,10 +1515,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.942Z',
-    updated_at: '2017-07-05T19:47:55.942Z'
+    created_at: '2017-07-07T19:37:57.473Z',
+    updated_at: '2017-07-07T19:37:57.473Z'
   }, {
-    id: 134,
+    id: 127,
     team_id: 1,
     first_name: 'Leigh',
     last_name: 'MacDonald-Rizzo',
@@ -1611,10 +1527,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.942Z',
-    updated_at: '2017-07-05T19:47:55.942Z'
+    created_at: '2017-07-07T19:37:57.473Z',
+    updated_at: '2017-07-07T19:37:57.473Z'
   }, {
-    id: 135,
+    id: 128,
     team_id: 1,
     first_name: 'Hannah',
     last_name: 'Mackey',
@@ -1623,10 +1539,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.942Z',
-    updated_at: '2017-07-05T19:47:55.942Z'
+    created_at: '2017-07-07T19:37:57.473Z',
+    updated_at: '2017-07-07T19:37:57.473Z'
   }, {
-    id: 136,
+    id: 129,
     team_id: 1,
     first_name: 'Mariah',
     last_name: 'Mahaney',
@@ -1635,10 +1551,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.942Z',
-    updated_at: '2017-07-05T19:47:55.942Z'
+    created_at: '2017-07-07T19:37:57.474Z',
+    updated_at: '2017-07-07T19:37:57.474Z'
   }, {
-    id: 137,
+    id: 130,
     team_id: 1,
     first_name: 'Hollis',
     last_name: 'Malkowski',
@@ -1647,10 +1563,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.943Z',
-    updated_at: '2017-07-05T19:47:55.943Z'
+    created_at: '2017-07-07T19:37:57.474Z',
+    updated_at: '2017-07-07T19:37:57.474Z'
   }, {
-    id: 138,
+    id: 131,
     team_id: 1,
     first_name: 'Elana',
     last_name: 'Maragni',
@@ -1659,10 +1575,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.943Z',
-    updated_at: '2017-07-05T19:47:55.943Z'
+    created_at: '2017-07-07T19:37:57.474Z',
+    updated_at: '2017-07-07T19:37:57.474Z'
   }, {
-    id: 139,
+    id: 132,
     team_id: 1,
     first_name: 'Erin',
     last_name: 'Marteal',
@@ -1671,10 +1587,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.943Z',
-    updated_at: '2017-07-05T19:47:55.943Z'
+    created_at: '2017-07-07T19:37:57.474Z',
+    updated_at: '2017-07-07T19:37:57.474Z'
   }, {
-    id: 140,
+    id: 133,
     team_id: 1,
     first_name: 'Nathaniel',
     last_name: 'Martinez',
@@ -1683,10 +1599,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.943Z',
-    updated_at: '2017-07-05T19:47:55.943Z'
+    created_at: '2017-07-07T19:37:57.474Z',
+    updated_at: '2017-07-07T19:37:57.474Z'
   }, {
-    id: 141,
+    id: 134,
     team_id: 1,
     first_name: 'Kathleen',
     last_name: 'Maxson',
@@ -1695,10 +1611,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.943Z',
-    updated_at: '2017-07-05T19:47:55.943Z'
+    created_at: '2017-07-07T19:37:57.474Z',
+    updated_at: '2017-07-07T19:37:57.474Z'
   }, {
-    id: 142,
+    id: 135,
     team_id: 1,
     first_name: 'Kiara',
     last_name: 'McCadden',
@@ -1707,10 +1623,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.943Z',
-    updated_at: '2017-07-05T19:47:55.943Z'
+    created_at: '2017-07-07T19:37:57.474Z',
+    updated_at: '2017-07-07T19:37:57.474Z'
   }, {
-    id: 143,
+    id: 136,
     team_id: 1,
     first_name: 'Deborah',
     last_name: 'McKane',
@@ -1719,10 +1635,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.943Z',
-    updated_at: '2017-07-05T19:47:55.943Z'
+    created_at: '2017-07-07T19:37:57.474Z',
+    updated_at: '2017-07-07T19:37:57.474Z'
   }, {
-    id: 144,
+    id: 137,
     team_id: 1,
     first_name: 'Kenneth',
     last_name: 'McLaurin',
@@ -1731,10 +1647,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.943Z',
-    updated_at: '2017-07-05T19:47:55.943Z'
+    created_at: '2017-07-07T19:37:57.474Z',
+    updated_at: '2017-07-07T19:37:57.474Z'
   }, {
-    id: 145,
+    id: 138,
     team_id: 1,
     first_name: 'Guillermo',
     last_name: 'Metz',
@@ -1743,10 +1659,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.943Z',
-    updated_at: '2017-07-05T19:47:55.943Z'
+    created_at: '2017-07-07T19:37:57.474Z',
+    updated_at: '2017-07-07T19:37:57.474Z'
   }, {
-    id: 146,
+    id: 139,
     team_id: 1,
     first_name: 'Adam',
     last_name: 'Michaelides',
@@ -1755,10 +1671,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.943Z',
-    updated_at: '2017-07-05T19:47:55.943Z'
+    created_at: '2017-07-07T19:37:57.474Z',
+    updated_at: '2017-07-07T19:37:57.474Z'
   }, {
-    id: 147,
+    id: 140,
     team_id: 1,
     first_name: 'Khulani',
     last_name: 'Mkhonza',
@@ -1767,10 +1683,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.943Z',
-    updated_at: '2017-07-05T19:47:55.943Z'
+    created_at: '2017-07-07T19:37:57.474Z',
+    updated_at: '2017-07-07T19:37:57.474Z'
   }, {
-    id: 148,
+    id: 141,
     team_id: 1,
     first_name: 'Troy',
     last_name: 'Mock',
@@ -1779,10 +1695,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.943Z',
-    updated_at: '2017-07-05T19:47:55.943Z'
+    created_at: '2017-07-07T19:37:57.474Z',
+    updated_at: '2017-07-07T19:37:57.474Z'
   }, {
-    id: 149,
+    id: 142,
     team_id: 1,
     first_name: 'Dawn',
     last_name: 'Montanye',
@@ -1791,10 +1707,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.943Z',
-    updated_at: '2017-07-05T19:47:55.943Z'
+    created_at: '2017-07-07T19:37:57.474Z',
+    updated_at: '2017-07-07T19:37:57.474Z'
   }, {
-    id: 150,
+    id: 143,
     team_id: 1,
     first_name: 'Elena',
     last_name: 'Montesano',
@@ -1803,10 +1719,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.943Z',
-    updated_at: '2017-07-05T19:47:55.943Z'
+    created_at: '2017-07-07T19:37:57.475Z',
+    updated_at: '2017-07-07T19:37:57.475Z'
   }, {
-    id: 151,
+    id: 144,
     team_id: 1,
     first_name: 'Cynthia',
     last_name: 'Montross-Tipa',
@@ -1815,10 +1731,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.943Z',
-    updated_at: '2017-07-05T19:47:55.943Z'
+    created_at: '2017-07-07T19:37:57.475Z',
+    updated_at: '2017-07-07T19:37:57.475Z'
   }, {
-    id: 152,
+    id: 145,
     team_id: 1,
     first_name: 'Renee',
     last_name: 'Morris',
@@ -1827,10 +1743,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.943Z',
-    updated_at: '2017-07-05T19:47:55.943Z'
+    created_at: '2017-07-07T19:37:57.475Z',
+    updated_at: '2017-07-07T19:37:57.475Z'
   }, {
-    id: 153,
+    id: 146,
     team_id: 1,
     first_name: 'Davi',
     last_name: 'Mozie',
@@ -1839,10 +1755,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.943Z',
-    updated_at: '2017-07-05T19:47:55.943Z'
+    created_at: '2017-07-07T19:37:57.475Z',
+    updated_at: '2017-07-07T19:37:57.475Z'
   }, {
-    id: 154,
+    id: 147,
     team_id: 1,
     first_name: 'Taili',
     last_name: 'Mugambee',
@@ -1851,10 +1767,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
+    created_at: '2017-07-07T19:37:57.475Z',
+    updated_at: '2017-07-07T19:37:57.475Z'
   }, {
-    id: 155,
+    id: 148,
     team_id: 1,
     first_name: 'Aurora',
     last_name: 'Namnum',
@@ -1863,10 +1779,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
+    created_at: '2017-07-07T19:37:57.475Z',
+    updated_at: '2017-07-07T19:37:57.475Z'
   }, {
-    id: 156,
+    id: 149,
     team_id: 1,
     first_name: 'Autumn',
     last_name: 'Newell',
@@ -1875,10 +1791,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
+    created_at: '2017-07-07T19:37:57.475Z',
+    updated_at: '2017-07-07T19:37:57.475Z'
   }, {
-    id: 157,
+    id: 150,
     team_id: 1,
     first_name: 'Lois',
     last_name: 'Nguyen',
@@ -1887,10 +1803,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
+    created_at: '2017-07-07T19:37:57.475Z',
+    updated_at: '2017-07-07T19:37:57.475Z'
   }, {
-    id: 158,
+    id: 151,
     team_id: 1,
     first_name: 'Marjorie',
     last_name: 'Olds',
@@ -1899,10 +1815,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
+    created_at: '2017-07-07T19:37:57.475Z',
+    updated_at: '2017-07-07T19:37:57.475Z'
   }, {
-    id: 159,
+    id: 152,
     team_id: 1,
     first_name: 'Paul',
     last_name: 'Osuma',
@@ -1911,10 +1827,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
+    created_at: '2017-07-07T19:37:57.475Z',
+    updated_at: '2017-07-07T19:37:57.475Z'
   }, {
-    id: 160,
+    id: 153,
     team_id: 1,
     first_name: 'Laura',
     last_name: 'Parker',
@@ -1923,10 +1839,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
+    created_at: '2017-07-07T19:37:57.475Z',
+    updated_at: '2017-07-07T19:37:57.475Z'
   }, {
-    id: 161,
+    id: 154,
     team_id: 1,
     first_name: 'Lisa',
     last_name: 'Pate',
@@ -1935,10 +1851,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
+    created_at: '2017-07-07T19:37:57.475Z',
+    updated_at: '2017-07-07T19:37:57.475Z'
   }, {
-    id: 162,
+    id: 155,
     team_id: 1,
     first_name: 'Cili',
     last_name: 'Phillips',
@@ -1947,10 +1863,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
+    created_at: '2017-07-07T19:37:57.475Z',
+    updated_at: '2017-07-07T19:37:57.475Z'
   }, {
-    id: 163,
+    id: 156,
     team_id: 1,
     first_name: 'Mark',
     last_name: 'Pierce',
@@ -1959,10 +1875,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
+    created_at: '2017-07-07T19:37:57.475Z',
+    updated_at: '2017-07-07T19:37:57.475Z'
   }, {
-    id: 164,
+    id: 157,
     team_id: 1,
     first_name: 'Hillary',
     last_name: 'Pitoniak',
@@ -1971,10 +1887,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
+    created_at: '2017-07-07T19:37:57.475Z',
+    updated_at: '2017-07-07T19:37:57.475Z'
   }, {
-    id: 165,
+    id: 158,
     team_id: 1,
     first_name: 'Susanna',
     last_name: 'Plotkin',
@@ -1983,10 +1899,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
+    created_at: '2017-07-07T19:37:57.475Z',
+    updated_at: '2017-07-07T19:37:57.475Z'
   }, {
-    id: 166,
+    id: 159,
     team_id: 1,
     first_name: 'Danielle',
     last_name: 'Prizzi',
@@ -1995,10 +1911,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
+    created_at: '2017-07-07T19:37:57.475Z',
+    updated_at: '2017-07-07T19:37:57.475Z'
   }, {
-    id: 167,
+    id: 160,
     team_id: 1,
     first_name: 'Megan',
     last_name: 'Pugh',
@@ -2007,22 +1923,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
+    created_at: '2017-07-07T19:37:57.476Z',
+    updated_at: '2017-07-07T19:37:57.476Z'
   }, {
-    id: 168,
-    team_id: 1,
-    first_name: 'Megan',
-    last_name: 'Pugh',
-    email: 'mmp246@cornell.edu',
-    password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-    password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
-    photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
-  }, {
-    id: 169,
+    id: 161,
     team_id: 1,
     first_name: 'Megan',
     last_name: 'Pulver',
@@ -2031,10 +1935,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
+    created_at: '2017-07-07T19:37:57.476Z',
+    updated_at: '2017-07-07T19:37:57.476Z'
   }, {
-    id: 170,
+    id: 162,
     team_id: 1,
     first_name: 'Alissa',
     last_name: 'Pure',
@@ -2043,10 +1947,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
+    created_at: '2017-07-07T19:37:57.476Z',
+    updated_at: '2017-07-07T19:37:57.476Z'
   }, {
-    id: 171,
+    id: 163,
     team_id: 1,
     first_name: 'Megan',
     last_name: 'Redmond',
@@ -2055,22 +1959,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
+    created_at: '2017-07-07T19:37:57.476Z',
+    updated_at: '2017-07-07T19:37:57.476Z'
   }, {
-    id: 172,
-    team_id: 1,
-    first_name: 'Megan',
-    last_name: 'Redmond',
-    email: 'mlr253@cornell.edu',
-    password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-    password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
-    photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
-  }, {
-    id: 173,
+    id: 164,
     team_id: 1,
     first_name: 'Sandra',
     last_name: 'Repp',
@@ -2079,10 +1971,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.944Z',
-    updated_at: '2017-07-05T19:47:55.944Z'
+    created_at: '2017-07-07T19:37:57.476Z',
+    updated_at: '2017-07-07T19:37:57.476Z'
   }, {
-    id: 174,
+    id: 165,
     team_id: 1,
     first_name: 'Anne',
     last_name: 'Rhodes',
@@ -2091,10 +1983,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
+    created_at: '2017-07-07T19:37:57.476Z',
+    updated_at: '2017-07-07T19:37:57.476Z'
   }, {
-    id: 175,
+    id: 166,
     team_id: 1,
     first_name: 'Dina',
     last_name: 'Rigas',
@@ -2103,10 +1995,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
+    created_at: '2017-07-07T19:37:57.476Z',
+    updated_at: '2017-07-07T19:37:57.476Z'
   }, {
-    id: 176,
+    id: 167,
     team_id: 1,
     first_name: 'Miguel',
     last_name: 'Rivera',
@@ -2115,10 +2007,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
+    created_at: '2017-07-07T19:37:57.476Z',
+    updated_at: '2017-07-07T19:37:57.476Z'
   }, {
-    id: 177,
+    id: 168,
     team_id: 1,
     first_name: 'Santa',
     last_name: 'Rose',
@@ -2127,10 +2019,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
+    created_at: '2017-07-07T19:37:57.476Z',
+    updated_at: '2017-07-07T19:37:57.476Z'
   }, {
-    id: 178,
+    id: 169,
     team_id: 1,
     first_name: 'Monika',
     last_name: 'Roth',
@@ -2139,10 +2031,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
+    created_at: '2017-07-07T19:37:57.476Z',
+    updated_at: '2017-07-07T19:37:57.476Z'
   }, {
-    id: 179,
+    id: 170,
     team_id: 1,
     first_name: 'Lauren',
     last_name: 'Salzman',
@@ -2151,10 +2043,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
+    created_at: '2017-07-07T19:37:57.476Z',
+    updated_at: '2017-07-07T19:37:57.476Z'
   }, {
-    id: 180,
+    id: 171,
     team_id: 1,
     first_name: 'Carmen',
     last_name: 'Santiago',
@@ -2163,10 +2055,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
+    created_at: '2017-07-07T19:37:57.476Z',
+    updated_at: '2017-07-07T19:37:57.476Z'
   }, {
-    id: 181,
+    id: 172,
     team_id: 1,
     first_name: 'Edwin',
     last_name: 'Santiago',
@@ -2175,10 +2067,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
+    created_at: '2017-07-07T19:37:57.476Z',
+    updated_at: '2017-07-07T19:37:57.476Z'
   }, {
-    id: 182,
+    id: 173,
     team_id: 1,
     first_name: 'Melis',
     last_name: 'Schildkraut',
@@ -2187,22 +2079,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
+    created_at: '2017-07-07T19:37:57.476Z',
+    updated_at: '2017-07-07T19:37:57.476Z'
   }, {
-    id: 183,
-    team_id: 1,
-    first_name: 'Melis',
-    last_name: 'Schildkraut',
-    email: 'mas759@cornell.edu',
-    password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-    password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
-    photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
-  }, {
-    id: 184,
+    id: 174,
     team_id: 1,
     first_name: 'Kenneth',
     last_name: 'Schlather',
@@ -2211,10 +2091,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
+    created_at: '2017-07-07T19:37:57.476Z',
+    updated_at: '2017-07-07T19:37:57.476Z'
   }, {
-    id: 185,
+    id: 175,
     team_id: 1,
     first_name: 'Bethany',
     last_name: 'Schull',
@@ -2223,10 +2103,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
+    created_at: '2017-07-07T19:37:57.476Z',
+    updated_at: '2017-07-07T19:37:57.476Z'
   }, {
-    id: 186,
+    id: 176,
     team_id: 1,
     first_name: 'Eileen',
     last_name: 'Sheehan',
@@ -2235,10 +2115,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
+    created_at: '2017-07-07T19:37:57.476Z',
+    updated_at: '2017-07-07T19:37:57.476Z'
   }, {
-    id: 187,
+    id: 177,
     team_id: 1,
     first_name: 'Michelle',
     last_name: 'Shin',
@@ -2247,10 +2127,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
+    created_at: '2017-07-07T19:37:57.476Z',
+    updated_at: '2017-07-07T19:37:57.476Z'
   }, {
-    id: 188,
+    id: 178,
     team_id: 1,
     first_name: 'William',
     last_name: 'Sims',
@@ -2259,22 +2139,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
+    created_at: '2017-07-07T19:37:57.477Z',
+    updated_at: '2017-07-07T19:37:57.477Z'
   }, {
-    id: 189,
-    team_id: 1,
-    first_name: 'William',
-    last_name: 'Sims',
-    email: 'wzs4@cornell.edu',
-    password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-    password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
-    photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
-  }, {
-    id: 190,
+    id: 179,
     team_id: 1,
     first_name: 'Barbara',
     last_name: 'Sinn',
@@ -2283,10 +2151,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
+    created_at: '2017-07-07T19:37:57.477Z',
+    updated_at: '2017-07-07T19:37:57.477Z'
   }, {
-    id: 191,
+    id: 180,
     team_id: 1,
     first_name: 'Luke',
     last_name: 'Sjolund',
@@ -2295,22 +2163,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
+    created_at: '2017-07-07T19:37:57.477Z',
+    updated_at: '2017-07-07T19:37:57.477Z'
   }, {
-    id: 192,
-    team_id: 1,
-    first_name: 'Luke',
-    last_name: 'Sjolund',
-    email: 'les272@cornell.edu',
-    password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-    password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
-    photo_id: null,
-    created_at: '2017-07-05T19:47:55.945Z',
-    updated_at: '2017-07-05T19:47:55.945Z'
-  }, {
-    id: 193,
+    id: 181,
     team_id: 1,
     first_name: 'J Christopher',
     last_name: 'Skawski',
@@ -2319,10 +2175,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.946Z',
-    updated_at: '2017-07-05T19:47:55.946Z'
+    created_at: '2017-07-07T19:37:57.477Z',
+    updated_at: '2017-07-07T19:37:57.477Z'
   }, {
-    id: 194,
+    id: 182,
     team_id: 1,
     first_name: 'Caraya',
     last_name: 'Smith',
@@ -2331,10 +2187,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.946Z',
-    updated_at: '2017-07-05T19:47:55.946Z'
+    created_at: '2017-07-07T19:37:57.477Z',
+    updated_at: '2017-07-07T19:37:57.477Z'
   }, {
-    id: 195,
+    id: 183,
     team_id: 1,
     first_name: 'Tina',
     last_name: 'Snyder',
@@ -2343,10 +2199,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.946Z',
-    updated_at: '2017-07-05T19:47:55.946Z'
+    created_at: '2017-07-07T19:37:57.477Z',
+    updated_at: '2017-07-07T19:37:57.477Z'
   }, {
-    id: 196,
+    id: 184,
     team_id: 1,
     first_name: 'Tami',
     last_name: 'Snyder',
@@ -2355,10 +2211,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.946Z',
-    updated_at: '2017-07-05T19:47:55.946Z'
+    created_at: '2017-07-07T19:37:57.477Z',
+    updated_at: '2017-07-07T19:37:57.477Z'
   }, {
-    id: 197,
+    id: 185,
     team_id: 1,
     first_name: 'Sophie',
     last_name: 'Somerfeldt',
@@ -2367,10 +2223,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.946Z',
-    updated_at: '2017-07-05T19:47:55.946Z'
+    created_at: '2017-07-07T19:37:57.477Z',
+    updated_at: '2017-07-07T19:37:57.477Z'
   }, {
-    id: 198,
+    id: 186,
     team_id: 1,
     first_name: 'Phouphet',
     last_name: 'Souvorachak',
@@ -2379,10 +2235,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.946Z',
-    updated_at: '2017-07-05T19:47:55.946Z'
+    created_at: '2017-07-07T19:37:57.477Z',
+    updated_at: '2017-07-07T19:37:57.477Z'
   }, {
-    id: 199,
+    id: 187,
     team_id: 1,
     first_name: 'Amanda',
     last_name: 'Spaulding',
@@ -2391,10 +2247,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.946Z',
-    updated_at: '2017-07-05T19:47:55.946Z'
+    created_at: '2017-07-07T19:37:57.477Z',
+    updated_at: '2017-07-07T19:37:57.477Z'
   }, {
-    id: 200,
+    id: 188,
     team_id: 1,
     first_name: 'Kristen',
     last_name: 'Stacey',
@@ -2403,10 +2259,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.946Z',
-    updated_at: '2017-07-05T19:47:55.946Z'
+    created_at: '2017-07-07T19:37:57.477Z',
+    updated_at: '2017-07-07T19:37:57.477Z'
   }, {
-    id: 201,
+    id: 189,
     team_id: 1,
     first_name: 'Jesse',
     last_name: 'Steberger',
@@ -2415,10 +2271,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.946Z',
-    updated_at: '2017-07-05T19:47:55.946Z'
+    created_at: '2017-07-07T19:37:57.477Z',
+    updated_at: '2017-07-07T19:37:57.477Z'
   }, {
-    id: 202,
+    id: 190,
     team_id: 1,
     first_name: 'Anna',
     last_name: 'Steinkraus',
@@ -2427,10 +2283,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.946Z',
-    updated_at: '2017-07-05T19:47:55.946Z'
+    created_at: '2017-07-07T19:37:57.477Z',
+    updated_at: '2017-07-07T19:37:57.477Z'
   }, {
-    id: 203,
+    id: 191,
     team_id: 1,
     first_name: 'Amara',
     last_name: 'Steinkraus',
@@ -2439,10 +2295,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.946Z',
-    updated_at: '2017-07-05T19:47:55.946Z'
+    created_at: '2017-07-07T19:37:57.477Z',
+    updated_at: '2017-07-07T19:37:57.477Z'
   }, {
-    id: 204,
+    id: 192,
     team_id: 1,
     first_name: 'Athena',
     last_name: 'Steinkraus',
@@ -2451,10 +2307,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.947Z',
-    updated_at: '2017-07-05T19:47:55.947Z'
+    created_at: '2017-07-07T19:37:57.477Z',
+    updated_at: '2017-07-07T19:37:57.477Z'
   }, {
-    id: 205,
+    id: 193,
     team_id: 1,
     first_name: 'Marina',
     last_name: 'Stevenson',
@@ -2463,10 +2319,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.947Z',
-    updated_at: '2017-07-05T19:47:55.947Z'
+    created_at: '2017-07-07T19:37:57.477Z',
+    updated_at: '2017-07-07T19:37:57.477Z'
   }, {
-    id: 206,
+    id: 194,
     team_id: 1,
     first_name: 'Anushri',
     last_name: 'Subramaniam',
@@ -2475,10 +2331,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.947Z',
-    updated_at: '2017-07-05T19:47:55.947Z'
+    created_at: '2017-07-07T19:37:57.478Z',
+    updated_at: '2017-07-07T19:37:57.478Z'
   }, {
-    id: 207,
+    id: 195,
     team_id: 1,
     first_name: 'Emily',
     last_name: 'Sullivan',
@@ -2487,10 +2343,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.947Z',
-    updated_at: '2017-07-05T19:47:55.947Z'
+    created_at: '2017-07-07T19:37:57.478Z',
+    updated_at: '2017-07-07T19:37:57.478Z'
   }, {
-    id: 208,
+    id: 196,
     team_id: 1,
     first_name: 'Justin',
     last_name: 'Sutera',
@@ -2499,10 +2355,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.947Z',
-    updated_at: '2017-07-05T19:47:55.947Z'
+    created_at: '2017-07-07T19:37:57.478Z',
+    updated_at: '2017-07-07T19:37:57.478Z'
   }, {
-    id: 209,
+    id: 197,
     team_id: 1,
     first_name: 'Megan',
     last_name: 'Szpak',
@@ -2511,10 +2367,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.947Z',
-    updated_at: '2017-07-05T19:47:55.947Z'
+    created_at: '2017-07-07T19:37:57.478Z',
+    updated_at: '2017-07-07T19:37:57.478Z'
   }, {
-    id: 210,
+    id: 198,
     team_id: 1,
     first_name: 'Deborah',
     last_name: 'Teeter',
@@ -2523,10 +2379,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.947Z',
-    updated_at: '2017-07-05T19:47:55.947Z'
+    created_at: '2017-07-07T19:37:57.478Z',
+    updated_at: '2017-07-07T19:37:57.478Z'
   }, {
-    id: 211,
+    id: 199,
     team_id: 1,
     first_name: 'Kathleen',
     last_name: 'Tibbetts',
@@ -2535,10 +2391,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.947Z',
-    updated_at: '2017-07-05T19:47:55.947Z'
+    created_at: '2017-07-07T19:37:57.478Z',
+    updated_at: '2017-07-07T19:37:57.478Z'
   }, {
-    id: 212,
+    id: 200,
     team_id: 1,
     first_name: 'Megan',
     last_name: 'Tifft',
@@ -2547,10 +2403,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.947Z',
-    updated_at: '2017-07-05T19:47:55.947Z'
+    created_at: '2017-07-07T19:37:57.478Z',
+    updated_at: '2017-07-07T19:37:57.478Z'
   }, {
-    id: 213,
+    id: 201,
     team_id: 1,
     first_name: 'Julianna',
     last_name: 'Truesdale',
@@ -2559,10 +2415,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.947Z',
-    updated_at: '2017-07-05T19:47:55.947Z'
+    created_at: '2017-07-07T19:37:57.478Z',
+    updated_at: '2017-07-07T19:37:57.478Z'
   }, {
-    id: 214,
+    id: 202,
     team_id: 1,
     first_name: 'Zoe',
     last_name: 'Van Nostrand',
@@ -2571,10 +2427,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.947Z',
-    updated_at: '2017-07-05T19:47:55.947Z'
+    created_at: '2017-07-07T19:37:57.479Z',
+    updated_at: '2017-07-07T19:37:57.479Z'
   }, {
-    id: 215,
+    id: 203,
     team_id: 1,
     first_name: 'Alexandra',
     last_name: 'Van Nostrand',
@@ -2583,10 +2439,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.947Z',
-    updated_at: '2017-07-05T19:47:55.947Z'
+    created_at: '2017-07-07T19:37:57.479Z',
+    updated_at: '2017-07-07T19:37:57.479Z'
   }, {
-    id: 216,
+    id: 204,
     team_id: 1,
     first_name: 'Donna',
     last_name: 'Veninsky',
@@ -2595,10 +2451,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.947Z',
-    updated_at: '2017-07-05T19:47:55.947Z'
+    created_at: '2017-07-07T19:37:57.479Z',
+    updated_at: '2017-07-07T19:37:57.479Z'
   }, {
-    id: 217,
+    id: 205,
     team_id: 1,
     first_name: 'Kina',
     last_name: 'Viola',
@@ -2607,10 +2463,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.947Z',
-    updated_at: '2017-07-05T19:47:55.947Z'
+    created_at: '2017-07-07T19:37:57.479Z',
+    updated_at: '2017-07-07T19:37:57.479Z'
   }, {
-    id: 218,
+    id: 206,
     team_id: 1,
     first_name: 'Wanda',
     last_name: 'Vrede',
@@ -2619,22 +2475,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.948Z',
-    updated_at: '2017-07-05T19:47:55.948Z'
+    created_at: '2017-07-07T19:37:57.479Z',
+    updated_at: '2017-07-07T19:37:57.479Z'
   }, {
-    id: 219,
-    team_id: 1,
-    first_name: 'Wanda',
-    last_name: 'Vrede',
-    email: 'wcv3@cornell.edu',
-    password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-    password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
-    photo_id: null,
-    created_at: '2017-07-05T19:47:55.948Z',
-    updated_at: '2017-07-05T19:47:55.948Z'
-  }, {
-    id: 220,
+    id: 207,
     team_id: 1,
     first_name: 'Saqifa',
     last_name: 'Walli',
@@ -2643,10 +2487,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.948Z',
-    updated_at: '2017-07-05T19:47:55.948Z'
+    created_at: '2017-07-07T19:37:57.479Z',
+    updated_at: '2017-07-07T19:37:57.479Z'
   }, {
-    id: 221,
+    id: 208,
     team_id: 1,
     first_name: 'Heather',
     last_name: 'Ward',
@@ -2655,10 +2499,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.948Z',
-    updated_at: '2017-07-05T19:47:55.948Z'
+    created_at: '2017-07-07T19:37:57.479Z',
+    updated_at: '2017-07-07T19:37:57.479Z'
   }, {
-    id: 222,
+    id: 209,
     team_id: 1,
     first_name: 'Laura',
     last_name: 'Ward',
@@ -2667,10 +2511,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.948Z',
-    updated_at: '2017-07-05T19:47:55.948Z'
+    created_at: '2017-07-07T19:37:57.479Z',
+    updated_at: '2017-07-07T19:37:57.479Z'
   }, {
-    id: 223,
+    id: 210,
     team_id: 1,
     first_name: 'Serena',
     last_name: 'Ward',
@@ -2679,10 +2523,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.948Z',
-    updated_at: '2017-07-05T19:47:55.948Z'
+    created_at: '2017-07-07T19:37:57.479Z',
+    updated_at: '2017-07-07T19:37:57.479Z'
   }, {
-    id: 224,
+    id: 211,
     team_id: 1,
     first_name: 'Krystal',
     last_name: 'Watson',
@@ -2691,10 +2535,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.948Z',
-    updated_at: '2017-07-05T19:47:55.948Z'
+    created_at: '2017-07-07T19:37:57.479Z',
+    updated_at: '2017-07-07T19:37:57.479Z'
   }, {
-    id: 225,
+    id: 212,
     team_id: 1,
     first_name: 'Janine',
     last_name: 'Willis',
@@ -2703,10 +2547,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.948Z',
-    updated_at: '2017-07-05T19:47:55.948Z'
+    created_at: '2017-07-07T19:37:57.479Z',
+    updated_at: '2017-07-07T19:37:57.479Z'
   }, {
-    id: 226,
+    id: 213,
     team_id: 1,
     first_name: 'Elizabeth',
     last_name: 'Wolff',
@@ -2715,22 +2559,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.948Z',
-    updated_at: '2017-07-05T19:47:55.948Z'
+    created_at: '2017-07-07T19:37:57.479Z',
+    updated_at: '2017-07-07T19:37:57.480Z'
   }, {
-    id: 227,
-    team_id: 1,
-    first_name: 'Elizabeth',
-    last_name: 'Wolff',
-    email: 'ebw52@cornell.edu',
-    password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-    password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
-    photo_id: null,
-    created_at: '2017-07-05T19:47:55.948Z',
-    updated_at: '2017-07-05T19:47:55.948Z'
-  }, {
-    id: 228,
+    id: 214,
     team_id: 1,
     first_name: 'Carla',
     last_name: 'Woolf',
@@ -2739,10 +2571,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.948Z',
-    updated_at: '2017-07-05T19:47:55.948Z'
+    created_at: '2017-07-07T19:37:57.480Z',
+    updated_at: '2017-07-07T19:37:57.480Z'
   }, {
-    id: 229,
+    id: 215,
     team_id: 1,
     first_name: 'Jesse',
     last_name: 'Worden',
@@ -2751,10 +2583,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.948Z',
-    updated_at: '2017-07-05T19:47:55.948Z'
+    created_at: '2017-07-07T19:37:57.480Z',
+    updated_at: '2017-07-07T19:37:57.480Z'
   }, {
-    id: 230,
+    id: 216,
     team_id: 1,
     first_name: 'Tiffany',
     last_name: 'Wu',
@@ -2763,10 +2595,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.948Z',
-    updated_at: '2017-07-05T19:47:55.948Z'
+    created_at: '2017-07-07T19:37:57.480Z',
+    updated_at: '2017-07-07T19:37:57.480Z'
   }, {
-    id: 231,
+    id: 217,
     team_id: 1,
     first_name: 'Abbey',
     last_name: 'Yatsko',
@@ -2775,10 +2607,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.948Z',
-    updated_at: '2017-07-05T19:47:55.948Z'
+    created_at: '2017-07-07T19:37:57.480Z',
+    updated_at: '2017-07-07T19:37:57.480Z'
   }, {
-    id: 232,
+    id: 218,
     team_id: 1,
     first_name: 'Eunice',
     last_name: 'Yoon',
@@ -2787,10 +2619,10 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.948Z',
-    updated_at: '2017-07-05T19:47:55.948Z'
+    created_at: '2017-07-07T19:37:57.480Z',
+    updated_at: '2017-07-07T19:37:57.480Z'
   }, {
-    id: 233,
+    id: 219,
     team_id: 1,
     first_name: 'Siming',
     last_name: 'Zou',
@@ -2799,7 +2631,7 @@ exports.default = {
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: true,
     photo_id: null,
-    created_at: '2017-07-05T19:47:55.948Z',
-    updated_at: '2017-07-05T19:47:55.948Z'
+    created_at: '2017-07-07T19:37:57.480Z',
+    updated_at: '2017-07-07T19:37:57.480Z'
   }]
 };

@@ -45,60 +45,72 @@ const import_20170622 = async () => {
 
     const userData = employees.reduce((data, record) => {
 
-      const user_id = (data.users.length + 1)
+      const user = _.find(data.users, { email: `${record[2]}@cornell.edu` })
 
-      const filename = `${record[2]}.jpg`
+      let user_id = null
 
-      const filepath = path.join(__dirname, '..', '..', '..', 'data', 'photos', filename)
+      if(!user) {
 
-      const photoExists = fs.existsSync(filepath)
+        user_id = (data.users.length + 1)
 
-      const asset_id = photoExists ? (data.assets.length + 1) : null
+        const filename = `${record[2]}.jpg`
 
-      if(photoExists) {
+        const filepath = path.join(__dirname, '..', '..', '..', 'data', 'photos', filename)
 
-        data.assets.push({
-          id: asset_id,
+        const photoExists = fs.existsSync(filepath)
+
+        const asset_id = photoExists ? (data.assets.length + 1) : null
+
+        if(photoExists) {
+
+          data.assets.push({
+            id: asset_id,
+            team_id: 1,
+            original_file_name: filename,
+            file_name: filename,
+            content_type: mime.lookup(filepath),
+            file_size: fs.statSync(filepath).size,
+            chunks_total: 1,
+            created_at: moment(),
+            updated_at: moment()
+          })
+
+        }
+
+        data.users.push({
+          id: user_id,
           team_id: 1,
-          original_file_name: filename,
-          file_name: filename,
-          content_type: mime.lookup(filepath),
-          file_size: fs.statSync(filepath).size,
-          chunks_total: 1,
+          first_name: record[0],
+          last_name: record[1],
+          email: `${record[2]}@cornell.edu`,
+          password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+          password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+          is_active: true,
+          photo_id: asset_id,
           created_at: moment(),
           updated_at: moment()
         })
 
-      }
+        const roles = [4,5,6,7,8]
 
-      data.users.push({
-        id: user_id,
-        team_id: 1,
-        first_name: record[0],
-        last_name: record[1],
-        email: `${record[2]}@cornell.edu`,
-        password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-        password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-        is_active: true,
-        photo_id: asset_id,
-        created_at: moment(),
-        updated_at: moment()
-      })
+        roles.map(index => {
+          if(record[index] == 1) {
+            data.users_roles.push({
+              user_id,
+              role_id: index - 3
+            })
+          }
+        })
+
+      } else {
+
+        user_id = user.id
+
+      }
 
       if(!supervisors[record[3]]) supervisors[record[3]] = []
 
       supervisors[record[3]].push(user_id)
-
-      const roles = [4,5,6,7,8]
-
-      roles.map(index => {
-        if(record[index] == 1) {
-          data.users_roles.push({
-            user_id,
-            role_id: index - 3
-          })
-        }
-      })
 
       return data
 

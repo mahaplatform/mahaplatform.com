@@ -4,158 +4,158 @@ export default {
     {
       team_id: 1,
       user_id: 2,
-      created_at: '2017-07-05T19:47:55.949Z',
-      updated_at: '2017-07-05T19:47:55.949Z'
+      created_at: '2017-07-07T19:37:57.481Z',
+      updated_at: '2017-07-07T19:37:57.481Z'
     },
     {
       team_id: 1,
-      user_id: 184,
-      created_at: '2017-07-05T19:47:55.950Z',
-      updated_at: '2017-07-05T19:47:55.950Z'
-    },
-    {
-      team_id: 1,
-      user_id: 37,
-      created_at: '2017-07-05T19:47:55.950Z',
-      updated_at: '2017-07-05T19:47:55.950Z'
-    },
-    {
-      team_id: 1,
-      user_id: 25,
-      created_at: '2017-07-05T19:47:55.950Z',
-      updated_at: '2017-07-05T19:47:55.950Z'
-    },
-    {
-      team_id: 1,
-      user_id: 129,
-      created_at: '2017-07-05T19:47:55.951Z',
-      updated_at: '2017-07-05T19:47:55.951Z'
+      user_id: 174,
+      created_at: '2017-07-07T19:37:57.481Z',
+      updated_at: '2017-07-07T19:37:57.481Z'
     },
     {
       team_id: 1,
       user_id: 35,
-      created_at: '2017-07-05T19:47:55.951Z',
-      updated_at: '2017-07-05T19:47:55.951Z'
+      created_at: '2017-07-07T19:37:57.482Z',
+      updated_at: '2017-07-07T19:37:57.482Z'
     },
     {
       team_id: 1,
-      user_id: 202,
-      created_at: '2017-07-05T19:47:55.951Z',
-      updated_at: '2017-07-05T19:47:55.951Z'
+      user_id: 23,
+      created_at: '2017-07-07T19:37:57.482Z',
+      updated_at: '2017-07-07T19:37:57.482Z'
     },
     {
       team_id: 1,
-      user_id: 30,
-      created_at: '2017-07-05T19:47:55.951Z',
-      updated_at: '2017-07-05T19:47:55.951Z'
+      user_id: 122,
+      created_at: '2017-07-07T19:37:57.482Z',
+      updated_at: '2017-07-07T19:37:57.482Z'
     },
     {
       team_id: 1,
-      user_id: 108,
-      created_at: '2017-07-05T19:47:55.951Z',
-      updated_at: '2017-07-05T19:47:55.951Z'
+      user_id: 33,
+      created_at: '2017-07-07T19:37:57.483Z',
+      updated_at: '2017-07-07T19:37:57.483Z'
     },
     {
       team_id: 1,
-      user_id: 105,
-      created_at: '2017-07-05T19:47:55.951Z',
-      updated_at: '2017-07-05T19:47:55.951Z'
+      user_id: 190,
+      created_at: '2017-07-07T19:37:57.483Z',
+      updated_at: '2017-07-07T19:37:57.483Z'
     },
     {
       team_id: 1,
-      user_id: 212,
-      created_at: '2017-07-05T19:47:55.951Z',
-      updated_at: '2017-07-05T19:47:55.951Z'
+      user_id: 28,
+      created_at: '2017-07-07T19:37:57.483Z',
+      updated_at: '2017-07-07T19:37:57.483Z'
     },
     {
       team_id: 1,
-      user_id: 145,
-      created_at: '2017-07-05T19:47:55.952Z',
-      updated_at: '2017-07-05T19:47:55.952Z'
+      user_id: 103,
+      created_at: '2017-07-07T19:37:57.483Z',
+      updated_at: '2017-07-07T19:37:57.483Z'
     },
     {
       team_id: 1,
-      user_id: 149,
-      created_at: '2017-07-05T19:47:55.952Z',
-      updated_at: '2017-07-05T19:47:55.952Z'
+      user_id: 100,
+      created_at: '2017-07-07T19:37:57.483Z',
+      updated_at: '2017-07-07T19:37:57.483Z'
     },
     {
       team_id: 1,
-      user_id: 178,
-      created_at: '2017-07-05T19:47:55.952Z',
-      updated_at: '2017-07-05T19:47:55.952Z'
+      user_id: 200,
+      created_at: '2017-07-07T19:37:57.483Z',
+      updated_at: '2017-07-07T19:37:57.483Z'
     },
     {
       team_id: 1,
-      user_id: 109,
-      created_at: '2017-07-05T19:47:55.952Z',
-      updated_at: '2017-07-05T19:47:55.952Z'
+      user_id: 138,
+      created_at: '2017-07-07T19:37:57.483Z',
+      updated_at: '2017-07-07T19:37:57.483Z'
     },
     {
       team_id: 1,
-      user_id: 96,
-      created_at: '2017-07-05T19:47:55.952Z',
-      updated_at: '2017-07-05T19:47:55.952Z'
+      user_id: 142,
+      created_at: '2017-07-07T19:37:57.484Z',
+      updated_at: '2017-07-07T19:37:57.484Z'
     },
     {
       team_id: 1,
-      user_id: 195,
-      created_at: '2017-07-05T19:47:55.952Z',
-      updated_at: '2017-07-05T19:47:55.952Z'
+      user_id: 169,
+      created_at: '2017-07-07T19:37:57.484Z',
+      updated_at: '2017-07-07T19:37:57.484Z'
     },
     {
       team_id: 1,
-      user_id: 67,
-      created_at: '2017-07-05T19:47:55.952Z',
-      updated_at: '2017-07-05T19:47:55.952Z'
+      user_id: 104,
+      created_at: '2017-07-07T19:37:57.484Z',
+      updated_at: '2017-07-07T19:37:57.484Z'
     },
     {
       team_id: 1,
-      user_id: 71,
-      created_at: '2017-07-05T19:47:55.952Z',
-      updated_at: '2017-07-05T19:47:55.952Z'
+      user_id: 91,
+      created_at: '2017-07-07T19:37:57.484Z',
+      updated_at: '2017-07-07T19:37:57.484Z'
     },
     {
       team_id: 1,
-      user_id: 97,
-      created_at: '2017-07-05T19:47:55.952Z',
-      updated_at: '2017-07-05T19:47:55.952Z'
+      user_id: 183,
+      created_at: '2017-07-07T19:37:57.484Z',
+      updated_at: '2017-07-07T19:37:57.484Z'
     },
     {
       team_id: 1,
-      user_id: 139,
-      created_at: '2017-07-05T19:47:55.952Z',
-      updated_at: '2017-07-05T19:47:55.952Z'
+      user_id: 64,
+      created_at: '2017-07-07T19:37:57.484Z',
+      updated_at: '2017-07-07T19:37:57.484Z'
     },
     {
       team_id: 1,
-      user_id: 59,
-      created_at: '2017-07-05T19:47:55.952Z',
-      updated_at: '2017-07-05T19:47:55.952Z'
+      user_id: 68,
+      created_at: '2017-07-07T19:37:57.484Z',
+      updated_at: '2017-07-07T19:37:57.484Z'
     },
     {
       team_id: 1,
-      user_id: 86,
-      created_at: '2017-07-05T19:47:55.952Z',
-      updated_at: '2017-07-05T19:47:55.952Z'
+      user_id: 92,
+      created_at: '2017-07-07T19:37:57.484Z',
+      updated_at: '2017-07-07T19:37:57.484Z'
+    },
+    {
+      team_id: 1,
+      user_id: 132,
+      created_at: '2017-07-07T19:37:57.484Z',
+      updated_at: '2017-07-07T19:37:57.484Z'
+    },
+    {
+      team_id: 1,
+      user_id: 56,
+      created_at: '2017-07-07T19:37:57.484Z',
+      updated_at: '2017-07-07T19:37:57.484Z'
+    },
+    {
+      team_id: 1,
+      user_id: 82,
+      created_at: '2017-07-07T19:37:57.484Z',
+      updated_at: '2017-07-07T19:37:57.484Z'
     },
     {
       team_id: 1,
       user_id: 1,
-      created_at: '2017-07-05T19:47:55.952Z',
-      updated_at: '2017-07-05T19:47:55.952Z'
+      created_at: '2017-07-07T19:37:57.484Z',
+      updated_at: '2017-07-07T19:37:57.484Z'
     },
     {
       team_id: 1,
-      user_id: 141,
-      created_at: '2017-07-05T19:47:55.952Z',
-      updated_at: '2017-07-05T19:47:55.953Z'
+      user_id: 134,
+      created_at: '2017-07-07T19:37:57.484Z',
+      updated_at: '2017-07-07T19:37:57.484Z'
     },
     {
       team_id: 1,
-      user_id: 128,
-      created_at: '2017-07-05T19:47:55.953Z',
-      updated_at: '2017-07-05T19:47:55.953Z'
+      user_id: 121,
+      created_at: '2017-07-07T19:37:57.485Z',
+      updated_at: '2017-07-07T19:37:57.485Z'
     }
   ]
 }

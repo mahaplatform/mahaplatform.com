@@ -13,7 +13,7 @@ exports.default = {
     content_type: 'image/jpeg',
     file_size: 17449,
     chunks_total: 1,
-    created_at: '2017-07-05T19:47:55.930Z',
-    updated_at: '2017-07-05T19:47:55.931Z'
+    created_at: '2017-07-07T19:37:57.453Z',
+    updated_at: '2017-07-07T19:37:57.454Z'
   }]
 };
