@@ -9,6 +9,7 @@ exports.default = {
     id: 1,
     title: 'CCE Tompkins',
     subdomain: 'ccetompkins',
+    color: 'red',
     logo_id: 1
   }]
 };
