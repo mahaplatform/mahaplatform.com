@@ -17,7 +17,7 @@
   "homepage": "https://github.com/ccetc/mycce2#readme",
   "dependencies": {
     "aws-sdk": "^2.86.0",
-    "maha": "^0.2.0",
+    "maha": "github:mahaplatform/maha",
     "maha-competencies": "github:ccetc/maha-competencies",
     "maha-eatfresh": "github:ccetc/maha-eatfresh",
     "maha-expenses": "github:ccetc/maha-expenses"
