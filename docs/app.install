@@ -60,7 +60,14 @@ vi /etc/fstab
 
 # SET UP APP
 cd /var/www
-git clone git@github.com:ccetc/mycce2.git app
-cd app
+mkdir maha
+cd maha
+git clone git@github.com:ccetc/mycce2.git release
+cd release
 npm install
-npm install -g
+cd ./node_modules/maha
+npm link
+cd ../..
+maha db:migrate:up
+maha db:seeds:load
+maha start
