@@ -7,7 +7,6 @@ module.exports = function (shipit) {
   shipit.task('deploy', function () {
     const commands = [
       'cd /var/www/app',
-      'git reset --hard origin/master',
       'git pull',
       'npm install',
       'npm run build',

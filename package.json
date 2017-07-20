@@ -18,9 +18,9 @@
   "dependencies": {
     "aws-sdk": "^2.86.0",
     "maha": "^0.0.12",
-    "maha-competencies": "^0.0.8",
-    "maha-eatfresh": "^0.0.2",
-    "maha-expenses": "^0.0.2"
+    "maha-competencies": "^0.1.0",
+    "maha-eatfresh": "^0.1.0",
+    "maha-expenses": "^0.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

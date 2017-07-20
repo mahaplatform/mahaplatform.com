@@ -30,6 +30,16 @@ cd node-v8.2.0
 make
 make install
 
+# INSTALL RUBY
+gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
+curl -sSL https://get.rvm.io | bash -s stable --ruby
+source /usr/local/rvm/scripts/rvm
+gem update
+
+# INSTALL PASSENGER
+gem install passenger --no-ri --no-rdoc
+
+
 # SET UP DEPLOYMENT
 yum -y install git
 vi ~/.ssh/deploy
@@ -45,3 +55,6 @@ vi /etc/fstab
 # SET UP APP
 cd /var/www
 git clone git@github.com:ccetc/mycce2.git app
+cd app
+npm install
+npm install -g
