@@ -1,5 +1,4 @@
 import { Task } from 'maha'
-import Promise from 'bluebird'
 import fs from 'fs'
 import path from 'path'
 import parse from 'csv-parse/lib/sync'

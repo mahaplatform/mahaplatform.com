@@ -17,10 +17,10 @@
   "homepage": "https://github.com/ccetc/mycce2#readme",
   "dependencies": {
     "aws-sdk": "^2.86.0",
-    "maha": "^0.0.12",
-    "maha-competencies": "^0.1.0",
-    "maha-eatfresh": "^0.1.0",
-    "maha-expenses": "^0.1.0"
+    "maha": "^0.2.0",
+    "maha-competencies": "github:ccetc/maha-competencies",
+    "maha-eatfresh": "github:ccetc/maha-eatfresh",
+    "maha-expenses": "github:ccetc/maha-expenses"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

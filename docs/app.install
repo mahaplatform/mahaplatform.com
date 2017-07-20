@@ -36,9 +36,15 @@ curl -sSL https://get.rvm.io | bash -s stable --ruby
 source /usr/local/rvm/scripts/rvm
 gem update
 
-# INSTALL PASSENGER
+# INSTALL PASSENGER / NGINX
+yum install -y libcurl-devel
 gem install passenger --no-ri --no-rdoc
-
+passenger-install-nginx-module --auto --auto-download --languages nodejs
+vi /opt/nginx/conf/nginx.conf
+chmod 755 /etc/init.d/nginx
+sudo chkconfig nginx on
+sudo chkconfig --list nginx
+sudo service nginx start
 
 # SET UP DEPLOYMENT
 yum -y install git
