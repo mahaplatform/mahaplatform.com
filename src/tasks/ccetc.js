@@ -6,6 +6,7 @@ import parse from 'csv-parse/lib/sync'
 import moment from 'moment'
 import _ from 'lodash'
 import mime from 'mime-types'
+import aws from 'aws-sdk'
 
 export default (commander) => {
 
@@ -27,6 +28,7 @@ const import_20170622 = async () => {
     const expenses = toMatrix('20170622/expense_types.tsv', '|')
     const members = toMatrix('20170622/members.tsv', '|')
     const competencies = toMatrix('20170622/competencies.tsv', '\t')
+    const expectations = toMatrix('20170622/expectations.tsv', '\t')
 
     const supervisors = {}
 
@@ -42,7 +44,6 @@ const import_20170622 = async () => {
       updated_at: moment()
     }]
 
-
     const userData = employees.reduce((data, record) => {
 
       const user = _.find(data.users, { email: `${record[2]}@cornell.edu` })
@@ -55,7 +56,7 @@ const import_20170622 = async () => {
 
         const filename = `${record[2]}.jpg`
 
-        const filepath = path.join(__dirname, '..', '..', '..', 'data', 'photos', filename)
+        const filepath = path.join(__dirname, '..', '..', 'files', '20170622', 'photos', filename)
 
         const photoExists = fs.existsSync(filepath)
 
@@ -112,9 +113,24 @@ const import_20170622 = async () => {
 
       supervisors[record[3]].push(user_id)
 
+      if(record[9]) {
+
+        record[9].split(',').map(title => {
+
+          const group = findOrCreate(data.groups, { team_id: 1, title: sanitize(title) }, true)
+
+          data.users_groups.push({
+            user_id,
+            group_id: group.id
+          })
+
+        })
+
+      }
+
       return data
 
-    }, { assets, users: [], users_roles: [] })
+    }, { assets, users: [], users_roles: [], groups: [], users_groups: [] })
 
     const supervisorData = Object.keys(supervisors).reduce((data, name) => {
 
@@ -224,11 +240,11 @@ const import_20170622 = async () => {
 
     const competencyData = competencies.reduce((data, record) => {
 
-      const category = findOrCreate(data.categories, { title: sanitize(record[0]) }, true)
+      const category = findOrCreate(data.categories, { team_id: 1, title: sanitize(record[0]) }, true)
 
-      const competency = findOrCreate(data.competencies, { category_id: category.id, title: sanitize(record[1]), level: parseInt(record[2]), description: sanitize(record[3]) }, true, { title: sanitize(record[1]) })
+      const competency = findOrCreate(data.competencies, { team_id: 1, category_id: category.id, title: sanitize(record[1]), level: parseInt(record[2]), description: sanitize(record[3]) }, true, { title: sanitize(record[1]) })
 
-      const resource = findOrCreate(data.resources, { title: sanitize(record[4]), description: sanitize(record[5]), url: record[6] }, true, { title: sanitize(record[4]) })
+      const resource = findOrCreate(data.resources, { team_id: 1, title: sanitize(record[4]), description: sanitize(record[5]), url: record[6] }, true, { title: sanitize(record[4]) })
 
       data.competencies_resources.push({
         competency_id: competency.id,
@@ -239,11 +255,34 @@ const import_20170622 = async () => {
 
     }, { categories: [], competencies: [], resources: [], competencies_resources: [] })
 
-    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'assets.js'), `export default ${toJSON({ tableName: 'maha_assets', records: userData.assets })}`)
+    const expectationsData = expectations.reduce((data, record, index) => {
+
+      const competency = findOrCreate(competencyData.competencies, { team_id: 1, title: sanitize(record[2]), level: parseInt(record[3]) }, true)
+
+      const classification = findOrCreate(data.classifications, { team_id: 1, title: sanitize(record[0]) }, true)
+
+      const program = findOrCreate(data.programs, { team_id: 1, title: sanitize(record[1]) }, true)
+
+      data.expectations.push({
+        team_id: 1,
+        classification_id: classification.id,
+        program_id: program.id,
+        competency_id: competency.id
+      })
+
+      return data
+
+    }, { expectations: [], classifications: [], programs: [] })
+
+    writeFile('assets', 'maha_assets', userData.assets)
 
     await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'users.js'), `export default ${toJSON({ tableName: 'maha_users', records: userData.users })}`)
 
     await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'users_roles.js'), `export default ${toJSON({ tableName: 'maha_users_roles', records: userData.users_roles })}`)
+
+    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'groups.js'), `export default ${toJSON({ tableName: 'maha_groups', records: userData.groups })}`)
+
+    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'users_groups.js'), `export default ${toJSON({ tableName: 'maha_users_groups', records: userData.users_groups })}`)
 
     await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'projects.js'), `export default ${toJSON({ tableName: 'expenses_projects', records: projectData.projects })}`)
 
@@ -263,11 +302,49 @@ const import_20170622 = async () => {
 
     await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'competencies_resources.js'), `export default ${toJSON({ tableName: 'competencies_competencies_resources', records: competencyData.competencies_resources })}`)
 
+    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'classifications.js'), `export default ${toJSON({ tableName: 'competencies_classifications', records: expectationsData.classifications })}`)
+
+    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'programs.js'), `export default ${toJSON({ tableName: 'competencies_programs', records: expectationsData.programs })}`)
+
+    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'expectations.js'), `export default ${toJSON({ tableName: 'competencies_expectations', records: expectationsData.expectations })}`)
+
+    aws.config.constructor({
+      accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
+      region: process.env.AWS_REGION || ''
+    })
+
+    const s3 = new aws.S3()
+
+    await Promise.map(userData.assets, async asset => {
+
+      const filename = asset.file_name
+
+      const contentType = asset.content_type
+
+      const filepath = path.join(__dirname, '..', '..', 'files', '20170622', 'photos', asset.file_name)
+
+      await s3.upload({
+        Bucket: process.env.AWS_BUCKET,
+        Key: `assets/${asset.id}/${asset.file_name}`,
+        ACL: 'public-read',
+        Body: fs.readFileSync(filepath),
+        ContentType: contentType
+      }).promise()
+
+    })
+
   } catch(e) {
 
     console.log(e)
 
   }
+
+}
+
+const writeFile = (name, tableName, records) => {
+
+  fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', `${name}.js`), `export default ${toJSON({ tableName, records })}`)
 
 }
 

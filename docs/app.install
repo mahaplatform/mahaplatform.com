@@ -1,0 +1,47 @@
+AMI: ami-935662fa
+
+# CONFIGURE ROOT ACCESS
+sudo sed -i 's/#PermitRootLogin/PermitRootLogin/' /etc/ssh/sshd_config
+sudo sed -i 's/.*ssh-rsa/ssh-rsa/' /root/.ssh/authorized_keys
+sudo service sshd restart
+
+# UPDATE SERVER
+yum -y update
+
+# INSTALL NTP
+ntpdate -s time.nist.gov
+sudo chkconfig ntpd on
+sudo chkconfig --list ntpd
+sudo service ntpd start
+rm /etc/localtime
+ln -s /usr/share/zoneinfo/US/Eastern /etc/localtime
+
+# INSTALL DEVTOOLSET-3
+sudo curl http://linuxsoft.cern.ch/cern/scl/slc6-scl.repo > /etc/yum.repos.d/slc6-scl.repo
+rpm --import http://linuxsoft.cern.ch/cern/slc6X/x86_64/RPM-GPG-KEY-cern
+sudo yum install -y devtoolset-3
+scl enable devtoolset-3 bash
+
+# INSTALL NODEJS
+wget https://nodejs.org/dist/v8.2.0/node-v8.2.0.tar.gz
+tar xzf node-v8.2.0.tar.gz
+cd node-v8.2.0
+./configure
+make
+make install
+
+# SET UP DEPLOYMENT
+yum -y install git
+vi ~/.ssh/deploy
+chmod 600 ~/.ssh/deploy
+vi ~/.ssh/config
+
+# SET UP STORAGE
+mkdir /var/www
+umount /media/ephemeral0
+mount /dev/xvdb /var/www
+vi /etc/fstab
+
+# SET UP APP
+cd /var/www
+git clone git@github.com:ccetc/mycce2.git app

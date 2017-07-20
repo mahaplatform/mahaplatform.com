@@ -58,6 +58,10 @@ var _mimeTypes = require('mime-types');
 
 var _mimeTypes2 = _interopRequireDefault(_mimeTypes);
 
+var _awsSdk = require('aws-sdk');
+
+var _awsSdk2 = _interopRequireDefault(_awsSdk);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (commander) {
@@ -71,18 +75,19 @@ exports.default = function (commander) {
 };
 
 var import_20170622 = function () {
-  var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee() {
-    var employees, projects, expenses, members, competencies, supervisors, assets, userData, supervisorData, projectData, expenseData, memberData, competencyData;
-    return _regenerator2.default.wrap(function _callee$(_context) {
+  var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
+    var employees, projects, expenses, members, competencies, expectations, supervisors, assets, userData, supervisorData, projectData, expenseData, memberData, competencyData, expectationsData, s3;
+    return _regenerator2.default.wrap(function _callee2$(_context2) {
       while (1) {
-        switch (_context.prev = _context.next) {
+        switch (_context2.prev = _context2.next) {
           case 0:
-            _context.prev = 0;
+            _context2.prev = 0;
             employees = toMatrix('20170622/employees.tsv', '\t');
             projects = toMatrix('20170622/projects.tsv', '\t');
             expenses = toMatrix('20170622/expense_types.tsv', '|');
             members = toMatrix('20170622/members.tsv', '|');
             competencies = toMatrix('20170622/competencies.tsv', '\t');
+            expectations = toMatrix('20170622/expectations.tsv', '\t');
             supervisors = {};
             assets = [{
               id: 1,
@@ -107,7 +112,7 @@ var import_20170622 = function () {
 
                 var filename = record[2] + '.jpg';
 
-                var filepath = _path2.default.join(__dirname, '..', '..', '..', 'data', 'photos', filename);
+                var filepath = _path2.default.join(__dirname, '..', '..', 'files', '20170622', 'photos', filename);
 
                 var photoExists = _fs2.default.existsSync(filepath);
 
@@ -161,8 +166,21 @@ var import_20170622 = function () {
 
               supervisors[record[3]].push(user_id);
 
+              if (record[9]) {
+
+                record[9].split(',').map(function (title) {
+
+                  var group = findOrCreate(data.groups, { team_id: 1, title: sanitize(title) }, true);
+
+                  data.users_groups.push({
+                    user_id: user_id,
+                    group_id: group.id
+                  });
+                });
+              }
+
               return data;
-            }, { assets: assets, users: [], users_roles: [] });
+            }, { assets: assets, users: [], users_roles: [], groups: [], users_groups: [] });
             supervisorData = (0, _keys2.default)(supervisors).reduce(function (data, name) {
               var _name$match = name.match(/(.*) (.*)/),
                   _name$match2 = (0, _slicedToArray3.default)(_name$match, 3),
@@ -263,11 +281,11 @@ var import_20170622 = function () {
             }, { members: projectData.members });
             competencyData = competencies.reduce(function (data, record) {
 
-              var category = findOrCreate(data.categories, { title: sanitize(record[0]) }, true);
+              var category = findOrCreate(data.categories, { team_id: 1, title: sanitize(record[0]) }, true);
 
-              var competency = findOrCreate(data.competencies, { category_id: category.id, title: sanitize(record[1]), level: parseInt(record[2]), description: sanitize(record[3]) }, true, { title: sanitize(record[1]) });
+              var competency = findOrCreate(data.competencies, { team_id: 1, category_id: category.id, title: sanitize(record[1]), level: parseInt(record[2]), description: sanitize(record[3]) }, true, { title: sanitize(record[1]) });
 
-              var resource = findOrCreate(data.resources, { title: sanitize(record[4]), description: sanitize(record[5]), url: record[6] }, true, { title: sanitize(record[4]) });
+              var resource = findOrCreate(data.resources, { team_id: 1, title: sanitize(record[4]), description: sanitize(record[5]), url: record[6] }, true, { title: sanitize(record[4]) });
 
               data.competencies_resources.push({
                 competency_id: competency.id,
@@ -276,76 +294,160 @@ var import_20170622 = function () {
 
               return data;
             }, { categories: [], competencies: [], resources: [], competencies_resources: [] });
-            _context.next = 16;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'assets.js'), 'export default ' + toJSON({ tableName: 'maha_assets', records: userData.assets }));
+            expectationsData = expectations.reduce(function (data, record, index) {
 
-          case 16:
-            _context.next = 18;
+              var competency = findOrCreate(competencyData.competencies, { team_id: 1, title: sanitize(record[2]), level: parseInt(record[3]) }, true);
+
+              var classification = findOrCreate(data.classifications, { team_id: 1, title: sanitize(record[0]) }, true);
+
+              var program = findOrCreate(data.programs, { team_id: 1, title: sanitize(record[1]) }, true);
+
+              data.expectations.push({
+                team_id: 1,
+                classification_id: classification.id,
+                program_id: program.id,
+                competency_id: competency.id
+              });
+
+              return data;
+            }, { expectations: [], classifications: [], programs: [] });
+
+
+            writeFile('assets', 'maha_assets', userData.assets);
+
+            _context2.next = 19;
             return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'users.js'), 'export default ' + toJSON({ tableName: 'maha_users', records: userData.users }));
 
-          case 18:
-            _context.next = 20;
+          case 19:
+            _context2.next = 21;
             return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'users_roles.js'), 'export default ' + toJSON({ tableName: 'maha_users_roles', records: userData.users_roles }));
 
-          case 20:
-            _context.next = 22;
+          case 21:
+            _context2.next = 23;
+            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'groups.js'), 'export default ' + toJSON({ tableName: 'maha_groups', records: userData.groups }));
+
+          case 23:
+            _context2.next = 25;
+            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'users_groups.js'), 'export default ' + toJSON({ tableName: 'maha_users_groups', records: userData.users_groups }));
+
+          case 25:
+            _context2.next = 27;
             return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'projects.js'), 'export default ' + toJSON({ tableName: 'expenses_projects', records: projectData.projects }));
 
-          case 22:
-            _context.next = 24;
+          case 27:
+            _context2.next = 29;
             return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'members.js'), 'export default ' + toJSON({ tableName: 'expenses_members', records: memberData.members }));
 
-          case 24:
-            _context.next = 26;
+          case 29:
+            _context2.next = 31;
             return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'expense_types.js'), 'export default ' + toJSON({ tableName: 'expenses_expense_types', records: expenseData.expense_types }));
 
-          case 26:
-            _context.next = 28;
+          case 31:
+            _context2.next = 33;
             return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'supervisors.js'), 'export default ' + toJSON({ tableName: 'competencies_supervisors', records: supervisorData.supervisors }));
 
-          case 28:
-            _context.next = 30;
+          case 33:
+            _context2.next = 35;
             return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'supervisions.js'), 'export default ' + toJSON({ tableName: 'competencies_supervisions', records: supervisorData.supervisions }));
 
-          case 30:
-            _context.next = 32;
+          case 35:
+            _context2.next = 37;
             return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'categories.js'), 'export default ' + toJSON({ tableName: 'competencies_categories', records: competencyData.categories }));
 
-          case 32:
-            _context.next = 34;
+          case 37:
+            _context2.next = 39;
             return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'competencies.js'), 'export default ' + toJSON({ tableName: 'competencies_competencies', records: competencyData.competencies }));
 
-          case 34:
-            _context.next = 36;
+          case 39:
+            _context2.next = 41;
             return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'resources.js'), 'export default ' + toJSON({ tableName: 'competencies_resources', records: competencyData.resources }));
 
-          case 36:
-            _context.next = 38;
+          case 41:
+            _context2.next = 43;
             return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'competencies_resources.js'), 'export default ' + toJSON({ tableName: 'competencies_competencies_resources', records: competencyData.competencies_resources }));
 
-          case 38:
-            _context.next = 43;
+          case 43:
+            _context2.next = 45;
+            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'classifications.js'), 'export default ' + toJSON({ tableName: 'competencies_classifications', records: expectationsData.classifications }));
+
+          case 45:
+            _context2.next = 47;
+            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'programs.js'), 'export default ' + toJSON({ tableName: 'competencies_programs', records: expectationsData.programs }));
+
+          case 47:
+            _context2.next = 49;
+            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'expectations.js'), 'export default ' + toJSON({ tableName: 'competencies_expectations', records: expectationsData.expectations }));
+
+          case 49:
+
+            _awsSdk2.default.config.constructor({
+              accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
+              secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY || '',
+              region: process.env.AWS_REGION || ''
+            });
+
+            s3 = new _awsSdk2.default.S3();
+            _context2.next = 53;
+            return _bluebird2.default.map(userData.assets, function () {
+              var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(asset) {
+                var filename, contentType, filepath;
+                return _regenerator2.default.wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        filename = asset.file_name;
+                        contentType = asset.content_type;
+                        filepath = _path2.default.join(__dirname, '..', '..', 'files', '20170622', 'photos', asset.file_name);
+                        _context.next = 5;
+                        return s3.upload({
+                          Bucket: process.env.AWS_BUCKET,
+                          Key: 'assets/' + asset.id + '/' + asset.file_name,
+                          ACL: 'public-read',
+                          Body: _fs2.default.readFileSync(filepath),
+                          ContentType: contentType
+                        }).promise();
+
+                      case 5:
+                      case 'end':
+                        return _context.stop();
+                    }
+                  }
+                }, _callee, undefined);
+              }));
+
+              return function (_x) {
+                return _ref2.apply(this, arguments);
+              };
+            }());
+
+          case 53:
+            _context2.next = 58;
             break;
 
-          case 40:
-            _context.prev = 40;
-            _context.t0 = _context['catch'](0);
+          case 55:
+            _context2.prev = 55;
+            _context2.t0 = _context2['catch'](0);
 
 
-            console.log(_context.t0);
+            console.log(_context2.t0);
 
-          case 43:
+          case 58:
           case 'end':
-            return _context.stop();
+            return _context2.stop();
         }
       }
-    }, _callee, undefined, [[0, 40]]);
+    }, _callee2, undefined, [[0, 55]]);
   }));
 
   return function import_20170622() {
     return _ref.apply(this, arguments);
   };
 }();
+
+var writeFile = function writeFile(name, tableName, records) {
+
+  _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', name + '.js'), 'export default ' + toJSON({ tableName: tableName, records: records }));
+};
 
 var toJSON = function toJSON(object) {
   return (0, _stringify2.default)(object, null, '  ').replace(/\"(\w*)\"\:/g, '$1:').replace(/\"/g, '\'');
