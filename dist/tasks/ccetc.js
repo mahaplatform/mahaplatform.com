@@ -12,6 +12,8 @@ var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
+var _bluebird = require('bluebird');
+
 var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
@@ -29,10 +31,6 @@ var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
 var _maha = require('maha');
-
-var _bluebird = require('bluebird');
-
-var _bluebird2 = _interopRequireDefault(_bluebird);
 
 var _fs = require('fs');
 
@@ -388,7 +386,7 @@ var import_20170622 = function () {
 
             s3 = new _awsSdk2.default.S3();
             _context2.next = 53;
-            return _bluebird2.default.map(userData.assets, function () {
+            return (0, _bluebird.map)(userData.assets, function () {
               var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(asset) {
                 var filename, contentType, filepath;
                 return _regenerator2.default.wrap(function _callee$(_context) {
