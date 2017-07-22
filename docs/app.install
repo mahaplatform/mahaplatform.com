@@ -23,9 +23,9 @@ sudo yum install -y devtoolset-3
 scl enable devtoolset-3 bash
 
 # INSTALL NODEJS
-wget https://nodejs.org/dist/v8.2.0/node-v8.2.0.tar.gz
-tar xzf node-v8.2.0.tar.gz
-cd node-v8.2.0
+wget https://nodejs.org/dist/v7.2.1/node-v7.2.1.tar.gz
+tar xzf node-v7.2.1.tar.gz
+cd node-v7.2.1
 ./configure
 make
 make install
