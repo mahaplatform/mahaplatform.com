@@ -4,3 +4,4 @@ npm-debug.log
 /public
 data.sqlite3
 deploy.js
+docs/files/deploy
