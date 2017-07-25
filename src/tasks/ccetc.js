@@ -114,15 +114,11 @@ const import_20170622 = async () => {
 
       if(record[9]) {
 
-        record[9].split(',').map(title => {
+        const group = findOrCreate(data.groups, { team_id: 1, title: sanitize(record[9]) }, true)
 
-          const group = findOrCreate(data.groups, { team_id: 1, title: sanitize(title) }, true)
-
-          data.users_groups.push({
-            user_id,
-            group_id: group.id
-          })
-
+        data.users_groups.push({
+          user_id,
+          group_id: group.id
         })
 
       }

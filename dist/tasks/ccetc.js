@@ -166,14 +166,11 @@ var import_20170622 = function () {
 
               if (record[9]) {
 
-                record[9].split(',').map(function (title) {
+                var group = findOrCreate(data.groups, { team_id: 1, title: sanitize(record[9]) }, true);
 
-                  var group = findOrCreate(data.groups, { team_id: 1, title: sanitize(title) }, true);
-
-                  data.users_groups.push({
-                    user_id: user_id,
-                    group_id: group.id
-                  });
+                data.users_groups.push({
+                  user_id: user_id,
+                  group_id: group.id
                 });
               }
 
