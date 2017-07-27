@@ -5,3 +5,5 @@ npm-debug.log
 data.sqlite3
 deploy.js
 docs/files/deploy
+docs/files/*.key
+docs/files/*.crt
