@@ -1,4 +1,4 @@
-export default {
+export default () => ({
   tableName: 'maha_roles',
   records: [
     {
@@ -33,4 +33,4 @@ export default {
       description: 'Users who have adminstrative access to the entire platform'
     }
   ]
-}
+})

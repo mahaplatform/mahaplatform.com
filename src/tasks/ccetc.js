@@ -1,4 +1,3 @@
-import { Task } from 'maha'
 import fs from 'fs'
 import path from 'path'
 import parse from 'csv-parse/lib/sync'
@@ -7,16 +6,13 @@ import _ from 'lodash'
 import mime from 'mime-types'
 import aws from 'aws-sdk'
 
-export default (commander) => {
-
-  Task({
-    commander,
+export default () => [
+  {
     command: 'ccetc:import:20170622',
     description: 'Migrate database',
     processor: import_20170622
-  })
-
-}
+  }
+]
 
 const import_20170622 = async () => {
 
@@ -271,37 +267,37 @@ const import_20170622 = async () => {
 
     writeFile('assets', 'maha_assets', userData.assets)
 
-    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'users.js'), `export default ${toJSON({ tableName: 'maha_users', records: userData.users })}`)
+    writeFile('users', 'maha_users', userData.users)
 
-    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'users_roles.js'), `export default ${toJSON({ tableName: 'maha_users_roles', records: userData.users_roles })}`)
+    writeFile('users_roles', 'maha_users_roles', userData.users_roles)
 
-    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'groups.js'), `export default ${toJSON({ tableName: 'maha_groups', records: userData.groups })}`)
+    writeFile('groups', 'maha_groups', userData.groups)
 
-    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'users_groups.js'), `export default ${toJSON({ tableName: 'maha_users_groups', records: userData.users_groups })}`)
+    writeFile('users_groups', 'maha_users_groups', userData.users_groups)
 
-    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'projects.js'), `export default ${toJSON({ tableName: 'expenses_projects', records: projectData.projects })}`)
+    writeFile('projects', 'expenses_projects', projectData.projects)
 
-    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'members.js'), `export default ${toJSON({ tableName: 'expenses_members', records: memberData.members })}`)
+    writeFile('members', 'expenses_members', memberData.members)
 
-    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'expense_types.js'), `export default ${toJSON({ tableName: 'expenses_expense_types', records: expenseData.expense_types })}`)
+    writeFile('expense_types', 'expenses_expense_types', expenseData.expense_types)
 
-    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'supervisors.js'), `export default ${toJSON({ tableName: 'competencies_supervisors', records: supervisorData.supervisors })}`)
+    writeFile('supervisors', 'competencies_supervisors', supervisorData.supervisors)
 
-    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'supervisions.js'), `export default ${toJSON({ tableName: 'competencies_supervisions', records: supervisorData.supervisions })}`)
+    writeFile('supervisions', 'competencies_supervisions', supervisorData.supervisions)
 
-    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'categories.js'), `export default ${toJSON({ tableName: 'competencies_categories', records: competencyData.categories })}`)
+    writeFile('categories', 'competencies_categories', competencyData.categories)
 
-    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'competencies.js'), `export default ${toJSON({ tableName: 'competencies_competencies', records: competencyData.competencies })}`)
+    writeFile('competencies', 'competencies_competencies', competencyData.competencies)
 
-    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'resources.js'), `export default ${toJSON({ tableName: 'competencies_resources', records: competencyData.resources })}`)
+    writeFile('resources', 'competencies_resources', competencyData.resources)
 
-    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'competencies_resources.js'), `export default ${toJSON({ tableName: 'competencies_competencies_resources', records: competencyData.competencies_resources })}`)
+    writeFile('competencies_resources', 'competencies_competencies_resources', competencyData.competencies_resources)
 
-    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'classifications.js'), `export default ${toJSON({ tableName: 'competencies_classifications', records: expectationsData.classifications })}`)
+    writeFile('classifications', 'competencies_classifications', expectationsData.classifications)
 
-    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'programs.js'), `export default ${toJSON({ tableName: 'competencies_programs', records: expectationsData.programs })}`)
+    writeFile('programs', 'competencies_programs', expectationsData.programs)
 
-    await fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'expectations.js'), `export default ${toJSON({ tableName: 'competencies_expectations', records: expectationsData.expectations })}`)
+    writeFile('expectations', 'competencies_expectations', expectationsData.expectations)
 
     aws.config.constructor({
       accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
@@ -339,7 +335,7 @@ const import_20170622 = async () => {
 
 const writeFile = (name, tableName, records) => {
 
-  fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', `${name}.js`), `export default ${toJSON({ tableName, records })}`)
+  fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', `${name}.js`), `export default () => (${toJSON({ tableName, records })})`)
 
 }
 

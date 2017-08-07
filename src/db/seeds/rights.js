@@ -1,4 +1,4 @@
-export default {
+export default () => ({
   tableName: 'maha_rights',
   records: [
     {
@@ -48,4 +48,4 @@ export default {
       description: 'manage their plans'
     }
   ]
-}
+})

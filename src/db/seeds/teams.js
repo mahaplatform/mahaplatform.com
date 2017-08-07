@@ -1,4 +1,4 @@
-export default {
+export default () => ({
   tableName: 'maha_teams',
   records: [
     {
@@ -10,4 +10,4 @@ export default {
       logo_id: 1
     }
   ]
-}
+})

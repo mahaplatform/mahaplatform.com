@@ -30,8 +30,6 @@ var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
 
-var _maha = require('maha');
-
 var _fs = require('fs');
 
 var _fs2 = _interopRequireDefault(_fs);
@@ -62,14 +60,12 @@ var _awsSdk2 = _interopRequireDefault(_awsSdk);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function (commander) {
-
-  (0, _maha.Task)({
-    commander: commander,
+exports.default = function () {
+  return [{
     command: 'ccetc:import:20170622',
     description: 'Migrate database',
     processor: import_20170622
-  });
+  }];
 };
 
 var import_20170622 = function () {
@@ -310,70 +306,37 @@ var import_20170622 = function () {
 
             writeFile('assets', 'maha_assets', userData.assets);
 
-            _context2.next = 19;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'users.js'), 'export default ' + toJSON({ tableName: 'maha_users', records: userData.users }));
+            writeFile('users', 'maha_users', userData.users);
 
-          case 19:
-            _context2.next = 21;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'users_roles.js'), 'export default ' + toJSON({ tableName: 'maha_users_roles', records: userData.users_roles }));
+            writeFile('users_roles', 'maha_users_roles', userData.users_roles);
 
-          case 21:
-            _context2.next = 23;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'groups.js'), 'export default ' + toJSON({ tableName: 'maha_groups', records: userData.groups }));
+            writeFile('groups', 'maha_groups', userData.groups);
 
-          case 23:
-            _context2.next = 25;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'users_groups.js'), 'export default ' + toJSON({ tableName: 'maha_users_groups', records: userData.users_groups }));
+            writeFile('users_groups', 'maha_users_groups', userData.users_groups);
 
-          case 25:
-            _context2.next = 27;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'projects.js'), 'export default ' + toJSON({ tableName: 'expenses_projects', records: projectData.projects }));
+            writeFile('projects', 'expenses_projects', projectData.projects);
 
-          case 27:
-            _context2.next = 29;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'members.js'), 'export default ' + toJSON({ tableName: 'expenses_members', records: memberData.members }));
+            writeFile('members', 'expenses_members', memberData.members);
 
-          case 29:
-            _context2.next = 31;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'expense_types.js'), 'export default ' + toJSON({ tableName: 'expenses_expense_types', records: expenseData.expense_types }));
+            writeFile('expense_types', 'expenses_expense_types', expenseData.expense_types);
 
-          case 31:
-            _context2.next = 33;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'supervisors.js'), 'export default ' + toJSON({ tableName: 'competencies_supervisors', records: supervisorData.supervisors }));
+            writeFile('supervisors', 'competencies_supervisors', supervisorData.supervisors);
 
-          case 33:
-            _context2.next = 35;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'supervisions.js'), 'export default ' + toJSON({ tableName: 'competencies_supervisions', records: supervisorData.supervisions }));
+            writeFile('supervisions', 'competencies_supervisions', supervisorData.supervisions);
 
-          case 35:
-            _context2.next = 37;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'categories.js'), 'export default ' + toJSON({ tableName: 'competencies_categories', records: competencyData.categories }));
+            writeFile('categories', 'competencies_categories', competencyData.categories);
 
-          case 37:
-            _context2.next = 39;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'competencies.js'), 'export default ' + toJSON({ tableName: 'competencies_competencies', records: competencyData.competencies }));
+            writeFile('competencies', 'competencies_competencies', competencyData.competencies);
 
-          case 39:
-            _context2.next = 41;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'resources.js'), 'export default ' + toJSON({ tableName: 'competencies_resources', records: competencyData.resources }));
+            writeFile('resources', 'competencies_resources', competencyData.resources);
 
-          case 41:
-            _context2.next = 43;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'competencies_resources.js'), 'export default ' + toJSON({ tableName: 'competencies_competencies_resources', records: competencyData.competencies_resources }));
+            writeFile('competencies_resources', 'competencies_competencies_resources', competencyData.competencies_resources);
 
-          case 43:
-            _context2.next = 45;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'classifications.js'), 'export default ' + toJSON({ tableName: 'competencies_classifications', records: expectationsData.classifications }));
+            writeFile('classifications', 'competencies_classifications', expectationsData.classifications);
 
-          case 45:
-            _context2.next = 47;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'programs.js'), 'export default ' + toJSON({ tableName: 'competencies_programs', records: expectationsData.programs }));
+            writeFile('programs', 'competencies_programs', expectationsData.programs);
 
-          case 47:
-            _context2.next = 49;
-            return _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', 'expectations.js'), 'export default ' + toJSON({ tableName: 'competencies_expectations', records: expectationsData.expectations }));
-
-          case 49:
+            writeFile('expectations', 'competencies_expectations', expectationsData.expectations);
 
             _awsSdk2.default.config.constructor({
               accessKeyId: process.env.AWS_ACCESS_KEY_ID || '',
@@ -382,7 +345,7 @@ var import_20170622 = function () {
             });
 
             s3 = new _awsSdk2.default.S3();
-            _context2.next = 53;
+            _context2.next = 37;
             return (0, _bluebird.map)(userData.assets, function () {
               var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(asset) {
                 var filename, contentType, filepath;
@@ -415,23 +378,23 @@ var import_20170622 = function () {
               };
             }());
 
-          case 53:
-            _context2.next = 58;
+          case 37:
+            _context2.next = 42;
             break;
 
-          case 55:
-            _context2.prev = 55;
+          case 39:
+            _context2.prev = 39;
             _context2.t0 = _context2['catch'](0);
 
 
             console.log(_context2.t0);
 
-          case 58:
+          case 42:
           case 'end':
             return _context2.stop();
         }
       }
-    }, _callee2, undefined, [[0, 55]]);
+    }, _callee2, undefined, [[0, 39]]);
   }));
 
   return function import_20170622() {
@@ -441,7 +404,7 @@ var import_20170622 = function () {
 
 var writeFile = function writeFile(name, tableName, records) {
 
-  _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', name + '.js'), 'export default ' + toJSON({ tableName: tableName, records: records }));
+  _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', name + '.js'), 'export default () => (' + toJSON({ tableName: tableName, records: records }) + ')');
 };
 
 var toJSON = function toJSON(object) {

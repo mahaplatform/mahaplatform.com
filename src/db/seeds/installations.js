@@ -1,4 +1,4 @@
-export default {
+export default () => ({
   tableName: 'maha_installations',
   records: [
     {
@@ -25,4 +25,4 @@ export default {
       settings: {}
     }
   ]
-}
+})

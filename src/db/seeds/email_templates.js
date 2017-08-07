@@ -1,4 +1,4 @@
-export default {
+export default () => ({
   tableName: 'maha_email_templates',
   records: [
     {
@@ -17,4 +17,4 @@ export default {
       body: '<p>Hello <%= first_name %>,</p><p>You or someone else requested password reset instructions for the account connected with this email address.</p><p>If you did not request this email, you can ignore it and no changes will be made.</p><div class="email-button"><table border="0" cellpadding="0" cellspacing="0"><tr><td><a href="<%= reset_link %>">Reset Password</a></td></tr></table></div>'
     }
   ]
-}
+})

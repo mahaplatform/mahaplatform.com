@@ -1,4 +1,4 @@
-export default {
+export default () => ({
   tableName: 'maha_apps',
   records: [
     {
@@ -55,4 +55,4 @@ export default {
       weight: 2
     }
   ]
-}
+})

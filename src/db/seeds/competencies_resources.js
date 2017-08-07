@@ -1,4 +1,4 @@
-export default {
+export default () => ({
   tableName: 'competencies_competencies_resources',
   records: [
     {
@@ -802,4 +802,4 @@ export default {
       resource_id: 9
     }
   ]
-}
+})

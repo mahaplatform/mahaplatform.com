@@ -1,4 +1,4 @@
-export default {
+export default () => ({
   tableName: 'maha_app_authors',
   records: [
     {
@@ -7,3 +7,4 @@ export default {
     }
   ]
 }
+)
