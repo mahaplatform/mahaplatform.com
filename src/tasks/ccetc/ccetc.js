@@ -6,15 +6,7 @@ import _ from 'lodash'
 import mime from 'mime-types'
 import aws from 'aws-sdk'
 
-export default () => [
-  {
-    command: 'ccetc:import:20170622',
-    description: 'Migrate database',
-    processor: import_20170622
-  }
-]
-
-const import_20170622 = async () => {
+export const import_20170622 = async () => {
 
   try {
 
