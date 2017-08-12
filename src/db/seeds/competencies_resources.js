@@ -1,4 +1,6 @@
-export default () => ({
+import { fixtures } from 'maha'
+
+const CompetenciesResources = fixtures({
   tableName: 'competencies_competencies_resources',
   records: [
     {
@@ -803,3 +805,6 @@ export default () => ({
     }
   ]
 })
+
+export default CompetenciesResources
+

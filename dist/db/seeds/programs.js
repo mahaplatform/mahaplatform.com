@@ -4,15 +4,17 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-exports.default = function () {
-  return {
-    tableName: 'competencies_programs',
-    records: [{
-      id: 1,
-      team_id: 1,
-      title: '',
-      created_at: '2017-08-07T17:52:53.439Z',
-      updated_at: '2017-08-07T17:52:53.439Z'
-    }]
-  };
-};
+var _maha = require('maha');
+
+var Programs = (0, _maha.fixtures)({
+  tableName: 'competencies_programs',
+  records: [{
+    id: 1,
+    team_id: 1,
+    title: '',
+    created_at: '2017-08-12T14:49:54.270Z',
+    updated_at: '2017-08-12T14:49:54.270Z'
+  }]
+});
+
+exports.default = Programs;

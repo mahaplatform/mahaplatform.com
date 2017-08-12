@@ -43,7 +43,7 @@ export const import_20170622 = async () => {
 
         const filename = `${record[2]}.jpg`
 
-        const filepath = path.join(__dirname, '..', '..', 'files', '20170622', 'photos', filename)
+        const filepath = path.resolve('files', '20170622', 'photos', filename)
 
         const photoExists = fs.existsSync(filepath)
 
@@ -305,7 +305,7 @@ export const import_20170622 = async () => {
 
       const contentType = asset.content_type
 
-      const filepath = path.join(__dirname, '..', '..', 'files', '20170622', 'photos', asset.file_name)
+      const filepath = path.join('files', '20170622', 'photos', asset.file_name)
 
       await s3.upload({
         Bucket: process.env.AWS_BUCKET,
@@ -327,16 +327,19 @@ export const import_20170622 = async () => {
 
 const writeFile = (name, tableName, records) => {
 
-  fs.writeFileSync(path.join(__dirname, '..', '..', 'src', 'db', 'seeds', `${name}.js`), `export default () => (${toJSON({ tableName, records })})`)
+  const object = _.upperFirst(_.camelCase(name))
+
+  fs.writeFileSync(path.join(__dirname, '..', '..', '..', 'src', 'db', 'seeds', `${name}.js`), `import { fixtures } from 'maha'\n\nconst ${object} = fixtures(${toJSON({ tableName, records })})\n\nexport default ${object}\n\n`)
 
 }
+
 
 const toJSON = (object) => {
   return JSON.stringify(object, null, '  ').replace(/\"(\w*)\"\:/g, '$1:').replace(/\"/g, '\'')
 }
 
 const toMatrix = (filename, delimiter) => {
-  return parse(fs.readFileSync(path.join(__dirname, '..', '..', 'files', filename), 'utf8'), { delimiter, quote: '^' })
+  return parse(fs.readFileSync(path.resolve('files', filename), 'utf8'), { delimiter, quote: '^' })
 }
 
 const sanitize = (string) => {

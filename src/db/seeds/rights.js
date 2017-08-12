@@ -1,4 +1,6 @@
-export default () => ({
+import { fixtures } from 'maha'
+
+const Rights = fixtures({
   tableName: 'maha_rights',
   records: [
     {
@@ -49,3 +51,5 @@ export default () => ({
     }
   ]
 })
+
+export default Rights

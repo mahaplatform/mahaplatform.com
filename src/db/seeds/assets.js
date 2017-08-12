@@ -1,4 +1,6 @@
-export default () => ({
+import { fixtures } from 'maha'
+
+const Assets = fixtures({
   tableName: 'maha_assets',
   records: [
     {
@@ -9,8 +11,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 17449,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.394Z',
-      updated_at: '2017-08-07T17:52:53.395Z'
+      created_at: '2017-08-12T14:49:54.224Z',
+      updated_at: '2017-08-12T14:49:54.225Z'
     },
     {
       id: 2,
@@ -20,8 +22,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 24707,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.396Z',
-      updated_at: '2017-08-07T17:52:53.396Z'
+      created_at: '2017-08-12T14:49:54.226Z',
+      updated_at: '2017-08-12T14:49:54.226Z'
     },
     {
       id: 3,
@@ -31,8 +33,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 34620,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.397Z',
-      updated_at: '2017-08-07T17:52:53.397Z'
+      created_at: '2017-08-12T14:49:54.227Z',
+      updated_at: '2017-08-12T14:49:54.227Z'
     },
     {
       id: 4,
@@ -42,8 +44,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 438828,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.398Z',
-      updated_at: '2017-08-07T17:52:53.398Z'
+      created_at: '2017-08-12T14:49:54.228Z',
+      updated_at: '2017-08-12T14:49:54.228Z'
     },
     {
       id: 5,
@@ -53,8 +55,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 29822,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.398Z',
-      updated_at: '2017-08-07T17:52:53.398Z'
+      created_at: '2017-08-12T14:49:54.228Z',
+      updated_at: '2017-08-12T14:49:54.228Z'
     },
     {
       id: 6,
@@ -64,8 +66,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 26850,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.398Z',
-      updated_at: '2017-08-07T17:52:53.398Z'
+      created_at: '2017-08-12T14:49:54.228Z',
+      updated_at: '2017-08-12T14:49:54.228Z'
     },
     {
       id: 7,
@@ -75,8 +77,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 28303,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.398Z',
-      updated_at: '2017-08-07T17:52:53.398Z'
+      created_at: '2017-08-12T14:49:54.228Z',
+      updated_at: '2017-08-12T14:49:54.228Z'
     },
     {
       id: 8,
@@ -86,8 +88,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 611734,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.399Z',
-      updated_at: '2017-08-07T17:52:53.399Z'
+      created_at: '2017-08-12T14:49:54.229Z',
+      updated_at: '2017-08-12T14:49:54.229Z'
     },
     {
       id: 9,
@@ -97,8 +99,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 50003,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.399Z',
-      updated_at: '2017-08-07T17:52:53.399Z'
+      created_at: '2017-08-12T14:49:54.229Z',
+      updated_at: '2017-08-12T14:49:54.229Z'
     },
     {
       id: 10,
@@ -108,8 +110,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 37324,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.399Z',
-      updated_at: '2017-08-07T17:52:53.399Z'
+      created_at: '2017-08-12T14:49:54.229Z',
+      updated_at: '2017-08-12T14:49:54.229Z'
     },
     {
       id: 11,
@@ -119,8 +121,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 29995,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.400Z',
-      updated_at: '2017-08-07T17:52:53.400Z'
+      created_at: '2017-08-12T14:49:54.230Z',
+      updated_at: '2017-08-12T14:49:54.230Z'
     },
     {
       id: 12,
@@ -130,8 +132,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 67714,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.400Z',
-      updated_at: '2017-08-07T17:52:53.400Z'
+      created_at: '2017-08-12T14:49:54.230Z',
+      updated_at: '2017-08-12T14:49:54.230Z'
     },
     {
       id: 13,
@@ -141,8 +143,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 34269,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.400Z',
-      updated_at: '2017-08-07T17:52:53.400Z'
+      created_at: '2017-08-12T14:49:54.230Z',
+      updated_at: '2017-08-12T14:49:54.230Z'
     },
     {
       id: 14,
@@ -152,8 +154,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 43818,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.401Z',
-      updated_at: '2017-08-07T17:52:53.401Z'
+      created_at: '2017-08-12T14:49:54.230Z',
+      updated_at: '2017-08-12T14:49:54.230Z'
     },
     {
       id: 15,
@@ -163,8 +165,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 28625,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.401Z',
-      updated_at: '2017-08-07T17:52:53.401Z'
+      created_at: '2017-08-12T14:49:54.230Z',
+      updated_at: '2017-08-12T14:49:54.230Z'
     },
     {
       id: 16,
@@ -174,8 +176,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 29383,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.401Z',
-      updated_at: '2017-08-07T17:52:53.401Z'
+      created_at: '2017-08-12T14:49:54.230Z',
+      updated_at: '2017-08-12T14:49:54.230Z'
     },
     {
       id: 17,
@@ -185,8 +187,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 44464,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.402Z',
-      updated_at: '2017-08-07T17:52:53.402Z'
+      created_at: '2017-08-12T14:49:54.231Z',
+      updated_at: '2017-08-12T14:49:54.231Z'
     },
     {
       id: 18,
@@ -196,8 +198,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 29630,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.402Z',
-      updated_at: '2017-08-07T17:52:53.402Z'
+      created_at: '2017-08-12T14:49:54.231Z',
+      updated_at: '2017-08-12T14:49:54.231Z'
     },
     {
       id: 19,
@@ -207,8 +209,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 41857,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.402Z',
-      updated_at: '2017-08-07T17:52:53.402Z'
+      created_at: '2017-08-12T14:49:54.231Z',
+      updated_at: '2017-08-12T14:49:54.231Z'
     },
     {
       id: 20,
@@ -218,8 +220,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 29850,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.402Z',
-      updated_at: '2017-08-07T17:52:53.402Z'
+      created_at: '2017-08-12T14:49:54.231Z',
+      updated_at: '2017-08-12T14:49:54.231Z'
     },
     {
       id: 21,
@@ -229,8 +231,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 37486,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.402Z',
-      updated_at: '2017-08-07T17:52:53.402Z'
+      created_at: '2017-08-12T14:49:54.231Z',
+      updated_at: '2017-08-12T14:49:54.231Z'
     },
     {
       id: 22,
@@ -240,8 +242,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 20532,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.402Z',
-      updated_at: '2017-08-07T17:52:53.404Z'
+      created_at: '2017-08-12T14:49:54.232Z',
+      updated_at: '2017-08-12T14:49:54.233Z'
     },
     {
       id: 23,
@@ -251,8 +253,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 36090,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.405Z',
-      updated_at: '2017-08-07T17:52:53.405Z'
+      created_at: '2017-08-12T14:49:54.234Z',
+      updated_at: '2017-08-12T14:49:54.234Z'
     },
     {
       id: 24,
@@ -262,8 +264,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 26726,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.405Z',
-      updated_at: '2017-08-07T17:52:53.405Z'
+      created_at: '2017-08-12T14:49:54.234Z',
+      updated_at: '2017-08-12T14:49:54.234Z'
     },
     {
       id: 25,
@@ -273,8 +275,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 25519,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.405Z',
-      updated_at: '2017-08-07T17:52:53.405Z'
+      created_at: '2017-08-12T14:49:54.234Z',
+      updated_at: '2017-08-12T14:49:54.234Z'
     },
     {
       id: 26,
@@ -284,8 +286,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 40284,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.405Z',
-      updated_at: '2017-08-07T17:52:53.405Z'
+      created_at: '2017-08-12T14:49:54.235Z',
+      updated_at: '2017-08-12T14:49:54.235Z'
     },
     {
       id: 27,
@@ -295,8 +297,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 40335,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.405Z',
-      updated_at: '2017-08-07T17:52:53.405Z'
+      created_at: '2017-08-12T14:49:54.235Z',
+      updated_at: '2017-08-12T14:49:54.235Z'
     },
     {
       id: 28,
@@ -306,8 +308,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 265541,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.405Z',
-      updated_at: '2017-08-07T17:52:53.405Z'
+      created_at: '2017-08-12T14:49:54.235Z',
+      updated_at: '2017-08-12T14:49:54.235Z'
     },
     {
       id: 29,
@@ -317,8 +319,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 23433,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.405Z',
-      updated_at: '2017-08-07T17:52:53.405Z'
+      created_at: '2017-08-12T14:49:54.235Z',
+      updated_at: '2017-08-12T14:49:54.235Z'
     },
     {
       id: 30,
@@ -328,8 +330,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 41924,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.406Z',
-      updated_at: '2017-08-07T17:52:53.406Z'
+      created_at: '2017-08-12T14:49:54.235Z',
+      updated_at: '2017-08-12T14:49:54.235Z'
     },
     {
       id: 31,
@@ -339,8 +341,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 33321,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.406Z',
-      updated_at: '2017-08-07T17:52:53.406Z'
+      created_at: '2017-08-12T14:49:54.235Z',
+      updated_at: '2017-08-12T14:49:54.235Z'
     },
     {
       id: 32,
@@ -350,8 +352,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 26917,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.406Z',
-      updated_at: '2017-08-07T17:52:53.406Z'
+      created_at: '2017-08-12T14:49:54.235Z',
+      updated_at: '2017-08-12T14:49:54.235Z'
     },
     {
       id: 33,
@@ -361,8 +363,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 40021,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.406Z',
-      updated_at: '2017-08-07T17:52:53.406Z'
+      created_at: '2017-08-12T14:49:54.236Z',
+      updated_at: '2017-08-12T14:49:54.236Z'
     },
     {
       id: 34,
@@ -372,8 +374,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 40924,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.406Z',
-      updated_at: '2017-08-07T17:52:53.406Z'
+      created_at: '2017-08-12T14:49:54.236Z',
+      updated_at: '2017-08-12T14:49:54.236Z'
     },
     {
       id: 35,
@@ -383,8 +385,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 30632,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.407Z',
-      updated_at: '2017-08-07T17:52:53.407Z'
+      created_at: '2017-08-12T14:49:54.236Z',
+      updated_at: '2017-08-12T14:49:54.236Z'
     },
     {
       id: 36,
@@ -394,8 +396,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 50810,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.409Z',
-      updated_at: '2017-08-07T17:52:53.409Z'
+      created_at: '2017-08-12T14:49:54.239Z',
+      updated_at: '2017-08-12T14:49:54.239Z'
     },
     {
       id: 37,
@@ -405,8 +407,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 20092,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.409Z',
-      updated_at: '2017-08-07T17:52:53.409Z'
+      created_at: '2017-08-12T14:49:54.240Z',
+      updated_at: '2017-08-12T14:49:54.240Z'
     },
     {
       id: 38,
@@ -416,8 +418,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 36394,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.409Z',
-      updated_at: '2017-08-07T17:52:53.409Z'
+      created_at: '2017-08-12T14:49:54.240Z',
+      updated_at: '2017-08-12T14:49:54.240Z'
     },
     {
       id: 39,
@@ -427,8 +429,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 30724,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.409Z',
-      updated_at: '2017-08-07T17:52:53.409Z'
+      created_at: '2017-08-12T14:49:54.240Z',
+      updated_at: '2017-08-12T14:49:54.240Z'
     },
     {
       id: 40,
@@ -438,8 +440,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 37277,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.409Z',
-      updated_at: '2017-08-07T17:52:53.409Z'
+      created_at: '2017-08-12T14:49:54.240Z',
+      updated_at: '2017-08-12T14:49:54.240Z'
     },
     {
       id: 41,
@@ -449,8 +451,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 30431,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.409Z',
-      updated_at: '2017-08-07T17:52:53.409Z'
+      created_at: '2017-08-12T14:49:54.240Z',
+      updated_at: '2017-08-12T14:49:54.240Z'
     },
     {
       id: 42,
@@ -460,8 +462,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 32076,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.409Z',
-      updated_at: '2017-08-07T17:52:53.409Z'
+      created_at: '2017-08-12T14:49:54.240Z',
+      updated_at: '2017-08-12T14:49:54.240Z'
     },
     {
       id: 43,
@@ -471,8 +473,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 27874,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.409Z',
-      updated_at: '2017-08-07T17:52:53.409Z'
+      created_at: '2017-08-12T14:49:54.240Z',
+      updated_at: '2017-08-12T14:49:54.240Z'
     },
     {
       id: 44,
@@ -482,8 +484,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 25477,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.410Z',
-      updated_at: '2017-08-07T17:52:53.410Z'
+      created_at: '2017-08-12T14:49:54.241Z',
+      updated_at: '2017-08-12T14:49:54.241Z'
     },
     {
       id: 45,
@@ -493,8 +495,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 34867,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.410Z',
-      updated_at: '2017-08-07T17:52:53.410Z'
+      created_at: '2017-08-12T14:49:54.241Z',
+      updated_at: '2017-08-12T14:49:54.241Z'
     },
     {
       id: 46,
@@ -504,8 +506,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 45624,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.410Z',
-      updated_at: '2017-08-07T17:52:53.410Z'
+      created_at: '2017-08-12T14:49:54.241Z',
+      updated_at: '2017-08-12T14:49:54.241Z'
     },
     {
       id: 47,
@@ -515,8 +517,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 1732981,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.410Z',
-      updated_at: '2017-08-07T17:52:53.410Z'
+      created_at: '2017-08-12T14:49:54.241Z',
+      updated_at: '2017-08-12T14:49:54.241Z'
     },
     {
       id: 48,
@@ -526,8 +528,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 30197,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.411Z',
-      updated_at: '2017-08-07T17:52:53.411Z'
+      created_at: '2017-08-12T14:49:54.241Z',
+      updated_at: '2017-08-12T14:49:54.241Z'
     },
     {
       id: 49,
@@ -537,8 +539,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 28117,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.411Z',
-      updated_at: '2017-08-07T17:52:53.411Z'
+      created_at: '2017-08-12T14:49:54.241Z',
+      updated_at: '2017-08-12T14:49:54.241Z'
     },
     {
       id: 50,
@@ -548,8 +550,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 30048,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.411Z',
-      updated_at: '2017-08-07T17:52:53.411Z'
+      created_at: '2017-08-12T14:49:54.241Z',
+      updated_at: '2017-08-12T14:49:54.241Z'
     },
     {
       id: 51,
@@ -559,8 +561,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 29583,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.411Z',
-      updated_at: '2017-08-07T17:52:53.411Z'
+      created_at: '2017-08-12T14:49:54.241Z',
+      updated_at: '2017-08-12T14:49:54.242Z'
     },
     {
       id: 52,
@@ -570,8 +572,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 28373,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.411Z',
-      updated_at: '2017-08-07T17:52:53.411Z'
+      created_at: '2017-08-12T14:49:54.242Z',
+      updated_at: '2017-08-12T14:49:54.242Z'
     },
     {
       id: 53,
@@ -581,8 +583,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 50444,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.411Z',
-      updated_at: '2017-08-07T17:52:53.411Z'
+      created_at: '2017-08-12T14:49:54.242Z',
+      updated_at: '2017-08-12T14:49:54.242Z'
     },
     {
       id: 54,
@@ -592,8 +594,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 51634,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.411Z',
-      updated_at: '2017-08-07T17:52:53.411Z'
+      created_at: '2017-08-12T14:49:54.242Z',
+      updated_at: '2017-08-12T14:49:54.242Z'
     },
     {
       id: 55,
@@ -603,8 +605,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 25731,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.411Z',
-      updated_at: '2017-08-07T17:52:53.411Z'
+      created_at: '2017-08-12T14:49:54.242Z',
+      updated_at: '2017-08-12T14:49:54.242Z'
     },
     {
       id: 56,
@@ -614,8 +616,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 30175,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.411Z',
-      updated_at: '2017-08-07T17:52:53.411Z'
+      created_at: '2017-08-12T14:49:54.242Z',
+      updated_at: '2017-08-12T14:49:54.242Z'
     },
     {
       id: 57,
@@ -625,8 +627,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 31827,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.412Z',
-      updated_at: '2017-08-07T17:52:53.412Z'
+      created_at: '2017-08-12T14:49:54.242Z',
+      updated_at: '2017-08-12T14:49:54.242Z'
     },
     {
       id: 58,
@@ -636,8 +638,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 31759,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.412Z',
-      updated_at: '2017-08-07T17:52:53.412Z'
+      created_at: '2017-08-12T14:49:54.242Z',
+      updated_at: '2017-08-12T14:49:54.242Z'
     },
     {
       id: 59,
@@ -647,8 +649,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 27608,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.412Z',
-      updated_at: '2017-08-07T17:52:53.412Z'
+      created_at: '2017-08-12T14:49:54.242Z',
+      updated_at: '2017-08-12T14:49:54.242Z'
     },
     {
       id: 60,
@@ -658,8 +660,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 35767,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.412Z',
-      updated_at: '2017-08-07T17:52:53.412Z'
+      created_at: '2017-08-12T14:49:54.242Z',
+      updated_at: '2017-08-12T14:49:54.242Z'
     },
     {
       id: 61,
@@ -669,8 +671,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 24802,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.412Z',
-      updated_at: '2017-08-07T17:52:53.412Z'
+      created_at: '2017-08-12T14:49:54.242Z',
+      updated_at: '2017-08-12T14:49:54.242Z'
     },
     {
       id: 62,
@@ -680,8 +682,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 29597,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.412Z',
-      updated_at: '2017-08-07T17:52:53.412Z'
+      created_at: '2017-08-12T14:49:54.242Z',
+      updated_at: '2017-08-12T14:49:54.242Z'
     },
     {
       id: 63,
@@ -691,8 +693,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 30241,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.412Z',
-      updated_at: '2017-08-07T17:52:53.413Z'
+      created_at: '2017-08-12T14:49:54.243Z',
+      updated_at: '2017-08-12T14:49:54.243Z'
     },
     {
       id: 64,
@@ -702,8 +704,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 40213,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.413Z',
-      updated_at: '2017-08-07T17:52:53.413Z'
+      created_at: '2017-08-12T14:49:54.243Z',
+      updated_at: '2017-08-12T14:49:54.243Z'
     },
     {
       id: 65,
@@ -713,8 +715,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 41294,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.413Z',
-      updated_at: '2017-08-07T17:52:53.413Z'
+      created_at: '2017-08-12T14:49:54.244Z',
+      updated_at: '2017-08-12T14:49:54.244Z'
     },
     {
       id: 66,
@@ -724,8 +726,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 29909,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.413Z',
-      updated_at: '2017-08-07T17:52:53.413Z'
+      created_at: '2017-08-12T14:49:54.244Z',
+      updated_at: '2017-08-12T14:49:54.244Z'
     },
     {
       id: 67,
@@ -735,8 +737,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 1782426,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.413Z',
-      updated_at: '2017-08-07T17:52:53.413Z'
+      created_at: '2017-08-12T14:49:54.244Z',
+      updated_at: '2017-08-12T14:49:54.244Z'
     },
     {
       id: 68,
@@ -746,8 +748,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 23512,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.414Z',
-      updated_at: '2017-08-07T17:52:53.414Z'
+      created_at: '2017-08-12T14:49:54.244Z',
+      updated_at: '2017-08-12T14:49:54.244Z'
     },
     {
       id: 69,
@@ -757,8 +759,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 42871,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.414Z',
-      updated_at: '2017-08-07T17:52:53.414Z'
+      created_at: '2017-08-12T14:49:54.244Z',
+      updated_at: '2017-08-12T14:49:54.244Z'
     },
     {
       id: 70,
@@ -768,8 +770,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 27360,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.414Z',
-      updated_at: '2017-08-07T17:52:53.414Z'
+      created_at: '2017-08-12T14:49:54.244Z',
+      updated_at: '2017-08-12T14:49:54.244Z'
     },
     {
       id: 71,
@@ -779,8 +781,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 37564,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.414Z',
-      updated_at: '2017-08-07T17:52:53.414Z'
+      created_at: '2017-08-12T14:49:54.244Z',
+      updated_at: '2017-08-12T14:49:54.244Z'
     },
     {
       id: 72,
@@ -790,8 +792,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 47791,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.414Z',
-      updated_at: '2017-08-07T17:52:53.414Z'
+      created_at: '2017-08-12T14:49:54.244Z',
+      updated_at: '2017-08-12T14:49:54.244Z'
     },
     {
       id: 73,
@@ -801,8 +803,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 962363,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.414Z',
-      updated_at: '2017-08-07T17:52:53.414Z'
+      created_at: '2017-08-12T14:49:54.244Z',
+      updated_at: '2017-08-12T14:49:54.244Z'
     },
     {
       id: 74,
@@ -812,8 +814,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 32940,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.414Z',
-      updated_at: '2017-08-07T17:52:53.414Z'
+      created_at: '2017-08-12T14:49:54.245Z',
+      updated_at: '2017-08-12T14:49:54.245Z'
     },
     {
       id: 75,
@@ -823,8 +825,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 175788,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.414Z',
-      updated_at: '2017-08-07T17:52:53.414Z'
+      created_at: '2017-08-12T14:49:54.245Z',
+      updated_at: '2017-08-12T14:49:54.245Z'
     },
     {
       id: 76,
@@ -834,8 +836,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 64535,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.415Z',
-      updated_at: '2017-08-07T17:52:53.415Z'
+      created_at: '2017-08-12T14:49:54.245Z',
+      updated_at: '2017-08-12T14:49:54.245Z'
     },
     {
       id: 77,
@@ -845,8 +847,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 30246,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.415Z',
-      updated_at: '2017-08-07T17:52:53.415Z'
+      created_at: '2017-08-12T14:49:54.245Z',
+      updated_at: '2017-08-12T14:49:54.245Z'
     },
     {
       id: 78,
@@ -856,8 +858,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 9112,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.415Z',
-      updated_at: '2017-08-07T17:52:53.415Z'
+      created_at: '2017-08-12T14:49:54.245Z',
+      updated_at: '2017-08-12T14:49:54.245Z'
     },
     {
       id: 79,
@@ -867,8 +869,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 685902,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.415Z',
-      updated_at: '2017-08-07T17:52:53.415Z'
+      created_at: '2017-08-12T14:49:54.246Z',
+      updated_at: '2017-08-12T14:49:54.246Z'
     },
     {
       id: 80,
@@ -878,8 +880,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 28821,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.415Z',
-      updated_at: '2017-08-07T17:52:53.415Z'
+      created_at: '2017-08-12T14:49:54.246Z',
+      updated_at: '2017-08-12T14:49:54.246Z'
     },
     {
       id: 81,
@@ -889,8 +891,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 24708,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.416Z',
-      updated_at: '2017-08-07T17:52:53.416Z'
+      created_at: '2017-08-12T14:49:54.246Z',
+      updated_at: '2017-08-12T14:49:54.246Z'
     },
     {
       id: 82,
@@ -900,8 +902,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 29316,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.416Z',
-      updated_at: '2017-08-07T17:52:53.416Z'
+      created_at: '2017-08-12T14:49:54.246Z',
+      updated_at: '2017-08-12T14:49:54.246Z'
     },
     {
       id: 83,
@@ -911,8 +913,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 39464,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.416Z',
-      updated_at: '2017-08-07T17:52:53.416Z'
+      created_at: '2017-08-12T14:49:54.246Z',
+      updated_at: '2017-08-12T14:49:54.246Z'
     },
     {
       id: 84,
@@ -922,8 +924,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 43310,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.416Z',
-      updated_at: '2017-08-07T17:52:53.416Z'
+      created_at: '2017-08-12T14:49:54.246Z',
+      updated_at: '2017-08-12T14:49:54.246Z'
     },
     {
       id: 85,
@@ -933,8 +935,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 32797,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.416Z',
-      updated_at: '2017-08-07T17:52:53.416Z'
+      created_at: '2017-08-12T14:49:54.247Z',
+      updated_at: '2017-08-12T14:49:54.247Z'
     },
     {
       id: 86,
@@ -944,8 +946,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 21705,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.416Z',
-      updated_at: '2017-08-07T17:52:53.416Z'
+      created_at: '2017-08-12T14:49:54.247Z',
+      updated_at: '2017-08-12T14:49:54.247Z'
     },
     {
       id: 87,
@@ -955,8 +957,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 57406,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.416Z',
-      updated_at: '2017-08-07T17:52:53.416Z'
+      created_at: '2017-08-12T14:49:54.247Z',
+      updated_at: '2017-08-12T14:49:54.247Z'
     },
     {
       id: 88,
@@ -966,8 +968,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 40293,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.416Z',
-      updated_at: '2017-08-07T17:52:53.417Z'
+      created_at: '2017-08-12T14:49:54.247Z',
+      updated_at: '2017-08-12T14:49:54.247Z'
     },
     {
       id: 89,
@@ -977,8 +979,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 29541,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.417Z',
-      updated_at: '2017-08-07T17:52:53.417Z'
+      created_at: '2017-08-12T14:49:54.247Z',
+      updated_at: '2017-08-12T14:49:54.247Z'
     },
     {
       id: 90,
@@ -988,8 +990,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 21858,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.417Z',
-      updated_at: '2017-08-07T17:52:53.417Z'
+      created_at: '2017-08-12T14:49:54.247Z',
+      updated_at: '2017-08-12T14:49:54.247Z'
     },
     {
       id: 91,
@@ -999,8 +1001,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 30585,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.417Z',
-      updated_at: '2017-08-07T17:52:53.417Z'
+      created_at: '2017-08-12T14:49:54.247Z',
+      updated_at: '2017-08-12T14:49:54.247Z'
     },
     {
       id: 92,
@@ -1010,8 +1012,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 31580,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.417Z',
-      updated_at: '2017-08-07T17:52:53.417Z'
+      created_at: '2017-08-12T14:49:54.247Z',
+      updated_at: '2017-08-12T14:49:54.247Z'
     },
     {
       id: 93,
@@ -1021,8 +1023,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 54984,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.417Z',
-      updated_at: '2017-08-07T17:52:53.417Z'
+      created_at: '2017-08-12T14:49:54.247Z',
+      updated_at: '2017-08-12T14:49:54.247Z'
     },
     {
       id: 94,
@@ -1032,8 +1034,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 46846,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.417Z',
-      updated_at: '2017-08-07T17:52:53.417Z'
+      created_at: '2017-08-12T14:49:54.248Z',
+      updated_at: '2017-08-12T14:49:54.248Z'
     },
     {
       id: 95,
@@ -1043,8 +1045,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 31001,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.417Z',
-      updated_at: '2017-08-07T17:52:53.417Z'
+      created_at: '2017-08-12T14:49:54.248Z',
+      updated_at: '2017-08-12T14:49:54.248Z'
     },
     {
       id: 96,
@@ -1054,8 +1056,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 45862,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.417Z',
-      updated_at: '2017-08-07T17:52:53.417Z'
+      created_at: '2017-08-12T14:49:54.248Z',
+      updated_at: '2017-08-12T14:49:54.248Z'
     },
     {
       id: 97,
@@ -1065,8 +1067,8 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 29727,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.418Z',
-      updated_at: '2017-08-07T17:52:53.418Z'
+      created_at: '2017-08-12T14:49:54.248Z',
+      updated_at: '2017-08-12T14:49:54.248Z'
     },
     {
       id: 98,
@@ -1076,8 +1078,11 @@ export default () => ({
       content_type: 'image/jpeg',
       file_size: 17567,
       chunks_total: 1,
-      created_at: '2017-08-07T17:52:53.418Z',
-      updated_at: '2017-08-07T17:52:53.418Z'
+      created_at: '2017-08-12T14:49:54.248Z',
+      updated_at: '2017-08-12T14:49:54.248Z'
     }
   ]
 })
+
+export default Assets
+

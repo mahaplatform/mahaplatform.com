@@ -1,4 +1,6 @@
-export default () => ({
+import { fixtures } from 'maha'
+
+const AppAuthors = fixtures({
   tableName: 'maha_app_authors',
   records: [
     {
@@ -6,5 +8,6 @@ export default () => ({
       name: 'CCE Tompkins'
     }
   ]
-}
-)
+})
+
+export default AppAuthors

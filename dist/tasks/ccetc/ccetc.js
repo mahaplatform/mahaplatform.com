@@ -99,7 +99,7 @@ var import_20170622 = exports.import_20170622 = function () {
 
                 var filename = record[2] + '.jpg';
 
-                var filepath = _path2.default.join(__dirname, '..', '..', 'files', '20170622', 'photos', filename);
+                var filepath = _path2.default.resolve('files', '20170622', 'photos', filename);
 
                 var photoExists = _fs2.default.existsSync(filepath);
 
@@ -348,7 +348,7 @@ var import_20170622 = exports.import_20170622 = function () {
                       case 0:
                         filename = asset.file_name;
                         contentType = asset.content_type;
-                        filepath = _path2.default.join(__dirname, '..', '..', 'files', '20170622', 'photos', asset.file_name);
+                        filepath = _path2.default.join('files', '20170622', 'photos', asset.file_name);
                         _context.next = 5;
                         return s3.upload({
                           Bucket: process.env.AWS_BUCKET,
@@ -397,7 +397,9 @@ var import_20170622 = exports.import_20170622 = function () {
 
 var writeFile = function writeFile(name, tableName, records) {
 
-  _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', 'src', 'db', 'seeds', name + '.js'), 'export default () => (' + toJSON({ tableName: tableName, records: records }) + ')');
+  var object = _lodash2.default.upperFirst(_lodash2.default.camelCase(name));
+
+  _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', '..', 'src', 'db', 'seeds', name + '.js'), 'import { fixtures } from \'maha\'\n\nconst ' + object + ' = fixtures(' + toJSON({ tableName: tableName, records: records }) + ')\n\nexport default ' + object + '\n\n');
 };
 
 var toJSON = function toJSON(object) {
@@ -405,7 +407,7 @@ var toJSON = function toJSON(object) {
 };
 
 var toMatrix = function toMatrix(filename, delimiter) {
-  return (0, _sync2.default)(_fs2.default.readFileSync(_path2.default.join(__dirname, '..', '..', 'files', filename), 'utf8'), { delimiter: delimiter, quote: '^' });
+  return (0, _sync2.default)(_fs2.default.readFileSync(_path2.default.resolve('files', filename), 'utf8'), { delimiter: delimiter, quote: '^' });
 };
 
 var sanitize = function sanitize(string) {
