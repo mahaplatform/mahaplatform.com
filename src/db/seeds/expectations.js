@@ -1,6 +1,6 @@
-import { fixtures } from 'maha'
+import { Fixtures } from 'maha'
 
-const Expectations = fixtures({
+const expectationsFixtures = new Fixtures({
   tableName: 'competencies_expectations',
   records: [
     {
@@ -22074,5 +22074,5 @@ const Expectations = fixtures({
   ]
 })
 
-export default Expectations
+export default expectationsFixtures
 

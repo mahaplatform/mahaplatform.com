@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _maha = require('maha');
 
-var CompetenciesResources = (0, _maha.fixtures)({
+var competenciesResourcesFixtures = new _maha.Fixtures({
   tableName: 'competencies_competencies_resources',
   records: [{
     competency_id: 1,
@@ -611,4 +611,4 @@ var CompetenciesResources = (0, _maha.fixtures)({
   }]
 });
 
-exports.default = CompetenciesResources;
+exports.default = competenciesResourcesFixtures;

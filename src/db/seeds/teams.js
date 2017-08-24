@@ -1,6 +1,6 @@
-import { fixtures } from 'maha'
+import { Fixtures } from 'maha'
 
-const Team = fixtures({
+const teamFixtures = new Fixtures({
   tableName: 'maha_teams',
   records: [
     {
@@ -14,4 +14,4 @@ const Team = fixtures({
   ]
 })
 
-export default Team
+export default teamFixtures

@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _maha = require('maha');
 
-var AppAuthors = (0, _maha.fixtures)({
+var appAuthorsFixtures = new _maha.Fixtures({
   tableName: 'maha_app_authors',
   records: [{
     id: 1,
@@ -14,4 +14,4 @@ var AppAuthors = (0, _maha.fixtures)({
   }]
 });
 
-exports.default = AppAuthors;
+exports.default = appAuthorsFixtures;

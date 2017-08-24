@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _maha = require('maha');
 
-var UsersGroups = (0, _maha.fixtures)({
+var usersGroupsFixtures = new _maha.Fixtures({
   tableName: 'maha_users_groups',
   records: [{
     user_id: 1,
@@ -671,4 +671,4 @@ var UsersGroups = (0, _maha.fixtures)({
   }]
 });
 
-exports.default = UsersGroups;
+exports.default = usersGroupsFixtures;

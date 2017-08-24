@@ -6,15 +6,15 @@ Object.defineProperty(exports, "__esModule", {
 
 var _maha = require('maha');
 
-var Programs = (0, _maha.fixtures)({
+var programsFixtures = new _maha.Fixtures({
   tableName: 'competencies_programs',
   records: [{
     id: 1,
     team_id: 1,
     title: '',
-    created_at: '2017-08-12T14:49:54.270Z',
-    updated_at: '2017-08-12T14:49:54.270Z'
+    created_at: '2017-08-24T18:13:05.077Z',
+    updated_at: '2017-08-24T18:13:05.077Z'
   }]
 });
 
-exports.default = Programs;
+exports.default = programsFixtures;

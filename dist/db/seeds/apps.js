@@ -6,12 +6,11 @@ Object.defineProperty(exports, "__esModule", {
 
 var _maha = require('maha');
 
-var Apps = (0, _maha.fixtures)({
+var appsFixtures = new _maha.Fixtures({
   tableName: 'maha_apps',
   records: [{
     id: 1,
     title: 'Team',
-    module: 'team',
     path: 'team',
     app_category_id: 1,
     app_author_id: 1,
@@ -24,7 +23,6 @@ var Apps = (0, _maha.fixtures)({
   }, {
     id: 2,
     title: 'Expenses',
-    module: 'maha-expenses',
     path: 'expenses',
     app_category_id: 4,
     app_author_id: 1,
@@ -37,7 +35,6 @@ var Apps = (0, _maha.fixtures)({
   }, {
     id: 3,
     title: 'Competencies',
-    module: 'maha-competencies',
     path: 'competencies',
     app_category_id: 3,
     app_author_id: 1,
@@ -50,7 +47,6 @@ var Apps = (0, _maha.fixtures)({
   }, {
     id: 4,
     title: 'Eat Fresh',
-    module: 'maha-eatfresh',
     path: 'eatfresh',
     app_category_id: 3,
     app_author_id: 1,
@@ -63,4 +59,4 @@ var Apps = (0, _maha.fixtures)({
   }]
 });
 
-exports.default = Apps;
+exports.default = appsFixtures;

@@ -1,6 +1,6 @@
-import { fixtures } from 'maha'
+import { Fixtures } from 'maha'
 
-const EmailTemplates = fixtures({
+const emailTemplatesFixtures = new Fixtures({
   tableName: 'maha_email_templates',
   records: [
     {
@@ -23,4 +23,4 @@ const EmailTemplates = fixtures({
   ]
 })
 
-export default EmailTemplates
+export default emailTemplatesFixtures

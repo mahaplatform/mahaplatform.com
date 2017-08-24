@@ -329,7 +329,7 @@ const writeFile = (name, tableName, records) => {
 
   const object = _.upperFirst(_.camelCase(name))
 
-  fs.writeFileSync(path.join(__dirname, '..', '..', '..', 'src', 'db', 'seeds', `${name}.js`), `import { fixtures } from 'maha'\n\nconst ${object} = fixtures(${toJSON({ tableName, records })})\n\nexport default ${object}\n\n`)
+  fs.writeFileSync(path.join(__dirname, '..', '..', '..', 'src', 'db', 'seeds', `${name}.js`), `import { Fixtures } from 'maha'\n\nconst ${_.camelCase(object)}Fixtures = new Fixtures(${toJSON({ tableName, records })})\n\nexport default ${_.camelCase(object)}Fixtures\n\n`)
 
 }
 

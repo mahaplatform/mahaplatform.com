@@ -399,7 +399,7 @@ var writeFile = function writeFile(name, tableName, records) {
 
   var object = _lodash2.default.upperFirst(_lodash2.default.camelCase(name));
 
-  _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', '..', 'src', 'db', 'seeds', name + '.js'), 'import { fixtures } from \'maha\'\n\nconst ' + object + ' = fixtures(' + toJSON({ tableName: tableName, records: records }) + ')\n\nexport default ' + object + '\n\n');
+  _fs2.default.writeFileSync(_path2.default.join(__dirname, '..', '..', '..', 'src', 'db', 'seeds', name + '.js'), 'import { Fixtures } from \'maha\'\n\nconst ' + _lodash2.default.camelCase(object) + 'Fixtures = new Fixtures(' + toJSON({ tableName: tableName, records: records }) + ')\n\nexport default ' + _lodash2.default.camelCase(object) + 'Fixtures\n\n');
 };
 
 var toJSON = function toJSON(object) {

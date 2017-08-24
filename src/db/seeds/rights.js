@@ -1,6 +1,6 @@
-import { fixtures } from 'maha'
+import { Fixtures } from 'maha'
 
-const Rights = fixtures({
+const rightsFixtures = new Fixtures({
   tableName: 'maha_rights',
   records: [
     {
@@ -52,4 +52,4 @@ const Rights = fixtures({
   ]
 })
 
-export default Rights
+export default rightsFixtures

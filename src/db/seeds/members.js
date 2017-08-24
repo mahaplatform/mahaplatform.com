@@ -1,6 +1,6 @@
-import { fixtures } from 'maha'
+import { Fixtures } from 'maha'
 
-const Members = fixtures({
+const membersFixtures = new Fixtures({
   tableName: 'expenses_members',
   records: [
     {
@@ -9,8 +9,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.051Z',
+      updated_at: '2017-08-24T18:13:05.051Z'
     },
     {
       team_id: 1,
@@ -18,8 +18,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.051Z',
+      updated_at: '2017-08-24T18:13:05.051Z'
     },
     {
       team_id: 1,
@@ -27,8 +27,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.051Z',
+      updated_at: '2017-08-24T18:13:05.051Z'
     },
     {
       team_id: 1,
@@ -36,8 +36,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.051Z',
+      updated_at: '2017-08-24T18:13:05.051Z'
     },
     {
       team_id: 1,
@@ -45,8 +45,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.051Z',
+      updated_at: '2017-08-24T18:13:05.051Z'
     },
     {
       team_id: 1,
@@ -54,8 +54,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.051Z',
+      updated_at: '2017-08-24T18:13:05.051Z'
     },
     {
       team_id: 1,
@@ -63,8 +63,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.051Z',
+      updated_at: '2017-08-24T18:13:05.051Z'
     },
     {
       team_id: 1,
@@ -72,8 +72,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -81,8 +81,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -90,8 +90,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -99,8 +99,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -108,8 +108,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -117,8 +117,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -126,8 +126,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -135,8 +135,8 @@ const Members = fixtures({
       user_id: 64,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -144,8 +144,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -153,8 +153,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -162,8 +162,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -171,8 +171,8 @@ const Members = fixtures({
       user_id: 198,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -180,8 +180,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -189,8 +189,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -198,8 +198,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -207,8 +207,8 @@ const Members = fixtures({
       user_id: 121,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -216,8 +216,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -225,8 +225,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -234,8 +234,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -243,8 +243,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -252,8 +252,8 @@ const Members = fixtures({
       user_id: 198,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -261,8 +261,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -270,8 +270,8 @@ const Members = fixtures({
       user_id: 198,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -279,8 +279,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -288,8 +288,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.252Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -297,8 +297,8 @@ const Members = fixtures({
       user_id: 121,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.252Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -306,8 +306,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -315,8 +315,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -324,8 +324,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -333,8 +333,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -342,8 +342,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -351,8 +351,8 @@ const Members = fixtures({
       user_id: 132,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -360,8 +360,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -369,8 +369,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -378,8 +378,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -387,8 +387,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -396,8 +396,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -405,8 +405,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -414,8 +414,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -423,8 +423,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -432,8 +432,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -441,8 +441,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -450,8 +450,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -459,8 +459,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -468,8 +468,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -477,8 +477,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.052Z',
+      updated_at: '2017-08-24T18:13:05.052Z'
     },
     {
       team_id: 1,
@@ -486,8 +486,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -495,8 +495,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -504,8 +504,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -513,8 +513,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -522,8 +522,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -531,8 +531,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -540,8 +540,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -549,8 +549,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -558,8 +558,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -567,8 +567,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -576,8 +576,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -585,8 +585,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -594,8 +594,8 @@ const Members = fixtures({
       user_id: 74,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -603,8 +603,8 @@ const Members = fixtures({
       user_id: 192,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -612,8 +612,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -621,8 +621,8 @@ const Members = fixtures({
       user_id: 35,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -630,8 +630,8 @@ const Members = fixtures({
       user_id: 35,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -639,8 +639,8 @@ const Members = fixtures({
       user_id: 35,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -648,8 +648,8 @@ const Members = fixtures({
       user_id: 35,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -657,8 +657,8 @@ const Members = fixtures({
       user_id: 35,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.253Z',
-      updated_at: '2017-08-12T14:49:54.253Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -666,8 +666,8 @@ const Members = fixtures({
       user_id: 35,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -675,8 +675,8 @@ const Members = fixtures({
       user_id: 35,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -684,8 +684,8 @@ const Members = fixtures({
       user_id: 35,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -693,8 +693,8 @@ const Members = fixtures({
       user_id: 35,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -702,8 +702,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -711,8 +711,8 @@ const Members = fixtures({
       user_id: 192,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -720,8 +720,8 @@ const Members = fixtures({
       user_id: 91,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -729,8 +729,8 @@ const Members = fixtures({
       user_id: 91,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -738,8 +738,8 @@ const Members = fixtures({
       user_id: 91,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -747,8 +747,8 @@ const Members = fixtures({
       user_id: 91,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -756,8 +756,8 @@ const Members = fixtures({
       user_id: 91,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -765,8 +765,8 @@ const Members = fixtures({
       user_id: 91,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -774,8 +774,8 @@ const Members = fixtures({
       user_id: 91,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.053Z',
+      updated_at: '2017-08-24T18:13:05.053Z'
     },
     {
       team_id: 1,
@@ -783,8 +783,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -792,8 +792,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -801,8 +801,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -810,8 +810,8 @@ const Members = fixtures({
       user_id: 192,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -819,8 +819,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -828,8 +828,8 @@ const Members = fixtures({
       user_id: 192,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -837,8 +837,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -846,8 +846,8 @@ const Members = fixtures({
       user_id: 192,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -855,8 +855,8 @@ const Members = fixtures({
       user_id: 213,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -864,8 +864,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -873,8 +873,8 @@ const Members = fixtures({
       user_id: 71,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -882,8 +882,8 @@ const Members = fixtures({
       user_id: 91,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.254Z',
-      updated_at: '2017-08-12T14:49:54.254Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -891,8 +891,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -900,8 +900,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -909,8 +909,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -918,8 +918,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -927,8 +927,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -936,8 +936,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -945,8 +945,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -954,8 +954,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -963,8 +963,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -972,8 +972,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -981,8 +981,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -990,8 +990,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -999,8 +999,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.054Z',
+      updated_at: '2017-08-24T18:13:05.054Z'
     },
     {
       team_id: 1,
@@ -1008,8 +1008,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1017,8 +1017,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1026,8 +1026,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1035,8 +1035,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1044,8 +1044,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1053,8 +1053,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1062,8 +1062,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1071,8 +1071,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1080,8 +1080,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1089,8 +1089,8 @@ const Members = fixtures({
       user_id: 122,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1098,8 +1098,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1107,8 +1107,8 @@ const Members = fixtures({
       user_id: 100,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1116,8 +1116,8 @@ const Members = fixtures({
       user_id: 100,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.255Z',
-      updated_at: '2017-08-12T14:49:54.255Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1125,8 +1125,8 @@ const Members = fixtures({
       user_id: 100,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1134,8 +1134,8 @@ const Members = fixtures({
       user_id: 100,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1143,8 +1143,8 @@ const Members = fixtures({
       user_id: 100,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1152,8 +1152,8 @@ const Members = fixtures({
       user_id: 100,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1161,8 +1161,8 @@ const Members = fixtures({
       user_id: 100,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1170,8 +1170,8 @@ const Members = fixtures({
       user_id: 100,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1179,8 +1179,8 @@ const Members = fixtures({
       user_id: 100,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1188,8 +1188,8 @@ const Members = fixtures({
       user_id: 100,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1197,8 +1197,8 @@ const Members = fixtures({
       user_id: 100,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1206,8 +1206,8 @@ const Members = fixtures({
       user_id: 100,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1215,8 +1215,8 @@ const Members = fixtures({
       user_id: 100,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1224,8 +1224,8 @@ const Members = fixtures({
       user_id: 100,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1233,8 +1233,8 @@ const Members = fixtures({
       user_id: 100,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1242,8 +1242,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1251,8 +1251,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1260,8 +1260,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1269,8 +1269,8 @@ const Members = fixtures({
       user_id: 37,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1278,8 +1278,8 @@ const Members = fixtures({
       user_id: 37,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1287,8 +1287,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1296,8 +1296,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.055Z',
+      updated_at: '2017-08-24T18:13:05.055Z'
     },
     {
       team_id: 1,
@@ -1305,8 +1305,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.056Z',
+      updated_at: '2017-08-24T18:13:05.056Z'
     },
     {
       team_id: 1,
@@ -1314,8 +1314,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.056Z',
+      updated_at: '2017-08-24T18:13:05.056Z'
     },
     {
       team_id: 1,
@@ -1323,8 +1323,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.056Z',
+      updated_at: '2017-08-24T18:13:05.056Z'
     },
     {
       team_id: 1,
@@ -1332,8 +1332,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.056Z',
+      updated_at: '2017-08-24T18:13:05.056Z'
     },
     {
       team_id: 1,
@@ -1341,8 +1341,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.056Z',
+      updated_at: '2017-08-24T18:13:05.056Z'
     },
     {
       team_id: 1,
@@ -1350,8 +1350,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.056Z',
+      updated_at: '2017-08-24T18:13:05.056Z'
     },
     {
       team_id: 1,
@@ -1359,8 +1359,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.056Z',
+      updated_at: '2017-08-24T18:13:05.056Z'
     },
     {
       team_id: 1,
@@ -1368,8 +1368,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.056Z',
+      updated_at: '2017-08-24T18:13:05.056Z'
     },
     {
       team_id: 1,
@@ -1377,8 +1377,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.056Z',
+      updated_at: '2017-08-24T18:13:05.056Z'
     },
     {
       team_id: 1,
@@ -1386,8 +1386,8 @@ const Members = fixtures({
       user_id: 138,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.063Z',
+      updated_at: '2017-08-24T18:13:05.063Z'
     },
     {
       team_id: 1,
@@ -1395,8 +1395,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.063Z',
+      updated_at: '2017-08-24T18:13:05.063Z'
     },
     {
       team_id: 1,
@@ -1404,8 +1404,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.256Z',
-      updated_at: '2017-08-12T14:49:54.256Z'
+      created_at: '2017-08-24T18:13:05.063Z',
+      updated_at: '2017-08-24T18:13:05.063Z'
     },
     {
       team_id: 1,
@@ -1413,8 +1413,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.063Z',
+      updated_at: '2017-08-24T18:13:05.063Z'
     },
     {
       team_id: 1,
@@ -1422,8 +1422,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.063Z',
+      updated_at: '2017-08-24T18:13:05.063Z'
     },
     {
       team_id: 1,
@@ -1431,8 +1431,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.063Z',
+      updated_at: '2017-08-24T18:13:05.063Z'
     },
     {
       team_id: 1,
@@ -1440,8 +1440,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.063Z',
+      updated_at: '2017-08-24T18:13:05.063Z'
     },
     {
       team_id: 1,
@@ -1449,8 +1449,8 @@ const Members = fixtures({
       user_id: 139,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.063Z',
+      updated_at: '2017-08-24T18:13:05.063Z'
     },
     {
       team_id: 1,
@@ -1458,8 +1458,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.063Z',
+      updated_at: '2017-08-24T18:13:05.063Z'
     },
     {
       team_id: 1,
@@ -1467,8 +1467,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1476,8 +1476,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1485,8 +1485,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1494,8 +1494,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1503,8 +1503,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1512,8 +1512,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1521,8 +1521,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1530,8 +1530,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1539,8 +1539,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1548,8 +1548,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1557,8 +1557,8 @@ const Members = fixtures({
       user_id: 174,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1566,8 +1566,8 @@ const Members = fixtures({
       user_id: 13,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1575,8 +1575,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1584,8 +1584,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1593,8 +1593,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1602,8 +1602,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1611,8 +1611,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1620,8 +1620,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1629,8 +1629,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1638,8 +1638,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1647,8 +1647,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1656,8 +1656,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1665,8 +1665,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1674,8 +1674,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1683,8 +1683,8 @@ const Members = fixtures({
       user_id: 169,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1692,8 +1692,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1701,8 +1701,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1710,8 +1710,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1719,8 +1719,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1728,8 +1728,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1737,8 +1737,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1746,8 +1746,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1755,8 +1755,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1764,8 +1764,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1773,8 +1773,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1782,8 +1782,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1791,8 +1791,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1800,8 +1800,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1809,8 +1809,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.257Z',
-      updated_at: '2017-08-12T14:49:54.257Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1818,8 +1818,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1827,8 +1827,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1836,8 +1836,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1845,8 +1845,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1854,8 +1854,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1863,8 +1863,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1872,8 +1872,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1881,8 +1881,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1890,8 +1890,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.064Z'
     },
     {
       team_id: 1,
@@ -1899,8 +1899,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.064Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -1908,8 +1908,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -1917,8 +1917,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -1926,8 +1926,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -1935,8 +1935,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -1944,8 +1944,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -1953,8 +1953,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -1962,8 +1962,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -1971,8 +1971,8 @@ const Members = fixtures({
       user_id: 200,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -1980,8 +1980,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -1989,8 +1989,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -1998,8 +1998,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -2007,8 +2007,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -2016,8 +2016,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -2025,8 +2025,8 @@ const Members = fixtures({
       user_id: 35,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -2034,8 +2034,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -2043,8 +2043,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -2052,8 +2052,8 @@ const Members = fixtures({
       user_id: 104,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -2061,8 +2061,8 @@ const Members = fixtures({
       user_id: 74,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -2070,8 +2070,8 @@ const Members = fixtures({
       user_id: 37,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -2079,8 +2079,8 @@ const Members = fixtures({
       user_id: 2,
       member_type_id: 1,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.258Z',
-      updated_at: '2017-08-12T14:49:54.258Z'
+      created_at: '2017-08-24T18:13:05.065Z',
+      updated_at: '2017-08-24T18:13:05.065Z'
     },
     {
       team_id: 1,
@@ -2088,8 +2088,8 @@ const Members = fixtures({
       user_id: 185,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2097,8 +2097,8 @@ const Members = fixtures({
       user_id: 75,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2106,8 +2106,8 @@ const Members = fixtures({
       user_id: 75,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2115,8 +2115,8 @@ const Members = fixtures({
       user_id: 161,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2124,8 +2124,8 @@ const Members = fixtures({
       user_id: 31,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2133,8 +2133,8 @@ const Members = fixtures({
       user_id: 28,
       member_type_id: 2,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2142,8 +2142,8 @@ const Members = fixtures({
       user_id: 28,
       member_type_id: 2,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2151,8 +2151,8 @@ const Members = fixtures({
       user_id: 138,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2160,8 +2160,8 @@ const Members = fixtures({
       user_id: 138,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2169,8 +2169,8 @@ const Members = fixtures({
       user_id: 119,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2178,8 +2178,8 @@ const Members = fixtures({
       user_id: 160,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2187,8 +2187,8 @@ const Members = fixtures({
       user_id: 160,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2196,8 +2196,8 @@ const Members = fixtures({
       user_id: 33,
       member_type_id: 2,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2205,8 +2205,8 @@ const Members = fixtures({
       user_id: 160,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2214,8 +2214,8 @@ const Members = fixtures({
       user_id: 23,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2223,8 +2223,8 @@ const Members = fixtures({
       user_id: 33,
       member_type_id: 2,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2232,8 +2232,8 @@ const Members = fixtures({
       user_id: 160,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2241,8 +2241,8 @@ const Members = fixtures({
       user_id: 23,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2250,8 +2250,8 @@ const Members = fixtures({
       user_id: 33,
       member_type_id: 2,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2259,8 +2259,8 @@ const Members = fixtures({
       user_id: 160,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2268,8 +2268,8 @@ const Members = fixtures({
       user_id: 23,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2277,8 +2277,8 @@ const Members = fixtures({
       user_id: 33,
       member_type_id: 2,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2286,8 +2286,8 @@ const Members = fixtures({
       user_id: 160,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2295,8 +2295,8 @@ const Members = fixtures({
       user_id: 23,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2304,8 +2304,8 @@ const Members = fixtures({
       user_id: 33,
       member_type_id: 2,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2313,8 +2313,8 @@ const Members = fixtures({
       user_id: 160,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2322,8 +2322,8 @@ const Members = fixtures({
       user_id: 23,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2331,8 +2331,8 @@ const Members = fixtures({
       user_id: 33,
       member_type_id: 2,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2340,8 +2340,8 @@ const Members = fixtures({
       user_id: 160,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2349,8 +2349,8 @@ const Members = fixtures({
       user_id: 23,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2358,8 +2358,8 @@ const Members = fixtures({
       user_id: 33,
       member_type_id: 2,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2367,8 +2367,8 @@ const Members = fixtures({
       user_id: 160,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.259Z',
-      updated_at: '2017-08-12T14:49:54.259Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2376,8 +2376,8 @@ const Members = fixtures({
       user_id: 23,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2385,8 +2385,8 @@ const Members = fixtures({
       user_id: 33,
       member_type_id: 2,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2394,8 +2394,8 @@ const Members = fixtures({
       user_id: 160,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2403,8 +2403,8 @@ const Members = fixtures({
       user_id: 23,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2412,8 +2412,8 @@ const Members = fixtures({
       user_id: 33,
       member_type_id: 2,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2421,8 +2421,8 @@ const Members = fixtures({
       user_id: 160,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2430,8 +2430,8 @@ const Members = fixtures({
       user_id: 23,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2439,8 +2439,8 @@ const Members = fixtures({
       user_id: 33,
       member_type_id: 2,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2448,8 +2448,8 @@ const Members = fixtures({
       user_id: 160,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.066Z',
+      updated_at: '2017-08-24T18:13:05.066Z'
     },
     {
       team_id: 1,
@@ -2457,8 +2457,8 @@ const Members = fixtures({
       user_id: 23,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.067Z',
+      updated_at: '2017-08-24T18:13:05.067Z'
     },
     {
       team_id: 1,
@@ -2466,8 +2466,8 @@ const Members = fixtures({
       user_id: 33,
       member_type_id: 2,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.067Z',
+      updated_at: '2017-08-24T18:13:05.067Z'
     },
     {
       team_id: 1,
@@ -2475,8 +2475,8 @@ const Members = fixtures({
       user_id: 160,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.067Z',
+      updated_at: '2017-08-24T18:13:05.067Z'
     },
     {
       team_id: 1,
@@ -2484,8 +2484,8 @@ const Members = fixtures({
       user_id: 23,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.067Z',
+      updated_at: '2017-08-24T18:13:05.067Z'
     },
     {
       team_id: 1,
@@ -2493,8 +2493,8 @@ const Members = fixtures({
       user_id: 33,
       member_type_id: 2,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.067Z',
+      updated_at: '2017-08-24T18:13:05.067Z'
     },
     {
       team_id: 1,
@@ -2502,8 +2502,8 @@ const Members = fixtures({
       user_id: 160,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.067Z',
+      updated_at: '2017-08-24T18:13:05.067Z'
     },
     {
       team_id: 1,
@@ -2511,8 +2511,8 @@ const Members = fixtures({
       user_id: 23,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.067Z',
+      updated_at: '2017-08-24T18:13:05.067Z'
     },
     {
       team_id: 1,
@@ -2520,8 +2520,8 @@ const Members = fixtures({
       user_id: 33,
       member_type_id: 2,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.067Z',
+      updated_at: '2017-08-24T18:13:05.067Z'
     },
     {
       team_id: 1,
@@ -2529,8 +2529,8 @@ const Members = fixtures({
       user_id: 160,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.067Z',
+      updated_at: '2017-08-24T18:13:05.067Z'
     },
     {
       team_id: 1,
@@ -2538,8 +2538,8 @@ const Members = fixtures({
       user_id: 23,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.067Z',
+      updated_at: '2017-08-24T18:13:05.067Z'
     },
     {
       team_id: 1,
@@ -2547,8 +2547,8 @@ const Members = fixtures({
       user_id: 33,
       member_type_id: 2,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.067Z',
+      updated_at: '2017-08-24T18:13:05.067Z'
     },
     {
       team_id: 1,
@@ -2556,8 +2556,8 @@ const Members = fixtures({
       user_id: 160,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.067Z',
+      updated_at: '2017-08-24T18:13:05.067Z'
     },
     {
       team_id: 1,
@@ -2565,8 +2565,8 @@ const Members = fixtures({
       user_id: 23,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.067Z',
+      updated_at: '2017-08-24T18:13:05.067Z'
     },
     {
       team_id: 1,
@@ -2574,8 +2574,8 @@ const Members = fixtures({
       user_id: 164,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.067Z',
+      updated_at: '2017-08-24T18:13:05.067Z'
     },
     {
       team_id: 1,
@@ -2583,11 +2583,11 @@ const Members = fixtures({
       user_id: 114,
       member_type_id: 3,
       is_active: true,
-      created_at: '2017-08-12T14:49:54.260Z',
-      updated_at: '2017-08-12T14:49:54.260Z'
+      created_at: '2017-08-24T18:13:05.067Z',
+      updated_at: '2017-08-24T18:13:05.067Z'
     }
   ]
 })
 
-export default Members
+export default membersFixtures
 

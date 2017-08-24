@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _maha = require('maha');
 
-var Strategies = (0, _maha.fixtures)({
+var strategiesFixtures = new _maha.Fixtures({
   tableName: 'maha_strategies',
   records: [{
     team_id: 1,
@@ -30,4 +30,4 @@ var Strategies = (0, _maha.fixtures)({
   }]
 });
 
-exports.default = Strategies;
+exports.default = strategiesFixtures;

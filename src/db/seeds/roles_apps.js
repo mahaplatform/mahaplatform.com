@@ -1,6 +1,6 @@
-import { fixtures } from 'maha'
+import { Fixtures } from 'maha'
 
-const RolesRights = fixtures({
+const rolesRightsFixtures = new Fixtures({
   tableName: 'maha_roles_apps',
   records: [
     {
@@ -40,4 +40,4 @@ const RolesRights = fixtures({
   ]
 })
 
-export default RolesRights
+export default rolesRightsFixtures

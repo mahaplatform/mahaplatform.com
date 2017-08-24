@@ -6,381 +6,381 @@ Object.defineProperty(exports, "__esModule", {
 
 var _maha = require('maha');
 
-var Classifications = (0, _maha.fixtures)({
+var classificationsFixtures = new _maha.Fixtures({
   tableName: 'competencies_classifications',
   records: [{
     id: 1,
     team_id: 1,
     title: 'Prgoram Assistant I',
-    created_at: '2017-08-12T14:49:54.270Z',
-    updated_at: '2017-08-12T14:49:54.270Z'
+    created_at: '2017-08-24T18:13:05.077Z',
+    updated_at: '2017-08-24T18:13:05.077Z'
   }, {
     id: 2,
     team_id: 1,
     title: 'Program Assistant II',
-    created_at: '2017-08-12T14:49:54.272Z',
-    updated_at: '2017-08-12T14:49:54.272Z'
+    created_at: '2017-08-24T18:13:05.079Z',
+    updated_at: '2017-08-24T18:13:05.079Z'
   }, {
     id: 3,
     team_id: 1,
     title: 'Program Educator I',
-    created_at: '2017-08-12T14:49:54.273Z',
-    updated_at: '2017-08-12T14:49:54.273Z'
+    created_at: '2017-08-24T18:13:05.079Z',
+    updated_at: '2017-08-24T18:13:05.079Z'
   }, {
     id: 4,
     team_id: 1,
     title: 'Program Coordinator I',
-    created_at: '2017-08-12T14:49:54.274Z',
-    updated_at: '2017-08-12T14:49:54.274Z'
+    created_at: '2017-08-24T18:13:05.081Z',
+    updated_at: '2017-08-24T18:13:05.081Z'
   }, {
     id: 5,
     team_id: 1,
     title: 'Program Educator II',
-    created_at: '2017-08-12T14:49:54.274Z',
-    updated_at: '2017-08-12T14:49:54.274Z'
+    created_at: '2017-08-24T18:13:05.082Z',
+    updated_at: '2017-08-24T18:13:05.082Z'
   }, {
     id: 6,
     team_id: 1,
     title: 'Program Coordinator II',
-    created_at: '2017-08-12T14:49:54.275Z',
-    updated_at: '2017-08-12T14:49:54.275Z'
+    created_at: '2017-08-24T18:13:05.083Z',
+    updated_at: '2017-08-24T18:13:05.083Z'
   }, {
     id: 7,
     team_id: 1,
     title: 'Communications Coordinator',
-    created_at: '2017-08-12T14:49:54.277Z',
-    updated_at: '2017-08-12T14:49:54.277Z'
+    created_at: '2017-08-24T18:13:05.084Z',
+    updated_at: '2017-08-24T18:13:05.084Z'
   }, {
     id: 8,
     team_id: 1,
     title: 'Subject Educator I',
-    created_at: '2017-08-12T14:49:54.277Z',
-    updated_at: '2017-08-12T14:49:54.277Z'
+    created_at: '2017-08-24T18:13:05.085Z',
+    updated_at: '2017-08-24T18:13:05.085Z'
   }, {
     id: 9,
     team_id: 1,
     title: 'Subect Educator II',
-    created_at: '2017-08-12T14:49:54.278Z',
-    updated_at: '2017-08-12T14:49:54.278Z'
+    created_at: '2017-08-24T18:13:05.086Z',
+    updated_at: '2017-08-24T18:13:05.086Z'
   }, {
     id: 10,
     team_id: 1,
     title: 'Program Leader I',
-    created_at: '2017-08-12T14:49:54.279Z',
-    updated_at: '2017-08-12T14:49:54.279Z'
+    created_at: '2017-08-24T18:13:05.088Z',
+    updated_at: '2017-08-24T18:13:05.088Z'
   }, {
     id: 11,
     team_id: 1,
     title: 'Program Leader II',
-    created_at: '2017-08-12T14:49:54.280Z',
-    updated_at: '2017-08-12T14:49:54.280Z'
+    created_at: '2017-08-24T18:13:05.089Z',
+    updated_at: '2017-08-24T18:13:05.089Z'
   }, {
     id: 12,
     team_id: 1,
     title: 'Subject Educator III',
-    created_at: '2017-08-12T14:49:54.280Z',
-    updated_at: '2017-08-12T14:49:54.280Z'
+    created_at: '2017-08-24T18:13:05.090Z',
+    updated_at: '2017-08-24T18:13:05.090Z'
   }, {
     id: 13,
     team_id: 1,
     title: 'Communications Manager',
-    created_at: '2017-08-12T14:49:54.281Z',
-    updated_at: '2017-08-12T14:49:54.281Z'
+    created_at: '2017-08-24T18:13:05.091Z',
+    updated_at: '2017-08-24T18:13:05.091Z'
   }, {
     id: 14,
     team_id: 1,
     title: 'Community Liason',
-    created_at: '2017-08-12T14:49:54.282Z',
-    updated_at: '2017-08-12T14:49:54.282Z'
+    created_at: '2017-08-24T18:13:05.091Z',
+    updated_at: '2017-08-24T18:13:05.091Z'
   }, {
     id: 15,
     team_id: 1,
     title: 'Community Educator',
-    created_at: '2017-08-12T14:49:54.283Z',
-    updated_at: '2017-08-12T14:49:54.283Z'
+    created_at: '2017-08-24T18:13:05.092Z',
+    updated_at: '2017-08-24T18:13:05.092Z'
   }, {
     id: 16,
     team_id: 1,
     title: 'Grants and Contract Liason',
-    created_at: '2017-08-12T14:49:54.283Z',
-    updated_at: '2017-08-12T14:49:54.283Z'
+    created_at: '2017-08-24T18:13:05.093Z',
+    updated_at: '2017-08-24T18:13:05.093Z'
   }, {
     id: 17,
     team_id: 1,
     title: 'Public Affairs Liason',
-    created_at: '2017-08-12T14:49:54.284Z',
-    updated_at: '2017-08-12T14:49:54.284Z'
+    created_at: '2017-08-24T18:13:05.093Z',
+    updated_at: '2017-08-24T18:13:05.093Z'
   }, {
     id: 18,
     team_id: 1,
     title: 'Resource Educator',
-    created_at: '2017-08-12T14:49:54.285Z',
-    updated_at: '2017-08-12T14:49:54.285Z'
+    created_at: '2017-08-24T18:13:05.094Z',
+    updated_at: '2017-08-24T18:13:05.094Z'
   }, {
     id: 19,
     team_id: 1,
     title: 'Team Leader',
-    created_at: '2017-08-12T14:49:54.286Z',
-    updated_at: '2017-08-12T14:49:54.286Z'
+    created_at: '2017-08-24T18:13:05.095Z',
+    updated_at: '2017-08-24T18:13:05.095Z'
   }, {
     id: 20,
     team_id: 1,
     title: 'Senior Team Leader',
-    created_at: '2017-08-12T14:49:54.287Z',
-    updated_at: '2017-08-12T14:49:54.287Z'
+    created_at: '2017-08-24T18:13:05.095Z',
+    updated_at: '2017-08-24T18:13:05.096Z'
   }, {
     id: 21,
     team_id: 1,
     title: 'Senior Resource Educator',
-    created_at: '2017-08-12T14:49:54.288Z',
-    updated_at: '2017-08-12T14:49:54.288Z'
+    created_at: '2017-08-24T18:13:05.096Z',
+    updated_at: '2017-08-24T18:13:05.096Z'
   }, {
     id: 22,
     team_id: 1,
     title: 'Issue Leader',
-    created_at: '2017-08-12T14:49:54.289Z',
-    updated_at: '2017-08-12T14:49:54.289Z'
+    created_at: '2017-08-24T18:13:05.098Z',
+    updated_at: '2017-08-24T18:13:05.098Z'
   }, {
     id: 23,
     team_id: 1,
     title: 'Regional Issue Educator',
-    created_at: '2017-08-12T14:49:54.290Z',
-    updated_at: '2017-08-12T14:49:54.290Z'
+    created_at: '2017-08-24T18:13:05.098Z',
+    updated_at: '2017-08-24T18:13:05.098Z'
   }, {
     id: 24,
     team_id: 1,
     title: 'Senior Issue Leader',
-    created_at: '2017-08-12T14:49:54.291Z',
-    updated_at: '2017-08-12T14:49:54.291Z'
+    created_at: '2017-08-24T18:13:05.099Z',
+    updated_at: '2017-08-24T18:13:05.099Z'
   }, {
     id: 25,
     team_id: 1,
     title: 'Senior Issue Educator',
-    created_at: '2017-08-12T14:49:54.292Z',
-    updated_at: '2017-08-12T14:49:54.292Z'
+    created_at: '2017-08-24T18:13:05.100Z',
+    updated_at: '2017-08-24T18:13:05.100Z'
   }, {
     id: 26,
     team_id: 1,
     title: 'Program Director',
-    created_at: '2017-08-12T14:49:54.293Z',
-    updated_at: '2017-08-12T14:49:54.293Z'
+    created_at: '2017-08-24T18:13:05.101Z',
+    updated_at: '2017-08-24T18:13:05.101Z'
   }, {
     id: 27,
     team_id: 1,
     title: 'Executive Director',
-    created_at: '2017-08-12T14:49:54.294Z',
-    updated_at: '2017-08-12T14:49:54.294Z'
+    created_at: '2017-08-24T18:13:05.102Z',
+    updated_at: '2017-08-24T18:13:05.102Z'
   }, {
     id: 28,
     team_id: 1,
     title: 'Administrative Assistant I',
-    created_at: '2017-08-12T14:49:54.295Z',
-    updated_at: '2017-08-12T14:49:54.295Z'
+    created_at: '2017-08-24T18:13:05.103Z',
+    updated_at: '2017-08-24T18:13:05.103Z'
   }, {
     id: 29,
     team_id: 1,
     title: 'Custodian',
-    created_at: '2017-08-12T14:49:54.295Z',
-    updated_at: '2017-08-12T14:49:54.295Z'
+    created_at: '2017-08-24T18:13:05.103Z',
+    updated_at: '2017-08-24T18:13:05.103Z'
   }, {
     id: 30,
     team_id: 1,
     title: 'Farm Worker I',
-    created_at: '2017-08-12T14:49:54.296Z',
-    updated_at: '2017-08-12T14:49:54.296Z'
+    created_at: '2017-08-24T18:13:05.104Z',
+    updated_at: '2017-08-24T18:13:05.104Z'
   }, {
     id: 31,
     team_id: 1,
     title: 'Administrative Assistant II',
-    created_at: '2017-08-12T14:49:54.304Z',
-    updated_at: '2017-08-12T14:49:54.304Z'
+    created_at: '2017-08-24T18:13:05.104Z',
+    updated_at: '2017-08-24T18:13:05.104Z'
   }, {
     id: 32,
     team_id: 1,
     title: 'Account Representative I',
-    created_at: '2017-08-12T14:49:54.304Z',
-    updated_at: '2017-08-12T14:49:54.304Z'
+    created_at: '2017-08-24T18:13:05.104Z',
+    updated_at: '2017-08-24T18:13:05.104Z'
   }, {
     id: 33,
     team_id: 1,
     title: 'Farm Worker II',
-    created_at: '2017-08-12T14:49:54.305Z',
-    updated_at: '2017-08-12T14:49:54.305Z'
+    created_at: '2017-08-24T18:13:05.105Z',
+    updated_at: '2017-08-24T18:13:05.105Z'
   }, {
     id: 34,
     team_id: 1,
     title: 'Account Representative II',
-    created_at: '2017-08-12T14:49:54.306Z',
-    updated_at: '2017-08-12T14:49:54.306Z'
+    created_at: '2017-08-24T18:13:05.106Z',
+    updated_at: '2017-08-24T18:13:05.106Z'
   }, {
     id: 35,
     team_id: 1,
     title: 'Facilities Coordinator I',
-    created_at: '2017-08-12T14:49:54.306Z',
-    updated_at: '2017-08-12T14:49:54.306Z'
+    created_at: '2017-08-24T18:13:05.106Z',
+    updated_at: '2017-08-24T18:13:05.106Z'
   }, {
     id: 36,
     team_id: 1,
     title: 'HR Representative',
-    created_at: '2017-08-12T14:49:54.307Z',
-    updated_at: '2017-08-12T14:49:54.307Z'
+    created_at: '2017-08-24T18:13:05.107Z',
+    updated_at: '2017-08-24T18:13:05.107Z'
   }, {
     id: 37,
     team_id: 1,
     title: 'IT Representative',
-    created_at: '2017-08-12T14:49:54.307Z',
-    updated_at: '2017-08-12T14:49:54.307Z'
+    created_at: '2017-08-24T18:13:05.108Z',
+    updated_at: '2017-08-24T18:13:05.108Z'
   }, {
     id: 38,
     team_id: 1,
     title: 'Senior Administrative Assistant',
-    created_at: '2017-08-12T14:49:54.308Z',
-    updated_at: '2017-08-12T14:49:54.308Z'
+    created_at: '2017-08-24T18:13:05.109Z',
+    updated_at: '2017-08-24T18:13:05.109Z'
   }, {
     id: 39,
     team_id: 1,
     title: 'IT Coordinator',
-    created_at: '2017-08-12T14:49:54.309Z',
-    updated_at: '2017-08-12T14:49:54.309Z'
+    created_at: '2017-08-24T18:13:05.109Z',
+    updated_at: '2017-08-24T18:13:05.109Z'
   }, {
     id: 40,
     team_id: 1,
     title: 'HR Coordinator',
-    created_at: '2017-08-12T14:49:54.310Z',
-    updated_at: '2017-08-12T14:49:54.310Z'
+    created_at: '2017-08-24T18:13:05.110Z',
+    updated_at: '2017-08-24T18:13:05.110Z'
   }, {
     id: 41,
     team_id: 1,
     title: 'Finance Coordinator',
-    created_at: '2017-08-12T14:49:54.310Z',
-    updated_at: '2017-08-12T14:49:54.310Z'
+    created_at: '2017-08-24T18:13:05.110Z',
+    updated_at: '2017-08-24T18:13:05.110Z'
   }, {
     id: 42,
     team_id: 1,
     title: 'Farm Coordinator',
-    created_at: '2017-08-12T14:49:54.311Z',
-    updated_at: '2017-08-12T14:49:54.311Z'
+    created_at: '2017-08-24T18:13:05.111Z',
+    updated_at: '2017-08-24T18:13:05.111Z'
   }, {
     id: 43,
     team_id: 1,
     title: 'Facilities Coordinator II',
-    created_at: '2017-08-12T14:49:54.311Z',
-    updated_at: '2017-08-12T14:49:54.311Z'
+    created_at: '2017-08-24T18:13:05.111Z',
+    updated_at: '2017-08-24T18:13:05.111Z'
   }, {
     id: 44,
     team_id: 1,
     title: 'Operations Coordinator I',
-    created_at: '2017-08-12T14:49:54.312Z',
-    updated_at: '2017-08-12T14:49:54.312Z'
+    created_at: '2017-08-24T18:13:05.112Z',
+    updated_at: '2017-08-24T18:13:05.112Z'
   }, {
     id: 45,
     team_id: 1,
     title: 'Finance Coordinator II',
-    created_at: '2017-08-12T14:49:54.312Z',
-    updated_at: '2017-08-12T14:49:54.312Z'
+    created_at: '2017-08-24T18:13:05.112Z',
+    updated_at: '2017-08-24T18:13:05.112Z'
   }, {
     id: 46,
     team_id: 1,
     title: 'Payroll Accounts Coordinator',
-    created_at: '2017-08-12T14:49:54.313Z',
-    updated_at: '2017-08-12T14:49:54.313Z'
+    created_at: '2017-08-24T18:13:05.113Z',
+    updated_at: '2017-08-24T18:13:05.113Z'
   }, {
     id: 47,
     team_id: 1,
     title: 'Operations Coordinator II',
-    created_at: '2017-08-12T14:49:54.313Z',
-    updated_at: '2017-08-12T14:49:54.313Z'
+    created_at: '2017-08-24T18:13:05.113Z',
+    updated_at: '2017-08-24T18:13:05.113Z'
   }, {
     id: 48,
     team_id: 1,
     title: 'Regional HR Coordinator',
-    created_at: '2017-08-12T14:49:54.313Z',
-    updated_at: '2017-08-12T14:49:54.313Z'
+    created_at: '2017-08-24T18:13:05.114Z',
+    updated_at: '2017-08-24T18:13:05.114Z'
   }, {
     id: 49,
     team_id: 1,
     title: 'Regional IT Coordinator',
-    created_at: '2017-08-12T14:49:54.314Z',
-    updated_at: '2017-08-12T14:49:54.314Z'
+    created_at: '2017-08-24T18:13:05.114Z',
+    updated_at: '2017-08-24T18:13:05.114Z'
   }, {
     id: 50,
     team_id: 1,
     title: 'Regional Finance Coordinator',
-    created_at: '2017-08-12T14:49:54.315Z',
-    updated_at: '2017-08-12T14:49:54.315Z'
+    created_at: '2017-08-24T18:13:05.115Z',
+    updated_at: '2017-08-24T18:13:05.115Z'
   }, {
     id: 51,
     team_id: 1,
     title: 'Farm Supervisor',
-    created_at: '2017-08-12T14:49:54.315Z',
-    updated_at: '2017-08-12T14:49:54.315Z'
+    created_at: '2017-08-24T18:13:05.115Z',
+    updated_at: '2017-08-24T18:13:05.115Z'
   }, {
     id: 52,
     team_id: 1,
     title: 'Payroll Accounts Manager',
-    created_at: '2017-08-12T14:49:54.316Z',
-    updated_at: '2017-08-12T14:49:54.316Z'
+    created_at: '2017-08-24T18:13:05.116Z',
+    updated_at: '2017-08-24T18:13:05.116Z'
   }, {
     id: 53,
     team_id: 1,
     title: 'Facilities Manager',
-    created_at: '2017-08-12T14:49:54.317Z',
-    updated_at: '2017-08-12T14:49:54.317Z'
+    created_at: '2017-08-24T18:13:05.117Z',
+    updated_at: '2017-08-24T18:13:05.117Z'
   }, {
     id: 54,
     team_id: 1,
     title: 'Farm Manager',
-    created_at: '2017-08-12T14:49:54.318Z',
-    updated_at: '2017-08-12T14:49:54.318Z'
+    created_at: '2017-08-24T18:13:05.117Z',
+    updated_at: '2017-08-24T18:13:05.117Z'
   }, {
     id: 55,
     team_id: 1,
     title: 'Administrator',
-    created_at: '2017-08-12T14:49:54.319Z',
-    updated_at: '2017-08-12T14:49:54.319Z'
+    created_at: '2017-08-24T18:13:05.118Z',
+    updated_at: '2017-08-24T18:13:05.118Z'
   }, {
     id: 56,
     team_id: 1,
     title: 'HR Manager',
-    created_at: '2017-08-12T14:49:54.319Z',
-    updated_at: '2017-08-12T14:49:54.319Z'
+    created_at: '2017-08-24T18:13:05.119Z',
+    updated_at: '2017-08-24T18:13:05.119Z'
   }, {
     id: 57,
     team_id: 1,
     title: 'Finance Manager',
-    created_at: '2017-08-12T14:49:54.320Z',
-    updated_at: '2017-08-12T14:49:54.320Z'
+    created_at: '2017-08-24T18:13:05.120Z',
+    updated_at: '2017-08-24T18:13:05.120Z'
   }, {
     id: 58,
     team_id: 1,
     title: 'IT Manager',
-    created_at: '2017-08-12T14:49:54.321Z',
-    updated_at: '2017-08-12T14:49:54.321Z'
+    created_at: '2017-08-24T18:13:05.120Z',
+    updated_at: '2017-08-24T18:13:05.120Z'
   }, {
     id: 59,
     team_id: 1,
     title: 'Senior Administrator',
-    created_at: '2017-08-12T14:49:54.322Z',
-    updated_at: '2017-08-12T14:49:54.322Z'
+    created_at: '2017-08-24T18:13:05.121Z',
+    updated_at: '2017-08-24T18:13:05.121Z'
   }, {
     id: 60,
     team_id: 1,
     title: 'Lead Finance Manager',
-    created_at: '2017-08-12T14:49:54.323Z',
-    updated_at: '2017-08-12T14:49:54.323Z'
+    created_at: '2017-08-24T18:13:05.122Z',
+    updated_at: '2017-08-24T18:13:05.122Z'
   }, {
     id: 61,
     team_id: 1,
     title: 'Lead HR Manager',
-    created_at: '2017-08-12T14:49:54.324Z',
-    updated_at: '2017-08-12T14:49:54.324Z'
+    created_at: '2017-08-24T18:13:05.123Z',
+    updated_at: '2017-08-24T18:13:05.123Z'
   }, {
     id: 62,
     team_id: 1,
     title: 'Lead IT Manager',
-    created_at: '2017-08-12T14:49:54.325Z',
-    updated_at: '2017-08-12T14:49:54.325Z'
+    created_at: '2017-08-24T18:13:05.124Z',
+    updated_at: '2017-08-24T18:13:05.124Z'
   }]
 });
 
-exports.default = Classifications;
+exports.default = classificationsFixtures;

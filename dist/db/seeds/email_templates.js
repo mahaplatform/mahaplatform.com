@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 
 var _maha = require('maha');
 
-var EmailTemplates = (0, _maha.fixtures)({
+var emailTemplatesFixtures = new _maha.Fixtures({
   tableName: 'maha_email_templates',
   records: [{
     team_id: 1,
@@ -27,4 +27,4 @@ var EmailTemplates = (0, _maha.fixtures)({
   }]
 });
 
-exports.default = EmailTemplates;
+exports.default = emailTemplatesFixtures;
