@@ -13,8 +13,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 2,
-      created_at: '2017-08-24T18:13:05.023Z',
-      updated_at: '2017-08-24T18:13:05.023Z'
+      created_at: '2017-08-26T19:14:18.331Z',
+      updated_at: '2017-08-26T19:14:18.331Z'
     },
     {
       id: 2,
@@ -26,8 +26,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 3,
-      created_at: '2017-08-24T18:13:05.024Z',
-      updated_at: '2017-08-24T18:13:05.024Z'
+      created_at: '2017-08-26T19:14:18.332Z',
+      updated_at: '2017-08-26T19:14:18.332Z'
     },
     {
       id: 3,
@@ -39,8 +39,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.025Z',
-      updated_at: '2017-08-24T18:13:05.025Z'
+      created_at: '2017-08-26T19:14:18.332Z',
+      updated_at: '2017-08-26T19:14:18.332Z'
     },
     {
       id: 4,
@@ -52,8 +52,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.025Z',
-      updated_at: '2017-08-24T18:13:05.025Z'
+      created_at: '2017-08-26T19:14:18.332Z',
+      updated_at: '2017-08-26T19:14:18.332Z'
     },
     {
       id: 5,
@@ -65,8 +65,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.025Z',
-      updated_at: '2017-08-24T18:13:05.025Z'
+      created_at: '2017-08-26T19:14:18.333Z',
+      updated_at: '2017-08-26T19:14:18.333Z'
     },
     {
       id: 6,
@@ -78,8 +78,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.025Z',
-      updated_at: '2017-08-24T18:13:05.025Z'
+      created_at: '2017-08-26T19:14:18.333Z',
+      updated_at: '2017-08-26T19:14:18.333Z'
     },
     {
       id: 7,
@@ -91,8 +91,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 4,
-      created_at: '2017-08-24T18:13:05.025Z',
-      updated_at: '2017-08-24T18:13:05.025Z'
+      created_at: '2017-08-26T19:14:18.333Z',
+      updated_at: '2017-08-26T19:14:18.333Z'
     },
     {
       id: 8,
@@ -104,8 +104,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 5,
-      created_at: '2017-08-24T18:13:05.025Z',
-      updated_at: '2017-08-24T18:13:05.025Z'
+      created_at: '2017-08-26T19:14:18.333Z',
+      updated_at: '2017-08-26T19:14:18.333Z'
     },
     {
       id: 9,
@@ -117,8 +117,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.025Z',
-      updated_at: '2017-08-24T18:13:05.025Z'
+      created_at: '2017-08-26T19:14:18.333Z',
+      updated_at: '2017-08-26T19:14:18.333Z'
     },
     {
       id: 10,
@@ -130,8 +130,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 6,
-      created_at: '2017-08-24T18:13:05.026Z',
-      updated_at: '2017-08-24T18:13:05.026Z'
+      created_at: '2017-08-26T19:14:18.333Z',
+      updated_at: '2017-08-26T19:14:18.333Z'
     },
     {
       id: 11,
@@ -143,8 +143,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.026Z',
-      updated_at: '2017-08-24T18:13:05.026Z'
+      created_at: '2017-08-26T19:14:18.333Z',
+      updated_at: '2017-08-26T19:14:18.333Z'
     },
     {
       id: 12,
@@ -156,8 +156,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.027Z',
-      updated_at: '2017-08-24T18:13:05.027Z'
+      created_at: '2017-08-26T19:14:18.334Z',
+      updated_at: '2017-08-26T19:14:18.334Z'
     },
     {
       id: 13,
@@ -169,8 +169,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 7,
-      created_at: '2017-08-24T18:13:05.027Z',
-      updated_at: '2017-08-24T18:13:05.027Z'
+      created_at: '2017-08-26T19:14:18.334Z',
+      updated_at: '2017-08-26T19:14:18.334Z'
     },
     {
       id: 14,
@@ -182,8 +182,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.027Z',
-      updated_at: '2017-08-24T18:13:05.027Z'
+      created_at: '2017-08-26T19:14:18.334Z',
+      updated_at: '2017-08-26T19:14:18.334Z'
     },
     {
       id: 15,
@@ -195,8 +195,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.027Z',
-      updated_at: '2017-08-24T18:13:05.027Z'
+      created_at: '2017-08-26T19:14:18.334Z',
+      updated_at: '2017-08-26T19:14:18.334Z'
     },
     {
       id: 16,
@@ -208,8 +208,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 8,
-      created_at: '2017-08-24T18:13:05.027Z',
-      updated_at: '2017-08-24T18:13:05.027Z'
+      created_at: '2017-08-26T19:14:18.334Z',
+      updated_at: '2017-08-26T19:14:18.334Z'
     },
     {
       id: 17,
@@ -221,8 +221,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.028Z',
-      updated_at: '2017-08-24T18:13:05.028Z'
+      created_at: '2017-08-26T19:14:18.334Z',
+      updated_at: '2017-08-26T19:14:18.334Z'
     },
     {
       id: 18,
@@ -234,8 +234,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 9,
-      created_at: '2017-08-24T18:13:05.028Z',
-      updated_at: '2017-08-24T18:13:05.028Z'
+      created_at: '2017-08-26T19:14:18.335Z',
+      updated_at: '2017-08-26T19:14:18.335Z'
     },
     {
       id: 19,
@@ -247,8 +247,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 10,
-      created_at: '2017-08-24T18:13:05.028Z',
-      updated_at: '2017-08-24T18:13:05.028Z'
+      created_at: '2017-08-26T19:14:18.335Z',
+      updated_at: '2017-08-26T19:14:18.335Z'
     },
     {
       id: 20,
@@ -260,8 +260,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.028Z',
-      updated_at: '2017-08-24T18:13:05.028Z'
+      created_at: '2017-08-26T19:14:18.335Z',
+      updated_at: '2017-08-26T19:14:18.335Z'
     },
     {
       id: 21,
@@ -273,8 +273,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.028Z',
-      updated_at: '2017-08-24T18:13:05.028Z'
+      created_at: '2017-08-26T19:14:18.335Z',
+      updated_at: '2017-08-26T19:14:18.335Z'
     },
     {
       id: 22,
@@ -286,8 +286,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.028Z',
-      updated_at: '2017-08-24T18:13:05.028Z'
+      created_at: '2017-08-26T19:14:18.335Z',
+      updated_at: '2017-08-26T19:14:18.335Z'
     },
     {
       id: 23,
@@ -299,8 +299,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 11,
-      created_at: '2017-08-24T18:13:05.029Z',
-      updated_at: '2017-08-24T18:13:05.029Z'
+      created_at: '2017-08-26T19:14:18.335Z',
+      updated_at: '2017-08-26T19:14:18.335Z'
     },
     {
       id: 24,
@@ -312,8 +312,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 12,
-      created_at: '2017-08-24T18:13:05.029Z',
-      updated_at: '2017-08-24T18:13:05.029Z'
+      created_at: '2017-08-26T19:14:18.335Z',
+      updated_at: '2017-08-26T19:14:18.335Z'
     },
     {
       id: 25,
@@ -325,8 +325,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 13,
-      created_at: '2017-08-24T18:13:05.029Z',
-      updated_at: '2017-08-24T18:13:05.029Z'
+      created_at: '2017-08-26T19:14:18.335Z',
+      updated_at: '2017-08-26T19:14:18.335Z'
     },
     {
       id: 26,
@@ -338,8 +338,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.029Z',
-      updated_at: '2017-08-24T18:13:05.029Z'
+      created_at: '2017-08-26T19:14:18.336Z',
+      updated_at: '2017-08-26T19:14:18.336Z'
     },
     {
       id: 27,
@@ -351,8 +351,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 14,
-      created_at: '2017-08-24T18:13:05.029Z',
-      updated_at: '2017-08-24T18:13:05.029Z'
+      created_at: '2017-08-26T19:14:18.336Z',
+      updated_at: '2017-08-26T19:14:18.336Z'
     },
     {
       id: 28,
@@ -364,8 +364,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 15,
-      created_at: '2017-08-24T18:13:05.029Z',
-      updated_at: '2017-08-24T18:13:05.029Z'
+      created_at: '2017-08-26T19:14:18.336Z',
+      updated_at: '2017-08-26T19:14:18.336Z'
     },
     {
       id: 29,
@@ -377,8 +377,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 16,
-      created_at: '2017-08-24T18:13:05.029Z',
-      updated_at: '2017-08-24T18:13:05.029Z'
+      created_at: '2017-08-26T19:14:18.336Z',
+      updated_at: '2017-08-26T19:14:18.336Z'
     },
     {
       id: 30,
@@ -390,8 +390,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.030Z',
-      updated_at: '2017-08-24T18:13:05.030Z'
+      created_at: '2017-08-26T19:14:18.336Z',
+      updated_at: '2017-08-26T19:14:18.337Z'
     },
     {
       id: 31,
@@ -403,8 +403,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 17,
-      created_at: '2017-08-24T18:13:05.030Z',
-      updated_at: '2017-08-24T18:13:05.030Z'
+      created_at: '2017-08-26T19:14:18.337Z',
+      updated_at: '2017-08-26T19:14:18.337Z'
     },
     {
       id: 32,
@@ -416,8 +416,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.030Z',
-      updated_at: '2017-08-24T18:13:05.030Z'
+      created_at: '2017-08-26T19:14:18.337Z',
+      updated_at: '2017-08-26T19:14:18.337Z'
     },
     {
       id: 33,
@@ -429,8 +429,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 18,
-      created_at: '2017-08-24T18:13:05.030Z',
-      updated_at: '2017-08-24T18:13:05.030Z'
+      created_at: '2017-08-26T19:14:18.337Z',
+      updated_at: '2017-08-26T19:14:18.337Z'
     },
     {
       id: 34,
@@ -442,8 +442,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 19,
-      created_at: '2017-08-24T18:13:05.030Z',
-      updated_at: '2017-08-24T18:13:05.030Z'
+      created_at: '2017-08-26T19:14:18.337Z',
+      updated_at: '2017-08-26T19:14:18.337Z'
     },
     {
       id: 35,
@@ -455,8 +455,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 20,
-      created_at: '2017-08-24T18:13:05.030Z',
-      updated_at: '2017-08-24T18:13:05.030Z'
+      created_at: '2017-08-26T19:14:18.337Z',
+      updated_at: '2017-08-26T19:14:18.337Z'
     },
     {
       id: 36,
@@ -468,8 +468,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.030Z',
-      updated_at: '2017-08-24T18:13:05.030Z'
+      created_at: '2017-08-26T19:14:18.337Z',
+      updated_at: '2017-08-26T19:14:18.337Z'
     },
     {
       id: 37,
@@ -481,8 +481,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 21,
-      created_at: '2017-08-24T18:13:05.030Z',
-      updated_at: '2017-08-24T18:13:05.030Z'
+      created_at: '2017-08-26T19:14:18.337Z',
+      updated_at: '2017-08-26T19:14:18.337Z'
     },
     {
       id: 38,
@@ -494,8 +494,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 22,
-      created_at: '2017-08-24T18:13:05.033Z',
-      updated_at: '2017-08-24T18:13:05.033Z'
+      created_at: '2017-08-26T19:14:18.339Z',
+      updated_at: '2017-08-26T19:14:18.339Z'
     },
     {
       id: 39,
@@ -507,8 +507,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.033Z',
-      updated_at: '2017-08-24T18:13:05.033Z'
+      created_at: '2017-08-26T19:14:18.340Z',
+      updated_at: '2017-08-26T19:14:18.340Z'
     },
     {
       id: 40,
@@ -520,8 +520,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 23,
-      created_at: '2017-08-24T18:13:05.033Z',
-      updated_at: '2017-08-24T18:13:05.033Z'
+      created_at: '2017-08-26T19:14:18.340Z',
+      updated_at: '2017-08-26T19:14:18.340Z'
     },
     {
       id: 41,
@@ -533,8 +533,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 24,
-      created_at: '2017-08-24T18:13:05.033Z',
-      updated_at: '2017-08-24T18:13:05.033Z'
+      created_at: '2017-08-26T19:14:18.340Z',
+      updated_at: '2017-08-26T19:14:18.340Z'
     },
     {
       id: 42,
@@ -546,8 +546,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 25,
-      created_at: '2017-08-24T18:13:05.033Z',
-      updated_at: '2017-08-24T18:13:05.033Z'
+      created_at: '2017-08-26T19:14:18.341Z',
+      updated_at: '2017-08-26T19:14:18.341Z'
     },
     {
       id: 43,
@@ -559,8 +559,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.033Z',
-      updated_at: '2017-08-24T18:13:05.033Z'
+      created_at: '2017-08-26T19:14:18.341Z',
+      updated_at: '2017-08-26T19:14:18.341Z'
     },
     {
       id: 44,
@@ -572,8 +572,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.034Z',
-      updated_at: '2017-08-24T18:13:05.034Z'
+      created_at: '2017-08-26T19:14:18.341Z',
+      updated_at: '2017-08-26T19:14:18.341Z'
     },
     {
       id: 45,
@@ -585,8 +585,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.034Z',
-      updated_at: '2017-08-24T18:13:05.034Z'
+      created_at: '2017-08-26T19:14:18.341Z',
+      updated_at: '2017-08-26T19:14:18.341Z'
     },
     {
       id: 46,
@@ -598,8 +598,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.034Z',
-      updated_at: '2017-08-24T18:13:05.034Z'
+      created_at: '2017-08-26T19:14:18.341Z',
+      updated_at: '2017-08-26T19:14:18.341Z'
     },
     {
       id: 47,
@@ -611,8 +611,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.034Z',
-      updated_at: '2017-08-24T18:13:05.034Z'
+      created_at: '2017-08-26T19:14:18.341Z',
+      updated_at: '2017-08-26T19:14:18.341Z'
     },
     {
       id: 48,
@@ -624,8 +624,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 26,
-      created_at: '2017-08-24T18:13:05.034Z',
-      updated_at: '2017-08-24T18:13:05.034Z'
+      created_at: '2017-08-26T19:14:18.341Z',
+      updated_at: '2017-08-26T19:14:18.341Z'
     },
     {
       id: 49,
@@ -637,8 +637,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 27,
-      created_at: '2017-08-24T18:13:05.034Z',
-      updated_at: '2017-08-24T18:13:05.034Z'
+      created_at: '2017-08-26T19:14:18.341Z',
+      updated_at: '2017-08-26T19:14:18.341Z'
     },
     {
       id: 50,
@@ -650,8 +650,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 28,
-      created_at: '2017-08-24T18:13:05.034Z',
-      updated_at: '2017-08-24T18:13:05.034Z'
+      created_at: '2017-08-26T19:14:18.342Z',
+      updated_at: '2017-08-26T19:14:18.342Z'
     },
     {
       id: 51,
@@ -663,8 +663,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.034Z',
-      updated_at: '2017-08-24T18:13:05.034Z'
+      created_at: '2017-08-26T19:14:18.342Z',
+      updated_at: '2017-08-26T19:14:18.342Z'
     },
     {
       id: 52,
@@ -676,8 +676,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 29,
-      created_at: '2017-08-24T18:13:05.034Z',
-      updated_at: '2017-08-24T18:13:05.034Z'
+      created_at: '2017-08-26T19:14:18.342Z',
+      updated_at: '2017-08-26T19:14:18.342Z'
     },
     {
       id: 53,
@@ -689,8 +689,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 30,
-      created_at: '2017-08-24T18:13:05.034Z',
-      updated_at: '2017-08-24T18:13:05.034Z'
+      created_at: '2017-08-26T19:14:18.342Z',
+      updated_at: '2017-08-26T19:14:18.342Z'
     },
     {
       id: 54,
@@ -702,8 +702,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 31,
-      created_at: '2017-08-24T18:13:05.035Z',
-      updated_at: '2017-08-24T18:13:05.035Z'
+      created_at: '2017-08-26T19:14:18.342Z',
+      updated_at: '2017-08-26T19:14:18.342Z'
     },
     {
       id: 55,
@@ -715,8 +715,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.035Z',
-      updated_at: '2017-08-24T18:13:05.035Z'
+      created_at: '2017-08-26T19:14:18.342Z',
+      updated_at: '2017-08-26T19:14:18.342Z'
     },
     {
       id: 56,
@@ -728,8 +728,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 32,
-      created_at: '2017-08-24T18:13:05.035Z',
-      updated_at: '2017-08-24T18:13:05.035Z'
+      created_at: '2017-08-26T19:14:18.342Z',
+      updated_at: '2017-08-26T19:14:18.342Z'
     },
     {
       id: 57,
@@ -741,8 +741,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.035Z',
-      updated_at: '2017-08-24T18:13:05.035Z'
+      created_at: '2017-08-26T19:14:18.342Z',
+      updated_at: '2017-08-26T19:14:18.342Z'
     },
     {
       id: 58,
@@ -754,8 +754,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.035Z',
-      updated_at: '2017-08-24T18:13:05.035Z'
+      created_at: '2017-08-26T19:14:18.343Z',
+      updated_at: '2017-08-26T19:14:18.343Z'
     },
     {
       id: 59,
@@ -767,8 +767,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.035Z',
-      updated_at: '2017-08-24T18:13:05.035Z'
+      created_at: '2017-08-26T19:14:18.343Z',
+      updated_at: '2017-08-26T19:14:18.343Z'
     },
     {
       id: 60,
@@ -780,8 +780,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.035Z',
-      updated_at: '2017-08-24T18:13:05.035Z'
+      created_at: '2017-08-26T19:14:18.343Z',
+      updated_at: '2017-08-26T19:14:18.343Z'
     },
     {
       id: 61,
@@ -793,8 +793,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 33,
-      created_at: '2017-08-24T18:13:05.035Z',
-      updated_at: '2017-08-24T18:13:05.035Z'
+      created_at: '2017-08-26T19:14:18.343Z',
+      updated_at: '2017-08-26T19:14:18.343Z'
     },
     {
       id: 62,
@@ -806,8 +806,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.035Z',
-      updated_at: '2017-08-24T18:13:05.035Z'
+      created_at: '2017-08-26T19:14:18.343Z',
+      updated_at: '2017-08-26T19:14:18.343Z'
     },
     {
       id: 63,
@@ -819,8 +819,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 34,
-      created_at: '2017-08-24T18:13:05.035Z',
-      updated_at: '2017-08-24T18:13:05.035Z'
+      created_at: '2017-08-26T19:14:18.343Z',
+      updated_at: '2017-08-26T19:14:18.343Z'
     },
     {
       id: 64,
@@ -832,8 +832,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 35,
-      created_at: '2017-08-24T18:13:05.036Z',
-      updated_at: '2017-08-24T18:13:05.036Z'
+      created_at: '2017-08-26T19:14:18.344Z',
+      updated_at: '2017-08-26T19:14:18.344Z'
     },
     {
       id: 65,
@@ -845,8 +845,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.036Z',
-      updated_at: '2017-08-24T18:13:05.036Z'
+      created_at: '2017-08-26T19:14:18.344Z',
+      updated_at: '2017-08-26T19:14:18.344Z'
     },
     {
       id: 66,
@@ -858,8 +858,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.037Z',
-      updated_at: '2017-08-24T18:13:05.037Z'
+      created_at: '2017-08-26T19:14:18.344Z',
+      updated_at: '2017-08-26T19:14:18.344Z'
     },
     {
       id: 67,
@@ -871,8 +871,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.039Z',
-      updated_at: '2017-08-24T18:13:05.039Z'
+      created_at: '2017-08-26T19:14:18.345Z',
+      updated_at: '2017-08-26T19:14:18.345Z'
     },
     {
       id: 68,
@@ -884,8 +884,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 36,
-      created_at: '2017-08-24T18:13:05.039Z',
-      updated_at: '2017-08-24T18:13:05.039Z'
+      created_at: '2017-08-26T19:14:18.345Z',
+      updated_at: '2017-08-26T19:14:18.345Z'
     },
     {
       id: 69,
@@ -897,8 +897,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.039Z',
-      updated_at: '2017-08-24T18:13:05.039Z'
+      created_at: '2017-08-26T19:14:18.345Z',
+      updated_at: '2017-08-26T19:14:18.345Z'
     },
     {
       id: 70,
@@ -910,8 +910,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.039Z',
-      updated_at: '2017-08-24T18:13:05.039Z'
+      created_at: '2017-08-26T19:14:18.345Z',
+      updated_at: '2017-08-26T19:14:18.345Z'
     },
     {
       id: 71,
@@ -923,8 +923,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 37,
-      created_at: '2017-08-24T18:13:05.039Z',
-      updated_at: '2017-08-24T18:13:05.039Z'
+      created_at: '2017-08-26T19:14:18.345Z',
+      updated_at: '2017-08-26T19:14:18.345Z'
     },
     {
       id: 72,
@@ -936,8 +936,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.039Z',
-      updated_at: '2017-08-24T18:13:05.039Z'
+      created_at: '2017-08-26T19:14:18.345Z',
+      updated_at: '2017-08-26T19:14:18.345Z'
     },
     {
       id: 73,
@@ -949,8 +949,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.039Z',
-      updated_at: '2017-08-24T18:13:05.039Z'
+      created_at: '2017-08-26T19:14:18.345Z',
+      updated_at: '2017-08-26T19:14:18.345Z'
     },
     {
       id: 74,
@@ -962,8 +962,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 38,
-      created_at: '2017-08-24T18:13:05.039Z',
-      updated_at: '2017-08-24T18:13:05.039Z'
+      created_at: '2017-08-26T19:14:18.345Z',
+      updated_at: '2017-08-26T19:14:18.345Z'
     },
     {
       id: 75,
@@ -975,8 +975,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 39,
-      created_at: '2017-08-24T18:13:05.039Z',
-      updated_at: '2017-08-24T18:13:05.039Z'
+      created_at: '2017-08-26T19:14:18.345Z',
+      updated_at: '2017-08-26T19:14:18.345Z'
     },
     {
       id: 76,
@@ -988,8 +988,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.039Z',
-      updated_at: '2017-08-24T18:13:05.039Z'
+      created_at: '2017-08-26T19:14:18.345Z',
+      updated_at: '2017-08-26T19:14:18.345Z'
     },
     {
       id: 77,
@@ -1001,8 +1001,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 40,
-      created_at: '2017-08-24T18:13:05.039Z',
-      updated_at: '2017-08-24T18:13:05.039Z'
+      created_at: '2017-08-26T19:14:18.345Z',
+      updated_at: '2017-08-26T19:14:18.345Z'
     },
     {
       id: 78,
@@ -1014,8 +1014,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 41,
-      created_at: '2017-08-24T18:13:05.039Z',
-      updated_at: '2017-08-24T18:13:05.039Z'
+      created_at: '2017-08-26T19:14:18.345Z',
+      updated_at: '2017-08-26T19:14:18.345Z'
     },
     {
       id: 79,
@@ -1027,8 +1027,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 42,
-      created_at: '2017-08-24T18:13:05.039Z',
-      updated_at: '2017-08-24T18:13:05.039Z'
+      created_at: '2017-08-26T19:14:18.345Z',
+      updated_at: '2017-08-26T19:14:18.345Z'
     },
     {
       id: 80,
@@ -1040,8 +1040,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.345Z',
+      updated_at: '2017-08-26T19:14:18.345Z'
     },
     {
       id: 81,
@@ -1053,8 +1053,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.345Z',
+      updated_at: '2017-08-26T19:14:18.345Z'
     },
     {
       id: 82,
@@ -1066,8 +1066,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 43,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.346Z',
+      updated_at: '2017-08-26T19:14:18.346Z'
     },
     {
       id: 83,
@@ -1079,8 +1079,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.346Z',
+      updated_at: '2017-08-26T19:14:18.346Z'
     },
     {
       id: 84,
@@ -1092,8 +1092,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.346Z',
+      updated_at: '2017-08-26T19:14:18.346Z'
     },
     {
       id: 85,
@@ -1105,8 +1105,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 44,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.346Z',
+      updated_at: '2017-08-26T19:14:18.346Z'
     },
     {
       id: 86,
@@ -1118,8 +1118,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.346Z',
+      updated_at: '2017-08-26T19:14:18.346Z'
     },
     {
       id: 87,
@@ -1131,8 +1131,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.346Z',
+      updated_at: '2017-08-26T19:14:18.346Z'
     },
     {
       id: 88,
@@ -1144,8 +1144,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.346Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 89,
@@ -1157,8 +1157,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.347Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 90,
@@ -1170,8 +1170,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.347Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 91,
@@ -1183,8 +1183,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 45,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.347Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 92,
@@ -1196,8 +1196,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 46,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.347Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 93,
@@ -1209,8 +1209,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.347Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 94,
@@ -1222,8 +1222,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.347Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 95,
@@ -1235,8 +1235,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.347Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 96,
@@ -1248,8 +1248,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.347Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 97,
@@ -1261,8 +1261,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 47,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.347Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 98,
@@ -1274,8 +1274,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.040Z',
-      updated_at: '2017-08-24T18:13:05.040Z'
+      created_at: '2017-08-26T19:14:18.347Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 99,
@@ -1287,8 +1287,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 48,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.041Z'
+      created_at: '2017-08-26T19:14:18.347Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 100,
@@ -1300,8 +1300,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 49,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.041Z'
+      created_at: '2017-08-26T19:14:18.347Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 101,
@@ -1313,8 +1313,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.041Z'
+      created_at: '2017-08-26T19:14:18.347Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 102,
@@ -1326,8 +1326,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 50,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.041Z'
+      created_at: '2017-08-26T19:14:18.347Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 103,
@@ -1339,8 +1339,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 51,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.041Z'
+      created_at: '2017-08-26T19:14:18.347Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 104,
@@ -1352,8 +1352,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 52,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.041Z'
+      created_at: '2017-08-26T19:14:18.347Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 105,
@@ -1365,8 +1365,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 53,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.041Z'
+      created_at: '2017-08-26T19:14:18.347Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 106,
@@ -1378,8 +1378,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.041Z'
+      created_at: '2017-08-26T19:14:18.347Z',
+      updated_at: '2017-08-26T19:14:18.347Z'
     },
     {
       id: 107,
@@ -1391,8 +1391,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.041Z'
+      created_at: '2017-08-26T19:14:18.348Z',
+      updated_at: '2017-08-26T19:14:18.348Z'
     },
     {
       id: 108,
@@ -1404,8 +1404,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.041Z'
+      created_at: '2017-08-26T19:14:18.348Z',
+      updated_at: '2017-08-26T19:14:18.348Z'
     },
     {
       id: 109,
@@ -1417,8 +1417,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.041Z'
+      created_at: '2017-08-26T19:14:18.348Z',
+      updated_at: '2017-08-26T19:14:18.348Z'
     },
     {
       id: 110,
@@ -1430,8 +1430,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.041Z'
+      created_at: '2017-08-26T19:14:18.348Z',
+      updated_at: '2017-08-26T19:14:18.348Z'
     },
     {
       id: 111,
@@ -1443,8 +1443,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 54,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.041Z'
+      created_at: '2017-08-26T19:14:18.348Z',
+      updated_at: '2017-08-26T19:14:18.348Z'
     },
     {
       id: 112,
@@ -1456,8 +1456,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 55,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.041Z'
+      created_at: '2017-08-26T19:14:18.348Z',
+      updated_at: '2017-08-26T19:14:18.348Z'
     },
     {
       id: 113,
@@ -1469,8 +1469,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.041Z'
+      created_at: '2017-08-26T19:14:18.348Z',
+      updated_at: '2017-08-26T19:14:18.348Z'
     },
     {
       id: 114,
@@ -1480,10 +1480,12 @@ const usersFixtures = new Fixtures({
       email: 'gmk8@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      security_question_1_id: 1,
+      security_question_1_answer: 'moly',
       is_active: true,
       photo_id: 56,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.041Z'
+      created_at: '2017-08-26T19:14:18.348Z',
+      updated_at: '2017-08-26T19:14:18.348Z'
     },
     {
       id: 115,
@@ -1495,8 +1497,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 57,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.041Z'
+      created_at: '2017-08-26T19:14:18.348Z',
+      updated_at: '2017-08-26T19:14:18.348Z'
     },
     {
       id: 116,
@@ -1508,8 +1510,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.041Z'
+      created_at: '2017-08-26T19:14:18.348Z',
+      updated_at: '2017-08-26T19:14:18.348Z'
     },
     {
       id: 117,
@@ -1521,8 +1523,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 58,
-      created_at: '2017-08-24T18:13:05.041Z',
-      updated_at: '2017-08-24T18:13:05.042Z'
+      created_at: '2017-08-26T19:14:18.348Z',
+      updated_at: '2017-08-26T19:14:18.348Z'
     },
     {
       id: 118,
@@ -1534,8 +1536,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.042Z',
-      updated_at: '2017-08-24T18:13:05.042Z'
+      created_at: '2017-08-26T19:14:18.348Z',
+      updated_at: '2017-08-26T19:14:18.348Z'
     },
     {
       id: 119,
@@ -1547,8 +1549,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 59,
-      created_at: '2017-08-24T18:13:05.042Z',
-      updated_at: '2017-08-24T18:13:05.042Z'
+      created_at: '2017-08-26T19:14:18.348Z',
+      updated_at: '2017-08-26T19:14:18.348Z'
     },
     {
       id: 120,
@@ -1560,8 +1562,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.042Z',
-      updated_at: '2017-08-24T18:13:05.042Z'
+      created_at: '2017-08-26T19:14:18.348Z',
+      updated_at: '2017-08-26T19:14:18.348Z'
     },
     {
       id: 121,
@@ -1573,8 +1575,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 60,
-      created_at: '2017-08-24T18:13:05.042Z',
-      updated_at: '2017-08-24T18:13:05.042Z'
+      created_at: '2017-08-26T19:14:18.348Z',
+      updated_at: '2017-08-26T19:14:18.348Z'
     },
     {
       id: 122,
@@ -1586,8 +1588,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 61,
-      created_at: '2017-08-24T18:13:05.042Z',
-      updated_at: '2017-08-24T18:13:05.042Z'
+      created_at: '2017-08-26T19:14:18.348Z',
+      updated_at: '2017-08-26T19:14:18.348Z'
     },
     {
       id: 123,
@@ -1599,8 +1601,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 62,
-      created_at: '2017-08-24T18:13:05.042Z',
-      updated_at: '2017-08-24T18:13:05.042Z'
+      created_at: '2017-08-26T19:14:18.348Z',
+      updated_at: '2017-08-26T19:14:18.348Z'
     },
     {
       id: 124,
@@ -1612,8 +1614,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 63,
-      created_at: '2017-08-24T18:13:05.042Z',
-      updated_at: '2017-08-24T18:13:05.042Z'
+      created_at: '2017-08-26T19:14:18.349Z',
+      updated_at: '2017-08-26T19:14:18.349Z'
     },
     {
       id: 125,
@@ -1625,8 +1627,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.042Z',
-      updated_at: '2017-08-24T18:13:05.042Z'
+      created_at: '2017-08-26T19:14:18.349Z',
+      updated_at: '2017-08-26T19:14:18.349Z'
     },
     {
       id: 126,
@@ -1638,8 +1640,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.042Z',
-      updated_at: '2017-08-24T18:13:05.042Z'
+      created_at: '2017-08-26T19:14:18.349Z',
+      updated_at: '2017-08-26T19:14:18.349Z'
     },
     {
       id: 127,
@@ -1651,8 +1653,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 64,
-      created_at: '2017-08-24T18:13:05.043Z',
-      updated_at: '2017-08-24T18:13:05.043Z'
+      created_at: '2017-08-26T19:14:18.349Z',
+      updated_at: '2017-08-26T19:14:18.349Z'
     },
     {
       id: 128,
@@ -1664,8 +1666,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.043Z',
-      updated_at: '2017-08-24T18:13:05.043Z'
+      created_at: '2017-08-26T19:14:18.349Z',
+      updated_at: '2017-08-26T19:14:18.349Z'
     },
     {
       id: 129,
@@ -1677,8 +1679,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.043Z',
-      updated_at: '2017-08-24T18:13:05.043Z'
+      created_at: '2017-08-26T19:14:18.349Z',
+      updated_at: '2017-08-26T19:14:18.349Z'
     },
     {
       id: 130,
@@ -1690,8 +1692,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.043Z',
-      updated_at: '2017-08-24T18:13:05.043Z'
+      created_at: '2017-08-26T19:14:18.349Z',
+      updated_at: '2017-08-26T19:14:18.349Z'
     },
     {
       id: 131,
@@ -1703,8 +1705,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 65,
-      created_at: '2017-08-24T18:13:05.043Z',
-      updated_at: '2017-08-24T18:13:05.043Z'
+      created_at: '2017-08-26T19:14:18.349Z',
+      updated_at: '2017-08-26T19:14:18.349Z'
     },
     {
       id: 132,
@@ -1716,8 +1718,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 66,
-      created_at: '2017-08-24T18:13:05.043Z',
-      updated_at: '2017-08-24T18:13:05.043Z'
+      created_at: '2017-08-26T19:14:18.350Z',
+      updated_at: '2017-08-26T19:14:18.350Z'
     },
     {
       id: 133,
@@ -1729,8 +1731,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.043Z',
-      updated_at: '2017-08-24T18:13:05.043Z'
+      created_at: '2017-08-26T19:14:18.350Z',
+      updated_at: '2017-08-26T19:14:18.350Z'
     },
     {
       id: 134,
@@ -1742,8 +1744,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 67,
-      created_at: '2017-08-24T18:13:05.043Z',
-      updated_at: '2017-08-24T18:13:05.043Z'
+      created_at: '2017-08-26T19:14:18.350Z',
+      updated_at: '2017-08-26T19:14:18.350Z'
     },
     {
       id: 135,
@@ -1755,8 +1757,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 68,
-      created_at: '2017-08-24T18:13:05.043Z',
-      updated_at: '2017-08-24T18:13:05.043Z'
+      created_at: '2017-08-26T19:14:18.350Z',
+      updated_at: '2017-08-26T19:14:18.350Z'
     },
     {
       id: 136,
@@ -1768,8 +1770,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.043Z',
-      updated_at: '2017-08-24T18:13:05.043Z'
+      created_at: '2017-08-26T19:14:18.350Z',
+      updated_at: '2017-08-26T19:14:18.350Z'
     },
     {
       id: 137,
@@ -1781,8 +1783,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 69,
-      created_at: '2017-08-24T18:13:05.043Z',
-      updated_at: '2017-08-24T18:13:05.043Z'
+      created_at: '2017-08-26T19:14:18.350Z',
+      updated_at: '2017-08-26T19:14:18.350Z'
     },
     {
       id: 138,
@@ -1794,8 +1796,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 70,
-      created_at: '2017-08-24T18:13:05.043Z',
-      updated_at: '2017-08-24T18:13:05.043Z'
+      created_at: '2017-08-26T19:14:18.350Z',
+      updated_at: '2017-08-26T19:14:18.350Z'
     },
     {
       id: 139,
@@ -1807,8 +1809,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 71,
-      created_at: '2017-08-24T18:13:05.043Z',
-      updated_at: '2017-08-24T18:13:05.043Z'
+      created_at: '2017-08-26T19:14:18.350Z',
+      updated_at: '2017-08-26T19:14:18.350Z'
     },
     {
       id: 140,
@@ -1820,8 +1822,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 72,
-      created_at: '2017-08-24T18:13:05.043Z',
-      updated_at: '2017-08-24T18:13:05.043Z'
+      created_at: '2017-08-26T19:14:18.350Z',
+      updated_at: '2017-08-26T19:14:18.350Z'
     },
     {
       id: 141,
@@ -1833,8 +1835,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.350Z',
+      updated_at: '2017-08-26T19:14:18.350Z'
     },
     {
       id: 142,
@@ -1846,8 +1848,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 73,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.350Z',
+      updated_at: '2017-08-26T19:14:18.350Z'
     },
     {
       id: 143,
@@ -1859,8 +1861,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.350Z',
+      updated_at: '2017-08-26T19:14:18.350Z'
     },
     {
       id: 144,
@@ -1872,8 +1874,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.350Z',
+      updated_at: '2017-08-26T19:14:18.350Z'
     },
     {
       id: 145,
@@ -1885,8 +1887,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.351Z',
+      updated_at: '2017-08-26T19:14:18.351Z'
     },
     {
       id: 146,
@@ -1898,8 +1900,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.351Z',
+      updated_at: '2017-08-26T19:14:18.351Z'
     },
     {
       id: 147,
@@ -1911,8 +1913,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.351Z',
+      updated_at: '2017-08-26T19:14:18.351Z'
     },
     {
       id: 148,
@@ -1924,8 +1926,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.351Z',
+      updated_at: '2017-08-26T19:14:18.351Z'
     },
     {
       id: 149,
@@ -1937,8 +1939,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 74,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.351Z',
+      updated_at: '2017-08-26T19:14:18.351Z'
     },
     {
       id: 150,
@@ -1950,8 +1952,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.351Z',
+      updated_at: '2017-08-26T19:14:18.351Z'
     },
     {
       id: 151,
@@ -1963,8 +1965,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 75,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.351Z',
+      updated_at: '2017-08-26T19:14:18.351Z'
     },
     {
       id: 152,
@@ -1976,8 +1978,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.351Z',
+      updated_at: '2017-08-26T19:14:18.351Z'
     },
     {
       id: 153,
@@ -1989,8 +1991,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.351Z',
+      updated_at: '2017-08-26T19:14:18.351Z'
     },
     {
       id: 154,
@@ -2002,8 +2004,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.351Z',
+      updated_at: '2017-08-26T19:14:18.351Z'
     },
     {
       id: 155,
@@ -2015,8 +2017,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.351Z',
+      updated_at: '2017-08-26T19:14:18.351Z'
     },
     {
       id: 156,
@@ -2028,8 +2030,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.351Z',
+      updated_at: '2017-08-26T19:14:18.351Z'
     },
     {
       id: 157,
@@ -2041,8 +2043,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.351Z',
+      updated_at: '2017-08-26T19:14:18.351Z'
     },
     {
       id: 158,
@@ -2054,8 +2056,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.351Z',
+      updated_at: '2017-08-26T19:14:18.351Z'
     },
     {
       id: 159,
@@ -2067,8 +2069,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.351Z',
+      updated_at: '2017-08-26T19:14:18.351Z'
     },
     {
       id: 160,
@@ -2080,8 +2082,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 76,
-      created_at: '2017-08-24T18:13:05.044Z',
-      updated_at: '2017-08-24T18:13:05.044Z'
+      created_at: '2017-08-26T19:14:18.351Z',
+      updated_at: '2017-08-26T19:14:18.351Z'
     },
     {
       id: 161,
@@ -2093,8 +2095,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 77,
-      created_at: '2017-08-24T18:13:05.045Z',
-      updated_at: '2017-08-24T18:13:05.045Z'
+      created_at: '2017-08-26T19:14:18.351Z',
+      updated_at: '2017-08-26T19:14:18.351Z'
     },
     {
       id: 162,
@@ -2106,8 +2108,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.045Z',
-      updated_at: '2017-08-24T18:13:05.045Z'
+      created_at: '2017-08-26T19:14:18.351Z',
+      updated_at: '2017-08-26T19:14:18.351Z'
     },
     {
       id: 163,
@@ -2119,8 +2121,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.045Z',
-      updated_at: '2017-08-24T18:13:05.045Z'
+      created_at: '2017-08-26T19:14:18.352Z',
+      updated_at: '2017-08-26T19:14:18.352Z'
     },
     {
       id: 164,
@@ -2132,8 +2134,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 78,
-      created_at: '2017-08-24T18:13:05.045Z',
-      updated_at: '2017-08-24T18:13:05.045Z'
+      created_at: '2017-08-26T19:14:18.352Z',
+      updated_at: '2017-08-26T19:14:18.352Z'
     },
     {
       id: 165,
@@ -2145,8 +2147,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.045Z',
-      updated_at: '2017-08-24T18:13:05.045Z'
+      created_at: '2017-08-26T19:14:18.352Z',
+      updated_at: '2017-08-26T19:14:18.352Z'
     },
     {
       id: 166,
@@ -2158,8 +2160,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.045Z',
-      updated_at: '2017-08-24T18:13:05.045Z'
+      created_at: '2017-08-26T19:14:18.352Z',
+      updated_at: '2017-08-26T19:14:18.352Z'
     },
     {
       id: 167,
@@ -2171,8 +2173,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.045Z',
-      updated_at: '2017-08-24T18:13:05.045Z'
+      created_at: '2017-08-26T19:14:18.352Z',
+      updated_at: '2017-08-26T19:14:18.352Z'
     },
     {
       id: 168,
@@ -2184,8 +2186,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.045Z',
-      updated_at: '2017-08-24T18:13:05.045Z'
+      created_at: '2017-08-26T19:14:18.352Z',
+      updated_at: '2017-08-26T19:14:18.352Z'
     },
     {
       id: 169,
@@ -2197,8 +2199,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 79,
-      created_at: '2017-08-24T18:13:05.045Z',
-      updated_at: '2017-08-24T18:13:05.045Z'
+      created_at: '2017-08-26T19:14:18.352Z',
+      updated_at: '2017-08-26T19:14:18.352Z'
     },
     {
       id: 170,
@@ -2210,8 +2212,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 80,
-      created_at: '2017-08-24T18:13:05.045Z',
-      updated_at: '2017-08-24T18:13:05.045Z'
+      created_at: '2017-08-26T19:14:18.352Z',
+      updated_at: '2017-08-26T19:14:18.352Z'
     },
     {
       id: 171,
@@ -2223,8 +2225,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.045Z',
-      updated_at: '2017-08-24T18:13:05.045Z'
+      created_at: '2017-08-26T19:14:18.352Z',
+      updated_at: '2017-08-26T19:14:18.352Z'
     },
     {
       id: 172,
@@ -2236,8 +2238,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 81,
-      created_at: '2017-08-24T18:13:05.045Z',
-      updated_at: '2017-08-24T18:13:05.045Z'
+      created_at: '2017-08-26T19:14:18.352Z',
+      updated_at: '2017-08-26T19:14:18.352Z'
     },
     {
       id: 173,
@@ -2249,8 +2251,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.045Z',
-      updated_at: '2017-08-24T18:13:05.045Z'
+      created_at: '2017-08-26T19:14:18.352Z',
+      updated_at: '2017-08-26T19:14:18.352Z'
     },
     {
       id: 174,
@@ -2262,8 +2264,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 82,
-      created_at: '2017-08-24T18:13:05.045Z',
-      updated_at: '2017-08-24T18:13:05.045Z'
+      created_at: '2017-08-26T19:14:18.352Z',
+      updated_at: '2017-08-26T19:14:18.352Z'
     },
     {
       id: 175,
@@ -2275,8 +2277,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.045Z',
-      updated_at: '2017-08-24T18:13:05.045Z'
+      created_at: '2017-08-26T19:14:18.352Z',
+      updated_at: '2017-08-26T19:14:18.352Z'
     },
     {
       id: 176,
@@ -2288,8 +2290,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.045Z',
-      updated_at: '2017-08-24T18:13:05.045Z'
+      created_at: '2017-08-26T19:14:18.353Z',
+      updated_at: '2017-08-26T19:14:18.353Z'
     },
     {
       id: 177,
@@ -2301,8 +2303,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.045Z',
-      updated_at: '2017-08-24T18:13:05.045Z'
+      created_at: '2017-08-26T19:14:18.353Z',
+      updated_at: '2017-08-26T19:14:18.353Z'
     },
     {
       id: 178,
@@ -2314,8 +2316,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.045Z',
-      updated_at: '2017-08-24T18:13:05.045Z'
+      created_at: '2017-08-26T19:14:18.353Z',
+      updated_at: '2017-08-26T19:14:18.353Z'
     },
     {
       id: 179,
@@ -2327,8 +2329,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 83,
-      created_at: '2017-08-24T18:13:05.046Z',
-      updated_at: '2017-08-24T18:13:05.046Z'
+      created_at: '2017-08-26T19:14:18.353Z',
+      updated_at: '2017-08-26T19:14:18.353Z'
     },
     {
       id: 180,
@@ -2340,8 +2342,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.046Z',
-      updated_at: '2017-08-24T18:13:05.046Z'
+      created_at: '2017-08-26T19:14:18.353Z',
+      updated_at: '2017-08-26T19:14:18.353Z'
     },
     {
       id: 181,
@@ -2353,8 +2355,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.046Z',
-      updated_at: '2017-08-24T18:13:05.046Z'
+      created_at: '2017-08-26T19:14:18.353Z',
+      updated_at: '2017-08-26T19:14:18.353Z'
     },
     {
       id: 182,
@@ -2366,8 +2368,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.046Z',
-      updated_at: '2017-08-24T18:13:05.046Z'
+      created_at: '2017-08-26T19:14:18.353Z',
+      updated_at: '2017-08-26T19:14:18.353Z'
     },
     {
       id: 183,
@@ -2379,8 +2381,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 84,
-      created_at: '2017-08-24T18:13:05.046Z',
-      updated_at: '2017-08-24T18:13:05.046Z'
+      created_at: '2017-08-26T19:14:18.353Z',
+      updated_at: '2017-08-26T19:14:18.353Z'
     },
     {
       id: 184,
@@ -2392,8 +2394,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.046Z',
-      updated_at: '2017-08-24T18:13:05.046Z'
+      created_at: '2017-08-26T19:14:18.353Z',
+      updated_at: '2017-08-26T19:14:18.353Z'
     },
     {
       id: 185,
@@ -2405,8 +2407,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 85,
-      created_at: '2017-08-24T18:13:05.046Z',
-      updated_at: '2017-08-24T18:13:05.046Z'
+      created_at: '2017-08-26T19:14:18.353Z',
+      updated_at: '2017-08-26T19:14:18.353Z'
     },
     {
       id: 186,
@@ -2418,8 +2420,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 86,
-      created_at: '2017-08-24T18:13:05.046Z',
-      updated_at: '2017-08-24T18:13:05.046Z'
+      created_at: '2017-08-26T19:14:18.353Z',
+      updated_at: '2017-08-26T19:14:18.353Z'
     },
     {
       id: 187,
@@ -2431,8 +2433,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 87,
-      created_at: '2017-08-24T18:13:05.046Z',
-      updated_at: '2017-08-24T18:13:05.046Z'
+      created_at: '2017-08-26T19:14:18.353Z',
+      updated_at: '2017-08-26T19:14:18.353Z'
     },
     {
       id: 188,
@@ -2444,8 +2446,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.046Z',
-      updated_at: '2017-08-24T18:13:05.046Z'
+      created_at: '2017-08-26T19:14:18.353Z',
+      updated_at: '2017-08-26T19:14:18.353Z'
     },
     {
       id: 189,
@@ -2457,8 +2459,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.046Z',
-      updated_at: '2017-08-24T18:13:05.046Z'
+      created_at: '2017-08-26T19:14:18.353Z',
+      updated_at: '2017-08-26T19:14:18.353Z'
     },
     {
       id: 190,
@@ -2470,8 +2472,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 88,
-      created_at: '2017-08-24T18:13:05.046Z',
-      updated_at: '2017-08-24T18:13:05.046Z'
+      created_at: '2017-08-26T19:14:18.353Z',
+      updated_at: '2017-08-26T19:14:18.353Z'
     },
     {
       id: 191,
@@ -2483,8 +2485,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 89,
-      created_at: '2017-08-24T18:13:05.046Z',
-      updated_at: '2017-08-24T18:13:05.046Z'
+      created_at: '2017-08-26T19:14:18.353Z',
+      updated_at: '2017-08-26T19:14:18.353Z'
     },
     {
       id: 192,
@@ -2496,8 +2498,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.046Z',
-      updated_at: '2017-08-24T18:13:05.046Z'
+      created_at: '2017-08-26T19:14:18.354Z',
+      updated_at: '2017-08-26T19:14:18.354Z'
     },
     {
       id: 193,
@@ -2509,8 +2511,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.046Z',
-      updated_at: '2017-08-24T18:13:05.046Z'
+      created_at: '2017-08-26T19:14:18.354Z',
+      updated_at: '2017-08-26T19:14:18.354Z'
     },
     {
       id: 194,
@@ -2522,8 +2524,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.046Z',
-      updated_at: '2017-08-24T18:13:05.046Z'
+      created_at: '2017-08-26T19:14:18.354Z',
+      updated_at: '2017-08-26T19:14:18.354Z'
     },
     {
       id: 195,
@@ -2535,8 +2537,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.046Z',
-      updated_at: '2017-08-24T18:13:05.046Z'
+      created_at: '2017-08-26T19:14:18.354Z',
+      updated_at: '2017-08-26T19:14:18.354Z'
     },
     {
       id: 196,
@@ -2548,8 +2550,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 90,
-      created_at: '2017-08-24T18:13:05.046Z',
-      updated_at: '2017-08-24T18:13:05.046Z'
+      created_at: '2017-08-26T19:14:18.354Z',
+      updated_at: '2017-08-26T19:14:18.354Z'
     },
     {
       id: 197,
@@ -2561,8 +2563,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 91,
-      created_at: '2017-08-24T18:13:05.047Z',
-      updated_at: '2017-08-24T18:13:05.047Z'
+      created_at: '2017-08-26T19:14:18.354Z',
+      updated_at: '2017-08-26T19:14:18.354Z'
     },
     {
       id: 198,
@@ -2574,8 +2576,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 92,
-      created_at: '2017-08-24T18:13:05.047Z',
-      updated_at: '2017-08-24T18:13:05.047Z'
+      created_at: '2017-08-26T19:14:18.354Z',
+      updated_at: '2017-08-26T19:14:18.354Z'
     },
     {
       id: 199,
@@ -2587,8 +2589,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.047Z',
-      updated_at: '2017-08-24T18:13:05.047Z'
+      created_at: '2017-08-26T19:14:18.354Z',
+      updated_at: '2017-08-26T19:14:18.354Z'
     },
     {
       id: 200,
@@ -2600,8 +2602,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 93,
-      created_at: '2017-08-24T18:13:05.047Z',
-      updated_at: '2017-08-24T18:13:05.047Z'
+      created_at: '2017-08-26T19:14:18.354Z',
+      updated_at: '2017-08-26T19:14:18.354Z'
     },
     {
       id: 201,
@@ -2613,8 +2615,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.047Z',
-      updated_at: '2017-08-24T18:13:05.047Z'
+      created_at: '2017-08-26T19:14:18.354Z',
+      updated_at: '2017-08-26T19:14:18.354Z'
     },
     {
       id: 202,
@@ -2626,8 +2628,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 94,
-      created_at: '2017-08-24T18:13:05.047Z',
-      updated_at: '2017-08-24T18:13:05.047Z'
+      created_at: '2017-08-26T19:14:18.354Z',
+      updated_at: '2017-08-26T19:14:18.354Z'
     },
     {
       id: 203,
@@ -2639,8 +2641,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.047Z',
-      updated_at: '2017-08-24T18:13:05.047Z'
+      created_at: '2017-08-26T19:14:18.354Z',
+      updated_at: '2017-08-26T19:14:18.354Z'
     },
     {
       id: 204,
@@ -2652,8 +2654,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.047Z',
-      updated_at: '2017-08-24T18:13:05.047Z'
+      created_at: '2017-08-26T19:14:18.354Z',
+      updated_at: '2017-08-26T19:14:18.354Z'
     },
     {
       id: 205,
@@ -2665,8 +2667,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 95,
-      created_at: '2017-08-24T18:13:05.047Z',
-      updated_at: '2017-08-24T18:13:05.047Z'
+      created_at: '2017-08-26T19:14:18.354Z',
+      updated_at: '2017-08-26T19:14:18.354Z'
     },
     {
       id: 206,
@@ -2678,8 +2680,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.047Z',
-      updated_at: '2017-08-24T18:13:05.047Z'
+      created_at: '2017-08-26T19:14:18.354Z',
+      updated_at: '2017-08-26T19:14:18.354Z'
     },
     {
       id: 207,
@@ -2691,8 +2693,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.048Z',
-      updated_at: '2017-08-24T18:13:05.048Z'
+      created_at: '2017-08-26T19:14:18.354Z',
+      updated_at: '2017-08-26T19:14:18.354Z'
     },
     {
       id: 208,
@@ -2704,8 +2706,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 96,
-      created_at: '2017-08-24T18:13:05.048Z',
-      updated_at: '2017-08-24T18:13:05.048Z'
+      created_at: '2017-08-26T19:14:18.354Z',
+      updated_at: '2017-08-26T19:14:18.354Z'
     },
     {
       id: 209,
@@ -2717,8 +2719,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.048Z',
-      updated_at: '2017-08-24T18:13:05.048Z'
+      created_at: '2017-08-26T19:14:18.355Z',
+      updated_at: '2017-08-26T19:14:18.355Z'
     },
     {
       id: 210,
@@ -2730,8 +2732,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.048Z',
-      updated_at: '2017-08-24T18:13:05.048Z'
+      created_at: '2017-08-26T19:14:18.355Z',
+      updated_at: '2017-08-26T19:14:18.355Z'
     },
     {
       id: 211,
@@ -2743,8 +2745,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 97,
-      created_at: '2017-08-24T18:13:05.048Z',
-      updated_at: '2017-08-24T18:13:05.048Z'
+      created_at: '2017-08-26T19:14:18.355Z',
+      updated_at: '2017-08-26T19:14:18.355Z'
     },
     {
       id: 212,
@@ -2756,8 +2758,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.048Z',
-      updated_at: '2017-08-24T18:13:05.048Z'
+      created_at: '2017-08-26T19:14:18.355Z',
+      updated_at: '2017-08-26T19:14:18.355Z'
     },
     {
       id: 213,
@@ -2769,8 +2771,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 98,
-      created_at: '2017-08-24T18:13:05.048Z',
-      updated_at: '2017-08-24T18:13:05.048Z'
+      created_at: '2017-08-26T19:14:18.355Z',
+      updated_at: '2017-08-26T19:14:18.355Z'
     },
     {
       id: 214,
@@ -2782,8 +2784,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.048Z',
-      updated_at: '2017-08-24T18:13:05.048Z'
+      created_at: '2017-08-26T19:14:18.355Z',
+      updated_at: '2017-08-26T19:14:18.355Z'
     },
     {
       id: 215,
@@ -2795,8 +2797,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.048Z',
-      updated_at: '2017-08-24T18:13:05.048Z'
+      created_at: '2017-08-26T19:14:18.355Z',
+      updated_at: '2017-08-26T19:14:18.355Z'
     },
     {
       id: 216,
@@ -2808,8 +2810,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.048Z',
-      updated_at: '2017-08-24T18:13:05.048Z'
+      created_at: '2017-08-26T19:14:18.355Z',
+      updated_at: '2017-08-26T19:14:18.355Z'
     },
     {
       id: 217,
@@ -2821,8 +2823,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.048Z',
-      updated_at: '2017-08-24T18:13:05.048Z'
+      created_at: '2017-08-26T19:14:18.355Z',
+      updated_at: '2017-08-26T19:14:18.355Z'
     },
     {
       id: 218,
@@ -2834,8 +2836,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.048Z',
-      updated_at: '2017-08-24T18:13:05.048Z'
+      created_at: '2017-08-26T19:14:18.355Z',
+      updated_at: '2017-08-26T19:14:18.355Z'
     },
     {
       id: 219,
@@ -2847,8 +2849,8 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: null,
-      created_at: '2017-08-24T18:13:05.048Z',
-      updated_at: '2017-08-24T18:13:05.048Z'
+      created_at: '2017-08-26T19:14:18.355Z',
+      updated_at: '2017-08-26T19:14:18.355Z'
     }
   ]
 })

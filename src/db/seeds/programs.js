@@ -7,8 +7,8 @@ const programsFixtures = new Fixtures({
       id: 1,
       team_id: 1,
       title: '',
-      created_at: '2017-08-24T18:13:05.077Z',
-      updated_at: '2017-08-24T18:13:05.077Z'
+      created_at: '2017-08-26T19:14:18.385Z',
+      updated_at: '2017-08-26T19:14:18.385Z'
     }
   ]
 })

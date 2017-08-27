@@ -887,3 +887,4 @@ const usersGroupsFixtures = new Fixtures({
 })
 
 export default usersGroupsFixtures
+

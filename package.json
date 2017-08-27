@@ -16,12 +16,14 @@
   },
   "homepage": "https://github.com/ccetc/mycce2#readme",
   "dependencies": {
+    "ansi-wrap": "^0.1.0",
     "aws-sdk": "^2.86.0",
     "csv-parse": "^1.2.0",
     "maha": "github:mahaplatform/maha",
     "maha-competencies": "github:ccetc/maha-competencies",
     "maha-eatfresh": "github:ccetc/maha-eatfresh",
-    "maha-expenses": "github:ccetc/maha-expenses"
+    "maha-expenses": "github:ccetc/maha-expenses",
+    "wrap-ansi": "^3.0.1"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",

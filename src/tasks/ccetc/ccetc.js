@@ -297,25 +297,45 @@ export const import_20170622 = async () => {
       region: process.env.AWS_REGION || ''
     })
 
-    const s3 = new aws.S3()
+    if(process.env.ASSET_STORAGE === 's3') {
 
-    await Promise.map(userData.assets, async asset => {
+      const s3 = new aws.S3()
 
-      const filename = asset.file_name
+      await Promise.map(userData.assets, async asset => {
 
-      const contentType = asset.content_type
+        const filename = asset.file_name
 
-      const filepath = path.join('files', '20170622', 'photos', asset.file_name)
+        const contentType = asset.content_type
 
-      await s3.upload({
-        Bucket: process.env.AWS_BUCKET,
-        Key: `assets/${asset.id}/${asset.file_name}`,
-        ACL: 'public-read',
-        Body: fs.readFileSync(filepath),
-        ContentType: contentType
-      }).promise()
+        const filepath = path.join('files', '20170622', 'photos', asset.file_name)
 
-    })
+        await s3.upload({
+          Bucket: process.env.AWS_BUCKET,
+          Key: `assets/${asset.id}/${asset.file_name}`,
+          ACL: 'public-read',
+          Body: fs.readFileSync(filepath),
+          ContentType: contentType
+        }).promise()
+
+      })
+
+    } else if (process.env.ASSET_STORAGE === 'local') {
+
+      userData.assets.map(asset => {
+
+        const filepath = path.join('files', '20170622', 'photos', asset.file_name)
+
+        if(!fs.existsSync(path.resolve('public', 'assets'))) fs.mkdirSync(path.resolve('public', 'assets'))
+
+        if(!fs.existsSync(path.resolve('public', 'assets', asset.id.toString()))) fs.mkdirSync(path.resolve('public', 'assets', asset.id.toString()))
+
+        fs.writeFileSync(path.resolve('public', 'assets', asset.id.toString(), asset.file_name), fs.readFileSync(filepath))
+
+      })
+
+    }
+
+
 
   } catch(e) {
 
