@@ -1,3 +1,3 @@
-import server from 'maha/dist/server'
+import server from 'maha/dist/platform/tasks/server/server'
 
 server()
