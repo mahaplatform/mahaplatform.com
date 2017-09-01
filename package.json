@@ -23,6 +23,8 @@
     "maha-competencies": "github:ccetc/maha-competencies",
     "maha-eatfresh": "github:ccetc/maha-eatfresh",
     "maha-expenses": "github:ccetc/maha-expenses",
+    "shipit-deploy": "^2.5.1",
+    "shipit-npm": "^0.2.0",
     "wrap-ansi": "^3.0.1"
   },
   "devDependencies": {
