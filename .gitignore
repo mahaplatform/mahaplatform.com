@@ -5,6 +5,7 @@ npm-debug.log
 data.sqlite3
 config/*
 !config/.gitkeep
+!config/ecosystem.config.js
 docs/files/deploy
 docs/files/*.key
 docs/files/*.crt
