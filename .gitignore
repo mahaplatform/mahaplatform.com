@@ -3,7 +3,8 @@ npm-debug.log
 .env
 /public
 data.sqlite3
-deploy.js
+deploy/*
+!deploy/.gitkeep
 docs/files/deploy
 docs/files/*.key
 docs/files/*.crt
