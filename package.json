@@ -24,6 +24,7 @@
     "maha-eatfresh": "github:ccetc/maha-eatfresh",
     "maha-expenses": "github:ccetc/maha-expenses",
     "shipit-deploy": "^2.5.1",
+    "shipit-maha": "^1.0.0",
     "shipit-npm": "^0.2.0",
     "wrap-ansi": "^3.0.1"
   },
