@@ -1,4 +1,4 @@
-const config = require('./deploy/deploy')
+const config = require('./config/deploy')
 const deploy = require('shipit-deploy')
 const npm = require('shipit-npm')
 const maha = require('shipit-maha')

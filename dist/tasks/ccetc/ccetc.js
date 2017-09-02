@@ -62,7 +62,7 @@ var _awsSdk2 = _interopRequireDefault(_awsSdk);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var import_20170622 = exports.import_20170622 = function () {
-  var _ref = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee2() {
+  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
     var employees, projects, expenses, members, competencies, expectations, supervisors, assets, userData, supervisorData, projectData, expenseData, memberData, competencyData, expectationsData, s3;
     return _regenerator2.default.wrap(function _callee2$(_context2) {
       while (1) {
@@ -345,7 +345,7 @@ var import_20170622 = exports.import_20170622 = function () {
             s3 = new _awsSdk2.default.S3();
             _context2.next = 38;
             return (0, _bluebird.map)(userData.assets, function () {
-              var _ref2 = (0, _asyncToGenerator3.default)(_regenerator2.default.mark(function _callee(asset) {
+              var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(asset) {
                 var filename, contentType, filepath;
                 return _regenerator2.default.wrap(function _callee$(_context) {
                   while (1) {
