@@ -1,7 +1,7 @@
 module.exports = {
   apps: [
     {
-      name: 'worker',
+      name: 'worker_'+process.env.NODE_ENV,
       script: './dist/worker.js',
       cwd: process.env.PWD + '/current',
       error_file: process.env.PWD + '/current/logs/worker.err.log',
