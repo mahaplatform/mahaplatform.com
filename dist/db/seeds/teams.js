@@ -6,6 +6,18 @@ Object.defineProperty(exports, "__esModule", {
 
 var _maha = require('maha');
 
+var _fs = require('fs');
+
+var _fs2 = _interopRequireDefault(_fs);
+
+var _path = require('path');
+
+var _path2 = _interopRequireDefault(_path);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var email_template = _fs2.default.readFileSync(_path2.default.resolve(__dirname, '..', '..', '..', 'node_modules', 'maha', 'src', 'platform', 'templates', 'email.ejs'), 'utf8');
+
 var teamFixtures = new _maha.Fixtures({
   tableName: 'maha_teams',
   records: [{
@@ -13,7 +25,7 @@ var teamFixtures = new _maha.Fixtures({
     title: 'CCE Tompkins',
     subdomain: 'ccetompkins',
     color: 'red',
-    email_template: '<html><body><style>.email-button { text-align:center; }.email-button table{ display:inline; }.email-button td { background-color: #21BA45; padding:10px 20px; }.email-button a { font-weight:bold;color:#FFFFFF; }</style><%= content %></body></html>',
+    email_template: email_template,
     logo_id: 1
   }]
 });

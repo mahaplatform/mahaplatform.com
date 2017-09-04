@@ -24,7 +24,7 @@ var emailTemplatesFixtures = new _maha.Fixtures({
     code: 'team.reset',
     name: 'Reset Password',
     subject: 'Reset Your Password',
-    html: '<p>Hello <%= first_name %>,</p><p>You or someone else requested password reset instructions for the account connected with this email address.</p><p>If you did not request this email, you can ignore it and no changes will be made.</p><div class="email-button"><table border="0" cellpadding="0" cellspacing="0"><tr><td><a href="<%= reset_url %>">Reset Password</a></td></tr></table></div>',
+    html: '<p>Hello <%= first_name %>,</p><p>You or someone else requested password reset instructions for the account connected with this email address.</p><p>If you did not request this email, you can ignore it and no changes will be made.</p><table class="button large expand"><tbody><tr><td><table><tbody><tr><td><center data-parsed=""><a href="<%= reset_url %>">Reset Password</a></center></td></tr></table></div>',
     text: 'Hello <%= first_name %>,\n\nYou or someone else requested password reset instructions for the account connected with this email address.\n\nIf you did not request this email, you can ignore it and no changes will be made.\n\nClick the following link to activate your account:\n\n<%= reset_url %>'
   }]
 });

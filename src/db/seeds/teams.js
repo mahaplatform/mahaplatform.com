@@ -1,4 +1,8 @@
 import { Fixtures } from 'maha'
+import fs from 'fs'
+import path from 'path'
+
+const email_template = fs.readFileSync(path.resolve(__dirname,'..','..','..','node_modules','maha','src','platform','templates','email.ejs'), 'utf8')
 
 const teamFixtures = new Fixtures({
   tableName: 'maha_teams',
@@ -8,7 +12,7 @@ const teamFixtures = new Fixtures({
       title: 'CCE Tompkins',
       subdomain: 'ccetompkins',
       color: 'red',
-      email_template: '<html><body><style>.email-button { text-align:center; }.email-button table{ display:inline; }.email-button td { background-color: #21BA45; padding:10px 20px; }.email-button a { font-weight:bold;color:#FFFFFF; }</style><%= content %></body></html>',
+      email_template,
       logo_id: 1
     }
   ]
