@@ -128,7 +128,7 @@ var import_20170622 = exports.import_20170622 = function () {
                   email: record[2] + '@cornell.edu',
                   password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
                   password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-                  is_active: true,
+                  is_active: false,
                   photo_id: asset_id,
                   created_at: (0, _moment2.default)(),
                   updated_at: (0, _moment2.default)()
