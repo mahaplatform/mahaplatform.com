@@ -16,7 +16,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'aaa247@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 2,
     created_at: '2017-08-26T19:14:18.331Z',
     updated_at: '2017-08-26T19:14:18.331Z'
@@ -28,7 +28,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ska2@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 3,
     created_at: '2017-08-26T19:14:18.332Z',
     updated_at: '2017-08-26T19:14:18.332Z'
@@ -40,7 +40,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ola5@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.332Z',
     updated_at: '2017-08-26T19:14:18.332Z'
@@ -52,7 +52,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jsa232@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.332Z',
     updated_at: '2017-08-26T19:14:18.332Z'
@@ -64,7 +64,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'dmb443@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.333Z',
     updated_at: '2017-08-26T19:14:18.333Z'
@@ -76,7 +76,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'llb232@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.333Z',
     updated_at: '2017-08-26T19:14:18.333Z'
@@ -88,7 +88,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'rb667@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 4,
     created_at: '2017-08-26T19:14:18.333Z',
     updated_at: '2017-08-26T19:14:18.333Z'
@@ -100,7 +100,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'bab47@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 5,
     created_at: '2017-08-26T19:14:18.333Z',
     updated_at: '2017-08-26T19:14:18.333Z'
@@ -112,7 +112,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'hab76@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.333Z',
     updated_at: '2017-08-26T19:14:18.333Z'
@@ -124,7 +124,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mab565@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 6,
     created_at: '2017-08-26T19:14:18.333Z',
     updated_at: '2017-08-26T19:14:18.333Z'
@@ -136,7 +136,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'alf232@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.333Z',
     updated_at: '2017-08-26T19:14:18.333Z'
@@ -148,7 +148,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jwb384@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.334Z',
     updated_at: '2017-08-26T19:14:18.334Z'
@@ -160,7 +160,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'kwb6@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 7,
     created_at: '2017-08-26T19:14:18.334Z',
     updated_at: '2017-08-26T19:14:18.334Z'
@@ -172,7 +172,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jmb792@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.334Z',
     updated_at: '2017-08-26T19:14:18.334Z'
@@ -184,7 +184,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jb2427@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.334Z',
     updated_at: '2017-08-26T19:14:18.334Z'
@@ -196,7 +196,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'akb29@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 8,
     created_at: '2017-08-26T19:14:18.334Z',
     updated_at: '2017-08-26T19:14:18.334Z'
@@ -208,7 +208,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ebb86@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.334Z',
     updated_at: '2017-08-26T19:14:18.334Z'
@@ -220,7 +220,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mjm463@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 9,
     created_at: '2017-08-26T19:14:18.335Z',
     updated_at: '2017-08-26T19:14:18.335Z'
@@ -232,7 +232,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jpb27@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 10,
     created_at: '2017-08-26T19:14:18.335Z',
     updated_at: '2017-08-26T19:14:18.335Z'
@@ -244,7 +244,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'kab448@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.335Z',
     updated_at: '2017-08-26T19:14:18.335Z'
@@ -256,7 +256,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'bab349@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.335Z',
     updated_at: '2017-08-26T19:14:18.335Z'
@@ -268,7 +268,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'esb11@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.335Z',
     updated_at: '2017-08-26T19:14:18.335Z'
@@ -280,7 +280,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'sb2275@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 11,
     created_at: '2017-08-26T19:14:18.335Z',
     updated_at: '2017-08-26T19:14:18.335Z'
@@ -292,7 +292,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'peb28@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 12,
     created_at: '2017-08-26T19:14:18.335Z',
     updated_at: '2017-08-26T19:14:18.335Z'
@@ -304,7 +304,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jlb293@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 13,
     created_at: '2017-08-26T19:14:18.335Z',
     updated_at: '2017-08-26T19:14:18.335Z'
@@ -316,7 +316,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ajc348@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.336Z',
     updated_at: '2017-08-26T19:14:18.336Z'
@@ -328,7 +328,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'btc6@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 14,
     created_at: '2017-08-26T19:14:18.336Z',
     updated_at: '2017-08-26T19:14:18.336Z'
@@ -340,7 +340,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'tc629@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 15,
     created_at: '2017-08-26T19:14:18.336Z',
     updated_at: '2017-08-26T19:14:18.336Z'
@@ -352,7 +352,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'emc333@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 16,
     created_at: '2017-08-26T19:14:18.336Z',
     updated_at: '2017-08-26T19:14:18.336Z'
@@ -364,7 +364,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mdc38@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.336Z',
     updated_at: '2017-08-26T19:14:18.337Z'
@@ -376,7 +376,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'hdc38@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 17,
     created_at: '2017-08-26T19:14:18.337Z',
     updated_at: '2017-08-26T19:14:18.337Z'
@@ -388,7 +388,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'kpc66@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.337Z',
     updated_at: '2017-08-26T19:14:18.337Z'
@@ -400,7 +400,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jc2889@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 18,
     created_at: '2017-08-26T19:14:18.337Z',
     updated_at: '2017-08-26T19:14:18.337Z'
@@ -412,7 +412,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mjc72@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 19,
     created_at: '2017-08-26T19:14:18.337Z',
     updated_at: '2017-08-26T19:14:18.337Z'
@@ -424,7 +424,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'fb29@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 20,
     created_at: '2017-08-26T19:14:18.337Z',
     updated_at: '2017-08-26T19:14:18.337Z'
@@ -436,7 +436,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'cec327@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.337Z',
     updated_at: '2017-08-26T19:14:18.337Z'
@@ -448,7 +448,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'rlc263@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 21,
     created_at: '2017-08-26T19:14:18.337Z',
     updated_at: '2017-08-26T19:14:18.337Z'
@@ -460,7 +460,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'sec283@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 22,
     created_at: '2017-08-26T19:14:18.339Z',
     updated_at: '2017-08-26T19:14:18.339Z'
@@ -472,7 +472,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'kbh22@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.340Z',
     updated_at: '2017-08-26T19:14:18.340Z'
@@ -484,7 +484,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jrc10@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 23,
     created_at: '2017-08-26T19:14:18.340Z',
     updated_at: '2017-08-26T19:14:18.340Z'
@@ -496,7 +496,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'egc24@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 24,
     created_at: '2017-08-26T19:14:18.340Z',
     updated_at: '2017-08-26T19:14:18.340Z'
@@ -508,7 +508,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'tfc43@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 25,
     created_at: '2017-08-26T19:14:18.341Z',
     updated_at: '2017-08-26T19:14:18.341Z'
@@ -520,7 +520,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'pjd223@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.341Z',
     updated_at: '2017-08-26T19:14:18.341Z'
@@ -532,7 +532,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'egd43@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.341Z',
     updated_at: '2017-08-26T19:14:18.341Z'
@@ -544,7 +544,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'tmd238@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.341Z',
     updated_at: '2017-08-26T19:14:18.341Z'
@@ -556,7 +556,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ntd27@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.341Z',
     updated_at: '2017-08-26T19:14:18.341Z'
@@ -568,7 +568,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'pld55@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.341Z',
     updated_at: '2017-08-26T19:14:18.341Z'
@@ -580,7 +580,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jd285@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 26,
     created_at: '2017-08-26T19:14:18.341Z',
     updated_at: '2017-08-26T19:14:18.341Z'
@@ -592,7 +592,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'bmd88@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 27,
     created_at: '2017-08-26T19:14:18.341Z',
     updated_at: '2017-08-26T19:14:18.341Z'
@@ -604,7 +604,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'td39@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 28,
     created_at: '2017-08-26T19:14:18.342Z',
     updated_at: '2017-08-26T19:14:18.342Z'
@@ -616,7 +616,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'khd28@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.342Z',
     updated_at: '2017-08-26T19:14:18.342Z'
@@ -628,7 +628,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mmd29@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 29,
     created_at: '2017-08-26T19:14:18.342Z',
     updated_at: '2017-08-26T19:14:18.342Z'
@@ -640,7 +640,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'cee29@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 30,
     created_at: '2017-08-26T19:14:18.342Z',
     updated_at: '2017-08-26T19:14:18.342Z'
@@ -652,7 +652,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'le93@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 31,
     created_at: '2017-08-26T19:14:18.342Z',
     updated_at: '2017-08-26T19:14:18.342Z'
@@ -664,7 +664,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jae243@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.342Z',
     updated_at: '2017-08-26T19:14:18.342Z'
@@ -676,7 +676,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'tee1@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 32,
     created_at: '2017-08-26T19:14:18.342Z',
     updated_at: '2017-08-26T19:14:18.342Z'
@@ -688,7 +688,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'kpe4@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.342Z',
     updated_at: '2017-08-26T19:14:18.342Z'
@@ -700,7 +700,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'sme68@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.343Z',
     updated_at: '2017-08-26T19:14:18.343Z'
@@ -712,7 +712,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jjf267@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.343Z',
     updated_at: '2017-08-26T19:14:18.343Z'
@@ -724,7 +724,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'kdf53@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.343Z',
     updated_at: '2017-08-26T19:14:18.343Z'
@@ -736,7 +736,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'crf11@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 33,
     created_at: '2017-08-26T19:14:18.343Z',
     updated_at: '2017-08-26T19:14:18.343Z'
@@ -748,7 +748,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'af533@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.343Z',
     updated_at: '2017-08-26T19:14:18.343Z'
@@ -760,7 +760,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jlf30@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 34,
     created_at: '2017-08-26T19:14:18.343Z',
     updated_at: '2017-08-26T19:14:18.343Z'
@@ -772,7 +772,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'cab69@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 35,
     created_at: '2017-08-26T19:14:18.344Z',
     updated_at: '2017-08-26T19:14:18.344Z'
@@ -784,7 +784,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'cmg43@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.344Z',
     updated_at: '2017-08-26T19:14:18.344Z'
@@ -796,7 +796,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'llg49@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.344Z',
     updated_at: '2017-08-26T19:14:18.344Z'
@@ -808,7 +808,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ajg276@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.345Z',
     updated_at: '2017-08-26T19:14:18.345Z'
@@ -820,7 +820,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mg10@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 36,
     created_at: '2017-08-26T19:14:18.345Z',
     updated_at: '2017-08-26T19:14:18.345Z'
@@ -832,7 +832,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'kmg262@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.345Z',
     updated_at: '2017-08-26T19:14:18.345Z'
@@ -844,7 +844,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'bog8@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.345Z',
     updated_at: '2017-08-26T19:14:18.345Z'
@@ -856,7 +856,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jcg33@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 37,
     created_at: '2017-08-26T19:14:18.345Z',
     updated_at: '2017-08-26T19:14:18.345Z'
@@ -868,7 +868,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'sg957@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.345Z',
     updated_at: '2017-08-26T19:14:18.345Z'
@@ -880,7 +880,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'geg65@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.345Z',
     updated_at: '2017-08-26T19:14:18.345Z'
@@ -892,7 +892,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'hmg2@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 38,
     created_at: '2017-08-26T19:14:18.345Z',
     updated_at: '2017-08-26T19:14:18.345Z'
@@ -904,7 +904,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ng32@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 39,
     created_at: '2017-08-26T19:14:18.345Z',
     updated_at: '2017-08-26T19:14:18.345Z'
@@ -916,7 +916,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'crh243@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.345Z',
     updated_at: '2017-08-26T19:14:18.345Z'
@@ -928,7 +928,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'pmh75@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 40,
     created_at: '2017-08-26T19:14:18.345Z',
     updated_at: '2017-08-26T19:14:18.345Z'
@@ -940,7 +940,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'gah225@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 41,
     created_at: '2017-08-26T19:14:18.345Z',
     updated_at: '2017-08-26T19:14:18.345Z'
@@ -952,7 +952,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'dh67@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 42,
     created_at: '2017-08-26T19:14:18.345Z',
     updated_at: '2017-08-26T19:14:18.345Z'
@@ -964,7 +964,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'eh484@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.345Z',
     updated_at: '2017-08-26T19:14:18.345Z'
@@ -976,7 +976,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mjh51@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.345Z',
     updated_at: '2017-08-26T19:14:18.345Z'
@@ -988,7 +988,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'vmt5@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 43,
     created_at: '2017-08-26T19:14:18.346Z',
     updated_at: '2017-08-26T19:14:18.346Z'
@@ -1000,7 +1000,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'wdh59@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.346Z',
     updated_at: '2017-08-26T19:14:18.346Z'
@@ -1012,7 +1012,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'smh337@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.346Z',
     updated_at: '2017-08-26T19:14:18.346Z'
@@ -1024,7 +1024,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'arh238@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 44,
     created_at: '2017-08-26T19:14:18.346Z',
     updated_at: '2017-08-26T19:14:18.346Z'
@@ -1036,7 +1036,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ndh34@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.346Z',
     updated_at: '2017-08-26T19:14:18.346Z'
@@ -1048,7 +1048,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'shh93@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.346Z',
     updated_at: '2017-08-26T19:14:18.346Z'
@@ -1060,7 +1060,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jhh273@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.346Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1072,7 +1072,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mlh39@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.347Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1084,7 +1084,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mch265@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.347Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1096,7 +1096,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mjh17@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 45,
     created_at: '2017-08-26T19:14:18.347Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1108,7 +1108,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jmh37@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 46,
     created_at: '2017-08-26T19:14:18.347Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1120,7 +1120,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'eui3@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.347Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1132,7 +1132,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mj482@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.347Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1144,7 +1144,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ajj63@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.347Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1156,7 +1156,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'elj56@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.347Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1168,7 +1168,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'klj27@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 47,
     created_at: '2017-08-26T19:14:18.347Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1180,7 +1180,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jpj46@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.347Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1192,7 +1192,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mlj77@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 48,
     created_at: '2017-08-26T19:14:18.347Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1204,7 +1204,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'drj4@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 49,
     created_at: '2017-08-26T19:14:18.347Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1216,7 +1216,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'bap36@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.347Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1228,7 +1228,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ttj22@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 50,
     created_at: '2017-08-26T19:14:18.347Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1240,7 +1240,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'chj7@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 51,
     created_at: '2017-08-26T19:14:18.347Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1252,7 +1252,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ljp9@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 52,
     created_at: '2017-08-26T19:14:18.347Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1264,7 +1264,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'evk4@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 53,
     created_at: '2017-08-26T19:14:18.347Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1276,7 +1276,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'hk689@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.347Z',
     updated_at: '2017-08-26T19:14:18.347Z'
@@ -1288,7 +1288,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'pk486@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.348Z',
     updated_at: '2017-08-26T19:14:18.348Z'
@@ -1300,7 +1300,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'iuk2@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.348Z',
     updated_at: '2017-08-26T19:14:18.348Z'
@@ -1312,7 +1312,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mk2273@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.348Z',
     updated_at: '2017-08-26T19:14:18.348Z'
@@ -1324,7 +1324,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'cmk22@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.348Z',
     updated_at: '2017-08-26T19:14:18.348Z'
@@ -1336,7 +1336,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'hdk29@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 54,
     created_at: '2017-08-26T19:14:18.348Z',
     updated_at: '2017-08-26T19:14:18.348Z'
@@ -1348,7 +1348,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'lrk57@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 55,
     created_at: '2017-08-26T19:14:18.348Z',
     updated_at: '2017-08-26T19:14:18.348Z'
@@ -1360,7 +1360,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'akk82@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.348Z',
     updated_at: '2017-08-26T19:14:18.348Z'
@@ -1376,6 +1376,7 @@ var usersFixtures = new _maha.Fixtures({
     security_question_1_answer: 'moly',
     is_active: true,
     photo_id: 56,
+    activated_at: '2017-08-26T19:14:18.348Z',
     created_at: '2017-08-26T19:14:18.348Z',
     updated_at: '2017-08-26T19:14:18.348Z'
   }, {
@@ -1386,7 +1387,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'sjk266@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 57,
     created_at: '2017-08-26T19:14:18.348Z',
     updated_at: '2017-08-26T19:14:18.348Z'
@@ -1398,7 +1399,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'tfk35@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.348Z',
     updated_at: '2017-08-26T19:14:18.348Z'
@@ -1410,7 +1411,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'zak6@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 58,
     created_at: '2017-08-26T19:14:18.348Z',
     updated_at: '2017-08-26T19:14:18.348Z'
@@ -1422,7 +1423,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'rkk57@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.348Z',
     updated_at: '2017-08-26T19:14:18.348Z'
@@ -1434,7 +1435,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'abk95@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 59,
     created_at: '2017-08-26T19:14:18.348Z',
     updated_at: '2017-08-26T19:14:18.348Z'
@@ -1446,7 +1447,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ill5@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.348Z',
     updated_at: '2017-08-26T19:14:18.348Z'
@@ -1458,7 +1459,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mnl28@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 60,
     created_at: '2017-08-26T19:14:18.348Z',
     updated_at: '2017-08-26T19:14:18.348Z'
@@ -1470,7 +1471,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'sjl44@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 61,
     created_at: '2017-08-26T19:14:18.348Z',
     updated_at: '2017-08-26T19:14:18.348Z'
@@ -1482,7 +1483,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'tlc98@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 62,
     created_at: '2017-08-26T19:14:18.348Z',
     updated_at: '2017-08-26T19:14:18.348Z'
@@ -1494,7 +1495,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ml989@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 63,
     created_at: '2017-08-26T19:14:18.349Z',
     updated_at: '2017-08-26T19:14:18.349Z'
@@ -1506,7 +1507,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'sgl38@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.349Z',
     updated_at: '2017-08-26T19:14:18.349Z'
@@ -1518,7 +1519,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'bml95@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.349Z',
     updated_at: '2017-08-26T19:14:18.349Z'
@@ -1530,7 +1531,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'lam26@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 64,
     created_at: '2017-08-26T19:14:18.349Z',
     updated_at: '2017-08-26T19:14:18.349Z'
@@ -1542,7 +1543,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'htm28@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.349Z',
     updated_at: '2017-08-26T19:14:18.349Z'
@@ -1554,7 +1555,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mtm94@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.349Z',
     updated_at: '2017-08-26T19:14:18.349Z'
@@ -1566,7 +1567,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'hjm52@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.349Z',
     updated_at: '2017-08-26T19:14:18.349Z'
@@ -1578,7 +1579,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'em748@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 65,
     created_at: '2017-08-26T19:14:18.349Z',
     updated_at: '2017-08-26T19:14:18.349Z'
@@ -1590,7 +1591,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'enm6@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 66,
     created_at: '2017-08-26T19:14:18.350Z',
     updated_at: '2017-08-26T19:14:18.350Z'
@@ -1602,7 +1603,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ntm3@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.350Z',
     updated_at: '2017-08-26T19:14:18.350Z'
@@ -1614,7 +1615,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'kmm242@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 67,
     created_at: '2017-08-26T19:14:18.350Z',
     updated_at: '2017-08-26T19:14:18.350Z'
@@ -1626,7 +1627,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'km823@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 68,
     created_at: '2017-08-26T19:14:18.350Z',
     updated_at: '2017-08-26T19:14:18.350Z'
@@ -1638,7 +1639,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'djm18@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.350Z',
     updated_at: '2017-08-26T19:14:18.350Z'
@@ -1650,7 +1651,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'kem228@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 69,
     created_at: '2017-08-26T19:14:18.350Z',
     updated_at: '2017-08-26T19:14:18.350Z'
@@ -1662,7 +1663,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'gm52@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 70,
     created_at: '2017-08-26T19:14:18.350Z',
     updated_at: '2017-08-26T19:14:18.350Z'
@@ -1674,7 +1675,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'acm1@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 71,
     created_at: '2017-08-26T19:14:18.350Z',
     updated_at: '2017-08-26T19:14:18.350Z'
@@ -1686,7 +1687,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'km646@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 72,
     created_at: '2017-08-26T19:14:18.350Z',
     updated_at: '2017-08-26T19:14:18.350Z'
@@ -1698,7 +1699,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'tcm87@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.350Z',
     updated_at: '2017-08-26T19:14:18.350Z'
@@ -1710,7 +1711,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'dm773@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 73,
     created_at: '2017-08-26T19:14:18.350Z',
     updated_at: '2017-08-26T19:14:18.350Z'
@@ -1722,7 +1723,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ecm94@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.350Z',
     updated_at: '2017-08-26T19:14:18.350Z'
@@ -1734,7 +1735,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'cam539@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.350Z',
     updated_at: '2017-08-26T19:14:18.350Z'
@@ -1746,7 +1747,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'rlm428@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.351Z',
     updated_at: '2017-08-26T19:14:18.351Z'
@@ -1758,7 +1759,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'dm568@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.351Z',
     updated_at: '2017-08-26T19:14:18.351Z'
@@ -1770,7 +1771,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'tm554@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.351Z',
     updated_at: '2017-08-26T19:14:18.351Z'
@@ -1782,7 +1783,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'amn76@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.351Z',
     updated_at: '2017-08-26T19:14:18.351Z'
@@ -1794,7 +1795,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'asn53@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 74,
     created_at: '2017-08-26T19:14:18.351Z',
     updated_at: '2017-08-26T19:14:18.351Z'
@@ -1806,7 +1807,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'lxn2@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.351Z',
     updated_at: '2017-08-26T19:14:18.351Z'
@@ -1818,7 +1819,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mzo2@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 75,
     created_at: '2017-08-26T19:14:18.351Z',
     updated_at: '2017-08-26T19:14:18.351Z'
@@ -1830,7 +1831,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'poo3@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.351Z',
     updated_at: '2017-08-26T19:14:18.351Z'
@@ -1842,7 +1843,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ljp92@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.351Z',
     updated_at: '2017-08-26T19:14:18.351Z'
@@ -1854,7 +1855,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ldm27@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.351Z',
     updated_at: '2017-08-26T19:14:18.351Z'
@@ -1866,7 +1867,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'cs48@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.351Z',
     updated_at: '2017-08-26T19:14:18.351Z'
@@ -1878,7 +1879,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mrp6@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.351Z',
     updated_at: '2017-08-26T19:14:18.351Z'
@@ -1890,7 +1891,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'hjp54@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.351Z',
     updated_at: '2017-08-26T19:14:18.351Z'
@@ -1902,7 +1903,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'sp586@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.351Z',
     updated_at: '2017-08-26T19:14:18.351Z'
@@ -1914,7 +1915,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'dmp279@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.351Z',
     updated_at: '2017-08-26T19:14:18.351Z'
@@ -1926,7 +1927,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mmp246@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 76,
     created_at: '2017-08-26T19:14:18.351Z',
     updated_at: '2017-08-26T19:14:18.351Z'
@@ -1938,7 +1939,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'msp94@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 77,
     created_at: '2017-08-26T19:14:18.351Z',
     updated_at: '2017-08-26T19:14:18.351Z'
@@ -1950,7 +1951,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ap2223@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.351Z',
     updated_at: '2017-08-26T19:14:18.351Z'
@@ -1962,7 +1963,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mlr253@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.352Z',
     updated_at: '2017-08-26T19:14:18.352Z'
@@ -1974,7 +1975,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'sjr37@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 78,
     created_at: '2017-08-26T19:14:18.352Z',
     updated_at: '2017-08-26T19:14:18.352Z'
@@ -1986,7 +1987,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'aer86@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.352Z',
     updated_at: '2017-08-26T19:14:18.352Z'
@@ -1998,7 +1999,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'dmr298@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.352Z',
     updated_at: '2017-08-26T19:14:18.352Z'
@@ -2010,7 +2011,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mar463@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.352Z',
     updated_at: '2017-08-26T19:14:18.352Z'
@@ -2022,7 +2023,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'rmf243@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.352Z',
     updated_at: '2017-08-26T19:14:18.352Z'
@@ -2034,7 +2035,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mr55@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 79,
     created_at: '2017-08-26T19:14:18.352Z',
     updated_at: '2017-08-26T19:14:18.352Z'
@@ -2046,7 +2047,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'las466@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 80,
     created_at: '2017-08-26T19:14:18.352Z',
     updated_at: '2017-08-26T19:14:18.352Z'
@@ -2058,7 +2059,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'cs632@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.352Z',
     updated_at: '2017-08-26T19:14:18.352Z'
@@ -2070,7 +2071,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ems455@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 81,
     created_at: '2017-08-26T19:14:18.352Z',
     updated_at: '2017-08-26T19:14:18.352Z'
@@ -2082,7 +2083,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mas759@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.352Z',
     updated_at: '2017-08-26T19:14:18.352Z'
@@ -2094,7 +2095,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ks47@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 82,
     created_at: '2017-08-26T19:14:18.352Z',
     updated_at: '2017-08-26T19:14:18.352Z'
@@ -2106,7 +2107,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'bcs82@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.352Z',
     updated_at: '2017-08-26T19:14:18.352Z'
@@ -2118,7 +2119,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'es345@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.353Z',
     updated_at: '2017-08-26T19:14:18.353Z'
@@ -2130,7 +2131,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ms2675@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.353Z',
     updated_at: '2017-08-26T19:14:18.353Z'
@@ -2142,7 +2143,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'wzs4@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.353Z',
     updated_at: '2017-08-26T19:14:18.353Z'
@@ -2154,7 +2155,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'bas25@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 83,
     created_at: '2017-08-26T19:14:18.353Z',
     updated_at: '2017-08-26T19:14:18.353Z'
@@ -2166,7 +2167,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'les272@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.353Z',
     updated_at: '2017-08-26T19:14:18.353Z'
@@ -2178,7 +2179,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'cjs359@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.353Z',
     updated_at: '2017-08-26T19:14:18.353Z'
@@ -2190,7 +2191,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'cs288@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.353Z',
     updated_at: '2017-08-26T19:14:18.353Z'
@@ -2202,7 +2203,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'tmf8@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 84,
     created_at: '2017-08-26T19:14:18.353Z',
     updated_at: '2017-08-26T19:14:18.353Z'
@@ -2214,7 +2215,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'tms297@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.353Z',
     updated_at: '2017-08-26T19:14:18.353Z'
@@ -2226,7 +2227,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'css17@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 85,
     created_at: '2017-08-26T19:14:18.353Z',
     updated_at: '2017-08-26T19:14:18.353Z'
@@ -2238,7 +2239,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'pms262@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 86,
     created_at: '2017-08-26T19:14:18.353Z',
     updated_at: '2017-08-26T19:14:18.353Z'
@@ -2250,7 +2251,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ads32@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 87,
     created_at: '2017-08-26T19:14:18.353Z',
     updated_at: '2017-08-26T19:14:18.353Z'
@@ -2262,7 +2263,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'kes339@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.353Z',
     updated_at: '2017-08-26T19:14:18.353Z'
@@ -2274,7 +2275,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jrs464@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.353Z',
     updated_at: '2017-08-26T19:14:18.353Z'
@@ -2286,7 +2287,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ams69@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 88,
     created_at: '2017-08-26T19:14:18.353Z',
     updated_at: '2017-08-26T19:14:18.353Z'
@@ -2298,7 +2299,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ahs47@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 89,
     created_at: '2017-08-26T19:14:18.353Z',
     updated_at: '2017-08-26T19:14:18.353Z'
@@ -2310,7 +2311,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ahs38@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.354Z',
     updated_at: '2017-08-26T19:14:18.354Z'
@@ -2322,7 +2323,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mcs394@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.354Z',
     updated_at: '2017-08-26T19:14:18.354Z'
@@ -2334,7 +2335,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ags242@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.354Z',
     updated_at: '2017-08-26T19:14:18.354Z'
@@ -2346,7 +2347,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'egs79@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.354Z',
     updated_at: '2017-08-26T19:14:18.354Z'
@@ -2358,7 +2359,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jts286@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 90,
     created_at: '2017-08-26T19:14:18.354Z',
     updated_at: '2017-08-26T19:14:18.354Z'
@@ -2370,7 +2371,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'mjs487@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 91,
     created_at: '2017-08-26T19:14:18.354Z',
     updated_at: '2017-08-26T19:14:18.354Z'
@@ -2382,7 +2383,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'dlt22@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 92,
     created_at: '2017-08-26T19:14:18.354Z',
     updated_at: '2017-08-26T19:14:18.354Z'
@@ -2394,7 +2395,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'kmt87@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.354Z',
     updated_at: '2017-08-26T19:14:18.354Z'
@@ -2406,7 +2407,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'met38@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 93,
     created_at: '2017-08-26T19:14:18.354Z',
     updated_at: '2017-08-26T19:14:18.354Z'
@@ -2418,7 +2419,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jt762@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.354Z',
     updated_at: '2017-08-26T19:14:18.354Z'
@@ -2430,7 +2431,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ziv2@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 94,
     created_at: '2017-08-26T19:14:18.354Z',
     updated_at: '2017-08-26T19:14:18.354Z'
@@ -2442,7 +2443,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'amv92@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.354Z',
     updated_at: '2017-08-26T19:14:18.354Z'
@@ -2454,7 +2455,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'dlv35@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.354Z',
     updated_at: '2017-08-26T19:14:18.354Z'
@@ -2466,7 +2467,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'kv89@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 95,
     created_at: '2017-08-26T19:14:18.354Z',
     updated_at: '2017-08-26T19:14:18.354Z'
@@ -2478,7 +2479,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'wcv3@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.354Z',
     updated_at: '2017-08-26T19:14:18.354Z'
@@ -2490,7 +2491,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'sw759@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.354Z',
     updated_at: '2017-08-26T19:14:18.354Z'
@@ -2502,7 +2503,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'hab27@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 96,
     created_at: '2017-08-26T19:14:18.354Z',
     updated_at: '2017-08-26T19:14:18.354Z'
@@ -2514,7 +2515,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'lkw37@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.355Z',
     updated_at: '2017-08-26T19:14:18.355Z'
@@ -2526,7 +2527,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'slw256@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.355Z',
     updated_at: '2017-08-26T19:14:18.355Z'
@@ -2538,7 +2539,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'krk7@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 97,
     created_at: '2017-08-26T19:14:18.355Z',
     updated_at: '2017-08-26T19:14:18.355Z'
@@ -2550,7 +2551,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jmw53@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.355Z',
     updated_at: '2017-08-26T19:14:18.355Z'
@@ -2562,7 +2563,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ebw52@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: 98,
     created_at: '2017-08-26T19:14:18.355Z',
     updated_at: '2017-08-26T19:14:18.355Z'
@@ -2574,7 +2575,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'cdw93@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.355Z',
     updated_at: '2017-08-26T19:14:18.355Z'
@@ -2586,7 +2587,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'jrw376@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.355Z',
     updated_at: '2017-08-26T19:14:18.355Z'
@@ -2598,7 +2599,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'tw388@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.355Z',
     updated_at: '2017-08-26T19:14:18.355Z'
@@ -2610,7 +2611,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ary24@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.355Z',
     updated_at: '2017-08-26T19:14:18.355Z'
@@ -2622,7 +2623,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'ey87@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.355Z',
     updated_at: '2017-08-26T19:14:18.355Z'
@@ -2634,7 +2635,7 @@ var usersFixtures = new _maha.Fixtures({
     email: 'sz95@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    is_active: true,
+    is_active: false,
     photo_id: null,
     created_at: '2017-08-26T19:14:18.355Z',
     updated_at: '2017-08-26T19:14:18.355Z'

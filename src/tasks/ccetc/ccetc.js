@@ -73,7 +73,7 @@ export const import_20170622 = async () => {
           email: `${record[2]}@cornell.edu`,
           password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
           password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-          is_active: true,
+          is_active: false,
           photo_id: asset_id,
           created_at: moment(),
           updated_at: moment()

@@ -11,7 +11,7 @@ const usersFixtures = new Fixtures({
       email: 'aaa247@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 2,
       created_at: '2017-08-26T19:14:18.331Z',
       updated_at: '2017-08-26T19:14:18.331Z'
@@ -24,7 +24,7 @@ const usersFixtures = new Fixtures({
       email: 'ska2@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 3,
       created_at: '2017-08-26T19:14:18.332Z',
       updated_at: '2017-08-26T19:14:18.332Z'
@@ -37,7 +37,7 @@ const usersFixtures = new Fixtures({
       email: 'ola5@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.332Z',
       updated_at: '2017-08-26T19:14:18.332Z'
@@ -50,7 +50,7 @@ const usersFixtures = new Fixtures({
       email: 'jsa232@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.332Z',
       updated_at: '2017-08-26T19:14:18.332Z'
@@ -63,7 +63,7 @@ const usersFixtures = new Fixtures({
       email: 'dmb443@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.333Z',
       updated_at: '2017-08-26T19:14:18.333Z'
@@ -76,7 +76,7 @@ const usersFixtures = new Fixtures({
       email: 'llb232@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.333Z',
       updated_at: '2017-08-26T19:14:18.333Z'
@@ -89,7 +89,7 @@ const usersFixtures = new Fixtures({
       email: 'rb667@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 4,
       created_at: '2017-08-26T19:14:18.333Z',
       updated_at: '2017-08-26T19:14:18.333Z'
@@ -102,7 +102,7 @@ const usersFixtures = new Fixtures({
       email: 'bab47@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 5,
       created_at: '2017-08-26T19:14:18.333Z',
       updated_at: '2017-08-26T19:14:18.333Z'
@@ -115,7 +115,7 @@ const usersFixtures = new Fixtures({
       email: 'hab76@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.333Z',
       updated_at: '2017-08-26T19:14:18.333Z'
@@ -128,7 +128,7 @@ const usersFixtures = new Fixtures({
       email: 'mab565@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 6,
       created_at: '2017-08-26T19:14:18.333Z',
       updated_at: '2017-08-26T19:14:18.333Z'
@@ -141,7 +141,7 @@ const usersFixtures = new Fixtures({
       email: 'alf232@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.333Z',
       updated_at: '2017-08-26T19:14:18.333Z'
@@ -154,7 +154,7 @@ const usersFixtures = new Fixtures({
       email: 'jwb384@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.334Z',
       updated_at: '2017-08-26T19:14:18.334Z'
@@ -167,7 +167,7 @@ const usersFixtures = new Fixtures({
       email: 'kwb6@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 7,
       created_at: '2017-08-26T19:14:18.334Z',
       updated_at: '2017-08-26T19:14:18.334Z'
@@ -180,7 +180,7 @@ const usersFixtures = new Fixtures({
       email: 'jmb792@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.334Z',
       updated_at: '2017-08-26T19:14:18.334Z'
@@ -193,7 +193,7 @@ const usersFixtures = new Fixtures({
       email: 'jb2427@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.334Z',
       updated_at: '2017-08-26T19:14:18.334Z'
@@ -206,7 +206,7 @@ const usersFixtures = new Fixtures({
       email: 'akb29@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 8,
       created_at: '2017-08-26T19:14:18.334Z',
       updated_at: '2017-08-26T19:14:18.334Z'
@@ -219,7 +219,7 @@ const usersFixtures = new Fixtures({
       email: 'ebb86@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.334Z',
       updated_at: '2017-08-26T19:14:18.334Z'
@@ -232,7 +232,7 @@ const usersFixtures = new Fixtures({
       email: 'mjm463@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 9,
       created_at: '2017-08-26T19:14:18.335Z',
       updated_at: '2017-08-26T19:14:18.335Z'
@@ -245,7 +245,7 @@ const usersFixtures = new Fixtures({
       email: 'jpb27@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 10,
       created_at: '2017-08-26T19:14:18.335Z',
       updated_at: '2017-08-26T19:14:18.335Z'
@@ -258,7 +258,7 @@ const usersFixtures = new Fixtures({
       email: 'kab448@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.335Z',
       updated_at: '2017-08-26T19:14:18.335Z'
@@ -271,7 +271,7 @@ const usersFixtures = new Fixtures({
       email: 'bab349@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.335Z',
       updated_at: '2017-08-26T19:14:18.335Z'
@@ -284,7 +284,7 @@ const usersFixtures = new Fixtures({
       email: 'esb11@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.335Z',
       updated_at: '2017-08-26T19:14:18.335Z'
@@ -297,7 +297,7 @@ const usersFixtures = new Fixtures({
       email: 'sb2275@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 11,
       created_at: '2017-08-26T19:14:18.335Z',
       updated_at: '2017-08-26T19:14:18.335Z'
@@ -310,7 +310,7 @@ const usersFixtures = new Fixtures({
       email: 'peb28@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 12,
       created_at: '2017-08-26T19:14:18.335Z',
       updated_at: '2017-08-26T19:14:18.335Z'
@@ -323,7 +323,7 @@ const usersFixtures = new Fixtures({
       email: 'jlb293@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 13,
       created_at: '2017-08-26T19:14:18.335Z',
       updated_at: '2017-08-26T19:14:18.335Z'
@@ -336,7 +336,7 @@ const usersFixtures = new Fixtures({
       email: 'ajc348@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.336Z',
       updated_at: '2017-08-26T19:14:18.336Z'
@@ -349,7 +349,7 @@ const usersFixtures = new Fixtures({
       email: 'btc6@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 14,
       created_at: '2017-08-26T19:14:18.336Z',
       updated_at: '2017-08-26T19:14:18.336Z'
@@ -362,7 +362,7 @@ const usersFixtures = new Fixtures({
       email: 'tc629@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 15,
       created_at: '2017-08-26T19:14:18.336Z',
       updated_at: '2017-08-26T19:14:18.336Z'
@@ -375,7 +375,7 @@ const usersFixtures = new Fixtures({
       email: 'emc333@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 16,
       created_at: '2017-08-26T19:14:18.336Z',
       updated_at: '2017-08-26T19:14:18.336Z'
@@ -388,7 +388,7 @@ const usersFixtures = new Fixtures({
       email: 'mdc38@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.336Z',
       updated_at: '2017-08-26T19:14:18.337Z'
@@ -401,7 +401,7 @@ const usersFixtures = new Fixtures({
       email: 'hdc38@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 17,
       created_at: '2017-08-26T19:14:18.337Z',
       updated_at: '2017-08-26T19:14:18.337Z'
@@ -414,7 +414,7 @@ const usersFixtures = new Fixtures({
       email: 'kpc66@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.337Z',
       updated_at: '2017-08-26T19:14:18.337Z'
@@ -427,7 +427,7 @@ const usersFixtures = new Fixtures({
       email: 'jc2889@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 18,
       created_at: '2017-08-26T19:14:18.337Z',
       updated_at: '2017-08-26T19:14:18.337Z'
@@ -440,7 +440,7 @@ const usersFixtures = new Fixtures({
       email: 'mjc72@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 19,
       created_at: '2017-08-26T19:14:18.337Z',
       updated_at: '2017-08-26T19:14:18.337Z'
@@ -453,7 +453,7 @@ const usersFixtures = new Fixtures({
       email: 'fb29@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 20,
       created_at: '2017-08-26T19:14:18.337Z',
       updated_at: '2017-08-26T19:14:18.337Z'
@@ -466,7 +466,7 @@ const usersFixtures = new Fixtures({
       email: 'cec327@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.337Z',
       updated_at: '2017-08-26T19:14:18.337Z'
@@ -479,7 +479,7 @@ const usersFixtures = new Fixtures({
       email: 'rlc263@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 21,
       created_at: '2017-08-26T19:14:18.337Z',
       updated_at: '2017-08-26T19:14:18.337Z'
@@ -492,7 +492,7 @@ const usersFixtures = new Fixtures({
       email: 'sec283@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 22,
       created_at: '2017-08-26T19:14:18.339Z',
       updated_at: '2017-08-26T19:14:18.339Z'
@@ -505,7 +505,7 @@ const usersFixtures = new Fixtures({
       email: 'kbh22@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.340Z',
       updated_at: '2017-08-26T19:14:18.340Z'
@@ -518,7 +518,7 @@ const usersFixtures = new Fixtures({
       email: 'jrc10@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 23,
       created_at: '2017-08-26T19:14:18.340Z',
       updated_at: '2017-08-26T19:14:18.340Z'
@@ -531,7 +531,7 @@ const usersFixtures = new Fixtures({
       email: 'egc24@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 24,
       created_at: '2017-08-26T19:14:18.340Z',
       updated_at: '2017-08-26T19:14:18.340Z'
@@ -544,7 +544,7 @@ const usersFixtures = new Fixtures({
       email: 'tfc43@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 25,
       created_at: '2017-08-26T19:14:18.341Z',
       updated_at: '2017-08-26T19:14:18.341Z'
@@ -557,7 +557,7 @@ const usersFixtures = new Fixtures({
       email: 'pjd223@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.341Z',
       updated_at: '2017-08-26T19:14:18.341Z'
@@ -570,7 +570,7 @@ const usersFixtures = new Fixtures({
       email: 'egd43@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.341Z',
       updated_at: '2017-08-26T19:14:18.341Z'
@@ -583,7 +583,7 @@ const usersFixtures = new Fixtures({
       email: 'tmd238@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.341Z',
       updated_at: '2017-08-26T19:14:18.341Z'
@@ -596,7 +596,7 @@ const usersFixtures = new Fixtures({
       email: 'ntd27@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.341Z',
       updated_at: '2017-08-26T19:14:18.341Z'
@@ -609,7 +609,7 @@ const usersFixtures = new Fixtures({
       email: 'pld55@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.341Z',
       updated_at: '2017-08-26T19:14:18.341Z'
@@ -622,7 +622,7 @@ const usersFixtures = new Fixtures({
       email: 'jd285@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 26,
       created_at: '2017-08-26T19:14:18.341Z',
       updated_at: '2017-08-26T19:14:18.341Z'
@@ -635,7 +635,7 @@ const usersFixtures = new Fixtures({
       email: 'bmd88@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 27,
       created_at: '2017-08-26T19:14:18.341Z',
       updated_at: '2017-08-26T19:14:18.341Z'
@@ -648,7 +648,7 @@ const usersFixtures = new Fixtures({
       email: 'td39@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 28,
       created_at: '2017-08-26T19:14:18.342Z',
       updated_at: '2017-08-26T19:14:18.342Z'
@@ -661,7 +661,7 @@ const usersFixtures = new Fixtures({
       email: 'khd28@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.342Z',
       updated_at: '2017-08-26T19:14:18.342Z'
@@ -674,7 +674,7 @@ const usersFixtures = new Fixtures({
       email: 'mmd29@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 29,
       created_at: '2017-08-26T19:14:18.342Z',
       updated_at: '2017-08-26T19:14:18.342Z'
@@ -687,7 +687,7 @@ const usersFixtures = new Fixtures({
       email: 'cee29@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 30,
       created_at: '2017-08-26T19:14:18.342Z',
       updated_at: '2017-08-26T19:14:18.342Z'
@@ -700,7 +700,7 @@ const usersFixtures = new Fixtures({
       email: 'le93@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 31,
       created_at: '2017-08-26T19:14:18.342Z',
       updated_at: '2017-08-26T19:14:18.342Z'
@@ -713,7 +713,7 @@ const usersFixtures = new Fixtures({
       email: 'jae243@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.342Z',
       updated_at: '2017-08-26T19:14:18.342Z'
@@ -726,7 +726,7 @@ const usersFixtures = new Fixtures({
       email: 'tee1@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 32,
       created_at: '2017-08-26T19:14:18.342Z',
       updated_at: '2017-08-26T19:14:18.342Z'
@@ -739,7 +739,7 @@ const usersFixtures = new Fixtures({
       email: 'kpe4@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.342Z',
       updated_at: '2017-08-26T19:14:18.342Z'
@@ -752,7 +752,7 @@ const usersFixtures = new Fixtures({
       email: 'sme68@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.343Z',
       updated_at: '2017-08-26T19:14:18.343Z'
@@ -765,7 +765,7 @@ const usersFixtures = new Fixtures({
       email: 'jjf267@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.343Z',
       updated_at: '2017-08-26T19:14:18.343Z'
@@ -778,7 +778,7 @@ const usersFixtures = new Fixtures({
       email: 'kdf53@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.343Z',
       updated_at: '2017-08-26T19:14:18.343Z'
@@ -791,7 +791,7 @@ const usersFixtures = new Fixtures({
       email: 'crf11@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 33,
       created_at: '2017-08-26T19:14:18.343Z',
       updated_at: '2017-08-26T19:14:18.343Z'
@@ -804,7 +804,7 @@ const usersFixtures = new Fixtures({
       email: 'af533@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.343Z',
       updated_at: '2017-08-26T19:14:18.343Z'
@@ -817,7 +817,7 @@ const usersFixtures = new Fixtures({
       email: 'jlf30@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 34,
       created_at: '2017-08-26T19:14:18.343Z',
       updated_at: '2017-08-26T19:14:18.343Z'
@@ -830,7 +830,7 @@ const usersFixtures = new Fixtures({
       email: 'cab69@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 35,
       created_at: '2017-08-26T19:14:18.344Z',
       updated_at: '2017-08-26T19:14:18.344Z'
@@ -843,7 +843,7 @@ const usersFixtures = new Fixtures({
       email: 'cmg43@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.344Z',
       updated_at: '2017-08-26T19:14:18.344Z'
@@ -856,7 +856,7 @@ const usersFixtures = new Fixtures({
       email: 'llg49@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.344Z',
       updated_at: '2017-08-26T19:14:18.344Z'
@@ -869,7 +869,7 @@ const usersFixtures = new Fixtures({
       email: 'ajg276@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.345Z',
       updated_at: '2017-08-26T19:14:18.345Z'
@@ -882,7 +882,7 @@ const usersFixtures = new Fixtures({
       email: 'mg10@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 36,
       created_at: '2017-08-26T19:14:18.345Z',
       updated_at: '2017-08-26T19:14:18.345Z'
@@ -895,7 +895,7 @@ const usersFixtures = new Fixtures({
       email: 'kmg262@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.345Z',
       updated_at: '2017-08-26T19:14:18.345Z'
@@ -908,7 +908,7 @@ const usersFixtures = new Fixtures({
       email: 'bog8@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.345Z',
       updated_at: '2017-08-26T19:14:18.345Z'
@@ -921,7 +921,7 @@ const usersFixtures = new Fixtures({
       email: 'jcg33@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 37,
       created_at: '2017-08-26T19:14:18.345Z',
       updated_at: '2017-08-26T19:14:18.345Z'
@@ -934,7 +934,7 @@ const usersFixtures = new Fixtures({
       email: 'sg957@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.345Z',
       updated_at: '2017-08-26T19:14:18.345Z'
@@ -947,7 +947,7 @@ const usersFixtures = new Fixtures({
       email: 'geg65@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.345Z',
       updated_at: '2017-08-26T19:14:18.345Z'
@@ -960,7 +960,7 @@ const usersFixtures = new Fixtures({
       email: 'hmg2@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 38,
       created_at: '2017-08-26T19:14:18.345Z',
       updated_at: '2017-08-26T19:14:18.345Z'
@@ -973,7 +973,7 @@ const usersFixtures = new Fixtures({
       email: 'ng32@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 39,
       created_at: '2017-08-26T19:14:18.345Z',
       updated_at: '2017-08-26T19:14:18.345Z'
@@ -986,7 +986,7 @@ const usersFixtures = new Fixtures({
       email: 'crh243@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.345Z',
       updated_at: '2017-08-26T19:14:18.345Z'
@@ -999,7 +999,7 @@ const usersFixtures = new Fixtures({
       email: 'pmh75@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 40,
       created_at: '2017-08-26T19:14:18.345Z',
       updated_at: '2017-08-26T19:14:18.345Z'
@@ -1012,7 +1012,7 @@ const usersFixtures = new Fixtures({
       email: 'gah225@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 41,
       created_at: '2017-08-26T19:14:18.345Z',
       updated_at: '2017-08-26T19:14:18.345Z'
@@ -1025,7 +1025,7 @@ const usersFixtures = new Fixtures({
       email: 'dh67@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 42,
       created_at: '2017-08-26T19:14:18.345Z',
       updated_at: '2017-08-26T19:14:18.345Z'
@@ -1038,7 +1038,7 @@ const usersFixtures = new Fixtures({
       email: 'eh484@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.345Z',
       updated_at: '2017-08-26T19:14:18.345Z'
@@ -1051,7 +1051,7 @@ const usersFixtures = new Fixtures({
       email: 'mjh51@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.345Z',
       updated_at: '2017-08-26T19:14:18.345Z'
@@ -1064,7 +1064,7 @@ const usersFixtures = new Fixtures({
       email: 'vmt5@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 43,
       created_at: '2017-08-26T19:14:18.346Z',
       updated_at: '2017-08-26T19:14:18.346Z'
@@ -1077,7 +1077,7 @@ const usersFixtures = new Fixtures({
       email: 'wdh59@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.346Z',
       updated_at: '2017-08-26T19:14:18.346Z'
@@ -1090,7 +1090,7 @@ const usersFixtures = new Fixtures({
       email: 'smh337@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.346Z',
       updated_at: '2017-08-26T19:14:18.346Z'
@@ -1103,7 +1103,7 @@ const usersFixtures = new Fixtures({
       email: 'arh238@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 44,
       created_at: '2017-08-26T19:14:18.346Z',
       updated_at: '2017-08-26T19:14:18.346Z'
@@ -1116,7 +1116,7 @@ const usersFixtures = new Fixtures({
       email: 'ndh34@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.346Z',
       updated_at: '2017-08-26T19:14:18.346Z'
@@ -1129,7 +1129,7 @@ const usersFixtures = new Fixtures({
       email: 'shh93@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.346Z',
       updated_at: '2017-08-26T19:14:18.346Z'
@@ -1142,7 +1142,7 @@ const usersFixtures = new Fixtures({
       email: 'jhh273@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.346Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1155,7 +1155,7 @@ const usersFixtures = new Fixtures({
       email: 'mlh39@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.347Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1168,7 +1168,7 @@ const usersFixtures = new Fixtures({
       email: 'mch265@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.347Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1181,7 +1181,7 @@ const usersFixtures = new Fixtures({
       email: 'mjh17@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 45,
       created_at: '2017-08-26T19:14:18.347Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1194,7 +1194,7 @@ const usersFixtures = new Fixtures({
       email: 'jmh37@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 46,
       created_at: '2017-08-26T19:14:18.347Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1207,7 +1207,7 @@ const usersFixtures = new Fixtures({
       email: 'eui3@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.347Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1220,7 +1220,7 @@ const usersFixtures = new Fixtures({
       email: 'mj482@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.347Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1233,7 +1233,7 @@ const usersFixtures = new Fixtures({
       email: 'ajj63@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.347Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1246,7 +1246,7 @@ const usersFixtures = new Fixtures({
       email: 'elj56@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.347Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1259,7 +1259,7 @@ const usersFixtures = new Fixtures({
       email: 'klj27@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 47,
       created_at: '2017-08-26T19:14:18.347Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1272,7 +1272,7 @@ const usersFixtures = new Fixtures({
       email: 'jpj46@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.347Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1285,7 +1285,7 @@ const usersFixtures = new Fixtures({
       email: 'mlj77@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 48,
       created_at: '2017-08-26T19:14:18.347Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1298,7 +1298,7 @@ const usersFixtures = new Fixtures({
       email: 'drj4@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 49,
       created_at: '2017-08-26T19:14:18.347Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1311,7 +1311,7 @@ const usersFixtures = new Fixtures({
       email: 'bap36@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.347Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1324,7 +1324,7 @@ const usersFixtures = new Fixtures({
       email: 'ttj22@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 50,
       created_at: '2017-08-26T19:14:18.347Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1337,7 +1337,7 @@ const usersFixtures = new Fixtures({
       email: 'chj7@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 51,
       created_at: '2017-08-26T19:14:18.347Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1350,7 +1350,7 @@ const usersFixtures = new Fixtures({
       email: 'ljp9@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 52,
       created_at: '2017-08-26T19:14:18.347Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1363,7 +1363,7 @@ const usersFixtures = new Fixtures({
       email: 'evk4@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 53,
       created_at: '2017-08-26T19:14:18.347Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1376,7 +1376,7 @@ const usersFixtures = new Fixtures({
       email: 'hk689@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.347Z',
       updated_at: '2017-08-26T19:14:18.347Z'
@@ -1389,7 +1389,7 @@ const usersFixtures = new Fixtures({
       email: 'pk486@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.348Z',
       updated_at: '2017-08-26T19:14:18.348Z'
@@ -1402,7 +1402,7 @@ const usersFixtures = new Fixtures({
       email: 'iuk2@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.348Z',
       updated_at: '2017-08-26T19:14:18.348Z'
@@ -1415,7 +1415,7 @@ const usersFixtures = new Fixtures({
       email: 'mk2273@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.348Z',
       updated_at: '2017-08-26T19:14:18.348Z'
@@ -1428,7 +1428,7 @@ const usersFixtures = new Fixtures({
       email: 'cmk22@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.348Z',
       updated_at: '2017-08-26T19:14:18.348Z'
@@ -1441,7 +1441,7 @@ const usersFixtures = new Fixtures({
       email: 'hdk29@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 54,
       created_at: '2017-08-26T19:14:18.348Z',
       updated_at: '2017-08-26T19:14:18.348Z'
@@ -1454,7 +1454,7 @@ const usersFixtures = new Fixtures({
       email: 'lrk57@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 55,
       created_at: '2017-08-26T19:14:18.348Z',
       updated_at: '2017-08-26T19:14:18.348Z'
@@ -1467,7 +1467,7 @@ const usersFixtures = new Fixtures({
       email: 'akk82@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.348Z',
       updated_at: '2017-08-26T19:14:18.348Z'
@@ -1484,6 +1484,7 @@ const usersFixtures = new Fixtures({
       security_question_1_answer: 'moly',
       is_active: true,
       photo_id: 56,
+      activated_at: '2017-08-26T19:14:18.348Z',
       created_at: '2017-08-26T19:14:18.348Z',
       updated_at: '2017-08-26T19:14:18.348Z'
     },
@@ -1495,7 +1496,7 @@ const usersFixtures = new Fixtures({
       email: 'sjk266@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 57,
       created_at: '2017-08-26T19:14:18.348Z',
       updated_at: '2017-08-26T19:14:18.348Z'
@@ -1508,7 +1509,7 @@ const usersFixtures = new Fixtures({
       email: 'tfk35@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.348Z',
       updated_at: '2017-08-26T19:14:18.348Z'
@@ -1521,7 +1522,7 @@ const usersFixtures = new Fixtures({
       email: 'zak6@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 58,
       created_at: '2017-08-26T19:14:18.348Z',
       updated_at: '2017-08-26T19:14:18.348Z'
@@ -1534,7 +1535,7 @@ const usersFixtures = new Fixtures({
       email: 'rkk57@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.348Z',
       updated_at: '2017-08-26T19:14:18.348Z'
@@ -1547,7 +1548,7 @@ const usersFixtures = new Fixtures({
       email: 'abk95@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 59,
       created_at: '2017-08-26T19:14:18.348Z',
       updated_at: '2017-08-26T19:14:18.348Z'
@@ -1560,7 +1561,7 @@ const usersFixtures = new Fixtures({
       email: 'ill5@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.348Z',
       updated_at: '2017-08-26T19:14:18.348Z'
@@ -1573,7 +1574,7 @@ const usersFixtures = new Fixtures({
       email: 'mnl28@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 60,
       created_at: '2017-08-26T19:14:18.348Z',
       updated_at: '2017-08-26T19:14:18.348Z'
@@ -1586,7 +1587,7 @@ const usersFixtures = new Fixtures({
       email: 'sjl44@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 61,
       created_at: '2017-08-26T19:14:18.348Z',
       updated_at: '2017-08-26T19:14:18.348Z'
@@ -1599,7 +1600,7 @@ const usersFixtures = new Fixtures({
       email: 'tlc98@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 62,
       created_at: '2017-08-26T19:14:18.348Z',
       updated_at: '2017-08-26T19:14:18.348Z'
@@ -1612,7 +1613,7 @@ const usersFixtures = new Fixtures({
       email: 'ml989@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 63,
       created_at: '2017-08-26T19:14:18.349Z',
       updated_at: '2017-08-26T19:14:18.349Z'
@@ -1625,7 +1626,7 @@ const usersFixtures = new Fixtures({
       email: 'sgl38@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.349Z',
       updated_at: '2017-08-26T19:14:18.349Z'
@@ -1638,7 +1639,7 @@ const usersFixtures = new Fixtures({
       email: 'bml95@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.349Z',
       updated_at: '2017-08-26T19:14:18.349Z'
@@ -1651,7 +1652,7 @@ const usersFixtures = new Fixtures({
       email: 'lam26@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 64,
       created_at: '2017-08-26T19:14:18.349Z',
       updated_at: '2017-08-26T19:14:18.349Z'
@@ -1664,7 +1665,7 @@ const usersFixtures = new Fixtures({
       email: 'htm28@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.349Z',
       updated_at: '2017-08-26T19:14:18.349Z'
@@ -1677,7 +1678,7 @@ const usersFixtures = new Fixtures({
       email: 'mtm94@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.349Z',
       updated_at: '2017-08-26T19:14:18.349Z'
@@ -1690,7 +1691,7 @@ const usersFixtures = new Fixtures({
       email: 'hjm52@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.349Z',
       updated_at: '2017-08-26T19:14:18.349Z'
@@ -1703,7 +1704,7 @@ const usersFixtures = new Fixtures({
       email: 'em748@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 65,
       created_at: '2017-08-26T19:14:18.349Z',
       updated_at: '2017-08-26T19:14:18.349Z'
@@ -1716,7 +1717,7 @@ const usersFixtures = new Fixtures({
       email: 'enm6@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 66,
       created_at: '2017-08-26T19:14:18.350Z',
       updated_at: '2017-08-26T19:14:18.350Z'
@@ -1729,7 +1730,7 @@ const usersFixtures = new Fixtures({
       email: 'ntm3@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.350Z',
       updated_at: '2017-08-26T19:14:18.350Z'
@@ -1742,7 +1743,7 @@ const usersFixtures = new Fixtures({
       email: 'kmm242@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 67,
       created_at: '2017-08-26T19:14:18.350Z',
       updated_at: '2017-08-26T19:14:18.350Z'
@@ -1755,7 +1756,7 @@ const usersFixtures = new Fixtures({
       email: 'km823@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 68,
       created_at: '2017-08-26T19:14:18.350Z',
       updated_at: '2017-08-26T19:14:18.350Z'
@@ -1768,7 +1769,7 @@ const usersFixtures = new Fixtures({
       email: 'djm18@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.350Z',
       updated_at: '2017-08-26T19:14:18.350Z'
@@ -1781,7 +1782,7 @@ const usersFixtures = new Fixtures({
       email: 'kem228@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 69,
       created_at: '2017-08-26T19:14:18.350Z',
       updated_at: '2017-08-26T19:14:18.350Z'
@@ -1794,7 +1795,7 @@ const usersFixtures = new Fixtures({
       email: 'gm52@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 70,
       created_at: '2017-08-26T19:14:18.350Z',
       updated_at: '2017-08-26T19:14:18.350Z'
@@ -1807,7 +1808,7 @@ const usersFixtures = new Fixtures({
       email: 'acm1@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 71,
       created_at: '2017-08-26T19:14:18.350Z',
       updated_at: '2017-08-26T19:14:18.350Z'
@@ -1820,7 +1821,7 @@ const usersFixtures = new Fixtures({
       email: 'km646@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 72,
       created_at: '2017-08-26T19:14:18.350Z',
       updated_at: '2017-08-26T19:14:18.350Z'
@@ -1833,7 +1834,7 @@ const usersFixtures = new Fixtures({
       email: 'tcm87@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.350Z',
       updated_at: '2017-08-26T19:14:18.350Z'
@@ -1846,7 +1847,7 @@ const usersFixtures = new Fixtures({
       email: 'dm773@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 73,
       created_at: '2017-08-26T19:14:18.350Z',
       updated_at: '2017-08-26T19:14:18.350Z'
@@ -1859,7 +1860,7 @@ const usersFixtures = new Fixtures({
       email: 'ecm94@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.350Z',
       updated_at: '2017-08-26T19:14:18.350Z'
@@ -1872,7 +1873,7 @@ const usersFixtures = new Fixtures({
       email: 'cam539@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.350Z',
       updated_at: '2017-08-26T19:14:18.350Z'
@@ -1885,7 +1886,7 @@ const usersFixtures = new Fixtures({
       email: 'rlm428@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.351Z',
       updated_at: '2017-08-26T19:14:18.351Z'
@@ -1898,7 +1899,7 @@ const usersFixtures = new Fixtures({
       email: 'dm568@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.351Z',
       updated_at: '2017-08-26T19:14:18.351Z'
@@ -1911,7 +1912,7 @@ const usersFixtures = new Fixtures({
       email: 'tm554@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.351Z',
       updated_at: '2017-08-26T19:14:18.351Z'
@@ -1924,7 +1925,7 @@ const usersFixtures = new Fixtures({
       email: 'amn76@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.351Z',
       updated_at: '2017-08-26T19:14:18.351Z'
@@ -1937,7 +1938,7 @@ const usersFixtures = new Fixtures({
       email: 'asn53@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 74,
       created_at: '2017-08-26T19:14:18.351Z',
       updated_at: '2017-08-26T19:14:18.351Z'
@@ -1950,7 +1951,7 @@ const usersFixtures = new Fixtures({
       email: 'lxn2@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.351Z',
       updated_at: '2017-08-26T19:14:18.351Z'
@@ -1963,7 +1964,7 @@ const usersFixtures = new Fixtures({
       email: 'mzo2@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 75,
       created_at: '2017-08-26T19:14:18.351Z',
       updated_at: '2017-08-26T19:14:18.351Z'
@@ -1976,7 +1977,7 @@ const usersFixtures = new Fixtures({
       email: 'poo3@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.351Z',
       updated_at: '2017-08-26T19:14:18.351Z'
@@ -1989,7 +1990,7 @@ const usersFixtures = new Fixtures({
       email: 'ljp92@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.351Z',
       updated_at: '2017-08-26T19:14:18.351Z'
@@ -2002,7 +2003,7 @@ const usersFixtures = new Fixtures({
       email: 'ldm27@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.351Z',
       updated_at: '2017-08-26T19:14:18.351Z'
@@ -2015,7 +2016,7 @@ const usersFixtures = new Fixtures({
       email: 'cs48@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.351Z',
       updated_at: '2017-08-26T19:14:18.351Z'
@@ -2028,7 +2029,7 @@ const usersFixtures = new Fixtures({
       email: 'mrp6@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.351Z',
       updated_at: '2017-08-26T19:14:18.351Z'
@@ -2041,7 +2042,7 @@ const usersFixtures = new Fixtures({
       email: 'hjp54@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.351Z',
       updated_at: '2017-08-26T19:14:18.351Z'
@@ -2054,7 +2055,7 @@ const usersFixtures = new Fixtures({
       email: 'sp586@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.351Z',
       updated_at: '2017-08-26T19:14:18.351Z'
@@ -2067,7 +2068,7 @@ const usersFixtures = new Fixtures({
       email: 'dmp279@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.351Z',
       updated_at: '2017-08-26T19:14:18.351Z'
@@ -2080,7 +2081,7 @@ const usersFixtures = new Fixtures({
       email: 'mmp246@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 76,
       created_at: '2017-08-26T19:14:18.351Z',
       updated_at: '2017-08-26T19:14:18.351Z'
@@ -2093,7 +2094,7 @@ const usersFixtures = new Fixtures({
       email: 'msp94@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 77,
       created_at: '2017-08-26T19:14:18.351Z',
       updated_at: '2017-08-26T19:14:18.351Z'
@@ -2106,7 +2107,7 @@ const usersFixtures = new Fixtures({
       email: 'ap2223@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.351Z',
       updated_at: '2017-08-26T19:14:18.351Z'
@@ -2119,7 +2120,7 @@ const usersFixtures = new Fixtures({
       email: 'mlr253@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.352Z',
       updated_at: '2017-08-26T19:14:18.352Z'
@@ -2132,7 +2133,7 @@ const usersFixtures = new Fixtures({
       email: 'sjr37@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 78,
       created_at: '2017-08-26T19:14:18.352Z',
       updated_at: '2017-08-26T19:14:18.352Z'
@@ -2145,7 +2146,7 @@ const usersFixtures = new Fixtures({
       email: 'aer86@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.352Z',
       updated_at: '2017-08-26T19:14:18.352Z'
@@ -2158,7 +2159,7 @@ const usersFixtures = new Fixtures({
       email: 'dmr298@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.352Z',
       updated_at: '2017-08-26T19:14:18.352Z'
@@ -2171,7 +2172,7 @@ const usersFixtures = new Fixtures({
       email: 'mar463@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.352Z',
       updated_at: '2017-08-26T19:14:18.352Z'
@@ -2184,7 +2185,7 @@ const usersFixtures = new Fixtures({
       email: 'rmf243@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.352Z',
       updated_at: '2017-08-26T19:14:18.352Z'
@@ -2197,7 +2198,7 @@ const usersFixtures = new Fixtures({
       email: 'mr55@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 79,
       created_at: '2017-08-26T19:14:18.352Z',
       updated_at: '2017-08-26T19:14:18.352Z'
@@ -2210,7 +2211,7 @@ const usersFixtures = new Fixtures({
       email: 'las466@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 80,
       created_at: '2017-08-26T19:14:18.352Z',
       updated_at: '2017-08-26T19:14:18.352Z'
@@ -2223,7 +2224,7 @@ const usersFixtures = new Fixtures({
       email: 'cs632@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.352Z',
       updated_at: '2017-08-26T19:14:18.352Z'
@@ -2236,7 +2237,7 @@ const usersFixtures = new Fixtures({
       email: 'ems455@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 81,
       created_at: '2017-08-26T19:14:18.352Z',
       updated_at: '2017-08-26T19:14:18.352Z'
@@ -2249,7 +2250,7 @@ const usersFixtures = new Fixtures({
       email: 'mas759@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.352Z',
       updated_at: '2017-08-26T19:14:18.352Z'
@@ -2262,7 +2263,7 @@ const usersFixtures = new Fixtures({
       email: 'ks47@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 82,
       created_at: '2017-08-26T19:14:18.352Z',
       updated_at: '2017-08-26T19:14:18.352Z'
@@ -2275,7 +2276,7 @@ const usersFixtures = new Fixtures({
       email: 'bcs82@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.352Z',
       updated_at: '2017-08-26T19:14:18.352Z'
@@ -2288,7 +2289,7 @@ const usersFixtures = new Fixtures({
       email: 'es345@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.353Z',
       updated_at: '2017-08-26T19:14:18.353Z'
@@ -2301,7 +2302,7 @@ const usersFixtures = new Fixtures({
       email: 'ms2675@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.353Z',
       updated_at: '2017-08-26T19:14:18.353Z'
@@ -2314,7 +2315,7 @@ const usersFixtures = new Fixtures({
       email: 'wzs4@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.353Z',
       updated_at: '2017-08-26T19:14:18.353Z'
@@ -2327,7 +2328,7 @@ const usersFixtures = new Fixtures({
       email: 'bas25@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 83,
       created_at: '2017-08-26T19:14:18.353Z',
       updated_at: '2017-08-26T19:14:18.353Z'
@@ -2340,7 +2341,7 @@ const usersFixtures = new Fixtures({
       email: 'les272@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.353Z',
       updated_at: '2017-08-26T19:14:18.353Z'
@@ -2353,7 +2354,7 @@ const usersFixtures = new Fixtures({
       email: 'cjs359@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.353Z',
       updated_at: '2017-08-26T19:14:18.353Z'
@@ -2366,7 +2367,7 @@ const usersFixtures = new Fixtures({
       email: 'cs288@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.353Z',
       updated_at: '2017-08-26T19:14:18.353Z'
@@ -2379,7 +2380,7 @@ const usersFixtures = new Fixtures({
       email: 'tmf8@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 84,
       created_at: '2017-08-26T19:14:18.353Z',
       updated_at: '2017-08-26T19:14:18.353Z'
@@ -2392,7 +2393,7 @@ const usersFixtures = new Fixtures({
       email: 'tms297@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.353Z',
       updated_at: '2017-08-26T19:14:18.353Z'
@@ -2405,7 +2406,7 @@ const usersFixtures = new Fixtures({
       email: 'css17@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 85,
       created_at: '2017-08-26T19:14:18.353Z',
       updated_at: '2017-08-26T19:14:18.353Z'
@@ -2418,7 +2419,7 @@ const usersFixtures = new Fixtures({
       email: 'pms262@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 86,
       created_at: '2017-08-26T19:14:18.353Z',
       updated_at: '2017-08-26T19:14:18.353Z'
@@ -2431,7 +2432,7 @@ const usersFixtures = new Fixtures({
       email: 'ads32@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 87,
       created_at: '2017-08-26T19:14:18.353Z',
       updated_at: '2017-08-26T19:14:18.353Z'
@@ -2444,7 +2445,7 @@ const usersFixtures = new Fixtures({
       email: 'kes339@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.353Z',
       updated_at: '2017-08-26T19:14:18.353Z'
@@ -2457,7 +2458,7 @@ const usersFixtures = new Fixtures({
       email: 'jrs464@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.353Z',
       updated_at: '2017-08-26T19:14:18.353Z'
@@ -2470,7 +2471,7 @@ const usersFixtures = new Fixtures({
       email: 'ams69@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 88,
       created_at: '2017-08-26T19:14:18.353Z',
       updated_at: '2017-08-26T19:14:18.353Z'
@@ -2483,7 +2484,7 @@ const usersFixtures = new Fixtures({
       email: 'ahs47@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 89,
       created_at: '2017-08-26T19:14:18.353Z',
       updated_at: '2017-08-26T19:14:18.353Z'
@@ -2496,7 +2497,7 @@ const usersFixtures = new Fixtures({
       email: 'ahs38@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.354Z',
       updated_at: '2017-08-26T19:14:18.354Z'
@@ -2509,7 +2510,7 @@ const usersFixtures = new Fixtures({
       email: 'mcs394@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.354Z',
       updated_at: '2017-08-26T19:14:18.354Z'
@@ -2522,7 +2523,7 @@ const usersFixtures = new Fixtures({
       email: 'ags242@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.354Z',
       updated_at: '2017-08-26T19:14:18.354Z'
@@ -2535,7 +2536,7 @@ const usersFixtures = new Fixtures({
       email: 'egs79@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.354Z',
       updated_at: '2017-08-26T19:14:18.354Z'
@@ -2548,7 +2549,7 @@ const usersFixtures = new Fixtures({
       email: 'jts286@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 90,
       created_at: '2017-08-26T19:14:18.354Z',
       updated_at: '2017-08-26T19:14:18.354Z'
@@ -2561,7 +2562,7 @@ const usersFixtures = new Fixtures({
       email: 'mjs487@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 91,
       created_at: '2017-08-26T19:14:18.354Z',
       updated_at: '2017-08-26T19:14:18.354Z'
@@ -2574,7 +2575,7 @@ const usersFixtures = new Fixtures({
       email: 'dlt22@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 92,
       created_at: '2017-08-26T19:14:18.354Z',
       updated_at: '2017-08-26T19:14:18.354Z'
@@ -2587,7 +2588,7 @@ const usersFixtures = new Fixtures({
       email: 'kmt87@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.354Z',
       updated_at: '2017-08-26T19:14:18.354Z'
@@ -2600,7 +2601,7 @@ const usersFixtures = new Fixtures({
       email: 'met38@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 93,
       created_at: '2017-08-26T19:14:18.354Z',
       updated_at: '2017-08-26T19:14:18.354Z'
@@ -2613,7 +2614,7 @@ const usersFixtures = new Fixtures({
       email: 'jt762@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.354Z',
       updated_at: '2017-08-26T19:14:18.354Z'
@@ -2626,7 +2627,7 @@ const usersFixtures = new Fixtures({
       email: 'ziv2@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 94,
       created_at: '2017-08-26T19:14:18.354Z',
       updated_at: '2017-08-26T19:14:18.354Z'
@@ -2639,7 +2640,7 @@ const usersFixtures = new Fixtures({
       email: 'amv92@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.354Z',
       updated_at: '2017-08-26T19:14:18.354Z'
@@ -2652,7 +2653,7 @@ const usersFixtures = new Fixtures({
       email: 'dlv35@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.354Z',
       updated_at: '2017-08-26T19:14:18.354Z'
@@ -2665,7 +2666,7 @@ const usersFixtures = new Fixtures({
       email: 'kv89@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 95,
       created_at: '2017-08-26T19:14:18.354Z',
       updated_at: '2017-08-26T19:14:18.354Z'
@@ -2678,7 +2679,7 @@ const usersFixtures = new Fixtures({
       email: 'wcv3@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.354Z',
       updated_at: '2017-08-26T19:14:18.354Z'
@@ -2691,7 +2692,7 @@ const usersFixtures = new Fixtures({
       email: 'sw759@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.354Z',
       updated_at: '2017-08-26T19:14:18.354Z'
@@ -2704,7 +2705,7 @@ const usersFixtures = new Fixtures({
       email: 'hab27@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 96,
       created_at: '2017-08-26T19:14:18.354Z',
       updated_at: '2017-08-26T19:14:18.354Z'
@@ -2717,7 +2718,7 @@ const usersFixtures = new Fixtures({
       email: 'lkw37@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.355Z',
       updated_at: '2017-08-26T19:14:18.355Z'
@@ -2730,7 +2731,7 @@ const usersFixtures = new Fixtures({
       email: 'slw256@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.355Z',
       updated_at: '2017-08-26T19:14:18.355Z'
@@ -2743,7 +2744,7 @@ const usersFixtures = new Fixtures({
       email: 'krk7@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 97,
       created_at: '2017-08-26T19:14:18.355Z',
       updated_at: '2017-08-26T19:14:18.355Z'
@@ -2756,7 +2757,7 @@ const usersFixtures = new Fixtures({
       email: 'jmw53@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.355Z',
       updated_at: '2017-08-26T19:14:18.355Z'
@@ -2769,7 +2770,7 @@ const usersFixtures = new Fixtures({
       email: 'ebw52@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: 98,
       created_at: '2017-08-26T19:14:18.355Z',
       updated_at: '2017-08-26T19:14:18.355Z'
@@ -2782,7 +2783,7 @@ const usersFixtures = new Fixtures({
       email: 'cdw93@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.355Z',
       updated_at: '2017-08-26T19:14:18.355Z'
@@ -2795,7 +2796,7 @@ const usersFixtures = new Fixtures({
       email: 'jrw376@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.355Z',
       updated_at: '2017-08-26T19:14:18.355Z'
@@ -2808,7 +2809,7 @@ const usersFixtures = new Fixtures({
       email: 'tw388@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.355Z',
       updated_at: '2017-08-26T19:14:18.355Z'
@@ -2821,7 +2822,7 @@ const usersFixtures = new Fixtures({
       email: 'ary24@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.355Z',
       updated_at: '2017-08-26T19:14:18.355Z'
@@ -2834,7 +2835,7 @@ const usersFixtures = new Fixtures({
       email: 'ey87@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.355Z',
       updated_at: '2017-08-26T19:14:18.355Z'
@@ -2847,7 +2848,7 @@ const usersFixtures = new Fixtures({
       email: 'sz95@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: true,
+      is_active: false,
       photo_id: null,
       created_at: '2017-08-26T19:14:18.355Z',
       updated_at: '2017-08-26T19:14:18.355Z'
