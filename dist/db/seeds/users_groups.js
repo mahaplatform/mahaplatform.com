@@ -668,6 +668,9 @@ var usersGroupsFixtures = new _maha.Fixtures({
   }, {
     user_id: 219,
     group_id: 1
+  }, {
+    user_id: 220,
+    group_id: 1
   }]
 });
 

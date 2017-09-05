@@ -206,18 +206,25 @@ var import_20170622 = exports.import_20170622 = function () {
                 updated_at: (0, _moment2.default)()
               });
 
-              record[2].split('/').map(function (netid) {
+              var fieldIndexes = [2, 3, 4];
 
-                var user_id = _lodash2.default.find(userData.users, { email: netid + '@cornell.edu' }).id;
+              fieldIndexes.map(function (index) {
 
-                data.members.push({
-                  team_id: 1,
-                  project_id: project_id,
-                  user_id: user_id,
-                  member_type_id: 1,
-                  is_active: true,
-                  created_at: (0, _moment2.default)(),
-                  updated_at: (0, _moment2.default)()
+                if (record[index].length === 0) return;
+
+                record[index].split('/').map(function (netid) {
+
+                  var user_id = _lodash2.default.find(userData.users, { email: netid + '@cornell.edu' }).id;
+
+                  data.members.push({
+                    team_id: 1,
+                    project_id: project_id,
+                    user_id: user_id,
+                    member_type_id: index - 1,
+                    is_active: true,
+                    created_at: (0, _moment2.default)(),
+                    updated_at: (0, _moment2.default)()
+                  });
                 });
               });
 

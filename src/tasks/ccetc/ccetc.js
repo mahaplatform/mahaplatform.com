@@ -157,21 +157,30 @@ export const import_20170622 = async () => {
         updated_at: moment()
       })
 
-      record[2].split('/').map(netid => {
+      const fieldIndexes = [2,3,4]
 
-        const user_id = _.find(userData.users, { email: `${netid}@cornell.edu`}).id
+      fieldIndexes.map(index => {
 
-        data.members.push({
-          team_id: 1,
-          project_id,
-          user_id,
-          member_type_id: 1,
-          is_active: true,
-          created_at: moment(),
-          updated_at: moment()
+        if(record[index].length === 0) return
+
+        record[index].split('/').map(netid => {
+
+          const user_id = _.find(userData.users, { email: `${netid}@cornell.edu`}).id
+
+          data.members.push({
+            team_id: 1,
+            project_id,
+            user_id,
+            member_type_id: index - 1,
+            is_active: true,
+            created_at: moment(),
+            updated_at: moment()
+          })
+
         })
 
       })
+
 
       return data
 

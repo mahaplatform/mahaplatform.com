@@ -18,8 +18,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 2,
-    created_at: '2017-08-26T19:14:18.331Z',
-    updated_at: '2017-08-26T19:14:18.331Z'
+    created_at: '2017-09-05T16:52:07.460Z',
+    updated_at: '2017-09-05T16:52:07.460Z'
   }, {
     id: 2,
     team_id: 1,
@@ -30,8 +30,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 3,
-    created_at: '2017-08-26T19:14:18.332Z',
-    updated_at: '2017-08-26T19:14:18.332Z'
+    created_at: '2017-09-05T16:52:07.461Z',
+    updated_at: '2017-09-05T16:52:07.461Z'
   }, {
     id: 3,
     team_id: 1,
@@ -42,8 +42,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.332Z',
-    updated_at: '2017-08-26T19:14:18.332Z'
+    created_at: '2017-09-05T16:52:07.462Z',
+    updated_at: '2017-09-05T16:52:07.462Z'
   }, {
     id: 4,
     team_id: 1,
@@ -54,8 +54,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.332Z',
-    updated_at: '2017-08-26T19:14:18.332Z'
+    created_at: '2017-09-05T16:52:07.462Z',
+    updated_at: '2017-09-05T16:52:07.462Z'
   }, {
     id: 5,
     team_id: 1,
@@ -66,8 +66,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.333Z',
-    updated_at: '2017-08-26T19:14:18.333Z'
+    created_at: '2017-09-05T16:52:07.462Z',
+    updated_at: '2017-09-05T16:52:07.462Z'
   }, {
     id: 6,
     team_id: 1,
@@ -78,8 +78,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.333Z',
-    updated_at: '2017-08-26T19:14:18.333Z'
+    created_at: '2017-09-05T16:52:07.462Z',
+    updated_at: '2017-09-05T16:52:07.462Z'
   }, {
     id: 7,
     team_id: 1,
@@ -90,8 +90,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 4,
-    created_at: '2017-08-26T19:14:18.333Z',
-    updated_at: '2017-08-26T19:14:18.333Z'
+    created_at: '2017-09-05T16:52:07.462Z',
+    updated_at: '2017-09-05T16:52:07.462Z'
   }, {
     id: 8,
     team_id: 1,
@@ -102,8 +102,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 5,
-    created_at: '2017-08-26T19:14:18.333Z',
-    updated_at: '2017-08-26T19:14:18.333Z'
+    created_at: '2017-09-05T16:52:07.462Z',
+    updated_at: '2017-09-05T16:52:07.462Z'
   }, {
     id: 9,
     team_id: 1,
@@ -114,8 +114,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.333Z',
-    updated_at: '2017-08-26T19:14:18.333Z'
+    created_at: '2017-09-05T16:52:07.462Z',
+    updated_at: '2017-09-05T16:52:07.462Z'
   }, {
     id: 10,
     team_id: 1,
@@ -126,8 +126,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 6,
-    created_at: '2017-08-26T19:14:18.333Z',
-    updated_at: '2017-08-26T19:14:18.333Z'
+    created_at: '2017-09-05T16:52:07.463Z',
+    updated_at: '2017-09-05T16:52:07.463Z'
   }, {
     id: 11,
     team_id: 1,
@@ -138,8 +138,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.333Z',
-    updated_at: '2017-08-26T19:14:18.333Z'
+    created_at: '2017-09-05T16:52:07.463Z',
+    updated_at: '2017-09-05T16:52:07.463Z'
   }, {
     id: 12,
     team_id: 1,
@@ -150,8 +150,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.334Z',
-    updated_at: '2017-08-26T19:14:18.334Z'
+    created_at: '2017-09-05T16:52:07.463Z',
+    updated_at: '2017-09-05T16:52:07.463Z'
   }, {
     id: 13,
     team_id: 1,
@@ -162,8 +162,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 7,
-    created_at: '2017-08-26T19:14:18.334Z',
-    updated_at: '2017-08-26T19:14:18.334Z'
+    created_at: '2017-09-05T16:52:07.463Z',
+    updated_at: '2017-09-05T16:52:07.463Z'
   }, {
     id: 14,
     team_id: 1,
@@ -174,8 +174,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.334Z',
-    updated_at: '2017-08-26T19:14:18.334Z'
+    created_at: '2017-09-05T16:52:07.464Z',
+    updated_at: '2017-09-05T16:52:07.464Z'
   }, {
     id: 15,
     team_id: 1,
@@ -186,8 +186,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.334Z',
-    updated_at: '2017-08-26T19:14:18.334Z'
+    created_at: '2017-09-05T16:52:07.464Z',
+    updated_at: '2017-09-05T16:52:07.464Z'
   }, {
     id: 16,
     team_id: 1,
@@ -198,8 +198,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 8,
-    created_at: '2017-08-26T19:14:18.334Z',
-    updated_at: '2017-08-26T19:14:18.334Z'
+    created_at: '2017-09-05T16:52:07.464Z',
+    updated_at: '2017-09-05T16:52:07.464Z'
   }, {
     id: 17,
     team_id: 1,
@@ -210,8 +210,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.334Z',
-    updated_at: '2017-08-26T19:14:18.334Z'
+    created_at: '2017-09-05T16:52:07.464Z',
+    updated_at: '2017-09-05T16:52:07.465Z'
   }, {
     id: 18,
     team_id: 1,
@@ -222,8 +222,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 9,
-    created_at: '2017-08-26T19:14:18.335Z',
-    updated_at: '2017-08-26T19:14:18.335Z'
+    created_at: '2017-09-05T16:52:07.465Z',
+    updated_at: '2017-09-05T16:52:07.465Z'
   }, {
     id: 19,
     team_id: 1,
@@ -234,8 +234,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 10,
-    created_at: '2017-08-26T19:14:18.335Z',
-    updated_at: '2017-08-26T19:14:18.335Z'
+    created_at: '2017-09-05T16:52:07.465Z',
+    updated_at: '2017-09-05T16:52:07.465Z'
   }, {
     id: 20,
     team_id: 1,
@@ -246,8 +246,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.335Z',
-    updated_at: '2017-08-26T19:14:18.335Z'
+    created_at: '2017-09-05T16:52:07.465Z',
+    updated_at: '2017-09-05T16:52:07.465Z'
   }, {
     id: 21,
     team_id: 1,
@@ -258,8 +258,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.335Z',
-    updated_at: '2017-08-26T19:14:18.335Z'
+    created_at: '2017-09-05T16:52:07.465Z',
+    updated_at: '2017-09-05T16:52:07.465Z'
   }, {
     id: 22,
     team_id: 1,
@@ -270,8 +270,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.335Z',
-    updated_at: '2017-08-26T19:14:18.335Z'
+    created_at: '2017-09-05T16:52:07.465Z',
+    updated_at: '2017-09-05T16:52:07.465Z'
   }, {
     id: 23,
     team_id: 1,
@@ -282,8 +282,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 11,
-    created_at: '2017-08-26T19:14:18.335Z',
-    updated_at: '2017-08-26T19:14:18.335Z'
+    created_at: '2017-09-05T16:52:07.465Z',
+    updated_at: '2017-09-05T16:52:07.465Z'
   }, {
     id: 24,
     team_id: 1,
@@ -294,8 +294,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 12,
-    created_at: '2017-08-26T19:14:18.335Z',
-    updated_at: '2017-08-26T19:14:18.335Z'
+    created_at: '2017-09-05T16:52:07.465Z',
+    updated_at: '2017-09-05T16:52:07.465Z'
   }, {
     id: 25,
     team_id: 1,
@@ -306,8 +306,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 13,
-    created_at: '2017-08-26T19:14:18.335Z',
-    updated_at: '2017-08-26T19:14:18.335Z'
+    created_at: '2017-09-05T16:52:07.465Z',
+    updated_at: '2017-09-05T16:52:07.465Z'
   }, {
     id: 26,
     team_id: 1,
@@ -318,8 +318,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.336Z',
-    updated_at: '2017-08-26T19:14:18.336Z'
+    created_at: '2017-09-05T16:52:07.465Z',
+    updated_at: '2017-09-05T16:52:07.465Z'
   }, {
     id: 27,
     team_id: 1,
@@ -330,8 +330,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 14,
-    created_at: '2017-08-26T19:14:18.336Z',
-    updated_at: '2017-08-26T19:14:18.336Z'
+    created_at: '2017-09-05T16:52:07.465Z',
+    updated_at: '2017-09-05T16:52:07.465Z'
   }, {
     id: 28,
     team_id: 1,
@@ -342,8 +342,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 15,
-    created_at: '2017-08-26T19:14:18.336Z',
-    updated_at: '2017-08-26T19:14:18.336Z'
+    created_at: '2017-09-05T16:52:07.466Z',
+    updated_at: '2017-09-05T16:52:07.466Z'
   }, {
     id: 29,
     team_id: 1,
@@ -354,8 +354,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 16,
-    created_at: '2017-08-26T19:14:18.336Z',
-    updated_at: '2017-08-26T19:14:18.336Z'
+    created_at: '2017-09-05T16:52:07.466Z',
+    updated_at: '2017-09-05T16:52:07.466Z'
   }, {
     id: 30,
     team_id: 1,
@@ -366,8 +366,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.336Z',
-    updated_at: '2017-08-26T19:14:18.337Z'
+    created_at: '2017-09-05T16:52:07.466Z',
+    updated_at: '2017-09-05T16:52:07.466Z'
   }, {
     id: 31,
     team_id: 1,
@@ -378,8 +378,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 17,
-    created_at: '2017-08-26T19:14:18.337Z',
-    updated_at: '2017-08-26T19:14:18.337Z'
+    created_at: '2017-09-05T16:52:07.466Z',
+    updated_at: '2017-09-05T16:52:07.466Z'
   }, {
     id: 32,
     team_id: 1,
@@ -390,8 +390,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.337Z',
-    updated_at: '2017-08-26T19:14:18.337Z'
+    created_at: '2017-09-05T16:52:07.467Z',
+    updated_at: '2017-09-05T16:52:07.467Z'
   }, {
     id: 33,
     team_id: 1,
@@ -402,8 +402,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 18,
-    created_at: '2017-08-26T19:14:18.337Z',
-    updated_at: '2017-08-26T19:14:18.337Z'
+    created_at: '2017-09-05T16:52:07.467Z',
+    updated_at: '2017-09-05T16:52:07.467Z'
   }, {
     id: 34,
     team_id: 1,
@@ -414,8 +414,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 19,
-    created_at: '2017-08-26T19:14:18.337Z',
-    updated_at: '2017-08-26T19:14:18.337Z'
+    created_at: '2017-09-05T16:52:07.467Z',
+    updated_at: '2017-09-05T16:52:07.467Z'
   }, {
     id: 35,
     team_id: 1,
@@ -426,8 +426,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 20,
-    created_at: '2017-08-26T19:14:18.337Z',
-    updated_at: '2017-08-26T19:14:18.337Z'
+    created_at: '2017-09-05T16:52:07.467Z',
+    updated_at: '2017-09-05T16:52:07.467Z'
   }, {
     id: 36,
     team_id: 1,
@@ -438,8 +438,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.337Z',
-    updated_at: '2017-08-26T19:14:18.337Z'
+    created_at: '2017-09-05T16:52:07.467Z',
+    updated_at: '2017-09-05T16:52:07.467Z'
   }, {
     id: 37,
     team_id: 1,
@@ -450,8 +450,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 21,
-    created_at: '2017-08-26T19:14:18.337Z',
-    updated_at: '2017-08-26T19:14:18.337Z'
+    created_at: '2017-09-05T16:52:07.467Z',
+    updated_at: '2017-09-05T16:52:07.467Z'
   }, {
     id: 38,
     team_id: 1,
@@ -462,8 +462,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 22,
-    created_at: '2017-08-26T19:14:18.339Z',
-    updated_at: '2017-08-26T19:14:18.339Z'
+    created_at: '2017-09-05T16:52:07.469Z',
+    updated_at: '2017-09-05T16:52:07.469Z'
   }, {
     id: 39,
     team_id: 1,
@@ -474,8 +474,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.340Z',
-    updated_at: '2017-08-26T19:14:18.340Z'
+    created_at: '2017-09-05T16:52:07.469Z',
+    updated_at: '2017-09-05T16:52:07.469Z'
   }, {
     id: 40,
     team_id: 1,
@@ -486,8 +486,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 23,
-    created_at: '2017-08-26T19:14:18.340Z',
-    updated_at: '2017-08-26T19:14:18.340Z'
+    created_at: '2017-09-05T16:52:07.469Z',
+    updated_at: '2017-09-05T16:52:07.469Z'
   }, {
     id: 41,
     team_id: 1,
@@ -498,8 +498,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 24,
-    created_at: '2017-08-26T19:14:18.340Z',
-    updated_at: '2017-08-26T19:14:18.340Z'
+    created_at: '2017-09-05T16:52:07.469Z',
+    updated_at: '2017-09-05T16:52:07.469Z'
   }, {
     id: 42,
     team_id: 1,
@@ -510,8 +510,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 25,
-    created_at: '2017-08-26T19:14:18.341Z',
-    updated_at: '2017-08-26T19:14:18.341Z'
+    created_at: '2017-09-05T16:52:07.469Z',
+    updated_at: '2017-09-05T16:52:07.469Z'
   }, {
     id: 43,
     team_id: 1,
@@ -522,8 +522,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.341Z',
-    updated_at: '2017-08-26T19:14:18.341Z'
+    created_at: '2017-09-05T16:52:07.469Z',
+    updated_at: '2017-09-05T16:52:07.469Z'
   }, {
     id: 44,
     team_id: 1,
@@ -534,8 +534,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.341Z',
-    updated_at: '2017-08-26T19:14:18.341Z'
+    created_at: '2017-09-05T16:52:07.469Z',
+    updated_at: '2017-09-05T16:52:07.469Z'
   }, {
     id: 45,
     team_id: 1,
@@ -546,8 +546,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.341Z',
-    updated_at: '2017-08-26T19:14:18.341Z'
+    created_at: '2017-09-05T16:52:07.469Z',
+    updated_at: '2017-09-05T16:52:07.469Z'
   }, {
     id: 46,
     team_id: 1,
@@ -558,8 +558,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.341Z',
-    updated_at: '2017-08-26T19:14:18.341Z'
+    created_at: '2017-09-05T16:52:07.469Z',
+    updated_at: '2017-09-05T16:52:07.469Z'
   }, {
     id: 47,
     team_id: 1,
@@ -570,8 +570,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.341Z',
-    updated_at: '2017-08-26T19:14:18.341Z'
+    created_at: '2017-09-05T16:52:07.469Z',
+    updated_at: '2017-09-05T16:52:07.469Z'
   }, {
     id: 48,
     team_id: 1,
@@ -582,8 +582,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 26,
-    created_at: '2017-08-26T19:14:18.341Z',
-    updated_at: '2017-08-26T19:14:18.341Z'
+    created_at: '2017-09-05T16:52:07.470Z',
+    updated_at: '2017-09-05T16:52:07.470Z'
   }, {
     id: 49,
     team_id: 1,
@@ -594,8 +594,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 27,
-    created_at: '2017-08-26T19:14:18.341Z',
-    updated_at: '2017-08-26T19:14:18.341Z'
+    created_at: '2017-09-05T16:52:07.470Z',
+    updated_at: '2017-09-05T16:52:07.470Z'
   }, {
     id: 50,
     team_id: 1,
@@ -606,8 +606,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 28,
-    created_at: '2017-08-26T19:14:18.342Z',
-    updated_at: '2017-08-26T19:14:18.342Z'
+    created_at: '2017-09-05T16:52:07.470Z',
+    updated_at: '2017-09-05T16:52:07.470Z'
   }, {
     id: 51,
     team_id: 1,
@@ -618,8 +618,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.342Z',
-    updated_at: '2017-08-26T19:14:18.342Z'
+    created_at: '2017-09-05T16:52:07.470Z',
+    updated_at: '2017-09-05T16:52:07.470Z'
   }, {
     id: 52,
     team_id: 1,
@@ -630,8 +630,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 29,
-    created_at: '2017-08-26T19:14:18.342Z',
-    updated_at: '2017-08-26T19:14:18.342Z'
+    created_at: '2017-09-05T16:52:07.470Z',
+    updated_at: '2017-09-05T16:52:07.470Z'
   }, {
     id: 53,
     team_id: 1,
@@ -642,8 +642,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 30,
-    created_at: '2017-08-26T19:14:18.342Z',
-    updated_at: '2017-08-26T19:14:18.342Z'
+    created_at: '2017-09-05T16:52:07.470Z',
+    updated_at: '2017-09-05T16:52:07.470Z'
   }, {
     id: 54,
     team_id: 1,
@@ -654,8 +654,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 31,
-    created_at: '2017-08-26T19:14:18.342Z',
-    updated_at: '2017-08-26T19:14:18.342Z'
+    created_at: '2017-09-05T16:52:07.470Z',
+    updated_at: '2017-09-05T16:52:07.470Z'
   }, {
     id: 55,
     team_id: 1,
@@ -666,8 +666,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.342Z',
-    updated_at: '2017-08-26T19:14:18.342Z'
+    created_at: '2017-09-05T16:52:07.470Z',
+    updated_at: '2017-09-05T16:52:07.470Z'
   }, {
     id: 56,
     team_id: 1,
@@ -678,8 +678,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 32,
-    created_at: '2017-08-26T19:14:18.342Z',
-    updated_at: '2017-08-26T19:14:18.342Z'
+    created_at: '2017-09-05T16:52:07.470Z',
+    updated_at: '2017-09-05T16:52:07.470Z'
   }, {
     id: 57,
     team_id: 1,
@@ -690,8 +690,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.342Z',
-    updated_at: '2017-08-26T19:14:18.342Z'
+    created_at: '2017-09-05T16:52:07.470Z',
+    updated_at: '2017-09-05T16:52:07.471Z'
   }, {
     id: 58,
     team_id: 1,
@@ -702,8 +702,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.343Z',
-    updated_at: '2017-08-26T19:14:18.343Z'
+    created_at: '2017-09-05T16:52:07.471Z',
+    updated_at: '2017-09-05T16:52:07.471Z'
   }, {
     id: 59,
     team_id: 1,
@@ -714,8 +714,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.343Z',
-    updated_at: '2017-08-26T19:14:18.343Z'
+    created_at: '2017-09-05T16:52:07.471Z',
+    updated_at: '2017-09-05T16:52:07.471Z'
   }, {
     id: 60,
     team_id: 1,
@@ -726,8 +726,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.343Z',
-    updated_at: '2017-08-26T19:14:18.343Z'
+    created_at: '2017-09-05T16:52:07.471Z',
+    updated_at: '2017-09-05T16:52:07.471Z'
   }, {
     id: 61,
     team_id: 1,
@@ -738,8 +738,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 33,
-    created_at: '2017-08-26T19:14:18.343Z',
-    updated_at: '2017-08-26T19:14:18.343Z'
+    created_at: '2017-09-05T16:52:07.471Z',
+    updated_at: '2017-09-05T16:52:07.471Z'
   }, {
     id: 62,
     team_id: 1,
@@ -750,8 +750,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.343Z',
-    updated_at: '2017-08-26T19:14:18.343Z'
+    created_at: '2017-09-05T16:52:07.471Z',
+    updated_at: '2017-09-05T16:52:07.471Z'
   }, {
     id: 63,
     team_id: 1,
@@ -762,8 +762,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 34,
-    created_at: '2017-08-26T19:14:18.343Z',
-    updated_at: '2017-08-26T19:14:18.343Z'
+    created_at: '2017-09-05T16:52:07.471Z',
+    updated_at: '2017-09-05T16:52:07.471Z'
   }, {
     id: 64,
     team_id: 1,
@@ -774,8 +774,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 35,
-    created_at: '2017-08-26T19:14:18.344Z',
-    updated_at: '2017-08-26T19:14:18.344Z'
+    created_at: '2017-09-05T16:52:07.472Z',
+    updated_at: '2017-09-05T16:52:07.472Z'
   }, {
     id: 65,
     team_id: 1,
@@ -786,8 +786,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.344Z',
-    updated_at: '2017-08-26T19:14:18.344Z'
+    created_at: '2017-09-05T16:52:07.472Z',
+    updated_at: '2017-09-05T16:52:07.472Z'
   }, {
     id: 66,
     team_id: 1,
@@ -798,8 +798,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.344Z',
-    updated_at: '2017-08-26T19:14:18.344Z'
+    created_at: '2017-09-05T16:52:07.473Z',
+    updated_at: '2017-09-05T16:52:07.473Z'
   }, {
     id: 67,
     team_id: 1,
@@ -810,8 +810,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.345Z',
-    updated_at: '2017-08-26T19:14:18.345Z'
+    created_at: '2017-09-05T16:52:07.474Z',
+    updated_at: '2017-09-05T16:52:07.474Z'
   }, {
     id: 68,
     team_id: 1,
@@ -822,8 +822,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 36,
-    created_at: '2017-08-26T19:14:18.345Z',
-    updated_at: '2017-08-26T19:14:18.345Z'
+    created_at: '2017-09-05T16:52:07.474Z',
+    updated_at: '2017-09-05T16:52:07.474Z'
   }, {
     id: 69,
     team_id: 1,
@@ -834,8 +834,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.345Z',
-    updated_at: '2017-08-26T19:14:18.345Z'
+    created_at: '2017-09-05T16:52:07.475Z',
+    updated_at: '2017-09-05T16:52:07.475Z'
   }, {
     id: 70,
     team_id: 1,
@@ -846,8 +846,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.345Z',
-    updated_at: '2017-08-26T19:14:18.345Z'
+    created_at: '2017-09-05T16:52:07.475Z',
+    updated_at: '2017-09-05T16:52:07.475Z'
   }, {
     id: 71,
     team_id: 1,
@@ -858,8 +858,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 37,
-    created_at: '2017-08-26T19:14:18.345Z',
-    updated_at: '2017-08-26T19:14:18.345Z'
+    created_at: '2017-09-05T16:52:07.475Z',
+    updated_at: '2017-09-05T16:52:07.475Z'
   }, {
     id: 72,
     team_id: 1,
@@ -870,8 +870,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.345Z',
-    updated_at: '2017-08-26T19:14:18.345Z'
+    created_at: '2017-09-05T16:52:07.475Z',
+    updated_at: '2017-09-05T16:52:07.475Z'
   }, {
     id: 73,
     team_id: 1,
@@ -882,8 +882,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.345Z',
-    updated_at: '2017-08-26T19:14:18.345Z'
+    created_at: '2017-09-05T16:52:07.475Z',
+    updated_at: '2017-09-05T16:52:07.475Z'
   }, {
     id: 74,
     team_id: 1,
@@ -894,8 +894,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 38,
-    created_at: '2017-08-26T19:14:18.345Z',
-    updated_at: '2017-08-26T19:14:18.345Z'
+    created_at: '2017-09-05T16:52:07.475Z',
+    updated_at: '2017-09-05T16:52:07.475Z'
   }, {
     id: 75,
     team_id: 1,
@@ -906,8 +906,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 39,
-    created_at: '2017-08-26T19:14:18.345Z',
-    updated_at: '2017-08-26T19:14:18.345Z'
+    created_at: '2017-09-05T16:52:07.475Z',
+    updated_at: '2017-09-05T16:52:07.475Z'
   }, {
     id: 76,
     team_id: 1,
@@ -918,8 +918,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.345Z',
-    updated_at: '2017-08-26T19:14:18.345Z'
+    created_at: '2017-09-05T16:52:07.475Z',
+    updated_at: '2017-09-05T16:52:07.475Z'
   }, {
     id: 77,
     team_id: 1,
@@ -930,8 +930,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 40,
-    created_at: '2017-08-26T19:14:18.345Z',
-    updated_at: '2017-08-26T19:14:18.345Z'
+    created_at: '2017-09-05T16:52:07.475Z',
+    updated_at: '2017-09-05T16:52:07.475Z'
   }, {
     id: 78,
     team_id: 1,
@@ -942,8 +942,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 41,
-    created_at: '2017-08-26T19:14:18.345Z',
-    updated_at: '2017-08-26T19:14:18.345Z'
+    created_at: '2017-09-05T16:52:07.475Z',
+    updated_at: '2017-09-05T16:52:07.475Z'
   }, {
     id: 79,
     team_id: 1,
@@ -954,8 +954,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 42,
-    created_at: '2017-08-26T19:14:18.345Z',
-    updated_at: '2017-08-26T19:14:18.345Z'
+    created_at: '2017-09-05T16:52:07.476Z',
+    updated_at: '2017-09-05T16:52:07.476Z'
   }, {
     id: 80,
     team_id: 1,
@@ -966,8 +966,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.345Z',
-    updated_at: '2017-08-26T19:14:18.345Z'
+    created_at: '2017-09-05T16:52:07.476Z',
+    updated_at: '2017-09-05T16:52:07.476Z'
   }, {
     id: 81,
     team_id: 1,
@@ -978,8 +978,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.345Z',
-    updated_at: '2017-08-26T19:14:18.345Z'
+    created_at: '2017-09-05T16:52:07.476Z',
+    updated_at: '2017-09-05T16:52:07.476Z'
   }, {
     id: 82,
     team_id: 1,
@@ -990,8 +990,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 43,
-    created_at: '2017-08-26T19:14:18.346Z',
-    updated_at: '2017-08-26T19:14:18.346Z'
+    created_at: '2017-09-05T16:52:07.476Z',
+    updated_at: '2017-09-05T16:52:07.476Z'
   }, {
     id: 83,
     team_id: 1,
@@ -1002,8 +1002,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.346Z',
-    updated_at: '2017-08-26T19:14:18.346Z'
+    created_at: '2017-09-05T16:52:07.476Z',
+    updated_at: '2017-09-05T16:52:07.476Z'
   }, {
     id: 84,
     team_id: 1,
@@ -1014,8 +1014,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.346Z',
-    updated_at: '2017-08-26T19:14:18.346Z'
+    created_at: '2017-09-05T16:52:07.476Z',
+    updated_at: '2017-09-05T16:52:07.476Z'
   }, {
     id: 85,
     team_id: 1,
@@ -1026,8 +1026,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 44,
-    created_at: '2017-08-26T19:14:18.346Z',
-    updated_at: '2017-08-26T19:14:18.346Z'
+    created_at: '2017-09-05T16:52:07.476Z',
+    updated_at: '2017-09-05T16:52:07.476Z'
   }, {
     id: 86,
     team_id: 1,
@@ -1038,8 +1038,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.346Z',
-    updated_at: '2017-08-26T19:14:18.346Z'
+    created_at: '2017-09-05T16:52:07.476Z',
+    updated_at: '2017-09-05T16:52:07.476Z'
   }, {
     id: 87,
     team_id: 1,
@@ -1050,8 +1050,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.346Z',
-    updated_at: '2017-08-26T19:14:18.346Z'
+    created_at: '2017-09-05T16:52:07.476Z',
+    updated_at: '2017-09-05T16:52:07.476Z'
   }, {
     id: 88,
     team_id: 1,
@@ -1062,8 +1062,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.346Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.476Z',
+    updated_at: '2017-09-05T16:52:07.476Z'
   }, {
     id: 89,
     team_id: 1,
@@ -1074,8 +1074,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.347Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.476Z',
+    updated_at: '2017-09-05T16:52:07.476Z'
   }, {
     id: 90,
     team_id: 1,
@@ -1086,8 +1086,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.347Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.476Z',
+    updated_at: '2017-09-05T16:52:07.476Z'
   }, {
     id: 91,
     team_id: 1,
@@ -1098,8 +1098,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 45,
-    created_at: '2017-08-26T19:14:18.347Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.476Z',
+    updated_at: '2017-09-05T16:52:07.476Z'
   }, {
     id: 92,
     team_id: 1,
@@ -1110,8 +1110,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 46,
-    created_at: '2017-08-26T19:14:18.347Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.476Z',
+    updated_at: '2017-09-05T16:52:07.476Z'
   }, {
     id: 93,
     team_id: 1,
@@ -1122,8 +1122,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.347Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.476Z',
+    updated_at: '2017-09-05T16:52:07.476Z'
   }, {
     id: 94,
     team_id: 1,
@@ -1134,8 +1134,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.347Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.476Z',
+    updated_at: '2017-09-05T16:52:07.476Z'
   }, {
     id: 95,
     team_id: 1,
@@ -1146,8 +1146,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.347Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.477Z',
+    updated_at: '2017-09-05T16:52:07.477Z'
   }, {
     id: 96,
     team_id: 1,
@@ -1158,8 +1158,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.347Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.477Z',
+    updated_at: '2017-09-05T16:52:07.477Z'
   }, {
     id: 97,
     team_id: 1,
@@ -1170,8 +1170,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 47,
-    created_at: '2017-08-26T19:14:18.347Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.477Z',
+    updated_at: '2017-09-05T16:52:07.477Z'
   }, {
     id: 98,
     team_id: 1,
@@ -1182,8 +1182,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.347Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.477Z',
+    updated_at: '2017-09-05T16:52:07.477Z'
   }, {
     id: 99,
     team_id: 1,
@@ -1194,8 +1194,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 48,
-    created_at: '2017-08-26T19:14:18.347Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.477Z',
+    updated_at: '2017-09-05T16:52:07.477Z'
   }, {
     id: 100,
     team_id: 1,
@@ -1206,8 +1206,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 49,
-    created_at: '2017-08-26T19:14:18.347Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.477Z',
+    updated_at: '2017-09-05T16:52:07.477Z'
   }, {
     id: 101,
     team_id: 1,
@@ -1218,8 +1218,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.347Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.477Z',
+    updated_at: '2017-09-05T16:52:07.477Z'
   }, {
     id: 102,
     team_id: 1,
@@ -1230,8 +1230,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 50,
-    created_at: '2017-08-26T19:14:18.347Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.477Z',
+    updated_at: '2017-09-05T16:52:07.477Z'
   }, {
     id: 103,
     team_id: 1,
@@ -1242,8 +1242,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 51,
-    created_at: '2017-08-26T19:14:18.347Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.477Z',
+    updated_at: '2017-09-05T16:52:07.477Z'
   }, {
     id: 104,
     team_id: 1,
@@ -1254,8 +1254,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 52,
-    created_at: '2017-08-26T19:14:18.347Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.477Z',
+    updated_at: '2017-09-05T16:52:07.477Z'
   }, {
     id: 105,
     team_id: 1,
@@ -1266,8 +1266,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 53,
-    created_at: '2017-08-26T19:14:18.347Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.477Z',
+    updated_at: '2017-09-05T16:52:07.477Z'
   }, {
     id: 106,
     team_id: 1,
@@ -1278,8 +1278,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.347Z',
-    updated_at: '2017-08-26T19:14:18.347Z'
+    created_at: '2017-09-05T16:52:07.477Z',
+    updated_at: '2017-09-05T16:52:07.477Z'
   }, {
     id: 107,
     team_id: 1,
@@ -1290,8 +1290,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.348Z',
-    updated_at: '2017-08-26T19:14:18.348Z'
+    created_at: '2017-09-05T16:52:07.477Z',
+    updated_at: '2017-09-05T16:52:07.477Z'
   }, {
     id: 108,
     team_id: 1,
@@ -1302,8 +1302,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.348Z',
-    updated_at: '2017-08-26T19:14:18.348Z'
+    created_at: '2017-09-05T16:52:07.478Z',
+    updated_at: '2017-09-05T16:52:07.478Z'
   }, {
     id: 109,
     team_id: 1,
@@ -1314,8 +1314,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.348Z',
-    updated_at: '2017-08-26T19:14:18.348Z'
+    created_at: '2017-09-05T16:52:07.478Z',
+    updated_at: '2017-09-05T16:52:07.478Z'
   }, {
     id: 110,
     team_id: 1,
@@ -1326,8 +1326,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.348Z',
-    updated_at: '2017-08-26T19:14:18.348Z'
+    created_at: '2017-09-05T16:52:07.478Z',
+    updated_at: '2017-09-05T16:52:07.478Z'
   }, {
     id: 111,
     team_id: 1,
@@ -1338,8 +1338,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 54,
-    created_at: '2017-08-26T19:14:18.348Z',
-    updated_at: '2017-08-26T19:14:18.348Z'
+    created_at: '2017-09-05T16:52:07.478Z',
+    updated_at: '2017-09-05T16:52:07.478Z'
   }, {
     id: 112,
     team_id: 1,
@@ -1350,8 +1350,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 55,
-    created_at: '2017-08-26T19:14:18.348Z',
-    updated_at: '2017-08-26T19:14:18.348Z'
+    created_at: '2017-09-05T16:52:07.478Z',
+    updated_at: '2017-09-05T16:52:07.478Z'
   }, {
     id: 113,
     team_id: 1,
@@ -1362,8 +1362,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.348Z',
-    updated_at: '2017-08-26T19:14:18.348Z'
+    created_at: '2017-09-05T16:52:07.478Z',
+    updated_at: '2017-09-05T16:52:07.478Z'
   }, {
     id: 114,
     team_id: 1,
@@ -1372,13 +1372,10 @@ var usersFixtures = new _maha.Fixtures({
     email: 'gmk8@cornell.edu',
     password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-    security_question_1_id: 1,
-    security_question_1_answer: 'moly',
-    is_active: true,
+    is_active: false,
     photo_id: 56,
-    activated_at: '2017-08-26T19:14:18.348Z',
-    created_at: '2017-08-26T19:14:18.348Z',
-    updated_at: '2017-08-26T19:14:18.348Z'
+    created_at: '2017-09-05T16:52:07.478Z',
+    updated_at: '2017-09-05T16:52:07.478Z'
   }, {
     id: 115,
     team_id: 1,
@@ -1389,8 +1386,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 57,
-    created_at: '2017-08-26T19:14:18.348Z',
-    updated_at: '2017-08-26T19:14:18.348Z'
+    created_at: '2017-09-05T16:52:07.478Z',
+    updated_at: '2017-09-05T16:52:07.478Z'
   }, {
     id: 116,
     team_id: 1,
@@ -1401,8 +1398,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.348Z',
-    updated_at: '2017-08-26T19:14:18.348Z'
+    created_at: '2017-09-05T16:52:07.478Z',
+    updated_at: '2017-09-05T16:52:07.478Z'
   }, {
     id: 117,
     team_id: 1,
@@ -1413,8 +1410,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 58,
-    created_at: '2017-08-26T19:14:18.348Z',
-    updated_at: '2017-08-26T19:14:18.348Z'
+    created_at: '2017-09-05T16:52:07.478Z',
+    updated_at: '2017-09-05T16:52:07.478Z'
   }, {
     id: 118,
     team_id: 1,
@@ -1425,8 +1422,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.348Z',
-    updated_at: '2017-08-26T19:14:18.348Z'
+    created_at: '2017-09-05T16:52:07.478Z',
+    updated_at: '2017-09-05T16:52:07.478Z'
   }, {
     id: 119,
     team_id: 1,
@@ -1437,8 +1434,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 59,
-    created_at: '2017-08-26T19:14:18.348Z',
-    updated_at: '2017-08-26T19:14:18.348Z'
+    created_at: '2017-09-05T16:52:07.478Z',
+    updated_at: '2017-09-05T16:52:07.478Z'
   }, {
     id: 120,
     team_id: 1,
@@ -1449,8 +1446,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.348Z',
-    updated_at: '2017-08-26T19:14:18.348Z'
+    created_at: '2017-09-05T16:52:07.478Z',
+    updated_at: '2017-09-05T16:52:07.478Z'
   }, {
     id: 121,
     team_id: 1,
@@ -1461,8 +1458,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 60,
-    created_at: '2017-08-26T19:14:18.348Z',
-    updated_at: '2017-08-26T19:14:18.348Z'
+    created_at: '2017-09-05T16:52:07.478Z',
+    updated_at: '2017-09-05T16:52:07.478Z'
   }, {
     id: 122,
     team_id: 1,
@@ -1473,8 +1470,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 61,
-    created_at: '2017-08-26T19:14:18.348Z',
-    updated_at: '2017-08-26T19:14:18.348Z'
+    created_at: '2017-09-05T16:52:07.479Z',
+    updated_at: '2017-09-05T16:52:07.479Z'
   }, {
     id: 123,
     team_id: 1,
@@ -1485,8 +1482,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 62,
-    created_at: '2017-08-26T19:14:18.348Z',
-    updated_at: '2017-08-26T19:14:18.348Z'
+    created_at: '2017-09-05T16:52:07.479Z',
+    updated_at: '2017-09-05T16:52:07.479Z'
   }, {
     id: 124,
     team_id: 1,
@@ -1497,8 +1494,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 63,
-    created_at: '2017-08-26T19:14:18.349Z',
-    updated_at: '2017-08-26T19:14:18.349Z'
+    created_at: '2017-09-05T16:52:07.479Z',
+    updated_at: '2017-09-05T16:52:07.479Z'
   }, {
     id: 125,
     team_id: 1,
@@ -1509,8 +1506,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.349Z',
-    updated_at: '2017-08-26T19:14:18.349Z'
+    created_at: '2017-09-05T16:52:07.479Z',
+    updated_at: '2017-09-05T16:52:07.479Z'
   }, {
     id: 126,
     team_id: 1,
@@ -1521,8 +1518,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.349Z',
-    updated_at: '2017-08-26T19:14:18.349Z'
+    created_at: '2017-09-05T16:52:07.480Z',
+    updated_at: '2017-09-05T16:52:07.480Z'
   }, {
     id: 127,
     team_id: 1,
@@ -1533,8 +1530,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 64,
-    created_at: '2017-08-26T19:14:18.349Z',
-    updated_at: '2017-08-26T19:14:18.349Z'
+    created_at: '2017-09-05T16:52:07.480Z',
+    updated_at: '2017-09-05T16:52:07.480Z'
   }, {
     id: 128,
     team_id: 1,
@@ -1545,8 +1542,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.349Z',
-    updated_at: '2017-08-26T19:14:18.349Z'
+    created_at: '2017-09-05T16:52:07.480Z',
+    updated_at: '2017-09-05T16:52:07.480Z'
   }, {
     id: 129,
     team_id: 1,
@@ -1557,8 +1554,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.349Z',
-    updated_at: '2017-08-26T19:14:18.349Z'
+    created_at: '2017-09-05T16:52:07.480Z',
+    updated_at: '2017-09-05T16:52:07.480Z'
   }, {
     id: 130,
     team_id: 1,
@@ -1569,8 +1566,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.349Z',
-    updated_at: '2017-08-26T19:14:18.349Z'
+    created_at: '2017-09-05T16:52:07.480Z',
+    updated_at: '2017-09-05T16:52:07.480Z'
   }, {
     id: 131,
     team_id: 1,
@@ -1581,8 +1578,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 65,
-    created_at: '2017-08-26T19:14:18.349Z',
-    updated_at: '2017-08-26T19:14:18.349Z'
+    created_at: '2017-09-05T16:52:07.480Z',
+    updated_at: '2017-09-05T16:52:07.480Z'
   }, {
     id: 132,
     team_id: 1,
@@ -1593,8 +1590,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 66,
-    created_at: '2017-08-26T19:14:18.350Z',
-    updated_at: '2017-08-26T19:14:18.350Z'
+    created_at: '2017-09-05T16:52:07.480Z',
+    updated_at: '2017-09-05T16:52:07.480Z'
   }, {
     id: 133,
     team_id: 1,
@@ -1605,8 +1602,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.350Z',
-    updated_at: '2017-08-26T19:14:18.350Z'
+    created_at: '2017-09-05T16:52:07.480Z',
+    updated_at: '2017-09-05T16:52:07.480Z'
   }, {
     id: 134,
     team_id: 1,
@@ -1617,8 +1614,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 67,
-    created_at: '2017-08-26T19:14:18.350Z',
-    updated_at: '2017-08-26T19:14:18.350Z'
+    created_at: '2017-09-05T16:52:07.480Z',
+    updated_at: '2017-09-05T16:52:07.480Z'
   }, {
     id: 135,
     team_id: 1,
@@ -1629,8 +1626,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 68,
-    created_at: '2017-08-26T19:14:18.350Z',
-    updated_at: '2017-08-26T19:14:18.350Z'
+    created_at: '2017-09-05T16:52:07.480Z',
+    updated_at: '2017-09-05T16:52:07.480Z'
   }, {
     id: 136,
     team_id: 1,
@@ -1641,8 +1638,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.350Z',
-    updated_at: '2017-08-26T19:14:18.350Z'
+    created_at: '2017-09-05T16:52:07.480Z',
+    updated_at: '2017-09-05T16:52:07.480Z'
   }, {
     id: 137,
     team_id: 1,
@@ -1653,8 +1650,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 69,
-    created_at: '2017-08-26T19:14:18.350Z',
-    updated_at: '2017-08-26T19:14:18.350Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 138,
     team_id: 1,
@@ -1665,8 +1662,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 70,
-    created_at: '2017-08-26T19:14:18.350Z',
-    updated_at: '2017-08-26T19:14:18.350Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 139,
     team_id: 1,
@@ -1677,8 +1674,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 71,
-    created_at: '2017-08-26T19:14:18.350Z',
-    updated_at: '2017-08-26T19:14:18.350Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 140,
     team_id: 1,
@@ -1689,8 +1686,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 72,
-    created_at: '2017-08-26T19:14:18.350Z',
-    updated_at: '2017-08-26T19:14:18.350Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 141,
     team_id: 1,
@@ -1701,8 +1698,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.350Z',
-    updated_at: '2017-08-26T19:14:18.350Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 142,
     team_id: 1,
@@ -1713,8 +1710,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 73,
-    created_at: '2017-08-26T19:14:18.350Z',
-    updated_at: '2017-08-26T19:14:18.350Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 143,
     team_id: 1,
@@ -1725,8 +1722,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.350Z',
-    updated_at: '2017-08-26T19:14:18.350Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 144,
     team_id: 1,
@@ -1737,8 +1734,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.350Z',
-    updated_at: '2017-08-26T19:14:18.350Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 145,
     team_id: 1,
@@ -1749,8 +1746,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.351Z',
-    updated_at: '2017-08-26T19:14:18.351Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 146,
     team_id: 1,
@@ -1761,8 +1758,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.351Z',
-    updated_at: '2017-08-26T19:14:18.351Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 147,
     team_id: 1,
@@ -1773,8 +1770,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.351Z',
-    updated_at: '2017-08-26T19:14:18.351Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 148,
     team_id: 1,
@@ -1785,8 +1782,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.351Z',
-    updated_at: '2017-08-26T19:14:18.351Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 149,
     team_id: 1,
@@ -1797,8 +1794,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 74,
-    created_at: '2017-08-26T19:14:18.351Z',
-    updated_at: '2017-08-26T19:14:18.351Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 150,
     team_id: 1,
@@ -1809,8 +1806,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.351Z',
-    updated_at: '2017-08-26T19:14:18.351Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 151,
     team_id: 1,
@@ -1821,8 +1818,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 75,
-    created_at: '2017-08-26T19:14:18.351Z',
-    updated_at: '2017-08-26T19:14:18.351Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 152,
     team_id: 1,
@@ -1833,8 +1830,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.351Z',
-    updated_at: '2017-08-26T19:14:18.351Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 153,
     team_id: 1,
@@ -1845,8 +1842,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.351Z',
-    updated_at: '2017-08-26T19:14:18.351Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 154,
     team_id: 1,
@@ -1857,8 +1854,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.351Z',
-    updated_at: '2017-08-26T19:14:18.351Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 155,
     team_id: 1,
@@ -1869,8 +1866,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.351Z',
-    updated_at: '2017-08-26T19:14:18.351Z'
+    created_at: '2017-09-05T16:52:07.481Z',
+    updated_at: '2017-09-05T16:52:07.481Z'
   }, {
     id: 156,
     team_id: 1,
@@ -1881,8 +1878,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.351Z',
-    updated_at: '2017-08-26T19:14:18.351Z'
+    created_at: '2017-09-05T16:52:07.482Z',
+    updated_at: '2017-09-05T16:52:07.482Z'
   }, {
     id: 157,
     team_id: 1,
@@ -1893,8 +1890,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.351Z',
-    updated_at: '2017-08-26T19:14:18.351Z'
+    created_at: '2017-09-05T16:52:07.482Z',
+    updated_at: '2017-09-05T16:52:07.482Z'
   }, {
     id: 158,
     team_id: 1,
@@ -1905,8 +1902,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.351Z',
-    updated_at: '2017-08-26T19:14:18.351Z'
+    created_at: '2017-09-05T16:52:07.482Z',
+    updated_at: '2017-09-05T16:52:07.482Z'
   }, {
     id: 159,
     team_id: 1,
@@ -1917,8 +1914,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.351Z',
-    updated_at: '2017-08-26T19:14:18.351Z'
+    created_at: '2017-09-05T16:52:07.482Z',
+    updated_at: '2017-09-05T16:52:07.482Z'
   }, {
     id: 160,
     team_id: 1,
@@ -1929,8 +1926,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 76,
-    created_at: '2017-08-26T19:14:18.351Z',
-    updated_at: '2017-08-26T19:14:18.351Z'
+    created_at: '2017-09-05T16:52:07.482Z',
+    updated_at: '2017-09-05T16:52:07.482Z'
   }, {
     id: 161,
     team_id: 1,
@@ -1941,8 +1938,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 77,
-    created_at: '2017-08-26T19:14:18.351Z',
-    updated_at: '2017-08-26T19:14:18.351Z'
+    created_at: '2017-09-05T16:52:07.482Z',
+    updated_at: '2017-09-05T16:52:07.482Z'
   }, {
     id: 162,
     team_id: 1,
@@ -1953,8 +1950,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.351Z',
-    updated_at: '2017-08-26T19:14:18.351Z'
+    created_at: '2017-09-05T16:52:07.482Z',
+    updated_at: '2017-09-05T16:52:07.482Z'
   }, {
     id: 163,
     team_id: 1,
@@ -1965,8 +1962,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.352Z',
-    updated_at: '2017-08-26T19:14:18.352Z'
+    created_at: '2017-09-05T16:52:07.482Z',
+    updated_at: '2017-09-05T16:52:07.482Z'
   }, {
     id: 164,
     team_id: 1,
@@ -1977,8 +1974,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 78,
-    created_at: '2017-08-26T19:14:18.352Z',
-    updated_at: '2017-08-26T19:14:18.352Z'
+    created_at: '2017-09-05T16:52:07.482Z',
+    updated_at: '2017-09-05T16:52:07.482Z'
   }, {
     id: 165,
     team_id: 1,
@@ -1989,8 +1986,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.352Z',
-    updated_at: '2017-08-26T19:14:18.352Z'
+    created_at: '2017-09-05T16:52:07.482Z',
+    updated_at: '2017-09-05T16:52:07.482Z'
   }, {
     id: 166,
     team_id: 1,
@@ -2001,8 +1998,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.352Z',
-    updated_at: '2017-08-26T19:14:18.352Z'
+    created_at: '2017-09-05T16:52:07.482Z',
+    updated_at: '2017-09-05T16:52:07.482Z'
   }, {
     id: 167,
     team_id: 1,
@@ -2013,8 +2010,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.352Z',
-    updated_at: '2017-08-26T19:14:18.352Z'
+    created_at: '2017-09-05T16:52:07.482Z',
+    updated_at: '2017-09-05T16:52:07.482Z'
   }, {
     id: 168,
     team_id: 1,
@@ -2025,8 +2022,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.352Z',
-    updated_at: '2017-08-26T19:14:18.352Z'
+    created_at: '2017-09-05T16:52:07.483Z',
+    updated_at: '2017-09-05T16:52:07.483Z'
   }, {
     id: 169,
     team_id: 1,
@@ -2037,8 +2034,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 79,
-    created_at: '2017-08-26T19:14:18.352Z',
-    updated_at: '2017-08-26T19:14:18.352Z'
+    created_at: '2017-09-05T16:52:07.483Z',
+    updated_at: '2017-09-05T16:52:07.483Z'
   }, {
     id: 170,
     team_id: 1,
@@ -2049,8 +2046,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 80,
-    created_at: '2017-08-26T19:14:18.352Z',
-    updated_at: '2017-08-26T19:14:18.352Z'
+    created_at: '2017-09-05T16:52:07.483Z',
+    updated_at: '2017-09-05T16:52:07.483Z'
   }, {
     id: 171,
     team_id: 1,
@@ -2061,8 +2058,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.352Z',
-    updated_at: '2017-08-26T19:14:18.352Z'
+    created_at: '2017-09-05T16:52:07.483Z',
+    updated_at: '2017-09-05T16:52:07.483Z'
   }, {
     id: 172,
     team_id: 1,
@@ -2073,8 +2070,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 81,
-    created_at: '2017-08-26T19:14:18.352Z',
-    updated_at: '2017-08-26T19:14:18.352Z'
+    created_at: '2017-09-05T16:52:07.483Z',
+    updated_at: '2017-09-05T16:52:07.483Z'
   }, {
     id: 173,
     team_id: 1,
@@ -2085,8 +2082,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.352Z',
-    updated_at: '2017-08-26T19:14:18.352Z'
+    created_at: '2017-09-05T16:52:07.483Z',
+    updated_at: '2017-09-05T16:52:07.483Z'
   }, {
     id: 174,
     team_id: 1,
@@ -2097,8 +2094,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 82,
-    created_at: '2017-08-26T19:14:18.352Z',
-    updated_at: '2017-08-26T19:14:18.352Z'
+    created_at: '2017-09-05T16:52:07.483Z',
+    updated_at: '2017-09-05T16:52:07.483Z'
   }, {
     id: 175,
     team_id: 1,
@@ -2109,8 +2106,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.352Z',
-    updated_at: '2017-08-26T19:14:18.352Z'
+    created_at: '2017-09-05T16:52:07.483Z',
+    updated_at: '2017-09-05T16:52:07.483Z'
   }, {
     id: 176,
     team_id: 1,
@@ -2121,8 +2118,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.353Z',
-    updated_at: '2017-08-26T19:14:18.353Z'
+    created_at: '2017-09-05T16:52:07.483Z',
+    updated_at: '2017-09-05T16:52:07.483Z'
   }, {
     id: 177,
     team_id: 1,
@@ -2133,8 +2130,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.353Z',
-    updated_at: '2017-08-26T19:14:18.353Z'
+    created_at: '2017-09-05T16:52:07.483Z',
+    updated_at: '2017-09-05T16:52:07.483Z'
   }, {
     id: 178,
     team_id: 1,
@@ -2145,8 +2142,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.353Z',
-    updated_at: '2017-08-26T19:14:18.353Z'
+    created_at: '2017-09-05T16:52:07.483Z',
+    updated_at: '2017-09-05T16:52:07.483Z'
   }, {
     id: 179,
     team_id: 1,
@@ -2157,8 +2154,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 83,
-    created_at: '2017-08-26T19:14:18.353Z',
-    updated_at: '2017-08-26T19:14:18.353Z'
+    created_at: '2017-09-05T16:52:07.483Z',
+    updated_at: '2017-09-05T16:52:07.483Z'
   }, {
     id: 180,
     team_id: 1,
@@ -2169,8 +2166,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.353Z',
-    updated_at: '2017-08-26T19:14:18.353Z'
+    created_at: '2017-09-05T16:52:07.483Z',
+    updated_at: '2017-09-05T16:52:07.483Z'
   }, {
     id: 181,
     team_id: 1,
@@ -2181,8 +2178,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.353Z',
-    updated_at: '2017-08-26T19:14:18.353Z'
+    created_at: '2017-09-05T16:52:07.483Z',
+    updated_at: '2017-09-05T16:52:07.483Z'
   }, {
     id: 182,
     team_id: 1,
@@ -2193,8 +2190,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.353Z',
-    updated_at: '2017-08-26T19:14:18.353Z'
+    created_at: '2017-09-05T16:52:07.483Z',
+    updated_at: '2017-09-05T16:52:07.483Z'
   }, {
     id: 183,
     team_id: 1,
@@ -2205,8 +2202,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 84,
-    created_at: '2017-08-26T19:14:18.353Z',
-    updated_at: '2017-08-26T19:14:18.353Z'
+    created_at: '2017-09-05T16:52:07.483Z',
+    updated_at: '2017-09-05T16:52:07.483Z'
   }, {
     id: 184,
     team_id: 1,
@@ -2217,8 +2214,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.353Z',
-    updated_at: '2017-08-26T19:14:18.353Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 185,
     team_id: 1,
@@ -2229,8 +2226,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 85,
-    created_at: '2017-08-26T19:14:18.353Z',
-    updated_at: '2017-08-26T19:14:18.353Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 186,
     team_id: 1,
@@ -2241,8 +2238,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 86,
-    created_at: '2017-08-26T19:14:18.353Z',
-    updated_at: '2017-08-26T19:14:18.353Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 187,
     team_id: 1,
@@ -2253,8 +2250,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 87,
-    created_at: '2017-08-26T19:14:18.353Z',
-    updated_at: '2017-08-26T19:14:18.353Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 188,
     team_id: 1,
@@ -2265,8 +2262,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.353Z',
-    updated_at: '2017-08-26T19:14:18.353Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 189,
     team_id: 1,
@@ -2277,8 +2274,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.353Z',
-    updated_at: '2017-08-26T19:14:18.353Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 190,
     team_id: 1,
@@ -2289,8 +2286,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 88,
-    created_at: '2017-08-26T19:14:18.353Z',
-    updated_at: '2017-08-26T19:14:18.353Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 191,
     team_id: 1,
@@ -2301,8 +2298,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 89,
-    created_at: '2017-08-26T19:14:18.353Z',
-    updated_at: '2017-08-26T19:14:18.353Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 192,
     team_id: 1,
@@ -2313,8 +2310,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.354Z',
-    updated_at: '2017-08-26T19:14:18.354Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 193,
     team_id: 1,
@@ -2325,8 +2322,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.354Z',
-    updated_at: '2017-08-26T19:14:18.354Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 194,
     team_id: 1,
@@ -2337,8 +2334,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.354Z',
-    updated_at: '2017-08-26T19:14:18.354Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 195,
     team_id: 1,
@@ -2349,8 +2346,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.354Z',
-    updated_at: '2017-08-26T19:14:18.354Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 196,
     team_id: 1,
@@ -2361,8 +2358,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 90,
-    created_at: '2017-08-26T19:14:18.354Z',
-    updated_at: '2017-08-26T19:14:18.354Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 197,
     team_id: 1,
@@ -2373,8 +2370,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 91,
-    created_at: '2017-08-26T19:14:18.354Z',
-    updated_at: '2017-08-26T19:14:18.354Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 198,
     team_id: 1,
@@ -2385,8 +2382,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 92,
-    created_at: '2017-08-26T19:14:18.354Z',
-    updated_at: '2017-08-26T19:14:18.354Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 199,
     team_id: 1,
@@ -2397,8 +2394,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.354Z',
-    updated_at: '2017-08-26T19:14:18.354Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 200,
     team_id: 1,
@@ -2409,8 +2406,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 93,
-    created_at: '2017-08-26T19:14:18.354Z',
-    updated_at: '2017-08-26T19:14:18.354Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 201,
     team_id: 1,
@@ -2421,8 +2418,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.354Z',
-    updated_at: '2017-08-26T19:14:18.354Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 202,
     team_id: 1,
@@ -2433,8 +2430,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 94,
-    created_at: '2017-08-26T19:14:18.354Z',
-    updated_at: '2017-08-26T19:14:18.354Z'
+    created_at: '2017-09-05T16:52:07.484Z',
+    updated_at: '2017-09-05T16:52:07.484Z'
   }, {
     id: 203,
     team_id: 1,
@@ -2445,8 +2442,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.354Z',
-    updated_at: '2017-08-26T19:14:18.354Z'
+    created_at: '2017-09-05T16:52:07.485Z',
+    updated_at: '2017-09-05T16:52:07.485Z'
   }, {
     id: 204,
     team_id: 1,
@@ -2457,8 +2454,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.354Z',
-    updated_at: '2017-08-26T19:14:18.354Z'
+    created_at: '2017-09-05T16:52:07.485Z',
+    updated_at: '2017-09-05T16:52:07.485Z'
   }, {
     id: 205,
     team_id: 1,
@@ -2469,8 +2466,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 95,
-    created_at: '2017-08-26T19:14:18.354Z',
-    updated_at: '2017-08-26T19:14:18.354Z'
+    created_at: '2017-09-05T16:52:07.485Z',
+    updated_at: '2017-09-05T16:52:07.485Z'
   }, {
     id: 206,
     team_id: 1,
@@ -2481,8 +2478,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.354Z',
-    updated_at: '2017-08-26T19:14:18.354Z'
+    created_at: '2017-09-05T16:52:07.485Z',
+    updated_at: '2017-09-05T16:52:07.485Z'
   }, {
     id: 207,
     team_id: 1,
@@ -2493,8 +2490,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.354Z',
-    updated_at: '2017-08-26T19:14:18.354Z'
+    created_at: '2017-09-05T16:52:07.485Z',
+    updated_at: '2017-09-05T16:52:07.485Z'
   }, {
     id: 208,
     team_id: 1,
@@ -2505,8 +2502,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 96,
-    created_at: '2017-08-26T19:14:18.354Z',
-    updated_at: '2017-08-26T19:14:18.354Z'
+    created_at: '2017-09-05T16:52:07.485Z',
+    updated_at: '2017-09-05T16:52:07.485Z'
   }, {
     id: 209,
     team_id: 1,
@@ -2517,8 +2514,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.355Z',
-    updated_at: '2017-08-26T19:14:18.355Z'
+    created_at: '2017-09-05T16:52:07.485Z',
+    updated_at: '2017-09-05T16:52:07.485Z'
   }, {
     id: 210,
     team_id: 1,
@@ -2529,8 +2526,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.355Z',
-    updated_at: '2017-08-26T19:14:18.355Z'
+    created_at: '2017-09-05T16:52:07.485Z',
+    updated_at: '2017-09-05T16:52:07.485Z'
   }, {
     id: 211,
     team_id: 1,
@@ -2541,8 +2538,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 97,
-    created_at: '2017-08-26T19:14:18.355Z',
-    updated_at: '2017-08-26T19:14:18.355Z'
+    created_at: '2017-09-05T16:52:07.485Z',
+    updated_at: '2017-09-05T16:52:07.485Z'
   }, {
     id: 212,
     team_id: 1,
@@ -2553,8 +2550,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.355Z',
-    updated_at: '2017-08-26T19:14:18.355Z'
+    created_at: '2017-09-05T16:52:07.485Z',
+    updated_at: '2017-09-05T16:52:07.485Z'
   }, {
     id: 213,
     team_id: 1,
@@ -2565,8 +2562,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: 98,
-    created_at: '2017-08-26T19:14:18.355Z',
-    updated_at: '2017-08-26T19:14:18.355Z'
+    created_at: '2017-09-05T16:52:07.485Z',
+    updated_at: '2017-09-05T16:52:07.485Z'
   }, {
     id: 214,
     team_id: 1,
@@ -2577,8 +2574,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.355Z',
-    updated_at: '2017-08-26T19:14:18.355Z'
+    created_at: '2017-09-05T16:52:07.485Z',
+    updated_at: '2017-09-05T16:52:07.485Z'
   }, {
     id: 215,
     team_id: 1,
@@ -2589,8 +2586,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.355Z',
-    updated_at: '2017-08-26T19:14:18.355Z'
+    created_at: '2017-09-05T16:52:07.485Z',
+    updated_at: '2017-09-05T16:52:07.485Z'
   }, {
     id: 216,
     team_id: 1,
@@ -2601,8 +2598,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.355Z',
-    updated_at: '2017-08-26T19:14:18.355Z'
+    created_at: '2017-09-05T16:52:07.485Z',
+    updated_at: '2017-09-05T16:52:07.485Z'
   }, {
     id: 217,
     team_id: 1,
@@ -2613,8 +2610,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.355Z',
-    updated_at: '2017-08-26T19:14:18.355Z'
+    created_at: '2017-09-05T16:52:07.486Z',
+    updated_at: '2017-09-05T16:52:07.486Z'
   }, {
     id: 218,
     team_id: 1,
@@ -2625,8 +2622,8 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.355Z',
-    updated_at: '2017-08-26T19:14:18.355Z'
+    created_at: '2017-09-05T16:52:07.486Z',
+    updated_at: '2017-09-05T16:52:07.486Z'
   }, {
     id: 219,
     team_id: 1,
@@ -2637,8 +2634,20 @@ var usersFixtures = new _maha.Fixtures({
     password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
     is_active: false,
     photo_id: null,
-    created_at: '2017-08-26T19:14:18.355Z',
-    updated_at: '2017-08-26T19:14:18.355Z'
+    created_at: '2017-09-05T16:52:07.486Z',
+    updated_at: '2017-09-05T16:52:07.486Z'
+  }, {
+    id: 220,
+    team_id: 1,
+    first_name: 'Douglas',
+    last_name: 'Krisch',
+    email: 'dmk19@cornell.edu',
+    password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+    password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+    is_active: false,
+    photo_id: null,
+    created_at: '2017-09-05T16:52:07.486Z',
+    updated_at: '2017-09-05T16:52:07.486Z'
   }]
 });
 
