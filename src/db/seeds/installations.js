@@ -13,7 +13,7 @@ const installationsFixtures = new Fixtures({
       team_id: 1,
       app_id: 2,
       settings: {
-        mileage_rate: 2.50
+        mileage_rate: 0.535
       }
     }, {
       id: 3,
