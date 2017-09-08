@@ -3,6 +3,8 @@ npm-debug.log
 .env
 /public
 data.sqlite3
+tmp/*
+!tmp/.gitkeep
 config/*
 !config/.gitkeep
 !config/ecosystem.config.js
