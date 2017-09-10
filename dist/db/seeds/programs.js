@@ -12,8 +12,8 @@ var programsFixtures = new _maha.Fixtures({
     id: 1,
     team_id: 1,
     title: '',
-    created_at: '2017-09-05T16:52:07.527Z',
-    updated_at: '2017-09-05T16:52:07.527Z'
+    created_at: '2017-09-05T17:08:14.103Z',
+    updated_at: '2017-09-05T17:08:14.103Z'
   }]
 });
 
