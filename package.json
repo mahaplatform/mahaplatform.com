@@ -2,19 +2,13 @@
   "name": "mahaplatform.com",
   "version": "0.0.1",
   "description": "Official mahaplatform.com",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ccetc/mycce2.git"
-  },
+  "license": "ISC",
+  "author": "Greg Kops <greg@thinktopography.com>",
+  "repository": "ccetc/mycce2",
+  "homepage": "https://github.com/ccetc/mycce2",
   "scripts": {
     "build": "rm -rf ./dist && babel ./src --out-dir ./dist"
   },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ccetc/mycce2/issues"
-  },
-  "homepage": "https://github.com/ccetc/mycce2#readme",
   "dependencies": {
     "aws-sdk": "^2.86.0",
     "csv-parse": "^1.2.0",
