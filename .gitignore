@@ -1,7 +1,7 @@
-/node_modules
+node_modules
 npm-debug.log
 .env
-/public
+public
 data.sqlite3
 tmp/*
 !tmp/.gitkeep

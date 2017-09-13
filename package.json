@@ -1,7 +1,7 @@
 {
-  "name": "mycce",
+  "name": "mahaplatform.com",
   "version": "0.0.1",
-  "description": "CCE Application Intranet",
+  "description": "Official mahaplatform.com",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ccetc/mycce2.git"
@@ -18,10 +18,12 @@
   "dependencies": {
     "aws-sdk": "^2.86.0",
     "csv-parse": "^1.2.0",
-    "maha": "github:mahaplatform/maha",
-    "maha-competencies": "github:ccetc/maha-competencies",
-    "maha-eatfresh": "github:ccetc/maha-eatfresh",
-    "maha-expenses": "github:ccetc/maha-expenses"
+    "maha": "^0.4.0",
+    "maha-competencies": "^0.2.0",
+    "maha-eatfresh": "^0.2.0",
+    "maha-expenses": "^0.2.0",
+    "mime-types": "^2.1.17",
+    "reframe": "^0.6.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -33,6 +35,6 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-0": "^6.24.1",
     "eslint": "^4.0.0",
-    "shipit-maha": "github:mahaplatform/shipit-maha"
+    "shipit-maha": "^1.1.0"
   }
 }
