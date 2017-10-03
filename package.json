@@ -4,8 +4,8 @@
   "description": "Official mahaplatform.com",
   "license": "ISC",
   "author": "Greg Kops <greg@thinktopography.com>",
-  "repository": "ccetc/mycce2",
-  "homepage": "https://github.com/ccetc/mycce2",
+  "repository": "mahaplatform/mahaplatform.com",
+  "homepage": "https://github.com/mahaplatform/mahaplatform.com",
   "scripts": {
     "build": "rm -rf ./dist && babel ./src --out-dir ./dist"
   },
@@ -17,6 +17,7 @@
     "maha-eatfresh": "^0.2.0",
     "maha-expenses": "^0.2.0",
     "mime-types": "^2.1.17",
+    "react-beautiful-dnd": "^2.3.1",
     "reframe": "^0.6.0"
   },
   "devDependencies": {
