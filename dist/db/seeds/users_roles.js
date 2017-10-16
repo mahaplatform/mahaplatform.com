@@ -25,13 +25,13 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 4
   }, {
     user_id: 5,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 6,
     role_id: 4
   }, {
     user_id: 7,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 8,
     role_id: 5
@@ -49,7 +49,7 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 4
   }, {
     user_id: 13,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 14,
     role_id: 4
@@ -67,16 +67,16 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 5
   }, {
     user_id: 19,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 20,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 21,
     role_id: 4
   }, {
     user_id: 22,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 23,
     role_id: 5
@@ -85,7 +85,7 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 5
   }, {
     user_id: 25,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 26,
     role_id: 4
@@ -103,7 +103,7 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 4
   }, {
     user_id: 31,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 32,
     role_id: 4
@@ -112,25 +112,28 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 5
   }, {
     user_id: 34,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 35,
     role_id: 4
   }, {
     user_id: 36,
-    role_id: 5
-  }, {
-    user_id: 37,
-    role_id: 5
-  }, {
-    user_id: 38,
     role_id: 4
   }, {
-    user_id: 39,
+    user_id: 37,
+    role_id: 4
+  }, {
+    user_id: 38,
     role_id: 5
+  }, {
+    user_id: 39,
+    role_id: 4
   }, {
     user_id: 40,
     role_id: 5
+  }, {
+    user_id: 41,
+    role_id: 2
   }, {
     user_id: 41,
     role_id: 5
@@ -142,22 +145,22 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 4
   }, {
     user_id: 44,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 45,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 46,
     role_id: 4
   }, {
     user_id: 47,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 48,
     role_id: 4
   }, {
     user_id: 49,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 50,
     role_id: 4
@@ -166,7 +169,7 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 5
   }, {
     user_id: 52,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 53,
     role_id: 5
@@ -175,22 +178,22 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 4
   }, {
     user_id: 55,
-    role_id: 2
-  }, {
-    user_id: 55,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 56,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 57,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 58,
     role_id: 4
   }, {
     user_id: 59,
-    role_id: 4
+    role_id: 3
+  }, {
+    user_id: 59,
+    role_id: 5
   }, {
     user_id: 60,
     role_id: 4
@@ -199,7 +202,7 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 4
   }, {
     user_id: 62,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 63,
     role_id: 5
@@ -208,16 +211,19 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 4
   }, {
     user_id: 65,
-    role_id: 4
+    role_id: 3
+  }, {
+    user_id: 65,
+    role_id: 5
   }, {
     user_id: 66,
     role_id: 4
   }, {
     user_id: 67,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 68,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 69,
     role_id: 4
@@ -226,28 +232,28 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 5
   }, {
     user_id: 71,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 72,
     role_id: 4
   }, {
     user_id: 73,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 74,
     role_id: 5
   }, {
     user_id: 75,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 76,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 77,
     role_id: 5
   }, {
     user_id: 78,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 79,
     role_id: 4
@@ -256,16 +262,16 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 4
   }, {
     user_id: 81,
-    role_id: 3
+    role_id: 1
   }, {
     user_id: 81,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 82,
     role_id: 4
   }, {
     user_id: 83,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 84,
     role_id: 5
@@ -274,25 +280,22 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 4
   }, {
     user_id: 86,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 87,
     role_id: 4
   }, {
     user_id: 88,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 89,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 90,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 91,
-    role_id: 3
-  }, {
-    user_id: 91,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 92,
     role_id: 4
@@ -307,13 +310,13 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 4
   }, {
     user_id: 96,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 97,
     role_id: 4
   }, {
     user_id: 98,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 99,
     role_id: 5
@@ -334,16 +337,19 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 5
   }, {
     user_id: 105,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 106,
-    role_id: 4
+    role_id: 3
+  }, {
+    user_id: 106,
+    role_id: 5
   }, {
     user_id: 107,
     role_id: 4
   }, {
     user_id: 108,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 109,
     role_id: 4
@@ -355,10 +361,7 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 4
   }, {
     user_id: 112,
-    role_id: 4
-  }, {
-    user_id: 113,
-    role_id: 1
+    role_id: 5
   }, {
     user_id: 113,
     role_id: 4
@@ -370,7 +373,7 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 4
   }, {
     user_id: 116,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 117,
     role_id: 4
@@ -382,16 +385,16 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 4
   }, {
     user_id: 120,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 121,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 122,
     role_id: 4
   }, {
     user_id: 123,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 124,
     role_id: 4
@@ -400,7 +403,10 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 4
   }, {
     user_id: 126,
-    role_id: 4
+    role_id: 1
+  }, {
+    user_id: 126,
+    role_id: 5
   }, {
     user_id: 127,
     role_id: 4
@@ -418,31 +424,31 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 5
   }, {
     user_id: 132,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 133,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 134,
     role_id: 5
   }, {
     user_id: 135,
-    role_id: 4
+    role_id: 1
+  }, {
+    user_id: 135,
+    role_id: 5
   }, {
     user_id: 136,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 137,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 138,
     role_id: 5
   }, {
     user_id: 139,
-    role_id: 3
-  }, {
-    user_id: 139,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 140,
     role_id: 4
@@ -454,31 +460,31 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 4
   }, {
     user_id: 143,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 144,
     role_id: 4
   }, {
     user_id: 145,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 146,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 147,
-    role_id: 4
-  }, {
-    user_id: 148,
     role_id: 5
   }, {
-    user_id: 149,
+    user_id: 148,
     role_id: 4
+  }, {
+    user_id: 149,
+    role_id: 5
   }, {
     user_id: 150,
     role_id: 5
   }, {
     user_id: 151,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 152,
     role_id: 4
@@ -487,7 +493,7 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 4
   }, {
     user_id: 154,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 155,
     role_id: 4
@@ -502,19 +508,16 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 4
   }, {
     user_id: 159,
-    role_id: 4
+    role_id: 5
   }, {
     user_id: 160,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 161,
     role_id: 4
   }, {
     user_id: 162,
     role_id: 4
-  }, {
-    user_id: 163,
-    role_id: 1
   }, {
     user_id: 163,
     role_id: 5
@@ -526,172 +529,22 @@ var usersRolesFixtures = new _maha.Fixtures({
     role_id: 4
   }, {
     user_id: 166,
-    role_id: 4
+    role_id: 2
+  }, {
+    user_id: 166,
+    role_id: 5
   }, {
     user_id: 167,
     role_id: 4
   }, {
     user_id: 168,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 169,
-    role_id: 5
+    role_id: 4
   }, {
     user_id: 170,
     role_id: 4
-  }, {
-    user_id: 171,
-    role_id: 4
-  }, {
-    user_id: 172,
-    role_id: 4
-  }, {
-    user_id: 173,
-    role_id: 1
-  }, {
-    user_id: 173,
-    role_id: 5
-  }, {
-    user_id: 174,
-    role_id: 4
-  }, {
-    user_id: 175,
-    role_id: 4
-  }, {
-    user_id: 176,
-    role_id: 4
-  }, {
-    user_id: 177,
-    role_id: 4
-  }, {
-    user_id: 178,
-    role_id: 5
-  }, {
-    user_id: 179,
-    role_id: 4
-  }, {
-    user_id: 180,
-    role_id: 4
-  }, {
-    user_id: 181,
-    role_id: 4
-  }, {
-    user_id: 182,
-    role_id: 5
-  }, {
-    user_id: 183,
-    role_id: 4
-  }, {
-    user_id: 184,
-    role_id: 5
-  }, {
-    user_id: 185,
-    role_id: 4
-  }, {
-    user_id: 186,
-    role_id: 4
-  }, {
-    user_id: 187,
-    role_id: 4
-  }, {
-    user_id: 188,
-    role_id: 5
-  }, {
-    user_id: 189,
-    role_id: 5
-  }, {
-    user_id: 190,
-    role_id: 4
-  }, {
-    user_id: 191,
-    role_id: 5
-  }, {
-    user_id: 192,
-    role_id: 4
-  }, {
-    user_id: 193,
-    role_id: 4
-  }, {
-    user_id: 194,
-    role_id: 4
-  }, {
-    user_id: 195,
-    role_id: 5
-  }, {
-    user_id: 196,
-    role_id: 5
-  }, {
-    user_id: 197,
-    role_id: 5
-  }, {
-    user_id: 198,
-    role_id: 4
-  }, {
-    user_id: 199,
-    role_id: 5
-  }, {
-    user_id: 200,
-    role_id: 4
-  }, {
-    user_id: 201,
-    role_id: 4
-  }, {
-    user_id: 202,
-    role_id: 4
-  }, {
-    user_id: 203,
-    role_id: 4
-  }, {
-    user_id: 204,
-    role_id: 5
-  }, {
-    user_id: 205,
-    role_id: 4
-  }, {
-    user_id: 206,
-    role_id: 4
-  }, {
-    user_id: 207,
-    role_id: 5
-  }, {
-    user_id: 208,
-    role_id: 4
-  }, {
-    user_id: 209,
-    role_id: 4
-  }, {
-    user_id: 210,
-    role_id: 2
-  }, {
-    user_id: 210,
-    role_id: 5
-  }, {
-    user_id: 211,
-    role_id: 4
-  }, {
-    user_id: 212,
-    role_id: 4
-  }, {
-    user_id: 213,
-    role_id: 4
-  }, {
-    user_id: 214,
-    role_id: 4
-  }, {
-    user_id: 215,
-    role_id: 4
-  }, {
-    user_id: 216,
-    role_id: 4
-  }, {
-    user_id: 217,
-    role_id: 4
-  }, {
-    user_id: 218,
-    role_id: 4
-  }, {
-    user_id: 219,
-    role_id: 5
   }]
 });
 

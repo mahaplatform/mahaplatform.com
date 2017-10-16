@@ -10,11 +10,10 @@ export const import_20170622 = async () => {
 
   try {
 
-    const employees = toMatrix('20170622/employees.tsv', '\t')
-    const projects = toMatrix('20170622/projects.tsv', '\t')
+    const employees = toMatrix('20170622/employees.tsv', '\t', true)
+    const projects = toMatrix('20170622/projects.tsv', '\t', true)
     const expenses = toMatrix('20170622/expense_types.tsv', '|')
-    const members = toMatrix('20170622/members.tsv', '|')
-    const competencies = toMatrix('20170622/competencies.tsv', '\t')
+    const competencies = toMatrix('20170622/competencies.tsv', '\t', true)
     const expectations = toMatrix('20170622/expectations.tsv', '\t')
 
     const supervisors = {}
@@ -71,21 +70,23 @@ export const import_20170622 = async () => {
           first_name: record[0],
           last_name: record[1],
           email: `${record[2]}@cornell.edu`,
+          employee_id: record[3],
           password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
           password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-          is_active: false,
+          is_active: record[2] === 'gmk8',
           photo_id: asset_id,
+          activated_at: record[2] === 'gmk8' ? moment() : null,
           created_at: moment(),
           updated_at: moment()
         })
 
-        const roles = [4,5,6,7,8]
+        const roles = [5,6,7,8,9]
 
         roles.map(index => {
           if(record[index] == 1) {
             data.users_roles.push({
               user_id,
-              role_id: index - 3
+              role_id: index - 4
             })
           }
         })
@@ -96,13 +97,13 @@ export const import_20170622 = async () => {
 
       }
 
-      if(!supervisors[record[3]]) supervisors[record[3]] = []
+      if(!supervisors[record[4]]) supervisors[record[4]] = []
 
-      supervisors[record[3]].push(user_id)
+      supervisors[record[4]].push(user_id)
 
-      if(record[9]) {
+      if(record[10]) {
 
-        const group = findOrCreate(data.groups, { team_id: 1, title: sanitize(record[9]) }, true)
+        const group = findOrCreate(data.groups, { team_id: 1, title: sanitize(record[10]) }, true)
 
         data.users_groups.push({
           user_id,
@@ -151,13 +152,18 @@ export const import_20170622 = async () => {
         id: project_id,
         team_id: 1,
         title: record[1].trim().replace(/'/g, ''),
-        code: record[0].trim(),
         is_active: true,
+        integration: {
+          project_code: record[0].trim(),
+          program_code: record[2].trim(),
+          source_code: record[3].trim(),
+          match: record[4].trim()
+        },
         created_at: moment(),
         updated_at: moment()
       })
 
-      const fieldIndexes = [2,3,4]
+      const fieldIndexes = [5,6,7]
 
       fieldIndexes.map(index => {
 
@@ -165,17 +171,23 @@ export const import_20170622 = async () => {
 
         record[index].split('/').map(netid => {
 
-          const user_id = _.find(userData.users, { email: `${netid}@cornell.edu`}).id
+          const member = _.find(userData.users, { email: `${netid}@cornell.edu`})
 
-          data.members.push({
-            team_id: 1,
-            project_id,
-            user_id,
-            member_type_id: index - 1,
-            is_active: true,
-            created_at: moment(),
-            updated_at: moment()
-          })
+          if(member) {
+
+            const user_id = member.id
+
+            data.members.push({
+              team_id: 1,
+              project_id,
+              user_id,
+              member_type_id: index - 4,
+              is_active: true,
+              created_at: moment(),
+              updated_at: moment()
+            })
+
+          }
 
         })
 
@@ -193,9 +205,11 @@ export const import_20170622 = async () => {
       data.expense_types.push({
         id: expense_type_id,
         team_id: 1,
-        code: record[0].trim(),
         title: record[1].trim(),
         description: record[2].trim(),
+        integration: {
+          expense_code: record[0].trim()
+        },
         created_at: moment(),
         updated_at: moment()
       })
@@ -204,44 +218,22 @@ export const import_20170622 = async () => {
 
     }, { expense_types: []})
 
-    const memberData = members.reduce((data, record) => {
-
-      const project_id = _.find(projectData.projects, { code: record[0] }).id
-
-      const user_id = _.find(userData.users, { email: `${record[1]}@cornell.edu` }).id
-
-      const member_types = {
-        owner: 1,
-        approver: 2,
-        member: 3
-      }
-
-      data.members.push({
-        team_id: 1,
-        project_id,
-        user_id,
-        member_type_id: member_types[record[2]],
-        is_active: true,
-        created_at: moment(),
-        updated_at: moment()
-      })
-
-      return data
-
-    }, { members: projectData.members })
-
     const competencyData = competencies.reduce((data, record) => {
 
-      const category = findOrCreate(data.categories, { team_id: 1, title: sanitize(record[0]) }, true)
+      if(record[4].length > 1) {
 
-      const competency = findOrCreate(data.competencies, { team_id: 1, category_id: category.id, title: sanitize(record[1]), level: parseInt(record[2]), description: sanitize(record[3]) }, true, { title: sanitize(record[1]) })
+        const category = findOrCreate(data.categories, { team_id: 1, title: sanitize(record[0]) }, true)
 
-      const resource = findOrCreate(data.resources, { team_id: 1, title: sanitize(record[4]), description: sanitize(record[5]), url: record[6] }, true, { title: sanitize(record[4]) })
+        const competency = findOrCreate(data.competencies, { team_id: 1, category_id: category.id, title: sanitize(record[1]), level: parseInt(record[2]), description: sanitize(record[3]) }, true, { title: sanitize(record[1]) })
 
-      data.competencies_resources.push({
-        competency_id: competency.id,
-        resource_id: resource.id
-      })
+        const resource = findOrCreate(data.resources, { team_id: 1, title: sanitize(record[4]), description: sanitize(record[5]), url: record[6] }, true, { title: sanitize(record[4]) })
+
+        data.competencies_resources.push({
+          competency_id: competency.id,
+          resource_id: resource.id
+        })
+
+      }
 
       return data
 
@@ -249,22 +241,19 @@ export const import_20170622 = async () => {
 
     const expectationsData = expectations.reduce((data, record, index) => {
 
-      const competency = findOrCreate(competencyData.competencies, { team_id: 1, title: sanitize(record[2]), level: parseInt(record[3]) }, true)
+      const competency_id = record[2].length > 0 ? findOrCreate(competencyData.competencies, { team_id: 1, title: sanitize(record[2]), level: parseInt(record[3]) }, true).id : null
 
-      const classification = findOrCreate(data.classifications, { team_id: 1, title: sanitize(record[0]) }, true)
-
-      const program = findOrCreate(data.programs, { team_id: 1, title: sanitize(record[1]) }, true)
+      const classification_id = record[0].length > 0 ? findOrCreate(data.classifications, { team_id: 1, title: sanitize(record[0]) }, true).id : null
 
       data.expectations.push({
         team_id: 1,
-        classification_id: classification.id,
-        program_id: program.id,
-        competency_id: competency.id
+        classification_id,
+        competency_id
       })
 
       return data
 
-    }, { expectations: [], classifications: [], programs: [] })
+    }, { expectations: [], classifications: [] })
 
     writeFile('assets', 'maha_assets', userData.assets)
 
@@ -278,7 +267,7 @@ export const import_20170622 = async () => {
 
     writeFile('projects', 'expenses_projects', projectData.projects)
 
-    writeFile('members', 'expenses_members', memberData.members)
+    writeFile('members', 'expenses_members', projectData.members)
 
     writeFile('expense_types', 'expenses_expense_types', expenseData.expense_types)
 
@@ -295,8 +284,6 @@ export const import_20170622 = async () => {
     writeFile('competencies_resources', 'competencies_competencies_resources', competencyData.competencies_resources)
 
     writeFile('classifications', 'competencies_classifications', expectationsData.classifications)
-
-    writeFile('programs', 'competencies_programs', expectationsData.programs)
 
     writeFile('expectations', 'competencies_expectations', expectationsData.expectations)
 
@@ -367,8 +354,9 @@ const toJSON = (object) => {
   return JSON.stringify(object, null, '  ').replace(/\"(\w*)\"\:/g, '$1:').replace(/\"/g, '\'')
 }
 
-const toMatrix = (filename, delimiter) => {
-  return parse(fs.readFileSync(path.resolve('files', filename), 'utf8'), { delimiter, quote: '^' })
+const toMatrix = (filename, delimiter, excludeHeaders = false) => {
+  const parsed = parse(fs.readFileSync(path.resolve('files', filename), 'utf8'), { delimiter, quote: '^' })
+  return excludeHeaders ? parsed.slice(1) : parsed
 }
 
 const sanitize = (string) => {

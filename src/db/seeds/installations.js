@@ -13,7 +13,8 @@ const installationsFixtures = new Fixtures({
       team_id: 1,
       app_id: 2,
       settings: {
-        mileage_rate: 0.535
+        mileage_rate: 0.535,
+        integration: 'accpac'
       }
     }, {
       id: 3,

@@ -36,6 +36,9 @@ var rolesRightsFixtures = new _maha.Fixtures({
     role_id: 1,
     right_id: 8
   }, {
+    role_id: 1,
+    right_id: 9
+  }, {
     role_id: 3,
     right_id: 7
   }, {
@@ -50,6 +53,9 @@ var rolesRightsFixtures = new _maha.Fixtures({
   }, {
     role_id: 5,
     right_id: 8
+  }, {
+    role_id: 5,
+    right_id: 9
   }, {
     role_id: 6,
     right_id: 2
@@ -74,6 +80,9 @@ var rolesRightsFixtures = new _maha.Fixtures({
   }, {
     role_id: 6,
     right_id: 8
+  }, {
+    role_id: 6,
+    right_id: 9
   }]
 });
 

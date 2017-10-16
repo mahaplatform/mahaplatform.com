@@ -63,17 +63,16 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var import_20170622 = exports.import_20170622 = function () {
   var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
-    var employees, projects, expenses, members, competencies, expectations, supervisors, assets, userData, supervisorData, projectData, expenseData, memberData, competencyData, expectationsData, s3;
+    var employees, projects, expenses, competencies, expectations, supervisors, assets, userData, supervisorData, projectData, expenseData, competencyData, expectationsData, s3;
     return _regenerator2.default.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             _context2.prev = 0;
-            employees = toMatrix('20170622/employees.tsv', '\t');
-            projects = toMatrix('20170622/projects.tsv', '\t');
+            employees = toMatrix('20170622/employees.tsv', '\t', true);
+            projects = toMatrix('20170622/projects.tsv', '\t', true);
             expenses = toMatrix('20170622/expense_types.tsv', '|');
-            members = toMatrix('20170622/members.tsv', '|');
-            competencies = toMatrix('20170622/competencies.tsv', '\t');
+            competencies = toMatrix('20170622/competencies.tsv', '\t', true);
             expectations = toMatrix('20170622/expectations.tsv', '\t');
             supervisors = {};
             assets = [{
@@ -126,21 +125,23 @@ var import_20170622 = exports.import_20170622 = function () {
                   first_name: record[0],
                   last_name: record[1],
                   email: record[2] + '@cornell.edu',
+                  employee_id: record[3],
                   password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
                   password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-                  is_active: false,
+                  is_active: record[2] === 'gmk8',
                   photo_id: asset_id,
+                  activated_at: record[2] === 'gmk8' ? (0, _moment2.default)() : null,
                   created_at: (0, _moment2.default)(),
                   updated_at: (0, _moment2.default)()
                 });
 
-                var roles = [4, 5, 6, 7, 8];
+                var roles = [5, 6, 7, 8, 9];
 
                 roles.map(function (index) {
                   if (record[index] == 1) {
                     data.users_roles.push({
                       user_id: user_id,
-                      role_id: index - 3
+                      role_id: index - 4
                     });
                   }
                 });
@@ -149,13 +150,13 @@ var import_20170622 = exports.import_20170622 = function () {
                 user_id = user.id;
               }
 
-              if (!supervisors[record[3]]) supervisors[record[3]] = [];
+              if (!supervisors[record[4]]) supervisors[record[4]] = [];
 
-              supervisors[record[3]].push(user_id);
+              supervisors[record[4]].push(user_id);
 
-              if (record[9]) {
+              if (record[10]) {
 
-                var group = findOrCreate(data.groups, { team_id: 1, title: sanitize(record[9]) }, true);
+                var group = findOrCreate(data.groups, { team_id: 1, title: sanitize(record[10]) }, true);
 
                 data.users_groups.push({
                   user_id: user_id,
@@ -200,13 +201,18 @@ var import_20170622 = exports.import_20170622 = function () {
                 id: project_id,
                 team_id: 1,
                 title: record[1].trim().replace(/'/g, ''),
-                code: record[0].trim(),
                 is_active: true,
+                integration: {
+                  project_code: record[0].trim(),
+                  program_code: record[2].trim(),
+                  source_code: record[3].trim(),
+                  match: record[4].trim()
+                },
                 created_at: (0, _moment2.default)(),
                 updated_at: (0, _moment2.default)()
               });
 
-              var fieldIndexes = [2, 3, 4];
+              var fieldIndexes = [5, 6, 7];
 
               fieldIndexes.map(function (index) {
 
@@ -214,17 +220,22 @@ var import_20170622 = exports.import_20170622 = function () {
 
                 record[index].split('/').map(function (netid) {
 
-                  var user_id = _lodash2.default.find(userData.users, { email: netid + '@cornell.edu' }).id;
+                  var member = _lodash2.default.find(userData.users, { email: netid + '@cornell.edu' });
 
-                  data.members.push({
-                    team_id: 1,
-                    project_id: project_id,
-                    user_id: user_id,
-                    member_type_id: index - 1,
-                    is_active: true,
-                    created_at: (0, _moment2.default)(),
-                    updated_at: (0, _moment2.default)()
-                  });
+                  if (member) {
+
+                    var user_id = member.id;
+
+                    data.members.push({
+                      team_id: 1,
+                      project_id: project_id,
+                      user_id: user_id,
+                      member_type_id: index - 4,
+                      is_active: true,
+                      created_at: (0, _moment2.default)(),
+                      updated_at: (0, _moment2.default)()
+                    });
+                  }
                 });
               });
 
@@ -237,71 +248,49 @@ var import_20170622 = exports.import_20170622 = function () {
               data.expense_types.push({
                 id: expense_type_id,
                 team_id: 1,
-                code: record[0].trim(),
                 title: record[1].trim(),
                 description: record[2].trim(),
+                integration: {
+                  expense_code: record[0].trim()
+                },
                 created_at: (0, _moment2.default)(),
                 updated_at: (0, _moment2.default)()
               });
 
               return data;
             }, { expense_types: [] });
-            memberData = members.reduce(function (data, record) {
-
-              var project_id = _lodash2.default.find(projectData.projects, { code: record[0] }).id;
-
-              var user_id = _lodash2.default.find(userData.users, { email: record[1] + '@cornell.edu' }).id;
-
-              var member_types = {
-                owner: 1,
-                approver: 2,
-                member: 3
-              };
-
-              data.members.push({
-                team_id: 1,
-                project_id: project_id,
-                user_id: user_id,
-                member_type_id: member_types[record[2]],
-                is_active: true,
-                created_at: (0, _moment2.default)(),
-                updated_at: (0, _moment2.default)()
-              });
-
-              return data;
-            }, { members: projectData.members });
             competencyData = competencies.reduce(function (data, record) {
 
-              var category = findOrCreate(data.categories, { team_id: 1, title: sanitize(record[0]) }, true);
+              if (record[4].length > 1) {
 
-              var competency = findOrCreate(data.competencies, { team_id: 1, category_id: category.id, title: sanitize(record[1]), level: parseInt(record[2]), description: sanitize(record[3]) }, true, { title: sanitize(record[1]) });
+                var category = findOrCreate(data.categories, { team_id: 1, title: sanitize(record[0]) }, true);
 
-              var resource = findOrCreate(data.resources, { team_id: 1, title: sanitize(record[4]), description: sanitize(record[5]), url: record[6] }, true, { title: sanitize(record[4]) });
+                var competency = findOrCreate(data.competencies, { team_id: 1, category_id: category.id, title: sanitize(record[1]), level: parseInt(record[2]), description: sanitize(record[3]) }, true, { title: sanitize(record[1]) });
 
-              data.competencies_resources.push({
-                competency_id: competency.id,
-                resource_id: resource.id
-              });
+                var resource = findOrCreate(data.resources, { team_id: 1, title: sanitize(record[4]), description: sanitize(record[5]), url: record[6] }, true, { title: sanitize(record[4]) });
+
+                data.competencies_resources.push({
+                  competency_id: competency.id,
+                  resource_id: resource.id
+                });
+              }
 
               return data;
             }, { categories: [], competencies: [], resources: [], competencies_resources: [] });
             expectationsData = expectations.reduce(function (data, record, index) {
 
-              var competency = findOrCreate(competencyData.competencies, { team_id: 1, title: sanitize(record[2]), level: parseInt(record[3]) }, true);
+              var competency_id = record[2].length > 0 ? findOrCreate(competencyData.competencies, { team_id: 1, title: sanitize(record[2]), level: parseInt(record[3]) }, true).id : null;
 
-              var classification = findOrCreate(data.classifications, { team_id: 1, title: sanitize(record[0]) }, true);
-
-              var program = findOrCreate(data.programs, { team_id: 1, title: sanitize(record[1]) }, true);
+              var classification_id = record[0].length > 0 ? findOrCreate(data.classifications, { team_id: 1, title: sanitize(record[0]) }, true).id : null;
 
               data.expectations.push({
                 team_id: 1,
-                classification_id: classification.id,
-                program_id: program.id,
-                competency_id: competency.id
+                classification_id: classification_id,
+                competency_id: competency_id
               });
 
               return data;
-            }, { expectations: [], classifications: [], programs: [] });
+            }, { expectations: [], classifications: [] });
 
 
             writeFile('assets', 'maha_assets', userData.assets);
@@ -316,7 +305,7 @@ var import_20170622 = exports.import_20170622 = function () {
 
             writeFile('projects', 'expenses_projects', projectData.projects);
 
-            writeFile('members', 'expenses_members', memberData.members);
+            writeFile('members', 'expenses_members', projectData.members);
 
             writeFile('expense_types', 'expenses_expense_types', expenseData.expense_types);
 
@@ -334,8 +323,6 @@ var import_20170622 = exports.import_20170622 = function () {
 
             writeFile('classifications', 'competencies_classifications', expectationsData.classifications);
 
-            writeFile('programs', 'competencies_programs', expectationsData.programs);
-
             writeFile('expectations', 'competencies_expectations', expectationsData.expectations);
 
             _awsSdk2.default.config.constructor({
@@ -345,12 +332,12 @@ var import_20170622 = exports.import_20170622 = function () {
             });
 
             if (!(process.env.ASSET_STORAGE === 's3')) {
-              _context2.next = 40;
+              _context2.next = 37;
               break;
             }
 
             s3 = new _awsSdk2.default.S3();
-            _context2.next = 38;
+            _context2.next = 35;
             return (0, _bluebird.map)(userData.assets, function () {
               var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(asset) {
                 var filename, contentType, filepath;
@@ -383,11 +370,11 @@ var import_20170622 = exports.import_20170622 = function () {
               };
             }());
 
-          case 38:
-            _context2.next = 41;
+          case 35:
+            _context2.next = 38;
             break;
 
-          case 40:
+          case 37:
             if (process.env.ASSET_STORAGE === 'local') {
 
               userData.assets.map(function (asset) {
@@ -402,23 +389,23 @@ var import_20170622 = exports.import_20170622 = function () {
               });
             }
 
-          case 41:
-            _context2.next = 46;
+          case 38:
+            _context2.next = 43;
             break;
 
-          case 43:
-            _context2.prev = 43;
+          case 40:
+            _context2.prev = 40;
             _context2.t0 = _context2['catch'](0);
 
 
             console.log(_context2.t0);
 
-          case 46:
+          case 43:
           case 'end':
             return _context2.stop();
         }
       }
-    }, _callee2, undefined, [[0, 43]]);
+    }, _callee2, undefined, [[0, 40]]);
   }));
 
   return function import_20170622() {
@@ -438,7 +425,10 @@ var toJSON = function toJSON(object) {
 };
 
 var toMatrix = function toMatrix(filename, delimiter) {
-  return (0, _sync2.default)(_fs2.default.readFileSync(_path2.default.resolve('files', filename), 'utf8'), { delimiter: delimiter, quote: '^' });
+  var excludeHeaders = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
+
+  var parsed = (0, _sync2.default)(_fs2.default.readFileSync(_path2.default.resolve('files', filename), 'utf8'), { delimiter: delimiter, quote: '^' });
+  return excludeHeaders ? parsed.slice(1) : parsed;
 };
 
 var sanitize = function sanitize(string) {

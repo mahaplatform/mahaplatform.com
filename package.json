@@ -12,13 +12,12 @@
   "dependencies": {
     "aws-sdk": "^2.86.0",
     "csv-parse": "^1.2.0",
-    "maha": "^0.4.0",
-    "maha-competencies": "^0.2.0",
-    "maha-eatfresh": "^0.2.0",
-    "maha-expenses": "^0.2.0",
+    "maha": "github:mahaplatform/maha",
+    "maha-competencies": "github:mahaplatform/maha-competencies",
+    "maha-eatfresh": "github:mahaplatform/maha-eatfresh",
+    "maha-expenses": "github:mahaplatform/maha-expenses",
     "mime-types": "^2.1.17",
-    "react-beautiful-dnd": "^2.3.1",
-    "reframe": "^0.6.0"
+    "reframe": "github:mahaplatform/reframe"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
