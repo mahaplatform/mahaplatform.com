@@ -15,8 +15,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 2,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.958Z',
-      updated_at: '2017-10-12T14:02:25.958Z'
+      created_at: '2017-10-16T04:29:32.366Z',
+      updated_at: '2017-10-16T04:29:32.366Z'
     },
     {
       id: 2,
@@ -30,8 +30,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 3,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.959Z',
-      updated_at: '2017-10-12T14:02:25.959Z'
+      created_at: '2017-10-16T04:29:32.368Z',
+      updated_at: '2017-10-16T04:29:32.368Z'
     },
     {
       id: 3,
@@ -45,8 +45,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.959Z',
-      updated_at: '2017-10-12T14:02:25.959Z'
+      created_at: '2017-10-16T04:29:32.368Z',
+      updated_at: '2017-10-16T04:29:32.368Z'
     },
     {
       id: 4,
@@ -60,8 +60,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.959Z',
-      updated_at: '2017-10-12T14:02:25.959Z'
+      created_at: '2017-10-16T04:29:32.368Z',
+      updated_at: '2017-10-16T04:29:32.368Z'
     },
     {
       id: 5,
@@ -75,8 +75,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 4,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.959Z',
-      updated_at: '2017-10-12T14:02:25.959Z'
+      created_at: '2017-10-16T04:29:32.368Z',
+      updated_at: '2017-10-16T04:29:32.368Z'
     },
     {
       id: 6,
@@ -90,8 +90,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.960Z',
-      updated_at: '2017-10-12T14:02:25.960Z'
+      created_at: '2017-10-16T04:29:32.369Z',
+      updated_at: '2017-10-16T04:29:32.369Z'
     },
     {
       id: 7,
@@ -105,8 +105,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.960Z',
-      updated_at: '2017-10-12T14:02:25.960Z'
+      created_at: '2017-10-16T04:29:32.369Z',
+      updated_at: '2017-10-16T04:29:32.369Z'
     },
     {
       id: 8,
@@ -120,8 +120,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 5,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.960Z',
-      updated_at: '2017-10-12T14:02:25.960Z'
+      created_at: '2017-10-16T04:29:32.369Z',
+      updated_at: '2017-10-16T04:29:32.369Z'
     },
     {
       id: 9,
@@ -135,8 +135,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.960Z',
-      updated_at: '2017-10-12T14:02:25.960Z'
+      created_at: '2017-10-16T04:29:32.369Z',
+      updated_at: '2017-10-16T04:29:32.369Z'
     },
     {
       id: 10,
@@ -150,8 +150,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 6,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.960Z',
-      updated_at: '2017-10-12T14:02:25.960Z'
+      created_at: '2017-10-16T04:29:32.369Z',
+      updated_at: '2017-10-16T04:29:32.369Z'
     },
     {
       id: 11,
@@ -165,8 +165,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 7,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.960Z',
-      updated_at: '2017-10-12T14:02:25.960Z'
+      created_at: '2017-10-16T04:29:32.369Z',
+      updated_at: '2017-10-16T04:29:32.369Z'
     },
     {
       id: 12,
@@ -180,8 +180,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.960Z',
-      updated_at: '2017-10-12T14:02:25.960Z'
+      created_at: '2017-10-16T04:29:32.370Z',
+      updated_at: '2017-10-16T04:29:32.370Z'
     },
     {
       id: 13,
@@ -195,8 +195,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.960Z',
-      updated_at: '2017-10-12T14:02:25.960Z'
+      created_at: '2017-10-16T04:29:32.370Z',
+      updated_at: '2017-10-16T04:29:32.370Z'
     },
     {
       id: 14,
@@ -210,8 +210,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.960Z',
-      updated_at: '2017-10-12T14:02:25.961Z'
+      created_at: '2017-10-16T04:29:32.370Z',
+      updated_at: '2017-10-16T04:29:32.370Z'
     },
     {
       id: 15,
@@ -225,8 +225,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.961Z',
-      updated_at: '2017-10-12T14:02:25.961Z'
+      created_at: '2017-10-16T04:29:32.370Z',
+      updated_at: '2017-10-16T04:29:32.370Z'
     },
     {
       id: 16,
@@ -240,8 +240,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 8,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.961Z',
-      updated_at: '2017-10-12T14:02:25.961Z'
+      created_at: '2017-10-16T04:29:32.370Z',
+      updated_at: '2017-10-16T04:29:32.370Z'
     },
     {
       id: 17,
@@ -255,8 +255,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 9,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.961Z',
-      updated_at: '2017-10-12T14:02:25.961Z'
+      created_at: '2017-10-16T04:29:32.370Z',
+      updated_at: '2017-10-16T04:29:32.370Z'
     },
     {
       id: 18,
@@ -270,8 +270,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 10,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.961Z',
-      updated_at: '2017-10-12T14:02:25.961Z'
+      created_at: '2017-10-16T04:29:32.371Z',
+      updated_at: '2017-10-16T04:29:32.371Z'
     },
     {
       id: 19,
@@ -285,8 +285,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 11,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.962Z',
-      updated_at: '2017-10-12T14:02:25.962Z'
+      created_at: '2017-10-16T04:29:32.371Z',
+      updated_at: '2017-10-16T04:29:32.371Z'
     },
     {
       id: 20,
@@ -300,8 +300,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 12,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.962Z',
-      updated_at: '2017-10-12T14:02:25.962Z'
+      created_at: '2017-10-16T04:29:32.371Z',
+      updated_at: '2017-10-16T04:29:32.371Z'
     },
     {
       id: 21,
@@ -315,8 +315,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.962Z',
-      updated_at: '2017-10-12T14:02:25.962Z'
+      created_at: '2017-10-16T04:29:32.371Z',
+      updated_at: '2017-10-16T04:29:32.371Z'
     },
     {
       id: 22,
@@ -330,8 +330,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 13,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.962Z',
-      updated_at: '2017-10-12T14:02:25.962Z'
+      created_at: '2017-10-16T04:29:32.371Z',
+      updated_at: '2017-10-16T04:29:32.371Z'
     },
     {
       id: 23,
@@ -345,8 +345,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 14,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.962Z',
-      updated_at: '2017-10-12T14:02:25.962Z'
+      created_at: '2017-10-16T04:29:32.371Z',
+      updated_at: '2017-10-16T04:29:32.371Z'
     },
     {
       id: 24,
@@ -360,8 +360,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 15,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.962Z',
-      updated_at: '2017-10-12T14:02:25.962Z'
+      created_at: '2017-10-16T04:29:32.371Z',
+      updated_at: '2017-10-16T04:29:32.371Z'
     },
     {
       id: 25,
@@ -375,8 +375,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 16,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.962Z',
-      updated_at: '2017-10-12T14:02:25.962Z'
+      created_at: '2017-10-16T04:29:32.371Z',
+      updated_at: '2017-10-16T04:29:32.371Z'
     },
     {
       id: 26,
@@ -390,8 +390,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.962Z',
-      updated_at: '2017-10-12T14:02:25.962Z'
+      created_at: '2017-10-16T04:29:32.372Z',
+      updated_at: '2017-10-16T04:29:32.372Z'
     },
     {
       id: 27,
@@ -405,8 +405,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 17,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.962Z',
-      updated_at: '2017-10-12T14:02:25.962Z'
+      created_at: '2017-10-16T04:29:32.372Z',
+      updated_at: '2017-10-16T04:29:32.372Z'
     },
     {
       id: 28,
@@ -420,8 +420,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 18,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.963Z',
-      updated_at: '2017-10-12T14:02:25.963Z'
+      created_at: '2017-10-16T04:29:32.372Z',
+      updated_at: '2017-10-16T04:29:32.372Z'
     },
     {
       id: 29,
@@ -435,8 +435,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 19,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.963Z',
-      updated_at: '2017-10-12T14:02:25.963Z'
+      created_at: '2017-10-16T04:29:32.373Z',
+      updated_at: '2017-10-16T04:29:32.373Z'
     },
     {
       id: 30,
@@ -450,8 +450,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.963Z',
-      updated_at: '2017-10-12T14:02:25.963Z'
+      created_at: '2017-10-16T04:29:32.373Z',
+      updated_at: '2017-10-16T04:29:32.373Z'
     },
     {
       id: 31,
@@ -465,8 +465,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.963Z',
-      updated_at: '2017-10-12T14:02:25.963Z'
+      created_at: '2017-10-16T04:29:32.373Z',
+      updated_at: '2017-10-16T04:29:32.373Z'
     },
     {
       id: 32,
@@ -480,8 +480,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.964Z',
-      updated_at: '2017-10-12T14:02:25.964Z'
+      created_at: '2017-10-16T04:29:32.373Z',
+      updated_at: '2017-10-16T04:29:32.373Z'
     },
     {
       id: 33,
@@ -495,8 +495,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 20,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.964Z',
-      updated_at: '2017-10-12T14:02:25.964Z'
+      created_at: '2017-10-16T04:29:32.373Z',
+      updated_at: '2017-10-16T04:29:32.373Z'
     },
     {
       id: 34,
@@ -510,8 +510,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 21,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.964Z',
-      updated_at: '2017-10-12T14:02:25.964Z'
+      created_at: '2017-10-16T04:29:32.373Z',
+      updated_at: '2017-10-16T04:29:32.373Z'
     },
     {
       id: 35,
@@ -525,8 +525,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 22,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.964Z',
-      updated_at: '2017-10-12T14:02:25.965Z'
+      created_at: '2017-10-16T04:29:32.374Z',
+      updated_at: '2017-10-16T04:29:32.375Z'
     },
     {
       id: 36,
@@ -540,8 +540,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.966Z',
-      updated_at: '2017-10-12T14:02:25.966Z'
+      created_at: '2017-10-16T04:29:32.375Z',
+      updated_at: '2017-10-16T04:29:32.375Z'
     },
     {
       id: 37,
@@ -555,8 +555,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.966Z',
-      updated_at: '2017-10-12T14:02:25.966Z'
+      created_at: '2017-10-16T04:29:32.375Z',
+      updated_at: '2017-10-16T04:29:32.375Z'
     },
     {
       id: 38,
@@ -570,8 +570,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 23,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.966Z',
-      updated_at: '2017-10-12T14:02:25.966Z'
+      created_at: '2017-10-16T04:29:32.375Z',
+      updated_at: '2017-10-16T04:29:32.375Z'
     },
     {
       id: 39,
@@ -585,8 +585,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 24,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.966Z',
-      updated_at: '2017-10-12T14:02:25.966Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 40,
@@ -600,8 +600,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 25,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.966Z',
-      updated_at: '2017-10-12T14:02:25.966Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 41,
@@ -615,8 +615,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 26,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.966Z',
-      updated_at: '2017-10-12T14:02:25.966Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 42,
@@ -630,8 +630,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 43,
@@ -645,8 +645,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 44,
@@ -660,8 +660,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 27,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 45,
@@ -675,8 +675,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 28,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 46,
@@ -690,8 +690,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 47,
@@ -705,8 +705,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 48,
@@ -720,8 +720,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 49,
@@ -735,8 +735,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 29,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 50,
@@ -750,8 +750,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 51,
@@ -765,8 +765,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 30,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 52,
@@ -780,8 +780,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 31,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 53,
@@ -795,8 +795,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 32,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 54,
@@ -810,8 +810,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 55,
@@ -825,8 +825,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 33,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.377Z',
+      updated_at: '2017-10-16T04:29:32.377Z'
     },
     {
       id: 56,
@@ -840,8 +840,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 34,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.968Z',
-      updated_at: '2017-10-12T14:02:25.968Z'
+      created_at: '2017-10-16T04:29:32.377Z',
+      updated_at: '2017-10-16T04:29:32.377Z'
     },
     {
       id: 57,
@@ -855,8 +855,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 35,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.968Z',
-      updated_at: '2017-10-12T14:02:25.968Z'
+      created_at: '2017-10-16T04:29:32.377Z',
+      updated_at: '2017-10-16T04:29:32.377Z'
     },
     {
       id: 58,
@@ -870,8 +870,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.968Z',
-      updated_at: '2017-10-12T14:02:25.968Z'
+      created_at: '2017-10-16T04:29:32.377Z',
+      updated_at: '2017-10-16T04:29:32.377Z'
     },
     {
       id: 59,
@@ -885,8 +885,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 36,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.968Z',
-      updated_at: '2017-10-12T14:02:25.968Z'
+      created_at: '2017-10-16T04:29:32.377Z',
+      updated_at: '2017-10-16T04:29:32.377Z'
     },
     {
       id: 60,
@@ -900,8 +900,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.968Z',
-      updated_at: '2017-10-12T14:02:25.968Z'
+      created_at: '2017-10-16T04:29:32.377Z',
+      updated_at: '2017-10-16T04:29:32.377Z'
     },
     {
       id: 61,
@@ -915,8 +915,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.968Z',
-      updated_at: '2017-10-12T14:02:25.968Z'
+      created_at: '2017-10-16T04:29:32.377Z',
+      updated_at: '2017-10-16T04:29:32.377Z'
     },
     {
       id: 62,
@@ -930,8 +930,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.968Z',
-      updated_at: '2017-10-12T14:02:25.968Z'
+      created_at: '2017-10-16T04:29:32.377Z',
+      updated_at: '2017-10-16T04:29:32.377Z'
     },
     {
       id: 63,
@@ -945,8 +945,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 37,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.968Z',
-      updated_at: '2017-10-12T14:02:25.968Z'
+      created_at: '2017-10-16T04:29:32.377Z',
+      updated_at: '2017-10-16T04:29:32.377Z'
     },
     {
       id: 64,
@@ -960,8 +960,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.968Z',
-      updated_at: '2017-10-12T14:02:25.968Z'
+      created_at: '2017-10-16T04:29:32.378Z',
+      updated_at: '2017-10-16T04:29:32.378Z'
     },
     {
       id: 65,
@@ -975,8 +975,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 38,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.970Z',
-      updated_at: '2017-10-12T14:02:25.970Z'
+      created_at: '2017-10-16T04:29:32.378Z',
+      updated_at: '2017-10-16T04:29:32.378Z'
     },
     {
       id: 66,
@@ -990,8 +990,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.971Z',
-      updated_at: '2017-10-12T14:02:25.971Z'
+      created_at: '2017-10-16T04:29:32.378Z',
+      updated_at: '2017-10-16T04:29:32.378Z'
     },
     {
       id: 67,
@@ -1005,8 +1005,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.972Z',
-      updated_at: '2017-10-12T14:02:25.972Z'
+      created_at: '2017-10-16T04:29:32.380Z',
+      updated_at: '2017-10-16T04:29:32.380Z'
     },
     {
       id: 68,
@@ -1020,8 +1020,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 39,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.973Z',
-      updated_at: '2017-10-12T14:02:25.973Z'
+      created_at: '2017-10-16T04:29:32.381Z',
+      updated_at: '2017-10-16T04:29:32.381Z'
     },
     {
       id: 69,
@@ -1035,8 +1035,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.973Z',
-      updated_at: '2017-10-12T14:02:25.973Z'
+      created_at: '2017-10-16T04:29:32.381Z',
+      updated_at: '2017-10-16T04:29:32.381Z'
     },
     {
       id: 70,
@@ -1050,8 +1050,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 40,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.973Z',
-      updated_at: '2017-10-12T14:02:25.973Z'
+      created_at: '2017-10-16T04:29:32.381Z',
+      updated_at: '2017-10-16T04:29:32.381Z'
     },
     {
       id: 71,
@@ -1065,8 +1065,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 41,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.973Z',
-      updated_at: '2017-10-12T14:02:25.973Z'
+      created_at: '2017-10-16T04:29:32.381Z',
+      updated_at: '2017-10-16T04:29:32.381Z'
     },
     {
       id: 72,
@@ -1080,8 +1080,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.973Z',
-      updated_at: '2017-10-12T14:02:25.973Z'
+      created_at: '2017-10-16T04:29:32.382Z',
+      updated_at: '2017-10-16T04:29:32.382Z'
     },
     {
       id: 73,
@@ -1095,8 +1095,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.973Z',
-      updated_at: '2017-10-12T14:02:25.973Z'
+      created_at: '2017-10-16T04:29:32.382Z',
+      updated_at: '2017-10-16T04:29:32.382Z'
     },
     {
       id: 74,
@@ -1110,8 +1110,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 42,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.973Z',
-      updated_at: '2017-10-12T14:02:25.973Z'
+      created_at: '2017-10-16T04:29:32.382Z',
+      updated_at: '2017-10-16T04:29:32.382Z'
     },
     {
       id: 75,
@@ -1125,8 +1125,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 43,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.974Z',
-      updated_at: '2017-10-12T14:02:25.974Z'
+      created_at: '2017-10-16T04:29:32.382Z',
+      updated_at: '2017-10-16T04:29:32.382Z'
     },
     {
       id: 76,
@@ -1140,8 +1140,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 44,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.974Z',
-      updated_at: '2017-10-12T14:02:25.974Z'
+      created_at: '2017-10-16T04:29:32.382Z',
+      updated_at: '2017-10-16T04:29:32.382Z'
     },
     {
       id: 77,
@@ -1155,8 +1155,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 45,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.974Z',
-      updated_at: '2017-10-12T14:02:25.974Z'
+      created_at: '2017-10-16T04:29:32.382Z',
+      updated_at: '2017-10-16T04:29:32.382Z'
     },
     {
       id: 78,
@@ -1170,8 +1170,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.974Z',
-      updated_at: '2017-10-12T14:02:25.974Z'
+      created_at: '2017-10-16T04:29:32.382Z',
+      updated_at: '2017-10-16T04:29:32.382Z'
     },
     {
       id: 79,
@@ -1185,8 +1185,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 46,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.974Z',
-      updated_at: '2017-10-12T14:02:25.974Z'
+      created_at: '2017-10-16T04:29:32.382Z',
+      updated_at: '2017-10-16T04:29:32.382Z'
     },
     {
       id: 80,
@@ -1200,8 +1200,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 47,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.974Z',
-      updated_at: '2017-10-12T14:02:25.974Z'
+      created_at: '2017-10-16T04:29:32.382Z',
+      updated_at: '2017-10-16T04:29:32.382Z'
     },
     {
       id: 81,
@@ -1214,9 +1214,9 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 48,
-      activated_at: '2017-10-12T14:02:25.974Z',
-      created_at: '2017-10-12T14:02:25.974Z',
-      updated_at: '2017-10-12T14:02:25.974Z'
+      activated_at: '2017-10-16T04:29:32.382Z',
+      created_at: '2017-10-16T04:29:32.382Z',
+      updated_at: '2017-10-16T04:29:32.382Z'
     },
     {
       id: 82,
@@ -1230,8 +1230,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 49,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.974Z',
-      updated_at: '2017-10-12T14:02:25.974Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 83,
@@ -1245,8 +1245,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 50,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 84,
@@ -1260,8 +1260,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 85,
@@ -1275,8 +1275,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 51,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 86,
@@ -1290,8 +1290,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 87,
@@ -1305,8 +1305,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 88,
@@ -1320,8 +1320,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 52,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 89,
@@ -1335,8 +1335,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 53,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 90,
@@ -1350,8 +1350,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 54,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 91,
@@ -1365,8 +1365,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 55,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 92,
@@ -1380,8 +1380,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 93,
@@ -1395,8 +1395,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 94,
@@ -1410,8 +1410,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 56,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 95,
@@ -1425,8 +1425,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 96,
@@ -1440,8 +1440,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 97,
@@ -1455,8 +1455,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 98,
@@ -1470,8 +1470,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 57,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 99,
@@ -1485,8 +1485,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 58,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 100,
@@ -1500,8 +1500,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 101,
@@ -1515,8 +1515,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 59,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 102,
@@ -1530,8 +1530,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 60,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 103,
@@ -1545,8 +1545,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 61,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 104,
@@ -1560,8 +1560,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 62,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 105,
@@ -1575,8 +1575,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 63,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 106,
@@ -1590,8 +1590,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 64,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 107,
@@ -1605,8 +1605,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 108,
@@ -1620,8 +1620,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 65,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 109,
@@ -1635,8 +1635,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 110,
@@ -1650,8 +1650,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 111,
@@ -1665,8 +1665,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 112,
@@ -1680,8 +1680,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 113,
@@ -1695,8 +1695,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 114,
@@ -1710,8 +1710,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 115,
@@ -1725,8 +1725,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 116,
@@ -1740,8 +1740,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 117,
@@ -1755,8 +1755,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.385Z',
+      updated_at: '2017-10-16T04:29:32.385Z'
     },
     {
       id: 118,
@@ -1770,8 +1770,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.385Z',
+      updated_at: '2017-10-16T04:29:32.385Z'
     },
     {
       id: 119,
@@ -1785,8 +1785,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.977Z',
-      updated_at: '2017-10-12T14:02:25.977Z'
+      created_at: '2017-10-16T04:29:32.385Z',
+      updated_at: '2017-10-16T04:29:32.385Z'
     },
     {
       id: 120,
@@ -1800,8 +1800,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.977Z',
-      updated_at: '2017-10-12T14:02:25.977Z'
+      created_at: '2017-10-16T04:29:32.385Z',
+      updated_at: '2017-10-16T04:29:32.385Z'
     },
     {
       id: 121,
@@ -1815,8 +1815,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.977Z',
-      updated_at: '2017-10-12T14:02:25.977Z'
+      created_at: '2017-10-16T04:29:32.385Z',
+      updated_at: '2017-10-16T04:29:32.385Z'
     },
     {
       id: 122,
@@ -1830,8 +1830,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 66,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.977Z',
-      updated_at: '2017-10-12T14:02:25.977Z'
+      created_at: '2017-10-16T04:29:32.385Z',
+      updated_at: '2017-10-16T04:29:32.385Z'
     },
     {
       id: 123,
@@ -1845,8 +1845,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 67,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.977Z',
-      updated_at: '2017-10-12T14:02:25.977Z'
+      created_at: '2017-10-16T04:29:32.385Z',
+      updated_at: '2017-10-16T04:29:32.385Z'
     },
     {
       id: 124,
@@ -1860,8 +1860,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.977Z',
-      updated_at: '2017-10-12T14:02:25.977Z'
+      created_at: '2017-10-16T04:29:32.385Z',
+      updated_at: '2017-10-16T04:29:32.385Z'
     },
     {
       id: 125,
@@ -1875,8 +1875,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.977Z',
-      updated_at: '2017-10-12T14:02:25.977Z'
+      created_at: '2017-10-16T04:29:32.385Z',
+      updated_at: '2017-10-16T04:29:32.385Z'
     },
     {
       id: 126,
@@ -1890,8 +1890,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 68,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.977Z',
-      updated_at: '2017-10-12T14:02:25.977Z'
+      created_at: '2017-10-16T04:29:32.385Z',
+      updated_at: '2017-10-16T04:29:32.385Z'
     },
     {
       id: 127,
@@ -1905,8 +1905,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.977Z',
-      updated_at: '2017-10-12T14:02:25.977Z'
+      created_at: '2017-10-16T04:29:32.386Z',
+      updated_at: '2017-10-16T04:29:32.386Z'
     },
     {
       id: 128,
@@ -1920,8 +1920,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.978Z',
-      updated_at: '2017-10-12T14:02:25.978Z'
+      created_at: '2017-10-16T04:29:32.386Z',
+      updated_at: '2017-10-16T04:29:32.386Z'
     },
     {
       id: 129,
@@ -1935,8 +1935,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.978Z',
-      updated_at: '2017-10-12T14:02:25.978Z'
+      created_at: '2017-10-16T04:29:32.386Z',
+      updated_at: '2017-10-16T04:29:32.386Z'
     },
     {
       id: 130,
@@ -1950,8 +1950,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.978Z',
-      updated_at: '2017-10-12T14:02:25.978Z'
+      created_at: '2017-10-16T04:29:32.386Z',
+      updated_at: '2017-10-16T04:29:32.386Z'
     },
     {
       id: 131,
@@ -1965,8 +1965,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 69,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.978Z',
-      updated_at: '2017-10-12T14:02:25.978Z'
+      created_at: '2017-10-16T04:29:32.386Z',
+      updated_at: '2017-10-16T04:29:32.386Z'
     },
     {
       id: 132,
@@ -1980,8 +1980,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 70,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.978Z',
-      updated_at: '2017-10-12T14:02:25.978Z'
+      created_at: '2017-10-16T04:29:32.386Z',
+      updated_at: '2017-10-16T04:29:32.386Z'
     },
     {
       id: 133,
@@ -1995,8 +1995,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.978Z',
-      updated_at: '2017-10-12T14:02:25.978Z'
+      created_at: '2017-10-16T04:29:32.386Z',
+      updated_at: '2017-10-16T04:29:32.386Z'
     },
     {
       id: 134,
@@ -2010,8 +2010,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.978Z',
-      updated_at: '2017-10-12T14:02:25.978Z'
+      created_at: '2017-10-16T04:29:32.386Z',
+      updated_at: '2017-10-16T04:29:32.386Z'
     },
     {
       id: 135,
@@ -2025,8 +2025,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 71,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.978Z',
-      updated_at: '2017-10-12T14:02:25.978Z'
+      created_at: '2017-10-16T04:29:32.386Z',
+      updated_at: '2017-10-16T04:29:32.386Z'
     },
     {
       id: 136,
@@ -2040,8 +2040,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.978Z',
-      updated_at: '2017-10-12T14:02:25.978Z'
+      created_at: '2017-10-16T04:29:32.386Z',
+      updated_at: '2017-10-16T04:29:32.386Z'
     },
     {
       id: 137,
@@ -2055,8 +2055,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.978Z',
-      updated_at: '2017-10-12T14:02:25.978Z'
+      created_at: '2017-10-16T04:29:32.386Z',
+      updated_at: '2017-10-16T04:29:32.386Z'
     },
     {
       id: 138,
@@ -2070,8 +2070,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 72,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.978Z',
-      updated_at: '2017-10-12T14:02:25.978Z'
+      created_at: '2017-10-16T04:29:32.386Z',
+      updated_at: '2017-10-16T04:29:32.386Z'
     },
     {
       id: 139,
@@ -2085,8 +2085,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.978Z',
-      updated_at: '2017-10-12T14:02:25.978Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 140,
@@ -2100,8 +2100,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 141,
@@ -2115,8 +2115,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 73,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 142,
@@ -2130,8 +2130,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 143,
@@ -2145,8 +2145,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 74,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 144,
@@ -2160,8 +2160,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 75,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 145,
@@ -2175,8 +2175,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 76,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 146,
@@ -2190,8 +2190,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 77,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 147,
@@ -2205,8 +2205,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 148,
@@ -2220,8 +2220,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 149,
@@ -2235,8 +2235,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 78,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 150,
@@ -2250,8 +2250,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 79,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 151,
@@ -2265,8 +2265,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 80,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 152,
@@ -2280,8 +2280,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 153,
@@ -2295,8 +2295,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 154,
@@ -2310,8 +2310,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 81,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 155,
@@ -2325,8 +2325,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 156,
@@ -2340,8 +2340,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 82,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 157,
@@ -2355,8 +2355,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.388Z',
+      updated_at: '2017-10-16T04:29:32.388Z'
     },
     {
       id: 158,
@@ -2370,8 +2370,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.980Z',
-      updated_at: '2017-10-12T14:02:25.980Z'
+      created_at: '2017-10-16T04:29:32.388Z',
+      updated_at: '2017-10-16T04:29:32.388Z'
     },
     {
       id: 159,
@@ -2385,8 +2385,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 83,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.980Z',
-      updated_at: '2017-10-12T14:02:25.980Z'
+      created_at: '2017-10-16T04:29:32.388Z',
+      updated_at: '2017-10-16T04:29:32.388Z'
     },
     {
       id: 160,
@@ -2400,8 +2400,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.980Z',
-      updated_at: '2017-10-12T14:02:25.980Z'
+      created_at: '2017-10-16T04:29:32.388Z',
+      updated_at: '2017-10-16T04:29:32.388Z'
     },
     {
       id: 161,
@@ -2415,8 +2415,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.980Z',
-      updated_at: '2017-10-12T14:02:25.980Z'
+      created_at: '2017-10-16T04:29:32.388Z',
+      updated_at: '2017-10-16T04:29:32.388Z'
     },
     {
       id: 162,
@@ -2430,8 +2430,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.980Z',
-      updated_at: '2017-10-12T14:02:25.980Z'
+      created_at: '2017-10-16T04:29:32.388Z',
+      updated_at: '2017-10-16T04:29:32.388Z'
     },
     {
       id: 163,
@@ -2445,8 +2445,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 84,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.980Z',
-      updated_at: '2017-10-12T14:02:25.980Z'
+      created_at: '2017-10-16T04:29:32.388Z',
+      updated_at: '2017-10-16T04:29:32.388Z'
     },
     {
       id: 164,
@@ -2460,8 +2460,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.980Z',
-      updated_at: '2017-10-12T14:02:25.980Z'
+      created_at: '2017-10-16T04:29:32.388Z',
+      updated_at: '2017-10-16T04:29:32.388Z'
     },
     {
       id: 165,
@@ -2475,8 +2475,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.980Z',
-      updated_at: '2017-10-12T14:02:25.980Z'
+      created_at: '2017-10-16T04:29:32.388Z',
+      updated_at: '2017-10-16T04:29:32.388Z'
     },
     {
       id: 166,
@@ -2490,8 +2490,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 85,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.980Z',
-      updated_at: '2017-10-12T14:02:25.980Z'
+      created_at: '2017-10-16T04:29:32.388Z',
+      updated_at: '2017-10-16T04:29:32.388Z'
     },
     {
       id: 167,
@@ -2505,8 +2505,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.980Z',
-      updated_at: '2017-10-12T14:02:25.980Z'
+      created_at: '2017-10-16T04:29:32.388Z',
+      updated_at: '2017-10-16T04:29:32.388Z'
     },
     {
       id: 168,
@@ -2520,8 +2520,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: 86,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.980Z',
-      updated_at: '2017-10-12T14:02:25.980Z'
+      created_at: '2017-10-16T04:29:32.388Z',
+      updated_at: '2017-10-16T04:29:32.388Z'
     },
     {
       id: 169,
@@ -2535,8 +2535,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.980Z',
-      updated_at: '2017-10-12T14:02:25.980Z'
+      created_at: '2017-10-16T04:29:32.388Z',
+      updated_at: '2017-10-16T04:29:32.388Z'
     },
     {
       id: 170,
@@ -2550,8 +2550,8 @@ const usersFixtures = new Fixtures({
       is_active: false,
       photo_id: null,
       activated_at: null,
-      created_at: '2017-10-12T14:02:25.980Z',
-      updated_at: '2017-10-12T14:02:25.980Z'
+      created_at: '2017-10-16T04:29:32.388Z',
+      updated_at: '2017-10-16T04:29:32.388Z'
     }
   ]
 })

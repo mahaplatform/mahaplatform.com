@@ -11,8 +11,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 17449,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.956Z',
-      updated_at: '2017-10-12T14:02:25.957Z'
+      created_at: '2017-10-16T04:29:32.364Z',
+      updated_at: '2017-10-16T04:29:32.365Z'
     },
     {
       id: 2,
@@ -22,8 +22,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 24707,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.958Z',
-      updated_at: '2017-10-12T14:02:25.958Z'
+      created_at: '2017-10-16T04:29:32.366Z',
+      updated_at: '2017-10-16T04:29:32.366Z'
     },
     {
       id: 3,
@@ -33,8 +33,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 34620,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.959Z',
-      updated_at: '2017-10-12T14:02:25.959Z'
+      created_at: '2017-10-16T04:29:32.368Z',
+      updated_at: '2017-10-16T04:29:32.368Z'
     },
     {
       id: 4,
@@ -44,8 +44,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 29822,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.959Z',
-      updated_at: '2017-10-12T14:02:25.959Z'
+      created_at: '2017-10-16T04:29:32.368Z',
+      updated_at: '2017-10-16T04:29:32.368Z'
     },
     {
       id: 5,
@@ -55,8 +55,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 28303,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.960Z',
-      updated_at: '2017-10-12T14:02:25.960Z'
+      created_at: '2017-10-16T04:29:32.369Z',
+      updated_at: '2017-10-16T04:29:32.369Z'
     },
     {
       id: 6,
@@ -66,8 +66,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 50003,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.960Z',
-      updated_at: '2017-10-12T14:02:25.960Z'
+      created_at: '2017-10-16T04:29:32.369Z',
+      updated_at: '2017-10-16T04:29:32.369Z'
     },
     {
       id: 7,
@@ -77,8 +77,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 37324,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.960Z',
-      updated_at: '2017-10-12T14:02:25.960Z'
+      created_at: '2017-10-16T04:29:32.369Z',
+      updated_at: '2017-10-16T04:29:32.369Z'
     },
     {
       id: 8,
@@ -88,8 +88,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 29995,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.961Z',
-      updated_at: '2017-10-12T14:02:25.961Z'
+      created_at: '2017-10-16T04:29:32.370Z',
+      updated_at: '2017-10-16T04:29:32.370Z'
     },
     {
       id: 9,
@@ -99,8 +99,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 34269,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.961Z',
-      updated_at: '2017-10-12T14:02:25.961Z'
+      created_at: '2017-10-16T04:29:32.370Z',
+      updated_at: '2017-10-16T04:29:32.370Z'
     },
     {
       id: 10,
@@ -110,8 +110,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 43818,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.961Z',
-      updated_at: '2017-10-12T14:02:25.961Z'
+      created_at: '2017-10-16T04:29:32.370Z',
+      updated_at: '2017-10-16T04:29:32.370Z'
     },
     {
       id: 11,
@@ -121,8 +121,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 28625,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.962Z',
-      updated_at: '2017-10-12T14:02:25.962Z'
+      created_at: '2017-10-16T04:29:32.371Z',
+      updated_at: '2017-10-16T04:29:32.371Z'
     },
     {
       id: 12,
@@ -132,8 +132,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 29383,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.962Z',
-      updated_at: '2017-10-12T14:02:25.962Z'
+      created_at: '2017-10-16T04:29:32.371Z',
+      updated_at: '2017-10-16T04:29:32.371Z'
     },
     {
       id: 13,
@@ -143,8 +143,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 41857,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.962Z',
-      updated_at: '2017-10-12T14:02:25.962Z'
+      created_at: '2017-10-16T04:29:32.371Z',
+      updated_at: '2017-10-16T04:29:32.371Z'
     },
     {
       id: 14,
@@ -154,8 +154,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 29850,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.962Z',
-      updated_at: '2017-10-12T14:02:25.962Z'
+      created_at: '2017-10-16T04:29:32.371Z',
+      updated_at: '2017-10-16T04:29:32.371Z'
     },
     {
       id: 15,
@@ -165,8 +165,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 37486,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.962Z',
-      updated_at: '2017-10-12T14:02:25.962Z'
+      created_at: '2017-10-16T04:29:32.371Z',
+      updated_at: '2017-10-16T04:29:32.371Z'
     },
     {
       id: 16,
@@ -176,8 +176,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 20532,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.962Z',
-      updated_at: '2017-10-12T14:02:25.962Z'
+      created_at: '2017-10-16T04:29:32.371Z',
+      updated_at: '2017-10-16T04:29:32.371Z'
     },
     {
       id: 17,
@@ -187,8 +187,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 36090,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.962Z',
-      updated_at: '2017-10-12T14:02:25.962Z'
+      created_at: '2017-10-16T04:29:32.372Z',
+      updated_at: '2017-10-16T04:29:32.372Z'
     },
     {
       id: 18,
@@ -198,8 +198,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 26726,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.963Z',
-      updated_at: '2017-10-12T14:02:25.963Z'
+      created_at: '2017-10-16T04:29:32.372Z',
+      updated_at: '2017-10-16T04:29:32.372Z'
     },
     {
       id: 19,
@@ -209,8 +209,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 25519,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.963Z',
-      updated_at: '2017-10-12T14:02:25.963Z'
+      created_at: '2017-10-16T04:29:32.372Z',
+      updated_at: '2017-10-16T04:29:32.373Z'
     },
     {
       id: 20,
@@ -220,8 +220,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 40284,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.964Z',
-      updated_at: '2017-10-12T14:02:25.964Z'
+      created_at: '2017-10-16T04:29:32.373Z',
+      updated_at: '2017-10-16T04:29:32.373Z'
     },
     {
       id: 21,
@@ -231,8 +231,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 40335,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.964Z',
-      updated_at: '2017-10-12T14:02:25.964Z'
+      created_at: '2017-10-16T04:29:32.373Z',
+      updated_at: '2017-10-16T04:29:32.373Z'
     },
     {
       id: 22,
@@ -242,8 +242,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 265541,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.964Z',
-      updated_at: '2017-10-12T14:02:25.964Z'
+      created_at: '2017-10-16T04:29:32.373Z',
+      updated_at: '2017-10-16T04:29:32.373Z'
     },
     {
       id: 23,
@@ -253,8 +253,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 23433,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.966Z',
-      updated_at: '2017-10-12T14:02:25.966Z'
+      created_at: '2017-10-16T04:29:32.375Z',
+      updated_at: '2017-10-16T04:29:32.375Z'
     },
     {
       id: 24,
@@ -264,8 +264,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 41924,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.966Z',
-      updated_at: '2017-10-12T14:02:25.966Z'
+      created_at: '2017-10-16T04:29:32.375Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 25,
@@ -275,8 +275,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 33321,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.966Z',
-      updated_at: '2017-10-12T14:02:25.966Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 26,
@@ -286,8 +286,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 26917,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.966Z',
-      updated_at: '2017-10-12T14:02:25.966Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 27,
@@ -297,8 +297,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 40924,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 28,
@@ -308,8 +308,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 30632,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 29,
@@ -319,8 +319,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 50810,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 30,
@@ -330,8 +330,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 20092,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 31,
@@ -341,8 +341,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 36394,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 32,
@@ -352,8 +352,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 30724,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.376Z',
+      updated_at: '2017-10-16T04:29:32.376Z'
     },
     {
       id: 33,
@@ -363,8 +363,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 37277,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.967Z',
-      updated_at: '2017-10-12T14:02:25.967Z'
+      created_at: '2017-10-16T04:29:32.377Z',
+      updated_at: '2017-10-16T04:29:32.377Z'
     },
     {
       id: 34,
@@ -374,8 +374,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 30431,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.968Z',
-      updated_at: '2017-10-12T14:02:25.968Z'
+      created_at: '2017-10-16T04:29:32.377Z',
+      updated_at: '2017-10-16T04:29:32.377Z'
     },
     {
       id: 35,
@@ -385,8 +385,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 32076,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.968Z',
-      updated_at: '2017-10-12T14:02:25.968Z'
+      created_at: '2017-10-16T04:29:32.377Z',
+      updated_at: '2017-10-16T04:29:32.377Z'
     },
     {
       id: 36,
@@ -396,8 +396,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 27874,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.968Z',
-      updated_at: '2017-10-12T14:02:25.968Z'
+      created_at: '2017-10-16T04:29:32.377Z',
+      updated_at: '2017-10-16T04:29:32.377Z'
     },
     {
       id: 37,
@@ -407,8 +407,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 34867,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.968Z',
-      updated_at: '2017-10-12T14:02:25.968Z'
+      created_at: '2017-10-16T04:29:32.377Z',
+      updated_at: '2017-10-16T04:29:32.377Z'
     },
     {
       id: 38,
@@ -418,8 +418,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 45624,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.970Z',
-      updated_at: '2017-10-12T14:02:25.970Z'
+      created_at: '2017-10-16T04:29:32.378Z',
+      updated_at: '2017-10-16T04:29:32.378Z'
     },
     {
       id: 39,
@@ -429,8 +429,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 1732981,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.973Z',
-      updated_at: '2017-10-12T14:02:25.973Z'
+      created_at: '2017-10-16T04:29:32.381Z',
+      updated_at: '2017-10-16T04:29:32.381Z'
     },
     {
       id: 40,
@@ -440,8 +440,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 30197,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.973Z',
-      updated_at: '2017-10-12T14:02:25.973Z'
+      created_at: '2017-10-16T04:29:32.381Z',
+      updated_at: '2017-10-16T04:29:32.381Z'
     },
     {
       id: 41,
@@ -451,8 +451,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 28117,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.973Z',
-      updated_at: '2017-10-12T14:02:25.973Z'
+      created_at: '2017-10-16T04:29:32.381Z',
+      updated_at: '2017-10-16T04:29:32.381Z'
     },
     {
       id: 42,
@@ -462,8 +462,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 30048,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.973Z',
-      updated_at: '2017-10-12T14:02:25.973Z'
+      created_at: '2017-10-16T04:29:32.382Z',
+      updated_at: '2017-10-16T04:29:32.382Z'
     },
     {
       id: 43,
@@ -473,8 +473,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 29583,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.974Z',
-      updated_at: '2017-10-12T14:02:25.974Z'
+      created_at: '2017-10-16T04:29:32.382Z',
+      updated_at: '2017-10-16T04:29:32.382Z'
     },
     {
       id: 44,
@@ -484,8 +484,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 28373,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.974Z',
-      updated_at: '2017-10-12T14:02:25.974Z'
+      created_at: '2017-10-16T04:29:32.382Z',
+      updated_at: '2017-10-16T04:29:32.382Z'
     },
     {
       id: 45,
@@ -495,8 +495,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 50444,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.974Z',
-      updated_at: '2017-10-12T14:02:25.974Z'
+      created_at: '2017-10-16T04:29:32.382Z',
+      updated_at: '2017-10-16T04:29:32.382Z'
     },
     {
       id: 46,
@@ -506,8 +506,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 51634,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.974Z',
-      updated_at: '2017-10-12T14:02:25.974Z'
+      created_at: '2017-10-16T04:29:32.382Z',
+      updated_at: '2017-10-16T04:29:32.382Z'
     },
     {
       id: 47,
@@ -517,8 +517,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 25731,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.974Z',
-      updated_at: '2017-10-12T14:02:25.974Z'
+      created_at: '2017-10-16T04:29:32.382Z',
+      updated_at: '2017-10-16T04:29:32.382Z'
     },
     {
       id: 48,
@@ -528,8 +528,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 30175,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.974Z',
-      updated_at: '2017-10-12T14:02:25.974Z'
+      created_at: '2017-10-16T04:29:32.382Z',
+      updated_at: '2017-10-16T04:29:32.382Z'
     },
     {
       id: 49,
@@ -539,8 +539,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 31827,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.974Z',
-      updated_at: '2017-10-12T14:02:25.974Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 50,
@@ -550,8 +550,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 31759,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.974Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 51,
@@ -561,8 +561,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 27608,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 52,
@@ -572,8 +572,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 35767,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 53,
@@ -583,8 +583,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 24802,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 54,
@@ -594,8 +594,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 29597,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 55,
@@ -605,8 +605,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 30241,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 56,
@@ -616,8 +616,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 40213,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 57,
@@ -627,8 +627,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 41294,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.383Z',
+      updated_at: '2017-10-16T04:29:32.383Z'
     },
     {
       id: 58,
@@ -638,8 +638,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 29909,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 59,
@@ -649,8 +649,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 1782426,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.975Z',
-      updated_at: '2017-10-12T14:02:25.975Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 60,
@@ -660,8 +660,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 23512,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 61,
@@ -671,8 +671,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 42871,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 62,
@@ -682,8 +682,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 27360,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 63,
@@ -693,8 +693,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 37564,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 64,
@@ -704,8 +704,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 47791,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 65,
@@ -715,8 +715,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 962363,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.976Z',
-      updated_at: '2017-10-12T14:02:25.976Z'
+      created_at: '2017-10-16T04:29:32.384Z',
+      updated_at: '2017-10-16T04:29:32.384Z'
     },
     {
       id: 66,
@@ -726,8 +726,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 64535,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.977Z',
-      updated_at: '2017-10-12T14:02:25.977Z'
+      created_at: '2017-10-16T04:29:32.385Z',
+      updated_at: '2017-10-16T04:29:32.385Z'
     },
     {
       id: 67,
@@ -737,8 +737,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 30246,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.977Z',
-      updated_at: '2017-10-12T14:02:25.977Z'
+      created_at: '2017-10-16T04:29:32.385Z',
+      updated_at: '2017-10-16T04:29:32.385Z'
     },
     {
       id: 68,
@@ -748,8 +748,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 9112,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.977Z',
-      updated_at: '2017-10-12T14:02:25.977Z'
+      created_at: '2017-10-16T04:29:32.385Z',
+      updated_at: '2017-10-16T04:29:32.385Z'
     },
     {
       id: 69,
@@ -759,8 +759,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 685902,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.978Z',
-      updated_at: '2017-10-12T14:02:25.978Z'
+      created_at: '2017-10-16T04:29:32.386Z',
+      updated_at: '2017-10-16T04:29:32.386Z'
     },
     {
       id: 70,
@@ -770,8 +770,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 28821,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.978Z',
-      updated_at: '2017-10-12T14:02:25.978Z'
+      created_at: '2017-10-16T04:29:32.386Z',
+      updated_at: '2017-10-16T04:29:32.386Z'
     },
     {
       id: 71,
@@ -781,8 +781,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 29316,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.978Z',
-      updated_at: '2017-10-12T14:02:25.978Z'
+      created_at: '2017-10-16T04:29:32.386Z',
+      updated_at: '2017-10-16T04:29:32.386Z'
     },
     {
       id: 72,
@@ -792,8 +792,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 39464,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.978Z',
-      updated_at: '2017-10-12T14:02:25.978Z'
+      created_at: '2017-10-16T04:29:32.386Z',
+      updated_at: '2017-10-16T04:29:32.386Z'
     },
     {
       id: 73,
@@ -803,8 +803,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 43310,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 74,
@@ -814,8 +814,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 32797,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 75,
@@ -825,8 +825,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 57406,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 76,
@@ -836,8 +836,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 40293,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 77,
@@ -847,8 +847,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 29541,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 78,
@@ -858,8 +858,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 21858,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 79,
@@ -869,8 +869,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 30585,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 80,
@@ -880,8 +880,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 31580,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 81,
@@ -891,8 +891,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 54984,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 82,
@@ -902,8 +902,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 46846,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.979Z',
-      updated_at: '2017-10-12T14:02:25.979Z'
+      created_at: '2017-10-16T04:29:32.387Z',
+      updated_at: '2017-10-16T04:29:32.387Z'
     },
     {
       id: 83,
@@ -913,8 +913,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 31001,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.980Z',
-      updated_at: '2017-10-12T14:02:25.980Z'
+      created_at: '2017-10-16T04:29:32.388Z',
+      updated_at: '2017-10-16T04:29:32.388Z'
     },
     {
       id: 84,
@@ -924,8 +924,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 45862,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.980Z',
-      updated_at: '2017-10-12T14:02:25.980Z'
+      created_at: '2017-10-16T04:29:32.388Z',
+      updated_at: '2017-10-16T04:29:32.388Z'
     },
     {
       id: 85,
@@ -935,8 +935,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 29727,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.980Z',
-      updated_at: '2017-10-12T14:02:25.980Z'
+      created_at: '2017-10-16T04:29:32.388Z',
+      updated_at: '2017-10-16T04:29:32.388Z'
     },
     {
       id: 86,
@@ -946,8 +946,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 17567,
       chunks_total: 1,
-      created_at: '2017-10-12T14:02:25.980Z',
-      updated_at: '2017-10-12T14:02:25.980Z'
+      created_at: '2017-10-16T04:29:32.388Z',
+      updated_at: '2017-10-16T04:29:32.388Z'
     }
   ]
 })
