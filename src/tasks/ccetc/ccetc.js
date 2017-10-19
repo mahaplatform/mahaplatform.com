@@ -12,7 +12,7 @@ export const import_20170622 = async () => {
 
     const employees = toMatrix('20170622/employees.tsv', '\t', true)
     const projects = toMatrix('20170622/projects.tsv', '\t', true)
-    const expenses = toMatrix('20170622/expense_types.tsv', '|')
+    const expenses = toMatrix('20170622/expense_types.tsv', '\t', true)
     const competencies = toMatrix('20170622/competencies.tsv', '\t', true)
     const expectations = toMatrix('20170622/expectations.tsv', '\t')
 
@@ -205,10 +205,11 @@ export const import_20170622 = async () => {
       data.expense_types.push({
         id: expense_type_id,
         team_id: 1,
-        title: record[1].trim(),
-        description: record[2].trim(),
+        title: sanitize(record[0]),
+        description: sanitize(record[1]),
         integration: {
-          expense_code: record[0].trim()
+          expense_code: sanitize(record[2]),
+          source_code: sanitize(record[3])
         },
         created_at: moment(),
         updated_at: moment()
@@ -226,7 +227,7 @@ export const import_20170622 = async () => {
 
         const competency = findOrCreate(data.competencies, { team_id: 1, category_id: category.id, title: sanitize(record[1]), level: parseInt(record[2]), description: sanitize(record[3]) }, true, { title: sanitize(record[1]) })
 
-        const resource = findOrCreate(data.resources, { team_id: 1, title: sanitize(record[4]), description: sanitize(record[5]), url: record[6] }, true, { title: sanitize(record[4]) })
+        const resource = findOrCreate(data.resources, { team_id: 1, title: sanitize(record[4]), description: sanitize(record[5]), url: record[6], rating_count: 0, rating_average: 0 }, true, { title: sanitize(record[4]) })
 
         data.competencies_resources.push({
           competency_id: competency.id,
@@ -360,6 +361,7 @@ const toMatrix = (filename, delimiter, excludeHeaders = false) => {
 }
 
 const sanitize = (string) => {
+  if(!string) return null
   return string.replace(/\'/g,'').trim()
 }
 

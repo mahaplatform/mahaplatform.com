@@ -71,7 +71,7 @@ var import_20170622 = exports.import_20170622 = function () {
             _context2.prev = 0;
             employees = toMatrix('20170622/employees.tsv', '\t', true);
             projects = toMatrix('20170622/projects.tsv', '\t', true);
-            expenses = toMatrix('20170622/expense_types.tsv', '|');
+            expenses = toMatrix('20170622/expense_types.tsv', '\t', true);
             competencies = toMatrix('20170622/competencies.tsv', '\t', true);
             expectations = toMatrix('20170622/expectations.tsv', '\t');
             supervisors = {};
@@ -248,10 +248,11 @@ var import_20170622 = exports.import_20170622 = function () {
               data.expense_types.push({
                 id: expense_type_id,
                 team_id: 1,
-                title: record[1].trim(),
-                description: record[2].trim(),
+                title: sanitize(record[0]),
+                description: sanitize(record[1]),
                 integration: {
-                  expense_code: record[0].trim()
+                  expense_code: sanitize(record[2]),
+                  source_code: sanitize(record[3])
                 },
                 created_at: (0, _moment2.default)(),
                 updated_at: (0, _moment2.default)()
@@ -267,7 +268,7 @@ var import_20170622 = exports.import_20170622 = function () {
 
                 var competency = findOrCreate(data.competencies, { team_id: 1, category_id: category.id, title: sanitize(record[1]), level: parseInt(record[2]), description: sanitize(record[3]) }, true, { title: sanitize(record[1]) });
 
-                var resource = findOrCreate(data.resources, { team_id: 1, title: sanitize(record[4]), description: sanitize(record[5]), url: record[6] }, true, { title: sanitize(record[4]) });
+                var resource = findOrCreate(data.resources, { team_id: 1, title: sanitize(record[4]), description: sanitize(record[5]), url: record[6], rating_count: 0, rating_average: 0 }, true, { title: sanitize(record[4]) });
 
                 data.competencies_resources.push({
                   competency_id: competency.id,
@@ -432,6 +433,7 @@ var toMatrix = function toMatrix(filename, delimiter) {
 };
 
 var sanitize = function sanitize(string) {
+  if (!string) return null;
   return string.replace(/\'/g, '').trim();
 };
 
