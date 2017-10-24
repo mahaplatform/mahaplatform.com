@@ -17,8 +17,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '55100',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 2,
     team_id: 1,
@@ -28,8 +28,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '55300',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 3,
     team_id: 1,
@@ -39,8 +39,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '55500',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 4,
     team_id: 1,
@@ -50,8 +50,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '60100',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 5,
     team_id: 1,
@@ -61,8 +61,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '60300',
       source_code: '51'
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 6,
     team_id: 1,
@@ -72,8 +72,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '60500',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 7,
     team_id: 1,
@@ -83,8 +83,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '60700',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 8,
     team_id: 1,
@@ -94,8 +94,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '60900',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 9,
     team_id: 1,
@@ -105,8 +105,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '61100',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 10,
     team_id: 1,
@@ -116,8 +116,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '61300',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 11,
     team_id: 1,
@@ -127,8 +127,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '61500',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 12,
     team_id: 1,
@@ -138,8 +138,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '61700',
       source_code: '51'
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 13,
     team_id: 1,
@@ -149,8 +149,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '61900',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 14,
     team_id: 1,
@@ -160,8 +160,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '62100',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 15,
     team_id: 1,
@@ -171,8 +171,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '62500',
       source_code: '51'
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 16,
     team_id: 1,
@@ -182,8 +182,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '62700',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 17,
     team_id: 1,
@@ -193,8 +193,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '62900',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 18,
     team_id: 1,
@@ -204,8 +204,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '63100',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 19,
     team_id: 1,
@@ -215,8 +215,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '63300',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 20,
     team_id: 1,
@@ -226,8 +226,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '63500',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 21,
     team_id: 1,
@@ -237,8 +237,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '63700',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 22,
     team_id: 1,
@@ -248,8 +248,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '63900',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 23,
     team_id: 1,
@@ -259,8 +259,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '64100',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 24,
     team_id: 1,
@@ -270,8 +270,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '64300',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 25,
     team_id: 1,
@@ -281,8 +281,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '64400',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 26,
     team_id: 1,
@@ -292,8 +292,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '64500',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.746Z',
-    updated_at: '2017-10-19T13:51:22.746Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 27,
     team_id: 1,
@@ -303,8 +303,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '64600',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 28,
     team_id: 1,
@@ -314,8 +314,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '64700',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 29,
     team_id: 1,
@@ -325,8 +325,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '64800',
       source_code: '44'
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 30,
     team_id: 1,
@@ -336,8 +336,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '64900',
       source_code: '45'
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 31,
     team_id: 1,
@@ -347,8 +347,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '65000',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 32,
     team_id: 1,
@@ -358,8 +358,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '65200',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 33,
     team_id: 1,
@@ -369,8 +369,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '65400',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 34,
     team_id: 1,
@@ -380,8 +380,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '65500',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 35,
     team_id: 1,
@@ -391,8 +391,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '65600',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 36,
     team_id: 1,
@@ -402,8 +402,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '65800',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 37,
     team_id: 1,
@@ -413,8 +413,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '66000',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 38,
     team_id: 1,
@@ -424,8 +424,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '66200',
       source_code: '51'
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 39,
     team_id: 1,
@@ -435,8 +435,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '66400',
       source_code: '51'
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 40,
     team_id: 1,
@@ -446,8 +446,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '66600',
       source_code: '51'
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 41,
     team_id: 1,
@@ -457,8 +457,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '67000',
       source_code: '51'
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 42,
     team_id: 1,
@@ -468,8 +468,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '67200',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 43,
     team_id: 1,
@@ -479,8 +479,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '67400',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 44,
     team_id: 1,
@@ -490,8 +490,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '67600',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.701Z',
+    updated_at: '2017-10-24T18:33:08.701Z'
   }, {
     id: 45,
     team_id: 1,
@@ -501,8 +501,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '69100',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.702Z',
+    updated_at: '2017-10-24T18:33:08.702Z'
   }, {
     id: 46,
     team_id: 1,
@@ -512,8 +512,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '69300',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.702Z',
+    updated_at: '2017-10-24T18:33:08.702Z'
   }, {
     id: 47,
     team_id: 1,
@@ -523,8 +523,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '69500',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.702Z',
+    updated_at: '2017-10-24T18:33:08.702Z'
   }, {
     id: 48,
     team_id: 1,
@@ -534,8 +534,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '69600',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.702Z',
+    updated_at: '2017-10-24T18:33:08.702Z'
   }, {
     id: 49,
     team_id: 1,
@@ -545,8 +545,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '69700',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.702Z',
+    updated_at: '2017-10-24T18:33:08.702Z'
   }, {
     id: 50,
     team_id: 1,
@@ -556,8 +556,8 @@ var expenseTypesFixtures = new _maha.Fixtures({
       expense_code: '69800',
       source_code: null
     },
-    created_at: '2017-10-19T13:51:22.747Z',
-    updated_at: '2017-10-19T13:51:22.747Z'
+    created_at: '2017-10-24T18:33:08.702Z',
+    updated_at: '2017-10-24T18:33:08.702Z'
   }]
 });
 

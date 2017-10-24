@@ -9,10 +9,10 @@ const resourcesFixtures = new Fixtures({
       title: 'HR Benefits Session',
       description: 'Benefits Session with HR rep (arranged with all eligible staff)',
       url: 'Contact Krystal Dunn or Theresa Emerick.',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.702Z',
+      updated_at: '2017-10-24T18:33:08.702Z'
     },
     {
       id: 2,
@@ -20,10 +20,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Cornell Online Benefits Info',
       description: 'MyCCE Orientation and Dashboard; Cornell Online Benefits information',
       url: 'http://staff.cce.cornell.edu/human_resources/Pages/BenefitsIndex.aspx',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.702Z',
+      updated_at: '2017-10-24T18:33:08.702Z'
     },
     {
       id: 3,
@@ -31,10 +31,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Orientation Check List',
       description: 'Complete orientation checklist',
       url: '',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.702Z',
+      updated_at: '2017-10-24T18:33:08.702Z'
     },
     {
       id: 4,
@@ -42,10 +42,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCETC Orientation Presentation',
       description: null,
       url: 'Contact Krystal Dunn for dates of next session.',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.748Z',
-      updated_at: '2017-10-19T13:51:22.748Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.702Z',
+      updated_at: '2017-10-24T18:33:08.702Z'
     },
     {
       id: 5,
@@ -53,10 +53,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Online Resources re: basic CCETCs HR, building and safety policies',
       description: null,
       url: '',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.748Z',
-      updated_at: '2017-10-19T13:51:22.748Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.703Z'
     },
     {
       id: 6,
@@ -64,10 +64,10 @@ const resourcesFixtures = new Fixtures({
       title: 'New Staff Orientation on Campus',
       description: 'On-campus CCE orientation provides new employees with CCE history, mission and structure. There are two levels, based on classification of the employee. Registration required.',
       url: 'http://staff.cce.cornell.edu/Pages/home.aspx',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.748Z',
-      updated_at: '2017-10-19T13:51:22.748Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.703Z'
     },
     {
       id: 7,
@@ -75,10 +75,10 @@ const resourcesFixtures = new Fixtures({
       title: 'New Staff Orientation Pre-Recorded Session',
       description: 'CCE Administration offers two pre-recorded webinars (with Powerpoint presentations) for new employees.',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/Course-Description2.aspx?courseid=75',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.748Z',
-      updated_at: '2017-10-19T13:51:22.748Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.703Z'
     },
     {
       id: 8,
@@ -86,10 +86,10 @@ const resourcesFixtures = new Fixtures({
       title: 'MyCCE Orientation Materials',
       description: 'Web-based information about CCE-Tompkins history',
       url: 'https://mycce.me/content/about-ccetc-history-and-ethos',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.748Z',
-      updated_at: '2017-10-19T13:51:22.748Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.703Z'
     },
     {
       id: 9,
@@ -97,10 +97,10 @@ const resourcesFixtures = new Fixtures({
       title: 'MyCCE Orientation Materials - CCETC Strategic Plan',
       description: 'Full strategic plan for employees to review',
       url: 'https://mycce.me/content/my-hr-forms-and-references-tompkins-strategic-plan-prologue',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.748Z',
-      updated_at: '2017-10-19T13:51:22.748Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.703Z'
     },
     {
       id: 10,
@@ -108,10 +108,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Orientation Guide for Supervisors',
       description: 'Information from CCE Administration to assist with orientation of new employees',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/newstafforientation.aspx',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.748Z',
-      updated_at: '2017-10-19T13:51:22.748Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.703Z'
     },
     {
       id: 11,
@@ -119,10 +119,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCETC Additional Orientation Resources for Supervisors',
       description: 'Additional association-based resources to assist CCETC supervisors with orientation of new employees',
       url: '',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.748Z',
-      updated_at: '2017-10-19T13:51:22.748Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.703Z'
     },
     {
       id: 12,
@@ -130,10 +130,10 @@ const resourcesFixtures = new Fixtures({
       title: 'MyCCE Supervisor Materials',
       description: 'Multiple resources for supervisor use. May require in person review with HR or Issue Leader.',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/newstafforientation.aspx',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.748Z',
-      updated_at: '2017-10-19T13:51:22.748Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.703Z'
     },
     {
       id: 13,
@@ -141,10 +141,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Administration Supervisor Orientation',
       description: 'Campus-based training for new CCE supervisors',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/Course-Description2.aspx?courseid=114',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.748Z',
-      updated_at: '2017-10-19T13:51:22.748Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.703Z'
     },
     {
       id: 14,
@@ -152,10 +152,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Risk Management Training during All-Staff',
       description: 'All-Staff Mtg Safety Updates',
       url: '',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.748Z',
-      updated_at: '2017-10-19T13:51:22.748Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.703Z'
     },
     {
       id: 15,
@@ -163,10 +163,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Workplace Violence Training',
       description: 'In-person training for new employees - covers statistics about violence in the workplace, warning signs and avoidance techniques',
       url: '',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.748Z',
-      updated_at: '2017-10-19T13:51:22.748Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.703Z'
     },
     {
       id: 16,
@@ -174,10 +174,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Professional Development Resources',
       description: 'Online resources on a variety of risk-management topics, including summer programming, volunteer risk management and specialized 4-H and youth protection topics',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/risk.aspx',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.748Z',
-      updated_at: '2017-10-19T13:51:22.748Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.703Z'
     },
     {
       id: 17,
@@ -185,10 +185,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Sexual Harassment/Workplace Harassment Training',
       description: 'In-person training on policies and laws (required every 2 years for all employees)',
       url: 'Contact HR office for next scheduled training. ',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.748Z',
-      updated_at: '2017-10-19T13:51:22.748Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.703Z'
     },
     {
       id: 18,
@@ -196,10 +196,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CU Learn online tutorial',
       description: '\'Building a Culture of Respect: Responding to Sexual Harrassment, Violence and DIscrimination\' online tutorial takes approximately 45-60 minutes to complete. Free with a Cornell Net ID.',
       url: 'https://cornell.sabacloud.com/Saba/Web_spf/NA1PRD0089/common/ledetail/cours000000000003585',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.748Z',
-      updated_at: '2017-10-19T13:51:22.748Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.703Z'
     },
     {
       id: 19,
@@ -207,10 +207,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Civil Rights Training',
       description: 'Civil Rights Training is provided annually via webinar by CCE Admin personnel (offered summer and fall).',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/Training.aspx',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.703Z'
     },
     {
       id: 20,
@@ -218,10 +218,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Resources on Diversity, Inclusion, and EPO',
       description: 'The CCE Administrations website with recorded webinars and other resources re: diversity and inclusion',
       url: 'http://www.staff.cce.cornell.edu/orgdev/Pages/diversity.aspx',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.703Z'
     },
     {
       id: 21,
@@ -229,10 +229,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Tompkins Diversity Statement and Committee',
       description: 'Web-based information related to CCE-Tompkins policies and goals',
       url: 'http://ccetompkins.org/diversity',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.703Z'
     },
     {
       id: 22,
@@ -240,10 +240,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Tompkins Policy Manual',
       description: 'The manual reviews all employee benefits and policies related to them (except EAP and Vision Coverage)',
       url: 'http://ccetompkins.org/about-us/human-resource-policy-manual',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.703Z'
     },
     {
       id: 23,
@@ -251,10 +251,10 @@ const resourcesFixtures = new Fixtures({
       title: 'MyCCE',
       description: 'Information about employee benefits and support services',
       url: 'https://mycce.me/content/my-hr-forms-and-tools-for-employee-use',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.703Z',
+      updated_at: '2017-10-24T18:33:08.704Z'
     },
     {
       id: 24,
@@ -262,10 +262,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Employee Assistance Program (confidential counseling)',
       description: 'Info about CCETCs Employee Assistance Program (EAP) based at Family and Childrens Services and how to access it',
       url: 'http://www.fcsith.org/eap/',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.704Z',
+      updated_at: '2017-10-24T18:33:08.704Z'
     },
     {
       id: 25,
@@ -273,10 +273,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Employee Assistance Program (workshops & trainings)',
       description: 'Employees may attend EAP Seminars on the following topics: Time Management and Achieving Work-Life Balance, Keeping Your Cool: Resolving Conflict in the Workplace. Staff can attend at Family and Childrens Services or, if there is enough interest, the programs can be offered on location. (there is a cost- $150 per hour if offered onsite)',
       url: '',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.704Z',
+      updated_at: '2017-10-24T18:33:08.704Z'
     },
     {
       id: 26,
@@ -284,10 +284,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Professional Development Webinar',
       description: 'Change Burn-Out and Stress to Job Satisfaction: Taking Charge of You\' (free webinar)',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/Course-Description2.aspx?courseid=69',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.704Z',
+      updated_at: '2017-10-24T18:33:08.704Z'
     },
     {
       id: 27,
@@ -295,10 +295,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Lynda.com - Business: Business Skills',
       description: 'Web-based training videos on many topics. Free to staff with Cornell NetID. Examples: Powerless to Powerful: Taking Control; Learning to Be Assertive; Managing Stress; Building Resiliance; Building Self-Confidence',
       url: 'https://it.cornell.edu/lynda',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.704Z',
+      updated_at: '2017-10-24T18:33:08.704Z'
     },
     {
       id: 28,
@@ -306,10 +306,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Skillport - Business Skills: Communications Skills',
       description: 'Web-based training videos on many topics. Free to staff with Cornell NetID. Example: Recognizing Conflict in the Workplace',
       url: 'https://it.cornell.edu/skillsoft',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.704Z',
+      updated_at: '2017-10-24T18:33:08.704Z'
     },
     {
       id: 29,
@@ -317,10 +317,10 @@ const resourcesFixtures = new Fixtures({
       title: 'TED Talk',
       description: 'Free online videos on a variety of topics, ranging from informational to inspirational. Example: How to Make Stress Your Friend',
       url: 'https://www.ted.com/talks',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.705Z',
+      updated_at: '2017-10-24T18:33:08.705Z'
     },
     {
       id: 30,
@@ -328,10 +328,10 @@ const resourcesFixtures = new Fixtures({
       title: 'GrantSpace',
       description: '73-minute video on strategies for \'impact without burnout.\' Offers tips for self-care in the non-profit sector.',
       url: 'http://grantspace.org/tools/multimedia/video/the-happy-healthy-nonprofit-strategies-for-impact-without-burnout-2017-02-02',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.705Z',
+      updated_at: '2017-10-24T18:33:08.705Z'
     },
     {
       id: 31,
@@ -339,10 +339,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CU Learn',
       description: 'In-person training and online training through Cornell that aims to ensure safety at the workplace. No cost, but class availability varies (ex: Office Worker Safety, Cornell University Health and Safety Basics, etc.).',
       url: 'http://culearn.cornell.edu/',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.705Z',
+      updated_at: '2017-10-24T18:33:08.705Z'
     },
     {
       id: 32,
@@ -350,10 +350,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Cornell IT Resources - Security & Policy',
       description: 'CCE follows Cornells electronic security policy and procedures.  Cornells IT department has a page with information for staff to become acquainted with Cornells practices and resources.',
       url: 'https://it.cornell.edu/',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.705Z',
+      updated_at: '2017-10-24T18:33:08.705Z'
     },
     {
       id: 33,
@@ -361,10 +361,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Skillport - IT Skills: Security',
       description: 'Web-based training videos on many topics. Free to staff with Cornell NetID. Examples: IT Security for End Users: Using Corporate Devices Securely; more',
       url: 'https://it.cornell.edu/skillsoft',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.705Z',
+      updated_at: '2017-10-24T18:33:08.705Z'
     },
     {
       id: 34,
@@ -372,10 +372,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Skillport - Business Skills: Human Resources',
       description: 'Web-based training videos on many topics. Free to staff with Cornell NetID. Examples: Workplace Management: Risk Management; Risk Management: Organizational Risk and Safety and Health Legislation',
       url: 'https://it.cornell.edu/skillsoft',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.705Z',
+      updated_at: '2017-10-24T18:33:08.705Z'
     },
     {
       id: 35,
@@ -383,10 +383,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Multicultural Resource Center (MRC) Talking Circles',
       description: 'Highly regarded facilitated dialogues to help participants learn about and dismantle systemic racism, build strategies for resistance and alternatives, and promote healing',
       url: 'http://multiculturalresourcecenter.org/talkingcircles/',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.705Z',
+      updated_at: '2017-10-24T18:33:08.705Z'
     },
     {
       id: 36,
@@ -394,10 +394,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Natural Leaders Initiative (NLI) Workshops',
       description: 'NLI offers a variety of highly praised workshops related to building diverse relationships, cultivating diverse participation and leadership, leveraging the power of diverse teams, and more. Check website for information on upcoming workshops or email <natural.leaders@cornell.edu>.',
       url: 'http://ccetompkins.org/community/natural-leaders-initiative/programs-for-community-groups-and-organizations',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.705Z',
+      updated_at: '2017-10-24T18:33:08.705Z'
     },
     {
       id: 37,
@@ -405,10 +405,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Administration \'Opening Doors\' Workshop',
       description: 'Opening Doors (offered on the Cornell campus) is a highly valued, time-tested workshop model for creating a climate for constructive change on diversity for individuals and organizations. Opening Doors offers a foundational understanding of diversity that supports staff in developing a deeper awareness, understanding and skills for effectively working across differences. Cost is $495.',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/Course-Description2.aspx?courseid=136',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.749Z',
-      updated_at: '2017-10-19T13:51:22.749Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.705Z',
+      updated_at: '2017-10-24T18:33:08.705Z'
     },
     {
       id: 38,
@@ -416,10 +416,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Human Services Coalition of Tompkins County (HSC-TC) Workshops',
       description: 'HSC-TC offers a variety of workshops throughout the year on diversity, equity and inclusion. Check their website for schedule and cost. Examples: From Micro-Aggressions to Equity; Cultural Competency',
       url: 'http://hsctc.org/index.php?page=training',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.750Z',
-      updated_at: '2017-10-19T13:51:22.750Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.706Z',
+      updated_at: '2017-10-24T18:33:08.706Z'
     },
     {
       id: 39,
@@ -427,10 +427,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Tompkins County Diversity Consortium Roundtable',
       description: 'Bi-annual conference that offers multiple presentations on diversity related topics',
       url: 'http://diversityconsortium.org/home.aspx',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.750Z',
-      updated_at: '2017-10-19T13:51:22.750Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.706Z',
+      updated_at: '2017-10-24T18:33:08.706Z'
     },
     {
       id: 40,
@@ -438,10 +438,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Opening Doors',
       description: 'Understanding differences is a key characteristic of diversity competency. Opening Doors is a highly valued, time-tested workshop model for creating a climate for constructive change on diversity for individuals and organizations. Opening Doors offers a foundational understanding of diversity that supports staff in developing a deeper awareness, understanding and skills for effectively working across differences. The registration cost for the workshop is $495 and includes all workshop materials, lodging and food.',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/Course-Description2.aspx?courseid=136',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.751Z',
-      updated_at: '2017-10-19T13:51:22.751Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.706Z',
+      updated_at: '2017-10-24T18:33:08.706Z'
     },
     {
       id: 41,
@@ -449,10 +449,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Administration Diversity Resources',
       description: 'CCE Administration has multiple resources for understanding and developing relationships with diverse communities.',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/prof_courses.aspx?top=Diversity%20Awareness%20and%20Inclusion',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.751Z',
-      updated_at: '2017-10-19T13:51:22.751Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.706Z',
+      updated_at: '2017-10-24T18:33:08.706Z'
     },
     {
       id: 42,
@@ -460,10 +460,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Hiring with a Diversity Lens',
       description: 'On-site training provided to all CCE-Tompkins staff involved in the hiring processes. Offered on an as needed/ requested basis onsite by HR.',
       url: 'Contact HR staff. ',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.751Z',
-      updated_at: '2017-10-19T13:51:22.751Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.706Z',
+      updated_at: '2017-10-24T18:33:08.706Z'
     },
     {
       id: 43,
@@ -471,10 +471,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Excellence & Diversity - A Guide for Search Committees',
       description: 'An excellent written resource with information on attending to issues of diversity and inclusion in all stages of the hiring practice',
       url: 'Contact Margo Hittleman to borrow a copy.',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.751Z',
-      updated_at: '2017-10-19T13:51:22.751Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.706Z',
+      updated_at: '2017-10-24T18:33:08.706Z'
     },
     {
       id: 44,
@@ -482,10 +482,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Human Services Coalition of Tompkins County (HSCTC) Workshops',
       description: 'HSC-TC offers a variety of workshops throughout the year on diversity, equity and inclusion. Check their website for schedule and cost. Examples: From Micro-Aggressions to Equity; Cultural Competency',
       url: 'http://hsctc.org/index.php?page=training',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.751Z',
-      updated_at: '2017-10-19T13:51:22.751Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.706Z',
+      updated_at: '2017-10-24T18:33:08.706Z'
     },
     {
       id: 45,
@@ -493,10 +493,10 @@ const resourcesFixtures = new Fixtures({
       title: 'TC3Biz',
       description: 'TC3Biz sometimes offers a course of managing different generations in the workplace. Check catalogue for current offerings. Fee.',
       url: 'http://www.tc3.edu/biz/',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.751Z',
-      updated_at: '2017-10-19T13:51:22.751Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.706Z',
+      updated_at: '2017-10-24T18:33:08.706Z'
     },
     {
       id: 46,
@@ -504,10 +504,10 @@ const resourcesFixtures = new Fixtures({
       title: '[resources needed]',
       description: null,
       url: '',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.751Z',
-      updated_at: '2017-10-19T13:51:22.751Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.706Z',
+      updated_at: '2017-10-24T18:33:08.706Z'
     },
     {
       id: 47,
@@ -515,10 +515,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Human Services Coalition of Tompkins County Workshops',
       description: 'HSC-TC offers a variety of workshops throughout the year on diversity, equity and inclusion. Check their website for schedule and cost. Examples: From Micro-Aggressions to Equity; Cultural Competency',
       url: 'http://hsctc.org/index.php?page=training',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.751Z',
-      updated_at: '2017-10-19T13:51:22.751Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.706Z',
+      updated_at: '2017-10-24T18:33:08.706Z'
     },
     {
       id: 48,
@@ -526,10 +526,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCETC Family & Community Development \'P.S. It Works!\' Training',
       description: 'Workshop presented by CCE Tompkins Parenting Program that helps participants develop new tools for communication and fine tune tools you already have',
       url: 'http://ccetompkins.org/family',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.752Z',
-      updated_at: '2017-10-19T13:51:22.752Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.706Z',
+      updated_at: '2017-10-24T18:33:08.706Z'
     },
     {
       id: 49,
@@ -537,10 +537,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Skills for Success',
       description: 'CCE Skills for Success, part of CCETC Position Description, provide guidelines for staff in communication.',
       url: 'http://staff.cce.cornell.edu/ses/WorkersComp/CCE%20Association%20Skills%20for%20Success.pdf',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.752Z',
-      updated_at: '2017-10-19T13:51:22.752Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.706Z',
+      updated_at: '2017-10-24T18:33:08.706Z'
     },
     {
       id: 50,
@@ -548,10 +548,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Administration Communications Webinars',
       description: 'CCE Administration offers webinars on topics such as: Leading Ourselves, Leading Others, Strategies for Effective Meetings: What Works for You?, Building Collaborative Teams.',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/foundations.aspx',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.752Z',
-      updated_at: '2017-10-19T13:51:22.752Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.707Z',
+      updated_at: '2017-10-24T18:33:08.707Z'
     },
     {
       id: 51,
@@ -559,10 +559,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Program Development Courses (CCE Administration)',
       description: 'The Program Development Courses offer the following web based training: Writing to Show Impact.',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/prog_courses2.aspx',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.752Z',
-      updated_at: '2017-10-19T13:51:22.752Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.707Z',
+      updated_at: '2017-10-24T18:33:08.707Z'
     },
     {
       id: 52,
@@ -570,10 +570,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Toast Masters Club',
       description: 'Ithaca Area Toastmasters Club gives its members the opportunity to develop and improve their public speaking abilities through local club meetings, training seminars and speech contests.',
       url: 'http://ithaca.toastmastersclubs.org ',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.752Z',
-      updated_at: '2017-10-19T13:51:22.752Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.707Z',
+      updated_at: '2017-10-24T18:33:08.707Z'
     },
     {
       id: 53,
@@ -581,10 +581,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Kronos Training',
       description: 'CCE Tompkins offers Kronos and Meal Break Training to all new employees (trainings offered bi-monthly by HR).',
       url: '',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.752Z',
-      updated_at: '2017-10-19T13:51:22.752Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.707Z',
+      updated_at: '2017-10-24T18:33:08.707Z'
     },
     {
       id: 54,
@@ -592,10 +592,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Finance Procedures',
       description: 'Links to the most commonly used Finance Forms with instructions regarding policies and procedures',
       url: 'https://mycce.me/content/my-hr-forms-and-tools-for-employee-use',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.752Z',
-      updated_at: '2017-10-19T13:51:22.752Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.707Z',
+      updated_at: '2017-10-24T18:33:08.707Z'
     },
     {
       id: 55,
@@ -603,10 +603,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Skillport - Business Skills: Project Management; Finance and Accounting',
       description: 'Web-based training videos on many topics. Free to staff with Cornell NetID. Examples: Planning Project Costs; Planning and Preparing an Operating Budget; more',
       url: 'https://it.cornell.edu/skillsoft',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.752Z',
-      updated_at: '2017-10-19T13:51:22.752Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.707Z',
+      updated_at: '2017-10-24T18:33:08.707Z'
     },
     {
       id: 56,
@@ -614,10 +614,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Admin Professional Development',
       description: 'CCE Administration offers a variety of grant-writing related workshops. Examples: Grant Writing Introductory Full Day Workshop; Being Strategic with Grant Writing; Planning Your Program for Proposal Writing',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/prof_courses.aspx?top=Grant%20Writing%20and%20Management',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.753Z',
-      updated_at: '2017-10-19T13:51:22.753Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.707Z',
+      updated_at: '2017-10-24T18:33:08.707Z'
     },
     {
       id: 57,
@@ -625,10 +625,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Human Services Coalition of Tompkins County (HSC-TC)',
       description: 'HSC-TC offers a variety of workshops throughout the year Check their website for schedule and cost. Example: Grantwriting Basics',
       url: 'http://hsctc.org/index.php?page=training',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.753Z',
-      updated_at: '2017-10-19T13:51:22.753Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.708Z',
+      updated_at: '2017-10-24T18:33:08.708Z'
     },
     {
       id: 58,
@@ -636,10 +636,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Free E-book: Grant Writing Revealed',
       description: 'Useful free e-book by local grantwriter & grantwriting instructor Jana Hextor. She also offers a free e-newsletter and blog with tips.',
       url: 'http://grantschampion.com',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.753Z',
-      updated_at: '2017-10-19T13:51:22.753Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.708Z',
+      updated_at: '2017-10-24T18:33:08.708Z'
     },
     {
       id: 59,
@@ -647,10 +647,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Lynda.com - Business: Communication',
       description: 'Web-based training videos on many topics. Free to staff with Cornell NetID. Example: Writing Proposals',
       url: '',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.753Z',
-      updated_at: '2017-10-19T13:51:22.753Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.708Z',
+      updated_at: '2017-10-24T18:33:08.708Z'
     },
     {
       id: 60,
@@ -658,10 +658,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Cornell - Mann Library',
       description: 'Cornells Mann Library has many resources, including links to guides for writing federal and state grants, and e-books that can be downloaded and read.',
       url: 'http://guides.library.cornell.edu/funding',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.753Z',
-      updated_at: '2017-10-19T13:51:22.753Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.708Z',
+      updated_at: '2017-10-24T18:33:08.708Z'
     },
     {
       id: 61,
@@ -669,10 +669,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Foundation Center',
       description: 'The Foundation Center has a tremendous amount of online resources, including online funder databases, research tools, and skill-building resources, webinars and other training related to proposal writing, fundraising, organizational sustainability, and management.',
       url: 'http://foundationcenter.org',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.753Z',
-      updated_at: '2017-10-19T13:51:22.753Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.708Z',
+      updated_at: '2017-10-24T18:33:08.708Z'
     },
     {
       id: 62,
@@ -680,10 +680,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Tompkins County Grants Development and Management Center',
       description: 'This Tompkins County government grants development web portal has information on federal, state and private foundation grants, along with many links to excellent resources on grant preparation tools and related training. Most resources are free and available to the public.',
       url: 'http://www.tompkinscountyny.gov/ctyadmin/Grants/index',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.753Z',
-      updated_at: '2017-10-19T13:51:22.753Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.708Z',
+      updated_at: '2017-10-24T18:33:08.708Z'
     },
     {
       id: 63,
@@ -691,10 +691,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Administration Grant Writing Resources',
       description: 'Grant writing resources include Planning your Program for Proposal Writing and Being Strategic with Grant Writing.',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/prof_courses.aspx?top=Grant%20Writing%20and%20Management',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.753Z',
-      updated_at: '2017-10-19T13:51:22.753Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.708Z',
+      updated_at: '2017-10-24T18:33:08.708Z'
     },
     {
       id: 64,
@@ -702,10 +702,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Lynda.com - Business: Software',
       description: 'Web-based training videos on many computer application topics from basic to advanced. Free to staff with Cornell NetID.',
       url: 'https://it.cornell.edu/lynda',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.753Z',
-      updated_at: '2017-10-19T13:51:22.753Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.708Z',
+      updated_at: '2017-10-24T18:33:08.708Z'
     },
     {
       id: 65,
@@ -713,10 +713,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Skillport - Desktop Skills',
       description: 'Web-based training videos on many topics. Free to staff with Cornell NetID. Examples: Using Your Desktop Computer and Devices Safely; Computing Fundamentals (book); Excel 2016; Microsoft Office 2013 Beginning Word',
       url: 'https://it.cornell.edu/skillsoft',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.753Z',
-      updated_at: '2017-10-19T13:51:22.753Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.708Z',
+      updated_at: '2017-10-24T18:33:08.708Z'
     },
     {
       id: 66,
@@ -724,10 +724,10 @@ const resourcesFixtures = new Fixtures({
       title: 'TC3',
       description: 'Tompkins Cortland Community College offers courses on: Keyboarding for computers, Introduction to Word Processing, Introduction to Spreadsheets, Introduction to Databases, Presentation Software, and Web Page Design. 5-week courses with TC3 enrollment and costs associated.  Courses are in person or web based. Student choice.',
       url: 'https://myinfo.tc3.edu/SelfService/Home.aspx',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.753Z',
-      updated_at: '2017-10-19T13:51:22.753Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.708Z',
+      updated_at: '2017-10-24T18:33:08.708Z'
     },
     {
       id: 67,
@@ -735,10 +735,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Working with CCE-Tompkins website (tutorials)',
       description: null,
       url: '',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.753Z',
-      updated_at: '2017-10-19T13:51:22.753Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.708Z',
+      updated_at: '2017-10-24T18:33:08.708Z'
     },
     {
       id: 68,
@@ -746,10 +746,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Human Service Coalition Workshops',
       description: 'The HSCTC offers workshops on a variety of topics that sometimes include using social media. Small fee.',
       url: 'http://hsctc.org/index.php?page=training',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.753Z',
-      updated_at: '2017-10-19T13:51:22.753Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.708Z',
+      updated_at: '2017-10-24T18:33:08.708Z'
     },
     {
       id: 69,
@@ -757,10 +757,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Alternatives Credit Union Business Courses',
       description: 'Short trainings on a variety of topics that sometimes include using social media. Small fee.',
       url: 'http://www.businesscents.org/',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.753Z',
-      updated_at: '2017-10-19T13:51:22.753Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.708Z',
+      updated_at: '2017-10-24T18:33:08.708Z'
     },
     {
       id: 70,
@@ -768,10 +768,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Skillport - IT Skills; Business Skills',
       description: 'Web-based training videos on many topics. Free to staff with Cornell NetID. Examples: Building Dynamic Web Sites; Digital Marketing: Getting to the Customer',
       url: 'https://it.cornell.edu/skillsoft',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.753Z',
-      updated_at: '2017-10-19T13:51:22.753Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.708Z',
+      updated_at: '2017-10-24T18:33:08.708Z'
     },
     {
       id: 71,
@@ -779,10 +779,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Lynda.com - Software',
       description: 'Web-based training videos on designing and implementing online instruction, using a variety of apps. Free to staff with Cornell NetID.',
       url: 'https://it.cornell.edu/lynda',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.753Z',
-      updated_at: '2017-10-19T13:51:22.753Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.708Z',
+      updated_at: '2017-10-24T18:33:08.708Z'
     },
     {
       id: 72,
@@ -790,10 +790,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Skillport - Information Technology Application; Desktop Skills; IT Skills',
       description: 'Web-based training videos on many technology-based tools. Free to staff with Cornell NetID.',
       url: 'https://it.cornell.edu/skillsoft',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.754Z',
-      updated_at: '2017-10-19T13:51:22.754Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.709Z',
+      updated_at: '2017-10-24T18:33:08.709Z'
     },
     {
       id: 73,
@@ -801,10 +801,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Skillport - Business Skills: Project Management; Professional Effectiveness',
       description: 'Web-based training videos on many topics. Free to staff with Cornell NetID. Examples: Personal Productivity: Self Organization and Overcoming Procrastination; Quality Management for Continuous Improvement',
       url: 'https://it.cornell.edu/skillsoft',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.754Z',
-      updated_at: '2017-10-19T13:51:22.754Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.709Z',
+      updated_at: '2017-10-24T18:33:08.709Z'
     },
     {
       id: 74,
@@ -812,10 +812,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Skillport - Business Skills: Professional Effectiveness',
       description: 'Web-based training videos on many topics. Free to staff with Cornell NetID. Examples: Time Management: Quit Making Excuses and Make Time Instead; Time Management: Ready, Set, Focus; more',
       url: 'https://it.cornell.edu/skillsoft',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.754Z',
-      updated_at: '2017-10-19T13:51:22.754Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.709Z',
+      updated_at: '2017-10-24T18:33:08.709Z'
     },
     {
       id: 75,
@@ -823,10 +823,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Natural Leaders Initiative (NLI)',
       description: 'NLI periodically offers a workshop entitled \'Getting Things Done\' which helps build skills to effectively manage ones time and set \'Smart Goals.\' Check NLI website for information on upcoming workshops or email <natural.leaders@cornell.edu>.',
       url: 'http://ccetompkins.org/community/natural-leaders-initiative/programs-for-community-groups-and-organizations',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.754Z',
-      updated_at: '2017-10-19T13:51:22.754Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.709Z',
+      updated_at: '2017-10-24T18:33:08.709Z'
     },
     {
       id: 76,
@@ -834,10 +834,10 @@ const resourcesFixtures = new Fixtures({
       title: 'EAP Training',
       description: 'Employees may attend EAP Seminars on the following topic: Time Management and Achieving Work-Life Balance. Staff can attend at Family and Childrens Services or, if there is enough interest, the programs can be offered on location (there is a cost- $150 per hour if offered onsite).',
       url: 'http://www.fcsith.org/',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.754Z',
-      updated_at: '2017-10-19T13:51:22.754Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.709Z',
+      updated_at: '2017-10-24T18:33:08.709Z'
     },
     {
       id: 77,
@@ -845,10 +845,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Skillport - Business Skills: Project Management',
       description: 'Web-based training videos on many topics. Free to staff with Cornell NetID. Example: Managing Projects within Organizations',
       url: 'https://it.cornell.edu/skillsoft',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.754Z',
-      updated_at: '2017-10-19T13:51:22.754Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.709Z',
+      updated_at: '2017-10-24T18:33:08.709Z'
     },
     {
       id: 78,
@@ -856,10 +856,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Supervisor Development Certificate',
       description: 'CCE Supervisor Development Certificate provides guidelines in supervision on a variety of topics related to supervision within the CCE system.',
       url: '',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.754Z',
-      updated_at: '2017-10-19T13:51:22.754Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.709Z',
+      updated_at: '2017-10-24T18:33:08.709Z'
     },
     {
       id: 79,
@@ -867,10 +867,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Skillport - Business Skills: Management; Operations Management',
       description: 'Web-based training videos on many topics. Free to staff with Cornell NetID. Examples: Coaching Techniques that Drive Change; Six Sigma Team Facilitation and Leadership; Management Essentials: Delegating; Use Delegation to Develop Your Team; more',
       url: 'https://it.cornell.edu/skillsoft',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.754Z',
-      updated_at: '2017-10-19T13:51:22.755Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.709Z',
+      updated_at: '2017-10-24T18:33:08.709Z'
     },
     {
       id: 80,
@@ -878,10 +878,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Administration Reporting Resources',
       description: 'CCE statewide reporting support from CCE Administration -- Webinars & \'virtual office hours\' (weekly during fall reporting season)',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/reporting.aspx',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.755Z',
-      updated_at: '2017-10-19T13:51:22.755Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.710Z',
+      updated_at: '2017-10-24T18:33:08.710Z'
     },
     {
       id: 81,
@@ -889,10 +889,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Skillport - Business Skills; Desktop Skills',
       description: 'Web-based training videos on many topics. Free to staff with Cornell NetID. Examples: Managing Projects within Organizations; Advanced Tools for Managing Multiple Projects; more',
       url: 'https://it.cornell.edu/skillsoft',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.755Z',
-      updated_at: '2017-10-19T13:51:22.755Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.710Z',
+      updated_at: '2017-10-24T18:33:08.710Z'
     },
     {
       id: 82,
@@ -900,10 +900,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Skillport - Business Skills: Operations Management; Communications Skills',
       description: 'Web-based training videos on many topics. Free to staff with Cornell NetID. Examples: Six Sigma Team Dynamics, Roles and Success Factors; Adapting Your Conflict Style; more',
       url: 'https://it.cornell.edu/skillsoft',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.755Z',
-      updated_at: '2017-10-19T13:51:22.755Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.710Z',
+      updated_at: '2017-10-24T18:33:08.710Z'
     },
     {
       id: 83,
@@ -911,10 +911,10 @@ const resourcesFixtures = new Fixtures({
       title: 'StrengthsFinder 2.0',
       description: 'StrengthsFinder helps to identify a persons natural strengths and provides descriptions and suggestions to assist personal growth and conflict management.',
       url: 'https://www.amazon.com/StrengthsFinder-2-0-Tom-Rath/dp/159562015X/ref=sr_1_1?s=books&ie=UTF8&qid=1487360256&sr=1-1&keywords=strengths+finder+2.0',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.755Z',
-      updated_at: '2017-10-19T13:51:22.755Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.710Z',
+      updated_at: '2017-10-24T18:33:08.710Z'
     },
     {
       id: 84,
@@ -922,10 +922,10 @@ const resourcesFixtures = new Fixtures({
       title: 'StrengthsFinder 2.0 Team Resources',
       description: 'StrengthsFinder helps to identify a persons natural strengths and provides descriptions and suggestions to assist personal growth and conflict management.',
       url: 'https://www.amazon.com/StrengthsFinder-2-0-Tom-Rath/dp/159562015X/ref=sr_1_1?s=books&ie=UTF8&qid=1487360256&sr=1-1&keywords=strengths+finder+2.0',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.755Z',
-      updated_at: '2017-10-19T13:51:22.755Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.710Z',
+      updated_at: '2017-10-24T18:33:08.710Z'
     },
     {
       id: 85,
@@ -933,10 +933,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Skillport - Business Skills: Human Resources; Operations Management; Communication Skills',
       description: 'Web-based training videos on many topics. Free to staff with Cornell NetID. Examples: Workplace Management: Corporate Social Responsibility; Six Sigma Team Dynamics, Roles and Success Factors; Adapting Your Conflict Style; more',
       url: 'https://it.cornell.edu/skillsoft',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.755Z',
-      updated_at: '2017-10-19T13:51:22.755Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.710Z',
+      updated_at: '2017-10-24T18:33:08.710Z'
     },
     {
       id: 86,
@@ -944,10 +944,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Community Dispute Resolution Center (CDRC)',
       description: 'CDRC offers multiple trainings on mediation/dispute resolution for supervisors and HR level staff.',
       url: 'http://www.cdrc.org/training.html',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.755Z',
-      updated_at: '2017-10-19T13:51:22.755Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.710Z',
+      updated_at: '2017-10-24T18:33:08.710Z'
     },
     {
       id: 87,
@@ -955,10 +955,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Human Services Coalition',
       description: 'HSC-TC workshops available:  Managing Conflict; Improving Your Conflict Confidence); Emotional Intelligence',
       url: 'http://hsctc.org/index.php?page=training',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.755Z',
-      updated_at: '2017-10-19T13:51:22.755Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.710Z',
+      updated_at: '2017-10-24T18:33:08.710Z'
     },
     {
       id: 88,
@@ -966,10 +966,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Administration Program Planning and Development Program',
       description: 'CCE Admin Program Planning and Development: Adult Education Resources',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/planning.aspx',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.755Z',
-      updated_at: '2017-10-19T13:51:22.755Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.710Z',
+      updated_at: '2017-10-24T18:33:08.710Z'
     },
     {
       id: 89,
@@ -977,10 +977,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Skillport - Business Skills: Human Resources; Operations Management',
       description: 'Web-based training videos on many topics. Free to staff with Cornell NetID. Examples: Management of People: Learning and Development; Training and Development; Developing Learning Practices; more',
       url: 'https://it.cornell.edu/skillsoft',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.755Z',
-      updated_at: '2017-10-19T13:51:22.755Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.710Z',
+      updated_at: '2017-10-24T18:33:08.710Z'
     },
     {
       id: 90,
@@ -988,10 +988,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Lynda.com - Education + Elearning; CAD',
       description: 'Web-based training videos on many topics. Free to staff with Cornell NetID. Examples: Teaching Techniques: Writing Effective Learning Objectives; Instructional Design Essentials; Universal Principles of Design; Learning How to Increase Learner Engagement; Teaching Complex Topics; more',
       url: 'https://it.cornell.edu/lynda',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.755Z',
-      updated_at: '2017-10-19T13:51:22.755Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.710Z',
+      updated_at: '2017-10-24T18:33:08.710Z'
     },
     {
       id: 91,
@@ -999,10 +999,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Administration Program Planning and Development Resources',
       description: 'CCE Admin Program Planning and Development resources. Examples: Human Participants, Getting Started with Program Evaluation',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/planning.aspx',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.756Z',
-      updated_at: '2017-10-19T13:51:22.756Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.710Z',
+      updated_at: '2017-10-24T18:33:08.710Z'
     },
     {
       id: 92,
@@ -1010,10 +1010,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Lynda.com - Education + Elearning',
       description: 'Web-based training videos on many topics. Free to staff with Cornell NetID. Example: Measuring Learning Effectiveness',
       url: 'https://it.cornell.edu/lynda',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.756Z',
-      updated_at: '2017-10-19T13:51:22.756Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.711Z',
+      updated_at: '2017-10-24T18:33:08.711Z'
     },
     {
       id: 93,
@@ -1021,10 +1021,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Program Work Team Website',
       description: 'This website provides links to pages that can provide connections to existing work groups and a way to reach out, as well as tips on building relationships.',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/campusconnections.aspx',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.756Z',
-      updated_at: '2017-10-19T13:51:22.756Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.711Z',
+      updated_at: '2017-10-24T18:33:08.711Z'
     },
     {
       id: 94,
@@ -1032,10 +1032,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Administration Diversity Resources - Recruiting and Retaining Diverse Volunteers',
       description: 'CCE Administration provides several resources surrounding recruiting and involving diverse volunteers.',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/volunteer.aspx',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.756Z',
-      updated_at: '2017-10-19T13:51:22.756Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.711Z',
+      updated_at: '2017-10-24T18:33:08.711Z'
     },
     {
       id: 95,
@@ -1043,10 +1043,10 @@ const resourcesFixtures = new Fixtures({
       title: 'http://staff.cce.cornell.edu/orgdev/Pages/volunteer.aspx',
       description: 'CCE Administration provides several resources surrounding working with volunteers.',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/prof_courses.aspx?top=Volunteer%20Involvement',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.756Z',
-      updated_at: '2017-10-19T13:51:22.756Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.711Z',
+      updated_at: '2017-10-24T18:33:08.711Z'
     },
     {
       id: 96,
@@ -1054,10 +1054,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Lynda.com - Business; Marketing',
       description: 'Web-based training videos on many topics.  Muliple topics related to marketing. Free to staff with Cornell NetID.',
       url: 'https://it.cornell.edu/lynda',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.756Z',
-      updated_at: '2017-10-19T13:51:22.756Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.711Z',
+      updated_at: '2017-10-24T18:33:08.711Z'
     },
     {
       id: 97,
@@ -1065,10 +1065,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Supervisor Development Certification',
       description: 'CCE Supervisor Development Certificate provides guidelines in supervision on a variety of topics related to supervision within the CCE system.',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/Course-Description2.aspx?courseid=114',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.756Z',
-      updated_at: '2017-10-19T13:51:22.756Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.711Z',
+      updated_at: '2017-10-24T18:33:08.711Z'
     },
     {
       id: 98,
@@ -1076,10 +1076,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Cornell and CCE-Tompkins Policies',
       description: 'Links to Cornell University and CCETC policies re: working remotely.',
       url: '',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.756Z',
-      updated_at: '2017-10-19T13:51:22.756Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.711Z',
+      updated_at: '2017-10-24T18:33:08.711Z'
     },
     {
       id: 99,
@@ -1087,10 +1087,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Training Resources - Tools of the Trade: Foundations & Leadership',
       description: 'Multiple webinars on leadership: Understanding Diverse Personalilities, Making it Work with Diverse Teams, Building Leadership and Developing Communities',
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/foundations.aspx',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.756Z',
-      updated_at: '2017-10-19T13:51:22.756Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.711Z',
+      updated_at: '2017-10-24T18:33:08.711Z'
     },
     {
       id: 100,
@@ -1098,10 +1098,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Tompkins Supervisor Training',
       description: 'In-person training with Human Resources - Providing Effective Feedback - contact HR to schedule.',
       url: '',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.757Z',
-      updated_at: '2017-10-19T13:51:22.757Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.712Z',
+      updated_at: '2017-10-24T18:33:08.712Z'
     },
     {
       id: 101,
@@ -1109,10 +1109,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CCE Tompkins Employee Training',
       description: 'In-person training with Human Resources - CCE TC Hiring Process and Recruitment with an Equity and Inclusion Lens',
       url: '',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.757Z',
-      updated_at: '2017-10-19T13:51:22.757Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.712Z',
+      updated_at: '2017-10-24T18:33:08.712Z'
     },
     {
       id: 102,
@@ -1120,10 +1120,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Inservice',
       description: 'Agriculture, Food & Environmental Systems conference discussing current developments in practices and research in agriculture. Industry professionals, educators, and faculty from a variety of agricultural fields will be in attendance. Sessions occur every Novemnber. Costs vary depending on number of attendees.',
       url: 'http://cce.cornell.edu/page/inservice',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.757Z',
-      updated_at: '2017-10-19T13:51:22.757Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.712Z',
+      updated_at: '2017-10-24T18:33:08.712Z'
     },
     {
       id: 103,
@@ -1131,10 +1131,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Cornell Garden-Based Learning',
       description: 'Various resources for horticulture educators. Includes opportunities to join program work teams, volunteer programming, workshops, and participation in emerging statewide projects. Cornell Garden-Based Learning also has social media pages and e-mail lists for relevant horticulture content and news updates.',
       url: 'https://gardening.cals.cornell.edu/for-cce-staff/',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.757Z',
-      updated_at: '2017-10-19T13:51:22.757Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.712Z',
+      updated_at: '2017-10-24T18:33:08.712Z'
     },
     {
       id: 104,
@@ -1142,10 +1142,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Youtube',
       description: 'Youtube playlist from Cornell Garden-Based Learning with webinar recordings of relevant horticulture content and educational materials.',
       url: 'https://www.youtube.com/playlist?list=PLHPXm2Es8aQDjvBs5r3ZXEA4DRBUqiT58',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.757Z',
-      updated_at: '2017-10-19T13:51:22.757Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.712Z',
+      updated_at: '2017-10-24T18:33:08.712Z'
     },
     {
       id: 105,
@@ -1153,10 +1153,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Agro-One',
       description: 'Soil-testing service that provides soil-sampling supplies and results. Promotes crop management. Soil test results can be obtained through paper, electronically, or via web.',
       url: 'http://dairyone.com/analytical-services/agronomy-services/soil-testing/',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.757Z',
-      updated_at: '2017-10-19T13:51:22.757Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.712Z',
+      updated_at: '2017-10-24T18:33:08.712Z'
     },
     {
       id: 106,
@@ -1164,10 +1164,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Cornell Nutrient Analysis Lab',
       description: 'Soil-testing service offered by Cornell Nutrient Analysis Lab (CNAL). Provides research quality analysis for environmental and biological samples.',
       url: 'https://cnal.cals.cornell.edu/',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.757Z',
-      updated_at: '2017-10-19T13:51:22.757Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.712Z',
+      updated_at: '2017-10-24T18:33:08.712Z'
     },
     {
       id: 107,
@@ -1175,10 +1175,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Cornell Pesticide Management Program',
       description: 'Pesticide information and education center. Provides unbiased information about pests and pesticides to promote best pesticide practices in the state of New York.',
       url: 'http://pmep.cce.cornell.edu/',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.757Z',
-      updated_at: '2017-10-19T13:51:22.757Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.712Z',
+      updated_at: '2017-10-24T18:33:08.712Z'
     },
     {
       id: 108,
@@ -1186,10 +1186,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Program Work Teams',
       description: 'Groups of faculty, staff, extension educators, and external stakeholders who collaborate to identify issues, study needs, and create educational materials. Team members design learning experiences that address issues and needs within specific content areas.',
       url: 'http://cce.cornell.edu/pwts',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.757Z',
-      updated_at: '2017-10-19T13:51:22.757Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.712Z',
+      updated_at: '2017-10-24T18:33:08.712Z'
     },
     {
       id: 109,
@@ -1197,10 +1197,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Background Reading: Tompkins County and NYS',
       description: 'Contains readings pertaining to energy policy and development in Tompkins County and New York State.',
       url: 'O:\\AEnergyTeam\\Resources-Energy Shared',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.757Z',
-      updated_at: '2017-10-19T13:51:22.757Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.712Z',
+      updated_at: '2017-10-24T18:33:08.712Z'
     },
     {
       id: 110,
@@ -1208,10 +1208,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Energy Literacy Videos',
       description: 'Topics range from EPA essential energy principles (series of 7 short videos) to videos on solar PV to weatherizations',
       url: 'O:\\Energy Warriors\\Curriculum\\Teaching aids for EW Classes\\Videos',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.757Z',
-      updated_at: '2017-10-19T13:51:22.757Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.712Z',
+      updated_at: '2017-10-24T18:33:08.712Z'
     },
     {
       id: 111,
@@ -1219,10 +1219,10 @@ const resourcesFixtures = new Fixtures({
       title: 'ACT for Youth - Youth Development',
       description: 'ACT (Assets Coming Together) for Youth Center of Excellence connects research to practice in the areas of positive youth development and sexual health. With support from the NYS Department of Health, it provides resources to aid those working in the areas of youth development and adolescent sexual health. The website provides information about principles of Youth Development and featured resources.',
       url: 'http://www.actforyouth.net/youth_development/development/',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.757Z',
-      updated_at: '2017-10-19T13:51:22.757Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.712Z',
+      updated_at: '2017-10-24T18:33:08.712Z'
     },
     {
       id: 112,
@@ -1230,10 +1230,10 @@ const resourcesFixtures = new Fixtures({
       title: 'ACT for Youth - Youth Development: Positive Youth Development 101',
       description: 'ACT (Assets Coming Together) for Youth Center of Excellence connects research to practice in the areas of positive youth development and sexual health. With support from the NYS Department of Health, it provides resources to aid those working in the areas of youth development and adolescent sexual health. This is a free manual curriculum with activity worksheets, handouts, and slides and offers an orientation to the youth development approach for professionals new to the field of youth work. The 10-hour curriculum is structured in five distinct sections, each of which may be presented as a stand-alone workshop.',
       url: 'http://www.actforyouth.net/youth_development/professionals/manual.cfm',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.758Z',
-      updated_at: '2017-10-19T13:51:22.758Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.713Z',
+      updated_at: '2017-10-24T18:33:08.713Z'
     },
     {
       id: 113,
@@ -1241,10 +1241,10 @@ const resourcesFixtures = new Fixtures({
       title: 'ACT for Youth - Youth Development: PYD 101 Online Courses',
       description: 'ACT (Assets Coming Together) for Youth Center of Excellence connects research to practice in the areas of positive youth development and sexual health. With support from the NYS Department of Health, it provides resources to aid those working in the areas of youth development and adolescent sexual health. This is a series of short online courses intended to introduce PYD to new youth work professionals. It is based on, and can be used to supplement, Positive Youth Development 101. The courses are stand-alone and interactive and may be taken in any order. Each course can be completed in about 30 minutes. Courses are open to all; registration is required. There are currently four courses available.',
       url: 'http://www.actforyouth.net/youth_development/professionals/online_courses.cfm',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.758Z',
-      updated_at: '2017-10-19T13:51:22.758Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.713Z',
+      updated_at: '2017-10-24T18:33:08.713Z'
     },
     {
       id: 114,
@@ -1252,10 +1252,10 @@ const resourcesFixtures = new Fixtures({
       title: 'CITI Cornell University IRB approved assessment for Social and Behavioral Research',
       description: null,
       url: 'https://admin.fnec.cornell.edu/Training_IRB/IRB_Human_Subjects.cfm',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.758Z',
-      updated_at: '2017-10-19T13:51:22.758Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.713Z',
+      updated_at: '2017-10-24T18:33:08.713Z'
     },
     {
       id: 115,
@@ -1263,10 +1263,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Six Principles of Adult Learning',
       description: null,
       url: 'O box',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.758Z',
-      updated_at: '2017-10-19T13:51:22.758Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.713Z',
+      updated_at: '2017-10-24T18:33:08.713Z'
     },
     {
       id: 116,
@@ -1274,10 +1274,10 @@ const resourcesFixtures = new Fixtures({
       title: 'Seven Key Facilitation Skills',
       description: null,
       url: 'O box',
-      rating_count: 0,
-      rating_average: 0,
-      created_at: '2017-10-19T13:51:22.758Z',
-      updated_at: '2017-10-19T13:51:22.758Z'
+      review_count: 0,
+      review_average: 0,
+      created_at: '2017-10-24T18:33:08.713Z',
+      updated_at: '2017-10-24T18:33:08.713Z'
     }
   ]
 })

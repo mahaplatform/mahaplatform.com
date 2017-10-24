@@ -12,8 +12,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '55100',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 2,
@@ -24,8 +24,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '55300',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 3,
@@ -36,8 +36,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '55500',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 4,
@@ -48,8 +48,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '60100',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 5,
@@ -60,8 +60,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '60300',
         source_code: '51'
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 6,
@@ -72,8 +72,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '60500',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 7,
@@ -84,8 +84,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '60700',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 8,
@@ -96,8 +96,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '60900',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 9,
@@ -108,8 +108,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '61100',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 10,
@@ -120,8 +120,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '61300',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 11,
@@ -132,8 +132,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '61500',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 12,
@@ -144,8 +144,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '61700',
         source_code: '51'
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 13,
@@ -156,8 +156,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '61900',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 14,
@@ -168,8 +168,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '62100',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 15,
@@ -180,8 +180,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '62500',
         source_code: '51'
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 16,
@@ -192,8 +192,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '62700',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 17,
@@ -204,8 +204,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '62900',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 18,
@@ -216,8 +216,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '63100',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 19,
@@ -228,8 +228,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '63300',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 20,
@@ -240,8 +240,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '63500',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 21,
@@ -252,8 +252,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '63700',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 22,
@@ -264,8 +264,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '63900',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 23,
@@ -276,8 +276,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '64100',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 24,
@@ -288,8 +288,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '64300',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 25,
@@ -300,8 +300,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '64400',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 26,
@@ -312,8 +312,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '64500',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.746Z',
-      updated_at: '2017-10-19T13:51:22.746Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 27,
@@ -324,8 +324,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '64600',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 28,
@@ -336,8 +336,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '64700',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 29,
@@ -348,8 +348,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '64800',
         source_code: '44'
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 30,
@@ -360,8 +360,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '64900',
         source_code: '45'
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 31,
@@ -372,8 +372,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '65000',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 32,
@@ -384,8 +384,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '65200',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 33,
@@ -396,8 +396,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '65400',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 34,
@@ -408,8 +408,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '65500',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 35,
@@ -420,8 +420,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '65600',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 36,
@@ -432,8 +432,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '65800',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 37,
@@ -444,8 +444,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '66000',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 38,
@@ -456,8 +456,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '66200',
         source_code: '51'
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 39,
@@ -468,8 +468,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '66400',
         source_code: '51'
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 40,
@@ -480,8 +480,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '66600',
         source_code: '51'
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 41,
@@ -492,8 +492,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '67000',
         source_code: '51'
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 42,
@@ -504,8 +504,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '67200',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 43,
@@ -516,8 +516,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '67400',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 44,
@@ -528,8 +528,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '67600',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.701Z',
+      updated_at: '2017-10-24T18:33:08.701Z'
     },
     {
       id: 45,
@@ -540,8 +540,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '69100',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.702Z',
+      updated_at: '2017-10-24T18:33:08.702Z'
     },
     {
       id: 46,
@@ -552,8 +552,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '69300',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.702Z',
+      updated_at: '2017-10-24T18:33:08.702Z'
     },
     {
       id: 47,
@@ -564,8 +564,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '69500',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.702Z',
+      updated_at: '2017-10-24T18:33:08.702Z'
     },
     {
       id: 48,
@@ -576,8 +576,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '69600',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.702Z',
+      updated_at: '2017-10-24T18:33:08.702Z'
     },
     {
       id: 49,
@@ -588,8 +588,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '69700',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.702Z',
+      updated_at: '2017-10-24T18:33:08.702Z'
     },
     {
       id: 50,
@@ -600,8 +600,8 @@ const expenseTypesFixtures = new Fixtures({
         expense_code: '69800',
         source_code: null
       },
-      created_at: '2017-10-19T13:51:22.747Z',
-      updated_at: '2017-10-19T13:51:22.747Z'
+      created_at: '2017-10-24T18:33:08.702Z',
+      updated_at: '2017-10-24T18:33:08.702Z'
     }
   ]
 })

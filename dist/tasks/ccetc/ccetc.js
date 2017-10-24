@@ -268,7 +268,7 @@ var import_20170622 = exports.import_20170622 = function () {
 
                 var competency = findOrCreate(data.competencies, { team_id: 1, category_id: category.id, title: sanitize(record[1]), level: parseInt(record[2]), description: sanitize(record[3]) }, true, { title: sanitize(record[1]) });
 
-                var resource = findOrCreate(data.resources, { team_id: 1, title: sanitize(record[4]), description: sanitize(record[5]), url: record[6], rating_count: 0, rating_average: 0 }, true, { title: sanitize(record[4]) });
+                var resource = findOrCreate(data.resources, { team_id: 1, title: sanitize(record[4]), description: sanitize(record[5]), url: record[6], review_count: 0, review_average: 0 }, true, { title: sanitize(record[4]) });
 
                 data.competencies_resources.push({
                   competency_id: competency.id,
