@@ -130,6 +130,7 @@ var import_20170622 = exports.import_20170622 = function () {
                   password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
                   is_active: record[2] === 'gmk8',
                   photo_id: asset_id,
+                  notification_method: 'immediately',
                   activated_at: record[2] === 'gmk8' ? (0, _moment2.default)() : null,
                   created_at: (0, _moment2.default)(),
                   updated_at: (0, _moment2.default)()

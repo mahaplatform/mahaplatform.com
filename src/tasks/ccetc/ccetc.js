@@ -75,6 +75,7 @@ export const import_20170622 = async () => {
           password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
           is_active: record[2] === 'gmk8',
           photo_id: asset_id,
+          notification_method: 'immediately',
           activated_at: record[2] === 'gmk8' ? moment() : null,
           created_at: moment(),
           updated_at: moment()
