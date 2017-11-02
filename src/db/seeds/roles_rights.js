@@ -35,6 +35,9 @@ const rolesRightsFixtures = new Fixtures({
       right_id: 9
     }, {
       role_id: 3,
+      right_id: 4
+    }, {
+      role_id: 3,
       right_id: 7
     }, {
       role_id: 4,
