@@ -14,7 +14,8 @@ const installationsFixtures = new Fixtures({
       app_id: 2,
       settings: {
         mileage_rate: 0.535,
-        integration: 'accpac'
+        integration: 'accpac',
+        trip_expense_type_id: 16
       }
     }, {
       id: 3,
