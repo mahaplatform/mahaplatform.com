@@ -11,8 +11,8 @@ const resourcesFixtures = new Fixtures({
       url: 'Contact Krystal Dunn or Theresa Emerick.',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.702Z',
-      updated_at: '2017-10-24T18:33:08.702Z'
+      created_at: '2017-11-03T18:26:54.048Z',
+      updated_at: '2017-11-03T18:26:54.048Z'
     },
     {
       id: 2,
@@ -22,8 +22,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/human_resources/Pages/BenefitsIndex.aspx',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.702Z',
-      updated_at: '2017-10-24T18:33:08.702Z'
+      created_at: '2017-11-03T18:26:54.048Z',
+      updated_at: '2017-11-03T18:26:54.048Z'
     },
     {
       id: 3,
@@ -33,8 +33,8 @@ const resourcesFixtures = new Fixtures({
       url: '',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.702Z',
-      updated_at: '2017-10-24T18:33:08.702Z'
+      created_at: '2017-11-03T18:26:54.049Z',
+      updated_at: '2017-11-03T18:26:54.049Z'
     },
     {
       id: 4,
@@ -44,8 +44,8 @@ const resourcesFixtures = new Fixtures({
       url: 'Contact Krystal Dunn for dates of next session.',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.702Z',
-      updated_at: '2017-10-24T18:33:08.702Z'
+      created_at: '2017-11-03T18:26:54.049Z',
+      updated_at: '2017-11-03T18:26:54.049Z'
     },
     {
       id: 5,
@@ -55,8 +55,8 @@ const resourcesFixtures = new Fixtures({
       url: '',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.703Z'
+      created_at: '2017-11-03T18:26:54.049Z',
+      updated_at: '2017-11-03T18:26:54.049Z'
     },
     {
       id: 6,
@@ -66,8 +66,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/Pages/home.aspx',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.703Z'
+      created_at: '2017-11-03T18:26:54.049Z',
+      updated_at: '2017-11-03T18:26:54.049Z'
     },
     {
       id: 7,
@@ -77,8 +77,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/Course-Description2.aspx?courseid=75',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.703Z'
+      created_at: '2017-11-03T18:26:54.049Z',
+      updated_at: '2017-11-03T18:26:54.049Z'
     },
     {
       id: 8,
@@ -88,8 +88,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://mycce.me/content/about-ccetc-history-and-ethos',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.703Z'
+      created_at: '2017-11-03T18:26:54.049Z',
+      updated_at: '2017-11-03T18:26:54.049Z'
     },
     {
       id: 9,
@@ -99,8 +99,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://mycce.me/content/my-hr-forms-and-references-tompkins-strategic-plan-prologue',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.703Z'
+      created_at: '2017-11-03T18:26:54.049Z',
+      updated_at: '2017-11-03T18:26:54.049Z'
     },
     {
       id: 10,
@@ -110,8 +110,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/newstafforientation.aspx',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.703Z'
+      created_at: '2017-11-03T18:26:54.049Z',
+      updated_at: '2017-11-03T18:26:54.049Z'
     },
     {
       id: 11,
@@ -121,8 +121,8 @@ const resourcesFixtures = new Fixtures({
       url: '',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.703Z'
+      created_at: '2017-11-03T18:26:54.049Z',
+      updated_at: '2017-11-03T18:26:54.049Z'
     },
     {
       id: 12,
@@ -132,8 +132,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/newstafforientation.aspx',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.703Z'
+      created_at: '2017-11-03T18:26:54.049Z',
+      updated_at: '2017-11-03T18:26:54.049Z'
     },
     {
       id: 13,
@@ -143,8 +143,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/Course-Description2.aspx?courseid=114',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.703Z'
+      created_at: '2017-11-03T18:26:54.049Z',
+      updated_at: '2017-11-03T18:26:54.049Z'
     },
     {
       id: 14,
@@ -154,8 +154,8 @@ const resourcesFixtures = new Fixtures({
       url: '',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.703Z'
+      created_at: '2017-11-03T18:26:54.049Z',
+      updated_at: '2017-11-03T18:26:54.049Z'
     },
     {
       id: 15,
@@ -165,8 +165,8 @@ const resourcesFixtures = new Fixtures({
       url: '',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.703Z'
+      created_at: '2017-11-03T18:26:54.049Z',
+      updated_at: '2017-11-03T18:26:54.049Z'
     },
     {
       id: 16,
@@ -176,8 +176,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/risk.aspx',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.703Z'
+      created_at: '2017-11-03T18:26:54.049Z',
+      updated_at: '2017-11-03T18:26:54.049Z'
     },
     {
       id: 17,
@@ -187,8 +187,8 @@ const resourcesFixtures = new Fixtures({
       url: 'Contact HR office for next scheduled training. ',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.703Z'
+      created_at: '2017-11-03T18:26:54.049Z',
+      updated_at: '2017-11-03T18:26:54.049Z'
     },
     {
       id: 18,
@@ -198,8 +198,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://cornell.sabacloud.com/Saba/Web_spf/NA1PRD0089/common/ledetail/cours000000000003585',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.703Z'
+      created_at: '2017-11-03T18:26:54.049Z',
+      updated_at: '2017-11-03T18:26:54.049Z'
     },
     {
       id: 19,
@@ -209,8 +209,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/Training.aspx',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.703Z'
+      created_at: '2017-11-03T18:26:54.050Z',
+      updated_at: '2017-11-03T18:26:54.050Z'
     },
     {
       id: 20,
@@ -220,8 +220,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://www.staff.cce.cornell.edu/orgdev/Pages/diversity.aspx',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.703Z'
+      created_at: '2017-11-03T18:26:54.050Z',
+      updated_at: '2017-11-03T18:26:54.050Z'
     },
     {
       id: 21,
@@ -231,8 +231,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://ccetompkins.org/diversity',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.703Z'
+      created_at: '2017-11-03T18:26:54.050Z',
+      updated_at: '2017-11-03T18:26:54.050Z'
     },
     {
       id: 22,
@@ -242,8 +242,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://ccetompkins.org/about-us/human-resource-policy-manual',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.703Z'
+      created_at: '2017-11-03T18:26:54.050Z',
+      updated_at: '2017-11-03T18:26:54.050Z'
     },
     {
       id: 23,
@@ -253,8 +253,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://mycce.me/content/my-hr-forms-and-tools-for-employee-use',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.703Z',
-      updated_at: '2017-10-24T18:33:08.704Z'
+      created_at: '2017-11-03T18:26:54.050Z',
+      updated_at: '2017-11-03T18:26:54.050Z'
     },
     {
       id: 24,
@@ -264,8 +264,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://www.fcsith.org/eap/',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.704Z',
-      updated_at: '2017-10-24T18:33:08.704Z'
+      created_at: '2017-11-03T18:26:54.050Z',
+      updated_at: '2017-11-03T18:26:54.050Z'
     },
     {
       id: 25,
@@ -275,8 +275,8 @@ const resourcesFixtures = new Fixtures({
       url: '',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.704Z',
-      updated_at: '2017-10-24T18:33:08.704Z'
+      created_at: '2017-11-03T18:26:54.050Z',
+      updated_at: '2017-11-03T18:26:54.050Z'
     },
     {
       id: 26,
@@ -286,8 +286,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/Course-Description2.aspx?courseid=69',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.704Z',
-      updated_at: '2017-10-24T18:33:08.704Z'
+      created_at: '2017-11-03T18:26:54.050Z',
+      updated_at: '2017-11-03T18:26:54.050Z'
     },
     {
       id: 27,
@@ -297,8 +297,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/lynda',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.704Z',
-      updated_at: '2017-10-24T18:33:08.704Z'
+      created_at: '2017-11-03T18:26:54.050Z',
+      updated_at: '2017-11-03T18:26:54.050Z'
     },
     {
       id: 28,
@@ -308,8 +308,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/skillsoft',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.704Z',
-      updated_at: '2017-10-24T18:33:08.704Z'
+      created_at: '2017-11-03T18:26:54.050Z',
+      updated_at: '2017-11-03T18:26:54.050Z'
     },
     {
       id: 29,
@@ -319,8 +319,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://www.ted.com/talks',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.705Z',
-      updated_at: '2017-10-24T18:33:08.705Z'
+      created_at: '2017-11-03T18:26:54.050Z',
+      updated_at: '2017-11-03T18:26:54.050Z'
     },
     {
       id: 30,
@@ -330,8 +330,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://grantspace.org/tools/multimedia/video/the-happy-healthy-nonprofit-strategies-for-impact-without-burnout-2017-02-02',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.705Z',
-      updated_at: '2017-10-24T18:33:08.705Z'
+      created_at: '2017-11-03T18:26:54.050Z',
+      updated_at: '2017-11-03T18:26:54.050Z'
     },
     {
       id: 31,
@@ -341,8 +341,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://culearn.cornell.edu/',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.705Z',
-      updated_at: '2017-10-24T18:33:08.705Z'
+      created_at: '2017-11-03T18:26:54.050Z',
+      updated_at: '2017-11-03T18:26:54.050Z'
     },
     {
       id: 32,
@@ -352,8 +352,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.705Z',
-      updated_at: '2017-10-24T18:33:08.705Z'
+      created_at: '2017-11-03T18:26:54.050Z',
+      updated_at: '2017-11-03T18:26:54.050Z'
     },
     {
       id: 33,
@@ -363,8 +363,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/skillsoft',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.705Z',
-      updated_at: '2017-10-24T18:33:08.705Z'
+      created_at: '2017-11-03T18:26:54.050Z',
+      updated_at: '2017-11-03T18:26:54.050Z'
     },
     {
       id: 34,
@@ -374,8 +374,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/skillsoft',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.705Z',
-      updated_at: '2017-10-24T18:33:08.705Z'
+      created_at: '2017-11-03T18:26:54.050Z',
+      updated_at: '2017-11-03T18:26:54.050Z'
     },
     {
       id: 35,
@@ -385,8 +385,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://multiculturalresourcecenter.org/talkingcircles/',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.705Z',
-      updated_at: '2017-10-24T18:33:08.705Z'
+      created_at: '2017-11-03T18:26:54.051Z',
+      updated_at: '2017-11-03T18:26:54.051Z'
     },
     {
       id: 36,
@@ -396,8 +396,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://ccetompkins.org/community/natural-leaders-initiative/programs-for-community-groups-and-organizations',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.705Z',
-      updated_at: '2017-10-24T18:33:08.705Z'
+      created_at: '2017-11-03T18:26:54.051Z',
+      updated_at: '2017-11-03T18:26:54.051Z'
     },
     {
       id: 37,
@@ -407,8 +407,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/Course-Description2.aspx?courseid=136',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.705Z',
-      updated_at: '2017-10-24T18:33:08.705Z'
+      created_at: '2017-11-03T18:26:54.051Z',
+      updated_at: '2017-11-03T18:26:54.051Z'
     },
     {
       id: 38,
@@ -418,8 +418,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://hsctc.org/index.php?page=training',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.706Z',
-      updated_at: '2017-10-24T18:33:08.706Z'
+      created_at: '2017-11-03T18:26:54.052Z',
+      updated_at: '2017-11-03T18:26:54.052Z'
     },
     {
       id: 39,
@@ -429,8 +429,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://diversityconsortium.org/home.aspx',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.706Z',
-      updated_at: '2017-10-24T18:33:08.706Z'
+      created_at: '2017-11-03T18:26:54.052Z',
+      updated_at: '2017-11-03T18:26:54.052Z'
     },
     {
       id: 40,
@@ -440,8 +440,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/Course-Description2.aspx?courseid=136',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.706Z',
-      updated_at: '2017-10-24T18:33:08.706Z'
+      created_at: '2017-11-03T18:26:54.052Z',
+      updated_at: '2017-11-03T18:26:54.052Z'
     },
     {
       id: 41,
@@ -451,8 +451,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/prof_courses.aspx?top=Diversity%20Awareness%20and%20Inclusion',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.706Z',
-      updated_at: '2017-10-24T18:33:08.706Z'
+      created_at: '2017-11-03T18:26:54.052Z',
+      updated_at: '2017-11-03T18:26:54.052Z'
     },
     {
       id: 42,
@@ -462,8 +462,8 @@ const resourcesFixtures = new Fixtures({
       url: 'Contact HR staff. ',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.706Z',
-      updated_at: '2017-10-24T18:33:08.706Z'
+      created_at: '2017-11-03T18:26:54.052Z',
+      updated_at: '2017-11-03T18:26:54.052Z'
     },
     {
       id: 43,
@@ -473,8 +473,8 @@ const resourcesFixtures = new Fixtures({
       url: 'Contact Margo Hittleman to borrow a copy.',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.706Z',
-      updated_at: '2017-10-24T18:33:08.706Z'
+      created_at: '2017-11-03T18:26:54.052Z',
+      updated_at: '2017-11-03T18:26:54.052Z'
     },
     {
       id: 44,
@@ -484,8 +484,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://hsctc.org/index.php?page=training',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.706Z',
-      updated_at: '2017-10-24T18:33:08.706Z'
+      created_at: '2017-11-03T18:26:54.052Z',
+      updated_at: '2017-11-03T18:26:54.052Z'
     },
     {
       id: 45,
@@ -495,8 +495,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://www.tc3.edu/biz/',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.706Z',
-      updated_at: '2017-10-24T18:33:08.706Z'
+      created_at: '2017-11-03T18:26:54.052Z',
+      updated_at: '2017-11-03T18:26:54.052Z'
     },
     {
       id: 46,
@@ -506,8 +506,8 @@ const resourcesFixtures = new Fixtures({
       url: '',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.706Z',
-      updated_at: '2017-10-24T18:33:08.706Z'
+      created_at: '2017-11-03T18:26:54.052Z',
+      updated_at: '2017-11-03T18:26:54.052Z'
     },
     {
       id: 47,
@@ -517,8 +517,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://hsctc.org/index.php?page=training',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.706Z',
-      updated_at: '2017-10-24T18:33:08.706Z'
+      created_at: '2017-11-03T18:26:54.053Z',
+      updated_at: '2017-11-03T18:26:54.053Z'
     },
     {
       id: 48,
@@ -528,8 +528,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://ccetompkins.org/family',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.706Z',
-      updated_at: '2017-10-24T18:33:08.706Z'
+      created_at: '2017-11-03T18:26:54.053Z',
+      updated_at: '2017-11-03T18:26:54.053Z'
     },
     {
       id: 49,
@@ -539,8 +539,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/ses/WorkersComp/CCE%20Association%20Skills%20for%20Success.pdf',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.706Z',
-      updated_at: '2017-10-24T18:33:08.706Z'
+      created_at: '2017-11-03T18:26:54.053Z',
+      updated_at: '2017-11-03T18:26:54.053Z'
     },
     {
       id: 50,
@@ -550,8 +550,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/foundations.aspx',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.707Z',
-      updated_at: '2017-10-24T18:33:08.707Z'
+      created_at: '2017-11-03T18:26:54.053Z',
+      updated_at: '2017-11-03T18:26:54.053Z'
     },
     {
       id: 51,
@@ -561,8 +561,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/prog_courses2.aspx',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.707Z',
-      updated_at: '2017-10-24T18:33:08.707Z'
+      created_at: '2017-11-03T18:26:54.053Z',
+      updated_at: '2017-11-03T18:26:54.053Z'
     },
     {
       id: 52,
@@ -572,8 +572,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://ithaca.toastmastersclubs.org ',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.707Z',
-      updated_at: '2017-10-24T18:33:08.707Z'
+      created_at: '2017-11-03T18:26:54.053Z',
+      updated_at: '2017-11-03T18:26:54.053Z'
     },
     {
       id: 53,
@@ -583,8 +583,8 @@ const resourcesFixtures = new Fixtures({
       url: '',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.707Z',
-      updated_at: '2017-10-24T18:33:08.707Z'
+      created_at: '2017-11-03T18:26:54.053Z',
+      updated_at: '2017-11-03T18:26:54.053Z'
     },
     {
       id: 54,
@@ -594,8 +594,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://mycce.me/content/my-hr-forms-and-tools-for-employee-use',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.707Z',
-      updated_at: '2017-10-24T18:33:08.707Z'
+      created_at: '2017-11-03T18:26:54.053Z',
+      updated_at: '2017-11-03T18:26:54.053Z'
     },
     {
       id: 55,
@@ -605,8 +605,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/skillsoft',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.707Z',
-      updated_at: '2017-10-24T18:33:08.707Z'
+      created_at: '2017-11-03T18:26:54.054Z',
+      updated_at: '2017-11-03T18:26:54.054Z'
     },
     {
       id: 56,
@@ -616,8 +616,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/prof_courses.aspx?top=Grant%20Writing%20and%20Management',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.707Z',
-      updated_at: '2017-10-24T18:33:08.707Z'
+      created_at: '2017-11-03T18:26:54.054Z',
+      updated_at: '2017-11-03T18:26:54.054Z'
     },
     {
       id: 57,
@@ -627,8 +627,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://hsctc.org/index.php?page=training',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.708Z',
-      updated_at: '2017-10-24T18:33:08.708Z'
+      created_at: '2017-11-03T18:26:54.054Z',
+      updated_at: '2017-11-03T18:26:54.054Z'
     },
     {
       id: 58,
@@ -638,8 +638,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://grantschampion.com',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.708Z',
-      updated_at: '2017-10-24T18:33:08.708Z'
+      created_at: '2017-11-03T18:26:54.054Z',
+      updated_at: '2017-11-03T18:26:54.054Z'
     },
     {
       id: 59,
@@ -649,8 +649,8 @@ const resourcesFixtures = new Fixtures({
       url: '',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.708Z',
-      updated_at: '2017-10-24T18:33:08.708Z'
+      created_at: '2017-11-03T18:26:54.054Z',
+      updated_at: '2017-11-03T18:26:54.054Z'
     },
     {
       id: 60,
@@ -660,8 +660,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://guides.library.cornell.edu/funding',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.708Z',
-      updated_at: '2017-10-24T18:33:08.708Z'
+      created_at: '2017-11-03T18:26:54.054Z',
+      updated_at: '2017-11-03T18:26:54.054Z'
     },
     {
       id: 61,
@@ -671,8 +671,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://foundationcenter.org',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.708Z',
-      updated_at: '2017-10-24T18:33:08.708Z'
+      created_at: '2017-11-03T18:26:54.054Z',
+      updated_at: '2017-11-03T18:26:54.054Z'
     },
     {
       id: 62,
@@ -682,8 +682,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://www.tompkinscountyny.gov/ctyadmin/Grants/index',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.708Z',
-      updated_at: '2017-10-24T18:33:08.708Z'
+      created_at: '2017-11-03T18:26:54.054Z',
+      updated_at: '2017-11-03T18:26:54.054Z'
     },
     {
       id: 63,
@@ -693,8 +693,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/prof_courses.aspx?top=Grant%20Writing%20and%20Management',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.708Z',
-      updated_at: '2017-10-24T18:33:08.708Z'
+      created_at: '2017-11-03T18:26:54.054Z',
+      updated_at: '2017-11-03T18:26:54.054Z'
     },
     {
       id: 64,
@@ -704,8 +704,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/lynda',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.708Z',
-      updated_at: '2017-10-24T18:33:08.708Z'
+      created_at: '2017-11-03T18:26:54.054Z',
+      updated_at: '2017-11-03T18:26:54.054Z'
     },
     {
       id: 65,
@@ -715,8 +715,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/skillsoft',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.708Z',
-      updated_at: '2017-10-24T18:33:08.708Z'
+      created_at: '2017-11-03T18:26:54.054Z',
+      updated_at: '2017-11-03T18:26:54.054Z'
     },
     {
       id: 66,
@@ -726,8 +726,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://myinfo.tc3.edu/SelfService/Home.aspx',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.708Z',
-      updated_at: '2017-10-24T18:33:08.708Z'
+      created_at: '2017-11-03T18:26:54.054Z',
+      updated_at: '2017-11-03T18:26:54.054Z'
     },
     {
       id: 67,
@@ -737,8 +737,8 @@ const resourcesFixtures = new Fixtures({
       url: '',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.708Z',
-      updated_at: '2017-10-24T18:33:08.708Z'
+      created_at: '2017-11-03T18:26:54.054Z',
+      updated_at: '2017-11-03T18:26:54.054Z'
     },
     {
       id: 68,
@@ -748,8 +748,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://hsctc.org/index.php?page=training',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.708Z',
-      updated_at: '2017-10-24T18:33:08.708Z'
+      created_at: '2017-11-03T18:26:54.054Z',
+      updated_at: '2017-11-03T18:26:54.054Z'
     },
     {
       id: 69,
@@ -759,8 +759,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://www.businesscents.org/',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.708Z',
-      updated_at: '2017-10-24T18:33:08.708Z'
+      created_at: '2017-11-03T18:26:54.054Z',
+      updated_at: '2017-11-03T18:26:54.054Z'
     },
     {
       id: 70,
@@ -770,8 +770,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/skillsoft',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.708Z',
-      updated_at: '2017-10-24T18:33:08.708Z'
+      created_at: '2017-11-03T18:26:54.054Z',
+      updated_at: '2017-11-03T18:26:54.054Z'
     },
     {
       id: 71,
@@ -781,8 +781,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/lynda',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.708Z',
-      updated_at: '2017-10-24T18:33:08.708Z'
+      created_at: '2017-11-03T18:26:54.055Z',
+      updated_at: '2017-11-03T18:26:54.055Z'
     },
     {
       id: 72,
@@ -792,8 +792,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/skillsoft',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.709Z',
-      updated_at: '2017-10-24T18:33:08.709Z'
+      created_at: '2017-11-03T18:26:54.055Z',
+      updated_at: '2017-11-03T18:26:54.055Z'
     },
     {
       id: 73,
@@ -803,8 +803,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/skillsoft',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.709Z',
-      updated_at: '2017-10-24T18:33:08.709Z'
+      created_at: '2017-11-03T18:26:54.055Z',
+      updated_at: '2017-11-03T18:26:54.055Z'
     },
     {
       id: 74,
@@ -814,8 +814,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/skillsoft',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.709Z',
-      updated_at: '2017-10-24T18:33:08.709Z'
+      created_at: '2017-11-03T18:26:54.055Z',
+      updated_at: '2017-11-03T18:26:54.055Z'
     },
     {
       id: 75,
@@ -825,8 +825,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://ccetompkins.org/community/natural-leaders-initiative/programs-for-community-groups-and-organizations',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.709Z',
-      updated_at: '2017-10-24T18:33:08.709Z'
+      created_at: '2017-11-03T18:26:54.055Z',
+      updated_at: '2017-11-03T18:26:54.055Z'
     },
     {
       id: 76,
@@ -836,8 +836,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://www.fcsith.org/',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.709Z',
-      updated_at: '2017-10-24T18:33:08.709Z'
+      created_at: '2017-11-03T18:26:54.055Z',
+      updated_at: '2017-11-03T18:26:54.055Z'
     },
     {
       id: 77,
@@ -847,8 +847,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/skillsoft',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.709Z',
-      updated_at: '2017-10-24T18:33:08.709Z'
+      created_at: '2017-11-03T18:26:54.056Z',
+      updated_at: '2017-11-03T18:26:54.056Z'
     },
     {
       id: 78,
@@ -858,8 +858,8 @@ const resourcesFixtures = new Fixtures({
       url: '',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.709Z',
-      updated_at: '2017-10-24T18:33:08.709Z'
+      created_at: '2017-11-03T18:26:54.056Z',
+      updated_at: '2017-11-03T18:26:54.056Z'
     },
     {
       id: 79,
@@ -869,8 +869,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/skillsoft',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.709Z',
-      updated_at: '2017-10-24T18:33:08.709Z'
+      created_at: '2017-11-03T18:26:54.056Z',
+      updated_at: '2017-11-03T18:26:54.056Z'
     },
     {
       id: 80,
@@ -880,8 +880,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/reporting.aspx',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.710Z',
-      updated_at: '2017-10-24T18:33:08.710Z'
+      created_at: '2017-11-03T18:26:54.056Z',
+      updated_at: '2017-11-03T18:26:54.056Z'
     },
     {
       id: 81,
@@ -891,8 +891,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/skillsoft',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.710Z',
-      updated_at: '2017-10-24T18:33:08.710Z'
+      created_at: '2017-11-03T18:26:54.056Z',
+      updated_at: '2017-11-03T18:26:54.056Z'
     },
     {
       id: 82,
@@ -902,8 +902,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/skillsoft',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.710Z',
-      updated_at: '2017-10-24T18:33:08.710Z'
+      created_at: '2017-11-03T18:26:54.056Z',
+      updated_at: '2017-11-03T18:26:54.056Z'
     },
     {
       id: 83,
@@ -913,8 +913,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://www.amazon.com/StrengthsFinder-2-0-Tom-Rath/dp/159562015X/ref=sr_1_1?s=books&ie=UTF8&qid=1487360256&sr=1-1&keywords=strengths+finder+2.0',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.710Z',
-      updated_at: '2017-10-24T18:33:08.710Z'
+      created_at: '2017-11-03T18:26:54.056Z',
+      updated_at: '2017-11-03T18:26:54.056Z'
     },
     {
       id: 84,
@@ -924,8 +924,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://www.amazon.com/StrengthsFinder-2-0-Tom-Rath/dp/159562015X/ref=sr_1_1?s=books&ie=UTF8&qid=1487360256&sr=1-1&keywords=strengths+finder+2.0',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.710Z',
-      updated_at: '2017-10-24T18:33:08.710Z'
+      created_at: '2017-11-03T18:26:54.056Z',
+      updated_at: '2017-11-03T18:26:54.056Z'
     },
     {
       id: 85,
@@ -935,8 +935,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/skillsoft',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.710Z',
-      updated_at: '2017-10-24T18:33:08.710Z'
+      created_at: '2017-11-03T18:26:54.056Z',
+      updated_at: '2017-11-03T18:26:54.056Z'
     },
     {
       id: 86,
@@ -946,8 +946,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://www.cdrc.org/training.html',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.710Z',
-      updated_at: '2017-10-24T18:33:08.710Z'
+      created_at: '2017-11-03T18:26:54.056Z',
+      updated_at: '2017-11-03T18:26:54.056Z'
     },
     {
       id: 87,
@@ -957,8 +957,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://hsctc.org/index.php?page=training',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.710Z',
-      updated_at: '2017-10-24T18:33:08.710Z'
+      created_at: '2017-11-03T18:26:54.056Z',
+      updated_at: '2017-11-03T18:26:54.056Z'
     },
     {
       id: 88,
@@ -968,8 +968,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/planning.aspx',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.710Z',
-      updated_at: '2017-10-24T18:33:08.710Z'
+      created_at: '2017-11-03T18:26:54.056Z',
+      updated_at: '2017-11-03T18:26:54.056Z'
     },
     {
       id: 89,
@@ -979,8 +979,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/skillsoft',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.710Z',
-      updated_at: '2017-10-24T18:33:08.710Z'
+      created_at: '2017-11-03T18:26:54.057Z',
+      updated_at: '2017-11-03T18:26:54.057Z'
     },
     {
       id: 90,
@@ -990,8 +990,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/lynda',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.710Z',
-      updated_at: '2017-10-24T18:33:08.710Z'
+      created_at: '2017-11-03T18:26:54.057Z',
+      updated_at: '2017-11-03T18:26:54.057Z'
     },
     {
       id: 91,
@@ -1001,8 +1001,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/planning.aspx',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.710Z',
-      updated_at: '2017-10-24T18:33:08.710Z'
+      created_at: '2017-11-03T18:26:54.057Z',
+      updated_at: '2017-11-03T18:26:54.057Z'
     },
     {
       id: 92,
@@ -1012,8 +1012,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/lynda',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.711Z',
-      updated_at: '2017-10-24T18:33:08.711Z'
+      created_at: '2017-11-03T18:26:54.057Z',
+      updated_at: '2017-11-03T18:26:54.057Z'
     },
     {
       id: 93,
@@ -1023,8 +1023,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/campusconnections.aspx',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.711Z',
-      updated_at: '2017-10-24T18:33:08.711Z'
+      created_at: '2017-11-03T18:26:54.057Z',
+      updated_at: '2017-11-03T18:26:54.057Z'
     },
     {
       id: 94,
@@ -1034,8 +1034,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/volunteer.aspx',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.711Z',
-      updated_at: '2017-10-24T18:33:08.711Z'
+      created_at: '2017-11-03T18:26:54.057Z',
+      updated_at: '2017-11-03T18:26:54.057Z'
     },
     {
       id: 95,
@@ -1045,8 +1045,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/prof_courses.aspx?top=Volunteer%20Involvement',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.711Z',
-      updated_at: '2017-10-24T18:33:08.711Z'
+      created_at: '2017-11-03T18:26:54.057Z',
+      updated_at: '2017-11-03T18:26:54.057Z'
     },
     {
       id: 96,
@@ -1056,8 +1056,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://it.cornell.edu/lynda',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.711Z',
-      updated_at: '2017-10-24T18:33:08.711Z'
+      created_at: '2017-11-03T18:26:54.057Z',
+      updated_at: '2017-11-03T18:26:54.057Z'
     },
     {
       id: 97,
@@ -1067,8 +1067,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/Course-Description2.aspx?courseid=114',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.711Z',
-      updated_at: '2017-10-24T18:33:08.711Z'
+      created_at: '2017-11-03T18:26:54.057Z',
+      updated_at: '2017-11-03T18:26:54.057Z'
     },
     {
       id: 98,
@@ -1078,8 +1078,8 @@ const resourcesFixtures = new Fixtures({
       url: '',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.711Z',
-      updated_at: '2017-10-24T18:33:08.711Z'
+      created_at: '2017-11-03T18:26:54.058Z',
+      updated_at: '2017-11-03T18:26:54.058Z'
     },
     {
       id: 99,
@@ -1089,8 +1089,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://staff.cce.cornell.edu/orgdev/Pages/foundations.aspx',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.711Z',
-      updated_at: '2017-10-24T18:33:08.711Z'
+      created_at: '2017-11-03T18:26:54.058Z',
+      updated_at: '2017-11-03T18:26:54.058Z'
     },
     {
       id: 100,
@@ -1100,8 +1100,8 @@ const resourcesFixtures = new Fixtures({
       url: '',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.712Z',
-      updated_at: '2017-10-24T18:33:08.712Z'
+      created_at: '2017-11-03T18:26:54.058Z',
+      updated_at: '2017-11-03T18:26:54.058Z'
     },
     {
       id: 101,
@@ -1111,8 +1111,8 @@ const resourcesFixtures = new Fixtures({
       url: '',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.712Z',
-      updated_at: '2017-10-24T18:33:08.712Z'
+      created_at: '2017-11-03T18:26:54.058Z',
+      updated_at: '2017-11-03T18:26:54.058Z'
     },
     {
       id: 102,
@@ -1122,8 +1122,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://cce.cornell.edu/page/inservice',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.712Z',
-      updated_at: '2017-10-24T18:33:08.712Z'
+      created_at: '2017-11-03T18:26:54.058Z',
+      updated_at: '2017-11-03T18:26:54.058Z'
     },
     {
       id: 103,
@@ -1133,8 +1133,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://gardening.cals.cornell.edu/for-cce-staff/',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.712Z',
-      updated_at: '2017-10-24T18:33:08.712Z'
+      created_at: '2017-11-03T18:26:54.058Z',
+      updated_at: '2017-11-03T18:26:54.058Z'
     },
     {
       id: 104,
@@ -1144,8 +1144,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://www.youtube.com/playlist?list=PLHPXm2Es8aQDjvBs5r3ZXEA4DRBUqiT58',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.712Z',
-      updated_at: '2017-10-24T18:33:08.712Z'
+      created_at: '2017-11-03T18:26:54.058Z',
+      updated_at: '2017-11-03T18:26:54.058Z'
     },
     {
       id: 105,
@@ -1155,8 +1155,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://dairyone.com/analytical-services/agronomy-services/soil-testing/',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.712Z',
-      updated_at: '2017-10-24T18:33:08.712Z'
+      created_at: '2017-11-03T18:26:54.058Z',
+      updated_at: '2017-11-03T18:26:54.058Z'
     },
     {
       id: 106,
@@ -1166,8 +1166,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://cnal.cals.cornell.edu/',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.712Z',
-      updated_at: '2017-10-24T18:33:08.712Z'
+      created_at: '2017-11-03T18:26:54.058Z',
+      updated_at: '2017-11-03T18:26:54.058Z'
     },
     {
       id: 107,
@@ -1177,8 +1177,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://pmep.cce.cornell.edu/',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.712Z',
-      updated_at: '2017-10-24T18:33:08.712Z'
+      created_at: '2017-11-03T18:26:54.058Z',
+      updated_at: '2017-11-03T18:26:54.058Z'
     },
     {
       id: 108,
@@ -1188,8 +1188,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://cce.cornell.edu/pwts',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.712Z',
-      updated_at: '2017-10-24T18:33:08.712Z'
+      created_at: '2017-11-03T18:26:54.058Z',
+      updated_at: '2017-11-03T18:26:54.058Z'
     },
     {
       id: 109,
@@ -1199,8 +1199,8 @@ const resourcesFixtures = new Fixtures({
       url: 'O:\\AEnergyTeam\\Resources-Energy Shared',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.712Z',
-      updated_at: '2017-10-24T18:33:08.712Z'
+      created_at: '2017-11-03T18:26:54.058Z',
+      updated_at: '2017-11-03T18:26:54.058Z'
     },
     {
       id: 110,
@@ -1210,8 +1210,8 @@ const resourcesFixtures = new Fixtures({
       url: 'O:\\Energy Warriors\\Curriculum\\Teaching aids for EW Classes\\Videos',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.712Z',
-      updated_at: '2017-10-24T18:33:08.712Z'
+      created_at: '2017-11-03T18:26:54.058Z',
+      updated_at: '2017-11-03T18:26:54.058Z'
     },
     {
       id: 111,
@@ -1221,8 +1221,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://www.actforyouth.net/youth_development/development/',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.712Z',
-      updated_at: '2017-10-24T18:33:08.712Z'
+      created_at: '2017-11-03T18:26:54.059Z',
+      updated_at: '2017-11-03T18:26:54.059Z'
     },
     {
       id: 112,
@@ -1232,8 +1232,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://www.actforyouth.net/youth_development/professionals/manual.cfm',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.713Z',
-      updated_at: '2017-10-24T18:33:08.713Z'
+      created_at: '2017-11-03T18:26:54.059Z',
+      updated_at: '2017-11-03T18:26:54.059Z'
     },
     {
       id: 113,
@@ -1243,8 +1243,8 @@ const resourcesFixtures = new Fixtures({
       url: 'http://www.actforyouth.net/youth_development/professionals/online_courses.cfm',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.713Z',
-      updated_at: '2017-10-24T18:33:08.713Z'
+      created_at: '2017-11-03T18:26:54.059Z',
+      updated_at: '2017-11-03T18:26:54.059Z'
     },
     {
       id: 114,
@@ -1254,8 +1254,8 @@ const resourcesFixtures = new Fixtures({
       url: 'https://admin.fnec.cornell.edu/Training_IRB/IRB_Human_Subjects.cfm',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.713Z',
-      updated_at: '2017-10-24T18:33:08.713Z'
+      created_at: '2017-11-03T18:26:54.059Z',
+      updated_at: '2017-11-03T18:26:54.059Z'
     },
     {
       id: 115,
@@ -1265,8 +1265,8 @@ const resourcesFixtures = new Fixtures({
       url: 'O box',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.713Z',
-      updated_at: '2017-10-24T18:33:08.713Z'
+      created_at: '2017-11-03T18:26:54.059Z',
+      updated_at: '2017-11-03T18:26:54.059Z'
     },
     {
       id: 116,
@@ -1276,8 +1276,8 @@ const resourcesFixtures = new Fixtures({
       url: 'O box',
       review_count: 0,
       review_average: 0,
-      created_at: '2017-10-24T18:33:08.713Z',
-      updated_at: '2017-10-24T18:33:08.713Z'
+      created_at: '2017-11-03T18:26:54.059Z',
+      updated_at: '2017-11-03T18:26:54.059Z'
     }
   ]
 })
