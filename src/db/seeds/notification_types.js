@@ -5,16 +5,20 @@ const notificationTypesFixtures = new Fixtures({
   records: [
     {
       app_id: 2,
-      text: 'expense_rejected',
+      text: 'item_submitted',
+      description: 'someone submits an advance, expense, or trip in a project I own'
+    }, {
+      app_id: 2,
+      text: 'item_rejected',
       description: 'one of my advances, expenses, or trips is rejected'
     }, {
       app_id: 2,
-      text: 'expense_approved',
+      text: 'item_approved',
       description: 'one of my advances, expenses, or trips is approved'
     }, {
       app_id: 2,
-      text: 'expense_submitted',
-      description: 'someone submits an advance, expense, or trip in a project I own'
+      text: 'item_processed',
+      description: 'one of my advances, expenses, or trips is processed'
     }, {
       app_id: 3,
       text: 'plan_created',
