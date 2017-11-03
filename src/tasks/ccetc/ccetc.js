@@ -70,24 +70,27 @@ export const import_20170622 = async () => {
           first_name: record[0],
           last_name: record[1],
           email: `${record[2]}@cornell.edu`,
-          employee_id: record[3],
           password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
           password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
           is_active: record[2] === 'gmk8',
           photo_id: asset_id,
           notification_method: 'immediately',
           activated_at: record[2] === 'gmk8' ? moment() : null,
+          values: {
+            employee_id: record[3],
+            vendor_id: record[4]
+          },
           created_at: moment(),
           updated_at: moment()
         })
 
-        const roles = [5,6,7,8,9]
+        const roles = [6,7,8,9,10]
 
         roles.map(index => {
           if(record[index] == 1) {
             data.users_roles.push({
               user_id,
-              role_id: index - 4
+              role_id: index - 5
             })
           }
         })
@@ -98,13 +101,13 @@ export const import_20170622 = async () => {
 
       }
 
-      if(!supervisors[record[4]]) supervisors[record[4]] = []
+      if(!supervisors[record[5]]) supervisors[record[5]] = []
 
-      supervisors[record[4]].push(user_id)
+      supervisors[record[5]].push(user_id)
 
-      if(record[10]) {
+      if(record[11]) {
 
-        const group = findOrCreate(data.groups, { team_id: 1, title: sanitize(record[10]) }, true)
+        const group = findOrCreate(data.groups, { team_id: 1, title: sanitize(record[11]) }, true)
 
         data.users_groups.push({
           user_id,

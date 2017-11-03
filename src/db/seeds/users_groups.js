@@ -157,87 +157,87 @@ const usersGroupsFixtures = new Fixtures({
     },
     {
       user_id: 39,
-      group_id: 3
+      group_id: 4
     },
     {
       user_id: 40,
-      group_id: 4
-    },
-    {
-      user_id: 41,
       group_id: 10
     },
     {
-      user_id: 42,
+      user_id: 41,
       group_id: 4
+    },
+    {
+      user_id: 42,
+      group_id: 3
     },
     {
       user_id: 43,
-      group_id: 3
+      group_id: 9
     },
     {
       user_id: 44,
-      group_id: 9
+      group_id: 7
     },
     {
       user_id: 45,
-      group_id: 7
+      group_id: 4
     },
     {
       user_id: 46,
-      group_id: 4
+      group_id: 3
     },
     {
       user_id: 47,
-      group_id: 3
-    },
-    {
-      user_id: 48,
       group_id: 7
     },
     {
-      user_id: 49,
+      user_id: 48,
       group_id: 6
     },
     {
-      user_id: 50,
+      user_id: 49,
       group_id: 1
     },
     {
-      user_id: 51,
+      user_id: 50,
       group_id: 4
     },
     {
-      user_id: 52,
+      user_id: 51,
       group_id: 9
     },
     {
-      user_id: 53,
+      user_id: 52,
       group_id: 2
     },
     {
-      user_id: 54,
+      user_id: 53,
       group_id: 9
     },
     {
-      user_id: 55,
+      user_id: 54,
       group_id: 5
     },
     {
-      user_id: 56,
+      user_id: 55,
       group_id: 1
     },
     {
-      user_id: 57,
+      user_id: 56,
       group_id: 3
     },
     {
-      user_id: 58,
+      user_id: 57,
       group_id: 5
     },
     {
-      user_id: 59,
+      user_id: 58,
       group_id: 11
+    },
+    {
+      user_id: 59,
+      group_id: 1
     },
     {
       user_id: 60,
@@ -245,7 +245,7 @@ const usersGroupsFixtures = new Fixtures({
     },
     {
       user_id: 61,
-      group_id: 1
+      group_id: 4
     },
     {
       user_id: 62,
@@ -257,35 +257,35 @@ const usersGroupsFixtures = new Fixtures({
     },
     {
       user_id: 64,
-      group_id: 4
-    },
-    {
-      user_id: 65,
       group_id: 11
     },
     {
+      user_id: 65,
+      group_id: 3
+    },
+    {
       user_id: 66,
-      group_id: 3
-    },
-    {
-      user_id: 67,
-      group_id: 3
-    },
-    {
-      user_id: 68,
       group_id: 5
     },
     {
-      user_id: 69,
+      user_id: 67,
       group_id: 6
     },
     {
-      user_id: 70,
+      user_id: 68,
       group_id: 4
     },
     {
-      user_id: 71,
+      user_id: 69,
       group_id: 3
+    },
+    {
+      user_id: 70,
+      group_id: 3
+    },
+    {
+      user_id: 71,
+      group_id: 4
     },
     {
       user_id: 72,
@@ -293,19 +293,27 @@ const usersGroupsFixtures = new Fixtures({
     },
     {
       user_id: 73,
-      group_id: 4
-    },
-    {
-      user_id: 74,
-      group_id: 3
-    },
-    {
-      user_id: 75,
       group_id: 5
     },
     {
-      user_id: 76,
+      user_id: 74,
       group_id: 9
+    },
+    {
+      user_id: 75,
+      group_id: 9
+    },
+    {
+      user_id: 76,
+      group_id: 4
+    },
+    {
+      user_id: 76,
+      group_id: 4
+    },
+    {
+      user_id: 77,
+      group_id: 8
     },
     {
       user_id: 77,
@@ -313,55 +321,47 @@ const usersGroupsFixtures = new Fixtures({
     },
     {
       user_id: 78,
-      group_id: 4
-    },
-    {
-      user_id: 78,
-      group_id: 4
-    },
-    {
-      user_id: 79,
-      group_id: 8
-    },
-    {
-      user_id: 79,
-      group_id: 9
-    },
-    {
-      user_id: 80,
       group_id: 1
     },
     {
-      user_id: 81,
+      user_id: 79,
       group_id: 5
     },
     {
-      user_id: 82,
+      user_id: 80,
       group_id: 3
+    },
+    {
+      user_id: 81,
+      group_id: 3
+    },
+    {
+      user_id: 82,
+      group_id: 1
     },
     {
       user_id: 83,
-      group_id: 3
+      group_id: 1
     },
     {
       user_id: 84,
-      group_id: 1
+      group_id: 3
     },
     {
       user_id: 85,
-      group_id: 1
+      group_id: 3
     },
     {
       user_id: 86,
-      group_id: 3
+      group_id: 2
     },
     {
       user_id: 87,
-      group_id: 3
+      group_id: 7
     },
     {
       user_id: 88,
-      group_id: 7
+      group_id: 3
     },
     {
       user_id: 89,
@@ -369,15 +369,15 @@ const usersGroupsFixtures = new Fixtures({
     },
     {
       user_id: 90,
-      group_id: 3
-    },
-    {
-      user_id: 91,
       group_id: 5
     },
     {
-      user_id: 92,
+      user_id: 91,
       group_id: 3
+    },
+    {
+      user_id: 92,
+      group_id: 6
     },
     {
       user_id: 93,
@@ -385,7 +385,7 @@ const usersGroupsFixtures = new Fixtures({
     },
     {
       user_id: 94,
-      group_id: 6
+      group_id: 1
     },
     {
       user_id: 95,
@@ -393,55 +393,55 @@ const usersGroupsFixtures = new Fixtures({
     },
     {
       user_id: 96,
-      group_id: 2
+      group_id: 3
     },
     {
       user_id: 97,
-      group_id: 1
-    },
-    {
-      user_id: 98,
-      group_id: 3
-    },
-    {
-      user_id: 99,
       group_id: 6
     },
     {
-      user_id: 100,
+      user_id: 98,
       group_id: 9
     },
     {
-      user_id: 101,
+      user_id: 99,
       group_id: 5
     },
     {
-      user_id: 102,
+      user_id: 100,
       group_id: 3
     },
     {
-      user_id: 103,
+      user_id: 101,
       group_id: 9
     },
     {
-      user_id: 104,
+      user_id: 102,
       group_id: 1
     },
     {
-      user_id: 105,
+      user_id: 103,
       group_id: 2
     },
     {
-      user_id: 106,
+      user_id: 104,
       group_id: 11
     },
     {
-      user_id: 107,
+      user_id: 105,
       group_id: 1
     },
     {
-      user_id: 108,
+      user_id: 106,
       group_id: 2
+    },
+    {
+      user_id: 107,
+      group_id: 4
+    },
+    {
+      user_id: 108,
+      group_id: 3
     },
     {
       user_id: 109,
@@ -449,67 +449,67 @@ const usersGroupsFixtures = new Fixtures({
     },
     {
       user_id: 110,
-      group_id: 3
+      group_id: 4
     },
     {
       user_id: 111,
-      group_id: 4
+      group_id: 1
     },
     {
       user_id: 112,
-      group_id: 4
+      group_id: 2
     },
     {
       user_id: 113,
-      group_id: 1
+      group_id: 4
     },
     {
       user_id: 114,
-      group_id: 2
+      group_id: 4
     },
     {
       user_id: 115,
-      group_id: 4
+      group_id: 1
     },
     {
       user_id: 116,
-      group_id: 4
+      group_id: 3
     },
     {
       user_id: 117,
-      group_id: 1
-    },
-    {
-      user_id: 118,
-      group_id: 3
-    },
-    {
-      user_id: 119,
       group_id: 4
     },
     {
-      user_id: 120,
+      user_id: 118,
       group_id: 1
     },
     {
-      user_id: 121,
+      user_id: 119,
       group_id: 3
     },
     {
-      user_id: 122,
+      user_id: 120,
+      group_id: 2
+    },
+    {
+      user_id: 120,
+      group_id: 3
+    },
+    {
+      user_id: 121,
       group_id: 2
     },
     {
       user_id: 122,
-      group_id: 3
+      group_id: 4
     },
     {
       user_id: 123,
-      group_id: 2
+      group_id: 5
     },
     {
       user_id: 124,
-      group_id: 3
+      group_id: 1
     },
     {
       user_id: 125,
@@ -517,39 +517,39 @@ const usersGroupsFixtures = new Fixtures({
     },
     {
       user_id: 126,
-      group_id: 5
+      group_id: 4
     },
     {
       user_id: 127,
-      group_id: 1
+      group_id: 3
     },
     {
       user_id: 128,
-      group_id: 3
-    },
-    {
-      user_id: 129,
-      group_id: 4
-    },
-    {
-      user_id: 130,
-      group_id: 3
-    },
-    {
-      user_id: 131,
       group_id: 7
     },
     {
-      user_id: 132,
+      user_id: 129,
       group_id: 6
     },
     {
-      user_id: 133,
+      user_id: 130,
       group_id: 4
     },
     {
-      user_id: 134,
+      user_id: 131,
       group_id: 3
+    },
+    {
+      user_id: 132,
+      group_id: 5
+    },
+    {
+      user_id: 133,
+      group_id: 6
+    },
+    {
+      user_id: 134,
+      group_id: 4
     },
     {
       user_id: 135,
@@ -557,107 +557,107 @@ const usersGroupsFixtures = new Fixtures({
     },
     {
       user_id: 136,
+      group_id: 4
+    },
+    {
+      user_id: 136,
       group_id: 6
     },
     {
       user_id: 137,
-      group_id: 4
+      group_id: 3
     },
     {
       user_id: 138,
-      group_id: 5
+      group_id: 9
     },
     {
       user_id: 139,
-      group_id: 4
-    },
-    {
-      user_id: 139,
-      group_id: 6
+      group_id: 3
     },
     {
       user_id: 140,
-      group_id: 3
+      group_id: 2
     },
     {
       user_id: 141,
-      group_id: 9
+      group_id: 4
     },
     {
       user_id: 142,
-      group_id: 3
+      group_id: 4
     },
     {
       user_id: 143,
-      group_id: 2
+      group_id: 4
     },
     {
       user_id: 144,
-      group_id: 4
+      group_id: 3
     },
     {
       user_id: 145,
-      group_id: 4
+      group_id: 3
     },
     {
       user_id: 146,
-      group_id: 4
+      group_id: 9
     },
     {
       user_id: 147,
-      group_id: 3
+      group_id: 9
     },
     {
       user_id: 148,
-      group_id: 3
+      group_id: 7
     },
     {
       user_id: 149,
-      group_id: 3
+      group_id: 9
     },
     {
       user_id: 150,
-      group_id: 9
+      group_id: 3
     },
     {
       user_id: 151,
-      group_id: 7
+      group_id: 4
     },
     {
       user_id: 152,
-      group_id: 9
+      group_id: 3
     },
     {
       user_id: 153,
-      group_id: 2
+      group_id: 3
     },
     {
       user_id: 154,
-      group_id: 3
+      group_id: 4
     },
     {
       user_id: 155,
-      group_id: 4
-    },
-    {
-      user_id: 156,
-      group_id: 3
-    },
-    {
-      user_id: 157,
-      group_id: 3
-    },
-    {
-      user_id: 158,
-      group_id: 4
-    },
-    {
-      user_id: 159,
       group_id: 7
     },
     {
-      user_id: 160,
+      user_id: 156,
       group_id: 1
+    },
+    {
+      user_id: 157,
+      group_id: 4
+    },
+    {
+      user_id: 158,
+      group_id: 1
+    },
+    {
+      user_id: 159,
+      group_id: 9
+    },
+    {
+      user_id: 160,
+      group_id: 4
     },
     {
       user_id: 161,
@@ -665,11 +665,11 @@ const usersGroupsFixtures = new Fixtures({
     },
     {
       user_id: 162,
-      group_id: 1
+      group_id: 10
     },
     {
       user_id: 163,
-      group_id: 9
+      group_id: 6
     },
     {
       user_id: 164,
@@ -677,26 +677,10 @@ const usersGroupsFixtures = new Fixtures({
     },
     {
       user_id: 165,
-      group_id: 4
-    },
-    {
-      user_id: 166,
-      group_id: 10
-    },
-    {
-      user_id: 167,
-      group_id: 6
-    },
-    {
-      user_id: 168,
-      group_id: 4
-    },
-    {
-      user_id: 169,
       group_id: 3
     },
     {
-      user_id: 170,
+      user_id: 166,
       group_id: 3
     }
   ]

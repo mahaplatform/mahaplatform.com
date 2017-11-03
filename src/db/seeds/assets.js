@@ -11,8 +11,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 17449,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.008Z',
-      updated_at: '2017-11-03T18:26:54.008Z'
+      created_at: '2017-11-03T18:56:41.931Z',
+      updated_at: '2017-11-03T18:56:41.932Z'
     },
     {
       id: 2,
@@ -22,8 +22,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 24707,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.009Z',
-      updated_at: '2017-11-03T18:26:54.009Z'
+      created_at: '2017-11-03T18:56:41.933Z',
+      updated_at: '2017-11-03T18:56:41.933Z'
     },
     {
       id: 3,
@@ -33,8 +33,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 34620,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.010Z',
-      updated_at: '2017-11-03T18:26:54.010Z'
+      created_at: '2017-11-03T18:56:41.934Z',
+      updated_at: '2017-11-03T18:56:41.934Z'
     },
     {
       id: 4,
@@ -44,8 +44,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 29822,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.011Z',
-      updated_at: '2017-11-03T18:26:54.011Z'
+      created_at: '2017-11-03T18:56:41.935Z',
+      updated_at: '2017-11-03T18:56:41.935Z'
     },
     {
       id: 5,
@@ -55,8 +55,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 28303,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.011Z',
-      updated_at: '2017-11-03T18:26:54.011Z'
+      created_at: '2017-11-03T18:56:41.935Z',
+      updated_at: '2017-11-03T18:56:41.935Z'
     },
     {
       id: 6,
@@ -66,8 +66,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 22866,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.011Z',
-      updated_at: '2017-11-03T18:26:54.011Z'
+      created_at: '2017-11-03T18:56:41.935Z',
+      updated_at: '2017-11-03T18:56:41.935Z'
     },
     {
       id: 7,
@@ -77,8 +77,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 37324,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.011Z',
-      updated_at: '2017-11-03T18:26:54.011Z'
+      created_at: '2017-11-03T18:56:41.935Z',
+      updated_at: '2017-11-03T18:56:41.935Z'
     },
     {
       id: 8,
@@ -88,8 +88,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 29995,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.012Z',
-      updated_at: '2017-11-03T18:26:54.012Z'
+      created_at: '2017-11-03T18:56:41.936Z',
+      updated_at: '2017-11-03T18:56:41.936Z'
     },
     {
       id: 9,
@@ -99,8 +99,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 34269,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.012Z',
-      updated_at: '2017-11-03T18:26:54.012Z'
+      created_at: '2017-11-03T18:56:41.936Z',
+      updated_at: '2017-11-03T18:56:41.936Z'
     },
     {
       id: 10,
@@ -110,8 +110,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 43818,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.013Z',
-      updated_at: '2017-11-03T18:26:54.013Z'
+      created_at: '2017-11-03T18:56:41.936Z',
+      updated_at: '2017-11-03T18:56:41.937Z'
     },
     {
       id: 11,
@@ -121,8 +121,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 28625,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.013Z',
-      updated_at: '2017-11-03T18:26:54.013Z'
+      created_at: '2017-11-03T18:56:41.937Z',
+      updated_at: '2017-11-03T18:56:41.937Z'
     },
     {
       id: 12,
@@ -132,8 +132,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 29383,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.013Z',
-      updated_at: '2017-11-03T18:26:54.013Z'
+      created_at: '2017-11-03T18:56:41.937Z',
+      updated_at: '2017-11-03T18:56:41.937Z'
     },
     {
       id: 13,
@@ -143,8 +143,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 41857,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.013Z',
-      updated_at: '2017-11-03T18:26:54.013Z'
+      created_at: '2017-11-03T18:56:41.937Z',
+      updated_at: '2017-11-03T18:56:41.937Z'
     },
     {
       id: 14,
@@ -154,8 +154,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 29850,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.013Z',
-      updated_at: '2017-11-03T18:26:54.013Z'
+      created_at: '2017-11-03T18:56:41.937Z',
+      updated_at: '2017-11-03T18:56:41.937Z'
     },
     {
       id: 15,
@@ -165,8 +165,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 37486,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.013Z',
-      updated_at: '2017-11-03T18:26:54.013Z'
+      created_at: '2017-11-03T18:56:41.937Z',
+      updated_at: '2017-11-03T18:56:41.937Z'
     },
     {
       id: 16,
@@ -176,8 +176,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 20532,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.014Z',
-      updated_at: '2017-11-03T18:26:54.014Z'
+      created_at: '2017-11-03T18:56:41.937Z',
+      updated_at: '2017-11-03T18:56:41.937Z'
     },
     {
       id: 17,
@@ -187,8 +187,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 36090,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.014Z',
-      updated_at: '2017-11-03T18:26:54.014Z'
+      created_at: '2017-11-03T18:56:41.937Z',
+      updated_at: '2017-11-03T18:56:41.937Z'
     },
     {
       id: 18,
@@ -198,8 +198,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 26726,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.014Z',
-      updated_at: '2017-11-03T18:26:54.014Z'
+      created_at: '2017-11-03T18:56:41.938Z',
+      updated_at: '2017-11-03T18:56:41.938Z'
     },
     {
       id: 19,
@@ -209,8 +209,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 25519,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.014Z',
-      updated_at: '2017-11-03T18:26:54.014Z'
+      created_at: '2017-11-03T18:56:41.938Z',
+      updated_at: '2017-11-03T18:56:41.938Z'
     },
     {
       id: 20,
@@ -220,8 +220,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 40284,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.015Z',
-      updated_at: '2017-11-03T18:26:54.015Z'
+      created_at: '2017-11-03T18:56:41.939Z',
+      updated_at: '2017-11-03T18:56:41.939Z'
     },
     {
       id: 21,
@@ -231,8 +231,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 40335,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.015Z',
-      updated_at: '2017-11-03T18:26:54.015Z'
+      created_at: '2017-11-03T18:56:41.939Z',
+      updated_at: '2017-11-03T18:56:41.939Z'
     },
     {
       id: 22,
@@ -242,8 +242,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 265541,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.015Z',
-      updated_at: '2017-11-03T18:26:54.015Z'
+      created_at: '2017-11-03T18:56:41.939Z',
+      updated_at: '2017-11-03T18:56:41.939Z'
     },
     {
       id: 23,
@@ -253,8 +253,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 23433,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.017Z',
-      updated_at: '2017-11-03T18:26:54.017Z'
+      created_at: '2017-11-03T18:56:41.941Z',
+      updated_at: '2017-11-03T18:56:41.941Z'
     },
     {
       id: 24,
@@ -264,8 +264,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 41924,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.017Z',
-      updated_at: '2017-11-03T18:26:54.017Z'
+      created_at: '2017-11-03T18:56:41.941Z',
+      updated_at: '2017-11-03T18:56:41.941Z'
     },
     {
       id: 25,
@@ -275,8 +275,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 33321,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.017Z',
-      updated_at: '2017-11-03T18:26:54.017Z'
+      created_at: '2017-11-03T18:56:41.941Z',
+      updated_at: '2017-11-03T18:56:41.941Z'
     },
     {
       id: 26,
@@ -286,8 +286,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 26917,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.017Z',
-      updated_at: '2017-11-03T18:26:54.017Z'
+      created_at: '2017-11-03T18:56:41.941Z',
+      updated_at: '2017-11-03T18:56:41.941Z'
     },
     {
       id: 27,
@@ -297,8 +297,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 40924,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.017Z',
-      updated_at: '2017-11-03T18:26:54.017Z'
+      created_at: '2017-11-03T18:56:41.941Z',
+      updated_at: '2017-11-03T18:56:41.941Z'
     },
     {
       id: 28,
@@ -308,8 +308,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 30632,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.017Z',
-      updated_at: '2017-11-03T18:26:54.018Z'
+      created_at: '2017-11-03T18:56:41.941Z',
+      updated_at: '2017-11-03T18:56:41.941Z'
     },
     {
       id: 29,
@@ -319,8 +319,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 50810,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.018Z',
-      updated_at: '2017-11-03T18:26:54.018Z'
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
       id: 30,
@@ -330,8 +330,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 20092,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.018Z',
-      updated_at: '2017-11-03T18:26:54.018Z'
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
       id: 31,
@@ -341,8 +341,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 36394,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.018Z',
-      updated_at: '2017-11-03T18:26:54.018Z'
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
       id: 32,
@@ -352,8 +352,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 30724,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.018Z',
-      updated_at: '2017-11-03T18:26:54.018Z'
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
       id: 33,
@@ -363,8 +363,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 37277,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.018Z',
-      updated_at: '2017-11-03T18:26:54.018Z'
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
       id: 34,
@@ -374,8 +374,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 30431,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.018Z',
-      updated_at: '2017-11-03T18:26:54.019Z'
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
       id: 35,
@@ -385,8 +385,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 32076,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.019Z',
-      updated_at: '2017-11-03T18:26:54.019Z'
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
       id: 36,
@@ -396,8 +396,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 27874,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.019Z',
-      updated_at: '2017-11-03T18:26:54.019Z'
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
       id: 37,
@@ -407,8 +407,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 34867,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.019Z',
-      updated_at: '2017-11-03T18:26:54.019Z'
+      created_at: '2017-11-03T18:56:41.943Z',
+      updated_at: '2017-11-03T18:56:41.943Z'
     },
     {
       id: 38,
@@ -418,8 +418,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 45624,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.020Z',
-      updated_at: '2017-11-03T18:26:54.020Z'
+      created_at: '2017-11-03T18:56:41.943Z',
+      updated_at: '2017-11-03T18:56:41.943Z'
     },
     {
       id: 39,
@@ -429,8 +429,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 1732981,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      created_at: '2017-11-03T18:56:41.943Z',
+      updated_at: '2017-11-03T18:56:41.943Z'
     },
     {
       id: 40,
@@ -440,8 +440,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 30197,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      created_at: '2017-11-03T18:56:41.946Z',
+      updated_at: '2017-11-03T18:56:41.946Z'
     },
     {
       id: 41,
@@ -451,8 +451,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 28117,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      created_at: '2017-11-03T18:56:41.946Z',
+      updated_at: '2017-11-03T18:56:41.946Z'
     },
     {
       id: 42,
@@ -462,8 +462,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 30048,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      created_at: '2017-11-03T18:56:41.946Z',
+      updated_at: '2017-11-03T18:56:41.946Z'
     },
     {
       id: 43,
@@ -473,8 +473,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 29583,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      created_at: '2017-11-03T18:56:41.946Z',
+      updated_at: '2017-11-03T18:56:41.946Z'
     },
     {
       id: 44,
@@ -484,8 +484,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 28373,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      created_at: '2017-11-03T18:56:41.946Z',
+      updated_at: '2017-11-03T18:56:41.946Z'
     },
     {
       id: 45,
@@ -495,8 +495,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 50444,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      created_at: '2017-11-03T18:56:41.947Z',
+      updated_at: '2017-11-03T18:56:41.947Z'
     },
     {
       id: 46,
@@ -506,8 +506,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 51634,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      created_at: '2017-11-03T18:56:41.947Z',
+      updated_at: '2017-11-03T18:56:41.947Z'
     },
     {
       id: 47,
@@ -517,8 +517,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 25731,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.024Z',
-      updated_at: '2017-11-03T18:26:54.024Z'
+      created_at: '2017-11-03T18:56:41.947Z',
+      updated_at: '2017-11-03T18:56:41.947Z'
     },
     {
       id: 48,
@@ -528,8 +528,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 23583,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.024Z',
-      updated_at: '2017-11-03T18:26:54.024Z'
+      created_at: '2017-11-03T18:56:41.947Z',
+      updated_at: '2017-11-03T18:56:41.947Z'
     },
     {
       id: 49,
@@ -539,8 +539,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 31827,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.024Z',
-      updated_at: '2017-11-03T18:26:54.024Z'
+      created_at: '2017-11-03T18:56:41.947Z',
+      updated_at: '2017-11-03T18:56:41.947Z'
     },
     {
       id: 50,
@@ -550,8 +550,8 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 31759,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.024Z',
-      updated_at: '2017-11-03T18:26:54.024Z'
+      created_at: '2017-11-03T18:56:41.947Z',
+      updated_at: '2017-11-03T18:56:41.947Z'
     },
     {
       id: 51,
@@ -561,415 +561,426 @@ const assetsFixtures = new Fixtures({
       content_type: 'image/jpeg',
       file_size: 27608,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.024Z',
-      updated_at: '2017-11-03T18:26:54.024Z'
+      created_at: '2017-11-03T18:56:41.947Z',
+      updated_at: '2017-11-03T18:56:41.947Z'
     },
     {
       id: 52,
+      team_id: 1,
+      original_file_name: 'vk258.jpg',
+      file_name: 'vk258.jpg',
+      content_type: 'image/jpeg',
+      file_size: 27200,
+      chunks_total: 1,
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
+    },
+    {
+      id: 53,
       team_id: 1,
       original_file_name: 'mnl28.jpg',
       file_name: 'mnl28.jpg',
       content_type: 'image/jpeg',
       file_size: 35767,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 53,
+      id: 54,
       team_id: 1,
       original_file_name: 'sjl44.jpg',
       file_name: 'sjl44.jpg',
       content_type: 'image/jpeg',
       file_size: 24802,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 54,
+      id: 55,
       team_id: 1,
       original_file_name: 'tlc98.jpg',
       file_name: 'tlc98.jpg',
       content_type: 'image/jpeg',
       file_size: 29597,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 55,
+      id: 56,
       team_id: 1,
       original_file_name: 'ml989.jpg',
       file_name: 'ml989.jpg',
       content_type: 'image/jpeg',
       file_size: 30241,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 56,
+      id: 57,
       team_id: 1,
       original_file_name: 'lam26.jpg',
       file_name: 'lam26.jpg',
       content_type: 'image/jpeg',
       file_size: 40213,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 57,
+      id: 58,
       team_id: 1,
       original_file_name: 'em748.jpg',
       file_name: 'em748.jpg',
       content_type: 'image/jpeg',
       file_size: 41294,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 58,
+      id: 59,
       team_id: 1,
       original_file_name: 'enm6.jpg',
       file_name: 'enm6.jpg',
       content_type: 'image/jpeg',
       file_size: 29909,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 59,
+      id: 60,
       team_id: 1,
       original_file_name: 'kmm242.jpg',
       file_name: 'kmm242.jpg',
       content_type: 'image/jpeg',
       file_size: 1782426,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 60,
+      id: 61,
       team_id: 1,
       original_file_name: 'km823.jpg',
       file_name: 'km823.jpg',
       content_type: 'image/jpeg',
       file_size: 23512,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 61,
+      id: 62,
       team_id: 1,
       original_file_name: 'kem228.jpg',
       file_name: 'kem228.jpg',
       content_type: 'image/jpeg',
       file_size: 42871,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.033Z',
-      updated_at: '2017-11-03T18:26:54.033Z'
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 62,
+      id: 63,
       team_id: 1,
       original_file_name: 'gm52.jpg',
       file_name: 'gm52.jpg',
       content_type: 'image/jpeg',
       file_size: 27360,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.033Z',
-      updated_at: '2017-11-03T18:26:54.033Z'
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
     },
     {
-      id: 63,
+      id: 64,
       team_id: 1,
       original_file_name: 'acm1.jpg',
       file_name: 'acm1.jpg',
       content_type: 'image/jpeg',
       file_size: 37564,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.033Z',
-      updated_at: '2017-11-03T18:26:54.033Z'
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
     },
     {
-      id: 64,
+      id: 65,
       team_id: 1,
       original_file_name: 'km646.jpg',
       file_name: 'km646.jpg',
       content_type: 'image/jpeg',
       file_size: 47791,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.034Z',
-      updated_at: '2017-11-03T18:26:54.034Z'
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
     },
     {
-      id: 65,
+      id: 66,
       team_id: 1,
       original_file_name: 'dm773.jpg',
       file_name: 'dm773.jpg',
       content_type: 'image/jpeg',
       file_size: 962363,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.034Z',
-      updated_at: '2017-11-03T18:26:54.034Z'
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
     },
     {
-      id: 66,
+      id: 67,
       team_id: 1,
       original_file_name: 'mmp246.jpg',
       file_name: 'mmp246.jpg',
       content_type: 'image/jpeg',
       file_size: 64535,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.035Z',
-      updated_at: '2017-11-03T18:26:54.035Z'
+      created_at: '2017-11-03T18:56:41.950Z',
+      updated_at: '2017-11-03T18:56:41.950Z'
     },
     {
-      id: 67,
+      id: 68,
       team_id: 1,
       original_file_name: 'msp94.jpg',
       file_name: 'msp94.jpg',
       content_type: 'image/jpeg',
       file_size: 30246,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.035Z',
-      updated_at: '2017-11-03T18:26:54.035Z'
+      created_at: '2017-11-03T18:56:41.950Z',
+      updated_at: '2017-11-03T18:56:41.950Z'
     },
     {
-      id: 68,
+      id: 69,
       team_id: 1,
       original_file_name: 'sjr37.jpg',
       file_name: 'sjr37.jpg',
       content_type: 'image/jpeg',
       file_size: 9112,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.035Z',
-      updated_at: '2017-11-03T18:26:54.035Z'
+      created_at: '2017-11-03T18:56:41.950Z',
+      updated_at: '2017-11-03T18:56:41.950Z'
     },
     {
-      id: 69,
+      id: 70,
       team_id: 1,
       original_file_name: 'mr55.jpg',
       file_name: 'mr55.jpg',
       content_type: 'image/jpeg',
       file_size: 685902,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
+      created_at: '2017-11-03T18:56:41.950Z',
+      updated_at: '2017-11-03T18:56:41.950Z'
     },
     {
-      id: 70,
+      id: 71,
       team_id: 1,
       original_file_name: 'las466.jpg',
       file_name: 'las466.jpg',
       content_type: 'image/jpeg',
       file_size: 28821,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
+      created_at: '2017-11-03T18:56:41.950Z',
+      updated_at: '2017-11-03T18:56:41.950Z'
     },
     {
-      id: 71,
+      id: 72,
       team_id: 1,
       original_file_name: 'mas759.jpg',
       file_name: 'mas759.jpg',
       content_type: 'image/jpeg',
       file_size: 25576,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 72,
+      id: 73,
       team_id: 1,
       original_file_name: 'ks47.jpg',
       file_name: 'ks47.jpg',
       content_type: 'image/jpeg',
       file_size: 29316,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 73,
+      id: 74,
       team_id: 1,
       original_file_name: 'bas25.jpg',
       file_name: 'bas25.jpg',
       content_type: 'image/jpeg',
       file_size: 39464,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 74,
+      id: 75,
       team_id: 1,
       original_file_name: 'tmf8.jpg',
       file_name: 'tmf8.jpg',
       content_type: 'image/jpeg',
       file_size: 43310,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 75,
+      id: 76,
       team_id: 1,
       original_file_name: 'css17.jpg',
       file_name: 'css17.jpg',
       content_type: 'image/jpeg',
       file_size: 32797,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 76,
+      id: 77,
       team_id: 1,
       original_file_name: 'ads32.jpg',
       file_name: 'ads32.jpg',
       content_type: 'image/jpeg',
       file_size: 57406,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 77,
+      id: 78,
       team_id: 1,
       original_file_name: 'ams69.jpg',
       file_name: 'ams69.jpg',
       content_type: 'image/jpeg',
       file_size: 40293,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 78,
+      id: 79,
       team_id: 1,
       original_file_name: 'ahs47.jpg',
       file_name: 'ahs47.jpg',
       content_type: 'image/jpeg',
       file_size: 29541,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 79,
+      id: 80,
       team_id: 1,
       original_file_name: 'jts286.jpg',
       file_name: 'jts286.jpg',
       content_type: 'image/jpeg',
       file_size: 21858,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 80,
+      id: 81,
       team_id: 1,
       original_file_name: 'mjs487.jpg',
       file_name: 'mjs487.jpg',
       content_type: 'image/jpeg',
       file_size: 30585,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 81,
+      id: 82,
       team_id: 1,
       original_file_name: 'dlt22.jpg',
       file_name: 'dlt22.jpg',
       content_type: 'image/jpeg',
       file_size: 31580,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 82,
+      id: 83,
       team_id: 1,
       original_file_name: 'jtt62.jpg',
       file_name: 'jtt62.jpg',
       content_type: 'image/jpeg',
       file_size: 33149,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 83,
+      id: 84,
       team_id: 1,
       original_file_name: 'met38.jpg',
       file_name: 'met38.jpg',
       content_type: 'image/jpeg',
       file_size: 54984,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 84,
+      id: 85,
       team_id: 1,
       original_file_name: 'ziv2.jpg',
       file_name: 'ziv2.jpg',
       content_type: 'image/jpeg',
       file_size: 46846,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 85,
+      id: 86,
       team_id: 1,
       original_file_name: 'kv89.jpg',
       file_name: 'kv89.jpg',
       content_type: 'image/jpeg',
       file_size: 31001,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 86,
+      id: 87,
       team_id: 1,
       original_file_name: 'hab27.jpg',
       file_name: 'hab27.jpg',
       content_type: 'image/jpeg',
       file_size: 45862,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.038Z',
-      updated_at: '2017-11-03T18:26:54.038Z'
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 87,
+      id: 88,
       team_id: 1,
       original_file_name: 'krk7.jpg',
       file_name: 'krk7.jpg',
       content_type: 'image/jpeg',
       file_size: 29727,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.038Z',
-      updated_at: '2017-11-03T18:26:54.038Z'
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 88,
+      id: 89,
       team_id: 1,
       original_file_name: 'ebw52.jpg',
       file_name: 'ebw52.jpg',
       content_type: 'image/jpeg',
       file_size: 17567,
       chunks_total: 1,
-      created_at: '2017-11-03T18:26:54.038Z',
-      updated_at: '2017-11-03T18:26:54.038Z'
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     }
   ]
 })

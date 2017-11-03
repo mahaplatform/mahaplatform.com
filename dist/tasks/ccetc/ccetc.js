@@ -125,24 +125,27 @@ var import_20170622 = exports.import_20170622 = function () {
                   first_name: record[0],
                   last_name: record[1],
                   email: record[2] + '@cornell.edu',
-                  employee_id: record[3],
                   password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
                   password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
                   is_active: record[2] === 'gmk8',
                   photo_id: asset_id,
                   notification_method: 'immediately',
                   activated_at: record[2] === 'gmk8' ? (0, _moment2.default)() : null,
+                  values: {
+                    employee_id: record[3],
+                    vendor_id: record[4]
+                  },
                   created_at: (0, _moment2.default)(),
                   updated_at: (0, _moment2.default)()
                 });
 
-                var roles = [5, 6, 7, 8, 9];
+                var roles = [6, 7, 8, 9, 10];
 
                 roles.map(function (index) {
                   if (record[index] == 1) {
                     data.users_roles.push({
                       user_id: user_id,
-                      role_id: index - 4
+                      role_id: index - 5
                     });
                   }
                 });
@@ -151,13 +154,13 @@ var import_20170622 = exports.import_20170622 = function () {
                 user_id = user.id;
               }
 
-              if (!supervisors[record[4]]) supervisors[record[4]] = [];
+              if (!supervisors[record[5]]) supervisors[record[5]] = [];
 
-              supervisors[record[4]].push(user_id);
+              supervisors[record[5]].push(user_id);
 
-              if (record[10]) {
+              if (record[11]) {
 
-                var group = findOrCreate(data.groups, { team_id: 1, title: sanitize(record[10]) }, true);
+                var group = findOrCreate(data.groups, { team_id: 1, title: sanitize(record[11]) }, true);
 
                 data.users_groups.push({
                   user_id: user_id,

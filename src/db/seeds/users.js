@@ -9,15 +9,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Aloja',
       last_name: 'Airewele',
       email: 'aaa247@cornell.edu',
-      employee_id: '2679894',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 2,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.009Z',
-      updated_at: '2017-11-03T18:26:54.009Z'
+      values: {
+        employee_id: '2679894',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.933Z',
+      updated_at: '2017-11-03T18:56:41.933Z'
     },
     {
       id: 2,
@@ -25,15 +28,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Sharon',
       last_name: 'Anderson',
       email: 'ska2@cornell.edu',
-      employee_id: '1015662',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 3,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.010Z',
-      updated_at: '2017-11-03T18:26:54.010Z'
+      values: {
+        employee_id: '1015662',
+        vendor_id: 'EANDERSON'
+      },
+      created_at: '2017-11-03T18:56:41.934Z',
+      updated_at: '2017-11-03T18:56:41.934Z'
     },
     {
       id: 3,
@@ -41,15 +47,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Jeremiah',
       last_name: 'Aviel',
       email: 'jsa232@cornell.edu',
-      employee_id: '1035103',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.011Z',
-      updated_at: '2017-11-03T18:26:54.011Z'
+      values: {
+        employee_id: '1035103',
+        vendor_id: 'JEREMAVIE'
+      },
+      created_at: '2017-11-03T18:56:41.934Z',
+      updated_at: '2017-11-03T18:56:41.934Z'
     },
     {
       id: 4,
@@ -57,15 +66,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Jessie',
       last_name: 'Baldassari',
       email: 'jgb263@cornell.edu',
-      employee_id: '4906617',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.011Z',
-      updated_at: '2017-11-03T18:26:54.011Z'
+      values: {
+        employee_id: '4906617',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.934Z',
+      updated_at: '2017-11-03T18:56:41.934Z'
     },
     {
       id: 5,
@@ -73,15 +85,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Beth',
       last_name: 'Bannister',
       email: 'bab47@cornell.edu',
-      employee_id: '1062038',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 4,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.011Z',
-      updated_at: '2017-11-03T18:26:54.011Z'
+      values: {
+        employee_id: '1062038',
+        vendor_id: 'EBANB'
+      },
+      created_at: '2017-11-03T18:56:41.935Z',
+      updated_at: '2017-11-03T18:56:41.935Z'
     },
     {
       id: 6,
@@ -89,15 +104,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Heidi',
       last_name: 'Bardy',
       email: 'hab76@cornell.edu',
-      employee_id: '2245726',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.011Z',
-      updated_at: '2017-11-03T18:26:54.011Z'
+      values: {
+        employee_id: '2245726',
+        vendor_id: 'EBARDYH'
+      },
+      created_at: '2017-11-03T18:56:41.935Z',
+      updated_at: '2017-11-03T18:56:41.935Z'
     },
     {
       id: 7,
@@ -105,15 +123,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Amy',
       last_name: 'Basil',
       email: 'alf232@cornell.edu',
-      employee_id: '1278958',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.011Z',
-      updated_at: '2017-11-03T18:26:54.011Z'
+      values: {
+        employee_id: '1278958',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.935Z',
+      updated_at: '2017-11-03T18:56:41.935Z'
     },
     {
       id: 8,
@@ -121,15 +142,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Karim',
       last_name: 'Beers',
       email: 'kwb6@cornell.edu',
-      employee_id: '1030444',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 5,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.011Z',
-      updated_at: '2017-11-03T18:26:54.011Z'
+      values: {
+        employee_id: '1030444',
+        vendor_id: 'EBEERSK'
+      },
+      created_at: '2017-11-03T18:56:41.935Z',
+      updated_at: '2017-11-03T18:56:41.935Z'
     },
     {
       id: 9,
@@ -137,15 +161,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Evan',
       last_name: 'Bixby',
       email: 'ebb86@cornell.edu',
-      employee_id: '4883988',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.011Z',
-      updated_at: '2017-11-03T18:26:54.011Z'
+      values: {
+        employee_id: '4883988',
+        vendor_id: 'EVABIX'
+      },
+      created_at: '2017-11-03T18:56:41.935Z',
+      updated_at: '2017-11-03T18:56:41.935Z'
     },
     {
       id: 10,
@@ -153,15 +180,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Melissa',
       last_name: 'Blake',
       email: 'mjm463@cornell.edu',
-      employee_id: '1147367',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 6,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.011Z',
-      updated_at: '2017-11-03T18:26:54.011Z'
+      values: {
+        employee_id: '1147367',
+        vendor_id: 'MELBLA'
+      },
+      created_at: '2017-11-03T18:56:41.935Z',
+      updated_at: '2017-11-03T18:56:41.935Z'
     },
     {
       id: 11,
@@ -169,15 +199,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Jim',
       last_name: 'Blizzard',
       email: 'jpb27@cornell.edu',
-      employee_id: '1012814',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 7,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.011Z',
-      updated_at: '2017-11-03T18:26:54.011Z'
+      values: {
+        employee_id: '1012814',
+        vendor_id: 'EJIMBLIZ'
+      },
+      created_at: '2017-11-03T18:56:41.935Z',
+      updated_at: '2017-11-03T18:56:41.935Z'
     },
     {
       id: 12,
@@ -185,15 +218,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Monica',
       last_name: 'Bosworth',
       email: 'mab279@cornell.edu',
-      employee_id: '1067008',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.012Z',
-      updated_at: '2017-11-03T18:26:54.012Z'
+      values: {
+        employee_id: '1067008',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.935Z',
+      updated_at: '2017-11-03T18:56:41.935Z'
     },
     {
       id: 13,
@@ -201,15 +237,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Katie',
       last_name: 'Bower',
       email: 'kab448@cornell.edu',
-      employee_id: '3973810',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.012Z',
-      updated_at: '2017-11-03T18:26:54.012Z'
+      values: {
+        employee_id: '3973810',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.935Z',
+      updated_at: '2017-11-03T18:56:41.935Z'
     },
     {
       id: 14,
@@ -217,15 +256,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Hauk',
       last_name: 'Boyes',
       email: 'hmb84@cornell.edu',
-      employee_id: '3587984',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.012Z',
-      updated_at: '2017-11-03T18:26:54.012Z'
+      values: {
+        employee_id: '3587984',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.936Z',
+      updated_at: '2017-11-03T18:56:41.936Z'
     },
     {
       id: 15,
@@ -233,15 +275,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Edna',
       last_name: 'Brown',
       email: 'esb11@cornell.edu',
-      employee_id: '1035461',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.012Z',
-      updated_at: '2017-11-03T18:26:54.012Z'
+      values: {
+        employee_id: '1035461',
+        vendor_id: 'FBROE'
+      },
+      created_at: '2017-11-03T18:56:41.936Z',
+      updated_at: '2017-11-03T18:56:41.936Z'
     },
     {
       id: 16,
@@ -249,15 +294,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Sarah',
       last_name: 'Brown',
       email: 'sb2275@cornell.edu',
-      employee_id: '4041855',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 8,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.012Z',
-      updated_at: '2017-11-03T18:26:54.012Z'
+      values: {
+        employee_id: '4041855',
+        vendor_id: 'SARBROW'
+      },
+      created_at: '2017-11-03T18:56:41.936Z',
+      updated_at: '2017-11-03T18:56:41.936Z'
     },
     {
       id: 17,
@@ -265,15 +313,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Judith',
       last_name: 'Burrill',
       email: 'jlb293@cornell.edu',
-      employee_id: '1043419',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 9,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.012Z',
-      updated_at: '2017-11-03T18:26:54.012Z'
+      values: {
+        employee_id: '1043419',
+        vendor_id: 'JUDBUR'
+      },
+      created_at: '2017-11-03T18:56:41.936Z',
+      updated_at: '2017-11-03T18:56:41.936Z'
     },
     {
       id: 18,
@@ -281,15 +332,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Brenda',
       last_name: 'Carpenter',
       email: 'btc6@cornell.edu',
-      employee_id: '1004027',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 10,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.013Z',
-      updated_at: '2017-11-03T18:26:54.013Z'
+      values: {
+        employee_id: '1004027',
+        vendor_id: 'ECARB'
+      },
+      created_at: '2017-11-03T18:56:41.937Z',
+      updated_at: '2017-11-03T18:56:41.937Z'
     },
     {
       id: 19,
@@ -297,15 +351,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Terrance',
       last_name: 'Carroll',
       email: 'tc629@cornell.edu',
-      employee_id: '4557861',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 11,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.013Z',
-      updated_at: '2017-11-03T18:26:54.013Z'
+      values: {
+        employee_id: '4557861',
+        vendor_id: 'TERRCARR'
+      },
+      created_at: '2017-11-03T18:56:41.937Z',
+      updated_at: '2017-11-03T18:56:41.937Z'
     },
     {
       id: 20,
@@ -313,15 +370,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Eric',
       last_name: 'Carter',
       email: 'emc333@cornell.edu',
-      employee_id: '4044702',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 12,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.013Z',
-      updated_at: '2017-11-03T18:26:54.013Z'
+      values: {
+        employee_id: '4044702',
+        vendor_id: 'ERICAR'
+      },
+      created_at: '2017-11-03T18:56:41.937Z',
+      updated_at: '2017-11-03T18:56:41.937Z'
     },
     {
       id: 21,
@@ -329,15 +389,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Michael',
       last_name: 'Cederstrom',
       email: 'mdc38@cornell.edu',
-      employee_id: '1309726',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.013Z',
-      updated_at: '2017-11-03T18:26:54.013Z'
+      values: {
+        employee_id: '1309726',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.937Z',
+      updated_at: '2017-11-03T18:56:41.937Z'
     },
     {
       id: 22,
@@ -345,15 +408,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Maria',
       last_name: 'Christian',
       email: 'mjc72@cornell.edu',
-      employee_id: '1311764',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 13,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.013Z',
-      updated_at: '2017-11-03T18:26:54.013Z'
+      values: {
+        employee_id: '1311764',
+        vendor_id: 'ECHRM'
+      },
+      created_at: '2017-11-03T18:56:41.937Z',
+      updated_at: '2017-11-03T18:56:41.937Z'
     },
     {
       id: 23,
@@ -361,15 +427,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Fabina',
       last_name: 'Colon',
       email: 'fb29@cornell.edu',
-      employee_id: '1281655',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 14,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.013Z',
-      updated_at: '2017-11-03T18:26:54.013Z'
+      values: {
+        employee_id: '1281655',
+        vendor_id: 'ECOLONF'
+      },
+      created_at: '2017-11-03T18:56:41.937Z',
+      updated_at: '2017-11-03T18:56:41.937Z'
     },
     {
       id: 24,
@@ -377,15 +446,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Ramona',
       last_name: 'Cornell',
       email: 'rlc263@cornell.edu',
-      employee_id: '1101720',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 15,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.013Z',
-      updated_at: '2017-11-03T18:26:54.013Z'
+      values: {
+        employee_id: '1101720',
+        vendor_id: 'ECORNELL'
+      },
+      created_at: '2017-11-03T18:56:41.937Z',
+      updated_at: '2017-11-03T18:56:41.937Z'
     },
     {
       id: 25,
@@ -393,15 +465,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Sean',
       last_name: 'Cornell',
       email: 'sec283@cornell.edu',
-      employee_id: '3404017',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 16,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.014Z',
-      updated_at: '2017-11-03T18:26:54.014Z'
+      values: {
+        employee_id: '3404017',
+        vendor_id: 'SEACOR'
+      },
+      created_at: '2017-11-03T18:56:41.937Z',
+      updated_at: '2017-11-03T18:56:41.937Z'
     },
     {
       id: 26,
@@ -409,15 +484,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Katie',
       last_name: 'Cox',
       email: 'kbh22@cornell.edu',
-      employee_id: '1262372',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.014Z',
-      updated_at: '2017-11-03T18:26:54.014Z'
+      values: {
+        employee_id: '1262372',
+        vendor_id: 'KATCOX'
+      },
+      created_at: '2017-11-03T18:56:41.937Z',
+      updated_at: '2017-11-03T18:56:41.937Z'
     },
     {
       id: 27,
@@ -425,15 +503,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Jennie',
       last_name: 'Cramer',
       email: 'jrc10@cornell.edu',
-      employee_id: '1029305',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 17,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.014Z',
-      updated_at: '2017-11-03T18:26:54.014Z'
+      values: {
+        employee_id: '1029305',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.937Z',
+      updated_at: '2017-11-03T18:56:41.937Z'
     },
     {
       id: 28,
@@ -441,15 +522,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Ethan',
       last_name: 'Cramton',
       email: 'egc24@cornell.edu',
-      employee_id: '1838016',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 18,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.014Z',
-      updated_at: '2017-11-03T18:26:54.014Z'
+      values: {
+        employee_id: '1838016',
+        vendor_id: 'ETHCRA'
+      },
+      created_at: '2017-11-03T18:56:41.938Z',
+      updated_at: '2017-11-03T18:56:41.938Z'
     },
     {
       id: 29,
@@ -457,15 +541,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Tim',
       last_name: 'Crowley',
       email: 'tfc43@cornell.edu',
-      employee_id: '2563972',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 19,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.014Z',
-      updated_at: '2017-11-03T18:26:54.014Z'
+      values: {
+        employee_id: '2563972',
+        vendor_id: 'ECROWLEYT'
+      },
+      created_at: '2017-11-03T18:56:41.938Z',
+      updated_at: '2017-11-03T18:56:41.938Z'
     },
     {
       id: 30,
@@ -473,15 +560,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Marina',
       last_name: 'Delaney',
       email: 'md665@cornell.edu',
-      employee_id: '2851805',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.014Z',
-      updated_at: '2017-11-03T18:26:54.015Z'
+      values: {
+        employee_id: '2851805',
+        vendor_id: 'MARDEL'
+      },
+      created_at: '2017-11-03T18:56:41.938Z',
+      updated_at: '2017-11-03T18:56:41.938Z'
     },
     {
       id: 31,
@@ -489,15 +579,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Paige',
       last_name: 'Demun',
       email: 'pjd223@cornell.edu',
-      employee_id: '3808171',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.015Z',
-      updated_at: '2017-11-03T18:26:54.015Z'
+      values: {
+        employee_id: '3808171',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.938Z',
+      updated_at: '2017-11-03T18:56:41.938Z'
     },
     {
       id: 32,
@@ -505,15 +598,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Peter',
       last_name: 'Dodge',
       email: 'pld55@cornell.edu',
-      employee_id: '4169039',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.015Z',
-      updated_at: '2017-11-03T18:26:54.015Z'
+      values: {
+        employee_id: '4169039',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.938Z',
+      updated_at: '2017-11-03T18:56:41.939Z'
     },
     {
       id: 33,
@@ -521,15 +617,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Joshua',
       last_name: 'Dolan',
       email: 'jd285@cornell.edu',
-      employee_id: '1784744',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 20,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.015Z',
-      updated_at: '2017-11-03T18:26:54.015Z'
+      values: {
+        employee_id: '1784744',
+        vendor_id: 'EDOLANJ'
+      },
+      created_at: '2017-11-03T18:56:41.939Z',
+      updated_at: '2017-11-03T18:56:41.939Z'
     },
     {
       id: 34,
@@ -537,15 +636,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Britton',
       last_name: 'Doughtery',
       email: 'bmd88@cornell.edu',
-      employee_id: '4206373',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 21,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.015Z',
-      updated_at: '2017-11-03T18:26:54.015Z'
+      values: {
+        employee_id: '4206373',
+        vendor_id: 'BRIDOU'
+      },
+      created_at: '2017-11-03T18:56:41.939Z',
+      updated_at: '2017-11-03T18:56:41.939Z'
     },
     {
       id: 35,
@@ -553,15 +655,18 @@ const usersFixtures = new Fixtures({
       first_name: 'Timothy',
       last_name: 'Drake',
       email: 'td39@cornell.edu',
-      employee_id: '1262682',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 22,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.015Z',
-      updated_at: '2017-11-03T18:26:54.017Z'
+      values: {
+        employee_id: '1262682',
+        vendor_id: 'EDRAT'
+      },
+      created_at: '2017-11-03T18:56:41.939Z',
+      updated_at: '2017-11-03T18:56:41.940Z'
     },
     {
       id: 36,
@@ -569,2159 +674,2488 @@ const usersFixtures = new Fixtures({
       first_name: 'Katherine',
       last_name: 'Duell',
       email: 'khd28@cornell.edu',
-      employee_id: '2673697',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.017Z',
-      updated_at: '2017-11-03T18:26:54.017Z'
+      values: {
+        employee_id: '2673697',
+        vendor_id: 'KATDUE'
+      },
+      created_at: '2017-11-03T18:56:41.941Z',
+      updated_at: '2017-11-03T18:56:41.941Z'
     },
     {
       id: 37,
       team_id: 1,
-      first_name: 'April',
-      last_name: 'Dunn',
-      email: 'acd223@cornell.edu',
-      employee_id: '3521225',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.017Z',
-      updated_at: '2017-11-03T18:26:54.017Z'
-    },
-    {
-      id: 38,
-      team_id: 1,
       first_name: 'Monica',
       last_name: 'Dykeman',
       email: 'mmd29@cornell.edu',
-      employee_id: '1274510',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 23,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.017Z',
-      updated_at: '2017-11-03T18:26:54.017Z'
+      values: {
+        employee_id: '1274510',
+        vendor_id: 'EDELM'
+      },
+      created_at: '2017-11-03T18:56:41.941Z',
+      updated_at: '2017-11-03T18:56:41.941Z'
     },
     {
-      id: 39,
+      id: 38,
       team_id: 1,
       first_name: 'Corinne',
       last_name: 'Eisenman',
       email: 'cee29@cornell.edu',
-      employee_id: '2302979',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 24,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.017Z',
-      updated_at: '2017-11-03T18:26:54.017Z'
+      values: {
+        employee_id: '2302979',
+        vendor_id: 'EEISONMAN'
+      },
+      created_at: '2017-11-03T18:56:41.941Z',
+      updated_at: '2017-11-03T18:56:41.941Z'
     },
     {
-      id: 40,
+      id: 39,
       team_id: 1,
       first_name: 'Lisa',
       last_name: 'Ellin',
       email: 'le93@cornell.edu',
-      employee_id: '3651906',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 25,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.017Z',
-      updated_at: '2017-11-03T18:26:54.017Z'
+      values: {
+        employee_id: '3651906',
+        vendor_id: 'LISELL'
+      },
+      created_at: '2017-11-03T18:56:41.941Z',
+      updated_at: '2017-11-03T18:56:41.941Z'
     },
     {
-      id: 41,
+      id: 40,
       team_id: 1,
       first_name: 'Theresa',
       last_name: 'Emerick',
       email: 'tee1@cornell.edu',
-      employee_id: '1001812',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 26,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.017Z',
-      updated_at: '2017-11-03T18:26:54.017Z'
+      values: {
+        employee_id: '1001812',
+        vendor_id: 'EEMET'
+      },
+      created_at: '2017-11-03T18:56:41.941Z',
+      updated_at: '2017-11-03T18:56:41.941Z'
     },
     {
-      id: 42,
+      id: 41,
       team_id: 1,
       first_name: 'Kialisha',
       last_name: 'Emerson',
       email: 'kpe4@cornell.edu',
-      employee_id: '1860756',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.017Z',
-      updated_at: '2017-11-03T18:26:54.017Z'
+      values: {
+        employee_id: '1860756',
+        vendor_id: 'KIAEMER'
+      },
+      created_at: '2017-11-03T18:56:41.941Z',
+      updated_at: '2017-11-03T18:56:41.941Z'
     },
     {
-      id: 43,
+      id: 42,
       team_id: 1,
       first_name: 'Jennifer',
       last_name: 'Feingold',
       email: 'jjf267@cornell.edu',
-      employee_id: '4635441',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.017Z',
-      updated_at: '2017-11-03T18:26:54.017Z'
+      values: {
+        employee_id: '4635441',
+        vendor_id: 'JENFEI'
+      },
+      created_at: '2017-11-03T18:56:41.941Z',
+      updated_at: '2017-11-03T18:56:41.941Z'
     },
     {
-      id: 44,
+      id: 43,
       team_id: 1,
       first_name: 'Jean',
       last_name: 'Freese Popowitch',
       email: 'jlf30@cornell.edu',
-      employee_id: '1014160',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 27,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.017Z',
-      updated_at: '2017-11-03T18:26:54.017Z'
+      values: {
+        employee_id: '1014160',
+        vendor_id: 'EFREJ'
+      },
+      created_at: '2017-11-03T18:56:41.941Z',
+      updated_at: '2017-11-03T18:56:41.941Z'
     },
     {
-      id: 45,
+      id: 44,
       team_id: 1,
       first_name: 'Chrys',
       last_name: 'Gardener',
       email: 'cab69@cornell.edu',
-      employee_id: '1095683',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 28,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.018Z',
-      updated_at: '2017-11-03T18:26:54.018Z'
+      values: {
+        employee_id: '1095683',
+        vendor_id: 'EGARC'
+      },
+      created_at: '2017-11-03T18:56:41.941Z',
+      updated_at: '2017-11-03T18:56:41.941Z'
     },
     {
-      id: 46,
+      id: 45,
       team_id: 1,
       first_name: 'Catherine',
       last_name: 'Gee',
       email: 'cmg43@cornell.edu',
-      employee_id: '1287174',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.018Z',
-      updated_at: '2017-11-03T18:26:54.018Z'
+      values: {
+        employee_id: '1287174',
+        vendor_id: 'LGEEC'
+      },
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
-      id: 47,
+      id: 46,
       team_id: 1,
       first_name: 'Cosmo',
       last_name: 'Genova',
       email: 'cmg299@cornell.edu',
-      employee_id: '4905311',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.018Z',
-      updated_at: '2017-11-03T18:26:54.018Z'
+      values: {
+        employee_id: '4905311',
+        vendor_id: 'COSGEN'
+      },
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
-      id: 48,
+      id: 47,
       team_id: 1,
       first_name: 'Lauren',
       last_name: 'Gillott',
       email: 'llg49@cornell.edu',
-      employee_id: '3805327',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.018Z',
-      updated_at: '2017-11-03T18:26:54.018Z'
+      values: {
+        employee_id: '3805327',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
-      id: 49,
+      id: 48,
       team_id: 1,
       first_name: 'Martha',
       last_name: 'Gioumousis',
       email: 'mg10@cornell.edu',
-      employee_id: '1231880',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 29,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.018Z',
-      updated_at: '2017-11-03T18:26:54.018Z'
+      values: {
+        employee_id: '1231880',
+        vendor_id: 'VMARTHA'
+      },
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
-      id: 50,
+      id: 49,
       team_id: 1,
       first_name: 'Kyle',
       last_name: 'Glavey-Weiss',
       email: 'kmg262@cornell.edu',
-      employee_id: '3312450',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.018Z',
-      updated_at: '2017-11-03T18:26:54.018Z'
+      values: {
+        employee_id: '3312450',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
-      id: 51,
+      id: 50,
       team_id: 1,
       first_name: 'Jennifer',
       last_name: 'Gray',
       email: 'jcg33@cornell.edu',
-      employee_id: '1300201',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 30,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.018Z',
-      updated_at: '2017-11-03T18:26:54.018Z'
+      values: {
+        employee_id: '1300201',
+        vendor_id: 'EGRAYJ'
+      },
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
-      id: 52,
+      id: 51,
       team_id: 1,
       first_name: 'Holly',
       last_name: 'Gump',
       email: 'hmg2@cornell.edu',
-      employee_id: '1170238',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 31,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.018Z',
-      updated_at: '2017-11-03T18:26:54.018Z'
+      values: {
+        employee_id: '1170238',
+        vendor_id: 'HOLGUM'
+      },
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
-      id: 53,
+      id: 52,
       team_id: 1,
       first_name: 'Norma',
       last_name: 'Gutierrez',
       email: 'ng32@cornell.edu',
-      employee_id: '1022911',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 32,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.018Z',
-      updated_at: '2017-11-03T18:26:54.018Z'
+      values: {
+        employee_id: '1022911',
+        vendor_id: 'NORGUT'
+      },
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
-      id: 54,
+      id: 53,
       team_id: 1,
       first_name: 'Cecilia',
       last_name: 'Hagen',
       email: 'crh243@cornell.edu',
-      employee_id: '3820880',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.018Z',
-      updated_at: '2017-11-03T18:26:54.018Z'
+      values: {
+        employee_id: '3820880',
+        vendor_id: 'CECHAG'
+      },
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
-      id: 55,
+      id: 54,
       team_id: 1,
       first_name: 'Pat',
       last_name: 'Haggerty',
       email: 'pmh75@cornell.edu',
-      employee_id: '2967054',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 33,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.018Z',
-      updated_at: '2017-11-03T18:26:54.018Z'
+      values: {
+        employee_id: '2967054',
+        vendor_id: 'EHAGGERTYP'
+      },
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
-      id: 56,
+      id: 55,
       team_id: 1,
       first_name: 'Gibrian',
       last_name: 'Hagood',
       email: 'gah225@cornell.edu',
-      employee_id: '3824524',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 34,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.019Z',
-      updated_at: '2017-11-03T18:26:54.019Z'
+      values: {
+        employee_id: '3824524',
+        vendor_id: 'GIBHAG'
+      },
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
-      id: 57,
+      id: 56,
       team_id: 1,
       first_name: 'David',
       last_name: 'Hall',
       email: 'dh67@cornell.edu',
-      employee_id: '1022307',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 35,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.019Z',
-      updated_at: '2017-11-03T18:26:54.019Z'
+      values: {
+        employee_id: '1022307',
+        vendor_id: 'EHALD'
+      },
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
-      id: 58,
+      id: 57,
       team_id: 1,
       first_name: 'Monica',
       last_name: 'Hargraves',
       email: 'mjh51@cornell.edu',
-      employee_id: '1032418',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.019Z',
-      updated_at: '2017-11-03T18:26:54.019Z'
+      values: {
+        employee_id: '1032418',
+        vendor_id: 'EHARM'
+      },
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
-      id: 59,
+      id: 58,
       team_id: 1,
       first_name: 'Venda',
       last_name: 'Harris',
       email: 'vmt5@cornell.edu',
-      employee_id: '1306964',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 36,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.019Z',
-      updated_at: '2017-11-03T18:26:54.019Z'
+      values: {
+        employee_id: '1306964',
+        vendor_id: 'VHARRIS'
+      },
+      created_at: '2017-11-03T18:56:41.942Z',
+      updated_at: '2017-11-03T18:56:41.942Z'
     },
     {
-      id: 60,
+      id: 59,
       team_id: 1,
       first_name: 'Skye',
       last_name: 'Hart',
       email: 'smh337@cornell.edu',
-      employee_id: '2673657',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.019Z',
-      updated_at: '2017-11-03T18:26:54.019Z'
+      values: {
+        employee_id: '2673657',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.943Z',
+      updated_at: '2017-11-03T18:56:41.943Z'
     },
     {
-      id: 61,
+      id: 60,
       team_id: 1,
       first_name: 'Nathaniel',
       last_name: 'Haviland-Markowitz',
       email: 'ndh34@cornell.edu',
-      employee_id: '3497644',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.019Z',
-      updated_at: '2017-11-03T18:26:54.019Z'
+      values: {
+        employee_id: '3497644',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.943Z',
+      updated_at: '2017-11-03T18:56:41.943Z'
     },
     {
-      id: 62,
+      id: 61,
       team_id: 1,
       first_name: 'Mary',
       last_name: 'Hicks',
       email: 'mlh39@cornell.edu',
-      employee_id: '1273813',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.019Z',
-      updated_at: '2017-11-03T18:26:54.019Z'
+      values: {
+        employee_id: '1273813',
+        vendor_id: 'VMARYH'
+      },
+      created_at: '2017-11-03T18:56:41.943Z',
+      updated_at: '2017-11-03T18:56:41.943Z'
     },
     {
-      id: 63,
+      id: 62,
       team_id: 1,
       first_name: 'Margo',
       last_name: 'Hittleman',
       email: 'mjh17@cornell.edu',
-      employee_id: '1014840',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 37,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.019Z',
-      updated_at: '2017-11-03T18:26:54.019Z'
+      values: {
+        employee_id: '1014840',
+        vendor_id: 'EHITTLEMAN'
+      },
+      created_at: '2017-11-03T18:56:41.943Z',
+      updated_at: '2017-11-03T18:56:41.943Z'
     },
     {
-      id: 64,
+      id: 63,
       team_id: 1,
       first_name: 'Rebecca',
       last_name: 'Howe',
       email: 'rhd23@cornell.edu',
-      employee_id: '1116038',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.019Z',
-      updated_at: '2017-11-03T18:26:54.019Z'
+      values: {
+        employee_id: '1116038',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.943Z',
+      updated_at: '2017-11-03T18:56:41.943Z'
     },
     {
-      id: 65,
+      id: 64,
       team_id: 1,
       first_name: 'Joann',
       last_name: 'Huddle',
       email: 'jmh37@cornell.edu',
-      employee_id: '1006434',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 38,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.020Z',
-      updated_at: '2017-11-03T18:26:54.020Z'
+      values: {
+        employee_id: '1006434',
+        vendor_id: 'EHUDJ'
+      },
+      created_at: '2017-11-03T18:56:41.943Z',
+      updated_at: '2017-11-03T18:56:41.943Z'
     },
     {
-      id: 66,
+      id: 65,
       team_id: 1,
       first_name: 'Elisha',
       last_name: 'James',
       email: 'ej268@cornell.edu',
-      employee_id: '4904270',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.020Z',
-      updated_at: '2017-11-03T18:26:54.020Z'
+      values: {
+        employee_id: '4904270',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.943Z',
+      updated_at: '2017-11-03T18:56:41.943Z'
     },
     {
-      id: 67,
-      team_id: 1,
-      first_name: 'Elizabeth',
-      last_name: 'Jesch',
-      email: 'elj56@cornell.edu',
-      employee_id: '3842691',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.021Z',
-      updated_at: '2017-11-03T18:26:54.021Z'
-    },
-    {
-      id: 68,
+      id: 66,
       team_id: 1,
       first_name: 'Kathy',
       last_name: 'Jett',
       email: 'klj27@cornell.edu',
-      employee_id: '1297617',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 39,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      values: {
+        employee_id: '1297617',
+        vendor_id: 'EJETK'
+      },
+      created_at: '2017-11-03T18:56:41.943Z',
+      updated_at: '2017-11-03T18:56:41.943Z'
     },
     {
-      id: 69,
+      id: 67,
       team_id: 1,
       first_name: 'Jamieson',
       last_name: 'Johnson',
       email: 'jpj46@cornell.edu',
-      employee_id: '2244066',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      values: {
+        employee_id: '2244066',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.945Z',
+      updated_at: '2017-11-03T18:56:41.945Z'
     },
     {
-      id: 70,
+      id: 68,
       team_id: 1,
       first_name: 'Michele',
       last_name: 'Jones',
       email: 'mlj77@cornell.edu',
-      employee_id: '4472734',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 40,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      values: {
+        employee_id: '4472734',
+        vendor_id: 'MICJON'
+      },
+      created_at: '2017-11-03T18:56:41.946Z',
+      updated_at: '2017-11-03T18:56:41.946Z'
     },
     {
-      id: 71,
+      id: 69,
       team_id: 1,
       first_name: 'Jed',
       last_name: 'Jordan',
       email: 'drj4@cornell.edu',
-      employee_id: '1310589',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 41,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      values: {
+        employee_id: '1310589',
+        vendor_id: 'EJORD'
+      },
+      created_at: '2017-11-03T18:56:41.946Z',
+      updated_at: '2017-11-03T18:56:41.946Z'
     },
     {
-      id: 72,
+      id: 70,
       team_id: 1,
       first_name: 'Barbara',
       last_name: 'Jordan',
       email: 'bap36@cornell.edu',
-      employee_id: '1838683',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      values: {
+        employee_id: '1838683',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.946Z',
+      updated_at: '2017-11-03T18:56:41.946Z'
     },
     {
-      id: 73,
+      id: 71,
       team_id: 1,
       first_name: 'Brittanie',
       last_name: 'Joseph',
       email: 'bjj44@cornell.edu',
-      employee_id: '3252030',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      values: {
+        employee_id: '3252030',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.946Z',
+      updated_at: '2017-11-03T18:56:41.946Z'
     },
     {
-      id: 74,
+      id: 72,
       team_id: 1,
       first_name: 'Travis',
       last_name: 'Judd',
       email: 'ttj22@cornell.edu',
-      employee_id: '4265239',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 42,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      values: {
+        employee_id: '4265239',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.946Z',
+      updated_at: '2017-11-03T18:56:41.946Z'
     },
     {
-      id: 75,
+      id: 73,
       team_id: 1,
       first_name: 'Chris',
       last_name: 'Kai-Jones',
       email: 'chj7@cornell.edu',
-      employee_id: '1762452',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 43,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      values: {
+        employee_id: '1762452',
+        vendor_id: 'CHRKAI'
+      },
+      created_at: '2017-11-03T18:56:41.946Z',
+      updated_at: '2017-11-03T18:56:41.946Z'
     },
     {
-      id: 76,
+      id: 74,
       team_id: 1,
       first_name: 'Lara',
       last_name: 'Kaltman',
       email: 'ljp9@cornell.edu',
-      employee_id: '1030448',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 44,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      values: {
+        employee_id: '1030448',
+        vendor_id: 'VOLKALTMAN'
+      },
+      created_at: '2017-11-03T18:56:41.946Z',
+      updated_at: '2017-11-03T18:56:41.946Z'
     },
     {
-      id: 77,
+      id: 75,
       team_id: 1,
       first_name: 'Elizabeth',
       last_name: 'Karabinakis',
       email: 'evk4@cornell.edu',
-      employee_id: '1274738',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 45,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      values: {
+        employee_id: '1274738',
+        vendor_id: 'EELIZKARA'
+      },
+      created_at: '2017-11-03T18:56:41.947Z',
+      updated_at: '2017-11-03T18:56:41.947Z'
     },
     {
-      id: 78,
+      id: 76,
       team_id: 1,
       first_name: 'Cathy',
       last_name: 'Kinder',
       email: 'cmk22@cornell.edu',
-      employee_id: '1021696',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      values: {
+        employee_id: '1021696',
+        vendor_id: 'VKINC'
+      },
+      created_at: '2017-11-03T18:56:41.947Z',
+      updated_at: '2017-11-03T18:56:41.947Z'
     },
     {
-      id: 79,
+      id: 77,
       team_id: 1,
       first_name: 'Hannah',
       last_name: 'Kinsella',
       email: 'hdk29@cornell.edu',
-      employee_id: '4380550',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 46,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.023Z',
-      updated_at: '2017-11-03T18:26:54.023Z'
+      values: {
+        employee_id: '4380550',
+        vendor_id: 'HANKIN'
+      },
+      created_at: '2017-11-03T18:56:41.947Z',
+      updated_at: '2017-11-03T18:56:41.947Z'
     },
     {
-      id: 80,
+      id: 78,
       team_id: 1,
       first_name: 'Laura',
       last_name: 'Komor',
       email: 'lrk57@cornell.edu',
-      employee_id: '2115047',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 47,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.024Z',
-      updated_at: '2017-11-03T18:26:54.024Z'
+      values: {
+        employee_id: '2115047',
+        vendor_id: 'LAUKOM'
+      },
+      created_at: '2017-11-03T18:56:41.947Z',
+      updated_at: '2017-11-03T18:56:41.947Z'
     },
     {
-      id: 81,
+      id: 79,
       team_id: 1,
       first_name: 'Gregory',
       last_name: 'Kops',
       email: 'gmk8@cornell.edu',
-      employee_id: '1236097',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 48,
       notification_method: 'immediately',
-      activated_at: '2017-11-03T18:26:54.024Z',
-      created_at: '2017-11-03T18:26:54.024Z',
-      updated_at: '2017-11-03T18:26:54.024Z'
+      activated_at: '2017-11-03T18:56:41.947Z',
+      values: {
+        employee_id: '1236097',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.947Z',
+      updated_at: '2017-11-03T18:56:41.947Z'
     },
     {
-      id: 82,
+      id: 80,
       team_id: 1,
       first_name: 'Sara',
       last_name: 'Koste',
       email: 'sjk266@cornell.edu',
-      employee_id: '1975099',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 49,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.024Z',
-      updated_at: '2017-11-03T18:26:54.024Z'
+      values: {
+        employee_id: '1975099',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.947Z',
+      updated_at: '2017-11-03T18:56:41.947Z'
     },
     {
-      id: 83,
+      id: 81,
       team_id: 1,
       first_name: 'Zachary',
       last_name: 'Kozlowski',
       email: 'zak6@cornell.edu',
-      employee_id: '1757647',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 50,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.024Z',
-      updated_at: '2017-11-03T18:26:54.024Z'
+      values: {
+        employee_id: '1757647',
+        vendor_id: 'EKOZLOWSKI'
+      },
+      created_at: '2017-11-03T18:56:41.947Z',
+      updated_at: '2017-11-03T18:56:41.947Z'
     },
     {
-      id: 84,
+      id: 82,
       team_id: 1,
       first_name: 'Douglas',
       last_name: 'Krisch',
       email: 'dmk19@cornell.edu',
-      employee_id: '1027875',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.024Z',
-      updated_at: '2017-11-03T18:26:54.024Z'
+      values: {
+        employee_id: '1027875',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.947Z',
+      updated_at: '2017-11-03T18:56:41.947Z'
     },
     {
-      id: 85,
+      id: 83,
       team_id: 1,
       first_name: 'Annalise',
       last_name: 'Kukor',
       email: 'abk95@cornell.edu',
-      employee_id: '4817659',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 51,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.024Z',
-      updated_at: '2017-11-03T18:26:54.024Z'
+      values: {
+        employee_id: '4817659',
+        vendor_id: 'ANNKUK'
+      },
+      created_at: '2017-11-03T18:56:41.947Z',
+      updated_at: '2017-11-03T18:56:41.947Z'
     },
     {
-      id: 86,
+      id: 84,
       team_id: 1,
       first_name: 'Victoria',
       last_name: 'Kulwicki',
-      email: '@cornell.edu',
-      employee_id: '',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.024Z',
-      updated_at: '2017-11-03T18:26:54.024Z'
-    },
-    {
-      id: 87,
-      team_id: 1,
-      first_name: 'Eh Tha Yooi',
-      last_name: 'Lee',
-      email: 'el742@cornell.edu',
-      employee_id: '4907286',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.024Z',
-      updated_at: '2017-11-03T18:26:54.024Z'
-    },
-    {
-      id: 88,
-      team_id: 1,
-      first_name: 'Matthew',
-      last_name: 'LeRoux',
-      email: 'mnl28@cornell.edu',
-      employee_id: '2013918',
+      email: 'vk258@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 52,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      values: {
+        employee_id: '4914987',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 89,
+      id: 85,
       team_id: 1,
-      first_name: 'Shelley',
-      last_name: 'Lester',
-      email: 'sjl44@cornell.edu',
-      employee_id: '1310578',
+      first_name: 'Eh Tha Yooi',
+      last_name: 'Lee',
+      email: 'el742@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '4907286',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
+    },
+    {
+      id: 86,
+      team_id: 1,
+      first_name: 'Yoke Lee',
+      last_name: 'Lee',
+      email: 'yl2365@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '3391465',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
+    },
+    {
+      id: 87,
+      team_id: 1,
+      first_name: 'Matthew',
+      last_name: 'LeRoux',
+      email: 'mnl28@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 53,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      values: {
+        employee_id: '2013918',
+        vendor_id: 'VMATTL'
+      },
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 90,
+      id: 88,
       team_id: 1,
-      first_name: 'Thena',
-      last_name: 'LeVan',
-      email: 'tlc98@cornell.edu',
-      employee_id: '2248196',
+      first_name: 'Shelley',
+      last_name: 'Lester',
+      email: 'sjl44@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 54,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      values: {
+        employee_id: '1310578',
+        vendor_id: 'SHELES'
+      },
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 91,
+      id: 89,
       team_id: 1,
-      first_name: 'Min',
-      last_name: 'Liu',
-      email: 'ml989@cornell.edu',
-      employee_id: '2844480',
+      first_name: 'Thena',
+      last_name: 'LeVan',
+      email: 'tlc98@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 55,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      values: {
+        employee_id: '2248196',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 92,
+      id: 90,
       team_id: 1,
-      first_name: 'Siri',
-      last_name: 'Lonberg',
-      email: 'ssl263@cornell.edu',
-      employee_id: '4908154',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
-    },
-    {
-      id: 93,
-      team_id: 1,
-      first_name: 'Bambi',
-      last_name: 'Lott',
-      email: 'bml95@cornell.edu',
-      employee_id: '3824572',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
-    },
-    {
-      id: 94,
-      team_id: 1,
-      first_name: 'Leigh',
-      last_name: 'MacDonald-Rizzo',
-      email: 'lam26@cornell.edu',
-      employee_id: '1025008',
+      first_name: 'Min',
+      last_name: 'Liu',
+      email: 'ml989@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 56,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      values: {
+        employee_id: '2844480',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 95,
+      id: 91,
       team_id: 1,
-      first_name: 'Hannah',
-      last_name: 'Mackey',
-      email: 'htm28@cornell.edu',
-      employee_id: '3635337',
+      first_name: 'Siri',
+      last_name: 'Lonberg',
+      email: 'ssl263@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      values: {
+        employee_id: '4908154',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 96,
+      id: 92,
       team_id: 1,
-      first_name: 'Mariah',
-      last_name: 'Mahaney',
-      email: 'mtm94@cornell.edu',
-      employee_id: '4154604',
+      first_name: 'Bambi',
+      last_name: 'Lott',
+      email: 'bml95@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      values: {
+        employee_id: '3824572',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 97,
+      id: 93,
       team_id: 1,
-      first_name: 'Khansa',
-      last_name: 'Mahum',
-      email: 'km659@cornell.edu',
-      employee_id: '3987994',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
-    },
-    {
-      id: 98,
-      team_id: 1,
-      first_name: 'Elana',
-      last_name: 'Maragni',
-      email: 'em748@cornell.edu',
-      employee_id: '4452034',
+      first_name: 'Leigh',
+      last_name: 'MacDonald-Rizzo',
+      email: 'lam26@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 57,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      values: {
+        employee_id: '1025008',
+        vendor_id: 'EMACL'
+      },
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 99,
+      id: 94,
       team_id: 1,
-      first_name: 'Erin',
-      last_name: 'Marteal',
-      email: 'enm6@cornell.edu',
-      employee_id: '1839874',
+      first_name: 'Hannah',
+      last_name: 'Mackey',
+      email: 'htm28@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '3635337',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
+    },
+    {
+      id: 95,
+      team_id: 1,
+      first_name: 'Khansa',
+      last_name: 'Mahum',
+      email: 'km659@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '3987994',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
+    },
+    {
+      id: 96,
+      team_id: 1,
+      first_name: 'Elana',
+      last_name: 'Maragni',
+      email: 'em748@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 58,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      values: {
+        employee_id: '4452034',
+        vendor_id: 'ELAMAR'
+      },
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 100,
+      id: 97,
       team_id: 1,
-      first_name: 'Nathaniel',
-      last_name: 'Martinez',
-      email: 'ntm3@cornell.edu',
-      employee_id: '1274718',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
-    },
-    {
-      id: 101,
-      team_id: 1,
-      first_name: 'Kathleen',
-      last_name: 'Maxson',
-      email: 'kmm242@cornell.edu',
-      employee_id: '1852857',
+      first_name: 'Erin',
+      last_name: 'Marteal',
+      email: 'enm6@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 59,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      values: {
+        employee_id: '1839874',
+        vendor_id: 'VMARTEALE'
+      },
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 102,
+      id: 98,
       team_id: 1,
-      first_name: 'Kiara',
-      last_name: 'McCadden',
-      email: 'km823@cornell.edu',
-      employee_id: '4899526',
+      first_name: 'Nathaniel',
+      last_name: 'Martinez',
+      email: 'ntm3@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '1274718',
+        vendor_id: 'NATMAR'
+      },
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
+    },
+    {
+      id: 99,
+      team_id: 1,
+      first_name: 'Kathleen',
+      last_name: 'Maxson',
+      email: 'kmm242@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 60,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.025Z',
-      updated_at: '2017-11-03T18:26:54.025Z'
+      values: {
+        employee_id: '1852857',
+        vendor_id: 'VKATHYM'
+      },
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 103,
+      id: 100,
       team_id: 1,
-      first_name: 'Kenneth',
-      last_name: 'McLaurin',
-      email: 'kem228@cornell.edu',
-      employee_id: '3022914',
+      first_name: 'Kiara',
+      last_name: 'McCadden',
+      email: 'km823@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 61,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.033Z',
-      updated_at: '2017-11-03T18:26:54.033Z'
+      values: {
+        employee_id: '4899526',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.948Z',
+      updated_at: '2017-11-03T18:56:41.948Z'
     },
     {
-      id: 104,
+      id: 101,
       team_id: 1,
-      first_name: 'Guillermo',
-      last_name: 'Metz',
-      email: 'gm52@cornell.edu',
-      employee_id: '1035017',
+      first_name: 'Kenneth',
+      last_name: 'McLaurin',
+      email: 'kem228@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 62,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.033Z',
-      updated_at: '2017-11-03T18:26:54.033Z'
+      values: {
+        employee_id: '3022914',
+        vendor_id: 'KENMCL'
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
     },
     {
-      id: 105,
+      id: 102,
       team_id: 1,
-      first_name: 'Adam',
-      last_name: 'Michaelides',
-      email: 'acm1@cornell.edu',
-      employee_id: '1167408',
+      first_name: 'Guillermo',
+      last_name: 'Metz',
+      email: 'gm52@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 63,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.033Z',
-      updated_at: '2017-11-03T18:26:54.033Z'
+      values: {
+        employee_id: '1035017',
+        vendor_id: 'EMETZG'
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
     },
     {
-      id: 106,
+      id: 103,
       team_id: 1,
-      first_name: 'Khulani',
-      last_name: 'Mkhonza',
-      email: 'km646@cornell.edu',
-      employee_id: '4403103',
+      first_name: 'Adam',
+      last_name: 'Michaelides',
+      email: 'acm1@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 64,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.034Z',
-      updated_at: '2017-11-03T18:26:54.034Z'
+      values: {
+        employee_id: '1167408',
+        vendor_id: 'EMICA'
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
     },
     {
-      id: 107,
+      id: 104,
       team_id: 1,
-      first_name: 'Troy',
-      last_name: 'Mock',
-      email: 'tcm87@cornell.edu',
-      employee_id: '3765541',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.034Z',
-      updated_at: '2017-11-03T18:26:54.034Z'
-    },
-    {
-      id: 108,
-      team_id: 1,
-      first_name: 'Dawn',
-      last_name: 'Montanye',
-      email: 'dm773@cornell.edu',
-      employee_id: '4890033',
+      first_name: 'Khulani',
+      last_name: 'Mkhonza',
+      email: 'km646@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 65,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.034Z',
-      updated_at: '2017-11-03T18:26:54.034Z'
+      values: {
+        employee_id: '4403103',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
     },
     {
-      id: 109,
+      id: 105,
       team_id: 1,
-      first_name: 'Elena',
-      last_name: 'Montesano',
-      email: 'ecm94@cornell.edu',
-      employee_id: '4020020',
+      first_name: 'Troy',
+      last_name: 'Mock',
+      email: 'tcm87@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.034Z',
-      updated_at: '2017-11-03T18:26:54.034Z'
+      values: {
+        employee_id: '3765541',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
     },
     {
-      id: 110,
+      id: 106,
       team_id: 1,
-      first_name: 'Renee',
-      last_name: 'Morris',
-      email: 'rlm428@cornell.edu',
-      employee_id: '4185340',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.034Z',
-      updated_at: '2017-11-03T18:26:54.034Z'
-    },
-    {
-      id: 111,
-      team_id: 1,
-      first_name: 'Davi',
-      last_name: 'Mozie',
-      email: 'dm568@cornell.edu',
-      employee_id: '3960600',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.034Z',
-      updated_at: '2017-11-03T18:26:54.034Z'
-    },
-    {
-      id: 112,
-      team_id: 1,
-      first_name: 'Taili',
-      last_name: 'Mugambee',
-      email: 'tm554@cornell.edu',
-      employee_id: '4853102',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.034Z',
-      updated_at: '2017-11-03T18:26:54.034Z'
-    },
-    {
-      id: 113,
-      team_id: 1,
-      first_name: 'Lois',
-      last_name: 'Nguyen',
-      email: 'lxn2@cornell.edu',
-      employee_id: '3392050',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.034Z',
-      updated_at: '2017-11-03T18:26:54.034Z'
-    },
-    {
-      id: 114,
-      team_id: 1,
-      first_name: 'Emily',
-      last_name: 'Parish',
-      email: 'erp65@cornell.edu',
-      employee_id: '3655889',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.034Z',
-      updated_at: '2017-11-03T18:26:54.034Z'
-    },
-    {
-      id: 115,
-      team_id: 1,
-      first_name: 'Laura',
-      last_name: 'Parker',
-      email: 'ljp92@cornell.edu',
-      employee_id: '3630131',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.034Z',
-      updated_at: '2017-11-03T18:26:54.034Z'
-    },
-    {
-      id: 116,
-      team_id: 1,
-      first_name: 'Lisa',
-      last_name: 'Pate',
-      email: 'ldm27@cornell.edu',
-      employee_id: '1050323',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.034Z',
-      updated_at: '2017-11-03T18:26:54.034Z'
-    },
-    {
-      id: 117,
-      team_id: 1,
-      first_name: 'Mark',
-      last_name: 'Pierce',
-      email: 'mrp6@cornell.edu',
-      employee_id: '1012469',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.034Z',
-      updated_at: '2017-11-03T18:26:54.034Z'
-    },
-    {
-      id: 118,
-      team_id: 1,
-      first_name: 'Hillary',
-      last_name: 'Pitoniak',
-      email: 'hjp54@cornell.edu',
-      employee_id: '4203242',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.034Z',
-      updated_at: '2017-11-03T18:26:54.034Z'
-    },
-    {
-      id: 119,
-      team_id: 1,
-      first_name: 'Tarcinna',
-      last_name: 'Pittman',
-      email: 'tjp94@cornell.edu',
-      employee_id: '4908153',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.034Z',
-      updated_at: '2017-11-03T18:26:54.034Z'
-    },
-    {
-      id: 120,
-      team_id: 1,
-      first_name: 'Susanna',
-      last_name: 'Plotkin',
-      email: 'sp586@cornell.edu',
-      employee_id: '3546467',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.034Z',
-      updated_at: '2017-11-03T18:26:54.034Z'
-    },
-    {
-      id: 121,
-      team_id: 1,
-      first_name: 'Danielle',
-      last_name: 'Prizzi',
-      email: 'dmp279@cornell.edu',
-      employee_id: '3502419',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.035Z',
-      updated_at: '2017-11-03T18:26:54.035Z'
-    },
-    {
-      id: 122,
-      team_id: 1,
-      first_name: 'Megan',
-      last_name: 'Pugh',
-      email: 'mmp246@cornell.edu',
-      employee_id: '3808306',
+      first_name: 'Dawn',
+      last_name: 'Montanye',
+      email: 'dm773@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 66,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.035Z',
-      updated_at: '2017-11-03T18:26:54.035Z'
+      values: {
+        employee_id: '4890033',
+        vendor_id: 'DAWMON'
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
     },
     {
-      id: 123,
+      id: 107,
+      team_id: 1,
+      first_name: 'Elena',
+      last_name: 'Montesano',
+      email: 'ecm94@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '4020020',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
+    },
+    {
+      id: 108,
+      team_id: 1,
+      first_name: 'Renee',
+      last_name: 'Morris',
+      email: 'rlm428@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '4185340',
+        vendor_id: 'RENMOR'
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
+    },
+    {
+      id: 109,
+      team_id: 1,
+      first_name: 'Davi',
+      last_name: 'Mozie',
+      email: 'dm568@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '3960600',
+        vendor_id: 'DAVMOZ'
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
+    },
+    {
+      id: 110,
+      team_id: 1,
+      first_name: 'Taili',
+      last_name: 'Mugambee',
+      email: 'tm554@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '4853102',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
+    },
+    {
+      id: 111,
+      team_id: 1,
+      first_name: 'Lois',
+      last_name: 'Nguyen',
+      email: 'lxn2@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '3392050',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
+    },
+    {
+      id: 112,
+      team_id: 1,
+      first_name: 'Emily',
+      last_name: 'Parish',
+      email: 'erp65@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '3655889',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
+    },
+    {
+      id: 113,
+      team_id: 1,
+      first_name: 'Laura',
+      last_name: 'Parker',
+      email: 'ljp92@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '3630131',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
+    },
+    {
+      id: 114,
+      team_id: 1,
+      first_name: 'Lisa',
+      last_name: 'Pate',
+      email: 'ldm27@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '1050323',
+        vendor_id: 'LPATL'
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
+    },
+    {
+      id: 115,
+      team_id: 1,
+      first_name: 'Mark',
+      last_name: 'Pierce',
+      email: 'mrp6@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '1012469',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
+    },
+    {
+      id: 116,
+      team_id: 1,
+      first_name: 'Hillary',
+      last_name: 'Pitoniak',
+      email: 'hjp54@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '4203242',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
+    },
+    {
+      id: 117,
+      team_id: 1,
+      first_name: 'Tarcinna',
+      last_name: 'Pittman',
+      email: 'tjp94@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '4908153',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
+    },
+    {
+      id: 118,
+      team_id: 1,
+      first_name: 'Susanna',
+      last_name: 'Plotkin',
+      email: 'sp586@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '3546467',
+        vendor_id: 'SUSPLO'
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
+    },
+    {
+      id: 119,
+      team_id: 1,
+      first_name: 'Danielle',
+      last_name: 'Prizzi',
+      email: 'dmp279@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '3502419',
+        vendor_id: 'DANPRI'
+      },
+      created_at: '2017-11-03T18:56:41.949Z',
+      updated_at: '2017-11-03T18:56:41.949Z'
+    },
+    {
+      id: 120,
       team_id: 1,
       first_name: 'Megan',
-      last_name: 'Pulver',
-      email: 'msp94@cornell.edu',
-      employee_id: '1961798',
+      last_name: 'Pugh',
+      email: 'mmp246@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 67,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.035Z',
-      updated_at: '2017-11-03T18:26:54.035Z'
+      values: {
+        employee_id: '3808306',
+        vendor_id: 'MEGPUG'
+      },
+      created_at: '2017-11-03T18:56:41.950Z',
+      updated_at: '2017-11-03T18:56:41.950Z'
     },
     {
-      id: 124,
-      team_id: 1,
-      first_name: 'Alissa',
-      last_name: 'Pure',
-      email: 'ap2223@cornell.edu',
-      employee_id: '4635439',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.035Z',
-      updated_at: '2017-11-03T18:26:54.035Z'
-    },
-    {
-      id: 125,
+      id: 121,
       team_id: 1,
       first_name: 'Megan',
-      last_name: 'Redmond',
-      email: 'mlr253@cornell.edu',
-      employee_id: '2561954',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.035Z',
-      updated_at: '2017-11-03T18:26:54.035Z'
-    },
-    {
-      id: 126,
-      team_id: 1,
-      first_name: 'Sandra',
-      last_name: 'Repp',
-      email: 'sjr37@cornell.edu',
-      employee_id: '1308422',
+      last_name: 'Pulver',
+      email: 'msp94@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 68,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.035Z',
-      updated_at: '2017-11-03T18:26:54.035Z'
+      values: {
+        employee_id: '1961798',
+        vendor_id: 'MEGAPULV'
+      },
+      created_at: '2017-11-03T18:56:41.950Z',
+      updated_at: '2017-11-03T18:56:41.950Z'
     },
     {
-      id: 127,
+      id: 122,
       team_id: 1,
-      first_name: 'Anne',
-      last_name: 'Rhodes',
-      email: 'aer86@cornell.edu',
-      employee_id: '2695804',
+      first_name: 'Megan',
+      last_name: 'Redmond',
+      email: 'mlr253@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.035Z',
-      updated_at: '2017-11-03T18:26:54.035Z'
+      values: {
+        employee_id: '2561954',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.950Z',
+      updated_at: '2017-11-03T18:56:41.950Z'
     },
     {
-      id: 128,
+      id: 123,
       team_id: 1,
-      first_name: 'Dina',
-      last_name: 'Rigas',
-      email: 'dmr298@cornell.edu',
-      employee_id: '3847628',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.035Z',
-      updated_at: '2017-11-03T18:26:54.035Z'
-    },
-    {
-      id: 129,
-      team_id: 1,
-      first_name: 'Miguel',
-      last_name: 'Rivera',
-      email: 'mar463@cornell.edu',
-      employee_id: '4150605',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.035Z',
-      updated_at: '2017-11-03T18:26:54.035Z'
-    },
-    {
-      id: 130,
-      team_id: 1,
-      first_name: 'Sierra',
-      last_name: 'Robinson',
-      email: 'sar292@cornell.edu',
-      employee_id: '4904263',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
-    },
-    {
-      id: 131,
-      team_id: 1,
-      first_name: 'Monika',
-      last_name: 'Roth',
-      email: 'mr55@cornell.edu',
-      employee_id: '1009921',
+      first_name: 'Sandra',
+      last_name: 'Repp',
+      email: 'sjr37@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 69,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
+      values: {
+        employee_id: '1308422',
+        vendor_id: 'EREPS'
+      },
+      created_at: '2017-11-03T18:56:41.950Z',
+      updated_at: '2017-11-03T18:56:41.950Z'
     },
     {
-      id: 132,
+      id: 124,
       team_id: 1,
-      first_name: 'Lauren',
-      last_name: 'Salzman',
-      email: 'las466@cornell.edu',
-      employee_id: '3225745',
+      first_name: 'Anne',
+      last_name: 'Rhodes',
+      email: 'aer86@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '2695804',
+        vendor_id: 'VRHODESA'
+      },
+      created_at: '2017-11-03T18:56:41.950Z',
+      updated_at: '2017-11-03T18:56:41.950Z'
+    },
+    {
+      id: 125,
+      team_id: 1,
+      first_name: 'Miguel',
+      last_name: 'Rivera',
+      email: 'mar463@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '4150605',
+        vendor_id: 'MIGRIV'
+      },
+      created_at: '2017-11-03T18:56:41.950Z',
+      updated_at: '2017-11-03T18:56:41.950Z'
+    },
+    {
+      id: 126,
+      team_id: 1,
+      first_name: 'Devra',
+      last_name: 'Rivkin',
+      email: 'drr75@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '2683399',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.950Z',
+      updated_at: '2017-11-03T18:56:41.950Z'
+    },
+    {
+      id: 127,
+      team_id: 1,
+      first_name: 'Sierra',
+      last_name: 'Robinson',
+      email: 'sar292@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '4904263',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.950Z',
+      updated_at: '2017-11-03T18:56:41.950Z'
+    },
+    {
+      id: 128,
+      team_id: 1,
+      first_name: 'Monika',
+      last_name: 'Roth',
+      email: 'mr55@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 70,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
+      values: {
+        employee_id: '1009921',
+        vendor_id: 'EROTM'
+      },
+      created_at: '2017-11-03T18:56:41.950Z',
+      updated_at: '2017-11-03T18:56:41.950Z'
     },
     {
-      id: 133,
+      id: 129,
       team_id: 1,
-      first_name: 'Carmen',
-      last_name: 'Santiago',
-      email: 'cs632@cornell.edu',
-      employee_id: '2699919',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
-    },
-    {
-      id: 134,
-      team_id: 1,
-      first_name: 'Melis',
-      last_name: 'Schildkraut',
-      email: 'mas759@cornell.edu',
-      employee_id: '3196755',
+      first_name: 'Lauren',
+      last_name: 'Salzman',
+      email: 'las466@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 71,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
+      values: {
+        employee_id: '3225745',
+        vendor_id: 'ESALSMANL'
+      },
+      created_at: '2017-11-03T18:56:41.950Z',
+      updated_at: '2017-11-03T18:56:41.950Z'
     },
     {
-      id: 135,
+      id: 130,
       team_id: 1,
-      first_name: 'Kenneth',
-      last_name: 'Schlather',
-      email: 'ks47@cornell.edu',
-      employee_id: '1009901',
+      first_name: 'Carmen',
+      last_name: 'Santiago',
+      email: 'cs632@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '2699919',
+        vendor_id: 'CARSAN'
+      },
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
+    },
+    {
+      id: 131,
+      team_id: 1,
+      first_name: 'Melis',
+      last_name: 'Schildkraut',
+      email: 'mas759@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 72,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
+      values: {
+        employee_id: '3196755',
+        vendor_id: 'MELSHIL'
+      },
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 136,
+      id: 132,
       team_id: 1,
-      first_name: 'Eileen',
-      last_name: 'Sheehan',
-      email: 'es345@cornell.edu',
-      employee_id: '1855340',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
-    },
-    {
-      id: 137,
-      team_id: 1,
-      first_name: 'William',
-      last_name: 'Sims',
-      email: 'wzs4@cornell.edu',
-      employee_id: '2005331',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
-    },
-    {
-      id: 138,
-      team_id: 1,
-      first_name: 'Barbara',
-      last_name: 'Sinn',
-      email: 'bas25@cornell.edu',
-      employee_id: '1017861',
+      first_name: 'Kenneth',
+      last_name: 'Schlather',
+      email: 'ks47@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 73,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
+      values: {
+        employee_id: '1009901',
+        vendor_id: 'ESKEN'
+      },
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 139,
+      id: 133,
       team_id: 1,
-      first_name: 'Luke',
-      last_name: 'Sjolund',
-      email: 'les272@cornell.edu',
-      employee_id: '4019900',
+      first_name: 'Eileen',
+      last_name: 'Sheehan',
+      email: 'es345@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
+      values: {
+        employee_id: '1855340',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 140,
+      id: 134,
       team_id: 1,
-      first_name: 'J Christopher',
-      last_name: 'Skawski',
-      email: 'cjs359@cornell.edu',
-      employee_id: '3228542',
+      first_name: 'William',
+      last_name: 'Sims',
+      email: 'wzs4@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
+      values: {
+        employee_id: '2005331',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 141,
+      id: 135,
       team_id: 1,
-      first_name: 'Tina',
-      last_name: 'Snyder',
-      email: 'tmf8@cornell.edu',
-      employee_id: '1007561',
+      first_name: 'Barbara',
+      last_name: 'Sinn',
+      email: 'bas25@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 74,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
+      values: {
+        employee_id: '1017861',
+        vendor_id: 'ESINB'
+      },
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 142,
+      id: 136,
       team_id: 1,
-      first_name: 'Tami',
-      last_name: 'Snyder',
-      email: 'tms297@cornell.edu',
-      employee_id: '1166467',
+      first_name: 'Luke',
+      last_name: 'Sjolund',
+      email: 'les272@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.036Z',
-      updated_at: '2017-11-03T18:26:54.036Z'
+      values: {
+        employee_id: '4019900',
+        vendor_id: 'LUKSJO'
+      },
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 143,
+      id: 137,
       team_id: 1,
-      first_name: 'Sophie',
-      last_name: 'Somerfeldt',
-      email: 'css17@cornell.edu',
-      employee_id: '1008091',
+      first_name: 'J Christopher',
+      last_name: 'Skawski',
+      email: 'cjs359@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '3228542',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
+    },
+    {
+      id: 138,
+      team_id: 1,
+      first_name: 'Tina',
+      last_name: 'Snyder',
+      email: 'tmf8@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 75,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      values: {
+        employee_id: '1007561',
+        vendor_id: 'EFOST'
+      },
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 144,
+      id: 139,
       team_id: 1,
-      first_name: 'Amanda',
-      last_name: 'Spaulding',
-      email: 'ads32@cornell.edu',
-      employee_id: '1023473',
+      first_name: 'Tami',
+      last_name: 'Snyder',
+      email: 'tms297@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '1166467',
+        vendor_id: 'TAMSNY'
+      },
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
+    },
+    {
+      id: 140,
+      team_id: 1,
+      first_name: 'Sophie',
+      last_name: 'Somerfeldt',
+      email: 'css17@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 76,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      values: {
+        employee_id: '1008091',
+        vendor_id: 'ESOMERFELDT'
+      },
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 145,
+      id: 141,
       team_id: 1,
-      first_name: 'Anna',
-      last_name: 'Steinkraus',
-      email: 'ams69@cornell.edu',
-      employee_id: '1021298',
+      first_name: 'Amanda',
+      last_name: 'Spaulding',
+      email: 'ads32@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 77,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      values: {
+        employee_id: '1023473',
+        vendor_id: 'ESPAA'
+      },
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 146,
+      id: 142,
       team_id: 1,
-      first_name: 'Amara',
+      first_name: 'Anna',
       last_name: 'Steinkraus',
-      email: 'ahs47@cornell.edu',
-      employee_id: '2008547',
+      email: 'ams69@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 78,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      values: {
+        employee_id: '1021298',
+        vendor_id: 'ESTEA'
+      },
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 147,
+      id: 143,
       team_id: 1,
-      first_name: 'Athena',
+      first_name: 'Amara',
       last_name: 'Steinkraus',
-      email: 'ahs38@cornell.edu',
-      employee_id: '1752004',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
-    },
-    {
-      id: 148,
-      team_id: 1,
-      first_name: 'Zachary ',
-      last_name: 'Stewart',
-      email: 'zfs3@cornell.edu',
-      employee_id: '4904389',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
-    },
-    {
-      id: 149,
-      team_id: 1,
-      first_name: 'Justin',
-      last_name: 'Sutera',
-      email: 'jts286@cornell.edu',
-      employee_id: '3216006',
+      email: 'ahs47@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 79,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      values: {
+        employee_id: '2008547',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 150,
+      id: 144,
       team_id: 1,
-      first_name: 'Megan',
-      last_name: 'Szpak',
-      email: 'mjs487@cornell.edu',
-      employee_id: '3000258',
+      first_name: 'Athena',
+      last_name: 'Steinkraus',
+      email: 'ahs38@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '1752004',
+        vendor_id: 'ATHSTE'
+      },
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
+    },
+    {
+      id: 145,
+      team_id: 1,
+      first_name: 'Justin',
+      last_name: 'Sutera',
+      email: 'jts286@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 80,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      values: {
+        employee_id: '3216006',
+        vendor_id: 'JUSSUT'
+      },
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 151,
+      id: 146,
       team_id: 1,
-      first_name: 'Deborah',
-      last_name: 'Teeter',
-      email: 'dlt22@cornell.edu',
-      employee_id: '1262933',
+      first_name: 'Megan',
+      last_name: 'Szpak',
+      email: 'mjs487@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 81,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      values: {
+        employee_id: '3000258',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.951Z',
+      updated_at: '2017-11-03T18:56:41.951Z'
     },
     {
-      id: 152,
+      id: 147,
       team_id: 1,
-      first_name: 'Ezra-Jack',
-      last_name: 'Thomas',
-      email: 'jtt62@cornell.edu',
-      employee_id: '4913592',
+      first_name: 'Phurbu',
+      last_name: 'Tashi',
+      email: 'pt292@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '3927411',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
+    },
+    {
+      id: 148,
+      team_id: 1,
+      first_name: 'Deborah',
+      last_name: 'Teeter',
+      email: 'dlt22@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 82,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      values: {
+        employee_id: '1262933',
+        vendor_id: 'ETEED'
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 153,
+      id: 149,
       team_id: 1,
-      first_name: 'Kathleen',
-      last_name: 'Tibbetts',
-      email: 'kmt87@cornell.edu',
-      employee_id: '2664705',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
-    },
-    {
-      id: 154,
-      team_id: 1,
-      first_name: 'Megan',
-      last_name: 'Tifft',
-      email: 'met38@cornell.edu',
-      employee_id: '1758325',
+      first_name: 'Ezra-Jack',
+      last_name: 'Thomas',
+      email: 'jtt62@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 83,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      values: {
+        employee_id: '4913592',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 155,
+      id: 150,
       team_id: 1,
-      first_name: 'Angel',
-      last_name: 'Tompkins',
-      email: 'amt325@cornell.edu',
-      employee_id: '4907721',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
-    },
-    {
-      id: 156,
-      team_id: 1,
-      first_name: 'Zoe',
-      last_name: 'Van Nostrand',
-      email: 'ziv2@cornell.edu',
-      employee_id: '4455962',
+      first_name: 'Megan',
+      last_name: 'Tifft',
+      email: 'met38@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 84,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      values: {
+        employee_id: '1758325',
+        vendor_id: 'ETIFM'
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 157,
+      id: 151,
       team_id: 1,
-      first_name: 'Alexandra',
+      first_name: 'Angel',
+      last_name: 'Tompkins',
+      email: 'amt325@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '4907721',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
+    },
+    {
+      id: 152,
+      team_id: 1,
+      first_name: 'Zoe',
       last_name: 'Van Nostrand',
-      email: 'amv92@cornell.edu',
-      employee_id: '4654305',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
-    },
-    {
-      id: 158,
-      team_id: 1,
-      first_name: 'Donna',
-      last_name: 'Veninsky',
-      email: 'dlv35@cornell.edu',
-      employee_id: '1043732',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
-    },
-    {
-      id: 159,
-      team_id: 1,
-      first_name: 'Kina',
-      last_name: 'Viola',
-      email: 'kv89@cornell.edu',
-      employee_id: '4785732',
+      email: 'ziv2@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 85,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.037Z',
-      updated_at: '2017-11-03T18:26:54.037Z'
+      values: {
+        employee_id: '4455962',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 160,
+      id: 153,
       team_id: 1,
-      first_name: 'Amelia',
-      last_name: 'Visnauskas',
-      email: 'aev32@cornell.edu',
-      employee_id: '3494240',
+      first_name: 'Alexandra',
+      last_name: 'Van Nostrand',
+      email: 'amv92@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.038Z',
-      updated_at: '2017-11-03T18:26:54.038Z'
+      values: {
+        employee_id: '4654305',
+        vendor_id: 'ALEVANNOS'
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 161,
+      id: 154,
       team_id: 1,
-      first_name: 'Wanda',
-      last_name: 'Vrede',
-      email: 'wcv3@cornell.edu',
-      employee_id: '1756192',
+      first_name: 'Donna',
+      last_name: 'Veninsky',
+      email: 'dlv35@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.038Z',
-      updated_at: '2017-11-03T18:26:54.038Z'
+      values: {
+        employee_id: '1043732',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 162,
+      id: 155,
       team_id: 1,
-      first_name: 'Saqifa',
-      last_name: 'Walli',
-      email: 'sw759@cornell.edu',
-      employee_id: '4038251',
-      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
-      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
-      photo_id: null,
-      notification_method: 'immediately',
-      activated_at: null,
-      created_at: '2017-11-03T18:26:54.038Z',
-      updated_at: '2017-11-03T18:26:54.038Z'
-    },
-    {
-      id: 163,
-      team_id: 1,
-      first_name: 'Heather',
-      last_name: 'Ward',
-      email: 'hab27@cornell.edu',
-      employee_id: '1758533',
+      first_name: 'Kina',
+      last_name: 'Viola',
+      email: 'kv89@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 86,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.038Z',
-      updated_at: '2017-11-03T18:26:54.038Z'
+      values: {
+        employee_id: '4785732',
+        vendor_id: 'KINVIO'
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 164,
+      id: 156,
       team_id: 1,
-      first_name: 'Laura',
-      last_name: 'Ward',
-      email: 'lkw37@cornell.edu',
-      employee_id: '2463301',
+      first_name: 'Amelia',
+      last_name: 'Visnauskas',
+      email: 'aev32@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.038Z',
-      updated_at: '2017-11-03T18:26:54.038Z'
+      values: {
+        employee_id: '3494240',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 165,
+      id: 157,
       team_id: 1,
-      first_name: 'Serena',
-      last_name: 'Ward',
-      email: 'slw256@cornell.edu',
-      employee_id: '3137854',
+      first_name: 'Wanda',
+      last_name: 'Vrede',
+      email: 'wcv3@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.038Z',
-      updated_at: '2017-11-03T18:26:54.038Z'
+      values: {
+        employee_id: '1756192',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 166,
+      id: 158,
       team_id: 1,
-      first_name: 'Krystal',
-      last_name: 'Watson',
-      email: 'krk7@cornell.edu',
-      employee_id: '3616988',
+      first_name: 'Saqifa',
+      last_name: 'Walli',
+      email: 'sw759@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '4038251',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
+    },
+    {
+      id: 159,
+      team_id: 1,
+      first_name: 'Heather',
+      last_name: 'Ward',
+      email: 'hab27@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 87,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.038Z',
-      updated_at: '2017-11-03T18:26:54.038Z'
+      values: {
+        employee_id: '1758533',
+        vendor_id: 'EBASH'
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 167,
+      id: 160,
       team_id: 1,
-      first_name: 'Janine',
-      last_name: 'Willis',
-      email: 'jmw53@cornell.edu',
-      employee_id: '1273245',
+      first_name: 'Laura',
+      last_name: 'Ward',
+      email: 'lkw37@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.038Z',
-      updated_at: '2017-11-03T18:26:54.038Z'
+      values: {
+        employee_id: '2463301',
+        vendor_id: 'VWARDL'
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 168,
+      id: 161,
       team_id: 1,
-      first_name: 'Elizabeth',
-      last_name: 'Wolff',
-      email: 'ebw52@cornell.edu',
-      employee_id: '2231345',
+      first_name: 'Serena',
+      last_name: 'Ward',
+      email: 'slw256@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '3137854',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
+    },
+    {
+      id: 162,
+      team_id: 1,
+      first_name: 'Krystal',
+      last_name: 'Watson',
+      email: 'krk7@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 88,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.038Z',
-      updated_at: '2017-11-03T18:26:54.038Z'
+      values: {
+        employee_id: '3616988',
+        vendor_id: 'KRYDUN'
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
     },
     {
-      id: 169,
+      id: 163,
+      team_id: 1,
+      first_name: 'Janine',
+      last_name: 'Willis',
+      email: 'jmw53@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: null,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '1273245',
+        vendor_id: 'JANWILL'
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
+    },
+    {
+      id: 164,
+      team_id: 1,
+      first_name: 'Elizabeth',
+      last_name: 'Wolff',
+      email: 'ebw52@cornell.edu',
+      password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
+      password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
+      is_active: false,
+      photo_id: 89,
+      notification_method: 'immediately',
+      activated_at: null,
+      values: {
+        employee_id: '2231345',
+        vendor_id: 'EELIZAWOLF'
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.952Z'
+    },
+    {
+      id: 165,
       team_id: 1,
       first_name: 'Jesse',
       last_name: 'Worden',
       email: 'jrw376@cornell.edu',
-      employee_id: '4569931',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.038Z',
-      updated_at: '2017-11-03T18:26:54.038Z'
+      values: {
+        employee_id: '4569931',
+        vendor_id: 'JESWOR'
+      },
+      created_at: '2017-11-03T18:56:41.952Z',
+      updated_at: '2017-11-03T18:56:41.953Z'
     },
     {
-      id: 170,
+      id: 166,
       team_id: 1,
       first_name: 'Eunice',
       last_name: 'Yoon',
       email: 'ey87@cornell.edu',
-      employee_id: '3739991',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
       notification_method: 'immediately',
       activated_at: null,
-      created_at: '2017-11-03T18:26:54.038Z',
-      updated_at: '2017-11-03T18:26:54.038Z'
+      values: {
+        employee_id: '3739991',
+        vendor_id: ''
+      },
+      created_at: '2017-11-03T18:56:41.953Z',
+      updated_at: '2017-11-03T18:56:41.953Z'
     }
   ]
 })

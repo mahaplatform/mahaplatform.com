@@ -11,133 +11,133 @@ var supervisorsFixtures = new _maha.Fixtures({
   records: [{
     team_id: 1,
     user_id: 2,
-    created_at: '2017-10-24T18:33:08.692Z',
-    updated_at: '2017-10-24T18:33:08.692Z'
+    created_at: '2017-11-03T18:56:41.953Z',
+    updated_at: '2017-11-03T18:56:41.953Z'
   }, {
     team_id: 1,
-    user_id: 135,
-    created_at: '2017-10-24T18:33:08.692Z',
-    updated_at: '2017-10-24T18:33:08.692Z'
+    user_id: 132,
+    created_at: '2017-11-03T18:56:41.953Z',
+    updated_at: '2017-11-03T18:56:41.953Z'
   }, {
     team_id: 1,
     user_id: 16,
-    created_at: '2017-10-24T18:33:08.692Z',
-    updated_at: '2017-10-24T18:33:08.692Z'
+    created_at: '2017-11-03T18:56:41.953Z',
+    updated_at: '2017-11-03T18:56:41.953Z'
   }, {
     team_id: 1,
-    user_id: 89,
-    created_at: '2017-10-24T18:33:08.692Z',
-    updated_at: '2017-10-24T18:33:08.692Z'
+    user_id: 88,
+    created_at: '2017-11-03T18:56:41.953Z',
+    updated_at: '2017-11-03T18:56:41.953Z'
   }, {
     team_id: 1,
-    user_id: 145,
-    created_at: '2017-10-24T18:33:08.692Z',
-    updated_at: '2017-10-24T18:33:08.692Z'
+    user_id: 142,
+    created_at: '2017-11-03T18:56:41.953Z',
+    updated_at: '2017-11-03T18:56:41.953Z'
   }, {
     team_id: 1,
     user_id: 19,
-    created_at: '2017-10-24T18:33:08.693Z',
-    updated_at: '2017-10-24T18:33:08.693Z'
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
     user_id: 18,
-    created_at: '2017-10-24T18:33:08.693Z',
-    updated_at: '2017-10-24T18:33:08.693Z'
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
-    user_id: 45,
-    created_at: '2017-10-24T18:33:08.693Z',
-    updated_at: '2017-10-24T18:33:08.693Z'
+    user_id: 44,
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
-    user_id: 71,
-    created_at: '2017-10-24T18:33:08.693Z',
-    updated_at: '2017-10-24T18:33:08.693Z'
+    user_id: 69,
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
-    user_id: 154,
-    created_at: '2017-10-24T18:33:08.693Z',
-    updated_at: '2017-10-24T18:33:08.693Z'
+    user_id: 150,
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
-    user_id: 104,
-    created_at: '2017-10-24T18:33:08.693Z',
-    updated_at: '2017-10-24T18:33:08.693Z'
+    user_id: 102,
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
     user_id: 11,
-    created_at: '2017-10-24T18:33:08.693Z',
-    updated_at: '2017-10-24T18:33:08.693Z'
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
-    user_id: 131,
-    created_at: '2017-10-24T18:33:08.693Z',
-    updated_at: '2017-10-24T18:33:08.693Z'
+    user_id: 128,
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
     user_id: 23,
-    created_at: '2017-10-24T18:33:08.693Z',
-    updated_at: '2017-10-24T18:33:08.693Z'
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
-    user_id: 76,
-    created_at: '2017-10-24T18:33:08.693Z',
-    updated_at: '2017-10-24T18:33:08.693Z'
+    user_id: 74,
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
-    user_id: 63,
-    created_at: '2017-10-24T18:33:08.693Z',
-    updated_at: '2017-10-24T18:33:08.693Z'
+    user_id: 62,
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
-    user_id: 108,
-    created_at: '2017-10-24T18:33:08.693Z',
-    updated_at: '2017-10-24T18:33:08.693Z'
+    user_id: 106,
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
-    user_id: 65,
-    created_at: '2017-10-24T18:33:08.694Z',
-    updated_at: '2017-10-24T18:33:08.694Z'
+    user_id: 64,
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
-    user_id: 99,
-    created_at: '2017-10-24T18:33:08.694Z',
-    updated_at: '2017-10-24T18:33:08.694Z'
+    user_id: 97,
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
-    user_id: 40,
-    created_at: '2017-10-24T18:33:08.694Z',
-    updated_at: '2017-10-24T18:33:08.694Z'
+    user_id: 39,
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
     user_id: 1,
-    created_at: '2017-10-24T18:33:08.694Z',
-    updated_at: '2017-10-24T18:33:08.694Z'
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
     user_id: 8,
-    created_at: '2017-10-24T18:33:08.694Z',
-    updated_at: '2017-10-24T18:33:08.694Z'
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
-    user_id: 166,
-    created_at: '2017-10-24T18:33:08.694Z',
-    updated_at: '2017-10-24T18:33:08.694Z'
+    user_id: 162,
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
-    user_id: 59,
-    created_at: '2017-10-24T18:33:08.694Z',
-    updated_at: '2017-10-24T18:33:08.694Z'
+    user_id: 58,
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
-    user_id: 49,
-    created_at: '2017-10-24T18:33:08.694Z',
-    updated_at: '2017-10-24T18:33:08.694Z'
+    user_id: 48,
+    created_at: '2017-11-03T18:56:41.954Z',
+    updated_at: '2017-11-03T18:56:41.954Z'
   }, {
     team_id: 1,
-    user_id: 75,
-    created_at: '2017-10-24T18:33:08.694Z',
-    updated_at: '2017-10-24T18:33:08.694Z'
+    user_id: 73,
+    created_at: '2017-11-03T18:56:41.955Z',
+    updated_at: '2017-11-03T18:56:41.955Z'
   }]
 });
 
