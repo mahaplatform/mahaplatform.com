@@ -260,6 +260,20 @@ export const import_20170622 = async () => {
 
     }, { expectations: [], classifications: [] })
 
+    const filepath = path.resolve('files', '20170622', 'photos', 'holi.jpg')
+
+    userData.assets.push({
+      id: userData.assets.length+1,
+      team_id: 1,
+      original_file_name: 'holi.jpg',
+      file_name: 'holi.jpg',
+      content_type: mime.lookup(filepath),
+      file_size: fs.statSync(filepath).size,
+      chunks_total: 1,
+      created_at: moment(),
+      updated_at: moment()
+    })
+
     writeFile('assets', 'maha_assets', userData.assets)
 
     writeFile('users', 'maha_users', userData.users)

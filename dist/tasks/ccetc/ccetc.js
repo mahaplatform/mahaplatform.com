@@ -63,7 +63,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var import_20170622 = exports.import_20170622 = function () {
   var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
-    var employees, projects, expenses, competencies, expectations, supervisors, assets, userData, supervisorData, projectData, expenseData, competencyData, expectationsData, s3;
+    var employees, projects, expenses, competencies, expectations, supervisors, assets, userData, supervisorData, projectData, expenseData, competencyData, expectationsData, filepath, s3;
     return _regenerator2.default.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
@@ -98,9 +98,9 @@ var import_20170622 = exports.import_20170622 = function () {
 
                 var filename = record[2] + '.jpg';
 
-                var filepath = _path2.default.resolve('files', '20170622', 'photos', filename);
+                var _filepath = _path2.default.resolve('files', '20170622', 'photos', filename);
 
-                var photoExists = _fs2.default.existsSync(filepath);
+                var photoExists = _fs2.default.existsSync(_filepath);
 
                 var asset_id = photoExists ? data.assets.length + 1 : null;
 
@@ -111,8 +111,8 @@ var import_20170622 = exports.import_20170622 = function () {
                     team_id: 1,
                     original_file_name: filename,
                     file_name: filename,
-                    content_type: _mimeTypes2.default.lookup(filepath),
-                    file_size: _fs2.default.statSync(filepath).size,
+                    content_type: _mimeTypes2.default.lookup(_filepath),
+                    file_size: _fs2.default.statSync(_filepath).size,
                     chunks_total: 1,
                     created_at: (0, _moment2.default)(),
                     updated_at: (0, _moment2.default)()
@@ -296,7 +296,20 @@ var import_20170622 = exports.import_20170622 = function () {
 
               return data;
             }, { expectations: [], classifications: [] });
+            filepath = _path2.default.resolve('files', '20170622', 'photos', 'holi.jpg');
 
+
+            userData.assets.push({
+              id: userData.assets.length + 1,
+              team_id: 1,
+              original_file_name: 'holi.jpg',
+              file_name: 'holi.jpg',
+              content_type: _mimeTypes2.default.lookup(filepath),
+              file_size: _fs2.default.statSync(filepath).size,
+              chunks_total: 1,
+              created_at: (0, _moment2.default)(),
+              updated_at: (0, _moment2.default)()
+            });
 
             writeFile('assets', 'maha_assets', userData.assets);
 
@@ -337,12 +350,12 @@ var import_20170622 = exports.import_20170622 = function () {
             });
 
             if (!(process.env.ASSET_STORAGE === 's3')) {
-              _context2.next = 37;
+              _context2.next = 39;
               break;
             }
 
             s3 = new _awsSdk2.default.S3();
-            _context2.next = 35;
+            _context2.next = 37;
             return (0, _bluebird.map)(userData.assets, function () {
               var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(asset) {
                 var filename, contentType, filepath;
@@ -375,11 +388,11 @@ var import_20170622 = exports.import_20170622 = function () {
               };
             }());
 
-          case 35:
-            _context2.next = 38;
+          case 37:
+            _context2.next = 40;
             break;
 
-          case 37:
+          case 39:
             if (process.env.ASSET_STORAGE === 'local') {
 
               userData.assets.map(function (asset) {
@@ -394,23 +407,23 @@ var import_20170622 = exports.import_20170622 = function () {
               });
             }
 
-          case 38:
-            _context2.next = 43;
+          case 40:
+            _context2.next = 45;
             break;
 
-          case 40:
-            _context2.prev = 40;
+          case 42:
+            _context2.prev = 42;
             _context2.t0 = _context2['catch'](0);
 
 
             console.log(_context2.t0);
 
-          case 43:
+          case 45:
           case 'end':
             return _context2.stop();
         }
       }
-    }, _callee2, undefined, [[0, 40]]);
+    }, _callee2, undefined, [[0, 42]]);
   }));
 
   return function import_20170622() {

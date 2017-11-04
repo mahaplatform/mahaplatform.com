@@ -16,8 +16,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'Contact Krystal Dunn or Theresa Emerick.',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.971Z',
-    updated_at: '2017-11-03T18:56:41.971Z'
+    created_at: '2017-11-04T21:55:18.732Z',
+    updated_at: '2017-11-04T21:55:18.732Z'
   }, {
     id: 2,
     team_id: 1,
@@ -26,8 +26,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/human_resources/Pages/BenefitsIndex.aspx',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.971Z',
-    updated_at: '2017-11-03T18:56:41.971Z'
+    created_at: '2017-11-04T21:55:18.733Z',
+    updated_at: '2017-11-04T21:55:18.733Z'
   }, {
     id: 3,
     team_id: 1,
@@ -36,8 +36,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: '',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.971Z',
-    updated_at: '2017-11-03T18:56:41.971Z'
+    created_at: '2017-11-04T21:55:18.733Z',
+    updated_at: '2017-11-04T21:55:18.733Z'
   }, {
     id: 4,
     team_id: 1,
@@ -46,8 +46,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'Contact Krystal Dunn for dates of next session.',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.971Z',
-    updated_at: '2017-11-03T18:56:41.971Z'
+    created_at: '2017-11-04T21:55:18.733Z',
+    updated_at: '2017-11-04T21:55:18.733Z'
   }, {
     id: 5,
     team_id: 1,
@@ -56,8 +56,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: '',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.971Z',
-    updated_at: '2017-11-03T18:56:41.971Z'
+    created_at: '2017-11-04T21:55:18.733Z',
+    updated_at: '2017-11-04T21:55:18.733Z'
   }, {
     id: 6,
     team_id: 1,
@@ -66,8 +66,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/Pages/home.aspx',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.971Z',
-    updated_at: '2017-11-03T18:56:41.971Z'
+    created_at: '2017-11-04T21:55:18.733Z',
+    updated_at: '2017-11-04T21:55:18.733Z'
   }, {
     id: 7,
     team_id: 1,
@@ -76,8 +76,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/Course-Description2.aspx?courseid=75',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.971Z',
-    updated_at: '2017-11-03T18:56:41.971Z'
+    created_at: '2017-11-04T21:55:18.733Z',
+    updated_at: '2017-11-04T21:55:18.733Z'
   }, {
     id: 8,
     team_id: 1,
@@ -86,8 +86,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://mycce.me/content/about-ccetc-history-and-ethos',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.971Z',
-    updated_at: '2017-11-03T18:56:41.971Z'
+    created_at: '2017-11-04T21:55:18.733Z',
+    updated_at: '2017-11-04T21:55:18.733Z'
   }, {
     id: 9,
     team_id: 1,
@@ -96,8 +96,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://mycce.me/content/my-hr-forms-and-references-tompkins-strategic-plan-prologue',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.971Z',
-    updated_at: '2017-11-03T18:56:41.971Z'
+    created_at: '2017-11-04T21:55:18.733Z',
+    updated_at: '2017-11-04T21:55:18.733Z'
   }, {
     id: 10,
     team_id: 1,
@@ -106,8 +106,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/newstafforientation.aspx',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.971Z',
-    updated_at: '2017-11-03T18:56:41.971Z'
+    created_at: '2017-11-04T21:55:18.733Z',
+    updated_at: '2017-11-04T21:55:18.733Z'
   }, {
     id: 11,
     team_id: 1,
@@ -116,8 +116,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: '',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.971Z',
-    updated_at: '2017-11-03T18:56:41.971Z'
+    created_at: '2017-11-04T21:55:18.733Z',
+    updated_at: '2017-11-04T21:55:18.733Z'
   }, {
     id: 12,
     team_id: 1,
@@ -126,8 +126,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/newstafforientation.aspx',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.971Z',
-    updated_at: '2017-11-03T18:56:41.971Z'
+    created_at: '2017-11-04T21:55:18.733Z',
+    updated_at: '2017-11-04T21:55:18.733Z'
   }, {
     id: 13,
     team_id: 1,
@@ -136,8 +136,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/Course-Description2.aspx?courseid=114',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.971Z',
-    updated_at: '2017-11-03T18:56:41.971Z'
+    created_at: '2017-11-04T21:55:18.733Z',
+    updated_at: '2017-11-04T21:55:18.733Z'
   }, {
     id: 14,
     team_id: 1,
@@ -146,8 +146,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: '',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.971Z',
-    updated_at: '2017-11-03T18:56:41.971Z'
+    created_at: '2017-11-04T21:55:18.734Z',
+    updated_at: '2017-11-04T21:55:18.734Z'
   }, {
     id: 15,
     team_id: 1,
@@ -156,8 +156,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: '',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.972Z',
-    updated_at: '2017-11-03T18:56:41.972Z'
+    created_at: '2017-11-04T21:55:18.734Z',
+    updated_at: '2017-11-04T21:55:18.734Z'
   }, {
     id: 16,
     team_id: 1,
@@ -166,8 +166,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/risk.aspx',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.972Z',
-    updated_at: '2017-11-03T18:56:41.972Z'
+    created_at: '2017-11-04T21:55:18.734Z',
+    updated_at: '2017-11-04T21:55:18.734Z'
   }, {
     id: 17,
     team_id: 1,
@@ -176,8 +176,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'Contact HR office for next scheduled training. ',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.972Z',
-    updated_at: '2017-11-03T18:56:41.972Z'
+    created_at: '2017-11-04T21:55:18.734Z',
+    updated_at: '2017-11-04T21:55:18.734Z'
   }, {
     id: 18,
     team_id: 1,
@@ -186,8 +186,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://cornell.sabacloud.com/Saba/Web_spf/NA1PRD0089/common/ledetail/cours000000000003585',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.972Z',
-    updated_at: '2017-11-03T18:56:41.972Z'
+    created_at: '2017-11-04T21:55:18.734Z',
+    updated_at: '2017-11-04T21:55:18.734Z'
   }, {
     id: 19,
     team_id: 1,
@@ -196,8 +196,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/Training.aspx',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.972Z',
-    updated_at: '2017-11-03T18:56:41.972Z'
+    created_at: '2017-11-04T21:55:18.734Z',
+    updated_at: '2017-11-04T21:55:18.734Z'
   }, {
     id: 20,
     team_id: 1,
@@ -206,8 +206,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://www.staff.cce.cornell.edu/orgdev/Pages/diversity.aspx',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.972Z',
-    updated_at: '2017-11-03T18:56:41.972Z'
+    created_at: '2017-11-04T21:55:18.734Z',
+    updated_at: '2017-11-04T21:55:18.734Z'
   }, {
     id: 21,
     team_id: 1,
@@ -216,8 +216,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://ccetompkins.org/diversity',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.972Z',
-    updated_at: '2017-11-03T18:56:41.972Z'
+    created_at: '2017-11-04T21:55:18.734Z',
+    updated_at: '2017-11-04T21:55:18.734Z'
   }, {
     id: 22,
     team_id: 1,
@@ -226,8 +226,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://ccetompkins.org/about-us/human-resource-policy-manual',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.972Z',
-    updated_at: '2017-11-03T18:56:41.972Z'
+    created_at: '2017-11-04T21:55:18.734Z',
+    updated_at: '2017-11-04T21:55:18.734Z'
   }, {
     id: 23,
     team_id: 1,
@@ -236,8 +236,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://mycce.me/content/my-hr-forms-and-tools-for-employee-use',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.972Z',
-    updated_at: '2017-11-03T18:56:41.972Z'
+    created_at: '2017-11-04T21:55:18.734Z',
+    updated_at: '2017-11-04T21:55:18.734Z'
   }, {
     id: 24,
     team_id: 1,
@@ -246,8 +246,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://www.fcsith.org/eap/',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.972Z',
-    updated_at: '2017-11-03T18:56:41.972Z'
+    created_at: '2017-11-04T21:55:18.734Z',
+    updated_at: '2017-11-04T21:55:18.734Z'
   }, {
     id: 25,
     team_id: 1,
@@ -256,8 +256,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: '',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.972Z',
-    updated_at: '2017-11-03T18:56:41.972Z'
+    created_at: '2017-11-04T21:55:18.735Z',
+    updated_at: '2017-11-04T21:55:18.735Z'
   }, {
     id: 26,
     team_id: 1,
@@ -266,8 +266,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/Course-Description2.aspx?courseid=69',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.972Z',
-    updated_at: '2017-11-03T18:56:41.972Z'
+    created_at: '2017-11-04T21:55:18.735Z',
+    updated_at: '2017-11-04T21:55:18.735Z'
   }, {
     id: 27,
     team_id: 1,
@@ -276,8 +276,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/lynda',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.972Z',
-    updated_at: '2017-11-03T18:56:41.972Z'
+    created_at: '2017-11-04T21:55:18.735Z',
+    updated_at: '2017-11-04T21:55:18.735Z'
   }, {
     id: 28,
     team_id: 1,
@@ -286,8 +286,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/skillsoft',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.972Z',
-    updated_at: '2017-11-03T18:56:41.972Z'
+    created_at: '2017-11-04T21:55:18.735Z',
+    updated_at: '2017-11-04T21:55:18.735Z'
   }, {
     id: 29,
     team_id: 1,
@@ -296,8 +296,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://www.ted.com/talks',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.972Z',
-    updated_at: '2017-11-03T18:56:41.972Z'
+    created_at: '2017-11-04T21:55:18.735Z',
+    updated_at: '2017-11-04T21:55:18.735Z'
   }, {
     id: 30,
     team_id: 1,
@@ -306,8 +306,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://grantspace.org/tools/multimedia/video/the-happy-healthy-nonprofit-strategies-for-impact-without-burnout-2017-02-02',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.972Z',
-    updated_at: '2017-11-03T18:56:41.972Z'
+    created_at: '2017-11-04T21:55:18.735Z',
+    updated_at: '2017-11-04T21:55:18.735Z'
   }, {
     id: 31,
     team_id: 1,
@@ -316,8 +316,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://culearn.cornell.edu/',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.972Z',
-    updated_at: '2017-11-03T18:56:41.972Z'
+    created_at: '2017-11-04T21:55:18.735Z',
+    updated_at: '2017-11-04T21:55:18.735Z'
   }, {
     id: 32,
     team_id: 1,
@@ -326,8 +326,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.973Z',
-    updated_at: '2017-11-03T18:56:41.973Z'
+    created_at: '2017-11-04T21:55:18.735Z',
+    updated_at: '2017-11-04T21:55:18.735Z'
   }, {
     id: 33,
     team_id: 1,
@@ -336,8 +336,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/skillsoft',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.973Z',
-    updated_at: '2017-11-03T18:56:41.973Z'
+    created_at: '2017-11-04T21:55:18.735Z',
+    updated_at: '2017-11-04T21:55:18.735Z'
   }, {
     id: 34,
     team_id: 1,
@@ -346,8 +346,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/skillsoft',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.973Z',
-    updated_at: '2017-11-03T18:56:41.973Z'
+    created_at: '2017-11-04T21:55:18.735Z',
+    updated_at: '2017-11-04T21:55:18.735Z'
   }, {
     id: 35,
     team_id: 1,
@@ -356,8 +356,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://multiculturalresourcecenter.org/talkingcircles/',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.973Z',
-    updated_at: '2017-11-03T18:56:41.973Z'
+    created_at: '2017-11-04T21:55:18.735Z',
+    updated_at: '2017-11-04T21:55:18.735Z'
   }, {
     id: 36,
     team_id: 1,
@@ -366,8 +366,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://ccetompkins.org/community/natural-leaders-initiative/programs-for-community-groups-and-organizations',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.973Z',
-    updated_at: '2017-11-03T18:56:41.973Z'
+    created_at: '2017-11-04T21:55:18.735Z',
+    updated_at: '2017-11-04T21:55:18.735Z'
   }, {
     id: 37,
     team_id: 1,
@@ -376,8 +376,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/Course-Description2.aspx?courseid=136',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.973Z',
-    updated_at: '2017-11-03T18:56:41.973Z'
+    created_at: '2017-11-04T21:55:18.735Z',
+    updated_at: '2017-11-04T21:55:18.735Z'
   }, {
     id: 38,
     team_id: 1,
@@ -386,8 +386,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://hsctc.org/index.php?page=training',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.974Z',
-    updated_at: '2017-11-03T18:56:41.974Z'
+    created_at: '2017-11-04T21:55:18.736Z',
+    updated_at: '2017-11-04T21:55:18.736Z'
   }, {
     id: 39,
     team_id: 1,
@@ -396,8 +396,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://diversityconsortium.org/home.aspx',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.974Z',
-    updated_at: '2017-11-03T18:56:41.974Z'
+    created_at: '2017-11-04T21:55:18.736Z',
+    updated_at: '2017-11-04T21:55:18.736Z'
   }, {
     id: 40,
     team_id: 1,
@@ -406,8 +406,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/Course-Description2.aspx?courseid=136',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.974Z',
-    updated_at: '2017-11-03T18:56:41.974Z'
+    created_at: '2017-11-04T21:55:18.736Z',
+    updated_at: '2017-11-04T21:55:18.736Z'
   }, {
     id: 41,
     team_id: 1,
@@ -416,8 +416,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/prof_courses.aspx?top=Diversity%20Awareness%20and%20Inclusion',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.974Z',
-    updated_at: '2017-11-03T18:56:41.974Z'
+    created_at: '2017-11-04T21:55:18.737Z',
+    updated_at: '2017-11-04T21:55:18.737Z'
   }, {
     id: 42,
     team_id: 1,
@@ -426,8 +426,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'Contact HR staff. ',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.974Z',
-    updated_at: '2017-11-03T18:56:41.974Z'
+    created_at: '2017-11-04T21:55:18.737Z',
+    updated_at: '2017-11-04T21:55:18.737Z'
   }, {
     id: 43,
     team_id: 1,
@@ -436,8 +436,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'Contact Margo Hittleman to borrow a copy.',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.974Z',
-    updated_at: '2017-11-03T18:56:41.974Z'
+    created_at: '2017-11-04T21:55:18.737Z',
+    updated_at: '2017-11-04T21:55:18.737Z'
   }, {
     id: 44,
     team_id: 1,
@@ -446,8 +446,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://hsctc.org/index.php?page=training',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.974Z',
-    updated_at: '2017-11-03T18:56:41.974Z'
+    created_at: '2017-11-04T21:55:18.737Z',
+    updated_at: '2017-11-04T21:55:18.737Z'
   }, {
     id: 45,
     team_id: 1,
@@ -456,8 +456,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://www.tc3.edu/biz/',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.974Z',
-    updated_at: '2017-11-03T18:56:41.974Z'
+    created_at: '2017-11-04T21:55:18.737Z',
+    updated_at: '2017-11-04T21:55:18.737Z'
   }, {
     id: 46,
     team_id: 1,
@@ -466,8 +466,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: '',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.974Z',
-    updated_at: '2017-11-03T18:56:41.974Z'
+    created_at: '2017-11-04T21:55:18.737Z',
+    updated_at: '2017-11-04T21:55:18.737Z'
   }, {
     id: 47,
     team_id: 1,
@@ -476,8 +476,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://hsctc.org/index.php?page=training',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.975Z',
-    updated_at: '2017-11-03T18:56:41.975Z'
+    created_at: '2017-11-04T21:55:18.737Z',
+    updated_at: '2017-11-04T21:55:18.737Z'
   }, {
     id: 48,
     team_id: 1,
@@ -486,8 +486,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://ccetompkins.org/family',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.975Z',
-    updated_at: '2017-11-03T18:56:41.975Z'
+    created_at: '2017-11-04T21:55:18.738Z',
+    updated_at: '2017-11-04T21:55:18.738Z'
   }, {
     id: 49,
     team_id: 1,
@@ -496,8 +496,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/ses/WorkersComp/CCE%20Association%20Skills%20for%20Success.pdf',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.975Z',
-    updated_at: '2017-11-03T18:56:41.975Z'
+    created_at: '2017-11-04T21:55:18.738Z',
+    updated_at: '2017-11-04T21:55:18.738Z'
   }, {
     id: 50,
     team_id: 1,
@@ -506,8 +506,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/foundations.aspx',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.975Z',
-    updated_at: '2017-11-03T18:56:41.975Z'
+    created_at: '2017-11-04T21:55:18.738Z',
+    updated_at: '2017-11-04T21:55:18.738Z'
   }, {
     id: 51,
     team_id: 1,
@@ -516,8 +516,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/prog_courses2.aspx',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.975Z',
-    updated_at: '2017-11-03T18:56:41.975Z'
+    created_at: '2017-11-04T21:55:18.738Z',
+    updated_at: '2017-11-04T21:55:18.738Z'
   }, {
     id: 52,
     team_id: 1,
@@ -526,8 +526,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://ithaca.toastmastersclubs.org ',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.975Z',
-    updated_at: '2017-11-03T18:56:41.975Z'
+    created_at: '2017-11-04T21:55:18.738Z',
+    updated_at: '2017-11-04T21:55:18.738Z'
   }, {
     id: 53,
     team_id: 1,
@@ -536,8 +536,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: '',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.975Z',
-    updated_at: '2017-11-03T18:56:41.975Z'
+    created_at: '2017-11-04T21:55:18.738Z',
+    updated_at: '2017-11-04T21:55:18.738Z'
   }, {
     id: 54,
     team_id: 1,
@@ -546,8 +546,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://mycce.me/content/my-hr-forms-and-tools-for-employee-use',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.976Z',
-    updated_at: '2017-11-03T18:56:41.976Z'
+    created_at: '2017-11-04T21:55:18.738Z',
+    updated_at: '2017-11-04T21:55:18.738Z'
   }, {
     id: 55,
     team_id: 1,
@@ -556,8 +556,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/skillsoft',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.976Z',
-    updated_at: '2017-11-03T18:56:41.976Z'
+    created_at: '2017-11-04T21:55:18.738Z',
+    updated_at: '2017-11-04T21:55:18.738Z'
   }, {
     id: 56,
     team_id: 1,
@@ -566,8 +566,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/prof_courses.aspx?top=Grant%20Writing%20and%20Management',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.976Z',
-    updated_at: '2017-11-03T18:56:41.976Z'
+    created_at: '2017-11-04T21:55:18.739Z',
+    updated_at: '2017-11-04T21:55:18.739Z'
   }, {
     id: 57,
     team_id: 1,
@@ -576,8 +576,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://hsctc.org/index.php?page=training',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.976Z',
-    updated_at: '2017-11-03T18:56:41.976Z'
+    created_at: '2017-11-04T21:55:18.739Z',
+    updated_at: '2017-11-04T21:55:18.739Z'
   }, {
     id: 58,
     team_id: 1,
@@ -586,8 +586,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://grantschampion.com',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.976Z',
-    updated_at: '2017-11-03T18:56:41.976Z'
+    created_at: '2017-11-04T21:55:18.739Z',
+    updated_at: '2017-11-04T21:55:18.739Z'
   }, {
     id: 59,
     team_id: 1,
@@ -596,8 +596,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: '',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.976Z',
-    updated_at: '2017-11-03T18:56:41.976Z'
+    created_at: '2017-11-04T21:55:18.739Z',
+    updated_at: '2017-11-04T21:55:18.739Z'
   }, {
     id: 60,
     team_id: 1,
@@ -606,8 +606,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://guides.library.cornell.edu/funding',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.976Z',
-    updated_at: '2017-11-03T18:56:41.976Z'
+    created_at: '2017-11-04T21:55:18.739Z',
+    updated_at: '2017-11-04T21:55:18.739Z'
   }, {
     id: 61,
     team_id: 1,
@@ -616,8 +616,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://foundationcenter.org',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.976Z',
-    updated_at: '2017-11-03T18:56:41.976Z'
+    created_at: '2017-11-04T21:55:18.739Z',
+    updated_at: '2017-11-04T21:55:18.739Z'
   }, {
     id: 62,
     team_id: 1,
@@ -626,8 +626,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://www.tompkinscountyny.gov/ctyadmin/Grants/index',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.976Z',
-    updated_at: '2017-11-03T18:56:41.976Z'
+    created_at: '2017-11-04T21:55:18.739Z',
+    updated_at: '2017-11-04T21:55:18.739Z'
   }, {
     id: 63,
     team_id: 1,
@@ -636,8 +636,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/prof_courses.aspx?top=Grant%20Writing%20and%20Management',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.976Z',
-    updated_at: '2017-11-03T18:56:41.976Z'
+    created_at: '2017-11-04T21:55:18.739Z',
+    updated_at: '2017-11-04T21:55:18.739Z'
   }, {
     id: 64,
     team_id: 1,
@@ -646,8 +646,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/lynda',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.976Z',
-    updated_at: '2017-11-03T18:56:41.976Z'
+    created_at: '2017-11-04T21:55:18.739Z',
+    updated_at: '2017-11-04T21:55:18.739Z'
   }, {
     id: 65,
     team_id: 1,
@@ -656,8 +656,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/skillsoft',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.976Z',
-    updated_at: '2017-11-03T18:56:41.976Z'
+    created_at: '2017-11-04T21:55:18.739Z',
+    updated_at: '2017-11-04T21:55:18.739Z'
   }, {
     id: 66,
     team_id: 1,
@@ -666,8 +666,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://myinfo.tc3.edu/SelfService/Home.aspx',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.976Z',
-    updated_at: '2017-11-03T18:56:41.976Z'
+    created_at: '2017-11-04T21:55:18.739Z',
+    updated_at: '2017-11-04T21:55:18.739Z'
   }, {
     id: 67,
     team_id: 1,
@@ -676,8 +676,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: '',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.976Z',
-    updated_at: '2017-11-03T18:56:41.976Z'
+    created_at: '2017-11-04T21:55:18.739Z',
+    updated_at: '2017-11-04T21:55:18.739Z'
   }, {
     id: 68,
     team_id: 1,
@@ -686,8 +686,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://hsctc.org/index.php?page=training',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.976Z',
-    updated_at: '2017-11-03T18:56:41.976Z'
+    created_at: '2017-11-04T21:55:18.739Z',
+    updated_at: '2017-11-04T21:55:18.739Z'
   }, {
     id: 69,
     team_id: 1,
@@ -696,8 +696,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://www.businesscents.org/',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.976Z',
-    updated_at: '2017-11-03T18:56:41.976Z'
+    created_at: '2017-11-04T21:55:18.739Z',
+    updated_at: '2017-11-04T21:55:18.739Z'
   }, {
     id: 70,
     team_id: 1,
@@ -706,8 +706,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/skillsoft',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.976Z',
-    updated_at: '2017-11-03T18:56:41.976Z'
+    created_at: '2017-11-04T21:55:18.739Z',
+    updated_at: '2017-11-04T21:55:18.739Z'
   }, {
     id: 71,
     team_id: 1,
@@ -716,8 +716,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/lynda',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.977Z',
-    updated_at: '2017-11-03T18:56:41.977Z'
+    created_at: '2017-11-04T21:55:18.740Z',
+    updated_at: '2017-11-04T21:55:18.740Z'
   }, {
     id: 72,
     team_id: 1,
@@ -726,8 +726,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/skillsoft',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.977Z',
-    updated_at: '2017-11-03T18:56:41.977Z'
+    created_at: '2017-11-04T21:55:18.740Z',
+    updated_at: '2017-11-04T21:55:18.740Z'
   }, {
     id: 73,
     team_id: 1,
@@ -736,8 +736,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/skillsoft',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.977Z',
-    updated_at: '2017-11-03T18:56:41.977Z'
+    created_at: '2017-11-04T21:55:18.740Z',
+    updated_at: '2017-11-04T21:55:18.740Z'
   }, {
     id: 74,
     team_id: 1,
@@ -746,8 +746,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/skillsoft',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.977Z',
-    updated_at: '2017-11-03T18:56:41.977Z'
+    created_at: '2017-11-04T21:55:18.740Z',
+    updated_at: '2017-11-04T21:55:18.740Z'
   }, {
     id: 75,
     team_id: 1,
@@ -756,8 +756,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://ccetompkins.org/community/natural-leaders-initiative/programs-for-community-groups-and-organizations',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.977Z',
-    updated_at: '2017-11-03T18:56:41.977Z'
+    created_at: '2017-11-04T21:55:18.740Z',
+    updated_at: '2017-11-04T21:55:18.740Z'
   }, {
     id: 76,
     team_id: 1,
@@ -766,8 +766,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://www.fcsith.org/',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.977Z',
-    updated_at: '2017-11-03T18:56:41.977Z'
+    created_at: '2017-11-04T21:55:18.740Z',
+    updated_at: '2017-11-04T21:55:18.740Z'
   }, {
     id: 77,
     team_id: 1,
@@ -776,8 +776,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/skillsoft',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.978Z',
-    updated_at: '2017-11-03T18:56:41.978Z'
+    created_at: '2017-11-04T21:55:18.741Z',
+    updated_at: '2017-11-04T21:55:18.741Z'
   }, {
     id: 78,
     team_id: 1,
@@ -786,8 +786,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: '',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.978Z',
-    updated_at: '2017-11-03T18:56:41.978Z'
+    created_at: '2017-11-04T21:55:18.741Z',
+    updated_at: '2017-11-04T21:55:18.741Z'
   }, {
     id: 79,
     team_id: 1,
@@ -796,8 +796,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/skillsoft',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.978Z',
-    updated_at: '2017-11-03T18:56:41.978Z'
+    created_at: '2017-11-04T21:55:18.741Z',
+    updated_at: '2017-11-04T21:55:18.741Z'
   }, {
     id: 80,
     team_id: 1,
@@ -806,8 +806,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/reporting.aspx',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.978Z',
-    updated_at: '2017-11-03T18:56:41.978Z'
+    created_at: '2017-11-04T21:55:18.741Z',
+    updated_at: '2017-11-04T21:55:18.741Z'
   }, {
     id: 81,
     team_id: 1,
@@ -816,8 +816,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/skillsoft',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.978Z',
-    updated_at: '2017-11-03T18:56:41.978Z'
+    created_at: '2017-11-04T21:55:18.741Z',
+    updated_at: '2017-11-04T21:55:18.741Z'
   }, {
     id: 82,
     team_id: 1,
@@ -826,8 +826,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/skillsoft',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.978Z',
-    updated_at: '2017-11-03T18:56:41.978Z'
+    created_at: '2017-11-04T21:55:18.741Z',
+    updated_at: '2017-11-04T21:55:18.741Z'
   }, {
     id: 83,
     team_id: 1,
@@ -836,8 +836,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://www.amazon.com/StrengthsFinder-2-0-Tom-Rath/dp/159562015X/ref=sr_1_1?s=books&ie=UTF8&qid=1487360256&sr=1-1&keywords=strengths+finder+2.0',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.978Z',
-    updated_at: '2017-11-03T18:56:41.978Z'
+    created_at: '2017-11-04T21:55:18.741Z',
+    updated_at: '2017-11-04T21:55:18.741Z'
   }, {
     id: 84,
     team_id: 1,
@@ -846,8 +846,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://www.amazon.com/StrengthsFinder-2-0-Tom-Rath/dp/159562015X/ref=sr_1_1?s=books&ie=UTF8&qid=1487360256&sr=1-1&keywords=strengths+finder+2.0',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.978Z',
-    updated_at: '2017-11-03T18:56:41.978Z'
+    created_at: '2017-11-04T21:55:18.741Z',
+    updated_at: '2017-11-04T21:55:18.741Z'
   }, {
     id: 85,
     team_id: 1,
@@ -856,8 +856,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/skillsoft',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.978Z',
-    updated_at: '2017-11-03T18:56:41.978Z'
+    created_at: '2017-11-04T21:55:18.741Z',
+    updated_at: '2017-11-04T21:55:18.741Z'
   }, {
     id: 86,
     team_id: 1,
@@ -866,8 +866,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://www.cdrc.org/training.html',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.978Z',
-    updated_at: '2017-11-03T18:56:41.978Z'
+    created_at: '2017-11-04T21:55:18.742Z',
+    updated_at: '2017-11-04T21:55:18.742Z'
   }, {
     id: 87,
     team_id: 1,
@@ -876,8 +876,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://hsctc.org/index.php?page=training',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.978Z',
-    updated_at: '2017-11-03T18:56:41.978Z'
+    created_at: '2017-11-04T21:55:18.742Z',
+    updated_at: '2017-11-04T21:55:18.742Z'
   }, {
     id: 88,
     team_id: 1,
@@ -886,8 +886,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/planning.aspx',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.979Z',
-    updated_at: '2017-11-03T18:56:41.979Z'
+    created_at: '2017-11-04T21:55:18.742Z',
+    updated_at: '2017-11-04T21:55:18.742Z'
   }, {
     id: 89,
     team_id: 1,
@@ -896,8 +896,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/skillsoft',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.979Z',
-    updated_at: '2017-11-03T18:56:41.979Z'
+    created_at: '2017-11-04T21:55:18.742Z',
+    updated_at: '2017-11-04T21:55:18.742Z'
   }, {
     id: 90,
     team_id: 1,
@@ -906,8 +906,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/lynda',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.979Z',
-    updated_at: '2017-11-03T18:56:41.979Z'
+    created_at: '2017-11-04T21:55:18.742Z',
+    updated_at: '2017-11-04T21:55:18.742Z'
   }, {
     id: 91,
     team_id: 1,
@@ -916,8 +916,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/planning.aspx',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.979Z',
-    updated_at: '2017-11-03T18:56:41.979Z'
+    created_at: '2017-11-04T21:55:18.742Z',
+    updated_at: '2017-11-04T21:55:18.742Z'
   }, {
     id: 92,
     team_id: 1,
@@ -926,8 +926,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/lynda',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.979Z',
-    updated_at: '2017-11-03T18:56:41.979Z'
+    created_at: '2017-11-04T21:55:18.742Z',
+    updated_at: '2017-11-04T21:55:18.742Z'
   }, {
     id: 93,
     team_id: 1,
@@ -936,8 +936,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/campusconnections.aspx',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.979Z',
-    updated_at: '2017-11-03T18:56:41.979Z'
+    created_at: '2017-11-04T21:55:18.742Z',
+    updated_at: '2017-11-04T21:55:18.742Z'
   }, {
     id: 94,
     team_id: 1,
@@ -946,8 +946,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/volunteer.aspx',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.979Z',
-    updated_at: '2017-11-03T18:56:41.979Z'
+    created_at: '2017-11-04T21:55:18.742Z',
+    updated_at: '2017-11-04T21:55:18.742Z'
   }, {
     id: 95,
     team_id: 1,
@@ -956,8 +956,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/prof_courses.aspx?top=Volunteer%20Involvement',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.979Z',
-    updated_at: '2017-11-03T18:56:41.979Z'
+    created_at: '2017-11-04T21:55:18.742Z',
+    updated_at: '2017-11-04T21:55:18.742Z'
   }, {
     id: 96,
     team_id: 1,
@@ -966,8 +966,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://it.cornell.edu/lynda',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.979Z',
-    updated_at: '2017-11-03T18:56:41.979Z'
+    created_at: '2017-11-04T21:55:18.742Z',
+    updated_at: '2017-11-04T21:55:18.742Z'
   }, {
     id: 97,
     team_id: 1,
@@ -976,8 +976,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/Course-Description2.aspx?courseid=114',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.979Z',
-    updated_at: '2017-11-03T18:56:41.979Z'
+    created_at: '2017-11-04T21:55:18.743Z',
+    updated_at: '2017-11-04T21:55:18.743Z'
   }, {
     id: 98,
     team_id: 1,
@@ -986,8 +986,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: '',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.980Z',
-    updated_at: '2017-11-03T18:56:41.980Z'
+    created_at: '2017-11-04T21:55:18.743Z',
+    updated_at: '2017-11-04T21:55:18.743Z'
   }, {
     id: 99,
     team_id: 1,
@@ -996,8 +996,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://staff.cce.cornell.edu/orgdev/Pages/foundations.aspx',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.980Z',
-    updated_at: '2017-11-03T18:56:41.980Z'
+    created_at: '2017-11-04T21:55:18.743Z',
+    updated_at: '2017-11-04T21:55:18.743Z'
   }, {
     id: 100,
     team_id: 1,
@@ -1006,8 +1006,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: '',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.980Z',
-    updated_at: '2017-11-03T18:56:41.980Z'
+    created_at: '2017-11-04T21:55:18.743Z',
+    updated_at: '2017-11-04T21:55:18.743Z'
   }, {
     id: 101,
     team_id: 1,
@@ -1016,8 +1016,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: '',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.980Z',
-    updated_at: '2017-11-03T18:56:41.980Z'
+    created_at: '2017-11-04T21:55:18.743Z',
+    updated_at: '2017-11-04T21:55:18.743Z'
   }, {
     id: 102,
     team_id: 1,
@@ -1026,8 +1026,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://cce.cornell.edu/page/inservice',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.980Z',
-    updated_at: '2017-11-03T18:56:41.980Z'
+    created_at: '2017-11-04T21:55:18.744Z',
+    updated_at: '2017-11-04T21:55:18.744Z'
   }, {
     id: 103,
     team_id: 1,
@@ -1036,8 +1036,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://gardening.cals.cornell.edu/for-cce-staff/',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.981Z',
-    updated_at: '2017-11-03T18:56:41.981Z'
+    created_at: '2017-11-04T21:55:18.744Z',
+    updated_at: '2017-11-04T21:55:18.744Z'
   }, {
     id: 104,
     team_id: 1,
@@ -1046,8 +1046,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://www.youtube.com/playlist?list=PLHPXm2Es8aQDjvBs5r3ZXEA4DRBUqiT58',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.981Z',
-    updated_at: '2017-11-03T18:56:41.981Z'
+    created_at: '2017-11-04T21:55:18.744Z',
+    updated_at: '2017-11-04T21:55:18.744Z'
   }, {
     id: 105,
     team_id: 1,
@@ -1056,8 +1056,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://dairyone.com/analytical-services/agronomy-services/soil-testing/',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.981Z',
-    updated_at: '2017-11-03T18:56:41.981Z'
+    created_at: '2017-11-04T21:55:18.744Z',
+    updated_at: '2017-11-04T21:55:18.744Z'
   }, {
     id: 106,
     team_id: 1,
@@ -1066,8 +1066,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://cnal.cals.cornell.edu/',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.981Z',
-    updated_at: '2017-11-03T18:56:41.981Z'
+    created_at: '2017-11-04T21:55:18.744Z',
+    updated_at: '2017-11-04T21:55:18.744Z'
   }, {
     id: 107,
     team_id: 1,
@@ -1076,8 +1076,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://pmep.cce.cornell.edu/',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.981Z',
-    updated_at: '2017-11-03T18:56:41.981Z'
+    created_at: '2017-11-04T21:55:18.744Z',
+    updated_at: '2017-11-04T21:55:18.744Z'
   }, {
     id: 108,
     team_id: 1,
@@ -1086,8 +1086,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://cce.cornell.edu/pwts',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.981Z',
-    updated_at: '2017-11-03T18:56:41.981Z'
+    created_at: '2017-11-04T21:55:18.744Z',
+    updated_at: '2017-11-04T21:55:18.744Z'
   }, {
     id: 109,
     team_id: 1,
@@ -1096,8 +1096,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'O:\\AEnergyTeam\\Resources-Energy Shared',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.981Z',
-    updated_at: '2017-11-03T18:56:41.981Z'
+    created_at: '2017-11-04T21:55:18.744Z',
+    updated_at: '2017-11-04T21:55:18.744Z'
   }, {
     id: 110,
     team_id: 1,
@@ -1106,8 +1106,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'O:\\Energy Warriors\\Curriculum\\Teaching aids for EW Classes\\Videos',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.981Z',
-    updated_at: '2017-11-03T18:56:41.981Z'
+    created_at: '2017-11-04T21:55:18.744Z',
+    updated_at: '2017-11-04T21:55:18.744Z'
   }, {
     id: 111,
     team_id: 1,
@@ -1116,8 +1116,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://www.actforyouth.net/youth_development/development/',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.981Z',
-    updated_at: '2017-11-03T18:56:41.981Z'
+    created_at: '2017-11-04T21:55:18.744Z',
+    updated_at: '2017-11-04T21:55:18.744Z'
   }, {
     id: 112,
     team_id: 1,
@@ -1126,8 +1126,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://www.actforyouth.net/youth_development/professionals/manual.cfm',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.981Z',
-    updated_at: '2017-11-03T18:56:41.981Z'
+    created_at: '2017-11-04T21:55:18.744Z',
+    updated_at: '2017-11-04T21:55:18.744Z'
   }, {
     id: 113,
     team_id: 1,
@@ -1136,8 +1136,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'http://www.actforyouth.net/youth_development/professionals/online_courses.cfm',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.981Z',
-    updated_at: '2017-11-03T18:56:41.981Z'
+    created_at: '2017-11-04T21:55:18.744Z',
+    updated_at: '2017-11-04T21:55:18.744Z'
   }, {
     id: 114,
     team_id: 1,
@@ -1146,8 +1146,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'https://admin.fnec.cornell.edu/Training_IRB/IRB_Human_Subjects.cfm',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.981Z',
-    updated_at: '2017-11-03T18:56:41.981Z'
+    created_at: '2017-11-04T21:55:18.744Z',
+    updated_at: '2017-11-04T21:55:18.744Z'
   }, {
     id: 115,
     team_id: 1,
@@ -1156,8 +1156,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'O box',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.981Z',
-    updated_at: '2017-11-03T18:56:41.981Z'
+    created_at: '2017-11-04T21:55:18.744Z',
+    updated_at: '2017-11-04T21:55:18.744Z'
   }, {
     id: 116,
     team_id: 1,
@@ -1166,8 +1166,8 @@ var resourcesFixtures = new _maha.Fixtures({
     url: 'O box',
     review_count: 0,
     review_average: 0,
-    created_at: '2017-11-03T18:56:41.981Z',
-    updated_at: '2017-11-03T18:56:41.981Z'
+    created_at: '2017-11-04T21:55:18.745Z',
+    updated_at: '2017-11-04T21:55:18.745Z'
   }]
 });
 
