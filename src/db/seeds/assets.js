@@ -997,4 +997,3 @@ const assetsFixtures = new Fixtures({
 })
 
 export default assetsFixtures
-
