@@ -3,17 +3,11 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.import_20170622 = undefined;
+exports.import_20170622 = exports.import_20171107 = undefined;
 
 var _stringify = require('babel-runtime/core-js/json/stringify');
 
 var _stringify2 = _interopRequireDefault(_stringify);
-
-var _regenerator = require('babel-runtime/regenerator');
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
-var _bluebird = require('bluebird');
 
 var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
@@ -26,6 +20,12 @@ var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
 var _keys = require('babel-runtime/core-js/object/keys');
 
 var _keys2 = _interopRequireDefault(_keys);
+
+var _regenerator = require('babel-runtime/regenerator');
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _bluebird = require('bluebird');
 
 var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
@@ -59,16 +59,114 @@ var _awsSdk = require('aws-sdk');
 
 var _awsSdk2 = _interopRequireDefault(_awsSdk);
 
+var _maha = require('maha');
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var import_20170622 = exports.import_20170622 = function () {
+var import_20171107 = exports.import_20171107 = function () {
   var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2() {
-    var employees, projects, expenses, competencies, expectations, supervisors, assets, userData, supervisorData, projectData, expenseData, competencyData, expectationsData, filepath, s3;
+    var employees;
     return _regenerator2.default.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _context2.prev = 0;
+            employees = toMatrix('20170622/employees.tsv', '\t', true);
+            _context2.next = 3;
+            return (0, _maha.knex)('maha_users_roles').delete();
+
+          case 3:
+            _context2.next = 5;
+            return (0, _bluebird.map)(employees, function () {
+              var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(row) {
+                var record;
+                return _regenerator2.default.wrap(function _callee$(_context) {
+                  while (1) {
+                    switch (_context.prev = _context.next) {
+                      case 0:
+                        _context.next = 2;
+                        return (0, _maha.knex)('maha_users').where({ email: row[2] + '@cornell.edu' }).returning('id');
+
+                      case 2:
+                        record = _context.sent;
+
+                        if (!(row[6] === '1')) {
+                          _context.next = 6;
+                          break;
+                        }
+
+                        _context.next = 6;
+                        return (0, _maha.knex)('maha_users_roles').insert({ user_id: record[0].id, role_id: 1 });
+
+                      case 6:
+                        if (!(row[7] === '1')) {
+                          _context.next = 9;
+                          break;
+                        }
+
+                        _context.next = 9;
+                        return (0, _maha.knex)('maha_users_roles').insert({ user_id: record[0].id, role_id: 2 });
+
+                      case 9:
+                        if (!(row[8] === '1')) {
+                          _context.next = 12;
+                          break;
+                        }
+
+                        _context.next = 12;
+                        return (0, _maha.knex)('maha_users_roles').insert({ user_id: record[0].id, role_id: 3 });
+
+                      case 12:
+                        if (!(row[9] === '1')) {
+                          _context.next = 15;
+                          break;
+                        }
+
+                        _context.next = 15;
+                        return (0, _maha.knex)('maha_users_roles').insert({ user_id: record[0].id, role_id: 5 });
+
+                      case 15:
+                        if (!(row[10] === '1')) {
+                          _context.next = 18;
+                          break;
+                        }
+
+                        _context.next = 18;
+                        return (0, _maha.knex)('maha_users_roles').insert({ user_id: record[0].id, role_id: 4 });
+
+                      case 18:
+                      case 'end':
+                        return _context.stop();
+                    }
+                  }
+                }, _callee, undefined);
+              }));
+
+              return function (_x) {
+                return _ref2.apply(this, arguments);
+              };
+            }());
+
+          case 5:
+          case 'end':
+            return _context2.stop();
+        }
+      }
+    }, _callee2, undefined);
+  }));
+
+  return function import_20171107() {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var import_20170622 = exports.import_20170622 = function () {
+  var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4() {
+    var employees, projects, expenses, competencies, expectations, supervisors, assets, userData, supervisorData, projectData, expenseData, competencyData, expectationsData, filepath, s3;
+    return _regenerator2.default.wrap(function _callee4$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.prev = 0;
             employees = toMatrix('20170622/employees.tsv', '\t', true);
             projects = toMatrix('20170622/projects.tsv', '\t', true);
             expenses = toMatrix('20170622/expense_types.tsv', '\t', true);
@@ -350,23 +448,23 @@ var import_20170622 = exports.import_20170622 = function () {
             });
 
             if (!(process.env.ASSET_STORAGE === 's3')) {
-              _context2.next = 39;
+              _context4.next = 39;
               break;
             }
 
             s3 = new _awsSdk2.default.S3();
-            _context2.next = 37;
+            _context4.next = 37;
             return (0, _bluebird.map)(userData.assets, function () {
-              var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(asset) {
+              var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(asset) {
                 var filename, contentType, filepath;
-                return _regenerator2.default.wrap(function _callee$(_context) {
+                return _regenerator2.default.wrap(function _callee3$(_context3) {
                   while (1) {
-                    switch (_context.prev = _context.next) {
+                    switch (_context3.prev = _context3.next) {
                       case 0:
                         filename = asset.file_name;
                         contentType = asset.content_type;
                         filepath = _path2.default.join('files', '20170622', 'photos', asset.file_name);
-                        _context.next = 5;
+                        _context3.next = 5;
                         return s3.upload({
                           Bucket: process.env.AWS_BUCKET,
                           Key: 'assets/' + asset.id + '/' + asset.file_name,
@@ -377,19 +475,19 @@ var import_20170622 = exports.import_20170622 = function () {
 
                       case 5:
                       case 'end':
-                        return _context.stop();
+                        return _context3.stop();
                     }
                   }
-                }, _callee, undefined);
+                }, _callee3, undefined);
               }));
 
-              return function (_x) {
-                return _ref2.apply(this, arguments);
+              return function (_x2) {
+                return _ref4.apply(this, arguments);
               };
             }());
 
           case 37:
-            _context2.next = 40;
+            _context4.next = 40;
             break;
 
           case 39:
@@ -408,26 +506,26 @@ var import_20170622 = exports.import_20170622 = function () {
             }
 
           case 40:
-            _context2.next = 45;
+            _context4.next = 45;
             break;
 
           case 42:
-            _context2.prev = 42;
-            _context2.t0 = _context2['catch'](0);
+            _context4.prev = 42;
+            _context4.t0 = _context4['catch'](0);
 
 
-            console.log(_context2.t0);
+            console.log(_context4.t0);
 
           case 45:
           case 'end':
-            return _context2.stop();
+            return _context4.stop();
         }
       }
-    }, _callee2, undefined, [[0, 42]]);
+    }, _callee4, undefined, [[0, 42]]);
   }));
 
   return function import_20170622() {
-    return _ref.apply(this, arguments);
+    return _ref3.apply(this, arguments);
   };
 }();
 

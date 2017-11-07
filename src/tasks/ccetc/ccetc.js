@@ -5,6 +5,31 @@ import moment from 'moment'
 import _ from 'lodash'
 import mime from 'mime-types'
 import aws from 'aws-sdk'
+import { knex } from 'maha'
+
+export const import_20171107 = async () => {
+
+  const employees = toMatrix('20170622/employees.tsv', '\t', true)
+
+  await knex('maha_users_roles').delete()
+
+  await Promise.map(employees, async (row) => {
+
+    const record = await knex('maha_users').where({ email: `${row[2]}@cornell.edu` }).returning('id')
+
+    if(row[6] === '1') await knex('maha_users_roles').insert({ user_id: record[0].id, role_id: 1 })
+
+    if(row[7] === '1') await knex('maha_users_roles').insert({ user_id: record[0].id, role_id: 2 })
+
+    if(row[8] === '1') await knex('maha_users_roles').insert({ user_id: record[0].id, role_id: 3 })
+
+    if(row[9] === '1') await knex('maha_users_roles').insert({ user_id: record[0].id, role_id: 5 })
+
+    if(row[10] === '1') await knex('maha_users_roles').insert({ user_id: record[0].id, role_id: 4 })
+
+  })
+
+}
 
 export const import_20170622 = async () => {
 
