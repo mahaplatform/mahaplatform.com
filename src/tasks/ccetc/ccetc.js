@@ -7,6 +7,64 @@ import mime from 'mime-types'
 import aws from 'aws-sdk'
 import { knex } from 'maha'
 
+export const import_20171109 = async () => {
+
+  const lines = toMatrix('20171109/mr55-projects.tsv', '\t', true)
+
+  await Promise.map(lines, async (line) => {
+
+    const project_id = parseInt(line[0])
+
+    if(line[5] !== '') {
+
+      await knex('expenses_members').where({ project_id }).delete()
+
+      await knex('expenses_projects').where({ id: project_id}).delete()
+
+      return
+
+    }
+
+    if(!_.isEmpty(line[3])) {
+
+      await Promise.mapSeries(line[3].split(','), async (netid) => {
+
+        const user = await knex('maha_users').where({ email: `${netid}@cornell.edu` }).returning('id')
+
+        if(!user[0]) console.log(project_id,':',netid)
+
+        const user_id = user[0].id
+
+        const data = { team_id: 1, member_type_id: 2, project_id, user_id, is_active: true }
+
+        await knex('expenses_members').insert(data)
+
+      })
+
+    }
+
+    if(!_.isEmpty(line[4])) {
+
+      await Promise.mapSeries(line[4].split(','), async (netid) => {
+
+        const user = await knex('maha_users').where({ email: `${netid}@cornell.edu` }).returning('id')
+
+        if(!user[0]) console.log(project_id,':',netid)
+
+        const user_id = user[0].id
+
+        const data = { team_id: 1, member_type_id: 3, project_id, user_id, is_active: true }
+
+        await knex('expenses_members').insert(data)
+
+      })
+
+    }
+
+  })
+
+}
+
 export const import_20171107 = async () => {
 
   const employees = toMatrix('20170622/employees.tsv', '\t', true)

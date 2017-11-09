@@ -1,15 +1,20 @@
 import { task } from 'maha'
-import { import_20170622, import_20171107 } from './ccetc'
+import * as ccetc from './ccetc'
 
 export default [
   task({
     command: 'ccetc:import:20170622',
     description: 'Importing ccetompkins seeds',
-    processor: import_20170622
+    processor: ccetc.import_20170622
   }),
   task({
     command: 'ccetc:import:20171107',
     description: 'Fixing role data',
-    processor: import_20171107
+    processor: ccetc.import_20171107
+  }),
+  task({
+    command: 'ccetc:import:20171109',
+    description: 'Importing project members',
+    processor: ccetc.import_20171109
   })
 ]
