@@ -16,5 +16,10 @@ export default [
     command: 'ccetc:import:20171109',
     description: 'Importing project members',
     processor: ccetc.import_20171109
+  }),
+  task({
+    command: 'ccetc:import:20171115',
+    description: 'Importing project members',
+    processor: ccetc.import_20171115
   })
 ]

@@ -7,6 +7,58 @@ import mime from 'mime-types'
 import aws from 'aws-sdk'
 import { knex } from 'maha'
 
+const import_members = async (members, project_id, member_type_id) => {
+
+  return await Promise.mapSeries(members, async (netid) => {
+
+    const user = await knex('maha_users').where({ email: `${netid.trim()}@cornell.edu` })
+
+    const user_id = user[0].id
+
+    const data = { team_id: 1, member_type_id, project_id, user_id, is_active: true }
+
+    await knex('expenses_members').insert(data)
+
+  })
+
+}
+
+export const import_20171115 = async () => {
+
+  const met38 = toMatrix('20171115/met38-projects.tsv', '\t', true)
+
+  await Promise.mapSeries(met38, async (line) => {
+
+    const project_id = parseInt(line[0])
+
+    await knex('expenses_members').where({ project_id }).delete()
+
+    if(!_.isEmpty(line[3].trim())) await import_members(line[3].split(','), project_id, 1)
+
+    if(!_.isEmpty(line[4].trim())) await import_members(line[4].split(','), project_id, 2)
+
+    if(!_.isEmpty(line[5].trim())) await import_members(line[5].split(','), project_id, 3)
+
+  })
+
+  const ljp9 = toMatrix('20171115/ljp9-projects.tsv', '\t', true)
+
+  await Promise.mapSeries(ljp9, async (line) => {
+
+    const project_id = parseInt(line[0])
+
+    await knex('expenses_members').where({ project_id }).delete()
+
+    if(!_.isEmpty(line[3].trim())) await import_members(line[3].split(','), project_id, 1)
+
+    if(!_.isEmpty(line[4].trim())) await import_members(line[4].split(','), project_id, 2)
+
+    if(!_.isEmpty(line[5].trim())) await import_members(line[5].split(','), project_id, 3)
+
+  })
+
+}
+
 export const import_20171109 = async () => {
 
   const lines = toMatrix('20171109/mr55-projects.tsv', '\t', true)
@@ -25,41 +77,9 @@ export const import_20171109 = async () => {
 
     }
 
-    if(!_.isEmpty(line[3])) {
+    if(!_.isEmpty(line[3].trim())) await import_members(line[3].split(','), project_id, 2)
 
-      await Promise.mapSeries(line[3].split(','), async (netid) => {
-
-        const user = await knex('maha_users').where({ email: `${netid}@cornell.edu` }).returning('id')
-
-        if(!user[0]) console.log(project_id,':',netid)
-
-        const user_id = user[0].id
-
-        const data = { team_id: 1, member_type_id: 2, project_id, user_id, is_active: true }
-
-        await knex('expenses_members').insert(data)
-
-      })
-
-    }
-
-    if(!_.isEmpty(line[4])) {
-
-      await Promise.mapSeries(line[4].split(','), async (netid) => {
-
-        const user = await knex('maha_users').where({ email: `${netid}@cornell.edu` }).returning('id')
-
-        if(!user[0]) console.log(project_id,':',netid)
-
-        const user_id = user[0].id
-
-        const data = { team_id: 1, member_type_id: 3, project_id, user_id, is_active: true }
-
-        await knex('expenses_members').insert(data)
-
-      })
-
-    }
+    if(!_.isEmpty(line[4].trim())) await import_members(line[4].split(','), project_id, 3)
 
   })
 

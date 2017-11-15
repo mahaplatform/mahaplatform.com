@@ -24,4 +24,8 @@ exports.default = [(0, _maha.task)({
   command: 'ccetc:import:20171109',
   description: 'Importing project members',
   processor: ccetc.import_20171109
+}), (0, _maha.task)({
+  command: 'ccetc:import:20171115',
+  description: 'Importing project members',
+  processor: ccetc.import_20171115
 })];
