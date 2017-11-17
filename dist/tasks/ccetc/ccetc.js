@@ -82,16 +82,12 @@ var import_members = function () {
 
                       case 2:
                         user = _context.sent;
-
-
-                        console.log(netid.trim(), user[0]);
-
                         user_id = user[0].id;
                         data = { team_id: 1, member_type_id: member_type_id, project_id: project_id, user_id: user_id, is_active: true };
-                        _context.next = 8;
+                        _context.next = 7;
                         return (0, _maha.knex)('expenses_members').insert(data);
 
-                      case 8:
+                      case 7:
                       case 'end':
                         return _context.stop();
                     }

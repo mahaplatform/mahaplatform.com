@@ -22,6 +22,10 @@ var notificationTypesFixtures = new _maha.Fixtures({
     description: 'one of my advances, expenses, or trips is approved'
   }, {
     app_id: 2,
+    text: 'item_reviewed',
+    description: 'one of my advances, expenses, or trips is reviewed'
+  }, {
+    app_id: 2,
     text: 'item_processed',
     description: 'one of my advances, expenses, or trips is processed'
   }, {

@@ -13,7 +13,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 2,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2679894',
@@ -32,7 +32,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 3,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1015662',
@@ -51,7 +51,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1035103',
@@ -70,7 +70,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4906617',
@@ -89,7 +89,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 4,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1062038',
@@ -108,7 +108,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2245726',
@@ -127,7 +127,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1278958',
@@ -146,7 +146,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 5,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1030444',
@@ -165,7 +165,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4883988',
@@ -184,7 +184,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 6,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1147367',
@@ -203,7 +203,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 7,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1012814',
@@ -222,7 +222,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1067008',
@@ -241,7 +241,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3973810',
@@ -260,7 +260,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3587984',
@@ -279,7 +279,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1035461',
@@ -298,7 +298,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 8,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4041855',
@@ -317,7 +317,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 9,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1043419',
@@ -336,7 +336,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 10,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1004027',
@@ -355,7 +355,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 11,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4557861',
@@ -374,7 +374,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 12,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4044702',
@@ -393,7 +393,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1309726',
@@ -412,7 +412,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 13,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1311764',
@@ -431,7 +431,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 14,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1281655',
@@ -450,7 +450,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 15,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1101720',
@@ -469,7 +469,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 16,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3404017',
@@ -488,7 +488,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1262372',
@@ -507,7 +507,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 17,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1029305',
@@ -526,7 +526,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 18,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1838016',
@@ -545,7 +545,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 19,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2563972',
@@ -564,7 +564,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2851805',
@@ -583,7 +583,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3808171',
@@ -602,7 +602,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4169039',
@@ -621,7 +621,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 20,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1784744',
@@ -640,7 +640,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 21,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4206373',
@@ -659,7 +659,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 22,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1262682',
@@ -678,7 +678,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2673697',
@@ -697,7 +697,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 23,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1274510',
@@ -716,7 +716,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 24,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2302979',
@@ -735,7 +735,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 25,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3651906',
@@ -754,7 +754,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 26,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1001812',
@@ -773,7 +773,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1860756',
@@ -792,7 +792,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4635441',
@@ -811,7 +811,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 27,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1014160',
@@ -830,7 +830,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 28,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1095683',
@@ -849,7 +849,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1287174',
@@ -868,7 +868,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4905311',
@@ -887,7 +887,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3805327',
@@ -906,7 +906,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 29,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1231880',
@@ -925,7 +925,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3312450',
@@ -944,7 +944,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 30,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1300201',
@@ -963,7 +963,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 31,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1170238',
@@ -982,7 +982,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 32,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1022911',
@@ -1001,7 +1001,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3820880',
@@ -1020,7 +1020,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 33,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2967054',
@@ -1039,7 +1039,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 34,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3824524',
@@ -1058,7 +1058,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 35,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1022307',
@@ -1077,7 +1077,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1032418',
@@ -1096,7 +1096,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 36,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1306964',
@@ -1115,7 +1115,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2673657',
@@ -1134,7 +1134,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3497644',
@@ -1153,7 +1153,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1273813',
@@ -1172,7 +1172,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 37,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1014840',
@@ -1191,7 +1191,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1116038',
@@ -1210,7 +1210,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 38,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1006434',
@@ -1229,7 +1229,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4904270',
@@ -1248,7 +1248,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 39,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1297617',
@@ -1267,7 +1267,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2244066',
@@ -1286,7 +1286,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 40,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4472734',
@@ -1305,7 +1305,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 41,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1310589',
@@ -1324,7 +1324,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1838683',
@@ -1343,7 +1343,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3252030',
@@ -1362,7 +1362,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 42,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4265239',
@@ -1381,7 +1381,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 43,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1762452',
@@ -1400,7 +1400,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 44,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1030448',
@@ -1419,7 +1419,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 45,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1274738',
@@ -1438,7 +1438,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1021696',
@@ -1457,7 +1457,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 46,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4380550',
@@ -1476,7 +1476,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 47,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2115047',
@@ -1495,7 +1495,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: true,
       photo_id: 48,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: '2017-11-04T21:56:15.906Z',
       values: {
         employee_id: '1236097',
@@ -1514,7 +1514,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 49,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1975099',
@@ -1533,7 +1533,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 50,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1757647',
@@ -1552,7 +1552,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1027875',
@@ -1571,7 +1571,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 51,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4817659',
@@ -1590,7 +1590,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 52,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4914987',
@@ -1609,7 +1609,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4907286',
@@ -1628,7 +1628,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3391465',
@@ -1647,7 +1647,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 53,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2013918',
@@ -1666,7 +1666,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 54,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1310578',
@@ -1685,7 +1685,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 55,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2248196',
@@ -1704,7 +1704,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 56,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2844480',
@@ -1723,7 +1723,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4908154',
@@ -1742,7 +1742,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3824572',
@@ -1761,7 +1761,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 57,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1025008',
@@ -1780,7 +1780,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3635337',
@@ -1799,7 +1799,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3987994',
@@ -1818,7 +1818,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 58,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4452034',
@@ -1837,7 +1837,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 59,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1839874',
@@ -1856,7 +1856,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1274718',
@@ -1875,7 +1875,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 60,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1852857',
@@ -1894,7 +1894,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 61,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4899526',
@@ -1913,7 +1913,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 62,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3022914',
@@ -1932,7 +1932,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 63,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1035017',
@@ -1951,7 +1951,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 64,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1167408',
@@ -1970,7 +1970,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 65,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4403103',
@@ -1989,7 +1989,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3765541',
@@ -2008,7 +2008,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 66,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4890033',
@@ -2027,7 +2027,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4020020',
@@ -2046,7 +2046,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4185340',
@@ -2065,7 +2065,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3960600',
@@ -2084,7 +2084,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4853102',
@@ -2103,7 +2103,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3392050',
@@ -2122,7 +2122,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3655889',
@@ -2141,7 +2141,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3630131',
@@ -2160,7 +2160,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1050323',
@@ -2179,7 +2179,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1012469',
@@ -2198,7 +2198,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4203242',
@@ -2217,7 +2217,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4908153',
@@ -2236,7 +2236,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3546467',
@@ -2255,7 +2255,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3502419',
@@ -2274,7 +2274,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 67,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3808306',
@@ -2293,7 +2293,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 68,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1961798',
@@ -2312,7 +2312,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2561954',
@@ -2331,7 +2331,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 69,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1308422',
@@ -2350,7 +2350,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2695804',
@@ -2369,7 +2369,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4150605',
@@ -2388,7 +2388,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2683399',
@@ -2407,7 +2407,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4904263',
@@ -2426,7 +2426,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 70,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1009921',
@@ -2445,7 +2445,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 71,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3225745',
@@ -2464,7 +2464,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2699919',
@@ -2483,7 +2483,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 72,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3196755',
@@ -2502,7 +2502,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 73,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1009901',
@@ -2521,7 +2521,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1855340',
@@ -2540,7 +2540,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2005331',
@@ -2559,7 +2559,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 74,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1017861',
@@ -2578,7 +2578,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4019900',
@@ -2597,7 +2597,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3228542',
@@ -2616,7 +2616,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 75,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1007561',
@@ -2635,7 +2635,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1166467',
@@ -2654,7 +2654,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 76,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1008091',
@@ -2673,7 +2673,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 77,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1023473',
@@ -2692,7 +2692,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 78,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1021298',
@@ -2711,7 +2711,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 79,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2008547',
@@ -2730,7 +2730,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1752004',
@@ -2749,7 +2749,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 80,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3216006',
@@ -2768,7 +2768,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 81,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3000258',
@@ -2787,7 +2787,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3927411',
@@ -2806,7 +2806,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 82,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1262933',
@@ -2825,7 +2825,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 83,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4913592',
@@ -2844,7 +2844,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 84,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1758325',
@@ -2863,7 +2863,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4907721',
@@ -2882,7 +2882,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 85,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4455962',
@@ -2901,7 +2901,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4654305',
@@ -2920,7 +2920,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1043732',
@@ -2939,7 +2939,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 86,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4785732',
@@ -2958,7 +2958,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3494240',
@@ -2977,7 +2977,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1756192',
@@ -2996,7 +2996,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4038251',
@@ -3015,7 +3015,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 87,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1758533',
@@ -3034,7 +3034,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2463301',
@@ -3053,7 +3053,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3137854',
@@ -3072,7 +3072,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 88,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3616988',
@@ -3091,7 +3091,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '1273245',
@@ -3110,7 +3110,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: 89,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '2231345',
@@ -3129,7 +3129,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '4569931',
@@ -3148,7 +3148,7 @@ const usersFixtures = new Fixtures({
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
       is_active: false,
       photo_id: null,
-      notification_method: 'immediately',
+      notification_method_id: 1,
       activated_at: null,
       values: {
         employee_id: '3739991',
