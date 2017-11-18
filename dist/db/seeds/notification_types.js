@@ -9,6 +9,10 @@ var _maha = require('maha');
 var notificationTypesFixtures = new _maha.Fixtures({
   tableName: 'maha_notification_types',
   records: [{
+    app_id: 1,
+    text: 'item_comment',
+    description: 'someone comments on an item that I own'
+  }, {
     app_id: 2,
     text: 'item_submitted',
     description: 'someone submits an advance, expense, or trip in a project I own'
