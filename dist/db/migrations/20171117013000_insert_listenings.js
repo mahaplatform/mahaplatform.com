@@ -71,7 +71,7 @@ var InsertListenings = new _maha.Migration({
                                         };
                                       });
                                       _context.next = 8;
-                                      return knex('maha_listenings').insert(listeners);
+                                      return knex('maha_listenings').insert(listenings);
 
                                     case 8:
                                     case 'end':
