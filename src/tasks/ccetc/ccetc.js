@@ -5,8 +5,29 @@ import moment from 'moment'
 import _ from 'lodash'
 import mime from 'mime-types'
 import aws from 'aws-sdk'
-import { knex } from 'maha'
+import { knex, Asset, processAsset } from 'maha'
 
+export const add_asset_previews = async () => {
+
+  await knex.transaction(async trx => {
+
+    const assets = await Asset.query(qb => qb.orderBy('id', 'asc')).fetchAll({ transacting: trx })
+
+    await Promise.mapSeries(assets.map(asset => asset), async asset => {
+
+      console.log(`processing asset ${asset.get('id')}`)
+
+      const status_id = asset.get('is_image') ? 3 : 2
+
+      await asset.save({ status_id }, { transacting: trx })
+
+      if(!asset.get('is_image')) await processAsset(asset.get('id'), trx)
+
+    })
+
+  })
+
+}
 const import_members = async (members, project_id, member_type_id) => {
 
   return await Promise.mapSeries(members, async (netid) => {

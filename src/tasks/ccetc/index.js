@@ -21,5 +21,10 @@ export default [
     command: 'ccetc:import:20171115',
     description: 'Importing project members',
     processor: ccetc.import_20171115
+  }),
+  task({
+    command: 'ccetc:add_asset_previews',
+    description: 'Add Asset Previews',
+    processor: ccetc.add_asset_previews
   })
 ]

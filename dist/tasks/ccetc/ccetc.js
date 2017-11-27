@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.import_20170622 = exports.import_20171107 = exports.import_20171109 = exports.import_20171115 = undefined;
+exports.import_20170622 = exports.import_20171107 = exports.import_20171109 = exports.import_20171115 = exports.add_asset_previews = undefined;
 
 var _stringify = require('babel-runtime/core-js/json/stringify');
 
@@ -63,161 +63,116 @@ var _maha = require('maha');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var import_members = function () {
-  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(members, project_id, member_type_id) {
-    return _regenerator2.default.wrap(function _callee2$(_context2) {
+var add_asset_previews = exports.add_asset_previews = function () {
+  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3() {
+    return _regenerator2.default.wrap(function _callee3$(_context3) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context3.prev = _context3.next) {
           case 0:
-            _context2.next = 2;
-            return (0, _bluebird.mapSeries)(members, function () {
-              var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(netid) {
-                var user, user_id, data;
-                return _regenerator2.default.wrap(function _callee$(_context) {
+            _context3.next = 2;
+            return _maha.knex.transaction(function () {
+              var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(trx) {
+                var assets;
+                return _regenerator2.default.wrap(function _callee2$(_context2) {
                   while (1) {
-                    switch (_context.prev = _context.next) {
+                    switch (_context2.prev = _context2.next) {
                       case 0:
-                        _context.next = 2;
-                        return (0, _maha.knex)('maha_users').where({ email: netid.trim() + '@cornell.edu' });
+                        _context2.next = 2;
+                        return _maha.Asset.query(function (qb) {
+                          return qb.orderBy('id', 'asc');
+                        }).fetchAll({ transacting: trx });
 
                       case 2:
-                        user = _context.sent;
-                        user_id = user[0].id;
-                        data = { team_id: 1, member_type_id: member_type_id, project_id: project_id, user_id: user_id, is_active: true };
-                        _context.next = 7;
-                        return (0, _maha.knex)('expenses_members').insert(data);
+                        assets = _context2.sent;
+                        _context2.next = 5;
+                        return (0, _bluebird.mapSeries)(assets.map(function (asset) {
+                          return asset;
+                        }), function () {
+                          var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(asset) {
+                            var status_id;
+                            return _regenerator2.default.wrap(function _callee$(_context) {
+                              while (1) {
+                                switch (_context.prev = _context.next) {
+                                  case 0:
 
-                      case 7:
+                                    console.log('processing asset ' + asset.get('id'));
+
+                                    status_id = asset.get('is_image') ? 3 : 2;
+                                    _context.next = 4;
+                                    return asset.save({ status_id: status_id }, { transacting: trx });
+
+                                  case 4:
+                                    if (asset.get('is_image')) {
+                                      _context.next = 7;
+                                      break;
+                                    }
+
+                                    _context.next = 7;
+                                    return (0, _maha.processAsset)(asset.get('id'), trx);
+
+                                  case 7:
+                                  case 'end':
+                                    return _context.stop();
+                                }
+                              }
+                            }, _callee, undefined);
+                          }));
+
+                          return function (_x2) {
+                            return _ref3.apply(this, arguments);
+                          };
+                        }());
+
+                      case 5:
                       case 'end':
-                        return _context.stop();
+                        return _context2.stop();
                     }
                   }
-                }, _callee, undefined);
+                }, _callee2, undefined);
               }));
 
-              return function (_x4) {
+              return function (_x) {
                 return _ref2.apply(this, arguments);
               };
             }());
 
           case 2:
-            return _context2.abrupt('return', _context2.sent);
-
-          case 3:
           case 'end':
-            return _context2.stop();
+            return _context3.stop();
         }
       }
-    }, _callee2, undefined);
+    }, _callee3, undefined);
   }));
 
-  return function import_members(_x, _x2, _x3) {
+  return function add_asset_previews() {
     return _ref.apply(this, arguments);
   };
 }();
-
-var import_20171115 = exports.import_20171115 = function () {
-  var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5() {
-    var met38, ljp9;
+var import_members = function () {
+  var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5(members, project_id, member_type_id) {
     return _regenerator2.default.wrap(function _callee5$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
-            met38 = toMatrix('20171115/met38-projects.tsv', '\t', true);
-            _context5.next = 3;
-            return (0, _bluebird.mapSeries)(met38, function () {
-              var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(line) {
-                var project_id;
-                return _regenerator2.default.wrap(function _callee3$(_context3) {
-                  while (1) {
-                    switch (_context3.prev = _context3.next) {
-                      case 0:
-                        project_id = parseInt(line[0]);
-                        _context3.next = 3;
-                        return (0, _maha.knex)('expenses_members').where({ project_id: project_id }).delete();
-
-                      case 3:
-                        if (_lodash2.default.isEmpty(line[3].trim())) {
-                          _context3.next = 6;
-                          break;
-                        }
-
-                        _context3.next = 6;
-                        return import_members(line[3].split(','), project_id, 1);
-
-                      case 6:
-                        if (_lodash2.default.isEmpty(line[4].trim())) {
-                          _context3.next = 9;
-                          break;
-                        }
-
-                        _context3.next = 9;
-                        return import_members(line[4].split(','), project_id, 2);
-
-                      case 9:
-                        if (_lodash2.default.isEmpty(line[5].trim())) {
-                          _context3.next = 12;
-                          break;
-                        }
-
-                        _context3.next = 12;
-                        return import_members(line[5].split(','), project_id, 3);
-
-                      case 12:
-                      case 'end':
-                        return _context3.stop();
-                    }
-                  }
-                }, _callee3, undefined);
-              }));
-
-              return function (_x5) {
-                return _ref4.apply(this, arguments);
-              };
-            }());
-
-          case 3:
-            ljp9 = toMatrix('20171115/ljp9-projects.tsv', '\t', true);
-            _context5.next = 6;
-            return (0, _bluebird.mapSeries)(ljp9, function () {
-              var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(line) {
-                var project_id;
+            _context5.next = 2;
+            return (0, _bluebird.mapSeries)(members, function () {
+              var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(netid) {
+                var user, user_id, data;
                 return _regenerator2.default.wrap(function _callee4$(_context4) {
                   while (1) {
                     switch (_context4.prev = _context4.next) {
                       case 0:
-                        project_id = parseInt(line[0]);
-                        _context4.next = 3;
-                        return (0, _maha.knex)('expenses_members').where({ project_id: project_id }).delete();
+                        _context4.next = 2;
+                        return (0, _maha.knex)('maha_users').where({ email: netid.trim() + '@cornell.edu' });
 
-                      case 3:
-                        if (_lodash2.default.isEmpty(line[3].trim())) {
-                          _context4.next = 6;
-                          break;
-                        }
+                      case 2:
+                        user = _context4.sent;
+                        user_id = user[0].id;
+                        data = { team_id: 1, member_type_id: member_type_id, project_id: project_id, user_id: user_id, is_active: true };
+                        _context4.next = 7;
+                        return (0, _maha.knex)('expenses_members').insert(data);
 
-                        _context4.next = 6;
-                        return import_members(line[3].split(','), project_id, 1);
-
-                      case 6:
-                        if (_lodash2.default.isEmpty(line[4].trim())) {
-                          _context4.next = 9;
-                          break;
-                        }
-
-                        _context4.next = 9;
-                        return import_members(line[4].split(','), project_id, 2);
-
-                      case 9:
-                        if (_lodash2.default.isEmpty(line[5].trim())) {
-                          _context4.next = 12;
-                          break;
-                        }
-
-                        _context4.next = 12;
-                        return import_members(line[5].split(','), project_id, 3);
-
-                      case 12:
+                      case 7:
                       case 'end':
                         return _context4.stop();
                     }
@@ -230,7 +185,10 @@ var import_20171115 = exports.import_20171115 = function () {
               };
             }());
 
-          case 6:
+          case 2:
+            return _context5.abrupt('return', _context5.sent);
+
+          case 3:
           case 'end':
             return _context5.stop();
         }
@@ -238,21 +196,21 @@ var import_20171115 = exports.import_20171115 = function () {
     }, _callee5, undefined);
   }));
 
-  return function import_20171115() {
-    return _ref3.apply(this, arguments);
+  return function import_members(_x3, _x4, _x5) {
+    return _ref4.apply(this, arguments);
   };
 }();
 
-var import_20171109 = exports.import_20171109 = function () {
-  var _ref6 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee7() {
-    var lines;
-    return _regenerator2.default.wrap(function _callee7$(_context7) {
+var import_20171115 = exports.import_20171115 = function () {
+  var _ref6 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee8() {
+    var met38, ljp9;
+    return _regenerator2.default.wrap(function _callee8$(_context8) {
       while (1) {
-        switch (_context7.prev = _context7.next) {
+        switch (_context8.prev = _context8.next) {
           case 0:
-            lines = toMatrix('20171109/mr55-projects.tsv', '\t', true);
-            _context7.next = 3;
-            return (0, _bluebird.map)(lines, function () {
+            met38 = toMatrix('20171115/met38-projects.tsv', '\t', true);
+            _context8.next = 3;
+            return (0, _bluebird.mapSeries)(met38, function () {
               var _ref7 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee6(line) {
                 var project_id;
                 return _regenerator2.default.wrap(function _callee6$(_context6) {
@@ -260,41 +218,37 @@ var import_20171109 = exports.import_20171109 = function () {
                     switch (_context6.prev = _context6.next) {
                       case 0:
                         project_id = parseInt(line[0]);
-
-                        if (!(line[5] !== '')) {
-                          _context6.next = 7;
-                          break;
-                        }
-
-                        _context6.next = 4;
+                        _context6.next = 3;
                         return (0, _maha.knex)('expenses_members').where({ project_id: project_id }).delete();
 
-                      case 4:
+                      case 3:
+                        if (_lodash2.default.isEmpty(line[3].trim())) {
+                          _context6.next = 6;
+                          break;
+                        }
+
                         _context6.next = 6;
-                        return (0, _maha.knex)('expenses_projects').where({ id: project_id }).delete();
+                        return import_members(line[3].split(','), project_id, 1);
 
                       case 6:
-                        return _context6.abrupt('return');
-
-                      case 7:
-                        if (_lodash2.default.isEmpty(line[3].trim())) {
-                          _context6.next = 10;
-                          break;
-                        }
-
-                        _context6.next = 10;
-                        return import_members(line[3].split(','), project_id, 2);
-
-                      case 10:
                         if (_lodash2.default.isEmpty(line[4].trim())) {
-                          _context6.next = 13;
+                          _context6.next = 9;
                           break;
                         }
 
-                        _context6.next = 13;
-                        return import_members(line[4].split(','), project_id, 3);
+                        _context6.next = 9;
+                        return import_members(line[4].split(','), project_id, 2);
 
-                      case 13:
+                      case 9:
+                        if (_lodash2.default.isEmpty(line[5].trim())) {
+                          _context6.next = 12;
+                          break;
+                        }
+
+                        _context6.next = 12;
+                        return import_members(line[5].split(','), project_id, 3);
+
+                      case 12:
                       case 'end':
                         return _context6.stop();
                     }
@@ -308,122 +262,253 @@ var import_20171109 = exports.import_20171109 = function () {
             }());
 
           case 3:
+            ljp9 = toMatrix('20171115/ljp9-projects.tsv', '\t', true);
+            _context8.next = 6;
+            return (0, _bluebird.mapSeries)(ljp9, function () {
+              var _ref8 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee7(line) {
+                var project_id;
+                return _regenerator2.default.wrap(function _callee7$(_context7) {
+                  while (1) {
+                    switch (_context7.prev = _context7.next) {
+                      case 0:
+                        project_id = parseInt(line[0]);
+                        _context7.next = 3;
+                        return (0, _maha.knex)('expenses_members').where({ project_id: project_id }).delete();
+
+                      case 3:
+                        if (_lodash2.default.isEmpty(line[3].trim())) {
+                          _context7.next = 6;
+                          break;
+                        }
+
+                        _context7.next = 6;
+                        return import_members(line[3].split(','), project_id, 1);
+
+                      case 6:
+                        if (_lodash2.default.isEmpty(line[4].trim())) {
+                          _context7.next = 9;
+                          break;
+                        }
+
+                        _context7.next = 9;
+                        return import_members(line[4].split(','), project_id, 2);
+
+                      case 9:
+                        if (_lodash2.default.isEmpty(line[5].trim())) {
+                          _context7.next = 12;
+                          break;
+                        }
+
+                        _context7.next = 12;
+                        return import_members(line[5].split(','), project_id, 3);
+
+                      case 12:
+                      case 'end':
+                        return _context7.stop();
+                    }
+                  }
+                }, _callee7, undefined);
+              }));
+
+              return function (_x8) {
+                return _ref8.apply(this, arguments);
+              };
+            }());
+
+          case 6:
           case 'end':
-            return _context7.stop();
+            return _context8.stop();
         }
       }
-    }, _callee7, undefined);
+    }, _callee8, undefined);
   }));
 
-  return function import_20171109() {
+  return function import_20171115() {
     return _ref6.apply(this, arguments);
   };
 }();
 
-var import_20171107 = exports.import_20171107 = function () {
-  var _ref8 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee9() {
-    var employees;
-    return _regenerator2.default.wrap(function _callee9$(_context9) {
+var import_20171109 = exports.import_20171109 = function () {
+  var _ref9 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee10() {
+    var lines;
+    return _regenerator2.default.wrap(function _callee10$(_context10) {
       while (1) {
-        switch (_context9.prev = _context9.next) {
+        switch (_context10.prev = _context10.next) {
           case 0:
-            employees = toMatrix('20170622/employees.tsv', '\t', true);
-            _context9.next = 3;
-            return (0, _maha.knex)('maha_users_roles').delete();
-
-          case 3:
-            _context9.next = 5;
-            return (0, _bluebird.map)(employees, function () {
-              var _ref9 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee8(row) {
-                var record;
-                return _regenerator2.default.wrap(function _callee8$(_context8) {
+            lines = toMatrix('20171109/mr55-projects.tsv', '\t', true);
+            _context10.next = 3;
+            return (0, _bluebird.map)(lines, function () {
+              var _ref10 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee9(line) {
+                var project_id;
+                return _regenerator2.default.wrap(function _callee9$(_context9) {
                   while (1) {
-                    switch (_context8.prev = _context8.next) {
+                    switch (_context9.prev = _context9.next) {
                       case 0:
-                        _context8.next = 2;
-                        return (0, _maha.knex)('maha_users').where({ email: row[2] + '@cornell.edu' }).returning('id');
+                        project_id = parseInt(line[0]);
 
-                      case 2:
-                        record = _context8.sent;
-
-                        if (!(row[6] === '1')) {
-                          _context8.next = 6;
+                        if (!(line[5] !== '')) {
+                          _context9.next = 7;
                           break;
                         }
 
-                        _context8.next = 6;
+                        _context9.next = 4;
+                        return (0, _maha.knex)('expenses_members').where({ project_id: project_id }).delete();
+
+                      case 4:
+                        _context9.next = 6;
+                        return (0, _maha.knex)('expenses_projects').where({ id: project_id }).delete();
+
+                      case 6:
+                        return _context9.abrupt('return');
+
+                      case 7:
+                        if (_lodash2.default.isEmpty(line[3].trim())) {
+                          _context9.next = 10;
+                          break;
+                        }
+
+                        _context9.next = 10;
+                        return import_members(line[3].split(','), project_id, 2);
+
+                      case 10:
+                        if (_lodash2.default.isEmpty(line[4].trim())) {
+                          _context9.next = 13;
+                          break;
+                        }
+
+                        _context9.next = 13;
+                        return import_members(line[4].split(','), project_id, 3);
+
+                      case 13:
+                      case 'end':
+                        return _context9.stop();
+                    }
+                  }
+                }, _callee9, undefined);
+              }));
+
+              return function (_x9) {
+                return _ref10.apply(this, arguments);
+              };
+            }());
+
+          case 3:
+          case 'end':
+            return _context10.stop();
+        }
+      }
+    }, _callee10, undefined);
+  }));
+
+  return function import_20171109() {
+    return _ref9.apply(this, arguments);
+  };
+}();
+
+var import_20171107 = exports.import_20171107 = function () {
+  var _ref11 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee12() {
+    var employees;
+    return _regenerator2.default.wrap(function _callee12$(_context12) {
+      while (1) {
+        switch (_context12.prev = _context12.next) {
+          case 0:
+            employees = toMatrix('20170622/employees.tsv', '\t', true);
+            _context12.next = 3;
+            return (0, _maha.knex)('maha_users_roles').delete();
+
+          case 3:
+            _context12.next = 5;
+            return (0, _bluebird.map)(employees, function () {
+              var _ref12 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee11(row) {
+                var record;
+                return _regenerator2.default.wrap(function _callee11$(_context11) {
+                  while (1) {
+                    switch (_context11.prev = _context11.next) {
+                      case 0:
+                        _context11.next = 2;
+                        return (0, _maha.knex)('maha_users').where({ email: row[2] + '@cornell.edu' }).returning('id');
+
+                      case 2:
+                        record = _context11.sent;
+
+                        if (!(row[6] === '1')) {
+                          _context11.next = 6;
+                          break;
+                        }
+
+                        _context11.next = 6;
                         return (0, _maha.knex)('maha_users_roles').insert({ user_id: record[0].id, role_id: 1 });
 
                       case 6:
                         if (!(row[7] === '1')) {
-                          _context8.next = 9;
+                          _context11.next = 9;
                           break;
                         }
 
-                        _context8.next = 9;
+                        _context11.next = 9;
                         return (0, _maha.knex)('maha_users_roles').insert({ user_id: record[0].id, role_id: 2 });
 
                       case 9:
                         if (!(row[8] === '1')) {
-                          _context8.next = 12;
+                          _context11.next = 12;
                           break;
                         }
 
-                        _context8.next = 12;
+                        _context11.next = 12;
                         return (0, _maha.knex)('maha_users_roles').insert({ user_id: record[0].id, role_id: 3 });
 
                       case 12:
                         if (!(row[9] === '1')) {
-                          _context8.next = 15;
+                          _context11.next = 15;
                           break;
                         }
 
-                        _context8.next = 15;
+                        _context11.next = 15;
                         return (0, _maha.knex)('maha_users_roles').insert({ user_id: record[0].id, role_id: 5 });
 
                       case 15:
                         if (!(row[10] === '1')) {
-                          _context8.next = 18;
+                          _context11.next = 18;
                           break;
                         }
 
-                        _context8.next = 18;
+                        _context11.next = 18;
                         return (0, _maha.knex)('maha_users_roles').insert({ user_id: record[0].id, role_id: 4 });
 
                       case 18:
                       case 'end':
-                        return _context8.stop();
+                        return _context11.stop();
                     }
                   }
-                }, _callee8, undefined);
+                }, _callee11, undefined);
               }));
 
-              return function (_x8) {
-                return _ref9.apply(this, arguments);
+              return function (_x10) {
+                return _ref12.apply(this, arguments);
               };
             }());
 
           case 5:
           case 'end':
-            return _context9.stop();
+            return _context12.stop();
         }
       }
-    }, _callee9, undefined);
+    }, _callee12, undefined);
   }));
 
   return function import_20171107() {
-    return _ref8.apply(this, arguments);
+    return _ref11.apply(this, arguments);
   };
 }();
 
 var import_20170622 = exports.import_20170622 = function () {
-  var _ref10 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee11() {
+  var _ref13 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee14() {
     var employees, projects, expenses, competencies, expectations, supervisors, assets, userData, supervisorData, projectData, expenseData, competencyData, expectationsData, filepath, s3;
-    return _regenerator2.default.wrap(function _callee11$(_context11) {
+    return _regenerator2.default.wrap(function _callee14$(_context14) {
       while (1) {
-        switch (_context11.prev = _context11.next) {
+        switch (_context14.prev = _context14.next) {
           case 0:
-            _context11.prev = 0;
+            _context14.prev = 0;
             employees = toMatrix('20170622/employees.tsv', '\t', true);
             projects = toMatrix('20170622/projects.tsv', '\t', true);
             expenses = toMatrix('20170622/expense_types.tsv', '\t', true);
@@ -705,23 +790,23 @@ var import_20170622 = exports.import_20170622 = function () {
             });
 
             if (!(process.env.ASSET_STORAGE === 's3')) {
-              _context11.next = 39;
+              _context14.next = 39;
               break;
             }
 
             s3 = new _awsSdk2.default.S3();
-            _context11.next = 37;
+            _context14.next = 37;
             return (0, _bluebird.map)(userData.assets, function () {
-              var _ref11 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee10(asset) {
+              var _ref14 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee13(asset) {
                 var filename, contentType, filepath;
-                return _regenerator2.default.wrap(function _callee10$(_context10) {
+                return _regenerator2.default.wrap(function _callee13$(_context13) {
                   while (1) {
-                    switch (_context10.prev = _context10.next) {
+                    switch (_context13.prev = _context13.next) {
                       case 0:
                         filename = asset.file_name;
                         contentType = asset.content_type;
                         filepath = _path2.default.join('files', '20170622', 'photos', asset.file_name);
-                        _context10.next = 5;
+                        _context13.next = 5;
                         return s3.upload({
                           Bucket: process.env.AWS_BUCKET,
                           Key: 'assets/' + asset.id + '/' + asset.file_name,
@@ -732,19 +817,19 @@ var import_20170622 = exports.import_20170622 = function () {
 
                       case 5:
                       case 'end':
-                        return _context10.stop();
+                        return _context13.stop();
                     }
                   }
-                }, _callee10, undefined);
+                }, _callee13, undefined);
               }));
 
-              return function (_x9) {
-                return _ref11.apply(this, arguments);
+              return function (_x11) {
+                return _ref14.apply(this, arguments);
               };
             }());
 
           case 37:
-            _context11.next = 40;
+            _context14.next = 40;
             break;
 
           case 39:
@@ -763,26 +848,26 @@ var import_20170622 = exports.import_20170622 = function () {
             }
 
           case 40:
-            _context11.next = 45;
+            _context14.next = 45;
             break;
 
           case 42:
-            _context11.prev = 42;
-            _context11.t0 = _context11['catch'](0);
+            _context14.prev = 42;
+            _context14.t0 = _context14['catch'](0);
 
 
-            console.log(_context11.t0);
+            console.log(_context14.t0);
 
           case 45:
           case 'end':
-            return _context11.stop();
+            return _context14.stop();
         }
       }
-    }, _callee11, undefined, [[0, 42]]);
+    }, _callee14, undefined, [[0, 42]]);
   }));
 
   return function import_20170622() {
-    return _ref10.apply(this, arguments);
+    return _ref13.apply(this, arguments);
   };
 }();
 
