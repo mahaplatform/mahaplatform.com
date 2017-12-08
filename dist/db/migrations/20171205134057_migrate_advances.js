@@ -41,7 +41,16 @@ var MigrateAdvances = new _maha.Migration({
 
                         case 2:
                           advance = _context.sent;
-                          _context.next = 5;
+
+                          if (advance[0]) {
+                            _context.next = 5;
+                            break;
+                          }
+
+                          return _context.abrupt('return');
+
+                        case 5:
+                          _context.next = 7;
                           return knex('expenses_checks').insert({
                             team_id: advance[0].team_id,
                             user_id: advance[0].user_id,
@@ -58,44 +67,44 @@ var MigrateAdvances = new _maha.Migration({
                             updated_at: advance[0].updated_at
                           }).returning('id');
 
-                        case 5:
+                        case 7:
                           check_id = _context.sent;
-                          _context.next = 8;
+                          _context.next = 10;
                           return knex('maha_listenings').where({ listenable_type: 'expenses_advances', listenable_id: id }).update({
                             listenable_type: 'expenses_checks',
                             listenable_id: check_id[0]
                           });
 
-                        case 8:
-                          _context.next = 10;
+                        case 10:
+                          _context.next = 12;
                           return knex('maha_comments').where({ commentable_type: 'expenses_advances', commentable_id: id }).update({
                             commentable_type: 'expenses_checks',
                             commentable_id: check_id[0]
                           });
 
-                        case 10:
-                          _context.next = 12;
+                        case 12:
+                          _context.next = 14;
                           return knex('maha_audits').where({ auditable_type: 'expenses_advances', auditable_id: id }).update({
                             auditable_type: 'expenses_checks',
                             auditable_id: check_id[0]
                           });
 
-                        case 12:
-                          _context.next = 14;
+                        case 14:
+                          _context.next = 16;
                           return knex('maha_activities').where({ object_table: 'expenses_advances', object_id: id }).update({
                             object_table: 'expenses_checks',
                             object_id: check_id[0]
                           });
 
-                        case 14:
-                          _context.next = 16;
-                          return knex('expenses_advances').where({ id: id }).del();
-
                         case 16:
                           _context.next = 18;
-                          return _context.sent;
+                          return knex('expenses_advances').where({ id: id }).del();
 
                         case 18:
+                          _context.next = 20;
+                          return _context.sent;
+
+                        case 20:
                         case 'end':
                           return _context.stop();
                       }

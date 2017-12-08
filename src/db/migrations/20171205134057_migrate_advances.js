@@ -10,6 +10,8 @@ const MigrateAdvances = new Migration({
       
       const advance = await knex('expenses_advances').where({ id })
       
+      if(!advance[0]) return
+      
       const check_id = await knex('expenses_checks').insert({
         team_id: advance[0].team_id,
         user_id: advance[0].user_id,
