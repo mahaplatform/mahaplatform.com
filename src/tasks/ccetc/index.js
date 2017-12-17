@@ -26,5 +26,10 @@ export default [
     command: 'ccetc:add_asset_previews',
     description: 'Add Asset Previews',
     processor: ccetc.add_asset_previews
+  }),
+  task({
+    command: 'ccetc:fix_assets',
+    description: 'Fix Assets',
+    processor: ccetc.fix_assets
   })
 ]

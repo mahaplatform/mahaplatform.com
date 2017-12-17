@@ -5,7 +5,77 @@ import moment from 'moment'
 import _ from 'lodash'
 import mime from 'mime-types'
 import aws from 'aws-sdk'
-import { knex, Asset, processAsset } from 'maha'
+import { knex, Asset, assembleAsset, processAsset } from 'maha'
+
+export const _getNormalizedFileName = (filename) => {
+  
+  const matches = filename.toLowerCase().match(/^(.*)\.(.*)$/)
+  
+  const basename = matches ? matches[1] : filename.toLowerCase()
+  
+  const extension = matches ? matches[2] : null
+    
+  const rewritten = basename.replace(/[^0-9a-zA-Z-\s\_\.]/img, '').replace(/[\W\_]/img, '-').replace(/-{2,}/g, '-')
+
+  return rewritten + (extension ? `.${extension}` : '')
+
+}
+
+export const fix_assets = async () => {
+
+  await knex.transaction(async trx => {
+
+    const assets = await Asset.query(qb => qb.orderBy('id', 'asc')).fetchAll({ transacting: trx })
+    
+    await Promise.map(assets.toArray(), async asset => {
+    
+      const file_name = _getNormalizedFileName(asset.get('original_file_name'))
+    
+      await asset.save({ file_name }, { patch: true, transacting: trx })
+    
+    })
+    
+    const s3 = new aws.S3()
+    
+    const objects = await s3.listObjects({
+      Bucket: 'cdn.mahaplatform.com',
+      Prefix: `assets`
+    }).promise()
+    
+    const keys = objects.Contents.map(object => object.Key)
+
+    const files = objects.Contents.reduce((map, object) => {
+      const matches = object.Key.match(/^assets\/(\d*)\/(.*)$/)
+      if(!matches || matches[2] === 'preview.jpg') return map
+      return {
+        ...map,
+        [matches[1]]: object.Key
+      }        
+    }, {})
+  
+    await Promise.mapSeries(assets.toArray(), async asset => {
+    
+      const currentKey = files[asset.get('id')]
+    
+      const rewrittenKey = `assets/${asset.get('id')}/${asset.get('file_name')}`
+      
+      if(currentKey !== rewrittenKey) {
+        
+        console.log(`${currentKey} => ${rewrittenKey}`)
+
+        await s3.copyObject({
+         Bucket: 'cdn.mahaplatform.com',
+         CopySource: `/cdn.mahaplatform.com/${currentKey}`, 
+         Key: rewrittenKey
+       }).promise()
+
+      }
+
+    })
+
+  })
+
+}
 
 export const add_asset_previews = async () => {
 
@@ -13,7 +83,7 @@ export const add_asset_previews = async () => {
 
     const assets = await Asset.query(qb => qb.orderBy('id', 'asc')).fetchAll({ transacting: trx })
 
-    await Promise.mapSeries(assets.map(asset => asset), async asset => {
+    await Promise.mapSeries(assets.toArray(), async asset => {
 
       console.log(`processing asset ${asset.get('id')}`)
 
@@ -28,6 +98,7 @@ export const add_asset_previews = async () => {
   })
 
 }
+
 const import_members = async (members, project_id, member_type_id) => {
 
   return await Promise.mapSeries(members, async (netid) => {

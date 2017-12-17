@@ -32,4 +32,8 @@ exports.default = [(0, _maha.task)({
   command: 'ccetc:add_asset_previews',
   description: 'Add Asset Previews',
   processor: ccetc.add_asset_previews
+}), (0, _maha.task)({
+  command: 'ccetc:fix_assets',
+  description: 'Fix Assets',
+  processor: ccetc.fix_assets
 })];
