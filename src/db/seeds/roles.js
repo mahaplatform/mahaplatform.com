@@ -28,11 +28,6 @@ const rolesFixtures = new Fixtures({
       team_id: 1,
       title: 'Temp Employee',
       description: 'Users who have access to temporary employee staff tools'
-    },{
-      id: 6,
-      team_id: 2,
-      title: 'Platform Administrator',
-      description: 'Users who have adminstrative access to the entire platform'
     }
   ]
 })
