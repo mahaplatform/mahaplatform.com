@@ -13,6 +13,7 @@
     "aws-sdk": "^2.86.0",
     "csv-parse": "^1.2.0",
     "maha": "github:mahaplatform/maha",
+    "maha-chat": "github:mahaplatform/maha-chat",
     "maha-competencies": "github:mahaplatform/maha-competencies",
     "maha-drive": "github:mahaplatform/maha-drive",
     "maha-eatfresh": "github:mahaplatform/maha-eatfresh",
