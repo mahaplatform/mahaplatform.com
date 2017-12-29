@@ -14,6 +14,7 @@
     "csv-parse": "^1.2.0",
     "maha": "github:mahaplatform/maha",
     "maha-competencies": "github:mahaplatform/maha-competencies",
+    "maha-drive": "github:mahaplatform/maha-drive",
     "maha-eatfresh": "github:mahaplatform/maha-eatfresh",
     "maha-expenses": "github:mahaplatform/maha-expenses",
     "mime-types": "^2.1.17",

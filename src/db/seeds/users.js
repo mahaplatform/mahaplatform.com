@@ -30,10 +30,10 @@ const usersFixtures = new Fixtures({
       email: 'ska2@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
+      is_active: true,
       photo_id: 3,
       notification_method_id: 1,
-      activated_at: null,
+      activated_at: '2017-11-04T21:56:15.906Z',
       values: {
         employee_id: '1015662',
         vendor_id: 'EANDERSON'
@@ -1284,10 +1284,10 @@ const usersFixtures = new Fixtures({
       email: 'mlj77@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
+      is_active: true,
       photo_id: 40,
       notification_method_id: 1,
-      activated_at: null,
+      activated_at: '2017-11-04T21:56:15.906Z',
       values: {
         employee_id: '4472734',
         vendor_id: 'MICJON'
@@ -1398,10 +1398,10 @@ const usersFixtures = new Fixtures({
       email: 'ljp9@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
+      is_active: true,
       photo_id: 44,
       notification_method_id: 1,
-      activated_at: null,
+      activated_at: '2017-11-04T21:56:15.906Z',
       values: {
         employee_id: '1030448',
         vendor_id: 'VOLKALTMAN'
@@ -2329,10 +2329,10 @@ const usersFixtures = new Fixtures({
       email: 'sjr37@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
+      is_active: true,
       photo_id: 69,
       notification_method_id: 1,
-      activated_at: null,
+      activated_at: '2017-11-04T21:56:15.906Z',
       values: {
         employee_id: '1308422',
         vendor_id: 'EREPS'
@@ -2424,10 +2424,10 @@ const usersFixtures = new Fixtures({
       email: 'mr55@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
+      is_active: true,
       photo_id: 70,
       notification_method_id: 1,
-      activated_at: null,
+      activated_at: '2017-11-04T21:56:15.906Z',
       values: {
         employee_id: '1009921',
         vendor_id: 'EROTM'
@@ -2500,10 +2500,10 @@ const usersFixtures = new Fixtures({
       email: 'ks47@cornell.edu',
       password_salt: '$2a$10$wlhVrmkAu7H7Wttks/9vte',
       password_hash: '$2a$10$wlhVrmkAu7H7Wttks/9vte8KTY6afM7XHdKTXadrXlpvpVgfHyx6m',
-      is_active: false,
+      is_active: true,
       photo_id: 73,
       notification_method_id: 1,
-      activated_at: null,
+      activated_at: '2017-11-04T21:56:15.906Z',
       values: {
         employee_id: '1009901',
         vendor_id: 'ESKEN'
@@ -3161,4 +3161,3 @@ const usersFixtures = new Fixtures({
 })
 
 export default usersFixtures
-

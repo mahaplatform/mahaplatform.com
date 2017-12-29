@@ -9,10 +9,6 @@ var _slicedToArray2 = require('babel-runtime/helpers/slicedToArray');
 
 var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
 
-var _defineProperty2 = require('babel-runtime/helpers/defineProperty');
-
-var _defineProperty3 = _interopRequireDefault(_defineProperty2);
-
 var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
@@ -73,17 +69,18 @@ var setup = exports.setup = function () {
                   while (1) {
                     switch (_context7.prev = _context7.next) {
                       case 0:
-                        _context7.next = 2;
+                        _context7.prev = 0;
+                        _context7.next = 3;
                         return _maha.Team.forge({
                           title: 'CCE Niagra',
                           subdomain: 'cceniagra',
                           color: 'red'
                         }).save(null, { transacting: trx });
 
-                      case 2:
+                      case 3:
                         cceniagra = _context7.sent;
                         team_id = cceniagra.get('id');
-                        _context7.next = 6;
+                        _context7.next = 7;
                         return (0, _maha.knex)('maha_strategies').transacting(trx).insert({
                           team_id: team_id,
                           name: 'local',
@@ -91,8 +88,8 @@ var setup = exports.setup = function () {
                           updated_at: (0, _moment2.default)()
                         });
 
-                      case 6:
-                        _context7.next = 8;
+                      case 7:
+                        _context7.next = 9;
                         return (0, _maha.knex)('maha_installations').transacting(trx).insert([{
                           team_id: team_id,
                           app_id: 1,
@@ -107,8 +104,8 @@ var setup = exports.setup = function () {
                           updated_at: (0, _moment2.default)()
                         }]);
 
-                      case 8:
-                        _context7.next = 10;
+                      case 9:
+                        _context7.next = 11;
                         return (0, _maha.knex)('maha_roles').transacting(trx).insert({
                           team_id: team_id,
                           title: 'Platform Administrators',
@@ -117,9 +114,9 @@ var setup = exports.setup = function () {
                           updated_at: (0, _moment2.default)()
                         }).returning('id');
 
-                      case 10:
+                      case 11:
                         platformAdministrator = _context7.sent;
-                        _context7.next = 13;
+                        _context7.next = 14;
                         return (0, _maha.knex)('maha_roles_apps').transacting(trx).insert([{
                           role_id: platformAdministrator[0],
                           app_id: 1
@@ -128,8 +125,8 @@ var setup = exports.setup = function () {
                           app_id: 4
                         }]);
 
-                      case 13:
-                        _context7.next = 15;
+                      case 14:
+                        _context7.next = 16;
                         return (0, _maha.knex)('maha_roles_rights').transacting(trx).insert([{
                           role_id: platformAdministrator[0],
                           right_id: 1
@@ -141,9 +138,9 @@ var setup = exports.setup = function () {
                           right_id: 3
                         }]);
 
-                      case 15:
+                      case 16:
                         users = toMatrix('cceniagra/users.tsv', '\t', true);
-                        _context7.next = 18;
+                        _context7.next = 19;
                         return (0, _bluebird.mapSeries)(users, function () {
                           var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(line) {
                             var url, userAssetData, userAsset, user;
@@ -201,34 +198,87 @@ var setup = exports.setup = function () {
                           };
                         }());
 
-                      case 18:
+                      case 19:
                         attractions = toMatrix('cceniagra/attractions.tsv', '\t', true);
-                        _context7.next = 21;
+                        _context7.next = 22;
                         return (0, _bluebird.mapSeries)(attractions, function () {
                           var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee4(line) {
-                            var _knex$transacting$ins;
-
-                            var county_id, attraction, attraction_id;
+                            var county_id, matches, banner, bannerAsset, bannerData, photo_id, attraction, attraction_id;
                             return _regenerator2.default.wrap(function _callee4$(_context4) {
                               while (1) {
                                 switch (_context4.prev = _context4.next) {
                                   case 0:
-                                    _context4.next = 2;
-                                    return findOrCreateCountyId(team_id, _lodash2.default.capitalize(line[6]), trx);
 
-                                  case 2:
+                                    console.log('Attraction: ' + line[0]);
+
+                                    _context4.next = 3;
+                                    return findOrCreateCountyId(team_id, _lodash2.default.upperFirst(line[6]).trim(), trx);
+
+                                  case 3:
                                     county_id = _context4.sent;
-                                    _context4.next = 5;
-                                    return (0, _maha.knex)('eatfresh_attractions').transacting(trx).insert((_knex$transacting$ins = {
+                                    matches = line[31].match(/^([^?]*).*$/);
+                                    banner = matches ? matches[1] : null;
+                                    bannerAsset = null;
+
+                                    if (!line[31]) {
+                                      _context4.next = 15;
+                                      break;
+                                    }
+
+                                    _context4.next = 10;
+                                    return downloadAsset(line[31]);
+
+                                  case 10:
+                                    bannerData = _context4.sent;
+
+
+                                    console.log('uploading ' + banner);
+
+                                    _context4.next = 14;
+                                    return (0, _maha.createAsset)({
+                                      team_id: team_id,
+                                      file_name: banner.split('/').pop(),
+                                      content_type: 'image/jpeg',
+                                      file_data: bannerData
+                                    }, trx);
+
+                                  case 14:
+                                    bannerAsset = _context4.sent;
+
+                                  case 15:
+                                    photo_id = bannerAsset ? bannerAsset.get('id') : null;
+                                    _context4.next = 18;
+                                    return (0, _maha.knex)('eatfresh_attractions').transacting(trx).insert({
                                       team_id: team_id,
                                       title: line[0],
-                                      address_1: line[1]
-                                    }, (0, _defineProperty3.default)(_knex$transacting$ins, 'address_1', line[2]), (0, _defineProperty3.default)(_knex$transacting$ins, 'city', line[3]), (0, _defineProperty3.default)(_knex$transacting$ins, 'state', line[4]), (0, _defineProperty3.default)(_knex$transacting$ins, 'zip', line[5]), (0, _defineProperty3.default)(_knex$transacting$ins, 'county_id', county_id), (0, _defineProperty3.default)(_knex$transacting$ins, 'phone', line[7]), (0, _defineProperty3.default)(_knex$transacting$ins, 'hours_of_operation', line[8]), (0, _defineProperty3.default)(_knex$transacting$ins, 'website', line[9]), (0, _defineProperty3.default)(_knex$transacting$ins, 'facebook', line[10]), (0, _defineProperty3.default)(_knex$transacting$ins, 'is_free_range', line[11].toLowerCase() === 'yes'), (0, _defineProperty3.default)(_knex$transacting$ins, 'is_vegetarian', line[12].toLowerCase() === 'yes'), (0, _defineProperty3.default)(_knex$transacting$ins, 'is_organic', line[13].toLowerCase() === 'yes'), (0, _defineProperty3.default)(_knex$transacting$ins, 'is_accessible', line[14].toLowerCase() === 'yes'), (0, _defineProperty3.default)(_knex$transacting$ins, 'is_family_friendly', line[15].toLowerCase() === 'yes'), (0, _defineProperty3.default)(_knex$transacting$ins, 'is_senior', line[16].toLowerCase() === 'yes'), (0, _defineProperty3.default)(_knex$transacting$ins, 'is_military', line[17].toLowerCase() === 'yes'), (0, _defineProperty3.default)(_knex$transacting$ins, 'is_family_owned', line[18].toLowerCase() === 'yes'), (0, _defineProperty3.default)(_knex$transacting$ins, 'created_at', (0, _moment2.default)()), (0, _defineProperty3.default)(_knex$transacting$ins, 'updated_at', (0, _moment2.default)()), _knex$transacting$ins)).returning('id');
+                                      slug: toSlug(line[0]),
+                                      photo_id: photo_id,
+                                      address_1: line[1],
+                                      address_2: line[2],
+                                      city: line[3],
+                                      state: line[4],
+                                      zip: line[5],
+                                      county_id: county_id,
+                                      phone: line[7],
+                                      hours_of_operation: line[8],
+                                      website: line[9],
+                                      facebook: line[10],
+                                      is_free_range: line[11].toLowerCase() === 'yes',
+                                      is_vegetarian: line[12].toLowerCase() === 'yes',
+                                      is_organic: line[13].toLowerCase() === 'yes',
+                                      is_accessible: line[14].toLowerCase() === 'yes',
+                                      is_family_friendly: line[15].toLowerCase() === 'yes',
+                                      is_senior: line[16].toLowerCase() === 'yes',
+                                      is_military: line[17].toLowerCase() === 'yes',
+                                      is_family_owned: line[18].toLowerCase() === 'yes',
+                                      created_at: (0, _moment2.default)(),
+                                      updated_at: (0, _moment2.default)()
+                                    }).returning('id');
 
-                                  case 5:
+                                  case 18:
                                     attraction = _context4.sent;
                                     attraction_id = attraction[0];
-                                    _context4.next = 9;
+                                    _context4.next = 22;
                                     return (0, _bluebird.mapSeries)([19, 20, 21, 22, 23, 24], function () {
                                       var _ref5 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(index) {
                                         var category_id;
@@ -237,7 +287,7 @@ var setup = exports.setup = function () {
                                             switch (_context2.prev = _context2.next) {
                                               case 0:
                                                 _context2.next = 2;
-                                                return findOrCreateRelatedId('eatfresh_categories', team_id, _lodash2.default.upperFirst(line[index]), trx);
+                                                return findOrCreateRelatedId('eatfresh_categories', team_id, _lodash2.default.upperFirst(line[index]).trim(), trx);
 
                                               case 2:
                                                 category_id = _context2.sent;
@@ -269,8 +319,8 @@ var setup = exports.setup = function () {
                                       };
                                     }());
 
-                                  case 9:
-                                    _context4.next = 11;
+                                  case 22:
+                                    _context4.next = 24;
                                     return (0, _bluebird.mapSeries)([25, 26, 27, 28, 29, 30], function () {
                                       var _ref6 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(index) {
                                         var offering_id;
@@ -279,7 +329,7 @@ var setup = exports.setup = function () {
                                             switch (_context3.prev = _context3.next) {
                                               case 0:
                                                 _context3.next = 2;
-                                                return findOrCreateRelatedId('eatfresh_offerings', team_id, _lodash2.default.upperFirst(line[index]), trx);
+                                                return findOrCreateRelatedId('eatfresh_offerings', team_id, _lodash2.default.upperFirst(line[index]).trim(), trx);
 
                                               case 2:
                                                 offering_id = _context3.sent;
@@ -311,7 +361,7 @@ var setup = exports.setup = function () {
                                       };
                                     }());
 
-                                  case 11:
+                                  case 24:
                                   case 'end':
                                     return _context4.stop();
                                 }
@@ -324,13 +374,12 @@ var setup = exports.setup = function () {
                           };
                         }());
 
-                      case 21:
-                        _context7.prev = 21;
+                      case 22:
                         offerings = toMatrix('cceniagra/offerings.tsv', '\t', true);
                         _context7.next = 25;
                         return (0, _bluebird.mapSeries)(offerings, function () {
                           var _ref7 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee5(line) {
-                            var _line$1$match, _line$1$match2, url, offeringAsset, offeringAssetData, offering_id;
+                            var _line$1$match, _line$1$match2, url, offeringAsset, offeringAssetData, offering_asset_id, offering_id;
 
                             return _regenerator2.default.wrap(function _callee5$(_context5) {
                               while (1) {
@@ -342,17 +391,21 @@ var setup = exports.setup = function () {
                                     _line$1$match = line[1].match(/^([^?]*).*$/), _line$1$match2 = (0, _slicedToArray3.default)(_line$1$match, 2), url = _line$1$match2[1];
                                     offeringAsset = null;
 
-                                    if (!url) {
-                                      _context5.next = 10;
+                                    if (!line[1]) {
+                                      _context5.next = 11;
                                       break;
                                     }
 
                                     _context5.next = 6;
-                                    return downloadAsset(url);
+                                    return downloadAsset(line[1]);
 
                                   case 6:
                                     offeringAssetData = _context5.sent;
-                                    _context5.next = 9;
+
+
+                                    console.log('uploading ' + url);
+
+                                    _context5.next = 10;
                                     return (0, _maha.createAsset)({
                                       team_id: team_id,
                                       file_name: url.split('/').pop(),
@@ -360,30 +413,34 @@ var setup = exports.setup = function () {
                                       file_data: offeringAssetData
                                     }, trx);
 
-                                  case 9:
+                                  case 10:
                                     offeringAsset = _context5.sent;
 
-                                  case 10:
-                                    _context5.next = 12;
-                                    return findOrCreateRelatedId('eatfresh_offerings', team_id, _lodash2.default.upperFirst(line[0]), trx);
+                                  case 11:
+                                    offering_asset_id = offeringAsset ? offeringAsset.get('id') : null;
+                                    _context5.next = 14;
+                                    return findOrCreateRelatedId('eatfresh_offerings', team_id, _lodash2.default.upperFirst(line[0]).trim(), trx);
 
-                                  case 12:
+                                  case 14:
                                     offering_id = _context5.sent;
 
-                                    if (!(!offering_id || !offeringAsset)) {
-                                      _context5.next = 15;
+
+                                    console.log(offering_id + ":" + offering_asset_id);
+
+                                    if (!(!offering_id || !offering_asset_id)) {
+                                      _context5.next = 18;
                                       break;
                                     }
 
                                     return _context5.abrupt('return');
 
-                                  case 15:
-                                    _context5.next = 17;
+                                  case 18:
+                                    _context5.next = 20;
                                     return (0, _maha.knex)('eatfresh_offerings').transacting(trx).where({ id: offering_id }).update({
-                                      photo_id: offeringAsset.get('id')
+                                      photo_id: offering_asset_id
                                     });
 
-                                  case 17:
+                                  case 20:
                                   case 'end':
                                     return _context5.stop();
                                 }
@@ -413,17 +470,21 @@ var setup = exports.setup = function () {
                                     _line$1$match3 = line[1].match(/^([^?]*).*$/), _line$1$match4 = (0, _slicedToArray3.default)(_line$1$match3, 2), url = _line$1$match4[1];
                                     categoryAsset = null;
 
-                                    if (!url) {
-                                      _context6.next = 10;
+                                    if (!line[1]) {
+                                      _context6.next = 11;
                                       break;
                                     }
 
                                     _context6.next = 6;
-                                    return downloadAsset(url);
+                                    return downloadAsset(line[1]);
 
                                   case 6:
                                     categoryAssetData = _context6.sent;
-                                    _context6.next = 9;
+
+
+                                    console.log('uploading ' + url);
+
+                                    _context6.next = 10;
                                     return (0, _maha.createAsset)({
                                       team_id: team_id,
                                       file_name: url.split('/').pop(),
@@ -431,30 +492,30 @@ var setup = exports.setup = function () {
                                       file_data: categoryAssetData
                                     }, trx);
 
-                                  case 9:
+                                  case 10:
                                     categoryAsset = _context6.sent;
 
-                                  case 10:
-                                    _context6.next = 12;
-                                    return findOrCreateRelatedId('eatfresh_categories', team_id, _lodash2.default.upperFirst(line[0]), trx);
+                                  case 11:
+                                    _context6.next = 13;
+                                    return findOrCreateRelatedId('eatfresh_categories', team_id, _lodash2.default.upperFirst(line[0]).trim(), trx);
 
-                                  case 12:
+                                  case 13:
                                     category_id = _context6.sent;
 
                                     if (!(!category_id || !categoryAsset)) {
-                                      _context6.next = 15;
+                                      _context6.next = 16;
                                       break;
                                     }
 
                                     return _context6.abrupt('return');
 
-                                  case 15:
-                                    _context6.next = 17;
+                                  case 16:
+                                    _context6.next = 18;
                                     return (0, _maha.knex)('eatfresh_categories').transacting(trx).where({ id: category_id }).update({
                                       photo_id: categoryAsset.get('id')
                                     });
 
-                                  case 17:
+                                  case 18:
                                   case 'end':
                                     return _context6.stop();
                                 }
@@ -473,7 +534,7 @@ var setup = exports.setup = function () {
 
                       case 30:
                         _context7.prev = 30;
-                        _context7.t0 = _context7['catch'](21);
+                        _context7.t0 = _context7['catch'](0);
 
 
                         console.log(_context7.t0);
@@ -483,7 +544,7 @@ var setup = exports.setup = function () {
                         return _context7.stop();
                     }
                   }
-                }, _callee7, undefined, [[21, 30]]);
+                }, _callee7, undefined, [[0, 30]]);
               }));
 
               return function (_x) {
@@ -599,9 +660,7 @@ var findOrCreateRelatedId = function () {
 
           case 9:
             newitem = _context10.sent;
-
-
-            newitem[0].id;
+            return _context10.abrupt('return', newitem[0]);
 
           case 11:
           case 'end':
@@ -615,6 +674,10 @@ var findOrCreateRelatedId = function () {
     return _ref10.apply(this, arguments);
   };
 }();
+
+var toSlug = function toSlug(title) {
+  return title.replace(/[^0-9a-zA-Z-\s\_\.]/img, '').replace(/[\W\_]/img, '-').replace(/-{2,}/g, '-').toLowerCase();
+};
 
 var toMatrix = function toMatrix(filename, delimiter) {
   var excludeHeaders = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
@@ -631,7 +694,7 @@ var downloadAsset = function () {
         switch (_context11.prev = _context11.next) {
           case 0:
             fileName = uri.split('/').pop();
-            filePath = _path2.default.join('tmp', fileName);
+            filePath = _path2.default.join('tmp', 'eatfreshny', fileName);
 
             if (!_fs2.default.existsSync(filePath)) {
               _context11.next = 4;
@@ -641,14 +704,18 @@ var downloadAsset = function () {
             return _context11.abrupt('return', _fs2.default.readFileSync(filePath));
 
           case 4:
-            _context11.next = 6;
+
+            console.log('downloading ' + uri);
+
+            _context11.prev = 5;
+            _context11.next = 8;
             return (0, _requestPromise2.default)({
               method: 'GET',
               uri: uri,
               encoding: null
             });
 
-          case 6:
+          case 8:
             fileData = _context11.sent;
 
 
@@ -656,12 +723,19 @@ var downloadAsset = function () {
 
             return _context11.abrupt('return', fileData);
 
-          case 9:
+          case 13:
+            _context11.prev = 13;
+            _context11.t0 = _context11['catch'](5);
+
+            console.log(_context11.t0);
+            return _context11.abrupt('return', null);
+
+          case 17:
           case 'end':
             return _context11.stop();
         }
       }
-    }, _callee11, undefined);
+    }, _callee11, undefined, [[5, 13]]);
   }));
 
   return function downloadAsset(_x16) {
