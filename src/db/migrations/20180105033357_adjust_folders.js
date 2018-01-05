@@ -22,8 +22,8 @@ const AdjustFolders = new Migration({
       const approvers = await knex('drive_access').insert({
         team_id: 1,
         folder_id: folder.id,
-        group_id: everyone.get('id'),
-        access_type_id: 3,
+        group_id: 10,
+        access_type_id: 2,
         created_at: moment(),
         updated_at: moment()
       })
