@@ -19,7 +19,8 @@
     "maha-eatfresh": "github:mahaplatform/maha-eatfresh",
     "maha-expenses": "github:mahaplatform/maha-expenses",
     "mime-types": "^2.1.17",
-    "reframe": "github:mahaplatform/reframe"
+    "reframe": "github:mahaplatform/reframe",
+    "request-promise": "^4.2.2"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
