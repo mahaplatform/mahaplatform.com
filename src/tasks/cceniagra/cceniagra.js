@@ -164,6 +164,7 @@ export const setup = async () => {
           is_senior: line[16].toLowerCase() === 'yes',
           is_military: line[17].toLowerCase() === 'yes',
           is_family_owned: line[18].toLowerCase() === 'yes',
+          is_approved: true,
           created_at: moment(),
           updated_at: moment()
         }).returning('id')
@@ -193,6 +194,35 @@ export const setup = async () => {
             attraction_id,
             offering_id
           })
+
+        })
+
+        await Promise.mapSeries([32,33,34,35,36,37], async index => {
+
+          if(line[index]) {
+
+            const photoData = await downloadAsset(line[index])
+
+            console.log(`Uploading photo ${index+1}`)
+
+            const photoAsset = await createAsset({
+              team_id,
+              file_name: line[index].split('/').pop(),
+              content_type: 'image/jpeg',
+              file_data: photoData
+            }, trx)
+
+            const asset_id = photoAsset.get('id')
+
+            await knex('eatfresh_photos').transacting(trx).insert({
+              team_id,
+              attraction_id,
+              asset_id,
+              created_at: moment(),
+              updated_at: moment()
+            })
+
+          }
 
         })
 
