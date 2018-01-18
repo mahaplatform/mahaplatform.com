@@ -271,6 +271,7 @@ var setup = exports.setup = function () {
                                       is_senior: line[16].toLowerCase() === 'yes',
                                       is_military: line[17].toLowerCase() === 'yes',
                                       is_family_owned: line[18].toLowerCase() === 'yes',
+                                      is_approved: true,
                                       created_at: (0, _moment2.default)(),
                                       updated_at: (0, _moment2.default)()
                                     }).returning('id');
