@@ -1,6 +1,6 @@
 'use strict';
 
-var _worker = require('maha/dist/platform/tasks/worker/worker');
+var _worker = require('maha/dist/maha/tasks/worker/worker');
 
 var _worker2 = _interopRequireDefault(_worker);
 

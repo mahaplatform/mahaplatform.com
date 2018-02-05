@@ -1,6 +1,6 @@
 'use strict';
 
-var _cron = require('maha/dist/platform/tasks/cron/cron');
+var _cron = require('maha/dist/maha/tasks/cron/cron');
 
 var _cron2 = _interopRequireDefault(_cron);
 
