@@ -11,12 +11,17 @@ const InstallNewsApp = new Migration({
       app_author_id: 1,
       description: 'Organizational Newsfeed',
       version: '1.0.0',
-      color: 'brown',
+      color: 'purple',
       icon: 'newspaper-o',
       created_at: moment(),
       updated_at: moment()
     }).returning('id')
     
+    await knex('maha_teams_apps').insert({
+      team_id: 1,
+      app_id: app[0]
+    })
+
     await knex('maha_installations').insert({
       team_id: 1,
       app_id: app[0],

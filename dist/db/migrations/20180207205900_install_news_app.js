@@ -36,7 +36,7 @@ var InstallNewsApp = new _maha.Migration({
                 app_author_id: 1,
                 description: 'Organizational Newsfeed',
                 version: '1.0.0',
-                color: 'brown',
+                color: 'purple',
                 icon: 'newspaper-o',
                 created_at: (0, _moment2.default)(),
                 updated_at: (0, _moment2.default)()
@@ -45,6 +45,13 @@ var InstallNewsApp = new _maha.Migration({
             case 2:
               app = _context.sent;
               _context.next = 5;
+              return knex('maha_teams_apps').insert({
+                team_id: 1,
+                app_id: app[0]
+              });
+
+            case 5:
+              _context.next = 7;
               return knex('maha_installations').insert({
                 team_id: 1,
                 app_id: app[0],
@@ -53,8 +60,8 @@ var InstallNewsApp = new _maha.Migration({
                 updated_at: (0, _moment2.default)()
               });
 
-            case 5:
-              _context.next = 7;
+            case 7:
+              _context.next = 9;
               return knex('maha_roles').insert({
                 team_id: 1,
                 title: 'News Beta Testers',
@@ -63,22 +70,22 @@ var InstallNewsApp = new _maha.Migration({
                 updated_at: (0, _moment2.default)()
               }).returning('id');
 
-            case 7:
+            case 9:
               role = _context.sent;
-              _context.next = 10;
+              _context.next = 12;
               return knex('maha_roles_apps').insert({
                 role_id: role[0],
                 app_id: app[0]
               });
 
-            case 10:
-              _context.next = 12;
+            case 12:
+              _context.next = 14;
               return knex('maha_users_roles').insert({
                 role_id: role[0],
                 user_id: 79
               });
 
-            case 12:
+            case 14:
             case 'end':
               return _context.stop();
           }
