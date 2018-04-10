@@ -42,7 +42,9 @@ var MigrateSupervisors = new _maha.Migration({
                           _context.next = 2;
                           return knex('maha_supervisors').insert({
                             team_id: supervisor.team_id,
-                            user_id: supervisor.user_id
+                            user_id: supervisor.user_id,
+                            created_at: supervisor.created_at,
+                            updated_at: supervisor.updated_at
                           });
 
                         case 2:
