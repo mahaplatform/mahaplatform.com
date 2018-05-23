@@ -1,0 +1,34 @@
+AMI: ami-935662fa
+
+# CONFIGURE ROOT ACCESS
+sudo sed -i 's/#PermitRootLogin/PermitRootLogin/' /etc/ssh/sshd_config
+sudo sed -i 's/.*ssh-rsa/ssh-rsa/' /root/.ssh/authorized_keys
+sudo service sshd restart
+
+# UPDATE SERVER
+yum -y update
+yum -y install gcc pcre-static pcre-devel openssl-devel
+
+# INSTALL NTP
+ntpdate -s time.nist.gov
+chkconfig ntpd on
+chkconfig --list ntpd
+service ntpd start
+rm /etc/localtime
+ln -s /usr/share/zoneinfo/US/Eastern /etc/localtime
+
+# INSTALL HAPROXY
+wget http://www.haproxy.org/download/1.8/src/haproxy-1.8.9.tar.gz
+tar xzvf ~/haproxy-1.8.9.tar.gz -C ~/
+cd ~/haproxy-1.8.9
+make TARGET=linux2628 USE_OPENSSL=1
+make install
+mkdir -p /etc/haproxy
+mkdir -p /var/lib/haproxy
+touch /var/lib/haproxy/stats
+ln -s /usr/local/sbin/haproxy /usr/sbin/haproxy
+cp ~/haproxy-1.8.9/examples/haproxy.init /etc/init.d/haproxy
+chmod 755 /etc/init.d/haproxy
+chkconfig haproxy on
+useradd -r haproxy
+service haproxy start

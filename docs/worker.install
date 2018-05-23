@@ -16,12 +16,6 @@ sudo service ntpd start
 rm /etc/localtime
 ln -s /usr/share/zoneinfo/US/Eastern /etc/localtime
 
-# INSTALL LIBREOFFICE
-wget http://download.documentfoundation.org/libreoffice/stable/5.4.3/rpm/x86_64/LibreOffice_5.4.3_Linux_x86-64_rpm.tar.gz
-tar -xzf LibreOffice_5.4.3_Linux_x86-64_rpm.tar.gz
-cd  LibreOffice_5.4.3.2_Linux_x86-64_rpm/RPMS
-yum localinstall -y *.rpm
-
 # INSTALL DEVTOOLSET-3
 sudo curl http://linuxsoft.cern.ch/cern/scl/slc6-scl.repo > /etc/yum.repos.d/slc6-scl.repo
 rpm --import http://linuxsoft.cern.ch/cern/slc6X/x86_64/RPM-GPG-KEY-cern
@@ -35,6 +29,12 @@ cd node-v7.2.1
 ./configure
 make
 make install
+
+# INSTALL LIBREOFFICE
+wget http://download.documentfoundation.org/libreoffice/stable/5.4.7/rpm/x86_64/LibreOffice_5.4.7_Linux_x86-64_rpm.tar.gz
+tar -xzf LibreOffice_5.4.7_Linux_x86-64_rpm.tar.gz
+cd  LibreOffice_5.4.7.2_Linux_x86-64_rpm/RPMS
+yum localinstall -y *.rpm
 
 # SET UP DEPLOYMENT
 yum -y install git
@@ -55,9 +55,3 @@ cd maha
 git clone git@github.com:ccetc/mycce2.git release
 cd release
 npm install
-cd ./node_modules/maha
-npm link
-cd ../..
-maha db:migrate:up
-maha db:seeds:load
-maha start

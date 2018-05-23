@@ -25,7 +25,9 @@ service postgresql-9.6 initdb
 chkconfig postgresql-9.6 on
 service postgresql-9.6 start
 vi /var/lib/pgsql/9.6/data/pg_hba.conf
+> host   all   all   0.0.0.0/0   md5
 vi /var/lib/pgsql/9.6/data/postgresql.conf
+> host 0.0.0.0
 sudo -i -u postgres
 createuser --interactive
 createdb maha

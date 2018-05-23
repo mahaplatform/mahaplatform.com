@@ -11,5 +11,8 @@ config/*
 docs/files/deploy
 docs/files/*.key
 docs/files/*.crt
+docs/files/*.pem
+docs/files/deploy
 *.compiled.js
 repo
+REVISION

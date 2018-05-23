@@ -46,9 +46,9 @@ mv /opt/nginx/conf/nginx.conf /opt/nginx/conf/nginx.conf.bak
 vi /opt/nginx/conf/nginx.conf
 vi /etc/init.d/nginx
 chmod 755 /etc/init.d/nginx
-sudo chkconfig nginx on
-sudo chkconfig --list nginx
-sudo service nginx start
+chkconfig nginx on
+chkconfig --list nginx
+service nginx start
 
 # SET UP DEPLOYMENT
 yum -y install git
@@ -66,15 +66,6 @@ vi /etc/fstab
 cd /var/www
 mkdir maha
 cd maha
-git clone git@github.com:ccetc/mycce2.git release
+git clone git@github.com:mahaplatform/mahaplatform.com.git release
 cd release
 npm install
-cd ./node_modules/maha
-npm link
-cd ../..
-mkdir shared
-vi shared/.env
-ln -s /var/www/maha/shared/.env /var/www/release/.env
-maha db:migrate:up
-maha db:seeds:load
-maha compile
