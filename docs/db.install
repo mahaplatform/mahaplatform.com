@@ -34,6 +34,8 @@ createdb maha
 psql
 > ALTER USER maha WITH PASSWORD '<PASSWORD>';
 > GRANT ALL PRIVILEGES ON maha TO maha;
+vi ~/.pgpass
+chmod 600 ~/.pgpass
 service postgresql-9.6 restart
 
 # INSTALL REDIS
@@ -49,4 +51,15 @@ vi redis-setup.sh
 chmod 755 redis-setup.sh
 ./redis-setup.sh
 vi /etc/redis/redis.conf
+> bind 0.0.0.0
 service redis restart
+
+# BACKUP
+cd /etc/yum.repos.d
+wget http://s3tools.org/repo/RHEL_6/s3tools.repo
+yum -y install s3cmd
+s3cmd --configure
+vi /etc/cron.hourly/backup.sh
+chmod 755 /etc/cron.hourly/backup.sh
+vi /etc/cron.daily/backup.sh
+chmod 755 /etc/cron.daily/backup.sh
