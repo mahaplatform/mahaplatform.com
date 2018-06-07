@@ -35,6 +35,7 @@ wget http://download.documentfoundation.org/libreoffice/stable/5.4.7/rpm/x86_64/
 tar -xzf LibreOffice_5.4.7_Linux_x86-64_rpm.tar.gz
 cd  LibreOffice_5.4.7.2_Linux_x86-64_rpm/RPMS
 yum localinstall -y *.rpm
+ln -s /opt/libreoffice5.4/program/soffice /usr/bin/soffice
 
 # SET UP DEPLOYMENT
 yum -y install git
