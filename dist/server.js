@@ -1,6 +1,6 @@
 'use strict';
 
-var _server = require('maha/dist/maha/tasks/server/server');
+var _server = require('maha/dist/tasks/start/server');
 
 var _server2 = _interopRequireDefault(_server);
 
