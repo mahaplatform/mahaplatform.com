@@ -1,3 +1,3 @@
-import socket from 'maha/dist/tasks/start/socket'
+import socket from 'maha/dist/core/entities/socket'
 
 socket()

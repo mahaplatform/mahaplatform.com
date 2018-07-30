@@ -1,3 +1,3 @@
-import worker from 'maha/dist/tasks/start/worker'
+import worker from 'maha/dist/core/entities/worker'
 
 worker()

@@ -1,3 +1,3 @@
-import cron from 'maha/dist/tasks/start/cron'
+import cron from 'maha/dist/core/entities/cron'
 
 cron()

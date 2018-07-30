@@ -1,3 +1,3 @@
-import server from 'maha/dist/tasks/start/server'
+import server from 'maha/dist/core/entities/server'
 
 server()

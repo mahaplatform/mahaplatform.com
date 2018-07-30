@@ -7,7 +7,6 @@ sudo service sshd restart
 
 # UPDATE SERVER
 yum -y update
-yum -y install gcc gcc-c++
 
 # INSTALL NTP
 ntpdate -s time.nist.gov
@@ -17,23 +16,29 @@ sudo service ntpd start
 rm /etc/localtime
 ln -s /usr/share/zoneinfo/US/Eastern /etc/localtime
 
+# INSTALL DEVTOOLSET-7
+yum -y install centos-release-scl-rh
+yum-config-manager --enable rhel-server-rhscl-7-rpms
+yum -y install devtoolset-7
+scl enable devtoolset-7 bash
+
 # INSTALL POSTGRESQL
 yum -y install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-centos96-9.6-3.noarch.rpm
-yum -y install postgresql96
-yum -y install postgresql96-server
+yum -y install postgresql96 postgresql96-server
 service postgresql-9.6 initdb
 chkconfig postgresql-9.6 on
 service postgresql-9.6 start
 vi /var/lib/pgsql/9.6/data/pg_hba.conf
 > host   all   all   0.0.0.0/0   md5
 vi /var/lib/pgsql/9.6/data/postgresql.conf
-> host 0.0.0.0
-sudo -i -u postgres
+> listen_address = '*'
+su postgres
 createuser --interactive
 createdb maha
 psql
 > ALTER USER maha WITH PASSWORD '<PASSWORD>';
-> GRANT ALL PRIVILEGES ON maha TO maha;
+> GRANT ALL PRIVILEGES ON DATABASE maha TO maha;
+exit
 vi ~/.pgpass
 chmod 600 ~/.pgpass
 service postgresql-9.6 restart

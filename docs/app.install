@@ -16,16 +16,16 @@ sudo service ntpd start
 rm /etc/localtime
 ln -s /usr/share/zoneinfo/US/Eastern /etc/localtime
 
-# INSTALL DEVTOOLSET-3
-sudo curl http://linuxsoft.cern.ch/cern/scl/slc6-scl.repo > /etc/yum.repos.d/slc6-scl.repo
-rpm --import http://linuxsoft.cern.ch/cern/slc6X/x86_64/RPM-GPG-KEY-cern
-sudo yum install -y devtoolset-3
-scl enable devtoolset-3 bash
+# INSTALL DEVTOOLSET-7
+yum -y install centos-release-scl-rh
+yum-config-manager --enable rhel-server-rhscl-7-rpms
+yum -y install devtoolset-7
+scl enable devtoolset-7 bash
 
 # INSTALL NODEJS
-wget https://nodejs.org/dist/v7.2.1/node-v7.2.1.tar.gz
-tar xzf node-v7.2.1.tar.gz
-cd node-v7.2.1
+wget https://nodejs.org/dist/v8.11.3/node-v8.11.3.tar.gz
+tar xzf node-v8.11.3.tar.gz
+cd node-v8.11.3
 ./configure
 make
 make install
@@ -34,8 +34,8 @@ make install
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
 curl -sSL https://get.rvm.io | bash -s stable --ruby
 source /usr/local/rvm/scripts/rvm
-rvm install 2.4.1
-rvm use --default 2.4.1
+rvm install 2.5.1
+rvm use --default 2.5.1
 gem update
 
 # INSTALL PASSENGER / NGINX
