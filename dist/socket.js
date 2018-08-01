@@ -1,6 +1,6 @@
 'use strict';
 
-var _socket = require('maha/dist/tasks/start/socket');
+var _socket = require('maha/dist/core/entities/socket');
 
 var _socket2 = _interopRequireDefault(_socket);
 
