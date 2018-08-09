@@ -20,6 +20,12 @@ var _moment2 = _interopRequireDefault(_moment);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+(function () {
+  var enterModule = require('react-hot-loader').enterModule;
+
+  enterModule && enterModule(module);
+})();
+
 var InstallCRM = new _maha.Migration({
 
   up: function () {
@@ -111,4 +117,22 @@ var InstallCRM = new _maha.Migration({
 
 });
 
-exports.default = InstallCRM;
+var _default = InstallCRM;
+exports.default = _default;
+;
+
+(function () {
+  var reactHotLoader = require('react-hot-loader').default;
+
+  var leaveModule = require('react-hot-loader').leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(InstallCRM, 'InstallCRM', 'src/db/migrations/20180118104400_install_crm.js');
+  reactHotLoader.register(_default, 'default', 'src/db/migrations/20180118104400_install_crm.js');
+  leaveModule(module);
+})();
+
+;

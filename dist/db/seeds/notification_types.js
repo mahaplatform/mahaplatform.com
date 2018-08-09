@@ -6,6 +6,12 @@ Object.defineProperty(exports, "__esModule", {
 
 var _maha = require('maha');
 
+(function () {
+  var enterModule = require('react-hot-loader').enterModule;
+
+  enterModule && enterModule(module);
+})();
+
 var notificationTypesFixtures = new _maha.Fixtures({
   tableName: 'maha_notification_types',
   records: [{
@@ -47,4 +53,22 @@ var notificationTypesFixtures = new _maha.Fixtures({
   }]
 });
 
-exports.default = notificationTypesFixtures;
+var _default = notificationTypesFixtures;
+exports.default = _default;
+;
+
+(function () {
+  var reactHotLoader = require('react-hot-loader').default;
+
+  var leaveModule = require('react-hot-loader').leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(notificationTypesFixtures, 'notificationTypesFixtures', 'src/db/seeds/notification_types.js');
+  reactHotLoader.register(_default, 'default', 'src/db/seeds/notification_types.js');
+  leaveModule(module);
+})();
+
+;

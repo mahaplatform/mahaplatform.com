@@ -6,6 +6,12 @@ Object.defineProperty(exports, "__esModule", {
 
 var _maha = require('maha');
 
+(function () {
+  var enterModule = require('react-hot-loader').enterModule;
+
+  enterModule && enterModule(module);
+})();
+
 var groupsFixtures = new _maha.Fixtures({
   tableName: 'maha_groups',
   records: [{
@@ -77,4 +83,22 @@ var groupsFixtures = new _maha.Fixtures({
   }]
 });
 
-exports.default = groupsFixtures;
+var _default = groupsFixtures;
+exports.default = _default;
+;
+
+(function () {
+  var reactHotLoader = require('react-hot-loader').default;
+
+  var leaveModule = require('react-hot-loader').leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(groupsFixtures, 'groupsFixtures', 'src/db/seeds/groups.js');
+  reactHotLoader.register(_default, 'default', 'src/db/seeds/groups.js');
+  leaveModule(module);
+})();
+
+;

@@ -55,6 +55,12 @@ var _requestPromise2 = _interopRequireDefault(_requestPromise);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+(function () {
+  var enterModule = require('react-hot-loader').enterModule;
+
+  enterModule && enterModule(module);
+})();
+
 var setup = exports.setup = function () {
   var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee9() {
     return _regenerator2.default.wrap(function _callee9$(_context9) {
@@ -799,3 +805,24 @@ var downloadAsset = function () {
     return _ref12.apply(this, arguments);
   };
 }();
+;
+
+(function () {
+  var reactHotLoader = require('react-hot-loader').default;
+
+  var leaveModule = require('react-hot-loader').leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(setup, 'setup', 'src/tasks/cceniagra/cceniagra.js');
+  reactHotLoader.register(findOrCreateCountyId, 'findOrCreateCountyId', 'src/tasks/cceniagra/cceniagra.js');
+  reactHotLoader.register(findOrCreateRelatedId, 'findOrCreateRelatedId', 'src/tasks/cceniagra/cceniagra.js');
+  reactHotLoader.register(toSlug, 'toSlug', 'src/tasks/cceniagra/cceniagra.js');
+  reactHotLoader.register(toMatrix, 'toMatrix', 'src/tasks/cceniagra/cceniagra.js');
+  reactHotLoader.register(downloadAsset, 'downloadAsset', 'src/tasks/cceniagra/cceniagra.js');
+  leaveModule(module);
+})();
+
+;

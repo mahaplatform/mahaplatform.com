@@ -6,6 +6,12 @@ Object.defineProperty(exports, "__esModule", {
 
 var _maha = require('maha');
 
+(function () {
+  var enterModule = require('react-hot-loader').enterModule;
+
+  enterModule && enterModule(module);
+})();
+
 var postFixtures = new _maha.Fixtures({
   tableName: 'maha_posts_photos',
   records: [{
@@ -19,4 +25,22 @@ var postFixtures = new _maha.Fixtures({
   }]
 });
 
-exports.default = postFixtures;
+var _default = postFixtures;
+exports.default = _default;
+;
+
+(function () {
+  var reactHotLoader = require('react-hot-loader').default;
+
+  var leaveModule = require('react-hot-loader').leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(postFixtures, 'postFixtures', 'src/db/seeds/posts_photos.js');
+  reactHotLoader.register(_default, 'default', 'src/db/seeds/posts_photos.js');
+  leaveModule(module);
+})();
+
+;

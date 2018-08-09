@@ -6,6 +6,12 @@ Object.defineProperty(exports, "__esModule", {
 
 var _maha = require('maha');
 
+(function () {
+  var enterModule = require('react-hot-loader').enterModule;
+
+  enterModule && enterModule(module);
+})();
+
 var expenseTypesFixtures = new _maha.Fixtures({
   tableName: 'expenses_expense_types',
   records: [{
@@ -561,4 +567,22 @@ var expenseTypesFixtures = new _maha.Fixtures({
   }]
 });
 
-exports.default = expenseTypesFixtures;
+var _default = expenseTypesFixtures;
+exports.default = _default;
+;
+
+(function () {
+  var reactHotLoader = require('react-hot-loader').default;
+
+  var leaveModule = require('react-hot-loader').leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(expenseTypesFixtures, 'expenseTypesFixtures', 'src/db/seeds/expense_types.js');
+  reactHotLoader.register(_default, 'default', 'src/db/seeds/expense_types.js');
+  leaveModule(module);
+})();
+
+;

@@ -6,6 +6,12 @@ Object.defineProperty(exports, "__esModule", {
 
 var _maha = require('maha');
 
+(function () {
+  var enterModule = require('react-hot-loader').enterModule;
+
+  enterModule && enterModule(module);
+})();
+
 var emailTemplatesFixtures = new _maha.Fixtures({
   tableName: 'maha_email_templates',
   records: [{
@@ -29,4 +35,22 @@ var emailTemplatesFixtures = new _maha.Fixtures({
   }]
 });
 
-exports.default = emailTemplatesFixtures;
+var _default = emailTemplatesFixtures;
+exports.default = _default;
+;
+
+(function () {
+  var reactHotLoader = require('react-hot-loader').default;
+
+  var leaveModule = require('react-hot-loader').leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(emailTemplatesFixtures, 'emailTemplatesFixtures', 'src/db/seeds/email_templates.js');
+  reactHotLoader.register(_default, 'default', 'src/db/seeds/email_templates.js');
+  leaveModule(module);
+})();
+
+;

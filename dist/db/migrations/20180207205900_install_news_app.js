@@ -20,6 +20,12 @@ var _moment2 = _interopRequireDefault(_moment);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+(function () {
+  var enterModule = require('react-hot-loader').enterModule;
+
+  enterModule && enterModule(module);
+})();
+
 var InstallNewsApp = new _maha.Migration({
 
   up: function () {
@@ -118,4 +124,22 @@ var InstallNewsApp = new _maha.Migration({
 
 });
 
-exports.default = InstallNewsApp;
+var _default = InstallNewsApp;
+exports.default = _default;
+;
+
+(function () {
+  var reactHotLoader = require('react-hot-loader').default;
+
+  var leaveModule = require('react-hot-loader').leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(InstallNewsApp, 'InstallNewsApp', 'src/db/migrations/20180207205900_install_news_app.js');
+  reactHotLoader.register(_default, 'default', 'src/db/migrations/20180207205900_install_news_app.js');
+  leaveModule(module);
+})();
+
+;

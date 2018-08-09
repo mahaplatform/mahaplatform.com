@@ -6,6 +6,12 @@ Object.defineProperty(exports, "__esModule", {
 
 var _maha = require('maha');
 
+(function () {
+  var enterModule = require('react-hot-loader').enterModule;
+
+  enterModule && enterModule(module);
+})();
+
 var strategiesFixtures = new _maha.Fixtures({
   tableName: 'maha_strategies',
   records: [{
@@ -22,4 +28,22 @@ var strategiesFixtures = new _maha.Fixtures({
   }]
 });
 
-exports.default = strategiesFixtures;
+var _default = strategiesFixtures;
+exports.default = _default;
+;
+
+(function () {
+  var reactHotLoader = require('react-hot-loader').default;
+
+  var leaveModule = require('react-hot-loader').leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(strategiesFixtures, 'strategiesFixtures', 'src/db/seeds/strategies.js');
+  reactHotLoader.register(_default, 'default', 'src/db/seeds/strategies.js');
+  leaveModule(module);
+})();
+
+;

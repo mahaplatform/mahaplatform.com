@@ -5,10 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.import_20170622 = exports.import_20171107 = exports.import_20171109 = exports.import_20171115 = exports.add_asset_previews = exports.fix_assets = exports._getNormalizedFileName = undefined;
 
-var _stringify = require('babel-runtime/core-js/json/stringify');
-
-var _stringify2 = _interopRequireDefault(_stringify);
-
 var _toConsumableArray2 = require('babel-runtime/helpers/toConsumableArray');
 
 var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
@@ -16,10 +12,6 @@ var _toConsumableArray3 = _interopRequireDefault(_toConsumableArray2);
 var _slicedToArray2 = require('babel-runtime/helpers/slicedToArray');
 
 var _slicedToArray3 = _interopRequireDefault(_slicedToArray2);
-
-var _keys = require('babel-runtime/core-js/object/keys');
-
-var _keys2 = _interopRequireDefault(_keys);
 
 var _bluebird = require('bluebird');
 
@@ -70,6 +62,12 @@ var _awsSdk2 = _interopRequireDefault(_awsSdk);
 var _maha = require('maha');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+(function () {
+  var enterModule = require('react-hot-loader').enterModule;
+
+  enterModule && enterModule(module);
+})();
 
 var _getNormalizedFileName = exports._getNormalizedFileName = function _getNormalizedFileName(filename) {
 
@@ -758,7 +756,7 @@ var import_20170622 = exports.import_20170622 = function () {
 
               return data;
             }, { assets: assets, users: [], users_roles: [], groups: [], users_groups: [] });
-            supervisorData = (0, _keys2.default)(supervisors).reduce(function (data, name) {
+            supervisorData = Object.keys(supervisors).reduce(function (data, name) {
               var _name$match = name.match(/(.*) (.*)/),
                   _name$match2 = (0, _slicedToArray3.default)(_name$match, 3),
                   first_name = _name$match2[1],
@@ -1027,7 +1025,7 @@ var writeFile = function writeFile(name, tableName, records) {
 };
 
 var toJSON = function toJSON(object) {
-  return (0, _stringify2.default)(object, null, '  ').replace(/\"(\w*)\"\:/g, '$1:').replace(/\"/g, '\'');
+  return JSON.stringify(object, null, '  ').replace(/\"(\w*)\"\:/g, '$1:').replace(/\"/g, '\'');
 };
 
 var toMatrix = function toMatrix(filename, delimiter) {
@@ -1063,3 +1061,31 @@ var findOrCreate = function findOrCreate(collection, data, withId) {
 
   return newitem;
 };
+;
+
+(function () {
+  var reactHotLoader = require('react-hot-loader').default;
+
+  var leaveModule = require('react-hot-loader').leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(_getNormalizedFileName, '_getNormalizedFileName', 'src/tasks/ccetc/ccetc.js');
+  reactHotLoader.register(fix_assets, 'fix_assets', 'src/tasks/ccetc/ccetc.js');
+  reactHotLoader.register(add_asset_previews, 'add_asset_previews', 'src/tasks/ccetc/ccetc.js');
+  reactHotLoader.register(import_members, 'import_members', 'src/tasks/ccetc/ccetc.js');
+  reactHotLoader.register(import_20171115, 'import_20171115', 'src/tasks/ccetc/ccetc.js');
+  reactHotLoader.register(import_20171109, 'import_20171109', 'src/tasks/ccetc/ccetc.js');
+  reactHotLoader.register(import_20171107, 'import_20171107', 'src/tasks/ccetc/ccetc.js');
+  reactHotLoader.register(import_20170622, 'import_20170622', 'src/tasks/ccetc/ccetc.js');
+  reactHotLoader.register(writeFile, 'writeFile', 'src/tasks/ccetc/ccetc.js');
+  reactHotLoader.register(toJSON, 'toJSON', 'src/tasks/ccetc/ccetc.js');
+  reactHotLoader.register(toMatrix, 'toMatrix', 'src/tasks/ccetc/ccetc.js');
+  reactHotLoader.register(sanitize, 'sanitize', 'src/tasks/ccetc/ccetc.js');
+  reactHotLoader.register(findOrCreate, 'findOrCreate', 'src/tasks/ccetc/ccetc.js');
+  leaveModule(module);
+})();
+
+;

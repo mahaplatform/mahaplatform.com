@@ -6,6 +6,12 @@ Object.defineProperty(exports, "__esModule", {
 
 var _maha = require('maha');
 
+(function () {
+  var enterModule = require('react-hot-loader').enterModule;
+
+  enterModule && enterModule(module);
+})();
+
 var supervisorsFixtures = new _maha.Fixtures({
   tableName: 'competencies_supervisors',
   records: [{
@@ -141,4 +147,22 @@ var supervisorsFixtures = new _maha.Fixtures({
   }]
 });
 
-exports.default = supervisorsFixtures;
+var _default = supervisorsFixtures;
+exports.default = _default;
+;
+
+(function () {
+  var reactHotLoader = require('react-hot-loader').default;
+
+  var leaveModule = require('react-hot-loader').leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(supervisorsFixtures, 'supervisorsFixtures', 'src/db/seeds/supervisors.js');
+  reactHotLoader.register(_default, 'default', 'src/db/seeds/supervisors.js');
+  leaveModule(module);
+})();
+
+;

@@ -22,6 +22,12 @@ var _maha = require('maha');
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+(function () {
+  var enterModule = require('react-hot-loader').enterModule;
+
+  enterModule && enterModule(module);
+})();
+
 var InsertListenings = new _maha.Migration({
 
   up: function () {
@@ -132,4 +138,22 @@ var InsertListenings = new _maha.Migration({
 
 });
 
-exports.default = InsertListenings;
+var _default = InsertListenings;
+exports.default = _default;
+;
+
+(function () {
+  var reactHotLoader = require('react-hot-loader').default;
+
+  var leaveModule = require('react-hot-loader').leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(InsertListenings, 'InsertListenings', 'src/db/migrations/20171117013000_insert_listenings.js');
+  reactHotLoader.register(_default, 'default', 'src/db/migrations/20171117013000_insert_listenings.js');
+  leaveModule(module);
+})();
+
+;

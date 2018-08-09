@@ -6,6 +6,12 @@ Object.defineProperty(exports, "__esModule", {
 
 var _maha = require('maha');
 
+(function () {
+  var enterModule = require('react-hot-loader').enterModule;
+
+  enterModule && enterModule(module);
+})();
+
 var supervisionsFixtures = new _maha.Fixtures({
   tableName: 'competencies_supervisions',
   records: [{
@@ -1031,4 +1037,22 @@ var supervisionsFixtures = new _maha.Fixtures({
   }]
 });
 
-exports.default = supervisionsFixtures;
+var _default = supervisionsFixtures;
+exports.default = _default;
+;
+
+(function () {
+  var reactHotLoader = require('react-hot-loader').default;
+
+  var leaveModule = require('react-hot-loader').leaveModule;
+
+  if (!reactHotLoader) {
+    return;
+  }
+
+  reactHotLoader.register(supervisionsFixtures, 'supervisionsFixtures', 'src/db/seeds/supervisions.js');
+  reactHotLoader.register(_default, 'default', 'src/db/seeds/supervisions.js');
+  leaveModule(module);
+})();
+
+;
