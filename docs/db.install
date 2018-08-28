@@ -57,6 +57,7 @@ chmod 755 redis-setup.sh
 ./redis-setup.sh
 vi /etc/redis/redis.conf
 > bind 0.0.0.0
+> requirepass
 service redis restart
 
 # BACKUP

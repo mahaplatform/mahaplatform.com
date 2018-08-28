@@ -10,6 +10,7 @@
     "build": "rm -rf ./dist && babel ./src --out-dir ./dist"
   },
   "dependencies": {
+    "backframe": "github:mahaplatform/backframe",
     "maha": "github:mahaplatform/maha",
     "maha-chat": "github:mahaplatform/maha-chat",
     "maha-competencies": "github:mahaplatform/maha-competencies",
@@ -17,9 +18,7 @@
     "maha-drive": "github:mahaplatform/maha-drive",
     "maha-eatfresh": "github:mahaplatform/maha-eatfresh",
     "maha-expenses": "github:mahaplatform/maha-expenses",
-    "maha-news": "github:mahaplatform/maha-news",
     "maha-platform": "github:mahaplatform/maha-platform",
-    "maha-tasks": "github:mahaplatform/maha-tasks",
     "maha-team": "github:mahaplatform/maha-team",
     "reframe": "github:mahaplatform/reframe"
   },
