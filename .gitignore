@@ -1,7 +1,8 @@
 node_modules
 npm-debug.log
 .env
-public
+maha.js
+dist
 data.sqlite3
 tmp/*
 !tmp/.gitkeep
@@ -18,3 +19,5 @@ repo
 REVISION
 packages/*
 !packages/.gitkeep
+apps/*
+!apps/.gitkeep

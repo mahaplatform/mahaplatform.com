@@ -27,7 +27,8 @@
     "__dirname": true,
     "process": true,
     "before": true,
-    "after": true
+    "after": true,
+    "__webpack_require__": true
    },
   "rules": {
     "strict": 0,
