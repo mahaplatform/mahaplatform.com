@@ -1,0 +1,90 @@
+.maha-account {
+  padding: 11px;
+  img {
+    width: 28px;
+    height: 28px;
+  }
+}
+.maha-account-panel  {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.maha-account-identity  {
+  background-color: @blue !important;
+  padding: 2.5em 0;
+  .maha-avatar {
+    width: 125px;
+    margin: 0 auto 20px;
+    .maha-avatar-text {
+      font-size: 60px;
+      line-height: 60px;
+    }
+  }
+  h2 {
+    text-align: center;
+    margin: 0;
+    color: @white;
+  }
+  p {
+    text-align: center;
+    margin: 0;
+    color: fadeout(@white, 30);
+  }
+}
+.maha-account-tasks {
+  flex: 1;
+  .scrollable();
+}
+.maha-account-task {
+  .hover(background-color, fadeout(@black, 90));
+  display: block;
+  padding: 15px;
+  cursor: pointer;
+  i {
+    color: #666;
+    font-size: 18px;
+    margin-right: 10px;
+  }
+}
+.delivery-token {
+  display: flex;
+}
+.delivery-token-text {
+  padding: 0.8em;
+  flex: 1;
+  i {
+    color: @red;
+  }
+}
+.push-section {
+  padding:1em 1em 0;
+  label {
+    display:block;
+    font-weight: bold;
+    margin: 0 0 .85em;
+    color: rgba(0,0,0,.87);
+    font-size: .92857143em;
+  }
+  .toggle-row {
+    display:flex;
+    padding: 1em;
+    border: 1px solid rgba(0,0,0,.1);
+    border-radius: .5em;
+    .text {
+      flex:1;
+      margin:auto;
+      padding-left:.5em;
+    }
+  }
+  .fa-toggle-off {
+    color: red;
+  }
+  .toggle-row.granted .fa-toggle-on.disabled {
+    color: #21ba45;
+  }
+  .toggle-row.granted i.fa.fa-check-circle {
+    font-size: 28px;
+    color: #21ba45;
+  }
+}
