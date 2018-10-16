@@ -3,6 +3,7 @@ npm-debug.log
 .env
 maha.js
 dist
+dist.staged
 data.sqlite3
 tmp/*
 !tmp/.gitkeep
