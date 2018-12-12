@@ -89,7 +89,7 @@
     "redux-rubberstamp": "^1.15.0",
     "redux-socketio-client": "^0.1.0",
     "redux-thunk": "^2.2.0",
-    "reframe": "github:mahaplatform/reframe",
+    "reframe": "^0.29.0",
     "request-promise": "^4.2.1",
     "reselect": "^3.0.1",
     "resumablejs": "^1.1.0",
