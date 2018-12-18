@@ -1,4 +1,5 @@
 node_modules
+help
 npm-debug.log
 .env
 maha.js
