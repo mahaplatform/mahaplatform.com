@@ -33,6 +33,8 @@ cd node-v8.14.0
 ./configure
 make
 make install
+npm config set user 0
+npm config set unsafe-perm true
 npm install -g maha-cli
 
 # INSTALL RUBY
