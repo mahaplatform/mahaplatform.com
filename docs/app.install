@@ -9,6 +9,7 @@ sudo service sshd restart
 yum -y update
 
 # INSTALL NTP
+yum install ntp
 ntpdate -s time.nist.gov
 sudo chkconfig ntpd on
 sudo chkconfig --list ntpd
@@ -18,6 +19,7 @@ ln -s /usr/share/zoneinfo/US/Eastern /etc/localtime
 
 # INSTALL DEVTOOLSET-7
 yum -y install centos-release-scl-rh
+yum install yum-utils
 yum-config-manager --enable rhel-server-rhscl-7-rpms
 yum -y install devtoolset-7
 scl enable devtoolset-7 bash
@@ -27,6 +29,7 @@ echo > ~/.bash_profile
 vi ~/.bash_profile
 
 # INSTALL NODEJS
+yum install wget
 wget https://nodejs.org/dist/v8.14.0/node-v8.14.0.tar.gz
 tar xzf node-v8.14.0.tar.gz
 cd node-v8.14.0
@@ -48,7 +51,8 @@ gem update
 # INSTALL PASSENGER / NGINX
 yum install -y libcurl-devel
 gem install passenger --no-ri --no-rdoc
-passenger-install-nginx-module --auto --auto-download --languages nodejs
+[+] sudo yum install nginx
+>> passenger-install-nginx-module --auto --auto-download --languages nodejs
 mkdir -p /var/log/nginx
 mv /opt/nginx/conf/nginx.conf /opt/nginx/conf/nginx.conf.bak
 vi /opt/nginx/conf/nginx.conf

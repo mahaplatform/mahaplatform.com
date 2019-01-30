@@ -55,8 +55,8 @@ vi ~/.ssh/config
 
 # SET UP STORAGE
 mkdir /var/www
-umount /media/ephemeral0
-mount /dev/xvdb /var/www
+umount /media/ephemeral0 //?
+mount /dev/xvdb /var/www //?
 vi /etc/fstab
 
 # SET UP APP
