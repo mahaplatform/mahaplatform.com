@@ -30,6 +30,7 @@
     "checkit": "^0.7.0",
     "cheerio": "^0.22.0",
     "connect-multiparty": "^2.0.0",
+    "cors": "^2.8.5",
     "csv-parse": "^2.4.0",
     "dotenv": "^4.0.0",
     "draft-convert": "^2.0.1",
