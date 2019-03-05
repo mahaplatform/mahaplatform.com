@@ -26,6 +26,17 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm test
+  build:
+    executor: node-postgres
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: npm run build
+      - run: npm run bootstrap
+      - run: npm run help
   deploy:
     executor: node-postgres
     steps:
@@ -42,6 +53,12 @@ workflows:
   test-deploy:
     jobs:
       - test:
+          filters:
+            branches:
+              only: /.*/
+            tags:
+              only: /.*/
+      - build:
           filters:
             branches:
               only: /.*/
