@@ -37,9 +37,8 @@ jobs:
       - run: NODE_ENV=production npm run env
       - run: NODE_ENV=production npm run build
       - run: NODE_ENV=production npm run help
-      - run: tar -czf artifact.tgz dist
-      - store_artifacts:
-          path: artifact.tgz
+      - persist_to_workspace:
+          root: dist
   deploy:
     executor: node-postgres
     steps:
@@ -48,10 +47,9 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-      - add_ssh_keys:
-          fingerprints:
-            - "22:d3:aa:30:bb:b0:7e:f7:68:58:e0:fe:a9:4e:b3:0b"
-      - run: npm run deploy
+      - attach_workspace:
+          at: /repo/dist
+      - run: tar -czf artifact.tgz dist
 workflows:
   test-deploy:
     jobs:
@@ -74,6 +72,6 @@ workflows:
             - build
           filters:
             branches:
-              ignore: /.*/
+              only: /.*/
             tags:
               only: /.*/
