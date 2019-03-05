@@ -8,7 +8,7 @@
   "homepage": "https://github.com/mahaplatform/mahaplatform.com",
   "scripts": {
     "bootstrap": "babel-node ./src/scripts/bootstrap.js",
-    "build": "NODE_ENV=production babel-node ./src/scripts/build/index.js",
+    "build": "babel-node ./src/scripts/build/index.js",
     "dev": "babel-node ./src/scripts/dev/index.js",
     "deploy": "shipit production deploy --shipitfile ./src/deploy/shipitfile.js",
     "help": "babel-node ./src/scripts/help.js",

@@ -34,9 +34,8 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-      - run: npm run build
-      - run: npm run bootstrap
-      - run: npm run help
+      - run: NODE_ENV=production npm run build
+      - run: NODE_ENV=production npm run help
   deploy:
     executor: node-postgres
     steps:

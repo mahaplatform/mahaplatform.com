@@ -49,8 +49,10 @@ const help = async () => {
 
   await new Promise((resolve, reject) => {
 
+    const indexPath = (process.env.NODE_ENV === 'production') ? path.join('dist','help') : path.join('help')
+
     SearchIndex({
-      indexPath: path.join('help'),
+      indexPath,
       logLevel: 'error'
     }, (err, index) => {
 
