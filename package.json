@@ -11,6 +11,7 @@
     "build": "babel-node ./src/scripts/build/index.js",
     "dev": "babel-node ./src/scripts/dev/index.js",
     "deploy": "shipit production deploy --shipitfile ./src/deploy/shipitfile.js",
+    "env": "babel-node ./src/scripts/env/index.js",
     "help": "babel-node ./src/scripts/help.js",
     "test": "babel-node ./src/scripts/test.js",
     "start": "NODE_ENV=production node ./dist/server.js"
