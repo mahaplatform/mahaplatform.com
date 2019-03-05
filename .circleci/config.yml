@@ -61,7 +61,7 @@ jobs:
           name: Setup environment
           command: NODE_ENV=production npm run env
       - run:
-          name: Setup package
+          name: Deploy code
           command: NODE_ENV=production npm run deploy
 workflows:
   test-build-deploy:
