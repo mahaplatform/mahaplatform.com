@@ -1,0 +1,31 @@
+.maha-star {
+  flex: 1;
+  display: flex;
+  cursor: pointer;
+  &.labeled {
+    .hover(background-color, fadeout(@black, 97));
+    .fa {
+      color: lighten(@black, 50);
+    }
+    .maha-star-icon {
+      padding: 0.8em;
+    }
+    .maha-star-text {
+      padding: 0.8em 0.8em 0.8em 0;
+      color: @blue;
+    }
+  }
+}
+.maha-star-icon {
+  display: flex;
+  & > .fa {
+    color: lighten(@black, 80);
+    margin: auto;
+    &.fa-star {
+      color: @yellow;
+    }
+    &.fa-star-o {
+      .hover(color, @yellow);
+    }
+  }
+}

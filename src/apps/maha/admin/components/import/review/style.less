@@ -1,0 +1,66 @@
+.maha-import-review-pager {
+  flex: 0 0 3.5em;
+  display: flex;
+  border-bottom: 1px solid fadeout(@black, 90);
+  .maha-import-review-pager-item {
+    &:nth-child(1),
+    &:nth-child(3) {
+      flex: 0 0 3.5em;
+    }
+    &:nth-child(2) {
+      flex: 1;
+      text-align:center;
+      margin: auto;
+    }
+  }
+}
+.maha-import-review-pager-item {
+  padding: 0.8em;
+}
+.maha-import-review-body {
+  .scrollable();
+  flex: 1;
+  padding: 0.8em;
+  display:flex;
+
+}
+.maha-import-review-record {
+  border: 1px solid fadeout(@black, 90);
+  width: 100%;
+  tr {
+    border-bottom: 1px solid fadeout(@black, 90);
+  }
+  th {
+    border-bottom: 1px solid fadeout(@black, 90);
+    background-color: fadeout(@black, 97);
+    padding: 0.5em;
+    overflow: hidden;
+    text-align: left;
+    width: ~"calc(100% / 2)";
+    word-break: break-all;
+  }
+  td {
+    word-break: break-all;
+    padding: 0.5em;
+  }
+}
+.maha-import-review, .maha-import-review>div {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.image-preview  {
+  position:relative;
+  img {
+    max-width: 150px;
+    max-height: 150px;
+  }
+  span {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 10px;
+    background-color: rgba(255, 255, 255, 0.66);
+    padding: 0 5px;
+  }
+}

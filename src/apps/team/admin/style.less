@@ -1,0 +1,30 @@
+.maha-user-access-right {
+  display: flex;
+}
+.maha-user-access-right-icon {
+  flex: 0 0 30px;
+  display: flex;
+  i {
+    margin: auto 0;
+  }
+}
+.maha-user-access-right-label {
+  flex: 1;
+}
+
+.table .circle {
+  font-size: 10px !important;
+}
+.fa-circle {
+  &.absent { color: @mediumgrey; }
+  &.abandoned { color: @red; }
+  &.waiting { color: @orange; }
+  &.present { color: @green; }
+}
+
+.role-token {
+  color: fadeout(@black, 50);
+  strong {
+    color: @black;
+  }
+}

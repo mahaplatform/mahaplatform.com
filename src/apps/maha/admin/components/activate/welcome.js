@@ -1,0 +1,50 @@
+import PropTypes from 'prop-types'
+import Image from '../image'
+import React from 'react'
+
+class Welcome extends React.Component {
+
+  static propTypes = {
+    user: PropTypes.object,
+    onChangeMode: PropTypes.func
+  }
+
+  _handleClick = this._handleClick.bind(this)
+
+  render() {
+    const { user } = this.props
+    return (
+      <div className="maha-signin-panel">
+        <div className="maha-signin-form">
+          <div className="maha-signin-content">
+            <div className="maha-avatar">
+              <div className="maha-avatar-badge">
+                <div className="maha-avatar-wrapper">
+                  <Image src='/images/maha.png' title="The Maha Platform" transforms={{ fit: 'cover', w: 150, h: 150 }} />
+                </div>
+              </div>
+            </div>
+            <h2>The Maha Platform</h2>
+            <p>
+              Hi { user.first_name} and welcome to the Maha Platform! Thank you
+              for verifying your email address. Let&apos;s take a few moments to set
+              up your account.
+            </p>
+            <div className="field button-field">
+              <button className="ui fluid large button" onClick={ this._handleClick }>
+                Continue <i className="right chevron icon" />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  _handleClick() {
+    this.props.onChangeMode('question')
+  }
+
+}
+
+export default Welcome

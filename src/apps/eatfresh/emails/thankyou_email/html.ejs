@@ -1,0 +1,140 @@
+<style>
+  table {
+    border-top: 1px solid #CCC;
+    border-left: 1px solid #CCC;
+    margin-bottom: 1em;
+  }
+  th, td {
+    text-align: left;
+    padding: 5px;
+    border-bottom: 1px solid #CCC;
+    border-right: 1px solid #CCC;
+  }
+  th {
+    width: 200px;
+    background-color: #EEE;
+  }
+  td {
+    width: 200px;
+    color: #888;
+  }
+</style>
+
+<p><%= contact_name %>,</p>
+
+<p>Thank you for submitting the following attraction to EatFresh WNY.</p>
+
+<table border="0" cellpadding="0" cellspacing="0">
+
+  <tr>
+    <th>Name</th>
+    <td><%= contact_name %></td>
+  </tr>
+
+  <tr>
+    <th>Email</th>
+    <td><%= contact_email %></td>
+  </tr>
+
+  <tr>
+    <th>Phone</th>
+    <td><%= contact_phone %></td>
+  </tr>
+
+  <tr>
+    <th>Name of Attraction</th>
+    <td><%= title %></td>
+  </tr>
+
+  <tr>
+    <th>Address 1</th>
+    <td><%= address_1 %></td>
+  </tr>
+
+  <tr>
+    <th>Address 2</th>
+    <td><%= address_2 %></td>
+  </tr>
+
+  <tr>
+    <th>City</th>
+    <td><%= city %></td>
+  </tr>
+
+  <tr>
+    <th>State</th>
+    <td><%= state %></td>
+  </tr>
+
+  <tr>
+    <th>Zip</th>
+    <td><%= zip %></td>
+  </tr>
+
+  <tr>
+    <th>Phone</th>
+    <td><%= phone %></td>
+  </tr>
+
+  <tr>
+    <th>Hours of Operation</th>
+    <td><%= hours_of_operation %></td>
+  </tr>
+
+  <tr>
+    <th>Website</th>
+    <td><%= website %></td>
+  </tr>
+
+  <tr>
+    <th>Facebook</th>
+    <td><%= facebook %></td>
+  </tr>
+
+  <tr>
+    <th>Cage Free / Pasture Raised</th>
+    <td><%= is_free_range ? 'YES' : 'NO' %></td>
+  </tr>
+
+  <tr>
+    <th>Family Friendly</th>
+    <td><%= is_family_friendly ? 'YES' : 'NO' %></td>
+  </tr>
+
+  <tr>
+    <th>Family Owned</th>
+    <td><%= is_family_owned ? 'YES' : 'NO' %></td>
+  </tr>
+
+  <tr>
+    <th>Handicap Accessible</th>
+    <td><%= is_accessible ? 'YES' : 'NO' %></td>
+  </tr>
+
+  <tr>
+    <th>Military Discount</th>
+    <td><%= is_military ? 'YES' : 'NO' %></td>
+  </tr>
+
+  <tr>
+    <th>Organic / USDA Organic</th>
+    <td><%= is_organic ? 'YES' : 'NO' %></td>
+  </tr>
+
+  <tr>
+    <th>Senior Discount</th>
+    <td><%= is_senior ? 'YES' : 'NO' %></td>
+  </tr>
+
+  <tr>
+    <th>Vegetarian / Vegan</th>
+    <td><%= is_vegetarian ? 'YES' : 'NO' %></td>
+  </tr>
+</table>
+
+<p>You will receive an email from us once your submission has been approved.</p>
+
+<p>
+  Sincerely,<br/>
+  The EatFresh WNY team
+</p>

@@ -1,0 +1,41 @@
+.maha-avatar {
+  width: 100%;
+  position: relative;
+  .presence-token {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    font-size: 0.8em;
+  }
+}
+.maha-avatar-badge {
+  width: 100%;
+  padding-top: 100%;
+  position: relative;
+}
+.maha-avatar-wrapper {
+  border-radius: 50%;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  background-color: lighten(@black, 60);
+  color: @white;
+  font-family: monospace;
+  display: flex;
+  overflow: hidden;
+  .maha-image {
+    width: 100%;
+    img {
+      width: 100%;
+    }
+  }
+  .maha-avatar-text, i {
+    margin: auto;
+    text-transform: uppercase;
+    font-size: 0.8em;
+  }
+}

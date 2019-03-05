@@ -1,0 +1,88 @@
+.email-canvas {
+  flex: 1;
+  .scrollable();
+}
+.email {
+  background-color: @white;
+  display: flex;
+  flex-direction: column;
+  margin: 0.8em auto;
+  width: 100%;
+  max-width: 800px;
+}
+.email-header {
+  background-color: lighten(@black, 97);
+  display: flex;
+}
+.email-header-avatar {
+  padding: 0.8em 0 0.8em 0.8em;
+  .maha-avatar {
+    width: 2.8em;
+    height: 2.8em;
+  }
+}
+.email-header-details {
+  flex: 1;
+  padding: 0.8em;
+  color: fadeout(@black, 50);
+  strong {
+    color: @black;
+  }
+}
+.email-body {
+  background: @white;
+  iframe {
+     width: 100%;
+     height: 80vh;
+     border: none;
+     display: block;
+  }
+}
+.email-feed {
+  background: fadeout(@black, 95);
+  padding: 0.8em;
+  position:relative;
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    border-left: 2px dotted fadeout(@black, 70);
+    transform: translate(2em);
+  }
+}
+.email-feed-item {
+  display: flex;
+  margin-bottom: 1em;
+}
+.email-feed-item-icon {
+  flex: 0 0 2.5em;
+  display: flex;
+  z-index: 1;
+}
+.email-feed-item-icon-badge {
+  margin: auto;
+  display: block;
+  width: 2.5em;
+  height: 2.5em;
+  background: @white;
+  border-radius: 50%;
+  display: flex;
+  i {
+    margin: auto;
+    color: @red;
+    width: 1em;
+    font-size: 0.9em;
+  }
+}
+.email-feed-item-content {
+  flex: 1;
+  font-size: 0.8em;
+  line-height: 1.5em;
+  padding-left: 1em;
+  color: fadeout(@black, 60);
+  strong {
+    color: @black;
+  }
+}

@@ -1,0 +1,27 @@
+<table align="center" class="container panel">
+  <tbody>
+    <tr>
+      <td class="small-12 large-12 columns first last">
+        <p>Hello <%= first_name %>,</p>
+        <p>Someone requested password reset instructions for the account connected with this email address.</p>
+        <p>If you did not request this email, you can ignore it and no changes will be made.</p>
+        <table class="button radius expand">
+          <tbody>
+            <tr>
+              <td>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td><center><a href="<%= reset_url %>" align="center" class="float-center">Reset Password</a></center></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td class="expander"></td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>

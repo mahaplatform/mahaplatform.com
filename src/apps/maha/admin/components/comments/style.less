@@ -1,0 +1,108 @@
+.maha-comments {
+  &.message {
+    text-align: center;
+    color: fadeout(@black, 60);
+    i {
+      font-size: 1.5em;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .maha-comment-link-image {
+    flex: 0 0 50px;
+    img {
+      height: 50px;
+    }
+  }
+  .maha-comment-link-details {
+    padding: 0.4em;
+  }
+  .maha-comment-link-description {
+    display: none;
+  }
+  .maha-comment-link-title {
+    font-size: 0.8em;
+  }
+}
+@media (min-width: 769px) {
+  .maha-comment-link-image {
+    flex: 0 0 100px;
+    img {
+      height: 100px;
+    }
+  }
+  .maha-comment-link-details {
+    padding: 0.4em 0.8em;
+  }
+}
+
+.maha-comment-link {
+  width: 100%;
+  max-width: 400px;
+  display: flex;
+  background-color: @white;
+  margin: 0.4em 0 0;
+  border-radius: 0.5em;
+  overflow: hidden;
+}
+.maha-comment-link-image {
+  overflow: hidden;
+  position: relative;
+  img {
+    position: absolute;
+    left: 50%;
+    .translateX(-50%);
+  }
+}
+.maha-comment-link-details {
+  flex: 1;
+}
+.maha-comment-link-title {
+  color: @black;
+  font-weight: bold;
+}
+.maha-comment-link-description {
+  font-size: 0.8em;
+  line-height: 1.6em;
+  color: fadeout(@black, 20);
+}
+.maha-comment-link-domain {
+  font-size: 0.7em;
+  text-transform: uppercase;
+  color: fadeout(@black, 60);
+  font-weight: bold;
+}
+
+.maha-comments .maha-comment:last-child {
+  margin-bottom: 0;
+}
+.maha-comments-summary {
+  margin-top: -0.8em;
+  border-bottom: 1px solid fadeout(@black, 90);
+  padding: 0.8em;
+}
+.maha-comments-more-wrapper {
+  padding-top:.8em;
+  .maha-comments-more {
+    margin: 0 1em 1em;
+    color: fadeout(@black, 70);
+    cursor: pointer;
+    background-color: fadeout(@black, 95);
+    padding: 0.5em;
+    border-radius: 0.5em;
+    text-align: center;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    &:hover {
+      background-color: fadeout(@black, 90);
+    }
+  }
+}
+.maha-comments-footer {
+  border-top: 1px solid fadeout(@black, 85);
+  background-color: fadeout(@black, 95);
+  .maha-composer {
+    background: none;
+  }
+}

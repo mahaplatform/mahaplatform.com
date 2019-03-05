@@ -19,7 +19,3 @@ docs/files/deploy
 *.compiled.js
 repo
 REVISION
-packages/*
-!packages/.gitkeep
-apps/*
-!apps/.gitkeep

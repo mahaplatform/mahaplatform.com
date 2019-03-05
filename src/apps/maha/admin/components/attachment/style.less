@@ -1,0 +1,22 @@
+.maha-attachment-asset,
+.maha-attachment-image {
+  margin-top: 0.4em;
+  width: 100%;
+  border: 1px solid fadeout(@black, 90);
+  background-color: @white;
+  border-radius: 0.5em;
+  overflow: hidden;
+  display: block;
+  img {
+    width: 100%;
+    display: block;
+  }
+}
+.maha-attachment-local {
+  color: @blue;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+    color: darken(@blue, 20);
+  }
+}

@@ -1,0 +1,44 @@
+@import "./emojis.less";
+
+.maha-emojis {
+  display: flex;
+  flex-direction: column;
+}
+.maha-emojis-footer {
+  border-top: 1px solid fadeout(@black, 90);
+  padding: 0.2em;
+}
+.maha-emojis-body {
+  flex: 0 0 15em;
+  .scrollable();
+}
+.maha-emojis-category-title {
+  padding: 0.4em;
+  text-align: center;
+  background-color: fadeout(@black, 90);
+  line-height: 2.2em;
+}
+.maha-emojis-category-emojis {
+  overflow: hidden;
+  padding: 0.1em;
+}
+.maha-emojis-footer-label {
+  float: left;
+  line-height: 2.8em;
+  padding: 0 0.6em;
+  font-weight: bold;
+}
+.maha-emojis-footer-emoji,
+.maha-emojis-category-emoji {
+  float: left;
+  font-size: 1.5em;
+  line-height: 2em;
+  width: 2em;
+  height: 2em;
+  text-align: center;
+  cursor: pointer;
+  border-radius: 5px;
+  &:hover {
+    background-color: fadeout(@black, 80);
+  }
+}

@@ -1,0 +1,72 @@
+.maha-subscription {
+  background-color: @white;
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.5em;
+  .maha-subscription-app:first-child {
+    border-radius: 0.5em 0.5em 0 0;
+  }
+  .maha-subscription-notification:last-child {
+    border-radius: 0 0 0.5em 0.5em;
+    border: none;
+  }
+}
+.maha-subscription-app {
+  background-color: fadeout(@black, 93);
+  padding: 0.8em;
+  border-bottom: 1px solid fadeout(@black, 90);
+  line-height: 1.6em;
+}
+.maha-subscription-app-icon {
+  .border-radius(5px);
+  color: #FFF;
+  display: flex;
+  width: 1.6em;
+  height: 1.6em;
+  text-align: center;
+  background-color: @darkgrey;
+  float: left;
+  margin-right: 1em;
+  &.red { background-color: @red; }
+  &.orange { background-color: @orange; }
+  &.yellow { background-color: @yellow; }
+  &.olive { background-color: @olive; }
+  &.green { background-color: @green; }
+  &.teal { background-color: @teal; }
+  &.blue { background-color: @blue; }
+  &.purple { background-color: @purple; }
+  &.violet { background-color: @violet; }
+  &.pink { background-color: @pink; }
+  &.brown { background-color: @brown; }
+  &.grey { background-color: @grey; }
+  &.black { background-color: @black; }
+  i {
+    margin: auto;
+  }
+}
+.maha-subscription-notification {
+  border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.maha-subscription-notification-icon {
+  flex: 0 0 3em;
+  display: flex;
+  .fa {
+    margin: auto;
+    font-size: 1.2em;
+  }
+  .fa-circle-o {
+    color: fadeout(@black, 80);
+  }
+  .fa-check-circle {
+    color: @blue;
+  }
+}
+.maha-subscription-notification-label {
+  flex: 1;
+  padding: 0.8em 0.8em 0.8em 0;
+  color: fadeout(@black, 40);
+}

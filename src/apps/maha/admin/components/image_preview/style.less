@@ -1,0 +1,25 @@
+.maha-image-preview {
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+.maha-image-preview-image {
+   width: 100%;
+   height: 0;
+   display: block;
+   background-size: cover;
+   background-repeat: no-repeat;
+   background-position: center;
+   &.exif-1 {
+     transform: rotate(0deg);
+   }
+   &.exif-3 {
+     transform: rotate(180deg);
+   }
+   &.exif-6 {
+     transform: rotate(90deg);
+   }
+   &.exif-8 {
+     transform: rotate(270deg);
+   }
+}

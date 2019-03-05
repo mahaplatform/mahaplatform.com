@@ -1,0 +1,59 @@
+.chat-channel-header {
+  height: 5.7em;
+  padding: 0.8em;
+  background-color: fadeout(@black, 30);
+  position: relative;
+}
+.chat-channel-header-info {
+  @media (max-width: 768px) {
+    display: none !important;
+  }
+  display: inline-block;
+  .fa {
+    cursor: pointer;
+    color: fadeout(@white, 40);
+    .hover(color, fadeout(@white, 20));
+  }
+}
+.chat-channel-header-meta {
+  height: 2.6em;
+  h3 {
+    font-size: 1.8em;
+    line-height: 1.3em;
+    font-weight: bold;
+    color: @white;
+    margin: 0;
+  }
+  p {
+    color: fadeout(@white, 30);
+    margin: 0;
+    line-height: 2em;
+    font-size: 1em;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    word-break: break-all;
+  }
+}
+.chat-channel-header-tasks {
+  position: absolute;
+  top: 0.8em;
+  right: 0.8em;
+  ul {
+    margin: 0;
+    padding: 0;
+    li:first-child {
+      margin-right: 0.4em;
+    }
+  }
+  li {
+    font-size: 1.4em;
+    list-style: none;
+    display: inline;
+    margin: 0;
+    padding: 0;
+    color: @white;
+    .maha-star {
+      display: inline-flex;
+    }
+  }
+}

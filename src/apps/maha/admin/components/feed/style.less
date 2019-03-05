@@ -1,0 +1,119 @@
+@media (min-width: 769px) {
+  .maha-page {
+    .maha-feed-item {
+      display: flex;
+    }
+    .maha-feed-item-avatar {
+      flex: 0 0 3em;
+      padding: 0.4em 0.8em;
+    }
+    .maha-feed-item-details {
+      display: flex;
+      padding: 0.4em;
+    }
+    .maha-feed-item-story {
+      flex: 1;
+    }
+    .maha-feed-item-timestamp {
+      text-align: right;
+      line-height: 2em;
+    }
+    .maha-feed-item-icon {
+      padding: 0.4em;
+    }
+  }
+}
+.maha-feed {
+  display: flex;
+  flex: 1;
+}
+.maha-feed-items {
+  flex: 1;
+  background-color: @white;
+}
+.maha-feed-date {
+  background-color: lighten(@black, 95);
+  color: fadeout(@black, 70);
+  font-weight: bold;
+  padding: 0.4em 0.8em;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 0.8em;
+}
+.maha-feed-item {
+  .hover(background-color, fadeout(@black, 99));
+  border-bottom: 1px solid #EEE;
+  display: flex;
+  background-color: @white;
+  cursor: pointer;
+  &.unread {
+    .hover(background-color, fadeout(@yellow, 90));
+    background-color: fadeout(@yellow, 95);
+  }
+}
+.maha-feed-item-avatar {
+  flex: 0 0 4.2em;
+  padding: 0.8em;
+  .maha-avatar {
+    width: 100%;
+  }
+}
+.maha-feed-item-details {
+  flex: 1;
+  padding: 0.8em 0;
+}
+.maha-feed-item-icon {
+  flex: 0 0 3em;
+  padding: 1em;
+  display: flex;
+  .icon {
+    font-size: 1.2em;
+    line-height: 1em;
+    color: #CCCCCC !important;
+    margin: auto;
+  }
+}
+.maha-feed-item-story {
+  line-height: 1.5em;
+  color: @black;
+}
+.maha-feed-item-user,
+.maha-feed-item-subject,
+.maha-feed-item-object {
+  font-weight: bold;
+}
+.maha-feed-item-app {
+  font-size: .9em;
+  color: #888888;
+}
+.maha-feed-item-timestamp {
+  font-size: .8em;
+  line-height: 1.4em;
+  color: #888888;
+  vertical-align: middle;
+}
+.maha-feed-item-app-icon {
+  .border-radius(3px);
+  display: inline-block;
+  width: 1.4em;
+  height: 1.4em;
+  margin-right: 0.5em;
+  text-align: center;
+  line-height: 1.4em;
+  font-size: 0.8em;
+  background-color: @red;
+  &.red { background-color: @red; }
+  &.orange { background-color: @orange; }
+  &.yellow { background-color: @yellow; }
+  &.olive { background-color: @olive; }
+  &.green { background-color: @green; }
+  &.teal { background-color: @teal; }
+  &.blue { background-color: @blue; }
+  &.purple { background-color: @purple; }
+  &.violet { background-color: @violet; }
+  &.pink { background-color: @pink; }
+  i {
+    margin: auto;
+    color: @white;
+  }
+}

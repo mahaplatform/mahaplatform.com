@@ -1,0 +1,43 @@
+.maha-profiles-intro {
+  border-bottom: 1px solid fadeout(@black, 95);
+  padding: 0.8em;
+  line-height: 1.8em;
+  color: fadeout(@black, 50);
+  strong {
+    color: @black;
+  }
+}
+.maha-profile {
+  display: flex;
+  border-bottom: 1px solid fadeout(@black, 95);
+}
+.maha-profile-icon {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  img {
+    margin: auto;
+    width: 1.8em;
+    height: 1.8em;
+    display: block;
+  }
+}
+.maha-profile-name {
+  padding: 0.8em;
+  line-height: 2em;
+  flex: 1;
+}
+.maha-profile-toggle {
+  padding: 0.8em 0.8em 0.8em 0;
+  .fa {
+    font-size: 2em;
+    height: auto;
+    margin: auto;
+    cursor: pointer;
+  }
+  .fa-toggle-off {
+    color: lighten(@black, 80);
+  }
+  .fa-toggle-on {
+    color: @green;
+  }
+}

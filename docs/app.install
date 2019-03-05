@@ -51,8 +51,7 @@ gem update
 # INSTALL PASSENGER / NGINX
 yum install -y libcurl-devel
 gem install passenger --no-ri --no-rdoc
-[+] sudo yum install nginx
->> passenger-install-nginx-module --auto --auto-download --languages nodejs
+passenger-install-nginx-module --auto --auto-download --languages nodejs
 mkdir -p /var/log/nginx
 mv /opt/nginx/conf/nginx.conf /opt/nginx/conf/nginx.conf.bak
 vi /opt/nginx/conf/nginx.conf

@@ -1,0 +1,21 @@
+.maha-network {
+  position: relative;
+  flex: 1;
+  display: flex;
+  &.error .maha-network-status {
+    background-color: @yellow;
+  }
+  &.success .maha-network-status {
+    background-color: @green;
+  }
+}
+.maha-network-status {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  color: @white;
+  padding: 1em;
+  height: 3.5em;
+  text-align: center;
+}

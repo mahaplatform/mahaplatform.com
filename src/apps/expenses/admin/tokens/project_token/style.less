@@ -1,0 +1,29 @@
+.compact-project-token-activity {
+  color: @red;
+  margin-left: 5px;
+  font-size: 0.8em;
+  line-height: 2em;
+}
+
+.maha-assignment-unassigned {
+  .compact-project-token {
+    padding: 0.8em;
+  }
+}
+.maha-assignment-assigned {
+  .compact-project-token {
+    padding: 1.1em;
+  }
+  .maha-assignment-item {
+    cursor: pointer;
+    &:hover {
+      background-color: fadeout(@black, 98);
+    }
+  }
+}
+.reframe-table {
+  .compact-project-token,
+  .compact-expense-type-token {
+    padding: 0.8em;
+  }
+}

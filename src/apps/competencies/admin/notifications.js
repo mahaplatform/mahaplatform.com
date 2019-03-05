@@ -1,0 +1,19 @@
+import { Notifications } from 'maha'
+
+const notifications = new Notifications([
+  {
+    code: 'plan_created',
+    title: 'Manage Configuration',
+    description: 'a supervisor creates a plan for you'
+  }, {
+    code: 'plan_approved',
+    title: 'Plan Approved',
+    description: 'a supervisor approves your plan'
+  }, {
+    code: 'plan_completed',
+    title: 'Plan Completed',
+    description: 'a supervisor completes your plan'
+  }
+])
+
+export default notifications

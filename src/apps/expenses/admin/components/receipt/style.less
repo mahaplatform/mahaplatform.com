@@ -1,0 +1,53 @@
+.reframe-list-item.receipts {
+  .reframe-list-item-content,
+  .reframe-list-item-content-value {
+   padding: 0;
+  }
+  .receipt-plain-file {
+    border-bottom: 1px solid fadeout(@black, 90);
+    &:last-child {
+      border: none;
+    }
+  }
+}
+
+
+.receipt-thumbnail {
+  background-color: fadeout(@black, 25);
+  width: 100%;
+  position: relative;
+  margin: auto;
+  display: block;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  padding: 0.8em;
+  height: ~"calc(360px + 1.6em);";
+  .maha-image {
+    background: none;
+    height: 100%;
+  }
+  .receipt-plain-file {
+    margin: auto;
+  }
+  img {
+    position: absolute;
+    .translateX(-50%);
+    display: block;
+    margin: auto;
+    left: 50%;
+    width: auto !important;
+    height: 100%;
+  }
+}
+.receipt {
+  background-color: @black;
+  .scrollable();
+  display: fixed;
+  .maha-image {
+    margin: auto;
+  }
+  img {
+    width: 100%;
+  }
+}

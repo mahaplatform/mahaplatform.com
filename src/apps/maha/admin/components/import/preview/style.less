@@ -1,0 +1,107 @@
+.maha-import-preview {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  label {
+    display: block;
+    line-height: 2em;
+    margin-right: 5px;
+    text-transform: uppercase;
+    font-size: 0.8em;
+    color: fadeout(@black, 50);
+  }
+}
+.maha-import-preview-header {
+  flex: 0 0 6em;
+  background-color: @red;
+  border-bottom: 1px solid fadeout(@black, 90);
+  padding: 0 0.4em;
+  @media (max-width: 375px) {
+    flex-direction: column;
+    flex: 0 0 6em;
+  }
+  @media (min-width: 376px) {
+    flex: 0 0 3em;
+  }
+  display: flex;
+  label {
+    display: none;
+  }
+}
+.maha-import-preview-header-item {
+  padding: 0 0.4em;
+  flex: 1;
+  text-align: center;
+}
+.maha-import-preview-result {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.maha-import-preview-pager {
+  flex: 0 0 3.5em;
+  display: flex;
+  border-bottom: 1px solid fadeout(@black, 90);
+  .maha-import-preview-pager-item {
+    &:nth-child(1),
+    &:nth-child(3) {
+      flex: 0 0 3.5em;
+    }
+    &:nth-child(2) {
+      flex: 1;
+      text-align:center;
+      margin: auto;
+    }
+  }
+}
+.maha-import-preview-pager-item {
+  padding: 0.8em;
+}
+.maha-import-preview-body {
+  .scrollable();
+  flex: 1;
+  padding: 0.8em;
+}
+.maha-import-preview-record {
+  border: 1px solid fadeout(@black, 90);
+  width: 100%;
+  tr {
+    border-bottom: 1px solid fadeout(@black, 90);
+  }
+  th {
+    border-right: 1px solid fadeout(@black, 90);
+    background-color: fadeout(@black, 97);
+    padding: 0.5em;
+    overflow: hidden;
+    text-align: left;
+    width: ~"calc(100% / 3)";
+    word-break: break-all;
+  }
+  td {
+    word-break: break-all;
+    padding: 0.5em;
+    color: fadeout(@black, 50);
+  }
+}
+.maha-import-preview-chooser {
+  border: 1px solid @white;
+  border-radius: .25em;
+  .maha-import-preview-chooser-item:last-child {
+    border-right: none;
+  }
+  overflow: hidden;
+  display: flex;
+}
+.maha-import-preview-chooser-item {
+  flex: 1;
+  border-right: 1px solid @white;
+  padding: 0.5em;
+  font-size: 0.8em;
+  text-align: center;
+  cursor: pointer;
+  color: @white;
+  &.active {
+    background-color: @white;
+    color: @red;
+  }
+}

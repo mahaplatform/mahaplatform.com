@@ -1,0 +1,42 @@
+.reframe-modal-panel {
+  .colorizeItem(maha-security-header, background-color);
+}
+.maha-security {
+  flex: 1;
+  flex-direction: column;
+  display: flex;
+}
+.maha-security-header {
+  background-color: @red;
+  text-align: center;
+  padding: 1.6em 0.8em 2.4em 0.8em;
+  .fa {
+    color: fadeout(@white, 20);
+    font-size: 5em;
+  }
+}
+.maha-security-body {
+  flex: 1;
+}
+.maha-security-item {
+  display: flex;
+  border-bottom: 1px solid fadeout(@black, 95);
+  .hover(background-color, fadeout(@black, 97));
+  cursor: pointer;
+}
+.maha-security-item-label {
+  flex: 1;
+  padding: 0.8em;
+  color: fadeout(@black, 60);
+  strong {
+    color: fadeout(@black, 20);
+  }
+}
+.maha-security-item-proceed {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  .fa {
+    margin: auto;
+    color: fadeout(@black, 80);
+  }
+}

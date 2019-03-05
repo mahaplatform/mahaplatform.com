@@ -1,0 +1,68 @@
+import ProjectToken from '../../tokens/project_token'
+import { Page, CompactUserToken } from 'maha-admin'
+import React from 'react'
+import New from './new'
+
+const _getIntegrationColumns = (integration) => {
+  if(integration === 'accpac') {
+    return [
+      { label: 'Project Code', key: 'integration.project_code', visible: false, collapsing: true  },
+      { label: 'Program Code', key: 'integration.program_code', visible: false, collapsing: true  },
+      { label: 'Source Code', key: 'integration.source_code', visible: false, collapsing: true  },
+      { label: 'Match', key: 'integration.match', visible: false, collapsing: true  }
+    ]
+  }
+  return []
+}
+
+const _getIntegrationExports = (integration) => {
+  if(integration === 'accpac') {
+    return [
+      { label: 'Project Code', key: 'integration.project_code' },
+      { label: 'Program Code', key: 'integration.program_code' },
+      { label: 'Source Code', key: 'integration.source_code' },
+      { label: 'Match', key: 'integration.match' }
+    ]
+  }
+  return []
+}
+
+const mapResourcesToPage = (props, context) => ({
+  app: '/api/admin/apps/expenses/settings'
+})
+
+const mapPropsToPage = (props, context, resources, page) => ({
+  title: 'Projects',
+  collection: {
+    endpoint: '/api/admin/expenses/projects',
+    table: [
+      { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'Title', key: 'title', primary: true, format: ProjectToken },
+      { label: 'Active', key: 'is_active', primary: false, format: 'check' },
+      ..._getIntegrationColumns(resources.app.settings.integration)
+    ],
+    filters: [
+      { label: 'Member', name: 'user_id', type: 'select', endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: CompactUserToken },
+      { label: 'Active', name: 'is_active', type: 'select', options: [{ value: '1', text: 'Active' }, { value: '0', text: 'Inactive' }] }
+    ],
+    export: [
+      { label: 'ID', key: 'id' },
+      { label: 'Title', key: 'title' },
+      { label: 'Active', key: 'is_active' },
+      ..._getIntegrationExports(resources.app.settings.integration)
+    ],
+    link: (record) => `/admin/expenses/projects/${record.id}`,
+    defaultSort: { key: 'title', order: 'asc' },
+    entity: 'project',
+    icon: 'folder',
+    new: New
+  },
+  task: {
+    label: 'New Project',
+    rights: ['expenses:manage_configuration'],
+    icon: 'plus',
+    modal: (props) => <New { ...props } integration={ resources.app.settings.integration } />
+  }
+})
+
+export default Page(mapResourcesToPage, mapPropsToPage)

@@ -1,0 +1,66 @@
+.maha-push {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+.maha-push-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: fadeout(@black, 60);
+}
+.maha-push-modal {
+  .translateXY(-50%, -50%);
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: ~"calc(100% - 1.6em)";
+  max-width: 350px;
+  height: ~"calc(100% - 1.6em)";
+  max-height: 640px;
+  display: flex;
+  flex-direction: column;
+  background-color: @white;
+  transition: opacity 0.5s ease-in-out 0s;
+  &.fadein-enter,
+  &.fadein-exit.fadein-exit-active {
+    opacity: 0;
+  }
+  &.fadein-exit,
+  &.fadein-enter.fadein-enter-active {
+    opacity: 1;
+  }
+  &.fadein-enter-done {
+    opacity: 1;
+  }
+}
+.maha-push-modal-image {
+  img {
+    width: 100%;
+  }
+}
+.maha-push-modal-body {
+  flex: 1;
+  padding: 1.6em;
+  display: flex;
+}
+.maha-push-modal-message {
+  margin: auto;
+  text-align: center;
+  h3 {
+    margin: 0;
+  }
+  p {
+    color: fadeout(@black, 40);
+  }
+  span {
+    color: @blue;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+}
+.maha-push-modal-footer {
+  padding: 0.8em;
+}

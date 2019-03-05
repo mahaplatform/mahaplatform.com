@@ -1,0 +1,94 @@
+.reframe-htmlfield {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.3em;
+}
+.reframe-htmlfield-header {
+  background-color: fadeout(@black, 97);
+  border-bottom: 1px solid fadeout(@black, 90);
+  white-space: nowrap;
+}
+.reframe-htmlfield-header-section {
+  border-right: 1px solid fadeout(@black, 90);
+  padding: 0.4em 0.6em;
+  display: inline-block;
+}
+.reframe-htmlfield-header-icon {
+  display: inline-block;
+  margin: 0.1em;
+  border-radius: 0.2em;
+  text-align: center;
+  line-height: 2em;
+  width: 2em;
+  height: 2em;
+  &.enabled {
+    cursor: pointer;
+    opacity: 1;
+  }
+  &.disabled {
+    opacity: .2;
+  }
+  &.active {
+    background-color: fadeout(@black, 90);
+  }
+  &.enabled:hover {
+    background-color: fadeout(@black, 95);
+  }
+}
+
+.reframe-htmlfield-overlay {
+  .opacity-transition(0, 0.7, .15s);
+  .opacity(0.7);
+  position: absolute;
+  background: @black;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  top: 0;
+  z-index: 2;
+}
+.reframe-htmlfield-input {
+  .translate-y-transition(-100%, 0, .15s);
+  position: absolute;
+  background-color: @white;
+  border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 3;
+}
+.reframe-htmlfield-input-element {
+  flex: 1;
+  padding: 0.2em;
+  input {
+    border: 1px solid fadeout(@black, 90);
+    width: 100%;
+    padding: 0.8em;
+    display: block;
+    outline: none;
+  }
+}
+.reframe-htmlfield-input-icon {
+  padding: 0.8em;
+  display: flex;
+  cursor: pointer;
+  color: fadeout(@black, 80);
+  i {
+    margin: auto;
+  }
+}
+.reframe-control .reframe-htmlfield-body {
+  background-color: @white;
+  flex: 1;
+  padding: 0.8em;
+  .scrollable();
+  textarea {
+    border: none;
+    padding: 0;
+  }
+}

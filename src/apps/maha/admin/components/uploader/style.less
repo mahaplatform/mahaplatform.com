@@ -1,0 +1,89 @@
+.maha-uploader {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.maha-uploads {
+  .translate-y-transition(100%, 0, .15s);
+  border-top: 1px solid fadeout(@black, 95);
+  background-color: @white;
+  .label {
+    color: @blue !important;
+  }
+  padding: 0.2em;
+}
+.maha-upload {
+  padding: 0.2em;
+  cursor: pointer;
+}
+.maha-upload-progress {
+  display: flex;
+  border-radius: 0.5em;
+  overflow: hidden;
+  position: relative;
+  background-color: #f5f5f5;
+  .loader {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index:1;
+    background-image:
+      repeating-linear-gradient(
+        -45deg,
+        rgba(33, 186, 69, 0.3),
+        rgba(33, 186, 69, 0.3) 11px,
+        #FFFFFF 10px,
+        #FFFFFF 20px
+      );
+    background-size: 28px 28px;
+    animation: move .5s linear infinite;
+    transition: width .3s;
+    opacity: .6;
+  }
+}
+
+@keyframes move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 28px 0;
+  }
+}
+
+.maha-upload-icon {
+  padding: 0.4em 0 0.4em 0.4em;
+  display: flex;
+  position:relative;
+  z-index:2;
+  i {
+    margin: auto;
+  }
+}
+.maha-upload-name {
+  padding: 0.4em;
+  flex: 1;
+  font-size: .9em;
+  line-height: 1.7em;
+  color: fadeout(@black, 20);
+  position:relative;
+  z-index:2;
+}
+.maha-upload-action {
+  padding: 0.4em 0.4em 0.4em 0;
+  font-size: 1.2em;
+  display: flex;
+  position:relative;
+  z-index:2;
+  i {
+    margin: auto;
+    color: fadeout(@black, 80);
+  }
+  .fa-check {
+    color: @green;
+  }
+  .fa-times {
+    .hover(color, fadeout(@black, 50));
+  }
+}

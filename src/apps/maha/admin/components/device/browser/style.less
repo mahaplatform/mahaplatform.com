@@ -1,0 +1,59 @@
+.maha-browser {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+.maha-browser-modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: fadeout(@black, 60);
+}
+.maha-browser-modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.maha-device-offer {
+  flex: 1;
+  background-color: @teal;
+  display: flex;
+}
+.maha-device-offer-panel {
+  margin: auto;
+  width: ~"calc(100% - 1.6em)";
+  max-width: 350px;
+  h2, p {
+    color: @white;
+  }
+  text-align: center;
+  padding: 0.8em;
+  h2 {
+    margin: 0;
+  }
+}
+.maha-device-offer-device {
+  margin-bottom: 0.8em;
+  &.mobile {
+    width: 200px;
+  }
+  &.desktop {
+    width: 350px;
+  }
+}
+.maha-device-offer-button {
+  cursor: pointer;
+  margin-bottom: 0.8em;
+  img {
+    width: 200px;
+  }
+}
+.maha-device-offer-link {
+  color: @white;
+  text-decoration: underline !important;
+  cursor: pointer;
+}

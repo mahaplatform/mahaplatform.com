@@ -1,0 +1,77 @@
+.maha-page-body {
+  flex: 1;
+  display: flex;
+  background-color: lighten(@black, 90);
+  position: relative;
+}
+.maha-page-footer {
+  .translate-y-transition(100%, 0, .15s);
+  flex: 0 0 4em;
+  display: flex;
+  background-color: @black;
+  padding: 0 0.5em;
+  button.ui.button {
+    &.disabled,
+    &:disabled {
+      opacity: 1 !important;
+      position: relative;
+      overflow: hidden;
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: fadeout(@white, 30);
+      }
+    }
+  }
+}
+.maha-page-footer-items {
+  margin: auto;
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+}
+.maha-page-footer-item {
+  flex: 1;
+  display: flex;
+  padding: 0 0.5em;
+  & > * {
+    margin: auto !important;
+  }
+}
+.maha-page-body-details {
+  background-color: @primary_background_color;
+}
+.reframe-panel-header,
+.reframe-tabs-header-content,
+.maha-page-body-details {
+  padding: 0;
+  .maha-logo,
+  .maha-avatar {
+    margin: 0 auto;
+    width: 9.1em;
+    height: 9.1em;
+  }
+  h1, h2, p {
+    text-align: center;
+    margin: 0;
+  }
+  h1 {
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 32px;
+    color: @white;
+  }
+  h2 {
+    font-weight: normal;
+    font-size: 18px;
+    line-height: 28px;
+    color: fadeout(@white, 15);
+  }
+  p {
+    color: fadeout(@white, 30);
+  }
+}

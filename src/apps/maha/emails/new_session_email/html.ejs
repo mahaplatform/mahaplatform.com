@@ -1,0 +1,40 @@
+<table align="center" class="container panel">
+  <tbody>
+    <tr>
+      <td class="small-12 large-12 columns first last">
+        <br />
+        <center>
+          <img src="<%= host %>/admin/images/devices/<%= icon %>.png" width="100" height="100" /><br />
+        </center>
+        <p class="text-center">
+          <%= display_name %>
+        </p>
+        <br />
+        <p>Hi <%= first_name %>,</p>
+        <p>Someone signed into your account using a new device at <%= signin_at %>.
+        If this was not you, please contact us immediately at support@mahaplatform.com.
+        You may also sign them out immediately by clicking the button below.</p>
+        <table class="button radius expand">
+          <tbody>
+            <tr>
+              <td>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td><center><a href="<%= host %><%= terminate_url %>" align="center" class="float-center">Terminate Session</a></center></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td class="expander"></td>
+            </tr>
+          </tbody>
+        </table>
+        <p>We value your privacy and take your security seriously. We try our
+        best to keep you and your data safe!</p>
+        <p>Sincerely,<br/>
+        The Maha Team</p>
+      </td>
+    </tr>
+  </tbody>
+</table>

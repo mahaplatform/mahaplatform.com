@@ -1,0 +1,67 @@
+.maha-import-fix-pager {
+  flex: 0 0 3.5em;
+  display: flex;
+  border-bottom: 1px solid fadeout(@black, 90);
+  .maha-import-fix-pager-item {
+    &:nth-child(1),
+    &:nth-child(3) {
+      flex: 0 0 3.5em;
+    }
+    &:nth-child(2) {
+      flex: 1;
+      text-align:center;
+      margin: auto;
+    }
+  }
+}
+.maha-import-fix-pager-item {
+  padding: 0.8em;
+}
+.maha-import-fix-body {
+  .scrollable();
+  flex: 1;
+  padding: 0.8em;
+}
+.maha-import-fix-record {
+  border: 1px solid fadeout(@black, 90);
+  width: 100%;
+  tr {
+    border-bottom: 1px solid fadeout(@black, 90);
+  }
+  th {
+    border-bottom: 1px solid fadeout(@black, 90);
+    background-color: fadeout(@black, 97);
+    padding: 0.5em;
+    overflow: hidden;
+    text-align: left;
+    width: ~"calc(100% / 2)";
+    word-break: break-all;
+  }
+  td {
+    word-break: break-all;
+    padding: 0.5em;
+  }
+}
+
+.maha-import-review {
+  flex: 1;
+  display: flex;
+  &>div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    .maha-import-review-body {
+      display: flex;
+      flex-direction: column;
+      table.maha-import-preview-record {
+        flex: 1;
+      }
+      .button-row {
+        margin-top:15px;
+        display:flex;
+        flex-direction:row;
+
+      }
+    }
+  }
+}

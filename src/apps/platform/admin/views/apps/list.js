@@ -1,0 +1,16 @@
+import { AppToken, Page } from 'maha-admin'
+
+const mapPropsToPage = (props, context, resources, page) => ({
+  title: 'Apps',
+  collection: {
+    table: [
+      { label: 'App', key: 'code', primary: true, format: AppToken }
+    ],
+    endpoint: '/api/admin/platform/apps',
+    entity: 'asset',
+    link: (record) => `/admin/platform/apps/${record.id}`,
+    defaultSort: { key: 'code', order: 'asc' }
+  }
+})
+
+export default Page(null, mapPropsToPage)

@@ -1,0 +1,94 @@
+.maha-portal {
+  flex: 1;
+  display: flex;
+}
+.maha-portal-main {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+.maha-portal-help {
+  flex: 0 0 350px;
+  display: flex;
+  position: relative;
+}
+.maha-portal-frame {
+  flex: 1;
+  display: flex;
+}
+.maha-portal-ribbon {
+  flex: 0 0 3.5em;
+  display: flex;
+}
+.maha-portal-sidebar {
+  position: relative;
+  background-color: @white;
+  flex: 0 0 350px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: 2px 0 2px fadeout(@black, 95);
+  border-left: 5px solid @blue;
+  .drive-search,
+  .reframe-toggle-list-header .reframe-searchbox,
+  .reframe-modal-panel-header,
+  .reframe-tabs-header {
+    background-color: @blue !important;
+  }
+}
+.maha-portal-body {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+.maha-portal-account {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background-color: @white;
+  max-width: 350px;
+  width: ~"calc(100vw - 3.5em)";
+  display: flex;
+  .transition(transform .5s ease-in-out 0s);
+  &.slidein-enter, &.slidein-exit.slidein-exit-active {
+    .translateX(100%);
+  }
+  &.slidein-exit, &.slidein-enter.slidein-enter-active {
+    .translateX(0);
+  }
+}
+.maha-portal-navigation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  background-color: @white;
+  max-width: 350px;
+  width: ~"calc(100vw - 3.5em)";
+  display: flex;
+  .transition(transform .5s ease-in-out 0s);
+  &.slidein-enter, &.slidein-exit.slidein-exit-active {
+    .translateX(-100%);
+  }
+  &.slidein-exit, &.slidein-enter.slidein-enter-active {
+    .translateX(0);
+  }
+}
+.maha-portal-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  background-color: @black;
+}
+@media (max-width: 768px) {
+  .maha-portal-frame {
+    flex-direction: column;
+  }
+}
+@media (min-width: 769px) {
+  .maha-portal-body {
+    position: relative;
+  }
+}

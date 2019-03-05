@@ -1,0 +1,114 @@
+.channel-token {
+  cursor: pointer;
+  display: flex;
+  flex: 1;
+  &.unread {
+    .channel-token-text {
+      strong, span {
+        font-weight: bold !important;
+        color: @black !important;
+      }
+    }
+  }
+  &.active,
+  &:hover {
+    background-color: fadeout(@black, 95);
+  }
+  &:active {
+    background-color: fadeout(@black, 90);
+  }
+}
+.channel-token-1 {
+  .maha-avatar {
+    margin: auto;
+    width: 2.8em;
+  }
+}
+.channel-token-2 {
+  position: relative;
+  .maha-avatar {
+    position: absolute;
+    width: 2em;
+    &:first-child {
+      top: 0.8em;
+      left: 0.6em;
+    }
+    &:last-child {
+      top: 1.3em;
+      left: 1.6em;
+    }
+  }
+}
+.channel-token-avatar {
+  flex: 0 0 4.5em;
+  display: flex;
+  padding: 0.8em;
+}
+.channel-token-text {
+  max-width: 18em;
+  strong {
+    font-weight: normal;
+    color: fadeout(@black, 20);
+    display: block;
+    width: ~"calc(100% - 50px)";
+    overflow:hidden;
+    text-overflow: ellipsis;
+  }
+  .channel-token-message {
+    color: fadeout(@black, 60);
+    text-overflow: ellipsis;
+    word-break: break-all;
+    overflow: hidden;
+    height: 1.3em;
+    .fa {
+      margin-right: 5px;
+    }
+  }
+  em {
+    color: @green;
+  }
+}
+.channel-token-details {
+  position: relative;
+  flex: 1;
+  padding: 0.8em 0;
+  overflow: hidden;
+}
+.channel-token-label {
+  background-color: @blue;
+  color: @white;
+  text-align: center;
+  display: inline-block;
+  border-radius: 50%;
+  height: 1.6em;
+  width: 1.6em;
+  margin: auto;
+  font-size: 0.8em;
+  line-height: 1.6em;
+  font-weight: bold;
+}
+.channel-token-subscribers {
+  color: fadeout(@black, 60);
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+.channel-token-extra {
+  flex: 0 0 1.5em;
+  display: flex;
+  text-align: right;
+}
+.channel-token-proceed {
+  flex: 0 0 1.5em;
+  display: flex;
+  i {
+    color: fadeout(@black, 80);
+    margin: auto;
+  }
+}
+.channel-token-timestamp {
+  font-size: 0.8em;
+  color: fadeout(@black, 60);
+  position: absolute;
+  top: 0.8em;
+  right: 0;
+}

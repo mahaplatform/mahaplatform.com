@@ -1,0 +1,75 @@
+.drive-versions {
+  flex: 1;
+  .scrollable();
+}
+.drive-versions {
+  .drive-version:last-child {
+    border-bottom: none;
+  }
+}
+.drive-upload {
+  padding: 0.8em;
+  border-bottom: 1px solid fadeout(@black, 95);
+}
+.drive-version {
+  display: flex;
+  border-bottom: 1px solid fadeout(@black, 95);
+}
+.drive-version-active {
+  flex: 0 0 1.2em;
+  display: flex;
+  padding: 0.4em 0.8em;
+  i {
+    margin: auto;
+  }
+  .fa-check-circle {
+    color: @green;
+  }
+  .fa-circle-o {
+    color: fadeout(@black, 80);
+    cursor: pointer;
+    &:hover {
+      color: fadeout(@black, 30);
+    }
+  }
+}
+.drive-version-preview {
+  flex: 0 0 3em;
+  display: flex;
+  padding: 0.4em 0.8em;
+  .maha-asset-icon {
+    font-size: 2.1em;
+  }
+  .maha-image {
+    width: 2.8em;
+    height: 2.8em;
+    display: inline-block;
+    img {
+      width: 100%;
+    }
+  }
+  .maha-asset-icon {
+    margin: auto;
+  }
+}
+.drive-version-details {
+  flex: 1;
+  padding: 0.4em 0;
+}
+.drive-version-meta,
+.drive-version-text {
+  font-size: 0.9em;
+  line-height: 1.8em;
+}
+.drive-version-text-version,
+.drive-version-meta-timestamp {
+  display: inline;
+  margin-right: 1em;
+  font-weight: bold;
+  color: fadeout(@black, 50);
+}
+.drive-version-text-filename,
+.drive-version-meta-user {
+  display: inline;
+  color: fadeout(@black, 70);
+}

@@ -1,0 +1,13 @@
+.presence-token {
+  .presence-token-dot {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: @white;
+    border: 2px solid @white;
+    box-shadow: 0 0 0 2px @white;
+    &.absent { border-color: @orange; }
+    &.active { border-color: @green; }
+  }
+}

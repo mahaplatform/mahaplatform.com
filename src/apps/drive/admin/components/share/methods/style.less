@@ -1,0 +1,36 @@
+.drive-share-methods-item {
+  display: flex;
+  border-bottom: 1px solid fadeout(@black, 95);
+  cursor: pointer;
+  .hover(background-color, fadeout(@black, 97));
+  &:nth-child(1) .drive-share-methods-item-icon .fa {
+    background-color: @green;
+  }
+  &:nth-child(2) .drive-share-methods-item-icon .fa {
+    background-color: @blue;
+  }
+  &:nth-child(3) .drive-share-methods-item-icon .fa {
+    background-color: @purple;
+  }
+}
+.drive-share-methods-item-icon {
+  flex: 0 0 3em;
+  padding: 0.8em;
+  .fa {
+    color: @white;
+    padding: 0.7em;
+    font-size: 0.7em;
+    border-radius: 50%;
+  }
+}
+.drive-share-methods-item-text {
+  flex: 1;
+  padding: 0.8em 0;
+}
+.drive-share-methods-item-proceed {
+  flex: 0 0 3em;
+  padding: 0.8em;
+  .fa {
+    color: fadeout(@black, 60);
+  }
+}

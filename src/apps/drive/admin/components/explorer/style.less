@@ -1,0 +1,244 @@
+
+.drive {
+  .unselectable();
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background-color: @white;
+  position: relative;
+  .reframe-stack {
+    flex: 1;
+    position: relative;
+  }
+}
+.drive-drag-layer {
+  background-color: lighten(@blue, 40);
+  border: 1px solid lighten(@black, 95);
+  color: fadeout(@black, 13);
+  position: absolute;
+  pointer-events: none;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  border-radius: 0.3em;
+  padding: 0.8em;
+  .fa-folder { color: @yellow; }
+  .drive-drag-layer-thumbnail {
+    display: inline-block;
+    margin: 0 0.8em 0 0;
+  }
+  .maha-asset-thumbnail {
+    width: 20px;
+    height: 20px;
+    overflow: hidden;
+    margin-bottom: -0.4em;
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+}
+
+.drive-main {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+.drive-list {
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+}
+.drive-search {
+  background-color: @red;
+  .reframe-searchbox {
+    padding-top: 0;
+  }
+  .reframe-searchbox-input {
+    background-color: fadeout(@white, 50);
+    border-radius: 0.5em;
+    margin: 0 !important;
+    .reframe-searchbox-icon {
+      color: @white !important;
+    }
+    .reframe-searchbox-remove-icon {
+      .hover(color, fadeout(@white, 30));
+      color: fadeout(@white, 50);
+    }
+    input {
+      color: @white !important;
+      &::-webkit-input-placeholder {
+        color: fadeout(@white, 20);
+      }
+      &:-moz-placeholder {
+        color: fadeout(@white, 20);
+      }
+      &::-moz-placeholder {
+        color: fadeout(@white, 20);
+      }
+      &::-webkit-input-placeholder,
+      &:-moz-placeholder,
+      &::-moz-placeholder,
+      &:-ms-input-placeholder {
+        color: fadeout(@white, 20);
+      }
+    }
+  }
+}
+.drive-folder {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+.drive-header {
+  background-color: fadeout(@black, 95);
+  display: flex;
+  color: fadeout(@black, 50);
+  padding-right: 6px;
+  height: 3em;
+}
+.drive-header-breadcrumb {
+  flex: 1;
+  display: flex;
+  cursor: pointer;
+}
+.drive-header-icon {
+  .hover(color, fadeout(@black, 50));
+  padding: 0.8em 0.8em 0.8em 0;
+  color: fadeout(@black, 80);
+  display: flex;
+  cursor: pointer;
+  i {
+    font-size: 1.2em;
+    margin: auto;
+  }
+}
+
+.drive-header-back {
+  flex: 0 0 2em;
+  padding: 0.8em 0 0.8em 0.8em;
+  cursor: pointer;
+}
+.drive-header-label {
+  padding: 0.8em;
+  height: 2em;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+.drive-breadcrumbs {
+  flex: 1;
+  padding: 0.8em;
+  .drive-breadcrumb {
+    margin-right: 0.5em;
+    display: inline;
+    color: fadeout(@black, 50);
+    cursor: pointer;
+    &.active {
+      color: @black;
+    }
+
+  }
+  .fa-chevron-right {
+    margin-right: 0.5em;
+    color: fadeout(@black, 70);
+    font-size: 0.8em;
+  }
+}
+.drive-results {
+  flex: 1;
+  display: flex;
+}
+.drive-items {
+  flex: 1;
+}
+.drive-item {
+  padding: 1;
+  border-bottom: 1px solid fadeout(@black, 95);
+  cursor: pointer;
+  display: flex;
+  overflow: hidden;
+  .hover(background-color, fadeout(@black, 97));
+  &.selected {
+    background-color: fadeout(@blue, 90);
+  }
+  &.over {
+    box-shadow: inset 0 0 0 2px @blue;
+  }
+  &.dragging {
+    .opacity(0.4);
+  }
+}
+.drive-item-icon {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  text-align: center;
+  .fa-hdd-o { color: @blue; }
+  .fa-folder { color: @yellow; }
+  .fa-handshake-o { color: @teal; }
+  .fa-star { color: @yellow; }
+  .fa-trash { color: @purple; }
+  i, .maha-asset-thumbnail {
+    margin: auto;
+  }
+  .maha-asset-thumbnail {
+    width: 20px;
+    height: 20px;
+    img {
+      display: block;
+      width: 100%;
+    }
+  }
+}
+.drive-item-name {
+  padding: 0.8em;
+  flex: 1;
+  .ui.progress {
+    margin: 0;
+  }
+}
+.drive-item-action {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  flex: 0 0 2em;
+  i {
+    margin: auto;
+  }
+  .fa-ellipsis-v {
+    color: fadeout(@black, 80);
+    .hover(color, fadeout(@black, 50));
+    font-size: 1.2em;
+  }
+  .fa-check {
+    color: @green;
+  }
+  .fa-refresh {
+    color: fadeout(@black, 80);
+  }
+  .fa-chevron-right {
+    color: fadeout(@black, 80);
+  }
+}
+
+@media (max-width: 768px) {
+  .drive {
+    .drive-overlay {
+      .opacity-transition(0, 0.5, .5s);
+      .opacity(0);
+      background-color: @black;
+    }
+    &.details {
+      .drive-details {
+        .translateX(0);
+      }
+      .drive-overlay {
+        .opacity(0.5);
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    }
+  }
+}

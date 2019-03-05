@@ -1,0 +1,91 @@
+<table align="center" class="container intro">
+  <tbody>
+    <tr>
+      <td class="small-12 large-12 columns first last">
+        <p>Hi <%= first_name %>,</p>
+        <p>You missed the following <%= pluralize('notification', notifications.length) %>:</p>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table align="center" class="container body-border float-center">
+  <tbody>
+    <tr>
+      <td>
+        <table class="row">
+          <tbody>
+            <tr>
+              <th class="small-12 large-12 columns first last notifications">
+                <table>
+                  <tr>
+                    <th>
+                      <table align="center">
+                        <tbody>
+                          <tr>
+                            <td>
+                              <% notifications.map((notification, j) => { %>
+                                <div class="notification">
+                                  <table class="row">
+                                    <tbody>
+                                      <tr>
+                                        <td class="small-2 large-2 columns first">
+                                          <a href="<%= host %><%= notification.route %>">
+                                            <% if(notification.user && notification.user.photo) { %>
+                                              <img src="<%= host %>/imagecache/fit=cover&w=40&h=40&dpi=2<%= notification.user.photo -%>" />
+                                            <% } else { %>
+                                              <img src="<%= host %>/admin/images/maha.png" />
+                                            <% } %>
+                                          </a>
+                                        </td>
+                                        <td class="small-9 large-9 columns">
+                                          <a href="<%= host %><%= notification.route %>">
+                                            <% if(notification.title !== undefined) { %>
+                                              <strong><%= notification.title %></strong><br />
+                                            <% } %>
+                                            <%= notification.body %><br />
+                                            <span class="timestamp"><%= moment(notification.created_at).format('MMM DD, YYYY @ h:mm a') -%></span>
+                                          </a>
+                                        </td>
+                                        <td class="small-1 large-1 columns last" align="right" valign="middle">
+                                          <a href="<%= host %><%= notification.route %>">
+                                            <img src="<%= host %>/admin/images/chevron.jpg" />
+                                          </a>
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                              <% }) %>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </th>
+                    <th class="expander"></th>
+                  </tr>
+                </table>
+              </th>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<table align="center" class="container preferences">
+  <tbody>
+    <tr>
+      <td class="small-12 large-12 columns first last">
+        <% if(email_notifications_method === 'digest') { %>
+          You're receiving this email because you indicated that you'd like to
+          receive a daily digest of missed notifications.
+        <% } else if(email_notifications_method === 'ondemand') { %>
+          You're receiving this email because you indicated that you'd like to
+          receive an email each time you miss a notification.
+        <% } %>
+        You can <a href="<%= host %>/admin#preferences">adjust your notification preferences</a> at any time.
+      </td>
+    </tr>
+  </tbody>
+</table>
+<img src="<%= host %>/ns<%= notifications.slice(0, 6).reduce((codes, notification) => `${codes}${notification.code}`, '') %>" />
