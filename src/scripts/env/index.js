@@ -8,7 +8,7 @@ const environment = () => {
 
   const data = ejs.render(template, process.env)
 
-  fs.writeFileSync(path.resolve('dist', '.env'), data, 'utf8')
+  fs.writeFileSync(path.resolve('.env'), data, 'utf8')
 
 
 }
