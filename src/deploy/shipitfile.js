@@ -1,5 +1,6 @@
 const utils = require('shipit-utils')
 const roles = require('shipit-roles')
+const path = require('path')
 
 module.exports = (shipit) => {
 
@@ -7,18 +8,42 @@ module.exports = (shipit) => {
 
   // roles(shipit)
 
-  const deployDir = shipit.config.deployTo
+  const timestamp = moment().format('YYYYMMDDHHmmss')
 
-  const sharedDir = deployDir + '/shared'
+  const deployDir = `${shipit.config.deployTo}/${process.env.NODE_ENV}`
 
-  const currentDir = deployDir + '/current'
+  const releaseDir = `${deployDir}/releases/${timestamp}`
+
+  const sharedDir = `${deployDir}/shared`
+
+  const currentDir = `${deployDir}/current`
 
   utils.registerTask(shipit, 'deploy', [
-    'deploy:zip'
+    'deploy:zip',
+    'deploy:mkdir',
+    'deploy:upload',
+    'deploy:unzip',
+    'deploy:install'
   ])
 
   utils.registerTask(shipit, 'deploy:zip', () => {
     return shipit.local('tar -czf deploy.tgz root')
+  })
+
+  utils.registerTask(shipit, 'deploy:mkdir', () => {
+    return shipit.remote(`mkdir -p ${releaseDir}`)
+  })
+
+  utils.registerTask(shipit, 'deploy:upload', () => {
+    shipit.remoteCopy(path.resolve('deploy.tgz'), releaseDir)
+  })
+
+  utils.registerTask(shipit, 'deploy:unzip', () => {
+    return shipit.remote(`cd ${releaseDir} && tar -xzf deploy.tgz`)
+  })
+
+  utils.registerTask(shipit, 'deploy:install', () => {
+    return shipit.remote(`cd ${releaseDir}/root && npm install`)
   })
 
   // utils.registerTask(shipit, 'deploy:maha_prepare', [
