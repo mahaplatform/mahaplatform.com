@@ -37,6 +37,9 @@ jobs:
       - run: NODE_ENV=production npm run env
       - run: NODE_ENV=production npm run build
       - run: NODE_ENV=production npm run help
+      - run: tar -czf artifact.tgz dist
+      - store_artifacts:
+          destination: artifact.tgz
   deploy:
     executor: node-postgres
     steps:
