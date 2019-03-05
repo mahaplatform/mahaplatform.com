@@ -1,4 +1,4 @@
-import { Plugin } from 'backframe'
+import { Plugin } from '../../packages/backframe'
 import Story from '../../../models/story'
 import Audit from '../../../models/audit'
 import _ from 'lodash'

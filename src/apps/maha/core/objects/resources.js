@@ -1,4 +1,4 @@
-import { Resources } from 'backframe'
+import { Resources } from '../packages/backframe'
 
 class MahaResources {
 

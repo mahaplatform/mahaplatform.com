@@ -1,4 +1,4 @@
-import { Segment } from 'backframe'
+import { Segment } from '../packages/backframe'
 
 const Api = Segment
 

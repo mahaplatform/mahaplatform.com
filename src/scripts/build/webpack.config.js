@@ -1,9 +1,9 @@
 import HtmlWebpackExcludeAssetsPlugin from 'html-webpack-exclude-assets-plugin'
-import MahaWebpackPlugin from '../../utils/maha_webpack_plugin'
+import MahaWebpackPlugin from '../../apps/maha/core/lib/webpack/maha_plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import TerserPlugin from 'terser-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
 import { chunkTest, ruleTest } from './utils'
 import autoprefixer from 'autoprefixer'
 import webpack from 'webpack'
@@ -105,15 +105,16 @@ const webpackConfig = (apps, src, dest) => ({
     alias: {
       ...apps.reduce((aliases, app) => ({
         ...aliases,
-        [app]: path.resolve('apps', app, 'src', 'client.js')
+        [app]: path.resolve('src','apps',app,'client.js')
       }), {}),
-      'maha-admin': path.resolve('apps', 'maha', 'src', 'client.js'),
-      'maha-client': path.resolve('apps', 'maha', 'src', 'admin', 'index.js')
+      'reframe': path.resolve('src','apps','maha','core','packages','reframe','index.js'),
+      'maha-admin': path.resolve('src','apps','maha','client.js'),
+      'maha-client': path.resolve('src','apps','maha','admin','index.js')
     }
   },
   resolveLoader: {
     modules: [
-      path.resolve(__dirname, '..', '..', '..', 'node_modules')
+      path.resolve('node_modules')
     ]
   }
 })

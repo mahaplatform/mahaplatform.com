@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import BackframeError from 'backframe'
+import BackframeError from '../packages/backframe'
 
 export const updateRelated = (related, table, param, result_key, foreign_key) => async (req, trx, result, options) => {
 

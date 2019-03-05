@@ -1,4 +1,4 @@
-import { Plugin } from 'backframe'
+import { Plugin } from '../../packages/backframe'
 
 const defaultQuery = (req, trx, qb, options) => {
 

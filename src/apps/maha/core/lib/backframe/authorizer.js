@@ -1,6 +1,6 @@
 import _ from 'lodash'
 import Checkit from 'checkit'
-import { Plugin, BackframeError } from 'backframe'
+import { Plugin, BackframeError } from '../../packages/backframe'
 import getUserAccess from '../../utils/get_user_access'
 
 const loadAppsRights = async (options, req, trx) => {

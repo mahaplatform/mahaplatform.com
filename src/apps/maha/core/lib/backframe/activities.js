@@ -1,7 +1,7 @@
 import Activity from '../../../models/activity'
 import Story from '../../../models/story'
 import socket from '../../services/emitter'
-import { Plugin } from 'backframe'
+import { Plugin } from '../../packages/backframe'
 
 const afterProcessor = async (req, trx, result, options) => {
 

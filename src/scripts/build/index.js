@@ -1,5 +1,5 @@
-import { action, writePaddedLine } from '../../utils/console'
-import clientConfig from './webpack.client'
+import '../../apps/maha/core/services/environment'
+import clientConfig from './webpack.config'
 import { transform } from 'babel-core'
 import precompile from './precompile'
 import move from 'move-concurrently'
@@ -14,7 +14,7 @@ import fs from 'fs'
 
 const apps = process.env.APPS.split(',')
 
-const templateRoot = path.resolve(__dirname, '..', '..', '..', 'src', 'tasks', 'compile', 'templates')
+const templateRoot = path.resolve(__dirname, 'templates')
 
 const buildTemplates = (root, templates, variables) => templates.map(entity => {
 
@@ -29,8 +29,6 @@ const buildTemplates = (root, templates, variables) => templates.map(entity => {
 })
 
 const compileClient = async ({ src, dest, variables }) => {
-
-  writePaddedLine(chalk.grey('Compiling client'))
 
   mkdirp.sync(path.join(dest, 'js'))
 
@@ -48,7 +46,7 @@ const compileClient = async ({ src, dest, variables }) => {
 
   const time = (stats.endTime - stats.startTime) / 1000
 
-  writePaddedLine(chalk.grey(`Finished in ${time}`))
+  process.stdout.write(chalk.grey(`Finished in ${time}`))
 
 }
 
@@ -71,8 +69,6 @@ const listItems = (root) => fs.readdirSync(root).reduce((items, item) => [
 
 const transpileFile = (src, dest) => {
 
-  action('compile', src)
-
   const source = fs.readFileSync(src, 'utf8')
 
   const transpiled = transform(source, {
@@ -87,7 +83,7 @@ const transpileFile = (src, dest) => {
       ['module-resolver', {
         alias: apps.reduce((aliases, app) => ({
           ...aliases,
-          [app]: path.resolve('dist','apps',app,'src','server.js')
+          [app]: path.resolve('dist','apps',app,'server.js')
         }), {})
       }]
     ],
@@ -100,15 +96,11 @@ const transpileFile = (src, dest) => {
 
 const mkdir = (src, dest) => {
 
-  action('mkdir', src)
-
   mkdirp.sync(dest)
 
 }
 
 const copy = (src, dest) => {
-
-  action('copy', src)
 
   return Promise.promisify(ncp)(src, dest)
 
@@ -136,7 +128,7 @@ const buildItems = async (srcPath, destPath) => {
 
 export const buildApp = async (app) => {
 
-  await buildItems(path.resolve('apps', app, 'src'), path.join('dist.staged', 'apps', app, 'src'))
+  await buildItems(path.resolve('src','apps', app), path.join('dist.staged', 'apps', app))
 
 }
 
@@ -150,12 +142,12 @@ export const buildServer = async () => {
 
 }
 
-export const compile = async (flags, args) => {
+const build = async (flags, args) => {
 
   rimraf.sync(path.resolve('dist.staged'))
 
   await compileClient({
-    src: path.resolve('apps', 'maha', 'src', 'admin'),
+    src: path.resolve('src', 'apps', 'maha', 'admin'),
     dest: path.resolve('dist.staged','public', 'admin'),
     variables: precompile()
   })
@@ -167,3 +159,5 @@ export const compile = async (flags, args) => {
   await move(path.resolve('dist.staged'), path.resolve('dist'))
 
 }
+
+build().then(process.exit)

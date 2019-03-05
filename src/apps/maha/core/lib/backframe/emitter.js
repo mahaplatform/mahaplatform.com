@@ -1,6 +1,6 @@
 import formatObjectForTransport from '../../utils/format_object_for_transport'
 import socket from '../../services/emitter'
-import { Plugin } from 'backframe'
+import { Plugin } from '../../packages/backframe'
 import _ from 'lodash'
 
 const afterCommit = async (req, trx, result, options) => {

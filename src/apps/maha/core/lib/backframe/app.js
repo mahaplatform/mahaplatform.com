@@ -1,4 +1,4 @@
-import { Plugin } from 'backframe'
+import { Plugin } from '../../packages/backframe'
 import App from '../../../models/app'
 
 const alterRequest = async (req, trx, options) => {

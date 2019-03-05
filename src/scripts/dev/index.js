@@ -1,4 +1,4 @@
-import './environment'
+import '../../apps/maha/core/services/environment'
 import { info, error, write } from './console'
 import devServer from 'webpack-dev-server'
 import { spawn } from 'child_process'
@@ -26,10 +26,7 @@ const serverWatch = async () => {
     nodemon.push('--ignore')
     nodemon.push(path.resolve('src','apps',app,'admin','views'))
   })
-  fs.readdirSync('packages').map(pkg => {
-    nodemon.push('--watch')
-    nodemon.push(path.resolve('packages',pkg,'src'))
-  })
+  nodemon.push(path.resolve('src','packages','backframe'))
 
   const proc = spawn('nodemon', nodemon, {
     stdio: ['pipe', 'pipe', 'pipe', 'ipc']

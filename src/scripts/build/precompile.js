@@ -1,4 +1,4 @@
-import transpile from '../../utils/transpile'
+import transpile from '../../apps/maha/core/utils/transpile'
 import glob from 'glob'
 import path from 'path'
 import _ from 'lodash'
@@ -8,7 +8,7 @@ const apps = process.env.APPS.split(',')
 
 const configs = apps.reduce((configs, app) => {
 
-  const configPath = path.resolve('apps', app, 'src', 'app.js')
+  const configPath = path.resolve('src', 'apps', app, 'app.js')
 
   const contents = fs.readFileSync(configPath, 'utf8')
 

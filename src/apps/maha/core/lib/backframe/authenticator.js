@@ -1,4 +1,4 @@
-import { Plugin, BackframeError } from 'backframe'
+import { Plugin, BackframeError } from '../../packages/backframe'
 import Device from '../../../models/device'
 import Session from '../../../models/session'
 import passport from '../../services/passport'

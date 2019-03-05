@@ -7,8 +7,13 @@
   "repository": "mahaplatform/mahaplatform.com",
   "homepage": "https://github.com/mahaplatform/mahaplatform.com",
   "scripts": {
+    "bootstrap": "babel-node ./src/scripts/bootstrap.js",
+    "build": "NODE_ENV=production babel-node ./src/scripts/build/index.js",
     "dev": "babel-node ./src/scripts/dev/index.js",
-    "test": "babel-node ./src/scripts/test.js"
+    "deploy": "shipit production deploy --shipitfile ./src/deploy/shipitfile.js",
+    "help": "babel-node ./src/scripts/help.js",
+    "test": "babel-node ./src/scripts/test.js",
+    "start": "NODE_ENV=production node ./dist/server.js"
   },
   "devDependencies": {
     "autoprefixer": "^9.4.9",
@@ -41,6 +46,10 @@
     "postcss-loader": "^3.0.0",
     "react-hot-loader": "^4.7.2",
     "search-index": "^0.15.1",
+    "shipit-cli": "^4.2.0",
+    "shipit-deploy": "^4.1.4",
+    "shipit-roles": "^1.0.3",
+    "shipit-utils": "^1.4.1",
     "sinon": "^2.1.0",
     "style-loader": "^0.23.1",
     "terser-webpack-plugin": "^1.2.3",
@@ -57,7 +66,7 @@
     "body-parser": "^1.17.1",
     "bookshelf": "^0.10.3",
     "box-node-sdk": "^1.16.1",
-    "bull": "^3.5.2",
+    "bull": "^3.7.0",
     "bytes": "^3.1.0",
     "chalk": "2.1.0",
     "checkit": "^0.7.0",
@@ -81,7 +90,6 @@
     "get-urls": "^7.0.0",
     "googleapis": "^27.0.0",
     "html-email-to-text": "^1.0.4",
-    "imagecachejs": "^0.4.0",
     "inline-css": "^2.2.2",
     "instagram-node": "^0.5.8",
     "ioredis": "^3.1.2",
@@ -137,6 +145,7 @@
     "reselect": "^3.0.1",
     "resumablejs": "^1.1.0",
     "rollbar": "^2.3.7",
+    "sharp": "^0.21.3",
     "simple-oauth2": "^1.5.2",
     "socket.io": "^1.7.3",
     "socket.io-emitter": "^3.0.1",
@@ -145,7 +154,6 @@
     "tempfile": "^2.0.0",
     "toureiro": "^0.2.13",
     "ua-parser": "^0.3.5",
-    "watch": "^1.0.2",
     "web-push": "^3.2.5",
     "webshot": "^0.18.0",
     "xml": "^1.0.1"

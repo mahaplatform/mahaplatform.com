@@ -1,4 +1,4 @@
-import MahaWebpackPlugin from './maha_webpack_plugin'
+import MahaWebpackPlugin from '../../apps/maha/core/lib/webpack/maha_plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import webpack from 'webpack'
@@ -77,7 +77,7 @@ const webpackConfig = (apps) => ({
         ...aliases,
         [app]: path.resolve('src','apps',app,'client.js')
       }), {}),
-      'reframe': path.resolve('src','packages','reframe','index.js'),
+      'reframe': path.resolve('src','apps','maha','core','packages','reframe','index.js'),
       'maha-admin': path.resolve('src','apps','maha','client.js'),
       'maha-client': path.resolve('src','apps','maha','admin','index.js')
     },

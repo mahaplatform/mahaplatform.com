@@ -1,5 +1,5 @@
 import Listening from '../../../models/listening'
-import { Plugin } from 'backframe'
+import { Plugin } from '../../packages/backframe'
 import _ from 'lodash'
 
 const afterProcessor = async(req, trx, result, options) => {

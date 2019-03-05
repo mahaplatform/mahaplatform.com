@@ -1,5 +1,5 @@
-import transpile from '../transpile'
-import { info } from '../console'
+import transpile from '../../../utils/transpile'
+import { info } from '../../../utils/console'
 import glob from 'glob'
 import path from 'path'
 import _ from 'lodash'
@@ -86,7 +86,7 @@ class MahaWebpackPlugin {
         routes: extract('admin/routes.js'),
         reducers,
         styles: [
-          { filepath: path.resolve('src','packages','reframe','style.less') },
+          { filepath: path.resolve('src','apps','maha','core','packages','reframe','style.less') },
           ...extract('admin/**/style.less')
         ],
         settings: extract('admin/settings.js'),

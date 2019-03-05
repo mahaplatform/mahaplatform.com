@@ -1,6 +1,6 @@
 // backframe
 
-export { BackframeError, ListRoute, Plugin, Route, Resource, Responder, Segment } from 'backframe'
+export { BackframeError, ListRoute, Plugin, Route, Resource, Responder, Segment } from './core/packages/backframe'
 
 // objects
 

@@ -11,9 +11,9 @@ import emitter from '../backframe/emitter'
 import redis from '../../services/redis'
 import knex from '../../services/knex'
 import App from '../../../models/app'
-import { Segment } from 'backframe'
+import { Segment } from '../../packages/backframe'
+import Backframe from '../../packages/backframe'
 import app from '../backframe/app'
-import Backframe from 'backframe'
 import { Router } from 'express'
 
 const _segment = async (portal, prefix, authenticated) => {

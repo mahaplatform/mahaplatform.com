@@ -1,4 +1,4 @@
-require('./environment')
+require('../../apps/maha/core/services/environment')
 const register = require('babel-register')
 const minimist = require('minimist')
 const Promise = require('bluebird')
@@ -19,7 +19,6 @@ register({
     ['transform-runtime', { polyfill: false }],
     ['module-resolver', {
       'alias': {
-        backframe: path.resolve('src','packages','backframe','index.js'),
         ...process.env.APPS.split(',').reduce((aliases, app) => ({
           ...aliases,
           [app]: path.resolve('src','apps',app,'server.js')

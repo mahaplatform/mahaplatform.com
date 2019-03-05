@@ -3,7 +3,7 @@ import NotificationType from '../../../models/notification_type'
 import Notification from '../../../models/notification'
 import Story from '../../../models/story'
 import App from '../../../models/app'
-import { Plugin } from 'backframe'
+import { Plugin } from '../../packages/backframe'
 import _ from 'lodash'
 
 const afterCommit = async(req, trx, result, options) => {
