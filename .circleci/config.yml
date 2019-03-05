@@ -34,9 +34,15 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-      - run: NODE_ENV=production npm run env
-      - run: NODE_ENV=production npm run build
-      - run: NODE_ENV=production npm run help
+      - run:
+          name: Setup environment
+          command: NODE_ENV=production npm run env
+      - run:
+          name: Build source
+          command: NODE_ENV=production npm run build
+      - run:
+          name: Build help
+          command: NODE_ENV=production npm run help
       - persist_to_workspace:
           root: .
           paths:
@@ -50,10 +56,15 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
       - attach_workspace:
-          at: ~/repo/dist
-      - run: tar -czf artifact.tgz dist
+          at: ~/repo/root
+      - run:
+          name: Setup environment
+          command: NODE_ENV=production npm run env
+      - run:
+          name: Setup package
+          command: NODE_ENV=production npm run deploy
 workflows:
-  test-deploy:
+  test-build-deploy:
     jobs:
       - test:
           filters:

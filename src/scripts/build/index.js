@@ -158,11 +158,6 @@ const build = async (flags, args) => {
 
   await move(path.resolve('dist.staged'), path.resolve('dist'))
 
-  await copy(path.resolve('.env'), path.resolve('dist','.env'))
-
-  await copy(path.resolve('package.json'), path.resolve('dist','package.json'))
-
-  await copy(path.resolve('package-lock.json'), path.resolve('dist','package-lock.json'))
 }
 
 build().then(process.exit)
