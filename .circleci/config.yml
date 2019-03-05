@@ -38,9 +38,9 @@ jobs:
       - run: NODE_ENV=production npm run build
       - run: NODE_ENV=production npm run help
       - persist_to_workspace:
-          root: .
+          root: dist
           paths:
-            - dist
+            - *
   deploy:
     executor: node-postgres
     steps:
@@ -50,7 +50,7 @@ jobs:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
       - attach_workspace:
-          at: /repo/workspace
+          at: /repo/dist
 workflows:
   test-deploy:
     jobs:
