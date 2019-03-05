@@ -34,7 +34,7 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-      - run: NODE_ENV=production npm run environment
+      - run: NODE_ENV=production npm run env
       - run: NODE_ENV=production npm run build
       - run: NODE_ENV=production npm run help
   deploy:
