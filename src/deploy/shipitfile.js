@@ -5,8 +5,6 @@ const moment = require('moment')
 
 module.exports = (shipit) => {
 
-  // deploy(shipit)
-
   roles(shipit)
 
   const timestamp = moment().format('YYYYMMDDHHmmss')
