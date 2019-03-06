@@ -5,9 +5,9 @@ import path from 'path'
 import ejs from 'ejs'
 import fs from 'fs'
 
-const messageTemplate = fs.readFileSync(path.resolve('src', 'apps', 'maha', 'emails', 'notification_email', 'html.ejs')).toString()
+const messageTemplate = fs.readFileSync(path.resolve(__dirname,'..','emails','notification_email','html.ejs')).toString()
 
-const envelopeTemplate = fs.readFileSync(path.resolve('src', 'apps', 'maha', 'core', 'templates', 'envelope.ejs')).toString()
+const envelopeTemplate = fs.readFileSync(path.resolve(__dirname,'..','core','templates','envelope.ejs')).toString()
 
 const host = process.env.WEB_HOST
 
