@@ -50,6 +50,9 @@ jobs:
   deploy:
     executor: node-postgres
     steps:
+      - add_ssh_keys:
+          fingerprints:
+            - 0d:79:bf:2b:27:c2:17:a2:ac:17:89:66:17:66:8a:50
       - checkout
       - restore_cache:
           keys:

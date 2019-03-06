@@ -27,7 +27,6 @@ const deploy = async () => {
     default: {
       deployTo: '/var/www/maha',
       key: '~/.ssh/id_rsa_0d79bf2b27c217a2ac17896617668a50'
-
     },
     production: {
       servers: [
