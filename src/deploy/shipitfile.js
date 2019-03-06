@@ -5,6 +5,12 @@ const moment = require('moment')
 
 module.exports = (shipit) => {
 
+  const appservers = process.env.APPSERVERS ? process.env.APPSERVERS.split(',') : []
+
+  const workerservers = process.env.WORKERSERVERS ? process.env.WORKERSERVERS.split(',') : []
+
+  const cronservers = process.env.CRONSERVERS ? process.env.CRONSERVERS.split(',') : []
+
   shipit.initConfig({
     default: {
       deployTo: '/var/www/maha',
@@ -33,12 +39,6 @@ module.exports = (shipit) => {
   })
 
   roles(shipit)
-
-  const appservers = process.env.APPSERVERS ? process.env.APPSERVERS.split(',') : []
-
-  const workerservers = process.env.WORKERSERVERS ? process.env.WORKERSERVERS.split(',') : []
-
-  const cronservers = process.env.CRONSERVERS ? process.env.CRONSERVERS.split(',') : []
 
   const timestamp = moment().format('YYYYMMDDHHmmss')
 
