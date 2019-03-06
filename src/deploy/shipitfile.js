@@ -66,7 +66,7 @@ module.exports = (shipit) => {
   ])
 
   utils.registerTask(shipit, 'deploy:zip', async () => {
-    return await shipit.local('cd root && tar -czf deploy.tgz * && cp deploy.tgz ..')
+    return await shipit.local('cd root && tar -czf deploy.tgz * .env && cp deploy.tgz ..')
   })
 
   utils.registerTask(shipit, 'deploy:mkdir', async () => {
