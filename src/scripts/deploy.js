@@ -21,6 +21,8 @@ const deploy = async () => {
 
   shipit.start('deploy')
 
+  shipit.on('err', () => process.exit(1))
+
   shipit.on('task_err', () => process.exit(1))
 
   shipit.on('task_not_found', () => process.exit(1))

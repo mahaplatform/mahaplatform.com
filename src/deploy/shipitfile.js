@@ -5,22 +5,6 @@ const moment = require('moment')
 
 module.exports = (shipit) => {
 
-  const appservers = process.env.APPSERVERS ? process.env.APPSERVERS.split(',') : []
-
-  const workerservers = process.env.WORKERSERVERS ? process.env.WORKERSERVERS.split(',') : []
-
-  const cronservers = process.env.CRONSERVERS ? process.env.CRONSERVERS.split(',') : []
-
-  const timestamp = moment().format('YYYYMMDDHHmmss')
-
-  const deployDir = `${shipit.config.deployTo}/${process.env.NODE_ENV}`
-
-  const releaseDir = `${deployDir}/releases/${timestamp}`
-
-  const sharedDir = `${deployDir}/shared`
-
-  const currentDir = `${deployDir}/current2`
-
   shipit.initConfig({
     default: {
       deployTo: '/var/www/maha',
@@ -50,6 +34,22 @@ module.exports = (shipit) => {
 
   roles(shipit)
 
+  const appservers = process.env.APPSERVERS ? process.env.APPSERVERS.split(',') : []
+
+  const workerservers = process.env.WORKERSERVERS ? process.env.WORKERSERVERS.split(',') : []
+
+  const cronservers = process.env.CRONSERVERS ? process.env.CRONSERVERS.split(',') : []
+
+  const timestamp = moment().format('YYYYMMDDHHmmss')
+
+  const deployDir = `${shipit.config.deployTo}/${process.env.NODE_ENV}`
+
+  const releaseDir = `${deployDir}/releases/${timestamp}`
+
+  const sharedDir = `${deployDir}/shared`
+
+  const currentDir = `${deployDir}/current2`
+
   utils.registerTask(shipit, 'deploy', [
     'deploy:zip',
     'deploy:mkdir',
@@ -74,7 +74,7 @@ module.exports = (shipit) => {
   })
 
   utils.registerTask(shipit, 'deploy:upload', async () => {
-    await shipit.remoteCopy(path.resolve('deploy.tgz'), releaseDir)
+    await shipit.copyToRemote(path.resolve('deploy.tgz'), releaseDir)
   })
 
   utils.registerTask(shipit, 'deploy:unzip', async () => {
