@@ -12,6 +12,8 @@ import ejs from 'ejs'
 import ncp from 'ncp'
 import fs from 'fs'
 
+const copy = Promise.promisify(ncp)
+
 const apps = process.env.APPS.split(',')
 
 const templateRoot = path.resolve(__dirname, 'templates')
@@ -94,25 +96,13 @@ const transpileFile = (src, dest) => {
 
 }
 
-const mkdir = (src, dest) => {
-
-  mkdirp.sync(dest)
-
-}
-
-const copy = (src, dest) => {
-
-  return Promise.promisify(ncp)(src, dest)
-
-}
-
 const buildItem = async (item, srcPath, destPath) => {
 
   const dest = item.src.replace(srcPath, destPath)
 
   if(item.type === 'js') return transpileFile(item.src, dest)
 
-  if(item.type === 'dir') return mkdir(item.src, dest)
+  if(item.type === 'dir') return mkdirp.sync(dest)
 
   return await copy(item.src, dest)
 
@@ -146,11 +136,13 @@ const build = async (flags, args) => {
 
   rimraf.sync(path.resolve('dist.staged'))
 
-  await compileClient({
-    src: path.resolve('src', 'apps', 'maha', 'admin'),
-    dest: path.resolve('dist.staged','public', 'admin'),
-    variables: precompile()
-  })
+  // await compileClient({
+  //   src: path.resolve('src', 'apps', 'maha', 'admin'),
+  //   dest: path.resolve('dist.staged','public', 'admin'),
+  //   variables: precompile()
+  // })
+
+  await copy(path.resolve('src','deploy','ecosystem.js'), path.resolve('dist.staged','ecosystem.js'))
 
   await buildServer()
 

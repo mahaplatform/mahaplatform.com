@@ -13,9 +13,10 @@
 /docs/files/*.pem
 /docs/files/deploy
 /repo
+/root
+deploy.tgz
 *.compiled.js
 npm-debug.log
 .env
 maha.js
-
 REVISION

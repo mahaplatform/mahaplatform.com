@@ -26,23 +26,24 @@ const deploy = async () => {
   const config = {
     default: {
       deployTo: '/var/www/maha',
-      key: `~/.ssh/id_rsa_${process.env.FINGERPRINT}`
+      key: '~/.ssh/gkops'
+      // key: `~/.ssh/id_rsa_${process.env.FINGERPRINT}`
     },
     production: {
       servers: [
         ...appservers.map(server => ({
           user: 'root',
-          host: `${server}@mahaplatform.com`,
+          host: `${server}.mahaplatform.com`,
           role: 'appserver'
         })),
         ...workerservers.map(server => ({
           user: 'root',
-          host: `${server}@mahaplatform.com`,
+          host: `${server}.mahaplatform.com`,
           role: 'worker'
         })),
         ...cronservers.map(server => ({
           user: 'root',
-          host: `${server}@mahaplatform.com`,
+          host: `${server}.mahaplatform.com`,
           role: 'cron'
         }))
       ]
@@ -63,4 +64,4 @@ const deploy = async () => {
 
 }
 
-deploy().then(process.exit)
+deploy()
