@@ -1,4 +1,4 @@
-import '../apps/maha/core/services/environment'
+import shipitfile from '../deploy/shipitfile'
 import Shipit from 'shipit-cli'
 import path from 'path'
 import ncp from 'ncp'
@@ -15,43 +15,7 @@ const deploy = async () => {
 
   const shipit = new Shipit({ environment: process.env.NODE_ENV })
 
-  const deploy = require(path.resolve('src','deploy','shipitfile'))
-
-  const appservers = process.env.APPSERVERS ? process.env.APPSERVERS.split(',') : []
-
-  const workerservers = process.env.WORKERSERVERS ? process.env.WORKERSERVERS.split(',') : []
-
-  const cronservers = process.env.CRONSERVERS ? process.env.CRONSERVERS.split(',') : []
-
-  const config = {
-    default: {
-      deployTo: '/var/www/maha',
-      key: '~/.ssh/id_rsa_0d79bf2b27c217a2ac17896617668a50'
-    },
-    production: {
-      servers: [
-        ...appservers.map(server => ({
-          user: 'root',
-          host: `${server}.mahaplatform.com`,
-          role: 'appserver'
-        })),
-        ...workerservers.map(server => ({
-          user: 'root',
-          host: `${server}.mahaplatform.com`,
-          role: 'worker'
-        })),
-        ...cronservers.map(server => ({
-          user: 'root',
-          host: `${server}.mahaplatform.com`,
-          role: 'cron'
-        }))
-      ]
-    }
-  }
-
-  await shipit.initConfig(config)
-
-  deploy(shipit)
+  shipitfile(shipit)
 
   shipit.initialize()
 

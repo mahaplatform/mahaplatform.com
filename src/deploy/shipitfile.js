@@ -7,6 +7,12 @@ module.exports = (shipit) => {
 
   roles(shipit)
 
+  const appservers = process.env.APPSERVERS ? process.env.APPSERVERS.split(',') : []
+
+  const workerservers = process.env.WORKERSERVERS ? process.env.WORKERSERVERS.split(',') : []
+
+  const cronservers = process.env.CRONSERVERS ? process.env.CRONSERVERS.split(',') : []
+
   const timestamp = moment().format('YYYYMMDDHHmmss')
 
   const deployDir = `${shipit.config.deployTo}/${process.env.NODE_ENV}`
@@ -16,6 +22,33 @@ module.exports = (shipit) => {
   const sharedDir = `${deployDir}/shared`
 
   const currentDir = `${deployDir}/current2`
+
+  shipit.initConfig({
+    default: {
+      deployTo: '/var/www/maha',
+      key: '~/.ssh/id_rsa_0d79bf2b27c217a2ac17896617668a50',
+      strict: 'no'
+    },
+    production: {
+      servers: [
+        ...appservers.map(server => ({
+          user: 'root',
+          host: `${server}.mahaplatform.com`,
+          role: 'appserver'
+        })),
+        ...workerservers.map(server => ({
+          user: 'root',
+          host: `${server}.mahaplatform.com`,
+          role: 'worker'
+        })),
+        ...cronservers.map(server => ({
+          user: 'root',
+          host: `${server}.mahaplatform.com`,
+          role: 'cron'
+        }))
+      ]
+    }
+  })
 
   utils.registerTask(shipit, 'deploy', [
     'deploy:zip',
@@ -30,7 +63,6 @@ module.exports = (shipit) => {
     'deploy:restart_cron',
     'deploy:cache_app',
     'deploy:cache_socket'
-
   ])
 
   utils.registerTask(shipit, 'deploy:zip', async () => {
