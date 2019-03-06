@@ -5,3 +5,5 @@ const path = require('path')
 events.EventEmitter.defaultMaxListeners = 0
 
 dotenv.load({ path: path.resolve('.env') })
+
+process.env.ROOT = path.resolve()

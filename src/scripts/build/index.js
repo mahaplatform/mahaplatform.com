@@ -85,14 +85,14 @@ const transpileFile = (src, dest) => {
       ['module-resolver', {
         alias: apps.reduce((aliases, app) => ({
           ...aliases,
-          [app]: path.join('dist','apps',app,'server.js')
+          [app]: path.resolve('dist','apps',app,'server.js')
         }), {})
       }]
     ],
     sourceMaps: 'inline'
   })
 
-  fs.writeFileSync(dest, transpiled.code)
+  fs.writeFileSync(dest, transpiled.code.replace('\''+path.resolve(), 'process.env.ROOT+\''))
 
 }
 
