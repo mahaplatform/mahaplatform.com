@@ -48,7 +48,7 @@ module.exports = (shipit) => {
 
   const sharedDir = `${deployDir}/shared`
 
-  const currentDir = `${deployDir}/current2`
+  const currentDir = `${deployDir}/current`
 
   utils.registerTask(shipit, 'deploy', [
     'deploy:zip',
@@ -82,7 +82,7 @@ module.exports = (shipit) => {
   })
 
   utils.registerTask(shipit, 'deploy:install', async () => {
-    await shipit.remote(`cd ${releaseDir} && npm install`)
+    await shipit.remote(`cd ${releaseDir} && npm install --silent`)
   })
 
   utils.registerTask(shipit, 'deploy:link_shared', async () => {
@@ -99,11 +99,11 @@ module.exports = (shipit) => {
   })
 
   utils.registerTask(shipit, 'deploy:restart_workers', () => {
-    return shipit.remote(`cd ${deployDir} && NODE_ENV=${shipit.options.environment} pm2 startOrRestart ./current/dist/ecosystem.js`, { role: 'worker' })
+    return shipit.remote(`cd ${deployDir} && NODE_ENV=${shipit.options.environment} pm2 startOrRestart ${currentDir}/dist/ecosystem.js`, { role: 'worker' })
   })
 
   utils.registerTask(shipit, 'deploy:restart_cron', () => {
-    return shipit.remote(`cd ${deployDir} && NODE_ENV=${shipit.options.environment} pm2 startOrRestart ./current/dist/ecosystem.js`, { role: 'cron' })
+    return shipit.remote(`cd ${deployDir} && NODE_ENV=${shipit.options.environment} pm2 startOrRestart ${currentDir}/dist/ecosystem.js`, { role: 'cron' })
   })
 
   utils.registerTask(shipit, 'deploy:cache_app', () => {
