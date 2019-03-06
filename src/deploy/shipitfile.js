@@ -82,7 +82,7 @@ module.exports = (shipit) => {
   })
 
   utils.registerTask(shipit, 'deploy:install', async () => {
-    await shipit.remote(`cd ${releaseDir}/root && npm install`)
+    await shipit.remote(`cd ${releaseDir} && npm install`)
   })
 
   utils.registerTask(shipit, 'deploy:link_shared', async () => {
