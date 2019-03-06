@@ -1,11 +1,13 @@
 import fs from 'fs'
 import path from 'path'
 import { Router } from 'express'
-import request from 'request-promise'
+import Request from 'request'
 import Jimp from 'jimp'
 import url from 'url'
 import tinycolor from 'tinycolor2'
 import qs from 'qs'
+
+const request = Promise.promisify(Request)
 
 const options = {
   webRoot: path.join('dist', 'public'),
@@ -46,7 +48,7 @@ const extractPathAndQuery = (req) => {
 
   const firstFolder = pathname.split('/')[1]
 
-  const matches = firstFolder.match(/\w*\=\w*/)
+  const matches = firstFolder.match(/\w*=\w*/)
 
   const query = matches ? qs.parse(firstFolder) : {}
 
@@ -68,7 +70,7 @@ const cache = async (pathPrefix, assetPath, query) => {
 
   if(!imagePath) return null
 
-  await process(imagePath, cachedPath, query)
+  await processImage(imagePath, cachedPath, query)
 
   return cachedPath
 
@@ -130,7 +132,7 @@ const testUrl = async (url) => {
 
 }
 
-const process = async (imagePath, destinationPath, params) => {
+const processImage = async (imagePath, destinationPath, params) => {
 
   const data = await Jimp.read(imagePath)
 
