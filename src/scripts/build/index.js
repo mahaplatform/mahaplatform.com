@@ -136,11 +136,11 @@ const build = async (flags, args) => {
 
   rimraf.sync(path.resolve('dist.staged'))
 
-  // await compileClient({
-  //   src: path.resolve('src', 'apps', 'maha', 'admin'),
-  //   dest: path.resolve('dist.staged','public', 'admin'),
-  //   variables: precompile()
-  // })
+  await compileClient({
+    src: path.resolve('src', 'apps', 'maha', 'admin'),
+    dest: path.resolve('dist.staged','public', 'admin'),
+    variables: precompile()
+  })
 
   await copy(path.resolve('src','deploy','ecosystem.js'), path.resolve('dist.staged','ecosystem.js'))
 
