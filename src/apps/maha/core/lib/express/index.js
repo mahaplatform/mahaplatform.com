@@ -17,8 +17,6 @@ const platformMiddleware = async () => {
 
   const router = new Router({ mergeParams: true })
 
-  router.use(await cors())
-
   router.use('/$', (req, res) => res.redirect(`${process.env.WEB_HOST}/admin`))
 
   router.use('/ping', ping)
@@ -41,7 +39,7 @@ const platformMiddleware = async () => {
 
   router.use(await publicMiddleware())
 
-  router.use(await apiMiddleware())
+  router.use(await cors(), await apiMiddleware())
 
   router.use('/js/notifications.js', (req, res) => res.sendFile(path.resolve('public', 'admin', 'js', 'notifications.js')))
 
