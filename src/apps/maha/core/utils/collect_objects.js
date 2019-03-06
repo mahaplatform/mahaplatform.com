@@ -1,10 +1,13 @@
 import mahaRequire from './maha_require.js'
 import appConfig from './app_config'
 import glob from 'glob'
+import path from 'path'
+
+const root = path.resolve(__dirname,'..','..','..')
 
 const collectObjects = (pattern) => [
-  ...glob.sync(`src/apps/*/${pattern}`),
-  ...glob.sync(`src/apps/*/${pattern}/index.js`)
+  ...glob.sync(`${root}/*/${pattern}`),
+  ...glob.sync(`${root}/*/${pattern}/index.js`)
 ].map(file => {
 
   const [,app] = file.match(/apps\/([^/]*)/)

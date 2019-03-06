@@ -85,7 +85,7 @@ const transpileFile = (src, dest) => {
       ['module-resolver', {
         alias: apps.reduce((aliases, app) => ({
           ...aliases,
-          [app]: path.resolve('dist','apps',app,'server.js')
+          [app]: path.join('dist','apps',app,'server.js')
         }), {})
       }]
     ],
