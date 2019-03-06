@@ -91,7 +91,7 @@ module.exports = (shipit) => {
   })
 
   utils.registerTask(shipit, 'deploy:symlink', async () => {
-    await shipit.remote(`ln -s ${releaseDir} ${currentDir}`)
+    await shipit.remote(`rm -rf ${currentDir} && ln -s ${releaseDir} ${currentDir}`)
   })
 
   utils.registerTask(shipit, 'deploy:reload_appservers', () => {
