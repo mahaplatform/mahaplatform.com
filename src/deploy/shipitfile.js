@@ -5,8 +5,6 @@ const moment = require('moment')
 
 module.exports = (shipit) => {
 
-  roles(shipit)
-
   const appservers = process.env.APPSERVERS ? process.env.APPSERVERS.split(',') : []
 
   const workerservers = process.env.WORKERSERVERS ? process.env.WORKERSERVERS.split(',') : []
@@ -49,6 +47,8 @@ module.exports = (shipit) => {
       ]
     }
   })
+
+  roles(shipit)
 
   utils.registerTask(shipit, 'deploy', [
     'deploy:zip',
