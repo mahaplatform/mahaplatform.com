@@ -92,7 +92,7 @@ const transpileFile = (src, dest) => {
     sourceMaps: 'inline'
   })
 
-  fs.writeFileSync(dest, transpiled.code.replace('\''+path.resolve(), 'process.env.ROOT+\''))
+  fs.writeFileSync(dest, transpiled.code)
 
 }
 

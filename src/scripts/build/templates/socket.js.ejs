@@ -6,8 +6,6 @@ events.EventEmitter.defaultMaxListeners = 0
 
 dotenv.load({ path: path.resolve('.env') })
 
-process.env.ROOT = path.resolve()
-
 const socket = require(path.resolve('dist','apps','maha','core','entities','socket')).default
 
 socket()

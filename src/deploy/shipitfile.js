@@ -51,11 +51,12 @@ module.exports = (shipit) => {
   const currentDir = `${deployDir}/current`
 
   utils.registerTask(shipit, 'deploy', [
-    'deploy:zip',
-    'deploy:mkdir',
-    'deploy:upload',
+    'deploy:checkout',
+    'deploy:config',
     'deploy:unzip',
     'deploy:install',
+    'deploy:build',
+    'deploy:help',
     'deploy:link_shared',
     'deploy:symlink',
     'deploy:reload_appservers',
@@ -65,24 +66,25 @@ module.exports = (shipit) => {
     'deploy:cache_socket'
   ])
 
-  utils.registerTask(shipit, 'deploy:zip', async () => {
-    return await shipit.local('cd root && tar -czf deploy.tgz * .env && cp deploy.tgz ..')
+
+  utils.registerTask(shipit, 'deploy:checkout', async () => {
+    await shipit.remote(`git clone https://github.com/mahaplatform/mahaplatform.com.git ${releaseDir}`)
   })
 
-  utils.registerTask(shipit, 'deploy:mkdir', async () => {
-    await shipit.remote(`mkdir -p ${releaseDir}`)
-  })
-
-  utils.registerTask(shipit, 'deploy:upload', async () => {
-    await shipit.copyToRemote(path.resolve('deploy.tgz'), releaseDir)
-  })
-
-  utils.registerTask(shipit, 'deploy:unzip', async () => {
-    await shipit.remote(`cd ${releaseDir} && tar -xzf deploy.tgz && rm deploy.tgz`)
+  utils.registerTask(shipit, 'deploy:config', async () => {
+    await shipit.copyToRemote(path.resolve('.env'), releaseDir)
   })
 
   utils.registerTask(shipit, 'deploy:install', async () => {
     await shipit.remote(`cd ${releaseDir} && npm install --silent`)
+  })
+
+  utils.registerTask(shipit, 'deploy:build', async () => {
+    await shipit.remote(`cd ${releaseDir} && NODE_ENV=production npm run build`)
+  })
+
+  utils.registerTask(shipit, 'deploy:help', async () => {
+    await shipit.remote(`cd ${releaseDir} && NODE_ENV=production npm run help`)
   })
 
   utils.registerTask(shipit, 'deploy:link_shared', async () => {

@@ -26,27 +26,6 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm test
-  build:
-    executor: node-postgres
-    steps:
-      - checkout
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-      - run:
-          name: Setup environment
-          command: NODE_ENV=production npm run env
-      - run:
-          name: Build source
-          command: NODE_ENV=production npm run build
-      - run:
-          name: Build help
-          command: NODE_ENV=production npm run help
-      - persist_to_workspace:
-          root: .
-          paths:
-            - dist
   deploy:
     executor: node-postgres
     steps:
@@ -70,7 +49,7 @@ jobs:
           name: Deploy code
           command: NODE_ENV=production npm run deploy
 workflows:
-  test-build-deploy:
+  test-deploy:
     jobs:
       - test:
           filters:
@@ -78,17 +57,9 @@ workflows:
               only: /.*/
             tags:
               only: /.*/
-      - build:
-          requires:
-            - test
-          filters:
-            branches:
-              only: /.*/
-            tags:
-              only: /.*/
       - deploy:
           requires:
-            - build
+            - test
           filters:
             branches:
               only: /.*/
