@@ -53,7 +53,6 @@ module.exports = (shipit) => {
   utils.registerTask(shipit, 'deploy', [
     'deploy:checkout',
     'deploy:config',
-    'deploy:unzip',
     'deploy:install',
     'deploy:build',
     'deploy:help',
