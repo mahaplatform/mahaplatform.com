@@ -104,11 +104,11 @@ module.exports = (shipit) => {
   })
 
   utils.registerTask(shipit, 'deploy:restart_workers', () => {
-    return shipit.remote(`cd ${deployDir} && NODE_ENV=${shipit.options.environment} pm2 startOrRestart ${currentDir}/dist/ecosystem.js`, { role: 'worker' })
+    return shipit.remote(`cd ${deployDir} && NODE_ENV=${shipit.options.environment} pm2 startOrRestart ./current/dist/ecosystem.config.js`, { role: 'worker' })
   })
 
   utils.registerTask(shipit, 'deploy:restart_cron', () => {
-    return shipit.remote(`cd ${deployDir} && NODE_ENV=${shipit.options.environment} pm2 startOrRestart ${currentDir}/dist/ecosystem.js`, { role: 'cron' })
+    return shipit.remote(`cd ${deployDir} && NODE_ENV=${shipit.options.environment} pm2 startOrRestart ./current/dist/ecosystem.config.js`, { role: 'cron' })
   })
 
   utils.registerTask(shipit, 'deploy:cache_app', () => {

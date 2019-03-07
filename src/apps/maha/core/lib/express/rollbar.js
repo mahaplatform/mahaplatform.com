@@ -1,4 +1,5 @@
 import Rollbar from '../../services/rollbar'
+import knex from '../../services/knex'
 
 const rollbar = (req, res, next) => {
 
@@ -6,17 +7,30 @@ const rollbar = (req, res, next) => {
     payload: null
   })
 
-  Rollbar.configure({
-    payload: {
-      request: {
-        headers: req.headers,
-        params: req.params,
-        query: req.query,
-        body: req.body,
-        url: req.url
+  try {
+
+    const { pool } = knex.default.client
+
+    Rollbar.configure({
+      payload: {
+        pool: {
+          activeQueries: pool._inUseObjects.map(object => {
+            return object.activeQuery
+          }).filter(query => {
+            return query !== undefined
+          })
+        },
+        request: {
+          headers: req.headers,
+          params: req.params,
+          query: req.query,
+          body: req.body,
+          url: req.url
+        }
       }
-    }
-  })
+    })
+
+  } catch(e) {}
 
   next()
 
