@@ -89,8 +89,8 @@ module.exports = (shipit) => {
   utils.registerTask(shipit, 'deploy:link_shared', async () => {
     const commands = [
       `rm -rf ${releaseDir}/tmp && ln -s ${sharedDir}/tmp ${releaseDir}/tmp`,
-      `ln -s ${sharedDir}/logs ${releaseDir}/logs`,
-      `ln -s ${sharedDir}/imagecache ${releaseDir}/dist/public/imagecache`
+      `rm -rf ${releaseDir}/logs && ln -s ${sharedDir}/logs ${releaseDir}/logs`,
+      `rm -rf ${releaseDir}/imagecache && ln -s ${sharedDir}/imagecache ${releaseDir}/dist.staged/public/imagecache`
     ]
     await shipit.remote(commands.join(' && '))
   })
