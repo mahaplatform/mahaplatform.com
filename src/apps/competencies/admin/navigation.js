@@ -21,7 +21,7 @@ const navigation = new Navigation(async (req, trx) => ({
     ] },
     { label: 'Employees', route: '/employees', access: isSupervisor },
     { label: 'Plans', rights: ['competencies:manage_plans'], route: '/plans' },
-    { label: 'Resources', route: '/resources' }
+    { label: 'Resources', route: '/resources/search' }
   ]
 }))
 

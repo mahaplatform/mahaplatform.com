@@ -18,5 +18,6 @@ deploy.tgz
 *.compiled.js
 npm-debug.log
 .env
+.key
 maha.js
 REVISION

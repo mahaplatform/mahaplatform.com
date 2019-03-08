@@ -10,6 +10,7 @@ import EmployeesPlan from './views/employees/plan'
 import PlansList from './views/plans/list'
 import PlansShow from './views/plans/show'
 import ResourcesList from './views/resources/list'
+import ResourcesSearch from './views/resources/search'
 import ResourcesShow from './views/resources/show'
 
 const routes = new Routes([
@@ -21,6 +22,7 @@ const routes = new Routes([
   { path: '/plans', component: PlansList },
   { path: '/plans/:id', component: PlansShow },
   { path: '/resources', component: ResourcesList },
+  { path: '/resources/search', component: ResourcesSearch },
   { path: '/resources/:id', component: ResourcesShow },
   { path: '/employees', component: EmployeesList },
   { path: '/employees/:employee_id/plans/:id', component: EmployeesPlan },

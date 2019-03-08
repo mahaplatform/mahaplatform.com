@@ -142,7 +142,7 @@ const build = async (flags, args) => {
     variables: precompile()
   })
 
-  await copy(path.resolve('src','deploy','ecosystem.js'), path.resolve('dist.staged','ecosystem.js'))
+  await copy(path.resolve('src','deploy','ecosystem.config.js'), path.resolve('dist.staged','ecosystem.config.js'))
 
   await buildServer()
 
