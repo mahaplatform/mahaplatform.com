@@ -32,7 +32,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Details', component: <Details { ...resources.type } /> },
       { label: 'Fields', component: <Fields parent_type="sites_types" parent_id={ page.params.id } datasources={ resources.types.map(type => ({
         label: type.title,
-        endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${page.params.id}/items`,
+        endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${type.id}/items`,
         value: 'id',
         text: 'title',
         type_id: type.id

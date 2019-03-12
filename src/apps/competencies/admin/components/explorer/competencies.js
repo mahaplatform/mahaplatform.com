@@ -9,6 +9,7 @@ class Competencies extends React.Component {
 
   static propTypes = {
     category: PropTypes.object,
+    classification: PropTypes.object,
     onBack: PropTypes.func,
     onChoose: PropTypes.func
   }
@@ -17,7 +18,7 @@ class Competencies extends React.Component {
   _handleChoose = this._handleChoose.bind(this)
 
   render() {
-    const { category } = this.props
+    const { category, classification } = this.props
     return (
       <div className="competencies-resources-panel">
         <div className="competencies-resources-panel-header" onClick={ this._handleBack }>
@@ -25,7 +26,8 @@ class Competencies extends React.Component {
             <i className="fa fa-chevron-left" />
           </div>
           <div className="competencies-resources-panel-header-label">
-            { category.title }
+            { category && category.title }
+            { classification && classification.title }
           </div>
         </div>
         <div className="competencies-resources-panel-body">
@@ -36,25 +38,27 @@ class Competencies extends React.Component {
   }
 
   _getInfinite() {
-    const { category } = this.props
+    const { category, classification } = this.props
     const empty = {
-      icon: 'folder-open-o',
-      title: 'Empty Folder',
-      text: 'There are no folders in this folder'
+      icon: 'trophy',
+      title: 'No Competencies',
+      text: classification ? 'There are no competencies for this classification' : 'There are no competencies for this category'
     }
+    const filter = {}
+    if(classification) filter['competencies_expectations.classification_id'] =  { $eq: classification.id }
+    if(category) filter.category_id =  { $eq: category.id }
     return {
       endpoint: '/api/admin/competencies/competencies',
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
-      filter: {
-        category_id: { $eq: category.id }
-      },
-      layout: (props) => <Items { ...props } { ...this._getItem(props) } />
+      filter,
+      layout: (props) => <Items { ...this._getItems(props) } />
     }
   }
 
-  _getItem() {
+  _getItems(props) {
     return {
+      ...props,
       onChoose: this._handleChoose
     }
   }

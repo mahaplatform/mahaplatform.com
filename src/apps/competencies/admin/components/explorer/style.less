@@ -34,7 +34,7 @@
 }
 .competencies-resources-panel-header-label {
   padding: 0.8em;
-  height: 2em;
+  height: 3em;
   overflow: hidden;
   word-break: break-all;
 }
@@ -42,10 +42,17 @@
   flex: 1;
   display: flex;
 }
+.competencies-resources-strategies {
+  flex: 1;
+}
 .competencies-resources-item {
   flex: 1;
   display: flex;
   border-bottom: 1px solid fadeout(@black, 95);
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
 }
 .competencies-resources-item-detail {
   padding: 0.8em;
@@ -54,14 +61,14 @@
   strong {
     color: @black;
   }
-  span {
+  .link {
     pointer: cursor;
     color: @blue;
   }
 
 }
 .competencies-resources-item-toggle {
-  padding: 0.8em;
+  padding: 0.8em 0 0.8em 0.8em;
   display: flex;
   .fa {
     margin: auto;
@@ -72,6 +79,15 @@
   }
   .fa-check-circle {
     color: @blue;
+  }
+  .fa-briefcase {
+    color: @red;
+  }
+  .fa-tag {
+    color: @blue;
+  }
+  .fa-star {
+    color: @yellow;
   }
 }
 .competencies-resources-item-proceed {

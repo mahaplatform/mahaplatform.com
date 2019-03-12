@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Items from './items'
 import React from 'react'
 
-class Categories extends React.Component {
+class Classifications extends React.Component {
 
   static contextTypes = {}
 
@@ -23,7 +23,7 @@ class Categories extends React.Component {
             <i className="fa fa-chevron-left" />
           </div>
           <div className="competencies-resources-panel-header-label">
-            Categories
+            Classifications
           </div>
         </div>
         <div className="competencies-resources-panel-body">
@@ -35,12 +35,12 @@ class Categories extends React.Component {
 
   _getInfinite() {
     const empty = {
-      icon: 'tag',
-      title: 'No Categories',
-      text: 'There are no categories'
+      icon: 'briefcase',
+      title: 'No Classifications',
+      text: 'There are no classifications'
     }
     return {
-      endpoint: '/api/admin/competencies/categories',
+      endpoint: '/api/admin/competencies/classifications',
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
       layout: (props) => <Items { ...this._getItems(props) } />
@@ -65,4 +65,4 @@ class Categories extends React.Component {
 
 }
 
-export default Categories
+export default Classifications

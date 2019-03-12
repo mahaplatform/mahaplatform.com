@@ -3,11 +3,12 @@ import PropTypes from 'prop-types'
 import Items from './items'
 import React from 'react'
 
-class Categories extends React.Component {
+class Goals extends React.Component {
 
   static contextTypes = {}
 
   static propTypes = {
+    plan_id: PropTypes.string,
     onBack: PropTypes.func,
     onChoose: PropTypes.func
   }
@@ -23,7 +24,7 @@ class Categories extends React.Component {
             <i className="fa fa-chevron-left" />
           </div>
           <div className="competencies-resources-panel-header-label">
-            Categories
+            Goals
           </div>
         </div>
         <div className="competencies-resources-panel-body">
@@ -34,22 +35,25 @@ class Categories extends React.Component {
   }
 
   _getInfinite() {
+    const { plan_id } = this.props
     const empty = {
-      icon: 'tag',
-      title: 'No Categories',
-      text: 'There are no categories'
+      icon: 'star',
+      title: 'No Goals',
+      text: 'You have not set any goals'
     }
+    const filter = {}
     return {
-      endpoint: '/api/admin/competencies/categories',
+      endpoint: `/api/admin/competencies/plans/${plan_id}/goals`,
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
+      filter,
       layout: (props) => <Items { ...this._getItems(props) } />
     }
   }
 
   _getItems(props) {
     return {
-      ...props,
+      records: props.records.map(goal => goal.competency),
       onChoose: this._handleChoose
     }
   }
@@ -62,7 +66,6 @@ class Categories extends React.Component {
     this.props.onChoose(item)
   }
 
-
 }
 
-export default Categories
+export default Goals

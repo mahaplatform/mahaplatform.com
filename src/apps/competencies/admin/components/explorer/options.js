@@ -18,13 +18,13 @@ class Options extends React.Component {
         { records.map((item, index) => (
           <div className="competencies-resources-item" key={`item_${index}`}>
             <div className="competencies-resources-item-toggle" onClick={ this._handleClick.bind(this, item) }>
-              <i className={`fa fa-${this._getIcon(item)}`} />
+              <i className={`fa fa-fw fa-${this._getIcon(item)}`} />
             </div>
             <div className="competencies-resources-item-detail">
-              <strong>{ item.title }</strong><br />
-              { item.description }
+              <strong>{ item.title }</strong>
+              <div>{ item.description }</div>
               { item.url &&
-                <span onClick={ this._handleView.bind(this, item) }><br />View Resource</span>
+                <div className="link" onClick={ this._handleView.bind(this, item) }>View Resource</div>
               }
             </div>
           </div>

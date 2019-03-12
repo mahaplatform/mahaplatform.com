@@ -1,7 +1,9 @@
 import _ from 'lodash'
 
 export const INITIAL_STATE = {
+  strategy: null,
   category: null,
+  classification: null,
   competency: null,
   selected: []
 }

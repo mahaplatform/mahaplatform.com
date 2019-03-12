@@ -38,9 +38,9 @@ class Resources extends React.Component {
   _getInfinite() {
     const { competency } = this.props
     const empty = {
-      icon: 'folder-open-o',
-      title: 'Empty Folder',
-      text: 'There are no folders in this folder'
+      icon: 'cube',
+      title: 'No resources',
+      text: 'There are no resources for this competency'
     }
     return {
       endpoint: '/api/admin/competencies/resources',
@@ -49,12 +49,13 @@ class Resources extends React.Component {
       filter: {
         'competencies_competencies.id': { $eq: competency.id }
       },
-      layout: (props) => <Options { ...props } { ...this._getOption(props) } />
+      layout: (props) => <Options { ...this._getOptions(props) } />
     }
   }
 
-  _getOption() {
+  _getOptions(props) {
     return {
+      ...props,
       onChoose: this._handleChoose
     }
   }

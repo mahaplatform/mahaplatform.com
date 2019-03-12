@@ -19,7 +19,7 @@ const defaultQuery = (req, trx, qb, options) => {
 
   qb.leftJoin('competencies_expectations', 'competencies_expectations.competency_id', 'competencies_competencies.id')
 
-  qb.leftJoin('competencies_categories', 'competencies_categories.id', 'competencies_competencies.category_id')
+  qb.leftJoin('competencies_classifications', 'competencies_classifications.id', 'competencies_competencies.id')
 
 }
 
@@ -37,7 +37,7 @@ const competencyResources = new Resources({
   activities,
   allowedParams: ['title','description','category_id','level'],
   defaultQuery,
-  filterParams: ['category_id','classification_id','level'],
+  filterParams: ['category_id','competencies_expectations.classification_id','level'],
   model: Competency,
   path: '/competencies',
   refresh,
