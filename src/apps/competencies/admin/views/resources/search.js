@@ -1,10 +1,10 @@
-import Explorer from '../../components/explorer'
+import Resources from '../../components/resources'
 import { Page } from 'maha-admin'
 import React from 'react'
 
 const mapPropsToPage = (props, context) => ({
   title: 'Resources',
-  component: () => <Explorer plan_id="4" />
+  component: Resources
 })
 
 export default Page(null, mapPropsToPage)

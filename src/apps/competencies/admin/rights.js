@@ -4,7 +4,7 @@ const rights = new Rights([
   {
     code: 'manage_configuration',
     title: 'Manage Configuration',
-    description: 'manage supervisors, competencies, and resources'
+    description: 'manage categories, classifiations, competencies, and resources'
   }, {
     code: 'manage_plans',
     title: 'Manage Plans',

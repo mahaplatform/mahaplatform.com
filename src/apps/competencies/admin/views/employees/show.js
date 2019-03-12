@@ -1,4 +1,4 @@
-import PlanToken from '../../components/plan_token'
+import PlanToken from '../../tokens/plan_token'
 import { Avatar, List, Page } from 'maha-admin'
 import EmployeePlanCreate from './create'
 import PropTypes from 'prop-types'
@@ -10,7 +10,7 @@ const Plans = ({ employee, plans }) => {
     items: plans.map(plan => ({
       content: plan,
       component: PlanToken,
-      link: `/admin/competencies/employees/${employee.id}/plans/${plan.id}`
+      link: `/admin/competencies/plans/${plan.id}`
     })),
     empty: {
       icon: 'list',
@@ -40,7 +40,7 @@ const mapResourcesToPage = (props, context) => ({
 const mapPropsToPage = (props, context, resources) => ( {
   title: resources.employee.full_name,
   tabs: {
-    header: <Avatar user={ resources.employee } width="120" />,
+    header: <Avatar user={ resources.employee } width="120" presence={ false } />,
     items: [
       { label: 'Plans', component: <Plans  { ...resources } /> }
     ]

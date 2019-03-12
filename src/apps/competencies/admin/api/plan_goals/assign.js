@@ -4,25 +4,27 @@ import Goal from '../../../models/goal'
 
 const processor = async (req, trx, options) => {
 
-  const conditions = {
+  const plan = await Plan.where({
     id: req.params.plan_id
-  }
+  }).fetch({
+    transacting: trx
+  })
 
-  const plan = await Plan.where(conditions).fetch({ transacting: trx })
-
-  const plan_id = plan.get('id')
-
-  await Goal.where({ plan_id }).destroy({ transacting: trx })
+  await Goal.where({
+    plan_id: plan.get('id')
+  }).destroy({
+    transacting: trx
+  })
 
   await Promise.map(req.body.ids, async competency_id => {
 
-    const data = {
+    await Goal.forge({
       team_id: req.team.get('id'),
-      plan_id,
+      plan_id: plan.get('id'),
       competency_id
-    }
-
-    await Goal.forge(data).save(null, { transacting: trx })
+    }).save(null, {
+      transacting: trx
+    })
 
   })
 

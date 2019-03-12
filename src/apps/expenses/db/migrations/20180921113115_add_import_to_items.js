@@ -4,9 +4,9 @@ const AddImportToItems = new Migration({
 
   up: async (knex) => {
 
-      await knex.raw('drop view expenses_items')
+    await knex.raw('drop view expenses_items')
 
-      await knex.raw(`
+    await knex.raw(`
       create or replace VIEW expenses_items AS
       select row_number() over (order by "items"."type", "items"."item_id") as id,
       "items".*
@@ -28,8 +28,7 @@ const AddImportToItems = new Migration({
       "expenses_advances"."created_at"
       from "expenses_advances"
       left join "maha_import_items" on "maha_import_items"."object_id" = "expenses_advances"."id"
-      left join "maha_imports" on "maha_imports"."id" = "maha_import_items"."import_id"
-      where "maha_imports"."object_type" = 'expenses_advances' or "maha_imports"."id" is null
+      left join "maha_imports" on "maha_imports"."id" = "maha_import_items"."import_id" and "maha_imports"."object_type" = 'expenses_advances'
       union
       select "expenses_expenses"."id" as item_id,
       "expenses_expenses"."team_id",
@@ -48,8 +47,7 @@ const AddImportToItems = new Migration({
       "expenses_expenses"."created_at"
       from "expenses_expenses"
       left join "maha_import_items" on "maha_import_items"."object_id" = "expenses_expenses"."id"
-      left join "maha_imports" on "maha_imports"."id" = "maha_import_items"."import_id"
-      where "maha_imports"."object_type" = 'expenses_expenses' or "maha_imports"."id" is null
+      left join "maha_imports" on "maha_imports"."id" = "maha_import_items"."import_id" and "maha_imports"."object_type" = 'expenses_expenses'
       union
       select "expenses_trips"."id" as item_id,
       "expenses_trips"."team_id",
@@ -68,8 +66,7 @@ const AddImportToItems = new Migration({
       "expenses_trips"."created_at"
       from "expenses_trips"
       left join "maha_import_items" on "maha_import_items"."object_id" = "expenses_trips"."id"
-      left join "maha_imports" on "maha_imports"."id" = "maha_import_items"."import_id"
-      where "maha_imports"."object_type" = 'expenses_trips' or "maha_imports"."id" is null
+      left join "maha_imports" on "maha_imports"."id" = "maha_import_items"."import_id" and "maha_imports"."object_type" = 'expenses_trips'
       union
       select "expenses_checks"."id" as item_id,
       "expenses_checks"."team_id",
@@ -88,8 +85,7 @@ const AddImportToItems = new Migration({
       "expenses_checks"."created_at"
       from "expenses_checks"
       left join "maha_import_items" on "maha_import_items"."object_id" = "expenses_checks"."id"
-      left join "maha_imports" on "maha_imports"."id" = "maha_import_items"."import_id"
-      where "maha_imports"."object_type" = 'expenses_checks' or "maha_imports"."id" is null
+      left join "maha_imports" on "maha_imports"."id" = "maha_import_items"."import_id" and "maha_imports"."object_type" = 'expenses_checks'
       union
       select "expenses_reimbursements"."id" as item_id,
       "expenses_reimbursements"."team_id",
@@ -108,10 +104,9 @@ const AddImportToItems = new Migration({
       "expenses_reimbursements"."created_at"
       from "expenses_reimbursements"
       left join "maha_import_items" on "maha_import_items"."object_id" = "expenses_reimbursements"."id"
-      left join "maha_imports" on "maha_imports"."id" = "maha_import_items"."import_id"
-      where "maha_imports"."object_type" = 'expenses_reimbursements' or "maha_imports"."id" is null
+      left join "maha_imports" on "maha_imports"."id" = "maha_import_items"."import_id" and "maha_imports"."object_type" = 'expenses_reimbursements'
       ) as "items"
-      `)
+    `)
 
   },
 

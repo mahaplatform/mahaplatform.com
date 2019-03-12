@@ -1,4 +1,4 @@
-import CompetencyToken from '../../components/competency_token'
+import CompetencyToken from '../../tokens/competency_token'
 import AssignExpectations from './expectations'
 import { List, Page } from 'maha-admin'
 import PropTypes from 'prop-types'

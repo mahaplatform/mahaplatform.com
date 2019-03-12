@@ -2,25 +2,30 @@ import { CompactUserToken, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class New extends React.Component {
+class EmployeePlanEdit extends React.Component {
 
   static contextTypes = {
-    modal: PropTypes.object,
-    router: PropTypes.object
+    modal: PropTypes.object
   }
 
-  render() {
-    return <Form { ...this._getForm() } />
+  static propTypes = {
+    plan: PropTypes.object
   }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
+  render() {
+    return <Form { ...this._getForm() } />
+  }
+
   _getForm() {
+    const { plan } = this.props
     return {
-      title: 'Create Plan',
-      method: 'post',
-      action: '/api/admin/competencies/plans',
+      title: 'Edit Plan',
+      method: 'patch',
+      endpoint: `/api/admin/competencies/plans/${plan.id}`,
+      action: `/api/admin/competencies/plans/${plan.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
@@ -38,11 +43,10 @@ class New extends React.Component {
     this.context.modal.close()
   }
 
-  _handleSuccess(result) {
-    this.context.router.push(`/admin/competencies/plans/${result.id}`)
+  _handleSuccess() {
     this.context.modal.close()
   }
 
 }
 
-export default New
+export default EmployeePlanEdit

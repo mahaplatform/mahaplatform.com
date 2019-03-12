@@ -5,15 +5,14 @@ import classificationExpectations from './api/classification_expectations'
 import competencies from './api/competencies'
 import competencyResources from './api/competency_resources'
 import employees from './api/employees'
-import employeePlans from './api/employee_plans'
-import employeePlanGoals from './api/employee_plan_goals'
-import employeePlanCommitments from './api/employee_plan_commitments'
+import employeePlans from './api/employees/plans'
 import plans from './api/plans'
 import planGoals from './api/plan_goals'
 import planCommitments from './api/plan_commitments'
 import planSupervisors from './api/plan_supervisors'
 import resources from './api/resources'
 import resourceComptencies from './api/resource_competencies'
+import supervisors from './api/supervisors'
 
 const api = new Segment({
   routes: [
@@ -24,14 +23,13 @@ const api = new Segment({
     competencyResources,
     employees,
     employeePlans,
-    employeePlanGoals,
-    employeePlanCommitments,
     plans,
     planGoals,
     planCommitments,
     planSupervisors,
     resources,
-    resourceComptencies
+    resourceComptencies,
+    supervisors
   ]
 })
 

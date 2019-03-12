@@ -1,23 +1,56 @@
-import CommitmentToken from '../../components/commitment_token'
-import GoalToken from '../../components/goal_token'
+import CommitmentToken from '../../tokens/commitment_token'
+import GoalToken from '../../tokens/goal_token'
 import { List, Page, Comments } from 'maha-admin'
-import SetCommitments from './commitment'
+import SetCommitments from '../../components/commitments'
 import PropTypes from 'prop-types'
 import SetGoals from './goals'
 import moment from 'moment'
 import React from 'react'
+import Edit from './edit'
+
+const _getButtons = (plan) => {
+
+  if(plan.status === 'pending') {
+    return [
+      {
+        color: 'green',
+        text: 'Approve Plan',
+        request: {
+          endpoint: `/api/admin/competencies/plans/${plan.id}/approve`,
+          method: 'patch'
+        }
+      }
+    ]
+  }
+
+  if(plan.status === 'active') {
+    return [
+      {
+        color: 'green',
+        text: 'Complete Plan',
+        request: {
+          endpoint: `/api/admin/competencies/plans/${plan.id}/complete`,
+          method: 'patch'
+        }
+      }
+    ]
+  }
+
+  return null
+}
 
 const Details = ({ plan }) => {
 
   const list = {
     items: [
       { label: 'Supervisor', content: plan.supervisor.full_name },
+      { label: 'Employee', content: plan.employee.full_name },
       { label: 'Due', content: moment(plan.due).format('MMMM DD, YYYY') },
       { label: 'Created', content: moment(plan.created_at).format('MMMM DD, YYYY') }
     ]
   }
 
-  if(plan.status === 'pending') list.alert = { color: 'grey', message: 'This plan is pending' }
+  if(plan.status === 'pending') list.alert = { color: 'teal', message: 'This plan is pending' }
 
   if(plan.status === 'active') list.alert = { color: 'green', message: 'This plan is active' }
 
@@ -113,10 +146,12 @@ const mapPropsToPage = (props, context, resources, page) => ({
   },
   tasks: resources.plan.status === 'pending' ? {
     items: [
+      { label: 'Edit Plan', modal: <Edit plan={ resources.plan } /> },
       { label: 'Manage Goals', modal: <SetGoals plan={ resources.plan } goals={ resources.goals } /> },
-      { label: 'Manage Commitments', modal: <SetCommitments plan={ resources.plan } commitments={ resources.commitments } /> }
+      { label: 'Manage Commitments', modal: <SetCommitments plan_id={ resources.plan.id } commitments={ resources.commitments } /> }
     ]
-  } : null
+  } : null,
+  buttons: _getButtons(resources.plan)
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

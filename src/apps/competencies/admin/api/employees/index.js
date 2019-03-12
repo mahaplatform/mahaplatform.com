@@ -7,7 +7,7 @@ const defaultQuery = (req, trx, qb, options) => {
 
   qb.innerJoin('maha_supervisions', 'maha_supervisions.employee_id', 'maha_users.id')
 
-  qb.whereRaw('"maha_supervisions"."supervisor_id" = ?', req.user.get('id'))
+  qb.where('maha_supervisions.supervisor_id', req.user.get('id'))
 
 }
 
