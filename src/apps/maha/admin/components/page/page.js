@@ -18,6 +18,7 @@ class Page extends React.Component {
   }
 
   static propTypes = {
+    active: PropTypes.bool,
     buttons: PropTypes.array,
     cacheKey: PropTypes.string,
     children: PropTypes.any,
@@ -31,7 +32,9 @@ class Page extends React.Component {
     tabs: PropTypes.object,
     task: PropTypes.object,
     tasks: PropTypes.object,
-    title: PropTypes.string
+    title: PropTypes.string,
+    team: PropTypes.object,
+    user: PropTypes.object
   }
 
   static defaultProps = {

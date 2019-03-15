@@ -6,6 +6,7 @@ import ClassificationsList from './views/classifications/list'
 import ClassificationsShow from './views/classifications/show'
 import EmployeesList from './views/employees/list'
 import EmployeesShow from './views/employees/show'
+import PlansReport from './views/plans/report'
 import PlansList from './views/plans/list'
 import PlansShow from './views/plans/show'
 import ResourcesList from './views/resources/list'
@@ -19,6 +20,7 @@ const routes = new Routes([
   { path: '/classifications', component: ClassificationsList },
   { path: '/classifications/:id', component: ClassificationsShow },
   { path: '/plans', component: PlansList },
+  { path: '/plans/report', component: PlansReport },
   { path: '/plans/:id', component: PlansShow },
   { path: '/resources', component: ResourcesList },
   { path: '/resources/search', component: ResourcesSearch },

@@ -1,5 +1,6 @@
 require('../../apps/maha/core/services/environment')
 const register = require('babel-register')
+const inspector = require('inspector')
 const minimist = require('minimist')
 const Promise = require('bluebird')
 const events = require('events')
@@ -28,6 +29,8 @@ register({
   ],
   sourceMaps: 'inline'
 })
+
+inspector.open()
 
 const argv = minimist(process.argv.slice(2))
 

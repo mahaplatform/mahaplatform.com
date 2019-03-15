@@ -8,6 +8,7 @@ import Categories from './categories'
 import Resources from './resources'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
+import Custom from './custom'
 import Goals from './goals'
 import React from 'react'
 
@@ -50,13 +51,13 @@ class Explorer extends React.Component {
           </div>
           <CSSTransition in={ selected.length > 0 } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
             <div className="competencies-resources-footer" onClick={ this._handleReview }>
-              View { pluralize('commitment', selected.length, true) } 
+              View { pluralize('commitment', selected.length, true) }
             </div>
           </CSSTransition>
         </div>
         <CSSTransition in={ review } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
           <div className="competencies-resources-review">
-            <Commitments />
+            <Commitments { ...this._getCommitments() } />
           </div>
         </CSSTransition>
       </ModalPanel>
@@ -81,6 +82,7 @@ class Explorer extends React.Component {
     if(strategy === 'category') cards.push({ component: Categories, props: this._getCategories() })
     if(strategy === 'classification') cards.push({ component: Classifications, props: this._getClassifications() })
     if(strategy === 'goal') cards.push({ component: Goals, props: this._getGoals() })
+    if(strategy === 'custom') cards.push({ component: Custom, props: this._getCustom() })
     if(category || classification) cards.push({ component: Competencies, props: this._getCompetencies() })
     if(competency) cards.push({ component: Resources, props: this._getResources() })
     return { cards }
@@ -103,6 +105,19 @@ class Explorer extends React.Component {
     return {
       onBack: this._handleBack.bind(this, 'strategy'),
       onChoose: this._handleChooseCategory
+    }
+  }
+
+  _getCustom() {
+    return {
+      onBack: this._handleBack.bind(this, 'strategy')
+    }
+  }
+
+  _getCommitments() {
+    return {
+      onBack: this._handleReview,
+      onRemove: this._handleChooseResource
     }
   }
 

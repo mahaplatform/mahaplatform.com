@@ -39,6 +39,7 @@ const resourceResources = new Resources({
   activities,
   allowedParams: ['title','description','url','asset_id'],
   defaultQuery,
+  defaultSort: 'title',
   filterParams: ['competencies_competencies.id','competencies_expectations.classification_id','competencies_competencies.level'],
   model: Resource,
   path: '/resources',

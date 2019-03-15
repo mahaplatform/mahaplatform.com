@@ -14,7 +14,7 @@
     "env": "babel-node ./src/scripts/env/index.js",
     "help": "babel-node ./src/scripts/help.js",
     "test": "babel-node ./src/scripts/test.js",
-    "start": "NODE_ENV=production node ./dist/server.js"
+    "sync": "babel-node ./src/scripts/sync.js"
   },
   "devDependencies": {
     "autoprefixer": "^9.4.9",

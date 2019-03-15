@@ -8,37 +8,6 @@ import moment from 'moment'
 import React from 'react'
 import Edit from './edit'
 
-const _getButtons = (plan) => {
-
-  if(plan.status === 'pending') {
-    return [
-      {
-        color: 'green',
-        text: 'Approve Plan',
-        request: {
-          endpoint: `/api/admin/competencies/plans/${plan.id}/approve`,
-          method: 'patch'
-        }
-      }
-    ]
-  }
-
-  if(plan.status === 'active') {
-    return [
-      {
-        color: 'green',
-        text: 'Complete Plan',
-        request: {
-          endpoint: `/api/admin/competencies/plans/${plan.id}/complete`,
-          method: 'patch'
-        }
-      }
-    ]
-  }
-
-  return null
-}
-
 const Details = ({ plan }) => {
 
   const list = {
@@ -129,6 +98,49 @@ Commitments.propTypes = {
   commitments: PropTypes.array
 }
 
+const itemTasks = (user, plan, goals, commitments) => {
+
+  const items = []
+
+  items.push({ label: 'Edit Plan', modal: <Edit plan={ plan } /> })
+  items.push({ label: 'Manage Goals', modal: <SetGoals plan={ plan } goals={ goals } /> })
+  items.push({ label: 'Manage Commitments', modal: <SetCommitments plan_id={ plan.id } commitments={ commitments } /> })
+
+  return { items }
+
+}
+
+const itemButtons = (user, plan) => {
+
+  if(plan.status === 'pending' && plan.supervisor_id === user.id) {
+    return [
+      {
+        color: 'green',
+        text: 'Approve Plan',
+        request: {
+          endpoint: `/api/admin/competencies/plans/${plan.id}/approve`,
+          method: 'patch'
+        }
+      }
+    ]
+  }
+
+  if(plan.status === 'active' && plan.supervisor_id === user.id) {
+    return [
+      {
+        color: 'green',
+        text: 'Complete Plan',
+        request: {
+          endpoint: `/api/admin/competencies/plans/${plan.id}/complete`,
+          method: 'patch'
+        }
+      }
+    ]
+  }
+
+  return null
+}
+
 const mapResourcesToPage = (props, context) => ({
   plan: `/api/admin/competencies/plans/${props.params.id}`,
   goals: `/api/admin/competencies/plans/${props.params.id}/goals`,
@@ -144,14 +156,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Commitments', component: <Commitments plan={ resources.plan } commitments={ resources.commitments } /> }
     ]
   },
-  tasks: resources.plan.status === 'pending' ? {
-    items: [
-      { label: 'Edit Plan', modal: <Edit plan={ resources.plan } /> },
-      { label: 'Manage Goals', modal: <SetGoals plan={ resources.plan } goals={ resources.goals } /> },
-      { label: 'Manage Commitments', modal: <SetCommitments plan_id={ resources.plan.id } commitments={ resources.commitments } /> }
-    ]
-  } : null,
-  buttons: _getButtons(resources.plan)
+  tasks: itemTasks(props.user, resources.plan, resources.goals, resources.commitments),
+  buttons: itemButtons(props.user, resources.plan)
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

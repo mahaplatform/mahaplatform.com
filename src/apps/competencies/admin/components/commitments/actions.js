@@ -14,9 +14,9 @@ export const set = (key, value) => ({
   value
 })
 
-export const toggle = (id) => ({
+export const toggle = (resource) => ({
   type: 'TOGGLE',
-  id
+  resource
 })
 
 export const toggleReview = () => ({

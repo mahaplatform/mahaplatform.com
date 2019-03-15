@@ -21,7 +21,7 @@ class Strategies extends React.Component {
                 <i className="fa fa-fw fa-briefcase" />
               </div>
               <div className="competencies-resources-item-detail">
-                Browse by Classification
+                Assign a resource (by classification)
               </div>
               <div className="competencies-resources-item-proceed">
                 <i className="fa fa-chevron-right" />
@@ -32,7 +32,7 @@ class Strategies extends React.Component {
                 <i className="fa fa-fw fa-tag" />
               </div>
               <div className="competencies-resources-item-detail">
-                Browse by Category
+                Assign a resource (by category)
               </div>
               <div className="competencies-resources-item-proceed">
                 <i className="fa fa-chevron-right" />
@@ -43,7 +43,18 @@ class Strategies extends React.Component {
                 <i className="fa fa-fw fa-star" />
               </div>
               <div className="competencies-resources-item-detail">
-                Browse by Goals
+                Assign a resource (by goal)
+              </div>
+              <div className="competencies-resources-item-proceed">
+                <i className="fa fa-chevron-right" />
+              </div>
+            </div>
+            <div className="competencies-resources-item" onClick={ this._handleChoose.bind(this, 'custom') }>
+              <div className="competencies-resources-item-toggle">
+                <i className="fa fa-fw fa-pencil" />
+              </div>
+              <div className="competencies-resources-item-detail">
+                Add a custom commitment
               </div>
               <div className="competencies-resources-item-proceed">
                 <i className="fa fa-chevron-right" />

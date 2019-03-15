@@ -22,9 +22,10 @@ const refresh = {
   ]
 }
 
-const activityResources = new Resources({
+const classificationResources = new Resources({
   activities,
   allowedParams: ['title'],
+  defaultSort: 'title',
   model: Classification,
   path: '/classifications',
   refresh,
@@ -32,4 +33,4 @@ const activityResources = new Resources({
   sortParams: ['id','title']
 })
 
-export default activityResources
+export default classificationResources

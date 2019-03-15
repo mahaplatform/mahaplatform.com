@@ -19,19 +19,19 @@ module.exports = (shipit) => {
     },
     production: {
       servers: [
-        ...appservers.map(server => ({
+        ...appservers.map(host => ({
           user: 'root',
-          host: `${server}.mahaplatform.com`,
+          host,
           role: 'appserver'
         })),
-        ...workerservers.map(server => ({
+        ...workerservers.map(host => ({
           user: 'root',
-          host: `${server}.mahaplatform.com`,
+          host,
           role: 'worker'
         })),
-        ...cronservers.map(server => ({
+        ...cronservers.map(host => ({
           user: 'root',
-          host: `${server}.mahaplatform.com`,
+          host,
           role: 'cron'
         }))
       ]

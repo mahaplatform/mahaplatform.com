@@ -13,12 +13,15 @@ const serverWatch = async () => {
 
   const nodemon = [
     path.resolve('src','scripts','dev','entities.js'),
+    '--inspect',
     '--color',
     '--quiet',
     '--exec',
     'node'
   ]
-  fs.readdirSync(path.resolve('src','apps')).map(app => {
+  fs.readdirSync(path.resolve('src','apps')).filter(app => {
+    return app.match(/^\./) === null
+  }).map(app => {
     nodemon.push('--watch')
     nodemon.push(path.resolve('src','apps',app))
     nodemon.push('--ignore')
@@ -26,6 +29,7 @@ const serverWatch = async () => {
     nodemon.push('--ignore')
     nodemon.push(path.resolve('src','apps',app,'admin','views'))
   })
+  nodemon.push('--watch')
   nodemon.push(path.resolve('src','packages','backframe'))
 
   const proc = spawn('nodemon', nodemon, {

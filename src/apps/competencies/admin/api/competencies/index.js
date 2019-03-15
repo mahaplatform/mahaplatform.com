@@ -37,6 +37,7 @@ const competencyResources = new Resources({
   activities,
   allowedParams: ['title','description','category_id','level'],
   defaultQuery,
+  defaultSort: 'title',
   filterParams: ['category_id','competencies_expectations.classification_id','level'],
   model: Competency,
   path: '/competencies',

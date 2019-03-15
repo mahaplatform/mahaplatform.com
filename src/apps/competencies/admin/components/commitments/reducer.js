@@ -22,11 +22,11 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'TOGGLE':
     return {
       ...state,
-      selected: _.includes(state.selected, action.id) ? [
-        ...state.selected.filter(resource => resource.id !== action.id)
+      selected: _.find(state.selected, { id: action.resource.id }) ? [
+        ...state.selected.filter(resource => resource.id !== action.resource.id)
       ] : [
         ...state.selected,
-        action.id
+        action.resource
       ]
     }
 

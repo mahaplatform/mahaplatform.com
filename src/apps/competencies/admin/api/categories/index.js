@@ -25,6 +25,7 @@ const refresh = {
 const categoryResources = new Resources({
   activities,
   allowedParams: ['title'],
+  defaultSort: 'title',
   model: Category,
   path: '/categories',
   refresh,

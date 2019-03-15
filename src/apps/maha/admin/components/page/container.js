@@ -31,7 +31,8 @@ const PageCreator = (mapResourcesToPage, mapPropsToPage) => {
       pathname: PropTypes.string,
       resources: PropTypes.object,
       status: PropTypes.string,
-      onFetchResource: PropTypes.func
+      onFetchResource: PropTypes.func,
+      onReady: PropTypes.func
     }
 
     state = {
