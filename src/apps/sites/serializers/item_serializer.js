@@ -6,7 +6,7 @@ const itemSerializer = serializer(async (req, trx, result) => ({
 
   title: title(req, trx, result),
 
-  values: result.get('values'),
+  values: values(result.get('values')),
 
   created_at: result.get('created_at'),
 
@@ -24,5 +24,9 @@ const title = (req, trx, result) => {
 
 }
 
+const values = (values) => Object.key(values).reduce((sanitized, key) => ({
+  ...sanitized,
+  [key]: values[key].length > 0 ? values[key] : values[key][0]
+}), {})
 
 export default itemSerializer
