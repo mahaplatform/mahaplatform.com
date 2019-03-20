@@ -24,8 +24,11 @@ const processor = async (req, trx, options) => {
     }).fetch({
       transacting: trx
     })
+    
+    console.log('values are ', values)
 
     const values = await processValues('sites_types', req.body.type_id, item.get('preimport'))
+
 
     await item.save({values}, {
       transacting: trx

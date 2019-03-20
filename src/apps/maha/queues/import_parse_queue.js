@@ -26,6 +26,8 @@ const validate = async (rules, values) => {
 
 const processor = async (job, trx) => {
 
+  console.log('job.data.id is ', job.data.id)
+
   const imp = await Import.where({
     id: job.data.id
   }).fetch({

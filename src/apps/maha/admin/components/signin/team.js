@@ -20,7 +20,8 @@ class Team extends React.Component {
   team = null
 
   state = {
-    error: false
+    error: false,
+    team: ''
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -30,6 +31,7 @@ class Team extends React.Component {
 
   render() {
     const { status, teams } = this.props
+    const { team } = this.state
     return (
       <div className="maha-signin-panel">
         <div className="maha-signin-form">
@@ -48,7 +50,7 @@ class Team extends React.Component {
             <div className="field team-field">
               <div className="ui fluid left icon input">
                 <i className="user icon"></i>
-                <input className="form-control" autoComplete="off" autoCapitalize="off" autoCorrect="off" spellCheck="false" placeholder="team" type="text" ref={ (node) => this.team = node } />
+                <input className="form-control" autoComplete="off" autoCapitalize="off" autoCorrect="off" spellCheck="false" placeholder="team" type="text" ref={ (node) => this.team = node } onChange={ e => this._onChange(e) } value={ team }/>
               </div>
             </div>
             <div className="field button-field">
@@ -78,6 +80,10 @@ class Team extends React.Component {
       if(status === 'failure') this._handleShake()
       if(status === 'success') this._handleNext()
     }
+  }
+
+  _onChange(e) {
+    this.setState({ team: e.currentTarget.value.toLowerCase().replace(/\W/g, '') })
   }
 
   _getFormClass() {
