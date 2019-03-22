@@ -1,0 +1,123 @@
+.chat-channels-panel {
+  .maha-avatar-wrapper {
+    border: 1px solid @white;
+  }
+  .reframe-search-item:hover {
+    background-color: none;
+  }
+}
+.chat-channels {
+  background-color: @white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  &.new {
+    .chat-channels-header-search {
+      .reframe-searchbox {
+        padding: 0.5em 0.5em 0 0.5em;
+      }
+    }
+  }
+}
+.chat-channels-header {
+  background: @red;
+}
+.chat-channels-header-top {
+  display: flex;
+}
+.chat-channels-header-search {
+  flex: 1;
+  .reframe-searchbox {
+    padding: 0 0.5em 0.5em;
+  }
+  .reframe-searchbox-input {
+    background-color: fadeout(@white, 70);
+  }
+
+  .reframe-searchbox-remove-icon {
+    .hover(color, fadeout(@white, 10));
+    color: fadeout(@white, 30);
+  }
+  .reframe-searchbox-icon {
+    color: @white;
+  }
+  input {
+    color: @white !important;
+    &::-webkit-input-placeholder {
+      color: fadeout(@white, 20);
+    }
+    &:-moz-placeholder {
+      color: fadeout(@white, 20);
+    }
+    &::-moz-placeholder {
+      color: fadeout(@white, 20);
+    }
+    &::-webkit-input-placeholder,
+    &:-moz-placeholder,
+    &::-moz-placeholder,
+    &:-ms-input-placeholder {
+      color: fadeout(@white, 20);
+    }
+  }
+}
+.chat-channels-header-add {
+  display: flex;
+  color: fadeout(@black, 80);
+  cursor: pointer;
+  padding: 0.5em 0.5em 0 0;
+  .fa {
+    font-size: 1.2em;
+    margin: auto;
+    color: @white;
+  }
+}
+.chat-channels-body {
+  flex: 1;
+  background-color: @white;
+  .scrollable();
+}
+.chat-channels-footer {
+  border-top: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 95);
+  padding: 1em 0.8em;
+  text-align: center;
+  color: lighten(@black, 80);
+  span {
+    margin: 0 0.2em;
+  }
+}
+.chat-channels-type {
+  margin: 0 0.4em;
+  font-size: 1em;
+  text-decoration: underline;
+  color: @blue;
+  cursor: pointer;
+  line-height: 1.5em;
+  &:hover {
+    color: darken(@blue, 20);
+  }
+  &.selected {
+    color: @black !important;
+    text-decoration: none !important;
+  }
+}
+.chat-search-results-section-header {
+  border-bottom: 1px solid fadeout(@black, 95);
+  text-transform: uppercase;
+  color: fadeout(@black, 70);
+  padding: 0.8em;
+  background-color: lighten(@black, 95);
+  font-weight: bold;
+}
+
+.chat-search-results-section-header {
+  border-bottom: 1px solid fadeout(@black, 95);
+  text-transform: uppercase;
+  color: fadeout(@black, 70);
+  padding: 0.8em;
+  background-color: lighten(@black, 95);
+  font-weight: bold;
+}
+.chat-search-results-item {
+  border-bottom: 1px solid fadeout(@black, 95);
+}

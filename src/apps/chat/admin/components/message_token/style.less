@@ -1,0 +1,59 @@
+.message-token {
+  flex: 1;
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.message-token {
+  .maha-avatar {
+    margin: auto;
+    width: 2.8em;
+  }
+}
+.message-token-avatar {
+  flex: 0 0 4.5em;
+  display: flex;
+  padding: 0.8em;
+}
+.message-token-text {
+  max-width: 18em;
+  word-break: break-all;
+  overflow: hidden;
+  height: 2.8em;
+  text-overflow: ellipsis;
+  strong {
+    font-weight: normal;
+    color: fadeout(@black, 20);
+  }
+  span {
+    color: fadeout(@black, 60);
+  }
+}
+.message-token-details {
+  position: relative;
+  flex: 1;
+  padding: 0.8em 0;
+  overflow: hidden;
+}
+.channel-token-extra {
+  flex: 0 0 1.5em;
+  display: flex;
+  text-align: right;
+}
+.message-token-proceed {
+  flex: 0 0 1.5em;
+  display: flex;
+  i {
+    color: fadeout(@black, 80);
+    margin: auto;
+  }
+}
+.message-token-timestamp {
+  font-size: 0.8em;
+  color: fadeout(@black, 60);
+  position: absolute;
+  top: 0.8em;
+  right: 0;
+}

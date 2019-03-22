@@ -1,4 +1,4 @@
-AMI: ami-935662fa
+AMI2: ami-02eac2c0129f6376b
 
 # CONFIGURE ROOT ACCESS
 sudo sed -i 's/#PermitRootLogin/PermitRootLogin/' /etc/ssh/sshd_config
@@ -8,13 +8,13 @@ sudo service sshd restart
 # UPDATE SERVER
 yum -y update
 
-# INSTALL NTP
-yum install ntp
+# INSTALL NTPl
+yum -y install ntp
 ntpdate -s time.nist.gov
-sudo chkconfig ntpd on
-sudo chkconfig --list ntpd
-sudo service ntpd start
-rm /etc/localtime
+systemctl daemon-reload
+systemctl enable ntpd
+systemctl start ntpd
+rm -rf /etc/localtime
 ln -s /usr/share/zoneinfo/US/Eastern /etc/localtime
 
 # INSTALL DEVTOOLSET-7
@@ -29,16 +29,13 @@ echo > ~/.bash_profile
 vi ~/.bash_profile
 
 # INSTALL NODEJS
-yum install wget
+yum -y install wget
 wget https://nodejs.org/dist/v8.14.0/node-v8.14.0.tar.gz
 tar xzf node-v8.14.0.tar.gz
 cd node-v8.14.0
 ./configure
 make
 make install
-npm config set user 0
-npm config set unsafe-perm true
-npm install -g maha-cli
 
 # INSTALL RUBY
 gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB
@@ -51,17 +48,16 @@ gem update
 # INSTALL PASSENGER / NGINX
 yum install -y libcurl-devel
 gem install passenger --no-ri --no-rdoc
-[+] sudo yum install nginx
->> passenger-install-nginx-module --auto --auto-download --languages nodejs
+passenger-install-nginx-module --auto --auto-download --languages nodejs
 mkdir -p /var/log/nginx
 mv /opt/nginx/conf/nginx.conf /opt/nginx/conf/nginx.conf.bak
 vi /opt/nginx/conf/nginx.conf
 vi /etc/init.d/nginx
 vi /etc/logrotate.d/nginx
 chmod 755 /etc/init.d/nginx
-chkconfig nginx on
-chkconfig --list nginx
-service nginx start
+systemctl daemon-reload
+systemctl enable nginx
+systemctl start nginx
 
 # SET UP DEPLOYMENT
 yum -y install git
@@ -69,16 +65,5 @@ vi ~/.ssh/deploy
 chmod 600 ~/.ssh/deploy
 vi ~/.ssh/config
 
-# SET UP STORAGE
-mkdir /var/www
-umount /media/ephemeral0
-mount /dev/xvdb /var/www
-vi /etc/fstab
-
 # SET UP APP
-cd /var/www
-mkdir maha
-cd maha
-git clone git@github.com:mahaplatform/mahaplatform.com.git release
-cd release
-npm install
+mkdir -p /var/www/maha

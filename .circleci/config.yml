@@ -1,0 +1,67 @@
+version: 2.1
+executors:
+  node-postgres:
+    docker:
+      - image: circleci/node:8.14.0
+        environment:
+            DATABASE_URL: postgresql://root@localhost/circle_test
+      - image: circleci/postgres:10-alpine-ram
+        environment:
+            POSTGRES_USER: root
+            POSTGRES_DB: circle_test
+            POSTGRES_PASSWORD: ""
+    working_directory: ~/repo
+jobs:
+  test:
+    executor: node-postgres
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run: npm install
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - run: npm test
+  deploy:
+    executor: node-postgres
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - 0d:79:bf:2b:27:c2:17:a2:ac:17:89:66:17:66:8a:50
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - attach_workspace:
+          at: ~/repo/root
+      - run:
+          name: Setup environment
+          command: NODE_ENV=production npm run env
+      - run:
+          name: Install rsync
+          command: sudo apt-get install rsync
+      - run:
+          name: Deploy code
+          command: NODE_ENV=production npm run deploy
+workflows:
+  test-deploy:
+    jobs:
+      - test:
+          filters:
+            branches:
+              only: /.*/
+            tags:
+              only: /.*/
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /.*/

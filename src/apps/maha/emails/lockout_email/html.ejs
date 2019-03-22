@@ -1,0 +1,30 @@
+<table align="center" class="container panel">
+  <tbody>
+    <tr>
+      <td class="small-12 large-12 columns first last">
+        <p>Hi <%= first_name %>,</p>
+        <p>Someone attempted unsuccessfully to sign into your account 3 times. If
+        this was you and you have forgotten your password, please click the
+        button below to reset it.</p>
+        <table class="button radius expand">
+          <tbody>
+            <tr>
+              <td>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td><center><a href="<%= reset_url %>" align="center" class="float-center">Reset Password</a></center></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td class="expander"></td>
+            </tr>
+          </tbody>
+        </table>
+        <p>Sincerely,<br/>
+        The Maha Team</p>
+      </td>
+    </tr>
+  </tbody>
+</table>

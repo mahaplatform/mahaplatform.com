@@ -1,0 +1,5 @@
+platforms/*
+!platforms/.gitkeep
+plugins/*
+!plugins/.gitkeep
+node_modules

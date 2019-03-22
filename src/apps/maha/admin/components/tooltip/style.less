@@ -1,0 +1,29 @@
+.maha-tooltip {
+  position: relative;
+  &:hover {
+    .maha-tooltip-bubble {
+      display: block;
+    }
+  }
+}
+.maha-tooltip-bubble {
+  display: none;
+  position: absolute;
+  bottom: 125%;
+  left: 50%;
+  .translateX(-50%);
+  background: @black;
+  color: @white;
+  font-size: 0.6em;
+  padding: 0.2em 0.8em;
+  border-radius: 0.5em;
+  &:after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    right: calc(50% - 5px);
+    border-width: 5px;
+    border-style: solid;
+    border-color: @black transparent transparent transparent;
+  }
+}

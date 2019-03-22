@@ -1,0 +1,150 @@
+@import (css) url('https://fonts.googleapis.com/css?family=Open+Sans:400,600');
+
+@primary_background_color: @black;
+@primary_color: @white;
+
+@splash_background_color: @black;
+@splash_color: @white;
+
+@info_color: @blue;
+@warning_color: @orange;
+@success_color: @green;
+@error_color: @red;
+
+* {
+	-webkit-tap-highlight-color: rgba(0,0,0,0);
+  -webkit-tap-highlight-color: transparent;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+.selectable() {
+	-webkit-user-select: text !important;
+  -moz-user-select: text !important;
+  -ms-user-select: text !important;
+  user-select: text !important;
+}
+
+input, textarea {
+	.selectable()
+}
+
+.reframe-table tbody, .reframe-list-item, .maha-message-content {
+	* {
+		.selectable()
+	}
+}
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  background-color: lighten(@black, 30);
+  @media (max-width: 768px) {
+    font-size: 15px;
+  }
+}
+
+#platform {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+
+.colorizeItem(@item, @property) {
+	&.red @{item} { @{property}: @red; }
+	&.orange @{item} { @{property}: @orange; }
+	&.yellow @{item} { @{property}: @yellow; }
+	&.olive @{item} { @{property}: @olive; }
+	&.green @{item} { @{property}: @green; }
+	&.teal @{item} { @{property}: @teal; }
+	&.blue @{item} { @{property}: @blue; }
+	&.purple @{item} { @{property}: @purple; }
+	&.violet @{item} { @{property}: @violet; }
+	&.pink @{item} { @{property}: @pink; }
+	&.brown @{item} { @{property}: @brown; }
+	&.grey @{item} { @{property}: @grey; }
+	&.black @{item} { @{property}: @black; }
+}
+
+.reframe-modal-panel-header,
+.reframe-tabs-header,
+.reframe-panel-header,
+.reframe-collection-header,
+.reframe-toggle-list-header,
+.maha-account-identity,
+.maha-app-detail-header,
+.maha-notifications-header,
+.maha-page-header,
+.maha-page-body-details,
+.maha-search-bar,
+.reframe-toggle-list-header .reframe-searchbox{
+  background-color: @red;
+}
+
+.reframe-table-body .circle {
+  font-size: .7em !important;
+}
+
+.reframe-tabs-header {
+  .maha-avatar-text {
+    font-size: 4em;
+  }
+}
+
+.maha-toggle-item {
+  flex: 1;
+  display: flex;
+}
+.maha-toggle-item-status {
+  display: flex;
+  padding: 1em 1em 1em 0;
+  .button {
+    padding: 0.8em;
+    width: 2.5em;
+  }
+}
+.token {
+  padding: 0.8em;
+  display: inline-block;
+  word-break: break-word;
+}
+.compact-token {
+  display: inline-block;
+  word-break: break-word;
+}
+.checkered {
+  background-image:
+      linear-gradient(45deg, #666 25%, transparent 25%, transparent 75%, #666 75%),
+      linear-gradient(45deg, #666 25%, #555 25%, #555 75%, #666 75%);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+}
+.drop-enter,
+.drop-exit {
+  .transition(transform .5s ease-in-out 0s);
+}
+.drop-enter,
+.drop-exit.drop-exit-active {
+  .translateY(-100%);
+}
+.drop-exit,
+.drop-enter.drop-enter-active {
+  .translateY(0);
+}
+.rise-enter,
+.rise-exit {
+  .transition(transform .5s ease-in-out 0s);
+}
+.rise-enter,
+.rise-exit.rise-exit-active {
+  .translateY(100%);
+}
+.rise-exit,
+.rise-enter.rise-enter-active {
+  .translateY(0);
+}
+
+.maha-dashboard {
+  flex: 1;
+}

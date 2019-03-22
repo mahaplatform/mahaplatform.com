@@ -1,0 +1,56 @@
+.chat-info {
+  flex: 1;
+  background-color: @white;
+  display: flex;
+  flex-direction: column;
+  &.archived .chat-info-title {
+    background: fadeout(@yellow, 50);
+    span {
+      position: absolute;
+      top: 0.8em;
+      right: 0.8em;
+      color: @red;
+      font-size: 0.8em;
+      text-transform: uppercase;
+      font-weight: bold;
+    }
+  }
+  .reframe-list,
+  .reframe-loader {
+    flex: 1;
+  }
+}
+.chat-info-body {
+  flex: 1;
+  .scrollable();
+}
+.chat-info-description {
+  padding: 0.8em;
+  background-color: fadeout(@black, 95);
+  color: fadeout(@black, 50);
+}
+.chat-info-subscription {
+  display: flex;
+}
+.chat-info-subscription-avatar {
+  padding: 0.8em;
+  flex: 0 0 4.5em;
+}
+.chat-info-subscription-details {
+  padding: 0.8em 0;
+  flex: 1;
+  span {
+    font-size: 0.85em;
+  }
+  em {
+    color: @green;
+  }
+}
+.chat-info-subscription-device {
+  padding: 0.8em;
+  display: flex;
+  .fa {
+    margin: auto;
+    color: fadeout(@black, 50)
+  }
+}

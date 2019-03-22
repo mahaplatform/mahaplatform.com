@@ -1,0 +1,11 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/localforage/1.5.0/localforage.min.js"></script>
+
+<script>
+  localforage.config({
+    name: 'local',
+    storeName: 'cache'
+  });
+  localforage.removeItem('admin').then(function (admin) {
+    window.location.href = "/signin";
+  });
+</script>

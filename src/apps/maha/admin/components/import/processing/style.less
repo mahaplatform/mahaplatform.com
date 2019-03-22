@@ -1,0 +1,40 @@
+.import-processing {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: .8em;
+  .success, .error {
+    font-size:2em;
+    flex:1;
+    margin:auto;
+    text-align: center;
+    font-weight: bold;
+  }
+  .reframe-progress {
+    margin: auto;
+  }
+}
+
+.import-processing .reframe-progress h3:after {
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  -webkit-animation: ellipsis steps(4,end) 900ms infinite;
+  animation: ellipsis steps(4,end) 900ms infinite;
+  content: "\2026";
+  width: 0px;
+  padding-right: 4px;
+  position:absolute;
+}
+
+@keyframes ellipsis {
+  to {
+    width: 1.15em;
+  }
+}
+
+@-webkit-keyframes ellipsis {
+  to {
+    width: 1.15em;
+  }
+}

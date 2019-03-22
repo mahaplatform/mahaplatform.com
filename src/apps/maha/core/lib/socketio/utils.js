@@ -1,0 +1,30 @@
+import Session from '../../../models/session'
+import * as jwt from '../../services/jwt'
+import User from '../../../models/user'
+
+export const authenticate = async (token) => {
+
+  if(!token) throw new Error('no token provided')
+
+  const tokenData = jwt.decode(token)
+
+  if(!tokenData.data.user_id) throw new Error('invalid token')
+
+  const user = await User.where({
+    id: tokenData.data.user_id
+  }).fetch()
+
+  if(!user) throw new Error('invalid user')
+
+  const session = await Session.where({
+    id: tokenData.data.session_id
+  }).fetch({
+    withRelated: ['device.platform_type', 'device.device_type', 'device.os_name', 'device.browser_name']
+  })
+
+  return {
+    session,
+    user
+  }
+
+}

@@ -1,0 +1,298 @@
+.maha-navigation {
+  position: relative;
+  flex: 1;
+  display: flex;
+  overflow: hidden;
+  &.slide-next .maha-navigation-panel {
+    .transition(transform 0.5s ease-in-out 0s);
+    &.expanded-enter.expanded-enter-active,
+    &.expanded-exit {
+      .translateX(0);
+    }
+    &.expanded-enter {
+      .translateX(100%);
+    }
+    &.expanded-exit.expanded-exit-active {
+      .translateX(-100%);
+    }
+  }
+  &.slide-back .maha-navigation-panel {
+    .transition(transform 0.5s ease-in-out 0s);
+    &.expanded-enter.expanded-enter-active,
+    &.expanded-exit {
+      .translateX(0);
+    }
+    &.expanded-enter {
+      .translateX(-100%);
+    }
+    &.expanded-exit.expanded-exit-active {
+      .translateX(100%);
+    }
+  }
+}
+.maha-navigation-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.maha-navigation-header {
+  display: flex;
+  flex: 0 0 3.5em;
+  background-color: @black;
+  cursor: pointer;
+  i {
+    margin: auto;
+  }
+  .maha-logo {
+    width: 2.3em;
+    height: 2.3em;
+    margin: 0.7em;
+    img {
+      border-radius: 5px;
+      width: 100%;
+    }
+  }
+  .maha-logo-wrapper {
+    border-radius: 0 !important;
+  }
+  .maha-logo-text {
+    font-size: 2.3em;
+    line-height: 2.3em;
+  }
+}
+.maha-navigation-header-back,
+.maha-navigation-header-next {
+  color: #FFFFFF;
+  line-height: 1em;
+}
+.maha-navigation-header-back {
+  flex: 0 0 50px;
+  display: flex;
+  text-align: left;
+}
+.maha-navigation-header-title,
+.maha-navigation-header-team {
+  color: @white;
+  flex: 1;
+  font-weight: bold;
+  font-size: 0.9em;
+  line-height: 1.4em;
+  display: flex;
+  align-items: center;
+}
+.maha-navigation-header-title {
+  padding: 0.7em 0;
+}
+.maha-navigation-header-team {
+  padding: 0.7em 0;
+  cursor: pointer;
+}
+.maha-navigation-header-next {
+  flex: 0 0 3.5em;
+  display: flex;
+  text-align: right;
+  cursor: pointer;
+}
+.maha-navigation-body {
+  .scrollable();
+  flex: 1;
+}
+.maha-navigation-apps {
+  border-bottom: 1px solid #EEE;
+}
+.maha-navigation-item {
+  .hover(background-color, fadeout(@black, 95));
+  display: flex;
+  border-bottom: 1px solid #EEEEEE;
+  .maha-navigation-item-extra:first-child {
+    padding: 0.7em 0 0.7em 0.7em;
+  }
+  .maha-navigation-item-extra:last-child {
+    padding: 0.7em 0.7em 0.7em 0;
+  }
+}
+.maha-navigation-item-extra {
+  display: flex;
+  .chevron {
+    margin: auto;
+    color: #BBB;
+  }
+}
+.maha-navigation-item-details {
+  flex: 1;
+  font-size: 1em;
+  line-height: 2.3em;
+  padding: 0.7em;
+  position: relative;
+  cursor: pointer;
+  color: #666;
+  strong {
+    color: @black;
+  }
+}
+.maha-navigation-item-icon {
+  .border-radius(5px);
+  color: #FFF;
+  display: flex;
+  width: 2.3em;
+  height: 2.3em;
+  text-align: center;
+  background-color: @darkgrey;
+  &.red { background-color: @red; }
+  &.orange { background-color: @orange; }
+  &.yellow { background-color: @yellow; }
+  &.olive { background-color: @olive; }
+  &.green { background-color: @green; }
+  &.teal { background-color: @teal; }
+  &.blue { background-color: @blue; }
+  &.purple { background-color: @purple; }
+  &.violet { background-color: @violet; }
+  &.pink { background-color: @pink; }
+  &.brown { background-color: @brown; }
+  &.grey { background-color: @grey; }
+  &.black { background-color: @black; }
+  i {
+    margin: auto;
+    font-size: 1.2em;
+    line-height: 1.2em;
+  }
+}
+.maha-navigation-empty {
+  flex: 1;
+  display: flex;
+  .maha-navigation-empty-message {
+    margin: auto;
+    text-align: center;
+    padding: 1.4em;
+    i {
+      font-size: 7em;
+      color: #BBB;
+    }
+    h3 {
+      font-size: 1.6em;
+      line-height: 2em;
+      margin: 0;
+      color: #666;
+    }
+  }
+}
+
+.maha-navigation-account {
+  .hover(background-color, fadeout(@black, 95));
+  flex: 1;
+  display: flex;
+  font-size: .9em;
+  line-height: 1.4em;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #FFFFFF;
+  color: #888;
+  border-bottom: 1px solid #EEEEEE;
+}
+.maha-navigation-account-logo {
+  position: relative;
+  padding: 10px;
+  flex: 0 0 40px;
+  .maha-logo {
+    height: 2.5em;
+    width: 2.5em;
+    img {
+      height: 2.5em;
+      width: 2.5em;
+      border-radius: .3em;
+    }
+  }
+  .maha-avatar {
+    width: 1.8em;
+    height: 1.8em;
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    border-radius: 50%;
+    border: 2px solid @white;
+    img {
+      height: 1.8em;
+      width: 1.8em;
+    }
+  }
+  .maha-avatar-wrapper {
+    background-color: #666;
+  }
+  .maha-avatar-text {
+    font-size: .7em;
+  }
+  .maha-logo-wrapper {
+    border-radius: .3em;
+  }
+  .maha-navigation-account-label {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+    font-size: 0.6em;
+    font-weight: bold;
+    line-height: 1.2em;
+    padding: 0;
+    background-color: @primary_background_color;
+    color: @primary_color;
+    display: block;
+    width: 1.2em;
+    height: 1.2em;
+    text-align: center;
+    vertical-align: middle;
+    .border-radius(50%);
+  }
+}
+.maha-navigation-account-title {
+  flex: 1;
+  padding: 0.7em 0.7em 0.7em 0;
+  strong {
+    color: @black;
+  }
+}
+.maha-navigation-account-active {
+  padding: 0.7em 0.7em 0.7em 0;
+  flex: 0 0 2.8em;
+  text-align: right;
+  i {
+    color: #BBB;
+    margin: 0.5em 0.25em;
+  }
+}
+.maha-navigation-account-add {
+  flex: 1;
+  display: flex;
+  font-size: 13px;
+  line-height: 15px;
+  padding: 10px;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #FFFFFF;
+  border-bottom: 1px solid #EEEEEE;
+}
+.maha-navigation-account-add-button {
+  flex: 0 0 40px;
+}
+.maha-navigation-account-add-button-image {
+  width: 2.5em;
+  height: 2.5em;
+  padding: 8px;
+  background-color: #DDD;
+  color: #888;
+  border-radius: 5px;
+  display: flex;
+  i {
+    margin: auto;
+    font-size: 14px;
+    line-height: 14px;
+  }
+}
+.maha-navigation-account-add-text {
+  flex: 1;
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,32 @@
+.maha-badge {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+.maha-badge-label {
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  font-size: 0.5em;
+  font-weight: bold;
+  line-height: 2.2em;
+  padding: 0;
+  display: block;
+  width: 16px;
+  height: 16px;
+  text-align: center;
+  vertical-align: middle;
+  .border-radius(50%);
+  border-width: 1px;
+  border-style: solid;
+  @media (max-width: 768px) {
+    background-color: @white;
+    border-color: @red;
+    color: @red;
+  }
+  @media (min-width: 769px) {
+    background-color: @red;
+    border-color: #333;
+    color: @white;
+  }
+}

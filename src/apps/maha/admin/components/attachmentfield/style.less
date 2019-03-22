@@ -1,0 +1,24 @@
+.maha-attachmentfield-asset {
+  margin-bottom: 0.8em;
+  width: 100%;
+  border: 1px solid fadeout(@black, 90);
+  background-color: @white;
+  border-radius: 0.5em;
+  overflow: hidden;
+  display: flex;
+  .maha-asset {
+    display: flex;
+  }
+}
+.maha-attachmentfield-asset-remove {
+  flex: 0 0 2em;
+  display: flex;
+  .fa {
+    margin: 0.8em 0.4em auto;
+    cursor: pointer;
+    color: fadeout(@black, 80);
+    &:hover {
+      color: fadeout(@black, 60);
+    }
+  }
+}

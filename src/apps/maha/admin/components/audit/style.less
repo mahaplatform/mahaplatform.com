@@ -1,0 +1,59 @@
+.maha-audit {
+  padding: 0.8em;
+  background-color: fadeout(@blue, 90);
+  .maha-audit-entry:last-child {
+    margin: 0;
+  }
+}
+.maha-audit-entry {
+  display: flex;
+}
+.maha-audit-entry-avatar {
+  .maha-avatar {
+    width: 100%;
+  }
+}
+.maha-audit-entry-details {
+  flex: 1;
+  padding-left: .5em;
+}
+.maha-audit-entry-text {
+  line-height: 1.2em;
+}
+.maha-audit-entry-timestamp {
+  color: fadeout(@black, 70);
+}
+@media (max-width: 768px) {
+  .maha-audit-entry-avatar {
+    flex: 0 0 1.8em;
+  }
+  .maha-audit-entry {
+    margin-bottom: 0.2em;
+    .maha-avatar-text {
+      font-size: 0.8em;
+    }
+  }
+  .maha-audit-entry-timestamp {
+    font-size: 0.7em;
+  }
+  .maha-audit-entry-avatar {
+    padding: 0.4em 0;
+  }
+}
+@media (min-width: 769px) {
+  .maha-audit-entry {
+    margin-bottom: 0.8em;
+    .maha-avatar-text {
+      font-size: 0.6em;
+    }
+  }
+  .maha-audit-entry-avatar {
+    flex: 0 0 1.2em;
+  }
+  .maha-audit-entry-details {
+    display: flex;
+  }
+  .maha-audit-entry-text {
+    flex: 1;
+  }
+}

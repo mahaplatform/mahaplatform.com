@@ -1,0 +1,31 @@
+.expense-item-status {
+  margin: 10px;
+  padding: 10px;
+  .border-radius(4px);
+  display: block;
+  text-align: center;
+  color: @white;
+  font-size: 0.8em;
+  margin: 0;
+  padding: 4px;
+  text-transform: uppercase;
+  width: 7.5em;
+  &.incomplete { background-color: @grey; }
+  &.pending { background-color: @teal; }
+  &.submitted { background-color: @blue; }
+  &.approved { background-color: @green; }
+  &.rejected { background-color: @red; }
+  &.reviewed { background-color: @pink; }
+  &.processed { background-color: @violet; }
+}
+@media (max-width: 768px) {
+  tr {
+    &.incomplete td:first-child { background: linear-gradient(90deg, @grey, @grey 8px, transparent 8px); }
+    &.pending td:first-child { background: linear-gradient(90deg, @teal, @teal 8px, transparent 8px); }
+    &.submitted td:first-child { background: linear-gradient(90deg, @blue, @blue 8px, transparent 8px); }
+    &.approved td:first-child { background: linear-gradient(90deg, @green, @green 8px, transparent 8px); }
+    &.rejected td:first-child { background: linear-gradient(90deg, @red, @red 8px, transparent 8px); }
+    &.reviewed td:first-child { background: linear-gradient(90deg, @pink, @pink 8px, transparent 8px); }
+    &.processed td:first-child { background: linear-gradient(90deg, @violet, @violet 8px, transparent 8px); }
+  }
+}

@@ -1,0 +1,57 @@
+.maha-fields {
+  background-color: @white;
+}
+.maha-fields-empty {
+  padding: 0.4em;
+  text-align: center;
+}
+.maha-fields-footer {
+  padding: 0.4em;
+  background-color: fadeout(@black, 97);
+}
+.maha-field {
+  display: flex;
+  background-color: @white;
+  border-bottom: 1px solid fadeout(@black, 95);
+  &.dragging .maha-field-handle {
+    cursor: grabbing !important;
+  }
+  &.section {
+    background-color: fadeout(@black, 30);
+    color: @white;
+    .fa {
+      color: @white !important;
+    }
+  }
+}
+.maha-field-handle {
+  cursor: grab;
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  .fa {
+    .hover(color, fadeout(@black, 70));
+    color: fadeout(@black, 80);
+    font-size: 1.2em;
+    margin: auto;
+  }
+}
+.maha-field-label {
+  padding: 0.8em;
+  flex: 1;
+  span {
+    text-transform: uppercase;
+    color: fadeout(@black, 60);
+    font-size: 0.9em;
+  }
+}
+.maha-field-extra {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  .fa {
+    .hover(color, fadeout(@black, 70));
+    color: fadeout(@black, 80);
+    font-size: 1.2em;
+    margin: auto;
+    cursor: pointer;
+  }
+}

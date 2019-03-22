@@ -1,0 +1,97 @@
+import initReactFastclick from 'react-fastclick'
+import { setConfig, hot } from 'react-hot-loader'
+import PropTypes from 'prop-types'
+import Admin from 'maha-client'
+import React from 'react'
+
+setConfig({
+  errorReporter: false
+})
+
+<% for(var i = 0; i < reducers.length; i++) {-%>
+import <%= reducers[i].code %><%= reducers[i].name %> from '<%= reducers[i].filepath %>'
+<% } -%>
+<% for(var i = 0; i < routes.length; i++) {-%>
+import <%= routes[i].code %>Routes from '<%= routes[i].filepath %>'
+<% } -%>
+<% for(var i = 0; i < badges.length; i++) {-%>
+import <%= badges[i].code %>Badges from '<%= badges[i].filepath %>'
+<% } -%>
+<% for(var i = 0; i < roots.length; i++) {-%>
+import <%= roots[i].code %>Roots from '<%= roots[i].filepath %>'
+<% } -%>
+<% for(var i = 0; i < userTasks.length; i++) {-%>
+import <%= userTasks[i].code %>UserTasks from '<%= userTasks[i].filepath %>'
+<% } -%>
+<% for(var i = 0; i < userFields.length; i++) {-%>
+import <%= userFields[i].code %>UserFields from '<%= userFields[i].filepath %>'
+<% } -%>
+<% for(var i = 0; i < userValues.length; i++) {-%>
+import <%= userValues[i].code %>UserValues from '<%= userValues[i].filepath %>'
+<% } -%>
+<% for(var i = 0; i < settings.length; i++) {-%>
+import <%= settings[i].code %>Settings from '<%= settings[i].filepath %>'
+<% } -%>
+
+initReactFastclick()
+
+class Client extends React.Component {
+
+  render() {
+    return <Admin { ...this._getApp() } />
+  }
+
+  _getApp() {
+    return {
+      appBadges: [
+<% for(var i = 0; i < badges.length; i++) { -%>
+        ...<%= badges[i].code %>Badges.map(badge => ({
+          app: '<%= badges[i].code %>',
+          ...badge
+        })),
+<% } -%>
+      ],
+      appRoots: [
+<% for(var i = 0; i < roots.length; i++) { -%>
+        ...<%= roots[i].code %>Roots.map(root => ({
+          app: '<%= roots[i].code %>',
+          component: root
+        })),
+<% } -%>
+      ],
+      appReducers: [
+<% for(var i = 0; i < reducers.length; i++) {-%>
+        <%= reducers[i].code %><%= reducers[i].name %>,
+<% } -%>
+      ],
+      appRoutes: [
+<% for(var i = 0; i < routes.length; i++) {-%>
+        { path: '/admin<%= routes[i].path %>', children: <%= routes[i].code %>Routes },
+<% } -%>
+      ],
+      appUserTasks: [
+<% for(var i = 0; i < userTasks.length; i++) {-%>
+        <%= userTasks[i].code %>UserTasks,
+<% } -%>
+      ],
+      appUserFields: [
+<% for(var i = 0; i < userFields.length; i++) {-%>
+        <%= userFields[i].code %>UserFields,
+<% } -%>
+      ],
+      appUserValues: [
+<% for(var i = 0; i < userValues.length; i++) {-%>
+        <%= userValues[i].code %>UserValues,
+<% } -%>
+      ],
+      settings: {
+<% for(var i = 0; i < settings.length; i++) {-%>
+        <%= settings[i].code %>: <%= settings[i].code %>Settings,
+<% } -%>
+      }
+    }
+  }
+
+}
+
+export default hot(module)(Client)

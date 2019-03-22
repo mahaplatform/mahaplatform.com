@@ -1,0 +1,263 @@
+.maha-signin {
+  flex: 1;
+  position: relative;
+  &.backward .maha-signin-panel {
+    &.slide-next-enter { .translateX(-100%); }
+    &.slide-next-enter.slide-next-enter-active { .translateX(0); }
+    &.slide-next-exit { .translateX(0); }
+    &.slide-next-exit.slide-next-exit-active { .translateX(100%); }
+  }
+  &.forward .maha-signin-panel {
+    &.slide-next-enter { .translateX(100%); }
+    &.slide-next-enter.slide-next-enter-active { .translateX(0); }
+    &.slide-next-exit { .translateX(0); }
+    &.slide-next-exit.slide-next-exit-active { .translateX(-100%); }
+  }
+}
+.maha-signin-panel {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  display: flex;
+}
+.maha-signin-form {
+  width: 100%;
+  max-width: 375px;
+  margin: auto;
+  overflow: hidden;
+  text-align: center;
+  padding: 0.8em;
+}
+
+.maha-signin-alert {
+  text-align: left;
+  background-color: @red;
+  color: @white;
+  width: 100%;
+  max-width: 375px;
+  margin: auto;
+  overflow: hidden;
+  text-align: center;
+  padding: 0.8em;
+  border-radius: 0.5em;
+}
+.maha-signin-header {
+  padding: 0.8em;
+  height: 14em;
+}
+.maha-signin-footer {
+  padding: 0.8em;
+  height: 5.6em;
+}
+.maha-signin-content {
+  p {
+    margin: 0 0 1em !important;
+  }
+  a {
+    text-decoration: underline;
+  }
+}
+.maha-signin-avatar {
+  border-radius: 5px;
+  margin-bottom: .8em;
+  background-color: fadeout(@white, 50);
+  height: 0;
+  padding-bottom: 100%;
+  position: relative;
+  cursor: pointer;
+}
+.maha-signin-avatar-placeholder {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  i {
+    font-size: 15em;
+    color: fadeout(@black, 70);
+    margin: auto;
+  }
+}
+.maha-signin-accounts {
+  width: ~"calc(100% - 2em)";
+  max-width: 375px;
+  margin: auto;
+}
+.maha-signin-accounts-list {
+  margin: 0.8em 0 !important;
+  with: 100%;
+  background: @white;
+}
+.maha-signin-accounts-title {
+  cursor: pointer;
+  padding: 0.8em;
+  background-color: @blue;
+  border-bottom: 1px solid #DDD;
+  h2 {
+    color: @white !important;
+  }
+  p {
+    color: lighten(@white, 50) !important;
+    margin: 0 !important;
+  }
+}
+.maha-signin-account {
+  .hover(background-color, fadeout(@black, 95));
+  display: flex;
+  cursor: pointer;
+  border-bottom: 1px solid fadeout(@black, 90);
+}
+.maha-signin-account-avatar {
+  padding: 1em;
+  line-height: 1em;
+  display: flex;
+  .maha-avatar {
+    width: 3.2em !important;
+    margin: auto !important;
+  }
+  .maha-avatar-text {
+    font-size: 1em !important;
+  }
+}
+.maha-signin-account-details {
+  flex: 1;
+  padding: 0.4em 0;
+  font-size: .9em;
+  line-height: 1.5em;
+  color: lighten(@black, 60);
+  text-align: left !important;
+  margin: auto 0 !important;
+  color: lighten(@black, 40) !important;
+  strong {
+    color: @black;
+  }
+}
+.maha-signin-account-extra {
+  padding: 0.4em 0.8em;
+  display: flex;
+  .fa {
+    margin: auto;
+    font-size: 1em;
+    line-height: 1em;
+  }
+  .fa-times {
+    color: fadeout(@black, 80);
+  }
+  .fa-check {
+    color: @green;
+  }
+}
+.maha-signin-accounts-remove {
+  cursor: pointer;
+  padding: 0.8em;
+  font-size: .9em;
+  color: @blue;
+  text-decoration: underline;
+  text-align: center;
+  &.disabled {
+    color: fadeout(@black, 60);
+    text-decoration: none;
+    cursor: default;
+  }
+}
+
+.maha-signin-panel {
+  .maha-logo,
+  .maha-avatar {
+    width: 130px;
+    margin: 0 auto;
+    display: inline-block;
+    .maha-avatar-text {
+      font-size: 3em;
+    }
+  }
+  form {
+    margin-top: 1em;
+  }
+  h2 {
+    text-align: center;
+    color: @white;
+    margin: 0;
+    font-size: 1.6em;
+    line-height: 1.6em;
+  }
+  h3 {
+    text-align: center;
+    color: lighten(@white, 5);
+    margin: 0;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  p {
+    text-align: center;
+    color: @white;
+    margin: 0;
+    line-height: 1.6em;
+  }
+  a {
+    .hover(text-decoration, underline);
+    cursor: pointer;
+  }
+  .reframe-filefield-token {
+    width: 100%;
+    margin: 0 0 1em;
+  }
+  .reframe-select {
+    text-align: left;
+  }
+  label {
+    color: @white !important;
+  }
+  .ui.button {
+    .hover(background-color, lighten(@blue, 5));
+    background-color: @blue;
+    color: @white;
+    margin-bottom: 5px;
+    .transition(background-color 0.5s ease-in-out 0s);
+  }
+  h1 {
+    font-size: 4em;
+    line-height: 1em;
+    margin: 0;
+    color: @white;
+  }
+  .fa-check-circle {
+    color: @olive;
+  }
+  a {
+    color: @white;
+    cursor: pointer;
+  }
+  .team-field {
+    .suffix {
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      color: #333 !important;
+    }
+  }
+  .email-field {
+    input {
+      border-width: 0 0 1px 0;
+      border-color: #DDD;
+    }
+  }
+  .password-field {
+    input {
+      border: 0px;
+    }
+    a {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      background-color: #CCC;
+      font-size: 10px;
+      padding: 3px 5px;
+      border-radius: 3px;
+      width: 50px;
+    }
+  }
+}

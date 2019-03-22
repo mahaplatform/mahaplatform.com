@@ -1,0 +1,181 @@
+.maha-message {
+  position: relative;
+  display: flex;
+  background-color: @white;
+  &.inline {
+    .hover(background-color, fadeout(@black, 97));
+  }
+  &.full {
+    padding-top: 0.4em;
+  }
+  &.action {
+    .maha-message-text {
+      font-style: italic;
+      color: fadeout(@black, 60);
+    }
+  }
+}
+.maha-message-avatar {
+  flex: 0 0 4em;
+  padding: 0.4em 0.6em;
+  span {
+    font-size: 0.8em;
+  }
+}
+.maha-message-content {
+  line-height: 1.6em;
+  flex: 1;
+  margin-right: 1.6em;
+  width: ~"calc(90%)";
+  word-break: break-word;
+  position: relative;
+}
+.maha-message-name {
+  font-weight: bold;
+  display: inline;
+  margin-right: 0.4em;
+}
+.maha-message-extras {
+  width: 100%;
+  max-width: 400px;
+}
+.maha-message-timestamp {
+  font-size: 0.8em;
+  color: fadeout(@black, 60);
+  display: inline;
+  cursor: pointer;
+  .hover(text-decoration, underline);
+}
+.maha-message-exras {
+  .maha-media {
+    max-width: 325px;
+    margin: ~"0.4em calc(0.2em - 1px)";
+    width: 100%;
+    border: 1px solid fadeout(@black, 90);
+    background-color: @white;
+    border-radius: 0.5em;
+    overflow: hidden;
+    display: block;
+    cursor: pointer;
+    .maha-media-label {
+      text-align: center;
+      padding: 0.8em;
+      color: fadeout(@black, 20);
+      font-size: 1em;
+      font-weight: bold;
+      line-height: 1.6em;
+    }
+  }
+  .maha-files-file {
+    width: 100%;
+  }
+}
+.maha-message-text {
+  color: fadeout(@black, 40);
+  overflow: hidden;
+  margin-bottom: 0.5em;
+  .maha-attachment {
+    width: 100%;
+    max-width: 450px;
+  }
+}
+.maha-message-receipts {
+	overflow: hidden;
+	position: absolute;
+	bottom: 0.5em;
+	right: 0.5em;
+}
+.maha-message-receipt {
+	overflow: hidden;
+	float: left;
+	width: 16px;
+	height: 16px;
+	margin-left: 2px;
+}
+.maha-message-actions {
+  position: absolute;
+  top: -1em;
+  right: 0.3em;
+  border: 1px solid lighten(@black, 90);
+  background-color: @white;
+  border-radius: 0.5em;
+  line-height: 2em;
+  text-align: center;
+  display: flex;
+  .maha-message-action {
+    &:last-child {
+      border: none;
+    }
+  }
+}
+.maha-message-action {
+  border-right: 1px solid fadeout(@black, 90);
+  display: flex;
+  .maha-message-reply,
+  .maha-message-delete {
+    width: 2em;
+    height: 1.5em;
+    flex: 1;
+    display: flex;
+    cursor: pointer;
+    .fa {
+      color: lighten(@black, 70);
+    }
+  }
+  .maha-message-reply {
+    &:hover {
+      .fa {
+        color: @red;
+      }
+    }
+  }
+  .maha-message-delete {
+    &:hover {
+      .fa {
+        color: @purple;
+      }
+    }
+  }
+  .maha-like-icon,
+  .maha-star-icon {
+    width: 2em;
+    height: 1.5em;
+    flex: 1;
+  }
+  .fa {
+    color: lighten(@black, 50);
+    margin: auto;
+  }
+}
+.maha-message {
+  .maha-message-quoted {
+    width: 100%;
+  }
+}
+
+.maha-message-quoted {
+  border-left: 4px solid @blue;
+  background-color: fadeout(@black, 95);
+  padding: 0.8em;
+  margin: 0.4em 0;
+}
+.maha-message-quoted-message-header {
+  display: block;
+  .maha-avatar {
+    display: inline-block;
+    width: 1.2em;
+    height: 1.2em;
+    margin: 0 0.5em -0.2em 0;
+  }
+  font-size: 0.9em;
+  font-weight: bold;
+}
+.maha-message-quoted-message-body {
+  font-size: 0.8em;
+  line-height: 1.6em;
+  color: fadeout(@black, 20);
+}
+.maha-message-quoted-message-timestamp {
+  font-size: 0.8em;
+  color: fadeout(@black, 60);
+}

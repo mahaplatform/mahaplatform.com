@@ -1,0 +1,43 @@
+.maha-ribbon  {
+  flex: 1;
+  display: flex;
+}
+.maha-ribbon-spacer {
+  flex: 1;
+}
+.maha-ribbon-item {
+  flex: 0 0 3.5em;
+  cursor: pointer;
+  .hover(background-color, @black);
+  display: flex;
+  &.active {
+    background: @blue;
+  }
+  .fa {
+    margin: auto;
+    color: @white;
+    width: 1.1em;
+    font-size: 1.3em;
+    line-height: 1em;
+  }
+  .maha-avatar {
+    margin: auto;
+    width: 2em;
+    height: 2em;
+  }
+}
+@media (max-width: 768px) {
+  .maha-ribbon  {
+    right: 0;
+    height: 3.5em;
+    background-color: @red;
+  }
+}
+@media (min-width: 769px) {
+  .maha-ribbon  {
+    bottom: 0;
+    width: 3.5em;
+    flex-direction: column;
+    background-color: lighten(@black, 20);
+  }
+}

@@ -1,0 +1,75 @@
+.maha-reaction-add {
+  flex: 1;
+  display: flex;
+  position: relative;
+}
+.maha-reaction-add-button {
+  color: lighten(@black, 60);
+  width: 2em;
+  height: 1.5em;
+  flex: 1;
+  display: flex;
+  cursor: pointer;
+  .fa {
+    margin: auto;
+  }
+  &:hover {
+    color: @blue;
+    .fa {
+      color: @blue;
+    }
+  }
+}
+.maha-reaction-add-items {
+  background-color: @white;
+  position: absolute;
+  top: 2.2em;
+  right: -0.2em;
+  width: 12.45em;
+  line-height: 1em;
+  border: 1px solid lighten(@black, 90);
+  border-radius: 0.5em;
+  position: absolute;
+  border: 1px solid lighten(@black, 90);
+  background-color: @white;
+  display: inline-block;
+  &:before {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    right: 7px;
+    border-width: 7px;
+    border-style: solid;
+    border-color: transparent transparent lighten(@black, 90) transparent;
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: 100%;
+    right: 9px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: transparent transparent @white transparent;
+  }
+  .maha-reaction-add-item:first-child {
+    border-radius: 0.5em 0 0 0.5em;
+  }
+  .maha-reaction-add-item:last-child {
+    border-right: none;
+    border-radius: 0 0.5em 0.5em 0;
+  }
+}
+
+.maha-reaction-add-item {
+  border-right: 1px solid lighten(@black, 90);
+  padding: 0.4em;
+  display: inline-block;
+  font-size: 0.85em;
+  cursor: pointer;
+  &:hover {
+    background-color: lighten(@black, 95);
+  }
+  img {
+    width: 1em;
+  }
+}

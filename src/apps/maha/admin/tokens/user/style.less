@@ -1,0 +1,55 @@
+.compact-user-token,
+.user-token {
+  display: flex;
+  flex: 1;
+}
+.user-token-avatar {
+  padding: 0.8em;
+  .maha-avatar {
+    width: 3em;
+  }
+}
+.compact-user-token-avatar {
+  padding: 0.8em;
+  .maha-avatar {
+    width: 2.3em;
+  }
+}
+.compact-user-token-details,
+.user-token-details {
+  position: relative;
+  flex: 1;
+  color: #888888 !important;
+  strong {
+    color: @black !important;
+  }
+}
+.compact-user-token-details {
+  padding: 0.8em 0.8em 0.8em 0;
+}
+.user-token-details {
+  padding: 0.8em 0.8em 0.8em 0;
+
+}
+.compact-user-token-details {
+  line-height: 2.3em;
+}
+.user-token-badge {
+  position: absolute;
+  top: ~"calc(50% - 1em)";
+  right: 1em;
+  .border-radius(4px);
+  display: block;
+  text-align: center;
+  color: @white;
+  width: 80px;
+  font-size: 10px;
+  margin: 0;
+  padding: 4px;
+  &.open {
+    background-color: @green;
+  }
+  &.completed {
+    background-color: @red;
+  }
+}
