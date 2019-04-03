@@ -311,4 +311,7 @@ const _filterBetween = (qb, column, start, end) => {
 
 }
 
-const castColumn = (name, index) => index >= 0 ? `values->'${name}'->>${index}` : `values->'${name}'`
+const castColumn = (name, index) => {
+  if(name === 'id') return name
+  return index >= 0 ? `values->'${name}'->>${index}` : `values->'${name}'`
+}

@@ -1,9 +1,9 @@
-const utils = require('shipit-utils')
-const roles = require('shipit-roles')
-const path = require('path')
-const moment = require('moment')
+import utils from 'shipit-utils'
+import roles from 'shipit-roles'
+import moment from 'moment'
+import path from 'path'
 
-module.exports = (shipit) => {
+const shipitfile = (shipit) => {
 
   const appservers = process.env.APPSERVERS ? process.env.APPSERVERS.split(',') : []
 
@@ -14,7 +14,8 @@ module.exports = (shipit) => {
   shipit.initConfig({
     default: {
       deployTo: '/var/www/maha',
-      key: '~/.ssh/id_rsa_0d79bf2b27c217a2ac17896617668a50',
+      // key: '~/.ssh/id_rsa_0d79bf2b27c217a2ac17896617668a50',
+      key: '~/.ssh/mahaplatform',
       strict: 'no'
     },
     production: {
@@ -42,7 +43,7 @@ module.exports = (shipit) => {
 
   const timestamp = moment().format('YYYYMMDDHHmmss')
 
-  const deployDir = `${shipit.config.deployTo}/${process.env.NODE_ENV}`
+  const deployDir = shipit.config.deployTo
 
   const releaseDir = `${deployDir}/releases/${timestamp}`
 
@@ -88,9 +89,9 @@ module.exports = (shipit) => {
 
   utils.registerTask(shipit, 'deploy:link_shared', async () => {
     const commands = [
-      `rm -rf ${releaseDir}/tmp && ln -s ${sharedDir}/tmp ${releaseDir}/tmp`,
-      `rm -rf ${releaseDir}/logs && ln -s ${sharedDir}/logs ${releaseDir}/logs`,
-      `rm -rf ${releaseDir}/imagecache && ln -s ${sharedDir}/imagecache ${releaseDir}/dist.staged/public/imagecache`
+      `rm -rf ${releaseDir}/tmp && mkdir -p ${sharedDir}/tmp && ln -s ${sharedDir}/tmp ${releaseDir}/tmp`,
+      `rm -rf ${releaseDir}/logs && mkdir -p ${sharedDir}/logs && ln -s ${sharedDir}/logs ${releaseDir}/logs`,
+      `rm -rf ${releaseDir}/imagecache && mkdir -p ${sharedDir}/imagecache && ln -s ${sharedDir}/imagecache ${releaseDir}/dist/public/imagecache`
     ]
     await shipit.remote(commands.join(' && '))
   })
@@ -120,3 +121,5 @@ module.exports = (shipit) => {
   })
 
 }
+
+export default shipitfile

@@ -34,7 +34,7 @@ const sections = (fields, token) => fields.reduce((fields, field, index) => [
 
 const _getControl = (field, token) => ({
   ...field.config,
-  type: _getType(field.type),
+  type: _getType(field),
   ...field.type === 'imagefield' ? {
     prompt: 'Choose Image',
     action: '/api/admin/assets/upload',
@@ -44,9 +44,10 @@ const _getControl = (field, token) => ({
   } : {}
 })
 
-const _getType = (type) => {
+const _getType = ({ type, config }) => {
   if(type === 'htmlfield') return HtmlField
   if(type === 'imagefield') return 'filefield'
+  if(type === 'lookup') return config.multiple ? 'lookup2' : 'lookup'
   return type
 }
 

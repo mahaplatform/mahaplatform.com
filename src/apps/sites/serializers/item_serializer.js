@@ -1,4 +1,5 @@
 import { serializer } from 'maha'
+import _ from 'lodash'
 
 const itemSerializer = serializer(async (req, trx, result) => ({
 
@@ -6,7 +7,7 @@ const itemSerializer = serializer(async (req, trx, result) => ({
 
   title: title(req, trx, result),
 
-  values: values(result.get('values')),
+  values: values(req, result.get('values')),
 
   created_at: result.get('created_at'),
 
@@ -24,9 +25,17 @@ const title = (req, trx, result) => {
 
 }
 
-const values = (values) => Object.key(values).reduce((sanitized, key) => ({
-  ...sanitized,
-  [key]: values[key].length > 0 ? values[key] : values[key][0]
-}), {})
+const values = (req, values) => Object.keys(values).reduce((sanitized, code) => {
+
+  const field = req.fields.find(field => field.get('code') === code)
+
+  const { multiple } = field.get('config')
+
+  return {
+    ...sanitized,
+    [code]: multiple === true ? values[code] : values[code][0]
+  }
+
+}, {})
 
 export default itemSerializer

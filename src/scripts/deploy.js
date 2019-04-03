@@ -4,7 +4,7 @@ import Shipit from 'shipit-cli'
 
 const deploy = async () => {
 
-  const shipit = new Shipit({ environment: process.env.NODE_ENV })
+  const shipit = new Shipit({ environment: 'production' })
 
   shipitfile(shipit)
 

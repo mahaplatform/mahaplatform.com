@@ -32,7 +32,7 @@ class htmlfield extends React.Component {
   }
 
   render() {
-    const { editorState, linking, view, code } = this.state
+    const { editorState, linking, view } = this.state
     return (
       <div className="reframe-htmlfield">
         <div className="reframe-htmlfield-header">
@@ -160,11 +160,11 @@ class htmlfield extends React.Component {
 
   _getLinkInput() {
     return {
-       type: 'text',
-       placeholder: 'Enter a link',
-       ref: node => this.link = node,
-       defaultValue: this.state.url,
-       onKeyDown: this._handleLinkKeyDown.bind(this)
+      type: 'text',
+      placeholder: 'Enter a link',
+      ref: node => this.link = node,
+      defaultValue: this.state.url,
+      onKeyDown: this._handleLinkKeyDown.bind(this)
     }
   }
 

@@ -30,6 +30,12 @@ const defaultQuery = (req, trx, qb, options) => {
 
   qb.where('type_id', req.params.type_id)
 
+  const title = req.fields[0].get('code')
+
+  const order = req.$sort === '-title' ? 'desc' : 'asc'
+
+  qb.orderByRaw(`values->>'${title}' ${order}`)
+
 }
 
 const itemsResources = new Resources({

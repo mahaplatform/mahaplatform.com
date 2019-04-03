@@ -4,7 +4,7 @@ import React from 'react'
 class EmailField extends React.Component {
 
   static propTypes = {
-    defaultValue: PropTypes.object,
+    defaultValue: PropTypes.string,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
@@ -27,7 +27,7 @@ class EmailField extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onReady } = this.props
-    if(defaultValue) this.setState(defaultValue)
+    if(defaultValue) this.setState({ value: defaultValue })
     onReady()
   }
 

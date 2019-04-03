@@ -4,13 +4,18 @@ import { applyFilters } from './filters'
 
 const alterRequest = async (req, trx, options) => {
 
-  req.fields = await Field.where({
+  const fields = await Field.where({
     parent_type: 'sites_types',
     parent_id: req.params.type_id
   }).fetchAll({ transacting: trx }).then(fields => fields.toArray().map(field => ({
     name: field.get('name'),
     code: field.get('code')
   })))
+
+  req.fields = [
+    ...fields,
+    { name: 'id', code: 'id' }
+  ]
 
   return req
 

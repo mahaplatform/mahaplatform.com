@@ -33,7 +33,7 @@ class NumberField extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onReady } = this.props
-    if(defaultValue) this.setState(defaultValue)
+    if(defaultValue) this.setState({ value: defaultValue })
     onReady()
   }
 

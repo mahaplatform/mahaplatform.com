@@ -6,7 +6,7 @@ class PhoneField extends React.Component {
 
   static propTypes = {
     defaultCountry: PropTypes.string,
-    defaultValue: PropTypes.object,
+    defaultValue: PropTypes.string,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
@@ -33,7 +33,7 @@ class PhoneField extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onReady } = this.props
-    if(defaultValue) this.setState(defaultValue)
+    if(defaultValue) this.setState({ value: defaultValue })
     onReady()
   }
 

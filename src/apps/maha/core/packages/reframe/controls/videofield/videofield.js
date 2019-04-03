@@ -11,12 +11,21 @@ class VideoField extends React.Component{
   }
 
   static propTypes = {
+    cid: PropTypes.string,
     defaultValue: PropTypes.number,
     src: PropTypes.string,
     link_id: PropTypes.number,
     onFetchLink: PropTypes.func,
     onCreateLink: PropTypes.func,
-    onReady: PropTypes.func
+    onChange: PropTypes.func,
+    onReady: PropTypes.func,
+    onRemove: PropTypes.func,
+    onSet: PropTypes.func
+  }
+
+  static defaultProps = {
+    onChange: () => {},
+    onReady: () => {}
   }
 
   _handlePicker = this._handlePicker.bind(this)
@@ -41,7 +50,7 @@ class VideoField extends React.Component{
   componentDidMount() {
     const { defaultValue, onReady, onFetchLink } = this.props
     if(defaultValue) onFetchLink(defaultValue)
-    if(onReady) onReady()
+    onReady()
   }
 
   componentDidUpdate(prevProps) {
