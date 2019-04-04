@@ -32,9 +32,11 @@ const defaultQuery = (req, trx, qb, options) => {
 
   const title = req.fields[0].get('code')
 
-  const order = req.$sort === '-title' ? 'desc' : 'asc'
+  const order = req.query.$sort === '-title' ? 'desc' : 'asc'
 
   qb.orderByRaw(`values->>'${title}' ${order}`)
+
+  if(req.query.$filter && req.query.$filter.q) qb.whereRaw('lower(sites_items.index) like ?', `%${req.query.$filter.q.toLowerCase()}%`)
 
 }
 

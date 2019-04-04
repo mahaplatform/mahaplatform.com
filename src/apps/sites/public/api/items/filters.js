@@ -50,6 +50,8 @@ const applyFilter = (qb, name, fields, filter) => {
 
   if(name === '$or') return applyOr(qb, fields, filter)
 
+  if(name === 'q') return _filterSearch(qb, filter)
+
   const field = _.find(fields, { name })
 
   if(!field) throw new BackframeError({
@@ -59,6 +61,11 @@ const applyFilter = (qb, name, fields, filter) => {
 
   _filterColumn(qb, field.code, filter)
 
+}
+
+const _filterSearch = (qb, filter) => {
+  const term = `%${filter.$lk.toLowerCase()}%`
+  qb.whereRaw('lower(sites_items.index) like ?', term)
 }
 
 const _filterColumn = (qb, column, filter) => {

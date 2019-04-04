@@ -13,6 +13,7 @@
     "deploy": "babel-node ./src/scripts/deploy.js",
     "env": "babel-node ./src/scripts/env/index.js",
     "help": "babel-node ./src/scripts/help.js",
+    "knex": "babel-node ./src/scripts/knex.js",
     "test": "babel-node ./src/scripts/test.js",
     "sync": "babel-node ./src/scripts/sync.js"
   },

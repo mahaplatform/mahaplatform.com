@@ -27,7 +27,7 @@ const defaultQuery = (req, trx, qb, options) => {
 
   qb.where('type_id', req.params.type_id)
 
-  if(req.query.$filter) applyFilters(qb, req.fields, req.query.$filter)
+  if(req.query.$filters) applyFilters(qb, req.fields, req.query.$filters)
 
 }
 

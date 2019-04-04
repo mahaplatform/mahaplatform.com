@@ -25,6 +25,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Expense Type', key: 'expense_type.title', sort: 'expenses_expense_types.title', format: CompactExpenseTypeToken },
       { label: 'Vendor', key: 'vendor.name', sort: 'expenses_vendors.name' },
       { label: 'Account', key: 'account.name', sort: 'expenses_accounts.name' },
+      { label: 'Amount', key: 'amount', primary: true, format: 'currency', collapsing: true },
       { label: 'Status', key: 'status', sort: 'expenses_statuses.text', format: Status, collapsing: true }
     ],
     filters: [

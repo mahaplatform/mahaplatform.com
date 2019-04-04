@@ -360,7 +360,7 @@ const _getSortedFiles = (appPaths, targetPath) => {
 
 const _getAppPaths = () => {
 
-  return  process.env.APPS.split(',').map(app => path.resolve('apps', app, 'src'))
+  return  process.env.APPS.split(',').map(app => path.resolve('src', 'apps', app))
 
 }
 

@@ -1,5 +1,6 @@
 import ItemSerializer from '../../../serializers/item_serializer'
 import { Route, Field, processValues } from 'maha'
+import { addIndex } from '../../../services/search'
 import Item from '../../../models/item'
 
 const processor = async (req, trx, options) => {
@@ -22,6 +23,21 @@ const processor = async (req, trx, options) => {
     qb.orderBy('delta', 'asc')
 
   }).fetchAll({ transacting: trx }).then(result => result.toArray())
+
+  const map = await Field.query(qb => {
+    qb.where('parent_type', 'sites_types')
+    qb.orderBy(['parent_id','delta'])
+  }).fetchAll({
+    transacting: trx
+  }).then(fields => fields.reduce((map, field) => ({
+    ...map,
+    [field.get('parent_id')]: [
+      ...map[field.get('parent_id')] || [],
+      field
+    ]
+  }), {}))
+
+  await addIndex(item, map, trx)
 
   return item
 
