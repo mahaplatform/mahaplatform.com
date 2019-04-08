@@ -151,6 +151,11 @@ const mapPropsToPage = (props, context, resources, page) => ({
         label: 'Add Type',
         rights: [],
         modal: () => <NewType site_id={ page.params.id } />
+      }, {
+        label: 'Backup Data',
+        handler: () => {
+          window.location.href = `/api/admin/sites/sites/${ page.params.id }/backup`
+        }
       }
     ]
   }

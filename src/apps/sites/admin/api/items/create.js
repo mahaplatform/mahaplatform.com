@@ -15,13 +15,9 @@ const processor = async (req, trx, options) => {
   }).save(null, { transacting: trx})
 
   req.fields = await Field.query(qb => {
-
     qb.where('parent_type', 'sites_types')
-
     qb.where('parent_id', req.params.type_id)
-
     qb.orderBy('delta', 'asc')
-
   }).fetchAll({ transacting: trx }).then(result => result.toArray())
 
   const map = await Field.query(qb => {

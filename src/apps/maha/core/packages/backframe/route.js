@@ -11,6 +11,8 @@ class Route extends Component {
 
   action = null
 
+  handler = null
+
   method = 'get'
 
   processor = _.noop
@@ -20,6 +22,7 @@ class Route extends Component {
     if(config.action) this.setAction(config.action)
     if(config.method) this.setMethod(config.method)
     if(config.processor) this.setProcessor(config.processor)
+    if(config.handler) this.setHandler(config.handler)
     if(config.responder) this.setResponder(config.responder)
     if(config.serializer) this.setSerializer(config.serializer)
   }
@@ -34,6 +37,10 @@ class Route extends Component {
 
   setProcessor(processor) {
     this.processor = processor
+  }
+
+  setHandler(handler) {
+    this.handler = handler
   }
 
   setSerializer(serializer) {
@@ -58,6 +65,14 @@ class Route extends Component {
 
         try {
 
+          if(this.handler) {
+
+            await this.handler(req, res, trx)
+
+            return await trx.commit()
+
+          }
+
           req = await this._alterRequest(req, trx, options, hooks.alterRequest)
 
           await this._runHooks(req, trx, null, options, hooks.beforeProcessor, false)
@@ -78,7 +93,7 @@ class Route extends Component {
 
           await this._runHooks(req, trx, result, options, hooks.beforeCommit, true)
 
-          await trx.commit(result)
+          await trx.commit()
 
           await this._runHooks(req, trx, result, options, hooks.afterCommit, true)
 

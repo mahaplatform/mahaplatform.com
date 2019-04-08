@@ -4,6 +4,7 @@ import Manager from '../../../models/manager'
 import Origin from '../../../models/origin'
 import Site from '../../../models/site'
 import Email from '../../../models/email'
+import backup from './backup'
 
 const afterCreate = async (req, trx, result, options) => {
 
@@ -100,6 +101,9 @@ const siteResources = new Resources({
     update: afterUpdate
   },
   allowedParams: ['title','requires_member_approval','has_public_member_submission'],
+  memberActions: [
+    backup
+  ],
   defaultSort: 'title',
   model: Site,
   path: '/sites',

@@ -63,6 +63,7 @@
   "dependencies": {
     "@microsoft/microsoft-graph-client": "^1.0.0",
     "address-rfc2822": "^2.0.1",
+    "archiver": "^3.0.0",
     "aws-sdk": "2.96.0",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.17.1",
