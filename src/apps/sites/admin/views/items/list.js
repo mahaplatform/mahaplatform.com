@@ -1,5 +1,6 @@
 import SitesImportFinalize from '../../components/sites_import_finalize'
 import { Import, Page } from 'maha-admin'
+import pluralize from 'pluralize'
 import React from 'react'
 import Edit from './edit'
 import New from './new'
@@ -120,7 +121,24 @@ const mapPropsToPage = (props, context, resources, page) => ({
       }
     ],
     new: () => <New type={ resources.type } fields={ resources.fields } site_id={ page.params.site_id } />,
-    defaultSort: { key: 'title', order: 'asc' }
+    defaultSort: { key: 'title', order: 'asc' },
+    selectable: true,
+    buttons: ({ selected }) => selected.length > 0 ? [{
+      color: 'red',
+      text: 'Delete Selected',
+      handler: () => {
+        const ids = selected.map(record => record.id)
+        context.confirm.open(`Are you sure you want to Delete these ${pluralize('item', ids.length, true)}?`, () => {
+          context.network.request({
+            method: 'PATCH',
+            endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${page.params.type_id}/items/delete_all`,
+            body: { ids },
+            onFailure: (result) => context.flash.set('error', `Unable to delete these ${pluralize('item', ids.length, true)}`),
+            onSuccess: (result) => context.flash.set('success', `You successfully deleted ${pluralize('item', ids.length, true)}`)
+          })
+        })
+      }
+    }] : null
   },
   tasks: {
     icon: 'plus',
@@ -129,7 +147,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: `Bulk Import ${resources.type.title}`, modal: () => <Import {..._getImport(props.user, resources, page, props)} /> }
 
     ]
-  }
+  },
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

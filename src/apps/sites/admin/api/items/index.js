@@ -1,6 +1,7 @@
 import ItemSerializer from '../../../serializers/item_serializer'
 import Item from '../../../models/item'
 import { Resources, Field } from 'maha'
+import delete_all from './delete_all'
 import finalize from './finalize'
 import update from './update'
 import create from './create'
@@ -45,6 +46,7 @@ const itemsResources = new Resources({
   allowedParams: ['values'],
   collectionActions: [
     create,
+    delete_all,
     finalize
   ],
   defaultParams,

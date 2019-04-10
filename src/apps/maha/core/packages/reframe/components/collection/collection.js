@@ -88,7 +88,7 @@ class Collection extends React.Component {
   }
 
   render() {
-    const { buttons, endpoint, records } = this.props
+    const { buttons, endpoint, records, selected } = this.props
     return (
       <div className={ this._getClass() }>
         <div className="reframe-collection-canvas" onClick={ this._handleToggleTasks.bind(this) } />
@@ -97,13 +97,21 @@ class Collection extends React.Component {
           <Header { ...this._getHeader() } />
           { records && <Results { ...this._getResults() } /> }
           { endpoint && <Infinite { ...this._getInfinite() } /> }
-          <CSSTransition in={ !_.isNil(buttons) && !_.isNil(buttons(this.props)) } classNames="expanded" timeout={ 150 } mountOnEnter={ true } unmountOnExit={ true }>
-            <div className="reframe-collection-footer">
-              <div className="reframe-collection-footer-items">
-                <Buttons { ...this._getButtons() } />
+          { buttons &&
+            <CSSTransition in={ selected.length > 0 } classNames="expanded" timeout={ 100 } mountOnEnter={ true } unmountOnExit={ true }>
+              <div className="reframe-collection-footer">
+                <div className="reframe-collection-footer-count">
+                  <i className="fa fa-fw fa-chevron-up" />
+                  <div className="count">
+                    { selected.length }
+                  </div>
+                </div>
+                <div className="reframe-collection-footer-buttons">
+                  <Buttons { ...this._getButtons() } />
+                </div>
               </div>
-            </div>
-          </CSSTransition>
+            </CSSTransition>
+          }
         </div>
       </div>
     )
