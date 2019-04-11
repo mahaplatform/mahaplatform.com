@@ -73,8 +73,12 @@ const handler = async (req, res, trx) => {
 
         if(type === 'lookup') {
 
+          const ids = value.filter(id => id !== null)
+
+          if(ids.length === 0) return []
+
           const related = await Item.query(qb => {
-            qb.whereIn('id', value)
+            qb.whereIn('id', ids)
           }).fetchAll({ transacting: trx })
 
           const title = map[config.datasource.type_id].find(field => {
@@ -101,7 +105,7 @@ const handler = async (req, res, trx) => {
 
         return [
           ...data,
-          ...value
+          ...value || []
         ]
 
       }, [item.get('id')])
@@ -142,7 +146,7 @@ const handler = async (req, res, trx) => {
 
   matrix.map(sheet => {
 
-    const data = sheet.data.map(row => row.join(',')).join('\n')
+    const data = sheet.data.map(row => row.map(cell => `"${cell}"`).join(',')).join('\n')
 
     const name = `${sheet.name}.csv`
 

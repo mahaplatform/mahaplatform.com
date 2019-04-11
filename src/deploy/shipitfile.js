@@ -72,7 +72,7 @@ const shipitfile = (shipit) => {
   })
 
   utils.registerTask(shipit, 'deploy:config', async () => {
-    await shipit.copyToRemote(path.resolve('.env'), releaseDir)
+    await shipit.copyToRemote(path.resolve('.env.production'), `${releaseDir}/.env`)
   })
 
   utils.registerTask(shipit, 'deploy:install', async () => {

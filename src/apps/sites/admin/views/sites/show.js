@@ -152,6 +152,14 @@ const mapPropsToPage = (props, context, resources, page) => ({
         rights: [],
         modal: () => <NewType site_id={ page.params.id } />
       }, {
+        label: 'Reindex Site',
+        request: {
+          method: 'PATCH',
+          endpoint: `/api/admin/sites/sites/${ page.params.id }/reindex`,
+          onFailure: (result) => context.flash.set('error', 'Unable to reindex the site'),
+          onSuccess: (result) => context.flash.set('success', 'Successfully reindexed the site')
+        }
+      }, {
         label: 'Backup Data',
         handler: () => {
           window.location.href = `/api/admin/sites/sites/${ page.params.id }/backup`
