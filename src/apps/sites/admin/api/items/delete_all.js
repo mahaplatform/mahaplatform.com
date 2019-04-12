@@ -36,7 +36,7 @@ const refresh = (req, trx, result, options) => [
 
 const createRoute = new Route({
   method: 'patch',
-  path: '/delete_all',
+  path: '/delete',
   processor,
   refresh
 })

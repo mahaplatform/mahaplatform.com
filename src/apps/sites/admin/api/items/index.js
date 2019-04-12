@@ -1,8 +1,10 @@
 import ItemSerializer from '../../../serializers/item_serializer'
 import Item from '../../../models/item'
 import { Resources, Field } from 'maha'
+import publish_all from './publish_all'
 import delete_all from './delete_all'
 import finalize from './finalize'
+import publish from './publish'
 import update from './update'
 import create from './create'
 
@@ -47,13 +49,16 @@ const itemsResources = new Resources({
   collectionActions: [
     create,
     delete_all,
+    publish_all,
     finalize
   ],
   defaultParams,
   defaultQuery,
   defaultSort: '-created_at',
   memberActions: [
-    update
+    update,
+    publish(false),
+    publish(true)
   ],
   model: Item,
   except: ['create','update'],

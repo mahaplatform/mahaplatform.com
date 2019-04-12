@@ -99,7 +99,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
   rights: [],
   collection: {
     table: [
-      { label: 'Title', key: 'title', primary: true }
+      { label: 'Title', key: 'title', primary: true },
+      { label: 'Published', key: 'is_published', primary: true, format: 'check_times', collapsing: true }
     ],
     endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${page.params.type_id}/items`,
     empty: `You have not yet created any ${resources.type.title}`,
@@ -109,8 +110,23 @@ const mapPropsToPage = (props, context, resources, page) => ({
       {
         label: 'Edit Item',
         modal: (props) => <Edit { ...props } type={ resources.type } fields={ resources.fields } site_id={ page.params.site_id } />
-      },
-      {
+      },{
+        label: 'Publish Item',
+        request: (id) => ({
+          endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${resources.type.id}/items/${id}/publish`,
+          method: 'PATCH',
+          onFailure: () => {},
+          onSuccess: () => {}
+        })
+      },{
+        label: 'Unpublish Item',
+        request: (id) => ({
+          endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${resources.type.id}/items/${id}/unpublish`,
+          method: 'PATCH',
+          onFailure: () => {},
+          onSuccess: () => {}
+        })
+      },{
         label: 'Delete Item',
         request: (id) => ({
           endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${resources.type.id}/items/${id}`,
@@ -128,14 +144,40 @@ const mapPropsToPage = (props, context, resources, page) => ({
       text: 'Delete Selected',
       handler: () => {
         const ids = selected.map(record => record.id)
-        context.confirm.open(`Are you sure you want to Delete these ${pluralize('item', ids.length, true)}?`, () => {
+        context.confirm.open(`Are you sure you want to delete these ${pluralize('item', ids.length, true)}?`, () => {
           context.network.request({
             method: 'PATCH',
-            endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${page.params.type_id}/items/delete_all`,
+            endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${page.params.type_id}/items/delete`,
             body: { ids },
             onFailure: (result) => context.flash.set('error', `Unable to delete these ${pluralize('item', ids.length, true)}`),
             onSuccess: (result) => context.flash.set('success', `You successfully deleted ${pluralize('item', ids.length, true)}`)
           })
+        })
+      }
+    },{
+      color: 'red',
+      text: 'Publish Selected',
+      handler: () => {
+        const ids = selected.map(record => record.id)
+        context.network.request({
+          method: 'PATCH',
+          endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${page.params.type_id}/items/publish`,
+          body: { ids, is_published: true },
+          onFailure: (result) => context.flash.set('error', `Unable to publish these ${pluralize('item', ids.length, true)}`),
+          onSuccess: (result) => context.flash.set('success', `You successfully published ${pluralize('item', ids.length, true)}`)
+        })
+      }
+    },{
+      color: 'red',
+      text: 'Unpublish Selected',
+      handler: () => {
+        const ids = selected.map(record => record.id)
+        context.network.request({
+          method: 'PATCH',
+          endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${page.params.type_id}/items/publish`,
+          body: { ids, is_published: false },
+          onFailure: (result) => context.flash.set('error', `Unable to unpublish these ${pluralize('item', ids.length, true)}`),
+          onSuccess: (result) => context.flash.set('success', `You successfully unpublished ${pluralize('item', ids.length, true)}`)
         })
       }
     }] : null
@@ -145,9 +187,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     items: [
       { label: `Add ${resources.type.title}`, modal: () => <New type={ resources.type } fields={ resources.fields } site_id={ page.params.site_id } /> },
       { label: `Bulk Import ${resources.type.title}`, modal: () => <Import {..._getImport(props.user, resources, page, props)} /> }
-
     ]
-  },
+  }
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

@@ -1,5 +1,4 @@
 import { serializer } from 'maha'
-import _ from 'lodash'
 
 const itemSerializer = serializer(async (req, trx, result) => ({
 
@@ -8,6 +7,8 @@ const itemSerializer = serializer(async (req, trx, result) => ({
   title: title(req, trx, result),
 
   values: values(req, result.get('values')),
+
+  is_published: result.get('is_published'),
 
   created_at: result.get('created_at'),
 
