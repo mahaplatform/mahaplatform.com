@@ -18,17 +18,20 @@ const alterRequest = async (req, trx, options) => {
     { name: 'id', code: 'id' }
   ]
 
-  req.addresses = await Promise.reduce(req.query.$filters.$and, async (addresses, filter) => {
-    const key = Object.keys(filter)[0]
-    if(!filter[key].$ds) return addresses
-    const address = await geocode({
-      address: filter[key].$ds
-    })
-    return [
-      ...addresses,
-      address
-    ]
-  }, [])
+  if(req.query.$filters) {
+    req.addresses = await Promise.reduce(req.query.$filters.$and, async (addresses, filter) => {
+      const key = Object.keys(filter)[0]
+      if(!filter[key].$ds) return addresses
+      const address = await geocode({
+        address: filter[key].$ds
+      })
+      return [
+        ...addresses,
+        address
+      ]
+    }, [])
+  }
+
 
   return req
 
