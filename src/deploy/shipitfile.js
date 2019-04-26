@@ -14,8 +14,8 @@ const shipitfile = (shipit) => {
   shipit.initConfig({
     default: {
       deployTo: '/var/www/maha/production',
-      // key: '~/.ssh/id_rsa_0d79bf2b27c217a2ac17896617668a50',
-      key: '~/.ssh/mahaplatform',
+      key: '~/.ssh/id_rsa_0d79bf2b27c217a2ac17896617668a50',
+      // key: '~/.ssh/mahaplatform',
       strict: 'no'
     },
     production: {
