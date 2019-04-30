@@ -58,7 +58,7 @@ const defaultQuery = (req, trx, qb, options) => {
       const lat2 = `cast(values->'${column}'->0->>'latitude' as float)`
       const distance = `(acos(sin(radians(${lat2})) * sin(radians(${lat1})) + cos(radians(${lat2})) * cos(radians(${lat1})) * cos(radians(${lon2} - ${lon1}))) * 6371 * 1000) / 1609.344`
       qb.select(knex.raw(`sites_items.*,${distance} as distance`))
-      qb.orderBy('distance','desc')
+      qb.orderBy('distance','asc')
     })
 
     applyFilters(qb, req.fields, req.query.$filters)
