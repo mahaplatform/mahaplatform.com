@@ -106,7 +106,6 @@
     "libphonenumber-js": "^1.7.9",
     "lodash": "^4.17.4",
     "maha-cli": "^0.35.0",
-    "maha-workqueue": "^1.0.4",
     "mailparser": "2.1.0",
     "moment": "^2.18.1",
     "node-instagram": "^4.1.0",

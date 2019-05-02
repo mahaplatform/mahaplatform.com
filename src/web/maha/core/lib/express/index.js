@@ -1,5 +1,4 @@
 import { adminMiddleware, publicMiddleware } from './server'
-import workqueueMiddleware from './workqueue'
 import deeplinkMiddleware from './deeplink'
 import mailboxMiddleware from './mailbox'
 import rollbarMiddleware from './rollbar'
@@ -20,8 +19,6 @@ const platformMiddleware = async () => {
   router.use('/$', (req, res) => res.redirect(`${process.env.WEB_HOST}/admin`))
 
   router.use('/ping', ping)
-
-  router.use('/jobs', workqueueMiddleware)
 
   router.use('/imagecache', imagecache)
 

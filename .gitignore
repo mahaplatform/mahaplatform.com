@@ -4,9 +4,6 @@ node_modules
 /dist.staged
 /tmp/*
 !/tmp/.gitkeep
-/config/*
-!/config/.gitkeep
-!/config/ecosystem.config.js
 /docs/lb/mahaplatform.*
 /docs/node/deploy
 /repo
