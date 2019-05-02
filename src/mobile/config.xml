@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='utf-8'?>
+<widget id="com.mahaplatform.app" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <name>maha</name>
+    <description>
+        Mobile First Application Framework
+    </description>
+    <author email="gmk8@cornell.edu" href="https://mahaplatform.com">
+        CCE Tompkins
+    </author>
+    <content src="index.html" />
+    <access origin="*" />
+    <allow-navigation href="http://*/*" />
+    <allow-intent href="http://*/*" />
+    <allow-intent href="https://*/*" />
+    <allow-intent href="tel:*" />
+    <allow-intent href="sms:*" />
+    <allow-intent href="mailto:*" />
+    <allow-intent href="geo:*" />
+    <platform name="android">
+        <allow-intent href="market:*" />
+        <icon src="../../build/assets/ios/icon-ldpi.png" density="ldpi" />
+        <icon src="../../build/assets/ios/icon-mdpi.png" density="mdpi" />
+        <icon src="../../build/assets/ios/icon-hdpi.png" density="hdpi" />
+        <icon src="../../build/assets/ios/icon-xhdpi.png" density="xhdpi" />
+        <icon src="../../build/assets/ios/icon-xxhdpi.png" density="xxhdpi" />
+        <icon src="../../build/assets/ios/icon-xxxhdpi.png" density="xxxhdpi" />
+        <splash src="../../build/assets/android/splash-land-hdpi.png" density="land-hdpi"/>
+        <splash src="../../build/assets/android/splash-land-ldpi.png" density="land-ldpi"/>
+        <splash src="../../build/assets/android/splash-land-mdpi.png" density="land-mdpi"/>
+        <splash src="../../build/assets/android/splash-land-xhdpi.png" density="land-xhdpi"/>
+        <splash src="../../build/assets/android/splash-port-hdpi.png" density="port-hdpi"/>
+        <splash src="../../build/assets/android/splash-port-ldpi.png" density="port-ldpi"/>
+        <splash src="../../build/assets/android/splash-port-mdpi.png" density="port-mdpi"/>
+        <splash src="../../build/assets/android/splash-port-xhdpi.png" density="port-xhdpi"/>
+        <resource-file src="res/raw/boing.mp3" target="app/src/main/res/raw/boing.mp3" />
+        <resource-file src="res/raw/ding.mp3" target="app/src/main/res/raw/ding.mp3" />
+        <resource-file src="res/raw/drop.mp3" target="app/src/main/res/raw/drop.mp3" />
+        <resource-file src="res/raw/here_you_go.mp3" target="app/src/main/res/raw/here_you_go.mp3" />
+        <resource-file src="res/raw/hi.mp3" target="app/src/main/res/raw/hi.mp3" />
+        <resource-file src="res/raw/knock_brush.mp3" target="app/src/main/res/raw/knock_brush.mp3" />
+        <resource-file src="res/raw/plink.mp3" target="app/src/main/res/raw/plink.mp3" />
+        <resource-file src="res/raw/tada.mp3" target="app/src/main/res/raw/tada.mp3" />
+        <resource-file src="res/raw/whoah.mp3" target="app/src/main/res/raw/whoah.mp3" />
+        <resource-file src="res/raw/wow.mp3" target="app/src/main/res/raw/wow.mp3" />
+        <resource-file src="res/raw/yoink.mp3" target="app/src/main/res/raw/yoink.mp3" />
+    </platform>
+    <platform name="ios">
+        <preference name="KeyboardShrinksView" value="true" />
+        <allow-intent href="itms:*" />
+        <allow-intent href="itms-apps:*" />
+        <icon src="../../build/assets/ios/icon.png" width="57" height="57" />
+        <icon src="../../build/assets/ios/icon@2x.png" width="114" height="114" />
+        <icon src="../../build/assets/ios/icon-40.png" width="40" height="40" />
+        <icon src="../../build/assets/ios/icon-40@2x.png" width="80" height="80" />
+        <icon src="../../build/assets/ios/icon-50.png" width="50" height="50" />
+        <icon src="../../build/assets/ios/icon-50@2x.png" width="100" height="100" />
+        <icon src="../../build/assets/ios/icon-60.png" width="60" height="60" />
+        <icon src="../../build/assets/ios/icon-60@2x.png" width="120" height="120" />
+        <icon src="../../build/assets/ios/icon-60@3x.png" width="180" height="180" />
+        <icon src="../../build/assets/ios/icon-72.png" width="72" height="72" />
+        <icon src="../../build/assets/ios/icon-72@2x.png" width="144" height="144" />
+        <icon src="../../build/assets/ios/icon-76.png" width="76" height="76" />
+        <icon src="../../build/assets/ios/icon-76@2x.png" width="152" height="152" />
+        <icon src="../../build/assets/ios/icon-small.png" width="29" height="29" />
+        <icon src="../../build/assets/ios/icon-small@2x.png" width="58" height="58" />
+        <icon src="../../build/assets/ios/icon-small@3x.png" width="87" height="87" />
+        <splash src="../../build/assets/ios/Default@2x~universal~anyany.png" />
+        <splash src="../../build/assets/ios/Default@2x~universal~comany.png" />
+        <splash src="../../build/assets/ios/Default@2x~universal~comcom.png" />
+        <splash src="../../build/assets/ios/Default@3x~universal~anyany.png" />
+        <splash src="../../build/assets/ios/Default@3x~universal~anycom.png" />
+        <splash src="../../build/assets/ios/Default@3x~universal~comany.png" />
+        <resource-file src="res/raw/boing.mp3" />
+        <resource-file src="res/raw/ding.mp3" />
+        <resource-file src="res/raw/drop.mp3" />
+        <resource-file src="res/raw/here_you_go.mp3" />
+        <resource-file src="res/raw/hi.mp3" />
+        <resource-file src="res/raw/knock_brush.mp3" />
+        <resource-file src="res/raw/plink.mp3" />
+        <resource-file src="res/raw/tada.mp3" />
+        <resource-file src="res/raw/whoah.mp3" />
+        <resource-file src="res/raw/wow.mp3" />
+        <resource-file src="res/raw/yoink.mp3" />
+    </platform>
+    <plugin name="cordova-plugin-whitelist" spec="1" />
+    <plugin name="cordova-plugin-firebase" spec="^2.0.5" />
+    <plugin name="cordova-plugin-statusbar" spec="^2.4.2" />
+    <plugin name="cordova-plugin-customurlscheme" spec="^4.3.0">
+        <variable name="URL_SCHEME" value="maha" />
+    </plugin>
+    <plugin name="cordova-plugin-camera" spec="^4.0.3" />
+    <plugin name="cordova-plugin-vibration" spec="^3.1.0" />
+    <preference name="StatusBarOverlaysWebView" value="false" />
+    <preference name="StatusBarBackgroundColor" value="#000000" />
+    <preference name="StatusBarStyle" value="lightcontent" />
+    <preference name="AppendUserAgent" value=";Cordova" />
+    <edit-config file="*-Info.plist" mode="merge" target="NSCameraUsageDescription">
+        <string>need camera access to take pictures</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryUsageDescription">
+        <string>need photo library access to get pictures from there</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
+        <string>need location access to find things nearby</string>
+    </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSPhotoLibraryAddUsageDescription">
+        <string>need photo library access to save pictures there</string>
+    </edit-config>
+    <plugin name="cordova-plugin-app-version" spec="^0.1.9" />
+    <engine name="ios" spec="^4.5.5" />
+    <engine name="android" spec="~7.1.3" />
+</widget>
