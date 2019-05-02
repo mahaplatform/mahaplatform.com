@@ -1,10 +1,11 @@
-import collectObjects from '../../core/utils/collect_objects'
-import { info } from '../utils/console'
+import './maha/core/services/environment'
+import collectObjects from './maha/core/utils/collect_objects'
+import { info } from './maha/core/utils/console'
 import chalk from 'chalk'
 
 const queueFiles = collectObjects('queues/*')
 
-const worker = async () => {
+const processor = async () => {
 
   const output = []
 
@@ -22,4 +23,4 @@ const worker = async () => {
 
 }
 
-export default worker
+processor()

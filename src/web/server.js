@@ -1,13 +1,14 @@
-import { withLogger } from '../utils/logger'
+import './maha/core/services/environment'
+import { withLogger } from './maha/core/utils/logger'
+import { info } from './maha/core/utils/console'
+import middleware from './maha/core/lib/express'
 import multiparty from 'connect-multiparty'
-import { info } from '../utils/console'
-import middleware from '../lib/express'
 import bodyParser from 'body-parser'
 import express from 'express'
 import path from 'path'
 import qs from 'qs'
 
-export default async () => {
+const processor = async () => {
 
   const server = express()
 
@@ -36,3 +37,5 @@ export default async () => {
   server.listen(process.env.SERVER_PORT)
 
 }
+
+processor()

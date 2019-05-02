@@ -10,7 +10,7 @@
     "assets": "babel-node ./src/scripts/assets.js",
     "bootstrap": "babel-node ./src/scripts/bootstrap.js",
     "build": "babel-node ./src/scripts/build/index.js",
-    "dev": "babel-node ./src/scripts/dev/index.js",
+    "dev": "babel-node ./src/scripts/dev.js",
     "deploy": "babel-node ./src/scripts/deploy.js",
     "env": "babel-node ./src/scripts/env/index.js",
     "help": "babel-node ./src/scripts/help.js",

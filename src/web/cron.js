@@ -1,10 +1,11 @@
-import collectObjects from '../../core/utils/collect_objects'
-import { info } from '../utils/console'
+import './maha/core/services/environment'
+import collectObjects from './maha/core/utils/collect_objects'
+import { info } from './maha/core/utils/console'
 import later from 'later'
 
 const cronFiles = collectObjects('cron/*')
 
-export default async () => {
+const processor = async () => {
 
   await Promise.mapSeries(cronFiles, async (cronFile) => {
 
@@ -19,3 +20,5 @@ export default async () => {
   info('CRON', cronFiles.map(cronFile => `Running ${cronFile.default.name}`))
 
 }
+
+processor()

@@ -1,12 +1,13 @@
-import ping from '../../core/lib/express/ping'
-import middleware from '../lib/socketio'
-import { info } from '../utils/console'
+import './maha/core/services/environment'
+import ping from './maha/core/lib/express/ping'
+import middleware from './maha/core/lib/socketio'
+import { info } from './maha/core/utils/console'
 import Redis from 'socket.io-redis'
 import socketio from 'socket.io'
 import express from 'express'
 import http from 'http'
 
-export default async () => {
+const processor = async () => {
 
   const server = express()
 
@@ -27,3 +28,5 @@ export default async () => {
   transport.listen(process.env.SOCKET_PORT)
 
 }
+
+processor()
