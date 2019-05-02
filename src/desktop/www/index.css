@@ -1,0 +1,29 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  -webkit-app-region: drag;
+}
+.electron {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+}
+.electron-header {
+  height: 21px;
+  background-color: #000000;
+}
+.electron-header.hidden {
+  display: none;
+}
+.electron-body {
+  flex: 1;
+  display: flex;
+}
+iframe {
+  flex: 1;
+  border: none;
+}

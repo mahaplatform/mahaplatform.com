@@ -1,67 +1,17 @@
 {
   "name": "maha",
   "description": "Mobile First Application Platform",
-  "version": "0.2.0",
-  "main": "main.js",
+  "version": "0.1.0",
+  "main": "./www/main.js",
   "author": "CCETompkins",
   "scripts": {
     "dmgbackground": "tiffutil -cathidpicheck ./build/screens/dmg.png ./build/screens/dmg@2x.png -out ./build/screens/dmg.tiff",
-    "clean": "rm -rf dist",
-    "pack": "build --dir",
-    "dist": "build --mac --win --x64 --ia32",
-    "release": "build --mac --win --x64 --ia32",
-    "start": "electron ."
-  },
-  "build": {
-    "appId": "com.mahaplatform.app",
-    "productName": "Maha",
-    "artifactName": "maha-${os}-${version}.${ext}",
-    "mac": {
-      "target": [
-        "dmg",
-        "zip"
-      ],
-      "icon": "build/icons/icon.icns",
-      "category": "public.app-category.utilities"
-    },
-    "dmg": {
-      "icon": "build/icons/icon.icns",
-      "backgroundColor": "#4D4D4D",
-      "title": "Maha"
-    },
-    "win": {
-      "target": [
-        "nsis"
-      ],
-      "icon": "build/icons/icon.ico"
-    },
-    "nsis": {
-      "installerIcon": "build/icons/icon.ico",
-      "uninstallerIcon": "build/icons/icon.ico",
-      "license": "LICENSE",
-      "runAfterFinish": true
-    },
-    "protocols": {
-      "name": "maha",
-      "schemes": [
-        "maha"
-      ]
-    },
-    "publish": [
-      {
-        "provider": "s3",
-        "bucket": "cdn.mahaplatform.com",
-        "path": "/releases",
-        "acl": "public-read",
-        "publishAutoUpdate": true
-      }
-    ]
+    "build": "build --mac --win --x64 --project=./src/desktop --config=./config/config.json",
+    "start": "electron ./www"
   },
   "devDependencies": {
-    "electron": "^3.0.7",
-    "electron-builder": "^20.34.0"
-  },
-  "dependencies": {
+    "electron": "^4.1.5",
+    "electron-builder": "^20.34.0",
     "electron-log": "^2.2.17",
     "electron-push-receiver": "^2.1.2",
     "electron-updater": "^3.2.3",

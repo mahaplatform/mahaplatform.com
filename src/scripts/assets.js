@@ -8,7 +8,7 @@ const icons = async () => {
 
   const src = path.join('src','icon.png')
 
-  const output = path.join('build','assets')
+  const output = path.join('src','mobile','res')
 
   const icons = [
     { platform: 'android', width: 36, name: 'ldpi', sizes: 1 },

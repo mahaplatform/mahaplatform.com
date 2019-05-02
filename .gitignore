@@ -1,7 +1,7 @@
-/node_modules
+node_modules
 /help
-/build
-/build.staged
+/dist
+/dist.staged
 /tmp/*
 !/tmp/.gitkeep
 /config/*
@@ -16,5 +16,3 @@ deploy.tgz
 npm-debug.log
 .env*
 .key
-maha.js
-REVISION

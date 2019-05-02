@@ -1,0 +1,45 @@
+{
+  "appId": "com.mahaplatform.app",
+  "productName": "Maha",
+  "artifactName": "maha-${os}-${version}.${ext}",
+  "mac": {
+    "target": [
+      "dmg",
+      "zip"
+    ],
+    "icon": "build/icons/icon.icns",
+    "category": "public.app-category.utilities"
+  },
+  "dmg": {
+    "icon": "build/icons/icon.icns",
+    "backgroundColor": "#4D4D4D",
+    "title": "Maha"
+  },
+  "win": {
+    "target": [
+      "nsis"
+    ],
+    "icon": "build/icons/icon.ico"
+  },
+  "nsis": {
+    "installerIcon": "build/icons/icon.ico",
+    "uninstallerIcon": "build/icons/icon.ico",
+    "license": "LICENSE",
+    "runAfterFinish": true
+  },
+  "protocols": {
+    "name": "maha",
+    "schemes": [
+      "maha"
+    ]
+  },
+  "publish": [
+    {
+      "provider": "s3",
+      "bucket": "cdn.mahaplatform.com",
+      "path": "/releases",
+      "acl": "public-read",
+      "publishAutoUpdate": true
+    }
+  ]
+}
