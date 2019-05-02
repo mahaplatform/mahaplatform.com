@@ -6,6 +6,6 @@ events.EventEmitter.defaultMaxListeners = 0
 
 dotenv.load({ path: path.resolve('.env') })
 
-const worker = require(path.resolve('dist','apps','maha','core','entities','worker')).default
+const worker = require(path.resolve('dist','web','maha','core','entities','worker')).default
 
 worker()

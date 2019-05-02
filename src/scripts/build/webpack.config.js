@@ -1,5 +1,5 @@
 import HtmlWebpackExcludeAssetsPlugin from 'html-webpack-exclude-assets-plugin'
-import MahaWebpackPlugin from '../../apps/maha/core/lib/webpack/maha_plugin'
+import MahaWebpackPlugin from '../../web/maha/core/lib/webpack/maha_plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
@@ -105,11 +105,11 @@ const webpackConfig = (apps, src, dest) => ({
     alias: {
       ...apps.reduce((aliases, app) => ({
         ...aliases,
-        [app]: path.resolve('src','apps',app,'client.js')
+        [app]: path.resolve('src','web',app,'client.js')
       }), {}),
-      'reframe': path.resolve('src','apps','maha','core','packages','reframe','index.js'),
-      'maha-admin': path.resolve('src','apps','maha','client.js'),
-      'maha-client': path.resolve('src','apps','maha','admin','index.js')
+      'reframe': path.resolve('src','web','maha','core','packages','reframe','index.js'),
+      'maha-admin': path.resolve('src','web','maha','client.js'),
+      'maha-client': path.resolve('src','web','maha','admin','index.js')
     }
   },
   resolveLoader: {

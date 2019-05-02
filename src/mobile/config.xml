@@ -32,17 +32,17 @@
         <splash src="../../build/assets/android/splash-port-ldpi.png" density="port-ldpi"/>
         <splash src="../../build/assets/android/splash-port-mdpi.png" density="port-mdpi"/>
         <splash src="../../build/assets/android/splash-port-xhdpi.png" density="port-xhdpi"/>
-        <resource-file src="res/raw/boing.mp3" target="app/src/main/res/raw/boing.mp3" />
-        <resource-file src="res/raw/ding.mp3" target="app/src/main/res/raw/ding.mp3" />
-        <resource-file src="res/raw/drop.mp3" target="app/src/main/res/raw/drop.mp3" />
-        <resource-file src="res/raw/here_you_go.mp3" target="app/src/main/res/raw/here_you_go.mp3" />
-        <resource-file src="res/raw/hi.mp3" target="app/src/main/res/raw/hi.mp3" />
-        <resource-file src="res/raw/knock_brush.mp3" target="app/src/main/res/raw/knock_brush.mp3" />
-        <resource-file src="res/raw/plink.mp3" target="app/src/main/res/raw/plink.mp3" />
-        <resource-file src="res/raw/tada.mp3" target="app/src/main/res/raw/tada.mp3" />
-        <resource-file src="res/raw/whoah.mp3" target="app/src/main/res/raw/whoah.mp3" />
-        <resource-file src="res/raw/wow.mp3" target="app/src/main/res/raw/wow.mp3" />
-        <resource-file src="res/raw/yoink.mp3" target="app/src/main/res/raw/yoink.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/boing.mp3" target="app/src/main/res/raw/boing.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/ding.mp3" target="app/src/main/res/raw/ding.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/drop.mp3" target="app/src/main/res/raw/drop.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/here_you_go.mp3" target="app/src/main/res/raw/here_you_go.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/hi.mp3" target="app/src/main/res/raw/hi.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/knock_brush.mp3" target="app/src/main/res/raw/knock_brush.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/plink.mp3" target="app/src/main/res/raw/plink.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/tada.mp3" target="app/src/main/res/raw/tada.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/whoah.mp3" target="app/src/main/res/raw/whoah.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/wow.mp3" target="app/src/main/res/raw/wow.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/yoink.mp3" target="app/src/main/res/raw/yoink.mp3" />
     </platform>
     <platform name="ios">
         <preference name="KeyboardShrinksView" value="true" />
@@ -70,17 +70,17 @@
         <splash src="../../build/assets/ios/Default@3x~universal~anyany.png" />
         <splash src="../../build/assets/ios/Default@3x~universal~anycom.png" />
         <splash src="../../build/assets/ios/Default@3x~universal~comany.png" />
-        <resource-file src="res/raw/boing.mp3" />
-        <resource-file src="res/raw/ding.mp3" />
-        <resource-file src="res/raw/drop.mp3" />
-        <resource-file src="res/raw/here_you_go.mp3" />
-        <resource-file src="res/raw/hi.mp3" />
-        <resource-file src="res/raw/knock_brush.mp3" />
-        <resource-file src="res/raw/plink.mp3" />
-        <resource-file src="res/raw/tada.mp3" />
-        <resource-file src="res/raw/whoah.mp3" />
-        <resource-file src="res/raw/wow.mp3" />
-        <resource-file src="res/raw/yoink.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/boing.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/ding.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/drop.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/here_you_go.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/hi.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/knock_brush.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/plink.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/tada.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/whoah.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/wow.mp3" />
+        <resource-file src="../web/maha/admin/public/audio/yoink.mp3" />
     </platform>
     <plugin name="cordova-plugin-whitelist" spec="1" />
     <plugin name="cordova-plugin-firebase" spec="^2.0.5" />

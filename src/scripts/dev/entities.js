@@ -1,4 +1,4 @@
-require('../../apps/maha/core/services/environment')
+require('../../web/maha/core/services/environment')
 const register = require('babel-register')
 const inspector = require('inspector')
 const minimist = require('minimist')
@@ -22,7 +22,7 @@ register({
       'alias': {
         ...process.env.APPS.split(',').reduce((aliases, app) => ({
           ...aliases,
-          [app]: path.resolve('src','apps',app,'server.js')
+          [app]: path.resolve('src','web',app,'server.js')
         }), {})
       }
     }]
@@ -44,7 +44,7 @@ Promise.mapSeries(entities, async (entity) => {
 
   if(!_.includes(['all', entity], target)) return
 
-  const runner = require(path.join(__dirname,'..','..','apps','maha','core','entities',entity)).default
+  const runner = require(path.join(__dirname,'..','..','web','maha','core','entities',entity)).default
 
   await runner()
 

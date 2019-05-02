@@ -1,4 +1,4 @@
-import '../../apps/maha/core/services/environment'
+import '../../web/maha/core/services/environment'
 import clientConfig from './webpack.config'
 import { transform } from 'babel-core'
 import precompile from './precompile'
@@ -85,7 +85,7 @@ const transpileFile = (src, dest) => {
       ['module-resolver', {
         alias: apps.reduce((aliases, app) => ({
           ...aliases,
-          [app]: path.resolve('dist','apps',app,'server.js')
+          [app]: path.resolve('dist','web',app,'server.js')
         }), {})
       }]
     ],
@@ -118,7 +118,7 @@ const buildItems = async (srcPath, destPath) => {
 
 export const buildApp = async (app) => {
 
-  await buildItems(path.resolve('src','apps', app), path.join('dist.staged', 'apps', app))
+  await buildItems(path.resolve('src','web', app), path.join('dist.staged', 'web', app))
 
 }
 
@@ -137,7 +137,7 @@ const build = async (flags, args) => {
   rimraf.sync(path.resolve('dist.staged'))
 
   await compileClient({
-    src: path.resolve('src', 'apps', 'maha', 'admin'),
+    src: path.resolve('src', 'web', 'maha', 'admin'),
     dest: path.resolve('dist.staged','public', 'admin'),
     variables: precompile()
   })

@@ -1,4 +1,4 @@
-import '../apps/maha/core/services/environment'
+import '../web/maha/core/services/environment'
 import SearchIndex from 'search-index'
 import cheerio from 'cheerio'
 import Stream from 'stream'
@@ -14,9 +14,9 @@ const help = async () => {
 
   process.env.APPS.split(',').map((app, i) => {
 
-    const config = require(path.resolve('src','apps',app,'app.js')).default
+    const config = require(path.resolve('src','web',app,'app.js')).default
 
-    const documents = glob.sync(`src/apps/${app}/help/*.html`)
+    const documents = glob.sync(`src/web/${app}/help/*.html`)
 
     documents.map((filePath, j) => {
 

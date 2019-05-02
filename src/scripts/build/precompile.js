@@ -1,4 +1,4 @@
-import transpile from '../../apps/maha/core/utils/transpile'
+import transpile from '../../web/maha/core/utils/transpile'
 import glob from 'glob'
 import path from 'path'
 import _ from 'lodash'
@@ -8,7 +8,7 @@ const apps = process.env.APPS.split(',')
 
 const configs = apps.reduce((configs, app) => {
 
-  const configPath = path.resolve('src', 'apps', app, 'app.js')
+  const configPath = path.resolve('src', 'web', app, 'app.js')
 
   const contents = fs.readFileSync(configPath, 'utf8')
 
@@ -30,7 +30,7 @@ const collectObjects = (pattern) => [
 
 const extract = (pattern, regex = null) => collectObjects(pattern).map(file => {
 
-  const matches = regex ? file.match(regex) : file.match(/apps\/([^/]*)/)
+  const matches = regex ? file.match(regex) : file.match(/web\/([^/]*)/)
 
   return {
     ...configs[matches[1]],

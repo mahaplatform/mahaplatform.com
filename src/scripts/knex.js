@@ -1,5 +1,5 @@
-import '../apps/maha/core/services/environment'
-import { migrateUp, migrateDown, reset } from '../apps/maha/core/tasks/db/db'
+import '../web/maha/core/services/environment'
+import { migrateUp, migrateDown, reset } from '../web/maha/core/tasks/db/db'
 import register from 'babel-register'
 import path from 'path'
 
@@ -16,7 +16,7 @@ register({
       'alias': {
         ...process.env.APPS.split(',').reduce((aliases, app) => ({
           ...aliases,
-          [app]: path.resolve('src','apps',app,'server.js')
+          [app]: path.resolve('src','web',app,'server.js')
         }), {})
       }
     }]

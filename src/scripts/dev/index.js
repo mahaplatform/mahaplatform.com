@@ -1,4 +1,4 @@
-import '../../apps/maha/core/services/environment'
+import '../../web/maha/core/services/environment'
 import { info, error, write } from './console'
 import devServer from 'webpack-dev-server'
 import { spawn } from 'child_process'
@@ -19,15 +19,15 @@ const serverWatch = async () => {
     '--exec',
     'node'
   ]
-  fs.readdirSync(path.resolve('src','apps')).filter(app => {
+  fs.readdirSync(path.resolve('src','web')).filter(app => {
     return app.match(/^\./) === null
   }).map(app => {
     nodemon.push('--watch')
-    nodemon.push(path.resolve('src','apps',app))
+    nodemon.push(path.resolve('src','web',app))
     nodemon.push('--ignore')
-    nodemon.push(path.resolve('src','apps',app,'admin','components'))
+    nodemon.push(path.resolve('src','web',app,'admin','components'))
     nodemon.push('--ignore')
-    nodemon.push(path.resolve('src','apps',app,'admin','views'))
+    nodemon.push(path.resolve('src','web',app,'admin','views'))
   })
   nodemon.push('--watch')
   nodemon.push(path.resolve('src','packages','backframe'))
@@ -58,7 +58,7 @@ export const dev = async (flags, args) => {
 
   await serverWatch()
 
-  const contentBase = path.resolve('src','apps','maha','admin','public')
+  const contentBase = path.resolve('src','web','maha','admin','public')
 
   const server = `http://localhost:${process.env.SERVER_PORT}`
 

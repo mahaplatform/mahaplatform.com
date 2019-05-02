@@ -1,4 +1,4 @@
-import '../apps/maha/core/services/environment'
+import '../web/maha/core/services/environment'
 import glob from 'glob'
 import path from 'path'
 import Knex from 'knex'
@@ -57,7 +57,7 @@ const collectObjects = async (pattern) => {
 
   return await Promise.reduce(items, async (objects, file) => {
 
-    const [,appPath] = file.match(/apps\/([^/]*)/)
+    const [,appPath] = file.match(/web\/([^/]*)/)
 
     const config = require(path.resolve(`apps/${appPath}/src/app.js`)).default
 
