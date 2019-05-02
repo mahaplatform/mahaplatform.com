@@ -1,2 +1,2 @@
-# mycce2
+# mahaplatform.com
 CCE installation of the maha platform
