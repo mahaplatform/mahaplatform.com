@@ -1,26 +1,5 @@
-AMI: ami-935662fa
-
-# CONFIGURE ROOT ACCESS
-sudo sed -i 's/#PermitRootLogin/PermitRootLogin/' /etc/ssh/sshd_config
-sudo sed -i 's/.*ssh-rsa/ssh-rsa/' /root/.ssh/authorized_keys
-sudo service sshd restart
-
-# UPDATE SERVER
-yum -y update
-
-# INSTALL NTP
-ntpdate -s time.nist.gov
-sudo chkconfig ntpd on
-sudo chkconfig --list ntpd
-sudo service ntpd start
-rm /etc/localtime
-ln -s /usr/share/zoneinfo/US/Eastern /etc/localtime
-
-# INSTALL DEVTOOLSET-7
-yum -y install centos-release-scl-rh
-yum-config-manager --enable rhel-server-rhscl-7-rpms
-yum -y install devtoolset-7
-scl enable devtoolset-7 bash
+# base.image
+# ami-081b06033f1134220
 
 # INSTALL POSTGRESQL
 yum -y install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-centos96-9.6-3.noarch.rpm

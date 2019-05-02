@@ -7,11 +7,8 @@
 /config/*
 !/config/.gitkeep
 !/config/ecosystem.config.js
-/docs/files/deploy
-/docs/files/*.key
-/docs/files/*.crt
-/docs/files/*.pem
-/docs/files/deploy
+/docs/lb/mahaplatform.*
+/docs/node/deploy
 /repo
 /root
 deploy.tgz
@@ -21,11 +18,3 @@ npm-debug.log
 .key
 maha.js
 REVISION
-<<<<<<< HEAD
-packages/*
-!packages/.gitkeep
-apps/*
-!apps/.gitkeep
-.DS_Store
-=======
->>>>>>> 53d479d5c603db9420df34ab1e9c378569eed031
