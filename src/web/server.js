@@ -1,7 +1,7 @@
-import './maha/core/services/environment'
-import { withLogger } from './maha/core/utils/logger'
-import { info } from './maha/core/utils/console'
-import middleware from './maha/core/lib/express'
+import './core/services/environment'
+import { withLogger } from './core/utils/logger'
+import log from './core/utils/log'
+import middleware from './core/lib/express'
 import multiparty from 'connect-multiparty'
 import bodyParser from 'body-parser'
 import express from 'express'
@@ -24,7 +24,7 @@ const processor = async () => {
 
   server.use(express.static(path.resolve('public'), { redirect: false }))
 
-  const favicon = path.resolve(__dirname, '..', '..', 'public', 'public', 'images', 'favicon.ico')
+  const favicon = path.resolve(__dirname, 'apps', 'maha', 'public', 'public', 'images', 'favicon.ico')
 
   server.get('/favicon.ico', (req, res) => res.sendFile(favicon))
 
@@ -32,7 +32,7 @@ const processor = async () => {
 
   server.use(platform)
 
-  info('SERVER', `Listening on ${process.env.SERVER_PORT}`)
+  log('info', 'server', `Listening on ${process.env.SERVER_PORT}`)
 
   server.listen(process.env.SERVER_PORT)
 

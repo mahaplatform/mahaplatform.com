@@ -1,22 +1,15 @@
-import '../web/maha/core/services/environment'
+import '../web/core/services/environment'
 import desktopConfig from '../desktop/config/webpack.config'
 import mobileConfig from '../mobile/config/webpack.config'
 import webConfig from '../web/config/webpack.development.config'
 import devServer from 'webpack-dev-server'
+import log from '../web/core/utils/log'
 import { spawn } from 'child_process'
 import chokidar from 'chokidar'
 import webpack from 'webpack'
-import chalk from 'chalk'
 import path from 'path'
 import _ from 'lodash'
 import fs from 'fs'
-
-const log = (...options) => {
-  const style = options[0] === 'error' ? chalk.red('e') : chalk.blue('i')
-  const service = chalk.grey(`[${options[1]}]`)
-  const message = chalk.white(`: ${options[2]}`)
-  process.stdout.write(`${style} ${service} ${message}\n`)
-}
 
 const apps = process.env.APPS.split(',')
 
@@ -34,14 +27,14 @@ const serverWatch = async () => {
     return app.match(/^\./) === null
   }).map(app => {
     nodemon.push('--watch')
-    nodemon.push(path.resolve('src','web',app))
+    nodemon.push(path.resolve('src','web','apps',app))
     nodemon.push('--ignore')
-    nodemon.push(path.resolve('src','web',app,'admin','components'))
+    nodemon.push(path.resolve('src','web','apps',app,'admin','components'))
     nodemon.push('--ignore')
-    nodemon.push(path.resolve('src','web',app,'admin','views'))
+    nodemon.push(path.resolve('src','web','apps',app,'admin','views'))
   })
   nodemon.push('--watch')
-  nodemon.push(path.resolve('src','packages','backframe'))
+  nodemon.push(path.resolve('src','core','backframe'))
 
   const proc = spawn('nodemon', nodemon, {
     stdio: ['pipe', 'pipe', 'pipe', 'ipc']
@@ -49,9 +42,9 @@ const serverWatch = async () => {
 
   proc.on('message', function (event) {
     if(event.type === 'start') {
-      log('info', 'DEV', 'Compiling servers')
+      log('info', 'dev', 'Compiling servers')
     } else if (event.type === 'restart') {
-      log('info', 'DEV', `Detected change in ${event.data[0]}`)
+      log('info', 'dev', `Detected change in ${event.data[0]}`)
     }
   })
 
@@ -60,7 +53,7 @@ const serverWatch = async () => {
   })
 
   proc.stderr.on('data', function (err) {
-    log('error', 'DEV', err.toString())
+    log('error', 'dev', err.toString())
   })
 
 }
@@ -97,28 +90,29 @@ const mobileWatch = async () => {
 
 const clientWatch = async () => {
 
-  const contentBase = path.resolve('src','web','maha','admin','public')
-
-  const server = `http://localhost:${process.env.SERVER_PORT}`
+  const proxies = [
+    ...'api/,jobs/,imagecache/,.well-known/,mailbox_mime/,v,c,ns,so'.split(',').reduce((proxies, path) => [
+      ...proxies,
+      `/${path}*`
+    ], []),
+    ...'html,json'.split(',').reduce((proxies, ext) => [
+      ...proxies,
+      `/admin/*.${ext}`
+    ], []),
+    ...'audio,css,fonts,images,js'.split(',').reduce((proxies, path) => [
+      ...proxies,
+      `/admin/${path}/*`
+    ], [])
+  ]
 
   const devserver = new devServer(webpack(webConfig(apps)), {
-    contentBase,
+    contentBase: path.resolve('src','web','apps','maha','admin','public'),
     hot: true,
     publicPath: '/admin',
-    proxy: {
-      ...'api/,jobs/,imagecache/,.well-known/,mailbox_mime/,v,c,ns,so'.split(',').reduce((proxies, path) => ({
-        ...proxies,
-        [`/${path}*`]: server
-      }), {}),
-      ...'html,json'.split(',').reduce((proxies, ext) => ({
-        ...proxies,
-        [`/admin/*.${ext}`]: server
-      }), {}),
-      ...'audio,css,fonts,images,js'.split(',').reduce((proxies, path) => ({
-        ...proxies,
-        [`/admin/${path}/*`]: server
-      }), {})
-    },
+    proxy: proxies.reduce((proxies, proxy) => ({
+      ...proxies,
+      [proxy]: `http://localhost:${process.env.SERVER_PORT}`
+    }), {}),
     quiet: true,
     historyApiFallback: {
       disableDotRule: true,

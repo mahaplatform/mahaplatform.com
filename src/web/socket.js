@@ -1,7 +1,7 @@
-import './maha/core/services/environment'
-import ping from './maha/core/lib/express/ping'
-import middleware from './maha/core/lib/socketio'
-import { info } from './maha/core/utils/console'
+import './core/services/environment'
+import ping from './core/lib/express/ping'
+import middleware from './core/lib/socketio'
+import log from './core/utils/log'
 import Redis from 'socket.io-redis'
 import socketio from 'socket.io'
 import express from 'express'
@@ -23,7 +23,7 @@ const processor = async () => {
 
   io.on('connection', (sock) => middleware(io, sock))
 
-  info('SOCKET', `Listening on ${process.env.SOCKET_PORT}`)
+  log('info', 'socket', `Listening on ${process.env.SOCKET_PORT}`)
 
   transport.listen(process.env.SOCKET_PORT)
 
