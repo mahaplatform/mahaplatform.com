@@ -1,4 +1,3 @@
-import MahaWebpackPlugin from './maha_plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import webpack from 'webpack'
@@ -10,8 +9,8 @@ const webpackConfig = {
   entry: [
     `webpack-dev-server/client?http://localhost:${process.env.DEVSERVER_PORT}`,
     'webpack/hot/only-dev-server',
-    path.resolve('tmp', 'index.js'),
-    path.resolve('tmp', 'index.less')
+    path.resolve('src','web','apps','index.js'),
+    path.resolve('src','web','apps','index.less')
   ],
   mode: 'development',
   module: {
@@ -42,14 +41,13 @@ const webpackConfig = {
     ]
   },
   output: {
-    path: path.resolve('src','web','apps','maha','admin','public'),
+    path: path.resolve('src','web','public'),
     filename: 'application.js',
     publicPath: '/admin'
   },
   plugins: [
-    new MahaWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve('src','web','apps','maha','admin','index.html')
+      template: path.resolve('src','web','apps','index.html')
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
@@ -73,9 +71,8 @@ const webpackConfig = {
   ],
   resolve: {
     alias: {
-      'reframe': path.resolve('src','web','core','reframe','index.js'),
-      'maha-admin': path.resolve('src','web','apps','maha','client.js'),
-      'maha-client': path.resolve('src','web','apps','maha','admin','index.js')
+      'reframe': path.resolve('src','web','apps','reframe','index.js'),
+      'maha-admin': path.resolve('src','web','apps','maha','client.js')
     },
     modules: [
       path.resolve('node_modules')

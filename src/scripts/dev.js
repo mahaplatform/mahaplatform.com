@@ -104,7 +104,7 @@ const clientWatch = async () => {
   ]
 
   const devserver = new devServer(webpack(webConfig), {
-    contentBase: path.resolve('src','web','apps','maha','admin','public'),
+    contentBase: path.resolve('src','web','public'),
     hot: true,
     publicPath: '/admin',
     proxy: proxies.reduce((proxies, proxy) => ({

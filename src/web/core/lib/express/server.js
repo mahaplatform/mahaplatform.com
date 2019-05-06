@@ -12,12 +12,12 @@ const _serverSegment = (portal) => {
 
 const getStaticRoot = () => {
   if(process.env.NODE_ENV === 'production') return path.resolve('dist', 'public', 'admin')
-  return path.resolve('src', 'web', 'apps', 'maha', 'admin', 'public')
+  return path.resolve('src', 'web', 'public')
 }
 
 const getIndex = () => {
   if(process.env.NODE_ENV === 'production') return path.resolve('dist', 'public', 'admin', 'index.html')
-  return path.resolve('src', 'web', 'apps', 'maha', 'admin', 'index.html')
+  return path.resolve('src', 'web', 'apps', 'index.html')
 }
 
 export const adminMiddleware = async () => {

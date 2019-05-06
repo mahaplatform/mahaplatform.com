@@ -3,7 +3,6 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
-import MahaWebpackPlugin from './maha_plugin'
 import { chunkTest, ruleTest } from './utils'
 import autoprefixer from 'autoprefixer'
 import webpack from 'webpack'
@@ -12,10 +11,10 @@ import path from 'path'
 
 const webpackConfig = {
   devtool: 'none',
-  entry: {
-    bundle: path.resolve('tmp', 'index.js'),
-    style: path.resolve('tmp', 'index.less')
-  },
+  entry: [
+    path.resolve('src','web','apps','index.js'),
+    path.resolve('src','web','apps','index.less')
+  ],
   mode: 'production',
   module: {
     rules: [
@@ -66,19 +65,17 @@ const webpackConfig = {
     publicPath: '/admin'
   },
   plugins: [
-    new MahaWebpackPlugin(),
     new MiniCssExtractPlugin({
       filename: 'css/[name]-[hash].min.css'
     }),
     new CopyWebpackPlugin([
       {
-        from: path.resolve('src','web','apps','maha','admin','public'),
+        from: path.resolve('src','web','public'),
         to: path.resolve('dist.staged','public','admin')
       }
     ]),
     new HtmlWebpackPlugin({
-      template: path.resolve('src','web','apps','maha','admin','index.html'),
-      excludeAssets: [/style.*js$/]
+      template: path.resolve('src','web','apps','index.html')
     }),
     new HtmlWebpackExcludeAssetsPlugin(),
     new webpack.SourceMapDevToolPlugin({
@@ -106,9 +103,8 @@ const webpackConfig = {
   ],
   resolve: {
     alias: {
-      'reframe': path.resolve('src','web','core','reframe','index.js'),
-      'maha-admin': path.resolve('src','web','apps','maha','client.js'),
-      'maha-client': path.resolve('src','web','apps','maha','admin','index.js')
+      'reframe': path.resolve('src','web','apps','reframe','index.js'),
+      'maha-admin': path.resolve('src','web','apps','maha','client.js')
     }
   },
   resolveLoader: {

@@ -1,4 +1,4 @@
-export * from '../../core/reframe'
+export * from '../reframe'
 
 export Routes from '../../core/objects/routes'
 
