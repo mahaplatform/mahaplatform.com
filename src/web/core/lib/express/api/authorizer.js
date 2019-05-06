@@ -1,5 +1,5 @@
-import { Plugin, BackframeError } from '../../backframe'
-import getUserAccess from '../../utils/get_user_access'
+import { Plugin, BackframeError } from '../../../backframe'
+import getUserAccess from '../../../utils/get_user_access'
 import Checkit from 'checkit'
 import _ from 'lodash'
 

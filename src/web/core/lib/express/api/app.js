@@ -1,5 +1,5 @@
-import { Plugin } from '../../backframe'
-import App from '../../../apps/maha/models/app'
+import { Plugin } from '../../../backframe'
+import App from '../../../../apps/maha/models/app'
 
 const alterRequest = async (req, trx, options) => {
 

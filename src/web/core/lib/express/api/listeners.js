@@ -1,5 +1,5 @@
-import Listening from '../../../apps/maha/models/listening'
-import { Plugin } from '../../backframe'
+import Listening from '../../../../apps/maha/models/listening'
+import { Plugin } from '../../../backframe'
 import _ from 'lodash'
 
 const afterProcessor = async(req, trx, result, options) => {

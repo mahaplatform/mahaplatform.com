@@ -103,8 +103,8 @@ const webpackConfig = {
   ],
   resolve: {
     alias: {
-      'reframe': path.resolve('src','web','apps','reframe','index.js'),
-      'maha-admin': path.resolve('src','web','apps','maha','client.js')
+      'reframe': path.resolve('src','web','core','reframe','index.js'),
+      'maha-admin': path.resolve('src','web','core','client.js')
     }
   },
   resolveLoader: {

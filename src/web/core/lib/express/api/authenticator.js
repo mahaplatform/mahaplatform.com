@@ -1,8 +1,8 @@
-import { Plugin, BackframeError } from '../../backframe'
-import Device from '../../../apps/maha/models/device'
-import Session from '../../../apps/maha/models/session'
-import passport from '../../services/passport'
-import Rollbar from '../../services/rollbar'
+import { Plugin, BackframeError } from '../../../backframe'
+import Device from '../../../../apps/maha/models/device'
+import Session from '../../../../apps/maha/models/session'
+import passport from '../../../services/passport'
+import Rollbar from '../../../services/rollbar'
 import moment from 'moment'
 
 const alterRequest = async (req, trx, options) => {

@@ -1,6 +1,6 @@
-import { Plugin } from '../../backframe'
-import Story from '../../../apps/maha/models/story'
-import Audit from '../../../apps/maha/models/audit'
+import { Plugin } from '../../../backframe'
+import Story from '../../../../apps/maha/models/story'
+import Audit from '../../../../apps/maha/models/audit'
 import _ from 'lodash'
 
 const afterProcessor = async (req, trx, result, options) => {

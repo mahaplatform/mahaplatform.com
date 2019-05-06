@@ -1,4 +1,4 @@
-import { RadioGroup } from '../../../client'
+import { RadioGroup } from 'reframe'
 import PropTypes from 'prop-types'
 import React from 'react'
 

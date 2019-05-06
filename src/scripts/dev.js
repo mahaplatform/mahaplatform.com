@@ -94,34 +94,32 @@ const mobileWatch = async () => {
 
 const clientWatch = async () => {
 
-  const proxy = [
-    ...'api/,jobs/,imagecache/,.well-known/,mailbox_mime/,v,c,ns,so'.split(',').reduce((proxies, path) => [
-      ...proxies,
-      `/${path}*`
-    ], []),
-    ...'html,json'.split(',').reduce((proxies, ext) => [
-      ...proxies,
-      `/admin/*.${ext}`
-    ], []),
-    ...'audio,css,fonts,images,js'.split(',').reduce((proxies, path) => [
-      ...proxies,
-      `/admin/${path}/*`
-    ], [])
-  ].reduce((proxies, proxy) => ({
-    ...proxies,
-    [proxy]: `http://localhost:${process.env.SERVER_PORT}`
-  }), {
-    '/socket': {
-      target: `http://localhost:${process.env.SERVER_PORT}`,
-      ws: true
-    }
-  })
-
   const devserver = new devServer(webpack(webConfig), {
     contentBase: path.resolve('src','web','public'),
     hot: true,
     publicPath: '/admin',
-    proxy,
+    proxy: [
+      ...'api/,jobs/,imagecache/,.well-known/,mailbox_mime/,v,c,ns,so'.split(',').reduce((proxies, path) => [
+        ...proxies,
+        `/${path}*`
+      ], []),
+      ...'html,json'.split(',').reduce((proxies, ext) => [
+        ...proxies,
+        `/admin/*.${ext}`
+      ], []),
+      ...'audio,css,fonts,images,js'.split(',').reduce((proxies, path) => [
+        ...proxies,
+        `/admin/${path}/*`
+      ], [])
+    ].reduce((proxies, proxy) => ({
+      ...proxies,
+      [proxy]: `http://localhost:${process.env.SERVER_PORT}`
+    }), {
+      '/socket': {
+        target: `http://localhost:${process.env.SERVER_PORT}`,
+        ws: true
+      }
+    }),
     quiet: true,
     historyApiFallback: {
       disableDotRule: true,

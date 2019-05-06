@@ -1,9 +1,9 @@
-import NotificationQueue from '../../../apps/maha/queues/notification_queue'
-import NotificationType from '../../../apps/maha/models/notification_type'
-import Notification from '../../../apps/maha/models/notification'
-import { Plugin } from '../../backframe'
-import Story from '../../../apps/maha/models/story'
-import App from '../../../apps/maha/models/app'
+import NotificationQueue from '../../../../apps/maha/queues/notification_queue'
+import NotificationType from '../../../../apps/maha/models/notification_type'
+import Notification from '../../../../apps/maha/models/notification'
+import { Plugin } from '../../../backframe'
+import Story from '../../../../apps/maha/models/story'
+import App from '../../../../apps/maha/models/app'
 import _ from 'lodash'
 
 const afterCommit = async(req, trx, result, options) => {

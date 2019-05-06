@@ -1,7 +1,7 @@
-import Activity from '../../../apps/maha/models/activity'
-import { Plugin } from '../../backframe'
-import Story from '../../../apps/maha/models/story'
-import socket from '../../services/emitter'
+import Activity from '../../../../apps/maha/models/activity'
+import { Plugin } from '../../../backframe'
+import Story from '../../../../apps/maha/models/story'
+import socket from '../../../services/emitter'
 
 const afterProcessor = async (req, trx, result, options) => {
 

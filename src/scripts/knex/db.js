@@ -1,4 +1,4 @@
-import { writePaddedLine } from '../../utils/console'
+import { writePaddedLine } from '../../web/core/utils/console'
 import chalk from 'chalk'
 import Knex from 'knex'
 import path from 'path'
