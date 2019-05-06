@@ -8,6 +8,7 @@ node_modules
 /docs/node/deploy
 /repo
 /root
+/logs
 deploy.tgz
 *.compiled.js
 npm-debug.log

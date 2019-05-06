@@ -1,4 +1,4 @@
-import transpile from '../../web/maha/core/utils/transpile'
+import transpile from '../../web/core/utils/transpile'
 import glob from 'glob'
 import path from 'path'
 import _ from 'lodash'
@@ -8,7 +8,7 @@ const apps = process.env.APPS.split(',')
 
 const configs = apps.reduce((configs, app) => {
 
-  const configPath = path.resolve('src', 'web', app, 'app.js')
+  const configPath = path.resolve('src', 'web', 'apps', app, 'app.js')
 
   const contents = fs.readFileSync(configPath, 'utf8')
 
@@ -24,13 +24,13 @@ const configs = apps.reduce((configs, app) => {
 }, {})
 
 const collectObjects = (pattern) => [
-  ...glob.sync(`apps/*/src/${pattern}`),
-  ...glob.sync(`apps/*/src/${pattern}/index.js`)
+  ...glob.sync(`src/web/apps/*/${pattern}`),
+  ...glob.sync(`src/web/apps/*/${pattern}/index.js`)
 ]
 
 const extract = (pattern, regex = null) => collectObjects(pattern).map(file => {
 
-  const matches = regex ? file.match(regex) : file.match(/web\/([^/]*)/)
+  const matches = regex ? file.match(regex) : file.match(/apps\/([^/]*)/)
 
   return {
     ...configs[matches[1]],
@@ -42,7 +42,7 @@ const extract = (pattern, regex = null) => collectObjects(pattern).map(file => {
 })
 
 const reducers = collectObjects('admin/components/**/reducer.js').map(file => {
-  const matches = file.match(/(apps\/([^/]*)\/src\/admin\/components\/(.*))\/reducer.js/)
+  const matches = file.match(/(apps\/([^/]*)\/admin\/components\/(.*))\/reducer.js/)
   return {
     ...configs[matches[2]],
     app: matches[2],
@@ -57,7 +57,7 @@ const precompile = () => ({
   routes: extract('admin/routes.js'),
   reducers,
   styles: [
-    { filepath: path.resolve('node_modules','reframe','src','style.less') },
+    { filepath: path.resolve('src','web','core','reframe','src','style.less') },
     ...extract('admin/**/style.less')
   ],
   userTasks: extract('admin/user_tasks.js'),

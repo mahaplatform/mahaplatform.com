@@ -11,8 +11,6 @@ import path from 'path'
 import _ from 'lodash'
 import fs from 'fs'
 
-const apps = process.env.APPS.split(',')
-
 const serverWatch = async () => {
 
   const nodemon = [
@@ -105,7 +103,7 @@ const clientWatch = async () => {
     ], [])
   ]
 
-  const devserver = new devServer(webpack(webConfig(apps)), {
+  const devserver = new devServer(webpack(webConfig), {
     contentBase: path.resolve('src','web','apps','maha','admin','public'),
     hot: true,
     publicPath: '/admin',

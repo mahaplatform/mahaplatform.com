@@ -10,7 +10,7 @@ import webpack from 'webpack'
 import cssnano from 'cssnano'
 import path from 'path'
 
-const webpackConfig = (apps, src, dest) => ({
+const webpackConfig = {
   devtool: 'none',
   entry: {
     bundle: path.resolve('tmp', 'index.js'),
@@ -61,7 +61,7 @@ const webpackConfig = (apps, src, dest) => ({
     }
   },
   output: {
-    path: dest,
+    path: path.resolve('dist.staged','public', 'admin'),
     filename: 'js/[name]-[chunkhash].min.js',
     publicPath: '/admin'
   },
@@ -71,10 +71,13 @@ const webpackConfig = (apps, src, dest) => ({
       filename: 'css/[name]-[hash].min.css'
     }),
     new CopyWebpackPlugin([
-      { from: path.join(src, 'public'), to: dest }
+      {
+        from: path.resolve('src','web','apps','maha','admin','public'),
+        to: path.resolve('dist.staged','public','admin')
+      }
     ]),
     new HtmlWebpackPlugin({
-      template: path.join(src, 'index.html'),
+      template: path.resolve('src','web','apps','maha','admin','index.html'),
       excludeAssets: [/style.*js$/]
     }),
     new HtmlWebpackExcludeAssetsPlugin(),
@@ -103,13 +106,9 @@ const webpackConfig = (apps, src, dest) => ({
   ],
   resolve: {
     alias: {
-      ...apps.reduce((aliases, app) => ({
-        ...aliases,
-        [app]: path.resolve('src','web',app,'client.js')
-      }), {}),
-      'reframe': path.resolve('src','web','maha','core','packages','reframe','index.js'),
-      'maha-admin': path.resolve('src','web','maha','client.js'),
-      'maha-client': path.resolve('src','web','maha','admin','index.js')
+      'reframe': path.resolve('src','web','core','reframe','index.js'),
+      'maha-admin': path.resolve('src','web','apps','maha','client.js'),
+      'maha-client': path.resolve('src','web','apps','maha','admin','index.js')
     }
   },
   resolveLoader: {
@@ -117,6 +116,6 @@ const webpackConfig = (apps, src, dest) => ({
       path.resolve('node_modules')
     ]
   }
-})
+}
 
 export default webpackConfig

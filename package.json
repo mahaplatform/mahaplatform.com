@@ -10,13 +10,15 @@
     "assets": "babel-node ./src/scripts/assets.js",
     "bootstrap": "babel-node ./src/scripts/bootstrap.js",
     "build": "babel-node ./src/scripts/build/index.js",
+    "cron": "pm2 startOrRestart ./dist/ecosystem.js",
     "dev": "babel-node ./src/scripts/dev.js",
-    "deploy": "babel-node ./src/scripts/deploy.js",
+    "deploy": "babel-node ./src/scripts/deploy/index.js",
     "env": "babel-node ./src/scripts/env/index.js",
     "help": "babel-node ./src/scripts/help.js",
     "knex": "babel-node ./src/scripts/knex.js",
-    "test": "babel-node ./src/scripts/test.js",
-    "sync": "babel-node ./src/scripts/sync.js"
+    "preinstall": "npm install pm2 -g",
+    "sync": "babel-node ./src/scripts/sync.js",
+    "test": "babel-node ./src/scripts/test.js"
   },
   "devDependencies": {
     "autoprefixer": "^9.4.9",
@@ -52,7 +54,6 @@
     "search-index": "^0.15.1",
     "shipit-cli": "^4.2.0",
     "shipit-deploy": "^4.1.4",
-    "shipit-roles": "^1.0.3",
     "shipit-utils": "^1.4.1",
     "sinon": "^2.1.0",
     "style-loader": "^0.23.1",

@@ -22,7 +22,7 @@ const processor = async () => {
 
   server.use(multiparty({ uploadDir: './tmp' }))
 
-  server.use(express.static(path.resolve('public'), { redirect: false }))
+  server.use(express.static(path.resolve(__dirname, 'public'), { redirect: false }))
 
   const favicon = path.resolve(__dirname, 'apps', 'maha', 'public', 'public', 'images', 'favicon.ico')
 

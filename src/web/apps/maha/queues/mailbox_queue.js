@@ -1,7 +1,5 @@
 import Queue from '../../../core/objects/queue'
 import aws from '../../../core/services/aws'
-import path from 'path'
-import mahaRequire from '../../../core/utils/maha_require'
 
 const enqueue = async (req, trx, message) => message
 
@@ -18,7 +16,7 @@ const processor = async (job, trx) => {
     Key
   }).promise()
 
-  const mailbox = mahaRequire(filepath).default
+  const mailbox = require(filepath).default
 
   const email = JSON.parse(file.Body)
 

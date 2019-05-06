@@ -1,7 +1,7 @@
-import '../web/maha/core/services/environment'
+import '../../web/core/services/environment'
 import Shipit from 'shipit-cli'
 import utils from 'shipit-utils'
-import roles from 'shipit-roles'
+import roles from './roles'
 import moment from 'moment'
 import path from 'path'
 
@@ -9,32 +9,25 @@ const deploy = async () => {
 
   const shipit = new Shipit({ environment: 'production' })
 
-  shipit.initialize()
-
-  shipit.start('deploy')
-
-  shipit.on('err', () => process.exit(1))
-
-  shipit.on('task_err', () => process.exit(1))
-
-  shipit.on('task_not_found', () => process.exit(1))
-
   shipit.initConfig({
     default: {
       deployTo: '/var/www/maha/production',
-      key: '~/.ssh/id_rsa_0d79bf2b27c217a2ac17896617668a50',
-      // key: '~/.ssh/mahaplatform',
+      key: `~/.ssh/${process.env.FINGERPRINT}`,
       strict: 'no'
     },
     production: {
       servers: [
         {
+        //   user: 'root',
+        //   host: 'app8.mahaplatform.com',
+        //   role: 'appserver'
+        // }, {
+        //   user: 'root',
+        //   host: 'app9.mahaplatform.com',
+        //   role: 'appserver'
+        // }, {
           user: 'root',
-          host: 'app8.mahaplatform.com',
-          role: 'appserver'
-        }, {
-          user: 'root',
-          host: 'app9.mahaplatform.com',
+          host: 'app7.mahaplatform.com',
           role: 'appserver'
         }, {
           user: 'root',
@@ -69,13 +62,10 @@ const deploy = async () => {
     'deploy:help',
     'deploy:link_shared',
     'deploy:symlink',
-    'deploy:reload_appservers',
-    'deploy:restart_workers',
-    'deploy:restart_cron',
-    'deploy:cache_app',
-    'deploy:cache_socket'
+    'deploy:reload_passenger',
+    'deploy:restart_pm2',
+    'deploy:cache'
   ])
-
 
   utils.registerTask(shipit, 'deploy:checkout', async () => {
     await shipit.remote(`git clone https://github.com/mahaplatform/mahaplatform.com.git ${releaseDir}`)
@@ -110,25 +100,31 @@ const deploy = async () => {
     await shipit.remote(`rm -rf ${currentDir} && ln -s ${releaseDir} ${currentDir}`)
   })
 
-  utils.registerTask(shipit, 'deploy:reload_appservers', () => {
-    return shipit.remote(`touch ${currentDir}/tmp/restart.txt`, { role: 'appserver' })
+  utils.registerTask(shipit, 'deploy:reload_passenger', () => {
+    return shipit.remote(`touch ${currentDir}/tmp/restart.txt`, { roles: 'appserver' })
   })
 
-  utils.registerTask(shipit, 'deploy:restart_workers', () => {
-    return shipit.remote(`cd ${deployDir} && NODE_ENV=${shipit.options.environment} pm2 startOrRestart ./current/dist/ecosystem.config.js`, { role: 'worker' })
+  utils.registerTask(shipit, 'deploy:restart_pm2', () => {
+    const commands = [
+      `cd ${deployDir}`,
+      `NODE_ENV=${shipit.options.environment} pm2 startOrRestart ./current/dist/config/ecosystem.config.js`
+    ]
+    return shipit.remote(commands.join(' && '), { roles: ['cron','worker'] })
   })
 
-  utils.registerTask(shipit, 'deploy:restart_cron', () => {
-    return shipit.remote(`cd ${deployDir} && NODE_ENV=${shipit.options.environment} pm2 startOrRestart ./current/dist/ecosystem.config.js`, { role: 'cron' })
+  utils.registerTask(shipit, 'deploy:cache', () => {
+    return shipit.remote('wget -O - http://127.0.0.1/ping', { roles: 'appserver' })
   })
 
-  utils.registerTask(shipit, 'deploy:cache_app', () => {
-    return shipit.remote('wget -O - http://127.0.0.1:80/ping', { role: 'appserver' })
-  })
+  shipit.initialize()
 
-  utils.registerTask(shipit, 'deploy:cache_socket', () => {
-    return shipit.remote('wget -O - http://127.0.0.1:81/ping', { role: 'appserver' })
-  })
+  shipit.on('err', () => process.exit(1))
+
+  shipit.on('task_err', () => process.exit(1))
+
+  shipit.on('task_not_found', () => process.exit(1))
+
+  shipit.start('deploy')
 
 }
 

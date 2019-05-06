@@ -5,7 +5,7 @@ import webpack from 'webpack'
 import cssnano from 'cssnano'
 import path from 'path'
 
-const webpackConfig = (apps) => ({
+const webpackConfig = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
     `webpack-dev-server/client?http://localhost:${process.env.DEVSERVER_PORT}`,
@@ -49,7 +49,7 @@ const webpackConfig = (apps) => ({
   plugins: [
     new MahaWebpackPlugin(),
     new HtmlWebpackPlugin({
-      template: path.join('src','web','apps','maha','admin','index.html')
+      template: path.resolve('src','web','apps','maha','admin','index.html')
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
@@ -73,10 +73,6 @@ const webpackConfig = (apps) => ({
   ],
   resolve: {
     alias: {
-      ...apps.reduce((aliases, app) => ({
-        ...aliases,
-        [app]: path.resolve('src','web',app,'client.js')
-      }), {}),
       'reframe': path.resolve('src','web','core','reframe','index.js'),
       'maha-admin': path.resolve('src','web','apps','maha','client.js'),
       'maha-client': path.resolve('src','web','apps','maha','admin','index.js')
@@ -90,6 +86,6 @@ const webpackConfig = (apps) => ({
       path.resolve('node_modules')
     ]
   }
-})
+}
 
 export default webpackConfig

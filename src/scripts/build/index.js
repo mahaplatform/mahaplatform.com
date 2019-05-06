@@ -1,14 +1,13 @@
-import '../../web/maha/core/services/environment'
-import clientConfig from './webpack.config'
+import '../../web/core/services/environment'
+import clientConfig from '../../web/config/webpack.production.config'
+import log from '../../web/core/utils/log'
 import { transform } from 'babel-core'
 import precompile from './precompile'
 import move from 'move-concurrently'
 import webpack from 'webpack'
 import rimraf from 'rimraf'
 import mkdirp from 'mkdirp'
-import chalk from 'chalk'
 import path from 'path'
-import ejs from 'ejs'
 import ncp from 'ncp'
 import fs from 'fs'
 
@@ -18,38 +17,15 @@ const apps = process.env.APPS.split(',')
 
 const templateRoot = path.resolve(__dirname, 'templates')
 
-const buildTemplates = (root, templates, variables) => templates.map(entity => {
-
-  const templatePath = path.join(templateRoot, `${entity}.ejs`)
-
-  const template = fs.readFileSync(templatePath, 'utf8')
-
-  const filepath = path.join(root, entity)
-
-  fs.writeFileSync(filepath, ejs.render(template, variables))
-
-})
-
-const compileClient = async ({ src, dest, variables }) => {
-
-  mkdirp.sync(path.join(dest, 'js'))
-
+const compileClient = async (variables) => {
   const stats = await new Promise((resolve, reject) => {
-
-    webpack(clientConfig(apps, src, dest)).run((err, stats) => {
-
+    webpack(clientConfig).run((err, stats) => {
       if(err) reject(err)
-
       resolve(stats)
-
     })
-
   })
-
   const time = (stats.endTime - stats.startTime) / 1000
-
-  process.stdout.write(chalk.grey(`Finished in ${time}`))
-
+  log('info', 'dev', `Finished in ${time}`)
 }
 
 const getItemType = (item) => path.extname(item).length > 0 ? path.extname(item).substr(1) : 'dir'
@@ -116,19 +92,9 @@ const buildItems = async (srcPath, destPath) => {
 
 }
 
-export const buildApp = async (app) => {
-
-  await buildItems(path.resolve('src','web', app), path.join('dist.staged', 'web', app))
-
-}
-
 export const buildServer = async () => {
 
-  await Promise.mapSeries(process.env.APPS.split(','), buildApp)
-
-  const templates = ['cron.js','server.js','socket.js','worker.js']
-
-  buildTemplates(path.resolve('dist.staged'), templates, {})
+  await buildItems(path.resolve('src','web'), path.join('dist.staged'))
 
 }
 
@@ -136,13 +102,9 @@ const build = async (flags, args) => {
 
   rimraf.sync(path.resolve('dist.staged'))
 
-  await compileClient({
-    src: path.resolve('src', 'web', 'maha', 'admin'),
-    dest: path.resolve('dist.staged','public', 'admin'),
-    variables: precompile()
-  })
+  mkdirp.sync(path.resolve('dist.staged'))
 
-  await copy(path.resolve(templateRoot,'ecosystem.config.js'), path.resolve('dist.staged','ecosystem.config.js'))
+  await compileClient(precompile())
 
   await buildServer()
 
