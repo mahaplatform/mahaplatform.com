@@ -17,7 +17,9 @@ import ping from './ping'
 import path from 'path'
 import qs from 'qs'
 
-const platformMiddleware = async (server) => {
+const middleware = async () => {
+
+  const server = express()
 
   server.set('query parser', str => qs.parse(str, { arrayLimit: 100, depth: 10 }))
 
@@ -59,11 +61,10 @@ const platformMiddleware = async (server) => {
 
   router.use((req, res) => res.send('not found'))
 
-  const middleware = (process.env.NODE_ENV !== 'production') ? withLogger(router) : router
+  server.use(process.env.NODE_ENV !== 'production' ? withLogger(router) : router)
 
-  server.use(middleware)
-
+  return server
 
 }
 
-export default platformMiddleware
+export default middleware

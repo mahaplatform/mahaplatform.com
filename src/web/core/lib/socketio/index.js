@@ -1,21 +1,31 @@
-import server from './server'
-import presence from './presence'
 import collectObjects from '../../utils/collect_objects'
+import Redis from 'socket.io-redis'
+import presence from './presence'
+import socketio from 'socket.io'
+import server from './server'
 
-export default async (io, socket) => {
+const middleware = (http) => {
 
-  const sockets = collectObjects('admin/socket.js')
+  const io = socketio(http, { path: '/socket' })
 
-  await server(io, socket)
+  io.adapter(Redis(process.env.REDIS_URL))
 
-  await presence(io, socket)
+  io.on('connection', async (socket) => {
 
-  await Promise.map(sockets, async socketFile => {
+    const sockets = collectObjects('admin/socket.js')
 
-    const handler = socketFile.default
+    await server(io, socket)
 
-    await handler(io, socket)
+    await presence(io, socket)
+
+    await Promise.map(sockets, async socketFile => {
+
+      await socketFile.default(io, socket)
+
+    })
 
   })
 
 }
+
+export default middleware

@@ -10,7 +10,7 @@ const ACTION_TYPES = [
 
 const socketioMiddleware = (options = {}) => {
 
-  const client = createClient(options)
+  const client = SocketClient(options.url, { path: '/socket' })
 
   return store => next => action => {
 
@@ -60,14 +60,6 @@ const socketioMiddleware = (options = {}) => {
     }
 
   }
-
-}
-
-const createClient = (options) => {
-
-  const socketUrl = options.url || `${options.protocol}//${options.hostname}:${options.port}`
-
-  return options.client || SocketClient(socketUrl)
 
 }
 

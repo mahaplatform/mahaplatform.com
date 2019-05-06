@@ -37,7 +37,7 @@ class Root extends React.Component {
     const apiRequestMiddleware = createApiRequest()
 
     const socketioClientMiddleware = createSocketioClient({
-      url: `${window.location.protocol}//${window.location.hostname}:${process.env.SOCKET_PORT}`
+      url: `${window.location.protocol}//${window.location.hostname}:${window.location.port}`
     })
 
     const localStorageMiddleware = createlocalStorage()
