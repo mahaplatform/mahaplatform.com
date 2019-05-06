@@ -1,22 +1,21 @@
-import { adminMiddleware, publicMiddleware } from './server'
 import { withLogger } from '../../utils/logger'
+import multiparty from 'connect-multiparty'
 import deeplinkMiddleware from './deeplink'
 import mailboxMiddleware from './mailbox'
 import rollbarMiddleware from './rollbar'
 import faviconMiddleware from './favicon'
 import legacyMiddleware from './legacy'
+import serverMiddleware from './server'
+import domainMiddleware from './domain'
 import imagecache from './imagecache'
 import emailMiddleware from './email'
+import bodyParser from 'body-parser'
 import apiMiddleware from './api'
+import express from 'express'
 import cors from './cors'
 import ping from './ping'
 import path from 'path'
-
-import multiparty from 'connect-multiparty'
-import bodyParser from 'body-parser'
 import qs from 'qs'
-import express from 'express'
-
 
 const platformMiddleware = async (server) => {
 
@@ -40,27 +39,30 @@ const platformMiddleware = async (server) => {
 
   server.use('/.well-known', deeplinkMiddleware)
 
-  server.use(rollbarMiddleware)
+  const router = express.Router({ mergeParams: true })
 
-  server.use(emailMiddleware)
+  router.use(rollbarMiddleware)
 
-  server.use(mailboxMiddleware)
+  router.use(emailMiddleware)
 
-  server.use(await adminMiddleware())
+  router.use(mailboxMiddleware)
 
-  server.use(await publicMiddleware())
+  router.use('/admin', domainMiddleware(serverMiddleware()))
 
-  server.use(await cors(), await apiMiddleware())
+  router.use(await cors(), await apiMiddleware())
 
-  server.use('/js/notifications.js', (req, res) => res.sendFile(path.resolve('public', 'admin', 'js', 'notifications.js')))
+  router.use('/js/notifications.js', (req, res) => res.sendFile(path.resolve('public', 'admin', 'js', 'notifications.js')))
 
-  server.use(/^(\/admin)?\/(css|assets|audio|imagecache|images|js)/, (req, res) => res.status(404).send('Cannot locate asset'))
+  router.use(/^(\/admin)?\/(css|assets|audio|imagecache|images|js)/, (req, res) => res.status(404).send('Cannot locate asset'))
 
-  server.use(legacyMiddleware)
+  router.use(legacyMiddleware)
 
-  server.use((req, res) => res.send('not found'))
+  router.use((req, res) => res.send('not found'))
 
-  return (process.env.NODE_ENV !== 'production') ? withLogger(server) : server
+  const middleware = (process.env.NODE_ENV !== 'production') ? withLogger(router) : router
+
+  server.use(middleware)
+
 
 }
 

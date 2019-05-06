@@ -17,17 +17,11 @@ import app from '../backframe/app'
 import { Router } from 'express'
 
 const _segment = async (portal, prefix, authenticated) => {
-
   const apiFiles = collectObjects(`${portal}/api.js`)
-
   return await Promise.mapSeries(apiFiles, async(apiFile) => {
-
     const api = apiFile.default
-
     const path = apiFile.config.path
-
     const app_id = await _getAppId(apiFile.config.code)
-
     return new Segment({
       path: `${prefix}${path}`,
       app_id,
@@ -37,22 +31,15 @@ const _segment = async (portal, prefix, authenticated) => {
         api
       ]
     })
-
   })
-
 }
 
 const _getAppId = async (code) => {
-
   const app = await App.where({ code }).fetch()
-
   return app ? app.get('id') : null
-
 }
 
-
 const mahaApi = async () => {
-
   const plugins = [
     authenticator,
     authorizer,
@@ -65,9 +52,7 @@ const mahaApi = async () => {
     emitter,
     notifier
   ]
-
   const adminSegment = await _segment('admin', '/admin', true)
-
   const adminApi = new Backframe({
     knex,
     redis,
@@ -75,11 +60,8 @@ const mahaApi = async () => {
     plugins,
     routes: adminSegment
   })
-
   const adminRoutes = adminApi.render()
-
   const publicSegment = await _segment('public', '', false)
-
   const publicApi = new Backframe({
     knex,
     redis,
@@ -87,15 +69,10 @@ const mahaApi = async () => {
     plugins,
     routes: publicSegment
   })
-
   const publicRoutes = publicApi.render()
-
   const router = new Router({ mergeParams: true })
-
   adminRoutes.map(route => router[route.method](route.path, route.handler))
-
   publicRoutes.map(route => router[route.method](route.path, route.handler))
-
   return router
 
 }

@@ -27,12 +27,18 @@ const serverWatch = async () => {
     nodemon.push('--watch')
     nodemon.push(path.resolve('src','web','apps',app))
     nodemon.push('--ignore')
+    nodemon.push(path.resolve('src','web','apps',app,'admin','badges'))
+    nodemon.push('--ignore')
     nodemon.push(path.resolve('src','web','apps',app,'admin','components'))
+    nodemon.push('--ignore')
+    nodemon.push(path.resolve('src','web','apps',app,'admin','roots'))
+    nodemon.push('--ignore')
+    nodemon.push(path.resolve('src','web','apps',app,'admin','tokens'))
     nodemon.push('--ignore')
     nodemon.push(path.resolve('src','web','apps',app,'admin','views'))
   })
   nodemon.push('--watch')
-  nodemon.push(path.resolve('src','core','backframe'))
+  nodemon.push(path.resolve('src','web','core'))
 
   const proc = spawn('nodemon', nodemon, {
     stdio: ['pipe', 'pipe', 'pipe', 'ipc']
