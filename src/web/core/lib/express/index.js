@@ -1,4 +1,5 @@
 import { adminMiddleware, publicMiddleware } from './server'
+import { withLogger } from '../../utils/logger'
 import deeplinkMiddleware from './deeplink'
 import mailboxMiddleware from './mailbox'
 import rollbarMiddleware from './rollbar'
@@ -7,46 +8,59 @@ import legacyMiddleware from './legacy'
 import imagecache from './imagecache'
 import emailMiddleware from './email'
 import apiMiddleware from './api'
-import { Router } from 'express'
 import cors from './cors'
 import ping from './ping'
 import path from 'path'
 
-const platformMiddleware = async () => {
+import multiparty from 'connect-multiparty'
+import bodyParser from 'body-parser'
+import qs from 'qs'
+import express from 'express'
 
-  const router = new Router({ mergeParams: true })
 
-  router.use('/$', (req, res) => res.redirect(`${process.env.WEB_HOST}/admin`))
+const platformMiddleware = async (server) => {
 
-  router.use('/ping', ping)
+  server.set('query parser', str => qs.parse(str, { arrayLimit: 100, depth: 10 }))
 
-  router.use('/imagecache', imagecache)
+  server.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }))
 
-  router.use('/favicon', faviconMiddleware)
+  server.use(bodyParser.json({ limit: '5mb' }))
 
-  router.use('/.well-known', deeplinkMiddleware)
+  server.use(multiparty({ uploadDir: './tmp' }))
 
-  router.use(rollbarMiddleware)
+  server.use(express.static(path.resolve(__dirname, 'public'), { redirect: false }))
 
-  router.use(emailMiddleware)
+  server.use('/$', (req, res) => res.redirect(`${process.env.WEB_HOST}/admin`))
 
-  router.use(mailboxMiddleware)
+  server.use('/ping', ping)
 
-  router.use(await adminMiddleware())
+  server.use('/imagecache', imagecache)
 
-  router.use(await publicMiddleware())
+  server.use('/favicon.ico', faviconMiddleware)
 
-  router.use(await cors(), await apiMiddleware())
+  server.use('/.well-known', deeplinkMiddleware)
 
-  router.use('/js/notifications.js', (req, res) => res.sendFile(path.resolve('public', 'admin', 'js', 'notifications.js')))
+  server.use(rollbarMiddleware)
 
-  router.use(/^(\/admin)?\/(css|assets|audio|imagecache|images|js)/, (req, res) => res.status(404).send('Cannot locate asset'))
+  server.use(emailMiddleware)
 
-  router.use(legacyMiddleware)
+  server.use(mailboxMiddleware)
 
-  router.use((req, res) => res.send('not found'))
+  server.use(await adminMiddleware())
 
-  return router
+  server.use(await publicMiddleware())
+
+  server.use(await cors(), await apiMiddleware())
+
+  server.use('/js/notifications.js', (req, res) => res.sendFile(path.resolve('public', 'admin', 'js', 'notifications.js')))
+
+  server.use(/^(\/admin)?\/(css|assets|audio|imagecache|images|js)/, (req, res) => res.status(404).send('Cannot locate asset'))
+
+  server.use(legacyMiddleware)
+
+  server.use((req, res) => res.send('not found'))
+
+  return (process.env.NODE_ENV !== 'production') ? withLogger(server) : server
 
 }
 
