@@ -124,15 +124,15 @@ class App extends React.Component {
     }
   }
 
-  _getAppUserTasks() {
-    return [
-      expensesUserTasks
-    ]
-  }
-
   _getAppUserFields() {
     return [
       expensesUserFields
+    ]
+  }
+
+  _getAppUserTasks() {
+    return [
+      expensesUserTasks
     ]
   }
 
@@ -142,9 +142,24 @@ class App extends React.Component {
     ]
   }
 
-  _getSettings() {
+  _getBadges() {
+    return [
+      ...chatBadges.map(badge => ({
+        app: 'chat',
+        ...badge
+      })),
+      ...mahaBadges.map(badge => ({
+        app: 'maha',
+        ...badge
+      }))
+    ]
+  }
+
+  _getPlatform() {
     return {
-      expenses: expensesSettings
+      badges: this._getBadges(),
+      roots: this._getRoots(),
+      routes: this._getRoutes()
     }
   }
 
@@ -226,19 +241,6 @@ class App extends React.Component {
     ]
   }
 
-  _getBadges() {
-    return [
-      ...chatBadges.map(badge => ({
-        app: 'chat',
-        ...badge
-      })),
-      ...mahaBadges.map(badge => ({
-        app: 'maha',
-        ...badge
-      }))
-    ]
-  }
-
   _getRoots() {
     return [
       ...chatRoots.map(root => ({
@@ -271,11 +273,9 @@ class App extends React.Component {
     ]
   }
 
-  _getPlatform() {
+  _getSettings() {
     return {
-      badges: this._getBadges(),
-      roots: this._getRoots(),
-      routes: this._getRoutes()
+      expenses: expensesSettings
     }
   }
 

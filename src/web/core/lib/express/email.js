@@ -12,7 +12,7 @@ import moment from 'moment'
 import path from 'path'
 
 
-const trackerFile = path.resolve(__dirname, '..', '..', '..', 'public', 'public', 'images', 'tracker.png')
+const trackerFile = path.resolve(__dirname, '..', '..', '..', 'public', 'images', 'tracker.png')
 
 // track email activity
 const track = async (email, trx, activity) => {
