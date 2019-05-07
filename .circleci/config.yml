@@ -40,14 +40,11 @@ jobs:
       - attach_workspace:
           at: ~/repo/root
       - run:
-          name: Setup environment
-          command: NODE_ENV=production npm run env
-      - run:
           name: Install rsync
           command: sudo apt-get install rsync
       - run:
           name: Deploy code
-          command: NODE_ENV=production npm run deploy
+          command: NODE_ENV=production npm run shipit deploy
 workflows:
   test-deploy:
     jobs:

@@ -12,11 +12,10 @@
     "build": "babel-node ./src/scripts/build.js",
     "cron": "pm2 startOrRestart ./dist/ecosystem.js",
     "dev": "babel-node ./src/scripts/dev.js",
-    "deploy": "babel-node ./src/scripts/deploy/index.js",
     "env": "babel-node ./src/scripts/env/index.js",
     "help": "babel-node ./src/scripts/help/index.js",
     "knex": "babel-node ./src/scripts/knex.js",
-    "sync": "babel-node ./src/scripts/sync.js",
+    "shipit": "babel-node ./src/scripts/shipit/index.js",
     "test": "babel-node ./src/scripts/test.js"
   },
   "devDependencies": {

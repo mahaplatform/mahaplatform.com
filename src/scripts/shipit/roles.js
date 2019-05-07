@@ -9,10 +9,13 @@ const roles = (shipit) => {
       ...servers.all || [],
       `${server.user}@${server.host}`
     ],
-    [server.role]: [
-      ...servers[server.role] || [],
-      `${server.user}@${server.host}`
-    ]
+    ..._.castArray(server.roles).reduce((roles, role) => ({
+      ...roles,
+      [role]: [
+        ...servers[role] || [],
+        `${server.user}@${server.host}`
+      ]
+    }), {})
   }), {})
 
   shipit.getPool = function(roles) {
