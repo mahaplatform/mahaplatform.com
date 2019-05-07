@@ -29,14 +29,14 @@ const deploy = async () => {
           user: 'root',
           host: 'app7.mahaplatform.com',
           role: 'appserver'
-        }, {
-          user: 'root',
-          host: 'worker5.mahaplatform.com',
-          role: 'worker'
-        }, {
-          user: 'root',
-          host: 'worker5.mahaplatform.com',
-          role: 'cron'
+        // }, {
+        //   user: 'root',
+        //   host: 'worker5.mahaplatform.com',
+        //   role: 'worker'
+        // }, {
+        //   user: 'root',
+        //   host: 'worker5.mahaplatform.com',
+        //   role: 'cron'
         }
       ]
     }
@@ -55,43 +55,48 @@ const deploy = async () => {
   const currentDir = `${deployDir}/current`
 
   utils.registerTask(shipit, 'deploy', [
-    'deploy:checkout',
-    'deploy:config',
-    'deploy:install',
     'deploy:build',
-    'deploy:help',
+    'deploy:zip',
+    'deploy:mkdir',
+    'deploy:upload',
+    'deploy:unzip',
+    // 'deploy:install',
     'deploy:link_shared',
-    'deploy:symlink',
-    'deploy:reload_passenger',
-    'deploy:restart_pm2',
-    'deploy:cache'
+    // 'deploy:symlink',
+    // 'deploy:reload_passenger',
+    // 'deploy:restart_pm2',
+    // 'deploy:cache'
   ])
 
-  utils.registerTask(shipit, 'deploy:checkout', async () => {
-    await shipit.remote(`git clone https://github.com/mahaplatform/mahaplatform.com.git ${releaseDir}`)
+  utils.registerTask(shipit, 'deploy:build', async () => {
+    await shipit.local('NODE_ENV=production npm run build')
   })
 
-  utils.registerTask(shipit, 'deploy:config', async () => {
-    await shipit.copyToRemote(path.resolve('.env.production'), `${releaseDir}/.env`)
+  utils.registerTask(shipit, 'deploy:zip', async () => {
+    await shipit.local('cd ./dist && tar -czf ../tmp/dist.tgz .')
+  })
+
+  utils.registerTask(shipit, 'deploy:mkdir', async () => {
+    await shipit.remote(`mkdir -p ${releaseDir}`)
+  })
+
+  utils.registerTask(shipit, 'deploy:upload', async () => {
+    await shipit.remoteCopy('tmp/dist.tgz', `${releaseDir}/dist.tgz`)
+  })
+
+  utils.registerTask(shipit, 'deploy:unzip', async () => {
+    await shipit.remote(`cd ${releaseDir} && tar -xzf dist.tgz && rm -rf dist.tgz`)
   })
 
   utils.registerTask(shipit, 'deploy:install', async () => {
-    await shipit.remote(`cd ${releaseDir} && npm install --silent`)
-  })
-
-  utils.registerTask(shipit, 'deploy:build', async () => {
-    await shipit.remote(`cd ${releaseDir} && NODE_ENV=production npm run build`)
-  })
-
-  utils.registerTask(shipit, 'deploy:help', async () => {
-    await shipit.remote(`cd ${releaseDir} && NODE_ENV=production npm run help`)
+    await shipit.remote(`cd ${releaseDir} && NODE_ENV=production npm install --silent`)
   })
 
   utils.registerTask(shipit, 'deploy:link_shared', async () => {
     const commands = [
-      `rm -rf ${releaseDir}/tmp && mkdir -p ${sharedDir}/tmp && ln -s ${sharedDir}/tmp ${releaseDir}/tmp`,
-      `rm -rf ${releaseDir}/logs && mkdir -p ${sharedDir}/logs && ln -s ${sharedDir}/logs ${releaseDir}/logs`,
-      `rm -rf ${releaseDir}/imagecache && mkdir -p ${sharedDir}/imagecache && ln -s ${sharedDir}/imagecache ${releaseDir}/dist/public/imagecache`
+      `mkdir -p ${sharedDir}/tmp && ln -s ${sharedDir}/tmp ${releaseDir}/tmp`,
+      `mkdir -p ${sharedDir}/logs && ln -s ${sharedDir}/logs ${releaseDir}/logs`,
+      `mkdir -p ${sharedDir}/imagecache && ln -s ${sharedDir}/imagecache ${releaseDir}/public/imagecache`
     ]
     await shipit.remote(commands.join(' && '))
   })
@@ -107,7 +112,7 @@ const deploy = async () => {
   utils.registerTask(shipit, 'deploy:restart_pm2', () => {
     const commands = [
       `cd ${deployDir}`,
-      `NODE_ENV=${shipit.options.environment} pm2 startOrRestart ./current/dist/config/ecosystem.config.js`
+      `NODE_ENV=${shipit.options.environment} pm2 startOrRestart ./current/ecosystem.config.js`
     ]
     return shipit.remote(commands.join(' && '), { roles: ['cron','worker'] })
   })

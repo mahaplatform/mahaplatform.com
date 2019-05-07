@@ -1,16 +1,16 @@
-import '../web/core/services/environment'
 import SearchIndex from 'search-index'
 import cheerio from 'cheerio'
 import Stream from 'stream'
+import mkdirp from 'mkdirp'
 import glob from 'glob'
 import path from 'path'
 import fs from 'fs'
 
-const help = async () => {
+const buildHelp = async (root) => {
 
   const readable = new Stream.Readable({ objectMode: true })
 
-  const helpFiles = path.resolve(__dirname,'..','web','apps','*','help','*.html')
+  const helpFiles = path.resolve(__dirname,'..','..','web','apps','*','help','*.html')
 
   glob.sync(helpFiles).map((filePath, id) => {
     const matches = filePath.match(/apps\/([^/]*)\/help/)
@@ -32,7 +32,7 @@ const help = async () => {
   readable.push(null)
 
   await new Promise((resolve, reject) => SearchIndex({
-    indexPath: process.env.NODE_ENV === 'production' ? path.join('dist','help') : path.join('help'),
+    indexPath: path.join(root, 'help'),
     logLevel: 'error'
   }, (err, index) => {
     if(err) return reject(err)
@@ -43,4 +43,4 @@ const help = async () => {
 
 }
 
-help().then(process.exit)
+export default buildHelp

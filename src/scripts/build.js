@@ -4,20 +4,14 @@ import apps from '../web/core/utils/apps'
 import log from '../web/core/utils/log'
 import { transform } from 'babel-core'
 import move from 'move-concurrently'
+import help from './help/help'
 import webpack from 'webpack'
+import env from './env/env'
 import rimraf from 'rimraf'
 import mkdirp from 'mkdirp'
 import path from 'path'
 import ncp from 'ncp'
 import fs from 'fs'
-
-const babelrc = getBabelRc()
-
-const staged = path.resolve('dist.staged')
-
-const dist = path.resolve('dist')
-
-const copy = Promise.promisify(ncp)
 
 const getBabelRc = () => {
   const babelrc = path.join('.babelrc')
@@ -25,18 +19,17 @@ const getBabelRc = () => {
   return JSON.parse(config)
 }
 
-const buildClient = async () => {
-  const stats = await new Promise((resolve, reject) => {
-    webpack(clientConfig).run((err, stats) => {
-      if(err) reject(err)
-      resolve(stats)
-    })
-  })
-  const time = (stats.endTime - stats.startTime) / 1000
-  log('info', 'dev', `Finished in ${time}`)
-}
+const babelrc = getBabelRc()
 
-const getItemType = (item) => path.extname(item).length > 0 ? path.extname(item).substr(1) : 'dir'
+const dist = path.resolve('dist')
+
+const staged = `${dist}.staged`
+
+const copy = Promise.promisify(ncp)
+
+const getItemType = (item) => {
+  return path.extname(item).length > 0 ? path.extname(item).substr(1) : 'dir'
+}
 
 const getItem = (src, root, item) => ({
   src,
@@ -51,7 +44,13 @@ const listContents = (src, root, item) => [
 const listItems = (root) => fs.readdirSync(root).reduce((items, item) => [
   ...items,
   ...listContents(path.join(root, item), root, item)
-], [])
+], []).filter(item => {
+  const keyWords = ['.git','.DS_Store','/db','/help']
+  const key = keyWords.find(word => item.src.search(word) > 0) !== undefined
+  const adminWords = ['alerts.js','badges','components','navigation','notifications.js','rights.js','roots','routes','tokens','views']
+  const admin = adminWords.find(word => item.src.search(`admin/${word}`) > 0) !== undefined
+  return !key && !admin
+})
 
 const transpileFile = (src, dest) => {
   const source = fs.readFileSync(src, 'utf8')
@@ -80,21 +79,58 @@ const buildDir = async (dir) => {
   await Promise.mapSeries(items, item => buildItem(item, srcPath, destPath))
 }
 
+const buildClient = async () => {
+  log('info', 'client', 'Compiling...')
+  await new Promise((resolve, reject) => webpack(clientConfig).run((err, stats) => {
+    if(err) reject(err)
+    resolve(stats)
+  }))
+  log('info', 'client', 'Compiled successfully.')
+}
+
 const buildServer = async () => {
+  log('info', 'server', 'Compiling...')
   const appDirs = apps.map(app => `apps/${app}`)
-  const dirs = [...appDirs, 'core']
-  const entries = ['cron.js','server.js','worker.js']
-  await Promise.map(dirs, buildDir)
-  await Promise.map(entries, buildEntry)
+  await Promise.map([...appDirs, 'core'], buildDir)
+  await Promise.map(['cron.js','server.js','worker.js'], buildEntry)
+  await copy(path.join('src','web','config','ecosystem.config.js'), path.join(staged,'ecosystem.config.js'))
+  await copy(path.join('package.json'), path.join(staged,'package.json'))
+  await copy(path.join('package-lock.json'), path.join(staged,'package-lock.json'))
+  log('info', 'server', 'Compiled successfully.')
+}
+
+const buildHelp = async() => {
+  log('info', 'help', 'Compiling...')
+  await help(staged)
+  log('info', 'help', 'Compiled successfully.')
+}
+
+const buildEnv = async() => {
+  log('info', 'environment', 'Compiling...')
+  await env(staged)
+  log('info', 'environment', 'Compiled successfully.')
+}
+
+const getDuration = (start) => {
+  const diff = process.hrtime(start)
+  const ms = diff[0] * 1e3 + diff[1] * 1e-6
+  const duration =  (ms / 1000).toFixed(3)
+  return `${duration}s`
 }
 
 const build = async (flags, args) => {
+  const start = process.hrtime()
   rimraf.sync(staged)
   mkdirp.sync(staged)
-  await buildClient()
-  await buildServer()
+  await Promise.all([
+    buildServer(),
+    buildClient(),
+    buildHelp(),
+    buildEnv()
+  ])
   rimraf.sync(dist)
   await move(staged, dist)
+  log('info', 'build', `Finished in ${getDuration(start)}`)
 }
 
 build().then(process.exit)

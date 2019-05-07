@@ -2,14 +2,18 @@ import collectObjects from '../../utils/collect_objects'
 import express from 'express'
 import path from 'path'
 
+const devRoot = path.resolve('src','web')
+
+const prodRoot = path.resolve(__dirname,'..','..','..','public','admin')
+
 const getStaticRoot = () => {
-  if(process.env.NODE_ENV === 'production') return path.resolve('dist', 'public', 'admin')
-  return path.resolve('src', 'web', 'public')
+  if(process.env.NODE_ENV === 'production') return prodRoot
+  return path.join(devRoot,'public')
 }
 
 const getIndex = () => {
-  if(process.env.NODE_ENV === 'production') return path.resolve('dist', 'public', 'admin', 'index.html')
-  return path.resolve('src', 'web', 'apps', 'index.html')
+  if(process.env.NODE_ENV === 'production') return path.join(prodRoot,'index.html')
+  return path.join(devRoot,'apps','index.html')
 }
 
 const serverMiddleware = () => {
