@@ -5,6 +5,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 import { chunkTest, ruleTest } from './utils'
 import autoprefixer from 'autoprefixer'
+import MahaPlugin from './maha_plugin'
 import webpack from 'webpack'
 import cssnano from 'cssnano'
 import path from 'path'
@@ -65,6 +66,7 @@ const webpackConfig = {
     publicPath: '/admin'
   },
   plugins: [
+    new MahaPlugin(),
     new MiniCssExtractPlugin({
       filename: 'css/[name]-[hash].min.css'
     }),
@@ -87,7 +89,6 @@ const webpackConfig = {
         'DOMAIN': JSON.stringify(process.env.DOMAIN || 'localhost'),
         'DEVSERVER_PORT': JSON.stringify(process.env.DEVSERVER_PORT),
         'SERVER_PORT': JSON.stringify(process.env.SERVER_PORT),
-        'SOCKET_PORT': JSON.stringify(process.env.SOCKET_PORT),
         'FCM_API_KEY': JSON.stringify(process.env.FCM_API_KEY),
         'FCM_MESSAGE_SENDER_ID': JSON.stringify(process.env.FCM_MESSAGE_SENDER_ID),
         'VAPID_PUBLIC_KEY': JSON.stringify(process.env.VAPID_PUBLIC_KEY),

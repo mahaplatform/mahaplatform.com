@@ -1,4 +1,4 @@
-import collectObjects from './collect_objects'
+import collectObjects from '../../../../../core/utils/collect_objects'
 
 let mapped = null
 

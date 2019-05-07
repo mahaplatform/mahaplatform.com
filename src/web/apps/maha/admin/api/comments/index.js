@@ -1,10 +1,10 @@
 import CommentSerializer from '../../../serializers/comment_serializer'
 import { extractAttachments } from '../../../services/attachment'
+import { Resources } from '../../../../../core/backframe'
 import Attachment from '../../../models/attachment'
 import Listening from '../../../models/listening'
-import models from '../../../../../core/utils/models'
 import Comment from '../../../models/comment'
-import { Resources } from '../../../../../core/backframe'
+import models from './models'
 import _ from 'lodash'
 
 const listeners = async (req, trx, result, options) => {

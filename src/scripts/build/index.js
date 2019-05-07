@@ -1,5 +1,6 @@
 import '../../web/core/services/environment'
 import clientConfig from '../../web/config/webpack.production.config'
+import apps from '../../web/core/utils/apps'
 import log from '../../web/core/utils/log'
 import { transform } from 'babel-core'
 import precompile from './precompile'
@@ -12,10 +13,6 @@ import ncp from 'ncp'
 import fs from 'fs'
 
 const copy = Promise.promisify(ncp)
-
-const apps = process.env.APPS.split(',')
-
-const templateRoot = path.resolve(__dirname, 'templates')
 
 const compileClient = async (variables) => {
   const stats = await new Promise((resolve, reject) => {

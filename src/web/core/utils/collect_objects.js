@@ -1,8 +1,9 @@
+import apps from './apps'
 import glob from 'glob'
 import path from 'path'
 import _ from 'lodash'
 
-const configs = process.env.APPS.split(',').map(app => {
+const configs = apps.map(app => {
   const configPath = path.join(__dirname,'..','..','apps',app,'app.js')
   const config = require(configPath).default
   return {

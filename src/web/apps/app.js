@@ -89,7 +89,6 @@ import expensesUserTasks from './expenses/admin/user_tasks.js'
 import expensesUserFields from './expenses/admin/user_fields.js'
 import expensesUserValues from './expenses/admin/user_values.js'
 import expensesSettings from './expenses/admin/settings.js'
-
 import Platform from './maha/admin/components/platform'
 import NotFound from './maha/admin/views/not_found'
 import { hot } from 'react-hot-loader'
@@ -126,19 +125,19 @@ class App extends React.Component {
 
   _getAppUserFields() {
     return [
-      expensesUserFields
+      expensesUserFields,
     ]
   }
 
   _getAppUserTasks() {
     return [
-      expensesUserTasks
+      expensesUserTasks,
     ]
   }
 
   _getAppUserValues() {
     return [
-      expensesUserValues
+      expensesUserValues,
     ]
   }
 
@@ -151,7 +150,7 @@ class App extends React.Component {
       ...mahaBadges.map(badge => ({
         app: 'maha',
         ...badge
-      }))
+      })),
     ]
   }
 
@@ -237,7 +236,7 @@ class App extends React.Component {
       siteshtmlfield,
       sitessitesImportFinalize,
       teamaccess,
-      teamroles
+      teamroles,
     ]
   }
 
@@ -254,7 +253,7 @@ class App extends React.Component {
       ...mahaRoots.map(root => ({
         app: 'maha',
         component: root
-      }))
+      })),
     ]
   }
 
@@ -275,7 +274,7 @@ class App extends React.Component {
 
   _getSettings() {
     return {
-      expenses: expensesSettings
+      expenses: expensesSettings,
     }
   }
 

@@ -1,10 +1,9 @@
 import transpile from '../../web/core/utils/transpile'
+import apps from '../../web/core/utils/apps'
 import glob from 'glob'
 import path from 'path'
 import _ from 'lodash'
 import fs from 'fs'
-
-const apps = process.env.APPS.split(',')
 
 const configs = apps.reduce((configs, app) => {
 

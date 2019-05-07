@@ -1,5 +1,6 @@
 import '../../web/maha/core/services/environment'
 import { migrateUp, migrateDown, reset } from './db'
+import apps from '../../web/maha/core/utils/apps'
 import register from 'babel-register'
 import path from 'path'
 
@@ -14,7 +15,7 @@ register({
     ['transform-runtime', { polyfill: false }],
     ['module-resolver', {
       'alias': {
-        ...process.env.APPS.split(',').reduce((aliases, app) => ({
+        ...apps.reduce((aliases, app) => ({
           ...aliases,
           [app]: path.resolve('src','web',app,'server.js')
         }), {})
