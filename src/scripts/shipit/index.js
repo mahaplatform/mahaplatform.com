@@ -21,12 +21,12 @@ const processor = async () => {
       servers: [
         {
           user: 'root',
-          host: '54.144.213.15',
+          host: '3.86.91.203',
           port: 2244,
           roles: 'appserver'
         }, {
           user: 'root',
-          host: '54.174.113.242',
+          host: '52.90.174.190',
           port: 2244,
           roles: ['worker','cron']
         }
@@ -69,6 +69,14 @@ const processor = async () => {
 
   const currentDir = `${deployDir}/current`
 
+  utils.registerTask(shipit, 'servers', [
+    'servers:all:configure',
+    'servers:appserver:configure',
+    'servers:appserver:restart',
+    'servers:loadbalancer:configure',
+    'servers:loadbalancer:restart'
+  ])
+
   utils.registerTask(shipit, 'deploy', [
     'deploy:build',
     'deploy:zip',
@@ -89,6 +97,29 @@ const processor = async () => {
     'sync:restore',
     'sync:passwords'
   ])
+
+  utils.registerTask(shipit, 'servers:all:configure', async () => {
+    await shipit.remoteCopy('.env.production', '/var/www/app/current/.env')
+  })
+
+  utils.registerTask(shipit, 'servers:appserver:configure', async () => {
+    await shipit.remoteCopy('servers/app/nginx.conf', '/opt/nginx/conf/nginx.conf', { roles: 'appserver' })
+  })
+
+  utils.registerTask(shipit, 'servers:appserver:restart', async () => {
+    await shipit.remote('systemctl restart nginx', { roles: 'appserver' })
+  })
+
+  utils.registerTask(shipit, 'servers:loadbalancer:configure', async () => {
+    await shipit.remoteCopy('servers/lb/nginx.conf', '/etc/nginx/nginx.conf', { roles: 'loadbalancer' })
+    await shipit.remoteCopy('servers/lb/haproxy.cfg', '/etc/haproxy/haproxy.cfg', { roles: 'loadbalancer' })
+    await shipit.remoteCopy('servers/lb/mahaplatform.com.pem', '/etc/pki/tls/private/mahaplatform.com.pem', { roles: 'loadbalancer' })
+  })
+
+  utils.registerTask(shipit, 'servers:loadbalancer:restart', async () => {
+    await shipit.remote('systemctl restart nginx', { roles: 'loadbalancer' })
+    await shipit.remote('systemctl restart haproxy', { roles: 'loadbalancer' })
+  })
 
   utils.registerTask(shipit, 'deploy:build', async () => {
     await shipit.local(`NODE_ENV=${process.env.NODE_ENV} npm run build`)
