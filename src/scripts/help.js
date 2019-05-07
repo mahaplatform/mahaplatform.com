@@ -32,7 +32,7 @@ const help = async () => {
   readable.push(null)
 
   await new Promise((resolve, reject) => SearchIndex({
-    indexPath: path.join('help'),
+    indexPath: process.env.NODE_ENV === 'production' ? path.join('dist','help') : path.join('help'),
     logLevel: 'error'
   }, (err, index) => {
     if(err) return reject(err)

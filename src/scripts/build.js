@@ -1,9 +1,8 @@
-import '../../web/core/services/environment'
-import clientConfig from '../../web/config/webpack.production.config'
-import apps from '../../web/core/utils/apps'
-import log from '../../web/core/utils/log'
+import '../web/core/services/environment'
+import clientConfig from '../web/config/webpack.production.config'
+import apps from '../web/core/utils/apps'
+import log from '../web/core/utils/log'
 import { transform } from 'babel-core'
-import precompile from './precompile'
 import move from 'move-concurrently'
 import webpack from 'webpack'
 import rimraf from 'rimraf'
@@ -12,9 +11,21 @@ import path from 'path'
 import ncp from 'ncp'
 import fs from 'fs'
 
+const babelrc = getBabelRc()
+
+const staged = path.resolve('dist.staged')
+
+const dist = path.resolve('dist')
+
 const copy = Promise.promisify(ncp)
 
-const compileClient = async (variables) => {
+const getBabelRc = () => {
+  const babelrc = path.join('.babelrc')
+  const config = fs.readFileSync(babelrc, 'utf8')
+  return JSON.parse(config)
+}
+
+const buildClient = async () => {
   const stats = await new Promise((resolve, reject) => {
     webpack(clientConfig).run((err, stats) => {
       if(err) reject(err)
@@ -43,72 +54,47 @@ const listItems = (root) => fs.readdirSync(root).reduce((items, item) => [
 ], [])
 
 const transpileFile = (src, dest) => {
-
   const source = fs.readFileSync(src, 'utf8')
-
-  const transpiled = transform(source, {
-    presets: [
-      'babel-preset-es2015',
-      'babel-preset-react',
-      'babel-preset-stage-0'
-    ],
-    plugins: [
-      'transform-promise-to-bluebird',
-      ['transform-runtime', { polyfill: false }],
-      ['module-resolver', {
-        alias: apps.reduce((aliases, app) => ({
-          ...aliases,
-          [app]: path.resolve('dist','web',app,'server.js')
-        }), {})
-      }]
-    ],
-    sourceMaps: 'inline'
-  })
-
+  const transpiled = transform(source, babelrc)
   fs.writeFileSync(dest, transpiled.code)
-
 }
 
 const buildItem = async (item, srcPath, destPath) => {
-
   const dest = item.src.replace(srcPath, destPath)
-
   if(item.type === 'js') return transpileFile(item.src, dest)
-
   if(item.type === 'dir') return mkdirp.sync(dest)
-
   return await copy(item.src, dest)
-
 }
 
-const buildItems = async (srcPath, destPath) => {
+const buildEntry = async (entry) => {
+  const srcPath = path.resolve('src','web',entry)
+  const destPath = path.join(staged,entry)
+  await transpileFile(srcPath, destPath)
+}
 
+const buildDir = async (dir) => {
+  const srcPath = path.resolve('src','web',dir)
+  const destPath = path.join(staged,dir)
+  mkdirp.sync(destPath)
   const items = listItems(srcPath)
-
   await Promise.mapSeries(items, item => buildItem(item, srcPath, destPath))
-
 }
 
-export const buildServer = async () => {
-
-  await buildItems(path.resolve('src','web'), path.join('dist.staged'))
-
+const buildServer = async () => {
+  const appDirs = apps.map(app => `apps/${app}`)
+  const dirs = [...appDirs, 'core']
+  const entries = ['cron.js','server.js','worker.js']
+  await Promise.map(dirs, buildDir)
+  await Promise.map(entries, buildEntry)
 }
 
 const build = async (flags, args) => {
-
-  rimraf.sync(path.resolve('dist.staged'))
-
-  mkdirp.sync(path.resolve('dist.staged'))
-
-  await compileClient(precompile())
-
+  rimraf.sync(staged)
+  mkdirp.sync(staged)
+  await buildClient()
   await buildServer()
-
-  rimraf.sync(path.resolve('dist'))
-
-  await move(path.resolve('dist.staged'), path.resolve('dist'))
-
+  rimraf.sync(dist)
+  await move(staged, dist)
 }
 
 build().then(process.exit)

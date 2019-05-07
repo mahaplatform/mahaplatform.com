@@ -7,5 +7,6 @@
   "plugins": [
     "transform-promise-to-bluebird",
     ["transform-runtime", { "polyfill": false }]
-  ]
+  ],
+  "sourceMaps": "inline"
 }

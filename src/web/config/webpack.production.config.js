@@ -3,7 +3,6 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
-import { chunkTest, ruleTest } from './utils'
 import autoprefixer from 'autoprefixer'
 import MahaPlugin from './maha_plugin'
 import webpack from 'webpack'
@@ -20,7 +19,8 @@ const webpackConfig = {
   module: {
     rules: [
       {
-        test: ruleTest(/\.less$/),
+        test: /\.less$/,
+        exclude: /node_modules/,
         use: [
           MiniCssExtractPlugin.loader,
           { loader: 'css-loader', options: {
@@ -32,8 +32,9 @@ const webpackConfig = {
           'less-loader'
         ]
       }, {
-        test: ruleTest(/\.js$/),
+        test: /\.js$/,
         loader: 'babel-loader',
+        exclude: /node_modules/,
         options: {
           cacheDirectory: true,
           presets: ['es2015', 'react', 'stage-0']
@@ -53,7 +54,7 @@ const webpackConfig = {
     splitChunks: {
       cacheGroups: {
         commons: {
-          test: chunkTest,
+          test: /[\\/]node_modules[\\/]/,
           name: 'vendors',
           chunks: 'all'
         }
@@ -105,7 +106,7 @@ const webpackConfig = {
   resolve: {
     alias: {
       'reframe': path.resolve('src','web','core','reframe','index.js'),
-      'maha-admin': path.resolve('src','web','core','client.js')
+      'maha-admin': path.resolve('src','web','apps','client.js')
     }
   },
   resolveLoader: {
