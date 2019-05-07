@@ -45,11 +45,21 @@ const listItems = (root) => fs.readdirSync(root).reduce((items, item) => [
   ...items,
   ...listContents(path.join(root, item), root, item)
 ], []).filter(item => {
-  const keyWords = ['.git','.DS_Store','/db','/help']
-  const key = keyWords.find(word => item.src.search(word) > 0) !== undefined
-  const adminWords = ['alerts.js','badges','components','navigation','notifications.js','rights.js','roots','routes','tokens','views']
-  const admin = adminWords.find(word => item.src.search(`admin/${word}`) > 0) !== undefined
-  return !key && !admin
+  if(item.src.match(/\.git/)) return false
+  if(item.src.match(/\.DS_Store/)) return false
+  if(item.src.match(/apps\/[^/]*\/help/)) return false
+  if(item.src.match(/apps\/[^/]*\/db/)) return false
+  if(item.src.match(/apps\/[^/]*\/admin\/alerts/)) return false
+  if(item.src.match(/apps\/[^/]*\/admin\/badges/)) return false
+  if(item.src.match(/apps\/[^/]*\/admin\/components/)) return false
+  if(item.src.match(/apps\/[^/]*\/admin\/navigation/)) return false
+  if(item.src.match(/apps\/[^/]*\/admin\/notifications/)) return false
+  if(item.src.match(/apps\/[^/]*\/admin\/rights/)) return false
+  if(item.src.match(/apps\/[^/]*\/admin\/roots/)) return false
+  if(item.src.match(/apps\/[^/]*\/admin\/routes/)) return false
+  if(item.src.match(/apps\/[^/]*\/admin\/tokens/)) return false
+  if(item.src.match(/apps\/[^/]*\/admin\/views/)) return false
+  return true
 })
 
 const transpileFile = (src, dest) => {

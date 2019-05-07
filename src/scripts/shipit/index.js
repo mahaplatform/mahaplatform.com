@@ -21,21 +21,36 @@ const processor = async () => {
       servers: [
         {
           user: 'root',
-          host: 'lb3.mahaplatform.com',
-          roles: 'loadbalancer'
-        }, {
-          user: 'root',
-          host: 'app8.mahaplatform.com',
+          host: '54.144.213.15',
+          port: 2244,
           roles: 'appserver'
         }, {
           user: 'root',
-          host: 'worker6.mahaplatform.com',
+          host: '54.174.113.242',
+          port: 2244,
           roles: ['worker','cron']
-        }, {
-          user: 'root',
-          host: 'db5.mahaplatform.com',
-          roles: ['database','cache']
         }
+        // {
+        //   user: 'root',
+        //   host: 'lb3.mahaplatform.com',
+        //   port: 22,
+        //   roles: 'loadbalancer'
+        // }, {
+        //   user: 'root',
+        //   host: 'app8.mahaplatform.com',
+        //   port: 2244,
+        //   roles: 'appserver'
+        // }, {
+        //   user: 'root',
+        //   host: 'worker6.mahaplatform.com',
+        //   port: 2244,
+        //   roles: ['worker','cron']
+        // }, {
+        //   user: 'root',
+        //   host: 'db5.mahaplatform.com',
+        //   port: 22,
+        //   roles: ['database','cache']
+        // }
       ]
     }
   })
@@ -132,8 +147,9 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy:link_shared', async () => {
     const commands = [
-      `mkdir -p ${sharedDir}/tmp && ln -s ${sharedDir}/tmp ${releaseDir}/tmp`,
-      `mkdir -p ${sharedDir}/imagecache && ln -s ${sharedDir}/imagecache ${releaseDir}/public/imagecache`
+      `ln -s ${sharedDir}/logs ${releaseDir}/logs`,
+      `ln -s ${sharedDir}/tmp ${releaseDir}/tmp`,
+      `ln -s ${sharedDir}/imagecache ${releaseDir}/public/imagecache`
     ]
     await shipit.remote(commands.join(' && '), {
       roles: ['appserver','cron','worker']
@@ -198,8 +214,8 @@ const processor = async () => {
 
   const args = process.argv.slice(2)
 
-  shipit.start(args[0])
+  await shipit.start(args[0])
 
 }
 
-processor().then(process.exit)
+processor()

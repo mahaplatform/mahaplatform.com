@@ -7,13 +7,13 @@ const roles = (shipit) => {
     ...servers,
     all: [
       ...servers.all || [],
-      `${server.user}@${server.host}`
+      `${server.user}@${server.host}:${server.port}`
     ],
     ..._.castArray(server.roles).reduce((roles, role) => ({
       ...roles,
       [role]: [
         ...servers[role] || [],
-        `${server.user}@${server.host}`
+        `${server.user}@${server.host}:${server.port}`
       ]
     }), {})
   }), {})
