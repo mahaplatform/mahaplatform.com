@@ -69,11 +69,6 @@ const processor = async () => {
 
   const currentDir = `${deployDir}/current`
 
-  utils.registerTask(shipit, 'setup', [
-    'setup:mkdirs',
-    'setup:install_pm2'
-  ])
-
   utils.registerTask(shipit, 'deploy', [
     'deploy:build',
     'deploy:zip',
@@ -94,24 +89,6 @@ const processor = async () => {
     'sync:restore',
     'sync:passwords'
   ])
-
-  utils.registerTask(shipit, 'setup:mkdirs', async () => {
-    const commands = [
-      `mkdir -p ${releasesDir}`,
-      `mkdir -m 777 -p ${sharedDir}/tmp`,
-      `mkdir -m 777 -p ${sharedDir}/imagecache`,
-      `chown -R nobody.nobody ${sharedDir}/*`
-    ]
-    await shipit.remote(commands.join(' && '), {
-      roles: ['appserver','cron','worker']
-    })
-  })
-
-  utils.registerTask(shipit, 'setup:install_pm2', async () => {
-    await shipit.remote('npm install -g pm2', {
-      roles: ['cron','worker']
-    })
-  })
 
   utils.registerTask(shipit, 'deploy:build', async () => {
     await shipit.local(`NODE_ENV=${process.env.NODE_ENV} npm run build`)
