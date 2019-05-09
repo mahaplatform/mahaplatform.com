@@ -10,7 +10,7 @@ const processor = async () => {
 
     const queue = queueFile.default
 
-    log('info', 'cron', `Starting ${queue.name}`)
+    log('info', 'worker', `Starting ${queue.name}`)
 
     queue.start()
 

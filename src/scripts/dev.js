@@ -3,13 +3,13 @@ import desktopConfig from '../desktop/config/webpack.config'
 import mobileConfig from '../mobile/config/webpack.config'
 import webConfig from '../web/config/webpack.development.config'
 import devServer from 'webpack-dev-server'
+import apps from '../web/core/utils/apps'
 import log from '../web/core/utils/log'
 import { spawn } from 'child_process'
 import chokidar from 'chokidar'
 import webpack from 'webpack'
 import path from 'path'
 import _ from 'lodash'
-import fs from 'fs'
 
 const serverWatch = async () => {
 
@@ -21,9 +21,7 @@ const serverWatch = async () => {
     '--exec',
     'babel-node'
   ]
-  fs.readdirSync(path.resolve('src','web')).filter(app => {
-    return app.match(/^\./) === null
-  }).map(app => {
+  apps.map(app => {
     nodemon.push('--watch')
     nodemon.push(path.resolve('src','web','apps',app))
     nodemon.push('--ignore')
@@ -110,7 +108,8 @@ const clientWatch = async () => {
       ...'audio,css,fonts,images,js'.split(',').reduce((proxies, path) => [
         ...proxies,
         `/admin/${path}/*`
-      ], [])
+      ], []),
+      '/drive/*'
     ].reduce((proxies, proxy) => ({
       ...proxies,
       [proxy]: `http://localhost:${process.env.SERVER_PORT}`

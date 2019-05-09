@@ -1,4 +1,4 @@
-import Migration from '../../../../../core/objects/migration'
+import Migration from '../../../../core/objects/migration'
 import File from '../../models/file'
 
 const CacheFileName = new Migration({

@@ -66,6 +66,16 @@ const roles = (shipit) => {
 
   }
 
+  shipit.copyFromRemote = async function(src, dest, options) {
+    const defaultOptions = {
+      ignores: this.config && this.config.ignores ? this.config.ignores : [],
+      rsync: this.config && this.config.rsync ? this.config.rsync : [],
+      roles: 'all'
+    }
+    const copyOptions = { ...defaultOptions, ...options }
+    return this.getPool(options.roles).copyFromRemote(src, dest, copyOptions)
+  }
+
 }
 
 export default roles

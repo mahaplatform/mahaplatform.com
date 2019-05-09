@@ -7,9 +7,7 @@ import path from 'path'
 
 const processor = async () => {
 
-  const environment = process.env.NODE_ENV || 'production'
-
-  const shipit = new Shipit({ environment })
+  const shipit = new Shipit({ environment: 'production' })
 
   shipit.initConfig({
     default: {
@@ -29,6 +27,11 @@ const processor = async () => {
           host: '52.90.174.190',
           port: 2244,
           roles: ['worker','cron']
+        }, {
+          user: 'root',
+          host: 'db5.mahaplatform.com',
+          port: 22,
+          roles: ['database','cache']
         }
         // {
         //   user: 'root',
@@ -122,7 +125,7 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:build', async () => {
-    await shipit.local(`NODE_ENV=${process.env.NODE_ENV} npm run build`)
+    await shipit.local('NODE_ENV=production npm run build')
   })
 
   utils.registerTask(shipit, 'deploy:zip', async () => {
@@ -147,7 +150,7 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:install', async () => {
-    await shipit.remote(`NODE_ENV=${process.env.NODE_ENV} npm install --silent`, {
+    await shipit.remote('npm install --production --silent --no-spin', {
       roles: ['appserver','cron','worker'],
       cwd: releaseDir
     })
@@ -177,7 +180,7 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:restart_pm2', () => {
-    return shipit.remote(`NODE_ENV=${process.env.NODE_ENV} pm2 startOrRestart ./current/ecosystem.config.js`, {
+    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/ecosystem.config.js', {
       cwd: deployDir,
       roles: ['cron','worker']
     })

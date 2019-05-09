@@ -1,4 +1,5 @@
 import { withLogger } from '../../utils/logger'
+import bodyParserXML from 'body-parser-xml'
 import multiparty from 'connect-multiparty'
 import deeplinkMiddleware from './deeplink'
 import mailboxMiddleware from './mailbox'
@@ -17,6 +18,8 @@ import ping from './ping'
 import path from 'path'
 import qs from 'qs'
 
+bodyParserXML(bodyParser)
+
 const middleware = async () => {
 
   const server = express()
@@ -26,6 +29,8 @@ const middleware = async () => {
   server.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }))
 
   server.use(bodyParser.json({ limit: '5mb' }))
+
+  server.use(bodyParser.xml({ limit: '5mb' }))
 
   server.use(multiparty({ uploadDir: './tmp' }))
 
@@ -49,7 +54,7 @@ const middleware = async () => {
 
   router.use(mailboxMiddleware)
 
-  router.use('/admin', domainMiddleware(serverMiddleware()))
+  router.use('/admin', serverMiddleware())
 
   router.use(await cors(), await apiMiddleware())
 

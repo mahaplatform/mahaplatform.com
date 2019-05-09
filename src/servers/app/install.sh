@@ -28,6 +28,3 @@ vi /etc/logrotate.d/nginx
 systemctl daemon-reload
 systemctl enable nginx
 systemctl start nginx
-
-# INSTALL BZIP2
-yum install -y bzip2

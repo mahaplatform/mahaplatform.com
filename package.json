@@ -14,7 +14,7 @@
     "dev": "babel-node ./src/scripts/dev.js",
     "env": "babel-node ./src/scripts/env/index.js",
     "help": "babel-node ./src/scripts/help/index.js",
-    "knex": "babel-node ./src/scripts/knex.js",
+    "knex": "babel-node ./src/scripts/knex/index.js",
     "shipit": "babel-node ./src/scripts/shipit/index.js",
     "test": "babel-node ./src/scripts/test.js"
   },
@@ -68,6 +68,7 @@
     "aws-sdk": "2.96.0",
     "bcrypt-nodejs": "^0.0.3",
     "body-parser": "^1.17.1",
+    "body-parser-xml": "^1.1.0",
     "bookshelf": "^0.10.3",
     "box-node-sdk": "^1.16.1",
     "bull": "^3.7.0",
@@ -94,6 +95,7 @@
     "get-urls": "^7.0.0",
     "googleapis": "^27.0.0",
     "html-email-to-text": "^1.0.4",
+    "http-auth": "^3.2.3",
     "inline-css": "^2.2.2",
     "instagram-node": "^0.5.8",
     "ioredis": "^3.1.2",
@@ -158,6 +160,7 @@
     "toureiro": "^0.2.13",
     "ua-parser": "^0.3.5",
     "web-push": "^3.2.5",
+    "webdav-server": "^2.4.6",
     "webshot": "^0.18.0",
     "xml": "^1.0.1"
   }

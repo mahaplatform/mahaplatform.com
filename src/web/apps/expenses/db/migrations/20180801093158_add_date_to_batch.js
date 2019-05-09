@@ -1,4 +1,4 @@
-import Migration from '../../../../../core/objects/migration'
+import Migration from '../../../../core/objects/migration'
 import Batch from '../../models/batch'
 
 const AddDateToBatch = new Migration({

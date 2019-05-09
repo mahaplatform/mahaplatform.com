@@ -17,24 +17,17 @@ class DownloadResponder extends Responder {
 
     const host = process.env.DATA_ASSET_CDN_HOST || process.env.DATA_ASSET_HOST || process.env.WEB_HOST
 
-    const path = this.data.path
-
-    const requestOptions = {
-      url: host + path,
+    const file = await new Promise((resolve, reject) => request({
+      url: host + this.data.path,
       encoding: null
-    }
-
-    const image = await new Promise((resolve, reject) => request(requestOptions, (error, response, body) => {
-
+    }, (error, response, body) => {
       if(error) reject(error)
-
       resolve(body)
-
     }))
 
     this.res.setHeader('Content-disposition', `attachment; filename=${this.data.file_name}`)
 
-    this.res.status(200).type(this.data.content_type).send(image)
+    this.res.status(200).type(this.data.content_type).send(file)
 
   }
 

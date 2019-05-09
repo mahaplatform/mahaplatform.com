@@ -68,7 +68,7 @@ export const printMiddlewareLogger = (req, res, requestId) => {
 
   if(_.isString(req.app)) head.push(['APP:      ', req.app.get('data').title])
 
-  if(!_.isNil(req.user)) head.push(['USER:     ', `${req.user.get('full_name')} [ ID# ${req.user.get('id')} ]`])
+  if(!_.isNil(req.user) && req.user.get) head.push(['USER:     ', `${req.user.get('full_name')} [ ID# ${req.user.get('id')} ]`])
 
   head.push(['HOST:     ', hostname])
 

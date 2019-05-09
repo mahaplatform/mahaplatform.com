@@ -4,8 +4,8 @@ node_modules
 /dist.staged
 /tmp/*
 !/tmp/.gitkeep
-/servers/lb/mahaplatform.*
-/servers/node/deploy
+/src/servers/lb/mahaplatform.*
+/src/servers/node/deploy
 /repo
 /root
 /logs

@@ -1,6 +1,6 @@
-import '../../web/maha/core/services/environment'
+import '../../web/core/services/environment'
 import { migrateUp, migrateDown, reset } from './db'
-import apps from '../../web/maha/core/utils/apps'
+import apps from '../../web/core/utils/apps'
 import register from 'babel-register'
 import path from 'path'
 

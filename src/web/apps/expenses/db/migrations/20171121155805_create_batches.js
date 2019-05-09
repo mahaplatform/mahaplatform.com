@@ -1,4 +1,4 @@
-import Migration from '../../../../../core/objects/migration'
+import Migration from '../../../../core/objects/migration'
 import moment from 'moment'
 
 const CreateBatches = new Migration({

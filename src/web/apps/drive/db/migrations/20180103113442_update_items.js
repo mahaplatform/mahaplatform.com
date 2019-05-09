@@ -1,5 +1,5 @@
 import File from '../../models/file'
-import Migration from '../../../../../core/objects/migration'
+import Migration from '../../../../core/objects/migration'
 import Version from '../../models/version'
 
 const CreateVersions = new Migration({

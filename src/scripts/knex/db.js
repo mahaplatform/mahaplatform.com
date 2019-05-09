@@ -1,4 +1,4 @@
-import { writePaddedLine } from '../../web/core/utils/console'
+import log from '../../web/core/utils/log'
 import apps from '../../web/core/utils/apps'
 import chalk from 'chalk'
 import Knex from 'knex'
@@ -361,7 +361,7 @@ const _getSortedFiles = (appPaths, targetPath) => {
 
 const _getAppPaths = () => {
 
-  return apps.map(app => path.resolve('src', 'web', app))
+  return apps.map(app => path.resolve('src', 'web', 'apps', app))
 
 }
 
@@ -369,6 +369,6 @@ const _log = (label, text = '', newline = false, rewind = false) => {
 
   if(process.env.NODE_ENV === 'test') return
 
-  writePaddedLine(label, text, '#FFFFFF', newline, rewind)
+  log('info', 'knex', `${label} ${text}`)
 
 }

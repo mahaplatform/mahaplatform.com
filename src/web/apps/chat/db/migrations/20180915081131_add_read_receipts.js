@@ -1,4 +1,4 @@
-import Migration from '../../../../../core/objects/migration'
+import Migration from '../../../../core/objects/migration'
 import Channel from '../../models/channel'
 import Message from '../../models/message'
 import Subscription from '../../models/channel'
