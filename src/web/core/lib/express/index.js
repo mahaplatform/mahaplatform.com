@@ -38,37 +38,37 @@ const middleware = async () => {
 
   server.use(arena)
 
-  // server.use('/$', (req, res) => res.redirect(`${process.env.WEB_HOST}/admin`))
-  //
-  // server.use('/ping', ping)
-  //
-  // server.use('/imagecache', imagecache)
-  //
-  // server.use('/favicon.ico', faviconMiddleware)
-  //
-  // server.use('/.well-known', deeplinkMiddleware)
-  //
-  // const router = express.Router({ mergeParams: true })
-  //
-  // router.use(rollbarMiddleware)
-  //
-  // router.use(emailMiddleware)
-  //
-  // router.use(mailboxMiddleware)
-  //
-  // router.use('/admin', serverMiddleware())
-  //
-  // router.use(await cors(), await apiMiddleware())
-  //
-  // router.use('/js/notifications.js', (req, res) => res.sendFile(path.resolve('public', 'admin', 'js', 'notifications.js')))
-  //
-  // router.use(/^(\/admin)?\/(css|assets|audio|imagecache|images|js)/, (req, res) => res.status(404).send('Cannot locate asset'))
-  //
-  // router.use(legacyMiddleware)
-  //
-  // router.use((req, res) => res.send('not found'))
-  //
-  // server.use(process.env.NODE_ENV !== 'production' ? withLogger(router) : router)
+  server.use('/$', (req, res) => res.redirect(`${process.env.WEB_HOST}/admin`))
+
+  server.use('/ping', ping)
+
+  server.use('/imagecache', imagecache)
+
+  server.use('/favicon.ico', faviconMiddleware)
+
+  server.use('/.well-known', deeplinkMiddleware)
+
+  const router = express.Router({ mergeParams: true })
+
+  router.use(rollbarMiddleware)
+
+  router.use(emailMiddleware)
+
+  router.use(mailboxMiddleware)
+
+  router.use('/admin', serverMiddleware())
+
+  router.use(await cors(), await apiMiddleware())
+
+  router.use('/js/notifications.js', (req, res) => res.sendFile(path.resolve('public', 'admin', 'js', 'notifications.js')))
+
+  router.use(/^(\/admin)?\/(css|assets|audio|imagecache|images|js)/, (req, res) => res.status(404).send('Cannot locate asset'))
+
+  router.use(legacyMiddleware)
+
+  router.use((req, res) => res.send('not found'))
+
+  server.use(process.env.NODE_ENV !== 'production' ? withLogger(router) : router)
 
   return server
 

@@ -45,6 +45,7 @@ const transform = async(originalUrl) => {
   const h = transform.h ? parseInt(transform.h) * dpi : null
   if(w & h) return source.resize(w, h, { fit })
   if(w) return source.resize(w)
+  if(h) return source.resize(h)
   return source
 }
 
