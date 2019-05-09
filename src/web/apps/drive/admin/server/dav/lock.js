@@ -1,6 +1,16 @@
+import moment from 'moment'
 import xml from 'xml'
 
 const route = async (req, res) => {
+
+  if(req.item.get('locked_at')) return res.status(200).type('application/xml').send()
+
+  await req.item.save({
+    locked_at: moment(),
+    locked_by_id: req.user.get('id')
+  }, {
+    patch: true
+  })
 
   const data = xml({
     'D:prop': [

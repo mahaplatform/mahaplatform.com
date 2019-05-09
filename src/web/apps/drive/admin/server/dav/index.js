@@ -1,4 +1,4 @@
-import User from '../../../../maha/models/user'
+import { loadUser, loadItem, cors } from './utils'
 import propfind from './propfind'
 import options from './options'
 import unlock from './unlock'
@@ -10,28 +10,13 @@ import get from './get'
 
 const router = express()
 
-router.use((req, res, next) => {
-  res.setHeader('DAV', '1,2')
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Credentials', 'true')
-  res.setHeader('Access-Control-Expose-Headers', 'DAV, content-length, Allow')
-  res.setHeader('MS-Author-Via', 'DAV')
-  next()
-})
+router.use(cors)
 
-const digest = auth.basic({
-  realm: 'MAHA'
-}, async (username, password, callback) => {
-  const user = await User.where('email', username).fetch()
-  const authenticated = user ? user.authenticate(password) : false
-  callback(authenticated, user)
-})
+router.use(auth.connect(auth.basic({ realm: 'MAHA' }, loadUser)))
 
-router.use(auth.connect(digest))
+router.use(loadItem)
 
-router.use(auth.connect(digest))
-
-router.use((req, res, next) => {
+router.use(async (req, res, next) => {
   if(req.method === 'OPTIONS') return options(req, res, next)
   if(req.method === 'PROPFIND') return propfind(req, res, next)
   if(req.method === 'UNLOCK') return unlock(req, res, next)
