@@ -19,12 +19,17 @@ const processor = async () => {
       servers: [
         {
           user: 'root',
-          host: '3.86.91.203',
+          host: 'app1.mahaplatform.com',
           port: 2244,
           roles: 'appserver'
         }, {
           user: 'root',
-          host: '52.90.174.190',
+          host: 'app2.mahaplatform.com',
+          port: 2244,
+          roles: 'appserver'
+        }, {
+          user: 'root',
+          host: 'worker1.mahaplatform.com',
           port: 2244,
           roles: ['worker','cron']
         }, {
