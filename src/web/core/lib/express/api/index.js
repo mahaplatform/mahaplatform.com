@@ -17,7 +17,7 @@ import app from './app'
 import { Router } from 'express'
 
 const _segment = async (portal, prefix, authenticated) => {
-  const apiFiles = collectObjects(`${portal}/api.js`)
+  const apiFiles = collectObjects(`${portal}/api`)
   return await Promise.mapSeries(apiFiles, async(apiFile) => {
     const api = apiFile.default
     const path = apiFile.config.path

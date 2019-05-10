@@ -7,7 +7,6 @@ import chatchat from './chat/admin/roots/chat'
 import competenciescommitments from './competencies/admin/components/commitments'
 import competenciesresources from './competencies/admin/components/resources'
 import driveaccess from './drive/admin/components/access'
-import drivedrive from './drive/admin/components/drive'
 import driveexplorer from './drive/admin/components/explorer'
 import drivemove from './drive/admin/components/move'
 import drivechat from './drive/admin/components/share/chat'
@@ -71,20 +70,19 @@ import siteshtmlfield from './sites/admin/components/htmlfield'
 import sitessitesImportFinalize from './sites/admin/components/sites_import_finalize'
 import teamaccess from './team/admin/components/access'
 import teamroles from './team/admin/components/roles'
-import chatRoutes from './chat/admin/routes.js'
-import competenciesRoutes from './competencies/admin/routes.js'
-import driveRoutes from './drive/admin/routes.js'
-import eatfreshRoutes from './eatfresh/admin/routes.js'
-import expensesRoutes from './expenses/admin/routes.js'
-import mahaRoutes from './maha/admin/routes.js'
-import platformRoutes from './platform/admin/routes.js'
-import sitesRoutes from './sites/admin/routes.js'
-import teamRoutes from './team/admin/routes.js'
-import chatBadges from './chat/admin/badges.js'
-import mahaBadges from './maha/admin/badges.js'
-import chatRoots from './chat/admin/roots.js'
-import driveRoots from './drive/admin/roots.js'
-import mahaRoots from './maha/admin/roots.js'
+import chatRoutes from './chat/admin/views/index.js'
+import competenciesRoutes from './competencies/admin/views/index.js'
+import driveRoutes from './drive/admin/views/index.js'
+import eatfreshRoutes from './eatfresh/admin/views/index.js'
+import expensesRoutes from './expenses/admin/views/index.js'
+import mahaRoutes from './maha/admin/views/index.js'
+import platformRoutes from './platform/admin/views/index.js'
+import sitesRoutes from './sites/admin/views/index.js'
+import teamRoutes from './team/admin/views/index.js'
+import chatBadges from './chat/admin/badges/index.js'
+import mahaBadges from './maha/admin/badges/index.js'
+import chatRoots from './chat/admin/roots/index.js'
+import mahaRoots from './maha/admin/roots/index.js'
 import expensesUserTasks from './expenses/admin/user_tasks.js'
 import expensesUserFields from './expenses/admin/user_fields.js'
 import expensesUserValues from './expenses/admin/user_values.js'
@@ -173,7 +171,6 @@ class App extends React.Component {
       competenciescommitments,
       competenciesresources,
       driveaccess,
-      drivedrive,
       driveexplorer,
       drivemove,
       drivechat,
@@ -244,10 +241,6 @@ class App extends React.Component {
     return [
       ...chatRoots.map(root => ({
         app: 'chat',
-        component: root
-      })),
-      ...driveRoots.map(root => ({
-        app: 'drive',
         component: root
       })),
       ...mahaRoots.map(root => ({

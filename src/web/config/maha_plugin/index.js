@@ -64,9 +64,9 @@ class MahaWebpackPlugin {
       if(!file) log('info', 'dev', 'Compiling client')
 
       const variables = {
-        badges: extract('admin/badges.js'),
-        roots: extract('admin/roots.js'),
-        routes: extract('admin/routes.js'),
+        badges: extract('admin/badges/index.js'),
+        roots: extract('admin/roots/index.js'),
+        routes: extract('admin/views/index.js'),
         reducers: reducers('admin/**/reducer.js'),
         styles: extract('admin/**/style.less'),
         settings: extract('admin/settings.js'),
