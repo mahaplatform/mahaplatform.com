@@ -1,29 +1,11 @@
 import '../../web/core/services/environment'
 import { migrateUp, migrateDown, reset } from './db'
-import apps from '../../web/core/utils/apps'
 import register from 'babel-register'
-import path from 'path'
+import fs from 'fs'
 
-register({
-  presets: [
-    'babel-preset-es2015',
-    'babel-preset-react',
-    'babel-preset-stage-0'
-  ],
-  plugins: [
-    'transform-promise-to-bluebird',
-    ['transform-runtime', { polyfill: false }],
-    ['module-resolver', {
-      'alias': {
-        ...apps.reduce((aliases, app) => ({
-          ...aliases,
-          [app]: path.resolve('src','web',app,'server.js')
-        }), {})
-      }
-    }]
-  ],
-  sourceMaps: 'inline'
-})
+const babelrc = JSON.parse(fs.readFileSync('.babelrc'))
+
+register(babelrc)
 
 const processor = async () => {
 

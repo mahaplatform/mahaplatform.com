@@ -1,7 +1,4 @@
 import { Segment } from '../../../../core/backframe'
-import account from './account'
-import account_notifications from './account_notifications'
-import account_security from './account_security'
 import activate from './activate'
 import assets from './assets'
 import assignees from './assignees'
@@ -40,9 +37,6 @@ import users from './users'
 const authenticated = new Segment({
   authenticated: true,
   routes: [
-    account,
-    account_notifications,
-    account_security,
     assets,
     assignees,
     attachments,

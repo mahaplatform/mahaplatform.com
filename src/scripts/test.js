@@ -1,12 +1,7 @@
-import dotenv from 'dotenv'
+import '../web/core/services/environment'
 import Mocha from 'mocha'
 import glob from 'glob'
 import Knex from 'knex'
-import fs from 'fs'
-
-if(fs.existsSync('.env.test')) dotenv.load({
-  path: '.env.test'
-})
 
 const knex = Knex({
   client: 'pg',
@@ -29,7 +24,7 @@ const test = async () => {
 
   const mocha = new Mocha()
 
-  glob.sync('src/@(apps|packages)/**/*_test.js').map((test) => {
+  glob.sync('src/web/**/*_test.js').map((test) => {
     mocha.addFile(test)
   })
 
@@ -38,19 +33,19 @@ const test = async () => {
   //   await knex.migrate.latest()
   //   await knex.seed.run()
   // })
-  //
-  // mocha.suite.beforeEach('begin transaction', async () => {
-  //   global.knex = await new Promise((resolve, reject) => {
-  //     knex.transaction(tx => {
-  //       resolve(tx)
-  //     }).catch(() => {})
-  //   })
-  // })
-  //
-  // mocha.suite.afterEach('rollback transaction', async () => {
-  //   global.knex.rollback().catch(() => {})
-  // })
-  //
+
+  mocha.suite.beforeEach('begin transaction', async () => {
+    global.knex = await new Promise((resolve, reject) => {
+      knex.transaction(tx => {
+        resolve(tx)
+      }).catch(() => {})
+    })
+  })
+
+  mocha.suite.afterEach('rollback transaction', async () => {
+    global.knex.rollback().catch(() => {})
+  })
+
   // mocha.suite.afterAll('rollback database', async () => {
   //   await knex.migrate.rollback()
   // })

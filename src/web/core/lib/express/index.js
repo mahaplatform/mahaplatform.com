@@ -10,7 +10,9 @@ import serverMiddleware from './server'
 import imagecache from './imagecache'
 import emailMiddleware from './email'
 import bodyParser from 'body-parser'
+import api2Middleware from './api2'
 import apiMiddleware from './api'
+import 'express-async-errors'
 import express from 'express'
 import arena from './arena'
 import cors from './cors'
@@ -59,6 +61,8 @@ const middleware = async () => {
   router.use(serverMiddleware())
 
   router.use(await cors(), await apiMiddleware())
+
+  router.use('/api', await cors(), api2Middleware)
 
   router.use('/js/notifications.js', (req, res) => res.sendFile(path.resolve('public','admin','js','notifications.js')))
 
