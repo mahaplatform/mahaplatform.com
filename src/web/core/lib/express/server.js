@@ -17,7 +17,7 @@ const getIndex = () => {
 }
 
 const serverMiddleware = () => {
-  const files = collectObjects('admin/server.js')
+  const files = collectObjects('admin/server')
   const router = new express.Router({ mergeParams: true })
   const server = files.map(file => file.default(router))
   router.use('/admin', express.static(getStaticRoot(), { redirect: false }))

@@ -1,7 +1,5 @@
-import express from 'express'
 import Redis from 'ioredis'
 import Queue from 'bull'
-import path from 'path'
 
 const server = (router) => {
 

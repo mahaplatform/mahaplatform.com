@@ -1,5 +1,5 @@
-import signin from './api/signin/server'
-import oauth from './api/sources/server'
+import signin from './signin'
+import oauth from './sources'
 
 const server = (router) => {
 

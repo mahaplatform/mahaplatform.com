@@ -1,5 +1,5 @@
-import share from './server/share'
-import dav from './server/dav'
+import share from './share'
+import dav from './dav'
 
 const server = (router) => {
 
