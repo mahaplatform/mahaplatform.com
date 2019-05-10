@@ -186,7 +186,7 @@ export const createAssetFromUrl = async (req, trx, url, team_id, user_id) => {
 
   const source = await Source.where({ text: 'web' }).fetch({ transacting: trx })
 
-  let asset = null;
+  let asset = null
 
   try {
 
