@@ -56,11 +56,11 @@ const middleware = async () => {
 
   router.use(mailboxMiddleware)
 
-  router.use('/admin', serverMiddleware())
+  router.use(serverMiddleware())
 
   router.use(await cors(), await apiMiddleware())
 
-  router.use('/js/notifications.js', (req, res) => res.sendFile(path.resolve('public', 'admin', 'js', 'notifications.js')))
+  router.use('/js/notifications.js', (req, res) => res.sendFile(path.resolve('public','admin','js','notifications.js')))
 
   router.use(/^(\/admin)?\/(css|assets|audio|imagecache|images|js)/, (req, res) => res.status(404).send('Cannot locate asset'))
 

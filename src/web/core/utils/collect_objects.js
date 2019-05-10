@@ -3,8 +3,10 @@ import glob from 'glob'
 import path from 'path'
 import _ from 'lodash'
 
+const root = path.join(__dirname,'..','..','apps')
+
 const configs = apps.map(app => {
-  const configPath = path.join(__dirname,'..','..','apps',app,'app.js')
+  const configPath = path.join(root,app,'app.js')
   const config = require(configPath).default
   return {
     ...config,
@@ -14,8 +16,6 @@ const configs = apps.map(app => {
 })
 
 const appConfig = (query) => _.find(configs, query)
-
-const root = path.join(__dirname,'..','..','apps')
 
 const collectObjects = (pattern) => [
   ...glob.sync(`${root}/*/${pattern}`),

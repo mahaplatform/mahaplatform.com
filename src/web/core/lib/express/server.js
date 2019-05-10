@@ -20,9 +20,9 @@ const serverMiddleware = () => {
   const files = collectObjects('admin/server.js')
   const router = new express.Router({ mergeParams: true })
   const server = files.map(file => file.default(router))
-  router.use('/', express.static(getStaticRoot(), { redirect: false }))
-  router.use('/', server)
-  router.use('/*', (req, res) => res.sendFile(getIndex()))
+  router.use('/admin', express.static(getStaticRoot(), { redirect: false }))
+  router.use('/admin', server)
+  router.use('/admin*', (req, res) => res.sendFile(getIndex()))
   return router
 }
 
