@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateAssignees = new Migration({
+const CreateAssignees = {
 
   up: async (knex) => {
 
@@ -22,6 +20,6 @@ const CreateAssignees = new Migration({
     return await knex.schema.dropTable('maha_sessions')
   }
 
-})
+}
 
 export default CreateAssignees

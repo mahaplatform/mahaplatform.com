@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const fieldSerializer = serializer(async (req, trx, result) => ({
+const fieldSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -16,7 +14,7 @@ const fieldSerializer = serializer(async (req, trx, result) => ({
 
   type: result.get('type'),
 
-  config: await config(req, trx, result),
+  config: config(req, trx, result),
 
   is_mutable: result.get('is_mutable'),
 
@@ -24,9 +22,9 @@ const fieldSerializer = serializer(async (req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
-const config = async (req, trx, result) => {
+const config = (req, trx, result) => {
 
   const config = result.get('config')
 

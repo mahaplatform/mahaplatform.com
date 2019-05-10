@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const FileSerializer = serializer((req, trx, result) => ({
+const FileSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -22,7 +20,7 @@ const FileSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 const version = (version) => {
 

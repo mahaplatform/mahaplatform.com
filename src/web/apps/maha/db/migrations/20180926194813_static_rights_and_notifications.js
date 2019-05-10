@@ -1,15 +1,13 @@
-import Migration from '../../../../../../../core/objects/migration'
-
-const StaticRightsAndNotifications = new Migration({
+const StaticRightsAndNotifications = {
 
   up: async (knex) => {
-    
+
   },
 
   down: async (knex) => {
-    
+
   }
 
-})
+}
 
 export default StaticRightsAndNotifications

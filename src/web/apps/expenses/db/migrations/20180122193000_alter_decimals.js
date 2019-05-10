@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AlterDecimals = new Migration({
+const AlterDecimals = {
 
   up: async (knex) => {
 
@@ -113,6 +111,6 @@ const AlterDecimals = new Migration({
 
   }
 
-})
+}
 
 export default AlterDecimals

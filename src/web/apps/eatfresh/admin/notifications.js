@@ -1,6 +1,4 @@
-import Notifications from '../../../core/objects/notifications'
-
-const notifications = new Notifications([
+const notifications = [
   {
     code: 'attraction_approved',
     title: 'Attraction Approved',
@@ -14,6 +12,6 @@ const notifications = new Notifications([
     title: 'Attraction Suggested',
     description: 'a visitor suggests an attraction'
   }
-])
+]
 
 export default notifications

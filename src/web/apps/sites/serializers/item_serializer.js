@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const itemSerializer = serializer(async (req, trx, result) => ({
+const itemSerializer = async (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -14,7 +12,7 @@ const itemSerializer = serializer(async (req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 const title = (req, trx, result) => {
 

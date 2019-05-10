@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddLastMessage = new Migration({
+const AddLastMessage = {
 
   up: async (knex) => {
 
@@ -32,6 +30,6 @@ const AddLastMessage = new Migration({
 
   }
 
-})
+}
 
 export default AddLastMessage

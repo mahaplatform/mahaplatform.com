@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddAssetPreview = new Migration({
+const AddAssetPreview = {
 
   up: async (knex) => {
 
@@ -24,6 +22,6 @@ const AddAssetPreview = new Migration({
 
   down: async (knex) => {}
 
-})
+}
 
 export default AddAssetPreview

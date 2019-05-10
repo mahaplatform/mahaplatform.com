@@ -1,7 +1,6 @@
-import Migration from '../../../../core/objects/migration'
 import Asset from '../../models/asset'
 
-const FixRemainingAssets = new Migration({
+const FixRemainingAssets = {
 
   up: async (knex) => {
 
@@ -73,6 +72,6 @@ const FixRemainingAssets = new Migration({
 
   down: async (knex) => {}
 
-})
+}
 
 export default FixRemainingAssets

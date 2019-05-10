@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const AssigneeSerializer = serializer((req, trx, result) => ({
+const AssigneeSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -14,7 +12,7 @@ const AssigneeSerializer = serializer((req, trx, result) => ({
 
   photo: result.related('photo') ? result.related('photo').get('path') : null
 
-}))
+})
 
 const group = (group) => {
 

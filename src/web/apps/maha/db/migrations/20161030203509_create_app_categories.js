@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateAppCategories = new Migration({
+const CreateAppCategories = {
 
   up: async (knex) => {
     return await knex.schema.createTable('maha_app_categories', (table) => {
@@ -14,6 +12,6 @@ const CreateAppCategories = new Migration({
     return await knex.schema.dropTable('maha_app_categories')
   }
 
-})
+}
 
 export default CreateAppCategories

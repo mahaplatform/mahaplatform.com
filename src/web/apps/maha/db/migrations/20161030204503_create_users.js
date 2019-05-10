@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateUsers = new Migration({
+const CreateUsers = {
 
   up: async (knex) => {
     return await knex.schema.createTable('maha_users', (table) => {
@@ -37,6 +35,6 @@ const CreateUsers = new Migration({
     return await knex.schema.dropTable('maha_users')
   }
 
-})
+}
 
 export default CreateUsers

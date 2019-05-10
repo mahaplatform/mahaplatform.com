@@ -1,6 +1,4 @@
-import Migration from '../../../../../../../core/objects/migration'
-
-const UpdateImports = new Migration({
+const UpdateImports = {
 
   up: async (knex) => {
     await knex.schema.table('maha_imports', table => {
@@ -15,6 +13,6 @@ const UpdateImports = new Migration({
 
   }
 
-})
+}
 
 export default UpdateImports

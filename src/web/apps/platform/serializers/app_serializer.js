@@ -1,16 +1,10 @@
-import serializer from '../../../core/objects/serializer'
+const appSerializer = (req, trx, result) => ({
 
-const appSerializer = serializer((req, trx, result) => {
+  id: result.get('id'),
 
-  return {
+  ...result.get('data'),
 
-    id: result.get('id'),
-
-    ...result.get('data'),
-
-    installed: result.get('installed')
-
-  }
+  installed: result.get('installed')
 
 })
 

@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const competencySerializer = serializer((req, trx, result) => ({
+const competencySerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -16,6 +14,6 @@ const competencySerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 export default competencySerializer

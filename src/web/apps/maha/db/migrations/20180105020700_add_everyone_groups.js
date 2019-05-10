@@ -1,13 +1,11 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddEveryoneGroups = new Migration({
+const AddEveryoneGroups = {
 
   up: async (knex) => {
 
     await knex.schema.table('maha_groups', (table) => {
       table.boolean('is_everyone')
     })
-    
+
     await knex.raw('drop view maha_assignees')
 
     await knex.raw(`
@@ -49,6 +47,6 @@ const AddEveryoneGroups = new Migration({
 
   }
 
-})
+}
 
 export default AddEveryoneGroups

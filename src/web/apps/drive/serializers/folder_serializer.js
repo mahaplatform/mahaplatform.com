@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const FolderSerializer = serializer((req, trx, result) => ({
+const FolderSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -18,7 +16,7 @@ const FolderSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 const folder = (folder) => {
 

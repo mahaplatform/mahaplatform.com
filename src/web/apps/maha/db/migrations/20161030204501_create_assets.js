@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateAssets = new Migration({
+const CreateAssets = {
 
   up: async (knex) => {
     return await knex.schema.createTable('maha_assets', (table) => {
@@ -19,6 +17,6 @@ const CreateAssets = new Migration({
     return await knex.schema.dropTable('maha_assets')
   }
 
-})
+}
 
 export default CreateAssets

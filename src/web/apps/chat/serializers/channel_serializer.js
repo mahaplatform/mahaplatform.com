@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const ChannelSerializer = serializer((req, trx, result) => ({
+const ChannelSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -32,7 +30,7 @@ const ChannelSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 const last_message = (message) => {
 

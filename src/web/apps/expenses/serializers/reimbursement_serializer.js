@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const reimbursementSerializer = serializer((req, trx, result) => ({
+const reimbursementSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -34,7 +32,7 @@ const reimbursementSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 const audit = (entry) => ({
 

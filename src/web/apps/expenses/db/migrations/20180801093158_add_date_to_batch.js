@@ -1,7 +1,6 @@
-import Migration from '../../../../core/objects/migration'
 import Batch from '../../models/batch'
 
-const AddDateToBatch = new Migration({
+const AddDateToBatch = {
 
   up: async (knex) => {
 
@@ -32,6 +31,6 @@ const AddDateToBatch = new Migration({
 
   }
 
-})
+}
 
 export default AddDateToBatch

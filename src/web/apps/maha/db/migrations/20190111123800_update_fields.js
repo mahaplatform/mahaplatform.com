@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const UpdateFields = new Migration({
+const UpdateFields = {
 
   up: async (knex) => {
 
@@ -31,6 +29,6 @@ const UpdateFields = new Migration({
 
   }
 
-})
+}
 
 export default UpdateFields

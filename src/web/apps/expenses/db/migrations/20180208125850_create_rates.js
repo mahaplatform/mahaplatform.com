@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateRates = new Migration({
+const CreateRates = {
 
   up: async (knex) => {
 
@@ -9,7 +7,7 @@ const CreateRates = new Migration({
       table.integer('year')
       table.decimal('value', 4, 3)
     })
-    
+
     await knex('expenses_rates').insert([
       {
         year: 2017,
@@ -19,13 +17,13 @@ const CreateRates = new Migration({
         value: 0.545
       }
     ])
-    
+
   },
 
   down: async (knex) => {
     return await knex.schema.dropTable('expenses_rates')
   }
 
-})
+}
 
 export default CreateRates

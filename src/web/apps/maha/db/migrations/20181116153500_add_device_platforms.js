@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddDevicePlatforms = new Migration({
+const AddDevicePlatforms = {
 
   up: async (knex) => {
 
@@ -55,6 +53,6 @@ const AddDevicePlatforms = new Migration({
 
   down: async (knex) => {}
 
-})
+}
 
 export default AddDevicePlatforms

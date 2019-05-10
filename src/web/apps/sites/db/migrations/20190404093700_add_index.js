@@ -1,9 +1,9 @@
 import { addIndex } from '../../services/search'
 import Field from '../../../maha/models/field'
-import Migration from '../../../../core/objects/migration'
+
 import Item from '../../models/item'
 
-const AddIndex = new Migration({
+const AddIndex = {
 
   up: async (knex) => {
 
@@ -44,6 +44,6 @@ const AddIndex = new Migration({
 
   }
 
-})
+}
 
 export default AddIndex

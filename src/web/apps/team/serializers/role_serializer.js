@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const roleSerializer = serializer((req, trx, result) => ({
+const roleSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -22,6 +20,6 @@ const roleSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 export default roleSerializer

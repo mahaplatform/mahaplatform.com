@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateProfiles = new Migration({
+const CreateProfiles = {
 
   up: async (knex) => {
     return await knex.schema.createTable('maha_profiles', (table) => {
@@ -20,6 +18,6 @@ const CreateProfiles = new Migration({
     return await knex.schema.dropTable('maha_profiles')
   }
 
-})
+}
 
 export default CreateProfiles

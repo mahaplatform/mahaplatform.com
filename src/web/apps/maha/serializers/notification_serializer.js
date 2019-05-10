@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const notificationSerializer = serializer((req, trx, result) => {
+const notificationSerializer = (req, trx, result) => {
 
   const user = userData(result.related('user'))
 
@@ -58,7 +56,7 @@ const notificationSerializer = serializer((req, trx, result) => {
 
   }
 
-})
+}
 
 const app = (app) => ({
 

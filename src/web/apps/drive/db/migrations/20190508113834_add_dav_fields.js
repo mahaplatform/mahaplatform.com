@@ -1,7 +1,6 @@
-import Migration from '../../../../core/objects/migration'
 import _ from 'lodash'
 
-const AddDavFields = new Migration({
+const AddDavFields = {
 
   up: async (knex) => {
 
@@ -128,6 +127,6 @@ const AddDavFields = new Migration({
 
   down: async (knex) => {}
 
-})
+}
 
 export default AddDavFields

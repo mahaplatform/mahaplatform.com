@@ -1,6 +1,4 @@
-import Migration from '../../../../../../../core/objects/migration'
-
-const MigrateAssetStatuses = new Migration({
+const MigrateAssetStatuses = {
 
   up: async (knex) => {
 
@@ -38,6 +36,6 @@ const MigrateAssetStatuses = new Migration({
 
   }
 
-})
+}
 
 export default MigrateAssetStatuses

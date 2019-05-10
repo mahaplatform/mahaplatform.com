@@ -1,6 +1,4 @@
-import Notifications from '../../../core/objects/notifications'
-
-const notifications = new Notifications([
+const notifications = [
   {
     code: 'item_submitted',
     title: 'Item Submitted',
@@ -26,6 +24,6 @@ const notifications = new Notifications([
     title: 'Item Reverted',
     description: 'one of my advances, expenses, or trips status is reverted'
   }
-])
+]
 
 export default notifications

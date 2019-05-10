@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateItems = new Migration({
+const CreateItems = {
 
   up: async (knex) => {
 
@@ -62,6 +60,6 @@ const CreateItems = new Migration({
     return await knex.raw('drop view expenses_items')
   }
 
-})
+}
 
 export default CreateItems

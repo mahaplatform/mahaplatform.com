@@ -1,28 +1,27 @@
 import File from '../../models/file'
-import Migration from '../../../../core/objects/migration'
 import Version from '../../models/version'
 
-const CreateVersions = new Migration({
+const CreateVersions = {
 
   up: async (knex) => {
-    
+
     const files = await File.fetchAll()
-    
+
     await Promise.map(files.toArray(), async (file) => {
-      
+
       const version = await Version.forge({
         team_id: file.get('team_id'),
         user_id: file.get('owner_id'),
         file_id: file.get('id'),
         asset_id: file.get('asset_id')
       }).save()
-      
+
       await file.save({ version_id: version.get('id') }, { patch: true })
 
     })
 
     await knex.raw('drop view drive_items')
-    
+
     await knex.raw(`
       create view drive_items AS
       select row_number() over (order by "items"."priority", "items"."label") as id,
@@ -42,7 +41,7 @@ const CreateVersions = new Migration({
       "drive_folders"."updated_at"
       from "drive_folders"
       union
-      select 
+      select
       1 as priority,
       "drive_files"."code",
       "drive_files"."id" as item_id,
@@ -59,11 +58,11 @@ const CreateVersions = new Migration({
       inner join "maha_assets" on "maha_assets"."id" = "drive_versions"."asset_id"
       ) as "items"
     `)
-    
+
     await knex.schema.table('drive_files', (table) => {
       table.dropColumn('asset_id')
-    })    
-    
+    })
+
     await knex.schema.dropTable('drive_documents')
 
   },
@@ -72,6 +71,6 @@ const CreateVersions = new Migration({
     return await knex.schema.dropTable('drive_versions')
   }
 
-})
+}
 
 export default CreateVersions

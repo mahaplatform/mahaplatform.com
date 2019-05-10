@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const DeactivateExpenseTypes = new Migration({
+const DeactivateExpenseTypes = {
 
   up: async (knex) => {
 
@@ -20,6 +18,6 @@ const DeactivateExpenseTypes = new Migration({
 
   }
 
-})
+}
 
 export default DeactivateExpenseTypes

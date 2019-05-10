@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateTypes = new Migration({
+const CreateTypes = {
 
   up: async (knex) => {
 
@@ -23,6 +21,6 @@ const CreateTypes = new Migration({
     return await knex.schema.dropTable('sites_types')
   }
 
-})
+}
 
 export default CreateTypes

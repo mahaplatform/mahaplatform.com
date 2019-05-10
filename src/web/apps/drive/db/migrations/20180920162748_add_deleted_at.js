@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddDeletedAt = new Migration({
+const AddDeletedAt = {
 
   up: async (knex) => {
 
@@ -92,6 +90,6 @@ const AddDeletedAt = new Migration({
 
   }
 
-})
+}
 
 export default AddDeletedAt

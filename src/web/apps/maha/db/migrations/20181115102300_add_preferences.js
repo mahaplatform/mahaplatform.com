@@ -1,8 +1,6 @@
-import Migration from '../../../../core/objects/migration'
-
 const sounds = ['ding','boing','drop','tada','plink','wow','here_you_go','hi','knock_brush','whoah','yoink']
 
-const AddPreferences = new Migration({
+const AddPreferences = {
 
   up: async (knex) => {
 
@@ -78,6 +76,6 @@ const AddPreferences = new Migration({
 
   down: async (knex) => {}
 
-})
+}
 
 export default AddPreferences

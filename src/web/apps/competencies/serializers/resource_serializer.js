@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const resourceSerializer = serializer((req, trx, result) => ({
+const resourceSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -20,7 +18,7 @@ const resourceSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 const asset = (asset) => {
 

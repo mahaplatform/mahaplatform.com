@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const reviewSerializer = serializer((req, trx, result) => ({
+const reviewSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -26,6 +24,6 @@ const reviewSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 export default reviewSerializer

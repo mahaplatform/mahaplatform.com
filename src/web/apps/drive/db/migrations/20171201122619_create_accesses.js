@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateAccesses = new Migration({
+const CreateAccesses = {
 
   up: async (knex) => {
     return await knex.schema.createTable('drive_access', (table) => {
@@ -23,6 +21,6 @@ const CreateAccesses = new Migration({
     return await knex.schema.dropTable('drive_access')
   }
 
-})
+}
 
 export default CreateAccesses

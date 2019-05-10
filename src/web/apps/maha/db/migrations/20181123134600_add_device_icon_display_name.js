@@ -1,8 +1,8 @@
 import { getDeviceIcon, getDeviceDisplayName, findOrCreateDeviceValueId } from '../../services/device'
-import Migration from '../../../../core/objects/migration'
+
 import Device from '../../models/device'
 
-const AddDeviceIconDisplayName = new Migration({
+const AddDeviceIconDisplayName = {
 
   up: async (knex) => {
 
@@ -29,6 +29,6 @@ const AddDeviceIconDisplayName = new Migration({
 
   down: async (knex) => {}
 
-})
+}
 
 export default AddDeviceIconDisplayName

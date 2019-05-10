@@ -1,6 +1,4 @@
-import Migration from '../../../../../../../core/objects/migration'
-
-const UpdateAssignees = new Migration({
+const UpdateAssignees = {
 
   up: async (knex) => {
 
@@ -45,6 +43,6 @@ const UpdateAssignees = new Migration({
 
   }
 
-})
+}
 
 export default UpdateAssignees

@@ -1,7 +1,6 @@
-import Navigation from '../../../core/objects/navigation'
 import { canApprove, isOwnerOrAdmin } from './utils/access'
 
-const navigation = new Navigation(async (req, trx) => ({
+const navigation = async (req, trx) => ({
   items: [
     { label: 'Accounts', rights: ['expenses:manage_configuration'], route: '/accounts'},
     { label: 'Approvals', rights: ['expenses:manage_expenses'], access: canApprove, route: '/approvals'},
@@ -13,6 +12,6 @@ const navigation = new Navigation(async (req, trx) => ({
     { label: 'Reports', rights: ['expenses:manage_expenses'], access: isOwnerOrAdmin, route: '/reports' },
     { label: 'Vendors', rights: ['expenses:manage_configuration'], route: '/vendors' }
   ]
-}))
+})
 
 export default navigation

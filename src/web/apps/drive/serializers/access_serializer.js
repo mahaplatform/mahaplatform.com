@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const AccessSerializer = serializer((req, trx, result) => ({
+const AccessSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -12,7 +10,7 @@ const AccessSerializer = serializer((req, trx, result) => ({
 
   access_type_id: result.get('access_type_id')
 
-}))
+})
 
 const group = (group) => {
 

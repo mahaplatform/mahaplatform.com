@@ -1,8 +1,7 @@
-import Migration from '../../../../core/objects/migration'
 import { propagateAccess } from '../../services/items'
 import Folder from '../../models/folder'
 
-const UpdateAccessModel = new Migration({
+const UpdateAccessModel = {
 
   up: async (knex) => {
 
@@ -149,6 +148,6 @@ const UpdateAccessModel = new Migration({
 
   }
 
-})
+}
 
 export default UpdateAccessModel

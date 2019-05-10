@@ -1,9 +1,7 @@
-import email from '../../../../core/objects/email'
-
-const activateEmail = email({
+const activateEmail = {
   code: 'activation',
   name: 'Account Activation',
   subject: 'Welcome to the Maha Platform'
-})
+}
 
 export default activateEmail

@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateAlerts = new Migration({
+const CreateAlerts = {
 
   up: async (knex) => {
 
@@ -103,6 +101,6 @@ const CreateAlerts = new Migration({
 
   }
 
-})
+}
 
 export default CreateAlerts

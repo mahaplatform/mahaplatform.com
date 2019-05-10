@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const tripSerializer = serializer((req, trx, result) => ({
+const tripSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -40,7 +38,7 @@ const tripSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 const audit = (entry) => ({
 

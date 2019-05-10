@@ -1,10 +1,8 @@
-import email from '../../../../core/objects/email'
-
-const approvalEmail = email({
+const approvalEmail = {
   code: 'approval',
   name: 'Approval Email',
   subject: 'Your attraction has been approved!',
   envelope: null
-})
+}
 
 export default approvalEmail

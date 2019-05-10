@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const projectSerializer = serializer((req, trx, result) => ({
+const projectSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -14,7 +12,7 @@ const projectSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 const integration = (req, result) => {
 

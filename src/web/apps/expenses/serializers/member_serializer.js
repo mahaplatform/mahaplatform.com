@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const memberSerializer = serializer((req, trx, result) => ({
+const memberSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -10,7 +8,7 @@ const memberSerializer = serializer((req, trx, result) => ({
 
   member_type_id: result.get('member_type_id')
 
-}))
+})
 
 const user = (user) => {
 

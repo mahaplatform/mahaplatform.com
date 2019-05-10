@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateVersions = new Migration({
+const CreateVersions = {
 
   up: async (knex) => {
 
@@ -28,6 +26,6 @@ const CreateVersions = new Migration({
     return await knex.schema.dropTable('drive_versions')
   }
 
-})
+}
 
 export default CreateVersions

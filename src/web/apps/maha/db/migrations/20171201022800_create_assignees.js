@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateAssignees = new Migration({
+const CreateAssignees = {
 
   up: async (knex) => {
 
@@ -36,6 +34,6 @@ const CreateAssignees = new Migration({
     return await knex.raw('drop view maha_assignees')
   }
 
-})
+}
 
 export default CreateAssignees

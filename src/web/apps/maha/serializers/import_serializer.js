@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const importSerializer = serializer((req, trx, result) => ({
+const importSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -38,7 +36,7 @@ const importSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 const user = (user) => {
 

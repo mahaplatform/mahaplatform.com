@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const StarSerializer = serializer((req, trx, result) => ({
+const StarSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -8,6 +6,6 @@ const StarSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 export default StarSerializer

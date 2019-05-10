@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const MakeAttachmentsPolymorphic = new Migration({
+const MakeAttachmentsPolymorphic = {
 
   up: async (knex) => {
 
@@ -52,6 +50,6 @@ const MakeAttachmentsPolymorphic = new Migration({
 
   }
 
-})
+}
 
 export default MakeAttachmentsPolymorphic

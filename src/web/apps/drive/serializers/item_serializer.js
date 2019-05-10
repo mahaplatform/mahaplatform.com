@@ -1,7 +1,6 @@
-import serializer from '../../../core/objects/serializer'
 import _ from 'lodash'
 
-const ItemSerializer = serializer((req, trx, result) => ({
+const ItemSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -29,7 +28,7 @@ const ItemSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 const folder = (folder) => {
 

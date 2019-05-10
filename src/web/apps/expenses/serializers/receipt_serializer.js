@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const receiptSerializer = serializer((req, trx, result) => ({
+const receiptSerializer = (req, trx, result) => ({
 
   id: result.related('asset').get('id'),
 
@@ -30,7 +28,7 @@ const receiptSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 const user = (user, key) => {
 

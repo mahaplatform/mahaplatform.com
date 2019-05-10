@@ -1,9 +1,7 @@
-import email from '../../../../core/objects/email'
-
-const activateEmail = email({
+const activateEmail = {
   code: 'activation',
   name: 'Account Activation',
   subject: 'Welcome'
-})
+}
 
 export default activateEmail

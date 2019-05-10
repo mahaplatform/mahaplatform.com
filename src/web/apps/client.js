@@ -1,7 +1,5 @@
 export * from '../core//reframe'
 
-export Routes from '../core/objects/routes'
-
 export AssetIcon from './maha/admin/components/asset/icon'
 
 export AssetInfo from './maha/admin/components/asset/info'

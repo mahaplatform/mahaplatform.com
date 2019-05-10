@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateManagers = new Migration({
+const CreateManagers = {
 
   up: async (knex) => {
 
@@ -21,6 +19,6 @@ const CreateManagers = new Migration({
     return await knex.schema.dropTable('sites_managers')
   }
 
-})
+}
 
 export default CreateManagers

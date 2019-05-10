@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddAssetMetadata2 = new Migration({
+const AddAssetMetadata2 = {
 
   up: async (knex) => {
 
@@ -13,6 +11,6 @@ const AddAssetMetadata2 = new Migration({
 
   down: async (knex) => {}
 
-})
+}
 
 export default AddAssetMetadata2

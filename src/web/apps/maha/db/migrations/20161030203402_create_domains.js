@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateDomains = new Migration({
+const CreateDomains = {
 
   up: async (knex) => {
     return await knex.schema.createTable('maha_domains', (table) => {
@@ -17,6 +15,6 @@ const CreateDomains = new Migration({
     return await knex.schema.dropTable('maha_domains')
   }
 
-})
+}
 
 export default CreateDomains

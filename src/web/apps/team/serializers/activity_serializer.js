@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const activitySerializer = serializer((req, trx, result) => {
+const activitySerializer = (req, trx, result) => {
 
   const user = userData(req.user)
 
@@ -48,7 +46,7 @@ const activitySerializer = serializer((req, trx, result) => {
 
   }
 
-})
+}
 
 const app = (app) => ({
 

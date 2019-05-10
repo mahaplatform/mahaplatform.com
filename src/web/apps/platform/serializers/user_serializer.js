@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const userSerializer = serializer((req, trx, result) => ({
+const userSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -12,6 +10,6 @@ const userSerializer = serializer((req, trx, result) => ({
 
   photo: result.related('photo').get('path')
 
-}))
+})
 
 export default userSerializer

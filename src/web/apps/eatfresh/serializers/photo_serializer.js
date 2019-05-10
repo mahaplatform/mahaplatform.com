@@ -1,11 +1,5 @@
-import serializer from '../../../core/objects/serializer'
+const PhotosSerializer = (req, trx, result) => {
 
-const PhotosSerializer = serializer({
-
-  processor: (req, trx, result) => {
-
-  }
-
-})
+}
 
 export default PhotosSerializer

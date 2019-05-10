@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const typeSerializer = serializer((req, trx, result) => ({
+const typeSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -12,7 +10,7 @@ const typeSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 const user = (user) => {
 

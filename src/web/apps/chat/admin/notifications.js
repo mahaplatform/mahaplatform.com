@@ -1,6 +1,4 @@
-import Notifications from '../../../core/objects/notifications'
-
-const notifications = new Notifications([
+const notifications = [
   {
     code: 'conversation_status',
     title: 'Conversation Status',
@@ -14,6 +12,6 @@ const notifications = new Notifications([
     title: 'Message Received',
     description: 'someone sends a message to one of my conversations'
   }
-])
+]
 
 export default notifications

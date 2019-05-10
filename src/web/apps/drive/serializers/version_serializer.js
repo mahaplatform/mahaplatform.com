@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const VersionSerializer = serializer((req, trx, result) => ({
+const VersionSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -8,6 +6,6 @@ const VersionSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 export default VersionSerializer

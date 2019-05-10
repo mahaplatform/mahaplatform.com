@@ -1,7 +1,6 @@
 import Site from '../models/site'
-import Navigation from '../../../core/objects/navigation'
 
-const navigation = new Navigation(async (req, trx) => {
+const navigation = async (req, trx) => {
 
   const sites = await Site.query(qb => {
     qb.innerJoin('sites_managers', 'sites_managers.site_id','sites_sites.id')
@@ -37,6 +36,6 @@ const navigation = new Navigation(async (req, trx) => {
     ]
   }
 
-})
+}
 
 export default navigation

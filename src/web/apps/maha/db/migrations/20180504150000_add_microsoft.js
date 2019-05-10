@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddMicrosoft = new Migration({
+const AddMicrosoft = {
 
   up: async (knex) => {
 
@@ -12,6 +10,6 @@ const AddMicrosoft = new Migration({
 
   down: async (knex) => {}
 
-})
+}
 
 export default AddMicrosoft

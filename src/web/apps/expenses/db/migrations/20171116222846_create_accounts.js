@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateAccounts = new Migration({
+const CreateAccounts = {
 
   up: async (knex) => {
 
@@ -100,6 +98,6 @@ const CreateAccounts = new Migration({
 
   }
 
-})
+}
 
 export default CreateAccounts

@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateResources = new Migration({
+const CreateResources = {
 
   up: async (knex) => {
     return await knex.schema.createTable('competencies_resources', (table) => {
@@ -20,6 +18,6 @@ const CreateResources = new Migration({
     return await knex.schema.dropTable('competencies_resources')
   }
 
-})
+}
 
 export default CreateResources

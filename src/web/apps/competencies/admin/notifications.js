@@ -1,6 +1,4 @@
-import Notifications from '../../../core/objects/notifications'
-
-const notifications = new Notifications([
+const notifications = [
   {
     code: 'plan_created',
     title: 'Manage Configuration',
@@ -14,6 +12,6 @@ const notifications = new Notifications([
     title: 'Plan Completed',
     description: 'a supervisor completes your plan'
   }
-])
+]
 
 export default notifications

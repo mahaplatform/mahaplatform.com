@@ -1,8 +1,7 @@
 import categories from '../../admin/components/emojis/categories'
-import Migration from '../../../../../../../core/objects/migration'
 import _ from 'lodash'
 
-const ReplaceEmojis = new Migration({
+const ReplaceEmojis = {
 
   up: async (knex) => {
 
@@ -50,6 +49,6 @@ const ReplaceEmojis = new Migration({
 
   down: async (knex) => {}
 
-})
+}
 
 export default ReplaceEmojis

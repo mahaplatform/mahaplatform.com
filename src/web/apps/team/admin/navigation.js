@@ -1,6 +1,4 @@
-import Navigation from '../../../core/objects/navigation'
-
-const navigation = new Navigation(async (req, trx) => ({
+const navigation = async (req, trx) => ({
   items: [
     { label: 'Activities', rights: ['team:manage_team'], route: '/activities' },
     { label: 'Apps', rights: ['team:manage_apps'], route: '/apps' },
@@ -13,6 +11,6 @@ const navigation = new Navigation(async (req, trx) => ({
     { label: 'Supervisors', rights: ['team:manage_team'], route: '/supervisors' },
     { label: 'Users', rights: ['team:manage_people'], route: '/users' }
   ]
-}))
+})
 
 export default navigation

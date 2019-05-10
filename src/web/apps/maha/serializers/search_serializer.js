@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const searchSerializer = serializer((req, trx, result) => ({
+const searchSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -14,6 +12,6 @@ const searchSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 export default searchSerializer

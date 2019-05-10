@@ -1,7 +1,6 @@
-import serializer from '../../../core/objects/serializer'
 import Type from '../models/type'
 
-const fieldSerializer = serializer(async (req, trx, result) => ({
+const fieldSerializer = async (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -23,7 +22,7 @@ const fieldSerializer = serializer(async (req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 const config = async (req, trx, result) => {
 

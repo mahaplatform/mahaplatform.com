@@ -1,4 +1,3 @@
-import Mailbox from '../../../core/objects/mailbox'
 import { createAsset } from '../../maha/services/asset'
 import Source from '../../maha/models/source'
 import Story from '../../maha/models/story'
@@ -131,10 +130,10 @@ const _findOrCreateStoryId = async (text, trx) => {
 
 }
 
-const receiptMailbox = new Mailbox({
+const receiptMailbox = {
   pattern: EMAIL_REGEX,
   receiver,
   processor
-})
+}
 
 export default receiptMailbox

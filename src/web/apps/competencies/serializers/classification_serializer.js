@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const classificationSerializer = serializer((req, trx, result) => ({
+const classificationSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -10,6 +8,6 @@ const classificationSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 export default classificationSerializer

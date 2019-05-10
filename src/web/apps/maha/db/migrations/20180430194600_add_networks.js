@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddNetworks = new Migration({
+const AddNetworks = {
 
   up: async (knex) => {
 
@@ -14,6 +12,6 @@ const AddNetworks = new Migration({
 
   down: async (knex) => {}
 
-})
+}
 
 export default AddNetworks

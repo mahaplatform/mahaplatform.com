@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const expectationSerializer = serializer((req, trx, result) => ({
+const expectationSerializer = (req, trx, result) => ({
 
   id: result.related('competency').get('id'),
 
@@ -10,6 +8,6 @@ const expectationSerializer = serializer((req, trx, result) => ({
 
   level: result.related('competency').get('level')
 
-}))
+})
 
 export default expectationSerializer

@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateFields = new Migration({
+const CreateFields = {
 
   up: async (knex) => {
 
@@ -26,6 +24,6 @@ const CreateFields = new Migration({
     return await knex.schema.dropTable('maha_fields')
   }
 
-})
+}
 
 export default CreateFields

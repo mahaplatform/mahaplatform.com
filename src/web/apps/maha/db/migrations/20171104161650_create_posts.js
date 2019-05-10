@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreatePosts = new Migration({
+const CreatePosts = {
 
   up: async (knex) => {
     return await knex.schema.createTable('maha_posts', (table) => {
@@ -18,6 +16,6 @@ const CreatePosts = new Migration({
     return await knex.schema.dropTable('maha_posts')
   }
 
-})
+}
 
 export default CreatePosts

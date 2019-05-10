@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateUsersNotificationTypes = new Migration({
+const CreateUsersNotificationTypes = {
 
   up: async (knex) => {
     return await knex.schema.createTable('maha_users_notification_types', (table) => {
@@ -15,6 +13,6 @@ const CreateUsersNotificationTypes = new Migration({
     return await knex.schema.dropTable('maha_users_notification_types')
   }
 
-})
+}
 
 export default CreateUsersNotificationTypes

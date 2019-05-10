@@ -1,4 +1,3 @@
-import { Routes } from 'maha-admin'
 import CategoriesList from './categories/list'
 import CompetenciesList from './competencies/list'
 import CompetenciesShow from './competencies/show'
@@ -13,7 +12,7 @@ import ResourcesList from './resources/list'
 import ResourcesSearch from './resources/search'
 import ResourcesShow from './resources/show'
 
-const routes = new Routes([
+const routes = [
   { path: '/categories', component: CategoriesList },
   { path: '/competencies', component: CompetenciesList },
   { path: '/competencies/:id', component: CompetenciesShow },
@@ -27,6 +26,6 @@ const routes = new Routes([
   { path: '/resources/:id', component: ResourcesShow },
   { path: '/employees', component: EmployeesList },
   { path: '/employees/:id', component: EmployeesShow }
-])
+]
 
 export default routes

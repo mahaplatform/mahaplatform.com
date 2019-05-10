@@ -1,11 +1,5 @@
-import serializer from '../../../core/objects/serializer'
+const FeatureSerializer = (req, trx, result) => {
 
-const FeatureSerializer = serializer({
-
-  processor: (req, trx, result) => {
-
-  }
-
-})
+}
 
 export default FeatureSerializer

@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const supervisorSerializer = serializer((req, trx, result) => ({
+const supervisorSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -14,6 +12,6 @@ const supervisorSerializer = serializer((req, trx, result) => ({
 
   photo: result.related('user').related('photo').get('path')
 
-}))
+})
 
 export default supervisorSerializer

@@ -1,9 +1,7 @@
-import email from '../../../../core/objects/email'
-
-const resetEmail = email({
+const resetEmail = {
   code: 'reset',
   name: 'Password Reset',
   subject: 'Reset Your Password'
-})
+}
 
 export default resetEmail

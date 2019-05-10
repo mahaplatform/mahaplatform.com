@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const FixActivities = new Migration({
+const FixActivities = {
 
   up: async (knex) => {
 
@@ -111,6 +109,6 @@ const FixActivities = new Migration({
 
   down: async (knex) => {}
 
-})
+}
 
 export default FixActivities

@@ -1,9 +1,7 @@
-import Migration from '../../../../core/objects/migration'
-
-const UpdateItems2 = new Migration({
+const UpdateItems2 = {
 
   up: async (knex) => {
-    
+
     await knex.raw(`
       create or replace view drive_items AS
       select row_number() over (order by "items"."priority", "items"."label") as id,
@@ -23,7 +21,7 @@ const UpdateItems2 = new Migration({
       "drive_folders"."updated_at"
       from "drive_folders"
       union
-      select 
+      select
       1 as priority,
       "drive_files"."code",
       "drive_files"."id" as item_id,
@@ -40,13 +38,13 @@ const UpdateItems2 = new Migration({
       inner join "maha_assets" on "maha_assets"."id" = "drive_versions"."asset_id"
       ) as "items"
     `)
-        
+
   },
 
   down: async (knex) => {
-    
+
   }
 
-})
+}
 
 export default UpdateItems2

@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddChecksToItems = new Migration({
+const AddChecksToItems = {
 
   up: async (knex) => {
 
@@ -83,6 +81,6 @@ const AddChecksToItems = new Migration({
     return await knex.raw('drop view expenses_items')
   }
 
-})
+}
 
 export default AddChecksToItems

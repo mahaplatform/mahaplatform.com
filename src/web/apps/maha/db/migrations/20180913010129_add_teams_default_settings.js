@@ -1,6 +1,4 @@
-import Migration from '../../../../../../../core/objects/migration'
-
-const AddInstallationsDefaultSettings = new Migration({
+const AddInstallationsDefaultSettings = {
 
   up: async (knex) => {
 
@@ -26,6 +24,6 @@ const AddInstallationsDefaultSettings = new Migration({
 
   down: async (knex) => {}
 
-})
+}
 
 export default AddInstallationsDefaultSettings

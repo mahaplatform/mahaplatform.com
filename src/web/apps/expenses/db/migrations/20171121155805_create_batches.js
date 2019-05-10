@@ -1,7 +1,6 @@
-import Migration from '../../../../core/objects/migration'
 import moment from 'moment'
 
-const CreateBatches = new Migration({
+const CreateBatches = {
 
   up: async (knex) => {
 
@@ -102,6 +101,6 @@ const CreateBatches = new Migration({
     return await knex.schema.dropTable('expenses_batches')
   }
 
-})
+}
 
 export default CreateBatches

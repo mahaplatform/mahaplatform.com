@@ -1,11 +1,9 @@
-import Migration from '../../../../core/objects/migration'
-
-const EditAssignees = new Migration({
+const EditAssignees = {
 
   up: async (knex) => {
-    
+
     await knex.raw('drop view maha_assignees')
-    
+
     await knex.raw(`
       create or replace view maha_assignees AS
       select row_number() over (order by "assignees"."type" ASC, "assignees"."last_name" ASC) as id,
@@ -54,6 +52,6 @@ const EditAssignees = new Migration({
 
   }
 
-})
+}
 
 export default EditAssignees

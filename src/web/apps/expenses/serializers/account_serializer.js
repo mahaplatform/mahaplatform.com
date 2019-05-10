@@ -1,11 +1,5 @@
-import serializer from '../../../core/objects/serializer'
+const AccountSerializer = (req, trx, result) => {
 
-const AccountSerializer = serializer({
-
-  processor: (req, trx, result) => {
-
-  }
-
-})
+}
 
 export default AccountSerializer

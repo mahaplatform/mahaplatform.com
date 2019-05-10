@@ -1,6 +1,4 @@
-import Migration from '../../../../../../../core/objects/migration'
-
-const AddCaptions = new Migration({
+const AddCaptions = {
 
   up: async (knex) => {
 
@@ -18,6 +16,6 @@ const AddCaptions = new Migration({
 
   }
 
-})
+}
 
 export default AddCaptions

@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateChannelTypes = new Migration({
+const CreateChannelTypes = {
 
   up: async (knex) => {
     return await knex.schema.createTable('chat_channel_types', (table) => {
@@ -13,6 +11,6 @@ const CreateChannelTypes = new Migration({
     return await knex.schema.dropTable('chat_channel_types')
   }
 
-})
+}
 
 export default CreateChannelTypes

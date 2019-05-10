@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const groupSerializer = serializer((req, trx, result) => ({
+const groupSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -10,6 +8,6 @@ const groupSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 export default groupSerializer

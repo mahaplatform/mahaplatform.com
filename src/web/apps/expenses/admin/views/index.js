@@ -1,4 +1,3 @@
-import { Routes } from 'maha-admin'
 import AccountList from './accounts/list'
 import AdvanceShow from './advances/show'
 import ApprovalList from './items/approvals'
@@ -16,7 +15,7 @@ import ReportList from './items/report'
 import TripShow from './trips/show'
 import VendorList from './vendors/list'
 
-const routes = new Routes([
+const routes = [
   { path: '/accounts', component: AccountList },
   { path: '/approvals', component: ApprovalList },
   { path: '/advances/:id', component: AdvanceShow },
@@ -33,6 +32,6 @@ const routes = new Routes([
   { path: '/receipts/:id', component: ReceiptShow },
   { path: '/trips/:id', component: TripShow },
   { path: '/vendors', component: VendorList }
-])
+]
 
 export default routes

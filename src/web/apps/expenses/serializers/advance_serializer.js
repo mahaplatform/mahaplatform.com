@@ -1,6 +1,4 @@
-import serializer from '../../../core/objects/serializer'
-
-const advanceSerializer = serializer((req, trx, result) => ({
+const advanceSerializer = (req, trx, result) => ({
 
   id: result.get('id'),
 
@@ -28,7 +26,7 @@ const advanceSerializer = serializer((req, trx, result) => ({
 
   updated_at: result.get('updated_at')
 
-}))
+})
 
 const audit = (entry) => ({
 

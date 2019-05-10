@@ -1,4 +1,3 @@
-import { Routes } from 'maha-admin'
 import AppsList from './apps/list'
 import AppsShow from './apps/show'
 import ActivitiesList from './activities/list'
@@ -17,7 +16,7 @@ import SupervisorsShow from './supervisors/show'
 import UserList from './users/list'
 import UserShow from './users/show'
 
-const routes = new Routes([
+const routes = [
   { path: '/apps', component: AppsList },
   { path: '/apps/:id', component: AppsShow },
   { path: '/foobar', component: AppsList },
@@ -36,6 +35,6 @@ const routes = new Routes([
   { path: '/supervisors/:id', component: SupervisorsShow },
   { path: '/users', component: UserList },
   { path: '/users/:id', component: UserShow }
-])
+]
 
 export default routes

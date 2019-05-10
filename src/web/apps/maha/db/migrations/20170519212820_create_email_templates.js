@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateEmailTemplates = new Migration({
+const CreateEmailTemplates = {
 
   up: async (knex) => {
     return await knex.schema.createTable('maha_email_templates', (table) => {
@@ -22,6 +20,6 @@ const CreateEmailTemplates = new Migration({
     return await knex.schema.dropTable('maha_email_templates')
   }
 
-})
+}
 
 export default CreateEmailTemplates

@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateFolders = new Migration({
+const CreateFolders = {
 
   up: async (knex) => {
     return await knex.schema.createTable('drive_folders', (table) => {
@@ -21,6 +19,6 @@ const CreateFolders = new Migration({
     return await knex.schema.dropTable('drive_folders')
   }
 
-})
+}
 
 export default CreateFolders

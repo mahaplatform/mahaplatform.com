@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateClassifications = new Migration({
+const CreateClassifications = {
 
   up: async (knex) => {
     return await knex.schema.createTable('competencies_classifications', (table) => {
@@ -16,6 +14,6 @@ const CreateClassifications = new Migration({
     return await knex.schema.dropTable('competencies_classifications')
   }
 
-})
+}
 
 export default CreateClassifications

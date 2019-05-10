@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateReceipts = new Migration({
+const CreateReceipts = {
 
   up: async (knex) => {
     return await knex.schema.createTable('expenses_receipts', (table) => {
@@ -20,6 +18,6 @@ const CreateReceipts = new Migration({
     return await knex.schema.dropTable('expenses_receipts')
   }
 
-})
+}
 
 export default CreateReceipts

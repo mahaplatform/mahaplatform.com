@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddBatchTotal = new Migration({
+const AddBatchTotal = {
 
   up: async (knex) => {
 
@@ -31,6 +29,6 @@ const AddBatchTotal = new Migration({
     })
 
   }
-})
+}
 
 export default AddBatchTotal

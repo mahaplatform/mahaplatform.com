@@ -1,7 +1,5 @@
-import Migration from '../../../../core/objects/migration'
+const CreateTeamsApps = {
 
-const CreateTeamsApps = new Migration({
-  
   up: async (knex) => {
     return await knex.schema.createTable('maha_teams_apps', (table) => {
       table.integer('team_id').unsigned()
@@ -15,6 +13,6 @@ const CreateTeamsApps = new Migration({
     return await knex.schema.dropTable('maha_teams_apps')
   }
 
-})
+}
 
 export default CreateTeamsApps

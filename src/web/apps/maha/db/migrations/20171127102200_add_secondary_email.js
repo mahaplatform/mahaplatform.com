@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddSecondaryEmail = new Migration({
+const AddSecondaryEmail = {
 
   up: async (knex) => {
 
@@ -12,6 +10,6 @@ const AddSecondaryEmail = new Migration({
 
   down: async (knex) => {}
 
-})
+}
 
 export default AddSecondaryEmail

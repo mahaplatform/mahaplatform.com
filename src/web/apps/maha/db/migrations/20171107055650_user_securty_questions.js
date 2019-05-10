@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const UserSecurityQuestions = new Migration({
+const UserSecurityQuestions = {
 
   up: async (knex) => {
     return await knex.schema.table('maha_users', (table) => {
@@ -14,6 +12,6 @@ const UserSecurityQuestions = new Migration({
   down: async (knex) => {
   }
 
-})
+}
 
 export default UserSecurityQuestions

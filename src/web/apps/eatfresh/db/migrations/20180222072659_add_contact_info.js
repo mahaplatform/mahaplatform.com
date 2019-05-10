@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddContactInfo = new Migration({
+const AddContactInfo = {
 
   up: async (knex) => {
 
@@ -13,9 +11,9 @@ const AddContactInfo = new Migration({
   },
 
   down: async (knex) => {
-    
+
   }
 
-})
+}
 
 export default AddContactInfo
