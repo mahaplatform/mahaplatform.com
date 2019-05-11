@@ -47,6 +47,7 @@ const listItems = (root) => fs.readdirSync(root).reduce((items, item) => [
 ], []).filter(item => {
   if(item.src.match(/\.git/)) return false
   if(item.src.match(/\.DS_Store/)) return false
+  if(item.src.match(/_test.js$/)) return false
   if(item.src.match(/apps\/[^/]*\/help/)) return false
   if(item.src.match(/apps\/[^/]*\/db/)) return false
   if(item.src.match(/apps\/[^/]*\/admin\/alerts/)) return false

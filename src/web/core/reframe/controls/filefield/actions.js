@@ -2,11 +2,17 @@ export const setReady = () => ({
   type: 'SET_READY'
 })
 
-export const loadFiles = (endpoint, token, $ids) => ({
+export const loadFiles = (endpoint, token, ids) => ({
   type: 'API_REQUEST',
   method: 'GET',
   endpoint,
-  query: { $ids },
+  query: {
+    $filter: {
+      id: {
+        $in: ids
+      }
+    }
+  },
   token,
   request: 'LOAD_FILES_REQUEST',
   success: 'LOAD_FILES_SUCCESS',

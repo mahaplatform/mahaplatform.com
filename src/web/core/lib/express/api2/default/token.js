@@ -33,6 +33,12 @@ const route = async (req, res, next) => {
     message: 'Invalid user'
   })
 
+  await user.load(['team'], {
+    transacting: req.trx
+  })
+
+  req.team = user.related('team')
+
   req.user = user
 
   next()

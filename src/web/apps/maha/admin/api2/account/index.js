@@ -17,5 +17,4 @@ router.use('/notifications', notifications)
 
 router.use('/security', security)
 
-
 export default router

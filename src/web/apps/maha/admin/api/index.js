@@ -1,6 +1,4 @@
 import { Segment } from '../../../../core/backframe'
-import activate from './activate'
-import assets from './assets'
 import assignees from './assignees'
 import attachments from './attachments'
 import box from './sources/box'
@@ -37,7 +35,6 @@ import users from './users'
 const authenticated = new Segment({
   authenticated: true,
   routes: [
-    assets,
     assignees,
     attachments,
     box,
@@ -74,7 +71,6 @@ const authenticated = new Segment({
 const api = new Segment({
   routes: [
     authenticated,
-    activate,
     signin,
     reset
   ]
