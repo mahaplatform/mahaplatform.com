@@ -1,20 +1,15 @@
 import { Segment } from '../../../../core/backframe'
-import assignees from './assignees'
-import attachments from './attachments'
 import box from './sources/box'
 import check from './sources/check'
 import comments from './comments'
-import devices from './devices'
 import dropbox from './sources/dropbox'
 import facebook from './sources/facebook'
 import fields from './fields'
 import google from './sources/google'
 import microsoft from './sources/microsoft'
-import help from './help'
 import imports from './imports'
 import importItems from './import_items'
 import instagram from './sources/instagram'
-import links from './links'
 import notifications from './notifications'
 import profiles from './profiles'
 import sources from './sources'
@@ -35,22 +30,17 @@ import users from './users'
 const authenticated = new Segment({
   authenticated: true,
   routes: [
-    assignees,
-    attachments,
     box,
     check,
     comments,
-    devices,
     dropbox,
     facebook,
     fields,
     google,
-    help,
     microsoft,
     imports,
     importItems,
     instagram,
-    links,
     notifications,
     reviews,
     sources,

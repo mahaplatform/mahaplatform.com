@@ -14,7 +14,9 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const data = assets.map(asset => AssetSerializer(req, req.trx, asset))
+  const data = assets.map(asset => {
+    return AssetSerializer(req, req.trx, asset)
+  })
 
   res.status(200).respond(data)
 

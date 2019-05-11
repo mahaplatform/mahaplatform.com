@@ -1,17 +1,14 @@
-import { Route } from '../../../../../core/backframe'
 import { getIndex } from './utils'
 import _ from 'lodash'
 
-const processor = async (req, res) => {
+const listRoute = async (req, res) => {
 
   const q = _.get(req, 'query.$filter.q') || '*'
 
   const index = await getIndex()
 
   const suggestions = await new Promise((resolve, reject) => {
-
     let suggestions = []
-
     index.match({
       beginsWith: q,
       threshold: 1
@@ -20,7 +17,6 @@ const processor = async (req, res) => {
     }).on('end', () => {
       resolve(suggestions)
     })
-
   })
 
   const query = suggestions.map(suggestion => ({
@@ -30,9 +26,7 @@ const processor = async (req, res) => {
   }))
 
   const result = await new Promise((resolve, reject) => {
-
     let records = []
-
     index.search({
       query
     }).on('data', (data) => {
@@ -40,7 +34,6 @@ const processor = async (req, res) => {
     }).on('end', () => {
       resolve(records.map(record => record.document))
     })
-
   })
 
   const records = result.reduce((records, record) => {
@@ -58,23 +51,14 @@ const processor = async (req, res) => {
     if(a.title < b.title) return -1
     return 0
   })
-
-
-
-  return {
+  res.status(200).respond({
     records,
     total: records.length,
     all: records.length,
     limit: 1000,
     skip: 0
-  }
+  })
 
 }
 
-const helpRoute = new Route({
-  method: 'get',
-  path: '/help',
-  processor
-})
-
-export default helpRoute
+export default listRoute

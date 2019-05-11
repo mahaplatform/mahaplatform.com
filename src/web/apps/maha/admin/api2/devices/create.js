@@ -1,15 +1,14 @@
 import { createDevice } from '../../../services/device'
-import { Route } from '../../../../../core/backframe'
 
-const processor = async (req, trx, options) => {
+const createRoute = async (req, res) => {
 
-  const device = await createDevice(req, trx)
+  const device = await createDevice(req, req.trx)
 
   await device.load(['platform_type','device_type','os_name','browser_name'], {
-    transacting: trx
+    transacting: req.trx
   })
 
-  return {
+  res.status(200).respond({
     browser: device.related('browser_name').get('text'),
     device: device.related('device_type').get('text'),
     id: device.get('id'),
@@ -18,15 +17,8 @@ const processor = async (req, trx, options) => {
     push_enabled: device.get('push_enabled'),
     icon: device.get('icon'),
     display_name: device.get('display_name')
-  }
+  })
 
 }
-
-const createRoute = new Route({
-  authenticated: false,
-  method: 'post',
-  path: '',
-  processor
-})
 
 export default createRoute
