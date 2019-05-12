@@ -18,11 +18,8 @@ import reset from './reset'
 import reviews from './reviews'
 import searches from './searches'
 import search from './search'
-import security_questions from './security_questions'
-import session from './session'
 import settings from './settings'
 import signin from './signin'
-import stars from './stars'
 
 const authenticated = new Segment({
   authenticated: true,
@@ -45,10 +42,7 @@ const authenticated = new Segment({
     react,
     searches,
     search,
-    security_questions,
-    session,
-    settings,
-    stars
+    settings
   ]
 })
 
