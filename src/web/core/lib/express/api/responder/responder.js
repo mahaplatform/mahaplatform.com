@@ -12,8 +12,14 @@ class Responder {
     this.res = res
     this.req = res.req
     this.pagination = data.pagination
-    this.data = !_.isNil(data.map) ? data.map(serializer) : serializer(data)
+    this.data = this._serializeData(data, serializer)
     this.filename = this._getFilename()
+  }
+
+  _serializeData(data, serializer) {
+    if(!serializer) return data
+    if(data.map === undefined) return serializer(data)
+    return data.map(serializer)
   }
 
   async render() {

@@ -2,7 +2,6 @@ import SessionSerializer from '../../../serializers/session_serializer'
 import { createUserToken } from '../../../../../core/utils/user_tokens'
 import loadNavigation from '../../../../../core/utils/load_navigation'
 import getUserAccess from '../../../../../core/utils/get_user_access'
-import NotificationType from '../../../models/notification_type'
 import { createSession } from '../../../services/sessions'
 import knex from '../../../../../core/services/knex'
 import Session from '../../../models/session'
@@ -72,14 +71,12 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  session.notification_types = await NotificationType.query(qb => {
-    qb.select(knex.raw('maha_apps.code as appCode, maha_notification_types.code as notificationCode, maha_users_notification_types.*'))
-    qb.where('user_id', req.user.get('id'))
-    qb.innerJoin('maha_notification_types', 'maha_notification_types.id', 'maha_users_notification_types.notification_type_id')
-    qb.innerJoin('maha_apps', 'maha_apps.id', 'maha_notification_types.app_id')
-  }).fetchAll({
-    transacting: req.trx
-  })
+  session.notification_types = await knex('maha_users_notification_types')
+    .transacting(req.trx)
+    .select(knex.raw('maha_apps.code as appCode, maha_notification_types.code as notificationCode, maha_users_notification_types.*'))
+    .where('user_id', req.user.get('id'))
+    .innerJoin('maha_notification_types', 'maha_notification_types.id', 'maha_users_notification_types.notification_type_id')
+    .innerJoin('maha_apps', 'maha_apps.id', 'maha_notification_types.app_id')
 
   const navigation = await loadNavigation(req, req.trx)
 
@@ -102,11 +99,11 @@ const showRoute = async (req, res) => {
         items
       }
     ]
-  }, []).sort((a, b) => {
+  }, []).then(apps => apps.sort((a, b) => {
     if(a.label > b.label) return 1
     if(a.label < b.label) return -1
     return 0
-  })
+  }))
 
   res.status(200).respond(session, (session) => SessionSerializer(req, req.trx, session))
 

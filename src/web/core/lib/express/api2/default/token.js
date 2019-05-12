@@ -26,7 +26,8 @@ const route = async (req, res, next) => {
   const user = await User.where({
     id: data.user_id
   }).fetch({
-    transacting: req.trx
+    transacting: req.trx,
+    withRelated: ['photo']
   })
 
   if(!user) return res.status(401).json({

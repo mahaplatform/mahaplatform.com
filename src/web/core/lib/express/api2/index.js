@@ -9,7 +9,9 @@ import logger from './logger'
 import format from './format'
 import app from './app'
 
-const apifiles = collectObjects('admin/api2/index.js')
+const auth = collectObjects('admin/api2/index.js')
+
+const unauth = collectObjects('admin/api2/unauth.js')
 
 const router = new Router({ mergeParams: true })
 
@@ -19,10 +21,12 @@ router.use(logger)
 
 router.use(format)
 
-router.use(token)
-
-apifiles.map(file => {
+unauth.map(file => {
   router.use(`/admin${file.config.path}`, app(file.config.code), file.default)
+})
+
+auth.map(file => {
+  router.use(`/admin${file.config.path}`, token, app(file.config.code), file.default)
 })
 
 router.use(notFound)
