@@ -12,13 +12,7 @@ const paginationPlugin = function(bookshelf) {
 
     const skip = page && page.skip ? parseInt(page.skip) : DEFAULT_SKIP
 
-    const query = (qb) => {
-      if(limit === 0) return
-      qb.limit(limit)
-      qb.offset(skip)
-    }
-
-    const all = await this.clone().resetQuery().fetchAll({
+    const all = await this.clone().resetQuery().count({
       transacting: options.transacting
     })
 
@@ -26,13 +20,17 @@ const paginationPlugin = function(bookshelf) {
       transacting: options.transacting
     })
 
-    const result = await this.query(query).fetchAll({
+    const result = await this.query(qb => {
+      if(limit === 0) return
+      qb.limit(limit)
+      qb.offset(skip)
+    }).fetchAll({
       withRelated: options.withRelated,
       transacting: options.transacting
     })
 
     result.pagination = {
-      all: all.length,
+      all,
       total: total.length,
       limit,
       skip

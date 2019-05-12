@@ -20,12 +20,9 @@ import searches from './searches'
 import search from './search'
 import security_questions from './security_questions'
 import session from './session'
-import sessions from './sessions'
 import settings from './settings'
 import signin from './signin'
-import signout from './signout'
 import stars from './stars'
-import users from './users'
 
 const authenticated = new Segment({
   authenticated: true,
@@ -49,12 +46,9 @@ const authenticated = new Segment({
     searches,
     search,
     security_questions,
-    sessions,
     session,
     settings,
-    signout,
-    stars,
-    users
+    stars
   ]
 })
 

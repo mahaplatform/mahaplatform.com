@@ -3,7 +3,9 @@ import Assignee from '../../../models/assignee'
 
 const listRoute = async (req, res) => {
 
-  const assignees = await Assignee.filter({
+  const assignees = await Assignee.scope({
+    team: req.team
+  }).filter({
     filter: req.query.$filter,
     searchParams: ['name']
   }).sort({
@@ -14,11 +16,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const data = assignees.map(assignee => {
-    return AssigneeSerializer(req, req.trx, assignee)
-  })
-
-  res.status(200).respond(data)
+  res.status(200).respond(assignees, assignee => AssigneeSerializer(req, req.trx, assignee))
 
 }
 

@@ -1,3 +1,4 @@
+import 'express-async-errors'
 import collectObjects from '../../../utils/collect_objects'
 import notFound from './default/not_found'
 import transaction from './transaction'

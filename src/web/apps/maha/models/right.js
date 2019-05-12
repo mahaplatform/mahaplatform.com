@@ -22,8 +22,6 @@ const Right = new Model({
 
   tableName: 'maha_rights',
 
-  withRelated: 'app',
-
   rules: {
     text: 'required',
     app_id: 'required'

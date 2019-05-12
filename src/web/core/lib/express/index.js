@@ -12,7 +12,6 @@ import emailMiddleware from './email'
 import bodyParser from 'body-parser'
 import api2Middleware from './api2'
 import apiMiddleware from './api'
-import 'express-async-errors'
 import express from 'express'
 import arena from './arena'
 import cors from './cors'
@@ -50,29 +49,27 @@ const middleware = async () => {
 
   server.use('/.well-known', deeplinkMiddleware)
 
-  const router = express.Router({ mergeParams: true })
+  server.use(rollbarMiddleware)
 
-  router.use(rollbarMiddleware)
+  server.use(emailMiddleware)
 
-  router.use(emailMiddleware)
+  server.use(mailboxMiddleware)
 
-  router.use(mailboxMiddleware)
+  server.use(serverMiddleware())
 
-  router.use(serverMiddleware())
+  const api = await apiMiddleware()
 
-  router.use(await cors(), await apiMiddleware())
+  server.use(await cors(), api)
 
-  router.use('/api', await cors(), api2Middleware)
+  server.use('/api', await cors(), api2Middleware)
 
-  router.use('/js/notifications.js', (req, res) => res.sendFile(path.resolve('public','admin','js','notifications.js')))
+  server.use('/js/notifications.js', (req, res) => res.sendFile(path.resolve('public','admin','js','notifications.js')))
 
-  router.use(/^(\/admin)?\/(css|assets|audio|imagecache|images|js)/, (req, res) => res.status(404).send('Cannot locate asset'))
+  server.use(/^(\/admin)?\/(css|assets|audio|imagecache|images|js)/, (req, res) => res.status(404).send('Cannot locate asset'))
 
-  router.use(legacyMiddleware)
+  server.use(legacyMiddleware)
 
-  router.use((req, res) => res.send('not found'))
-
-  server.use(process.env.NODE_ENV !== 'production' ? withLogger(router) : router)
+  server.use((req, res) => res.send('not found'))
 
   return server
 

@@ -3,7 +3,9 @@ import Asset from '../../../models/asset'
 
 const route = async (req, res) => {
 
-  const asset = await Asset.query(qb => {
+  const asset = await Asset.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('id', req.params.id )
   }).fetch({
     withRelated: ['source','user.photo'],
@@ -14,9 +16,7 @@ const route = async (req, res) => {
     message: 'Unable to find asset'
   })
 
-  const data = AssetSerializer(req, req.trx, asset)
-
-  res.status(200).respond(data)
+  res.status(200).respond(asset, (asset) => AssetSerializer(req, req.trx, asset))
 
 }
 

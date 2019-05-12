@@ -7,13 +7,12 @@ class Responder {
   res = null
   pagination = null
   data = null
-  serializer = null
 
-  constructor(res, data) {
+  constructor(res, data, serializer) {
     this.res = res
     this.req = res.req
     this.pagination = data.pagination
-    this.data = data
+    this.data = !_.isNil(data.map) ? data.map(serializer) : serializer(data)
     this.filename = this._getFilename()
   }
 

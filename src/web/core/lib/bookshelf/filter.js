@@ -4,9 +4,8 @@ import _ from 'lodash'
 const filterPlugin = function(bookshelf) {
 
   const filter = function(options) {
-    return this.query(qb => {
-      if(options.filter) applyFilters(qb, options.filter, options)
-    })
+    if(!options.filter) return this
+    return this.query(qb => applyFilters(qb, options.filter, options))
   }
 
   const applyFilters = (qb, $filters, options) => {
@@ -47,6 +46,12 @@ const filterPlugin = function(bookshelf) {
     if(name === '$and') return applyAnd(qb, filter, options)
     if(name === '$or') return applyOr(qb, filter, options)
     if(name === 'q') return filterSearch(qb, filter, options)
+    if(options.filterParams && !_.includes(options.filterParams, name)) {
+      throw new Error(`cannot filter on ${name}`)
+    }
+    if(options.virtualFilters && options.virtualFilters[name]) {
+      return options.virtualFilters[name](qb, filter)
+    }
     _filterColumn(qb, name, filter, options)
   }
 

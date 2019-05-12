@@ -5,9 +5,7 @@ const processRoute = async (req, res) => {
 
   const asset = await processAsset(req.params.id)
 
-  const data = AssetSerializer(req, req.trx, asset)
-
-  res.status(200).respond(data)
+  res.status(200).respond(asset, (asset) => AssetSerializer(req, req.trx, asset))
 
 }
 

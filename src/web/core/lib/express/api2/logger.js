@@ -9,7 +9,7 @@ const logger = (req, res, next) => {
   const sql = []
 
   const startTime = process.hrtime()
-  
+
   req.trx.on('query', (query) => {
     if(!query.__knexQueryUid) return
     sql.push({

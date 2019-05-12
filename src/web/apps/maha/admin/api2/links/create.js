@@ -5,9 +5,7 @@ const showRoute = async (req, res) => {
 
   const link = await findOrCreateByUrl(req.body.url, res.trx)
 
-  const data = LinkSerializer(req, req.trx, link)
-
-  res.status(200).respond(data)
+  res.status(200).respond(link, (link) => LinkSerializer(req, req.trx, link))
 
 }
 

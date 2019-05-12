@@ -3,7 +3,9 @@ import Asset from '../../../models/asset'
 
 const listRoute = async (req, res) => {
 
-  const assets = await Asset.filter({
+  const assets = await Asset.scope({
+    team: req.team
+  }).filter({
     filter: req.query.$filter,
     searchParams: ['first_name','last_name','email']
   }).sort({
@@ -14,11 +16,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const data = assets.map(asset => {
-    return AssetSerializer(req, req.trx, asset)
-  })
-
-  res.status(200).respond(data)
+  res.status(200).respond(assets, (asset) => AssetSerializer(req, req.trx, asset))
 
 }
 

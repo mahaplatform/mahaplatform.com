@@ -3,7 +3,9 @@ import request from 'request'
 
 const downloadRoute = async (req, res) => {
 
-  const asset = await Asset.where({
+  const asset = await Asset.scope({
+    team: req.team
+  }).where({
     id: req.params.id
   }).fetch({
     transacting: req.trx
