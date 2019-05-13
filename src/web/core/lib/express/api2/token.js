@@ -1,8 +1,8 @@
-import Session from '../../../../../apps/maha/models/session'
-import Device from '../../../../../apps/maha/models/device'
-import User from '../../../../../apps/maha/models/user'
-import Rollbar from '../../../../services/rollbar'
-import { decode } from '../../../../services/jwt'
+import Session from '../../../../apps/maha/models/session'
+import Device from '../../../../apps/maha/models/device'
+import User from '../../../../apps/maha/models/user'
+import Rollbar from '../../../services/rollbar'
+import { decode } from '../../../services/jwt'
 import moment from 'moment'
 
 const getToken = (req, res) => {
@@ -18,12 +18,14 @@ const route = async (req, res, next) => {
   const token = getToken(req, res)
 
   if(!token) return res.status(401).json({
+    status: 401,
     message: 'No token'
   })
 
   const { err, data } = decode(token)
 
   if(err && err === 'jwt expired') return res.status(401).json({
+    status: 401,
     message: 'Expired token'
   })
 
@@ -35,6 +37,7 @@ const route = async (req, res, next) => {
   })
 
   if(!user) return res.status(401).json({
+    status: 401,
     message: 'Invalid user'
   })
 

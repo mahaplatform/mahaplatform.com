@@ -1,8 +1,8 @@
-import { testHandler } from '../../../../utils/test'
+import { testHandler } from '../../../utils/test'
 import { expect } from 'chai'
 import error from './error'
 
-describe('src/web/core/lib/express/api/default/error', () => {
+describe('src/web/core/lib/express/api/error', () => {
 
   it('responds with a custom error', async () => {
 

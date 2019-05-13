@@ -8,7 +8,7 @@ const emailRoute = async (req, res) => {
   }).run(req.body)
 
   if(!req.body.email) return res.status(422).json({
-    status: 422,
+    code: 422,
     message: 'Please enter your email'
   })
 

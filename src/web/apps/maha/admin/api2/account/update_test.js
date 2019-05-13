@@ -2,6 +2,6 @@ import { testHandler } from '../../../../../core/utils/test'
 import { expect } from 'chai'
 import update from './update'
 
-describe('src/server/api/account/update', () => {
+describe('src/web/apps/maha/admin/api/account/update', () => {
 
 })

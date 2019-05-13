@@ -10,7 +10,7 @@ const passwordRoute = async (req, res) => {
   }).run(req.body)
 
   if(!req.body.password) return res.status(422).json({
-    status: 422,
+    code: 422,
     message: 'Please enter your password'
   })
 
@@ -22,12 +22,12 @@ const passwordRoute = async (req, res) => {
   })
 
   if(!user) return res.status(422).json({
-    status: 422,
+    code: 422,
     message: 'Unable to find this user'
   })
 
   if(!user.authenticate(req.body.password)) return res.status(422).json({
-    status: 422,
+    code: 422,
     message: 'Invalid password'
   })
 

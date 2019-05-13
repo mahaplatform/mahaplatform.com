@@ -1,6 +1,6 @@
 import { testHandler } from '../../../../../../core/utils/test'
 import { expect } from 'chai'
-import security from './security'
+import show from './show'
 
 describe('src/web/apps/maha/admin/api/account/notifications/show', () => {
 

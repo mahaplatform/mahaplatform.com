@@ -3,7 +3,7 @@ import Team from '../../../models/team'
 const teamRoute = async (req, res) => {
 
   if(!req.body.subdomain) return res.status(422).json({
-    status: 422,
+    code: 422,
     message: 'Please enter your team\'s domain'
   })
 
@@ -15,7 +15,7 @@ const teamRoute = async (req, res) => {
   })
 
   if(!team) return res.status(422).json({
-    status: 422,
+    code: 422,
     message: 'Unable to find this team'
   })
 

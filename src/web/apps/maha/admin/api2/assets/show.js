@@ -13,6 +13,7 @@ const route = async (req, res) => {
   })
 
   if(!asset) return res.status(404).json({
+    code: 404,
     message: 'Unable to find asset'
   })
 

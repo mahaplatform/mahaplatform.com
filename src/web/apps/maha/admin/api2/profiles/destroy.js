@@ -13,6 +13,7 @@ const destroyRoute = async (req, res) => {
   })
 
   if(!profile) return res.status(404).json({
+    code: 404,
     message: 'Unable to find profile'
   })
 

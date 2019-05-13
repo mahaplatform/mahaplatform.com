@@ -19,7 +19,7 @@ const lockoutRoute = async (req, res) => {
   })
 
   if(!user) return res.status(422).json({
-    status: 422,
+    code: 422,
     message: 'Unable to find this user'
   })
 

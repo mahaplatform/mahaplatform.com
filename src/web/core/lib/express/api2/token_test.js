@@ -1,9 +1,9 @@
 import { testHandler } from '../../../../utils/test'
-import { encode } from '../../../../services/jwt'
+import { encode } from '../../../services/jwt'
 import { expect } from 'chai'
 import token from './token'
 
-describe('src/web/core/lib/express/api/default/token', () => {
+describe('src/web/core/lib/express/api/token', () => {
 
   it('fails with no token', async () => {
 
@@ -59,6 +59,8 @@ describe('src/web/core/lib/express/api/default/token', () => {
     }
 
     const res = await testHandler(token, req)
+
+    console.log(res.json().message)
 
     expect(res.status()).to.be.null
 

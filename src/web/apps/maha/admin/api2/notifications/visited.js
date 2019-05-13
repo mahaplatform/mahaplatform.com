@@ -15,6 +15,7 @@ const seenRoute = async (req, res) => {
   })
 
   if(!notification) return res.status(404).json({
+    code: 404,
     message: 'Unable to find notification'
   })
 

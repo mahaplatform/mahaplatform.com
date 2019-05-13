@@ -1,18 +1,13 @@
 import 'express-async-errors'
 import './responder'
-import collectObjects from '../../../utils/collect_objects'
-import notFound from './default/not_found'
+import notFound from './not_found'
+import unauthorized from './unauthorized'
 import transaction from './transaction'
-import token from './default/token'
-import error from './default/error'
+import authorized from './authorized'
+import error from './error'
 import { Router } from 'express'
 import logger from './logger'
 import format from './format'
-import app from './app'
-
-const auth = collectObjects('admin/api2/index.js')
-
-const unauth = collectObjects('admin/api2/unauth.js')
 
 const router = new Router({ mergeParams: true })
 
@@ -22,13 +17,9 @@ router.use(logger)
 
 router.use(format)
 
-unauth.map(file => {
-  router.use(`/admin${file.config.path}`, app(file.config.code), file.default)
-})
+router.use('/admin', unauthorized)
 
-auth.map(file => {
-  router.use(`/admin${file.config.path}`, token, app(file.config.code), file.default)
-})
+router.use('/admin', authorized)
 
 router.use(notFound)
 
