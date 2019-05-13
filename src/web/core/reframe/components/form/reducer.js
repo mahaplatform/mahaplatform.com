@@ -139,7 +139,7 @@ export default (state = INITIAL_STATE, action) => {
       ...state,
       status: 'failure',
       errors: action.result.errors,
-      message: action.result.meta.message
+      message: action.result.message
     }
 
   case 'VALIDATE_FORM':

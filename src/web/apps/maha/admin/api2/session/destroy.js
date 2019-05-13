@@ -7,7 +7,7 @@ const destroyRoute = async (req, res) => {
     user_id: req.user.get('id')
   }).fetch({ transacting: req.trx })
 
-  session.save({
+  await session.save({
     is_active: false
   }, { patch: true, transacting: req.trx })
 

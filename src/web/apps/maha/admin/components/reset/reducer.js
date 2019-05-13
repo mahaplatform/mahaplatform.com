@@ -49,7 +49,7 @@ export default (state = INITIAL_STATE, action) => {
     return {
       ...state,
       status: 'failure',
-      error: action.result.meta.message
+      error: action.result.message
     }
 
   case 'SECURITY_SUCCESS':

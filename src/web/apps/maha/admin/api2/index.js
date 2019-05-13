@@ -2,14 +2,12 @@ import security_questions from './security_questions'
 import notifications from './notifications'
 import attachments from './attachments'
 import assignees from './assignees'
-import activate from './activate'
 import sessions from './sessions'
 import profiles from './profiles'
 import { Router } from 'express'
 import sources from './sources'
 import account from './account'
 import devices from './devices'
-import signout from './signout'
 import session from './session'
 import assets from './assets'
 import users from './users'
@@ -20,8 +18,6 @@ import help from './help'
 const router = new Router({ mergeParams: true })
 
 router.use('/account', account)
-
-router.use('/activate', activate)
 
 router.use('/assets', assets)
 
@@ -42,8 +38,6 @@ router.use('/profiles', profiles)
 router.use('/sessions', sessions)
 
 router.use('/session', session)
-
-router.use('/signout', signout)
 
 router.use('/security_questions', security_questions)
 

@@ -9,7 +9,6 @@ import reviews from './reviews'
 import searches from './searches'
 import search from './search'
 import settings from './settings'
-import signin from './signin'
 
 const authenticated = new Segment({
   authenticated: true,
@@ -29,7 +28,6 @@ const authenticated = new Segment({
 const api = new Segment({
   routes: [
     authenticated,
-    signin,
     reset
   ]
 })
