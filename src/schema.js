@@ -1525,6 +1525,261 @@ const schema = {
       table.foreign('supervisor_id').references('maha_users.id')
     })
 
+
+    await knex.raw(`
+      create view chat_results AS
+      select results.type,
+      results.team_id,
+      results.channel_id,
+      results.message_id,
+      results.user_id,
+      results.text,
+      results.date
+      from ( select 'channel'::text as type,
+      chat_channels.team_id,
+      chat_channels.id as channel_id,
+      null::integer as message_id,
+      chat_subscriptions.user_id,
+      concat(chat_channels.name, ' ', chat_channels.subscriber_list) as text,
+      chat_channels.last_message_at as date
+      from (chat_channels
+      join chat_subscriptions on ((chat_subscriptions.channel_id = chat_channels.id)))
+      where (chat_channels.is_archived = false)
+      union
+      select 'message'::text as type,
+      chat_messages.team_id,
+      null::integer as channel_id,
+      chat_messages.id as message_id,
+      chat_subscriptions.user_id,
+      chat_messages.text,
+      chat_messages.created_at as date
+      from ((chat_messages
+      join chat_channels on ((chat_channels.id = chat_messages.channel_id)))
+      join chat_subscriptions on ((chat_subscriptions.channel_id = chat_channels.id)))
+      where ((chat_channels.is_archived = false) and (chat_messages.message_type_id = 2))) results
+      order by results.type, results.date;
+    `)
+
+    await knex.raw(`
+      create view drive_items AS
+      select row_number() over (order by items.priority, items.label) as id,
+      items.priority,
+      items.code,
+      items.item_id,
+      items.team_id,
+      items.type,
+      items.folder_id,
+      items.asset_id,
+      items.label,
+      items.deleted_at,
+      items.created_at,
+      items.updated_at
+      from ( select 0 as priority,
+      drive_folders.code,
+      drive_folders.id as item_id,
+      drive_folders.team_id,
+      'folder'::text as type,
+      drive_folders.parent_id as folder_id,
+      null::integer as asset_id,
+      drive_folders.label,
+      drive_folders.deleted_at,
+      drive_folders.created_at,
+      drive_folders.updated_at
+      from drive_folders
+      union
+      select 1 as priority,
+      drive_files.code,
+      drive_files.id as item_id,
+      drive_files.team_id,
+      'file'::text as type,
+      drive_files.folder_id,
+      drive_versions.asset_id,
+      drive_files.file_name as label,
+      drive_files.deleted_at,
+      drive_files.created_at,
+      drive_files.updated_at
+      from ((drive_files
+      join drive_versions on ((drive_versions.id = drive_files.version_id)))
+      join maha_assets on ((maha_assets.id = drive_versions.asset_id)))) items;
+    `)
+
+    await knex.raw(`
+      create view drive_items_access AS
+      select distinct on (drive_access.code, maha_users.id) drive_access.code,
+      maha_users.id as user_id,
+      drive_access.access_type_id
+      from ((drive_access
+      left join maha_users_groups on ((maha_users_groups.group_id = drive_access.group_id)))
+      join maha_users on (((drive_access.is_everyone = true) or (maha_users.id = drive_access.user_id) or (maha_users.id = maha_users_groups.user_id))))
+      order by drive_access.code, maha_users.id, drive_access.access_type_id;
+    `)
+
+    await knex.raw(`
+      create view drive_starred AS
+      select drive_items.id,
+      drive_items.priority,
+      drive_items.code,
+      drive_items.item_id,
+      drive_items.team_id,
+      drive_items.type,
+      drive_items.folder_id,
+      drive_items.asset_id,
+      drive_items.label,
+      drive_items.deleted_at,
+      drive_items.created_at,
+      drive_items.updated_at,
+      maha_stars.user_id as starrer_id
+      from (drive_items
+      join maha_stars on ((((maha_stars.starrable_type)::text = concat('drive_', drive_items.type, 's')) and (maha_stars.starrable_id = drive_items.item_id))));
+    `)
+
+    await knex.raw(`
+      create view expenses_items AS
+      select row_number() over (order by items.type, items.item_id) as id,
+      items.item_id,
+      items.team_id,
+      items.import_id,
+      items.type,
+      items.date,
+      items.user_id,
+      items.project_id,
+      items.expense_type_id,
+      items.description,
+      items.vendor_id,
+      items.amount,
+      items.account_id,
+      items.status_id,
+      items.batch_id,
+      items.created_at
+      from ( select expenses_advances.id as item_id,
+      expenses_advances.team_id,
+      maha_import_items.import_id,
+      'advance'::text as type,
+      expenses_advances.date_needed as date,
+      expenses_advances.user_id,
+      expenses_advances.project_id,
+      expenses_advances.expense_type_id,
+      expenses_advances.description,
+      null::integer as vendor_id,
+      expenses_advances.amount,
+      null::integer as account_id,
+      expenses_advances.status_id,
+      expenses_advances.batch_id,
+      expenses_advances.created_at
+      from ((expenses_advances
+      left join maha_import_items on ((maha_import_items.object_id = expenses_advances.id)))
+      left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'expenses_advances'::text))))
+      union
+      select expenses_expenses.id as item_id,
+      expenses_expenses.team_id,
+      maha_import_items.import_id,
+      'expense'::text as type,
+      expenses_expenses.date,
+      expenses_expenses.user_id,
+      expenses_expenses.project_id,
+      expenses_expenses.expense_type_id,
+      expenses_expenses.description,
+      expenses_expenses.vendor_id,
+      expenses_expenses.amount,
+      expenses_expenses.account_id,
+      expenses_expenses.status_id,
+      expenses_expenses.batch_id,
+      expenses_expenses.created_at
+      from ((expenses_expenses
+      left join maha_import_items on ((maha_import_items.object_id = expenses_expenses.id)))
+      left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'expenses_expenses'::text))))
+      union
+      select expenses_trips.id as item_id,
+      expenses_trips.team_id,
+      maha_import_items.import_id,
+      'trip'::text as type,
+      expenses_trips.date,
+      expenses_trips.user_id,
+      expenses_trips.project_id,
+      expenses_trips.expense_type_id,
+      expenses_trips.description,
+      null::integer as vendor_id,
+      expenses_trips.amount,
+      null::integer as account_id,
+      expenses_trips.status_id,
+      expenses_trips.batch_id,
+      expenses_trips.created_at
+      from ((expenses_trips
+      left join maha_import_items on ((maha_import_items.object_id = expenses_trips.id)))
+      left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'expenses_trips'::text))))
+      union
+      select expenses_checks.id as item_id,
+      expenses_checks.team_id,
+      maha_import_items.import_id,
+      'check'::text as type,
+      expenses_checks.date_needed as date,
+      expenses_checks.user_id,
+      expenses_checks.project_id,
+      expenses_checks.expense_type_id,
+      expenses_checks.description,
+      expenses_checks.vendor_id,
+      expenses_checks.amount,
+      null::integer as account_id,
+      expenses_checks.status_id,
+      expenses_checks.batch_id,
+      expenses_checks.created_at
+      from ((expenses_checks
+      left join maha_import_items on ((maha_import_items.object_id = expenses_checks.id)))
+      left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'expenses_checks'::text))))
+      union
+      select expenses_reimbursements.id as item_id,
+      expenses_reimbursements.team_id,
+      maha_import_items.import_id,
+      'reimbursement'::text as type,
+      expenses_reimbursements.date,
+      expenses_reimbursements.user_id,
+      expenses_reimbursements.project_id,
+      expenses_reimbursements.expense_type_id,
+      expenses_reimbursements.description,
+      expenses_reimbursements.vendor_id,
+      expenses_reimbursements.amount,
+      null::integer as account_id,
+      expenses_reimbursements.status_id,
+      expenses_reimbursements.batch_id,
+      expenses_reimbursements.created_at
+      from ((expenses_reimbursements
+      left join maha_import_items on ((maha_import_items.object_id = expenses_reimbursements.id)))
+      left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'expenses_reimbursements'::text))))) items;
+    `)
+
+    await knex.raw(`
+      create view maha_assignees AS
+      select row_number() over (order by assignees.priority, assignees.name) as id,
+      assignees.priority,
+      assignees.team_id,
+      assignees.name,
+      assignees.is_everyone,
+      assignees.user_id,
+      assignees.group_id
+      from ( select 1 as priority,
+      maha_teams.id as team_id,
+      'everyone'::character varying as name,
+      true as is_everyone,
+      null::integer as user_id,
+      null::integer as group_id
+      from maha_teams
+      union
+      select 2 as priority,
+      maha_groups.team_id,
+      maha_groups.title as name,
+      false as is_everyone,
+      null::integer as user_id,
+      maha_groups.id as group_id
+      from maha_groups
+      union
+      select 3 as priority,
+      maha_users.team_id,
+      maha_users.last_name as name,
+      false as is_everyone,
+      maha_users.id as user_id,
+      null::integer as group_id
+      from maha_users) assignees;
+    `)
   }
 
 }

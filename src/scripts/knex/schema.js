@@ -28,9 +28,10 @@ export const schemaDump = async (flags, args) => {
   const constraints = await _getConstraints()
   const foreign_keys = _.groupBy(constraints.foreign, (constraint) => constraint.table)
   const tables = await _getTables(constraints)
+  const views = await _getViews()
   const template = fs.readFileSync(path.join(__dirname, 'schema.js.ejs'), 'utf8')
   const platform = _.camelCase(path.basename(path.resolve()))
-  const data = ejs.render(template, { platform, tables, foreign_keys })
+  const data = ejs.render(template, { platform, tables, views, foreign_keys })
   fs.writeFileSync(path.join('src', 'schema.js'), data)
 }
 
@@ -56,6 +57,14 @@ const _getTables = async (constraints) => {
       }))
     }
   })
+}
+
+const _getViews = async () => {
+  const views = await knex.raw('select * from information_schema.views where table_schema=\'public\' order by table_name')
+  return views.rows.map((view) => ({
+    name: view.table_name,
+    definition: view.view_definition.replace(/[\s\t]{2,}/g, '\n      ').toLowerCase()
+  }))
 }
 
 const _getConstraints = async () => {

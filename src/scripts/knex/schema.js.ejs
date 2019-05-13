@@ -19,6 +19,13 @@ const schema = {
 <% } -%>
     })
 <% } %>
+<% for(var i = 0; i < views.length; i++) { %>
+<% view = views[i] -%>
+    await knex.raw(`
+      create view <%= view.name %> AS
+     <%- view.definition %>
+    `)
+<% } -%>
   }
 
 }
