@@ -10,7 +10,6 @@ import microsoft from './sources/microsoft'
 import imports from './imports'
 import importItems from './import_items'
 import instagram from './sources/instagram'
-import notifications from './notifications'
 import profiles from './profiles'
 import sources from './sources'
 import react from './react'
@@ -35,7 +34,6 @@ const authenticated = new Segment({
     imports,
     importItems,
     instagram,
-    notifications,
     reviews,
     sources,
     profiles,

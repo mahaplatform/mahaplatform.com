@@ -1,4 +1,4 @@
-import socket from '../../../../../core/services/emitter'
+import { message } from '../../../../../core/services/routes/emitter'
 import Device from '../../../models/device'
 
 const updateRoute = async (req, res) => {
@@ -18,9 +18,9 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await socket.in(`/admin/devices/${device.get('id')}`).emit('message', {
-    action: 'device',
-    data: null
+  await message(req, {
+    channel: `/admin/devices/${device.get('id')}`,
+    action: 'device'
   })
 
   await device.load(['sessions'], {
@@ -29,9 +29,9 @@ const updateRoute = async (req, res) => {
 
   await Promise.map(device.related('sessions').toArray(), async (session) => {
 
-    await socket.in(`/admin/users/${session.get('user_id')}`).emit('message', {
-      action: 'session',
-      data: null
+    await message(req, {
+      channel: `/admin/users/${session.get('user_id')}`,
+      action: 'session'
     })
 
   })

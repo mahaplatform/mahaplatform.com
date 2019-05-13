@@ -105,7 +105,9 @@ const showRoute = async (req, res) => {
     return 0
   }))
 
-  res.status(200).respond(session, (session) => SessionSerializer(req, req.trx, session))
+  res.status(200).respond(session, (session) => {
+    return SessionSerializer(req, req.trx, session)
+  })
 
 }
 

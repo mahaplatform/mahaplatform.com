@@ -1,4 +1,5 @@
 import security_questions from './security_questions'
+import notifications from './notifications'
 import attachments from './attachments'
 import assignees from './assignees'
 import activate from './activate'
@@ -31,6 +32,8 @@ router.use('/devices', devices)
 router.use('/help', help)
 
 router.use('/links', links)
+
+router.use('/notifications', notifications)
 
 router.use('/sessions', sessions)
 

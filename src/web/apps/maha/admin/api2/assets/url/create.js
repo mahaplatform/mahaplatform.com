@@ -11,7 +11,9 @@ const avatarRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(asset, (asset) => AssetSerializer(req, req.trx, asset))
+  res.status(200).respond(asset, (asset) => {
+    return AssetSerializer(req, req.trx, asset)
+  })
 
 }
 

@@ -1,4 +1,4 @@
-import socket from '../../../../../core/services/emitter'
+import { message } from '../../../../../core/services/routes/emitter'
 import Star from '../../../models/star'
 
 const fetchStar = async (req) => {
@@ -33,8 +33,8 @@ const updateRoute = async (req, res) => {
 
   const star = await fetchStar(req)
 
-  await socket.in('/admin/stars').emit('message', {
-    target: '/admin/stars',
+  await message(req, {
+    channel: '/admin/stars',
     action: 'update_stars',
     data: {
       table: req.params.starrable_type,
