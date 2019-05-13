@@ -40,7 +40,7 @@ class Items extends React.Component {
     const { network, files } = this.props
     const file = _.find(files, { id: photo.id, network })
     if(file) return this.props.onRemoveFile(file)
-    this.props.onCreate(`/api/admin/${network}/photos`, {
+    this.props.onCreate(`/api/admin/sources/${network}/photos`, {
       id: photo.id,
       name: `${photo.id}.jpg`,
       network,

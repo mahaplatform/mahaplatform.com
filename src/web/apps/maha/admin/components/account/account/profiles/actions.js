@@ -10,7 +10,7 @@ export const fetchProfiles = () => ({
 export const fetchSources = () => ({
   type: 'API_REQUEST',
   method: 'GET',
-  endpoint: '/api/admin/profiles/sources',
+  endpoint: '/api/admin/sources',
   request: 'FETCH_SOURCES_REQUEST',
   success: 'FETCH_SOURCES_SUCCESS',
   failure: 'FETCH_SOURCES_FAILURE'
@@ -20,7 +20,7 @@ export const authorize = (service) => ({
   type: 'API_REQUEST',
   method: 'GET',
   meta: { service },
-  endpoint: `/api/admin/${service}/authorize`,
+  endpoint: `/api/admin/sources/${service}/authorize`,
   request: 'AUTHORIZE_REQUEST',
   success: 'AUTHORIZE_SUCCESS',
   failure: 'AUTHORIZE_FAILURE'

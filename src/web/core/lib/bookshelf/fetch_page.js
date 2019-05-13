@@ -12,7 +12,7 @@ const paginationPlugin = function(bookshelf) {
 
     const skip = page && page.skip ? parseInt(page.skip) : DEFAULT_SKIP
 
-    const all = await this.clone().resetQuery().applyScope().count({
+    const all = await this.clone().resetQuery().count({
       transacting: options.transacting
     }).then(result => parseInt(result))
 

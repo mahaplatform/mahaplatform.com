@@ -36,7 +36,7 @@ class Authorized extends React.Component {
     const { network } = this.props
     this.props.onCheck(network)
     this.context.network.subscribe([
-      { target: `/admin/${network}/authorized`, action: 'refresh', handler: this._handleAuthorized }
+      { target: `/admin/sources/${network}/authorized`, action: 'refresh', handler: this._handleAuthorized }
     ])
   }
 
@@ -50,7 +50,7 @@ class Authorized extends React.Component {
   componentWillUnmount() {
     const { network } = this.props
     this.context.network.unsubscribe([
-      { target: `/admin/${network}/authorized`, action: 'refresh', handler: this._handleAuthorized }
+      { target: `/admin/sources/${network}/authorized`, action: 'refresh', handler: this._handleAuthorized }
     ])
   }
 

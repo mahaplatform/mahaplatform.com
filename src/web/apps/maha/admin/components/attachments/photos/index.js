@@ -55,7 +55,7 @@ class Photos extends React.Component {
       text: 'There are no files that matched your query'
     }
     return {
-      endpoint: `/api/admin/${network}/photos`,
+      endpoint: `/api/admin/sources/${network}/photos`,
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
       layout: (props) => <Items { ...this._getItems() } { ...props } />

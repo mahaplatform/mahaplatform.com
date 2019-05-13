@@ -105,6 +105,10 @@ const clientWatch = async () => {
         ...proxies,
         `/admin/*.${ext}`
       ], []),
+      ...'token,preview'.split(',').reduce((proxies, path) => [
+        ...proxies,
+        `/admin/*/${path}`
+      ], []),
       ...'audio,css,fonts,images,js'.split(',').reduce((proxies, path) => [
         ...proxies,
         `/admin/${path}/*`

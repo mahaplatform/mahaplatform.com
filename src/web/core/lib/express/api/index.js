@@ -15,7 +15,6 @@ import { Segment } from '../../../backframe'
 import Backframe from '../../../backframe'
 import app from './app'
 import { Router } from 'express'
-import './responder'
 
 const _segment = async (portal, prefix, authenticated) => {
   const apiFiles = collectObjects(`${portal}/api`)

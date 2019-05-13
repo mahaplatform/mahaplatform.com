@@ -53,7 +53,7 @@ class Folder extends React.Component {
       text: 'There are no items in this folder'
     }
     return {
-      endpoint: `/api/admin/${network}/files`,
+      endpoint: `/api/admin/sources/${network}/files`,
       filter,
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,

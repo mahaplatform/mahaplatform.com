@@ -4,7 +4,9 @@ import attachments from './attachments'
 import assignees from './assignees'
 import activate from './activate'
 import sessions from './sessions'
+import profiles from './profiles'
 import { Router } from 'express'
+import sources from './sources'
 import account from './account'
 import devices from './devices'
 import signout from './signout'
@@ -35,6 +37,8 @@ router.use('/links', links)
 
 router.use('/notifications', notifications)
 
+router.use('/profiles', profiles)
+
 router.use('/sessions', sessions)
 
 router.use('/session', session)
@@ -44,6 +48,8 @@ router.use('/signout', signout)
 router.use('/security_questions', security_questions)
 
 router.use('/stars', stars)
+
+router.use('/sources', sources)
 
 router.use('/users', users)
 
