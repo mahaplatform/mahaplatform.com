@@ -3,12 +3,7 @@ import comments from './comments'
 import fields from './fields'
 import imports from './imports'
 import importItems from './import_items'
-import react from './react'
-import reset from './reset'
 import reviews from './reviews'
-import searches from './searches'
-import search from './search'
-import settings from './settings'
 
 const authenticated = new Segment({
   authenticated: true,
@@ -17,18 +12,13 @@ const authenticated = new Segment({
     fields,
     imports,
     importItems,
-    reviews,
-    react,
-    searches,
-    search,
-    settings
+    reviews
   ]
 })
 
 const api = new Segment({
   routes: [
-    authenticated,
-    reset
+    authenticated
   ]
 })
 

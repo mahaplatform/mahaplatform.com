@@ -1,6 +1,14 @@
-const LikeSerializer = (req, trx, result) => ({
+const ReactionSerializer = (req, trx, result) => ({
 
-  id: result.get('id'),
+  id: result.related('user').get('id'),
+
+  full_name: result.related('user').get('full_name'),
+
+  initials: result.related('user').get('initials'),
+
+  photo: result.related('user').related('photo').get('path'),
+
+  type: result.get('type'),
 
   created_at: result.get('created_at'),
 
@@ -8,4 +16,4 @@ const LikeSerializer = (req, trx, result) => ({
 
 })
 
-export default LikeSerializer
+export default ReactionSerializer

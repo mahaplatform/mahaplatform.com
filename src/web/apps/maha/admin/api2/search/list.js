@@ -1,15 +1,14 @@
-import { Route } from '../../../../../core/backframe'
 import collectObjects from '../../../../../core/utils/collect_objects'
 
 const searchFiles = collectObjects('admin/search.js')
 
-const processor = async (req, trx, options) => {
+const searchRoute = async (req, res) => {
 
   const query = req.query.q.toLowerCase()
 
   const term = `%${query.replace(' ', '%')}%`
 
-  return await Promise.reduce(searchFiles, async (combined, searchFile) => {
+  const data = await Promise.reduce(searchFiles, async (combined, searchFile) => {
 
     const models = searchFile.default
 
@@ -22,14 +21,11 @@ const processor = async (req, trx, options) => {
       const vector = config.fields.join(' || \' \' || ')
 
       const result = await config.model.query(qb => {
-
-        qb.where({ team_id: req.team.get('id') })
-
+        qb.where('team_id', req.team.get('id'))
         qb.whereRaw(`lower(${vector}) LIKE '${term}'`)
-
       }).fetchAll({
         withRelated: config.withRelated,
-        transacting: trx
+        transacting: req.trx
       })
 
       if(result.length === 0) return results
@@ -52,12 +48,8 @@ const processor = async (req, trx, options) => {
 
   }, {})
 
-}
+  res.status(200).respond(data)
 
-const searchRoute = new Route({
-  method: 'get',
-  path: '/search',
-  processor
-})
+}
 
 export default searchRoute
