@@ -98,6 +98,8 @@ export const lookupUrl = async (url, trx) => {
 
 export const extractAttachments = async (attachable, text, trx) => {
 
+  text = text.replace('<p>','').replace('</p>', '\r\n')
+
   const urls = getUrls(text, {
     sortQueryParameters: false,
     removeTrailingSlash: true,

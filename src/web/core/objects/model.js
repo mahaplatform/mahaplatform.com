@@ -57,11 +57,6 @@ class Model {
         return this.morphMany(Listening, 'listenable')
       },
 
-      reviews: function() {
-        const Review = require('../../apps/maha/models/review').default
-        return this.morphMany(Review, 'reviewable')
-      },
-
       reactions: function() {
         const Reaction = require('../../apps/maha/models/reaction').default
         return this.morphMany(Reaction, 'reactable').query(qb => {

@@ -54,8 +54,6 @@ export Logo from './maha/admin/components/logo'
 
 export { Page } from './maha/admin/components/page'
 
-// export Reviews from './maha/admin/components/reviews'
-
 export RichText from './maha/admin/components/richtext'
 
 export Uploader from './maha/admin/components/uploader'

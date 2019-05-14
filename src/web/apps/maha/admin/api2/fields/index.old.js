@@ -8,7 +8,9 @@ const defaultParams = async (req, trx, options) => {
 
   const delta = await Field.query(qb => {
     defaultQuery(req, trx, qb, options)
-  }).count('*', { transacting: trx })
+  }).count('*', {
+    transacting: trx
+  })
 
   return {
     parent_type: req.params.parent_type,
@@ -18,14 +20,12 @@ const defaultParams = async (req, trx, options) => {
     config: {},
     is_mutable: true
   }
+
 }
 
 const defaultQuery = (req, trx, qb, options) => {
-
   qb.where('maha_fields.parent_type', req.params.parent_type)
-
   qb.where('maha_fields.parent_id', req.params.parent_id)
-
 }
 
 const refresh = {

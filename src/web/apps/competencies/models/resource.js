@@ -1,6 +1,5 @@
 import Model from '../../../core/objects/model'
 import Asset from '../../maha/models/asset'
-import Review from '../../maha/models/review'
 import Commitment from './commitment'
 import Competency from './competency'
 
@@ -26,10 +25,6 @@ const Resource = new Model({
 
   asset() {
     return this.belongsTo(Asset, 'asset_id')
-  },
-
-  reviews() {
-    return this.morphMany(Review, 'reviewable')
   },
 
   commitments() {

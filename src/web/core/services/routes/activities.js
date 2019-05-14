@@ -4,13 +4,11 @@ import socket from '../emitter'
 
 export const activity = async (req, activity) => {
 
-  const story_id = await _findOrCreateStoryId(activity.story)
-
   await Activity.forge({
     team_id: req.user.get('team_id'),
     user_id: req.user.get('id'),
     app_id: req.app ? req.app.get('id') : null,
-    story_id,
+    story_id: await _findOrCreateStoryId(req, activity.story),
     object_owner_id: _getObjectProperty(activity, 'object_owner_id'),
     object_table: _getObjectProperty(activity, 'object_table', 'tableName'),
     object_text: _getObjectProperty(activity, 'object_text'),
@@ -29,11 +27,18 @@ export const activity = async (req, activity) => {
 
 }
 
-const _findOrCreateStoryId = async (text, trx) => {
+const _findOrCreateStoryId = async (req, text) => {
+
   if(!text) return null
-  const findStory = await Story.where({ text }).fetch({ transacting: trx })
-  const story = findStory || await Story.forge({ text }).save(null, { transacting: trx })
-  return story.id
+
+  const story = await Story.fetchOrCreate({
+    text
+  }, {
+    transacting: req.trx
+  })
+
+  return story.get('id')
+
 }
 
 const _getObjectProperty = (activity, key, virtualKey) => {

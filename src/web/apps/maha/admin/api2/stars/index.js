@@ -3,6 +3,6 @@ import update from './update'
 
 const router = new Router({ mergeParams: true })
 
-router.patch('/:starrable_type/:starrable_id/star', update)
+router.patch('/', update)
 
 export default router

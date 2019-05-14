@@ -1,11 +1,12 @@
-const ResultSerializer = (req, trx, result) => ({
+import ChannelSerializer from './channel_serializer'
+import MessageSerializer from './serializers/message_serializer'
 
-  id: result.get('id'),
-
-  created_at: result.get('created_at'),
-
-  updated_at: result.get('updated_at')
-
-})
+const ResultSerializer = (req, trx, result) => result.get('channel_id') ? {
+  type: 'channel',
+  item: ChannelSerializer(req, req.trx, result.related('channel'))
+} : {
+  type: 'message',
+  item: MessageSerializer(req, req.trx, result.related('message'))
+}
 
 export default ResultSerializer

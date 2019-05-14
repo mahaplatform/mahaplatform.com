@@ -4,8 +4,9 @@ import './validations/currency_validation'
 import './validations/greater_than_field_validation'
 import './validations/time_validation'
 import './validations/unique_validation'
+import fetchOrCreate from './fetch_or_create'
 import knex from '../../services/knex'
-import pagination from './fetch_page'
+import fetchPage from './fetch_page'
 import Bookshelf from 'bookshelf'
 import filter from './filter'
 import scope from './scope'
@@ -21,6 +22,8 @@ bookshelf.plugin(scope)
 
 bookshelf.plugin(sort)
 
-bookshelf.plugin(pagination)
+bookshelf.plugin(fetchPage)
+
+bookshelf.plugin(fetchOrCreate)
 
 export default bookshelf
