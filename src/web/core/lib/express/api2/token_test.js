@@ -47,7 +47,7 @@ describe('src/web/core/lib/express/api/token', () => {
     expect(res.json().message).to.be.equal('Invalid user')
 
   })
-
+  //
   // it('load the user with a valid token', async () => {
   //
   //   const req = {

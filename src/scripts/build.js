@@ -50,11 +50,8 @@ const listItems = (root) => fs.readdirSync(root).reduce((items, item) => [
   if(item.src.match(/_test.js$/)) return false
   if(item.src.match(/apps\/[^/]*\/help/)) return false
   if(item.src.match(/apps\/[^/]*\/db/)) return false
-  if(item.src.match(/apps\/[^/]*\/admin\/alerts/)) return false
   if(item.src.match(/apps\/[^/]*\/admin\/badges/)) return false
   if(item.src.match(/apps\/[^/]*\/admin\/components/)) return false
-  if(item.src.match(/apps\/[^/]*\/admin\/notifications/)) return false
-  if(item.src.match(/apps\/[^/]*\/admin\/rights/)) return false
   if(item.src.match(/apps\/[^/]*\/admin\/roots/)) return false
   if(item.src.match(/apps\/[^/]*\/admin\/routes/)) return false
   if(item.src.match(/apps\/[^/]*\/admin\/tokens/)) return false

@@ -11,15 +11,15 @@ export default async (user, trx) => {
     qb.select(knex.raw('distinct on (maha_installations.app_id) maha_installations.*'))
     qb.innerJoin('maha_roles_apps', 'maha_roles_apps.app_id', 'maha_installations.app_id')
     qb.innerJoin('maha_users_roles', 'maha_users_roles.role_id', 'maha_roles_apps.role_id')
-    qb.where('maha_installations.team_id', '=', user.get('team_id'))
-    qb.where('maha_users_roles.user_id', '=', user.get('id'))
+    qb.where('maha_installations.team_id', user.get('team_id'))
+    qb.where('maha_users_roles.user_id', user.get('id'))
   }).fetchAll({ transacting: trx })
 
   const rights = await Right.query(qb => {
     qb.select(knex.raw('distinct on (maha_rights.id) maha_rights.*'))
     qb.innerJoin('maha_roles_rights', 'maha_roles_rights.right_id', 'maha_rights.id')
     qb.innerJoin('maha_users_roles', 'maha_users_roles.role_id', 'maha_roles_rights.role_id')
-    qb.where('maha_users_roles.user_id', '=', user.get('id'))
+    qb.where('maha_users_roles.user_id', user.get('id'))
   }).fetchAll({
     withRelated: ['app'],
     transacting: trx

@@ -5,7 +5,7 @@ import Rollbar from '../../../services/rollbar'
 import { decode } from '../../../services/jwt'
 import moment from 'moment'
 
-const getToken = (req, res) => {
+const getToken = (req) => {
   if(req.query.token) return req.query.token
   if(!req.headers.authorization) return null
   const token = req.headers.authorization
@@ -15,7 +15,7 @@ const getToken = (req, res) => {
 
 const route = async (req, res, next) => {
 
-  const token = getToken(req, res)
+  const token = getToken(req)
 
   if(!token) return res.status(401).json({
     status: 401,
@@ -29,21 +29,19 @@ const route = async (req, res, next) => {
     message: 'Expired token'
   })
 
-  const user = await User.where({
+  req.user = await User.where({
     id: data.user_id
   }).fetch({
     transacting: req.trx,
     withRelated: ['photo','team']
   })
 
-  if(!user) return res.status(401).json({
+  if(!req.user) return res.status(401).json({
     status: 401,
     message: 'Invalid user'
   })
 
-  req.team = user.related('team')
-
-  req.user = user
+  req.team = req.user.related('team')
 
   if(req.headers.fingerprint) {
 
@@ -61,7 +59,7 @@ const route = async (req, res, next) => {
       transacting: req.trx
     })
 
-    await req.session.save({
+    if(req.session) await req.session.save({
       last_active_at: moment()
     }, {
       patch: true,
@@ -75,9 +73,9 @@ const route = async (req, res, next) => {
     Rollbar.configure({
       payload: {
         person: {
-          id: user.get('id'),
-          username: user.get('full_name'),
-          email: user.get('email')
+          id: req.user.get('id'),
+          username: req.user.get('full_name'),
+          email: req.user.get('email')
         },
         request: {
           headers: req.headers,
