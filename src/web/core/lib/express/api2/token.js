@@ -33,16 +33,12 @@ const route = async (req, res, next) => {
     id: data.user_id
   }).fetch({
     transacting: req.trx,
-    withRelated: ['photo']
+    withRelated: ['photo','team']
   })
 
   if(!user) return res.status(401).json({
     status: 401,
     message: 'Invalid user'
-  })
-
-  await user.load(['team'], {
-    transacting: req.trx
   })
 
   req.team = user.related('team')
@@ -65,34 +61,38 @@ const route = async (req, res, next) => {
       transacting: req.trx
     })
 
+    await req.session.save({
+      last_active_at: moment()
+    }, {
+      patch: true,
+      transacting: req.trx
+    })
+
   }
 
-  Rollbar.configure({
-    payload: {
-      person: {
-        id: user.get('id'),
-        username: user.get('full_name'),
-        email: user.get('email')
-      },
-      request: {
-        headers: req.headers,
-        params: req.params,
-        query: req.query,
-        body: req.body,
-        url: req.url
+  if(process.env.NODE_ENV === 'production') {
+
+    Rollbar.configure({
+      payload: {
+        person: {
+          id: user.get('id'),
+          username: user.get('full_name'),
+          email: user.get('email')
+        },
+        request: {
+          headers: req.headers,
+          params: req.params,
+          query: req.query,
+          body: req.body,
+          url: req.url
+        }
       }
-    }
-  })
+    })
+
+  }
 
   await req.user.save({
     last_online_at: moment()
-  }, {
-    patch: true,
-    transacting: req.trx
-  })
-
-  if(req.session) await req.session.save({
-    last_active_at: moment()
   }, {
     patch: true,
     transacting: req.trx

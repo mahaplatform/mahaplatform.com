@@ -1,15 +1,15 @@
 import bcrypt from 'bcrypt-nodejs'
 import moment from 'moment'
-import faker from 'faker'
 
-exports.seed = async (knex, Promise) => {
+const password_salt = bcrypt.genSaltSync(10)
 
-  const password_salt = bcrypt.genSaltSync(10)
-  const password_hash = bcrypt.hashSync('test', password_salt)
+const password_hash = bcrypt.hashSync('test', password_salt)
 
-  await knex('users').del()
+const users = async (knex) => {
 
-  await knex('users').insert([
+  await knex('maha_users').del()
+
+  await knex('maha_users').insert([
     {
       first_name: 'Ken',
       last_name: 'Schlather',
@@ -41,3 +41,5 @@ exports.seed = async (knex, Promise) => {
   ])
 
 }
+
+export default users

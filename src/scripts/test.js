@@ -1,24 +1,8 @@
 import '../web/core/services/environment'
+import knex from '../web/core/services/knex'
+import { setup } from './knex/db'
 import Mocha from 'mocha'
 import glob from 'glob'
-import Knex from 'knex'
-
-const knex = Knex({
-  client: 'pg',
-  connection: process.env.DATABASE_URL,
-  migrations: {
-    tableName: 'knex_migrations',
-    directory: './src/db/migrations'
-  },
-  pool: {
-    min: 1,
-    max: 1
-  },
-  seeds: {
-    directory: './src/db/fixtures'
-  },
-  useNullAsDefault: true
-})
 
 const test = async () => {
 
@@ -28,11 +12,9 @@ const test = async () => {
     mocha.addFile(test)
   })
 
-  // mocha.suite.beforeAll('migrate and seed', async () => {
-  //   await knex.migrate.rollback()
-  //   await knex.migrate.latest()
-  //   await knex.seed.run()
-  // })
+  mocha.suite.beforeAll('migrate and seed', async () => {
+    return setup()
+  })
 
   mocha.suite.beforeEach('begin transaction', async () => {
     global.knex = await new Promise((resolve, reject) => {
@@ -45,10 +27,6 @@ const test = async () => {
   mocha.suite.afterEach('rollback transaction', async () => {
     global.knex.rollback().catch(() => {})
   })
-
-  // mocha.suite.afterAll('rollback database', async () => {
-  //   await knex.migrate.rollback()
-  // })
 
   await new Promise((resolve, reject) => mocha.run(resolve))
 

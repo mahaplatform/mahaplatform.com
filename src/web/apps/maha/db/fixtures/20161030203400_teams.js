@@ -1,10 +1,10 @@
 const moment = require('moment')
 
-const teams = async (knex, Promise) => {
+const teams = async (knex) => {
 
-  await knex('assets').del()
+  await knex('maha_teams').del()
 
-  await knex('assets').insert([
+  await knex('maha_teams').insert([
     {
       title: 'CCE Tompkins',
       subdomain: 'ccetompkins',

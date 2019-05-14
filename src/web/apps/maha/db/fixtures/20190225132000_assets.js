@@ -1,10 +1,10 @@
 const moment = require('moment')
 
-exports.seed = async (knex, Promise) => {
+const assets = async (knex) => {
 
-  await knex('assets').del()
+  await knex('maha_assets').del()
 
-  await knex('assets').insert([
+  await knex('maha_assets').insert([
     {
       id: 1,
       original_file_name: 'ccetompkins.jpg',
@@ -13,8 +13,6 @@ exports.seed = async (knex, Promise) => {
       file_size: 1024,
       chunks_total: 1,
       status: 'assembled',
-      width: 100,
-      height: 100,
       created_at: moment(),
       updated_at: moment()
     }, {
@@ -25,8 +23,6 @@ exports.seed = async (knex, Promise) => {
       file_size: 1024,
       chunks_total: 1,
       status: 'assembled',
-      width: 100,
-      height: 100,
       created_at: moment(),
       updated_at: moment()
     }, {
@@ -37,8 +33,6 @@ exports.seed = async (knex, Promise) => {
       file_size: 1024,
       chunks_total: 1,
       status: 'assembled',
-      width: 100,
-      height: 100,
       created_at: moment(),
       updated_at: moment()
     }, {
@@ -49,11 +43,11 @@ exports.seed = async (knex, Promise) => {
       file_size: 1024,
       chunks_total: 1,
       status: 'assembled',
-      width: 100,
-      height: 100,
       created_at: moment(),
       updated_at: moment()
     }
   ])
 
 }
+
+export default assets
