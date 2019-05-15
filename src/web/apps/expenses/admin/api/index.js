@@ -14,8 +14,6 @@ import reimbursements from './items/reimbursements'
 import statuses from './statuses'
 import trips from './items/trips'
 import vendors from './vendors'
-import userMemberships from './user_memberships'
-import userProjects from './user_projects'
 
 const api = new Segment({
   routes: [
@@ -33,9 +31,7 @@ const api = new Segment({
     reimbursements,
     statuses,
     trips,
-    vendors,
-    userMemberships,
-    userProjects
+    vendors
   ]
 })
 
