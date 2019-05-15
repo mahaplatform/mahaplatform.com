@@ -24,7 +24,7 @@ class Edit extends React.Component {
     return {
       title: 'Edit Rate',
       method: 'patch',
-      endpoint: `/api/admin/expenses/rates/${id}/edit`,
+      endpoint: `/api/admin/expenses/rates/${id}`,
       action: `/api/admin/expenses/rates/${id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,

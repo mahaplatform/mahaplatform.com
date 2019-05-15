@@ -7,10 +7,8 @@ import expenseTypesActive from './expense_types/active'
 import items from './items/items'
 import itemApprovals from './items/approvals'
 import itemReport from './items/report'
-import rates from './rates'
 import receipts from './receipts'
 import reimbursements from './items/reimbursements'
-import statuses from './statuses'
 import trips from './items/trips'
 import vendors from './vendors'
 
@@ -24,10 +22,8 @@ const api = new Segment({
     items,
     itemApprovals,
     itemReport,
-    rates,
     receipts,
     reimbursements,
-    statuses,
     trips,
     vendors
   ]

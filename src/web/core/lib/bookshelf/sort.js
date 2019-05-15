@@ -37,6 +37,8 @@ const sortPlugin = function(bookshelf) {
 
   bookshelf.Model.prototype.sort = sort
 
+  bookshelf.Model.sort = sort
+
 }
 
 export default sortPlugin
