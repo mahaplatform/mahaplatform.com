@@ -1,4 +1,4 @@
-import { Route } from '../../../../../core/backframe'
+import socket from '../../../../../core/services/routes/emitter'
 import knex from '../../../../../core/services/knex'
 import _ from 'lodash'
 
@@ -59,28 +59,21 @@ const updateAccess = async (accesses, item, trx) => {
 
 }
 
-const processor = async (req, trx, options) => {
+const updateRoute = async (req, res) => {
 
-  req.item = await knex('drive_items').where({
+  const item = await knex('drive_items').transacting(req.trx).where({
     code: req.params.code
   })
 
-  await updateAccess(req.body.access, req.item[0], trx)
+  await updateAccess(req.body.access, item[0], req.trx)
 
-  return true
+  await socket.refresh(req, [
+    `/admin/drive/folders/${item.folder_id || 'drive'}`,
+    `/admin/drive/folders/${req.params.id}`
+  ])
+
+  res.status(200).respond(true)
 
 }
 
-const refresh = (req, trx, result, options) => [
-  `/admin/drive/folders/${req.item.folder_id || 'drive'}`,
-  `/admin/drive/folders/${req.params.id}`
-]
-
-const assignRoute = new Route({
-  method: 'patch',
-  path: '/access',
-  processor,
-  refresh
-})
-
-export default assignRoute
+export default updateRoute
