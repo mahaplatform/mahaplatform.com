@@ -20,7 +20,7 @@ const showRoute = async (req, res) => {
 
   if(!message) return res.status(404).respond({
     code: 404,
-    message: 'Unable to load record'
+    message: 'Unable to load message'
   })
 
   await knex('chat_subscriptions').transacting(req.trx).where({

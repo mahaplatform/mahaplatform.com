@@ -14,6 +14,11 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
+  if(!channel) return req.status(404).respond({
+    code: 404,
+    message: 'Unable to load channel'
+  })
+
   res.status(200).respond(channel, (channel) => {
     return ChannelSerializer(req, req.trx, channel)
   })
