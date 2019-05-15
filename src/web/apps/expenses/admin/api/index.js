@@ -1,6 +1,5 @@
 import { Segment } from '../../../../core/backframe'
 import advances from './items/advances'
-import batches from './batches'
 import checks from './items/checks'
 import expenses from './items/expenses'
 import expenseTypes from './expense_types'
@@ -18,7 +17,6 @@ import vendors from './vendors'
 const api = new Segment({
   routes: [
     advances,
-    batches,
     checks,
     expenses,
     expenseTypesActive,
