@@ -137,7 +137,7 @@ export const sendMessage = async (req, trx, { channel_id, type, text }) => {
 
   await extractAttachments(message, sanitized, trx)
 
-  await message.load(['user.photo','attachments.asset.source','attachments.service','message_type'], { transacting: trx })
+  await message.load(['user.photo','attachments.asset.source','message_type'], { transacting: trx })
 
   const serialized = MessageSerializer(req, trx, message)
 

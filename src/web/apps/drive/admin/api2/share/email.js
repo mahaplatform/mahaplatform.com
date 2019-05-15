@@ -1,7 +1,13 @@
 import { sendMail } from '../../../../../core/services/email'
-import { Route } from '../../../../../core/backframe'
+import Checkit from 'checkit'
 
-const processor = async (req, trx, options) => {
+const emailRoute = async (req, res) => {
+
+  await Checkit({
+    to: 'required',
+    subject: 'required',
+    message: 'required'
+  }).run(req.body)
 
   await sendMail({
     from: `${req.user.get('full_name')} at ${req.team.get('title')}  <mailer@mahaplatform.com>`,
@@ -9,17 +15,9 @@ const processor = async (req, trx, options) => {
     subject: req.body.subject,
     html: req.body.message
   })
-}
 
-const emailRoute = new Route({
-  method: 'post',
-  path: '/email',
-  processor,
-  rules: {
-    to: 'required',
-    subject: 'required',
-    message: 'required'
-  }
-})
+  res.status(200).respond(true)
+
+}
 
 export default emailRoute

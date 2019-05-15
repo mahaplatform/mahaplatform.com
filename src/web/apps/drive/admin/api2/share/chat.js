@@ -1,33 +1,26 @@
 import { createChannel, sendMessage } from '../../../../chat/services/channels'
-import { Route } from '../../../../../core/backframe'
 import Asset from '../../../../maha/models/asset'
 
-const processor = async (req, trx, options) => {
+const chatRoute = async (req, res) => {
 
-  const channel = await createChannel(req, trx, {
+  const channel = await createChannel(req, req.trx, {
     user_ids: req.body.ids
   })
 
   const asset = await Asset.where({
     id: req.body.asset_id
   }).fetch({
-    transacting: trx
+    transacting: req.trx
   })
 
-  await sendMessage(req, trx, {
+  await sendMessage(req, req.trx, {
     channel_id:  channel.get('id'),
     type: 'message',
     text: asset.get('url')
   })
 
-  return channel
+  res.status(200).respond(channel)
 
 }
-
-const chatRoute = new Route({
-  method: 'post',
-  path: '/chat',
-  processor
-})
 
 export default chatRoute

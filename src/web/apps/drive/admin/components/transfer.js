@@ -21,7 +21,7 @@ class Transfer extends React.Component {
     return {
       title: 'Transfer Ownership',
       method: 'post',
-      action: '/api/admin/drive/transfer',
+      action: '/api/admin/drive/items/transfer',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       saveText: 'Transfer',
