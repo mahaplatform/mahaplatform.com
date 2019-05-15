@@ -1,4 +1,4 @@
-import { refresh } from '../../../../../core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import FieldSerializer from '../../../serializers/field_serializer'
 import Field from '../../../models/field'
 import _ from 'lodash'
@@ -25,14 +25,13 @@ const update = async (req, res) => {
     transacting: req.trx
   })
 
-  await refresh(req, {
+  await socket.refresh(req, {
     channel: `/admin/${req.params.parent_type}/${req.params.parent_id}/fields`
   })
 
   res.status(200).respond(field, (field) => {
     return FieldSerializer(req, req.trx, field)
   })
-
 
 }
 

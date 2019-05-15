@@ -1,4 +1,4 @@
-import { refresh } from '../../../../../core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import FieldSerializer from '../../../serializers/field_serializer'
 import generateCode from '../../../../../core/utils/generate_code'
 import Field from '../../../models/field'
@@ -30,7 +30,7 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await refresh(req, {
+  await socket.refresh(req, {
     channel: `/admin/${req.params.parent_type}/${req.params.parent_id}/fields`
   })
 

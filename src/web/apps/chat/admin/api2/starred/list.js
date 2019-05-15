@@ -7,7 +7,8 @@ const listRoute = async (req, res) => {
     qb.joinRaw('inner join "maha_stars" on "maha_stars"."starrable_type"=\'chat_messages\' and "maha_stars"."starrable_id"="chat_messages"."id"')
     qb.where('maha_stars.user_id', req.user.get('id'))
   }).scope({
-    team: req.team
+    team: req.team,
+    user: req.user
   }).sort({
     sort: req.query.$sort,
     defaultSort: '-created_at',

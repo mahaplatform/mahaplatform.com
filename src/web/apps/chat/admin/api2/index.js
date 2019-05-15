@@ -1,3 +1,6 @@
+import subscriptions from './subscriptions'
+import messages from './messages'
+import channels from './channels'
 import { Router } from 'express'
 import starred from './starred'
 import search from './search'
@@ -10,5 +13,11 @@ router.use('/starred', starred)
 router.use('/search', search)
 
 router.use('/unread', unread)
+
+router.use('/channels', channels)
+
+router.use('/channels/:id/subscriptions', subscriptions)
+
+router.use('/channels/:channel_id/messages', messages)
 
 export default router

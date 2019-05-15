@@ -1,4 +1,4 @@
-import { refresh } from '../../../../../core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import Notification from '../../../models/notification'
 
 const seenRoute = async (req, res) => {
@@ -13,7 +13,7 @@ const seenRoute = async (req, res) => {
 
   }
 
-  await refresh(req, {
+  await socket.refresh(req, {
     channel: '/admin/user',
     target: '/admin/notifications'
   })

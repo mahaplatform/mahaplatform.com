@@ -1,5 +1,5 @@
 import { activity } from '../../../../../../core/services/routes/activities'
-import { message } from '../../../../../../core/services/routes/emitter'
+import socket from '../../../../../../core/services/routes/emitter'
 import _ from 'lodash'
 
 const preferencesRoute = async (req, res) => {
@@ -17,7 +17,7 @@ const preferencesRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await message(req, {
+  await socket.message(req, {
     channel: 'user',
     action: 'session'
   })

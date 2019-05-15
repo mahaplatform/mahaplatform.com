@@ -3,7 +3,7 @@ import { Page } from 'maha-admin'
 import React from 'react'
 
 const mapResourcesToPage = (props, context) => ({
-  attachments: `/api/admin/attachments/${props.params.attachable_type}/${props.params.attachable_id}`
+  attachments: `/api/admin/${props.params.attachable_type}/${props.params.attachable_id}/attachments`
 })
 
 const mapPropsToPage = (props, context, resources) => ({

@@ -59,7 +59,7 @@ const filterPlugin = function(bookshelf) {
     if(!options.searchParams) return
     if(filter.length === 0) return
     const phrase = `lower(${options.searchParams.join(' || \' \' || ')})`
-    const term = `%${filter.$eq}%`
+    const term = `%${filter}%`
     qb.whereRaw(`${phrase} like ?`, term)
   }
 

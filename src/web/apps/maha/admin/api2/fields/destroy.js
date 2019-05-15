@@ -1,4 +1,4 @@
-import { refresh } from '../../../../../core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import knex from '../../../../../core/services/knex'
 import Field from '../../../models/field'
 
@@ -32,7 +32,7 @@ const destroyRoute = async (req, res) => {
     })
   })
 
-  await refresh(req, {
+  await socket.refresh(req, {
     channel: `/admin/${req.params.parent_type}/${req.params.parent_id}/fields`
   })
 

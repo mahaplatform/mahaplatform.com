@@ -56,3 +56,8 @@ const _getTarget = (req, message) => {
   if(message.target) return message.target
   return _getChannel(req, message)
 }
+
+export default {
+  message,
+  refresh
+}

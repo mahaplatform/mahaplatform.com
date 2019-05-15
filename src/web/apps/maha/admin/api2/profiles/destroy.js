@@ -1,4 +1,4 @@
-import { refresh } from '../../../../../core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import Profile from '../../../models/profile'
 
 const destroyRoute = async (req, res) => {
@@ -21,7 +21,7 @@ const destroyRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await refresh(req, {
+  await socket.refresh(req, {
     channel: 'user',
     target: '/admin/account/profiles'
   })

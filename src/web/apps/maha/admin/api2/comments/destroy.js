@@ -1,4 +1,4 @@
-import { message } from '../../../../../core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import Comment from '../../../models/comment'
 
 const destroyRoute = async (req, res) => {
@@ -13,7 +13,7 @@ const destroyRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await message(req, {
+  await socket.message(req, {
     channel: `/admin/${req.params.commentable_type}/${req.params.commentable_id}/comments`,
     action: 'remove_comment',
     data: {

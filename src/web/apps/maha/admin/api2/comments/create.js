@@ -3,7 +3,7 @@ import { attachments } from '../../../../../core/services/routes/attachments'
 import { listeners } from '../../../../../core/services/routes/listeners'
 import { objects } from '../../../../../core/services/routes/objects'
 import CommentSerializer from '../../../serializers/comment_serializer'
-import { message } from '../../../../../core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import { extractAttachments } from '../../../services/attachment'
 import Comment from '../../../models/comment'
 import _ from 'lodash'
@@ -41,7 +41,7 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await message(req, {
+  await socket.message(req, {
     channel: `/admin/${req.params.commentable_type}/${req.params.commentable_id}/comments`,
     action: 'add_comment',
     data: {

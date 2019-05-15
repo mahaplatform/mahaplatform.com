@@ -8,7 +8,11 @@ const test = async () => {
 
   const mocha = new Mocha()
 
-  glob.sync('src/web/**/*_test.js').map((test) => {
+  const args = process.argv.slice(2)
+
+  const root = args[0] || 'src/web'
+
+  glob.sync(`${root}/**/*_test.js`).map((test) => {
     mocha.addFile(test)
   })
 

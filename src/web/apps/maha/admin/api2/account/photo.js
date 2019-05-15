@@ -1,5 +1,5 @@
 import { activity } from '../../../../../core/services/routes/activities'
-import { refresh } from '../../../../../core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 
 const photoRoute = async (req, res) => {
 
@@ -10,7 +10,7 @@ const photoRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await refresh(req, {
+  await socket.refresh(req, {
     channel: 'user',
     action: 'session'
   })

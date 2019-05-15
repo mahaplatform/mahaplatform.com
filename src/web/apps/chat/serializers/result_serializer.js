@@ -1,5 +1,5 @@
 import ChannelSerializer from './channel_serializer'
-import MessageSerializer from './serializers/message_serializer'
+import MessageSerializer from './message_serializer'
 
 const ResultSerializer = (req, trx, result) => result.get('channel_id') ? {
   type: 'channel',

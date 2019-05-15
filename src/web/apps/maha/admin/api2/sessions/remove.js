@@ -1,4 +1,4 @@
-import { message } from '../../../../../core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import Session from '../../../models/session'
 
 const removeRoute = async (req, res) => {
@@ -13,15 +13,13 @@ const removeRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await message(req, {
+  await socket.message(req, [{
     channel: `/admin/users/${session.get('user_id')}`,
     action: 'session'
-  })
-
-  await message(req, {
+  },{
     channel: `/admin/sessions/${session.get('id')}`,
     action: 'signout'
-  })
+  }])
 
   res.status(200).respond(true)
 

@@ -1,5 +1,5 @@
 import ReactionSerializers from '../../../serializers/reaction_serializer'
-import { message } from '../../../../../core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import Reaction from '../../../models/reaction'
 import moment from 'moment'
 
@@ -50,7 +50,7 @@ const updateRoute = async (req, res) => {
     return ReactionSerializers(req, req.trx, reaction)
   })
 
-  await message(req, {
+  await socket.message(req, {
     channel: '/admin/reactions',
     action: 'update_reactions',
     data: {

@@ -28,6 +28,8 @@ router.use('/:commentable_type/:commentable_id/comments', comments)
 
 router.use('/:starrable_type/:starrable_id/star', stars)
 
+router.use('/:attachable_type/:attachable_id/attachments', attachments)
+
 router.use('/:reactable_type/:reactable_id/react/:type', react)
 
 router.use('/account', account)
@@ -37,8 +39,6 @@ router.use('/apps', settings)
 router.use('/assets', assets)
 
 router.use('/assignees', assignees)
-
-router.use('/attachments', attachments)
 
 router.use('/devices', devices)
 

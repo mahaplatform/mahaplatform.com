@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { CompactUserToken, Form } from 'maha-admin'
+import { Form } from 'maha-admin'
 
 class Edit extends React.Component {
 
@@ -22,7 +22,7 @@ class Edit extends React.Component {
     return {
       title: 'Edit Conversation',
       method: 'patch',
-      endpoint: `/api/admin/chat/channels/${id}/edit`,
+      endpoint: `/api/admin/chat/channels/${id}`,
       action: `/api/admin/chat/channels/${id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,

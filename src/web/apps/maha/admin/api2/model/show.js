@@ -1,9 +1,9 @@
 import { activity } from '../../../../../core/services/routes/activities'
-import { refresh } from '../../../../../core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 
 const showRoute = async (req, res) => {
 
-  await refresh(req, {
+  await socket.refresh(req, {
   })
 
   await activity(req, {

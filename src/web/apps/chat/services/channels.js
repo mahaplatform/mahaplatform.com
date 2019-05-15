@@ -1,9 +1,9 @@
 import knex from '../../../core/services/knex'
-import { socket} from '../../../core/services/emitter'
-import { extractAttachments } from '../../maha/services/asset'
-import { formatObjectForTransport } from '../../../core/utils/format_object_for_transport'
+import socket from '../../../core/services/emitter'
+import { extractAttachments } from '../../maha/services/attachment'
+import formatObjectForTransport from '../../../core/utils/format_object_for_transport'
 import User from '../../maha/models/user'
-import { generateCode } from '../../../core/utils/generate_code'
+import generateCode from '../../../core/utils/generate_code'
 import ChatNotificationQueue from '../queues/chat_notification_queue'
 import ChannelSerializer from '../serializers/channel_serializer'
 import MessageSerializer from '../serializers/message_serializer'
@@ -25,39 +25,48 @@ export const createChannel = async (req, trx, user_ids) => {
     code: generateCode(),
     is_archived: false,
     last_message_at: moment()
-  }).save(null, { transacting: trx })
+  }).save(null, {
+    transacting: trx
+  })
+
+  await channel.load(['owner.photo','subscriptions.user.photo','last_message'], {
+    transacting: trx
+  })
 
   const users = await User.query(qb => qb.whereIn('id', [
     req.user.get('id'),
     ...user_ids
-  ])).fetchAll({ transacting: trx })
+  ])).fetchAll({
+    transacting: trx
+  })
 
   const user_list = users.filter(user => {
-
     return user.get('id') !== req.user.get('id')
-
-  }).map(user => user.get('full_name'))
+  }).map(user => {
+    return user.get('full_name')
+  })
 
   await Promise.map(users.toArray(), async (user) => {
 
-    const subscription = {
+    await Subscription.forge({
       team_id: req.team.get('id'),
       channel_id: channel.get('id'),
       user_id: user.get('id'),
       last_viewed_at: moment().subtract(10, 'minutes')
-    }
-
-    await Subscription.forge(subscription).save(null, { transacting: trx })
+    }).save(null, {
+      transacting: trx
+    })
 
     return user
 
   })
 
-  const subscriber_list = users.map(user => user.get('full_name')).join(' ')
-
-  await channel.save({ subscriber_list }, { patch: true, transacting: trx })
-
-  await channel.load(['owner.photo','subscriptions.user.photo','last_message'], { transacting: trx })
+  await channel.save({
+    subscriber_list: users.map(user => user.get('full_name')).join(' ')
+  }, {
+    patch: true,
+    transacting: trx
+  })
 
   const serialized = ChannelSerializer(req, trx, channel)
 

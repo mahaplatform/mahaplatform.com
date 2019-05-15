@@ -1,5 +1,5 @@
 import { activity } from '../../../../../../core/services/routes/activities'
-import { message } from '../../../../../../core/services/routes/emitter'
+import socket from '../../../../../../core/services/routes/emitter'
 import knex from '../../../../../../core/services/knex'
 
 const subscriptionsRoute = async (req, res) => {
@@ -13,7 +13,7 @@ const subscriptionsRoute = async (req, res) => {
     alert_id
   })))
 
-  await message(req, {
+  await socket.message(req, {
     channel: 'user',
     action: 'session'
   })

@@ -1,5 +1,5 @@
 import { activity } from '../../../../../core/services/routes/activities'
-import { message } from '../../../../../core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 
 const updateRoute = async (req, res) => {
 
@@ -13,7 +13,7 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await message(req, {
+  await socket.message(req, {
     channel: 'user',
     action: 'session'
   })
