@@ -1,0 +1,41 @@
+import { shallow } from 'enzyme'
+import { expect } from 'chai'
+import { spy } from 'sinon'
+import React from 'react'
+import <%= className %> from './<%= componentName %>.js'
+
+describe('<%= rootPath %>', () => {
+
+  describe('/actions.js', () => {
+
+    it('dispatches', async () => {})
+
+  })
+
+  describe('/selectors.js', () => {
+
+    it('computes', async () => {})
+
+  })
+
+  describe('/reducer.js', () => {
+
+    it('handles', async () => {})
+
+  })
+
+
+  describe('/<%= styleName %>.js', () => {
+
+    it('renders', async () => {
+
+      const <%= styleName %> = shallow(<<%= className %> />)
+
+      expect(<%= styleName %>.is('div.<%= styleName %>')).to.be.true
+
+    })
+
+  })
+
+
+})

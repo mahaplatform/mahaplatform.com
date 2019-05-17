@@ -11,7 +11,7 @@ const listRoute = async (req, res) => {
   }).sort({
     sort: req.query.$sort,
     defaultSort: ['name'],
-    sortParams: ['id', 'name','created_at']
+    sortParams: ['id','name','created_at']
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx
