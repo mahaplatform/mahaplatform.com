@@ -1,5 +1,6 @@
 import Queue from '../../../core/objects/queue'
 import aws from '../../../core/services/aws'
+import path from 'path'
 
 const enqueue = async (req, trx, message) => message
 
@@ -16,7 +17,9 @@ const processor = async (job, trx) => {
     Key
   }).promise()
 
-  const mailbox = require(filepath).default
+  const mailboxPath = path.join(__dirname,'..','..','..',filepath)
+
+  const mailbox = require(mailboxPath).default
 
   const email = JSON.parse(file.Body)
 

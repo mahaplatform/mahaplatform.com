@@ -7,7 +7,7 @@ const batchRoute = (path, story, status_id, roles) => {
     story,
     auditable: {
       tableName: `expenses_${item.get('type')}s`,
-      id: item.get('id')
+      id: item.get('item_id')
     }
   }))
 
