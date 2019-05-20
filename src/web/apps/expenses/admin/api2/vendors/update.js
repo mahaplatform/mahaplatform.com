@@ -1,8 +1,8 @@
-import VendorSerializer from '../../../serializers/vendor_serializer'
-import Vendor from '../../../models/vendor'
 import { activity } from '../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../core/services/routes/params'
+import VendorSerializer from '../../../serializers/vendor_serializer'
 import socket from '../../../../../core/services/routes/emitter'
-import _ from 'lodash'
+import Vendor from '../../../models/vendor'
 
 const updateRoute = async (req, res) => {
 
@@ -19,11 +19,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load vendor'
   })
 
-  const allowed = _.pick(req.body, ['name','address_1','address_2','city','state','zip','integration'])
-
-  const data = _.omitBy(allowed, _.isNil)
-
-  await vendor.save(data, {
+  await vendor.save(whitelist(req.body, ['name','address_1','address_2','city','state','zip','integration']), {
     transacting: req.trx
   })
 

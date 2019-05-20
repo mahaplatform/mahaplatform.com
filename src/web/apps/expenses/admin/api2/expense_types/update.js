@@ -1,5 +1,6 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import ExpenseTypeSerializer from '../../../serializers/expense_type_serializer'
+import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
 import ExpenseType from '../../../models/expense_type'
 import _ from 'lodash'
@@ -19,11 +20,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load expense type'
   })
 
-  const allowed = _.pick(req.body, ['title','description','integration','is_active'])
-
-  const data = _.omitBy(allowed, _.isNil)
-
-  await expense_type.save(data, {
+  await expense_type.save(whitelist(req.body, ['title','description','integration','is_active']), {
     transacting: req.trx
   })
 

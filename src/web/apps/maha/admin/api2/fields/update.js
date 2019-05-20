@@ -1,7 +1,7 @@
-import socket from '../../../../../core/services/routes/emitter'
+import { whitelist } from '../../../../../core/services/routes/params'
 import FieldSerializer from '../../../serializers/field_serializer'
+import socket from '../../../../../core/services/routes/emitter'
 import Field from '../../../models/field'
-import _ from 'lodash'
 
 const update = async (req, res) => {
 
@@ -16,11 +16,7 @@ const update = async (req, res) => {
     message: 'Unable to find field'
   })
 
-  const allowed = _.pick(req.body, ['label','name','instructions','type','config'])
-
-  const data = _.omitBy(allowed, _.isNil)
-
-  await field.save(data, {
+  await field.save(whitelist(req.body, ['label','name','instructions','type','config']), {
     patch: true,
     transacting: req.trx
   })

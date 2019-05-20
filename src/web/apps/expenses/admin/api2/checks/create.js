@@ -1,45 +1,48 @@
 import { listeners } from '../../../../../core/services/routes/listeners'
 import { activity } from '../../../../../core/services/routes/activities'
-import AdvanceSerializer from '../../../serializers/advance_serializer'
+import CheckSerializer from '../../../serializers/check_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
-import Advance from '../../../models/advance'
+import { createReceipts } from '../../../services/receipts'
+import Check from '../../../models/check'
 import Member from '../../../models/member'
 
 const createRoute = async (req, res) => {
 
-  const advance = await Advance.forge({
+  const check = await Check.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
     status_id: 1,
-    ...whitelist(req.body, ['project_id','expense_type_id','date_needed','description','amount','description'])
+    ...whitelist(req.body, ['project_id','expense_type_id','vendor_id','delivery_method','date_needed','description','amount','description'])
   }).save(null, {
     transacting: req.trx
   })
 
+  await createReceipts(req, 'check', check)
+
   const members = await Member.query(qb => {
-    qb.where('project_id', advance.get('project_id'))
+    qb.where('project_id', check.get('project_id'))
     qb.whereRaw('(member_type_id != ? OR user_id = ?)', [3, req.user.get('id')])
   }).fetchAll({
     transacting: req.trx
   })
 
   await listeners(req, members.map(member => ({
-    listenable: advance,
+    listenable: check,
     user_id: member.get('user_id')
   })))
 
   await activity(req, {
     story: 'created {object}',
-    object: advance
+    object: check
   })
 
   await audit(req, {
     story: 'created',
     auditable: {
-      tableName: 'expenses_advances',
-      id: advance.get('id')
+      tableName: 'expenses_checks',
+      id: check.get('id')
     }
   })
 
@@ -49,14 +52,14 @@ const createRoute = async (req, res) => {
   }, {
     channel: 'team',
     target: [
-      `/admin/expenses/advances/${advance.get('id')}`,
+      `/admin/expenses/checks/${check.get('id')}`,
       '/admin/expenses/approvals',
       '/admin/expenses/reports'
     ]
   }])
 
-  res.status(200).respond(advance, (advance) => {
-    return AdvanceSerializer(req, req.trx, advance)
+  res.status(200).respond(check, (check) => {
+    return CheckSerializer(req, req.trx, check)
   })
 
 }

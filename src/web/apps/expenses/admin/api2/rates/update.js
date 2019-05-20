@@ -1,8 +1,8 @@
-import RateSerializer from '../../../serializers/rate_serializer'
 import { activity } from '../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../core/services/routes/params'
+import RateSerializer from '../../../serializers/rate_serializer'
 import socket from '../../../../../core/services/routes/emitter'
 import Rate from '../../../models/rate'
-import _ from 'lodash'
 
 const updateRoute = async (req, res) => {
 
@@ -17,11 +17,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load rate'
   })
 
-  const allowed = _.pick(req.body, ['year','value'])
-
-  const data = _.omitBy(allowed, _.isNil)
-
-  await rate.save(data, {
+  await rate.save(whitelist(req.body, ['year','value']), {
     transacting: req.trx
   })
 

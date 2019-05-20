@@ -29,7 +29,6 @@ const createRoute = async (req, res) => {
   })
 
   await listeners(req, {
-    team_id: req.team.get('id'),
     user_id: req.user.get('id'),
     listenable_type: req.params.commentable_type,
     listenable_id: req.params.commentable_id

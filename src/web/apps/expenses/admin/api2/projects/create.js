@@ -1,20 +1,16 @@
-import ProjectSerializer from '../../../serializers/project_serializer'
-import Project from '../../../models/project'
 import { activity } from '../../../../../core/services/routes/activities'
+import ProjectSerializer from '../../../serializers/project_serializer'
+import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
-import _ from 'lodash'
+import Project from '../../../models/project'
 
 const createRoute = async (req, res) => {
-
-  const allowed = _.pick(req.body, ['title', 'integration'])
-
-  const data = _.omitBy(allowed, _.isNil)
 
   const project = await Project.forge({
     team_id: req.team.get('id'),
     is_active: true,
     integration: {},
-    ...data
+    ...whitelist(req.body, ['title', 'integration'])
   }).save(null, {
     transacting: req.trx
   })

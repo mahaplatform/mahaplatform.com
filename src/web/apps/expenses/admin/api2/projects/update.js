@@ -1,7 +1,8 @@
-import ProjectSerializer from '../../../serializers/project_serializer'
-import Project from '../../../models/project'
 import { activity } from '../../../../../core/services/routes/activities'
+import ProjectSerializer from '../../../serializers/project_serializer'
+import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
+import Project from '../../../models/project'
 import _ from 'lodash'
 
 const updateRoute = async (req, res) => {
@@ -23,11 +24,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load project'
   })
 
-  const allowed = _.pick(req.body, ['title', 'integration'])
-
-  const data = _.omitBy(allowed, _.isNil)
-
-  await project.save(data, {
+  await project.save(whitelist(req.body, ['title', 'integration']), {
     transacting: req.trx
   })
 

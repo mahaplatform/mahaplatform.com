@@ -1,8 +1,8 @@
-import socket from '../../../../../core/services/routes/emitter'
+import { whitelist } from '../../../../../core/services/routes/params'
 import FieldSerializer from '../../../serializers/field_serializer'
 import generateCode from '../../../../../core/utils/generate_code'
+import socket from '../../../../../core/services/routes/emitter'
 import Field from '../../../models/field'
-import _ from 'lodash'
 
 const createRoute = async (req, res) => {
 
@@ -13,10 +13,6 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const allowed = _.pick(req.body, ['label','name','instructions','type','config'])
-
-  const data = _.omitBy(allowed, _.isNil)
-
   const field = await Field.forge({
     team_id: req.team.get('id'),
     parent_type: req.params.parent_type,
@@ -25,7 +21,7 @@ const createRoute = async (req, res) => {
     delta: delta,
     config: {},
     is_mutable: true,
-    ...data
+    ...whitelist(req.body, ['label','name','instructions','type','config'])
   }).save(null, {
     transacting: req.trx
   })

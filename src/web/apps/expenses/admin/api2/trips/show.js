@@ -3,7 +3,23 @@ import Trip from '../../../models/trip'
 
 const showRoute = async (req, res) => {
 
-  res.status(200).respond()
+  const trip = await Trip.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('id', req.params.id)
+  }).fetch({
+    withRelated: ['user','project.members','expense_type','status'],
+    transacting: req.trx
+  })
+
+  if(!trip) return req.status(404).respond({
+    code: 404,
+    message: 'Unable to load trip'
+  })
+
+  res.status(200).respond(trip, (trip) => {
+    return TripSerializer(req, req.trx, trip)
+  })
 
 }
 

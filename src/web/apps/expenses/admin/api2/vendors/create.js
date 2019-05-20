@@ -1,18 +1,14 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import VendorSerializer from '../../../serializers/vendor_serializer'
 import socket from '../../../../../core/services/routes/emitter'
+import { whitelist } from '../../../../../core/services/routes/params'
 import Vendor from '../../../models/vendor'
-import _ from 'lodash'
 
 const createRoute = async (req, res) => {
 
-  const allowed = _.pick(req.body, ['name','address_1','address_2','city','state','zip','integration'])
-
-  const data = _.omitBy(allowed, _.isNil)
-
   const vendor = await Vendor.forge({
     team_id: req.team.get('id'),
-    ...data
+    ...whitelist(req.body, ['name','address_1','address_2','city','state','zip','integration'])
   }).save(null, {
     transacting: req.trx
   })

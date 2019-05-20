@@ -1,27 +1,26 @@
 import Listening from '../../../apps/maha/models/listening'
 import _ from 'lodash'
 
-export const listeners = async (req, listener) => {
+export const listeners = async (req, listeners) => {
 
-  const active_listener_ids = await Listening.where({
-    team_id: listener.team_id,
-    listenable_type: listener.listenable_type,
-    listenable_id: listener.listenable_id
-  }).fetchAll({
-    transacting: req.trx
-  }).then(listeners => listeners.map(listener => {
-    return listener.get('user_id')
-  }))
+  await Promise.map(_.castArray(listeners), async listener => {
 
-  if(_.includes(active_listener_ids, listener.user_id)) return
+    const listenable = await _getListenable(listener)
 
-  await Listening.forge({
-    team_id: listener.team_id,
-    user_id: listener.user_id,
-    listenable_type: listener.listenable_type,
-    listenable_id: listener.listenable_id
-  }).save(null, {
-    transacting: req.trx
+    await Listening.fetchOrCreate({
+      team_id: req.team.get('id'),
+      user_id: listener.user_id,
+      listenable_type: listenable.type,
+      listenable_id: listenable.id
+    }).fetchAll({
+      transacting: req.trx
+    })
+
   })
 
 }
+
+const _getListenable = async (entry) => ({
+  type: entry.listenable.tableName,
+  id: entry.listenable.id || entry.auditable.get('id')
+})

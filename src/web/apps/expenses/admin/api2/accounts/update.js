@@ -1,8 +1,8 @@
 import AccountSerializer from '../../../serializers/account_serializer'
-import Account from '../../../models/account'
 import { activity } from '../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
-import _ from 'lodash'
+import Account from '../../../models/account'
 
 const updateRoute = async (req, res) => {
 
@@ -20,11 +20,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load account'
   })
 
-  const allowed = _.pick(req.body, ['name', 'integration'])
-
-  const data = _.omitBy(allowed, _.isNil)
-
-  await account.save(data, {
+  await account.save(whitelist(req.body, ['name', 'integration']), {
     transacting: req.trx
   })
 

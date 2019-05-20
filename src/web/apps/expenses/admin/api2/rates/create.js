@@ -1,16 +1,12 @@
-import RateSerializer from '../../../serializers/rate_serializer'
 import { activity } from '../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../core/services/routes/params'
+import RateSerializer from '../../../serializers/rate_serializer'
 import socket from '../../../../../core/services/routes/emitter'
 import Rate from '../../../models/rate'
-import _ from 'lodash'
 
 const createRoute = async (req, res) => {
 
-  const allowed = _.pick(req.body, ['year','value'])
-
-  const data = _.omitBy(allowed, _.isNil)
-
-  const rate = await Rate.forge(data).save(null, {
+  const rate = await Rate.forge(whitelist(req.body, ['year','value'])).save(null, {
     transacting: req.trx
   })
 

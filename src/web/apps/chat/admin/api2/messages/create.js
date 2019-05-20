@@ -1,5 +1,6 @@
 import ChatNotificationQueue from '../../../queues/chat_notification_queue'
 import MessageSerializer from '../../../serializers/message_serializer'
+import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
 import Attachment from '../../../../maha/models/attachment'
 import { getUnread } from '../../../services/messages'
@@ -7,13 +8,8 @@ import knex from '../../../../../core/services/knex'
 import User from '../../../../maha/models/user'
 import Message from '../../../models/message'
 import moment from 'moment'
-import _ from 'lodash'
 
 const createRoute = async (req, res) => {
-
-  const allowed = _.pick(req.body, ['quoted_message_id','code','text','link_id'])
-
-  const data = _.omitBy(allowed, _.isNil)
 
   const message = await Message.forge({
     channel_id: req.params.channel_id,
@@ -21,7 +17,7 @@ const createRoute = async (req, res) => {
     user_id: req.user.get('id'),
     device_id: req.device.get('id'),
     message_type_id: 2,
-    ...data
+    ...whitelist(req.body, ['quoted_message_id','code','text','link_id'])
   }).save(null, {
     transacting: req.trx
   })

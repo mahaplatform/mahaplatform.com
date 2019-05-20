@@ -1,58 +1,56 @@
 import { listeners } from '../../../../../core/services/routes/listeners'
 import { activity } from '../../../../../core/services/routes/activities'
-import ExpenseSerializer from '../../../serializers/expense_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
+import CheckSerializer from '../../../serializers/check_serializer'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
-import { createReceipts } from '../../../services/receipts'
-import Expense from '../../../models/expense'
+import Check from '../../../models/check'
 import Member from '../../../models/member'
 
 const updateRoute = async (req, res) => {
 
-  const expense = await Expense.scope({
+  const check = await Check.scope({
     team: req.team
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['receipts.asset','receipts.asset.source','user','project.members','expense_type','status','vendor','account'],
+    withRelated: ['receipts.asset','receipts.asset.source','user','project.members','expense_type','status','vendor'],
     transacting: req.trx
   })
 
-  if(!expense) return req.status(404).respond({
+  if(!check) return req.status(404).respond({
     code: 404,
-    message: 'Unable to load expense'
+    message: 'Unable to load check'
   })
 
-  await expense.save(whitelist(req.body, ['date','project_id','expense_type_id','vendor_id','account_id','description','amount','account']), {
+  res.status(200).respond(check, (check) => {
+    return CheckSerializer(req, req.trx, check)
+  })
+
+  await check.save(whitelist(req.body, ['project_id','expense_type_id','vendor_id','delivery_method','date_needed','description','amount','description']), {
     transacting: req.trx
   })
-
-  await createReceipts(req, 'expense', expense)
 
   const members = await Member.query(qb => {
-    qb.where('project_id', expense.get('project_id'))
+    qb.where('project_id', check.get('project_id'))
     qb.whereRaw('(member_type_id != ? OR user_id = ?)', [3, req.user.get('id')])
   }).fetchAll({
     transacting: req.trx
   })
 
   await listeners(req, members.map(member => ({
-    listenable: expense,
+    listenable: check,
     user_id: member.get('user_id')
   })))
 
   await activity(req, {
-    story: 'created {object}',
-    object: expense
+    story: 'updated {object}',
+    object: check
   })
 
   await audit(req, {
-    story: 'created',
-    auditable: {
-      tableName: 'expenses_expenses',
-      id: expense.get('id')
-    }
+    story: 'updated',
+    auditable: check
   })
 
   await socket.refresh(req, [{
@@ -61,14 +59,14 @@ const updateRoute = async (req, res) => {
   }, {
     channel: 'team',
     target: [
-      `/admin/expenses/expenses/${expense.get('id')}`,
+      `/admin/expenses/checks/${check.get('id')}`,
       '/admin/expenses/approvals',
       '/admin/expenses/reports'
     ]
   }])
 
-  res.status(200).respond(expense, (expense) => {
-    return ExpenseSerializer(req, req.trx, expense)
+  res.status(200).respond(check, (check) => {
+    return CheckSerializer(req, req.trx, check)
   })
 
 }

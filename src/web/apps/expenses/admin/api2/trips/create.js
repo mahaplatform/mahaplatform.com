@@ -1,24 +1,34 @@
+import { listeners } from '../../../../../core/services/routes/listeners'
 import { activity } from '../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../core/services/routes/params'
 import { audit } from '../../../../../core/services/routes/audit'
 import TripSerializer from '../../../serializers/trip_serializer'
 import socket from '../../../../../core/services/routes/emitter'
+import Member from '../../../models/member'
 import Trip from '../../../models/trip'
-import _ from 'lodash'
 
 const createRoute = async (req, res) => {
-
-  const allowed = _.pick(req.body, ['expense_type_id','project_id','date','description','time_leaving','time_arriving','odometer_start','odometer_end','total_miles','amount','mileage_rate'])
-
-  const data = _.omitBy(allowed, _.isNil)
 
   const trip = await Trip.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
     status_id: 1,
-    ...data
+    ...whitelist(req.body, ['expense_type_id','project_id','date','description','time_leaving','time_arriving','odometer_start','odometer_end','total_miles','amount','mileage_rate'])
   }).save(null, {
     transacting: req.trx
   })
+
+  const members = await Member.query(qb => {
+    qb.where('project_id', trip.get('project_id'))
+    qb.whereRaw('(member_type_id != ? OR user_id = ?)', [3, req.user.get('id')])
+  }).fetchAll({
+    transacting: req.trx
+  })
+
+  await listeners(req, members.map(member => ({
+    listenable: trip,
+    user_id: member.get('user_id')
+  })))
 
   await activity(req, {
     story: 'created {object}',

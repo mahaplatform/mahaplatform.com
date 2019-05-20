@@ -1,18 +1,18 @@
+import reimbursements from './reimbursements'
 import expense_types from './expense_types'
 import memberships from './memberships'
 import accounts from './accounts'
 import projects from './projects'
 import statuses from './statuses'
 import receipts from './receipts'
+import advances from './advances'
+import expenses from './expenses'
 import { Router } from 'express'
 import batches from './batches'
 import vendors from './vendors'
+import checks from './checks'
 import rates from './rates'
 import users from './users'
-
-import advances from './advances'
-import expenses from './expenses'
-import reimbursements from './reimbursements'
 import trips from './trips'
 import items from './items'
 
@@ -23,6 +23,8 @@ router.use('/accounts', accounts)
 router.use('/advances', advances)
 
 router.use('/batches', batches)
+
+router.use('/checks', checks)
 
 router.use('/expense_types', expense_types)
 

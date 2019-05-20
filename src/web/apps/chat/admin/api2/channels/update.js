@@ -1,7 +1,7 @@
 import ChannelSerializer from '../../../serializers/channel_serializer'
+import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
 import Channel from '../../../models/channel'
-import _ from 'lodash'
 
 const updateRoute = async (req, res) => {
 
@@ -21,11 +21,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to find channel'
   })
 
-  const allowed = _.pick(req.body, ['name','description'])
-
-  const data = _.omitBy(allowed, _.isNil)
-
-  await channel.save(data, {
+  await channel.save(whitelist(req.body, ['name','description']), {
     patch: true,
     transacting: req.trx
   })

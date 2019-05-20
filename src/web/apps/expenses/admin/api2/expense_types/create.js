@@ -1,19 +1,15 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import ExpenseTypeSerializer from '../../../serializers/expense_type_serializer'
+import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
 import ExpenseType from '../../../models/expense_type'
-import _ from 'lodash'
 
 const createRoute = async (req, res) => {
-
-  const allowed = _.pick(req.body, ['title','description','integration','is_active'])
-
-  const data = _.omitBy(allowed, _.isNil)
 
   const expense_type = await ExpenseType.forge({
     team_id: req.team.get('id'),
     is_active: true,
-    ...data
+    ...whitelist(req.body, ['title','description','integration','is_active'])
   }).save(null, {
     transacting: req.trx
   })
