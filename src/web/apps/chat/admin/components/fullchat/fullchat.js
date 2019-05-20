@@ -6,7 +6,6 @@ import Edit from '../../views/edit'
 import PropTypes from 'prop-types'
 import Channels from '../channels'
 import Channel from '../channel'
-import Starred from '../starred'
 import Header from '../header'
 import Info from '../info'
 import React from 'react'
@@ -28,7 +27,6 @@ class Chat extends React.Component {
     info: PropTypes.bool,
     selected: PropTypes.number,
     managing: PropTypes.bool,
-    starred: PropTypes.bool,
     status: PropTypes.string,
     user_id: PropTypes.number,
     onChoose: PropTypes.func,
@@ -44,11 +42,10 @@ class Chat extends React.Component {
   _handleInfo = this._handleInfo.bind(this)
   _handleNew = this._handleNew.bind(this)
   _handleShowMessage = this._handleShowMessage.bind(this)
-  _handleStarred = this._handleStarred.bind(this)
   _handleSubscriptions = this._handleSubscriptions.bind(this)
 
   render() {
-    const { adding, channel, editing, info, managing, starred, status } = this.props
+    const { adding, channel, editing, info, managing, status } = this.props
     if(status === 'loading') return <Loader />
     return (
       <div className={ this._getClass() }>
@@ -81,15 +78,7 @@ class Chat extends React.Component {
             </div>
           </div>
         }
-        { starred &&
-          <div className="fullchat-channel">
-            <Header { ...this._getStarredHeader() } />
-            <div className="fullchat-channel-body">
-              <Starred { ...this._getStarred() } />
-            </div>
-          </div>
-        }
-        { !channel && !starred &&
+        { !channel &&
           <div className="fullchat-channel">
             <Message { ...this._getEmpty() } />
           </div>
@@ -99,15 +88,13 @@ class Chat extends React.Component {
   }
 
   componentDidMount() {
-    const { channels, page, onChoose, onStarred, onLoadChat } = this.props
+    const { channels, page, onChoose, onLoadChat } = this.props
     onLoadChat()
     if(page.pathname.match(/^\/admin\/chat$/)) {
       if(channels.length === 0) return
       onChoose(channels[0].id)
     } else if(page.pathname.match(/^\/admin\/chat\/channels\/\d*/)) {
       onChoose(parseInt(page.params.id))
-    } else if(page.pathname.match(/^\/admin\/chat\/starred$/)) {
-      onStarred()
     }
   }
 
@@ -139,8 +126,7 @@ class Chat extends React.Component {
       showNew: true,
       status,
       onChoose: this._handleChoose,
-      onNew: this._handleNew,
-      onStarred: this._handleStarred
+      onNew: this._handleNew
     }
   }
 
@@ -157,13 +143,6 @@ class Chat extends React.Component {
     return {
       ...channel,
       onInfo: this._handleInfo
-    }
-  }
-
-  _getStarredHeader() {
-    return {
-      name: 'Starred Messages',
-      description: 'This is a collection of starred messages'
     }
   }
 
@@ -195,12 +174,6 @@ class Chat extends React.Component {
       title: 'New Conversation',
       onCancel: this._handleNew,
       onDone: this._handleCreate
-    }
-  }
-
-  _getStarred() {
-    return {
-      onShowMessage: this._handleShowMessage
     }
   }
 
@@ -254,11 +227,6 @@ class Chat extends React.Component {
   _handleShowMessage(message) {
     const { router } = this.context
     router.push(`/admin/chat/channels/${message.channel_id}/messages/${message.id}`)
-  }
-
-  _handleStarred() {
-    this.context.router.replace('/admin/chat/starred')
-    this.props.onStarred()
   }
 
   _handleSubscriptions() {

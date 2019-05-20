@@ -15,7 +15,6 @@ class ChannelToken extends React.Component {
     active: PropTypes.bool,
     description: PropTypes.string,
     id: PropTypes.number,
-    is_archived: PropTypes.bool,
     label: PropTypes.string,
     last_message: PropTypes.object,
     last_message_at: PropTypes.any,
@@ -109,8 +108,8 @@ class ChannelToken extends React.Component {
   }
 
   _handleContextMenu(e) {
-    const { description, id, is_archived, label, name, owner } = this.props
-    this.props.onContextMenu({ description, id, is_archived, label, name, owner }, e)
+    const { description, id, label, name, owner } = this.props
+    this.props.onContextMenu({ description, id, label, name, owner }, e)
   }
 
 }

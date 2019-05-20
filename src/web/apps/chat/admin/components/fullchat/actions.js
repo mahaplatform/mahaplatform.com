@@ -20,10 +20,6 @@ export const choose = (id) => ({
   id
 })
 
-export const starred = () => ({
-  type: 'STARRED'
-})
-
 export const toggleAdding = () => ({
   type: 'TOGGLE_ADDING'
 })

@@ -2,13 +2,10 @@ import subscriptions from './subscriptions'
 import messages from './messages'
 import channels from './channels'
 import { Router } from 'express'
-import starred from './starred'
 import search from './search'
 import unread from './unread'
 
 const router = new Router({ mergeParams: true })
-
-router.use('/starred', starred)
 
 router.use('/search', search)
 

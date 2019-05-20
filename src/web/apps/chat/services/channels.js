@@ -23,7 +23,6 @@ export const createChannel = async (req, trx, user_ids) => {
     team_id: req.team.get('id'),
     owner_id: req.user.get('id'),
     code: generateCode(),
-    is_archived: false,
     last_message_at: moment()
   }).save(null, {
     transacting: trx

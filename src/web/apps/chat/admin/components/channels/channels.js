@@ -15,7 +15,6 @@ class Channels extends React.Component {
   }
 
   static propTypes = {
-    channel_type: PropTypes.string,
     channels: PropTypes.array,
     q: PropTypes.string,
     selected: PropTypes.number,
@@ -25,12 +24,10 @@ class Channels extends React.Component {
     onChangeType: PropTypes.func,
     onChoose: PropTypes.func,
     onRefresh: PropTypes.func,
-    onSetQuery: PropTypes.func,
-    onStarred: PropTypes.func
+    onSetQuery: PropTypes.func
   }
 
   _handleNew = this._handleNew.bind(this)
-  _handleStarred = this._handleStarred.bind(this)
   _handleTasks = this._handleTasks.bind(this)
   _handleType = _.debounce(this._handleType.bind(this), 250, { trailing: true })
 
@@ -49,23 +46,6 @@ class Channels extends React.Component {
               </div>
             }
           </div>
-          { q.length === 0 &&
-            <div className="chat-channels-header-tabs">
-              <div className="reframe-tabs">
-                <div className="reframe-tabs-items">
-                  <div { ...this._getTab('active') }>
-                    Active
-                  </div>
-                  <div { ...this._getTab('archived') }>
-                    Archived
-                  </div>
-                  <div { ...this._getTab('starred') }>
-                    Starred
-                  </div>
-                </div>
-              </div>
-            </div>
-          }
         </div>
         { q.length === 0 && status === 'loading' && <Loader /> }
         { q.length === 0 && status !== 'loading' && channels.length > 0 &&
@@ -81,11 +61,6 @@ class Channels extends React.Component {
         { q.length > 0 &&
           <Infinite { ...this._getInfinite() } />
         }
-        <div className="chat-channels-footer">
-          <span className="chat-channels-type" onClick={ this._handleStarred }>
-            Starred Messages
-          </span>
-        </div>
       </div>
     )
   }
@@ -101,16 +76,6 @@ class Channels extends React.Component {
     return {
       prompt: 'Search...',
       onChange: this._handleType
-    }
-  }
-
-  _getTab(type) {
-    const { channel_type } = this.props
-    const classes = ['reframe-tabs-item']
-    if(type === channel_type) classes.push('active')
-    return {
-      className: classes.join(' '),
-      onClick: this._handleChangeType.bind(this, type)
     }
   }
 
@@ -140,29 +105,18 @@ class Channels extends React.Component {
       id: channel.id,
       channel,
       title: true,
-      onArchive: null,
-      onDelete: null,
       onDone: null,
       onEdit: null,
-      onLeave: null,
       onSetMode: null,
       onSubscriptions: null
     }
   }
 
-  _handleChangeType(type) {
-    this.props.onChangeType(type)
-  }
-
   _getEmpty() {
     return {
-      channel_type: this.props.channel_type,
+      channel_type: 'active',
       onNew: this._handleNew
     }
-  }
-
-  _handleStarred() {
-    this.props.onStarred()
   }
 
   _handleNew() {

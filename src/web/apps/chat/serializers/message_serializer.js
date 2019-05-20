@@ -19,10 +19,6 @@ const MessageSerializer = (req, trx, result) => ({
 
   reactions: result.related('reactions').map(reaction),
 
-  is_starred: result.related('stars').reduce((is_starred, star) => {
-    return is_starred || star.get('user_id') === req.user.get('id')
-  }, false),
-
   quoted_message: quoted_message(result.related('quoted_message')),
 
   created_at: result.get('created_at'),

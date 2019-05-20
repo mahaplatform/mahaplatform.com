@@ -20,12 +20,6 @@ const ChannelSerializer = (req, trx, result) => ({
 
   last_viewed_at: last_viewed_at(req.user.get('id'), result.related('subscriptions')),
 
-  is_archived: result.get('is_archived'),
-
-  is_starred: result.related('stars').reduce((is_starred, star) => {
-    return is_starred || star.get('user_id') === req.user.get('id')
-  }, false),
-
   created_at: result.get('created_at'),
 
   updated_at: result.get('updated_at')

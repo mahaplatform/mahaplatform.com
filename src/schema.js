@@ -7,7 +7,6 @@ const schema = {
       table.integer('team_id').unsigned()
       table.string('code', 255)
       table.string('name', 255)
-      table.boolean('is_archived')
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.timestamp('last_message_at')
@@ -160,6 +159,9 @@ const schema = {
       table.integer('version_id').unsigned()
       table.string('file_name', 255)
       table.timestamp('deleted_at')
+      table.string('fullpath', 255)
+      table.timestamp('locked_at')
+      table.integer('locked_by_id').unsigned()
     })
 
     await knex.schema.createTable('drive_folders', (table) => {
@@ -171,6 +173,9 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.timestamp('deleted_at')
+      table.string('fullpath', 255)
+      table.timestamp('locked_at')
+      table.integer('locked_by_id').unsigned()
     })
 
     await knex.schema.createTable('drive_versions', (table) => {
@@ -1204,11 +1209,13 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('folder_id').references('drive_folders.id')
       table.foreign('version_id').references('drive_versions.id')
+      table.foreign('locked_by_id').references('maha_users.id')
     })
 
     await knex.schema.table('drive_folders', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('parent_id').references('drive_folders.id')
+      table.foreign('locked_by_id').references('maha_users.id')
     })
 
     await knex.schema.table('drive_versions', table => {
@@ -1544,7 +1551,6 @@ const schema = {
       chat_channels.last_message_at as date
       from (chat_channels
       join chat_subscriptions on ((chat_subscriptions.channel_id = chat_channels.id)))
-      where (chat_channels.is_archived = false)
       union
       select 'message'::text as type,
       chat_messages.team_id,
@@ -1556,7 +1562,7 @@ const schema = {
       from ((chat_messages
       join chat_channels on ((chat_channels.id = chat_messages.channel_id)))
       join chat_subscriptions on ((chat_subscriptions.channel_id = chat_channels.id)))
-      where ((chat_channels.is_archived = false) and (chat_messages.message_type_id = 2))) results
+      where (chat_messages.message_type_id = 2)) results
       order by results.type, results.date;
     `)
 
@@ -1571,6 +1577,9 @@ const schema = {
       items.folder_id,
       items.asset_id,
       items.label,
+      items.fullpath,
+      items.locked_at,
+      items.locked_by_id,
       items.deleted_at,
       items.created_at,
       items.updated_at
@@ -1582,6 +1591,9 @@ const schema = {
       drive_folders.parent_id as folder_id,
       null::integer as asset_id,
       drive_folders.label,
+      drive_folders.fullpath,
+      drive_folders.locked_at,
+      drive_folders.locked_by_id,
       drive_folders.deleted_at,
       drive_folders.created_at,
       drive_folders.updated_at
@@ -1595,6 +1607,9 @@ const schema = {
       drive_files.folder_id,
       drive_versions.asset_id,
       drive_files.file_name as label,
+      drive_files.fullpath,
+      drive_files.locked_at,
+      drive_files.locked_by_id,
       drive_files.deleted_at,
       drive_files.created_at,
       drive_files.updated_at
@@ -1625,6 +1640,9 @@ const schema = {
       drive_items.folder_id,
       drive_items.asset_id,
       drive_items.label,
+      drive_items.fullpath,
+      drive_items.locked_at,
+      drive_items.locked_by_id,
       drive_items.deleted_at,
       drive_items.created_at,
       drive_items.updated_at,

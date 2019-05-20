@@ -1,4 +1,3 @@
-import { Star } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -8,8 +7,8 @@ class Header extends React.Component {
   }
 
   static propTypes = {
+    description: PropTypes.string,
     id: PropTypes.number,
-    is_starred: PropTypes.bool,
     label: PropTypes.string,
     name: PropTypes.string,
     subscriptions: PropTypes.array,
@@ -30,9 +29,6 @@ class Header extends React.Component {
           <div className="chat-channel-header-tasks">
             <ul>
               <li>
-                <Star { ...this._getStar() } />
-              </li>
-              <li>
                 <div className="chat-channel-header-info" onClick={ this._handleInfo }>
                   <i className="fa fa-fw fa-info-circle" />
                 </div>
@@ -42,16 +38,6 @@ class Header extends React.Component {
         }
       </div>
     )
-  }
-
-  _getStar() {
-    const { id, is_starred } = this.props
-    return {
-      id,
-      is_starred,
-      label: 'channel',
-      table: 'chat_channels'
-    }
   }
 
   _handleInfo() {

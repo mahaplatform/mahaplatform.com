@@ -11,9 +11,9 @@ const processor = async () => {
 
   const args = process.argv.slice(2)
 
-  if(args[0] === 'migrate:rollback') return await migrateDown()
+  if(args[0] === 'migrate:down') return await migrateDown()
 
-  if(args[0] === 'migrate:latest') return await migrateUp()
+  if(args[0] === 'migrate:up') return await migrateUp()
 
   if(args[0] === 'schema:dump') return await schemaDump()
 

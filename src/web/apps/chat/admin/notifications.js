@@ -2,7 +2,7 @@ const notifications = [
   {
     code: 'conversation_status',
     title: 'Conversation Status',
-    description: 'someone starts or archives a conversation with me'
+    description: 'someone starts a conversation with me'
   }, {
     code: 'conversation_membership',
     title: 'Conversation Membership',

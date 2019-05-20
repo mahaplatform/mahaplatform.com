@@ -8,9 +8,9 @@ import fs from 'fs'
 
 const [,,,database] = process.env.DATABASE_URL.match(/(.*):\/\/([^/]*)\/(.*)/)
 
-export const migrateUp = async () => await _migrate('up')
+export const migrateUp = async () => await _migrate('up').then(schemaDump)
 
-export const migrateDown = async () => await _migrate('down')
+export const migrateDown = async () => await _migrate('down').then(schemaDump)
 
 export const reset = async () => await _reset()
 

@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import Edit from '../../views/edit'
 import PropTypes from 'prop-types'
 import Channels from './channels'
-import Starred from './starred'
 import Channel from './channel'
 import Details from './details'
 import Info from './info'
@@ -24,7 +23,6 @@ class ChatBar extends React.Component {
     showInfo: PropTypes.bool,
     showMessage: PropTypes.bool,
     showNew: PropTypes.bool,
-    showStarred: PropTypes.bool,
     showSubscriptions: PropTypes.bool,
     selected: PropTypes.number,
     status: PropTypes.string,
@@ -34,7 +32,6 @@ class ChatBar extends React.Component {
     onSetInfo: PropTypes.func,
     onSetMessage: PropTypes.func,
     onSetNew: PropTypes.func,
-    onSetStarred: PropTypes.func,
     onSetSubscriptions: PropTypes.func
   }
 
@@ -44,15 +41,13 @@ class ChatBar extends React.Component {
   _handleEdit = this._handleEdit.bind(this)
   _handleInfo = this._handleInfo.bind(this)
   _handleShowMessage = this._handleShowMessage.bind(this)
-  _handleStarred = this._handleStarred.bind(this)
   _handleSubscriptions = this._handleSubscriptions.bind(this)
 
   render() {
-    const { channel, message, showEdit, showInfo, showNew, showStarred, showSubscriptions } = this.props
+    const { channel, message, showEdit, showInfo, showNew, showSubscriptions } = this.props
     return (
       <div className="chatbar">
         <Channels { ...this._getChannels() } />
-        { showStarred && <Starred { ...this._getStarred() } /> }
         <CSSTransition in={ !_.isNil(channel) } classNames="slideleft" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
           <div className="chatbar-panel">
             { channel && <Channel { ...this._getChannel() } /> }
@@ -96,15 +91,7 @@ class ChatBar extends React.Component {
       status,
       onChoose: this._handleChoose,
       onClose: this._handleClose,
-      onNew: this._handleNew.bind(this, true),
-      onStarred: this._handleStarred.bind(this, true)
-    }
-  }
-
-  _getStarred() {
-    return {
-      onBack: this._handleStarred.bind(this, false),
-      onShowMessage: this._handleShowMessage
+      onNew: this._handleNew.bind(this, true)
     }
   }
 
@@ -132,11 +119,8 @@ class ChatBar extends React.Component {
     return {
       channel,
       id: selected,
-      onArchive: this._handleArchive,
       onBack: this._handleInfo.bind(this, false),
-      onDelete: this._handleDelete,
       onEdit: this._handleEdit.bind(this, true),
-      onLeave: this._handleLeave,
       onSubscriptions: this._handleSubscriptions.bind(this, true)
     }
   }
@@ -200,10 +184,6 @@ class ChatBar extends React.Component {
 
   _handleNew(show) {
     this.props.onSetNew(show)
-  }
-
-  _handleStarred(show) {
-    this.props.onSetStarred(show)
   }
 
   _handleShowMessage(message) {
