@@ -70,13 +70,13 @@ const handler = async (req, res, trx) => {
           value[0].city,
           value[0].province,
           value[0].postalcode
-        ] : [null,null,null,null]
+        ] : ['','','','','']
 
         if(type === 'lookup') {
 
           const ids = value.filter(id => id !== null)
 
-          if(ids.length === 0) return []
+          if(ids.length === 0) return [null]
 
           const related = await Item.query(qb => {
             qb.whereIn('id', ids)
@@ -86,7 +86,11 @@ const handler = async (req, res, trx) => {
             return field.get('name') === config.datasource.text
           })
 
-          const items = related.map(item => item.get('values')[title.get('code')])
+          const items = related.map(item => {
+            return item.get('values')[title.get('code')]
+          }).filter(item => {
+            return item !== null
+          })
 
           return [items.join(',')]
 
@@ -96,7 +100,7 @@ const handler = async (req, res, trx) => {
 
       }
 
-      return await Promise.reduce(fields, async (data, field) => {
+      const expanded = await Promise.reduce(fields, async (data, field) => {
 
         const type = field.get('type')
 
@@ -106,10 +110,12 @@ const handler = async (req, res, trx) => {
 
         return [
           ...data,
-          ...value || []
+          ...value || ''
         ]
 
       }, [item.get('id')])
+
+      return expanded.map(item => item || '')
 
     })
 
