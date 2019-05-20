@@ -1,0 +1,7 @@
+import { testHandler } from '../../utils/test'
+import { expect } from 'chai'
+import destroy from './destroy'
+
+describe('src/web/apps/expenses/admin/api/expenses/destroy.js', () => {
+
+})

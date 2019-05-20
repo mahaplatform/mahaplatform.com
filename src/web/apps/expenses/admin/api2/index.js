@@ -10,13 +10,25 @@ import vendors from './vendors'
 import rates from './rates'
 import users from './users'
 
+import advances from './advances'
+import expenses from './expenses'
+import reimbursements from './reimbursements'
+import trips from './trips'
+import items from './items'
+
 const router = new Router({ mergeParams: true })
 
 router.use('/accounts', accounts)
 
+router.use('/advances', advances)
+
 router.use('/batches', batches)
 
 router.use('/expense_types', expense_types)
+
+router.use('/expenses', expenses)
+
+router.use(items)
 
 router.use('/memberships', memberships)
 
@@ -26,7 +38,11 @@ router.use('/rates', rates)
 
 router.use('/receipts', receipts)
 
+router.use('/reimbursements', reimbursements)
+
 router.use('/statuses', statuses)
+
+router.use('/trips', trips)
 
 router.use('/users/:user_id', users)
 

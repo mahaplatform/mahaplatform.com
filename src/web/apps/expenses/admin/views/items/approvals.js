@@ -14,7 +14,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Approvals',
   // access: checkOwnerApprover,
   collection: {
-    endpoint: '/api/admin/expenses/approvals/items',
+    endpoint: '/api/admin/expenses/approvals',
     table: [
       { label: 'ID', key: 'item_id', visible: false, collapsing: true },
       { label: null, key: 'type', primary: true, collapsing: true, format: CompactTypeToken },
