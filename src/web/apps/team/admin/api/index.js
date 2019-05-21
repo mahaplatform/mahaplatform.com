@@ -12,9 +12,6 @@ import roles from './roles'
 import roleUsers from './role_users'
 import sessions from './sessions'
 import settings from './settings'
-import supervisors from './supervisors'
-import supervisorUsers from './supervisor_users'
-import users from './users'
 
 const api = new Segment({
   routes: [
@@ -30,10 +27,7 @@ const api = new Segment({
     roles,
     roleUsers,
     sessions,
-    settings,
-    supervisors,
-    supervisorUsers,
-    users
+    settings
   ]
 })
 

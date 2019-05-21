@@ -14,16 +14,12 @@ class Complete extends React.Component {
     user: PropTypes.object
   }
 
-  state = {
-    tada: false
-  }
-
   _handleClick = this._handleClick.bind(this)
 
   render() {
     return (
       <div className="maha-signin-panel">
-        <div className={ this._getClass() }>
+        <div className="maha-signin-form">
           <div className="maha-signin-content">
             <h1><i className="fa fa-check-circle" /></h1>
             <h2>Congratulations!</h2>
@@ -42,30 +38,10 @@ class Complete extends React.Component {
     )
   }
 
-  componentDidMount() {
-    this._handleTada()
-  }
-
-  _getClass() {
-    const { tada } = this.state
-    const classes = ['maha-signin-form']
-    if(tada) classes.push('animated tada')
-    return classes.join(' ')
-  }
-
   _handleClick() {
     const { admin } = this.context
     const { team, token, user } = this.props
     admin.signin(team, token, user)
-  }
-
-  _handleTada() {
-    setTimeout(() => {
-      this.setState({ tada: true })
-      setTimeout(() => {
-        this.setState({ tada: false })
-      }, 500)
-    }, 500)
   }
 
 }

@@ -18,15 +18,12 @@ class New extends React.Component {
     return {
       action: '/api/admin/team/supervisors',
       method: 'POST',
-      endpoint: '/api/admin/users',
+      endpoint: '/api/admin/team/supervisors/available',
       multiple: false,
       name: 'user_id',
       value: 'id',
       text: 'full_name',
       format: CompactUserToken,
-      filters: [
-        { label: 'Group', name: 'group_id', type: 'select', multiple: true, endpoint: '/api/admin/team/groups', value: 'id', text: 'title', sort: { key: 'title', order: 'asc' } }
-      ],
       title: 'Choose Supervisor',
       onDone: this._handleDone
     }

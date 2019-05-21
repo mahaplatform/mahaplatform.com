@@ -29,7 +29,7 @@ class Password extends React.Component {
       <div className="maha-signin-panel">
         <div className="maha-signin-form">
           <div className="maha-signin-content">
-            { user && <Avatar user={ user } width="150" /> }
+            { user && <Avatar user={ user } width="150" presence={ false } /> }
             { user && <h2>{ user.full_name }</h2> }
             <h3>Please enter and confirm your new password</h3>
           </div>

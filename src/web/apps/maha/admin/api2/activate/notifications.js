@@ -6,18 +6,13 @@ const notificationsRoute = async (req, res) => {
 
   await Checkit({
     token: 'required',
-    photo_id: 'required'
+    email_notifications_method: 'required'
   }).run(req.body)
 
   await req.user.save({
-    photo_id:
-    req.body.photo_id
+    email_notifications_method: req.body.email_notifications_method
   }, {
     patch: true,
-    transacting: req.trx
-  })
-
-  await req.user.load(['photo'], {
     transacting: req.trx
   })
 

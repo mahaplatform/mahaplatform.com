@@ -5,9 +5,9 @@ const securityRoute = async (req, res, next) => {
     message: 'Please answer the question'
   })
 
-  const answer = req.user.get('security_question_answer')
+  const answer = req.user.get('security_question_answer').toLowerCase()
 
-  if(req.body.answer !== answer) return res.status(422).json({
+  if(req.body.answer.toLowerCase() !== answer) return res.status(422).json({
     code: 422,
     message: 'Invalid securty answer'
   })

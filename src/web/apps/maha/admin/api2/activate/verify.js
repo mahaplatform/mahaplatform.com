@@ -8,10 +8,6 @@ const verifyRoute = async (req, res) => {
     token: 'required'
   }).run(req.body)
 
-  await req.user.load(['photo'], {
-    transacting: req.trx
-  })
-
   if(req.user.get('activated_at')) return res.status(404).json({
     code: 404,
     message: 'This account has already been activated'
