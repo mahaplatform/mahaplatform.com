@@ -34,7 +34,6 @@ class MobileInfo extends React.Component {
       return {
         channel,
         id: channel.id,
-        showHeader: true,
         onEdit: this._handleEdit,
         onSubscriptions: this._handleSubscriptions
       }

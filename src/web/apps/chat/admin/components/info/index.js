@@ -16,17 +16,16 @@ class Info extends React.Component {
   static propTypes = {
     channel: PropTypes.object,
     id: PropTypes.number,
-    showHeader: PropTypes.bool,
     onEdit: PropTypes.func,
     onSubscriptions: PropTypes.func
   }
 
   render() {
-    const { channel, showHeader } = this.props
+    const { channel } = this.props
     if(!channel) return null
     return (
       <div className="chat-info">
-        { showHeader && <Header { ...this._getHeader() } /> }
+        <Header { ...this._getHeader() } />
         <div className="chat-info-body">
           <Tasks { ...this._getTasks() } />
           <List { ...this._getList() } />

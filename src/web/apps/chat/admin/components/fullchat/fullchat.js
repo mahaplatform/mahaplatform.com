@@ -59,11 +59,10 @@ class Chat extends React.Component {
         </div>
         { channel &&
           <div className="fullchat-channel">
-            <Header { ...this._getHeader() } />
             <div className="fullchat-channel-body">
-              <Channel { ...this._getChannel() }  key={`channel_${channel.id}`}/>
+              <Channel { ...this._getChannel() } />
               <div className="fullchat-right">
-                { info && <Info { ...this._getInfo() } key={`info_${channel.id}`} /> }
+                <Info { ...this._getInfo() } />
                 <CSSTransition in={ editing } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
                   <div className="fullchat-panel">
                     <Edit { ...this._getEdit() } />
@@ -160,7 +159,6 @@ class Chat extends React.Component {
     return {
       channel,
       id: selected,
-      showHeader: false,
       onEdit: this._handleEdit,
       onSubscriptions: this._handleSubscriptions
     }
