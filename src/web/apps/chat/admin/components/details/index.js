@@ -1,4 +1,4 @@
-import { Button, List } from 'maha-admin'
+import { List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Message from '../message'
 import React from 'react'

@@ -6,7 +6,6 @@ import Edit from '../../views/edit'
 import PropTypes from 'prop-types'
 import Channels from '../channels'
 import Channel from '../channel'
-import Header from '../header'
 import Info from '../info'
 import React from 'react'
 
@@ -24,16 +23,18 @@ class Chat extends React.Component {
     channels: PropTypes.array,
     channel: PropTypes.object,
     editing: PropTypes.bool,
-    info: PropTypes.bool,
     selected: PropTypes.number,
     managing: PropTypes.bool,
+    page: PropTypes.object,
     status: PropTypes.string,
     user_id: PropTypes.number,
     onChoose: PropTypes.func,
     onLoadChat: PropTypes.func,
     onSaveChat: PropTypes.func,
     onToggleAdding: PropTypes.func,
-    onToggleEditing: PropTypes.func
+    onToggleEditing: PropTypes.func,
+    onToggleInfo: PropTypes.func,
+    onToggleManaging: PropTypes.func
   }
 
   _handleChoose = this._handleChoose.bind(this)
@@ -45,7 +46,7 @@ class Chat extends React.Component {
   _handleSubscriptions = this._handleSubscriptions.bind(this)
 
   render() {
-    const { adding, channel, editing, info, managing, status } = this.props
+    const { adding, channel, editing, managing, status } = this.props
     if(status === 'loading') return <Loader />
     return (
       <div className={ this._getClass() }>
@@ -98,19 +99,15 @@ class Chat extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { channels, info, onChoose, onSaveChat } = this.props
+    const { channels, onChoose } = this.props
     if(channels.length > prevProps.channels.length) {
       onChoose(channels[0].id)
-    }
-    if(info !== prevProps.info) {
-      onSaveChat({ info })
     }
   }
 
   _getClass() {
-    const { info, adding, editing, managing } = this.props
+    const { adding, editing, managing } = this.props
     const classes = ['fullchat']
-    if(info) classes.push('info')
     if(adding) classes.push('adding')
     if(editing) classes.push('editing')
     if(managing) classes.push('managing')

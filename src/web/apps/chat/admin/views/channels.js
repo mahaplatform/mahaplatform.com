@@ -1,6 +1,6 @@
 import Channels from '../components/mobilechat/channels'
 import FullChat from '../components/chats/full'
-import New from '../views/new'
+import New from './new'
 import { Page } from 'maha-admin'
 
 const mapPropsToPage = (props, context, resources, page) => ({

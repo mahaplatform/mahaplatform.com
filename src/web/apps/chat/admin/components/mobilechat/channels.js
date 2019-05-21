@@ -13,7 +13,8 @@ class MobileChannels extends React.Component {
     }
 
     static propTypes = {
-      channel: PropTypes.object
+      channels: PropTypes.array,
+      status: PropTypes.string
     }
 
     _handleChoose = this._handleChoose.bind(this)

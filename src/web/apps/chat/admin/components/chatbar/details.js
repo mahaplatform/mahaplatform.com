@@ -6,7 +6,8 @@ import React from 'react'
 class ChatBarDetails extends React.Component {
 
   static propTypes = {
-    message: PropTypes.object
+    message: PropTypes.object,
+    onBack: PropTypes.object
   }
 
   render() {

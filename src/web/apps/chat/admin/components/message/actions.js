@@ -23,7 +23,7 @@ class Actions extends React.Component {
   _handleQuoteMessage = this._handleQuoteMessage.bind(this)
 
   render() {
-    const { channel, user, user_id } = this.props
+    const { channel } = this.props
     if(!channel) return null
     return (
       <div className="maha-message-actions">

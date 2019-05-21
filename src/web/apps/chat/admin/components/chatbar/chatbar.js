@@ -19,6 +19,7 @@ class ChatBar extends React.Component {
   static propTypes = {
     channels: PropTypes.array,
     channel: PropTypes.object,
+    message: PropTypes.object,
     showEdit: PropTypes.bool,
     showInfo: PropTypes.bool,
     showMessage: PropTypes.bool,
