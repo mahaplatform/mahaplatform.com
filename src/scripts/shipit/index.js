@@ -81,7 +81,8 @@ const processor = async () => {
     'deploy:symlink',
     'deploy:reload_passenger',
     'deploy:restart_pm2',
-    'deploy:cache'
+    'deploy:cache',
+    'deploy:clean'
   ])
 
   utils.registerTask(shipit, 'sync', [
@@ -193,6 +194,12 @@ const processor = async () => {
   utils.registerTask(shipit, 'deploy:cache', () => {
     return shipit.remote('wget -O - http://127.0.0.1/ping', {
       roles: 'appserver'
+    })
+  })
+
+  utils.registerTask(shipit, 'deploy:clean', () => {
+    return shipit.remote(`(ls -rd ${releasesDir}/*|head -n 2;ls -d ${releasesDir}/*)|sort|uniq -u|xargs rm -rf`, {
+      roles: ['appserver','cron','worker']
     })
   })
 
