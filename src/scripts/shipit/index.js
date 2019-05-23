@@ -38,27 +38,6 @@ const processor = async () => {
           port: 22,
           roles: ['database','cache']
         }
-        // {
-        //   user: 'root',
-        //   host: 'lb3.mahaplatform.com',
-        //   port: 22,
-        //   roles: 'loadbalancer'
-        // }, {
-        //   user: 'root',
-        //   host: 'app8.mahaplatform.com',
-        //   port: 2244,
-        //   roles: 'appserver'
-        // }, {
-        //   user: 'root',
-        //   host: 'worker6.mahaplatform.com',
-        //   port: 2244,
-        //   roles: ['worker','cron']
-        // }, {
-        //   user: 'root',
-        //   host: 'db5.mahaplatform.com',
-        //   port: 22,
-        //   roles: ['database','cache']
-        // }
       ]
     }
   })
@@ -96,7 +75,8 @@ const processor = async () => {
     'deploy:symlink',
     'deploy:reload_passenger',
     'deploy:restart_pm2',
-    'deploy:cache'
+    'deploy:cache',
+    'deploy:clean'
   ])
 
   utils.registerTask(shipit, 'sync', [
@@ -196,6 +176,12 @@ const processor = async () => {
   utils.registerTask(shipit, 'deploy:cache', () => {
     return shipit.remote('wget -O - http://127.0.0.1/ping', {
       roles: 'appserver'
+    })
+  })
+
+  utils.registerTask(shipit, 'deploy:clean', () => {
+    return shipit.remote(`(ls -rd ${releasesDir}/*|head -n 2;ls -d ${releasesDir}/*)|sort|uniq -u|xargs rm -rf`, {
+      roles: ['appserver','cron','worker']
     })
   })
 
