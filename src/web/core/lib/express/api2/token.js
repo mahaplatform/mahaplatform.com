@@ -17,8 +17,6 @@ const route = async (req, res, next) => {
 
   const token = getToken(req)
 
-  console.log(token)
-
   if(!token) return res.status(401).json({
     status: 401,
     message: 'No token'

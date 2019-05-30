@@ -6,6 +6,8 @@ const FolderSerializer = (req, trx, result) => ({
 
   code: result.get('code'),
 
+  label: result.get('label'),
+
   type: 'Folder',
 
   folder: folder(result.related('folder')),

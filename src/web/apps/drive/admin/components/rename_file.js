@@ -24,7 +24,7 @@ class RenameFile extends React.Component {
     return {
       title: 'Rename File',
       method: 'patch',
-      endpoint: `/api/admin/drive/files/${item.code}/edit`,
+      endpoint: `/api/admin/drive/files/${item.code}`,
       action: `/api/admin/drive/files/${item.code}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,

@@ -157,8 +157,8 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('version_id').unsigned()
-      table.string('file_name', 255)
       table.timestamp('deleted_at')
+      table.string('label', 255)
       table.string('fullpath', 255)
       table.timestamp('locked_at')
       table.integer('locked_by_id').unsigned()
@@ -1606,7 +1606,7 @@ const schema = {
       'file'::text as type,
       drive_files.folder_id,
       drive_versions.asset_id,
-      drive_files.file_name as label,
+      drive_files.label,
       drive_files.fullpath,
       drive_files.locked_at,
       drive_files.locked_by_id,

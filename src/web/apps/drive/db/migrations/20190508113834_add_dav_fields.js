@@ -12,6 +12,7 @@ const AddDavFields = {
     })
 
     await knex.schema.table('drive_files', (table) => {
+      table.string('label')
       table.string('fullpath')
       table.timestamp('locked_at')
       table.integer('locked_by_id').unsigned()
@@ -54,6 +55,7 @@ const AddDavFields = {
 
     await Promise.map(files, async file => {
       await knex('drive_files').update({
+        label: file.file_name,
         fullpath: filepaths[file.id]
       }).where({ id: file.id })
     })
@@ -63,6 +65,10 @@ const AddDavFields = {
     await knex.raw('drop view drive_starred')
 
     await knex.raw('drop view drive_items')
+
+    await knex.schema.table('drive_files', (table) => {
+      table.dropColumn('file_name')
+    })
 
     await knex.raw(`
       create view drive_items AS
@@ -94,7 +100,7 @@ const AddDavFields = {
       'file' as type,
       "drive_files"."folder_id",
       "drive_versions"."asset_id",
-      "drive_files"."file_name" as "label",
+      "drive_files"."label",
       "drive_files"."fullpath",
       "drive_files"."locked_at",
       "drive_files"."locked_by_id",

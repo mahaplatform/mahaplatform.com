@@ -1,4 +1,4 @@
-import { Attachments, Button, List, Star } from 'maha-admin'
+import { Attachments, Button, List } from 'maha-admin'
 import RenameFolder from '../rename_folder'
 import RenameFile from '../rename_file'
 import { connect } from 'react-redux'
@@ -77,7 +77,6 @@ class Tasks extends React.Component {
     } else if(!_.includes(['shared','starred'], item.code)) {
       const can_edit = _.includes(['owner','edit'], item.access_type)
       if(mobile) items.push({ component: <Button { ...this._getDetails() } /> })
-      items.push({ component: <Star { ...this._getStar() } /> })
       if(can_edit) items.push({ component: <Button { ...this._getAccess() } /> })
       if(item.type === 'folder') {
         if(can_edit) {
@@ -193,18 +192,6 @@ class Tasks extends React.Component {
       label: `${_.capitalize(item.type)} Details`,
       className: 'reframe-list-item-link',
       handler: this._handleDetails
-    }
-  }
-
-  _getStar() {
-    const { item } = this.props
-    return {
-      starText: 'Add Star',
-      unstarText: 'Remove Star',
-      is_starred: item.is_starred,
-      label: item.type,
-      table: `drive_${item.type}s`,
-      id: item.item_id
     }
   }
 

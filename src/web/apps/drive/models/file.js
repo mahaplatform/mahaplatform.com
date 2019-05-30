@@ -8,14 +8,6 @@ const File = new Model({
 
   tableName: 'drive_files',
 
-  virtuals: {
-
-    label: function() {
-      return this.related('asset').get('original_file_name')
-    }
-
-  },
-
   accesses: function() {
     return this.hasMany(Access, 'code', 'code')
   },
@@ -34,9 +26,7 @@ const File = new Model({
 
   versions: function() {
     return this.hasMany(Version, 'file_id').query(qb => {
-
       qb.orderBy('created_at', 'desc')
-
     })
   }
 

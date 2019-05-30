@@ -8,57 +8,68 @@
     <link rel="stylesheet" type="text/css" href="/admin/css/font-awesome.min.css">
     <style>
       body {
-        background-color:#999999;
+        background-color: #999999;
       }
-      main {
+      .share {
         width:1200px;
         max-width:94%;
         margin:0 auto;
         background-color:#FFFFFF;
         box-shadow:3px 3px 25px -5px #333333;
-        height:100%;
-        position:relative;
+        display: flex;
+        flex-direction: column;
       }
-      .wrapper {
-        padding-top:50px;
+      .share-header {
+        background-color: #EEEEEE;
         display: flex;
       }
-      .wrapper, iframe {
-        border:none;
-        width:100%;
-        height:100%;
-        min-width: 100%;
+      .share-header-text {
+        flex: 1;
+        padding: 0.8em;
+        line-height: 2.6em;
       }
-      .wrapper iframe {
+      .share-header-button {
+        padding: 0.8em;
+      }
+      .share-header-button a {
+        background-color: #2185d0;
+        color: #FFFFFF;
+        padding: 0.8em;
+        border-radius: 0.5em;
+        display: block;
+      }
+      .share-body {
+        flex: 1;
+        padding: 0.8em;
+      }
+      img, video {
+        width: 100%;
+      }
+      iframe {
+        border: none;
+        width: 100%;
+        height: 100%;
+        min-width: 100%;
         flex: 0;
         margin: auto;
       }
-      .wrapper p, .wrapper img, .wrapper video {
-        margin: auto;
-      }
-      .header-bar {
-        width:100%;
-        position:absolute;
-        top:0;
-        left:0;
-        background:rgba(255,255,255,.8);
-        padding:15px 3%;
-      }
-      .btn {
-        float: right;
-      }
-      .btn a {
-        background-color: #2185d0;
-        color: #FFFFFF;
-        padding: 12px 18px;
-        border-radius: 5px;
-      }
+
     </style>
     <title><%= asset.url %></title>
   </head>
   <body>
-    <main>
-      <div class="wrapper">
+    <div class="share">
+      <div class="share-header">
+        <div class="share-header-text">
+          Now viewing: <i class="fa fa-fw fa-file-o"></i> <%= asset.original_file_name %>
+        </div>
+        <div class="share-header-button">
+          <a href="<%= asset.url %>">
+            <i class="fa fa-download"></i> Download File
+          </a>
+        </div>
+      </div>
+      <div class="share-body">
         <% if ((asset.content_type.match(/pdf/)) || (asset.content_type.match(/excel/)) || (asset.content_type.match(/spreadsheetml/)) || (asset.content_type.match(/msword/)) || (asset.content_type.match(/wordprocessingml/)) || (asset.content_type.match(/powerpoint/)) || (asset.content_type.match(/presentationml/))) { %>
           <iframe src="https://docs.google.com/gview?url=<%= asset.url %>&embedded=true"></iframe>
         <% } else if(asset.content_type.match(/image/)) { %>
@@ -74,16 +85,6 @@
           <p>Preview unavailable, <a href="<%= asset.url %>">click here to download the file.</a></p>
         <% } %>
       </div>
-      <div class="header-bar">
-        <div class="text">
-          Now viewing: <i class="fa fa-fw fa-file-o"></i> <%= asset.original_file_name %>
-        </di>
-        <div class="btn">
-          <a href="<%= asset.url %>">
-            <i class="fa fa-download"></i> Download File
-          </a>
-        </div>
-      </div>
-    </main>
+    </div>
   </body>
 </html>

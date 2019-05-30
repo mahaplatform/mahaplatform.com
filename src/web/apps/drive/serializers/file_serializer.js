@@ -10,7 +10,7 @@ const FileSerializer = (req, trx, result) => ({
 
   version_id: result.get('version_id'),
 
-  file_name: result.get('file_name'),
+  label: result.get('label'),
 
   folder: folder(result.related('folder')),
 
