@@ -1,4 +1,4 @@
-import { ModalPanel } from 'reframe'
+import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

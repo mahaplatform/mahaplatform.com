@@ -1,4 +1,4 @@
-import { Button, Collection, Message, ModalPanel, Panel, Tabs } from 'reframe'
+import { Button, Collection, Message, ModalPanel, Panel, Tabs } from 'maha-admin'
 import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'

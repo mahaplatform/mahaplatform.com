@@ -1,4 +1,4 @@
-import { Infinite, Message, ModalPanel } from 'reframe'
+import { Infinite, Message, ModalPanel } from 'maha-admin'
 import Authorized from '../../authorized'
 import PropTypes from 'prop-types'
 import Items from './items'

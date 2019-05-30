@@ -1,4 +1,4 @@
-import { Infinite, Message, ModalPanel, Searchbox, Stack } from 'reframe'
+import { Infinite, Message, ModalPanel, Searchbox, Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Folder from './folder'
 import Items from './items'

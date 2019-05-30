@@ -26,15 +26,31 @@ import mahafiles from './maha/admin/components/attachments/files'
 import mahaattachments from './maha/admin/components/attachments'
 import mahaurl from './maha/admin/components/attachments/url'
 import mahaauthorized from './maha/admin/components/authorized'
+import mahabutton from './maha/admin/components/button'
+import mahacarousel from './maha/admin/components/carousel'
 import mahachooser from './maha/admin/components/chooser'
+import mahacollection from './maha/admin/components/collection'
 import mahacomments from './maha/admin/components/comments'
 import mahacomposer from './maha/admin/components/composer'
 import mahabrowser from './maha/admin/components/device/browser'
 import mahacordova from './maha/admin/components/device/cordova'
 import mahaelectron from './maha/admin/components/device/electron'
 import mahadevice from './maha/admin/components/device'
+import mahadrawer from './maha/admin/components/drawer'
 import mahaemojis from './maha/admin/components/emojis'
 import mahafields from './maha/admin/components/fields'
+import mahafilters from './maha/admin/components/filters'
+import mahaflash from './maha/admin/components/flash'
+import mahacolorfield from './maha/admin/components/form/colorfield'
+import mahadatefield from './maha/admin/components/form/datefield'
+import mahafilefield from './maha/admin/components/form/filefield'
+import mahalookup from './maha/admin/components/form/lookup'
+import mahalookup2 from './maha/admin/components/form/lookup2'
+import mahaform from './maha/admin/components/form'
+import mahaselect from './maha/admin/components/form/select'
+import mahatablefield from './maha/admin/components/form/tablefield'
+import mahatoggleList from './maha/admin/components/form/toggle_list'
+import mahavideofield from './maha/admin/components/form/videofield'
 import mahahelp from './maha/admin/components/help'
 import mahacomplete from './maha/admin/components/import/complete'
 import mahaconfigure from './maha/admin/components/import/configure'
@@ -50,46 +66,30 @@ import mahaimport from './maha/admin/components/import'
 import mahareview from './maha/admin/components/import/review'
 import mahaupload from './maha/admin/components/import/upload'
 import mahavalidating from './maha/admin/components/import/validating'
+import mahainfinite from './maha/admin/components/infinite'
+import mahamodal from './maha/admin/components/modal'
 import mahanavigation from './maha/admin/components/navigation'
 import mahanetwork from './maha/admin/components/network'
 import mahanotifications from './maha/admin/components/notifications'
 import mahaomnisearch from './maha/admin/components/omnisearch'
 import mahapage from './maha/admin/components/page'
+import mahapopup from './maha/admin/components/popup'
 import mahabadge from './maha/admin/components/portal/badge'
 import mahaportal from './maha/admin/components/portal'
 import mahapresence from './maha/admin/components/presence'
+import mahaprompt from './maha/admin/components/prompt'
 import mahapush from './maha/admin/components/push'
 import mahareset from './maha/admin/components/reset'
 import maharouter from './maha/admin/components/router'
+import mahasearch from './maha/admin/components/search'
+import mahasearch2 from './maha/admin/components/search2'
+import mahasearchbox from './maha/admin/components/searchbox'
 import mahasignin from './maha/admin/components/signin'
+import mahasortableList from './maha/admin/components/sortable_list'
+import mahatabs from './maha/admin/components/tabs'
+import mahatasks from './maha/admin/components/tasks'
+import mahatray from './maha/admin/components/tray'
 import mahauploader from './maha/admin/components/uploader'
-import mahabutton from './maha/admin/reframe/button'
-import mahacarousel from './maha/admin/reframe/carousel'
-import mahacollection from './maha/admin/reframe/collection'
-import mahadrawer from './maha/admin/reframe/drawer'
-import mahafilters from './maha/admin/reframe/filters'
-import mahaflash from './maha/admin/reframe/flash'
-import mahacolorfield from './maha/admin/reframe/form/colorfield'
-import mahadatefield from './maha/admin/reframe/form/datefield'
-import mahafilefield from './maha/admin/reframe/form/filefield'
-import mahalookup from './maha/admin/reframe/form/lookup'
-import mahalookup2 from './maha/admin/reframe/form/lookup2'
-import mahaform from './maha/admin/reframe/form'
-import mahaselect from './maha/admin/reframe/form/select'
-import mahatablefield from './maha/admin/reframe/form/tablefield'
-import mahatoggleList from './maha/admin/reframe/form/toggle_list'
-import mahavideofield from './maha/admin/reframe/form/videofield'
-import mahainfinite from './maha/admin/reframe/infinite'
-import mahamodal from './maha/admin/reframe/modal'
-import mahapopup from './maha/admin/reframe/popup'
-import mahaprompt from './maha/admin/reframe/prompt'
-import mahasearch from './maha/admin/reframe/search'
-import mahasearch2 from './maha/admin/reframe/search2'
-import mahasearchbox from './maha/admin/reframe/searchbox'
-import mahasortableList from './maha/admin/reframe/sortable_list'
-import mahatabs from './maha/admin/reframe/tabs'
-import mahatasks from './maha/admin/reframe/tasks'
-import mahatray from './maha/admin/reframe/tray'
 import mahareactions from './maha/admin/roots/reactions'
 import mahastars from './maha/admin/roots/stars'
 import platformapps from './platform/admin/components/apps'
@@ -217,15 +217,31 @@ class App extends React.Component {
       mahaattachments,
       mahaurl,
       mahaauthorized,
+      mahabutton,
+      mahacarousel,
       mahachooser,
+      mahacollection,
       mahacomments,
       mahacomposer,
       mahabrowser,
       mahacordova,
       mahaelectron,
       mahadevice,
+      mahadrawer,
       mahaemojis,
       mahafields,
+      mahafilters,
+      mahaflash,
+      mahacolorfield,
+      mahadatefield,
+      mahafilefield,
+      mahalookup,
+      mahalookup2,
+      mahaform,
+      mahaselect,
+      mahatablefield,
+      mahatoggleList,
+      mahavideofield,
       mahahelp,
       mahacomplete,
       mahaconfigure,
@@ -241,46 +257,30 @@ class App extends React.Component {
       mahareview,
       mahaupload,
       mahavalidating,
+      mahainfinite,
+      mahamodal,
       mahanavigation,
       mahanetwork,
       mahanotifications,
       mahaomnisearch,
       mahapage,
+      mahapopup,
       mahabadge,
       mahaportal,
       mahapresence,
+      mahaprompt,
       mahapush,
       mahareset,
       maharouter,
-      mahasignin,
-      mahauploader,
-      mahabutton,
-      mahacarousel,
-      mahacollection,
-      mahadrawer,
-      mahafilters,
-      mahaflash,
-      mahacolorfield,
-      mahadatefield,
-      mahafilefield,
-      mahalookup,
-      mahalookup2,
-      mahaform,
-      mahaselect,
-      mahatablefield,
-      mahatoggleList,
-      mahavideofield,
-      mahainfinite,
-      mahamodal,
-      mahapopup,
-      mahaprompt,
       mahasearch,
       mahasearch2,
       mahasearchbox,
+      mahasignin,
       mahasortableList,
       mahatabs,
       mahatasks,
       mahatray,
+      mahauploader,
       mahareactions,
       mahastars,
       platformapps,

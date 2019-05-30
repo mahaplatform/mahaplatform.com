@@ -1,4 +1,4 @@
-import { Loader, Message, ModalPanel, Searchbox } from 'reframe'
+import { Loader, Message, ModalPanel, Searchbox } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

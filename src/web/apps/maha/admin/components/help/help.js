@@ -1,4 +1,4 @@
-import { Stack } from 'reframe'
+import { Stack } from 'maha-admin'
 import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Article from './article'

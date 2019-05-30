@@ -1,5 +1,5 @@
 import NotificationMethodToken from '../notification_method_token'
-import { RadioGroup } from 'reframe'
+import { RadioGroup } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 

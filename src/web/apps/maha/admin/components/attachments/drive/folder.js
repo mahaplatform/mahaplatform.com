@@ -1,4 +1,4 @@
-import { Infinite, Message } from 'reframe'
+import { Infinite, Message } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Items from './items'

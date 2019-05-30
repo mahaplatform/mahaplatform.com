@@ -1,6 +1,6 @@
 import Subscriptions from './subscriptions'
 import DoNotDisturb from './do_not_disturb'
-import { ModalPanel } from 'reframe'
+import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Preferences from './preferences'
 import React from 'react'

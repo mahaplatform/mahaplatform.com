@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import { FileField } from 'reframe'
+import { FileField } from 'maha-admin'
 
 class Avatar extends React.Component {
 

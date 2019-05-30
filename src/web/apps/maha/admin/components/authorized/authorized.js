@@ -1,4 +1,4 @@
-import { Loader, Message } from 'reframe'
+import { Loader, Message } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

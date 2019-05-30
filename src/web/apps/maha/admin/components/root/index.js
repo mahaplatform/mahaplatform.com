@@ -12,7 +12,6 @@ import pushNative from './push_native'
 import tokenMiddleware from './token'
 import PropTypes from 'prop-types'
 import pushWeb from './push_web'
-import Reframe from 'reframe'
 import React from 'react'
 import qs from 'qs'
 
@@ -27,10 +26,7 @@ class Root extends React.Component {
 
     super(props)
 
-    const reducer = combineReducers([
-      ...Object.values(Reframe),
-      ...props.reducers
-    ])
+    const reducer = combineReducers(props.reducers)
 
     const loggerMiddleware = createLogger({ collapsed: true })
 

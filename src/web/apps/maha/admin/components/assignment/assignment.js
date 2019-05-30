@@ -1,4 +1,4 @@
-import { Format, Loader, Message, ModalPanel, Searchbox } from 'reframe'
+import { Format, Loader, Message, ModalPanel, Searchbox } from 'maha-admin'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import Unassigned from './unassigned'
 import PropTypes from 'prop-types'
