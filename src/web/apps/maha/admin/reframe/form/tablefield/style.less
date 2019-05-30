@@ -1,0 +1,60 @@
+.maha-tablefield {
+  border: 1px solid fadeout(@black, 90);
+  display: flex;
+  flex-direction: column;
+  border-radius: 0.5em;
+  input {
+    border: none !important;
+    background: none !important;
+    padding: 0.8em !important;
+    line-height: 1.8em !important;
+  }
+}
+.maha-tablefield-header {
+  .maha-tablefield-row {
+    background-color: fadeout(@black, 97);
+  }
+  .maha-tablefield-column {
+    padding: 0.8em;
+    font-weight: bold;
+  }
+}
+.maha-tablefield-body {
+  .maha-tablefield-row {
+    background-color: @white;
+  }
+}
+
+.maha-tablefield-row {
+  flex: 1;
+  display: flex;
+  border-bottom: 1px solid fadeout(@black, 90);
+  &.dragging .maha-tablefield-handle {
+    cursor: grabbing;
+  }
+}
+.maha-tablefield-handle {
+  flex: 0 0 3em;
+  border-right: 1px solid fadeout(@black, 90);
+  padding: 0.8em;
+  cursor: grab;
+  color: fadeout(@black, 70);
+  .hover(color, fadeout(@black, 40));
+}
+.maha-tablefield-actions {
+  flex: 0 0 3em;
+  padding: 0.8em;
+  text-align: center;
+  cursor: pointer;
+  color: fadeout(@black, 70);
+  .hover(color, fadeout(@black, 40));
+}
+.maha-tablefield-column {
+  flex: 1;
+  border-right: 1px solid fadeout(@black, 90);
+}
+.maha-tablefield-footer {
+  .maha-tablefield-row {
+    border: none;
+  }
+}

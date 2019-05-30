@@ -3,7 +3,7 @@ import React from 'react'
 import _ from 'lodash'
 
 const Token = ({ text, value }) => (
-  <div className="reframe-value-token">
+  <div className="maha-value-token">
     { _.get(value, text) }
   </div>
 )

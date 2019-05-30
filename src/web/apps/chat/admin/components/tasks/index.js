@@ -27,8 +27,8 @@ class Tasks extends React.Component {
     return (
       <div className="chat-tasks">
         { title &&
-          <div className="reframe-tasks-title">
-            <div className="reframe-tasks-title-label">
+          <div className="maha-tasks-title">
+            <div className="maha-tasks-title-label">
               { channel.name || channel.label }
             </div>
           </div>
@@ -62,7 +62,7 @@ class Tasks extends React.Component {
     return {
       icon: 'pencil',
       label: 'Edit Conversation',
-      className: 'reframe-list-item-link',
+      className: 'maha-list-item-link',
       handler: this._handleEdit
     }
   }
@@ -71,7 +71,7 @@ class Tasks extends React.Component {
     return {
       icon: 'users',
       label: 'Manage Members',
-      className: 'reframe-list-item-link',
+      className: 'maha-list-item-link',
       handler: this._handleSubscriptions
     }
   }

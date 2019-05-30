@@ -1,6 +1,6 @@
 import { ModalPanel } from 'reframe'
 import PropTypes from 'prop-types'
-import Search from '../components/search'
+import OmniSearch from '../components/omnisearch'
 import React from 'react'
 
 class SearchPanel extends React.Component {
@@ -14,7 +14,7 @@ class SearchPanel extends React.Component {
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
-        <Search { ...this.props }/>
+        <OmniSearch { ...this.props }/>
       </ModalPanel>
     )
   }
