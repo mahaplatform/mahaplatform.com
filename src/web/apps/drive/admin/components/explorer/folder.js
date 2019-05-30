@@ -11,8 +11,7 @@ class Folder extends React.Component {
   static contextTypes = {
     network: PropTypes.object,
     router: PropTypes.object,
-    tasks: PropTypes.object,
-    uploader: PropTypes.object
+    tasks: PropTypes.object
   }
 
   static propTypes = {

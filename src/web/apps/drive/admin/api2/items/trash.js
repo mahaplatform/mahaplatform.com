@@ -22,7 +22,7 @@ const trashRoute = async (req, res) => {
   await moveToTrash(item, req.trx)
 
   await socket.refresh(req, [
-    `/admin/drive/folders/${item.get('folder_id') || 'drive'}`,
+    `/admin/drive/folders/${item.related('folder') ? item.related('folder').get('code') : 'drive'}`,
     '/admin/drive/folders/trash'
   ])
 
