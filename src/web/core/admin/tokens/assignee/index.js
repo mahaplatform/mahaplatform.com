@@ -1,4 +1,4 @@
-import { Avatar } from 'maha-admin'
+import Avatar from '../../components/avatar'
 import PropTypes from 'prop-types'
 import React from 'react'
 

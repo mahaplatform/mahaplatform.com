@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
+import { Logo } from 'maha-admin'
 import moment from 'moment'
-import Logo from '../logo'
 import React from 'react'
 import _ from 'lodash'
 

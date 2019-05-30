@@ -1,6 +1,5 @@
+import { Avatar, Image } from 'maha-admin'
 import React from 'react'
-import Image from '../image'
-import Avatar from '../avatar'
 
 const Result = (result) => (
   <div className="maha-omnisearch-result" onClick={ result.onClick }>

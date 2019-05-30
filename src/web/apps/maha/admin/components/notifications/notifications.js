@@ -1,7 +1,7 @@
 import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
+import { Avatar } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Avatar from '../avatar'
 import React from 'react'
 import _ from 'lodash'
 

@@ -1,7 +1,7 @@
-import React from 'react'
+import { Avatar } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Avatar from '../avatar'
 import moment from 'moment'
+import React from 'react'
 import _ from 'lodash'
 
 class Accounts extends React.Component {

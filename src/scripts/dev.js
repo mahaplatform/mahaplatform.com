@@ -93,7 +93,7 @@ const mobileWatch = async () => {
 const clientWatch = async () => {
 
   const devserver = new devServer(webpack(webConfig), {
-    contentBase: path.resolve('src','web','public'),
+    contentBase: path.resolve('src','web','core','admin','public'),
     hot: true,
     publicPath: '/admin',
     proxy: [

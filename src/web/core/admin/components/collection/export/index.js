@@ -1,4 +1,4 @@
-import SortableList from '../sortable_list'
+import SortableList from '../../sortable_list'
 import pluralize from 'pluralize'
 import React from 'react'
 import qs from 'qs'

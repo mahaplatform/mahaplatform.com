@@ -1,9 +1,9 @@
 import Notifications from './notifications'
 import { connect } from 'react-redux'
+import { Avatar} from 'maha-admin'
 import PropTypes from 'prop-types'
 import Security from './security'
 import Account from './account'
-import Avatar from '../avatar'
 import React from 'react'
 
 class AccountSidebar extends React.Component {

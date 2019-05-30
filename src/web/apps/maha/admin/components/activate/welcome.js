@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Image from '../image'
+import { Image } from 'maha-admin'
 import React from 'react'
 
 class Welcome extends React.Component {

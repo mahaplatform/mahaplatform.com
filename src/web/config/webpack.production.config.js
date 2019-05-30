@@ -12,8 +12,8 @@ import path from 'path'
 const webpackConfig = {
   devtool: 'none',
   entry: [
-    path.resolve('src','web','apps','index.js'),
-    path.resolve('src','web','apps','index.less')
+    path.resolve('src','web','core','admin','index.js'),
+    path.resolve('src','web','core','admin','index.less')
   ],
   mode: 'production',
   module: {
@@ -71,14 +71,12 @@ const webpackConfig = {
     new MiniCssExtractPlugin({
       filename: 'css/[name]-[hash].min.css'
     }),
-    new CopyWebpackPlugin([
-      {
-        from: path.resolve('src','web','public'),
-        to: path.resolve('dist.staged','public','admin')
-      }
-    ]),
+    new CopyWebpackPlugin([{
+      from: path.resolve('src','web','core','admin','public'),
+      to: path.resolve('dist.staged','public','admin')
+    }]),
     new HtmlWebpackPlugin({
-      template: path.resolve('src','web','apps','index.html')
+      template: path.resolve('src','web','core','admin','index.html')
     }),
     new HtmlWebpackExcludeAssetsPlugin(),
     new webpack.SourceMapDevToolPlugin({
@@ -105,7 +103,7 @@ const webpackConfig = {
   ],
   resolve: {
     alias: {
-      'maha-admin': path.resolve('src','web','apps','client.js')
+      'maha-admin': path.resolve('src','web','core','admin','client.js')
     }
   },
   resolveLoader: {

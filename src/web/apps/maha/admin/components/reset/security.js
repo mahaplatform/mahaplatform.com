@@ -1,6 +1,6 @@
-import React from 'react'
+import { Avatar } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Avatar from '../avatar'
+import React from 'react'
 
 class Security extends React.Component {
 

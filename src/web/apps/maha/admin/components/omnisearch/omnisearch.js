@@ -1,9 +1,7 @@
 import { Message, Scrollpane, Searchbox } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Result from './result'
-import Recent from './recent'
 import React from 'react'
-import _ from 'lodash'
 
 class OmniSearch extends React.Component {
 
