@@ -1,7 +1,7 @@
 import AttractionSerializer from '../../../serializers/attraction_serializer'
-import { slugify } from '../../../admin/api/attractions/slugify'
 import mailer from '../../../../maha/queues/mailer_queue'
 import { Resources } from '../../../../../core/backframe'
+import { slugify } from '../../../services/attractions'
 import Attraction from '../../../models/attraction'
 import Team from '../../../../maha/models/team'
 import User from '../../../../maha/models/user'
