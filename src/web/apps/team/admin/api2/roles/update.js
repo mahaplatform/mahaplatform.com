@@ -21,7 +21,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load role'
   })
 
-  role.save(whitelist(req.body, ['title','description']), {
+  await role.save(whitelist(req.body, ['title','description']), {
     transacting: req.trx
   })
 

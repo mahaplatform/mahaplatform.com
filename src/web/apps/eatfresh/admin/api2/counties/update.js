@@ -1,41 +1,39 @@
+import CountySerializer from '../../../serializers/county_serializer'
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
-import GroupSerializer from '../../../serializers/group_serializer'
 import socket from '../../../../../core/services/routes/emitter'
-import Group from '../../../../maha/models/group'
+import County from '../../../models/county'
 
 const updateRoute = async (req, res) => {
 
-  const group = await Group.scope({
+  const county = await County.scope({
     team: req.team
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['users.photo'],
     transacting: req.trx
   })
 
-  if(!group) return req.status(404).respond({
+  if(!county) return req.status(404).respond({
     code: 404,
-    message: 'Unable to load group'
+    message: 'Unable to load county'
   })
 
-  await group.save(whitelist(req.body, ['title']), {
+  await county.save(whitelist(req.body, ['name']), {
     transacting: req.trx
   })
 
   await activity(req, {
     story: 'updated {object}',
-    object: group
+    object: county
   })
 
   await socket.refresh(req, [
-    '/admin/team/groups',
-    `/admin/team/groups/${group.get('id')}`
+    '/admin/eatfresh/counties'
   ])
 
-  res.status(200).respond(group, (group) => {
-    return GroupSerializer(req, req.trx, group)
+  res.status(200).respond(county, (county) => {
+    return CountySerializer(req, req.trx, county)
   })
 
 }

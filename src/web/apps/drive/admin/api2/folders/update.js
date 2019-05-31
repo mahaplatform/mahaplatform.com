@@ -19,7 +19,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load folder'
   })
 
-  folder.save(whitelist(req.body, ['parent_id','label']), {
+  await folder.save(whitelist(req.body, ['parent_id','label']), {
     patch: true,
     transacting: req.trx
   })
