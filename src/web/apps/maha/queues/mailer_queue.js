@@ -12,7 +12,7 @@ import _ from 'lodash'
 import ejs from 'ejs'
 import fs from 'fs'
 
-const enqueue = async (req, trx, options) => {
+const enqueue = async (req, options) => {
 
   const emails = collectObjects('emails/*/index.js')
 
@@ -27,7 +27,9 @@ const enqueue = async (req, trx, options) => {
 
   const template = templates[options.template]
 
-  if(req.team) await req.team.load('logo', { transacting: trx })
+  if(req.team) await req.team.load('logo', {
+    transacting: req.trx
+  })
 
   const team = req.team ? req.team.toJSON() : null
 
@@ -53,7 +55,9 @@ const enqueue = async (req, trx, options) => {
     subject: ejs.render(template.subject, options.data),
     html,
     code: _.random(100000, 999999).toString(36)
-  }).save(null, { transacting: trx })
+  }).save(null, {
+    transacting: req.trx 
+  })
 
   return {
     email_id: email.get('id')

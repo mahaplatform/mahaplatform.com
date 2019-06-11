@@ -40,9 +40,9 @@ const paginationPlugin = function(bookshelf) {
 
   }
 
-  bookshelf.Model.prototype.fetchPage = fetchPage
-
   bookshelf.Collection.prototype.fetchPage = fetchPage
+
+  bookshelf.Model.prototype.fetchPage = fetchPage
 
 }
 

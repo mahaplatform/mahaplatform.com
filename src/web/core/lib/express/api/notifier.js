@@ -45,7 +45,7 @@ const afterCommit = async(req, trx, result, options) => {
           is_visited: false
         }).save(null, { transacting: trx })
 
-        NotificationQueue.enqueue(req, trx, notificationObject.get('id'))
+        NotificationQueue.enqueue(req, notificationObject.get('id'))
 
       })
 

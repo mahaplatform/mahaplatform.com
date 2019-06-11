@@ -37,8 +37,8 @@ class Apps extends React.Component {
     )
   }
 
-  _handleClick(app_id) {
-    this.context.router.push(`/admin/team/apps/${app_id}`)
+  _handleClick(id) {
+    this.context.router.push(`/admin/team/apps/${id}`)
   }
 
 }

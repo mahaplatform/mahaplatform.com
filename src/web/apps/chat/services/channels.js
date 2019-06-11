@@ -155,7 +155,7 @@ export const sendMessage = async (req, trx, { channel_id, type, text }) => {
 
   })
 
-  await ChatNotificationQueue.enqueue(req, trx, message.get('id'))
+  await ChatNotificationQueue.enqueue(req, message.get('id'))
 
   return message
 

@@ -28,7 +28,7 @@ class Edit extends React.Component {
         {
           fields: [
             { label: 'Accouting Platform', name: 'settings.integration', type: 'lookup', placeholder: 'Choose platform', options: [ { value: 'accpac', text: 'Sage ACCPAC' }, { value: 'blackbaud', text: 'Blackbaud Financial Edge' }] },
-            { label: 'Mileage Expense Type', name: 'settings.trip_expense_type_id', type: 'lookup', placeholder: 'Expense Type', endpoint: '/api/admin/expenses/expense_types/active', value: 'id', text: 'title', format: ExpenseTypeToken }
+            { label: 'Mileage Expense Type', name: 'settings.trip_expense_type_id', type: 'lookup', placeholder: 'Expense Type', endpoint: '/api/admin/expenses/expense_types', value: 'id', text: 'title', format: ExpenseTypeToken }
           ]
         }
       ]

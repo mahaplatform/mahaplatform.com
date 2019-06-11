@@ -3,7 +3,7 @@ import { sendNotification } from '../services/notifications'
 import Notification from '../models/notification'
 import Queue from '../../../core/objects/queue'
 
-const enqueue = async (req, trx, id) => ({ id })
+const enqueue = async (req, id) => ({ id })
 
 const processor = async (job, trx) => {
 

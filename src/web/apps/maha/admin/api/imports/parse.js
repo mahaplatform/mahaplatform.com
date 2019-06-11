@@ -4,7 +4,7 @@ import ImportParseQueue from '../../../queues/import_parse_queue'
 
 const processor = async (req, trx, options) => {
 
-  ImportParseQueue.enqueue(req, trx, {
+  ImportParseQueue.enqueue(req, {
     id: req.resource.get('id'),
     rules: req.body.rules,
     table: req.body.table,

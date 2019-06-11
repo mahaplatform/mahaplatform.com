@@ -40,7 +40,7 @@ const finalizeRoute = async (req, res) => {
       transacting: req.trx
     })
 
-    await sendUserActivation(req, req.trx, user)
+    await sendUserActivation(req, user)
 
   })
 

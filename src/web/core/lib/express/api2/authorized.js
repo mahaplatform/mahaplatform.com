@@ -4,16 +4,16 @@ import access from './access'
 import token from './token'
 import app from './app'
 
-const auth = collectObjects('admin/api2/index.js')
+const apiFiles = collectObjects('admin/api2/index.js')
 
-const authorized = new Router({ mergeParams: true })
+const router = new Router({ mergeParams: true })
 
-authorized.use(token)
+router.use(token)
 
-authorized.use(access)
+router.use(access)
 
-auth.map(file => {
-  authorized.use(file.config.path, app(file.config.code), file.default)
+apiFiles.map(file => {
+  router.use(file.config.path, app(file.config.code), file.default)
 })
 
-export default authorized
+export default router

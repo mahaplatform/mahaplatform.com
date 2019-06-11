@@ -4,7 +4,7 @@ import ImportProcessQueue from '../../../queues/import_process_queue'
 
 const processor = async (req, trx, options) => {
 
-  ImportProcessQueue.enqueue(req, trx, {
+  ImportProcessQueue.enqueue(req, {
     id: req.resource.get('id'),
     destination: req.body.destination,
     defaultParams: req.body.defaultParams,

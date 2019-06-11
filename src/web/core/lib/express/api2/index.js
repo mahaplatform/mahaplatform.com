@@ -8,6 +8,7 @@ import error from './error'
 import { Router } from 'express'
 import logger from './logger'
 import format from './format'
+import pub from './public'
 
 const router = new Router({ mergeParams: true })
 
@@ -20,6 +21,8 @@ router.use(format)
 router.use('/admin', unauthorized)
 
 router.use('/admin', authorized)
+
+router.use('/admin', pub)
 
 router.use(notFound)
 

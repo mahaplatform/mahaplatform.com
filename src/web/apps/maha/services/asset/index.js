@@ -55,7 +55,7 @@ export const uploadChunk = async (req, trx) => {
     status: 'chunked'
   }).save(null, { transacting: trx })
   if(!asset) throw new Error('Unable to create asset')
-  await AssembleAssetQueue.enqueue(req, trx, asset.get('id'))
+  await AssembleAssetQueue.enqueue(req, asset.get('id'))
   return AssetSerializer(req, trx, asset)
 }
 

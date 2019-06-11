@@ -25,7 +25,7 @@ class GroupsEdit extends React.Component {
     return {
       title: 'Edit Team',
       method: 'patch',
-      endpoint: `/api/admin/platform/teams/${team.id}/edit`,
+      endpoint: `/api/admin/platform/teams/${team.id}`,
       action: `/api/admin/platform/teams/${team.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,

@@ -196,7 +196,7 @@ const failed = async (job, err) => {
 
 const ImportProcessQueue = new Queue({
   name: 'import_process',
-  enqueue: async (req, trx, job) => job,
+  enqueue: async (req, job) => job,
   processor,
   failed
 })

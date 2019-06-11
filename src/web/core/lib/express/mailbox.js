@@ -63,7 +63,7 @@ mailboxMiddleware.post('/mailbox_mime', (req, res) => withTransaction(req, res, 
 
   const filepath = mailbox.filepath
 
-  mailboxQueue.enqueue(null, trx, { filepath, meta, code })
+  mailboxQueue.enqueue(req, { filepath, meta, code })
 
   res.status(200).send('accepted')
 

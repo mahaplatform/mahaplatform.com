@@ -4,7 +4,7 @@ import Queue from '../../../core/objects/queue'
 import Subscription from '../models/subscription'
 import Message from '../models/message'
 
-const enqueue = async (req, trx, message_id) => ({ message_id })
+const enqueue = async (req, message_id) => ({ message_id })
 
 const processor = async (job, trx) => {
 

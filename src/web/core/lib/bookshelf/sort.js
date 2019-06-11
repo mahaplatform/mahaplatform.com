@@ -3,17 +3,19 @@ import _ from 'lodash'
 const sortPlugin = function(bookshelf) {
 
   const sort = function(options) {
-    if(!options.sort) return this
-    return this.query(qb => applySorts(qb, options.sort, options))
+    return this.query(qb => {
+      applySorts(qb, options.sort, options)
+    })
   }
 
   const applySorts = (qb, $sorts, options) => {
-    const sorts = normalizeSort($sorts)
+    const sorts = normalizeSort($sorts, options)
     if(sorts.length === 0) return
     qb.orderBy(sorts.map(sort => applySort(sort, options)))
   }
 
-  const normalizeSort = (sorts) => {
+  const normalizeSort = ($sorts, options) => {
+    const sorts = $sorts || options.defaultSort || 'id'
     return _.castArray(sorts).map(sort => {
       if(!_.isString(sort)) return sort
       return {

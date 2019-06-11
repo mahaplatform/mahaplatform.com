@@ -61,7 +61,7 @@ const createRoute = async (req, res) => {
 
   const token = createUserToken(user, 'activation_id')
 
-  await mailer.enqueue(req, req.trx, {
+  await mailer.enqueue(req, {
     team_id: req.team.get('id'),
     user,
     template: 'team:activation',

@@ -23,7 +23,7 @@ const emailRoute = async (req, res, next) => {
 
   const token = createUserToken(req.user, 'reset_id')
 
-  await mailer.enqueue(req, req.trx, {
+  await mailer.enqueue(req, {
     team_id: req.body.team_id,
     user: req.user,
     template: 'team:reset',

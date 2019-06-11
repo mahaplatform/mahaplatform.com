@@ -10,7 +10,7 @@ const photoRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await socket.refresh(req, {
+  await socket.message(req, {
     channel: 'user',
     action: 'session'
   })

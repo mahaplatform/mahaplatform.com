@@ -4,8 +4,9 @@ import _ from 'lodash'
 const filterPlugin = function(bookshelf) {
 
   const filter = function(options) {
-    if(!options.filter) return this
-    return this.query(qb => applyFilters(qb, options.filter, options))
+    return this.query(qb => {
+      if(options.filter) applyFilters(qb, options.filter, options)
+    })
   }
 
   const applyFilters = (qb, $filters, options) => {

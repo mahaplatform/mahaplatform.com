@@ -17,7 +17,7 @@ const activateRoute = async (req, res) => {
     message: 'Unable to load user'
   })
 
-  await sendUserActivation(req, req.trx, user)
+  await sendUserActivation(req, user)
 
   await activity(req, {
     story: 'resent an activation email to {object}',

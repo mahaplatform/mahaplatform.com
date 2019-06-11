@@ -20,7 +20,7 @@ const resetRoute = async (req, res) => {
 
   const token = createUserToken(user, 'reset_id')
 
-  await mailer.enqueue(req, req.trx, {
+  await mailer.enqueue(req, {
     team_id: req.team.get('id'),
     user,
     template: 'team:reset',
