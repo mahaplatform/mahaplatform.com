@@ -1,7 +1,7 @@
-import { testHandler } from '../../utils/test'
+import { testHandler } from '../../../../../core/utils/test'
 import { expect } from 'chai'
-import show from './show'
+import reset from './reset'
 
-describe('src/web/apps/sites/public/api/members/show.js', () => {
+describe('src/web/apps/sites/public/api/members/reset.js', () => {
 
 })

@@ -17,7 +17,7 @@ const test = async () => {
   })
 
   mocha.suite.beforeAll('migrate and seed', async () => {
-    return setup()
+    return await setup()
   })
 
   mocha.suite.beforeEach('begin transaction', async () => {
