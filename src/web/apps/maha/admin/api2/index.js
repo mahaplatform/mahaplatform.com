@@ -6,6 +6,7 @@ import comments from './comments'
 import sessions from './sessions'
 import profiles from './profiles'
 import { Router } from 'express'
+import imports from './imports'
 import sources from './sources'
 import account from './account'
 import devices from './devices'
@@ -40,6 +41,8 @@ router.use('/assignees', assignees)
 router.use('/devices', devices)
 
 router.use('/help', help)
+
+router.use('/imports', imports)
 
 router.use('/links', links)
 

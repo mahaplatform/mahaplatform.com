@@ -8,16 +8,24 @@ const paginationPlugin = function(bookshelf) {
 
     const { page } = options
 
+    const trx = options.transacting
+
     const limit = page && page.limit ? parseInt(page.limit) : DEFAULT_LIMIT
 
     const skip = page && page.skip ? parseInt(page.skip) : DEFAULT_SKIP
 
     const all = await this.clone().resetQuery().count({
-      transacting: options.transacting
+      transacting: trx
     }).then(result => parseInt(result))
 
-    const total = await this.clone().fetchAll({
-      transacting: options.transacting
+    const totalsql = await new Promise((resolve, reject) => {
+      this.clone().query(qb => {
+        resolve(`select count(*) from (${qb.toString()}) total`)
+      })
+    })
+
+    const total = await bookshelf.knex.raw(totalsql).transacting(trx).then(result => {
+      return result.rows[0].count
     })
 
     const result = await this.query(qb => {
@@ -26,12 +34,12 @@ const paginationPlugin = function(bookshelf) {
       qb.offset(skip)
     }).fetchAll({
       withRelated: options.withRelated,
-      transacting: options.transacting
+      transacting: trx
     })
 
     result.pagination = {
       all,
-      total: total.length,
+      total,
       limit,
       skip
     }

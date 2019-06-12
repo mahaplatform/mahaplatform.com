@@ -7,6 +7,7 @@ import Field from '../../../models/field'
 const createRoute = async (req, res) => {
 
   const delta = await Field.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('maha_fields.parent_type', req.params.parent_type)
     qb.where('maha_fields.parent_id', req.params.parent_id)
   }).count('*', {
