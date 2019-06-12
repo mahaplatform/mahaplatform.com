@@ -22,14 +22,14 @@ const createFile = (filepath, templateName, data = {}) => {
 
 const route = async (args) => {
   const [ pathname ] = args
-  const root = path.join('src','server','api')
+  const root = path.join('src','web','apps', pathname)
+  const route = root.split('/').pop()
   const data = {
-    routeName: pathname.split('/').slice(-1)[0],
-    routePath: path.join(root,`${pathname}.js`),
-    testPath: path.join(root,`${pathname}_test.js`)
+    routeName: route,
+    routePath: `${root}.js`.replace('api2','api')
   }
-  createFile(data.routePath, 'route/route.js', data)
-  createFile(data.testPath, 'route/test.js', data)
+  createFile(`${root}.js`, 'resource/route.js', data)
+  createFile(`${root}_test.js`, 'resource/test.js', data)
 }
 
 const resource = async (args) => {
