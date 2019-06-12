@@ -5,10 +5,9 @@ import Message from '../../../models/message'
 
 const destroyRoute = async (req, res) => {
 
-  const message = await Message.scope({
-    team: req.team
-  }).where({
-    id: req.params.id
+  const message = await Message.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx,
     withRelated: ['channel']

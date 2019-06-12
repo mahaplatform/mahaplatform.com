@@ -12,6 +12,11 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
+  if(!team) return req.status(404).respond({
+    code: 404,
+    message: 'Unable to load team'
+  })
+
   await team.save(whitelist(req.body, ['title','subdomain']), {
     patch: true,
     transacting: req.trx

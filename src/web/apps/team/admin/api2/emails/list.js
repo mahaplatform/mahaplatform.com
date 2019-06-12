@@ -3,8 +3,8 @@ import Email from '../../../../maha/models/email'
 
 const listRoute = async (req, res) => {
 
-  const emails = await Email.scope({
-    team: req.team
+  const emails = await Email.query(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
     filterParams: ['user_id','sent_at']

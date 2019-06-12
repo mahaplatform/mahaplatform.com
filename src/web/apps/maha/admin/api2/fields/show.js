@@ -4,11 +4,10 @@ import Field from '../../../models/field'
 const showRoute = async (req, res) => {
 
   const field = await Field.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('parent_type', req.params.parent_type)
     qb.where('parent_id', req.params.parent_id)
     qb.where('id', req.params.id)
-  }).scope({
-    team: req.team
   }).fetch({
     transacting: req.trx
   })

@@ -5,9 +5,9 @@ import knex from '../../../../../core/services/knex'
 
 const listRoute = async (req, res) => {
 
-  const notifications = await Notification.scope({
-    team: req.team,
-    user: req.user
+  const notifications = await Notification.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('user_id', req.user.get('id'))
   }).filter({
     filter: req.query.$filter
   }).sort({

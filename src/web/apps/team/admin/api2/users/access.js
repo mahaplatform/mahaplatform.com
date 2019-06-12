@@ -5,9 +5,8 @@ import App from '../../../../maha/models/app'
 
 const accessRoute = async (req, res) => {
 
-  const user = await User.scope({
-    team: req.team
-  }).query(qb => {
+  const user = await User.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

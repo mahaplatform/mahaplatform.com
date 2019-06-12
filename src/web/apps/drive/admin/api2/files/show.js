@@ -3,9 +3,8 @@ import File from '../../../models/file'
 
 const showRoute = async (req, res) => {
 
-  const file = await File.scope({
-    team: req.team
-  }).query(qb => {
+  const file = await File.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('code', req.params.code)
   }).fetch({
     withRelated: ['current_version.asset','current_version.asset.user.photo','current_version.asset.source','versions.asset.source','versions.user','accesses.user.photo','accesses.group','accesses.access_type'],

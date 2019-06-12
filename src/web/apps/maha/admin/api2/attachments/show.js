@@ -2,8 +2,8 @@ import Attachment from '../../../models/attachment'
 
 const showRoute = async (req, res) => {
 
-  const attachments = await Attachment.scope({
-    team: req.team
+  const attachments = await Attachment.query(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).where({
     attachable_type: req.params.attachable_type,
     attachable_id: req.params.attachable_id

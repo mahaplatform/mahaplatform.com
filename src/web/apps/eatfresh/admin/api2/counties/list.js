@@ -3,8 +3,8 @@ import County from '../../../models/county'
 
 const listRoute = async (req, res) => {
 
-  const counties = await County.scope({
-    team: req.team
+  const counties = await County.query(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
     searchParams: ['name']

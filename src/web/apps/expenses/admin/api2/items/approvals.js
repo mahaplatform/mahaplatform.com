@@ -10,6 +10,7 @@ const approvalRoute = async (req, res) => {
   })
 
   const items = await Item.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.leftJoin('expenses_projects', 'expenses_projects.id', 'expenses_items.project_id')
     qb.leftJoin('expenses_expense_types', 'expenses_expense_types.id', 'expenses_items.expense_type_id')
     qb.leftJoin('expenses_vendors', 'expenses_vendors.id', 'expenses_items.vendor_id')
@@ -18,8 +19,6 @@ const approvalRoute = async (req, res) => {
     qb.joinRaw('inner join expenses_members on expenses_members.project_id = expenses_items.project_id and expenses_members.user_id=? and expenses_members.member_type_id != ?', [req.user.get('id'), 3])
     qb.whereNot('expenses_items.user_id', req.user.get('id'))
     qb.whereIn('expenses_items.status_id', [1,2,3,4,5])
-  }).scope({
-    team: req.team
   }).filter({
     filter: req.query.$filter,
     filterParams: ['type','user_id','expense_type_id','project_id','vendor_id','date','account_id','status_id','batch_id'],

@@ -3,9 +3,8 @@ import Category from '../../../models/category'
 
 const showRoute = async (req, res) => {
 
-  const category = await Category.scope({
-    team: req.team
-  }).query(qb => {
+  const category = await Category.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['photo'],

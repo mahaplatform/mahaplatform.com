@@ -3,8 +3,8 @@ import ExpenseType from '../../../models/expense_type'
 
 const listRoute = async (req, res) => {
 
-  const expense_types = await ExpenseType.scope({
-    team: req.team
+  const expense_types = await ExpenseType.query(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
     searchParams: ['title','description','integration->>\'expense_code\'']

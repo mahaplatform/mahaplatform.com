@@ -3,9 +3,9 @@ import Profile from '../../../models/profile'
 
 const listRoute = async (req, res) => {
 
-  const profiles = await Profile.scope({
-    team: req.team,
-    user: req.user
+  const profiles = await Profile.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('user_id', req.user.get('id'))
   }).fetchPage({
     page: req.query.$page,
     withRelated: ['source'],

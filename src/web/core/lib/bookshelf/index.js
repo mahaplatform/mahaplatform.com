@@ -9,7 +9,6 @@ import knex from '../../services/knex'
 import fetchPage from './fetch_page'
 import Bookshelf from 'bookshelf'
 import filter from './filter'
-import scope from './scope'
 import sort from './sort'
 
 const bookshelf = Bookshelf(knex)
@@ -17,8 +16,6 @@ const bookshelf = Bookshelf(knex)
 bookshelf.plugin('virtuals')
 
 bookshelf.plugin(filter)
-
-bookshelf.plugin(scope)
 
 bookshelf.plugin(sort)
 

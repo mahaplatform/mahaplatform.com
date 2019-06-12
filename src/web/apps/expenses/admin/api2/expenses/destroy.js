@@ -5,9 +5,8 @@ import Expense from '../../../models/expense'
 
 const destroyRoute = async (req, res) => {
 
-  const expense = await Expense.scope({
-    team: req.team
-  }).query(qb => {
+  const expense = await Expense.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['receipts.asset','receipts.asset.source','user','project.members','expense_type','status','vendor','account'],

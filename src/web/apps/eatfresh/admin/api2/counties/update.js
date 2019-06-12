@@ -6,9 +6,8 @@ import County from '../../../models/county'
 
 const updateRoute = async (req, res) => {
 
-  const county = await County.scope({
-    team: req.team
-  }).query(qb => {
+  const county = await County.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

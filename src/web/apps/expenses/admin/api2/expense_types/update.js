@@ -3,13 +3,11 @@ import ExpenseTypeSerializer from '../../../serializers/expense_type_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
 import ExpenseType from '../../../models/expense_type'
-import _ from 'lodash'
 
 const updateRoute = async (req, res) => {
 
-  const expense_type = await ExpenseType.scope({
-    team: req.team
-  }).query(qb => {
+  const expense_type = await ExpenseType.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

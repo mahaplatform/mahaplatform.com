@@ -3,8 +3,8 @@ import Group from '../../../../maha/models/group'
 
 const listRoute = async (req, res) => {
 
-  const groups = await Group.scope({
-    team: req.team
+  const groups = await Group.query(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
     filterParams: ['title'],

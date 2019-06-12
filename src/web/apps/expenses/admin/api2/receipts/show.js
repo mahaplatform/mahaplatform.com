@@ -1,12 +1,10 @@
 import ReceiptSerializer from '../../../serializers/receipt_serializer'
-import knex from '../../../../../core/services/knex'
 import Receipt from '../../../models/receipt'
 
 const showRoute = async (req, res) => {
 
-  const receipt = await Receipt.scope({
-    team: req.team
-  }).query(qb => {
+  const receipt = await Receipt.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['asset.source','asset.user'],

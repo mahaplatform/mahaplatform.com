@@ -1,0 +1,23 @@
+import MemberSerializer from '../../../serializers/member_serializer'
+import Member from '../../../models/member'
+
+const showRoute = async (req, res) => {
+
+  const member = await Member.query(qb => {
+    qb.where('id', req.params.id)
+  }).fetch({
+    transacting: req.trx
+  })
+
+  if(!member) return req.status(404).respond({
+    code: 404,
+    message: 'Unable to load member'
+  })
+
+  res.status(200).respond(member, (member) => {
+    return MemberSerializer(req, req.trx, member)
+  })
+
+}
+
+export default showRoute

@@ -8,9 +8,8 @@ import User from '../../../../maha/models/user'
 
 const rejectRoute = async (req, res) => {
 
-  const attraction = await Attraction.scope({
-    team: req.team
-  }).query(qb => {
+  const attraction = await Attraction.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['county','photo','photos.asset','offerings.photo','categories.photo'],

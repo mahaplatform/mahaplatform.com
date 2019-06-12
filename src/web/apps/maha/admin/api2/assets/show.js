@@ -3,9 +3,8 @@ import Asset from '../../../models/asset'
 
 const route = async (req, res) => {
 
-  const asset = await Asset.scope({
-    team: req.team
-  }).query(qb => {
+  const asset = await Asset.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id )
   }).fetch({
     withRelated: ['source','user.photo'],

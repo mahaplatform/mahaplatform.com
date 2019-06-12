@@ -3,9 +3,8 @@ import Profile from '../../../models/profile'
 
 const showRoute = async (req, res) => {
 
-  const profile = await Profile.scope({
-    team: req.team
-  }).query(qb => {
+  const profile = await Profile.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id )
   }).fetch({
     withRelated: ['source'],

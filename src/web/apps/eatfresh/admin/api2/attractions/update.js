@@ -7,9 +7,8 @@ import Attraction from '../../../models/attraction'
 
 const updateRoute = async (req, res) => {
 
-  const attraction = await Attraction.scope({
-    team: req.team
-  }).query(qb => {
+  const attraction = await Attraction.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

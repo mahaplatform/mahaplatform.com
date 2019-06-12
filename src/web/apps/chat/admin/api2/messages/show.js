@@ -9,10 +9,9 @@ import moment from 'moment'
 
 const showRoute = async (req, res) => {
 
-  const message = await Message.scope({
-    team: req.team
-  }).where({
-    id: req.params.id
+  const message = await Message.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx,
     withRelated: ['attachments.asset.source','message_type','user.photo','reactions.user.photo','stars','quoted_message.user.photo','link.service']

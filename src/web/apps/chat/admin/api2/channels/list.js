@@ -4,10 +4,9 @@ import Channel from '../../../models/channel'
 const listRoute = async (req, res) => {
 
   const channels = await Channel.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.innerJoin('chat_subscriptions', 'chat_subscriptions.channel_id', 'chat_channels.id')
     qb.where('chat_subscriptions.user_id', req.user.get('id'))
-  }).scope({
-    team: req.team
   }).filter({
     filter: req.query.$filter,
     searchParams: ['name','subscriber_list']

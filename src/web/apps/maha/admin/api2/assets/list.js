@@ -3,8 +3,8 @@ import Asset from '../../../models/asset'
 
 const listRoute = async (req, res) => {
 
-  const assets = await Asset.scope({
-    team: req.team
+  const assets = await Asset.query(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
     searchParams: ['first_name','last_name','email']

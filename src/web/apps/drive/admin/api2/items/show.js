@@ -3,9 +3,8 @@ import Item from '../../../models/item'
 
 const showRoute = async (req, res) => {
 
-  const item = await Item.scope({
-    team: req.team
-  }).query(qb => {
+  const item = await Item.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.select('drive_items.*','drive_access_types.text as access_type')
     qb.innerJoin('drive_items_access', 'drive_items_access.code', 'drive_items.code')
     qb.innerJoin('drive_access_types', 'drive_access_types.id', 'drive_items_access.access_type_id')

@@ -3,9 +3,8 @@ import Reimbursement from '../../../models/reimbursement'
 
 const showRoute = async (req, res) => {
 
-  const reimbursement = await Reimbursement.scope({
-    team: req.team
-  }).query(qb => {
+  const reimbursement = await Reimbursement.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['user','project.members','expense_type','status','vendor'],

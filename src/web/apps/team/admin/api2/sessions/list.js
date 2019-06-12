@@ -4,13 +4,12 @@ import Session from '../../../../maha/models/session'
 const listRoute = async (req, res) => {
 
   const sessions = await Session.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.joinRaw('inner join maha_users on maha_users.id=maha_sessions.user_id')
     qb.joinRaw('inner join maha_devices on maha_devices.id=maha_sessions.device_id')
     qb.joinRaw('inner join maha_device_values device_types on device_types.id=maha_devices.device_type_id')
     qb.joinRaw('inner join maha_device_values os_names on os_names.id=maha_devices.os_name_id')
     qb.joinRaw('inner join maha_device_values browser_names on browser_names.id=maha_devices.browser_name_id')
-  }).scope({
-    team: req.team
   }).filter({
     filter: req.query.$filter,
     filterParams: ['maha_devices.device_type_id','maha_devices.os_name_id','maha_devices.browser_name_id','user_id']

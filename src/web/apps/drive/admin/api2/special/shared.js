@@ -5,6 +5,7 @@ import knex from '../../../../../core/services/knex'
 const sharedRoute = async (req, res) => {
 
   const items = await Item.query(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.select('drive_items.*','drive_access_types.text as access_type')
     qb.innerJoin('drive_items_access', 'drive_items_access.code', 'drive_items.code')
     qb.innerJoin('drive_access_types', 'drive_access_types.id', 'drive_items_access.access_type_id')
@@ -12,8 +13,6 @@ const sharedRoute = async (req, res) => {
     qb.where('type', 'file')
     qb.whereNot('drive_access_types.text', 'owner')
     qb.whereNull('drive_items.deleted_at')
-  }).scope({
-    team: req.team
   }).filter({
     filter: req.query.$filter,
     filterParams: ['code','folder_id','type'],
