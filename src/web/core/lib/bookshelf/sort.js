@@ -3,6 +3,7 @@ import _ from 'lodash'
 const sortPlugin = function(bookshelf) {
 
   const sort = function(options) {
+    options.tableName = this.tableName
     return this.query(qb => {
       applySorts(qb, options.sort, options)
     })
@@ -30,9 +31,14 @@ const sortPlugin = function(bookshelf) {
       throw new Error(`cannot sort on ${sort.column}`)
     }
     return {
-      column: sort.column,
+      column: castColumn(options.tableName, sort.column),
       order: sort.order || 'asc'
     }
+  }
+
+  const castColumn = function(tableName, column) {
+    const matches = column.match(/(.*)\.(.*)/)
+    return matches ? column : `${tableName}.${column}`
   }
 
   bookshelf.Collection.prototype.sort = sort

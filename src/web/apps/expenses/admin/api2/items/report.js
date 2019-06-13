@@ -4,8 +4,9 @@ import _ from 'lodash'
 
 const reportRoute = async (req, res) => {
 
-  const items = await Item.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const items = await Item.scope({
+    team: req.team
+  }).query(qb => {
     qb.leftJoin('maha_users', 'maha_users.id', 'expenses_items.user_id')
     qb.leftJoin('expenses_projects', 'expenses_projects.id', 'expenses_items.project_id')
     qb.leftJoin('expenses_expense_types', 'expenses_expense_types.id', 'expenses_items.expense_type_id')

@@ -1,12 +1,13 @@
 import ImportItemSerializer from '../../../../serializers/import_item_serializer'
 import { whitelist } from '../../../../../../core/services/routes/params'
-import socket from '../../../../../core/services/routes/emitter'
+import socket from '../../../../../../core/services/routes/emitter'
 import ImportItem from '../../../../models/import_item'
 
 const updateRoute = async (req, res) => {
 
-  const item = await ImportItem.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const item = await ImportItem.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

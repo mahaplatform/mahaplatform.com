@@ -3,8 +3,9 @@ import Receipt from '../../../models/receipt'
 
 const showRoute = async (req, res) => {
 
-  const receipt = await Receipt.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const receipt = await Receipt.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['asset.source','asset.user'],

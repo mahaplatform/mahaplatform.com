@@ -4,8 +4,9 @@ import Attraction from '../../../models/attraction'
 
 const listRoute = async (req, res) => {
 
-  const attractions = await Attraction.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const attractions = await Attraction.scope({
+    team: req.team
+  }).query(qb => {
     qb.select(knex.raw('distinct on (eatfresh_attractions.id,eatfresh_attractions.title) eatfresh_attractions.*'))
     qb.leftJoin('eatfresh_counties', 'eatfresh_counties.id', 'eatfresh_attractions.county_id')
     qb.leftJoin('eatfresh_categories_attractions', 'eatfresh_categories_attractions.attraction_id', 'eatfresh_attractions.id')

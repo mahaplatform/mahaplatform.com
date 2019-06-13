@@ -3,8 +3,9 @@ import ExpenseType from '../../../models/expense_type'
 
 const listRoute = async (req, res) => {
 
-  const expense_types = await ExpenseType.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const expense_types = await ExpenseType.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('is_active', true)
   }).filter({
     filter: req.query.$filter,

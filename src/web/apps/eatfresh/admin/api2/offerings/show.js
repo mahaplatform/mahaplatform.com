@@ -3,8 +3,9 @@ import Offering from '../../../models/offering'
 
 const showRoute = async (req, res) => {
 
-  const offering = await Offering.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const offering = await Offering.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['photo'],

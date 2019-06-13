@@ -3,8 +3,9 @@ import Trip from '../../../models/trip'
 
 const showRoute = async (req, res) => {
 
-  const trip = await Trip.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const trip = await Trip.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['user','project.members','expense_type','status'],

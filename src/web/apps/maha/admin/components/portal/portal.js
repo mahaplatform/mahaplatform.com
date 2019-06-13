@@ -52,15 +52,15 @@ class Portal extends React.Component {
                     <Dashboard />
                     <RouterStack { ...this._getStack() } />
                   </div>
-                  <CSSTransition in={ mode !== null } classNames="fade" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
+                  <CSSTransition in={ mode !== null } classNames="fade" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
                     <div className="maha-portal-overlay" onClick={ this._handleSetMode.bind(this, null) } />
                   </CSSTransition>
-                  <CSSTransition in={ mode === 'account' } classNames="slidein" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
+                  <CSSTransition in={ mode === 'account' } classNames="slidein" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
                     <div className="maha-portal-account">
                       <Account { ...this._getAccount() } />
                     </div>
                   </CSSTransition>
-                  <CSSTransition in={ mode === 'navigation' } classNames="slidein" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
+                  <CSSTransition in={ mode === 'navigation' } classNames="slidein" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
                     <div className="maha-portal-navigation">
                       <Navigation { ...this._getNavigation() } />
                     </div>

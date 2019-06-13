@@ -4,8 +4,9 @@ import User from '../../../models/user'
 
 const listRoute = async (req, res) => {
 
-  const users = await User.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const users = await User.scope({
+    team: req.team
+  }).query(qb => {
     qb.select(knex.raw('distinct on (maha_users.id, maha_users.first_name, maha_users.last_name, maha_users.email) maha_users.*'))
     qb.leftJoin('maha_users_roles', 'maha_users_roles.user_id', 'maha_users.id')
     qb.leftJoin('maha_roles_apps', 'maha_roles_apps.role_id', 'maha_users_roles.role_id')

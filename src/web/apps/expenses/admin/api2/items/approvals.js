@@ -9,8 +9,9 @@ const approvalRoute = async (req, res) => {
     message: 'You do not have the rights to access this resource.'
   })
 
-  const items = await Item.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const items = await Item.scope({
+    team: req.team
+  }).query(qb => {
     qb.leftJoin('expenses_projects', 'expenses_projects.id', 'expenses_items.project_id')
     qb.leftJoin('expenses_expense_types', 'expenses_expense_types.id', 'expenses_items.expense_type_id')
     qb.leftJoin('expenses_vendors', 'expenses_vendors.id', 'expenses_items.vendor_id')

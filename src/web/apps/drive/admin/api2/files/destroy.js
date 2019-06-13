@@ -6,8 +6,9 @@ import File from '../../../models/file'
 
 const destroyRoute = async (req, res) => {
 
-  const file = await File.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const file = await File.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
     transacting: req.trx

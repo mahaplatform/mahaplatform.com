@@ -5,8 +5,9 @@ import Email from '../../../models/email'
 
 const updateRoute = async (req, res) => {
 
-  const email = await Email.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const email = await Email.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('site_id', req.params.site_id)
     qb.where('id', req.params.id)
   }).fetch({

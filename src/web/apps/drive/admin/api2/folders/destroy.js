@@ -6,8 +6,9 @@ import Folder from '../../../models/folder'
 
 const destroyRoute = async (req, res) => {
 
-  const folder = await Folder.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const folder = await Folder.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
     transacting: req.trx

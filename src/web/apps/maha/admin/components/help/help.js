@@ -8,10 +8,12 @@ import React from 'react'
 class Help extends React.Component {
 
   static propTypes = {
+    articles: PropTypes.array,
     article: PropTypes.object,
     items: PropTypes.array,
     q: PropTypes.string,
     onClose: PropTypes.func,
+    onDone: PropTypes.func,
     onFetch: PropTypes.func,
     onType: PropTypes.func
   }

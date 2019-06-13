@@ -3,8 +3,9 @@ import Attraction from '../../../models/attraction'
 
 const showRoute = async (req, res) => {
 
-  const attraction = await Attraction.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const attraction = await Attraction.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['county','photo','photos.asset','offerings.photo','categories.photo'],

@@ -3,8 +3,8 @@ import Import from '../../../models/import'
 
 const listRoute = async (req, res) => {
 
-  const imports = await Import.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const imports = await Import.scope({
+    team: req.team
   }).filter({
     filter: req.query.$filter,
     filterParams: ['object_type','stage']

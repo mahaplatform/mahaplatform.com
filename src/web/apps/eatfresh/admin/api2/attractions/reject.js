@@ -8,8 +8,9 @@ import User from '../../../../maha/models/user'
 
 const rejectRoute = async (req, res) => {
 
-  const attraction = await Attraction.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const attraction = await Attraction.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['county','photo','photos.asset','offerings.photo','categories.photo'],
@@ -26,12 +27,13 @@ const rejectRoute = async (req, res) => {
     object: attraction
   })
 
-  const recipient_ids = await User.query(qb => {
+  const recipient_ids = await User.scope({
+    team: req.team
+  }).query(qb => {
     qb.select(knex.raw('distinct on (maha_users.id, maha_users.first_name, maha_users.last_name, maha_users.email) maha_users.*'))
     qb.innerJoin('maha_users_roles', 'maha_users_roles.user_id', 'maha_users.id')
     qb.innerJoin('maha_roles_apps', 'maha_roles_apps.role_id', 'maha_users_roles.role_id')
     qb.where('maha_roles_apps.app_id', 4)
-    qb.where('maha_users.team_id', req.team.get('id'))
     qb.whereNot('maha_users.id', req.user.get('id'))
   }).fetchAll({
     transacting: req.trx

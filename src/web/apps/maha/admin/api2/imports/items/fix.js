@@ -1,13 +1,14 @@
 import ImportSerializer from '../../../../serializers/import_serializer'
-import socket from '../../../../../core/services/routes/emitter'
-import ImportItem from '../../../models/import_item'
+import socket from '../../../../../../core/services/routes/emitter'
+import ImportItem from '../../../../models/import_item'
 import Checkit from 'checkit'
 import flat from 'flat'
 
 const fixRoute = async (req, res) => {
 
-  const item = await ImportItem.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const item = await ImportItem.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['import.asset','import.user.photo'],

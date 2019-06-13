@@ -4,8 +4,9 @@ import Role from '../../../../../maha/models/role'
 
 const updateRoute = async (req, res) => {
 
-  const role = await Role.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const role = await Role.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

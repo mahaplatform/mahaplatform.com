@@ -3,8 +3,9 @@ import Access from '../../../models/access'
 
 const showRoute = async (req, res) => {
 
-  const accesses = await Access.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const accesses = await Access.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('code', req.params.code)
   }).fetchPage({
     page: req.query.$page,

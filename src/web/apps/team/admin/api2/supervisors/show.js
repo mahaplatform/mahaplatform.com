@@ -3,8 +3,9 @@ import Supervisor from '../../../../maha/models/supervisor'
 
 const showRoute = async (req, res) => {
 
-  const supervisor = await Supervisor.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const supervisor = await Supervisor.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['user.photo'],

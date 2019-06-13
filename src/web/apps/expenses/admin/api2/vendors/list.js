@@ -4,8 +4,9 @@ import Vendor from '../../../models/vendor'
 
 const listRoute = async (req, res) => {
 
-  const vendors = await Vendor.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const vendors = await Vendor.scope({
+    team: req.team
+  }).query(qb => {
     qb.select(knex.raw('expenses_vendors.*, count(expenses_items.*) as items_count'))
     qb.leftJoin('expenses_items', 'expenses_items.vendor_id', 'expenses_vendors.id')
     qb.groupBy('expenses_vendors.id')

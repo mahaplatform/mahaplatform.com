@@ -6,8 +6,9 @@ import Vendor from '../../../models/vendor'
 
 const updateRoute = async (req, res) => {
 
-  const vendor = await Vendor.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const vendor = await Vendor.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

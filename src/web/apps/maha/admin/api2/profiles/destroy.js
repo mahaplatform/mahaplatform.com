@@ -3,8 +3,9 @@ import Profile from '../../../models/profile'
 
 const destroyRoute = async (req, res) => {
 
-  const profile = await Profile.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const profile = await Profile.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('id', req.params.id )
   }).fetch({
     withRelated: ['source'],

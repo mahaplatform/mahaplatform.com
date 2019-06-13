@@ -3,8 +3,8 @@ import Result from '../../../models/result'
 
 const listRoute = async (req, res) => {
 
-  const results = await Result.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const results = await Result.scope({
+    team: req.team
   }).filter({
     filter: req.query.$filter,
     searchParams: ['text']

@@ -3,8 +3,8 @@ import Assignee from '../../../models/assignee'
 
 const listRoute = async (req, res) => {
 
-  const assignees = await Assignee.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const assignees = await Assignee.scope({
+    team: req.team
   }).filter({
     filter: req.query.$filter,
     searchParams: ['name']

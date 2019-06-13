@@ -6,8 +6,9 @@ import Item from '../../../models/item'
 
 const updateRoute = async (req, res) => {
 
-  const item = await Item.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const item = await Item.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('site_id', req.params.site_id)
     qb.where('type_id', req.params.type_id)
     qb.where('id', req.params.id)

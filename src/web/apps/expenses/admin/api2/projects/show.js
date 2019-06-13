@@ -4,8 +4,9 @@ import _ from 'lodash'
 
 const showRoute = async (req, res) => {
 
-  const project = await Project.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const project = await Project.scope({
+    team: req.team
+  }).query(qb => {
     if(!_.includes(req.rights, 'expenses:manage_configuration')) {
       qb.joinRaw('inner join expenses_members on expenses_members.project_id=expenses_projects.id and expenses_members.user_id=? and expenses_members.is_active=?', [req.user.get('id'), true])
     }

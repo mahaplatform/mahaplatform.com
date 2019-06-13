@@ -51,13 +51,14 @@ const listRoute = async (req, res) => {
     if(a.title < b.title) return -1
     return 0
   })
-  res.status(200).respond({
-    records,
+
+  records.pagination = {
     total: records.length,
     all: records.length,
     limit: 1000,
     skip: 0
-  })
+  }
+  res.status(200).respond(records)
 
 }
 

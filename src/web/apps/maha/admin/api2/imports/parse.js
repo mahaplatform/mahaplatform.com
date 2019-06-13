@@ -4,8 +4,9 @@ import Import from '../../../models/import'
 
 const parseRoute = async (req, res) => {
 
-  const _import = await Import.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const _import = await Import.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

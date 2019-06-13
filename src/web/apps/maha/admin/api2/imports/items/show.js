@@ -1,10 +1,11 @@
 import ImportItemSerializer from '../../../../serializers/import_item_serializer'
-import ImportItem from '../../../models/import_item'
+import ImportItem from '../../../../models/import_item'
 
 const showRoute = async (req, res) => {
 
-  const item = await ImportItem.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const item = await ImportItem.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

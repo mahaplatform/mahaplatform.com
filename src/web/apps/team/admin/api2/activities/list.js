@@ -3,8 +3,8 @@ import Activity from '../../../../maha/models/activity'
 
 const listRoute = async (req, res) => {
 
-  const activities = await Activity.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const activities = await Activity.scope({
+    team: req.team
   }).filter({
     filter: req.query.$filter,
     filterParams: ['app_id','user_id','created_at'],

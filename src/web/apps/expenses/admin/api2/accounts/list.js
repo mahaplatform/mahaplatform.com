@@ -3,8 +3,8 @@ import Account from '../../../models/account'
 
 const listRoute = async (req, res) => {
 
-  const accounts = await Account.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const accounts = await Account.scope({
+    team: req.team
   }).filter({
     filter: req.query.$filter,
     searchParams: ['name']

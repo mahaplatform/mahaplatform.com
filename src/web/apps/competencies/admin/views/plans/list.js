@@ -7,7 +7,7 @@ import New from './new'
 const mapPropsToPage = (props, context) => ({
   title: 'Plans',
   collection: {
-    endpoint: '/api/admin/competencies/plans/items',
+    endpoint: '/api/admin/competencies/plans',
     table: [
       { label: 'Plan', key: 'created_at', primary: true, format: PlanToken },
       { label: 'Status', key: 'status', sort: 'expenses_statuses.text', format: Status, collapsing: true }

@@ -3,8 +3,9 @@ import Member from '../../../models/member'
 
 const listRoute = async (req, res) => {
 
-  const members = await Member.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const members = await Member.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('site_id', req.params.site_id)
   }).filter({
     filter: req.query.$filter

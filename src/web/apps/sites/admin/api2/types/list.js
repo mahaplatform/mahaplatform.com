@@ -3,8 +3,9 @@ import Type from '../../../models/type'
 
 const listRoute = async (req, res) => {
 
-  const types = await Type.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const types = await Type.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('site_id', req.params.site_id)
   }).sort({
     sort: req.query.$sort,

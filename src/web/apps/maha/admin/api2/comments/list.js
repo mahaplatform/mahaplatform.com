@@ -3,8 +3,9 @@ import Comment from '../../../models/comment'
 
 const listRoute = async (req, res) => {
 
-  const comments = await Comment.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const comments = await Comment.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('commentable_type', req.params.commentable_type)
     qb.where('commentable_id', req.params.commentable_id)
     qb.orderBy('created_at', 'asc')

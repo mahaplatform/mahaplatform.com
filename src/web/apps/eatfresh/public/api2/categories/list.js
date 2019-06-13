@@ -3,8 +3,8 @@ import Category from '../../../models/category'
 
 const listRoute = async (req, res) => {
 
-  const categories = await Category.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const categories = await Category.scope({
+    team: req.team
   }).filter({
     filter: req.query.$filter,
     searchParams: ['title']

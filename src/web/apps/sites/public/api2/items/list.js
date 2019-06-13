@@ -37,8 +37,9 @@ const listRoute = async (req, res) => {
     }, [])
   }
 
-  const items = await Item.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const items = await Item.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('site_id', req.params.site_id)
     qb.where('type_id', req.params.type_id)
     qb.where('is_published', true)

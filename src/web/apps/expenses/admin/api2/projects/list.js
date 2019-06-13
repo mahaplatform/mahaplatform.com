@@ -4,8 +4,9 @@ import _ from 'lodash'
 
 const listRoute = async (req, res) => {
 
-  const projects = await Project.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const projects = await Project.scope({
+    team: req.team
+  }).query(qb => {
     qb.leftJoin('expenses_members', 'expenses_members.project_id', 'expenses_projects.id')
     if(_.includes(req.rights, 'expenses:manage_configuration')) return
     qb.joinRaw('inner join expenses_members on expenses_members.project_id=expenses_projects.id and expenses_members.user_id=? and expenses_members.is_active=?', [req.user.get('id'), true])

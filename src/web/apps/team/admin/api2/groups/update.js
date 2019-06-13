@@ -6,8 +6,9 @@ import Group from '../../../../maha/models/group'
 
 const updateRoute = async (req, res) => {
 
-  const group = await Group.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const group = await Group.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['users.photo'],

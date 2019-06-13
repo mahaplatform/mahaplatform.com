@@ -3,8 +3,9 @@ import User from '../../../../maha/models/user'
 
 const availableRoute = async (req, res) => {
 
-  const users = await User.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const users = await User.scope({
+    team: req.team
+  }).query(qb => {
     qb.leftJoin('maha_supervisors', 'maha_supervisors.user_id', 'maha_users.id')
     qb.whereNull('maha_supervisors.id')
   }).filter({

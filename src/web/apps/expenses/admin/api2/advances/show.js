@@ -3,8 +3,9 @@ import Advance from '../../../models/advance'
 
 const showRoute = async (req, res) => {
 
-  const advance = await Advance.query(qb => {
-    qb.where('team_id', req.team.get('id'))
+  const advance = await Advance.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['receipts.asset','receipts.asset.source','user','project.members','expense_type','status','vendor','account'],
