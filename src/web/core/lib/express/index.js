@@ -1,4 +1,3 @@
-import { withLogger } from '../../utils/logger'
 import bodyParserXML from 'body-parser-xml'
 import multiparty from 'connect-multiparty'
 import deeplinkMiddleware from './deeplink'
@@ -10,7 +9,6 @@ import serverMiddleware from './server'
 import imagecache from './imagecache'
 import emailMiddleware from './email'
 import bodyParser from 'body-parser'
-import api2Middleware from './api2'
 import apiMiddleware from './api'
 import express from 'express'
 import arena from './arena'
@@ -57,11 +55,7 @@ const middleware = async () => {
 
   server.use(serverMiddleware())
 
-  const api = await apiMiddleware()
-
-  server.use(await cors(), api)
-
-  server.use('/api', await cors(), api2Middleware)
+  server.use('/api', await cors(), apiMiddleware)
 
   server.use('/js/notifications.js', (req, res) => res.sendFile(path.resolve('public','admin','js','notifications.js')))
 

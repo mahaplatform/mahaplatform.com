@@ -1,4 +1,3 @@
-import { BackframeError } from '../../../core/backframe'
 import Asset from '../models/asset'
 import Field from '../models/field'
 import Link from '../models/link'
@@ -15,7 +14,7 @@ export const processValues = async (parent_type, parent_id, data, trx) => {
 
   const errors = await validate(fields, data)
 
-  if(errors) throw new BackframeError({
+  if(errors) throw new Error({
     code: 422,
     message: 'Unable to complete request',
     errors: errors.toJSON()

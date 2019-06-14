@@ -1,28 +1,20 @@
-import { Resources } from '../../../../../core/backframe'
-import User from '../../../../maha/models/user'
-import UserSerializer from '../../../serializers/user_serializer'
+import { Router } from 'express'
+import destroy from './destroy'
+import create from './create'
+import update from './update'
+import list from './list'
+import show from './show'
 
-const defaultQuery = (req, trx, qb, options) => {
+const router = new Router({ mergeParams: true })
 
-  qb.select(options.knex.raw('distinct on ("maha_supervisions"."employee_id","maha_users"."last_name") "maha_users".*'))
+router.get('/', list)
 
-  qb.innerJoin('maha_supervisions', 'maha_supervisions.employee_id', 'maha_users.id')
+router.post('/', create)
 
-  qb.where('maha_supervisions.supervisor_id', req.user.get('id'))
+router.get('/:id', show)
 
-}
+router.patch('/:id', update)
 
-const employeeResources = new Resources({
-  defaultQuery,
-  defaultSort: ['last_name'],
-  model: User,
-  name: 'employee',
-  only: ['list','show'],
-  path: '/employees',
-  searchParams: ['first_name','last_name'],
-  serializer: UserSerializer,
-  sortParams: ['last_name'],
-  withRelated: ['photo']
-})
+router.delete('/:id', destroy)
 
-export default employeeResources
+export default router

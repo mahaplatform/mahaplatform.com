@@ -1,4 +1,4 @@
-import transaction from '../api2/transaction'
+import transaction from '../api/transaction'
 import bodyParser from 'body-parser'
 import feedback from './feedback'
 import { Router } from 'express'
