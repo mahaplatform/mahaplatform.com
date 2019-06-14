@@ -4,8 +4,10 @@ import { whitelist } from '../../../../../core/services/routes/params'
 import CheckSerializer from '../../../serializers/check_serializer'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
-import Check from '../../../models/check'
+import { createReceipts } from '../../../services/receipts'
+import { completeItem } from '../../../services/items'
 import Member from '../../../models/member'
+import Check from '../../../models/check'
 
 const updateRoute = async (req, res) => {
 
@@ -29,6 +31,16 @@ const updateRoute = async (req, res) => {
 
   await check.save(whitelist(req.body, ['project_id','expense_type_id','vendor_id','delivery_method','date_needed','description','amount','description']), {
     transacting: req.trx
+  })
+
+  await createReceipts(req, {
+    type: 'check',
+    item: check
+  })
+
+  await completeItem(req, {
+    item: check,
+    required: ['date_needed','description','amount','project_id','expense_type_id','vendor_id','delivery_method']
   })
 
   const members = await Member.query(qb => {

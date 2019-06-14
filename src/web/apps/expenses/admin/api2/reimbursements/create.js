@@ -6,6 +6,7 @@ import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import { createReceipts } from '../../../services/receipts'
 import Reimbursement from '../../../models/reimbursement'
+import { completeItem } from '../../../services/items'
 import Member from '../../../models/member'
 
 const createRoute = async (req, res) => {
@@ -19,7 +20,15 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await createReceipts(req, 'reimbursement', reimbursement)
+  await createReceipts(req, {
+    type: 'reimbursement',
+    item: reimbursement
+  })
+
+  await completeItem(req, {
+    item: reimbursement,
+    required: ['date','receipt_ids','description','amount','project_id','expense_type_id','vendor_id']
+  })
 
   const members = await Member.query(qb => {
     qb.where('project_id', reimbursement.get('project_id'))
@@ -40,10 +49,7 @@ const createRoute = async (req, res) => {
 
   await audit(req, {
     story: 'created',
-    auditable: {
-      tableName: 'expenses_reimbursements',
-      id: reimbursement.get('id')
-    }
+    auditable: reimbursement
   })
 
   await socket.refresh(req, [{

@@ -5,8 +5,9 @@ import { whitelist } from '../../../../../core/services/routes/params'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import { createReceipts } from '../../../services/receipts'
-import Check from '../../../models/check'
+import { completeItem } from '../../../services/items'
 import Member from '../../../models/member'
+import Check from '../../../models/check'
 
 const createRoute = async (req, res) => {
 
@@ -19,7 +20,15 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await createReceipts(req, 'check', check)
+  await createReceipts(req, {
+    type: 'check',
+    item: check
+  })
+
+  await completeItem(req, {
+    item: check,
+    required: ['date_needed','description','amount','project_id','expense_type_id','vendor_id','delivery_method']
+  })
 
   const members = await Member.query(qb => {
     qb.where('project_id', check.get('project_id'))
@@ -40,10 +49,7 @@ const createRoute = async (req, res) => {
 
   await audit(req, {
     story: 'created',
-    auditable: {
-      tableName: 'expenses_checks',
-      id: check.get('id')
-    }
+    auditable: check
   })
 
   await socket.refresh(req, [{

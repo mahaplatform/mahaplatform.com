@@ -13,7 +13,7 @@ const submitAllRoute = async (req, res) => {
     types.map(type => {
       if(!req.body[`${type}_ids`]) return
       qb.orWhere(qb2 => {
-        qb2.where('type', type).andWhereIn('item_id', req.body[`${type}_ids`])
+        qb2.whereIn('item_id', req.body[`${type}_ids`]).andWhere('type', type)
       })
     })
     qb.orderBy('user_id', 'asc')
@@ -46,7 +46,7 @@ const submitAllRoute = async (req, res) => {
 
   await notifications(req, items.map(item => ({
     type: 'expenses:item_submitted',
-    recipient_ids: item.related('listenings').filter(listener => {
+    recipient_ids: item.related('listenings').toArray().filter(listener => {
       return listener.get('user_id') !== req.user.get('id')
     }).map(listener => listener.get('user_id')),
     subject_id: req.user.get('id'),

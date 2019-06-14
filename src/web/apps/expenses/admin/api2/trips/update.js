@@ -4,6 +4,7 @@ import { whitelist } from '../../../../../core/services/routes/params'
 import { audit } from '../../../../../core/services/routes/audit'
 import TripSerializer from '../../../serializers/trip_serializer'
 import socket from '../../../../../core/services/routes/emitter'
+import { completeItem } from '../../../services/items'
 import Member from '../../../models/member'
 import Trip from '../../../models/trip'
 
@@ -25,6 +26,11 @@ const updateRoute = async (req, res) => {
 
   await trip.save(whitelist(req.body, ['expense_type_id','project_id','date','description','time_leaving','time_arriving','odometer_start','odometer_end','total_miles','amount','mileage_rate']), {
     transacting: req.trx
+  })
+
+  await completeItem(req, {
+    item: trip,
+    required: ['date','description','project_id','odometer_start','odometer_end','total_miles']
   })
 
   const members = await Member.query(qb => {

@@ -12,7 +12,7 @@ export const listeners = async (req, listeners) => {
       user_id: listener.user_id,
       listenable_type: listenable.type,
       listenable_id: listenable.id
-    }).fetchAll({
+    }, {
       transacting: req.trx
     })
 

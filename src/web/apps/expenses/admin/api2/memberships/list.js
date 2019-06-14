@@ -16,7 +16,7 @@ const listRoute = async (req, res) => {
   }).sort({
     sort: req.query.$sort,
     defaultSort: ['integration->>\'project_code\'','expenses_projects.title'],
-    sortParams: ['created_at']
+    sortParams: ['integration->>\'project_code\'','expenses_projects.title','created_at']
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx

@@ -5,6 +5,7 @@ import { whitelist } from '../../../../../core/services/routes/params'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import { createReceipts } from '../../../services/receipts'
+import { completeItem } from '../../../services/items'
 import Expense from '../../../models/expense'
 import Member from '../../../models/member'
 
@@ -28,8 +29,16 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await createReceipts(req, 'expense', expense)
+  await createReceipts(req, {
+    type: 'expense',
+    item: expense
+  })
 
+  await completeItem(req, {
+    item: expense,
+    required: ['date','receipt_ids','description','amount','project_id','expense_type_id','vendor_id','account_id']
+  })
+  
   const members = await Member.query(qb => {
     qb.where('project_id', expense.get('project_id'))
     qb.whereRaw('(member_type_id != ? OR user_id = ?)', [3, req.user.get('id')])
@@ -48,11 +57,8 @@ const updateRoute = async (req, res) => {
   })
 
   await audit(req, {
-    story: 'created',
-    auditable: {
-      tableName: 'expenses_expenses',
-      id: expense.get('id')
-    }
+    story: 'updated',
+    auditable: expense
   })
 
   await socket.refresh(req, [{

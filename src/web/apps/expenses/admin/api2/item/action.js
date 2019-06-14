@@ -30,8 +30,8 @@ const actionRoute = async (req, res) => {
     text: req.params.type
   })
 
-  const resource = await type.model.where({
-    id: req.params.id
+  const item = await type.model.query(qb => {
+    qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['project.members','listenings'],
     transacting: req.trx
@@ -41,15 +41,15 @@ const actionRoute = async (req, res) => {
     text: req.params.action
   })
 
-  if(resource.get('status_id') === status.id) return res.status(403).respond({
+  if(item.get('status_id') === status.id) return res.status(403).respond({
     code: 403,
     message: 'You are not allowed to perform this action'
   })
 
   const valid = status.roles.reduce((valid, role) => {
     if(valid) return true
-    if(role === 'owner' && req.user.get('id') === resource.get('user_id')) return true
-    if(role === 'approver' && _.includes(resource.get('approver_ids'), req.user.get('id'))) return true
+    if(role === 'owner' && req.user.get('id') === item.get('user_id')) return true
+    if(role === 'approver' && _.includes(item.get('approver_ids'), req.user.get('id'))) return true
     if(role === 'manager' && _.includes(req.rights, 'expenses:manage_configuration')) return true
     return false
   }, false)
@@ -59,49 +59,47 @@ const actionRoute = async (req, res) => {
     message: 'You are not allowed to perform this action'
   })
 
-  await resource.save({
+  await item.save({
     status_id: status.id
   }, {
     patch: true,
     transacting: req.trx
   })
 
-  const story = tensify.past(req.params.action)
+  const story = tensify(req.params.action).past
 
   await activity(req, {
     story: `${story} {object}`,
-    object: resource
+    object: item
   })
 
   await audit(req, {
     story,
-    auditable: resource
+    auditable: item
   })
 
   await listeners(req, {
     user_id: req.user.get('id'),
-    listenable: resource
+    listenable: item
   })
 
   await notifications(req, {
     type: `expenses:item_${story}`,
-    recipient_ids: resource.related('listenings').filter(listener => {
-      listener.get('user_id') !== req.user.get('id')
-    }).map(listener => {
-      listener.get('user_id')
-    }),
+    recipient_ids: item.related('listenings').toArray().filter(listener => {
+      return listener.get('user_id') !== req.user.get('id')
+    }).map(listener => listener.get('user_id')),
     subject_id: req.user.get('id'),
     story: `${story} {object}`,
-    object: resource
+    object: item
   })
 
   await socket.refresh(req,  [{
-    channel: `/admin/users/${resource.get('user_id')}`,
+    channel: `/admin/users/${item.get('user_id')}`,
     target: '/admin/expenses/items'
   }, {
     channel: 'team',
     target: [
-      `/admin/expenses/${req.params.type}/${resource.get('id')}`,
+      `/admin/expenses/${req.params.type}/${item.get('id')}`,
       '/admin/expenses/approvals',
       '/admin/expenses/reports'
     ]

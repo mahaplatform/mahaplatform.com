@@ -15,6 +15,7 @@ import rates from './rates'
 import users from './users'
 import trips from './trips'
 import items from './items'
+import item from './item'
 
 const router = new Router({ mergeParams: true })
 
@@ -31,6 +32,8 @@ router.use('/expense_types', expense_types)
 router.use('/expenses', expenses)
 
 router.use(items)
+
+router.use(item)
 
 router.use('/memberships', memberships)
 

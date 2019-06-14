@@ -4,6 +4,7 @@ import AdvanceSerializer from '../../../serializers/advance_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
+import { completeItem } from '../../../services/items'
 import Advance from '../../../models/advance'
 import Member from '../../../models/member'
 
@@ -25,6 +26,11 @@ const updateRoute = async (req, res) => {
 
   await advance.save(whitelist(req.body, ['project_id','expense_type_id','date_needed','description','amount','description']), {
     transacting: req.trx
+  })
+
+  await completeItem(req, {
+    item: advance,
+    required: ['date_needed','description','amount','project_id','expense_type_id']
   })
 
   const members = await Member.query(qb => {

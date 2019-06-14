@@ -23,14 +23,16 @@ const statusRoute = async (req, res) => {
     text: req.params.type
   })
 
-  const resource = await type.model.where({
-    id: req.params.id
+  const item = await type.model.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['project.members','listenings'],
     transacting: req.trx
   })
 
-  if(resource.get('status_id') === req.body.status_id) return res.status(403).respond({
+  if(item.get('status_id') === req.body.status_id) return res.status(403).respond({
     code: 403,
     message: 'You are not allowed to perform this action'
   })
@@ -42,13 +44,13 @@ const statusRoute = async (req, res) => {
     message: 'You are not allowed to perform this action'
   })
 
-  req.status = await Status.where({
-    id: req.body.status_id
+  const status = await Status.query(qb => {
+    qb.where('id', req.body.status_id)
   }).fetch({
     transacting: req.trx
   })
 
-  await resource.save({
+  await item.save({
     status_id: req.body.status_id
   }, {
     patch: true,
@@ -56,39 +58,37 @@ const statusRoute = async (req, res) => {
   })
 
   await activity(req, {
-    story: `reverted {object} to ${resource.status.get('text')}`,
-    object: resource
+    story: `reverted {object} to ${status.get('text')}`,
+    object: item
   })
 
   await audit(req, {
-    story: `status reverted to ${req.status.get('text')}`,
-    auditable: resource
+    story: `status reverted to ${status.get('text')}`,
+    auditable: item
   })
 
   await listeners(req, {
     user_id: req.user.get('id'),
-    listenable: resource
+    listenable: item
   })
 
   await notifications(req, {
     type: 'expenses:item_reverted',
-    recipient_ids: resource.related('listenings').filter(listener => {
-      listener.get('user_id') !== req.user.get('id')
-    }).map(listener => {
-      listener.get('user_id')
-    }),
+    recipient_ids: item.related('listenings').toArray().filter(listener => {
+      return listener.get('user_id') !== req.user.get('id')
+    }).map(listener => listener.get('user_id')),
     subject_id: req.user.get('id'),
-    story: `reverted {object} to ${req.status.get('text')}`,
-    object: resource
+    story: `reverted {object} to ${status.get('text')}`,
+    object: item
   })
 
   await socket.refresh(req,  [{
-    channel: `/admin/users/${resource.get('user_id')}`,
+    channel: `/admin/users/${item.get('user_id')}`,
     target: '/admin/expenses/items'
   }, {
     channel: 'team',
     target: [
-      `/admin/expenses/${req.params.type}/${resource.get('id')}`,
+      `/admin/expenses/${req.params.type}/${item.get('id')}`,
       '/admin/expenses/approvals',
       '/admin/expenses/reports'
     ]

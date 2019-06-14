@@ -5,6 +5,7 @@ import assignees from './assignees'
 import comments from './comments'
 import sessions from './sessions'
 import profiles from './profiles'
+import settings from './settings'
 import { Router } from 'express'
 import imports from './imports'
 import sources from './sources'
@@ -33,6 +34,8 @@ router.use('/:attachable_type/:attachable_id/attachments', attachments)
 router.use('/:reactable_type/:reactable_id/react/:type', react)
 
 router.use('/account', account)
+
+router.use('/apps', settings)
 
 router.use('/assets', assets)
 

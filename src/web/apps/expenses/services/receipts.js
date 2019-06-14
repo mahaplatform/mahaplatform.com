@@ -2,7 +2,7 @@ import knex from '../../../core/services/knex'
 import Receipt from '../models/receipt'
 import _ from 'lodash'
 
-export const createReceipts = async (req, type, item) => {
+export const createReceipts = async (req, { type, item }) => {
 
   if(!req.body.receipt_ids) return
 

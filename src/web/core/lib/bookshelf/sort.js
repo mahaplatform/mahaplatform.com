@@ -12,7 +12,10 @@ const sortPlugin = function(bookshelf) {
   const applySorts = (qb, $sorts, options) => {
     const sorts = normalizeSort($sorts, options)
     if(sorts.length === 0) return
-    qb.orderBy(sorts.map(sort => applySort(sort, options)))
+    sorts.map(sort => {
+      const { column, order } = applySort(sort, options)
+      qb.orderByRaw(`${column} ${order}`)
+    })
   }
 
   const normalizeSort = ($sorts, options) => {

@@ -19,7 +19,7 @@ const listRoute = async (req, res) => {
   }).sort({
     sort: req.query.$sort,
     defaultSort: '-created_at',
-    sortParams: ['id','first_name','last_name','email']
+    sortParams: ['id','first_name','last_name','email','created_at']
   }).fetchPage({
     page: req.query.$page,
     withRelated: ['attachments.asset.source','message_type','user.photo','reactions.user.photo','stars','quoted_message.user.photo','link.service'],

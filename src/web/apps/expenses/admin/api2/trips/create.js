@@ -4,6 +4,7 @@ import { whitelist } from '../../../../../core/services/routes/params'
 import { audit } from '../../../../../core/services/routes/audit'
 import TripSerializer from '../../../serializers/trip_serializer'
 import socket from '../../../../../core/services/routes/emitter'
+import { completeItem } from '../../../services/items'
 import Member from '../../../models/member'
 import Trip from '../../../models/trip'
 
@@ -16,6 +17,11 @@ const createRoute = async (req, res) => {
     ...whitelist(req.body, ['expense_type_id','project_id','date','description','time_leaving','time_arriving','odometer_start','odometer_end','total_miles','amount','mileage_rate'])
   }).save(null, {
     transacting: req.trx
+  })
+
+  await completeItem(req, {
+    item: trip,
+    required: ['date','description','project_id','odometer_start','odometer_end','total_miles']
   })
 
   const members = await Member.query(qb => {
@@ -37,10 +43,7 @@ const createRoute = async (req, res) => {
 
   await audit(req, {
     story: 'created',
-    auditable: {
-      tableName: 'expenses_trips',
-      id: trip.get('id')
-    }
+    auditable: trip
   })
 
   await socket.refresh(req, [{
