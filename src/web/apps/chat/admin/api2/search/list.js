@@ -10,8 +10,8 @@ const listRoute = async (req, res) => {
     searchParams: ['text']
   }).sort({
     sort: req.query.$sort,
-    defaultSort: '-created_at',
-    sortParams: ['id','first_name','last_name','email']
+    defaultSort: '-date',
+    sortParams: ['id','first_name','last_name','email','date']
   }).fetchPage({
     page: req.query.$page,
     withRelated: ['channel.owner.photo','channel.subscriptions.user.photo','channel.last_message','message.attachments.asset.source','message.attachments.service','message.message_type','message.user.photo'],
