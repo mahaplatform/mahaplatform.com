@@ -6,29 +6,34 @@ class Responder {
   req = null
   res = null
   pagination = null
+  serializer = null
   data = null
 
   constructor(res, data, serializer) {
     this.res = res
     this.req = res.req
     this.pagination = data.pagination
-    this.data = this._serializeData(data, serializer)
+    this.data = data
+    this.serializer = serializer
     this.filename = this._getFilename()
   }
 
-  _serializeData(data, serializer) {
-    delete data.pagination
-    if(!serializer) return data
-    if(data.map === undefined) return serializer(data)
-    return data.map(serializer)
-  }
-
   async render() {
+    this.data = await this._serializeData(this.data, this.serializer)
     const data = await this._getData()
     if(this.req.query.download) {
       this.res.setHeader('Content-disposition', `attachment; filename=${this.filename}`)
     }
     this.res.type(this.type).send(data)
+  }
+
+  async _serializeData(data, serializer) {
+    delete data.pagination
+    if(!serializer) return data
+    if(data.map === undefined) return await serializer(data)
+    return await Promise.mapSeries(data, async (item) => {
+      return await serializer(item)
+    })
   }
 
   _getFilename() {

@@ -1,23 +1,22 @@
-import knex from '../../../../../../core/services/knex'
 import User from '../../../../models/user'
 import { getClient } from './utils'
 
-const preview = async (req, res, next) => {
+const preview = async (req, res) => {
 
-  await knex.transaction(async trx => {
-
-    req.user = await User.where({ id: 79 }).fetch({ transacting: trx })
-
-    const client = await getClient(req, trx)
-
-    const result = await client.files.getThumbnail(req.query.path, {
-      min_width: 160,
-      min_height: 160
-    })
-
-    res.status(200).type('image/jpeg').end(result.file, 'binary')
-
+  req.user = await User.query(qb => {
+    qb.where('id', 79)
+  }).fetch({
+    transacting: req.trx
   })
+
+  const client = await getClient(req)
+
+  const result = await client.files.getThumbnail(req.query.path, {
+    min_width: 160,
+    min_height: 160
+  })
+
+  res.status(200).type('image/jpeg').end(result.file, 'binary')
 
 }
 

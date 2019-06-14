@@ -1,29 +1,18 @@
 import collectObjects from '../../utils/collect_objects'
-import express from 'express'
-import path from 'path'
+import transaction from './transaction'
+import { Router } from 'express'
+import logger from './logger'
 
-const devRoot = path.resolve(__dirname,'..','..','admin')
+const files = collectObjects('admin/server')
 
-const prodRoot = path.resolve(__dirname,'..','..','..','public','admin')
+const router = new Router({ mergeParams: true })
 
-const getStaticRoot = () => {
-  if(process.env.NODE_ENV === 'production') return prodRoot
-  return path.join(devRoot,'public')
-}
+router.use(transaction)
 
-const getIndex = () => {
-  if(process.env.NODE_ENV === 'production') return path.join(prodRoot,'index.html')
-  return path.join(devRoot,'index.html')
-}
+router.use(logger)
 
-const serverMiddleware = () => {
-  const files = collectObjects('admin/server')
-  const router = new express.Router({ mergeParams: true })
-  const server = files.map(file => file.default(router))
-  router.use('/admin', express.static(getStaticRoot(), { redirect: false }))
-  router.use('/admin', server)
-  router.use('/admin*', (req, res) => res.sendFile(getIndex()))
-  return router
-}
+files.map(file => {
+  router.use(file.default)
+})
 
-export default serverMiddleware
+export default router

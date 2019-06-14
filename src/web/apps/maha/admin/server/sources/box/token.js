@@ -5,21 +5,16 @@ const box = new Box({
   clientSecret: process.env.BOX_CLIENT_SECRET
 })
 
-const token = async (req, res, next) => {
+const token = async (req, res) => {
 
-  const data = await new Promise((resolve, reject) => {
+  return await new Promise((resolve, reject) => {
 
     box.getTokensAuthorizationCodeGrant(req.query.code, null, (err, token) => {
-
       if(err) reject(err)
-
       resolve(token)
-
     })
 
   })
-
-  return data
 
 }
 

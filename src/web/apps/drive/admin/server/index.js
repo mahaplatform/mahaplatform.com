@@ -1,14 +1,11 @@
+import { Router } from 'express'
 import share from './share'
 import dav from './dav'
 
-const server = (router) => {
+const router = new Router({ mergeParams: true })
 
-  router.use('/drive/maha', dav)
+router.use('/drive/maha', dav)
 
-  router.use('/drive/share', share)
+router.use('/drive/share', share)
 
-  return router
-
-}
-
-export default server
+export default router

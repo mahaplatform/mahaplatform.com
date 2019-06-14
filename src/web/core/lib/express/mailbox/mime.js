@@ -1,18 +1,14 @@
-import { withTransaction } from '../../utils/with_transaction'
-import collectObjects from '../../utils/collect_objects'
-import mailboxQueue from '../../../apps/maha/queues/mailbox_queue'
-import aws from '../../services/aws'
-import { Router } from 'express'
+import mailboxQueue from '../../../../apps/maha/queues/mailbox_queue'
+import collectObjects from '../../../utils/collect_objects'
+import aws from '../../../services/aws'
 import path from 'path'
 import _ from 'lodash'
 
 const mailboxes = collectObjects('mailboxes/*')
 
-const mailboxMiddleware = new Router({ mergeParams: true })
-
 const simpleParser = Promise.promisify(require('mailparser').simpleParser)
 
-mailboxMiddleware.post('/mailbox_mime', (req, res) => withTransaction(req, res, async (trx) => {
+const mimeRoute = async(req, res) => {
 
   const mime = req.body['body-mime']
 
@@ -47,7 +43,7 @@ mailboxMiddleware.post('/mailbox_mime', (req, res) => withTransaction(req, res, 
 
   if(!mailbox) return res.status(404).send('not found')
 
-  const meta = await mailbox.receiver(mailbox.to, message, trx)
+  const meta = await mailbox.receiver(mailbox.to, message, req.trx)
 
   const code = _.random(100000000, 999999999).toString(36)
 
@@ -67,6 +63,6 @@ mailboxMiddleware.post('/mailbox_mime', (req, res) => withTransaction(req, res, 
 
   res.status(200).send('accepted')
 
-}))
+}
 
-export default mailboxMiddleware
+export default mimeRoute

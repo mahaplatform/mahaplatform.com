@@ -6,11 +6,17 @@ const box = new Box({
   clientSecret: process.env.BOX_CLIENT_SECRET
 })
 
-export const getClient = async (req, trx) => {
+export const getClient = async (req) => {
 
-  const query = qb => qb.innerJoin('maha_sources', 'maha_sources.id', 'maha_profiles.source_id')
-
-  const profile = await Profile.query(query).where({ text: 'box', user_id: req.user.get('id')}).fetch({ transacting: trx })
+  const profile = await Profile.query(qb => {
+    qb.innerJoin('maha_sources', 'maha_sources.id', 'maha_profiles.source_id')
+    qb.where({
+      text: 'box',
+      user_id: req.user.get('id')
+    })
+  }).fetch({
+    transacting: req.trx
+  })
 
   const expiration = new Date(parseFloat(profile.get('data').acquiredAtMS + profile.get('data').accessTokenTTLMS - 300000))
 
@@ -18,12 +24,15 @@ export const getClient = async (req, trx) => {
 
     const data = await box.getTokensRefreshGrant(profile.get('data').refreshToken)
 
-    await profile.save({ data }, { patch: true, transacting: trx })
+    await profile.save({
+      data
+    }, {
+      patch: true,
+      transacting: req.trx
+    })
 
   }
 
-  const client = box.getBasicClient(profile.get('data').accessToken)
-
-  return client
+  return box.getBasicClient(profile.get('data').accessToken)
 
 }

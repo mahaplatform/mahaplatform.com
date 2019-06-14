@@ -69,8 +69,8 @@ const listRoute = async (req, res) => {
     ...await expandValues('sites_types', req.params.type_id, result.get('values'), req.trx)
   })
 
-  res.status(200).respond(items, (item) => {
-    return serializer(req, req.trx, item)
+  res.status(200).respond(items, async (item) => {
+    return await serializer(req, req.trx, item)
   })
 
 }

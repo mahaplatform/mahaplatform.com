@@ -12,7 +12,9 @@ const router = express()
 
 router.use(cors)
 
-router.use(auth.connect(auth.basic({ realm: 'MAHA' }, loadUser)))
+router.use(auth.connect(auth.basic({
+  realm: 'MAHA'
+}, loadUser)))
 
 router.use(loadItem)
 

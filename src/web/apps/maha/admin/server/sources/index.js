@@ -13,23 +13,27 @@ import box from './box/token'
 import express from 'express'
 import path from 'path'
 
-const token = async (req, res, next) => {
+const token = async (req, res) => {
 
-  req.user = await User.where({ id: req.query.state }).fetch()
+  req.user = await User.query(qb => {
+    qb.where('id', req.query.state)
+  }).fetch({
+    transacting: req.trx
+  })
 
   const getData = async (source) => {
 
-    if(source === 'facebook') return await facebook(req, res, next)
+    if(source === 'facebook') return await facebook(req, res)
 
-    if(source === 'google') return await google(req, res, next)
+    if(source === 'google') return await google(req, res)
 
-    if(source === 'microsoft') return await microsoft(req, res, next)
+    if(source === 'microsoft') return await microsoft(req, res)
 
-    if(source === 'instagram') return await instagram(req, res, next)
+    if(source === 'instagram') return await instagram(req, res)
 
-    if(source === 'dropbox') return await dropbox(req, res, next)
+    if(source === 'dropbox') return await dropbox(req, res)
 
-    if(source === 'box') return await box(req, res, next)
+    if(source === 'box') return await box(req, res)
 
     return null
 
@@ -46,7 +50,9 @@ const token = async (req, res, next) => {
     user_id: req.user.get('id'),
     source_id: source.get('id'),
     data
-  }).save()
+  }).save(null, {
+    transacting: req.trx
+  })
 
   await socket.in(`/admin/users/${req.user.get('id')}`).emit('message', {
     target: `/admin/${req.params.source}/authorized`,
@@ -62,11 +68,11 @@ const token = async (req, res, next) => {
 
 }
 
-const preview = async (req, res, next) => {
+const preview = async (req, res) => {
 
-  if(req.params.source === 'box') await boxPreview(req, res, next)
+  if(req.params.source === 'box') await boxPreview(req, res)
 
-  if(req.params.source === 'dropbox') await dropboxPreview(req, res, next)
+  if(req.params.source === 'dropbox') await dropboxPreview(req, res)
 
 }
 

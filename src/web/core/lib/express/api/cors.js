@@ -1,10 +1,10 @@
-import collectObjects from '../../utils/collect_objects'
+import collectObjects from '../../../utils/collect_objects'
 import cors from 'cors'
 import _ from 'lodash'
 
-const mahaCors = async () => {
+const originFiles = collectObjects('origins.js')
 
-  const originFiles = collectObjects('origins.js')
+const corsMiddleware = async (req, res, next) => {
 
   var origin = (origin, callback) => {
 
@@ -23,10 +23,8 @@ const mahaCors = async () => {
 
   }
 
-  return cors({
-    origin
-  })
+  return cors({ origin })(req, res, next)
 
 }
 
-export default mahaCors
+export default corsMiddleware

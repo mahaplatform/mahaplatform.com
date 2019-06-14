@@ -1,14 +1,11 @@
+import { Router } from 'express'
 import signin from './signin'
 import oauth from './sources'
 
-const server = (router) => {
+const router = new Router({ mergeParams: true })
 
-  router.use(signin)
+router.use(signin)
 
-  router.use(oauth)
+router.use(oauth)
 
-  return router
-
-}
-
-export default server
+export default router

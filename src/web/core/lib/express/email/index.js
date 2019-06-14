@@ -1,29 +1,32 @@
-import transaction from '../api/transaction'
+import transaction from '../transaction'
 import bodyParser from 'body-parser'
 import feedback from './feedback'
 import { Router } from 'express'
 import signout from './signout'
+import logger from '../logger'
 import link from './link'
 import open from './open'
 import seen from './seen'
 import view from './view'
 
-const emailMiddleware = new Router({ mergeParams: true })
+const router = new Router({ mergeParams: true })
 
-emailMiddleware.use(bodyParser.json({ limit: '5mb', type: '*/*' }))
+router.use(bodyParser.json({ limit: '5mb', type: '*/*' }))
 
-emailMiddleware.use(transaction)
+router.use(transaction)
 
-emailMiddleware.get('/v:email_code([a-z0-9]{4})', open)
+router.use(logger)
 
-emailMiddleware.get('/c:email_code([a-z0-9]{4}):link_code([a-z0-9]{4})', link)
+router.get('/v:email_code([a-z0-9]{4})', open)
 
-emailMiddleware.get('/ns:codes', seen)
+router.get('/c:email_code([a-z0-9]{4}):link_code([a-z0-9]{4})', link)
 
-emailMiddleware.get('/nv:code', view)
+router.get('/ns:codes', seen)
 
-emailMiddleware.get('/so:code', signout)
+router.get('/nv:code', view)
 
-emailMiddleware.post('/aws/feedback', feedback)
+router.get('/so:code', signout)
 
-export default emailMiddleware
+router.post('/aws/feedback', feedback)
+
+export default router
