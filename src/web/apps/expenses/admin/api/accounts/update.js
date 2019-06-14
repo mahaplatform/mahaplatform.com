@@ -34,9 +34,7 @@ const updateRoute = async (req, res) => {
     `/admin/expenses/accounts/${req.params.id}`
   ])
 
-  res.status(200).respond(account, (account) => {
-    return AccountSerializer(req, account)
-  })
+  res.status(200).respond(account, AccountSerializer)
 
 }
 

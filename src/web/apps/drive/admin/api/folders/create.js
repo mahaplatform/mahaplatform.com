@@ -57,9 +57,7 @@ const createRoute = async (req, res) => {
     '/admin/drive/folders/trash'
   ])
 
-  res.status(200).respond(folder, (folder) => {
-    return FolderSerializer(req, folder)
-  })
+  res.status(200).respond(folder, FolderSerializer)
 
 }
 

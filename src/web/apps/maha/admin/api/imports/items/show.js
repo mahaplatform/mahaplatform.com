@@ -16,9 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load import item'
   })
 
-  res.status(200).respond(item, (item) => {
-    return ImportItemSerializer(req, item)
-  })
+  res.status(200).respond(item, ImportItemSerializer)
 
 }
 

@@ -25,10 +25,6 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load check'
   })
 
-  res.status(200).respond(check, (check) => {
-    return CheckSerializer(req, check)
-  })
-
   await check.save(whitelist(req.body, ['project_id','expense_type_id','vendor_id','delivery_method','date_needed','description','amount','description']), {
     transacting: req.trx
   })
@@ -77,9 +73,7 @@ const updateRoute = async (req, res) => {
     ]
   }])
 
-  res.status(200).respond(check, (check) => {
-    return CheckSerializer(req, check)
-  })
+  res.status(200).respond(check, CheckSerializer)
 
 }
 

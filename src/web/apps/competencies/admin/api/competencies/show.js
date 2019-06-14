@@ -16,9 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load competency'
   })
 
-  res.status(200).respond(competency, (competency) => {
-    return CompetencySerializer(req, competency)
-  })
+  res.status(200).respond(competency, CompetencySerializer)
 
 }
 

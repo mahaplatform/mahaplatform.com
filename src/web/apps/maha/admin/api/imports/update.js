@@ -31,9 +31,7 @@ const updateRoute = async (req, res) => {
     object: _import
   })
 
-  res.status(200).respond(_import, (_import) => {
-    return ImportSerializer(req, _import)
-  })
+  res.status(200).respond(_import, ImportSerializer)
 
 }
 

@@ -32,9 +32,7 @@ const updateRoute = async (req, res) => {
     `/admin/sites/sites/${req.params.site_id}/members/${member.get('id')}`
   ])
 
-  res.status(200).respond(member, (member) => {
-    return MemberSerializer(req, member)
-  })
+  res.status(200).respond(member, MemberSerializer)
 
 }
 

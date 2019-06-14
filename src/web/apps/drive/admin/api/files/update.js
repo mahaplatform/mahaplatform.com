@@ -54,9 +54,7 @@ const updateRoute = async (req, res) => {
     '/admin/drive/folders/trash'
   ])
 
-  res.status(200).respond(file, (file) => {
-    return FileSerializer(req, file)
-  })
+  res.status(200).respond(file, FileSerializer)
 
 }
 

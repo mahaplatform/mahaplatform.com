@@ -49,9 +49,7 @@ const moveRoute = async (req, res) => {
     `/admin/drive/folders/${req.body.folder_id || 'drive'}`
   ])
 
-  res.status(200).respond(item, (item) => {
-    return ItemSerializer(req, item)
-  })
+  res.status(200).respond(item, ItemSerializer)
 
 }
 

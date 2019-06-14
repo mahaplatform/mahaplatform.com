@@ -88,9 +88,7 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(asset, (asset) => {
-    return AssetSerializer(req, asset)
-  })
+  res.status(200).respond(asset, AssetSerializer)
 
 }
 

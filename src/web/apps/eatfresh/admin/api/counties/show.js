@@ -16,9 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load county'
   })
 
-  res.status(200).respond(county, (county) => {
-    return CountySerializer(req, county)
-  })
+  res.status(200).respond(county, CountySerializer)
 
 }
 

@@ -36,9 +36,7 @@ const updateRoute = async (req, res) => {
     `/admin/platform/teams/${team.get('id')}`
   ])
 
-  res.status(200).respond(team, (team) => {
-    return TeamSerializer(req, team)
-  })
+  res.status(200).respond(team, TeamSerializer)
 
 }
 

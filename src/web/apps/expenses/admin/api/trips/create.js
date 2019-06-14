@@ -58,9 +58,7 @@ const createRoute = async (req, res) => {
     ]
   }])
 
-  res.status(200).respond(trip, (trip) => {
-    return TripSerializer(req, trip)
-  })
+  res.status(200).respond(trip, TripSerializer)
 
 }
 

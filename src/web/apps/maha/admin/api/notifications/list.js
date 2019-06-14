@@ -32,9 +32,7 @@ const listRoute = async (req, res) => {
     target: '/admin/notifications/unread'
   })
 
-  res.status(200).respond(notifications, (notification) => {
-    return NotificationSerializer(req, notification)
-  })
+  res.status(200).respond(notifications, NotificationSerializer)
 
 }
 

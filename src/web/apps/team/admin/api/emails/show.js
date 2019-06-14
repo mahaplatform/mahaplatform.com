@@ -20,9 +20,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load email'
   })
 
-  res.status(200).respond(email, (email) => {
-    return EmailSerializer(req, email)
-  })
+  res.status(200).respond(email, EmailSerializer)
 
 }
 

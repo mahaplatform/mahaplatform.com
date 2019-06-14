@@ -20,9 +20,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(channels, (channel) => {
-    return ChannelSerializer(req, channel)
-  })
+  res.status(200).respond(channels, ChannelSerializer)
 
 }
 

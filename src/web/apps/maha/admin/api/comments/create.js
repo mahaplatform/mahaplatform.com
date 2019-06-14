@@ -62,9 +62,7 @@ const createRoute = async (req, res) => {
     object
   })
 
-  res.status(200).respond(comment, (comment) => {
-    return CommentSerializer(req, comment)
-  })
+  res.status(200).respond(comment, CommentSerializer)
 
 }
 

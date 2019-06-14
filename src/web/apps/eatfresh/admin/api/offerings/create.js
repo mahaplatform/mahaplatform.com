@@ -22,9 +22,7 @@ const createRoute = async (req, res) => {
     '/admin/eatfresh/offerings'
   ])
 
-  res.status(200).respond(offering, (offering) => {
-    return OfferingSerializer(req, offering)
-  })
+  res.status(200).respond(offering, OfferingSerializer)
 
 }
 

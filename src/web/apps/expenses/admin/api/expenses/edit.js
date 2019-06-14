@@ -16,7 +16,7 @@ const editRoute = async (req, res) => {
     message: 'Unable to load expense'
   })
 
-  res.status(200).respond(expense, (expense) => ({
+  const serializer = (req, expense) => ({
     id: expense.get('id'),
     date: expense.get('date'),
     description: expense.get('description'),
@@ -26,7 +26,9 @@ const editRoute = async (req, res) => {
     expense_type_id: expense.get('expense_type_id'),
     vendor_id: expense.get('vendor_id'),
     account_id: expense.get('account_id')
-  }))
+  })
+
+  res.status(200).respond(expense, serializer)
 
 }
 

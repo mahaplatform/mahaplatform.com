@@ -18,9 +18,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(counties, (county) => {
-    return CountySerializer(req, county)
-  })
+  res.status(200).respond(counties, CountySerializer)
 
 }
 

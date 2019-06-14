@@ -32,9 +32,7 @@ const createRoute = async (req, res) => {
     channel: `/admin/${req.params.parent_type}/${req.params.parent_id}/fields`
   })
 
-  res.status(200).respond(field, (field) => {
-    return FieldSerializer(req, field)
-  })
+  res.status(200).respond(field, FieldSerializer)
 
 }
 

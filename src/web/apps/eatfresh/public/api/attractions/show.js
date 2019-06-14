@@ -18,9 +18,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load attraction'
   })
 
-  res.status(200).respond(attraction, (attraction) => {
-    return AttractionSerializer(req, attraction)
-  })
+  res.status(200).respond(attraction, AttractionSerializer)
 
 }
 

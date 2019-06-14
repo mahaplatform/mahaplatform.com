@@ -30,9 +30,7 @@ const updateRoute = async (req, res) => {
     `/admin/expenses/projects/${req.params.project_id}`
   ])
 
-  res.status(200).respond(members, (member) => {
-    return MemberSerializer(req, member)
-  })
+  res.status(200).respond(members, MemberSerializer)
 
 }
 

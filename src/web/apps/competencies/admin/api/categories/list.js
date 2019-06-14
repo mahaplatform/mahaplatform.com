@@ -16,9 +16,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(categories, (category) => {
-    return CategorySerializer(req, category)
-  })
+  res.status(200).respond(categories, CategorySerializer)
 
 }
 

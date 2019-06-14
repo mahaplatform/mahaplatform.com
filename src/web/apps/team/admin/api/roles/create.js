@@ -36,14 +36,12 @@ const createRoute = async (req, res) => {
     story: 'created {object}',
     object: role
   })
-  
+
   await socket.refresh(req, [
     '/admin/team/roles'
   ])
 
-  res.status(200).respond(role, (role) => {
-    return RoleSerializer(req, role)
-  })
+  res.status(200).respond(role, RoleSerializer)
 
 }
 

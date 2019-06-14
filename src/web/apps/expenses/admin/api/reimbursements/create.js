@@ -64,9 +64,7 @@ const createRoute = async (req, res) => {
     ]
   }])
 
-  res.status(200).respond(reimbursement, (reimbursement) => {
-    return ReimbursementSerializer(req, reimbursement)
-  })
+  res.status(200).respond(reimbursement, ReimbursementSerializer)
 
 }
 

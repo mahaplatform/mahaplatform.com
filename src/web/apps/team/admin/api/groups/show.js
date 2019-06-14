@@ -16,9 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load group'
   })
 
-  res.status(200).respond(group, (group) => {
-    return GroupSerializer(req, group)
-  })
+  res.status(200).respond(group, GroupSerializer)
 
 }
 

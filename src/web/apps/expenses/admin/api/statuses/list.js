@@ -9,10 +9,12 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(statuses, (status) => ({
+  const serializer =  (req, status) => ({
     id: status.get('id'),
     text: status.get('text')
-  }))
+  })
+
+  res.status(200).respond(statuses, serializer)
 
 }
 

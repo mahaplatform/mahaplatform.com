@@ -65,9 +65,7 @@ const createRoute = async (req, res) => {
 
   await sendUserActivation(req, user)
 
-  res.status(200).respond(team, (team) => {
-    return TeamSerializer(req, team)
-  })
+  res.status(200).respond(team, TeamSerializer)
 
 }
 

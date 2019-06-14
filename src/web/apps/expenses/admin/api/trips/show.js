@@ -20,9 +20,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load trip'
   })
 
-  res.status(200).respond(trip, (trip) => {
-    return TripSerializer(req, trip)
-  })
+  res.status(200).respond(trip, TripSerializer)
 
 }
 

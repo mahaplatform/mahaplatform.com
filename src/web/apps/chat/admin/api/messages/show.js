@@ -74,9 +74,7 @@ const showRoute = async (req, res) => {
     updateUnread
   ])
 
-  res.status(200).respond(message, (message) => {
-    return MessageSerializer(req, res.trx, message)
-  })
+  res.status(200).respond(message, MessageSerializer)
 
 }
 

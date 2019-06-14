@@ -17,9 +17,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load offering'
   })
 
-  res.status(200).respond(offering, (offering) => {
-    return OfferingSerializer(req, offering)
-  })
+  res.status(200).respond(offering, OfferingSerializer)
 
 }
 

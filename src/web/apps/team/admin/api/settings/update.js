@@ -12,12 +12,6 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const Serializer = (req, trx, result) => ({
-    title: result.get('title'),
-    subdomain: result.get('subdomain'),
-    logo_id: result.get('logo_id'),
-    logo: result.related('logo').get('path')
-  })
 
   await activity(req, {
     story: 'updated {object}',
@@ -35,9 +29,14 @@ const updateRoute = async (req, res) => {
     action: 'session'
   })
 
-  res.status(200).respond(req.team, (team) => {
-    return Serializer(req, team)
+  const serializer = (req, result) => ({
+    title: result.get('title'),
+    subdomain: result.get('subdomain'),
+    logo_id: result.get('logo_id'),
+    logo: result.related('logo').get('path')
   })
+
+  res.status(200).respond(req.team, serializer)
 
 }
 

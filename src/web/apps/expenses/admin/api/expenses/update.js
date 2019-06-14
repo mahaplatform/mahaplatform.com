@@ -38,7 +38,7 @@ const updateRoute = async (req, res) => {
     item: expense,
     required: ['date','receipt_ids','description','amount','project_id','expense_type_id','vendor_id','account_id']
   })
-  
+
   const members = await Member.query(qb => {
     qb.where('project_id', expense.get('project_id'))
     qb.whereRaw('(member_type_id != ? OR user_id = ?)', [3, req.user.get('id')])
@@ -73,9 +73,7 @@ const updateRoute = async (req, res) => {
     ]
   }])
 
-  res.status(200).respond(expense, (expense) => {
-    return ExpenseSerializer(req, expense)
-  })
+  res.status(200).respond(expense, ExpenseSerializer)
 
 }
 

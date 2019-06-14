@@ -36,9 +36,7 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(category, (category) => {
-    return CategorySerializer(req, category)
-  })
+  res.status(200).respond(category, CategorySerializer)
 
 }
 

@@ -32,10 +32,7 @@ const updateRoute = async (req, res) => {
     '/admin/eatfresh/counties'
   ])
 
-  res.status(200).respond(county, (county) => {
-    return CountySerializer(req, county)
-  })
-
+  res.status(200).respond(county, CountySerializer)
 }
 
 export default updateRoute

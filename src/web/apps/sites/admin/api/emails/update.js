@@ -28,9 +28,7 @@ const updateRoute = async (req, res) => {
     `/admin/sites/sites/${req.params.site_id}`
   ])
 
-  res.status(200).respond(email, (email) => {
-    return EmailSerializer(req, email)
-  })
+  res.status(200).respond(email, EmailSerializer)
 
 }
 

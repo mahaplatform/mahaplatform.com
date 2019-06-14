@@ -27,9 +27,7 @@ const restoreRoute = async (req, res) => {
     '/admin/drive/folders/trash'
   ])
 
-  res.status(200).respond(item, (item) => {
-    return ItemSerializer(req, item)
-  })
+  res.status(200).respond(item, ItemSerializer)
 
 }
 

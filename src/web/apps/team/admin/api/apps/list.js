@@ -18,9 +18,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(apps, (app) => {
-    return AppSerializer(req, app)
-  })
+  res.status(200).respond(apps, AppSerializer)
 }
 
 export default listRoute

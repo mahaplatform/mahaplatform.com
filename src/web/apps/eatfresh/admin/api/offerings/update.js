@@ -37,9 +37,7 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(offering, (offering) => {
-    return OfferingSerializer(req, offering)
-  })
+  res.status(200).respond(offering, OfferingSerializer)
 
 }
 

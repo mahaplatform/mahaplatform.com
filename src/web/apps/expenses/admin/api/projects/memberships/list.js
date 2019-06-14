@@ -15,9 +15,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(members, (member) => {
-    return MemberSerializer(req, member)
-  })
+  res.status(200).respond(members, MemberSerializer)
 
 }
 

@@ -15,9 +15,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load site'
   })
 
-  res.status(200).respond(site, (site) => {
-    return SiteSerializer(req, site)
-  })
+  res.status(200).respond(site, SiteSerializer)
 
 }
 

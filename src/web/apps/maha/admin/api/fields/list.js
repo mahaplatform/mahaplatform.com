@@ -14,9 +14,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(fields, (field) => {
-    return FieldSerializer(req, field)
-  })
+  res.status(200).respond(fields, FieldSerializer)
 
 }
 

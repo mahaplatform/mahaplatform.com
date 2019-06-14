@@ -19,10 +19,12 @@ const listRoute = async (req, res) => {
     withRelated: ['photo'],
     transacting: req.trx
   })
-
-  res.status(200).respond(users, (user) => ({
+  
+  const serializer = (req, user) => ({
     user: UserSerializer(req, user)
-  }))
+  })
+
+  res.status(200).respond(users, serializer)
 
 }
 

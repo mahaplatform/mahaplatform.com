@@ -23,15 +23,13 @@ const listRoute = async (req, res) => {
   }).sort({
     sort: req.query.$sort,
     defaultSort: ['integration->>\'project_code\'', 'title'],
-    sortParams: ['id', 'title', 'is_active', 'created_at']
+    sortParams: ['id','title','is_active','integration->>\'project_code\'','created_at']
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx
   })
 
-  res.status(200).respond(projects, (project) => {
-    return ProjectSerializer(req, project)
-  })
+  res.status(200).respond(projects, ProjectSerializer)
 
 }
 

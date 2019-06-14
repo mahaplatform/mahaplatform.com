@@ -31,9 +31,7 @@ const seenRoute = async (req, res) => {
     target: '/admin/notifications'
   })
 
-  res.status(200).respond(notification, (notification) => {
-    return NotificationSerializer(req, notification)
-  })
+  res.status(200).respond(notification, NotificationSerializer)
 
 }
 

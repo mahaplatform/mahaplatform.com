@@ -16,14 +16,12 @@ const showRoute = async (req, res) => {
     message: 'Unable to load item'
   })
 
-  const serializer = async (req, trx, result) => ({
+  const serializer = async (req, result) => ({
     id: result.get('id'),
     ...await expandValues('sites_types', req.params.type_id, result.get('values'), req.trx)
   })
 
-  res.status(200).respond(item, (item) => {
-    return Serializer(req, item)
-  })
+  res.status(200).respond(item, serializer)
 
 }
 

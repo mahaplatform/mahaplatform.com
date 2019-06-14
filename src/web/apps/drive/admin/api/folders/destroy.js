@@ -37,9 +37,7 @@ const destroyRoute = async (req, res) => {
 
   await socket.refresh(req, channels)
 
-  res.status(200).respond(folder, (folder) => {
-    return FolderSerializer(req, folder)
-  })
+  res.status(200).respond(folder, FolderSerializer)
 
 }
 

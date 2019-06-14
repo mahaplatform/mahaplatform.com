@@ -67,9 +67,7 @@ const updateRoute = async (req, res) => {
     ]
   }])
 
-  res.status(200).respond(advance, (advance) => {
-    return AdvanceSerializer(req, advance)
-  })
+  res.status(200).respond(advance, AdvanceSerializer)
 
 }
 

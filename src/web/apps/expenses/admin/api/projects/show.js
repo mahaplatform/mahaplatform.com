@@ -20,9 +20,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load project'
   })
 
-  res.status(200).respond(project, (project) => {
-    return ProjectSerializer(req, project)
-  })
+  res.status(200).respond(project, ProjectSerializer)
 
 }
 

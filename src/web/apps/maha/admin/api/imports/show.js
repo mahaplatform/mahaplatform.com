@@ -17,9 +17,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load import'
   })
 
-  res.status(200).respond(_import, (_import) => {
-    return ImportSerializer(req, _import)
-  })
+  res.status(200).respond(_import, ImportSerializer)
 
 }
 

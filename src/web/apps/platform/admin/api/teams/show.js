@@ -15,9 +15,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load team'
   })
 
-  res.status(200).respond(team, (team) => {
-    return TeamSerializer(req, team)
-  })
+  res.status(200).respond(team, TeamSerializer)
 
 }
 

@@ -80,9 +80,7 @@ const listRoute = async (req, res) => {
     updateUnread
   ])
 
-  res.status(200).respond(messages, (message) => {
-    return MessageSerializer(req, message)
-  })
+  res.status(200).respond(messages, MessageSerializer)
 
 }
 

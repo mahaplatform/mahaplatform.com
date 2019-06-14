@@ -17,9 +17,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load role'
   })
 
-  res.status(200).respond(role, (role) => {
-    return RoleSerializer(req, role)
-  })
+  res.status(200).respond(role, RoleSerializer)
 
 }
 

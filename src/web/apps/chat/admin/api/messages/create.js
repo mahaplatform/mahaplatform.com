@@ -89,9 +89,7 @@ const createRoute = async (req, res) => {
     ...updateUnread
   ])
 
-  res.status(200).respond(message, (message) => {
-    return MessageSerializer(req, message)
-  })
+  res.status(200).respond(message, MessageSerializer)
 
 }
 

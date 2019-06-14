@@ -17,9 +17,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to find profile'
   })
 
-  res.status(200).respond(profile, (profile) => {
-    return ProfileSerializer(req, profile)
-  })
+  res.status(200).respond(profile, ProfileSerializer)
 
 }
 

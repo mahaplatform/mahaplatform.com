@@ -62,9 +62,7 @@ const listRoute = async (req, res) => {
     return star.code
   }))
 
-  res.status(200).respond(items, (item) => {
-    return ItemSerializer(req, item)
-  })
+  res.status(200).respond(items, ItemSerializer)
 
 }
 

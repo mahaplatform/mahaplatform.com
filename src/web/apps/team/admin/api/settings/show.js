@@ -4,16 +4,14 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const Serializer = (req, trx, result) => ({
+  const serializer = (req, result) => ({
     title: result.get('title'),
     subdomain: result.get('subdomain'),
     logo_id: result.get('logo_id'),
     logo: result.related('logo').get('path')
   })
 
-  res.status(200).respond(req.team, (team) => {
-    return Serializer(req, team)
-  })
+  res.status(200).respond(req.team, serializer)
 
 }
 

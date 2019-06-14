@@ -36,9 +36,7 @@ const updateRoute = async (req, res) => {
     `/admin/competencies/competencies/${competency.get('id')}`
   ])
 
-  res.status(200).respond(competency, (competency) => {
-    return CompetencySerializer(req, competency)
-  })
+  res.status(200).respond(competency, CompetencySerializer)
 
 }
 

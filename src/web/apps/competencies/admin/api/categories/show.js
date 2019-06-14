@@ -16,9 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load category'
   })
 
-  res.status(200).respond(category, (category) => {
-    return CategorySerializer(req, category)
-  })
+  res.status(200).respond(category, CategorySerializer)
 
 }
 

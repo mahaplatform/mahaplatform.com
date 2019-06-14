@@ -14,9 +14,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load app'
   })
 
-  res.status(200).respond(app, (app) => {
-    return AppSerializer(req, app)
-  })
+  res.status(200).respond(app, AppSerializer)
 
 }
 

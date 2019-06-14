@@ -13,9 +13,7 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(field, (field) => {
-    return FieldSerializer(req, field)
-  })
+  res.status(200).respond(field, FieldSerializer)
 
 }
 

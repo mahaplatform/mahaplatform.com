@@ -19,9 +19,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(values, (value) => {
-    return DeviceValueSerializer(req, value)
-  })
+  res.status(200).respond(values, DeviceValueSerializer)
 
 }
 

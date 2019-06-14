@@ -47,9 +47,7 @@ const fixRoute = async (req, res) => {
     `/admin/imports/${_import.id}`
   ])
 
-  res.status(200).respond(_import, (_import) => {
-    return ImportSerializer(req, _import)
-  })
+  res.status(200).respond(_import, ImportSerializer)
 
 }
 

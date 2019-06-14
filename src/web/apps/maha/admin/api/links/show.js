@@ -9,9 +9,7 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(link, (link) => {
-    return LinkSerializer(req, link)
-  })
+  res.status(200).respond(link, LinkSerializer)
 
 }
 

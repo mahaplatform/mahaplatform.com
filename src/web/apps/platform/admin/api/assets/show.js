@@ -24,9 +24,7 @@ const showRoute = async (req, res) => {
     await processAssetQueue.enqueue(req, req.params.id)
   }
 
-  res.status(200).respond(asset, (asset) => {
-    return AssetSerializer(req, asset)
-  })
+  res.status(200).respond(asset, AssetSerializer)
 
 }
 

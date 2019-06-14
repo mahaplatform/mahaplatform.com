@@ -54,9 +54,7 @@ const rejectRoute = async (req, res) => {
     `/admin/eatfresh/attractions/${attraction.get('id')}`
   ])
 
-  res.status(200).respond(attraction, (attraction) => {
-    return AttractionSerializer(req, attraction)
-  })
+  res.status(200).respond(attraction, AttractionSerializer)
 
 }
 

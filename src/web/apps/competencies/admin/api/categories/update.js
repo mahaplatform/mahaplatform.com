@@ -36,9 +36,7 @@ const updateRoute = async (req, res) => {
     `/admin/competencies/categories/${category.get('id')}`
   ])
 
-  res.status(200).respond(category, (category) => {
-    return CategorySerializer(req, category)
-  })
+  res.status(200).respond(category, CategorySerializer)
 
 }
 

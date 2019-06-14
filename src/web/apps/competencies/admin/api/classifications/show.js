@@ -16,9 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load classification'
   })
 
-  res.status(200).respond(classification, (classification) => {
-    return ClassificationSerializer(req, classification)
-  })
+  res.status(200).respond(classification, ClassificationSerializer)
 
 }
 

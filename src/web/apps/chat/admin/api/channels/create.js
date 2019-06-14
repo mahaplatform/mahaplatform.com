@@ -25,9 +25,7 @@ const createRoute = async (req, res) => {
     object: channel
   })
 
-  res.status(200).respond(channel, (channel) => {
-    return ChannelSerializer(req, channel)
-  })
+  res.status(200).respond(channel, ChannelSerializer)
 
 }
 

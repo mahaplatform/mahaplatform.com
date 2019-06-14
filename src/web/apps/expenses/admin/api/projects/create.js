@@ -24,9 +24,7 @@ const createRoute = async (req, res) => {
     '/admin/expenses/projects'
   ])
 
-  res.status(200).respond(project, (project) => {
-    return ProjectSerializer(req, project)
-  })
+  res.status(200).respond(project, ProjectSerializer)
 
 }
 

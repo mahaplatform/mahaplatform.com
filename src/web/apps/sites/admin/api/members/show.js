@@ -14,9 +14,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load member'
   })
 
-  res.status(200).respond(member, (member) => {
-    return MemberSerializer(req, member)
-  })
+  res.status(200).respond(member, MemberSerializer)
 
 }
 

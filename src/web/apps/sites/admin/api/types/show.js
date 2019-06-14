@@ -14,9 +14,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load type'
   })
 
-  res.status(200).respond(type, (type) => {
-    return TypeSerializer(req, type)
-  })
+  res.status(200).respond(type, TypeSerializer)
 
 }
 

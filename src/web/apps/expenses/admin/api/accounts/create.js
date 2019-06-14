@@ -22,9 +22,7 @@ const createRoute = async (req, res) => {
     '/admin/expenses/accounts'
   ])
 
-  res.status(200).respond(account, (account) => {
-    return AccountSerializer(req, account)
-  })
+  res.status(200).respond(account, AccountSerializer)
 
 }
 

@@ -22,9 +22,7 @@ const createRoute = async (req, res) => {
     '/admin/competencies/categories'
   ])
 
-  res.status(200).respond(category, (category) => {
-    return CategorySerializer(req, category)
-  })
+  res.status(200).respond(category, CategorySerializer)
 
 }
 
