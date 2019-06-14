@@ -21,7 +21,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(plans, (plan) => {
-    return PlanSerializer(req, req.trx, plan)
+    return PlanSerializer(req, plan)
   })
 
 }

@@ -30,7 +30,7 @@ const updateRoute = async (req, res) => {
   ])
 
   res.status(200).respond(item, (item) => {
-    return ImportItemSerializer(req, req.trx, item)
+    return ImportItemSerializer(req, item)
   })
 
 }

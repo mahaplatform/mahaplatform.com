@@ -22,7 +22,7 @@ const showRoute = async (req, res) => {
   })
 
   res.status(200).respond(item, (item) => {
-    return serializer(req, req.trx, item)
+    return Serializer(req, item)
   })
 
 }

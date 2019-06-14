@@ -12,7 +12,7 @@ const avatarRoute = async (req, res) => {
   })
 
   res.status(200).respond(asset, (asset) => {
-    return AssetSerializer(req, req.trx, asset)
+    return AssetSerializer(req, asset)
   })
 
 }

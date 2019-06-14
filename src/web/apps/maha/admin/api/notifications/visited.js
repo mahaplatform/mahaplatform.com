@@ -32,7 +32,7 @@ const seenRoute = async (req, res) => {
   })
 
   res.status(200).respond(notification, (notification) => {
-    return NotificationSerializer(req, req.trx, notification)
+    return NotificationSerializer(req, notification)
   })
 
 }

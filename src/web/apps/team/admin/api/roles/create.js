@@ -42,7 +42,7 @@ const createRoute = async (req, res) => {
   ])
 
   res.status(200).respond(role, (role) => {
-    return RoleSerializer(req, req.trx, role)
+    return RoleSerializer(req, role)
   })
 
 }

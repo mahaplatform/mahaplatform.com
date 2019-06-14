@@ -102,7 +102,7 @@ const createRoute = async (req, res) => {
   }))
 
   res.status(200).respond(batch, (batch) => {
-    return BatchSerializer(req, req.trx, batch)
+    return BatchSerializer(req, batch)
   })
 
 }

@@ -44,7 +44,7 @@ const createRoute = async (req, res) => {
     channel: `/admin/${req.params.commentable_type}/${req.params.commentable_id}/comments`,
     action: 'add_comment',
     data: {
-      comment: CommentSerializer(req, req.trx, comment)
+      comment: CommentSerializer(req, comment)
     }
   })
 
@@ -63,7 +63,7 @@ const createRoute = async (req, res) => {
   })
 
   res.status(200).respond(comment, (comment) => {
-    return CommentSerializer(req, req.trx, comment)
+    return CommentSerializer(req, comment)
   })
 
 }

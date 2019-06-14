@@ -13,7 +13,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(profiles, (profile) => {
-    return ProfileSerializer(req, req.trx, profile)
+    return ProfileSerializer(req, profile)
   })
 
 }

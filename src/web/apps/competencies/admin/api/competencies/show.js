@@ -17,7 +17,7 @@ const showRoute = async (req, res) => {
   })
 
   res.status(200).respond(competency, (competency) => {
-    return CompetencySerializer(req, req.trx, competency)
+    return CompetencySerializer(req, competency)
   })
 
 }

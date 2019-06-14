@@ -68,7 +68,7 @@ const updateRoute = async (req, res) => {
   }])
 
   res.status(200).respond(trip, (trip) => {
-    return TripSerializer(req, req.trx, trip)
+    return TripSerializer(req, trip)
   })
 
 }

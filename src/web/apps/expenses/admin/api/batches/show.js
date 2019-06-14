@@ -17,7 +17,7 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const data = await AccpaccSerializer(req, req.trx, { batch, items })
+  const data = await AccpaccSerializer(req, { batch, items })
 
   res.status(200).respond(data)
 

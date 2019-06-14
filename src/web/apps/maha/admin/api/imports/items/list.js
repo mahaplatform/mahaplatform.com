@@ -18,7 +18,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(items, (item) => {
-    return ImportItemSerializer(req, req.trx, item)
+    return ImportItemSerializer(req, item)
   })
 }
 

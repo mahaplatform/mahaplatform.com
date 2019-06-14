@@ -1,4 +1,4 @@
-const activitySerializer = (req, trx, result) => {
+const activitySerializer = (req, result) => {
 
   const user = userData(req.user)
 

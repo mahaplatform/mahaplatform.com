@@ -1,4 +1,4 @@
-const supervisorSerializer = (req, trx, result) => ({
+const supervisorSerializer = (req, result) => ({
   id: result.get('id'),
   user_id: result.get('user_id'),
   full_name: result.related('user').get('full_name'),

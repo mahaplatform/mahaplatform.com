@@ -102,7 +102,7 @@ const updateRoute = async (req, res) => {
       target: '/chat/channels/messages',
       action: 'update_channel',
       data: {
-        channel: ChannelSerializer(req, req.trx, channel)
+        channel: ChannelSerializer(req, channel)
       }
     })),
     ...add_ids.map(user_id => ({
@@ -110,7 +110,7 @@ const updateRoute = async (req, res) => {
       target: '/chat/channels/messages',
       action: 'add_channel',
       data: {
-        channel: ChannelSerializer(req, req.trx, channel)
+        channel: ChannelSerializer(req, channel)
       }
     })),
     ...delete_ids.map(user_id => ({
@@ -124,7 +124,7 @@ const updateRoute = async (req, res) => {
   ])
 
   res.status(200).respond(channel, (channel) => {
-    return ChannelSerializer(req, req.trx, channel)
+    return ChannelSerializer(req, channel)
   })
 
 }

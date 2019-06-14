@@ -58,7 +58,7 @@ const createRoute = async (req, res) => {
   ])
 
   res.status(200).respond(folder, (folder) => {
-    return FolderSerializer(req, req.trx, folder)
+    return FolderSerializer(req, folder)
   })
 
 }

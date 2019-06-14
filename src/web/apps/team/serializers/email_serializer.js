@@ -1,4 +1,4 @@
-const emailSerializer = (req, trx, result) => ({
+const emailSerializer = (req, result) => ({
   id: result.get('id'),
   user: user(result, 'user'),
   to: result.get('to'),

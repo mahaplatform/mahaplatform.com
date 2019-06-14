@@ -47,7 +47,7 @@ const createRoute = async (req, res) => {
   ])
 
   res.status(200).respond(item, (item) => {
-    return ItemSerializer(req, req.trx, item)
+    return ItemSerializer(req, item)
   })
 
 }

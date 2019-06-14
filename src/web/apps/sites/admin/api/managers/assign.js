@@ -25,7 +25,7 @@ const assignRoute = async (req, res) => {
   })
 
   res.status(200).respond(managers, (manager) => {
-    return ManagerSerializer(req, req.trx, manager)
+    return ManagerSerializer(req, manager)
   })
 
 }

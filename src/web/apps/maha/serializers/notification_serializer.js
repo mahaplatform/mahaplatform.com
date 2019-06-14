@@ -1,4 +1,4 @@
-const notificationSerializer = (req, trx, result) => {
+const notificationSerializer = (req, result) => {
 
   const user = userData(result.related('user'))
 
@@ -21,49 +21,29 @@ const notificationSerializer = (req, trx, result) => {
   description.push(story.replace('{object}', `${article_text}${object_text}`))
 
   return {
-
     id: result.get('id'),
-
     code: result.get('code'),
-
     url: result.get('url'),
-
     is_seen: result.get('is_seen'),
-
     is_visited: result.get('is_visited'),
-
     app: app(result.related('app')),
-
     user,
-
     subject,
-
     object,
-
     subject_text,
-
     article_text,
-
     story,
-
     object_text,
-
     description: description.join(' '),
-
     created_at: result.get('created_at'),
-
     updated_at: result.get('updated_at')
-
   }
 
 }
 
 const app = (app) => ({
-
   id: app.get('id'),
-
   ...app.get('data')
-
 })
 
 const userData = (result) => {
@@ -71,21 +51,13 @@ const userData = (result) => {
   if(!result.id) return null
 
   return {
-
     id: result.get('id'),
-
     first_name: result.get('first_name'),
-
     last_name: result.get('last_name'),
-
     full_name: result.get('full_name'),
-
     initials: result.get('initials'),
-
     rfc822: result.get('rfc822'),
-
     photo: result.related('photo').get('path')
-
   }
 
 }
@@ -95,17 +67,11 @@ const objectData = (result) => {
   if(!result.get('object_text')) return null
 
   return {
-
     id: result.get('object_id'),
-
     owner_id: result.get('object_owner_id'),
-
     owner_full_name: result.related('object_owner').get('full_name'),
-
     type: result.get('object_type'),
-
     text: result.get('object_text')
-
   }
 
 }

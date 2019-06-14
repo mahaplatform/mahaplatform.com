@@ -16,7 +16,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(teams, (team) => {
-    return TeamSerializer(req, req.trx, team)
+    return TeamSerializer(req, team)
   })
 }
 

@@ -1,30 +1,18 @@
-const fieldSerializer = (req, trx, result) => ({
-
+const fieldSerializer = (req, result) => ({
   id: result.get('id'),
-
   delta: result.get('delta'),
-
   label: result.get('label'),
-
   code: result.get('code'),
-
   name: result.get('name'),
-
   instructions: result.get('instructions'),
-
   type: result.get('type'),
-
-  config: config(req, trx, result),
-
+  config: config(req, result),
   is_mutable: result.get('is_mutable'),
-
   created_at: result.get('created_at'),
-
   updated_at: result.get('updated_at')
-
 })
 
-const config = (req, trx, result) => {
+const config = (req, result) => {
 
   const config = result.get('config')
 

@@ -31,12 +31,12 @@ const updateRoute = async (req, res) => {
     target: '/admin/chat/messages',
     action: 'update_channel',
     data: {
-      channel: ChannelSerializer(req, req.trx, channel)
+      channel: ChannelSerializer(req, channel)
     }
   })))
 
   res.status(200).respond(channel, (channel) => {
-    return ChannelSerializer(req, req.trx, channel)
+    return ChannelSerializer(req, channel)
   })
 
 }

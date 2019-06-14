@@ -20,7 +20,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(activities, (activity) => {
-    return ActivitySerializer(req, req.trx, activity)
+    return ActivitySerializer(req, activity)
   })
 
 }

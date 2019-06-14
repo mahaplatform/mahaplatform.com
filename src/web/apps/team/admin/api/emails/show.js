@@ -21,7 +21,7 @@ const showRoute = async (req, res) => {
   })
 
   res.status(200).respond(email, (email) => {
-    return EmailSerializer(req, req.trx, email)
+    return EmailSerializer(req, email)
   })
 
 }

@@ -21,7 +21,7 @@ const showRoute = async (req, res) => {
   })
 
   res.status(200).respond(reimbursement, (reimbursement) => {
-    return ReimbursementSerializer(req, req.trx, reimbursement)
+    return ReimbursementSerializer(req, reimbursement)
   })
 
 }

@@ -36,7 +36,7 @@ const updateRoute = async (req, res) => {
   })
 
   res.status(200).respond(req.team, (team) => {
-    return Serializer(req, req.trx, team)
+    return Serializer(req, team)
   })
 
 }

@@ -18,7 +18,7 @@ const showRoute = async (req, res) => {
   })
 
   res.status(200).respond(profile, (profile) => {
-    return ProfileSerializer(req, req.trx, profile)
+    return ProfileSerializer(req, profile)
   })
 
 }

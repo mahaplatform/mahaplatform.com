@@ -70,7 +70,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(items, async (item) => {
-    return await serializer(req, req.trx, item)
+    return await Serializer(req, item)
   })
 
 }

@@ -1,4 +1,4 @@
-const sessionSerializer = (req, trx, result) => ({
+const sessionSerializer = (req, result) => ({
   id: result.get('id'),
   user: {
     id: result.related('user').get('id'),

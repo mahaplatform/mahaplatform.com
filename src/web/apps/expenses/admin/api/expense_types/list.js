@@ -18,7 +18,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(expense_types, (expense_type) => {
-    return ExpenseTypeSerializer(req, req.trx, expense_type)
+    return ExpenseTypeSerializer(req, expense_type)
   })
 
 }

@@ -1,4 +1,4 @@
-const DeviceSerializer = (req, trx, device) => ({
+const DeviceSerializer = (req, device) => ({
   browser: device.related('browser_name').get('text'),
   device: device.related('device_type').get('text'),
   id: device.get('id'),

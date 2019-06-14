@@ -1,4 +1,4 @@
-const deviceValueSerializer = (req, trx, result) => ({
+const deviceValueSerializer = (req, result) => ({
   id: result.get('id'),
   text: result.get('text')
 })

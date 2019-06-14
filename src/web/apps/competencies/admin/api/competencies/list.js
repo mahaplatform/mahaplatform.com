@@ -24,7 +24,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(competencies, (competency) => {
-    return CompetencySerializer(req, req.trx, competency)
+    return CompetencySerializer(req, competency)
   })
 
 }

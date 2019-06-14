@@ -17,7 +17,7 @@ const showRoute = async (req, res) => {
   })
 
   res.status(200).respond(county, (county) => {
-    return CountySerializer(req, req.trx, county)
+    return CountySerializer(req, county)
   })
 
 }

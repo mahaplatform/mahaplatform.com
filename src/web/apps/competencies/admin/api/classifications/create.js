@@ -23,7 +23,7 @@ const createRoute = async (req, res) => {
   ])
 
   res.status(200).respond(classification, (classification) => {
-    return ClassificationSerializer(req, req.trx, classification)
+    return ClassificationSerializer(req, classification)
   })
 
 }

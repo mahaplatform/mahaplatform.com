@@ -39,7 +39,7 @@ const updateRoute = async (req, res) => {
   ])
 
   res.status(200).respond(project, (project) => {
-    return ProjectSerializer(req, req.trx, project)
+    return ProjectSerializer(req, project)
   })
 
 }

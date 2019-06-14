@@ -18,7 +18,7 @@ const showRoute = async (req, res) => {
   })
 
   res.status(200).respond(receipt, (receipt) => {
-    return ReceiptSerializer(req, req.trx, receipt)
+    return ReceiptSerializer(req, receipt)
   })
 
 }

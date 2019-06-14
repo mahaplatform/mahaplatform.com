@@ -1,4 +1,4 @@
-const roleSerializer = (req, trx, result) => ({
+const roleSerializer = (req, result) => ({
   id: result.get('id'),
   title: result.get('title'),
   description: result.get('description'),

@@ -1,19 +1,11 @@
-const expenseTypeProjectSerializer = (req, trx, result) => ({
-
+const expenseTypeProjectSerializer = (req, result) => ({
   id: result.get('id'),
-
   title: result.get('title'),
-
   description: result.get('description'),
-
   integration: integration(req, result),
-
   enabled: result.get('enabled'),
-
   created_at: result.get('created_at'),
-
   updated_at: result.get('updated_at')
-
 })
 
 const integration = (req, result) => {

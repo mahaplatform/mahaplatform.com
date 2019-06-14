@@ -22,7 +22,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(projects, (project) => {
-    return MembershipSerializer(req, req.trx, project)
+    return MembershipSerializer(req, project)
   })
 
 }

@@ -37,7 +37,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(attractions, (attraction) => {
-    return AttractionSerializer(req, req.trx, attraction)
+    return AttractionSerializer(req, attraction)
   })
 
 }

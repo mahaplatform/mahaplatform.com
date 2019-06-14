@@ -20,7 +20,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(values, (value) => {
-    return DeviceValueSerializer(req, req.trx, value)
+    return DeviceValueSerializer(req, value)
   })
 
 }

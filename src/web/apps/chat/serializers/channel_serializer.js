@@ -1,29 +1,16 @@
-const ChannelSerializer = (req, trx, result) => ({
-
+const ChannelSerializer = (req, result) => ({
   id: result.get('id'),
-
   code: result.get('code'),
-
   name: result.get('name'),
-
   description: result.get('description'),
-
   owner: user(result.related('owner')),
-
   label: label(req.user.get('id'), result.related('subscriptions').toArray()),
-
   subscriptions: result.related('subscriptions').map(subscription),
-
   last_message: last_message(result.related('last_message')),
-
   last_message_at: result.get('last_message_at'),
-
   last_viewed_at: last_viewed_at(req.user.get('id'), result.related('subscriptions')),
-
   created_at: result.get('created_at'),
-
   updated_at: result.get('updated_at')
-
 })
 
 const last_message = (message) => {
@@ -31,17 +18,11 @@ const last_message = (message) => {
   if(!message.id) return null
 
   return {
-
     id: message.get('id'),
-
     text: message.get('text'),
-
     attachments_count: message.related('attachments').length,
-
     created_at: message.get('created_at'),
-
     updated_at: message.get('updated_at')
-
   }
 
 }
@@ -83,39 +64,23 @@ const label = (user_id, subscriptions) => {
 }
 
 const subscription = (subscription) => ({
-
   id: subscription.related('user').get('id'),
-
   full_name: subscription.related('user').get('full_name'),
-
   initials: subscription.related('user').get('initials'),
-
   photo: subscription.related('user').related('photo') ? subscription.related('user').related('photo').get('path') : null,
-
   last_message: {
-
     id: subscription.get('last_message_id'),
-
     viewed_at: subscription.get('last_viewed_at')
-
   },
-
   last_online_at: subscription.related('user').get('last_online_at')
-
 })
 
 const user = (user) => ({
-
   id: user.get('id'),
-
   full_name: user.get('full_name'),
-
   initials: user.get('initials'),
-
   photo: user.related('photo') ? user.related('photo').get('path') : null,
-
   last_online_at: user.get('last_online_at')
-
 })
 
 const last_viewed_at = (user_id, subscriptions) => subscriptions.reduce((last_viewed_at, subscription) => {

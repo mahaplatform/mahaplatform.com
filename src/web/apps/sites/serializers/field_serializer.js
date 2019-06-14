@@ -1,35 +1,23 @@
 import Type from '../models/type'
 
-const fieldSerializer = async (req, trx, result) => ({
-
+const fieldSerializer = async (req, result) => ({
   id: result.get('id'),
-
   label: result.get('label'),
-
   code: result.get('code'),
-
   name: result.get('name'),
-
   instructions: result.get('instructions'),
-
   type: result.get('type'),
-
-  config: await config(req, trx, result),
-
+  config: await config(req, result),
   is_required: result.get('is_required'),
-
   created_at: result.get('created_at'),
-
   updated_at: result.get('updated_at')
-
 })
 
-const config = async (req, trx, result) => {
+const config = async (req, result) => {
 
   const config = result.get('config')
 
-
-  const lookupData = (result.get('type') === 'lookup') ? await getEndpoint(req, trx, result, config.type) : {}
+  const lookupData = (result.get('type') === 'lookup') ? await getEndpoint(req, result, config.type) : {}
 
   return {
     label: result.get('label'),
@@ -41,9 +29,13 @@ const config = async (req, trx, result) => {
 
 }
 
-const getEndpoint = async (req, trx, result, name) => {
+const getEndpoint = async (req, result, name) => {
 
-  const type = await Type.where({ name }).fetch({ transacting: trx })
+  const type = await Type.query(qb => {
+    qb.where('name', name)
+  }).fetch({
+    transacting: req.trx
+  })
 
   return {
     endpoint: `/api/admin/sites/sites/${result.get('site_id')}/types/${type.get('id')}/items`,

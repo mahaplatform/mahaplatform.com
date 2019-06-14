@@ -44,7 +44,7 @@ const destroyRoute = async (req, res) => {
   await socket.refresh(req, channels)
 
   res.status(200).respond(file, (file) => {
-    return FileSerializer(req, req.trx, file)
+    return FileSerializer(req, file)
   })
 
 }

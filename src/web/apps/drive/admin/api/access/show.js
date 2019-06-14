@@ -14,7 +14,7 @@ const showRoute = async (req, res) => {
   })
 
   res.status(200).respond(accesses, (access) => {
-    return AccessSerializer(req, req.trx, access)
+    return AccessSerializer(req, access)
   })
 
 }

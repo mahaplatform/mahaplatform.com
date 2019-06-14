@@ -18,7 +18,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(batches, (batch) => {
-    return BatchSerializer(req, req.trx, batch)
+    return BatchSerializer(req, batch)
   })
 
 }

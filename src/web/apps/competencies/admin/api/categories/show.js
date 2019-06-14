@@ -17,7 +17,7 @@ const showRoute = async (req, res) => {
   })
 
   res.status(200).respond(category, (category) => {
-    return CategorySerializer(req, req.trx, category)
+    return CategorySerializer(req, category)
   })
 
 }

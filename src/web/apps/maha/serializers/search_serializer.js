@@ -1,17 +1,10 @@
-const searchSerializer = (req, trx, result) => ({
-
+const searchSerializer = (req, result) => ({
   id: result.get('id'),
-
   text: result.get('text'),
-
   route: result.get('route'),
-
   extra: result.get('extra'),
-
   created_at: result.get('created_at'),
-
   updated_at: result.get('updated_at')
-
 })
 
 export default searchSerializer

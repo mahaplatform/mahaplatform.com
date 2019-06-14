@@ -23,7 +23,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(vendors, (vendor) => {
-    return VendorSerializer(req, req.trx, vendor)
+    return VendorSerializer(req, vendor)
   })
 
 }

@@ -10,7 +10,7 @@ const createRoute = async (req, res) => {
   })
 
   res.status(200).respond(device, (device) => {
-    return DeviceSerializer(req, req.trx, device)
+    return DeviceSerializer(req, device)
   })
 
 }

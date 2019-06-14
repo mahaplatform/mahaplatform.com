@@ -74,7 +74,7 @@ const createRoute = async (req, res) => {
     channel: `/admin/users/${user_id}`,
     target: '/admin/chat/messages',
     action: 'add_message',
-    data: MessageSerializer(req, req.trx, message)
+    data: MessageSerializer(req, message)
   }))
 
   const updateUnread = await Promise.map(subscription_ids, async user_id => ({
@@ -90,7 +90,7 @@ const createRoute = async (req, res) => {
   ])
 
   res.status(200).respond(message, (message) => {
-    return MessageSerializer(req, req.trx, message)
+    return MessageSerializer(req, message)
   })
 
 }

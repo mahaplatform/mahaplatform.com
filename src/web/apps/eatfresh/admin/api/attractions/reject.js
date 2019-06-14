@@ -55,7 +55,7 @@ const rejectRoute = async (req, res) => {
   ])
 
   res.status(200).respond(attraction, (attraction) => {
-    return AttractionSerializer(req, req.trx, attraction)
+    return AttractionSerializer(req, attraction)
   })
 
 }

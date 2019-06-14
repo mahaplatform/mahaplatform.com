@@ -18,7 +18,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(commitments, (commitment) => {
-    return CommitmentSerializer(req, req.trx, commitment)
+    return CommitmentSerializer(req, commitment)
   })
 
 }

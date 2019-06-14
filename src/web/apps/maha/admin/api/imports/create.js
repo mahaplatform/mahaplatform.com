@@ -23,7 +23,7 @@ const createRoute = async (req, res) => {
   })
 
   res.status(200).respond(_import, (_import) => {
-    return ImportSerializer(req, req.trx, _import)
+    return ImportSerializer(req, _import)
   })
 
 }

@@ -33,7 +33,7 @@ const createRoute = async (req, res) => {
   })
 
   res.status(200).respond(field, (field) => {
-    return FieldSerializer(req, req.trx, field)
+    return FieldSerializer(req, field)
   })
 
 }

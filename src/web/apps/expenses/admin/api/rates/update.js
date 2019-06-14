@@ -31,7 +31,7 @@ const updateRoute = async (req, res) => {
   ])
 
   res.status(200).respond(rate, (rate) => {
-    return RateSerializer(req, req.trx, rate)
+    return RateSerializer(req, rate)
   })
 
 }

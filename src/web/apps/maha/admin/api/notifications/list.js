@@ -33,7 +33,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(notifications, (notification) => {
-    return NotificationSerializer(req, req.trx, notification)
+    return NotificationSerializer(req, notification)
   })
 
 }

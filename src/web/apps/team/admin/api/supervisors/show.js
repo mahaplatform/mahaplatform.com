@@ -18,7 +18,7 @@ const showRoute = async (req, res) => {
   })
 
   res.status(200).respond(supervisor, (supervisor) => {
-    return SupervisorSerializer(req, req.trx, supervisor)
+    return SupervisorSerializer(req, supervisor)
   })
 
 }

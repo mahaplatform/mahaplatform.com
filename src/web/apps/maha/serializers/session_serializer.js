@@ -1,4 +1,4 @@
-const SessionSerializer = (req, trx, session) => ({
+const SessionSerializer = (req, session) => ({
   apps: session.apps,
   devices: session.sessions.map(session => ({
     session_id: session.get('id'),

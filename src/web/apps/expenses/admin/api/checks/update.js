@@ -26,7 +26,7 @@ const updateRoute = async (req, res) => {
   })
 
   res.status(200).respond(check, (check) => {
-    return CheckSerializer(req, req.trx, check)
+    return CheckSerializer(req, check)
   })
 
   await check.save(whitelist(req.body, ['project_id','expense_type_id','vendor_id','delivery_method','date_needed','description','amount','description']), {
@@ -78,7 +78,7 @@ const updateRoute = async (req, res) => {
   }])
 
   res.status(200).respond(check, (check) => {
-    return CheckSerializer(req, req.trx, check)
+    return CheckSerializer(req, check)
   })
 
 }

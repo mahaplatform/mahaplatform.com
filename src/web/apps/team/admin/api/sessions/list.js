@@ -24,7 +24,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(sessions, (session) => {
-    return SessionSerializer(req, req.trx, session)
+    return SessionSerializer(req, session)
   })
 
 }

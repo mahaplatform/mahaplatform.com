@@ -19,7 +19,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(members, (member) => {
-    return MemberSerializer(req, req.trx, member)
+    return MemberSerializer(req, member)
   })
 
 }

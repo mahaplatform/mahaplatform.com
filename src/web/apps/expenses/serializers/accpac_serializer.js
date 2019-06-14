@@ -2,7 +2,7 @@ import numeral from 'numeral'
 import moment from 'moment'
 import _ from 'lodash'
 
-const accpaccSerializer = async (req, trx, result) => {
+const accpaccSerializer = async (req, result) => {
 
   const { batch, items } = result
 

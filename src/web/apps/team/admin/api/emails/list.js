@@ -19,7 +19,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(emails, (email) => {
-    return EmailSerializer(req, req.trx, email)
+    return EmailSerializer(req, email)
   })
 
 }

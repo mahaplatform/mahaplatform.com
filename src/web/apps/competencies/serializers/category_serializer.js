@@ -1,4 +1,4 @@
-const categorySerializer = (req, trx, result) => ({
+const categorySerializer = (req, result) => ({
   id: result.get('id'),
   title: result.get('title'),
   created_at: result.get('created_at'),

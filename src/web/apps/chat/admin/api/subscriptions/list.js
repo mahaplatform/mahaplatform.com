@@ -14,7 +14,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(subscriptions, (subscription) => {
-    return SubscriptionSerializer(req, req.trx, subscription)
+    return SubscriptionSerializer(req, subscription)
   })
 
 }

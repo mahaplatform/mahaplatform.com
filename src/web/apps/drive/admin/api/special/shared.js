@@ -34,7 +34,7 @@ const sharedRoute = async (req, res) => {
   }))
 
   res.status(200).respond(items, (item) => {
-    return ItemSerializer(req, req.trx, item)
+    return ItemSerializer(req, item)
   })
 
 }

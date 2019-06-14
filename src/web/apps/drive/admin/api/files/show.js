@@ -18,7 +18,7 @@ const showRoute = async (req, res) => {
   })
 
   res.status(200).respond(file, (file) => {
-    return FileSerializer(req, req.trx, file)
+    return FileSerializer(req, file)
   })
 
 }

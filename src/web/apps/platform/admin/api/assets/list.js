@@ -17,7 +17,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(assets, (asset) => {
-    return AssetSerializer(req, req.trx, asset)
+    return AssetSerializer(req, asset)
   })
 
 }

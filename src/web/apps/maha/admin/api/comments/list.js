@@ -16,7 +16,7 @@ const listRoute = async (req, res) => {
   })
 
   res.status(200).respond(comments, (comment) => {
-    return CommentSerializer(req, req.trx, comment)
+    return CommentSerializer(req, comment)
   })
 
 }
