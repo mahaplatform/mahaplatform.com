@@ -81,7 +81,7 @@ const createRoute = async (req, res) => {
     channel: `/admin/users/${user_id}`,
     target: '/admin/chat/messages',
     action: 'update_unread',
-    data: await getUnread(user_id, req.trx)
+    data: await getUnread(req, user_id)
   }))
 
   await socket.message(req, [

@@ -47,7 +47,7 @@ const updateRoute = async (req, res) => {
 
     const add_list = add_users.map(user => user.get('full_name'))
 
-    await sendMessage(req, req.trx, {
+    await sendMessage(req, {
       channel_id: req.params.id,
       type: 'action',
       text: `added ${toOxfordList(add_list)} to the conversation`
@@ -69,7 +69,7 @@ const updateRoute = async (req, res) => {
 
     const delete_list = delete_users.map(user => user.get('full_name'))
 
-    await sendMessage(req, req.trx, {
+    await sendMessage(req, {
       channel_id: req.params.id,
       type: 'action',
       text: `removed ${toOxfordList(delete_list)} from the conversation`

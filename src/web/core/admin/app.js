@@ -23,6 +23,8 @@ import adminformFilefield from './components/form/filefield'
 import adminformLookup from './components/form/lookup'
 import adminformLookup2 from './components/form/lookup2'
 import adminform from './components/form'
+import adminformSelectCheckboxGroup from './components/form/select/checkbox_group'
+import adminformSelectRadioGroup from './components/form/select/radio_group'
 import adminformSelect from './components/form/select'
 import adminformTablefield from './components/form/tablefield'
 import adminformToggleList from './components/form/toggle_list'
@@ -214,6 +216,8 @@ class App extends React.Component {
       adminformLookup,
       adminformLookup2,
       adminform,
+      adminformSelectCheckboxGroup,
+      adminformSelectRadioGroup,
       adminformSelect,
       adminformTablefield,
       adminformToggleList,

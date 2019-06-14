@@ -10,7 +10,7 @@ const createRoute = async (req, res) => {
     ids: ['required']
   }).run(req.body)
 
-  const channel = await createChannel(req, req.trx, req.body.ids)
+  const channel = await createChannel(req, req.body.ids)
 
   await activity(req, {
     story: 'started a conversation',

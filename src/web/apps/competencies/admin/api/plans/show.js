@@ -16,7 +16,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load plan'
   })
 
-  res.status(200).respond(plan,PlanSerializer)
+  res.status(200).respond(plan, PlanSerializer)
 
 }
 

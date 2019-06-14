@@ -18,7 +18,7 @@ const processor = async (req, trx, options) => {
 
   await commitment.save(data, { patch: true, transacting: trx })
 
-  return CommitmentSerializer(req, trx, commitment)
+  return CommitmentSerializer(req, commitment)
 
 }
 

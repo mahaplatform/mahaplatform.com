@@ -3,7 +3,7 @@ import Asset from '../../../../maha/models/asset'
 
 const chatRoute = async (req, res) => {
 
-  const channel = await createChannel(req, req.trx, {
+  const channel = await createChannel(req, {
     user_ids: req.body.ids
   })
 
@@ -13,7 +13,7 @@ const chatRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await sendMessage(req, req.trx, {
+  await sendMessage(req, {
     channel_id:  channel.get('id'),
     type: 'message',
     text: asset.get('url')

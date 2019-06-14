@@ -66,7 +66,7 @@ const showRoute = async (req, res) => {
     channel: `/admin/users/${req.user.get('id')}`,
     target: '/admin/chat/messages',
     action: 'update_unread',
-    data: await getUnread(req.user.get('id'), req.trx)
+    data: await getUnread(req, req.user.get('id'))
   }
 
   await socket.message(req, [

@@ -2,7 +2,7 @@ import { getUnread } from '../../../services/messages'
 
 const listRoute = async (req, res) => {
 
-  const unread = await getUnread(req.user.get('id'), req.trx)
+  const unread = await getUnread(req, req.user.get('id'))
 
   res.status(200).respond(unread)
 
