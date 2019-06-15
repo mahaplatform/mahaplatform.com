@@ -51,14 +51,12 @@ const accessRoute = async (req, res) => {
     ]
   }), {})
 
-  const serializer = (req, app) => ({
+  res.status(200).respond(apps, (req, app) => ({
     id: app.get('id'),
     ...app.get('data'),
     installed: app.get('installed'),
     rights: userAppRights[app.get('id')] || []
-  })
-
-  res.status(200).respond(apps, serializer)
+  }))
 
 }
 

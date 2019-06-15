@@ -9,12 +9,9 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const serializer =  (req, status) => ({
-    id: status.get('id'),
-    text: status.get('text')
+  res.status(200).respond(statuses, {
+    fields: ['id','text']
   })
-
-  res.status(200).respond(statuses, serializer)
 
 }
 

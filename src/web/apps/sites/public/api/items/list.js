@@ -63,13 +63,11 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const serializer = async (req, trx, result) => ({
+  res.status(200).respond(items, async (req, result) => ({
     id: result.get('id'),
     distance: result.get('distance'),
     ...await expandValues('sites_types', req.params.type_id, result.get('values'), req.trx)
-  })
-
-  res.status(200).respond(items, serializer)
+  }))
 
 }
 

@@ -26,11 +26,8 @@ const updateRoute = async (req, res) => {
     object_type: null
   })
 
-  res.status(200).respond({
-    first_name: req.user.get('first_name'),
-    last_name: req.user.get('last_name'),
-    email: req.user.get('email'),
-    secondary_email: req.user.get('secondary_email')
+  res.status(200).respond(req.user, {
+    fields: ['first_name','last_name','email','secondary_email']
   })
 
 }

@@ -8,6 +8,7 @@ import create from './create'
 import update from './update'
 import access from './access'
 import reset from './reset'
+import edit from './edit'
 import list from './list'
 import show from './show'
 
@@ -20,6 +21,8 @@ router.post('/', create)
 router.get('/:id', show)
 
 router.patch('/:id', update)
+
+router.get('/:id/edit', edit)
 
 router.get('/:id/access', access)
 

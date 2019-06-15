@@ -23,8 +23,8 @@ const photoRoute = async (req, res) => {
     object_type: null
   })
 
-  res.status(200).respond({
-    photo_id: req.user.get('photo_id')
+  res.status(200).respond(req.user, {
+    fields: ['photo_id']
   })
 
 }

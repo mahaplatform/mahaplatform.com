@@ -19,7 +19,8 @@ class Responder {
   }
 
   async render() {
-    this.data = await this._serializeData(this.data, this.serializer)
+    const serializer = this._getSerializer(this.serializer)
+    this.data = await this._serializeData(this.data, serializer)
     const data = await this._getData()
     if(this.req.query.download) {
       this.res.setHeader('Content-disposition', `attachment; filename=${this.filename}`)
@@ -27,9 +28,19 @@ class Responder {
     this.res.type(this.type).send(data)
   }
 
+  _getSerializer(serializer) {
+    if(_.isFunction(serializer)) return serializer
+    if(_.isPlainObject(serializer)) {
+      return (req, item) => serializer.fields.reduce((data, field) => ({
+        ...data,
+        [field]: item.get(field)
+      }), {})
+    }
+    return (req, item) => item.toJSON ? item.toJSON() : item
+  }
+
   async _serializeData(data, serializer) {
     delete data.pagination
-    if(!serializer) return data
     if(data.map === undefined) return await serializer(this.req, data)
     return await Promise.mapSeries(data, async (item) => {
       return await serializer(this.req, item)
