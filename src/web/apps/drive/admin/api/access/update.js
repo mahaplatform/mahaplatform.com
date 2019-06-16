@@ -65,8 +65,6 @@ const updateRoute = async (req, res) => {
 
   await updateAccess(req, req.body.access, item[0])
 
-  console.log(`update /admin/drive/folders/${item[0].folder_id || 'drive'}`)
-
   await socket.refresh(req, [
     `/admin/drive/folders/${item[0].folder_id || 'drive'}`,
     `/admin/drive/folders/${req.params.id}`

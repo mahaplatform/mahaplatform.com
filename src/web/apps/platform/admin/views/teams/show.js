@@ -22,7 +22,7 @@ const Apps = ({ apps }) => {
 
   const items = apps.map((app, index) => ({
     component: <AppToken { ...app } />,
-  extra: app.installed ? <span class="red">INSTALLED</span> : null
+    extra: app.installed ? <span className="red">INSTALLED</span> : null
   }))
 
   return <List items={ items } />

@@ -153,12 +153,10 @@ const findRelatedId = async (job, trx, tablename, fieldname, value, team_id, typ
   if(!tablename || !fieldname) return null
 
   const column = fieldname.split('.')[0]
+
   const field = fieldname.split('.')[1]
 
   const castColumn = (code) => {
-    // if( fieldname.indexOf('.') < 0 ) return fieldname
-    // const column = fieldname.split('.')[0]
-    // const jsonbkey = fieldname.split('.')[1]
     if(tablename == 'sites_items' && column == 'values'){
       return `${column}->'${code}'->>0`
     } else {
@@ -168,8 +166,6 @@ const findRelatedId = async (job, trx, tablename, fieldname, value, team_id, typ
   }
 
   const getJsonbkey = async (typeid, field) => {
-    console.log('typeid is ', typeid)
-    console.log('field is ', field)
     const row = await knex('maha_fields').transacting(trx).select('code').whereRaw('parent_id = ? AND name = ?', [typeid, field])
     return row[0] ? row[0].code : null
   }

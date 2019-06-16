@@ -17,7 +17,6 @@ class Dateandtime extends React.Component {
   }
 
   render() {
-    const { options } = this.props
     return (
       <div className="date-and-time">
         <div className="welcome">

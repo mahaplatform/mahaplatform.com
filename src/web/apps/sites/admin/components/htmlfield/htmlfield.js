@@ -217,7 +217,7 @@ class htmlfield extends React.Component {
       linking: true,
       url
     }, () => {
-      setTimeout(() => this.link.focus(), 0);
+      setTimeout(() => this.link.focus(), 0)
     })
 
   }
@@ -230,8 +230,8 @@ class htmlfield extends React.Component {
   }
 
   _handleLinkKeyDown(e) {
-     if(e.which !== 13) return
-     this._handleLinkChange(this.link.value)
+    if(e.which !== 13) return
+    this._handleLinkChange(this.link.value)
   }
 
   _handleLinkChange(url) {

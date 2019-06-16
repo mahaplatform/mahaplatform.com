@@ -29,7 +29,7 @@ const updateRoute = async (req, res) => {
 
   await Promise.map(device.related('sessions').toArray(), async (session) => {
 
-    await message(req, {
+    await socket.message(req, {
       channel: `/admin/users/${session.get('user_id')}`,
       action: 'session'
     })

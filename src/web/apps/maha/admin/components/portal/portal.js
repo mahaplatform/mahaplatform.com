@@ -23,10 +23,17 @@ class Portal extends React.Component {
   }
 
   static propTypes = {
+    active: PropTypes.number,
     badges: PropTypes.array,
+    help: PropTypes.bool,
+    mode: PropTypes.string,
+    routes: PropTypes.object,
     unseen: PropTypes.number,
     onHelp: PropTypes.func,
-    onUpdateUnseen: PropTypes.func
+    onChoose: PropTypes.func,
+    onSetMode: PropTypes.func,
+    onUpdateUnseen: PropTypes.func,
+    onToggleHelp: PropTypes.func
   }
 
   _handleChoose = this._handleChoose.bind(this)

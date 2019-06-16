@@ -15,8 +15,9 @@ class Chat extends React.Component {
     item: PropTypes.object,
     status: PropTypes.string,
     onBack: PropTypes.func,
-    onShare: PropTypes.func,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onSet: PropTypes.func,
+    onShare: PropTypes.func
   }
 
   _handleBack = this._handleBack.bind(this)

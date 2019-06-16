@@ -1,9 +1,6 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 
 class Lockout extends React.Component {
-
-  static propTypes = {}
 
   render() {
     return (

@@ -28,7 +28,7 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const token = createUserToken(member, 'activation_id')
+  // const token = createUserToken(member, 'activation_id')
 
   await sendMail({
     from: 'Maha <mailer@mahaplatform.com>',

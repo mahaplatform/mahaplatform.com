@@ -11,9 +11,13 @@ import _ from 'lodash'
 class Sessions extends React.Component {
 
   static propTypes = {
+    apps: PropTypes.array,
+    badges: PropTypes.array,
     children: PropTypes.any,
     pathname: PropTypes.string,
     roots: PropTypes.array,
+    routes: PropTypes.array,
+    team: PropTypes.object,
     user: PropTypes.object
   }
 

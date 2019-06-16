@@ -25,6 +25,11 @@ const Details = ({ title, origins }) => {
 
 }
 
+Details.propTypes = {
+  origins: PropTypes.array,
+  title: PropTypes.string
+}
+
 const Managers = ({ site_id, managers }) => {
 
   const list = {
@@ -43,6 +48,11 @@ const Managers = ({ site_id, managers }) => {
     </div>
   )
 
+}
+
+Managers.propTypes = {
+  managers: PropTypes.array,
+  site_id: PropTypes.number
 }
 
 const Profiles = (fields, context) => (
@@ -79,6 +89,11 @@ const Emails = ({ site_id, emails }, context) => {
 
 }
 
+Emails.propTypes = {
+  emails: PropTypes.array,
+  site_id: PropTypes.number
+}
+
 Emails.contextTypes = {
   modal: PropTypes.object
 }
@@ -112,6 +127,11 @@ const Types = ({ site_id, types }, context) => {
     </div>
   )
 
+}
+
+Types.propTypes = {
+  site_id: PropTypes.number,
+  types: PropTypes.array
 }
 
 Types.contextTypes = {

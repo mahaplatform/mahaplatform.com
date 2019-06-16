@@ -2,7 +2,7 @@ import Model from '../../../core/objects/model'
 
 const Search = new Model({
 
-  tableName: 'maha_searches',
+  tableName: 'maha_searches'
 
 })
 

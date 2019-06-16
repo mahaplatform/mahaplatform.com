@@ -157,10 +157,9 @@ class Access extends React.Component {
   }
 
   _getUnassigned() {
-    const { access, unassigned } = this.props
+    const { unassigned } = this.props
     return {
       unassigned,
-      access,
       onChoose: this._handleAdd
     }
   }

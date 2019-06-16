@@ -1,4 +1,3 @@
-import matchPath from 'react-router-dom/matchPath'
 import { BrowserRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import React from 'react'

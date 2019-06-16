@@ -12,7 +12,6 @@ const expenseSerializer = (req, result) => ({
   status: result.related('status').get('text'),
   account: account(result.related('account')),
   idglacct: result.get('idglacct'),
-  // integration: integration(result, req.apps.expenses.settings),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
@@ -75,20 +74,6 @@ const account = (account) => {
     id: account.get('id'),
     name: account.get('name')
   }
-
-}
-
-const integration = (result, settings) => {
-
-  if(settings && settings.integration === 'accpac') {
-
-    return {
-      idglacct: result.get('idglacct')
-    }
-
-  }
-
-  return {}
 
 }
 

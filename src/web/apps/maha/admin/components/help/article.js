@@ -5,7 +5,8 @@ import React from 'react'
 class Help extends React.Component {
 
   static propTypes = {
-    article: PropTypes.object
+    article: PropTypes.object,
+    onDone: PropTypes.func
   }
 
   _handleCancel = this._handleCancel.bind(this)

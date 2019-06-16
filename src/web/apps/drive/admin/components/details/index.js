@@ -19,7 +19,8 @@ class Details extends React.Component {
     item: PropTypes.object,
     onChangeFolder: PropTypes.func,
     onCreateFile: PropTypes.func,
-    onPreview: PropTypes.func
+    onPreview: PropTypes.func,
+    onShowDetails: PropTypes.func
   }
 
   _handleHideDetails = this._handleHideDetails.bind(this)

@@ -71,7 +71,7 @@ const Members = ({ project, memberships }) => {
 }
 
 Members.propTypes = {
-  members: PropTypes.array,
+  memberships: PropTypes.array,
   project: PropTypes.object
 }
 

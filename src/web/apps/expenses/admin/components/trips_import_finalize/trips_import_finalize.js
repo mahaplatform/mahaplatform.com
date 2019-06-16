@@ -1,8 +1,7 @@
-import { Form, ModalPanel, Progress } from 'maha-admin'
+import { ModalPanel, Progress } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
-
 
 class TripsImportFinalize extends React.Component {
 
@@ -15,9 +14,13 @@ class TripsImportFinalize extends React.Component {
 
   static propTypes = {
     import: PropTypes.object,
+    progress: PropTypes.number,
     status: PropTypes.string,
     onDone: PropTypes.func,
-    onFinalizeTrips: PropTypes.func
+    onFinalizeTrips: PropTypes.func,
+    onUpdateProgress: PropTypes.func,
+    onSuccess: PropTypes.func,
+    onFail: PropTypes.func
   }
 
   _handleDone = this._handleDone.bind(this)
@@ -112,12 +115,9 @@ class TripsImportFinalize extends React.Component {
     this.props.onFail(err)
   }
 
-
-
   _handleDone() {
     const { onDone } = this.props
     onDone(this.props.import)
-    //this.context.modal.close()
   }
 
 }

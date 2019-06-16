@@ -21,6 +21,7 @@ class Tasks extends React.Component {
 
   static propTypes = {
     item: PropTypes.object,
+    rights: PropTypes.array,
     title: PropTypes.bool,
     token: PropTypes.string,
     onChangeFolder: PropTypes.func,

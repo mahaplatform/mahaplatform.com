@@ -1,6 +1,5 @@
 import FolderSerializer from '../../../serializers/folder_serializer'
 import socket from '../../../../../core/services/routes/emitter'
-import Version from '../../../models/version'
 import Access from '../../../models/access'
 import Folder from '../../../models/folder'
 
