@@ -14,7 +14,7 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!folder) return req.status(404).respond({
+  if(!folder) return res.status(404).respond({
     code: 404,
     message: 'Unable to load folder'
   })

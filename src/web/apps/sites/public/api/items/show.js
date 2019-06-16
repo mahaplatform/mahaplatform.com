@@ -11,7 +11,7 @@ const showRoute = async (req, res) => {
     qb.where('id', req.params.id)
   })
 
-  if(!item) return req.status(404).respond({
+  if(!item) return res.status(404).respond({
     code: 404,
     message: 'Unable to load item'
   })

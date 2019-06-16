@@ -11,7 +11,7 @@ const editRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!reimbursement) return req.status(404).respond({
+  if(!reimbursement) return res.status(404).respond({
     code: 404,
     message: 'Unable to load reimbursement'
   })

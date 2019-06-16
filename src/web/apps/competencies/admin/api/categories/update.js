@@ -14,7 +14,7 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!category) return req.status(404).respond({
+  if(!category) return res.status(404).respond({
     code: 404,
     message: 'Unable to load category'
   })

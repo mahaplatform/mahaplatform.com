@@ -4,6 +4,14 @@ const FixAudits = {
 
   up: async (knex) => {
 
+    // remove orphaned audits
+    const audits = await knex('maha_audits')
+    await Promise.mapSeries(audits, async audit => {
+      const item = await knex(audit.auditable_type).where('id', audit.auditable_id)
+      if(item.length > 0) return
+      await knex('maha_audits').where('id', audit.id).delete()
+    })
+
     // handle processed audits
     await knex.raw('delete from maha_audits where story_id >= 27 and story_id <=40')
     const processed = await knex('expenses_items').whereNotNull('batch_id')

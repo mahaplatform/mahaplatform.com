@@ -13,7 +13,7 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!attraction) return req.status(404).respond({
+  if(!attraction) return res.status(404).respond({
     code: 404,
     message: 'Unable to load attraction'
   })

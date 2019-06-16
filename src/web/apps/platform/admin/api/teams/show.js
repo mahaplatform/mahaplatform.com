@@ -10,7 +10,7 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!team) return req.status(404).respond({
+  if(!team) return res.status(404).respond({
     code: 404,
     message: 'Unable to load team'
   })

@@ -11,7 +11,7 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!asset) return req.status(404).respond({
+  if(!asset) return res.status(404).respond({
     code: 404,
     message: 'Unable to load asset'
   })

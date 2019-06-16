@@ -9,7 +9,7 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!type) return req.status(404).respond({
+  if(!type) return res.status(404).respond({
     code: 404,
     message: 'Unable to load type'
   })

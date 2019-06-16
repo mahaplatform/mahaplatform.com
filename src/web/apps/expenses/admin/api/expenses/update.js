@@ -20,7 +20,7 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!expense) return req.status(404).respond({
+  if(!expense) return res.status(404).respond({
     code: 404,
     message: 'Unable to load expense'
   })

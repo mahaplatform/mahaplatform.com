@@ -4,12 +4,12 @@ import Site from '../../../models/site'
 
 const signinRoute = async (req, res) => {
 
-  if(!req.body.email) return req.status(404).respond({
+  if(!req.body.email) return res.status(404).respond({
     code: 422,
     message: 'Please enter an email'
   })
 
-  if(!req.body.password) return req.status(404).respond({
+  if(!req.body.password) return res.status(404).respond({
     code: 422,
     message: 'Please enter a password'
   })
@@ -20,7 +20,7 @@ const signinRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!site) return req.status(404).respond({
+  if(!site) return res.status(404).respond({
     code: 404,
     message: 'Unable to load site'
   })
@@ -32,12 +32,12 @@ const signinRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!member) return req.status(404).respond({
+  if(!member) return res.status(404).respond({
     code: 422,
     message: 'Unable to load member'
   })
 
-  if(!member.authenticate(req.body.password)) return req.status(404).respond({
+  if(!member.authenticate(req.body.password)) return res.status(404).respond({
     code: 422,
     message: 'Invalid password'
   })

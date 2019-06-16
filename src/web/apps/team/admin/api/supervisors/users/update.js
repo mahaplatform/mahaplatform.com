@@ -12,7 +12,7 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!supervisor) return req.status(404).respond({
+  if(!supervisor) return res.status(404).respond({
     code: 404,
     message: 'Unable to load supervisor'
   })

@@ -13,7 +13,7 @@ const processRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!_import) return req.status(404).respond({
+  if(!_import) return res.status(404).respond({
     code: 404,
     message: 'Unable to load import'
   })
