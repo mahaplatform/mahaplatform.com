@@ -14,7 +14,7 @@ const processor = async (job, trx) => {
     transacting: trx
   })
 
-  const serialized = NotificationSerializer(null, trx, notification)
+  const serialized = NotificationSerializer(null, notification)
 
   await sendNotification(notification.related('user'), {
     id: serialized.id,

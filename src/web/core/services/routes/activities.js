@@ -1,6 +1,6 @@
 import Activity from '../../../apps/maha/models/activity'
 import Story from '../../../apps/maha/models/story'
-import socket from '../emitter'
+import socket from './emitter'
 
 export const activity = async (req, activity) => {
 
@@ -19,11 +19,9 @@ export const activity = async (req, activity) => {
     transacting: req.trx
   })
 
-  await socket.in('/admin/team/activities').emit('message', {
-    target: '/admin/team/activities',
-    action: 'refresh',
-    data: null
-  })
+  await socket.refresh(req, [
+    '/admin/team/activities'
+  ])
 
 }
 

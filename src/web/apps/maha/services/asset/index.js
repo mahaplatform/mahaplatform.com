@@ -98,7 +98,7 @@ export const assembleAsset = async (id, trx) => {
   await socket.in(`/admin/assets/${asset.get('id')}`).emit('message', {
     target: `/admin/assets/${asset.get('id')}`,
     action: 'refresh',
-    data: formatObjectForTransport(AssetSerializer(null, null, asset))
+    data: formatObjectForTransport(AssetSerializer(null, asset))
   })
 }
 
@@ -118,7 +118,7 @@ export const processAsset = async (id, trx) => {
   await socket.in(`/admin/assets/${asset.get('id')}`).emit('message', {
     target: `/admin/assets/${asset.get('id')}`,
     action: 'refresh',
-    data: formatObjectForTransport(AssetSerializer(null, null, asset))
+    data: formatObjectForTransport(AssetSerializer(null, asset))
   })
 }
 

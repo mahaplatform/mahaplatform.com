@@ -24,12 +24,20 @@ const Advances = new Model({
       })
     },
 
-    owner_id: function() {
+    object_owner_id: function() {
       return this.get('user_id')
     },
 
-    url: function() {
-      return `/expenses/advances/${this.get('id')}`
+    object_text: function() {
+      return this.get('description')
+    },
+
+    object_type: function() {
+      return 'advance'
+    },
+
+    object_url: function() {
+      return `/admin/expenses/advances/${this.get('id')}`
     }
 
   },

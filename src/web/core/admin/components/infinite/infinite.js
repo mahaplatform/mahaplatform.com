@@ -16,7 +16,6 @@ class Infinite extends React.Component {
     exclude_ids: PropTypes.any,
     failure: PropTypes.any,
     filter: PropTypes.object,
-    footer: PropTypes.any,
     header: PropTypes.any,
     layout: PropTypes.any,
     loading: PropTypes.any,
@@ -42,7 +41,6 @@ class Infinite extends React.Component {
     empty: Empty,
     failure: Failure,
     filter: {},
-    footer: null,
     header: null,
     loading: Loader,
     notFound: NotFound,
@@ -55,7 +53,7 @@ class Infinite extends React.Component {
   }
 
   render() {
-    const { all, delayed, empty, failure, footer, header, layout, loading, notFound, records, status, timeout, total } = this.props
+    const { all, delayed, empty, failure, header, layout, loading, notFound, records, status, timeout, total } = this.props
     return (
       <div className="maha-infinite">
         { header &&
@@ -75,11 +73,6 @@ class Infinite extends React.Component {
           </Scrollpane>
         }
         { status === 'loading' && records && records.length > 0 && this._getComponent(Appending) }
-        { footer && total !== null && total !== 0 &&
-          <div className="maha-infinite-footer">
-            { React.createElement(footer, this.props) }
-          </div>
-        }
       </div>
     )
   }

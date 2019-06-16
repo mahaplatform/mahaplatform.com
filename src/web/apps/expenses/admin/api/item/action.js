@@ -6,6 +6,7 @@ import socket from '../../../../../core/services/routes/emitter'
 import Reimbursement from '../../../models/reimbursement'
 import Expense from '../../../models/expense'
 import Advance from '../../../models/advance'
+import Check from '../../../models/check'
 import Trip from '../../../models/trip'
 import tensify from 'tensify'
 import _ from 'lodash'
@@ -18,9 +19,10 @@ const statuses = [
 ]
 
 const types = [
+  { text: 'advances', model: Advance },
+  { text: 'checks', model: Check },
   { text: 'expenses', model: Expense },
-  { text: 'advance', model: Advance },
-  { text: 'reimbursement', model: Reimbursement },
+  { text: 'reimbursements', model: Reimbursement },
   { text: 'trips', model: Trip }
 ]
 
@@ -28,6 +30,11 @@ const actionRoute = async (req, res) => {
 
   const type = _.find(types, {
     text: req.params.type
+  })
+
+  if(!type) return res.status(404).respond({
+    code: 404,
+    message: `Unable to find type ${req.params.type}`
   })
 
   const item = await type.model.query(qb => {

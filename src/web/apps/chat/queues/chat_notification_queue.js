@@ -24,7 +24,7 @@ const processor = async (job, trx) => {
 
   if(subscriptions.length === 0) return true
 
-  const serialized = MessageSerializer(null, trx, message)
+  const serialized = MessageSerializer(null, message)
 
   await Promise.map(subscriptions.toArray(), async (subscription) => {
 

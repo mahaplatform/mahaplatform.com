@@ -186,12 +186,10 @@ class Collection extends React.Component {
       ...this.props.filter,
       q
     }
-    const footer = this.props.footer ? ({ all, total }) => all ? <span><strong>NOW SHOWING:</strong> { total } / { all } records</span> : '' : false
     return {
       cacheKey,
       endpoint,
       filter,
-      footer,
       loading,
       empty: this._getEmpty(),
       failure,

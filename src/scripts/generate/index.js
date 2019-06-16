@@ -26,7 +26,7 @@ const route = async (args) => {
   const route = root.split('/').pop()
   const data = {
     routeName: route,
-    routePath: `${root}.js`.replace('api2','api')
+    routePath: `${root}.js`
   }
   createFile(`${root}.js`, 'resource/route.js', data)
   createFile(`${root}_test.js`, 'resource/test.js', data)
@@ -40,7 +40,7 @@ const resource = async (args) => {
   routes.map(route => {
     const data = {
       routeName: route,
-      routePath: path.join(root, `${route}.js`).replace('api2','api')
+      routePath: path.join(root, `${route}.js`)
     }
     createFile(path.join(root, `${route}.js`), 'resource/route.js', data)
     createFile(path.join(root, `${route}_test.js`), 'resource/test.js', data)

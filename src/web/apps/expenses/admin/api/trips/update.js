@@ -7,6 +7,18 @@ import socket from '../../../../../core/services/routes/emitter'
 import { completeItem } from '../../../services/items'
 import Member from '../../../models/member'
 import Trip from '../../../models/trip'
+import Rate from '../../../models/rate'
+import moment from 'moment'
+
+const _getMileageRate = async (req, date) => {
+  const year = parseInt(moment(date).format('YYYY'))
+  const rate = await Rate.query(qb => {
+    qb.where('year', year)
+  }).fetch({
+    transacting: req.trx
+  })
+  return rate ? rate.get('value') : null
+}
 
 const updateRoute = async (req, res) => {
 
@@ -24,7 +36,15 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load trip'
   })
 
-  await trip.save(whitelist(req.body, ['expense_type_id','project_id','date','description','time_leaving','time_arriving','odometer_start','odometer_end','total_miles','amount','mileage_rate']), {
+  const mileage_rate = await _getMileageRate(req, req.body.date)
+
+  const amount = mileage_rate ? req.body.total_miles * mileage_rate : null
+
+  await trip.save({
+    mileage_rate,
+    amount,
+    ...whitelist(req.body, ['project_id','date','description','time_leaving','time_arriving','odometer_start','odometer_end','total_miles'])
+  }, {
     transacting: req.trx
   })
 

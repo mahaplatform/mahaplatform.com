@@ -87,7 +87,7 @@ const finalizeRoute = async (req, res) => {
   await socket.message({
     channel: `/admin/imports/${imp.get('id')}`,
     action: 'success',
-    data: ImportSerializer(null, null, imp)
+    data: ImportSerializer(null, imp)
   })
 
   res.status(200).respond(true)

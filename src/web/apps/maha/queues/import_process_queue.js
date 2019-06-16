@@ -130,7 +130,7 @@ const processor = async (job, trx) => {
     await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
       target: `/admin/imports/${imp.get('id')}`,
       action: 'progress',
-      data: ImportSerializer(null, null, imp)
+      data: ImportSerializer(null, imp)
     })
 
   })
@@ -143,7 +143,7 @@ const processor = async (job, trx) => {
   await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
     target: `/admin/imports/${imp.get('id')}`,
     action: 'success',
-    data: ImportSerializer(null, null, imp)
+    data: ImportSerializer(null, imp)
   })
 
 }

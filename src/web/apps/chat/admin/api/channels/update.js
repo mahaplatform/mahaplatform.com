@@ -1,3 +1,4 @@
+import { activity } from '../../../../../core/services/routes/activities'
 import ChannelSerializer from '../../../serializers/channel_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
@@ -24,6 +25,11 @@ const updateRoute = async (req, res) => {
   await channel.save(whitelist(req.body, ['name','description']), {
     patch: true,
     transacting: req.trx
+  })
+
+  await activity(req, {
+    story: 'updated a conversation',
+    object: channel
   })
 
   await socket.message(req, channel.related('subscriptions').map(subscription => ({

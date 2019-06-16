@@ -15,7 +15,7 @@ const updateRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['user','project.members','expense_type','status','vendor'],
+    withRelated: [      'user','project.members','expense_type','status'],
     transacting: req.trx
   })
 
