@@ -69,6 +69,18 @@ const model = async (args) => {
   createFile(data.testPath, 'model/test.js', data)
 }
 
+const migration = async (args) => {
+  const [ pathname ] = args
+  const timestamp = moment().format('YYYYMMDDhhmmss')
+  const name = pathname.split('/').slice(-1)[0]
+  const root = path.join('src','web','apps', ...pathname.split('/').slice(0,-1))
+  const data = {
+    className:  _.upperFirst(_.camelCase(name)),
+    migrationPath: path.join(root, `${timestamp}_${name}.js`)
+  }
+  createFile(data.migrationPath, 'model/migration.js', data)
+}
+
 const component = async (args) => {
   const [ pathname ] = args
   const rootPath = path.join('src','web',pathname)
@@ -126,6 +138,7 @@ const generate = async () => {
   const args = argv.slice(1)
   if(template === 'route') return route(args)
   if(template === 'model') return model(args)
+  if(template === 'migration') return migration(args)
   if(template === 'component') return component(args)
   if(template === 'rubberstamp') return rubberstamp(args)
   if(template === 'resource') return resource(args)
