@@ -1,10 +1,4 @@
 import { migrateUp, migrateDown, schemaDump, schemaLoad, setup, reset } from './utils'
-import register from 'babel-register'
-import fs from 'fs'
-
-const babelrc = JSON.parse(fs.readFileSync('.babelrc'))
-
-register(babelrc)
 
 const db = async (command) => {
 
