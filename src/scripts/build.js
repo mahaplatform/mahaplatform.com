@@ -101,8 +101,8 @@ const buildServer = async () => {
   await Promise.map([...appDirs,'web/core','scripts'], buildDir)
   await Promise.map(['web/cron.js','web/server.js','web/worker.js'], buildEntry)
   await copy(path.join('src','web','config','ecosystem.config.js'), path.join(staged,'web','ecosystem.config.js'))
-  await copy(path.join('package.json'), path.join(staged,'web','package.json'))
-  await copy(path.join('package-lock.json'), path.join(staged,'web','package-lock.json'))
+  await copy(path.join('package.json'), path.join(staged,'package.json'))
+  await copy(path.join('package-lock.json'), path.join(staged,'package-lock.json'))
   log('info', 'server', 'Compiled successfully.')
 }
 
