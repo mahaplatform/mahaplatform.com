@@ -35,7 +35,7 @@ export const schemaDump = async (flags, args) => {
   const template = fs.readFileSync(path.join(__dirname, 'schema.js.ejs'), 'utf8')
   const platform = _.camelCase(path.basename(path.resolve()))
   const data = ejs.render(template, { platform, tables, views, foreign_keys })
-  fs.writeFileSync(path.join('src', 'schema.js'), data)
+  if(process.env.NODE_ENV !== 'production') fs.writeFileSync(path.join('src', 'schema.js'), data)
 }
 
 export const schemaLoad = async (flags, args) => {

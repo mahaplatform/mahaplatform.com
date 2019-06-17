@@ -26,7 +26,7 @@ const processor = async () => {
           user: 'root',
           host: 'app1.mahaplatform.com',
           port: 2244,
-          roles: 'appserver'
+          roles: ['appserver','controller']
         }, {
           user: 'root',
           host: 'app2.mahaplatform.com',
@@ -78,6 +78,7 @@ const processor = async () => {
     'deploy:unzip',
     'deploy:install',
     'deploy:link_shared',
+    'deploy:migrate',
     'deploy:symlink',
     'deploy:reload_passenger',
     'deploy:restart_pm2',
@@ -163,12 +164,18 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy:link_shared', async () => {
     const commands = [
-      `ln -s ${sharedDir}/logs ${releaseDir}/logs`,
-      `ln -s ${sharedDir}/tmp ${releaseDir}/tmp`,
-      `ln -s ${sharedDir}/imagecache ${releaseDir}/public/imagecache`
+      `ln -s ${sharedDir}/logs ${releaseDir}/web/logs`,
+      `ln -s ${sharedDir}/tmp ${releaseDir}/web/tmp`,
+      `ln -s ${sharedDir}/imagecache ${releaseDir}/web/public/imagecache`
     ]
     await shipit.remote(commands.join(' && '), {
       roles: ['appserver','cron','worker']
+    })
+  })
+
+  utils.registerTask(shipit, 'deploy:migrate', async () => {
+    await shipit.local(`NODE_ENV=production node ${currentDir}/scripts/knex/index.js migrate:up`, {
+      roles: ['controller']
     })
   })
 
@@ -185,7 +192,7 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:restart_pm2', () => {
-    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/ecosystem.config.js', {
+    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/web/ecosystem.config.js', {
       cwd: deployDir,
       roles: ['cron','worker']
     })
