@@ -164,9 +164,9 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy:link_shared', async () => {
     const commands = [
-      `ln -s ${sharedDir}/logs ${releaseDir}/web/logs`,
-      `ln -s ${sharedDir}/tmp ${releaseDir}/web/tmp`,
-      `ln -s ${sharedDir}/imagecache ${releaseDir}/web/public/imagecache`
+      `ln -s ${sharedDir}/logs ${releaseDir}/logs`,
+      `ln -s ${sharedDir}/tmp ${releaseDir}/tmp`,
+      `ln -s ${sharedDir}/imagecache ${releaseDir}/public/imagecache`
     ]
     await shipit.remote(commands.join(' && '), {
       roles: ['appserver','cron','worker']
@@ -174,8 +174,9 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:migrate', async () => {
-    await shipit.local(`NODE_ENV=production node ${releaseDir}/scripts/knex/index.js migrate:up`, {
-      roles: ['controller']
+    await shipit.remote('NODE_ENV=production node ./core/db/index.js migrate:up', {
+      roles: ['controller'],
+      cwd: releaseDir
     })
   })
 
@@ -192,7 +193,7 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:restart_pm2', () => {
-    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/web/ecosystem.config.js', {
+    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/ecosystem.config.js', {
       cwd: deployDir,
       roles: ['cron','worker']
     })

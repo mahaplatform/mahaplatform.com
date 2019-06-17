@@ -73,13 +73,13 @@ const buildItem = async (item, srcPath, destPath) => {
 }
 
 const buildEntry = async (entry) => {
-  const srcPath = path.resolve('src',entry)
+  const srcPath = path.resolve('src','web',entry)
   const destPath = path.join(staged,entry)
   await transpileFile(srcPath, destPath)
 }
 
 const buildDir = async (dir) => {
-  const srcPath = path.resolve('src',dir)
+  const srcPath = path.resolve('src','web',dir)
   const destPath = path.join(staged,dir)
   mkdirp.sync(destPath)
   const items = listItems(srcPath)
@@ -97,10 +97,10 @@ const buildClient = async () => {
 
 const buildServer = async () => {
   log('info', 'server', 'Compiling...')
-  const appDirs = apps.map(app => `web/apps/${app}`)
-  await Promise.map([...appDirs,'web/core','scripts'], buildDir)
-  await Promise.map(['web/cron.js','web/server.js','web/worker.js'], buildEntry)
-  await copy(path.join('src','web','config','ecosystem.config.js'), path.join(staged,'web','ecosystem.config.js'))
+  const appDirs = apps.map(app => `apps/${app}`)
+  await Promise.map([...appDirs, 'core'], buildDir)
+  await Promise.map(['cron.js','server.js','worker.js'], buildEntry)
+  await copy(path.join('src','web','config','ecosystem.config.js'), path.join(staged,'ecosystem.config.js'))
   await copy(path.join('package.json'), path.join(staged,'package.json'))
   await copy(path.join('package-lock.json'), path.join(staged,'package-lock.json'))
   log('info', 'server', 'Compiled successfully.')
@@ -108,13 +108,13 @@ const buildServer = async () => {
 
 const buildHelp = async() => {
   log('info', 'help', 'Compiling...')
-  await help(path.join(staged,'web'))
+  await help(staged)
   log('info', 'help', 'Compiled successfully.')
 }
 
 const buildEnv = async() => {
   log('info', 'environment', 'Compiling...')
-  await env(path.join(staged,'web'))
+  await env(staged)
   log('info', 'environment', 'Compiled successfully.')
 }
 
@@ -128,7 +128,7 @@ const getDuration = (start) => {
 const build = async (flags, args) => {
   const start = process.hrtime()
   rimraf.sync(staged)
-  mkdirp.sync(path.join(staged,'web'))
+  mkdirp.sync(staged)
   await Promise.all([
     buildServer(),
     buildClient(),
