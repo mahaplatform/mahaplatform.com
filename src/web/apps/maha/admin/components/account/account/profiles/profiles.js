@@ -76,7 +76,7 @@ class Profiles extends React.Component {
     return {
       title: 'Manage Profiles',
       leftItems: [
-        { label: 'Cancel', handler: this._handleCancel }
+        { icon: 'chevron-left', handler: this._handleCancel }
       ],
       rightItems: [
         { label: 'Done', handler: this._handleCancel }

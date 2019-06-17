@@ -28,6 +28,7 @@ class Photo extends React.Component {
       method: 'patch',
       endpoint: '/api/admin/account',
       action: '/api/admin/account/photo',
+      cancelText: <i className="fa fa-chevron-left" />,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [

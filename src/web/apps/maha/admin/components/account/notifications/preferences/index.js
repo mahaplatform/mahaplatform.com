@@ -41,6 +41,7 @@ class Preferences extends React.Component {
       method: 'patch',
       endpoint: '/api/admin/account/notifications',
       action: '/api/admin/account/notifications/preferences',
+      cancelText: <i className="fa fa-chevron-left" />,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [

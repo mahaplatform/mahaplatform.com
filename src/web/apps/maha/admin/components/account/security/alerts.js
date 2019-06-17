@@ -25,6 +25,7 @@ class AlertForm extends React.Component {
       method: 'patch',
       endpoint: '/api/admin/account/security',
       action: '/api/admin/account/security/alerts',
+      cancelText: <i className="fa fa-chevron-left" />,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
