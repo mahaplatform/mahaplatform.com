@@ -1,5 +1,5 @@
 import { CSSTransition } from 'react-transition-group'
-import { AssetIcon } from 'maha-admin'
+import AssetIcon from '../asset/icon'
 import { connect } from 'react-redux'
 import Resumable from 'resumablejs'
 import PropTypes from 'prop-types'

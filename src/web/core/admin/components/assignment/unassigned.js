@@ -1,4 +1,5 @@
-import { Format, Message } from 'maha-admin'
+import Format from '../format'
+import Message from '../message'
 import PropTypes from 'prop-types'
 import React from 'react'
 

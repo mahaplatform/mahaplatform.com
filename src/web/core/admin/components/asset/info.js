@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import Comments from '../comments'
-import { List } from 'maha-admin'
+import List from '../list'
 import AssetToken from './token'
 import React from 'react'
 

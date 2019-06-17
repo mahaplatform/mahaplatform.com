@@ -1,4 +1,6 @@
-import { Infinite, Message, ModalPanel } from 'maha-admin'
+import Infinite from '../../infinite'
+import Message from '../../message'
+import ModalPanel from '../../modal_panel'
 import Authorized from '../../authorized'
 import PropTypes from 'prop-types'
 import Items from './items'

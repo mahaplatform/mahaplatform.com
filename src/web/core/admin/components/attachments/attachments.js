@@ -1,4 +1,6 @@
-import { AssetIcon, Stack, Uploader } from 'maha-admin'
+import AssetIcon from '../asset/icon'
+import Stack from '../stack/stack'
+import Uploader from '../uploader'
 import { CSSTransition } from 'react-transition-group'
 import Instagram from './networks/instagram'
 import Microsoft from './networks/microsoft'

@@ -16,7 +16,7 @@ class Sessions extends React.Component {
     children: PropTypes.any,
     pathname: PropTypes.string,
     roots: PropTypes.array,
-    routes: PropTypes.array,
+    routes: PropTypes.object,
     team: PropTypes.object,
     user: PropTypes.object
   }

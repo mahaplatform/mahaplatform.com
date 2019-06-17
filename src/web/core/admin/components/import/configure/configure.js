@@ -1,4 +1,6 @@
-import { ModalPanel, RadioGroup, TextField } from 'maha-admin'
+import ModalPanel from '../../modal_panel'
+import RadioGroup from '../../form/select/radio_group'
+import TextField from '../../form/textfield'
 import StrategyToken from './strategy_token'
 import PropTypes from 'prop-types'
 import React from 'react'

@@ -1,4 +1,7 @@
-import { Loader, Message, ModalPanel, Searchbox } from 'maha-admin'
+import Loader from '../../loader'
+import Message from '../../message'
+import ModalPanel from '../../modal_panel'
+import Searchbox from '../../searchbox'
 import PropTypes from 'prop-types'
 import React from 'react'
 

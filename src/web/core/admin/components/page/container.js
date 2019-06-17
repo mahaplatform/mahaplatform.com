@@ -1,4 +1,6 @@
-import { Loader, Message, ModalPanel } from 'maha-admin'
+import Loader from '../loader'
+import Message from '../message'
+import ModalPanel from '../modal_panel'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'

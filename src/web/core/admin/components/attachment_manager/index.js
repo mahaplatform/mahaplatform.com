@@ -4,12 +4,10 @@ import attachmentManager from './attachment_manager'
 import * as actions from './actions'
 import * as selectors from './selectors'
 
-const AttachmentManager = Factory({
+export default Factory({
   namespace: 'maha.attachment_manager',
   component: attachmentManager,
   reducer,
   actions,
   selectors
 })
-
-export default AttachmentManager

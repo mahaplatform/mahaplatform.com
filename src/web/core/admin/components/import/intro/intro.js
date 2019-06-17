@@ -1,4 +1,7 @@
-import { Buttons, List, Loader, ModalPanel } from 'maha-admin'
+import Buttons from '../../buttons'
+import List from '../../list'
+import Loader from '../../loader'
+import ModalPanel from '../../modal_panel'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import moment from 'moment'

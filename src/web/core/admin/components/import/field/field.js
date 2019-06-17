@@ -1,12 +1,12 @@
-import { ModalPanel, Dropdown } from 'maha-admin'
+import ModalPanel from '../../modal_panel'
+import Dropdown from '../../form/dropdown'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
 class Field extends React.Component {
 
-  static contextTypes = {
-  }
+  static contextTypes = {}
 
   static propTypes = {
     availableFields: PropTypes.array,

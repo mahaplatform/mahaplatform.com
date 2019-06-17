@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Stack } from 'maha-admin'
+import Stack from '../stack/stack'
 import Intro from './intro'
 import Upload from './upload'
 import Preview from './preview'

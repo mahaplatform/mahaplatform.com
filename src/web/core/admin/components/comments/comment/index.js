@@ -1,4 +1,7 @@
-import { AssetViewer, AssetToken, Attachment, Gallery } from 'maha-admin'
+import AssetViewer from '../../asset/viewer'
+import AssetToken from '../../asset/token'
+import Attachment from '../../attachment'
+import Gallery from '../../gallery'
 import { files, images, media } from './selectors'
 import Reactions from '../../reactions/reactions'
 import Reaction from '../../reactions/reaction'
@@ -104,7 +107,7 @@ class Comment extends React.Component {
       </div>
     )
   }
-  
+
   _getGallery() {
     const { id, images } = this.props
     return {

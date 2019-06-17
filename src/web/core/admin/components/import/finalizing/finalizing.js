@@ -1,22 +1,22 @@
-import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 class Finalizing extends React.Component {
 
   static propTypes = {
+    defaultValue: PropTypes.string,
     destination: PropTypes.func,
     finalizeComponent: PropTypes.any,
     import: PropTypes.object,
     status: PropTypes.string,
     onBack: PropTypes.func,
-    onDone: PropTypes.func
+    onDone: PropTypes.func,
+    onInit: PropTypes.func
   }
 
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    const { status } = this.props
     const FinalizeComponent = this.props.finalizeComponent
     return (
       <FinalizeComponent { ...this._getFinalizeComponent() }/>
@@ -42,8 +42,7 @@ class Finalizing extends React.Component {
   }
 
   _handleDone() {
-    const { status, onDone } = this.props
-    //if(status == 'success')
+    const { onDone } = this.props
     this.props.import.stage = 'complete'
     onDone(this.props.import)
   }

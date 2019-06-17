@@ -1,4 +1,5 @@
-import { Infinite, Message } from 'maha-admin'
+import Infinite from '../../infinite'
+import Message from '../../message'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Items from './items'

@@ -1,4 +1,8 @@
-import { Infinite, Message, ModalPanel, Searchbox, Stack } from 'maha-admin'
+import Infinite from '../../infinite'
+import Message from '../../message'
+import ModalPanel from '../../modal_panel'
+import Searchbox from '../../searchbox'
+import Stack from '../../stack/stack'
 import PropTypes from 'prop-types'
 import Folder from './folder'
 import Items from './items'
@@ -24,7 +28,6 @@ class Drive extends React.Component {
 
   _handleAddAsset = this._handleAddAsset.bind(this)
   _handleRemoveAsset = this._handleRemoveAsset.bind(this)
-
 
   render() {
     const { q } = this.props

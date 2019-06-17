@@ -1,4 +1,6 @@
-import { ModalPanel, Progress, Message } from 'maha-admin'
+import ModalPanel from '../../modal_panel'
+import Progress from '../../progress'
+import Message from '../../message'
 import PropTypes from 'prop-types'
 import React from 'react'
 

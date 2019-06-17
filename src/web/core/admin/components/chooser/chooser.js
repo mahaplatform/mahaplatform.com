@@ -1,4 +1,5 @@
-import { ModalPanel, ToggleList } from 'maha-admin'
+import ModalPanel from '../modal_panel'
+import ToggleList from '../form/toggle_list'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -91,7 +92,7 @@ class chooser extends React.Component {
     onDone(result)
     this.context.modal.close()
   }
-  
+
   _handleSave() {
     const { action, ids, method, multiple } = this.props
     const defaultName = multiple ? 'ids' : 'id'

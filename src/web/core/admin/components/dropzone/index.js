@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import { Message } from 'maha-admin'
+import Message from '../message'
 import Resumable from 'resumablejs'
 import PropTypes from 'prop-types'
 import React from 'react'

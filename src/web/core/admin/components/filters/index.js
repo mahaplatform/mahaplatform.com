@@ -4,12 +4,10 @@ import filters from './filters'
 import * as actions from './actions'
 import * as selectors from './selectors'
 
-const Filters = Factory({
+export default Factory({
   namespace: 'maha.filters',
   component: filters,
   reducer,
   actions,
   selectors
 })
-
-export default Filters

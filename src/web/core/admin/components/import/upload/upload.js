@@ -1,6 +1,8 @@
+import Attachments from '../../attachments'
+import Message from '../../message'
+import Loader from '../../loader'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Attachments, Message, Loader } from 'maha-admin'
 
 class Upload extends React.Component {
 

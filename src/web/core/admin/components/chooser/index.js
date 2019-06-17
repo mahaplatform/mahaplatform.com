@@ -3,11 +3,9 @@ import reducer from './reducer'
 import chooser from './chooser'
 import * as actions from './actions'
 
-const Chooser = Factory({
+export default Factory({
   namespace: 'maha.chooser',
   component: chooser,
   reducer,
   actions
 })
-
-export default Chooser
