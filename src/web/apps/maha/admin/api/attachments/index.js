@@ -1,24 +1,8 @@
-import Attachment from '../../../models/attachment'
-import { Route } from '../../../../../core/backframe'
+import { Router } from 'express'
+import show from './show'
 
-const processor = async (req, trx, options) => {
+const router = new Router({ mergeParams: true })
 
-  const attachments = await Attachment.where({
-    attachable_type: req.params.attachable_type,
-    attachable_id: req.params.attachable_id
-  }).fetchAll({
-    withRelated: ['asset.source'],
-    transacting: trx
-  })
+router.get('/', show)
 
-  return attachments
-
-}
-
-const attachmentsRoute = new Route({
-  method: 'get',
-  path: '/attachments/:attachable_type/:attachable_id',
-  processor
-})
-
-export default attachmentsRoute
+export default router

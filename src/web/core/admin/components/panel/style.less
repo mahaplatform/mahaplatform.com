@@ -1,0 +1,18 @@
+.maha-panel {
+  flex: 1;
+  .scrollable();
+}
+.maha-panel-inner {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 800px;
+  padding: 0.8em;
+}
+.maha-panel-header {
+  background-color: @red;
+}
+@media (max-width: 768px) {
+  .maha-panel .maha-panel-inner {
+    padding: 0;
+  }
+}

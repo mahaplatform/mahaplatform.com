@@ -1,16 +1,12 @@
-import { Route } from '../../../../../core/backframe'
+import AssetSerializer from '../../../serializers/asset_serializer'
 import { processAsset } from '../../../services/asset'
 
-const processor = async (req, trx, options) => {
+const processRoute = async (req, res) => {
 
-  return await processAsset(req.params.id)
+  const asset = await processAsset(req.params.id)
+
+  res.status(200).respond(asset, AssetSerializer)
 
 }
-
-const processRoute = new Route({
-  path: '/assets/:id/process',
-  method: 'get',
-  processor
-})
 
 export default processRoute

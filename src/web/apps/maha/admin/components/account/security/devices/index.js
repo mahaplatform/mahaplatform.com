@@ -1,6 +1,6 @@
 import { devices } from './selectors'
 import { connect } from 'react-redux'
-import { ModalPanel } from 'reframe'
+import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Device from './device'
 import moment from 'moment'

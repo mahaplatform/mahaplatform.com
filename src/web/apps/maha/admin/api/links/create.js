@@ -1,20 +1,12 @@
 import LinkSerializer from '../../../serializers/link_serializer'
 import { findOrCreateByUrl } from '../../../services/links'
-import { Route } from '../../../../../core/backframe'
 
-const processor = async (req, trx, options) => {
+const showRoute = async (req, res) => {
 
-  const link = await findOrCreateByUrl(req.body.url, trx)
+  const link = await findOrCreateByUrl(req.body.url, res.trx)
 
-  return link
+  res.status(200).respond(link, LinkSerializer)
 
 }
 
-const linkRoute = new Route({
-  method: 'post',
-  path: '',
-  processor,
-  serializer: LinkSerializer
-})
-
-export default linkRoute
+export default showRoute

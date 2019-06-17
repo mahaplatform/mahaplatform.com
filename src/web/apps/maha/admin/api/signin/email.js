@@ -1,54 +1,48 @@
-import { BackframeError, Route } from '../../../../../core/backframe'
 import User from '../../../models/user'
+import Checkit from 'checkit'
 
-const processor = async (req, trx, options) => {
+const emailRoute = async (req, res) => {
 
-  if(!req.body.email) {
-    throw new BackframeError({
-      code: 422,
-      message: 'Please enter your email'
-    })
-  }
+  await Checkit({
+    team_id: 'required'
+  }).run(req.body)
+
+  if(!req.body.email) return res.status(422).json({
+    code: 422,
+    message: 'Please enter your email'
+  })
 
   const user = await User.where({
     team_id: req.body.team_id,
     email: req.body.email
   }).fetch({
     withRelated: ['photo', 'team.logo', 'team.strategies'],
-    transacting: trx
+    transacting: req.trx
   })
 
-  if(!user) {
-    throw new BackframeError({
-      code: 422,
-      message: 'Unable to find this user'
-    })
-  }
+  if(!user) return res.status(404).json({
+    code: 404,
+    message: 'Unable to find this user'
+  })
 
-  if(!user.get('activated_at')) {
-    throw new BackframeError({
-      code: 422,
-      message: 'Your account has not been activated'
-    })
-  }
+  if(!user.get('activated_at')) return res.status(422).json({
+    code: 422,
+    message: 'Your account has not been activated'
+  })
 
-  if(!user.get('is_active')) {
-    throw new BackframeError({
-      code: 422,
-      message: 'Your account has been disabled'
-    })
-  }
+  if(!user.get('is_active')) return res.status(422).json({
+    code: 422,
+    message: 'Your account has been disabled'
+  })
 
-  const team = user.related('team')
-
-  return {
+  res.status(200).respond({
     team: {
-      id: team.get('id'),
-      title: team.get('title'),
-      subdomain: team.get('subdomain'),
-      color: team.get('color'),
-      logo: team.related('logo').get('path'),
-      strategies: team.related('strategies').map(strategy => {
+      id: user.related('team').get('id'),
+      title: user.related('team').get('title'),
+      subdomain: user.related('team').get('subdomain'),
+      color: user.related('team').get('color'),
+      logo: user.related('team').related('logo').get('path'),
+      strategies: user.related('team').related('strategies').map(strategy => {
         strategy.get('name')
       })
     },
@@ -61,19 +55,8 @@ const processor = async (req, trx, options) => {
       is_blocked: user.get('is_blocked'),
       locked_out_at: user.get('locked_out_at')
     }
-  }
+  })
 
 }
-
-const rules = {
-  team_id: 'required'
-}
-
-const emailRoute = new Route({
-  path: '/email',
-  method: 'post',
-  processor,
-  rules
-})
 
 export default emailRoute

@@ -1,41 +1,20 @@
-import { Resources } from '../../../../../core/backframe'
-import Group from '../../../../maha/models/group'
-import GroupSerializer from '../../../serializers/group_serializer'
+import { Router } from 'express'
+import create from './create'
+import update from './update'
+import users from './users'
+import list from './list'
+import show from './show'
 
-const activity = story => (req, trx, object, options) => ({
-  story,
-  object
-})
+const router = new Router({ mergeParams: true })
 
-const activities = {
-  create: activity('created {object}'),
-  update: activity('updated {object}'),
-  destroy: activity('deleted {object}')
-}
+router.get('/', list)
 
-const refresh = {
-  create: (req, trx, result, options) => [
-    '/admin/team/groups'
-  ],
-  update: (req, trx, result, options) => [
-    '/admin/team/groups',
-    `/admin/team/groups/${result.get('id')}`
-  ]
-}
+router.post('/', create)
 
-const groupResources = new Resources({
-  activities,
-  allowedParams: ['title'],
-  filterParams: ['title'],
-  model: Group,
-  name: 'group',
-  path: '/groups',
-  rights: ['team:manage_people'],
-  searchParams: ['title'],
-  serializer: GroupSerializer,
-  sortParams: ['id','title'],
-  refresh,
-  withRelated: ['users']
-})
+router.get('/:id', show)
 
-export default groupResources
+router.patch('/:id', update)
+
+router.use('/:id/users', users)
+
+export default router

@@ -1,15 +1,8 @@
-import { Resources } from '../../../../../core/backframe'
-import Category from '../../../models/category'
-import CategorySerializer from '../../../serializers/category_serializer'
+import { Router } from 'express'
+import list from './list'
 
-const categoryResources = new Resources({
-  defaultSort: 'title',
-  model: Category,
-  only: ['list','show'],
-  path: '/categories',
-  searchParams: ['title'],
-  serializer: CategorySerializer,
-  withRelated: ['photo']
-})
+const router = new Router({ mergeParams: true })
 
-export default categoryResources
+router.get('/', list)
+
+export default router

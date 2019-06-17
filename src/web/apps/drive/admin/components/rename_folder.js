@@ -24,7 +24,7 @@ class RenameFolder extends React.Component {
     return {
       title: 'Rename Folder',
       method: 'patch',
-      endpoint: `/api/admin/drive/folders/${item.code}/edit`,
+      endpoint: `/api/admin/drive/folders/${item.code}`,
       action: `/api/admin/drive/folders/${item.code}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,

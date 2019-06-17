@@ -1,14 +1,11 @@
-import { Segment } from '../../../../../core/backframe'
-import show from './show'
+import { Router } from 'express'
 import update from './update'
+import show from './show'
 
-const settingsSegment = new Segment({
-  path: '/settings',
-  rights: ['team:manage_team'],
-  routes: [
-    show,
-    update
-  ]
-})
+const router = new Router({ mergeParams: true })
 
-export default settingsSegment
+router.get('/', show)
+
+router.patch('/', update)
+
+export default router

@@ -1,60 +1,23 @@
-import { Resources } from '../../../../../core/backframe'
-import Role from '../../../../maha/models/role'
-import updateRelated from '../../../../../core/utils/update_related'
-import RoleSerializer from '../../../serializers/role_serializer'
+import { Router } from 'express'
+import create from './create'
+import update from './update'
 import access from './access'
+import users from './users'
+import list from './list'
+import show from './show'
 
-const activity = story => (req, trx, object, options) => ({
-  story,
-  object
-})
+const router = new Router({ mergeParams: true })
 
-const activities = {
-  create: activity('created {object}'),
-  update: activity('updated {object}'),
-  destroy: activity('deleted {object}')
-}
+router.get('/', list)
 
-const messages = {
-  update: (req, trx, result, options) => result.related('users').map(user => ({
-    channel: 'user',
-    action: 'session'
-  }))
-}
+router.post('/', create)
 
-const refresh = {
-  update: (req, trx, result, options) => [
-    `/admin/team/roles/${result.get('id')}`
-  ]
-}
+router.get('/:id', show)
 
-const afterProcessor = [
-  updateRelated('apps', 'maha_roles_apps', 'assignments.app_ids', 'role_id', 'app_id'),
-  updateRelated('rights', 'maha_roles_rights', 'assignments.right_ids', 'role_id', 'right_id')
-]
+router.patch('/:id', update)
 
-const rolesResources = new Resources({
-  activities,
-  allowedParams: ['title','description'],
-  afterProcessor: {
-    create: afterProcessor,
-    update: afterProcessor
-  },
-  filterParams: ['title'],
-  memberActions: [
-    access
-  ],
-  messages,
-  model: Role,
-  name: 'role',
-  path: '/roles',
-  refresh,
-  rights: ['team:manage_people'],
-  searchParams: ['title'],
-  serializer: RoleSerializer,
-  sortParams: ['id','title'],
-  withRelated: ['apps','rights','users.photo'],
-  virtualParams: ['assignments']
-})
+router.get('/:id/access', access)
 
-export default rolesResources
+router.use('/:id/users', users)
+
+export default router

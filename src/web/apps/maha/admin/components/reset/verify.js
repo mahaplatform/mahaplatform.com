@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import Image from '../image'
 import React from 'react'
 
 class Verify extends React.Component {

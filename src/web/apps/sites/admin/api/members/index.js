@@ -1,54 +1,17 @@
-import MemberSerializer from '../../../serializers/member_serializer'
-import Member from '../../../models/member'
-import { Resources } from '../../../../../core/backframe'
-import Field from '../../../../maha/models/field'
+import { Router } from 'express'
 import create from './create'
+import update from './update'
+import list from './list'
+import show from './show'
 
-const alterRequest = async (req, trx) => {
+const router = new Router({ mergeParams: true })
 
-  req.fields = await Field.query(qb => {
+router.get('/', list)
 
-    qb.where('parent_type', 'sites_sites')
+router.post('/', create)
 
-    qb.where('parent_id', req.params.site_id)
+router.get('/:id', show)
 
-    qb.orderBy('delta', 'asc')
+router.patch('/:id', update)
 
-  }).fetchAll({ transacting: trx }).then(result => result.toArray())
-
-}
-
-const defaultParams = (req, trx, options) => ({
-  site_id: req.params.site_id
-})
-
-const defaultQuery = (req, trx, qb, options) => {
-
-  qb.where('site_id', req.params.site_id)
-
-}
-
-const refresh = {
-  update: (req, trx, result, options) => [
-    `/admin/sites/sites/${result.get('site_id')}/members`,
-    `/admin/sites/sites/${result.get('site_id')}/members/${result.get('id')}`
-  ]
-}
-
-const membersResources = new Resources({
-  allowedParams: ['first_name','last_name','email'],
-  alterRequest,
-  collectionActions: [
-    create
-  ],
-  defaultParams,
-  defaultQuery,
-  except: ['create'],
-  model: Member,
-  path: '/sites/:site_id/members',
-  refresh,
-  serializer: MemberSerializer,
-  sortParams: ['last_name']
-})
-
-export default membersResources
+export default router

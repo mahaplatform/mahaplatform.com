@@ -1,11 +1,7 @@
+import { testHandler } from '../../../../../core/utils/test'
 import { expect } from 'chai'
+import show from './show'
 
-describe('src/web/maha/admin/api/account/show', () => {
-
-  it('test', async () => {
-
-    expect(1).to.be.equal(1)
-
-  })
+describe('src/web/apps/maha/admin/api/account/show', () => {
 
 })

@@ -1,5 +1,4 @@
 export const INITIAL_STATE = {
-  channel_type: 'active',
   q: ''
 }
 
@@ -11,12 +10,6 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       q: action.q
-    }
-
-  case 'CHANGE_TYPE':
-    return {
-      ...state,
-      channel_type: action.channel_type
     }
 
   default:

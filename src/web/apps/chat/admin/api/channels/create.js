@@ -1,37 +1,32 @@
+import { activity } from '../../../../../core/services/routes/activities'
 import ChannelSerializer from '../../../serializers/channel_serializer'
+import socket from '../../../../../core/services/routes/emitter'
 import { createChannel } from '../../../services/channels'
-import { Route } from '../../../../../core/backframe'
+import Checkit from 'checkit'
 
-const activity = (req, trx, object, options) => ({
-  story: 'started a conversation',
-  object
-})
+const createRoute = async (req, res) => {
 
-const notification = (req, trx, object, options) => ({
-  type: 'chat:conversation_status',
-  recipient_ids: object.related('subscriptions').map(subscription => subscription.get('user_id')),
-  subject_id: req.user.get('id'),
-  story: 'started a conversation',
-  object
-})
+  await Checkit({
+    ids: ['required']
+  }).run(req.body)
 
+  const channel = await createChannel(req, req.body.ids)
 
-const processor = async (req, trx, options) => {
+  await activity(req, {
+    story: 'started a conversation',
+    object: channel
+  })
 
-  return await createChannel(req, trx, req.body.ids)
+  await socket.message(req, {
+    type: 'chat:conversation_status',
+    recipient_ids: channel.related('subscriptions').map(subscription => subscription.get('user_id')),
+    subject_id: req.user.get('id'),
+    story: 'started a conversation',
+    object: channel
+  })
+
+  res.status(200).respond(channel, ChannelSerializer)
 
 }
-
-const createRoute = new Route({
-  activity,
-  rules: {
-    ids: ['required']
-  },
-  method: 'post',
-  notification,
-  path: '',
-  processor,
-  serializer: ChannelSerializer
-})
 
 export default createRoute

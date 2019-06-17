@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateDriveItemsAccesses = new Migration({
+const CreateDriveItemsAccesses = {
 
   up: async (knex) => {
 
@@ -53,6 +51,6 @@ const CreateDriveItemsAccesses = new Migration({
 
   }
 
-})
+}
 
 export default CreateDriveItemsAccesses

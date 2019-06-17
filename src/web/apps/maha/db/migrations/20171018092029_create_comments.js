@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateComments = new Migration({
+const CreateComments = {
 
   up: async (knex) => {
     return await knex.schema.createTable('maha_comments', (table) => {
@@ -21,6 +19,6 @@ const CreateComments = new Migration({
     return await knex.schema.dropTable('maha_comments')
   }
 
-})
+}
 
 export default CreateComments

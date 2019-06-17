@@ -1,59 +1,36 @@
-import dotenv from 'dotenv'
+import '../web/core/services/environment'
+import knex from '../web/core/services/knex'
+import { setup } from './knex/db'
 import Mocha from 'mocha'
 import glob from 'glob'
-import Knex from 'knex'
-import fs from 'fs'
-
-if(fs.existsSync('.env.test')) dotenv.load({
-  path: '.env.test'
-})
-
-const knex = Knex({
-  client: 'pg',
-  connection: process.env.DATABASE_URL,
-  migrations: {
-    tableName: 'knex_migrations',
-    directory: './src/db/migrations'
-  },
-  pool: {
-    min: 1,
-    max: 1
-  },
-  seeds: {
-    directory: './src/db/fixtures'
-  },
-  useNullAsDefault: true
-})
 
 const test = async () => {
 
   const mocha = new Mocha()
 
-  glob.sync('src/@(apps|packages)/**/*_test.js').map((test) => {
+  const args = process.argv.slice(2)
+
+  const root = args[0] || 'src/web'
+
+  glob.sync(`${root}/**/*_test.js`).map((test) => {
     mocha.addFile(test)
   })
 
-  // mocha.suite.beforeAll('migrate and seed', async () => {
-  //   await knex.migrate.rollback()
-  //   await knex.migrate.latest()
-  //   await knex.seed.run()
-  // })
-  //
-  // mocha.suite.beforeEach('begin transaction', async () => {
-  //   global.knex = await new Promise((resolve, reject) => {
-  //     knex.transaction(tx => {
-  //       resolve(tx)
-  //     }).catch(() => {})
-  //   })
-  // })
-  //
-  // mocha.suite.afterEach('rollback transaction', async () => {
-  //   global.knex.rollback().catch(() => {})
-  // })
-  //
-  // mocha.suite.afterAll('rollback database', async () => {
-  //   await knex.migrate.rollback()
-  // })
+  mocha.suite.beforeAll('migrate and seed', async () => {
+    return await setup()
+  })
+
+  mocha.suite.beforeEach('begin transaction', async () => {
+    global.knex = await new Promise((resolve, reject) => {
+      knex.transaction(tx => {
+        resolve(tx)
+      }).catch(() => {})
+    })
+  })
+
+  mocha.suite.afterEach('rollback transaction', async () => {
+    global.knex.rollback().catch(() => {})
+  })
 
   await new Promise((resolve, reject) => mocha.run(resolve))
 

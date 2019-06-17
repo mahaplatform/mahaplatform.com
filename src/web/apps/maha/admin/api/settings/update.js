@@ -1,21 +1,15 @@
-import { BackframeError, Route } from '../../../../../core/backframe'
+import { activity } from '../../../../../core/services/routes/activities'
+import knex from '../../../../../core/services/knex'
 import App from '../../../../maha/models/app'
 
-const activity = (req, trx, object, options) => ({
-  story: 'updated settings for {object}',
-  object
-})
+const showRoute = async (req, res) => {
 
-const processor = async (req, trx, options) => {
+  if(!req.apps[req.params.code]) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to find app'
+  })
 
-  if(!req.apps[req.params.code]) {
-    throw new BackframeError({
-      code: 404,
-      message: 'Unable to find app'
-    })
-  }
-
-  await options.knex('maha_installations').transacting(trx).where({
+  await knex('maha_installations').transacting(req.trx).where({
     app_id: req.apps[req.params.code].id
   }).update({
     settings: req.body.settings
@@ -23,17 +17,17 @@ const processor = async (req, trx, options) => {
 
   const app = await App.where({
     id: req.apps.expenses.id
-  }).fetch({ transacting: trx })
+  }).fetch({
+    transacting: req.trx
+  })
 
-  return app
+  await activity(req, {
+    story: 'updated settings for {object}',
+    object: app
+  })
+
+  res.status(200).respond(app)
 
 }
 
-const updateRoute = new Route({
-  activity,
-  method: 'patch',
-  path: '',
-  processor
-})
-
-export default updateRoute
+export default showRoute

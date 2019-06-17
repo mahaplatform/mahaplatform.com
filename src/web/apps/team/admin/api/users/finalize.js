@@ -1,48 +1,51 @@
-import { Route } from '../../../../../core/backframe'
 import ImportItem from '../../../../maha/models/import_item'
-import User from '../../../../maha/models/user'
 import { sendUserActivation } from '../../../services/users'
+import knex from '../../../../../core/services/knex'
+import User from '../../../../maha/models/user'
 
-const processor = async (req, trx, options) => {
+const finalizeRoute = async (req, res) => {
 
   const items = await ImportItem.where({
     import_id: req.params.id
   }).fetchAll({
-    transacting: trx
-  })
+    transacting: req.trx
+  }).then(items => items.toArray())
 
-  await Promise.mapSeries(items.toArray(), async (item) => {
+  await Promise.mapSeries(items, async (item) => {
 
     await Promise.mapSeries(req.body.group_ids, async (group_id) => {
-      await options.knex('maha_users_groups').transacting(trx).insert({ group_id, user_id: item.get('object_id') })
+      await knex('maha_users_groups').transacting(req.trx).insert({
+        group_id,
+        user_id: item.get('object_id')
+      })
     })
 
     await Promise.mapSeries(req.body.role_ids, async (role_id) => {
-      await options.knex('maha_users_roles').transacting(trx).insert({ role_id, user_id: item.get('object_id') })
+      await knex('maha_users_roles').transacting(req.trx).insert({
+        role_id,
+        user_id: item.get('object_id')
+      })
     })
 
     await Promise.mapSeries(req.body.supervisor_ids, async (supervisor_id) => {
-      await options.knex('maha_supervisions').transacting(trx).insert({ supervisor_id, employee_id: item.get('object_id') })
+      await knex('maha_supervisions').transacting(req.trx).insert({
+        supervisor_id,
+        employee_id: item.get('object_id')
+      })
     })
 
     const user = await User.where({
       id: item.get('object_id')
     }).fetch({
-      transacting: trx
+      transacting: req.trx
     })
 
-    await sendUserActivation(req, trx, user)
+    await sendUserActivation(req, user)
 
   })
 
-  return {}
+  res.status(200).respond(true)
+
 }
-
-
-const finalizeRoute = new Route({
-  method: 'patch',
-  path: '/import/:id/finalize',
-  processor
-})
 
 export default finalizeRoute

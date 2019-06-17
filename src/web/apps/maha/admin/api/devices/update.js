@@ -1,12 +1,13 @@
-import { Route } from '../../../../../core/backframe'
-import socket from '../../../../../core/services/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import Device from '../../../models/device'
 
-const processor = async (req, trx, options) => {
+const updateRoute = async (req, res) => {
 
   const device = await Device.where({
     fingerprint: req.params.fingerprint
-  }).fetch({ transacting: trx })
+  }).fetch({
+    transacting: req.trx
+  })
 
   const data = {}
 
@@ -14,34 +15,29 @@ const processor = async (req, trx, options) => {
 
   await device.save(data, {
     patch: true,
-    transacting: trx
+    transacting: req.trx
   })
 
-  await socket.in(`/admin/devices/${device.get('id')}`).emit('message', {
-    action: 'device',
-    data: null
+  await socket.message(req, {
+    channel: `/admin/devices/${device.get('id')}`,
+    action: 'device'
   })
 
-  await device.load(['sessions'], { transacting: trx })
+  await device.load(['sessions'], {
+    transacting: req.trx
+  })
 
   await Promise.map(device.related('sessions').toArray(), async (session) => {
 
-    await socket.in(`/admin/users/${session.get('user_id')}`).emit('message', {
-      action: 'session',
-      data: null
+    await socket.message(req, {
+      channel: `/admin/users/${session.get('user_id')}`,
+      action: 'session'
     })
 
   })
 
-  return true
+  res.status(200).respond(true)
 
 }
-
-const updateRoute = new Route({
-  authenticated: false,
-  method: 'patch',
-  path: '/:fingerprint',
-  processor
-})
 
 export default updateRoute

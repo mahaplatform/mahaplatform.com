@@ -1,4 +1,4 @@
-import { Stack } from 'reframe'
+import { Stack } from 'maha-admin'
 import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Article from './article'
@@ -8,10 +8,12 @@ import React from 'react'
 class Help extends React.Component {
 
   static propTypes = {
+    articles: PropTypes.array,
     article: PropTypes.object,
     items: PropTypes.array,
     q: PropTypes.string,
     onClose: PropTypes.func,
+    onDone: PropTypes.func,
     onFetch: PropTypes.func,
     onType: PropTypes.func
   }

@@ -1,37 +1,19 @@
-import { Route, BackframeError } from '../../../../../core/backframe'
+const securityRoute = async (req, res, next) => {
 
-const processor = async (req, trx, options) => {
+  if(!req.body.answer) return res.status(422).json({
+    code: 422,
+    message: 'Please answer the question'
+  })
 
-  if(!req.body.answer) {
-    throw new BackframeError({
-      code: 422,
-      message: 'Please answer the question'
-    })
-  }
+  const answer = req.user.get('security_question_answer').toLowerCase()
 
-  const answer = req.user.get('security_question_answer')
+  if(req.body.answer.toLowerCase() !== answer) return res.status(422).json({
+    code: 422,
+    message: 'Invalid securty answer'
+  })
 
-  if(req.body.answer !== answer) {
-    throw new BackframeError({
-      code: 422,
-      message: 'Invalid securty answer'
-    })
-  }
-
-  return true
+  res.status(200).respond(true)
 
 }
-
-const rules = {
-  token: 'required'
-}
-
-const securityRoute = new Route({
-  path: '/security',
-  method: 'post',
-  authenticated: false,
-  processor,
-  rules
-})
 
 export default securityRoute

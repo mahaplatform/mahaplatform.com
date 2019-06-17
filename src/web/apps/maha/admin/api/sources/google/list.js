@@ -1,10 +1,9 @@
-import { Route } from '../../../../../../core/backframe'
 import { getClient } from './utils'
 import _ from 'lodash'
 
-const processor = async (req, trx, options) => {
+const listRoute = async (req, res) => {
 
-  const drive = await getClient(req, trx)
+  const drive = await getClient(req, req.trx)
 
   const folder_id = _.get(req, 'query.$filter.folder_id.$eq')
 
@@ -33,18 +32,13 @@ const processor = async (req, trx, options) => {
     content_type: entry.mimeType
   }))
 
-  return {
-    next: result.data.nextPageToken || null,
+  records.pagination = {
     skip: pageToken ? 1 : 0,
-    records
+    next: result.data.nextPageToken || null
   }
 
-}
+  res.status(200).respond(records)
 
-const listRoute = new Route({
-  method: 'get',
-  path: '/google/files',
-  processor
-})
+}
 
 export default listRoute

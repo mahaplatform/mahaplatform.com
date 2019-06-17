@@ -1,12 +1,17 @@
-import { Route } from '../../../../../../core/backframe'
 import { getClient } from './utils'
 import mime from 'mime-types'
 import path from 'path'
 import _ from 'lodash'
 
-const processor = async (req, trx, options) => {
+const _getContentType = (name) => {
+  const ext = path.extname(name)
+  const type = mime.lookup(ext)
+  return type || 'text/plain'
+}
 
-  const client = await getClient(req, trx)
+const listRoute = async (req, res) => {
+
+  const client = await getClient(req, req.trx)
 
   const _list = async (folder = '', cursor) => {
 
@@ -74,24 +79,13 @@ const processor = async (req, trx, options) => {
 
   })
 
-  return {
-    records,
+  records.pagination = {
     skip: next ? 1 : 0,
     next: result.cursor
   }
 
-}
+  res.status(200).respond(records)
 
-const _getContentType = (name) => {
-  const ext = path.extname(name)
-  const type = mime.lookup(ext)
-  return type || 'text/plain'
 }
-
-const listRoute = new Route({
-  method: 'get',
-  path: '/dropbox/files',
-  processor
-})
 
 export default listRoute

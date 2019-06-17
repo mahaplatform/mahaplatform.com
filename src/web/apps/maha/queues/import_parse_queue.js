@@ -26,8 +26,6 @@ const validate = async (rules, values) => {
 
 const processor = async (job, trx) => {
 
-  console.log('job.data.id is ', job.data.id)
-
   const imp = await Import.where({
     id: job.data.id
   }).fetch({
@@ -119,7 +117,7 @@ const processor = async (job, trx) => {
   await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
     target: `/admin/imports/${imp.get('id')}`,
     action: 'success',
-    data: ImportSerializer(null, null, imp)
+    data: ImportSerializer(null, imp)
   })
 
 }
@@ -136,15 +134,10 @@ const failed = async (job, err) => {
 }
 
 const ImportParseQueue = new Queue({
-
   name: 'import_parse',
-
-  enqueue: async (req, trx, job) => job,
-
+  enqueue: async (req, job) => job,
   processor,
-
   failed
-
 })
 
 export default ImportParseQueue

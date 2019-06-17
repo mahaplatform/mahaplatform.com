@@ -1,0 +1,24 @@
+import RoleSerializer from '../../../serializers/role_serializer'
+import Role from '../../../../maha/models/role'
+
+const showRoute = async (req, res) => {
+
+  const role = await Role.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('id', req.params.id)
+  }).fetch({
+    withRelated: ['apps','rights','users.photo'],
+    transacting: req.trx
+  })
+
+  if(!role) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load role'
+  })
+
+  res.status(200).respond(role, RoleSerializer)
+
+}
+
+export default showRoute

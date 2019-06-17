@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const DropAdvanceColumns = new Migration({
+const DropAdvanceColumns = {
 
   up: async (knex) => {
 
@@ -21,6 +19,6 @@ const DropAdvanceColumns = new Migration({
 
   }
 
-})
+}
 
 export default DropAdvanceColumns

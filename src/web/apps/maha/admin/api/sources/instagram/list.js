@@ -1,10 +1,9 @@
-import { Route } from '../../../../../../core/backframe'
 import { getClient } from './utils'
 import _ from 'lodash'
 
-const processor = async (req, trx, options) => {
+const listRoute = async (req, res) => {
 
-  const client = await getClient(req, trx)
+  const client = await getClient(req, req.trx)
 
   const max_id = _.get(req, 'query.$page.next')
 
@@ -21,18 +20,13 @@ const processor = async (req, trx, options) => {
 
   const next = records.length > 0 ? records[records.length - 1].id : null
 
-  return {
-    records,
+  records.pagination = {
     skip: max_id ? 1 : 0,
     next
   }
 
-}
+  res.status(200).respond(records)
 
-const listRoute = new Route({
-  method: 'get',
-  path: '/instagram/photos',
-  processor
-})
+}
 
 export default listRoute

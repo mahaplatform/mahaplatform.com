@@ -1,60 +1,41 @@
-import { BackframeError, Route } from '../../../../../core/backframe'
+import { activity } from '../../../../../core/services/routes/activities'
+import socket from '../../../../../core/services/routes/emitter'
 
-const activity = (req, trx, result, options) => ({
-  story: 'updated {object}',
-  object_text: 'team settings',
-  object_url: '/admin/team/settings'
-})
+const updateRoute = async (req, res) => {
 
-const processor = async (req, trx, options) => {
+  await req.team.save({
+    logo_id: req.body.logo_id,
+    subdomain: req.body.title,
+    title: req.body.title
+  }, {
+    patch: true,
+    transacting: req.trx
+  })
 
-  try {
 
-    req.team = await req.team.save({
-      color: req.body.color,
-      logo_id: req.body.logo_id,
-      subdomain: req.body.title,
-      title: req.body.title
-    }, {
-      patch: true,
-      transacting: trx
-    })
+  await activity(req, {
+    story: 'updated {object}',
+    object: req.team,
+    object_text: 'team settings',
+    object_url: '/admin/team/settings'
+  })
 
-    return {
-      title: req.team.get('title'),
-      subdomain: req.team.get('subdomain'),
-      color: req.team.get('color'),
-      logo_id: req.team.get('logo_id')
-    }
+  await socket.refresh(req, [
+    '/admin/team/settings'
+  ])
 
-  } catch(err) {
+  await socket.message(req, {
+    channel: 'user',
+    action: 'session'
+  })
 
-    throw new BackframeError({
-      code: 422,
-      message: 'Unable to save settings',
-      errors: err.toJSON()
-    })
-
-  }
+  res.status(200).respond(req.team, (req, result) => ({
+    title: result.get('title'),
+    subdomain: result.get('subdomain'),
+    logo_id: result.get('logo_id'),
+    logo: result.related('logo').get('path')
+  }))
 
 }
-
-const refresh = (req, trx, result, options) => [
-  '/admin/team/settings'
-]
-
-const messages = (req, trx, result, options) => ({
-  channel: 'team',
-  action: 'session'
-})
-
-const updateRoute = new Route({
-  activity,
-  messages,
-  method: 'patch',
-  path: '/',
-  processor,
-  refresh
-})
 
 export default updateRoute

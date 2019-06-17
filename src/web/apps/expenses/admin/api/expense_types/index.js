@@ -1,42 +1,20 @@
-import ExpenseTypeSerializer from '../../../serializers/expense_type_serializer'
-import ExpenseType from '../../../models/expense_type'
-import { Resources } from '../../../../../core/backframe'
+import { Router } from 'express'
+import create from './create'
+import update from './update'
+import active from './active'
+import list from './list'
+import show from './show'
 
-const activity = story => (req, trx, object, options) => ({
-  story,
-  object
-})
+const router = new Router({ mergeParams: true })
 
-const activities = {
-  create: activity('created {object}'),
-  update: activity('updated {object}'),
-  destroy: activity('deleted {object}')
-}
+router.get('/', list)
 
-const defaultParams = (req, trx, options) => ({
-  is_active: true
-})
+router.post('/', create)
 
-const channels = (req, trx, result, options) => [
-  '/admin/expenses/expense_types'
-]
+router.get('/active', active)
 
-const refresh = {
-  create: channels,
-  update: channels
-}
+router.get('/:id', show)
 
-const expenseTypeResources = new Resources({
-  activities,
-  allowedParams: ['title','description','integration','is_active'],
-  defaultParams,
-  defaultSort: 'title',
-  refresh,
-  model: ExpenseType,
-  path: '/expense_types',
-  serializer: ExpenseTypeSerializer,
-  searchParams: ['title','description','integration->>\'expense_code\''],
-  sortParams: ['id','title','created_at']
-})
+router.patch('/:id', update)
 
-export default expenseTypeResources
+export default router

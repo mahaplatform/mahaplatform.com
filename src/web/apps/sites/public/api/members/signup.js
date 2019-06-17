@@ -1,43 +1,34 @@
-import Site from '../../../models/site'
-import { BackframeError, Route } from '../../../../../core/backframe'
 import Field from '../../../../maha/models/field'
-import checkit from 'checkit'
+import Site from '../../../models/site'
+import Checkit from 'checkit'
 
-const processor = async (req, trx, options) => {
+const signupRoute = async (req, res) => {
 
   const site = await Site.where({
     id: req.params.site_id
-  }).fetch({ transacting: trx })
+  }).fetch({
+    transacting: req.trx
+  })
 
-  if(!site) {
-    throw new BackframeError({
-      code: 422,
-      message: 'Invalid site'
-    })
-  }
+  if(!site) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load site'
+  })
 
   const fields = await Field.where({
     parent_type: 'sites_sites',
     parent_id: site.get('id')
-  }).fetchAll({ transacting: trx })
+  }).fetchAll({
+    transacting: req.trx
+  })
 
-  const rules = fields.reduce((rules, field) => {
-    return {
-      ...rules,
-      [field.get('name')]: ['required']
-    }
-  }, {})
+  const result = new Checkit(fields.reduce((rules, field) => ({
+    ...rules,
+    [field.get('name')]: ['required']
+  }), {})).run(req.body)
 
-  const result = new checkit(rules).run(req.body)
-
-  return result
+  res.status(200).respond(result)
 
 }
-
-const signupRoute = new Route({
-  method: 'post',
-  path: '/signup',
-  processor
-})
 
 export default signupRoute

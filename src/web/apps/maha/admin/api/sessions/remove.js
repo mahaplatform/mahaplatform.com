@@ -1,33 +1,28 @@
-import socket from '../../../../../core/services/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import Session from '../../../models/session'
-import { Route } from '../../../../../core/backframe'
 
-const processor = async (req, trx, options) => {
+const removeRoute = async (req, res) => {
 
   const session = await Session.where({
     id: req.params.id
-  }).fetch({ transacting: trx })
+  }).fetch({
+    transacting: req.trx
+  })
 
-  const id = session.get('id')
+  await session.destroy({
+    transacting: req.trx
+  })
 
-  const user_id = session.get('user_id')
-
-  await session.destroy({ transacting: trx })
-
-  await socket.in(`/admin/users/${user_id}`).emit('message', {
+  await socket.message(req, [{
+    channel: `/admin/users/${session.get('user_id')}`,
     action: 'session'
-  })
-
-  await socket.in(`/admin/sessions/${id}`).emit('message', {
+  },{
+    channel: `/admin/sessions/${session.get('id')}`,
     action: 'signout'
-  })
+  }])
+
+  res.status(200).respond(true)
 
 }
-
-const removeRoute = new Route({
-  method: 'post',
-  path: '/remove',
-  processor
-})
 
 export default removeRoute

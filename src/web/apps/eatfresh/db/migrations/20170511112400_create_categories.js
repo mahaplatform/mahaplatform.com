@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateCategories = new Migration({
+const CreateCategories = {
 
   up: async (knex) => {
     return await knex.schema.createTable('eatfresh_categories', (table) => {
@@ -18,6 +16,6 @@ const CreateCategories = new Migration({
     return await knex.schema.dropTable('eatfresh_categories')
   }
 
-})
+}
 
 export default CreateCategories

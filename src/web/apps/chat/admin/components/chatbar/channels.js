@@ -13,13 +13,14 @@ class ChatBarChannels extends React.Component {
     channel: PropTypes.object,
     selected: PropTypes.number,
     status: PropTypes.string,
-    onNew: PropTypes.func
+    onNew: PropTypes.func,
+    onChoose: PropTypes.func,
+    onClose: PropTypes.func
   }
 
   _handleChoose = this._handleChoose.bind(this)
   _handleClose = this._handleClose.bind(this)
   _handleNew = this._handleNew.bind(this)
-  _handleStarred = this._handleStarred.bind(this)
 
   render() {
     return (
@@ -49,8 +50,7 @@ class ChatBarChannels extends React.Component {
       showNew: false,
       status,
       onChoose: this._handleChoose,
-      onNew: this._handleNew,
-      onStarred: this._handleStarred
+      onNew: this._handleNew
     }
   }
 
@@ -64,10 +64,6 @@ class ChatBarChannels extends React.Component {
 
   _handleNew() {
     this.props.onNew()
-  }
-
-  _handleStarred() {
-    this.props.onStarred()
   }
 
 }

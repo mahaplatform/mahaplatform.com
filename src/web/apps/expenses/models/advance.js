@@ -16,23 +16,28 @@ const Advances = new Model({
   virtuals: {
 
     approver_ids: function() {
-
       if(!this.get('project_id')) return []
-
-      const filter = member => member.get('member_type_id') !== 3
-
-      const map = member => member.get('user_id')
-
-      return this.related('project').related('members').filter(filter).map(map)
-
+      return this.related('project').related('members').filter(member => {
+        return member.get('member_type_id') !== 3
+      }).map(member => {
+        return member.get('user_id')
+      })
     },
 
-    owner_id: function() {
+    object_owner_id: function() {
       return this.get('user_id')
     },
 
-    url: function() {
-      return `/expenses/advances/${this.get('id')}`
+    object_text: function() {
+      return this.get('description')
+    },
+
+    object_type: function() {
+      return 'advance'
+    },
+
+    object_url: function() {
+      return `/admin/expenses/advances/${this.get('id')}`
     }
 
   },

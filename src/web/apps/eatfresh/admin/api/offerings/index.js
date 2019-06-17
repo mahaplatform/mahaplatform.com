@@ -1,38 +1,17 @@
-import OfferingSerializer from '../../../serializers/offering_serializer'
-import Offering from '../../../models/offering'
-import { Resources } from '../../../../../core/backframe'
+import { Router } from 'express'
+import create from './create'
+import update from './update'
+import list from './list'
+import show from './show'
 
-const activity = story => (req, trx, object, options) => ({
-  story,
-  object
-})
+const router = new Router({ mergeParams: true })
 
-const activities = {
-  create: activity('created {object}'),
-  update: activity('updated {object}'),
-  destroy: activity('deleted {object}')
-}
+router.get('/', list)
 
-const channels = (req, trx, result, options) => [
-  '/admin/eatfresh/offerings'
-]
+router.post('/', create)
 
-const refresh = {
-  create: channels,
-  update: channels
-}
+router.get('/:id', show)
 
-const offeringResources = new Resources({
-  activities,
-  allowedParams: ['title','photo_id'],
-  defaultSort: 'title',
-  model: Offering,
-  path: '/offerings',
-  refresh,
-  searchParams: ['title'],
-  serializer: OfferingSerializer,
-  sortParams: ['id','title'],
-  withRelated: ['photo']
-})
+router.patch('/:id', update)
 
-export default offeringResources
+export default router

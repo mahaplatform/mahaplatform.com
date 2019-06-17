@@ -1,4 +1,3 @@
-import { Route } from '../../../../../../core/backframe'
 import { Facebook } from 'fb'
 
 const fb = new Facebook({
@@ -7,22 +6,16 @@ const fb = new Facebook({
   Promise
 })
 
-const processor = async (req, trx, options) => {
+const authorizeRoute = async (req, res) => {
 
-  const response = await fb.getLoginUrl({
+  const url = await fb.getLoginUrl({
     scope: 'user_photos',
     redirect_uri: `${process.env.WEB_HOST}/admin/facebook/token`,
     state: req.user.get('id')
   })
 
-  return response
+  res.status(200).respond(url)
 
 }
-
-const authorizeRoute = new Route({
-  method: 'get',
-  path: '/facebook/authorize',
-  processor
-})
 
 export default authorizeRoute

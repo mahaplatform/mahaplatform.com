@@ -1,7 +1,6 @@
 import Site from '../models/site'
-import Navigation from '../../../core/objects/navigation'
 
-const navigation = new Navigation(async (req, trx) => {
+const navigation = async (req, trx) => {
 
   const sites = await Site.query(qb => {
     qb.innerJoin('sites_managers', 'sites_managers.site_id','sites_sites.id')
@@ -22,11 +21,6 @@ const navigation = new Navigation(async (req, trx) => {
             rights: ['sites:manage_content'],
             route: `/sites/${site.get('id')}/members`
           },
-          {
-            label: 'Menus',
-            rights: ['sites:manage_content'],
-            route: `/sites/${site.get('id')}/menus`
-          },
           ...site.related('types').map(type => ({
             label: type.get('title'),
             rights: ['sites:manage_content'],
@@ -37,6 +31,6 @@ const navigation = new Navigation(async (req, trx) => {
     ]
   }
 
-})
+}
 
 export default navigation

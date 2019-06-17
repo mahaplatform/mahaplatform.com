@@ -72,7 +72,6 @@ class Cordova extends React.Component {
   }
 
   _handleOpenWindow(url) {
-    console.log(url)
   }
 
   _handlePushRoute(route) {

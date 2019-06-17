@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateVendors = new Migration({
+const CreateVendors = {
 
   up: async (knex) => {
     return await knex.schema.createTable('expenses_vendors', (table) => {
@@ -21,6 +19,6 @@ const CreateVendors = new Migration({
     return await knex.schema.dropTable('expenses_vendors')
   }
 
-})
+}
 
 export default CreateVendors

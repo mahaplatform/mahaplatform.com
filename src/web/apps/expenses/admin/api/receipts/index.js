@@ -1,13 +1,11 @@
-import { Resources } from '../../../../../core/backframe'
-import Receipt from '../../../models/receipt'
-import ReceiptSerializer from '../../../serializers/receipt_serializer'
+import { Router } from 'express'
+import list from './list'
+import show from './show'
 
-const receiptResources = new Resources({
-  model: Receipt,
-  only: ['list','show'],
-  path: '/receipts',
-  serializer: ReceiptSerializer,
-  withRelated: ['asset.source','asset.user']
-})
+const router = new Router({ mergeParams: true })
 
-export default receiptResources
+router.get('/', list)
+
+router.get('/:id', show)
+
+export default router

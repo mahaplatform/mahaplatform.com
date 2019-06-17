@@ -1,15 +1,14 @@
-import { Segment } from '../../../../../core/backframe'
-import signup from './signup'
+import { Router } from 'express'
 import signin from './signin'
+import signup from './signup'
 import reset from './reset'
 
-const membersSegment = new Segment({
-  path: '/sites/:site_id/members',
-  routes: [
-    signup,
-    signin,
-    reset
-  ]
-})
+const router = new Router({ mergeParams: true })
 
-export default membersSegment
+router.post('/reset', reset)
+
+router.post('/signin', signin)
+
+router.post('/signup', signup)
+
+export default router

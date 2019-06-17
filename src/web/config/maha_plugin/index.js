@@ -19,25 +19,38 @@ const configs = apps.reduce((configs, app) => {
 }, {})
 
 const collectObjects = (pattern) => [
+  ...glob.sync(`src/web/core/${pattern}`),
+  ...glob.sync(`src/web/core/${pattern}/index.js`),
   ...glob.sync(`src/web/apps/*/${pattern}`),
   ...glob.sync(`src/web/apps/*/${pattern}/index.js`)
 ]
 
 const extract = (pattern) => collectObjects(pattern).map(file => {
-  const matches = file.match(/src\/web\/apps\/(([^/]*).*)/)
+  const appMatches = file.match(/src\/web\/apps\/(([^/]*).*)/)
+  if(appMatches) return {
+    ...configs[appMatches[2]],
+    name: _.camelCase(appMatches[1].replace('/',' ')),
+    filepath: `../../apps/${appMatches[1]}`
+  }
+  const matches = file.match(/src\/web\/core\/admin\/(([^/]*).*)/)
   return {
-    ...configs[matches[2]],
-    app: matches[2],
+    code: 'admin',
+    name: _.camelCase(matches[1].replace('/',' ')),
     filepath: `./${matches[1]}`
   }
 })
 
 const reducers = (pattern) => collectObjects('admin/**/reducer.js').map(file => {
-  const matches = file.match(/src\/web\/apps\/(([^/]*)\/admin\/(.*)\/(.*))\/reducer.js/)
+  const appMatches = file.match(/src\/web\/apps\/(([^/]*)\/admin\/(.*)\/(.*))\/reducer.js/)
+  if(appMatches) return {
+    ...configs[appMatches[2]],
+    name: _.camelCase(appMatches[4].replace('/',' ')),
+    filepath: `../../apps/${appMatches[1]}`
+  }
+  const matches = file.match(/src\/web\/core\/admin\/(([^/]*)\/(.*))\/reducer.js/)
   return {
-    ...configs[matches[2]],
-    app: matches[2],
-    name: _.camelCase(matches[4].replace('/',' ')),
+    code: 'admin',
+    name: _.camelCase(matches[3].replace('/',' ')),
     filepath: `./${matches[1]}`
   }
 })
@@ -45,7 +58,7 @@ const reducers = (pattern) => collectObjects('admin/**/reducer.js').map(file => 
 const renderTemplate = (templateName, variables) => {
   const template = fs.readFileSync(path.join(__dirname, `${templateName}.ejs`), 'utf8')
   const data = ejs.render(template, variables)
-  fs.writeFileSync(path.join(__dirname,'..','..','apps', templateName), data, 'utf8')
+  fs.writeFileSync(path.join(__dirname,'..','..','core','admin',templateName), data, 'utf8')
 }
 
 class MahaWebpackPlugin {
@@ -64,9 +77,9 @@ class MahaWebpackPlugin {
       if(!file) log('info', 'dev', 'Compiling client')
 
       const variables = {
-        badges: extract('admin/badges.js'),
-        roots: extract('admin/roots.js'),
-        routes: extract('admin/routes.js'),
+        badges: extract('admin/badges/index.js'),
+        roots: extract('admin/roots/index.js'),
+        routes: extract('admin/views/index.js'),
         reducers: reducers('admin/**/reducer.js'),
         styles: extract('admin/**/style.less'),
         settings: extract('admin/settings.js'),

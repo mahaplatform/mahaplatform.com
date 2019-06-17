@@ -1,12 +1,11 @@
-import { Segment } from '../../../../../core/backframe'
+import { Router } from 'express'
 import list from './list'
 import show from './show'
 
-const helpSegment = new Segment({
-  routes: [
-    list,
-    show
-  ]
-})
+const router = new Router({ mergeParams: true })
 
-export default helpSegment
+router.get('/', list)
+
+router.get('/:id', show)
+
+export default router

@@ -1,68 +1,27 @@
-import ProjectSerializer from '../../../serializers/project_serializer'
-import Project from '../../../models/project'
-import { Resources } from '../../../../../core/backframe'
+import memberships from './memberships'
+import { Router } from 'express'
 import disable from './disable'
 import enable from './enable'
-import _ from 'lodash'
+import create from './create'
+import update from './update'
+import show from './show'
+import list from './list'
 
-const activity = story => (req, trx, object, options) => ({
-  story,
-  object
-})
+const router = new Router({ mergeParams: true })
 
-const activities = {
-  create: activity('created {object}'),
-  update: activity('updated {object}'),
-  destroy: activity('deleted {object}')
-}
+router.get('/', list)
 
-const defaultParams = (req, trx) => ({
-  is_active: true,
-  integration: {}
-})
+router.post('/', create)
 
-const defaultQuery = async (req, trx, qb, options) => {
+router.get('/:id', show)
 
-  if(_.includes(req.rights, 'expenses:manage_configuration')) return
+router.patch('/:id', update)
 
-  qb.joinRaw('inner join expenses_members on expenses_members.project_id=expenses_projects.id and expenses_members.user_id=? and expenses_members.is_active=?', [req.user.get('id'), true])
+router.patch('/:id/enable', enable)
 
-}
+router.patch('/:id/disable', disable)
 
-const memberFilter = (qb, filter, options) => {
+router.use('/:project_id/memberships', memberships)
 
-  qb.innerJoin('expenses_members', 'expenses_members.project_id', 'expenses_projects.id')
 
-  qb.whereIn('expenses_members.user_id', filter.$eq)
-
-}
-
-const refresh = {
-  update: (req, trx, result, options) => [
-    `/admin/expenses/projects/${result.get('id')}`
-  ]
-}
-
-const projectResources = new Resources({
-  activities,
-  allowedParams: ['title', 'integration'],
-  defaultParams,
-  defaultQuery,
-  defaultSort: ['integration->>\'project_code\'', 'title'],
-  filterParams: ['is_active'],
-  refresh,
-  memberActions: [
-    disable,
-    enable
-  ],
-  model: Project,
-  path: '/projects',
-  searchParams: ['title','integration->>\'project_code\''],
-  serializer: ProjectSerializer,
-  sortParams: ['id', 'title', 'is_active', 'created_at'],
-  virtualFilters: {
-    user_id: memberFilter
-  }
-})
-
-export default projectResources
+export default router

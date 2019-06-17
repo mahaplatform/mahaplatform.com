@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateLinks = new Migration({
+const CreateLinks = {
 
   up: async (knex) => {
 
@@ -109,6 +107,6 @@ const CreateLinks = new Migration({
     return await knex.schema.dropTable('maha_links')
   }
 
-})
+}
 
 export default CreateLinks

@@ -1,33 +1,26 @@
 import { loadUserFromToken } from '../../../../../core/utils/user_tokens'
-import { Route, BackframeError } from '../../../../../core/backframe'
+import Checkit from 'checkit'
 
-const processor = async (req, trx, options) => {
+const securityRoute = async (req, res) => {
 
-  const { user } = await loadUserFromToken('activation_id', req.body.token, trx)
+  await Checkit({
+    token: 'required',
+    security_question_id: 'required',
+    security_question_answer: 'required'
+  }).run(req.body)
 
-  const data = {
+  const { user } = await loadUserFromToken('activation_id', req.body.token, req.trx)
+
+  await user.save({
     security_question_id: req.body.security_question_id,
     security_question_answer: req.body.security_question_answer
-  }
+  }, {
+    patch: true,
+    transacting: req.trx
+  })
 
-  await user.save(data, { patch: true, transacting: trx })
-
-  return true
+  res.status(200).respond(true)
 
 }
-
-const rules = {
-  token: 'required',
-  security_question_id: 'required',
-  security_question_answer: 'required'
-}
-
-const securityRoute = new Route({
-  path: '/security',
-  method: 'post',
-  authenticated: false,
-  processor,
-  rules
-})
 
 export default securityRoute

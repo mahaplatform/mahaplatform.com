@@ -1,21 +1,21 @@
-import { withLogger } from '../../utils/logger'
+import 'express-async-errors'
+import './responder'
 import bodyParserXML from 'body-parser-xml'
 import multiparty from 'connect-multiparty'
 import deeplinkMiddleware from './deeplink'
 import mailboxMiddleware from './mailbox'
 import rollbarMiddleware from './rollbar'
-import faviconMiddleware from './favicon'
 import legacyMiddleware from './legacy'
 import serverMiddleware from './server'
+import staticMiddleware from './static'
 import imagecache from './imagecache'
 import emailMiddleware from './email'
 import bodyParser from 'body-parser'
+import homeMiddleware from './home'
 import apiMiddleware from './api'
 import express from 'express'
 import arena from './arena'
-import cors from './cors'
 import ping from './ping'
-import path from 'path'
 import qs from 'qs'
 
 bodyParserXML(bodyParser)
@@ -34,41 +34,31 @@ const middleware = async () => {
 
   server.use(multiparty({ uploadDir: './tmp' }))
 
-  server.use(express.static(path.resolve(__dirname, 'public'), { redirect: false }))
-
   server.use(arena)
 
-  server.use('/$', (req, res) => res.redirect(`${process.env.WEB_HOST}/admin`))
+  server.use(rollbarMiddleware)
 
   server.use('/ping', ping)
 
   server.use('/imagecache', imagecache)
 
-  server.use('/favicon.ico', faviconMiddleware)
-
   server.use('/.well-known', deeplinkMiddleware)
 
-  const router = express.Router({ mergeParams: true })
+  server.use(staticMiddleware)
 
-  router.use(rollbarMiddleware)
+  server.use('/mailbox_mime', mailboxMiddleware)
 
-  router.use(emailMiddleware)
+  server.use('/admin', serverMiddleware)
 
-  router.use(mailboxMiddleware)
+  server.use('/admin*', homeMiddleware)
 
-  router.use(serverMiddleware())
+  server.use('/api', await apiMiddleware)
 
-  router.use(await cors(), await apiMiddleware())
+  server.use(emailMiddleware)
 
-  router.use('/js/notifications.js', (req, res) => res.sendFile(path.resolve('public','admin','js','notifications.js')))
+  server.use(legacyMiddleware)
 
-  router.use(/^(\/admin)?\/(css|assets|audio|imagecache|images|js)/, (req, res) => res.status(404).send('Cannot locate asset'))
-
-  router.use(legacyMiddleware)
-
-  router.use((req, res) => res.send('not found'))
-
-  server.use(process.env.NODE_ENV !== 'production' ? withLogger(router) : router)
+  server.use((req, res) => res.send('not found'))
 
   return server
 

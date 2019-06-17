@@ -1,6 +1,4 @@
-import Migration from '../../../../../../../core/objects/migration'
-
-const CreateReactions = new Migration({
+const CreateReactions = {
 
   up: async (knex) => {
 
@@ -38,6 +36,6 @@ const CreateReactions = new Migration({
     return await knex.schema.dropTable('maha_reactions')
   }
 
-})
+}
 
 export default CreateReactions

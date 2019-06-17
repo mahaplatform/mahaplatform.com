@@ -1,28 +1,37 @@
-import Asset from '../../../models/asset'
-import { Route } from '../../../../../core/backframe'
 import parse from '../../../../../core/utils/parse'
+import Import from '../../../models/import'
+import Asset from '../../../models/asset'
 
-const processor = async (req, trx, options) => {
+const previewRoute = async (req, res) => {
 
-  const asset = await Asset.where({
-    id:req.resource.get('asset_id')
+  const _import = await Import.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('id', req.params.id)
   }).fetch({
-    transacting: trx
+    transacting: req.trx
   })
 
-  return await parse({
+  if(!_import) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load import'
+  })
+
+  const asset = await Asset.where({
+    id: _import.get('asset_id')
+  }).fetch({
+    transacting: req.trx
+  })
+
+  const parsed = await parse({
     asset,
     quote: req.body.quote,
     delimiter: req.body.delimiter,
     headers: req.body.headers
   })
 
-}
+  res.status(200).respond(parsed)
 
-const previewRoute = new Route({
-  method: 'post',
-  path: '/preview',
-  processor
-})
+}
 
 export default previewRoute

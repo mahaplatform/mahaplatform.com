@@ -30,7 +30,7 @@ export const processor = async (trx) => {
       user: notification.related('user'),
       notifications: [
         ..._.get(users, `[${notification.get('user_id')}].notifications`) || [],
-        NotificationSerializer(null, trx, notification)
+        NotificationSerializer(null, notification)
       ]
     }
   }), [])

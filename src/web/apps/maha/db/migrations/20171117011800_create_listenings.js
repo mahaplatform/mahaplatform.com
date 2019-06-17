@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateListenings = new Migration({
+const CreateListenings = {
 
   up: async (knex) => {
     return await knex.schema.createTable('maha_listenings', (table) => {
@@ -20,6 +18,6 @@ const CreateListenings = new Migration({
     return await knex.schema.dropTable('maha_listenings')
   }
 
-})
+}
 
 export default CreateListenings

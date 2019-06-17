@@ -1,4 +1,4 @@
-import { Avatar, Starred, RichText, Reactions } from 'maha-admin'
+import { Avatar, RichText, Reactions } from 'maha-admin'
 import { files, images, media } from './selectors'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -20,15 +20,17 @@ class Message extends React.Component {
     created_at: PropTypes.string,
     files: PropTypes.array,
     full: PropTypes.bool,
+    id: PropTypes.number,
     images: PropTypes.array,
     inline: PropTypes.bool,
-    is_starred: PropTypes.bool,
+    likers: PropTypes.array,
     link: PropTypes.object,
     media: PropTypes.array,
     quoted_message: PropTypes.object,
     reactions: PropTypes.array,
     receipts: PropTypes.array,
     text: PropTypes.string,
+    type: PropTypes.string,
     user: PropTypes.object,
     user_id: PropTypes.number,
     onQuoteMessage: PropTypes.func,
@@ -71,7 +73,6 @@ class Message extends React.Component {
             <RichText text={ text } />
           </div>
           <Reactions { ...this._getReactions() } />
-          <Starred { ...this._getStarred() }/>
         </div>
         { actions && show && type === 'message' && <Actions { ...this._getActions() } /> }
         { receipts &&
@@ -124,15 +125,6 @@ class Message extends React.Component {
     }
   }
 
-  _getStarred() {
-    const { id, is_starred } = this.props
-    return {
-      id,
-      is_starred,
-      table: 'chat_messages'
-    }
-  }
-
   _getReceipt(user) {
     return {
       user,
@@ -143,11 +135,10 @@ class Message extends React.Component {
   }
 
   _getActions() {
-    const { channel, id, is_starred, likers, reactions, user } = this.props
+    const { channel, id, likers, reactions, user } = this.props
     return {
       channel,
       id,
-      is_starred,
       likers,
       reactions,
       user,

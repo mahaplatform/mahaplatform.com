@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateSupervisions = new Migration({
+const CreateSupervisions = {
 
   up: async (knex) => {
     return await knex.schema.createTable('maha_supervisions', (table) => {
@@ -15,6 +13,6 @@ const CreateSupervisions = new Migration({
     return await knex.schema.dropTable('maha_supervisions')
   }
 
-})
+}
 
 export default CreateSupervisions

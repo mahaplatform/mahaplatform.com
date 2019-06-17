@@ -7,9 +7,9 @@ const LastOnlineToken = ({ last_online_at }) => {
   const status = _getStatus(last_online_at)
 
   return (
-    <div className="reframe-list-item-content">
-      <div className="reframe-list-item-content-label">Last Online</div>
-      <div className="reframe-list-item-content-value">
+    <div className="maha-list-item-content">
+      <div className="maha-list-item-content-label">Last Online</div>
+      <div className="maha-list-item-content-value">
         <span>
           <i className={`fa fa-fw fa-circle ${status.icon}`}/>
           { status.text }

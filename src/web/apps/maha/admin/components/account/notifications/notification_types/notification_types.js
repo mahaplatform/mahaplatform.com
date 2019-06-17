@@ -24,7 +24,7 @@ class NotificationTypes extends React.Component {
       <div>
         <p>When you receive a notification, we will try our best to deliver every
           notification to you in the following order:
-          <strong>in app</strong>, <strong>push</strong>, and then <strong>email</strong>.
+        <strong>in app</strong>, <strong>push</strong>, and then <strong>email</strong>.
           You can customize which notifications your wish to receive via which methods.
         </p>
         <div className="maha-notification-types">

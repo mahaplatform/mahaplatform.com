@@ -1,37 +1,18 @@
-import RateSerializer from '../../../serializers/rate_serializer'
-import Rate from '../../../models/rate'
-import { Resources } from '../../../../../core/backframe'
+import { Router } from 'express'
+import create from './create'
+import update from './update'
+import show from './show'
+import list from './list'
 
-const activity = story => (req, trx, object, options) => ({
-  story,
-  object
-})
+const router = new Router({ mergeParams: true })
 
-const activities = {
-  create: activity('created {object}'),
-  update: activity('updated {object}'),
-  destroy: activity('deleted {object}')
-}
+router.get('/', list)
 
-const channels = (req, trx, result, options) => [
-  '/admin/expenses/rates'
-]
+router.post('/', create)
 
-const refresh = {
-  create: channels,
-  update: channels
-}
+router.get('/:id', show)
 
-const rateResources = new Resources({
-  activities,
-  allowedParams: ['year','value'],
-  defaultSort: 'year',
-  model: Rate,
-  ownedByTeam: false,
-  path: '/rates',
-  refresh,
-  sortParams: ['year','value'],
-  serializer: RateSerializer
-})
+router.patch('/:id', update)
 
-export default rateResources
+
+export default router

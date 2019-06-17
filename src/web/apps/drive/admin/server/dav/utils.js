@@ -23,7 +23,8 @@ export const loadItem = async (req, res, next) => {
     qb.orderBy('label', 'asc')
     qb.where({ fullpath })
   }).fetch({
-    withRelated: ['asset']
+    withRelated: ['asset'],
+    transacting: req.trx
   }) : null
   if(fullpath.length > 0 && !req.item) return res.status(404).type('application/xml').send()
   next()

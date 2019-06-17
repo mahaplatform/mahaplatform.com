@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateGoals = new Migration({
+const CreateGoals = {
 
   up: async (knex) => {
     return await knex.schema.createTable('competencies_goals', (table) => {
@@ -20,6 +18,6 @@ const CreateGoals = new Migration({
     return await knex.schema.dropTable('competencies_goals')
   }
 
-})
+}
 
 export default CreateGoals

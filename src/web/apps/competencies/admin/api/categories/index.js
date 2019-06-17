@@ -1,36 +1,17 @@
-import { Resources } from '../../../../../core/backframe'
-import Category from '../../../models/category'
+import { Router } from 'express'
+import create from './create'
+import update from './update'
+import list from './list'
+import show from './show'
 
-const activity = story => (req, trx, object, options) => ({
-  story,
-  object
-})
+const router = new Router({ mergeParams: true })
 
-const activities = {
-  create: activity('created {object}'),
-  update: activity('updated {object}'),
-  destroy: activity('deleted {object}')
-}
+router.get('/', list)
 
-const refresh = {
-  create: (req, trx, result, options) => [
-    '/admin/competencies/categories'
-  ],
-  update: (req, trx, result, options) => [
-    '/admin/competencies/categories',
-    `/admin/competencies/categories/${result.get('id')}`
-  ]
-}
+router.post('/', create)
 
-const categoryResources = new Resources({
-  activities,
-  allowedParams: ['title'],
-  defaultSort: 'title',
-  model: Category,
-  path: '/categories',
-  refresh,
-  searchParams: ['id','title'],
-  sortParams: ['title']
-})
+router.get('/:id', show)
 
-export default categoryResources
+router.patch('/:id', update)
+
+export default router

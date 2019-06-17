@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateStarred = new Migration({
+const CreateStarred = {
 
   up: async (knex) => {
 
@@ -21,6 +19,6 @@ const CreateStarred = new Migration({
     await knex.raw('drop view drive_starred')
   }
 
-})
+}
 
 export default CreateStarred

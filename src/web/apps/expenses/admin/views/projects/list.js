@@ -42,7 +42,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ..._getIntegrationColumns(resources.app.settings.integration)
     ],
     filters: [
-      { label: 'Member', name: 'user_id', type: 'select', endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: CompactUserToken },
+      { label: 'Member', name: 'user_id', type: 'select', multiple: false, endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: CompactUserToken },
       { label: 'Active', name: 'is_active', type: 'select', options: [{ value: '1', text: 'Active' }, { value: '0', text: 'Inactive' }] }
     ],
     export: [
@@ -52,7 +52,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ..._getIntegrationExports(resources.app.settings.integration)
     ],
     link: (record) => `/admin/expenses/projects/${record.id}`,
-    defaultSort: { key: 'title', order: 'asc' },
+    defaultSort: { key: 'integration->>\'project_code\'', order: 'asc' },
     entity: 'project',
     icon: 'folder',
     new: New

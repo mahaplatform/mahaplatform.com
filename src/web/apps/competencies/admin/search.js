@@ -1,7 +1,6 @@
-import search from '../../../core/objects/search'
 import Resource from '../models/resource'
 
-const Search = search({
+const Search = {
   resources: {
     fields: ['title','description'],
     model: Resource,
@@ -10,6 +9,6 @@ const Search = search({
       route: `/admin/competencies/resources/${result.get('id')}`
     })
   }
-})
+}
 
 export default Search

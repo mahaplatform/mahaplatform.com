@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddItemReverted = new Migration({
+const AddItemReverted = {
 
   up: async (knex) => {
 
@@ -18,6 +16,6 @@ const AddItemReverted = new Migration({
 
   }
 
-})
+}
 
 export default AddItemReverted

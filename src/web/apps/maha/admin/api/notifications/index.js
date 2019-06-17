@@ -1,45 +1,17 @@
-import socket from '../../../../../core/services/emitter'
-import { Resources } from '../../../../../core/backframe'
-import Notification from '../../../models/notification'
-import NotificationSerializer from '../../../serializers/notification_serializer'
-import seen from './seen'
+import { Router } from 'express'
 import visited from './visited'
 import unread from './unread'
+import list from './list'
+import seen from './seen'
 
-const afterListProcessor = async (req, trx, result, options) => {
+const router = new Router({ mergeParams: true })
 
-  const user_id = req.user.get('id')
+router.get('/', list)
 
-  await options.knex('maha_notifications').transacting(trx).where({ user_id }).update({ is_seen: true })
+router.get('/:id/visited', visited)
 
-  await socket.emit('/notifications/unread').emit('message', {
-    channel: '/admin/notifications/unread',
-    action: 'refresh',
-    data: null
-  })
+router.get('/unread', unread)
 
-}
+router.patch('/seen', seen)
 
-const notificationResources = new Resources({
-  afterProcessor: {
-    list: afterListProcessor
-  },
-  collectionActions: [
-    seen,
-    unread
-  ],
-  defaultSort: '-created_at',
-  memberActions: [
-    visited
-  ],
-  model: Notification,
-  only: ['list'],
-  ownedByUser: true,
-  path: '/notifications',
-  serializer: NotificationSerializer,
-  sortParams: ['created_at'],
-  withRelated: ['subject.photo','app','story','object_owner','user']
-})
-
-
-export default notificationResources
+export default router

@@ -1,56 +1,26 @@
-import { loadUserFromToken } from '../../../../../core/utils/user_tokens'
 import notifications from './notifications'
-import { Segment } from '../../../../../core/backframe'
+import { Router } from 'express'
 import security from './security'
 import password from './password'
 import assets from '../assets'
 import verify from './verify'
 import avatar from './avatar'
+import token from './token'
 
-const _getToken = (req) => {
+const router = new Router({ mergeParams: true })
 
-  if(req.body.token) return req.body.token
+router.use(token)
 
-  if(req.query.token) return req.query.token
+router.post('/notifications', notifications)
 
-  if(req.headers.authorization) {
+router.post('/security', security)
 
-    const matches = req.headers.authorization.match(/Bearer (.*)/)
+router.post('/password', password)
 
-    if(!matches) return null
+router.use(assets)
 
-    return matches[1]
+router.post('/verify', verify)
 
-  }
+router.post('/avatar', avatar)
 
-}
-
-const alterRequest = async (req, trx, options) => {
-
-  const token = _getToken(req)
-
-  const { user } = await loadUserFromToken('activation_id', token, trx)
-
-  await user.load(['team'], { transacting: trx })
-
-  req.team = user.related('team')
-
-  req.user = user
-
-}
-
-const activateSegment = new Segment({
-  alterRequest,
-  authenticated: false,
-  path: '/activate',
-  routes: [
-    verify,
-    security,
-    password,
-    avatar,
-    notifications,
-    assets
-  ]
-})
-
-export default activateSegment
+export default router

@@ -13,12 +13,12 @@ class MobileChannels extends React.Component {
     }
 
     static propTypes = {
-      channel: PropTypes.object
+      channels: PropTypes.array,
+      status: PropTypes.string
     }
 
     _handleChoose = this._handleChoose.bind(this)
     _handleNew = this._handleNew.bind(this)
-    _handleStarred = this._handleStarred.bind(this)
 
     render() {
       return <Channels { ...this._getChannels() } />
@@ -32,8 +32,7 @@ class MobileChannels extends React.Component {
         showNew: false,
         status,
         onChoose: this._handleChoose,
-        onNew: this._handleNew,
-        onStarred: this._handleStarred
+        onNew: this._handleNew
       }
     }
 
@@ -43,10 +42,6 @@ class MobileChannels extends React.Component {
 
     _handleNew() {
       this.context.modal.push(<New />)
-    }
-
-    _handleStarred() {
-      this.context.router.push('/admin/chat/starred')
     }
 
 

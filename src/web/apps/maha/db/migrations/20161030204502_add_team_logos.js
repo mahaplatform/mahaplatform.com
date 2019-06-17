@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddTeamLogos = new Migration({
+const AddTeamLogos = {
 
   up: async (knex) => {
 
@@ -21,6 +19,6 @@ const AddTeamLogos = new Migration({
 
   }
 
-})
+}
 
 export default AddTeamLogos

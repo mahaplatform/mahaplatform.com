@@ -1,25 +1,19 @@
-import { Route } from '../../../../../core/backframe'
+import knex from '../../../../../core/services/knex'
 
-const processor = async (req, trx, options) => {
+const unreadRoute = async (req, res) => {
 
-  const select = options.knex.raw('count(maha_notifications.*) as unread')
+  const select = knex.raw('count(maha_notifications.*) as unread')
 
-  const result = await options.knex('maha_notifications').transacting(trx).select(select).where({
+  const result = await knex('maha_notifications').transacting(req.trx).select(select).where({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
     is_seen: false
   })
 
-  const count = parseInt(result[0].unread)
-
-  return { count }
+  res.status(200).respond({
+    count: parseInt(result[0].unread)
+  })
 
 }
-
-const unreadRoute = new Route({
-  path: '/unread',
-  method: 'get',
-  processor
-})
 
 export default unreadRoute

@@ -1,0 +1,33 @@
+const schema = {
+
+  load: async (knex) => {
+<% for(var i = 0; i < tables.length; i++) { %>
+    await knex.schema.createTable('<%= tables[i].name %>', (table) => {
+<% for(var j = 0; j < tables[i].fields.length; j++) { -%>
+<% field = tables[i].fields[j] -%>
+      table<%- field.definition %><%- field.default %><%- field.nullable %>
+<% } -%>
+    })
+<% } %>
+<% tables = Object.keys(foreign_keys) -%>
+<% for(var i = 0; i < tables.length; i++) { %>
+<% table = tables[i] -%>
+    await knex.schema.table('<%= table %>', table => {
+<% for(var j = 0; j < foreign_keys[table].length; j++) { -%>
+<% foreign_key = foreign_keys[table][j] -%>
+      table.foreign('<%= foreign_key['column'] %>').references('<%= foreign_key['foreign_table'] %>.<%= foreign_key['foreign_column'] %>')
+<% } -%>
+    })
+<% } %>
+<% for(var i = 0; i < views.length; i++) { %>
+<% view = views[i] -%>
+    await knex.raw(`
+      create view <%= view.name %> AS
+     <%- view.definition %>
+    `)
+<% } -%>
+  }
+
+}
+
+export default schema

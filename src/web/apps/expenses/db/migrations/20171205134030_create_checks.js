@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateChecks = new Migration({
+const CreateChecks = {
 
   up: async (knex) => {
     return await knex.schema.createTable('expenses_checks', (table) => {
@@ -31,6 +29,6 @@ const CreateChecks = new Migration({
     return await knex.schema.dropTable('expenses_checks')
   }
 
-})
+}
 
 export default CreateChecks

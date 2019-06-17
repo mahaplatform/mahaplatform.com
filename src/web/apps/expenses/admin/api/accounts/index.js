@@ -1,24 +1,17 @@
-import { Resources } from '../../../../../core/backframe'
-import Account from '../../../models/account'
+import { Router } from 'express'
+import create from './create'
+import update from './update'
+import list from './list'
+import show from './show'
 
-const refresh = {
-  create: (req, trx, result, options) => [
-    '/admin/expenses/accounts'
-  ],
-  update: (req, trx, result, options) => [
-    '/admin/expenses/accounts',
-    `/admin/expenses/accounts/${req.params.id}`
-  ]
-}
+const router = new Router({ mergeParams: true })
 
-const accountResources = new Resources({
-  allowedParams: ['name','integration'],
-  defaultSort: 'name',
-  model: Account,
-  path: '/accounts',
-  refresh,
-  searchParams: ['name'],
-  sortParams: ['id', 'name','created_at']
-})
+router.get('/', list)
 
-export default accountResources
+router.post('/', create)
+
+router.get('/:id', show)
+
+router.patch('/:id', update)
+
+export default router

@@ -1,4 +1,4 @@
-import { ModalPanel } from 'reframe'
+import { ModalPanel } from 'maha-admin'
 import Notifications from '../components/notifications/page'
 import PropTypes from 'prop-types'
 import React from 'react'

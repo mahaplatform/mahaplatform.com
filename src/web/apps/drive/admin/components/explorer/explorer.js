@@ -1,5 +1,4 @@
 import { Searchbox, Infinite, Message, Stack } from 'maha-admin'
-import { DragDropContext } from 'react-dnd'
 import DragLayer from './drag_layer'
 import PropTypes from 'prop-types'
 import specials from '../specials'
@@ -27,8 +26,10 @@ class Explorer extends React.Component {
     onCreateFile: PropTypes.func,
     onMoveItem: PropTypes.func,
     onFetchFolder: PropTypes.func,
+    onPreview: PropTypes.func,
     onSetQuery: PropTypes.func,
     onShowDetails: PropTypes.func,
+    onTasks: PropTypes.func,
     onUp: PropTypes.func,
     onUpdateFile: PropTypes.func
   }

@@ -1,18 +1,17 @@
-import { Segment } from '../../../../../core/backframe'
-import team from './team'
-import email from './email'
 import password from './password'
+import { Router } from 'express'
 import lockout from './lockout'
+import email from './email'
+import team from './team'
 
-const signinSegment = new Segment({
-  authenticated: false,
-  path: '/signin',
-  routes: [
-    team,
-    email,
-    password,
-    lockout
-  ]
-})
+const router = new Router({ mergeParams: true })
 
-export default signinSegment
+router.post('/team', team)
+
+router.post('/email', email)
+
+router.post('/lockout', lockout)
+
+router.post('/password', password)
+
+export default router

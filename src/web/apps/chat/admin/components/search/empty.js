@@ -5,31 +5,16 @@ import React from 'react'
 export const Empty = ({ onNew, channel_type }) => {
 
   const _getMessage = () => {
-    if(channel_type === 'active') {
-      return {
-        icon: 'comment',
-        title: 'No channels',
-        text: 'You havent yet started a conversation',
-        button: {
-          label: 'Start Conversation',
-          handler: onNew
-        }
-      }
-    } else if(channel_type === 'archived') {
-      return {
-        icon: 'archive',
-        title: 'No conversations',
-        text: 'You have not archived any conversations'
-      }
-    } else if(channel_type === 'starred') {
-      return {
-        icon: 'star',
-        title: 'No conversations',
-        text: 'You have not starred any conversations'
+    return {
+      icon: 'comment',
+      title: 'No channels',
+      text: 'You havent yet started a conversation',
+      button: {
+        label: 'Start Conversation',
+        handler: onNew
       }
     }
   }
-
 
   return <Message { ..._getMessage() } />
 

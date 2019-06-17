@@ -1,4 +1,3 @@
-import { BackframeError } from '../../../../../core/backframe'
 import moment from 'moment'
 import _ from 'lodash'
 
@@ -54,7 +53,7 @@ const applyFilter = (qb, name, fields, filter) => {
 
   const field = _.find(fields, { name })
 
-  if(!field) throw new BackframeError({
+  if(!field) throw new Error({
     code: '500',
     message: `Unable to filter on field '${name}'`
   })

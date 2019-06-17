@@ -1,6 +1,6 @@
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import PropTypes from 'prop-types'
-import Logo from '../logo'
+import { Logo } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
@@ -32,7 +32,7 @@ class Apps extends React.Component {
     const { items, label } = this._getItems(this.props.items, path)
     return (
       <TransitionGroup>
-        <CSSTransition classNames="expanded" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true } key={`navigation-${path.join('-')}`}>
+        <CSSTransition classNames="expanded" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true } key={`navigation-${path.join('-')}`}>
           <div className="maha-navigation-panel">
             { path.length === 0 ?
               <div className="maha-navigation-header" onClick={ this._handleToggleMode }>

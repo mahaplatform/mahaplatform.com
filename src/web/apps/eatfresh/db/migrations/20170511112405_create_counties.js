@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateCounties = new Migration({
+const CreateCounties = {
 
   up: async (knex) => {
     return await knex.schema.createTable('eatfresh_counties', (table) => {
@@ -16,6 +14,6 @@ const CreateCounties = new Migration({
     return await knex.schema.dropTable('eatfresh_counties')
   }
 
-})
+}
 
 export default CreateCounties

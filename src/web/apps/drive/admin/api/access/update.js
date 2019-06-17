@@ -1,10 +1,10 @@
-import { Route } from '../../../../../core/backframe'
+import socket from '../../../../../core/services/routes/emitter'
 import knex from '../../../../../core/services/knex'
 import _ from 'lodash'
 
-const updateAccess = async (accesses, item, trx) => {
+const updateAccess = async (req, accesses, item) => {
 
-  const current = await knex('drive_access').transacting(trx).where({
+  const current = await knex('drive_access').transacting(req.trx).where({
     code: item.code
   })
 
@@ -18,7 +18,7 @@ const updateAccess = async (accesses, item, trx) => {
 
     if(!existing && access.access_type_id !== null) {
 
-      await knex('drive_access').transacting(trx).insert({
+      await knex('drive_access').transacting(req.trx).insert({
         team_id: item.team_id,
         code: item.code,
         is_everyone: access.is_everyone,
@@ -29,13 +29,13 @@ const updateAccess = async (accesses, item, trx) => {
 
     } else if(existing && access.access_type_id === null) {
 
-      await knex('drive_access').transacting(trx).where({
+      await knex('drive_access').transacting(req.trx).where({
         id: existing.id
       }).delete()
 
     } else if(existing && existing.access_type_id !== access.access_type_id) {
 
-      await knex('drive_access').transacting(trx).where({
+      await knex('drive_access').transacting(req.trx).where({
         id: existing.id
       }).update({
         access_type_id: access.access_type_id
@@ -47,40 +47,31 @@ const updateAccess = async (accesses, item, trx) => {
 
   if(item.type !== 'folder') return
 
-  const items = await knex('drive_items').transacting(trx).where({
+  const items = await knex('drive_items').transacting(req.trx).where({
     folder_id: item.item_id
   })
 
   await Promise.map(items, async item => {
-
-    await updateAccess(accesses, item, trx)
-
+    await updateAccess(req, accesses, item)
   })
 
 }
 
-const processor = async (req, trx, options) => {
+const updateRoute = async (req, res) => {
 
-  req.item = await knex('drive_items').where({
+  const item = await knex('drive_items').transacting(req.trx).where({
     code: req.params.code
   })
 
-  await updateAccess(req.body.access, req.item[0], trx)
+  await updateAccess(req, req.body.access, item[0])
 
-  return true
+  await socket.refresh(req, [
+    `/admin/drive/folders/${item[0].folder_id || 'drive'}`,
+    `/admin/drive/folders/${req.params.id}`
+  ])
+
+  res.status(200).respond(true)
 
 }
 
-const refresh = (req, trx, result, options) => [
-  `/admin/drive/folders/${req.item.folder_id || 'drive'}`,
-  `/admin/drive/folders/${req.params.id}`
-]
-
-const assignRoute = new Route({
-  method: 'patch',
-  path: '/access',
-  processor,
-  refresh
-})
-
-export default assignRoute
+export default updateRoute

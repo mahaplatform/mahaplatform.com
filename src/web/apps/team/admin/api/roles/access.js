@@ -1,32 +1,39 @@
-import { Route } from '../../../../../core/backframe'
-import App from '../../../../maha/models/app'
+import knex from '../../../../../core/services/knex'
 import Right from '../../../../maha/models/right'
+import Role from '../../../../maha/models/role'
+import App from '../../../../maha/models/app'
 
-const processor = async (req, trx, options) => {
+const accessRoute = async (req, res) => {
+
+  const role = await Role.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('id', req.params.id)
+  }).fetch({
+    transacting: req.trx
+  })
+
+  if(!role) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load role'
+  })
 
   const apps = await App.query(qb => {
-
-    qb.select(options.knex.raw('distinct on (maha_apps.id) maha_apps.*, maha_roles_apps.role_id is not null as installed'))
-
+    qb.select(knex.raw('distinct on (maha_apps.id) maha_apps.*, maha_roles_apps.role_id is not null as installed'))
     qb.joinRaw('inner join maha_installations on maha_installations.app_id = maha_apps.id and maha_installations.team_id = ?', req.team.get('id'))
-
-    qb.joinRaw('left join maha_roles_apps on maha_roles_apps.app_id = maha_apps.id and maha_roles_apps.role_id = ?', req.resource.get('id'))
-
+    qb.joinRaw('left join maha_roles_apps on maha_roles_apps.app_id = maha_apps.id and maha_roles_apps.role_id = ?', role.get('id'))
     qb.orderByRaw('maha_apps.id asc, maha_roles_apps.role_id asc')
-
-  }).fetchAll({ transacting: trx })
+  }).fetchAll({
+    transacting: req.trx
+  })
 
   const rights = await Right.query(qb => {
-
-    qb.select(options.knex.raw('distinct on (maha_rights.id) maha_rights.*, maha_roles_rights.role_id is not null as assigned'))
-
-    qb.joinRaw('left join maha_roles_rights on maha_roles_rights.right_id = maha_rights.id and maha_roles_rights.role_id = ?', req.resource.get('id'))
-
+    qb.select(knex.raw('distinct on (maha_rights.id) maha_rights.*, maha_roles_rights.role_id is not null as assigned'))
+    qb.joinRaw('left join maha_roles_rights on maha_roles_rights.right_id = maha_rights.id and maha_roles_rights.role_id = ?', role.get('id'))
     qb.orderByRaw('maha_rights.id asc, maha_roles_rights.role_id asc')
-
   }).fetchAll({
     withRelated: ['app'],
-    transacting: trx
+    transacting: req.trx
   })
 
   const appRights = rights.reduce((appRights, right) => ({
@@ -42,7 +49,7 @@ const processor = async (req, trx, options) => {
     ]
   }), {})
 
-  return apps.map(app => ({
+  const access = apps.map(app => ({
     id: app.get('id'),
     ...app.get('data'),
     installed: app.get('installed'),
@@ -53,12 +60,8 @@ const processor = async (req, trx, options) => {
     return 0
   })
 
-}
+  res.status(200).respond(access)
 
-const accessRoute = new Route({
-  path: '/access',
-  method: 'get',
-  processor
-})
+}
 
 export default accessRoute

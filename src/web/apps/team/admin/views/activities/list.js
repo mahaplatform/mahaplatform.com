@@ -8,7 +8,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/team/activities',
     filters: [
       { label: 'User', name: 'user_id', type: 'select', multiple: true, endpoint: '/api/admin/team/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: CompactUserToken },
-      { label: 'App', name: 'app_id', type: 'select', multiple: true, endpoint: '/api/admin/team/apps', value: 'id', text: 'title', sort: { key: 'title', order: 'asc' }, format: AppToken },
+      { label: 'App', name: 'app_id', type: 'select', multiple: true, endpoint: '/api/admin/team/apps', value: 'id', text: 'title', sort: { key: 'code', order: 'asc' }, format: AppToken },
       { label: 'Date Range', name: 'created_at', type: 'daterange', include: ['this','last'] }
     ],
     export: [

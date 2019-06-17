@@ -19,7 +19,7 @@ const mapResourcesToPage = (props, context) => ({
 const mapPropsToPage = (props, context, resources) => ({
   title: 'Report',
   collection: {
-    endpoint: '/api/admin/expenses/reports/items',
+    endpoint: '/api/admin/expenses/report',
     table: [
       { label: 'ID', key: 'item_id', visible: false, collapsing: true },
       { label: null, key: 'type', primary: true, collapsing: true, format: CompactTypeToken },

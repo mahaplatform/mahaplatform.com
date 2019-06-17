@@ -1,0 +1,82 @@
+.maha-tabs {
+  margin: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.maha-tabs-header {
+  background-color: @red;
+  margin: 0;
+  .maha-avatar-text {
+    font-size: 4em;
+  }
+}
+
+.maha-tabs-header-content {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 800px;
+  img {
+    display: block;
+  }
+}
+.maha-tabs-items {
+  margin: 0 auto;
+  width: 100%;
+  max-width: ~"calc(800px - 2em)";
+  display: flex;
+  curosr: pointer;
+}
+.maha-tabs-item {
+  flex: 1;
+  padding: 0.66em 0;
+  font-size: 1em;
+  color: fadeout(@primary_color, 30%) !important;
+  text-align: center;
+  border-bottom: 4px solid transparent;
+  cursor: pointer;
+  &:hover {
+    color: @white !important;
+  }
+  &.active {
+    border-color: fadeout(@white, 30);
+    color: @primary_color !important;
+  }
+}
+.maha-tabs-body {
+  flex: 1;
+  position: relative;
+  width: 100%;
+}
+.maha-tab {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  display: none;
+  .scrollable();
+  p {
+    color: fadeout(@black, 50);
+  }
+  &.transitioning {
+    transition: transform .5s ease-in-out 0s;
+    display: block;
+  }
+  &.right {
+    .translateX(100%);
+  }
+  &.active {
+    .translateX(0);
+    display: block;
+  }
+  &.left {
+    .translateX(-100%);
+  }
+}
+.maha-tab-content {
+  margin: 0 auto;
+  width: 100%;
+  max-width: 800px;
+  padding: 0.8em;
+}

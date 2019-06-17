@@ -20,8 +20,6 @@ class Root extends React.Component {
     unread: PropTypes.object,
     unread_status: PropTypes.string,
     user_id: PropTypes.number,
-    onActivateChannel: PropTypes.func,
-    onArchiveChannel: PropTypes.func,
     onAppear: PropTypes.func,
     onAddChannel: PropTypes.func,
     onAddTyping: PropTypes.func,
@@ -36,8 +34,6 @@ class Root extends React.Component {
     onUpdateUnread: PropTypes.func
   }
 
-  _handleActivateChannel = this._handleActivateChannel.bind(this)
-  _handleArchiveChannel = this._handleArchiveChannel.bind(this)
   _handleAppear = this._handleAppear.bind(this)
   _handleAddChannel = this._handleAddChannel.bind(this)
   _handleAddMessage = this._handleAddMessage.bind(this)
@@ -75,8 +71,6 @@ class Root extends React.Component {
       { target, action: 'disappear', handler: this._handleDisappear },
       { target, action: 'end_type_message', handler: this._handleRemoveTyping },
       { target, action: 'hello', handler: this._handleAppear },
-      { target, action: 'activate_channel', handler: this._handleActivateChannel },
-      { target, action: 'archive_channel', handler: this._handleArchiveChannel },
       { target, action: 'remove_channel', handler: this._handleRemoveChannel },
       { target, action: 'update_channel', handler: this._handleUpdateChannel },
       { target, action: 'update_read', handler: this._handleUpdateRead },
@@ -96,22 +90,12 @@ class Root extends React.Component {
       { target, action: 'end_type_message', handler: this._handleRemoveTyping },
       { target, action: 'hello', handler: this._handleAppear },
       { target, action: 'replace_message', handler: this._handleReplaceMessage },
-      { target, action: 'activate_channel', handler: this._handleActivateChannel },
-      { target, action: 'archive_channel', handler: this._handleArchiveChannel },
       { target, action: 'remove_channel', handler: this._handleRemoveChannel },
       { target, action: 'remove_message', handler: this._handleRemoveMessage },
       { target, action: 'update_channel', handler: this._handleUpdateChannel },
       { target, action: 'update_read', handler: this._handleUpdateRead },
       { target, action: 'update_unread', handler: this._handleUpdateUnread }
     ])
-  }
-
-  _handleActivateChannel({ channel_id }) {
-    this.props.onActivateChannel(channel_id)
-  }
-
-  _handleArchiveChannel({ channel_id }) {
-    this.props.onArchiveChannel(channel_id)
   }
 
   _handleAppear({ channel_id, user }) {

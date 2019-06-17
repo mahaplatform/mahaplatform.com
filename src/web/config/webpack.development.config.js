@@ -10,8 +10,8 @@ const webpackConfig = {
   entry: [
     `webpack-dev-server/client?http://localhost:${process.env.DEVSERVER_PORT}`,
     'webpack/hot/only-dev-server',
-    path.resolve('src','web','apps','index.js'),
-    path.resolve('src','web','apps','index.less')
+    path.resolve('src','web','core','admin','index.js'),
+    path.resolve('src','web','core','admin','index.less')
   ],
   mode: 'development',
   module: {
@@ -42,14 +42,14 @@ const webpackConfig = {
     ]
   },
   output: {
-    path: path.resolve('src','web','public'),
+    path: path.resolve('src','web','core','admin','public'),
     filename: 'application.js',
     publicPath: '/admin'
   },
   plugins: [
     new MahaPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve('src','web','apps','index.html')
+      template: path.resolve('src','web','core','admin','index.html')
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
@@ -72,8 +72,7 @@ const webpackConfig = {
   ],
   resolve: {
     alias: {
-      'reframe': path.resolve('src','web','core','reframe','index.js'),
-      'maha-admin': path.resolve('src','web','apps','client.js')
+      'maha-admin': path.resolve('src','web','core','admin','client.js')
     },
     modules: [
       path.resolve('node_modules')

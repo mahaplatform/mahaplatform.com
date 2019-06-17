@@ -1,26 +1,16 @@
-import { BackframeError, Route } from '../../../../../core/backframe'
+const showRoute = async (req, res) => {
 
-const processor = async (req, trx, options) => {
-
-  if(!req.apps[req.params.code]) {
-    throw new BackframeError({
-      code: 404,
-      message: 'Unable to find app'
-    })
-  }
+  if(!req.apps[req.params.code]) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to find app'
+  })
 
   const app = req.apps[req.params.code]
 
-  const settings = app ? app.settings : {}
-
-  return { settings }
+  res.status(200).respond({
+    settings: app ? app.settings : {}
+  })
 
 }
-
-const showRoute = new Route({
-  method: 'get',
-  path: '',
-  processor
-})
 
 export default showRoute

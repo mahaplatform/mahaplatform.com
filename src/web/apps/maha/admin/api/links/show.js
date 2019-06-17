@@ -1,20 +1,16 @@
 import LinkSerializer from '../../../serializers/link_serializer'
 import Link from '../../../models/link'
-import { Route } from '../../../../../core/backframe'
 
-const processor = async (req, trx, options) => {
+const showRoute = async (req, res) => {
 
-  const link = await Link.where({ id: req.params.id }).fetch({ transacting: trx })
+  const link = await Link.where({
+    id: req.params.id
+  }).fetch({
+    transacting: req.trx
+  })
 
-  return link
+  res.status(200).respond(link, LinkSerializer)
 
 }
 
-const linkRoute = new Route({
-  method: 'get',
-  path: '/:id',
-  processor,
-  serializer: LinkSerializer
-})
-
-export default linkRoute
+export default showRoute

@@ -29,14 +29,17 @@ class Channel extends React.Component {
     status: PropTypes.string,
     text: PropTypes.string,
     total: PropTypes.number,
+    unsorted: PropTypes.array,
     user: PropTypes.object,
     onAddAttachments: PropTypes.func,
     onAddMessage: PropTypes.func,
     onAddQuotedMessage: PropTypes.func,
     onCreate: PropTypes.func,
+    onEdit: PropTypes.func,
     onFetchAll: PropTypes.func,
     onFetchLink: PropTypes.func,
     onFetch: PropTypes.func,
+    onRemoveAttachments: PropTypes.func,
     onRemoveAttachment: PropTypes.func,
     onRemoveLink: PropTypes.func,
     onRemoveMessage: PropTypes.func,
@@ -84,11 +87,6 @@ class Channel extends React.Component {
     return (
       <DropZone { ...this._getDropZone() }>
         <div className="chat-channel" ref={ node => this.channel = node }>
-          { channel.is_archived &&
-            <div className="chat-channel-archived">
-              This conversation is archived
-            </div>
-          }
           <div className="chat-channel-messages">
             <div className="chat-channel-thread" onScroll={ this._handleScroll } ref={ node => this.body = node }>
               <div className="chat-channel-thread-panel" ref={ node => this.thread = node }>
@@ -118,42 +116,40 @@ class Channel extends React.Component {
           { attachments.length > 0 &&
             <AttachmentManager { ...this._getAttachmentManager() } />
           }
-          { !channel.is_archived &&
-            <div className="chat-channel-footer">
-              { channel.typing && channel.typing.user_id !== user.id &&
-                <div className="chat-channel-typing">
-                  { this._getTyping() }
+          <div className="chat-channel-footer">
+            { channel.typing && channel.typing.user_id !== user.id &&
+              <div className="chat-channel-typing">
+                { this._getTyping() }
+              </div>
+            }
+            { quoted_message &&
+              <div className="chat-channel-extra">
+                <div className="chat-channel-extra-preview">
+                  <QuotedMessage message={ quoted_message } />
                 </div>
-              }
-              { quoted_message &&
-                <div className="chat-channel-extra">
-                  <div className="chat-channel-extra-preview">
-                    <QuotedMessage message={ quoted_message } />
-                  </div>
-                  <div className="chat-channel-extra-remove">
-                    <i className="fa fa-fw fa-times" onClick={ this._handleRemoveQuotedMessage } />
-                  </div>
+                <div className="chat-channel-extra-remove">
+                  <i className="fa fa-fw fa-times" onClick={ this._handleRemoveQuotedMessage } />
                 </div>
-              }
-              { link_status &&
-                <div className="chat-channel-typing">
-                  { link_status === 'loading' && <span>Fetching link preview</span> }
-                  { link_status === 'failed' && <span>Unable to fetch link preview</span> }
+              </div>
+            }
+            { link_status &&
+              <div className="chat-channel-typing">
+                { link_status === 'loading' && <span>Fetching link preview</span> }
+                { link_status === 'failed' && <span>Unable to fetch link preview</span> }
+              </div>
+            }
+            { link &&
+              <div className="chat-channel-extra">
+                <div className="chat-channel-extra-preview">
+                  <Link link={ link } />
                 </div>
-              }
-              { link &&
-                <div className="chat-channel-extra">
-                  <div className="chat-channel-extra-preview">
-                    <Link link={ link } />
-                  </div>
-                  <div className="chat-channel-extra-remove">
-                    <i className="fa fa-fw fa-times" onClick={ this._handleRemoveLink } />
-                  </div>
+                <div className="chat-channel-extra-remove">
+                  <i className="fa fa-fw fa-times" onClick={ this._handleRemoveLink } />
                 </div>
-              }
-              <Composer { ...this._getComposer() } />
-            </div>
-          }
+              </div>
+            }
+            <Composer { ...this._getComposer() } />
+          </div>
         </div>
       </DropZone>
     )

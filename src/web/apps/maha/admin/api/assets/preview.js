@@ -1,16 +1,11 @@
-import { Route } from '../../../../../core/backframe'
 import path from 'path'
 
-const handler = async (req, res) => {
+const previewRoute = async (req, res) => {
 
-  res.sendFile(path.join('uploads', req.params.id))
+  const filepath = path.join('uploads', req.params.id)
+
+  res.sendFile(filepath)
 
 }
-
-const previewRoute = new Route({
-  path: '/assets/:id/preview',
-  method: 'get',
-  handler
-})
 
 export default previewRoute

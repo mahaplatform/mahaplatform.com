@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddNotificationMethod = new Migration({
+const AddNotificationMethod = {
 
   up: async (knex) => {
 
@@ -36,6 +34,6 @@ const AddNotificationMethod = new Migration({
 
   }
 
-})
+}
 
 export default AddNotificationMethod

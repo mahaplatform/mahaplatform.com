@@ -1,10 +1,8 @@
-import Notifications from '../../../core/objects/notifications'
-
-const notifications = new Notifications([
+const notifications = [
   {
     code: 'conversation_status',
     title: 'Conversation Status',
-    description: 'someone starts or archives a conversation with me'
+    description: 'someone starts a conversation with me'
   }, {
     code: 'conversation_membership',
     title: 'Conversation Membership',
@@ -14,6 +12,6 @@ const notifications = new Notifications([
     title: 'Message Received',
     description: 'someone sends a message to one of my conversations'
   }
-])
+]
 
 export default notifications

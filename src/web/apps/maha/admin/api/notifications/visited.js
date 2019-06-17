@@ -1,27 +1,38 @@
 import NotificationSerializer from '../../../serializers/notification_serializer'
-import { Route } from '../../../../../core/backframe'
+import socket from '../../../../../core/services/routes/emitter'
+import Notification from '../../../models/notification'
 
-const processor = async (req, trx, options) => {
+const seenRoute = async (req, res) => {
 
-  const notification = await req.resource.save({
+  const notification = await Notification.scope({
+    team: req.team,
+    user: req.user
+  }).query(qb => {
+    qb.where('id', req.params.id)
+  }).fetch({
+    withRelated: ['subject.photo','app','story','object_owner','user'],
+    transacting: req.trx
+  })
+
+  if(!notification) return res.status(404).json({
+    code: 404,
+    message: 'Unable to find notification'
+  })
+
+  await req.resource.save({
     is_visited: true
-  }, { patch: true, transacting: trx })
+  }, {
+    patch: true,
+    transacting: req.trx
+  })
 
-  notification.load(['app','story','subject','user'], { transacting: trx })
+  await socket.refresh(req, {
+    channel: '/admin/user',
+    target: '/admin/notifications'
+  })
 
-  return NotificationSerializer(req, trx, notification)
+  res.status(200).respond(notification, NotificationSerializer)
 
 }
 
-const refresh = (req, trx, result, options) => [
-  { channel: '/admin/user', target: '/admin/notifications' }
-]
-
-const visitedRoute = new Route({
-  path: '/visited',
-  method: 'patch',
-  processor,
-  refresh
-})
-
-export default visitedRoute
+export default seenRoute

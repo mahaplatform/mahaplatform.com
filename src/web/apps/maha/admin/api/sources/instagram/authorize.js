@@ -1,4 +1,3 @@
-import { Route } from '../../../../../../core/backframe'
 import Instagram from 'instagram-node'
 
 const ig = new Instagram.instagram()
@@ -10,20 +9,15 @@ ig.use({
 
 const redirect_uri = `${process.env.WEB_HOST}/admin/instagram/token`
 
-const processor = async (req, trx, options) => {
+const authorizeRoute = async (req, res) => {
 
-  const response = await ig.get_authorization_url(redirect_uri, {
+  const url = await ig.get_authorization_url(redirect_uri, {
     scope: 'basic',
     state: req.user.get('id')
   })
-  return response
+
+  res.status(200).respond(url)
 
 }
-
-const authorizeRoute = new Route({
-  method: 'get',
-  path: '/instagram/authorize',
-  processor
-})
 
 export default authorizeRoute

@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddReceiptsToChecks = new Migration({
+const AddReceiptsToChecks = {
 
   up: async (knex) => {
 
@@ -8,7 +6,7 @@ const AddReceiptsToChecks = new Migration({
       table.integer('check_id').unsigned()
       table.foreign('check_id').references('expenses_checks.id')
     })
-        
+
   },
 
   down: async (knex) => {
@@ -20,6 +18,6 @@ const AddReceiptsToChecks = new Migration({
 
   }
 
-})
+}
 
 export default AddReceiptsToChecks

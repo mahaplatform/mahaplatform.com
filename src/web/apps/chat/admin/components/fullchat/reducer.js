@@ -3,8 +3,7 @@ export const INITIAL_STATE = {
   editing: false,
   info: false,
   managing: false,
-  selected: null,
-  starred: false
+  selected: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -14,21 +13,13 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'CHOOSE':
     return {
       ...state,
-      selected: action.id,
-      starred: false
+      selected: action.id
     }
 
   case 'LOAD_CHAT_SUCCESS':
     return {
       ...state,
       ...action.value || {}
-    }
-
-  case 'STARRED':
-    return {
-      ...state,
-      selected: null,
-      starred: true
     }
 
   case 'TOGGLE_ADDING':

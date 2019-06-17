@@ -1,19 +1,13 @@
-import { Plugin } from '../../../backframe'
 import App from '../../../../apps/maha/models/app'
 
-const alterRequest = async (req, trx, options) => {
+const route = (code) => async(req, res, next) => {
 
-  if(!options.app_id) return req
+  req.app = await App.where({ code }).fetch({
+    transacting: req.trx
+  })
 
-  req.app = await App.where({ id: options.app_id }).fetch({ transacting: trx })
-
-  return req
+  next()
 
 }
 
-const appPlugin = new Plugin({
-  name: 'app',
-  alterRequest
-})
-
-export default appPlugin
+export default route

@@ -11,7 +11,7 @@ export const toggleApp = (app_id) => ({
 export const fetch = () => ({
   type: 'API_REQUEST',
   method: 'GET',
-  endpoint: '/api/admin/platform/teams/apps',
+  endpoint: '/api/admin/platform/apps',
   request: 'FETCH_REQUEST',
   success: 'FETCH_SUCCESS',
   failure: 'FETCH_FAILURE'

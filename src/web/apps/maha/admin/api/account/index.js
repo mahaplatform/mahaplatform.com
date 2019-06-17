@@ -1,15 +1,20 @@
-import { Segment } from '../../../../../core/backframe'
+import notifications from './notifications'
+import security from './security'
+import { Router } from 'express'
 import update from './update'
 import photo from './photo'
 import show from './show'
 
-const accountSegment = new Segment({
-  path: '/account',
-  routes: [
-    show,
-    update,
-    photo
-  ]
-})
+const router = new Router({ mergeParams: true })
 
-export default accountSegment
+router.get('/', show)
+
+router.patch('/', update)
+
+router.patch('/photo', photo)
+
+router.use('/notifications', notifications)
+
+router.use('/security', security)
+
+export default router

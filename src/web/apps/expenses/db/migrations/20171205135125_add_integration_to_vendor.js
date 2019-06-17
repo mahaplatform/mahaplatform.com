@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddIntegrationToVendor = new Migration({
+const AddIntegrationToVendor = {
 
   up: async (knex) => {
 
@@ -18,6 +16,6 @@ const AddIntegrationToVendor = new Migration({
 
   }
 
-})
+}
 
 export default AddIntegrationToVendor

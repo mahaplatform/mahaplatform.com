@@ -1,4 +1,4 @@
-import { Attachments, Button, List, Star } from 'maha-admin'
+import { Attachments, Button, List } from 'maha-admin'
 import RenameFolder from '../rename_folder'
 import RenameFile from '../rename_file'
 import { connect } from 'react-redux'
@@ -21,6 +21,7 @@ class Tasks extends React.Component {
 
   static propTypes = {
     item: PropTypes.object,
+    rights: PropTypes.array,
     title: PropTypes.bool,
     token: PropTypes.string,
     onChangeFolder: PropTypes.func,
@@ -38,8 +39,8 @@ class Tasks extends React.Component {
     return (
       <div className="drive-tasks">
         { title &&
-          <div className="reframe-tasks-title">
-            <div className="reframe-tasks-title-icon">
+          <div className="maha-tasks-title">
+            <div className="maha-tasks-title-icon">
               { item.code === 'root' && <i className="fa fa-fw fa-home" /> }
               { item.code === 'shared' && <i className="fa fa-fw fa-handshake-o" /> }
               { item.code === 'starred' && <i className="fa fa-fw fa-star" /> }
@@ -47,7 +48,7 @@ class Tasks extends React.Component {
               { item.type === 'folder' && <i className="fa fa-fw fa-folder" /> }
               { item.type === 'file' && <i className="fa fa-fw fa-file" /> }
             </div>
-            <div className="reframe-tasks-title-label">
+            <div className="maha-tasks-title-label">
               { item.label }
             </div>
           </div>
@@ -77,7 +78,6 @@ class Tasks extends React.Component {
     } else if(!_.includes(['shared','starred'], item.code)) {
       const can_edit = _.includes(['owner','edit'], item.access_type)
       if(mobile) items.push({ component: <Button { ...this._getDetails() } /> })
-      items.push({ component: <Star { ...this._getStar() } /> })
       if(can_edit) items.push({ component: <Button { ...this._getAccess() } /> })
       if(item.type === 'folder') {
         if(can_edit) {
@@ -104,7 +104,7 @@ class Tasks extends React.Component {
     return {
       icon: 'folder',
       label: 'Create New Folder',
-      className: 'reframe-list-item-link',
+      className: 'maha-list-item-link',
       modal: <NewFolder parent_id={ item ? item.item_id : null } />
     }
   }
@@ -113,7 +113,7 @@ class Tasks extends React.Component {
     return {
       icon: 'upload',
       label: 'Upload File(s)',
-      className: 'reframe-list-item-link',
+      className: 'maha-list-item-link',
       modal: <Attachments { ...this._getAttachments() } />
     }
   }
@@ -122,7 +122,7 @@ class Tasks extends React.Component {
     return {
       icon: 'exchange',
       label: 'Transfer Ownership',
-      className: 'reframe-list-item-link',
+      className: 'maha-list-item-link',
       modal: <Transfer />
     }
   }
@@ -140,7 +140,7 @@ class Tasks extends React.Component {
     return {
       icon: 'trash-o',
       label: 'Empty Trash',
-      className: 'reframe-list-item-link',
+      className: 'maha-list-item-link',
       request: {
         method: 'POST',
         endpoint: '/api/admin/drive/trash/empty'
@@ -152,7 +152,7 @@ class Tasks extends React.Component {
     return {
       icon: 'rotate-left',
       label: 'Restore all',
-      className: 'reframe-list-item-link',
+      className: 'maha-list-item-link',
       request: {
         method: 'POST',
         endpoint: '/api/admin/drive/trash/restore_all'
@@ -165,7 +165,7 @@ class Tasks extends React.Component {
     return {
       icon: 'rotate-left',
       label: `Restore ${_.capitalize(item.type)}`,
-      className: 'reframe-list-item-link',
+      className: 'maha-list-item-link',
       request: {
         method: 'PATCH',
         endpoint: `/api/admin/drive/items/${item.code}/restore`
@@ -178,7 +178,7 @@ class Tasks extends React.Component {
     return {
       icon: 'trash-o',
       label: 'Delete Forever',
-      className: 'reframe-list-item-link',
+      className: 'maha-list-item-link',
       request: {
         method: 'PATCH',
         endpoint: `/api/admin/drive/items/${item.code}/destroy`
@@ -191,20 +191,8 @@ class Tasks extends React.Component {
     return {
       icon: 'info-circle',
       label: `${_.capitalize(item.type)} Details`,
-      className: 'reframe-list-item-link',
+      className: 'maha-list-item-link',
       handler: this._handleDetails
-    }
-  }
-
-  _getStar() {
-    const { item } = this.props
-    return {
-      starText: 'Add Star',
-      unstarText: 'Remove Star',
-      is_starred: item.is_starred,
-      label: item.type,
-      table: `drive_${item.type}s`,
-      id: item.item_id
     }
   }
 
@@ -213,7 +201,7 @@ class Tasks extends React.Component {
     return {
       icon: 'share',
       label: `Share ${_.capitalize(item.type)}`,
-      className: 'reframe-list-item-link',
+      className: 'maha-list-item-link',
       modal: <Share item={ item } />
     }
   }
@@ -223,7 +211,7 @@ class Tasks extends React.Component {
     return {
       icon: 'handshake-o',
       label: 'Manage Access',
-      className: 'reframe-list-item-link',
+      className: 'maha-list-item-link',
       modal: <Access item={ item } />
     }
   }
@@ -233,7 +221,7 @@ class Tasks extends React.Component {
     return {
       icon: 'arrows-alt',
       label: `Move ${_.capitalize(item.type)}`,
-      className: 'reframe-list-item-link',
+      className: 'maha-list-item-link',
       modal: <Move item={ item } />
     }
   }
@@ -244,7 +232,7 @@ class Tasks extends React.Component {
     return {
       icon: 'i-cursor',
       label: `Rename ${_.capitalize(item.type)}`,
-      className: 'reframe-list-item-link',
+      className: 'maha-list-item-link',
       modal: <Component item={ item } />
     }
   }
@@ -254,7 +242,7 @@ class Tasks extends React.Component {
     return {
       icon: 'download',
       label: 'Download File',
-      className: 'reframe-list-item-link',
+      className: 'maha-list-item-link',
       handler: () => {
         window.location.href = `/api/admin/assets/${item.asset.id}/download?token=${token}`
       }
@@ -266,7 +254,7 @@ class Tasks extends React.Component {
     return {
       icon: 'eye',
       label: 'View File',
-      className: 'reframe-list-item-link',
+      className: 'maha-list-item-link',
       route: `/admin/drive/files/${item.code}`
     }
   }
@@ -276,7 +264,7 @@ class Tasks extends React.Component {
     return {
       icon: 'clone',
       label: 'Manage Versions',
-      className: 'reframe-list-item-link',
+      className: 'maha-list-item-link',
       modal: <Versions id={ item.code } />
     }
   }
@@ -286,7 +274,7 @@ class Tasks extends React.Component {
     return {
       icon: 'trash-o',
       label: 'Move to Trash',
-      className: 'reframe-list-item-link',
+      className: 'maha-list-item-link',
       confirm: 'Are you sure?',
       request: {
         method: 'PATCH',

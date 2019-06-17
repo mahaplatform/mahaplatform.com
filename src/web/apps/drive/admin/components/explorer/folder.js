@@ -11,8 +11,7 @@ class Folder extends React.Component {
   static contextTypes = {
     network: PropTypes.object,
     router: PropTypes.object,
-    tasks: PropTypes.object,
-    uploader: PropTypes.object
+    tasks: PropTypes.object
   }
 
   static propTypes = {
@@ -76,10 +75,9 @@ class Folder extends React.Component {
   componentDidMount() {
     const { network } = this.context
     const { folder } = this.props
-    const code = folder.item_id || folder.code
-    network.join(`/admin/drive/folders/${code}`)
+    network.join(`/admin/drive/folders/${folder.code}`)
     network.subscribe([
-      { target: `/admin/drive/folders/${code}`, action: 'refresh', handler: this._handleRefreshFolder }
+      { target: `/admin/drive/folders/${folder.code}`, action: 'refresh', handler: this._handleRefreshFolder }
     ])
     this._handleFocus()
   }
@@ -94,10 +92,9 @@ class Folder extends React.Component {
   componentWillUnmount() {
     const { network } = this.context
     const { folder } = this.props
-    const code = folder.item_id || folder.code
-    network.leave(`/admin/drive/folders/${code}`)
+    network.leave(`/admin/drive/folders/${folder.code}`)
     network.unsubscribe([
-      { target: `/admin/drive/folders/${code}`, action: 'refresh', handler: this._handleRefreshFolder }
+      { target: `/admin/drive/folders/${folder.code}`, action: 'refresh', handler: this._handleRefreshFolder }
     ])
   }
 

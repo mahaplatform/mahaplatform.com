@@ -1,6 +1,5 @@
-import Migration from '../../../../core/objects/migration'
 
-const AlterMembers = new Migration({
+const AlterMembers = {
 
   up: async (knex) => {
 
@@ -22,6 +21,6 @@ const AlterMembers = new Migration({
 
   }
 
-})
+}
 
 export default AlterMembers

@@ -1,7 +1,6 @@
-import search from '../../../core/objects/search'
 import Project from '../models/project'
 
-const Search = search({
+const Search = {
   projects: {
     fields: ['title'],
     model: Project,
@@ -10,6 +9,6 @@ const Search = search({
       route: `/admin/expenses/projects/${result.get('id')}`
     })
   }
-})
+}
 
 export default Search

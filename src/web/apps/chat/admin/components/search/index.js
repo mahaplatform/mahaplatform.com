@@ -8,7 +8,8 @@ import React from 'react'
 class SearchResults extends React.Component {
 
   static propTypes = {
-    results: PropTypes.object
+    results: PropTypes.object,
+    onChoose: PropTypes.func
   }
 
   render() {

@@ -1,22 +1,12 @@
-import serializer from '../../../core/objects/serializer'
-
-const memberSerializer = serializer((req, trx, result) => ({
-
+const memberSerializer = (req, result) => ({
   id: result.get('id'),
-
   full_name: full_name(req, result),
-
   first_name: value(req, result, 'first_name'),
-
   last_name: value(req, result, 'last_name'),
-
   email: value(req, result, 'email'),
-
   created_at: result.get('created_at'),
-
   updated_at: result.get('updated_at')
-
-}))
+})
 
 const full_name = (req, result) => {
 

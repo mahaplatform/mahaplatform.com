@@ -34,9 +34,9 @@ class htmlfield extends React.Component {
   render() {
     const { editorState, linking, view } = this.state
     return (
-      <div className="reframe-htmlfield">
-        <div className="reframe-htmlfield-header">
-          <div className="reframe-htmlfield-header-section">
+      <div className="maha-htmlfield">
+        <div className="maha-htmlfield-header">
+          <div className="maha-htmlfield-header-section">
             <div className={ this._getIconClass() } onClick={ (view == 'text') ? this._handleBlockType.bind(this, 'header-one') : null }>
               <i className="fa fa-fw fa-header" />
             </div>
@@ -50,7 +50,7 @@ class htmlfield extends React.Component {
               <i className="fa fa-fw fa-underline" />
             </div>
           </div>
-          <div className="reframe-htmlfield-header-section">
+          <div className="maha-htmlfield-header-section">
             <div className={ this._getIconClass() } onClick={ (view == 'text') ? this._handleBeginLink.bind(this) : null }>
               <i className="fa fa-fw fa-link" />
             </div>
@@ -58,7 +58,7 @@ class htmlfield extends React.Component {
               <i className="fa fa-fw fa-unlink" />
             </div>
           </div>
-          <div className="reframe-htmlfield-header-section">
+          <div className="maha-htmlfield-header-section">
             <div className={ this._getIconClass() } onClick={ (view == 'text') ? this._handleBlockType.bind(this, 'ordered-list-item') : null }>
               <i className="fa fa-fw fa-list-ol" />
             </div>
@@ -66,26 +66,26 @@ class htmlfield extends React.Component {
               <i className="fa fa-fw fa-list-ul" />
             </div>
           </div>
-          <div className="reframe-htmlfield-header-section">
-            <div className="reframe-htmlfield-header-icon" onClick={ this._handleCodeToggle.bind(this) }>
+          <div className="maha-htmlfield-header-section">
+            <div className="maha-htmlfield-header-icon" onClick={ this._handleCodeToggle.bind(this) }>
               <i className="fa fa-fw fa-code" />
             </div>
           </div>
         </div>
         <CSSTransition in={ linking } classNames="expanded" timeout={ 150 } mountOnEnter={ true } unmountOnExit={ true }>
-          <div className="reframe-htmlfield-input">
-            <div className="reframe-htmlfield-input-element">
+          <div className="maha-htmlfield-input">
+            <div className="maha-htmlfield-input-element">
               <input { ...this._getLinkInput()}/>
             </div>
-            <div className="reframe-htmlfield-input-icon" onClick={ this._handleEndLink.bind(this) }>
+            <div className="maha-htmlfield-input-icon" onClick={ this._handleEndLink.bind(this) }>
               <i className="fa fa-times" />
             </div>
           </div>
         </CSSTransition>
         <CSSTransition in={ linking } classNames="expanded" timeout={ 150 } mountOnEnter={ true } unmountOnExit={ true }>
-          <div className="reframe-htmlfield-overlay" onClick={ this._handleEndLink.bind(this) } />
+          <div className="maha-htmlfield-overlay" onClick={ this._handleEndLink.bind(this) } />
         </CSSTransition>
-        <div className="reframe-htmlfield-body">
+        <div className="maha-htmlfield-body">
           { editorState && view == 'text' && <Editor { ...this._getEditor() } /> }
           { editorState && view == 'code' && <textarea { ...this._getTextarea() } /> }
         </div>
@@ -117,9 +117,9 @@ class htmlfield extends React.Component {
 
   _getIconClass() {
     if(this.state.view == 'text'){
-      return 'reframe-htmlfield-header-icon enabled'
+      return 'maha-htmlfield-header-icon enabled'
     } else {
-      return 'reframe-htmlfield-header-icon disabled'
+      return 'maha-htmlfield-header-icon disabled'
     }
   }
 
@@ -217,7 +217,7 @@ class htmlfield extends React.Component {
       linking: true,
       url
     }, () => {
-      setTimeout(() => this.link.focus(), 0);
+      setTimeout(() => this.link.focus(), 0)
     })
 
   }
@@ -230,8 +230,8 @@ class htmlfield extends React.Component {
   }
 
   _handleLinkKeyDown(e) {
-     if(e.which !== 13) return
-     this._handleLinkChange(this.link.value)
+    if(e.which !== 13) return
+    this._handleLinkChange(this.link.value)
   }
 
   _handleLinkChange(url) {

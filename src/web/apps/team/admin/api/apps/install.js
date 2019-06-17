@@ -1,54 +1,45 @@
-import { Route } from '../../../../../core/backframe'
+import { activity } from '../../../../../core/services/routes/activities'
+import socket from '../../../../../core/services/routes/emitter'
 import Installation from '../../../../maha/models/installation'
 
-const activity = story => (req, trx, object, options) => ({
-  story: 'installed {object}',
-  object
-})
-
-const processor = async (req, trx, options) => {
+const installRoute = async (req, res) => {
 
   const installation = await Installation.where({
     app_id: req.params.id,
     team_id: req.team.get('id')
-  }).fetch({ transacting: trx })
+  }).fetch({
+    transacting: req.trx
+  })
 
-  if(installation) return true
+  if(installation) return res.status(200).respond(true)
 
   const newinstallation = await Installation.forge({
     app_id: req.params.id,
     team_id: req.team.get('id'),
     settings: {}
-  }).save(null, { transacting: trx })
+  }).save(null, {
+    transacting: req.trx
+  })
 
-  await newinstallation.load(['app'], { transacting: trx })
+  await newinstallation.load(['app'], {
+    transacting: req.trx
+  })
 
-  return newinstallation
+  await activity(req, {
+    story: 'installed {object}',
+    object: newinstallation
+  })
 
-}
-
-const refresh = (req, trx, result, options) => [
-  {
+  await socket.refresh(req, {
     channel: 'team',
     target: [
       '/admin/team/apps',
       `/admin/team/apps/${req.params.id}`
     ]
-  }
-]
+  })
 
-const messages = (req, trx, result, options) => ({
-  channel: 'team',
-  action: 'session'
-})
+  res.status(200).respond(true)
 
-const installRoute = new Route({
-  activity,
-  messages,
-  method: 'get',
-  path: '/install',
-  processor,
-  refresh
-})
+}
 
 export default installRoute

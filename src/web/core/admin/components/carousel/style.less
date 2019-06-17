@@ -1,0 +1,120 @@
+.maha-carousel {
+  position: relative;
+}
+.maha-carousel-theatre {
+  position: relative;
+  display: flex;
+}
+.maha-carousel-previous {
+  left: 0
+}
+.maha-carousel-next {
+  right: 0
+}
+.maha-carousel-previous,
+.maha-carousel-next {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 3em;
+  display: flex;
+  z-index: 2;
+  cursor: pointer;
+  i {
+    font-size: 2.5em;
+    color: fadeout(@white, 30);
+    margin: auto;
+  }
+}
+.maha-carousel-theatre {
+  position: relative;
+}
+.maha-carousel-slides {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  > .maha-carousel-slide {
+    display: none;
+    position: relative;
+    transition: left 0.6s ease-in-out;
+    > img,
+    > a > img {
+      &:extend(.img-responsive);
+      line-height: 1;
+    }
+    @media all and (transform-3d), (-webkit-transform-3d) {
+      transition: transform 0.6s ease-in-out;
+      backface-visibility: hidden;
+      perspective: 1000px;
+      &.next,
+      &.active.right {
+        transform: translate3d(100%, 0, 0);
+        left: 0;
+      }
+      &.prev,
+      &.active.left {
+        transform: translate3d(-100%, 0, 0);
+        left: 0;
+      }
+      &.next.left,
+      &.prev.right,
+      &.active {
+        transform: translate3d(0, 0, 0);
+        left: 0;
+      }
+    }
+  }
+  > .active,
+  > .next,
+  > .prev {
+    display: block;
+  }
+  > .active {
+    left: 0;
+  }
+  > .next,
+  > .prev {
+    position: absolute;
+    top: 0;
+    width: 100%;
+  }
+  > .next {
+    left: 100%;
+  }
+  > .prev {
+    left: -100%;
+  }
+  > .next.left,
+  > .prev.right {
+    left: 0;
+  }
+  > .active.left {
+    left: -100%;
+  }
+  > .active.right {
+    left: 100%;
+  }
+}
+.maha-carousel-pagination {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 0.5em;
+  text-align: center;
+}
+.maha-carousel-pagination-button {
+}
+.maha-carousel-pagination-button {
+  margin: 0 5px;
+  display: inline-block;
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 50%;
+  &:not(.active) {
+    background-color: fadeout(@white, 50);
+  }
+  &.active {
+    background-color: @white;
+  }
+}

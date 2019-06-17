@@ -1,4 +1,3 @@
-import search from '../../../core/objects/search'
 import Item from '../models/item'
 
 const icon = (content_type) => {
@@ -15,7 +14,7 @@ const icon = (content_type) => {
   return 'file-text-o'
 }
 
-const Search = search({
+const Search = {
   drive: {
     fields: ['label'],
     model: Item,
@@ -28,6 +27,6 @@ const Search = search({
     }),
     withRelated: ['asset']
   }
-})
+}
 
 export default Search

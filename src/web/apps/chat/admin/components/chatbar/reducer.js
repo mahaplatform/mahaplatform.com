@@ -3,7 +3,6 @@ export const INITIAL_STATE = {
   showEdit: false,
   showInfo: false,
   showNew: false,
-  showStarred: false,
   showSubscriptions: false,
   selected: null
 }
@@ -15,8 +14,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'CHOOSE':
     return {
       ...state,
-      selected: action.id,
-      showStarred: false
+      selected: action.id
     }
 
   case 'SET_EDIT':
@@ -41,13 +39,6 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       showNew: action.show
-    }
-
-  case 'SET_STARRED':
-    return {
-      ...state,
-      selected: null,
-      showStarred: action.show
     }
 
   case 'SET_SUBSCRIPTONS':

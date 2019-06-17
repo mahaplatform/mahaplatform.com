@@ -2,7 +2,7 @@ import Queue from '../../../core/objects/queue'
 import aws from '../../../core/services/aws'
 import path from 'path'
 
-const enqueue = async (req, trx, message) => message
+const enqueue = async (req, message) => message
 
 const processor = async (job, trx) => {
 

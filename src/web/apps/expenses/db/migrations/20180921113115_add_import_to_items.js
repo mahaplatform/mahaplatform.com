@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddImportToItems = new Migration({
+const AddImportToItems = {
 
   up: async (knex) => {
 
@@ -114,6 +112,6 @@ const AddImportToItems = new Migration({
 
   }
 
-})
+}
 
 export default AddImportToItems

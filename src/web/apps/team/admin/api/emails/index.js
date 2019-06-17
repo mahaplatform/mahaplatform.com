@@ -1,26 +1,14 @@
-import { Resources } from '../../../../../core/backframe'
-import Email from '../../../../maha/models/email'
-import EmailSerializer from '../../../serializers/email_serializer'
+import { Router } from 'express'
 import resend from './resend'
+import list from './list'
+import show from './show'
 
-const emailResources = new Resources({
-  defaultSort: '-created_at',
-  filterParams: ['user_id','sent_at'],
-  memberActions: [
-    resend
-  ],
-  model: Email,
-  only: ['list','show'],
-  path: '/emails',
-  rights: ['team:manage_team'],
-  serializer: EmailSerializer,
-  sortParams: ['id','to','subject','status','sent_at','created_at'],
-  withRelated: [
-    {
-      activities: qb => qb.orderBy('created_at','asc')
-    },
-    'activities.link','user.photo'
-  ]
-})
+const router = new Router({ mergeParams: true })
 
-export default emailResources
+router.get('/', list)
+
+router.get('/:id', show)
+
+router.patch('/:id/resend', resend)
+
+export default router

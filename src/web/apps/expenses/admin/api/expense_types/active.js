@@ -1,21 +1,26 @@
 import ExpenseTypeSerializer from '../../../serializers/expense_type_serializer'
 import ExpenseType from '../../../models/expense_type'
-import { Resources } from '../../../../../core/backframe'
 
-const defaultQuery = (req, trx, qb, options) => {
+const listRoute = async (req, res) => {
 
-  qb.where({ is_active: true })
+  const expense_types = await ExpenseType.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('is_active', true)
+  }).filter({
+    filter: req.query.$filter,
+    searchParams: ['title','description','integration->>\'expense_code\'']
+  }).sort({
+    sort: req.query.$sort,
+    defaultSort: ['title'],
+    sortParams: ['id','title','created_at']
+  }).fetchPage({
+    page: req.query.$page,
+    transacting: req.trx
+  })
+
+  res.status(200).respond(expense_types, ExpenseTypeSerializer)
 
 }
 
-const expenseTypeResources = new Resources({
-  defaultQuery,
-  defaultSort: 'title',
-  model: ExpenseType,
-  path: '/expense_types/active',
-  serializer: ExpenseTypeSerializer,
-  searchParams: ['title','description','integration->>\'expense_code\''],
-  sortParams: ['id','title','created_at']
-})
-
-export default expenseTypeResources
+export default listRoute

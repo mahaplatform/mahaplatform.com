@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateExpectations = new Migration({
+const CreateExpectations = {
 
   up: async (knex) => {
     return await knex.schema.createTable('competencies_expectations', (table) => {
@@ -19,6 +17,6 @@ const CreateExpectations = new Migration({
     return await knex.schema.dropTable('competencies_expectations')
   }
 
-})
+}
 
 export default CreateExpectations

@@ -30,7 +30,7 @@ export default (state = INITIAL_STATE, action) => {
       ...state,
       mode: 'invalid',
       status: 'failure',
-      message: action.result.meta.message
+      message: action.result.message
     }
 
   case 'VERIFY_SUCCESS':
@@ -60,7 +60,7 @@ export default (state = INITIAL_STATE, action) => {
     return {
       ...state,
       status: 'failure',
-      error: action.result.meta.message
+      error: action.result.message
     }
 
   case 'SECURITY_SUCCESS':

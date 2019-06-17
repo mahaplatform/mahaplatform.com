@@ -1,20 +1,14 @@
-import { Resources } from '../../../../../core/backframe'
-import Asset from '../../../../maha/models/asset'
-import AssetSerializer from '../../../serializers/asset_serializer'
 import reprocess from './reprocess'
+import { Router } from 'express'
+import list from './list'
+import show from './show'
 
-const assetResources = new Resources({
-  filterParams: ['user_id','source_id','team_id','status'],
-  model: Asset,
-  memberActions: [
-    reprocess
-  ],
-  only: ['list','show'],
-  ownedByTeam: false,
-  path: '/assets',
-  serializer: AssetSerializer,
-  sortParams: ['created_at'],
-  withRelated: ['source','user.photo']
-})
+const router = new Router({ mergeParams: true })
 
-export default assetResources
+router.get('/', list)
+
+router.get('/:id', show)
+
+router.patch('/:id/reprocess', reprocess)
+
+export default router

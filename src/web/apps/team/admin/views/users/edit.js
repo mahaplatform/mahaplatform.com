@@ -1,8 +1,9 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import GroupToken from '../../components/group_token'
 import { CompactUserToken, Form } from 'maha-admin'
 import RoleToken from '../../components/role_token'
-import GroupToken from '../../components/group_token'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import React from 'react'
 
 class Edit extends React.Component {
 
@@ -66,4 +67,8 @@ class Edit extends React.Component {
 
 }
 
-export default Edit
+const mapStateToProps = (state, props) => ({
+  token: state.maha.admin.team.token
+})
+
+export default connect(mapStateToProps)(Edit)

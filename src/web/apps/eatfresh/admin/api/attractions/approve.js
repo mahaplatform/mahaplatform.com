@@ -1,69 +1,61 @@
-import mailer from '../../../../maha/queues/mailer_queue'
-import { Route } from '../../../../../core/backframe'
+import { notifications } from '../../../../../core/services/routes/notifications'
+import AttractionSerializer from '../../../serializers/attraction_serializer'
+import { activity } from '../../../../../core/services/routes/activities'
+import socket from '../../../../../core/services/routes/emitter'
+import knex from '../../../../../core/services/knex'
+import Attraction from '../../../models/attraction'
 import User from '../../../../maha/models/user'
 
-const activity = (req, trx, object, options) => ({
-  story: 'approved {object}',
-  object
-})
+const approveRoute = async (req, res) => {
 
-const notification = async (req, trx, object, options) => {
-
-  const recipients = await User.query(qb => {
-
-    qb.select(options.knex.raw('distinct on (maha_users.id, maha_users.first_name, maha_users.last_name, maha_users.email) maha_users.*'))
-
-    qb.innerJoin('maha_users_roles', 'maha_users_roles.user_id', 'maha_users.id')
-
-    qb.innerJoin('maha_roles_apps', 'maha_roles_apps.role_id', 'maha_users_roles.role_id')
-
-    qb.where('maha_roles_apps.app_id', 4)
-
-    qb.where('maha_users.team_id', req.team.get('id'))
-
-    qb.whereNot('maha_users.id', req.user.get('id'))
-
-  }).fetchAll({ transacting: trx })
-
-  return {
-    type: 'eatfresh:attraction_approved',
-    recipient_ids: recipients.map(user => user.get('id')),
-    subject_id: req.user.get('id'),
-    story: 'approved {object}',
-    object
-  }
-
-}
-
-const processor = async (req, trx, options) => {
-
-  await req.resource.save({ is_approved: true }, { patch: true, transacting: trx  })
-
-  if(!req.resource.get('contact_email')) return true
-
-  await mailer.enqueue(req, trx, {
-    team_id: 7,
-    to: req.resource.get('contact_email'),
-    template: 'eatfresh:approval',
-    data: req.resource.toJSON()
+  const attraction = await Attraction.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('id', req.params.id)
+  }).fetch({
+    withRelated: ['county','photo','photos.asset','offerings.photo','categories.photo'],
+    transacting: req.trx
   })
 
-  return true
+  if(!attraction) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load attraction'
+  })
+
+  await activity(req, {
+    story: 'approved {object}',
+    object: attraction
+  })
+
+  const recipient_ids = await User.scope({
+    team: req.team
+  }).query(qb => {
+    qb.select(knex.raw('distinct on (maha_users.id, maha_users.first_name, maha_users.last_name, maha_users.email) maha_users.*'))
+    qb.innerJoin('maha_users_roles', 'maha_users_roles.user_id', 'maha_users.id')
+    qb.innerJoin('maha_roles_apps', 'maha_roles_apps.role_id', 'maha_users_roles.role_id')
+    qb.where('maha_roles_apps.app_id', 4)
+    qb.whereNot('maha_users.id', req.user.get('id'))
+  }).fetchAll({
+    transacting: req.trx
+  }).then(users => users.map(user => {
+    return user.get('id')
+  }))
+
+  await notifications(req, {
+    type: 'eatfresh:attraction_approved',
+    recipient_ids,
+    subject_id: req.user.get('id'),
+    story: 'approved {object}',
+    object: attraction
+  })
+
+  await socket.refresh(req, [
+    '/admin/eatfresh/attractions',
+    `/admin/eatfresh/attractions/${attraction.get('id')}`
+  ])
+
+  res.status(200).respond(attraction, AttractionSerializer)
 
 }
-
-const refresh = async (req, trx, result, options) => [
-  '/admin/eatfresh/attractions',
-  `/admin/eatfresh/attractions/${req.resource.get('id')}`
-]
-
-const approveRoute = new Route({
-  activity,
-  method: 'patch',
-  notification,
-  path: '/approve',
-  processor,
-  refresh
-})
 
 export default approveRoute

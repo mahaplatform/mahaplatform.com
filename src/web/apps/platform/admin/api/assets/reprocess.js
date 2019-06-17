@@ -1,18 +1,25 @@
 import { assembleAssetQueue, processAssetQueue } from '../../../../maha/services/asset'
-import { Route } from '../../../../../core/backframe'
+import Asset from '../../../../maha/models/asset'
 
-const processor = async (req, trx, options) => {
+const reprocessRoute = async (req, res) => {
 
-  const queue =  req.resource.get('status') === 'chunked' ? assembleAssetQueue : processAssetQueue
+  const asset = await Asset.query(qb => {
+    qb.where('code', req.params.code)
+  }).fetch({
+    withRelated: ['source','user.photo'],
+    transacting: req.trx
+  })
 
-  return await queue.enqueue(null, trx, req.params.id)
+  if(!asset) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load asset'
+  })
+  const queue = asset.get('status') === 'chunked' ? assembleAssetQueue : processAssetQueue
+
+  await queue.enqueue(null, req.params.id)
+
+  res.status(200).respond(true)
 
 }
-
-const reprocessRoute = new Route({
-  method: 'patch',
-  path: '/reprocess',
-  processor
-})
 
 export default reprocessRoute

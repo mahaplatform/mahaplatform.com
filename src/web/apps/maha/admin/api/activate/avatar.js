@@ -1,42 +1,29 @@
-import { Route, BackframeError } from '../../../../../core/backframe'
+import Checkit from 'checkit'
 
-const processor = async (req, trx, options) => {
+const avatarRoute = async (req, res) => {
 
-  try {
+  await Checkit({
+    token: 'required',
+    photo_id: 'required'
+  }).run(req.body)
 
-    const data = { photo_id: req.body.photo_id }
+  await req.user.save({
+    photo_id:
+    req.body.photo_id
+  }, {
+    patch: true,
+    transacting: req.trx
+  })
 
-    await req.user.save(data, { patch: true, transacting: trx })
+  await req.user.load(['photo'], {
+    transacting: req.trx
+  })
 
-    await req.user.load(['photo'], { transacting: trx })
-
-  } catch(err) {
-
-    throw new BackframeError({
-      code: 422,
-      message: 'Unable to save avatar'
-    })
-
-  }
-
-  return {
+  res.status(200).respond({
     id: req.user.related('photo').get('id'),
     photo: req.user.related('photo').get('path')
-  }
+  })
 
 }
 
-const rules = {
-  token: 'required',
-  photo_id: 'required'
-}
-
-const passwordRoute = new Route({
-  path: '/avatar',
-  method: 'post',
-  authenticated: false,
-  processor,
-  rules
-})
-
-export default passwordRoute
+export default avatarRoute

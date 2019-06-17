@@ -1,15 +1,14 @@
 import { addIndex } from '../../../services/search'
-import { Route } from '../../../../../core/backframe'
 import Field from '../../../../maha/models/field'
 import Item from '../../../models/item'
 
-const processor = async (req, trx, options) => {
+const reindexRoute = async (req, res) => {
 
   const fields = await Field.query(qb => {
     qb.where('parent_type', 'sites_types')
     qb.orderBy(['parent_id','delta'])
   }).fetchAll({
-    transacting: trx
+    transacting: req.trx
   })
 
   const map = fields.reduce((map, field) => ({
@@ -21,21 +20,15 @@ const processor = async (req, trx, options) => {
   }), {})
 
   const items = await Item.fetchAll({
-    transacting: trx
+    transacting: req.trx
   }).then(result => result.toArray())
 
   await Promise.mapSeries(items, async(item) => {
-    await addIndex(item, map, trx)
+    await addIndex(item, map, req.trx)
   })
 
-  return true
+  res.status(200).respond(true)
 
 }
 
-const createRoute = new Route({
-  method: 'patch',
-  path: '/reindex',
-  processor
-})
-
-export default createRoute
+export default reindexRoute

@@ -1,13 +1,11 @@
-import { Segment } from '../../../../../core/backframe'
+import { Router } from 'express'
 import chat from './chat'
 import email from './email'
 
-const assignSegment = new Segment({
-  path: '/share',
-  routes: [
-    chat,
-    email
-  ]
-})
+const router = new Router({ mergeParams: true })
 
-export default assignSegment
+router.post('/chat', chat)
+
+router.post('/email', email)
+
+export default router

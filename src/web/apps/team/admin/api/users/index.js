@@ -1,159 +1,41 @@
-import { createUserToken } from '../../../../../core/utils/user_tokens'
-import updateRelated from '../../../../../core/utils/update_related'
-import UserSerializer from '../../../serializers/user_serializer'
-import { Resources } from '../../../../../core/backframe'
-import mailer from '../../../../maha/queues/mailer_queue'
-import User from '../../../../maha/models/user'
+import finalize from './finalize'
 import activate from './activate'
+import { Router } from 'express'
 import signout from './signout'
 import disable from './disable'
-import access from './access'
 import enable from './enable'
+import create from './create'
+import update from './update'
+import access from './access'
 import reset from './reset'
-import finalize from './finalize'
+import edit from './edit'
+import list from './list'
+import show from './show'
 
-const activity = story => (req, trx, object, options) => ({
-  story,
-  object
-})
+const router = new Router({ mergeParams: true })
 
-const activities = {
-  create: activity('created {object}'),
-  update: activity('updated {object}'),
-  destroy: activity('deleted {object}')
-}
+router.get('/', list)
 
-const defaultParams = (req, trx, options) => ({
-  is_active: false,
-  notifications_enabled: true,
-  in_app_notifications_enabled: true,
-  notification_sound_enabled: true,
-  notification_sound: 'ding',
-  push_notifications_enabled: true,
-  mute_evenings: true,
-  mute_evenings_start_time: '18:00',
-  mute_evenings_end_time: '9:00',
-  mute_weekends: true,
-  values: {}
-})
+router.post('/', create)
 
-const sendActivationEmail = async (req, trx, user, options) => {
+router.get('/:id', show)
 
-  const token = createUserToken(user, 'activation_id')
+router.patch('/:id', update)
 
-  await mailer.enqueue(req, trx, {
-    team_id: req.team.get('id'),
-    user,
-    template: 'team:activation',
-    data: {
-      first_name: user.get('first_name'),
-      activation_url: `${process.env.WEB_HOST}/admin/activate/${token}`
-    }
-  })
+router.get('/:id/edit', edit)
 
-}
+router.get('/:id/access', access)
 
-const defaultQuery = (req, trx, qb, options) => {
+router.patch('/:id/activate', activate)
 
-  qb.select(options.knex.raw('distinct on ("maha_users"."id","maha_users"."last_name","maha_users"."email") "maha_users".*'))
+router.patch('/:id/enable', enable)
 
-  qb.leftJoin('maha_users_roles', 'maha_users_roles.user_id', 'maha_users.id')
+router.patch('/:id/disable', disable)
 
-}
+router.patch('/:id/reset', reset)
 
-const refresh = {
-  create: (req, trx, result, options) => [
-    '/admin/team/users'
-  ],
-  update: (req, trx, result, options) => [
-    '/admin/team/users',
-    `/admin/team/users/${result.get('id')}`
-  ]
-}
+router.patch('/:id/signout', signout)
 
-const messages = {
-  update: (req, trx, result, options) => [
-    { channel: `/admin/users/${result.get('id')}`, action: 'session' }
-  ]
-}
+router.patch('/import/:id/finalize', finalize)
 
-const groupFilter = (qb, filter, options) => {
-
-  qb.leftJoin('maha_users_groups', 'maha_users_groups.user_id', 'maha_users.id')
-
-  qb.whereIn('maha_users_groups.group_id', filter.$eq)
-
-}
-
-const roleFilter = (qb, filter, options) => {
-
-  qb.whereIn('maha_users_roles.role_id', filter.$eq)
-
-}
-
-const appFilter = (qb, filter, options) => {
-
-  qb.innerJoin('maha_roles_apps', 'maha_roles_apps.role_id', 'maha_users_roles.role_id')
-
-  qb.whereIn('maha_roles_apps.app_id', filter.$eq)
-
-}
-
-const rightFilter = (qb, filter, options) => {
-
-  qb.innerJoin('maha_roles_rights', 'maha_roles_rights.role_id', 'maha_users_roles.role_id')
-
-  qb.whereIn('maha_roles_rights.right_id', filter.$eq)
-
-}
-
-const userResources = new Resources({
-  afterProcessor: {
-    create: [
-      updateRelated('roles', 'maha_users_roles', 'role_ids', 'user_id', 'role_id'),
-      updateRelated('groups', 'maha_users_groups', 'group_ids', 'user_id', 'group_id'),
-      updateRelated('supervisors', 'maha_supervisions', 'supervisor_ids', 'employee_id', 'supervisor_id'),
-      sendActivationEmail
-    ],
-    update: [
-      updateRelated('roles', 'maha_users_roles', 'role_ids', 'user_id', 'role_id'),
-      updateRelated('groups', 'maha_users_groups', 'group_ids', 'user_id', 'group_id'),
-      updateRelated('supervisors', 'maha_supervisions', 'supervisor_ids', 'employee_id', 'supervisor_id')
-    ]
-  },
-  activities,
-  allowedParams: ['first_name','last_name','email','secondary_email','is_active','email_notification_method','photo_id','values'],
-  filterParams: ['is_active'],
-  collectionActions: [
-    finalize
-  ],
-  defaultParams,
-  defaultSort: 'last_name',
-  defaultQuery,
-  memberActions: [
-    access,
-    activate,
-    disable,
-    enable,
-    reset,
-    signout
-  ],
-  messages,
-  model: User,
-  path: '/users',
-  refresh,
-  rights: ['team:manage_people'],
-  serializer: UserSerializer,
-  searchParams: ['first_name','last_name','email'],
-  sortParams: ['id','first_name','last_name','email'],
-  withRelated: ['photo','roles','groups','supervisors'],
-  virtualFilters: {
-    group_id: groupFilter,
-    role_id: roleFilter,
-    app_id: appFilter,
-    right_id: rightFilter
-  },
-  virtualParams: ['role_ids','group_ids','supervisor_ids']
-})
-
-export default userResources
+export default router

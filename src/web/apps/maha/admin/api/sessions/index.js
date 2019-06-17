@@ -1,13 +1,11 @@
-import { Segment } from '../../../../../core/backframe'
+import { Router } from 'express'
 import signout from './signout'
 import remove from './remove'
 
-const sessionSegment = new Segment({
-  path: '/sessions/:id',
-  routes: [
-    signout,
-    remove
-  ]
-})
+const router = new Router({ mergeParams: true })
 
-export default sessionSegment
+router.post('/:id/signout', signout)
+
+router.post('/:id/remove', remove)
+
+export default router

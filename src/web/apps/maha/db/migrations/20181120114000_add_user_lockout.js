@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddLockout = new Migration({
+const AddLockout = {
 
   up: async (knex) => {
 
@@ -17,6 +15,6 @@ const AddLockout = new Migration({
 
   down: async (knex) => {}
 
-})
+}
 
 export default AddLockout

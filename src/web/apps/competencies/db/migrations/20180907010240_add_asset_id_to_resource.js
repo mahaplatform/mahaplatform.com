@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddAssetIdToResource = new Migration({
+const AddAssetIdToResource = {
 
   up: async (knex) => {
     await knex.schema.table('competencies_resources', table => {
@@ -15,6 +13,6 @@ const AddAssetIdToResource = new Migration({
     })
   }
 
-})
+}
 
 export default AddAssetIdToResource

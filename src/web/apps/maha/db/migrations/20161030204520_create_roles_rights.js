@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateRolesRights = new Migration({
+const CreateRolesRights = {
 
   up: async (knex) => {
     return await knex.schema.createTable('maha_roles_rights', (table) => {
@@ -15,6 +13,6 @@ const CreateRolesRights = new Migration({
     return await knex.schema.dropTable('maha_roles_rights')
   }
 
-})
+}
 
 export default CreateRolesRights

@@ -1,21 +1,17 @@
 import { messaging } from '../../../../../core/services/firebase'
-import { BackframeError, Route } from '../../../../../core/backframe'
 import Device from '../../../models/device'
 
-const processor = async (req, trx, options) => {
+const pushRoute = async (req, res) => {
 
-  try {
+  const device = await Device.where({
+    fingerprint: req.params.fingerprint
+  }).fetch({
+    transacting: req.trx,
+    withRelated: ['platform_type']
+  })
 
-    const device = await Device.where({
-      fingerprint: req.params.fingerprint
-    }).fetch({
-      transacting: trx,
-      withRelated: ['platform_type']
-    })
-
-    const token = device.get('push_token')
-
-    const message = (device.related('platform_type').get('text') !== 'cordova') ? {
+  const result = await messaging.send({
+    ...(device.related('platform_type').get('text') !== 'cordova') ? {
       data: {
         title: req.body.title,
         body: req.body.body,
@@ -29,32 +25,12 @@ const processor = async (req, trx, options) => {
       data: {
         route: req.body.route || ''
       }
-    }
+    },
+    token: device.get('push_token')
+  })
 
-    const result = await messaging.send({
-      ...message,
-      token
-    })
-
-    return result
-
-  } catch(err) {
-
-    console.log(err)
-
-    throw new BackframeError({
-      code: 422,
-      message: 'Unable to push message'
-    })
-
-  }
+  res.status(200).respond(result)
 
 }
-
-const pushRoute = new Route({
-  method: 'post',
-  path: '/:fingerprint/push',
-  processor
-})
 
 export default pushRoute

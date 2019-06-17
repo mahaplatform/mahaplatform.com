@@ -1,26 +1,11 @@
-import EmailSerializer from '../../../serializers/email_serializer'
-import Email from '../../../models/email'
-import { Resources } from '../../../../../core/backframe'
+import { Router } from 'express'
+import update from './update'
+import list from './list'
 
-const defaultParams = (req, trx, options) => ({
-  site_id: req.params.site_id
-})
+const router = new Router({ mergeParams: true })
 
-const defaultQuery = (req, trx, qb, options) => {
+router.get('/', list)
 
-  qb.where('site_id', req.params.site_id)
+router.patch('/:id', update)
 
-}
-
-const emailsResources = new Resources({
-  allowedParams: ['subject','text'],
-  defaultParams,
-  defaultQuery,
-  defaultSort: 'id',
-  model: Email,
-  only: ['list','update'],
-  path: '/sites/:site_id/emails',
-  serializer: EmailSerializer
-})
-
-export default emailsResources
+export default router

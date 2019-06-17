@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateDriveFoldersAccesses = new Migration({
+const CreateDriveFoldersAccesses = {
 
   up: async (knex) => {
     return await knex.raw(`
@@ -22,6 +20,6 @@ const CreateDriveFoldersAccesses = new Migration({
     return await knex.raw('drop view drive_folders_accesses')
   }
 
-})
+}
 
 export default CreateDriveFoldersAccesses

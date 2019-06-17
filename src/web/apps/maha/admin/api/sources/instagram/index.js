@@ -1,14 +1,14 @@
-import { Segment } from '../../../../../../core/backframe'
 import authorize from './authorize'
+import { Router } from 'express'
 import create from './create'
 import list from './list'
 
-const instagramSegment = new Segment({
-  routes: [
-    authorize,
-    list,
-    create
-  ]
-})
+const router = new Router({ mergeParams: true })
 
-export default instagramSegment
+router.get('/authorize', authorize)
+
+router.get('/photos', list)
+
+router.post('/photos', create)
+
+export default router

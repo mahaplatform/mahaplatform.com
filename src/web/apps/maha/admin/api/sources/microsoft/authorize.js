@@ -1,4 +1,3 @@
-import { Route } from '../../../../../../core/backframe'
 import OAuth2 from 'simple-oauth2'
 
 const oauth2 = OAuth2.create({
@@ -13,7 +12,7 @@ const oauth2 = OAuth2.create({
   }
 })
 
-const processor = async (req, trx, options) => {
+const authorizeRoute = async (req, res) => {
 
   const url = await oauth2.authorizationCode.authorizeURL({
     redirect_uri: `${process.env.WEB_HOST}/admin/microsoft/token`,
@@ -21,14 +20,8 @@ const processor = async (req, trx, options) => {
     state: req.user.get('id')
   })
 
-  return url
+  res.status(200).respond(url)
 
 }
-
-const authorizeRoute = new Route({
-  method: 'get',
-  path: '/microsoft/authorize',
-  processor
-})
 
 export default authorizeRoute

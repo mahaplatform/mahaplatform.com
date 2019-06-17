@@ -1,14 +1,14 @@
-import { Segment } from '../../../../../../core/backframe'
 import authorize from './authorize'
+import { Router } from 'express'
 import create from './create'
 import list from './list'
 
-const microsoftSegment = new Segment({
-  routes: [
-    authorize,
-    create,
-    list
-  ]
-})
+const router = new Router({ mergeParams: true })
 
-export default microsoftSegment
+router.get('/authorize', authorize)
+
+router.get('/files', list)
+
+router.post('/files', create)
+
+export default router

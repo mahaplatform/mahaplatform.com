@@ -52,28 +52,6 @@ const reducer = (state = INITIAL_STATE, action) => {
       unread_status: 'success'
     }
 
-  case 'ACTIVATE_CHANNEL':
-    return {
-      ...state,
-      channels: [
-        ...state.channels.map(channel => ({
-          ...channel,
-          is_archived: (channel.id === action.channel_id) ? false : channel.is_archived
-        }))
-      ]
-    }
-
-  case 'ARCHIVE_CHANNEL':
-    return {
-      ...state,
-      channels: [
-        ...state.channels.map(channel => ({
-          ...channel,
-          is_archived: (channel.id === action.channel_id) ? true : channel.is_archived
-        }))
-      ]
-    }
-
   case 'APPEAR':
     const active = {
       channel_id: action.channel_id,

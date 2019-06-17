@@ -1,23 +1,31 @@
 import AssetSerializer from '../../../../serializers/asset_serializer'
 import { createAsset } from '../../../../services/asset'
-import { Route } from '../../../../../../core/backframe'
 import Source from '../../../../models/source'
 import request from 'request-promise'
 import { getClient } from './utils'
 
-const processor = async (req, trx, options) => {
+const createRoute = async (req, res) => {
 
-  const client = await getClient(req, trx)
+  const client = await getClient(req, req.trx)
 
-  const result = await client.api(req.body.id, { fields: ['id','name','images'] })
+  const result = await client.api(req.body.id, {
+    fields: ['id','name','images']
+  })
 
   const image = result.images.reduce((largest, image) => {
     return (largest === null || image.width > largest.width) ? image : largest
   }, null)
 
-  const file_data = await request.get({ url: image.source, encoding: null }).promise()
+  const file_data = await request.get({
+    url: image.source,
+    encoding: null
+  }).promise()
 
-  const source = await Source.where({ text: 'facebook' }).fetch({ transacting: trx })
+  const source = await Source.where({
+    text: 'facebook'
+  }).fetch({
+    transacting: req.trx
+  })
 
   const asset = await createAsset({
     team_id: req.team.get('id'),
@@ -27,18 +35,14 @@ const processor = async (req, trx, options) => {
     file_name: `${req.body.id}.jpg`,
     file_data,
     content_type: 'image/jpeg'
-  }, trx)
+  }, req.trx)
 
-  await asset.load(['source'], { transacting: trx })
+  await asset.load(['source'], {
+    transacting: req.trx
+  })
 
-  return AssetSerializer(req, trx, asset)
+  res.status(200).respond(asset, AssetSerializer)
 
 }
-
-const createRoute = new Route({
-  method: 'post',
-  path: '/facebook/photos',
-  processor
-})
 
 export default createRoute

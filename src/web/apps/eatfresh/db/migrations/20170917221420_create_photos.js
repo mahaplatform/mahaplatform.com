@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreatePhotos = new Migration({
+const CreatePhotos = {
 
   up: async (knex) => {
     return await knex.schema.createTable('eatfresh_photos', (table) => {
@@ -19,6 +17,6 @@ const CreatePhotos = new Migration({
     return await knex.schema.dropTable('eatfresh_photos')
   }
 
-})
+}
 
 export default CreatePhotos

@@ -1,7 +1,6 @@
-import React from 'react'
+import { Avatar, Logo } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Avatar from '../avatar'
-import Logo from '../logo'
+import React from 'react'
 
 class Teams extends React.Component {
 

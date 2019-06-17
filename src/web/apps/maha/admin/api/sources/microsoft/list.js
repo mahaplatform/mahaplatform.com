@@ -1,10 +1,9 @@
-import { Route } from '../../../../../../core/backframe'
 import { getClient } from './utils'
 import _ from 'lodash'
 
-const processor = async (req, trx, options) => {
+const listRoute = async (req, res) => {
 
-  const client = await getClient(req, trx)
+  const client = await getClient(req, req.trx)
 
   const folder_id = _.get(req, 'query.$filter.folder_id.$eq') || 'null'
 
@@ -31,18 +30,13 @@ const processor = async (req, trx, options) => {
     name: entry.name
   }))
 
-  return {
-    records,
+  records.pagination = {
     skip: skiptoken ? 1 : 0,
     next: result['@odata.nextLink'] ? result['@odata.nextLink'].match(/skiptoken=(.*)/)[1] : null
   }
 
-}
+  res.status(200).respond(records)
 
-const listRoute = new Route({
-  method: 'get',
-  path: '/microsoft/files',
-  processor
-})
+}
 
 export default listRoute

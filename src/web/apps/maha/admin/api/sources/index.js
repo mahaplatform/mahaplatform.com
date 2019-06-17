@@ -1,24 +1,29 @@
-import { ListRoute } from '../../../../../core/backframe'
-import Source from '../../../models/source'
+import instagram from './instagram'
+import microsoft from './microsoft'
+import facebook from './facebook'
+import { Router } from 'express'
+import dropbox from './dropbox'
+import google from './google'
+import check from './check'
+import list from './list'
+import box from './box'
 
-const serializer = (req, trx, result) => ({
-  id: result.get('id'),
-  text: result.get('text')
-})
+const router = new Router({ mergeParams: true })
 
-const defaultQuery = (req, trx, qb) => {
+router.get('/', list)
 
-  qb.whereRaw('id > ?', 4)
+router.get('/:source/check', check)
 
-}
+router.use('/box', box)
 
-const sourcesListRoute = new ListRoute({
-  defaultQuery,
-  defaultSort: 'id',
-  model: Source,
-  ownedByTeam: false,
-  path: '/profiles/sources',
-  serializer
-})
+router.use('/dropbox', dropbox)
 
-export default sourcesListRoute
+router.use('/facebook', facebook)
+
+router.use('/google', google)
+
+router.use('/instagram', instagram)
+
+router.use('/microsoft', microsoft)
+
+export default router

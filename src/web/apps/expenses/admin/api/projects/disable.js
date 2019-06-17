@@ -1,34 +1,36 @@
-import { Route } from '../../../../../core/backframe'
+import { activity } from '../../../../../core/services/routes/activities'
+import socket from '../../../../../core/services/routes/emitter'
 import Project from '../../../models/project'
 
-const activity = story => (req, trx, object, options) => ({
-  story: 'disabled {object}',
-  object
-})
+const enableRoute = async (req, res) => {
 
-const processor = async (req, trx, options) => {
+  const project = await Project.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('id', req.params.id)
+  }).fetch({
+    transacting: req.trx
+  })
 
-  req.resource = await Project.where({ id: req.params.id }).fetch()
+  await project.save({
+    is_active: false
+  }, {
+    patch: true,
+    transacting: req.trx
+  })
 
-  return req.resource.save({ is_active: false }, { patch: true, transacting: trx })
+  await socket.refresh(req, [
+    '/admin/expenses/projects',
+    `/admin/expenses/projects/${project.get('id')}`
+  ])
+
+  await activity(req, {
+    story: 'disabled {object}',
+    object: project
+  })
+
+  res.status(200).respond(true)
 
 }
 
-const refresh = (req, trx, result, options) => ({
-  channel: 'team',
-  target: [
-    '/admin/expenses/projects',
-    `/admin/expenses/projects/${result.get('id')}`
-  ]
-})
-
-const disableRoute = new Route({
-  action: 'disable',
-  activity,
-  method: 'patch',
-  path: '/disable',
-  processor,
-  refresh
-})
-
-export default disableRoute
+export default enableRoute

@@ -25,7 +25,7 @@ class Edit extends React.Component {
     return {
       title: 'Edit Vendors',
       method: 'patch',
-      endpoint: `/api/admin/expenses/vendors/${id}/edit`,
+      endpoint: `/api/admin/expenses/vendors/${id}`,
       action: `/api/admin/expenses/vendors/${id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,

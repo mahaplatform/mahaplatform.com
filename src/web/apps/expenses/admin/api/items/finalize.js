@@ -1,37 +1,36 @@
-import Audit from '../../../../maha/models/audit'
-import Story from '../../../../maha/models/story'
-import { Route } from '../../../../../core/backframe'
-import Import from '../../../../maha/models/import'
-import ImportItem from '../../../../maha/models/import_item'
 import ImportSerializer from '../../../../maha/serializers/import_serializer'
-import socket from '../../../../../core/services/emitter'
+import { audit } from '../../../../../core/services/routes/audit'
+import socket from '../../../../../core/services/routes/emitter'
+import ImportItem from '../../../../maha/models/import_item'
+import knex from '../../../../../core/services/knex'
+import Import from '../../../../maha/models/import'
 import Trip from '../../../models/trip'
 import moment from 'moment'
 
-const processor = async (req, trx, options) => {
+const finalizeRoute = async (req, res) => {
 
   const imp = await Import.where({
     id: req.body.id
   }).fetch({
-    transacting: trx
+    transacting: req.trx
   })
 
   const items = await ImportItem.where({
     import_id: req.body.id
   }).fetchAll({
-    transacting: trx
+    transacting: req.trx
+  }).then(items => items.toArray())
+
+  const rates = await knex('expenses_rates').then(rates => {
+    return rates.reduce((rates, record) => ({
+      ...rates,
+      [record.year]: record.value
+    }), {})
   })
 
-  const rateRecords = await options.knex('expenses_rates')
-
-  const rates = rateRecords.reduce((rates, record) => ({
-    ...rates,
-    [record.year]: record.value
-  }), {})
-
-  const config = await options.knex('maha_installations')
-    .select(options.knex.raw('settings->\'trip_expense_type_id\' as expense_type'))
-    .transacting(trx)
+  const config = await knex('maha_installations')
+    .select(knex.raw('settings->\'trip_expense_type_id\' as expense_type'))
+    .transacting(req.trx)
     .innerJoin('maha_apps', 'maha_apps.id', 'maha_installations.app_id' )
     .where({
       team_id: imp.get('team_id'),
@@ -41,15 +40,15 @@ const processor = async (req, trx, options) => {
   await ImportItem.where({
     import_id: req.body.id
   }).fetchAll({
-    transacting: trx
+    transacting: req.trx
   })
 
-  await Promise.mapSeries(items.toArray(), async (item, index) => {
+  await Promise.mapSeries(items, async (item, index) => {
 
     const trip = await Trip.where({
       id: item.get('object_id')
     }).fetch({
-      transacting: trx
+      transacting: req.trx
     })
 
     const mileage_rate = rates[moment(trip.get('date')).format('YYYY')]
@@ -60,22 +59,17 @@ const processor = async (req, trx, options) => {
       amount: mileage_rate * trip.get('total_miles')
     }, {
       patch: true,
-      transacting: trx,
+      transacting: req.trx,
       skipValidation: true
     })
 
-    const story_id = await _findOrCreateStoryId('imported', trx)
-
-    await Audit.forge({
-      team_id: trip.get('team_id'),
+    await audit(req, {
       user_id: trip.get('user_id'),
-      auditable_type: 'expenses_trips',
-      auditable_id: trip.get('id'),
-      story_id
-    }).save(null, { transacting: trx })
+      auditable: trip
+    })
 
-    await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
-      target: `/admin/imports/${imp.get('id')}`,
+    await socket.message({
+      channel: `/admin/imports/${imp.get('id')}`,
       action: 'progress',
       data: {
         completed: index + 1,
@@ -85,38 +79,19 @@ const processor = async (req, trx, options) => {
 
   })
 
-  await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
-    target: `/admin/imports/${imp.get('id')}`,
+  await socket.refresh({
+    channel: `/admin/users/${imp.get('user_id')}`,
+    target: '/admin/expenses/items'
+  })
+
+  await socket.message({
+    channel: `/admin/imports/${imp.get('id')}`,
     action: 'success',
-    data: ImportSerializer(null, null, imp)
+    data: ImportSerializer(null, imp)
   })
 
-  await socket.in(`/admin/users/${imp.get('user_id')}`).emit('message', {
-    target: '/admin/expenses/items',
-    action: 'refresh'
-  })
-
-  return {}
-}
-
-
-const _findOrCreateStoryId = async (text, trx) => {
-
-  if(!text) return null
-
-  const findStory = await Story.where({ text }).fetch({ transacting: trx })
-
-  const story = findStory || await Story.forge({ text }).save(null, { transacting: trx })
-
-  return story.id
+  res.status(200).respond(true)
 
 }
-
-
-const finalizeRoute = new Route({
-  method: 'patch',
-  path: '/import/finalize',
-  processor
-})
 
 export default finalizeRoute

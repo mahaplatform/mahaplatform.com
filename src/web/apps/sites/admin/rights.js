@@ -1,6 +1,4 @@
-import Rights from '../../../core/objects/rights'
-
-const rights = new Rights([
+const rights = [
   {
     code: 'manage_sites',
     title: 'Manage Sites',
@@ -10,6 +8,6 @@ const rights = new Rights([
     title: 'Manage Content',
     description: 'Can manage site content'
   }
-])
+]
 
 export default rights

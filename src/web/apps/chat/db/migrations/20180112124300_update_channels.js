@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const UpdateChannels = new Migration({
+const UpdateChannels = {
 
   up: async (knex) => {
 
@@ -34,6 +32,5 @@ const UpdateChannels = new Migration({
 
   down: async (knex) => {}
 
-})
-
+}
 export default UpdateChannels

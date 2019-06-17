@@ -1,7 +1,3 @@
-import Navigation from '../../../core/objects/navigation'
-
-const navigation = new Navigation(async (req, trx) => ({
-  items: []
-}))
+const navigation = (req, trx) => ({})
 
 export default navigation

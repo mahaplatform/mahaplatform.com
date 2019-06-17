@@ -1,32 +1,40 @@
-import { Route } from '../../../../../core/backframe'
+import socket from '../../../../../core/services/routes/emitter'
+import knex from '../../../../../core/services/knex'
 
-const processor = async (req, trx, options) => {
+const mergeRoute = async (req, res) => {
 
   const vendor_id = req.params.id
 
   const new_vendor_id = req.body.vendor_id
 
-  await options.knex('expenses_reimbursements').transacting(trx).where({ vendor_id }).update({ vendor_id: new_vendor_id })
+  await knex('expenses_reimbursements').transacting(req.trx).where({
+    vendor_id
+  }).update({
+    vendor_id: new_vendor_id
+  })
 
-  await options.knex('expenses_expenses').transacting(trx).where({ vendor_id }).update({ vendor_id: new_vendor_id })
+  await knex('expenses_expenses').transacting(req.trx).where({
+    vendor_id
+  }).update({
+    vendor_id: new_vendor_id
+  })
 
-  await options.knex('expenses_checks').transacting(trx).where({ vendor_id }).update({ vendor_id: new_vendor_id })
+  await knex('expenses_checks').transacting(req.trx).where({
+    vendor_id
+  }).update({
+    vendor_id: new_vendor_id
+  })
 
-  await options.knex('expenses_vendors').transacting(trx).where({ id: req.params.id }).del()
+  await knex('expenses_vendors').transacting(req.trx).where({
+    id: req.params.id
+  }).del()
 
-  return true
+  await socket.refresh(req, [
+    '/admin/expenses/vendors'
+  ])
+
+  res.status(200).respond(true)
 
 }
-
-const refresh = (req, trx, result, options) => [
-  '/admin/expenses/vendors'
-]
-
-const mergeRoute = new Route({
-  method: 'patch',
-  path: '/merge',
-  processor,
-  refresh
-})
 
 export default mergeRoute

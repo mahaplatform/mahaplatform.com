@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateFiles = new Migration({
+const CreateFiles = {
 
   up: async (knex) => {
     return await knex.schema.createTable('drive_files', (table) => {
@@ -22,6 +20,6 @@ const CreateFiles = new Migration({
     return await knex.schema.dropTable('drive_files')
   }
 
-})
+}
 
 export default CreateFiles

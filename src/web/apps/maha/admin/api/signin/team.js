@@ -1,30 +1,25 @@
-import { BackframeError, Route } from '../../../../../core/backframe'
 import Team from '../../../models/team'
 
-const processor = async (req, trx, options) => {
+const teamRoute = async (req, res) => {
 
-  if(!req.body.subdomain) {
-    throw new BackframeError({
-      code: 422,
-      message: 'Please enter your team\'s domain'
-    })
-  }
+  if(!req.body.subdomain) return res.status(422).json({
+    code: 422,
+    message: 'Please enter your team\'s domain'
+  })
 
   const team = await Team.where({
     subdomain: req.body.subdomain
   }).fetch({
     withRelated: ['logo','strategies'],
-    transacting: trx
+    transacting: req.trx
   })
 
-  if(!team) {
-    throw new BackframeError({
-      code: 422,
-      message: 'Unable to find this domain'
-    })
-  }
+  if(!team) return res.status(422).json({
+    code: 422,
+    message: 'Unable to find this team'
+  })
 
-  return {
+  res.status(200).respond({
     id: team.get('id'),
     title: team.get('title'),
     subdomain: team.get('subdomain'),
@@ -33,14 +28,8 @@ const processor = async (req, trx, options) => {
     strategies: team.related('strategies').map(strategy => {
       strategy.get('name')
     })
-  }
+  })
 
 }
-
-const teamRoute = new Route({
-  path: '/team',
-  method: 'post',
-  processor
-})
 
 export default teamRoute

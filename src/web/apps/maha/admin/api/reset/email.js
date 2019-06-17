@@ -1,44 +1,29 @@
+import { activity } from '../../../../../core/services/routes/activities'
 import { createUserToken } from '../../../../../core/utils/user_tokens'
-import { BackframeError, Route } from '../../../../../core/backframe'
-import mailer from '../../../../maha/queues/mailer_queue'
+import mailer from '../../../queues/mailer_queue'
 import User from '../../../models/user'
+import Checkit from 'checkit'
 
-const activity = (req, trx, result, options) => ({
-  story: 'requested {object}',
-  object: req.user,
-  object_owner_id: req.user.get('id'),
-  object_text: 'password reset',
-  object_type: null
-})
+const emailRoute = async (req, res, next) => {
 
-const processor = async (req, trx, options) => {
+  await Checkit({
+    team_id: 'required',
+    email: 'required'
+  }).run(req.body)
 
-  const conditions = {
+  req.user = await User.where({
     team_id: req.body.team_id,
     email: req.body.email
-  }
-
-  req.user = await User.where(conditions).fetch({ withRelated: ['team'], transacting: trx })
+  }).fetch({
+    withRelated: ['team'],
+    transacting: req.trx
+  })
 
   req.team = req.user.related('team')
 
-  if(!req.user) {
-    throw new BackframeError({
-      code: 404,
-      message: 'Unable to find this user'
-    })
-  }
-
-  if(!req.user.get('is_active')) {
-    throw new BackframeError({
-      code: 403,
-      message: 'Your account has been disabled'
-    })
-  }
-
   const token = createUserToken(req.user, 'reset_id')
 
-  await mailer.enqueue(req, trx, {
+  await mailer.enqueue(req, {
     team_id: req.body.team_id,
     user: req.user,
     template: 'team:reset',
@@ -48,20 +33,16 @@ const processor = async (req, trx, options) => {
     }
   })
 
-}
+  await activity(req, {
+    story: 'requested {object}',
+    object: req.user,
+    object_owner_id: req.user.get('id'),
+    object_text: 'password reset',
+    object_type: null
+  })
 
-const rules = {
-  team_id: 'required',
-  email: 'required'
-}
+  res.status(200).respond(true)
 
-const emailRoute = new Route({
-  activity,
-  path: '/email',
-  method: 'post',
-  authenticated: false,
-  processor,
-  rules
-})
+}
 
 export default emailRoute

@@ -1,7 +1,7 @@
 import item_serializer from '../../../serializers/item_serializer.xml'
 import Item from '../../../models/item'
 
-const getChildren = async (user, item, depth) => {
+const getChildren = async (req, user, item, depth) => {
 
   if(item && item.get('type') === 'file') return []
 
@@ -15,19 +15,20 @@ const getChildren = async (user, item, depth) => {
     qb.whereNull('drive_items.deleted_at')
     qb.orderBy('label', 'asc')
   }).fetchAll({
-    withRelated: ['asset']
+    withRelated: ['asset'],
+    transacting: req.trx
   })
 
 }
 
-const getProps = async (user, item, props, depth) => {
-  const children = await getChildren(user, item, depth)
+const getProps = async (req, user, item, props, depth) => {
+  const children = await getChildren(req, user, item, depth)
   return item_serializer(item, props, children)
 }
 
 const route = async (req, res) => {
   const props = req.body['D:propfind']['D:prop'][0]
-  const data = await getProps(req.user, req.item, props, req.headers.depth)
+  const data = await getProps(req, req.user, req.item, props, req.headers.depth)
   res.status(207).type('application/xml').send(data)
 }
 

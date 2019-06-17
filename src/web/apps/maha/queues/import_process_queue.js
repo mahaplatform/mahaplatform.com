@@ -130,7 +130,7 @@ const processor = async (job, trx) => {
     await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
       target: `/admin/imports/${imp.get('id')}`,
       action: 'progress',
-      data: ImportSerializer(null, null, imp)
+      data: ImportSerializer(null, imp)
     })
 
   })
@@ -143,7 +143,7 @@ const processor = async (job, trx) => {
   await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
     target: `/admin/imports/${imp.get('id')}`,
     action: 'success',
-    data: ImportSerializer(null, null, imp)
+    data: ImportSerializer(null, imp)
   })
 
 }
@@ -153,12 +153,10 @@ const findRelatedId = async (job, trx, tablename, fieldname, value, team_id, typ
   if(!tablename || !fieldname) return null
 
   const column = fieldname.split('.')[0]
+
   const field = fieldname.split('.')[1]
 
   const castColumn = (code) => {
-    // if( fieldname.indexOf('.') < 0 ) return fieldname
-    // const column = fieldname.split('.')[0]
-    // const jsonbkey = fieldname.split('.')[1]
     if(tablename == 'sites_items' && column == 'values'){
       return `${column}->'${code}'->>0`
     } else {
@@ -168,8 +166,6 @@ const findRelatedId = async (job, trx, tablename, fieldname, value, team_id, typ
   }
 
   const getJsonbkey = async (typeid, field) => {
-    console.log('typeid is ', typeid)
-    console.log('field is ', field)
     const row = await knex('maha_fields').transacting(trx).select('code').whereRaw('parent_id = ? AND name = ?', [typeid, field])
     return row[0] ? row[0].code : null
   }
@@ -196,7 +192,7 @@ const failed = async (job, err) => {
 
 const ImportProcessQueue = new Queue({
   name: 'import_process',
-  enqueue: async (req, trx, job) => job,
+  enqueue: async (req, job) => job,
   processor,
   failed
 })

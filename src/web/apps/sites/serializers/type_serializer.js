@@ -1,18 +1,9 @@
-import serializer from '../../../core/objects/serializer'
-
-const typeSerializer = serializer((req, trx, result) => ({
-
+const typeSerializer = (req, result) => ({
   id: result.get('id'),
-
   title: result.get('title'),
-
   description: result.get('description'),
-
   created_at: result.get('created_at'),
-
   updated_at: result.get('updated_at')
-
-}))
-
+})
 
 export default typeSerializer

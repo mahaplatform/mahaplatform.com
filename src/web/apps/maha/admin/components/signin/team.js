@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Image from '../image'
+import { Image } from 'maha-admin'
 
 class Team extends React.Component {
 

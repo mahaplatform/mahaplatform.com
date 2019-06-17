@@ -1,13 +1,11 @@
-import { Segment } from '../../../../../core/backframe'
+import { Router } from 'express'
 import create from './create'
 import show from './show'
 
-const linkSegment = new Segment({
-  path: '/links',
-  routes: [
-    show,
-    create
-  ]
-})
+const router = new Router({ mergeParams: true })
 
-export default linkSegment
+router.post('/', create)
+
+router.post('/:id', show)
+
+export default router

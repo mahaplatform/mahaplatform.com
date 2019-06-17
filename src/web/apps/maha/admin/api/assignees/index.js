@@ -1,16 +1,8 @@
-import { Resources } from '../../../../../core/backframe'
-import Assignee from '../../../models/assignee'
-import AssigneeSerializer from '../../../serializers/assignee_serializer'
+import { Router } from 'express'
+import list from './list'
 
-const assigneeResources = new Resources({
-  defaultSort: ['id'],
-  model: Assignee,
-  path: '/assignees',
-  only: ['list'],
-  serializer: AssigneeSerializer,
-  searchParams: ['name'],
-  sortParams: ['id'],
-  withRelated: ['user.photo','group']
-})
+const router = new Router({ mergeParams: true })
 
-export default assigneeResources
+router.get('/', list)
+
+export default router

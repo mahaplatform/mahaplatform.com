@@ -1,6 +1,5 @@
-import { Collection } from 'reframe'
+import { Collection, Feed } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Feed from '../feed'
 import React from 'react'
 import _ from 'lodash'
 

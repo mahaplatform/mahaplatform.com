@@ -18,15 +18,12 @@ const Reimbursement = new Model({
   virtuals: {
 
     approver_ids: function() {
-
       if(!this.get('project_id')) return []
-
-      const filter = member => member.get('member_type_id') !== 3
-
-      const map = member => member.get('user_id')
-
-      return this.related('project').related('members').filter(filter).map(map)
-
+      return this.related('project').related('members').filter(member => {
+        return member.get('member_type_id') !== 3
+      }).map(member => {
+        return member.get('user_id')
+      })
     },
 
     object_owner_id: function() {

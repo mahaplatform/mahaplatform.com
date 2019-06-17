@@ -1,4 +1,3 @@
-import { Route } from '../../../../../../core/backframe'
 import Dropbox from 'dropbox-v2-api'
 
 const dropbox = new Dropbox.authenticate({
@@ -7,18 +6,13 @@ const dropbox = new Dropbox.authenticate({
   redirect_uri: `${process.env.WEB_HOST}/admin/dropbox/token`
 })
 
-const processor = async (req, trx, options) => {
+const authorizeRoute = async (req, res) => {
 
-  const url = await dropbox.generateAuthUrl()
+  const path = await dropbox.generateAuthUrl()
 
-  return `${url}&state=${req.user.get('id')}`
+  const url = `${path}&state=${req.user.get('id')}`
 
+  res.status(200).respond(url)
 }
-
-const authorizeRoute = new Route({
-  method: 'get',
-  path: '/dropbox/authorize',
-  processor
-})
 
 export default authorizeRoute

@@ -11,7 +11,9 @@ class ChatBarInfo extends React.Component {
     selected: PropTypes.number,
     status: PropTypes.string,
     onBack: PropTypes.func,
-    onShowMessage: PropTypes.func
+    onEdit: PropTypes.func,
+    onShowMessage: PropTypes.func,
+    onSubscriptions: PropTypes.func
   }
 
   _handleBack = this._handleBack.bind(this)

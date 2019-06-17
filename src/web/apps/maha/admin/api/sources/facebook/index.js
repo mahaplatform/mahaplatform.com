@@ -1,14 +1,14 @@
-import { Segment } from '../../../../../../core/backframe'
 import authorize from './authorize'
-import list from './list'
+import { Router } from 'express'
 import create from './create'
+import list from './list'
 
-const facebookSegment = new Segment({
-  routes: [
-    authorize,
-    list,
-    create
-  ]
-})
+const router = new Router({ mergeParams: true })
 
-export default facebookSegment
+router.get('/authorize', authorize)
+
+router.get('/photos', list)
+
+router.post('/photos', create)
+
+export default router

@@ -11,8 +11,6 @@ const messages = (state, props) => state.chat.root.messages
 
 const unread = (state, props) => state.chat.root.unread
 
-const stars = (state, props) => state.maha.stars.stars.chat_channels || {}
-
 const presence = (state, props) => state.maha.presence.presence
 
 export const channels = createSelector(
@@ -21,11 +19,9 @@ export const channels = createSelector(
   typing,
   messages,
   unread,
-  stars,
   presence,
-  (active, records, typing, messages, unread, stars, presence) => records.map(channel => ({
+  (active, records, typing, messages, unread, presence) => records.map(channel => ({
     ...channel,
-    is_starred: stars[channel.id] !== undefined ? stars[channel.id] : channel.is_starred,
     typing: _.find(typing, { channel_id: channel.id }),
     subscriptions: channel.subscriptions.map(subscription => ({
       ...subscription,

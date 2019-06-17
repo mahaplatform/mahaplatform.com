@@ -1,26 +1,29 @@
+import Field from '../../../../maha/models/field'
 import Site from '../../../models/site'
 import Type from '../../../models/type'
 import Item from '../../../models/item'
-import { Route } from '../../../../../core/backframe'
-import Field from '../../../../maha/models/field'
 import archiver from 'archiver'
 import moment from 'moment'
 
-const handler = async (req, res, trx) => {
+const backupRoute = async (req, res) => {
 
   const site = await Site.query(qb => {
     qb.where('id', req.params.id)
-  }).fetch({ transacting: trx })
+  }).fetch({
+    transacting: req.trx
+  })
 
   const types = await Type.query(qb => {
     qb.where('site_id', req.params.id)
-  }).fetchAll({ transacting: trx }).then(result => result.toArray())
+  }).fetchAll({
+    transacting: req.trx
+  }).then(result => result.toArray())
 
   const map = await Field.query(qb => {
     qb.where('parent_type', 'sites_types')
     qb.orderBy(['parent_id','delta'])
   }).fetchAll({
-    transacting: trx
+    transacting: req.trx
   }).then(fields => fields.reduce((map, field) => ({
     ...map,
     [field.get('parent_id')]: [
@@ -33,7 +36,9 @@ const handler = async (req, res, trx) => {
 
     const items = await Item.query(qb => {
       qb.where('type_id', type.get('id'))
-    }).fetchAll({ transacting: trx }).then(result => result.toArray())
+    }).fetchAll({
+      transacting: req.trx
+    }).then(result => result.toArray())
 
     const fields = map[type.get('id')]
 
@@ -80,7 +85,9 @@ const handler = async (req, res, trx) => {
 
           const related = await Item.query(qb => {
             qb.whereIn('id', ids)
-          }).fetchAll({ transacting: trx })
+          }).fetchAll({
+            transacting: req.trx
+          })
 
           const title = map[config.datasource.type_id].find(field => {
             return field.get('name') === config.datasource.text
@@ -101,18 +108,13 @@ const handler = async (req, res, trx) => {
       }
 
       const expanded = await Promise.reduce(fields, async (data, field) => {
-
         const type = field.get('type')
-
         const config = field.get('config')
-
         const value = await getValue(type, field.get('code'), config, values)
-
         return [
           ...data,
           ...value || ''
         ]
-
       }, [item.get('id')])
 
       return expanded.map(item => item || '')
@@ -137,8 +139,6 @@ const handler = async (req, res, trx) => {
 
   const timestamp = moment().format('YYYYMMDDhhmmss')
 
-  const filename = `${sitename}-backup-${timestamp}.zip`
-
   const archive = archiver('zip', {
     zlib: { level: 9 }
   })
@@ -147,28 +147,18 @@ const handler = async (req, res, trx) => {
     res.status(500).send({ error: err.message })
   })
 
-  res.attachment(filename)
+  res.attachment(`${sitename}-backup-${timestamp}.zip`)
 
   archive.pipe(res)
 
-  matrix.map(sheet => {
-
-    const data = sheet.data.map(row => row.map(cell => `"${cell}"`).join(',')).join('\n')
-
-    const name = `${sheet.name}.csv`
-
-    archive.append(data, { name })
-
-  })
+  matrix.map(sheet => archive.append(sheet.data.map(row => {
+    return row.map(cell => `"${cell}"`).join(',')
+  }).join('\n'), {
+    name: `${sheet.name}.csv`
+  }))
 
   archive.finalize()
 
 }
 
-const createRoute = new Route({
-  method: 'get',
-  path: '/backup',
-  handler
-})
-
-export default createRoute
+export default backupRoute

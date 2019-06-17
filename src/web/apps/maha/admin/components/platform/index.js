@@ -1,4 +1,4 @@
-import { Flash } from 'reframe'
+import { Flash } from 'maha-admin'
 import HTML5Backend from 'react-dnd-html5-backend'
 import Notifications from '../notifications'
 import { DragDropContext } from 'react-dnd'

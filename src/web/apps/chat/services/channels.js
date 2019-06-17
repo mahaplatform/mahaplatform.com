@@ -1,14 +1,14 @@
-import knex from '../../../core/services/knex'
-import { socket} from '../../../core/services/emitter'
-import { extractAttachments } from '../../maha/services/asset'
-import { formatObjectForTransport } from '../../../core/utils/format_object_for_transport'
-import User from '../../maha/models/user'
-import { generateCode } from '../../../core/utils/generate_code'
+import formatObjectForTransport from '../../../core/utils/format_object_for_transport'
 import ChatNotificationQueue from '../queues/chat_notification_queue'
+import { extractAttachments } from '../../maha/services/attachment'
 import ChannelSerializer from '../serializers/channel_serializer'
 import MessageSerializer from '../serializers/message_serializer'
+import generateCode from '../../../core/utils/generate_code'
+import socket from '../../../core/services/emitter'
 import Subscription from '../models/subscription'
 import MessageType from '../models/message_type'
+import knex from '../../../core/services/knex'
+import User from '../../maha/models/user'
 import Channel from '../models/channel'
 import Message from '../models/message'
 import moment from 'moment'
@@ -17,49 +17,57 @@ export const toOxfordList = (array) => {
   return (array.length < 3) ? array.join(' and ') : array.slice(0, -1).join(', ') + ', and ' + array.slice(-1)
 }
 
-export const createChannel = async (req, trx, user_ids) => {
+export const createChannel = async (req, user_ids) => {
 
   const channel = await Channel.forge({
     team_id: req.team.get('id'),
     owner_id: req.user.get('id'),
     code: generateCode(),
-    is_archived: false,
     last_message_at: moment()
-  }).save(null, { transacting: trx })
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  await channel.load(['owner.photo','subscriptions.user.photo','last_message'], {
+    transacting: req.trx
+  })
 
   const users = await User.query(qb => qb.whereIn('id', [
     req.user.get('id'),
     ...user_ids
-  ])).fetchAll({ transacting: trx })
+  ])).fetchAll({
+    transacting: req.trx
+  })
 
   const user_list = users.filter(user => {
-
     return user.get('id') !== req.user.get('id')
-
-  }).map(user => user.get('full_name'))
+  }).map(user => {
+    return user.get('full_name')
+  })
 
   await Promise.map(users.toArray(), async (user) => {
 
-    const subscription = {
+    await Subscription.forge({
       team_id: req.team.get('id'),
       channel_id: channel.get('id'),
       user_id: user.get('id'),
       last_viewed_at: moment().subtract(10, 'minutes')
-    }
-
-    await Subscription.forge(subscription).save(null, { transacting: trx })
+    }).save(null, {
+      transacting: req.trx
+    })
 
     return user
 
   })
 
-  const subscriber_list = users.map(user => user.get('full_name')).join(' ')
+  await channel.save({
+    subscriber_list: users.map(user => user.get('full_name')).join(' ')
+  }, {
+    patch: true,
+    transacting: req.trx
+  })
 
-  await channel.save({ subscriber_list }, { patch: true, transacting: trx })
-
-  await channel.load(['owner.photo','subscriptions.user.photo','last_message'], { transacting: trx })
-
-  const serialized = ChannelSerializer(req, trx, channel)
+  const serialized = ChannelSerializer(req, channel)
 
   await Promise.map(users.toArray(), async user => {
 
@@ -73,7 +81,7 @@ export const createChannel = async (req, trx, user_ids) => {
 
   })
 
-  await createMessage(req, trx, {
+  await createMessage(req, {
     channel_id: channel.get('id'),
     type: 'action',
     text: `started conversation with ${toOxfordList(user_list)}`
@@ -83,12 +91,12 @@ export const createChannel = async (req, trx, user_ids) => {
 
 }
 
-export const createMessage = async (req, trx, { channel_id, type, text }) => {
+export const createMessage = async (req, { channel_id, type, text }) => {
 
   const message_type = await MessageType.where({
     text: type
   }).fetch({
-    transacting: trx
+    transacting: req.trx
   })
 
   const message = await Message.forge({
@@ -99,25 +107,25 @@ export const createMessage = async (req, trx, { channel_id, type, text }) => {
     code: generateCode(),
     text
   }).save(null, {
-    transacting: trx
+    transacting: req.trx
   })
 
   return message
 
 }
 
-export const sendMessage = async (req, trx, { channel_id, type, text }) => {
+export const sendMessage = async (req, { channel_id, type, text }) => {
 
-  const message = await createMessage(req, trx, { channel_id, type, text })
+  const message = await createMessage(req, { channel_id, type, text })
 
-  await knex('chat_subscriptions').transacting(trx).where({
+  await knex('chat_subscriptions').transacting(req.trx).where({
     user_id: req.user.get('id'),
     channel_id
   }).update({
     last_viewed_at: moment()
   })
 
-  await knex('chat_channels').transacting(trx).where({
+  await knex('chat_channels').transacting(req.trx).where({
     id: channel_id
   }).update({
     last_message_id: message.get('id'),
@@ -126,13 +134,15 @@ export const sendMessage = async (req, trx, { channel_id, type, text }) => {
 
   const sanitized = text.replace('<p>','').replace('</p>', '\r\n')
 
-  await extractAttachments(message, sanitized, trx)
+  await extractAttachments(message, sanitized, req.trx)
 
-  await message.load(['user.photo','attachments.asset.source','attachments.service','message_type'], { transacting: trx })
+  await message.load(['user.photo','attachments.asset.source','message_type'], {
+    transacting: req.trx
+  })
 
-  const serialized = MessageSerializer(req, trx, message)
+  const serialized = MessageSerializer(req, message)
 
-  const users = await knex('maha_users').transacting(trx)
+  const users = await knex('maha_users').transacting(req.trx)
     .select('maha_users.*')
     .innerJoin('chat_subscriptions', 'chat_subscriptions.user_id', 'maha_users.id')
     .where('chat_subscriptions.channel_id', channel_id)
@@ -147,7 +157,7 @@ export const sendMessage = async (req, trx, { channel_id, type, text }) => {
 
   })
 
-  await ChatNotificationQueue.enqueue(req, trx, message.get('id'))
+  await ChatNotificationQueue.enqueue(req, message.get('id'))
 
   return message
 

@@ -1,38 +1,44 @@
-import { BackframeError, Route } from '../../../../../core/backframe'
 import { sendMail } from '../../../../../core/services/email'
 import Member from '../../../models/member'
 import Email from '../../../models/email'
 import Site from '../../../models/site'
+import Checkit from 'checkit'
 
-const processor = async (req, trx, options) => {
+const resetRoute = async (req, res) => {
+
+  await Checkit({
+    email: ['required','email']
+  }).run(req.body)
 
   const site = await Site.where({
     id: req.params.site_id
-  }).fetch({ transacting: trx })
+  }).fetch({
+    transacting: req.trx
+  })
 
-  if(!site) {
-    throw new BackframeError({
-      code: 422,
-      message: 'Invalid site'
-    })
-  }
+  if(!site) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load site'
+  })
 
   const member = await Member.where({
     site_id: site.get('id'),
     email: req.body.email
-  }).fetch({ transacting: trx })
+  }).fetch({
+    transacting: req.trx
+  })
 
-  if(!member) {
-    throw new BackframeError({
-      code: 422,
-      message: 'Cannot find member'
-    })
-  }
+  if(!member) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load member'
+  })
 
   const email = await Email.where({
     site_id: site.get('id'),
     code: 'reset'
-  }).fetch({ transacting: trx})
+  }).fetch({
+    transacting: req.trx
+  })
 
   // const token = createUserToken(member, 'activation_id')
 
@@ -43,17 +49,8 @@ const processor = async (req, trx, options) => {
     html: email.get('text')
   })
 
-  return { foo: 'bar' }
+  res.status(200).respond(true)
 
 }
-
-const resetRoute = new Route({
-  rules: {
-    'email': ['required','email']
-  },
-  method: 'post',
-  path: '/reset',
-  processor
-})
 
 export default resetRoute

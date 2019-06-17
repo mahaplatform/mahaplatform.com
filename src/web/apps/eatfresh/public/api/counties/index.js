@@ -1,13 +1,8 @@
-import { Resources } from '../../../../../core/backframe'
-import County from '../../../models/county'
-import CountySerializer from '../../../serializers/county_serializer'
+import { Router } from 'express'
+import list from './list'
 
-const countyResources = new Resources({
-  model: County,
-  only: ['list'],
-  path: '/counties',
-  searchParams: ['title'],
-  serializer: CountySerializer
-})
+const router = new Router({ mergeParams: true })
 
-export default countyResources
+router.get('/', list)
+
+export default router

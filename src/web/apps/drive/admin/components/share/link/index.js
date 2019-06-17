@@ -70,9 +70,7 @@ class Link extends React.Component {
     document.getElementsByClassName('ui button')[0].innerHTML = ' Copied! '
     setTimeout(() => {
       document.getElementsByClassName('ui button')[0].innerHTML = 'Copy Link'
-    }, 1200);
-
-
+    }, 1200)
   }
 
   _getPanel() {

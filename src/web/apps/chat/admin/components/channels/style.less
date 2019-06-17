@@ -2,7 +2,7 @@
   .maha-avatar-wrapper {
     border: 1px solid @white;
   }
-  .reframe-search-item:hover {
+  .maha-search-item:hover {
     background-color: none;
   }
 }
@@ -11,13 +11,6 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  &.new {
-    .chat-channels-header-search {
-      .reframe-searchbox {
-        padding: 0.5em 0.5em 0 0.5em;
-      }
-    }
-  }
 }
 .chat-channels-header {
   background: @red;
@@ -27,18 +20,14 @@
 }
 .chat-channels-header-search {
   flex: 1;
-  .reframe-searchbox {
-    padding: 0 0.5em 0.5em;
-  }
-  .reframe-searchbox-input {
+  .maha-searchbox-input {
     background-color: fadeout(@white, 70);
   }
-
-  .reframe-searchbox-remove-icon {
+  .maha-searchbox-remove-icon {
     .hover(color, fadeout(@white, 10));
     color: fadeout(@white, 30);
   }
-  .reframe-searchbox-icon {
+  .maha-searchbox-icon {
     color: @white;
   }
   input {

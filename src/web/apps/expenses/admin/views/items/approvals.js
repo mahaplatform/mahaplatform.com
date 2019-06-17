@@ -14,7 +14,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Approvals',
   // access: checkOwnerApprover,
   collection: {
-    endpoint: '/api/admin/expenses/approvals/items',
+    endpoint: '/api/admin/expenses/approvals',
     table: [
       { label: 'ID', key: 'item_id', visible: false, collapsing: true },
       { label: null, key: 'type', primary: true, collapsing: true, format: CompactTypeToken },
@@ -54,7 +54,6 @@ const mapPropsToPage = (props, context, resources, page) => ({
     ],
     link: (record) => `/admin/expenses/${record.type}s/${record.item_id}`,
     defaultSort: { key: 'created_at', order: 'desc' },
-    selectable: true,
     entity: 'items',
     icon: 'dollar',
     empty: 'No items have been submitted yet in a project you own',

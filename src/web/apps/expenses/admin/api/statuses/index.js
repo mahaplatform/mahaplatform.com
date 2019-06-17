@@ -1,12 +1,8 @@
-import { Resources } from '../../../../../core/backframe'
-import Status from '../../../models/status'
+import { Router } from 'express'
+import list from './list'
 
-const statusResources = new Resources({
-  defaultSort: 'id',
-  model: Status,
-  path: '/statuses',
-  only: ['list'],
-  ownedByTeam: false
-})
+const router = new Router({ mergeParams: true })
 
-export default statusResources
+router.get('/', list)
+
+export default router

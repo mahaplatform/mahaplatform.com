@@ -1,19 +1,34 @@
+import { activity } from '../../../../../core/services/routes/activities'
 import { createUserToken } from '../../../../../core/utils/user_tokens'
 import MemberSerializer from '../../../serializers/member_serializer'
-import { Route } from '../../../../../core/backframe'
+import socket from '../../../../../core/services/routes/emitter'
 import { processValues } from '../../../../maha/services/values'
 import { sendMail } from '../../../../../core/services/email'
 import Member from '../../../models/member'
 import Email from '../../../models/email'
 
-const sendActivationEmail = async (req, trx, member, options) => {
+const createRoute = async (req, res) => {
+
+  const values = await processValues('sites_sites', req.params.site_id, req.body.values, req.trx)
+
+  const member = await Member.forge({
+    team_id: req.team.get('id'),
+    site_id: req.params.site_id,
+    values,
+    password: 'test',
+    is_active: true
+  }).save(null, {
+    transacting: req.trx
+  })
 
   const email = await Email.where({
     site_id: req.params.site_id,
     code: 'activation'
-  }).fetch({ transacting: trx})
+  }).fetch({
+    transacting: req.trx
+  })
 
-  const token = createUserToken(member, 'activation_id')
+  // const token = createUserToken(member, 'activation_id')
 
   await sendMail({
     from: 'Maha <mailer@mahaplatform.com>',
@@ -22,38 +37,18 @@ const sendActivationEmail = async (req, trx, member, options) => {
     html: email.get('text')
   })
 
-}
+  await activity(req, {
+    story: 'created {object}',
+    object: member
+  })
 
-const processor = async (req, trx, options) => {
+  await socket.refresh(req, [
+    `/admin/sites/sites/${req.params.site_id}/members`,
+    `/admin/sites/sites/${req.params.site_id}/members/${member.get('id')}`
+  ])
 
-  const values = await processValues('sites_sites', req.params.site_id, req.body.values, trx)
-
-  const member = await Member.forge({
-    team_id: req.team.get('id'),
-    site_id: req.params.site_id,
-    values,
-    password: 'test',
-    is_active: true
-  }).save(null, { transacting: trx})
-
-  return member
+  res.status(200).respond(member, MemberSerializer)
 
 }
-
-const refresh = (req, trx, result, options) => [
-  `/admin/sites/sites/${req.params.site_id}/members`,
-  `/admin/sites/sites/${req.params.site_id}/members/${result.get('id')}`
-]
-
-const createRoute = new Route({
-  afterProcessor: [
-    sendActivationEmail
-  ],
-  method: 'post',
-  path: '',
-  processor,
-  refresh,
-  serializer: MemberSerializer
-})
 
 export default createRoute

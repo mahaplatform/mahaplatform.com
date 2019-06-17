@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateImports = new Migration({
+const CreateImports = {
 
   up: async (knex) => {
 
@@ -30,6 +28,6 @@ const CreateImports = new Migration({
     return await knex.schema.dropTable('maha_imports')
   }
 
-})
+}
 
 export default CreateImports

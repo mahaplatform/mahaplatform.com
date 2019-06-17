@@ -36,9 +36,6 @@ class UserImportFinalize extends React.Component {
   }
 
   _getForm() {
-    const { admin, platform } = this.context
-    const { token } = admin.team
-
     return {
       title: 'Finalize User Import',
       instructions: 'Set some additional information about each of the users you just imported',
@@ -62,7 +59,6 @@ class UserImportFinalize extends React.Component {
   _handleDone() {
     const { onDone } = this.props
     onDone(this.props.import)
-    //this.context.modal.close()
   }
 
 }

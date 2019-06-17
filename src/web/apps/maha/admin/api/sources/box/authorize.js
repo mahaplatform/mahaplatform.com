@@ -1,7 +1,6 @@
-import { Route } from '../../../../../../core/backframe'
 import qs from 'qs'
 
-const processor = async (req, trx, options) => {
+const authorizeRoute = async (req, res) => {
 
   const query = qs.stringify({
     response_type: 'code',
@@ -10,14 +9,10 @@ const processor = async (req, trx, options) => {
     state: req.user.get('id')
   })
 
-  return `https://account.box.com/api/oauth2/authorize?${query}`
+  const url = `https://account.box.com/api/oauth2/authorize?${query}`
+
+  res.status(200).respond(url)
 
 }
-
-const authorizeRoute = new Route({
-  method: 'get',
-  path: '/box/authorize',
-  processor
-})
 
 export default authorizeRoute

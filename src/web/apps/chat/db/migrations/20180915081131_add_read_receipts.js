@@ -1,9 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-import Channel from '../../models/channel'
-import Message from '../../models/message'
-import Subscription from '../../models/channel'
-
-const AddReadReceipts = new Migration({
+const AddReadReceipts = {
 
   up: async (knex) => {
 
@@ -69,6 +64,6 @@ const AddReadReceipts = new Migration({
 
   }
 
-})
+}
 
 export default AddReadReceipts

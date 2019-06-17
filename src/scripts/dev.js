@@ -93,7 +93,7 @@ const mobileWatch = async () => {
 const clientWatch = async () => {
 
   const devserver = new devServer(webpack(webConfig), {
-    contentBase: path.resolve('src','web','public'),
+    contentBase: path.resolve('src','web','core','admin','public'),
     hot: true,
     publicPath: '/admin',
     proxy: [
@@ -104,6 +104,10 @@ const clientWatch = async () => {
       ...'html,json'.split(',').reduce((proxies, ext) => [
         ...proxies,
         `/admin/*.${ext}`
+      ], []),
+      ...'token,preview'.split(',').reduce((proxies, path) => [
+        ...proxies,
+        `/admin/*/${path}`
       ], []),
       ...'audio,css,fonts,images,js'.split(',').reduce((proxies, path) => [
         ...proxies,

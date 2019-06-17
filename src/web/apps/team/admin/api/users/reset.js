@@ -1,20 +1,26 @@
+import { activity } from '../../../../../core/services/routes/activities'
 import { createUserToken } from '../../../../../core/utils/user_tokens'
 import mailer from '../../../../maha/queues/mailer_queue'
-import { Route } from '../../../../../core/backframe'
+import User from '../../../../maha/models/user'
 
-const activity = (req, trx, result, options) => ({
-  story: 'reset {object}',
-  object_owner_id: req.resource.get('id'),
-  object_text: 'password'
-})
+const resetRoute = async (req, res) => {
 
-const processor = async (req, trx, options) => {
+  const user = await User.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('id', req.params.id)
+  }).fetch({
+    transacting: req.trx
+  })
 
-  const user = req.resource
+  if(!user) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load user'
+  })
 
   const token = createUserToken(user, 'reset_id')
 
-  await mailer.enqueue(req, trx, {
+  await mailer.enqueue(req, {
     team_id: req.team.get('id'),
     user,
     template: 'team:reset',
@@ -24,16 +30,14 @@ const processor = async (req, trx, options) => {
     }
   })
 
-  return {}
+  await activity(req, {
+    story: 'reset {object}',
+    object_owner_id: req.resource.get('id'),
+    object_text: 'password'
+  })
+
+  res.status(200).respond(true)
 
 }
-
-const resetRoute = new Route({
-  action: 'reset',
-  activity,
-  method: 'patch',
-  path: '/reset',
-  processor
-})
 
 export default resetRoute

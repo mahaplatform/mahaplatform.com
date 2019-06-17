@@ -1,10 +1,9 @@
-import { Route } from '../../../../../../core/backframe'
 import { getClient } from './utils'
 import _ from 'lodash'
 
-const processor = async (req, trx, options) => {
+const listRoute = async (req, res) => {
 
-  const client = await getClient(req, trx)
+  const client = await getClient(req, req.trx)
 
   const cursor = _.get(req, 'query.$page.next')
 
@@ -24,18 +23,13 @@ const processor = async (req, trx, options) => {
     }, null)
   }))
 
-  return {
-    records,
+  records.pagination = {
     skip: cursor ? 1 : 0,
     next: result.paging ? result.paging.cursors.after : null
   }
 
-}
+  res.status(200).respond(records)
 
-const listRoute = new Route({
-  method: 'get',
-  path: '/facebook/photos',
-  processor
-})
+}
 
 export default listRoute

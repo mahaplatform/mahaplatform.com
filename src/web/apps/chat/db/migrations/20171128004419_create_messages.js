@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateMessages = new Migration({
+const CreateMessages = {
 
   up: async (knex) => {
     return await knex.schema.createTable('chat_messages', (table) => {
@@ -21,6 +19,5 @@ const CreateMessages = new Migration({
     return await knex.schema.dropTable('chat_messages')
   }
 
-})
-
+}
 export default CreateMessages

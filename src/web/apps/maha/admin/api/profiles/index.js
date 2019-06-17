@@ -1,19 +1,14 @@
-import { Resources } from '../../../../../core/backframe'
-import Profile from '../../../models/profile'
-import ProfileSerializer from '../../../serializers/profile_serializer'
+import { Router } from 'express'
+import destroy from './destroy'
+import list from './list'
+import show from './show'
 
-const refresh = {
-  destroy: (req, trx, result, options) => [
-    { channel: 'user', target: '/admin/account/profiles' }
-  ]
-}
+const router = new Router({ mergeParams: true })
 
-const profilesResources = new Resources({
-  model: Profile,
-  path: '/profiles',
-  refresh,
-  serializer: ProfileSerializer,
-  withRelated: ['source']
-})
+router.get('/', list)
 
-export default profilesResources
+router.get('/:id', show)
+
+router.delete('/:id', destroy)
+
+export default router

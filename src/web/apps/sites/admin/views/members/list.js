@@ -1,4 +1,5 @@
 import { Page } from 'maha-admin'
+import PropTypes from 'prop-types'
 import React from 'react'
 import New from './new'
 
@@ -8,6 +9,12 @@ const NameCell = ({ first_name, last_name, email }) => (
     { email }
   </div>
 )
+
+NameCell.propTypes = {
+  first_name: PropTypes.string,
+  last_name: PropTypes.string,
+  email: PropTypes.string
+}
 
 const mapResourcesToPage = (props, context, page) => ({
   fields: `/api/admin/sites_sites/${page.params.site_id}/fields`

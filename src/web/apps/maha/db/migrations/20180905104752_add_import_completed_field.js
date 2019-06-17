@@ -1,6 +1,4 @@
-import Migration from '../../../../../../../core/objects/migration'
-
-const AddImportCompletedField = new Migration({
+const AddImportCompletedField = {
 
   up: async (knex) => {
     await knex.schema.table('maha_imports', table => {
@@ -14,6 +12,6 @@ const AddImportCompletedField = new Migration({
     })
   }
 
-})
+}
 
 export default AddImportCompletedField

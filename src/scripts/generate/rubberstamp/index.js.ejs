@@ -1,0 +1,13 @@
+import { Factory } from 'redux-rubberstamp'
+import reducer from './reducer'
+import <%= className %> from './<%= styleName %>'
+import * as selectors from './selectors'
+import * as actions from './actions'
+
+export default Factory({
+  namespace: '<%= styleName %>',
+  component: <%= className %>,
+  reducer,
+  selectors,
+  actions
+})

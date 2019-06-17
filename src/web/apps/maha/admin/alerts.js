@@ -1,6 +1,4 @@
-import Alerts from '../../../core/objects/alerts'
-
-const alerts = new Alerts([
+const alerts = [
   {
     code: 'new_session',
     title: 'New Session',
@@ -10,6 +8,6 @@ const alerts = new Alerts([
     title: 'Failed Signin',
     description: 'Alert me after 3 or more failed signin attempts on my account'
   }
-])
+]
 
 export default alerts

@@ -12,8 +12,6 @@ const User = new Model({
 
   tableName: 'maha_users',
 
-  withRelated: 'photo',
-
   rules: {
     first_name: 'required',
     last_name: 'required',

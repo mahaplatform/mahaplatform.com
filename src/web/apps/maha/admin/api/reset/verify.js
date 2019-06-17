@@ -1,22 +1,23 @@
 import SecurityQuestion from '../../../models/security_question'
-import { Route, BackframeError } from '../../../../../core/backframe'
 
-const processor = async (req, trx, options) => {
+const securityRoute = async (req, res, next) => {
 
-  const id = req.user.get('security_question_id')
+  const security_question = await SecurityQuestion.where({
+    id: req.user.get('security_question_id')
+  }).fetch({
+    transacting: req.trx
+  })
 
-  const security_question = await SecurityQuestion.where({ id }).fetch({ transacting: trx })
+  if(!security_question) return res.status(404).json({
+    code: 404,
+    message: 'Unable to find security question'
+  })
 
-  if(!security_question) {
-    throw new BackframeError({
-      code: 404,
-      message: 'Unable to find security question'
-    })
-  }
+  await req.user.load('photo', {
+    transacting: req.trx
+  })
 
-  await req.user.load('photo', { transacting: trx })
-
-  return {
+  res.status(200).respond({
     user: {
       id: req.user.get('id'),
       first_name: req.user.get('first_name'),
@@ -28,20 +29,8 @@ const processor = async (req, trx, options) => {
     question: {
       text: security_question.get('text')
     }
-  }
+  })
 
 }
 
-const rules = {
-  token: 'required'
-}
-
-const verifyRoute = new Route({
-  path: '/verify',
-  method: 'post',
-  authenticated: false,
-  processor,
-  rules
-})
-
-export default verifyRoute
+export default securityRoute

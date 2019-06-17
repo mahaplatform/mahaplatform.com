@@ -1,23 +1,31 @@
-import { Route } from '../../../../../core/backframe'
+import { activity } from '../../../../../core/services/routes/activities'
+import socket from '../../../../../core/services/routes/emitter'
+import Email from '../../../../maha/models/email'
 
-const activity = story => (req, trx, object, options) => ({
-  story: 'resent {object}',
-  object
-})
+const resendRoute = async (req, res) => {
 
-const processor = async (req, trx, options) => true
+  const email = await Email.where({
+    id: req.params.id
+  }).fetch({
+    transacting: req.trx
+  })
 
-const refresh = (req, trx, result, options) => [
-  `/admin/team/emails/${req.resource.get('id')}`
-]
+  if(!email) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load email'
+  })
 
-const signoutRoute = new Route({
-  action: 'resend',
-  activity,
-  method: 'patch',
-  path: '/resend',
-  processor,
-  refresh
-})
+  await activity(req, {
+    story: 'resent {object}',
+    object: email
+  })
 
-export default signoutRoute
+  await socket.refresh(req, [
+    `/admin/team/emails/${email.get('id')}`
+  ])
+
+  res.status(200).respond(true)
+
+}
+
+export default resendRoute

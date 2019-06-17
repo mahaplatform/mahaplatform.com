@@ -1,6 +1,4 @@
-import Migration from '../../../../../../../core/objects/migration'
-
-const AddUsersDefaultValues = new Migration({
+const AddUsersDefaultValues = {
 
   up: async (knex) => {
 
@@ -26,6 +24,6 @@ const AddUsersDefaultValues = new Migration({
 
   down: async (knex) => {}
 
-})
+}
 
 export default AddUsersDefaultValues

@@ -1,29 +1,11 @@
-import ManagerSerializer from '../../../serializers/manager_serializer'
-import Manager from '../../../models/manager'
-import { Resources } from '../../../../../core/backframe'
+import { Router } from 'express'
 import assign from './assign'
+import list from './list'
 
-const defaultParams = (req, trx, options) => ({
-  site_id: req.params.site_id
-})
+const router = new Router({ mergeParams: true })
 
-const defaultQuery = (req, trx, qb, options) => {
+router.get('/', list)
 
-  qb.where('site_id', req.params.site_id)
+router.patch('/', assign)
 
-}
-
-const managersResources = new Resources({
-  allowedParams: ['user_id'],
-  collectionActions: [ assign ],
-  defaultParams,
-  defaultQuery,
-  defaultSort: 'id',
-  model: Manager,
-  only: 'list',
-  path: '/sites/:site_id/managers',
-  serializer: ManagerSerializer,
-  withRelated: ['user.photo']
-})
-
-export default managersResources
+export default router

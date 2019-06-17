@@ -1,16 +1,8 @@
-import { Resources } from '../../../../../core/backframe'
-import offering from '../../../models/offering'
-import offeringSerializer from '../../../serializers/offering_serializer'
+import { Router } from 'express'
+import list from './list'
 
-const offeringResources = new Resources({
-  defaultSort: 'title',
-  model: offering,
-  only: ['list','show'],
-  path: '/offerings',
-  primaryKey: 'slug',
-  searchParams: ['title'],
-  serializer: offeringSerializer,
-  withRelated: ['photo']
-})
+const router = new Router({ mergeParams: true })
 
-export default offeringResources
+router.get('/', list)
+
+export default router

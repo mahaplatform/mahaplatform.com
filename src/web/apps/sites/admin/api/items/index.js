@@ -1,75 +1,32 @@
-import ItemSerializer from '../../../serializers/item_serializer'
-import Item from '../../../models/item'
-import { Resources } from '../../../../../core/backframe'
-import Field from '../../../../maha/models/field'
 import publish_all from './publish_all'
 import delete_all from './delete_all'
 import finalize from './finalize'
+import { Router } from 'express'
 import publish from './publish'
-import update from './update'
+import destroy from './destroy'
 import create from './create'
+import update from './update'
+import list from './list'
+import show from './show'
 
-const alterRequest = async (req, trx) => {
+const router = new Router({ mergeParams: true })
 
-  req.fields = await Field.query(qb => {
+router.get('/', list)
 
-    qb.where('parent_type', 'sites_types')
+router.post('/', create)
 
-    qb.where('parent_id', req.params.type_id)
+router.patch('/delete', delete_all)
 
-    qb.orderBy('delta', 'asc')
+router.patch('/publish', publish_all)
 
-  }).fetchAll({ transacting: trx }).then(result => result.toArray())
+router.patch('/finalize', finalize)
 
-}
+router.get('/:id', show)
 
-const defaultParams = (req, trx, options) => ({
-  site_id: req.params.site_id,
-  type_id: req.params.type_id
-})
+router.patch('/:id', update)
 
-const defaultQuery = (req, trx, qb, options) => {
+router.delete('/:id', destroy)
 
-  qb.where('site_id', req.params.site_id)
+router.patch('/:id/publish', publish)
 
-  qb.where('type_id', req.params.type_id)
-
-  const title = req.fields[0].get('code')
-
-  const order = req.query.$sort === '-title' ? 'desc' : 'asc'
-
-  qb.orderByRaw(`values->>'${title}' ${order}`)
-
-  if(req.query.$filter && req.query.$filter.q) qb.whereRaw('lower(sites_items.index) like ?', `%${req.query.$filter.q.toLowerCase()}%`)
-
-}
-
-const itemsResources = new Resources({
-  alterRequest,
-  allowedParams: ['values'],
-  collectionActions: [
-    create,
-    delete_all,
-    publish_all,
-    finalize
-  ],
-  defaultParams,
-  defaultQuery,
-  defaultSort: '-created_at',
-  memberActions: [
-    update,
-    publish(false),
-    publish(true)
-  ],
-  model: Item,
-  except: ['create','update'],
-  path: '/sites/:site_id/types/:type_id/items',
-  refresh: {
-    destroy: (req, trx, result, options) => [
-      `/admin/sites/sites/${req.params.site_id}/types/${req.params.type_id}/items`
-    ]
-  },
-  serializer: ItemSerializer
-})
-
-export default itemsResources
+export default router

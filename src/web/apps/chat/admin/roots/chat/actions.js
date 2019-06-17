@@ -17,16 +17,6 @@ export const fetchChannels = (q, query) => ({
   failure: 'FETCH_CHANNELS_FAILURE'
 })
 
-export const activateChannel = (channel_id) => ({
-  type: 'ACTIVATE_CHANNEL',
-  channel_id
-})
-
-export const archiveChannel = (channel_id) => ({
-  type: 'ARCHIVE_CHANNEL',
-  channel_id
-})
-
 export const appear = (channel_id, user_id) => ({
   type: 'APPEAR',
   channel_id,

@@ -19,6 +19,11 @@ const processor = async () => {
       servers: [
         {
           user: 'root',
+          host: 'lb3.mahaplatform.com',
+          port: 22,
+          roles: 'loadbalancer'
+        }, {
+          user: 'root',
           host: 'app1.mahaplatform.com',
           port: 2244,
           roles: 'appserver'
@@ -61,7 +66,8 @@ const processor = async () => {
     'servers:appserver:configure',
     'servers:appserver:restart',
     'servers:loadbalancer:configure',
-    'servers:loadbalancer:restart'
+    'servers:loadbalancer:restart',
+    'servers:pm2:restart'
   ])
 
   utils.registerTask(shipit, 'deploy', [
@@ -87,11 +93,13 @@ const processor = async () => {
   ])
 
   utils.registerTask(shipit, 'servers:all:configure', async () => {
-    await shipit.remoteCopy('.env.production', '/var/www/app/current/.env')
+    await shipit.remoteCopy('.env.production', '/var/www/app/current/.env', {
+      roles: ['appserver','cron','worker']
+    })
   })
 
   utils.registerTask(shipit, 'servers:appserver:configure', async () => {
-    await shipit.remoteCopy('servers/app/nginx.conf', '/opt/nginx/conf/nginx.conf', { roles: 'appserver' })
+    await shipit.remoteCopy('src/servers/app/nginx.conf', '/opt/nginx/conf/nginx.conf', { roles: 'appserver' })
   })
 
   utils.registerTask(shipit, 'servers:appserver:restart', async () => {
@@ -99,14 +107,24 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'servers:loadbalancer:configure', async () => {
-    await shipit.remoteCopy('servers/lb/nginx.conf', '/etc/nginx/nginx.conf', { roles: 'loadbalancer' })
-    await shipit.remoteCopy('servers/lb/haproxy.cfg', '/etc/haproxy/haproxy.cfg', { roles: 'loadbalancer' })
-    await shipit.remoteCopy('servers/lb/mahaplatform.com.pem', '/etc/pki/tls/private/mahaplatform.com.pem', { roles: 'loadbalancer' })
+    await shipit.remoteCopy('src/servers/lb/nginx.conf', '/etc/nginx/nginx.conf', { roles: 'loadbalancer' })
+    await shipit.remoteCopy('src/servers/lb/haproxy.cfg', '/etc/haproxy/haproxy.cfg', { roles: 'loadbalancer' })
+    await shipit.remoteCopy('src/servers/lb/mahaplatform.com.pem', '/etc/pki/tls/private/mahaplatform.com.pem', { roles: 'loadbalancer' })
   })
 
   utils.registerTask(shipit, 'servers:loadbalancer:restart', async () => {
-    await shipit.remote('systemctl restart nginx', { roles: 'loadbalancer' })
-    await shipit.remote('systemctl restart haproxy', { roles: 'loadbalancer' })
+    await shipit.remote('service nginx restart', { roles: 'loadbalancer' })
+    await shipit.remote('service haproxy restart', { roles: 'loadbalancer' })
+  })
+
+  utils.registerTask(shipit, 'servers:pm2:restart', async () => {
+    return shipit.remote('NODE_ENV=production pm2 startOrRestart ./current/ecosystem.config.js', {
+      cwd: deployDir,
+      roles: ['cron','worker']
+    })
+  })
+
+  utils.registerTask(shipit, 'servers:cron:restart', async () => {
   })
 
   utils.registerTask(shipit, 'deploy:build', async () => {

@@ -1,28 +1,31 @@
+import { activity } from '../../../../../core/services/routes/activities'
 import SecurityQuestion from '../../../models/security_question'
-import { BackframeError, Route } from '../../../../../core/backframe'
+import Checkit from 'checkit'
 
-const activity = (req, trx, result, options) => ({
-  story: 'claimed {object}',
-  object: req.user,
-  object_owner_id: req.user.get('id'),
-  object_text: 'account activation',
-  object_type: null
-})
+const verifyRoute = async (req, res) => {
 
-const processor = async (req, trx, options) => {
+  await Checkit({
+    token: 'required'
+  }).run(req.body)
 
-  await req.user.load(['photo'], { transacting: trx })
+  if(req.user.get('activated_at')) return res.status(404).json({
+    code: 404,
+    message: 'This account has already been activated'
+  })
 
-  if(req.user.get('activated_at')) {
-    throw new BackframeError({
-      code: 404,
-      message: 'This account has already been activated'
-    })
-  }
+  await activity(req, {
+    story: 'claimed {object}',
+    object: req.user,
+    object_owner_id: req.user.get('id'),
+    object_text: 'account activation',
+    object_type: null
+  })
 
-  const questions = await SecurityQuestion.fetchAll({ transacting: trx })
+  const questions = await SecurityQuestion.fetchAll({
+    transacting: req.trx
+  })
 
-  return {
+  res.status(200).respond({
     user: {
       id: req.user.get('id'),
       first_name: req.user.get('first_name'),
@@ -37,21 +40,8 @@ const processor = async (req, trx, options) => {
       id: question.get('id'),
       text: question.get('text')
     }))
-  }
+  })
 
 }
-
-const rules = {
-  token: 'required'
-}
-
-const verifyRoute = new Route({
-  activity,
-  path: '/verify',
-  method: 'post',
-  authenticated: false,
-  processor,
-  rules
-})
 
 export default verifyRoute

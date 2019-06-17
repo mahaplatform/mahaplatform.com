@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateExpenseTypes = new Migration({
+const CreateExpenseTypes = {
 
   up: async (knex) => {
     return await knex.schema.createTable('expenses_expense_types', (table) => {
@@ -18,6 +16,6 @@ const CreateExpenseTypes = new Migration({
     return await knex.schema.dropTable('expenses_expense_types')
   }
 
-})
+}
 
 export default CreateExpenseTypes

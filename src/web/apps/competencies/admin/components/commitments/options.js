@@ -44,7 +44,6 @@ class Options extends React.Component {
 
   _handleView(item, e) {
     e.stopPropagation()
-    console.log(item.url)
   }
 
 }

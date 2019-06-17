@@ -8,7 +8,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     ],
     endpoint: '/api/admin/platform/apps',
     entity: 'asset',
-    link: (record) => `/admin/platform/apps/${record.id}`,
+    link: (record) => `/admin/platform/apps/${record.code}`,
     defaultSort: { key: 'code', order: 'asc' }
   }
 })

@@ -1,19 +1,25 @@
 import AssetSerializer from '../../../../serializers/asset_serializer'
 import { createAsset } from '../../../../services/asset'
-import { Route } from '../../../../../../core/backframe'
 import Source from '../../../../models/source'
 import request from 'request-promise'
 import { getClient } from './utils'
 
-const processor = async (req, trx, options) => {
+const createRoute = async (req, res) => {
 
-  const client = await getClient(req, trx)
+  const client = await getClient(req, req.trx)
 
   const result = await client.api(`/me/drive/items/${req.body.id}`).get()
 
-  const file_data = await request.get({ url: result['@microsoft.graph.downloadUrl'], encoding: null }).promise()
+  const file_data = await request.get({
+    url: result['@microsoft.graph.downloadUrl'],
+    encoding: null
+  }).promise()
 
-  const source = await Source.where({ text: 'microsoft' }).fetch({ transacting: trx })
+  const source = await Source.where({
+    text: 'microsoft'
+  }).fetch({
+    transacting: req.trx
+  })
 
   const asset = await createAsset({
     team_id: req.team.get('id'),
@@ -24,18 +30,14 @@ const processor = async (req, trx, options) => {
     file_name: result.name,
     file_data,
     content_type: result.file ? result.file.mimeType : 'plain/text'
-  }, trx)
+  }, req.trx)
 
-  await asset.load(['source'], { transacting: trx })
+  await asset.load(['source'], {
+    transacting: req.trx
+  })
 
-  return AssetSerializer(req, trx, asset)
+  res.status(200).respond(asset, AssetSerializer)
 
 }
-
-const createRoute = new Route({
-  method: 'post',
-  path: '/microsoft/files',
-  processor
-})
 
 export default createRoute

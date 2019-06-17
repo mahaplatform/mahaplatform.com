@@ -3,11 +3,6 @@ export const choose = (id) => ({
   id
 })
 
-export const setStarred = (show) => ({
-  type: 'SET_STARRED',
-  show
-})
-
 export const setMessage = (message) => ({
   type: 'SET_MESSAGE',
   message

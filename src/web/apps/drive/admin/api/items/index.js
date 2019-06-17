@@ -1,23 +1,26 @@
-import { Segment } from '../../../../../core/backframe'
-import items from './items'
+import transfer from './transfer'
+import { Router } from 'express'
 import restore from './restore'
-import trash from './trash'
-import move from './move'
 import destroy from './destroy'
-import restore_all from './restore_all'
-import empty from './empty'
+import trash from './trash'
+import list from './list'
+import show from './show'
+import move from './move'
 
-const itemsSegment = new Segment({
-  path: '/items',
-  routes: [
-    restore_all,
-    empty,
-    items,
-    restore,
-    trash,
-    move,
-    destroy
-  ]
-})
+const router = new Router({ mergeParams: true })
 
-export default itemsSegment
+router.get('/', list)
+
+router.post('/transfer', transfer)
+
+router.get('/:code', show)
+
+router.patch('/:code/move', move)
+
+router.patch('/:code/restore', restore)
+
+router.patch('/:code/destroy', destroy)
+
+router.patch('/:code/trash', trash)
+
+export default router

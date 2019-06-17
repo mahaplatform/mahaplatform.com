@@ -1,26 +1,16 @@
-import log from '../../web/core/utils/log'
+import knex from '../../web/core/services/knex'
 import apps from '../../web/core/utils/apps'
-import chalk from 'chalk'
-import Knex from 'knex'
+import log from '../../web/core/utils/log'
 import path from 'path'
 import _ from 'lodash'
+import ejs from 'ejs'
 import fs from 'fs'
 
-const [connection, protocol] = process.env.DATABASE_URL.match(/(.*):\/\/\/?(.*)/)
+const [,,,database] = process.env.DATABASE_URL.match(/(.*):\/\/([^/]*)\/(.*)/)
 
-const knex = new Knex({
-  client: protocol === 'postgres' ? 'postgresql' : protocol,
-  connection,
-  useNullAsDefault: true,
-  pool: {
-    min: 1,
-    max: 1
-  }
-})
+export const migrateUp = async () => await _migrate('up').then(schemaDump)
 
-export const migrateUp = async () => await _migrate('up')
-
-export const migrateDown = async () => await _migrate('down')
+export const migrateDown = async () => await _migrate('down').then(schemaDump)
 
 export const reset = async () => await _reset()
 
@@ -28,288 +18,107 @@ export const loadFixtures = async () => await _loadData('fixtures')
 
 export const loadSeeds = async () => await _loadData('seeds')
 
-export const setupTestDb = async () => await migrateDown().then(migrateUp).then(loadFixtures)
+export const setup = async () => await truncate().then(schemaLoad).then(loadFixtures)
 
-export const teardownTestDb = async () => await migrateDown()
+export const truncate = async (flags, args) => {
+  _log(`truncate ${database}`)
+  await knex.raw('drop schema public cascade')
+  await knex.raw('create schema public')
+}
 
-export const beginTransaction = () => knex.raw('BEGIN TRANSACTION')
+export const schemaDump = async (flags, args) => {
+  _log('dump schema')
+  const constraints = await _getConstraints()
+  const foreign_keys = _.groupBy(constraints.foreign, (constraint) => constraint.table)
+  const tables = await _getTables(constraints)
+  const views = await _getViews()
+  const template = fs.readFileSync(path.join(__dirname, 'schema.js.ejs'), 'utf8')
+  const platform = _.camelCase(path.basename(path.resolve()))
+  const data = ejs.render(template, { platform, tables, views, foreign_keys })
+  fs.writeFileSync(path.join('src', 'schema.js'), data)
+}
 
-export const rollbackTransaction = () => knex.raw('ROLLBACK TRANSACTION')
+export const schemaLoad = async (flags, args) => {
+  _log('load schema')
+  await knex.transaction(async trx => {
+    const schema = require(path.resolve('src','schema.js')).default
+    await schema.load(trx)
+  })
+}
 
 const _migrate = async (direction) => {
-
   await _findOrCreateSchema()
-
   const appPaths = _getAppPaths()
-
   const allMigrations = _getMigrations(appPaths)
-
   const migrations = await _filterScripts(allMigrations, direction)
-
   await _runMigrations(migrations, direction)
-
   if(direction === 'down') await _dropSchema()
-
 }
 
 const _reset = async () => {
-
   await _migrate('down', null)
-
   await _migrate('up', null)
-
 }
 
 const _hasScriptBeenRun = async (migration) => {
-
   const result = await knex('schema_migrations').count('* as count').where({ migration })
-
   const response = result.rows ? result.rows[0] : result[0]
-
   const count = response.count ? parseInt(response.count) : 0
-
   return count !== 0
-
 }
 
 const _findOrCreateSchema = async () => {
-
   return await knex.schema.createTableIfNotExists('schema_migrations', (table) => table.string('migration'))
-
 }
 
 const _dropSchema = async () => {
-
   return await knex.schema.dropTableIfExists('schema_migrations')
-
 }
 
 const _runMigrations = (migrations, direction) => {
-
   return Promise.mapSeries(migrations, async migration => {
-
     await knex.transaction(async trx => {
-
       const runner = require(migration.path).default
-
       if(direction === 'up') {
-
         await runner.up(trx)
-
         await _recordMigration(migration.name, trx)
-
       } else {
-
         await runner.down(trx)
-
         await _removeMigration(migration.name, trx)
-
       }
-
-      _log(chalk.grey(migration.name), chalk.green('✔'), true, true)
-
-
+      _log(migration.name)
     })
-
   })
-
 }
 
 const _recordMigration = (migration, trx) => {
-
   return trx('schema_migrations').insert({ migration })
-
 }
 
 const _removeMigration = (migration, trx) => {
-
   return trx('schema_migrations').where({ migration }).delete()
-
 }
 
 const _filterScripts = async (scripts, direction) => {
-
   if(direction === 'down') {
-
     return await Promise.filter(scripts.reverse(), async script => await _hasScriptBeenRun(script.name))
-
   } else {
-
     return await Promise.filter(scripts, async script => await _hasScriptBeenRun(script.name) === false)
-
   }
-
 }
 
 const _loadData = async (type) => {
-
   const appPaths = _getAppPaths()
-
-  const allFixtures = _getFixtures(appPaths, type)
-
-  const merged = _mergeFixtures(allFixtures)
-
-  const withIds = _assignIds(merged)
-
-  const interpolated = await _renderFixtures(withIds)
-
-  await Promise.mapSeries(Object.keys(interpolated), async tableName => {
-
+  const fixtures = _getFixtures(appPaths, type)
+  await Promise.mapSeries(fixtures, async fixture => {
     await knex.transaction(async trx => {
-
-      _log(chalk.grey(tableName))
-
-      if(knex.client.config.client === 'postgresql') await trx.raw('set session_replication_role = replica')
-
-      await trx(tableName).del()
-
-      const records = interpolated[tableName]
-
-      const chunks = _.chunk(records, 50)
-
-      await Promise.mapSeries(chunks, async chunk => await trx(tableName).insert(chunk)).catch(console.log)
-
-      try {
-
-        if(knex.client.config.client === 'postgresql') {
-
-          const idColumn = await trx.raw(`SELECT column_name FROM information_schema.columns WHERE table_name='${tableName}' and column_name='id'`)
-
-          if(idColumn.rowCount > 0) await trx.raw(`SELECT pg_catalog.setval(pg_get_serial_sequence('${tableName}', 'id'), MAX(id)) FROM ${tableName}`)
-
-        }
-      } catch(e) {}
-
-      if(trx.client.config.client === 'postgresql') await trx.raw('set session_replication_role = default')
-
-      _log(chalk.grey(tableName), chalk.green('✔'), true, true)
-
+      _log(`run ${fixture.name}`)
+      await trx.raw('set session_replication_role = replica')
+      const creator = require(fixture.path).default
+      await creator(trx)
+      await trx.raw('set session_replication_role = default')
     })
-
   })
-
-}
-
-// load all fixtures from across apps, and merge all data into a single
-// nested hash
-const _mergeFixtures = (files) => {
-
-  return files.reduce((merged, file) => {
-
-    const { tableName, records } = require(file.path).default
-
-    return {
-      ...merged,
-      [tableName]: (_.isArray(records)) ? [
-        ...merged[tableName] || [],
-        ...records
-      ] : {
-        ...merged[tableName],
-        ...records
-      }
-    }
-
-  }, {})
-
-}
-
-// loop through all fixtures from each table and preemtively assign an id,
-// creating a map for lookups
-const _assignIds = (data) => {
-
-  return Object.keys(data).reduce((tables, tableName) => {
-
-    const fixtures = data[tableName]
-
-    if(_.isArray(fixtures)) {
-
-      return {
-        ...tables,
-        [tableName]: fixtures
-      }
-
-    }
-
-    const withIds = Object.keys(fixtures).reduce((withIds, name, index) => ({
-      ...withIds,
-      [name]: {
-        id: index + 1,
-        values: fixtures[name]
-      }
-    }), {})
-
-    return {
-      ...tables,
-      [tableName]: withIds
-    }
-
-  }, {})
-
-}
-
-// loop through all fixtures and call the function with the data hash, allowing
-// each fixture to interpolate ids from orher named fixtures
-const _renderFixtures = (data) => {
-
-  return Promise.reduce(Object.keys(data), async (tables, tableName) => {
-
-    const columns = await knex(tableName).columnInfo()
-
-    const fixtures = data[tableName]
-
-    if(_.isArray(fixtures)) {
-
-      return {
-        ...tables,
-        [tableName]: fixtures
-      }
-
-    }
-
-    const interpolated = Object.keys(fixtures).reduce((interpolated, name) => {
-
-      const fixtureData = _renderFixture(tableName, fixtures, name, data)
-
-      if(columns.id) {
-
-        return [
-          ...interpolated,
-          {
-            id: fixtures[name].id,
-            ...fixtureData
-          }
-        ]
-
-      }
-
-      return [
-        ...interpolated,
-        fixtureData
-      ]
-
-    }, [])
-
-    return {
-      ...tables,
-      [tableName]: interpolated
-    }
-
-  }, {})
-
-}
-
-const _renderFixture = (tableName, fixtures, name, data) => {
-
-  try {
-
-    return fixtures[name].values(data)
-
-  } catch(err) {
-
-    throw new Error(`Unable to load fixture data for '${name}' in '${tableName}' (${err.message})`)
-
-  }
-
 }
 
 const _getMigrations = (appPaths) => _getSortedFiles(appPaths, 'migrations')
@@ -317,58 +126,110 @@ const _getMigrations = (appPaths) => _getSortedFiles(appPaths, 'migrations')
 const _getFixtures = (appPaths, type) => _getSortedFiles(appPaths, type)
 
 const _getSortedFiles = (appPaths, targetPath) => {
-
   const sorted = _.castArray(appPaths).reduce((files, appPath) => {
-
     const dbPath = path.join(appPath, 'db')
-
     const fullTargetPath = path.join(dbPath, targetPath)
-
     if(!fs.existsSync(fullTargetPath)) return files
-
     return [
       ...files,
       ...fs.readdirSync(fullTargetPath).map(name => {
-
         const matches = name.match(/(\d{13}).*/)
-
         return {
           name,
           path: path.join(fullTargetPath, name),
           ...matches ? { timestamp: matches[1] } : {}
         }
-
       })
     ]
-
   }, []).filter(file => {
-
     return !_.isNil(file.name.match(/.*\.js$/))
-
   }).sort((first, second) => {
-
     if(first.name < second.name) return -1
-
     if(first.name > second.name) return 1
-
     return 0
-
   })
-
   return sorted
-
 }
 
 const _getAppPaths = () => {
-
   return apps.map(app => path.resolve('src', 'web', 'apps', app))
-
 }
 
-const _log = (label, text = '', newline = false, rewind = false) => {
+const _getTables = async (constraints) => {
+  const tables = await knex.raw('select tablename from pg_catalog.pg_tables where schemaname=\'public\' order by tablename')
+  return await Promise.mapSeries(tables.rows, async(table) => {
+    const fields = await knex.raw(`select * from information_schema.columns where table_name='${table.tablename}'`)
+    return {
+      name: table.tablename,
+      fields: fields.rows.map(field => ({
+        name: field.column_name,
+        definition: _getFieldType(field, constraints),
+        nullable: _getNullable(field),
+        default: _getDefault(field)
+      }))
+    }
+  })
+}
 
+const _getViews = async () => {
+  const views = await knex.raw('select * from information_schema.views where table_schema=\'public\' order by table_name')
+  return views.rows.map((view) => ({
+    name: view.table_name,
+    definition: view.view_definition.replace(/[\s\t]{2,}/g, '\n      ').toLowerCase()
+  }))
+}
+
+const _getConstraints = async () => {
+  const constraints = await knex.raw('SELECT tc.constraint_name, tc.constraint_type, tc.table_name, kcu.column_name, ccu.table_name AS foreign_table_name, ccu.column_name AS foreign_column_name  FROM information_schema.table_constraints tc JOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name AND tc.table_schema = kcu.table_schema JOIN information_schema.constraint_column_usage AS ccu ON ccu.constraint_name = tc.constraint_name AND ccu.table_schema = tc.table_schema')
+  return constraints.rows.reduce((constraints, constraint) => ({
+    ...constraints,
+    primary: (constraint.constraint_type === 'PRIMARY KEY') ? [
+      ...constraints.primary,
+      {
+        name: constraint.constraint_name,
+        table: constraint.table_name,
+        column: constraint.column_name
+      }
+    ] : constraints.primary,
+    foreign: (constraint.constraint_type === 'FOREIGN KEY') ? [
+      ...constraints.foreign,
+      {
+        name: constraint.constraint_name,
+        table: constraint.table_name,
+        column: constraint.column_name,
+        foreign_table: constraint.foreign_table_name,
+        foreign_column: constraint.foreign_column_name
+      }
+    ] : constraints.foreign
+  }), { primary: [], foreign: []})
+}
+
+const _getFieldType = (field, constraints) => {
+  const primary = _.find(constraints.primary, { table: field.table_name, column: field.column_name })
+  const foreign = _.find(constraints.foreign, { table: field.table_name, column: field.column_name })
+  if(primary) return `.increments('${field.column_name}').primary()`
+  if(foreign) return `.integer('${field.column_name}').unsigned()`
+  if(field.data_type === 'character varying') return `.string('${field.column_name}', ${field.character_maximum_length})`
+  if(field.data_type === 'text') return `.text('${field.column_name}')`
+  if(field.data_type === 'numeric') return `.decimal('${field.column_name}', ${field.numeric_precision}, ${field.numeric_scale})`
+  if(field.data_type === 'timestamp with time zone') return `.timestamp('${field.column_name}')`
+  if(field.data_type === 'time without time zone') return `.time('${field.column_name}')`
+  if(field.data_type === 'ARRAY') return `.specificType('${field.column_name}', '${field.udt_name.substr(1)}[]')`
+  return `.${field.data_type}('${field.column_name}')`
+}
+
+const _getNullable = (field) => {
+  return field.is_nullable ? '': '.notNullable()'
+}
+
+const _getDefault = (field) => {
+  if(!(field.column_default && field.column_default.substr(0,7) !== 'nextval')) return ''
+  if(field.column_default.match(/numeric/) !== null) return `.defaultsTo(${parseInt(0).toFixed(field.numeric_precision - field.numeric_scale)})`
+  const column_default = field.column_default.replace('::jsonb', '')
+  return `.defaultsTo(${column_default})`
+}
+
+const _log = (text) => {
   if(process.env.NODE_ENV === 'test') return
-
-  log('info', 'knex', `${label} ${text}`)
-
+  log('info', 'db', text)
 }

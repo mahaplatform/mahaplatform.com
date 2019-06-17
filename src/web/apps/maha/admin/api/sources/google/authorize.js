@@ -1,11 +1,10 @@
-import { Route } from '../../../../../../core/backframe'
 import { google } from 'googleapis'
 
 const auth = new google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, `${process.env.WEB_HOST}/admin/google/token`)
 
-const processor = async (req, trx, options) => {
+const authorizeRoute = async (req, res) => {
 
-  const authUrl = auth.generateAuthUrl({
+  const url = auth.generateAuthUrl({
     access_type: 'offline',
     state: req.user.get('id'),
     prompt: 'consent',
@@ -15,14 +14,8 @@ const processor = async (req, trx, options) => {
     ]
   })
 
-  return authUrl
+  res.status(200).respond(url)
 
 }
-
-const authorizeRoute = new Route({
-  method: 'get',
-  path: '/google/authorize',
-  processor
-})
 
 export default authorizeRoute

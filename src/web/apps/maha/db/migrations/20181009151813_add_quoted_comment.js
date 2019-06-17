@@ -1,6 +1,4 @@
-import Migration from '../../../../../../../core/objects/migration'
-
-const AddQuotedComment = new Migration({
+const AddQuotedComment = {
 
   up: async (knex) => {
 
@@ -19,6 +17,6 @@ const AddQuotedComment = new Migration({
 
   }
 
-})
+}
 
 export default AddQuotedComment

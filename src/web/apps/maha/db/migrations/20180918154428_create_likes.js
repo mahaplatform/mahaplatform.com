@@ -1,6 +1,4 @@
-import Migration from '../../../../../../../core/objects/migration'
-
-const CreateLikes = new Migration({
+const CreateLikes = {
 
   up: async (knex) => {
     return await knex.schema.createTable('maha_likes', (table) => {
@@ -20,6 +18,6 @@ const CreateLikes = new Migration({
     return await knex.schema.dropTable('maha_likes')
   }
 
-})
+}
 
 export default CreateLikes

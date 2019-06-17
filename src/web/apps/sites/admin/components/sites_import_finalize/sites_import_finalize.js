@@ -1,9 +1,8 @@
-import { Form, ModalPanel, Progress } from 'maha-admin'
+import { ModalPanel, Progress } from 'maha-admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
-
 
 class SitesImportFinalize extends React.Component {
 
@@ -19,8 +18,12 @@ class SitesImportFinalize extends React.Component {
     import: PropTypes.object,
     fields: PropTypes.string,
     status: PropTypes.string,
+    progress: PropTypes.string,
     onDone: PropTypes.func,
-    onFinalizeSites: PropTypes.func
+    onFail: PropTypes.func,
+    onFinalizeSites: PropTypes.func,
+    onSuccess: PropTypes.func,
+    onUpdateProgress: PropTypes.func
   }
 
   _handleDone = this._handleDone.bind(this)

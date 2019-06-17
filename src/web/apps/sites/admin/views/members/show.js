@@ -1,4 +1,5 @@
 import { List, Page } from 'maha-admin'
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const Details = ({ full_name, email }) => {
@@ -15,6 +16,11 @@ const Details = ({ full_name, email }) => {
   }
   return <List { ...list } />
 
+}
+
+Details.propTypes = {
+  full_name: PropTypes.string,
+  email: PropTypes.string
 }
 
 const mapResourcesToPage = (props, context, page) => ({

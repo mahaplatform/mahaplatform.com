@@ -1,37 +1,17 @@
-import { Resources } from '../../../../../core/backframe'
-import County from '../../../models/county'
-import CountySerializer from '../../../serializers/county_serializer'
+import { Router } from 'express'
+import create from './create'
+import update from './update'
+import list from './list'
+import show from './show'
 
-const activity = story => (req, trx, object, options) => ({
-  story,
-  object
-})
+const router = new Router({ mergeParams: true })
 
-const activities = {
-  create: activity('created {object}'),
-  update: activity('updated {object}'),
-  destroy: activity('deleted {object}')
-}
+router.get('/', list)
 
-const channels = (req, trx, result, options) => [
-  '/admin/eatfresh/counties'
-]
+router.post('/', create)
 
-const refresh = {
-  create: channels,
-  update: channels
-}
+router.get('/:id', show)
 
-const countyResources = new Resources({
-  activities,
-  allowedParams: ['name'],
-  defaultSort: 'name',
-  model: County,
-  path: '/counties',
-  refresh,
-  serializer: CountySerializer,
-  searchParams: ['name'],
-  sortParams: ['id','name']
-})
+router.patch('/:id', update)
 
-export default countyResources
+export default router

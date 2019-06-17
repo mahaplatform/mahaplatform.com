@@ -1,20 +1,20 @@
-import { Route } from '../../../../../core/backframe'
 import Profile from '../../../models/profile'
 
-const processor = async (req, trx, options) => {
+const checkRoute = async (req, res) => {
 
-  const query = qb => qb.innerJoin('maha_sources', 'maha_sources.id', 'maha_profiles.source_id')
+  const profile = await Profile.query(qb => {
+    qb.innerJoin('maha_sources', 'maha_sources.id', 'maha_profiles.source_id')
+  }).where({
+    text: req.params.source,
+    user_id: req.user.get('id')
+  }).fetch({
+    transacting: req.trx
+  })
 
-  const profile = await Profile.query(query).where({ text: req.params.source, user_id: req.user.get('id')}).fetch({ transacting: trx })
+  const data = profile !== null
 
-  return (profile !== null)
+  res.status(200).respond(data)
 
 }
-
-const checkRoute = new Route({
-  method: 'get',
-  path: '/:source/check',
-  processor
-})
 
 export default checkRoute

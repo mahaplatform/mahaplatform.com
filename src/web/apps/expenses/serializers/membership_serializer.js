@@ -1,16 +1,9 @@
-import serializer from '../../../core/objects/serializer'
-
-const MembershipSerializer = serializer((req, trx, result) => ({
-
+const MembershipSerializer = (req, result) => ({
   id: result.get('id'),
-
   title: result.get('title'),
-
   integration: integration(req, result),
-
   member_type: result.get('member_type').toLowerCase()
-
-}))
+})
 
 const integration = (req, result) => {
 

@@ -1,23 +1,16 @@
-import { Route } from '../../../../../core/backframe'
+const showRoute = async (req, res) => {
 
-const processor = async (req, trx, options) => {
+  await req.team.load('logo', {
+    transacting: req.trx
+  })
 
-  await req.team.load('logo', { transacting: trx })
-
-  return {
-    title: req.team.get('title'),
-    subdomain: req.team.get('subdomain'),
-    color: req.team.get('color'),
-    logo_id: req.team.get('logo_id'),
-    logo: req.team.related('logo').get('path')
-  }
+  res.status(200).respond(req.team, (req, result) => ({
+    title: result.get('title'),
+    subdomain: result.get('subdomain'),
+    logo_id: result.get('logo_id'),
+    logo: result.related('logo').get('path')
+  }))
 
 }
-
-const showRoute = new Route({
-  method: 'get',
-  path: '/',
-  processor
-})
 
 export default showRoute

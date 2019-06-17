@@ -17,6 +17,7 @@ class Reset extends React.Component {
   }
 
   static propTypes = {
+    error: PropTypes.string,
     mode: PropTypes.string,
     team: PropTypes.object,
     token: PropTypes.string,
@@ -24,6 +25,7 @@ class Reset extends React.Component {
     show: PropTypes.bool,
     status: PropTypes.string,
     user: PropTypes.object,
+    onChangeMode: PropTypes.func,
     onSecurity: PropTypes.func,
     onPassword: PropTypes.func,
     onTogglePassword: PropTypes.func,

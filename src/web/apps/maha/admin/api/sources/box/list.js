@@ -1,12 +1,17 @@
-import { Route } from '../../../../../../core/backframe'
 import { getClient } from './utils'
 import mime from 'mime-types'
 import path from 'path'
 import _ from 'lodash'
 
-const processor = async (req, trx, options) => {
+const _getContentType = (name) => {
+  const ext = path.extname(name)
+  const type = mime.lookup(ext)
+  return type || 'text/plain'
+}
 
-  const client = await getClient(req, trx)
+const listRoute = async (req, res) => {
+
+  const client = await getClient(req, req.trx)
 
   const fields = 'name,modified_at,size,url,permissions,sync_state'
 
@@ -53,24 +58,13 @@ const processor = async (req, trx, options) => {
 
   })
 
-  return {
-    records,
+  records.pagination = {
     next: result.next,
     skip: next ? 1 : 0
   }
 
-}
+  res.status(200).respond(records)
 
-const _getContentType = (name) => {
-  const ext = path.extname(name)
-  const type = mime.lookup(ext)
-  return type || 'text/plain'
 }
-
-const listRoute = new Route({
-  method: 'get',
-  path: '/box/files',
-  processor
-})
 
 export default listRoute

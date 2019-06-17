@@ -136,7 +136,6 @@ class Electron extends React.Component {
   }
 
   _handleUpdateUnseen(count) {
-    console.log(count)
     this._handleSendMessage('updateBadge', { count })
   }
 

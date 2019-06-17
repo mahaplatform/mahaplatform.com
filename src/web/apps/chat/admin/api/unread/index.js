@@ -1,16 +1,8 @@
-import { getUnread } from '../../../services/messages'
-import { Route } from '../../../../../core/backframe'
+import { Router } from 'express'
+import list from './list'
 
-const processor = async (req, trx,options) => {
+const router = new Router({ mergeParams: true })
 
-  return await getUnread(req.user.get('id'), trx)
+router.get('/', list)
 
-}
-
-const unreadRoute = new Route({
-  method: 'get',
-  path: '/unread',
-  processor
-})
-
-export default unreadRoute
+export default router

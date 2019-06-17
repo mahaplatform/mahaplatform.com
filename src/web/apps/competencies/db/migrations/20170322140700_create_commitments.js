@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateCommitments = new Migration({
+const CreateCommitments = {
 
   up: async (knex) => {
     return await knex.schema.createTable('competencies_commitments', (table) => {
@@ -21,6 +19,6 @@ const CreateCommitments = new Migration({
     return await knex.schema.dropTable('competencies_commitments')
   }
 
-})
+}
 
 export default CreateCommitments

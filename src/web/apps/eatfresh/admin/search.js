@@ -1,7 +1,6 @@
-import search from '../../../core/objects/search'
 import Attraction from '../models/attraction'
 
-const Search = search({
+const Search = {
   attractions: {
     fields: ['title'],
     model: Attraction,
@@ -14,6 +13,6 @@ const Search = search({
     }),
     withRelated: ['photo']
   }
-})
+}
 
 export default Search

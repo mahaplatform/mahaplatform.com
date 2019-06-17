@@ -1,31 +1,24 @@
-import ItemSerializer from '../../../serializers/item_serializer'
+import socket from '../../../../../core/services/routes/emitter'
 import { deleteForever } from '../../../services/items'
 import Item from '../../../models/item'
-import { Route } from '../../../../../core/backframe'
 
-const processor = async (req, trx, options) => {
+const destroyRoute = async (req, res) => {
 
   const item = await Item.where({
-    code: req.params.id
-  }).fetch({ transacting: trx })
+    code: req.params.code
+  }).fetch({
+    transacting: req.trx
+  })
 
-  await deleteForever(item, trx)
+  await deleteForever(item, req.trx)
 
-  return item
+  await socket.refresh(req, [
+    `/admin/drive/folders/${item.get('folder_id') || 'drive'}`,
+    '/admin/drive/folders/trash'
+  ])
+
+  res.status(200).respond(true)
 
 }
 
-const refresh = (req, trx, result, options) => [
-  `/admin/drive/folders/${result.get('folder_id') || 'drive'}`,
-  '/admin/drive/folders/trash'
-]
-
-const trashRoute = new Route({
-  method: 'patch',
-  path: '/:id/destroy',
-  processor,
-  refresh,
-  serializer: ItemSerializer
-})
-
-export default trashRoute
+export default destroyRoute

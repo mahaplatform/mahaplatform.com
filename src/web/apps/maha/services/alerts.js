@@ -14,7 +14,7 @@ export const sendAlert = async (req, trx, user, code, data) => {
 
   if(exclusion[0].excluded !== '0') return
 
-  await mailer.enqueue(req, trx, {
+  await mailer.enqueue(req, {
     team_id: user.get('team_id'),
     user,
     template: code,

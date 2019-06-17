@@ -1,25 +1,31 @@
 import ImportSerializer from '../../../serializers/import_serializer'
-import { Route } from '../../../../../core/backframe'
 import ImportParseQueue from '../../../queues/import_parse_queue'
+import Import from '../../../models/import'
 
-const processor = async (req, trx, options) => {
+const parseRoute = async (req, res) => {
 
-  ImportParseQueue.enqueue(req, trx, {
-    id: req.resource.get('id'),
+  const _import = await Import.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('id', req.params.id)
+  }).fetch({
+    transacting: req.trx
+  })
+
+  if(!_import) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load import'
+  })
+
+  ImportParseQueue.enqueue(req, {
+    id: req.params.id,
     rules: req.body.rules,
     table: req.body.table,
     primaryKey: req.body.primaryKey
   })
 
-  return req.resource
+  res.status(200).respond(_import, ImportSerializer)
 
 }
-
-const parseRoute = new Route({
-  method: 'post',
-  path: '/parse',
-  processor,
-  serializer: ImportSerializer
-})
 
 export default parseRoute

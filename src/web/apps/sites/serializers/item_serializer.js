@@ -1,22 +1,13 @@
-import serializer from '../../../core/objects/serializer'
-
-const itemSerializer = serializer(async (req, trx, result) => ({
-
+const itemSerializer = (req, result) => ({
   id: result.get('id'),
-
-  title: title(req, trx, result),
-
+  title: title(req, result),
   values: values(req, result.get('values')),
-
   is_published: result.get('is_published'),
-
   created_at: result.get('created_at'),
-
   updated_at: result.get('updated_at')
+})
 
-}))
-
-const title = (req, trx, result) => {
+const title = (req, result) => {
 
   const field = req.fields[0]
 

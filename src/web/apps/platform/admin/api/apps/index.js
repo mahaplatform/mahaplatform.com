@@ -1,16 +1,11 @@
-import AppSerializer from '../../../serializers/app_serializer'
-import { Resources } from '../../../../../core/backframe'
-import App from '../../../../maha/models/app'
+import { Router } from 'express'
+import list from './list'
+import show from './show'
 
-const appResources = new Resources({
-  defaultSort: ['code'],
-  model: App,
-  only: ['list','show'],
-  ownedByTeam: false,
-  path: '/apps',
-  rights: ['team:manage_apps'],
-  serializer: AppSerializer,
-  sortParams: ['code']
-})
+const router = new Router({ mergeParams: true })
 
-export default appResources
+router.get('/', list)
+
+router.get('/:code', show)
+
+export default router

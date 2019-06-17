@@ -1,34 +1,26 @@
-import { Resources } from '../../../../../core/backframe'
-import { Segment } from '../../../../../core/backframe'
-import Asset from '../../../models/asset'
-import AssetSerializer from '../../../serializers/asset_serializer'
 import download from './download'
+import { Router } from 'express'
 import preview from './preview'
-import test from './test'
+import proces from './process'
 import upload from './upload'
-import processAsset from './process'
-import imp from './import'
+import list from './list'
+import show from './show'
 import url from './url'
 
-const assetResources = new Resources({
-  model: Asset,
-  only: ['list','show'],
-  path: '/assets',
-  serializer: AssetSerializer,
-  withRelated: ['source','user.photo']
-})
+const router = new Router({ mergeParams: true })
 
-const assetsSegment = new Segment({
-  routes: [
-    imp,
-    url,
-    preview,
-    test,
-    download,
-    upload,
-    processAsset,
-    assetResources
-  ]
-})
+router.get('/', list)
 
-export default assetsSegment
+router.use('/url', url)
+
+router.use('/upload', upload)
+
+router.get('/:id', show)
+
+router.get('/:id/preview', preview)
+
+router.get('/:id/download', download)
+
+router.get('/:id/process', proces)
+
+export default router

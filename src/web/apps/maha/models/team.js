@@ -10,8 +10,6 @@ const Team = new Model({
 
   belongsToTeam: false,
 
-  withRelated: ['logo','strategies'],
-
   rules: {
     title: ['required', 'unique'],
     subdomain: ['required', 'unique']

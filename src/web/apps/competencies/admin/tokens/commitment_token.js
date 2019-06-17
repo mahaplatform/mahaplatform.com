@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const CommitmentToken = ({ commitment }) => (
-  <div className="reframe-list-item-padded">
+  <div className="maha-list-item-padded">
     { commitment.is_complete &&
       <span className="goal-token-complete">complete</span>
     }

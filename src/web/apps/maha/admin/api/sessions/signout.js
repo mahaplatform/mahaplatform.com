@@ -1,20 +1,14 @@
-import socket from '../../../../../core/services/emitter'
-import { Route } from '../../../../../core/backframe'
+import socket from '../../../../../core/services/routes/emitter'
 
-const processor = async (req, trx, options) => {
+const signoutRoute = async (req, res) => {
 
-  await socket.in(`/admin/sessions/${req.params.id}`).emit('message', {
+  await socket.message(req, {
+    channel: `/admin/sessions/${req.params.id}`,
     action: 'signout'
   })
 
-  return true
+  res.status(200).respond(true)
 
 }
-
-const signoutRoute = new Route({
-  method: 'post',
-  path: '/signout',
-  processor
-})
 
 export default signoutRoute

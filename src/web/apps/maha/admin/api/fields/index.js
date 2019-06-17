@@ -1,72 +1,23 @@
-import FieldSerializer from '../../../serializers/field_serializer'
-import generateCode from '../../../../../core/utils/generate_code'
-import { Resources } from '../../../../../core/backframe'
-import Field from '../../../models/field'
+import { Router } from 'express'
+import destroy from './destroy'
 import reorder from './reorder'
+import create from './create'
+import update from './update'
+import show from './show'
+import list from './list'
 
-const defaultParams = async (req, trx, options) => {
+const router = new Router({ mergeParams: true })
 
-  const delta = await Field.query(qb => {
-    defaultQuery(req, trx, qb, options)
-  }).count('*', { transacting: trx })
+router.get('/', list)
 
-  return {
-    parent_type: req.params.parent_type,
-    parent_id: req.params.parent_id,
-    code: generateCode(),
-    delta: delta,
-    config: {},
-    is_mutable: true
-  }
-}
+router.post('/', create)
 
-const defaultQuery = (req, trx, qb, options) => {
+router.patch('/reorder', reorder)
 
-  qb.where('maha_fields.parent_type', req.params.parent_type)
+router.get('/:id', show)
 
-  qb.where('maha_fields.parent_id', req.params.parent_id)
+router.patch('/:id', update)
 
-}
+router.delete('/:id', destroy)
 
-const refresh = {
-  create: (req, trx, result, options) => [
-    `/admin/${req.params.parent_type}/${req.params.parent_id}/fields`
-  ],
-  update: (req, trx, result, options) => [
-    `/admin/${req.params.parent_type}/${req.params.parent_id}/fields`
-  ],
-  destroy: (req, trx, result, options) => [
-    `/admin/${req.params.parent_type}/${req.params.parent_id}/fields`
-  ]
-}
-
-const afterDestroy = async (req, trx, result, options) => {
-  const fields = await options.knex('maha_fields').where({
-    parent_type: req.params.parent_type,
-    parent_id: req.params.parent_id
-  }).orderBy('delta', 'asc').transacting(trx)
-  await Promise.mapSeries(fields, async (field, delta) => {
-    await options.knex('maha_fields').where({
-      id: field.id
-    }).update({ delta }).transacting(trx)
-  })
-}
-
-const fieldSerializer = new Resources({
-  allowedParams: ['label','name','instructions','type','config'],
-  afterProcessor: {
-    destroy: afterDestroy
-  },
-  collectionActions: [
-    reorder
-  ],
-  defaultParams,
-  defaultQuery,
-  defaultSort: 'delta',
-  model: Field,
-  path: '/:parent_type/:parent_id/fields',
-  refresh,
-  serializer: FieldSerializer
-})
-
-export default fieldSerializer
+export default router

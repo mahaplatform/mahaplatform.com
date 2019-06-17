@@ -1,46 +1,20 @@
-import VendorSerializer from '../../../serializers/vendor_serializer'
-import Vendor from '../../../models/vendor'
-import { Resources } from '../../../../../core/backframe'
+import { Router } from 'express'
+import create from './create'
+import update from './update'
 import merge from './merge'
+import list from './list'
+import show from './show'
 
-const defaultParams = (req, trx) => ({
-  integration: {}
-})
+const router = new Router({ mergeParams: true })
 
-const defaultQuery = (req, trx, qb, options) => {
+router.get('/', list)
 
-  qb.select(options.knex.raw('expenses_vendors.*, count(expenses_items.*) as items_count'))
+router.post('/', create)
 
-  qb.leftJoin('expenses_items', 'expenses_items.vendor_id', 'expenses_vendors.id')
+router.get('/:id', show)
 
-  qb.groupBy('expenses_vendors.id')
+router.patch('/:id', update)
 
-}
+router.patch('/:id/merge', merge)
 
-const refresh = {
-  create: (req, trx, result, options) => [
-    '/admin/expenses/vendors'
-  ],
-  update: (req, trx, result, options) => [
-    '/admin/expenses/vendors',
-    `/admin/expenses/vendors/${req.params.id}`
-  ]
-}
-
-const vendorResources = new Resources({
-  allowedParams: ['name','address_1','address_2','city','state','zip','integration'],
-  defaultParams,
-  defaultQuery,
-  defaultSort: 'name',
-  memberActions: [
-    merge
-  ],
-  model: Vendor,
-  path: '/vendors',
-  refresh,
-  searchParams: ['name'],
-  serializer: VendorSerializer,
-  sortParams: ['id', 'name','created_at']
-})
-
-export default vendorResources
+export default router

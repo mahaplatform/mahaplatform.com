@@ -9,7 +9,8 @@ const route = async (req, res) => {
     locked_at: moment(),
     locked_by_id: req.user.get('id')
   }, {
-    patch: true
+    patch: true,
+    transacting: req.trx
   })
 
   const data = xml({

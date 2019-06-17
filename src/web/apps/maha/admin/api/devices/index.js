@@ -1,19 +1,11 @@
-import { Segment } from '../../../../../core/backframe'
-import create from './create'
-import update from './update'
+import { Router } from 'express'
 import show from './show'
 import push from './push'
-import test from './test'
 
-const devicesSegment = new Segment({
-  path: '/devices',
-  routes: [
-    create,
-    update,
-    show,
-    push,
-    test
-  ]
-})
+const router = new Router({ mergeParams: true })
 
-export default devicesSegment
+router.get('/:fingerprint', show)
+
+router.post('/:fingerprint/push', push)
+
+export default router

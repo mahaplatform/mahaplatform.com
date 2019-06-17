@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const AddPreimport = new Migration({
+const AddPreimport = {
 
   up: async (knex) => {
 
@@ -18,6 +16,6 @@ const AddPreimport = new Migration({
 
   }
 
-})
+}
 
 export default AddPreimport

@@ -1,14 +1,8 @@
-import SecurityQuestion from '../../../models/security_question'
-import { Resources } from '../../../../../core/backframe'
+import { Router } from 'express'
+import list from './list'
 
-const reviewResources = new Resources({
-  ownedByTeam: false,
-  model: SecurityQuestion,
-  path: '/security_questions',
-  serializer: (req, trx, result) => ({
-    id: result.get('id'),
-    text: result.get('text')
-  })
-})
+const router = new Router({ mergeParams: true })
 
-export default reviewResources
+router.get('/', list)
+
+export default router

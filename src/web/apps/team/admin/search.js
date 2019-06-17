@@ -1,7 +1,6 @@
-import search from '../../../core/objects/search'
 import User from '../../maha/models/user'
 
-const Search = search({
+const Search = {
   users: {
     fields: ['first_name','last_name','email'],
     model: User,
@@ -19,6 +18,6 @@ const Search = search({
     }),
     withRelated: ['photo']
   }
-})
+}
 
 export default Search

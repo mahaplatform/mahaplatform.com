@@ -1,8 +1,8 @@
 import { CSSTransition } from 'react-transition-group'
-import { Modal, Prompt, Tasks } from 'reframe'
+import { Modal, Prompt, Tasks } from 'maha-admin'
 import Navigation from '../navigation'
 import { connect } from 'react-redux'
-import { RouterStack } from 'reframe'
+import { RouterStack } from 'maha-admin'
 import Dashboard from '../dashboard'
 import PropTypes from 'prop-types'
 import Account from '../account'
@@ -23,10 +23,17 @@ class Portal extends React.Component {
   }
 
   static propTypes = {
+    active: PropTypes.number,
     badges: PropTypes.array,
+    help: PropTypes.bool,
+    mode: PropTypes.string,
+    routes: PropTypes.object,
     unseen: PropTypes.number,
     onHelp: PropTypes.func,
-    onUpdateUnseen: PropTypes.func
+    onChoose: PropTypes.func,
+    onSetMode: PropTypes.func,
+    onUpdateUnseen: PropTypes.func,
+    onToggleHelp: PropTypes.func
   }
 
   _handleChoose = this._handleChoose.bind(this)
@@ -52,15 +59,15 @@ class Portal extends React.Component {
                     <Dashboard />
                     <RouterStack { ...this._getStack() } />
                   </div>
-                  <CSSTransition in={ mode !== null } classNames="fade" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
+                  <CSSTransition in={ mode !== null } classNames="fade" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
                     <div className="maha-portal-overlay" onClick={ this._handleSetMode.bind(this, null) } />
                   </CSSTransition>
-                  <CSSTransition in={ mode === 'account' } classNames="slidein" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
+                  <CSSTransition in={ mode === 'account' } classNames="slidein" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
                     <div className="maha-portal-account">
                       <Account { ...this._getAccount() } />
                     </div>
                   </CSSTransition>
-                  <CSSTransition in={ mode === 'navigation' } classNames="slidein" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
+                  <CSSTransition in={ mode === 'navigation' } classNames="slidein" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
                     <div className="maha-portal-navigation">
                       <Navigation { ...this._getNavigation() } />
                     </div>

@@ -1,28 +1,15 @@
-import { Route } from '../../../../../core/backframe'
 import { getIndex } from './utils'
 
-const processor = async (req, trx, options) => {
+const showRoute = async (req, res) => {
 
   const index = await getIndex()
 
   const content = await new Promise((resolve, reject) => {
-
-    index.get([req.params.id]).on('data', (document) => {
-
-      resolve(document)
-
-    })
-
+    index.get([req.params.id]).on('data', resolve)
   })
 
-  return content
+  res.status(200).respond(content)
 
 }
 
-const helpRoute = new Route({
-  method: 'get',
-  path: '/help/:id',
-  processor
-})
-
-export default helpRoute
+export default showRoute

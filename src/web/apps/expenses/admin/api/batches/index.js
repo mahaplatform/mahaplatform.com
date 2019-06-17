@@ -1,21 +1,14 @@
-import BatchSerializer from '../../../serializers/batch_serializer'
-import Batch from '../../../models/batch'
-import { Resources } from '../../../../../core/backframe'
-import show from './show'
+import { Router } from 'express'
 import create from './create'
+import list from './list'
+import show from './show'
 
-const batchResources = new Resources({
-  collectionActions: [
-    show,
-    create
-  ],
-  defaultSort: '-created_at',
-  model: Batch,
-  only: ['list'],
-  path: '/batches',
-  serializer: BatchSerializer,
-  sortParams: ['maha_users.last_name','items_count','total','created_at'],
-  withRelated: ['user.photo']
-})
+const router = new Router({ mergeParams: true })
 
-export default batchResources
+router.get('/', list)
+
+router.post('/', create)
+
+router.get('/:id', show)
+
+export default router

@@ -1,4 +1,4 @@
-import { Button, List, Star } from 'maha-admin'
+import { List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Message from '../message'
 import React from 'react'
@@ -25,9 +25,7 @@ class Details extends React.Component {
   _getList() {
     return {
       items: [
-        { component: <Message { ...this._getMessage() } /> },
-        { component: <Star { ...this._getStar() } /> },
-        { component: <Button { ...this._getDelete() } /> }
+        { component: <Message { ...this._getMessage() } /> }
       ]
     }
   }
@@ -39,26 +37,6 @@ class Details extends React.Component {
       inline: false,
       full: true,
       actions: false
-    }
-  }
-
-  _getStar() {
-    const { message } = this.props
-    return {
-      starText: 'Add Star',
-      unstarText: 'Remove Star',
-      is_starred: message.is_starred,
-      label: 'message',
-      table: 'chat_messages',
-      id: message.id
-    }
-  }
-
-  _getDelete() {
-    return {
-      icon: 'trash-o',
-      label: 'Delete Message',
-      className: 'reframe-list-item-link'
     }
   }
 

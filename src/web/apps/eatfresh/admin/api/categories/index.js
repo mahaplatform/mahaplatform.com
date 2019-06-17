@@ -1,38 +1,17 @@
-import CategorySerializer from '../../../serializers/category_serializer'
-import Category from '../../../models/category'
-import { Resources } from '../../../../../core/backframe'
+import { Router } from 'express'
+import create from './create'
+import update from './update'
+import list from './list'
+import show from './show'
 
-const activity = story => (req, trx, object, options) => ({
-  story,
-  object
-})
+const router = new Router({ mergeParams: true })
 
-const activities = {
-  create: activity('created {object}'),
-  update: activity('updated {object}'),
-  destroy: activity('deleted {object}')
-}
+router.get('/', list)
 
-const channels = (req, trx, result, options) => [
-  '/admin/eatfresh/categories'
-]
+router.post('/', create)
 
-const refresh = {
-  create: channels,
-  update: channels
-}
+router.get('/:id', show)
 
-const categoryResources = new Resources({
-  activities,
-  allowedParams: ['title','photo_id'],
-  defaultSort: 'title',
-  model: Category,
-  path: '/categories',
-  refresh,
-  searchParams: ['title'],
-  serializer: CategorySerializer,
-  sortParams: ['id','title'],
-  withRelated: ['photo']
-})
+router.patch('/:id', update)
 
-export default categoryResources
+export default router

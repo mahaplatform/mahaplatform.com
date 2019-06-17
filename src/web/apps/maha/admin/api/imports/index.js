@@ -1,48 +1,44 @@
-import { Resources } from '../../../../../core/backframe'
-import Import from '../../../models/import'
-import ImportSerializer from '../../../serializers/import_serializer'
-import preview from './preview'
-import parse from './parse'
-import processs from './process'
 import omiterrors from './omiterrors'
-import fields from './fields'
-import tables from './tables'
 import template from './template'
+import _process from './process'
+import { Router } from 'express'
+import preview from './preview'
+import destroy from './destroy'
+import create from './create'
+import update from './update'
+import tables from './tables'
+import fields from './fields'
+import parse from './parse'
+import items from './items'
+import list from './list'
+import show from './show'
 
-const activity = story => (req, trx, object, options) => ({
-  story,
-  object
-})
+const router = new Router({ mergeParams: true })
 
-const activities = {
-  create: activity('created {object}'),
-  destroy: activity('deleted {object}')
-}
+router.get('/', list)
 
-const importResources = new Resources({
-  activities,
-  allowedParams: ['object_type','asset_id','stage','delimiter','headers','mapping','name','strategy'],
-  collectionActions: [
-    fields,
-    template,
-    tables
-  ],
-  defaultSort: '-created_at',
-  dependents: [
-    { relationship: 'items', strategy: 'destroy' }
-  ],
-  filterParams: ['object_type','stage'],
-  model: Import,
-  memberActions: [
-    preview,
-    parse,
-    processs,
-    omiterrors
-  ],
-  ownedByUser: true,
-  path: '/imports',
-  serializer: ImportSerializer,
-  withRelated: ['asset','user.photo']
-})
+router.post('/', create)
 
-export default importResources
+router.get('/fields/:tablename', fields)
+
+router.get('/tables/:tablename', tables)
+
+router.get('/template', template)
+
+router.get('/:id', show)
+
+router.patch('/:id', update)
+
+router.delete('/:id', destroy)
+
+router.post('/:id/preview', preview)
+
+router.post('/:id/parse', parse)
+
+router.post('/:id/process', _process)
+
+router.post('/:id/omiterrors', omiterrors)
+
+router.use('/:import_id/items', items)
+
+export default router

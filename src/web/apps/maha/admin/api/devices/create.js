@@ -1,32 +1,16 @@
+import DeviceSerializer from '../../../serializers/device_serializer'
 import { createDevice } from '../../../services/device'
-import { Route } from '../../../../../core/backframe'
 
-const processor = async (req, trx, options) => {
+const createRoute = async (req, res) => {
 
-  const device = await createDevice(req, trx)
+  const device = await createDevice(req, req.trx)
 
   await device.load(['platform_type','device_type','os_name','browser_name'], {
-    transacting: trx
+    transacting: req.trx
   })
 
-  return {
-    browser: device.related('browser_name').get('text'),
-    device: device.related('device_type').get('text'),
-    id: device.get('id'),
-    os: device.related('os_name').get('text'),
-    platform: device.related('platform_type').get('text'),
-    push_enabled: device.get('push_enabled'),
-    icon: device.get('icon'),
-    display_name: device.get('display_name')
-  }
+  res.status(200).respond(device, DeviceSerializer)
 
 }
-
-const createRoute = new Route({
-  authenticated: false,
-  method: 'post',
-  path: '',
-  processor
-})
 
 export default createRoute

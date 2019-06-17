@@ -1,23 +1,26 @@
 import Batch from '../../../models/batch'
 import Item from '../../../models/item'
-import accpaccSerializer from '../../../serializers/accpac_serializer'
-import { Route } from '../../../../../core/backframe'
+import AccpaccSerializer from '../../../serializers/accpac_serializer'
 
-const processor = async (req, trx, options) => {
+const showRoute = async (req, res) => {
 
-  const batch = await Batch.where({ id: req.params.id }).fetch({ transacting: trx })
+  const batch = await Batch.where({
+    id: req.params.id
+  }).fetch({
+    transacting: req.trx
+  })
 
-  const items = await Item.where({ batch_id: req.params.id }).fetchAll({ withRelated: ['expense_type','project','user','vendor','account'], transacting: trx })
+  const items = await Item.where({
+    batch_id: req.params.id
+  }).fetchAll({
+    withRelated: ['expense_type','project','user','vendor','account'],
+    transacting: req.trx
+  })
 
-  return accpaccSerializer(req, trx, { batch, items })
+  const data = await AccpaccSerializer(req, { batch, items })
+
+  res.status(200).respond(data)
 
 }
-
-const showRoute = new Route({
-  method: 'get',
-  path: '/:id',
-  processor,
-  rights: ['expenses:access_reports']
-})
 
 export default showRoute

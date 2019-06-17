@@ -1,51 +1,32 @@
-import { Route, BackframeError } from '../../../../../core/backframe'
+import { activity } from '../../../../../core/services/routes/activities'
+import socket from '../../../../../core/services/routes/emitter'
 
-const activity = (req, trx, object, options) => ({
-  story: 'changed {object}',
-  object: req.user,
-  object_owner_id: req.user.get('id'),
-  object_text: 'photo',
-  object_type: null
-})
+const photoRoute = async (req, res) => {
 
-const processor = async (req, trx, options) => {
+  req.user = await req.user.save({
+    photo_id: req.body.photo_id
+  }, {
+    patch: true,
+    transacting: req.trx
+  })
 
-  try {
+  await socket.message(req, {
+    channel: 'user',
+    action: 'session'
+  })
 
-    req.user = await req.user.save({
-      photo_id: req.body.photo_id
-    }, {
-      patch: true,
-      transacting: trx
-    })
+  await activity(req, {
+    story: 'changed {object}',
+    object: req.user,
+    object_owner_id: req.user.get('id'),
+    object_text: 'photo',
+    object_type: null
+  })
 
-    return {
-      photo_id: req.user.get('photo_id')
-    }
-
-  } catch(err) {
-
-    throw new BackframeError({
-      code: 422,
-      message: 'Unable to save account',
-      errors: err.toJSON()
-    })
-
-  }
+  res.status(200).respond(req.user, {
+    fields: ['photo_id']
+  })
 
 }
-
-const messages = (req, trx, result, options) => ({
-  channel: 'user',
-  action: 'session'
-})
-
-const photoRoute = new Route({
-  activity,
-  messages,
-  method: 'patch',
-  path: '/photo',
-  processor
-})
 
 export default photoRoute

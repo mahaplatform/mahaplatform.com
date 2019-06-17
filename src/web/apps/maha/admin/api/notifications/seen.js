@@ -1,25 +1,25 @@
-import { Route } from '../../../../../core/backframe'
+import socket from '../../../../../core/services/routes/emitter'
 import Notification from '../../../models/notification'
 
-const processor = async (req, trx, options) => {
+const seenRoute = async (req, res) => {
 
-  if(!req.body.ids) return {}
+  if(req.body.ids) {
 
-  await Notification.query().whereIn('id', req.body.ids).transacting(trx).update({ is_seen: true })
+    await Notification.transacting(req.trx).query(qb => {
+      qb.whereIn('id', req.body.ids)
+    }).update({
+      is_seen: true
+    })
 
-  return true
+  }
+
+  await socket.refresh(req, {
+    channel: '/admin/user',
+    target: '/admin/notifications'
+  })
+
+  res.status(200).respond(true)
 
 }
-
-const refresh = (req, trx, result, options) => [
-  { channel: '/admin/user', target: '/admin/notifications' }
-]
-
-const seenRoute = new Route({
-  path: '/seen',
-  method: 'patch',
-  processor,
-  refresh
-})
 
 export default seenRoute

@@ -1,6 +1,4 @@
-import Migration from '../../../../core/objects/migration'
-
-const CreateUsersGroups = new Migration({
+const CreateUsersGroups = {
 
   up: async (knex) => {
     return await knex.schema.createTable('maha_users_groups', (table) => {
@@ -15,6 +13,6 @@ const CreateUsersGroups = new Migration({
     return await knex.schema.dropTable('maha_users_groups')
   }
 
-})
+}
 
 export default CreateUsersGroups

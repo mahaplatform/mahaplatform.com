@@ -1,54 +1,46 @@
-import batchSerializer from '../../../serializers/batch_serializer'
+import { notifications } from '../../../../../core/services/routes/notifications'
+import { audit } from '../../../../../core/services/routes/audit'
+import BatchSerializer from '../../../serializers/batch_serializer'
+import socket from '../../../../../core/services/routes/emitter'
+import knex from '../../../../../core/services/knex'
 import Batch from '../../../models/batch'
 import Item from '../../../models/item'
-import { Route } from '../../../../../core/backframe'
 import moment from 'moment'
 
-const audit = async (req, trx, result, options) => req.items.map(item => ({
-  story: 'processed',
-  auditable: {
-    tableName: `expenses_${item.get('type')}s`,
-    id: item.get('id')
-  }
-}))
-
-const processor = async (req, trx, options) => {
+const createRoute = async (req, res) => {
 
   const query = qb => {
-
     const types = ['advance','check','expense','reimbursement','trip']
-
     types.map(type => {
-
       if(!req.body[`${type}_ids`]) return
-
       qb.orWhere(qb2 => {
-
         qb2.where({ type }).andWhere('item_id', 'in', req.body[`${type}_ids`] )
-
       })
-
     })
-
     qb.orderBy('user_id', 'asc')
-
   }
 
   const batchItems = await Item.query(query).fetchAll({
-    transacting: trx
+    transacting: req.trx
   }).then(result => result.toArray())
 
-  const total = batchItems.reduce((total, item) => total + parseFloat(item.get('amount')), 0.00).toFixed(2)
+  const total = batchItems.reduce((total, item) => {
+    return total + parseFloat(item.get('amount'))
+  }, 0.00)
 
   const batch = await Batch.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
     integration: 'accpac',
     items_count: batchItems.length,
-    total,
+    total: total.toFixed(2),
     date: req.body.date || moment().format('YYYY-MM-DD')
   }).save(null, {
-    transacting: trx
+    transacting: req.trx
+  })
+
+  await batch.load(['user.photo'], {
+    transacting: req.trx
   })
 
   const models = batchItems.reduce((models, item) => ({
@@ -60,67 +52,57 @@ const processor = async (req, trx, options) => {
   }), {})
 
   await Promise.map(Object.keys(models), async type => {
-
-    await options.knex(`expenses_${type}s`).transacting(trx).whereIn('id', models[type]).update({
+    await knex(`expenses_${type}s`).transacting(req.trx).whereIn('id', models[type]).update({
       batch_id: batch.get('id'),
       status_id: 7
     })
-
   })
 
-  req.items = await Item.query(query).fetchAll({
-    withRelated: ['expense_type','project','user','vendor','account'],
-    transacting: trx
+  const items = await Item.query(query).fetchAll({
+    withRelated: ['expense_type','project','user','vendor','account','listenings'],
+    transacting: req.trx
   }).then(result => result.toArray())
 
-  batch.load(['user.photo'], {
-    transacting: trx
-  })
+  await audit(req, items.map(item => ({
+    story: 'processed',
+    auditable: {
+      tableName: `expenses_${item.get('type')}s`,
+      id: item.get('item_id')
+    }
+  })))
 
-  return await batchSerializer(req, trx, batch)
-
-}
-
-const notification = async (req, trx, result, options) => await Promise.mapSeries(req.items, async object => {
-
-  await object.load(['listenings'], { transacting: trx })
-
-  const recipient_ids = object.related('listenings').filter(listener => {
-
-    return listener.get('user_id') !== req.user.get('id')
-
-  }).map(listener => listener.get('user_id'))
-
-  return {
-    type: 'expenses:item_processed',
-    recipient_ids,
-    subject_id: req.user.get('id'),
-    story: 'processed {object}',
-    object
-  }
-
-})
-
-const refresh = (req, trx, result, options) => [
-  {
+  await socket.refresh(req, {
     channel: 'team',
     target: [
       '/admin/expenses/reports',
       '/admin/expenses/approvals',
       '/admin/expenses/items',
-      ...req.items.map(item => `/admin/expenses/${item.get('type')}s/${item.get('id')}`)
+      ...items.map(item => {
+        return `/admin/expenses/${item.get('type')}s/${item.get('id')}`
+      })
     ]
-  }
-]
+  })
 
-const accpacRoute = new Route({
-  audit,
-  method: 'post',
-  notification,
-  path: '/',
-  processor,
-  refresh,
-  rights: ['expenses:access_reports']
-})
+  await notifications(req, await Promise.mapSeries(items, async object => {
 
-export default accpacRoute
+    const recipient_ids = object.related('listenings').filter(listener => {
+      return listener.get('user_id') !== req.user.get('id')
+    }).map(listener => {
+      return listener.get('user_id')
+    })
+
+    return {
+      type: 'expenses:item_processed',
+      recipient_ids,
+      subject_id: req.user.get('id'),
+      story: 'processed {object}',
+      object
+    }
+
+  }))
+
+  res.status(200).respond(batch, BatchSerializer)
+
+}
+
+export default createRoute
