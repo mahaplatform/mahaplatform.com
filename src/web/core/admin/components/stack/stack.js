@@ -67,7 +67,7 @@ class Stack extends React.Component {
   _handlePop() {
     const { cards } = this.props
     this.setState({ mounted: this.state.mounted - 1 })
-    setTimeout(() => this.setState({ cards }), 500)
+    setTimeout(() => this.setState({ cards }), 300)
   }
 
 }
