@@ -16,6 +16,7 @@ const submitAllRoute = async (req, res) => {
         qb2.whereIn('item_id', req.body[`${type}_ids`]).andWhere('type', type)
       })
     })
+    qb.whereNot('status_id', 3)
     qb.orderBy('user_id', 'asc')
   }).fetchAll({
     withRelated: ['project.members','expense_type','listenings'],

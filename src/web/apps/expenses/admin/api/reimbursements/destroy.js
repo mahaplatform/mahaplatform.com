@@ -18,7 +18,7 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load reimbursement'
   })
 
-  await knex('expenses_receipts').transacting(req.trx).where('expense_id', req.params.id).delete()
+  await knex('expenses_receipts').transacting(req.trx).where('reimbursement_id', req.params.id).delete()
 
   await knex('maha_audits').transacting(req.trx).where('auditable_type', 'maha_expenses').where('auditable_id', req.params.id).delete()
 
