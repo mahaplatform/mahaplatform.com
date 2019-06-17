@@ -158,7 +158,7 @@ const processor = async () => {
   utils.registerTask(shipit, 'deploy:install', async () => {
     await shipit.remote('npm install --production --silent --no-spin', {
       roles: ['appserver','cron','worker'],
-      cwd: releaseDir
+      cwd: path.join(releaseDir,'web')
     })
   })
 
@@ -174,7 +174,7 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:migrate', async () => {
-    await shipit.local(`NODE_ENV=production node ${currentDir}/scripts/knex/index.js migrate:up`, {
+    await shipit.local(`NODE_ENV=production node ${releaseDir}/scripts/knex/index.js migrate:up`, {
       roles: ['controller']
     })
   })
