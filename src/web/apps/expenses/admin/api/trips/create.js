@@ -43,17 +43,21 @@ const createRoute = async (req, res) => {
     required: ['date','description','project_id','odometer_start','odometer_end','total_miles']
   })
 
-  const members = await Member.query(qb => {
-    qb.where('project_id', trip.get('project_id'))
-    qb.whereRaw('(member_type_id != ? OR user_id = ?)', [3, req.user.get('id')])
-  }).fetchAll({
-    transacting: req.trx
-  })
+  if(trip.get('project_id')) {
 
-  await listeners(req, members.map(member => ({
-    listenable: trip,
-    user_id: member.get('user_id')
-  })))
+    const members = await Member.query(qb => {
+      qb.where('project_id', trip.get('project_id'))
+      qb.whereRaw('(member_type_id != ? OR user_id = ?)', [3, req.user.get('id')])
+    }).fetchAll({
+      transacting: req.trx
+    })
+
+    await listeners(req, members.map(member => ({
+      listenable: trip,
+      user_id: member.get('user_id')
+    })))
+
+  }
 
   await activity(req, {
     story: 'created {object}',

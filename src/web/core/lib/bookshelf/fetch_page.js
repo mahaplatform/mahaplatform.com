@@ -25,7 +25,7 @@ const paginationPlugin = function(bookshelf) {
     })
 
     const total = await bookshelf.knex.raw(totalsql).transacting(trx).then(result => {
-      return result.rows[0].count
+      return parseInt(result.rows[0].count)
     })
 
     const result = await this.query(qb => {

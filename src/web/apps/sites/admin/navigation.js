@@ -21,11 +21,6 @@ const navigation = async (req, trx) => {
             rights: ['sites:manage_content'],
             route: `/sites/${site.get('id')}/members`
           },
-          {
-            label: 'Menus',
-            rights: ['sites:manage_content'],
-            route: `/sites/${site.get('id')}/menus`
-          },
           ...site.related('types').map(type => ({
             label: type.get('title'),
             rights: ['sites:manage_content'],

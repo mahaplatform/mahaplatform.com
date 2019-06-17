@@ -26,7 +26,7 @@ const Details = ({ title, origins }) => {
 }
 
 Details.propTypes = {
-  origins: PropTypes.array,
+  origins: PropTypes.string,
   title: PropTypes.string
 }
 
@@ -52,7 +52,7 @@ const Managers = ({ site_id, managers }) => {
 
 Managers.propTypes = {
   managers: PropTypes.array,
-  site_id: PropTypes.number
+  site_id: PropTypes.string
 }
 
 const Profiles = (fields, context) => (
@@ -91,7 +91,7 @@ const Emails = ({ site_id, emails }, context) => {
 
 Emails.propTypes = {
   emails: PropTypes.array,
-  site_id: PropTypes.number
+  site_id: PropTypes.string
 }
 
 Emails.contextTypes = {
@@ -130,7 +130,7 @@ const Types = ({ site_id, types }, context) => {
 }
 
 Types.propTypes = {
-  site_id: PropTypes.number,
+  site_id: PropTypes.string,
   types: PropTypes.array
 }
 

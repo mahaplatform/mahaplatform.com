@@ -10,7 +10,6 @@ const destroyRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['receipts.asset','receipts.asset.source','user','project.members','expense_type','status','vendor','account'],
     transacting: req.trx
   })
 
@@ -19,7 +18,13 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load expense'
   })
 
-  await knex('maha_receipts').transacting(req.trx).where('expense_id', expense.get('id')).delete()
+  await knex('expenses_receipts').transacting(req.trx).where('expense_id', req.params.id).delete()
+
+  await knex('maha_audits').transacting(req.trx).where('auditable_type', 'maha_expenses').where('auditable_id', req.params.id).delete()
+
+  await knex('maha_comments').transacting(req.trx).where('commentable_type', 'maha_expenses').where('commentable_id', req.params.id).delete()
+
+  await knex('maha_listenings').transacting(req.trx).where('listenable_type', 'maha_expenses').where('listenable_id', req.params.id).delete()
 
   await activity(req, {
     story: 'deleted {object}',
