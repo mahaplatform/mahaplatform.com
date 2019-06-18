@@ -28,7 +28,6 @@ const mapResourcesToPage = (props, context, page) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Item',
-  rights: [],
   tabs: {
     items: [
       { label: 'Details', component: <Details { ...resources.item } /> }

@@ -147,7 +147,6 @@ const mapResourcesToPage = (props, context, page) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Site',
-  rights: [],
   tabs: {
     items: [
       { label: 'Details', component: <Details { ...resources.site } /> },
@@ -161,15 +160,12 @@ const mapPropsToPage = (props, context, resources, page) => ({
     items: [
       {
         label: 'Edit Site',
-        rights: [],
         modal: () => <Edit site_id={ page.params.id } />
       }, {
         label: 'Manage Users',
-        rights: [],
         modal: () => <Users site_id={ page.params.id } />
       }, {
         label: 'Add Type',
-        rights: [],
         modal: () => <NewType site_id={ page.params.id } />
       }, {
         label: 'Reindex Site',
@@ -182,7 +178,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       }, {
         label: 'Backup Data',
         handler: () => {
-          window.location.href = `/api/admin/sites/sites/${ page.params.id }/backup`
+          window.location.href = `/api/admin/sites/sites/${ page.params.id }/backup?token=${props.team.token}`
         }
       }
     ]

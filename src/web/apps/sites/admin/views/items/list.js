@@ -96,7 +96,6 @@ const mapResourcesToPage = (props, context, page) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: resources.type.title,
-  rights: [],
   collection: {
     table: [
       { label: 'Title', key: 'title', primary: true },

@@ -4,7 +4,7 @@ import React from 'react'
 class Finalizing extends React.Component {
 
   static propTypes = {
-    defaultValue: PropTypes.string,
+    defaultValue: PropTypes.object,
     destination: PropTypes.func,
     finalizeComponent: PropTypes.any,
     import: PropTypes.object,

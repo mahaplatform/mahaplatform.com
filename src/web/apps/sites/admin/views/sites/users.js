@@ -6,7 +6,7 @@ import React from 'react'
 class Users extends React.Component {
 
   static propTypes = {
-    site_id: PropTypes.number,
+    site_id: PropTypes.string,
     role: PropTypes.object,
     users: PropTypes.array
   }

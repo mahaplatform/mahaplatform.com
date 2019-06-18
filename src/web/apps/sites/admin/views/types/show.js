@@ -31,7 +31,6 @@ const mapResourcesToPage = (props, context, page) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: resources.type.title,
-  rights: [],
   tabs: {
     items: [
       { label: 'Details', component: <Details { ...resources.type } /> },
@@ -48,7 +47,6 @@ const mapPropsToPage = (props, context, resources, page) => ({
     items: [
       {
         label: 'Edit Type',
-        rights: [],
         modal: () => <NewType site_id={ page.params.site_id } id={ page.params.id } />
       }
     ]

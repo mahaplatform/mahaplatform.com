@@ -46,16 +46,28 @@ const finalizeRoute = async (req, res) => {
 
     const values = await processValues('sites_types', req.body.type_id, item.get('preimport'))
 
-    await item.save({ values }, {
+    await item.save({
+      values,
+      is_published: true
+    }, {
       transacting: req.trx
     })
 
     await addIndex(item, map, req.trx)
 
+    await socket.message(req, {
+      channel: `/admin/imports/${imp.get('id')}`,
+      action: 'progress',
+      data: {
+        completed: index + 1,
+        total: importItems.length
+      }
+    })
+
   })
 
   await socket.message(req, {
-    target: `/admin/imports/${imp.get('id')}`,
+    channel: `/admin/imports/${imp.get('id')}`,
     action: 'success',
     data: ImportSerializer(null, imp)
   })

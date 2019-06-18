@@ -22,7 +22,6 @@ const mapResourcesToPage = (props, context, page) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Members',
-  rights: [],
   collection: {
     table: [
       { label: 'Name', key: 'last_name', sort: 'last_name', primary: true, format: NameCell }

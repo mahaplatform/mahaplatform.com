@@ -122,7 +122,6 @@ class SitesImportFinalize extends React.Component {
   _handleDone() {
     const { onDone } = this.props
     onDone(this.props.import)
-    //this.context.modal.close()
   }
 
 }

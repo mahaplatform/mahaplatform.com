@@ -19,7 +19,7 @@ const processRoute = async (req, res) => {
   })
 
   ImportProcessQueue.enqueue(req, {
-    id: req.resource.get('id'),
+    id: _import.get('id'),
     destination: req.body.destination,
     defaultParams: req.body.defaultParams,
     table: req.body.table,

@@ -1,8 +1,8 @@
 const navigation = async (req, trx) => ({
   items: [
-    { label: 'Teams', rights: [], route: '/teams' },
-    { label: 'Assets', rights: [], route: '/assets' },
-    { label: 'Apps', rights: [], route: '/apps' }
+    { label: 'Teams', route: '/teams' },
+    { label: 'Assets', route: '/assets' },
+    { label: 'Apps', route: '/apps' }
   ]
 })
 

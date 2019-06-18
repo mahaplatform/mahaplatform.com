@@ -9,19 +9,12 @@ import Checkit from 'checkit'
 import _ from 'lodash'
 
 const validate = async (rules, values) => {
-
   try {
-
     await Checkit(rules).run(values)
-
+    return true
   } catch(e){
-
     return false
-
   }
-
-  return true
-
 }
 
 const processor = async (job, trx) => {
@@ -43,25 +36,14 @@ const processor = async (job, trx) => {
   const result = await Promise.reduce(parsed.rows, async (result, row, i) => {
 
     const values = imp.get('mapping').reduce((mapped, mapping, j) => {
-
-      if(!mapping.field) return mapped
-
+      if(!mapping || !mapping.field) return mapped
       return {
         ...mapped,
         [mapping.field]: row[j]
       }
-
     }, {})
 
     const primary_key = job.data.primaryKey
-
-    // if(primary_key){
-    //   const duplicate = await knex(job.data.table).transacting(trx).where({
-    //     primary_key: values[primary_key]
-    //   })
-    // } else {
-    //   const duplicate = 0
-    // }
 
     const duplicate = (primary_key) ? await knex(job.data.table).transacting(trx).where({[primary_key]: values[primary_key]}) : 0
 
@@ -77,7 +59,9 @@ const processor = async (job, trx) => {
       is_valid,
       is_duplicate,
       is_nonunique
-    }).save(null, { transacting: trx })
+    }).save(null, {
+      transacting: trx
+    })
 
     await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
       target: `/admin/imports/${imp.get('id')}`,
@@ -112,7 +96,10 @@ const processor = async (job, trx) => {
     nonunique_count: result.nonunique,
     duplicate_count: result.duplicate,
     stage: 'validating'
-  }, { patch: true, transacting: trx })
+  }, {
+    patch: true,
+    transacting: trx
+  })
 
   await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
     target: `/admin/imports/${imp.get('id')}`,
@@ -123,14 +110,11 @@ const processor = async (job, trx) => {
 }
 
 const failed = async (job, err) => {
-
   await socket.in(`/admin/imports/${job.data.id}`).emit('message', {
     target: `/admin/imports/${job.data.id}`,
     action: 'failed',
     data: [job,err]
   })
-
-
 }
 
 const ImportParseQueue = new Queue({

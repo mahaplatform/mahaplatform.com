@@ -1,4 +1,6 @@
 export const INITIAL_STATE = {
+  error: null,
+  progress: null,
   status: 'pending'
 }
 
@@ -15,15 +17,14 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'SUCCESS':
     return {
       ...state,
-      status: 'success',
-      import: action.import
+      status: 'success'
     }
 
   case 'FAIL':
     return {
       ...state,
-      status: 'failure',
-      error: action.error
+      error: action.error,
+      status: 'failure'
     }
 
   case 'UPDATE_PROGRESS':

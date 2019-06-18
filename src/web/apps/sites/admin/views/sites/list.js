@@ -3,7 +3,6 @@ import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Sites',
-  rights: [],
   collection: {
     table: [
       { label: 'Title', key: 'title', primary: true }

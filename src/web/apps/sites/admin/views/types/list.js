@@ -4,7 +4,6 @@ import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Types',
-  rights: [],
   collection: {
     table: [
       { label: 'Title', key: 'title', primary: true }

@@ -183,6 +183,7 @@ class Preview extends React.Component {
   }
 
   _getInitialMapping() {
+    console.log('_getInitialMapping')
     const { fields, parsed, table_fields, tables } = this.props
 
     const simplify = (string) => {
