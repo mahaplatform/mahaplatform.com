@@ -6,11 +6,11 @@ const originFiles = collectObjects('origins.js')
 
 const corsMiddleware = async (req, res, next) => {
 
-  var origin = (origin, callback) => {
+  var origin = async (origin, callback) => {
 
     if(!origin) return callback(null, true)
 
-    Promise.reduce(originFiles, async(whitelist, originFile) => _.uniq([
+    await Promise.reduce(originFiles, async(whitelist, originFile) => _.uniq([
       ...whitelist,
       ...await originFile.default()
     ]), [process.env.WEB_HOST]).then(whitelist => {

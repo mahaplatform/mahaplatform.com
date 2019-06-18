@@ -178,6 +178,8 @@ export const expandValues = async (parent_type, parent_id, data, trx) => {
           transacting: trx
         })
 
+        if(!link) return null
+
         return {
           title: link.get('title'),
           text: link.get('text'),
@@ -193,7 +195,11 @@ export const expandValues = async (parent_type, parent_id, data, trx) => {
 
         const asset = await Asset.where({
           id: data[code][0]
-        }).fetch({ transacting: trx })
+        }).fetch({
+          transacting: trx
+        })
+
+        if(!asset) return null
 
         return {
           content_type: asset.get('content_type'),
