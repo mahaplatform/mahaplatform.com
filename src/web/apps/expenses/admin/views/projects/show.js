@@ -1,34 +1,32 @@
 import MembershipToken from '../../tokens/membership_token'
 import Memberships from '../memberships/users'
-import { List, Page } from 'maha-admin'
+import { Audit, List, Page } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Edit from './edit'
+import _ from 'lodash'
 
 const Details = ({ project, integration }) => {
 
   const list = {
-    sections: [
-      {
-        title: 'Project Details',
-        items: [
-          { label: 'Title', content: project.title }
-        ]
-      }
+    title: 'Project Details',
+    items: [
+      { label: 'Title', content: project.title }
     ]
   }
 
   if(integration === 'accpac') {
-    list.sections.push({
-      title: 'ACCPAC Details',
-      items: [
-        { label: 'Project Code', content: project.integration.project_code },
-        { label: 'Program Code', content: project.integration.program_code },
-        { label: 'Source Code', content: project.integration.source_code },
-        { label: 'Match', content: project.integration.match }
-      ]
-    })
+    list.items = list.items.concat([
+      { label: 'Project Code', content: project.integration.project_code },
+      { label: 'Program Code', content: project.integration.program_code },
+      { label: 'Source Code', content: project.integration.source_code },
+      { label: 'Match', content: project.integration.match }
+    ])
   }
+
+  list.items = list.items.concat([
+    { component: <Audit entries={ project.audit } /> }
+  ])
 
   if(!project.is_active) {
     list.alert = {
@@ -46,7 +44,7 @@ Details.propTypes = {
   project: PropTypes.object
 }
 
-const Members = ({ project, memberships }) => {
+const Members = ({ memberships, project, rights, user }) => {
 
   const list = {
     items: memberships.map((membership, index) => ({
@@ -61,9 +59,9 @@ const Members = ({ project, memberships }) => {
         modal: <Memberships project_id={ project.id } />
       }
     },
-    buttons: [
+    buttons: allowed(memberships, rights, user) ? [
       { label: 'Manage Members', color: 'blue', modal: <Memberships project_id={ project.id } /> }
-    ]
+    ] : null
   }
 
   return <List { ...list } />
@@ -72,7 +70,15 @@ const Members = ({ project, memberships }) => {
 
 Members.propTypes = {
   memberships: PropTypes.array,
-  project: PropTypes.object
+  project: PropTypes.object,
+  rights: PropTypes.array,
+  user: PropTypes.object
+}
+
+const allowed = (memberships, rights, user) => {
+  return _.includes(rights, 'expenses:manage_configuration') || memberships.find(membership => {
+    return  membership.user.id === user.id && membership.member_type_id === 1
+  }) !== undefined
 }
 
 const mapResourcesToPage = (props, context) => ({
@@ -86,10 +92,10 @@ const mapPropsToPage = (props, context, resources, page) => ({
   tabs: {
     items: [
       { label: 'Details', component: <Details project={ resources.project } integration={ resources.app.settings.integration } /> },
-      { label: 'Members', component: <Members project={ resources.project } memberships={ resources.memberships } /> }
+      { label: 'Members', component: <Members project={ resources.project } memberships={ resources.memberships } rights={ props.rights } user={ props.user } /> }
     ]
   },
-  tasks: {
+  tasks: allowed(resources.memberships, props.rights, props.user) ? {
     items: [
       {
         label: 'Edit Project',
@@ -120,7 +126,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
         modal: <Memberships project_id={ resources.project.id } />
       }
     ]
-  }
+  } : null
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

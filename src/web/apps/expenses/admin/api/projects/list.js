@@ -7,9 +7,12 @@ const listRoute = async (req, res) => {
   const projects = await Project.scope({
     team: req.team
   }).query(qb => {
-    qb.leftJoin('expenses_members', 'expenses_members.project_id', 'expenses_projects.id')
-    if(_.includes(req.rights, 'expenses:manage_configuration')) return
-    qb.joinRaw('inner join expenses_members on expenses_members.project_id=expenses_projects.id and expenses_members.user_id=? and expenses_members.is_active=?', [req.user.get('id'), true])
+    if(_.includes(req.rights, 'expenses:manage_configuration')) {
+      qb.leftJoin('expenses_members', 'expenses_members.project_id', 'expenses_projects.id')
+    } else  {
+      qb.joinRaw('inner join expenses_members on expenses_members.project_id=expenses_projects.id and expenses_members.user_id=? and expenses_members.is_active=?', [req.user.get('id'), true])
+      qb.where('expenses_projects.is_active', true)
+    }
   }).filter({
     filter: req.query.$filter,
     filterParams: ['is_active','user_id'],

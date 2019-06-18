@@ -1,6 +1,7 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import ProjectSerializer from '../../../serializers/project_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
+import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import Project from '../../../models/project'
 import _ from 'lodash'
@@ -31,6 +32,11 @@ const updateRoute = async (req, res) => {
   await activity(req, {
     story: 'updated {object}',
     object: project
+  })
+
+  await audit(req, {
+    story: 'updated',
+    auditable: project
   })
 
   await socket.refresh(req, [

@@ -1,4 +1,5 @@
 import { activity } from '../../../../../core/services/routes/activities'
+import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import Project from '../../../models/project'
 
@@ -27,6 +28,11 @@ const enableRoute = async (req, res) => {
   await activity(req, {
     story: 'enabled {object}',
     object: project
+  })
+
+  await audit(req, {
+    story: 'enabled',
+    auditable: project
   })
 
   res.status(200).respond(true)

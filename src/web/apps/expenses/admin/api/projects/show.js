@@ -9,9 +9,13 @@ const showRoute = async (req, res) => {
   }).query(qb => {
     if(!_.includes(req.rights, 'expenses:manage_configuration')) {
       qb.joinRaw('inner join expenses_members on expenses_members.project_id=expenses_projects.id and expenses_members.user_id=? and expenses_members.is_active=?', [req.user.get('id'), true])
+      qb.where('expenses_projects.is_active', true)
     }
-    qb.where('id', req.params.id)
+    qb.where('expenses_projects.id', req.params.id)
   }).fetch({
+    withRelated:[
+      { audit: qb => qb.orderBy('created_at', 'asc') },'audit.story','audit.user.photo'
+    ],
     transacting: req.trx
   })
 

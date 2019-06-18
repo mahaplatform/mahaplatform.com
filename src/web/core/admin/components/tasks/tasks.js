@@ -1,4 +1,6 @@
 import { CSSTransition } from 'react-transition-group'
+import { connect } from 'react-redux'
+import { allowed } from './selectors'
 import PropTypes from 'prop-types'
 import Button from '../button'
 import React from 'react'
@@ -15,17 +17,19 @@ class Tasks extends React.Component {
   }
 
   static propTypes = {
+    access: PropTypes.func,
+    allowed: PropTypes.any,
     children: PropTypes.any,
     items: PropTypes.array,
-    title: PropTypes.string,
     open: PropTypes.bool,
+    rights: PropTypes.array,
     onClear: PropTypes.func,
     onClose: PropTypes.func,
     onOpen: PropTypes.func
   }
 
   render() {
-    const { children, items, open, title } = this.props
+    const { children, allowed, open } = this.props
     return ([
       children,
       <CSSTransition key="maha-tasks-overlay" in={ open } classNames="expanded" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
@@ -34,10 +38,9 @@ class Tasks extends React.Component {
       <CSSTransition key="maha-tasks-list" in={ open } classNames="expanded" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
         <div className="maha-tasks-list">
           <div className="maha-tasks-list-body">
-            { items && items.map((item, index) => {
-              if(item.show === false) return
-              return <Button key={`task_${index}`} { ...this._getButton(item) }/>
-            }) }
+            { allowed && allowed.map((item, index) => (
+              <Button key={`task_${index}`} { ...this._getButton(item) }/>
+            )) }
           </div>
           <div className="maha-tasks-cancel" onClick={ this._handleClose.bind(this) }>
             Cancel
@@ -78,4 +81,8 @@ class Tasks extends React.Component {
 
 }
 
-export default Tasks
+const mapStateToProps = (state, props) => ({
+  allowed: allowed(state, props)
+})
+
+export default connect(mapStateToProps)(Tasks)

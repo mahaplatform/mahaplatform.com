@@ -23,6 +23,7 @@ class Page extends React.Component {
   }
 
   static propTypes = {
+    access: PropTypes.func,
     active: PropTypes.bool,
     buttons: PropTypes.array,
     cacheKey: PropTypes.string,
@@ -34,6 +35,7 @@ class Page extends React.Component {
     message: PropTypes.object,
     panel: PropTypes.object,
     page: PropTypes.object,
+    rights: PropTypes.array,
     tabs: PropTypes.object,
     task: PropTypes.object,
     tasks: PropTypes.object,

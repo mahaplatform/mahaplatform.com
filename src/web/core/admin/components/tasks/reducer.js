@@ -3,31 +3,25 @@ const INITIAL_STATE = {
   open: false
 }
 
-const open = (state, action) => ({
-  ...state,
-  items: action.items,
-  open: true
-})
-
-const close = (state, action) => ({
-  ...state,
-  open: false
-})
-
-const clear = (state, action) => INITIAL_STATE
-
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
   case 'OPEN':
-    return open(state, action)
+    return {
+      ...state,
+      items: action.items,
+      open: true
+    }
 
   case 'CLOSE':
-    return close(state, action)
+    return {
+      ...state,
+      open: false
+    }
 
   case 'CLEAR':
-    return clear(state, action)
+    return INITIAL_STATE
 
   default:
     return state
