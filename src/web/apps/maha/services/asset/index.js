@@ -92,9 +92,12 @@ export const assembleAsset = async (id, trx) => {
   const normalizedData = await _getNormalizedData(asset, fileData)
   await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
   await _deleteChunks(asset)
-  const status = asset.get('has_preview') ? 'assembled' : 'processed'
-  await asset.save({ status }, { transacting: trx })
-  if(asset.get('has_preview')) await ProcessAssetQueue.enqueue(null, trx, asset.get('id'))
+  await asset.save({
+    status: asset.get('has_preview') ? 'assembled' : 'processed'
+  }, {
+    transacting: trx
+  })
+  if(asset.get('has_preview')) await ProcessAssetQueue.enqueue(null, asset.get('id'))
   await socket.in(`/admin/assets/${asset.get('id')}`).emit('message', {
     target: `/admin/assets/${asset.get('id')}`,
     action: 'refresh',

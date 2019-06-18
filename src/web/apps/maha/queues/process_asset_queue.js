@@ -1,7 +1,7 @@
 import { processAsset } from '../services/asset'
 import Queue from '../../../core/objects/queue'
 
-const enqueue = async (req, trx, asset_id) => ({ asset_id })
+const enqueue = async (req, asset_id) => ({ asset_id })
 
 const processor = async (job, trx) => {
 
