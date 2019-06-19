@@ -4,6 +4,7 @@ import _ from 'lodash'
 const filterPlugin = function(bookshelf) {
 
   const filter = function(options) {
+    options.tableName = this.tableName
     return this.query(qb => {
       if(options.filter) applyFilters(qb, options.filter, options)
     })
@@ -47,7 +48,7 @@ const filterPlugin = function(bookshelf) {
     if(name === '$and') return applyAnd(qb, filter, options)
     if(name === '$or') return applyOr(qb, filter, options)
     if(name === 'q') return filterSearch(qb, filter, options)
-    if(options.filterParams && !_.includes(options.filterParams, name)) {
+    if(options.filterParams && !_.includes(['id',...options.filterParams], name)) {
       throw new Error(`cannot filter on ${name}`)
     }
     if(options.virtualFilters && options.virtualFilters[name]) {
@@ -64,7 +65,8 @@ const filterPlugin = function(bookshelf) {
     qb.whereRaw(`${phrase} like ?`, term)
   }
 
-  const _filterColumn = (qb, column, filter, options) => {
+  const _filterColumn = (qb, $column, filter, options) => {
+    const column = castColumn(options.tableName, $column)
     if(filter.$eq) {
       _filterEqual(qb, column, filter.$eq)
     } else if(filter.$ne) {
@@ -91,20 +93,20 @@ const filterPlugin = function(bookshelf) {
   }
 
   const _filterEqual = (qb, column, value) => {
-    if(value === 'null') return qb.whereRaw(`${castColumn(column, 0)} is null`)
-    if(value === 'not_null') return qb.whereRaw(`${castColumn(column, 0)} is not null`)
-    if(value === 'true') return qb.whereRaw(`${castColumn(column, 0)} = ?`, true)
-    if(value === 'false') return qb.whereRaw(`${castColumn(column, 0)} = ?`, false)
-    if(value.match(/^\d*$/)) return qb.whereRaw(`${castColumn(column, 0)} = ?`, value)
-    return qb.whereRaw(`lower(${castColumn(column, 0)}) = ?`, value.toLowerCase())
+    if(value === 'null') return qb.whereRaw(`${column} is null`)
+    if(value === 'not_null') return qb.whereRaw(`${column} is not null`)
+    if(value === 'true') return qb.whereRaw(`${column} = ?`, true)
+    if(value === 'false') return qb.whereRaw(`${column} = ?`, false)
+    if(value.match(/^\d*$/)) return qb.whereRaw(`${column} = ?`, value)
+    return qb.whereRaw(`lower(${column}) = ?`, value.toLowerCase())
   }
 
   const _filterNotEqual = (qb, column, value) => {
-    qb.whereRaw(`not ${castColumn(column, 0)} = ?`, value)
+    qb.whereRaw(`not ${column} = ?`, value)
   }
 
   const _filterLike = (qb, column, value) => {
-    qb.whereRaw(`lower(${castColumn(column, 0)}) like ?`, `%${value.toLowerCase()}%`)
+    qb.whereRaw(`lower(${column}) like ?`, `%${value.toLowerCase()}%`)
   }
 
   const _filterContains = (qb, column, value) => {
@@ -128,19 +130,19 @@ const filterPlugin = function(bookshelf) {
   }
 
   const _filterLessThan = (qb, column, value) => {
-    qb.whereRaw(`${castColumn(column, 0)} < ?`, value)
+    qb.whereRaw(`${column} < ?`, value)
   }
 
   const _filterLessThanEqualTo = (qb, column, value) => {
-    qb.whereRaw(`${castColumn(column, 0)} <= ?`, value)
+    qb.whereRaw(`${column} <= ?`, value)
   }
 
   const _filterGreaterThan = (qb, column, value) => {
-    qb.whereRaw(`${castColumn(column, 0)} > ?`, value)
+    qb.whereRaw(`${column} > ?`, value)
   }
 
   const _filterGreaterThanEqualTo = (qb, column, value) => {
-    qb.whereRaw(`${castColumn(column, 0)} >= ?`, value)
+    qb.whereRaw(`${column} >= ?`, value)
   }
 
   const _filterDateRange = (qb, column, value) => {
@@ -200,12 +202,13 @@ const filterPlugin = function(bookshelf) {
   }
 
   const _filterBetween = (qb, column, start, end) => {
-    qb.whereRaw(`${castColumn(column, 0)} >= ?`, start.format('YYYY-MM-DD'))
-    qb.whereRaw(`${castColumn(column, 0)} <= ?`, end.format('YYYY-MM-DD'))
+    qb.whereRaw(`${column} >= ?`, start.format('YYYY-MM-DD'))
+    qb.whereRaw(`${column} <= ?`, end.format('YYYY-MM-DD'))
   }
 
-  const castColumn = (name, index) => {
-    return name
+  const castColumn = function(tableName, column) {
+    const matches = column.match(/(.*)\.(.*)/)
+    return matches ? column : `${tableName}.${column}`
   }
 
   bookshelf.Collection.prototype.filter = filter

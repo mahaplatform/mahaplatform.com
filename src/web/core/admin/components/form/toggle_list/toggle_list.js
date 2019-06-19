@@ -149,7 +149,7 @@ class ToggleList extends React.Component{
 
   _handleLoad() {
     const { defaultValue, endpoint, options, value, onLoad, onSetChosen } = this.props
-    if(endpoint) return onLoad(endpoint, { $ids: defaultValue })
+    if(endpoint) return onLoad(endpoint, { $filter: { id: { $in: defaultValue } } })
     if(!options) return
     const chosen = options.filter(option => _.includes(defaultValue, _.get(option, value)))
     onSetChosen(chosen)
