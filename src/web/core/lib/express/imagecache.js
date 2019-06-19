@@ -35,8 +35,13 @@ const transform = async(originalUrl) => {
   const matches = parts[0].match(/\w*=\w*/)
   const transform = matches ? qs.parse(parts[0]) : {}
   const path = matches ? parts.slice(1).join('/') : parts.join('/')
+  const signed = s3.getSignedUrl('getObject', {
+    Bucket: process.env.AWS_BUCKET,
+    Key: path,
+    Expires: 60
+  })
   const original = await request.get({
-    url: `${process.env.DATA_ASSET_HOST}/${path}`,
+    url: signed,
     encoding: null
   })
   const source = sharp(original)
