@@ -1,7 +1,6 @@
 import SearchIndex from 'search-index'
 import cheerio from 'cheerio'
 import Stream from 'stream'
-import mkdirp from 'mkdirp'
 import glob from 'glob'
 import path from 'path'
 import fs from 'fs'
