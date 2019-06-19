@@ -4,8 +4,11 @@ import loadNavigation from '../../../../../core/utils/load_navigation'
 import getUserAccess from '../../../../../core/utils/get_user_access'
 import { createSession } from '../../../services/sessions'
 import knex from '../../../../../core/services/knex'
+import signer from '../../../../../core/services/signer'
 import Session from '../../../models/session'
 import Device from '../../../models/device'
+
+const TWO_WEEKS = 60 * 60 * 24 * 7 * 2
 
 const _expandNavigation = (prefix, items, req) => {
   return Promise.reduce(items, async (items, item) => {
@@ -104,6 +107,15 @@ const showRoute = async (req, res) => {
     if(a.label < b.label) return -1
     return 0
   }))
+
+
+  const cookie = signer.getSignedCookie({
+    expires: Math.floor((Date.now() + TWO_WEEKS)/1000)
+  })
+
+  Object.keys(cookie).map(key => {
+    res.cookie(key, cookie[key])
+  })
 
   res.status(200).respond(session, SessionSerializer)
 
