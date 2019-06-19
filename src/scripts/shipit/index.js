@@ -78,6 +78,7 @@ const processor = async () => {
     'deploy:unzip',
     'deploy:install',
     'deploy:link_shared',
+    'deploy:permissions',
     'deploy:migrate',
     'deploy:symlink',
     'deploy:reload_passenger',
@@ -167,6 +168,15 @@ const processor = async () => {
       `ln -s ${sharedDir}/logs ${releaseDir}/logs`,
       `ln -s ${sharedDir}/tmp ${releaseDir}/tmp`,
       `ln -s ${sharedDir}/imagecache ${releaseDir}/public/imagecache`
+    ]
+    await shipit.remote(commands.join(' && '), {
+      roles: ['appserver','cron','worker']
+    })
+  })
+
+  utils.registerTask(shipit, 'deploy:permissions', async () => {
+    const commands = [
+      `chown -R nobody.nobody ${releaseDir}help`
     ]
     await shipit.remote(commands.join(' && '), {
       roles: ['appserver','cron','worker']
