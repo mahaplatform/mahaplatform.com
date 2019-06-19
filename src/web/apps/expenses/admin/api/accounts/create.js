@@ -8,6 +8,7 @@ const createRoute = async (req, res) => {
 
   const account = await Account.forge({
     team_id: req.team.get('id'),
+    integration: {},
     ...whitelist(req.body, ['name', 'integration'])
   }).save(null, {
     transacting: req.trx
