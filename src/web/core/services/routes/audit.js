@@ -25,8 +25,8 @@ export const audit = async (req, entries) => {
 }
 
 const _getAuditable = async (entry) => ({
-  type: entry.auditable.tableName,
-  id: entry.auditable.id || entry.auditable.get('id')
+  type: entry.auditable_type || entry.auditable.tableName,
+  id: entry.auditable_id || entry.auditable.id || entry.auditable.get('id')
 })
 
 const _findOrCreateStoryId = async (text, trx) => {

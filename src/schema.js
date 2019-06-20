@@ -162,6 +162,7 @@ const schema = {
       table.string('fullpath', 255)
       table.timestamp('locked_at')
       table.integer('locked_by_id').unsigned()
+      table.string('lock_token', 255)
     })
 
     await knex.schema.createTable('drive_folders', (table) => {
@@ -176,6 +177,7 @@ const schema = {
       table.string('fullpath', 255)
       table.timestamp('locked_at')
       table.integer('locked_by_id').unsigned()
+      table.string('lock_token', 255)
     })
 
     await knex.schema.createTable('drive_versions', (table) => {

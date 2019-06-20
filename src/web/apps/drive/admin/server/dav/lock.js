@@ -1,15 +1,28 @@
+import generateCode from '../../../../../core/utils/generate_code'
 import moment from 'moment'
 import xml from 'xml'
 
 const route = async (req, res) => {
 
-  console.log('lock-token', req.headers['lock-token'])
+  if(req.item.get('locked_by_id') && req.item.get('locked_by_id') !== req.user.get('id')) {
+    return res.status(423).send(null)
+  }
 
-  if(req.item.get('locked_at')) return res.status(200).type('application/xml').send()
+  if(!req.headers['Depth']) {
+    return res.status(422).send(null)
+  }
+
+  if(false) {
+    // user cannot lock
+    return res.status(403).send(null)
+  }
+
+  const lock_token = generateCode()
 
   await req.item.save({
     locked_at: moment(),
-    locked_by_id: req.user.get('id')
+    locked_by_id: req.user.get('id'),
+    lock_token
   }, {
     patch: true,
     transacting: req.trx
@@ -27,7 +40,7 @@ const route = async (req, res) => {
             { 'exclusive': [] }
           ] },
           { 'D:locktoken': [
-            { 'D:href': 'urn:uuid:69c746b5-b94b-1638-0012-000097316875' }
+            { 'D:href': lock_token }
           ] },
           { 'D:lockroot': [
             { 'D:href': `${process.env.WEB_HOST}/${req.originalUrl}` }
@@ -43,6 +56,8 @@ const route = async (req, res) => {
       ] }
     ]
   }, { declaration: true })
+
+  res.set('Lock-Token', lock_token)
 
   res.status(200).type('application/xml').send(data)
 

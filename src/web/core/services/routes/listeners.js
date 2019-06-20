@@ -21,6 +21,6 @@ export const listeners = async (req, listeners) => {
 }
 
 const _getListenable = async (entry) => ({
-  type: entry.listenable.tableName,
-  id: entry.listenable.id || entry.auditable.get('id')
+  type: entry.listenable_type || entry.listenable.tableName,
+  id: entry.listenable_id || entry.listenable.id || entry.listenable.get('id')
 })
