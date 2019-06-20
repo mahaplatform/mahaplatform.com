@@ -44,7 +44,7 @@ class Password extends React.Component {
       <div className="maha-signin-panel">
         <div className="maha-signin-form">
           <div className="maha-signin-header">
-            <Avatar user={ user } width="150" presence={ false } />
+            <Avatar host="" user={ user } width="150" presence={ false } />
             <h2>{ user.full_name }</h2>
             <p>{ user.email }</p>
           </div>

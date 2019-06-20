@@ -36,7 +36,7 @@ class Email extends React.Component {
       <div className="maha-signin-panel">
         <div className="maha-signin-form">
           <div className="maha-signin-header">
-            <Logo team={ team } width="150" />
+            <Logo host="" team={ team } width="150" />
             <h2>{ team.title }</h2>
           </div>
           <form className={ this._getFormClass() } onSubmit={ this._handleSubmit }>

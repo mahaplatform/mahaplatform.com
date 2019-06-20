@@ -7,6 +7,7 @@ class Image extends React.Component {
   static propTypes = {
     alt: PropTypes.string,
     className: PropTypes.string,
+    host: PropTypes.string,
     src: PropTypes.string,
     src2: PropTypes.string,
     title: PropTypes.string,
@@ -46,7 +47,7 @@ class Image extends React.Component {
 
   _getImage() {
     const { alt, className, title } = this.props
-    const host = process.env.DATA_ASSET_CDN_HOST || ''
+    const host = this.props.host || process.env.DATA_ASSET_CDN_HOST || ''
     const normal = `${host}/imagecache${this._getNormal()}`
     const retina = `${host}/imagecache${this._getRetina()}`
     return {

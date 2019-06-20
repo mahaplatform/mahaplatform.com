@@ -6,6 +6,7 @@ import Image from '../image'
 class Avatar extends React.Component {
 
   static propTypes = {
+    host: PropTypes.string,
     icon: PropTypes.string,
     presence: PropTypes.bool,
     title: PropTypes.oneOfType([
@@ -22,8 +23,9 @@ class Avatar extends React.Component {
   }
 
   static defaultProps = {
-    width: 150,
+    host: null,
     presence: true,
+    width: 150,
     onFail: () => {},
     onLoad: () => {}
   }
@@ -52,8 +54,9 @@ class Avatar extends React.Component {
   }
 
   _getImage() {
-    const { width, user } = this.props
+    const { host, width, user } = this.props
     return {
+      host, 
       src: user.photo,
       title: this._getTitle(),
       alt: user.initials,
