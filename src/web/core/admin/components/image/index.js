@@ -17,6 +17,7 @@ class Image extends React.Component {
   }
 
   static defaultProps = {
+    host: null,
     onLoad: () => {},
     onClick: () => {}
   }
@@ -45,9 +46,15 @@ class Image extends React.Component {
     }
   }
 
+  _getHost() {
+    if(this.props.host !== null) return this.props.host
+    if(process.env.DATA_ASSET_CDN_HOST) return process.env.DATA_ASSET_CDN_HOST
+    return ''
+  }
+
   _getImage() {
     const { alt, className, title } = this.props
-    const host = this.props.host || process.env.DATA_ASSET_CDN_HOST || ''
+    const host = this._getHost()
     const normal = `${host}/imagecache${this._getNormal()}`
     const retina = `${host}/imagecache${this._getRetina()}`
     return {
