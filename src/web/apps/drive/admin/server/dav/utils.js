@@ -21,12 +21,14 @@ export const loadItem = async (req, res, next) => {
     qb.where('drive_items_access.user_id', req.user.get('id'))
     qb.whereNull('drive_items.deleted_at')
     qb.orderBy('label', 'asc')
-    qb.where({ fullpath })
+    qb.where('fullpath', fullpath)
   }).fetch({
     withRelated: ['asset'],
     transacting: req.trx
   }) : null
-  if(fullpath.length > 0 && !req.item) return res.status(404).type('application/xml').send()
+  if(req.method !== 'PUT' && fullpath.length > 0 && !req.item) {
+    return res.status(404).type('application/xml').send()
+  }
   next()
 }
 

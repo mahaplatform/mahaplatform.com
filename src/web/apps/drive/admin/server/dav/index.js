@@ -19,6 +19,9 @@ router.use(auth.connect(auth.basic({
 router.use(loadItem)
 
 router.use(async (req, res, next) => {
+  console.log(req.headers)
+  console.log(`${req.method} ${req.originalUrl}`)
+  console.log(req.rawBody)
   if(req.method === 'OPTIONS') return options(req, res, next)
   if(req.method === 'PROPFIND') return propfind(req, res, next)
   if(req.method === 'UNLOCK') return unlock(req, res, next)

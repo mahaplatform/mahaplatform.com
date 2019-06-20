@@ -1,18 +1,13 @@
-import request from 'request-promise'
+import s3 from '../../../../../core/services/s3'
 
 const route = async (req, res) => {
 
   const asset = req.item.related('asset')
 
-  const host = process.env.DATA_ASSET_CDN_HOST || process.env.DATA_ASSET_HOST || process.env.WEB_HOST
-
-  const data = await new Promise((resolve, reject) => request({
-    url: host + asset.get('path'),
-    encoding: null
-  }, (error, response, body) => {
-    if(error) reject(error)
-    resolve(body)
-  }))
+  const data = await s3.getObject({
+    Bucket: process.env.AWS_BUCKET,
+    Key: `assets/${asset.get('id')}/${asset.get('file_name')}`
+  }).promise().then(file => file.Body)
 
   res.setHeader('Content-disposition', `attachment; filename=${asset.get('file_name')}`)
 

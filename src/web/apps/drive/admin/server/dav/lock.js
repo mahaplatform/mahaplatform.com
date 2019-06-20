@@ -3,6 +3,8 @@ import xml from 'xml'
 
 const route = async (req, res) => {
 
+  console.log('lock-token', req.headers['lock-token'])
+
   if(req.item.get('locked_at')) return res.status(200).type('application/xml').send()
 
   await req.item.save({
