@@ -114,7 +114,9 @@ const showRoute = async (req, res) => {
   })
 
   Object.keys(cookie).map(key => {
-    res.cookie(key, cookie[key])
+    res.cookie(key, cookie[key], {
+      domain: process.env.DOMAIN
+    })
   })
 
   res.status(200).respond(session, SessionSerializer)
