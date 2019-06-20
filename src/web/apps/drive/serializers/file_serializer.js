@@ -38,6 +38,7 @@ const asset = (asset) => {
     status: asset.get('text'),
     has_preview: asset.get('has_preview'),
     path: asset.get('path'),
+    signed_url: asset.get('signed_url'),
     source: asset.related('source').get('text'),
     source_url: asset.get('source_url'),
     user: user(asset.related('user')),

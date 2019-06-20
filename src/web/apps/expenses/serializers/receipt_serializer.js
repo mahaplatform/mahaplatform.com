@@ -11,6 +11,7 @@ const receiptSerializer = (req, result) => ({
   source_url: result.related('asset').get('source_url'),
   status: result.related('asset').get('status'),
   user: user(result.related('asset').related('user')),
+  signed_url: result.related('asset').get('signed_url'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

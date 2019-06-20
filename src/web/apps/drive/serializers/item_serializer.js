@@ -49,6 +49,7 @@ const asset = (asset) => {
     file_size: asset.get('file_size'),
     has_preview: asset.get('has_preview'),
     path: asset.get('path'),
+    signed_url: asset.get('signed_url'),
     source: asset.related('source').get('text'),
     source_url: asset.get('source_url'),
     deleted_at: asset.get('deleted_at'),

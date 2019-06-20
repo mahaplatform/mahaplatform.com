@@ -92,7 +92,8 @@ class AssetViewer extends React.Component {
   _getViewer() {
     const { asset } = this.props
     const host = this._getHost()
-    const file = encodeURIComponent(`${host}/assets/${asset.id}/${asset.file_name}`)
+    const url = asset.signed_url || `${host}/${asset.path}`
+    const file = encodeURIComponent(url)
     const type = this._getType()
     if(type === 'pdf') return `/admin/doc.html?file=${file}`
     if(type === 'word') return `/admin/doc.html?file=${file}`

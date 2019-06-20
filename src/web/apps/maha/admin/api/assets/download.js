@@ -1,5 +1,5 @@
+import s3 from '../../../../../core/services/s3'
 import Asset from '../../../models/asset'
-import request from 'request'
 
 const downloadRoute = async (req, res) => {
 
@@ -11,19 +11,14 @@ const downloadRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const host = process.env.DATA_ASSET_CDN_HOST || process.env.DATA_ASSET_HOST || process.env.WEB_HOST
-
-  const file = await new Promise((resolve, reject) => request({
-    url: host + asset.get('path'),
-    encoding: null
-  }, (error, response, body) => {
-    if(error) reject(error)
-    resolve(body)
-  }))
+  const data = await s3.getObject({
+    Bucket: process.env.AWS_BUCKET,
+    Key: asset.get('key')
+  }).promise().then(file => file.Body)
 
   res.setHeader('Content-disposition', `attachment; filename=${asset.get('file_name')}`)
 
-  res.status(200).type(asset.get('content_type')).send(file)
+  res.status(200).type(asset.get('content_type')).send(data)
 
 }
 

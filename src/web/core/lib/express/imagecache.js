@@ -1,4 +1,3 @@
-import request from 'request-promise'
 import s3 from '../../services/s3'
 import { Router } from 'express'
 import sharp from 'sharp'
@@ -35,16 +34,11 @@ const transform = async(originalUrl) => {
   const matches = parts[0].match(/\w*=\w*/)
   const transform = matches ? qs.parse(parts[0]) : {}
   const path = matches ? parts.slice(1).join('/') : parts.join('/')
-  const signed = s3.getSignedUrl('getObject', {
+  const data = await s3.getObject({
     Bucket: process.env.AWS_BUCKET,
-    Key: path,
-    Expires: 60
-  })
-  const original = await request.get({
-    url: signed,
-    encoding: null
-  })
-  const source = sharp(original)
+    Key: path
+  }).promise().then(file => file.Body)
+  const source = sharp(data)
   const dpi = transform.dpi ? parseInt(transform.dpi) : 1
   const fit = transform.fit || 'inside'
   const w = transform.w ? parseInt(transform.w) * dpi : null

@@ -24,12 +24,12 @@
       var results = regex.exec(url);
       if (!results) return null;
       if (!results[2]) return '';
-      return decodeURIComponent(results[2].replace(/\+/g, " "));
+      return results[2].replace(/\+/g, " ");
     }
 
     var url = getParameterByName('file');
 
-    var src = 'https://docs.google.com/gview?url=' + url + '&embedded=true';
+    var src = 'https://docs.google.com/gview?embedded=true&url=' + url;
 
     document.write('<iframe src="'+src+'"></iframe>');
 
