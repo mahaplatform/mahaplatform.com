@@ -113,11 +113,13 @@ const showRoute = async (req, res) => {
     expires: Math.floor((Date.now() + TWO_WEEKS)/1000)
   })
 
-  Object.keys(cookie).map(key => {
-    res.cookie(key, cookie[key], {
-      domain: process.env.DOMAIN
+  if(process.env.DATA_ASSET_CDN_HOST) {
+    Object.keys(cookie).map(key => {
+      res.cookie(key, cookie[key], {
+        domain: `.${process.env.DOMAIN}`
+      })
     })
-  })
+  }
 
   res.status(200).respond(session, SessionSerializer)
 
