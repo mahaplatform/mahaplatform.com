@@ -20,7 +20,7 @@ export const listFiles = async (Prefix) => {
 
 export const saveFile = async (filedata, filepath, content_type) => {
   await s3.upload({
-    ACL: 'public-read',
+    ACL: 'private',
     Body: filedata,
     Bucket: process.env.AWS_BUCKET,
     ContentType: content_type,
