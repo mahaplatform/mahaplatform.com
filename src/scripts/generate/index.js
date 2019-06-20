@@ -50,7 +50,7 @@ const resource = async (args) => {
 const model = async (args) => {
   const [ model ] = args
   const root = path.join('src', 'server')
-  const timestamp = moment().format('YYYYMMDDhhmmss')
+  const timestamp = moment().format('YYYYMMDDHHmmss')
   const singluar = pluralize.singular(model).toLowerCase()
   const plural = pluralize.plural(model).toLowerCase()
   const className = _.upperFirst(_.camelCase(singluar))
@@ -71,7 +71,7 @@ const model = async (args) => {
 
 const migration = async (args) => {
   const [ pathname ] = args
-  const timestamp = moment().format('YYYYMMDDhhmmss')
+  const timestamp = moment().format('YYYYMMDDHHmmss')
   const name = pathname.split('/').slice(-1)[0]
   const root = path.join('src','web','apps', ...pathname.split('/').slice(0,-1))
   const data = {

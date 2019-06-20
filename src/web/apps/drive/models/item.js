@@ -1,5 +1,6 @@
 import Model from '../../../core/objects/model'
 import Asset from '../../maha/models/asset'
+import User from '../../maha/models/user'
 import Access from './access'
 import Folder from './folder'
 
@@ -19,6 +20,10 @@ const Item = new Model({
 
   folder: function() {
     return this.belongsTo(Folder, 'folder_id')
+  },
+
+  locked_by: function() {
+    return this.belongsTo(User, 'locked_by_id')
   }
 
 })

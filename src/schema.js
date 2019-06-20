@@ -160,9 +160,9 @@ const schema = {
       table.timestamp('deleted_at')
       table.string('label', 255)
       table.string('fullpath', 255)
-      table.timestamp('locked_at')
       table.integer('locked_by_id').unsigned()
       table.string('lock_token', 255)
+      table.timestamp('lock_expires_at')
     })
 
     await knex.schema.createTable('drive_folders', (table) => {
@@ -175,9 +175,9 @@ const schema = {
       table.timestamp('updated_at')
       table.timestamp('deleted_at')
       table.string('fullpath', 255)
-      table.timestamp('locked_at')
       table.integer('locked_by_id').unsigned()
       table.string('lock_token', 255)
+      table.timestamp('lock_expires_at')
     })
 
     await knex.schema.createTable('drive_versions', (table) => {
@@ -1580,8 +1580,9 @@ const schema = {
       items.asset_id,
       items.label,
       items.fullpath,
-      items.locked_at,
+      items.lock_expires_at,
       items.locked_by_id,
+      items.lock_token,
       items.deleted_at,
       items.created_at,
       items.updated_at
@@ -1594,8 +1595,9 @@ const schema = {
       null::integer as asset_id,
       drive_folders.label,
       drive_folders.fullpath,
-      drive_folders.locked_at,
+      drive_folders.lock_expires_at,
       drive_folders.locked_by_id,
+      drive_folders.lock_token,
       drive_folders.deleted_at,
       drive_folders.created_at,
       drive_folders.updated_at
@@ -1610,8 +1612,9 @@ const schema = {
       drive_versions.asset_id,
       drive_files.label,
       drive_files.fullpath,
-      drive_files.locked_at,
+      drive_files.lock_expires_at,
       drive_files.locked_by_id,
+      drive_files.lock_token,
       drive_files.deleted_at,
       drive_files.created_at,
       drive_files.updated_at
@@ -1643,8 +1646,9 @@ const schema = {
       drive_items.asset_id,
       drive_items.label,
       drive_items.fullpath,
-      drive_items.locked_at,
+      drive_items.lock_expires_at,
       drive_items.locked_by_id,
+      drive_items.lock_token,
       drive_items.deleted_at,
       drive_items.created_at,
       drive_items.updated_at,

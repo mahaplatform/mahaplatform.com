@@ -52,7 +52,7 @@ const listRoute = async (req, res) => {
     defaultSort: 'id'
   }).fetchPage({
     page: req.query.$page,
-    withRelated: ['asset.source','accesses.access_type','accesses.user.photo','accesses.group','folder'],
+    withRelated: ['asset.source','accesses.access_type','accesses.user.photo','accesses.group','folder','locked_by'],
     transacting: req.trx
   })
 

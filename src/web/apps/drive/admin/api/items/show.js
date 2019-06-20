@@ -13,7 +13,7 @@ const showRoute = async (req, res) => {
     qb.whereNull('drive_items.deleted_at')
     qb.where('drive_items.code', req.params.code)
   }).fetch({
-    withRelated: ['asset.source','accesses.access_type','accesses.user.photo','accesses.group','folder'],
+    withRelated: ['asset.source','accesses.access_type','accesses.user.photo','accesses.group','folder','locked_by'],
     transacting: req.trx
   })
 

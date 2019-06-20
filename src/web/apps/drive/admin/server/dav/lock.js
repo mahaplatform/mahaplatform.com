@@ -1,4 +1,5 @@
-import generateCode from '../../../../../core/utils/generate_code'
+import File from '../../../models/file'
+import { generateUUID } from './utils'
 import moment from 'moment'
 import xml from 'xml'
 
@@ -8,7 +9,7 @@ const route = async (req, res) => {
     return res.status(423).send(null)
   }
 
-  if(!req.headers['Depth']) {
+  if(req.headers.depth === undefined) {
     return res.status(422).send(null)
   }
 
@@ -17,11 +18,19 @@ const route = async (req, res) => {
     return res.status(403).send(null)
   }
 
-  const lock_token = generateCode()
+  const lock_expires_at = moment().add(1, 'hour')
 
-  await req.item.save({
-    locked_at: moment(),
+  const lock_token = generateUUID(lock_expires_at.unix() * 1000)
+
+  const file = await File.query(qb => {
+    qb.where('id', req.item.get('item_id'))
+  }).fetch({
+    transacting: req.trx
+  })
+
+  await file.save({
     locked_by_id: req.user.get('id'),
+    lock_expires_at,
     lock_token
   }, {
     patch: true,
@@ -40,7 +49,7 @@ const route = async (req, res) => {
             { 'exclusive': [] }
           ] },
           { 'D:locktoken': [
-            { 'D:href': lock_token }
+            { 'D:href': `urn:uuid:${lock_token}` }
           ] },
           { 'D:lockroot': [
             { 'D:href': `${process.env.WEB_HOST}/${req.originalUrl}` }
@@ -57,7 +66,7 @@ const route = async (req, res) => {
     ]
   }, { declaration: true })
 
-  res.set('Lock-Token', lock_token)
+  res.set('Lock-Token', `urn:uuid:${lock_token}`)
 
   res.status(200).type('application/xml').send(data)
 

@@ -11,6 +11,9 @@ const ItemSerializer = (req, result) => ({
   accesses: result.related('accesses').map(access),
   asset: asset(result.related('asset')),
   is_starred: _.includes(req.starred, result.get('code')),
+  locked_by: user(result.related('locked_by')),
+  lock_expires_at: result.get('lock_expires_at'),
+  lock_token: result.get('lock_token'),
   deleted_at: result.get('deleted_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

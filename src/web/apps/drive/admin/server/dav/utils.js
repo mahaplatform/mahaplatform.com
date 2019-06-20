@@ -7,6 +7,8 @@ export const cors = (req, res, next) => {
   res.setHeader('Access-Control-Allow-Credentials', 'true')
   res.setHeader('Access-Control-Expose-Headers', 'DAV, content-length, Allow')
   res.setHeader('MS-Author-Via', 'DAV')
+  res.setHeader('WWW-Authenticate', 'Basic realm="MAHA"')
+  res.setHeader('Allow', 'PROPPATCH,PROPFIND,OPTIONS,DELETE,UNLOCK,COPY,LOCK,MOVE,HEAD,POST,PUT,GET')
   next()
 }
 
@@ -36,4 +38,25 @@ export const loadUser = async (username, password, callback) => {
   const user = await User.where('email', username).fetch()
   const authenticated = user ? user.authenticate(password) : false
   callback(authenticated, user)
+}
+
+export const generateUUID = (expirationDate) => {
+  const rnd1 = Math.ceil(Math.random() * 0x3FFF) + 0x8000
+  const rnd2 = Math.ceil(Math.random() * 0xFFFFFFFF)
+  function pad(value : number, nb : number) {
+    if(value < 0) value *= -1
+    let str = Math.ceil(value).toString(16)
+    while(str.length < nb) {
+      str = '0' + str
+    }
+    return str
+  }
+  let uuid = ''
+  uuid += pad(expirationDate & 0xFFFFFFFF, 8)
+  uuid += '-' + pad((expirationDate >> 32) & 0xFFFF, 4)
+  uuid += '-' + pad(((expirationDate >> (32 + 16)) & 0x0FFF) + 0x1000, 4)
+  uuid += '-' + pad((rnd1 >> 16) & 0xFF, 2)
+  uuid += pad(rnd1 & 0xFF, 2)
+  uuid += '-' + pad(rnd2, 12)
+  return uuid
 }

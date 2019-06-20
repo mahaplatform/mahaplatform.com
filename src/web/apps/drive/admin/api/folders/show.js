@@ -8,7 +8,7 @@ const showRoute = async (req, res) => {
   }).query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
-    withRelated: ['accesses.user.photo','accesses.group','accesses.access_type'],
+    withRelated: ['accesses.user.photo','accesses.group','accesses.access_type','locked_by'],
     transacting: req.trx
   })
 
