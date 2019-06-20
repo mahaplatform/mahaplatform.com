@@ -116,7 +116,10 @@ const showRoute = async (req, res) => {
   if(process.env.DATA_ASSET_CDN_HOST) {
     Object.keys(cookie).map(key => {
       res.cookie(key, cookie[key], {
-        domain: `.${process.env.DOMAIN}`
+        domain: `.${process.env.DOMAIN}`,
+        httpOnly: true,
+        path: '/',
+        secure: true
       })
     })
   }
