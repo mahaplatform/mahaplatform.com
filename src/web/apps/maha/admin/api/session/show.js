@@ -7,8 +7,7 @@ import knex from '../../../../../core/services/knex'
 import signer from '../../../../../core/services/signer'
 import Session from '../../../models/session'
 import Device from '../../../models/device'
-
-const TWO_WEEKS = 60 * 60 * 24 * 7 * 2
+import moment from 'moment'
 
 const _expandNavigation = (prefix, items, req) => {
   return Promise.reduce(items, async (items, item) => {
@@ -108,12 +107,23 @@ const showRoute = async (req, res) => {
     return 0
   }))
 
-
-  const cookie = signer.getSignedCookie({
-    expires: Math.floor((Date.now() + TWO_WEEKS)/1000)
-  })
-
   if(process.env.DATA_ASSET_CDN_HOST) {
+
+    const cookie = signer.getSignedCookie({
+      policy: JSON.stringify({
+        Statement: [
+          {
+            Resource: `${process.env.DATA_ASSET_CDN_HOST}/*`,
+            Condition: {
+              DateLessThan:{
+                'AWS:EpochTime': moment().add(2,'weeks').unix()
+              }
+            }
+          }
+        ]
+      })
+    })
+
     Object.keys(cookie).map(key => {
       res.cookie(key, cookie[key], {
         domain: `.${process.env.DOMAIN}`,
@@ -122,6 +132,7 @@ const showRoute = async (req, res) => {
         secure: true
       })
     })
+    
   }
 
   res.status(200).respond(session, SessionSerializer)
