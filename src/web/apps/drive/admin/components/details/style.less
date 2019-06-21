@@ -1,22 +1,4 @@
 .drive-details {
-  @media (max-width: 768px) {
-    .transition(transform .5s ease-in-out 0s);
-    .translateX(100%);
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    bottom: 0;
-  }
-  @media (min-width: 769px) {
-    flex: 0 0 25%;
-    max-width: 420px;
-    min-width: 280px;
-    border-left: 1px solid fadeout(@black, 95);
-    .drive-details-title-close {
-      display: none;
-    }
-  }
   background-color: @white;
   .scrollable();
   & > .maha-message {
@@ -75,5 +57,38 @@
   .assignee-token-icon {
     width: 1.6em;
     height: 1.6em;
+  }
+}
+.maha-portal-sidebar {
+  .drive-details {
+    .transition(transform .5s ease-in-out 0s);
+    .translateX(100%);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
+}
+@media (max-width: 768px) {
+  .drive-details {
+    .transition(transform .5s ease-in-out 0s);
+    .translateX(100%);
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+  }
+}
+@media (min-width: 769px) {
+  .drive-details {
+    flex: 0 0 25%;
+    max-width: 420px;
+    min-width: 280px;
+    border-left: 1px solid fadeout(@black, 95);
+    .drive-details-title-close {
+      display: none;
+    }
   }
 }

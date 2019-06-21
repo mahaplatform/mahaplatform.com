@@ -109,6 +109,7 @@ import platformRoutes from '../../apps/platform/admin/views/index.js'
 import sitesRoutes from '../../apps/sites/admin/views/index.js'
 import teamRoutes from '../../apps/team/admin/views/index.js'
 import chatBadges from '../../apps/chat/admin/badges/index.js'
+import driveBadges from '../../apps/drive/admin/badges/index.js'
 import mahaBadges from '../../apps/maha/admin/badges/index.js'
 import chatRoots from '../../apps/chat/admin/roots/index.js'
 import mahaRoots from '../../apps/maha/admin/roots/index.js'
@@ -172,6 +173,10 @@ class App extends React.Component {
     return [
       ...chatBadges.map(badge => ({
         app: 'chat',
+        ...badge
+      })),
+      ...driveBadges.map(badge => ({
+        app: 'drive',
         ...badge
       })),
       ...mahaBadges.map(badge => ({

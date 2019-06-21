@@ -41,7 +41,7 @@ const listRoute = async (req, res) => {
     qb.whereNotIn('drive_items.label', ['.DS_Store'])
   }).filter({
     filter: req.query.$filter,
-    filterParams: ['code','folder_id','type'],
+    filterParams: ['code','folder_id','type','access_type'],
     searchParams: ['label'],
     virtualFilters: {
       access_type: (qb, filter) => {

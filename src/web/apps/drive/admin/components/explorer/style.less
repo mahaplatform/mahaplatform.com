@@ -1,4 +1,3 @@
-
 .drive {
   .unselectable();
   flex: 1;
@@ -151,6 +150,7 @@
 }
 .drive-items {
   flex: 1;
+  .scrollable();
 }
 .drive-item {
   padding: 1;
@@ -219,7 +219,28 @@
     color: fadeout(@black, 80);
   }
 }
-
+.maha-portal-sidebar {
+  .drive {
+    .drive-overlay {
+      .opacity-transition(0, 0.5, .5s);
+      .opacity(0);
+      background-color: @black;
+    }
+    &.details {
+      .drive-details {
+        .translateX(0);
+      }
+      .drive-overlay {
+        .opacity(0.5);
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+      }
+    }
+  }
+}
 @media (max-width: 768px) {
   .drive {
     .drive-overlay {
