@@ -5,12 +5,14 @@ import geocode from './geocode'
 import Checkit from 'checkit'
 import _ from 'lodash'
 
-export const processValues = async (parent_type, parent_id, data, trx) => {
+export const processValues = async (req, parent_type, parent_id, data) => {
 
   const fields = await Field.query(qb => {
     qb.where('parent_type', parent_type)
     qb.where('parent_id', parent_id)
-  }).fetchAll({ transacting: trx }).then(result => result.toArray())
+  }).fetchAll({
+    transacting: req.trx
+  }).then(result => result.toArray())
 
   const errors = await validate(fields, data)
 
@@ -20,7 +22,7 @@ export const processValues = async (parent_type, parent_id, data, trx) => {
     errors: errors.toJSON()
   })
 
-  const transformed = await transformValues(fields, data, trx)
+  const transformed = await transformValues(req, fields, data)
 
   return transformed
 
@@ -84,7 +86,7 @@ const validate = async (fields, data) => {
 
 }
 
-const transformValues = async (fields, values, trx) => {
+const transformValues = async (req, fields, values) => {
 
   const fieldMap = fields.reduce((fieldMap, field) => ({
     ...fieldMap,
@@ -97,7 +99,7 @@ const transformValues = async (fields, values, trx) => {
 
     const field = fieldMap[key]
 
-    const transformedValue = await transformValue(field, value, trx)
+    const transformedValue = await transformValue(req, field, value)
 
     return {
       ...transformed,
@@ -108,7 +110,7 @@ const transformValues = async (fields, values, trx) => {
 
 }
 
-const transformValue = async (field, value, trx) => {
+const transformValue = async (req, field, value) => {
 
   if(!value) return null
 
@@ -141,12 +143,14 @@ const transformValue = async (field, value, trx) => {
 
 }
 
-export const expandValues = async (parent_type, parent_id, data, trx) => {
+export const expandValues = async (req, parent_type, parent_id, data) => {
 
   const fields = await Field.query(qb => {
     qb.where('parent_type', parent_type)
     qb.where('parent_id', parent_id)
-  }).fetchAll({ transacting: trx })
+  }).fetchAll({
+    transacting: req.trx
+  })
 
   const fieldMap = fields.toArray().reduce((map, field) => ({
     ...map,
@@ -175,7 +179,7 @@ export const expandValues = async (parent_type, parent_id, data, trx) => {
           id: data[code][0]
         }).fetch({
           withRelated: ['service'],
-          transacting: trx
+          transacting: req.trx
         })
 
         if(!link) return null
@@ -196,7 +200,7 @@ export const expandValues = async (parent_type, parent_id, data, trx) => {
         const asset = await Asset.where({
           id: data[code][0]
         }).fetch({
-          transacting: trx
+          transacting: req.trx
         })
 
         if(!asset) return null

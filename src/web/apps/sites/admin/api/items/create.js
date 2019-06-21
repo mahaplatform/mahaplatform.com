@@ -7,7 +7,7 @@ import Item from '../../../models/item'
 
 const createRoute = async (req, res) => {
 
-  const values = await processValues('sites_types', req.params.type_id, req.body.values, req.trx)
+  const values = await processValues(req, 'sites_types', req.params.type_id, req.body.values)
 
   const item = await Item.forge({
     team_id: req.team.get('id'),
