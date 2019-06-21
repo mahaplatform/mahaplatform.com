@@ -61,7 +61,7 @@ const filterPlugin = function(bookshelf) {
     if(!options.searchParams) return
     if(filter.length === 0) return
     const phrase = `lower(concat(${options.searchParams.join(',\' \',')}))`
-    const term = `%${filter}%`
+    const term = `%${filter.toLowerCase()}%`
     qb.whereRaw(`${phrase} like ?`, term)
   }
 

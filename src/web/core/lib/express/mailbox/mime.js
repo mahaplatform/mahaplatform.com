@@ -10,10 +10,6 @@ const simpleParser = Promise.promisify(require('mailparser').simpleParser)
 
 const mimeRoute = async (req, res) => {
 
-  console.log(Object.keys(req.body))
-
-  console.log(req.body)
-
   const mime = req.body['body-mime']
 
   const message = await simpleParser(mime)
