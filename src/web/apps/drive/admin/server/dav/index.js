@@ -1,6 +1,7 @@
-import { loadUser, loadItem, cors } from './utils'
+import { loadUser, loadTeam, loadItem, cors, loadHeaders } from './utils'
 import propfind from './propfind'
 import options from './options'
+import destroy from './destroy'
 import unlock from './unlock'
 import express from 'express'
 import auth from 'http-auth'
@@ -12,32 +13,34 @@ import get from './get'
 
 const router = express()
 
+router.use((req, res, next) => {
+  if(req.headers.accept !== '*/*' || req.method !== 'PUT') return next()
+  req.rawBody = ''
+  req.on('data', function(chunk) {
+    req.rawBody += chunk
+  })
+  req.on('end', function(chunk) {
+    next()
+  })
+})
+
 router.use(cors)
 
 router.use(auth.connect(auth.basic({
   realm: 'MAHA'
 }, loadUser)))
 
-router.use((req, res, next) => {
-  if(req.headers['if']) {
-    const ifmatch = req.headers['if'].match(/urn:uuid:([^>]*)/)
-    if(ifmatch) req.if = ifmatch[1]
-  }
-  if(req.headers['lock-token']) {
-    const token = req.headers['lock-token'].match(/urn:uuid:([^>]*)/)
-    if(token) req.lock_token = token[1]
-  }
-  next()
-})
+router.use(loadTeam)
+
+router.use(loadHeaders)
 
 router.use(loadItem)
 
-// router.use(async (req, res, next) => {
-//   console.log(req.headers)
-//   console.log(`${req.method} ${req.originalUrl}`)
-//   console.log(req.rawBody)
-//   next()
-// })
+router.use(async (req, res, next) => {
+  console.log(req.headers)
+  console.log(`${req.method} ${req.originalUrl}`)
+  next()
+})
 
 router.use(async (req, res, next) => {
   if(req.method === 'OPTIONS') return options(req, res, next)
@@ -47,6 +50,7 @@ router.use(async (req, res, next) => {
   if(req.method === 'COPY') return copy(req, res, next)
   if(req.method === 'GET') return get(req, res, next)
   if(req.method === 'PUT') return put(req, res, next)
+  if(req.method === 'DELETE') return destroy(req, res, next)
   if(req.method === 'PROPFIND') return propfind(req, res, next)
   next()
 })

@@ -9,11 +9,14 @@ const AddLockExpiresAt = {
     await knex.raw('drop view drive_items')
 
     await knex.schema.table('drive_folders', (table) => {
+      table.dropColumn('lock_token')
       table.dropColumn('locked_at')
-      table.timestamp('lock_expires_at')
+      table.dropColumn('locked_by_id')
     })
 
     await knex.schema.table('drive_files', (table) => {
+      table.integer('dotfile_id').unsigned()
+      table.foreign('dotfile_id').references('maha_assets.id')
       table.dropColumn('locked_at')
       table.timestamp('lock_expires_at')
     })
@@ -33,9 +36,9 @@ const AddLockExpiresAt = {
       null as "asset_id",
       "drive_folders"."label",
       "drive_folders"."fullpath",
-      "drive_folders"."lock_expires_at",
-      "drive_folders"."locked_by_id",
-      "drive_folders"."lock_token",
+      null as "lock_expires_at",
+      null as "locked_by_id",
+      null as "lock_token",
       "drive_folders"."deleted_at",
       "drive_folders"."created_at",
       "drive_folders"."updated_at"

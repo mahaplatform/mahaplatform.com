@@ -12,6 +12,18 @@ export const cors = (req, res, next) => {
   next()
 }
 
+export const loadHeaders = (req, res, next) => {
+  if(req.headers['if']) {
+    const if_token = req.headers['if'].match(/urn:uuid:([^>]*)/)
+    if(if_token) req.if_token = if_token[1]
+  }
+  if(req.headers['lock-token']) {
+    const token = req.headers['lock-token'].match(/urn:uuid:([^>]*)/)
+    if(token) req.lock_token = token[1]
+  }
+  next()
+}
+
 export const loadItem = async (req, res, next) => {
   const requestURI = req.originalUrl.replace('/admin/drive/maha', '')
   const slashfree = requestURI.replace(/\/+$/, '').replace(/^\/+/, '')
@@ -22,10 +34,10 @@ export const loadItem = async (req, res, next) => {
     qb.innerJoin('drive_access_types', 'drive_access_types.id', 'drive_items_access.access_type_id')
     qb.where('drive_items_access.user_id', req.user.get('id'))
     qb.whereNull('drive_items.deleted_at')
-    qb.orderBy('label', 'asc')
     qb.where('fullpath', fullpath)
+    qb.orderBy('label', 'asc')
   }).fetch({
-    withRelated: ['asset'],
+    withRelated: ['asset','accesses'],
     transacting: req.trx
   }) : null
   if(req.method !== 'PUT' && fullpath.length > 0 && !req.item) {
@@ -35,9 +47,19 @@ export const loadItem = async (req, res, next) => {
 }
 
 export const loadUser = async (username, password, callback) => {
-  const user = await User.where('email', username).fetch()
+  const user = await User.query(qb => {
+    qb.where('email', username)
+  }).fetch({
+    withRelated: ['team']
+  })
   const authenticated = user ? user.authenticate(password) : false
   callback(authenticated, user)
+}
+
+
+export const loadTeam = (req, res, next) => {
+  req.team = req.user.related('team')
+  next()
 }
 
 export const generateUUID = (expirationDate) => {

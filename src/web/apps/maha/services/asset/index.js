@@ -131,30 +131,49 @@ export const getAsset = async (id, trx) => {
   return await getAssetData(asset)
 }
 
-export const createAsset = async (meta, trx) => {
+export const createAsset = async (params, trx) => {
   const asset = await Asset.forge({
-    team_id: meta.team_id,
-    user_id: meta.user_id,
-    source_id: meta.source_id,
-    source_identifier: meta.source_identifier,
-    source_url: meta.source_url,
-    original_file_name: meta.file_name,
-    file_name: _getNormalizedFileName(meta.file_name),
-    content_type: meta.content_type || _getContentType(meta.file_name),
-    file_size: meta.file_size || _getFilesize(meta.file_data),
+    team_id: params.team_id,
+    user_id: params.user_id,
+    source_id: params.source_id,
+    source_identifier: params.source_identifier,
+    source_url: params.source_url,
+    original_file_name: params.file_name,
+    file_name: _getNormalizedFileName(params.file_name),
+    content_type: params.content_type || _getContentType(params.file_name),
+    file_size: params.file_size !== null ? params.file_size : _getFilesize(params.file_data),
     chunks_total: 1,
     status: 'assembled'
-  }).save(null, { transacting: trx })
-  const normalizedData = await _getNormalizedData(asset, meta.file_data)
-  await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
-  if(!asset.get('is_image')) {
-    const previewData = await _getPreviewData(asset, normalizedData, 'jpg')
-    await _saveFile(previewData, `assets/${asset.get('id')}/preview.jpg`, 'image/jpeg')
+  }).save(null, {
+    transacting: trx
+  })
+  if(params.file_data) {
+    await _saveFildata(asset, params.file_data)
   }
   await asset.save({
     status: 'processed'
   }, {
     transacting: trx
+  })
+  return asset
+}
+
+export const updateAsset = async (req, asset, params) => {
+  await asset.save({
+    file_size: params.file_size || _getFilesize(params.file_data),
+    chunks_total: 1,
+    status: 'assembled'
+  }, {
+    patch: true,
+    transacting: req.trx
+  })
+  if(params.file_data) {
+    await _saveFildata(asset, params.file_data)
+  }
+  await asset.save({
+    status: 'processed'
+  }, {
+    transacting: req.trx
   })
   return asset
 }
@@ -172,6 +191,16 @@ export const getAssetData = async (asset, format = 'buffer') => {
   if(format === 'stream') return _bufferToStream(data)
   if(format === 'string') return data.toString('utf-8')
   return data
+}
+
+const _saveFildata = async (asset, file_data) => {
+  const normalizedData = await _getNormalizedData(asset, file_data)
+  await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
+  if(asset.get('content_type').match(/image/) !== null) return
+  if(asset.get('content_type').match(/octet/) !== null) return
+  console.log('generating preview', asset.get('key'))
+  const previewData = await _getPreviewData(asset, normalizedData, 'jpg')
+  await _saveFile(previewData, `assets/${asset.get('id')}/preview.jpg`, 'image/jpeg')
 }
 
 const _getNormalizedData = async (asset, fileData) => {
@@ -216,8 +245,8 @@ const _getFilesize = (fileData) => {
 
 export const _getNormalizedFileName = (filename) => {
   const matches = filename.toLowerCase().match(/^(.*)\.([^?]*)\??(.*)$/)
-  const basename = matches ? matches[1] : filename.toLowerCase()
-  const extension = matches ? matches[2] : null
+  const basename = matches && matches[1] ? matches[1] : filename.toLowerCase()
+  const extension = matches && matches[1] ? matches[2] : null
   const rewritten = basename.replace(/[^0-9a-zA-Z-\s_.]/img, '').replace(/[\W_]/img, '-').replace(/-{2,}/g, '-')
   return rewritten + (extension ? `.${extension}` : '')
 }

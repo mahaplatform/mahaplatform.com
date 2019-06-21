@@ -57,9 +57,12 @@ export const createFile = async (req, params) => {
   })
 
   if(parent) {
-    await Promise.map(parent.related('accesses').toArray().filter(access => {
+
+    const accesses = parent.related('accesses').toArray().filter(access => {
       return access.get('user_id') !== req.user.get('id')
-    }), async access => await Access.forge({
+    })
+
+    await Promise.map(accesses, async access => await Access.forge({
       team_id: req.team.get('id'),
       code: file.get('code'),
       is_everyone: access.get('is_everyone'),
@@ -69,9 +72,39 @@ export const createFile = async (req, params) => {
     }).save(null, {
       transacting: req.trx
     }))
+
   }
 
-  await file.load(['current_version.asset','current_version.asset.user.photo','current_version.asset.source','versions.asset.source','versions.user','accesses.user.photo','accesses.group','accesses.access_type'], {
+  await socket.refresh(req, [
+    `/admin/drive/folders/${file.get('folder_id') || 'drive'}`,
+    `/admin/drive/files/${file.get('code')}`,
+    '/admin/drive/folders/trash'
+  ])
+
+}
+
+export const destroyFile = async (req, file) => {
+
+  await Access.where({
+    code: file.get('code')
+  }).destroy({
+    transacting: req.trx
+  })
+
+  await file.save({
+    version_id: null
+  }, {
+    patch: true,
+    transacting: req.trx
+  })
+
+  await Version.where({
+    file_id: file.get('id')
+  }).destroy({
+    transacting: req.trx
+  })
+
+  await file.destroy({
     transacting: req.trx
   })
 
