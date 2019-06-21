@@ -24,6 +24,8 @@ const listRoute = async (req, res) => {
       const term = `%${req.query.$filter.q.toLowerCase()}%`
       qb.whereRaw('lower(sites_items.index) like ?', term)
     }
+  }).filter({
+    filter: req.query.$filter
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx

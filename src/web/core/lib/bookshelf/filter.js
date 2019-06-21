@@ -67,6 +67,7 @@ const filterPlugin = function(bookshelf) {
 
   const _filterColumn = (qb, $column, filter, options) => {
     const column = castColumn(options.tableName, $column)
+    console.log(column, filter)
     if(filter.$eq) {
       _filterEqual(qb, column, filter.$eq)
     } else if(filter.$ne) {
