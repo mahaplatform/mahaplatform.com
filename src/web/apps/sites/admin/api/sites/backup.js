@@ -1,3 +1,4 @@
+import Asset from '../../../../maha/models/asset'
 import Field from '../../../../maha/models/field'
 import Site from '../../../models/site'
 import Type from '../../../models/type'
@@ -76,6 +77,18 @@ const backupRoute = async (req, res) => {
           value[0].province,
           value[0].postalcode
         ] : ['','','','','']
+
+        if(type === 'imagefield') {
+
+          if(!value[0]) return ['']
+
+          const asset = await Asset.where('id', value[0]).fetch({
+            transacting: req.trx
+          })
+
+          return [asset.get('url')]
+
+        }
 
         if(type === 'lookup') {
 

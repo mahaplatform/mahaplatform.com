@@ -6,15 +6,36 @@ import { flatten, unflatten } from 'flat'
 import Queue from '../../../core/objects/queue'
 import knex from '../../../core/services/knex'
 import Import from '../models/import'
+import Asset from '../models/asset'
 import moment from 'moment'
 import _ from 'lodash'
+
+const getAsset = async (job, trx, url, imp) => {
+
+  const asset_match = url.match(/\/assets\/(\d*)\/.*$/)
+  if(asset_match !== null) {
+    return await Asset.where('id', asset_match[1]).fetch({
+      transacting: trx
+    })
+  }
+
+  const id_match = url.match(/^\d*$/)
+  if(id_match !== null) {
+    return await Asset.where('id', url).fetch({
+      transacting: trx
+    })
+  }
+
+  return await createAssetFromUrl(job, trx, url, imp.get('team_id'), imp.get('user_id'))
+
+}
 
 const processor = async (job, trx) => {
 
   const imp = await Import.where({
     id:job.data.id
   }).fetch({
-    transacting:trx
+    transacting: trx
   })
 
   const items = await ImportItem.where({
@@ -45,15 +66,11 @@ const processor = async (job, trx) => {
 
       const type = _.find(mapping, ['field', key]).type
 
-      if(type === 'upload' && src_values[key].length > 0){
+      if(type === 'upload' && src_values[key].length > 0) {
 
-        const asset = await createAssetFromUrl(job, trx, src_values[key], imp.get('team_id'), imp.get('user_id'))
+        const asset = await getAsset(job, trx, src_values[key], imp)
 
-        if(!asset){
-          values[key] = null
-        } else {
-          values[key] = asset.id
-        }
+        values[key] = asset ? asset.id : null
 
       } else if(type === 'relation'){
 
@@ -120,12 +137,18 @@ const processor = async (job, trx) => {
     if(object_id){
       await item.save({
         object_id: parseInt(object_id)
-      }, { patch: true, transacting: trx })
+      }, {
+        patch: true,
+        transacting: trx
+      })
     }
 
     await imp.save({
       completed_count: index+1
-    }, { patch: true, transacting: trx })
+    }, {
+      patch: true,
+      transacting: trx
+    })
 
     await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
       target: `/admin/imports/${imp.get('id')}`,
@@ -138,7 +161,10 @@ const processor = async (job, trx) => {
   await imp.save({
     created_count: items.length,
     stage: 'complete'
-  }, { patch: true, transacting: trx })
+  }, {
+    patch: true,
+    transacting: trx
+  })
 
   await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
     target: `/admin/imports/${imp.get('id')}`,
