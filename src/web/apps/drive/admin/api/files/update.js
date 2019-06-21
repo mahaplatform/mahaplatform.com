@@ -44,12 +44,12 @@ const updateRoute = async (req, res) => {
     })
   }
 
-  await file.load(['current_version.asset','current_version.asset.user.photo','current_version.asset.source','versions.asset.source','versions.user','accesses.user.photo','accesses.group','accesses.access_type'], {
+  await file.load(['folder','current_version.asset','current_version.asset.user.photo','current_version.asset.source','versions.asset.source','versions.user','accesses.user.photo','accesses.group','accesses.access_type'], {
     transacting: req.trx
   })
 
   await socket.refresh(req, [
-    `/admin/drive/folders/${file.get('folder_id') || 'drive'}`,
+    `/admin/drive/folders/${file.related('folder') ? file.related('folder').get('code') : 'drive'}`,
     `/admin/drive/files/${file.get('code')}`,
     '/admin/drive/folders/trash'
   ])

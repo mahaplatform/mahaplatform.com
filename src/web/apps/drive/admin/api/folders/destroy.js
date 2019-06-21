@@ -10,6 +10,7 @@ const destroyRoute = async (req, res) => {
   }).query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
+    withRelated: ['folder'],
     transacting: req.trx
   })
 
@@ -25,7 +26,7 @@ const destroyRoute = async (req, res) => {
   })
 
   const channels = [
-    `/admin/drive/folders/${folder.get('parent_id') || 'drive'}`,
+    `/admin/drive/folders/${folder.related('folder') ? folder.related('folder').get('code') : 'drive'}`,
     `/admin/drive/folders/${folder.get('code')}`,
     '/admin/drive/folders/trash'
   ]

@@ -1,7 +1,9 @@
 import { createAsset, updateAsset } from '../../../../maha/services/asset'
+import socket from '../../../../../core/services/routes/emitter'
 import knex from '../../../../../core/services/knex'
 import { createFile } from '../../../services/files'
 import Folder from '../../../models/folder'
+import Item from '../../../models/item'
 
 const route = async (req, res) => {
 
@@ -39,12 +41,14 @@ const route = async (req, res) => {
       file_name: label
     }, req.trx)
 
-    await createFile(req, {
+    const file = await createFile(req, {
       asset_id: asset.get('id'),
       folder_id: folder ? folder.get('id') : null
     })
 
-    console.log('CREATE-FILE', req.rawBody.length, asset.get('file_size'), asset.get('key'))
+    req.item = await Item.where('code', file.get('code')).fetch({
+      transacting: req.trx
+    })
 
   } else {
 
@@ -53,9 +57,17 @@ const route = async (req, res) => {
       file_size: req.rawBody.length === 0 ? 0 : null
     })
 
-    console.log('UPDATE-FILE', req.item.related('asset').get('file_size'), req.item.related('asset').get('key'))
-
   }
+
+  await req.item.load(['folder'], {
+    transacting: req.trx
+  })
+
+  await socket.refresh(req, [
+    `/admin/drive/folders/${req.item.related('folder') ? req.item.related('folder').get('code') : 'drive'}`,
+    `/admin/drive/files/${req.item.get('code')}`,
+    '/admin/drive/folders/trash'
+  ])
 
   res.status(200).send(null)
 

@@ -15,8 +15,6 @@ const AddLockExpiresAt = {
     })
 
     await knex.schema.table('drive_files', (table) => {
-      table.integer('dotfile_id').unsigned()
-      table.foreign('dotfile_id').references('maha_assets.id')
       table.dropColumn('locked_at')
       table.timestamp('lock_expires_at')
     })

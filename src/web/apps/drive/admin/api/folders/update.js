@@ -24,8 +24,12 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
+  await folder.load(['folder'], {
+    transacting: req.trx
+  })
+
   await socket.refresh(req, [
-    `/admin/drive/folders/${folder.get('parent_id') || 'drive'}`,
+    `/admin/drive/folders/${folder.related('folder') ? folder.related('folder').get('code') : 'drive'}`,
     `/admin/drive/folders/${folder.get('code')}`,
     '/admin/drive/folders/trash'
   ])

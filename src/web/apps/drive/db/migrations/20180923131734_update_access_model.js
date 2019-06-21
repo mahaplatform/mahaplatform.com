@@ -131,7 +131,7 @@ const UpdateAccessModel = {
 
     await Promise.mapSeries(sorted.roots, async folder => {
 
-      await propagateAccess(folder, knex)
+      await propagateAccess({ trx: knex }, folder)
 
     })
 

@@ -1,5 +1,5 @@
 import socket from '../../../../../core/services/routes/emitter'
-import knex from '../../../../../core/services/knex'
+import { restoreFromTrash } from '../../../services/items'
 import Item from '../../../models/item'
 
 const restoreAllRoute = async (req, res) => {
@@ -12,19 +12,16 @@ const restoreAllRoute = async (req, res) => {
     qb.where('drive_items_access.user_id', req.user.get('id'))
     qb.whereRaw('drive_items.deleted_at is not null and (drive_items.folder_id is null or drive_folders.deleted_at is null)')
   }).fetchAll({
+    withRelated: ['folder'],
     transacting: req.trx
-  })
+  }).then(items => items.toArray())
 
-  const codes = items.map(item => {
-    return item.get('code')
-  })
-
-  await knex('drive_files').transacting(req.trx).whereIn('code', codes).update({
-    deleted_at: null
+  await Promise.mapSeries(items, async (item) => {
+    await restoreFromTrash(req, item)
   })
 
   const folders = items.map(item => {
-    return `/admin/drive/folders/${item.get('folder_id') || 'drive'}`
+    return `/admin/drive/folders/${item.related('folder') ? item.related('folder').get('code') : 'drive'}`
   })
 
   await socket.refresh(req, [

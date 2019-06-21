@@ -8,10 +8,11 @@ const restoreRoute = async (req, res) => {
   const item = await Item.where({
     code: req.params.code
   }).fetch({
+    withRelated: ['folder'],
     transacting: req.trx
   })
 
-  await restoreFromTrash(item, req.trx)
+  await restoreFromTrash(req, item)
 
   await socket.message(req, {
     channel: '/admin/drive',
@@ -22,7 +23,7 @@ const restoreRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    `/admin/drive/folders/${item.get('folder_id') || 'drive'}`,
+    `/admin/drive/folders/${item.related('folder') ? item.related('folder').get('code') : 'drive'}`,
     `/admin/drive/files/${item.get('code')}`,
     '/admin/drive/folders/trash'
   ])

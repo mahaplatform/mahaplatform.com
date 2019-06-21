@@ -76,14 +76,44 @@ export const createFile = async (req, params) => {
   }
 
   await socket.refresh(req, [
-    `/admin/drive/folders/${file.get('folder_id') || 'drive'}`,
+    `/admin/drive/folders/${file.get('code') || 'drive'}`,
     `/admin/drive/files/${file.get('code')}`,
     '/admin/drive/folders/trash'
   ])
 
+  return file
+
+}
+
+export const renameFile = async (req, file, params) => {
+
+  await file.load(['folder'], {
+    transacting: req.trx
+  })
+
+  await file.save({
+    label: params.label,
+    fullpath: file.related('folder') ? `${file.related('folder').get('fullpath')}/${params.label}` : params.label
+  }, {
+    patch: true,
+    transacting: req.trx
+  })
+
 }
 
 export const destroyFile = async (req, file) => {
+
+  const dotfile = await _getDotFile(req, file)
+
+  await _destroyFile(req, file)
+
+  if(!dotfile) return
+
+  await _destroyFile(req, dotfile)
+
+}
+
+export const _destroyFile = async (req, file) => {
 
   await Access.where({
     code: file.get('code')
@@ -104,14 +134,33 @@ export const destroyFile = async (req, file) => {
     transacting: req.trx
   })
 
+  await file.load(['folder'], {
+    transacting: req.trx
+  })
+
+  const channels = [
+    `/admin/drive/folders/${file.related('folder') ? file.related('folder').get('code') : 'drive'}`,
+    `/admin/drive/files/${file.get('code')}`,
+    '/admin/drive/folders/trash'
+  ]
+
   await file.destroy({
     transacting: req.trx
   })
 
-  await socket.refresh(req, [
-    `/admin/drive/folders/${file.get('folder_id') || 'drive'}`,
-    `/admin/drive/files/${file.get('code')}`,
-    '/admin/drive/folders/trash'
-  ])
+  await socket.refresh(req, channels)
+
+}
+
+const _getDotFile = async (req, file) => {
+
+  return await File.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('folder_id', file.get('folder_id'))
+    qb.where('label', `._${file.get('label')}`)
+  }).fetch({
+    transacting: req.trx
+  })
 
 }

@@ -198,7 +198,6 @@ const _saveFildata = async (asset, file_data) => {
   await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
   if(asset.get('content_type').match(/image/) !== null) return
   if(asset.get('content_type').match(/octet/) !== null) return
-  console.log('generating preview', asset.get('key'))
   const previewData = await _getPreviewData(asset, normalizedData, 'jpg')
   await _saveFile(previewData, `assets/${asset.get('id')}/preview.jpg`, 'image/jpeg')
 }

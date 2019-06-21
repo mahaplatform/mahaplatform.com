@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 const logger = (req, res, next) => {
 
-  if(true || process.env.NODE_ENV === 'production') return next()
+  if(process.env.NODE_ENV === 'production') return next()
 
   const sql = []
 

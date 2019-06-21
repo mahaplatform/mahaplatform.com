@@ -1,6 +1,5 @@
 import socket from '../../../../../core/services/routes/emitter'
-import Folder from '../../../models/folder'
-import File from '../../../models/file'
+import { deleteForever } from '../../../services/items'
 import Item from '../../../models/item'
 
 const emptyRoute = async (req, res) => {
@@ -17,46 +16,7 @@ const emptyRoute = async (req, res) => {
   }).then(items => items.toArray())
 
   await Promise.map(items, async(item) => {
-
-    if(item.get('type') === 'folder') {
-
-      const folder = await Folder.where({
-        code: item.get('code')
-      }).fetch({
-        transacting: req.trx
-      })
-
-      await folder.destroy({
-        transacting: req.trx
-      })
-
-    } else {
-
-      const file = await File.where({
-        code: item.get('code')
-      }).fetch({
-        withRelated: ['versions'],
-        transacting: req.trx
-      })
-
-      await file.save({
-        version_id: null
-      }, {
-        transacting: req.trx
-      })
-
-      await Promise.map(file.related('versions').toArray(), async (version) => {
-        await version.destroy({
-          transacting: req.trx
-        })
-      })
-
-      await file.destroy({
-        transacting: req.trx
-      })
-
-    }
-
+    await deleteForever(req, item)
   })
 
   await socket.refresh(req, [

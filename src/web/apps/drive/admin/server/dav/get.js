@@ -2,8 +2,6 @@ import s3 from '../../../../../core/services/s3'
 
 const getData = async (asset) => {
 
-  console.log('GET-FILE', asset.get('file_size'), asset.get('key'))
-
   if(asset.get('file_size') === 0) return null
 
   return await s3.getObject({

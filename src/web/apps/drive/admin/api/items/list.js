@@ -37,6 +37,8 @@ const listRoute = async (req, res) => {
     qb.innerJoin('drive_access_types', 'drive_access_types.id', 'drive_items_access.access_type_id')
     qb.where('drive_items_access.user_id', req.user.get('id'))
     qb.whereNull('drive_items.deleted_at')
+    qb.whereRaw('drive_items.label not like ?', '\\.\\_%')
+    qb.whereNotIn('drive_items.label', ['.DS_Store'])
   }).filter({
     filter: req.query.$filter,
     filterParams: ['code','folder_id','type'],

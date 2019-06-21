@@ -28,7 +28,9 @@ export const loadItem = async (req, res, next) => {
   const requestURI = req.originalUrl.replace('/admin/drive/maha', '')
   const slashfree = requestURI.replace(/\/+$/, '').replace(/^\/+/, '')
   const fullpath = decodeURI(slashfree)
-  req.item = fullpath.length > 0 ? await Item.query(qb => {
+  if(fullpath.length === 0) return next()
+  if(req.method === 'MKCOL') return next()
+  req.item = await Item.query(qb => {
     qb.select('drive_items.*','drive_access_types.text as access_type')
     qb.innerJoin('drive_items_access', 'drive_items_access.code', 'drive_items.code')
     qb.innerJoin('drive_access_types', 'drive_access_types.id', 'drive_items_access.access_type_id')
@@ -39,8 +41,8 @@ export const loadItem = async (req, res, next) => {
   }).fetch({
     withRelated: ['asset','accesses'],
     transacting: req.trx
-  }) : null
-  if(req.method !== 'PUT' && fullpath.length > 0 && !req.item) {
+  })
+  if(req.method !== 'PUT' && !req.item) {
     return res.status(404).type('application/xml').send()
   }
   next()

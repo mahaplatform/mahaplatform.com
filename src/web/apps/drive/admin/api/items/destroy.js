@@ -7,15 +7,19 @@ const destroyRoute = async (req, res) => {
   const item = await Item.where({
     code: req.params.code
   }).fetch({
+    withRelated: ['folder'],
     transacting: req.trx
   })
 
-  await deleteForever(item, req.trx)
-
-  await socket.refresh(req, [
+  const channels = [
+    `/admin/drive/folders/${item.related('folder') ? item.related('folder').get('code') : 'drive'}`,
     `/admin/drive/folders/${item.get('folder_id') || 'drive'}`,
     '/admin/drive/folders/trash'
-  ])
+  ]
+
+  await deleteForever(req, item)
+
+  await socket.refresh(req, channels)
 
   res.status(200).respond(true)
 
