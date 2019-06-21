@@ -1,16 +1,16 @@
 import moment from 'moment'
 import xml from 'xml'
 
-const item_serializer = (item, props, children = []) => xml({
+const item_serializer = (req, item, props, children = []) => xml({
   'D:multistatus': [
     { _attr: { 'xmlns:D': 'DAV:' } },
-    ...item ? [ getResponse(item, props) ] : [],
-    ...children.map(child => getResponse(child, props))
+    ...item ? [ getResponse(req, item, props) ] : [],
+    ...children.map(child => getResponse(req, child, props))
   ]
 }, { declaration: true })
 
-const getResponse = (item, props) => {
-  const url = `http://mahaplatform.com/admin/drive/dav/${item.get('fullpath')}`
+const getResponse = (req, item, props) => {
+  const url = `${process.env.WEB_HOST}/admin/drive/${req.params.subdomain}/${item.get('fullpath')}`
   const found = []
   const missing = []
   if(props['D:creationdate']) {

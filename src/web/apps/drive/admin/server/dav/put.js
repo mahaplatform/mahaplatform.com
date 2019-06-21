@@ -7,13 +7,13 @@ import Item from '../../../models/item'
 
 const route = async (req, res) => {
 
-  if(req.if_token !== null && req.item && req.item.get('lock_token') !== req.if_token) {
+  if(req.if_token !== undefined && req.item && req.item.get('lock_token') !== req.if_token) {
     return res.status(403).send(null)
   }
 
   if(!req.item) {
 
-    const requestURI = req.originalUrl.replace('/admin/drive/maha', '')
+    const requestURI = req.originalUrl.replace(`/admin/drive/${req.params.subdomain}`, '')
     const slashfree = requestURI.replace(/\/+$/, '').replace(/^\/+/, '')
     const parent_path = decodeURI(slashfree).split('/')
     const label = parent_path.slice(-1)[0]
@@ -26,7 +26,10 @@ const route = async (req, res) => {
 
     if(folder) {
 
-      const access = await knex('drive_items_access').transacting(req.trx).where('code', folder.get('code')).where('user_id', req.user.get('id'))
+      const access = await knex('drive_items_access').transacting(req.trx).where({
+        code: folder.get('code'),
+        user_id: req.user.get('id')
+      })
 
       if(access.length === 0 || access[0].access_type_id === 3) return res.status(403).send(null)
 

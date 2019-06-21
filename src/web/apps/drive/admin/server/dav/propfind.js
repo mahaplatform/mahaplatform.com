@@ -5,7 +5,9 @@ const getChildren = async (req, user, item, depth) => {
 
   if(item && item.get('type') === 'file') return []
 
-  return await Item.query(qb => {
+  return await Item.scope({
+    team: req.team
+  }).query(qb => {
     if(!item) qb.whereNull('folder_id')
     if(item && item.get('type') === 'folder' && depth > 0) qb.where('folder_id', item.get('item_id'))
     qb.select('drive_items.*','drive_access_types.text as access_type')
@@ -23,7 +25,7 @@ const getChildren = async (req, user, item, depth) => {
 
 const getProps = async (req, user, item, props, depth) => {
   const children = await getChildren(req, user, item, depth)
-  return item_serializer(item, props, children)
+  return item_serializer(req, item, props, children)
 }
 
 const route = async (req, res) => {

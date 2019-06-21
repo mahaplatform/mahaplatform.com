@@ -1,38 +1,25 @@
-import { loadUser, loadTeam, loadItem, cors, loadHeaders } from './utils'
+import { authentication, cors, loadHeaders, loadItem, loadTeam, rawParser } from './utils'
 import propfind from './propfind'
+import { Router } from 'express'
 import options from './options'
 import destroy from './destroy'
 import unlock from './unlock'
-import express from 'express'
-import auth from 'http-auth'
+import mkcol from './mkcol'
 import lock from './lock'
 import move from './move'
 import copy from './copy'
-import mkcol from './mkcol'
 import put from './put'
 import get from './get'
 
-const router = express()
+const router = new Router({ mergeParams: true })
 
-router.use((req, res, next) => {
-  if(req.headers.accept !== '*/*' || req.method !== 'PUT') return next()
-  const chunks = []
-  req.on('data', function(chunk) {
-    chunks.push(chunk)
-  })
-  req.on('end', function(chunk) {
-    req.rawBody = Buffer.concat(chunks)
-    next()
-  })
-})
+router.use(rawParser)
 
 router.use(cors)
 
-router.use(auth.connect(auth.basic({
-  realm: 'MAHA'
-}, loadUser)))
-
 router.use(loadTeam)
+
+router.use(authentication)
 
 router.use(loadHeaders)
 
