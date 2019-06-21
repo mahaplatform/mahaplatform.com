@@ -9,6 +9,6 @@ router.use(transaction)
 
 router.use(logger)
 
-router.post('/', mime)
+router.get('/', mime)
 
 export default router

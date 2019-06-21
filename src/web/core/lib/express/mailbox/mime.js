@@ -8,7 +8,7 @@ const mailboxes = collectObjects('mailboxes/*')
 
 const simpleParser = Promise.promisify(require('mailparser').simpleParser)
 
-const mimeRoute = async(req, res) => {
+const mimeRoute = async (req, res) => {
 
   const mime = req.body['body-mime']
 
@@ -50,7 +50,7 @@ const mimeRoute = async(req, res) => {
   const s3 = new aws.S3()
 
   await s3.upload({
-    ACL: 'public-read',
+    ACL: 'private',
     Body: JSON.stringify(message),
     Bucket: process.env.AWS_BUCKET,
     ContentType: 'text/plain',

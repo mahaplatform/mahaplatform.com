@@ -10,11 +10,9 @@ const processor = async (job, trx) => {
 
   const s3 = new aws.S3()
 
-  const Key = `emails/${code}`
-
   const file = await s3.getObject({
     Bucket: process.env.AWS_BUCKET,
-    Key
+    Key: `emails/${code}`
   }).promise()
 
   const mailboxPath = path.join(__dirname,'..','..','..',filepath)
@@ -29,7 +27,9 @@ const processor = async (job, trx) => {
     Bucket: process.env.AWS_BUCKET,
     Delete: {
       Objects: [
-        { Key }
+        {
+          Key: `emails/${code}`
+        }
       ]
     }
   }).promise()
