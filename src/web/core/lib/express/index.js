@@ -46,7 +46,7 @@ const middleware = async () => {
 
   server.use(staticMiddleware)
 
-  server.use('/mailbox', mailboxMiddleware)
+  server.use('/mailbox_mime', mailboxMiddleware)
 
   server.use('/admin', serverMiddleware)
 
