@@ -13,13 +13,8 @@ const route = async (req, res) => {
 
   if(!req.item) {
 
-    const requestURI = req.originalUrl.replace(`/admin/drive/${req.params.subdomain}`, '')
-    const slashfree = requestURI.replace(/\/+$/, '').replace(/^\/+/, '')
-    const parent_path = decodeURI(slashfree).split('/')
-    const label = parent_path.slice(-1)[0]
-
     const folder = await Folder.where(qb => {
-      qb.where('fullpath', parent_path.slice(0,-1).join('/'))
+      qb.where('fullpath', req.fullpath)
     }).fetch({
       transacting: req.trx
     })
@@ -38,10 +33,10 @@ const route = async (req, res) => {
     const asset = await createAsset({
       team_id: req.team.get('id'),
       user_id: req.user.get('id'),
-      content_type: label[0] === '.' ? 'application/octet-stream': null,
+      content_type: req.label[0] === '.' ? 'application/octet-stream': null,
       file_data: req.rawBody.length === 0 ? null : req.rawBody,
       file_size: req.rawBody.length === 0 ? 0 : null,
-      file_name: label
+      file_name: req.label
     }, req.trx)
 
     const file = await createFile(req, {

@@ -3,6 +3,16 @@ import User from '../../../../maha/models/user'
 import Item from '../../../models/item'
 import auth from 'http-auth'
 
+export const preconditions = (req, res, next) => {
+  const requestURI = req.originalUrl.replace(`/admin/drive/${req.params.subdomain}`, '')
+  const slashfree = requestURI.replace(/\/+$/, '').replace(/^\/+/, '')
+  req.fullpath = decodeURI(slashfree)
+  req.label = req.fullpath.split('/').slice(-1)[0]
+  req.parent_path = req.fullpath.split('/').slice(0,-1).join('/')
+  if(req.label[0] === '.') return res.status(412).send(null)
+  next()
+}
+
 const loadUser = async (username, password, callback, req) => {
   const user = await User.scope({
     team: req.team
@@ -55,10 +65,7 @@ export const loadHeaders = (req, res, next) => {
 }
 
 export const loadItem = async (req, res, next) => {
-  const requestURI = req.originalUrl.replace(`/admin/drive/${req.params.subdomain}`, '')
-  const slashfree = requestURI.replace(/\/+$/, '').replace(/^\/+/, '')
-  const fullpath = decodeURI(slashfree)
-  if(fullpath.length === 0) return next()
+  if(req.fullpath.length === 0) return next()
   if(req.method === 'MKCOL') return next()
   req.item = await Item.scope({
     team: req.team
@@ -68,7 +75,7 @@ export const loadItem = async (req, res, next) => {
     qb.innerJoin('drive_access_types', 'drive_access_types.id', 'drive_items_access.access_type_id')
     qb.where('drive_items_access.user_id', req.user.get('id'))
     qb.whereNull('drive_items.deleted_at')
-    qb.where('fullpath', fullpath)
+    qb.where('fullpath', req.fullpath)
     qb.orderBy('label', 'asc')
   }).fetch({
     withRelated: ['asset','accesses'],

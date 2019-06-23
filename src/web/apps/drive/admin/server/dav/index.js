@@ -1,4 +1,4 @@
-import { authentication, cors, loadHeaders, loadItem, loadTeam, rawParser } from './utils'
+import { authentication, cors, loadHeaders, loadItem, loadTeam, preconditions, rawParser } from './utils'
 import propfind from './propfind'
 import { Router } from 'express'
 import options from './options'
@@ -14,6 +14,8 @@ import get from './get'
 const router = new Router({ mergeParams: true })
 
 router.use(rawParser)
+
+router.use(preconditions)
 
 router.use(cors)
 
