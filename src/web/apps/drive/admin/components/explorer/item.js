@@ -103,6 +103,9 @@ class Item extends React.Component {
   _handleClick(e) {
     const { item, preview } = this.props
     e.stopPropagation()
+    if(e.metaKey) console.log('meta click')
+    if(e.ctrlKey) console.log('control click')
+    if(e.shiftKey) console.log('shift click')
     if(preview.code === item.code) return this._handleDoubleClick(e)
     if(document.body.clientWidth > 768) return this._handlePreview(item)
     this._handleDoubleClick(e)
