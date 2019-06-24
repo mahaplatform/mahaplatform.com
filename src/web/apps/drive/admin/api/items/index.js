@@ -15,7 +15,7 @@ router.post('/transfer', transfer)
 
 router.get('/:code', show)
 
-router.patch('/:code/move', move)
+router.patch('/move', move)
 
 router.patch('/:code/restore', restore)
 

@@ -32,9 +32,12 @@ export const createFolder = async (req, params) => {
   })
 
   if(parent) {
-    await Promise.map(parent.related('accesses').toArray().filter(access => {
+
+    const accesses = parent.related('accesses').toArray().filter(access => {
       return access.get('user_id') !== req.user.get('id')
-    }), async access => await Access.forge({
+    })
+
+    await Promise.mapSeries(accesses, async access => await Access.forge({
       team_id: req.team.get('id'),
       code: folder.get('code'),
       is_everyone: access.get('is_everyone'),
@@ -44,9 +47,10 @@ export const createFolder = async (req, params) => {
     }).save(null, {
       transacting: req.trx
     }))
+
   }
 
-  folder.load(['folder','accesses.user.photo','accesses.group','accesses.access_type'], {
+  await folder.load(['folder','accesses.user.photo','accesses.group','accesses.access_type'], {
     transacting: req.trx
   })
 
@@ -55,6 +59,8 @@ export const createFolder = async (req, params) => {
     `/admin/drive/files/${folder.get('code')}`,
     '/admin/drive/folders/trash'
   ])
+
+  return folder
 
 }
 

@@ -22,11 +22,17 @@ class Explorer extends React.Component {
     folders: PropTypes.array,
     preview: PropTypes.object,
     q: PropTypes.string,
+    selected: PropTypes.array,
+    onAddSelected: PropTypes.func,
+    onBeginDrag: PropTypes.func,
     onChangeFolder: PropTypes.func,
+    onClearSelected: PropTypes.func,
     onCreateFile: PropTypes.func,
+    onEndDrag: PropTypes.func,
     onMoveItem: PropTypes.func,
     onFetchFolder: PropTypes.func,
     onPreview: PropTypes.func,
+    onReplaceSelected: PropTypes.func,
     onSetQuery: PropTypes.func,
     onShowDetails: PropTypes.func,
     onTasks: PropTypes.func,
@@ -122,14 +128,19 @@ class Explorer extends React.Component {
   }
 
   _getItems() {
-    const { onCreateFile, onMoveItem, onPreview, onTasks, onUpdateFile } = this.props
+    const { onAddSelected, onBeginDrag, onClearSelected, onCreateFile, onEndDrag, onMoveItem, onReplaceSelected, onPreview, onTasks, onUpdateFile } = this.props
     return {
       folder: {
         code: 'search'
       },
+      onAddSelected,
+      onBeginDrag,
+      onClearSelected,
       onCreateFile,
+      onEndDrag,
       onMoveItem,
       onPreview,
+      onReplaceSelected,
       onTasks,
       onUpdateFile,
       onChangeFolder: this._handleChangeFolder
@@ -147,11 +158,16 @@ class Explorer extends React.Component {
   }
 
   _getFolder(folder) {
-    const { onCreateFile, onPreview, onUpdateFile, onUp, onShowDetails } = this.props
+    const { onAddSelected, onBeginDrag, onClearSelected, onCreateFile, onEndDrag, onPreview, onReplaceSelected, onUpdateFile, onUp, onShowDetails } = this.props
     return {
       folder,
+      onAddSelected,
+      onBeginDrag,
+      onClearSelected,
       onCreateFile,
+      onEndDrag,
       onPreview,
+      onReplaceSelected,
       onUpdateFile,
       onUp,
       onShowDetails,
@@ -210,12 +226,15 @@ class Explorer extends React.Component {
     this.props.onFetchFolder(code)
   }
 
-  _handleMoveItem(source, target) {
+  _handleMoveItem(target) {
+    const { selected } = this.props
     const { alert, confirm } = this.context
-    if(source.access_type === 'view') return alert.open('You do not have permission to move this file to another folder')
+    const codes = selected.map(item => item.code)
+    // if(source.access_type === 'view') return alert.open('You do not have permission to move this file to another folder')
     if(target.access_type === 'view') return alert.open('You do not have permission to move files to this folder')
-    const yes = () => this.props.onMoveItem(source.code, target.item_id)
-    const message = <span>Are you sure you want to move <strong>{source.label}</strong> to the folder <strong>{target.label}</strong>?</span>
+    const yes = () => this.props.onMoveItem(codes, target.item_id)
+    //<strong>{source.label}</strong>
+    const message = <span>Are you sure you want to move these files to the folder <strong>{target.label}</strong>?</span>
     confirm.open(message, yes)
   }
 

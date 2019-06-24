@@ -20,24 +20,41 @@
   left: 0;
   top: 0;
   border-radius: 0.3em;
+  display: flex;
+}
+.drive-drag-layer-inner {
+  flex: 1;
   padding: 0.8em;
+  position: relative;
+}
+.drive-drag-layer-thumbnail {
+  display: inline-block;
+  margin: 0 0.8em 0 0;
   .fa-folder { color: @yellow; }
-  .drive-drag-layer-thumbnail {
-    display: inline-block;
-    margin: 0 0.8em 0 0;
-  }
-  .maha-asset-thumbnail {
-    width: 20px;
-    height: 20px;
-    overflow: hidden;
-    margin-bottom: -0.4em;
-    img {
-      display: block;
-      width: 100%;
-    }
+}
+.maha-asset-thumbnail {
+  width: 20px;
+  height: 20px;
+  overflow: hidden;
+  margin-bottom: -0.4em;
+  img {
+    display: block;
+    width: 100%;
   }
 }
-
+.drive-drag-layer-count {
+  position: absolute;
+  top: -0.8em;
+  right: -0.8em;
+  border-radius: 50%;
+  background-color: @red;
+  color: @white;
+  display: block;
+  width: 1.6em;
+  height: 1.6em;
+  text-align: center;
+  line-height: 1.6em;
+}
 .drive-main {
   flex: 1;
   display: flex;
@@ -165,6 +182,7 @@
   .hover(background-color, fadeout(@black, 97));
   &.selected {
     background-color: fadeout(@blue, 90);
+    color: darken(@blue, 10);
   }
   &.over {
     box-shadow: inset 0 0 0 2px @blue;

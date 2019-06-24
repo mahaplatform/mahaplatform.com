@@ -1,15 +1,32 @@
 import specials from '../specials'
+import _ from 'lodash'
 
 export const INITIAL_STATE = {
+  dragging: false,
   details: false,
   folders: [ specials.root ],
   q: '',
-  preview: specials.root
+  preview: specials.root,
+  selected: []
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
+
+  case 'BEGIN_DRAG':
+    return {
+      ...state,
+      dragging: true
+
+    }
+
+  case 'END_DRAG':
+    return {
+      ...state,
+      dragging: false
+
+    }
 
   case 'CHANGE_FOLDER':
     return {
@@ -18,7 +35,8 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state.folders,
         action.folder
       ],
-      q: ''
+      q: '',
+      selected: []
     }
 
   case 'FETCH_FOLDER_SUCCESS':
@@ -50,6 +68,26 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       preview: action.item
+    }
+
+  case 'ADD_SELECTED':
+    return {
+      ...state,
+      selected: [
+        ..._.xorBy(state.selected, [action.item], (item) => item.code)
+      ]
+    }
+
+  case 'CLEAR_SELECTED':
+    return {
+      ...state,
+      selected: []
+    }
+
+  case 'REPLACE_SELECTED':
+    return {
+      ...state,
+      selected: action.item
     }
 
   case 'SHOW_DETAILS':

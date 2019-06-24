@@ -9,7 +9,8 @@ class CustomDragLayer extends React.Component {
     clientOffset: PropTypes.object,
     isDragging: PropTypes.bool,
     item: PropTypes.object,
-    itemType: PropTypes.string
+    itemType: PropTypes.string,
+    selected: PropTypes.array
   }
 
   render() {
@@ -17,13 +18,20 @@ class CustomDragLayer extends React.Component {
     if(!isDragging) return null
     return (
       <div className="drive-drag-layer" style={ this._getStyle() }>
-        <div className="drive-drag-layer-thumbnail">
-          { item.type === 'folder' ?
-            <i className="fa fa-fw fa-folder" /> :
-            <AssetThumbnail { ...item.asset } />
+        <div className="drive-drag-layer-inner">
+          { item.selected.length > 1 &&
+            <div className="drive-drag-layer-count">
+              { item.selected.length }
+            </div>
           }
+          <div className="drive-drag-layer-thumbnail">
+            { item.type === 'folder' ?
+              <i className="fa fa-fw fa-folder" /> :
+              <AssetThumbnail { ...item.asset } />
+            }
+          </div>
+          { item.label }
         </div>
-        { item.label }
       </div>
     )
   }

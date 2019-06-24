@@ -1,55 +1,56 @@
-import ItemSerializer from '../../../serializers/item_serializer'
 import socket from '../../../../../core/services/routes/emitter'
 import Folder from '../../../models/folder'
 import File from '../../../models/file'
 import Item from '../../../models/item'
 
+const models = {
+  file: { model: File, foreign_key: 'folder_id' },
+  folder: { model: Folder, foreign_key: 'parent_id' }
+}
+
 const moveRoute = async (req, res) => {
 
-  const item = await Item.where({
-    code: req.params.code
+  const folder = await Folder.where({
+    id: req.body.folder_id
   }).fetch({
     transacting: req.trx
   })
 
-  if(item.get('type') === 'folder') {
+  await Promise.mapSeries(req.body.codes, async (code) => {
 
-    const element = await Folder.where({
+    const item = await Item.where({
+      code
+    }).fetch({
+      withRelated: ['folder'],
+      transacting: req.trx
+    })
+
+    const model = models[item.get('type')]
+
+    const element = await model.model.where({
       id: item.get('item_id')
     }).fetch({
       transacting: req.trx
     })
 
     await element.save({
-      parent_id: req.body.folder_id
+      [model.foreign_key]: req.body.folder_id
     }, {
       patch: true,
       transacting: req.trx
     })
 
-  } else {
+    await socket.refresh(req, [
+      `/admin/drive/folders/${item.related('folder').get('code') || 'drive'}`
+    ])
 
-    const element = await File.where({
-      id: item.get('item_id')
-    }).fetch({
-      transacting: req.trx
-    })
-
-    await element.save({
-      folder_id: req.body.folder_id
-    }, {
-      patch: true,
-      transacting: req.trx
-    })
-
-  }
+  })
 
   await socket.refresh(req, [
-    `/admin/drive/folders/${item.get('folder_id') || 'drive'}`,
-    `/admin/drive/folders/${req.body.folder_id || 'drive'}`
+    `/admin/drive/folders/${folder.get('code') || 'drive'}`
   ])
 
-  res.status(200).respond(item, ItemSerializer)
+  res.status(200).respond(true)
 
 }
 

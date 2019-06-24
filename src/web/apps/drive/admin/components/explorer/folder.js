@@ -18,11 +18,16 @@ class Folder extends React.Component {
     active: PropTypes.bool,
     folder: PropTypes.object,
     records: PropTypes.array,
+    onAddSelected: PropTypes.func,
+    onBeginDrag: PropTypes.func,
+    onClearSelected: PropTypes.func,
     onChangeFolder: PropTypes.func,
     onCreateFile: PropTypes.func,
+    onEndDrag: PropTypes.func,
     onMoveItem: PropTypes.func,
     onDrive: PropTypes.func,
     onPreview: PropTypes.func,
+    onReplaceSelected: PropTypes.func,
     onShowDetails: PropTypes.func,
     onShared: PropTypes.func,
     onStarred: PropTypes.func,
@@ -213,13 +218,18 @@ class Folder extends React.Component {
   }
 
   _getItems() {
-    const { folder, onChangeFolder, onCreateFile, onMoveItem, onPreview, onTasks, onUpdateFile } = this.props
+    const { folder, onAddSelected, onBeginDrag, onChangeFolder, onClearSelected, onCreateFile, onEndDrag, onMoveItem, onPreview, onReplaceSelected, onTasks, onUpdateFile } = this.props
     return {
       folder,
+      onAddSelected,
+      onBeginDrag,
       onChangeFolder,
+      onClearSelected,
       onCreateFile,
+      onEndDrag,
       onMoveItem,
       onPreview,
+      onReplaceSelected,
       onTasks,
       onUpdateFile
     }
@@ -258,7 +268,8 @@ class Folder extends React.Component {
   }
 
   _handlePreview() {
-    const { folder, onPreview } = this.props
+    const { folder, onPreview, onClearSelected } = this.props
+    onClearSelected()
     onPreview(folder)
   }
 

@@ -27,11 +27,11 @@ export const updateFile = (code, asset_id) => ({
   failure: 'UPDATE_FILE_FAILURE'
 })
 
-export const moveItem = (code, folder_id) => ({
+export const moveItem = (codes, folder_id) => ({
   type: 'API_REQUEST',
   method: 'PATCH',
-  endpoint: `/api/admin/drive/items/${code}/move`,
-  body: { folder_id },
+  endpoint: '/api/admin/drive/items/move',
+  body: { codes, folder_id },
   request: 'MOVE_REQUEST',
   success: 'MOVE_SUCCESS',
   failure: 'MOVE_FAILURE'
@@ -55,6 +55,20 @@ export const setQuery = (q) => ({
   q
 })
 
+export const addSelected = (item) => ({
+  type: 'ADD_SELECTED',
+  item
+})
+
+export const clearSelected = (item) => ({
+  type: 'CLEAR_SELECTED'
+})
+
+export const replaceSelected = (item) => ({
+  type: 'REPLACE_SELECTED',
+  item
+})
+
 export const preview = (item) => ({
   type: 'PREVIEW',
   item
@@ -63,4 +77,12 @@ export const preview = (item) => ({
 export const showDetails = (show) => ({
   type: 'SHOW_DETAILS',
   show
+})
+
+export const beginDrag = () => ({
+  type: 'BEGIN_DRAG'
+})
+
+export const endDrag = () => ({
+  type: 'END_DRAG'
 })

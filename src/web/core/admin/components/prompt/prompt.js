@@ -22,7 +22,7 @@ class Prompt extends React.Component {
     message: PropTypes.string,
     open: PropTypes.bool,
     options: PropTypes.array,
-    title: PropTypes.string,
+    title: PropTypes.any,
     onClear: PropTypes.func,
     onClose: PropTypes.func,
     onOpen: PropTypes.func
