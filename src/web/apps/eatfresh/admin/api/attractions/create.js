@@ -22,8 +22,8 @@ const createRoute = async (req, res) => {
     related: 'categories',
     table: 'eatfresh_categories_attractions',
     ids: req.body.category_ids,
-    primary_key: 'attraction_id',
-    foreign_key: 'category_id'
+    foreign_key: 'attraction_id',
+    related_foreign_key: 'category_id'
   })
 
   await updateRelated(req, {
@@ -31,8 +31,8 @@ const createRoute = async (req, res) => {
     related: 'offerings',
     table: 'eatfresh_offerings_attractions',
     ids: req.body.offering_ids,
-    primary_key: 'attraction_id',
-    foreign_key: 'offering_id'
+    foreign_key: 'attraction_id',
+    related_foreign_key: 'offering_id'
   })
 
   await activity(req, {

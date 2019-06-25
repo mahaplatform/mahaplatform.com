@@ -26,7 +26,7 @@ const Supervisor = new Model({
   },
 
   employees() {
-    return this.belongsToMany(User, 'maha_supervisions', 'supervisor_id', 'employee_id')
+    return this.belongsToMany(User, 'maha_supervisions', 'supervisor_id', 'employee_id', 'user_id')
   },
 
   user() {

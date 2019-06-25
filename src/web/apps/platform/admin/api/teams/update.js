@@ -27,8 +27,8 @@ const updateRoute = async (req, res) => {
     related: 'apps',
     table: 'maha_teams_apps',
     ids: req.body.app_ids,
-    primary_key: 'team_id',
-    foreign_key: 'app_id'
+    foreign_key: 'team_id',
+    related_foreign_key: 'app_id'
   })
 
   await socket.refresh(req, [

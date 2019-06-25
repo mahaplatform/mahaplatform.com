@@ -3,7 +3,9 @@ import _ from 'lodash'
 
 export const updateRelated = async (req, options) => {
 
-  const { object, related, table, ids, primary_key, foreign_key } = options
+  const { object, related, table, ids, foreign_key, related_foreign_key } = options
+
+  const primary_key = options.primary_key || 'id'
 
   if(!ids) return
 
@@ -23,15 +25,13 @@ export const updateRelated = async (req, options) => {
     return !_.includes(existing_ids, id)
   })
 
-  console.log(ids, existing_ids, remove_ids, add_ids)
-
   if(remove_ids.length > 0) await knex(table).transacting(req.trx).where({
-    [primary_key]: object.get('id')
-  }).whereIn(foreign_key, remove_ids).delete()
+    [foreign_key]: object.get(primary_key)
+  }).whereIn(related_foreign_key, remove_ids).delete()
 
   if(add_ids.length > 0) await knex(table).transacting(req.trx).insert(add_ids.map(id => ({
-    [primary_key]: object.get('id'),
-    [foreign_key]: id
+    [foreign_key]: object.get(primary_key),
+    [related_foreign_key]: id
   })))
 
 }

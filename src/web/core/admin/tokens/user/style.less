@@ -24,15 +24,17 @@
     color: @black !important;
   }
 }
-.compact-user-token-details {
-  padding: 0.8em 0.8em 0.8em 0;
-}
 .user-token-details {
   padding: 0.8em 0.8em 0.8em 0;
 
 }
 .compact-user-token-details {
-  line-height: 2.3em;
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+}
+.compact-user-token-details-inner {
+  margin: auto 0;
+  line-height: 1.2em;
 }
 .user-token-badge {
   position: absolute;
@@ -52,4 +54,10 @@
   &.completed {
     background-color: @red;
   }
+}
+.compact-user-token-activity {
+  color: @red;
+  margin-left: 5px;
+  font-size: 0.8em;
+  line-height: 2em;
 }

@@ -8,7 +8,12 @@ const CompactUserToken = (props) => (
       <Avatar user={ props } width="40" presence={ props.presence } />
     </div>
     <div className="compact-user-token-details">
-      { (props.id === props.user_id) ? 'You' : props.full_name }
+      <div className="compact-user-token-details-inner">
+        { (props.id === props.user_id) ? 'You' : props.full_name }
+        { props.is_active === false && <span className="compact-user-token-activity">
+          INACTIVE
+        </span> }
+      </div>
     </div>
   </div>
 )
@@ -16,6 +21,7 @@ const CompactUserToken = (props) => (
 CompactUserToken.propTypes = {
   full_name: PropTypes.string,
   id: PropTypes.number,
+  is_active: PropTypes.bool,
   presence: PropTypes.bool,
   user_id: PropTypes.number
 }

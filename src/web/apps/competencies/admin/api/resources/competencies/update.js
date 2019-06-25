@@ -22,8 +22,8 @@ const updateRoute = async (req, res) => {
     related: 'competencies',
     table: 'competencies_competencies_resources',
     ids: req.body.assignments.map(assignment => assignment.competency_id),
-    primary_key: 'resource_id',
-    foreign_key: 'competency_id'
+    foreign_key: 'resource_id',
+    related_foreign_key: 'competency_id'
   })
 
   await socket.refresh(req, [

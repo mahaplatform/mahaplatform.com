@@ -32,7 +32,7 @@ const completeRoute = async (req, res) => {
   })
 
   await audit(req, {
-    story: 'approved',
+    story: 'completed',
     auditable: plan
   })
 

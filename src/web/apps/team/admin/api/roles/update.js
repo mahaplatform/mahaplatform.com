@@ -30,8 +30,8 @@ const updateRoute = async (req, res) => {
     related: 'apps',
     table: 'maha_roles_apps',
     ids: req.body.assignments.app_ids,
-    primary_key: 'role_id',
-    foreign_key: 'app_id'
+    foreign_key: 'role_id',
+    related_foreign_key: 'app_id'
   })
 
   await updateRelated(req, {

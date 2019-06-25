@@ -22,8 +22,8 @@ const updateRoute = async (req, res) => {
     related: 'users',
     table: 'maha_users_roles',
     ids: req.body.assignments.map(assignment => assignment.user_id),
-    primary_key: 'role_id',
-    foreign_key: 'user_id'
+    foreign_key: 'role_id',
+    related_foreign_key: 'user_id'
   })
 
   await socket.refresh(req, [

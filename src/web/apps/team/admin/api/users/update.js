@@ -29,8 +29,8 @@ const updateRoute = async (req, res) => {
     related: 'roles',
     table: 'maha_users_roles',
     ids: req.body.role_ids,
-    primary_key: 'user_id',
-    foreign_key: 'role_id'
+    foreign_key: 'user_id',
+    related_foreign_key: 'role_id'
   })
 
   await updateRelated(req, {
@@ -38,8 +38,8 @@ const updateRoute = async (req, res) => {
     related: 'groups',
     table: 'maha_users_groups',
     ids: req.body.group_ids,
-    primary_key: 'user_id',
-    foreign_key: 'group_id'
+    foreign_key: 'user_id',
+    related_foreign_key: 'group_id'
   })
 
   await updateRelated(req, {
@@ -47,8 +47,8 @@ const updateRoute = async (req, res) => {
     related: 'supervisors',
     table: 'maha_supervisions',
     ids: req.body.supervisor_ids,
-    primary_key: 'employee_id',
-    foreign_key: 'supervisor_id'
+    foreign_key: 'employee_id',
+    related_foreign_key: 'supervisor_id'
   })
 
   await activity(req, {
