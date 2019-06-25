@@ -1,7 +1,7 @@
 import commitments from './commitments'
-import complete from './complete'
+import employees from './employees'
 import { Router } from 'express'
-import approve from './approve'
+import action from './action'
 import create from './create'
 import update from './update'
 import report from './report'
@@ -18,18 +18,18 @@ router.post('/', create)
 
 router.get('/report', report)
 
+router.get('/employees', employees)
+
 router.get('/:id', show)
 
 router.patch('/:id', update)
 
 router.get('/:id/edit', edit)
 
-router.patch('/:id/approve', approve)
-
-router.patch('/:id/complete', complete)
-
 router.use('/:plan_id/commitments', commitments)
 
 router.use('/:plan_id/goals', goals)
+
+router.patch('/:id/:action', action)
 
 export default router

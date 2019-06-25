@@ -33,7 +33,7 @@ class EmployeePlanEdit extends React.Component {
         {
           fields: [
             { label: 'Due', name: 'due', type: 'datefield', required: true },
-            { label: 'Reminders', name: 'reminders', type: NotifiyMe }
+            { label: 'Send me a reminder', name: 'reminders', type: NotifiyMe }
           ]
         }
       ]

@@ -22,7 +22,7 @@ class Expectations extends React.Component {
     const { classification, expectations } = this.props
     return {
       action: `/api/admin/competencies/classifications/${classification.id}/expectations`,
-      defaultValue: expectations,
+      defaultValue: expectations.map(competency => ({ competency })),
       assignedEndpoint: `/api/admin/competencies/classifications/${classification.id}/expectations`,
       assignedFormat: (assignment) => <CompetencyToken {...assignment.competency} />,
       unassignedEndpoint: '/api/admin/competencies/competencies',

@@ -13,7 +13,6 @@ const RemovePlans = {
       table.boolean('remind_me_day').defaultTo(false)
     })
 
-
   },
 
   down: async (knex) => {

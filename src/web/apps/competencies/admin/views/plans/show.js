@@ -16,16 +16,19 @@ const Details = ({ plan }) => {
 
   if(plan.status === 'active') list.alert = { color: 'green', message: 'This plan is active' }
 
-  if(plan.status === 'complete') list.alert = { color: 'blue', message: 'This plan is complete' }
+  if(plan.status === 'submitted') list.alert = { color: 'blue', message: 'This plan is submitted' }
+
+  if(plan.status === 'completed') list.alert = { color: 'purple', message: 'This plan is complete' }
 
   list.items = [
     { label: 'Supervisor', content: plan.supervisor.full_name },
     { label: 'Employee', content: plan.employee.full_name },
     { label: 'Due', content: moment(plan.due).format('MMMM DD, YYYY') },
     { label: 'Reminders', content: <div>
-      { !plan.remind_me_week && !plan.remind_me_day && <span>NONE</span>}
-      { plan.remind_me_week && <div>1 week before this plan is due</div>}
-      { plan.remind_me_day && <div>1 day before this plan is due</div>}
+      { !plan.remind_me_4_weeks && !plan.remind_me_2_weeks && !plan.remind_me_1_week && <span>NONE</span>}
+      { plan.remind_me_4_weeks && <div>4 weeks before this plan is due</div> }
+      { plan.remind_me_2_weeks && <div>2 weeks before this plan is due</div> }
+      { plan.remind_me_1_week && <div>1 week before this plan is due</div> }
     </div> },
     { component: <Audit entries={ plan.audit } /> }
   ]
@@ -40,7 +43,7 @@ Details.propTypes = {
   plan: PropTypes.object
 }
 
-const Goals = ({ plan, goals }) => {
+const Goals = ({ user, plan, goals }) => {
 
   const list = {
     items: goals.map(goal => ({
@@ -52,12 +55,12 @@ const Goals = ({ plan, goals }) => {
       title: 'No goals',
       text: 'There are no goals for this plan',
       button: {
-        label: 'Manage Goals',
+        label: 'Set Goals',
         modal: <SetGoals plan={ plan } goals={ goals } />
       }
     },
-    buttons: goals.length > 0 && plan.status === 'pending' ? [
-      { label: 'Manage Goals', color: 'blue', modal: <SetGoals plan={ plan } goals={ goals } /> }
+    buttons: goals.length > 0 && plan.status !== 'completed' && (plan.status === 'pending' || user.id === plan.supervisor_id) ? [
+      { label: 'Set Goals', color: 'blue', modal: <SetGoals plan={ plan } goals={ goals } /> }
     ]: null
   }
 
@@ -67,10 +70,11 @@ const Goals = ({ plan, goals }) => {
 
 Goals.propTypes = {
   plan: PropTypes.object,
-  goals: PropTypes.array
+  goals: PropTypes.array,
+  user: PropTypes.object
 }
 
-const Commitments = ({ plan, commitments } ) => {
+const Commitments = ({ user, plan, commitments } ) => {
 
   const list = {
     items: commitments.map(commitment => ({
@@ -82,12 +86,12 @@ const Commitments = ({ plan, commitments } ) => {
       title: 'No commitments',
       text: 'There are no commitments for this plan',
       button: {
-        label: 'Manage Commitments',
+        label: 'Make Commitments',
         modal: <SetCommitments plan={ plan } commitments={ commitments } />
       }
     },
-    buttons: commitments.length > 0 && plan.status === 'pending' ? [
-      { label: 'Manage Commitments', color: 'blue', modal: <SetCommitments plan={ plan } commitments={ commitments } /> }
+    buttons: commitments.length > 0 && plan.status !== 'completed' && (plan.status === 'pending' || user.id === plan.supervisor_id) ? [
+      { label: 'Make Commitments', color: 'blue', modal: <SetCommitments plan={ plan } commitments={ commitments } /> }
     ]: null
   }
 
@@ -97,47 +101,68 @@ const Commitments = ({ plan, commitments } ) => {
 
 Commitments.propTypes = {
   plan: PropTypes.object,
-  commitments: PropTypes.array
+  commitments: PropTypes.array,
+  user: PropTypes.object
 }
 
 const itemTasks = (user, plan, goals, commitments) => {
 
   const items = []
 
-  items.push({ label: 'Edit Plan', modal: <Edit plan={ plan } /> })
-  items.push({ label: 'Manage Goals', modal: <SetGoals plan={ plan } goals={ goals } /> })
-  items.push({ label: 'Manage Commitments', modal: <SetCommitments plan={ plan } commitments={ commitments } /> })
+  if(plan.status !== 'completed' && (plan.status === 'pending' || user.id === plan.supervisor_id)) {
+    items.push({ label: 'Edit Plan', modal: <Edit plan={ plan } /> })
+  }
+  if(goals.length > 0 && plan.status !== 'completed' && (plan.status === 'pending' || user.id === plan.supervisor_id)) {
+    items.push({ label: 'Set Goals', modal: <SetGoals plan={ plan } goals={ goals } /> })
+  }
+  if(commitments.length > 0 && plan.status !== 'completed' && (plan.status === 'pending' || user.id === plan.supervisor_id)) {
+    items.push({ label: 'Make Commitments', modal: <SetCommitments plan={ plan } commitments={ commitments } /> })
+  }
 
-  return { items }
+  return items.length > 0 ? { items } : null
 
 }
 
-const itemButtons = (user, plan) => {
+const itemButtons = (user, plan, goals, commitments) => {
 
-  if(plan.status === 'pending' && plan.supervisor_id === user.id) {
-    return [
-      {
-        color: 'green',
-        text: 'Approve Plan',
-        request: {
-          endpoint: `/api/admin/competencies/plans/${plan.id}/approve`,
-          method: 'patch'
-        }
+  if(plan.status === 'pending' && plan.supervisor_id === user.id && goals.length > 0 && commitments.length > 0) {
+    return [{
+      color: 'green',
+      text: 'Approve Plan',
+      request: {
+        endpoint: `/api/admin/competencies/plans/${plan.id}/approve`,
+        method: 'patch'
       }
-    ]
+    }]
   }
 
   if(plan.status === 'active' && plan.employee_id === user.id) {
-    return [
-      {
-        color: 'green',
-        text: 'Complete Plan',
-        request: {
-          endpoint: `/api/admin/competencies/plans/${plan.id}/complete`,
-          method: 'patch'
-        }
+    return [{
+      color: 'blue',
+      text: 'Submit Plan',
+      request: {
+        endpoint: `/api/admin/competencies/plans/${plan.id}/submit`,
+        method: 'patch'
       }
-    ]
+    }]
+  }
+
+  if(plan.status === 'submitted' && plan.supervisor_id === user.id) {
+    return [{
+      color: 'red',
+      text: 'Reopen Plan',
+      request: {
+        endpoint: `/api/admin/competencies/plans/${plan.id}/reopen`,
+        method: 'patch'
+      }
+    },{
+      color: 'purple',
+      text: 'Complete Plan',
+      request: {
+        endpoint: `/api/admin/competencies/plans/${plan.id}/complete`,
+        method: 'patch'
+      }
+    }]
   }
 
   return null
@@ -154,12 +179,12 @@ const mapPropsToPage = (props, context, resources, page) => ({
   tabs: {
     items: [
       { label: 'Details', component: <Details plan={ resources.plan } /> },
-      { label: 'Goals', component: <Goals plan={ resources.plan } goals={ resources.goals } /> },
-      { label: 'Commitments', component: <Commitments plan={ resources.plan } commitments={ resources.commitments } /> }
+      { label: 'Goals', component: <Goals user={ props.user } plan={ resources.plan } goals={ resources.goals } /> },
+      { label: 'Commitments', component: <Commitments user={ props.user } plan={ resources.plan } commitments={ resources.commitments } /> }
     ]
   },
   tasks: itemTasks(props.user, resources.plan, resources.goals, resources.commitments),
-  buttons: itemButtons(props.user, resources.plan)
+  buttons: itemButtons(props.user, resources.plan, resources.goals, resources.commitments)
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

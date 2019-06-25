@@ -14,38 +14,46 @@ class Mute extends React.Component {
   }
 
   state = {
-    remind_me_week: true,
-    remind_me_day: true
+    remind_me_4_weeks: true,
+    remind_me_2_weeks: true,
+    remind_me_1_week: true
   }
 
-  _handleChange = this._handleChange.bind(this)
-  _handleToggleWeek = this._handleToggleWeek.bind(this)
-  _handleToggleDay = this._handleToggleDay.bind(this)
-
   render() {
-    const { remind_me_week, remind_me_day } = this.state
+    const { remind_me_4_weeks, remind_me_2_weeks, remind_me_1_week } = this.state
     return (
       <div className="maha-preferences">
-        <div className="maha-preference" onClick={ this._handleToggleWeek }>
+        <div className="maha-preference" onClick={ this._handleToggle.bind(this, 'remind_me_4_weeks') }>
           <div className="maha-preference-icon">
-            { remind_me_week ?
+            { remind_me_4_weeks ?
               <i className="fa fa-fw fa-check-circle" /> :
               <i className="fa fa-fw fa-circle-o" />
             }
           </div>
           <div className="maha-preference-label">
-            Remind me 1 week before this plan is due
+            4 weeks before this plan is due
           </div>
         </div>
-        <div className="maha-preference" onClick={ this._handleToggleDay }>
+        <div className="maha-preference" onClick={ this._handleToggle.bind(this, 'remind_me_2_weeks') }>
           <div className="maha-preference-icon">
-            { remind_me_day ?
+            { remind_me_2_weeks ?
               <i className="fa fa-fw fa-check-circle" /> :
               <i className="fa fa-fw fa-circle-o" />
             }
           </div>
           <div className="maha-preference-label">
-            Remind me 1 day before this plan is due
+            2 weeks before this plan is due
+          </div>
+        </div>
+        <div className="maha-preference" onClick={ this._handleToggle.bind(this, 'remind_me_1_week') }>
+          <div className="maha-preference-icon">
+            { remind_me_1_week ?
+              <i className="fa fa-fw fa-check-circle" /> :
+              <i className="fa fa-fw fa-circle-o" />
+            }
+          </div>
+          <div className="maha-preference-label">
+            1 week before this plan is due
           </div>
         </div>
       </div>
@@ -60,38 +68,21 @@ class Mute extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { remind_me_week, remind_me_week_amount, remind_me_day, remind_me_day_amount } = this.state
-    if(remind_me_week !== prevState.remind_me_week) {
+    const { remind_me_4_weeks, remind_me_2_weeks, remind_me_1_week } = this.state
+    if(remind_me_4_weeks !== prevState.remind_me_4_weeks) {
       this.props.onChange(this.state)
     }
-    if(remind_me_week_amount !== prevState.remind_me_week_amount) {
+    if(remind_me_2_weeks !== prevState.remind_me_2_weeks) {
       this.props.onChange(this.state)
     }
-    if(remind_me_day !== prevState.remind_me_day) {
-      this.props.onChange(this.state)
-    }
-    if(remind_me_day_amount !== prevState.remind_me_day_amount) {
+    if(remind_me_1_week !== prevState.remind_me_1_week) {
       this.props.onChange(this.state)
     }
   }
 
-  _handleChange(type, time) {
+  _handleToggle(key) {
     this.setState({
-      [type]: time
-    })
-  }
-
-  _handleToggleWeek() {
-    const { remind_me_week } = this.state
-    this.setState({
-      remind_me_week: !remind_me_week
-    })
-  }
-
-  _handleToggleDay() {
-    const { remind_me_day } = this.state
-    this.setState({
-      remind_me_day: !remind_me_day
+      [key]: !this.state[key]
     })
   }
 

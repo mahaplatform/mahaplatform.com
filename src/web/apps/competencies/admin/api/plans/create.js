@@ -13,8 +13,9 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     employee_id: req.user.get('id'),
     status: 'pending',
-    remind_me_week: req.body.reminders.remind_me_week,
-    remind_me_day: req.body.reminders.remind_me_week,
+    remind_me_4_weeks: req.body.reminders.remind_me_4_weeks,
+    remind_me_2_weeks: req.body.reminders.remind_me_2_weeks,
+    remind_me_1_week: req.body.reminders.remind_me_1_week,
     ...whitelist(req.body, ['due','supervisor_id'])
   }).save(null, {
     transacting: req.trx

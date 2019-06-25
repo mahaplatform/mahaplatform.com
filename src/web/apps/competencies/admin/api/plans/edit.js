@@ -18,8 +18,9 @@ const editRoute = async (req, res) => {
   res.status(200).respond(plan, (req, plan) => ({
     due: plan.get('due'),
     reminders: {
-      remind_me_week: plan.get('remind_me_week'),
-      remind_me_day: plan.get('remind_me_day')
+      remind_me_4_weeks: plan.get('remind_me_4_weeks'),
+      remind_me_2_weeks: plan.get('remind_me_2_weeks'),
+      remind_me_1_week: plan.get('remind_me_1_week')
     }
   }))
 

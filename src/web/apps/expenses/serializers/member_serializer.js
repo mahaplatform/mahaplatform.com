@@ -14,7 +14,8 @@ const user = (user) => {
     full_name: user.get('full_name'),
     initials: user.get('initials'),
     photo: user.related('photo').get('path'),
-    email: user.get('email')
+    email: user.get('email'),
+    is_active: user.get('is_active')
   }
 
 }

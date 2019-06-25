@@ -9,8 +9,9 @@ const planSerializer = (req, result) => ({
   goal_count: result.related('goals').length,
   commitment_count: result.related('commitments').length,
   status: result.get('status'),
-  remind_me_week: result.get('remind_me_week'),
-  remind_me_day: result.get('remind_me_day'),
+  remind_me_4_weeks: result.get('remind_me_4_weeks'),
+  remind_me_2_weeks: result.get('remind_me_2_weeks'),
+  remind_me_1_week: result.get('remind_me_1_week'),
   audit: result.related('audit').map(entry => audit(entry)),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

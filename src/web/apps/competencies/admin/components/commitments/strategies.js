@@ -21,28 +21,6 @@ class Strategies extends React.Component {
               <Message { ...this._getOverview() } />
             </div>
             <div className="competencies-resources-strategies-body">
-              <div className="competencies-resources-item" onClick={ this._handleChoose.bind(this, 'classification') }>
-                <div className="competencies-resources-item-toggle">
-                  <i className="fa fa-fw fa-briefcase" />
-                </div>
-                <div className="competencies-resources-item-detail">
-                  Assign by classification
-                </div>
-                <div className="competencies-resources-item-proceed">
-                  <i className="fa fa-chevron-right" />
-                </div>
-              </div>
-              <div className="competencies-resources-item" onClick={ this._handleChoose.bind(this, 'category') }>
-                <div className="competencies-resources-item-toggle">
-                  <i className="fa fa-fw fa-tag" />
-                </div>
-                <div className="competencies-resources-item-detail">
-                  Assign by category
-                </div>
-                <div className="competencies-resources-item-proceed">
-                  <i className="fa fa-chevron-right" />
-                </div>
-              </div>
               <div className="competencies-resources-item" onClick={ this._handleChoose.bind(this, 'goal') }>
                 <div className="competencies-resources-item-toggle">
                   <i className="fa fa-fw fa-trophy" />
@@ -60,6 +38,28 @@ class Strategies extends React.Component {
                 </div>
                 <div className="competencies-resources-item-detail">
                   Add a custom commitment
+                </div>
+                <div className="competencies-resources-item-proceed">
+                  <i className="fa fa-chevron-right" />
+                </div>
+              </div>
+              <div className="competencies-resources-item" onClick={ this._handleChoose.bind(this, 'classification') }>
+                <div className="competencies-resources-item-toggle">
+                  <i className="fa fa-fw fa-briefcase" />
+                </div>
+                <div className="competencies-resources-item-detail">
+                  Assign by classification
+                </div>
+                <div className="competencies-resources-item-proceed">
+                  <i className="fa fa-chevron-right" />
+                </div>
+              </div>
+              <div className="competencies-resources-item" onClick={ this._handleChoose.bind(this, 'category') }>
+                <div className="competencies-resources-item-toggle">
+                  <i className="fa fa-fw fa-tag" />
+                </div>
+                <div className="competencies-resources-item-detail">
+                  Assign by category
                 </div>
                 <div className="competencies-resources-item-proceed">
                   <i className="fa fa-chevron-right" />

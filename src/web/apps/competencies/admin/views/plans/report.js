@@ -16,7 +16,7 @@ const mapPropsToPage = (props, context) => ({
       { label: 'Employee', name: 'employee_id', type: 'select', multiple: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: CompactUserToken },
       { label: 'Supervisor', name: 'supervisor_id', type: 'select', multiple: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: CompactUserToken },
       { label: 'Due', name: 'due', type: 'daterange' },
-      { label: 'Status', name: 'status', type: 'select', multiple: true, options:[{ value:'pending',text:'pending' },{ value:'active',text:'active' },{ value:'complete',text:'complete' }], format: StatusToken }
+      { label: 'Status', name: 'status', type: 'select', multiple: true, options:[{ value:'pending',text:'pending' },{ value:'active',text:'active' },{ value:'submitted',text:'submitted' },{ value:'completed',text:'completed' }], format: StatusToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     entity: 'plan',
