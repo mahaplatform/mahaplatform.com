@@ -31,7 +31,6 @@ class EmployeePlanEdit extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Supervisor', name: 'supervisor_id', type: 'lookup', required: true, endpoint: '/api/admin/competencies/supervisors', value: 'id', text: 'full_name', format: CompactUserToken },
             { label: 'Due', name: 'due', type: 'datefield', required: true }
           ]
         }

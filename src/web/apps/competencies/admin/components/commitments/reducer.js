@@ -6,7 +6,8 @@ export const INITIAL_STATE = {
   classification: null,
   competency: null,
   review: false,
-  selected: []
+  selected: [],
+  status: 'pending'
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -34,6 +35,18 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       review: !state.review
+    }
+
+  case 'SAVE_REQUEST':
+    return {
+      ...state,
+      status: 'saving'
+    }
+
+  case 'SAVE_SUCCESS':
+    return {
+      ...state,
+      status: 'saved'
     }
 
   default:

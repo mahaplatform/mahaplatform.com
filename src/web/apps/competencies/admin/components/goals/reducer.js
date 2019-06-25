@@ -36,6 +36,18 @@ const reducer = (state = INITIAL_STATE, action) => {
       review: !state.review
     }
 
+  case 'SAVE_REQUEST':
+    return {
+      ...state,
+      status: 'saving'
+    }
+
+  case 'SAVE_SUCCESS':
+    return {
+      ...state,
+      status: 'saved'
+    }
+
   default:
     return state
 

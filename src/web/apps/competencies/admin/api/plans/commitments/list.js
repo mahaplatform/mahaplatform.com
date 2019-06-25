@@ -1,23 +1,19 @@
-import GoalSerializer from '../../../../serializers/goal_serializer'
-import Goal from '../../../../models/goal'
+import CommitmentSerializer from '../../../../serializers/commitment_serializer'
+import Commitment from '../../../../models/commitment'
 
 const listRoute = async (req, res) => {
 
-  const goals = await Goal.scope({
+  const commitments = await Commitment.scope({
     team: req.team
   }).query(qb => {
     qb.where('plan_id', req.params.plan_id)
-  }).filter({
-    filter: req.query.$filter
-  }).sort({
-    sort: req.query.$sort,
-    defaultSort: '-created_at'
   }).fetchPage({
+    withRelated: ['resource'],
     page: req.query.$page,
     transacting: req.trx
   })
 
-  res.status(200).respond(goals, GoalSerializer)
+  res.status(200).respond(commitments, CommitmentSerializer)
 
 }
 

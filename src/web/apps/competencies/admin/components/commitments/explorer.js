@@ -22,9 +22,10 @@ class Explorer extends React.Component {
     category: PropTypes.object,
     classification: PropTypes.object,
     competency: PropTypes.object,
-    plan_id: PropTypes.number,
+    plan: PropTypes.number,
     review: PropTypes.bool,
     selected: PropTypes.array,
+    status: PropTypes.string,
     strategy: PropTypes.string,
     onSet: PropTypes.func,
     onToggle: PropTypes.func,
@@ -62,6 +63,14 @@ class Explorer extends React.Component {
         </CSSTransition>
       </ModalPanel>
     )
+  }
+
+  componentDidUpdate(prevProps) {
+    const { status } = this.props
+    const { modal } = this.context
+    if(status !== prevProps.status) {
+      if(status === 'saved') modal.close()
+    }
   }
 
   _getPanel() {
@@ -133,9 +142,9 @@ class Explorer extends React.Component {
   }
 
   _getGoals() {
-    const { plan_id } = this.props
+    const { plan } = this.props
     return {
-      plan_id,
+      plan,
       onBack: this._handleBack.bind(this, 'strategy'),
       onChoose: this._handleChooseCompetency
     }
@@ -184,9 +193,9 @@ class Explorer extends React.Component {
   }
 
   _handleSave() {
-    const { plan_id, selected } = this.props
+    const { plan, selected } = this.props
     const ids = selected.map(resource => resource.id)
-    this.props.onSave(plan_id, ids)
+    this.props.onSave(plan.id, ids)
   }
 
 }

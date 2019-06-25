@@ -1,7 +1,7 @@
 export const save = (plan_id, ids) => ({
   type: 'API_REQUEST',
   method: 'PATCH',
-  endpoint: `/api/admin/competencies/plans/${plan_id}/goals`,
+  endpoint: `/api/admin/competencies/plans/${plan_id}/commitments`,
   body: { ids },
   request: 'SAVE_REQUEST',
   success: 'SAVE_SUCCESS',

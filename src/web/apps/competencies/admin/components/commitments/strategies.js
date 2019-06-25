@@ -45,7 +45,7 @@ class Strategies extends React.Component {
               </div>
               <div className="competencies-resources-item" onClick={ this._handleChoose.bind(this, 'goal') }>
                 <div className="competencies-resources-item-toggle">
-                  <i className="fa fa-fw fa-star" />
+                  <i className="fa fa-fw fa-trophy" />
                 </div>
                 <div className="competencies-resources-item-detail">
                   Assign by goal

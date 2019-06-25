@@ -1,6 +1,6 @@
 import CommitmentToken from '../../tokens/commitment_token'
 import GoalToken from '../../tokens/goal_token'
-import { List, Page, Comments } from 'maha-admin'
+import { Audit, List, Page, Comments } from 'maha-admin'
 import SetCommitments from '../../components/commitments'
 import SetGoals from '../../components/goals'
 import PropTypes from 'prop-types'
@@ -10,20 +10,20 @@ import Edit from './edit'
 
 const Details = ({ plan }) => {
 
-  const list = {
-    items: [
-      { label: 'Supervisor', content: plan.supervisor.full_name },
-      { label: 'Employee', content: plan.employee.full_name },
-      { label: 'Due', content: moment(plan.due).format('MMMM DD, YYYY') },
-      { label: 'Created', content: moment(plan.created_at).format('MMMM DD, YYYY') }
-    ]
-  }
+  const list = {}
 
   if(plan.status === 'pending') list.alert = { color: 'teal', message: 'This plan is pending' }
 
   if(plan.status === 'active') list.alert = { color: 'green', message: 'This plan is active' }
 
-  if(plan.status === 'complete') list.alert = { color: 'red', message: 'This plan is complete' }
+  if(plan.status === 'complete') list.alert = { color: 'blue', message: 'This plan is complete' }
+
+  list.items = [
+    { label: 'Supervisor', content: plan.supervisor.full_name },
+    { label: 'Employee', content: plan.employee.full_name },
+    { label: 'Due', content: moment(plan.due).format('MMMM DD, YYYY') },
+    { component: <Audit entries={ plan.audit } /> }
+  ]
 
   list.footer = <Comments entity={`competencies_plans/${plan.id}`} />
 
@@ -40,7 +40,7 @@ const Goals = ({ plan, goals }) => {
   const list = {
     items: goals.map(goal => ({
       content: goal,
-      component: <GoalToken plan={ plan } goal={ goal } />
+      component: <GoalToken goal={ goal } />
     })),
     empty: {
       icon: 'trophy',
@@ -104,7 +104,7 @@ const itemTasks = (user, plan, goals, commitments) => {
 
   items.push({ label: 'Edit Plan', modal: <Edit plan={ plan } /> })
   items.push({ label: 'Manage Goals', modal: <SetGoals plan={ plan } goals={ goals } /> })
-  items.push({ label: 'Manage Commitments', modal: <SetCommitments plan_id={ plan.id } commitments={ commitments } /> })
+  items.push({ label: 'Manage Commitments', modal: <SetCommitments plan={ plan } commitments={ commitments } /> })
 
   return { items }
 
@@ -125,7 +125,7 @@ const itemButtons = (user, plan) => {
     ]
   }
 
-  if(plan.status === 'active' && plan.supervisor_id === user.id) {
+  if(plan.status === 'active' && plan.employee_id === user.id) {
     return [
       {
         color: 'green',

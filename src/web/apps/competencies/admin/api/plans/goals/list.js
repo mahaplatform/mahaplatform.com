@@ -7,12 +7,8 @@ const listRoute = async (req, res) => {
     team: req.team
   }).query(qb => {
     qb.where('plan_id', req.params.plan_id)
-  }).filter({
-    filter: req.query.$filter
-  }).sort({
-    sort: req.query.$sort,
-    defaultSort: '-created_at'
   }).fetchPage({
+    withRelated: ['competency'],
     page: req.query.$page,
     transacting: req.trx
   })

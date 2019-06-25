@@ -8,7 +8,7 @@ class Goals extends React.Component {
   static contextTypes = {}
 
   static propTypes = {
-    plan_id: PropTypes.number,
+    plan: PropTypes.number,
     onBack: PropTypes.func,
     onChoose: PropTypes.func
   }
@@ -35,7 +35,7 @@ class Goals extends React.Component {
   }
 
   _getInfinite() {
-    const { plan_id } = this.props
+    const { plan } = this.props
     const empty = {
       icon: 'star',
       title: 'No Goals',
@@ -43,7 +43,7 @@ class Goals extends React.Component {
     }
     const filter = {}
     return {
-      endpoint: `/api/admin/competencies/plans/${plan_id}/goals`,
+      endpoint: `/api/admin/competencies/plans/${plan.id}/goals`,
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
       filter,

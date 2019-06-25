@@ -57,7 +57,7 @@ const _getListenerIds = async (req, notification) => {
     listenable_id: notification.listenable_id
   }).fetchAll({
     transacting: req.trx
-  }).then(listenings => listenings.filter(listener => {
+  }).then(listenings => listenings.toArray().filter(listener => {
     return listener.get('user_id') !== req.user.get('id')
   })).then(listenings => listenings.map(listener => {
     return listener.get('user_id')

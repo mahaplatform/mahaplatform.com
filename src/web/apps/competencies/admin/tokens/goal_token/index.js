@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const GoalToken = ({ goal}) => (
+const GoalToken = ({ goal }) => (
   <div className="goal-token">
     { goal.is_complete &&
       <span className="goal-token-complete">complete</span>

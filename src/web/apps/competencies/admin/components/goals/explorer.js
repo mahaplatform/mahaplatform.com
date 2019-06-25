@@ -61,6 +61,14 @@ class Explorer extends React.Component {
     )
   }
 
+  componentDidUpdate(prevProps) {
+    const { status } = this.props
+    const { modal } = this.context
+    if(status !== prevProps.status) {
+      if(status === 'saved') modal.close()
+    }
+  }
+
   _getPanel() {
     return {
       title: 'Goals',

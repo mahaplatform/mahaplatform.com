@@ -1,5 +1,6 @@
 import classifications from './classifications'
 import competencies from './competencies'
+import supervisors from './supervisors'
 import categories from './categories'
 import employees from './employees'
 import resources from './resources'
@@ -19,5 +20,7 @@ router.use('/employees', employees)
 router.use('/plans', plans)
 
 router.use('/resources', resources)
+
+router.use('/supervisors', supervisors)
 
 export default router
