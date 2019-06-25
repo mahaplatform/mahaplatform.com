@@ -1,9 +1,9 @@
-import CommitmentSerializer from '../../../../serializers/commitment_serializer'
-import Commitment from '../../../../models/commitment'
+import GoalSerializer from '../../../../serializers/goal_serializer'
+import Goal from '../../../../models/goal'
 
 const listRoute = async (req, res) => {
 
-  const commitments = await Commitment.scope({
+  const goals = await Goal.scope({
     team: req.team
   }).query(qb => {
     qb.where('plan_id', req.params.plan_id)
@@ -17,7 +17,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(commitments, CommitmentSerializer)
+  res.status(200).respond(goals, GoalSerializer)
 
 }
 

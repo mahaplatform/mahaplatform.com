@@ -51,7 +51,7 @@ export const remove = (index) => ({
 })
 
 export const setAssigned = (assigned) => ({
-  type: 'SET',
+  type: 'SET_ASSIGNED',
   assigned
 })
 

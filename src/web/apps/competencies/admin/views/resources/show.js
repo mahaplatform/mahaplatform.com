@@ -1,6 +1,6 @@
 import CompetencyToken from '../../tokens/competency_token'
 import AssignCompetencies from './competencies'
-import { AssetToken, List, Page } from 'maha-admin'
+import { List, Page } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Edit from './edit'
@@ -11,10 +11,6 @@ const Details = ({ resource }) => {
     { label: 'Title ', content: resource.title },
     { label: 'Description ', content: resource.description }
   ]
-
-  if(resource.asset) {
-    items.push({ label: 'Asset ', content: resource.asset, format: (props) => <AssetToken { ...props } /> })
-  }
 
   return <List items={ items } />
 
@@ -70,13 +66,18 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Manage Competencies', modal: <AssignCompetencies resource={ resources.resource } competencies={ resources.competencies } /> }
     ]
   },
-  buttons: resources.resource.url ? [
-    {
+  buttons: [
+    ...resources.resource.url ? [{
       color: 'red',
       text: 'View Resource Online',
       link: resources.resource.url
-    }
-  ] : null
+    }] : [],
+    ...resources.resource.asset ? [{
+      color: 'red',
+      text: 'View Asset',
+      route: `/admin/assets/${resources.resource.asset.id}`
+    }] : []
+  ]
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

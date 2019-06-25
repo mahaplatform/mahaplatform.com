@@ -18,6 +18,16 @@ const reducer = (state = INITIAL_STATE, action) => {
       assets: action.assets
     }
 
+  case 'REMOVE':
+    return {
+      ...state,
+      assets: [
+        ...state.assets.filter((asset, index) => {
+          return index !== action.index
+        })
+      ]
+    }
+
   default:
     return state
   }

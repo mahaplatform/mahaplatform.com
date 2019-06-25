@@ -1,12 +1,12 @@
 import PlanSerializer from '../../../serializers/plan_serializer'
 import Plan from '../../../models/plan'
 
-const listRoute = async (req, res) => {
+const plansRoute = async (req, res) => {
 
   const plans = await Plan.scope({
     team: req.team
   }).query(qb => {
-    qb.whereRaw('competencies_plans.employee_id=?', req.user.get('id'))
+    qb.whereRaw('competencies_plans.employee_id=?', req.params.id)
   }).filter({
     filter: req.query.$filter,
     searchParams: ['id','title']
@@ -24,4 +24,4 @@ const listRoute = async (req, res) => {
 
 }
 
-export default listRoute
+export default plansRoute

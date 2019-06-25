@@ -5,6 +5,10 @@ const listRoute = async (req, res) => {
 
   const resources = await Resource.scope({
     team: req.team
+  }).query(qb => {
+    qb.innerJoin('competencies_competencies_resources', 'competencies_competencies_resources.resource_id', 'competencies_resources.id')
+    qb.innerJoin('competencies_competencies', 'competencies_competencies.id', 'competencies_competencies_resources.competency_id')
+    qb.innerJoin('competencies_expectations', 'competencies_expectations.competency_id', 'competencies_competencies.id')
   }).filter({
     filter: req.query.$filter,
     filterParams: ['competencies_competencies.id','competencies_expectations.classification_id','competencies_competencies.level'],

@@ -26,7 +26,7 @@ class Strategies extends React.Component {
                   <i className="fa fa-fw fa-briefcase" />
                 </div>
                 <div className="competencies-resources-item-detail">
-                  Assign by classification
+                  Browse by classification
                 </div>
                 <div className="competencies-resources-item-proceed">
                   <i className="fa fa-chevron-right" />
@@ -37,29 +37,7 @@ class Strategies extends React.Component {
                   <i className="fa fa-fw fa-tag" />
                 </div>
                 <div className="competencies-resources-item-detail">
-                  Assign by category
-                </div>
-                <div className="competencies-resources-item-proceed">
-                  <i className="fa fa-chevron-right" />
-                </div>
-              </div>
-              <div className="competencies-resources-item" onClick={ this._handleChoose.bind(this, 'goal') }>
-                <div className="competencies-resources-item-toggle">
-                  <i className="fa fa-fw fa-star" />
-                </div>
-                <div className="competencies-resources-item-detail">
-                  Assign by goal
-                </div>
-                <div className="competencies-resources-item-proceed">
-                  <i className="fa fa-chevron-right" />
-                </div>
-              </div>
-              <div className="competencies-resources-item" onClick={ this._handleChoose.bind(this, 'custom') }>
-                <div className="competencies-resources-item-toggle">
-                  <i className="fa fa-fw fa-pencil" />
-                </div>
-                <div className="competencies-resources-item-detail">
-                  Add a custom commitment
+                  Browse by category
                 </div>
                 <div className="competencies-resources-item-proceed">
                   <i className="fa fa-chevron-right" />
@@ -74,9 +52,9 @@ class Strategies extends React.Component {
 
   _getOverview() {
     return {
-      icon: 'handshake-o',
-      title: 'Make Some Commitments',
-      text: 'Based on your goals, make some commitments to your personal development'
+      icon: 'trophy',
+      title: 'Set Your Goals',
+      text: 'Choose one or two competencies that you\'d like to develop or improve'
     }
   }
 

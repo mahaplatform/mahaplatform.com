@@ -2,8 +2,8 @@ import CommitmentToken from '../../tokens/commitment_token'
 import GoalToken from '../../tokens/goal_token'
 import { List, Page, Comments } from 'maha-admin'
 import SetCommitments from '../../components/commitments'
+import SetGoals from '../../components/goals'
 import PropTypes from 'prop-types'
-import SetGoals from './goals'
 import moment from 'moment'
 import React from 'react'
 import Edit from './edit'
@@ -43,7 +43,7 @@ const Goals = ({ plan, goals }) => {
       component: <GoalToken plan={ plan } goal={ goal } />
     })),
     empty: {
-      icon: 'star',
+      icon: 'trophy',
       title: 'No goals',
       text: 'There are no goals for this plan',
       button: {

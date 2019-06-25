@@ -200,7 +200,7 @@ class Assignment extends React.Component {
       [name]: item,
       [typesName]: types.records[0].value
     } : {
-      user: item
+      [name]: item
     }
     this.props.onAdd(assignment)
   }

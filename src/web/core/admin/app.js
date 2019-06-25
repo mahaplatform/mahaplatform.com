@@ -63,6 +63,7 @@ import chatfullchat from '../../apps/chat/admin/components/fullchat'
 import chatsubscriptions from '../../apps/chat/admin/components/subscriptions'
 import chatchat from '../../apps/chat/admin/roots/chat'
 import competenciescommitments from '../../apps/competencies/admin/components/commitments'
+import competenciesgoals from '../../apps/competencies/admin/components/goals'
 import competenciesresources from '../../apps/competencies/admin/components/resources'
 import driveaccess from '../../apps/drive/admin/components/access'
 import driveexplorer from '../../apps/drive/admin/components/explorer'
@@ -261,6 +262,7 @@ class App extends React.Component {
       chatsubscriptions,
       chatchat,
       competenciescommitments,
+      competenciesgoals,
       competenciesresources,
       driveaccess,
       driveexplorer,

@@ -13,7 +13,7 @@ const CompetencyToken = ({ description, level, title }) => (
 
 CompetencyToken.propTypes = {
   description: PropTypes.string,
-  level: PropTypes.string,
+  level: PropTypes.number,
   title: PropTypes.string
 }
 

@@ -39,7 +39,7 @@ const Competency = new Model ({
   },
 
   resources() {
-    return this.belongsToMany(Resource)
+    return this.belongsToMany(Resource, 'competencies_competencies_resources', 'competency_id', 'resource_id')
   }
 
 })

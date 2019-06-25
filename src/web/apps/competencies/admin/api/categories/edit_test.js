@@ -1,0 +1,7 @@
+import { testHandler } from '../../../../../core/utils/test'
+import { expect } from 'chai'
+import edit from './edit'
+
+describe('src/web/apps/competencies/admin/api/categories/edit.js', () => {
+
+})

@@ -31,8 +31,8 @@ const Resource = new Model({
     return this.hasMany(Commitment, 'resource_id')
   },
 
-  competency() {
-    return this.belongsToMany(Competency, 'competencies_competencies_resources', 'competency_id', 'resource_id')
+  competencies() {
+    return this.belongsToMany(Competency, 'competencies_competencies_resources', 'resource_id', 'competency_id')
   }
 
 })

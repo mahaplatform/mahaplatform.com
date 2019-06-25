@@ -22,13 +22,15 @@ class Resources extends React.Component {
     const { competency, resources } = this.props
     return {
       action: `/api/admin/competencies/competencies/${competency.id}/resources`,
-      assignedFormat: ResourceToken,
-      defaultValue: resources,
-      endpoint: `/api/admin/competencies/competencies/${competency.id}/resources/all`,
+      defaultValue: resources.map(resource => ({ resource })),
+      assignedEndpoint: `/api/admin/competencies/competencies/${competency.id}/resources`,
+      assignedFormat: (assignment) => <ResourceToken {...assignment.resource} />,
+      unassignedEndpoint: '/api/admin/competencies/resources',
+      unassignedFormat: ResourceToken,
+      name: 'resource',
       label: 'Resource',
       text: 'title',
       title: 'Manage Resources',
-      unassignedFormat: ResourceToken,
       value: 'id'
     }
   }

@@ -6,6 +6,6 @@ const router = new Router({ mergeParams: true })
 
 router.get('/', list)
 
-router.post('/', update)
+router.patch('/', update)
 
 export default router

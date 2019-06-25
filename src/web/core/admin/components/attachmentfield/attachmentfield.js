@@ -17,6 +17,7 @@ class AttachmentField extends React.Component {
     onChange: PropTypes.func,
     onFetch: PropTypes.func,
     onReady: PropTypes.func,
+    onRemove: PropTypes.func,
     onSet: PropTypes.func
   }
 
@@ -28,8 +29,9 @@ class AttachmentField extends React.Component {
 
   _handleCancel = this._handleCancel.bind(this)
   _handleClick = this._handleClick.bind(this)
-  _handleSet = this._handleSet.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleRemove = this._handleRemove.bind(this)
+  _handleSet = this._handleSet.bind(this)
 
   render() {
     const { assets, prompt } = this.props
@@ -38,7 +40,7 @@ class AttachmentField extends React.Component {
         { assets.map((asset,index) => (
           <div className="maha-attachmentfield-asset" key={ `asset_${index}` }>
             <AssetToken { ...asset } download={ false } key={ `asset_${asset.id}` } />
-            <div className="maha-attachmentfield-asset-remove">
+            <div className="maha-attachmentfield-asset-remove" onClick={ this._handleRemove.bind(this, index) }>
               <i className="fa fa-fw fa-times" />
             </div>
           </div>
@@ -52,7 +54,7 @@ class AttachmentField extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onFetch, onReady } = this.props
-    if(defaultValue) onFetch()
+    if(defaultValue) onFetch(defaultValue)
     onReady()
   }
 
@@ -81,6 +83,10 @@ class AttachmentField extends React.Component {
 
   _handleClick() {
     this.context.form.push(<Attachments { ...this._getAttachments() } />)
+  }
+
+  _handleRemove(index) {
+    this.props.onRemove(index)
   }
 
 }

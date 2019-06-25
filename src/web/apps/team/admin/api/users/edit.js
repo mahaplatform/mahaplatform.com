@@ -1,6 +1,6 @@
 import User from '../../../../maha/models/user'
 
-const showRoute = async (req, res) => {
+const editRoute = async (req, res) => {
 
   const user = await User.scope({
     team: req.team
@@ -34,4 +34,4 @@ const showRoute = async (req, res) => {
 
 }
 
-export default showRoute
+export default editRoute
