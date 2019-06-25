@@ -10,12 +10,6 @@ const models = {
 
 const moveRoute = async (req, res) => {
 
-  const folder = await Folder.where({
-    id: req.body.folder_id
-  }).fetch({
-    transacting: req.trx
-  })
-
   const items = await Item.query(qb => {
     qb.select('drive_items.*','drive_access_types.text as access_type')
     qb.innerJoin('drive_items_access', 'drive_items_access.code', 'drive_items.code')
@@ -51,8 +45,14 @@ const moveRoute = async (req, res) => {
 
   })
 
+  const folder = req.body.folder_id ? await Folder.where({
+    id: req.body.folder_id
+  }).fetch({
+    transacting: req.trx
+  }) : null
+
   await socket.refresh(req, [
-    `/admin/drive/folders/${folder.get('code') || 'drive'}`
+    `/admin/drive/folders/${folder ? folder.get('code') : 'drive'}`
   ])
 
   res.status(200).respond(true)

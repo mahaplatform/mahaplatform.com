@@ -228,12 +228,15 @@ class Explorer extends React.Component {
 
   _handleMoveItem(target) {
     const { selected } = this.props
-    const { alert } = this.context
+    const { alert, confirm } = this.context
     const codes = selected.map(item => item.code)
     const allowed = selected.find(item => item.access_type === 'view') !== undefined
     if(allowed) return alert.open('You do not have permission to move one or more of these file to another folder')
     if(target.access_type === 'view') return alert.open('You do not have permission to move files to this folder')
-    this.props.onMoveItem(codes, target.item_id)
+    const message = <span>Are you sure you want to move these {selected.length} files to the folder <strong>{target.label}</strong>?</span>
+    confirm.open(message, () => {
+      this.props.onMoveItem(codes, target.item_id)
+    })
   }
 
   _handleTasks(items) {
