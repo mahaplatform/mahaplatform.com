@@ -69,12 +69,12 @@ const mapPropsToPage = (props, context, resources, page) => ({
   buttons: [
     ...resources.resource.url ? [{
       color: 'red',
-      text: 'View Resource Online',
+      text: 'View Resource',
       link: resources.resource.url
     }] : [],
     ...resources.resource.asset ? [{
       color: 'red',
-      text: 'View Asset',
+      text: 'View Resource',
       route: `/admin/assets/${resources.resource.asset.id}`
     }] : []
   ]

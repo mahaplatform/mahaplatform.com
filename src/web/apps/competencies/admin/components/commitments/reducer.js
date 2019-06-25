@@ -27,7 +27,24 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state.selected.filter(resource => resource.id !== action.resource.id)
       ] : [
         ...state.selected,
-        action.resource
+        {
+          resource: action.resource,
+          description: null
+        }
+
+      ]
+    }
+
+  case 'ADD':
+    return {
+      ...state,
+      strategy: null,
+      selected: [
+        ...state.selected,
+        {
+          resource: null,
+          description: action.description
+        }
       ]
     }
 

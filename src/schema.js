@@ -119,6 +119,8 @@ const schema = {
       table.boolean('is_completed').defaultsTo(false)
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.boolean('remind_me_week').defaultsTo(false)
+      table.boolean('remind_me_day').defaultsTo(false)
     })
 
     await knex.schema.createTable('competencies_resources', (table) => {

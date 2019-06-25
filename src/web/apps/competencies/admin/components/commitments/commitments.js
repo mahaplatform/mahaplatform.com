@@ -5,6 +5,10 @@ import React from 'react'
 
 class Commitments extends React.Component {
 
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   static propTypes = {
     selected: PropTypes.array,
     onBack: PropTypes.func,
@@ -20,22 +24,27 @@ class Commitments extends React.Component {
       <div className="competencies-resources-panel">
         <div className="competencies-resources-panel-header" onClick={ this._handleBack }>
           <div className="competencies-resources-panel-header-close">
-            Close 
+            Close
           </div>
         </div>
         <div className="competencies-resources-panel-body">
           { selected.length > 0 ?
             <div className="competencies-resources-items">
-              { selected.map((item, index) => (
+              { selected.map((commitment, index) => (
                 <div className="competencies-resources-item" key={`item_${index}`}>
                   <div className="competencies-resources-item-detail">
-                    <strong>{ item.title }</strong>
-                    <div>{ item.description }</div>
-                    { item.url &&
-                      <div className="link" onClick={ this._handleView.bind(this, item) }>View Resource</div>
+                    { commitment.resource !== null &&
+                      <div className="commitment-token-resource">
+                        <strong>{ commitment.resource.title }</strong>
+                        <div>{ commitment.resource.description }</div>
+                        { (commitment.resource.url || commitment.resource.asset) &&
+                          <div className="link" onClick={ this._handleView.bind(this, commitment.resource) }>View Resource</div>
+                        }
+                      </div>
                     }
+                    { commitment.description }
                   </div>
-                  <div className="competencies-resources-item-proceed" onClick={ this._handleRemove.bind(this, item) }>
+                  <div className="competencies-resources-item-proceed" onClick={ this._handleRemove.bind(this, commitment) }>
                     <i className="fa fa-fw fa-remove" />
                   </div>
                 </div>
@@ -64,8 +73,14 @@ class Commitments extends React.Component {
     this.props.onRemove(item)
   }
 
-  _handleView(item, e) {
+  _handleView(resource, e) {
+    const { router } = this.context
     e.stopPropagation()
+    if(resource.asset_id) return router.push(`/admin/assets/${resource.asset_id}`)
+    if(resource.url) {
+      this.link.href = resource.url
+      this.link.click()
+    }
   }
 
 }

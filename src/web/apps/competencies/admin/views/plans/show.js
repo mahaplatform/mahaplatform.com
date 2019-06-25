@@ -22,6 +22,11 @@ const Details = ({ plan }) => {
     { label: 'Supervisor', content: plan.supervisor.full_name },
     { label: 'Employee', content: plan.employee.full_name },
     { label: 'Due', content: moment(plan.due).format('MMMM DD, YYYY') },
+    { label: 'Reminders', content: <div>
+      { !plan.remind_me_week && !plan.remind_me_day && <span>NONE</span>}
+      { plan.remind_me_week && <div>1 week before this plan is due</div>}
+      { plan.remind_me_day && <div>1 day before this plan is due</div>}
+    </div> },
     { component: <Audit entries={ plan.audit } /> }
   ]
 
@@ -50,7 +55,10 @@ const Goals = ({ plan, goals }) => {
         label: 'Manage Goals',
         modal: <SetGoals plan={ plan } goals={ goals } />
       }
-    }
+    },
+    buttons: goals.length > 0 && plan.status === 'pending' ? [
+      { label: 'Manage Goals', color: 'blue', modal: <SetGoals plan={ plan } goals={ goals } /> }
+    ]: null
   }
 
   return <List { ...list } />
@@ -67,16 +75,7 @@ const Commitments = ({ plan, commitments } ) => {
   const list = {
     items: commitments.map(commitment => ({
       content: commitment,
-      component: (commitment) => <CommitmentToken plan={ plan } commitment={ commitment } />,
-      tasks: !commitment.is_complete && plan.status === 'active' ? [
-        {
-          label: 'Complete Commitment',
-          request: {
-            endpoint: `/api/admin/competencies/plans/${plan.id}/commitments/${commitment.id}/complete`,
-            method: 'patch'
-          }
-        }
-      ] : null
+      component: (commitment) => <CommitmentToken plan={ plan } commitment={ commitment } />
     })),
     empty: {
       icon: 'handshake-o',
@@ -86,7 +85,10 @@ const Commitments = ({ plan, commitments } ) => {
         label: 'Manage Commitments',
         modal: <SetCommitments plan={ plan } commitments={ commitments } />
       }
-    }
+    },
+    buttons: commitments.length > 0 && plan.status === 'pending' ? [
+      { label: 'Manage Commitments', color: 'blue', modal: <SetCommitments plan={ plan } commitments={ commitments } /> }
+    ]: null
   }
 
   return <List { ...list } />

@@ -5,11 +5,17 @@ import _ from 'lodash'
 
 class Options extends React.Component {
 
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   static propTypes = {
     records: PropTypes.array,
     selected: PropTypes.array,
     onChoose: PropTypes.func
   }
+
+  link = null
 
   render() {
     const { records } = this.props
@@ -23,27 +29,34 @@ class Options extends React.Component {
             <div className="competencies-resources-item-detail">
               <strong>{ item.title }</strong>
               <div>{ item.description }</div>
-              { item.url &&
+              { (item.url || item.asset) &&
                 <div className="link" onClick={ this._handleView.bind(this, item) }>View Resource</div>
               }
             </div>
           </div>
         ))}
+        <a target="_blank" ref={ node => this.link = node} />
       </div>
     )
   }
 
   _getIcon(item) {
     const { selected } = this.props
-    return _.find(selected, { id: item.id }) ? 'check-circle' : 'circle-o'
+    return _.find(selected, { resource: { id: item.id } }) ? 'check-circle' : 'circle-o'
   }
 
   _handleClick(item) {
     this.props.onChoose(item)
   }
 
-  _handleView(item, e) {
+  _handleView(resource, e) {
+    const { router } = this.context
     e.stopPropagation()
+    if(resource.asset_id) return router.push(`/admin/assets/${resource.asset_id}`)
+    if(resource.url) {
+      this.link.href = resource.url
+      this.link.click()
+    }
   }
 
 }

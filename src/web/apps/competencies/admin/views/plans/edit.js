@@ -1,4 +1,5 @@
-import { CompactUserToken, Form } from 'maha-admin'
+import { Form } from 'maha-admin'
+import NotifiyMe from './notify_me'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -24,14 +25,15 @@ class EmployeePlanEdit extends React.Component {
     return {
       title: 'Edit Plan',
       method: 'patch',
-      endpoint: `/api/admin/competencies/plans/${plan.id}`,
+      endpoint: `/api/admin/competencies/plans/${plan.id}/edit`,
       action: `/api/admin/competencies/plans/${plan.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Due', name: 'due', type: 'datefield', required: true }
+            { label: 'Due', name: 'due', type: 'datefield', required: true },
+            { label: 'Reminders', name: 'reminders', type: NotifiyMe }
           ]
         }
       ]

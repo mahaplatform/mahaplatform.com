@@ -1,4 +1,5 @@
 import { CompactUserToken, Form } from 'maha-admin'
+import NotifiyMe from './notify_me'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -27,7 +28,8 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Supervisor', name: 'supervisor_id', type: 'lookup', required: true, endpoint: '/api/admin/competencies/supervisors', value: 'id', text: 'full_name', format: CompactUserToken },
-            { label: 'Due', name: 'due', type: 'datefield', required: true }
+            { label: 'Due', name: 'due', type: 'datefield', required: true },
+            { label: 'Reminders', name: 'reminders', type: NotifiyMe }
           ]
         }
       ]

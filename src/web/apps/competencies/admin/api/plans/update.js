@@ -21,7 +21,9 @@ const updateRoute = async (req, res) => {
   })
 
   await plan.save({
-    ...whitelist(req.body, ['due'])
+    ...whitelist(req.body, ['due']),
+    remind_me_week: req.body.reminders.remind_me_week,
+    remind_me_day: req.body.reminders.remind_me_week
   }, {
     patch: true,
     transacting: req.trx

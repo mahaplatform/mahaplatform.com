@@ -27,12 +27,14 @@ class Explorer extends React.Component {
     selected: PropTypes.array,
     status: PropTypes.string,
     strategy: PropTypes.string,
+    onAdd: PropTypes.func,
     onSet: PropTypes.func,
     onToggle: PropTypes.func,
     onToggleReview: PropTypes.func,
     onSave: PropTypes.func
   }
 
+  _handleAdd = this._handleAdd.bind(this)
   _handleCancel = this._handleCancel.bind(this)
   _handleChooseCategory = this._handleChooseCategory.bind(this)
   _handleChooseClassification = this._handleChooseClassification.bind(this)
@@ -119,6 +121,7 @@ class Explorer extends React.Component {
 
   _getCustom() {
     return {
+      onAdd: this._handleAdd,
       onBack: this._handleBack.bind(this, 'strategy')
     }
   }
@@ -160,6 +163,10 @@ class Explorer extends React.Component {
     }
   }
 
+  _handleAdd(value) {
+    this.props.onAdd(value)
+  }
+
   _handleBack(key) {
     this.props.onSet(key, null)
   }
@@ -194,8 +201,12 @@ class Explorer extends React.Component {
 
   _handleSave() {
     const { plan, selected } = this.props
-    const ids = selected.map(resource => resource.id)
-    this.props.onSave(plan.id, ids)
+    const commitments = selected.map(item => ({
+      resource_id: item.resource ? item.resource.id : null,
+      description: item.description
+
+    }))
+    this.props.onSave(plan.id, commitments)
   }
 
 }

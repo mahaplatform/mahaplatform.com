@@ -6,6 +6,7 @@ class Custom extends React.Component {
   static contextTypes = {}
 
   static propTypes = {
+    onAdd: PropTypes.func,
     onBack: PropTypes.func,
     onChoose: PropTypes.func
   }
@@ -44,7 +45,7 @@ class Custom extends React.Component {
   }
 
   _handleAdd() {
-    this.props.onBack()
+    this.props.onAdd(this.input.value)
   }
 
   _handleBack() {

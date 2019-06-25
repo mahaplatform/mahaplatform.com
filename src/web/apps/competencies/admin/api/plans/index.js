@@ -8,6 +8,7 @@ import report from './report'
 import goals from './goals'
 import show from './show'
 import list from './list'
+import edit from './edit'
 
 const router = new Router({ mergeParams: true })
 
@@ -20,6 +21,8 @@ router.get('/report', report)
 router.get('/:id', show)
 
 router.patch('/:id', update)
+
+router.get('/:id/edit', edit)
 
 router.patch('/:id/approve', approve)
 

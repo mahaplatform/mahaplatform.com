@@ -13,6 +13,8 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     employee_id: req.user.get('id'),
     status: 'pending',
+    remind_me_week: req.body.reminders.remind_me_week,
+    remind_me_day: req.body.reminders.remind_me_week,
     ...whitelist(req.body, ['due','supervisor_id'])
   }).save(null, {
     transacting: req.trx
@@ -54,7 +56,7 @@ const createRoute = async (req, res) => {
 
   await socket.refresh(req, [
     '/admin/competencies/plans',
-    '/admin/competencies/plans/reports'    
+    '/admin/competencies/plans/reports'
   ])
 
   res.status(200).respond(plan, PlanSerializer)

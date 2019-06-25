@@ -23,11 +23,12 @@ const updateRoute = async (req, res) => {
     plan_id: req.params.plan_id
   }).delete()
 
-  await Promise.map(req.body.ids, async id => {
+  await Promise.map(req.body.commitments, async commitment => {
     await Commitment.forge({
       team_id: req.team.get('id'),
       plan_id: req.params.plan_id,
-      resource_id: id,
+      resource_id: commitment.resource_id,
+      description: commitment.description,
       is_complete: false
     }).save(null, {
       transacting: req.trx
