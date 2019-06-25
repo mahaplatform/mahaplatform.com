@@ -181,10 +181,10 @@ class Explorer extends React.Component {
     }
   }
 
-  _getTasks(item) {
+  _getTasks(items) {
     const { onCreateFile, onPreview, onShowDetails } = this.props
     return {
-      item,
+      items,
       title: true,
       onCreateFile,
       onPreview,
@@ -228,21 +228,17 @@ class Explorer extends React.Component {
 
   _handleMoveItem(target) {
     const { selected } = this.props
-    const { alert, confirm } = this.context
+    const { alert } = this.context
     const codes = selected.map(item => item.code)
-    // if(source.access_type === 'view') return alert.open('You do not have permission to move this file to another folder')
+    const allowed = selected.find(item => item.access_type === 'view') !== undefined
+    if(allowed) return alert.open('You do not have permission to move one or more of these file to another folder')
     if(target.access_type === 'view') return alert.open('You do not have permission to move files to this folder')
-    const yes = () => this.props.onMoveItem(codes, target.item_id)
-    //<strong>{source.label}</strong>
-    const message = <span>Are you sure you want to move these files to the folder <strong>{target.label}</strong>?</span>
-    confirm.open(message, yes)
+    this.props.onMoveItem(codes, target.item_id)
   }
 
-  _handleTasks(item, e) {
-    e.stopPropagation()
-    e.preventDefault()
+  _handleTasks(items) {
     this.context.tasks.open([
-      { component: <Tasks { ...this._getTasks(item) } /> }
+      { component: <Tasks { ...this._getTasks(items) } /> }
     ])
   }
 

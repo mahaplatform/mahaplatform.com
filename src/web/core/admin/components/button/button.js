@@ -40,6 +40,7 @@ class Button extends React.Component {
     route: PropTypes.string,
     status: PropTypes.string,
     text: PropTypes.string,
+    url: PropTypes.string,
     onDone: PropTypes.func,
     onRequest: PropTypes.func
   }
@@ -95,9 +96,10 @@ class Button extends React.Component {
   }
 
   _handleClick() {
-    const { confirm, disabled, drawer, handler, location, modal, request, route, onDone } = this.props
+    const { confirm, disabled, drawer, handler, location, modal, request, route, url, onDone } = this.props
     if(disabled) return
     const yesHandler = () => {
+      if(url) this._handleUrl(url)
       if(route) this._handleRoute(route)
       if(request) this._handleRequest(request)
       if(modal) this._handleModal(modal)
@@ -107,6 +109,10 @@ class Button extends React.Component {
     onDone()
     if(confirm) return this.context.confirm.open(confirm, yesHandler)
     yesHandler()
+  }
+
+  _handleUrl(url) {
+    window.location.href = url
   }
 
   _handleRoute(route) {
@@ -128,9 +134,9 @@ class Button extends React.Component {
   _handleRequest(itemRequest) {
     const { onRequest } = this.props
     onRequest({
-      ...itemRequest,
       body: null,
-      params: null
+      params: null,
+      ...itemRequest
     })
   }
 

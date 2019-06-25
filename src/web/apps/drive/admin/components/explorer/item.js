@@ -120,37 +120,21 @@ class Item extends React.Component {
     }
   }
 
-  _handleClick(e) {
+  _handleMouseDown(e) {
+    const { item } = this.props
     e.stopPropagation()
+    const { shiftKey, metaKey, ctrlKey } = e
+    setTimeout(() => {
+      this._handleSelect(item, shiftKey, metaKey, ctrlKey)
+    }, 100)
+  }
+
+  _handleClick(e) {
     const { item, preview } = this.props
+    e.stopPropagation()
     if(preview.code === item.code) return this._handleDoubleClick(e)
     if(document.body.clientWidth > 768) return this._handlePreview(item)
     this._handleDoubleClick(e)
-  }
-
-  _handleMouseDown(e) {
-    e.stopPropagation()
-    const { item } = this.props
-    this._handleSelect(e, item)
-  }
-
-  _handleSelect(e, item) {
-    const { items, selected, onAddSelected, onReplaceSelected } = this.props
-    const isSelected = _.find(selected, { code: item.code }) !== undefined
-    if(isSelected) return
-    if(e.shiftKey && selected.length > 0) {
-      const item_index = _.findIndex(items, { code: item.code })
-      const first_index = _.findIndex(items, { code: selected.slice(0,1)[0].code })
-      const last_index = _.findIndex(items, { code: selected.slice(-1)[0].code })
-      const all = items.filter((item, index) => {
-        if(item_index <= first_index && index >= item_index && index <= last_index) return true
-        if(item_index >= last_index && index >= first_index && index <= item_index) return true
-        return false
-      })
-      return onReplaceSelected(all)
-    }
-    if(e.metaKey || e.ctrlKey) return onAddSelected(item)
-    onReplaceSelected([item])
   }
 
   _handleDoubleClick(e) {
@@ -161,6 +145,25 @@ class Item extends React.Component {
     if(item.type === 'folder') this._handleChangeFolder()
   }
 
+  _handleSelect(item, shiftKey, metaKey, ctrlKey) {
+    const { items, selected, onAddSelected, onReplaceSelected } = this.props
+    if(shiftKey && selected.length > 0) {
+      const item_index = _.findIndex(items, { code: item.code })
+      const first_index = _.findIndex(items, { code: selected.slice(0,1)[0].code })
+      const last_index = _.findIndex(items, { code: selected.slice(-1)[0].code })
+      const all = items.filter((item, index) => {
+        if(item_index <= first_index && index >= item_index && index <= last_index) return true
+        if(item_index >= last_index && index >= first_index && index <= item_index) return true
+        return false
+      })
+      return onReplaceSelected(all)
+    }
+    if(metaKey || ctrlKey) return onAddSelected(item)
+    const isSelected = _.findIndex(selected, { code: item.code }) >= 0
+    if(isSelected && selected.length > 1) return
+    onReplaceSelected([item])
+  }
+
   _handleView() {
     const { item } = this.props
     const { router } = this.context
@@ -168,8 +171,11 @@ class Item extends React.Component {
   }
 
   _handleTasks(e) {
-    const { item } = this.props
-    this.props.onTasks(item, e)
+    const { item, selected } = this.props
+    e.stopPropagation()
+    e.preventDefault()
+    const items = selected.length > 1 ? selected : [item]
+    this.props.onTasks(items, e)
   }
 
   _handleChangeFolder() {

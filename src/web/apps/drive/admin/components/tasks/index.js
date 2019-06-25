@@ -6,11 +6,13 @@ import NewFolder from '../new_folder'
 import PropTypes from 'prop-types'
 import Transfer from '../transfer'
 import Versions from '../versions'
+import pluralize from 'pluralize'
 import Access from '../access'
 import Share from '../share'
 import Move from '../move'
 import React from 'react'
 import _ from 'lodash'
+import qs from 'qs'
 
 class Tasks extends React.Component {
 
@@ -20,7 +22,7 @@ class Tasks extends React.Component {
   }
 
   static propTypes = {
-    item: PropTypes.object,
+    items: PropTypes.array,
     rights: PropTypes.array,
     title: PropTypes.bool,
     token: PropTypes.string,
@@ -35,21 +37,31 @@ class Tasks extends React.Component {
   _handleView = this._handleView.bind(this)
 
   render() {
-    const { item, title } = this.props
+    const { items, title } = this.props
     return (
       <div className="drive-tasks">
-        { title &&
+        { title && items.length === 1 &&
           <div className="maha-tasks-title">
             <div className="maha-tasks-title-icon">
-              { item.code === 'root' && <i className="fa fa-fw fa-home" /> }
-              { item.code === 'shared' && <i className="fa fa-fw fa-handshake-o" /> }
-              { item.code === 'starred' && <i className="fa fa-fw fa-star" /> }
-              { item.code === 'trash' && <i className="fa fa-fw fa-trash" /> }
-              { item.type === 'folder' && <i className="fa fa-fw fa-folder" /> }
-              { item.type === 'file' && <i className="fa fa-fw fa-file" /> }
+              { items[0].code === 'root' && <i className="fa fa-fw fa-home" /> }
+              { items[0].code === 'shared' && <i className="fa fa-fw fa-handshake-o" /> }
+              { items[0].code === 'starred' && <i className="fa fa-fw fa-star" /> }
+              { items[0].code === 'trash' && <i className="fa fa-fw fa-trash" /> }
+              { items[0].type === 'folder' && <i className="fa fa-fw fa-folder" /> }
+              { items[0].type === 'file' && <i className="fa fa-fw fa-file" /> }
             </div>
             <div className="maha-tasks-title-label">
-              { item.label }
+              { items[0].label }
+            </div>
+          </div>
+        }
+        { title && items.length > 1 &&
+          <div className="maha-tasks-title">
+            <div className="maha-tasks-title-icon">
+              <i className="fa fa-fw fa-clone" />
+            </div>
+            <div className="maha-tasks-title-label">
+              { items.length } items
             </div>
           </div>
         }
@@ -59,48 +71,74 @@ class Tasks extends React.Component {
   }
 
   _getList() {
-    const { item, rights } = this.props
+    const { items, rights } = this.props
     const mobile = document.body.clientWidth <= 768
-    const items = []
-    if(item.code === 'root') {
-      if(_.includes(rights, 'drive:manage_ownership')) {
-        items.push({ component: <Button { ...this._getTransfer() } /> })
+    const options = []
+    if(items.length > 1) {
+      if(items[0].deleted_at) {
+        options.push({ component: <Button { ...this._getRestore(items) } /> })
+        options.push({ component: <Button { ...this._getDelete(items) } /> })
+      } else {
+        options.push({ component: <Button { ...this._getArchive(items) } /> })
+        options.push({ component: <Button { ...this._getMove(items) } /> })
+        options.push({ component: <Button { ...this._getTrash(items) } /> })
       }
-    } else if(item.code === 'drive') {
-      items.push({ component: <Button { ...this._getNewFolder() } /> })
-      items.push({ component: <Button { ...this._getUpload() } /> })
-    } else if(item.code === 'trash') {
-      items.push({ component: <Button { ...this._getEmpty() } /> })
-      items.push({ component: <Button { ...this._getRestoreAll() } /> })
-    } else if(item.deleted_at) {
-      items.push({ component: <Button { ...this._getRestore() } /> })
-      items.push({ component: <Button { ...this._getDelete() } /> })
-    } else if(!_.includes(['shared','starred'], item.code)) {
-      const can_edit = _.includes(['owner','edit'], item.access_type)
-      if(mobile) items.push({ component: <Button { ...this._getDetails() } /> })
-      if(can_edit) items.push({ component: <Button { ...this._getAccess() } /> })
-      if(item.type === 'folder') {
-        if(can_edit) {
-          items.push({ component: <Button { ...this._getNewFolder() } /> })
-          items.push({ component: <Button { ...this._getUpload() } /> })
+    } else {
+      const item = items[0]
+      if(item.code === 'root') {
+        if(_.includes(rights, 'drive:manage_ownership')) {
+          options.push({ component: <Button { ...this._getTransfer() } /> })
         }
-      } else if(item.type === 'file') {
-        items.push({ component: <Button { ...this._getShare() } /> })
-        items.push({ component: <Button { ...this._getDownload() } /> })
-        items.push({ component: <Button { ...this._getView() } /> })
-        if(can_edit) items.push({ component: <Button { ...this._getVersions() } /> })
-      }
-      if(can_edit) {
-        items.push({ component: <Button { ...this._getMove() } /> })
-        items.push({ component: <Button { ...this._getRename() } /> })
-        items.push({ component: <Button { ...this._getTrash() } /> })
+      } else if(item.code === 'drive') {
+        options.push({ component: <Button { ...this._getNewFolder(item) } /> })
+        options.push({ component: <Button { ...this._getUpload(item) } /> })
+      } else if(item.code === 'trash') {
+        options.push({ component: <Button { ...this._getEmpty() } /> })
+        options.push({ component: <Button { ...this._getRestoreAll() } /> })
+      } else if(item.deleted_at) {
+        options.push({ component: <Button { ...this._getRestore([item]) } /> })
+        options.push({ component: <Button { ...this._getDelete([item]) } /> })
+      } else if(!_.includes(['shared','starred'], item.code)) {
+        const can_edit = _.includes(['owner','edit'], item.access_type)
+        if(mobile) options.push({ component: <Button { ...this._getDetails(item) } /> })
+        if(can_edit) options.push({ component: <Button { ...this._getAccess(item) } /> })
+        if(item.type === 'folder') {
+          if(can_edit) {
+            options.push({ component: <Button { ...this._getNewFolder(item) } /> })
+            options.push({ component: <Button { ...this._getUpload(item) } /> })
+          }
+        } else if(item.type === 'file') {
+          options.push({ component: <Button { ...this._getShare(item) } /> })
+          options.push({ component: <Button { ...this._getDownload(item) } /> })
+          options.push({ component: <Button { ...this._getView(item) } /> })
+          if(can_edit) options.push({ component: <Button { ...this._getVersions(item) } /> })
+        }
+        if(can_edit) {
+          options.push({ component: <Button { ...this._getMove([item]) } /> })
+          options.push({ component: <Button { ...this._getRename(item) } /> })
+          options.push({ component: <Button { ...this._getTrash([item]) } /> })
+        }
       }
     }
-    return { items }
+    return {
+      items: options
+    }
   }
 
-  _getNewFolder() {
-    const { item } = this.props
+  _getArchive(items) {
+    const { token } = this.props
+    const query = qs.stringify({
+      codes: items.map(item => item.code)
+    })
+    return {
+      icon: 'download',
+      label: 'Download items',
+      className: 'maha-list-item-link',
+      url: `/api/admin/drive/items/archive?token=${token}&${query}`
+    }
+  }
+
+  _getNewFolder(item) {
     return {
       icon: 'folder',
       label: 'Create New Folder',
@@ -109,12 +147,12 @@ class Tasks extends React.Component {
     }
   }
 
-  _getUpload() {
+  _getUpload(item) {
     return {
       icon: 'upload',
       label: 'Upload File(s)',
       className: 'maha-list-item-link',
-      modal: <Attachments { ...this._getAttachments() } />
+      modal: <Attachments { ...this._getAttachments(item) } />
     }
   }
 
@@ -127,12 +165,12 @@ class Tasks extends React.Component {
     }
   }
 
-  _getAttachments() {
+  _getAttachments(item) {
     return {
       icon: 'upload',
       prompt: 'Upload File(s)',
       networks: ['device','web','google','dropbox','box','microsoft'],
-      onChooseAssets: this._handleUpload
+      onChooseAssets: this._handleUpload.bind(this, item)
     }
   }
 
@@ -160,34 +198,38 @@ class Tasks extends React.Component {
     }
   }
 
-  _getRestore() {
-    const { item } = this.props
+  _getRestore(items) {
+    const label = items.length === 1 ? _.capitalize(items[0].type): pluralize('item', items.length)
     return {
       icon: 'rotate-left',
-      label: `Restore ${_.capitalize(item.type)}`,
+      label: `Restore ${label}`,
       className: 'maha-list-item-link',
       request: {
         method: 'PATCH',
-        endpoint: `/api/admin/drive/items/${item.code}/restore`
+        endpoint: '/api/admin/drive/items/restore',
+        body: {
+          codes: items.map(item => item.code)
+        }
       }
     }
   }
 
-  _getDelete() {
-    const { item } = this.props
+  _getDelete(items) {
     return {
       icon: 'trash-o',
       label: 'Delete Forever',
       className: 'maha-list-item-link',
       request: {
         method: 'PATCH',
-        endpoint: `/api/admin/drive/items/${item.code}/destroy`
+        endpoint: '/api/admin/drive/items/destroy',
+        body: {
+          codes: items.map(item => item.code)
+        }
       }
     }
   }
 
-  _getDetails() {
-    const { item } = this.props
+  _getDetails(item) {
     return {
       icon: 'info-circle',
       label: `${_.capitalize(item.type)} Details`,
@@ -196,8 +238,7 @@ class Tasks extends React.Component {
     }
   }
 
-  _getShare() {
-    const { item } = this.props
+  _getShare(item) {
     return {
       icon: 'share',
       label: `Share ${_.capitalize(item.type)}`,
@@ -206,8 +247,7 @@ class Tasks extends React.Component {
     }
   }
 
-  _getAccess() {
-    const { item } = this.props
+  _getAccess(item) {
     return {
       icon: 'handshake-o',
       label: 'Manage Access',
@@ -216,18 +256,17 @@ class Tasks extends React.Component {
     }
   }
 
-  _getMove() {
-    const { item } = this.props
+  _getMove(items) {
+    const label = items.length === 1 ? _.capitalize(items[0].type): pluralize('item', items.length)
     return {
       icon: 'arrows-alt',
-      label: `Move ${_.capitalize(item.type)}`,
+      label: `Move ${label}`,
       className: 'maha-list-item-link',
-      modal: <Move item={ item } />
+      modal: <Move items={ items } />
     }
   }
 
-  _getRename() {
-    const { item } = this.props
+  _getRename(item) {
     const Component = item.type === 'folder' ? RenameFolder : RenameFile
     return {
       icon: 'i-cursor',
@@ -237,20 +276,17 @@ class Tasks extends React.Component {
     }
   }
 
-  _getDownload() {
-    const { item, token } = this.props
+  _getDownload(item) {
+    const { token } = this.props
     return {
       icon: 'download',
       label: 'Download File',
       className: 'maha-list-item-link',
-      handler: () => {
-        window.location.href = `/api/admin/assets/${item.asset.id}/download?token=${token}`
-      }
+      url: `/api/admin/assets/${item.asset.id}/download?token=${token}`
     }
   }
 
-  _getView() {
-    const { item } = this.props
+  _getView(item) {
     return {
       icon: 'eye',
       label: 'View File',
@@ -259,8 +295,7 @@ class Tasks extends React.Component {
     }
   }
 
-  _getVersions() {
-    const { item } = this.props
+  _getVersions(item) {
     return {
       icon: 'clone',
       label: 'Manage Versions',
@@ -269,35 +304,35 @@ class Tasks extends React.Component {
     }
   }
 
-  _getTrash() {
-    const { item } = this.props
+  _getTrash(items) {
+    const label = items.length === 1 ? _.capitalize(items[0].type): pluralize('item', items.length)
     return {
       icon: 'trash-o',
-      label: 'Move to Trash',
+      label: `Remove ${label}`,
       className: 'maha-list-item-link',
-      confirm: 'Are you sure?',
       request: {
         method: 'PATCH',
-        endpoint: `/api/admin/drive/items/${item.code}/trash`
+        endpoint: '/api/admin/drive/items/trash',
+        body: {
+          codes: items.map(item => item.code)
+        }
       }
     }
   }
 
-  _handleUpload(assets) {
-    const { item, onCreateFile } = this.props
+  _handleUpload(item, assets) {
+    const { onCreateFile } = this.props
     const folder_id = item ? item.item_id : null
     assets.map(asset => {
       onCreateFile(folder_id, asset.id)
     })
   }
 
-  _handleView() {
-    const { item } = this.props
+  _handleView(item) {
     this.context.router.push(`/admin/drive/files/${item.code}`)
   }
 
-  _handleDetails() {
-    const { item } = this.props
+  _handleDetails(item) {
     this.props.onShowDetails(true)
     this.props.onPreview(item)
   }

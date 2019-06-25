@@ -1,6 +1,7 @@
 import transfer from './transfer'
 import { Router } from 'express'
 import restore from './restore'
+import archive from './archive'
 import destroy from './destroy'
 import trash from './trash'
 import list from './list'
@@ -13,14 +14,16 @@ router.get('/', list)
 
 router.post('/transfer', transfer)
 
-router.get('/:code', show)
-
 router.patch('/move', move)
 
-router.patch('/:code/restore', restore)
+router.patch('/trash', trash)
 
-router.patch('/:code/destroy', destroy)
+router.patch('/restore', restore)
 
-router.patch('/:code/trash', trash)
+router.patch('/destroy', destroy)
+
+router.get('/archive', archive)
+
+router.get('/:code', show)
 
 export default router

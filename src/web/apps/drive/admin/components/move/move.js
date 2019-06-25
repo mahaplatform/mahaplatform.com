@@ -11,7 +11,7 @@ class Move extends React.Component {
   }
 
   static propTypes = {
-    item: PropTypes.object,
+    items: PropTypes.object,
     folders: PropTypes.array,
     folder: PropTypes.object,
     status: PropTypes.string,
@@ -94,9 +94,10 @@ class Move extends React.Component {
   }
 
   _handleDone() {
-    const { item, folder, onMove } = this.props
+    const { items, folder, onMove } = this.props
     const folder_id = folder ? folder.item_id : null
-    onMove(item.code, folder_id)
+    const codes = items.map(item => item.code)
+    onMove(codes, folder_id)
   }
 
 }

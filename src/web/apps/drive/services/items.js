@@ -39,9 +39,9 @@ const _toggleDeletedAt = async (req, item, deleted_at) => {
     folder_id: item.get('item_id')
   }).fetchAll({
     transacting: req.trx
-  })
+  }).then(items => items.toArray())
 
-  await Promise.map(items.toArray(), async (item) => {
+  await Promise.map(items, async (item) => {
     await _toggleDeletedAt(req, item, deleted_at)
   })
 
@@ -64,14 +64,25 @@ export const deleteForever = async (req, item) => {
       transacting: req.trx
     }).then(versions => versions.toArray())
 
-    await Promise.map(versions, async (version) => {
+    await knex('drive_versions').transacting(req.trx).where({
+      file_id: item.get('item_id')
+    }).update({
+      asset_id: null
+    })
 
+    const assets = versions.reduce((assets, version) => ({
+      ...assets,
+      [version.get('asset_id')]: version.related('asset')
+    }), {})
+
+    await Promise.map(Object.values(assets), async (asset) => {
+      await deleteAsset(asset, req.trx)
+    })
+
+    await Promise.map(versions, async (version) => {
       await version.destroy({
         transacting: req.trx
       })
-
-      await deleteAsset(version.related('asset'), req.trx)
-
     })
 
     return await knex('drive_files').transacting(req.trx).where({
@@ -84,9 +95,9 @@ export const deleteForever = async (req, item) => {
     folder_id: item.get('item_id')
   }).fetchAll({
     transacting: req.trx
-  })
+  }).then(items => items.toArray())
 
-  await Promise.map(items.toArray(), async (item) => {
+  await Promise.map(items, async (item) => {
     await deleteForever(req, item)
   })
 

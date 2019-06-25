@@ -47,7 +47,7 @@ class Details extends React.Component {
   _getTasks() {
     const { item, onCreateFile, onPreview } = this.props
     return {
-      item,
+      items: [item],
       title: false,
       onCreateFile,
       onPreview

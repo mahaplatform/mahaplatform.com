@@ -41,11 +41,12 @@ class Folder extends React.Component {
     cacheKey: null
   }
 
-  _handleShowDetails = this._handleShowDetails.bind(this)
-  _handleRefreshFolder = this._handleRefreshFolder.bind(this)
-  _handleUp = this._handleUp.bind(this)
   _handleCreate = this._handleCreate.bind(this)
   _handlePreview = this._handlePreview.bind(this)
+  _handleRefreshFolder = this._handleRefreshFolder.bind(this)
+  _handleShowDetails = this._handleShowDetails.bind(this)
+  _handleTasks = this._handleTasks.bind(this)
+  _handleUp = this._handleUp.bind(this)
 
   render() {
     const { folder } = this.props
@@ -67,7 +68,7 @@ class Folder extends React.Component {
             <i className="fa fa-fw fa-ellipsis-v" />
           </div>
         </div>
-        <div className="drive-results" onClick={ this._handlePreview }>
+        <div className="drive-results" { ...this._getResults() }>
           { folder.code === 'root' ?
             <Root { ...this._getRoot() } /> :
             <Infinite { ...this._getInfinite() } />
@@ -153,6 +154,13 @@ class Folder extends React.Component {
         label: 'Upload File(s)',
         modal: <Attachments { ...this._getAttachments() } />
       }
+    }
+  }
+
+  _getResults() {
+    return {
+      onClick: this._handlePreview,
+      onContextMenu: this._handleTasks
     }
   }
 
@@ -250,8 +258,11 @@ class Folder extends React.Component {
     this.context.router.replace(path)
   }
 
-  _handleTasks(item, e) {
-    this.props.onTasks(item, e)
+  _handleTasks(e) {
+    const { folder } = this.props
+    e.stopPropagation()
+    e.preventDefault()
+    this.props.onTasks([folder], e)
   }
 
   _handleUp() {
