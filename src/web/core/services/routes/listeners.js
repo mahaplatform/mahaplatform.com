@@ -7,6 +7,8 @@ export const listeners = async (req, listeners) => {
 
     const listenable = _getListenable(listener)
 
+    console.log(listenable)
+
     await Listening.fetchOrCreate({
       team_id: req.team.get('id'),
       user_id: listener.user_id,
@@ -20,7 +22,7 @@ export const listeners = async (req, listeners) => {
 
 }
 
-const _getListenable = async (entry) => ({
+const _getListenable = (entry) => ({
   type: entry.listenable_type || entry.listenable.tableName,
   id: entry.listenable_id || entry.listenable.id || entry.listenable.get('id')
 })
