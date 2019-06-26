@@ -12,6 +12,22 @@ const Item = new Model({
 
   virtuals: {
 
+    object_owner_id: function() {
+      return this.get('user_id')
+    },
+
+    object_text: function() {
+      return this.get('description')
+    },
+
+    object_type: function() {
+      return this.get('type')
+    },
+
+    object_url: function() {
+      return `/admin/expenses/${this.get('type')}s/${this.get('id')}`
+    },
+
     idglacct: function() {
       if(!this.get('expense_type_id')) return null
       if(!this.get('project_id')) return null

@@ -79,6 +79,7 @@ const processor = async () => {
     'deploy:install',
     'deploy:link_shared',
     'deploy:permissions',
+    'deploy:bootstrap',
     'deploy:migrate',
     'deploy:symlink',
     'deploy:reload_passenger',
@@ -183,8 +184,15 @@ const processor = async () => {
     })
   })
 
+  utils.registerTask(shipit, 'deploy:bootstrap', async () => {
+    await shipit.remote('NODE_ENV=production node ./core/scripts/bootstrap/index.js', {
+      roles: ['controller'],
+      cwd: releaseDir
+    })
+  })
+
   utils.registerTask(shipit, 'deploy:migrate', async () => {
-    await shipit.remote('NODE_ENV=production node ./core/db/index.js migrate:up', {
+    await shipit.remote('NODE_ENV=production node ./core/scripts/db/index.js migrate:up', {
       roles: ['controller'],
       cwd: releaseDir
     })

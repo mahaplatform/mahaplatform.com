@@ -1,4 +1,4 @@
-import '../services/environment'
+import '../../services/environment'
 import db from './db'
 
 const processor = async () => {

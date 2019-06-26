@@ -1,6 +1,6 @@
 import '../web/core/services/environment'
+import db from '../web/core/scripts/db/db'
 import register from 'babel-register'
-import db from '../web/core/db/db'
 import fs from 'fs'
 
 const babelrc = JSON.parse(fs.readFileSync('.babelrc'))
