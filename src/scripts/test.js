@@ -1,6 +1,6 @@
 import '../web/core/services/environment'
 import knex from '../web/core/services/knex'
-import { setup } from '../web/core/db/utils'
+import { setup } from '../web/core/scripts/db/utils'
 import Mocha from 'mocha'
 import glob from 'glob'
 
