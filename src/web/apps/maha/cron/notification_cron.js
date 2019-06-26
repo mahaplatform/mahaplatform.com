@@ -10,15 +10,12 @@ import _ from 'lodash'
 export const processor = async (trx) => {
 
   const notifications = await Notification.query(qb => {
-
     qb.joinRaw('inner join "maha_users" on "maha_users"."id"="maha_notifications"."user_id" and "maha_users"."email_notifications_method"=?', 'digest')
-
+    qb.joinRaw('left join "maha_users_notification_types" on "maha_users_notification_types"."user_id"="maha_notifications"."user_id" and "maha_users_notification_types"."notification_type_id"="maha_notifications"."notification_type_id"')
     qb.whereRaw('maha_notifications.created_at < ?', moment().subtract(5, 'minutes'))
-
+    qb.whereRaw('maha_users_notification_types.email_enabled is null or maha_users_notification_types.email_enabled=?', true)
     qb.where('maha_notifications.is_delivered', false)
-
     qb.orderBy('created_at', 'desc')
-
   }).fetchAll({
     withRelated: ['app', 'object_owner', 'subject.photo', 'story', 'team', 'user'],
     transacting: trx

@@ -10,7 +10,11 @@ export const notifications = async (req, notifications) => {
 
   await Promise.mapSeries(_.castArray(notifications), async notification => {
 
+    console.log(notification)
+
     const recipient_ids = await _getRecipientIds(req, notification)
+
+    console.log(recipient_ids)
 
     await Promise.mapSeries(recipient_ids, async user_id => {
 
