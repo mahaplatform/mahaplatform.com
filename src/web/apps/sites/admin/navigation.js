@@ -5,9 +5,12 @@ const navigation = async (req, trx) => {
   const sites = await Site.query(qb => {
     qb.innerJoin('sites_managers', 'sites_managers.site_id','sites_sites.id')
     qb.where('sites_managers.user_id', req.user.get('id'))
+    qb.orderBy('sites_sites.title', 'asc')
   }).fetchAll({
     transacting: trx,
-    withRelated: ['types']
+    withRelated: [{
+      types: qb => qb.orderBy('title', 'asc')
+    }]
   })
 
   return {
@@ -17,9 +20,20 @@ const navigation = async (req, trx) => {
         label: site.get('title'),
         items: [
           {
-            label: 'Members',
+            label: 'Admin',
             rights: ['sites:manage_content'],
-            route: `/sites/${site.get('id')}/members`
+            items: [
+              {
+                label: 'Manage',
+                rights: ['sites:manage_sites'],
+                route: `/sites/${site.get('id')}`
+              },
+              {
+                label: 'Members',
+                rights: ['sites:manage_content'],
+                route: `/sites/${site.get('id')}/members`
+              }
+            ]
           },
           ...site.related('types').map(type => ({
             label: type.get('title'),
