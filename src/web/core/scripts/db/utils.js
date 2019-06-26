@@ -27,6 +27,7 @@ export const truncate = async (flags, args) => {
 }
 
 export const schemaDump = async (flags, args) => {
+  if(process.env.NODE_ENV === 'production') return 
   _log('dump schema')
   const constraints = await _getConstraints()
   const foreign_keys = _.groupBy(constraints.foreign, (constraint) => constraint.table)
@@ -35,7 +36,7 @@ export const schemaDump = async (flags, args) => {
   const template = fs.readFileSync(path.join(__dirname, 'schema.js.ejs'), 'utf8')
   const platform = _.camelCase(path.basename(path.resolve()))
   const data = ejs.render(template, { platform, tables, views, foreign_keys })
-  if(process.env.NODE_ENV !== 'production') fs.writeFileSync(path.join('src', 'schema.js'), data)
+  fs.writeFileSync(path.join('src', 'schema.js'), data)
 }
 
 export const schemaLoad = async (flags, args) => {
@@ -152,7 +153,7 @@ const _getSortedFiles = (appPaths, targetPath) => {
 }
 
 const _getAppPaths = () => {
-  return apps.map(app => path.resolve(__dirname,'..','..', 'apps', app))
+  return apps.map(app => path.resolve(__dirname,'..','..','..','apps', app))
 }
 
 const _getTables = async (constraints) => {
