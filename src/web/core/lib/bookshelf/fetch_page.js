@@ -2,7 +2,7 @@ const DEFAULT_LIMIT = 100
 
 const DEFAULT_SKIP = 0
 
-const paginationPlugin = function(bookshelf) {
+const fetchPagePlugin = function(bookshelf) {
 
   const fetchPage = async function(options) {
 
@@ -54,4 +54,4 @@ const paginationPlugin = function(bookshelf) {
 
 }
 
-export default paginationPlugin
+export default fetchPagePlugin

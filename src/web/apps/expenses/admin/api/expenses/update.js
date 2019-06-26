@@ -1,4 +1,3 @@
-import { listeners } from '../../../../../core/services/routes/listeners'
 import { activity } from '../../../../../core/services/routes/activities'
 import ExpenseSerializer from '../../../serializers/expense_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
@@ -7,7 +6,6 @@ import socket from '../../../../../core/services/routes/emitter'
 import { createReceipts } from '../../../services/receipts'
 import { completeItem } from '../../../services/items'
 import Expense from '../../../models/expense'
-import Member from '../../../models/member'
 
 const updateRoute = async (req, res) => {
 
@@ -38,22 +36,6 @@ const updateRoute = async (req, res) => {
     item: expense,
     required: ['date','receipt_ids','description','amount','project_id','expense_type_id','vendor_id','account_id']
   })
-
-  if(expense.get('project_id')) {
-
-    const members = await Member.query(qb => {
-      qb.where('project_id', expense.get('project_id'))
-      qb.whereRaw('(member_type_id != ? OR user_id = ?)', [3, req.user.get('id')])
-    }).fetchAll({
-      transacting: req.trx
-    })
-
-    await listeners(req, members.map(member => ({
-      listenable: expense,
-      user_id: member.get('user_id')
-    })))
-
-  }
 
   await activity(req, {
     story: 'created {object}',

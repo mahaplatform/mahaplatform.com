@@ -52,6 +52,19 @@ const Reimbursement = new Model({
     return this.belongsTo(ExpenseType, 'expense_type_id')
   },
 
+  listener_ids(trx) {
+    return User.query(qb => {
+      qb.select('maha_users.id')
+      qb.joinRaw('left join maha_comments on maha_comments.user_id=maha_users.id and maha_comments.commentable_type=? and maha_comments.commentable_id=?', ['expenses_reimbursements', this.get('id')])
+      qb.joinRaw('left join maha_audits on maha_audits.user_id=maha_users.id and maha_audits.auditable_type=? and maha_audits.auditable_id=?', ['expenses_reimbursements', this.get('id')])
+      qb.joinRaw('left join expenses_members on expenses_members.user_id=maha_users.id and expenses_members.project_id = ? and expenses_members.member_type_id = ?', [this.get('project_id'), 1])
+      qb.whereRaw('maha_comments.id is not null or maha_audits.id is not null or expenses_members.id is not null')
+      qb.groupBy('maha_users.id')
+    }).fetchAll({
+      transacting: trx
+    }).then(users => users.map(user => user.get('id')))
+  },
+
   project() {
     return this.belongsTo(Project, 'project_id')
   },

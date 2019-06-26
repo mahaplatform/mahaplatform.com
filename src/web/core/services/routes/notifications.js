@@ -1,7 +1,6 @@
 import NotificationQueue from '../../../apps/maha/queues/notification_queue'
 import NotificationType from '../../../apps/maha/models/notification_type'
 import Notification from '../../../apps/maha/models/notification'
-import Listening from '../../../apps/maha/models/listening'
 import Story from '../../../apps/maha/models/story'
 import App from '../../../apps/maha/models/app'
 import _ from 'lodash'
@@ -48,24 +47,13 @@ const _getRecipientIds = async (req, notification) => [
   ...await _getListenerIds(req, notification)
 ]
 
-const _getListenable = (entry) => ({
-  type: entry.listenable_type || entry.listenable.tableName,
-  id: entry.listenable_id || entry.listenable.id || entry.listenable.get('id')
-})
-
 const _getListenerIds = async (req, notification) => {
 
-  const listenable = _getListenable(notification)
+  if(!notification.listenable) return []
 
-  return await Listening.query(qb => {
-    qb.where('listenable_type', listenable.type)
-    qb.where('listenable_id', listenable.id)
-    qb.whereNot('user_id', req.user.get('id'))
-  }).fetchAll({
-    transacting: req.trx
-  }).then(listenings => listenings.toArray().map(listener => {
-    return listener.get('user_id')
-  }))
+  const listeners = await notification.listenable.listener_ids(req.trx)
+
+  return listeners.filter(user_id => user_id !== req.user.get('id'))
 
 }
 

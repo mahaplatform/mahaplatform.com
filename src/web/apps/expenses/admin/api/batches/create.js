@@ -59,7 +59,7 @@ const createRoute = async (req, res) => {
   })
 
   const items = await Item.query(query).fetchAll({
-    withRelated: ['expense_type','project','user','vendor','account','listenings'],
+    withRelated: ['expense_type','project','user','vendor','account'],
     transacting: req.trx
   }).then(result => result.toArray())
 
@@ -83,23 +83,13 @@ const createRoute = async (req, res) => {
     ]
   })
 
-  await notifications(req, await Promise.mapSeries(items, async object => {
-
-    const recipient_ids = object.related('listenings').filter(listener => {
-      return listener.get('user_id') !== req.user.get('id')
-    }).map(listener => {
-      return listener.get('user_id')
-    })
-
-    return {
-      type: 'expenses:item_processed',
-      recipient_ids,
-      subject_id: req.user.get('id'),
-      story: 'processed {object}',
-      object
-    }
-
-  }))
+  await notifications(req, await Promise.mapSeries(items, async item => ({
+    type: 'expenses:item_processed',
+    listenable: item,
+    subject_id: req.user.get('id'),
+    story: 'processed {object}',
+    object: item
+  })))
 
   res.status(200).respond(batch, BatchSerializer)
 

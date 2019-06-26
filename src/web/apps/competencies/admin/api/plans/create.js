@@ -1,5 +1,4 @@
 import { notifications } from '../../../../../core/services/routes/notifications'
-import { listeners } from '../../../../../core/services/routes/listeners'
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
 import { audit } from '../../../../../core/services/routes/audit'
@@ -30,14 +29,6 @@ const createRoute = async (req, res) => {
     story: 'created',
     auditable: plan
   })
-
-  await listeners(req, [{
-    listenable: plan,
-    user_id: req.user.get('id')
-  }, {
-    listenable: plan,
-    user_id: req.body.supervisor_id
-  }])
 
   await notifications(req, {
     type: 'competencies:plan_created',

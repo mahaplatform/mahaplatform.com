@@ -24,8 +24,6 @@ const destroyRoute = async (req, res) => {
 
   await knex('maha_comments').transacting(req.trx).where('commentable_type', 'maha_expenses').where('commentable_id', req.params.id).delete()
 
-  await knex('maha_listenings').transacting(req.trx).where('listenable_type', 'maha_expenses').where('listenable_id', req.params.id).delete()
-
   await activity(req, {
     story: 'deleted {object}',
     object: reimbursement

@@ -723,17 +723,6 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('maha_listenings', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.string('listenable_type', 255)
-      table.integer('listenable_id')
-      table.integer('user_id').unsigned()
-      table.timestamp('unsubscribed_at')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
     await knex.schema.createTable('maha_notification_channels', (table) => {
       table.increments('id').primary()
       table.string('text', 255)
@@ -1238,11 +1227,6 @@ const schema = {
     await knex.schema.table('maha_imports', table => {
       table.foreign('user_id').references('maha_users.id')
       table.foreign('asset_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_listenings', table => {
-      table.foreign('user_id').references('maha_users.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 

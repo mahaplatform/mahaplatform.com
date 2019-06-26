@@ -1,3 +1,4 @@
+import registry from '../utils/registry'
 import bookshelf from '../lib/bookshelf'
 import Checkit from  'checkit'
 import _ from 'lodash'
@@ -6,7 +7,7 @@ class Model {
 
   constructor(options) {
 
-    return bookshelf.Model.extend({
+    const model = bookshelf.Model.extend({
 
       hasTimestamps: options.hasTimestamps !== false,
 
@@ -52,11 +53,6 @@ class Model {
         return this.morphMany(Comment, 'commentable')
       },
 
-      listenings: function() {
-        const Listening = require('../../apps/maha/models/listening').default
-        return this.morphMany(Listening, 'listenable')
-      },
-
       reactions: function() {
         const Reaction = require('../../apps/maha/models/reaction').default
         return this.morphMany(Reaction, 'reactable').query(qb => {
@@ -77,6 +73,10 @@ class Model {
       ...options
 
     })
+
+    registry.register(options.tableName, model)
+
+    return model
 
   }
 

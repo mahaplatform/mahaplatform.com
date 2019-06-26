@@ -1,10 +1,10 @@
 import { notifications } from '../../../../../core/services/routes/notifications'
 import { attachments } from '../../../../../core/services/routes/attachments'
-import { listeners } from '../../../../../core/services/routes/listeners'
 import { objects } from '../../../../../core/services/routes/objects'
 import CommentSerializer from '../../../serializers/comment_serializer'
 import socket from '../../../../../core/services/routes/emitter'
 import { extractAttachments } from '../../../services/attachment'
+import registry from '../../../../../core/utils/registry'
 import Comment from '../../../models/comment'
 import _ from 'lodash'
 
@@ -28,10 +28,14 @@ const createRoute = async (req, res) => {
     asset_ids: req.body.asset_ids
   })
 
-  await listeners(req, {
-    user_id: req.user.get('id'),
-    listenable_type: req.params.commentable_type,
-    listenable_id: req.params.commentable_id
+  const model = registry.lookup(req.params.commentable_type)
+
+  const commentable = await model.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('id', req.params.commentable_id)
+  }).fetch({
+    transacting: req.trx
   })
 
   await extractAttachments(comment, req.body.text, req.trx)

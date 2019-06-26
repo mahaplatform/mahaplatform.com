@@ -1,5 +1,4 @@
 import { notifications } from '../../../../../core/services/routes/notifications'
-import { listeners } from '../../../../../core/services/routes/listeners'
 import { activity } from '../../../../../core/services/routes/activities'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
@@ -40,7 +39,7 @@ const actionRoute = async (req, res) => {
   const item = await type.model.query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['project.members','listenings'],
+    withRelated: ['project.members'],
     transacting: req.trx
   })
 
@@ -83,11 +82,6 @@ const actionRoute = async (req, res) => {
   await audit(req, {
     story,
     auditable: item
-  })
-
-  await listeners(req, {
-    user_id: req.user.get('id'),
-    listenable: item
   })
 
   await notifications(req, {

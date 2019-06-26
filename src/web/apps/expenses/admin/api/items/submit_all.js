@@ -19,7 +19,7 @@ const submitAllRoute = async (req, res) => {
     qb.whereNot('status_id', 3)
     qb.orderBy('user_id', 'asc')
   }).fetchAll({
-    withRelated: ['project.members','expense_type','listenings'],
+    withRelated: ['project.members','expense_type'],
     transacting: req.trx
   }).then(result => result.toArray())
 
@@ -47,9 +47,7 @@ const submitAllRoute = async (req, res) => {
 
   await notifications(req, items.map(item => ({
     type: 'expenses:item_submitted',
-    recipient_ids: item.related('listenings').toArray().filter(listener => {
-      return listener.get('user_id') !== req.user.get('id')
-    }).map(listener => listener.get('user_id')),
+    listenable: item,
     subject_id: req.user.get('id'),
     story: 'submitted {object}',
     object: item

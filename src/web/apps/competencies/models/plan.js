@@ -41,6 +41,13 @@ const Plan = new Model ({
     return this.hasMany(Goal, 'plan_id')
   },
 
+  listener_ids(trx) {
+    return [
+      this.get('supervisor_id'),
+      this.get('employee_id')
+    ]
+  },
+
   supervisor() {
     return this.belongsTo(User, 'supervisor_id')
   },
