@@ -1,4 +1,4 @@
-import '../services/environment'
+import '../../services/environment'
 import  { bootstrapApps,bootstrapType } from './bootstrap'
 
 const bootstrap = async () => {
