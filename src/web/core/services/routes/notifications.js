@@ -10,11 +10,7 @@ export const notifications = async (req, notifications) => {
 
   await Promise.mapSeries(_.castArray(notifications), async notification => {
 
-    console.log(notification)
-
     const recipient_ids = await _getRecipientIds(req, notification)
-
-    console.log(recipient_ids)
 
     await Promise.mapSeries(recipient_ids, async user_id => {
 
@@ -52,18 +48,22 @@ const _getRecipientIds = async (req, notification) => [
   ...await _getListenerIds(req, notification)
 ]
 
+const _getListenable = (entry) => ({
+  type: entry.listenable_type || entry.listenable.tableName,
+  id: entry.listenable_id || entry.listenable.id || entry.listenable.get('id')
+})
+
 const _getListenerIds = async (req, notification) => {
 
-  if(!notification.listenable_type) return []
+  const listenable = _getListenable(notification)
 
-  return await Listening.where({
-    listenable_type: notification.listenable_type,
-    listenable_id: notification.listenable_id
+  return await Listening.query(qb => {
+    qb.where('listenable_type', listenable.type)
+    qb.where('listenable_id', listenable.id)
+    qb.whereNot('user_id', req.user.get('id'))
   }).fetchAll({
     transacting: req.trx
-  }).then(listenings => listenings.toArray().filter(listener => {
-    return listener.get('user_id') !== req.user.get('id')
-  })).then(listenings => listenings.map(listener => {
+  }).then(listenings => listenings.toArray().map(listener => {
     return listener.get('user_id')
   }))
 

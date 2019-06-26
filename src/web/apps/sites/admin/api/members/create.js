@@ -9,7 +9,7 @@ import Email from '../../../models/email'
 
 const createRoute = async (req, res) => {
 
-  const values = await processValues('sites_sites', req.params.site_id, req.body.values, req.trx)
+  const values = await processValues(req, 'sites_sites', req.params.site_id, req.body.values)
 
   const member = await Member.forge({
     team_id: req.team.get('id'),
@@ -28,7 +28,7 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  // const token = createUserToken(member, 'activation_id')
+  const token = createUserToken(member, 'activation_id')
 
   await sendMail({
     from: 'Maha <mailer@mahaplatform.com>',

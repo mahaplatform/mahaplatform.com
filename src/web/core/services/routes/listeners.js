@@ -5,7 +5,7 @@ export const listeners = async (req, listeners) => {
 
   await Promise.map(_.castArray(listeners), async listener => {
 
-    const listenable = await _getListenable(listener)
+    const listenable = _getListenable(listener)
 
     await Listening.fetchOrCreate({
       team_id: req.team.get('id'),

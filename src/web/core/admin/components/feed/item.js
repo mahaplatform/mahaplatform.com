@@ -64,28 +64,6 @@ class Item extends React.Component {
     this.props.onClick()
   }
 
-  _getDescription(user, subject, object) {
-    const type = object.type ? ` ${object.type}` : ''
-    let posessive = ''
-    let text = object.text
-    if(object.type === 'user' && object.id === user.id) {
-      text = 'yourself'
-    } else if(object.type === 'user' && object.id === subject.id) {
-      text = 'themself'
-    } else if(object.owner_id === null) {
-      posessive = `the${type} `
-    } else if(object.owner_id === user.id && (subject.id !== object.owner_id || !object.id)) {
-      posessive = `your${type} `
-    } else if(object.owner_id !== user.id && subject.id !== object.owner_id ) {
-      posessive = `<span class="maha-feed-item-object">${object.owner_full_name}'s</span>${type} `
-    } else if(object.owner_id !== user.id && object.owner_id === subject.id) {
-      posessive = `their${type} `
-    } else {
-      posessive = `the${type} `
-    }
-    return `${posessive}<span class="maha-feed-item-object">${text}</span>`
-  }
-
 }
 
 export default Item

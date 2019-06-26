@@ -61,8 +61,7 @@ const actionRoute = async (req, res) => {
 
   await notifications(req, {
     type: 'competencies:plan_approved',
-    listenable_type: 'commitments_plans',
-    listenable_id: plan.id,
+    listenable: plan,
     subject_id: req.user.get('id'),
     story: `${tensify(action.action).past} {object}`,
     object: plan

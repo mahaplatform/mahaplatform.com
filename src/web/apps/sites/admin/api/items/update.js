@@ -12,6 +12,8 @@ const updateRoute = async (req, res) => {
     qb.where('site_id', req.params.site_id)
     qb.where('type_id', req.params.type_id)
     qb.where('id', req.params.id)
+  }).fetch({
+    transacting: req.trx
   })
 
   if(!item) return res.status(404).respond({
@@ -19,9 +21,9 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load item'
   })
 
-  await item.save({
-    values: await processValues('sites_types', req.params.type_id, req.body.values, req.trx)
-  }, {
+  const values = await processValues(req, 'sites_types', req.params.type_id, req.body.values)
+
+  await item.save({ values }, {
     patch: true,
     transacting: req.trx
   })

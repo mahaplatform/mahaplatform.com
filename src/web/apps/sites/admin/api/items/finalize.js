@@ -44,7 +44,7 @@ const finalizeRoute = async (req, res) => {
       transacting: req.trx
     })
 
-    const values = await processValues('sites_types', req.body.type_id, item.get('preimport'))
+    const values = await processValues(req, 'sites_types', req.body.type_id, item.get('preimport'))
 
     await item.save({
       values,

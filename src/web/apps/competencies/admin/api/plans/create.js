@@ -41,8 +41,7 @@ const createRoute = async (req, res) => {
 
   await notifications(req, {
     type: 'competencies:plan_created',
-    listenable_type: 'commitments_plans',
-    listenable_id: plan.id,
+    listenable: plan,
     subject_id: req.user.get('id'),
     story: 'created {object}',
     object: plan

@@ -92,9 +92,7 @@ const actionRoute = async (req, res) => {
 
   await notifications(req, {
     type: `expenses:item_${story}`,
-    recipient_ids: item.related('listenings').toArray().filter(listener => {
-      return listener.get('user_id') !== req.user.get('id')
-    }).map(listener => listener.get('user_id')),
+    listenable: item,
     subject_id: req.user.get('id'),
     story: `${story} {object}`,
     object: item

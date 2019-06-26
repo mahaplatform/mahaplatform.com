@@ -81,9 +81,7 @@ const statusRoute = async (req, res) => {
 
   await notifications(req, {
     type: 'expenses:item_reverted',
-    recipient_ids: item.related('listenings').toArray().filter(listener => {
-      return listener.get('user_id') !== req.user.get('id')
-    }).map(listener => listener.get('user_id')),
+    recipient_ids: item,
     subject_id: req.user.get('id'),
     story: `reverted {object} to ${status.get('text')}`,
     object: item
