@@ -14,7 +14,7 @@ const activitySerializer = (req, result) => {
 
   const story = result.related('story').get('text')
 
-  const description = `${subject_text} ${story.replace('{object}', `${article_text}${object_text}`)}`
+  const description = `${subject_text} ${story ? story.replace('{object}', `${article_text}${object_text}`) : ''}`
 
   return {
     id: result.get('id'),

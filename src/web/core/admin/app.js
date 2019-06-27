@@ -62,9 +62,6 @@ import chatchatbar from '../../apps/chat/admin/components/chatbar'
 import chatfullchat from '../../apps/chat/admin/components/fullchat'
 import chatsubscriptions from '../../apps/chat/admin/components/subscriptions'
 import chatchat from '../../apps/chat/admin/roots/chat'
-import competenciescommitments from '../../apps/competencies/admin/components/commitments'
-import competenciesgoals from '../../apps/competencies/admin/components/goals'
-import competenciesresources from '../../apps/competencies/admin/components/resources'
 import driveaccess from '../../apps/drive/admin/components/access'
 import driveexplorer from '../../apps/drive/admin/components/explorer'
 import drivemove from '../../apps/drive/admin/components/move'
@@ -72,6 +69,9 @@ import drivechat from '../../apps/drive/admin/components/share/chat'
 import driveshare from '../../apps/drive/admin/components/share'
 import driveversions from '../../apps/drive/admin/components/versions'
 import expensestripsImportFinalize from '../../apps/expenses/admin/components/trips_import_finalize'
+import competenciescommitments from '../../apps/learning/admin/components/commitments'
+import competenciesgoals from '../../apps/learning/admin/components/goals'
+import competenciesresources from '../../apps/learning/admin/components/resources'
 import mahaprofiles from '../../apps/maha/admin/components/account/account/profiles'
 import mahanotificationTypes from '../../apps/maha/admin/components/account/notifications/notification_types'
 import mahaappitems from '../../apps/maha/admin/components/account/security/appitems'
@@ -101,10 +101,10 @@ import sitessitesImportFinalize from '../../apps/sites/admin/components/sites_im
 import teamaccess from '../../apps/team/admin/components/access'
 import teamroles from '../../apps/team/admin/components/roles'
 import chatRoutes from '../../apps/chat/admin/views/index.js'
-import competenciesRoutes from '../../apps/competencies/admin/views/index.js'
 import driveRoutes from '../../apps/drive/admin/views/index.js'
 import eatfreshRoutes from '../../apps/eatfresh/admin/views/index.js'
 import expensesRoutes from '../../apps/expenses/admin/views/index.js'
+import competenciesRoutes from '../../apps/learning/admin/views/index.js'
 import mahaRoutes from '../../apps/maha/admin/views/index.js'
 import platformRoutes from '../../apps/platform/admin/views/index.js'
 import sitesRoutes from '../../apps/sites/admin/views/index.js'
@@ -261,9 +261,6 @@ class App extends React.Component {
       chatfullchat,
       chatsubscriptions,
       chatchat,
-      competenciescommitments,
-      competenciesgoals,
-      competenciesresources,
       driveaccess,
       driveexplorer,
       drivemove,
@@ -271,6 +268,9 @@ class App extends React.Component {
       driveshare,
       driveversions,
       expensestripsImportFinalize,
+      competenciescommitments,
+      competenciesgoals,
+      competenciesresources,
       mahaprofiles,
       mahanotificationTypes,
       mahaappitems,
@@ -318,10 +318,10 @@ class App extends React.Component {
   _getRoutes() {
     return [
       { path: '/admin/chat', children: chatRoutes },
-      { path: '/admin/competencies', children: competenciesRoutes },
       { path: '/admin/drive', children: driveRoutes },
       { path: '/admin/eatfresh', children: eatfreshRoutes },
       { path: '/admin/expenses', children: expensesRoutes },
+      { path: '/admin/learning', children: competenciesRoutes },
       { path: '/admin', children: mahaRoutes },
       { path: '/admin/platform', children: platformRoutes },
       { path: '/admin/sites', children: sitesRoutes },
