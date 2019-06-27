@@ -3,6 +3,7 @@ import activate from './activate'
 import { Router } from 'express'
 import signout from './signout'
 import disable from './disable'
+import unblock from './unblock'
 import enable from './enable'
 import create from './create'
 import update from './update'
@@ -35,6 +36,8 @@ router.patch('/:id/disable', disable)
 router.patch('/:id/reset', reset)
 
 router.patch('/:id/signout', signout)
+
+router.patch('/:id/unblock', unblock)
 
 router.patch('/import/:id/finalize', finalize)
 

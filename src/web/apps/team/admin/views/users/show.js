@@ -28,6 +28,8 @@ const Details = ({ user, appUserValues }) => {
     list.alert = { color: 'grey', message: 'This user hasn\'t yet activated their account' }
   } else if(!user.is_active) {
     list.alert = { color: 'red', message: 'This user has been disabled' }
+  } else if(user.is_blocked) {
+    list.alert = { color: 'red', message: 'This user has been blocked' }
   }
 
 
@@ -82,13 +84,24 @@ const mapPropsToPage = (props, context, resources) => ({
         modal: () => <Edit user={ resources.user } token={ props.team.token } />,
         rights: ['team:manage_people']
       }, {
+        label: 'Unblock User',
+        rights: ['team:manage_people'],
+        show: resources.user.is_blocked && resources.user.is_active,
+        request: {
+          method: 'PATCH',
+          endpoint: `/api/admin/team/users/${resources.user.id}/unblock`,
+          onFailure: (result) => context.flash.set('error', 'Unable to unblock this user'),
+          onSuccess: (result) => context.flash.set('success', 'The user has been unblocked')
+        }
+      }, {
         label: 'Disable User',
         rights: ['team:manage_people'],
         show: resources.user.activated_at !== null && resources.user.is_active,
         request: {
           method: 'PATCH',
           endpoint: `/api/admin/team/users/${resources.user.id}/disable`,
-          onFailure: (result) => context.flash.set('error', 'Unable to disable this user')
+          onFailure: (result) => context.flash.set('error', 'Unable to disable this user'),
+          onSuccess: (result) => context.flash.set('success', 'The user has been disabled')
         }
       }, {
         label: 'Enable User',
@@ -97,7 +110,8 @@ const mapPropsToPage = (props, context, resources) => ({
         request: {
           method: 'PATCH',
           endpoint: `/api/admin/team/users/${resources.user.id}/enable`,
-          onFailure: (result) => context.flash.set('error', 'Unable to enable this user')
+          onFailure: (result) => context.flash.set('error', 'Unable to enable this user'),
+          onSuccess: (result) => context.flash.set('success', 'The user has been enabled')
         }
       },{
         label: 'Resend Activation Email',
