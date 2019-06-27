@@ -15,10 +15,10 @@ const mapPropsToPage = (props, context, resources, page) => ({
     entity: 'batch',
     icon: 'copy',
     link: (record) => `/admin/expenses/reports?$filter[batch_id][$in][0]=${record.id}`,
-    recordTasks: [
+    recordTasks: (record) => [
       {
         label: 'Download Batch',
-        handler: (id) => window.location.href = `/api/admin/expenses/batches/${id}.csv?download=true&enclosure="&token=${props.team.token}`
+        url: `/api/admin/expenses/batches/${record.id}.csv?download=true&enclosure="&token=${props.team.token}`
       }
     ]
   }

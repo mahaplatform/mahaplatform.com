@@ -15,10 +15,10 @@ const mapPropsToPage = (props, context, resources, page) => ({
     entity: 'rate',
     icon: 'percent',
     new: New,
-    recordTasks: [
+    recordTasks: (record) => [
       {
         label: 'Edit Rate',
-        modal: (rate) => <Edit id={ rate.id } />
+        modal: <Edit id={ record.id } />
       }
     ]
   },

@@ -55,7 +55,7 @@ class Collection extends React.Component {
     panel: PropTypes.any,
     q: PropTypes.string,
     records: PropTypes.array,
-    recordTasks: PropTypes.array,
+    recordTasks: PropTypes.func,
     rowClass: PropTypes.func,
     search: PropTypes.bool,
     selected: PropTypes.array,

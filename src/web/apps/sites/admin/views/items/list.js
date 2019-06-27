@@ -105,34 +105,38 @@ const mapPropsToPage = (props, context, resources, page) => ({
     empty: `You have not yet created any ${resources.type.title}`,
     entity: resources.type.title,
     icon: 'database',
-    recordTasks: [
+    recordTasks: (record) => [
       {
         label: 'Edit Item',
-        modal: (props) => <Edit { ...props } type={ resources.type } fields={ resources.fields } site_id={ page.params.site_id } />
+        modal: <Edit { ...record } type={ resources.type } fields={ resources.fields } site_id={ page.params.site_id } />
       },{
         label: 'Publish Item',
-        request: (id) => ({
-          endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${resources.type.id}/items/${id}/publish`,
+        show: !record.is_published,
+        request: {
           method: 'PATCH',
+          endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${resources.type.id}/items/${record.id}/publish`,
+          body: { is_published: true },
           onFailure: () => {},
           onSuccess: () => {}
-        })
+        }
       },{
         label: 'Unpublish Item',
-        request: (id) => ({
-          endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${resources.type.id}/items/${id}/unpublish`,
+        show: record.is_published,
+        request: {
           method: 'PATCH',
+          endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${resources.type.id}/items/${record.id}/publish`,
+          body: { is_published: false },
           onFailure: () => {},
           onSuccess: () => {}
-        })
+        }
       },{
         label: 'Delete Item',
-        request: (id) => ({
-          endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${resources.type.id}/items/${id}`,
+        request: {
+          endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${resources.type.id}/items/${record.id}`,
           method: 'DELETE',
           onFailure: () => {},
           onSuccess: () => {}
-        })
+        }
       }
     ],
     new: () => <New type={ resources.type } fields={ resources.fields } site_id={ page.params.site_id } />,

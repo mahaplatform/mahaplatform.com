@@ -15,7 +15,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'ID', key: 'id' },
       { label: 'Title', key: 'title' }
     ],
-    recordTasks: [
+    recordTasks: (record) => [
       {
         label: 'Edit Category',
         modal: Edit

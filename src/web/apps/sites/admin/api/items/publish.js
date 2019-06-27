@@ -9,6 +9,8 @@ const publishRoute = async (req, res) => {
     qb.where('site_id', req.params.site_id)
     qb.where('type_id', req.params.type_id)
     qb.where('id', req.params.id)
+  }).fetch({
+    transacting: req.trx
   })
 
   if(!item) return res.status(404).respond({

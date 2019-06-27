@@ -45,10 +45,10 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Description', key: 'description' },
       ..._getIntegrationExports(resources.app.settings.integration)
     ],
-    recordTasks: [
+    recordTasks: (record) => [
       {
         label: 'Edit Type',
-        modal: (props) => <Edit { ...props } integration={ resources.app.settings.integration } />
+        modal: <Edit { ...record } integration={ resources.app.settings.integration } />
       }
     ],
     defaultSort: { key: 'title', order: 'asc' },

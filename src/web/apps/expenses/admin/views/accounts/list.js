@@ -19,10 +19,10 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'ID', key: 'id' },
       { label: 'Name', key: 'name' }
     ],
-    recordTasks: [
+    recordTasks: (record) => [
       {
         label: 'Edit Account',
-        modal: (props) => <Edit { ...props } integration={ resources.app.settings.integration } />
+        modal: <Edit { ...record } integration={ resources.app.settings.integration } />
       }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },

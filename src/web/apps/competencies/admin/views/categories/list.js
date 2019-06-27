@@ -17,7 +17,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     defaultSort: { key: 'title', order: 'asc' },
     entity: 'category',
     icon: 'tag',
-    recordTasks: [
+    recordTasks: (record) => [
       {
         label: 'Edit Category',
         modal: Edit

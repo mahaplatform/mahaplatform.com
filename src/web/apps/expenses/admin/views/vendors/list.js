@@ -24,13 +24,13 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Items', key: 'items_count' }
     ],
     link: (record) => `/admin/expenses/reports?$filter[vendor_id][$in][0]=${record.id}`,
-    recordTasks: [
+    recordTasks: (record) => [
       {
         label: 'Merge Vendor',
-        modal: (vendor) => <Merge id={ vendor.id } />
+        modal: <Merge id={ record.id } />
       }, {
         label: 'Edit Vendor',
-        modal: (vendor) => <Edit integration={ resources.app.settings.integration } id={ vendor.id } />
+        modal: <Edit integration={ resources.app.settings.integration } id={ record.id } />
       }
     ],
     defaultSort: { key: 'name', order: 'asc' },

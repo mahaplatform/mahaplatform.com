@@ -21,15 +21,15 @@ const mapPropsToPage = (props, context, resources, page) => ({
     entity: 'asset',
     link: (record) => `/admin/platform/assets/${record.id}`,
     defaultSort: { key: 'created_at', order: 'desc' },
-    recordTasks: [
+    recordTasks: (record) => [
       {
         label: 'Reprocess Asset',
-        request: (id) => ({
+        request: {
           method: 'PATCH',
-          endpoint: `/api/admin/platform/assets/${id}/reprocess`,
+          endpoint: `/api/admin/platform/assets/${record.id}/reprocess`,
           onFailure: (result) => context.flash.set('error', 'Unable to reprocess out this asset'),
           onSuccess: (result) => context.flash.set('success', 'The asset has been reprocessed')
-        })
+        }
       }
     ]
   }

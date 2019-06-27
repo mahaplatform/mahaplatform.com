@@ -17,7 +17,7 @@ class Table extends React.Component {
     link: PropTypes.func,
     modal: PropTypes.any,
     records: PropTypes.array,
-    recordTasks: PropTypes.array,
+    recordTasks: PropTypes.func,
     rowClass: PropTypes.func,
     selectable: PropTypes.bool,
     selected: PropTypes.array,
@@ -102,7 +102,7 @@ class Table extends React.Component {
                   </td>
                 )) }
                 { recordTasks &&
-                  <td className="icon mobile collapsing centered" onClick={ this._handleTasks.bind(this, record.id) }>
+                  <td className="icon mobile collapsing centered" onClick={ this._handleTasks.bind(this, record) }>
                     <i className="fa fa-fw fa-ellipsis-v" />
                   </td>
                 }
@@ -206,14 +206,9 @@ class Table extends React.Component {
     this.props.onSort(key)
   }
 
-  _handleTasks(id) {
+  _handleTasks(record) {
     const { recordTasks } = this.props
-    const tasks = recordTasks.map(task => ({
-      ...task,
-      handler: task.handler ? () => task.handler(id) : null,
-      modal: task.modal ? () => <task.modal id={ id } /> : null,
-      request: task.request ? task.request(id): null
-    }))
+    const tasks = recordTasks(record)
     this.context.tasks.open(tasks)
   }
 
