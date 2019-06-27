@@ -31,6 +31,7 @@ class Assignment extends React.Component {
     name: PropTypes.string,
     method: PropTypes.string,
     q: PropTypes.string,
+    search: PropTypes.array,
     title: PropTypes.string,
     text: PropTypes.string,
     types: PropTypes.object,

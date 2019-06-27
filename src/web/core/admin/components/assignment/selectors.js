@@ -19,15 +19,20 @@ const q = (state, props) => state.q.toLowerCase()
 
 const text = (state, props) => props.text
 
+const search = (state, props) => props.search
+
 const filtered = createSelector(
   unfiltered,
   q,
+  search,
   text,
-  (unassigned, q, text) => ({
+  (unassigned, q, search, text) => ({
     status: unassigned.status,
     records: unassigned.records.filter(record => {
       if(q.length === 0) return true
-      return record[text].toLowerCase().search(q) >= 0
+      const fields = search || [text]
+      const blob = fields.map(field => _.get(record, field)).join(' ')
+      return blob.toLowerCase().search(q) >= 0
     })
   })
 )

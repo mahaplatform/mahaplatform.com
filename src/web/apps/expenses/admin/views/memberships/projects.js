@@ -28,6 +28,7 @@ class Projects extends React.Component {
       label: 'Project',
       name: 'project',
       text: 'title',
+      search: ['integration.project_code','title'],
       title: 'Manage Projects',
       typesFormat: (membership) => <CompactMemberTypeToken { ...membership } />,
       typesName: 'member_type_id',
