@@ -12,6 +12,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     empty: 'You have not yet created any types for this site',
     entity: 'type',
     icon: 'tag',
+    link: (record) => `/admin/sites/sites/${page.params.site_id}/types/${record.id}`,
     new: () => <New site_id={ page.params.site_id } />,
     defaultSort: { key: 'title', order: 'asc' }
   },

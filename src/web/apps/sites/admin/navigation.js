@@ -24,14 +24,29 @@ const navigation = async (req, trx) => {
             rights: ['sites:manage_content'],
             items: [
               {
-                label: 'Manage',
-                rights: ['sites:manage_sites'],
+                label: 'Configuration',
+                rights: ['sites:manage_content'],
                 route: `/sites/${site.get('id')}`
+              },
+              {
+                label: 'Emails',
+                rights: ['sites:manage_content'],
+                route: `/sites/${site.get('id')}/emails`
+              },
+              {
+                label: 'Managers',
+                rights: ['sites:manage_content'],
+                route: `/sites/${site.get('id')}/managers`
               },
               {
                 label: 'Members',
                 rights: ['sites:manage_content'],
                 route: `/sites/${site.get('id')}/members`
+              },
+              {
+                label: 'Types',
+                rights: ['sites:manage_content'],
+                route: `/sites/${site.get('id')}/types`
               }
             ]
           },

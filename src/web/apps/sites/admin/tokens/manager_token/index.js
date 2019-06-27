@@ -2,7 +2,7 @@ import { CompactUserToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const ManagerToken = ({ manager }) => (
+const ManagerToken = (manager) => (
   <div className="manager-token">
     <div className="manager-token-item">
       <CompactUserToken { ...manager.user } presence={ false } />

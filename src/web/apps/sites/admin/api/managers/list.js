@@ -22,8 +22,8 @@ const listRoute = async (req, res) => {
     filter: req.query.$filter
   }).sort({
     sort: req.query.$sort,
-    defaultSort: 'id',
-    sortParams: ['id']
+    defaultSort: 'created_at',
+    sortParams: ['created_at']
   }).fetchPage({
     page: req.query.$page,
     withRelated: ['user.photo'],
