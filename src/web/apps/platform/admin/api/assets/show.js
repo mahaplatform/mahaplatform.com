@@ -5,7 +5,7 @@ import Asset from '../../../../maha/models/asset'
 const showRoute = async (req, res) => {
 
   const asset = await Asset.query(qb => {
-    qb.where('code', req.params.code)
+    qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['source','user.photo'],
     transacting: req.trx

@@ -3,16 +3,6 @@ import User from '../../../../maha/models/user'
 import Item from '../../../models/item'
 import auth from 'http-auth'
 
-export const preconditions = (req, res, next) => {
-  const requestURI = req.originalUrl.replace(`/admin/drive/${req.params.subdomain}`, '')
-  const slashfree = requestURI.replace(/\/+$/, '').replace(/^\/+/, '')
-  req.fullpath = decodeURI(slashfree)
-  req.label = req.fullpath.split('/').slice(-1)[0]
-  req.parent_path = req.fullpath.split('/').slice(0,-1).join('/')
-  if(req.label[0] === '.') return res.status(412).send(null)
-  next()
-}
-
 const loadUser = async (username, password, callback, req) => {
   const user = await User.scope({
     team: req.team
@@ -39,17 +29,6 @@ export const rawParser = (req, res, next) => {
     req.rawBody = Buffer.concat(chunks)
     next()
   })
-}
-
-export const cors = (req, res, next) => {
-  res.setHeader('DAV', '1,2')
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Credentials', 'true')
-  res.setHeader('Access-Control-Expose-Headers', 'DAV, content-length, Allow')
-  res.setHeader('MS-Author-Via', 'DAV')
-  res.setHeader('WWW-Authenticate', 'Basic realm="MAHA"')
-  res.setHeader('Allow', 'PROPPATCH,PROPFIND,OPTIONS,DELETE,UNLOCK,COPY,LOCK,MOVE,HEAD,POST,PUT,GET')
-  next()
 }
 
 export const loadHeaders = (req, res, next) => {

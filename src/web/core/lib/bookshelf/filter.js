@@ -208,7 +208,7 @@ const filterPlugin = function(bookshelf) {
 
   const castColumn = function(tableName, column) {
     const matches = column.match(/(.*)\.(.*)/)
-    return matches ? column : `${tableName}.${column}`
+    return !matches && tableName !== undefined ? `${tableName}.${column}` : column
   }
 
   bookshelf.Collection.prototype.filter = filter
