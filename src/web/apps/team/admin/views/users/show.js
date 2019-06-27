@@ -1,4 +1,5 @@
 import { AppToken, Avatar, List, Page } from 'maha-admin'
+import Notifications from './notifications'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Edit from './edit'
@@ -58,14 +59,15 @@ const Access = ({ access }) => {
 
 }
 
-const mapResourcesToPage = (props, context) => ({
-  user: `/api/admin/team/users/${props.params.id}`,
-  access: `/api/admin/team/users/${props.params.id}/access`
-})
-
 Access.propTypes = {
   access: PropTypes.array
 }
+
+const mapResourcesToPage = (props, context) => ({
+  user: `/api/admin/team/users/${props.params.id}`,
+  access: `/api/admin/team/users/${props.params.id}/access`,
+  notifications: `/api/admin/team/users/${props.params.id}/notifications`
+})
 
 const mapPropsToPage = (props, context, resources) => ({
   title: resources.user.full_name,
@@ -74,7 +76,8 @@ const mapPropsToPage = (props, context, resources) => ({
     header: <Avatar user={ resources.user } width="120" presence={ false } />,
     items: [
       { label: 'Details', component: <Details user={ resources.user } appUserValues={ context.configuration.appUserValues } /> },
-      { label: 'Access', component: <Access access={ resources.access } /> }
+      { label: 'Access', component: <Access access={ resources.access } /> },
+      { label: 'Notifications', component: <Notifications notifications={ resources.notifications } /> }
     ]
   },
   tasks: {

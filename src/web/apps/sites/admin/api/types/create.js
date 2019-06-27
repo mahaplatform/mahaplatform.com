@@ -43,7 +43,8 @@ const createRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    `/admin/sites/sites/${req.params.site_id}`
+    `/admin/sites/sites/${req.params.site_id}/types`,
+    `/admin/sites/sites/${req.params.site_id}/types/${type.get('id')}`
   ])
 
   res.status(200).respond(type, TypeSerializer)

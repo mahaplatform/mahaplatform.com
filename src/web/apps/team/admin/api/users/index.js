@@ -1,3 +1,4 @@
+import notifications from './notifications'
 import finalize from './finalize'
 import activate from './activate'
 import { Router } from 'express'
@@ -38,6 +39,8 @@ router.patch('/:id/reset', reset)
 router.patch('/:id/signout', signout)
 
 router.patch('/:id/unblock', unblock)
+
+router.use('/:id/notifications', notifications)
 
 router.patch('/import/:id/finalize', finalize)
 
