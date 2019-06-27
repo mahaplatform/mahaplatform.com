@@ -1,5 +1,5 @@
 const preconditions = (req, res, next) => {
-  const requestURI = req.originalUrl.replace(`/admin/drive/${req.params.subdomain}`, '')
+  const requestURI = req.originalUrl.replace(`/admin/drive/dav/${req.params.subdomain}`, '')
   const slashfree = requestURI.replace(/\/+$/, '').replace(/^\/+/, '')
   req.fullpath = decodeURI(slashfree)
   req.label = req.fullpath.split('/').slice(-1)[0]

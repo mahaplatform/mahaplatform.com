@@ -1,4 +1,4 @@
-import { authentication, loadHeaders, loadItem, loadTeam, rawParser } from './utils'
+import { loadHeaders, loadItem, loadTeam, rawParser } from './utils'
 import preconditions from './preconditions'
 import propfind from './propfind'
 import { Router } from 'express'
@@ -6,6 +6,7 @@ import options from './options'
 import destroy from './destroy'
 import unlock from './unlock'
 import mkcol from './mkcol'
+import auth from './auth'
 import cors from './cors'
 import lock from './lock'
 import move from './move'
@@ -23,7 +24,7 @@ router.use(cors)
 
 router.use(loadTeam)
 
-router.use(authentication)
+router.use(auth)
 
 router.use(loadHeaders)
 
