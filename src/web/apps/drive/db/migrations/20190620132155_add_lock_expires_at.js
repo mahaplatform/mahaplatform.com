@@ -80,6 +80,7 @@ const AddLockExpiresAt = {
       from "drive_items"
       inner join "maha_stars" on "maha_stars"."starrable_type"=concat('drive_',"drive_items"."type",'s') and "maha_stars"."starrable_id"="drive_items"."item_id"
     `)
+    
   },
 
   down: async (knex) => {

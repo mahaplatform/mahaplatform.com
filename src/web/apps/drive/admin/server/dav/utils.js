@@ -39,7 +39,7 @@ export const loadItem = async (req, res, next) => {
     qb.where('fullpath', req.fullpath)
     qb.orderBy('label', 'asc')
   }).fetch({
-    withRelated: ['asset','accesses'],
+    withRelated: ['locked_by','owner.user','asset','accesses'],
     transacting: req.trx
   })
   if(req.method !== 'PUT' && !req.item) {

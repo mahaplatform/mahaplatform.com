@@ -24,6 +24,12 @@ const Item = new Model({
 
   locked_by: function() {
     return this.belongsTo(User, 'locked_by_id')
+  },
+
+  owner: function() {
+    return this.hasOne(Access, 'code', 'code').query(qb => {
+      qb.where('access_type_id', 1)
+    })
   }
 
 })

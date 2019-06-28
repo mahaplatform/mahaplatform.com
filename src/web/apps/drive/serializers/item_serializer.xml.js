@@ -22,22 +22,67 @@ const getResponse = (req, item, props) => {
     found.push({ 'D:getlastmodified': [ getlastmodified ] })
   }
   if(item.get('type') === 'file') {
-    if(props['D:resourcetype']) found.push({ 'D:resourcetype': null })
-    if(props['D:getcontenttype']) {
+    if(props['D:resourcetype'] || props['D:allprop']) found.push({ 'D:resourcetype': null })
+    if(props['D:getcontenttype'] || props['D:allprop']) {
       found.push({ 'D:getcontenttype': [ item.related('asset').get('content_type') ] })
     }
-    if(props['D:getcontentlength']) {
+    if(props['D:getcontentlength'] || props['D:allprop']) {
       found.push({ 'D:getcontentlength': [ item.related('asset').get('file_size') ] })
     }
-    if(props['D:displayname']) {
-      found.push({ 'D:displayname': [ item.related('asset').get('original_file_name') ] })
+    if(props['D:displayname'] || props['D:allprop']) {
+      found.push({ 'D:displayname': [ item.get('label') ] })
     }
-    if(props['D:getetag']) {
-      found.push({ 'D:getetag': [ '0034114ebf4ab656016e01c5774e05b03eb6d66a' ] })
+    if(props['D:author'] || props['D:allprop']) {
+      found.push({ 'D:author': [{
+        'D:Name': req.item.related('owner').related('user').get('full_name')
+      }] })
+    }
+    if(props['D:getetag'] || props['D:allprop']) {
+      found.push({ 'D:getetag': [ item.related('asset').get('etag') ] })
+    }
+    if(props['D:supportedlock'] || props['D:allprop']) {
+      found.push({
+        'D:supportedlock': [{
+          'D:lockentry': [{
+            'D:lockscope': [{
+              'D:exclusive': []
+            }],
+            'D:locktype': [{
+              'D:write': []
+            }]
+          }]
+        }]
+      })
+    }
+    if(props['D:lockdiscovery'] || props['D:allprop'] && req.item.get('lock_token') !== null) {
+      found.push({
+        'D:lockdiscovery': [{
+          'D:activelock': [{
+            'D:locktype': [{
+              'D:write': []
+            }],
+            'D:lockscope': [{
+              'D:exclusive': []
+            }],
+            'D:depth': [0],
+            'D:owner': [req.item.related('locked_by').get('full_name')],
+            'D:timeout': ['infinite'],
+            'D:locktoken': [{
+              'D:href': [req.item.get('locked_token')]
+            }],
+            'D:lockroot': [{
+              'D:href': ['http://www.example.com/container/']
+            }]
+          }]
+        }]
+      })
     }
   }
   if(item.get('type') === 'folder') {
-    if(props['D:resourcetype']) {
+    if(props['D:displayname'] || props['D:allprop']) {
+      found.push({ 'D:displayname': [ item.get('label') ] })
+    }
+    if(props['D:resourcetype'] || props['D:allprop']) {
       found.push({ 'D:resourcetype': [ { 'D:collection': null } ] })
     }
     if(props['D:getcontentlength']) missing.push({ 'D:getcontentlength': null })
