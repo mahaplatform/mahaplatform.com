@@ -196,8 +196,7 @@ export const getAssetData = async (asset, format = 'buffer') => {
 const _saveFildata = async (asset, file_data) => {
   const normalizedData = await _getNormalizedData(asset, file_data)
   await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
-  if(asset.get('content_type').match(/image/) !== null) return
-  if(asset.get('content_type').match(/octet/) !== null) return
+  if(asset.get('file_name').match(/[pdf|xls|xlsx|doc|docx|ppt|pptx|eml|htm|html]$/) !== null) return
   const previewData = await _getPreviewData(asset, normalizedData, 'jpg')
   await _saveFile(previewData, `assets/${asset.get('id')}/preview.jpg`, 'image/jpeg')
 }

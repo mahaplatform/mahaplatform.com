@@ -52,7 +52,7 @@ const moveRoute = async (req, res) => {
   }) : null
 
   await socket.refresh(req, [
-    `/admin/drive/folders/${folder ? folder.get('code') : 'drive'}`
+    `/admin/drive/folders/${folder.get('code') || 'drive'}`
   ])
 
   res.status(200).respond(true)

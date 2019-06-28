@@ -1,3 +1,4 @@
+import socket from '../../../../../core/services/routes/emitter'
 import { renameFolder } from '../../../services/folders'
 import { renameFile } from '../../../services/files'
 import Folder from '../../../models/folder'
@@ -17,6 +18,10 @@ const route = async (req, res) => {
 
     await renameFile(req, file, { label })
 
+    await socket.refresh(req, [
+      `/admin/drive/folders/${file.related('folder').get('code') ||  'drive'}`
+    ])
+
   } else {
 
     const folder = await Folder.query(qb => {
@@ -27,7 +32,12 @@ const route = async (req, res) => {
 
     await renameFolder(req, folder, { label })
 
+    await socket.refresh(req, [
+      `/admin/drive/folders/${folder.related('folder').get('code') || 'drive'}`
+    ])
+
   }
+
 
   res.status(200).send(null)
 

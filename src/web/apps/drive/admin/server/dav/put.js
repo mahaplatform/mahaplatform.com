@@ -14,7 +14,7 @@ const route = async (req, res) => {
   if(!req.item) {
 
     const folder = await Folder.where(qb => {
-      qb.where('fullpath', req.fullpath)
+      qb.where('fullpath', req.parent_path)
     }).fetch({
       transacting: req.trx
     })
@@ -62,7 +62,7 @@ const route = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    `/admin/drive/folders/${req.item.related('folder') ? req.item.related('folder').get('code') : 'drive'}`,
+    `/admin/drive/folders/${req.item.related('folder').get('code') || 'drive'}`,
     `/admin/drive/files/${req.item.get('code')}`,
     '/admin/drive/folders/trash'
   ])

@@ -72,7 +72,7 @@ export const renameFolder = async (req, folder, params) => {
 
   await folder.save({
     label: params.label,
-    fullpath: folder.related('folder') ? `${folder.related('folder').get('fullpath')}/${params.label}` : params.label
+    fullpath: folder.related('folder').get('fullpath') ? `${folder.related('folder').get('fullpath')}/${params.label}` : params.label
   }, {
     patch: true,
     transacting: req.trx
