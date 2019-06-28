@@ -1,15 +1,22 @@
-import item_serializer from '../../../serializers/item_serializer.xml'
 import Item from '../../../models/item'
+import response from './response.xml'
+import error from './error.xml'
+import moment from 'moment'
 
 const getChildren = async (req, user, item, depth) => {
 
-  if(item && item.get('type') === 'file') return []
+  if(item.get('type') === 'file') return []
+
+  if(depth === '0') return []
 
   return await Item.scope({
     team: req.team
   }).query(qb => {
-    if(!item) qb.whereNull('folder_id')
-    if(item && item.get('type') === 'folder' && depth > 0) qb.where('folder_id', item.get('item_id'))
+    if(item.get('id') === null) {
+      qb.whereNull('folder_id')
+    } else {
+      qb.where('folder_id', item.get('item_id'))
+    }
     qb.select('drive_items.*','drive_access_types.text as access_type')
     qb.innerJoin('drive_items_access', 'drive_items_access.code', 'drive_items.code')
     qb.innerJoin('drive_access_types', 'drive_access_types.id', 'drive_items_access.access_type_id')
@@ -23,15 +30,45 @@ const getChildren = async (req, user, item, depth) => {
 
 }
 
-const getProps = async (req, user, item, props, depth) => {
-  const children = await getChildren(req, user, item, depth)
-  return item_serializer(req, item, props, children)
+const getError = () => {
+  return error('D:propfind-finite-depth')
 }
 
+const getData = async (req, user, item, props, depth) => {
+  const children = await getChildren(req, user, item, depth)
+  return response(req, item, props, children)
+}
+
+const getProps = (propfind) => {
+  if(!propfind || propfind['D:allprop']) return { 'D:allprop': [] }
+  return propfind['D:prop'][0]
+}
+
+const getRoot = (req) => ({
+  get: (prop) => {
+    if(prop === 'type') return 'folder'
+    if(prop === 'fullpath') return ''
+    if(prop === 'label') return req.team.get('subdomain')
+    if(prop === 'created_at') return moment()
+    if(prop === 'updated_at') return moment()
+    return null
+  }
+})
+
 const route = async (req, res) => {
-  const props = req.body['D:propfind']['D:prop'][0]
-  const data = await getProps(req, req.user, req.item, props, req.headers.depth)
+
+  if(req.headers.depth && req.headers.depth === 'infinity') {
+    return res.status(403).type('application/xml').send(getError())
+  }
+
+  const item = req.item || getRoot(req)
+
+  const props = getProps(req.body['D:propfind'])
+
+  const data = await getData(req, req.user, item, props, req.headers.depth)
+
   res.status(207).type('application/xml').send(data)
+
 }
 
 export default route

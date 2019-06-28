@@ -28,7 +28,7 @@ const restoreRoute = async (req, res) => {
     })
 
     await socket.refresh(req, [
-      `/admin/drive/folders/${item.related('folder') ? item.related('folder').get('code') : 'drive'}`,
+      `/admin/drive/folders/${item.related('folder').get('code') || 'drive'}`,
       `/admin/drive/files/${item.get('code')}`
     ])
 

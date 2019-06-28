@@ -1,7 +1,7 @@
 import moment from 'moment'
 import xml from 'xml'
 
-const item_serializer = (req, item, props, children = []) => xml({
+const response = (req, item, props, children = []) => xml({
   'D:multistatus': [
     { _attr: { 'xmlns:D': 'DAV:' } },
     ...item ? [ getResponse(req, item, props) ] : [],
@@ -9,17 +9,24 @@ const item_serializer = (req, item, props, children = []) => xml({
   ]
 }, { declaration: true })
 
+const getUrl = (req, item) => {
+  const parts = [process.env.WEB_HOST, 'admin', 'drive', req.params.subdomain]
+  if(item.get('fullpath').length > 0) parts.push(item.get('fullpath'))
+  const url = encodeURI(parts.join('/'))
+  return item.get('type') === 'folder' ? `${url}/` : url
+}
+
 const getResponse = (req, item, props) => {
-  const url = `${process.env.WEB_HOST}/admin/drive/${req.params.subdomain}/${item.get('fullpath')}`
+  const url = getUrl(req, item)
   const found = []
   const missing = []
-  if(props['D:creationdate']) {
-    const creationdate = moment(item.get('updated_at')).format('YYYY-MM-DD[T]HH:mm:ss[Z]')
-    found.push({ 'D:creationdate': [ creationdate ] })
-  }
-  if(props['D:getlastmodified']) {
-    const getlastmodified = moment(item.get('updated_at')).format('ddd, mm MMM YYYY HH:mm:ss [GMT]')
+  if(props['D:getlastmodified'] || props['D:allprop']) {
+    const getlastmodified = moment(item.get('updated_at')).format('ddd, DD MMM YYYY HH:mm:ss [GMT]')
     found.push({ 'D:getlastmodified': [ getlastmodified ] })
+  }
+  if(props['D:creationdate'] || props['D:allprop']) {
+    const creationdate = moment(item.get('updated_at')).format('YYYY-MM-DD[T]HH:mm:ssZ')
+    found.push({ 'D:creationdate': [ creationdate ] })
   }
   if(item.get('type') === 'file') {
     if(props['D:resourcetype'] || props['D:allprop']) found.push({ 'D:resourcetype': null })
@@ -85,11 +92,12 @@ const getResponse = (req, item, props) => {
     if(props['D:resourcetype'] || props['D:allprop']) {
       found.push({ 'D:resourcetype': [ { 'D:collection': null } ] })
     }
-    if(props['D:getcontentlength']) missing.push({ 'D:getcontentlength': null })
-    if(props['D:quota-available-bytes']) missing.push({ 'D:quota-available-bytes': null })
-    if(props['D:quota-used-bytes']) missing.push({ 'D:quota-used-bytes': null })
-    if(props['D:quota']) missing.push({ 'D:quota': null })
-    if(props['D:quotaused']) missing.push({ 'D:quotaused': null })
+    const namespace = [{ _attr: { 'xmlns:a': 'DAV:' }}]
+    if(props['D:getcontentlength']) missing.push({ 'a:getcontentlength': namespace })
+    if(props['D:quota-available-bytes']) missing.push({ 'a:quota-available-bytes': namespace })
+    if(props['D:quota-used-bytes']) missing.push({ 'a:quota-used-bytes': namespace })
+    if(props['D:quota']) missing.push({ 'a:quota': namespace })
+    if(props['D:quotaused']) missing.push({ 'a:quotaused': namespace })
   }
   return {
     'D:response': [
@@ -99,11 +107,11 @@ const getResponse = (req, item, props) => {
         { 'D:prop': found }
       ] }] : [],
       ...missing.length > 0 ? [{ 'D:propstat': [
-        { 'D:status': 'HTTP/1.1 404 Not Found' },
-        { 'D:prop': missing }
+        { 'D:prop': missing },
+        { 'D:status': 'HTTP/1.1 404 Not Found' }
       ] }] : []
     ]
   }
 }
 
-export default item_serializer
+export default response

@@ -18,8 +18,7 @@ const destroyRoute = async (req, res) => {
   await Promise.mapSeries(items, async (item) => {
 
     const channels = [
-      `/admin/drive/folders/${item.related('folder') ? item.related('folder').get('code') : 'drive'}`,
-      `/admin/drive/folders/${item.get('folder_id') || 'drive'}`,
+      `/admin/drive/folders/${item.related('folder').get('code') || 'drive'}`,
       '/admin/drive/folders/trash'
     ]
 

@@ -49,7 +49,7 @@ const updateRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    `/admin/drive/folders/${file.related('folder') ? file.related('folder').get('code') : 'drive'}`,
+    `/admin/drive/folders/${file.related('folder').get('code') || 'drive'}`,
     `/admin/drive/files/${file.get('code')}`,
     '/admin/drive/folders/trash'
   ])

@@ -26,7 +26,7 @@ const destroyRoute = async (req, res) => {
   })
 
   const channels = [
-    `/admin/drive/folders/${folder.related('folder') ? folder.related('folder').get('code') : 'drive'}`,
+    `/admin/drive/folders/${folder.related('folder').get('code') || 'drive'}`,
     `/admin/drive/folders/${folder.get('code')}`,
     '/admin/drive/folders/trash'
   ]

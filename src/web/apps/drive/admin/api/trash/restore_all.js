@@ -21,7 +21,7 @@ const restoreAllRoute = async (req, res) => {
   })
 
   const folders = items.map(item => {
-    return `/admin/drive/folders/${item.related('folder') ? item.related('folder').get('code') : 'drive'}`
+    return `/admin/drive/folders/${item.related('folder').get('code') || 'drive'}`
   })
 
   await socket.refresh(req, [

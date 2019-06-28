@@ -14,7 +14,7 @@ const createRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    `/admin/drive/folders/${file.related('folder') ? file.related('folder').get('code') : 'drive'}`
+    `/admin/drive/folders/${file.related('folder').get('code') || 'drive'}`
   ])
 
   res.status(200).respond(file, FileSerializer)
