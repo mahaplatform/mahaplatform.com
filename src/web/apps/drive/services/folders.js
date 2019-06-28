@@ -55,7 +55,7 @@ export const createFolder = async (req, params) => {
   })
 
   await socket.refresh(req, [
-    `/admin/drive/folders/${folder.related('folder') ? folder.related('folder').get('code') : 'drive'}`,
+    `/admin/drive/folders/${folder.related('folder').get('code') || 'drive'}`,
     `/admin/drive/files/${folder.get('code')}`,
     '/admin/drive/folders/trash'
   ])
@@ -77,5 +77,27 @@ export const renameFolder = async (req, folder, params) => {
     patch: true,
     transacting: req.trx
   })
+
+}
+
+export const destroyFolder = async (req, folder) => {
+
+  await Access.where({
+    code: folder.get('code')
+  }).destroy({
+    transacting: req.trx
+  })
+
+  const channels = [
+    `/admin/drive/folders/${folder.related('folder').get('code') || 'drive'}`,
+    `/admin/drive/folders/${folder.get('code')}`,
+    '/admin/drive/folders/trash'
+  ]
+
+  await folder.destroy({
+    transacting: req.trx
+  })
+
+  await socket.refresh(req, channels)
 
 }

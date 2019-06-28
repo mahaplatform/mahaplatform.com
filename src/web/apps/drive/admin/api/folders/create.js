@@ -1,14 +1,29 @@
 import FolderSerializer from '../../../serializers/folder_serializer'
-import socket from '../../../../../core/services/routes/emitter'
 import { createFolder } from '../../../services/folders'
+import Item from '../../../models/item'
 
 const createRoute = async (req, res) => {
 
-  const folder = await createFolder(req, req.body)
+  const preexisting = await Item.scope({
+    team: req.team
+  }).query(qb => {
+    qb.select('drive_items.*','drive_access_types.text as access_type')
+    qb.innerJoin('drive_items_access', 'drive_items_access.code', 'drive_items.code')
+    qb.innerJoin('drive_access_types', 'drive_access_types.id', 'drive_items_access.access_type_id')
+    qb.where('drive_items_access.user_id', req.user.get('id'))
+    qb.whereNull('drive_items.deleted_at')
+    qb.where('folder_id', req.body.parent_id)
+    qb.where('label', req.body.label)
+  }).fetch({
+    transacting: req.trx
+  })
 
-  await socket.refresh(req, [
-    `/admin/drive/folders/${folder.related('folder').get('code') || 'drive'}`
-  ])
+  if(preexisting) return res.status(412).respond({
+    code: 412,
+    message: 'A folder by that name already exists'
+  })
+
+  const folder = await createFolder(req, req.body)
 
   res.status(200).respond(folder, FolderSerializer)
 

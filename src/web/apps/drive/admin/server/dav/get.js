@@ -13,13 +13,21 @@ const getData = async (asset) => {
 
 const route = async (req, res) => {
 
-  const asset = req.item.related('asset')
+  try {
 
-  const data = await getData(asset)
+    const asset = req.item.related('asset')
 
-  res.setHeader('Content-disposition', `attachment; filename=${asset.get('file_name')}`)
+    const data = await getData(asset)
 
-  res.status(200).type(asset.get('content_type')).send(data)
+    res.setHeader('Content-disposition', `attachment; filename=${asset.get('file_name')}`)
+
+    res.status(200).type(asset.get('content_type')).send(data)
+
+  } catch(err) {
+
+    res.status(200).send(null)
+
+  }
 
 }
 

@@ -1,6 +1,4 @@
-import FolderSerializer from '../../../serializers/folder_serializer'
-import socket from '../../../../../core/services/routes/emitter'
-import Access from '../../../models/access'
+import { destroyFolder } from '../../../services/folders'
 import Folder from '../../../models/folder'
 
 const destroyRoute = async (req, res) => {
@@ -19,25 +17,9 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load folder'
   })
 
-  await Access.where({
-    code: folder.get('code')
-  }).destroy({
-    transacting: req.trx
-  })
+  await destroyFolder(req, folder)
 
-  const channels = [
-    `/admin/drive/folders/${folder.related('folder').get('code') || 'drive'}`,
-    `/admin/drive/folders/${folder.get('code')}`,
-    '/admin/drive/folders/trash'
-  ]
-
-  await folder.destroy({
-    transacting: req.trx
-  })
-
-  await socket.refresh(req, channels)
-
-  res.status(200).respond(folder, FolderSerializer)
+  res.status(200).respond(true)
 
 }
 
