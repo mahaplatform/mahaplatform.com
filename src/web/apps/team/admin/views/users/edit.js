@@ -44,8 +44,8 @@ class Edit extends React.Component {
             { label: 'Secondary Email', name: 'secondary_email', type: 'textfield' },
             { label: 'Notification Method', name: 'email_notifications_method', type: 'lookup', options: [{ value: 'none', text: 'None' }, { value: 'ondemand', text: 'On Demand' }, { value: 'digest', text: 'Daily Digest' }] },
             { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', token, multiple: false },
-            { label: 'Roles', name: 'role_ids', type: 'lookup2', multiple: true, endpoint: '/api/admin/team/roles', value: 'id', text: 'title', format: RoleToken },
-            { label: 'Groups', name: 'group_ids', type: 'lookup2', multiple: true, endpoint: '/api/admin/team/groups', value: 'id', text: 'title', format: GroupToken },
+            { label: 'Roles', name: 'role_ids', type: 'lookup2', multiple: true, endpoint: '/api/admin/team/roles', value: 'id', text: 'title' },
+            { label: 'Groups', name: 'group_ids', type: 'lookup2', multiple: true, endpoint: '/api/admin/team/groups', value: 'id', text: 'title' },
             { label: 'Supervisors', name: 'supervisor_ids', type: 'lookup2', multiple: true, endpoint: '/api/admin/team/supervisors', value: 'user_id', text: 'full_name', format: CompactUserToken }
           ]
         },
