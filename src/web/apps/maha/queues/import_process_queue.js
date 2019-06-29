@@ -1,5 +1,5 @@
 import ImportSerializer from '../serializers/import_serializer'
-import { createAssetFromUrl } from '../services/asset'
+import { createAssetFromUrl } from '../services/assets'
 import ImportItem from '../models/import_item'
 import socket from '../../../core/services/emitter'
 import { flatten, unflatten } from 'flat'
@@ -26,7 +26,7 @@ const getAsset = async (job, trx, url, imp) => {
     })
   }
 
-  return await createAssetFromUrl(job, trx, url, imp.get('team_id'), imp.get('user_id'))
+  return await createAssetFromUrl({ ...job, trx }, url, imp.get('team_id'), imp.get('user_id'))
 
 }
 

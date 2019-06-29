@@ -25,12 +25,12 @@ const simpleParserAsync = Promise.promisify(simpleParser)
 
 const execAsync = Promise.promisify(exec)
 
-export const checkUploadedFile = async (req, trx) => {
+export const checkUploadedFile = async (req) => {
   const chunkFilename = _getChunkFilename(req.query.resumableIdentifier, req.query.resumableChunkNumber)
   return await _chunkExists(chunkFilename)
 }
 
-export const uploadChunk = async (req, trx) => {
+export const uploadChunk = async (req) => {
   const identifier = _cleanIdentifier(req.body.resumableIdentifier)
   const chunkFilename = _getChunkFilename(identifier, req.body.resumableChunkNumber)
   fs.renameSync(req.files['file'].path, chunkFilename)
@@ -53,13 +53,15 @@ export const uploadChunk = async (req, trx) => {
     file_size: req.body.resumableTotalSize,
     chunks_total: req.body.resumableTotalChunks,
     status: 'chunked'
-  }).save(null, { transacting: trx })
+  }).save(null, {
+    transacting: req.trx
+  })
   if(!asset) throw new Error('Unable to create asset')
   await AssembleAssetQueue.enqueue(req, asset.get('id'))
   return AssetSerializer(req, asset)
 }
 
-export const createAssetFromUrl = async (req, trx, url, team_id, user_id) => {
+export const createAssetFromUrl = async (req, url, team_id, user_id) => {
   const response = await request.get({
     url,
     resolveWithFullResponse: true,
@@ -69,7 +71,7 @@ export const createAssetFromUrl = async (req, trx, url, team_id, user_id) => {
   const source = await Source.where({
     text: 'web'
   }).fetch({
-    transacting: trx
+    transacting: req.trx
   })
   const asset = await createAsset({
     team_id: (req.team) ? req.team.get('id') : team_id,
@@ -79,13 +81,15 @@ export const createAssetFromUrl = async (req, trx, url, team_id, user_id) => {
     file_name: path.basename(parsed.pathname),
     file_data: response.body,
     content_type: response.headers['content-type']
-  }, trx)
+  }, req.trx)
   return asset
 }
 
-export const assembleAsset = async (id, trx) => {
-  const asset = await Asset.where({ id }).fetch({
-    transacting: trx
+export const assembleAsset = async (req, id) => {
+  const asset = await Asset.query(qb => {
+    qb.where('id', id)
+  }).fetch({
+    transacting: req.trx
   })
   if(!asset) throw new Error('Unable to find asset' )
   const fileData = await _getAssembledData(asset)
@@ -95,7 +99,7 @@ export const assembleAsset = async (id, trx) => {
   await asset.save({
     status: asset.get('has_preview') ? 'assembled' : 'processed'
   }, {
-    transacting: trx
+    transacting: req.trx
   })
   if(asset.get('has_preview')) await ProcessAssetQueue.enqueue(null, asset.get('id'))
   await socket.in(`/admin/assets/${asset.get('id')}`).emit('message', {
@@ -105,9 +109,11 @@ export const assembleAsset = async (id, trx) => {
   })
 }
 
-export const processAsset = async (id, trx) => {
-  const asset = await Asset.where({ id }).fetch({
-    transacting: trx
+export const processAsset = async (req, id) => {
+  const asset = await Asset.query(qb => {
+    qb.where('id', id)
+  }).fetch({
+    transacting: req.trx
   })
   if(!asset) throw new Error('Unable to find asset' )
   const fileData = await getAssetData(asset)
@@ -116,7 +122,7 @@ export const processAsset = async (id, trx) => {
   await asset.save({
     status: 'processed'
   }, {
-    transacting: trx
+    transacting: req.trx
   })
   await socket.in(`/admin/assets/${asset.get('id')}`).emit('message', {
     target: `/admin/assets/${asset.get('id')}`,
@@ -125,13 +131,7 @@ export const processAsset = async (id, trx) => {
   })
 }
 
-export const getAsset = async (id, trx) => {
-  const asset = await Asset.where({ id }).fetch({ transacting: trx })
-  if(!asset) throw new Error('Unable to find asset' )
-  return await getAssetData(asset)
-}
-
-export const createAsset = async (params, trx) => {
+export const createAsset = async (req, params) => {
   const asset = await Asset.forge({
     team_id: params.team_id,
     user_id: params.user_id,
@@ -145,7 +145,7 @@ export const createAsset = async (params, trx) => {
     chunks_total: 1,
     status: 'assembled'
   }).save(null, {
-    transacting: trx
+    transacting: req.trx
   })
   if(params.file_data) {
     await _saveFildata(asset, params.file_data)
@@ -153,7 +153,7 @@ export const createAsset = async (params, trx) => {
   await asset.save({
     status: 'processed'
   }, {
-    transacting: trx
+    transacting: req.trx
   })
   return asset
 }
@@ -178,11 +178,13 @@ export const updateAsset = async (req, asset, params) => {
   return asset
 }
 
-export const deleteAsset = async (asset, trx) => {
+export const deleteAsset = async (req, asset) => {
   const files = [`assets/${asset.get('id')}/${asset.get('file_name')}`]
   if(asset.get('has_preview')) files.push(`assets/${asset.get('id')}/preview.jpg`)
   await _deleteFiles(files)
-  await asset.destroy({ transacting: trx })
+  await asset.destroy({
+    transacting: req.trx
+  })
 }
 
 export const getAssetData = async (asset, format = 'buffer') => {

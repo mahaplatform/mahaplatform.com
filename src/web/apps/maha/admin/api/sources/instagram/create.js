@@ -1,5 +1,5 @@
 import AssetSerializer from '../../../../serializers/asset_serializer'
-import { createAsset } from '../../../../services/asset'
+import { createAsset } from '../../../../services/assets'
 import Source from '../../../../models/source'
 import request from 'request-promise'
 import { getClient } from './utils'
@@ -21,7 +21,7 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const asset = await createAsset({
+  const asset = await createAsset(req, {
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
     source_id: source.get('id'),
@@ -29,7 +29,7 @@ const createRoute = async (req, res) => {
     file_name: `${req.body.id}.jpg`,
     file_data,
     content_type: 'image/jpeg'
-  }, req.trx)
+  })
 
   await asset.load(['source'], {
     transacting: req.trx

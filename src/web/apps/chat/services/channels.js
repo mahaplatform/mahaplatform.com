@@ -1,6 +1,6 @@
 import formatObjectForTransport from '../../../core/utils/format_object_for_transport'
 import ChatNotificationQueue from '../queues/chat_notification_queue'
-import { extractAttachments } from '../../maha/services/attachment'
+import { extractAttachments } from '../../maha/services/attachments'
 import ChannelSerializer from '../serializers/channel_serializer'
 import MessageSerializer from '../serializers/message_serializer'
 import generateCode from '../../../core/utils/generate_code'
@@ -134,7 +134,7 @@ export const sendMessage = async (req, { channel_id, type, text }) => {
 
   const sanitized = text.replace('<p>','').replace('</p>', '\r\n')
 
-  await extractAttachments(message, sanitized, req.trx)
+  await extractAttachments(req, message, sanitized)
 
   await message.load(['user.photo','attachments.asset.source','message_type'], {
     transacting: req.trx

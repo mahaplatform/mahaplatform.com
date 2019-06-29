@@ -1,4 +1,4 @@
-import { deleteAsset } from '../../maha/services/asset'
+import { deleteAsset } from '../../maha/services/assets'
 import knex from '../../../core/services/knex'
 import Version from '../models/version'
 import Folder from '../models/folder'
@@ -76,7 +76,7 @@ export const deleteForever = async (req, item) => {
     }), {})
 
     await Promise.map(Object.values(assets), async (asset) => {
-      await deleteAsset(asset, req.trx)
+      await deleteAsset(req, asset)
     })
 
     await Promise.map(versions, async (version) => {

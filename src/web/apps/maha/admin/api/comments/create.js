@@ -3,7 +3,7 @@ import { attachments } from '../../../../../core/services/routes/attachments'
 import { objects } from '../../../../../core/services/routes/objects'
 import CommentSerializer from '../../../serializers/comment_serializer'
 import socket from '../../../../../core/services/routes/emitter'
-import { extractAttachments } from '../../../services/attachment'
+import { extractAttachments } from '../../../services/attachments'
 import registry from '../../../../../core/utils/registry'
 import Comment from '../../../models/comment'
 import _ from 'lodash'
@@ -38,7 +38,7 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await extractAttachments(comment, req.body.text, req.trx)
+  await extractAttachments(req, comment, req.body.text)
 
   await comment.load(['user.photo','attachments.asset.source'], {
     transacting: req.trx
@@ -59,8 +59,7 @@ const createRoute = async (req, res) => {
 
   await notifications(req, {
     type: 'maha:item_comment',
-    listenable_type: req.params.commentable_type,
-    listenable_id: req.params.commentable_id,
+    listenable: commentable,
     subject_id: req.user.get('id'),
     story: 'commented on {object}',
     object

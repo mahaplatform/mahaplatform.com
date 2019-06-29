@@ -1,4 +1,4 @@
-import { createAsset, updateAsset } from '../../../../maha/services/asset'
+import { createAsset, updateAsset } from '../../../../maha/services/assets'
 import socket from '../../../../../core/services/routes/emitter'
 import knex from '../../../../../core/services/knex'
 import { createFile } from '../../../services/files'
@@ -30,7 +30,7 @@ const route = async (req, res) => {
 
     }
 
-    const asset = await createAsset({
+    const asset = await createAsset(req, {
       team_id: req.team.get('id'),
       user_id: req.user.get('id'),
       content_type: req.label[0] === '.' ? 'application/octet-stream': null,
@@ -38,7 +38,7 @@ const route = async (req, res) => {
       file_data: req.rawBody.length === 0 ? null : req.rawBody,
       file_size: req.rawBody.length === 0 ? 0 : null,
       file_name: req.label
-    }, req.trx)
+    })
 
     const file = await createFile(req, {
       asset_id: asset.get('id'),

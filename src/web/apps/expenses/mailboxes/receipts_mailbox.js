@@ -1,4 +1,4 @@
-import { createAsset } from '../../maha/services/asset'
+import { createAsset } from '../../maha/services/assets'
 import Source from '../../maha/models/source'
 import Story from '../../maha/models/story'
 import Audit from '../../maha/models/audit'
@@ -77,13 +77,13 @@ const processor = async (meta, email, trx) => {
 
   await Promise.mapSeries(email.attachments, async (attachment, index) => {
 
-    const asset = await createAsset({
+    const asset = await createAsset({ trx }, {
       team_id: user.get('team_id'),
       file_name: attachment.filename,
       content_type: attachment.contentType,
       file_size: attachment.size,
       file_data: new Buffer(attachment.content.data)
-    }, trx)
+    })
 
     await Receipt.forge({
       team_id: user.get('team_id'),

@@ -43,14 +43,10 @@ const processLocalUrl = (url, uri) => {
 
 }
 
-const processLocalPathname = (pathname) => {
-
-  return {
-    type: 'local',
-    title_link: pathname
-  }
-
-}
+const processLocalPathname = (pathname) => ({
+  type: 'local',
+  title_link: pathname
+})
 
 const createAttachment = async (attachable, index, url, trx) => {
 
@@ -58,16 +54,16 @@ const createAttachment = async (attachable, index, url, trx) => {
 
   if(!meta) return null
 
-  const data = {
+  await Attachment.forge({
     team_id: attachable.get('team_id'),
     attachable_type: attachable.tableName,
     attachable_id: attachable.get('id'),
     delta: index,
     from_url: url,
     ...meta
-  }
-
-  await Attachment.forge(data).save(null, { transacting: trx })
+  }).save(null, {
+    transacting: trx
+  })
 
 }
 
@@ -96,7 +92,7 @@ export const lookupUrl = async (url, trx) => {
 
 }
 
-export const extractAttachments = async (attachable, text, trx) => {
+export const extractAttachments = async (req, attachable, text) => {
 
   text = text.replace('<p>','').replace('</p>', '\r\n')
 
@@ -114,7 +110,7 @@ export const extractAttachments = async (attachable, text, trx) => {
 
     const normalizedUrl = normalizeUrl(text, url)
 
-    await createAttachment(attachable, index, normalizedUrl, trx)
+    await createAttachment(attachable, index, normalizedUrl, req.trx)
 
   })
 

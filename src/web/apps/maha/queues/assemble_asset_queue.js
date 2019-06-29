@@ -1,11 +1,11 @@
-import { assembleAsset } from '../services/asset'
+import { assembleAsset } from '../services/assets'
 import Queue from '../../../core/objects/queue'
 
 const enqueue = async (req, asset_id) => ({ asset_id })
 
 const processor = async (job, trx) => {
 
-  await assembleAsset(job.data.asset_id, trx)
+  await assembleAsset({ trx }, job.data.asset_id)
 
 }
 

@@ -1,5 +1,5 @@
 import AssetSerializer from '../../../serializers/asset_serializer'
-import { processAsset } from '../../../services/asset'
+import { processAsset } from '../../../services/assets'
 
 const processRoute = async (req, res) => {
 

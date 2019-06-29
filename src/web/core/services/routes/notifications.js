@@ -48,13 +48,9 @@ const _getRecipientIds = async (req, notification) => [
 ]
 
 const _getListenerIds = async (req, notification) => {
-
   if(!notification.listenable) return []
-
   const listeners = await notification.listenable.listener_ids(req.trx)
-
   return listeners.filter(user_id => user_id !== req.user.get('id'))
-
 }
 
 const _getNotificationType = async (req, namespaced) => {

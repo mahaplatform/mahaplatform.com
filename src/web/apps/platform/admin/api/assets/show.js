@@ -1,4 +1,4 @@
-import { assembleAssetQueue, processAssetQueue } from '../../../../maha/services/asset'
+import { assembleAssetQueue, processAssetQueue } from '../../../../maha/services/assets'
 import AssetSerializer from '../../../serializers/asset_serializer'
 import Asset from '../../../../maha/models/asset'
 
