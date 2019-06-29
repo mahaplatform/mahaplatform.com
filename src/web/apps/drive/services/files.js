@@ -1,3 +1,4 @@
+import { whitelist } from '../../../core/services/routes/params'
 import generateCode from '../../../core/utils/generate_code'
 import socket from '../../../core/services/routes/emitter'
 import Asset from '../../maha/models/asset'
@@ -89,19 +90,68 @@ export const createFile = async (req, params) => {
 
 }
 
-export const renameFile = async (req, file, params) => {
+export const updateFile = async (req, file, params) => {
 
-  await file.load(['folder'], {
+  if(params.folder_id || req.body.label) {
+    await file.save(whitelist(params, ['folder_id','label']), {
+      patch: true,
+      transacting: req.trx
+    })
+  }
+
+  if(params.asset_id) {
+    const version = await Version.forge({
+      team_id: req.team.get('id'),
+      user_id: req.user.get('id'),
+      file_id: file.get('id'),
+      asset_id: params.asset_id
+    }).save(null, {
+      transacting: req.trx
+    })
+
+    await file.save({
+      version_id: version.get('id')
+    }, {
+      patch: true,
+      transacting: req.trx
+    })
+  }
+
+  await file.load(['folder','current_version.asset','current_version.asset.user.photo','current_version.asset.source','versions.asset.source','versions.user','accesses.user.photo','accesses.group','accesses.access_type'], {
     transacting: req.trx
   })
 
+  await socket.refresh(req, [
+    `/admin/drive/folders/${file.related('folder').get('code') || 'drive'}`,
+    `/admin/drive/files/${file.get('code')}`,
+    '/admin/drive/folders/trash'
+  ])
+
+}
+
+export const renameFile = async (req, file, params) => {
+
+  const folder_id = params.folder_id || file.get('folder_id')
+
+  const folder = folder_id ? await Folder.where(qb => {
+    qb.where('id', folder_id)
+  }).fetch({
+    transacting: req.trx
+  }) : null
+
   await file.save({
     label: params.label,
-    fullpath: file.get('folder_id') ? `${file.related('folder').get('fullpath')}/${params.label}` : params.label
+    folder_id: folder ? folder.get('id') : null,
+    fullpath: folder ? `${folder.get('fullpath')}/${params.label}` : params.label
   }, {
     patch: true,
     transacting: req.trx
   })
+
+  await socket.refresh(req, [
+    `/admin/drive/folders/${folder ? folder.get('code') : 'drive'}`,
+    `/admin/drive/folders/${file.get('code')}`
+  ])
 
 }
 

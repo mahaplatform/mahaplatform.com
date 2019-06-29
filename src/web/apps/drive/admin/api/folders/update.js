@@ -1,6 +1,5 @@
-import { whitelist } from '../../../../../core/services/routes/params'
 import FolderSerializer from '../../../serializers/folder_serializer'
-import socket from '../../../../../core/services/routes/emitter'
+import { updateFolder } from '../../../services/folders'
 import Folder from '../../../models/folder'
 
 const updateRoute = async (req, res) => {
@@ -19,20 +18,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load folder'
   })
 
-  await folder.save(whitelist(req.body, ['parent_id','label']), {
-    patch: true,
-    transacting: req.trx
-  })
-
-  await folder.load(['folder'], {
-    transacting: req.trx
-  })
-
-  await socket.refresh(req, [
-    `/admin/drive/folders/${folder.related('folder').get('code') || 'drive'}`,
-    `/admin/drive/folders/${folder.get('code')}`,
-    '/admin/drive/folders/trash'
-  ])
+  await updateFolder(req, folder, req.body)
 
   res.status(200).respond(folder, FolderSerializer)
 

@@ -18,7 +18,7 @@ const destroyRoute = async (req, res) => {
 
   await destroyFile(req, file)
 
-  res.status(200).respond(file, FileSerializer)
+  res.status(200).respond(true)
 
 }
 

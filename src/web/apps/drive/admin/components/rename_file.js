@@ -31,7 +31,7 @@ class RenameFile extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'File Name', name: 'file_name', type: 'textfield', required: true }
+            { label: 'File Name', name: 'label', type: 'textfield', required: true }
           ]
         }
       ]

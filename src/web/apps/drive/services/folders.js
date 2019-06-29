@@ -1,3 +1,4 @@
+import { whitelist } from '../../../core/services/routes/params'
 import generateCode from '../../../core/utils/generate_code'
 import socket from '../../../core/services/routes/emitter'
 import Folder from '../models/folder'
@@ -66,17 +67,45 @@ export const createFolder = async (req, params) => {
 
 export const renameFolder = async (req, folder, params) => {
 
-  await folder.load(['folder'], {
+  const parent_id = params.parent_id || folder.get('parent_id')
+
+  const parent = parent_id ? await Folder.where(qb => {
+    qb.where('id', parent_id)
+  }).fetch({
     transacting: req.trx
-  })
+  }) : null
 
   await folder.save({
     label: params.label,
-    fullpath: folder.related('folder').get('fullpath') ? `${folder.related('folder').get('fullpath')}/${params.label}` : params.label
+    folder_id: parent ? parent.get('id') : null,
+    fullpath: parent ? `${parent.get('fullpath')}/${params.label}` : params.label
   }, {
     patch: true,
     transacting: req.trx
   })
+
+  await socket.refresh(req, [
+    `/admin/drive/folders/${parent ? parent.get('code') : 'drive'}`,
+    `/admin/drive/folders/${folder.get('code')}`
+  ])
+
+}
+
+export const updateFolder = async (req, folder, params) => {
+
+  await folder.save(whitelist(params, ['parent_id','label']), {
+    patch: true,
+    transacting: req.trx
+  })
+
+  await folder.load(['folder'], {
+    transacting: req.trx
+  })
+
+  await socket.refresh(req, [
+    `/admin/drive/folders/${folder.related('folder').get('code') || 'drive'}`,
+    `/admin/drive/folders/${folder.get('code')}`
+  ])
 
 }
 
