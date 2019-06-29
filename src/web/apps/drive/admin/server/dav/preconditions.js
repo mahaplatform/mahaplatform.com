@@ -12,7 +12,7 @@ const preconditions = (req, res, next) => {
 
   if(req.label.substr(0,15) === '.metadata_never') return res.status(200).send('')
 
-  // if(req.label[0] === '.') return res.status(412).send(null)
+  if(req.label[0] === '.') return res.status(412).send(null)
 
   next()
 
