@@ -55,7 +55,7 @@ const asset = (asset) => {
     signed_url: asset.get('signed_url'),
     source: asset.related('source').get('text'),
     source_url: asset.get('source_url'),
-    deleted_at: asset.get('deleted_at'),
+    status: asset.get('status'),
     created_at: asset.get('created_at'),
     updated_at: asset.get('updated_at')
   }

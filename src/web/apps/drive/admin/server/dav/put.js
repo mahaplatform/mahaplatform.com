@@ -34,6 +34,7 @@ const route = async (req, res) => {
       team_id: req.team.get('id'),
       user_id: req.user.get('id'),
       content_type: req.label[0] === '.' ? 'application/octet-stream': null,
+      source_id: 1,
       file_data: req.rawBody.length === 0 ? null : req.rawBody,
       file_size: req.rawBody.length === 0 ? 0 : null,
       file_name: req.label

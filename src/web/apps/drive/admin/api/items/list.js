@@ -19,7 +19,12 @@ const listRoute = async (req, res) => {
         transacting: req.trx
       })
 
-      if(folder) req.query.$filter.folder_id = {
+      if(!folder) return req.status(404).respond({
+        code: 404,
+        message: 'folder not found'
+      })
+
+      req.query.$filter.folder_id = {
         $eq: folder.get('id').toString()
       }
 
@@ -35,10 +40,12 @@ const listRoute = async (req, res) => {
     qb.select('drive_items.*','drive_access_types.text as access_type')
     qb.innerJoin('drive_items_access', 'drive_items_access.code', 'drive_items.code')
     qb.innerJoin('drive_access_types', 'drive_access_types.id', 'drive_items_access.access_type_id')
+    qb.innerJoin('maha_assets', 'maha_assets.id', 'drive_items.asset_id')
     qb.where('drive_items_access.user_id', req.user.get('id'))
     qb.whereNull('drive_items.deleted_at')
     qb.whereRaw('drive_items.label not like ?', '\\.\\_%')
     qb.whereNotIn('drive_items.label', ['.DS_Store'])
+    qb.whereRaw('maha_assets.file_size > 0')
   }).filter({
     filter: req.query.$filter,
     filterParams: ['code','folder_id','type','access_type'],

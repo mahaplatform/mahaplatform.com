@@ -13,9 +13,7 @@ const route = async (req, res) => {
   const label = fullpath.slice(-1)[0]
   const parent_path = fullpath.slice(0,-1).join('/')
 
-  console.log(destination, fullpath, label, parent_path)
-
-  const folder = await Folder.where(qb => {
+  const parent = await Folder.where(qb => {
     qb.where('fullpath', parent_path)
   }).fetch({
     transacting: req.trx
@@ -31,7 +29,7 @@ const route = async (req, res) => {
 
     await renameFile(req, file, {
       label,
-      folder_id: folder ? folder.get('id') : null
+      folder_id: parent ? parent.get('id') : null
     })
 
     await socket.refresh(req, [
@@ -48,7 +46,7 @@ const route = async (req, res) => {
 
     await renameFolder(req, folder, {
       label,
-      parent_id: folder ? folder.get('id') : null
+      parent_id: parent ? parent.get('id') : null
     })
 
     await socket.refresh(req, [

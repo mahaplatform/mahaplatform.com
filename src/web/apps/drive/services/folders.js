@@ -77,7 +77,7 @@ export const renameFolder = async (req, folder, params) => {
 
   await folder.save({
     label: params.label,
-    folder_id: parent ? parent.get('id') : null,
+    parent_id: parent ? parent.get('id') : null,
     fullpath: parent ? `${parent.get('fullpath')}/${params.label}` : params.label
   }, {
     patch: true,
