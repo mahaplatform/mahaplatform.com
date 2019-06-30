@@ -7,27 +7,39 @@ import Folder from '../models/folder'
 import Access from '../models/access'
 import File from '../models/file'
 
-export const createFile = async (req, params) => {
-
-  const parent = params.folder_id ? await Folder.where({
+const _getFolder = async (req, params) => {
+  if(params.folder) return params.folder
+  if(params.folder_id) return await Folder.where({
     id: params.folder_id
   }).fetch({
     withRelated: ['accesses'],
     transacting: req.trx
-  }) : null
+  })
+  return null
+}
 
-  const asset = await Asset.where({
+const _getAsset = async (req, params) => {
+  if(params.asset) return params.asset
+  if(params.asset_id) return await Asset.where({
     id: params.asset_id
   }).fetch({
     transacting: req.trx
   })
+  return null
+}
+
+export const createFile = async (req, params) => {
+
+  const parent = await _getFolder(req, params)
+
+  const asset = await _getAsset(req, params)
 
   const file = await File.forge({
     team_id: req.team.get('id'),
     code: generateCode(),
     label: asset.get('original_file_name'),
     fullpath: parent ? `${parent.get('fullpath')}/${asset.get('original_file_name')}` : asset.get('original_file_name'),
-    folder_id: params.folder_id
+    folder_id: parent.get('id')
   }).save(null, {
     transacting: req.trx
   })
@@ -36,7 +48,7 @@ export const createFile = async (req, params) => {
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
     file_id: file.get('id'),
-    asset_id: params.asset_id
+    asset_id: asset.get('id')
   }).save(null, {
     transacting: req.trx
   })
@@ -77,14 +89,10 @@ export const createFile = async (req, params) => {
   }
 
   await socket.refresh(req, [
-    `/admin/drive/folders/${file.get('code') || 'drive'}`,
+    `/admin/drive/folders/${parent ? parent.get('code') : 'drive'}`,
     `/admin/drive/files/${file.get('code')}`,
     '/admin/drive/folders/trash'
   ])
-
-  await file.load(['folder', 'current_version.asset','current_version.asset.user.photo','current_version.asset.source','versions.asset.source','versions.user','accesses.user.photo','accesses.group','accesses.access_type'], {
-    transacting: req.trx
-  })
 
   return file
 

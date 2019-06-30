@@ -41,11 +41,14 @@ const route = async (req, res) => {
     })
 
     const file = await createFile(req, {
-      asset_id: asset.get('id'),
-      folder_id: folder ? folder.get('id') : null
+      asset,
+      folder
     })
 
-    req.item = await Item.where('code', file.get('code')).fetch({
+    req.item = await Item.query(qb => {
+      qb.where('code', file.get('code'))
+    }).fetch({
+      withRelated: ['folder'],
       transacting: req.trx
     })
 
@@ -56,11 +59,10 @@ const route = async (req, res) => {
       file_size: req.rawBody.length === 0 ? 0 : null
     })
 
+    await req.item.load(['folder'], {
+      transacting: req.trx
+    })
   }
-
-  await req.item.load(['folder'], {
-    transacting: req.trx
-  })
 
   await socket.refresh(req, [
     `/admin/drive/folders/${req.item.related('folder').get('code') || 'drive'}`,
@@ -70,6 +72,12 @@ const route = async (req, res) => {
 
   res.status(200).send(null)
 
+}
+
+const measure = (startTime) => {
+  const diff = process.hrtime(startTime)
+  const ms = diff[0] * 1e3 + diff[1] * 1e-6
+  return ms.toFixed(3)
 }
 
 export default route

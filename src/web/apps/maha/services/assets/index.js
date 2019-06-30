@@ -117,18 +117,7 @@ export const processAsset = async (req, id) => {
   })
   if(!asset) throw new Error('Unable to find asset' )
   const fileData = await getAssetData(asset)
-  const previewData = await _getPreviewData(asset, fileData, 'jpg')
-  await _saveFile(previewData, `assets/${asset.get('id')}/preview.jpg`, 'image/jpeg')
-  await asset.save({
-    status: 'processed'
-  }, {
-    transacting: req.trx
-  })
-  await socket.in(`/admin/assets/${asset.get('id')}`).emit('message', {
-    target: `/admin/assets/${asset.get('id')}`,
-    action: 'refresh',
-    data: formatObjectForTransport(AssetSerializer(null, asset))
-  })
+  await _processAsset(req, fileData, asset)
 }
 
 export const createAsset = async (req, params) => {
@@ -148,7 +137,7 @@ export const createAsset = async (req, params) => {
     transacting: req.trx
   })
   if(params.file_data) {
-    await _saveFildata(asset, params.file_data)
+    await _saveFildata(req, asset, params.file_data)
   }
   await asset.save({
     status: 'processed'
@@ -168,7 +157,7 @@ export const updateAsset = async (req, asset, params) => {
     transacting: req.trx
   })
   if(params.file_data) {
-    await _saveFildata(asset, params.file_data)
+    await _saveFildata(req, asset, params.file_data)
   }
   await asset.save({
     status: 'processed'
@@ -195,12 +184,27 @@ export const getAssetData = async (asset, format = 'buffer') => {
   return data
 }
 
-const _saveFildata = async (asset, file_data) => {
+const _saveFildata = async (req, asset, file_data) => {
   const normalizedData = await _getNormalizedData(asset, file_data)
   await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
-  if(asset.get('file_name').match(/[pdf|xls|xlsx|doc|docx|ppt|pptx|eml|htm|html|rtf|txt]$/) !== null) return
-  const previewData = await _getPreviewData(asset, normalizedData, 'jpg')
-  await _saveFile(previewData, `assets/${asset.get('id')}/preview.jpg`, 'image/jpeg')
+  await _processAsset(req, normalizedData, asset)
+}
+
+const _processAsset = async (req, data, asset) => {
+  if(asset.get('file_name').substr(0,2) !== '._' && asset.get('extension').match(/(pdf|xls|xlsx|doc|docx|ppt|pptx|eml|htm|html|rtf|txt)$/) !== null) {
+    const previewData = await _getPreviewData(asset, data, 'jpg')
+    await _saveFile(previewData, `assets/${asset.get('id')}/preview.jpg`, 'image/jpeg')
+  }
+  await asset.save({
+    status: 'processed'
+  }, {
+    transacting: req.trx
+  })
+  await socket.in(`/admin/assets/${asset.get('id')}`).emit('message', {
+    target: `/admin/assets/${asset.get('id')}`,
+    action: 'refresh',
+    data: formatObjectForTransport(AssetSerializer(null, asset))
+  })
 }
 
 const _getNormalizedData = async (asset, fileData) => {

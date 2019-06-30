@@ -11,7 +11,7 @@ const route = async (req, res) => {
   })
 
   const folder = await createFolder(req, {
-    parent_id: parent ? parent.get('id') : null,
+    parent,
     label: req.label
   })
 

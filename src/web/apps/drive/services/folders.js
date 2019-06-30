@@ -4,14 +4,20 @@ import socket from '../../../core/services/routes/emitter'
 import Folder from '../models/folder'
 import Access from '../models/access'
 
-export const createFolder = async (req, params) => {
-
-  const parent = params.parent_id ? await Folder.where({
+const _getParent = async (req, params) => {
+  if(params.parent) return params.parent
+  if(params.parent_id) return await Folder.where({
     id: params.parent_id
   }).fetch({
     withRelated: ['accesses'],
     transacting: req.trx
-  }) : null
+  })
+  return null
+}
+
+export const createFolder = async (req, params) => {
+
+  const parent = await _getParent(req, params)
 
   const folder = await Folder.forge({
     team_id: req.team.get('id'),
