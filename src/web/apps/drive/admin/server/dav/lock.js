@@ -13,11 +13,6 @@ const route = async (req, res) => {
     return res.status(422).send(null)
   }
 
-  if(false) {
-    // user cannot lock
-    return res.status(403).send(null)
-  }
-
   const lock_expires_at = moment().add(1, 'hour')
 
   const lock_token = generateUUID(lock_expires_at.unix() * 1000)
@@ -54,12 +49,7 @@ const route = async (req, res) => {
           { 'D:lockroot': [
             { 'D:href': `${process.env.WEB_HOST}/${req.originalUrl}` }
           ] },
-          { 'D:owner': [
-            { 'a:href': [
-              { _attr: { 'xmlns:a': 'DAV:' } },
-              'http://www.apple.com/webdav_fs/'
-            ] }
-          ] },
+          { 'D:owner': [req.user.get('full_name')] },
           { 'D:timeout': 'Second-3600' }
         ] }
       ] }

@@ -91,7 +91,9 @@ export const createChannel = async (req, user_ids) => {
 
 }
 
-export const createMessage = async (req, { channel_id, type, text }) => {
+export const createMessage = async (req, params) => {
+
+  const { channel_id, type, text } = params
 
   const message_type = await MessageType.where({
     text: type
@@ -114,7 +116,9 @@ export const createMessage = async (req, { channel_id, type, text }) => {
 
 }
 
-export const sendMessage = async (req, { channel_id, type, text }) => {
+export const sendMessage = async (req, params) => {
+
+  const { channel_id, type, text } = params
 
   const message = await createMessage(req, { channel_id, type, text })
 
