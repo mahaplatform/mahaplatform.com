@@ -8,10 +8,6 @@ const MetaFile = new Model({
 
   folder: function() {
     return this.belongsTo(Folder, 'folder_id')
-  },
-
-  locked_by: function() {
-    return this.belongsTo(User, 'locked_by_id')
   }
 
 })

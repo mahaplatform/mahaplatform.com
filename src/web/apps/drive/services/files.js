@@ -39,7 +39,8 @@ export const createFile = async (req, params) => {
     code: generateCode(),
     label: asset.get('original_file_name'),
     fullpath: parent ? `${parent.get('fullpath')}/${asset.get('original_file_name')}` : asset.get('original_file_name'),
-    folder_id: parent.get('id')
+    folder_id: parent.get('id'),
+    owner_id: req.user.get('id')
   }).save(null, {
     transacting: req.trx
   })

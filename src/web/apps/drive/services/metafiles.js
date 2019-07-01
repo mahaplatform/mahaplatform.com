@@ -24,6 +24,7 @@ export const createMetaFile = async (req, params) => {
     label: params.label,
     fullpath: parent ? `${parent.get('fullpath')}/${params.label}` :params.label,
     folder_id: parent.get('id'),
+    owner_id: req.user.get('id'),
     file_size: params.file_size,
     contents: params.contents
   }).save(null, {

@@ -24,6 +24,7 @@ export const createFolder = async (req, params) => {
     code: generateCode(),
     fullpath: parent ? `${parent.get('fullpath')}/${params.label}` : params.label,
     parent_id: parent.get('id'),
+    owner_id: req.user.get('id'),
     label: params.label
   }).save(null, {
     transacting: req.trx

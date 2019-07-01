@@ -25,10 +25,6 @@ const File = new Model({
     return this.belongsTo(Folder, 'folder_id')
   },
 
-  locked_by: function() {
-    return this.belongsTo(User, 'locked_by_id')
-  },
-
   versions: function() {
     return this.hasMany(Version, 'file_id').query(qb => {
       qb.orderBy('created_at', 'desc')

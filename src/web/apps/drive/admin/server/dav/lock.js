@@ -4,16 +4,14 @@ import { generateUUID } from './utils'
 import moment from 'moment'
 import xml from 'xml'
 
-const lockFile = async (req, file) => {
+const lockFile = async (req, file, locked_by) => {
 
   const lock_expires_at = moment().add(1, 'hour')
 
-  const lock_token = generateUUID(lock_expires_at.unix() * 1000)
-
   await file.save({
-    locked_by_id: req.user.get('id'),
     lock_expires_at,
-    lock_token
+    locked_by,
+    lock_token: generateUUID(lock_expires_at.unix() * 1000)
   }, {
     patch: true,
     transacting: req.trx
@@ -22,10 +20,6 @@ const lockFile = async (req, file) => {
 }
 
 const route = async (req, res) => {
-
-  if(req.item.get('locked_by_id') && req.item.get('locked_by_id') !== req.user.get('id')) {
-    return res.status(423).send(null)
-  }
 
   if(req.headers.depth === undefined) {
     return res.status(422).send(null)
@@ -39,7 +33,9 @@ const route = async (req, res) => {
     transacting: req.trx
   })
 
-  await lockFile(req, file)
+  const owner = req.body['D:lockinfo']['D:owner'][0]['D:href'][0]
+
+  await lockFile(req, file, owner)
 
   const data = xml({
     'D:prop': [
@@ -58,7 +54,7 @@ const route = async (req, res) => {
           { 'D:lockroot': [
             { 'D:href': `${process.env.WEB_HOST}/${req.originalUrl}` }
           ] },
-          { 'D:owner': [req.user.get('full_name')] },
+          { 'D:owner': [owner] },
           { 'D:timeout': 'Second-3600' }
         ] }
       ] }

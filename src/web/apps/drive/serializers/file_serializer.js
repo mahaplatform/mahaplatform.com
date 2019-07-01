@@ -7,7 +7,7 @@ const FileSerializer = (req, result) => ({
   label: result.get('label'),
   folder: folder(result.related('folder')),
   accesses: result.related('accesses').map(access),
-  locked_by: user(result.related('locked_by')),
+  locked_by: result.get('locked_by'),
   lock_expires_at: result.get('lock_expires_at'),
   lock_token: result.get('lock_token'),
   created_at: result.get('created_at'),

@@ -16,7 +16,7 @@ const route = async (req, res) => {
   await file.save({
     lock_token: null,
     lock_expires_at: null,
-    locked_by_id: null
+    locked_by: null
   }, {
     patch: true,
     transacting: req.trx

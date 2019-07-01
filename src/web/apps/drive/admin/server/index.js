@@ -4,7 +4,7 @@ import dav from './dav'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/drive/dav/:subdomain', dav)
+router.use('/drive/dav', dav)
 
 router.use('/drive/share', share)
 

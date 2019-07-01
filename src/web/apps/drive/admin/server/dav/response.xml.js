@@ -1,4 +1,5 @@
 import moment from 'moment'
+import etag from 'etag'
 import xml from 'xml'
 
 const response = (req, item, props, children = []) => xml({
@@ -10,7 +11,8 @@ const response = (req, item, props, children = []) => xml({
 }, { declaration: true })
 
 const getUrl = (req, item) => {
-  const parts = [process.env.WEB_HOST, 'admin', 'drive', req.params.subdomain]
+  const host = `${req.protocol}://${req.headers.host}`
+  const parts = [host, 'admin', 'drive', 'dav', req.params.subdomain]
   if(item.get('fullpath').length > 0) parts.push(item.get('fullpath'))
   const url = encodeURI(parts.join('/'))
   return item.get('type') === 'folder' ? `${url}/` : url
@@ -28,7 +30,7 @@ const getResponse = (req, item, props) => {
     const creationdate = moment(item.get('updated_at')).format('YYYY-MM-DD[T]HH:mm:ssZ')
     found.push({ 'D:creationdate': [ creationdate ] })
   }
-  if(item.get('type') === 'file') {
+  if(item.get('type') !== 'folder') {
     if(props['D:resourcetype'] || props['D:allprop']) found.push({ 'D:resourcetype': null })
     if(props['D:getcontenttype'] || props['D:allprop']) {
       found.push({ 'D:getcontenttype': [ item.get('content_type') ] })
@@ -44,9 +46,9 @@ const getResponse = (req, item, props) => {
         'D:Name': req.item.get('owned_by')
       }] })
     }
-    // if(props['D:getetag'] || props['D:allprop']) {
-    //   found.push({ 'D:getetag': [ etag(item.get('updated_at')) ] })
-    // }
+    if(props['D:getetag'] || props['D:allprop']) {
+      found.push({ 'D:getetag': [ etag(item.get('updated_at').toString()).replace(/["]+/g, '') ] })
+    }
     if(props['D:supportedlock'] || props['D:allprop']) {
       found.push({
         'D:supportedlock': [{

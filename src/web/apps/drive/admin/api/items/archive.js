@@ -6,9 +6,7 @@ import moment from 'moment'
 const archiveRoute = async (req, res) => {
 
   const items = await Item.query(qb => {
-    qb.select('drive_items.*','drive_access_types.text as access_type')
     qb.joinRaw('inner join drive_items_access on drive_items_access.code=drive_items.code and drive_items_access.user_id=?', req.user.get('id'))
-    qb.innerJoin('drive_access_types', 'drive_access_types.id', 'drive_items_access.access_type_id')
     qb.whereRaw('drive_items.type != ?', 'metafile')
     qb.whereIn('drive_items.code', req.query.codes)
   }).fetchAll({

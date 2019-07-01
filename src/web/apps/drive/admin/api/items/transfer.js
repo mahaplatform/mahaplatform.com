@@ -9,6 +9,24 @@ const transferRoute = async (req, res) => {
     strategy: ['required']
   }).run(req.body)
 
+  await knex('drive_folders').transacting(req.trx)
+    .where('owner_id', req.body.from_user_id)
+    .update({
+      owner_id: req.body.to_user_id
+    })
+
+  await knex('drive_metafiles').transacting(req.trx)
+    .where('owner_id', req.body.from_user_id)
+    .update({
+      owner_id: req.body.to_user_id
+    })
+
+  await knex('drive_files').transacting(req.trx)
+    .where('owner_id', req.body.from_user_id)
+    .update({
+      owner_id: req.body.to_user_id
+    })
+
   const accesses = await knex('drive_access').transacting(req.trx)
     .where('user_id', req.body.from_user_id)
     .where('access_type_id', 1)

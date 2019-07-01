@@ -22,10 +22,6 @@ const Item = new Model({
     return this.belongsTo(Folder, 'folder_id')
   },
 
-  locked_by: function() {
-    return this.belongsTo(User, 'locked_by_id')
-  },
-
   owner: function() {
     return this.belongsTo(User, 'owner_id')
   }

@@ -36,7 +36,6 @@ export const loadItem = async (req, res, next) => {
     qb.innerJoin('drive_access_types', 'drive_access_types.id', 'drive_items_access.access_type_id')
     qb.whereNull('drive_items.deleted_at')
     qb.where('fullpath', req.fullpath)
-    qb.orderBy('label', 'asc')
   }).fetch({
     transacting: req.trx
   })

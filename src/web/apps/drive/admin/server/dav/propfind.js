@@ -12,9 +12,7 @@ const getChildren = async (req, user, item, depth) => {
   return await Item.scope({
     team: req.team
   }).query(qb => {
-    qb.select('drive_items.*','drive_access_types.text as access_type')
     qb.joinRaw('inner join drive_items_access on drive_items_access.code=drive_items.code and drive_items_access.user_id=?', req.user.get('id'))
-    qb.innerJoin('drive_access_types', 'drive_access_types.id', 'drive_items_access.access_type_id')
     qb.whereNull('drive_items.deleted_at')
     if(item.get('id') === null) {
       qb.whereNull('folder_id')
@@ -23,7 +21,6 @@ const getChildren = async (req, user, item, depth) => {
     }
     qb.orderBy('label', 'asc')
   }).fetchAll({
-    withRelated: ['asset'],
     transacting: req.trx
   })
 

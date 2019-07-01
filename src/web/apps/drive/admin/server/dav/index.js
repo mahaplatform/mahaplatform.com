@@ -1,7 +1,7 @@
 import { loadHeaders, loadItem, loadTeam, rawParser } from './utils'
 import preconditions from './preconditions'
 import propfind from './propfind'
-import { Router } from 'express'
+import express from 'express'
 import options from './options'
 import destroy from './destroy'
 import unlock from './unlock'
@@ -14,23 +14,25 @@ import copy from './copy'
 import put from './put'
 import get from './get'
 
-const router = new Router({ mergeParams: true })
+const router = new express()
 
-router.use(rawParser)
+router.set('etag', false)
 
-router.use(preconditions)
+router.use('/:subdomain', rawParser)
 
-router.use(cors)
+router.use('/:subdomain', preconditions)
 
-router.use(loadTeam)
+router.use('/:subdomain', cors)
 
-router.use(auth)
+router.use('/:subdomain', loadTeam)
 
-router.use(loadHeaders)
+router.use('/:subdomain', auth)
 
-router.use(loadItem)
+router.use('/:subdomain', loadHeaders)
 
-router.use(async (req, res, next) => {
+router.use('/:subdomain', loadItem)
+
+router.use('/:subdomain', async (req, res, next) => {
   if(req.method === 'OPTIONS') return options(req, res, next)
   if(req.method === 'UNLOCK') return unlock(req, res, next)
   if(req.method === 'LOCK') return lock(req, res, next)
