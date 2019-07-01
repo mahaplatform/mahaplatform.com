@@ -1,10 +1,13 @@
+import MetaFile from '../../../models/metafile'
 import File from '../../../models/file'
 
 const route = async (req, res) => {
 
   if(req.item.get('lock_token') !== req.lock_token) return res.status(404).send(null)
 
-  const file = await File.query(qb => {
+  const model = req.item.get('type') === 'file' ? File : MetaFile
+
+  const file = await model.query(qb => {
     qb.where('id', req.item.get('item_id'))
   }).fetch({
     transacting: req.trx

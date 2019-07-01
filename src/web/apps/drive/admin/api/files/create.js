@@ -8,9 +8,8 @@ const createRoute = async (req, res) => {
     team: req.team
   }).query(qb => {
     qb.select('drive_items.*','drive_access_types.text as access_type')
-    qb.innerJoin('drive_items_access', 'drive_items_access.code', 'drive_items.code')
+    qb.joinRaw('inner join drive_items_access on drive_items_access.code=drive_items.code and drive_items_access.user_id=?', req.user.get('id'))
     qb.innerJoin('drive_access_types', 'drive_access_types.id', 'drive_items_access.access_type_id')
-    qb.where('drive_items_access.user_id', req.user.get('id'))
     qb.whereNull('drive_items.deleted_at')
     qb.where('folder_id', req.body.folder_id)
     qb.where('label', req.body.label)
@@ -31,7 +30,7 @@ const createRoute = async (req, res) => {
   await file.load(['folder', 'current_version.asset','current_version.asset.user.photo','current_version.asset.source','versions.asset.source','versions.user','accesses.user.photo','accesses.group','accesses.access_type'], {
     transacting: req.trx
   })
-  
+
   res.status(200).respond(file, FileSerializer)
 
 }

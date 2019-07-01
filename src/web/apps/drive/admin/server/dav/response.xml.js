@@ -31,22 +31,22 @@ const getResponse = (req, item, props) => {
   if(item.get('type') === 'file') {
     if(props['D:resourcetype'] || props['D:allprop']) found.push({ 'D:resourcetype': null })
     if(props['D:getcontenttype'] || props['D:allprop']) {
-      found.push({ 'D:getcontenttype': [ item.related('asset').get('content_type') ] })
+      found.push({ 'D:getcontenttype': [ item.get('content_type') ] })
     }
     if(props['D:getcontentlength'] || props['D:allprop']) {
-      found.push({ 'D:getcontentlength': [ item.related('asset').get('file_size') ] })
+      found.push({ 'D:getcontentlength': [ item.get('file_size') ] })
     }
     if(props['D:displayname'] || props['D:allprop']) {
       found.push({ 'D:displayname': [ item.get('label') ] })
     }
     if(props['D:author'] || props['D:allprop']) {
       found.push({ 'D:author': [{
-        'D:Name': req.item.related('owner').related('user').get('full_name')
+        'D:Name': req.item.get('owned_by')
       }] })
     }
-    if(props['D:getetag'] || props['D:allprop']) {
-      found.push({ 'D:getetag': [ item.related('asset').get('etag') ] })
-    }
+    // if(props['D:getetag'] || props['D:allprop']) {
+    //   found.push({ 'D:getetag': [ etag(item.get('updated_at')) ] })
+    // }
     if(props['D:supportedlock'] || props['D:allprop']) {
       found.push({
         'D:supportedlock': [{
@@ -72,7 +72,7 @@ const getResponse = (req, item, props) => {
               'D:exclusive': []
             }],
             'D:depth': [0],
-            'D:owner': [req.item.related('locked_by').get('full_name')],
+            'D:owner': [req.item.get('locked_by')],
             'D:timeout': ['infinite'],
             'D:locktoken': [{
               'D:href': [req.item.get('locked_token')]

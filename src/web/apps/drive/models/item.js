@@ -27,9 +27,7 @@ const Item = new Model({
   },
 
   owner: function() {
-    return this.hasOne(Access, 'code', 'code').query(qb => {
-      qb.where('access_type_id', 1)
-    })
+    return this.belongsTo(User, 'owner_id')
   }
 
 })

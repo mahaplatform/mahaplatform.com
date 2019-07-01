@@ -162,7 +162,7 @@ const schema = {
       table.integer('version_id').unsigned()
       table.timestamp('deleted_at')
       table.string('label', 255)
-      table.string('fullpath', 255)
+      table.text('fullpath')
       table.integer('locked_by_id').unsigned()
       table.string('lock_token', 255)
       table.timestamp('lock_expires_at')
@@ -177,7 +177,23 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.timestamp('deleted_at')
-      table.string('fullpath', 255)
+      table.text('fullpath')
+    })
+
+    await knex.schema.createTable('drive_metafiles', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('folder_id').unsigned()
+      table.string('code', 255)
+      table.string('label', 255)
+      table.text('fullpath')
+      table.integer('file_size')
+      table.bytea('contents')
+      table.integer('locked_by_id')
+      table.string('lock_token', 255)
+      table.timestamp('lock_expires_at')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
     })
 
     await knex.schema.createTable('drive_versions', (table) => {
@@ -1373,6 +1389,11 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('drive_metafiles', table => {
+      table.foreign('folder_id').references('drive_folders.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('eatfresh_categories_attractions', table => {
       table.foreign('attraction_id').references('eatfresh_attractions.id')
       table.foreign('category_id').references('eatfresh_categories.id')
@@ -1543,10 +1564,15 @@ const schema = {
       items.type,
       items.folder_id,
       items.asset_id,
+      items.owner_id,
+      items.owned_by,
       items.label,
       items.fullpath,
+      items.file_size,
+      items.content_type,
       items.lock_expires_at,
       items.locked_by_id,
+      items.locked_by,
       items.lock_token,
       items.deleted_at,
       items.created_at,
@@ -1558,15 +1584,22 @@ const schema = {
       'folder'::text as type,
       drive_folders.parent_id as folder_id,
       null::integer as asset_id,
+      drive_access.user_id as owner_id,
+      concat(owners.first_name, ' ', owners.last_name) as owned_by,
       drive_folders.label,
       drive_folders.fullpath,
+      null::integer as file_size,
+      null::character varying as content_type,
       null::timestamp with time zone as lock_expires_at,
       null::integer as locked_by_id,
+      null::text as locked_by,
       null::character varying as lock_token,
       drive_folders.deleted_at,
       drive_folders.created_at,
       drive_folders.updated_at
-      from drive_folders
+      from ((drive_folders
+      join drive_access on ((((drive_access.code)::text = (drive_folders.code)::text) and (drive_access.access_type_id = 1))))
+      join maha_users owners on ((owners.id = drive_access.user_id)))
       union
       select 1 as priority,
       drive_files.code,
@@ -1575,17 +1608,56 @@ const schema = {
       'file'::text as type,
       drive_files.folder_id,
       drive_versions.asset_id,
+      drive_access.user_id as owner_id,
+      concat(owners.first_name, ' ', owners.last_name) as owned_by,
       drive_files.label,
       drive_files.fullpath,
+      maha_assets.file_size,
+      maha_assets.content_type,
       drive_files.lock_expires_at,
       drive_files.locked_by_id,
+      case
+      when (lockers.id is not null) then concat(lockers.first_name, ' ', lockers.last_name)
+      else null::text
+      end as locked_by,
       drive_files.lock_token,
       drive_files.deleted_at,
       drive_files.created_at,
       drive_files.updated_at
-      from ((drive_files
+      from (((((drive_files
+      join drive_access on ((((drive_access.code)::text = (drive_files.code)::text) and (drive_access.access_type_id = 1))))
       join drive_versions on ((drive_versions.id = drive_files.version_id)))
-      join maha_assets on ((maha_assets.id = drive_versions.asset_id)))) items;
+      join maha_assets on ((maha_assets.id = drive_versions.asset_id)))
+      join maha_users owners on ((owners.id = drive_access.user_id)))
+      left join maha_users lockers on ((lockers.id = drive_files.locked_by_id)))
+      union
+      select 2 as priority,
+      drive_metafiles.code,
+      drive_metafiles.id as item_id,
+      drive_metafiles.team_id,
+      'metafile'::text as type,
+      drive_metafiles.folder_id,
+      null::integer as asset_id,
+      drive_access.user_id as owner_id,
+      concat(owners.first_name, ' ', owners.last_name) as owned_by,
+      drive_metafiles.label,
+      drive_metafiles.fullpath,
+      drive_metafiles.file_size,
+      'application/octet-stream'::character varying as content_type,
+      drive_metafiles.lock_expires_at,
+      drive_metafiles.locked_by_id,
+      case
+      when (lockers.id is not null) then concat(lockers.first_name, ' ', lockers.last_name)
+      else null::text
+      end as locked_by,
+      drive_metafiles.lock_token,
+      null::timestamp with time zone as deleted_at,
+      drive_metafiles.created_at,
+      drive_metafiles.updated_at
+      from (((drive_metafiles
+      join drive_access on ((((drive_access.code)::text = (drive_metafiles.code)::text) and (drive_access.access_type_id = 1))))
+      join maha_users owners on ((owners.id = drive_access.user_id)))
+      left join maha_users lockers on ((lockers.id = drive_metafiles.locked_by_id)))) items;
     `)
 
     await knex.raw(`
@@ -1609,10 +1681,15 @@ const schema = {
       drive_items.type,
       drive_items.folder_id,
       drive_items.asset_id,
+      drive_items.owner_id,
+      drive_items.owned_by,
       drive_items.label,
       drive_items.fullpath,
+      drive_items.file_size,
+      drive_items.content_type,
       drive_items.lock_expires_at,
       drive_items.locked_by_id,
+      drive_items.locked_by,
       drive_items.lock_token,
       drive_items.deleted_at,
       drive_items.created_at,

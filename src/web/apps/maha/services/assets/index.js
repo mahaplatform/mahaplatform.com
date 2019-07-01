@@ -99,6 +99,7 @@ export const assembleAsset = async (req, id) => {
   await asset.save({
     status: asset.get('has_preview') ? 'assembled' : 'processed'
   }, {
+    patch: true,
     transacting: req.trx
   })
   if(asset.get('has_preview')) await ProcessAssetQueue.enqueue(null, asset.get('id'))
@@ -142,6 +143,7 @@ export const createAsset = async (req, params) => {
   await asset.save({
     status: 'processed'
   }, {
+    patch: true,
     transacting: req.trx
   })
   return asset
@@ -162,6 +164,7 @@ export const updateAsset = async (req, asset, params) => {
   await asset.save({
     status: 'processed'
   }, {
+    patch: true,
     transacting: req.trx
   })
   return asset
@@ -198,6 +201,7 @@ const _processAsset = async (req, data, asset) => {
   await asset.save({
     status: 'processed'
   }, {
+    patch: true,
     transacting: req.trx
   })
   await socket.in(`/admin/assets/${asset.get('id')}`).emit('message', {

@@ -1,8 +1,23 @@
 import s3 from '../../../../../core/services/s3'
+import MetaFile from '../../../models/metafile'
 
-const getData = async (asset) => {
+const getData = async (req, item) => {
 
-  if(asset.get('file_size') === 0) return null
+  if(item.get('file_size') === 0) return null
+
+  if(item.get('type') === 'metafile') {
+
+    const file = await MetaFile.query(qb => {
+      qb.where('id',item.get('item_id'))
+    }).fetch({
+      transacting: req.trx
+    })
+
+    return file.get('contents')
+
+  }
+
+  const asset = item.related('asset')
 
   return await s3.getObject({
     Bucket: process.env.AWS_BUCKET,
@@ -15,13 +30,11 @@ const route = async (req, res) => {
 
   try {
 
-    const asset = req.item.related('asset')
+    const data = await getData(req, req.item)
 
-    const data = await getData(asset)
+    res.setHeader('Content-disposition', `attachment; filename=${req.item.get('label')}`)
 
-    res.setHeader('Content-disposition', `attachment; filename=${asset.get('file_name')}`)
-
-    res.status(200).type(asset.get('content_type')).send(data)
+    res.status(200).type(req.item.get('content_type')).send(data)
 
   } catch(err) {
 

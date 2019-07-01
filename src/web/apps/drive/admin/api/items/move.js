@@ -12,9 +12,9 @@ const moveRoute = async (req, res) => {
 
   const items = await Item.query(qb => {
     qb.select('drive_items.*','drive_access_types.text as access_type')
-    qb.innerJoin('drive_items_access', 'drive_items_access.code', 'drive_items.code')
+    qb.joinRaw('inner join drive_items_access on drive_items_access.code=drive_items.code and drive_items_access.user_id=?', req.user.get('id'))
     qb.innerJoin('drive_access_types', 'drive_access_types.id', 'drive_items_access.access_type_id')
-    qb.where('drive_items_access.user_id', req.user.get('id'))
+    qb.whereRaw('drive_items.type != ?', 'metafile')
     qb.whereNull('drive_items.deleted_at')
     qb.whereIn('drive_items.code', req.body.codes)
   }).fetchAll({
