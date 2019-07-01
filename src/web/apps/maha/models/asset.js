@@ -48,7 +48,7 @@ const Assets = new Model({
       return s3.getSignedUrl('getObject', {
         Bucket: process.env.AWS_BUCKET,
         Key: `assets/${this.get('id')}/${this.get('file_name')}`,
-        Expires: 60*60*24*7*2
+        Expires: 60*60*24*7
       })
     }
 

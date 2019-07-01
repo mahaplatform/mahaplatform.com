@@ -23,6 +23,7 @@ const createRoute = async (req, res) => {
   })
 
   if(req.body.asset_ids) await attachments(req, {
+    team_id: req.team.get('id'),
     attachable_type: 'maha_comments',
     attachable_id: comment.get('id'),
     asset_ids: req.body.asset_ids
