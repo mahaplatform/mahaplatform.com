@@ -1,3 +1,4 @@
+import generateCode from '../../../../../core/utils/generate_code'
 import ImportItem from '../../../../maha/models/import_item'
 import { sendUserActivation } from '../../../services/users'
 import knex from '../../../../../core/services/knex'
@@ -37,6 +38,12 @@ const finalizeRoute = async (req, res) => {
     const user = await User.where({
       id: item.get('object_id')
     }).fetch({
+      transacting: req.trx
+    })
+
+    user.save({
+      key: generateCode(32)
+    }).save(null, {
       transacting: req.trx
     })
 
