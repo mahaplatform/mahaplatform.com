@@ -21,8 +21,7 @@ const createFile = (filepath, templateName, data = {}) => {
 }
 
 const route = async (args) => {
-  const [ pathname ] = args
-  const root = path.join('src','web','apps', pathname)
+  const [ root ] = args
   const route = root.split('/').pop()
   const data = {
     routeName: route,
@@ -33,8 +32,7 @@ const route = async (args) => {
 }
 
 const resource = async (args) => {
-  const [ pathname ] = args
-  const root = path.join('src','web','apps', pathname)
+  const [ root ] = args
   const routes = ['list','create','show','update','destroy']
   createFile(path.join(root, 'index.js'), 'resource/index.js', {})
   routes.map(route => {
@@ -73,7 +71,7 @@ const migration = async (args) => {
   const [ pathname ] = args
   const timestamp = moment().format('YYYYMMDDHHmmss')
   const name = pathname.split('/').slice(-1)[0]
-  const root = path.join('src','web','apps', ...pathname.split('/').slice(0,-1))
+  const root = path.join(...pathname.split('/').slice(0,-1))
   const data = {
     className:  _.upperFirst(_.camelCase(name)),
     migrationPath: path.join(root, `${timestamp}_${name}.js`)
@@ -82,16 +80,16 @@ const migration = async (args) => {
 }
 
 const component = async (args) => {
-  const [ pathname ] = args
-  const rootPath = path.join('src','web',pathname)
-  const componentName = _.snakeCase(pathname.split('/').slice(-1)[0])
+  const [ root ] = args
+  const componentName = _.snakeCase(root.split('/').slice(-1)[0])
   const className = _.upperFirst(_.camelCase(componentName))
   const styleName = _.kebabCase(componentName)
   const data = {
-    rootPath, componentName, className, styleName,
-    componentPath: path.join(rootPath, 'index.js'),
-    testPath: path.join(rootPath, 'test.js'),
-    stylePath: path.join(rootPath, 'style.less')
+    componentName, className, styleName,
+    rootPath: root,
+    componentPath: path.join(root, 'index.js'),
+    testPath: path.join(root, 'test.js'),
+    stylePath: path.join(root, 'style.less')
   }
   createFile(data.componentPath, 'component/component.js', data)
   createFile(data.testPath, 'component/test.js', data)
@@ -99,20 +97,20 @@ const component = async (args) => {
 }
 
 const rubberstamp = async (args) => {
-  const [ pathname ] = args
-  const rootPath = path.join('src','web',pathname)
-  const componentName = _.snakeCase(pathname.split('/').slice(-1)[0])
+  const [ root ] = args
+  const componentName = _.snakeCase(root.split('/').slice(-1)[0])
   const className = _.upperFirst(_.camelCase(componentName))
   const styleName = _.kebabCase(componentName)
   const data = {
-    rootPath, componentName, className, styleName,
-    actionsPath: path.join(rootPath, 'actions.js'),
-    selectorsPath: path.join(rootPath, 'selectors.js'),
-    reducerPath: path.join(rootPath, 'reducer.js'),
-    indexPath: path.join(rootPath, 'index.js'),
-    componentPath: path.join(rootPath, `${componentName}.js`),
-    testPath: path.join(rootPath, 'test.js'),
-    stylePath: path.join(rootPath, 'style.less')
+    componentName, className, styleName,
+    rootPath: root,
+    actionsPath: path.join(root, 'actions.js'),
+    selectorsPath: path.join(root, 'selectors.js'),
+    reducerPath: path.join(root, 'reducer.js'),
+    indexPath: path.join(root, 'index.js'),
+    componentPath: path.join(root, `${componentName}.js`),
+    testPath: path.join(root, 'test.js'),
+    stylePath: path.join(root, 'style.less')
   }
   createFile(data.actionsPath, 'rubberstamp/actions.js', data)
   createFile(data.selectorsPath, 'rubberstamp/selectors.js', data)
@@ -124,10 +122,9 @@ const rubberstamp = async (args) => {
 }
 
 const page = async (args) => {
-  const [ pathname ] = args
-  const root = path.join('src','web','pages')
+  const [ root ] = args
   const data = {
-    pagePath: path.join(root,`${pathname}.js`)
+    pagePath: `${root}.js`
   }
   createFile(data.pagePath, 'page/page.js', data)
 }

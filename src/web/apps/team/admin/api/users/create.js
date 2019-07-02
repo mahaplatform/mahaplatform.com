@@ -2,6 +2,7 @@ import { updateRelated } from '../../../../../core/services/routes/relations'
 import { activity } from '../../../../../core/services/routes/activities'
 import { createUserToken } from '../../../../../core/utils/user_tokens'
 import { whitelist } from '../../../../../core/services/routes/params'
+import generateCode from '../../../../../core/utils/generate_code'
 import UserSerializer from '../../../serializers/user_serializer'
 import socket from '../../../../../core/services/routes/emitter'
 import mailer from '../../../../maha/queues/mailer_queue'
@@ -22,6 +23,7 @@ const createRoute = async (req, res) => {
     mute_evenings_end_time: '9:00',
     mute_weekends: true,
     values: {},
+    key: generateCode(32),
     ...whitelist(req.body, ['first_name','last_name','email','secondary_email','is_active','email_notification_method','photo_id','values'])
   }).save(null, {
     transacting: req.trx

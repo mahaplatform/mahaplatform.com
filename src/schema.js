@@ -951,6 +951,7 @@ const schema = {
       table.boolean('mute_weekends').defaultsTo(false)
       table.boolean('is_blocked').defaultsTo(false)
       table.timestamp('locked_out_at')
+      table.string('key', 255)
     })
 
     await knex.schema.createTable('maha_users_alerts', (table) => {
@@ -1104,6 +1105,13 @@ const schema = {
       table.foreign('competency_id').references('competencies_competencies.id')
     })
 
+    await knex.schema.table('drive_files', table => {
+      table.foreign('version_id').references('drive_versions.id')
+      table.foreign('owner_id').references('maha_users.id')
+      table.foreign('folder_id').references('drive_folders.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('chat_channels', table => {
       table.foreign('owner_id').references('maha_users.id')
       table.foreign('last_message_id').references('chat_messages.id')
@@ -1123,6 +1131,18 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('drive_folders', table => {
+      table.foreign('owner_id').references('maha_users.id')
+      table.foreign('parent_id').references('drive_folders.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('drive_metafiles', table => {
+      table.foreign('owner_id').references('maha_users.id')
+      table.foreign('folder_id').references('drive_folders.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('drive_versions', table => {
       table.foreign('user_id').references('maha_users.id')
       table.foreign('file_id').references('drive_files.id')
@@ -1132,10 +1152,10 @@ const schema = {
 
     await knex.schema.table('expenses_advances', table => {
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('batch_id').references('expenses_batches.id')
-      table.foreign('expense_type_id').references('expenses_expense_types.id')
       table.foreign('project_id').references('expenses_projects.id')
       table.foreign('status_id').references('expenses_statuses.id')
+      table.foreign('batch_id').references('expenses_batches.id')
+      table.foreign('expense_type_id').references('expenses_expense_types.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -1146,22 +1166,22 @@ const schema = {
 
     await knex.schema.table('expenses_checks', table => {
       table.foreign('user_id').references('maha_users.id')
+      table.foreign('project_id').references('expenses_projects.id')
+      table.foreign('status_id').references('expenses_statuses.id')
       table.foreign('batch_id').references('expenses_batches.id')
       table.foreign('expense_type_id').references('expenses_expense_types.id')
-      table.foreign('project_id').references('expenses_projects.id')
       table.foreign('vendor_id').references('expenses_vendors.id')
-      table.foreign('status_id').references('expenses_statuses.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('expenses_expenses', table => {
       table.foreign('user_id').references('maha_users.id')
+      table.foreign('project_id').references('expenses_projects.id')
+      table.foreign('status_id').references('expenses_statuses.id')
       table.foreign('account_id').references('expenses_accounts.id')
       table.foreign('batch_id').references('expenses_batches.id')
       table.foreign('expense_type_id').references('expenses_expense_types.id')
-      table.foreign('project_id').references('expenses_projects.id')
       table.foreign('vendor_id').references('expenses_vendors.id')
-      table.foreign('status_id').references('expenses_statuses.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -1174,20 +1194,20 @@ const schema = {
 
     await knex.schema.table('expenses_reimbursements', table => {
       table.foreign('user_id').references('maha_users.id')
+      table.foreign('project_id').references('expenses_projects.id')
+      table.foreign('status_id').references('expenses_statuses.id')
       table.foreign('batch_id').references('expenses_batches.id')
       table.foreign('expense_type_id').references('expenses_expense_types.id')
-      table.foreign('project_id').references('expenses_projects.id')
       table.foreign('vendor_id').references('expenses_vendors.id')
-      table.foreign('status_id').references('expenses_statuses.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('expenses_trips', table => {
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('batch_id').references('expenses_batches.id')
-      table.foreign('expense_type_id').references('expenses_expense_types.id')
       table.foreign('project_id').references('expenses_projects.id')
       table.foreign('status_id').references('expenses_statuses.id')
+      table.foreign('batch_id').references('expenses_batches.id')
+      table.foreign('expense_type_id').references('expenses_expense_types.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -1234,8 +1254,8 @@ const schema = {
       table.foreign('subject_id').references('maha_users.id')
       table.foreign('user_id').references('maha_users.id')
       table.foreign('app_id').references('maha_apps.id')
-      table.foreign('notification_type_id').references('maha_notification_types.id')
       table.foreign('story_id').references('maha_stories.id')
+      table.foreign('notification_type_id').references('maha_notification_types.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -1302,23 +1322,9 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('drive_metafiles', table => {
-      table.foreign('owner_id').references('maha_users.id')
-      table.foreign('folder_id').references('drive_folders.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('drive_files', table => {
-      table.foreign('owner_id').references('maha_users.id')
-      table.foreign('folder_id').references('drive_folders.id')
-      table.foreign('version_id').references('drive_versions.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('drive_folders', table => {
-      table.foreign('owner_id').references('maha_users.id')
-      table.foreign('parent_id').references('drive_folders.id')
-      table.foreign('team_id').references('maha_teams.id')
+    await knex.schema.table('eatfresh_offerings_attractions', table => {
+      table.foreign('offering_id').references('eatfresh_offerings.id')
+      table.foreign('attraction_id').references('eatfresh_attractions.id')
     })
 
     await knex.schema.table('maha_import_items', table => {
@@ -1358,8 +1364,8 @@ const schema = {
     })
 
     await knex.schema.table('maha_email_activities', table => {
-      table.foreign('email_id').references('maha_emails.id')
       table.foreign('email_link_id').references('maha_email_links.id')
+      table.foreign('email_id').references('maha_emails.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -1371,6 +1377,10 @@ const schema = {
     await knex.schema.table('maha_roles_rights', table => {
       table.foreign('role_id').references('maha_roles.id')
       table.foreign('right_id').references('maha_rights.id')
+    })
+
+    await knex.schema.table('maha_links', table => {
+      table.foreign('service_id').references('maha_services.id')
     })
 
     await knex.schema.table('sites_emails', table => {
@@ -1402,11 +1412,6 @@ const schema = {
     await knex.schema.table('eatfresh_categories_attractions', table => {
       table.foreign('attraction_id').references('eatfresh_attractions.id')
       table.foreign('category_id').references('eatfresh_categories.id')
-    })
-
-    await knex.schema.table('eatfresh_offerings_attractions', table => {
-      table.foreign('attraction_id').references('eatfresh_attractions.id')
-      table.foreign('offering_id').references('eatfresh_offerings.id')
     })
 
     await knex.schema.table('eatfresh_photos', table => {
@@ -1467,10 +1472,6 @@ const schema = {
       table.foreign('os_name_id').references('maha_device_values.id')
       table.foreign('os_version_id').references('maha_device_values.id')
       table.foreign('platform_type_id').references('maha_device_values.id')
-    })
-
-    await knex.schema.table('maha_links', table => {
-      table.foreign('service_id').references('maha_services.id')
     })
 
     await knex.schema.table('competencies_categories', table => {
