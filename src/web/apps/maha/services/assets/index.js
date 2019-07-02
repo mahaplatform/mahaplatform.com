@@ -82,7 +82,7 @@ export const createAssetFromUrl = async (req, url, team_id, user_id) => {
   })
   const asset = await createAsset(req, {
     team_id: (req.team) ? req.team.get('id') : team_id,
-    user_id: (req.team) ? req.user.get('id') : user_id,
+    user_id: (req.user) ? req.user.get('id') : user_id,
     source_id: source.get('id'),
     file_size: response.headers['content-length'],
     file_name: path.basename(parsed.pathname),
@@ -124,8 +124,8 @@ export const processAsset = async (req, id) => {
 
 export const createAsset = async (req, params) => {
   const asset = await Asset.forge({
-    team_id: params.team_id || req.team.get('id'),
-    user_id: params.user_id|| req.user.get('id'),
+    team_id: params.team_id,
+    user_id: params.user_id,
     source_id: params.source_id,
     source_identifier: params.source_identifier,
     source_url: params.source_url,

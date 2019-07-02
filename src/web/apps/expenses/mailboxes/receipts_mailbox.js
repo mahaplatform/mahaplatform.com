@@ -53,29 +53,35 @@ const processor = async (meta, email, trx) => {
     status_id: 1,
     [date]: moment(),
     description: email.subject
-  }).save(null, { transacting: trx })
+  }).save(null, {
+    transacting: trx
+  })
 
   const file_name = email.subject.replace(/[^0-9a-zA-Z-.]/img, '-').replace(/-{2,}/g, '-').toLowerCase()
 
   const source = await Source.where({
     text: 'email'
-  }).fetch({ transacting: trx })
+  }).fetch({
+    transacting: trx
+  })
 
   const asset = await createAsset({ trx }, {
-    user_id: user.get('id'),
     team_id: user.get('team_id'),
+    user_id: user.get('id'),
     source_id: source.get('id'),
     file_name: `${file_name}.html`,
     content_type: 'text/html',
     file_data: email.html || email.textAsHtml
-  }, trx)
+  })
 
   await Receipt.forge({
     team_id: user.get('team_id'),
     [foreign_key]: item.get('id'),
     delta: 0,
     asset_id: asset.get('id')
-  }).save(null, { transacting: trx })
+  }).save(null, {
+    transacting: trx
+  })
 
   await Promise.mapSeries(email.attachments, async (attachment, index) => {
 
@@ -92,7 +98,9 @@ const processor = async (meta, email, trx) => {
       [foreign_key]: item.get('id'),
       delta: index + 1,
       asset_id: asset.get('id')
-    }).save(null, { transacting: trx })
+    }).save(null, {
+      transacting: trx
+    })
 
   })
 
@@ -104,7 +112,9 @@ const processor = async (meta, email, trx) => {
     auditable_type: `expenses_${meta.type}`,
     auditable_id: item.get('id'),
     story_id
-  }).save(null, { transacting: trx })
+  }).save(null, {
+    transacting: trx
+  })
 
   await socket.in(`/admin/users/${user.get('id')}`).emit('message', {
     target: '/admin/expenses/items',
@@ -121,15 +131,10 @@ const _getModel = (type) => {
 }
 
 const _findOrCreateStoryId = async (text, trx) => {
-
   if(!text) return null
-
   const findStory = await Story.where({ text }).fetch({ transacting: trx })
-
   const story = findStory || await Story.forge({ text }).save(null, { transacting: trx })
-
   return story.id
-
 }
 
 const receiptMailbox = {
