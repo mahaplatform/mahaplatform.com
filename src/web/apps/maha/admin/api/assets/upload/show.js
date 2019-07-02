@@ -1,16 +1,21 @@
+import AssetSerializer from '../../../../serializers/asset_serializer'
 import { checkUploadedFile } from '../../../../services/assets'
 
 const showRoute = async (req, res) => {
 
-  const exists = await checkUploadedFile(req)
+  const asset = await checkUploadedFile(req)
 
-  if(!exists) return res.status(204).json({
-    message: 'not found'
+  if(asset === false) return res.status(204).json({
+    code: 204,
+    message: 'Unable to find asset'
   })
 
-  res.status(200).json({
+  if(asset === null) return res.status(200).json({
+    code: 200,
     message: 'found'
   })
+
+  res.status(200).respond(asset, AssetSerializer)
 
 }
 

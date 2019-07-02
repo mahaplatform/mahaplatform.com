@@ -1,5 +1,4 @@
 import formatObjectForTransport from '../../../../core/utils/format_object_for_transport'
-import AssembleAssetQueue from '../../queues/assemble_asset_queue'
 import AssetSerializer from '../../serializers/asset_serializer'
 import ProcessAssetQueue from '../../queues/process_asset_queue'
 import socket from '../../../../core/services/emitter'
@@ -19,15 +18,23 @@ import _ from 'lodash'
 import Url from 'url'
 import fs from 'fs'
 
-const backend = process.env.ASSET_STORAGE === 's3' ? aws : local
-
 const simpleParserAsync = Promise.promisify(simpleParser)
 
 const execAsync = Promise.promisify(exec)
 
 export const checkUploadedFile = async (req) => {
   const chunkFilename = _getChunkFilename(req.query.resumableIdentifier, req.query.resumableChunkNumber)
-  return await _chunkExists(chunkFilename)
+  const exists = await _chunkExists(chunkFilename)
+  if(!exists) return false
+  const asset = await Asset.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('original_file_name', req.query.resumableFilename)
+    qb.where('file_size', req.query.resumableTotalSize)
+  }).fetch({
+    transacting: req.trx
+  })
+  return asset
 }
 
 export const uploadChunk = async (req) => {
@@ -35,14 +42,13 @@ export const uploadChunk = async (req) => {
   const chunkFilename = _getChunkFilename(identifier, req.body.resumableChunkNumber)
   fs.renameSync(req.files['file'].path, chunkFilename)
   const filedata = fs.readFileSync(chunkFilename)
-  await _saveFile(filedata, chunkFilename, 'application/octet-stream')
-  await _unlinkChunk(chunkFilename)
+  await _saveChunk(filedata, chunkFilename, 'application/octet-stream')
   const chunks = await _listChunks()
   const chunkArray = [...Array(parseInt(req.body.resumableTotalChunks))]
   const completed = chunkArray.reduce((completed, chunk, index) => {
     return completed ? _.includes(chunks, _getChunkFilename(identifier, index + 1)) : false
   }, true)
-  if(!completed) return 'partly_done'
+  if(!completed) return null
   const asset = await Asset.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
@@ -57,8 +63,9 @@ export const uploadChunk = async (req) => {
     transacting: req.trx
   })
   if(!asset) throw new Error('Unable to create asset')
-  await AssembleAssetQueue.enqueue(req, asset.get('id'))
-  return AssetSerializer(req, asset)
+  await assembleAsset(req, asset)
+  await ProcessAssetQueue.enqueue(req, asset.id)
+  return asset
 }
 
 export const createAssetFromUrl = async (req, url, team_id, user_id) => {
@@ -73,7 +80,7 @@ export const createAssetFromUrl = async (req, url, team_id, user_id) => {
   }).fetch({
     transacting: req.trx
   })
-  const asset = await createAsset({
+  const asset = await createAsset(req, {
     team_id: (req.team) ? req.team.get('id') : team_id,
     user_id: (req.team) ? req.user.get('id') : user_id,
     source_id: source.get('id'),
@@ -85,13 +92,7 @@ export const createAssetFromUrl = async (req, url, team_id, user_id) => {
   return asset
 }
 
-export const assembleAsset = async (req, id) => {
-  const asset = await Asset.query(qb => {
-    qb.where('id', id)
-  }).fetch({
-    transacting: req.trx
-  })
-  if(!asset) throw new Error('Unable to find asset' )
+export const assembleAsset = async (req, asset) => {
   const fileData = await _getAssembledData(asset)
   const normalizedData = await _getNormalizedData(asset, fileData)
   await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
@@ -131,7 +132,7 @@ export const createAsset = async (req, params) => {
     original_file_name: params.file_name,
     file_name: _getNormalizedFileName(params.file_name),
     content_type: params.content_type || _getContentType(params.file_name),
-    file_size: params.file_size !== null ? params.file_size : _getFilesize(params.file_data),
+    file_size: !_.isNil(params.file_size) ? params.file_size : _getFilesize(params.file_data),
     chunks_total: 1,
     status: 'assembled'
   }).save(null, {
@@ -181,7 +182,7 @@ export const deleteAsset = async (req, asset) => {
 
 export const getAssetData = async (asset, format = 'buffer') => {
   const key = `assets/${asset.get('id')}/${asset.get('file_name')}`
-  const data = await backend.readFile(key)
+  const data = await aws.readFile(key)
   if(format === 'stream') return _bufferToStream(data)
   if(format === 'string') return data.toString('utf-8')
   return data
@@ -227,15 +228,19 @@ const _chunkExists = async (filepath) => {
 }
 
 const _listChunks = async () => {
-  return await backend.listFiles('tmp')
+  return await local.listFiles('tmp')
+}
+
+const _saveChunk = async (filedata, filepath, content_type) => {
+  return await local.saveFile(filedata, filepath, content_type)
 }
 
 const _saveFile = async (filedata, filepath, content_type) => {
-  return await backend.saveFile(filedata, filepath, content_type)
+  return await aws.saveFile(filedata, filepath, content_type)
 }
 
 const _deleteFiles = async (files) => {
-  return await backend.deleteFiles(files)
+  return await aws.deleteFiles(files)
 }
 
 const _getContentType = (file_name) => {
@@ -268,7 +273,7 @@ const _getChunks = async (asset) => {
   const totalChunks = parseInt(asset.get('chunks_total'))
   const chunkArray = [...Array(parseInt(totalChunks))]
   return await Promise.mapSeries(chunkArray, async (item, index) => {
-    return await backend.readFile(path.join('tmp', `${asset.get('identifier')}.${index + 1}`))
+    return await local.readFile(path.join('tmp', `${asset.get('identifier')}.${index + 1}`))
   })
 }
 
@@ -278,7 +283,7 @@ const _deleteChunks = async (asset) => {
   const filepaths = chunkArray.map((i, index) => {
     return _getChunkFilename(asset.get('identifier'), index + 1)
   })
-  backend.deleteFiles(filepaths)
+  local.deleteFiles(filepaths)
 }
 
 const _bufferToStream = (buffer) => {
@@ -286,10 +291,6 @@ const _bufferToStream = (buffer) => {
   stream.push(buffer)
   stream.push(null)
   return stream
-}
-
-const _unlinkChunk = async (filepath) => {
-  fs.unlinkSync(filepath)
 }
 
 const _getPreviewData = async (asset, fileData, ext) => {

@@ -16,6 +16,8 @@ class Items extends React.Component {
     onRemoveFile: PropTypes.func
   }
 
+  _handleClick = _.debounce(this._handleClick.bind(this), 500, { leading: true })
+
   render() {
     const { records } = this.props
     return (

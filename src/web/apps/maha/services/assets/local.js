@@ -2,7 +2,7 @@ import mkdirp from 'mkdirp'
 import path from 'path'
 import fs from 'fs'
 
-const base = path.resolve('src','public')
+const base = path.resolve()
 
 export const readFile = async (key) => {
   return fs.readFileSync(path.join(base, key))

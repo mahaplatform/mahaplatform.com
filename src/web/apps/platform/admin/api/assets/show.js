@@ -1,4 +1,4 @@
-import { assembleAssetQueue, processAssetQueue } from '../../../../maha/services/assets'
+import { processAssetQueue } from '../../../../maha/services/assets'
 import AssetSerializer from '../../../serializers/asset_serializer'
 import Asset from '../../../../maha/models/asset'
 
@@ -15,10 +15,6 @@ const showRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load asset'
   })
-
-  if(asset.get('status') === 'chunked') {
-    await assembleAssetQueue.enqueue(req, req.params.id)
-  }
 
   if(asset.get('status') === 'assembled') {
     await processAssetQueue.enqueue(req, req.params.id)

@@ -59,7 +59,7 @@ const processor = async (meta, email, trx) => {
     text: 'email'
   }).fetch({ transacting: trx })
 
-  const asset = await createAsset({
+  const asset = await createAsset(req, {
     user_id: user.get('id'),
     team_id: user.get('team_id'),
     source_id: source.get('id'),

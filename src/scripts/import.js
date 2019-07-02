@@ -102,7 +102,7 @@ const processor = async (root, mapped) => {
 
         } else {
 
-          const asset = await createAsset({
+          const asset = await createAsset(req, {
             team_id: req.team.get('id'),
             user_id: req.user.get('id'),
             source_id: 1,
