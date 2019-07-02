@@ -1,4 +1,4 @@
-const navigation = async (req, trx) => ({
+const navigation = async (req) => ({
   items: [
     { label: 'Activities', rights: ['team:manage_team'], route: '/activities' },
     { label: 'Apps', rights: ['team:manage_apps'], route: '/apps' },

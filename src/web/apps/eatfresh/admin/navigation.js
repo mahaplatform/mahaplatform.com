@@ -1,4 +1,4 @@
-const navigation = async (req, trx) => ({
+const navigation = async (req) => ({
   items: [
     { label: 'Attractions', route: '/attractions' },
     { label: 'Categories', route: '/categories' },

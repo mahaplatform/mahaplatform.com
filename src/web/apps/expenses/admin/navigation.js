@@ -1,6 +1,6 @@
 import { canApprove, isOwnerOrAdmin } from './utils/access'
 
-const navigation = async (req, trx) => ({
+const navigation = async (req) => ({
   items: [
     { label: 'Accounts', rights: ['expenses:manage_configuration'], route: '/accounts'},
     { label: 'Approvals', rights: ['expenses:manage_expenses'], access: canApprove, route: '/approvals'},

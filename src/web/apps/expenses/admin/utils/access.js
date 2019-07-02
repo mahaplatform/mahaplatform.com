@@ -1,7 +1,7 @@
 import Member from '../../models/member'
 import _ from 'lodash'
 
-export const canApprove = async (req, trx) => {
+export const canApprove = async (req) => {
 
   const members = await Member.query(qb => {
     qb.joinRaw('inner join expenses_projects on expenses_projects.id=expenses_members.project_id and expenses_projects.is_active=?', true)
@@ -18,16 +18,10 @@ export const canApprove = async (req, trx) => {
 
 }
 
-export const isAdmin = (req, trx) => {
-
+export const isAdmin = (req) => {
   return _.includes(req.rights, 'expenses:access_reports')
-
 }
 
-export const isOwnerOrAdmin = async (req, trx) => {
-
-  if(isAdmin(req, trx)) return true
-
-  return await canApprove(req, trx)
-
+export const isOwnerOrAdmin = async (req) => {
+  return !isAdmin(req) ? canApprove(req) : true
 }

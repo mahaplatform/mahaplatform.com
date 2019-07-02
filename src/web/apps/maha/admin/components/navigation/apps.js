@@ -26,6 +26,7 @@ class Apps extends React.Component {
 
   _handleBack = this._handleBack.bind(this)
   _handleToggleMode = this._handleToggleMode.bind(this)
+  _handleForward = _.debounce(this._handleForward.bind(this), 300, { leading: true })
 
   render() {
     const { path, team, rights } = this.props

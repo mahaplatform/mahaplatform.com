@@ -1,13 +1,13 @@
 import Site from '../models/site'
 
-const navigation = async (req, trx) => {
+const navigation = async (req) => {
 
   const sites = await Site.query(qb => {
     qb.innerJoin('sites_managers', 'sites_managers.site_id','sites_sites.id')
     qb.where('sites_managers.user_id', req.user.get('id'))
     qb.orderBy('sites_sites.title', 'asc')
   }).fetchAll({
-    transacting: trx,
+    transacting: req.trx,
     withRelated: [{
       types: qb => qb.orderBy('title', 'asc')
     }]

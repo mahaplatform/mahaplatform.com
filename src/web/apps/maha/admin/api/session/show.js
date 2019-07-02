@@ -1,6 +1,6 @@
 import SessionSerializer from '../../../serializers/session_serializer'
 import { createUserToken } from '../../../../../core/utils/user_tokens'
-import loadNavigation from '../../../../../core/utils/load_navigation'
+import collectObjects from '../../../../../core/utils/collect_objects'
 import getUserAccess from '../../../../../core/utils/get_user_access'
 import { createSession } from '../../../services/sessions'
 import knex from '../../../../../core/services/knex'
@@ -9,11 +9,20 @@ import Session from '../../../models/session'
 import Device from '../../../models/device'
 import moment from 'moment'
 
-const _expandNavigation = (prefix, items, req) => {
+const navigations = collectObjects('admin/navigation.js')
+
+const loadNavigation = async (req) => {
+  return await Promise.reduce(navigations, async (navigations, navigation) => ({
+    ...navigations,
+    [navigation.config.code]: await navigation.default(req)
+  }), {})
+}
+
+const _expandNavigation = (req, prefix, items) => {
   return Promise.reduce(items, async (items, item) => {
-    const canAccess = item.access ? await item.access(req, req.trx) : true
+    const canAccess = item.access ? await item.access(req) : true
     if(!canAccess) return items
-    const subitems = item.items ? await _expandNavigation(prefix, item.items) : []
+    const subitems = item.items ? await _expandNavigation(req, prefix, item.items) : []
     return [
       ...items,
       {
@@ -80,7 +89,7 @@ const showRoute = async (req, res) => {
     .innerJoin('maha_notification_types', 'maha_notification_types.id', 'maha_users_notification_types.notification_type_id')
     .innerJoin('maha_apps', 'maha_apps.id', 'maha_notification_types.app_id')
 
-  const navigation = await loadNavigation(req, req.trx)
+  const navigation = await loadNavigation(req)
 
   session.access = await getUserAccess(req.user, req.trx)
 
@@ -93,7 +102,7 @@ const showRoute = async (req, res) => {
         app
       ]
     }
-    const items = await _expandNavigation(app.path, navigation[app.code].items, req)
+    const items = await _expandNavigation(req, app.path, navigation[app.code].items)
     return [
       ...apps,
       {
@@ -132,7 +141,7 @@ const showRoute = async (req, res) => {
         secure: true
       })
     })
-    
+
   }
 
   res.status(200).respond(session, SessionSerializer)
