@@ -54,6 +54,17 @@ const Assets = new Model({
 
   },
 
+  listener_ids(trx) {
+    return User.query(qb => {
+      qb.select('maha_users.id')
+      qb.joinRaw('left join maha_comments on maha_comments.user_id=maha_users.id and maha_comments.commentable_type=? and maha_comments.commentable_id=?', ['maha_assets', this.get('id')])
+      qb.whereRaw('maha_comments.id is not null')
+      qb.groupBy('maha_users.id')
+    }).fetchAll({
+      transacting: trx
+    }).then(users => users.map(user => user.get('id')))
+  },
+
   source() {
     return this.belongsTo(Source, 'source_id')
   },

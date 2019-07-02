@@ -26,6 +26,7 @@ const user = (user) => {
     id: user.get('id'),
     full_name: user.get('full_name'),
     initials: user.get('initials'),
+    is_active: user.get('is_active'),
     photo: user.related('photo') ? user.related('photo').get('path') : null
   }
 

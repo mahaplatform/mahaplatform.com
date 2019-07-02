@@ -64,9 +64,11 @@ class Folder extends React.Component {
               { folder.label }
             </div>
           </div>
-          <div className="drive-header-icon" onClick={ this._handleTasks.bind(this, folder) }>
-            <i className="fa fa-fw fa-ellipsis-v" />
-          </div>
+          { folder.code !== 'root' ?
+            <div className="drive-header-icon" onClick={ this._handleTasks.bind(this, folder) }>
+              <i className="fa fa-fw fa-ellipsis-v" />
+            </div> : <div className="drive-header-icon" />
+          }
         </div>
         <div className="drive-results" { ...this._getResults() }>
           { folder.code === 'root' ?

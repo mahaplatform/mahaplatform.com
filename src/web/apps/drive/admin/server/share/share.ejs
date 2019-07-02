@@ -71,16 +71,16 @@
       </div>
       <div class="share-body">
         <% if ((asset.content_type.match(/pdf/)) || (asset.content_type.match(/excel/)) || (asset.content_type.match(/spreadsheetml/)) || (asset.content_type.match(/msword/)) || (asset.content_type.match(/wordprocessingml/)) || (asset.content_type.match(/powerpoint/)) || (asset.content_type.match(/presentationml/))) { %>
-          <iframe src="https://docs.google.com/gview?url=<%= asset.url %>&embedded=true"></iframe>
+          <iframe src="https://docs.google.com/gview?url=<%= encodeURI(asset.signed_url) %>&embedded=true"></iframe>
         <% } else if(asset.content_type.match(/image/)) { %>
-          <img src="<%= asset.url %>" alt="<%= asset.original_file_name %>" />
+          <img src="<%= asset.signed_url %>" alt="<%= asset.original_file_name %>" />
         <% } else if(asset.content_type.match(/video/)) { %>
           <video width="500" height="350" controls>
-            <source src="<%= asset.url %>" type="<%= asset.content_type %>">
+            <source src="<%= asset.signed_url %>" type="<%= asset.content_type %>">
             Preview unavailable, <a href="<%= asset.url %>">click here to download the file.</a>
           </video>
         <% } else if(asset.content_type.match(/audio/)) { %>
-          <iframe src="<%= asset.url %>"></iframe>
+          <iframe src="<%= asset.signed_url %>"></iframe>
         <% } else { %>
           <p>Preview unavailable, <a href="<%= asset.url %>">click here to download the file.</a></p>
         <% } %>

@@ -23,7 +23,7 @@ export const createFolder = async (req, params) => {
     team_id: req.team.get('id'),
     code: generateCode(),
     fullpath: parent ? `${parent.get('fullpath')}/${params.label}` : params.label,
-    parent_id: parent.get('id'),
+    parent_id: parent ? parent.get('id') : null,
     owner_id: req.user.get('id'),
     label: params.label
   }).save(null, {
