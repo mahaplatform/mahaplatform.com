@@ -124,8 +124,8 @@ export const processAsset = async (req, id) => {
 
 export const createAsset = async (req, params) => {
   const asset = await Asset.forge({
-    team_id: params.team_id,
-    user_id: params.user_id,
+    team_id: params.team_id || req.team.get('id'),
+    user_id: params.user_id|| req.user.get('id'),
     source_id: params.source_id,
     source_identifier: params.source_identifier,
     source_url: params.source_url,

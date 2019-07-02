@@ -1,7 +1,5 @@
-import aws from '../../../../core/services/aws'
+import s3 from '../../../../core/services/s3'
 import _ from 'lodash'
-
-const s3 = new aws.S3()
 
 const RemoveOrphanedAssets = {
 

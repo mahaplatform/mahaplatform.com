@@ -1,6 +1,6 @@
 import mailboxQueue from '../../../../apps/maha/queues/mailbox_queue'
 import collectObjects from '../../../utils/collect_objects'
-import aws from '../../../services/aws'
+import s3 from '../../../services/s3'
 import path from 'path'
 import _ from 'lodash'
 
@@ -46,8 +46,6 @@ const mimeRoute = async (req, res) => {
   const meta = await mailbox.receiver(mailbox.to, message, req.trx)
 
   const code = _.random(100000000, 999999999).toString(36)
-
-  const s3 = new aws.S3()
 
   await s3.upload({
     ACL: 'private',

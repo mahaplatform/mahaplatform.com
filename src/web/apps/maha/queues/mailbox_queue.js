@@ -1,5 +1,5 @@
 import Queue from '../../../core/objects/queue'
-import aws from '../../../core/services/aws'
+import s3 from '../../../core/services/s3'
 import path from 'path'
 
 const enqueue = async (req, message) => message
@@ -7,8 +7,6 @@ const enqueue = async (req, message) => message
 const processor = async (job, trx) => {
 
   const { filepath, meta, code } = job.data
-
-  const s3 = new aws.S3()
 
   const file = await s3.getObject({
     Bucket: process.env.AWS_BUCKET,

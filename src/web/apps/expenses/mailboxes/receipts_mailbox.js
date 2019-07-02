@@ -16,13 +16,13 @@ const EMAIL_REGEX = /^(expenses|reimbursements|checks)@mahaplatform.com$/
 const receiver = async (to, email, trx) => {
 
   const user = await User.query(qb => {
-
     qb.whereRaw('(email=? OR secondary_email=?)', [
       email.from.value[0].address,
       email.from.value[0].address
     ])
-
-  }).fetch({ transacting: trx })
+  }).fetch({
+    transacting: trx
+  })
 
   if(!user) throw new Error('invalid sender')
 
@@ -37,7 +37,9 @@ const processor = async (meta, email, trx) => {
 
   const user = await User.where({
     id: meta.user_id
-  }).fetch({ transacting: trx })
+  }).fetch({
+    transacting: trx
+  })
 
   const model = _getModel(meta.type)
 
@@ -59,7 +61,7 @@ const processor = async (meta, email, trx) => {
     text: 'email'
   }).fetch({ transacting: trx })
 
-  const asset = await createAsset(req, {
+  const asset = await createAsset({ trx }, {
     user_id: user.get('id'),
     team_id: user.get('team_id'),
     source_id: source.get('id'),
