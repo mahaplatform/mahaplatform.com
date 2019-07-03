@@ -1745,6 +1745,37 @@ const schema = {
       table.foreign('answer_id').references('learning_answers.id')
     })
 
+    await knex.schema.table('learning_quizes', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('learning_questions', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('quiz_id').references('learning_quizes.id')
+      table.foreign('correct_answer_id').references('learning_answers.id')
+    })
+
+    await knex.schema.table('learning_answers', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('question_id').references('learning_questions.id')
+    })
+
+    await knex.schema.table('learning_answerings', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('question_id').references('learning_questions.id')
+      table.foreign('answer_id').references('learning_answers.id')
+      table.foreign('administration_id').references('learning_administrations.id')
+    })
+
+    await knex.schema.table('learning_offerings', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('training_id').references('learning_trainings.id')
+    })
+
+    await knex.schema.table('learning_trainings', table => {
+      table.foreign('team_id').references('learning_trainings.id')
+    })
+
 
     await knex.raw(`
       create view chat_results AS
