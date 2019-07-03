@@ -4,30 +4,16 @@ import knex from '../../../../../core/services/knex'
 import Project from '../../../models/project'
 import moment from 'moment'
 
+const models = ['advance','check','expense','reimbursement','trip']
+
 const mergeRoute = async (req, res) => {
 
-  await knex('expenses_reimbursements').transacting(req.trx).where({
-    project_id: req.params.id
-  }).update({
-    project_id: req.body.project_id
-  })
-
-  await knex('expenses_expenses').transacting(req.trx).where({
-    project_id: req.params.id
-  }).update({
-    project_id: req.body.project_id
-  })
-
-  await knex('expenses_checks').transacting(req.trx).where({
-    project_id: req.params.id
-  }).update({
-    project_id: req.body.project_id
-  })
-
-  await knex('expenses_trips').transacting(req.trx).where({
-    project_id: req.params.id
-  }).update({
-    project_id: req.body.project_id
+  await Promise.map(models, async model => {
+    await knex(`expenses_${model}s`).transacting(req.trx).where({
+      project_id: req.params.id
+    }).update({
+      project_id: req.body.project_id
+    })
   })
 
   const members = await knex('expenses_members').transacting(req.trx).where({
@@ -48,7 +34,6 @@ const mergeRoute = async (req, res) => {
         project_id: req.body.project_id,
         user_id: member.user_id,
         member_type_id: member.member_type_id,
-        is_active: true,
         created_at: moment(),
         updated_at: moment()
       })
@@ -58,7 +43,6 @@ const mergeRoute = async (req, res) => {
         project_id: req.body.project_id,
         user_id: exisiting.user_id,
         member_type_id: exisiting.member_type_id,
-        is_active: true,
         created_at: moment(),
         updated_at: moment()
       }).update({
@@ -87,7 +71,7 @@ const mergeRoute = async (req, res) => {
   })
 
   await audit(req, {
-    story: 'merged project',
+    story: 'merged',
     auditable: project
   })
 

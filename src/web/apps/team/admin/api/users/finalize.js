@@ -42,6 +42,7 @@ const finalizeRoute = async (req, res) => {
     })
 
     user.save({
+      is_active: true,
       key: generateCode(32)
     }).save(null, {
       transacting: req.trx

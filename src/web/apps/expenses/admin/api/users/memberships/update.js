@@ -48,7 +48,6 @@ const updateRoute = async (req, res) => {
       team_id: req.team.get('id'),
       user_id: req.params.user_id,
       ...member,
-      is_active: true,
       created_at: moment(),
       updated_at: moment()
     })))

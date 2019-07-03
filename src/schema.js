@@ -385,7 +385,6 @@ const schema = {
       table.integer('project_id').unsigned()
       table.integer('user_id').unsigned()
       table.integer('member_type_id').unsigned()
-      table.boolean('is_active').defaultsTo(false)
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })

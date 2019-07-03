@@ -21,11 +21,19 @@ class Responder {
   async render() {
     const serializer = this._getSerializer(this.serializer)
     this.data = await this._serializeData(this.data, serializer)
+    const headers = await this._getHeaders()
     const data = await this._getData()
+    Object.keys(headers).map(key => {
+      this.res.header(key, headers[key])
+    })
     if(this.req.query.download) {
       this.res.setHeader('Content-disposition', `attachment; filename=${this.filename}`)
     }
     this.res.type(this.type).send(data)
+  }
+
+  _getHeaders() {
+    return {}
   }
 
   _getSerializer(serializer) {

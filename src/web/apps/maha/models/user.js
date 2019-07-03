@@ -75,6 +75,12 @@ const User = new Model({
 
     supervisor_ids: function() {
       return this.related('supervisors').map(supervisor => supervisor.id)
+    },
+
+    status: function() {
+      if(this.get('activated_at') === null) return 'inactive'
+      if(!this.get('is_active')) return 'disabled'
+      return 'active'
     }
 
   },

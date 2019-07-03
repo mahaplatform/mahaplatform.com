@@ -12,7 +12,7 @@ const createRoute = async (req, res) => {
 
   const user = await User.forge({
     team_id: req.team.get('id'),
-    is_active: false,
+    is_active: true,
     notifications_enabled: true,
     in_app_notifications_enabled: true,
     notification_sound_enabled: true,
