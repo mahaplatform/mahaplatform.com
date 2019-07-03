@@ -46,8 +46,7 @@ const resource = async (args) => {
 }
 
 const model = async (args) => {
-  const [ model ] = args
-  const root = path.join('src', 'server')
+  const [ root, model ] = args
   const timestamp = moment().format('YYYYMMDDHHmmss')
   const singluar = pluralize.singular(model).toLowerCase()
   const plural = pluralize.plural(model).toLowerCase()

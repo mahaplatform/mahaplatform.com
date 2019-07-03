@@ -15,19 +15,19 @@ const Plan = new Model ({
 
   virtuals: {
 
-    object_owner_id: function() {
+    object_owner_id() {
       return this.get('employee_id')
     },
 
-    object_text: function() {
+    object_text() {
       return this.get('id')
     },
 
-    object_type: function() {
+    object_type() {
       return 'plan'
     },
 
-    object_url: function() {
+    object_url() {
       return `/admin/learning/plans/${this.get('id')}`
     }
 
