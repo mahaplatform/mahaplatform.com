@@ -473,6 +473,94 @@ const schema = {
       table.jsonb('integration')
     })
 
+    await knex.schema.createTable('learning_administrations', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('quiz_id').unsigned()
+      table.integer('user_id').unsigned()
+      table.integer('correct_count')
+      table.integer('total_count')
+      table.boolean('was_passed')
+      table.text('text')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('learning_answerings', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('administration_id').unsigned()
+      table.integer('question_id').unsigned()
+      table.integer('answer_id').unsigned()
+      table.boolean('is_correct')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('learning_answers', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('question_id').unsigned()
+      table.text('text')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('learning_assignments', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('assigned_by_id').unsigned()
+      table.integer('employee_id').unsigned()
+      table.integer('training_id').unsigned()
+      table.integer('offering_id').unsigned()
+      table.boolean('is_complete')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('learning_offerings', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('training_id').unsigned()
+      table.date('date')
+      table.time('starts_at')
+      table.time('ends_at')
+      table.string('location', 255)
+      table.integer('limit')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('learning_questions', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('quiz_id').unsigned()
+      table.text('text')
+      table.text('explanation')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+      table.integer('correct_answer_id').unsigned()
+    })
+
+    await knex.schema.createTable('learning_quizes', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.string('quizable_text', 255)
+      table.integer('quizable_id')
+      table.integer('passing_score')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('learning_trainings', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.string('title', 255)
+      table.string('description', 255)
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('maha_activities', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -1321,6 +1409,20 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('learning_administrations', table => {
+      table.foreign('user_id').references('maha_users.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('quiz_id').references('learning_quizes.id')
+    })
+
+    await knex.schema.table('learning_assignments', table => {
+      table.foreign('assigned_by_id').references('maha_users.id')
+      table.foreign('employee_id').references('maha_users.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('training_id').references('learning_trainings.id')
+      table.foreign('offering_id').references('learning_offerings.id')
+    })
+
     await knex.schema.table('eatfresh_offerings_attractions', table => {
       table.foreign('offering_id').references('eatfresh_offerings.id')
       table.foreign('attraction_id').references('eatfresh_attractions.id')
@@ -1523,6 +1625,37 @@ const schema = {
 
     await knex.schema.table('sites_sites', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('learning_quizes', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('learning_questions', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('quiz_id').references('learning_quizes.id')
+      table.foreign('correct_answer_id').references('learning_answers.id')
+    })
+
+    await knex.schema.table('learning_answers', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('question_id').references('learning_questions.id')
+    })
+
+    await knex.schema.table('learning_answerings', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('question_id').references('learning_questions.id')
+      table.foreign('answer_id').references('learning_answers.id')
+      table.foreign('administration_id').references('learning_administrations.id')
+    })
+
+    await knex.schema.table('learning_offerings', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('training_id').references('learning_trainings.id')
+    })
+
+    await knex.schema.table('learning_trainings', table => {
+      table.foreign('team_id').references('learning_trainings.id')
     })
 
 

@@ -16,15 +16,15 @@ const Competency = new Model ({
 
   virtuals: {
 
-    object_text: function() {
+    object_text() {
       return this.get('title')
     },
 
-    object_type: function() {
+    object_type() {
       return 'competency'
     },
 
-    object_url: function() {
+    object_url() {
       return `/admin/learning/competencies/${this.get('id')}`
     }
 
