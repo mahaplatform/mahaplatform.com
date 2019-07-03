@@ -1,5 +1,7 @@
 import ProjectToken from '../../tokens/project_token'
 import { Page, CompactUserToken } from 'maha-admin'
+import Merge from './merge'
+import Edit from './edit'
 import React from 'react'
 import New from './new'
 
@@ -52,6 +54,36 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ..._getIntegrationExports(resources.app.settings.integration)
     ],
     link: (record) => `/admin/expenses/projects/${record.id}`,
+    recordTasks: (record) => [
+      {
+        label: 'Edit Project',
+        rights: ['expenses:manage_configuration'],
+        show: record.is_active,
+        modal: <Edit project={ record } integration={ resources.app.settings.integration } />
+      }, {
+        label: 'Merge Project',
+        show: record.is_active,
+        modal: <Merge id={ record.id } />
+      }, {
+        label: 'Disable Project',
+        rights: ['expenses:manage_configuration'],
+        show: record.is_active,
+        request: {
+          method: 'PATCH',
+          endpoint: `/api/admin/expenses/projects/${record.id}/disable`,
+          onFailure: (result) => context.flash.set('error', 'Unable to disable this project')
+        }
+      }, {
+        label: 'Enable Project',
+        rights: ['expenses:manage_configuration'],
+        show: !record.is_active,
+        request: {
+          method: 'PATCH',
+          endpoint: `/api/admin/expenses/projects/${record.id}/enable`,
+          onFailure: (result) => context.flash.set('error', 'Unable to enable this project')
+        }
+      }
+    ],
     defaultSort: { key: 'integration->>\'project_code\'', order: 'asc' },
     entity: 'project',
     icon: 'folder',

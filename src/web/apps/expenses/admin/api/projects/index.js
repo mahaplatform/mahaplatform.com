@@ -4,6 +4,7 @@ import disable from './disable'
 import enable from './enable'
 import create from './create'
 import update from './update'
+import merge from './merge'
 import show from './show'
 import list from './list'
 
@@ -21,7 +22,8 @@ router.patch('/:id/enable', enable)
 
 router.patch('/:id/disable', disable)
 
-router.use('/:project_id/memberships', memberships)
+router.patch('/:id/merge', merge)
 
+router.use('/:project_id/memberships', memberships)
 
 export default router
