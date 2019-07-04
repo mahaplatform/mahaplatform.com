@@ -23,7 +23,7 @@ const user = (user) => {
     id: user.get('id'),
     full_name: user.get('full_name'),
     initials: user.get('initials'),
-    photo: user.related('photo') ? user.related('photo').get('path') : null
+    photo: user.related('photo').get('path')
   }
 }
 
