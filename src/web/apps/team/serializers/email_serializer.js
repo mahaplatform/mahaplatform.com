@@ -5,16 +5,7 @@ const emailSerializer = (req, result) => ({
   subject: result.get('subject'),
   html: result.get('html'),
   status: result.get('status'),
-  activities: result.related('activities').map(activity => ({
-    id: activity.get('id'),
-    type: activity.get('type'),
-    link: activity.related('link') ? {
-      id: activity.related('link').get('id'),
-      text: activity.related('link').get('text'),
-      url: activity.related('link').get('url')
-    } : null,
-    created_at: activity.get('created_at')
-  })),
+  activities: result.related('activities').map(activity),
   was_delivered: result.get('was_delivered'),
   was_opened: result.get('was_opened'),
   sent_at: result.get('sent_at'),
@@ -22,13 +13,29 @@ const emailSerializer = (req, result) => ({
   updated_at: result.get('updated_at')
 })
 
-const user = (result, key) => {
-  if(!result.related(key)) return null
+const activity = (activity) => ({
+  id: activity.get('id'),
+  type: activity.get('type'),
+  link: link(activity.related('link')),
+  created_at: activity.get('created_at')
+})
+
+const link = (link) => {
+  if(link.get('id')) return null
   return {
-    id: result.related(key).get('id'),
-    full_name: result.related(key).get('full_name'),
-    initials: result.related(key).get('initials'),
-    photo: result.related(key).related('photo') ? result.related(key).related('photo').get('path') : null
+    id: link.get('id'),
+    text: link.get('text'),
+    url: link.get('url')
+  }
+}
+
+const user = (user) => {
+  if(user.get('id')) return null
+  return {
+    id: user.get('id'),
+    full_name: user.get('full_name'),
+    initials: user.get('initials'),
+    photo: user.related('photo') ? user.related('photo').get('path') : null
   }
 }
 

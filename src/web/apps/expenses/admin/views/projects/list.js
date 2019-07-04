@@ -8,6 +8,7 @@ import New from './new'
 const _getIntegrationColumns = (integration) => {
   if(integration === 'accpac') {
     return [
+      { label: 'Main Project Code', key: 'integration.main_project_code', visible: false, collapsing: true  },
       { label: 'Project Code', key: 'integration.project_code', visible: false, collapsing: true  },
       { label: 'Program Code', key: 'integration.program_code', visible: false, collapsing: true  },
       { label: 'Source Code', key: 'integration.source_code', visible: false, collapsing: true  },
@@ -20,6 +21,7 @@ const _getIntegrationColumns = (integration) => {
 const _getIntegrationExports = (integration) => {
   if(integration === 'accpac') {
     return [
+      { label: 'Main Project Code', key: 'integration.main_project_code' },
       { label: 'Project Code', key: 'integration.project_code' },
       { label: 'Program Code', key: 'integration.program_code' },
       { label: 'Source Code', key: 'integration.source_code' },

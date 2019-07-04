@@ -44,6 +44,7 @@ class New extends React.Component {
         {
           label: 'ACCPAC Details',
           fields: [
+            { label: 'Main Project Code', name: 'integration.main_project_code', type: 'textfield', required: true },
             { label: 'Project Code', name: 'integration.project_code', type: 'textfield', required: true },
             { label: 'Program Code', name: 'integration.program_code', type: 'textfield', required: true },
             { label: 'Source Code', name: 'integration.source_code', type: 'textfield', required: true },

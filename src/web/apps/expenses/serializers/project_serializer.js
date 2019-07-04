@@ -10,23 +10,20 @@ const projectSerializer = (req, result) => ({
 
 const audit = (entry) => ({
   id: entry.get('id'),
-  user: user(entry, 'user'),
+  user: user(entry.related('user')),
   story: entry.related('story').get('text'),
   created_at: entry.get('created_at'),
   updated_at: entry.get('updated_at')
 })
 
-const user = (result, key) => {
-
-  if(!result.related(key)) return null
-
+const user = (user) => {
+  if(user.get('id')) return null
   return {
-    id: result.related(key).get('id'),
-    full_name: result.related(key).get('full_name'),
-    initials: result.related(key).get('initials'),
-    photo: result.related(key).related('photo') ? result.related(key).related('photo').get('path') : null
+    id: user.get('id'),
+    full_name: user.get('full_name'),
+    initials: user.get('initials'),
+    photo: user.related('photo') ? user.related('photo').get('path') : null
   }
-
 }
 
 const integration = (req, result) => {

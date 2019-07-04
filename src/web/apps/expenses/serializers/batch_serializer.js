@@ -1,6 +1,6 @@
 const BatchSerializer = (req, result) => ({
   id: result.get('id'),
-  user: user(result, 'user'),
+  user: user(result.related('user')),
   integration: result.get('integration'),
   items_count: result.get('items_count'),
   total: result.get('total'),
@@ -9,17 +9,14 @@ const BatchSerializer = (req, result) => ({
   updated_at: result.get('updated_at')
 })
 
-const user = (result, key) => {
-
-  if(!result.related(key)) return null
-
+const user = (user) => {
+  if(user.get('id')) return null
   return {
-    id: result.related(key).get('id'),
-    full_name: result.related(key).get('full_name'),
-    initials: result.related(key).get('initials'),
-    photo: result.related(key).related('photo') ? result.related(key).related('photo').get('path') : null
+    id: user.get('id'),
+    full_name: user.get('full_name'),
+    initials: user.get('initials'),
+    photo: user.related('photo') ? user.related('photo').get('path') : null
   }
-
 }
 
 export default BatchSerializer
