@@ -525,10 +525,7 @@ const schema = {
       table.date('date')
       table.time('starts_at')
       table.time('ends_at')
-<<<<<<< HEAD
       table.string('facilitator', 255)
-=======
->>>>>>> models and migrations for learning app
       table.string('location', 255)
       table.integer('limit')
       table.timestamp('created_at')
@@ -1469,32 +1466,8 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-<<<<<<< HEAD
     await knex.schema.table('maha_links', table => {
       table.foreign('service_id').references('maha_services.id')
-=======
-    await knex.schema.table('learning_administrations', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('quiz_id').references('learning_quizes.id')
-    })
-
-    await knex.schema.table('learning_assignments', table => {
-      table.foreign('assigned_by_id').references('maha_users.id')
-      table.foreign('employee_id').references('maha_users.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('training_id').references('learning_trainings.id')
-      table.foreign('offering_id').references('learning_offerings.id')
-    })
-
-    await knex.schema.table('eatfresh_offerings_attractions', table => {
-      table.foreign('offering_id').references('eatfresh_offerings.id')
-      table.foreign('attraction_id').references('eatfresh_attractions.id')
-    })
-
-    await knex.schema.table('maha_import_items', table => {
-      table.foreign('import_id').references('maha_imports.id')
->>>>>>> models and migrations for learning app
     })
 
     await knex.schema.table('maha_notification_types', table => {
