@@ -145,6 +145,7 @@ class Chat extends React.Component {
   _getChannel() {
     const { channel, selected } = this.props
     return {
+      key: `channel_${channel.id}`,
       channel,
       id: selected,
       onShowMessage: this._handleShowMessage

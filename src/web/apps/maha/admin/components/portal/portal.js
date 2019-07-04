@@ -67,11 +67,9 @@ class Portal extends React.Component {
                       <Account { ...this._getAccount() } />
                     </div>
                   </CSSTransition>
-                  <CSSTransition in={ mode === 'navigation' } classNames="slidein" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-                    <div className="maha-portal-navigation">
-                      <Navigation { ...this._getNavigation() } />
-                    </div>
-                  </CSSTransition>
+                  <div className="maha-portal-navigation">
+                    <Navigation { ...this._getNavigation() } />
+                  </div>
                 </div>
               </Tasks>
             </Modal>

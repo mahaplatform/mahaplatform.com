@@ -57,6 +57,11 @@
     .translateX(0);
   }
 }
+.maha-portal {
+  &.navigation .maha-portal-navigation {
+    .translateX(0);
+  }
+}
 .maha-portal-navigation {
   position: absolute;
   top: 0;
@@ -67,12 +72,7 @@
   width: ~"calc(100vw - 3.5em)";
   display: flex;
   .transition(transform .25s ease-in-out 0s);
-  &.slidein-enter, &.slidein-exit.slidein-exit-active {
-    .translateX(-100%);
-  }
-  &.slidein-exit, &.slidein-enter.slidein-enter-active {
-    .translateX(0);
-  }
+  .translateX(-100%);
 }
 .maha-portal-overlay {
   position: absolute;
