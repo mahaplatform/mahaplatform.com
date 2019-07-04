@@ -1,5 +1,6 @@
 import classifications from './classifications'
 import competencies from './competencies'
+import assignments from './assignments'
 import supervisors from './supervisors'
 import categories from './categories'
 import offerings from './offerings'
@@ -10,6 +11,8 @@ import { Router } from 'express'
 import plans from './plans'
 
 const router = new Router({ mergeParams: true })
+
+router.use('/assignments', assignments)
 
 router.use('/categories', categories)
 

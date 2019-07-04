@@ -3,7 +3,7 @@ const planSerializer = (req, result) => ({
   supervisor_id: result.get('supervisor_id'),
   supervisor: user(result, 'supervisor'),
   employee_id: result.get('employee_id'),
-  employee: user(result, 'employee'),
+  employee: user(result.related('employee')),
   due: result.get('due'),
   is_completed: result.get('is_completed'),
   goal_count: result.related('goals').length,
@@ -17,17 +17,14 @@ const planSerializer = (req, result) => ({
   updated_at: result.get('updated_at')
 })
 
-const user = (result, key) => {
-
-  if(!result.related(key)) return null
-
+const user = (user) => {
+  if(!user.get('id')) return null
   return {
-    id: result.related(key).get('id'),
-    full_name: result.related(key).get('full_name'),
-    initials: result.related(key).get('initials'),
-    photo: result.related(key).related('photo').get('path')
+    id: user.get('id'),
+    full_name: user.get('full_name'),
+    initials: user.get('initials'),
+    photo: user.related('photo').get('path')
   }
-
 }
 
 const audit = (entry) => ({
