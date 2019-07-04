@@ -75,13 +75,16 @@ const subscription = (subscription) => ({
   last_online_at: subscription.related('user').get('last_online_at')
 })
 
-const user = (user) => ({
-  id: user.get('id'),
-  full_name: user.get('full_name'),
-  initials: user.get('initials'),
-  photo: user.related('photo') ? user.related('photo').get('path') : null,
-  last_online_at: user.get('last_online_at')
-})
+const user = (user) => {
+  if(!user.id) return null
+  return {
+    id: user.get('id'),
+    full_name: user.get('full_name'),
+    initials: user.get('initials'),
+    photo: user.related('photo') ? user.related('photo').get('path') : null,
+    last_online_at: user.get('last_online_at')
+  }
+}
 
 const last_viewed_at = (user_id, subscriptions) => subscriptions.reduce((last_viewed_at, subscription) => {
 

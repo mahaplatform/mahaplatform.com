@@ -11,9 +11,7 @@ const commentSerializer = (req, result) => ({
 })
 
 const quoted_comment = (comment) => {
-
   if(!comment.id) return null
-
   return {
     id: comment.get('id'),
     code: comment.get('code'),
@@ -21,7 +19,6 @@ const quoted_comment = (comment) => {
     text: comment.get('text'),
     created_at: comment.get('created_at')
   }
-
 }
 
 const reaction = (reaction) => ({
@@ -30,22 +27,17 @@ const reaction = (reaction) => ({
 })
 
 const user = (user) => {
-
   if(!user.id) return null
-
   return {
     id: user.get('id'),
     full_name: user.get('full_name'),
     initials: user.get('initials'),
-    photo: user.related('photo').get('path')
+    photo: user.related('photo') ? user.related('photo').get('path') : null
   }
-
 }
 
 const attachment = (attachment) => {
-
   if(!attachment.id) return null
-
   return {
     id: attachment.get('id'),
     type: attachment.get('type'),
@@ -54,13 +46,10 @@ const attachment = (attachment) => {
     title_link: attachment.get('title_link'),
     asset: asset(attachment.related('asset'))
   }
-
 }
 
 const asset = (asset) => {
-
   if(!asset.id) return null
-
   return {
     id: asset.get('id'),
     content_type: asset.get('content_type'),
@@ -72,7 +61,6 @@ const asset = (asset) => {
     source: asset.related('source').get('text'),
     source_url: asset.get('source_url')
   }
-
 }
 
 export default commentSerializer

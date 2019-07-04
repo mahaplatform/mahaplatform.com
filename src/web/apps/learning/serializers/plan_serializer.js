@@ -18,7 +18,7 @@ const planSerializer = (req, result) => ({
 })
 
 const user = (user) => {
-  if(user.get('id')) return null
+  if(!user.id) return null
   return {
     id: user.get('id'),
     full_name: user.get('full_name'),

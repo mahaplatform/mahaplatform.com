@@ -20,22 +20,17 @@ const importSerializer = (req, result) => ({
 })
 
 const user = (user) => {
-
   if(!user.id) return null
-
   return {
     id: user.get('id'),
     full_name: user.get('full_name'),
     initials: user.get('initials'),
-    photo: user.related('photo').get('path')
+    photo: user.related('photo') ? user.related('photo').get('path') : null
   }
-
 }
 
 const asset = (asset) => {
-
   if(!asset.id) return null
-
   return {
     id: asset.get('id'),
     content_type: asset.get('content_type'),
@@ -47,7 +42,6 @@ const asset = (asset) => {
     source: asset.related('source').get('text'),
     source_url: asset.get('source_url')
   }
-
 }
 
 export default importSerializer

@@ -8,20 +8,15 @@ const AssigneeSerializer = (req, result) => ({
 })
 
 const group = (group) => {
-
   if(!group.id) return null
-
   return {
     id: group.get('id'),
     title: group.get('title')
   }
-
 }
 
 const user = (user) => {
-
   if(!user.id) return null
-
   return {
     id: user.get('id'),
     full_name: user.get('full_name'),
@@ -29,7 +24,6 @@ const user = (user) => {
     is_active: user.get('is_active'),
     photo: user.related('photo') ? user.related('photo').get('path') : null
   }
-
 }
 
 export default AssigneeSerializer
