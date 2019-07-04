@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import Training from './training'
 
 const Offering = new Model({
 
@@ -6,7 +7,11 @@ const Offering = new Model({
 
   rules: {},
 
-  virtuals: {}
+  virtuals: {},
+
+  training() {
+    return this.belongsTo(Training, 'training_id')
+  }
 
 })
 
