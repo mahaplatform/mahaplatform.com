@@ -33,7 +33,7 @@ const route = async (args) => {
 
 const resource = async (args) => {
   const [ root ] = args
-  const routes = ['list','create','show','update','destroy']
+  const routes = ['list','create','show','edit','update','destroy']
   createFile(path.join(root, 'index.js'), 'resource/index.js', {})
   routes.map(route => {
     const data = {
