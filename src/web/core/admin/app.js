@@ -1,6 +1,5 @@
 import adminassignment from './components/assignment'
 import adminattachmentManager from './components/attachment_manager'
-import adminattachmentfield from './components/attachmentfield'
 import adminattachmentsDrive from './components/attachments/drive'
 import adminattachmentsFiles from './components/attachments/files'
 import adminattachments from './components/attachments'
@@ -17,6 +16,7 @@ import adminemojis from './components/emojis'
 import adminfields from './components/fields'
 import adminfilters from './components/filters'
 import adminflash from './components/flash'
+import adminformAttachmentfield from './components/form/attachmentfield'
 import adminformColorfield from './components/form/colorfield'
 import adminformDatefield from './components/form/datefield'
 import adminformFilefield from './components/form/filefield'
@@ -199,7 +199,6 @@ class App extends React.Component {
     return [
       adminassignment,
       adminattachmentManager,
-      adminattachmentfield,
       adminattachmentsDrive,
       adminattachmentsFiles,
       adminattachments,
@@ -216,6 +215,7 @@ class App extends React.Component {
       adminfields,
       adminfilters,
       adminflash,
+      adminformAttachmentfield,
       adminformColorfield,
       adminformDatefield,
       adminformFilefield,

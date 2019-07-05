@@ -10,6 +10,7 @@ const Offering = {
       table.date('date')
       table.time('starts_at')
       table.time('ends_at')
+      table.string('facilitator')
       table.string('location')
       table.integer('limit')
       table.timestamps()

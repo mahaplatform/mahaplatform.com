@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const OfferingToken = ({ photo, title }) => (
-  <div className="offering-token">
-    <div className="offering-token-photo">
+  <div className="eatfresh-offering-token">
+    <div className="eatfresh-offering-token-photo">
       <Image src={ photo } title={ title } transforms={{ fit: 'cover', w: 32, h: 32 }} />
     </div>
-    <div className="offering-token-title">
+    <div className="eatfresh-offering-token-title">
       { title }
     </div>
   </div>
@@ -15,7 +15,7 @@ const OfferingToken = ({ photo, title }) => (
 
 OfferingToken.propTypes = {
   photo: PropTypes.string,
-  title: PropTypes.string  
+  title: PropTypes.string
 }
 
 export default OfferingToken

@@ -1,4 +1,5 @@
 import TrainingSerializer from '../../../serializers/training_serializer'
+import { updateAttachments } from '../../../../maha/services/attachments'
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
@@ -11,6 +12,11 @@ const createRoute = async (req, res) => {
     ...whitelist(req.body, ['title','description'])
   }).save(null, {
     transacting: req.trx
+  })
+
+  await updateAttachments(req, {
+    attachable: training,
+    asset_ids: req.body.asset_ids
   })
 
   await activity(req, {

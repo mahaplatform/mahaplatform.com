@@ -5,6 +5,8 @@ const listRoute = async (req, res) => {
 
   const assignments = await Assignment.scope({
     team: req.team
+  }).query(qb => {
+    qb.where('employee_id', req.user.get('id'))
   }).filter({
     filterParams: ['employee_id'],
     filter: req.query.$filter
@@ -12,7 +14,7 @@ const listRoute = async (req, res) => {
     sort: req.query.$sort,
     defaultSort: '-learning_assignments.created_at'
   }).fetchPage({
-    withRelated: ['training','employee.photo'],
+    withRelated: ['training','employee'],
     page: req.query.$page,
     transacting: req.trx
   })

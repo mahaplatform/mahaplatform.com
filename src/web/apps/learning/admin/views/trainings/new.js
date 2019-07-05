@@ -18,18 +18,17 @@ class New extends React.Component {
 
   _getForm() {
     return {
-      title: 'New Resource',
+      title: 'New Training',
       method: 'post',
-      action: '/api/admin/learning/resources',
+      action: '/api/admin/learning/trainings',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
-            { label: 'Description', name: 'description', type: 'textfield', required: true },
-            { label: 'URL', name: 'url', type: 'textfield' },
-            { label: 'Attachment', name: 'asset_id', type: 'attachmentfield'  }
+            { label: 'Description', name: 'description', type: 'textarea', required: true },
+            { label: 'Materials', name: 'asset_ids', type: 'attachmentfield', multiple: true }
           ]
         }
       ]
@@ -41,7 +40,7 @@ class New extends React.Component {
   }
 
   _handleSuccess(result) {
-    this.context.router.push(`/admin/learning/resources/${result.id}`)
+    this.context.router.push(`/admin/learning/trainings/${result.id}`)
     this.context.modal.close()
   }
 
