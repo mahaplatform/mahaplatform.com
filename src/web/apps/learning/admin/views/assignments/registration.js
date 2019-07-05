@@ -4,6 +4,7 @@ import { Form } from 'maha-admin'
 
 import moment from 'moment'
 
+<<<<<<< HEAD
 const OfferingToken = ({ assignments_count, date, ends_at, facilitator, location, limit, starts_at }) => (
   <div className="learning-offering-token">
     <strong>{ moment(date).format('dddd, MMMM DD, YYYY').toUpperCase() }</strong><br />
@@ -16,10 +17,20 @@ const OfferingToken = ({ assignments_count, date, ends_at, facilitator, location
     { limit && assignments_count === limit &&
       <span className="alert">This offering is full</span>
     }
+=======
+const OfferingToken = (offering) => (
+  <div className="learning-offering-token">
+    <strong>{ moment(offering.date).format('dddd, MMMM DD, YYYY').toUpperCase() }</strong><br />
+    <strong>Time:</strong> { moment(`2019-01-01 ${offering.starts_at}`).format('h:mm A') } - { moment(`2019-01-01 ${offering.ends_at}`).format('h:mm A') }<br />
+    <strong>Facilitator:</strong> {offering.facilitator }<br />
+    <strong>Location:</strong> {offering.location }<br />
+    <span className="alert">3 seats remaining</span>
+>>>>>>> working through training management
   </div>
 )
 
 OfferingToken.propTypes = {
+<<<<<<< HEAD
   assignments_count: PropTypes.number,
   date: PropTypes.string,
   ends_at: PropTypes.string,
@@ -27,6 +38,9 @@ OfferingToken.propTypes = {
   location: PropTypes.string,
   limit: PropTypes.number,
   starts_at: PropTypes.string
+=======
+  offering: PropTypes.object
+>>>>>>> working through training management
 }
 
 class Registration extends React.Component {

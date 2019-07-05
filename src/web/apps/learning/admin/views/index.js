@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 import AssignmentsReport from './assignments/report'
+=======
+>>>>>>> working through training management
 import AssignmentsList from './assignments/list'
 import AssignmentsShow from './assignments/show'
 import CategoriesList from './categories/list'
@@ -19,7 +22,10 @@ import TrainingsShow from './trainings/show'
 
 const routes = [
   { path: '/assignments', component: AssignmentsList },
+<<<<<<< HEAD
   { path: '/assignments/report', component: AssignmentsReport },
+=======
+>>>>>>> working through training management
   { path: '/assignments/:id', component: AssignmentsShow },
   { path: '/categories', component: CategoriesList },
   { path: '/learning', component: CompetenciesList },

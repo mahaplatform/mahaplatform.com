@@ -27,7 +27,11 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Training', name: 'training_id', type: 'lookup', prompt: 'Choose a training', endpoint: '/api/admin/learning/trainings', value: 'id', text: 'title' },
+<<<<<<< HEAD
             { label: 'Assign To', name: 'assignments', type: 'assignmentfield', prompt: 'Choose a user' }
+=======
+            { label: 'Assignees', name: 'assignments', type: 'lookup', prompt: 'Choose a user', endpoint: '/api/admin/assignees', value: 'id', text: 'title', format: AssigneeToken }
+>>>>>>> working through training management
           ]
         }
       ]
