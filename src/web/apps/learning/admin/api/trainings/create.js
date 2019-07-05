@@ -1,4 +1,5 @@
 import TrainingSerializer from '../../../serializers/training_serializer'
+import { updateAttachments } from '../../../../maha/services/attachments'
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
