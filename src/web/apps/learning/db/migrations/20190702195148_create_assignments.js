@@ -13,7 +13,9 @@ const Assignment = {
       table.foreign('training_id').references('learning_trainings.id')
       table.integer('offering_id').unsigned()
       table.foreign('offering_id').references('learning_offerings.id')
-      table.boolean('is_complete')
+      table.text('feedback')
+      table.date('completed_by')
+      table.timestamp('completed_at')
       table.timestamps()
     })
   },
