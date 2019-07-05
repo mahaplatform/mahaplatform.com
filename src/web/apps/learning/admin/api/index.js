@@ -3,7 +3,6 @@ import competencies from './competencies'
 import assignments from './assignments'
 import supervisors from './supervisors'
 import categories from './categories'
-import offerings from './offerings'
 import employees from './employees'
 import resources from './resources'
 import trainings from './trainings'
@@ -21,8 +20,6 @@ router.use('/classifications', classifications)
 router.use('/competencies', competencies)
 
 router.use('/employees', employees)
-
-router.use('/offerings', offerings)
 
 router.use('/plans', plans)
 
