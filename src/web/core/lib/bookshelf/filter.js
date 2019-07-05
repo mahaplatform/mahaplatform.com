@@ -60,7 +60,8 @@ const filterPlugin = function(bookshelf) {
   const filterSearch = (qb, filter, options) => {
     if(!options.searchParams) return
     if(filter.length === 0) return
-    const phrase = `lower(concat(${options.searchParams.join(',\' \',')}))`
+    const columns = options.searchParams.map(column => castColumn(options.tableName, column))
+    const phrase = `lower(concat(${columns.join(',\' \',')}))`
     const term = `%${filter.toLowerCase()}%`
     qb.whereRaw(`${phrase} like ?`, term)
   }

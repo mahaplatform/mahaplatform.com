@@ -23,8 +23,7 @@ class Searchbox extends React.Component {
     onChange: (value) => {}
   }
 
-  _handleChange = _.throttle(this._handleChange, 500)
-
+  _handleChange = _.debounce(this._handleChange.bind(this), 300)
 
   render() {
     const { icon, q } = this.props
