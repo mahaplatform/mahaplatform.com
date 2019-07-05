@@ -4,18 +4,29 @@ import { Form } from 'maha-admin'
 
 import moment from 'moment'
 
-const OfferingToken = (offering) => (
+const OfferingToken = ({ assignments_count, date, ends_at, facilitator, location, limit, starts_at }) => (
   <div className="learning-offering-token">
-    <strong>{ moment(offering.date).format('dddd, MMMM DD, YYYY').toUpperCase() }</strong><br />
-    <strong>Time:</strong> { moment(`2019-01-01 ${offering.starts_at}`).format('h:mm A') } - { moment(`2019-01-01 ${offering.ends_at}`).format('h:mm A') }<br />
-    <strong>Facilitator:</strong> {offering.facilitator }<br />
-    <strong>Location:</strong> {offering.location }<br />
-    <span className="alert">3 seats remaining</span>
+    <strong>{ moment(date).format('dddd, MMMM DD, YYYY').toUpperCase() }</strong><br />
+    <strong>Time:</strong> { moment(`2019-01-01 ${starts_at}`).format('h:mm A') } - { moment(`2019-01-01 ${ends_at}`).format('h:mm A') }<br />
+    <strong>Facilitator:</strong> {facilitator }<br />
+    <strong>Location:</strong> {location }<br />
+    { limit && assignments_count < limit &&
+      <span className="alert">{ limit - assignments_count } seats remaining</span>
+    }
+    { limit && assignments_count === limit &&
+      <span className="alert">This offering is full</span>
+    }
   </div>
 )
 
 OfferingToken.propTypes = {
-  offering: PropTypes.object
+  assignments_count: PropTypes.number,
+  date: PropTypes.string,
+  ends_at: PropTypes.string,
+  facilitator: PropTypes.string,
+  location: PropTypes.string,
+  limit: PropTypes.number,
+  starts_at: PropTypes.string
 }
 
 class Registration extends React.Component {
