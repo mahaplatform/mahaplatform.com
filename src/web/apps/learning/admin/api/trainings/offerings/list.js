@@ -8,11 +8,7 @@ const listRoute = async (req, res) => {
   const offerings = await Offering.scope({
     team: req.team
   }).query(qb => {
-<<<<<<< HEAD
     qb.select(knex.raw('learning_offerings.*, count(learning_assignments.id)::int as assignments_count'))
-=======
-    qb.select(knex.raw('learning_offerings.*, count(learning_assignments.id) as assignments_count'))
->>>>>>> working through training management
     qb.leftJoin('learning_assignments', 'learning_assignments.offering_id', 'learning_offerings.id')
     qb.where('learning_offerings.training_id', req.params.training_id)
     qb.whereRaw('learning_offerings.date > ?', moment())

@@ -21,17 +21,10 @@ Details.propTypes = {
   training: PropTypes.object
 }
 
-<<<<<<< HEAD
 const Materials = ({ materials }) => {
 
   const list = {
     items: materials.map(asset => ({
-=======
-const Materials = ({ training }) => {
-
-  const list = {
-    items: training.materials.map(asset => ({
->>>>>>> working through training management
       content: asset,
       link: `/admin/assets/${asset.id}`,
       component: AssetToken
@@ -48,11 +41,7 @@ const Materials = ({ training }) => {
 }
 
 Materials.propTypes = {
-<<<<<<< HEAD
   materials: PropTypes.array
-=======
-  training: PropTypes.object
->>>>>>> working through training management
 }
 
 const Quizes = ({ training }) => {
@@ -102,11 +91,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   tabs: {
     items: [
       { label: 'Details', component: <Details training={ resources.training } /> },
-<<<<<<< HEAD
       { label: 'Materials', component: <Materials materials={ resources.training.materials } /> },
-=======
-      { label: 'Materials', component: <Materials training={ resources.training } /> },
->>>>>>> working through training management
       { label: 'Quizes', component: <Quizes training={ resources.training } /> },
       { label: 'Offerings', component: <Offerings training={ resources.training } offerings={ resources.offerings } /> }
     ]

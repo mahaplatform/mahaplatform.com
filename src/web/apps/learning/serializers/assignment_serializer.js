@@ -49,18 +49,6 @@ const offering = (offering) => {
   }
 }
 
-const offering = (offering) => {
-  if(!offering.get('id')) return null
-  return {
-    id: offering.get('id'),
-    date: offering.get('date'),
-    starts_at: offering.get('starts_at'),
-    ends_at: offering.get('ends_at'),
-    facilitator: offering.get('facilitator'),
-    location: offering.get('location')
-  }
-}
-
 const user = (user) => {
   if(!user.get('id')) return null
   return {

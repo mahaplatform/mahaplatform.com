@@ -1,10 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
-<<<<<<< HEAD
 import AssignmentField from './assignmentfield'
-=======
->>>>>>> working through training management
 import AttachmentField from './attachmentfield'
 import AddressField from './addressfield'
 import Checkbox from './checkbox'
@@ -53,10 +50,7 @@ class Control extends React.Component {
   _getElement() {
     const { type } = this.props
     if(!_.isString(type)) return type
-<<<<<<< HEAD
     if(type === 'assignmentfield') return AssignmentField
-=======
->>>>>>> working through training management
     if(type === 'attachmentfield') return AttachmentField
     if(type === 'addressfield') return AddressField
     if(type === 'checkbox') return Checkbox

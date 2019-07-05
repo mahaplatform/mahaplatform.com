@@ -2,13 +2,9 @@ const trainingSerializer = (req, result) => ({
   id: result.get('id'),
   title: result.get('title'),
   description: result.get('description'),
-<<<<<<< HEAD
   materials: result.related('materials').map(material => {
     return asset(material.related('asset'))
   }),
-=======
-  materials: result.related('materials').map(material => asset(material.related('asset'))),
->>>>>>> working through training management
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
@@ -26,11 +22,7 @@ const asset = (asset) => ({
   source: asset.related('source').get('text'),
   source_url: asset.get('source_url'),
   created_at: asset.get('created_at'),
-<<<<<<< HEAD
   updated_at: asset.get('updated_at')
 })
-=======
-  updated_at: asset.get('updated_at')})
->>>>>>> working through training management
 
 export default trainingSerializer

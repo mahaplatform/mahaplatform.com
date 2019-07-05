@@ -30,10 +30,7 @@ const navigation = async (req) => ({
     ] },
     { label: 'Trainings', items: [
       { label: 'Assignments', route: '/assignments' },
-<<<<<<< HEAD
       { label: 'Report', route: '/assignments/report' },
-=======
->>>>>>> working through training management
       { label: 'Trainings', route: '/trainings' }
     ] }
   ]
