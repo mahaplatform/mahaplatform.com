@@ -9,15 +9,17 @@ const createRoute = async (req, res) => {
 
   const training = await Training.forge({
     team_id: req.team.get('id'),
-    ...whitelist(req.body, ['title','description'])
+    ...whitelist(req.body, ['title','description','type'])
   }).save(null, {
     transacting: req.trx
   })
 
-  await updateAttachments(req, {
-    attachable: training,
-    asset_ids: req.body.asset_ids
-  })
+  if(req.body.asset_ids) {
+    await updateAttachments(req, {
+      attachable: training,
+      asset_ids: req.body.asset_ids
+    })
+  }
 
   await activity(req, {
     story: 'created {object}',

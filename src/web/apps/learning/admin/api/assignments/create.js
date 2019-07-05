@@ -41,7 +41,7 @@ const createRoute = async (req, res) => {
       assigned_by_id: req.user.get('id'),
       employee_id: user_id,
       is_complete: false,
-      ...whitelist(req.body, ['training_id'])
+      ...whitelist(req.body, ['due','training_id'])
     }).save(null, {
       transacting: req.trx
     })
