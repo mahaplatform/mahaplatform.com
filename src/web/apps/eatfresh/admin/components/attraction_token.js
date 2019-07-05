@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const AttractionToken = ({ title, photo, address_1 }) => (
-  <div className="attraction-token">
-    <div className="attraction-token-photo">
+  <div className="eatfresh-attraction-token">
+    <div className="eatfresh-attraction-token-photo">
       <Image src={ photo } title={ title } transforms={{ fit: 'cover', w: 32, h: 32 }} />
     </div>
-    <div className="attraction-token-title">
+    <div className="eatfresh-attraction-token-title">
       { title }
     </div>
   </div>

@@ -1,4 +1,5 @@
-import Offering from '../../../models/offering'
+import OfferingSerializer from '../../../../serializers/offering_serializer'
+import Offering from '../../../../models/offering'
 
 const showRoute = async (req, res) => {
 
@@ -7,6 +8,7 @@ const showRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
+    withRelated: ['training'],
     transacting: req.trx
   })
 
@@ -15,16 +17,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load offering'
   })
 
-  res.status(200).respond(offering, {
-    fields: [
-      'id',
-      'training_id',
-      'date',
-      'starts_at',
-      'ends_at',
-      'limit'
-    ]
-  })
+  res.status(200).respond(offering, OfferingSerializer)
 
 }
 

@@ -4,7 +4,7 @@ const Training = {
     return await knex.schema.createTable('learning_trainings', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.foreign('team_id').references('learning_trainings.id')
+      table.foreign('team_id').references('maha_teams.id')
       table.string('title')
       table.string('description')
       table.timestamps()

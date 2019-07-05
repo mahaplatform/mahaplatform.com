@@ -9,6 +9,11 @@
   padding: 0.8em;
   text-transform: uppercase;
 }
+.maha-list-section {
+  .error {
+    color: @red;
+  }
+}
 
 .maha-list-alert {
   padding: 0.8em;
@@ -36,17 +41,13 @@
   strong {
     color: @black;
   }
-  &.error {
-    color: @red;
-  }
 }
 .maha-list-item-link {
   .hover(background-color, fadeout(@black, 97));
   cursor: pointer;
-  .fa {
+  .fa-chevron-right {
     color: fadeout(@black, 40);
   }
-  padding: 0.8em;
 }
 .maha-list-item-unit {
   margin-left: 3px;
