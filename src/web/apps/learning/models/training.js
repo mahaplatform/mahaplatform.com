@@ -1,6 +1,7 @@
+import Attachment from '../../maha/models/attachment'
+import Model from '../../../core/objects/model'
 import Assignment from './assignment'
 import Offering from './offering'
-import Model from '../../../core/objects/model'
 
 const Training = new Model({
 
@@ -14,8 +15,12 @@ const Training = new Model({
     return this.hasMany(Assignment, 'training_id')
   },
 
+  materials() {
+    return this.morphMany(Attachment, 'attachable')
+  },
+
   offerings() {
-    return this.hasMany(Offering, 'training_id')
+    return this.belongsTo(Offering, 'training_id')
   }
 
 })

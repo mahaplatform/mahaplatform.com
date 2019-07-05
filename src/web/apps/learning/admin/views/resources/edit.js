@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { AttachmentField, Form } from 'maha-admin'
+import { Form } from 'maha-admin'
 
 class Edit extends React.Component {
 
@@ -35,7 +35,7 @@ class Edit extends React.Component {
             { label: 'Title', name: 'title', type: 'textfield', required: true },
             { label: 'Description', name: 'description', type: 'textfield', required: true },
             { label: 'URL', name: 'url', type: 'textfield' },
-            { label: 'Attachment', name: 'asset_id', type: AttachmentField }
+            { label: 'Attachment', name: 'asset_id', type: 'attachmentfield' }
           ]
         }
       ]

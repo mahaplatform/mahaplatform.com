@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { AssigneeToken, Form } from 'maha-admin'
 
 class New extends React.Component {
 
@@ -18,18 +18,16 @@ class New extends React.Component {
 
   _getForm() {
     return {
-      title: 'New Resource',
+      title: 'New Assignment',
       method: 'post',
-      action: '/api/admin/learning/resources',
+      action: '/api/admin/learning/assignments',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', required: true },
-            { label: 'Description', name: 'description', type: 'textfield', required: true },
-            { label: 'URL', name: 'url', type: 'textfield' },
-            { label: 'Attachment', name: 'asset_id', type: 'attachmentfield'  }
+            { label: 'Training', name: 'training_id', type: 'lookup', prompt: 'Choose a training', endpoint: '/api/admin/learning/trainings', value: 'id', text: 'title' },
+            { label: 'Assignees', name: 'assignments', type: 'lookup', prompt: 'Choose a user', endpoint: '/api/admin/assignees', value: 'id', text: 'title', format: AssigneeToken }
           ]
         }
       ]
@@ -41,7 +39,6 @@ class New extends React.Component {
   }
 
   _handleSuccess(result) {
-    this.context.router.push(`/admin/learning/resources/${result.id}`)
     this.context.modal.close()
   }
 
