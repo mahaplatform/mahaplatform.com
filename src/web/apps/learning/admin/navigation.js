@@ -25,11 +25,12 @@ const navigation = async (req) => ({
       ] },
       { label: 'Employees', route: '/plans/employees', access: isSupervisor },
       { label: 'Plans', rights: ['competencies:manage_plans'], route: '/plans' },
-      { label: 'Reports', rights: ['competencies:manage_configuration'], route: '/plans/report' },
+      { label: 'Report', rights: ['competencies:manage_configuration'], route: '/plans/report' },
       { label: 'Resources', route: '/resources/search' }
     ] },
     { label: 'Trainings', items: [
       { label: 'Assignments', route: '/assignments' },
+      { label: 'Report', route: '/assignments/report' },
       { label: 'Trainings', route: '/trainings' }
     ] }
   ]
