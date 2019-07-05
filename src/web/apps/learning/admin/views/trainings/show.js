@@ -3,6 +3,7 @@ import { AssetToken, List, Page } from 'maha-admin'
 import NewOffering from '../offerings/new'
 import PropTypes from 'prop-types'
 import React from 'react'
+import Edit from './edit'
 
 const Details = ({ training }) => {
 
@@ -91,13 +92,16 @@ const mapPropsToPage = (props, context, resources, page) => ({
   tabs: {
     items: [
       { label: 'Details', component: <Details training={ resources.training } /> },
-      { label: 'Materials', component: <Materials materials={ resources.training.materials } /> },
-      { label: 'Quizes', component: <Quizes training={ resources.training } /> },
-      { label: 'Offerings', component: <Offerings training={ resources.training } offerings={ resources.offerings } /> }
+      ...resources.training.type === 'local' ? [
+        { label: 'Materials', component: <Materials materials={ resources.training.materials } /> },
+        { label: 'Quizes', component: <Quizes training={ resources.training } /> },
+        { label: 'Offerings', component: <Offerings training={ resources.training } offerings={ resources.offerings } /> }
+      ] : []
     ]
   },
   tasks: {
     items: [
+      { label: 'Edit Training', modal: <Edit training={ resources.training } /> },
       { label: 'Create Offering', modal: <NewOffering training={ resources.training } /> }
     ]
   }

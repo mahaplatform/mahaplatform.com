@@ -6,7 +6,9 @@ const Training = {
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
       table.string('title')
-      table.string('description')
+      table.text('description')
+      table.enum('type', ['local','remote','managed'])
+      table.string('url')
       table.timestamps()
     })
   },

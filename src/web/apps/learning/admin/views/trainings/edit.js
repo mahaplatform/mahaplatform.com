@@ -1,13 +1,16 @@
-import TrainingTypeToken from '../../tokens/training_type_token'
+import React from 'react'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
-import React from 'react'
 
-class New extends React.Component {
+class Edit extends React.Component {
 
   static contextTypes = {
-    modal: PropTypes.object,
-    router: PropTypes.object
+    admin: PropTypes.object,
+    modal: PropTypes.object
+  }
+
+  static propTypes = {
+    training: PropTypes.object
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -18,10 +21,12 @@ class New extends React.Component {
   }
 
   _getForm() {
+    const { training } = this.props
     return {
-      title: 'New Training',
-      method: 'post',
-      action: '/api/admin/learning/trainings',
+      title: 'Edit Training',
+      method: 'patch',
+      endpoint: `/api/admin/learning/trainings/${training.id}/edit`,
+      action: `/api/admin/learning/trainings/${training.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
@@ -29,7 +34,6 @@ class New extends React.Component {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
             { label: 'Description', name: 'description', type: 'textarea', required: true },
-            { label: 'Type', name: 'type', type: 'lookup', options: [{ value: 'local', text: 'local' },{ value: 'remote', text: 'remote' },{ value: 'managed', text: 'managed' }], format: TrainingTypeToken },
             { label: 'Materials', name: 'asset_ids', type: 'attachmentfield', multiple: true }
           ]
         }
@@ -41,11 +45,10 @@ class New extends React.Component {
     this.context.modal.close()
   }
 
-  _handleSuccess(result) {
-    this.context.router.push(`/admin/learning/trainings/${result.id}`)
+  _handleSuccess() {
     this.context.modal.close()
   }
 
 }
 
-export default New
+export default Edit
