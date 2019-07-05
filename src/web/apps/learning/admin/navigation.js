@@ -21,17 +21,10 @@ const navigation = async (req) => ({
       { label: 'Competencies', route: '/competencies' },
       { label: 'Resources', route: '/resources' }
     ] },
-<<<<<<< HEAD
     { label: 'Employees', route: '/plans/employees', access: isSupervisor },
     { label: 'Plans', rights: ['competencies:manage_plans'], route: '/plans' },
     { label: 'Reports', rights: ['competencies:manage_configuration'], route: '/plans/report' },
     { label: 'Resources', route: '/resources/search' }
-=======
-    { label: 'Trainings', items: [
-      { label: 'Assignments', route: '/assignments' },
-      { label: 'Trainings', route: '/trainings' }
-    ] }
->>>>>>> working through training management
   ]
 })
 

@@ -50,10 +50,7 @@ class Control extends React.Component {
   _getElement() {
     const { type } = this.props
     if(!_.isString(type)) return type
-<<<<<<< HEAD
     if(type === 'assignmentfield') return AssignmentField
-=======
->>>>>>> working through training management
     if(type === 'attachmentfield') return AttachmentField
     if(type === 'addressfield') return AddressField
     if(type === 'checkbox') return Checkbox
