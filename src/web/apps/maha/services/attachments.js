@@ -20,13 +20,9 @@ const localhosts = Object.keys(ifaces).reduce((ips, iface) => [
 ], domains)
 
 const getMetaData = async (url, trx) => {
-
   const uri = Url.parse(url)
-
   if(_.includes(localhosts, uri.hostname)) return processLocalUrl(url, uri)
-
   return null
-
 }
 
 const processLocalUrl = (url, uri) => {
@@ -68,28 +64,20 @@ const createAttachment = async (attachable, index, url, trx) => {
 }
 
 const normalizeUrl = (text, url) => {
-
   let normalized = url.replace('?null', '')
-
   if(text.search(normalized) < 0) {
     normalized = normalized.replace(/\/+$/, '')
   }
-
   return normalized
-
 }
 
 export const lookupUrl = async (url, trx) => {
-
   const meta = await getMetaData(url, trx)
-
   if(!meta) return null
-
   return {
     from_url: url,
     ...meta
   }
-
 }
 
 export const extractAttachments = async (req, attachable, text) => {
@@ -112,6 +100,22 @@ export const extractAttachments = async (req, attachable, text) => {
 
     await createAttachment(attachable, index, normalizedUrl, req.trx)
 
+  })
+
+}
+
+export const updateAttachments = async (req, { attachable, asset_ids }) => {
+
+  await Promise.mapSeries(asset_ids, async(asset_id, index) => {
+    await Attachment.forge({
+      team_id: req.team.get('id'),
+      attachable_type: attachable.tableName,
+      attachable_id: attachable.get('id'),
+      delta: index,
+      asset_id
+    }).save(null, {
+      transacting: req.trx
+    })
   })
 
 }
