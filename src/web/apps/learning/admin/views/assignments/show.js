@@ -1,5 +1,5 @@
 import Registration from './registration'
-import { List, Page } from 'maha-admin'
+import { AssetToken, List, Page } from 'maha-admin'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import React from 'react'
@@ -57,14 +57,27 @@ Details.propTypes = {
   assignment: PropTypes.object
 }
 
-const Materials = ({ assignment }) => {
+const Materials = ({ materials }) => {
 
-  return <div />
+  const list = {
+    items: materials.map(asset => ({
+      content: asset,
+      link: `/admin/assets/${asset.id}`,
+      component: AssetToken
+    })),
+    empty: {
+      icon: 'calendar',
+      title: 'No offerings',
+      text: 'There are no offerings for this training'
+    }
+  }
+
+  return <List { ...list } />
 
 }
 
 Materials.propTypes = {
-  assignment: PropTypes.object
+  materials: PropTypes.array
 }
 
 const Quizes = ({ assignment }) => {
@@ -86,7 +99,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   tabs: {
     items: [
       { label: 'Details', component: <Details assignment={ resources.assignment } /> },
-      { label: 'Materials', component: <Materials assignment={ resources.assignment } /> },
+      { label: 'Materials', component: <Materials materials={ resources.assignment.training.materials } /> },
       { label: 'Quizes', component: <Quizes assignment={ resources.assignment } /> }
     ]
   }
