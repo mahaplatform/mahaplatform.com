@@ -550,9 +550,13 @@ const schema = {
       table.time('starts_at')
       table.time('ends_at')
 <<<<<<< HEAD
+<<<<<<< HEAD
       table.string('facilitator', 255)
 =======
 >>>>>>> models and migrations for learning app
+=======
+      table.string('facilitator', 255)
+>>>>>>> working through training management
       table.string('location', 255)
       table.integer('limit')
       table.timestamp('created_at')
@@ -1683,9 +1687,13 @@ const schema = {
 <<<<<<< HEAD
     await knex.schema.table('maha_strategies', table => {
       table.foreign('team_id').references('maha_teams.id')
+<<<<<<< HEAD
 =======
     await knex.schema.table('maha_reactions', table => {
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+>>>>>>> working through training management
+=======
       table.foreign('user_id').references('maha_users.id')
 >>>>>>> working through training management
     })
@@ -2041,11 +2049,21 @@ const schema = {
       table.foreign('question_id').references('learning_questions.id')
     })
 
+    await knex.schema.table('learning_administrations', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('quiz_id').references('learning_quizes.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
     await knex.schema.table('learning_answerings', table => {
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('administration_id').references('learning_administrations.id')
       table.foreign('question_id').references('learning_questions.id')
       table.foreign('answer_id').references('learning_answers.id')
-      table.foreign('administration_id').references('learning_administrations.id')
+    })
+
+    await knex.schema.table('learning_trainings', table => {
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('learning_offerings', table => {
@@ -2053,8 +2071,12 @@ const schema = {
       table.foreign('training_id').references('learning_trainings.id')
     })
 
-    await knex.schema.table('learning_trainings', table => {
-      table.foreign('team_id').references('learning_trainings.id')
+    await knex.schema.table('learning_assignments', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('assigned_by_id').references('maha_users.id')
+      table.foreign('employee_id').references('maha_users.id')
+      table.foreign('training_id').references('learning_trainings.id')
+      table.foreign('offering_id').references('learning_offerings.id')
     })
 
 

@@ -25,6 +25,8 @@ const navigation = async (req) => ({
     { label: 'Plans', rights: ['competencies:manage_plans'], route: '/plans' },
     { label: 'Reports', rights: ['competencies:manage_configuration'], route: '/plans/report' },
     { label: 'Resources', route: '/resources/search' }
+      { label: 'Trainings', route: '/trainings' }
+    ] }
   ]
 })
 
