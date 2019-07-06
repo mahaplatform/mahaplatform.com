@@ -35,10 +35,10 @@ Details.propTypes = {
 const Materials = ({ materials }) => {
 
   const list = {
-    items: materials.map(asset => ({
-      content: asset,
-      link: `/admin/assets/${asset.id}`,
-      component: AssetToken
+    items: materials.map(material => ({
+      content: material.asset,
+      link: `/admin/assets/${material.asset.id}`,
+      component: <AssetToken { ...material.asset } />
     })),
     empty: {
       icon: 'calendar',
@@ -53,6 +53,30 @@ const Materials = ({ materials }) => {
 
 Materials.propTypes = {
   materials: PropTypes.array
+}
+
+
+const Lessons = ({ training, lessons }) => {
+
+  const list = {
+    items: lessons.map(lesson => ({
+      content: lesson.title,
+      link: `/admin/learning/trainings/${training.id}/lessons/${lesson.id}`
+    })),
+    empty: {
+      icon: 'calendar',
+      title: 'No lessons',
+      text: 'There are no lessons for this training'
+    }
+  }
+
+  return <List { ...list } />
+
+}
+
+Lessons.propTypes = {
+  training: PropTypes.object,
+  lessons: PropTypes.array
 }
 
 const Quizes = ({ training }) => {
@@ -94,6 +118,8 @@ Offerings.propTypes = {
 
 const mapResourcesToPage = (props, context) => ({
   training: `/api/admin/learning/trainings/${props.params.id}`,
+  lessons: `/api/admin/learning/trainings/${props.params.id}/lessons`,
+  materials: `/api/admin/learning/trainings/${props.params.id}/materials`,
   offerings: `/api/admin/learning/trainings/${props.params.id}/offerings`
 })
 
