@@ -10,14 +10,18 @@ const offeringSerializer = (req, result) => ({
 })
 
 const training = (training) => {
-  if(!training.get('id')) return null
+  if(!training.id) return null
   return {
     id: training.get('id'),
     title: training.get('title'),
     description: training.get('description'),
     materials: training.related('materials').map(material => {
       return asset(material.related('asset'))
-    })
+    }),
+    type: training.get('type'),
+    url: training.get('url'),
+    location: training.get('location'),
+    contact: training.get('contact')
   }
 }
 
@@ -50,7 +54,7 @@ const offering = (offering) => {
 }
 
 const user = (user) => {
-  if(!user.get('id')) return null
+  if(!user.id) return null
   return {
     id: user.get('id'),
     full_name: user.get('full_name'),
