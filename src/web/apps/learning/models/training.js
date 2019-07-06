@@ -2,6 +2,7 @@ import Attachment from '../../maha/models/attachment'
 import Model from '../../../core/objects/model'
 import Assignment from './assignment'
 import Offering from './offering'
+import Lesson from './lesson'
 
 const Training = new Model({
 
@@ -13,6 +14,10 @@ const Training = new Model({
 
   assignments() {
     return this.hasMany(Assignment, 'training_id')
+  },
+
+  lessons() {
+    return this.hasMany(Lesson, 'training_id')
   },
 
   materials() {

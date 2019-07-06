@@ -1,5 +1,7 @@
+import materials from './materials'
 import complete from './complete'
 import { Router } from 'express'
+import lessons from './lessons'
 import destroy from './destroy'
 import create from './create'
 import update from './update'
@@ -25,5 +27,9 @@ router.patch('/:id/complete', complete)
 router.patch('/:id', update)
 
 router.delete('/:id', destroy)
+
+router.use('/:assignment_id/lessons', lessons)
+
+router.use('/:assignment_id/materials', materials)
 
 export default router

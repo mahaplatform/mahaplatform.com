@@ -1,8 +1,8 @@
 import TrainingSerializer from '../../../serializers/training_serializer'
-import { updateAttachments } from '../../../../maha/services/attachments'
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
+import { updateMaterials } from '../../../services/materials'
 import Training from '../../../models/training'
 
 const createRoute = async (req, res) => {
@@ -15,8 +15,8 @@ const createRoute = async (req, res) => {
   })
 
   if(req.body.asset_ids) {
-    await updateAttachments(req, {
-      attachable: training,
+    await updateMaterials(req, {
+      training_id: training.get('id'),
       asset_ids: req.body.asset_ids
     })
   }
