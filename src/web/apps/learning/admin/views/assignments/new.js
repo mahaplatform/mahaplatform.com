@@ -22,13 +22,14 @@ class New extends React.Component {
       method: 'post',
       action: '/api/admin/learning/assignments',
       onCancel: this._handleCancel,
+      onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Training', name: 'training_id', type: 'lookup', prompt: 'Choose a training', endpoint: '/api/admin/learning/trainings', value: 'id', text: 'title' },
-            { label: 'Assign To', name: 'assignments', type: 'assignmentfield', prompt: 'Choose a user' },
-            { label: 'Due', name: 'due', type: 'datefield' }
+            { label: 'Training', name: 'training_id', type: 'lookup', prompt: 'Choose a training', endpoint: '/api/admin/learning/trainings', value: 'id', text: 'title', required: true },
+            { label: 'Assign To', name: 'assignments', type: 'assignmentfield', prompt: 'Choose a user', required: true },
+            { label: 'Must Be Completed By', name: 'due', type: 'datefield' }
           ]
         }
       ]

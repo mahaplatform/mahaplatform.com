@@ -11,7 +11,12 @@ class New extends React.Component {
   }
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleChangeField = this._handleChangeField.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
+
+  state = {
+    type: null
+  }
 
   render() {
     return <Form { ...this._getForm() } />
@@ -23,17 +28,48 @@ class New extends React.Component {
       method: 'post',
       action: '/api/admin/learning/trainings',
       onCancel: this._handleCancel,
+      onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
             { label: 'Description', name: 'description', type: 'textarea', required: true },
-            { label: 'Type', name: 'type', type: 'lookup', options: [{ value: 'local', text: 'local' },{ value: 'remote', text: 'remote' },{ value: 'managed', text: 'managed' }], format: TrainingTypeToken },
-            { label: 'Materials', name: 'asset_ids', type: 'attachmentfield', multiple: true }
+            { label: 'Type', name: 'type', type: 'lookup', options: ['local','remote','online','maha'], format: TrainingTypeToken, required: true },
+            ...this._getTypeFields()
           ]
         }
       ]
+    }
+  }
+
+  _getTypeFields() {
+    const { type } = this.state
+    if(type === 'local') {
+      return [
+        { label: 'Materials', name: 'asset_ids', type: 'attachmentfield', multiple: true }
+      ]
+    } else if(type === 'remote') {
+      return [
+        { label: 'URL', name: 'url', type: 'textfield' },
+        { label: 'Location', name: 'location', type: 'textfield' },
+        { label: 'Contact', name: 'contact', type: 'textfield' }
+      ]
+    } else if(type === 'online') {
+      return [
+        { label: 'URL', name: 'url', type: 'textfield' }
+      ]
+    } else if(type === 'managed') {
+      return []
+    }
+    return []
+  }
+
+  _handleChangeField(name, value) {
+    if(name === 'type') {
+      this.setState({
+        type: value
+      })
     }
   }
 

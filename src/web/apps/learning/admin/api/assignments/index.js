@@ -1,3 +1,4 @@
+import complete from './complete'
 import { Router } from 'express'
 import destroy from './destroy'
 import create from './create'
@@ -18,6 +19,8 @@ router.get('/report', report)
 router.get('/:id', show)
 
 router.get('/:id/edit', edit)
+
+router.patch('/:id/complete', complete)
 
 router.patch('/:id', update)
 
