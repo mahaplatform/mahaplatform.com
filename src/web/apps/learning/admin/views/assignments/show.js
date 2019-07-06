@@ -93,9 +93,19 @@ Materials.propTypes = {
   materials: PropTypes.array
 }
 
+const Lessons = ({ lessons }) => {
+
+  return <div>Lessons</div>
+
+}
+
+Lessons.propTypes = {
+  assignment: PropTypes.object
+}
+
 const Quizes = ({ assignment }) => {
 
-  return <div />
+  return <div>Quizes</div>
 
 }
 
@@ -104,7 +114,9 @@ Quizes.propTypes = {
 }
 
 const mapResourcesToPage = (props, context) => ({
-  assignment: `/api/admin/learning/assignments/${props.params.id}`
+  assignment: `/api/admin/learning/assignments/${props.params.id}`,
+  materials: `/api/admin/learning/assignments/${props.params.id}/materials`,
+  lessons: `/api/admin/learning/assignments/${props.params.id}/lessons`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
@@ -112,8 +124,13 @@ const mapPropsToPage = (props, context, resources, page) => ({
   tabs: {
     items: [
       { label: 'Details', component: <Details assignment={ resources.assignment } /> },
-      { label: 'Materials', component: <Materials materials={ resources.assignment.training.materials } /> },
-      { label: 'Quizes', component: <Quizes assignment={ resources.assignment } /> }
+      ...resources.assignment.training.type === 'local' ? [
+        { label: 'Materials', component: <Materials materials={ resources.materials } /> },
+        { label: 'Quizes', component: <Quizes assignment={ resources.assignment } /> }
+      ] : [],
+      ...resources.assignment.training.type === 'maha' ? [
+        { label: 'Lessons', component: <Lessons lessons={ resources.lessons } /> }
+      ] : []
     ]
   },
   buttons: [

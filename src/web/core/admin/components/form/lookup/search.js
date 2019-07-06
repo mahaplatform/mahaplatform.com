@@ -18,7 +18,6 @@ class Search extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <ModalPanel { ...this._getPanel() }>
         <Options { ...this.props } />
