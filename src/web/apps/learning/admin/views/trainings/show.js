@@ -36,10 +36,10 @@ Details.propTypes = {
 const Materials = ({ materials }) => {
 
   const list = {
-    items: materials.map(asset => ({
-      content: asset,
-      link: `/admin/assets/${asset.id}`,
-      component: AssetToken
+    items: materials.map(material => ({
+      content: material.asset,
+      link: `/admin/assets/${material.asset.id}`,
+      component: <AssetToken { ...material.asset } />
     })),
     empty: {
       icon: 'calendar',
@@ -54,6 +54,30 @@ const Materials = ({ materials }) => {
 
 Materials.propTypes = {
   materials: PropTypes.array
+}
+
+
+const Lessons = ({ training, lessons }) => {
+
+  const list = {
+    items: lessons.map(lesson => ({
+      content: lesson.title,
+      link: `/admin/learning/trainings/${training.id}/lessons/${lesson.id}`
+    })),
+    empty: {
+      icon: 'calendar',
+      title: 'No lessons',
+      text: 'There are no lessons for this training'
+    }
+  }
+
+  return <List { ...list } />
+
+}
+
+Lessons.propTypes = {
+  training: PropTypes.object,
+  lessons: PropTypes.array
 }
 
 const Quizes = ({ training }) => {
@@ -95,6 +119,8 @@ Offerings.propTypes = {
 
 const mapResourcesToPage = (props, context) => ({
   training: `/api/admin/learning/trainings/${props.params.id}`,
+  lessons: `/api/admin/learning/trainings/${props.params.id}/lessons`,
+  materials: `/api/admin/learning/trainings/${props.params.id}/materials`,
   offerings: `/api/admin/learning/trainings/${props.params.id}/offerings`
 })
 
@@ -104,15 +130,13 @@ const mapPropsToPage = (props, context, resources, page) => ({
     items: [
       { label: 'Details', component: <Details training={ resources.training } /> },
       ...resources.training.type === 'local' ? [
-        { label: 'Materials', component: <Materials materials={ resources.training.materials } /> },
+        { label: 'Materials', component: <Materials materials={ resources.materials } /> },
         { label: 'Quizes', component: <Quizes training={ resources.training } /> },
         { label: 'Offerings', component: <Offerings training={ resources.training } offerings={ resources.offerings } /> }
       ] : [],
       ...resources.training.type === 'maha' ? [
-        { label: 'Materials', component: <Materials materials={ resources.training.materials } /> },
-        { label: 'Lessons', component: <Details training={ resources.training } /> }
+        { label: 'Lessons', component: <Lessons training={ resources.training } lessons={ resources.lessons } /> }
       ] : []
-
     ]
   },
   tasks: {

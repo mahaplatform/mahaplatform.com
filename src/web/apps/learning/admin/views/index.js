@@ -6,6 +6,7 @@ import CompetenciesList from './competencies/list'
 import CompetenciesShow from './competencies/show'
 import ClassificationsList from './classifications/list'
 import ClassificationsShow from './classifications/show'
+import LessonsShow from './lessons/show'
 import OfferingsShow from './offerings/show'
 import PlansEmployees from './plans/employees'
 import PlansReport from './plans/report'
@@ -36,6 +37,7 @@ const routes = [
   { path: '/trainings', component: TrainingsList },
   { path: '/trainings/:id', component: TrainingsShow },
   { path: '/trainings/:training_id/offerings/:id', component: OfferingsShow },
+  { path: '/trainings/:training_id/lessons/:id', component: LessonsShow }
 ]
 
 export default routes
