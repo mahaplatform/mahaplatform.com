@@ -18,6 +18,7 @@ class Search extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <ModalPanel { ...this._getPanel() }>
         <Options { ...this.props } />
@@ -42,8 +43,6 @@ class Search extends React.Component {
 
 }
 
-// since we sent this component up to the modal, we need this to communicate
-// back with the parent
 const mapStateToProps = (state, props) => ({
   q: state.maha.lookup[props.cid].q
 })

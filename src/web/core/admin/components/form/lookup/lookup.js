@@ -63,7 +63,7 @@ class Lookup extends React.Component {
   }
 
   render() {
-    const { active, adding, chosen, format, prompt, tabIndex, text } = this.props
+    const { chosen, format, prompt, tabIndex, text } = this.props
     const value = chosen ? _.get(chosen, text) : ''
     return (
       <div className="maha-lookup-field" tabIndex={ tabIndex }>
@@ -82,12 +82,13 @@ class Lookup extends React.Component {
             { prompt }
           </div>
         }
-     </div>
+      </div>
     )
   }
 
   componentDidMount() {
-    const { defaultValue, endpoint, options, onChoose, onLoad, onReady } = this.props
+    const { defaultValue, endpoint, onChoose, onLoad, onReady } = this.props
+    const options = this._getOptions()
     if(!defaultValue) return onReady()
     if(endpoint) return onLoad({ $filter: { id: { $in: [ defaultValue ] } } }, endpoint)
     const chosen = _.find(options, { value: defaultValue })
@@ -104,8 +105,18 @@ class Lookup extends React.Component {
     if(!prevProps.adding && adding) form.push(<Form { ...this._getForm() } />)
   }
 
+  _getOptions() {
+    const { options } = this.props
+    return options.map(option => {
+      return (_.isString(option)) ? { value: option, text: option } : options
+    })
+  }
+
   _getSearch() {
-    return this.props
+    return {
+      ...this.props,
+      options: this._getOptions()
+    }
   }
 
   _handleBegin() {

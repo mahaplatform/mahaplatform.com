@@ -46,6 +46,8 @@ class Form extends React.Component {
     onFailure: PropTypes.func,
     onFetchData: PropTypes.func,
     onFetchSections: PropTypes.func,
+    onPop: PropTypes.func,
+    onPush: PropTypes.func,
     onResetForm: PropTypes.func,
     onSetData: PropTypes.func,
     onSetReady: PropTypes.func,
@@ -102,7 +104,7 @@ class Form extends React.Component {
         <div className="maha-form-panels">
           <TransitionGroup>
             { panels.map((panel, index) => (
-              <CSSTransition classNames="stack" timeout={ 500 } key={ `panel_${index}` }>
+              <CSSTransition classNames="stack" timeout={ 250 } key={ `panel_${index}` }>
                 <div>
                   { _.isFunction(panel) ? React.createElement(panel) : panel }
                 </div>

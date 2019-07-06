@@ -40,7 +40,7 @@ class Tabs extends React.Component {
             </div>
           }
           <div className="maha-tabs-items">
-            { items.map((item, index) => (
+            { items.length > 1 && items.map((item, index) => (
               <div key={`tab_${index}`} className={ this._getItemClass(index) } onClick={ this._handleChoose.bind(this, index) }>
                 { item.label }
               </div>

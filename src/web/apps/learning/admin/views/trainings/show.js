@@ -14,6 +14,17 @@ const Details = ({ training }) => {
     { label: 'Description', content: training.description }
   ]
 
+  if(training.url) {
+    list.items.push({ label: 'URL', content: <a href={ training.url } target="_blank">{ training.url }</a> })
+  }
+  if(training.location) {
+    list.items.push({ label: 'Location', content: training.location })
+  }
+  if(training.contact) {
+    list.items.push({ label: 'Contact', content: training.contact })
+  }
+
+
   return <List { ...list } />
 
 }
@@ -96,7 +107,12 @@ const mapPropsToPage = (props, context, resources, page) => ({
         { label: 'Materials', component: <Materials materials={ resources.training.materials } /> },
         { label: 'Quizes', component: <Quizes training={ resources.training } /> },
         { label: 'Offerings', component: <Offerings training={ resources.training } offerings={ resources.offerings } /> }
+      ] : [],
+      ...resources.training.type === 'maha' ? [
+        { label: 'Materials', component: <Materials materials={ resources.training.materials } /> },
+        { label: 'Lessons', component: <Details training={ resources.training } /> }
       ] : []
+
     ]
   },
   tasks: {

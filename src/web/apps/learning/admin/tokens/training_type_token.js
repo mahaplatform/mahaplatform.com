@@ -10,8 +10,12 @@ const types = {
     title: 'Remote Training',
     description: 'This training is offered by an external organization and registration will be handled outside of Maha'
   },
-  managed: {
-    title: 'Managed Training',
+  online: {
+    title: 'Online Training',
+    description: 'This training is offered elsewhere on the Internet as either a webinar or eLearning module'
+  },
+  maha: {
+    title: 'Maha Training',
     description: 'This training is designed within and offered directly through Maha'
   }
 }
