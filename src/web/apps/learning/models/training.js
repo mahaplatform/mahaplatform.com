@@ -3,6 +3,7 @@ import Model from '../../../core/objects/model'
 import Assignment from './assignment'
 import Offering from './offering'
 import Lesson from './lesson'
+import Quiz from './quiz'
 
 const Training = new Model({
 
@@ -26,6 +27,10 @@ const Training = new Model({
 
   offerings() {
     return this.belongsTo(Offering, 'training_id')
+  },
+
+  quiz() {
+    return this.hasOne(Quiz, 'training_id')
   }
 
 })

@@ -4,6 +4,7 @@ import assignments from './assignments'
 import supervisors from './supervisors'
 import categories from './categories'
 import employees from './employees'
+import quizes from './quizes'
 import resources from './resources'
 import trainings from './trainings'
 import { Router } from 'express'
@@ -22,6 +23,8 @@ router.use('/competencies', competencies)
 router.use('/employees', employees)
 
 router.use('/plans', plans)
+
+router.use('/quizes', quizes)
 
 router.use('/resources', resources)
 

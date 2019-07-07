@@ -72,8 +72,8 @@ class Devices extends React.Component {
   }
 
   _getAppLink(device) {
-    if(device.os === 'mac os') return 'https://s3.amazonaws.com/cdn.mahaplatform.com/releases/maha-mac-0.2.0.dmg'
-    if(device.os === 'windows') return 'https://s3.amazonaws.com/cdn.mahaplatform.com/releases/maha-win-0.2.0.exe'
+    if(device.os === 'mac os') return 'https://assets.mahaplatform.com/releases/maha-mac-0.2.0.dmg'
+    if(device.os === 'windows') return 'https://assets.mahaplatform.com/releases/maha-win-0.2.0.exe'
     if(device.os === 'ios') return 'https://appstore.com/facebook'
     if(device.os === 'android') return 'https://play.google.com/store/apps/details?id=com.example.android'
   }
