@@ -7,7 +7,6 @@ import PropTypes from 'prop-types'
 import Folder from './folder'
 import Items from './items'
 import React from 'react'
-import _ from 'lodash'
 
 class Drive extends React.Component {
 
@@ -96,6 +95,7 @@ class Drive extends React.Component {
       layout: (props) => <Items { ...this._getItems() } { ...props } />
     }
   }
+
   _getItems() {
     const { files, onChangeFolder } = this.props
     return {
@@ -119,27 +119,15 @@ class Drive extends React.Component {
     }
   }
 
-  _getHost() {
-    const hosts = [
-      process.env.DATA_ASSET_CDN_HOST,
-      process.env.DATA_ASSET_HOST
-    ]
-    return hosts.reduce((found, host) => {
-      if(found) return found
-      return !_.isEmpty(host) ? host : null
-    }, null) || ''
-  }
-
   _handleAddAsset(asset) {
     const { onAddFile } = this.props
-    const host = this._getHost()
     onAddFile({
       id: asset.id,
       name: asset.original_file_name,
       network: 'maha',
       content_type: asset.content_type,
       asset,
-      thumbnail: asset.content_type.match(/image/) ? host + asset.path : null
+      thumbnail: asset.content_type.match(/image/) ? asset.signed_url : null
     })
   }
 

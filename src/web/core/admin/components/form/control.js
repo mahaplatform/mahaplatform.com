@@ -30,7 +30,7 @@ import VideoField from './videofield'
 class Control extends React.Component {
 
   static propTypes = {
-    type: PropTypes.string,
+    type: PropTypes.any,
     options: PropTypes.array
   }
 

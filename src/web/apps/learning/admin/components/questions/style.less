@@ -1,0 +1,39 @@
+.questions {
+  background-color: @white;
+}
+.question {
+  display: flex;
+  background-color: @white;
+  border-bottom: 1px solid fadeout(@black, 95);
+}
+.question-handle {
+  cursor: grab;
+  padding: 0.8em 0 0.8em 0.8em;
+  .fa {
+    .hover(color, fadeout(@black, 70));
+    color: fadeout(@black, 80);
+    font-size: 1.2em;
+  }
+}
+.question-label {
+  padding: 0.8em;
+  flex: 1;
+}
+.question-extra {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  .fa {
+    .hover(color, fadeout(@black, 70));
+    color: fadeout(@black, 80);
+    margin: 0 auto;
+    cursor: pointer;
+  }
+}
+.questions-empty {
+  padding: 0.8em;
+  color: fadeout(@black, 60);
+}
+.questions-footer {
+  padding: 0.4em;
+  background-color: fadeout(@black, 97);
+}
