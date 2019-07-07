@@ -1,7 +1,6 @@
-import Registration from './registration'
-import { AssetToken, List, Page } from 'maha-admin'
+import Registration from '../registration'
+import { List } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Complete from './complete'
 import moment from 'moment'
 import React from 'react'
 
@@ -70,72 +69,4 @@ Details.propTypes = {
   assignment: PropTypes.object
 }
 
-const Materials = ({ materials }) => {
-
-  const list = {
-    items: materials.map(asset => ({
-      content: asset,
-      link: `/admin/assets/${asset.id}`,
-      component: AssetToken
-    })),
-    empty: {
-      icon: 'calendar',
-      title: 'No offerings',
-      text: 'There are no offerings for this training'
-    }
-  }
-
-  return <List { ...list } />
-
-}
-
-Materials.propTypes = {
-  materials: PropTypes.array
-}
-
-const Lessons = ({ lessons }) => {
-
-  return <div>Lessons</div>
-
-}
-
-Lessons.propTypes = {
-  assignment: PropTypes.object
-}
-
-const Quizes = ({ assignment }) => {
-
-  return <div>Quizes</div>
-
-}
-
-Quizes.propTypes = {
-  assignment: PropTypes.object
-}
-
-const mapResourcesToPage = (props, context) => ({
-  assignment: `/api/admin/learning/assignments/${props.params.id}`,
-  materials: `/api/admin/learning/assignments/${props.params.id}/materials`,
-  lessons: `/api/admin/learning/assignments/${props.params.id}/lessons`
-})
-
-const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Training',
-  tabs: {
-    items: [
-      { label: 'Details', component: <Details assignment={ resources.assignment } /> },
-      ...resources.assignment.training.type === 'local' ? [
-        { label: 'Materials', component: <Materials materials={ resources.materials } /> },
-        { label: 'Quizes', component: <Quizes assignment={ resources.assignment } /> }
-      ] : [],
-      ...resources.assignment.training.type === 'maha' ? [
-        { label: 'Lessons', component: <Lessons lessons={ resources.lessons } /> }
-      ] : []
-    ]
-  },
-  buttons: [
-    { label: 'Complete Training', color: 'green', modal: <Complete assignment={ resources.assignment } /> }
-  ]
-})
-
-export default Page(mapResourcesToPage, mapPropsToPage)
+export default Details

@@ -1,4 +1,4 @@
-import AssetIcon from '../../asset/icon'
+import AssetThumbnail from '../../asset/thumbnail'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -18,16 +18,16 @@ class Items extends React.Component {
     return (
       <div className="drive-items">
         { records.map((item, index) => (
-          <div className="drive-item" key={`item_${index}`}>
-            <div className="drive-item-icon" onClick={ this._handleClick.bind(this, item) }>
-              { item.type === 'folder' &&
+          <div className="drive-item" key={`item_${index}`} onClick={ this._handleClick.bind(this, item) }>
+            <div className="drive-item-icon">
+              { item.type === 'folder' ?
                 <div className="maha-asset-icon">
                   <i className="fa fa-fw fa-folder" />
-                </div>
+                </div> :
+                <AssetThumbnail { ...item.asset } />
               }
-              { item.type === 'file' && <AssetIcon content_type={ item.asset.content_type } /> }
             </div>
-            <div className="drive-item-name" onClick={ this._handleClick.bind(this, item) }>
+            <div className="drive-item-name">
               { item.label }
             </div>
             <div className="drive-item-action">

@@ -12,6 +12,7 @@ import PlansEmployees from './plans/employees'
 import PlansReport from './plans/report'
 import PlansList from './plans/list'
 import PlansShow from './plans/show'
+import QuizShow from './quizes/show'
 import ResourcesList from './resources/list'
 import ResourcesSearch from './resources/search'
 import ResourcesShow from './resources/show'
@@ -31,6 +32,7 @@ const routes = [
   { path: '/plans/report', component: PlansReport },
   { path: '/plans/employees', component: PlansEmployees },
   { path: '/plans/:id', component: PlansShow },
+  { path: '/quizes/:id', component: QuizShow },
   { path: '/resources', component: ResourcesList },
   { path: '/resources/search', component: ResourcesSearch },
   { path: '/resources/:id', component: ResourcesShow },
@@ -38,6 +40,7 @@ const routes = [
   { path: '/trainings/:id', component: TrainingsShow },
   { path: '/trainings/:training_id/offerings/:id', component: OfferingsShow },
   { path: '/trainings/:training_id/lessons/:id', component: LessonsShow }
+
 ]
 
 export default routes

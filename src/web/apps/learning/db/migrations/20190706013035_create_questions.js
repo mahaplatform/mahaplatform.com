@@ -7,6 +7,7 @@ const Question = {
       table.foreign('team_id').references('maha_teams.id')
       table.integer('quiz_id').unsigned()
       table.foreign('quiz_id').references('learning_quizes.id')
+      table.integer('delta')
       table.text('text')
       table.text('explanation')
       table.timestamps()
