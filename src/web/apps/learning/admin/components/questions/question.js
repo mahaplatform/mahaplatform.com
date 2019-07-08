@@ -55,12 +55,6 @@ class Question extends React.PureComponent {
     return classes.join(' ')
   }
 
-  _getAnswerClass(question, index) {
-    const classes = ['question-answer']
-    if(index === question.correct_answer) classes.push('correct')
-    return classes.join(' ')
-  }
-
   _handleTasks() {
     const { question, quiz } = this.props
     this.context.tasks.open([
@@ -71,7 +65,7 @@ class Question extends React.PureComponent {
         label: 'Remove Question',
         request: {
           method: 'DELETE',
-          endpoint: `/api/admin/learning/quizes/${quiz.id}/questions`,
+          endpoint: `/api/admin/learning/quizes/${quiz.id}/questions/${question.id}`,
           onFailure: (result) => this.context.flash.set('error', 'Unable to remove this question')
         }
       }
