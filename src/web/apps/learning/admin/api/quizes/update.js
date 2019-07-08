@@ -22,7 +22,7 @@ const updateRoute = async (req, res) => {
   })
 
   await quiz.save({
-    ...whitelist(req.body, ['title'])
+    ...whitelist(req.body, ['title','passing_score'])
   }, {
     transacting: req.trx
   })

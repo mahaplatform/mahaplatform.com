@@ -13,3 +13,8 @@ export const set = (questions) => ({
   type: 'SET',
   questions
 })
+
+export const update = (question) => ({
+  type: 'UPDATE',
+  question
+})

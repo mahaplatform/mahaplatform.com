@@ -33,7 +33,8 @@ class Edit extends React.Component {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
-            { label: 'Questions', name: 'questions', type: Questions, required: true }
+            { label: 'Questions', name: 'questions', type: Questions, required: true },
+            { label: 'Passing Score', name: 'passing_score', type: 'numberfield', required: true }
           ]
         }
       ]

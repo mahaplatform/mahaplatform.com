@@ -7,6 +7,7 @@ const Details = ({ quiz }) => {
 
   const items = [
     { label: 'Title ', content: quiz.title },
+    { label: 'Passing Score ', content: <span>{ quiz.passing_score } / { quiz.questions.length }</span> },
     { component: <QuizKey quiz={ quiz } /> }
   ]
 

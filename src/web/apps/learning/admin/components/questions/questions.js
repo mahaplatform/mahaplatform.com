@@ -17,7 +17,9 @@ class Questions extends React.PureComponent {
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
     onMove: PropTypes.func,
-    onReady: PropTypes.func
+    onReady: PropTypes.func,
+    onSet: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   static defaultProps = {}
@@ -60,11 +62,12 @@ class Questions extends React.PureComponent {
   }
 
   _getQuestion(question, index) {
-    const { onMove } = this.props
+    const { onMove, onUpdate } = this.props
     return {
       index,
       question,
-      onMove
+      onMove,
+      onUpdate
     }
   }
 

@@ -108,7 +108,7 @@ class Lookup extends React.Component {
   _getOptions() {
     const { options } = this.props
     return options.map(option => {
-      return (_.isString(option)) ? { value: option, text: option } : options
+      return (_.isString(option)) ? { value: option, text: option } : option
     })
   }
 

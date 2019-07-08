@@ -3,13 +3,14 @@ import { Form } from 'maha-admin'
 import Answers from './answers'
 import React from 'react'
 
-class New extends React.Component {
+class Edit extends React.Component {
 
   static contextTypes = {
     form: PropTypes.object
   }
 
   static propTypes = {
+    question: PropTypes.array,
     onSubmit: PropTypes.func
   }
 
@@ -22,17 +23,19 @@ class New extends React.Component {
   }
 
   _getForm() {
+    const { question } = this.props
     return {
-      title: 'New Question',
+      title: 'Edit Question',
       onSubmit: this._handleSubmit,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
+      saveText: 'Done',
       sections: [
         {
           fields: [
-            { label: 'Question', name: 'text', type: 'textarea', rows: 3, required: true },
-            { label: 'Answers', name: 'answers', type: Answers, required: true },
-            { label: 'Explanation', name: 'explanation', type: 'textarea', rows: 3, required: true }
+            { label: 'Question', name: 'text', type: 'textarea', rows: 3, required: true, defaultValue: question.text },
+            { label: 'Answers', name: 'answers', type: Answers, required: true, defaultValue: question.answers },
+            { label: 'Explanation', name: 'explanation', type: 'textarea', rows: 3, required: true, defaultValue: question.explanation }
           ]
         }
       ]
@@ -44,7 +47,10 @@ class New extends React.Component {
   }
 
   _handleSubmit(question) {
-    this.props.onSubmit(question)
+    this.props.onSubmit({
+      ...this.props.question,
+      ...question
+    })
     return true
   }
 
@@ -54,4 +60,4 @@ class New extends React.Component {
 
 }
 
-export default New
+export default Edit

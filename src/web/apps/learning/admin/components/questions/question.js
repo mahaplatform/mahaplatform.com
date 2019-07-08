@@ -1,13 +1,12 @@
 import { DragSource, DropTarget } from 'react-dnd'
 import PropTypes from 'prop-types'
 import React from 'react'
+import Edit from './edit'
 
 class Question extends React.PureComponent {
 
   static contextTypes = {
-    modal: PropTypes.object,
-    network: PropTypes.object,
-    tasks: PropTypes.object
+    form: PropTypes.object
   }
 
   static propTypes = {
@@ -17,10 +16,16 @@ class Question extends React.PureComponent {
     index: PropTypes.number,
     isDragging: PropTypes.bool,
     question: PropTypes.object,
-    quiz: PropTypes.object
+    quiz: PropTypes.object,
+    onMove: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   static defaultProps = {}
+
+  _handleEdit = this._handleEdit.bind(this)
+  _handleRemove = this._handleRemove.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
     const { connectDropTarget, connectDragPreview, connectDragSource, question } = this.props
@@ -34,10 +39,10 @@ class Question extends React.PureComponent {
         <div className="question-label">
           { question.text }
         </div>
-        <div className="question-extra">
+        <div className="question-extra" onClick={ this._handleEdit }>
           <i className="fa fa-fw fa-pencil" />
         </div>
-        <div className="question-extra">
+        <div className="question-extra" onClick={ this._handleRemove }>
           <i className="fa fa-fw fa-times" />
         </div>
       </div>
@@ -53,6 +58,18 @@ class Question extends React.PureComponent {
     const classes = ['question']
     if(isDragging) classes.push('dragging')
     return classes.join(' ')
+  }
+
+  _handleEdit() {
+    const { question } = this.props
+    this.context.form.push(<Edit question={ question } onSubmit={ this._handleUpdate } />)
+  }
+
+  _handleRemove() {
+  }
+
+  _handleUpdate(question) {
+    this.props.onUpdate(question)
   }
 
 }
