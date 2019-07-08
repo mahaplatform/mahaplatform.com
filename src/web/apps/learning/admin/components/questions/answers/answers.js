@@ -10,7 +10,7 @@ class Answers extends React.PureComponent {
   }
 
   static propTypes = {
-    defaultValue: PropTypes.number,
+    defaultValue: PropTypes.array,
     expanded: PropTypes.array,
     answers: PropTypes.array,
     onAdd: PropTypes.func,

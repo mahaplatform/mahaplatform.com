@@ -1,7 +1,6 @@
 import { DragSource, DropTarget } from 'react-dnd'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Edit from './edit'
 
 class Question extends React.PureComponent {
 
@@ -23,8 +22,6 @@ class Question extends React.PureComponent {
 
   static defaultProps = {}
 
-  _handleTasks = this._handleTasks.bind(this)
-
   render() {
     const { connectDropTarget, connectDragPreview, connectDragSource, question } = this.props
     return connectDropTarget(connectDragPreview(
@@ -37,8 +34,11 @@ class Question extends React.PureComponent {
         <div className="question-label">
           { question.text }
         </div>
-        <div className="question-extra" onClick={ this._handleTasks }>
-          <i className="fa fa-fw fa-ellipsis-v" />
+        <div className="question-extra">
+          <i className="fa fa-fw fa-pencil" />
+        </div>
+        <div className="question-extra">
+          <i className="fa fa-fw fa-times" />
         </div>
       </div>
     ))
@@ -55,38 +55,14 @@ class Question extends React.PureComponent {
     return classes.join(' ')
   }
 
-  _handleTasks() {
-    const { question, quiz } = this.props
-    this.context.tasks.open([
-      {
-        label: 'Edit Question',
-        modal: () => <Edit quiz={ quiz } question={ question } />
-      }, {
-        label: 'Remove Question',
-        request: {
-          method: 'DELETE',
-          endpoint: `/api/admin/learning/quizes/${quiz.id}/questions/${question.id}`,
-          onFailure: (result) => this.context.flash.set('error', 'Unable to remove this question')
-        }
-      }
-    ])
-  }
-
 }
 
 const source = {
   beginDrag: (props) => ({
     index: props.index,
     delta: props.question.delta,
-    onMove: props.onMove,
-    onReorder: props.onReorder
-  }),
-  endDrag: (props, monitor, component) => {
-    const source = monitor.getItem()
-    const target = monitor.getDropResult()
-    if(!target) return
-    source.onReorder(source.delta, target.index)
-  }
+    onMove: props.onMove
+  })
 }
 
 const target = {
@@ -96,11 +72,7 @@ const target = {
     if (dragIndex === hoverIndex) return
     props.onMove(dragIndex, hoverIndex)
     monitor.getItem().index = hoverIndex
-  },
-  drop: (props, monitor, component) => ({
-    index: props.index,
-    delta: props.question.delta
-  })
+  }
 }
 
 const sourceCollector = (connect, monitor) => ({

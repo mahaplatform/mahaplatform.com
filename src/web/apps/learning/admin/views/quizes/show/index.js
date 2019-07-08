@@ -1,4 +1,3 @@
-import Questions from '../../../components/questions'
 import { Page } from 'maha-admin'
 import Details from './details'
 import Edit from '../edit'
@@ -7,8 +6,7 @@ import React from 'react'
 const getTabs = ({ quiz, questions }) => {
 
   const items = [
-    { label: 'Details ', component: <Details quiz={ quiz } /> },
-    { label: 'Questions ', component: <Questions quiz={ quiz } questions={ questions } /> }
+    { label: 'Details ', component: <Details quiz={ quiz } /> }
   ]
 
   return { items }
@@ -18,7 +16,7 @@ const getTabs = ({ quiz, questions }) => {
 const getTasks = ({ quiz }) => {
 
   const items = [
-    { label: 'Edit Quiz', modal: <Edit id={ quiz.id } /> }
+    { label: 'Edit Quiz', modal: <Edit quiz={ quiz } /> }
   ]
 
   return { items }

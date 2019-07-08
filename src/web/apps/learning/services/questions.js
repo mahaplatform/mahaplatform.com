@@ -1,39 +1,47 @@
-import Answer from '../models/answer'
+import { whitelist } from '../../../core/services/routes/params'
+import Question from '../models/question'
+import { updateAnswers } from './answers'
 
-export const updateAnswers = async (req, { question, answers }) => {
+const createOrUpdateQuestion = async (req, quiz, data) => {
 
-  await Promise.map(answers, async (data, index) => {
+  if(data.id) {
 
-    if(data.id) {
-
-      const answer = await Answer.scope({
-        team: req.team
-      }).query(qb => {
-        qb.where('id', data.id)
-      }).fetch({
-        transacting: req.trx
-      })
-
-      return await answer.save({
-        text: data.text,
-        delta: index,
-        is_active: data.is_active,
-        is_correct: data.is_correct
-      }, {
-        transacting: req.trx
-      })
-
-    }
-
-    await Answer.forge({
-      team_id: req.team.get('id'),
-      question_id: question.get('id'),
-      delta: index,
-      text: data.text,
-      is_active: data.is_active,
-      is_correct: data.is_correct
-    }).save(null, {
+    const question = await Question.scope({
+      team: req.team
+    }).query(qb => {
+      qb.where('quiz_id', quiz.get('id'))
+      qb.where('id', data.id)
+    }).fetch({
       transacting: req.trx
+    })
+
+    return await question.save({
+      ...whitelist(data, ['delta','text','explanation'])
+    }, {
+      transacting: req.trx
+    })
+
+  }
+
+  return await Question.forge({
+    team_id: req.team.get('id'),
+    quiz_id: quiz.get('id'),
+    ...whitelist(data, ['delta','text','explanation'])
+  }).save(null, {
+    transacting: req.trx
+  })
+
+}
+
+export const updateQuestions = async (req, { quiz, questions }) => {
+
+  await Promise.map(questions, async (data, index) => {
+
+    const question = await createOrUpdateQuestion(req, quiz, data)
+
+    await updateAnswers(req, {
+      question,
+      answers: data.answers
     })
 
   })
