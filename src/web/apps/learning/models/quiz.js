@@ -21,7 +21,9 @@ const Quiz = new Model({
   },
 
   questions() {
-    return this.hasMany(Question, 'quiz_id')
+    return this.hasMany(Question, 'quiz_id').query(qb => {
+      qb.orderBy('delta', 'asc')
+    })
   },
 
   training() {

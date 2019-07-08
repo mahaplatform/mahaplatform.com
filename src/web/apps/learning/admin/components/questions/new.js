@@ -1,19 +1,20 @@
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
-import Answers from '../answers'
+import Answers from './answers'
 import React from 'react'
 
 class New extends React.Component {
 
   static contextTypes = {
-    modal: PropTypes.object
+    form: PropTypes.object
   }
 
   static propTypes = {
-    quiz: PropTypes.object
+    onSubmit: PropTypes.func
   }
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
@@ -21,11 +22,9 @@ class New extends React.Component {
   }
 
   _getForm() {
-    const { quiz } = this.props
     return {
       title: 'New Question',
-      method: 'post',
-      action: `/api/admin/learning/quizes/${quiz.id}/questions`,
+      onSubmit: this._handleSubmit,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
@@ -41,11 +40,17 @@ class New extends React.Component {
   }
 
   _handleCancel() {
-    this.context.modal.close()
+    this.context.form.pop()
+  }
+
+  _handleSubmit(question) {
+    console.log('new question form',question)
+    this.props.onSubmit(question)
+    return true
   }
 
   _handleSuccess(result) {
-    this.context.modal.close()
+    this.context.form.pop()
   }
 
 }

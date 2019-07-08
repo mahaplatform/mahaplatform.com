@@ -1,10 +1,13 @@
 .questions {
   background-color: @white;
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.5em;
+  overflow: hidden;
 }
 .question {
   display: flex;
   background-color: @white;
-  border-bottom: 1px solid fadeout(@black, 95);
+  border-bottom: 1px solid fadeout(@black, 90);
 }
 .question-handle {
   cursor: grab;
@@ -35,5 +38,5 @@
 }
 .questions-footer {
   padding: 0.4em;
-  background-color: fadeout(@black, 97);
+  background-color: fadeout(@black, 95);
 }

@@ -2,6 +2,7 @@ import { activity } from '../../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../../core/services/routes/params'
 import QuizSerializer from '../../../../serializers/quiz_serializer'
 import socket from '../../../../../../core/services/routes/emitter'
+import { updateQuestions } from '../../../../services/questions'
 import Quiz from '../../../../models/quiz'
 
 const createRoute = async (req, res) => {
@@ -12,6 +13,11 @@ const createRoute = async (req, res) => {
     ...whitelist(req.body, ['title'])
   }).save(null, {
     transacting: req.trx
+  })
+
+  await updateQuestions(req, {
+    quiz,
+    questions: req.body.questions
   })
 
   await activity(req, {
