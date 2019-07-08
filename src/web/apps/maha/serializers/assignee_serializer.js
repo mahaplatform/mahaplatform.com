@@ -2,9 +2,7 @@ const AssigneeSerializer = (req, result) => ({
   id: result.get('id'),
   is_everyone: result.get('is_everyone'),
   group: group(result.related('group')),
-  user: user(result.related('user')),
-  name: result.get('name'),
-  photo: result.related('photo') ? result.related('photo').get('path') : null
+  user: user(result.related('user'))
 })
 
 const group = (group) => {
