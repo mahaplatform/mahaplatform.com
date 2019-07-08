@@ -9,34 +9,38 @@ class Answer extends React.PureComponent {
   }
 
   static propTypes = {
-    correct_answer: PropTypes.number,
     connectDropTarget: PropTypes.func,
     connectDragPreview: PropTypes.func,
     connectDragSource: PropTypes.func,
     isDragging: PropTypes.bool,
     answer: PropTypes.object,
-    index: PropTypes.integer,
+    index: PropTypes.number,
     onChoose: PropTypes.func,
     onMove: PropTypes.func,
-    onRemove: PropTypes.func
+    onRemove: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   static defaultProps = {}
 
+  _handleChoose = this._handleChoose.bind(this)
+  _handleRemove = this._handleRemove.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
+
   render() {
-    const { answer, correct_answer, index } = this.props
+    const { answer } = this.props
     return (
-      <div className={ this._getClass() }>
-        <div className="answer-correct" onClick={ this._handleChoose.bind(this, index) }>
-          { index === correct_answer ?
+      <div className="answer">
+        <div className="answer-correct" onClick={ this._handleChoose }>
+          { answer.is_correct ?
             <i className="fa fa-fw fa-check-circle" /> :
             <i className="fa fa-fw fa-circle-o" />
           }
         </div>
         <div className="answer-label">
-          <input type="text" defaultValue={ answer.text } placeholder="Enter an answer" />
+          <input { ...this._getInput(answer) } />
         </div>
-        <div className="answer-extra" onClick={ this._handleRemove.bind(this, index) }>
+        <div className="answer-extra" onClick={ this._handleRemove }>
           <i className="fa fa-fw fa-remove" />
         </div>
       </div>
@@ -47,25 +51,29 @@ class Answer extends React.PureComponent {
 
   componentDidUpdate(prevProps) {}
 
-  _getClass() {
-    const { isDragging } = this.props
-    const classes = ['answer']
-    if(isDragging) classes.push('dragging')
-    return classes.join(' ')
+  _getInput() {
+    const { answer } = this.props
+    return {
+      type: 'text',
+      value: answer.text,
+      placeholder: 'Enter an answer',
+      onChange: this._handleUpdate
+    }
   }
 
-  _getAnswerClass(answer, index) {
-    const classes = ['answer-answer']
-    if(index === answer.correct_answer) classes.push('correct')
-    return classes.join(' ')
-  }
-
-  _handleChoose(index) {
+  _handleChoose() {
+    const { index } = this.props
     this.props.onChoose(index)
   }
 
-  _handleRemove(index) {
+  _handleRemove() {
+    const { index } = this.props
     this.props.onRemove(index)
+  }
+
+  _handleUpdate(event) {
+    const { index } = this.props
+    this.props.onUpdate(index, event.target.value)
   }
 
 }

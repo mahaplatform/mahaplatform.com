@@ -6,7 +6,8 @@ import New from './new'
 class Questions extends React.PureComponent {
 
   static contextTypes = {
-    modal: PropTypes.object
+    modal: PropTypes.object,
+    network: PropTypes.object
   }
 
   static propTypes = {
@@ -20,6 +21,9 @@ class Questions extends React.PureComponent {
 
   static defaultProps = {}
 
+  _handleFetch = this._handleFetch.bind(this)
+  _handleJoin = this._handleJoin.bind(this)
+  _handleLeave = this._handleLeave.bind(this)
   _handleNew = this._handleNew.bind(this)
 
   render() {
@@ -44,11 +48,13 @@ class Questions extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { quiz } = this.props
-    this.props.onFetch(quiz.id)
+    this._handleFetch()
+    this._handleJoin()
   }
 
-  componentDidUpdate(prevProps) {}
+  componentWillUnmount() {
+    this._handleLeave()
+  }
 
   _getQuestion(question, index) {
     const { quiz, onMove, onReorder } = this.props
@@ -59,14 +65,35 @@ class Questions extends React.PureComponent {
       onMove,
       onReorder
     }
+  }
 
+  _handleFetch() {
+    const { quiz } = this.props
+    this.props.onFetch(quiz.id)
+  }
+
+  _handleJoin() {
+    const { network } = this.context
+    const { quiz } = this.props
+    network.join(`/admin/learning/quizes/${quiz.id}/questions`)
+    network.subscribe([
+      { target: `/admin/learning/quizes/${quiz.id}/questions`, action: 'refresh', handler: this._handleFetch }
+    ])
+  }
+
+  _handleLeave() {
+    const { network } = this.context
+    const { quiz } = this.props
+    network.leave(`/admin/learning/quizes/${quiz.id}/questions`)
+    network.unsubscribe([
+      { target: `/admin/learning/quizes/${quiz.id}/questions`, action: 'refresh', handler: this._handleFetch }
+    ])
   }
 
   _handleNew() {
     const { quiz } = this.props
     this.context.modal.push(<New quiz={ quiz } />)
   }
-
 
 }
 
