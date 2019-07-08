@@ -20,7 +20,12 @@ const Offerings = ({ training, offerings }) => {
         label: 'Create Offering',
         modal: <New training={ training } />
       }
-    }
+    },
+    buttons: [{
+      label: 'Create Another Offering',
+      color: 'blue',
+      modal: <New training={ training } />
+    }]
   }
 
   return <List { ...list } />

@@ -1,7 +1,24 @@
-const listRoute = async (req, res) => {
+import QuizSerializer from '../../../serializers/quiz_serializer'
+import Quiz from '../../../models/quiz'
 
-  res.status(200).respond()
+const quizesRoute = async (req, res) => {
+
+  const quizes = await Quiz.scope({
+    team: req.team
+  }).query(qb => {
+    if(req.params.quizable_type === 'trainings') {
+      qb.where('training_id', req.params.quizable_id)
+    }
+    if(req.params.quizable_type === 'lessons') {
+      qb.where('lesson_id', req.params.quizable_id)
+    }
+  }).fetchAll({
+    withRelated: ['questions'],
+    transacting: req.trx
+  })
+
+  res.status(200).respond(quizes, QuizSerializer)
 
 }
 
-export default listRoute
+export default quizesRoute

@@ -11,7 +11,8 @@ class New extends React.Component {
   }
 
   static propTypes = {
-    training: PropTypes.object
+    quizable_type: PropTypes.string,
+    quizable_id: PropTypes.number
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -22,18 +23,19 @@ class New extends React.Component {
   }
 
   _getForm() {
-    const { training } = this.props
+    const { quizable_type, quizable_id } = this.props
     return {
       title: 'New Quiz',
       method: 'post',
-      action: `/api/admin/learning/trainings/${training.id}/quizes`,
+      action: `/api/admin/learning/${quizable_type}/${quizable_id}/quizes`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
-            { label: 'Questions', name: 'questions', type: Questions, required: true }
+            { label: 'Questions', name: 'questions', type: Questions, required: true },
+            { label: 'Passing Score', name: 'passing_score', type: 'numberfield', required: true }
           ]
         }
       ]

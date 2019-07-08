@@ -24,6 +24,8 @@ router.use('/employees', employees)
 
 router.use('/plans', plans)
 
+router.use('/:quizable_type/:quizable_id/quizes', quizes)
+
 router.use('/quizes', quizes)
 
 router.use('/resources', resources)
