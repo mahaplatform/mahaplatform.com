@@ -25,14 +25,15 @@ class New extends React.Component {
     return {
       title: 'New Question',
       method: 'post',
-      action: `/api/admin/learning/quiz/${quiz.id}/questions`,
+      action: `/api/admin/learning/quizes/${quiz.id}/questions`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Question', name: 'question', type: 'textarea', required: true },
-            { label: 'Answers', name: 'answers', type: Answers, required: true }
+            { label: 'Question', name: 'text', type: 'textarea', required: true },
+            { label: 'Answers', name: 'answers', type: Answers, required: true },
+            { label: 'Explanation', name: 'explanation', type: 'textarea', required: true }
           ]
         }
       ]

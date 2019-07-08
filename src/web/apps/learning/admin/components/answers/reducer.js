@@ -1,6 +1,8 @@
 const INITIAL_STATE = {
   correct_answer: 0,
-  answers: []
+  answers: [
+    { text: '' }
+  ]
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -42,9 +44,25 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       correct_answer: action.index === state.correct_answer ? Math.max(action.index - 1, 0) : state.correct_answer,
-      answers: [
+      answers: state.answers.length > 1 ? [
         ...state.answers.filter((answer, index) => {
           return index !== action.index
+        })
+      ] : [
+        { text: '' }
+      ]
+    }
+
+  case 'UPDATE':
+    return {
+      ...state,
+      answers: [
+        ...state.answers.map((answer, index) => {
+          if(index !== action.index) return answer
+          return {
+            ...answer,
+            text: action.value
+          }
         })
       ]
     }
