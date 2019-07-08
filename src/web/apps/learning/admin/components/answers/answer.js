@@ -16,7 +16,6 @@ class Answer extends React.PureComponent {
     answer: PropTypes.object,
     index: PropTypes.number,
     onChoose: PropTypes.func,
-    onMove: PropTypes.func,
     onRemove: PropTypes.func,
     onUpdate: PropTypes.func
   }
@@ -30,7 +29,7 @@ class Answer extends React.PureComponent {
   render() {
     const { answer } = this.props
     return (
-      <div className="answer">
+      <div className={ this._getClass() }>
         <div className="answer-correct" onClick={ this._handleChoose }>
           { answer.is_correct ?
             <i className="fa fa-fw fa-check-circle" /> :
@@ -38,10 +37,16 @@ class Answer extends React.PureComponent {
           }
         </div>
         <div className="answer-label">
-          <input { ...this._getInput(answer) } />
+          { answer.is_active ?
+            <input { ...this._getInput(answer) } /> :
+            <span>{ answer.text }</span>
+          }
         </div>
         <div className="answer-extra" onClick={ this._handleRemove }>
-          <i className="fa fa-fw fa-remove" />
+          { answer.is_active ?
+            <i className="fa fa-fw fa-remove" /> :
+            <i className="fa fa-fw fa-refresh" />
+          }
         </div>
       </div>
     )
@@ -50,6 +55,13 @@ class Answer extends React.PureComponent {
   componentDidMount() {}
 
   componentDidUpdate(prevProps) {}
+
+  _getClass() {
+    const { answer } = this.props
+    const classes = ['answer']
+    if(!answer.is_active) classes.push('disabled')
+    return classes.join(' ')
+  }
 
   _getInput() {
     const { answer } = this.props

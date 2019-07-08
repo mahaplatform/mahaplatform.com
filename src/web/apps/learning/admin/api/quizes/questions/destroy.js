@@ -1,7 +1,6 @@
 import { activity } from '../../../../../../core/services/routes/activities'
 import QuestionSerializer from '../../../../serializers/question_serializer'
 import socket from '../../../../../../core/services/routes/emitter'
-import { updateAnswers } from '../../../../services/questions'
 import Question from '../../../../models/question'
 
 const destroyRoute = async (req, res) => {
@@ -11,7 +10,7 @@ const destroyRoute = async (req, res) => {
   }).query(qb => {
     qb.where('quiz_id', req.params.quiz_id)
   }).fetch({
-    withRelated: ['answers'],
+    withRelated: ['quiz','answers'],
     transacting: req.trx
   })
 
@@ -20,21 +19,30 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load question'
   })
 
+  //TODO: refresh assignments
 
+  const channels = [
+    `/admin/learning/trainings/${question.related('quiz').get('training_id')}`,
+    `/admin/learning/quizes/${req.params.quiz_id}/questions`
+  ]
 
-  await updateAnswers(req, {
-    question,
-    answers: req.body.answers
+  await Promise.map(question.related('answers'), async (answer) => {
+    //TODO: destroy answerings
+    await answer.destroy({
+      transacting: req.trx
+    })
+  })
+
+  await question.destroy({
+    transacting: req.trx
   })
 
   await activity(req, {
-    story: 'created {object}',
+    story: 'deleted {object}',
     object: question
   })
 
-  await socket.refresh(req, [
-    `/admin/learning/quizes/${req.params.quiz_id}/questions`
-  ])
+  await socket.refresh(req, channels)
 
   res.status(200).respond(question, QuestionSerializer)
 
