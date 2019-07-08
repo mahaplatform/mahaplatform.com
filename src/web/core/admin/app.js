@@ -16,6 +16,7 @@ import adminemojis from './components/emojis'
 import adminfields from './components/fields'
 import adminfilters from './components/filters'
 import adminflash from './components/flash'
+import adminformAssignmentfield from './components/form/assignmentfield'
 import adminformAttachmentfield from './components/form/attachmentfield'
 import adminformColorfield from './components/form/colorfield'
 import adminformDatefield from './components/form/datefield'
@@ -217,6 +218,7 @@ class App extends React.Component {
       adminfields,
       adminfilters,
       adminflash,
+      adminformAssignmentfield,
       adminformAttachmentfield,
       adminformColorfield,
       adminformDatefield,

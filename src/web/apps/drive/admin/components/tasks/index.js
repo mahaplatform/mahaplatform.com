@@ -38,6 +38,7 @@ class Tasks extends React.Component {
 
   render() {
     const { items, title } = this.props
+    const options = this._getOptions()
     return (
       <div className="drive-tasks">
         { title && items.length === 1 &&
@@ -65,12 +66,20 @@ class Tasks extends React.Component {
             </div>
           </div>
         }
-        <List { ...this._getList() } />
+        <div className="maha-list">
+          { options.map((option, index) => (
+            <div className="maha-list-item" key={`item_${index}`}>
+              <div className="maha-list-item-link maha-button mobile drive-task">
+                { option.component }
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     )
   }
 
-  _getList() {
+  _getOptions() {
     const { items, rights } = this.props
     const mobile = document.body.clientWidth <= 768
     const options = []
@@ -120,9 +129,7 @@ class Tasks extends React.Component {
         }
       }
     }
-    return {
-      items: options
-    }
+    return options
   }
 
   _getArchive(items) {
