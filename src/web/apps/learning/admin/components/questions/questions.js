@@ -2,28 +2,27 @@ import PropTypes from 'prop-types'
 import Question from './question'
 import React from 'react'
 import New from './new'
+import _ from 'lodash'
 
 class Questions extends React.PureComponent {
 
   static contextTypes = {
-    modal: PropTypes.object,
-    network: PropTypes.object
+    form: PropTypes.object
   }
 
   static propTypes = {
-    expanded: PropTypes.array,
+    defaultValue: PropTypes.array,
     quiz: PropTypes.object,
     questions: PropTypes.array,
-    onFetch: PropTypes.func,
+    onAdd: PropTypes.func,
+    onChange: PropTypes.func,
     onMove: PropTypes.func,
-    onReorder: PropTypes.func
+    onReady: PropTypes.func
   }
 
   static defaultProps = {}
 
-  _handleFetch = this._handleFetch.bind(this)
-  _handleJoin = this._handleJoin.bind(this)
-  _handleLeave = this._handleLeave.bind(this)
+  _handleAdd = this._handleAdd.bind(this)
   _handleNew = this._handleNew.bind(this)
 
   render() {
@@ -48,51 +47,33 @@ class Questions extends React.PureComponent {
   }
 
   componentDidMount() {
-    this._handleFetch()
-    this._handleJoin()
+    const { defaultValue, onSet, onReady } = this.props
+    if(defaultValue) onSet(defaultValue)
+    onReady()
   }
 
-  componentWillUnmount() {
-    this._handleLeave()
-  }
-
-  _getQuestion(question, index) {
-    const { quiz, onMove, onReorder } = this.props
-    return {
-      quiz,
-      index,
-      question,
-      onMove,
-      onReorder
+  componentDidUpdate(prevProps) {
+    const { questions } = this.props
+    if(!_.isEqual(questions, prevProps.questions)) {
+      this.props.onChange(questions)
     }
   }
 
-  _handleFetch() {
-    const { quiz } = this.props
-    this.props.onFetch(quiz.id)
-  }
-
-  _handleJoin() {
-    const { network } = this.context
-    const { quiz } = this.props
-    network.join(`/admin/learning/quizes/${quiz.id}/questions`)
-    network.subscribe([
-      { target: `/admin/learning/quizes/${quiz.id}/questions`, action: 'refresh', handler: this._handleFetch }
-    ])
-  }
-
-  _handleLeave() {
-    const { network } = this.context
-    const { quiz } = this.props
-    network.leave(`/admin/learning/quizes/${quiz.id}/questions`)
-    network.unsubscribe([
-      { target: `/admin/learning/quizes/${quiz.id}/questions`, action: 'refresh', handler: this._handleFetch }
-    ])
+  _getQuestion(question, index) {
+    const { onMove } = this.props
+    return {
+      index,
+      question,
+      onMove
+    }
   }
 
   _handleNew() {
-    const { quiz } = this.props
-    this.context.modal.push(<New quiz={ quiz } />)
+    this.context.form.push(<New onSubmit={ this._handleAdd } />)
+  }
+
+  _handleAdd(question) {
+    this.props.onAdd(question)
   }
 
 }

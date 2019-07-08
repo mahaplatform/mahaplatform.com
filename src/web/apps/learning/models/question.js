@@ -11,7 +11,9 @@ const Question = new Model({
   virtuals: {},
 
   answers() {
-    return this.hasMany(Answer, 'question_id')
+    return this.hasMany(Answer, 'question_id').query(qb => {
+      qb.orderBy('delta', 'asc')
+    })
   },
 
   quiz() {

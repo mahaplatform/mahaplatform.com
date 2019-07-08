@@ -32,7 +32,8 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', required: true }
+            { label: 'Title', name: 'title', type: 'textfield', required: true },
+            { label: 'Questions', name: 'questions', type: Questions, required: true }
           ]
         }
       ]

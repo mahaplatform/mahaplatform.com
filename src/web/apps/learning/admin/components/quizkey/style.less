@@ -1,0 +1,42 @@
+.quizkey-questions {
+  overflow: hidden;
+  counter-reset: question;
+}
+.quizkey-question {
+  background-color: @white;
+  border-bottom: 1px solid fadeout(@black, 90);
+  counter-increment: question;
+  padding: 0.8em;
+  &:before {
+    font-weight: bold;
+    color: @black;
+    content: counter(question) ". ";
+  }
+}
+.quizkey-question-text {
+  font-weight: bold;
+  color: @black;
+}
+.quizkey-answers {
+  counter-reset: answer;
+  margin-top: 0.8em;
+}
+.quizkey-answer {
+  counter-increment: answer;
+  line-height: 1.6em;
+  &:before {
+    content: counter(answer, upper-alpha) ". ";
+  }
+  &.correct {
+    color: @green;
+  }
+}
+.quizkey-explanation {
+  border-radius: 0.5em;
+  border: 1px solid fadeout(@red, 70);
+  background-color: fadeout(@red, 80);
+  margin-top: 0.8em;
+  padding: 0.4em;
+  font-size: 0.9em;
+  color: @red;
+}

@@ -1,5 +1,6 @@
-import { Form } from 'maha-admin'
+import Questions from '../../components/questions'
 import PropTypes from 'prop-types'
+import { Form } from 'maha-admin'
 import React from 'react'
 
 class Edit extends React.Component {
@@ -9,7 +10,7 @@ class Edit extends React.Component {
   }
 
   static propTypes = {
-    plan: PropTypes.object
+    quiz: PropTypes.object
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -20,18 +21,19 @@ class Edit extends React.Component {
   }
 
   _getForm() {
-    const { plan } = this.props
+    const { quiz } = this.props
     return {
       title: 'Edit Quiz',
       method: 'patch',
-      endpoint: `/api/admin/learning/quizes/${plan.id}/edit`,
-      action: `/api/admin/learning/quizes/${plan.id}`,
+      endpoint: `/api/admin/learning/quizes/${quiz.id}/edit`,
+      action: `/api/admin/learning/quizes/${quiz.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', required: true }
+            { label: 'Title', name: 'title', type: 'textfield', required: true },
+            { label: 'Questions', name: 'questions', type: Questions, required: true }
           ]
         }
       ]

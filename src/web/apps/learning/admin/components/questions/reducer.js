@@ -6,29 +6,19 @@ const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'FETCH_REQUEST':
+  case 'ADD':
     return {
       ...state,
-      status: 'loading'
-    }
-
-  case 'FETCH_FAILURE':
-    return {
-      ...state,
-      status: 'failed'
-    }
-
-  case 'FETCH_SUCCESS':
-    return {
-      ...state,
-      status: 'success',
-      questions: action.result.data
+      questions: [
+        ...state.questions,
+        action.question
+      ]
     }
 
   case 'MOVE':
     return {
       ...state,
-      questions: (action.from < action.to) ? [
+      questions: ((action.from < action.to) ? [
         ...state.questions.slice(0, action.from),
         ...state.questions.slice(action.from + 1, action.to + 1),
         state.questions[action.from],
@@ -38,7 +28,16 @@ const reducer = (state = INITIAL_STATE, action) => {
         state.questions[action.from],
         ...state.questions.slice(action.to, action.from),
         ...state.questions.slice(action.from + 1)
-      ]
+      ]).map((question, index) => ({
+        ...question,
+        delta: index
+      }))
+    }
+
+  case 'SET':
+    return {
+      ...state,
+      questions: action.questions
     }
 
   default:
