@@ -17,3 +17,9 @@ export const remove = (index) => ({
   type: 'REMOVE',
   index
 })
+
+export const update = (index, value) => ({
+  type: 'UPDATE',
+  index,
+  value
+})

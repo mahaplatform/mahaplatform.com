@@ -13,11 +13,13 @@ class Answers extends React.PureComponent {
     expanded: PropTypes.array,
     answers: PropTypes.array,
     onAdd: PropTypes.func,
+    onChange: PropTypes.func,
     onChoose: PropTypes.func,
     onMove: PropTypes.func,
     onReady: PropTypes.func,
     onRemove: PropTypes.func,
-    onReorder: PropTypes.func
+    onReorder: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   static defaultProps = {}
@@ -30,11 +32,11 @@ class Answers extends React.PureComponent {
       <div className="answers">
         { answers.length === 0 &&
           <div className="answers-empty">
-            There are no answers for this question
+            There are not yet any answers to this question
           </div>
         }
         { answers.map((answer, index) => (
-          <Answer { ...this._getAnswer(answer, index) } key={`answer_${answer.id}`} />
+          <Answer { ...this._getAnswer(answer, index) } key={`answer_${index}`} />
         ))}
         <div className="answers-footer">
           <div className="ui blue fluid button" onClick={ this._handleAdd }>
@@ -47,19 +49,22 @@ class Answers extends React.PureComponent {
 
   componentDidMount() {
     this.props.onReady()
+    this.props.onChange([
+      { text: 'One', is_correct: false },
+      { text: 'Two', is_correct: true },
+      { text: 'Three', is_correct: false }
+    ])
   }
 
-  componentDidUpdate(prevProps) {}
-
   _getAnswer(answer, index) {
-    const { correct_answer, onChoose, onMove, onRemove } = this.props
+    const { onChoose, onMove, onRemove, onUpdate } = this.props
     return {
-      correct_answer,
       answer,
       index,
       onChoose,
       onMove,
-      onRemove
+      onRemove,
+      onUpdate
     }
   }
 
