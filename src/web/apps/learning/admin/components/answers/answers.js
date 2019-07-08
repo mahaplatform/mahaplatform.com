@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import Answer from './answer'
 import React from 'react'
+import _ from 'lodash'
 
 class Answers extends React.PureComponent {
 
@@ -9,16 +10,16 @@ class Answers extends React.PureComponent {
   }
 
   static propTypes = {
-    correct_answer: PropTypes.number,
+    defaultValue: PropTypes.number,
     expanded: PropTypes.array,
     answers: PropTypes.array,
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
     onChoose: PropTypes.func,
-    onMove: PropTypes.func,
     onReady: PropTypes.func,
     onRemove: PropTypes.func,
     onReorder: PropTypes.func,
+    onSet: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -48,21 +49,24 @@ class Answers extends React.PureComponent {
   }
 
   componentDidMount() {
+    const { defaultValue } = this.props
+    if(defaultValue) return this._handleSet(defaultValue)
     this.props.onReady()
-    this.props.onChange([
-      { text: 'One', is_correct: false },
-      { text: 'Two', is_correct: true },
-      { text: 'Three', is_correct: false }
-    ])
+  }
+
+  componentDidUpdate(prevProps) {
+    const { answers } = this.props
+    if(!_.isEqual(answers, prevProps.answers)) {
+      this.props.onChange(answers)
+    }
   }
 
   _getAnswer(answer, index) {
-    const { onChoose, onMove, onRemove, onUpdate } = this.props
+    const { onChoose, onRemove, onUpdate } = this.props
     return {
       answer,
       index,
       onChoose,
-      onMove,
       onRemove,
       onUpdate
     }
@@ -70,6 +74,11 @@ class Answers extends React.PureComponent {
 
   _handleAdd() {
     this.props.onAdd()
+  }
+
+  _handleSet(answers) {
+    this.props.onSet(answers)
+    this.props.onReady()
   }
 
 }

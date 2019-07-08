@@ -1,7 +1,6 @@
 const INITIAL_STATE = {
-  correct_answer: 0,
   answers: [
-    { text: '' }
+    { text: '', is_active: true, is_correct: true }
   ]
 }
 
@@ -14,43 +13,40 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       answers: [
         ...state.answers,
-        { text: '' }
+        { text: '', is_active: true, is_correct: false }
       ]
     }
 
   case 'CHOOSE':
     return {
       ...state,
-      correct_answer: action.index
-    }
-
-  case 'MOVE':
-    return {
-      ...state,
-      answers: (action.from < action.to) ? [
-        ...state.answers.slice(0, action.from),
-        ...state.answers.slice(action.from + 1, action.to + 1),
-        state.answers[action.from],
-        ...state.answers.slice(action.to + 1)
-      ] : [
-        ...state.answers.slice(0, action.to),
-        state.answers[action.from],
-        ...state.answers.slice(action.to, action.from),
-        ...state.answers.slice(action.from + 1)
+      answers: [
+        ...state.answers.map((answer, index) => ({
+          ...answer,
+          is_correct: index === action.index
+        }))
       ]
     }
 
   case 'REMOVE':
     return {
       ...state,
-      correct_answer: action.index === state.correct_answer ? Math.max(action.index - 1, 0) : state.correct_answer,
       answers: state.answers.length > 1 ? [
-        ...state.answers.filter((answer, index) => {
-          return index !== action.index
+        ...state.answers.map((answer, index) => ({
+          ...answer,
+          is_active: index === action.index ? false : answer.is_active
+        })).filter((answer, index) => {
+          return !(answer.id === undefined && index === action.index)
         })
       ] : [
-        { text: '' }
+        { text: '', is_active: true, is_correct: true }
       ]
+    }
+
+  case 'SET':
+    return {
+      ...state,
+      answers: action.answers
     }
 
   case 'UPDATE':

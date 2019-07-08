@@ -14,10 +14,6 @@ const Question = new Model({
     return this.hasMany(Answer, 'question_id')
   },
 
-  correct_answer() {
-    return this.hasMany(Answer, 'correct_answer_id')
-  },
-
   quiz() {
     return this.belongsTo(Quiz, 'quiz_id')
   }
