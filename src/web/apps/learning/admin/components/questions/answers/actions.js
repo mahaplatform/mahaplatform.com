@@ -7,12 +7,6 @@ export const choose = (index) => ({
   index
 })
 
-export const move = (from, to) => ({
-  type: 'MOVE',
-  from,
-  to
-})
-
 export const remove = (index) => ({
   type: 'REMOVE',
   index

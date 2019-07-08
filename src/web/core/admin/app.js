@@ -70,7 +70,6 @@ import drivechat from '../../apps/drive/admin/components/share/chat'
 import driveshare from '../../apps/drive/admin/components/share'
 import driveversions from '../../apps/drive/admin/components/versions'
 import expensestripsImportFinalize from '../../apps/expenses/admin/components/trips_import_finalize'
-import competenciesanswers from '../../apps/learning/admin/components/answers'
 import competenciescommitments from '../../apps/learning/admin/components/commitments'
 import competenciesgoals from '../../apps/learning/admin/components/goals'
 import competenciesanswers from '../../apps/learning/admin/components/questions/answers'
@@ -273,7 +272,6 @@ class App extends React.Component {
       driveshare,
       driveversions,
       expensestripsImportFinalize,
-      competenciesanswers,
       competenciescommitments,
       competenciesgoals,
       competenciesanswers,

@@ -28,18 +28,35 @@ const reducer = (state = INITIAL_STATE, action) => {
       ]
     }
 
+  case 'MOVE':
+    return {
+      ...state,
+      answers: ((action.from < action.to) ? [
+        ...state.answers.slice(0, action.from),
+        ...state.answers.slice(action.from + 1, action.to + 1),
+        state.answers[action.from],
+        ...state.answers.slice(action.to + 1)
+      ] : [
+        ...state.answers.slice(0, action.to),
+        state.answers[action.from],
+        ...state.answers.slice(action.to, action.from),
+        ...state.answers.slice(action.from + 1)
+      ]).map((answer, index) => ({
+        ...answer,
+        delta: index
+      }))
+    }
+
   case 'REMOVE':
     return {
       ...state,
-      answers: state.answers.length > 1 ? [
+      answers: [
         ...state.answers.map((answer, index) => ({
           ...answer,
-          is_active: index === action.index ? false : answer.is_active
+          is_active: index === action.index ? !answer.is_active : answer.is_active
         })).filter((answer, index) => {
           return !(answer.id === undefined && index === action.index)
         })
-      ] : [
-        { text: '', is_active: true, is_correct: true }
       ]
     }
 

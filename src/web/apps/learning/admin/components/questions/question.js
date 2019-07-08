@@ -1,7 +1,6 @@
 import { DragSource, DropTarget } from 'react-dnd'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Edit from './edit'
 
 class Question extends React.PureComponent {
 

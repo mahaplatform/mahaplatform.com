@@ -16,7 +16,6 @@ class Answers extends React.PureComponent {
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
     onChoose: PropTypes.func,
-    onMove: PropTypes.func,
     onReady: PropTypes.func,
     onRemove: PropTypes.func,
     onReorder: PropTypes.func,
@@ -63,12 +62,11 @@ class Answers extends React.PureComponent {
   }
 
   _getAnswer(answer, index) {
-    const { onChoose, onMove, onRemove, onUpdate } = this.props
+    const { onChoose, onRemove, onUpdate } = this.props
     return {
       answer,
       index,
       onChoose,
-      onMove,
       onRemove,
       onUpdate
     }
