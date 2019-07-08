@@ -6,7 +6,6 @@ import destroy from './destroy'
 import lessons from './lessons'
 import create from './create'
 import update from './update'
-import quizes from './quizes'
 import edit from './edit'
 import list from './list'
 import show from './show'
@@ -32,7 +31,5 @@ router.use('/:training_id/lessons', lessons)
 router.use('/:training_id/materials', materials)
 
 router.use('/:training_id/offerings', offerings)
-
-router.use('/:training_id/quizes', quizes)
 
 export default router
