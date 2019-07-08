@@ -1,29 +1,13 @@
-import PropTypes from 'prop-types'
-import React from 'react'
+import { Factory } from 'redux-rubberstamp'
+import reducer from './reducer'
+import Assignmentfield from './assignmentfield'
+import * as selectors from './selectors'
+import * as actions from './actions'
 
-class AssignmentField extends React.Component {
-
-  static contextTypes = {
-  }
-
-  static propTypes = {
-    onReady: PropTypes.func
-  }
-
-  static defaultProps = {
-  }
-
-  render() {
-    return (
-      <div>foo</div>
-    )
-  }
-
-  componentDidMount() {
-    this.props.onReady()
-  }
-
-
-}
-
-export default AssignmentField
+export default Factory({
+  namespace: 'assignmentfield',
+  component: Assignmentfield,
+  reducer,
+  selectors,
+  actions
+})

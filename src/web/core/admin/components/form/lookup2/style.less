@@ -1,8 +1,7 @@
 .maha-lookup2-field {
   &.multiple {
     .maha-lookup2-item {
-      display: block;
-      float: left;
+      display: inline-block;
     }
   }
 
@@ -16,26 +15,31 @@
 }
 .maha-lookup2-items {
   border: 1px solid fadeout(@black, 90);
-  padding: 0.4em 0 0 0.4em;
+  padding: 0.8em;
   border-radius: 0.5em;
   background-color: @white;
   overflow: hidden;
   min-height: 2.5em;
+  .maha-lookup2-item:last-child {
+    &:after {
+      content: "";
+    }
+  }
 }
 .maha-lookup2-item {
-  border: 1px solid fadeout(@black, 90);
-  margin: 0 0.4em 0.4em 0;
-  border-radius: 0.5em;
-  background-color: fadeout(@black, 98);
+  & > div {
+    display: inline-block;
+  }
+  &:after {
+    content: ",";
+    margin-right: 0.5em;
+  }
 }
 .maha-lookup2-item-content {
   display: flex;
 }
 .maha-lookup2-item-token {
   flex: 1;
-  .maha-lookup2-token {
-    padding: 0.4em;
-  }
   .compact-user-token-avatar {
     padding: 0.4em;
   }
@@ -46,7 +50,9 @@
     width: 1.6em !important;
   }
 }
-
+.maha-lookup2-token {
+  padding: 0.8em;
+}
 .maha-lookup2-item-remove {
   padding: 0.4em 0.4em 0.4em 0;
   display: flex;
@@ -58,9 +64,6 @@
     color: fadeout(@black, 80);
     cursor: pointer;
   }
-}
-.maha-lookup2-token {
-  padding: 0.8em;
 }
 .maha-lookup2-placeholder {
   color: fadeout(@black, 70);

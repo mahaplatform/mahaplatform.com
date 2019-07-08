@@ -1,0 +1,27 @@
+.assignmentfield {
+  border: 1px solid rgba(34,36,38,.15);
+  border-radius: .28571429rem;
+  display: flex;
+  background: @white;
+  padding: 0.8em;
+  &:focus {
+    outline: none !important;
+    border-color: #85B7D9;
+    border-radius: .28571429rem;
+    background: #FFF;
+    box-shadow: 0 0 0 0 rgba(34,36,38,.35) inset;
+  }
+  .assignmentfield-token:last-child {
+    &:after {
+      content: "";
+    }
+  }
+}
+.assignmentfield-token {
+  color: @blue;
+  &:after {
+    color: @black;
+    content: ",";
+    margin: 0 5px;
+  }
+}
