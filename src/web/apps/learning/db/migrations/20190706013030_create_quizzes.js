@@ -10,6 +10,7 @@ const Quiz = {
       table.integer('lesson_id').unsigned()
       table.foreign('lesson_id').references('learning_lessons.id')
       table.string('title')
+      table.integer('passing_score')
       table.timestamps()
     })
   },

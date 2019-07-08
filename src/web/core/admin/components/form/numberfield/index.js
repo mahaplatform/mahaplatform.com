@@ -9,7 +9,7 @@ const REGEX = /^-?[0-9]*\.?[0-9]*$/
 class NumberField extends React.Component {
 
   static propTypes = {
-    defaultValue: PropTypes.object,
+    defaultValue: PropTypes.number,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }

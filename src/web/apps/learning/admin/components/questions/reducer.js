@@ -40,6 +40,16 @@ const reducer = (state = INITIAL_STATE, action) => {
       questions: action.questions
     }
 
+  case 'UPDATE':
+    return {
+      ...state,
+      questions: [
+        ...state.questions.map((question) => ({
+          ...(question.delta === action.question.delta) ? action.question : question
+        }))
+      ]
+    }
+
   default:
     return state
   }

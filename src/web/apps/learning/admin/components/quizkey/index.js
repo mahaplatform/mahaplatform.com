@@ -9,7 +9,9 @@ const QuizKey = ({ quiz }) => (
           { question.text }
         </span>
         <div className="quizkey-answers">
-          { question.answers.map((answer, index2) => (
+          { question.answers.filter(answer => {
+            return answer.is_active
+          }).map((answer, index2) => (
             <div className={`quizkey-answer ${answer.is_correct ? 'correct' : ''}`} key={`answer_${index2}`}>
               { answer.text }
             </div>
