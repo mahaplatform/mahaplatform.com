@@ -23,7 +23,7 @@ class Form extends React.Component {
     data: PropTypes.object,
     errors: PropTypes.object,
     endpoint: PropTypes.string,
-    entity: PropTypes.object,
+    entity: PropTypes.any,
     fields: PropTypes.array,
     filtered: PropTypes.object,
     instructions: PropTypes.any,

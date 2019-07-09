@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { AssigneeToken, Form } from 'maha-admin'
+import { Form } from 'maha-admin'
 
 class New extends React.Component {
 

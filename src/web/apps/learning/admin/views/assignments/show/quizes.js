@@ -1,19 +1,26 @@
 import QuizToken from '../../../tokens/quiz_token'
+import Quiz from '../../../components/quiz'
+import { Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { List } from 'maha-admin'
 import React from 'react'
 
 const Quizes = ({ training, quizes }) => {
 
+  const _getButton = (quiz) => ({
+    label: 'Take Quiz',
+    color: 'blue',
+    modal: <Quiz id={ quiz.id } />
+  })
+
   const list = {
     items: quizes.map(quiz => ({
-      component: () => (
+      component: (
         <div className="administration-token">
           <div className="administration-token-quiz">
             <QuizToken { ...quiz } />
           </div>
           <div className="administration-token-action">
-            <button className="ui small blue button">Take Quiz</button>
+            <Button { ..._getButton(quiz) } />
           </div>
         </div>
       )

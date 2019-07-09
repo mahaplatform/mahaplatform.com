@@ -74,6 +74,7 @@ import competenciescommitments from '../../apps/learning/admin/components/commit
 import competenciesgoals from '../../apps/learning/admin/components/goals'
 import competenciesanswers from '../../apps/learning/admin/components/questions/answers'
 import competenciesquestions from '../../apps/learning/admin/components/questions'
+import competenciesquiz from '../../apps/learning/admin/components/quiz'
 import competenciesresources from '../../apps/learning/admin/components/resources'
 import mahaprofiles from '../../apps/maha/admin/components/account/account/profiles'
 import mahanotificationTypes from '../../apps/maha/admin/components/account/notifications/notification_types'
@@ -276,6 +277,7 @@ class App extends React.Component {
       competenciesgoals,
       competenciesanswers,
       competenciesquestions,
+      competenciesquiz,
       competenciesresources,
       mahaprofiles,
       mahanotificationTypes,

@@ -64,7 +64,7 @@ class NumberField extends React.Component {
 
   _handleChange() {
     this.setState({
-      value: this.number.value
+      value: Number(this.number.value)
     })
   }
 
