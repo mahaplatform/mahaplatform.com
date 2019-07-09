@@ -7,6 +7,7 @@ const mapPropsToPage = (props, context) => ({
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Training', key: 'training.title', primary: true },
+      { label: 'Assigned', key: 'created_at', primary: false, format: 'date' },
       { label: 'Completed', key: 'is_complete', primary: false, format: 'check' }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },

@@ -45,7 +45,9 @@ class Model {
 
       audit: function() {
         const Audit = require('../../apps/maha/models/audit').default
-        return this.morphMany(Audit, 'auditable')
+        return this.morphMany(Audit, 'auditable').query(qb => {
+          qb.orderBy('created_at', 'asc')
+        })
       },
 
       comments: function() {

@@ -1,10 +1,10 @@
+import { Audit, List } from 'maha-admin'
 import Registration from '../registration'
-import { List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import React from 'react'
 
-const Details = ({ assignment }) => {
+const Details = ({ user, assignment }) => {
 
   const list = {}
 
@@ -28,7 +28,7 @@ const Details = ({ assignment }) => {
     list.items.push({ label: 'Contact', content: assignment.training.contact })
   }
 
-  if(assignment.training.type === 'local') {
+  if(assignment.training.type === 'local' && !assignment.completed_at) {
     if(assignment.offering) {
       list.items.push({
         label: 'Registration',
@@ -41,11 +41,13 @@ const Details = ({ assignment }) => {
           </div>
         )
       })
-      list.buttons = [{
-        label: 'Change Registration',
-        color: 'green',
-        modal: <Registration assignment={ assignment } />
-      }]
+      if(user.id == assignment.employee.id) {
+        list.buttons = [{
+          label: 'Change Registration',
+          color: 'green',
+          modal: <Registration assignment={ assignment } />
+        }]
+      }
     } else {
       list.items.push({
         label: 'Registration',
@@ -53,20 +55,25 @@ const Details = ({ assignment }) => {
           <span className="error">You have not yet registered to attend an offering of this training</span>
         )
       })
-      list.buttons = [{
-        label: 'Register for a training',
-        color: 'green',
-        modal: <Registration assignment={ assignment } />
-      }]
+      if(user.id == assignment.employee.id) {
+        list.buttons = [{
+          label: 'Register for a training',
+          color: 'green',
+          modal: <Registration assignment={ assignment } />
+        }]
+      }
     }
   }
+
+  list.items.push({ component: <Audit entries={ assignment.audit } /> })
 
   return <List { ...list } />
 
 }
 
 Details.propTypes = {
-  assignment: PropTypes.object
+  assignment: PropTypes.object,
+  user: PropTypes.object
 }
 
 export default Details

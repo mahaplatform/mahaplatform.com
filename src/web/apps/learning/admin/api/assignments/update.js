@@ -1,5 +1,5 @@
 import AssignmentSerializer from '../../../serializers/assignment_serializer'
-import { activity } from '../../../../../core/services/routes/activities'
+import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import Assignment from '../../../models/assignment'
 
@@ -29,6 +29,11 @@ const updateRoute = async (req, res) => {
   }, {
     patch: true,
     transacting: req.trx
+  })
+
+  await audit(req, {
+    story: 'regstration changed',
+    auditable: assignment
   })
 
   // await activity(req, {

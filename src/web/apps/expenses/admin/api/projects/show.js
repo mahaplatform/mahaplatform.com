@@ -13,9 +13,7 @@ const showRoute = async (req, res) => {
     }
     qb.where('expenses_projects.id', req.params.id)
   }).fetch({
-    withRelated:[
-      { audit: qb => qb.orderBy('created_at', 'asc') },'audit.story','audit.user.photo'
-    ],
+    withRelated:['audit.story','audit.user.photo'],
     transacting: req.trx
   })
 

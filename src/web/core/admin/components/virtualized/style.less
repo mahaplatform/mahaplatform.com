@@ -4,14 +4,6 @@
 }
 .virtualized-container {
   flex: 1;
-  overflow-y: scroll;
-}
-.virtualized-inner {
-  overflow: hidden;
-  position: relative;
-}
-.virtualized-row {
-  position: absolute;
-  left: 0;
-  width: 100%;
+  .scrollable();
+  will-change: transform;
 }
