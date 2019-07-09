@@ -6,7 +6,6 @@ import PropTypes from 'prop-types'
 import Loader from '../../loader'
 import Assigned from './assigned'
 import React from 'react'
-import Unassigned from './unassigned'
 
 class Assign extends React.Component {
 
@@ -33,7 +32,6 @@ class Assign extends React.Component {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    const { unassigned } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         { !this.state.ready && <Loader /> }

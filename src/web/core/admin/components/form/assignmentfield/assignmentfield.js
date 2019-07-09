@@ -69,14 +69,6 @@ class AssignmentField extends React.Component {
     }
   }
 
-  _getAssign() {
-    const { assignments, unassigned } = this.props
-    return {
-      assignments,
-      unassigned
-    }
-  }
-
   _handleAssign() {
     this.context.form.push(<Assign { ...this._getAssign() } />)
   }
