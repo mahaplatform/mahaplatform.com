@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import Loader from '../../loader'
 import Assigned from './assigned'
 import React from 'react'
+import Unassigned from './unassigned'
 
 class Assign extends React.Component {
 
