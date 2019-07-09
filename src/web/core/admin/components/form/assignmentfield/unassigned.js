@@ -1,19 +1,16 @@
 import AssigneeToken from '../../../tokens/assignee'
-import ModalPanel from '../../modal_panel'
-import Loader from '../../loader'
+import Virtualized from '../../virtualized'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Unassigned from './unassigned'
 
-class Assign extends React.Component {
+class Unassigned extends React.Component {
 
   static contextTypes = {
     form: PropTypes.object
   }
 
   static propTypes = {
-    unassigned: PropTypes.array,
-    assignments: PropTypes.array
+    unassigned: PropTypes.array
   }
 
   static defaultProps = {
@@ -22,23 +19,18 @@ class Assign extends React.Component {
   state = {
     ready: false
   }
-
-  _handleCancel = this._handleCancel.bind(this)
-  _handleDone = this._handleDone.bind(this)
-
   render() {
+    return (
+      <div className="maha-assignment-unassigned">
+        <Virtualized { ...this._getVirtualized() } />
+      </div>
+    )
+  }
+
+  rowRender(index) {
     const { unassigned } = this.props
     return (
-      <ModalPanel { ...this._getPanel() }>
-        { !this.state.ready && <Loader /> }
-        { this.state.ready &&
-          <div className="maha-assignment">
-            <div className="maha-assignment-body">
-              <Unassigned { ...this._getUnassigned() } />
-            </div>
-          </div>
-        }
-      </ModalPanel>
+      <AssigneeToken { ...unassigned[index] } />
     )
   }
 
@@ -62,10 +54,12 @@ class Assign extends React.Component {
     }
   }
 
-  _getUnassigned() {
+  _getVirtualized() {
     const { unassigned } = this.props
     return {
-      unassigned
+      rowCount: unassigned.length,
+      rowHeight: 50,
+      rowRender: this.rowRender.bind(this)
     }
   }
 
@@ -79,4 +73,4 @@ class Assign extends React.Component {
 
 }
 
-export default Assign
+export default Unassigned
