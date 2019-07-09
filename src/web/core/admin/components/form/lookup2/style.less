@@ -15,25 +15,19 @@
 }
 .maha-lookup2-items {
   border: 1px solid fadeout(@black, 90);
-  padding: 0.8em;
+  padding: 0.2em;
   border-radius: 0.5em;
   background-color: @white;
   overflow: hidden;
   min-height: 2.5em;
-  .maha-lookup2-item:last-child {
-    &:after {
-      content: "";
-    }
-  }
 }
 .maha-lookup2-item {
-  & > div {
-    display: inline-block;
-  }
-  &:after {
-    content: ",";
-    margin-right: 0.5em;
-  }
+  display: inline-block;
+  margin: 0.2em;
+  padding: 0.2em 0.5em;
+  background-color: fadeout(@black, 95);
+  color: fadeout(@black, 40);
+  border-radius: 0.2em;
 }
 .maha-lookup2-item-content {
   display: flex;

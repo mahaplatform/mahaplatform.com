@@ -36,9 +36,7 @@ class AssignmentField extends React.Component {
       <div className="assignmentfield" onClick={ this._handleAssign }>
         { assigned.map((assignee, index) => (
           <div className="assignmentfield-token" key={`assignment_${index}`}>
-            { assignee.user && assignee.user.full_name }
-            { assignee.group && assignee.group.title }
-            { assignee.is_everyone && <span>Everyone</span> }
+            { assignee.full_name }
           </div>
         )) }
       </div>
