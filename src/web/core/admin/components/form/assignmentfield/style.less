@@ -1,7 +1,6 @@
 .assignmentfield {
   border: 1px solid rgba(34,36,38,.15);
   border-radius: .28571429rem;
-  display: flex;
   background: @white;
   padding: 0.8em;
   min-height: 2.5em;
@@ -19,10 +18,9 @@
   }
 }
 .assignmentfield-token {
-  color: @blue;
+  display: inline-block;
   &:after {
-    color: @black;
     content: ",";
-    margin: 0 5px;
+    margin-right: 5px;
   }
 }

@@ -4,7 +4,8 @@ const offeringSerializer = (req, result) => ({
   offering: offering(result.related('offering')),
   assigned_by: user(result.related('assigned_by')),
   employee: user(result.related('employee')),
-  is_complete: result.get('is_complete'),
+  audit: result.related('audit').map(audit),
+  completed_at: result.get('completed_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
@@ -80,6 +81,14 @@ const offering = (offering) => {
     location: offering.get('location')
   }
 }
+
+const audit = (entry) => ({
+  id: entry.get('id'),
+  user: user(entry.related('user')),
+  story: entry.related('story').get('text'),
+  created_at: entry.get('created_at'),
+  updated_at: entry.get('updated_at')
+})
 
 const user = (user) => {
   if(!user.id) return null

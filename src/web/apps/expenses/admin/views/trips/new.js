@@ -20,8 +20,8 @@ class New extends React.Component {
   }
 
   _handleCancel = this._handleCancel.bind(this)
-  _handleSuccess = this._handleSuccess.bind(this)
   _handleChangeField = this._handleChangeField.bind(this)
+  _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
     return <Form {...this._getForm()} />
@@ -33,8 +33,8 @@ class New extends React.Component {
       method: 'post',
       action: '/api/admin/expenses/trips',
       onCancel: this._handleCancel,
-      onSuccess: this._handleSuccess,
       onChangeField: this._handleChangeField,
+      onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [

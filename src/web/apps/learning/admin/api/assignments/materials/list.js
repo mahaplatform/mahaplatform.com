@@ -1,6 +1,6 @@
 const listRoute = async (req, res) => {
 
-  res.status(200).respond()
+  res.status(200).respond([])
 
 }
 

@@ -1,9 +1,11 @@
-import AssigneeToken from '../../../tokens/assignee'
+import { assigned, unassigned } from './selectors'
 import ModalPanel from '../../modal_panel'
-import Loader from '../../loader'
-import PropTypes from 'prop-types'
-import React from 'react'
 import Unassigned from './unassigned'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import Loader from '../../loader'
+import Assigned from './assigned'
+import React from 'react'
 
 class Assign extends React.Component {
 
@@ -12,8 +14,11 @@ class Assign extends React.Component {
   }
 
   static propTypes = {
+    assigned: PropTypes.array,
     unassigned: PropTypes.array,
-    assignments: PropTypes.array
+    onAdd: PropTypes.func,
+    onQuery: PropTypes.func,
+    onRemove: PropTypes.func
   }
 
   static defaultProps = {
@@ -27,13 +32,13 @@ class Assign extends React.Component {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    const { unassigned } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         { !this.state.ready && <Loader /> }
         { this.state.ready &&
           <div className="maha-assignment">
             <div className="maha-assignment-body">
+              <Assigned { ...this._getAssigned() } />
               <Unassigned { ...this._getUnassigned() } />
             </div>
           </div>
@@ -62,10 +67,20 @@ class Assign extends React.Component {
     }
   }
 
-  _getUnassigned() {
-    const { unassigned } = this.props
+  _getAssigned() {
+    const { assigned, onRemove } = this.props
     return {
-      unassigned
+      assigned,
+      onRemove
+    }
+  }
+
+  _getUnassigned() {
+    const { unassigned, onAdd, onQuery } = this.props
+    return {
+      unassigned,
+      onAdd,
+      onQuery
     }
   }
 
@@ -79,4 +94,10 @@ class Assign extends React.Component {
 
 }
 
-export default Assign
+const mapStateToProps = (state, props) => ({
+  assigned: assigned(state.maha.assignmentfield[props.cid], props),
+  q: state.maha.assignmentfield[props.cid].q,
+  unassigned: unassigned(state.maha.assignmentfield[props.cid], props)
+})
+
+export default connect(mapStateToProps)(Assign)

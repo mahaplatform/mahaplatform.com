@@ -46,10 +46,7 @@ const updateRoute = async (req, res) => {
     `/admin/learning/plans/${plan.get('id')}`
   ])
 
-  await plan.load([
-    { audit: qb => qb.orderBy('created_at', 'asc') },'audit.story','audit.user.photo',
-    'employee.photo','supervisor.photo','goals','commitments'
-  ], {
+  await plan.load(['audit.story','audit.user.photo','employee.photo','supervisor.photo','goals','commitments'], {
     transacting: req.trx
   })
 

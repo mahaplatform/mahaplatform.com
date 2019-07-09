@@ -10,8 +10,13 @@ class NumberField extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.number,
+    placeholder: PropTypes.string,
     onChange: PropTypes.func,
     onReady: PropTypes.func
+  }
+
+  static defaultProps = {
+    placeholder: 'Enter a number'
   }
 
   number = null
@@ -44,11 +49,12 @@ class NumberField extends React.Component {
   }
 
   _getInput() {
+    const { placeholder } = this.props
     const { value } = this.state
     return {
       className: 'ui input',
       type: 'text',
-      placeholder: 'Number',
+      placeholder,
       value,
       ref: node => this.number = node,
       onChange: this._handleChange,

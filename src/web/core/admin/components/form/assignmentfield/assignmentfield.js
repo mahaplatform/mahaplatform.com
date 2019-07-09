@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
-import React from 'react'
 import Assign from './assign'
+import React from 'react'
+import _ from 'lodash'
 
 class AssignmentField extends React.Component {
 
@@ -9,11 +10,18 @@ class AssignmentField extends React.Component {
   }
 
   static propTypes = {
+    assigned: PropTypes.array,
     assignments: PropTypes.array,
+    cid: PropTypes.string,
+    q: PropTypes.string,
     status: PropTypes.string,
     unassigned: PropTypes.array,
+    onAdd: PropTypes.func,
+    onChange: PropTypes.func,
     onFetch: PropTypes.func,
-    onReady: PropTypes.func
+    onQuery: PropTypes.func,
+    onReady: PropTypes.func,
+    onRemove: PropTypes.func
   }
 
   static defaultProps = {
@@ -22,15 +30,15 @@ class AssignmentField extends React.Component {
   _handleAssign = this._handleAssign.bind(this)
 
   render() {
-    const { assignments, status } = this.props
+    const { assigned, status } = this.props
     if(status !== 'ready') return null
     return (
       <div className="assignmentfield" onClick={ this._handleAssign }>
-        { assignments.map((assignment, index) => (
+        { assigned.map((assignee, index) => (
           <div className="assignmentfield-token" key={`assignment_${index}`}>
-            { assignment.user && assignment.user.full_name }
-            { assignment.group && assignment.group.title }
-            { assignment.is_everyone && <span>Everyone</span> }
+            { assignee.user && assignee.user.full_name }
+            { assignee.group && assignee.group.title }
+            { assignee.is_everyone && <span>Everyone</span> }
           </div>
         )) }
       </div>
@@ -42,17 +50,22 @@ class AssignmentField extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { status } = this.props
+    const { status, assignments } = this.props
     if(status !== prevProps.status) {
       if(status === 'ready') this.props.onReady()
+    }
+    if(!_.isEqual(assignments, prevProps.assignments)) {
+      this.props.onChange(assignments)
     }
   }
 
   _getAssign() {
-    const { assignments, unassigned } = this.props
+    const { cid, onAdd, onQuery, onRemove } = this.props
     return {
-      assignments,
-      unassigned
+      cid,
+      onAdd,
+      onQuery,
+      onRemove
     }
   }
 

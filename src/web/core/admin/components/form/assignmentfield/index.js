@@ -5,7 +5,7 @@ import * as selectors from './selectors'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'assignmentfield',
+  namespace: 'maha.assignmentfield',
   component: Assignmentfield,
   reducer,
   selectors,
