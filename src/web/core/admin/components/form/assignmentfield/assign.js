@@ -32,6 +32,7 @@ class Assign extends React.Component {
   _handleDone = this._handleDone.bind(this)
 
   render() {
+    const { unassigned } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         { !this.state.ready && <Loader /> }
