@@ -1,5 +1,6 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
+import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import Assignment from '../../../models/assignment'
 import moment from 'moment'
@@ -25,6 +26,11 @@ const completeRoute = async (req, res) => {
   }, {
     patch: true,
     transacting: req.trx
+  })
+
+  await audit(req, {
+    story: 'completed',
+    auditable: assignment
   })
 
   // await activity(req, {

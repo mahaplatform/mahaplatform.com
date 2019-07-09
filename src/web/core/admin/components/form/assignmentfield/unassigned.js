@@ -1,5 +1,6 @@
 import AssigneeToken from '../../../tokens/assignee'
 import Virtualized from '../../virtualized'
+import Searchbox from '../../searchbox'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -10,19 +11,23 @@ class Unassigned extends React.Component {
   }
 
   static propTypes = {
-    unassigned: PropTypes.array
+    unassigned: PropTypes.array,
+    onQuery: PropTypes.func,
+    onAdd: PropTypes.func
   }
 
   static defaultProps = {
   }
 
-  state = {
-    ready: false
-  }
   render() {
     return (
       <div className="maha-assignment-unassigned">
-        <Virtualized { ...this._getVirtualized() } />
+        <div className="maha-assignment-unassigned-header">
+          <Searchbox { ...this._getSearchbox() } />
+        </div>
+        <div className="maha-assignment-unassigned-body">
+          <Virtualized { ...this._getVirtualized() } />
+        </div>
       </div>
     )
   }
@@ -30,27 +35,16 @@ class Unassigned extends React.Component {
   rowRender(index) {
     const { unassigned } = this.props
     return (
-      <AssigneeToken { ...unassigned[index] } />
+      <div className="maha-assignment-unassigned-item" onClick={ this._handleAdd.bind(this, unassigned[index])}>
+        <AssigneeToken { ...unassigned[index] } />
+      </div>
     )
   }
 
-  componentDidMount() {
-    setTimeout(() => {
-      this.setState({
-        ready: true
-      })
-    }, 350)
-  }
-
-  _getPanel() {
+  _getSearchbox() {
     return {
-      title: 'Assign Users',
-      leftItems: [
-        { label: 'Cancel', handler: this._handleCancel.bind(this) }
-      ],
-      rightItems: [
-        { label: 'Done', handler: this._handleDone.bind(this) }
-      ]
+      prompt: 'Find a user',
+      onChange: this.props.onQuery
     }
   }
 
@@ -63,12 +57,12 @@ class Unassigned extends React.Component {
     }
   }
 
-  _handleCancel() {
-    this.context.form.pop()
-  }
-
-  _handleDone() {
-    this.context.form.pop()
+  _handleAdd(assignee) {
+    this.props.onAdd({
+      is_everyone: assignee.is_everyone,
+      group_id: assignee.group ? assignee.group.id : null,
+      user_id: assignee.user ? assignee.user.id : null
+    })
   }
 
 }

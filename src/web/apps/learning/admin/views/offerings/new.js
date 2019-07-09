@@ -13,7 +13,12 @@ class New extends React.Component {
     training: PropTypes.object
   }
 
+  state = {
+    starts_at: '0:00'
+  }
+
   _handleCancel = this._handleCancel.bind(this)
+  _handleChangeField = this._handleChangeField.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
@@ -27,20 +32,31 @@ class New extends React.Component {
       method: 'post',
       action: `/api/admin/learning/trainings/${training.id}/offerings`,
       onCancel: this._handleCancel,
+      onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
             { label: 'Date', name: 'date', type: 'datefield', required: true },
             { label: 'Start Time', name: 'starts_at', type: 'timefield', required: true },
-            { label: 'End Time', name: 'ends_at', type: 'timefield', required: true },
-            { label: 'Location', name: 'location', type: 'textfield' },
-            { label: 'Facilitator', name: 'facilitator', type: 'textfield' },
-            { label: 'Limit', name: 'limit', type: 'numberfield' }
+            this._getEndsAt(),
+            { label: 'Location', name: 'location', type: 'textfield', placeholder: 'Indicate where the training will occur' },
+            { label: 'Facilitator', name: 'facilitator', type: 'textfield', placeholder: 'Indicate who will facilitate the training' },
+            { label: 'Limit', name: 'limit', type: 'numberfield', placeholder: 'Specify the maximum number of attendees' }
           ]
         }
       ]
     }
+  }
+
+  _getEndsAt() {
+    const { starts_at } = this.state
+    return { label: 'End Time', name: 'ends_at', type: 'timefield', start: starts_at, required: true, duration: true }
+  }
+
+  _handleChangeField(key, value) {
+    if(key !== 'starts_at') return
+    this.setState({ starts_at: value })
   }
 
   _handleCancel() {

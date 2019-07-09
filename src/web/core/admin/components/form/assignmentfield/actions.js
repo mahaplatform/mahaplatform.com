@@ -11,3 +11,18 @@ export const fetch = (endpoint) => ({
   success: 'FETCH_SUCCESS',
   failure: 'FETCH_FAILURE'
 })
+
+export const add = (assignee) => ({
+  type: 'ADD',
+  assignee
+})
+
+export const query = (q) => ({
+  type: 'QUERY',
+  q
+})
+
+export const remove = (index) => ({
+  type: 'REMOVE',
+  index
+})

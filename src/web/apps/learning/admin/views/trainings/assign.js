@@ -9,6 +9,10 @@ class New extends React.Component {
     router: PropTypes.object
   }
 
+  static propTypes = {
+    training: PropTypes.object
+  }
+
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
@@ -17,10 +21,11 @@ class New extends React.Component {
   }
 
   _getForm() {
+    const { training } = this.props
     return {
       title: 'Assign Trainings',
       method: 'post',
-      action: '/api/admin/learning/assignments',
+      action: `/api/admin/learning/trainings/${training.id}/assignments`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       saveText: 'Assign',
@@ -28,7 +33,7 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Assign To', name: 'assignments', type: 'assignmentfield', prompt: 'Choose a user', required: true },
-            { label: 'Must Be Completed By', name: 'due', type: 'datefield' }
+            { label: 'Must Be Completed By', name: 'completed_by', type: 'datefield' }
           ]
         }
       ]

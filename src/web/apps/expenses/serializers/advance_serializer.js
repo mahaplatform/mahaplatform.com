@@ -9,7 +9,7 @@ const advanceSerializer = (req, result) => ({
   amount: result.get('amount'),
   status: result.related('status').get('text'),
   integration: integration(result, req.apps.expenses.settings),
-  audit: result.related('audit').map(entry => audit(entry)),
+  audit: result.related('audit').map(audit),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

@@ -6,15 +6,15 @@ import Details from './details'
 import Quizes from './quizes'
 import React from 'react'
 
-const getTabs = ({ assignment, lessons, materials }) => {
+const getTabs = (user, { assignment, lessons, materials, quizes }) => {
 
   const items = [
-    { label: 'Details', component: <Details assignment={ assignment } /> }
+    { label: 'Details', component: <Details user={ user } assignment={ assignment } /> }
   ]
 
   if(assignment.training.type === 'local') {
     items.push({ label: 'Materials', component: <Materials materials={ materials } /> })
-    items.push({ label: 'Quizes', component: <Quizes assignment={ assignment } /> })
+    items.push({ label: 'Quizes', component: <Quizes quizes={ quizes } /> })
   }
 
   if(assignment.training.type === 'maha') {
@@ -25,26 +25,29 @@ const getTabs = ({ assignment, lessons, materials }) => {
 
 }
 
-const getButtons = ({ assignment }) => {
+const getButtons = (user, { assignment }) => {
 
-  const items = [
-    { label: 'Complete Training', color: 'green', modal: <Complete assignment={ assignment } /> }
-  ]
+  if(user.id === assignment.employee.id && !assignment.completed_at) {
+    return [
+      { label: 'Complete Training', color: 'green', modal: <Complete assignment={ assignment } /> }
+    ]
+  }
 
-  return items
+  return null
 
 }
 
 const mapResourcesToPage = (props, context) => ({
   assignment: `/api/admin/learning/assignments/${props.params.id}`,
   materials: `/api/admin/learning/assignments/${props.params.id}/materials`,
-  lessons: `/api/admin/learning/assignments/${props.params.id}/lessons`
+  lessons: `/api/admin/learning/assignments/${props.params.id}/lessons`,
+  quizes: `/api/admin/learning/assignments/${props.params.id}/quizes`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Training',
-  tabs: getTabs(resources),
-  buttons: getButtons(resources)
+  tabs: getTabs(props.user, resources),
+  buttons: getButtons(props.user, resources)
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

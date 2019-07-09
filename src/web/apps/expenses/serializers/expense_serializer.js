@@ -13,7 +13,7 @@ const expenseSerializer = (req, result) => ({
   status: result.related('status').get('text'),
   account: account(result.related('account')),
   integration: integration(result, req.apps.expenses.settings),
-  audit: result.related('audit').map(entry => audit(entry)),
+  audit: result.related('audit').map(audit),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
