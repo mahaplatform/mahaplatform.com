@@ -35,7 +35,7 @@ class New extends React.Component {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
             { label: 'Description', name: 'description', type: 'textarea', required: true },
-            { label: 'Type', name: 'type', type: 'lookup', options: ['local','remote','online','maha'], format: TrainingTypeToken, required: true },
+            { label: 'Type', name: 'type', type: 'lookup', search: false, options: ['local','remote','online','maha'], format: TrainingTypeToken, required: true },
             ...this._getTypeFields()
           ]
         }
