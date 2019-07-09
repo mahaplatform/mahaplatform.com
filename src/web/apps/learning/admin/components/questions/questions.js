@@ -37,7 +37,7 @@ class Questions extends React.PureComponent {
           </div>
         }
         { questions.map((question, index) => (
-          <Question { ...this._getQuestion(question, index) } key={`question_${question.id}`} />
+          <Question { ...this._getQuestion(question, index) } key={`question_${index}`} />
         ))}
         <div className="questions-footer">
           <div className="ui blue fluid button" onClick={ this._handleNew }>
