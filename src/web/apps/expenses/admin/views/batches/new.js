@@ -11,7 +11,7 @@ class Export extends React.Component {
   }
 
   static propTypes = {
-    ids: PropTypes.array,
+    ids: PropTypes.object,
     token: PropTypes.string
   }
 
@@ -49,7 +49,9 @@ class Export extends React.Component {
   }
 
   _handleSuccess(batch) {
-    window.location.href = `/api/admin/expenses/batches/${batch.id}.csv?download=true&enclosure="&token=${this.props.token}`
+    setTimeout(() => {
+      window.location.href = `/api/admin/expenses/batches/${batch.id}.csv?download=true&enclosure="&token=${this.props.token}`
+    }, 250)
     this.context.modal.close()
   }
 
