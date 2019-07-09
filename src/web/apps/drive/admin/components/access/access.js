@@ -1,4 +1,4 @@
-import { Loader, ModalPanel, Searchbox, AssigneeToken } from 'maha-admin'
+import { Loader, ModalPanel, AssigneeToken } from 'maha-admin'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import AccessTypeToken from '../access_type_token'
 import Unassigned from './unassigned'
@@ -37,7 +37,7 @@ class Access extends React.Component {
   _handleSave = this._handleSave.bind(this)
 
   render() {
-    const { assigned, unassigned } = this.props
+    const { assigned } = this.props
     return (
       <ModalPanel { ...this._getModalPanel() } >
         <div className={ this._getClass() }>
@@ -70,17 +70,7 @@ class Access extends React.Component {
                 </div>
               </div>
             }
-            <div className="maha-assignment-unassigned">
-              <div className="maha-assignment-unassigned-header">
-                <Searchbox { ...this._getSearchbox() } />
-              </div>
-              <div className="maha-assignment-unassigned-body">
-                { unassigned.status === 'loading' && <Loader /> }
-                { unassigned.status === 'success' &&
-                  <Unassigned { ...this._getUnassigned() } />
-                }
-              </div>
-            </div>
+            <Unassigned { ...this._getUnassigned() } />
           </div>
           <div className="maha-assignment-footer">
             <strong>NOTE:</strong> Any changes you make to the access for this
@@ -133,13 +123,6 @@ class Access extends React.Component {
     return classes.join(' ')
   }
 
-  _getSearchbox() {
-    return {
-      prompt: 'Find a user or group',
-      onChange: this.props.onQuery
-    }
-  }
-
   _getEmpty() {
     return {
       icon: 'times',
@@ -157,10 +140,11 @@ class Access extends React.Component {
   }
 
   _getUnassigned() {
-    const { unassigned } = this.props
+    const { unassigned, onQuery } = this.props
     return {
       unassigned,
-      onChoose: this._handleAdd
+      onChoose: this._handleAdd,
+      onQuery
     }
   }
 
@@ -199,8 +183,8 @@ class Access extends React.Component {
     const { assigned, item, onSave } = this.props
     const access = assigned.records.map(assignee => ({
       is_everyone: assignee.is_everyone,
-      group_id: assignee.group ? assignee.group.id : null,
-      user_id: assignee.user ? assignee.user.id : null,
+      group_id: assignee.group_id,
+      user_id: assignee.user_id,
       access_type_id: !assignee.is_revoked ? assignee.access_type_id : null
     }))
     onSave(item.code, access)

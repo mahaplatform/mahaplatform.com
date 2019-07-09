@@ -1412,6 +1412,7 @@ const schema = {
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
       table.foreign('user_id').references('maha_users.id')
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1480,11 +1481,24 @@ const schema = {
       table.foreign('object_owner_id').references('maha_users.id')
 <<<<<<< HEAD
 >>>>>>> work on managing questions
+=======
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('expenses_vendors', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_activities', table => {
+      table.foreign('app_id').references('maha_apps.id')
+      table.foreign('object_owner_id').references('maha_users.id')
+>>>>>>> applying virtualization to drive access
       table.foreign('story_id').references('maha_stories.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
     })
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1497,6 +1511,10 @@ const schema = {
     await knex.schema.table('maha_alerts', table => {
       table.foreign('app_id').references('maha_apps.id')
 >>>>>>> work on managing questions
+=======
+    await knex.schema.table('maha_alerts', table => {
+      table.foreign('app_id').references('maha_apps.id')
+>>>>>>> applying virtualization to drive access
     })
 
     await knex.schema.table('maha_assets', table => {
@@ -1514,6 +1532,7 @@ const schema = {
       table.foreign('story_id').references('maha_stories.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
+<<<<<<< HEAD
     })
 
 <<<<<<< HEAD
@@ -1559,10 +1578,33 @@ const schema = {
       table.foreign('app_id').references('maha_apps.id')
       table.foreign('object_owner_id').references('maha_users.id')
       table.foreign('story_id').references('maha_stories.id')
+=======
+    })
+
+    await knex.schema.table('maha_comments', table => {
+      table.foreign('link_id').references('maha_links.id')
+      table.foreign('quoted_comment_id').references('maha_comments.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
     })
 
+    await knex.schema.table('maha_devices', table => {
+      table.foreign('browser_name_id').references('maha_device_values.id')
+      table.foreign('browser_version_id').references('maha_device_values.id')
+      table.foreign('device_type_id').references('maha_device_values.id')
+      table.foreign('display_name_id').references('maha_device_values.id')
+      table.foreign('os_name_id').references('maha_device_values.id')
+      table.foreign('os_version_id').references('maha_device_values.id')
+      table.foreign('platform_type_id').references('maha_device_values.id')
+    })
+
+    await knex.schema.table('maha_domains', table => {
+>>>>>>> applying virtualization to drive access
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+<<<<<<< HEAD
     await knex.schema.table('maha_alerts', table => {
       table.foreign('app_id').references('maha_apps.id')
     })
@@ -1804,6 +1846,35 @@ const schema = {
     await knex.schema.table('maha_users_groups', table => {
       table.foreign('user_id').references('maha_users.id')
       table.foreign('group_id').references('maha_groups.id')
+=======
+    await knex.schema.table('maha_email_activities', table => {
+      table.foreign('email_id').references('maha_emails.id')
+      table.foreign('email_link_id').references('maha_email_links.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_email_links', table => {
+      table.foreign('email_id').references('maha_emails.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_email_templates', table => {
+      table.foreign('app_id').references('maha_apps.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_emails', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_fields', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_groups', table => {
+      table.foreign('team_id').references('maha_teams.id')
+>>>>>>> applying virtualization to drive access
     })
 
     await knex.schema.table('maha_users_notification_types', table => {
@@ -1816,6 +1887,7 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+<<<<<<< HEAD
     await knex.schema.table('maha_email_links', table => {
       table.foreign('email_id').references('maha_emails.id')
       table.foreign('team_id').references('maha_teams.id')
@@ -1824,7 +1896,12 @@ const schema = {
 
     await knex.schema.table('maha_email_templates', table => {
       table.foreign('app_id').references('maha_apps.id')
+=======
+    await knex.schema.table('maha_imports', table => {
+      table.foreign('asset_id').references('maha_assets.id')
+>>>>>>> applying virtualization to drive access
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
     })
 
 <<<<<<< HEAD
@@ -1866,6 +1943,7 @@ const schema = {
 
     await knex.schema.table('maha_links', table => {
       table.foreign('service_id').references('maha_services.id')
+<<<<<<< HEAD
     })
 
     await knex.schema.table('maha_notification_types', table => {
@@ -1895,13 +1973,15 @@ const schema = {
 
     await knex.schema.table('maha_rights', table => {
       table.foreign('app_id').references('maha_apps.id')
+=======
+>>>>>>> applying virtualization to drive access
     })
 
-    await knex.schema.table('maha_roles_apps', table => {
+    await knex.schema.table('maha_notification_types', table => {
       table.foreign('app_id').references('maha_apps.id')
-      table.foreign('role_id').references('maha_roles.id')
     })
 
+<<<<<<< HEAD
     await knex.schema.table('maha_roles_rights', table => {
       table.foreign('right_id').references('maha_rights.id')
       table.foreign('role_id').references('maha_roles.id')
@@ -1925,9 +2005,19 @@ const schema = {
 =======
     await knex.schema.table('maha_roles', table => {
 >>>>>>> working on quiz management
+=======
+    await knex.schema.table('maha_notifications', table => {
+      table.foreign('app_id').references('maha_apps.id')
+      table.foreign('notification_type_id').references('maha_notification_types.id')
+      table.foreign('object_owner_id').references('maha_users.id')
+      table.foreign('story_id').references('maha_stories.id')
+      table.foreign('subject_id').references('maha_users.id')
+>>>>>>> applying virtualization to drive access
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
     })
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
@@ -1940,18 +2030,29 @@ const schema = {
     await knex.schema.table('sites_members', table => {
       table.foreign('site_id').references('sites_sites.id')
 >>>>>>> saving work on answers
+=======
+    await knex.schema.table('maha_profiles', table => {
+      table.foreign('source_id').references('maha_sources.id')
+>>>>>>> applying virtualization to drive access
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
     })
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
     await knex.schema.table('maha_groups', table => {
       table.foreign('team_id').references('maha_teams.id')
 =======
     await knex.schema.table('maha_fields', table => {
+=======
+    await knex.schema.table('maha_reactions', table => {
+>>>>>>> applying virtualization to drive access
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
     })
 
+<<<<<<< HEAD
     await knex.schema.table('maha_groups', table => {
 =======
     await knex.schema.table('maha_searches', table => {
@@ -2457,24 +2558,61 @@ const schema = {
 
     await knex.schema.table('sites_sites', table => {
 >>>>>>> working on quiz management
+=======
+    await knex.schema.table('maha_rights', table => {
+      table.foreign('app_id').references('maha_apps.id')
+    })
+
+    await knex.schema.table('maha_roles_apps', table => {
+      table.foreign('app_id').references('maha_apps.id')
+      table.foreign('role_id').references('maha_roles.id')
+    })
+
+    await knex.schema.table('maha_roles_rights', table => {
+      table.foreign('right_id').references('maha_rights.id')
+      table.foreign('role_id').references('maha_roles.id')
+    })
+
+    await knex.schema.table('maha_roles', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('maha_searches', table => {
+>>>>>>> applying virtualization to drive access
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+<<<<<<< HEAD
     await knex.schema.table('sites_types', table => {
       table.foreign('site_id').references('sites_sites.id')
+=======
+    await knex.schema.table('maha_sessions', table => {
+      table.foreign('device_id').references('maha_devices.id')
+>>>>>>> applying virtualization to drive access
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
     })
 
+<<<<<<< HEAD
     await knex.schema.table('learning_trainings', table => {
+=======
+    await knex.schema.table('maha_stars', table => {
+>>>>>>> applying virtualization to drive access
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
     })
 
+<<<<<<< HEAD
     await knex.schema.table('learning_offerings', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('training_id').references('learning_trainings.id')
     })
 
     await knex.schema.table('learning_assignments', table => {
+=======
+    await knex.schema.table('maha_strategies', table => {
+>>>>>>> applying virtualization to drive access
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('assigned_by_id').references('maha_users.id')
       table.foreign('employee_id').references('maha_users.id')
@@ -2482,6 +2620,7 @@ const schema = {
       table.foreign('offering_id').references('learning_offerings.id')
     })
 
+<<<<<<< HEAD
     await knex.schema.table('learning_lessons', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('training_id').references('learning_trainings.id')
@@ -2505,13 +2644,24 @@ const schema = {
       table.foreign('asset_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
 >>>>>>> adding lessons and materials
+=======
+    await knex.schema.table('maha_supervisions', table => {
+      table.foreign('employee_id').references('maha_users.id')
+      table.foreign('supervisor_id').references('maha_users.id')
     })
 
-    await knex.schema.table('competencies_resources', table => {
-      table.foreign('asset_id').references('maha_assets.id')
+    await knex.schema.table('maha_supervisors', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+>>>>>>> applying virtualization to drive access
+    })
+
+    await knex.schema.table('maha_teams_apps', table => {
+      table.foreign('app_id').references('maha_apps.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     await knex.schema.table('maha_users_groups', table => {
       table.foreign('group_id').references('maha_groups.id')
@@ -2537,20 +2687,25 @@ const schema = {
       table.foreign('photo_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
 >>>>>>> adding lessons and materials
-    })
-
-    await knex.schema.table('eatfresh_offerings', table => {
-      table.foreign('photo_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_attachments', table => {
-      table.foreign('asset_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
+=======
     await knex.schema.table('maha_teams', table => {
       table.foreign('logo_id').references('maha_assets.id')
+>>>>>>> applying virtualization to drive access
+    })
+
+    await knex.schema.table('maha_users_alerts', table => {
+      table.foreign('alert_id').references('maha_alerts.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_users_groups', table => {
+      table.foreign('group_id').references('maha_groups.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_users_notification_types', table => {
+      table.foreign('notification_type_id').references('maha_notification_types.id')
+      table.foreign('user_id').references('maha_users.id')
     })
 
     await knex.schema.table('maha_users', table => {
@@ -2599,6 +2754,7 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+<<<<<<< HEAD
     await knex.schema.table('learning_questions', table => {
 =======
     await knex.schema.table('maha_users_roles', table => {
@@ -2708,22 +2864,53 @@ const schema = {
 <<<<<<< HEAD
 <<<<<<< HEAD
     await knex.schema.table('learning_trainings', table => {
-      table.foreign('team_id').references('maha_teams.id')
+=======
+    await knex.schema.table('maha_users_roles', table => {
+      table.foreign('role_id').references('maha_roles.id')
+      table.foreign('user_id').references('maha_users.id')
     })
 
-    await knex.schema.table('learning_offerings', table => {
-=======
-    await knex.schema.table('sites_origins', table => {
+    await knex.schema.table('sites_emails', table => {
       table.foreign('site_id').references('sites_sites.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('sites_items', table => {
+      table.foreign('site_id').references('sites_sites.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('type_id').references('sites_types.id')
+    })
+
+    await knex.schema.table('sites_managers', table => {
+      table.foreign('site_id').references('sites_sites.id')
+>>>>>>> applying virtualization to drive access
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+<<<<<<< HEAD
+    await knex.schema.table('learning_offerings', table => {
+=======
+    await knex.schema.table('sites_origins', table => {
+=======
+    await knex.schema.table('sites_members', table => {
+>>>>>>> applying virtualization to drive access
+      table.foreign('site_id').references('sites_sites.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+<<<<<<< HEAD
     await knex.schema.table('sites_sites', table => {
 >>>>>>> working through training management
+=======
+    await knex.schema.table('sites_origins', table => {
+      table.foreign('site_id').references('sites_sites.id')
+>>>>>>> applying virtualization to drive access
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('training_id').references('learning_trainings.id')
     })
 
+<<<<<<< HEAD
 <<<<<<< HEAD
     await knex.schema.table('learning_lessons', table => {
 =======
@@ -2731,12 +2918,15 @@ const schema = {
       table.foreign('site_id').references('sites_sites.id')
 >>>>>>> working through training management
 =======
+=======
+>>>>>>> applying virtualization to drive access
     await knex.schema.table('sites_sites', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('sites_types', table => {
       table.foreign('site_id').references('sites_sites.id')
+<<<<<<< HEAD
 >>>>>>> working on complete
 =======
     await knex.schema.table('expenses_accounts', table => {
@@ -2752,19 +2942,12 @@ const schema = {
     await knex.schema.table('sites_origins', table => {
       table.foreign('site_id').references('sites_sites.id')
 >>>>>>> work on managing questions
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('sites_sites', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('sites_types', table => {
-      table.foreign('site_id').references('sites_sites.id')
+=======
       table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('learning_trainings', table => {
+>>>>>>> applying virtualization to drive access
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -2773,6 +2956,29 @@ const schema = {
       table.foreign('training_id').references('learning_trainings.id')
     })
 
+<<<<<<< HEAD
+    await knex.schema.table('sites_types', table => {
+      table.foreign('site_id').references('sites_sites.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('learning_trainings', table => {
+=======
+    await knex.schema.table('learning_assignments', table => {
+>>>>>>> applying virtualization to drive access
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('assigned_by_id').references('maha_users.id')
+      table.foreign('employee_id').references('maha_users.id')
+      table.foreign('training_id').references('learning_trainings.id')
+      table.foreign('offering_id').references('learning_offerings.id')
+    })
+
+    await knex.schema.table('learning_lessons', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('training_id').references('learning_trainings.id')
+    })
+
+<<<<<<< HEAD
     await knex.schema.table('learning_assignments', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('assigned_by_id').references('maha_users.id')
@@ -2810,6 +3016,12 @@ const schema = {
       table.foreign('training_id').references('learning_trainings.id')
       table.foreign('asset_id').references('maha_assets.id')
 >>>>>>> working on quiz management
+=======
+    await knex.schema.table('learning_materials', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('training_id').references('learning_trainings.id')
+      table.foreign('asset_id').references('maha_assets.id')
+>>>>>>> applying virtualization to drive access
     })
 
     await knex.schema.table('learning_quizes', table => {
@@ -2839,6 +3051,7 @@ const schema = {
       table.foreign('administration_id').references('learning_administrations.id')
       table.foreign('question_id').references('learning_questions.id')
       table.foreign('answer_id').references('learning_answers.id')
+<<<<<<< HEAD
     })
 
     await knex.schema.table('learning_quizes', table => {
@@ -2884,6 +3097,8 @@ const schema = {
       table.foreign('employee_id').references('maha_users.id')
       table.foreign('training_id').references('learning_trainings.id')
       table.foreign('offering_id').references('learning_offerings.id')
+=======
+>>>>>>> applying virtualization to drive access
     })
 
 
@@ -3166,35 +3381,54 @@ const schema = {
     await knex.raw(`
       create view maha_assignees AS
       select row_number() over (order by assignees.priority, assignees.name) as id,
-      assignees.priority,
       assignees.team_id,
-      assignees.name,
-      assignees.is_everyone,
       assignees.user_id,
-      assignees.group_id
+      assignees.group_id,
+      assignees.full_name,
+      assignees.name,
+      assignees.initials,
+      assignees.photo,
+      assignees.is_everyone,
+      assignees.is_active
       from ( select 1 as priority,
       maha_teams.id as team_id,
-      'everyone'::character varying as name,
-      true as is_everyone,
       null::integer as user_id,
-      null::integer as group_id
+      null::integer as group_id,
+      'everyone'::character varying as full_name,
+      'everyone'::character varying as name,
+      null::text as initials,
+      null::text as photo,
+      true as is_everyone,
+      true as is_active
       from maha_teams
       union
       select 2 as priority,
       maha_groups.team_id,
-      maha_groups.title as name,
-      false as is_everyone,
       null::integer as user_id,
-      maha_groups.id as group_id
+      maha_groups.id as group_id,
+      maha_groups.title as full_name,
+      maha_groups.title as name,
+      null::text as initials,
+      null::text as photo,
+      false as is_everyone,
+      true as is_active
       from maha_groups
       union
       select 3 as priority,
       maha_users.team_id,
-      maha_users.last_name as name,
-      false as is_everyone,
       maha_users.id as user_id,
-      null::integer as group_id
-      from maha_users) assignees;
+      null::integer as group_id,
+      concat(maha_users.first_name, ' ', maha_users.last_name) as full_name,
+      maha_users.last_name as name,
+      concat("left"((maha_users.first_name)::text, 1), "left"((maha_users.last_name)::text, 1)) as initials,
+      case
+      when (maha_assets.id is not null) then concat('/assets/', maha_assets.id, '/', maha_assets.file_name)
+      else null::text
+      end as photo,
+      false as is_everyone,
+      maha_users.is_active
+      from (maha_users
+      left join maha_assets on ((maha_assets.id = maha_users.photo_id)))) assignees;
     `)
   }
 

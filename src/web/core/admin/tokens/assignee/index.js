@@ -2,40 +2,44 @@ import Avatar from '../../components/avatar'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const AssigneeToken = ({ is_everyone, user, group }) => (
+const AssigneeToken = ({ is_everyone, full_name, initials, photo, group_id, user_id, is_active }) => (
   <div className="assignee-token">
     <div className="assignee-token-image">
       { is_everyone &&
         <div className="assignee-token-icon">
-          <Avatar icon='globe' user={{ full_name: 'Everyone' }} />
+          <Avatar icon='globe' user={{ full_name }} />
         </div>
       }
-      { group &&
+      { group_id &&
         <div className="assignee-token-icon">
-          <Avatar icon='users' user={ group } presence={ false } />
+          <Avatar icon='users' user={{ full_name }} />
         </div>
       }
-      { user &&
+      { user_id &&
         <div className="assignee-token-avatar">
-          <Avatar user={ user } presence={ false } />
+          <Avatar user={{ full_name, photo, initials }} presence={ false } />
         </div>
       }
     </div>
     <div className="assignee-token-name">
-      { user && <span>{ user.full_name }</span> }
-      { user && user.is_active === false && <span className="compact-user-token-activity">
-        INACTIVE
-      </span> }
-      { group && <span>{ group.title }</span> }
-      { is_everyone && <span>Everyone</span> }
+      <span>{ full_name }</span> 
+      { is_active === false &&
+        <span className="compact-user-token-activity">
+          INACTIVE
+        </span>
+      }
     </div>
   </div>
 )
 
 AssigneeToken.propTypes = {
-  group: PropTypes.object,
+  initials: PropTypes.string,
+  full_name: PropTypes.string,
+  group_id: PropTypes.number,
   is_everyone: PropTypes.bool,
-  user: PropTypes.object
+  is_active: PropTypes.bool,
+  photo: PropTypes.string,
+  user_id: PropTypes.number
 }
 
 export default AssigneeToken

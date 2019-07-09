@@ -56,7 +56,7 @@ class Avatar extends React.Component {
   _getImage() {
     const { host, width, user } = this.props
     return {
-      host, 
+      host,
       src: user.photo,
       title: this._getTitle(),
       alt: user.initials,

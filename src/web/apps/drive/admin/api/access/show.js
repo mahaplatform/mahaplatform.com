@@ -13,7 +13,7 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(accesses,AccessSerializer)
+  res.status(200).respond(accesses, AccessSerializer)
 
 }
 
