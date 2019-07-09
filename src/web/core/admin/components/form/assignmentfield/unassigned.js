@@ -1,6 +1,7 @@
 import AssigneeToken from '../../../tokens/assignee'
 import Virtualized from '../../virtualized'
 import Searchbox from '../../searchbox'
+import Message from '../../message'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -12,21 +13,27 @@ class Unassigned extends React.Component {
 
   static propTypes = {
     unassigned: PropTypes.array,
-    onQuery: PropTypes.func,
-    onAdd: PropTypes.func
+    onAdd: PropTypes.func,
+    onQuery: PropTypes.func
   }
 
   static defaultProps = {
   }
 
   render() {
+    const { unassigned } = this.props
     return (
       <div className="maha-assignment-unassigned">
         <div className="maha-assignment-unassigned-header">
           <Searchbox { ...this._getSearchbox() } />
         </div>
         <div className="maha-assignment-unassigned-body">
-          <Virtualized { ...this._getVirtualized() } />
+          { unassigned.length === 0 &&
+            <Message { ...this._getNotFound() } />
+          }
+          { unassigned.length > 0 &&
+            <Virtualized { ...this._getVirtualized() } />
+          }
         </div>
       </div>
     )
@@ -39,6 +46,14 @@ class Unassigned extends React.Component {
         <AssigneeToken { ...unassigned[index] } />
       </div>
     )
+  }
+
+  _getNotFound() {
+    return {
+      icon: 'times',
+      title: 'No Results Found',
+      text: 'No records matched your query'
+    }
   }
 
   _getSearchbox() {
@@ -60,8 +75,8 @@ class Unassigned extends React.Component {
   _handleAdd(assignee) {
     this.props.onAdd({
       is_everyone: assignee.is_everyone,
-      group_id: assignee.group ? assignee.group.id : null,
-      user_id: assignee.user ? assignee.user.id : null
+      group_id: assignee.group_id ,
+      user_id: assignee.user_id
     })
   }
 

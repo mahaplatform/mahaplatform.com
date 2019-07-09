@@ -12,7 +12,6 @@ const listRoute = async (req, res) => {
     sort: req.query.$sort
   }).fetchPage({
     page: req.query.$page,
-    withRelated: ['user.photo','group'],
     transacting: req.trx
   })
 
