@@ -5,15 +5,15 @@ import React from 'react'
 const Materials = ({ materials }) => {
 
   const list = {
-    items: materials.map(asset => ({
-      content: asset,
-      link: `/admin/assets/${asset.id}`,
-      component: AssetToken
+    items: materials.map(material => ({
+      content: material.asset,
+      link: `/admin/assets/${material.asset.id}`,
+      component: <AssetToken { ...material.asset } />
     })),
     empty: {
-      icon: 'calendar',
-      title: 'No offerings',
-      text: 'There are no offerings for this training'
+      icon: 'copy',
+      title: 'No materials',
+      text: 'There are no materials for this training'
     }
   }
 

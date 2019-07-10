@@ -9,7 +9,21 @@ const Administration = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    answerings_count() {
+      return this.related('answerings').length
+    },
+
+    is_complete() {
+      return this.get('answerings_count') === this.get('total_count')
+    },
+
+    score() {
+      return Math.ceil((this.get('correct_count') / this.get('total_count')) * 100)
+    }
+
+  },
 
   answerings() {
     return this.hasMany(Answering, 'administration_id')

@@ -25,3 +25,7 @@ export const answer = (quiz_id, answer_id) => ({
   success: 'ANSWER_SUCCESS',
   failure: 'ANSWER_FAILURE'
 })
+
+export const next = () => ({
+  type: 'NEXT'
+})

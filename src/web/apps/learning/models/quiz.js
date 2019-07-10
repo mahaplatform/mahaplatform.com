@@ -10,7 +10,13 @@ const Quiz = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    questions_count() {
+      return this.related('questions').length
+    }
+
+  },
 
   administrations() {
     return this.hasMany(Administration, 'quiz_id')

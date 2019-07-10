@@ -1,5 +1,4 @@
 import Administration from '../../../../models/administration'
-import Question from '../../../../models/question'
 import Quiz from '../../../../models/quiz'
 
 const getAdministration = async (req, quiz) => {
@@ -21,7 +20,7 @@ const getAdministration = async (req, quiz) => {
     user_id: req.user.get('id'),
     quiz_id: quiz.get('id'),
     correct_count: 0,
-    total_count: quiz.related('questions').length
+    total_count: quiz.get('questions_count')
   }).save(null, {
     transacting: req.trx
   })
@@ -35,6 +34,7 @@ const showRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.quiz_id)
   }).fetch({
+    withRelated: ['questions'],
     transacting: req.trx
   })
 
@@ -45,9 +45,18 @@ const showRoute = async (req, res) => {
 
   const administration = await getAdministration(req, quiz)
 
+  await administration.load(['answerings'], {
+    transacting: req.trx
+  })
+
   res.status(200).respond(administration, (req, administration) => ({
     id: quiz.get('id'),
-    title: quiz.get('title')
+    title: quiz.get('title'),
+    score: administration.get('score'),
+    was_passed: administration.get('was_passed'),
+    correct_count: administration.get('correct_count'),
+    total_count: administration.get('total_count'),
+    is_complete: administration.get('is_complete')
   }))
 
 }

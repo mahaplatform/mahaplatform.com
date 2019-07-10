@@ -53,13 +53,48 @@ const answerRoute = async (req, res) => {
     question_id: question.get('id'),
     answer_id: req.body.answer_id,
     is_correct: req.body.answer_id === correct_answer.get('id')
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  await administration.load(['answerings'], {
+    transacting: req.trx
+  })
+
+  const increment = req.body.answer_id === correct_answer.get('id') ? 1 : 0
+
+  const correct_count = administration.get('correct_count') + increment
+
+  const passing_score = quiz.get('passing_score')
+
+  await administration.save({
+    correct_count,
+    was_passed: administration.get('is_complete') ? correct_count >= passing_score : null
+  }, {
+    patch: true,
+    transacting: req.trx
+  })
+
+  await administration.load(['answerings'], {
+    transacting: req.trx
   })
 
   res.status(200).respond(answering, (req, answering) => ({
-    answer_id: answering.get('answer_id'),
-    is_correct: answering.get('is_correct'),
-    correct_answer: correct_answer.get('id'),
-    explanation: question.get('explanation')
+    answering: {
+      answer_id: answering.get('answer_id'),
+      is_correct: answering.get('is_correct'),
+      correct_answer: correct_answer.get('id'),
+      explanation: question.get('explanation')
+    },
+    quiz: {
+      id: quiz.get('id'),
+      title: quiz.get('title'),
+      score: administration.get('score'),
+      was_passed: administration.get('was_passed'),
+      correct_count: administration.get('correct_count'),
+      total_count: administration.get('total_count'),
+      is_complete: administration.get('is_complete')
+    }
   }))
 
 }
