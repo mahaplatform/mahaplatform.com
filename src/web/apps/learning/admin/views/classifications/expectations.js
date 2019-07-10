@@ -25,7 +25,7 @@ class Expectations extends React.Component {
       defaultValue: expectations.map(competency => ({ competency })),
       assignedEndpoint: `/api/admin/learning/classifications/${classification.id}/expectations`,
       assignedFormat: (assignment) => <CompetencyToken {...assignment.competency} />,
-      unassignedEndpoint: '/api/admin/learning/learning',
+      unassignedEndpoint: '/api/admin/learning/competencies',
       unassignedFormat: CompetencyToken,
       name: 'competency',
       empty: {

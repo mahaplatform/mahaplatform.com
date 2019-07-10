@@ -13,8 +13,8 @@ import ResourcesShow from './resources/show'
 
 const routes = [
   { path: '/categories', component: CategoriesList },
-  { path: '/learning', component: CompetenciesList },
-  { path: '/learning/:id', component: CompetenciesShow },
+  { path: '/competencies', component: CompetenciesList },
+  { path: '/competencies/:id', component: CompetenciesShow },
   { path: '/classifications', component: ClassificationsList },
   { path: '/classifications/:id', component: ClassificationsShow },
   { path: '/plans', component: PlansList },

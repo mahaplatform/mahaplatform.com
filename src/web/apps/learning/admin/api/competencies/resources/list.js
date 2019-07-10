@@ -7,7 +7,7 @@ const listRoute = async (req, res) => {
   const resources = await Resource.scope({
     team: req.team
   }).query(qb => {
-    qb.select(knex.raw('distinct on (competencies_resources.id) competencies_competencies.*'))
+    qb.select(knex.raw('distinct on (competencies_resources.id) competencies_resources.*'))
     qb.innerJoin('competencies_competencies_resources', 'competencies_competencies_resources.resource_id', 'competencies_resources.id')
     qb.where('competencies_competencies_resources.competency_id', req.params.competency_id)
   }).fetchPage({

@@ -21,9 +21,9 @@ class Competencies extends React.Component {
   _getAssignment() {
     const { resource, competencies } = this.props
     return {
-      action: `/api/admin/learning/resources/${resource.id}/learning`,
+      action: `/api/admin/learning/resources/${resource.id}/competencies`,
       defaultValue: competencies.map(competency => ({ competency })),
-      assignedEndpoint: `/api/admin/learning/resources/${resource.id}/learning`,
+      assignedEndpoint: `/api/admin/learning/resources/${resource.id}/competencies`,
       assignedFormat: (assignment) => <CompetencyToken {...assignment.competency} />,
       unassignedEndpoint: '/api/admin/learning/resources',
       unassignedFormat: CompetencyToken,

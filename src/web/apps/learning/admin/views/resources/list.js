@@ -12,7 +12,7 @@ const mapPropsToPage = (props, context) => ({
       { label: 'URL', key: 'url', visible: false }
     ],
     filters: [
-      { label: 'Competency', name: 'competencies_competencies.id', type: 'select', multiple: true, endpoint: '/api/admin/learning/learning', value: 'id', text: 'title', sort: { key: 'title', order: 'asc' } },
+      { label: 'Competency', name: 'competencies_competencies.id', type: 'select', multiple: true, endpoint: '/api/admin/learning/competencies', value: 'id', text: 'title', sort: { key: 'title', order: 'asc' } },
       { label: 'Classification', name: 'competencies_expectations.classification_id', type: 'select', multiple: true, endpoint: '/api/admin/learning/classifications', value: 'id', text: 'title', sort: { key: 'title', order: 'asc' } },
       { label: 'Level', name: 'competencies_competencies.level', type: 'select', options: [{ value: 1, text: 'Level 1' }, { value: 2, text: 'Level 2' }, { value: 3, text: 'Level 3' }] }
     ],

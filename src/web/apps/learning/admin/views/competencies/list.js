@@ -4,7 +4,7 @@ import New from './new'
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Competencies',
   collection: {
-    endpoint: '/api/admin/learning/learning',
+    endpoint: '/api/admin/learning/competencies',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true },
@@ -25,7 +25,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     defaultSort: { key: 'title', order: 'asc' },
     entity: 'competency',
     icon: 'trophy',
-    link: (record) => `/admin/learning/learning/${record.id}`,
+    link: (record) => `/admin/learning/competencies/${record.id}`,
     new: New
   },
   task: {

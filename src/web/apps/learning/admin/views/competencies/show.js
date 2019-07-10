@@ -52,8 +52,8 @@ Resources.propTypes = {
 }
 
 const mapResourcesToPage = (props, context) => ({
-  competency: `/api/admin/learning/learning/${props.params.id}`,
-  resources: `/api/admin/learning/learning/${props.params.id}/resources`
+  competency: `/api/admin/learning/competencies/${props.params.id}`,
+  resources: `/api/admin/learning/competencies/${props.params.id}/resources`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

@@ -25,8 +25,8 @@ class Edit extends React.Component {
     return {
       title: 'Edit Competency',
       method: 'patch',
-      endpoint: `/api/admin/learning/learning/${id}/edit`,
-      action: `/api/admin/learning/learning/${id}`,
+      endpoint: `/api/admin/learning/competencies/${id}/edit`,
+      action: `/api/admin/learning/competencies/${id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [

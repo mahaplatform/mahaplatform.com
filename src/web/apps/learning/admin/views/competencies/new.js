@@ -20,7 +20,7 @@ class CompetenciesNew extends React.Component {
     return {
       title: 'New Competency',
       method: 'post',
-      action: '/api/admin/learning/learning',
+      action: '/api/admin/learning/competencies',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
@@ -41,7 +41,7 @@ class CompetenciesNew extends React.Component {
   }
 
   _handleSuccess(result) {
-    this.context.router.push(`/admin/learning/learning/${result.id}`)
+    this.context.router.push(`/admin/learning/competencies/${result.id}`)
     this.context.modal.close()
   }
 

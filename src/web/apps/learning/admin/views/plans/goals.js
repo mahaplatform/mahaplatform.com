@@ -25,7 +25,7 @@ class PlanGoals extends React.Component {
       defaultValue: goals.map(goal => ({ goal })),
       assignedEndpoint: `/api/admin/learning/plans/${plan.id}/goals`,
       assignedFormat: (assignment) => <CompetencyToken {...assignment.competency} />,
-      unassignedEndpoint: '/api/admin/learning/learning',
+      unassignedEndpoint: '/api/admin/learning/competencies',
       unassignedFormat: CompetencyToken,
       name: 'competency',
       empty: {

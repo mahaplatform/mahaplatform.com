@@ -48,7 +48,7 @@ class Competencies extends React.Component {
     if(classification) filter['competencies_expectations.classification_id'] =  { $eq: classification.id }
     if(category) filter.category_id =  { $eq: category.id }
     return {
-      endpoint: '/api/admin/learning/learning',
+      endpoint: '/api/admin/learning/competencies',
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
       filter,
