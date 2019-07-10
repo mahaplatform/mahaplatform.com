@@ -7,7 +7,7 @@ import React from 'react'
 const Quizes = ({ training, quizes }) => {
 
   const _getButton = (quiz) => ({
-    label: 'Take Quiz',
+    label: quiz.is_complete ? 'View Results' : 'Take Quiz',
     color: 'blue',
     modal: <Quiz id={ quiz.id } />
   })

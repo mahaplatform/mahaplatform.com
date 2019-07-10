@@ -8,6 +8,7 @@ class Question extends React.PureComponent {
 
   static propTypes = {
     answering: PropTypes.object,
+    correct: PropTypes.string,
     quiz: PropTypes.object,
     question: PropTypes.object,
     onAnswer: PropTypes.func,
@@ -19,7 +20,7 @@ class Question extends React.PureComponent {
   _handleNext = this._handleNext.bind(this)
 
   render() {
-    const { answering, question, quiz } = this.props
+    const { answering, correct, question, quiz } = this.props
     return (
       <div className="quiz-question blue">
         <div className="quiz-question-inner">
@@ -50,7 +51,7 @@ class Question extends React.PureComponent {
           <div className="quiz-question-footer">
             { answering &&
               <div className="quiz-question-explanation">
-                <strong>The correct answer is C!</strong><br />
+                <strong>The correct answer is { correct }!</strong><br />
                 { answering.explanation }
               </div>
             }
