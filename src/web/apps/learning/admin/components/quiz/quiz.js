@@ -10,6 +10,7 @@ class Quiz extends React.PureComponent {
 
   static propTypes = {
     answering: PropTypes.object,
+    correct: PropTypes.number,
     id: PropTypes.number,
     index: PropTypes.number,
     question: PropTypes.object,
@@ -48,9 +49,10 @@ class Quiz extends React.PureComponent {
   }
 
   _getQuestion() {
-    const { answering, question, quiz, onAnswer, onNext } = this.props
+    const { answering, correct, question, quiz, onAnswer, onNext } = this.props
     return {
       answering,
+      correct,
       question,
       quiz,
       onAnswer,
