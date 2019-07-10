@@ -2,8 +2,14 @@ import _ from 'lodash'
 
 const sortPlugin = function(bookshelf) {
 
+  const getTableName = (model) => {
+    if(model.tableName) return model.tableName
+    if(model.extend) return model.extend().__super__.tableName
+    return null
+  }
+
   const sort = function(options) {
-    options.tableName = this.tableName
+    options.tableName = getTableName(this)
     return this.query(qb => {
       applySorts(qb, options.sort, options)
     })
@@ -41,7 +47,7 @@ const sortPlugin = function(bookshelf) {
 
   const castColumn = function(tableName, column) {
     const matches = column.match(/(.*)\.(.*)/)
-    return matches ? column : `${tableName}.${column}`
+    return matches === null && tableName ? `${tableName}.${column}` : column
   }
 
   bookshelf.Collection.prototype.sort = sort
