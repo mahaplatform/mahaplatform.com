@@ -5,7 +5,7 @@ import _ from 'lodash'
 
 export const bootstrapApps = async () => {
 
-  const objects = glob.sync('apps/*/src/app.js').map(file => {
+  const objects = glob.sync('src/web/apps/*/app.js').map(file => {
     return require(path.resolve(file)).default
   })
 
@@ -40,13 +40,13 @@ export const bootstrapType = async (type, table) => {
 
 const collectObjects = async (pattern) => {
 
-  const items = glob.sync(`apps/*/src/${pattern}.js`)
+  const items = glob.sync(`src/web/apps/*/${pattern}.js`)
 
   return await Promise.reduce(items, async (objects, file) => {
 
-    const [,appPath] = file.match(/web\/([^/]*)/)
+    const [,appPath] = file.match(/src\/web\/apps\/([^/]*)/)
 
-    const config = require(path.resolve(`apps/${appPath}/src/app.js`)).default
+    const config = require(path.resolve(`src/web/apps/${appPath}/app.js`)).default
 
     const app = await knex('maha_apps').where({
       code: config.code

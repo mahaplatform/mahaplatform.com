@@ -11,10 +11,6 @@ const notifications = [
     code: 'plan_completed',
     title: 'Plan Completed',
     description: 'a supervisor completes your plan'
-  }, {
-    code: 'assignment_created',
-    title: 'Training Assigned',
-    description: 'a training is assigned to me'
   }
 ]
 

@@ -15,24 +15,16 @@ const isSupervisor = async (req) => {
 
 const navigation = async (req) => ({
   items: [
-    { label: 'Appraisals', items: [] },
-    { label: 'Competencies', items: [
-      { label: 'Configuration', rights: ['competencies:manage_configuration'], items: [
-        { label: 'Categories', route: '/categories' },
-        { label: 'Classifications', route: '/classifications' },
-        { label: 'Competencies', route: '/competencies' },
-        { label: 'Resources', route: '/resources' }
-      ] },
-      { label: 'Employees', route: '/plans/employees', access: isSupervisor },
-      { label: 'Plans', rights: ['competencies:manage_plans'], route: '/plans' },
-      { label: 'Report', rights: ['competencies:manage_configuration'], route: '/plans/report' },
-      { label: 'Resources', route: '/resources/search' }
+    { label: 'Configuration', rights: ['competencies:manage_configuration'], items: [
+      { label: 'Categories', route: '/categories' },
+      { label: 'Classifications', route: '/classifications' },
+      { label: 'Competencies', route: '/competencies' },
+      { label: 'Resources', route: '/resources' }
     ] },
-    { label: 'Trainings', items: [
-      { label: 'Assignments', route: '/assignments' },
-      { label: 'Report', route: '/assignments/report' },
-      { label: 'Trainings', route: '/trainings' }
-    ] }
+    { label: 'Employees', route: '/plans/employees', access: isSupervisor },
+    { label: 'Plans', rights: ['competencies:manage_plans'], route: '/plans' },
+    { label: 'Report', rights: ['competencies:manage_configuration'], route: '/plans/report' },
+    { label: 'Resources', route: '/resources/search' }
   ]
 })
 
