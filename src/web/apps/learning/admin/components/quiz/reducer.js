@@ -45,8 +45,16 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       status: 'loaded',
-      answering: action.result.data
+      ...action.result.data
     }
+
+  case 'NEXT':
+    return {
+      ...state,
+      answering: null,
+      question: null
+    }
+
   default:
     return state
   }
