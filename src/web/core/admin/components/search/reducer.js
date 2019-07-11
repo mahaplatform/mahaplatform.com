@@ -2,17 +2,15 @@ const INITIAL_STATE = {
   q: ''
 }
 
-const query = (state, action) => ({
-  ...state,
-  q: action.q
-})
-
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
   case 'QUERY':
-    return query(state, action)
+    return {
+      ...state,
+      q: action.q
+    }
 
   default:
     return state

@@ -1,11 +1,18 @@
-const <%= className %> = {
+const Create<%= className %> = {
 
   up: async (knex) => {
+    await knex.schema.createTable('<%= tableName %>', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.foreign('team_id').references('maha_teams.id')
+      table.timestamps()
+    })
   },
 
   down: async (knex) => {
+    await knex.schema.dropTable('<%= tableName %>')
   }
 
 }
 
-export default <%= className %>
+export default Create<%= className %>

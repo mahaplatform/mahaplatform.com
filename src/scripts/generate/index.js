@@ -14,10 +14,36 @@ const createFile = (filepath, templateName, data = {}) => {
   if(fs.existsSync(filepath)) return console.log(chalk.cyan('exists'), chalk.white(filepath))
   const templatepath = path.join(__dirname, `${templateName}.ejs`)
   const template = fs.readFileSync(templatepath, 'utf8')
-  const source = ejs.render(template, data)
+  const source = ejs.render(template, { ...data, _ })
   mkdirp.sync(path.join(...filepath.split('/').slice(0,-1)))
   fs.writeFileSync(filepath, source)
   console.log(chalk.green('create'), chalk.white(filepath))
+}
+
+const app = async (args) => {
+  const [ appName ] = args
+  const root = path.join('src','web','apps',appName)
+  const data = { appName }
+  createFile(`${root}/admin/api/index.js`, 'app/api.js', data)
+  createFile(`${root}/admin/badges/.gitkeep`, 'app/gitkeep', data)
+  createFile(`${root}/admin/components/.gitkeep`, 'app/gitkeep', data)
+  createFile(`${root}/admin/roots/.gitkeep`, 'app/gitkeep', data)
+  createFile(`${root}/admin/views/.gitkeep`, 'app/gitkeep', data)
+  createFile(`${root}/admin/navigation.js`, 'app/navigation.js', data)
+  createFile(`${root}/admin/notifications.js`, 'app/notifications.js', data)
+  createFile(`${root}/admin/rights.js`, 'app/rights.js', data)
+  createFile(`${root}/admin/search.js`, 'app/search.js', data)
+  createFile(`${root}/cron/.gitkeep`, 'app/gitkeep', data)
+  createFile(`${root}/db/fixtures/.gitkeep`, 'app/gitkeep', data)
+  createFile(`${root}/db/migrations/.gitkeep`, 'app/gitkeep', data)
+  createFile(`${root}/emails/.gitkeep`, 'app/gitkeep', data)
+  createFile(`${root}/help/.gitkeep`, 'app/gitkeep', data)
+  createFile(`${root}/models/.gitkeep`, 'app/gitkeep', data)
+  createFile(`${root}/public/.gitkeep`, 'app/gitkeep', data)
+  createFile(`${root}/queues/.gitkeep`, 'app/gitkeep', data)
+  createFile(`${root}/serializers/.gitkeep`, 'app/gitkeep', data)
+  createFile(`${root}/services/.gitkeep`, 'app/gitkeep', data)
+  createFile(`${root}/app.js`, 'app/app.js', data)
 }
 
 const route = async (args) => {
@@ -75,7 +101,7 @@ const migration = async (args) => {
     className:  _.upperFirst(_.camelCase(name)),
     migrationPath: path.join(root, `${timestamp}_${name}.js`)
   }
-  createFile(data.migrationPath, 'model/migration.js', data)
+  createFile(data.migrationPath, 'migration/migration.js', data)
 }
 
 const component = async (args) => {
@@ -132,6 +158,7 @@ const generate = async () => {
   const argv = process.argv.slice(2)
   const template = argv[0]
   const args = argv.slice(1)
+  if(template === 'app') return app(args)
   if(template === 'route') return route(args)
   if(template === 'model') return model(args)
   if(template === 'migration') return migration(args)

@@ -5,7 +5,7 @@ import * as selectors from './selectors'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'learning.questions',
+  namespace: 'training.questions',
   component: Questions,
   reducer,
   selectors,

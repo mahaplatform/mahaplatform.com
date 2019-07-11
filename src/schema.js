@@ -1094,15 +1094,33 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('training_assignments', (table) => {
+    await knex.schema.createTable('training_assignings', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('assigned_by_id').unsigned()
-      table.integer('employee_id').unsigned()
+      table.string('title', 255)
+      table.date('completed_by')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('training_assignments', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('assigning_id').unsigned()
+      table.integer('user_id').unsigned()
+      table.integer('option_id').unsigned()
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('training_fulfillments', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('assignment_id').unsigned()
       table.integer('training_id').unsigned()
       table.integer('offering_id').unsigned()
       table.text('feedback')
-      table.date('completed_by')
       table.timestamp('completed_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
@@ -1139,6 +1157,19 @@ const schema = {
       table.integer('limit')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('training_options', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('assigning_id').unsigned()
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('training_options_trainings', (table) => {
+      table.integer('option_id').unsigned()
+      table.integer('training_id').unsigned()
     })
 
     await knex.schema.createTable('training_questions', (table) => {
@@ -1439,12 +1470,16 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('training_assignments', table => {
+    await knex.schema.table('training_assignings', table => {
       table.foreign('assigned_by_id').references('maha_users.id')
-      table.foreign('employee_id').references('maha_users.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('training_id').references('training_trainings.id')
-      table.foreign('offering_id').references('training_offerings.id')
+    })
+
+    await knex.schema.table('training_assignments', table => {
+      table.foreign('user_id').references('maha_users.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('assigning_id').references('training_assignings.id')
+      table.foreign('option_id').references('training_options.id')
     })
 
     await knex.schema.table('training_administrations', table => {
@@ -1672,6 +1707,18 @@ const schema = {
       table.foreign('training_id').references('training_trainings.id')
     })
 
+    await knex.schema.table('training_options', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('assigning_id').references('training_assignings.id')
+    })
+
+    await knex.schema.table('training_fulfillments', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('training_id').references('training_trainings.id')
+      table.foreign('offering_id').references('training_offerings.id')
+      table.foreign('assignment_id').references('training_assignments.id')
+    })
+
     await knex.schema.table('training_lessons', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('training_id').references('training_trainings.id')
@@ -1698,6 +1745,11 @@ const schema = {
       table.foreign('question_id').references('training_questions.id')
       table.foreign('answer_id').references('training_answers.id')
       table.foreign('administration_id').references('training_administrations.id')
+    })
+
+    await knex.schema.table('training_options_trainings', table => {
+      table.foreign('training_id').references('training_trainings.id')
+      table.foreign('option_id').references('training_options.id')
     })
 
 
