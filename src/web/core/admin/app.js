@@ -105,6 +105,7 @@ import trainingoptions from '../../apps/training/admin/components/options'
 import traininganswers from '../../apps/training/admin/components/questions/answers'
 import trainingquestions from '../../apps/training/admin/components/questions'
 import trainingquiz from '../../apps/training/admin/components/quiz'
+import trainingreview from '../../apps/training/admin/components/review'
 import chatRoutes from '../../apps/chat/admin/views/index.js'
 import driveRoutes from '../../apps/drive/admin/views/index.js'
 import eatfreshRoutes from '../../apps/eatfresh/admin/views/index.js'
@@ -310,6 +311,7 @@ class App extends React.Component {
       traininganswers,
       trainingquestions,
       trainingquiz,
+      trainingreview,
     ]
   }
 

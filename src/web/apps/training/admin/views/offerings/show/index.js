@@ -1,14 +1,16 @@
 import Fulfillments from './fulfillments'
 import { Page } from 'maha-admin'
 import Details from './details'
+import Reviews from './reviews'
 import React from 'react'
 import Edit from '../edit'
 
-const getTabs = ({ fulfillments, offering }) => {
+const getTabs = ({ fulfillments, offering, reviews }) => {
 
   const items = [
     { label: 'Details', component: <Details offering={ offering } /> },
-    { label: 'Attendees', component: <Fulfillments fulfillments={ fulfillments } /> }
+    { label: 'Attendees', component: <Fulfillments fulfillments={ fulfillments } /> },
+    { label: 'Reviews', component: <Reviews reviews={ reviews } /> }
   ]
 
   return { items }

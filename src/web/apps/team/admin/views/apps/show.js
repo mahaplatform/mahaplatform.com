@@ -27,10 +27,7 @@ class AppsShow extends React.Component {
     const { app } = this.props
     return [
       { label: 'Title', content: app.title },
-      { label: 'Version', content: app.version },
-      { label: 'Author', content: app.author },
-      { label: 'Description', content: app.description },
-      { label: 'Category', content: app.category }
+      { label: 'Description', content: app.description }
     ]
   }
 
