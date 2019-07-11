@@ -1,4 +1,4 @@
-import assignments from './assignments'
+import fulfillments from './fulfillments'
 import { Router } from 'express'
 import destroy from './destroy'
 import create from './create'
@@ -21,6 +21,6 @@ router.patch('/:id', update)
 
 router.delete('/:id', destroy)
 
-router.get('/:offering_id/assignments', assignments)
+router.get('/:offering_id/fulfillments', fulfillments)
 
 export default router

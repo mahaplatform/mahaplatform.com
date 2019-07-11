@@ -7,7 +7,7 @@ const offeringSerializer = (req, result) => ({
   facilitator: result.get('facilitator'),
   location: result.get('location'),
   limit: result.get('limit'),
-  assignments_count: result.get('assignments_count'),
+  fulfillments_count: result.get('fulfillments_count'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

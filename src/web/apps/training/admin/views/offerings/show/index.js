@@ -1,14 +1,14 @@
-import Assignments from './assignments'
+import Fulfillments from './fulfillments'
 import { Page } from 'maha-admin'
 import Details from './details'
 import React from 'react'
 import Edit from '../edit'
 
-const getTabs = ({ assignments, offering }) => {
+const getTabs = ({ fulfillments, offering }) => {
 
   const items = [
     { label: 'Details', component: <Details offering={ offering } /> },
-    { label: 'Attendees', component: <Assignments assignments={ assignments } /> }
+    { label: 'Attendees', component: <Fulfillments fulfillments={ fulfillments } /> }
   ]
 
   return { items }
@@ -27,7 +27,7 @@ const getTasks = ({ offering }) => {
 
 const mapResourcesToPage = (props, context) => ({
   offering: `/api/admin/training/trainings/${props.params.training_id}/offerings/${props.params.id}`,
-  assignments: `/api/admin/training/trainings/${props.params.training_id}/offerings/${props.params.id}/assignments`
+  fulfillments: `/api/admin/training/trainings/${props.params.training_id}/offerings/${props.params.id}/fulfillments`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
