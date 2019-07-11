@@ -1,9 +1,5 @@
-import Materials from './materials'
-import Complete from '../complete'
 import { Page } from 'maha-admin'
-import Lessons from './lessons'
 import Details from './details'
-import Quizes from './quizes'
 import React from 'react'
 
 const getTabs = (user, { assignment, lessons, materials, quizes }) => {
@@ -12,14 +8,6 @@ const getTabs = (user, { assignment, lessons, materials, quizes }) => {
     { label: 'Details', component: <Details user={ user } assignment={ assignment } /> }
   ]
 
-  if(assignment.training.type === 'local') {
-    items.push({ label: 'Materials', component: <Materials materials={ materials } /> })
-    items.push({ label: 'Quizes', component: <Quizes quizes={ quizes } /> })
-  }
-
-  if(assignment.training.type === 'maha') {
-    items.push({ label: 'Lessons', component: <Lessons lessons={ lessons } /> })
-  }
 
   return { items }
 
@@ -27,25 +15,16 @@ const getTabs = (user, { assignment, lessons, materials, quizes }) => {
 
 const getButtons = (user, { assignment }) => {
 
-  if(user.id === assignment.employee.id && !assignment.completed_at) {
-    return [
-      { label: 'Complete Training', color: 'green', modal: <Complete assignment={ assignment } /> }
-    ]
-  }
-
   return null
 
 }
 
 const mapResourcesToPage = (props, context) => ({
-  assignment: `/api/admin/training/assignments/${props.params.id}`,
-  materials: `/api/admin/training/assignments/${props.params.id}/materials`,
-  lessons: `/api/admin/training/assignments/${props.params.id}/lessons`,
-  quizes: `/api/admin/training/assignments/${props.params.id}/quizes`
+  assignment: `/api/admin/training/assignments/${props.params.id}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Training',
+  title: 'Assignment',
   tabs: getTabs(props.user, resources),
   buttons: getButtons(props.user, resources)
 })

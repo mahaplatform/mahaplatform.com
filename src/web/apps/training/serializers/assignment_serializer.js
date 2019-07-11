@@ -22,7 +22,8 @@ const assigning = (assigning) => {
   return {
     id: assigning.get('id'),
     title: assigning.get('title'),
-    assigned_by: user(assigning.related('assigned_by'))
+    assigned_by: user(assigning.related('assigned_by')),
+    completed_by: assigning.get('completed_by')
   }
 }
 
