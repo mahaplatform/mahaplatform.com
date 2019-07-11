@@ -38,7 +38,7 @@ class Apps extends React.Component {
             { path.length === 0 ?
               <div className="maha-navigation-header" onClick={ this._handleToggleMode }>
                 <div className="maha-navigation-header-back">
-                  <Logo team={ team } width="50" />
+                  <Logo team={ team } width="32" />
                 </div>
                 <div className="maha-navigation-header-team">
                   { team.title }
