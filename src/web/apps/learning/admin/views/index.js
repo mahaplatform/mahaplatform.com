@@ -23,11 +23,7 @@ const routes = [
   { path: '/plans/:id', component: PlansShow },
   { path: '/resources', component: ResourcesList },
   { path: '/resources/search', component: ResourcesSearch },
-  { path: '/resources/:id', component: ResourcesShow },
-  { path: '/trainings', component: TrainingsList },
-  { path: '/trainings/:id', component: TrainingsShow },
-  { path: '/trainings/:training_id/offerings/:id', component: OfferingsShow },
-  { path: '/trainings/:training_id/lessons/:id', component: LessonsShow }
+  { path: '/resources/:id', component: ResourcesShow }
 
 ]
 
