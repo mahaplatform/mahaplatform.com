@@ -13,7 +13,7 @@ const reportRoute = async (req, res) => {
     sort: req.query.$sort,
     defaultSort: '-training_assignments.created_at'
   }).fetchPage({
-    withRelated: ['training','employee'],
+    withRelated: ['assigning.assigned_by','user'],
     page: req.query.$page,
     transacting: req.trx
   })

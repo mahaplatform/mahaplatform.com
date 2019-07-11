@@ -20,7 +20,9 @@ const appConfig = (query) => _.find(configs, query)
 const collectObjects = (pattern) => [
   ...glob.sync(`${root}/*/${pattern}`),
   ...glob.sync(`${root}/*/${pattern}/index.js`)
-].map(file => {
+].filter(file => {
+  return file.match(/_test.js$/) === null
+}).map(file => {
 
   const [,app] = file.match(/apps\/([^/]*)/)
 

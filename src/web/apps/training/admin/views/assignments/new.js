@@ -1,6 +1,7 @@
-import React from 'react'
+import Options from '../../components/options'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
+import React from 'react'
 
 class New extends React.Component {
 
@@ -18,18 +19,20 @@ class New extends React.Component {
 
   _getForm() {
     return {
-      title: 'New Assignment',
+      title: 'Assign a Training',
       method: 'post',
       action: '/api/admin/training/assignments',
+      saveText: 'Assign',
       onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Training', name: 'training_id', type: 'lookup', prompt: 'Choose a training', endpoint: '/api/admin/training/trainings', value: 'id', text: 'title', required: true },
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Give this assignment a title', required: true },
             { label: 'Assign To', name: 'assignments', type: 'assignmentfield', prompt: 'Choose a user', required: true },
-            { label: 'Must Be Completed By', name: 'due', type: 'datefield' }
+            { label: 'Training Options', name: 'options', type: Options, required: true },
+            { label: 'Must Be Completed By', name: 'completed_by', type: 'datefield' }
           ]
         }
       ]

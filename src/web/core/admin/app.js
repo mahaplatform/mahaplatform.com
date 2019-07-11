@@ -101,9 +101,10 @@ import siteshtmlfield from '../../apps/sites/admin/components/htmlfield'
 import sitessitesImportFinalize from '../../apps/sites/admin/components/sites_import_finalize'
 import teamaccess from '../../apps/team/admin/components/access'
 import teamroles from '../../apps/team/admin/components/roles'
-import trainingsanswers from '../../apps/training/admin/components/questions/answers'
-import trainingsquestions from '../../apps/training/admin/components/questions'
-import trainingsquiz from '../../apps/training/admin/components/quiz'
+import trainingoptions from '../../apps/training/admin/components/options'
+import traininganswers from '../../apps/training/admin/components/questions/answers'
+import trainingquestions from '../../apps/training/admin/components/questions'
+import trainingquiz from '../../apps/training/admin/components/quiz'
 import chatRoutes from '../../apps/chat/admin/views/index.js'
 import driveRoutes from '../../apps/drive/admin/views/index.js'
 import eatfreshRoutes from '../../apps/eatfresh/admin/views/index.js'
@@ -113,7 +114,7 @@ import mahaRoutes from '../../apps/maha/admin/views/index.js'
 import platformRoutes from '../../apps/platform/admin/views/index.js'
 import sitesRoutes from '../../apps/sites/admin/views/index.js'
 import teamRoutes from '../../apps/team/admin/views/index.js'
-import trainingsRoutes from '../../apps/training/admin/views/index.js'
+import trainingRoutes from '../../apps/training/admin/views/index.js'
 import chatBadges from '../../apps/chat/admin/badges/index.js'
 import driveBadges from '../../apps/drive/admin/badges/index.js'
 import mahaBadges from '../../apps/maha/admin/badges/index.js'
@@ -305,9 +306,10 @@ class App extends React.Component {
       sitessitesImportFinalize,
       teamaccess,
       teamroles,
-      trainingsanswers,
-      trainingsquestions,
-      trainingsquiz,
+      trainingoptions,
+      traininganswers,
+      trainingquestions,
+      trainingquiz,
     ]
   }
 
@@ -335,7 +337,7 @@ class App extends React.Component {
       { path: '/admin/platform', children: platformRoutes },
       { path: '/admin/sites', children: sitesRoutes },
       { path: '/admin/team', children: teamRoutes },
-      { path: '/admin/training', children: trainingsRoutes },
+      { path: '/admin/training', children: trainingRoutes },
       { path: '/*', component: NotFound }
     ]
   }

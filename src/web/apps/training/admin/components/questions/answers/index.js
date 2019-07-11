@@ -4,7 +4,7 @@ import Answers from './answers'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'learning.answers',
+  namespace: 'training.answers',
   component: Answers,
   reducer,
   actions

@@ -1,8 +1,10 @@
-import { whitelist } from '../../../../../core/services/routes/params'
 import { activity } from '../../../../../core/services/routes/activities'
+import { updateRelated } from '../../../../../core/services/routes/relations'
+import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
 import Assignment from '../../../models/assignment'
-import Training from '../../../models/training'
+import Assigning from '../../../models/Assigning'
+import Option from '../../../models/option'
 import User from '../../../../maha/models/user'
 import _ from 'lodash'
 
@@ -22,10 +24,32 @@ const getGroupUsers = async (req, group_id) => await User.query(qb => {
 
 const createRoute = async (req, res) => {
 
-  const training = await Training.query(qb => {
-    qb.where('id', req.body.training_id)
-  }).fetch({
+  const assigning = await Assigning.forge({
+    team_id: req.team.get('id'),
+    assigned_by_id: req.user.get('id'),
+    ...whitelist(req.body, ['title','completed_by'])
+  }).save(null, {
     transacting: req.trx
+  })
+
+  await Promise.mapSeries(req.body.options, async (data) => {
+
+    const option = await Option.forge({
+      team_id: req.team.get('id'),
+      assigning_id: assigning.get('id')
+    }).save(null, {
+      transacting: req.trx
+    })
+
+    await updateRelated(req, {
+      object: option,
+      related: 'options',
+      table: 'training_options_trainings',
+      ids: data.training_ids,
+      foreign_key: 'option_id',
+      related_foreign_key: 'training_id'
+    })
+
   })
 
   const user_ids = await Promise.reduce(req.body.assignments, async (user_ids, assignment) => [
@@ -38,17 +62,11 @@ const createRoute = async (req, res) => {
   await Promise.mapSeries(user_ids, async (user_id) => {
     await Assignment.forge({
       team_id: req.team.get('id'),
-      assigned_by_id: req.user.get('id'),
-      employee_id: user_id,
-      ...whitelist(req.body, ['due','training_id'])
+      user_id,
+      assigning_id: assigning.get('id')
     }).save(null, {
       transacting: req.trx
     })
-  })
-
-  await activity(req, {
-    story: 'assigned {object}',
-    object: training
   })
 
   await socket.refresh(req, [

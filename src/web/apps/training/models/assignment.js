@@ -1,7 +1,8 @@
-import User from '../../maha/models/user'
-import Training from './training'
-import Offering from './offering'
 import Model from '../../../core/objects/model'
+import User from '../../maha/models/user'
+import Fulfillment from './fulfillment'
+import Assigning from './assigning'
+import Option from './option'
 
 const Assignment = new Model({
 
@@ -11,20 +12,20 @@ const Assignment = new Model({
 
   virtuals: {},
 
-  assigned_by() {
-    return this.belongsTo(User, 'assigned_by_id')
+  assigning() {
+    return this.belongsTo(Assigning, 'assigning_id')
   },
 
-  employee() {
-    return this.belongsTo(User, 'employee_id')
+  user() {
+    return this.belongsTo(User, 'user_id')
   },
 
-  offering() {
-    return this.belongsTo(Offering, 'offering_id')
+  fulfillments() {
+    return this.hasMany(Fulfillment, 'assignment_id')
   },
 
-  training() {
-    return this.belongsTo(Training, 'training_id')
+  option() {
+    return this.belongsTo(Option, 'option_id')
   }
 
 })

@@ -7,6 +7,7 @@ const listRoute = async (req, res) => {
     team: req.team
   }).filter({
     filter: req.query.$filter,
+    filterParams: ['type'],
     searchParams: ['id','title']
   }).sort({
     sort: req.query.$sort,
