@@ -6,7 +6,7 @@ const app = {
   author: 'CCE Tompkins',
   description: 'Performance appraisal Management',
   version: '1.0.0',
-  color: 'brown',
+  color: 'orange',
   icon: 'check'
 }
 
