@@ -21,11 +21,11 @@ const Offerings = ({ training, offerings }) => {
         modal: <New training={ training } />
       }
     },
-    buttons: [{
+    buttons: offerings.length > 0 ? [{
       label: 'Create Another Offering',
       color: 'blue',
       modal: <New training={ training } />
-    }]
+    }] : null
   }
 
   return <List { ...list } />
