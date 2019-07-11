@@ -19,6 +19,7 @@ import NumberField from './numberfield'
 import Password from './password'
 import PhoneField from './phonefield'
 import RadioGroup from './select/radio_group'
+import Rating from './rating'
 import TableField from './tablefield'
 import Text from './text'
 import TextArea from './textarea'
@@ -67,6 +68,7 @@ class Control extends React.Component {
     if(type === 'numberfield') return NumberField
     if(type === 'password') return Password
     if(type === 'phonefield') return PhoneField
+    if(type === 'rating') return Rating
     if(type === 'radiogroup') return RadioGroup
     if(type === 'tablefield') return TableField
     if(type === 'text') return Text
