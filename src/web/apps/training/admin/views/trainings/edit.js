@@ -34,11 +34,33 @@ class Edit extends React.Component {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
             { label: 'Description', name: 'description', type: 'textarea', required: true },
-            { label: 'Materials', name: 'asset_ids', type: 'attachmentfield', multiple: true }
+            ...this._getTypeFields()
           ]
         }
       ]
     }
+  }
+
+  _getTypeFields() {
+    const { type } = this.props.training
+    if(type === 'local') {
+      return [
+        { label: 'Materials', name: 'asset_ids', type: 'attachmentfield', multiple: true }
+      ]
+    } else if(type === 'remote') {
+      return [
+        { label: 'URL', name: 'url', type: 'textfield' },
+        { label: 'Location', name: 'location', type: 'textfield' },
+        { label: 'Contact', name: 'contact', type: 'textfield' }
+      ]
+    } else if(type === 'online') {
+      return [
+        { label: 'URL', name: 'url', type: 'textfield' }
+      ]
+    } else if(type === 'managed') {
+      return []
+    }
+    return []
   }
 
   _handleCancel() {

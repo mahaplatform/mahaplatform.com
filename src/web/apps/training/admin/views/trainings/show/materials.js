@@ -11,9 +11,12 @@ const Materials = ({ materials }) => {
       component: <AssetToken { ...material.asset } />
     })),
     empty: {
-      icon: 'calendar',
-      title: 'No offerings',
-      text: 'There are no offerings for this training'
+      icon: 'files-o',
+      title: 'No materials',
+      text: 'There are no materials for this training',
+      button: {
+        label: 'Manage Materials'
+      }
     }
   }
 

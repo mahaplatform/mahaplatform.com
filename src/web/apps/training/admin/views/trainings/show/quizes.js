@@ -13,7 +13,7 @@ const Quizes = ({ training, quizes }) => {
       component: QuizToken
     })),
     empty: {
-      icon: 'question',
+      icon: 'question-circle',
       title: 'No quizes',
       text: 'There are no quizes for this training',
       button: {
