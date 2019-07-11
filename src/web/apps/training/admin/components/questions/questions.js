@@ -31,11 +31,6 @@ class Questions extends React.PureComponent {
     const { questions } = this.props
     return (
       <div className="questions">
-        { questions.length === 0 &&
-          <div className="questions-empty">
-            There are no questions for this quiz
-          </div>
-        }
         { questions.map((question, index) => (
           <Question { ...this._getQuestion(question, index) } key={`question_${index}`} />
         ))}

@@ -19,7 +19,7 @@ const getTabs = ({ training, offerings, lessons, materials, quizes }) => {
   if(training.type === 'local') {
     items.push({ label: 'Materials', component: <Materials materials={ materials } /> })
     items.push({ label: 'Quizes', component: <Quizes training={ training } quizes={ quizes }  /> })
-    items.push({ label: 'Offerings', component: <Offerings training={ training } offerings={ offerings } /> })
+    // items.push({ label: 'Offerings', component: <Offerings training={ training } offerings={ offerings } /> })
   }
 
   if(training.type === 'maha') {
@@ -51,7 +51,7 @@ const mapResourcesToPage = (props, context) => ({
   lessons: `/api/admin/training/trainings/${props.params.id}/lessons`,
   materials: `/api/admin/training/trainings/${props.params.id}/materials`,
   quizes: `/api/admin/training/trainings/${props.params.id}/quizes`,
-  offerings: `/api/admin/training/trainings/${props.params.id}/offerings`
+  // offerings: `/api/admin/training/trainings/${props.params.id}/offerings`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

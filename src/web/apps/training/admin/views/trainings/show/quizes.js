@@ -21,11 +21,11 @@ const Quizes = ({ training, quizes }) => {
         modal: <New quizable_type="trainings" quizable_id={ training.id } />
       }
     },
-    buttons: [{
+    buttons: quizes.length > 0 ? [{
       label: 'Create Another Quiz',
       color: 'blue',
       modal: <New quizable_type="trainings" quizable_id={ training.id } />
-    }]
+    }] : null
   }
 
   return <List { ...list } />

@@ -29,11 +29,6 @@ class Options extends React.PureComponent {
     const { options } = this.props
     return (
       <div className="training-options">
-        { options.length === 0 &&
-          <div className="training-options-empty">
-            There are no training options for this assignment
-          </div>
-        }
         { options.map((option, index) => (
           <div className="training-options-option" key={`option_${index}`}>
             <div className="training-options-option-label">
@@ -42,9 +37,6 @@ class Options extends React.PureComponent {
                   { training.title }
                 </div>
               )) }
-            </div>
-            <div className="training-options-option-extra" onClick={ this._handleEdit.bind(this, index) }>
-              <i className="fa fa-fw fa-pencil" />
             </div>
             <div className="training-options-option-extra" onClick={ this._handleRemove.bind(this, index) }>
               <i className="fa fa-fw fa-times" />
@@ -88,8 +80,6 @@ class Options extends React.PureComponent {
   _handleNew() {
     this.context.form.push(<New { ...this._getNew() } />)
   }
-
-  _handleEdit() {}
 
   _handleRemove(index) {
     this.props.onRemove(index)
