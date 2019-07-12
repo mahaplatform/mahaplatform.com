@@ -1,14 +1,14 @@
-import AssignmentSerializer from '../../../serializers/assignment_serializer'
+import OptionSerializer from '../../../serializers/option_serializer'
 import Assignment from '../../../models/assignment'
 
-const showRoute = async (req, res) => {
+const listRoute = async (req, res) => {
 
   const assignment = await Assignment.scope({
     team: req.team
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['option.trainings','assigning.assigned_by','user'],
+    withRelated: ['assigning.options.trainings'],
     transacting: req.trx
   })
 
@@ -17,8 +17,8 @@ const showRoute = async (req, res) => {
     message: 'Unable to load assignment'
   })
 
-  res.status(200).respond(assignment, AssignmentSerializer)
+  res.status(200).respond(assignment.related('assigning').related('options'), OptionSerializer)
 
 }
 
-export default showRoute
+export default listRoute

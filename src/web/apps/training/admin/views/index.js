@@ -1,3 +1,4 @@
+import AssignmentsEmployees from './assignments/employees'
 import AssignmentsReport from './assignments/report'
 import AssignmentsList from './assignments/list'
 import AssignmentsShow from './assignments/show'
@@ -10,6 +11,7 @@ import TrainingsShow from './trainings/show'
 
 const routes = [
   { path: '/assignments', component: AssignmentsList },
+  { path: '/assignments/employees', component: AssignmentsEmployees },
   { path: '/assignments/report', component: AssignmentsReport },
   { path: '/assignments/:id', component: AssignmentsShow },
   { path: '/fulfillments/:id', component: FulfillmentsShow },

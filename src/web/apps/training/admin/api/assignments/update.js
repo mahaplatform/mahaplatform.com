@@ -19,13 +19,11 @@ const updateRoute = async (req, res) => {
   })
 
   const channels = [
-    `/admin/training/offerings/${assignment.get('offering_id')}`,
-    `/admin/training/offerings/${req.body.offering_id}`,
     `/admin/training/assignments/${assignment.get('id')}`
   ]
 
   await assignment.save({
-    offering_id: req.body.offering_id
+    option_id: req.body.option_id
   }, {
     patch: true,
     transacting: req.trx

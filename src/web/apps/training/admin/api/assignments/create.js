@@ -43,7 +43,7 @@ const createRoute = async (req, res) => {
 
     await updateRelated(req, {
       object: option,
-      related: 'options',
+      related: 'trainings',
       table: 'training_options_trainings',
       ids: data.training_ids,
       foreign_key: 'option_id',

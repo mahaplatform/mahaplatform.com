@@ -1,4 +1,3 @@
-import AssignmentSerializer from '../../../serializers/assignment_serializer'
 import Assignment from '../../../models/assignment'
 
 const showRoute = async (req, res) => {
@@ -8,7 +7,6 @@ const showRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['training','offering','assigned_by.photo','employee.photo'],
     transacting: req.trx
   })
 
@@ -19,7 +17,7 @@ const showRoute = async (req, res) => {
 
   res.status(200).respond(assignment, {
     fields: [
-      'offering_id'
+      'option_id'
     ]
   })
 

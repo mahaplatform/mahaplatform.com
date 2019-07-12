@@ -8,8 +8,6 @@ const listRoute = async (req, res) => {
   }).filter({
     filter: req.query.$filter,
     searchParams: ['name']
-  }).sort({
-    sort: req.query.$sort
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx

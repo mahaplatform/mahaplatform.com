@@ -15,7 +15,7 @@ const isSupervisor = async (req) => {
 
 const navigation = async (req) => ({
   items: [
-    { label: 'Configuration', rights: ['competencies:manage_configuration'], items: [
+    { label: 'Administration', rights: ['competencies:manage_configuration'], items: [
       { label: 'Categories', route: '/categories' },
       { label: 'Classifications', route: '/classifications' },
       { label: 'Competencies', route: '/competencies' },

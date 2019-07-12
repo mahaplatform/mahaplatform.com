@@ -15,10 +15,12 @@ const isSupervisor = async (req) => {
 
 const navigation = async (req) => ({
   items: [
-    { label: 'Assignments', route: '/assignments' },
-    { label: 'Offerings', route: '/offerings' },
+    { label: 'Administration', rights: [], items: [
+      { label: 'Trainings', route: '/trainings' }
+    ] },
+    { label: 'Employees', route: '/assignments/employees', access: isSupervisor },
     { label: 'Report', route: '/assignments/report' },
-    { label: 'Trainings', route: '/trainings' }
+    { label: 'Trainings', route: '/assignments' }
   ]
 })
 

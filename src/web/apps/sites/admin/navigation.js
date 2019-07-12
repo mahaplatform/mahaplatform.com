@@ -15,46 +15,26 @@ const navigation = async (req) => {
 
   return {
     items: [
-      { label: 'Admin', rights: ['sites:manage_sites'], route: '/sites' },
+      { label: 'Administration', rights: ['sites:manage_sites'], items: [
+        { label: 'Sites', route: '/sites' }
+      ] },
       ...sites.toArray().map(site => ({
         label: site.get('title'),
         items: [
           {
-            label: 'Admin',
+            label: 'Manage',
             rights: ['sites:manage_content'],
             items: [
-              {
-                label: 'Configuration',
-                rights: ['sites:manage_content'],
-                route: `/sites/${site.get('id')}`
-              },
-              {
-                label: 'Emails',
-                rights: ['sites:manage_content'],
-                route: `/sites/${site.get('id')}/emails`
-              },
-              {
-                label: 'Managers',
-                rights: ['sites:manage_content'],
-                route: `/sites/${site.get('id')}/managers`
-              },
-              {
-                label: 'Members',
-                rights: ['sites:manage_content'],
-                route: `/sites/${site.get('id')}/members`
-              },
-              {
-                label: 'Types',
-                rights: ['sites:manage_content'],
-                route: `/sites/${site.get('id')}/types`
-              }
+              { label: 'Configuration', route: `/sites/${site.get('id')}` },
+              { label: 'Emails', route: `/sites/${site.get('id')}/emails` },
+              { label: 'Managers', route: `/sites/${site.get('id')}/managers` },
+              { label: 'Members', route: `/sites/${site.get('id')}/members` },
+              { label: 'Types', route: `/sites/${site.get('id')}/types` }
             ]
           },
-          ...site.related('types').map(type => ({
-            label: type.get('title'),
-            rights: ['sites:manage_content'],
-            route: `/sites/${site.get('id')}/types/${type.get('id')}/items`
-          }))
+          ...site.related('types').map(type => (
+            { label: type.get('title'), route: `/sites/${site.get('id')}/types/${type.get('id')}/items` }
+          ))
         ]
       }))
     ]

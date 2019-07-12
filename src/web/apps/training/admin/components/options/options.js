@@ -61,7 +61,9 @@ class Options extends React.PureComponent {
   componentDidUpdate(prevProps) {
     const { options } = this.props
     if(!_.isEqual(options, prevProps.options)) {
-      this.props.onChange(options)
+      this.props.onChange(options.map(option => ({
+        training_ids: option.trainings.map(training => training.id)
+      })))
     }
   }
 

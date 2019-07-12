@@ -17,8 +17,6 @@ const getData = async (req, item) => {
 
   }
 
-  console.log(item.get('key'))
-
   return await s3.getObject({
     Bucket: process.env.AWS_BUCKET,
     Key: item.get('key')

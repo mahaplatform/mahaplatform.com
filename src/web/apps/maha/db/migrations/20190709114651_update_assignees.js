@@ -2,8 +2,6 @@ const UpdateAssignees = {
 
   up: async (knex) => {
 
-    await knex.raw('drop view maha_assignees')
-
     await knex.raw(`
       create or replace VIEW maha_assignees AS
       select "team_id","user_id","group_id","full_name","name","initials","photo","is_everyone","is_active"
