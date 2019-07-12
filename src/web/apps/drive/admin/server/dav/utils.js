@@ -57,7 +57,7 @@ export const loadTeam = async (req, res, next) => {
 export const generateUUID = (expirationDate) => {
   const rnd1 = Math.ceil(Math.random() * 0x3FFF) + 0x8000
   const rnd2 = Math.ceil(Math.random() * 0xFFFFFFFF)
-  function pad(value : number, nb : number) {
+  function pad(value, nb) {
     if(value < 0) value *= -1
     let str = Math.ceil(value).toString(16)
     while(str.length < nb) {

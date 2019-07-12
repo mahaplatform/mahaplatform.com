@@ -33,13 +33,13 @@ class Table extends React.Component {
     onSelectAll: () => {}
   }
 
-  _handleResize: any = _.debounce(this._handleResize, 100)
-
-  head: any
+  head = null
 
   state = {
     widths: []
   }
+
+  _handleResize = _.debounce(this._handleResize, 100)
 
   render(){
     const { columns, link, records, recordTasks, selectable, selected, selectAll, sort } = this.props

@@ -23,7 +23,7 @@ export const setFilter = (filter) => ({
   filter
 })
 
-export const toggleFilter = (id: number) => ({
+export const toggleFilter = (id) => ({
   type: 'TOGGLE_FILTER',
   id
 })

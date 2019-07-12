@@ -3,41 +3,33 @@ export const INITIAL_STATE = {
   q: ''
 }
 
-const begin = (state, action) => ({
-  ...state,
-  active: true
-})
-
-const end = (state, action) => ({
-  ...state,
-  active: false
-})
-
-const type = (state, action) => ({
-  ...state,
-  q: action.q
-})
-
-const abort = (state, action) => ({
-  ...state,
-  q: ''
-})
-
-const reducer = (state = INITIAL_STATE, action: Action) => {
+const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
   case 'BEGIN':
-    return begin(state, action)
+    return {
+      ...state,
+      active: true
+    }
 
   case 'END':
-    return end(state, action)
+    return {
+      ...state,
+      active: false
+    }
 
   case 'TYPE':
-    return type(state, action)
+    return {
+      ...state,
+      q: action.q
+    }
 
   case 'ABORT':
-    return abort(state, action)
+    return {
+      ...state,
+      q: ''
+    }
 
   default:
     return state

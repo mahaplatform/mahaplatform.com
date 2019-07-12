@@ -52,7 +52,7 @@ const middleware = async () => {
 
   server.use('/admin*', homeMiddleware)
 
-  server.use('/api', await apiMiddleware)
+  server.use('/api', apiMiddleware)
 
   server.use(emailMiddleware)
 

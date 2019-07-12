@@ -7,7 +7,7 @@ class Checkbox extends React.Component {
     disabled: false,
     tabIndex: 0,
     onBusy: () => {},
-    onChange: (value: boolean): void => {},
+    onChange: (value) => {},
     onReady: () => {}
   }
 

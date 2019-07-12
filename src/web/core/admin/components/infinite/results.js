@@ -1,4 +1,3 @@
-export Loader from '../loader'
 import Message from '../message'
 import React from 'react'
 

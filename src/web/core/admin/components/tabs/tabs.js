@@ -22,7 +22,7 @@ class Tabs extends React.Component {
     onChoose: (index) => {}
   }
 
-  _swipe: Object = {}
+  _swipe = {}
 
   state = {
     visited: [],
@@ -82,7 +82,7 @@ class Tabs extends React.Component {
     return classes.join(' ')
   }
 
-  _handleChoose(index: number): void {
+  _handleChoose(index) {
     const { onChoose } = this.props
     const visited = _.uniq([ ...this.state.visited, index ])
     this.setState({ visited, transitioning: true })
