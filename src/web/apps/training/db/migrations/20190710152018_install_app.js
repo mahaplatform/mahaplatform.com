@@ -17,11 +17,6 @@ const InstallApp = {
       settings: {}
     })
 
-    await knex('maha_roles_apps').insert({
-      role_id: 4,
-      app_id: app[0]
-    })
-
   },
 
   down: async (knex) => {
