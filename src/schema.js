@@ -1793,9 +1793,7 @@ const schema = {
 
     await knex.raw(`
       create view drive_items AS
-      select row_number() over (order by items.priority, items.label) as id,
-      items.priority,
-      items.code,
+      select items.code,
       items.item_id,
       items.team_id,
       items.type,
@@ -1809,7 +1807,6 @@ const schema = {
       items.content_type,
       items.lock_expires_at,
       items.locked_by,
-      items.lock_token,
       items.deleted_at,
       items.created_at,
       items.updated_at
@@ -1879,7 +1876,8 @@ const schema = {
       drive_metafiles.created_at,
       drive_metafiles.updated_at
       from (drive_metafiles
-      join maha_users on ((maha_users.id = drive_metafiles.owner_id)))) items;
+      join maha_users on ((maha_users.id = drive_metafiles.owner_id)))) items
+      order by items.priority;
     `)
 
     await knex.raw(`
@@ -1895,9 +1893,7 @@ const schema = {
 
     await knex.raw(`
       create view drive_starred AS
-      select drive_items.id,
-      drive_items.priority,
-      drive_items.code,
+      select drive_items.code,
       drive_items.item_id,
       drive_items.team_id,
       drive_items.type,
@@ -1911,7 +1907,6 @@ const schema = {
       drive_items.content_type,
       drive_items.lock_expires_at,
       drive_items.locked_by,
-      drive_items.lock_token,
       drive_items.deleted_at,
       drive_items.created_at,
       drive_items.updated_at,
@@ -2032,59 +2027,6 @@ const schema = {
       from ((expenses_reimbursements
       left join maha_import_items on ((maha_import_items.object_id = expenses_reimbursements.id)))
       left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'expenses_reimbursements'::text))))) items;
-    `)
-
-    await knex.raw(`
-      create view maha_assignees AS
-      select row_number() over (order by assignees.priority, assignees.name) as id,
-      assignees.team_id,
-      assignees.user_id,
-      assignees.group_id,
-      assignees.full_name,
-      assignees.name,
-      assignees.initials,
-      assignees.photo,
-      assignees.is_everyone,
-      assignees.is_active
-      from ( select 1 as priority,
-      maha_teams.id as team_id,
-      null::integer as user_id,
-      null::integer as group_id,
-      'everyone'::character varying as full_name,
-      'everyone'::character varying as name,
-      null::text as initials,
-      null::text as photo,
-      true as is_everyone,
-      true as is_active
-      from maha_teams
-      union
-      select 2 as priority,
-      maha_groups.team_id,
-      null::integer as user_id,
-      maha_groups.id as group_id,
-      maha_groups.title as full_name,
-      maha_groups.title as name,
-      null::text as initials,
-      null::text as photo,
-      false as is_everyone,
-      true as is_active
-      from maha_groups
-      union
-      select 3 as priority,
-      maha_users.team_id,
-      maha_users.id as user_id,
-      null::integer as group_id,
-      concat(maha_users.first_name, ' ', maha_users.last_name) as full_name,
-      maha_users.last_name as name,
-      concat("left"((maha_users.first_name)::text, 1), "left"((maha_users.last_name)::text, 1)) as initials,
-      case
-      when (maha_assets.id is not null) then concat('/assets/', maha_assets.id, '/', maha_assets.file_name)
-      else null::text
-      end as photo,
-      false as is_everyone,
-      maha_users.is_active
-      from (maha_users
-      left join maha_assets on ((maha_assets.id = maha_users.photo_id)))) assignees;
     `)
   }
 

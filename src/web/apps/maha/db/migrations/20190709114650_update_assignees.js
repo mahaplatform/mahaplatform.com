@@ -5,9 +5,7 @@ const UpdateAssignees = {
     await knex.raw('drop view maha_assignees')
 
     await knex.raw(`
-      create view maha_assignees as
-      select row_number() over (order by "assignees"."priority" ASC, "assignees"."name" ASC) as id,
-      "team_id","user_id","group_id","full_name","name","initials","photo","is_everyone","is_active"
+      select "team_id","user_id","group_id","full_name","name","initials","photo","is_everyone","is_active"
       from (
       select
       1 as "priority",
@@ -50,6 +48,7 @@ const UpdateAssignees = {
       "maha_users"."is_active"
       from "maha_users"
       left join "maha_assets" on "maha_assets"."id"="maha_users"."photo_id") as "assignees"
+	    order by "assignees"."priority" ASC, "assignees"."name" ASC
     `)
 
   },

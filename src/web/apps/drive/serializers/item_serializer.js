@@ -1,7 +1,6 @@
 import _ from 'lodash'
 
 const ItemSerializer = (req, result) => ({
-  id: result.get('id'),
   code: result.get('code'),
   type: result.get('type'),
   access_type: result.get('access_type'),
@@ -20,9 +19,7 @@ const ItemSerializer = (req, result) => ({
 })
 
 const folder = (folder) => {
-
-  if(!folder.get('id')) return null
-
+  if(!folder.id) return null
   return {
     id: folder.get('id'),
     code: folder.get('code'),
@@ -30,7 +27,6 @@ const folder = (folder) => {
     created_at: folder.get('created_at'),
     updated_at: folder.get('updated_at')
   }
-
 }
 
 const access = (access) => ({
@@ -41,9 +37,7 @@ const access = (access) => ({
 })
 
 const asset = (asset) => {
-
-  if(!asset.get('id')) return null
-
+  if(!asset.id) return null
   return {
     id: asset.get('id'),
     original_file_name: asset.get('original_file_name'),
@@ -59,31 +53,24 @@ const asset = (asset) => {
     created_at: asset.get('created_at'),
     updated_at: asset.get('updated_at')
   }
-
 }
 
 const group = (group) => {
-
   if(!group.id) return null
-
   return {
     id: group.get('id'),
     title: group.get('title')
   }
-
 }
 
 const user = (user) => {
-
   if(!user.id) return null
-
   return {
     id: user.get('id'),
     full_name: user.get('full_name'),
     initials: user.get('initials'),
     photo: user.related('photo') ? user.related('photo').get('path') : null
   }
-
 }
 
 export default ItemSerializer

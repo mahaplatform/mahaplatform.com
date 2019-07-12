@@ -1,4 +1,4 @@
-const CreateMetaFiles = {
+const StreamlineDriveItems = {
 
   up: async (knex) => {
 
@@ -8,58 +8,16 @@ const CreateMetaFiles = {
 
     await knex.raw('drop view drive_items')
 
-    await knex.schema.createTable('drive_metafiles', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.foreign('team_id').references('maha_teams.id')
-      table.integer('folder_id').unsigned()
-      table.foreign('folder_id').references('drive_folders.id')
-      table.integer('owner_id').unsigned()
-      table.foreign('owner_id').references('maha_users.id')
-      table.string('code')
-      table.string('label', 255)
-      table.text('fullpath')
-      table.integer('file_size')
-      table.binary('contents')
-      table.string('locked_by', 255)
-      table.string('lock_token', 255)
-      table.timestamp('lock_expires_at')
-      table.timestamps()
-    })
-
-    await knex.schema.alterTable('drive_files', (table) => {
-      table.integer('owner_id').unsigned()
-      table.foreign('owner_id').references('maha_users.id')
-      table.dropColumn('locked_by_id')
-      table.string('locked_by', 255)
-      table.text('fullpath').alter()
-    })
-
-    await knex.schema.alterTable('drive_folders', (table) => {
-      table.integer('owner_id').unsigned()
-      table.foreign('owner_id').references('maha_users.id')
-      table.text('fullpath').alter()
-    })
-
-    await Promise.mapSeries(['drive_folders','drive_files'], async (table) => {
-      const items = await knex(table).select(knex.raw(`${table}.*,drive_access.user_id as owner_id`)).joinRaw(`inner join drive_access on drive_access.code=${table}.code and drive_access.access_type_id=1`)
-      await Promise.mapSeries(items, async (item) => {
-        await knex(table).where('id', item.id).update({
-          owner_id: item.owner_id
-        })
-      })
-    })
-
     await knex.raw(`
       create view drive_items AS
-      select "items".*
+      select "code","item_id","team_id","type","folder_id","asset_id","owner_id","owned_by","label","fullpath","file_size","content_type","lock_expires_at","locked_by","deleted_at","created_at","updated_at"
       from (
       select
       0 as priority,
       "drive_folders"."code",
-      "drive_folders"."id" as item_id,
+      "drive_folders"."id" as "item_id",
       "drive_folders"."team_id",
-      'folder' as type,
+      'folder' as "type",
       "drive_folders"."parent_id" as "folder_id",
       null as "asset_id",
       "drive_folders"."owner_id",
@@ -82,7 +40,7 @@ const CreateMetaFiles = {
       "drive_files"."code",
       "drive_files"."id" as item_id,
       "drive_files"."team_id",
-      'file' as type,
+      'file' as "type",
       "drive_files"."folder_id",
       "drive_versions"."asset_id",
       "drive_files"."owner_id",
@@ -107,7 +65,7 @@ const CreateMetaFiles = {
       "drive_metafiles"."code",
       "drive_metafiles"."id" as item_id,
       "drive_metafiles"."team_id",
-      'metafile' as type,
+      'metafile' as "type",
       "drive_metafiles"."folder_id",
       null as "asset_id",
       "drive_metafiles"."owner_id",
@@ -124,7 +82,8 @@ const CreateMetaFiles = {
       "drive_metafiles"."updated_at"
       from "drive_metafiles"
       inner join "maha_users" on "maha_users"."id"="drive_metafiles"."owner_id"
-      ) as "items"
+    ) as "items"
+    order by "priority"
     `)
 
     await knex.raw(`
@@ -144,12 +103,15 @@ const CreateMetaFiles = {
       inner join "maha_stars" on "maha_stars"."starrable_type"=concat('drive_',"drive_items"."type",'s') and "maha_stars"."starrable_id"="drive_items"."item_id"
     `)
 
+    await knex.schema.table('drive_metafiles', (table) => {
+      table.index('code')
+    })
+
   },
 
   down: async (knex) => {
-    return await knex.schema.dropTable('drive_files')
   }
 
 }
 
-export default CreateMetaFiles
+export default StreamlineDriveItems
