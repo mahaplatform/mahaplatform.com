@@ -17,11 +17,9 @@ const getData = async (req, item) => {
 
   }
 
-  const asset = item.related('asset')
-
   return await s3.getObject({
     Bucket: process.env.AWS_BUCKET,
-    Key: asset.get('key')
+    Key: item.get('key')
   }).promise().then(file => file.Body)
 
 }

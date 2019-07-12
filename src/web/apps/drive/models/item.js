@@ -8,21 +8,29 @@ const Item = new Model({
 
   tableName: 'drive_items',
 
-  accesses: function() {
+  virtuals: {
+
+    key() {
+      return `assets/${this.get('asset_id')}/${this.get('label')}`
+    }
+
+  },
+
+  accesses() {
     return this.hasMany(Access, 'code', 'code').query(qb => {
       qb.orderByRaw('access_type_id')
     })
   },
 
-  asset: function() {
+  asset() {
     return this.belongsTo(Asset, 'asset_id')
   },
 
-  folder: function() {
+  folder() {
     return this.belongsTo(Folder, 'folder_id')
   },
 
-  owner: function() {
+  owner() {
     return this.belongsTo(User, 'owner_id')
   }
 
