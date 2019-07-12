@@ -11,7 +11,7 @@ const Item = new Model({
   virtuals: {
 
     key() {
-      return `assets/${this.get('asset_id')}/${this.get('label')}`
+      return `assets/${this.get('asset_id')}/${this.get('file_name')}`
     }
 
   },

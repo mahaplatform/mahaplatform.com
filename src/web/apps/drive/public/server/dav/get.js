@@ -17,6 +17,8 @@ const getData = async (req, item) => {
 
   }
 
+  console.log(item.get('key'))
+
   return await s3.getObject({
     Bucket: process.env.AWS_BUCKET,
     Key: item.get('key')
@@ -35,6 +37,8 @@ const route = async (req, res) => {
     res.status(200).type(req.item.get('content_type')).send(data)
 
   } catch(err) {
+
+    console.log(err)
 
     res.status(200).send(null)
 
