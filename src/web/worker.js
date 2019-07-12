@@ -4,18 +4,12 @@ import log from './core/utils/log'
 
 const queueFiles = collectObjects('queues/*')
 
-const processor = async () => {
+queueFiles.map(queueFile => {
 
-  await Promise.mapSeries(queueFiles, async (queueFile) => {
+  const queue = queueFile.default
 
-    const queue = queueFile.default
+  log('info', 'worker', `Starting ${queue.name}`)
 
-    log('info', 'worker', `Starting ${queue.name}`)
+  queue.start()
 
-    queue.start()
-
-  })
-
-}
-
-processor()
+})

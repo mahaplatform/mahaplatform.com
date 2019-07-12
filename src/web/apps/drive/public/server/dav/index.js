@@ -1,10 +1,12 @@
 import { loadHeaders, loadItem, loadTeam, rawParser } from './utils'
 import preconditions from './preconditions'
+import bodyParserXML from 'body-parser-xml'
+import bodyParser from 'body-parser'
 import propfind from './propfind'
-import express from 'express'
 import options from './options'
 import destroy from './destroy'
 import unlock from './unlock'
+import express from 'express'
 import mkcol from './mkcol'
 import auth from './auth'
 import cors from './cors'
@@ -14,7 +16,11 @@ import copy from './copy'
 import put from './put'
 import get from './get'
 
+bodyParserXML(bodyParser)
+
 const router = new express()
+
+router.use(bodyParser.xml({ limit: '5mb' }))
 
 router.set('etag', false)
 

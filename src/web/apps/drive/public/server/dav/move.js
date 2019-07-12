@@ -8,7 +8,7 @@ import URL from 'url'
 const route = async (req, res) => {
 
   const { protocol, host } = URL.parse(req.headers.destination)
-  const destination = req.headers.destination.replace(`${protocol}//${host}/admin/drive/dav/${req.team.get('subdomain')}/`, '')
+  const destination = req.headers.destination.replace(`${protocol}//${host}/dav/${req.team.get('subdomain')}/`, '')
   const fullpath = decodeURI(destination).split('/')
   const label = fullpath.slice(-1)[0]
   const parent_path = fullpath.slice(0,-1).join('/')

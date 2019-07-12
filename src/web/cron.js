@@ -5,20 +5,14 @@ import later from 'later'
 
 const cronFiles = collectObjects('cron/*')
 
-const processor = async () => {
+cronFiles.map(cronFile => {
 
-  await Promise.mapSeries(cronFiles, async (cronFile) => {
+  const cron = cronFile.default
 
-    const cron = cronFile.default
+  const schedule = later.parse.cron(cron.schedule, true)
 
-    const schedule = later.parse.cron(cron.schedule, true)
+  log('info', 'cron', `Starting ${cron.name}`)
 
-    log('info', 'cron', `Starting ${cron.name}`)
+  later.setInterval(cron.handler, schedule)
 
-    later.setInterval(cron.handler, schedule)
-
-  })
-
-}
-
-processor()
+})

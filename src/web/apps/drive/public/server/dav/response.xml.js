@@ -12,7 +12,7 @@ const response = (req, item, props, children = []) => xml({
 
 const getUrl = (req, item) => {
   const host = `${req.protocol}://${req.headers.host}`
-  const parts = [host, 'admin', 'drive', 'dav', req.params.subdomain]
+  const parts = [host,'dav',req.params.subdomain]
   if(item.get('fullpath').length > 0) parts.push(item.get('fullpath'))
   const url = encodeURI(parts.join('/'))
   return item.get('type') === 'folder' ? `${url}/` : url

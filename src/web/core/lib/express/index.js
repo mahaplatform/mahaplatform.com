@@ -1,6 +1,5 @@
 import 'express-async-errors'
 import './responder'
-import bodyParserXML from 'body-parser-xml'
 import multiparty from 'connect-multiparty'
 import deeplinkMiddleware from './deeplink'
 import mailboxMiddleware from './mailbox'
@@ -18,50 +17,40 @@ import arena from './arena'
 import ping from './ping'
 import qs from 'qs'
 
-bodyParserXML(bodyParser)
+const server = express()
 
-const middleware = async () => {
+server.set('query parser', str => qs.parse(str, { arrayLimit: 100, depth: 10 }))
 
-  const server = express()
+server.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }))
 
-  server.set('query parser', str => qs.parse(str, { arrayLimit: 100, depth: 10 }))
+server.use(bodyParser.json({ limit: '5mb' }))
 
-  server.use(bodyParser.urlencoded({ extended: true, limit: '5mb' }))
+server.use(multiparty({ uploadDir: './tmp' }))
 
-  server.use(bodyParser.json({ limit: '5mb' }))
+server.use(arena)
 
-  server.use(bodyParser.xml({ limit: '5mb' }))
+server.use(rollbarMiddleware)
 
-  server.use(multiparty({ uploadDir: './tmp' }))
+server.use('/ping', ping)
 
-  server.use(arena)
+server.use('/imagecache', imagecache)
 
-  server.use(rollbarMiddleware)
+server.use('/.well-known', deeplinkMiddleware)
 
-  server.use('/ping', ping)
+server.use(staticMiddleware)
 
-  server.use('/imagecache', imagecache)
+server.use(serverMiddleware)
 
-  server.use('/.well-known', deeplinkMiddleware)
+server.use('/mailbox_mime', mailboxMiddleware)
 
-  server.use(staticMiddleware)
+server.use('/admin*', homeMiddleware)
 
-  server.use('/mailbox_mime', mailboxMiddleware)
+server.use('/api', apiMiddleware)
 
-  server.use('/admin', serverMiddleware)
+server.use(emailMiddleware)
 
-  server.use('/admin*', homeMiddleware)
+server.use(legacyMiddleware)
 
-  server.use('/api', apiMiddleware)
+server.use((req, res) => res.send('not found'))
 
-  server.use(emailMiddleware)
-
-  server.use(legacyMiddleware)
-
-  server.use((req, res) => res.send('not found'))
-
-  return server
-
-}
-
-export default middleware
+export default server

@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 const preconditions = (req, res, next) => {
 
-  const requestURI = req.originalUrl.replace(`/admin/drive/dav/${req.params.subdomain}`, '')
+  const requestURI = req.originalUrl.replace(`/dav/${req.params.subdomain}`, '')
 
   const slashfree = requestURI.replace(/\/+$/, '').replace(/^\/+/, '')
 

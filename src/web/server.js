@@ -1,21 +1,13 @@
 import './core/services/environment'
 import socketio from './core/lib/socketio'
-import express from './core/lib/express'
+import app from './core/lib/express'
 import log from './core/utils/log'
 import { Server } from 'http'
 
-const processor = async () => {
+const transport = Server(app)
 
-  const app = await express()
+socketio(transport)
 
-  const transport = Server(app)
+transport.listen(process.env.SERVER_PORT)
 
-  socketio(transport)
-
-  transport.listen(process.env.SERVER_PORT)
-
-  log('info', 'server', `Listening on ${process.env.SERVER_PORT}`)
-
-}
-
-processor()
+log('info', 'server', `Listening on ${process.env.SERVER_PORT}`)
