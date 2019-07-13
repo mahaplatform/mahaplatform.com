@@ -1,13 +1,13 @@
-import { activity } from '../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../core/services/routes/params'
-import { audit } from '../../../../../core/services/routes/audit'
-import socket from '../../../../../core/services/routes/emitter'
-import Assignment from '../../../models/assignment'
+import { activity } from '../../../../core/services/routes/activities'
+import { whitelist } from '../../../../core/services/routes/params'
+import { audit } from '../../../../core/services/routes/audit'
+import socket from '../../../../core/services/routes/emitter'
+import Fulfillment from '../../models/fulfillment'
 import moment from 'moment'
 
 const completeRoute = async (req, res) => {
 
-  const assignment = await Assignment.scope({
+  const fulfillment = await Fulfillment.scope({
     team: req.team
   }).query(qb => {
     qb.where('id', req.params.id)
@@ -15,12 +15,12 @@ const completeRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!assignment) return res.status(404).respond({
+  if(!fulfillment) return res.status(404).respond({
     code: 404,
-    message: 'Unable to load assignment'
+    message: 'Unable to load fulfillment'
   })
 
-  await assignment.save({
+  await fulfillment.save({
     ...whitelist(req.body, ['feedback']),
     completed_at: moment()
   }, {
@@ -30,7 +30,7 @@ const completeRoute = async (req, res) => {
 
   await audit(req, {
     story: 'completed',
-    auditable: assignment
+    auditable: fulfillment
   })
 
   // await activity(req, {
@@ -39,9 +39,9 @@ const completeRoute = async (req, res) => {
   // })
 
   await socket.refresh(req, [
-    `/admin/training/offerings/${assignment.get('offering_id')}`,
+    `/admin/training/offerings/${fulfillment.get('offering_id')}`,
     `/admin/training/offerings/${req.body.offering_id}`,
-    `/admin/training/assignments/${assignment.get('id')}`
+    `/admin/training/fulfillments/${fulfillment.get('id')}`
   ])
 
   res.status(200).respond(true)

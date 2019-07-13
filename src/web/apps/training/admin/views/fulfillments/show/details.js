@@ -4,48 +4,46 @@ import PropTypes from 'prop-types'
 import moment from 'moment'
 import React from 'react'
 
-const Details = ({ user, assignment }) => {
+const Details = ({ user, fulfillment }) => {
 
   const list = {}
 
-  if(assignment.is_complete) {
+  if(fulfillment.is_complete) {
     list.alert = { color: 'green', message: 'This training is completed' }
   }
 
   list.items = [
-    { label: 'Training', content: assignment.training.title },
-    { label: 'Assigned By', content: assignment.assigned_by.full_name },
-    { label: 'Employee', content: assignment.employee.full_name }
+    { label: 'Training', content: fulfillment.training.title }
   ]
 
-  if(assignment.training.url) {
-    list.items.push({ label: 'URL', content: <a href={ assignment.training.url } target="_blank">{ assignment.training.url }</a> })
+  if(fulfillment.training.url) {
+    list.items.push({ label: 'URL', content: <a href={ fulfillment.training.url } target="_blank">{ fulfillment.training.url }</a> })
   }
-  if(assignment.training.location) {
-    list.items.push({ label: 'Location', content: assignment.training.location })
+  if(fulfillment.training.location) {
+    list.items.push({ label: 'Location', content: fulfillment.training.location })
   }
-  if(assignment.training.contact) {
-    list.items.push({ label: 'Contact', content: assignment.training.contact })
+  if(fulfillment.training.contact) {
+    list.items.push({ label: 'Contact', content: fulfillment.training.contact })
   }
 
-  if(assignment.training.type === 'local' && !assignment.completed_at) {
-    if(assignment.offering) {
+  if(fulfillment.training.type === 'local' && !fulfillment.completed_at) {
+    if(fulfillment.offering) {
       list.items.push({
         label: 'Registration',
         content: (
           <div>
-            { moment(assignment.offering.date).format('dddd, MMMM DD, YYYY') }<br />
-            Time: { moment(`2019-01-01 ${assignment.offering.starts_at}`).format('hh:mm A') } - { moment(`2019-01-01 ${assignment.offering.ends_at}`).format('hh:mm A') }<br />
-            Facilitator: {assignment.offering.facilitator }<br />
-            Location: {assignment.offering.location }
+            { moment(fulfillment.offering.date).format('dddd, MMMM DD, YYYY') }<br />
+            Time: { moment(`2019-01-01 ${fulfillment.offering.starts_at}`).format('hh:mm A') } - { moment(`2019-01-01 ${fulfillment.offering.ends_at}`).format('hh:mm A') }<br />
+            Facilitator: {fulfillment.offering.facilitator }<br />
+            Location: {fulfillment.offering.location }
           </div>
         )
       })
-      if(user.id == assignment.employee.id) {
+      if(user.id == fulfillment.user.id) {
         list.buttons = [{
           label: 'Change Registration',
           color: 'green',
-          modal: <Registration assignment={ assignment } />
+          modal: <Registration fulfillment={ fulfillment } />
         }]
       }
     } else {
@@ -55,24 +53,24 @@ const Details = ({ user, assignment }) => {
           <span className="error">You have not yet registered to attend an offering of this training</span>
         )
       })
-      if(user.id == assignment.employee.id) {
+      if(user.id == fulfillment.user.id) {
         list.buttons = [{
           label: 'Register for a training',
           color: 'green',
-          modal: <Registration assignment={ assignment } />
+          modal: <Registration fulfillment={ fulfillment } />
         }]
       }
     }
   }
 
-  list.items.push({ component: <Audit entries={ assignment.audit } /> })
+  list.items.push({ component: <Audit entries={ fulfillment.audit } /> })
 
   return <List { ...list } />
 
 }
 
 Details.propTypes = {
-  assignment: PropTypes.object,
+  fulfillment: PropTypes.object,
   user: PropTypes.object
 }
 

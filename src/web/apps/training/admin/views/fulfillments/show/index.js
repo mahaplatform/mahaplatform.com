@@ -6,18 +6,18 @@ import Details from './details'
 import Quizes from './quizes'
 import React from 'react'
 
-const getTabs = (user, { assignment, lessons, materials, quizes }) => {
+const getTabs = (user, { fulfillment, lessons, materials, quizes }) => {
 
   const items = [
-    { label: 'Details', component: <Details user={ user } assignment={ assignment } /> }
+    { label: 'Details', component: <Details user={ user } fulfillment={ fulfillment } /> }
   ]
 
-  if(assignment.training.type === 'local') {
+  if(fulfillment.training.type === 'local') {
     items.push({ label: 'Materials', component: <Materials materials={ materials } /> })
     items.push({ label: 'Quizes', component: <Quizes quizes={ quizes } /> })
   }
 
-  if(assignment.training.type === 'maha') {
+  if(fulfillment.training.type === 'maha') {
     items.push({ label: 'Lessons', component: <Lessons lessons={ lessons } /> })
   }
 
@@ -25,11 +25,11 @@ const getTabs = (user, { assignment, lessons, materials, quizes }) => {
 
 }
 
-const getButtons = (user, { assignment }) => {
+const getButtons = (user, { fulfillment }) => {
 
-  if(user.id === assignment.employee.id && !assignment.completed_at) {
+  if(user.id === fulfillment.user.id && !fulfillment.completed_at) {
     return [
-      { label: 'Complete Training', color: 'green', modal: <Complete assignment={ assignment } /> }
+      { label: 'Complete Training', color: 'green', modal: <Complete fulfillment={ fulfillment } /> }
     ]
   }
 
@@ -38,10 +38,10 @@ const getButtons = (user, { assignment }) => {
 }
 
 const mapResourcesToPage = (props, context) => ({
-  assignment: `/api/admin/training/assignments/${props.params.id}`,
-  materials: `/api/admin/training/assignments/${props.params.id}/materials`,
-  lessons: `/api/admin/training/assignments/${props.params.id}/lessons`,
-  quizes: `/api/admin/training/assignments/${props.params.id}/quizes`
+  fulfillment: `/api/admin/training/fulfillments/${props.params.id}`,
+  materials: `/api/admin/training/fulfillments/${props.params.id}/materials`,
+  lessons: `/api/admin/training/fulfillments/${props.params.id}/lessons`,
+  quizes: `/api/admin/training/fulfillments/${props.params.id}/quizes`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

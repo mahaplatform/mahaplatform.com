@@ -36,7 +36,7 @@ class Registration extends React.Component {
   }
 
   static propTypes = {
-    assignment: PropTypes.object
+    fulfillment: PropTypes.object
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -47,18 +47,18 @@ class Registration extends React.Component {
   }
 
   _getForm() {
-    const { assignment } = this.props
+    const { fulfillment } = this.props
     return {
       title: 'Registration',
       method: 'patch',
-      endpoint: `/api/admin/training/assignments/${assignment.id}/edit`,
-      action: `/api/admin/training/assignments/${assignment.id}`,
+      endpoint: `/api/admin/training/fulfillments/${fulfillment.id}/edit`,
+      action: `/api/admin/training/fulfillments/${fulfillment.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { name: 'offering_id', type: 'radiogroup', prompt: 'Choose a training', endpoint: `/api/admin/training/trainings/${assignment.training.id}/offerings`, value: 'id', text: 'title', format: OfferingToken }
+            { name: 'offering_id', type: 'radiogroup', prompt: 'Choose a training', endpoint: `/api/admin/training/trainings/${fulfillment.training.id}/offerings`, value: 'id', text: 'title', format: OfferingToken }
           ]
         }
       ]

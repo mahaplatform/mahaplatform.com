@@ -1,5 +1,6 @@
 const fulfillmentSerializer = (req, result) => ({
   id: result.get('id'),
+  user: user(result.related('user')),
   training: training(result.related('training')),
   offering: offering(result.related('offering')),
   audit: result.related('audit').map(audit),
@@ -51,7 +52,7 @@ const asset = (asset) => ({
 })
 
 const offering = (offering) => {
-  if(!offering.get('id')) return null
+  if(!offering.id) return null
   return {
     id: offering.get('id'),
     date: offering.get('date'),

@@ -1,4 +1,3 @@
-import Trainings from './trainings'
 import { Page } from 'maha-admin'
 import Details from './details'
 import React from 'react'
@@ -6,8 +5,7 @@ import React from 'react'
 const getTabs = (user, { assignment }) => {
 
   const items = [
-    { label: 'Details', component: <Details user={ user } assignment={ assignment } /> },
-    { label: 'Trainings', component: <Trainings user={ user } assignment={ assignment } /> }
+    { label: 'Details', component: <Details user={ user } assignment={ assignment } /> }
   ]
 
 

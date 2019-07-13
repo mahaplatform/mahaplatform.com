@@ -1,7 +1,7 @@
 const assignmentSerializer = (req, result) => ({
   id: result.get('id'),
   assigning: assigning(result.related('assigning')),
-  option: option(result.related('option')),
+  fulfillments: result.related('fulfillments').map(fulfillment),
   user: user(result.related('user')),
   completed_at: result.get('completed_at'),
   created_at: result.get('created_at'),
@@ -28,16 +28,29 @@ const assigning = (assigning) => {
   }
 }
 
-const option = (option) => {
-  if(!option.id) return null
+const fulfillment = (fulfillment) => {
+  if(!fulfillment.id) return null
   return {
-    id: option.get('id'),
-    trainings: option.related('trainings').map(training)
+    id: fulfillment.get('id'),
+    offering: offering(fulfillment.related('offering')),
+    training: training(fulfillment.related('training'))
+  }
+}
+
+const offering = (offering) => {
+  if(!offering.id) return null
+  return {
+    id: offering.get('id'),
+    date: offering.get('date'),
+    starts_at: offering.get('starts_at'),
+    ends_at: offering.get('ends_at'),
+    facilitator: offering.get('facilitator'),
+    location: offering.get('location')
   }
 }
 
 const training = (training) => {
-  if(!training.get('id')) return null
+  if(!training.id) return null
   return {
     id: training.get('id'),
     title: training.get('title'),

@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import User from '../../maha/models/user'
 import Training from './training'
 import Offering from './offering'
 
@@ -16,6 +17,10 @@ const Fulfillment = new Model({
 
   training() {
     return this.belongsTo(Training, 'training_id')
+  },
+
+  user() {
+    return this.belongsTo(User, 'user_id')
   }
 
 })
