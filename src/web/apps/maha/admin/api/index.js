@@ -2,6 +2,7 @@ import security_questions from './security_questions'
 import notifications from './notifications'
 import attachments from './attachments'
 import assignees from './assignees'
+import employees from './employees'
 import comments from './comments'
 import sessions from './sessions'
 import profiles from './profiles'
@@ -42,6 +43,8 @@ router.use('/assets', assets)
 router.use('/assignees', assignees)
 
 router.use('/devices', devices)
+
+router.use('/employees', employees)
 
 router.use('/help', help)
 

@@ -1,8 +1,8 @@
-import appraisals from './appraisals'
 import { Router } from 'express'
+import list from './list'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/appraisals', appraisals)
+router.get('/', list)
 
 export default router

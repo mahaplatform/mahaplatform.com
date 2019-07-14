@@ -57,6 +57,7 @@ import admintabs from './components/tabs'
 import admintasks from './components/tasks'
 import admintray from './components/tray'
 import adminuploader from './components/uploader'
+import appraisalsresponsibilities from '../../apps/appraisals/admin/components/responsibilities'
 import chatchannel from '../../apps/chat/admin/components/channel'
 import chatchannels from '../../apps/chat/admin/components/channels'
 import chatchatbar from '../../apps/chat/admin/components/chatbar'
@@ -106,6 +107,7 @@ import traininganswers from '../../apps/training/admin/components/questions/answ
 import trainingquestions from '../../apps/training/admin/components/questions'
 import trainingquiz from '../../apps/training/admin/components/quiz'
 import trainingreview from '../../apps/training/admin/components/review'
+import appraisalsRoutes from '../../apps/appraisals/admin/views/index.js'
 import chatRoutes from '../../apps/chat/admin/views/index.js'
 import driveRoutes from '../../apps/drive/admin/views/index.js'
 import eatfreshRoutes from '../../apps/eatfresh/admin/views/index.js'
@@ -263,6 +265,7 @@ class App extends React.Component {
       admintasks,
       admintray,
       adminuploader,
+      appraisalsresponsibilities,
       chatchannel,
       chatchannels,
       chatchatbar,
@@ -330,6 +333,7 @@ class App extends React.Component {
 
   _getRoutes() {
     return [
+      { path: '/admin/appraisals', children: appraisalsRoutes },
       { path: '/admin/chat', children: chatRoutes },
       { path: '/admin/drive', children: driveRoutes },
       { path: '/admin/eatfresh', children: eatfreshRoutes },

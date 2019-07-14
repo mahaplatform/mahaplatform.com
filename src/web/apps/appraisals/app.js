@@ -4,7 +4,7 @@ const app = {
   path: '/appraisals',
   description: 'Performance appraisal Management',
   color: 'orange',
-  icon: 'check'
+  icon: 'check-square'
 }
 
 export default app
