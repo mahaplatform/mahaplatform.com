@@ -2,7 +2,7 @@ import { Page } from 'maha-admin'
 import New from './new'
 
 const mapPropsToPage = (props, context) => ({
-  title: 'Trainings',
+  title: 'Appraisals',
   collection: {
     endpoint: '/api/admin/appraisals/appraisals/employees',
     table: [
@@ -10,8 +10,8 @@ const mapPropsToPage = (props, context) => ({
       { label: 'Title', key: 'title', primary: true }
     ],
     defaultSort: { key: 'title', order: 'asc' },
-    entity: 'training',
-    icon: 'check-square',
+    entity: 'appraisal',
+    icon: 'check',
     link: (record) => `/admin/appraisals/appraisals/${record.id}`,
     new: New
   },

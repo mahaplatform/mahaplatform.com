@@ -12,9 +12,9 @@ const router = new Router({ mergeParams: true })
 
 router.get('/', list)
 
-router.post('/employees', employees)
+router.get('/employees', employees)
 
-router.post('/report', report)
+router.get('/report', report)
 
 router.post('/', create)
 

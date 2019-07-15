@@ -22,7 +22,7 @@ class Assigned extends React.Component {
         <div className="maha-assignment-list" ref={ node => this.list = node}>
           <TransitionGroup>
             { assigned.map((assignment, index) => (
-              <CSSTransition classNames="expanded" timeout={ 1000 } exit={ false } key={`assigned_${assignment.id}`}>
+              <CSSTransition classNames="expanded" timeout={ 1000 } exit={ false } key={`assigned_${index}`}>
                 <div className="maha-assignment-item" >
                   <div className="maha-assignment-item-token">
                     <AssigneeToken { ...assignment } />

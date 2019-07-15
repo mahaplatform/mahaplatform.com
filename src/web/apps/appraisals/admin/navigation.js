@@ -17,7 +17,7 @@ const navigation = (req, trx) => ({
   items: [
     { label: 'Appraisals', route: '/appraisals' },
     { label: 'Employees', route: '/appraisals/employees', access: isSupervisor },
-    { label: 'Reports', route: '/appraisals/reports' }
+    { label: 'Reports', route: '/appraisals/report' }
   ]
 })
 

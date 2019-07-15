@@ -3,7 +3,7 @@ import Appraisal from './appraisal'
 
 const Responsibility = new Model({
 
-  tableName: 'responsibilities',
+  tableName: 'appraisals_responsibilities',
 
   rules: {},
 
