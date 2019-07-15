@@ -9,19 +9,29 @@ class Rating extends React.Component {
     onChange: PropTypes.func
   }
 
+  static defaultProps = {
+    onChange: () => {}
+  }
+
   state = {
-    score: 0
+    score: 0,
+    hover: -1
   }
 
   render() {
-    const { score } = this.state
+    const { score, hover } = this.state
+    const value = Math.max(score, hover)
     return (
       <div className="rating">
-        { [...Array(score)].map((i, index) => (
-          <i className="fa fa-star" key={`rating_${index}`} onClick={ this._handleClick.bind(this, index + 1) } />
+        { [...Array(value)].map((i, index) => (
+          <div key={`rating_${index}`} { ...this._getStar(index) }>
+            <i className="fa fa-star" />
+          </div>
         ))}
-        { [...Array(5 - score)].map((i, index) => (
-          <i className="fa fa-star-o" key={`rating_${index}`} onClick={ this._handleClick.bind(this, score + index + 1) } />
+        { [...Array(5 - value)].map((i, index) => (
+          <div key={`rating_${index}`} { ...this._getStar(index) }>
+            <i className="fa fa-star-o" />
+          </div>
         ))}
       </div>
     )
@@ -29,9 +39,8 @@ class Rating extends React.Component {
 
   componentDidMount() {
     const { defaultValue } = this.props
-    if(!_.isNil(defaultValue)) {
-      this.setState({ score: defaultValue })
-    }
+    if(_.isNil(defaultValue)) return
+    this.setState({ score: defaultValue })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -45,8 +54,21 @@ class Rating extends React.Component {
     }
   }
 
+  _getStar(index) {
+    return {
+      className: 'rating-star',
+      onMouseEnter: this._handleHover.bind(this, index + 1),
+      onMouseLeave: this._handleHover.bind(this, -1),
+      onClick: this._handleClick.bind(this, index + 1)
+    }
+  }
+
   _handleClick(score) {
     this.setState({ score })
+  }
+
+  _handleHover(hover) {
+    this.setState({ hover })
   }
 
 }

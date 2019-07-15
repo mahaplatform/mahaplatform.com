@@ -1,6 +1,7 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import { createUserToken } from '../../../../../core/utils/user_tokens'
 import Checkit from 'checkit'
+import moment from 'moment'
 
 const notificationsRoute = async (req, res) => {
 
@@ -10,7 +11,9 @@ const notificationsRoute = async (req, res) => {
   }).run(req.body)
 
   await req.user.save({
-    email_notifications_method: req.body.email_notifications_method
+    email_notifications_method: req.body.email_notifications_method,
+    activated_at: moment(),
+    is_blocked: false
   }, {
     patch: true,
     transacting: req.trx

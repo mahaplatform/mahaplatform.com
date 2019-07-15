@@ -6,7 +6,7 @@ const Fulfillments = ({ fulfillments }) => {
 
   const list = {
     items: fulfillments.map(fulfillment => ({
-      link: `/admin/training/assignments/${fulfillment.id}`,
+      link: `/admin/training/fulfillments/${fulfillment.id}`,
       content: fulfillment,
       component: ({ user }) => <CompactUserToken { ...user } />
     })),
