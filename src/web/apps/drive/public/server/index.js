@@ -3,6 +3,6 @@ import dav from './dav'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/dav', dav)
+router.use(dav)
 
 export default router

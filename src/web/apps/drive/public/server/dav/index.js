@@ -3,7 +3,6 @@ import preconditions from './preconditions'
 import bodyParserXML from 'body-parser-xml'
 import bodyParser from 'body-parser'
 import propfind from './propfind'
-import options from './options'
 import destroy from './destroy'
 import unlock from './unlock'
 import express from 'express'
@@ -24,22 +23,21 @@ router.use(bodyParser.xml({ limit: '5mb' }))
 
 router.set('etag', false)
 
-router.use('/:subdomain', rawParser)
+router.use(cors)
 
-router.use('/:subdomain', preconditions)
+router.use('/dav/:subdomain', rawParser)
 
-router.use('/:subdomain', cors)
+router.use('/dav/:subdomain', preconditions)
 
-router.use('/:subdomain', loadTeam)
+router.use('/dav/:subdomain', loadTeam)
 
-router.use('/:subdomain', auth)
+router.use('/dav/:subdomain', auth)
 
-router.use('/:subdomain', loadHeaders)
+router.use('/dav/:subdomain', loadHeaders)
 
-router.use('/:subdomain', loadItem)
+router.use('/dav/:subdomain', loadItem)
 
-router.use('/:subdomain', async (req, res, next) => {
-  if(req.method === 'OPTIONS') return options(req, res, next)
+router.use('/dav/:subdomain', async (req, res, next) => {
   if(req.method === 'UNLOCK') return unlock(req, res, next)
   if(req.method === 'LOCK') return lock(req, res, next)
   if(req.method === 'MOVE') return move(req, res, next)
@@ -52,4 +50,10 @@ router.use('/:subdomain', async (req, res, next) => {
   next()
 })
 
-export default router
+const dav = async (req, res, next) => {
+  const agent = req.headers['user-agent'].toLowerCase()
+  if(agent.match(/dav/) === null) return next()
+  await router(req, res, next)
+}
+
+export default dav

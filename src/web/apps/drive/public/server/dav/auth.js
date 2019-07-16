@@ -28,12 +28,8 @@ const loadUser = async (username, password, callback, req) => {
 
 }
 
-const basic = auth.connect(auth.basic({
+const authentication = auth.connect(auth.basic({
   realm: 'MAHA'
 }, loadUser))
-
-const authentication = (req, res, next) => {
-  return basic(req, res, next)
-}
 
 export default authentication
