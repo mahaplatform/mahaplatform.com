@@ -3,7 +3,6 @@ import Materials from './materials'
 import { Page } from 'maha-admin'
 import Lessons from './lessons'
 import Details from './details'
-import Assign from '../assign'
 import Quizes from './quizes'
 import Edit from '../edit'
 import React from 'react'
@@ -30,8 +29,7 @@ const getTabs = ({ training, lessons, materials, quizes }) => {
 const getTasks = ({ training }) => {
 
   const items = [
-    { label: 'Edit Training', modal: <Edit training={ training } /> },
-    { label: 'Assign Training', modal: <Assign training={ training } /> }
+    { label: 'Edit Training', modal: <Edit training={ training } /> }
   ]
 
   if(training.type === 'local') {

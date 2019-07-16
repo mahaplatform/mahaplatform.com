@@ -2,7 +2,7 @@ import { Page } from 'maha-admin'
 import New from './new'
 
 const mapPropsToPage = (props, context) => ({
-  title: 'Assignments',
+  title: 'Assignings',
   collection: {
     endpoint: '/api/admin/training/assignings',
     table: [

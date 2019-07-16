@@ -16,7 +16,7 @@ const isSupervisor = async (req) => {
 const navigation = async (req) => ({
   items: [
     { label: 'Administration', rights: [], items: [
-      { label: 'Assignments', route: '/assignings' },
+      { label: 'Assignings', route: '/assignings' },
       { label: 'Offerings', route: '/offerings' },
       { label: 'Trainings', route: '/trainings' }
     ] },

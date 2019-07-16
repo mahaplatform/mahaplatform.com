@@ -20,8 +20,8 @@ const mapPropsToPage = (props, context) => ({
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Training', key: 'training.title', primary: true },
       { label: 'Date', key: 'date', primary: true, format: 'date' },
-      { label: 'Time', key: 'starts_at', primary: true, format: TimeCell },
-      { label: 'Attendees', key: 'fulfillments_count', primary: true, format: AttendeesCell }
+      { label: 'Time', key: 'starts_at', primary: false, format: TimeCell },
+      { label: 'Attendees', key: 'fulfillments_count', primary: false, format: AttendeesCell }
     ],
     defaultSort: { key: 'date', order: 'desc' },
     entity: 'offering',
