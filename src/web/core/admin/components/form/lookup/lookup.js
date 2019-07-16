@@ -54,6 +54,7 @@ class Lookup extends React.Component {
     defaultValue: null,
     disabled: false,
     format: ValueToken,
+    prompt: 'Choose an item',
     search: true,
     tabIndex: 0,
     text: 'text',

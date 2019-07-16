@@ -41,13 +41,13 @@ class Edit extends React.Component {
         {
           fields: [
             { label: 'Date', name: 'date', type: 'datefield', required: true, defaultValue: moment().format('YYYY-MM-DD') },
-            { label: 'Description', name: 'description', type: 'textfield', required: true },
-            { label: 'Project', name: 'project_id', type: 'lookup', endpoint: projectEndpoint, value: 'id', text: 'title', format: ProjectToken },
-            { label: 'Time Leaving', name: 'time_leaving', type: 'timefield', placeholder: 'Time Leaving' },
+            { label: 'Description', name: 'description', type: 'textfield', placeholder: 'Describe the trip', required: true },
+            { label: 'Project', name: 'project_id', type: 'lookup', prompt: 'Choose a project', endpoint: projectEndpoint, value: 'id', text: 'title', format: ProjectToken },
+            { label: 'Time Leaving', name: 'time_leaving', type: 'timefield' },
             this._getTimeArriving(),
-            { label: 'Odometer Start', name: 'odometer_start', type: 'textfield', placeholder: 'Odometer Start' },
-            { label: 'Odometer End', name: 'odometer_end', type: 'textfield', placeholder: 'Odometer End' },
-            { label: 'Distance', name: 'total_miles', type: 'textfield', placeholder: 'Total Miles' }
+            { label: 'Odometer Start', name: 'odometer_start', type: 'textfield', placeholder: 'Enter the odometer start' },
+            { label: 'Odometer End', name: 'odometer_end', type: 'textfield', placeholder: 'Enter the odometer end' },
+            { label: 'Distance', name: 'total_miles', type: 'textfield', placeholder: 'Enter the total miles' }
           ]
         }
       ]

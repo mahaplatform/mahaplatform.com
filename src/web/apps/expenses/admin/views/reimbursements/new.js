@@ -35,13 +35,13 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Date', name: 'date', type: 'datefield', required: true, placeholder: 'Date Needed', defaultValue: moment().format('YYYY-MM-DD') },
-            { label: 'Description', name: 'description', required: true, type: 'textfield' },
-            { label: 'Amount', name: 'amount', required: true, type: 'moneyfield' },
+            { label: 'Date', name: 'date', type: 'datefield', required: true, defaultValue: moment().format('YYYY-MM-DD') },
+            { label: 'Description', name: 'description', required: true, type: 'textfield', placeholder: 'Describe the reimbursement' },
+            { label: 'Amount', name: 'amount', required: true, type: 'moneyfield', placeholder: 'Enter the amount' },
             { label: 'Receipt', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Receipt', action: '/api/admin/assets/upload', endpoint: '/api/admin/expenses/receipts', token },
-            { label: 'Project', name: 'project_id', type: 'lookup', endpoint: '/api/admin/expenses/memberships', value: 'id', text: 'title', format: ProjectToken },
-            { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Expense Type', endpoint: '/api/admin/expenses/expense_types/active', value: 'id', text: 'title', format: ExpenseTypeToken },
-            { label: 'Vendor', name: 'vendor_id', type: 'lookup', endpoint: '/api/admin/expenses/vendors', value: 'id', text: 'name', form: this._getVendorForm(), format: VendorToken }
+            { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a project', endpoint: '/api/admin/expenses/memberships', value: 'id', text: 'title', format: ProjectToken },
+            { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Choose an expense type', endpoint: '/api/admin/expenses/expense_types/active', value: 'id', text: 'title', format: ExpenseTypeToken },
+            { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Choose a vendor', endpoint: '/api/admin/expenses/vendors', value: 'id', text: 'name', form: this._getVendorForm(), format: VendorToken }
           ]
         }
       ]

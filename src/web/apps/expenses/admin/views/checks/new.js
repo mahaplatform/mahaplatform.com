@@ -36,14 +36,14 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Date Needed', name: 'date_needed', type: 'datefield', required: true, placeholder: 'Date Needed', defaultValue: moment().format('YYYY-MM-DD') },
-            { label: 'Description', name: 'description', type: 'textfield', required: true },
-            { label: 'Amount', name: 'amount', type: 'moneyfield', required: true },
+            { label: 'Date Needed', name: 'date_needed', type: 'datefield', required: true, defaultValue: moment().format('YYYY-MM-DD') },
+            { label: 'Description', name: 'description', type: 'textfield', placeholder: 'Describe the check', required: true },
+            { label: 'Amount', name: 'amount', type: 'moneyfield', required: true, placeholder: 'Enter the amount' },
             { label: 'Invoice', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Invoice', action: '/api/admin/assets/upload', endpoint: '/api/admin/expenses/receipts', token },
-            { label: 'Project', name: 'project_id', type: 'lookup', endpoint: '/api/admin/expenses/memberships', value: 'id', text: 'title', format: ProjectToken },
-            { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Expense Type', endpoint: '/api/admin/expenses/expense_types/active', value: 'id', text: 'title', format: ExpenseTypeToken },
-            { label: 'Vendor', name: 'vendor_id', type: 'lookup', endpoint: '/api/admin/expenses/vendors', value: 'id', text: 'name', form: this._getVendorForm(), format: VendorToken },
-            { label: 'Delivery Method', name: 'delivery_method', type: 'lookup', placeholder: 'Delivery Method', options: [ { value: 'mail', text: 'Mail' }, { value: 'pickup', text: 'Pickup' }] }
+            { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a project', endpoint: '/api/admin/expenses/memberships', value: 'id', text: 'title', format: ProjectToken },
+            { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Choose an expense type', endpoint: '/api/admin/expenses/expense_types/active', value: 'id', text: 'title', format: ExpenseTypeToken },
+            { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Choose a vendor', endpoint: '/api/admin/expenses/vendors', value: 'id', text: 'name', form: this._getVendorForm(), format: VendorToken },
+            { label: 'Delivery Method', name: 'delivery_method', type: 'lookup', placeholder: 'Choose a delivery method', options: [ { value: 'mail', text: 'Mail' }, { value: 'pickup', text: 'Pickup' }] }
           ]
         }
       ]
