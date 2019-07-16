@@ -1,6 +1,6 @@
-import Token from '../../token'
-import Format from '../../format'
+import Token from '../../../tokens/token'
 import PropTypes from 'prop-types'
+import Format from '../../format'
 import React from 'react'
 import _ from 'lodash'
 
