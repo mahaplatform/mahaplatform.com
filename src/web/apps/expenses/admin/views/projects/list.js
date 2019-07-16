@@ -41,7 +41,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/expenses/projects',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Title', key: 'title', primary: true, format: ProjectToken },
+      { label: 'Title', key: 'integration->>\'project_code\'', primary: true, format: ProjectToken },
       { label: 'Active', key: 'is_active', primary: false, format: 'check' },
       ..._getIntegrationColumns(resources.app.settings.integration)
     ],

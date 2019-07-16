@@ -30,10 +30,10 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', required: true }
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true },
+            ...this._getIntegration()
           ]
-        },
-        ...this._getIntegration()
+        }
       ]
     }
   }
@@ -41,16 +41,11 @@ class New extends React.Component {
   _getIntegration() {
     if(this.props.integration === 'accpac') {
       return [
-        {
-          label: 'ACCPAC Details',
-          fields: [
-            { label: 'Main Project Code', name: 'integration.main_project_code', type: 'textfield' },
-            { label: 'Project Code', name: 'integration.project_code', type: 'textfield', required: true },
-            { label: 'Program Code', name: 'integration.program_code', type: 'textfield', required: true },
-            { label: 'Source Code', name: 'integration.source_code', type: 'textfield', required: true },
-            { label: 'Match', name: 'integration.match', type: 'textfield', required: true }
-          ]
-        }
+        { label: 'Main Project Code', name: 'integration.main_project_code', type: 'textfield', placeholder: 'Enter a main project code' },
+        { label: 'Project Code', name: 'integration.project_code', type: 'textfield', placeholder: 'Enter a project code', required: true },
+        { label: 'Program Code', name: 'integration.program_code', type: 'textfield', placeholder: 'Enter a program code', required: true },
+        { label: 'Source Code', name: 'integration.source_code', type: 'textfield', placeholder: 'Enter a source code', required: true },
+        { label: 'Match', name: 'integration.match', type: 'textfield', placeholder: 'Enter a match', required: true }
       ]
     }
     return []
