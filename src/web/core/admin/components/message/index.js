@@ -10,6 +10,7 @@ class Message extends React.Component {
 
   static propTypes = {
     animation: PropTypes.string,
+    backgroundColor: PropTypes.string,
     icon: PropTypes.string,
     image: PropTypes.string,
     text: PropTypes.string,
@@ -20,6 +21,7 @@ class Message extends React.Component {
   }
 
   static defaultProps = {
+    backgroundColor: null,
     animation: null,
     color: null
   }
@@ -31,7 +33,7 @@ class Message extends React.Component {
   render() {
     const { button, component, icon, image, text, title } = this.props
     return (
-      <div className="maha-message">
+      <div className={ this._getClass() }>
         <div className="maha-message-panel">
           { icon &&
             <div className="maha-message-panel-icon">
@@ -62,6 +64,13 @@ class Message extends React.Component {
         this.setState({ animate: false })
       }, 500)
     }, 500)
+  }
+
+  _getClass() {
+    const { backgroundColor } = this.props
+    const classes = ['maha-message']
+    if(backgroundColor) classes.push(backgroundColor)
+    return classes.join(' ')
   }
 
   _getIconClass() {

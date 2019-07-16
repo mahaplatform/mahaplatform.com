@@ -1,15 +1,19 @@
 import Fulfillments from './fulfillments'
+import Materials from './materials'
 import { Page } from 'maha-admin'
 import Details from './details'
 import Reviews from './reviews'
+import Quizes from './quizes'
 import React from 'react'
 import Edit from '../edit'
 
-const getTabs = ({ fulfillments, offering, reviews }) => {
+const getTabs = ({ fulfillments, materials, offering, reviews, quizes }) => {
 
   const items = [
     { label: 'Details', component: <Details offering={ offering } /> },
     { label: 'Attendees', component: <Fulfillments fulfillments={ fulfillments } /> },
+    { label: 'Materials', component: <Materials materials={ materials } /> },
+    { label: 'Quizes', component: <Quizes offering={ offering } quizes={ quizes } /> },
     { label: 'Reviews', component: <Reviews reviews={ reviews } /> }
   ]
 
@@ -28,8 +32,11 @@ const getTasks = ({ offering }) => {
 }
 
 const mapResourcesToPage = (props, context) => ({
-  offering: `/api/admin/training/trainings/${props.params.training_id}/offerings/${props.params.id}`,
-  fulfillments: `/api/admin/training/trainings/${props.params.training_id}/offerings/${props.params.id}/fulfillments`
+  offering: `/api/admin/training/offerings/${props.params.id}`,
+  fulfillments: `/api/admin/training/offerings/${props.params.id}/fulfillments`,
+  materials: `/api/admin/training/offerings/${props.params.id}/materials`,
+  quizes: `/api/admin/training/offerings/${props.params.id}/quizes`,
+  reviews: `/api/admin/training/offerings/${props.params.id}/reviews`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

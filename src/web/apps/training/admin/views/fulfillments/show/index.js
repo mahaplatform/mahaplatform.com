@@ -51,7 +51,7 @@ const getButtons = (user, { fulfillment }) => {
           { value: 4, text: 'Very well' },
           { value: 3, text: 'Moderately well' },
           { value: 2, text: 'Slightly well' },
-          { value: 1, text: 'Not Well at all' }
+          { value: 1, text: 'Not well at all' }
         ]
       }, {
         name: 'knowledge_rating',
@@ -71,7 +71,7 @@ const getButtons = (user, { fulfillment }) => {
           { value: 4, text: 'Very well' },
           { value: 3, text: 'Moderately well' },
           { value: 2, text: 'Slightly well' },
-          { value: 1, text: 'Not Well at all' }
+          { value: 1, text: 'Not well at all' }
         ]
       }, {
         name: 'content_rating',

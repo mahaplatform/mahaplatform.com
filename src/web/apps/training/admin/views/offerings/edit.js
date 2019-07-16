@@ -25,8 +25,8 @@ class Edit extends React.Component {
     return {
       title: 'Edit Offering',
       method: 'patch',
-      endpoint: `/api/admin/training/trainings/${offering.training.id}/offerings/${offering.id}/edit`,
-      action: `/api/admin/training/trainings/${offering.training.id}/offerings/${offering.id}`,
+      endpoint: `/api/admin/training/offerings/${offering.id}/edit`,
+      action: `/api/admin/training/offerings/${offering.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [

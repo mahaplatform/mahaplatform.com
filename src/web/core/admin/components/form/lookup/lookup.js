@@ -25,6 +25,7 @@ class Lookup extends React.Component {
     ]),
     form: PropTypes.object,
     options: PropTypes.array,
+    placeholder: PropTypes.string,
     prompt: PropTypes.string,
     query: PropTypes.string,
     results: PropTypes.array,
@@ -63,7 +64,7 @@ class Lookup extends React.Component {
   }
 
   render() {
-    const { chosen, format, prompt, tabIndex, text } = this.props
+    const { chosen, format, prompt, placeholder, tabIndex, text } = this.props
     const value = chosen ? _.get(chosen, text) : ''
     return (
       <div className="maha-lookup-field" tabIndex={ tabIndex }>
@@ -79,7 +80,7 @@ class Lookup extends React.Component {
         }
         { !chosen &&
           <div className="maha-lookup-field-prompt" onClick={ this._handleBegin.bind(this) }>
-            { prompt }
+            { placeholder || prompt }
           </div>
         }
       </div>

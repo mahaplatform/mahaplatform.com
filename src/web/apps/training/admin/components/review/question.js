@@ -132,7 +132,6 @@ class Question extends React.PureComponent {
   _handleNext() {
     const { name } = this.props
     const { value } = this.state
-    console.log(value)
     if(value === null) return
     this.props.onAnswer(name, value)
   }

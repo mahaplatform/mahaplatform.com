@@ -1,12 +1,13 @@
-import { Loader } from 'maha-admin'
+import { Loader, Message } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Question from './question'
-import Results from './results'
 import React from 'react'
 
 class Quiz extends React.PureComponent {
 
-  static contextTypes = {}
+  static contextTypes = {
+    modal: PropTypes.object
+  }
 
   static propTypes = {
     answering: PropTypes.object,
@@ -24,11 +25,13 @@ class Quiz extends React.PureComponent {
 
   static defaultProps = {}
 
+  _handleDone = this._handleDone.bind(this)
+
   render() {
     const { quiz, question } = this.props
     if(!quiz) return <Loader />
     if(question) return <Question { ...this._getQuestion() } />
-    if(quiz.is_complete) return <Results { ...this._getResults() } />
+    if(quiz.is_complete) return <Message { ...this._getSummary() } />
     return null
   }
 
@@ -60,11 +63,22 @@ class Quiz extends React.PureComponent {
     }
   }
 
-  _getResults() {
+  _getSummary() {
     const { quiz } = this.props
     return {
-      quiz
+      backgroundColor: quiz.was_passed ? 'green' : 'red',
+      title: quiz.was_passed ? 'You Passed' : 'You Did Not Pass',
+      text: `You answered ${ quiz.correct_count } / ${ quiz.total_count } questions correctly`,
+      icon: quiz.was_passed ? 'star' : 'ban',
+      button: {
+        label: 'Close Quiz',
+        handler: this._handleDone
+      }
     }
+  }
+
+  _handleDone() {
+    this.context.modal.close()
   }
 
 }

@@ -1,6 +1,8 @@
 import fulfillments from './fulfillments'
 import { Router } from 'express'
+import reviews from './reviews'
 import destroy from './destroy'
+import quizes from './quizes'
 import create from './create'
 import update from './update'
 import edit from './edit'
@@ -22,5 +24,9 @@ router.patch('/:id', update)
 router.delete('/:id', destroy)
 
 router.get('/:offering_id/fulfillments', fulfillments)
+
+router.get('/:offering_id/quizes', quizes)
+
+router.get('/:offering_id/reviews', reviews)
 
 export default router

@@ -8,7 +8,7 @@ const Offerings = ({ training, offerings }) => {
 
   const list = {
     items: offerings.map(offering => ({
-      link: `/admin/training/trainings/${training.id}/offerings/${offering.id}`,
+      link: `/admin/training/offerings/${offering.id}`,
       content: offering,
       component: OfferingToken
     })),

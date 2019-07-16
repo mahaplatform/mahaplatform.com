@@ -52,6 +52,8 @@ class Button extends React.Component {
     onDone: () => {}
   }
 
+  _handleClick = this._handleClick.bind(this)
+
   render() {
     const { children, component, icon, label, text } = this.props
     return (
@@ -71,7 +73,7 @@ class Button extends React.Component {
       className: this._getClass(),
       disabled,
       target: link ? '_blank' : null,
-      onClick: !link ? this._handleClick.bind(this) : null
+      onClick: !link ? this._handleClick : null
     }
   }
 

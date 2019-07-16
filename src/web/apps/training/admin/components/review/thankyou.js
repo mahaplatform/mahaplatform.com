@@ -1,4 +1,4 @@
-import { Button } from 'maha-admin'
+import { Message } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -15,23 +15,7 @@ class Question extends React.PureComponent {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    return (
-      <div className="review-question">
-        <div className="review-question-body">
-          <div className="review-question-inner">
-            <div className="review-question-icon">
-              <i className="fa fa-thumbs-up" />
-            </div>
-            <div className="review-question-text">
-              Thank you for your feedback!
-            </div>
-            <div className="review-question-button">
-              <Button { ...this._getButton() } />
-            </div>
-          </div>
-        </div>
-      </div>
-    )
+    return <Message { ...this._getMessage() } />
   }
 
   _getButton() {
@@ -39,6 +23,19 @@ class Question extends React.PureComponent {
       label: 'Close Window',
       className: 'ui white basic button',
       handler: this._handleDone
+    }
+  }
+
+  _getMessage() {
+    return {
+      backgroundColor: 'green',
+      title: 'Thank You!',
+      text: 'We\'ve received your feedback',
+      icon: 'thumbs-up',
+      button: {
+        label: 'Close Window',
+        handler: this._handleDone
+      }
     }
   }
 

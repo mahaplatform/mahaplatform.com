@@ -9,9 +9,7 @@ class New extends React.Component {
     router: PropTypes.object
   }
 
-  static propTypes = {
-    training: PropTypes.object
-  }
+  static propTypes = {}
 
   state = {
     starts_at: '0:00'
@@ -26,17 +24,17 @@ class New extends React.Component {
   }
 
   _getForm() {
-    const { training } = this.props
     return {
       title: 'New Offering',
       method: 'post',
-      action: `/api/admin/training/trainings/${training.id}/offerings`,
+      action: '/api/admin/training/offerings',
       onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
+            { label: 'Training', name: 'training_id', type: 'lookup', placeholder: 'Choose a training', endpoint: '/api/admin/training/trainings', value: 'id', text: 'title', required: true },
             { label: 'Date', name: 'date', type: 'datefield', required: true },
             { label: 'Start Time', name: 'starts_at', type: 'timefield', required: true },
             this._getEndsAt(),
@@ -64,8 +62,7 @@ class New extends React.Component {
   }
 
   _handleSuccess(result) {
-    const { training } = this.props
-    this.context.router.push(`/admin/training/trainings/${training.id}/offerings/${result.id}`)
+    this.context.router.push(`/admin/training/offerings/${result.id}`)
     this.context.modal.close()
   }
 

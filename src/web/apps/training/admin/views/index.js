@@ -1,3 +1,4 @@
+import AdministrationsShow from './administrations/show'
 import AssignmentsEmployees from './assignments/employees'
 import AssignmentsReport from './assignments/report'
 import AssignmentsList from './assignments/list'
@@ -16,10 +17,11 @@ const routes = [
   { path: '/assignments/:id', component: AssignmentsShow },
   { path: '/fulfillments/:id', component: FulfillmentsShow },
   { path: '/offerings', component: OfferingsList },
+  { path: '/offerings/:id', component: OfferingsShow },
+  { path: '/offerings/:offering_id/quizes/:id', component: AdministrationsShow },
   { path: '/quizes/:id', component: QuizShow },
   { path: '/trainings', component: TrainingsList },
-  { path: '/trainings/:id', component: TrainingsShow },
-  { path: '/trainings/:training_id/offerings/:id', component: OfferingsShow }
+  { path: '/trainings/:id', component: TrainingsShow }
 ]
 
 export default routes

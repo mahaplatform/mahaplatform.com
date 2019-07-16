@@ -1,0 +1,37 @@
+.menus {
+  display: flex;
+  flex-direction: column;
+}
+.menus-header {
+  margin-bottom: 0.8em;
+  .ui.menu .item.active {
+    background-color: @black;
+    color: @white;
+  }
+}
+.menus-body {
+  flex: 1;
+  width: 100%;
+  overflow: hidden;
+}
+.menu {
+  display: flex;
+  p {
+    color: fadeout(@black, 50);
+  }
+  &.transitioning {
+    transition: transform .5s ease-in-out 0s;
+  }
+  &.right {
+    transform: translateX(100%);
+  }
+  &.active {
+    transform: translateX(0);
+  }
+  &.left {
+    transform: translateX(-100%);
+  }
+}
+.menu-content {
+  flex: 1;
+}

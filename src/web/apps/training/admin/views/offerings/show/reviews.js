@@ -1,17 +1,11 @@
+import ReviewsToken from '../../../tokens/reviews_token'
 import PropTypes from 'prop-types'
-import { List } from 'maha-admin'
 import React from 'react'
 
-const Reviews = ({ offering }) => {
-
-  const list = {}
-
-  return <List { ...list } />
-
-}
+const Reviews = ({ reviews }) => <ReviewsToken reviews={ reviews } />
 
 Reviews.propTypes = {
-  offering: PropTypes.object
+  reviews: PropTypes.object
 }
 
 export default Reviews

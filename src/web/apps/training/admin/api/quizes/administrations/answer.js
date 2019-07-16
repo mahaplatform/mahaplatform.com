@@ -1,6 +1,6 @@
 import socket from '../../../../../../core/services/routes/emitter'
 import Administration from '../../../../models/administration'
-import Assignment from '../../../../models/assignment'
+import Fulfillment from '../../../../models/fulfillment'
 import Answering from '../../../../models/answering'
 import Question from '../../../../models/question'
 import Quiz from '../../../../models/quiz'
@@ -81,16 +81,16 @@ const answerRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const assignment = await Assignment.query(qb => {
+  const fulfillment = await Fulfillment.query(qb => {
     qb.where('team_id', req.team.get('id'))
-    qb.where('employee_id', req.user.get('id'))
+    qb.where('user_id', req.user.get('id'))
     qb.where('training_id', quiz.get('training_id'))
   }).fetch({
     transacting: req.trx
   })
 
   await socket.refresh(req, [
-    `/admin/training/assignments/${assignment.get('id')}`
+    `/admin/training/fulfillments/${fulfillment.get('id')}`
   ])
 
   res.status(200).respond(answering, (req, answering) => ({

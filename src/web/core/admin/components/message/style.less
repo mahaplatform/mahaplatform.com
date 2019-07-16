@@ -1,7 +1,29 @@
 .maha-message {
-	flex: 1;
-  display: flex;
 	background-color: fadeout(@black, 98);
+	.colorize(background-color);
+	position: relative;
+  display: flex;
+	flex: 1;
+	&.red,&.orange,&.yellow,&.green,&.blue,&.purple,&.violet {
+		h3, p {
+			color: @white !important;
+		}
+		.ui.button {
+			box-shadow: 0 0 0 1px @white inset !important;
+			background: none !important;
+			color: @white !important;
+			&:hover {
+				box-shadow: 0 0 0 1px @white inset !important;
+				background: fadeout(@white, 80) !important;
+				color: @white !important;
+			}
+		}
+		i {
+			box-shadow: 0 0 0 0.1em fadeout(@white, 40) inset;
+			background: none !important;
+			color: @white !important;
+		}
+	}
 }
 .maha-message-panel {
 	margin: auto;
@@ -19,8 +41,9 @@
   }
   .ui.button {
 		margin: 1.6em 0 0;
-    display: inline-block;
-    background-color: @white !important;
+    display: block;
+		background: none !important;
+		cursor: pointer;
   }
 }
 .maha-message-panel-icon {
@@ -35,7 +58,8 @@
 		box-shadow: 0 0 0 0.1em fadeout(@black, 90) inset;
 		width: 2em !important;
 		height: 2em !important;
-		background-color: @white;
+		color: fadeout(@black, 40);
+		background-color: fadeout(@white, 20);
 		.colorize(color);
 	}
 	img {
@@ -45,6 +69,6 @@
 		box-shadow: 0 0 0 0.25em fadeout(@black, 90) inset;
 		width: 7em !important;
 		height: 7em !important;
-		background-color: @white;
+		background-color: fadeout(@white, 40);
 	}
 }

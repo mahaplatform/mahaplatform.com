@@ -45,6 +45,7 @@ import adminimportReview from './components/import/review'
 import adminimportUpload from './components/import/upload'
 import adminimportValidating from './components/import/validating'
 import admininfinite from './components/infinite'
+import adminmenu from './components/menu'
 import adminmodal from './components/modal'
 import adminpage from './components/page'
 import adminpopup from './components/popup'
@@ -253,6 +254,7 @@ class App extends React.Component {
       adminimportUpload,
       adminimportValidating,
       admininfinite,
+      adminmenu,
       adminmodal,
       adminpage,
       adminpopup,
