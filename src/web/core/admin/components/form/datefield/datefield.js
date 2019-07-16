@@ -51,7 +51,7 @@ class Datefield extends React.Component {
           </div>
           { value  &&
             <div className="maha-datefield-remove" onClick={ this._handleClear.bind(this) }>
-              <i className="fa fa-times-circle" />
+              <i className="fa fa-times" />
             </div>
           }
         </div>

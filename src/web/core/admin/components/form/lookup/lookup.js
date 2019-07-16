@@ -75,7 +75,7 @@ class Lookup extends React.Component {
         }
         { chosen &&
           <div className="maha-lookup-field-clear">
-            <i className="icon circle remove" onClick={ this._handleClear.bind(this) } />
+            <i className="fa fa-fw fa-times" onClick={ this._handleClear.bind(this) } />
           </div>
         }
         { !chosen &&

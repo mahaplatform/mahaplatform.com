@@ -1,5 +1,4 @@
 import { Page } from 'maha-admin'
-import New from './new'
 
 const mapPropsToPage = (props, context) => ({
   title: 'Employees',
@@ -14,12 +13,7 @@ const mapPropsToPage = (props, context) => ({
     defaultSort: { key: 'created_at', order: 'desc' },
     entity: 'assignment',
     icon: 'check',
-    link: (record) => `/admin/training/assignments/${record.id}`,
-    new: New
-  },
-  task: {
-    icon: 'plus',
-    modal: New
+    link: (record) => `/admin/training/assignments/${record.id}`
   }
 })
 

@@ -1,19 +1,24 @@
 import { Page } from 'maha-admin'
+import New from './new'
 
 const mapPropsToPage = (props, context) => ({
   title: 'Assignments',
   collection: {
-    endpoint: '/api/admin/training/assignments/report',
+    endpoint: '/api/admin/training/assignings',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Title', key: 'assigning.title', primary: true },
-      { label: 'Assigned By', key: 'assigning.assigned_by.full_name', primary: true },
-      { label: 'User', key: 'user.full_name', primary: true }
+      { label: 'Title', key: 'title', primary: true },
+      { label: 'Assigned By', key: 'assigned_by.full_name', primary: false }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     entity: 'assignment',
     icon: 'check',
-    link: (record) => `/admin/training/assignments/${record.id}`
+    link: (record) => `/admin/training/assignings/${record.id}`,
+    new: New
+  },
+  task: {
+    icon: 'plus',
+    modal: New
   }
 })
 
