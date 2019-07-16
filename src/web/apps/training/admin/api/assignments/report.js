@@ -1,5 +1,4 @@
 import AssignmentSerializer from '../../../serializers/assignment_serializer'
-
 import Assignment from '../../../models/assignment'
 
 const reportRoute = async (req, res) => {
@@ -7,7 +6,7 @@ const reportRoute = async (req, res) => {
   const assignments = await Assignment.scope({
     team: req.team
   }).filter({
-    filterParams: ['user_id'],
+    filterParams: ['assigning_id','user_id'],
     filter: req.query.$filter
   }).sort({
     sort: req.query.$sort,

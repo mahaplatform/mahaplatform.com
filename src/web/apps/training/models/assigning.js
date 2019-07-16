@@ -9,7 +9,13 @@ const Assigning = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    assignments_count() {
+      return this.related('assignments').length
+    }
+
+  },
 
   assigned_by() {
     return this.belongsTo(User, 'assigned_by_id')

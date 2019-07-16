@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
   answers: [
-    { text: '', is_active: true, is_correct: true }
+    { delta: 0, text: '', is_active: true, is_correct: true }
   ]
 }
 
@@ -13,7 +13,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       answers: [
         ...state.answers,
-        { text: '', is_active: true, is_correct: false }
+        { delta: state.answers.length, text: '', is_active: true, is_correct: false }
       ]
     }
 

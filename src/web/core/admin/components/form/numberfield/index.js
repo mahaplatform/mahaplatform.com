@@ -11,6 +11,7 @@ class NumberField extends React.Component {
   static propTypes = {
     defaultValue: PropTypes.number,
     placeholder: PropTypes.string,
+    tabIndex: PropTypes.number,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
@@ -26,12 +27,21 @@ class NumberField extends React.Component {
   }
 
   _handleChange = this._handleChange.bind(this)
+  _handleClear = this._handleClear.bind(this)
   _handleKeyDown = this._handleKeyDown.bind(this)
 
   render() {
+    const { value } = this.state
     return (
-      <div className="ui field">
-        <input { ...this._getInput() }/>
+      <div className="maha-input">
+        <div className="maha-input-field">
+          <input { ...this._getInput() }/>
+        </div>
+        { value.length > 0 &&
+          <div className="maha-input-clear" onClick={ this._handleClear }>
+            <i className="fa fa-times" />
+          </div>
+        }
       </div>
     )
   }
@@ -44,14 +54,15 @@ class NumberField extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if(this.state.value !== prevState.value) {
-      this.props.onChange(this.state.value)
+      this.props.onChange(Number(this.state.value))
     }
   }
 
   _getInput() {
-    const { placeholder } = this.props
+    const { placeholder, tabIndex } = this.props
     const { value } = this.state
     return {
+      tabIndex,
       className: 'ui input',
       type: 'text',
       placeholder,
@@ -64,7 +75,13 @@ class NumberField extends React.Component {
 
   _handleChange() {
     this.setState({
-      value: Number(this.number.value)
+      value: this.number.value
+    })
+  }
+
+  _handleClear() {
+    this.setState({
+      value: ''
     })
   }
 

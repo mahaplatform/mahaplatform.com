@@ -42,6 +42,14 @@ input, textarea {
 	  height: 6px !important;
 	}
 }
+.link {
+	color: @blue;
+	text-decoration: underline;
+	cursor: pointer;
+	&:hover {
+		color: darken(@blue, 10);
+	}
+}
 .maha-table tbody *, .maha-list-item *, .maha-message-content * {
 	.selectable()
 }

@@ -10,7 +10,13 @@ const Assignment = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    configured() {
+      return this.get('option_id') !== null
+    }
+
+  },
 
   assigning() {
     return this.belongsTo(Assigning, 'assigning_id')

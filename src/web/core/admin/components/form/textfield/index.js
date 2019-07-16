@@ -54,12 +54,22 @@ class TextField extends React.Component {
     value: ''
   }
 
+  _handleClear = this._handleClear.bind(this)
+
   render() {
+    const { value } = this.state
     return (
       <div className={ this._getClass() }>
-        { this.props.prefix && <div className="ui label">{this.props.prefix}</div> }
-        <input { ...this._getControl() } />
-        { this.props.suffix && <div className="ui label">{this.props.suffix}</div> }
+        <div className="maha-input-field">
+          { this.props.prefix && <div className="ui label">{this.props.prefix}</div> }
+          <input { ...this._getControl() } />
+          { this.props.suffix && <div className="ui label">{this.props.suffix}</div> }
+        </div>
+        { value.length > 0 &&
+          <div className="maha-input-clear" onClick={ this._handleClear }>
+            <i className="fa fa-times" />
+          </div>
+        }
       </div>
     )
   }
@@ -84,7 +94,7 @@ class TextField extends React.Component {
 
   _getClass() {
     const { prefix, suffix } = this.props
-    const classes = ['maha-textfield','ui','fluid','input']
+    const classes = ['maha-input','maha-textfield']
     if(prefix) classes.push('left labeled')
     if(suffix) classes.push('right labeled')
     return classes.join(' ')
@@ -113,6 +123,10 @@ class TextField extends React.Component {
     const sanitized = this.props.sanitize(event.target.value)
     if(!this.props.validate(sanitized)) return event.preventDefault()
     this.setValue(sanitized)
+  }
+
+  _handleClear() {
+    this.setValue('')
   }
 
   _handleKeyUp(event) {

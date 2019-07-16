@@ -3,6 +3,7 @@ const assignmentSerializer = (req, result) => ({
   assigning: assigning(result.related('assigning')),
   fulfillments: result.related('fulfillments').map(fulfillment),
   user: user(result.related('user')),
+  configured: result.get('configured'),
   completed_at: result.get('completed_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

@@ -12,7 +12,7 @@ const listRoute = async (req, res) => {
     sort: req.query.$sort,
     defaultSort: '-created_at'
   }).fetchPage({
-    withRelated: ['assigned_by'],
+    withRelated: ['assigned_by','assignments'],
     page: req.query.$page,
     transacting: req.trx
   })

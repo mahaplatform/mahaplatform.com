@@ -121,3 +121,36 @@
     }
   }
 }
+
+.maha-input {
+  border: 1px solid rgba(34,36,38,.15);
+  background-color: @white;
+  border-radius: 5px;
+  display: flex;
+  &:focus {
+    outline: none !important;
+    border-color: #85B7D9;
+    border-radius: .28571429rem;
+    background: #FFF;
+    box-shadow: 0 0 0 0 rgba(34,36,38,.35) inset;
+  }
+}
+.maha-input-field {
+  flex: 1;
+  input {
+    border: none !important;
+    outline: none !important;
+    background: none !important;
+    padding: 0.8em !important;
+  }
+}
+.maha-input-clear {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  .fa {
+    .hover(color, fadeout(@black, 70));
+    color: fadeout(@black, 80);
+    margin: auto;
+    cursor: pointer;
+  }
+}

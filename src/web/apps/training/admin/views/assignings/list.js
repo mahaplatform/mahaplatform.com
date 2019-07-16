@@ -8,7 +8,9 @@ const mapPropsToPage = (props, context) => ({
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true },
-      { label: 'Assigned By', key: 'assigned_by.full_name', primary: false }
+      { label: 'Assignments', key: 'assignments_count', primary: false },
+      { label: 'Assigned By', key: 'assigned_by.full_name', primary: false },
+      { label: 'Due By', key: 'completed_by', primary: false, format: 'date' }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     entity: 'assignment',

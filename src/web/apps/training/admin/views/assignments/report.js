@@ -6,9 +6,9 @@ const mapPropsToPage = (props, context) => ({
     endpoint: '/api/admin/training/assignments/report',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
+      { label: 'User', key: 'user.full_name', primary: true },
       { label: 'Title', key: 'assigning.title', primary: true },
-      { label: 'Assigned By', key: 'assigning.assigned_by.full_name', primary: true },
-      { label: 'User', key: 'user.full_name', primary: true }
+      { label: 'Configured', key: 'configured', primary: false, collapsing: true, centered: true, format: 'check_times' }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     entity: 'assignment',

@@ -1,6 +1,7 @@
 const assigningSerializer = (req, result) => ({
   id: result.get('id'),
   title: result.get('title'),
+  assignments_count: result.get('assignments_count'),
   assigned_by: user(result.related('assigned_by')),
   completed_by: result.get('completed_by'),
   created_at: result.get('created_at'),
