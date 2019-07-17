@@ -21,14 +21,14 @@ const lockFile = async (req, file, locked_by) => {
 
 const route = async (req, res) => {
 
-  if(req.headers.depth === undefined) {
-    return res.status(422).send(null)
-  }
+  // if(req.headers.depth === undefined) {
+  //   return res.status(422).send(null)
+  // }
 
   const model = req.item.get('type') === 'file' ? File : MetaFile
 
   const file = await model.query(qb => {
-    qb.where('id', req.item.get('item_id'))
+    qb.where('code', req.item.get('code'))
   }).fetch({
     transacting: req.trx
   })

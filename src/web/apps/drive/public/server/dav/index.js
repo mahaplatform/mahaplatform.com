@@ -2,6 +2,7 @@ import { loadHeaders, loadItem, loadTeam, rawParser } from './utils'
 import preconditions from './preconditions'
 import bodyParserXML from 'body-parser-xml'
 import bodyParser from 'body-parser'
+import proppatch from './proppatch'
 import propfind from './propfind'
 import destroy from './destroy'
 import unlock from './unlock'
@@ -12,6 +13,7 @@ import cors from './cors'
 import lock from './lock'
 import move from './move'
 import copy from './copy'
+import head from './head'
 import put from './put'
 import get from './get'
 
@@ -42,10 +44,12 @@ router.use('/dav/:subdomain', async (req, res, next) => {
   if(req.method === 'LOCK') return lock(req, res, next)
   if(req.method === 'MOVE') return move(req, res, next)
   if(req.method === 'COPY') return copy(req, res, next)
+  if(req.method === 'HEAD') return head(req, res, next)
   if(req.method === 'GET') return get(req, res, next)
   if(req.method === 'PUT') return put(req, res, next)
   if(req.method === 'DELETE') return destroy(req, res, next)
   if(req.method === 'PROPFIND') return propfind(req, res, next)
+  if(req.method === 'PROPPATCH') return proppatch(req, res, next)
   if(req.method === 'MKCOL') return mkcol(req, res, next)
   next()
 })

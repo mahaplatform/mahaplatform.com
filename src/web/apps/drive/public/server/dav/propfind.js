@@ -19,6 +19,7 @@ const getChildren = async (req, user, item, depth) => {
     } else {
       qb.where('folder_id', item.get('item_id'))
     }
+    qb.whereRaw('label not like ? ', req.is_windows ? '._%' : '~$%')
     qb.orderBy('label', 'asc')
   }).fetchAll({
     transacting: req.trx

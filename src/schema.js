@@ -1878,6 +1878,7 @@ const schema = {
       items.content_type,
       items.lock_expires_at,
       items.locked_by,
+      items.lock_token,
       items.deleted_at,
       items.created_at,
       items.updated_at
@@ -1982,6 +1983,7 @@ const schema = {
       drive_items.content_type,
       drive_items.lock_expires_at,
       drive_items.locked_by,
+      drive_items.lock_token,
       drive_items.deleted_at,
       drive_items.created_at,
       drive_items.updated_at,

@@ -12,7 +12,9 @@ const preconditions = (req, res, next) => {
 
   req.parent_path = req.fullpath.split('/').slice(0,-1).join('/')
 
-  req.is_metafile = req.label.substr(0,2) === '._' || _.includes(['.DS_Store'], req.label)
+  req.is_metafile = _.includes(['._','~$'], req.label.substr(0,2)) || _.includes(['.DS_Store'], req.label)
+
+  req.is_windows = req.headers['user-agent'].toLowerCase().match(/microsoft/) !== null
 
   if(req.label.substr(0,15) === '.metadata_never') return res.status(200).send('')
 
