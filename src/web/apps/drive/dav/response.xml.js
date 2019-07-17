@@ -2,13 +2,7 @@ import moment from 'moment'
 import etag from 'etag'
 import xml from 'xml'
 
-const response = (req, item, props, children = []) => xml({
-  'D:multistatus': [
-    { _attr: { 'xmlns:D': 'DAV:' } },
-    ...item ? [ getResponse(req, item, props) ] : [],
-    ...children.map(child => getResponse(req, child, props))
-  ]
-}, { declaration: true })
+const msprops = ['Win32CreationTime','Win32LastAccessTime','Win32LastModifiedTime','Win32FileAttributes']
 
 const getUrl = (req, item) => {
   const host = `${req.protocol}://${req.headers.host}`
@@ -22,6 +16,15 @@ const getResponse = (req, item, props) => {
   const url = getUrl(req, item)
   const found = []
   const missing = []
+  msprops.map(msprop => {
+    if(props[`Z:${msprop}`]) {
+      found.push({
+        [`a:${msprop}`]: [
+          { _attr: { 'xmlns:a': 'urn:schemas-microsoft-com:' } }
+        ]
+      })
+    }
+  })
   if(props['D:getlastmodified'] || props['D:allprop']) {
     const getlastmodified = moment(item.get('updated_at')).format('ddd, DD MMM YYYY HH:mm:ss [GMT]')
     found.push({ 'D:getlastmodified': [ getlastmodified ] })
@@ -115,5 +118,13 @@ const getResponse = (req, item, props) => {
     ]
   }
 }
+
+const response = (req, item, props, children = []) => xml({
+  'D:multistatus': [
+    { _attr: { 'xmlns:D': 'DAV:' } },
+    ...item ? [ getResponse(req, item, props) ] : [],
+    ...children.map(child => getResponse(req, child, props))
+  ]
+}, { declaration: true })
 
 export default response

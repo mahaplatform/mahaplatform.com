@@ -1,6 +1,6 @@
-import MetaFile from '../../../models/metafile'
-import File from '../../../models/file'
+import MetaFile from '../models/metafile'
 import { generateUUID } from './utils'
+import File from '../models/file'
 import moment from 'moment'
 import xml from 'xml'
 
@@ -20,10 +20,6 @@ const lockFile = async (req, file, locked_by) => {
 }
 
 const route = async (req, res) => {
-
-  // if(req.headers.depth === undefined) {
-  //   return res.status(422).send(null)
-  // }
 
   const model = req.item.get('type') === 'file' ? File : MetaFile
 

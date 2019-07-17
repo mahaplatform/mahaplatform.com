@@ -1,5 +1,5 @@
-import s3 from '../../../../../core/services/s3'
-import MetaFile from '../../../models/metafile'
+import s3 from '../../../core/services/s3'
+import MetaFile from '../models/metafile'
 
 const getData = async (req, item) => {
 

@@ -63,6 +63,32 @@ export const createMetaFile = async (req, params) => {
 
 }
 
+export const renameMetaFile = async (req, metafile, params) => {
+
+  const folder_id = params.folder_id || metafile.get('folder_id')
+
+  const folder = folder_id ? await Folder.where(qb => {
+    qb.where('id', folder_id)
+  }).fetch({
+    transacting: req.trx
+  }) : null
+
+  await metafile.save({
+    label: params.label,
+    folder_id: folder ? folder.get('id') : null,
+    fullpath: folder ? `${folder.get('fullpath')}/${params.label}` : params.label
+  }, {
+    patch: true,
+    transacting: req.trx
+  })
+
+  await socket.refresh(req, [
+    `/admin/drive/folders/${folder ? folder.get('code') : 'drive'}`,
+    `/admin/drive/folders/${file.get('code')}`
+  ])
+
+}
+
 export const destroyMetaFile = async (req, file) => {
 
   await file.destroy({

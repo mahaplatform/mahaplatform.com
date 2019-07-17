@@ -1,11 +1,12 @@
-import { createAsset, updateAsset } from '../../../../maha/services/assets'
-import socket from '../../../../../core/services/routes/emitter'
-import { createMetaFile } from '../../../services/metafiles'
-import knex from '../../../../../core/services/knex'
-import { createFile } from '../../../services/files'
-import MetaFile from '../../../models/metafile'
-import Folder from '../../../models/folder'
-import Item from '../../../models/item'
+import { createAsset } from '../../maha/services/assets'
+import socket from '../../../core/services/routes/emitter'
+import { createMetaFile } from '../services/metafiles'
+import knex from '../../../core/services/knex'
+import { createFile, updateFile } from '../services/files'
+import MetaFile from '../models/metafile'
+import Folder from '../models/folder'
+import File from '../models/file'
+import Item from '../models/item'
 
 const create = async (req, folder) => {
 
@@ -74,13 +75,23 @@ const route = async (req, res) => {
 
   } else if(req.item.get('type') === 'file') {
 
-    await req.item.load(['asset','folder'], {
+    const file = await File.query(qb => {
+      qb.where('id', req.item.get('item_id'))
+    }).fetch({
       transacting: req.trx
     })
 
-    await updateAsset(req, req.item.related('asset'), {
+    const asset = await createAsset(req, {
+      team_id: req.team.get('id'),
+      user_id: req.user.get('id'),
+      source_id: 1,
       file_data: req.rawBody.length === 0 ? null : req.rawBody,
-      file_size: req.rawBody.length === 0 ? 0 : null
+      file_size: req.rawBody.length === 0 ? 0 : null,
+      file_name: req.label
+    })
+
+    await updateFile(req, file, {
+      asset_id: asset.get('id')
     })
 
   } else if(req.item.get('type') === 'metafile') {

@@ -1,9 +1,9 @@
-import { destroyMetaFile } from '../../../services/metafiles'
-import { destroyFolder } from '../../../services/folders'
-import { destroyFile } from '../../../services/files'
-import MetaFile from '../../../models/metafile'
-import Folder from '../../../models/folder'
-import File from '../../../models/file'
+import { destroyMetaFile } from '../services/metafiles'
+import { destroyFolder } from '../services/folders'
+import { destroyFile } from '../services/files'
+import MetaFile from '../models/metafile'
+import Folder from '../models/folder'
+import File from '../models/file'
 
 const route = async (req, res) => {
 

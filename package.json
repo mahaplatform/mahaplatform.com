@@ -94,6 +94,7 @@
     "express": "^4.15.2",
     "express-async-errors": "^3.1.1",
     "fb": "^2.0.0",
+    "file-type": "^12.0.1",
     "firebase": "^5.5.9",
     "firebase-admin": "^6.2.0",
     "flat": "^4.1.0",

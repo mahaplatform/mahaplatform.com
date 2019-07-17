@@ -15,6 +15,7 @@ import apiMiddleware from './api'
 import express from 'express'
 import arena from './arena'
 import ping from './ping'
+import dav from './dav'
 import qs from 'qs'
 
 const server = express()
@@ -30,6 +31,8 @@ server.use(multiparty({ uploadDir: './tmp' }))
 server.use(arena)
 
 server.use(rollbarMiddleware)
+
+server.use(dav)
 
 server.use('/ping', ping)
 

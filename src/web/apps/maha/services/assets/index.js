@@ -7,6 +7,7 @@ import Source from '../../models/source'
 import request from 'request-promise'
 import { exec } from 'child_process'
 import Asset from '../../models/asset'
+import fileType from 'file-type'
 import * as local from './local'
 import { Duplex } from 'stream'
 import webshot from 'webshot'
@@ -131,7 +132,7 @@ export const createAsset = async (req, params) => {
     source_url: params.source_url,
     original_file_name: params.file_name,
     file_name: _getNormalizedFileName(params.file_name),
-    content_type: params.content_type || _getContentType(params.file_name),
+    content_type: params.file_data ? _getFileType(params.file_data) : _getContentType(params.file_name),
     file_size: !_.isNil(params.file_size) ? params.file_size : _getFilesize(params.file_data),
     chunks_total: 1,
     status: 'assembled'
@@ -141,12 +142,6 @@ export const createAsset = async (req, params) => {
   if(params.file_data) {
     await _saveFildata(req, asset, params.file_data)
   }
-  await asset.save({
-    status: 'processed'
-  }, {
-    patch: true,
-    transacting: req.trx
-  })
   return asset
 }
 
@@ -162,12 +157,6 @@ export const updateAsset = async (req, asset, params) => {
   if(params.file_data) {
     await _saveFildata(req, asset, params.file_data)
   }
-  await asset.save({
-    status: 'processed'
-  }, {
-    patch: true,
-    transacting: req.trx
-  })
   return asset
 }
 
@@ -191,7 +180,7 @@ export const getAssetData = async (asset, format = 'buffer') => {
 const _saveFildata = async (req, asset, file_data) => {
   const normalizedData = await _getNormalizedData(asset, file_data)
   await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
-  await _processAsset(req, normalizedData, asset)
+  await ProcessAssetQueue.enqueue(req, asset.id)
 }
 
 const _processAsset = async (req, data, asset) => {
@@ -213,7 +202,7 @@ const _processAsset = async (req, data, asset) => {
 }
 
 const _getNormalizedData = async (asset, fileData) => {
-  const content_type = asset.get('content_type')
+  const content_type = asset.get('content_type') || ''
   const isImage = content_type.match(/image/) && content_type !== 'image/gif'
   return isImage ? await _rotateImage(fileData) : fileData
 }
@@ -243,8 +232,13 @@ const _deleteFiles = async (files) => {
   return await aws.deleteFiles(files)
 }
 
+const _getFileType = (file_data) => {
+  const type = fileType(file_data)
+  return type ? type.mime : 'text/plain'
+}
+
 const _getContentType = (file_name) => {
-  return mime.lookup(file_name)
+  return mime.lookup(file_name) || 'text/plain'
 }
 
 const _getFilesize = (fileData) => {

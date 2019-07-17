@@ -1,29 +1,4 @@
-import Team from '../../../../maha/models/team'
-import Item from '../../../models/item'
-
-export const rawParser = (req, res, next) => {
-  if(req.method !== 'PUT') return next()
-  const chunks = []
-  req.on('data', function(chunk) {
-    chunks.push(chunk)
-  })
-  req.on('end', function(chunk) {
-    req.rawBody = Buffer.concat(chunks)
-    next()
-  })
-}
-
-export const loadHeaders = (req, res, next) => {
-  if(req.headers['if']) {
-    const if_token = req.headers['if'].match(/urn:uuid:([^>]*)/)
-    if(if_token) req.if_token = if_token[1]
-  }
-  if(req.headers['lock-token']) {
-    const token = req.headers['lock-token'].match(/urn:uuid:([^>]*)/)
-    if(token) req.lock_token = token[1]
-  }
-  next()
-}
+import Item from '../models/item'
 
 export const loadItem = async (req, res, next) => {
   if(req.fullpath.length === 0) return next()
@@ -42,15 +17,6 @@ export const loadItem = async (req, res, next) => {
   if(req.method !== 'PUT' && !req.item) {
     return res.status(404).type('application/xml').send()
   }
-  next()
-}
-
-export const loadTeam = async (req, res, next) => {
-  req.team = await Team.query(qb => {
-    qb.where('subdomain', req.params.subdomain)
-  }).fetch({
-    transacting: req.trx
-  })
   next()
 }
 
