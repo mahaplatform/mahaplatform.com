@@ -135,20 +135,18 @@ export const createAsset = async (req, params) => {
     content_type: params.file_data ? _getFileType(params.file_data) : _getContentType(params.file_name),
     file_size: !_.isNil(params.file_size) ? params.file_size : _getFilesize(params.file_data),
     chunks_total: 1,
-    status: 'assembled'
+    status: params.file_data && params.file_data.length > 0 ? 'assembled' : 'processed'
   }).save(null, {
     transacting: req.trx
   })
-  if(params.file_data) {
-    await _saveFildata(req, asset, params.file_data)
-  }
+  if(!params.file_data || params.file_data.length === 0) return asset
+  await _saveFildata(req, asset, params.file_data)
   return asset
 }
 
 export const renameAsset = async (req, asset, params) => {
   return await asset.save({
-    original_file_name: params.file_name,
-    file_name: _getNormalizedFileName(params.file_name)
+    original_file_name: params.file_name
   }, {
     patch: true,
     transacting: req.trx
@@ -156,6 +154,7 @@ export const renameAsset = async (req, asset, params) => {
 }
 
 export const updateAsset = async (req, asset, params) => {
+  if(!params.file_data || params.file_data.length === 0) return asset
   await asset.save({
     file_size: params.file_size || _getFilesize(params.file_data),
     chunks_total: 1,
@@ -164,9 +163,7 @@ export const updateAsset = async (req, asset, params) => {
     patch: true,
     transacting: req.trx
   })
-  if(params.file_data) {
-    await _saveFildata(req, asset, params.file_data)
-  }
+  await _saveFildata(req, asset, params.file_data)
   return asset
 }
 

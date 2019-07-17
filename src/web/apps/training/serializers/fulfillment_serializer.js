@@ -41,7 +41,7 @@ const asset = (asset) => ({
   file_name: asset.get('file_name'),
   content_type: asset.get('content_type'),
   file_size: asset.get('file_size'),
-  status: asset.get('text'),
+  status: asset.get('status'),
   has_preview: asset.get('has_preview'),
   path: asset.get('path'),
   signed_url: asset.get('signed_url'),

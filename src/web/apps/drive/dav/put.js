@@ -36,7 +36,7 @@ const route = async (req, res) => {
 
     const file = await create(req, {
       label: req.label,
-      file_data: req.rawBody.length > 0 ? req.rawBody : null,
+      file_data: req.rawBody,
       folder
     })
 
@@ -47,33 +47,29 @@ const route = async (req, res) => {
       transacting: req.trx
     })
 
-  } else if(req.rawBody.length > 0) {
+  } else if(req.item.get('type') === 'file') {
 
-    if(req.item.get('type') === 'file') {
+    const file = await File.query(qb => {
+      qb.where('id', req.item.get('item_id'))
+    }).fetch({
+      transacting: req.trx
+    })
 
-      const file = await File.query(qb => {
-        qb.where('id', req.item.get('item_id'))
-      }).fetch({
-        transacting: req.trx
-      })
+    await updateFile(req, file, {
+      file_data: req.rawBody
+    })
 
-      await updateFile(req, file, {
-        file_data: req.rawBody
-      })
+  } else if(req.item.get('type') === 'metafile') {
 
-    } else if(req.item.get('type') === 'metafile') {
+    const metafile = await MetaFile.query(qb => {
+      qb.where('id', req.item.get('item_id'))
+    }).fetch({
+      transacting: req.trx
+    })
 
-      const metafile = await MetaFile.query(qb => {
-        qb.where('id', req.item.get('item_id'))
-      }).fetch({
-        transacting: req.trx
-      })
-
-      await updateMetaFile(req, metafile, {
-        file_data: req.rawBody
-      })
-
-    }
+    await updateMetaFile(req, metafile, {
+      file_data: req.rawBody
+    })
 
   }
 

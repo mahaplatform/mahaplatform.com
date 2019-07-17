@@ -57,6 +57,7 @@
   padding: 0.4em 0;
 }
 .drive-version-meta,
+.drive-version-link,
 .drive-version-text {
   font-size: 0.9em;
   line-height: 1.8em;
@@ -67,6 +68,12 @@
   margin-right: 1em;
   font-weight: bold;
   color: fadeout(@black, 50);
+}
+.drive-version-link {
+  color: @blue;
+  span {
+    text-decoration: underline;
+  }
 }
 .drive-version-text-filename,
 .drive-version-meta-user {

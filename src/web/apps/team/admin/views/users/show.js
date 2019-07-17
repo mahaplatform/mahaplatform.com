@@ -25,12 +25,12 @@ const Details = ({ user, appUserValues }) => {
     ]
   }
 
-  if(!user.activated_at) {
-    list.alert = { color: 'grey', message: 'This user hasn\'t yet activated their account' }
-  } else if(!user.is_active) {
+  if(!user.is_active) {
     list.alert = { color: 'red', message: 'This user has been disabled' }
   } else if(user.is_blocked) {
     list.alert = { color: 'red', message: 'This user has been blocked' }
+  } else if(!user.activated_at) {
+    list.alert = { color: 'grey', message: 'This user hasn\'t yet activated their account' }
   }
 
 
@@ -99,7 +99,7 @@ const mapPropsToPage = (props, context, resources) => ({
       }, {
         label: 'Disable User',
         rights: ['team:manage_people'],
-        show: resources.user.activated_at !== null && resources.user.is_active,
+        show: resources.user.is_active,
         request: {
           method: 'PATCH',
           endpoint: `/api/admin/team/users/${resources.user.id}/disable`,
@@ -109,7 +109,7 @@ const mapPropsToPage = (props, context, resources) => ({
       }, {
         label: 'Enable User',
         rights: ['team:manage_people'],
-        show: resources.user.activated_at !== null && !resources.user.is_active,
+        show: !resources.user.is_active,
         request: {
           method: 'PATCH',
           endpoint: `/api/admin/team/users/${resources.user.id}/enable`,

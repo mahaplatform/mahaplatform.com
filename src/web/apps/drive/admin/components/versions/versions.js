@@ -17,6 +17,8 @@ class Versions extends React.Component {
     onFetch: PropTypes.func
   }
 
+  link = null
+
   _handleBrowse = this._handleBrowse.bind(this)
   _handleRefresh = this._handleRefresh.bind(this)
   _handleUpload = this._handleUpload.bind(this)
@@ -56,6 +58,9 @@ class Versions extends React.Component {
                   { version.user.full_name }
                 </div>
               </div>
+              <div className="drive-version-link" onClick={ this._handleView.bind(this, version) }>
+                <i className="fa fa-external-link-square" /> <span>View file in another window</span>
+              </div>
             </div>
             <div className="drive-version-active">
               { version.id === file.version_id ?
@@ -65,6 +70,7 @@ class Versions extends React.Component {
             </div>
           </div>
         )) }
+        <a ref={ node => this.link = node } target="_blank" />
       </div>
     )
   }
@@ -136,6 +142,12 @@ class Versions extends React.Component {
         }
       })
     })
+  }
+
+  _handleView(version) {
+    const { file } = this.props
+    this.link.href = `/admin/drive/files/${file.code}/versions/${version.id}`
+    this.link.click()
   }
 
 }

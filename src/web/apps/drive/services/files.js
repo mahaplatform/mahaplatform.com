@@ -1,7 +1,7 @@
+import { createAsset, updateAsset } from '../../maha/services/assets'
 import { whitelist } from '../../../core/services/routes/params'
 import generateCode from '../../../core/utils/generate_code'
 import socket from '../../../core/services/routes/emitter'
-import { createAsset } from '../../maha/services/assets'
 import Asset from '../../maha/models/asset'
 import Version from '../models/version'
 import Folder from '../models/folder'
@@ -208,18 +208,22 @@ export const _destroyFile = async (req, file) => {
     transacting: req.trx
   })
 
-  await file.save({
-    version_id: null
-  }, {
-    patch: true,
-    transacting: req.trx
-  })
+  if(file.get('version_id')) {
 
-  await Version.where({
-    file_id: file.get('id')
-  }).destroy({
-    transacting: req.trx
-  })
+    await file.save({
+      version_id: null
+    }, {
+      patch: true,
+      transacting: req.trx
+    })
+
+    await Version.where({
+      file_id: file.get('id')
+    }).destroy({
+      transacting: req.trx
+    })
+
+  }
 
   await file.load(['folder'], {
     transacting: req.trx
