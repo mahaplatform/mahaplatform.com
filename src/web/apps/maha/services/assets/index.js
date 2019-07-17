@@ -184,6 +184,12 @@ export const getAssetData = async (asset, format = 'buffer') => {
   return data
 }
 
+export const getPDFData = async (asset) => {
+  const data = await aws.readFile(asset.get('key'))
+  if(asset.get('extension') === 'pdf') return data
+  return await _convertOfficeFormat(data, 'pdf')
+}
+
 const _saveFildata = async (req, asset, file_data) => {
   const normalizedData = await _getNormalizedData(asset, file_data)
   await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
