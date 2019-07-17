@@ -91,6 +91,27 @@ class AssetToken extends React.Component {
     return classes.join(' ')
   }
 
+  _getPrint() {
+    const { id, content_type, signed_url, token } = this.props
+    if(content_type.match(/image/) !== null) {
+      return {
+        printable: signed_url,
+        type: 'image'
+      }
+    } else if(content_type.match(/pdf/) !== null) {
+      return {
+        printable: signed_url,
+        type: 'pdf'
+      }
+    } else {
+      return {
+        printable: `/api/admin/assets/${id}/print?token=${token}`,
+        type: 'pdf'
+      }
+
+    }
+  }
+  
   _handleClick() {
     const { onClick } = this.props
     if(onClick) return onClick()
@@ -110,17 +131,8 @@ class AssetToken extends React.Component {
   }
 
   _handlePrint() {
-    const { id, signed_url, token } = this.props
-    if(content_type.match(/image/) !== null) {
-      return print({
-        printable: signed_url,
-        type: 'image'
-      })
-    }
-    print({
-      printable: `/api/admin/assets/${id}/print?token=${token}`,
-      type: 'pdf'
-    })
+    const params = this._getPrint()
+    print(params)
   }
 
 }
