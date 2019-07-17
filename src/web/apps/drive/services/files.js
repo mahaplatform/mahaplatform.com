@@ -1,6 +1,7 @@
 import { whitelist } from '../../../core/services/routes/params'
 import generateCode from '../../../core/utils/generate_code'
 import socket from '../../../core/services/routes/emitter'
+import { createAsset } from '../../maha/services/assets'
 import Asset from '../../maha/models/asset'
 import Version from '../models/version'
 import Folder from '../models/folder'
@@ -25,6 +26,16 @@ const _getAsset = async (req, params) => {
   }).fetch({
     transacting: req.trx
   })
+  if(params.file_data) {
+    return await createAsset(req, {
+      team_id: req.team.get('id'),
+      user_id: req.user.get('id'),
+      source_id: 1,
+      file_data: params.file_data.length === 0 ? null : params.file_data,
+      file_size: params.file_data.length === 0 ? 0 : null,
+      file_name: params.label
+    })
+  }
   return null
 }
 
@@ -34,32 +45,38 @@ export const createFile = async (req, params) => {
 
   const asset = await _getAsset(req, params)
 
+  const label = asset ? asset.get('original_file_name') : params.label
+
   const file = await File.forge({
     team_id: req.team.get('id'),
     code: generateCode(),
-    label: asset.get('original_file_name'),
-    fullpath: parent ? `${parent.get('fullpath')}/${asset.get('original_file_name')}` : asset.get('original_file_name'),
+    label,
+    fullpath: parent ? `${parent.get('fullpath')}/${label}` : label,
     folder_id: parent.get('id'),
     owner_id: req.user.get('id')
   }).save(null, {
     transacting: req.trx
   })
 
-  const version = await Version.forge({
-    team_id: req.team.get('id'),
-    user_id: req.user.get('id'),
-    file_id: file.get('id'),
-    asset_id: asset.get('id')
-  }).save(null, {
-    transacting: req.trx
-  })
+  if(asset) {
 
-  await file.save({
-    version_id: version.get('id')
-  }, {
-    patch: true,
-    transacting: req.trx
-  })
+    const version = await Version.forge({
+      team_id: req.team.get('id'),
+      user_id: req.user.get('id'),
+      file_id: file.get('id'),
+      asset_id: asset.get('id')
+    }).save(null, {
+      transacting: req.trx
+    })
+
+    await file.save({
+      version_id: version.get('id')
+    }, {
+      patch: true,
+      transacting: req.trx
+    })
+
+  }
 
   await Access.forge({
     team_id: req.team.get('id'),
@@ -108,12 +125,18 @@ export const updateFile = async (req, file, params) => {
     })
   }
 
-  if(params.asset_id) {
+  const asset = await _getAsset(req, {
+    label: file.get('label'),
+    ...params
+  })
+
+  if(asset) {
+
     const version = await Version.forge({
       team_id: req.team.get('id'),
       user_id: req.user.get('id'),
       file_id: file.get('id'),
-      asset_id: params.asset_id
+      asset_id: asset.get('id')
     }).save(null, {
       transacting: req.trx
     })
@@ -124,6 +147,7 @@ export const updateFile = async (req, file, params) => {
       patch: true,
       transacting: req.trx
     })
+
   }
 
   await file.load(['folder','current_version.asset','current_version.asset.user.photo','current_version.asset.source','versions.asset.source','versions.user','accesses.user.photo','accesses.group','accesses.access_type'], {

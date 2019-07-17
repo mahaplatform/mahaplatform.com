@@ -36,10 +36,10 @@ const getResponse = (req, item, props) => {
   if(item.get('type') !== 'folder') {
     if(props['D:resourcetype'] || props['D:allprop']) found.push({ 'D:resourcetype': null })
     if(props['D:getcontenttype'] || props['D:allprop']) {
-      found.push({ 'D:getcontenttype': [ item.get('content_type') ] })
+      found.push({ 'D:getcontenttype': [ item.get('content_type') || '' ] })
     }
     if(props['D:getcontentlength'] || props['D:allprop']) {
-      found.push({ 'D:getcontentlength': [ item.get('file_size') ] })
+      found.push({ 'D:getcontentlength': [ item.get('file_size') || '' ] })
     }
     if(props['D:displayname'] || props['D:allprop']) {
       found.push({ 'D:displayname': [ item.get('label') ] })

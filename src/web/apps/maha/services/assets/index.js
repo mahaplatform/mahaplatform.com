@@ -145,6 +145,16 @@ export const createAsset = async (req, params) => {
   return asset
 }
 
+export const renameAsset = async (req, asset, params) => {
+  return await asset.save({
+    original_file_name: params.file_name,
+    file_name: _getNormalizedFileName(params.file_name)
+  }, {
+    patch: true,
+    transacting: req.trx
+  })
+}
+
 export const updateAsset = async (req, asset, params) => {
   await asset.save({
     file_size: params.file_size || _getFilesize(params.file_data),

@@ -247,13 +247,12 @@ const schema = {
       table.string('code', 255)
       table.string('label', 255)
       table.text('fullpath')
-      table.integer('file_size')
-      table.bytea('contents')
       table.string('locked_by', 255)
       table.string('lock_token', 255)
       table.timestamp('lock_expires_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('asset_id').unsigned()
     })
 
     await knex.schema.createTable('drive_versions', (table) => {
@@ -1356,6 +1355,7 @@ const schema = {
     await knex.schema.table('drive_metafiles', table => {
       table.foreign('owner_id').references('maha_users.id')
       table.foreign('folder_id').references('drive_folders.id')
+      table.foreign('asset_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -1926,9 +1926,9 @@ const schema = {
       drive_files.created_at,
       drive_files.updated_at
       from (((drive_files
-      join drive_versions on ((drive_versions.id = drive_files.version_id)))
-      join maha_assets on ((maha_assets.id = drive_versions.asset_id)))
       join maha_users on ((maha_users.id = drive_files.owner_id)))
+      left join drive_versions on ((drive_versions.id = drive_files.version_id)))
+      left join maha_assets on ((maha_assets.id = drive_versions.asset_id)))
       union
       select 2 as priority,
       drive_metafiles.code,
@@ -1942,16 +1942,17 @@ const schema = {
       drive_metafiles.label,
       null::character varying as file_name,
       drive_metafiles.fullpath,
-      drive_metafiles.file_size,
-      'application/octet-stream'::character varying as content_type,
+      maha_assets.file_size,
+      maha_assets.content_type,
       drive_metafiles.lock_expires_at,
       drive_metafiles.locked_by,
       drive_metafiles.lock_token,
       null::timestamp with time zone as deleted_at,
       drive_metafiles.created_at,
       drive_metafiles.updated_at
-      from (drive_metafiles
-      join maha_users on ((maha_users.id = drive_metafiles.owner_id)))) items
+      from ((drive_metafiles
+      join maha_users on ((maha_users.id = drive_metafiles.owner_id)))
+      left join maha_assets on ((maha_assets.id = drive_metafiles.asset_id)))) items
       order by items.priority;
     `)
 

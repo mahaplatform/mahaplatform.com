@@ -1,4 +1,7 @@
+import { whitelist } from '../../../core/services/routes/params'
 import generateCode from '../../../core/utils/generate_code'
+import { createAsset } from '../../maha/services/assets'
+import Asset from '../../maha/models/asset'
 import MetaFile from '../models/metafile'
 import Access from '../models/access'
 import Folder from '../models/folder'
@@ -14,27 +17,50 @@ const _getFolder = async (req, params) => {
   return null
 }
 
+const _getAsset = async (req, params) => {
+  if(params.asset) return params.asset
+  if(params.asset_id) return await Asset.where({
+    id: params.asset_id
+  }).fetch({
+    transacting: req.trx
+  })
+  if(params.file_data) {
+    return await createAsset(req, {
+      team_id: req.team.get('id'),
+      user_id: req.user.get('id'),
+      source_id: 1,
+      file_data: params.file_data,
+      file_size: params.file_data.length,
+      file_name: params.label
+    })
+  }
+  return null
+}
+
 export const createMetaFile = async (req, params) => {
 
   const parent = await _getFolder(req, params)
 
+  const asset = await _getAsset(req, params)
+
+  const label = asset ? asset.get('original_file_name') : params.label
+
   const file = await MetaFile.forge({
-    team_id: params.team_id,
-    code: generateCode(),
-    label: params.label,
-    fullpath: parent ? `${parent.get('fullpath')}/${params.label}` :params.label,
-    folder_id: parent.get('id'),
+    team_id: req.team.get('id'),
     owner_id: req.user.get('id'),
-    file_size: params.file_size,
-    contents: params.contents
+    folder_id: parent.get('id'),
+    asset_id: asset ? asset.get('id') : null,
+    code: generateCode(),
+    label,
+    fullpath: parent ? `${parent.get('fullpath')}/${label}` : label
   }).save(null, {
     transacting: req.trx
   })
 
   await Access.forge({
     team_id: req.team.get('id'),
-    code: file.get('code'),
     user_id: req.user.get('id'),
+    code: file.get('code'),
     access_type_id: 1
   }).save(null, {
     transacting: req.trx
@@ -82,10 +108,32 @@ export const renameMetaFile = async (req, metafile, params) => {
     transacting: req.trx
   })
 
-  await socket.refresh(req, [
-    `/admin/drive/folders/${folder ? folder.get('code') : 'drive'}`,
-    `/admin/drive/folders/${file.get('code')}`
-  ])
+}
+
+export const updateMetaFile = async (req, metafile, params) => {
+
+  if(params.folder_id || req.body.label) {
+    await metafile.save(whitelist(params, ['folder_id','label']), {
+      patch: true,
+      transacting: req.trx
+    })
+  }
+
+  const asset = await _getAsset(req, {
+    label: metafile.get('label'),
+    ...params
+  })
+
+  if(asset) {
+
+    await metafile.save({
+      asset_id: asset.get('id')
+    }, {
+      patch: true,
+      transacting: req.trx
+    })
+
+  }
 
 }
 

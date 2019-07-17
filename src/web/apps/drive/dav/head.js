@@ -1,6 +1,10 @@
 const route = async (req, res) => {
 
-  res.status(200).type(req.item.get('content_type')).send(null)
+  if(req.item.get('content_type')) {
+    res.type(req.item.get('content_type'))
+  }
+
+  res.status(200).send(null)
 
 }
 

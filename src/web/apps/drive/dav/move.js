@@ -1,7 +1,7 @@
 import { createMetaFile, renameMetaFile, destroyMetaFile } from '../services/metafiles'
 import { renameFile, updateFile } from '../services/files'
 import socket from '../../../core/services/routes/emitter'
-import { createAsset } from '../../maha/services/assets'
+import { renameAsset } from '../../maha/services/assets'
 import { renameFolder } from '../services/folders'
 import MetaFile from '../models/metafile'
 import Folder from '../models/folder'
@@ -46,8 +46,7 @@ const route = async (req, res) => {
         team_id: req.team.get('id'),
         label,
         folder: parent,
-        file_size: req.item.get('file_size'),
-        contents: ''
+        file_size: req.item.get('file_size')
       })
 
     }
@@ -57,6 +56,7 @@ const route = async (req, res) => {
     const metafile = await MetaFile.query(qb => {
       qb.where('id', req.item.get('item_id'))
     }).fetch({
+      withRelated: ['asset'],
       transacting: req.trx
     })
 
@@ -68,18 +68,12 @@ const route = async (req, res) => {
         transacting: req.trx
       })
 
-      const asset = await createAsset(req, {
-        team_id: req.team.get('id'),
-        user_id: req.user.get('id'),
-        source_id: 1,
-        content_type: metafile.get('content_type'),
-        file_data: metafile.get('content'),
-        file_size: metafile.get('file_size'),
-        file_name: label
+      await renameAsset(req, metafile.related('asset'), {
+        file_name: file.get('label')
       })
 
       await updateFile(req, file, {
-        asset_id: asset.get('id')
+        asset_id: metafile.get('asset_id')
       })
 
       await destroyMetaFile(req, metafile)
