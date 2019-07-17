@@ -110,7 +110,13 @@ class AssetToken extends React.Component {
   }
 
   _handlePrint() {
-    const { id, token } = this.props
+    const { id, signed_url, token } = this.props
+    if(content_type.match(/image/) !== null) {
+      return print({
+        printable: signed_url,
+        type: 'image'
+      })
+    }
     print({
       printable: `/api/admin/assets/${id}/print?token=${token}`,
       type: 'pdf'
