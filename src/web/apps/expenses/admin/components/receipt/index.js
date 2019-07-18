@@ -28,6 +28,7 @@ class ReceiptView extends React.Component {
     has_preview: PropTypes.bool,
     original_file_name: PropTypes.string,
     preview: PropTypes.bool,
+    signed_url: PropTypes.string,
     source: PropTypes.string,
     source_url: PropTypes.string
   }
@@ -50,7 +51,7 @@ class ReceiptView extends React.Component {
   }
 
   _getAsset() {
-    const { asset_id, file_name, file_size, original_file_name, content_type, icon, source, source_url } = this.props
+    const { asset_id, file_name, file_size, original_file_name, content_type, icon, source, source_url, signed_url } = this.props
     return {
       id: asset_id,
       original_file_name,
@@ -59,7 +60,8 @@ class ReceiptView extends React.Component {
       content_type,
       icon,
       source,
-      source_url
+      source_url,
+      signed_url
     }
   }
 

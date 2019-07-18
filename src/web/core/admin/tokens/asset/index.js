@@ -131,7 +131,8 @@ class AssetToken extends React.Component {
 
   _handlePrint(e) {
     e.stopPropagation()
-    print(this._getPrint())
+    const params = this._getPrint()
+    print(params)
   }
 
 }
