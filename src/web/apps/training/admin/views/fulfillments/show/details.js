@@ -39,7 +39,7 @@ const Details = ({ user, fulfillment }) => {
           </div>
         )
       })
-      if(user.id == fulfillment.user.id) {
+      if(user.id == fulfillment.user.id && moment(fulfillment.offering.date) >= moment()) {
         list.buttons = [{
           label: 'Change Registration',
           color: 'green',
