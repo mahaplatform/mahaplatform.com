@@ -177,7 +177,7 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy:permissions', async () => {
     const commands = [
-      `chown -R nobody.nobody ${releaseDir}/help`
+      `chown -R centos.centos ${releaseDir}/help`
     ]
     await shipit.remote(commands.join(' && '), {
       roles: ['appserver','cron','worker']

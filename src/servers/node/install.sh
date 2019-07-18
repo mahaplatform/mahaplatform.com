@@ -34,4 +34,4 @@ mkdir -p /var/www/app/releases
 mkdir -m 777 -p /var/www/app/shared/tmp
 mkdir -m 777 -p /var/www/app/shared/imagecache
 mkdir -m 755 -p /var/www/app/shared/logs
-chown -R nobody.nobody /var/www/app/shared/*
+chown -R centos.centos /var/www/app/shared/*
