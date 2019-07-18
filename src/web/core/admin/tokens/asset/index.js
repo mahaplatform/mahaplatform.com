@@ -108,7 +108,6 @@ class AssetToken extends React.Component {
         printable: `/api/admin/assets/${id}/print?token=${token}`,
         type: 'pdf'
       }
-
     }
   }
 
@@ -132,9 +131,7 @@ class AssetToken extends React.Component {
 
   _handlePrint(e) {
     e.stopPropagation()
-    const params = this._getPrint()
-    console.log(params)
-    print(params)
+    print(this._getPrint())
   }
 
 }

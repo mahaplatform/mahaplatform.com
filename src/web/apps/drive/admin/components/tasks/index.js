@@ -9,6 +9,7 @@ import Versions from '../versions'
 import pluralize from 'pluralize'
 import Access from '../access'
 import Share from '../share'
+import print from 'print-js'
 import Move from '../move'
 import React from 'react'
 import _ from 'lodash'
@@ -33,6 +34,7 @@ class Tasks extends React.Component {
   }
 
   _handleDetails = this._handleDetails.bind(this)
+  _handlePrint = this._handlePrint.bind(this)
   _handleUpload = this._handleUpload.bind(this)
   _handleView = this._handleView.bind(this)
 
@@ -118,6 +120,7 @@ class Tasks extends React.Component {
           }
         } else if(item.type === 'file') {
           options.push({ component: <Button { ...this._getShare(item) } /> })
+          options.push({ component: <Button { ...this._getPrint(item) } /> })
           options.push({ component: <Button { ...this._getDownload(item) } /> })
           options.push({ component: <Button { ...this._getView(item) } /> })
           if(can_edit) options.push({ component: <Button { ...this._getVersions(item) } /> })
@@ -130,6 +133,27 @@ class Tasks extends React.Component {
       }
     }
     return options
+  }
+
+  _getPrintable(asset) {
+    const { token } = this.props
+    const { id, content_type, signed_url } = asset
+    if(content_type.match(/image/) !== null) {
+      return {
+        printable: signed_url,
+        type: 'image'
+      }
+    } else if(content_type.match(/pdf/) !== null) {
+      return {
+        printable: signed_url,
+        type: 'pdf'
+      }
+    } else {
+      return {
+        printable: `/api/admin/assets/${id}/print?token=${token}`,
+        type: 'pdf'
+      }
+    }
   }
 
   _getArchive(items) {
@@ -254,6 +278,15 @@ class Tasks extends React.Component {
     }
   }
 
+  _getPrint(item) {
+    return {
+      icon: 'print',
+      label: `Print ${_.capitalize(item.type)}`,
+      className: 'maha-list-item-link',
+      handler: this._handlePrint.bind(this, item.asset)
+    }
+  }
+
   _getAccess(item) {
     return {
       icon: 'handshake-o',
@@ -342,6 +375,10 @@ class Tasks extends React.Component {
   _handleDetails(item) {
     this.props.onShowDetails(true)
     this.props.onPreview(item)
+  }
+
+  _handlePrint(item) {
+    print(this._getPrintable(item))
   }
 
 }

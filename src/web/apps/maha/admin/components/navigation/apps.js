@@ -61,15 +61,15 @@ class Apps extends React.Component {
               { items.map((item, index) => {
                 if(!item.rights || this.userHasRights(rights, item.rights)) {
                   return (
-                    <div key={`item_${index}`} className="maha-navigation-item" onClick={ this._handleForward.bind(this, item, index)}>
+                    <div key={`item_${index}`} className={ this._getClass(item) } onClick={ this._handleForward.bind(this, item, index)}>
                       { item.icon &&
                         <div className="maha-navigation-item-extra">
-                          <div className={`maha-navigation-item-icon ${item.color}`}>
+                          <div className="maha-navigation-item-icon">
                             <i className={`fa fa-${item.icon}`} />
                           </div>
                         </div>
                       }
-                      <div className={`maha-navigation-item-details ${item.color}`}>
+                      <div className="maha-navigation-item-details">
                         { item.label }
                       </div>
                       <div className="maha-navigation-item-extra">
@@ -84,6 +84,12 @@ class Apps extends React.Component {
         </CSSTransition>
       </TransitionGroup>
     )
+  }
+
+  _getClass(item) {
+    const classes = ['maha-navigation-item']
+    if(item.color) classes.push(item.color)
+    return classes.join(' ')
   }
 
   _getItems(items, path) {

@@ -103,18 +103,19 @@
   flex: 1;
 }
 .maha-navigation-apps {
-  border-bottom: 1px solid #EEE;
+  border-bottom: 1px solid fadeout(@black, 95);
 }
 .maha-navigation-item {
-  .hover(background-color, fadeout(@black, 95));
+  .hover(background-color, fadeout(@black, 97));
   display: flex;
-  border-bottom: 1px solid #EEEEEE;
+  border-bottom: 1px solid fadeout(@black, 95);
   .maha-navigation-item-extra:first-child {
-    padding: 0.7em 0 0.7em 0.7em;
+    padding: 0.8em 0 0.8em 0.8em;
   }
   .maha-navigation-item-extra:last-child {
-    padding: 0.7em 0.7em 0.7em 0;
+    padding: 0.8em 0.8em 0.8em 0;
   }
+  .colorizeItem(maha-navigation-item-icon, background-color)
 }
 .maha-navigation-item-extra {
   display: flex;
@@ -136,7 +137,6 @@
   }
 }
 .maha-navigation-item-icon {
-  .colorize(background-color);
   border-radius: 5px;
   color: #FFF;
   display: flex;
