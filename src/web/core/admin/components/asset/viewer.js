@@ -102,7 +102,7 @@ class AssetViewer extends React.Component {
     if(type === 'audio') return `/admin/audio.html?file=${file}`
     if(type === 'video') return `/admin/video.html?file=${file}`
     if(type === 'image') return `/admin/image.html?file=${file}`
-    if(type === 'html') return host + asset.path
+    if(type === 'html') return url
     return null
   }
 

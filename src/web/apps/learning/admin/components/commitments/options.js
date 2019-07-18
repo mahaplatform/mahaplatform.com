@@ -30,7 +30,9 @@ class Options extends React.Component {
               <strong>{ item.title }</strong>
               <div>{ item.description }</div>
               { (item.url || item.asset) &&
-                <div className="link" onClick={ this._handleView.bind(this, item) }>View Resource</div>
+                <div className="link" onClick={ this._handleView.bind(this, item) }>
+                  View Resource
+                </div>
               }
             </div>
           </div>

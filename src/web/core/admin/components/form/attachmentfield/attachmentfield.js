@@ -1,7 +1,7 @@
+import AssetToken from '../../../tokens/asset'
+import Attachments from '../../attachments'
 import PropTypes from 'prop-types'
 import React from 'react'
-import AssetToken from '../../asset/token'
-import Attachments from '../../attachments'
 
 class AttachmentField extends React.Component {
 

@@ -1,4 +1,4 @@
-import AssetToken from '../asset/token'
+import AssetToken from '../../tokens/asset'
 import PropTypes from 'prop-types'
 import React from 'react'
 

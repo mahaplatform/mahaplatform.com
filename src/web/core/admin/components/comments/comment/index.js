@@ -1,5 +1,5 @@
 import AssetViewer from '../../asset/viewer'
-import AssetToken from '../../asset/token'
+import AssetToken from '../../../tokens/asset'
 import Attachment from '../../attachment'
 import Gallery from '../../gallery'
 import { files, images, media } from './selectors'

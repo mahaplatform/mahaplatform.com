@@ -1,8 +1,8 @@
+import AssetIcon from '../../components/asset/icon'
+import Image from '../../components/image'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import AssetIcon from './icon'
 import print from 'print-js'
-import Image from '../image'
 import React from 'react'
 import bytes from 'bytes'
 
@@ -87,7 +87,7 @@ class AssetToken extends React.Component {
     const { file_name, onClick } = this.props
     const classes = ['maha-asset-token']
     classes.push(file_name.split('.').pop().substr(0, 3))
-    if(onClick) classes.push('link')
+    if(onClick) classes.push('maha-asset-token-click')
     return classes.join(' ')
   }
 
@@ -111,7 +111,7 @@ class AssetToken extends React.Component {
 
     }
   }
-  
+
   _handleClick() {
     const { onClick } = this.props
     if(onClick) return onClick()
@@ -130,8 +130,10 @@ class AssetToken extends React.Component {
     e.stopPropagation()
   }
 
-  _handlePrint() {
+  _handlePrint(e) {
+    e.stopPropagation()
     const params = this._getPrint()
+    console.log(params)
     print(params)
   }
 

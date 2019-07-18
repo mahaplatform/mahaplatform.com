@@ -101,7 +101,8 @@ const asset = (asset) => {
     icon: asset.get('icon'),
     path: asset.get('path'),
     source: asset.related('source').get('text'),
-    source_url: asset.get('source_url')
+    source_url: asset.get('source_url'),
+    signed_url: asset.get('signed_url')
   }
 
 }
