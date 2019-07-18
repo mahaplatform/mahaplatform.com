@@ -1,58 +1,14 @@
-import { destroyMetaFile } from '../services/metafiles'
-import { destroyFolder } from '../services/folders'
-import { destroyFile } from '../services/files'
-import MetaFile from '../models/metafile'
-import Folder from '../models/folder'
-import File from '../models/file'
+import socket from '../../../core/services/routes/emitter'
+import { moveToTrash } from '../services/items'
 
 const route = async (req, res) => {
 
-  if(req.item.get('type') === 'folder') {
+  await moveToTrash(req, req.item)
 
-    const folder = await Folder.query(qb => {
-      qb.where('id', req.item.get('item_id'))
-    }).fetch({
-      transacting: req.trx
-    })
-
-    if(!folder) return res.status(404).respond({
-      code: 404,
-      message: 'Unable to load folder'
-    })
-
-    await destroyFolder(req, folder)
-
-  } else if(req.item.get('type') === 'metafile') {
-
-    const file = await MetaFile.query(qb => {
-      qb.where('id', req.item.get('item_id'))
-    }).fetch({
-      transacting: req.trx
-    })
-
-    if(!file) return res.status(404).respond({
-      code: 404,
-      message: 'Unable to load file'
-    })
-
-    await destroyMetaFile(req, file)
-
-  } else if(req.item.get('type') === 'file') {
-
-    const file = await File.query(qb => {
-      qb.where('id', req.item.get('item_id'))
-    }).fetch({
-      transacting: req.trx
-    })
-
-    if(!file) return res.status(404).respond({
-      code: 404,
-      message: 'Unable to load file'
-    })
-
-    await destroyFile(req, file)
-
-  }
+  await socket.refresh(req, [
+    `/admin/drive/folders/${req.item.related('folder').get('code') || 'drive'}`,
+    '/admin/drive/folders/trash'
+  ])
 
   res.status(204).send(null)
 

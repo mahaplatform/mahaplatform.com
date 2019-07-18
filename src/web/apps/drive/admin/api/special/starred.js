@@ -18,7 +18,7 @@ const starredRoute = async (req, res) => {
     searchParams: ['label']
   }).sort({
     sort: req.query.$sort,
-    defaultSort: 'id'
+    defaultSort: 'label'
   }).fetchPage({
     page: req.query.$page,
     withRelated: ['asset.source','accesses.access_type','accesses.user.photo','accesses.group','folder'],
