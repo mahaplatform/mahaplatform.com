@@ -1,4 +1,4 @@
-import { deleteAsset } from '../../maha/services/assets'
+import socket from '../../../core/services/routes/emitter'
 import knex from '../../../core/services/knex'
 import Version from '../models/version'
 import Folder from '../models/folder'
@@ -8,15 +8,21 @@ import moment from 'moment'
 export const moveToTrash = async (req, item) => {
   await _toggleDeletedAt(req, item, moment())
   const dotFile = await _getDotFile(req, item)
-  if(!dotFile) return
-  await _toggleDeletedAt(req, dotFile, moment())
+  if(dotFile) await _toggleDeletedAt(req, dotFile, moment())
+  await socket.refresh(req, [
+    `/admin/drive/folders/${item.related('folder').get('code') || 'drive'}`,
+    '/admin/drive/folders/trash'
+  ])
 }
 
 export const restoreFromTrash = async (req, item) => {
   await _toggleDeletedAt(req, item, null)
   const dotFile = await _getDotFile(req, item)
-  if(!dotFile) return
-  await _toggleDeletedAt(req, dotFile, null)
+  if(dotFile) await _toggleDeletedAt(req, dotFile, null)
+  await socket.refresh(req, [
+    `/admin/drive/folders/${item.related('folder').get('code') || 'drive'}`,
+    '/admin/drive/folders/trash'
+  ])
 }
 
 const _toggleDeletedAt = async (req, item, deleted_at) => {
@@ -60,7 +66,6 @@ export const deleteForever = async (req, item) => {
     const versions = await Version.where({
       file_id: item.get('item_id')
     }).fetchAll({
-      withRelated: ['asset'],
       transacting: req.trx
     }).then(versions => versions.toArray())
 
@@ -68,15 +73,6 @@ export const deleteForever = async (req, item) => {
       file_id: item.get('item_id')
     }).update({
       asset_id: null
-    })
-
-    const assets = versions.reduce((assets, version) => ({
-      ...assets,
-      [version.get('asset_id')]: version.related('asset')
-    }), {})
-
-    await Promise.map(Object.values(assets), async (asset) => {
-      await deleteAsset(req, asset)
     })
 
     await Promise.map(versions, async (version) => {

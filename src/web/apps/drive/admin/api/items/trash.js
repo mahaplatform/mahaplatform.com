@@ -1,4 +1,3 @@
-import socket from '../../../../../core/services/routes/emitter'
 import { moveToTrash } from '../../../services/items'
 import Item from '../../../models/item'
 
@@ -19,11 +18,6 @@ const trashRoute = async (req, res) => {
   await Promise.mapSeries(items, async (item) => {
 
     await moveToTrash(req, item)
-
-    await socket.refresh(req, [
-      `/admin/drive/folders/${item.related('folder').get('code') || 'drive'}`,
-      '/admin/drive/folders/trash'
-    ])
 
   })
 

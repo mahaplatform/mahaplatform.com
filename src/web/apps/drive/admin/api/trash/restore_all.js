@@ -1,4 +1,3 @@
-import socket from '../../../../../core/services/routes/emitter'
 import { restoreFromTrash } from '../../../services/items'
 import Item from '../../../models/item'
 
@@ -16,15 +15,6 @@ const restoreAllRoute = async (req, res) => {
   await Promise.mapSeries(items, async (item) => {
     await restoreFromTrash(req, item)
   })
-
-  const folders = items.map(item => {
-    return `/admin/drive/folders/${item.related('folder').get('code') || 'drive'}`
-  })
-
-  await socket.refresh(req, [
-    '/admin/drive/folders/trash',
-    ...folders
-  ])
 
   res.status(200).respond(true)
 

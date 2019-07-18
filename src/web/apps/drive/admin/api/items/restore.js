@@ -14,22 +14,7 @@ const restoreRoute = async (req, res) => {
   }).then(items => items.toArray())
 
   await Promise.mapSeries(items, async (item) => {
-
     await restoreFromTrash(req, item)
-
-    await socket.message(req, {
-      channel: '/admin/drive',
-      action: 'restore_item',
-      data: {
-        code: req.params.code
-      }
-    })
-
-    await socket.refresh(req, [
-      `/admin/drive/folders/${item.related('folder').get('code') || 'drive'}`,
-      `/admin/drive/files/${item.get('code')}`
-    ])
-
   })
 
   await socket.refresh(req, [

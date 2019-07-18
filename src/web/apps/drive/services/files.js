@@ -1,4 +1,4 @@
-import { createAsset, updateAsset } from '../../maha/services/assets'
+import { createAsset } from '../../maha/services/assets'
 import { whitelist } from '../../../core/services/routes/params'
 import generateCode from '../../../core/utils/generate_code'
 import socket from '../../../core/services/routes/emitter'
@@ -108,8 +108,7 @@ export const createFile = async (req, params) => {
 
   await socket.refresh(req, [
     `/admin/drive/folders/${parent ? parent.get('code') : 'drive'}`,
-    `/admin/drive/files/${file.get('code')}`,
-    '/admin/drive/folders/trash'
+    `/admin/drive/files/${file.get('code')}`
   ])
 
   return file
@@ -156,8 +155,7 @@ export const updateFile = async (req, file, params) => {
 
   await socket.refresh(req, [
     `/admin/drive/folders/${file.related('folder').get('code') || 'drive'}`,
-    `/admin/drive/files/${file.get('code')}`,
-    '/admin/drive/folders/trash'
+    `/admin/drive/files/${file.get('code')}`
   ])
 
 }
@@ -231,8 +229,7 @@ export const _destroyFile = async (req, file) => {
 
   const channels = [
     `/admin/drive/folders/${file.related('folder') ? file.related('folder').get('code') : 'drive'}`,
-    `/admin/drive/files/${file.get('code')}`,
-    '/admin/drive/folders/trash'
+    `/admin/drive/files/${file.get('code')}`
   ]
 
   await file.destroy({
