@@ -19,8 +19,7 @@ const createRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    `/admin/training/trainings/${offering.get('training_id')}`,
-    `/admin/training/trainings/${offering.get('training_id')}/offerings`
+    '/admin/training/offerings'
   ])
 
   res.status(200).respond(offering, OfferingSerializer)

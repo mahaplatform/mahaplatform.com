@@ -1,4 +1,4 @@
-import { Page } from 'maha-admin'
+import { CompactUserToken, Page } from 'maha-admin'
 
 const mapPropsToPage = (props, context) => ({
   title: 'Assignments',
@@ -9,6 +9,10 @@ const mapPropsToPage = (props, context) => ({
       { label: 'User', key: 'user.full_name', primary: true },
       { label: 'Title', key: 'assigning.title', primary: true },
       { label: 'Configured', key: 'configured', primary: false, collapsing: true, centered: true, format: 'check_times' }
+    ],
+    filters: [
+      { label: 'Assignings', name: 'assigning_id', type: 'select', endpoint: '/api/admin/training/assignings', value: 'id', text: 'title' },
+      { label: 'User', name: 'user_id', type: 'select', multiple: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: CompactUserToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     entity: 'assignment',

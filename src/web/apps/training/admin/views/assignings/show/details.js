@@ -4,7 +4,7 @@ import moment from 'moment'
 import React from 'react'
 
 const AssignmentsToken = ({ assigning }, { router }) => (
-  <span className="link" onClick={ () => router.push(`/admin/training/assignments/report?filter[assigning_id][$eq]=${assigning.id}`) }>
+  <span className="link" onClick={ () => router.push(`/admin/training/assignments/report?$filter[assigning_id][$eq]=${assigning.id}`) }>
     Assigned to {assigning.assignments_count} employees
   </span>
 )

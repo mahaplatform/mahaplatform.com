@@ -7,6 +7,7 @@ const showRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
+    withRelated: ['materials'],
     transacting: req.trx
   })
 
@@ -18,6 +19,7 @@ const showRoute = async (req, res) => {
   res.status(200).respond(training, {
     fields: [
       'id',
+      'asset_ids',
       'title',
       'description'
     ]

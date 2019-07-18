@@ -1,4 +1,4 @@
-import { Audit, List } from 'maha-admin'
+import { List } from 'maha-admin'
 import Registration from '../registration'
 import PropTypes from 'prop-types'
 import moment from 'moment'
@@ -62,8 +62,6 @@ const Details = ({ user, fulfillment }) => {
       }
     }
   }
-
-  list.items.push({ component: <Audit entries={ fulfillment.audit } /> })
 
   return <List { ...list } />
 

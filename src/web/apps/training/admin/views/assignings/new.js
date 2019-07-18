@@ -21,7 +21,7 @@ class New extends React.Component {
     return {
       title: 'Assign a Training',
       method: 'post',
-      action: '/api/admin/training/assignments',
+      action: '/api/admin/training/assignings',
       saveText: 'Assign',
       onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
@@ -44,6 +44,7 @@ class New extends React.Component {
   }
 
   _handleSuccess(result) {
+    this.context.router.push(`/admin/training/assignings/${result.id}`)
     this.context.modal.close()
   }
 

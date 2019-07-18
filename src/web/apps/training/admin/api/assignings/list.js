@@ -6,7 +6,7 @@ const listRoute = async (req, res) => {
   const assignings = await Assigning.scope({
     team: req.team
   }).filter({
-    filterParams: ['user_id'],
+    filterParams: ['assigning_id','user_id'],
     filter: req.query.$filter
   }).sort({
     sort: req.query.$sort,

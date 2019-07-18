@@ -7,7 +7,7 @@ const Materials = ({ materials }) => {
   const list = {
     items: materials.map(material => ({
       content: material.asset,
-      link: `/admin/assets/${material.asset.id}`,
+      link: `/admin/training/trainings/${material.training_id}/materials/${material.id}`,
       component: <AssetToken { ...material.asset } />
     })),
     empty: {

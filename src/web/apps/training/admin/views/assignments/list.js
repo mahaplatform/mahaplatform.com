@@ -9,6 +9,7 @@ const mapPropsToPage = (props, context) => ({
       { label: 'Title', key: 'assigning.title', primary: true }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
+    empty: 'You have not been assigned any trainings',
     entity: 'assignment',
     icon: 'check',
     link: (record) => `/admin/training/assignments/${record.id}`

@@ -18,6 +18,7 @@ const QuizKey = ({ quiz }) => (
           )) }
         </div>
         <div className="quizkey-explanation">
+          <strong>EXPLANATION: </strong>
           <em>{ question.explanation }</em>
         </div>
       </div>

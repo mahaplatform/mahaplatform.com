@@ -31,16 +31,25 @@ class Answerings extends React.PureComponent {
                   </tr>
                 </thead>
                 <tbody>
+                  { question.answerings.length === 0 &&
+                    <tr>
+                      <td colSpan="3" className="center aligned">There are no employees registered for this offering yet</td>
+                    </tr>
+                  }
                   { question.answerings.map((answering, index2) => (
                     <tr key={`answering_${index2}`}>
-                      <td><CompactUserToken { ...answering.user } /></td>
+                      <td className="user-cell"><CompactUserToken { ...answering.user } /></td>
                       <td className="center aligned">
-                        { (answering.delta + 10).toString(36).toUpperCase() }
+                        { answering.answer !== null &&
+                          <span>{ (answering.answer + 10).toString(36).toUpperCase() }</span>
+                        }
                       </td>
                       <td className="center aligned">
-                        { answering.is_correct ?
-                          <i className="fa fa-check" /> :
-                          <i className="fa fa-times" />
+                        { answering.is_correct !== null &&
+                          <span>{ answering.is_correct ?
+                            <i className="fa fa-check" /> :
+                            <i className="fa fa-times" /> }
+                          </span>
                         }
                       </td>
                     </tr>

@@ -54,6 +54,7 @@ class AttachmentField extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onFetch, onReady } = this.props
+    console.log(defaultValue)
     if(defaultValue) onFetch(defaultValue)
     onReady()
   }

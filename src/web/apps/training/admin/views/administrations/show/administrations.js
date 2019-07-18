@@ -1,4 +1,4 @@
-import { CompactUserToken } from 'maha-admin'
+import { CompactUserToken, Message } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -25,9 +25,14 @@ class Administrations extends React.PureComponent {
             </tr>
           </thead>
           <tbody>
+            { administrations.length === 0 &&
+              <tr>
+                <td colSpan="3" className="center aligned">There are no employees registered for this offering yet</td>
+              </tr>
+            }
             { administrations.map((administration, index) => (
               <tr key={`row_${index}`}>
-                <td><CompactUserToken { ...administration.user } /></td>
+                <td className="user-cell"><CompactUserToken { ...administration.user } /></td>
                 <td className="right aligned">
                   { administration.score === null ?
                     <span /> :
@@ -51,6 +56,14 @@ class Administrations extends React.PureComponent {
         </table>
       </div>
     )
+  }
+
+  _getEmpty() {
+    return {
+      icon: 'question',
+      title: 'No employees',
+      text: 'No employees have registered for this offering'
+    }
   }
 
 }

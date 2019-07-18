@@ -1,6 +1,6 @@
-import Attachment from '../../maha/models/attachment'
 import Model from '../../../core/objects/model'
 import Assignment from './assignment'
+import Material from './material'
 import Offering from './offering'
 import Lesson from './lesson'
 import Quiz from './quiz'
@@ -11,7 +11,14 @@ const Training = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    asset_ids() {
+      return this.related('materials').map(material => {
+        return material.get('asset_id')
+      })
+    }
+  },
 
   assignments() {
     return this.hasMany(Assignment, 'training_id')
@@ -22,7 +29,7 @@ const Training = new Model({
   },
 
   materials() {
-    return this.morphMany(Attachment, 'attachable')
+    return this.hasMany(Material, 'training_id')
   },
 
   offerings() {

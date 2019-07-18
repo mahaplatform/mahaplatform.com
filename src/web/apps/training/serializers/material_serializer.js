@@ -1,5 +1,6 @@
 const materialSerializer = (req, result) => ({
   id: result.get('id'),
+  training_id: result.get('training_id'),
   asset: asset(result.related('asset')),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
@@ -17,8 +18,19 @@ const asset = (asset) => ({
   signed_url: asset.get('signed_url'),
   source: asset.related('source').get('text'),
   source_url: asset.get('source_url'),
+  user: user(asset.related('user')),
   created_at: asset.get('created_at'),
   updated_at: asset.get('updated_at')
 })
+
+const user = (user) => {
+  if(!user.id) return null
+  return {
+    id: user.get('id'),
+    full_name: user.get('full_name'),
+    initials: user.get('initials'),
+    photo: user.related('photo').get('path')
+  }
+}
 
 export default materialSerializer

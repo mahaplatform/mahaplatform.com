@@ -18,7 +18,7 @@ const Details = ({ user, assignment }) => {
   if(assignment.fulfillments.length > 0) {
     list.items = list.items.concat(assignment.fulfillments.map((fulfillment, index) => ({
       link: `/admin/training/fulfillments/${fulfillment.id}`,
-      component: (
+      content: (
         <div>
           <strong>{ fulfillment.training.title }</strong> <br />
           <em>Offered { fulfillment.training.type }</em><br />
@@ -38,7 +38,7 @@ const Details = ({ user, assignment }) => {
     }
   } else {
     list.items.push({
-      component: (
+      content: (
         <span className="error">There are multiple options for completing this training assignment. You have not yet chosen an option.</span>
       )
     })
