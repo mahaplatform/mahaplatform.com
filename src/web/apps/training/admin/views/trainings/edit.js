@@ -49,13 +49,15 @@ class Edit extends React.Component {
       ]
     } else if(type === 'remote') {
       return [
-        { label: 'URL', name: 'url', type: 'textfield' },
-        { label: 'Location', name: 'location', type: 'textfield' },
-        { label: 'Contact', name: 'contact', type: 'textfield' }
+        { label: 'URL', name: 'url', type: 'textfield', placeholder: 'Enter a url fo this training' },
+        { label: 'Location', name: 'location', type: 'textfield', placeholder: 'Enter location of the training' },
+        { label: 'Contact', name: 'contact', type: 'textfield', placeholder: 'Enter contact information for the responsible party' }
       ]
     } else if(type === 'online') {
       return [
-        { label: 'URL', name: 'url', type: 'textfield' }
+        { label: 'URL', name: 'url', type: 'textfield', placeholder: 'Enter the url to the online training' },
+        { label: 'Notes', name: 'notes', type: 'textarea', placeholder: 'Enter any addition instructions' },
+        { label: 'Is Verification Required', name: 'is_verification_required', type: 'checkbox' }
       ]
     } else if(type === 'managed') {
       return []

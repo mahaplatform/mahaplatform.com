@@ -4,6 +4,7 @@ const AddAssignmentCompletion = {
 
     await knex.schema.table('training_trainings', (table) => {
       table.boolean('is_verification_required')
+      table.text('notes')
     })
 
     await knex.schema.table('training_fulfillments', (table) => {

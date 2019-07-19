@@ -1,4 +1,6 @@
 import knex from '../../services/knex'
+import pluralize from 'pluralize'
+import log from '../../utils/log'
 import glob from 'glob'
 import path from 'path'
 import _ from 'lodash'
@@ -15,9 +17,15 @@ export const bootstrapApps = async () => {
     return object.code !== 'maha' && _.find(items, { code: object.code }) === undefined
   })
 
-  await knex('maha_apps').insert(addItems.map(item => ({
-    code: item.code
-  })))
+  await Promise.map(addItems, async (item) => {
+
+    log('info', 'bootstrap', `Adding app ${item.code}`)
+
+    await knex('maha_apps').insert({
+      code: item.code
+    })
+
+  })
 
 }
 
@@ -31,10 +39,16 @@ export const bootstrapType = async (type, table) => {
     return _.find(items, { code: object.code }) === undefined
   })
 
-  await knex(table).insert(addItems.map(item => ({
-    app_id: item.app_id,
-    code: item.code
-  })))
+  await Promise.map(addItems, async (item) => {
+
+    log('info', 'bootstrap', `Adding ${pluralize.singular(type)} ${item.code}`)
+
+    await knex(table).insert({
+      app_id: item.app_id,
+      code: item.code
+    })
+
+  })
 
 }
 
