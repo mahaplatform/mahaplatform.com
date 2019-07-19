@@ -13,9 +13,9 @@ export const bootstrapApps = async () => {
 
   const items = await knex('maha_apps')
 
-  const addItems = objects.filter(object => {
-    return object.code !== 'maha' && _.find(items, { code: object.code }) === undefined
-  })
+  const addItems = objects.filter(object => object.code !== 'maha' && _.find(items, {
+    code: object.code
+  }) === undefined)
 
   await Promise.map(addItems, async (item) => {
 
@@ -54,13 +54,15 @@ export const bootstrapType = async (type, table) => {
 
 const collectObjects = async (pattern) => {
 
-  const items = glob.sync(`src/web/apps/*/${pattern}.js`)
+  const root = path.resolve(__dirname,'..','..','..','apps')
+
+  const items = glob.sync(`${root}/*/${pattern}.js`)
 
   return await Promise.reduce(items, async (objects, file) => {
 
-    const [,appPath] = file.match(/src\/web\/apps\/([^/]*)/)
+    const [,appPath] = file.match(/apps\/([^/]*)/)
 
-    const config = require(path.resolve(`src/web/apps/${appPath}/app.js`)).default
+    const config = require(path.join(root,appPath,'app.js')).default
 
     const app = await knex('maha_apps').where({
       code: config.code

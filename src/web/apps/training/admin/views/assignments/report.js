@@ -8,8 +8,8 @@ const mapPropsToPage = (props, context) => ({
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'User', key: 'user.full_name', primary: true },
       { label: 'Title', key: 'assigning.title', primary: true },
-      { label: 'Configured', key: 'configured', primary: false, collapsing: true, centered: true, format: 'check_times' },
-      { label: 'Completed', key: 'configured', primary: false, collapsing: true, centered: true, format: 'check_times' }
+      { label: 'Configured', key: 'is_configured', primary: false, collapsing: true, centered: true, format: 'check_times' },
+      { label: 'Completed', key: 'is_completed', primary: false, collapsing: true, centered: true, format: 'check_times' }
     ],
     filters: [
       { label: 'Assignings', name: 'assigning_id', type: 'select', endpoint: '/api/admin/training/assignings', value: 'id', text: 'title' },

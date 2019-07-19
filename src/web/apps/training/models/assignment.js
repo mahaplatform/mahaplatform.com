@@ -12,7 +12,7 @@ const Assignment = new Model({
 
   virtuals: {
 
-    configured() {
+    is_configured() {
       return this.get('option_id') !== null
     }
 
