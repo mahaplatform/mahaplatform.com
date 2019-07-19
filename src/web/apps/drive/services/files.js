@@ -162,18 +162,14 @@ export const updateFile = async (req, file, params) => {
 
 export const renameFile = async (req, file, params) => {
 
-  const folder_id = params.folder_id || file.get('folder_id')
+  const folder = await _getFolder(req, params)
 
-  const folder = folder_id ? await Folder.where(qb => {
-    qb.where('id', folder_id)
-  }).fetch({
-    transacting: req.trx
-  }) : null
+  const label = params.label || file.get('label')
 
   await file.save({
-    label: params.label,
-    folder_id: folder ? folder.get('id') : null,
-    fullpath: folder ? `${folder.get('fullpath')}/${params.label}` : params.label
+    label,
+    folder_id: folder ? folder.get('id') : file.get('folder_id'),
+    fullpath: folder ? `${folder.get('fullpath')}/${label}` : label
   }, {
     patch: true,
     transacting: req.trx

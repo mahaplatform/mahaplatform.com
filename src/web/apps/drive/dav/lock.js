@@ -19,7 +19,7 @@ const lockFile = async (req, file, locked_by) => {
 
 }
 
-const route = async (req, res) => {
+const lockRoute = async (req, res) => {
 
   const model = req.item.get('type') === 'file' ? File : MetaFile
 
@@ -63,4 +63,4 @@ const route = async (req, res) => {
 
 }
 
-export default route
+export default lockRoute

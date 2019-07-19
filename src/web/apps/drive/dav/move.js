@@ -10,7 +10,7 @@ import path from 'path'
 import _ from 'lodash'
 import URL from 'url'
 
-const route = async (req, res) => {
+const moveRoute = async (req, res) => {
 
   const { protocol, host } = URL.parse(req.headers.destination)
   const destination = decodeURI(req.headers.destination.replace(`${protocol}//${host}/dav/${req.team.get('subdomain')}/`, ''))
@@ -19,8 +19,11 @@ const route = async (req, res) => {
   const parent_path = fullpath.slice(0,-1).join('/')
   const is_metafile = _.includes(['._','~$','~%'], label.substr(0,2)) || _.includes(['.DS_Store'], label) || path.extname(label) === '.tmp'
 
-  const parent = await Folder.where(qb => {
+  const parent = await Folder.scope({
+    team: req.team
+  }).where(qb => {
     qb.where('fullpath', parent_path)
+    qb.whereNull('deleted_at')
   }).fetch({
     transacting: req.trx
   })
@@ -62,8 +65,11 @@ const route = async (req, res) => {
 
     if(!is_metafile) {
 
-      const file = await File.query(qb => {
+      const file = await File.scope({
+        team: req.team
+      }).query(qb => {
         qb.where('fullpath', destination)
+        qb.whereNull('deleted_at')
       }).fetch({
         transacting: req.trx
       })
@@ -114,4 +120,4 @@ const route = async (req, res) => {
 
 }
 
-export default route
+export default moveRoute

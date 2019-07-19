@@ -1,7 +1,7 @@
 import MetaFile from '../models/metafile'
 import File from '../models/file'
 
-const route = async (req, res) => {
+const unlockRoute = async (req, res) => {
 
   if(req.item.get('lock_token') !== req.lock_token) return res.status(404).send(null)
 
@@ -28,4 +28,4 @@ const route = async (req, res) => {
 
 }
 
-export default route
+export default unlockRoute

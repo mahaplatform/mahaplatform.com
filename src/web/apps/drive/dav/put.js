@@ -15,8 +15,11 @@ const route = async (req, res) => {
 
   if(!req.item) {
 
-    const folder = await Folder.where(qb => {
+    const folder = await Folder.scope({
+      team: req.team
+    }).where(qb => {
       qb.where('fullpath', req.parent_path)
+      qb.whereNull('deleted_at')
     }).fetch({
       transacting: req.trx
     })

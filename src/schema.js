@@ -1168,6 +1168,7 @@ const schema = {
       table.integer('option_id').unsigned()
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.boolean('is_completed')
     })
 
     await knex.schema.createTable('training_fulfillments', (table) => {
@@ -1186,6 +1187,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('user_id').unsigned()
+      table.integer('verification_id').unsigned()
     })
 
     await knex.schema.createTable('training_lessons', (table) => {
@@ -1267,6 +1269,7 @@ const schema = {
       table.string('contact', 255)
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.boolean('is_verification_required')
     })
 
 
@@ -1560,6 +1563,7 @@ const schema = {
       table.foreign('user_id').references('maha_users.id')
       table.foreign('offering_id').references('training_offerings.id')
       table.foreign('training_id').references('training_trainings.id')
+      table.foreign('verification_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('assignment_id').references('training_assignments.id')
     })

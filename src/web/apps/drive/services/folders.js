@@ -74,18 +74,14 @@ export const createFolder = async (req, params) => {
 
 export const renameFolder = async (req, folder, params) => {
 
-  const parent_id = params.parent_id || folder.get('parent_id')
+  const parent = await _getParent(req, params)
 
-  const parent = parent_id ? await Folder.where(qb => {
-    qb.where('id', parent_id)
-  }).fetch({
-    transacting: req.trx
-  }) : null
+  const label = params.label || folder.get('label')
 
   await folder.save({
-    label: params.label,
-    parent_id: parent ? parent.get('id') : null,
-    fullpath: parent ? `${parent.get('fullpath')}/${params.label}` : params.label
+    label,
+    parent_id: parent ? parent.get('id') : folder.get('parent_id'),
+    fullpath: parent ? `${parent.get('fullpath')}/${label}` : label
   }, {
     patch: true,
     transacting: req.trx

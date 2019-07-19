@@ -1,4 +1,4 @@
-import { createAsset, updateAsset } from '../../maha/services/assets'
+import { createAsset } from '../../maha/services/assets'
 import { whitelist } from '../../../core/services/routes/params'
 import generateCode from '../../../core/utils/generate_code'
 import Asset from '../../maha/models/asset'
@@ -91,18 +91,14 @@ export const createMetaFile = async (req, params) => {
 
 export const renameMetaFile = async (req, metafile, params) => {
 
-  const folder_id = params.folder_id || metafile.get('folder_id')
+  const folder = await _getFolder(params)
 
-  const folder = folder_id ? await Folder.where(qb => {
-    qb.where('id', folder_id)
-  }).fetch({
-    transacting: req.trx
-  }) : null
+  const label = params.label || metafile.get('label')
 
   await metafile.save({
-    label: params.label,
-    folder_id: folder ? folder.get('id') : null,
-    fullpath: folder ? `${folder.get('fullpath')}/${params.label}` : params.label
+    label,
+    folder_id: folder ? folder.get('id') : metafile.get('folder_id'),
+    fullpath: folder ? `${folder.get('fullpath')}/${label}` : label
   }, {
     patch: true,
     transacting: req.trx

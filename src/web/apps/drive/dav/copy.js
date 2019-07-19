@@ -1,7 +1,7 @@
-const route = async (req, res) => {
+const copyRoute = async (req, res) => {
 
   res.status(200).send()
 
 }
 
-export default route
+export default copyRoute

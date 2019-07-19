@@ -1,16 +1,18 @@
 import { moveToTrash } from '../services/items'
 
-const route = async (req, res) => {
+const destroyRoute = async (req, res) => {
 
-  await moveToTrash(req, req.item)
+  if(req.item.get('access_type') === 'view') res.status(403).send(null)
 
   await req.item.load(['folder'], {
     transacting: req.trx
   })
+
+  await moveToTrash(req, req.item)
 
   res.status(204).send(null)
 
 
 }
 
-export default route
+export default destroyRoute

@@ -1,6 +1,6 @@
 import response from './response.xml'
 
-const route = async (req, res) => {
+const proppatchRoute = async (req, res) => {
 
   const props = req.body['D:propertyupdate']['D:set'][0]['D:prop'][0]
 
@@ -10,4 +10,4 @@ const route = async (req, res) => {
 
 }
 
-export default route
+export default proppatchRoute

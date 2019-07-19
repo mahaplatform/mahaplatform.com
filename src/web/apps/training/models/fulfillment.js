@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import Asset from '../../maha/models/asset'
 import User from '../../maha/models/user'
 import Training from './training'
 import Offering from './offering'
@@ -21,6 +22,10 @@ const Fulfillment = new Model({
 
   user() {
     return this.belongsTo(User, 'user_id')
+  },
+
+  verification() {
+    return this.belongsTo(Asset, 'verification_id')
   }
 
 })

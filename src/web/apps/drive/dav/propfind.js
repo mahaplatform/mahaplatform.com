@@ -52,7 +52,7 @@ const getRoot = (req) => ({
   }
 })
 
-const route = async (req, res) => {
+const propfindRoute = async (req, res) => {
 
   if(req.headers.depth && req.headers.depth === 'infinity') {
     return res.status(403).type('application/xml').send(getError())
@@ -68,4 +68,4 @@ const route = async (req, res) => {
 
 }
 
-export default route
+export default propfindRoute

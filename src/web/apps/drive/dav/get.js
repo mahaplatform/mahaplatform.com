@@ -11,7 +11,7 @@ const getData = async (req, item) => {
 
 }
 
-const route = async (req, res) => {
+const getRoute = async (req, res) => {
 
   try {
 
@@ -31,4 +31,4 @@ const route = async (req, res) => {
 
 }
 
-export default route
+export default getRoute

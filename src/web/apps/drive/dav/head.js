@@ -1,4 +1,4 @@
-const route = async (req, res) => {
+const headRoute = async (req, res) => {
 
   if(req.item.get('content_type')) {
     res.type(req.item.get('content_type'))
@@ -8,4 +8,4 @@ const route = async (req, res) => {
 
 }
 
-export default route
+export default headRoute
