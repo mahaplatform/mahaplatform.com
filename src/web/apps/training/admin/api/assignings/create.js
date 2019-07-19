@@ -9,7 +9,14 @@ import User from '../../../../maha/models/user'
 import Option from '../../../models/option'
 import _ from 'lodash'
 
-const getAllUsers = async (req) => await User.query(qb => {
+const getEveryone = async (req) => await User.query(qb => {
+  qb.where('is_active', true)
+}).fetchAll({
+  transacting: req.trx
+}).then(users => users.map(user => user.get('id')))
+
+const getSupervisors = async (req) => await User.query(qb => {
+  qb.innerJoin('maha_supervisors','maha_supervisors.user_id','maha_users.id')
   qb.where('is_active', true)
 }).fetchAll({
   transacting: req.trx
@@ -55,7 +62,8 @@ const createRoute = async (req, res) => {
 
   const user_ids = await Promise.reduce(req.body.assignments, async (user_ids, assignment) => [
     ...user_ids,
-    ...assignment.is_everyone ? await getAllUsers(req) : [],
+    ...assignment.grouping === 'everyone' ? await getEveryone(req) : [],
+    ...assignment.grouping === 'supervisors' ? await getSupervisors(req) : [],
     ...assignment.group_id ? await getGroupUsers(req, assignment.group_id) : [],
     ...assignment.user_id ? [assignment.user_id] : []
   ], []).then(user_ids => _.uniq(user_ids))

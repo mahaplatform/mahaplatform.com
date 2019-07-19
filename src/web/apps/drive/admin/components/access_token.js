@@ -1,23 +1,24 @@
 import { Avatar } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class AccessToken extends React.Component {
 
   static propTypes = {
     access_type: PropTypes.string,
-    is_everyone: PropTypes.bool,
+    grouping: PropTypes.string,
     group: PropTypes.object,
     user: PropTypes.object
   }
 
   render() {
-    const { is_everyone, group, user } = this.props
+    const { grouping, group, user } = this.props
     return (
       <div className="access-token" title={ this._getTitle() }>
-        { is_everyone &&
+        { grouping &&
          <div className="assignee-token-icon">
-           <Avatar icon='globe' user={{ full_name: 'Everyone' }} />
+           <Avatar icon='bolt' user={{ full_name: _.capitalize(grouping) }} />
          </div>
         }
         { group &&
@@ -47,8 +48,8 @@ class AccessToken extends React.Component {
   }
 
   _getSubject() {
-    const { is_everyone, group, user } = this.props
-    if(is_everyone) return 'Everyone'
+    const { grouping, group, user } = this.props
+    if(grouping) return _.capitalize(grouping)
     if(group) return group.title
     if(user) return user.full_name
   }

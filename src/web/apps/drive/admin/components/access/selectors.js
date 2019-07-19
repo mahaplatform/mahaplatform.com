@@ -30,10 +30,11 @@ export const assigned = createSelector(
   unfiltered,
   (assignments, unassigned) => ({
     status: assignments.status,
-    records: assignments.records.map(({ user_id, group_id, is_everyone, access_type_id, is_revoked }) => ({
+    records: assignments.records.map(({ id, grouping, user_id, group_id, access_type_id, is_revoked }) => ({
+      id,
+      ...grouping ? unassigned.records.find(assignee => assignee.grouping === grouping) : {},
       ...group_id ? unassigned.records.find(assignee => assignee.group_id === group_id) : {},
       ...user_id ? unassigned.records.find(assignee => assignee.user_id === user_id) : {},
-      ...is_everyone ? unassigned.records.find(assignee => assignee.is_everyone) : {},
       access_type_id,
       is_revoked
     }))
@@ -46,9 +47,9 @@ export const unassigned = createSelector(
   (filtered, assignments) => ({
     status: filtered.status,
     records: filtered.records.filter(record => {
+      if(record.grouping) return _.findIndex(assignments.records, { grouping: record.grouping }) < 0
       if(record.user_id) return _.findIndex(assignments.records, { user_id: record.user_id }) < 0
       if(record.group_id) return _.findIndex(assignments.records, { group_id: record.group_id }) < 0
-      if(record.is_everyone) return _.findIndex(assignments.records, { is_everyone: true }) < 0
     })
   })
 )

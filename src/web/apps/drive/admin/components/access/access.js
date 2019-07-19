@@ -174,15 +174,16 @@ class Access extends React.Component {
 
   _handleRemove(index) {
     const { assigned, onRemove, onRevoke } = this.props
+    console.log(index, assigned.records)
     const assignment = assigned.records[index]
-    if(!assignment.id) onRemove(index)
+    if(!assignment.id) return onRemove(index)
     return onRevoke(index)
   }
 
   _handleSave() {
     const { assigned, item, onSave } = this.props
     const access = assigned.records.map(assignee => ({
-      is_everyone: assignee.is_everyone,
+      grouping: assignee.grouping,
       group_id: assignee.group_id,
       user_id: assignee.user_id,
       access_type_id: !assignee.is_revoked ? assignee.access_type_id : null

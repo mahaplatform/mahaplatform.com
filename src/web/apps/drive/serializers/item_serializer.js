@@ -30,7 +30,7 @@ const folder = (folder) => {
 }
 
 const access = (access) => ({
-  is_everyone: access.get('is_everyone'),
+  grouping: access.get('grouping'),
   user: user(access.related('user')),
   group: group(access.related('group')),
   access_type: access.related('access_type').get('text')

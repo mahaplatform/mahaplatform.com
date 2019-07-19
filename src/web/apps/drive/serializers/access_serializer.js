@@ -1,6 +1,6 @@
 const AccessSerializer = (req, result) => ({
   id: result.get('id'),
-  is_everyone: result.get('is_everyone'),
+  grouping: result.get('grouping'),
   user_id: result.get('user_id'),
   group_id: result.get('group_id'),
   access_type_id: result.get('access_type_id')

@@ -7,6 +7,7 @@ const showRoute = async (req, res) => {
     team: req.team
   }).query(qb => {
     qb.where('code', req.params.code)
+    qb.orderBy('access_type_id', 'asc')
   }).fetchPage({
     page: req.query.$page,
     withRelated: ['user.photo','group'],
