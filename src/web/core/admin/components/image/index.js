@@ -33,7 +33,7 @@ class Image extends React.Component {
     const { src } = this.props
     if(!src) return <div className="maha-image" />
     return (
-      <div className={`maha-image ${ src.match(/.png/) != null ? 'checkered' : '' }`} onClick={ this._handleClick }>
+      <div className="maha-image" onClick={ this._handleClick }>
         <img { ...this._getImage() } />
       </div>
     )

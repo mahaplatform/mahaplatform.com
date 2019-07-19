@@ -19,7 +19,7 @@ class Preview extends React.Component {
     return (
       <div className="maha-asset-preview">
         <div className="maha-asset-preview-main">
-          <div className="maha-asset-preview-body checkered">
+          <div className="maha-asset-preview-body">
             <AssetViewer asset={ asset } />
           </div>
           { comments && document.body.clientWidth > 768 &&

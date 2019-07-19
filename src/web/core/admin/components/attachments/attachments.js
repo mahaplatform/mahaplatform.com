@@ -79,7 +79,7 @@ class Attachments extends React.Component {
             { images.length > 0 &&
              <div className="maha-attachments-summary-images">
                { images.map((file, index) => (
-                 <div className="maha-attachments-summary-image checkered" key={`image_${index}`}>
+                 <div className="maha-attachments-summary-image" key={`image_${index}`}>
                    <div style={{backgroundImage:`url(${file.thumbnail })`}}>
                      { file.asset ?
                        <i className="fa fa-times" onClick={ this._handleRemoveFile.bind(this, file) } /> :

@@ -27,7 +27,7 @@ class Gallery extends React.Component {
       <div className={`maha-gallery maha-gallery-${images.length}`} onClick={ this._handleClick }>
         { images.map((image, index) => (
           <div className="maha-gallery-photo" key={`gallery_photo_${image.asset.id}`}>
-            <Image src={ image.asset.path } transforms={{ fit: 'cover', w: 300, h: 300 }} title={ image.caption } className="checkered" />
+            <Image src={ image.asset.path } transforms={{ fit: 'cover', w: 300, h: 300 }} title={ image.caption } />
             <img src={ `/admin/images/${image.asset.source}.png` } className="maha-gallery-photo-source" />
           </div>
         ))}
