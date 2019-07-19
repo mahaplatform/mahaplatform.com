@@ -19,7 +19,7 @@ class CustomDragLayer extends React.Component {
     return (
       <div className="drive-drag-layer" style={ this._getStyle() }>
         <div className="drive-drag-layer-inner">
-          { item.selected.length > 1 &&
+          { item.selected && item.selected.length > 1 &&
             <div className="drive-drag-layer-count">
               { item.selected.length }
             </div>

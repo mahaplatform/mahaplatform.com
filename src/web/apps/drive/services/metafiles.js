@@ -75,9 +75,9 @@ export const createMetaFile = async (req, params) => {
     await Promise.map(accesses, async access => await Access.forge({
       team_id: req.team.get('id'),
       code: file.get('code'),
-      is_everyone: access.get('is_everyone'),
-      user_id: access.get('user_id'),
+      grouping: access.get('grouping'),
       group_id: access.get('group_id'),
+      user_id: access.get('user_id'),
       access_type_id: access.get('access_type_id') === 1 ? 2 : access.get('access_type_id')
     }).save(null, {
       transacting: req.trx

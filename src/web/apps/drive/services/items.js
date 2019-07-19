@@ -122,9 +122,9 @@ export const propagateAccess = async (req, folder) => {
     await knex('drive_access').transacting(req.trx).insert(access.map(access => ({
       team_id: access.team_id,
       code: item.code,
+      grouping: access.grouping,
       group_id: access.group_id,
       user_id: access.user_id,
-      is_everyone: access.is_everyone,
       access_type_id: access.access_type_id
     })))
 

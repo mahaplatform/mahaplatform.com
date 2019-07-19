@@ -66,9 +66,9 @@ const folder = (folder) => {
 }
 
 const access = (access) => ({
-  is_everyone: access.get('is_everyone'),
-  user: user(access.related('user')),
+  grouping: access.get('grouping'),
   group: group(access.related('group')),
+  user: user(access.related('user')),
   access_type: access.related('access_type').get('text')
 })
 

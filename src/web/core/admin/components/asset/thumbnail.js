@@ -20,6 +20,7 @@ class AssetThumbnail extends React.Component {
   render() {
     const { content_type, has_preview, id, file_size, original_file_name, path } = this.props
     const previewSrc = has_preview ? `/assets/${id}/preview.jpg` : path
+    if(!content_type) return null
     return (
       <div className="maha-asset-thumbnail">
         { content_type.match(/image/) && file_size > 0 ?

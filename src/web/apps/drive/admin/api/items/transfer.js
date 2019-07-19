@@ -48,7 +48,7 @@ const transferRoute = async (req, res) => {
   await knex('drive_access').transacting(req.trx).insert(accesses.map(access => ({
     team_id: access.team_id,
     code: access.code,
-    is_everyone: false,
+    grouping: '',
     group_id: null,
     user_id: req.body.from_user_id,
     access_type_id: req.body.strategy === 'edit' ? 2 : 3
