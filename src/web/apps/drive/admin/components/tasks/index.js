@@ -200,7 +200,6 @@ class Tasks extends React.Component {
     return {
       icon: 'upload',
       prompt: 'Upload File(s)',
-      networks: ['device','web','google','dropbox','box','microsoft'],
       onChooseAssets: this._handleUpload.bind(this, item)
     }
   }

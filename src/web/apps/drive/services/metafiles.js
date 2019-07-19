@@ -1,4 +1,4 @@
-import { createAsset } from '../../maha/services/assets'
+import { createAsset, updateAsset } from '../../maha/services/assets'
 import { whitelist } from '../../../core/services/routes/params'
 import generateCode from '../../../core/utils/generate_code'
 import Asset from '../../maha/models/asset'
@@ -28,7 +28,7 @@ const _getAsset = async (req, params) => {
     return await createAsset(req, {
       team_id: req.team.get('id'),
       user_id: req.user.get('id'),
-      source_id: 1,
+      source_id: params.source_id || 1,
       file_data: params.file_data,
       file_size: params.file_data.length,
       file_name: params.label
@@ -48,7 +48,7 @@ export const createMetaFile = async (req, params) => {
   const file = await MetaFile.forge({
     team_id: req.team.get('id'),
     owner_id: req.user.get('id'),
-    folder_id: parent.get('id'),
+    folder_id: parent ? parent.get('id') : null,
     asset_id: asset ? asset.get('id') : null,
     code: generateCode(),
     label,
@@ -115,18 +115,14 @@ export const updateMetaFile = async (req, metafile, params) => {
     })
   }
 
-  const asset = await _getAsset(req, {
-    label: metafile.get('label'),
-    ...params
-  })
+  if(params.file_data) {
 
-  if(asset) {
+    const asset = await _getAsset(req, {
+      asset_id: metafile.get('asset_id')
+    })
 
-    await metafile.save({
-      asset_id: asset.get('id')
-    }, {
-      patch: true,
-      transacting: req.trx
+    await updateAsset(req, asset, {
+      file_data: params.file_data
     })
 
   }

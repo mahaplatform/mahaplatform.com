@@ -30,7 +30,7 @@ const _getAsset = async (req, params) => {
     return await createAsset(req, {
       team_id: req.team.get('id'),
       user_id: req.user.get('id'),
-      source_id: 1,
+      source_id: params.source_id || 1,
       file_data: params.file_data.length === 0 ? null : params.file_data,
       file_size: params.file_data.length === 0 ? 0 : null,
       file_name: params.label
@@ -52,7 +52,7 @@ export const createFile = async (req, params) => {
     code: generateCode(),
     label,
     fullpath: parent ? `${parent.get('fullpath')}/${label}` : label,
-    folder_id: parent.get('id'),
+    folder_id: parent ? parent.get('id') : null,
     owner_id: req.user.get('id')
   }).save(null, {
     transacting: req.trx
