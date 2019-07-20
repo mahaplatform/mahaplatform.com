@@ -1,4 +1,3 @@
-import assignments from './assignments'
 import offerings from './offerings'
 import materials from './materials'
 import { Router } from 'express'
@@ -23,8 +22,6 @@ router.get('/:id/edit', edit)
 router.patch('/:id', update)
 
 router.delete('/:id', destroy)
-
-router.use('/:training_id/assignments', assignments)
 
 router.use('/:training_id/lessons', lessons)
 

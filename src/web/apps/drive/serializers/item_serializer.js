@@ -9,6 +9,8 @@ const ItemSerializer = (req, result) => ({
   folder: folder(result.related('folder')),
   accesses: result.related('accesses').map(access),
   asset: asset(result.related('asset')),
+  owned_by: result.get('owned_by'),
+  file_size: result.get('file_size'),
   is_starred: _.includes(req.starred, result.get('code')),
   locked_by: result.get('locked_by'),
   lock_expires_at: result.get('lock_expires_at'),

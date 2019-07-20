@@ -21,7 +21,12 @@ const showRoute = async (req, res) => {
       'id',
       'asset_ids',
       'title',
-      'description'
+      'description',
+      'url',
+      'location',
+      'contact',
+      'notes',
+      'is_verification_required'
     ]
   })
 

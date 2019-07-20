@@ -28,6 +28,22 @@ class Items extends React.Component {
     const { records } = this.props
     return (
       <div className="drive-items">
+        <div className="drive-head">
+          <div className="drive-head-item drive-name">
+            Name
+          </div>
+          <div className="drive-head-item drive-owner">
+            Owner
+          </div>
+          <div className="drive-head-item drive-updated">
+            Updated
+          </div>
+          <div className="drive-head-item drive-size">
+            Size
+          </div>
+          <div className="drive-head-item drive-action" />
+          <div className="drive-head-item drive-action" />
+        </div>
         { records.map((item, index) => {
           if(item.type === 'folder') return <FolderItem { ...this._getItem(item) } />
           if(item.type === 'file') return <FileItem { ...this._getItem(item) } />

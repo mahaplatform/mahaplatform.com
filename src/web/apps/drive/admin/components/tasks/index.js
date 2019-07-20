@@ -70,10 +70,8 @@ class Tasks extends React.Component {
         }
         <div className="maha-list">
           { options.map((option, index) => (
-            <div className="maha-list-item" key={`item_${index}`}>
-              <div className="maha-list-item-link maha-button mobile drive-task">
-                { option.component }
-              </div>
+            <div className="maha-list-item drive-task" key={`item_${index}`}>
+              { option.component }
             </div>
           ))}
         </div>

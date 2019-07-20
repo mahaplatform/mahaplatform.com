@@ -20,6 +20,12 @@ const Details = ({ training }) => {
   if(training.contact) {
     list.items.push({ label: 'Contact', content: training.contact })
   }
+  if(training.notes) {
+    list.items.push({ label: 'Notes', content: training.notes })
+  }
+  if(training.is_verification_required) {
+    list.items.push({ label: 'Verification?', content: training.is_verification_required ? 'YES' : 'NO' })
+  }
 
 
   return <List { ...list } />

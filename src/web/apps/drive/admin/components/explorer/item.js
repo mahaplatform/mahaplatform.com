@@ -1,7 +1,9 @@
 import { DragSource, DropTarget } from 'react-dnd'
 import { Star, AssetThumbnail } from 'maha-admin'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 import React from 'react'
+import bytes from 'bytes'
 import _ from 'lodash'
 
 class Item extends React.Component {
@@ -49,21 +51,34 @@ class Item extends React.Component {
     const { connectDropTarget, connectDragSource, item } = this.props
     const view = (
       <div { ...this._getItem() }>
-        <div className="drive-item-icon">
-          { item.type === 'folder' ?
-            <div className="maha-asset-icon">
-              <i className="fa fa-fw fa-folder" />
-            </div> :
-            <AssetThumbnail { ...item.asset } />
-          }
+        <div className="drive-item-meta drive-name">
+          <div className="drive-item-token">
+            <div className="drive-item-token-icon">
+              { item.type === 'folder' ?
+                <div className="maha-asset-icon">
+                  <i className="fa fa-fw fa-folder" />
+                </div> :
+                <AssetThumbnail { ...item.asset } />
+              }
+            </div>
+            <div className="drive-item-token-label">
+              { item.label }
+            </div>
+          </div>
         </div>
-        <div className="drive-item-name">
-          { item.label }
+        <div className="drive-item-meta drive-owner">
+          { item.owned_by }
         </div>
-        <div className="drive-item-action">
+        <div className="drive-item-meta drive-updated">
+          { moment(item.updated_at).format('MMM DD, YYYY') }
+        </div>
+        <div className="drive-item-meta drive-size">
+          { item.file_size ? bytes(item.file_size, { decimalPlaces: 0, unitSeparator: ' ' }) : '--' }
+        </div>
+        <div className="drive-item-meta drive-action">
           <Star { ...this._getStar(item) } />
         </div>
-        <div className="drive-item-action" onClick={ this._handleTasks }>
+        <div className="drive-item-meta drive-action" onClick={ this._handleTasks }>
           <i className="fa fa-fw fa-ellipsis-v" />
         </div>
       </div>
@@ -193,6 +208,7 @@ class Item extends React.Component {
 const source = {
   beginDrag: (props, monitor, component) => ({
     ...props.item,
+    isDragging: monitor.isDragging(),
     selected: props.selected,
     onEndDrag: props.onEndDrag,
     onMoveItem: props.onMoveItem

@@ -21,7 +21,7 @@ const updateRoute = async (req, res) => {
   })
 
   await training.save({
-    ...whitelist(req.body, ['title','description'])
+    ...whitelist(req.body, ['title','description','type','url','location','contact','notes','is_verification_required'])
   }, {
     patch: true,
     transacting: req.trx

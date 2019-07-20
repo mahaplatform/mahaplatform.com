@@ -16,61 +16,34 @@ class Root extends React.Component {
   _handleTrash = this._handleTrash.bind(this)
 
   render() {
+    const specials = [
+      { label: 'My Drive', icon: 'hdd-o', onClick: this._handleDrive },
+      { label: 'Shared With Me', icon: 'handshake-o', onClick: this._handleShared },
+      { label: 'Starred Items', icon: 'star', onClick: this._handleStarred },
+      { label: 'Trash', icon: 'trash', onClick: this._handleTrash }
+    ]
     return (
       <div className="drive-items">
         <div className="drive-items">
-          <div className="drive-item" onClick={ this._handleDrive }>
-            <div className="drive-item-icon">
-              <div className="maha-asset-icon">
-                <i className="fa fa-fw fa-hdd-o" />
+          { specials.map((special, index) => (
+            <div className="drive-item" onClick={ special.onClick } key={`special_${index}`}>
+              <div className="drive-item-meta drive-name">
+                <div className="drive-item-token">
+                  <div className="drive-item-token-icon">
+                    <div className="maha-asset-icon">
+                      <i className={`fa fa-fw fa-${special.icon}`} />
+                    </div>
+                  </div>
+                  <div className="drive-item-token-label">
+                    { special.label }
+                  </div>
+                </div>
+              </div>
+              <div className="drive-item-meta drive-action">
+                <i className="fa fa-fw fa-chevron-right" />
               </div>
             </div>
-            <div className="drive-item-name">
-              My Drive
-            </div>
-            <div className="drive-item-action">
-              <i className="fa fa-fw fa-chevron-right" />
-            </div>
-          </div>
-          <div className="drive-item" onClick={ this._handleShared }>
-            <div className="drive-item-icon">
-              <div className="maha-asset-icon">
-                <i className="fa fa-fw fa-handshake-o" />
-              </div>
-            </div>
-            <div className="drive-item-name">
-              Shared With Me
-            </div>
-            <div className="drive-item-action">
-              <i className="fa fa-fw fa-chevron-right" />
-            </div>
-          </div>
-          <div className="drive-item" onClick={ this._handleStarred }>
-            <div className="drive-item-icon">
-              <div className="maha-asset-icon">
-                <i className="fa fa-fw fa-star" />
-              </div>
-            </div>
-            <div className="drive-item-name">
-              Starred Items
-            </div>
-            <div className="drive-item-action">
-              <i className="fa fa-fw fa-chevron-right" />
-            </div>
-          </div>
-          <div className="drive-item" onClick={ this._handleTrash }>
-            <div className="drive-item-icon">
-              <div className="maha-asset-icon">
-                <i className="fa fa-fw fa-trash" />
-              </div>
-            </div>
-            <div className="drive-item-name">
-              Trash
-            </div>
-            <div className="drive-item-action">
-              <i className="fa fa-fw fa-chevron-right" />
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     )

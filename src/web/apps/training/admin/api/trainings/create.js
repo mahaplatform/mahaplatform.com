@@ -9,7 +9,7 @@ const createRoute = async (req, res) => {
 
   const training = await Training.forge({
     team_id: req.team.get('id'),
-    ...whitelist(req.body, ['title','description','type','url','location','contact'])
+    ...whitelist(req.body, ['title','description','type','url','location','contact','notes','is_verification_required'])
   }).save(null, {
     transacting: req.trx
   })

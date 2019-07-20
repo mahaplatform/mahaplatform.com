@@ -40,7 +40,7 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await Promise.mapSeries(req.body.options, async (data) => {
+  const options = await Promise.mapSeries(req.body.options, async (data) => {
 
     const option = await Option.forge({
       team_id: req.team.get('id'),
@@ -58,6 +58,8 @@ const createRoute = async (req, res) => {
       related_foreign_key: 'training_id'
     })
 
+    return option
+
   })
 
   const user_ids = await Promise.reduce(req.body.assignments, async (user_ids, assignment) => [
@@ -72,7 +74,9 @@ const createRoute = async (req, res) => {
     await Assignment.forge({
       team_id: req.team.get('id'),
       user_id,
-      assigning_id: assigning.get('id')
+      assigning_id: assigning.get('id'),
+      is_completed: false,
+      option_id: options.length === 1 ? options[0].id : null
     }).save(null, {
       transacting: req.trx
     })

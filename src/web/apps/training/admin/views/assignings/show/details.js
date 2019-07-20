@@ -1,13 +1,18 @@
 import PropTypes from 'prop-types'
 import { List } from 'maha-admin'
+import pluralize from 'pluralize'
 import moment from 'moment'
 import React from 'react'
 
 const AssignmentsToken = ({ assigning }, { router }) => (
   <span className="link" onClick={ () => router.push(`/admin/training/assignments/report?$filter[assigning_id][$eq]=${assigning.id}`) }>
-    Assigned to {assigning.assignments_count} employees
+    Assigned to { pluralize('employee', assigning.assignments_count, true) }
   </span>
 )
+
+AssignmentsToken.propTypes = {
+  assigning: PropTypes.object
+}
 
 AssignmentsToken.contextTypes = {
   router: PropTypes.object

@@ -2,7 +2,6 @@ import employees from './employees'
 import { Router } from 'express'
 import options from './options'
 import destroy from './destroy'
-import create from './create'
 import update from './update'
 import report from './report'
 import edit from './edit'
@@ -12,8 +11,6 @@ import show from './show'
 const router = new Router({ mergeParams: true })
 
 router.get('/', list)
-
-router.post('/', create)
 
 router.get('/report', report)
 
