@@ -5,6 +5,7 @@ class EmailField extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.string,
+    tabIndex: PropTypes.number,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
@@ -16,11 +17,20 @@ class EmailField extends React.Component {
   }
 
   _handleChange = this._handleChange.bind(this)
+  _handleClear = this._handleClear.bind(this)
 
   render() {
+    const { value } = this.state
     return (
-      <div className="ui field">
-        <input { ...this._getInput() }/>
+      <div className="maha-input">
+        <div className="maha-input-field">
+          <input { ...this._getInput() }/>
+        </div>
+        { value.length > 0 &&
+          <div className="maha-input-clear" onClick={ this._handleClear }>
+            <i className="fa fa-times" />
+          </div>
+        }
       </div>
     )
   }
@@ -38,11 +48,13 @@ class EmailField extends React.Component {
   }
 
   _getInput() {
+    const { tabIndex } = this.props
     const { value } = this.state
     return {
       className: 'ui input',
       type: 'email',
       placeholder: 'Email',
+      tabIndex,
       value,
       ref: node => this.email = node,
       onChange: this._handleChange
@@ -52,6 +64,12 @@ class EmailField extends React.Component {
   _handleChange() {
     this.setState({
       value: this.email.value
+    })
+  }
+
+  _handleClear() {
+    this.setState({
+      value: ''
     })
   }
 

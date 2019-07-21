@@ -7,6 +7,7 @@ class PhoneField extends React.Component {
   static propTypes = {
     defaultCountry: PropTypes.string,
     defaultValue: PropTypes.string,
+    tabIndex: PropTypes.number,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
@@ -22,11 +23,20 @@ class PhoneField extends React.Component {
   }
 
   _handleChange = this._handleChange.bind(this)
+  _handleClear = this._handleClear.bind(this)
 
   render() {
+    const { value } = this.state
     return (
-      <div className="ui field">
-        <input { ...this._getInput() }/>
+      <div className="maha-input">
+        <div className="maha-input-field">
+          <input { ...this._getInput() }/>
+        </div>
+        { value.length > 0 &&
+          <div className="maha-input-clear" onClick={ this._handleClear }>
+            <i className="fa fa-times" />
+          </div>
+        }
       </div>
     )
   }
@@ -44,11 +54,13 @@ class PhoneField extends React.Component {
   }
 
   _getInput() {
+    const { tabIndex } = this.props
     const { value } = this.state
     return {
       className: 'ui input',
       type: 'tel',
       placeholder: 'Phone',
+      tabIndex,
       value,
       ref: node => this.phone = node,
       onChange: this._handleChange
@@ -60,6 +72,12 @@ class PhoneField extends React.Component {
     const parsed = asyoutype.input(this.phone.value)
     this.setState({
       value: parsed
+    })
+  }
+
+  _handleClear() {
+    this.setState({
+      value: ''
     })
   }
 

@@ -110,6 +110,7 @@ import trainingquiz from '../../apps/training/admin/components/quiz'
 import trainingreview from '../../apps/training/admin/components/review'
 import appraisalsRoutes from '../../apps/appraisals/admin/views/index.js'
 import chatRoutes from '../../apps/chat/admin/views/index.js'
+import crmRoutes from '../../apps/crm/admin/views/index.js'
 import driveRoutes from '../../apps/drive/admin/views/index.js'
 import eatfreshRoutes from '../../apps/eatfresh/admin/views/index.js'
 import expensesRoutes from '../../apps/expenses/admin/views/index.js'
@@ -337,6 +338,7 @@ class App extends React.Component {
     return [
       { path: '/admin/appraisals', children: appraisalsRoutes },
       { path: '/admin/chat', children: chatRoutes },
+      { path: '/admin/crm', children: crmRoutes },
       { path: '/admin/drive', children: driveRoutes },
       { path: '/admin/eatfresh', children: eatfreshRoutes },
       { path: '/admin/expenses', children: expensesRoutes },

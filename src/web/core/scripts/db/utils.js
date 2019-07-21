@@ -27,7 +27,7 @@ export const truncate = async (flags, args) => {
 }
 
 export const schemaDump = async (flags, args) => {
-  if(process.env.NODE_ENV === 'production') return 
+  if(process.env.NODE_ENV === 'production') return
   _log('dump schema')
   const constraints = await _getConstraints()
   const foreign_keys = _.groupBy(constraints.foreign, (constraint) => constraint.table)

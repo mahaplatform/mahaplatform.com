@@ -24,6 +24,8 @@ import help from './help'
 
 const router = new Router({ mergeParams: true })
 
+router.use('/:parent_type/fields', fields)
+
 router.use('/:parent_type/:parent_id/fields', fields)
 
 router.use('/:commentable_type/:commentable_id/comments', comments)
