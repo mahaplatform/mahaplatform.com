@@ -1,7 +1,7 @@
 import { Flash } from 'maha-admin'
 import HTML5Backend from 'react-dnd-html5-backend'
 import Notifications from '../notifications'
-import { DragDropContext } from 'react-dnd'
+import { DndProvider } from 'react-dnd'
 import { connect } from 'react-redux'
 import { routes } from './selectors'
 import Analytics from '../analytics'
@@ -27,29 +27,31 @@ class Platform extends React.Component {
   render() {
     const { routes } = this.props
     return (
-      <div className="maha-platform">
-        <Analytics>
-          <Logger>
-            <Router routes={ routes }>
-              <Network>
-                <Device>
-                  <Push>
-                    <Notifications>
-                      <Flash>
-                        <Admin>
-                          <Presence>
-                            <Sessions { ...this._getSessions() } />
-                          </Presence>
-                        </Admin>
-                      </Flash>
-                    </Notifications>
-                  </Push>
-                </Device>
-              </Network>
-            </Router>
-          </Logger>
-        </Analytics>
-      </div>
+      <DndProvider backend={ HTML5Backend } >
+        <div className="maha-platform">
+          <Analytics>
+            <Logger>
+              <Router routes={ routes }>
+                <Network>
+                  <Device>
+                    <Push>
+                      <Notifications>
+                        <Flash>
+                          <Admin>
+                            <Presence>
+                              <Sessions { ...this._getSessions() } />
+                            </Presence>
+                          </Admin>
+                        </Flash>
+                      </Notifications>
+                    </Push>
+                  </Device>
+                </Network>
+              </Router>
+            </Logger>
+          </Analytics>
+        </div>
+      </DndProvider>
     )
   }
 
@@ -69,6 +71,5 @@ const mapStateToProps = (state, props) => ({
 })
 
 Platform = connect(mapStateToProps)(Platform)
-Platform = DragDropContext(HTML5Backend)(Platform)
 
 export default Platform

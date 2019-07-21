@@ -30,7 +30,9 @@
 .drive-drag-layer-thumbnail {
   display: inline-block;
   margin: 0 0.8em 0 0;
+  width: 1.4em;
   .fa-folder { color: @yellow; }
+
 }
 .drive-drag-layer-count {
   position: absolute;
@@ -220,13 +222,21 @@
   color: fadeout(@black, 60);
   display: table-cell;
   padding: 0.8em;
-  word-break: break-word;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .drive-name {
   color: @black;
 }
-.drive-size {
+&.drive-owner {
+  width: 14em;
+}
+&.drive-updated {
+  width: 8em;
+}
+&.drive-size {
   text-align: right;
+  width: 6em;
 }
 .drive-action {
   display: table-cell;
