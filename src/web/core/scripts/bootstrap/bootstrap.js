@@ -5,9 +5,11 @@ import glob from 'glob'
 import path from 'path'
 import _ from 'lodash'
 
+const root = path.resolve(__dirname,'..','..','..','apps')
+
 export const bootstrapApps = async () => {
 
-  const objects = glob.sync('src/web/apps/*/app.js').map(file => {
+  const objects = glob.sync(`${root}/*/app.js`).map(file => {
     return require(path.resolve(file)).default
   })
 
@@ -53,8 +55,6 @@ export const bootstrapType = async (type, table) => {
 }
 
 const collectObjects = async (pattern) => {
-
-  const root = path.resolve(__dirname,'..','..','..','apps')
 
   const items = glob.sync(`${root}/*/${pattern}.js`)
 
