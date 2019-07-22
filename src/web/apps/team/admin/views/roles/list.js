@@ -20,9 +20,6 @@ const mapPropsToPage = (props, context, resources, page) => ({
     icon: 'protect',
     link: (record) => `/admin/team/roles/${record.id}`,
     new: New,
-    recordActions: [
-      { label: 'edit', icon: 'edit', redirect: '/admin/team/users/#{id}/edit'}
-    ],
     defaultSort: { key: 'title', order: 'asc' }
   },
   task: {

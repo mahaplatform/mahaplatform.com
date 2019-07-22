@@ -29,7 +29,7 @@ const destroyRoute = async (req, res) => {
     object: expense
   })
 
-  await socket.refresh(req, [{
+  const channels = [{
     channel: 'user',
     target: '/admin/expenses/items'
   }, {
@@ -39,11 +39,13 @@ const destroyRoute = async (req, res) => {
       '/admin/expenses/approvals',
       '/admin/expenses/reports'
     ]
-  }])
+  }]
 
   await expense.destroy({
     transacting: req.trx
   })
+
+  await socket.refresh(req, channels)
 
   res.status(200).respond(true)
 
