@@ -1,4 +1,4 @@
-import ResourceToken from '../../../tokens/resource_token'
+import ResourceToken from '../../../tokens/resource'
 import AssignResources from '../resources'
 import { List } from 'maha-admin'
 import PropTypes from 'prop-types'

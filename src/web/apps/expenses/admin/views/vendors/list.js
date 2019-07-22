@@ -1,4 +1,4 @@
-import VendorToken from '../../tokens/vendor_token'
+import VendorToken from '../../tokens/vendor'
 import { Page } from 'maha-admin'
 import Merge from './merge'
 import Edit from './edit'

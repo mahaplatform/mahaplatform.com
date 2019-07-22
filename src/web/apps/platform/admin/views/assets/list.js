@@ -1,6 +1,6 @@
 import { UserToken, Page } from 'maha-admin'
-import FilenameToken from '../../components/filename_token'
-import SourceToken from '../../components/source_token'
+import FilenameToken from '../../tokens/filename'
+import SourceToken from '../../tokens/source'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Team',

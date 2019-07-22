@@ -1,4 +1,4 @@
-import OfferingToken from '../../components/offering_token'
+import OfferingToken from '../../tokens/offering'
 import { Page } from 'maha-admin'
 import New from './new'
 import Edit from './edit'

@@ -1,4 +1,4 @@
-import CompactMemberTypeToken from '../../tokens/member_type_token/compact'
+import CompactMemberTypeToken from '../../tokens/member_type/compact'
 import { Assignment, UserToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'

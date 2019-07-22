@@ -1,4 +1,4 @@
-import ReviewsToken from '../../../tokens/reviews_token'
+import ReviewsToken from '../../../tokens/reviews'
 import PropTypes from 'prop-types'
 import React from 'react'
 

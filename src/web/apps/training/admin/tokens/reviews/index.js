@@ -1,5 +1,5 @@
-import FeedbackToken from './feedback_token'
-import RatingToken from './rating_token'
+import FeedbackToken from './feedback'
+import RatingToken from './rating'
 import { List, Message } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'

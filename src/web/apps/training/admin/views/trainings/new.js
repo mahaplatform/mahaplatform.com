@@ -1,4 +1,4 @@
-import TrainingTypeToken from '../../tokens/training_type_token'
+import TrainingTypeToken from '../../tokens/training_type'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'

@@ -1,4 +1,4 @@
-import CategoryToken from '../../components/category_token'
+import CategoryToken from '../../tokens/category'
 import { Page } from 'maha-admin'
 import New from './new'
 import Edit from './edit'

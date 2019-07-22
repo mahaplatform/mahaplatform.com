@@ -1,4 +1,4 @@
-import OptionToken from '../../tokens/option_token'
+import OptionToken from '../../tokens/option'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'

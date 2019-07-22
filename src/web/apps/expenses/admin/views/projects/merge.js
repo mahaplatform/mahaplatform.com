@@ -1,4 +1,4 @@
-import ProjectToken from '../../tokens/project_token'
+import ProjectToken from '../../tokens/project'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'

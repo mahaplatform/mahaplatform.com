@@ -1,4 +1,4 @@
-import CommitmentToken from '../../../tokens/commitment_token'
+import CommitmentToken from '../../../tokens/commitment'
 import SetCommitments from '../../../components/commitments'
 import PropTypes from 'prop-types'
 import { List } from 'maha-admin'

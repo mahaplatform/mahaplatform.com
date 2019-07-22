@@ -7,7 +7,6 @@ const TimeCell = ({ starts_at, ends_at}) => (
   <span>{moment(`2019-01-01 ${starts_at}`).format('hh:mm A')} - {moment(`2019-01-01 ${ends_at}`).format('hh:mm A')}</span>
 )
 
-
 const AttendeesCell = ({ fulfillments_count, limit }) => (
   <span>{ fulfillments_count } / { limit }</span>
 )

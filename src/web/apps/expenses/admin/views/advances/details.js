@@ -1,5 +1,5 @@
-import CompactExpenseTypeToken from '../../tokens/expense_type_token/compact'
-import CompactProjectToken from '../../tokens/project_token/compact'
+import CompactExpenseTypeToken from '../../tokens/expense_type/compact'
+import CompactProjectToken from '../../tokens/project/compact'
 import { Audit, Comments, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'

@@ -1,5 +1,5 @@
-import OfferingToken from '../../components/offering_token'
-import CategoryToken from '../../components/category_token'
+import OfferingToken from '../../tokens/offering'
+import CategoryToken from '../../tokens/category'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'

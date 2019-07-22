@@ -1,4 +1,4 @@
-import QuizToken from '../../../tokens/quiz_token'
+import QuizToken from '../../../tokens/quiz'
 import New from '../../quizes/new'
 import PropTypes from 'prop-types'
 import { List } from 'maha-admin'

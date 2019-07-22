@@ -1,4 +1,4 @@
-import ExpenseTypeToken from '../../tokens/expense_type_token'
+import ExpenseTypeToken from '../../tokens/expense_type'
 import { Page } from 'maha-admin'
 import React from 'react'
 import Edit from './edit'

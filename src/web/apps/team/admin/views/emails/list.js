@@ -1,5 +1,5 @@
 import { Page } from 'maha-admin'
-import EmailToken from '../../tokens/email_token'
+import EmailToken from '../../tokens/email'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Sent Mail',

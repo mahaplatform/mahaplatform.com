@@ -1,4 +1,4 @@
-import GoalToken from '../../../tokens/goal_token'
+import GoalToken from '../../../tokens/goal'
 import SetGoals from '../../../components/goals'
 import PropTypes from 'prop-types'
 import { List } from 'maha-admin'

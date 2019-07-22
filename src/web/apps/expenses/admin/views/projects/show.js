@@ -1,4 +1,4 @@
-import MembershipToken from '../../tokens/membership_token'
+import MembershipToken from '../../tokens/membership'
 import Memberships from '../memberships/users'
 import { Audit, List, Page } from 'maha-admin'
 import PropTypes from 'prop-types'

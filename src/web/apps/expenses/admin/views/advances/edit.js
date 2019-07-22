@@ -1,5 +1,5 @@
-import ExpenseTypeToken from '../../tokens/expense_type_token'
-import ProjectToken from '../../tokens/project_token'
+import ExpenseTypeToken from '../../tokens/expense_type'
+import ProjectToken from '../../tokens/project'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import moment from 'moment'

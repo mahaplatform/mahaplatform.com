@@ -1,4 +1,4 @@
-import NotificationMethodToken from '../notification_method_token'
+import NotificationMethodToken from '../../tokens/notification_method'
 import { RadioGroup } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
