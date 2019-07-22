@@ -5,8 +5,7 @@ import React from 'react'
 const BatchToken = ({ id, user, created_at }) => (
   <div className="token">
     <strong>Batch #{ id }</strong><br />
-    { user.full_name } on
-    { moment(created_at).format('MM/DD/YYYY') }
+    { user.full_name } on { moment(created_at).format('MM/DD/YYYY') }
   </div>
 )
 

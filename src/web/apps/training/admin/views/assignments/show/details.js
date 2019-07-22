@@ -15,7 +15,7 @@ const Details = ({ user, assignment }) => {
     { label: 'Due', content: moment(assignment.assigning.completed_by).format('MMMM DD, YYYY') }
   ]
 
-  if(assignment.fulfillments.length > 0) {
+  if(assignment.is_configured) {
     list.items = list.items.concat(assignment.fulfillments.map((fulfillment, index) => ({
       link: `/admin/training/fulfillments/${fulfillment.id}`,
       content: (

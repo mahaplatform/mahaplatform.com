@@ -6,19 +6,17 @@ class Item extends React.Component {
 
   render() {
     const { label, connectDropTarget, connectDragPreview, connectDragSource } = this.props
-    return connectDropTarget(connectDragPreview(
+    return connectDragSource(connectDropTarget(connectDragPreview(
       <div className={ this._getClass() }>
         <div className="maha-sortable-list-label" onClick={ this._handleToggle.bind(this) }>
           <i className={`fa fa-fw fa-${this._getIcon()}`} />
           { label }
         </div>
-        { connectDragSource(
-          <div className="maha-sortable-list-icon">
-            <i className="fa fa-bars" />
-          </div>
-        ) }
+        <div className="maha-sortable-list-icon">
+          <i className="fa fa-bars" />
+        </div>
       </div>
-    ))
+    )))
   }
 
   _getClass() {

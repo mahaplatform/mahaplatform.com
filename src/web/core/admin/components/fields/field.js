@@ -27,13 +27,11 @@ class Field extends React.Component {
 
   render() {
     const { connectDropTarget, connectDragPreview, connectDragSource, field } = this.props
-    return connectDropTarget(connectDragPreview(
+    return connectDragSource(connectDropTarget(connectDragPreview(
       <div className={ this._getClass() }>
-        { connectDragSource(
-          <div className="maha-field-handle">
-            <i className="fa fa-fw fa-bars" />
-          </div>
-        ) }
+        <div className="maha-field-handle">
+          <i className="fa fa-fw fa-bars" />
+        </div>
         { field.type === 'section' ?
           <div className="maha-field-label">
             <strong>{ field.label }</strong>
@@ -48,7 +46,7 @@ class Field extends React.Component {
           </div>
         }
       </div>
-    ))
+    )))
   }
 
   _getClass() {

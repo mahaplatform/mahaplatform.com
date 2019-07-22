@@ -30,9 +30,13 @@ const createRoute = async (req, res) => {
     object: quiz
   })
 
-  await socket.refresh(req, [
-    `/admin/training/trainings/${req.params.training_id}`
-  ])
+  const channels = []
+
+  if(training_id) channels.push(`/admin/training/trainings/${training_id}`)
+
+  if(lesson_id) channels.push(`/admin/training/lessons/${lesson_id}`)
+
+  await socket.refresh(req, channels)
 
   res.status(200).respond(quiz, QuizSerializer)
 

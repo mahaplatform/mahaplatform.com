@@ -30,13 +30,11 @@ class Answer extends React.PureComponent {
 
   render() {
     const { connectDropTarget, connectDragPreview, connectDragSource, answer } = this.props
-    return connectDropTarget(connectDragPreview(
+    return connectDragSource(connectDropTarget(connectDragPreview(
       <div className={ this._getClass() }>
-        { connectDragSource(
-          <div className="answer-handle">
-            <i className="fa fa-fw fa-bars" />
-          </div>
-        ) }
+        <div className="answer-handle">
+          <i className="fa fa-fw fa-bars" />
+        </div>
         <div className="answer-label">
           { answer.is_active ?
             <input { ...this._getInput(answer) } /> :
@@ -56,7 +54,7 @@ class Answer extends React.PureComponent {
           }
         </div>
       </div>
-    ))
+    )))
   }
 
   componentDidMount() {}

@@ -21,13 +21,11 @@ class Row extends React.Component {
   render() {
     const { connectDropTarget, connectDragPreview, connectDragSource, columns, index, row } = this.props
 
-    return connectDropTarget(connectDragPreview(
+    return connectDragSource(connectDropTarget(connectDragPreview(
       <div className={ this._getClass() }>
-        { connectDragSource(
-          <div className="maha-tablefield-handle">
-            <i className="fa fa-fw fa-bars" />
-          </div>
-        ) }
+        <div className="maha-tablefield-handle">
+          <i className="fa fa-fw fa-bars" />
+        </div>
         { columns.map((column, i) => (
           <div className="maha-tablefield-column" key={`column_${i}`}>
             <input type="text" defaultValue={ row[column.key] } />
@@ -37,7 +35,7 @@ class Row extends React.Component {
           <i className="fa fa-fw fa-remove" />
         </div>
       </div>
-    ))
+    )))
   }
 
   _getClass() {

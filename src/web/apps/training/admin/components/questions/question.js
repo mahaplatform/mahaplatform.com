@@ -29,13 +29,11 @@ class Question extends React.PureComponent {
 
   render() {
     const { connectDropTarget, connectDragPreview, connectDragSource, question } = this.props
-    return connectDropTarget(connectDragPreview(
+    return connectDragSource(connectDropTarget(connectDragPreview(
       <div className={ this._getClass() }>
-        { connectDragSource(
-          <div className="question-handle">
-            <i className="fa fa-fw fa-bars" />
-          </div>
-        ) }
+        <div className="question-handle">
+          <i className="fa fa-fw fa-bars" />
+        </div>
         <div className="question-label">
           { question.text }
         </div>
@@ -46,7 +44,7 @@ class Question extends React.PureComponent {
           <i className="fa fa-fw fa-times" />
         </div>
       </div>
-    ))
+    )))
   }
 
   componentDidMount() {}

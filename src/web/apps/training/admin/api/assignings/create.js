@@ -3,6 +3,7 @@ import { updateRelated } from '../../../../../core/services/routes/relations'
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
+import { chooseOption } from '../../../services/assignments'
 import Assignment from '../../../models/assignment'
 import Assigning from '../../../models/assigning'
 import User from '../../../../maha/models/user'
@@ -71,15 +72,22 @@ const createRoute = async (req, res) => {
   ], []).then(user_ids => _.uniq(user_ids))
 
   await Promise.mapSeries(user_ids, async (user_id) => {
-    await Assignment.forge({
+
+    const assignment = await Assignment.forge({
       team_id: req.team.get('id'),
       user_id,
       assigning_id: assigning.get('id'),
-      is_completed: false,
-      option_id: options.length === 1 ? options[0].id : null
+      is_completed: false
     }).save(null, {
       transacting: req.trx
     })
+
+    if(options.length > 1) return
+
+    await chooseOption(req, assignment, {
+      option_id: options[0].id
+    })
+
   })
 
   await socket.refresh(req, [
