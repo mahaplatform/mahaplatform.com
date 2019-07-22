@@ -26,7 +26,7 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Employee', name: 'employee_id', type: 'lookup', required: true, endpoint: '/api/admin/employees', value: 'id', text: 'full_name', format: CompactUserToken }
+            { label: 'Employee', name: 'employee_id', type: 'lookup', placeholder: 'Choose an employee', required: true, endpoint: '/api/admin/users/employees', value: 'id', text: 'full_name', format: CompactUserToken }
           ]
         }
       ]

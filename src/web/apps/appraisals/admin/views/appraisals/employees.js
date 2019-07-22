@@ -1,4 +1,4 @@
-import { Page } from 'maha-admin'
+import { CompactUserToken, Page } from 'maha-admin'
 import New from './new'
 
 const mapPropsToPage = (props, context) => ({
@@ -7,9 +7,13 @@ const mapPropsToPage = (props, context) => ({
     endpoint: '/api/admin/appraisals/appraisals/employees',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Title', key: 'title', primary: true }
+      { label: 'Employee', key: 'employee.full_name', primary: true },
+      { label: 'Created', key: 'created_at', format: 'date' }
     ],
-    defaultSort: { key: 'title', order: 'asc' },
+    filters: [
+      { label: 'Employee', name: 'employee_id', type: 'select', multiple: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: CompactUserToken }
+    ],
+    defaultSort: { key: 'created_at', order: 'desc' },
     entity: 'appraisal',
     icon: 'check',
     link: (record) => `/admin/appraisals/appraisals/${record.id}`,

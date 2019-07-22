@@ -7,7 +7,7 @@ const reportRoute = async (req, res) => {
     team: req.team
   }).filter({
     filter: req.query.$filter,
-    filterParams: ['employee_id']
+    filterParams: ['supervisor_id','employee_id']
   }).fetchPage({
     withRelated: ['supervisor','employee'],
     page: req.query.$page,

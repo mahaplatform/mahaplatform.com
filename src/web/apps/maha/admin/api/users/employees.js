@@ -1,7 +1,7 @@
 import UserSerializer from '../../../serializers/user_serializer'
 import User from '../../../models/user'
 
-const listRoute = async (req, res) => {
+const employeesRoute = async (req, res) => {
 
   const users = await User.scope({
     team: req.team
@@ -24,4 +24,4 @@ const listRoute = async (req, res) => {
 
 }
 
-export default listRoute
+export default employeesRoute
