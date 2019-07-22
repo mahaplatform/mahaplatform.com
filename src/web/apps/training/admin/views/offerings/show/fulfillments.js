@@ -1,4 +1,4 @@
-import { CompactUserToken, List } from 'maha-admin'
+import { UserToken, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -8,7 +8,7 @@ const Fulfillments = ({ fulfillments }) => {
     items: fulfillments.map(fulfillment => ({
       link: `/admin/training/fulfillments/${fulfillment.id}`,
       content: fulfillment,
-      component: ({ user }) => <CompactUserToken { ...user } />
+      component: ({ user }) => <UserToken { ...user } />
     })),
     empty: {
       icon: 'user',

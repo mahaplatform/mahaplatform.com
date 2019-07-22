@@ -1,4 +1,4 @@
-import { CompactUserToken, ModalPanel, ToggleList } from 'maha-admin'
+import { UserToken, ModalPanel, ToggleList } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -59,7 +59,7 @@ class Chat extends React.Component {
       endpoint: '/api/admin/users',
       defaultFilters: { app_id: { $eq: 6 } },
       exclude_ids,
-      format: (props) => <CompactUserToken { ...props } presence={ true} />,
+      format: (props) => <UserToken { ...props } presence={ true} />,
       multiple: true,
       text: 'full_name',
       value: 'id',

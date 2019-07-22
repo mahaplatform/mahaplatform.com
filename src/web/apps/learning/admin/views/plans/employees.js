@@ -1,4 +1,4 @@
-import { CompactUserToken, Page } from 'maha-admin'
+import { UserToken, Page } from 'maha-admin'
 import StatusToken from '../../tokens/status_token'
 import Status from '../../tokens/status'
 
@@ -12,7 +12,7 @@ const mapPropsToPage = (props, context) => ({
       { label: 'Status', key: 'status', sort: 'expenses_statuses.text', format: Status, collapsing: true }
     ],
     filters: [
-      { label: 'Employee', name: 'employee_id', type: 'select', multiple: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: CompactUserToken },
+      { label: 'Employee', name: 'employee_id', type: 'select', multiple: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: UserToken },
       { label: 'Due', name: 'due', type: 'daterange' },
       { label: 'Status', name: 'status', type: 'select', multiple: true, options:[{ value:'pending',text:'pending' },{ value:'active',text:'active' },{ value:'submitted',text:'submitted' },{ value:'completed',text:'completed' }], format: StatusToken }
     ],

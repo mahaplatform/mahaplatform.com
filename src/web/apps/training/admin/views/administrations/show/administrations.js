@@ -1,4 +1,4 @@
-import { CompactUserToken, Message } from 'maha-admin'
+import { UserToken, Message } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -32,7 +32,7 @@ class Administrations extends React.PureComponent {
             }
             { administrations.map((administration, index) => (
               <tr key={`row_${index}`}>
-                <td className="user-cell"><CompactUserToken { ...administration.user } /></td>
+                <td className="user-cell"><UserToken { ...administration.user } /></td>
                 <td className="right aligned">
                   { administration.score === null ?
                     <span /> :

@@ -1,5 +1,5 @@
 import ProjectToken from '../../tokens/project_token'
-import { Page, CompactUserToken } from 'maha-admin'
+import { Page, UserToken } from 'maha-admin'
 import Merge from './merge'
 import Edit from './edit'
 import React from 'react'
@@ -46,7 +46,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ..._getIntegrationColumns(resources.app.settings.integration)
     ],
     filters: [
-      { label: 'Member', name: 'user_id', type: 'select', multiple: false, endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: CompactUserToken },
+      { label: 'Member', name: 'user_id', type: 'select', multiple: false, endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: UserToken },
       { label: 'Active', name: 'is_active', type: 'select', options: [{ value: '1', text: 'Active' }, { value: '0', text: 'Inactive' }] }
     ],
     export: [

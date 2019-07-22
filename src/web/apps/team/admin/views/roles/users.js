@@ -1,4 +1,4 @@
-import { Assignment, CompactUserToken } from 'maha-admin'
+import { Assignment, UserToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -17,7 +17,7 @@ class Users extends React.Component {
     return {
       action: `/api/admin/team/roles/${role_id}/users`,
       assignedEndpoint: `/api/admin/team/roles/${role_id}/users`,
-      assignedFormat: ({ user }) => <CompactUserToken { ...user } presence={ false } />,
+      assignedFormat: ({ user }) => <UserToken { ...user } presence={ false } />,
       empty: {
         icon: 'users',
         title: 'Add users',
@@ -28,7 +28,7 @@ class Users extends React.Component {
       text: 'full_name',
       title: 'Manage Users',
       unassignedEndpoint: '/api/admin/users',
-      unassignedFormat: (user) => <CompactUserToken { ...user } presence={ false } />,
+      unassignedFormat: (user) => <UserToken { ...user } presence={ false } />,
       value: 'id'
     }
   }

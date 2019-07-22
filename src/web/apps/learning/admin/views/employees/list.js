@@ -1,11 +1,11 @@
-import { Page, CompactUserToken } from 'maha-admin'
+import { Page, UserToken } from 'maha-admin'
 
 const mapPropsToPage = (props, context) => ({
   title: 'Employees',
   collection: {
     endpoint: '/api/admin/learning/employees',
     table: [
-      { label: 'Name', key: 'full_name', primary: true, format: CompactUserToken }
+      { label: 'Name', key: 'full_name', primary: true, format: UserToken }
     ],
     defaultSort: { key: 'last_name', order: 'asc' },
     entity: 'employee',

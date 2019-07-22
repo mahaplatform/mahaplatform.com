@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { CompactUserToken, Form } from 'maha-admin'
+import { UserToken, Form } from 'maha-admin'
 import React from 'react'
 
 class Transfer extends React.Component {
@@ -28,8 +28,8 @@ class Transfer extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'From', name: 'from_user_id', type: 'lookup', required: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', format: CompactUserToken },
-            { label: 'To', name: 'to_user_id', type: 'lookup', required: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', format: CompactUserToken },
+            { label: 'From', name: 'from_user_id', type: 'lookup', required: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', format: UserToken },
+            { label: 'To', name: 'to_user_id', type: 'lookup', required: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', format: UserToken },
             { label: 'Reassignment', name: 'strategy', type: 'radiogroup', required: true, options: this._getStrategy(), defaultValue: 'none' }
           ]
         }

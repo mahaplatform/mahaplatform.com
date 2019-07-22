@@ -1,4 +1,4 @@
-import { Chooser, CompactUserToken } from 'maha-admin'
+import { Chooser, UserToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -23,7 +23,7 @@ class New extends React.Component {
       name: 'user_id',
       value: 'id',
       text: 'full_name',
-      format: CompactUserToken,
+      format: UserToken,
       title: 'Choose Supervisor',
       onDone: this._handleDone
     }

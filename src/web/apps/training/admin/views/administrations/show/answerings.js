@@ -1,4 +1,4 @@
-import { CompactUserToken } from 'maha-admin'
+import { UserToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -38,7 +38,7 @@ class Answerings extends React.PureComponent {
                   }
                   { question.answerings.map((answering, index2) => (
                     <tr key={`answering_${index2}`}>
-                      <td className="user-cell"><CompactUserToken { ...answering.user } /></td>
+                      <td className="user-cell"><UserToken { ...answering.user } /></td>
                       <td className="center aligned">
                         { answering.answer !== null &&
                           <span>{ (answering.answer + 10).toString(36).toUpperCase() }</span>

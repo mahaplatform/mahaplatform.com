@@ -1,4 +1,4 @@
-import { CompactUserToken, Form } from 'maha-admin'
+import { UserToken, Form } from 'maha-admin'
 import NotifiyMe from './notify_me'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -27,7 +27,7 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Supervisor', name: 'supervisor_id', type: 'lookup', required: true, endpoint: '/api/admin/learning/supervisors', value: 'id', text: 'full_name', format: CompactUserToken },
+            { label: 'Supervisor', name: 'supervisor_id', type: 'lookup', required: true, endpoint: '/api/admin/learning/supervisors', value: 'id', text: 'full_name', format: UserToken },
             { label: 'Due', name: 'due', type: 'datefield', required: true },
             { label: 'Send me a reminder', name: 'reminders', type: NotifiyMe }
           ]

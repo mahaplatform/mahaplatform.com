@@ -1,4 +1,4 @@
-import { Import, Page, AppToken, CompactUserToken } from 'maha-admin'
+import { Import, Page, AppToken, UserToken } from 'maha-admin'
 import UsersNew from './new'
 import UserImportFinalize from './user_import_finalize'
 import React from 'react'
@@ -51,7 +51,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Name', key: 'last_name', primary: true, format: CompactUserToken },
+      { label: 'Name', key: 'last_name', primary: true, format: UserToken },
       { label: 'Email', key: 'email' }
     ],
     endpoint: '/api/admin/team/users',

@@ -1,4 +1,4 @@
-import { List, Page, CompactUserToken } from 'maha-admin'
+import { List, Page, UserToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import AssignUsers from './users'
 import Edit from './edit'
@@ -8,7 +8,7 @@ const Users = ({ group, users }) => {
 
   const list = {
     items: users.map((group_user, index) => ({
-      component: <CompactUserToken { ...group_user.user } />
+      component: <UserToken { ...group_user.user } />
     })),
     empty: {
       icon: 'user-circle',

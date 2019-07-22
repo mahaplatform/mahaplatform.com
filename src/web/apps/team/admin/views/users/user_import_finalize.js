@@ -1,4 +1,4 @@
-import { Form, CompactUserToken } from 'maha-admin'
+import { Form, UserToken } from 'maha-admin'
 import RoleToken from '../../components/role_token'
 import GroupToken from '../../components/group_token'
 import PropTypes from 'prop-types'
@@ -49,7 +49,7 @@ class UserImportFinalize extends React.Component {
           fields: [
             { label: 'Roles', name: 'role_ids', type: 'lookup2', multiple: true, endpoint: '/api/admin/team/roles', value: 'id', text: 'title', format: RoleToken },
             { label: 'Groups', name: 'group_ids', type: 'lookup2', multiple: true, endpoint: '/api/admin/team/groups', value: 'id', text: 'title', format: GroupToken },
-            { label: 'Supervisors', name: 'supervisor_ids', type: 'lookup2', multiple: true, endpoint: '/api/admin/team/supervisors', value: 'user_id', text: 'full_name', format: CompactUserToken }
+            { label: 'Supervisors', name: 'supervisor_ids', type: 'lookup2', multiple: true, endpoint: '/api/admin/team/supervisors', value: 'user_id', text: 'full_name', format: UserToken }
           ]
         }
       ]

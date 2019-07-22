@@ -1,11 +1,11 @@
-import { CompactUserToken } from 'maha-admin'
+import { UserToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 const ManagerToken = (manager) => (
   <div className="manager-token">
     <div className="manager-token-item">
-      <CompactUserToken { ...manager.user } presence={ false } />
+      <UserToken { ...manager.user } presence={ false } />
     </div>
     <div className="manager-token-type">
       <div className={`manager-type-token ${manager.role.toLowerCase()}`}>

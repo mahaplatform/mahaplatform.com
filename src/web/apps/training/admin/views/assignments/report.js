@@ -1,5 +1,5 @@
 import AssigningToken from '../../tokens/assigning_token'
-import { CompactUserToken, Page } from 'maha-admin'
+import { UserToken, Page } from 'maha-admin'
 
 const mapPropsToPage = (props, context) => ({
   title: 'Assignments',
@@ -14,7 +14,7 @@ const mapPropsToPage = (props, context) => ({
     ],
     filters: [
       { label: 'Assignings', name: 'assigning_id', type: 'select', endpoint: '/api/admin/training/assignings', value: 'id', text: 'title', format: AssigningToken },
-      { label: 'User', name: 'user_id', type: 'select', multiple: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: CompactUserToken }
+      { label: 'User', name: 'user_id', type: 'select', multiple: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: UserToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     entity: 'assignment',

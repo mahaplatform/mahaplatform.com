@@ -1,4 +1,4 @@
-import { CompactUserToken, ModalPanel, ToggleList } from 'maha-admin'
+import { UserToken, ModalPanel, ToggleList } from 'maha-admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -61,7 +61,7 @@ class Subscriptions extends React.Component {
       defaultFilters: { app_id: { $eq: 6 } },
       defaultValue: subscription_ids,
       exclude_ids,
-      format: (props) => <CompactUserToken { ...props } presence={ true} />,
+      format: (props) => <UserToken { ...props } presence={ true} />,
       multiple: true,
       text: 'full_name',
       value: 'id',

@@ -1,5 +1,5 @@
 import CompactMemberTypeToken from '../../tokens/member_type_token/compact'
-import { Assignment, CompactUserToken } from 'maha-admin'
+import { Assignment, UserToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -18,7 +18,7 @@ class Users extends React.Component {
     return {
       action: `/api/admin/expenses/projects/${project_id}/memberships`,
       assignedEndpoint: `/api/admin/expenses/projects/${project_id}/memberships`,
-      assignedFormat: (membership) => <CompactUserToken { ...membership.user } />,
+      assignedFormat: (membership) => <UserToken { ...membership.user } />,
       empty: {
         icon: 'user',
         title: 'Add Users',
@@ -36,7 +36,7 @@ class Users extends React.Component {
         { value: 1, text: 'owner' }
       ],
       unassignedEndpoint: '/api/admin/users',
-      unassignedFormat: (user) => <CompactUserToken { ...user } />,
+      unassignedFormat: (user) => <UserToken { ...user } />,
       value: 'id'
     }
   }

@@ -1,4 +1,4 @@
-import { Page, CompactUserToken } from 'maha-admin'
+import { Page, UserToken } from 'maha-admin'
 import New from './new'
 
 const mapPropsToPage = (props, context) => ({
@@ -6,7 +6,7 @@ const mapPropsToPage = (props, context) => ({
   collection: {
     endpoint: '/api/admin/team/supervisors',
     table: [
-      { label: 'Name', key: 'maha_users.last_name', primary: true, format: CompactUserToken }
+      { label: 'Name', key: 'maha_users.last_name', primary: true, format: UserToken }
     ],
     defaultSort: { key: 'maha_users.last_name', order: 'asc' },
     entity: 'supervisor',

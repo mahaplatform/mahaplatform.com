@@ -1,4 +1,4 @@
-import { CompactUserToken, List } from 'maha-admin'
+import { UserToken, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import AssignUsers from './users'
 import React from 'react'
@@ -7,7 +7,7 @@ const Users = ({ role, users }) => {
 
   const list = {
     items: users.map((role_user, index) => ({
-      component: <CompactUserToken { ...role_user.user } />
+      component: <UserToken { ...role_user.user } />
     })),
     empty: {
       icon: 'user-circle',

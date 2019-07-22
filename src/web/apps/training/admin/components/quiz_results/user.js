@@ -1,4 +1,4 @@
-import { CompactUserToken } from 'maha-admin'
+import { UserToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -27,7 +27,7 @@ class User extends React.PureComponent {
           <tbody>
             { administrations.map((administration, index) => (
               <tr key={`row_${index}`}>
-                <td><CompactUserToken { ...administration.user } /></td>
+                <td><UserToken { ...administration.user } /></td>
                 <td className="right aligned">
                   { administration.score === null ?
                     <span /> :

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { CompactUserToken, Form } from 'maha-admin'
+import { UserToken, Form } from 'maha-admin'
 import React from 'react'
 
 class New extends React.Component {
@@ -26,7 +26,7 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Employee', name: 'employee_id', type: 'lookup', placeholder: 'Choose an employee', required: true, endpoint: '/api/admin/users/employees', value: 'id', text: 'full_name', format: CompactUserToken }
+            { label: 'Employee', name: 'employee_id', type: 'lookup', placeholder: 'Choose an employee', required: true, endpoint: '/api/admin/users/employees', value: 'id', text: 'full_name', format: UserToken }
           ]
         }
       ]

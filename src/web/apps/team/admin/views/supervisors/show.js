@@ -1,4 +1,4 @@
-import { Avatar, List, Page, CompactUserToken } from 'maha-admin'
+import { Avatar, List, Page, UserToken } from 'maha-admin'
 import AssignEmployees from './employees'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -8,7 +8,7 @@ const Employees = ({ supervisor, employees }) => {
   const list = {
     items: employees.map(employee => ({
       content: employee,
-      component: <CompactUserToken { ...employee.user } />
+      component: <UserToken { ...employee.user } />
     })),
     empty: {
       icon: 'user-circle',

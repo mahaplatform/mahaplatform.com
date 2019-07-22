@@ -1,4 +1,4 @@
-import { Page, CompactUserToken } from 'maha-admin'
+import { Page, UserToken } from 'maha-admin'
 import React from 'react'
 import New from './new'
 import Import from './import'
@@ -13,7 +13,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/crm/contacts',
     table: [
-      { label: 'Name', key: 'full_name', primary: true, format: CompactUserToken },
+      { label: 'Name', key: 'full_name', primary: true, format: UserToken },
       { label: 'Email', key: 'email' }
     ],
     export: [
