@@ -11,6 +11,7 @@ import DateField from './datefield'
 import Dropdown from './dropdown'
 import EmailField from './emailfield'
 import Hidden from './hidden'
+import HtmlField from './htmlfield'
 import FileField from './filefield'
 import Lookup from './lookup'
 import Lookup2 from './lookup2'
@@ -61,6 +62,7 @@ class Control extends React.Component {
     if(type === 'dropdown') return Dropdown
     if(type === 'emailfield') return EmailField
     if(type === 'hidden') return Hidden
+    if(type === 'htmlfield') return HtmlField
     if(type === 'filefield') return FileField
     if(type === 'lookup') return Lookup
     if(type === 'lookup2') return Lookup2

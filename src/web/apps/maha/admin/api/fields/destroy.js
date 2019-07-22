@@ -19,9 +19,11 @@ const destroyRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const fields = await knex('maha_fields').transacting(req.trx).where({
-    parent_type: req.params.parent_type,
-    parent_id: req.params.parent_id
+  const fields = await knex('maha_fields').transacting(req.trx).where(qb => {
+    qb.where('parent_type', req.params.parent_type)
+    if(req.params.parent_id) {
+      qb.where('parent_id', req.params.parent_id)
+    }
   }).orderBy('delta', 'asc')
 
   await Promise.mapSeries(fields, async (field, delta) => {
@@ -33,7 +35,7 @@ const destroyRoute = async (req, res) => {
   })
 
   await socket.refresh(req, {
-    channel: `/admin/${req.params.parent_type}/${req.params.parent_id}/fields`
+    channel: req.params.parent_id ? `/admin/${req.params.parent_type}/${req.params.parent_id}/fields` : `/admin/${req.params.parent_type}/fields`
   })
 
   res.status(200).respond(true)

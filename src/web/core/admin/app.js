@@ -21,6 +21,7 @@ import adminformAttachmentfield from './components/form/attachmentfield'
 import adminformColorfield from './components/form/colorfield'
 import adminformDatefield from './components/form/datefield'
 import adminformFilefield from './components/form/filefield'
+import adminformHtmlfield from './components/form/htmlfield'
 import adminformLookup from './components/form/lookup'
 import adminformLookup2 from './components/form/lookup2'
 import adminform from './components/form'
@@ -99,7 +100,6 @@ import mahasignin from '../../apps/maha/admin/components/signin'
 import mahareactions from '../../apps/maha/admin/roots/reactions'
 import mahastars from '../../apps/maha/admin/roots/stars'
 import platformapps from '../../apps/platform/admin/components/apps'
-import siteshtmlfield from '../../apps/sites/admin/components/htmlfield'
 import sitessitesImportFinalize from '../../apps/sites/admin/components/sites_import_finalize'
 import teamaccess from '../../apps/team/admin/components/access'
 import teamroles from '../../apps/team/admin/components/roles'
@@ -231,6 +231,7 @@ class App extends React.Component {
       adminformColorfield,
       adminformDatefield,
       adminformFilefield,
+      adminformHtmlfield,
       adminformLookup,
       adminformLookup2,
       adminform,
@@ -309,7 +310,6 @@ class App extends React.Component {
       mahareactions,
       mahastars,
       platformapps,
-      siteshtmlfield,
       sitessitesImportFinalize,
       teamaccess,
       teamroles,

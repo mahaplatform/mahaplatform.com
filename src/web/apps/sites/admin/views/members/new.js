@@ -1,4 +1,3 @@
-import HtmlField from '../../components/htmlfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -58,7 +57,7 @@ class New extends React.Component {
                   ...section.fields || [],
                   {
                     ...field.config,
-                    type: this._getControl(field.type)
+                    type: field.type
                   }
                 ]
               }
@@ -69,10 +68,6 @@ class New extends React.Component {
     }
   }
 
-  _getControl(type) {
-    if(type === 'htmlfield') return HtmlField
-    return type
-  }
 
   _handleCancel() {
     this.context.modal.close()

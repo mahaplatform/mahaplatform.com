@@ -1,16 +1,16 @@
-export const fetch = (parent_type, parent_id) => ({
+export const fetch = (endpoint) => ({
   type: 'API_REQUEST',
   method: 'GET',
-  endpoint: `/api/admin/${parent_type}/${parent_id}/fields`,
+  endpoint,
   request: 'FETCH_REQUEST',
   success: 'FETCH_SUCCESS',
   failure: 'FETCH_FAILURE'
 })
 
-export const reorder = (parent_type, parent_id, from, to) => ({
+export const reorder = (endpoint, from, to) => ({
   type: 'API_REQUEST',
   method: 'PATCH',
-  endpoint: `/api/admin/${parent_type}/${parent_id}/fields/reorder`,
+  endpoint: `${endpoint}/reorder`,
   body: { from, to },
   request: 'REORDER_REQUEST',
   success: 'REORDER_SUCCESS',

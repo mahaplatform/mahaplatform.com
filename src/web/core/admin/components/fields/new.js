@@ -10,8 +10,7 @@ class New extends React.Component {
 
   static propTypes = {
     datasources: PropTypes.array,
-    parent_type: PropTypes.string,
-    parent_id: PropTypes.string
+    action: PropTypes.string
   }
 
   state = {
@@ -28,11 +27,11 @@ class New extends React.Component {
   }
 
   _getForm() {
-    const { parent_type, parent_id } = this.props
+    const { action } = this.props
     return {
       title: 'New Field',
       method: 'post',
-      action: `/api/admin/${parent_type}/${parent_id}/fields`,
+      action,
       onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,

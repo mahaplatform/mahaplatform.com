@@ -7,7 +7,9 @@ const showRoute = async (req, res) => {
     team: req.team
   }).query(qb => {
     qb.where('parent_type', req.params.parent_type)
-    qb.where('parent_id', req.params.parent_id)
+    if(req.params.parent_id) {
+      qb.where('parent_id', req.params.parent_id)
+    }
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

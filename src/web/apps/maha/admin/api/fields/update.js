@@ -22,7 +22,7 @@ const update = async (req, res) => {
   })
 
   await socket.refresh(req, {
-    channel: `/admin/${req.params.parent_type}/${req.params.parent_id}/fields`
+    channel: req.params.parent_id ? `/admin/${req.params.parent_type}/${req.params.parent_id}/fields` : `/admin/${req.params.parent_type}/fields`
   })
 
   res.status(200).respond(field, FieldSerializer)

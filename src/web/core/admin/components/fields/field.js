@@ -15,10 +15,9 @@ class Field extends React.Component {
     connectDropTarget: PropTypes.func,
     connectDragPreview: PropTypes.func,
     connectDragSource: PropTypes.func,
+    endpoint: PropTypes.string,
     field: PropTypes.object,
     isDragging: PropTypes.bool,
-    parent_type: PropTypes.string,
-    parent_id: PropTypes.string,
     onMove: PropTypes.func,
     onReorder: PropTypes.func
   }
@@ -58,18 +57,16 @@ class Field extends React.Component {
   }
 
   _handleTasks(id) {
-    const { parent_type, parent_id, field } = this.props
+    const { endpoint, field } = this.props
     this.context.tasks.open([
       {
         label: 'Edit Field',
-        rights: [],
-        modal: () => <Edit parent_type={ parent_type } parent_id={ parent_id } id={ field.id } />
+        modal: () => <Edit endpoint={ endpoint } id={ field.id } />
       }, {
         label: 'Remove Field',
-        rights: [],
         request: {
           method: 'DELETE',
-          endpoint: `/api/admin/${parent_type}/${parent_id}/fields/${field.id}`,
+          endpoint: `${endpoint}/${field.id}`,
           onFailure: (result) => this.context.flash.set('error', 'Unable to remove this field')
         }
       }

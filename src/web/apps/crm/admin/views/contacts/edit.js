@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
+import sections from './sections'
 import React from 'react'
 
 class Edit extends React.Component {
@@ -25,7 +26,7 @@ class Edit extends React.Component {
   }
 
   _getForm() {
-    const { contact, fields, token } = this.props
+    const { contact } = this.props
     return {
       title: 'Edit Contact',
       method: 'patch',
@@ -33,18 +34,22 @@ class Edit extends React.Component {
       action: `/api/admin/crm/contacts/${contact.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
-      sections: [
-        {
-          fields: [
-            { label: 'First Name', name: 'first_name', type: 'textfield' },
-            { label: 'Last Name', name: 'last_name', type: 'textfield' },
-            { label: 'Email', name: 'email', type: 'emailfield', required: true },
-            { label: 'Phone', name: 'phone', type: 'phonefield' },
-            { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', token, multiple: false }
-          ]
-        }
-      ]
+      sections: this._getSections()
     }
+  }
+
+  _getSections() {
+    const { fields, token } = this.props
+    const results = sections(fields, token)
+    results[0].fields = [
+      { label: 'First Name', name: 'first_name', type: 'textfield' },
+      { label: 'Last Name', name: 'last_name', type: 'textfield' },
+      { label: 'Email', name: 'email', type: 'emailfield', required: true },
+      { label: 'Phone', name: 'phone', type: 'phonefield' },
+      { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', token, multiple: false },
+      ...results[0].fields
+    ]
+    return results
   }
 
   _handleCancel() {

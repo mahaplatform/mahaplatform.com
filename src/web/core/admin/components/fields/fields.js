@@ -14,6 +14,7 @@ class Fields extends React.Component {
 
   static propTypes = {
     datasources: PropTypes.array,
+    endpoint: PropTypes.string,
     fields: PropTypes.array,
     parent_type: PropTypes.string,
     parent_id: PropTypes.string,
@@ -70,43 +71,44 @@ class Fields extends React.Component {
   }
 
   _getField(field, index) {
-    const { parent_type, parent_id, onMove, onReorder } = this.props
+    const { endpoint, onMove, onReorder } = this.props
     return {
       field,
       index,
-      parent_type,
-      parent_id,
+      endpoint,
       onMove,
       onReorder
     }
   }
 
   _handleFetch() {
-    const { parent_type, parent_id, onFetch } = this.props
-    onFetch(parent_type, parent_id)
+    const { endpoint, onFetch } = this.props
+    onFetch(endpoint)
   }
 
   _handleJoin() {
     const { network } = this.context
-    const { parent_type, parent_id } = this.props
-    network.join(`/admin/${parent_type}/${parent_id}/fields`)
+    const { endpoint } = this.props
+    const target = endpoint.replace('/api', '')
+    network.join(target)
     network.subscribe([
-      { target: `/admin/${parent_type}/${parent_id}/fields`, action: 'refresh', handler: this._handleFetch }
+      { target, action: 'refresh', handler: this._handleFetch }
     ])
   }
 
   _handleLeave() {
     const { network } = this.context
-    const { parent_type, parent_id } = this.props
-    network.leave(`/admin/${parent_type}/${parent_id}/fields`)
+    const { endpoint } = this.props
+    const target = endpoint.replace('/api', '')
+    network.leave(target)
     network.unsubscribe([
-      { target: `/admin/${parent_type}/${parent_id}/fields`, action: 'refresh', handler: this._handleFetch }
+      { target, action: 'refresh', handler: this._handleFetch }
     ])
   }
 
   _handleNew() {
-    const { datasources, parent_type, parent_id } = this.props
-    this.context.modal.push(<New parent_type={ parent_type } parent_id={ parent_id } datasources={ datasources } />)
+    const { datasources, endpoint } = this.props
+    this.context.modal.push(<New action={ endpoint } datasources={ datasources } />)
   }
 
 }

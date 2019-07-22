@@ -9,8 +9,7 @@ class Edit extends React.Component {
   }
 
   static propTypes = {
-    parent_type: PropTypes.string,
-    parent_id: PropTypes.string,
+    endpoint: PropTypes.string,
     id: PropTypes.number
   }
 
@@ -22,12 +21,12 @@ class Edit extends React.Component {
   }
 
   _getForm() {
-    const { parent_type, parent_id, id } = this.props
+    const { endpoint, id } = this.props
     return {
       title: 'Edit Field',
       method: 'patch',
-      endpoint: `/api/admin/${parent_type}/${parent_id}/fields/${id}`,
-      action: `/api/admin/${parent_type}/${parent_id}/fields/${id}`,
+      endpoint: `${endpoint}/${id}`,
+      action: `${endpoint}/${id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [

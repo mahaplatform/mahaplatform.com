@@ -10,7 +10,9 @@ const createRoute = async (req, res) => {
     team: req.team
   }).query(qb => {
     qb.where('maha_fields.parent_type', req.params.parent_type)
-    qb.where('maha_fields.parent_id', req.params.parent_id)
+    if(req.params.parent_id) {
+      qb.where('maha_fields.parent_id', req.params.parent_id)
+    }
   }).count('*', {
     transacting: req.trx
   })
@@ -29,7 +31,7 @@ const createRoute = async (req, res) => {
   })
 
   await socket.refresh(req, {
-    channel: `/admin/${req.params.parent_type}/${req.params.parent_id}/fields`
+    channel: req.params.parent_id ? `/admin/${req.params.parent_type}/${req.params.parent_id}/fields` : `/admin/${req.params.parent_type}/fields`
   })
 
   res.status(200).respond(field, FieldSerializer)
