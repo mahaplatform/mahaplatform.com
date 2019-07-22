@@ -85,16 +85,16 @@
   }
   .error {
     input, textarea, select, .lookup-field, .dropdown {
-      border-color: #DB2828 !important;
-      background-color: #FFFFFF !important;
+      border-color: @red !important;
+      background-color: @white !important;
       border-radius: 5px 5px 0 0 !important;
     }
     & > label {
-      color: #DB2828 !important;
+      color: @red !important;
     }
     .error-message {
-      background-color: #DB2828 !important;
-      color: #FFF !important;
+      background-color: @red !important;
+      color: @white !important;
       padding: 5px 10px;
       font-size: .8em;
       border-radius: 0 0 5px 5px !important;
@@ -116,8 +116,8 @@
       }
     }
     .ui.label {
-      background-color: #DB2828 !important;
-      color: #FFF !important;
+      background-color: @red !important;
+      color: @white !important;
     }
   }
 }
@@ -129,9 +129,9 @@
   display: flex;
   &:focus {
     outline: none !important;
-    border-color: #85B7D9;
+    border-color: @lightblue;
     border-radius: .28571429rem;
-    background: #FFF;
+    background: @white;
     box-shadow: 0 0 0 0 rgba(34,36,38,.35) inset;
   }
 }
