@@ -1,4 +1,4 @@
-const sections = (fields, token) => fields.reduce((fields, field, index) => [
+const sections = (fields) => fields.reduce((fields, field, index) => [
   ...fields,
   ...index === 0 && field.type !== 'section' ? [{
     type: 'section',
@@ -23,21 +23,20 @@ const sections = (fields, token) => fields.reduce((fields, field, index) => [
         ...section,
         fields: [
           ...section.fields || [],
-          _getControl(field, token)
+          _getControl(field)
         ]
       }
     })
   }
 }), { items: [], current: -1 }).items
 
-const _getControl = (field, token) => ({
+const _getControl = (field) => ({
   ...field.config,
   type: _getType(field),
   ...field.type === 'imagefield' ? {
     prompt: 'Choose Image',
     action: '/api/admin/assets/upload',
     endpoint: '/api/admin/assets',
-    token,
     multiple: false
   } : {}
 })

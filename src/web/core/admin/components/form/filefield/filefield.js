@@ -1,3 +1,4 @@
+import { connect } from 'react-redux'
 import Resumable from 'resumablejs'
 import PropTypes from 'prop-types'
 import Preview from './preview'
@@ -193,4 +194,8 @@ class FileField extends React.Component {
 
 }
 
-export default FileField
+const mapStateToProps = (state, props) => ({
+  token: state.maha.admin.team.token
+})
+
+export default connect(mapStateToProps)(FileField)

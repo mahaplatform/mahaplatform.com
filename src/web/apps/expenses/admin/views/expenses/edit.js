@@ -1,7 +1,6 @@
 import ExpenseTypeToken from '../../tokens/expense_type_token'
 import ProjectToken from '../../tokens/project_token'
 import VendorToken from '../../tokens/vendor_token'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import moment from 'moment'
@@ -15,8 +14,7 @@ class Edit extends React.Component {
 
   static propTypes = {
     expense: PropTypes.object,
-    projectEndpoint: PropTypes.string,
-    token: PropTypes.string
+    projectEndpoint: PropTypes.string
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -27,7 +25,7 @@ class Edit extends React.Component {
   }
 
   _getForm() {
-    const { projectEndpoint, expense, token } = this.props
+    const { projectEndpoint, expense } = this.props
     return {
       title: 'Edit Expense',
       method: 'patch',
@@ -41,7 +39,7 @@ class Edit extends React.Component {
             { label: 'Date', name: 'date', type: 'datefield', required: true, defaultValue: moment().format('YYYY-MM-DD') },
             { label: 'Description', name: 'description', required: true, placeholder: 'Describe the expense', type: 'textfield' },
             { label: 'Amount', name: 'amount', required: true, placeholder: 'Enter the amount', type: 'moneyfield' },
-            { label: 'Receipt', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Receipt', action: '/api/admin/assets/upload', endpoint: '/api/admin/expenses/receipts', token },
+            { label: 'Receipt', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Receipt', action: '/api/admin/assets/upload', endpoint: '/api/admin/expenses/receipts' },
             { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a project', endpoint: projectEndpoint, value: 'id', text: 'title', format: ProjectToken },
             { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Choose an expense type', endpoint: '/api/admin/expenses/expense_types/active', value: 'id', text: 'title', format: ExpenseTypeToken },
             { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Choose a vendor', endpoint: '/api/admin/expenses/vendors', value: 'id', text: 'name', form: this._getVendorForm(), format: VendorToken },
@@ -83,8 +81,4 @@ class Edit extends React.Component {
 
 }
 
-const mapStateToProps = (state, props) => ({
-  token: state.maha.admin.team.token
-})
-
-export default connect(mapStateToProps)(Edit)
+export default Edit

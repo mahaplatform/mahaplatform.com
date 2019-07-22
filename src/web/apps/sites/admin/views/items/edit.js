@@ -14,7 +14,6 @@ class Edit extends React.Component {
     site_id: PropTypes.string,
     fields: PropTypes.array,
     id: PropTypes.number,
-    token: PropTypes.string,
     type: PropTypes.object
   }
 
@@ -26,7 +25,7 @@ class Edit extends React.Component {
   }
 
   _getForm() {
-    const { site_id, fields, id, token, type } = this.props
+    const { site_id, fields, id, type } = this.props
     return {
       title: `Edit ${type.title}`,
       method: 'PATCH',
@@ -34,7 +33,7 @@ class Edit extends React.Component {
       endpoint: `/api/admin/sites/sites/${site_id}/types/${type.id}/items/${id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
-      sections: sections(fields, token)
+      sections: sections(fields)
     }
   }
 
@@ -48,8 +47,4 @@ class Edit extends React.Component {
 
 }
 
-const mapStateToProps = (state, props) => ({
-  token: state.maha.admin.team.token
-})
-
-export default connect(mapStateToProps)(Edit)
+export default Edit

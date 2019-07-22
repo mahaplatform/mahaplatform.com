@@ -1,4 +1,3 @@
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import sections from './sections'
@@ -14,8 +13,7 @@ class Edit extends React.Component {
 
   static propTypes = {
     contact: PropTypes.object,
-    fields: PropTypes.array,
-    token: PropTypes.string
+    fields: PropTypes.array
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -39,14 +37,14 @@ class Edit extends React.Component {
   }
 
   _getSections() {
-    const { fields, token } = this.props
-    const results = sections(fields, token)
+    const { fields } = this.props
+    const results = sections(fields)
     results[0].fields = [
       { label: 'First Name', name: 'first_name', type: 'textfield' },
       { label: 'Last Name', name: 'last_name', type: 'textfield' },
       { label: 'Email', name: 'email', type: 'emailfield', required: true },
       { label: 'Phone', name: 'phone', type: 'phonefield' },
-      { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', token, multiple: false },
+      { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', multiple: false },
       ...results[0].fields
     ]
     return results
@@ -62,8 +60,4 @@ class Edit extends React.Component {
 
 }
 
-const mapStateToProps = (state, props) => ({
-  token: state.maha.admin.team.token
-})
-
-export default connect(mapStateToProps)(Edit)
+export default Edit

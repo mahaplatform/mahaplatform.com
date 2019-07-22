@@ -1,4 +1,3 @@
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -9,9 +8,7 @@ class New extends React.Component {
     modal: PropTypes.object
   }
 
-  static propTypes = {
-    token: PropTypes.string
-  }
+  static propTypes = {}
 
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
@@ -21,7 +18,6 @@ class New extends React.Component {
   }
 
   _getForm() {
-    const { token } = this.props
     return {
       title: 'New Category',
       method: 'post',
@@ -32,7 +28,7 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
-            { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', token, multiple: false }
+            { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', multiple: false }
           ]
         }
       ]
@@ -49,8 +45,4 @@ class New extends React.Component {
 
 }
 
-const mapStateToProps = (state, props) => ({
-  token: state.maha.admin.team.token
-})
-
-export default connect(mapStateToProps)(New)
+export default New

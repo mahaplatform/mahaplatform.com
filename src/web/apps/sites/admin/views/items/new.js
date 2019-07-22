@@ -1,4 +1,3 @@
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -13,7 +12,6 @@ class New extends React.Component {
   static propTypes = {
     site_id: PropTypes.string,
     fields: PropTypes.array,
-    token: PropTypes.string,
     type: PropTypes.object
   }
 
@@ -25,14 +23,14 @@ class New extends React.Component {
   }
 
   _getForm() {
-    const { site_id, fields, token, type } = this.props
+    const { site_id, fields, type } = this.props
     return {
       title: `New ${type.title}`,
       method: 'post',
       action: `/api/admin/sites/sites/${site_id}/types/${type.id}/items`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
-      sections: sections(fields, token)
+      sections: sections(fields)
     }
   }
 
@@ -46,8 +44,4 @@ class New extends React.Component {
 
 }
 
-const mapStateToProps = (state, props) => ({
-  token: state.maha.admin.team.token
-})
-
-export default connect(mapStateToProps)(New)
+export default New

@@ -1,6 +1,5 @@
 import OfferingToken from '../../components/offering_token'
 import CategoryToken from '../../components/category_token'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -13,8 +12,7 @@ class Edit extends React.Component {
   }
 
   static propTypes = {
-    attraction: PropTypes.object,
-    token: PropTypes.string
+    attraction: PropTypes.object
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -25,7 +23,7 @@ class Edit extends React.Component {
   }
 
   _getForm() {
-    const { attraction, token } = this.props
+    const { attraction } = this.props
     return {
       title: 'Edit Attraction',
       method: 'patch',
@@ -39,7 +37,7 @@ class Edit extends React.Component {
             { label: 'Title', name: 'title', type: 'textfield', required: true },
             { label: 'Categories', name: 'category_ids', type: 'lookup2', required: true, multiple: true, endpoint: '/api/admin/eatfresh/categories', value: 'id', text: 'title', format: CategoryToken },
             { label: 'Offerings', name: 'offering_ids', type: 'lookup2', required: true, multiple: true, endpoint: '/api/admin/eatfresh/offerings', value: 'id', text: 'title', format: OfferingToken },
-            { label: 'Photo', name: 'photo_id', type: 'filefield', required: true, prompt: 'Choose Photo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', token, multiple: false },
+            { label: 'Photo', name: 'photo_id', type: 'filefield', required: true, prompt: 'Choose Photo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', multiple: false },
             { label: 'Address 1', name: 'address_1', type: 'textfield', required: true },
             { label: 'Address 2', name: 'address_2', type: 'textfield' },
             { label: 'City', name: 'city', type: 'textfield', required: true },
@@ -58,7 +56,7 @@ class Edit extends React.Component {
             { label: 'Organic / USDA Organic', name: 'is_organic', type: 'checkbox' },
             { label: 'Senior Discount', name: 'is_senior', type: 'checkbox' },
             { label: 'Vegetarian / Vegan', name: 'is_vegetarian', type: 'checkbox' },
-            { label: 'Photos', name: 'photo_ids', type: 'filefield', multiple: true, prompt: 'Upload Photo', action: '/api/admin/assets/upload', endpoint: '/api/admin/eatfresh/photos', token }
+            { label: 'Photos', name: 'photo_ids', type: 'filefield', multiple: true, prompt: 'Upload Photo', action: '/api/admin/assets/upload', endpoint: '/api/admin/eatfresh/photos' }
           ]
         }
       ]
@@ -76,8 +74,4 @@ class Edit extends React.Component {
 
 }
 
-const mapStateToProps = (state, props) => ({
-  token: state.maha.admin.team.token
-})
-
-export default connect(mapStateToProps)(Edit)
+export default Edit

@@ -1,7 +1,4 @@
-import GroupToken from '../../components/group_token'
 import { CompactUserToken, Form } from 'maha-admin'
-import RoleToken from '../../components/role_token'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -14,9 +11,7 @@ class New extends React.Component {
     router: PropTypes.object
   }
 
-  static propTypes = {
-    token: PropTypes.string
-  }
+  static propTypes = {}
 
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
@@ -27,7 +22,6 @@ class New extends React.Component {
 
   _getForm() {
     const { configuration } = this.context
-    const { token } = this.props
     return {
       title: 'New User',
       method: 'post',
@@ -41,7 +35,7 @@ class New extends React.Component {
             { label: 'Last Name', name: 'last_name', type: 'textfield', required: true },
             { label: 'Email', name: 'email', type: 'textfield', required: true },
             { label: 'Secondary Email', name: 'secondary_email', type: 'textfield' },
-            { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', token, multiple: false },
+            { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', multiple: false },
             { label: 'Roles', name: 'role_ids', type: 'lookup2', multiple: true, endpoint: '/api/admin/team/roles', value: 'id', text: 'title' },
             { label: 'Groups', name: 'group_ids', type: 'lookup2', multiple: true, endpoint: '/api/admin/team/groups', value: 'id', text: 'title' },
             { label: 'Supervisors', name: 'supervisor_ids', type: 'lookup2', multiple: true, endpoint: '/api/admin/team/supervisors', value: 'user_id', text: 'full_name', format: CompactUserToken }
@@ -66,8 +60,4 @@ class New extends React.Component {
 
 }
 
-const mapStateToProps = (state, props) => ({
-  token: state.maha.admin.team.token
-})
-
-export default connect(mapStateToProps)(New)
+export default New
