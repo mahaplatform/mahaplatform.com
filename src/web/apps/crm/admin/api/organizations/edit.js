@@ -19,7 +19,8 @@ const editRoute = async (req, res) => {
     fields: [
       'id',
       'name',
-      'logo_id'
+      'logo_id',
+      'values'
     ]
   })
 

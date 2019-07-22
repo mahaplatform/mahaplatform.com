@@ -1,18 +1,34 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import OrganizationSerializer from '../../../serializers/organization_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
+import { processValues } from '../../../../maha/services/values'
 import socket from '../../../../../core/services/routes/emitter'
 import Organization from '../../../models/organization'
+import Field from '../../../../maha/models/field'
 
 const createRoute = async (req, res) => {
 
+  const values = await processValues(req, {
+    parent_type: 'crm_contacts',
+    values: req.body.values
+  })
+
   const organization = await Organization.forge({
     team_id: req.team.get('id'),
-    values: {},
-    ...whitelist(req.body, ['name','logo_id'])
+    ...whitelist(req.body, ['name','logo_id']),
+    values
   }).save(null, {
     transacting: req.trx
   })
+
+  req.fields = await Field.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('parent_type', 'crm_contacts')
+    qb.orderBy('delta', 'asc')
+  }).fetchAll({
+    transacting: req.trx
+  }).then(result => result.toArray())
 
   await activity(req, {
     story: 'created {object}',

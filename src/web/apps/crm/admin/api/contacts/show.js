@@ -1,4 +1,5 @@
 import ContactSerializer from '../../../serializers/contact_serializer'
+import Field from '../../../../maha/models/field'
 import Contact from '../../../models/contact'
 
 const showRoute = async (req, res) => {
@@ -16,6 +17,15 @@ const showRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load contact'
   })
+
+  req.fields = await Field.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('parent_type', 'crm_contacts')
+    qb.orderBy('delta', 'asc')
+  }).fetchAll({
+    transacting: req.trx
+  }).then(result => result.toArray())
 
   res.status(200).respond(contact, ContactSerializer)
 

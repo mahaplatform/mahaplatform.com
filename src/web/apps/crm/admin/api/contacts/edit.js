@@ -22,7 +22,8 @@ const editRoute = async (req, res) => {
       'last_name',
       'email',
       'phone',
-      'photo_id'
+      'photo_id',
+      'values'
     ]
   })
 

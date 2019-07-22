@@ -1,8 +1,10 @@
 import OrganizationSerializer from '../../../serializers/organization_serializer'
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
+import { processValues } from '../../../../maha/services/values'
 import socket from '../../../../../core/services/routes/emitter'
 import Organization from '../../../models/organization'
+import Field from '../../../../maha/models/field'
 
 const updateRoute = async (req, res) => {
 
@@ -19,9 +21,26 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load organization'
   })
 
-  await organization.save(whitelist(req.body, ['name','logo_id']), {
+  const values = await processValues(req, {
+    parent_type: 'crm_organizations',
+    values: req.body.values
+  })
+
+  await organization.save({
+    ...whitelist(req.body, ['name','logo_id']),
+    values
+  }, {
     transacting: req.trx
   })
+
+  req.fields = await Field.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('parent_type', 'crm_contacts')
+    qb.orderBy('delta', 'asc')
+  }).fetchAll({
+    transacting: req.trx
+  }).then(result => result.toArray())
 
   await activity(req, {
     story: 'updated {object}',

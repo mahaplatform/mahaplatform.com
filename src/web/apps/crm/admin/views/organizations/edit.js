@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
+import sections from './sections'
 import React from 'react'
 
 class Edit extends React.Component {
@@ -31,15 +32,19 @@ class Edit extends React.Component {
       action: `/api/admin/crm/organizations/${organization.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
-      sections: [
-        {
-          fields: [
-            { label: 'Name', name: 'name', type: 'textfield' },
-            { label: 'Logo', name: 'logo_id', type: 'filefield', prompt: 'Choose Logo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', multiple: false }
-          ]
-        }
-      ]
+      sections: this._getSections()
     }
+  }
+
+  _getSections() {
+    const { fields } = this.props
+    const results = sections(fields)
+    results[0].fields = [
+      { label: 'Name', name: 'name', type: 'textfield' },
+      { label: 'Logo', name: 'logo_id', type: 'filefield', prompt: 'Choose Logo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', multiple: false },
+      ...results[0].fields
+    ]
+    return results
   }
 
   _handleCancel() {

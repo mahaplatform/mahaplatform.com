@@ -9,7 +9,9 @@ import Item from '../../../models/item'
 
 const finalizeRoute = async (req, res) => {
 
-  const fields = await Field.query(qb => {
+  const fields = await Field.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('parent_type', 'sites_types')
     qb.orderBy(['parent_id','delta'])
   }).fetchAll({
@@ -44,7 +46,11 @@ const finalizeRoute = async (req, res) => {
       transacting: req.trx
     })
 
-    const values = await processValues(req, 'sites_types', req.body.type_id, item.get('preimport'))
+    const values = await processValues(req, {
+      parent_type: 'sites_types',
+      parent_id: req.body.type_id,
+      values: item.get('preimport')
+    })
 
     await item.save({
       values,

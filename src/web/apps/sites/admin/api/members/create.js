@@ -9,7 +9,11 @@ import Email from '../../../models/email'
 
 const createRoute = async (req, res) => {
 
-  const values = await processValues(req, 'sites_sites', req.params.site_id, req.body.values)
+  const values = await processValues(req, {
+    parent_type: 'sites_sites',
+    parent_id: req.params.site_id,
+    values: req.body.values
+  })
 
   const member = await Member.forge({
     team_id: req.team.get('id'),

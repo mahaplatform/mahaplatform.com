@@ -4,7 +4,9 @@ import Item from '../../../models/item'
 
 const listRoute = async (req, res) => {
 
-  req.fields = await Field.query(qb => {
+  req.fields = await Field.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('parent_type', 'sites_types')
     qb.where('parent_id', req.params.type_id)
     qb.orderBy('delta', 'asc')

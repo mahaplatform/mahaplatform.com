@@ -4,7 +4,9 @@ import Field from '../../../models/field'
 
 const destroyRoute = async (req, res) => {
 
-  const field = await Field.query(qb => {
+  const field = await Field.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

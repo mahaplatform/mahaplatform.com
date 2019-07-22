@@ -5,16 +5,20 @@ import geocode from './geocode'
 import Checkit from 'checkit'
 import _ from 'lodash'
 
-export const processValues = async (req, parent_type, parent_id, data) => {
+export const processValues = async (req, { parent_type, parent_id, values }) => {
 
-  const fields = await Field.query(qb => {
+  const fields = await Field.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('parent_type', parent_type)
-    qb.where('parent_id', parent_id)
+    if(parent_id) {
+      qb.where('parent_id', parent_id)
+    }
   }).fetchAll({
     transacting: req.trx
   }).then(result => result.toArray())
 
-  const errors = await validate(fields, data)
+  const errors = await validate(fields, values)
 
   if(errors) throw new Error({
     code: 422,
@@ -22,7 +26,7 @@ export const processValues = async (req, parent_type, parent_id, data) => {
     errors: errors.toJSON()
   })
 
-  return await transformValues(req, fields, data)
+  return await transformValues(req, fields, values)
 
 }
 
@@ -143,7 +147,9 @@ const transformValue = async (req, field, value) => {
 
 export const expandValues = async (req, parent_type, parent_id, data) => {
 
-  const fields = await Field.query(qb => {
+  const fields = await Field.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('parent_type', parent_type)
     qb.where('parent_id', parent_id)
   }).fetchAll({

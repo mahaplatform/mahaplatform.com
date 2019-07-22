@@ -8,26 +8,18 @@ const itemSerializer = (req, result) => ({
 })
 
 const title = (req, result) => {
-
   const field = req.fields[0]
-
   const value = result.get('values')[field.get('code')]
-
   return value && value.length > 0 ? value[0] : `ID#${result.get('id')}`
-
 }
 
 const values = (req, values) => Object.keys(values).reduce((sanitized, code) => {
-
   const field = req.fields.find(field => field.get('code') === code)
-
   const { multiple } = field.get('config')
-
   return {
     ...sanitized,
     [code]: multiple === true ? values[code] : values[code][0]
   }
-
 }, {})
 
 export default itemSerializer

@@ -21,14 +21,20 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load item'
   })
 
-  const values = await processValues(req, 'sites_types', req.params.type_id, req.body.values)
+  const values = await processValues(req, {
+    parent_type: 'sites_types',
+    parent_id: req.params.type_id,
+    values: req.body.values
+  })
 
   await item.save({ values }, {
     patch: true,
     transacting: req.trx
   })
 
-  req.fields = await Field.query(qb => {
+  req.fields = await Field.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('parent_type', 'sites_types')
     qb.where('parent_id', req.params.type_id)
     qb.orderBy('delta', 'asc')
@@ -36,7 +42,9 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   }).then(result => result.toArray())
 
-  const map = await Field.query(qb => {
+  const map = await Field.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('parent_type', 'sites_types')
     qb.orderBy(['parent_id','delta'])
   }).fetchAll({

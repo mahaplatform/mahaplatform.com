@@ -10,15 +10,16 @@ const getTabs = (user, { organization }) => ({
   ]
 })
 
-const getTasks = (user, { organization }) => ({
+const getTasks = (user, { organization, fields }) => ({
   items: [
-    { label: 'Edit Organization', modal: <Edit organization={ organization } /> }
+    { label: 'Edit Organization', modal: <Edit organization={ organization } fields={ fields } /> }
   ]
 })
 
 
 const mapResourcesToPage = (props, context) => ({
-  organization: `/api/admin/crm/organizations/${props.params.id}`
+  organization: `/api/admin/crm/organizations/${props.params.id}`,
+  fields: '/api/admin/crm_organizations/fields'
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
