@@ -66,6 +66,7 @@ class Details extends React.Component {
     const { item } = this.props
     const items = []
     const folder = item.folder || specials.drive
+    items.push({ component: <Message icon="folder-o" /> })
     items.push({ label: 'Created At', content: item.created_at, format: 'datetime' })
     if(item.deleted_at) {
       items.push({ label: 'Folder', content: <Folder { ...this._getFolder(specials.trash) } /> })
