@@ -1,4 +1,4 @@
-export const fetch = (quiz_id) => ({
+export const fetch = () => ({
   type: 'API_REQUEST',
   method: 'GET',
   endpoint: '/api/admin/training/trainings',

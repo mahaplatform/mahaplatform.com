@@ -1,6 +1,7 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import AppraisalSerializer from '../../../serializers/appraisal_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
+import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import Appraisal from '../../../models/appraisal'
 
@@ -17,6 +18,11 @@ const createRoute = async (req, res) => {
   await activity(req, {
     story: 'created {object}',
     object: appraisal
+  })
+
+  await audit(req, {
+    story: 'assigned',
+    auditable: appraisal
   })
 
   await socket.refresh(req, [

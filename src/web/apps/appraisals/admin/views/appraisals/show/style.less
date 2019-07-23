@@ -1,0 +1,53 @@
+.appraisal {
+  thead th {
+    background-color: @black !important;
+    color: @white !important;
+  }
+  table {
+    margin-bottom: 0.8em;
+  }
+  th, td {
+    padding: 0.8em !important;
+  }
+  tbody tr {
+    th {
+      background-color: fadeout(@black, 97);
+    }
+    th:first-child {
+      width: 82%;
+    }
+    th:nth-child(2) {
+      width: 18%;
+    }
+    td:nth-child(2) {
+      text-align: center;
+    }
+  }
+  td {
+    color: fadeout(@black, 40);
+  }
+  strong {
+    color: @black;
+  }
+}
+.appraisal-rating-unaswered {
+  margin-top: 0.8em;
+  color: @red;
+}
+.appraisal-rating-comments {
+  margin-top: 0.8em;
+  padding: 0.8em;
+  background-color: fadeout(@black, 95);
+  strong {
+    color: fadeout(@black, 60);
+  }
+  &.result-1 strong {
+    color: @green;
+  }
+  &.result-2 strong {
+    color: @blue;
+  }
+  &.result-3 strong {
+    color: @red;
+  }
+}

@@ -14,25 +14,35 @@ const schema = {
       table.text('additional_comments')
       table.text('employee_position_description')
       table.text('supervisor_position_description')
-      table.text('development_feedback')
       table.integer('documentation_rating')
+      table.text('documentation_comments')
       table.integer('attendance_rating')
+      table.text('attendance_comments')
       table.integer('health_safety_rating')
+      table.text('health_safety_comments')
       table.integer('inclusiveness_rating')
+      table.text('inclusiveness_comments')
       table.integer('adaptability_rating')
+      table.text('adaptability_comments')
       table.integer('self_development_rating')
+      table.text('self_development_comments')
       table.integer('communication_rating')
+      table.text('communication_comments')
       table.integer('teamwork_rating')
+      table.text('teamwork_comments')
       table.integer('service_minded_rating')
+      table.text('service_minded_comments')
       table.integer('stewardship_rating')
+      table.text('stewardship_comments')
       table.integer('motivation_rating')
+      table.text('motivation_comments')
       table.text('success_skills_comments')
       table.integer('employee_communication_rating')
+      table.text('employee_communication_comments')
       table.integer('delegation_rating')
+      table.text('delegation_comments')
       table.integer('recruitment_retention_rating')
-      table.text('supervisory_comments')
-      table.text('self_development_comments')
-      table.text('supervison_coaching_comments')
+      table.text('recruitment_retention_comments')
       table.text('employee_feedback')
       table.string('employee_signature', 255)
       table.timestamp('employee_signed_at')
@@ -52,11 +62,17 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('appraisal_id').unsigned()
-      table.text('description')
+      table.integer('type_id').unsigned()
       table.integer('weight')
-      table.integer('responsibility_1_rating')
+      table.integer('rating')
+      table.text('comment')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('appraisals_responsibility_types', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
     })
 
     await knex.schema.createTable('chat_channels', (table) => {
@@ -1302,17 +1318,6 @@ const schema = {
     })
 
 
-    await knex.schema.table('appraisals_appraisals', table => {
-      table.foreign('employee_id').references('maha_users.id')
-      table.foreign('supervisor_id').references('maha_users.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('appraisals_responsibilities', table => {
-      table.foreign('appraisal_id').references('appraisals_appraisals.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
     await knex.schema.table('chat_channels', table => {
       table.foreign('last_message_id').references('chat_messages.id')
       table.foreign('owner_id').references('maha_users.id')
@@ -1380,6 +1385,21 @@ const schema = {
 
     await knex.schema.table('competencies_resources', table => {
       table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_contacts_organizations', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('organization_id').references('crm_organizations.id')
+    })
+
+    await knex.schema.table('crm_contacts', table => {
+      table.foreign('photo_id').references('maha_assets.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_organizations', table => {
+      table.foreign('logo_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -1860,19 +1880,16 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('crm_organizations', table => {
+    await knex.schema.table('appraisals_appraisals', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('logo_id').references('maha_assets.id')
+      table.foreign('supervisor_id').references('maha_users.id')
+      table.foreign('employee_id').references('maha_users.id')
     })
 
-    await knex.schema.table('crm_contacts', table => {
+    await knex.schema.table('appraisals_responsibilities', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('photo_id').references('maha_assets.id')
-    })
-
-    await knex.schema.table('crm_contacts_organizations', table => {
-      table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('organization_id').references('crm_organizations.id')
+      table.foreign('appraisal_id').references('appraisals_appraisals.id')
+      table.foreign('type_id').references('appraisals_responsibility_types.id')
     })
 
 
