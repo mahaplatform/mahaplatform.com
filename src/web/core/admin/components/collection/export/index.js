@@ -10,7 +10,6 @@ class Export extends React.Component {
   }
 
   render() {
-    const { items } = this.props
     return (
       <div className="maha-collection-tasks-panel">
         <div className="maha-collection-tasks-panel-header">
@@ -28,12 +27,12 @@ class Export extends React.Component {
         <div className="maha-collection-tasks-panel-footer">
           <div className="maha-collection-tasks-panel-footer-item">
             <div className="ui fluid red button" onClick={ this._handleDownload.bind(this, 'csv') }>
-              Download CSV
+              Export CSV
             </div>
           </div>
           <div className="maha-collection-tasks-panel-footer-item">
             <div className="ui fluid red button" onClick={ this._handleDownload.bind(this, 'xlsx') }>
-              Download XLSX
+              Export XLSX
             </div>
           </div>
         </div>
