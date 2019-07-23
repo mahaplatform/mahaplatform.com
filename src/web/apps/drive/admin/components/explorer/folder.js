@@ -65,7 +65,7 @@ class Folder extends React.Component {
             </div>
           </div>
           { folder.code !== 'root' ?
-            <div className="drive-header-icon" onClick={ this._handleTasks.bind(this, folder) }>
+            <div className="drive-header-icon" onClick={ this._handleTasks }>
               <i className="fa fa-fw fa-ellipsis-v" />
             </div> : <div className="drive-header-icon" />
           }

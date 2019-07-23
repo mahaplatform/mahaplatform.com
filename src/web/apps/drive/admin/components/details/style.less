@@ -33,7 +33,7 @@
   white-space: nowrap;
   word-break: break-all;
   overflow: hidden;
-  line-height: 1.6em;
+  flex: 1;
 }
 .drive-details-description {
   padding: 0.8em;
@@ -83,9 +83,8 @@
 }
 @media (min-width: 769px) {
   .drive-details {
-    flex: 0 0 25%;
-    max-width: 420px;
-    min-width: 280px;
+    flex: 0 0 20%;
+    min-width: 325px;
     border-left: 1px solid fadeout(@black, 95);
     .drive-details-title-close {
       display: none;
