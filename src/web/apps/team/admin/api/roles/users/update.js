@@ -26,6 +26,15 @@ const updateRoute = async (req, res) => {
     related_foreign_key: 'user_id'
   })
 
+  await role.load(['users'], {
+    transacting: req.trx
+  })
+
+  await socket.message(req, role.related('users').map(user => ({
+    channel: `/admin/users/${user.id}`,
+    action: 'session'
+  })))
+
   await socket.refresh(req, [
     `/admin/team/roles/${req.params.id}`
   ])

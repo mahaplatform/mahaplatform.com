@@ -78,7 +78,7 @@ class New extends React.Component {
         }, {
           label: 'Job Responsibilities',
           fields: [
-            { label: 'Responsibilities', type: Responsibilities }
+            { name: 'responsibilities', type: Responsibilities }
           ]
         }, {
           label: 'General Expectations',

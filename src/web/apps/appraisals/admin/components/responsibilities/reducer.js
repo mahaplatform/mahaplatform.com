@@ -13,7 +13,13 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       responsibilities: [
         ...state.responsibilities,
-        action.responsibility
+        {
+          id: null,
+          ...action.responsibility,
+          rating: null,
+          comments: ''
+        }
+
       ]
     }
 
@@ -36,6 +42,26 @@ const reducer = (state = INITIAL_STATE, action) => {
       responsibilities: [
         ...state.responsibilities.filter((responsibility, index) => {
           return index !== action.index
+        })
+      ]
+    }
+
+  case 'SET':
+    return {
+      ...state,
+      responsibilities: action.responsibilities
+    }
+
+  case 'UPDATE':
+    return {
+      ...state,
+      responsibilities: [
+        ...state.responsibilities.map((responsibility, index) => {
+          if(index !== action.index) return responsibility
+          return {
+            ...responsibility,
+            [action.key]: action.value
+          }
         })
       ]
     }

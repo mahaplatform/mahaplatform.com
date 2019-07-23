@@ -12,8 +12,10 @@ const Ratings = ({ appraisal, questions, section, title }) => (
       { questions.filter(rating => rating.section === section).map((rating, index) => [
         <tr key={`field_${index}`}>
           <td>
-            <strong>{ rating.label }</strong><br />
-            { rating.instructions }
+            <div className="appraisal-rating-description">
+              <strong>{ rating.label }</strong><br />
+              { rating.instructions }
+            </div>
             { appraisal[`${rating.name}_rating`] !== null ?
               <div className={`appraisal-rating-comments result-${appraisal[`${rating.name}_rating`]}`}>
                 { appraisal[`${rating.name}_rating`] === 1 && <strong>Exceeds Expectations</strong> }

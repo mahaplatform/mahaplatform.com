@@ -49,7 +49,7 @@ const updateRoute = async (req, res) => {
   })
 
   await socket.message(req, role.related('users').map(user => ({
-    channel: 'user',
+    channel: `/admin/users/${user.id}`,
     action: 'session'
   })))
 

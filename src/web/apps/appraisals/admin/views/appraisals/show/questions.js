@@ -12,8 +12,10 @@ const Questions = ({ appraisal, questions, section, title }) => (
       { questions.filter(rating => rating.section === section).map((question, index) => [
         <tr key={`field_${index}`}>
           <td>
-            <strong>{ question.label }</strong><br />
-            { question.instructions }
+            <div className="appraisal-rating-description">
+              <strong>{ question.label }</strong><br />
+              { question.instructions }
+            </div>
             { appraisal[question.name] !== null ?
               <div className="appraisal-rating-comments">
                 { appraisal[question.name] }

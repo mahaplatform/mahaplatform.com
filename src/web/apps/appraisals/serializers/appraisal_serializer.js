@@ -9,6 +9,7 @@ const appraisalSerializer = (req, result) => ({
   development_goals: result.get('development_goals'),
   additional_comments: result.get('additional_comments'),
   supervisor_position_description: result.get('supervisor_position_description'),
+  responsibilities: result.related('responsibilities').map(responsibility),
   documentation_rating: result.get('documentation_rating'),
   documentation_comments: result.get('documentation_comments'),
   attendance_rating: result.get('attendance_rating'),
@@ -41,6 +42,17 @@ const appraisalSerializer = (req, result) => ({
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
+
+const responsibility = (responsibility) => {
+  if(!responsibility.id) return null
+  return {
+    id: responsibility.get('id'),
+    responsibility_type: responsibility.related('responsibility_type').get('text'),
+    weight: responsibility.get('weight'),
+    rating: responsibility.get('rating'),
+    comments: responsibility.get('comments')
+  }
+}
 
 const audit = (entry) => ({
   id: entry.get('id'),

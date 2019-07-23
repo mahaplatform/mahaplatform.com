@@ -30,9 +30,7 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Responsibility', name: 'responsibility_type_id', type: 'radiogroup', endpoint: '/api/admin/appraisals/responsibility_types', value: 'id', text: 'text', required: true },
-            { label: 'Weight', name: 'weight', type: 'numberfield', placeholder: 'Enter a number between 1 and 100', required: true },
-            { label: 'Rating', name: 'rating', type: 'radiogroup', options: [ { value: 1, text: 'Exceeds Expectations' }, { value: 2, text: 'Meets Expectations' }, { value: 3, text: 'Does Not Meet Expectations' } ] },
-            { name: 'comments', type: 'textarea', placeholder: 'Enter any comments for development' }
+            { label: 'Weight', name: 'weight', type: 'numberfield', placeholder: 'Enter a number between 1 and 100', required: true }
           ]
         }
       ]

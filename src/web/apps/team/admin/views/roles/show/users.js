@@ -1,6 +1,6 @@
 import { UserToken, List } from 'maha-admin'
 import PropTypes from 'prop-types'
-import AssignUsers from './users'
+import AssignUsers from '../users'
 import React from 'react'
 
 const Users = ({ role, users }) => {
@@ -15,7 +15,7 @@ const Users = ({ role, users }) => {
       text: 'This role has not been assigned to any users',
       button: {
         label: 'Assign Users',
-        modal: (props) => <AssignUsers role={ role } users={ users } />
+        modal: (props) => <AssignUsers role_id={ role.id } />
       }
     },
     buttons: [

@@ -10,7 +10,15 @@ const Details = ({ appraisal }) => {
 
   list.items = [
     { label: 'Employee', content: appraisal.employee.full_name },
-    { label: 'Supervisor', content: appraisal.supervisor.full_name }
+    { label: 'Supervisor', content: appraisal.supervisor.full_name },
+    { label: 'Signatures', content: (
+      <div>
+        Executive Director: Ken Schlather 1/23/19<br />
+        Issue Leader: Ken Schlather 1/23/19<br />
+        Supervisor: Ken Schlather 1/23/19<br />
+        Employee: Greg Kops 1/23/19<br />
+      </div>
+    ) }
   ]
 
   list.items.push({ component: <Audit entries={ appraisal.audit } /> })

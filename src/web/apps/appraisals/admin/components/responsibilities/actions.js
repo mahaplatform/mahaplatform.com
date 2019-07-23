@@ -16,3 +16,15 @@ export const remove = (index) => ({
   type: 'REMOVE',
   index
 })
+
+export const set = (responsibilities) => ({
+  type: 'SET',
+  responsibilities
+})
+
+export const update = (index, key, value) => ({
+  type: 'UPDATE',
+  index,
+  key,
+  value
+})
