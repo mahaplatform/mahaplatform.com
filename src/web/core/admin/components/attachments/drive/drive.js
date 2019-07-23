@@ -32,8 +32,8 @@ class Drive extends React.Component {
     const { q } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="drive">
-          <div className="drive-search">
+        <div className="maha-attachments-drive">
+          <div className="maha-attachments-drive-search">
             <Searchbox { ...this._getSearchBox() } />
           </div>
           { q.length === 0 && <Stack { ...this._getStack() } /> }

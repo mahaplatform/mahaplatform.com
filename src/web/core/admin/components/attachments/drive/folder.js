@@ -21,21 +21,21 @@ class Folder extends React.Component {
   render() {
     const { folder } = this.props
     return (
-      <div className="drive-folder">
-        <div className="drive-header">
-          <div className="drive-header-breadcrumb" onClick={ this._handleUp }>
-            <div className="drive-header-back">
+      <div className="maha-attachments-drive-folder">
+        <div className="maha-attachments-drive-header">
+          <div className="maha-attachments-drive-header-breadcrumb" onClick={ this._handleUp }>
+            <div className="maha-attachments-drive-header-back">
               { folder.item_id ?
                 <i className="fa fa-fw fa-chevron-left" /> :
                 <i className="fa fa-fw fa-home" />
               }
             </div>
-            <div className="drive-header-label">
+            <div className="maha-attachments-drive-header-label">
               { folder.label }
             </div>
           </div>
         </div>
-        <div className="drive-results">
+        <div className="maha-attachments-drive-results">
           <Infinite { ...this._getInfinite() } />
         </div>
       </div>

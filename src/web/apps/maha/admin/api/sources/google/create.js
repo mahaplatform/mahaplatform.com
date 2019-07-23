@@ -52,7 +52,7 @@ const createRoute = async (req, res) => {
       fileId,
       mimeType: _getMime(mime_type)
     },{
-      responseType: 'stream'
+      responseType: 'arraybuffer'
     })
   }
 
@@ -61,7 +61,7 @@ const createRoute = async (req, res) => {
       fileId,
       alt: 'media'
     },{
-      responseType: 'stream'
+      responseType: 'arraybuffer'
     })
   }
 

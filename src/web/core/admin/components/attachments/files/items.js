@@ -21,10 +21,10 @@ class Items extends React.Component {
   render() {
     const { records } = this.props
     return (
-      <div className="drive-items">
+      <div className="maha-attachments-drive-items">
         { records.map((item, index) => (
-          <div className="drive-item" key={`item_${index}`}>
-            <div className="drive-item-icon" onClick={ this._handleClick.bind(this, item) }>
+          <div className="maha-attachments-drive-item" key={`item_${index}`}>
+            <div className="maha-attachments-drive-item-icon" onClick={ this._handleClick.bind(this, item) }>
               { item.type === 'folder' &&
                 <div className="maha-asset-icon">
                   <i className="fa fa-fw fa-folder" />
@@ -32,10 +32,10 @@ class Items extends React.Component {
               }
               { item.type === 'file' && <AssetIcon content_type={ item.content_type } /> }
             </div>
-            <div className="drive-item-name" onClick={ this._handleClick.bind(this, item) }>
+            <div className="maha-attachments-drive-item-name" onClick={ this._handleClick.bind(this, item) }>
               { item.name }
             </div>
-            <div className="drive-item-action">
+            <div className="maha-attachments-drive-item-action">
               { this._getIcon(item) }
             </div>
           </div>

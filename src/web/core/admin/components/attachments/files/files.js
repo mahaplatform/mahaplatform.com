@@ -32,8 +32,8 @@ class Files extends React.Component {
     return (
       <ModalPanel { ...this._getPanel() }>
         <Authorized { ...this._getAuthorized() }>
-          <div className="drive">
-            <div className="drive-search">
+          <div className="maha-attachments-drive">
+            <div className="maha-attachments-drive-search">
               <Searchbox { ...this._getSearchbox() } />
             </div>
             { q.length === 0 && <Stack { ...this._getStack() } /> }

@@ -16,10 +16,10 @@ class Items extends React.Component {
   render() {
     const { files, records } = this.props
     return (
-      <div className="drive-items">
+      <div className="maha-attachments-drive-items">
         { records.map((item, index) => (
-          <div className="drive-item" key={`item_${index}`} onClick={ this._handleClick.bind(this, item) }>
-            <div className="drive-item-icon">
+          <div className="maha-attachments-drive-item" key={`item_${index}`} onClick={ this._handleClick.bind(this, item) }>
+            <div className="maha-attachments-drive-item-icon">
               { item.type === 'folder' ?
                 <div className="maha-asset-icon">
                   <i className="fa fa-fw fa-folder" />
@@ -27,10 +27,10 @@ class Items extends React.Component {
                 <AssetThumbnail { ...item.asset } />
               }
             </div>
-            <div className="drive-item-name">
+            <div className="maha-attachments-drive-item-name">
               { item.label }
             </div>
-            <div className="drive-item-action">
+            <div className="maha-attachments-drive-item-action">
               { item.asset && _.findIndex(files, { network: 'maha', id: item.asset.id }) >= 0 &&
                 <i className="fa fa-fw fa-check" />
               }
