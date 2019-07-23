@@ -18,7 +18,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     recordTasks: (record) => [
       {
         label: 'Download Batch',
-        url: `/api/admin/expenses/batches/${record.id}.csv?download=true&enclosure="&token=${props.team.token}`
+        url: `/api/admin/expenses/batches/${record.id}.csv?$page[limit]=0&download=true&enclosure="&token=${props.team.token}`
       }
     ]
   }
