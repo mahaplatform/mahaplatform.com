@@ -32,6 +32,9 @@ class TextArea extends React.Component {
     value: ''
   }
 
+  _handleUpdate = this._handleUpdate.bind(this)
+  _handleChange = _.debounce(this._handleChange.bind(this), 250, { trailing:  true })
+
   render() {
     const { value } = this.state
     const { maxLength } = this.props
@@ -57,11 +60,10 @@ class TextArea extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     if(this.props.defaultValue !== prevProps.defaultValue) {
-      this.setValue(this.props.defaultValue)
+      this.props.onChange(this.state.value )
     }
     if(this.state.value !== prevState.value) {
-      this.props.onChange(this.state.value )
-
+      this._handleChange()
     }
   }
 
@@ -82,11 +84,15 @@ class TextArea extends React.Component {
       value,
       rows,
       tabIndex,
-      onChange: this._handleChange.bind(this)
+      onChange: this._handleUpdate
     }
   }
 
-  _handleChange(event) {
+  _handleChange() {
+    this.props.onChange(this.state.value )
+  }
+
+  _handleUpdate(event) {
     this.setValue(event.target.value)
   }
 

@@ -12,8 +12,10 @@ const schema = {
       table.text('job_goals')
       table.text('development_goals')
       table.text('additional_comments')
-      table.text('employee_position_description')
-      table.text('supervisor_position_description')
+      table.boolean('employee_position_description_updated')
+      table.text('employee_position_description_comments')
+      table.boolean('supervisor_position_description_updated')
+      table.text('supervisor_position_description_comments')
       table.integer('documentation_rating')
       table.text('documentation_comments')
       table.integer('attendance_rating')
@@ -50,7 +52,7 @@ const schema = {
       table.string('issue_leader_signature', 255)
       table.timestamp('issue_leader_signed_at')
       table.string('executive_director_signature', 255)
-      table.timestamp('executive_signed_at')
+      table.timestamp('executive_director_signed_at')
       table.text('final_comments')
       table.string('status', 255)
       table.timestamp('created_at')
@@ -1317,12 +1319,6 @@ const schema = {
     })
 
 
-    await knex.schema.table('appraisals_responsibilities', table => {
-      table.foreign('appraisal_id').references('appraisals_appraisals.id')
-      table.foreign('responsibility_type_id').references('appraisals_responsibility_types.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
     await knex.schema.table('competencies_expectations', table => {
       table.foreign('classification_id').references('competencies_classifications.id')
       table.foreign('competency_id').references('competencies_competencies.id')
@@ -1446,12 +1442,6 @@ const schema = {
       table.foreign('asset_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('training_id').references('training_trainings.id')
-    })
-
-    await knex.schema.table('appraisals_appraisals', table => {
-      table.foreign('employee_id').references('maha_users.id')
-      table.foreign('supervisor_id').references('maha_users.id')
-      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('chat_channels', table => {
@@ -1680,6 +1670,12 @@ const schema = {
       table.foreign('option_id').references('training_options.id')
     })
 
+    await knex.schema.table('appraisals_appraisals', table => {
+      table.foreign('supervisor_id').references('maha_users.id')
+      table.foreign('employee_id').references('maha_users.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('eatfresh_offerings_attractions', table => {
       table.foreign('offering_id').references('eatfresh_offerings.id')
       table.foreign('attraction_id').references('eatfresh_attractions.id')
@@ -1884,6 +1880,12 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('appraisals_responsibilities', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('responsibility_type_id').references('appraisals_responsibility_types.id')
+      table.foreign('appraisal_id').references('appraisals_appraisals.id')
     })
 
     await knex.schema.table('training_options_trainings', table => {

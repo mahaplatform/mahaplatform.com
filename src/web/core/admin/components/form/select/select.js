@@ -60,7 +60,7 @@ const Select = (multiple) => {
 
     componentDidMount() {
       const { defaultValue, endpoint, options, onReady, onFetchItems, onSetItems } = this.props
-      if(defaultValue) this._handleSetSelected(defaultValue)
+      if(defaultValue !== undefined) this._handleSetSelected(defaultValue)
       if(endpoint) return onFetchItems(endpoint)
       if(options) {
         onSetItems(options)

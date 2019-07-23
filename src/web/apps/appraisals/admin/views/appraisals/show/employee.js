@@ -1,11 +1,12 @@
 import { employee } from '../fields'
+import Position from './position'
 import Questions from './questions'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 const Employee = ({ appraisal }) => (
   <div className="appraisal">
-    <Questions title="Position Description Review" questions={ employee } section="position" appraisal={ appraisal } />
+    <Position name="employee_position_description" questions={ employee } appraisal={ appraisal } />
     <Questions title="Self Review" section="self" questions={ employee } appraisal={ appraisal } />
   </div>
 )

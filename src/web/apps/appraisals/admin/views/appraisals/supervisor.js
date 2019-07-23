@@ -37,6 +37,31 @@ class New extends React.Component {
     }
   }
 
+  _getPositionDescription() {
+    const question = _.find(supervisor, { name: 'supervisor_position_description' })
+    const items = [
+      {
+        label: question.label,
+        instructions: question.instructions,
+        name: `${question.name}_updated`,
+        type: 'radiogroup',
+        options: [
+          { value: true, text: 'Yes' },
+          { value: false, text: 'No' }
+        ]
+      }
+    ]
+    if(this.state[`${question.name}_updated`] === false) {
+      items.push({
+        name: `${question.name}_comments`,
+        required: true,
+        type: 'textarea',
+        placeholder: 'Enter a comment'
+      })
+    }
+    return items
+  }
+
   _getRating(name) {
     const rating = _.find(supervisor, { name })
     return [
@@ -73,7 +98,7 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            this._getQuestion('supervisor_position_description')
+            ...this._getPositionDescription()
           ]
         }, {
           label: 'Job Responsibilities',

@@ -54,7 +54,10 @@ class TextField extends React.Component {
     value: ''
   }
 
+  _handleChange = _.debounce(this._handleChange.bind(this), 250, { trailing:  true })
   _handleClear = this._handleClear.bind(this)
+  _handleKeyUp = this._handleKeyUp.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
     const { value } = this.state
@@ -87,7 +90,7 @@ class TextField extends React.Component {
       this.setValue(this.props.defaultValue)
     }
     if(this.state.value !== prevState.value) {
-      this.props.onChange(this.state.value )
+      this._handleChange()
     }
   }
 
@@ -110,19 +113,17 @@ class TextField extends React.Component {
       value,
       autoComplete,
       placeholder,
-      onChange: this._handleChange.bind(this),
+      onChange: this._handleUpdate,
       onBlur,
       onFocus,
       onKeyPress,
-      onKeyUp: this._handleKeyUp.bind(this),
+      onKeyUp: this._handleKeyUp,
       onKeyDown
     }
   }
 
-  _handleChange(event) {
-    const sanitized = this.props.sanitize(event.target.value)
-    if(!this.props.validate(sanitized)) return event.preventDefault()
-    this.setValue(sanitized)
+  _handleChange() {
+    this.props.onChange(this.state.value )
   }
 
   _handleClear() {
@@ -135,6 +136,12 @@ class TextField extends React.Component {
       event.preventDefault()
       this.props.onSubmit()
     }
+  }
+  
+  _handleUpdate(event) {
+    const sanitized = this.props.sanitize(event.target.value)
+    if(!this.props.validate(sanitized)) return event.preventDefault()
+    this.setValue(sanitized)
   }
 
   setValue(value) {

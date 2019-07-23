@@ -91,9 +91,12 @@ export default (state = INITIAL_STATE, action) => {
     return {
       ...state,
       status: 'data_loaded',
-      data: Object.keys(action.defaults).reduce((data, key) => ({
+      data: _.uniq([
+        ...Object.keys(action.defaults),
+        ...Object.keys(action.result.data)
+      ]).reduce((data, key) => ({
         ...data,
-        [key]: _.get(action.result.data, key) || action.defaults[key] || null
+        [key]: _.get(action.result.data, key) !== undefined ? _.get(action.result.data, key) : action.defaults[key] || null
       }), {})
     }
 

@@ -25,6 +25,31 @@ class New extends React.Component {
     return <Form { ...this._getForm() } />
   }
 
+  _getPositionDescription() {
+    const question = _.find(employee, { name: 'employee_position_description' })
+    const items = [
+      {
+        label: question.label,
+        instructions: question.instructions,
+        name: `${question.name}_updated`,
+        type: 'radiogroup',
+        options: [
+          { value: true, text: 'Yes' },
+          { value: false, text: 'No' }
+        ]
+      }
+    ]
+    if(this.state[`${question.name}_updated`] === false) {
+      items.push({
+        name: `${question.name}_comments`,
+        required: true,
+        type: 'textarea',
+        placeholder: 'Enter a comment'
+      })
+    }
+    return items
+  }
+
   _getQuestion(name) {
     const question = _.find(employee, { name })
     return [
@@ -41,7 +66,7 @@ class New extends React.Component {
   _getForm() {
     const { appraisal } = this.props
     return {
-      title: 'Supervisor Appraisal',
+      title: 'Employee Appraisal',
       method: 'patch',
       endpoint: `/api/admin/appraisals/appraisals/${appraisal.id}/edit`,
       action: `/api/admin/appraisals/appraisals/${appraisal.id}`,
@@ -51,7 +76,7 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            ...this._getQuestion('employee_position_description')
+            ...this._getPositionDescription()
           ]
         }, {
           label: 'Self Review',

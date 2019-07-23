@@ -25,7 +25,7 @@ const updateRoute = async (req, res) => {
 
   await appraisal.save({
     ...whitelist(req.body, [
-      'employee_position_description','accomplishments','challenges','job_goals','development_goals','additional_comments','supervisor_position_description',
+      'employee_position_description_updated','employee_position_description_comments','accomplishments','challenges','job_goals','development_goals','additional_comments','supervisor_position_description_updated','supervisor_position_description_comments',
       ...ratings.reduce((ratings, rating) => {
         return [...ratings,`${rating}_rating`,`${rating}_comments`]
       }, [])
@@ -47,6 +47,7 @@ const updateRoute = async (req, res) => {
   await socket.refresh(req, [
     { channel: `/admin/users/${appraisal.get('employee_id')}`, target: '/admin/appraisals/appraisals' },
     { channel: `/admin/users/${appraisal.get('supervisor_id')}`, target: '/admin/appraisals/appraisals/employees' },
+    `/admin/appraisals/appraisals/${appraisal.get('id')}`,
     '/admin/appraisals/appraisals/report'
   ])
 

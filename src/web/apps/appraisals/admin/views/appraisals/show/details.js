@@ -1,5 +1,6 @@
 import { Audit, List } from 'maha-admin'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 import React from 'react'
 
 const Details = ({ appraisal }) => {
@@ -13,10 +14,26 @@ const Details = ({ appraisal }) => {
     { label: 'Supervisor', content: appraisal.supervisor.full_name },
     { label: 'Signatures', content: (
       <div>
-        Executive Director: Ken Schlather 1/23/19<br />
-        Issue Leader: Ken Schlather 1/23/19<br />
-        Supervisor: Ken Schlather 1/23/19<br />
-        Employee: Greg Kops 1/23/19<br />
+        { appraisal.executive_director_signature &&
+          <div>
+            Executive Director: { appraisal.executive_director_signature } ({ moment(appraisal.executive_director_signed_at).format('MM/DD/YYYY') })
+          </div>
+        }
+        { appraisal.issue_leader_signature &&
+          <div>
+            Issue Leader: { appraisal.issue_leader_signature } ({ moment(appraisal.issue_leader_signed_at).format('MM/DD/YYYY') })
+          </div>
+        }
+        { appraisal.supervisor_signature &&
+          <div>
+            Supervisor: { appraisal.supervisor_signature } ({ moment(appraisal.supervisor_signed_at).format('MM/DD/YYYY') })
+          </div>
+        }
+        { appraisal.employee_signature &&
+          <div>
+            Employee: { appraisal.employee_signature } ({ moment(appraisal.employee_signed_at).format('MM/DD/YYYY') })
+          </div>
+        }
       </div>
     ) }
   ]

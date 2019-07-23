@@ -17,13 +17,15 @@ const editRoute = async (req, res) => {
   })
 
   res.status(200).respond(appraisal, (req, appraisal) => ({
-    employee_position_description: appraisal.get('employee_position_description'),
+    employee_position_description_updated: appraisal.get('employee_position_description_updated'),
+    employee_position_description_comments: appraisal.get('employee_position_description_comments'),
     accomplishments: appraisal.get('accomplishments'),
     challenges: appraisal.get('challenges'),
     job_goals: appraisal.get('job_goals'),
     development_goals: appraisal.get('development_goals'),
     additional_comments: appraisal.get('additional_comments'),
-    supervisor_position_description: appraisal.get('supervisor_position_description'),
+    supervisor_position_description_updated: appraisal.get('supervisor_position_description_updated'),
+    supervisor_position_description_comments: appraisal.get('supervisor_position_description_comments'),
     responsibilities: appraisal.related('responsibilities').map(responsibility => ({
       id: responsibility.get('id'),
       responsibility_type_id: responsibility.get('responsibility_type_id'),
