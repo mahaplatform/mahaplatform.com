@@ -49,7 +49,7 @@ class Table extends React.Component {
           <thead>
             <tr>
               { selectable &&
-                <td className="maha-table-check-cell mobile" onClick={ this._handleSelectAll.bind(this) }>
+                <td className="maha-table-check-cell" onClick={ this._handleSelectAll.bind(this) }>
                   { selectAll ? <i className="fa fa-fw fa-check-circle" /> : <i className="fa fa-fw fa-circle-o" /> }
                 </td>
               }
@@ -71,7 +71,7 @@ class Table extends React.Component {
           <thead>
             <tr ref={ (node) => this.head = node }>
               { selectable &&
-                <td className="maha-table-check-cell mobile" onClick={ this._handleSelectAll.bind(this) }>
+                <td className="maha-table-check-cell" onClick={ this._handleSelectAll.bind(this) }>
                   { selectAll ? <i className="fa fa-fw fa-check-circle" /> : <i className="fa fa-fw fa-circle-o" /> }
                 </td>
               }
@@ -92,7 +92,7 @@ class Table extends React.Component {
             { records.map((record, rowIndex) => (
               <tr key={ `record_${rowIndex}` } className={ this._getBodyRowClass(record) }>
                 { selectable &&
-                  <td key={`cell_${rowIndex}_select`} className="maha-table-check-cell mobile" onClick={ this._handleSelect.bind(this, record.id) }>
+                  <td key={`cell_${rowIndex}_select`} className="maha-table-check-cell" onClick={ this._handleSelect.bind(this, record.id) }>
                     { _.includes(selected, record.id) ? <i className="fa fa-fw fa-check-circle" /> : <i className="fa fa-fw fa-circle-o" /> }
                   </td>
                 }

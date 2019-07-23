@@ -8,13 +8,19 @@ const itemTasks = (type, item, user, rights, context, Edit) => {
     items: [ ]
   }
 
-  const is_owner_can_edit = user.id === item.user.id && _.includes(['incomplete','pending','submitted','rejected'], item.status)
+  const is_owner = user.id === item.user.id
 
-  const is_approver_can_edit = _.includes(item.approver_ids, user.id) && _.includes(['incomplete','pending','submitted','rejected'], item.status)
+  const is_approver = _.includes(item.approver_ids, user.id)
 
   const is_manager = _.includes(rights, 'expenses:manage_configuration')
 
-  const is_manager_can_edit = is_manager && item.status === 'approved'
+  const can_edit = _.includes(['incomplete','pending','submitted','rejected'], item.status)
+
+  const is_owner_can_edit = is_owner && can_edit
+
+  const is_approver_can_edit =  is_approver && can_edit
+
+  const is_manager_can_edit = is_manager && (can_edit || item.status === 'approved')
 
   if(is_owner_can_edit || is_approver_can_edit || is_manager_can_edit) {
 
@@ -38,9 +44,9 @@ const itemTasks = (type, item, user, rights, context, Edit) => {
 
   }
 
-  const is_owner_can_delete = user.id === item.user.id && _.includes(['incomplete','pending','rejected'], item.status)
+  const can_delete = !_.includes(['reviewed','processed'], item.status)
 
-  if(is_owner_can_delete) {
+  if((is_owner || is_approver || is_manager) && can_delete) {
 
     tasks.items.push({
       label: `Delete ${_.capitalize(type)}`,

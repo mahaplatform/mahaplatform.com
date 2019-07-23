@@ -32,6 +32,7 @@ const expense_type = (expense_type) => {
     id: expense_type.get('id'),
     title: expense_type.get('title'),
     description: expense_type.get('description'),
+    full_title: expense_type.get('full_title'),
     integration: expense_type.get('integration')
   }
 }
@@ -41,6 +42,7 @@ const project = (project) => {
   return {
     id: project.get('id'),
     title: project.get('title'),
+    full_title: project.get('full_title'),
     integration: project.get('integration')
   }
 }

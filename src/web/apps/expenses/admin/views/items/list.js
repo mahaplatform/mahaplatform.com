@@ -97,7 +97,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/expenses/items',
     table: [
       { label: 'ID', key: 'item_id', visible: false, collapsing: true },
-      { label: null, key: 'type', primary: true, collapsing: true, format: CompactTypeToken },
+      { label: null, key: 'type', collapsing: true, format: CompactTypeToken },
       { label: 'Date', key: 'date', format: 'date', collapsing: true },
       { label: 'Project', key: 'project.title', sort: 'expenses_projects.title', format: CompactProjectToken },
       { label: 'Description', key: 'description', primary: true },
@@ -105,7 +105,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Vendor', key: 'vendor.name', sort: 'expenses_vendors.name' },
       { label: 'Account', key: 'account.name', sort: 'expenses_accounts.name' },
       { label: 'Amount', key: 'amount', primary: true, format: 'currency', collapsing: true },
-      { label: 'Status', key: 'status', sort: 'expenses_statuses.text', format: Status, collapsing: true }
+      { label: 'Status', key: 'status', primary: true, sort: 'expenses_statuses.text', format: Status, collapsing: true }
     ],
     filters: [
       { label: 'Type', name: 'type', type: 'select', multiple: true, options: [ { value: 'expense', text: 'Expense' }, { value: 'reimbursement', text: 'Reimbursement' }, { value: 'check', text: 'Check Request' }, { value: 'trip', text: 'Mileage' }, { value: 'advance', text: 'Cash Advance' } ], format: TypeToken },
@@ -121,7 +121,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Type', key: 'type' },
       { label: 'Date', key: 'date' },
       { label: 'User', key: 'user.full_name' },
+      { label: 'Project Code', key: 'project.integration.project_code' },
       { label: 'Project', key: 'project.title' },
+      { label: 'Expense Type Code', key: 'expense_type.integration.expense_code' },
       { label: 'Expense Type', key: 'expense_type.title' },
       { label: 'Vendor', key: 'vendor.name' },
       { label: 'Account', key: 'account.name' },
@@ -134,7 +136,6 @@ const mapPropsToPage = (props, context, resources, page) => ({
     selectable: true,
     entity: 'items',
     icon: 'dollar',
-    rowClass: (record) => record.status,
     buttons: (props) => props.selected.length > 0 ? [
       batchTask(context, props, 'blue', 'submit', 'submitted', 'pending', '/api/admin/expenses/items/submit_all')
     ] : null

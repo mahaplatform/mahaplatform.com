@@ -22,7 +22,7 @@ const mapPropsToPage = (props, context, resources) => ({
     endpoint: '/api/admin/expenses/report',
     table: [
       { label: 'ID', key: 'item_id', visible: false, collapsing: true },
-      { label: null, key: 'type', primary: true, collapsing: true, format: CompactTypeToken },
+      { label: null, key: 'type', collapsing: true, format: CompactTypeToken },
       { label: 'Date', key: 'date', format: 'date', collapsing: true },
       { label: 'User', key: 'user.full_name', sort: 'maha_users.last_name', primary: true },
       { label: 'Project', key: 'project.title', sort: 'expenses_projects.title', format: CompactProjectToken },
@@ -31,7 +31,7 @@ const mapPropsToPage = (props, context, resources) => ({
       { label: 'Vendor', key: 'vendor.name', sort: 'expenses_vendors.name', format: CompactVendorToken },
       { label: 'Account', key: 'account.name', sort: 'expenses_accounts.name' },
       { label: 'Amount', key: 'amount', primary: true, format: 'currency', collapsing: true },
-      { label: 'Status', key: 'status', sort: 'expenses_statuses.text', format: Status, collapsing: true },
+      { label: 'Status', key: 'status', primary: true, sort: 'expenses_statuses.text', format: Status, collapsing: true },
       ...getIntegrationColumn(resources.app.settings.integration)
     ],
     filters: [
@@ -50,7 +50,9 @@ const mapPropsToPage = (props, context, resources) => ({
       { label: 'Type', key: 'type' },
       { label: 'Date', key: 'date' },
       { label: 'User', key: 'user.full_name' },
+      { label: 'Project Code', key: 'project.integration.project_code' },
       { label: 'Project', key: 'project.title' },
+      { label: 'Expense Type Code', key: 'expense_type.integration.expense_code' },
       { label: 'Expense Type', key: 'expense_type.title' },
       { label: 'Vendor', key: 'vendor.name' },
       { label: 'Account', key: 'account.name' },
@@ -61,7 +63,6 @@ const mapPropsToPage = (props, context, resources) => ({
     ],
     link: (record) => `/admin/expenses/${record.type}s/${record.item_id}`,
     defaultSort: { key: 'created_at', order: 'desc' },
-    rowClass: (record) => record.status,
     buttons: (props) => props.selected.length > 0 ? [
       getIntegrationTasks(resources.app.settings.integration, context, props)
     ] : null,
