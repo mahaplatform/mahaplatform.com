@@ -1,6 +1,8 @@
 import formatObjectForTransport from '../../../../core/utils/format_object_for_transport'
 import AssetSerializer from '../../serializers/asset_serializer'
 import ProcessAssetQueue from '../../queues/process_asset_queue'
+import ScanAssetQueue from '../../queues/scan_asset_queue'
+import Clamscan from '../../../../core/services/clamscan'
 import socket from '../../../../core/services/emitter'
 import { simpleParser } from 'mailparser'
 import Source from '../../models/source'
@@ -65,7 +67,6 @@ export const uploadChunk = async (req) => {
   })
   if(!asset) throw new Error('Unable to create asset')
   await assembleAsset(req, asset)
-  await ProcessAssetQueue.enqueue(req, asset.id)
   return asset
 }
 
@@ -98,27 +99,15 @@ export const assembleAsset = async (req, asset) => {
   const normalizedData = await _getNormalizedData(asset, fileData)
   await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
   await _deleteChunks(asset)
-  await asset.save({
+  await _saveAsset(req, asset, {
     status: asset.get('has_preview') ? 'assembled' : 'processed'
-  }, {
-    patch: true,
-    transacting: req.trx
   })
-  if(asset.get('has_preview')) await ProcessAssetQueue.enqueue(null, asset.get('id'))
-  await socket.in(`/admin/assets/${asset.get('id')}`).emit('message', {
-    target: `/admin/assets/${asset.get('id')}`,
-    action: 'refresh',
-    data: formatObjectForTransport(AssetSerializer(null, asset))
-  })
+  if(asset.get('has_preview')) await ProcessAssetQueue.enqueue(req, asset.get('id'))
+  await ScanAssetQueue.enqueue(req, asset.id)
 }
 
 export const processAsset = async (req, id) => {
-  const asset = await Asset.query(qb => {
-    qb.where('id', id)
-  }).fetch({
-    transacting: req.trx
-  })
-  if(!asset) throw new Error('Unable to find asset' )
+  const asset = await _fetchAsset(req,  id)
   const fileData = await getAssetData(asset)
   await _processAsset(req, fileData, asset)
 }
@@ -145,23 +134,17 @@ export const createAsset = async (req, params) => {
 }
 
 export const renameAsset = async (req, asset, params) => {
-  return await asset.save({
+  await _saveAsset(req, asset, {
     original_file_name: params.file_name
-  }, {
-    patch: true,
-    transacting: req.trx
   })
 }
 
 export const updateAsset = async (req, asset, params) => {
   if(!params.file_data || params.file_data.length === 0) return asset
-  await asset.save({
+  await _saveAsset(req, asset, {
     file_size: params.file_size || _getFilesize(params.file_data),
     chunks_total: 1,
     status: 'assembled'
-  }, {
-    patch: true,
-    transacting: req.trx
   })
   await _saveFildata(req, asset, params.file_data)
   return asset
@@ -190,10 +173,48 @@ export const getPDFData = async (asset) => {
   return await _convertOfficeFormat(data, 'pdf')
 }
 
+export const scanAsset = async (req, id) => {
+  const clamscan = await Clamscan
+  const asset = await _fetchAsset(req, id)
+  const filePath = _getTmpPath()
+  const fileData = await getAssetData(asset)
+  fs.writeFileSync(filePath, fileData)
+  const scan = await clamscan.is_infected(filePath)
+  const { is_infected, viruses } = scan.is_infected
+  fs.unlinkSync(filePath)
+  await _saveAsset(req, asset, { is_infected, viruses })
+}
+
+const _refreshAsset = async (req, asset) => {
+  await socket.in(`/admin/assets/${asset.get('id')}`).emit('message', {
+    target: `/admin/assets/${asset.get('id')}`,
+    action: 'refresh',
+    data: formatObjectForTransport(AssetSerializer(null, asset))
+  })
+}
+
+const _fetchAsset = async (req, id) => {
+  const asset = await Asset.query(qb => {
+    qb.where('id', id)
+  }).fetch({
+    transacting: req.trx
+  })
+  if(!asset) throw new Error('Unable to find asset' )
+  return asset
+}
+
+const _saveAsset = async (req, asset, params) => {
+  await asset.save(params, {
+    patch: true,
+    transacting: req.trx
+  })
+}
+
 const _saveFildata = async (req, asset, file_data) => {
   const normalizedData = await _getNormalizedData(asset, file_data)
   await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
   await ProcessAssetQueue.enqueue(req, asset.id)
+  await ScanAssetQueue.enqueue(req, asset.id)
 }
 
 const _processAsset = async (req, data, asset) => {
@@ -201,17 +222,10 @@ const _processAsset = async (req, data, asset) => {
     const previewData = await _getPreviewData(asset, data, 'jpg')
     await _saveFile(previewData, `assets/${asset.get('id')}/preview.jpg`, 'image/jpeg')
   }
-  await asset.save({
+  await _saveAsset(req, asset, {
     status: 'processed'
-  }, {
-    patch: true,
-    transacting: req.trx
   })
-  await socket.in(`/admin/assets/${asset.get('id')}`).emit('message', {
-    target: `/admin/assets/${asset.get('id')}`,
-    action: 'refresh',
-    data: formatObjectForTransport(AssetSerializer(null, asset))
-  })
+  await _refreshAsset(req, asset)
 }
 
 const _getNormalizedData = async (asset, fileData) => {
@@ -245,6 +259,11 @@ const _deleteFiles = async (files) => {
   return await aws.deleteFiles(files)
 }
 
+const _getTmpPath = () => {
+  const random = _.random(100000000, 999999999).toString(36)
+  return path.join('tmp', random)
+}
+
 const _getFileType = (file_data) => {
   const type = fileType(file_data)
   return type ? type.mime : 'text/plain'
@@ -255,8 +274,7 @@ const _getContentType = (file_name) => {
 }
 
 const _getFilesize = (fileData) => {
-  const random = _.random(100000000, 999999999).toString(36)
-  const filePath = path.join('tmp', random)
+  const filePath = _getTmpPath()
   fs.writeFileSync(filePath, fileData)
   const fileStats = fs.statSync(filePath)
   fs.unlinkSync(filePath)
@@ -317,10 +335,9 @@ const _getPreviewData = async (asset, fileData, ext) => {
 }
 
 const _convertOfficeFormat = async (filedata, format) => {
-  const random = _.random(100000000, 999999999).toString(36)
-  const outDir = path.join('.', 'tmp')
-  const filePath = path.join(outDir, random)
-  const previewPath = path.join(outDir, `${random}.preview.${format}`)
+  const outDir = path.join('tmp')
+  const filePath = _getTmpPath()
+  const previewPath = `${filePath}.preview.${format}`
   fs.writeFileSync(filePath, filedata)
   await execAsync(`soffice --convert-to preview.${format} --outdir ${outDir} ${filePath}`)
   const previewData = new Buffer(fs.readFileSync(previewPath), 'binary')

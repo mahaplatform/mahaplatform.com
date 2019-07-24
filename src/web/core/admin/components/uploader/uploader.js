@@ -139,15 +139,22 @@ class Uploader extends React.Component {
 
   _handleUploadSuccess(file, message) {
     const { network } = this.context
-    const { onUpdateUpload } = this.props
-    const asset = JSON.parse(message)
+    const { onUpdateUpload, onRemoveUpload } = this.props
+    const asset = JSON.parse(message).data
     this.resumable.removeFile(file)
-    const asset_id = asset.data.id
-    onUpdateUpload(file.file.uniqueIdentifier, { asset_id, status: 'processing' })
-    network.join(`/admin/assets/${asset.data.id}`)
-    network.subscribe([
-      { target: `/admin/assets/${asset.data.id}`, action: 'refresh', handler: this._handleProcessSuccess }
-    ])
+    onUpdateUpload(file.file.uniqueIdentifier, {
+      asset_id: asset.id,
+      status: asset.status === 'assembled' ? 'processing' : 'complete'
+    })
+    if(asset.status === 'assembled') {
+      network.join(`/admin/assets/${asset.id}`)
+      network.subscribe([
+        { target: `/admin/assets/${asset.id}`, action: 'refresh', handler: this._handleProcessSuccess }
+      ])
+    } else {
+      if(this.handler) this.handler(asset)
+      onRemoveUpload(file)
+    }
   }
 
   _handleProcessSuccess(asset) {
