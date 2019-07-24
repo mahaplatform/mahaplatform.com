@@ -17,7 +17,7 @@ const Ratings = ({ appraisal, questions, section, title }) => (
               { rating.instructions }
             </div>
             { appraisal[`${rating.name}_rating`] !== null ?
-              <div className={`appraisal-rating-comments result-${appraisal[`${rating.name}_rating`]}`}>
+              <div className="appraisal-rating-comments">
                 { appraisal[`${rating.name}_rating`] === 1 && <strong>Exceeds Expectations</strong> }
                 { appraisal[`${rating.name}_rating`] === 2 && <strong>Meets Expectations</strong> }
                 { appraisal[`${rating.name}_rating`] === 3 && <strong>Does Not Meet Expectations</strong> }
