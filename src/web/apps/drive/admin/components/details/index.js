@@ -93,6 +93,7 @@ class Details extends React.Component {
       items.push({ component: <Message icon="folder" />})
     }
     items.push({ label: 'Created At', content: item.created_at, format: 'datetime' })
+    items.push({ label: 'Virus Scan', content: item.asset.is_infected ? 'infected' : 'uninfected' })
     if(item.deleted_at) {
       items.push({ label: 'Folder', content: <Folder { ...this._getFolder(specials.trash) } /> })
       if(item.folder) items.push({ label: 'Removed From', content: <Folder { ...this._getFolder(folder) } /> })

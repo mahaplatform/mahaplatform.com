@@ -14,6 +14,7 @@ const asset = (asset) => ({
   file_size: asset.get('file_size'),
   status: asset.get('status'),
   has_preview: asset.get('has_preview'),
+  is_infected: asset.get('is_infected'),
   path: asset.get('path'),
   signed_url: asset.get('signed_url'),
   source: asset.related('source').get('text'),

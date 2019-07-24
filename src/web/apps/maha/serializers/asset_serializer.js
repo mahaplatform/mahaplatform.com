@@ -8,6 +8,7 @@ const assetSerializer = (req, result) => ({
   resized_url: result.get('resized_url'),
   path: result.get('path'),
   signed_url: result.get('signed_url'),
+  is_infected: result.get('is_infected'),
   url: result.get('url'),
   source: result.related('source').get('text'),
   source_url: result.get('source_url'),

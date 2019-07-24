@@ -34,6 +34,7 @@ class Info extends React.Component {
       items: [
         { label: 'Uploaded By', content: asset.user ? asset.user.full_name : 'Unknown' },
         { label: 'Uploaded On', content: asset.created_at, format: 'date' },
+        { label: 'Virus Scan', content: asset.is_infected ? 'infected' : 'uninfected' },
         { label: 'Source', content: asset.source || 'Unknown' }
       ]
     }

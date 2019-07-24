@@ -102,7 +102,8 @@ const asset = (asset) => {
     path: asset.get('path'),
     source: asset.related('source').get('text'),
     source_url: asset.get('source_url'),
-    signed_url: asset.get('signed_url')
+    signed_url: asset.get('signed_url'),
+    is_infected: asset.get('is_infected')
   }
 
 }
