@@ -90,7 +90,8 @@ const processor = async (meta, email, trx) => {
       file_name: attachment.filename,
       content_type: attachment.contentType,
       file_size: attachment.size,
-      file_data: new Buffer(attachment.content.data)
+      file_data: new Buffer(attachment.content.data),
+      source_id: source.get('id')
     })
 
     await Receipt.forge({
