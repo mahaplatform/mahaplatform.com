@@ -7,7 +7,7 @@ import Coaching from './coaching'
 import Details from './details'
 import React from 'react'
 
-const getTabs = (user, { appraisal }) => {
+const getTabs = ({ user }, { appraisal }) => {
 
   const items = [
     { label: 'Details', component: <Details appraisal={ appraisal } /> },
@@ -20,18 +20,21 @@ const getTabs = (user, { appraisal }) => {
 
 }
 
-const getTasks = (user, { appraisal }) => {
+const getTasks = ({ team, user }, { appraisal }) => {
 
   const items = [
     { label: 'Edit Employee Appraisal', modal: <EmployeeForm appraisal={ appraisal } /> },
-    { label: 'Edit Supervisor Appraisal', modal: <SupervisorForm appraisal={ appraisal } /> }
+    { label: 'Edit Supervisor Appraisal', modal: <SupervisorForm appraisal={ appraisal } /> },
+    { label: 'Download Appraisal', handler: () => {
+      window.location = `/api/admin/appraisals/appraisals/${appraisal.id}/download?token=${team.token}`
+    } }
   ]
 
   return { items }
 
 }
 
-const getButtons = (user, { appraisal }) => {
+const getButtons = ({ user }, { appraisal }) => {
 
   return null
 
@@ -43,9 +46,9 @@ const mapResourcesToPage = (props, context) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Appraisals',
-  tabs: getTabs(props.user, resources),
-  tasks: getTasks(props.user, resources),
-  buttons: getButtons(props.user, resources)
+  tabs: getTabs(props, resources),
+  tasks: getTasks(props, resources),
+  buttons: getButtons(props, resources)
 })
 
 export default Page(mapResourcesToPage, mapPropsToPage)

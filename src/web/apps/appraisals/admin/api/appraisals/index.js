@@ -1,4 +1,5 @@
 import employees from './employees'
+import download from './download'
 import { Router } from 'express'
 import destroy from './destroy'
 import report from './report'
@@ -21,6 +22,8 @@ router.post('/', create)
 router.get('/:id', show)
 
 router.get('/:id/edit', edit)
+
+router.get('/:id/download', download)
 
 router.patch('/:id', update)
 
