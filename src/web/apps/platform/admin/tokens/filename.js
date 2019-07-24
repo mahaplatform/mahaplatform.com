@@ -3,7 +3,7 @@ import React from 'react'
 
 const FilenameToken = ({ original_file_name, source }) => (
   <div className="token">
-    <img src={`/images/${source}.png`} width="16" height="16" />
+    <img src={`/admin/images/${source}.png`} width="16" height="16" />
     { original_file_name }
   </div>
 )
