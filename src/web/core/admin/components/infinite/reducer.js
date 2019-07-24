@@ -56,18 +56,6 @@ const reducer = (state = INITIAL_STATE, action) => {
       status: 'failed'
     }
 
-  case 'FETCH_DELAY':
-    return {
-      ...state,
-      status: 'delayed'
-    }
-
-  case 'FETCH_TIMEOUT':
-    return {
-      ...state,
-      status: 'timeout'
-    }
-
   case 'SELECT':
     const selected = (!_.includes(state.selected, action.id)) ? [
       ...state.selected,

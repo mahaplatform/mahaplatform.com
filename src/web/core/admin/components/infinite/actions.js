@@ -8,14 +8,6 @@ export const fetch = (endpoint, query) => ({
   failure: 'FETCH_FAILURE'
 })
 
-export const fetchDelay = () => ({
-  type: 'FETCH_DELAY'
-})
-
-export const fetchTimeout = () => ({
-  type: 'FETCH_TIMEOUT'
-})
-
 export const select = (id) => ({
   type: 'SELECT',
   id

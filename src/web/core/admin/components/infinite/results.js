@@ -9,28 +9,6 @@ export const Appending = () => (
   </div>
 )
 
-export const Delayed = () => {
-
-  const message = {
-    text: 'This is taking longer than we expected...'
-  }
-
-  return <Message { ...message } />
-
-}
-
-export const Timeout = () => {
-
-  const message = {
-    icon: 'hourglass-end',
-    title: 'Your request timed out',
-    text: 'It took too long to complete your request'
-  }
-
-  return <Message { ...message } />
-
-}
-
 export const Empty = () => {
 
   const message = {

@@ -87,11 +87,12 @@ const processor = async (meta, email, trx) => {
 
     const asset = await createAsset({ trx }, {
       team_id: user.get('team_id'),
+      user_id: user.get('id'),
+      source_id: source.get('id'),
       file_name: attachment.filename,
       content_type: attachment.contentType,
       file_size: attachment.size,
-      file_data: new Buffer(attachment.content.data),
-      source_id: source.get('id')
+      file_data: new Buffer(attachment.content.data)
     })
 
     await Receipt.forge({

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import _ from 'lodash'
 import Scrollpane from '../scrollpane'
 import Loader from '../loader'
-import { Appending, Delayed, Empty, Failure, NotFound, Timeout } from './results'
+import { Appending, Empty, Failure, NotFound } from './results'
 import { connect } from 'react-redux'
 
 class Infinite extends React.Component {
@@ -11,7 +11,6 @@ class Infinite extends React.Component {
   static propTypes = {
     all: PropTypes.number,
     cacheKey: PropTypes.string,
-    delayed: PropTypes.any,
     endpoint: PropTypes.any,
     empty: PropTypes.any,
     exclude_ids: PropTypes.any,
@@ -26,19 +25,13 @@ class Infinite extends React.Component {
     selected: PropTypes.array,
     sort: PropTypes.object,
     status: PropTypes.string,
-    timeout: PropTypes.any,
     total: PropTypes.number,
     onFetch: PropTypes.func,
-    onFetchDelay: PropTypes.func,
-    onFetchTimeout: PropTypes.func,
     onUpdateSelected: PropTypes.func
   }
 
-  timeout = null
-
   static defaultProps = {
     cacheKey: null,
-    delayed: Delayed,
     empty: Empty,
     failure: Failure,
     filter: {},
@@ -49,12 +42,11 @@ class Infinite extends React.Component {
       key: null,
       order: null
     },
-    timeout: Timeout,
     onUpdateSelected: (ids) => {}
   }
 
   render() {
-    const { all, delayed, empty, failure, header, layout, loading, notFound, records, status, timeout, total } = this.props
+    const { all, empty, failure, header, layout, loading, notFound, records, status, total } = this.props
     return (
       <div className="maha-infinite">
         { header &&
@@ -63,8 +55,6 @@ class Infinite extends React.Component {
           </div>
         }
         { status === 'loading' && !records && this._getComponent(loading) }
-        { status === 'delayed' && this._getComponent(delayed) }
-        { status === 'timeout' && this._getComponent(timeout) }
         { status === 'failed' && this._getComponent(failure) }
         { status !== 'failed' && total === 0 && all !== 0 && this._getComponent(notFound) }
         { status !== 'failed' && total === 0 && all === 0 && this._getComponent(empty) }
@@ -79,7 +69,6 @@ class Infinite extends React.Component {
   }
 
   componentDidMount() {
-    this.timeout = null
     this._handleFetch(0, true)
   }
 
@@ -91,10 +80,7 @@ class Infinite extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { cacheKey, exclude_ids, filter, records, selected, sort, status, onUpdateSelected } = this.props
-    if(this.timeout && status !== prevProps.status && prevProps.status === 'loading') {
-      clearTimeout(this.timeout)
-    }
+    const { cacheKey, exclude_ids, filter, records, selected, sort, onUpdateSelected } = this.props
     if(cacheKey !== prevProps.cacheKey || !_.isEqual(prevProps.exclude_ids, exclude_ids)  || !_.isEqual(prevProps.filter, filter) || !_.isEqual(prevProps.sort, sort)) {
       this._handleFetch(0, true)
     }
@@ -124,7 +110,6 @@ class Infinite extends React.Component {
       ...(exclude_ids ? { $exclude_ids: exclude_ids } : {})
     }
     if(onFetch && this._getMore(next, skip, reload, loaded, total)) onFetch(endpoint, query)
-    this.timeout = setTimeout(this._handleDelay.bind(this), 5000)
   }
 
   _getMore(next, skip, reload, loaded, total) {
@@ -139,24 +124,6 @@ class Infinite extends React.Component {
     const loaded = records ? records.length : 0
     if(next) return { next }
     return { skip: skip !== null ? skip : loaded }
-  }
-
-  _handleDelay() {
-    const { status, onFetchDelay } = this.props
-    if(status !== 'loading') return
-    if(onFetchDelay) onFetchDelay()
-    this.timeout = setTimeout(this._handleTimeout.bind(this), 5000)
-  }
-
-  _handleTimeout() {
-    const { status, onFetchTimeout } = this.props
-    if(status !== 'delyed') return
-    if(onFetchTimeout) onFetchTimeout()
-  }
-
-  _handleRefresh() {
-    const { onFetchTimeout } = this.props
-    if(onFetchTimeout) onFetchTimeout()
   }
 
 }
