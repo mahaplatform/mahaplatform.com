@@ -121,7 +121,7 @@ export const createAsset = async (req, params) => {
     source_url: params.source_url,
     original_file_name: params.file_name,
     file_name: _getNormalizedFileName(params.file_name),
-    content_type: params.file_data ? _getFileType(params.file_data) : _getContentType(params.file_name),
+    content_type: _getFileType(params.file_data, params.file_name),
     file_size: !_.isNil(params.file_size) ? params.file_size : _getFilesize(params.file_data),
     chunks_total: 1,
     status: params.file_data && params.file_data.length > 0 ? 'assembled' : 'processed'
@@ -264,13 +264,13 @@ const _getTmpPath = () => {
   return path.join('tmp', random)
 }
 
-const _getFileType = (file_data) => {
-  const type = fileType(file_data)
-  return type ? type.mime : 'text/plain'
-}
-
-const _getContentType = (file_name) => {
-  return mime.lookup(file_name) || 'text/plain'
+const _getFileType = (file_data, file_name) => {
+  if(file_data && typeof file_data !== 'string') {
+    const type = fileType(file_data)
+    return type ? type.mime : 'text/plain'
+  } else {
+    return mime.lookup(file_name) || 'text/plain'
+  }
 }
 
 const _getFilesize = (fileData) => {
