@@ -17,11 +17,11 @@ router.use(logger)
 
 router.use(format)
 
-router.use(cors)
-
 router.use('/admin', unauthorized)
 
 router.use('/admin', authorized)
+
+router.use(cors)
 
 router.use(pub)
 
