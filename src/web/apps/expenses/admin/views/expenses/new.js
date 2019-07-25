@@ -20,11 +20,6 @@ class New extends React.Component {
     return <Form {...this._getForm()} />
   }
 
-  // { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a project', endpoint: '/api/admin/expenses/memberships', value: 'id', text: 'title', format: ProjectToken },
-  // { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Choose an expense type', endpoint: '/api/admin/expenses/expense_types/active', value: 'id', text: 'title', format: ExpenseTypeToken },
-  // { label: 'Description', name: 'description', required: true, placeholder: 'Describe the expense', type: 'textfield' },
-  // { label: 'Amount', name: 'amount', required: true, placeholder: 'Enter the amount', type: 'moneyfield' },
-
   _getForm() {
     return {
       title: 'New Expense',
