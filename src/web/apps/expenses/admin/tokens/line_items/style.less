@@ -8,17 +8,15 @@
   }
   tbody td {
     cursor: pointer;
+    &:first-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
-  .selected td {
-    background-color: fadeout(@blue, 95);
-    color: @blue;
-    font-weight: bold;
-  }
+
   .expanded > td {
     padding: 0 !important;
-    .maha-list {
-      background-color: fadeout(@black, 97);
-    }
     .maha-list-item {
       border: none !important;
     }
@@ -31,5 +29,10 @@
     td {
       border-top: 1px solid fadeout(@black, 90) !important;
     }
+  }
+}
+@media (max-width: 769px) {
+  .line-items-token tbody td {
+    max-width: ~"calc(100vw - 13em)";
   }
 }

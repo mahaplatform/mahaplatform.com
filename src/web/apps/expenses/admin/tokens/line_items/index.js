@@ -25,6 +25,7 @@ class ExpenseSplit extends React.Component {
     }, 0.00)
     return (
       <div className="line-items-token">
+        <p>This receipt was split between the following line items</p>
         <table className="ui compact unstackable table">
           <thead>
             <tr>
