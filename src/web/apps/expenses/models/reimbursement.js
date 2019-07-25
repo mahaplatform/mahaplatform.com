@@ -52,6 +52,10 @@ const Reimbursement = new Model({
     return this.belongsTo(ExpenseType, 'expense_type_id')
   },
 
+  line_items() {
+    return this.hasMany(Reimbursement, 'code', 'code')
+  },
+
   listener_ids(trx) {
     return User.query(qb => {
       qb.select('maha_users.id')

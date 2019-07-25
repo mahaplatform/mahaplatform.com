@@ -12,9 +12,18 @@ const reimbursementSerializer = (req, result) => ({
   amount: result.get('amount'),
   status: result.related('status').get('text'),
   integration: integration(result, req.apps.expenses.settings),
+  line_items: result.related('line_items').map(line_items),
   audit: result.related('audit').map(audit),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
+})
+
+const line_items = (line_item) => ({
+  id: line_item.get('id'),
+  expense_type: expense_type(line_item.related('expense_type')),
+  project: project(line_item.related('project')),
+  description: line_item.get('description'),
+  amount: line_item.get('amount')
 })
 
 const audit = (entry) => ({

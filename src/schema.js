@@ -413,6 +413,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('batch_id').unsigned()
+      table.string('code', 255)
     })
 
     await knex.schema.createTable('expenses_batches', (table) => {
@@ -442,6 +443,7 @@ const schema = {
       table.text('description')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.string('code', 255)
     })
 
     await knex.schema.createTable('expenses_expense_types', (table) => {
@@ -470,6 +472,7 @@ const schema = {
       table.timestamp('updated_at')
       table.integer('account_id').unsigned()
       table.integer('batch_id').unsigned()
+      table.string('code', 255)
     })
 
     await knex.schema.createTable('expenses_member_types', (table) => {
@@ -532,6 +535,7 @@ const schema = {
       table.decimal('amount', 9, 2)
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.string('code', 255)
     })
 
     await knex.schema.createTable('expenses_statuses', (table) => {
@@ -558,6 +562,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('batch_id').unsigned()
+      table.string('code', 255)
     })
 
     await knex.schema.createTable('expenses_vendors', (table) => {
@@ -2084,7 +2089,7 @@ const schema = {
 
     await knex.raw(`
       create view expenses_items AS
-      select row_number() over (order by items.type, items.item_id) as id,
+      select items.code,
       items.item_id,
       items.team_id,
       items.import_id,
@@ -2100,7 +2105,8 @@ const schema = {
       items.status_id,
       items.batch_id,
       items.created_at
-      from ( select expenses_advances.id as item_id,
+      from ( select expenses_advances.code,
+      expenses_advances.id as item_id,
       expenses_advances.team_id,
       maha_import_items.import_id,
       'advance'::text as type,
@@ -2119,7 +2125,8 @@ const schema = {
       left join maha_import_items on ((maha_import_items.object_id = expenses_advances.id)))
       left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'expenses_advances'::text))))
       union
-      select expenses_expenses.id as item_id,
+      select expenses_expenses.code,
+      expenses_expenses.id as item_id,
       expenses_expenses.team_id,
       maha_import_items.import_id,
       'expense'::text as type,
@@ -2138,7 +2145,8 @@ const schema = {
       left join maha_import_items on ((maha_import_items.object_id = expenses_expenses.id)))
       left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'expenses_expenses'::text))))
       union
-      select expenses_trips.id as item_id,
+      select expenses_trips.code,
+      expenses_trips.id as item_id,
       expenses_trips.team_id,
       maha_import_items.import_id,
       'trip'::text as type,
@@ -2157,7 +2165,8 @@ const schema = {
       left join maha_import_items on ((maha_import_items.object_id = expenses_trips.id)))
       left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'expenses_trips'::text))))
       union
-      select expenses_checks.id as item_id,
+      select expenses_checks.code,
+      expenses_checks.id as item_id,
       expenses_checks.team_id,
       maha_import_items.import_id,
       'check'::text as type,
@@ -2176,7 +2185,8 @@ const schema = {
       left join maha_import_items on ((maha_import_items.object_id = expenses_checks.id)))
       left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'expenses_checks'::text))))
       union
-      select expenses_reimbursements.id as item_id,
+      select expenses_reimbursements.code,
+      expenses_reimbursements.id as item_id,
       expenses_reimbursements.team_id,
       maha_import_items.import_id,
       'reimbursement'::text as type,

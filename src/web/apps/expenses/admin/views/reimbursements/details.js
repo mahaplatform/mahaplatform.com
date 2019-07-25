@@ -1,7 +1,6 @@
-import CompactExpenseTypeToken from '../../tokens/expense_type/compact'
-import CompactProjectToken from '../../tokens/project/compact'
 import CompactVendorToken from '../../tokens/vendor/compact'
 import { Audit, List, Comments, Carousel } from 'maha-admin'
+import LineItemsToken from '../../tokens/line_items'
 import Receipt from '../../components/receipt'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -41,12 +40,17 @@ const Details = ({ reimbursement, commentUrl }) => {
   list.items = [
     requiredField('User', reimbursement, 'user.full_name'),
     { label: 'Date', content: reimbursement.date, format: 'date' },
-    { label: 'Description', content: reimbursement.description },
-    requiredField('Amount', reimbursement, 'amount', { content: reimbursement.amount, format: 'currency' }),
-    requiredField('Project', reimbursement, 'project.title', { content: reimbursement, format: CompactProjectToken }),
-    requiredField('Expense Type', reimbursement, 'expense_type.title', { content: reimbursement, format: CompactExpenseTypeToken }),
     requiredField('Vendor', reimbursement, 'vendor.name', { content: reimbursement, format: CompactVendorToken })
   ]
+  if(reimbursement.line_items.length > 1) {
+    list.items.push({ component: <LineItemsToken line_items={ reimbursement.line_items } active={ reimbursement.id } /> })
+  } else {
+    list.items.push({ label: 'Project', content: reimbursement.line_items[0].project.title })
+    list.items.push({ label: 'Expense Type', content: reimbursement.line_items[0].expense_type.title })
+    list.items.push({ label: 'Description', content: reimbursement.line_items[0].description })
+    list.items.push({ label: 'Amount', content: reimbursement.line_items[0].amount })
+  }
+
   if(reimbursement.receipts.length > 0) {
     const previews = reimbursement.receipts.filter(receipt => receipt.status === 'processed' && (receipt.has_preview || receipt.is_image))
     const slides = previews.map((receipt, index) => <Receipt key={`receipt_preview_${index}`} preview={ true } value={ receipt } />)
