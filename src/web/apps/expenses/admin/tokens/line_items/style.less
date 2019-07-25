@@ -1,0 +1,35 @@
+.line-items-token {
+  padding: 0.8em;
+  .fa {
+    color: @black !important;
+  }
+  th {
+    padding: .5em .7em !important;
+  }
+  tbody td {
+    cursor: pointer;
+  }
+  .selected td {
+    background-color: fadeout(@blue, 95);
+    color: @blue;
+    font-weight: bold;
+  }
+  .expanded > td {
+    padding: 0 !important;
+    .maha-list {
+      background-color: fadeout(@black, 97);
+    }
+    .maha-list-item {
+      border: none !important;
+    }
+  }
+  tfoot {
+    th {
+      border-top: 1px solid fadeout(@black, 90) !important;
+      border-right: 1px solid fadeout(@black, 90) !important;
+    }
+    td {
+      border-top: 1px solid fadeout(@black, 90) !important;
+    }
+  }
+}
