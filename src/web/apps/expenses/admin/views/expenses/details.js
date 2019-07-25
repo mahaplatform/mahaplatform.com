@@ -1,3 +1,5 @@
+import CompactExpenseTypeToken from '../../tokens/expense_type/compact'
+import CompactProjectToken from '../../tokens/project/compact'
 import CompactVendorToken from '../../tokens/vendor/compact'
 import { Audit, List, Comments, Carousel } from 'maha-admin'
 import LineItemsToken from '../../tokens/line_items'
@@ -41,7 +43,12 @@ const Details = ({ expense, commentUrl }) => {
     requiredField('User', expense, 'user.full_name'),
     { label: 'Date', content: expense.date, format: 'date' },
     requiredField('Vendor', expense, 'vendor.name', { content: expense, format: CompactVendorToken }),
-    requiredField('Account', expense, 'account.name')
+    requiredField('Account', expense, 'account.name'),
+    requiredField('Project', expense, 'project.title', { content: expense, format: CompactProjectToken }),
+    requiredField('Expense Type', expense, 'expense_type.title', { content: expense, format: CompactExpenseTypeToken }),
+    { label: 'Description', content: expense.description },
+    { label: 'Amount', content: expense.amount, format: 'currency' }
+
   ]
   if(expense.line_items.length > 1) {
     list.items.push({ component: <LineItemsToken line_items={ expense.line_items } type="expense" active={ expense.id } /> })
