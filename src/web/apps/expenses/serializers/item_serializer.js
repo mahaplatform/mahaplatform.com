@@ -1,5 +1,5 @@
 const expenseSerializer = (req, result) => ({
-  id: result.get('id'),
+  code: result.get('code'),
   item_id: result.get('item_id'),
   type: result.get('type'),
   date: result.get('date'),
