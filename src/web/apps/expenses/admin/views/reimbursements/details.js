@@ -47,10 +47,11 @@ const Details = ({ reimbursement, commentUrl }) => {
   if(reimbursement.line_items.length > 1) {
     list.items.push({ component: <LineItemsToken line_items={ reimbursement.line_items } type="reimbursement" active={ reimbursement.id } /> })
   } else {
-    list.items.push(requiredField('Project', reimbursement, 'project.title', { content: reimbursement, format: CompactProjectToken }))
-    list.items.push(requiredField('Expense Type', reimbursement, 'expense_type.title', { content: reimbursement, format: CompactExpenseTypeToken }))
-    list.items.push(requiredField('Description', reimbursement, 'description'))
-    list.items.push(requiredField('Amount', reimbursement, 'amount', { content: reimbursement.amount, format: 'currency' }))
+    const line_item = reimbursement.line_items[0]
+    list.items.push(requiredField('Project', line_item, 'project.title', { content: line_item, format: CompactProjectToken }))
+    list.items.push(requiredField('Expense Type', line_item, 'expense_type.title', { content: line_item, format: CompactExpenseTypeToken }))
+    list.items.push(requiredField('Description', line_item, 'description'))
+    list.items.push(requiredField('Amount', line_item, 'amount', { content: line_item.amount, format: 'currency' }))
   }
   if(reimbursement.receipts.length > 0) {
     const previews = reimbursement.receipts.filter(receipt => receipt.status === 'processed' && (receipt.has_preview || receipt.is_image))
