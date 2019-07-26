@@ -1,7 +1,6 @@
-import { activity } from '../../../../../core/services/routes/activities'
+import { destroyReimbursement } from '../../../services/reimbursements'
 import socket from '../../../../../core/services/routes/emitter'
 import Reimbursement from '../../../models/reimbursement'
-import knex from '../../../../../core/services/knex'
 
 const destroyRoute = async (req, res) => {
 
@@ -18,18 +17,7 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load reimbursement'
   })
 
-  await knex('expenses_receipts').transacting(req.trx).where('reimbursement_id', req.params.id).delete()
-
-  await knex('maha_audits').transacting(req.trx).where('auditable_type', 'maha_expenses').where('auditable_id', req.params.id).delete()
-
-  await knex('maha_comments').transacting(req.trx).where('commentable_type', 'maha_expenses').where('commentable_id', req.params.id).delete()
-
-  await activity(req, {
-    story: 'deleted {object}',
-    object: reimbursement
-  })
-
-  await socket.refresh(req, [{
+  const channels = [{
     channel: 'user',
     target: '/admin/expenses/items'
   }, {
@@ -39,11 +27,11 @@ const destroyRoute = async (req, res) => {
       '/admin/expenses/approvals',
       '/admin/expenses/reports'
     ]
-  }])
+  }]
 
-  await reimbursement.destroy({
-    transacting: req.trx
-  })
+  await destroyReimbursement(req, reimbursement)
+
+  await socket.refresh(req, channels)
 
   res.status(200).respond(true)
 
