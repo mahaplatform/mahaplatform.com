@@ -1,10 +1,6 @@
-import { activity } from '../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../core/services/routes/params'
+import { createCheck, updateCheck, destroyCheck } from '../../../services/checks'
 import CheckSerializer from '../../../serializers/check_serializer'
-import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
-import { createReceipts } from '../../../services/receipts'
-import { completeItem } from '../../../services/items'
 import Check from '../../../models/check'
 
 const updateRoute = async (req, res) => {
@@ -14,7 +10,7 @@ const updateRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['receipts.asset','receipts.asset.source','user','project.members','expense_type','status','vendor'],
+    withRelated: ['line_items'],
     transacting: req.trx
   })
 
@@ -23,41 +19,49 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load check'
   })
 
-  await check.save(whitelist(req.body, ['project_id','expense_type_id','vendor_id','delivery_method','date_needed','description','amount','description']), {
-    transacting: req.trx
+  const checks = await Promise.mapSeries(req.body.line_items, async(data) => {
+
+    if(data.id) {
+
+      const line_item = check.related('line_items').find(line_item => {
+        return line_item.get('id') === data.id
+      })
+
+      return await updateCheck(req, line_item, {
+        ...req.body,
+        ...data
+      })
+
+    }
+
+    return await createCheck(req, {
+      user_id: check.get('user_id'),
+      code: check.get('code'),
+      ...req.body,
+      ...data
+    })
+
   })
 
-  await createReceipts(req, {
-    type: 'check',
-    item: check
+  await Promise.map(check.related('line_items'), async (line_item) => {
+
+    const found = checks.find(check => {
+      return check.get('id') === line_item.get('id')
+    })
+
+    if(!found) await destroyCheck(req, line_item)
+
   })
 
-  await completeItem(req, {
-    item: check,
-    required: ['date_needed','description','amount','project_id','expense_type_id','vendor_id','delivery_method']
-  })
-
-  await activity(req, {
-    story: 'updated {object}',
-    object: check
-  })
-
-  await audit(req, {
-    story: 'updated',
-    auditable: check
-  })
-
-  await socket.refresh(req, [{
-    channel: 'user',
-    target: '/admin/expenses/items'
-  }, {
-    channel: 'team',
-    target: [
-      `/admin/expenses/checks/${check.get('id')}`,
-      '/admin/expenses/approvals',
-      '/admin/expenses/reports'
-    ]
-  }])
+  await socket.refresh(req, [
+    ...checks.map(check => `/admin/expenses/checks/${check.get('id')}`),
+    '/admin/expenses/approvals',
+    '/admin/expenses/reports',
+    {
+      channel: 'user',
+      target: '/admin/expenses/items'
+    }
+  ])
 
   res.status(200).respond(check, CheckSerializer)
 
