@@ -1,13 +1,13 @@
-export const fetchProjects = (id) => ({
+export const fetchProjects = (endpoint) => ({
   type: 'API_REQUEST',
   method: 'GET',
-  endpoint: '/api/admin/expenses/memberships',
+  endpoint,
   request: 'FETCH_PROJECTS_REQUEST',
   success: 'FETCH_PROJECTS_SUCCESS',
   failure: 'FETCH_PROJECTS_FAILURE'
 })
 
-export const fetchExpenseTypes = (id) => ({
+export const fetchExpenseTypes = () => ({
   type: 'API_REQUEST',
   method: 'GET',
   endpoint: '/api/admin/expenses/expense_types/active',
@@ -24,6 +24,11 @@ export const add = (line_item) => ({
 export const remove = (index) => ({
   type: 'REMOVE',
   index
+})
+
+export const set = (line_items) => ({
+  type: 'SET',
+  line_items
 })
 
 export const update = (line_item, index) => ({

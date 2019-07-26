@@ -1,5 +1,4 @@
-import ExpenseTypeToken from '../../tokens/expense_type'
-import ProjectToken from '../../tokens/project'
+import LineItems from '../../components/line_items'
 import VendorToken from '../../tokens/vendor'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -34,13 +33,10 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Date Needed', name: 'date_needed', type: 'datefield', required: true, defaultValue: moment().format('YYYY-MM-DD') },
-            { label: 'Description', name: 'description', type: 'textfield', placeholder: 'Describe the check', required: true },
-            { label: 'Amount', name: 'amount', type: 'moneyfield', required: true, placeholder: 'Enter the amount' },
-            { label: 'Invoice', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Invoice', action: '/api/admin/assets/upload', endpoint: '/api/admin/expenses/receipts' },
-            { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a project', endpoint: '/api/admin/expenses/memberships', value: 'id', text: 'title', format: ProjectToken },
-            { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Choose an expense type', endpoint: '/api/admin/expenses/expense_types/active', value: 'id', text: 'title', format: ExpenseTypeToken },
             { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Choose a vendor', endpoint: '/api/admin/expenses/vendors', value: 'id', text: 'name', form: this._getVendorForm(), format: VendorToken },
-            { label: 'Delivery Method', name: 'delivery_method', type: 'lookup', placeholder: 'Choose a delivery method', options: [ { value: 'mail', text: 'Mail' }, { value: 'pickup', text: 'Pickup' }] }
+            { label: 'Delivery Method', name: 'delivery_method', type: 'lookup', placeholder: 'Choose a delivery method', options: [ { value: 'mail', text: 'Mail' }, { value: 'pickup', text: 'Pickup' }] },
+            { label: 'Invoice', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Invoice', action: '/api/admin/assets/upload', endpoint: '/api/admin/expenses/receipts' },
+            { label: 'Line Items', name: 'line_items', type: LineItems }
           ]
         }
       ]

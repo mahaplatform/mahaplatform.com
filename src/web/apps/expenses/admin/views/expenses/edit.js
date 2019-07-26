@@ -1,5 +1,4 @@
-import ExpenseTypeToken from '../../tokens/expense_type'
-import ProjectToken from '../../tokens/project'
+import LineItems from '../../components/line_items'
 import VendorToken from '../../tokens/vendor'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -25,7 +24,7 @@ class Edit extends React.Component {
   }
 
   _getForm() {
-    const { projectEndpoint, expense } = this.props
+    const { expense } = this.props
     return {
       title: 'Edit Expense',
       method: 'patch',
@@ -37,16 +36,20 @@ class Edit extends React.Component {
         {
           fields: [
             { label: 'Date', name: 'date', type: 'datefield', required: true, defaultValue: moment().format('YYYY-MM-DD') },
-            { label: 'Description', name: 'description', required: true, placeholder: 'Describe the expense', type: 'textfield' },
-            { label: 'Amount', name: 'amount', required: true, placeholder: 'Enter the amount', type: 'moneyfield' },
-            { label: 'Receipt', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Receipt', action: '/api/admin/assets/upload', endpoint: '/api/admin/expenses/receipts' },
-            { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a project', endpoint: projectEndpoint, value: 'id', text: 'title', format: ProjectToken },
-            { label: 'Expense Type', name: 'expense_type_id', type: 'lookup', placeholder: 'Choose an expense type', endpoint: '/api/admin/expenses/expense_types/active', value: 'id', text: 'title', format: ExpenseTypeToken },
             { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Choose a vendor', endpoint: '/api/admin/expenses/vendors', value: 'id', text: 'name', form: this._getVendorForm(), format: VendorToken },
-            { label: 'Account', name: 'account_id', type: 'lookup', placeholder: 'Choose an account', endpoint: '/api/admin/expenses/accounts', value: 'id', text: 'name' }
+            { label: 'Account', name: 'account_id', type: 'lookup', placeholder: 'Choose an account', endpoint: '/api/admin/expenses/accounts', value: 'id', text: 'name' },
+            { label: 'Receipt', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Receipt', action: '/api/admin/assets/upload', endpoint: '/api/admin/expenses/receipts' },
+            { name: 'line_items', type: (props) => <LineItems { ...props } { ...this._getLineItems() } /> }
           ]
         }
       ]
+    }
+  }
+
+  _getLineItems() {
+    const { projectEndpoint } = this.props
+    return {
+      projectEndpoint
     }
   }
 
@@ -74,9 +77,8 @@ class Edit extends React.Component {
     this.context.modal.close()
   }
 
-  _handleSuccess(trip) {
-    const { modal } = this.context
-    modal.close()
+  _handleSuccess() {
+    this.context.modal.close()
   }
 
 }

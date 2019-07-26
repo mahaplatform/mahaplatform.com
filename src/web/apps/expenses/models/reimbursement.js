@@ -11,8 +11,7 @@ const Reimbursement = new Model({
   tableName: 'expenses_reimbursements',
 
   rules: {
-    date: ['required', 'datestring'],
-    description: ['required']
+    date: ['required', 'datestring']
   },
 
   virtuals: {
