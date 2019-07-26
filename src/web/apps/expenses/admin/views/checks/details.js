@@ -2,6 +2,7 @@ import CompactExpenseTypeToken from '../../tokens/expense_type/compact'
 import CompactProjectToken from '../../tokens/project/compact'
 import CompactVendorToken from '../../tokens/vendor/compact'
 import { Audit, List, Comments, Carousel } from 'maha-admin'
+import LineItemsToken from '../../tokens/line_items'
 import Receipt from '../../components/receipt'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -48,6 +49,9 @@ const Details = ({ check, commentUrl }) => {
     requiredField('Vendor', check, 'vendor.name', { content: check, format: CompactVendorToken }),
     requiredField('Delivery Method', check, 'delivery_method')
   ]
+  if(check.line_items.length > 1) {
+    list.items.push({ component: <LineItemsToken line_items={ check.line_items } type="check" /> })
+  }
   if(check.receipts.length > 0) {
     const previews = check.receipts.filter(receipt => receipt.status === 'processed' && (receipt.has_preview || receipt.is_image))
     const slides = previews.map((receipt, index) => <Receipt key={`receipt_preview_${index}`} preview={ true } value={ receipt } />)

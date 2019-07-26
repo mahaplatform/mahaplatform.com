@@ -1,7 +1,13 @@
 const INITIAL_STATE = {
-  expense_types: [],
+  expense_types: {
+    records: [],
+    status: 'pending'
+  },
   line_items: [],
-  projects: []
+  projects: {
+    records: [],
+    status: 'pending'
+  }
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -20,13 +26,19 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'FETCH_EXPENSE_TYPES_SUCCESS':
     return {
       ...state,
-      expense_types: action.result.data
+      expense_types: {
+        records: action.result.data,
+        status: 'success'
+      }
     }
 
   case 'FETCH_PROJECTS_SUCCESS':
     return {
       ...state,
-      projects: action.result.data
+      projects: {
+        records: action.result.data,
+        status: 'success'
+      }
     }
 
   case 'REMOVE':
@@ -37,6 +49,12 @@ const reducer = (state = INITIAL_STATE, action) => {
           return index !== action.index
         })
       ]
+    }
+
+  case 'SET':
+    return {
+      ...state,
+      line_items: action.line_items
     }
 
   case 'UPDATE':

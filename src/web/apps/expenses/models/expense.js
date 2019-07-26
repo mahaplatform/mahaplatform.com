@@ -12,8 +12,7 @@ const Expense = new Model({
   tableName: 'expenses_expenses',
 
   rules: {
-    date: ['required', 'datestring'],
-    description: ['required']
+    date: ['required', 'datestring']
   },
 
   virtuals: {

@@ -2,17 +2,17 @@ import knex from '../../../core/services/knex'
 import Receipt from '../models/receipt'
 import _ from 'lodash'
 
-export const createReceipts = async (req, { type, item }) => {
+export const createReceipts = async (req, { type, item, receipt_ids }) => {
 
-  if(!req.body.receipt_ids) return
+  if(!receipt_ids) return
 
-  if(_.isEqual(req.body.receipt_ids.sort(), item.get('receipt_ids').sort())) return
+  if(_.isEqual(receipt_ids.sort(), item.get('receipt_ids').sort())) return
 
   await knex('expenses_receipts').transacting(req.trx).where({
     [`${type}_id`]: item.get('id')
   }).del()
 
-  await Promise.map(req.body.receipt_ids, async (asset_id, index) => {
+  await Promise.map(receipt_ids, async (asset_id, index) => {
 
     await Receipt.forge({
       team_id: req.team.get('id'),

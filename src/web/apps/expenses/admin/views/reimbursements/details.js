@@ -40,17 +40,15 @@ const Details = ({ reimbursement, commentUrl }) => {
   list.items = [
     requiredField('User', reimbursement, 'user.full_name'),
     { label: 'Date', content: reimbursement.date, format: 'date' },
-    requiredField('Vendor', reimbursement, 'vendor.name', { content: reimbursement, format: CompactVendorToken })
+    requiredField('Vendor', reimbursement, 'vendor.name', { content: reimbursement, format: CompactVendorToken }),
+    { label: 'Project', content: reimbursement.line_items[0].project.title },
+    { label: 'Expense Type', content: reimbursement.line_items[0].expense_type.title },
+    { label: 'Description', content: reimbursement.line_items[0].description },
+    { label: 'Amount', content: reimbursement.line_items[0].amount }
   ]
   if(reimbursement.line_items.length > 1) {
-    list.items.push({ component: <LineItemsToken line_items={ reimbursement.line_items } active={ reimbursement.id } /> })
-  } else {
-    list.items.push({ label: 'Project', content: reimbursement.line_items[0].project.title })
-    list.items.push({ label: 'Expense Type', content: reimbursement.line_items[0].expense_type.title })
-    list.items.push({ label: 'Description', content: reimbursement.line_items[0].description })
-    list.items.push({ label: 'Amount', content: reimbursement.line_items[0].amount })
+    list.items.push({ component: <LineItemsToken line_items={ reimbursement.line_items } type="reimbursement" /> })
   }
-
   if(reimbursement.receipts.length > 0) {
     const previews = reimbursement.receipts.filter(receipt => receipt.status === 'processed' && (receipt.has_preview || receipt.is_image))
     const slides = previews.map((receipt, index) => <Receipt key={`receipt_preview_${index}`} preview={ true } value={ receipt } />)

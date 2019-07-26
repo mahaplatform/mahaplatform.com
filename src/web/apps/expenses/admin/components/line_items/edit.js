@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class New extends React.Component {
+class Edit extends React.Component {
 
   static contextTypes = {
     form: PropTypes.object
@@ -13,6 +13,7 @@ class New extends React.Component {
   static propTypes = {
     index: PropTypes.number,
     line_item: PropTypes.object,
+    projectEndpoint: PropTypes.string,
     onSubmit: PropTypes.func
   }
 
@@ -25,7 +26,7 @@ class New extends React.Component {
   }
 
   _getForm() {
-    const { line_item } = this.props
+    const { line_item, projectEndpoint } = this.props
     return {
       title: 'Edit Line Item',
       saveText: 'Update',
@@ -35,9 +36,10 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Project', name: 'project_id', required: true, type: 'lookup', placeholder: 'Choose a project', endpoint: '/api/admin/expenses/memberships', value: 'id', text: 'title', format: ProjectToken, defaultValue: line_item.project.id },
-            { label: 'Expense Type', name: 'expense_type_id', required: true, type: 'lookup', placeholder: 'Choose an expense type', endpoint: '/api/admin/expenses/expense_types/active', value: 'id', text: 'title', format: ExpenseTypeToken, defaultValue: line_item.expense_type.id },
-            { label: 'Description', name: 'description', required: true, placeholder: 'Describe the expense', type: 'textfield', defaultValue: line_item.description },
+            { name: 'id', type: 'hidden', defaultValue: line_item.id },
+            { label: 'Project', name: 'project_id', required: true, type: 'lookup', placeholder: 'Choose a project', endpoint: projectEndpoint, value: 'id', text: 'title', format: ProjectToken, defaultValue: line_item.project_id },
+            { label: 'Expense Type', name: 'expense_type_id', required: true, type: 'lookup', placeholder: 'Choose an expense type', endpoint: '/api/admin/expenses/expense_types/active', value: 'id', text: 'title', format: ExpenseTypeToken, defaultValue: line_item.expense_type_id },
+            { label: 'Description', name: 'description', required: true, placeholder: 'Describe the line item', type: 'textfield', defaultValue: line_item.description },
             { label: 'Amount', name: 'amount', required: true, placeholder: 'Enter the amount', type: 'moneyfield', defaultValue: line_item.amount }
           ]
         }
@@ -61,4 +63,4 @@ class New extends React.Component {
 
 }
 
-export default New
+export default Edit

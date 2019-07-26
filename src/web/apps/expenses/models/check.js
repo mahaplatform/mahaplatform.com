@@ -11,8 +11,7 @@ const Check = new Model({
   tableName: 'expenses_checks',
 
   rules: {
-    date_needed: ['required', 'datestring'],
-    description: ['required']
+    date_needed: ['required', 'datestring']
   },
 
   virtuals: {
