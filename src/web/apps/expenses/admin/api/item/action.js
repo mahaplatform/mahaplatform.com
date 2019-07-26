@@ -92,17 +92,15 @@ const actionRoute = async (req, res) => {
     object: item
   })
 
-  await socket.refresh(req,  [{
-    channel: `/admin/users/${item.get('user_id')}`,
-    target: '/admin/expenses/items'
-  }, {
-    channel: 'team',
-    target: [
-      `/admin/expenses/${req.params.type}/${item.get('id')}`,
-      '/admin/expenses/approvals',
-      '/admin/expenses/reports'
-    ]
-  }])
+  await socket.refresh(req, [
+    `/admin/expenses/${req.params.type}/${item.get('id')}`,
+    '/admin/expenses/approvals',
+    '/admin/expenses/reports',
+    {
+      channel: 'user',
+      target: '/admin/expenses/items'
+    }
+  ])
 
   res.status(200).respond(true)
 

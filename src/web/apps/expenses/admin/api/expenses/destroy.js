@@ -17,17 +17,15 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load expense'
   })
 
-  const channels = [{
-    channel: 'user',
-    target: '/admin/expenses/items'
-  }, {
-    channel: 'team',
-    target: [
-      `/admin/expenses/expenses/${expense.get('id')}`,
-      '/admin/expenses/approvals',
-      '/admin/expenses/reports'
-    ]
-  }]
+  const channels = [
+    `/admin/expenses/expenses/${expense.get('id')}`,
+    '/admin/expenses/approvals',
+    '/admin/expenses/reports',
+    {
+      channel: 'user',
+      target: '/admin/expenses/items'
+    }
+  ]
 
   await destroyExpense(req, expense)
 

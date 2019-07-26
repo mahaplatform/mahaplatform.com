@@ -1,6 +1,6 @@
+import Status from './items/status'
 import React from 'react'
 import _ from 'lodash'
-import Status from './items/status'
 
 const itemTasks = (type, item, user, rights, context, Edit) => {
 
@@ -14,13 +14,11 @@ const itemTasks = (type, item, user, rights, context, Edit) => {
 
   const is_manager = _.includes(rights, 'expenses:manage_configuration')
 
-  const can_edit = _.includes(['incomplete','pending','submitted','rejected'], item.status)
+  const is_owner_can_edit = is_owner && _.includes(['incomplete','pending','rejected'], item.status)
 
-  const is_owner_can_edit = is_owner && can_edit
+  const is_approver_can_edit =  is_approver && _.includes(['incomplete','pending','submitted','rejected'], item.status)
 
-  const is_approver_can_edit =  is_approver && can_edit
-
-  const is_manager_can_edit = is_manager && (can_edit || item.status === 'approved')
+  const is_manager_can_edit = is_manager && _.includes(['incomplete','pending','submitted','approved','rejected'], item.status)
 
   if(is_owner_can_edit || is_approver_can_edit || is_manager_can_edit) {
 
@@ -40,7 +38,7 @@ const itemTasks = (type, item, user, rights, context, Edit) => {
       item_id: item.id
     }
 
-    tasks.items.push({ label: 'Revert Status', modal: (props) => <Status { ...statusParams } /> })
+    tasks.items.push({ label: 'Change Status', modal: (props) => <Status { ...statusParams } /> })
 
   }
 

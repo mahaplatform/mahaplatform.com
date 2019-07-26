@@ -27,17 +27,15 @@ const destroyRoute = async (req, res) => {
     object: trip
   })
 
-  await socket.refresh(req, [{
-    channel: 'user',
-    target: '/admin/expenses/items'
-  }, {
-    channel: 'team',
-    target: [
-      `/admin/expenses/trips/${trip.get('id')}`,
-      '/admin/expenses/approvals',
-      '/admin/expenses/reports'
-    ]
-  }])
+  await socket.refresh(req, [
+    `/admin/expenses/trips/${trip.get('id')}`,
+    '/admin/expenses/approvals',
+    '/admin/expenses/reports',
+    {
+      channel: 'user',
+      target: '/admin/expenses/items'
+    }
+  ])
 
   await trip.destroy({
     transacting: req.trx

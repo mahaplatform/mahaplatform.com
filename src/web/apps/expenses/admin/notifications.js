@@ -20,9 +20,9 @@ const notifications = [
     title: 'Item Processed',
     description: 'one of my advances, expenses, or trips is processed'
   }, {
-    code: 'item_reverted',
-    title: 'Item Reverted',
-    description: 'one of my advances, expenses, or trips status is reverted'
+    code: 'item_changed',
+    title: 'Item Changed',
+    description: 'one of my advances, expenses, or trips status is changed'
   }
 ]
 
