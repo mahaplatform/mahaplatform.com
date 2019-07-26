@@ -46,13 +46,6 @@ class Edit extends React.Component {
     }
   }
 
-  _getLineItems() {
-    const { projectEndpoint } = this.props
-    return {
-      projectEndpoint
-    }
-  }
-
   _getVendorForm() {
     return {
       title: 'New Vendor',
