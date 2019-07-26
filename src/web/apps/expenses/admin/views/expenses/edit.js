@@ -24,7 +24,7 @@ class Edit extends React.Component {
   }
 
   _getForm() {
-    const { expense } = this.props
+    const { expense, projectEndpoint } = this.props
     return {
       title: 'Edit Expense',
       method: 'patch',
@@ -39,17 +39,10 @@ class Edit extends React.Component {
             { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Choose a vendor', endpoint: '/api/admin/expenses/vendors', value: 'id', text: 'name', form: this._getVendorForm(), format: VendorToken },
             { label: 'Account', name: 'account_id', type: 'lookup', placeholder: 'Choose an account', endpoint: '/api/admin/expenses/accounts', value: 'id', text: 'name' },
             { label: 'Receipt', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Receipt', action: '/api/admin/assets/upload', endpoint: '/api/admin/expenses/receipts' },
-            { name: 'line_items', type: (props) => <LineItems { ...props } { ...this._getLineItems() } /> }
+            { name: 'line_items', type: LineItems, projectEndpoint }
           ]
         }
       ]
-    }
-  }
-
-  _getLineItems() {
-    const { projectEndpoint } = this.props
-    return {
-      projectEndpoint
     }
   }
 

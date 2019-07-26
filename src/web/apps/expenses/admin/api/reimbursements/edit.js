@@ -7,7 +7,7 @@ const editRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['receipts','user','project','expense_type','status','vendor'],
+    withRelated: ['receipts','line_items'],
     transacting: req.trx
   })
 
@@ -16,18 +16,19 @@ const editRoute = async (req, res) => {
     message: 'Unable to load reimbursement'
   })
 
-  res.status(200).respond(reimbursement, {
-    fields: [
-      'id',
-      'date',
-      'description',
-      'amount',
-      'receipt_ids',
-      'project_id',
-      'expense_type_id',
-      'vendor_id'
-    ]
-  })
+  res.status(200).respond(reimbursement, (req, reimbursement) => ({
+    date: reimbursement.get('date'),
+    receipt_ids: reimbursement.get('receipt_ids'),
+    vendor_id: reimbursement.get('vendor_id'),
+    account_id: reimbursement.get('account_id'),
+    line_items: reimbursement.related('line_items').map(line_item => ({
+      id: line_item.get('id'),
+      project_id: line_item.get('project_id'),
+      expense_type_id: line_item.get('expense_type_id'),
+      description: line_item.get('description'),
+      amount: line_item.get('amount')
+    }))
+  }))
 
 }
 
