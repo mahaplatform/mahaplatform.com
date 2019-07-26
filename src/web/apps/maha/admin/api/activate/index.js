@@ -2,7 +2,7 @@ import notifications from './notifications'
 import { Router } from 'express'
 import security from './security'
 import password from './password'
-import assets from '../assets'
+import assets from './assets'
 import verify from './verify'
 import avatar from './avatar'
 import token from './token'
@@ -17,7 +17,7 @@ router.post('/security', security)
 
 router.post('/password', password)
 
-router.use(assets)
+router.use('/assets', assets)
 
 router.post('/verify', verify)
 

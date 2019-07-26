@@ -2,14 +2,24 @@ import { decode } from '../../../../../core/services/jwt'
 import User from '../../../models/user'
 import moment from 'moment'
 
+const getToken = (req) => {
+  if(req.body.token) return req.body.token
+  if(!req.headers.authorization) return null
+  const token = req.headers.authorization
+  const matches = token.match(/Bearer (.*)/)
+  return matches[1]
+}
+
 const route = async (req, res, next) => {
 
-  if(!req.body.token) return res.status(401).json({
+  const token = getToken(req)
+
+  if(!token) return res.status(401).json({
     status: 401,
     message: 'No token'
   })
 
-  const { err, iat, data } = decode(req.body.token)
+  const { err, iat, data } = decode(token)
 
   if(err && err === 'jwt expired') return res.status(401).json({
     status: 401,

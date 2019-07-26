@@ -195,7 +195,7 @@ class FileField extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  token: state.maha.admin.team.token
+  token: props.token || (state.maha.admin.team ? state.maha.admin.team.token : null)
 })
 
 export default connect(mapStateToProps)(FileField)
