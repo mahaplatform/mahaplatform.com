@@ -105,6 +105,7 @@ class Inline extends React.PureComponent {
       value: 'id',
       text: 'title',
       format: ExpenseTypeToken,
+      label: 'expense',
       defaultValue: line_items[0] ? line_items[0].expense_type_id : null,
       onChange: this._handleUpdate.bind(this, 'expense_type_id')
     }
@@ -126,6 +127,7 @@ class Inline extends React.PureComponent {
       value: 'id',
       text: 'title',
       format: ProjectToken,
+      label: 'project',
       defaultValue: line_items[0] ? line_items[0].project_id : null,
       onChange: this._handleUpdate.bind(this, 'project_id')
     }

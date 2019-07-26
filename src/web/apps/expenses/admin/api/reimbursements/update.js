@@ -1,11 +1,7 @@
-import { activity } from '../../../../../core/services/routes/activities'
+import { createReimbursement, updateReimbursement, destroyReimbursement } from '../../../services/reimbursements'
 import ReimbursementSerializer from '../../../serializers/reimbursement_serializer'
-import { whitelist } from '../../../../../core/services/routes/params'
-import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
-import { createReceipts } from '../../../services/receipts'
 import Reimbursement from '../../../models/reimbursement'
-import { completeItem } from '../../../services/items'
 
 const updateRoute = async (req, res) => {
 
@@ -14,50 +10,62 @@ const updateRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['user','project.members','expense_type','status','vendor'],
+    withRelated: ['line_items'],
     transacting: req.trx
   })
 
   if(!reimbursement) return res.status(404).respond({
     code: 404,
-    message: 'Unable to load expense'
+    message: 'Unable to load reimbursement'
   })
 
-  await reimbursement.save(whitelist(req.body, ['date','project_id','expense_type_id','vendor_id','description','amount']), {
-    transacting: req.trx
+  const reimbursements = await Promise.mapSeries(req.body.line_items, async(data) => {
+
+    if(data.id) {
+
+      const line_item = reimbursement.related('line_items').find(line_item => {
+        return line_item.get('id') === data.id
+      })
+
+      return await updateReimbursement(req, line_item, {
+        ...req.body,
+        ...data
+      })
+
+    }
+
+    return await createReimbursement(req, {
+      user_id: reimbursement.get('user_id'),
+      code: reimbursement.get('code'),
+      ...req.body,
+      ...data
+    })
+
   })
 
-  await createReceipts(req, {
-    type: 'reimbursement',
-    item: reimbursement
+  await Promise.map(reimbursement.related('line_items'), async (line_item) => {
+
+    const found = reimbursements.find(reimbursement => {
+      return reimbursement.get('id') === line_item.get('id')
+    })
+
+    if(!found) await destroyReimbursement(req, line_item)
+
   })
 
-  await completeItem(req, {
-    item: reimbursement,
-    required: ['date','receipt_ids','description','amount','project_id','expense_type_id','vendor_id']
-  })
-
-  await activity(req, {
-    story: 'created {object}',
-    object: reimbursement
-  })
-
-  await audit(req, {
-    story: 'updated',
-    auditable: reimbursement
-  })
-
-  await socket.refresh(req, [{
-    channel: 'user',
-    target: '/admin/expenses/items'
-  }, {
-    channel: 'team',
-    target: [
-      `/admin/expenses/reimbursements/${reimbursement.get('id')}`,
-      '/admin/expenses/approvals',
-      '/admin/expenses/reports'
-    ]
-  }])
+  await socket.refresh(req, [
+    ...reimbursements.map(reimbursement => `/admin/expenses/reimbursements/${reimbursement.get('id')}`),
+    '/admin/expenses/reports',
+    {
+      channel: 'user',
+      target: '/admin/expenses/items'
+    }, {
+      channel: 'team',
+      target: [
+        '/admin/expenses/approvals'
+      ]
+    }
+  ])
 
   res.status(200).respond(reimbursement, ReimbursementSerializer)
 

@@ -24,7 +24,7 @@ export const createExpense = async (req, params) => {
 
   await completeItem(req, {
     item: expense,
-    required: ['date','receipt_ids','description','amount','project_id','expense_type_id','vendor_id','account_id']
+    required: ['date','vendor_id','account_id','receipt_ids','project_id','expense_type_id','description','amount']
   })
 
   await activity(req, {
@@ -79,9 +79,9 @@ export const destroyExpense = async (req, expense) => {
 
   await knex('expenses_receipts').transacting(req.trx).where('expense_id', expense.get('id')).delete()
 
-  await knex('maha_audits').transacting(req.trx).where('auditable_type', 'maha_expenses').where('auditable_id', expense.get('id')).delete()
+  await knex('maha_audits').transacting(req.trx).where('auditable_type', 'expenses_expenses').where('auditable_id', expense.get('id')).delete()
 
-  await knex('maha_comments').transacting(req.trx).where('commentable_type', 'maha_expenses').where('commentable_id', expense.get('id')).delete()
+  await knex('maha_comments').transacting(req.trx).where('commentable_type', 'expenses_expenses').where('commentable_id', expense.get('id')).delete()
 
   await activity(req, {
     story: 'deleted {object}',
