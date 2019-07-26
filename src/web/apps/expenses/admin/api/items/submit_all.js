@@ -53,17 +53,12 @@ const submitAllRoute = async (req, res) => {
     object: item
   })))
 
-  await socket.refresh(req,  [{
-    channel: 'team',
-    target: [
-      '/admin/expenses/reports',
-      '/admin/expenses/approvals',
-      '/admin/expenses/items',
-      ...items.map(item => {
-        return `/admin/expenses/${item.get('type')}s/${item.get('id')}`
-      })
-    ]
-  }])
+  await socket.refresh(req, [
+    ...items.map(item => `/admin/expenses/${item.get('type')}s/${item.get('id')}`),
+    '/admin/expenses/reports',
+    '/admin/expenses/approvals',
+    '/admin/expenses/items'
+  ])
 
   res.status(200).respond(items, ItemSerializer)
 

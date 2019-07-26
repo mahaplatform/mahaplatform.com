@@ -71,17 +71,12 @@ const createRoute = async (req, res) => {
     }
   })))
 
-  await socket.refresh(req, {
-    channel: 'team',
-    target: [
-      '/admin/expenses/reports',
-      '/admin/expenses/approvals',
-      '/admin/expenses/items',
-      ...items.map(item => {
-        return `/admin/expenses/${item.get('type')}s/${item.get('id')}`
-      })
-    ]
-  })
+  await socket.refresh(req, [
+    ...items.map(item => `/admin/expenses/${item.get('type')}s/${item.get('id')}`),
+    '/admin/expenses/approvals',
+    '/admin/expenses/reports',
+    '/admin/expenses/items'
+  ])
 
   await notifications(req, await Promise.mapSeries(items, async item => ({
     type: 'expenses:item_processed',

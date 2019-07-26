@@ -64,34 +64,32 @@ const statusRoute = async (req, res) => {
   })
 
   await activity(req, {
-    story: `reverted {object} to ${status.get('text')}`,
+    story: `changed {object} to ${status.get('text')}`,
     object: item
   })
 
   await audit(req, {
-    story: `status reverted to ${status.get('text')}`,
+    story: `status changed to ${status.get('text')}`,
     auditable: item
   })
 
   await notifications(req, {
-    type: 'expenses:item_reverted',
+    type: 'expenses:item_changed',
     listenable: item,
     subject_id: req.user.get('id'),
-    story: `reverted {object} to ${status.get('text')}`,
+    story: `changed {object} to ${status.get('text')}`,
     object: item
   })
 
-  await socket.refresh(req,  [{
-    channel: `/admin/users/${item.get('user_id')}`,
-    target: '/admin/expenses/items'
-  }, {
-    channel: 'team',
-    target: [
-      `/admin/expenses/${req.params.type}/${item.get('id')}`,
-      '/admin/expenses/approvals',
-      '/admin/expenses/reports'
-    ]
-  }])
+  await socket.refresh(req, [
+    `/admin/expenses/${req.params.type}/${item.get('id')}`,
+    '/admin/expenses/approvals',
+    '/admin/expenses/reports',
+    {
+      channel: 'user',
+      target: '/admin/expenses/items'
+    }
+  ])
 
   res.status(200).respond(true)
 

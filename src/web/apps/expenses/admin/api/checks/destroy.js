@@ -1,6 +1,5 @@
-import { activity } from '../../../../../core/services/routes/activities'
+import { destroyCheck } from '../../../services/checks'
 import socket from '../../../../../core/services/routes/emitter'
-import knex from '../../../../../core/services/knex'
 import Check from '../../../models/check'
 
 const destroyRoute = async (req, res) => {
@@ -18,32 +17,19 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load check'
   })
 
-  await knex('expenses_receipts').transacting(req.trx).where('check_id', req.params.id).delete()
+  const channels = [
+    `/admin/expenses/checks/${check.get('id')}`,
+    '/admin/expenses/approvals',
+    '/admin/expenses/reports',
+    {
+      channel: 'user',
+      target: '/admin/expenses/items'
+    }
+  ]
 
-  await knex('maha_audits').transacting(req.trx).where('auditable_type', 'maha_expenses').where('auditable_id', req.params.id).delete()
+  await destroyCheck(req, check)
 
-  await knex('maha_comments').transacting(req.trx).where('commentable_type', 'maha_expenses').where('commentable_id', req.params.id).delete()
-
-  await activity(req, {
-    story: 'deleted {object}',
-    object: check
-  })
-
-  await socket.refresh(req, [{
-    channel: 'user',
-    target: '/admin/expenses/items'
-  }, {
-    channel: 'team',
-    target: [
-      `/admin/expenses/checks/${check.get('id')}`,
-      '/admin/expenses/approvals',
-      '/admin/expenses/reports'
-    ]
-  }])
-
-  await check.destroy({
-    transacting: req.trx
-  })
+  await socket.refresh(req, channels)
 
   res.status(200).respond(true)
 

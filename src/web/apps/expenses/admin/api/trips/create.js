@@ -51,17 +51,15 @@ const createRoute = async (req, res) => {
     auditable: trip
   })
 
-  await socket.refresh(req, [{
-    channel: `/admin/users/${req.user.get('id')}`,
-    target: '/admin/expenses/items'
-  }, {
-    channel: 'team',
-    target: [
-      `/admin/expenses/trips/${trip.get('id')}`,
-      '/admin/expenses/approvals',
-      '/admin/expenses/reports'
-    ]
-  }])
+  await socket.refresh(req, [
+    `/admin/expenses/trips/${trip.get('id')}`,
+    '/admin/expenses/approvals',
+    '/admin/expenses/reports',
+    {
+      channel: 'user',
+      target: '/admin/expenses/items'
+    }
+  ])
 
   res.status(200).respond(trip, TripSerializer)
 

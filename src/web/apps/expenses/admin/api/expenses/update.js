@@ -56,14 +56,10 @@ const updateRoute = async (req, res) => {
   await socket.refresh(req, [
     ...expenses.map(expense => `/admin/expenses/expenses/${expense.get('id')}`),
     '/admin/expenses/reports',
+    '/admin/expenses/approvals',
     {
       channel: 'user',
       target: '/admin/expenses/items'
-    }, {
-      channel: 'team',
-      target: [
-        '/admin/expenses/approvals'
-      ]
     }
   ])
 

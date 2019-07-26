@@ -7,7 +7,7 @@ const editRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['receipts','user','project','expense_type','status','vendor'],
+    withRelated: ['receipts','line_items'],
     transacting: req.trx
   })
 
@@ -15,6 +15,21 @@ const editRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load check'
   })
+
+
+  res.status(200).respond(check, (req, check) => ({
+    date_needed: check.get('date_needed'),
+    vendor_id: check.get('vendor_id'),
+    delivery_method: check.get('delivery_method'),
+    receipt_ids: check.get('receipt_ids'),
+    line_items: check.related('line_items').map(line_item => ({
+      id: line_item.get('id'),
+      project_id: line_item.get('project_id'),
+      expense_type_id: line_item.get('expense_type_id'),
+      description: line_item.get('description'),
+      amount: line_item.get('amount')
+    }))
+  }))
 
   res.status(200).respond(check, {
     fields: [
