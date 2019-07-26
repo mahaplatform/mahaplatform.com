@@ -43,15 +43,15 @@ const Details = ({ expense, commentUrl }) => {
     requiredField('User', expense, 'user.full_name'),
     { label: 'Date', content: expense.date, format: 'date' },
     requiredField('Vendor', expense, 'vendor.name', { content: expense, format: CompactVendorToken }),
-    requiredField('Account', expense, 'account.name'),
-    requiredField('Project', expense, 'project.title', { content: expense, format: CompactProjectToken }),
-    requiredField('Expense Type', expense, 'expense_type.title', { content: expense, format: CompactExpenseTypeToken }),
-    { label: 'Description', content: expense.description },
-    { label: 'Amount', content: expense.amount, format: 'currency' }
-
+    requiredField('Account', expense, 'account.name')
   ]
   if(expense.line_items.length > 1) {
-    list.items.push({ component: <LineItemsToken line_items={ expense.line_items } active={ expense.id } /> })
+    list.items.push({ component: <LineItemsToken line_items={ expense.line_items } type="expense" active={ expense.id } /> })
+  } else {
+    list.items.push(requiredField('Project', expense, 'project.title', { content: expense, format: CompactProjectToken }))
+    list.items.push(requiredField('Expense Type', expense, 'expense_type.title', { content: expense, format: CompactExpenseTypeToken }))
+    list.items.push(requiredField('Description', expense, 'description'))
+    list.items.push(requiredField('Amount', expense, 'amount', { content: expense.amount, format: 'currency' }))
   }
   if(expense.receipts.length > 0) {
     const previews = expense.receipts.filter(receipt => receipt.status === 'processed' && (receipt.has_preview || receipt.is_image))
