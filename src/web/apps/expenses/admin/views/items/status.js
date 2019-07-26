@@ -23,7 +23,7 @@ class Status extends React.Component {
   _getForm() {
     const { item_type, item_id } = this.props
     return {
-      title: 'Revert Status',
+      title: 'Change Status',
       method: 'patch',
       endpoint: `/api/admin/expenses/${item_type}s/${item_id}/edit`,
       action: `/api/admin/expenses/${item_type}s/${item_id}/status`,

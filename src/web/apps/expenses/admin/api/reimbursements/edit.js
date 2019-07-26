@@ -20,7 +20,6 @@ const editRoute = async (req, res) => {
     date: reimbursement.get('date'),
     receipt_ids: reimbursement.get('receipt_ids'),
     vendor_id: reimbursement.get('vendor_id'),
-    account_id: reimbursement.get('account_id'),
     line_items: reimbursement.related('line_items').map(line_item => ({
       id: line_item.get('id'),
       project_id: line_item.get('project_id'),
