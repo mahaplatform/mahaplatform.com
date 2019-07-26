@@ -1,6 +1,7 @@
-import React from 'react'
+import ProjectToken from '../../tokens/project'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
+import React from 'react'
 
 class Edit extends React.Component {
 
@@ -25,7 +26,7 @@ class Edit extends React.Component {
     return {
       title: 'Edit Project',
       method: 'patch',
-      endpoint: `/api/admin/expenses/projects/${project.id}`,
+      endpoint: `/api/admin/expenses/projects/${project.id}/edit`,
       action: `/api/admin/expenses/projects/${project.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
@@ -33,6 +34,7 @@ class Edit extends React.Component {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true },
+            { label: 'Tax Project', name: 'tax_project_id', type: 'lookup', placeholder: 'Choose a project', endpoint: '/api/admin/expenses/projects', value: 'id', text: 'title', format: ProjectToken },
             ...this._getIntegration()
           ]
         }

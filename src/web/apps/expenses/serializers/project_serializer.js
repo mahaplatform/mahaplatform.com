@@ -2,11 +2,21 @@ const projectSerializer = (req, result) => ({
   id: result.get('id'),
   title: result.get('title'),
   is_active: result.get('is_active'),
+  tax_project: tax_project(req, result.related('tax_project')),
   integration: integration(req, result),
   audit: result.related('audit').map(audit),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
+
+const tax_project = (req, tax_project) => {
+  if(!tax_project.id) return null
+  return {
+    id: tax_project.get('id'),
+    title: tax_project.get('title'),
+    integration: integration(req, tax_project)
+  }
+}
 
 const audit = (entry) => ({
   id: entry.get('id'),

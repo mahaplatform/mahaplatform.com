@@ -1,14 +1,22 @@
 import generateCode from '../../../../core/utils/generate_code'
+import _ from 'lodash'
 
 const AddItemCode = {
 
   up: async (knex) => {
+
+    await knex.schema.table('expenses_projects', (table) => {
+      table.integer('tax_project_id').unsigned()
+      table.foreign('tax_project_id').references('expenses_projects.id')
+    })
 
     const types = ['advances','checks','expenses','reimbursements','trips']
 
     await Promise.map(types, async (type) => {
       await knex.schema.table(`expenses_${type}`, (table) => {
         table.string('code')
+        if(_.includes(['advances','trips'], type)) return
+        table.decimal('tax', 6, 2)
       })
       const items = await knex(`expenses_${type}`)
       await Promise.map(items, async (item) => {
@@ -24,7 +32,8 @@ const AddItemCode = {
 
     await knex.raw(`
       create or replace VIEW expenses_items AS
-      select *
+      select row_number() over (order by "items"."type", "items"."item_id") as id,
+      "items".*
       from (
       select "expenses_advances"."code",
       "expenses_advances"."id" as item_id,
@@ -38,6 +47,7 @@ const AddItemCode = {
       "expenses_advances"."description",
       null as "vendor_id",
       "expenses_advances"."amount",
+      null as "tax",
       null as "account_id",
       "expenses_advances"."status_id",
       "expenses_advances"."batch_id",
@@ -58,6 +68,7 @@ const AddItemCode = {
       "expenses_expenses"."description",
       "expenses_expenses"."vendor_id",
       "expenses_expenses"."amount",
+      "expenses_expenses"."tax",
       "expenses_expenses"."account_id",
       "expenses_expenses"."status_id",
       "expenses_expenses"."batch_id",
@@ -78,6 +89,7 @@ const AddItemCode = {
       "expenses_trips"."description",
       null as vendor_id,
       "expenses_trips"."amount",
+      null as "tax",
       null as "account_id",
       "expenses_trips"."status_id",
       "expenses_trips"."batch_id",
@@ -98,6 +110,7 @@ const AddItemCode = {
       "expenses_checks"."description",
       "expenses_checks"."vendor_id",
       "expenses_checks"."amount",
+      "expenses_checks"."tax",
       null as "account_id",
       "expenses_checks"."status_id",
       "expenses_checks"."batch_id",
@@ -118,6 +131,7 @@ const AddItemCode = {
       "expenses_reimbursements"."description",
       "expenses_reimbursements"."vendor_id",
       "expenses_reimbursements"."amount",
+      "expenses_reimbursements"."tax",
       null as "account_id",
       "expenses_reimbursements"."status_id",
       "expenses_reimbursements"."batch_id",

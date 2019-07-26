@@ -5,6 +5,7 @@ import enable from './enable'
 import create from './create'
 import update from './update'
 import merge from './merge'
+import edit from './edit'
 import show from './show'
 import list from './list'
 
@@ -17,6 +18,8 @@ router.post('/', create)
 router.get('/:id', show)
 
 router.patch('/:id', update)
+
+router.get('/:id/edit', edit)
 
 router.patch('/:id/enable', enable)
 

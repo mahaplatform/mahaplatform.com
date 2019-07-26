@@ -1,3 +1,4 @@
+import CompactProjectToken from '../../tokens/project/compact'
 import MembershipToken from '../../tokens/membership'
 import Memberships from '../memberships/users'
 import { Audit, List, Page } from 'maha-admin'
@@ -11,7 +12,8 @@ const Details = ({ project, integration }) => {
   const list = {
     title: 'Project Details',
     items: [
-      { label: 'Title', content: project.title }
+      { label: 'Title', content: project.title },
+      { label: 'Tax Project', content: { project: project.tax_project }, format: CompactProjectToken }
     ]
   }
 

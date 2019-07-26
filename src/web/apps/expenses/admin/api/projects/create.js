@@ -11,7 +11,7 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     is_active: true,
     integration: {},
-    ...whitelist(req.body, ['title', 'integration'])
+    ...whitelist(req.body, ['title','tax_project_id','integration'])
   }).save(null, {
     transacting: req.trx
   })

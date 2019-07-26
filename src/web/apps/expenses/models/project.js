@@ -27,6 +27,10 @@ const Project = new Model({
 
   members() {
     return this.hasMany(Member, 'project_id')
+  },
+
+  tax_project() {
+    return this.belongsTo(Project, 'tax_project_id')
   }
 
 })

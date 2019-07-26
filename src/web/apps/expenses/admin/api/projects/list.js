@@ -15,7 +15,7 @@ const listRoute = async (req, res) => {
     }
   }).filter({
     filter: req.query.$filter,
-    filterParams: ['is_active','user_id'],
+    filterParams: ['is_active','user_id','tax_project_id'],
     searchParams: ['title','integration->>\'project_code\''],
     virtualFilters: {
       user_id: (qb, filter) => {
