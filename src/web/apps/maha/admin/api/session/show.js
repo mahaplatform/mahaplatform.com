@@ -9,8 +9,6 @@ import Session from '../../../models/session'
 import Device from '../../../models/device'
 import moment from 'moment'
 
-import { encrypt, decrypt } from '../../../../../core/utils/encryption'
-
 const navigations = collectObjects('admin/navigation.js')
 
 const loadNavigation = async (req) => {

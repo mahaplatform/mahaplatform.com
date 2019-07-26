@@ -22,7 +22,7 @@ class Logo extends React.Component {
         <div className="maha-logo-badge">
           <div className="maha-logo-wrapper">
             { team.logo && <Image { ...this._getImage() } /> }
-            { !team.logo && <div className="logo-text">{ team.title[0] }</div> }
+            { !team.logo && <div className="maha-logo-text">{ this._getInitials() }</div> }
           </div>
         </div>
       </div>
@@ -37,6 +37,13 @@ class Logo extends React.Component {
       title: team.title,
       transforms: { fit: 'cover', w: width, h: width }
     }
+  }
+
+  _getInitials() {
+    const { team } = this.props
+    const parts = team.title.split(' ')
+    if(parts.length === 1) return parts[0][0]
+    return parts[0][0] + parts[parts.length - 1][0]
   }
 
 }

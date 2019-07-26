@@ -1,7 +1,7 @@
-import { testHandler } from '../../../../../core/utils/test'
+import { testHandler } from '../../../../../../core/utils/test'
 import { expect } from 'chai'
 import list from './list'
 
-describe('src/web/apps/maha/admin/api/assets/list', () => {
+describe('src/web/apps/maha/admin/api/activate/assets/list', () => {
 
 })

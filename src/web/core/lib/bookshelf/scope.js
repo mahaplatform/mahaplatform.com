@@ -4,7 +4,6 @@ const scopePlugin = function(bookshelf) {
     const tableName = this.tableName || this.__super__.tableName || this.extend().__super__.tableName
     return this.query(qb => {
       if(options.team) qb.where(`${tableName}.team_id`, options.team.get('id'))
-      if(options.user) qb.where(`${tableName}.user_id`, options.user.get('id'))
     })
   }
 
