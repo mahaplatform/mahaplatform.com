@@ -72,7 +72,7 @@ class FileField extends React.Component {
           ))}
         </div>
         { (files.length === 0 || multiple === true) &&
-          <div ref={ (node) => this.button = node }>
+          <div className="maha-filefield-button" ref={ (node) => this.button = node }>
             { button ? button :
               <div className="ui browse button">
                 { files.length === 0 ? prompt :  multiplePrompt }

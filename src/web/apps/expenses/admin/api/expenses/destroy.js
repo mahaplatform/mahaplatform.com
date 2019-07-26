@@ -1,6 +1,5 @@
-import { activity } from '../../../../../core/services/routes/activities'
 import socket from '../../../../../core/services/routes/emitter'
-import knex from '../../../../../core/services/knex'
+import { destroyExpense } from '../../../services/expenses'
 import Expense from '../../../models/expense'
 
 const destroyRoute = async (req, res) => {
@@ -18,17 +17,6 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load expense'
   })
 
-  await knex('expenses_receipts').transacting(req.trx).where('expense_id', req.params.id).delete()
-
-  await knex('maha_audits').transacting(req.trx).where('auditable_type', 'maha_expenses').where('auditable_id', req.params.id).delete()
-
-  await knex('maha_comments').transacting(req.trx).where('commentable_type', 'maha_expenses').where('commentable_id', req.params.id).delete()
-
-  await activity(req, {
-    story: 'deleted {object}',
-    object: expense
-  })
-
   const channels = [{
     channel: 'user',
     target: '/admin/expenses/items'
@@ -41,9 +29,7 @@ const destroyRoute = async (req, res) => {
     ]
   }]
 
-  await expense.destroy({
-    transacting: req.trx
-  })
+  await destroyExpense(req, expense)
 
   await socket.refresh(req, channels)
 

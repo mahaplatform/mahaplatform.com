@@ -9,8 +9,9 @@ import _ from 'lodash'
 class ExpenseSplit extends React.Component {
 
   static propTypes = {
-    active: PropTypes.number,
-    line_items: PropTypes.array
+    active: PropTypes.id,
+    line_items: PropTypes.array,
+    type: PropTypes.string
   }
 
   state = {
@@ -19,13 +20,13 @@ class ExpenseSplit extends React.Component {
 
   render() {
     const { expanded } = this.state
-    const { line_items } = this.props
+    const { line_items, type } = this.props
     const total = line_items.reduce((total, line_item) => {
       return total + Number(line_item.amount)
     }, 0.00)
     return (
       <div className="line-items-token">
-        <p>This receipt was split between the following line items</p>
+        <p>This { type } was split between the following line items</p>
         <table className="ui compact unstackable table">
           <thead>
             <tr>
@@ -64,19 +65,19 @@ class ExpenseSplit extends React.Component {
     )
   }
 
-  _getClass(item) {
+  _getClass(line_item) {
     const { active } = this.props
     const classes = []
-    if(item.id === active) classes.push('selected')
+    if(line_item.id === active) classes.push('selected')
     return classes.join(' ')
   }
 
-  _getItems(item) {
+  _getItems(line_item) {
     return [
-      { label: 'Project', content: item, format: CompactProjectToken },
-      { label: 'Expense Type', content: item, format: CompactExpenseTypeToken },
-      { label: 'Description', content: item.description },
-      { label: 'Amount', content: item.amount, format: 'currency' }
+      { label: 'Project', content: line_item, format: CompactProjectToken },
+      { label: 'Expense Type', content: line_item, format: CompactExpenseTypeToken },
+      { label: 'Description', content: line_item.description },
+      { label: 'Amount', content: line_item.amount, format: 'currency' }
     ]
   }
 

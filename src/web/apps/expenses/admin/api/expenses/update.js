@@ -1,10 +1,6 @@
-import { activity } from '../../../../../core/services/routes/activities'
+import { createExpense, updateExpense, destroyExpense } from '../../../services/expenses'
 import ExpenseSerializer from '../../../serializers/expense_serializer'
-import { whitelist } from '../../../../../core/services/routes/params'
-import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
-import { createReceipts } from '../../../services/receipts'
-import { completeItem } from '../../../services/items'
 import Expense from '../../../models/expense'
 
 const updateRoute = async (req, res) => {
@@ -14,7 +10,7 @@ const updateRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['receipts.asset','receipts.asset.source','user','project.members','expense_type','status','vendor','account'],
+    withRelated: ['line_items'],
     transacting: req.trx
   })
 
@@ -23,41 +19,53 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load expense'
   })
 
-  await expense.save(whitelist(req.body, ['date','project_id','expense_type_id','vendor_id','account_id','description','amount','account']), {
-    transacting: req.trx
+  const expenses = await Promise.mapSeries(req.body.line_items, async(data) => {
+
+    if(data.id) {
+
+      const line_item = expense.related('line_items').find(line_item => {
+        return line_item.get('id') === data.id
+      })
+
+      return await updateExpense(req, line_item, {
+        ...req.body,
+        ...data
+      })
+
+    }
+
+    return await createExpense(req, {
+      user_id: expense.get('user_id'),
+      code: expense.get('code'),
+      ...req.body,
+      ...data
+    })
+
   })
 
-  await createReceipts(req, {
-    type: 'expense',
-    item: expense
+  await Promise.map(expense.related('line_items'), async (line_item) => {
+
+    const found = expenses.find(expense => {
+      return expense.get('id') === line_item.get('id')
+    })
+
+    if(!found) await destroyExpense(req, line_item)
+
   })
 
-  await completeItem(req, {
-    item: expense,
-    required: ['date','receipt_ids','description','amount','project_id','expense_type_id','vendor_id','account_id']
-  })
-
-  await activity(req, {
-    story: 'created {object}',
-    object: expense
-  })
-
-  await audit(req, {
-    story: 'updated',
-    auditable: expense
-  })
-
-  await socket.refresh(req, [{
-    channel: 'user',
-    target: '/admin/expenses/items'
-  }, {
-    channel: 'team',
-    target: [
-      `/admin/expenses/expenses/${expense.get('id')}`,
-      '/admin/expenses/approvals',
-      '/admin/expenses/reports'
-    ]
-  }])
+  await socket.refresh(req, [
+    ...expenses.map(expense => `/admin/expenses/expenses/${expense.get('id')}`),
+    '/admin/expenses/reports',
+    {
+      channel: 'user',
+      target: '/admin/expenses/items'
+    }, {
+      channel: 'team',
+      target: [
+        '/admin/expenses/approvals'
+      ]
+    }
+  ])
 
   res.status(200).respond(expense, ExpenseSerializer)
 
