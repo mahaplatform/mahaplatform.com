@@ -5,9 +5,9 @@ import Notification from '../../../models/notification'
 const seenRoute = async (req, res) => {
 
   const notification = await Notification.scope({
-    team: req.team,
-    user: req.user
+    team: req.team
   }).query(qb => {
+    qb.where('maha_notifications.user_id', req.user.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['subject.photo','app','story','object_owner','user'],
