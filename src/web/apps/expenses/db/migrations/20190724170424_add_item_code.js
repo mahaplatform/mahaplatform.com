@@ -5,6 +5,11 @@ const AddItemCode = {
 
   up: async (knex) => {
 
+    await knex.schema.table('expenses_checks', (table) => {
+      table.string('account_number')
+      table.string('invoice_number')
+    })
+
     await knex.schema.table('expenses_projects', (table) => {
       table.integer('tax_project_id').unsigned()
       table.foreign('tax_project_id').references('expenses_projects.id')

@@ -41,9 +41,11 @@ const Details = ({ check, commentUrl }) => {
   }
   list.items = [
     requiredField('User', check, 'user.full_name'),
-    { label: 'Date Needed', content: check.date_needed, format: 'date' },
+    requiredField('Date Needed', check, 'date_needed', { content: check, format: 'date' }),
     requiredField('Vendor', check, 'vendor.name', { content: check, format: CompactVendorToken }),
-    requiredField('Delivery Method', check, 'delivery_method')
+    requiredField('Delivery Method', check, 'delivery_method'),
+    { label: 'Account Number', content: check.account_number },
+    { label: 'Invoice Number', content: check.invoice_number }
   ]
   list.items.push({ component: <LineItemsToken line_items={ check.line_items } active={ check.id } /> })
   if(check.receipts.length > 0) {

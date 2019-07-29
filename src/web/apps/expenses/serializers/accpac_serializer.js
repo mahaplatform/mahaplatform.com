@@ -2,14 +2,10 @@ import numeral from 'numeral'
 import moment from 'moment'
 import _ from 'lodash'
 
-const accpaccSerializer = async (req, result) => {
-
-  const { batch, items } = result
+const accpaccSerializer = async (req, { batch, items }) => {
 
   const vendors = items.reduce((vendors, record) => {
-
     const key = _getVendorKey(record)
-
     return {
       ...vendors,
       [key]: [
@@ -17,20 +13,15 @@ const accpaccSerializer = async (req, result) => {
         record
       ]
     }
-
   }, {})
 
-  const headers = []
-
-  headers.push(['RECTYPE','CNTBTCH','CNTITEM','IDVEND','IDINVC','TEXTTRX','IDTRX','INVCDESC','DATEINVC','FISCYR','FISCPER','TERMCODE','DATEDUE','AMT1099','AMTGROSDST','AMTGROSTOT'])
-
-  headers.push(['RECTYPE','CNTBTCH','CNTITEM','CNTLINE','TEXTDESC','IDGLACCT','AMTDIST','AMTDISTNET','COMMENT'])
-
-  headers.push(['RECTYPE','CNTBTCH','CNTITEM','CNTPAYM','DATEDUE','AMTDUE'])
-
-  headers.push(['RECTYPE','CNTBTCH','CNTITEM','OPTFIELD'])
-
-  headers.push(['RECTYPE','CNTBTCH','CNTITEM','CNTLINE','OPTFIELD'])
+  const headers = [
+    ['RECTYPE','CNTBTCH','CNTITEM','IDVEND','IDINVC','TEXTTRX','IDTRX','INVCDESC','DATEINVC','FISCYR','FISCPER','TERMCODE','DATEDUE','AMT1099','AMTGROSDST','AMTGROSTOT'],
+    ['RECTYPE','CNTBTCH','CNTITEM','CNTLINE','TEXTDESC','IDGLACCT','AMTDIST','AMTDISTNET','COMMENT'],
+    ['RECTYPE','CNTBTCH','CNTITEM','CNTPAYM','DATEDUE','AMTDUE'],
+    ['RECTYPE','CNTBTCH','CNTITEM','OPTFIELD'],
+    ['RECTYPE','CNTBTCH','CNTITEM','CNTLINE','OPTFIELD']
+  ]
 
   const invoices = Object.keys(vendors).reduce((invoices, key, invoiceIndex) => {
 
@@ -38,21 +29,19 @@ const accpaccSerializer = async (req, result) => {
 
     const vendor_id = _getVendorId(record)
 
-    const lineItems = vendors[key].map((lineItem, lineItemIndex) => {
-      return {
-        index:2,
-        index2:9999,
-        invoiceIndex:invoiceIndex + 1,
-        lineItemIndex:20 * (lineItemIndex + 1),
-        user:(lineItem.related('user').get('f_last') + (lineItem.get('vendor_id') ? ' - ' + lineItem.related('vendor').get('name').toLowerCase() : '')),
-        idglacct:lineItem.get('idglacct'),
-        amount:numeral(lineItem.get('amount')).format('0.00'),
-        amount2:numeral(lineItem.get('amount')).format('0.00'),
-        desc:lineItem.get('description'),
-        type:lineItem.get('type'),
-        project_id:lineItem.get('project_id')
-      }
-    })
+    const lineItems = vendors[key].map((lineItem, lineItemIndex) => ({
+      index: 2,
+      index2: 9999,
+      invoiceIndex: invoiceIndex + 1,
+      lineItemIndex: 20 * (lineItemIndex + 1),
+      user: (lineItem.related('user').get('f_last') + (lineItem.get('vendor_id') ? ' - ' + lineItem.related('vendor').get('name').toLowerCase() : '')),
+      idglacct: lineItem.get('idglacct'),
+      amount: numeral(lineItem.get('amount')).format('0.00'),
+      amount2: numeral(lineItem.get('amount')).format('0.00'),
+      desc: lineItem.get('description'),
+      type: lineItem.get('type'),
+      project_id: lineItem.get('project_id')
+    }))
 
     const lineItemsObj = lineItems.reduce((obj, item) => {
 
@@ -154,23 +143,15 @@ const accpaccSerializer = async (req, result) => {
 
 
 const _getVendorKey = (record) => {
-
   if(record.get('type') === 'expense') return record.related('account').get('integration').vendor_id + '-' + record.related('user').get('values').vendor_id
-
   if(record.get('type') === 'check') return record.related('vendor').get('integration').vendor_id + '-' + record.related('user').get('values').vendor_id
-
   return record.related('user').get('values').vendor_id
-
 }
 
 const _getVendorId = (record) => {
-
   if(record.get('type') === 'expense') return record.related('account').get('integration').vendor_id
-
   if(record.get('type') === 'check') return record.related('vendor').get('integration').vendor_id
-
   return record.related('user').get('values').vendor_id
-
 }
 
 export default accpaccSerializer

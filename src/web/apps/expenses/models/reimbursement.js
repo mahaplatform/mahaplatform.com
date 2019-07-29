@@ -52,7 +52,9 @@ const Reimbursement = new Model({
   },
 
   line_items() {
-    return this.hasMany(Reimbursement, 'code', 'code')
+    return this.hasMany(Reimbursement, 'code', 'code').query(qb => {
+      qb.whereNotNull('amount')
+    })
   },
 
   listener_ids(trx) {

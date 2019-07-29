@@ -35,6 +35,8 @@ class New extends React.Component {
             { label: 'Date Needed', name: 'date_needed', type: 'datefield', required: true, defaultValue: moment().format('YYYY-MM-DD') },
             { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Choose a vendor', endpoint: '/api/admin/expenses/vendors', value: 'id', text: 'name', form: this._getVendorForm(), format: VendorToken },
             { label: 'Delivery Method', name: 'delivery_method', type: 'lookup', placeholder: 'Choose a delivery method', options: [ { value: 'mail', text: 'Mail' }, { value: 'pickup', text: 'Pickup' }] },
+            { label: 'Account Number', name: 'account_number', type: 'textfield', placeholder: 'Enter the account number' },
+            { label: 'Invoice Number', name: 'invoice_number', type: 'textfield', placeholder: 'Enter the invoice number' },
             { label: 'Invoice', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Invoice', action: '/api/admin/assets/upload', endpoint: '/api/admin/expenses/receipts' },
             { name: 'line_items', type: LineItems }
           ]

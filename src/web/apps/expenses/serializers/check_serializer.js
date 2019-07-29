@@ -3,6 +3,8 @@ const checkSerializer = (req, result) => ({
   date_needed: result.get('date_needed'),
   delivery_method: result.get('delivery_method'),
   description: result.get('description'),
+  account_number: result.get('account_number'),
+  invoice_number: result.get('invoice_number'),
   receipt_id: result.get('asset_id'),
   receipts: result.related('receipts').map(receipt),
   expense_type: expense_type(result.related('expense_type')),

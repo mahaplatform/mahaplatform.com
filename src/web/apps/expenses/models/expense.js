@@ -57,7 +57,9 @@ const Expense = new Model({
   },
 
   line_items() {
-    return this.hasMany(Expense, 'code', 'code')
+    return this.hasMany(Expense, 'code', 'code').query(qb => {
+      qb.whereNotNull('amount')
+    })
   },
 
   listener_ids(trx) {

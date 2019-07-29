@@ -11,7 +11,7 @@ export const createCheck = async (req, params) => {
   const check = await Check.forge({
     team_id: req.team.get('id'),
     status_id: 1,
-    ...whitelist(params, ['user_id','code','date_needed','vendor_id','delivery_method','project_id','expense_type_id','description','amount','tax'])
+    ...whitelist(params, ['user_id','code','date_needed','vendor_id','delivery_method','invoice_number','account_number','project_id','expense_type_id','description','amount','tax'])
   }).save(null, {
     transacting: req.trx
   })
@@ -44,7 +44,7 @@ export const createCheck = async (req, params) => {
 export const updateCheck = async (req, check, params) => {
 
   await check.save({
-    ...whitelist(params, ['date_needed','vendor_id','delivery_method','project_id','expense_type_id','description','amount','tax'])
+    ...whitelist(params, ['date_needed','vendor_id','delivery_method','invoice_number','account_number','project_id','expense_type_id','description','amount','tax'])
   }, {
     patch: true,
     transacting: req.trx

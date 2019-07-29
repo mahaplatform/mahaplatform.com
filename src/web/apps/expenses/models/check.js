@@ -52,7 +52,9 @@ const Check = new Model({
   },
 
   line_items() {
-    return this.hasMany(Check, 'code', 'code')
+    return this.hasMany(Check, 'code', 'code').query(qb => {
+      qb.whereNotNull('amount')
+    })
   },
 
   listener_ids(trx) {

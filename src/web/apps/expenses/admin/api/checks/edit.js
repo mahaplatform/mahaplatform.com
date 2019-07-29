@@ -21,6 +21,8 @@ const editRoute = async (req, res) => {
     date_needed: check.get('date_needed'),
     vendor_id: check.get('vendor_id'),
     delivery_method: check.get('delivery_method'),
+    invoice_number: check.get('invoice_number'),
+    account_number: check.get('account_number'),
     receipt_ids: check.get('receipt_ids'),
     line_items: check.related('line_items').map(line_item => ({
       id: line_item.get('id'),

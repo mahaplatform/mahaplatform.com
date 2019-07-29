@@ -443,6 +443,8 @@ const schema = {
       table.text('description')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.string('account_number', 255)
+      table.string('invoice_number', 255)
       table.string('code', 255)
       table.decimal('tax', 6, 2)
     })

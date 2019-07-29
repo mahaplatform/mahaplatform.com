@@ -35,6 +35,11 @@ class ExpenseSplit extends React.Component {
             </tr>
           </thead>
           <tbody>
+            { line_items.length === 0 &&
+              <tr>
+                <td colSpan="4">There are no line items for this item</td>
+              </tr>
+            }
             { line_items.map((line_item, index) => [
               <tr key={`line_item_${index}`} className={ this._getClass(line_item) } onClick={ this._handleToggle.bind(this, index) }>
                 <td>

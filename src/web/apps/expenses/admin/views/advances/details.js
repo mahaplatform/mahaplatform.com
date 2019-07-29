@@ -38,11 +38,11 @@ const Details = ({ advance, commentUrl }) => {
   }
   list.items = [
     requiredField('User', advance, 'user.full_name'),
-    { label: 'Date Needed', content: advance.date_needed, format: 'date' },
-    { label: 'Description', content: advance.description },
-    { label: 'Amount', content: advance.amount, format: 'currency' },
+    requiredField('Date Needed', advance, 'date_needed', { content: advance, format: 'date' }),
     requiredField('Project', advance, 'project.title', { content: advance, format: CompactProjectToken }),
-    requiredField('Expense Type', advance, 'expense_type.title', { content: advance, format: CompactExpenseTypeToken })
+    requiredField('Expense Type', advance, 'expense_type.title', { content: advance, format: CompactExpenseTypeToken }),
+    requiredField('Description', advance, 'description'),
+    requiredField('Amount', advance, 'amount')
   ]
   list.items.push({ component: <Audit entries={ advance.audit } /> })
 

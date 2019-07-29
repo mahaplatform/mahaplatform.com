@@ -41,7 +41,7 @@ const Details = ({ expense, commentUrl }) => {
   }
   list.items = [
     requiredField('User', expense, 'user.full_name'),
-    { label: 'Date', content: expense.date, format: 'date' },
+    requiredField('Date', expense, 'date', { content: expense, format: 'date' }),
     requiredField('Vendor', expense, 'vendor.name', { content: expense, format: CompactVendorToken }),
     requiredField('Account', expense, 'account.name')
   ]
