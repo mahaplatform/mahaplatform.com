@@ -41,55 +41,52 @@ class Table extends React.PureComponent {
     const line_items = this.props.display
     return (
       <div className="line-items-table">
-        <div className="field">
-          <label>Line Items</label>
-          <table className="ui unstackable celled table">
-            <thead>
+        <table className="ui unstackable celled table">
+          <thead>
+            <tr>
+              <th>Project</th>
+              <th className="collapsing">Amnt</th>
+              <th className="collapsing">Tax</th>
+              <th className="collapsing">Total</th>
+              <th colSpan="2" className="collapsing" />
+            </tr>
+          </thead>
+          <tbody>
+            { line_items.length === 0 &&
               <tr>
-                <th>Project</th>
-                <th className="collapsing">Amnt</th>
-                <th className="collapsing">Tax</th>
-                <th className="collapsing">Total</th>
-                <th colSpan="2" className="collapsing" />
+                <td colSpan="5">There are no line_items</td>
               </tr>
-            </thead>
-            <tbody>
-              { line_items.length === 0 &&
-                <tr>
-                  <td colSpan="5">There are no line_items</td>
-                </tr>
-              }
-              { line_items.map((line_item, index) => [
-                <tr key={`line_item_${index}`}>
-                  <td>
-                    { line_item.project.integration.project_code } - { line_item.project.title }
-                  </td>
-                  <td className="right aligned">{ numeral(line_item.amount).format('0.00') }</td>
-                  <td className="right aligned">{ numeral(line_item.tax).format('0.00') }</td>
-                  <td className="right aligned">{ numeral(line_item.total).format('0.00') }</td>
-                  <td className="line-items-action" onClick={ this._handleEdit.bind(this, index) }>
-                    <i className="fa fa-pencil" />
-                  </td>
-                  <td className="line-items-action" onClick={ this._handleRemove.bind(this, index) }>
-                    <i className="fa fa-times" />
-                  </td>
-                </tr>
-              ]) }
-            </tbody>
-            { line_items.length > 0 &&
-              <tfoot>
-                <tr>
-                  <th colSpan="3">Total</th>
-                  <td className="right aligned">
-                    <strong>{ numeral(total).format('0.00') }</strong>
-                  </td>
-                  <th colSpan="2" />
-                </tr>
-              </tfoot>
             }
-          </table>
-          <Button { ...this._getButton() } />
-        </div>
+            { line_items.map((line_item, index) => [
+              <tr key={`line_item_${index}`}>
+                <td>
+                  { line_item.project.integration.project_code } - { line_item.project.title }
+                </td>
+                <td className="right aligned">{ numeral(line_item.amount).format('0.00') }</td>
+                <td className="right aligned">{ numeral(line_item.tax).format('0.00') }</td>
+                <td className="right aligned">{ numeral(line_item.total).format('0.00') }</td>
+                <td className="line-items-action" onClick={ this._handleEdit.bind(this, index) }>
+                  <i className="fa fa-pencil" />
+                </td>
+                <td className="line-items-action" onClick={ this._handleRemove.bind(this, index) }>
+                  <i className="fa fa-times" />
+                </td>
+              </tr>
+            ]) }
+          </tbody>
+          { line_items.length > 0 &&
+            <tfoot>
+              <tr>
+                <th colSpan="3">Total</th>
+                <td className="right aligned">
+                  <strong>{ numeral(total).format('0.00') }</strong>
+                </td>
+                <th colSpan="2" />
+              </tr>
+            </tfoot>
+          }
+        </table>
+        <Button { ...this._getButton() } />
       </div>
     )
   }

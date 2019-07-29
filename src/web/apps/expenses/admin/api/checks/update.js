@@ -3,6 +3,14 @@ import CheckSerializer from '../../../serializers/check_serializer'
 import socket from '../../../../../core/services/routes/emitter'
 import Check from '../../../models/check'
 
+const getLineItems = (item, line_items) => {
+  const items = !line_items || line_items.length === 0 ? [{}] : line_items
+  return items.map((line_item, index) => ({
+    ...line_item,
+    id: index === 0 && !line_item.id ? item.get('id') : line_item.id
+  }))
+}
+
 const updateRoute = async (req, res) => {
 
   const check = await Check.scope({
@@ -10,7 +18,6 @@ const updateRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['line_items'],
     transacting: req.trx
   })
 
@@ -19,31 +26,39 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load check'
   })
 
-  const checks = await Promise.mapSeries(req.body.line_items, async(data) => {
+  const line_items = await Check.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('code', check.get('code'))
+  }).fetchAll({
+    transacting: req.trx
+  })
 
-    if(data.id) {
+  const new_line_items = getLineItems(check, req.body.line_items)
 
-      const line_item = check.related('line_items').find(line_item => {
-        return line_item.get('id') === data.id
-      })
+  const checks = await Promise.mapSeries(new_line_items, async(data) => {
 
-      return await updateCheck(req, line_item, {
+    if(!data.id) {
+      return await createCheck(req, {
+        user_id: check.get('user_id'),
+        code: check.get('code'),
         ...req.body,
         ...data
       })
-
     }
 
-    return await createCheck(req, {
-      user_id: check.get('user_id'),
-      code: check.get('code'),
+    const line_item = line_items.find(line_item => {
+      return line_item.get('id') === data.id
+    })
+
+    return await updateCheck(req, line_item, {
       ...req.body,
       ...data
     })
 
   })
 
-  await Promise.map(check.related('line_items'), async (line_item) => {
+  await Promise.map(line_items, async (line_item) => {
 
     const found = checks.find(check => {
       return check.get('id') === line_item.get('id')

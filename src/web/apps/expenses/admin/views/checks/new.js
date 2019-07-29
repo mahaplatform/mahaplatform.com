@@ -38,7 +38,7 @@ class New extends React.Component {
             { label: 'Account Number', name: 'account_number', type: 'textfield', placeholder: 'Enter the account number' },
             { label: 'Invoice Number', name: 'invoice_number', type: 'textfield', placeholder: 'Enter the invoice number' },
             { label: 'Invoice', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Invoice', action: '/api/admin/assets/upload', endpoint: '/api/admin/expenses/receipts' },
-            { name: 'line_items', type: LineItems }
+            { label: 'Line Items', name: 'line_items', type: LineItems }
           ]
         }
       ]

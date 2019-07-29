@@ -3,6 +3,14 @@ import ReimbursementSerializer from '../../../serializers/reimbursement_serializ
 import socket from '../../../../../core/services/routes/emitter'
 import Reimbursement from '../../../models/reimbursement'
 
+const getLineItems = (item, line_items) => {
+  const items = !line_items || line_items.length === 0 ? [{}] : line_items
+  return items.map((line_item, index) => ({
+    ...line_item,
+    id: index === 0 && !line_item.id ? item.get('id') : line_item.id
+  }))
+}
+
 const updateRoute = async (req, res) => {
 
   const reimbursement = await Reimbursement.scope({
@@ -19,31 +27,39 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load reimbursement'
   })
 
-  const reimbursements = await Promise.mapSeries(req.body.line_items, async(data) => {
+  const line_items = await Reimbursement.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('code', reimbursement.get('code'))
+  }).fetchAll({
+    transacting: req.trx
+  })
 
-    if(data.id) {
+  const new_line_items = getLineItems(reimbursement, req.body.line_items)
 
-      const line_item = reimbursement.related('line_items').find(line_item => {
-        return line_item.get('id') === data.id
-      })
+  const reimbursements = await Promise.mapSeries(new_line_items, async(data) => {
 
-      return await updateReimbursement(req, line_item, {
+    if(!data.id) {
+      return await createReimbursement(req, {
+        user_id: reimbursement.get('user_id'),
+        code: reimbursement.get('code'),
         ...req.body,
         ...data
       })
-
     }
 
-    return await createReimbursement(req, {
-      user_id: reimbursement.get('user_id'),
-      code: reimbursement.get('code'),
+    const line_item = line_items.find(line_item => {
+      return line_item.get('id') === data.id
+    })
+
+    return await updateReimbursement(req, line_item, {
       ...req.body,
       ...data
     })
 
   })
 
-  await Promise.map(reimbursement.related('line_items'), async (line_item) => {
+  await Promise.map(line_items, async (line_item) => {
 
     const found = reimbursements.find(reimbursement => {
       return reimbursement.get('id') === line_item.get('id')

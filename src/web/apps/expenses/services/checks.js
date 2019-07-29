@@ -62,12 +62,12 @@ export const updateCheck = async (req, check, params) => {
   })
 
   await activity(req, {
-    story: 'update_neededd {object}',
+    story: 'updated {object}',
     object: check
   })
 
   await audit(req, {
-    story: 'update_neededd',
+    story: 'updated',
     auditable: check
   })
 

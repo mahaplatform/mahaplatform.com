@@ -34,7 +34,7 @@ class New extends React.Component {
             { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Choose a vendor', endpoint: '/api/admin/expenses/vendors', value: 'id', text: 'name', form: this._getVendorForm(), format: VendorToken },
             { label: 'Account', name: 'account_id', type: 'lookup', placeholder: 'Choose an account', endpoint: '/api/admin/expenses/accounts', value: 'id', text: 'name' },
             { label: 'Receipt', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Receipt', action: '/api/admin/assets/upload', endpoint: '/api/admin/expenses/receipts' },
-            { name: 'line_items', type: LineItems }
+            { label: 'Line Items', name: 'line_items', type: LineItems }
           ]
         }
       ]
