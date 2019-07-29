@@ -36,7 +36,7 @@ const accpaccSerializer = async (req, { batch, items }) => {
         invoiceIndex: invoiceIndex + 1,
         lineItemIndex: 20 * (lineItemIndex + 1),
         user: (lineItem.related('user').get('f_last') + (lineItem.get('vendor_id') ? ' - ' + lineItem.related('vendor').get('name').toLowerCase().trim() : '')),
-        idglacct: idglacct(lineItem, lineItem.related('project')),
+        idglacct: idglacct(lineItem, lineItem.related('project'), lineItem.related('expense_type')),
         amount: numeral(lineItem.get('amount')).format('0.00'),
         amount2: numeral(lineItem.get('amount')).format('0.00'),
         desc: lineItem.get('description'),
@@ -50,7 +50,7 @@ const accpaccSerializer = async (req, { batch, items }) => {
           invoiceIndex: invoiceIndex + 1,
           lineItemIndex: 20 * (lineItemIndex + 1),
           user: (lineItem.related('user').get('f_last') + (lineItem.get('vendor_id') ? ' - ' + lineItem.related('vendor').get('name').toLowerCase().trim() : '')),
-          idglacct: idglacct(lineItem, lineItem.related('tax_project')),
+          idglacct: idglacct(lineItem, lineItem.related('tax_project'), req.tax_expense_type),
           amount: numeral(lineItem.get('tax')).format('0.00'),
           amount2: numeral(lineItem.get('tax')).format('0.00'),
           desc: lineItem.get('description'),
@@ -162,10 +162,10 @@ const accpaccSerializer = async (req, { batch, items }) => {
 
 }
 
-const idglacct = (item, project) => {
-  if(!item.get('expense_type_id')) return null
-  if(!project.get('id')) return null
-  const expense_type_integration = item.related('expense_type').get('integration')
+const idglacct = (item, project, expense_type) => {
+  if(!expense_type.id) return null
+  if(!project.id) return null
+  const expense_type_integration = expense_type.get('integration')
   const expense_code = expense_type_integration.expense_code
   const expense_type_source_code = expense_type_integration ? expense_type_integration.source_code : null
   const project_integration = project.get('integration')

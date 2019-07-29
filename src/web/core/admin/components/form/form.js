@@ -179,7 +179,7 @@ class Form extends React.Component {
     const tabIndexStart = config.reduce((start, section, i) => {
       if(i >= index) return start
       return start + section.fields.length
-    }, 1)
+    }, _.random(0,1000))
     return {
       ...section,
       data,

@@ -15,6 +15,7 @@ class Table extends React.PureComponent {
     defaultValue: PropTypes.array,
     display: PropTypes.array,
     expense_types: PropTypes.object,
+    item_id: PropTypes.number,
     line_items: PropTypes.array,
     projects: PropTypes.object,
     projectEndpoint: PropTypes.string,
@@ -37,7 +38,7 @@ class Table extends React.PureComponent {
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
-    const { total } = this.props
+    const { item_id, total } = this.props
     const line_items = this.props.display
     return (
       <div className="line-items-table">
@@ -65,12 +66,22 @@ class Table extends React.PureComponent {
                 <td className="right aligned">{ numeral(line_item.amount).format('0.00') }</td>
                 <td className="right aligned">{ numeral(line_item.tax).format('0.00') }</td>
                 <td className="right aligned">{ numeral(line_item.total).format('0.00') }</td>
-                <td className="line-items-action" onClick={ this._handleEdit.bind(this, index) }>
-                  <i className="fa fa-pencil" />
-                </td>
-                <td className="line-items-action" onClick={ this._handleRemove.bind(this, index) }>
-                  <i className="fa fa-times" />
-                </td>
+                { line_item.editable === false ?
+                  <td className="line-items-action disabled">
+                    <i className="fa fa-pencil" />
+                  </td> :
+                  <td className="line-items-action" onClick={ this._handleEdit.bind(this, index) }>
+                    <i className="fa fa-pencil" />
+                  </td>
+                }
+                { line_item.editable === false || line_item.id === item_id ?
+                  <td className="line-items-action disabled">
+                    <i className="fa fa-times" />
+                  </td> :
+                  <td className="line-items-action" onClick={ this._handleRemove.bind(this, index) }>
+                    <i className="fa fa-times" />
+                  </td>
+                }
               </tr>
             ]) }
           </tbody>

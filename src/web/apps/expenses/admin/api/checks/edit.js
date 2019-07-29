@@ -1,4 +1,5 @@
 import Check from '../../../models/check'
+import _ from 'lodash'
 
 const editRoute = async (req, res) => {
 
@@ -30,23 +31,11 @@ const editRoute = async (req, res) => {
       expense_type_id: line_item.get('expense_type_id'),
       description: line_item.get('description'),
       amount: line_item.get('amount'),
-      tax: line_item.get('tax')
+      tax: line_item.get('tax'),
+      editable: _.includes([1,2,5], line_item.get('status_id'))
     }))
   }))
 
-  res.status(200).respond(check, {
-    fields: [
-      'id',
-      'date_needed',
-      'description',
-      'amount',
-      'receipt_ids',
-      'project_id',
-      'expense_type_id',
-      'vendor_id',
-      'delivery_method'
-    ]
-  })
 
 }
 

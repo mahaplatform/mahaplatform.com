@@ -18,6 +18,7 @@ export const display = createSelector(
     description: line_item.description,
     amount: Number(line_item.amount),
     tax: Number(line_item.tax),
+    editable: line_item.editable,
     total: Number(line_item.amount) + Number(line_item.tax)
   }))
 )

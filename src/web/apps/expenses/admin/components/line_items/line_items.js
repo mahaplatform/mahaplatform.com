@@ -9,6 +9,7 @@ class LineItems extends React.PureComponent {
     defaultValue: PropTypes.array,
     display: PropTypes.array,
     expense_types: PropTypes.object,
+    item_id: PropTypes.number,
     line_items: PropTypes.array,
     projects: PropTypes.object,
     projectEndpoint: PropTypes.string,

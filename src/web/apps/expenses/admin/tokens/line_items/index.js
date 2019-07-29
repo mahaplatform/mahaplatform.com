@@ -6,10 +6,10 @@ import numeral from 'numeral'
 import React from 'react'
 import _ from 'lodash'
 
-class ExpenseSplit extends React.Component {
+class LineItems extends React.Component {
 
   static propTypes = {
-    active: PropTypes.id,
+    active: PropTypes.number,
     line_items: PropTypes.array
   }
 
@@ -96,4 +96,4 @@ class ExpenseSplit extends React.Component {
 
 }
 
-export default ExpenseSplit
+export default LineItems

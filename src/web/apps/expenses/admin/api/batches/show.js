@@ -1,6 +1,7 @@
+import AccpaccSerializer from '../../../serializers/accpac_serializer'
+import ExpenseType from '../../../models/expense_type'
 import Batch from '../../../models/batch'
 import Item from '../../../models/item'
-import AccpaccSerializer from '../../../serializers/accpac_serializer'
 
 const showRoute = async (req, res) => {
 
@@ -14,6 +15,12 @@ const showRoute = async (req, res) => {
     batch_id: req.params.id
   }).fetchAll({
     withRelated: ['expense_type','project','tax_project','user','vendor','account'],
+    transacting: req.trx
+  })
+
+  req.tax_expense_type = await ExpenseType.where({
+    id: req.apps.expenses.settings.tax_expense_type_id
+  }).fetch({
     transacting: req.trx
   })
 
