@@ -11,9 +11,18 @@ const AddItemCode = {
     })
 
     await knex.schema.table('expenses_projects', (table) => {
+      table.enum('type', ['basic','tax'])
       table.integer('tax_project_id').unsigned()
       table.foreign('tax_project_id').references('expenses_projects.id')
     })
+
+    await knex('expenses_projects').update({
+      type: 'basic'
+    })
+
+    await knex('expenses_projects').update({
+      type: 'tax'
+    }).whereRaw('lower(title) like ?', '%suspense%')
 
     const types = ['advances','checks','expenses','reimbursements','trips']
 

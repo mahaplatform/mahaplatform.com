@@ -505,6 +505,7 @@ const schema = {
       table.jsonb('integration')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.text('type')
       table.integer('tax_project_id').unsigned()
     })
 

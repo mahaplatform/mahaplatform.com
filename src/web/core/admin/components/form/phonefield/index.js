@@ -32,7 +32,7 @@ class PhoneField extends React.Component {
         <div className="maha-input-field">
           <input { ...this._getInput() }/>
         </div>
-        { value.length > 0 &&
+        { value && value.length > 0 &&
           <div className="maha-input-clear" onClick={ this._handleClear }>
             <i className="fa fa-times" />
           </div>

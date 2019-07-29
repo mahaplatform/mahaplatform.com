@@ -6,7 +6,7 @@ const taxRoute = async (req, res) => {
   const projects = await Project.scope({
     team: req.team
   }).query(qb => {
-    qb.joinRaw('inner join expenses_projects parent on parent.tax_project_id=expenses_projects.id')
+    qb.where('type', 'tax')
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx

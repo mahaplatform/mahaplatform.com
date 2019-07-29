@@ -19,6 +19,7 @@ const editRoute = async (req, res) => {
     fields: [
       'id',
       'title',
+      'type',
       'tax_project_id',
       'integration',
       'is_active'

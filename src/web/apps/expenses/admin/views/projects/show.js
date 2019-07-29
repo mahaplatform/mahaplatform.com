@@ -13,7 +13,8 @@ const Details = ({ project, integration }) => {
     title: 'Project Details',
     items: [
       { label: 'Title', content: project.title },
-      { label: 'Tax Project', content: { project: project.tax_project }, format: CompactProjectToken }
+      { label: 'Type', content: project.type.toUpperCase() },
+      { label: 'Tax Account', content: { project: project.tax_project }, format: CompactProjectToken }
     ]
   }
 

@@ -1,6 +1,7 @@
 const projectSerializer = (req, result) => ({
   id: result.get('id'),
   title: result.get('title'),
+  type: result.get('type'),
   is_active: result.get('is_active'),
   tax_project: tax_project(req, result.related('tax_project')),
   integration: integration(req, result),

@@ -68,7 +68,7 @@ class TextField extends React.Component {
           <input { ...this._getControl() } />
           { this.props.suffix && <div className="ui label">{this.props.suffix}</div> }
         </div>
-        { value.length > 0 &&
+        { value && value.length > 0 &&
           <div className="maha-input-clear" onClick={ this._handleClear }>
             <i className="fa fa-times" />
           </div>
@@ -137,7 +137,7 @@ class TextField extends React.Component {
       this.props.onSubmit()
     }
   }
-  
+
   _handleUpdate(event) {
     const sanitized = this.props.sanitize(event.target.value)
     if(!this.props.validate(sanitized)) return event.preventDefault()

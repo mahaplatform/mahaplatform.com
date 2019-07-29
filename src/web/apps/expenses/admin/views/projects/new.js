@@ -14,7 +14,12 @@ class New extends React.Component {
     integration: PropTypes.string
   }
 
+  state = {
+    type: null
+  }
+
   _handleCancel = this._handleCancel.bind(this)
+  _handleChangeField = this._handleChangeField.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
@@ -27,17 +32,27 @@ class New extends React.Component {
       method: 'post',
       action: '/api/admin/expenses/projects',
       onCancel: this._handleCancel,
+      onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true },
-            { label: 'Tax Project', name: 'tax_project_id', type: 'lookup', required: true , placeholder: 'Choose a project', endpoint: '/api/admin/expenses/projects', value: 'id', text: 'title', format: ProjectToken },
+            { label: 'Type', name: 'type', type: 'lookup', placeholder: 'Choose a type', required: true, options: [{value:'basic',text:'Basic Project'},{value:'tax',text:'Tax Account'}] },
+            ...this._getTypeFields(),
             ...this._getIntegration()
           ]
         }
       ]
     }
+  }
+
+  _getTypeFields() {
+    const { type } = this.state
+    if(type !== 'basic') return []
+    return [
+      { label: 'Tax Account', name: 'tax_project_id', type: 'lookup', required: true , placeholder: 'Choose a project', endpoint: '/api/admin/expenses/projects/tax', value: 'id', text: 'title', format: ProjectToken }
+    ]
   }
 
   _getIntegration() {
@@ -55,6 +70,14 @@ class New extends React.Component {
 
   _handleCancel() {
     this.context.modal.close()
+  }
+
+  _handleChangeField(name, value) {
+    if(name === 'type') {
+      this.setState({
+        type: value
+      })
+    }
   }
 
   _handleSuccess(project) {
