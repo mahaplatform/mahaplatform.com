@@ -8,12 +8,15 @@ import merge from './merge'
 import edit from './edit'
 import show from './show'
 import list from './list'
+import tax from './tax'
 
 const router = new Router({ mergeParams: true })
 
 router.get('/', list)
 
 router.post('/', create)
+
+router.get('/tax', tax)
 
 router.get('/:id', show)
 

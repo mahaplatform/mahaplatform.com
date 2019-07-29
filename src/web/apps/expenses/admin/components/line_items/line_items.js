@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import Inline from './inline'
 import Table from './table'
 import React from 'react'
 import _ from 'lodash'
@@ -30,14 +29,11 @@ class LineItems extends React.PureComponent {
   }
 
   render() {
-    const { line_items, status } = this.props
+    const { status } = this.props
     if(status !== 'ready') return null
     return (
       <div className="line-items">
-        { line_items.length <= 1 ?
-          <Inline { ...this.props } /> :
-          <Table { ...this.props } />
-        }
+        <Table { ...this.props } />
       </div>
     )
   }

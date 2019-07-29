@@ -73,6 +73,10 @@ const Item = new Model({
     return this.belongsTo(Status, 'status_id')
   },
 
+  tax_project() {
+    return this.belongsTo(Project, 'tax_project_id')
+  },
+
   user() {
     return this.belongsTo(User, 'user_id')
   },

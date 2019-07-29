@@ -31,7 +31,7 @@ class MoneyField extends React.Component {
   _getTextField() {
     return {
       ...this.props,
-      sanitize: (value) => value.replace(/[\$,]/g,''),
+      sanitize: (value) => value.replace(/[$,]/g,''),
       validate: (value) => value.match(/^-?\d*\.?\d{0,2}$/) !== null
     }
   }

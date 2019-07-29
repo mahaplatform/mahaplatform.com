@@ -45,15 +45,7 @@ const Details = ({ check, commentUrl }) => {
     requiredField('Vendor', check, 'vendor.name', { content: check, format: CompactVendorToken }),
     requiredField('Delivery Method', check, 'delivery_method')
   ]
-  if(check.line_items.length > 1) {
-    list.items.push({ component: <LineItemsToken line_items={ check.line_items } type="check" active={ check.id } /> })
-  } else {
-    const line_item = check.line_items[0]
-    list.items.push(requiredField('Project', line_item, 'project.title', { content: line_item, format: CompactProjectToken }))
-    list.items.push(requiredField('Expense Type', line_item, 'expense_type.title', { content: line_item, format: CompactExpenseTypeToken }))
-    list.items.push(requiredField('Description', line_item, 'description'))
-    list.items.push(requiredField('Amount', line_item, 'amount', { content: line_item.amount, format: 'currency' }))
-  }
+  list.items.push({ component: <LineItemsToken line_items={ check.line_items } active={ check.id } /> })
   if(check.receipts.length > 0) {
     const previews = check.receipts.filter(receipt => receipt.status === 'processed' && (receipt.has_preview || receipt.is_image))
     const slides = previews.map((receipt, index) => <Receipt key={`receipt_preview_${index}`} preview={ true } value={ receipt } />)

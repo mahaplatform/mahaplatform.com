@@ -10,8 +10,7 @@ class ExpenseSplit extends React.Component {
 
   static propTypes = {
     active: PropTypes.id,
-    line_items: PropTypes.array,
-    type: PropTypes.string
+    line_items: PropTypes.array
   }
 
   state = {
@@ -20,18 +19,19 @@ class ExpenseSplit extends React.Component {
 
   render() {
     const { expanded } = this.state
-    const { line_items, type } = this.props
+    const { line_items } = this.props
     const total = line_items.reduce((total, line_item) => {
-      return total + Number(line_item.amount)
+      return total + Number(line_item.amount) + Number(line_item.tax)
     }, 0.00)
     return (
       <div className="line-items-token">
-        <p>This { type } was split between the following line items</p>
-        <table className="ui compact unstackable table">
+        <table className="ui celled compact unstackable table">
           <thead>
             <tr>
               <th>Project</th>
-              <th className="collapsing">Amount</th>
+              <th className="collapsing">Amnt</th>
+              <th className="collapsing">Tax</th>
+              <th className="collapsing">Total</th>
             </tr>
           </thead>
           <tbody>
@@ -41,11 +41,13 @@ class ExpenseSplit extends React.Component {
                   <i className={ `fa fa-fw fa-caret-${_.includes(expanded, index) ? 'down' : 'right' }`} />
                   { line_item.project.integration.project_code } - { line_item.project.title }
                 </td>
-                <td className="right aligned">{ numeral(line_item.amount).format('$0.00') }</td>
+                <td className="right aligned">{ numeral(line_item.amount).format('0.00') }</td>
+                <td className="right aligned">{ numeral(line_item.tax).format('0.00') }</td>
+                <td className="right aligned">{ numeral(Number(line_item.amount) + Number(line_item.tax)).format('0.00') }</td>
               </tr>,
               ..._.includes(expanded, index) ? [(
                 <tr className="expanded" key={`line_item_expanded_${index}`}>
-                  <td colSpan="3">
+                  <td colSpan="5">
                     <List items={ this._getItems(line_item) } />
                   </td>
                 </tr>
@@ -54,9 +56,9 @@ class ExpenseSplit extends React.Component {
           </tbody>
           <tfoot>
             <tr>
-              <th>Total</th>
+              <th colSpan="3">Total</th>
               <td className="right aligned">
-                <strong>{ numeral(total).format('$0.00') }</strong>
+                <strong>{ numeral(total).format('0.00') }</strong>
               </td>
             </tr>
           </tfoot>
@@ -77,7 +79,8 @@ class ExpenseSplit extends React.Component {
       { label: 'Project', content: line_item, format: CompactProjectToken },
       { label: 'Expense Type', content: line_item, format: CompactExpenseTypeToken },
       { label: 'Description', content: line_item.description },
-      { label: 'Amount', content: line_item.amount, format: 'currency' }
+      { label: 'Amount', content: numeral(line_item.amount).format('0.00') },
+      { label: 'Tax', content: numeral(line_item.tax).format('0.00') }
     ]
   }
 

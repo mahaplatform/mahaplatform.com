@@ -16,7 +16,9 @@ export const display = createSelector(
     expense_type: _.find(expense_types.records, { id: line_item.expense_type_id }),
     project: _.find(projects.records, { id: line_item.project_id }),
     description: line_item.description,
-    amount: line_item.amount
+    amount: Number(line_item.amount),
+    tax: Number(line_item.tax),
+    total: Number(line_item.amount) + Number(line_item.tax)
   }))
 )
 
@@ -29,8 +31,8 @@ export const status = createSelector(
 )
 
 export const total = createSelector(
-  line_items,
+  display,
   (line_items) => line_items.reduce((total, line_item) => {
-    return total + Number(line_item.amount)
+    return total + Number(line_item.total)
   }, 0.00)
 )

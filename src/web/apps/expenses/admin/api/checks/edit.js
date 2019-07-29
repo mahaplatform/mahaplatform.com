@@ -27,7 +27,8 @@ const editRoute = async (req, res) => {
       project_id: line_item.get('project_id'),
       expense_type_id: line_item.get('expense_type_id'),
       description: line_item.get('description'),
-      amount: line_item.get('amount')
+      amount: line_item.get('amount'),
+      tax: line_item.get('tax')
     }))
   }))
 

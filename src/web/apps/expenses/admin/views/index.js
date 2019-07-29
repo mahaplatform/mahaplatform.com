@@ -12,6 +12,7 @@ import RateList from './rates/list'
 import ReceiptShow from './receipts/show'
 import ReimbursementShow from './reimbursements/show'
 import ReportList from './items/report'
+import TaxList from './items/tax'
 import TripShow from './trips/show'
 import VendorList from './vendors/list'
 
@@ -29,6 +30,7 @@ const routes = [
   { path: '/rates', component: RateList },
   { path: '/reimbursements/:id', component: ReimbursementShow },
   { path: '/reports', component: ReportList },
+  { path: '/tax', component: TaxList },
   { path: '/receipts/:id', component: ReceiptShow },
   { path: '/trips/:id', component: TripShow },
   { path: '/vendors', component: VendorList }

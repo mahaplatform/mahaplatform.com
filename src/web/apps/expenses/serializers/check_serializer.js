@@ -24,7 +24,8 @@ const line_items = (line_item) => ({
   expense_type: expense_type(line_item.related('expense_type')),
   project: project(line_item.related('project')),
   description: line_item.get('description'),
-  amount: line_item.get('amount')
+  amount: line_item.get('amount'),
+  tax: line_item.get('tax')
 })
 
 const receipt = (receipt) => {

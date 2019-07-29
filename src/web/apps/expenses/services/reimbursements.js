@@ -11,7 +11,7 @@ export const createReimbursement = async (req, params) => {
   const reimbursement = await Reimbursement.forge({
     team_id: req.team.get('id'),
     status_id: 1,
-    ...whitelist(params, ['user_id','code','date','vendor_id','project_id','expense_type_id','description','amount'])
+    ...whitelist(params, ['user_id','code','date','vendor_id','project_id','expense_type_id','description','amount','tax'])
   }).save(null, {
     transacting: req.trx
   })
@@ -24,7 +24,7 @@ export const createReimbursement = async (req, params) => {
 
   await completeItem(req, {
     item: reimbursement,
-    required: ['date','vendor_id','receipt_ids','project_id','expense_type_id','description','amount']
+    required: ['date','vendor_id','receipt_ids','project_id','expense_type_id','description','amount','tax']
   })
 
   await activity(req, {
@@ -44,7 +44,7 @@ export const createReimbursement = async (req, params) => {
 export const updateReimbursement = async (req, reimbursement, params) => {
 
   await reimbursement.save({
-    ...whitelist(params, ['date','vendor_id','project_id','expense_type_id','description','amount'])
+    ...whitelist(params, ['date','vendor_id','project_id','expense_type_id','description','amount','tax'])
   }, {
     patch: true,
     transacting: req.trx
@@ -58,7 +58,7 @@ export const updateReimbursement = async (req, reimbursement, params) => {
 
   await completeItem(req, {
     item: reimbursement,
-    required: ['date','vendor_id','receipt_ids','project_id','expense_type_id','description','amount']
+    required: ['date','vendor_id','receipt_ids','project_id','expense_type_id','description','amount','tax']
   })
 
   await activity(req, {
