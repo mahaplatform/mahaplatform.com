@@ -16,11 +16,9 @@ const accpaccSerializer = async (req, { batch, items }) => {
   }, {})
 
   const headers = [
-    ['RECTYPE','CNTBTCH','CNTITEM','IDVEND','IDINVC','TEXTTRX','IDTRX','INVCDESC','DATEINVC','FISCYR','FISCPER','TERMCODE','DATEDUE','AMT1099','AMTGROSDST','AMTGROSTOT'],
+    ['RECTYPE','CNTBTCH','CNTITEM','IDVEND','IDINVC','TEXTTRX','IDTRX','ORDRNBR','PONBR','INVCDESC','DATEINVC','FISCYR','FISCPER','TERMCODE','DATEDUE','AMT1099','AMTGROSDST','AMTGROSTOT'],
     ['RECTYPE','CNTBTCH','CNTITEM','CNTLINE','TEXTDESC','IDGLACCT','AMTDIST','AMTDISTNET','COMMENT'],
-    ['RECTYPE','CNTBTCH','CNTITEM','CNTPAYM','DATEDUE','AMTDUE'],
-    ['RECTYPE','CNTBTCH','CNTITEM','OPTFIELD'],
-    ['RECTYPE','CNTBTCH','CNTITEM','CNTLINE','OPTFIELD']
+    ['RECTYPE','CNTBTCH','CNTITEM','CNTPAYM','DATEDUE','AMTDUE']
   ]
 
   const invoices = Object.keys(vendors).reduce((invoices, key, invoiceIndex) => {
@@ -129,6 +127,8 @@ const accpaccSerializer = async (req, { batch, items }) => {
       invoice_title,
       1,
       12,
+      record.get('account_number'),
+      record.get('invoice_number'),
       'expenses',
       moment(batch.get('date')).format('YYYYMMDD'),
       fiscYear,
