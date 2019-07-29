@@ -1,4 +1,4 @@
-import { getIntegrationColumn, getIntegrationExport, getIntegrationTasks } from '../integration'
+import { getIntegrationTasks } from '../integration'
 import CompactExpenseTypeToken from '../../tokens/expense_type/compact'
 import CompactProjectToken from '../../tokens/project/compact'
 import CompactVendorToken from '../../tokens/vendor/compact'
@@ -31,8 +31,7 @@ const mapPropsToPage = (props, context, resources) => ({
       { label: 'Vendor', key: 'vendor.name', sort: 'expenses_vendors.name', format: CompactVendorToken },
       { label: 'Account', key: 'account.name', sort: 'expenses_accounts.name' },
       { label: 'Amount', key: 'amount', primary: true, format: 'currency', collapsing: true },
-      { label: 'Status', key: 'status', primary: true, sort: 'expenses_statuses.text', format: Status, collapsing: true },
-      ...getIntegrationColumn(resources.app.settings.integration)
+      { label: 'Status', key: 'status', primary: true, sort: 'expenses_statuses.text', format: Status, collapsing: true }
     ],
     filters: [
       { label: 'Type', name: 'type', type: 'select', multiple: true, options: [ { value: 'expense', text: 'Expense' }, { value: 'reimbursement', text: 'Reimbursement' }, { value: 'check', text: 'Check Request' }, { value: 'trip', text: 'Mileage' }, { value: 'advance', text: 'Cash Advance' } ], format: TypeToken },
@@ -58,8 +57,7 @@ const mapPropsToPage = (props, context, resources) => ({
       { label: 'Account', key: 'account.name' },
       { label: 'Description', key: 'description' },
       { label: 'Amount', key: 'amount' },
-      { label: 'Status', key: 'status' },
-      ...getIntegrationExport(resources.app.settings.integration)
+      { label: 'Status', key: 'status' }
     ],
     link: (record) => `/admin/expenses/${record.type}s/${record.item_id}`,
     defaultSort: { key: 'created_at', order: 'desc' },

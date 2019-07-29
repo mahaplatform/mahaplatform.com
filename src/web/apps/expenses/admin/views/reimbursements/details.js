@@ -41,7 +41,7 @@ const Details = ({ reimbursement, commentUrl }) => {
   }
   list.items = [
     requiredField('User', reimbursement, 'user.full_name'),
-    requiredField('Date', reimbursement, 'date', { content: reimbursement, format: 'date' }),
+    requiredField('Date', reimbursement, 'date', { content: reimbursement.date, format: 'date' }),
     requiredField('Vendor', reimbursement, 'vendor.name', { content: reimbursement, format: CompactVendorToken })
   ]
   list.items.push({ component: <LineItemsToken line_items={ reimbursement.line_items } active={ reimbursement.id } /> })

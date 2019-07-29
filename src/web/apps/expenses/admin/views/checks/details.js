@@ -41,7 +41,7 @@ const Details = ({ check, commentUrl }) => {
   }
   list.items = [
     requiredField('User', check, 'user.full_name'),
-    requiredField('Date Needed', check, 'date_needed', { content: check, format: 'date' }),
+    requiredField('Date Needed', check, 'date_needed', { content: check.date_needed, format: 'date' }),
     requiredField('Vendor', check, 'vendor.name', { content: check, format: CompactVendorToken }),
     requiredField('Delivery Method', check, 'delivery_method'),
     { label: 'Account Number', content: check.account_number },

@@ -14,7 +14,6 @@ const checkSerializer = (req, result) => ({
   user: user(result.related('user')),
   amount: result.get('amount'),
   status: result.related('status').get('text'),
-  integration: integration(result, req.apps.expenses.settings),
   line_items: result.related('line_items').map(line_items),
   audit: result.related('audit').map(audit),
   created_at: result.get('created_at'),
@@ -94,15 +93,6 @@ const vendor = (vendor) => {
     full_address: vendor.get('full_address'),
     integration: vendor.get('integration')
   }
-}
-
-const integration = (result, settings) => {
-  if(settings && settings.integration === 'accpac') {
-    return {
-      idglacct: result.get('idglacct')
-    }
-  }
-  return {}
 }
 
 export default checkSerializer

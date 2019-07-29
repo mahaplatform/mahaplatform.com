@@ -1,5 +1,3 @@
-import CompactExpenseTypeToken from '../../tokens/expense_type/compact'
-import CompactProjectToken from '../../tokens/project/compact'
 import CompactVendorToken from '../../tokens/vendor/compact'
 import { Audit, List, Comments, Carousel } from 'maha-admin'
 import LineItemsToken from '../../tokens/line_items'
@@ -41,7 +39,7 @@ const Details = ({ expense, commentUrl }) => {
   }
   list.items = [
     requiredField('User', expense, 'user.full_name'),
-    requiredField('Date', expense, 'date', { content: expense, format: 'date' }),
+    requiredField('Date', expense, 'date', { content: expense.date, format: 'date' }),
     requiredField('Vendor', expense, 'vendor.name', { content: expense, format: CompactVendorToken }),
     requiredField('Account', expense, 'account.name')
   ]

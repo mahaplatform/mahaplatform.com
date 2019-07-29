@@ -2,34 +2,6 @@ import pluralize from 'pluralize'
 import Export from './batches/new'
 import React from 'react'
 
-export const getIntegrationColumn = (integration) => {
-
-  if(integration === 'accpac') {
-
-    return [
-      { label: 'G/L Acct', key: 'integration.idglacct', visible: false }
-    ]
-
-  }
-
-  return []
-
-}
-
-export const getIntegrationExport = (integration) => {
-
-  if(integration === 'accpac') {
-
-    return [
-      { label: 'G/L Acct', key: 'integration.idglacct' }
-    ]
-
-  }
-
-  return []
-
-}
-
 export const getIntegrationTasks = (integration, context, props) => {
 
   if(integration === 'accpac') {

@@ -13,7 +13,7 @@ const showRoute = async (req, res) => {
   const items = await Item.where({
     batch_id: req.params.id
   }).fetchAll({
-    withRelated: ['expense_type','project','user','vendor','account'],
+    withRelated: ['expense_type','project','tax_project','user','vendor','account'],
     transacting: req.trx
   })
 

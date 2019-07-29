@@ -29,19 +29,40 @@ const accpaccSerializer = async (req, { batch, items }) => {
 
     const vendor_id = _getVendorId(record)
 
-    const lineItems = vendors[key].map((lineItem, lineItemIndex) => ({
-      index: 2,
-      index2: 9999,
-      invoiceIndex: invoiceIndex + 1,
-      lineItemIndex: 20 * (lineItemIndex + 1),
-      user: (lineItem.related('user').get('f_last') + (lineItem.get('vendor_id') ? ' - ' + lineItem.related('vendor').get('name').toLowerCase() : '')),
-      idglacct: lineItem.get('idglacct'),
-      amount: numeral(lineItem.get('amount')).format('0.00'),
-      amount2: numeral(lineItem.get('amount')).format('0.00'),
-      desc: lineItem.get('description'),
-      type: lineItem.get('type'),
-      project_id: lineItem.get('project_id')
-    }))
+    const lineItems = vendors[key].reduce((lineItems, lineItem, lineItemIndex) => {
+      const newItems = [{
+        index: 2,
+        index2: 9999,
+        invoiceIndex: invoiceIndex + 1,
+        lineItemIndex: 20 * (lineItemIndex + 1),
+        user: (lineItem.related('user').get('f_last') + (lineItem.get('vendor_id') ? ' - ' + lineItem.related('vendor').get('name').toLowerCase().trim() : '')),
+        idglacct: idglacct(lineItem, lineItem.related('project')),
+        amount: numeral(lineItem.get('amount')).format('0.00'),
+        amount2: numeral(lineItem.get('amount')).format('0.00'),
+        desc: lineItem.get('description'),
+        type: lineItem.get('type'),
+        project_id: lineItem.get('project_id')
+      }]
+      if(lineItem.get('tax') && lineItem.get('tax') > 0) {
+        newItems.push({
+          index: 2,
+          index2: 9999,
+          invoiceIndex: invoiceIndex + 1,
+          lineItemIndex: 20 * (lineItemIndex + 1),
+          user: (lineItem.related('user').get('f_last') + (lineItem.get('vendor_id') ? ' - ' + lineItem.related('vendor').get('name').toLowerCase().trim() : '')),
+          idglacct: idglacct(lineItem, lineItem.related('tax_project')),
+          amount: numeral(lineItem.get('tax')).format('0.00'),
+          amount2: numeral(lineItem.get('tax')).format('0.00'),
+          desc: lineItem.get('description'),
+          type: lineItem.get('type'),
+          project_id: lineItem.get('tax_project_id')
+        })
+      }
+      return [
+        ...lineItems,
+        ...newItems
+      ]
+    }, [])
 
     const lineItemsObj = lineItems.reduce((obj, item) => {
 
@@ -141,6 +162,19 @@ const accpaccSerializer = async (req, { batch, items }) => {
 
 }
 
+const idglacct = (item, project) => {
+  if(!item.get('expense_type_id')) return null
+  if(!project.get('id')) return null
+  const expense_type_integration = item.related('expense_type').get('integration')
+  const expense_code = expense_type_integration.expense_code
+  const expense_type_source_code = expense_type_integration ? expense_type_integration.source_code : null
+  const project_integration = project.get('integration')
+  const project_code = project_integration.project_code
+  const program_code = project_integration.program_code
+  const source_code = expense_type_source_code || project_integration.source_code
+  const match = project_integration.match
+  return `${expense_code}-${program_code}-${source_code}-${match}-${project_code}`
+}
 
 const _getVendorKey = (record) => {
   if(record.get('type') === 'expense') return record.related('account').get('integration').vendor_id + '-' + record.related('user').get('values').vendor_id

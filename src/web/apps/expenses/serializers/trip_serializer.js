@@ -14,7 +14,6 @@ const tripSerializer = (req, result) => ({
   mileage_rate: result.get('mileage_rate'),
   amount: result.get('amount'),
   status: result.related('status').get('text'),
-  integration: integration(result, req.apps.expenses.settings),
   audit: result.related('audit').map(audit),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
@@ -55,15 +54,6 @@ const project = (project) => {
     title: project.get('title'),
     integration: project.get('integration')
   }
-}
-
-const integration = (result, settings) => {
-  if(settings && settings.integration === 'accpac') {
-    return {
-      idglacct: result.get('idglacct')
-    }
-  }
-  return {}
 }
 
 export default tripSerializer

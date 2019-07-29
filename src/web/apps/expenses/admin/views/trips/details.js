@@ -38,7 +38,7 @@ const Details = ({ trip, commentUrl }) => {
   }
   list.items = [
     requiredField('User', trip, 'user.full_name'),
-    { label: 'Date ', content: trip.date, format: 'date' },
+    requiredField('Date', trip, 'date', { content: trip.date, format: 'date' }),
     { label: 'Description ', content: trip.description },
     requiredField('Project', trip, 'project.title', { content: trip, format: CompactProjectToken }),
     requiredField('Expense Type', trip, 'expense_type.title', { content: trip, format: CompactExpenseTypeToken }),

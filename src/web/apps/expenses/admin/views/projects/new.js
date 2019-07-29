@@ -32,7 +32,7 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true },
-            { label: 'Tax Project', name: 'tax_project_id', type: 'lookup', placeholder: 'Choose a project', endpoint: '/api/admin/expenses/projects', value: 'id', text: 'title', format: ProjectToken },
+            { label: 'Tax Project', name: 'tax_project_id', type: 'lookup', required: true , placeholder: 'Choose a project', endpoint: '/api/admin/expenses/projects', value: 'id', text: 'title', format: ProjectToken },
             ...this._getIntegration()
           ]
         }
