@@ -17,7 +17,13 @@ class Edit extends React.Component {
   }
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleChangeField = this._handleChangeField.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
+
+  state = {
+    tax_total: 0.00,
+    total: 0.00
+  }
 
   render() {
     return <Form {...this._getForm()} />
@@ -25,12 +31,14 @@ class Edit extends React.Component {
 
   _getForm() {
     const { check, projectEndpoint } = this.props
+    const { tax_total, total } = this.state
     return {
       title: 'Edit Check Request',
       method: 'patch',
       endpoint: `/api/admin/expenses/checks/${check.id}/edit`,
       action: `/api/admin/expenses/checks/${check.id}`,
       onCancel: this._handleCancel,
+      onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
       sections: [
         {
@@ -41,7 +49,9 @@ class Edit extends React.Component {
             { label: 'Account Number', name: 'account_number', type: 'textfield', placeholder: 'Enter the account number' },
             { label: 'Invoice Number', name: 'invoice_number', type: 'textfield', placeholder: 'Enter the invoice number' },
             { label: 'Invoice', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Invoice', action: '/api/admin/assets/upload', endpoint: '/api/admin/expenses/receipts' },
-            { label: 'Line Items', name: 'line_items', type: LineItems, projectEndpoint, item_id: check.id }
+            { label: 'Total', name: 'total', type: 'moneyfield', required: true, placeholder: 'Enter the full amount minus the tax' },
+            { label: 'Tax', name: 'tax_total', type: 'moneyfield', required: true, placeholder: 'Enter the tax paid if any' },
+            { label: 'Line Items', name: 'line_items', type: LineItems, projectEndpoint, tax_total, total }
           ]
         }
       ]
@@ -70,6 +80,19 @@ class Edit extends React.Component {
 
   _handleCancel() {
     this.context.modal.close()
+  }
+
+  _handleChangeField(name, value) {
+    if(name === 'tax_total') {
+      this.setState({
+        tax_total: Number(value)
+      })
+    }
+    if(name === 'total') {
+      this.setState({
+        total: Number(value)
+      })
+    }
   }
 
   _handleSuccess() {

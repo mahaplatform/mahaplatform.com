@@ -11,6 +11,7 @@ const reimbursementSerializer = (req, result) => ({
   user: user(result.related('user')),
   amount: result.get('amount'),
   status: result.related('status').get('text'),
+  total: result.get('total'),
   line_items: result.related('line_items').map(line_items),
   audit: result.related('audit').map(audit),
   created_at: result.get('created_at'),
@@ -22,8 +23,7 @@ const line_items = (line_item) => ({
   expense_type: expense_type(line_item.related('expense_type')),
   project: project(line_item.related('project')),
   description: line_item.get('description'),
-  amount: line_item.get('amount'),
-  tax: line_item.get('tax')
+  amount: line_item.get('amount')
 })
 
 const audit = (entry) => ({

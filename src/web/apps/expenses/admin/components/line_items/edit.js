@@ -40,8 +40,7 @@ class Edit extends React.Component {
             { label: 'Project', name: 'project_id', required: true, type: 'lookup', placeholder: 'Choose a project', endpoint: projectEndpoint, value: 'id', text: 'title', format: ProjectToken, defaultValue: line_item.project_id },
             { label: 'Expense Type', name: 'expense_type_id', required: true, type: 'lookup', placeholder: 'Choose an expense type', endpoint: '/api/admin/expenses/expense_types/active', value: 'id', text: 'title', format: ExpenseTypeToken, defaultValue: line_item.expense_type_id },
             { label: 'Description', name: 'description', required: true, placeholder: 'Describe the line item', type: 'textfield', defaultValue: line_item.description },
-            { label: 'Amount', name: 'amount', required: true, placeholder: 'Enter the amount', type: 'moneyfield', defaultValue: line_item.amount },
-            { label: 'Tax', name: 'tax', required: true, placeholder: 'Enter the tax', type: 'moneyfield', defaultValue: line_item.tax }
+            { label: 'Amount', name: 'amount', required: true, placeholder: 'Enter the amount', type: 'moneyfield', defaultValue: line_item.amount }
           ]
         }
       ]

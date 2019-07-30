@@ -25,13 +25,14 @@ const editRoute = async (req, res) => {
     invoice_number: check.get('invoice_number'),
     account_number: check.get('account_number'),
     receipt_ids: check.get('receipt_ids'),
+    total: check.get('total'),
+    tax_total: check.get('tax_total'),
     line_items: check.related('line_items').map(line_item => ({
       id: line_item.get('id'),
       project_id: line_item.get('project_id'),
       expense_type_id: line_item.get('expense_type_id'),
       description: line_item.get('description'),
       amount: line_item.get('amount'),
-      tax: line_item.get('tax'),
       editable: _.includes([1,2,5], line_item.get('status_id'))
     }))
   }))

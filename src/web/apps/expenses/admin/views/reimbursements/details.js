@@ -1,5 +1,3 @@
-import CompactExpenseTypeToken from '../../tokens/expense_type/compact'
-import CompactProjectToken from '../../tokens/project/compact'
 import CompactVendorToken from '../../tokens/vendor/compact'
 import { Audit, List, Comments, Carousel } from 'maha-admin'
 import LineItemsToken from '../../tokens/line_items'
@@ -42,9 +40,10 @@ const Details = ({ reimbursement, commentUrl }) => {
   list.items = [
     requiredField('User', reimbursement, 'user.full_name'),
     requiredField('Date', reimbursement, 'date', { content: reimbursement.date, format: 'date' }),
-    requiredField('Vendor', reimbursement, 'vendor.name', { content: reimbursement, format: CompactVendorToken })
+    requiredField('Vendor', reimbursement, 'vendor.name', { content: reimbursement, format: CompactVendorToken }),
+    requiredField('Total', reimbursement, 'total', { content: reimbursement.total, format: 'currency' })
   ]
-  list.items.push({ component: <LineItemsToken line_items={ reimbursement.line_items } active={ reimbursement.id } /> })
+  list.items.push({ component: <LineItemsToken line_items={ reimbursement.line_items } item={ reimbursement } /> })
   if(reimbursement.receipts.length > 0) {
     const previews = reimbursement.receipts.filter(receipt => receipt.status === 'processed' && (receipt.has_preview || receipt.is_image))
     const slides = previews.map((receipt, index) => <Receipt key={`receipt_preview_${index}`} preview={ true } value={ receipt } />)

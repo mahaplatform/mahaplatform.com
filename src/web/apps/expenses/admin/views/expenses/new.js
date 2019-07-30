@@ -14,18 +14,26 @@ class New extends React.Component {
   static propTypes = {}
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleChangeField = this._handleChangeField.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
+
+  state = {
+    tax_total: 0.00,
+    total: 0.00
+  }
 
   render() {
     return <Form {...this._getForm()} />
   }
 
   _getForm() {
+    const { tax_total, total } = this.state
     return {
       title: 'New Expense',
       method: 'post',
       action: '/api/admin/expenses/expenses',
       onCancel: this._handleCancel,
+      onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
       sections: [
         {
@@ -34,7 +42,9 @@ class New extends React.Component {
             { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Choose a vendor', endpoint: '/api/admin/expenses/vendors', value: 'id', text: 'name', form: this._getVendorForm(), format: VendorToken },
             { label: 'Account', name: 'account_id', type: 'lookup', placeholder: 'Choose an account', endpoint: '/api/admin/expenses/accounts', value: 'id', text: 'name' },
             { label: 'Receipt', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Receipt', action: '/api/admin/assets/upload', endpoint: '/api/admin/expenses/receipts' },
-            { label: 'Line Items', name: 'line_items', type: LineItems }
+            { label: 'Total', name: 'total', type: 'moneyfield', required: true, placeholder: 'Enter the full amount minus the tax' },
+            { label: 'Tax', name: 'tax_total', type: 'moneyfield', required: true, placeholder: 'Enter the tax paid if any' },
+            { label: 'Line Items', name: 'line_items', type: LineItems, tax_total, total }
           ]
         }
       ]
@@ -63,6 +73,19 @@ class New extends React.Component {
 
   _handleCancel() {
     this.context.modal.close()
+  }
+
+  _handleChangeField(name, value) {
+    if(name === 'tax_total') {
+      this.setState({
+        tax_total: Number(value)
+      })
+    }
+    if(name === 'total') {
+      this.setState({
+        total: Number(value)
+      })
+    }
   }
 
   _handleSuccess() {

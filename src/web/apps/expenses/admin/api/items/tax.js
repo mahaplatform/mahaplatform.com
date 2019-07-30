@@ -10,6 +10,7 @@ const taxRoute = async (req, res) => {
     qb.leftJoin('expenses_statuses', 'expenses_statuses.id', 'expenses_items.status_id')
     qb.where('expenses_items.user_id', req.user.get('id'))
     qb.whereNotNull('expenses_items.tax')
+    qb.whereRaw('expenses_items.tax > ?', 0)
   }).filter({
     filter: req.query.$filter,
     filterParams: ['type','user_id','project_id','tax_project_id','date'],

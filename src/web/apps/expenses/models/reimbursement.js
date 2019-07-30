@@ -54,6 +54,7 @@ const Reimbursement = new Model({
   line_items() {
     return this.hasMany(Reimbursement, 'code', 'code').query(qb => {
       qb.whereNotNull('amount')
+      qb.orderBy('delta', 'asc')
     })
   },
 

@@ -15,12 +15,15 @@ class Table extends React.PureComponent {
     defaultValue: PropTypes.array,
     display: PropTypes.array,
     expense_types: PropTypes.object,
-    item_id: PropTypes.number,
     line_items: PropTypes.array,
+    overassigned: PropTypes.number,
     projects: PropTypes.object,
     projectEndpoint: PropTypes.string,
     status: PropTypes.string,
+    sum: PropTypes.number,
+    tax_total: PropTypes.number,
     total: PropTypes.number,
+    unassigned: PropTypes.number,
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
     onFetchExpenseTypes: PropTypes.func,
@@ -38,7 +41,7 @@ class Table extends React.PureComponent {
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
-    const { item_id, total } = this.props
+    const { overassigned, sum, total, unassigned } = this.props
     const line_items = this.props.display
     return (
       <div className="line-items-table">
@@ -47,15 +50,13 @@ class Table extends React.PureComponent {
             <tr>
               <th>Project</th>
               <th className="collapsing">Amnt</th>
-              <th className="collapsing">Tax</th>
-              <th className="collapsing">Total</th>
               <th colSpan="2" className="collapsing" />
             </tr>
           </thead>
           <tbody>
             { line_items.length === 0 &&
               <tr>
-                <td colSpan="5">There are no line_items</td>
+                <td colSpan="4">There are no line_items</td>
               </tr>
             }
             { line_items.map((line_item, index) => [
@@ -64,8 +65,6 @@ class Table extends React.PureComponent {
                   { line_item.project.integration.project_code } - { line_item.project.title }
                 </td>
                 <td className="right aligned">{ numeral(line_item.amount).format('0.00') }</td>
-                <td className="right aligned">{ numeral(line_item.tax).format('0.00') }</td>
-                <td className="right aligned">{ numeral(line_item.total).format('0.00') }</td>
                 { line_item.editable === false ?
                   <td className="line-items-action disabled">
                     <i className="fa fa-pencil" />
@@ -74,7 +73,7 @@ class Table extends React.PureComponent {
                     <i className="fa fa-pencil" />
                   </td>
                 }
-                { line_item.editable === false || line_item.id === item_id ?
+                { line_item.editable === false ?
                   <td className="line-items-action disabled">
                     <i className="fa fa-times" />
                   </td> :
@@ -88,9 +87,9 @@ class Table extends React.PureComponent {
           { line_items.length > 0 &&
             <tfoot>
               <tr>
-                <th colSpan="3">Total</th>
+                <th>Total</th>
                 <td className="right aligned">
-                  <strong>{ numeral(total).format('0.00') }</strong>
+                  <strong>{ numeral(sum).format('0.00') }</strong>
                 </td>
                 <th colSpan="2" />
               </tr>
@@ -98,6 +97,16 @@ class Table extends React.PureComponent {
           }
         </table>
         <Button { ...this._getButton() } />
+        { unassigned &&
+          <div className="alert">
+            { numeral(unassigned).format('0.00') } of the { numeral(total).format('0.00') }  total has not been assigned
+          </div>
+        }
+        { overassigned &&
+          <div className="alert">
+            { numeral(overassigned).format('0.00') } more than the { numeral(total).format('0.00') } total has been assigned
+          </div>
+        }
       </div>
     )
   }

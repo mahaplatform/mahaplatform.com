@@ -54,6 +54,7 @@ const Check = new Model({
   line_items() {
     return this.hasMany(Check, 'code', 'code').query(qb => {
       qb.whereNotNull('amount')
+      qb.orderBy('delta', 'asc')
     })
   },
 

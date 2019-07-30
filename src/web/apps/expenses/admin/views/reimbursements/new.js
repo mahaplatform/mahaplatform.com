@@ -14,18 +14,25 @@ class New extends React.Component {
   static propTypes = {}
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleChangeField = this._handleChangeField.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
+
+  state = {
+    total: 0.00
+  }
 
   render() {
     return <Form {...this._getForm()} />
   }
 
   _getForm() {
+    const { total } = this.state
     return {
       title: 'New Reimbursement',
       method: 'post',
       action: '/api/admin/expenses/reimbursements',
       onCancel: this._handleCancel,
+      onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
       sections: [
         {
@@ -33,7 +40,8 @@ class New extends React.Component {
             { label: 'Date', name: 'date', type: 'datefield', required: true, defaultValue: moment().format('YYYY-MM-DD') },
             { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Choose a vendor', endpoint: '/api/admin/expenses/vendors', value: 'id', text: 'name', form: this._getVendorForm(), format: VendorToken },
             { label: 'Receipt', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Receipt', action: '/api/admin/assets/upload', endpoint: '/api/admin/expenses/receipts' },
-            { label: 'Line Items', name: 'line_items', type: LineItems }
+            { label: 'Total', name: 'total', type: 'moneyfield', required: true, placeholder: 'Enter the full amount minus the tax' },
+            { label: 'Line Items', name: 'line_items', type: LineItems, total }
           ]
         }
       ]
@@ -64,10 +72,17 @@ class New extends React.Component {
     this.context.modal.close()
   }
 
+  _handleChangeField(name, value) {
+    if(name === 'total') {
+      this.setState({
+        total: Number(value)
+      })
+    }
+  }
+
   _handleSuccess() {
     this.context.modal.close()
   }
-
 }
 
 export default New

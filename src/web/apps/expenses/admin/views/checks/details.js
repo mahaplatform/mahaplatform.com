@@ -45,9 +45,11 @@ const Details = ({ check, commentUrl }) => {
     requiredField('Vendor', check, 'vendor.name', { content: check, format: CompactVendorToken }),
     requiredField('Delivery Method', check, 'delivery_method'),
     { label: 'Account Number', content: check.account_number },
-    { label: 'Invoice Number', content: check.invoice_number }
+    { label: 'Invoice Number', content: check.invoice_number },
+    requiredField('Total', check, 'total', { content: check.total, format: 'currency' }),
+    requiredField('Tax', check, 'tax_total', { content: check.tax_total, format: 'currency' })
   ]
-  list.items.push({ component: <LineItemsToken line_items={ check.line_items } active={ check.id } /> })
+  list.items.push({ component: <LineItemsToken line_items={ check.line_items } item={ check }  /> })
   if(check.receipts.length > 0) {
     const previews = check.receipts.filter(receipt => receipt.status === 'processed' && (receipt.has_preview || receipt.is_image))
     const slides = previews.map((receipt, index) => <Receipt key={`receipt_preview_${index}`} preview={ true } value={ receipt } />)

@@ -14,6 +14,8 @@ const checkSerializer = (req, result) => ({
   user: user(result.related('user')),
   amount: result.get('amount'),
   status: result.related('status').get('text'),
+  total: result.get('total'),
+  tax_total: result.get('tax_total'),
   line_items: result.related('line_items').map(line_items),
   audit: result.related('audit').map(audit),
   created_at: result.get('created_at'),

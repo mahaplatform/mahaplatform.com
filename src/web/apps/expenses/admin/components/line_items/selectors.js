@@ -7,6 +7,8 @@ const projects = (state, props) => state.projects
 
 const line_items = (state, props) => state.line_items
 
+const total = (state, props) => props.total || 0.00
+
 export const display = createSelector(
   line_items,
   expense_types,
@@ -17,9 +19,7 @@ export const display = createSelector(
     project: _.find(projects.records, { id: line_item.project_id }),
     description: line_item.description,
     amount: Number(line_item.amount),
-    tax: Number(line_item.tax),
-    editable: line_item.editable,
-    total: Number(line_item.amount) + Number(line_item.tax)
+    editable: line_item.editable
   }))
 )
 
@@ -31,9 +31,21 @@ export const status = createSelector(
   }
 )
 
-export const total = createSelector(
+export const sum = createSelector(
   display,
   (line_items) => line_items.reduce((total, line_item) => {
-    return total + Number(line_item.total)
+    return total + Number(line_item.amount)
   }, 0.00)
+)
+
+export const unassigned = createSelector(
+  total,
+  sum,
+  (total, sum) => total > 0 && total > sum ? total - sum : null
+)
+
+export const overassigned = createSelector(
+  total,
+  sum,
+  (total, sum) => total > 0 && sum > total ? sum - total : null
 )

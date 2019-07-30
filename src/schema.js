@@ -413,7 +413,6 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('batch_id').unsigned()
-      table.string('code', 255)
     })
 
     await knex.schema.createTable('expenses_batches', (table) => {
@@ -446,6 +445,9 @@ const schema = {
       table.string('account_number', 255)
       table.string('invoice_number', 255)
       table.string('code', 255)
+      table.string('delta', 255)
+      table.decimal('total', 9, 2)
+      table.decimal('tax_total', 6, 2)
       table.decimal('tax', 6, 2)
     })
 
@@ -476,6 +478,9 @@ const schema = {
       table.integer('account_id').unsigned()
       table.integer('batch_id').unsigned()
       table.string('code', 255)
+      table.string('delta', 255)
+      table.decimal('total', 9, 2)
+      table.decimal('tax_total', 6, 2)
       table.decimal('tax', 6, 2)
     })
 
@@ -542,7 +547,8 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.string('code', 255)
-      table.decimal('tax', 6, 2)
+      table.string('delta', 255)
+      table.decimal('total', 9, 2)
     })
 
     await knex.schema.createTable('expenses_statuses', (table) => {
@@ -569,7 +575,6 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('batch_id').unsigned()
-      table.string('code', 255)
     })
 
     await knex.schema.createTable('expenses_vendors', (table) => {
@@ -1445,9 +1450,9 @@ const schema = {
     await knex.schema.table('training_fulfillments', table => {
       table.foreign('verification_id').references('maha_assets.id')
       table.foreign('user_id').references('maha_users.id')
+      table.foreign('offering_id').references('training_offerings.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('assignment_id').references('training_assignments.id')
-      table.foreign('offering_id').references('training_offerings.id')
       table.foreign('training_id').references('training_trainings.id')
     })
 
@@ -1680,8 +1685,8 @@ const schema = {
 
     await knex.schema.table('training_administrations', table => {
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('team_id').references('maha_teams.id')
       table.foreign('quiz_id').references('training_quizes.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('training_assignings', table => {
@@ -1762,6 +1767,24 @@ const schema = {
       table.foreign('service_id').references('maha_services.id')
     })
 
+    await knex.schema.table('sites_items', table => {
+      table.foreign('type_id').references('sites_types.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('site_id').references('sites_sites.id')
+    })
+
+    await knex.schema.table('training_answerings', table => {
+      table.foreign('answer_id').references('training_answers.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('administration_id').references('training_administrations.id')
+      table.foreign('question_id').references('training_questions.id')
+    })
+
+    await knex.schema.table('training_questions', table => {
+      table.foreign('quiz_id').references('training_quizes.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('competencies_competencies', table => {
       table.foreign('category_id').references('competencies_categories.id')
       table.foreign('team_id').references('maha_teams.id')
@@ -1836,12 +1859,6 @@ const schema = {
       table.foreign('site_id').references('sites_sites.id')
     })
 
-    await knex.schema.table('sites_items', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('site_id').references('sites_sites.id')
-      table.foreign('type_id').references('sites_types.id')
-    })
-
     await knex.schema.table('sites_members', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('site_id').references('sites_sites.id')
@@ -1859,13 +1876,6 @@ const schema = {
     await knex.schema.table('sites_types', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('site_id').references('sites_sites.id')
-    })
-
-    await knex.schema.table('training_answerings', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('administration_id').references('training_administrations.id')
-      table.foreign('answer_id').references('training_answers.id')
-      table.foreign('question_id').references('training_questions.id')
     })
 
     await knex.schema.table('training_answers', table => {
@@ -1886,11 +1896,6 @@ const schema = {
     await knex.schema.table('training_options', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('assigning_id').references('training_assignings.id')
-    })
-
-    await knex.schema.table('training_questions', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('quiz_id').references('training_quizes.id')
     })
 
     await knex.schema.table('training_quizes', table => {
@@ -2112,13 +2117,15 @@ const schema = {
       items.account_number,
       items.invoice_number,
       items.vendor_id,
+      items.total,
+      items.tax_total,
       items.amount,
       items.tax,
       items.account_id,
       items.status_id,
       items.batch_id,
       items.created_at
-      from ( select expenses_advances.code,
+      from ( select null::character varying as code,
       expenses_advances.id as item_id,
       expenses_advances.team_id,
       maha_import_items.import_id,
@@ -2132,6 +2139,8 @@ const schema = {
       null::text as account_number,
       null::text as invoice_number,
       null::integer as vendor_id,
+      null::numeric as total,
+      null::numeric as tax_total,
       expenses_advances.amount,
       null::numeric as tax,
       null::integer as account_id,
@@ -2157,6 +2166,8 @@ const schema = {
       null::text as account_number,
       null::text as invoice_number,
       expenses_expenses.vendor_id,
+      expenses_expenses.total,
+      expenses_expenses.tax_total,
       expenses_expenses.amount,
       expenses_expenses.tax,
       expenses_expenses.account_id,
@@ -2168,7 +2179,7 @@ const schema = {
       left join maha_import_items on ((maha_import_items.object_id = expenses_expenses.id)))
       left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'expenses_expenses'::text))))
       union
-      select expenses_trips.code,
+      select null::character varying as code,
       expenses_trips.id as item_id,
       expenses_trips.team_id,
       maha_import_items.import_id,
@@ -2182,6 +2193,8 @@ const schema = {
       null::text as account_number,
       null::text as invoice_number,
       null::integer as vendor_id,
+      null::numeric as total,
+      null::numeric as tax_total,
       expenses_trips.amount,
       null::numeric as tax,
       null::integer as account_id,
@@ -2207,6 +2220,8 @@ const schema = {
       expenses_checks.account_number,
       expenses_checks.invoice_number,
       expenses_checks.vendor_id,
+      expenses_checks.total,
+      expenses_checks.tax_total,
       expenses_checks.amount,
       expenses_checks.tax,
       null::integer as account_id,
@@ -2232,8 +2247,10 @@ const schema = {
       null::text as account_number,
       null::text as invoice_number,
       expenses_reimbursements.vendor_id,
+      expenses_reimbursements.total,
+      null::numeric as tax_total,
       expenses_reimbursements.amount,
-      expenses_reimbursements.tax,
+      null::numeric as tax,
       null::integer as account_id,
       expenses_reimbursements.status_id,
       expenses_reimbursements.batch_id,

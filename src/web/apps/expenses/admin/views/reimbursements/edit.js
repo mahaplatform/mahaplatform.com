@@ -17,7 +17,12 @@ class Edit extends React.Component {
   }
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleChangeField = this._handleChangeField.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
+
+  state = {
+    total: 0.00
+  }
 
   render() {
     return <Form {...this._getForm()} />
@@ -25,12 +30,14 @@ class Edit extends React.Component {
 
   _getForm() {
     const { projectEndpoint, reimbursement } = this.props
+    const { total } = this.state
     return {
       title: 'Edit Reimbursement',
       method: 'patch',
       endpoint: `/api/admin/expenses/reimbursements/${reimbursement.id}/edit`,
       action: `/api/admin/expenses/reimbursements/${reimbursement.id}`,
       onCancel: this._handleCancel,
+      onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
       sections: [
         {
@@ -38,7 +45,8 @@ class Edit extends React.Component {
             { label: 'Date', name: 'date', type: 'datefield', required: true, defaultValue: moment().format('YYYY-MM-DD') },
             { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Choose a vendor', endpoint: '/api/admin/expenses/vendors', value: 'id', text: 'name', form: this._getVendorForm(), format: VendorToken },
             { label: 'Receipt', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Receipt', action: '/api/admin/assets/upload', endpoint: '/api/admin/expenses/receipts' },
-            { label: 'Line Items', name: 'line_items', type: LineItems, projectEndpoint }
+            { label: 'Total', name: 'total', type: 'moneyfield', required: true, placeholder: 'Enter the full amount minus the tax' },
+            { label: 'Line Items', name: 'line_items', type: LineItems, projectEndpoint, total }
           ]
         }
       ]
@@ -67,6 +75,14 @@ class Edit extends React.Component {
 
   _handleCancel() {
     this.context.modal.close()
+  }
+
+  _handleChangeField(name, value) {
+    if(name === 'total') {
+      this.setState({
+        total: Number(value)
+      })
+    }
   }
 
   _handleSuccess() {

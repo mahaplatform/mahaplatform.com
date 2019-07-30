@@ -11,7 +11,7 @@ export const createExpense = async (req, params) => {
   const expense = await Expense.forge({
     team_id: req.team.get('id'),
     status_id: 1,
-    ...whitelist(params, ['user_id','code','date','vendor_id','account_id','project_id','expense_type_id','description','amount','tax'])
+    ...whitelist(params, ['user_id','code','date','vendor_id','account_id','total','tax_total','project_id','expense_type_id','description','amount','tax'])
   }).save(null, {
     transacting: req.trx
   })
@@ -24,7 +24,7 @@ export const createExpense = async (req, params) => {
 
   await completeItem(req, {
     item: expense,
-    required: ['date','vendor_id','account_id','receipt_ids','project_id','expense_type_id','description','amount','tax']
+    required: ['date','vendor_id','account_id','receipt_ids','total','tax_total','project_id','expense_type_id','description','amount','tax']
   })
 
   await activity(req, {
@@ -44,7 +44,7 @@ export const createExpense = async (req, params) => {
 export const updateExpense = async (req, expense, params) => {
 
   await expense.save({
-    ...whitelist(params, ['date','account_id','vendor_id','project_id','expense_type_id','description','amount','tax'])
+    ...whitelist(params, ['date','account_id','vendor_id','total','tax_total','project_id','expense_type_id','description','amount','tax'])
   }, {
     patch: true,
     transacting: req.trx
@@ -58,7 +58,7 @@ export const updateExpense = async (req, expense, params) => {
 
   await completeItem(req, {
     item: expense,
-    required: ['date','account_id','vendor_id','receipt_ids','project_id','expense_type_id','description','amount','tax']
+    required: ['date','account_id','vendor_id','receipt_ids','total','tax_total','project_id','expense_type_id','description','amount','tax']
   })
 
   await activity(req, {

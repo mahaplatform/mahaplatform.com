@@ -9,12 +9,15 @@ class LineItems extends React.PureComponent {
     defaultValue: PropTypes.array,
     display: PropTypes.array,
     expense_types: PropTypes.object,
-    item_id: PropTypes.number,
     line_items: PropTypes.array,
+    overassigned: PropTypes.number,
     projects: PropTypes.object,
     projectEndpoint: PropTypes.string,
     status: PropTypes.string,
+    sum: PropTypes.number,
+    tax_total: PropTypes.number,
     total: PropTypes.number,
+    unassigned: PropTypes.number,
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
     onFetchExpenseTypes: PropTypes.func,
@@ -52,8 +55,20 @@ class LineItems extends React.PureComponent {
       this.props.onReady()
     }
     if(!_.isEqual(line_items, prevProps.line_items)) {
-      this.props.onChange(line_items)
+      this._handleChange()
     }
+  }
+
+  _handleChange() {
+    const { line_items, tax_total, total } = this.props
+    this.props.onChange(line_items.map((line_item, index) => {
+      const round = index === 0 ? _.ceil : _.floor
+      return {
+        ...line_item,
+        delta: index,
+        tax: tax_total ? round(tax_total * (line_item.amount / total), 2) : null
+      }
+    }))
   }
 
 }

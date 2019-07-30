@@ -24,12 +24,16 @@ const AddItemCode = {
       type: 'tax'
     }).whereIn('id', [52,66,91,134,139,151,153,155,157,173])
 
-    const types = ['advances','checks','expenses','reimbursements','trips']
+    const types = ['checks','expenses','reimbursements']
 
     await Promise.map(types, async (type) => {
+      const include_tax = _.includes(['checks','expenses'], type)
       await knex.schema.table(`expenses_${type}`, (table) => {
         table.string('code')
-        if(_.includes(['advances','trips'], type)) return
+        table.string('delta')
+        table.decimal('total', 9, 2)
+        if(!include_tax) return
+        table.decimal('tax_total', 6, 2)
         table.decimal('tax', 6, 2)
       })
       const items = await knex(`expenses_${type}`)
@@ -37,9 +41,25 @@ const AddItemCode = {
         await knex(`expenses_${type}`).where({
           id: item.id
         }).update({
-          code: generateCode()
+          ...include_tax ? {
+            tax: 0.00,
+            tax_total: 0.00
+          } : {},
+          total: item.amount ? Number(item.amount).toFixed(2): null,
+          code: generateCode(),
+          delta: 0
         })
       })
+    })
+
+    await knex('maha_installations').where({
+      id: 2
+    }).update({
+      settings: {
+        integration: 'accpac',
+        tax_expense_type_id: 48,
+        trip_expense_type_id: 16
+      }
     })
 
     await knex.raw('drop view expenses_items')
@@ -49,13 +69,13 @@ const AddItemCode = {
       select row_number() over (order by "items"."type", "items"."item_id") as id,
       "items".*
       from (
-      select "expenses_advances"."code",
-      "expenses_advances"."id" as item_id,
+      select null as "code",
+      "expenses_advances"."id" as "item_id",
       "expenses_advances"."team_id",
-      "maha_import_items"."import_id" as import_id,
-      'advance' as type,
-      "expenses_advances"."date_needed" as date,
-      "expenses_advances"."user_id" as user_id,
+      "maha_import_items"."import_id" as "import_id",
+      'advance' as "type",
+      "expenses_advances"."date_needed" as "date",
+      "expenses_advances"."user_id" as "user_id",
       "expenses_advances"."project_id",
       "expenses_projects"."tax_project_id",
       "expenses_advances"."expense_type_id",
@@ -63,6 +83,8 @@ const AddItemCode = {
       null as "account_number",
       null as "invoice_number",
       null as "vendor_id",
+      null as "total",
+      null as "tax_total",
       "expenses_advances"."amount",
       null as "tax",
       null as "account_id",
@@ -75,12 +97,12 @@ const AddItemCode = {
       left join "maha_imports" on "maha_imports"."id" = "maha_import_items"."import_id" and "maha_imports"."object_type" = 'expenses_advances'
       union
       select "expenses_expenses"."code",
-      "expenses_expenses"."id" as item_id,
+      "expenses_expenses"."id" as "item_id",
       "expenses_expenses"."team_id",
-      "maha_import_items"."import_id" as import_id,
-      'expense' as type,
+      "maha_import_items"."import_id" as "import_id",
+      'expense' as "type",
       "expenses_expenses"."date",
-      "expenses_expenses"."user_id" as user_id,
+      "expenses_expenses"."user_id" as "user_id",
       "expenses_expenses"."project_id",
       "expenses_projects"."tax_project_id",
       "expenses_expenses"."expense_type_id",
@@ -88,6 +110,8 @@ const AddItemCode = {
       null as "account_number",
       null as "invoice_number",
       "expenses_expenses"."vendor_id",
+      "expenses_expenses"."total",
+      "expenses_expenses"."tax_total",
       "expenses_expenses"."amount",
       "expenses_expenses"."tax",
       "expenses_expenses"."account_id",
@@ -99,20 +123,22 @@ const AddItemCode = {
       left join "maha_import_items" on "maha_import_items"."object_id" = "expenses_expenses"."id"
       left join "maha_imports" on "maha_imports"."id" = "maha_import_items"."import_id" and "maha_imports"."object_type" = 'expenses_expenses'
       union
-      select "expenses_trips"."code",
-      "expenses_trips"."id" as item_id,
+      select null as "code",
+      "expenses_trips"."id" as "item_id",
       "expenses_trips"."team_id",
-      "maha_import_items"."import_id" as import_id,
-      'trip' as type,
+      "maha_import_items"."import_id" as "import_id",
+      'trip' as "type",
       "expenses_trips"."date",
-      "expenses_trips"."user_id" as user_id,
+      "expenses_trips"."user_id" as "user_id",
       "expenses_trips"."project_id",
       "expenses_projects"."tax_project_id",
       "expenses_trips"."expense_type_id",
       "expenses_trips"."description",
       null as "account_number",
       null as "invoice_number",
-      null as vendor_id,
+      null as "vendor_id",
+      null as "total",
+      null as "tax_total",
       "expenses_trips"."amount",
       null as "tax",
       null as "account_id",
@@ -125,12 +151,12 @@ const AddItemCode = {
       left join "maha_imports" on "maha_imports"."id" = "maha_import_items"."import_id" and "maha_imports"."object_type" = 'expenses_trips'
       union
       select "expenses_checks"."code",
-      "expenses_checks"."id" as item_id,
+      "expenses_checks"."id" as "item_id",
       "expenses_checks"."team_id",
-      "maha_import_items"."import_id" as import_id,
-      'check' as type,
-      "expenses_checks"."date_needed" as date,
-      "expenses_checks"."user_id" as user_id,
+      "maha_import_items"."import_id" as "import_id",
+      'check' as "type",
+      "expenses_checks"."date_needed" as "date",
+      "expenses_checks"."user_id" as "user_id",
       "expenses_checks"."project_id",
       "expenses_projects"."tax_project_id",
       "expenses_checks"."expense_type_id",
@@ -138,6 +164,8 @@ const AddItemCode = {
       "expenses_checks"."account_number",
       "expenses_checks"."invoice_number",
       "expenses_checks"."vendor_id",
+      "expenses_checks"."total",
+      "expenses_checks"."tax_total",
       "expenses_checks"."amount",
       "expenses_checks"."tax",
       null as "account_id",
@@ -150,12 +178,12 @@ const AddItemCode = {
       left join "maha_imports" on "maha_imports"."id" = "maha_import_items"."import_id" and "maha_imports"."object_type" = 'expenses_checks'
       union
       select "expenses_reimbursements"."code",
-      "expenses_reimbursements"."id" as item_id,
+      "expenses_reimbursements"."id" as "item_id",
       "expenses_reimbursements"."team_id",
-      "maha_import_items"."import_id" as import_id,
-      'reimbursement' as type,
+      "maha_import_items"."import_id" as "import_id",
+      'reimbursement' as "type",
       "expenses_reimbursements"."date",
-      "expenses_reimbursements"."user_id" as user_id,
+      "expenses_reimbursements"."user_id" as "user_id",
       "expenses_reimbursements"."project_id",
       "expenses_projects"."tax_project_id",
       "expenses_reimbursements"."expense_type_id",
@@ -163,8 +191,10 @@ const AddItemCode = {
       null as "account_number",
       null as "invoice_number",
       "expenses_reimbursements"."vendor_id",
+      "expenses_reimbursements"."total",
+      null as "tax_total",
       "expenses_reimbursements"."amount",
-      "expenses_reimbursements"."tax",
+      null as "tax",
       null as "account_id",
       "expenses_reimbursements"."status_id",
       "expenses_reimbursements"."batch_id",

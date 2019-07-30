@@ -41,9 +41,11 @@ const Details = ({ expense, commentUrl }) => {
     requiredField('User', expense, 'user.full_name'),
     requiredField('Date', expense, 'date', { content: expense.date, format: 'date' }),
     requiredField('Vendor', expense, 'vendor.name', { content: expense, format: CompactVendorToken }),
-    requiredField('Account', expense, 'account.name')
+    requiredField('Account', expense, 'account.name'),
+    requiredField('Total', expense, 'total', { content: expense.total, format: 'currency' }),
+    requiredField('Tax', expense, 'tax_total', { content: expense.tax_total, format: 'currency' })
   ]
-  list.items.push({ component: <LineItemsToken line_items={ expense.line_items } active={ expense.id } /> })
+  list.items.push({ component: <LineItemsToken line_items={ expense.line_items } item={ expense } /> })
   if(expense.receipts.length > 0) {
     const previews = expense.receipts.filter(receipt => receipt.status === 'processed' && (receipt.has_preview || receipt.is_image))
     const slides = previews.map((receipt, index) => <Receipt key={`receipt_preview_${index}`} preview={ true } value={ receipt } />)
