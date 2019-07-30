@@ -48,7 +48,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     filters: [
       { label: 'Member', name: 'user_id', type: 'select', multiple: false, endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: UserToken },
       { label: 'Type', name: 'type', type: 'select', options: [{value:'basic',text:'Basic Project'},{value:'tax',text:'Tax Account'}] },
-      { label: 'Tax Project', name: 'tax_project_id', type: 'select', endpoint: '/api/admin/expenses/projects/tax', value: 'id', text: 'title', format: ProjectToken },
+      { label: 'Tax Account', name: 'tax_project_id', type: 'select', endpoint: '/api/admin/expenses/projects/tax', value: 'id', text: 'title', format: ProjectToken },
       { label: 'Active', name: 'is_active', type: 'select', options: [{ value: '1', text: 'Active' }, { value: '0', text: 'Inactive' }] }
     ],
     export: [

@@ -1,4 +1,5 @@
 import ProjectSerializer from '../../../serializers/project_serializer'
+import knex from '../../../../../core/services/knex'
 import Project from '../../../models/project'
 import _ from 'lodash'
 
@@ -7,6 +8,7 @@ const listRoute = async (req, res) => {
   const projects = await Project.scope({
     team: req.team
   }).query(qb => {
+    qb.select(knex.raw('distinct on (expenses_projects.id,expenses_projects.integration->>\'project_code\',expenses_projects.title) expenses_projects.*'))
     if(_.includes(req.rights, 'expenses:manage_configuration')) {
       qb.leftJoin('expenses_members', 'expenses_members.project_id', 'expenses_projects.id')
     } else  {

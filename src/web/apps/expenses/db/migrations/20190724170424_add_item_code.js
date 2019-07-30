@@ -22,7 +22,7 @@ const AddItemCode = {
 
     await knex('expenses_projects').update({
       type: 'tax'
-    }).whereRaw('lower(title) like ?', '%suspense%')
+    }).whereIn('id', [52,66,91,134,139,151,153,155,157,173])
 
     const types = ['advances','checks','expenses','reimbursements','trips']
 
