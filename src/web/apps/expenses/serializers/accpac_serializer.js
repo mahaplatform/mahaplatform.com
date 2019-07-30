@@ -16,7 +16,7 @@ const accpaccSerializer = async (req, { batch, items }) => {
   }, {})
 
   const headers = [
-    ['RECTYPE','CNTBTCH','CNTITEM','IDVEND','IDINVC','TEXTTRX','IDTRX','ORDRNBR','PONBR','INVCDESC','DATEINVC','FISCYR','FISCPER','TERMCODE','DATEDUE','AMT1099','AMTGROSDST','AMTGROSTOT'],
+    ['RECTYPE','CNTBTCH','CNTITEM','IDVEND','IDINVC','TEXTTRX','IDTRX','ORDRNBR','INVCDESC','DATEINVC','FISCYR','FISCPER','TERMCODE','DATEDUE','AMT1099','AMTGROSDST','AMTGROSTOT'],
     ['RECTYPE','CNTBTCH','CNTITEM','CNTLINE','TEXTDESC','IDGLACCT','AMTDIST','AMTDISTNET','COMMENT'],
     ['RECTYPE','CNTBTCH','CNTITEM','CNTPAYM','DATEDUE','AMTDUE']
   ]
@@ -119,6 +119,13 @@ const accpaccSerializer = async (req, { batch, items }) => {
 
     const invoice_title = record.get('batch_id')+'-' + key
 
+    const getAccount = (record) => {
+      const items = []
+      if(record.get('account_number')) items.push(`Account ${record.get('account_number')}`)
+      if(record.get('invoice_number')) items.push(`Invoice ${record.get('invoice_number')}`)
+      return items.join(', ')
+    }
+
     const invoice = [
       1,
       9999,
@@ -127,8 +134,7 @@ const accpaccSerializer = async (req, { batch, items }) => {
       invoice_title,
       1,
       12,
-      record.get('account_number'),
-      record.get('invoice_number'),
+      getAccount(record),
       'expenses',
       moment(batch.get('date')).format('YYYYMMDD'),
       fiscYear,
