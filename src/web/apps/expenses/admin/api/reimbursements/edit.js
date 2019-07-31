@@ -1,3 +1,4 @@
+import getUserAccess from '../../../../../core/utils/get_user_access'
 import Reimbursement from '../../../models/reimbursement'
 import _ from 'lodash'
 
@@ -17,6 +18,8 @@ const editRoute = async (req, res) => {
     message: 'Unable to load reimbursement'
   })
 
+  const access = await getUserAccess(req, req.user)
+
   res.status(200).respond(reimbursement, (req, reimbursement) => ({
     date: reimbursement.get('date'),
     receipt_ids: reimbursement.get('receipt_ids'),
@@ -28,7 +31,8 @@ const editRoute = async (req, res) => {
       expense_type_id: line_item.get('expense_type_id'),
       description: line_item.get('description'),
       amount: line_item.get('amount'),
-      editable: _.includes([1,2,5], line_item.get('status_id'))
+      can_edit: _.includes([1,2,5], line_item.get('status_id')) || _.includes(access.rights, 'expenses:access_reports'),
+      can_delete: line_item.get('id') !== reimbursement.get('id') && (_.includes([1,2,5], line_item.get('status_id')) || _.includes(access.rights, 'expenses:access_reports'))
     }))
   }))
 

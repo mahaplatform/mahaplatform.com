@@ -36,6 +36,7 @@ class Page extends React.Component {
     panel: PropTypes.object,
     page: PropTypes.object,
     rights: PropTypes.array,
+    sidebar: PropTypes.any,
     tabs: PropTypes.object,
     task: PropTypes.object,
     tasks: PropTypes.object,
@@ -59,7 +60,7 @@ class Page extends React.Component {
 
   render() {
     const { access } = this.state
-    const { buttons, collection, message, panel, tabs } = this.props
+    const { buttons, collection, message, panel, sidebar, tabs } = this.props
     const Component = this.props.component
     if(access === null) return null
     if(!access) return (
@@ -69,13 +70,20 @@ class Page extends React.Component {
     )
     return (
       <ModalPanel { ...this._getModalPanel() }>
-        <div className="maha-page-body">
-          { Component && <Component { ...this._getComponent() } /> }
-          { collection && <Collection { ...this._getCollection() } /> }
-          { message && <Message { ...message } /> }
-          { tabs && <Tabs { ...tabs } /> }
-          { panel && <Panel { ...panel } /> }
-          { this.props.children }
+        <div className="maha-page-main">
+          { sidebar &&
+            <div className="maha-page-sidebar">
+              { _.isFunction(sidebar) ? React.createElement(sidebar) : sidebar }
+            </div>
+          }
+          <div className="maha-page-body">
+            { Component && <Component { ...this._getComponent() } /> }
+            { collection && <Collection { ...this._getCollection() } /> }
+            { message && <Message { ...message } /> }
+            { tabs && <Tabs { ...tabs } /> }
+            { panel && <Panel { ...panel } /> }
+            { this.props.children }
+          </div>
         </div>
         <CSSTransition in={ !_.isNil(buttons) } classNames="expanded" timeout={ 150 } mountOnEnter={ true } unmountOnExit={ true }>
           <div className="maha-page-footer">

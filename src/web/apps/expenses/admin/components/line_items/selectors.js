@@ -19,7 +19,8 @@ export const display = createSelector(
     project: _.find(projects.records, { id: line_item.project_id }),
     description: line_item.description,
     amount: Number(line_item.amount),
-    editable: line_item.editable
+    can_edit: line_item.can_edit,
+    can_delete: line_item.can_delete
   }))
 )
 

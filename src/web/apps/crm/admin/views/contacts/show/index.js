@@ -5,10 +5,11 @@ import Edit from '../edit'
 import React from 'react'
 
 const getTabs = (user, { contact, fields }) => ({
-  header: <Header contact={ contact} />,
   items: [
-    { label: 'Details', component: <Details contact={ contact } fields={ fields } /> },
-    { label: 'Activities', component: <Details contact={ contact } fields={ fields } /> }
+    // { label: 'Details', component: <Details contact={ contact } fields={ fields } /> },
+    { label: 'One', component: <div>Foo</div> },
+    { label: 'Two', component: <div>Bar</div> },
+    { label: 'Three', component: <div>Baz</div> }
   ]
 })
 
@@ -26,6 +27,12 @@ const mapResourcesToPage = (props, context) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: resources.contact.display_name,
+  sidebar: (
+    <div>
+      <Header contact={ resources.contact} />
+      <Details contact={ resources.contact } fields={ resources.fields } />
+    </div>
+  ),
   tabs: getTabs(props.user, resources),
   tasks: getTasks(props.user, resources)
 })

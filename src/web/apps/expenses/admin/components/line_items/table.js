@@ -65,7 +65,7 @@ class Table extends React.PureComponent {
                   { line_item.project.integration.project_code } - { line_item.project.title }
                 </td>
                 <td className="right aligned">{ numeral(line_item.amount).format('0.00') }</td>
-                { line_item.editable === false ?
+                { line_item.can_edit === false ?
                   <td className="line-items-action disabled">
                     <i className="fa fa-pencil" />
                   </td> :
@@ -73,7 +73,7 @@ class Table extends React.PureComponent {
                     <i className="fa fa-pencil" />
                   </td>
                 }
-                { line_item.editable === false ?
+                { line_item.can_delete === false ?
                   <td className="line-items-action disabled">
                     <i className="fa fa-times" />
                   </td> :

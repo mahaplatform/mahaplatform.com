@@ -1,14 +1,18 @@
-.contact-header-items {
-  width: 18em;
-  margin: 0.8em auto 0;
+.contact-header {
+  background-color: @red;
+  overflow: hidden;
   display: flex;
-  .fa {
-    font-size: 1.4em;
-    line-height: 1em;
-  }
+  flex-direction: column;
+}
+.contact-header-avatar {
+  padding: 0.8em;
+}
+.contact-header-items {
+  display: flex;
 }
 .contact-header-item {
   flex: 1;
+  padding: 0.8em;
   text-align: center;
 }
 .contact-header-button {
@@ -21,6 +25,10 @@
   color: @red;
   cursor: pointer;
   text-align: center;
+  .fa {
+    font-size: 1.4em;
+    line-height: 1em;
+  }
   &.disabled {
     background-color: fadeout(@white, 30);
     cursor: auto;

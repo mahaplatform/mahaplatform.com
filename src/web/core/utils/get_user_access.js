@@ -3,9 +3,11 @@ import Right from '../../apps/maha/models/right'
 import App from '../../apps/maha/models/app'
 import knex from '../services/knex'
 
-export default async (user, trx) => {
+export default async (req, user) => {
 
-  const apps = await App.fetchAll({ transacting: trx })
+  const apps = await App.fetchAll({
+    transacting: req.trx
+  })
 
   const installations = await Installation.query(qb => {
     qb.select(knex.raw('distinct on (maha_installations.app_id) maha_installations.*'))
@@ -13,7 +15,9 @@ export default async (user, trx) => {
     qb.innerJoin('maha_users_roles', 'maha_users_roles.role_id', 'maha_roles_apps.role_id')
     qb.where('maha_installations.team_id', user.get('team_id'))
     qb.where('maha_users_roles.user_id', user.get('id'))
-  }).fetchAll({ transacting: trx })
+  }).fetchAll({
+    transacting: req.trx
+  })
 
   const rights = await Right.query(qb => {
     qb.select(knex.raw('distinct on (maha_rights.id) maha_rights.*'))
@@ -22,7 +26,7 @@ export default async (user, trx) => {
     qb.where('maha_users_roles.user_id', user.get('id'))
   }).fetchAll({
     withRelated: ['app'],
-    transacting: trx
+    transacting: req.trx
   })
 
   const appMap = apps.reduce((apps, app) => ({

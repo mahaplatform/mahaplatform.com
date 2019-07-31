@@ -91,7 +91,7 @@ const showRoute = async (req, res) => {
 
   const navigation = await loadNavigation(req)
 
-  session.access = await getUserAccess(req.user, req.trx)
+  session.access = await getUserAccess(req, req.user)
 
   session.apps = await Promise.reduce(Object.keys(session.access.apps), async (apps, key) => {
     const app = session.access.apps[key]

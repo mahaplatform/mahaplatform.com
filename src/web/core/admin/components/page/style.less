@@ -1,14 +1,21 @@
 .maha-page-header{
   background-color: @red;
 }
-.maha-page-body {
+.maha-page-main {
   flex: 1;
   display: flex;
   background-color: lighten(@black, 90);
   position: relative;
 }
-.maha-page-body-details {
-  background-color: @red;
+.maha-page-sidebar {
+  flex: 0 0 350px;
+  background-color: @white;
+}
+.maha-page-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 .maha-page-footer {
   .translate-y-transition(100%, 0, .15s);
@@ -48,13 +55,12 @@
     margin: auto !important;
   }
 }
-.maha-page-body-details {
-  background-color: @primary_background_color;
-}
 .maha-panel-header,
-.maha-tabs-header-content,
-.maha-page-body-details {
-  padding: 0;
+.maha-page-sidebar,
+.maha-tabs-header {
+  .maha-avatar-text {
+    font-size: 4em;
+  }
   .maha-logo,
   .maha-avatar {
     margin: 0 auto;

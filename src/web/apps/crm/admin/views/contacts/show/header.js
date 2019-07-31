@@ -16,7 +16,9 @@ class Header extends React.Component {
     const { contact } = this.props
     return (
       <div className="contact-header">
-        <Avatar user={ contact } width="120" />
+        <div className="contact-header-avatar">
+          <Avatar user={ contact } width="120" />
+        </div>
         <div className="contact-header-items">
           <div className="contact-header-item">
             <Button { ...this._getMessage() } />

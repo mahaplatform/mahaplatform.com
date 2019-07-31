@@ -1,4 +1,4 @@
-import { canApprove, isOwnerOrAdmin } from './utils/access'
+import { canApprove } from './utils/access'
 
 const navigation = async (req) => ({
   items: [
