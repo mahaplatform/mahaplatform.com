@@ -6,7 +6,6 @@ export const completeItem = async (req, { item, required }) => {
 
   const complete = required.reduce((complete, key) => {
     const value = item.get(key)
-    console.log(key, value)
     if(!complete) return false
     if(_.isArray(value) && value.length > 0) return true
     return !_.isNil(value) && !_.isArray(value)
