@@ -9,6 +9,7 @@ const Details = ({ contact }) => {
   list.items = [
     { label: 'Name', content: contact.full_name },
     { label: 'Email', content: contact.email },
+    { label: 'Phone', content: contact.phone },
     { label: 'Tags', content: contact.tags.map(tag => tag.text).join(', ') }
   ]
 

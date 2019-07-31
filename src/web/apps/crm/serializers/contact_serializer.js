@@ -1,5 +1,6 @@
 const ContactSerializer = (req, result) => ({
   id: result.get('id'),
+  display_name: result.get('display_name'),
   full_name: result.get('full_name'),
   initials: result.get('initials'),
   email: result.get('email'),

@@ -7,7 +7,8 @@ import React from 'react'
 const getTabs = (user, { contact, fields }) => ({
   header: <Header contact={ contact} />,
   items: [
-    { label: 'Details', component: <Details contact={ contact } fields={ fields } /> }
+    { label: 'Details', component: <Details contact={ contact } fields={ fields } /> },
+    { label: 'Activities', component: <Details contact={ contact } fields={ fields } /> }
   ]
 })
 
@@ -24,7 +25,7 @@ const mapResourcesToPage = (props, context) => ({
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Contact',
+  title: resources.contact.display_name,
   tabs: getTabs(props.user, resources),
   tasks: getTasks(props.user, resources)
 })

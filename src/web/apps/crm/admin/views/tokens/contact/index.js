@@ -7,10 +7,7 @@ const ContactToken = (contact) => (
       <Avatar user={ contact } />
     </div>
     <div className="contact-token-label">
-      { contact.full_name &&
-        <span>{ contact.full_name }, </span>
-      }
-      { contact.email }
+      { contact.display_name }
     </div>
   </div>
 )

@@ -1,23 +1,31 @@
-.contact-header-button {
-  flex: 1;
-  text-align: center;
-  button {
-    border: none;
-    width: 3em;
-    height: 3em;
-    border-radius: 50%;
-    background-color: @white;
-    color: @red;
-    cursor: pointer;
-  }
-}
-
-.contact-header-buttons {
+.contact-header-items {
   width: 18em;
-  margin: 1em auto;
+  margin: 0.8em auto 0;
   display: flex;
   .fa {
     font-size: 1.4em;
     line-height: 1em;
+  }
+}
+.contact-header-item {
+  flex: 1;
+  text-align: center;
+}
+.contact-header-button {
+  display: inline-flex;
+  border: none;
+  width: 3em;
+  height: 3em;
+  border-radius: 50%;
+  background-color: @white;
+  color: @red;
+  cursor: pointer;
+  text-align: center;
+  &.disabled {
+    background-color: fadeout(@white, 30);
+    cursor: auto;
+  }
+  .fa {
+    margin: auto;
   }
 }

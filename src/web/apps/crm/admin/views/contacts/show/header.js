@@ -1,4 +1,4 @@
-import { Avatar } from 'maha-admin'
+import { Avatar, Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -17,25 +17,49 @@ class Header extends React.Component {
     return (
       <div className="contact-header">
         <Avatar user={ contact } width="120" />
-        <div className="contact-header-buttons">
-          <div className="contact-header-button">
-            <button onClick={ this._handleMessage }>
-              <i className="fa fa-comment" />
-            </button>
+        <div className="contact-header-items">
+          <div className="contact-header-item">
+            <Button { ...this._getMessage() } />
           </div>
-          <div className="contact-header-button">
-            <button onClick={ this._handleCall }>
-              <i className="fa fa-phone" />
-            </button>
+          <div className="contact-header-item">
+            <Button { ...this._getPhone() } />
           </div>
-          <div className="contact-header-button">
-            <button onClick={ this._handleEmail }>
-              <i className="fa fa-envelope" />
-            </button>
+          <div className="contact-header-item">
+            <Button { ...this._getEmail() } />
           </div>
         </div>
       </div>
     )
+  }
+
+  _getEmail() {
+    const { contact } = this.props
+    return {
+      className: 'contact-header-button',
+      disabled: contact.email === null,
+      icon: 'envelope',
+      onClick: this._handleEmail
+    }
+  }
+
+  _getMessage() {
+    const { contact } = this.props
+    return {
+      className: 'contact-header-button',
+      disabled: contact.email === null,
+      icon: 'comment',
+      onClick: this._handleMessage
+    }
+  }
+
+  _getPhone() {
+    const { contact } = this.props
+    return {
+      className: 'contact-header-button',
+      disabled: contact.phone === null,
+      icon: 'phone',
+      onClick: this._handleCall
+    }
   }
 
   _handleCall() {

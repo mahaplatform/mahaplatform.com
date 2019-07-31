@@ -43,8 +43,13 @@ class Avatar extends React.Component {
           <div className="maha-avatar-wrapper">
             { photo &&  <Image { ...this._getImage() } /> }
             { !photo && icon && <i className={`fa fa-fw fa-${icon}`} /> }
-            { !photo && !icon &&
+            { !photo && !icon && initials &&
               <div className="maha-avatar-text">{ initials }</div>
+            }
+            { !photo && !icon && !initials &&
+              <div className="maha-avatar-text">
+                <i className="fa fa-user" />
+              </div>
             }
           </div>
         </div>

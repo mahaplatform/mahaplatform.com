@@ -7,7 +7,9 @@ const Contact = new Model({
 
   tableName: 'crm_contacts',
 
-  rules: {},
+  rules: {
+    'email': ['required']
+  },
 
   virtuals: {
 
@@ -15,7 +17,7 @@ const Contact = new Model({
       const parts = []
       if(this.get('first_name')) parts.push(this.get('first_name'))
       if(this.get('last_name')) parts.push(this.get('last_name'))
-      return parts.join(' ')
+      return parts.length > 1 ? parts.join(' ') : null
     },
 
     rfc822: function() {
@@ -32,6 +34,10 @@ const Contact = new Model({
 
     initials: function() {
       return this.get('first_initial') + this.get('last_initial')
+    },
+
+    display_name: function() {
+      return this.get('full_name') ?this.get('full_name') : 'Unknown'
     }
 
   },
