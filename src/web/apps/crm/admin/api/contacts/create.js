@@ -1,3 +1,4 @@
+import { updateRelated } from '../../../../../core/services/routes/relations'
 import { activity } from '../../../../../core/services/routes/activities'
 import ContactSerializer from '../../../serializers/contact_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
@@ -7,6 +8,15 @@ import Field from '../../../../maha/models/field'
 import Contact from '../../../models/contact'
 
 const createRoute = async (req, res) => {
+
+  req.fields = await Field.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('parent_type', 'crm_contacts')
+    qb.orderBy('delta', 'asc')
+  }).fetchAll({
+    transacting: req.trx
+  }).then(result => result.toArray())
 
   const values = await processValues(req, {
     parent_type: 'crm_contacts',
@@ -21,14 +31,14 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  req.fields = await Field.scope({
-    team: req.team
-  }).query(qb => {
-    qb.where('parent_type', 'crm_contacts')
-    qb.orderBy('delta', 'asc')
-  }).fetchAll({
-    transacting: req.trx
-  }).then(result => result.toArray())
+  await updateRelated(req, {
+    object: contact,
+    related: 'tags',
+    table: 'crm_taggings',
+    ids: req.body.tag_ids,
+    foreign_key: 'contact_id',
+    related_foreign_key: 'tag_id'
+  })
 
   await activity(req, {
     story: 'created {object}',
@@ -39,7 +49,7 @@ const createRoute = async (req, res) => {
     '/admin/crm/contacts'
   ])
 
-  await contact.load(['photo'], {
+  await contact.load(['photo','tags'], {
     transacting: req.trx
   })
 

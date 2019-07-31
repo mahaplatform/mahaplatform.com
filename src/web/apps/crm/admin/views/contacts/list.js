@@ -1,7 +1,8 @@
-import { Page, UserToken } from 'maha-admin'
+import ContactToken from '../tokens/contact'
+import { Page } from 'maha-admin'
+import Import from './import'
 import React from 'react'
 import New from './new'
-import Import from './import'
 
 const mapResourcesToPage = (props, context) => ({
   fields: '/api/admin/crm_contacts/fields'
@@ -13,8 +14,10 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/crm/contacts',
     table: [
-      { label: 'Name', key: 'full_name', primary: true, format: UserToken },
-      { label: 'Email', key: 'email' }
+      { label: 'Name', key: 'full_name', primary: true, format: ContactToken }
+    ],
+    filters: [
+      { label: 'Tags', name: 'crm_taggings.tag_id', type: 'select', multiple: true, endpoint: '/api/admin/crm/tags', value: 'id', text: 'text' }
     ],
     export: [
       { label: 'ID', key: 'id' },

@@ -247,6 +247,7 @@ const schema = {
 
     await knex.schema.createTable('crm_tags', (table) => {
       table.increments('id').primary()
+      table.integer('team_id').unsigned()
       table.string('text', 255)
     })
 
@@ -1922,6 +1923,10 @@ const schema = {
     })
 
     await knex.schema.table('training_trainings', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_tags', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 

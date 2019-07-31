@@ -1,4 +1,5 @@
 import ContactSerializer from '../../../serializers/contact_serializer'
+import knex from '../../../../../core/services/knex'
 import Field from '../../../../maha/models/field'
 import Contact from '../../../models/contact'
 
@@ -6,8 +7,12 @@ const listRoute = async (req, res) => {
 
   const contacts = await Contact.scope({
     team: req.team
+  }).query(qb => {
+    qb.select(knex.raw('distinct on (crm_contacts.id,crm_contacts.first_name,crm_contacts.last_name,crm_contacts.email) crm_contacts.*'))
+    qb.leftJoin('crm_taggings', 'crm_taggings.contact_id', 'crm_contacts.id')
   }).filter({
     filter: req.query.$filter,
+    filterParams: ['crm_taggings.tag_id'],
     searchParams: ['first_name','last_name','email']
   }).sort({
     sort: req.query.$sort,
@@ -15,7 +20,7 @@ const listRoute = async (req, res) => {
     sortParams: ['id','first_name','last_name','email']
   }).fetchPage({
     page: req.query.$page,
-    withRelated: ['photo'],
+    withRelated: ['photo','tags'],
     transacting: req.trx
   })
 
@@ -27,7 +32,7 @@ const listRoute = async (req, res) => {
   }).fetchAll({
     transacting: req.trx
   }).then(result => result.toArray())
-  
+
   res.status(200).respond(contacts, ContactSerializer)
 
 }

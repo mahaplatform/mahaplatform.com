@@ -24,7 +24,7 @@ export const getIntegrationTasks = (integration, context, props) => {
           ]
         }), { })
         context.confirm.open(`Are you sure you want to export these ${props.selected.length} items?`, () => {
-          context.modal.open(<Export ids={ ids } token={ props.token } />)
+          context.modal.open(<Export ids={ ids } />)
         })
 
       }
@@ -50,7 +50,7 @@ export const getIntegrationTask = (integration, team, context, type, id) => {
         text: 'Export',
         handler: () => {
           context.confirm.open(`Are you sure you want to export this ${type}?`, () => {
-            context.modal.open(<Export ids={ ids } token={ team.token } />)
+            context.modal.open(<Export ids={ ids } />)
           })
         }
       }

@@ -7,7 +7,8 @@ const Details = ({ organization }) => {
   const list = {}
 
   list.items = [
-    { label: 'Name', content: organization.name }
+    { label: 'Name', content: organization.name },
+    { label: 'Tags', content: organization.tags.map(tag => tag.text).join(', ') }
   ]
 
   return <List { ...list } />

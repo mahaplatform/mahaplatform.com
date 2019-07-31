@@ -14,6 +14,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'Name', key: 'name', primary: true, format: OrganizationToken }
     ],
+    filters: [
+      { label: 'Tags', name: 'crm_taggings.tag_id', type: 'select', multiple: true, endpoint: '/api/admin/crm/tags', value: 'id', text: 'text' }
+    ],
     endpoint: '/api/admin/crm/organizations',
     empty: 'You have not yet created any organizations',
     entity: 'organization',

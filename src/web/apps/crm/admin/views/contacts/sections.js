@@ -1,34 +1,40 @@
-const sections = (fields) => fields.reduce((fields, field, index) => [
-  ...fields,
-  ...index === 0 && field.type !== 'section' ? [{
-    type: 'section',
-    fields: []
-  }] : [],
-  field
-], []).reduce((sections, field) => ({
-  ...sections,
-  ...field.type === 'section' ? {
-    current: sections.current + 1,
-    items: [
-      ...sections.items,
-      {
-        label: field.label,
-        instructions: field.instructions
-      }
-    ]
-  } : {
-    items: sections.items.map((section, index) => {
-      if(index !== sections.current) return section
-      return {
-        ...section,
-        fields: [
-          ...section.fields || [],
-          _getControl(field)
-        ]
-      }
-    })
-  }
-}), { items: [], current: -1 }).items
+const sections = (fields) => {
+
+  const sections = fields.reduce((fields, field, index) => [
+    ...fields,
+    ...index === 0 && field.type !== 'section' ? [{
+      type: 'section',
+      fields: []
+    }] : [],
+    field
+  ], []).reduce((sections, field) => ({
+    ...sections,
+    ...field.type === 'section' ? {
+      current: sections.current + 1,
+      items: [
+        ...sections.items,
+        {
+          label: field.label,
+          instructions: field.instructions
+        }
+      ]
+    } : {
+      items: sections.items.map((section, index) => {
+        if(index !== sections.current) return section
+        return {
+          ...section,
+          fields: [
+            ...section.fields || [],
+            _getControl(field)
+          ]
+        }
+      })
+    }
+  }), { items: [], current: -1 })
+
+  return sections.items.length > 0 ? sections.items : [{ fields: [] }]
+
+}
 
 const _getControl = (field) => ({
   ...field.config,

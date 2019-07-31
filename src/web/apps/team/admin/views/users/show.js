@@ -84,7 +84,7 @@ const mapPropsToPage = (props, context, resources) => ({
     items: [
       {
         label: 'Edit User',
-        modal: () => <Edit user={ resources.user } token={ props.team.token } />,
+        modal: () => <Edit user={ resources.user } />,
         rights: ['team:manage_people']
       }, {
         label: 'Unblock User',

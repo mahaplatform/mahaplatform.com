@@ -11,8 +11,7 @@ class Export extends React.Component {
   }
 
   static propTypes = {
-    ids: PropTypes.object,
-    token: PropTypes.string
+    ids: PropTypes.object
   }
 
   _handleCancel = this._handleCancel.bind(this)

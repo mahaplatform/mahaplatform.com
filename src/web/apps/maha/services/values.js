@@ -7,6 +7,8 @@ import _ from 'lodash'
 
 export const processValues = async (req, { parent_type, parent_id, values }) => {
 
+  if(!values) return {}
+
   const fields = await Field.scope({
     team: req.team
   }).query(qb => {

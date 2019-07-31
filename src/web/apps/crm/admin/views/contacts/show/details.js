@@ -8,7 +8,8 @@ const Details = ({ contact }) => {
 
   list.items = [
     { label: 'Name', content: contact.full_name },
-    { label: 'Email', content: contact.email }
+    { label: 'Email', content: contact.email },
+    { label: 'Tags', content: contact.tags.map(tag => tag.text).join(', ') }
   ]
 
   return <List { ...list } />

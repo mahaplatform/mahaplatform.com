@@ -20,7 +20,7 @@ const Organization = new Model({
   },
 
   tags() {
-    this.belongsToMany(Tag, 'crm_taggings', 'organization_id', 'tag_id')
+    return this.belongsToMany(Tag, 'crm_taggings', 'organization_id', 'tag_id')
   }
 
 })

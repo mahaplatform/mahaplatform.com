@@ -11,11 +11,11 @@ const Tag = new Model({
   virtuals: {},
 
   contacts() {
-    this.belongsToMany(Contact, 'crm_taggings', 'tag_id', 'contact_id')
+    return this.belongsToMany(Contact, 'crm_taggings', 'tag_id', 'contact_id')
   },
 
   organizations() {
-    this.belongsToMany(Organization, 'crm_taggings', 'tag_id', 'organization_id')
+    return this.belongsToMany(Organization, 'crm_taggings', 'tag_id', 'organization_id')
   }
 
 })

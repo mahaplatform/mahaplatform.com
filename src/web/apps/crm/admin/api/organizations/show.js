@@ -9,7 +9,7 @@ const showRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['logo'],
+    withRelated: ['logo','tags'],
     transacting: req.trx
   })
 
@@ -26,7 +26,7 @@ const showRoute = async (req, res) => {
   }).fetchAll({
     transacting: req.trx
   }).then(result => result.toArray())
-  
+
   res.status(200).respond(organization, OrganizationSerializer)
 
 }

@@ -1,10 +1,11 @@
+import { Page } from 'maha-admin'
 import Details from './details'
-import { Avatar, Page } from 'maha-admin'
-import React from 'react'
+import Header from './header'
 import Edit from '../edit'
+import React from 'react'
 
 const getTabs = (user, { contact, fields }) => ({
-  header: <Avatar user={ contact } width="120" />,
+  header: <Header contact={ contact} />,
   items: [
     { label: 'Details', component: <Details contact={ contact } fields={ fields } /> }
   ]

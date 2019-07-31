@@ -12,7 +12,10 @@ const Contact = new Model({
   virtuals: {
 
     full_name: function() {
-      return this.get('first_name') + ' ' + this.get('last_name')
+      const parts = []
+      if(this.get('first_name')) parts.push(this.get('first_name'))
+      if(this.get('last_name')) parts.push(this.get('last_name'))
+      return parts.join(' ')
     },
 
     rfc822: function() {
@@ -42,7 +45,7 @@ const Contact = new Model({
   },
 
   tags() {
-    this.belongsToMany(Tag, 'crm_taggings', 'contact_id', 'tag_id')
+    return this.belongsToMany(Tag, 'crm_taggings', 'contact_id', 'tag_id')
   }
 
 })
