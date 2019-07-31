@@ -2270,8 +2270,7 @@ const schema = {
       assignees.full_name,
       assignees.name,
       assignees.initials,
-      assignees.photo,
-      assignees.is_active
+      assignees.photo
       from ( select 1 as priority,
       maha_teams.id as team_id,
       'everyone'::text as "grouping",
@@ -2280,8 +2279,7 @@ const schema = {
       'everyone'::text as full_name,
       'everyone'::text as name,
       null::text as initials,
-      null::text as photo,
-      true as is_active
+      null::text as photo
       from maha_teams
       union
       select 2 as priority,
@@ -2292,8 +2290,7 @@ const schema = {
       'supervisors'::text as full_name,
       'supervisors'::text as name,
       null::text as initials,
-      null::text as photo,
-      true as is_active
+      null::text as photo
       from maha_teams
       union
       select 3 as priority,
@@ -2304,8 +2301,7 @@ const schema = {
       maha_groups.title as full_name,
       maha_groups.title as name,
       null::text as initials,
-      null::text as photo,
-      true as is_active
+      null::text as photo
       from maha_groups
       union
       select 4 as priority,
@@ -2319,10 +2315,10 @@ const schema = {
       case
       when (maha_assets.id is not null) then concat('/assets/', maha_assets.id, '/', maha_assets.file_name)
       else null::text
-      end as photo,
-      maha_users.is_active
+      end as photo
       from (maha_users
-      left join maha_assets on ((maha_assets.id = maha_users.photo_id)))) assignees
+      left join maha_assets on ((maha_assets.id = maha_users.photo_id)))
+      where (maha_users.is_active = true)) assignees
       order by assignees.priority, assignees.name;
     `)
   }

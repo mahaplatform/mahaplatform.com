@@ -3,14 +3,14 @@ import Avatar from '../../components/avatar'
 import React from 'react'
 
 const UserToken = (props) => (
-  <div className="compact-user-token">
-    <div className="compact-user-token-avatar">
+  <div className="user-token">
+    <div className="user-token-avatar">
       <Avatar user={ props } width="40" presence={ props.presence } />
     </div>
-    <div className="compact-user-token-details">
-      <div className="compact-user-token-details-inner">
+    <div className="user-token-details">
+      <div className="user-token-details-inner">
         { (props.id === props.user_id) ? 'You' : props.full_name }
-        { props.is_active === false && <span className="compact-user-token-activity">
+        { props.is_active === false && <span className="user-token-activity">
           INACTIVE
         </span> }
       </div>

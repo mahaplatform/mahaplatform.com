@@ -7,6 +7,7 @@ const supervisorsRoute = async (req, res) => {
     team: req.team
   }).query(qb => {
     qb.innerJoin('maha_supervisors', 'maha_supervisors.user_id', 'maha_users.id')
+    qb.where('is_active', true)
   }).filter({
     filter: req.query.$filter,
     searchParams: ['first_name','last_name','email']
