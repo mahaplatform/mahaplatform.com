@@ -33,8 +33,9 @@ export const status = createSelector(
 
 export const sum = createSelector(
   display,
-  (line_items) => line_items.reduce((total, line_item) => {
-    return total + Number(line_item.amount)
+  (line_items) => line_items.reduce((sum, line_item) => {
+    console.log(sum, Number(line_item.amount))
+    return sum + Number(line_item.amount)
   }, 0.00)
 )
 
