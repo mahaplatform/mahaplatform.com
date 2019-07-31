@@ -1,6 +1,7 @@
 import Model from '../../../core/objects/model'
 import Asset from '../../maha/models/asset'
 import Contact from './contact'
+import Tag from './tag'
 
 const Organization = new Model({
 
@@ -16,6 +17,10 @@ const Organization = new Model({
 
   logo() {
     return this.belongsTo(Asset, 'logo_id')
+  },
+
+  tags() {
+    this.belongsToMany(Tag, 'crm_taggings', 'organization_id', 'tag_id')
   }
 
 })

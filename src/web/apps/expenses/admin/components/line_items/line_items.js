@@ -66,7 +66,7 @@ class LineItems extends React.PureComponent {
       return {
         ...line_item,
         delta: index,
-        tax: tax_total ? round(tax_total * (line_item.amount / total), 2) : null
+        tax: tax_total ? round(tax_total * (line_item.amount / total), 2) : 0.00
       }
     }))
   }

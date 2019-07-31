@@ -239,6 +239,17 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('crm_taggings', (table) => {
+      table.integer('tag_id').unsigned()
+      table.integer('contact_id').unsigned()
+      table.integer('organization_id').unsigned()
+    })
+
+    await knex.schema.createTable('crm_tags', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
+    })
+
     await knex.schema.createTable('drive_access', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -1793,6 +1804,12 @@ const schema = {
     await knex.schema.table('crm_contacts_organizations', table => {
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('organization_id').references('crm_organizations.id')
+    })
+
+    await knex.schema.table('crm_taggings', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('organization_id').references('crm_organizations.id')
+      table.foreign('tag_id').references('crm_tags.id')
     })
 
     await knex.schema.table('eatfresh_categories_attractions', table => {
