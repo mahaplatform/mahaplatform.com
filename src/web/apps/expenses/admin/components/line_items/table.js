@@ -45,7 +45,7 @@ class Table extends React.PureComponent {
     const line_items = this.props.display
     if(line_items.length === 0) return (
       <div className="ui button" onClick={ this._handleNew }>
-        Add a line Item
+        Add a Line Item
       </div>
     )
     return (
