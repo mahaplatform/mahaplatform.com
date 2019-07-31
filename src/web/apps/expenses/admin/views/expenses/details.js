@@ -45,7 +45,11 @@ const Details = ({ expense, commentUrl }) => {
     requiredField('Total', expense, 'total', { content: expense.total, format: 'currency' }),
     requiredField('Tax', expense, 'tax_total', { content: expense.tax_total, format: 'currency' })
   ]
-  list.items.push({ component: <LineItemsToken line_items={ expense.line_items } item={ expense } /> })
+  if(expense.line_items.length > 0 ) {
+    list.items.push({ component: <LineItemsToken line_items={ expense.line_items } item={ expense } /> })
+  } else {
+    list.items.push(requiredField('Line Items', expense, 'project_id', { content: expense.project_id }))
+  }
   if(expense.receipts.length > 0) {
     const previews = expense.receipts.filter(receipt => receipt.status === 'processed' && (receipt.has_preview || receipt.is_image))
     const slides = previews.map((receipt, index) => <Receipt key={`receipt_preview_${index}`} preview={ true } value={ receipt } />)

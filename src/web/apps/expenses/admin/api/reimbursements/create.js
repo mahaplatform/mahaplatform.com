@@ -7,7 +7,9 @@ const createRoute = async (req, res) => {
 
   const code = generateCode()
 
-  const reimbursements = await Promise.mapSeries(req.body.line_items, async(line_item) => {
+  const line_items = req.body.line_items || [[]]
+
+  const reimbursements = await Promise.mapSeries(line_items, async(line_item) => {
 
     return await createReimbursement(req, {
       user_id: req.user.get('id'),

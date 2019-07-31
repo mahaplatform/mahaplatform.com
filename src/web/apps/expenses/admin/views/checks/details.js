@@ -1,5 +1,3 @@
-import CompactExpenseTypeToken from '../../tokens/expense_type/compact'
-import CompactProjectToken from '../../tokens/project/compact'
 import CompactVendorToken from '../../tokens/vendor/compact'
 import { Audit, List, Comments, Carousel } from 'maha-admin'
 import LineItemsToken from '../../tokens/line_items'
@@ -49,7 +47,11 @@ const Details = ({ check, commentUrl }) => {
     requiredField('Total', check, 'total', { content: check.total, format: 'currency' }),
     requiredField('Tax', check, 'tax_total', { content: check.tax_total, format: 'currency' })
   ]
-  list.items.push({ component: <LineItemsToken line_items={ check.line_items } item={ check }  /> })
+  if(check.line_items.length > 0 ) {
+    list.items.push({ component: <LineItemsToken line_items={ check.line_items } item={ check }  /> })
+  } else {
+    list.items.push(requiredField('Line Items', check, 'project_id', { content: check.project_id }))
+  }
   if(check.receipts.length > 0) {
     const previews = check.receipts.filter(receipt => receipt.status === 'processed' && (receipt.has_preview || receipt.is_image))
     const slides = previews.map((receipt, index) => <Receipt key={`receipt_preview_${index}`} preview={ true } value={ receipt } />)

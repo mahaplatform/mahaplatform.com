@@ -113,7 +113,6 @@ class Infinite extends React.Component {
   }
 
   _getMore(next, skip, reload, loaded, total) {
-    console.log(next, skip, reload, loaded, total)
     if(reload) return true
     if(next !== undefined) return next !== null
     if(total === undefined && skip === 0) return true

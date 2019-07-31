@@ -43,7 +43,11 @@ const Details = ({ reimbursement, commentUrl }) => {
     requiredField('Vendor', reimbursement, 'vendor.name', { content: reimbursement, format: CompactVendorToken }),
     requiredField('Total', reimbursement, 'total', { content: reimbursement.total, format: 'currency' })
   ]
-  list.items.push({ component: <LineItemsToken line_items={ reimbursement.line_items } item={ reimbursement } /> })
+  if(reimbursement.line_items.length > 0 ) {
+    list.items.push({ component: <LineItemsToken line_items={ reimbursement.line_items } item={ reimbursement } /> })
+  } else {
+    list.items.push(requiredField('Line Items', reimbursement, 'project_id', { content: reimbursement.project_id }))
+  }
   if(reimbursement.receipts.length > 0) {
     const previews = reimbursement.receipts.filter(receipt => receipt.status === 'processed' && (receipt.has_preview || receipt.is_image))
     const slides = previews.map((receipt, index) => <Receipt key={`receipt_preview_${index}`} preview={ true } value={ receipt } />)

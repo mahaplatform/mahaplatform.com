@@ -43,6 +43,11 @@ class Table extends React.PureComponent {
   render() {
     const { overassigned, sum, total, unassigned } = this.props
     const line_items = this.props.display
+    if(line_items.length === 0) return (
+      <div className="ui button" onClick={ this._handleNew }>
+        Add a line Item
+      </div>
+    )
     return (
       <div className="line-items-table">
         <table className="ui unstackable celled table">
@@ -54,11 +59,6 @@ class Table extends React.PureComponent {
             </tr>
           </thead>
           <tbody>
-            { line_items.length === 0 &&
-              <tr>
-                <td colSpan="4">There are no line_items</td>
-              </tr>
-            }
             { line_items.map((line_item, index) => [
               <tr key={`line_item_${index}`}>
                 <td>
