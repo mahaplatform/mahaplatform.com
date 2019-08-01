@@ -66,6 +66,7 @@ import chatchatbar from '../../apps/chat/admin/components/chatbar'
 import chatfullchat from '../../apps/chat/admin/components/fullchat'
 import chatsubscriptions from '../../apps/chat/admin/components/subscriptions'
 import chatchat from '../../apps/chat/admin/roots/chat'
+import crmactivities from '../../apps/crm/admin/components/activities'
 import driveaccess from '../../apps/drive/admin/components/access'
 import driveexplorer from '../../apps/drive/admin/components/explorer'
 import drivemove from '../../apps/drive/admin/components/move'
@@ -277,6 +278,7 @@ class App extends React.Component {
       chatfullchat,
       chatsubscriptions,
       chatchat,
+      crmactivities,
       driveaccess,
       driveexplorer,
       drivemove,

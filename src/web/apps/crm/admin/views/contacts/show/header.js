@@ -19,15 +19,17 @@ class Header extends React.Component {
         <div className="contact-header-avatar">
           <Avatar user={ contact } width="120" />
         </div>
-        <div className="contact-header-items">
-          <div className="contact-header-item">
-            <Button { ...this._getMessage() } />
-          </div>
-          <div className="contact-header-item">
-            <Button { ...this._getPhone() } />
-          </div>
-          <div className="contact-header-item">
-            <Button { ...this._getEmail() } />
+        <div className="contact-header-controls">
+          <div className="contact-header-items">
+            <div className="contact-header-item">
+              <Button { ...this._getMessage() } />
+            </div>
+            <div className="contact-header-item">
+              <Button { ...this._getPhone() } />
+            </div>
+            <div className="contact-header-item">
+              <Button { ...this._getEmail() } />
+            </div>
           </div>
         </div>
       </div>

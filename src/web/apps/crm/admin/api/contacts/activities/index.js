@@ -1,4 +1,3 @@
-import activities from './activities'
 import { Router } from 'express'
 import destroy from './destroy'
 import create from './create'
@@ -20,7 +19,5 @@ router.get('/:id/edit', edit)
 router.patch('/:id', update)
 
 router.delete('/:id', destroy)
-
-router.use('/:id/activities', activities)
 
 export default router

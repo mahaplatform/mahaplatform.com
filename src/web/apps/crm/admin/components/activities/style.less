@@ -1,0 +1,134 @@
+.crm-timeline {
+  .crm-timeline-buttons {
+    margin-bottom: 0.8em;
+  }
+  .ui.basic.buttons {
+    background-color: @white;
+    margin-bottom: 0.8em;
+  }
+  .crm-timeline-month:first-child {
+    .crm-timeline-item:nth-child(1) {
+      .crm-timeline-item-rail {
+        border:none;
+      }
+    }
+    .crm-timeline-item:nth-child(2) {
+      .crm-timeline-item-rail {
+      }
+    }
+  }
+  .crm-timeline-month:last-child {
+    .crm-timeline-item:last-child {
+      .crm-timeline-item-rail {
+        height: 1.3em;
+      }
+    }
+  }
+}
+.crm-timeline-item {
+  display: flex;
+}
+.crm-timeline-item-rail {
+  margin: 0 1.5em 0 0.8em;
+  width: 0;
+  border-left: 1px dashed lighten(@black, 30);
+  position: relative;
+}
+.crm-timeline-item-icon {
+  .colorize(background-color);
+  position: absolute;
+  top: 0.8em;
+  left: -0.9em;
+  border-radius: 50%;
+  background-color: lighten(@black, 50);
+  display: block;
+  width: 1.6em;
+  height: 1.6em;
+  text-align: center;
+  .fa {
+    color: @white;
+    font-size: 0.8em;
+    line-height: 2em;
+  }
+}
+.crm-timeline-item-line {
+  flex: 1;
+  margin: 0 1em;
+  width: 0;
+  border-left: 1px dashed fadeout(@black, 85);
+}
+.crm-timeline-item-content {
+  flex: 1;
+}
+.crm-timeline-date {
+  text-align: center;
+  margin-bottom: 0.8em;
+}
+.crm-timeline-item-card {
+  border: 1px solid fadeout(@black, 85);
+  background-color: @white;
+  border-radius: .5em;
+  margin-bottom: 0.8em;
+  overflow: hidden;
+}
+.crm-timeline-item-card-header {
+  background-color: fadeout(@black, 98);
+  border-bottom: 1px solid fadeout(@black, 95);
+  display: flex;
+}
+.crm-timeline-item-card-header-avatar {
+  padding: .8em;
+  .maha-avatar {
+    width: 1.6em;
+    height: 1.6em;
+  }
+}
+.crm-timeline-item-card-header-details {
+  flex: 1;
+  padding: .8em .8em .8em 0;
+  position: relative;
+}
+.crm-timeline-item-card-header-description {
+  line-height: 1.6em;
+}
+.crm-timeline-item-card-header-timestamp {
+  position: absolute;
+  top: 0.8em;
+  right: 2.4em;
+  color: fadeout(@black, 70);
+  line-height: 1.6em;
+}
+.crm-timeline-item-card-header-remove {
+  position: absolute;
+  top: 0.8em;
+  right: 0.8em;
+  cursor: pointer;
+  color: fadeout(@black, 80);
+  &:hover {
+    color: fadeout(@black, 40);
+  }
+}
+.crm-timeline-item-card-section {
+  padding: 0.8em;
+  line-height: 1.6em;
+  color: fadeout(@black, 50);
+  strong {
+    color: @black;
+  }
+}
+.crm-timeline-item-card-file {
+  margin: -0.8em;
+}
+.crm-timeline-item-card-email-header {
+  background: fadeout(@black, 93);
+  padding: 0.8em;
+}
+.crm-timeline-item-card-email-body {
+  background: fadeout(@black, 97);
+  padding: 0.8em;
+}
+.crm-timeline-item-card-blast-header {
+  background: fadeout(@black, 95);
+  padding: 0.8em;
+  margin-bottom: 0.8em;
+}
