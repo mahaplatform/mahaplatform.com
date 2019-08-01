@@ -1,6 +1,6 @@
+import sections from '../sections'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
-import sections from './sections'
 import React from 'react'
 
 class New extends React.Component {

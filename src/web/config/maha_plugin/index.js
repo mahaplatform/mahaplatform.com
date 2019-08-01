@@ -85,7 +85,8 @@ class MahaWebpackPlugin {
         settings: extract('admin/settings.js'),
         userTasks: extract('admin/user_tasks.js'),
         userFields: extract('admin/user_fields.js'),
-        userValues: extract('admin/user_values.js')
+        userValues: extract('admin/user_values.js'),
+        usage: extract('admin/usage.js')
       }
 
       renderTemplate('app.js', variables)

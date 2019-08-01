@@ -1,5 +1,6 @@
 export const INITIAL_STATE = {
   active: false,
+  adding: false,
   records: null,
   selected: [],
   status: 'pending'
@@ -59,6 +60,18 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state.selected.slice(0, action.index),
         ...state.selected.slice(action.index + 1)
       ]
+    }
+
+  case 'SHOW_FORM':
+    return {
+      ...state,
+      adding: true
+    }
+
+  case 'HIDE_FORM':
+    return {
+      ...state,
+      adding: false
     }
 
   default:

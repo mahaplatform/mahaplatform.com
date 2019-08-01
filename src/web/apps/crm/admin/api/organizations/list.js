@@ -7,7 +7,7 @@ const listRoute = async (req, res) => {
   const organizations = await Organization.scope({
     team: req.team
   }).query(qb => {
-    qb.leftJoin('crm_taggings', 'crm_taggings.contact_id', 'crm_contacts.id')
+    qb.leftJoin('crm_taggings', 'crm_taggings.organization_id', 'crm_organizations.id')
   }).filter({
     filter: req.query.$filter,
     filterParams: ['crm_taggings.tag_id'],

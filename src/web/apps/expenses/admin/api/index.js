@@ -12,6 +12,7 @@ import batches from './batches'
 import vendors from './vendors'
 import checks from './checks'
 import rates from './rates'
+import usage from './usage'
 import users from './users'
 import trips from './trips'
 import items from './items'
@@ -48,6 +49,8 @@ router.use('/reimbursements', reimbursements)
 router.use('/statuses', statuses)
 
 router.use('/trips', trips)
+
+router.use('/usage', usage)
 
 router.use('/users/:user_id', users)
 

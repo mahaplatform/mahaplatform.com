@@ -6,6 +6,8 @@ const Tag = new Model({
 
   tableName: 'crm_tags',
 
+  hasTimestamps: false,
+
   rules: {},
 
   virtuals: {},

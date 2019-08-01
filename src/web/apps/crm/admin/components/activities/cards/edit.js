@@ -1,8 +1,7 @@
-import { AssetToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class File extends React.PureComponent {
+class Edit extends React.PureComponent {
 
   static contextTypes = {}
 
@@ -15,12 +14,13 @@ class File extends React.PureComponent {
   render() {
     const { activity } = this.props
     return (
-      <div className="crm-timeline-item-card-file">
-        <AssetToken { ...activity.data } />
+      <div className="crm-timeline-item-card-edit">
+        added phone: (234) 567-8901<br />
+        edited email: janedoe@cornell.edu &rarr; janedoe@gmail.com
       </div>
     )
   }
 
 }
 
-export default File
+export default Edit

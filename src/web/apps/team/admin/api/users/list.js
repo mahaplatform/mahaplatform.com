@@ -14,24 +14,24 @@ const listRoute = async (req, res) => {
     qb.leftJoin('maha_users_groups', 'maha_users_groups.user_id', 'maha_users.id')
   }).filter({
     filter: req.query.$filter,
-    filterParams: ['is_active'],
+    filterParams: ['app_id','group_id','is_active','right_id','role_id'],
     searchParams: ['first_name','last_name','email'],
     virtualFilters: {
       app_id: (qb, filter) => {
         if(!filter.$in) return
-        qb.whereIn('maha_roles_apps.app_id', filter.$in)
+        qb.whereIn('maha_roles_apps.app_id', [filter.$in])
       },
       group_id: (qb, filter) => {
         if(!filter.$eq) return
-        qb.whereIn('maha_users_groups.group_id', filter.$eq)
+        qb.whereIn('maha_users_groups.group_id', [filter.$eq])
       },
       right_id: (qb, filter) => {
         if(!filter.$in) return
-        qb.whereIn('maha_roles_rights.right_id', filter.$in)
+        qb.whereIn('maha_roles_rights.right_id', [filter.$in])
       },
       role_id: (qb, filter) => {
         if(!filter.$eq) return
-        qb.whereIn('maha_users_roles.role_id', filter.$eq)
+        qb.whereIn('maha_users_roles.role_id', [filter.$eq])
       }
     }
   }).sort({

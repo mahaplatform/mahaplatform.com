@@ -1,5 +1,6 @@
-import ContactSerializer from '../../../serializers/contact_serializer'
+import { updateRelated } from '../../../../../core/services/routes/relations'
 import { activity } from '../../../../../core/services/routes/activities'
+import ContactSerializer from '../../../serializers/contact_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
 import { processValues } from '../../../../maha/services/values'
 import socket from '../../../../../core/services/routes/emitter'
@@ -31,6 +32,24 @@ const updateRoute = async (req, res) => {
     values
   }, {
     transacting: req.trx
+  })
+
+  await updateRelated(req, {
+    object: contact,
+    related: 'tags',
+    table: 'crm_taggings',
+    ids: req.body.tag_ids,
+    foreign_key: 'contact_id',
+    related_foreign_key: 'tag_id'
+  })
+
+  await updateRelated(req, {
+    object: contact,
+    related: 'organizations',
+    table: 'crm_contacts_organizations',
+    ids: req.body.organization_ids,
+    foreign_key: 'contact_id',
+    related_foreign_key: 'organization_id'
   })
 
   req.fields = await Field.scope({

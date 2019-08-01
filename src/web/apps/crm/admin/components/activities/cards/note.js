@@ -20,10 +20,6 @@ class Note extends React.PureComponent {
     )
   }
 
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps) {}
-
 }
 
 export default Note

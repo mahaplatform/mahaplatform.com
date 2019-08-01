@@ -19,6 +19,9 @@ import <%= userFields[i].code %>UserFields from '<%= userFields[i].filepath %>'
 <% for(var i = 0; i < userValues.length; i++) {-%>
 import <%= userValues[i].code %>UserValues from '<%= userValues[i].filepath %>'
 <% } -%>
+<% for(var i = 0; i < usage.length; i++) {-%>
+import <%= usage[i].code %>Usage from '<%= usage[i].filepath %>'
+<% } -%>
 <% for(var i = 0; i < settings.length; i++) {-%>
 import <%= settings[i].code %>Settings from '<%= settings[i].filepath %>'
 <% } -%>
@@ -51,6 +54,7 @@ class App extends React.Component {
         appUserTasks: this._getAppUserTasks(),
         appUserFields: this._getAppUserFields(),
         appUserValues: this._getAppUserValues(),
+        usage: this._getUsage(),
         settings: this._getSettings()
       }
     }
@@ -131,6 +135,14 @@ class App extends React.Component {
     return {
 <% for(var i = 0; i < settings.length; i++) {-%>
       <%= settings[i].code %>: <%= settings[i].code %>Settings,
+<% } -%>
+    }
+  }
+
+  _getUsage() {
+    return {
+<% for(var i = 0; i < usage.length; i++) {-%>
+      <%= usage[i].code %>: <%= usage[i].code %>Usage,
 <% } -%>
     }
   }

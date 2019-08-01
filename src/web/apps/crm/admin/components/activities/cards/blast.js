@@ -28,10 +28,6 @@ class Blast extends React.PureComponent {
     )
   }
 
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps) {}
-
 }
 
 export default Blast

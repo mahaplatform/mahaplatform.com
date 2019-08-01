@@ -20,10 +20,6 @@ class Call extends React.PureComponent {
     )
   }
 
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps) {}
-
 }
 
 export default Call

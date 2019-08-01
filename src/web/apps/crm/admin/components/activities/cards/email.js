@@ -26,6 +26,7 @@ class Email extends React.PureComponent {
         <div className="crm-timeline-item-card-email-body">
           { body }
         </div>
+        <div className="link">View Email</div>
       </div>
     )
   }

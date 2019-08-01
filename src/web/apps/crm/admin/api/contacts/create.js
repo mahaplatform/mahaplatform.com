@@ -40,6 +40,15 @@ const createRoute = async (req, res) => {
     related_foreign_key: 'tag_id'
   })
 
+  await updateRelated(req, {
+    object: contact,
+    related: 'organizations',
+    table: 'crm_contacts_organizations',
+    ids: req.body.organization_ids,
+    foreign_key: 'contact_id',
+    related_foreign_key: 'organization_id'
+  })
+
   await activity(req, {
     story: 'created {object}',
     object: contact

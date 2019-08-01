@@ -130,6 +130,7 @@ import mahaRoots from '../../apps/maha/admin/roots/index.js'
 import expensesUserTasks from '../../apps/expenses/admin/user_tasks.js'
 import expensesUserFields from '../../apps/expenses/admin/user_fields.js'
 import expensesUserValues from '../../apps/expenses/admin/user_values.js'
+import expensesUsage from '../../apps/expenses/admin/usage.js'
 import expensesSettings from '../../apps/expenses/admin/settings.js'
 import Platform from '../../apps/maha/admin/components/platform'
 import NotFound from '../../apps/maha/admin/views/not_found'
@@ -160,6 +161,7 @@ class App extends React.Component {
         appUserTasks: this._getAppUserTasks(),
         appUserFields: this._getAppUserFields(),
         appUserValues: this._getAppUserValues(),
+        usage: this._getUsage(),
         settings: this._getSettings()
       }
     }
@@ -359,6 +361,12 @@ class App extends React.Component {
   _getSettings() {
     return {
       expenses: expensesSettings,
+    }
+  }
+
+  _getUsage() {
+    return {
+      expenses: expensesUsage,
     }
   }
 

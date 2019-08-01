@@ -16,7 +16,7 @@ import UserShow from './users/show'
 
 const routes = [
   { path: '/apps', component: AppsList },
-  { path: '/apps/:id', component: AppsShow },
+  { path: '/apps/:path/:id', component: AppsShow },
   { path: '/foobar', component: AppsList },
   { path: '/activities', component: ActivitiesList },
   { path: '/emails', component: EmailsList },

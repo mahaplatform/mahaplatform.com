@@ -1,9 +1,9 @@
 const INITIAL_VALUE = {
+  adding: false,
   active: false,
   q: null,
   chosen: null,
-  status: 'ready',
-  adding: false
+  status: 'ready'
 }
 
 export default (state = INITIAL_VALUE, action) => {
@@ -66,6 +66,7 @@ export default (state = INITIAL_VALUE, action) => {
       active: false,
       adding: false
     }
+    
   default:
     return state
 

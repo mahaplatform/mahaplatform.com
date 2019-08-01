@@ -1,5 +1,5 @@
-import Format from '../../format'
 import PropTypes from 'prop-types'
+import Form from '../../form'
 import Search from './search'
 import React from 'react'
 import _ from 'lodash'
@@ -12,8 +12,10 @@ class Lookup extends React.Component {
 
   static propTypes = {
     active: PropTypes.any,
+    adding: PropTypes.bool,
     defaultValue: PropTypes.any,
     endpoint: PropTypes.string,
+    form: PropTypes.object,
     format: PropTypes.oneOfType([
       PropTypes.element,
       PropTypes.func
@@ -30,9 +32,12 @@ class Lookup extends React.Component {
     onChange: PropTypes.func,
     onEnd: PropTypes.func,
     onFetch: PropTypes.func,
+    onHideForm: PropTypes.func,
     onReady: PropTypes.func,
     onRemove: PropTypes.func,
-    onSelect: PropTypes.func
+    onSelect: PropTypes.func,
+    onShowForm: PropTypes.func
+
   }
 
   static defaultProps = {
@@ -71,8 +76,9 @@ class Lookup extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { form } = this.context
-    const { active, selected } = this.props
+    const { active, adding, selected } = this.props
     if(!prevProps.active && active) form.push(<Search { ...this._getSearch() } />)
+    if(!prevProps.adding && adding) form.push(<Form { ...this._getForm() } />)
     if(prevProps.active && !active) form.pop()
     if(!_.isEqual(selected, prevProps.selected)) {
       this._handleChange()
@@ -86,10 +92,28 @@ class Lookup extends React.Component {
     return classes.join(' ')
   }
 
+  _getForm() {
+    const { form } = this.context
+    const { selected, onSelect, onHideForm } = this.props
+    return {
+      ...this.props.form,
+      onCancel: () => {
+        onHideForm()
+        form.pop()
+      },
+      onSuccess: (chosen) => {
+        onSelect([...selected,chosen])
+        onHideForm()
+        form.pop()
+      }
+    }
+  }
+
   _getSearch() {
-    const { endpoint, format, label, multiple, options, selected, text, value } = this.props
+    const { endpoint, form, format, label, multiple, options, selected, text, value, onShowForm } = this.props
     return {
       endpoint,
+      form,
       format,
       label,
       multiple,
@@ -97,6 +121,7 @@ class Lookup extends React.Component {
       selected,
       text,
       value,
+      onShowForm,
       onCancel: this._handleEnd.bind(this),
       onDone: this._handleEnd.bind(this),
       onSelect: this._handleSelect.bind(this)

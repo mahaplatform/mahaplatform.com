@@ -21,7 +21,7 @@ class Apps extends React.Component {
         { records.map((app, index) => {
           return (
             <div key={`app_${index}`} className="maha-list-item maha-app-item">
-              <div className="maha-list-item-content" onClick={ this._handleClick.bind(this, app.id) }>
+              <div className="maha-list-item-content" onClick={ this._handleClick.bind(this, app) }>
                 <AppToken { ...app } />
               </div>
               <div className="maha-list-item-extra">
@@ -37,8 +37,8 @@ class Apps extends React.Component {
     )
   }
 
-  _handleClick(id) {
-    this.context.router.push(`/admin/team/apps/${id}`)
+  _handleClick({ path, id }) {
+    this.context.router.push(`/admin/team/apps${path}/${id}`)
   }
 
 }

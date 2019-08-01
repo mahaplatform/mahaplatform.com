@@ -11,6 +11,7 @@ class Search extends React.Component {
 
   static propTypes = {
     endpoint: PropTypes.string,
+    form: PropTypes.object,
     format: PropTypes.oneOfType([
       PropTypes.element,
       PropTypes.func
@@ -23,13 +24,24 @@ class Search extends React.Component {
     value: PropTypes.string,
     onCancel: PropTypes.func,
     onDone: PropTypes.func,
+    onShowForm: PropTypes.func,
     onSelect: PropTypes.func
   }
 
+  _handleAdd = this._handleAdd.bind(this)
+
   render() {
+    const { form, label } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         <ToggleList { ...this._getToggleList() } />
+        { form &&
+          <div className="maha-lookup-panel-add">
+            <div className="ui fluid red button" onClick={ this._handleAdd.bind(this)}>
+              Add {label}
+            </div>
+          </div>
+        }
       </ModalPanel>
     )
   }
@@ -61,6 +73,10 @@ class Search extends React.Component {
       value,
       onChange: this._handleSelect.bind(this)
     }
+  }
+
+  _handleAdd() {
+    this.props.onShowForm()
   }
 
   _handleSelect(items) {

@@ -38,6 +38,14 @@ const Contact = new Model({
 
     display_name: function() {
       return this.get('full_name') ?this.get('full_name') : 'Unknown'
+    },
+
+    organization_ids: function() {
+      return this.related('organizations').map(organization => organization.id)
+    },
+
+    tag_ids: function() {
+      return this.related('tags').map(tag => tag.id)
     }
 
   },

@@ -18,6 +18,18 @@ const listRoute = async (req, res) => {
         text: 'Lorem ipsum dolor amet listicle helvetica vape deep v. XOXO try-hard wayfarers keffiyeh hell of irony jean shorts +1. Adaptogen cray taxidermy banh mi church-key pabst. Farm-to-table iPhone coloring book DIY celiac messenger bag direct trade typewriter tumblr you probably havent heard of them irony.'
       }
     },{
+      type: 'edit',
+      user: {
+        email: 'ks47@cornell.edu',
+        full_name: 'Kenneth Schlather',
+        id: 132,
+        initials: 'ks',
+        photo: '/assets/73/ks47.jpg'
+      },
+      story: 'edited the contact',
+      created_at: moment().subtract(8, 'days'),
+      data: {}
+    },{
       type: 'file',
       user: {
         email: 'gmk8@cornell.edu',
@@ -53,7 +65,7 @@ const listRoute = async (req, res) => {
         initials: 'sk',
         photo: '/assets/3/ska2.jpg'
       },
-      story: 'attached an email',
+      story: 'forwarded an email',
       created_at: moment().subtract(6, 'days'),
       data: {
         date: moment('2019-03-22 10:14:56'),
@@ -103,16 +115,6 @@ const listRoute = async (req, res) => {
         amount: 25.00,
         transaction_id: 'adjif6'
       }
-    },{
-      type: 'visit',
-      story: 'visited the website ccetompkins.org',
-      created_at: moment().subtract(42, 'days'),
-      data: [
-        'http://ccetompkins.org',
-        'http://ccetompkins.org/energy',
-        'http://ccetompkins.org/energy/commercial-buildings',
-        'http://ccetompkins.org/energy/commercial-buildings/architecture-2030'
-      ]
     },{
       type: 'note',
       user: {

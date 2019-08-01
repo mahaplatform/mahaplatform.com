@@ -6,11 +6,20 @@ const ContactSerializer = (req, result) => ({
   email: result.get('email'),
   phone: result.get('phone'),
   photo: result.related('photo') ? result.related('photo').get('path') : null,
+  organizations: result.related('organizations').map(organization),
   tags: result.related('tags').map(tag),
   values: values(req, result.get('values')),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
+
+const organization = (organization) => {
+  if(!organization.id) return null
+  return {
+    id: organization.get('id'),
+    name: organization.get('name')
+  }
+}
 
 const tag = (tag) => {
   if(!tag.id) return null

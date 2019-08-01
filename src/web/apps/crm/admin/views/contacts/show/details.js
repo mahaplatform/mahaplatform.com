@@ -10,6 +10,8 @@ const Details = ({ contact }) => {
     { label: 'Name', content: contact.full_name },
     { label: 'Email', content: contact.email },
     { label: 'Phone', content: contact.phone },
+    { label: 'Created', content: contact.created_at, format: 'date' },
+    { label: 'Organizations', content: contact.organizations.map(organization => organization.name).join(', ') },
     { label: 'Tags', content: contact.tags.map(tag => tag.text).join(', ') }
   ]
 

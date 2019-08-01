@@ -1,4 +1,4 @@
-import ContactToken from '../tokens/contact'
+import ContactToken from '../../tokens/contact'
 import { Page } from 'maha-admin'
 import Import from './import'
 import React from 'react'
@@ -15,7 +15,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/crm/contacts',
     table: [
       { label: 'Name', key: 'display_name', primary: true, format: ContactToken },
-      { label: 'Email', key: 'email', primary: true }
+      { label: 'Email', key: 'email', primary: false },
+      { label: 'Phone', key: 'phone', primary: false }
     ],
     filters: [
       { label: 'Tags', name: 'crm_taggings.tag_id', type: 'select', multiple: true, endpoint: '/api/admin/crm/tags', value: 'id', text: 'text' }

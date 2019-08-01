@@ -26,6 +26,14 @@ export const remove = (index) => ({
   index
 })
 
+export const showForm = () => ({
+  type: 'SHOW_FORM'
+})
+
+export const hideForm = () => ({
+  type: 'HIDE_FORM'
+})
+
 export const select = (selected) => ({
   type: 'SELECT',
   selected

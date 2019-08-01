@@ -16,32 +16,48 @@ class AppsShow extends React.Component {
         <div className={ `maha-app-detail-header ${app.color}` }>
           <i className={ `fa fa-fw fa-${app.icon}` } />
         </div>
-        <div className="maha-app-detail-body">
-          <List items={ this._getItems() } />
-        </div>
       </div>
     )
   }
 
-  _getItems() {
-    const { app } = this.props
-    return [
-      { label: 'Title', content: app.title },
-      { label: 'Description', content: app.description }
-    ]
+}
+
+const Details = ({ app }) => {
+  const items = [
+    { label: 'Title', content: app.title },
+    { label: 'Description', content: app.description }
+  ]
+  return <List items={ items } />
+}
+
+const getTabs = ({ app, usage }, { configuration }) => {
+
+  const items = [
+    { label: 'Details', component: <Details app={ app } /> }
+  ]
+
+  if(configuration.usage[app.code]) {
+    const Usage = configuration.usage[app.code]
+    items.push({ label: 'Usage', component: <Usage usage={ usage } /> })
+  }
+
+  return {
+    header: <AppsShow app={ app } />,
+    items
   }
 
 }
 
 const mapResourcesToPage = (props, context) => ({
-  app: `/api/admin/team/apps/${props.params.id}`
+  app: `/api/admin/team/apps/${props.params.id}`,
+  usage: `/api/admin/${props.params.path}/usage`
 })
 
 const mapPropsToPage = (props, context, resources) => ({
   title: resources.app.title,
-  component: AppsShow,
   color: resources.app.color,
   rights: ['team:manage_apps'],
+  tabs: getTabs(resources, context),
   tasks: context.configuration.settings[resources.app.code] ? {
     items: [{
       label: 'Edit Settings',

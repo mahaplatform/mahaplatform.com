@@ -25,10 +25,6 @@ class Transaction extends React.PureComponent {
     )
   }
 
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps) {}
-
 }
 
 export default Transaction

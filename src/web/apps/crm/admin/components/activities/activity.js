@@ -2,9 +2,9 @@ import Transaction from './cards/transaction'
 import { Avatar } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Blast from './cards/blast'
+import Edit from './cards/edit'
 import Email from './cards/email'
 import Event from './cards/event'
-import Visit from './cards/visit'
 import Call from './cards/call'
 import Form from './cards/form'
 import File from './cards/file'
@@ -82,6 +82,11 @@ class Activities extends React.PureComponent {
       color: 'brown',
       icon: 'envelope'
     }
+    if(type === 'edit') return {
+      component: Edit,
+      color: 'olive',
+      icon: 'pencil'
+    }
     if(type === 'event') return {
       component: Event,
       color: 'red',
@@ -100,17 +105,12 @@ class Activities extends React.PureComponent {
     if(type === 'note') return {
       component: Note,
       color: 'orange',
-      icon: 'pencil'
+      icon: 'sticky-note'
     }
     if(type === 'transaction') return {
       component: Transaction,
       color: 'green',
       icon: 'dollar'
-    }
-    if(type === 'visit') return {
-      component: Visit,
-      color: 'blue',
-      icon: 'mouse-pointer'
     }
   }
 

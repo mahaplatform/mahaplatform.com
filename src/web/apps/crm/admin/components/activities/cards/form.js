@@ -20,13 +20,10 @@ class Note extends React.PureComponent {
             <strong>{ answer.label }:</strong> { answer.value }
           </div>
         ))}
+        <div className="link">View Email</div>
       </div>
     )
   }
-
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps) {}
 
 }
 
