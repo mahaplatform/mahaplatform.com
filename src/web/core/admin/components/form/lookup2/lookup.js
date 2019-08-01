@@ -13,13 +13,12 @@ class Lookup extends React.Component {
   static propTypes = {
     active: PropTypes.any,
     adding: PropTypes.bool,
+    cacheKey: PropTypes.string,
+    cid: PropTypes.string,
     defaultValue: PropTypes.any,
     endpoint: PropTypes.string,
     form: PropTypes.object,
-    format: PropTypes.oneOfType([
-      PropTypes.element,
-      PropTypes.func
-    ]),
+    format: PropTypes.any,
     label: PropTypes.string,
     multiple: PropTypes.bool,
     options: PropTypes.array,
@@ -34,6 +33,7 @@ class Lookup extends React.Component {
     onFetch: PropTypes.func,
     onHideForm: PropTypes.func,
     onReady: PropTypes.func,
+    onRefresh: PropTypes.func,
     onRemove: PropTypes.func,
     onSelect: PropTypes.func,
     onShowForm: PropTypes.func
@@ -94,7 +94,7 @@ class Lookup extends React.Component {
 
   _getForm() {
     const { form } = this.context
-    const { selected, onSelect, onHideForm } = this.props
+    const { selected, onHideForm, onRefresh, onSelect } = this.props
     return {
       ...this.props.form,
       onCancel: () => {
@@ -103,6 +103,7 @@ class Lookup extends React.Component {
       },
       onSuccess: (chosen) => {
         onSelect([...selected,chosen])
+        onRefresh()
         onHideForm()
         form.pop()
       }
@@ -110,8 +111,10 @@ class Lookup extends React.Component {
   }
 
   _getSearch() {
-    const { endpoint, form, format, label, multiple, options, selected, text, value, onShowForm } = this.props
+    const { cacheKey, cid, endpoint, form, format, label, multiple, options, selected, text, value, onShowForm } = this.props
     return {
+      cacheKey,
+      cid,
       endpoint,
       form,
       format,

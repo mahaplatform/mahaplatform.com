@@ -1,6 +1,9 @@
+import _ from 'lodash'
+
 export const INITIAL_STATE = {
   active: false,
   adding: false,
+  cacheKey: _.random(100000, 999999).toString(36),
   records: null,
   selected: [],
   status: 'pending'
@@ -72,6 +75,12 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       adding: false
+    }
+
+  case 'REFRESH':
+    return {
+      ...state,
+      cacheKey: _.random(100000, 999999).toString(36)
     }
 
   default:
