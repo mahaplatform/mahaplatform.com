@@ -1,3 +1,4 @@
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import moment from 'moment'
@@ -11,7 +12,8 @@ class Export extends React.Component {
   }
 
   static propTypes = {
-    ids: PropTypes.object
+    ids: PropTypes.object,
+    token: PropTypes.string
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -56,4 +58,8 @@ class Export extends React.Component {
 
 }
 
-export default Export
+const mapStateToProps = (state, props) => ({
+  token: state.maha.admin.team ? state.maha.admin.team.token : null
+})
+
+export default connect(mapStateToProps)(Export)
