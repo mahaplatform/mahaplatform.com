@@ -4,6 +4,7 @@ import ContactSerializer from '../../../serializers/contact_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
 import { processValues } from '../../../../maha/services/values'
 import socket from '../../../../../core/services/routes/emitter'
+import { contactActivity } from '../../../services/activities'
 import Field from '../../../../maha/models/field'
 import Contact from '../../../models/contact'
 
@@ -50,6 +51,17 @@ const updateRoute = async (req, res) => {
     ids: req.body.organization_ids,
     foreign_key: 'contact_id',
     related_foreign_key: 'organization_id'
+  })
+
+  await contactActivity(req, {
+    user: req.user,
+    contact,
+    type: 'edit',
+    story: 'edited the contact',
+    changes: [
+      { action: 'added', field: 'First Name', value: 'Greg' },
+      { action: 'changed', field: 'Last Name', was: 'Kopf', value: 'Kops' }
+    ]
   })
 
   req.fields = await Field.scope({

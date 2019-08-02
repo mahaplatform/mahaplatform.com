@@ -66,7 +66,7 @@ import chatchatbar from '../../apps/chat/admin/components/chatbar'
 import chatfullchat from '../../apps/chat/admin/components/fullchat'
 import chatsubscriptions from '../../apps/chat/admin/components/subscriptions'
 import chatchat from '../../apps/chat/admin/roots/chat'
-import crmactivities from '../../apps/crm/admin/components/activities'
+import crmtimeline from '../../apps/crm/admin/components/timeline'
 import driveaccess from '../../apps/drive/admin/components/access'
 import driveexplorer from '../../apps/drive/admin/components/explorer'
 import drivemove from '../../apps/drive/admin/components/move'
@@ -130,6 +130,7 @@ import mahaRoots from '../../apps/maha/admin/roots/index.js'
 import expensesUserTasks from '../../apps/expenses/admin/user_tasks.js'
 import expensesUserFields from '../../apps/expenses/admin/user_fields.js'
 import expensesUserValues from '../../apps/expenses/admin/user_values.js'
+import crmCards from '../../apps/crm/admin/cards/index.js'
 import expensesUsage from '../../apps/expenses/admin/usage.js'
 import expensesSettings from '../../apps/expenses/admin/settings.js'
 import Platform from '../../apps/maha/admin/components/platform'
@@ -161,6 +162,7 @@ class App extends React.Component {
         appUserTasks: this._getAppUserTasks(),
         appUserFields: this._getAppUserFields(),
         appUserValues: this._getAppUserValues(),
+        cards: this._getCards(),
         usage: this._getUsage(),
         settings: this._getSettings()
       }
@@ -200,6 +202,12 @@ class App extends React.Component {
         ...badge
       })),
     ]
+  }
+
+  _getCards() {
+    return {
+      ...crmCards
+    }
   }
 
   _getPlatform() {
@@ -280,7 +288,7 @@ class App extends React.Component {
       chatfullchat,
       chatsubscriptions,
       chatchat,
-      crmactivities,
+      crmtimeline,
       driveaccess,
       driveexplorer,
       drivemove,

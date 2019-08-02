@@ -56,7 +56,9 @@ const Contact = new Model({
   },
 
   activities() {
-    return this.hasMany(Activity, 'contact_id')
+    return this.hasMany(Activity, 'contact_id').query(qb => {
+      qb.orderBy('created_at', 'desc')
+    })
   },
 
   calls() {

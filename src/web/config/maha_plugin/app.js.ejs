@@ -19,6 +19,9 @@ import <%= userFields[i].code %>UserFields from '<%= userFields[i].filepath %>'
 <% for(var i = 0; i < userValues.length; i++) {-%>
 import <%= userValues[i].code %>UserValues from '<%= userValues[i].filepath %>'
 <% } -%>
+<% for(var i = 0; i < cards.length; i++) {-%>
+import <%= cards[i].code %>Cards from '<%= cards[i].filepath %>'
+<% } -%>
 <% for(var i = 0; i < usage.length; i++) {-%>
 import <%= usage[i].code %>Usage from '<%= usage[i].filepath %>'
 <% } -%>
@@ -54,6 +57,7 @@ class App extends React.Component {
         appUserTasks: this._getAppUserTasks(),
         appUserFields: this._getAppUserFields(),
         appUserValues: this._getAppUserValues(),
+        cards: this._getCards(),
         usage: this._getUsage(),
         settings: this._getSettings()
       }
@@ -93,6 +97,14 @@ class App extends React.Component {
       })),
 <% } -%>
     ]
+  }
+
+  _getCards() {
+    return {
+<% for(var i = 0; i < cards.length; i++) { -%>
+      ...<%= cards[i].code %>Cards
+<% } -%>
+    }
   }
 
   _getPlatform() {

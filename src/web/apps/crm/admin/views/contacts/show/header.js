@@ -53,7 +53,7 @@ class Header extends React.Component {
     const { contact } = this.props
     return {
       className: 'contact-header-button',
-      disabled: contact.email === null,
+      disabled: contact.phone === null,
       icon: 'comment',
       onClick: this._handleMessage
     }

@@ -1,4 +1,6 @@
 import Model from '../../../core/objects/model'
+import Story from '../../maha/models/story'
+import User from '../../maha/models/user'
 import Contact from './contact'
 import Email from './email'
 import Call from './call'
@@ -13,7 +15,7 @@ const Activity = new Model({
   virtuals: {},
 
   call() {
-    return this.hasOne(Call, 'call_id')
+    return this.belongsTo(Call, 'call_id')
   },
 
   contact() {
@@ -21,11 +23,19 @@ const Activity = new Model({
   },
 
   email() {
-    return this.hasOne(Email, 'email_id')
+    return this.belongsTo(Email, 'email_id')
   },
 
   note() {
-    return this.hasOne(Note, 'note_id')
+    return this.belongsTo(Note, 'note_id')
+  },
+
+  story() {
+    return this.belongsTo(Story, 'story_id')
+  },
+
+  user() {
+    return this.belongsTo(User, 'user_id')
   }
 
 

@@ -1,4 +1,4 @@
-import Activities from '../../../components/activities'
+import Timeline from '../../../components/timeline'
 import { Page } from 'maha-admin'
 import Details from './details'
 import Header from './header'
@@ -18,7 +18,7 @@ const getSidebar = (user, { contact, fields }) => {
 const getTabs = (user, { contact, fields }) => {
   const header = document.body.clientWidth <= 768 ? <Header contact={ contact} /> : null
   const items = [
-    { label: 'Activites', component: <Activities contact={ contact } /> }
+    { label: 'Timeline', component: <Timeline contact={ contact } /> }
   ]
   if(document.body.clientWidth <= 768) {
     items.unshift({ label: 'Details', component: <Details contact={ contact } fields={ fields } /> })

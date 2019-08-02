@@ -1,20 +1,13 @@
-import Transaction from './cards/transaction'
 import { Avatar } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Blast from './cards/blast'
-import Edit from './cards/edit'
-import Email from './cards/email'
-import Event from './cards/event'
-import Call from './cards/call'
-import Form from './cards/form'
-import File from './cards/file'
-import Note from './cards/note'
 import moment from 'moment'
 import React from 'react'
 
 class Activities extends React.PureComponent {
 
-  static contextTypes = {}
+  static contextTypes = {
+    configuration: PropTypes.object
+  }
 
   static propTypes = {
     activity: PropTypes.object,
@@ -25,7 +18,7 @@ class Activities extends React.PureComponent {
 
   render() {
     const { activity, contact } = this.props
-    const type = this._getType(activity.type)
+    const type = this.context.configuration.cards[activity.type]
     return (
       <div className="crm-timeline-item">
         <div className="crm-timeline-item-rail">
@@ -50,7 +43,7 @@ class Activities extends React.PureComponent {
                   } { activity.story }
                 </div>
                 <div className="crm-timeline-item-card-header-timestamp">
-                  { moment(activity.created_at).format('MMMM D @ h:mm A') }
+                  { moment(activity.created_at).format('MMM DD, YYYY [at] h:mm A') }
                 </div>
                 <div className="crm-timeline-item-card-header-remove">
                   <i className="fa fa-remove" />
@@ -67,51 +60,7 @@ class Activities extends React.PureComponent {
   }
 
   _getType(type) {
-    if(type === 'blast') return {
-      component: Blast,
-      color: 'yellow',
-      icon: 'paper-plane'
-    }
-    if(type === 'call') return {
-      component: Call,
-      color: 'teal',
-      icon: 'phone'
-    }
-    if(type === 'email') return {
-      component: Email,
-      color: 'brown',
-      icon: 'envelope'
-    }
-    if(type === 'edit') return {
-      component: Edit,
-      color: 'olive',
-      icon: 'pencil'
-    }
-    if(type === 'event') return {
-      component: Event,
-      color: 'red',
-      icon: 'calendar'
-    }
-    if(type === 'file') return {
-      component: File,
-      color: 'pink',
-      icon: 'file'
-    }
-    if(type === 'form') return {
-      component: Form,
-      color: 'purple',
-      icon: 'check-square'
-    }
-    if(type === 'note') return {
-      component: Note,
-      color: 'orange',
-      icon: 'sticky-note'
-    }
-    if(type === 'transaction') return {
-      component: Transaction,
-      color: 'green',
-      icon: 'dollar'
-    }
+
   }
 
 }
