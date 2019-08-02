@@ -1,3 +1,4 @@
+import { Container } from 'maha-admin'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'
@@ -15,6 +16,7 @@ class Usage extends React.Component {
   render() {
     const { expanded } = this.state
     const { usage } = this.props
+    const { user_types, totals } = usage
     return (
       <div className="usage">
         <table className="ui celled compact table">
@@ -28,7 +30,7 @@ class Usage extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { usage.map((user_type, index) => [
+            { user_types.map((user_type, index) => [
               <tr key={`user_type_${index}`} className="user_type" onClick={ this._handleToggle.bind(this, user_type.id)}>
                 <td>
                   { user_type.id === expanded ?
@@ -59,10 +61,12 @@ class Usage extends React.Component {
           <tfoot>
             <tr>
               <th>Total</th>
-              <td className="right aligned">100</td>
-              <td className="right aligned">100</td>
-              <td className="right aligned">100</td>
-              <td className="right aligned">100</td>
+              <td className="right aligned">{ totals.members }</td>
+              <td className="right aligned">{ totals.active }</td>
+              <td className="right aligned">
+                { numeral((totals.active / totals.members) * 100).format('0') }
+              </td>
+              <td className="right aligned">{ totals.items }</td>
             </tr>
           </tfoot>
         </table>
@@ -78,4 +82,8 @@ class Usage extends React.Component {
 
 }
 
-export default Usage
+const mapResourcesToPage = (props, context) => ({
+  usage: '/api/admin/expenses/usage'
+})
+
+export default Container(mapResourcesToPage)(Usage)

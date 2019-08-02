@@ -30,7 +30,7 @@ const Details = ({ app }) => {
   return <List items={ items } />
 }
 
-const getTabs = ({ app, usage }, { configuration }) => {
+const getTabs = ({ app }, { configuration }) => {
 
   const items = [
     { label: 'Details', component: <Details app={ app } /> }
@@ -38,7 +38,7 @@ const getTabs = ({ app, usage }, { configuration }) => {
 
   if(configuration.usage[app.code]) {
     const Usage = configuration.usage[app.code]
-    items.push({ label: 'Usage', component: <Usage usage={ usage } /> })
+    items.push({ label: 'Usage', component: <Usage /> })
   }
 
   return {
@@ -49,8 +49,7 @@ const getTabs = ({ app, usage }, { configuration }) => {
 }
 
 const mapResourcesToPage = (props, context) => ({
-  app: `/api/admin/team/apps/${props.params.id}`,
-  usage: `/api/admin/${props.params.path}/usage`
+  app: `/api/admin/team/apps/${props.params.id}`
 })
 
 const mapPropsToPage = (props, context, resources) => ({

@@ -24,6 +24,7 @@ const editRoute = async (req, res) => {
       'email',
       'secondary_email',
       'email_notifications_method',
+      'user_type_id',
       'photo_id',
       'role_ids',
       'group_ids',
