@@ -44,7 +44,6 @@ class Edit extends React.Component {
       { label: 'Last Name', name: 'last_name', type: 'textfield' },
       { label: 'Email', name: 'email', type: 'emailfield', required: true },
       { label: 'Phone', name: 'phone', type: 'phonefield' },
-      { label: 'Organizations', name: 'organization_ids', type: 'lookup2', multiple: true, endpoint: '/api/admin/crm/organizations', value: 'id', text: 'name', form: this._getOrganizationForm() },
       { label: 'Tags', name: 'tag_ids', type: 'lookup2', multiple: true, endpoint: '/api/admin/crm/tags', value: 'id', text: 'text', form: this._getTagsForm() },
       { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', multiple: false },
       ...results[0].fields

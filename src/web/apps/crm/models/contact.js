@@ -1,6 +1,11 @@
 import Model from '../../../core/objects/model'
 import Asset from '../../maha/models/asset'
 import Organization from './organization'
+import Activity from './activity'
+import Email from './email'
+import List from './list'
+import Call from './call'
+import Note from './note'
 import Tag from './tag'
 
 const Contact = new Model({
@@ -48,6 +53,26 @@ const Contact = new Model({
       return this.related('tags').map(tag => tag.id)
     }
 
+  },
+
+  activities() {
+    return this.hasMany(Activity, 'contact_id')
+  },
+
+  calls() {
+    return this.hasMany(Call, 'contact_id')
+  },
+
+  emails() {
+    return this.hasMany(Email, 'contact_id')
+  },
+
+  lists() {
+    return this.belongsToMany(List, 'crm_subscriptions', 'contact_id', 'list_id')
+  },
+
+  notes() {
+    return this.hasMany(Note, 'contact_id')
   },
 
   organizations() {

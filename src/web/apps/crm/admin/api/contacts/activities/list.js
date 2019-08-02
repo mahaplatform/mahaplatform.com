@@ -86,6 +86,7 @@ const listRoute = async (req, res) => {
       story: 'created a transaction',
       created_at: moment().subtract(8, 'days'),
       data: {
+        description: 'Donation to the ESNY project',
         card: 'VISA-9257',
         amount: 400.00,
         transaction_id: '3dg6ji'
@@ -137,11 +138,11 @@ const listRoute = async (req, res) => {
         date: moment('2019-04-06 02:00:00'),
         subject: 'April 2019 Newsletter',
         actions: [
-          'received the email',
-          'viewed the email',
-          'clicked the link http://google.com',
-          'clicked the link http://facebook.com',
-          'viewed the email'
+          { action: 'received', created_at: moment('2019-04-06 02:00:00') },
+          { action: 'opened', created_at: moment('2019-04-06 09:35:42') },
+          { action: 'clicked', created_at: moment('2019-04-06 09:36:02'), link: 'http://ccetompkins.org' },
+          { action: 'clicked', created_at: moment('2019-04-06 09:36:42'), link: 'http://openfarmdays.org' },
+          { action: 'viewed', created_at: moment('2019-04-06 02:45:23') }
         ]
       }
     },{

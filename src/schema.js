@@ -211,6 +211,28 @@ const schema = {
       table.integer('asset_id').unsigned()
     })
 
+    await knex.schema.createTable('crm_activities', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('contact_id').unsigned()
+      table.integer('user_id').unsigned()
+      table.string('type', 255)
+      table.integer('call_id').unsigned()
+      table.integer('note_id').unsigned()
+      table.integer('email_id').unsigned()
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('crm_calls', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('contact_id').unsigned()
+      table.text('text')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('crm_contacts', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -229,12 +251,50 @@ const schema = {
       table.integer('organization_id').unsigned()
     })
 
+    await knex.schema.createTable('crm_emails', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('contact_id').unsigned()
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('crm_lists', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.string('name', 255)
+      table.text('description')
+      table.text('type')
+      table.jsonb('criteria')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('crm_notes', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('contact_id').unsigned()
+      table.text('text')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('crm_organizations', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('logo_id').unsigned()
       table.string('name', 255)
       table.jsonb('values')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('crm_subscriptions', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('list_id').unsigned()
+      table.integer('contact_id').unsigned()
+      table.timestamp('unsubscribed_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -1047,6 +1107,11 @@ const schema = {
       table.integer('app_id').unsigned()
     })
 
+    await knex.schema.createTable('maha_user_types', (table) => {
+      table.increments('id').primary()
+      table.string('text', 255)
+    })
+
     await knex.schema.createTable('maha_users', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -1082,6 +1147,7 @@ const schema = {
       table.boolean('is_blocked').defaultsTo(false)
       table.timestamp('locked_out_at')
       table.string('key', 255)
+      table.integer('user_type_id').unsigned()
     })
 
     await knex.schema.createTable('maha_users_alerts', (table) => {
@@ -1811,6 +1877,7 @@ const schema = {
       table.foreign('photo_id').references('maha_assets.id')
       table.foreign('security_question_id').references('maha_security_questions.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_type_id').references('maha_user_types.id')
     })
 
     await knex.schema.table('maha_users_roles', table => {
@@ -1932,6 +1999,40 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_lists', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_subscriptions', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('list_id').references('crm_lists.id')
+      table.foreign('contact_id').references('crm_contacts.id')
+    })
+
+    await knex.schema.table('crm_notes', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('contact_id').references('crm_contacts.id')
+    })
+
+    await knex.schema.table('crm_calls', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('contact_id').references('crm_contacts.id')
+    })
+
+    await knex.schema.table('crm_emails', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('contact_id').references('crm_contacts.id')
+    })
+
+    await knex.schema.table('crm_activities', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('user_id').references('maha_users.id')
+      table.foreign('call_id').references('crm_calls.id')
+      table.foreign('note_id').references('crm_notes.id')
+      table.foreign('email_id').references('crm_emails.id')
     })
 
 

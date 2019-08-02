@@ -18,6 +18,9 @@ class Header extends React.Component {
       <div className="contact-header">
         <div className="contact-header-avatar">
           <Avatar user={ contact } width="120" />
+          <h1>{ contact.display_name }</h1>
+          <p>{ contact.email }</p>
+          <p>{ contact.phone }</p>
         </div>
         <div className="contact-header-controls">
           <div className="contact-header-items">

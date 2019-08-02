@@ -16,14 +16,35 @@ class Blast extends React.PureComponent {
     const { activity } = this.props
     const { date, subject, actions } = activity.data
     return (
-      <div className="crm-timeline-item-card-blast">
-        <div className="crm-timeline-item-card-blast-header">
+      <div className="crm-card-blast">
+        <div className="crm-card-header">
           <strong>Date:</strong> { moment(date).format('MMMM D, YYYY @ h:mm A') }<br />
           <strong>Subject:</strong> { subject }<br />
         </div>
-        { actions.map((action, index) => (
-          <div key={`action_${index}`}>{ action }</div>
-        )) }
+        <div className="crm-card-body">
+          { actions.map((action, index) => (
+            <div className="crm-blast-action" key={`action_${index}`}>
+              <div className="crm-blast-action-label">
+                { action.action === 'received' &&
+                  <span>received the email</span>
+                }
+                { action.action === 'opened' &&
+                  <span>opened the email</span>
+                }
+                { action.action === 'viewed' &&
+                  <span>viewed the email</span>
+                }
+                { action.action === 'clicked' &&
+                  <span>clicked the link <span className="link">{ action.link }</span></span>
+                }
+              </div>
+              <div className="crm-blast-action-timestamp">
+                { moment(action.created_at).format('MM/DD/YY @ h:mm A') }
+              </div>
+            </div>
+          )) }
+        </div>
+        <div className="link">View Email</div>
       </div>
     )
   }

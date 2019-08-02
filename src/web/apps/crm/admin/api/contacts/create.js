@@ -2,6 +2,7 @@ import { updateRelated } from '../../../../../core/services/routes/relations'
 import { activity } from '../../../../../core/services/routes/activities'
 import ContactSerializer from '../../../serializers/contact_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
+import generateCode from '../../../../../core/utils/generate_code'
 import { processValues } from '../../../../maha/services/values'
 import socket from '../../../../../core/services/routes/emitter'
 import Field from '../../../../maha/models/field'
@@ -25,6 +26,7 @@ const createRoute = async (req, res) => {
 
   const contact = await Contact.forge({
     team_id: req.team.get('id'),
+    code: generateCode(),
     ...whitelist(req.body, ['first_name','last_name','email','phone','photo_id']),
     values
   }).save(null, {

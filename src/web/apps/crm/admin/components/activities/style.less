@@ -119,16 +119,21 @@
 .crm-timeline-item-card-file {
   margin: -0.8em;
 }
-.crm-timeline-item-card-email-header {
-  background: fadeout(@black, 93);
+.crm-card-header {
+  background: fadeout(@blue, 93);
   padding: 0.8em;
 }
-.crm-timeline-item-card-email-body {
-  background: fadeout(@black, 97);
+.crm-card-body {
+  background: fadeout(@blue, 97);
   padding: 0.8em;
 }
-.crm-timeline-item-card-blast-header {
-  background: fadeout(@black, 95);
-  padding: 0.8em;
-  margin-bottom: 0.8em;
+.crm-blast-action {
+  display: flex;
+}
+.crm-blast-action-label {
+  flex: 1;
+}
+.crm-blast-action-timestamp {
+  text-align: right;
+  color: fadeout(@black, 70);
 }

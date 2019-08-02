@@ -38,7 +38,7 @@ const mapResourcesToPage = (props, context) => ({
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: resources.contact.display_name,
+  title: 'Contact',
   sidebar: getSidebar(props.user, resources),
   tabs: getTabs(props.user, resources),
   tasks: getTasks(props.user, resources)

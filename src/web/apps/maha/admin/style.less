@@ -46,6 +46,21 @@ input, textarea {
 	  height: 6px !important;
 	}
 }
+.links {
+	.link {
+		display: inline-block;
+		&:last-child {
+			&:after {
+				content: '';
+			}
+		}
+		&:after {
+			color: @black;
+			content: ',';
+			margin: 0 3px;
+		}
+	}
+}
 .link {
 	color: @blue;
 	text-decoration: underline;

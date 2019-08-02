@@ -14,9 +14,10 @@ class Transaction extends React.PureComponent {
 
   render() {
     const { activity } = this.props
-    const { card, amount, transaction_id } = activity.data
+    const { amount, card, description, transaction_id } = activity.data
     return (
       <div className="crm-timeline-item-card-transaction">
+        <strong>Description:</strong> { description }<br />
         <strong>Card:</strong> { card }<br />
         <strong>Amount:</strong> { numeral(amount).format('$0.00') }<br />
         <strong>Transaction ID:</strong> { transaction_id}<br />

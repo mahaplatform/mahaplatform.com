@@ -4,6 +4,7 @@ const navigation = (req, trx) => ({
       { label: 'Custom Fields', route: '/fields' }
     ] },
     { label: 'Contacts', route: '/contacts' },
+    { label: 'Lists', route: '/lists' },
     { label: 'Organizations', route: '/organizations' }
   ]
 })

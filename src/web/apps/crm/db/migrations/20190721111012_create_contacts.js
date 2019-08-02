@@ -9,6 +9,7 @@ const CreateContacts = {
       table.foreign('photo_id').references('maha_assets.id')
       table.string('first_name')
       table.string('last_name')
+      table.string('code')
       table.string('email')
       table.string('phone')
       table.jsonb('values')
