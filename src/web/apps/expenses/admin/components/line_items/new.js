@@ -27,7 +27,7 @@ class New extends React.Component {
     const { projectEndpoint } = this.props
     return {
       title: 'New Line Item',
-      saveText: 'Add',
+      saveText: 'Done',
       onSubmit: this._handleSubmit,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,

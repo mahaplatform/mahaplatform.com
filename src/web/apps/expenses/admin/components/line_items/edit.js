@@ -29,7 +29,7 @@ class Edit extends React.Component {
     const { line_item, projectEndpoint } = this.props
     return {
       title: 'Edit Line Item',
-      saveText: 'Update',
+      saveText: 'Done',
       onSubmit: this._handleSubmit,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,

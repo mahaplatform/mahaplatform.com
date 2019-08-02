@@ -1,3 +1,5 @@
+import CompactExpenseTypeToken from '../../tokens/expense_type/compact'
+import CompactProjectToken from '../../tokens/project/compact'
 import CompactVendorToken from '../../tokens/vendor/compact'
 import { Audit, List, Comments, Carousel } from 'maha-admin'
 import LineItemsToken from '../../tokens/line_items'
@@ -43,10 +45,19 @@ const Details = ({ check, commentUrl }) => {
     requiredField('Vendor', check, 'vendor.name', { content: check, format: CompactVendorToken }),
     requiredField('Delivery Method', check, 'delivery_method'),
     { label: 'Account Number', content: check.account_number },
-    { label: 'Invoice Number', content: check.invoice_number },
-    requiredField('Total', check, 'total', { content: check.total, format: 'currency' }),
-    requiredField('Tax', check, 'tax_total', { content: check.tax_total, format: 'currency' })
+    { label: 'Invoice Number', content: check.invoice_number }
   ]
+  if(check.line_items.length > 1 ) {
+    list.items.push(requiredField('Total', check, 'total', { content: check.total, format: 'currency' }))
+    list.items.push(requiredField('Tax', check, 'tax_total', { content: check.tax_total, format: 'currency' }))
+    list.items.push({ component: <LineItemsToken line_items={ check.line_items } item={ check } /> })
+  } else {
+    list.items.push(requiredField('Project', check, 'project.title', { content: check, format: CompactProjectToken }))
+    list.items.push(requiredField('Expense Type', check, 'expense_type.title', { content: check, format: CompactExpenseTypeToken }))
+    list.items.push(requiredField('Description', check, 'description', { content: check.description }))
+    list.items.push(requiredField('Amount', check, 'amount', { content: check.amount, format: 'currency' }))
+    list.items.push(requiredField('Tax', check, 'tax', { content: check.tax, format: 'currency' }))
+  }
   if(check.line_items.length > 0 ) {
     list.items.push({ component: <LineItemsToken line_items={ check.line_items } item={ check }  /> })
   } else {

@@ -1,3 +1,5 @@
+import CompactExpenseTypeToken from '../../tokens/expense_type/compact'
+import CompactProjectToken from '../../tokens/project/compact'
 import CompactVendorToken from '../../tokens/vendor/compact'
 import { Audit, List, Comments, Carousel } from 'maha-admin'
 import LineItemsToken from '../../tokens/line_items'
@@ -41,14 +43,18 @@ const Details = ({ expense, commentUrl }) => {
     requiredField('User', expense, 'user.full_name'),
     requiredField('Date', expense, 'date', { content: expense.date, format: 'date' }),
     requiredField('Vendor', expense, 'vendor.name', { content: expense, format: CompactVendorToken }),
-    requiredField('Account', expense, 'account.name'),
-    requiredField('Total', expense, 'total', { content: expense.total, format: 'currency' }),
-    requiredField('Tax', expense, 'tax_total', { content: expense.tax_total, format: 'currency' })
+    requiredField('Account', expense, 'account.name')
   ]
-  if(expense.line_items.length > 0 ) {
+  if(expense.line_items.length > 1 ) {
+    list.items.push(requiredField('Total', expense, 'total', { content: expense.total, format: 'currency' }))
+    list.items.push(requiredField('Tax', expense, 'tax_total', { content: expense.tax_total, format: 'currency' }))
     list.items.push({ component: <LineItemsToken line_items={ expense.line_items } item={ expense } /> })
   } else {
-    list.items.push(requiredField('Line Items', expense, 'project_id', { content: expense.project_id }))
+    list.items.push(requiredField('Project', expense, 'project.title', { content: expense, format: CompactProjectToken }))
+    list.items.push(requiredField('Expense Type', expense, 'expense_type.title', { content: expense, format: CompactExpenseTypeToken }))
+    list.items.push(requiredField('Description', expense, 'description', { content: expense.description }))
+    list.items.push(requiredField('Amount', expense, 'amount', { content: expense.amount, format: 'currency' }))
+    list.items.push(requiredField('Tax', expense, 'tax', { content: expense.tax, format: 'currency' }))
   }
   if(expense.receipts.length > 0) {
     const previews = expense.receipts.filter(receipt => receipt.status === 'processed' && (receipt.has_preview || receipt.is_image))

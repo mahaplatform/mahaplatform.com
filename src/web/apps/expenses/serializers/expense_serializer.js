@@ -10,6 +10,11 @@ const expenseSerializer = (req, result) => ({
   account: account(result.related('account')),
   total: result.get('total'),
   tax_total: result.get('tax_total'),
+  project: project(result.related('project')),
+  expense_type: expense_type(result.related('expense_type')),
+  description: result.get('description'),
+  amount: result.get('amount'),
+  tax: result.get('tax'),
   line_items: result.related('line_items').map(line_items),
   audit: result.related('audit').map(audit),
   created_at: result.get('created_at'),
@@ -18,8 +23,8 @@ const expenseSerializer = (req, result) => ({
 
 const line_items = (line_item) => ({
   id: line_item.get('id'),
-  expense_type: expense_type(line_item.related('expense_type')),
   project: project(line_item.related('project')),
+  expense_type: expense_type(line_item.related('expense_type')),
   description: line_item.get('description'),
   amount: line_item.get('amount'),
   tax: line_item.get('tax')
