@@ -7,6 +7,7 @@ const CreateEmail = {
       table.foreign('team_id').references('maha_teams.id')
       table.integer('contact_id').unsigned()
       table.foreign('contact_id').references('crm_contacts.id')
+      table.jsonb('data')
       table.timestamps()
     })
   },

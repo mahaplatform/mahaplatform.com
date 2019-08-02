@@ -256,10 +256,21 @@ const schema = {
       table.integer('organization_id').unsigned()
     })
 
+    await knex.schema.createTable('crm_email_attachments', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('email_id').unsigned()
+      table.integer('delta')
+      table.integer('asset_id').unsigned()
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('crm_emails', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('contact_id').unsigned()
+      table.jsonb('data')
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -1914,6 +1925,12 @@ const schema = {
       table.foreign('asset_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('training_id').references('training_trainings.id')
+    })
+
+    await knex.schema.table('crm_email_attachments', table => {
+      table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('email_id').references('crm_emails.id')
     })
 
     await knex.schema.table('maha_devices', table => {

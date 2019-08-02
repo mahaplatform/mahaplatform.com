@@ -1,5 +1,6 @@
 import mailboxQueue from '../../../../apps/maha/queues/mailbox_queue'
 import collectObjects from '../../../utils/collect_objects'
+import User from '../../../../apps/maha/models/user'
 import s3 from '../../../services/s3'
 import path from 'path'
 import _ from 'lodash'
@@ -8,11 +9,26 @@ const mailboxes = collectObjects('mailboxes/*')
 
 const simpleParser = Promise.promisify(require('mailparser').simpleParser)
 
+const rootPath = path.resolve('.')
+
 const mimeRoute = async (req, res) => {
 
-  const mime = req.body['body-mime']
+  const message = await simpleParser(req.body['body-mime'])
 
-  const message = await simpleParser(mime)
+  const user = await User.query(qb => {
+    qb.whereRaw('(email=? OR secondary_email=?)', [
+      message.from.value[0].address,
+      message.from.value[0].address
+    ])
+    qb.orderBy('team_id')
+  }).fetch({
+    transacting: req.trx
+  })
+
+  if(!user) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load sender'
+  })
 
   const mailbox = mailboxes.reduce((found, mailbox) => {
 
@@ -25,8 +41,6 @@ const mimeRoute = async (req, res) => {
       if(found) return found
 
       if(to.address.match(options.pattern) === null) return null
-
-      const rootPath = path.resolve('.')
 
       const relativeFilepath = mailbox.filepath.replace(`${rootPath}/`, '')
 
@@ -41,9 +55,15 @@ const mimeRoute = async (req, res) => {
 
   }, null)
 
-  if(!mailbox) return res.status(404).send('not found')
+  if(!mailbox) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to find recipient'
+  })
 
-  const meta = await mailbox.receiver(mailbox.to, message, req.trx)
+  const meta = await mailbox.receiver(req, {
+    to: mailbox.to,
+    message
+  })
 
   const code = _.random(100000000, 999999999).toString(36)
 
@@ -55,9 +75,12 @@ const mimeRoute = async (req, res) => {
     Key: `emails/${code}`
   }).promise()
 
-  const filepath = mailbox.filepath
-
-  mailboxQueue.enqueue(req, { filepath, meta, code })
+  mailboxQueue.enqueue(req, {
+    filepath: mailbox.filepath,
+    meta,
+    code,
+    user_id: user.get('id')
+  })
 
   res.status(200).send('accepted')
 

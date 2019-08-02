@@ -21,7 +21,7 @@ const user = (user) => {
 const data = (activity) => {
   if(activity.get('type') === 'call') return call(activity.related('call'))
   if(activity.get('type') === 'edit') return activity.get('data')
-  if(activity.get('type') === 'email') return email(activity.related('email'))
+  if(activity.get('type') === 'email') return activity.related('email').get('data')
   if(activity.get('type') === 'note') return note(activity.related('note'))
 }
 
@@ -32,14 +32,6 @@ const call = (call) => {
     date: call.get('date'),
     time: call.get('time'),
     description: call.get('description')
-  }
-}
-
-const email = (email) => {
-  if(!email.id) return null
-  return {
-    id: email.get('id'),
-    text: email.get('text')
   }
 }
 

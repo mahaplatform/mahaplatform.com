@@ -14,17 +14,18 @@ class Email extends React.PureComponent {
 
   render() {
     const { activity } = this.props
-    const { date, from, to, subject, body } = activity.data
+    const { date, from, subject, text } = activity.data
     return (
       <div className="crm-card-email">
         <div className="crm-card-header">
           <strong>Date:</strong> { moment(date).format('MMMM D, YYYY @ h:mm A') }<br />
-          <strong>From:</strong> { from }<br />
-          <strong>To:</strong> { to }<br />
+          <strong>From:</strong> { from.text }<br />
           <strong>Subject:</strong> { subject }<br />
         </div>
         <div className="crm-card-body">
-          { body }
+          { text && text.split('\n').map((line, index) => (
+            <span key={`line_${index}`}>{ line }<br /></span>
+          )) }
         </div>
         <div className="link">View Email</div>
       </div>

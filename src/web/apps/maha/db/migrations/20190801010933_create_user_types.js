@@ -40,10 +40,6 @@ const CreateUserTypes = {
 
     await assignUsers(knex, 'Independent Contractors / Partners')
 
-    await knex('maha_users').whereNull('user_type_id').update({
-      user_type_id: 1
-    })
-
   },
 
   down: async (knex) => {}
