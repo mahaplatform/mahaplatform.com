@@ -24,6 +24,7 @@ const userSerializer = (req, result) => ({
   email_notifications_method: result.get('email_notifications_method'),
   is_blocked: result.get('is_blocked'),
   locked_out_at: result.get('locked_out_at'),
+  user_type: result.related('user_type') ? result.related('user_type').get('text') : null,
   values: result.get('values'),
   last_online_at: result.get('last_online_at'),
   activated_at: result.get('activated_at'),

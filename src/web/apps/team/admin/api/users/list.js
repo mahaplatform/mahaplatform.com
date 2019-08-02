@@ -14,7 +14,7 @@ const listRoute = async (req, res) => {
     qb.leftJoin('maha_users_groups', 'maha_users_groups.user_id', 'maha_users.id')
   }).filter({
     filter: req.query.$filter,
-    filterParams: ['app_id','group_id','is_active','right_id','role_id'],
+    filterParams: ['app_id','group_id','is_active','right_id','role_id','user_type_id'],
     searchParams: ['first_name','last_name','email'],
     virtualFilters: {
       app_id: (qb, filter) => {

@@ -1,12 +1,13 @@
+import SecurityQuestion from './security_question'
 import Model from '../../../core/objects/model'
+import Supervision from './supervision'
 import bcrypt from 'bcrypt-nodejs'
+import UserType from './user_type'
+import Session from './session'
 import Asset from './asset'
 import Group from './group'
 import Role from './role'
-import SecurityQuestion from './security_question'
-import Supervision from './supervision'
 import Team from './team'
-import Session from './session'
 
 const User = new Model({
 
@@ -115,6 +116,10 @@ const User = new Model({
 
   authenticate(password) {
     return this.get('password_hash') === bcrypt.hashSync(password, this.get('password_salt'))
+  },
+
+  user_type() {
+    return this.belongsTo(UserType, 'user_type_id')
   }
 
 })
