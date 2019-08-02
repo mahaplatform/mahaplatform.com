@@ -45,9 +45,6 @@ class Activities extends React.PureComponent {
                 <div className="crm-timeline-item-card-header-timestamp">
                   { moment(activity.created_at).format('MMM DD, YYYY [at] h:mm A') }
                 </div>
-                <div className="crm-timeline-item-card-header-remove">
-                  <i className="fa fa-remove" />
-                </div>
               </div>
             </div>
             <div className="crm-timeline-item-card-section">

@@ -5,6 +5,7 @@ import { whitelist } from '../../../../../core/services/routes/params'
 import generateCode from '../../../../../core/utils/generate_code'
 import { processValues } from '../../../../maha/services/values'
 import socket from '../../../../../core/services/routes/emitter'
+import { contactActivity } from '../../../services/activities'
 import Field from '../../../../maha/models/field'
 import Contact from '../../../models/contact'
 
@@ -49,6 +50,17 @@ const createRoute = async (req, res) => {
     ids: req.body.organization_ids,
     foreign_key: 'contact_id',
     related_foreign_key: 'organization_id'
+  })
+
+  await contactActivity(req, {
+    user: req.user,
+    contact,
+    type: 'edit',
+    story: 'created the contact',
+    changes: [
+      { action: 'added', field: 'First Name', value: 'Greg' },
+      { action: 'added', field: 'Last Name', value: 'Kops' }
+    ]
   })
 
   await activity(req, {

@@ -36,9 +36,13 @@ const CreateUserTypes = {
 
     await assignUsers(knex, 'Benefits Eligible Employees')
 
+    await assignUsers(knex, 'Temp Employees')
+
     await assignUsers(knex, 'Independent Contractors / Partners')
 
-    await assignUsers(knex, 'Temp Employees')
+    await knex('maha_users').whereNull('user_type_id').update({
+      user_type_id: 1
+    })
 
   },
 

@@ -1,7 +1,18 @@
 import knex from '../../../../../core/services/knex'
+import UserTypes from '../../../../maha/models/user_type'
 import Group from '../../../../maha/models/group'
 
 const showRoute = async (req, res) => {
+
+  const user_types = await UserTypes.query(qb => {
+    qb.select(knex.raw('maha_user_types.id, text, count(maha_users.*) as members'))
+    qb.innerJoin('maha_users','maha_users.user_type_id','maha_user_types.id')
+    qb.where('maha_users.is_active', true)
+    qb.groupByRaw('maha_user_types.id, text')
+    qb.orderBy('maha_user_types.id', 'asc')
+  }).fetchAll({
+    transacting: req.trx
+  })
 
   const groups = await Group.scope({
     team: req.team
@@ -35,11 +46,18 @@ const showRoute = async (req, res) => {
       }), {})
     })
 
-  res.status(200).respond(groups.map(group => ({
-    title: group.get('title'),
-    members: group.get('members'),
-    active: active[group.get('id')],
-    items: items[group.get('id')]
+  res.status(200).respond(user_types.map(user_type => ({
+    id: user_type.get('id'),
+    title: user_type.get('text'),
+    members: user_type.get('members'),
+    active: 100,
+    items: 1020,
+    groups: groups.map(group => ({
+      title: group.get('title'),
+      members: group.get('members'),
+      active: active[group.get('id')],
+      items: items[group.get('id')]
+    }))
   })))
 
 }

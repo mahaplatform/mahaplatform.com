@@ -24,7 +24,7 @@ const createRoute = async (req, res) => {
     mute_weekends: true,
     values: {},
     key: generateCode(32),
-    ...whitelist(req.body, ['first_name','last_name','email','secondary_email','is_active','email_notification_method','photo_id','values'])
+    ...whitelist(req.body, ['first_name','last_name','email','secondary_email','user_type_id','is_active','email_notification_method','photo_id','values'])
   }).save(null, {
     transacting: req.trx
   })

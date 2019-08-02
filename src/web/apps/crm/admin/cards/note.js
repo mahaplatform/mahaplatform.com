@@ -13,9 +13,12 @@ class Note extends React.PureComponent {
 
   render() {
     const { activity } = this.props
+    const { text } = activity.data
     return (
       <div className="crm-timeline-item-card-note">
-        { activity.data.text }
+        { text.split('\n').map((line, index) => (
+          <span key={`line_${index}`}>{ line }<br /></span>
+        )) }
       </div>
     )
   }

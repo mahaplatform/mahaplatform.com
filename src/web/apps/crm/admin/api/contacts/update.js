@@ -10,6 +10,15 @@ import Contact from '../../../models/contact'
 
 const updateRoute = async (req, res) => {
 
+  req.fields = await Field.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('parent_type', 'crm_contacts')
+    qb.orderBy('delta', 'asc')
+  }).fetchAll({
+    transacting: req.trx
+  }).then(result => result.toArray())
+
   const contact = await Contact.scope({
     team: req.team
   }).query(qb => {
@@ -57,21 +66,12 @@ const updateRoute = async (req, res) => {
     user: req.user,
     contact,
     type: 'edit',
-    story: 'edited the contact',
+    story: 'updated the contact',
     changes: [
       { action: 'added', field: 'First Name', value: 'Greg' },
       { action: 'changed', field: 'Last Name', was: 'Kopf', value: 'Kops' }
     ]
   })
-
-  req.fields = await Field.scope({
-    team: req.team
-  }).query(qb => {
-    qb.where('parent_type', 'crm_contacts')
-    qb.orderBy('delta', 'asc')
-  }).fetchAll({
-    transacting: req.trx
-  }).then(result => result.toArray())
 
   await activity(req, {
     story: 'updated {object}',

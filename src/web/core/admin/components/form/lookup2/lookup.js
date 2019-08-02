@@ -49,6 +49,8 @@ class Lookup extends React.Component {
     text: 'text'
   }
 
+  _handleClear = this._handleClear.bind(this)
+
   render() {
     const { placeholder, selected, tabIndex, text } = this.props
     return (
@@ -63,6 +65,11 @@ class Lookup extends React.Component {
             <div className="maha-lookup2-placeholder">{ placeholder }</div>
           }
         </div>
+        { selected.length > 0 &&
+          <div className="maha-lookup-field-clear">
+            <i className="fa fa-times" onClick={ this._handleClear} />
+          </div>
+        }
       </div>
     )
   }
@@ -151,13 +158,15 @@ class Lookup extends React.Component {
   }
 
   _handleSelect(items) {
-    const { onSelect } = this.props
-    onSelect(items)
+    this.props.onSelect(items)
+  }
+
+  _handleClear() {
+    this.props.onSelect([])
   }
 
   _handleChange() {
-    const { onChange } = this.props
-    return onChange(this._getValue())
+    this.props.onChange(this._getValue())
   }
 
 }
