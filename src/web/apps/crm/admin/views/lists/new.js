@@ -31,7 +31,7 @@ class New extends React.Component {
   _getForm() {
     const { type } = this.state
     return {
-      title: 'New Contact',
+      title: 'New List',
       method: 'post',
       action: '/api/admin/crm/lists',
       onCancel: this._handleCancel,
@@ -51,10 +51,16 @@ class New extends React.Component {
   }
 
   _getType() {
+    const fields = [
+      { label: 'First Name', code: 'first_name' },
+      { label: 'Last Name', code: 'last_name' },
+      { label: 'Email', code: 'email' },
+      { label: 'Phone', code: 'phone' }
+    ]
     const { type } = this.state
     if(type === 'static') return []
     return [
-      { label: 'Criteria', name: 'critera', type: Criteria, placeholder: 'Select criteria', required: true }
+      { label: 'Criteria', name: 'criteria', type: Criteria, placeholder: 'Design criteria', required: true, fields }
     ]
   }
 

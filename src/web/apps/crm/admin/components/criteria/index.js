@@ -5,7 +5,7 @@ import * as selectors from './selectors'
 import * as actions from './actions'
 
 export default Singleton({
-  namespace: 'criteria',
+  namespace: 'crm.criteria',
   component: Criteria,
   reducer,
   selectors,

@@ -8,7 +8,7 @@ const createRoute = async (req, res) => {
 
   const list = await List.forge({
     team_id: req.team.get('id'),
-    ...whitelist(req.body, ['name','description','type'])
+    ...whitelist(req.body, ['name','description','type','criteria'])
   }).save(null, {
     transacting: req.trx
   })
