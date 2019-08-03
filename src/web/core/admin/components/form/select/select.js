@@ -40,17 +40,19 @@ const Select = (multiple) => {
       onSubmit: (selected) => {}
     }
 
+    _handleKeyDown = this._handleKeyDown.bind(this)
+
     render() {
-      const { items, format, tabIndex, text } = this.props
+      const { items, format, tabIndex, text, value } = this.props
       return (
-        <div className="maha-select ui field" tabIndex={ tabIndex }>
+        <div className="maha-select ui field" tabIndex={ tabIndex } onKeyDown={ this._handleKeyDown }>
           { items.map((option, index) => (
             <div key={`option_${index}`} { ...this._getItem(option) }>
               <div className="maha-select-option-icon">
                 <i className={`fa fa-fw fa-${this._getItemIcon(option)}`} />
               </div>
               <div className="maha-select-option-label">
-                <Format { ...option } format={ format } value={ _.get(option, text) } />
+                <Format { ...option } format={ format } value={ _.get(option, value) } text={ _.get(option, text) } />
               </div>
             </div>
           )) }
@@ -117,6 +119,16 @@ const Select = (multiple) => {
       const { multiple, onChoose } = this.props
       const value = _.get(option, this.props.value)
       onChoose(multiple, value)
+    }
+
+    _handleKeyDown(e) {
+      const { multiple, options, selected, onChoose } = this.props
+      if(multiple || !_.includes([38,40], e.which)) return
+      const mod = (x, n) => (x % n + n) % n
+      const increment = e.which === 38 ? -1 : 1
+      const index = _.findIndex(options, { value: selected[0] })
+      const newindex = mod((index + increment), options.length)
+      onChoose(multiple, options[newindex].value)
     }
 
   }
