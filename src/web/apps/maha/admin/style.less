@@ -364,10 +364,12 @@ input, textarea {
 		cursor: pointer;
 	}
 	tr.group td {
-		color: fadeout(@black, 50);
+		color: fadeout(@blue, 30);
 	}
-	tfoot td {
-		border-top: 1px solid fadeout(@black, 90) !important;
-		font-weight: bold;
+	tfoot {
+		td, th {
+			border-top: 1px solid fadeout(@black, 90) !important;
+			font-weight: bold;
+		}
 	}
 }

@@ -41,7 +41,7 @@ class Usage extends React.Component {
                 <td className="right aligned">{ user_type.members }</td>
                 <td className="right aligned">{ user_type.active }</td>
                 <td className="right aligned">
-                  { numeral((user_type.active / user_type.members) * 100).format('0') }
+                  { numeral(user_type.active / user_type.members).format('0%') }
                 </td>
                 <td className="right aligned">{ user_type.items }</td>
               </tr>,
@@ -51,7 +51,7 @@ class Usage extends React.Component {
                   <td className="right aligned">{ group.members }</td>
                   <td className="right aligned">{ group.active }</td>
                   <td className="right aligned">
-                    { numeral((group.active / group.members) * 100).format('0') }
+                    { numeral(group.active / group.members).format('0%') }
                   </td>
                   <td className="right aligned">{ group.items }</td>
                 </tr>
@@ -64,7 +64,7 @@ class Usage extends React.Component {
               <td className="right aligned">{ totals.members }</td>
               <td className="right aligned">{ totals.active }</td>
               <td className="right aligned">
-                { numeral((totals.active / totals.members) * 100).format('0') }
+                { numeral(totals.active / totals.members).format('0%') }
               </td>
               <td className="right aligned">{ totals.items }</td>
             </tr>
