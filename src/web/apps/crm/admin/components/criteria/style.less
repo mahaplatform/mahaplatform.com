@@ -1,55 +1,10 @@
 .crm-criteria {
-  border: 1px solid rgba(34,36,38,.15);
-  border-radius: .28571429rem;
-  display: flex;
-  background: @white;
-  &:focus {
-    outline: none !important;
-    border-color: @lightblue;
-    border-radius: .28571429rem;
-    background: @white;
-    box-shadow: 0 0 0 0 rgba(34,36,38,.35) inset;
-  }
-}
-.crm-criteria-label {
   flex: 1;
-}
-.crm-criteria-token {
-  display: inline-block;
-  margin: 0.2em;
-  padding: 0.3em 0.5em;
-  background-color: fadeout(@black, 95);
-  color: fadeout(@black, 40);
-  border-radius: 0.2em;
-}
-.crm-criteria-prompt {
-  padding: 0.8em;
-  line-height: 1.2em;
-  color: fadeout(@black, 70) !important;
-  flex: 1;
-}
-.crm-criteria-clear {
-  padding: 0.8em 0.8em 0.8em 0;
-  display: flex;
-  .fa {
-    .hover(color, fadeout(@black, 70));
-    margin: auto;
-    color: fadeout(@black, 80);
-    cursor: pointer;
-  }
-}
-.crm-criteria-designer {
-  flex: 1;
-  display: flex;
-}
-.crm-criteria-designer-sidebar {
   position: relative;
-  flex: ~"0 0 calc(100% / 3)";
-  display: flex;
-  border-right: 1px solid fadeout(@black, 95);
   overflow: hidden;
+  display: flex;
 }
-.crm-criteria-designer-new {
+.crm-criteria-new {
   .translate-x-transition(100%, 0, .25s);
   position: absolute;
   top: 0;
@@ -59,27 +14,9 @@
   background-color: @white;
   padding: 0.8em;
 }
-.crm-criteria-designer-items {
-  flex: 1;
-  background-color: fadeout(@black, 97);
-  .scrollable();
-}
-.crm-criteria-designer-main {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.crm-criteria-designer-summary {
-  background-color: fadeout(@black, 97);
-  border-bottom: 1px solid fadeout(@black, 95);
-  padding: 0.8em;
-  font-weight: bold;
-}
-.crm-criteria-designer-results {
-  flex: 1;
-  .scrollable();
-}
 .crm-criteria-items {
+  flex: 1;
+  .scrollable();
   & > .crm-criteria-item > .crm-criteria-item-box {
     padding: 0.8em !important;
     background: none !important;
@@ -114,6 +51,11 @@
   background: @white;
   position: relative;
   margin-bottom: 0.4em;
+  cursor: pointer;
+  color: fadeout(@black, 40);
+  &:hover {
+    background-color: lighten(@black, 97);
+  }
   .crm-criteria-item:nth-last-child(2):after {
     content: none !important;
     margin: 0;
@@ -132,6 +74,6 @@
 .crm-criteria-property {
   color: @blue;
 }
-.crm-criteria-designer-result {
+.crm-criteria-result {
   border-bottom: 1px solid fadeout(@black, 95);
 }

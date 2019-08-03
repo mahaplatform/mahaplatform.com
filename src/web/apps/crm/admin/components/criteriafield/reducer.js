@@ -1,29 +1,29 @@
-import { create, remove, update } from './utils'
-
 const INITIAL_STATE = {
-  criteria: { $and: [] }
+  active: false,
+  criteria: { $and: [] },
+  contacts: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'CREATE':
+  case 'BEGIN':
     return {
       ...state,
-      criteria: create(state.criteria, action.cindex, action.value)
+      active: true
     }
 
-  case 'REMOVE':
+  case 'CLEAR':
     return {
       ...state,
-      criteria: remove(state.criteria, action.cindex)
+      criteria: null
     }
 
-  case 'UPDATE':
+  case 'END':
     return {
       ...state,
-      criteria: update(state.criteria, action.cindex, action.value)
+      active: false
     }
 
   case 'SET':

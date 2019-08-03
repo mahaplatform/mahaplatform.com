@@ -1,4 +1,4 @@
-import Criteria from '../../components/criteria'
+import CriteriaField from '../../components/criteriafield'
 import TypeToken from '../../tokens/type'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -60,7 +60,7 @@ class New extends React.Component {
     const { type } = this.state
     if(type === 'static') return []
     return [
-      { label: 'Criteria', name: 'criteria', type: Criteria, placeholder: 'Design criteria', required: true, fields }
+      { label: 'Criteria', name: 'criteria', type: CriteriaField, placeholder: 'Design criteria', required: true, fields }
     ]
   }
 

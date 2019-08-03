@@ -8,7 +8,7 @@ class Item extends React.Component {
   static propTypes = {
     cindex: PropTypes.array,
     criteria: PropTypes.object,
-    onAdd: PropTypes.func,
+    onCreate: PropTypes.func,
     onRemove: PropTypes.func,
     onUpdate: PropTypes.func
   }
@@ -53,11 +53,11 @@ class Item extends React.Component {
   }
 
   _getItem(criteria, cindex, index) {
-    const { onAdd, onRemove, onUpdate} = this.props
+    const { onCreate, onRemove, onUpdate} = this.props
     return {
       cindex: [...cindex,...index],
       criteria,
-      onAdd,
+      onCreate,
       onRemove,
       onUpdate
     }
@@ -74,7 +74,7 @@ class Item extends React.Component {
   }
 
   _handleNew(cindex, key) {
-    this.props.onAdd([...cindex, key], { email: { $gte: 5 }})
+    this.props.onCreate([...cindex, key], { first_name: { $eq: 'Greg' }})
   }
 
   _handleEdit(cindex) {

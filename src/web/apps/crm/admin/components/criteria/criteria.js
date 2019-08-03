@@ -1,104 +1,70 @@
+import { CSSTransition } from 'react-transition-group'
 import PropTypes from 'prop-types'
-import Designer from './designer'
+import Item from './item'
 import React from 'react'
+import New from './new'
 import _ from 'lodash'
 
-class Criteria extends React.PureComponent {
+class Criteria extends React.Component {
 
-  static contextTypes = {
-    form: PropTypes.object
-  }
+  static contextTypes = {}
 
   static propTypes = {
-    active: PropTypes.bool,
     adding: PropTypes.bool,
-    contacts: PropTypes.array,
     criteria: PropTypes.object,
     defaultValue: PropTypes.object,
     fields: PropTypes.array,
-    placeholder: PropTypes.string,
-    tabIndex: PropTypes.number,
-    onAdd: PropTypes.func,
-    onBegin: PropTypes.func,
     onChange: PropTypes.func,
-    onClear: PropTypes.func,
-    onEnd: PropTypes.func,
-    onReady: PropTypes.func,
+    onCreate: PropTypes.func,
     onRemove: PropTypes.func,
     onSet: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
-  static defaultProps = {
-    placeholder: 'Design criteria'
-  }
-
-  _handleBegin = this._handleBegin.bind(this)
-  _handleClear = this._handleClear.bind(this)
-
   render() {
-    const { contacts, criteria, placeholder, tabIndex } = this.props
+    const { adding, criteria } = this.props
     return (
-      <div className="crm-criteria" tabIndex={ tabIndex } onClick={ this._handleBegin.bind(this) }>
-        { criteria &&
-          <div className="crm-criteria-label">
-            <div className="crm-criteria-token">
-              Your criteria currently matches { contacts ? contacts.length : 0 } contacts
-            </div>
-          </div>
-        }
-        { criteria &&
-          <div className="crm-criteria-clear">
-            <i className="fa fa-times" onClick={ this._handleClear.bind(this) } />
-          </div>
-        }
-        { !criteria &&
-          <div className="crm-criteria-prompt" onClick={ this._handleBegin.bind(this) }>
-            { placeholder }
-          </div>
-        }
-      </div>    )
+      <div className="crm-criteria">
+        <div className="crm-criteria-items">
+          { criteria && Object.keys(criteria).length > 0 &&
+            <Item { ...this._getItem(criteria) } />
+          }
+        </div>
+        <CSSTransition in={ adding } classNames="expanded" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+          <New { ...this._getNew() } />
+        </CSSTransition>
+      </div>
+    )
   }
 
   componentDidMount() {
     const { defaultValue, onSet } = this.props
     if(defaultValue) onSet(defaultValue)
-    this.props.onReady()
   }
 
   componentDidUpdate(prevProps) {
-    const { form } = this.context
-    const { active, criteria } = this.props
-    if(!prevProps.active && active) {
-      form.push(<Designer { ...this._getDesigner() } />)
-    }
+    const { criteria } = this.props
     if(!_.isEqual(criteria, prevProps.criteria)) {
       this.props.onChange(criteria)
     }
   }
 
-  _getDesigner() {
-    const { adding, criteria, fields, onAdd, onEnd, onRemove, onUpdate } = this.props
+  _getNew() {
+    const { fields } = this.props
     return {
-      adding,
+      fields
+    }
+  }
+
+  _getItem(criteria) {
+    const { onCreate, onRemove, onUpdate } = this.props
+    return {
       criteria,
-      fields,
-      onAdd,
-      onEnd,
+      onCreate,
       onRemove,
       onUpdate
     }
   }
-
-  _handleBegin() {
-    this.props.onBegin()
-  }
-
-  _handleClear(e) {
-    e.stopPropagation()
-    this.props.onClear()
-  }
-
 
 }
 

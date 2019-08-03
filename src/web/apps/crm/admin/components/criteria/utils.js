@@ -1,8 +1,8 @@
 import _ from 'lodash'
 
-export const add = (state, cindex, value) => {
+export const create = (state, cindex, value) => {
   return traverse(state, cindex, (state, cindex) => ({
-    ...state,
+    ...state || {},
     [cindex[0]]: [
       ...state[cindex[0]],
       value

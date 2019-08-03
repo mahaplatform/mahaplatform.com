@@ -1,8 +1,21 @@
-export const create = (cindex, value) => ({
-  type: 'CREATE',
+export const add = (cindex, value) => ({
+  type: 'ADD',
   cindex,
   value
 })
+
+export const begin = () => ({
+  type: 'BEGIN'
+})
+
+export const clear = () => ({
+  type: 'CLEAR'
+})
+
+export const end = () => ({
+  type: 'END'
+})
+
 
 export const remove = (cindex) => ({
   type: 'REMOVE',
