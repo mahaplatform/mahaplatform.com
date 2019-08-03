@@ -20,11 +20,12 @@ class Desginer extends React.Component {
     fields: PropTypes.array,
     onAdd: PropTypes.func,
     onEnd: PropTypes.func,
-    onRemove: PropTypes.func
+    onRemove: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
-  _handleAdd = this._handleAdd.bind(this)
   _handleCancel = this._handleCancel.bind(this)
+  _handleNew = this._handleNew.bind(this)
 
   render() {
     const { adding, contacts, criteria } = this.props
@@ -38,8 +39,8 @@ class Desginer extends React.Component {
                   <Item { ...this._getItem(criteria) } />
                 }
                 { !criteria &&
-                  <div className="ui tiny button" onClick={ this._handleAdd }>
-                    + Add Condition
+                  <div className="ui tiny button" onClick={ this._handleNew }>
+                    <i className="fa fa-plus" />
                   </div>
                 }
               </div>
@@ -84,11 +85,12 @@ class Desginer extends React.Component {
   }
 
   _getItem(criteria) {
-    const { onAdd, onRemove } = this.props
+    const { onAdd, onRemove, onUpdate } = this.props
     return {
       criteria,
       onAdd,
-      onRemove
+      onRemove,
+      onUpdate
     }
 
   }
@@ -105,7 +107,7 @@ class Desginer extends React.Component {
     }
   }
 
-  _handleAdd() {
+  _handleNew() {
     this.props.onAdd()
   }
 
