@@ -59,7 +59,6 @@ class CriteriaField extends React.PureComponent {
 
   componentDidMount() {
     const { defaultValue, onSet } = this.props
-    console.log(defaultValue)
     if(defaultValue) onSet(defaultValue)
     this.props.onReady()
   }

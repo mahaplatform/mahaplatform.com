@@ -8,9 +8,9 @@ class Item extends React.Component {
   static propTypes = {
     cindex: PropTypes.array,
     criteria: PropTypes.object,
-    onCreate: PropTypes.func,
-    onRemove: PropTypes.func,
-    onUpdate: PropTypes.func
+    onAdd: PropTypes.func,
+    onEdit: PropTypes.func,
+    onRemove: PropTypes.func
   }
 
   static defaultProps = {
@@ -33,7 +33,7 @@ class Item extends React.Component {
               <Item { ...this._getItem(item, cindex, [key,index]) } key={`item_${index}`} />
             )) }
             <div className="ui mini compact button" onClick={ this._handleNew.bind(this, cindex, key) }>
-              <i className="fa fa-plus" />
+              <i className="fa fa-plus" /> Add Criteria
             </div>
           </div>
         </div>
@@ -42,7 +42,7 @@ class Item extends React.Component {
     const operator = Object.keys(criteria[key])[0]
     return (
       <div className="crm-criteria-item">
-        <div className="crm-criteria-item-box" onClick={ this._handleEdit.bind(this, cindex) }>
+        <div className="crm-criteria-item-box" onClick={ this._handleEdit.bind(this, cindex, criteria) }>
           The contact property <strong className="crm-criteria-property">{ key }</strong> { this._getOperator(operator) } <strong>{ criteria[key][operator] }</strong>
           <div className="crm-criteria-item-remove" onClick={ this._handleRemove.bind(this, cindex) }>
             <i className="fa fa-remove" />
@@ -53,13 +53,13 @@ class Item extends React.Component {
   }
 
   _getItem(criteria, cindex, index) {
-    const { onCreate, onRemove, onUpdate} = this.props
+    const { onAdd, onEdit, onRemove} = this.props
     return {
       cindex: [...cindex,...index],
       criteria,
-      onCreate,
-      onRemove,
-      onUpdate
+      onAdd,
+      onEdit,
+      onRemove
     }
   }
 
@@ -74,11 +74,11 @@ class Item extends React.Component {
   }
 
   _handleNew(cindex, key) {
-    this.props.onCreate([...cindex, key], { first_name: { $eq: 'Greg' }})
+    this.props.onAdd([...cindex,key])
   }
 
-  _handleEdit(cindex) {
-    this.props.onUpdate(cindex, { email: { $gte: 5 }})
+  _handleEdit(cindex, criteria) {
+    this.props.onEdit(cindex, criteria)
   }
 
   _handleRemove(cindex, e) {

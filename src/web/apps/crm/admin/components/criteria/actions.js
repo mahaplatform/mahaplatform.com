@@ -1,7 +1,22 @@
+export const add = (cindex) => ({
+  type: 'ADD',
+  cindex
+})
+
+export const cancel = () => ({
+  type: 'CANCEL'
+})
+
 export const create = (cindex, value) => ({
   type: 'CREATE',
   cindex,
   value
+})
+
+export const edit = (cindex, criterion) => ({
+  type: 'EDIT',
+  cindex,
+  criterion
 })
 
 export const remove = (cindex) => ({

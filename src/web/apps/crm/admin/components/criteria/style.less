@@ -4,7 +4,7 @@
   overflow: hidden;
   display: flex;
 }
-.crm-criteria-new {
+.crm-criteria-panel {
   .translate-x-transition(100%, 0, .25s);
   position: absolute;
   top: 0;
@@ -12,7 +12,7 @@
   bottom: 0;
   left: 0;
   background-color: @white;
-  padding: 0.8em;
+  display: flex;
 }
 .crm-criteria-items {
   flex: 1;
@@ -54,11 +54,14 @@
   cursor: pointer;
   color: fadeout(@black, 40);
   &:hover {
-    background-color: lighten(@black, 97);
+    background-color: lighten(@black, 99);
   }
-  .crm-criteria-item:nth-last-child(2):after {
-    content: none !important;
-    margin: 0;
+  .crm-criteria-item:nth-last-child(2) {
+    margin-bottom: 0.8em;
+    &:after {
+      content: none !important;
+      margin: 0;
+    }
   }
 }
 .crm-criteria-item-remove {

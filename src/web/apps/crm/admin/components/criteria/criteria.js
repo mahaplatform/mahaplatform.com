@@ -1,8 +1,8 @@
 import { CSSTransition } from 'react-transition-group'
+import Criterion from './criterion'
 import PropTypes from 'prop-types'
 import Item from './item'
 import React from 'react'
-import New from './new'
 import _ from 'lodash'
 
 class Criteria extends React.Component {
@@ -10,19 +10,22 @@ class Criteria extends React.Component {
   static contextTypes = {}
 
   static propTypes = {
-    adding: PropTypes.bool,
     criteria: PropTypes.object,
     defaultValue: PropTypes.object,
     fields: PropTypes.array,
+    panel: PropTypes.object,
+    onAdd: PropTypes.func,
+    onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onCreate: PropTypes.func,
+    onEdit: PropTypes.func,
     onRemove: PropTypes.func,
     onSet: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
   render() {
-    const { adding, criteria } = this.props
+    const { panel, criteria } = this.props
     return (
       <div className="crm-criteria">
         <div className="crm-criteria-items">
@@ -30,8 +33,10 @@ class Criteria extends React.Component {
             <Item { ...this._getItem(criteria) } />
           }
         </div>
-        <CSSTransition in={ adding } classNames="expanded" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-          <New { ...this._getNew() } />
+        <CSSTransition in={ panel !== null } classNames="expanded" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+          <div className="crm-criteria-panel">
+            { panel && <Criterion { ...this._getCriterion() } /> }
+          </div>
         </CSSTransition>
       </div>
     )
@@ -49,21 +54,34 @@ class Criteria extends React.Component {
     }
   }
 
-  _getNew() {
-    const { fields } = this.props
+  _getCriterion() {
+    const { fields, panel, onCancel } = this.props
+    const { cindex, criterion, mode } = panel
+    const onDone = mode === 'new' ? this._handleCreate : this._handleUpdate
     return {
-      fields
+      defaultValue: criterion,
+      fields,
+      onCancel,
+      onDone: onDone.bind(this, cindex)
     }
   }
 
   _getItem(criteria) {
-    const { onCreate, onRemove, onUpdate } = this.props
+    const { onAdd, onEdit, onRemove } = this.props
     return {
       criteria,
-      onCreate,
-      onRemove,
-      onUpdate
+      onAdd,
+      onEdit,
+      onRemove
     }
+  }
+
+  _handleCreate(cindex, value) {
+    this.props.onCreate(cindex, value)
+  }
+
+  _handleUpdate(cindex, value) {
+    this.props.onUpdate(cindex, value)
   }
 
 }

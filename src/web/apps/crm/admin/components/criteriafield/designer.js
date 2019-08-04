@@ -54,9 +54,10 @@ class Desginer extends React.Component {
   }
 
   _getCriteria() {
-    const { criteria } = this.props
+    const { criteria, fields } = this.props
     return {
       defaultValue: criteria,
+      fields,
       onChange: () => {}
     }
   }
