@@ -78,9 +78,6 @@
       padding: 0 1.6em;
     }
   }
-  :disabled  {
-    background-color: #F0F0F0 !important;
-  }
   .error {
     input, textarea, select, .lookup-field, .dropdown {
       border-color: @red !important;
@@ -131,6 +128,9 @@
     border-radius: .28571429rem;
     background: @white;
     box-shadow: 0 0 0 0 rgba(34,36,38,.35) inset;
+  }
+  &.disabled {
+    background-color: fadeout(@black, 97) !important;
   }
 }
 .maha-input-field {

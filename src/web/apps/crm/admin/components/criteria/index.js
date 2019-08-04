@@ -66,9 +66,9 @@ class CriteriaWrapper extends React.PureComponent {
     }
   }
 
-  _handlePop() {
+  _handlePop(index = -1) {
     this.setState({
-      cards: this.state.cards.slice(0, -1)
+      cards: this.state.cards.slice(0, index)
     })
   }
 

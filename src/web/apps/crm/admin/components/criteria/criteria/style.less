@@ -80,3 +80,30 @@
 .crm-criteria-result {
   border-bottom: 1px solid fadeout(@black, 95);
 }
+
+
+.crm-criterion {
+  flex: 1;
+  display: flex;
+}
+
+.crm-criterion-items {
+  .scrollable();
+  flex: 1;
+}
+.crm-criterion-item {
+  padding: 0.8em;
+  border-bottom: 1px solid fadeout(@black, 95);
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+
+.crm-criterion-form {
+  flex: 1;
+  padding: 0.8em;
+}
+.crm-criterion-field {
+  margin-bottom: 0.8em;
+}

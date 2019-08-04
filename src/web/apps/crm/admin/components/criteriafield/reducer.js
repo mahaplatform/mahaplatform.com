@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
   criteria: { $and: [] },
-  contacts: null
+  status: 'pending'
 }
 
 const reducer = (state = INITIAL_STATE, action) => {

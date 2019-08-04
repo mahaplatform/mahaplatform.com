@@ -12,7 +12,7 @@ const listRoute = async (req, res) => {
     qb.leftJoin('crm_taggings', 'crm_taggings.contact_id', 'crm_contacts.id')
   }).filter({
     filter: req.query.$filter,
-    filterParams: ['crm_taggings.tag_id'],
+    filterParams: ['first_name','last_name','email','phone','crm_taggings.tag_id'],
     searchParams: ['first_name','last_name','email']
   }).sort({
     sort: req.query.$sort,

@@ -64,8 +64,11 @@ class Item extends React.Component {
   }
 
   _getOperator(operator) {
-    if(operator == '$ct') return 'contains'
-    if(operator == '$eq') return 'equals'
+    if(operator == '$lk') return 'contains'
+    if(operator == '$nlk') return 'does not contain'
+    if(operator == '$kn') return 'is known'
+    if(operator == '$nkn') return 'is not known'
+    if(operator == '$eq') return 'is'
     if(operator == '$neq') return 'doesn\'t equal'
     if(operator == '$gt') return 'is greater than'
     if(operator == '$lt') return 'is less than'

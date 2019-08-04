@@ -50,25 +50,21 @@ class New extends React.Component {
     }
   }
 
-  _getType() {
-    const fields = [
-      { label: 'Contact Field', items: [
-        { label: 'First Name', code: 'first_name' },
-        { label: 'Last Name', code: 'last_name' },
-        { label: 'Email', code: 'email' },
-        { label: 'Phone', code: 'phone' }
-      ]},
-      { label: 'Form Field', items: [
-        { label: 'First Name', code: 'first_name' },
-        { label: 'Last Name', code: 'last_name' },
-        { label: 'Email', code: 'email' },
-        { label: 'Phone', code: 'phone' }
-      ]}
-    ]
-    const { type } = this.state
-    if(type === 'static') return []
+  _getFields() {
     return [
-      { label: 'Criteria', name: 'criteria', type: CriteriaField, placeholder: 'Design criteria', required: true, fields }
+      { label: 'Contact Fields', fields: [
+        { label: 'First Name', code: 'first_name', type: 'text' },
+        { label: 'Last Name', code: 'last_name', type: 'text' },
+        { label: 'Email', code: 'email', type: 'text' },
+        { label: 'Phone', code: 'phone', type: 'text' }
+      ] }
+    ]
+  }
+
+  _getType() {
+    if(this.state.type === 'static') return []
+    return [
+      { label: 'Criteria', name: 'criteria', type: CriteriaField, placeholder: 'Design criteria', required: true, fields: this._getFields() }
     ]
   }
 

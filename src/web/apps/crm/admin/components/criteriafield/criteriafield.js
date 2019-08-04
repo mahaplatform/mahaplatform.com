@@ -32,15 +32,11 @@ class CriteriaField extends React.PureComponent {
   _handleEnd = this._handleEnd.bind(this)
 
   render() {
-    const { contacts, criteria, placeholder, tabIndex } = this.props
+    const { criteria, placeholder, tabIndex } = this.props
     return (
       <div className="crm-criteriafield" tabIndex={ tabIndex } onClick={ this._handleBegin.bind(this) }>
         { criteria &&
-          <div className="crm-criteriafield-label">
-            <div className="crm-criteriafield-token">
-              Your criteria currently matches { contacts ? contacts.length : 0 } contacts
-            </div>
-          </div>
+          <div className="crm-criteriafield-label" />
         }
         { criteria &&
           <div className="crm-criteriafield-clear">

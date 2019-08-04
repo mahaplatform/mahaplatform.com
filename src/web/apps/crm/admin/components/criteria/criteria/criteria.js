@@ -1,5 +1,5 @@
-import Criterion from '../criterion'
 import PropTypes from 'prop-types'
+import Types from './types'
 import Item from './item'
 import React from 'react'
 import _ from 'lodash'
@@ -50,12 +50,10 @@ class Criteria extends React.Component {
     }
   }
 
-  _getCriterion({ criterion, onDone }) {
-    const { fields, onCancel } = this.props
+  _getTypes({ criterion, onDone }) {
     return {
       defaultValue: criterion,
-      fields,
-      onCancel,
+      types: this.props.fields,
       onDone
     }
   }
@@ -73,23 +71,21 @@ class Criteria extends React.Component {
   _handleAdd(cindex) {
     const { criteria } = this.context
     const onDone = this._handleCreate.bind(this, cindex)
-    criteria.push({ component: Criterion, props: this._getCriterion({ onDone }) })
+    criteria.push({ component: Types, props: this._getTypes({ onDone }) })
   }
 
   _handleCreate(cindex, value) {
     this.props.onCreate(cindex, value)
-    this.context.criteria.pop()
   }
 
   _handleEdit(cindex, criterion) {
     const { criteria } = this.context
     const onDone = this._handleCreate.bind(this, cindex)
-    criteria.push({ component: Criterion, props: this._getCriterion({ criterion, onDone }) })
+    criteria.push({ component: Types, props: this._getTypes({ criterion, onDone }) })
   }
 
   _handleUpdate(cindex, value) {
     this.props.onUpdate(cindex, value)
-    this.context.criteria.pop()
   }
 
 }

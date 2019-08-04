@@ -1,9 +1,10 @@
-import ContactToken from '../../tokens/contact'
-import { Message, ModalPanel } from 'maha-admin'
+import { Infinite, Message, ModalPanel } from 'maha-admin'
 import { connect } from 'react-redux'
 import Criteria from '../criteria'
 import PropTypes from 'prop-types'
+import Contacts from './contacts'
 import React from 'react'
+import _ from 'lodash'
 
 class Desginer extends React.Component {
 
@@ -24,32 +25,34 @@ class Desginer extends React.Component {
   _handleCancel = this._handleCancel.bind(this)
   _handleNew = this._handleNew.bind(this)
 
+  state = {
+    cacheKey: _.random(100000000, 999999999).toString(36)
+  }
+
   render() {
-    const { contacts, criteria } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="crm-criteriafield-designer">
           <div className="crm-criteriafield-designer-sidebar">
             <Criteria { ...this._getCriteria() } />
           </div>
-          { criteria && contacts ?
-            <div className="crm-criteriafield-designer-main">
-              <div className="crm-criteriafield-designer-summary">
-                Your criteria matches { contacts.length } contacts
-              </div>
-              <div className="crm-criteriafield-designer-results">
-                { contacts && contacts.map((contact, index) => (
-                  <div className="crm-criteriafield-designer-result" key={`contact_${index}`}>
-                    <ContactToken { ...contact } />
-                  </div>
-                )) }
-              </div>
-            </div> :
-            <Message { ...this._getEmpty() } />
-          }
+          <div className="crm-criteriafield-designer-main">
+            <div className="crm-criteriafield-designer-results">
+              <Infinite { ...this._getInfinite() } />
+            </div>
+          </div>
         </div>
       </ModalPanel>
     )
+  }
+
+  componentDidUpdate(prevProps) {
+    const { criteria } = this.props
+    if(!_.isEqual(criteria, prevProps.criteria)) {
+      this.setState({
+        cacheKey: _.random(100000000, 999999999).toString(36)
+      })
+    }
   }
 
   _getCriteria() {
@@ -66,6 +69,15 @@ class Desginer extends React.Component {
       title: 'No Resuts',
       text: 'No contacts match your query',
       icon: 'user-circle'
+    }
+  }
+
+  _getInfinite() {
+    return {
+      cacheKey: this.state.cacheKey,
+      endpoint: '/api/admin/crm/contacts',
+      filter: this.props.criteria,
+      layout: (props) => <Contacts {...props}  />
     }
   }
 
@@ -110,7 +122,6 @@ class Desginer extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  contacts: state.crm.criteriafield[props.cid].contacts,
   criteria: state.crm.criteriafield[props.cid].criteria
 })
 

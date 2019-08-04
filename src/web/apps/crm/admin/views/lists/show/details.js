@@ -7,8 +7,9 @@ const Details = ({ list }) => {
   const config = {}
 
   config.items = [
-    { label: 'Title', content: list.title },
-    { label: 'Description', content: list.description }
+    { label: 'Name', content: list.name },
+    { label: 'Description', content: list.description },
+    { label: 'Type', content: list.type }
   ]
 
   return <List { ...config } />

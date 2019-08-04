@@ -96,10 +96,11 @@ class TextField extends React.Component {
 
 
   _getClass() {
-    const { prefix, suffix } = this.props
+    const { disabled, prefix, suffix } = this.props
     const classes = ['maha-input','maha-textfield']
     if(prefix) classes.push('left labeled')
     if(suffix) classes.push('right labeled')
+    if(disabled) classes.push('disabled')
     return classes.join(' ')
   }
 

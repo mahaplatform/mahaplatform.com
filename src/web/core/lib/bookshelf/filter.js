@@ -68,29 +68,55 @@ const filterPlugin = function(bookshelf) {
 
   const _filterColumn = (qb, $column, filter, options) => {
     const column = castColumn(options.tableName, $column)
-    if(filter.$eq) {
+    if(!_.isNil(filter.$nl)) {
+      _filterNull(qb, column)
+    } else if(!_.isNil(filter.$nnl)) {
+      _filterNotNull(qb, column)
+    } else if(!_.isNil(filter.$kn)) {
+      _filterKnown(qb, column)
+    } else if(!_.isNil(filter.$nkn)) {
+      _filterNotKnown(qb, column)
+    } else if(!_.isNil(filter.$eq)) {
       _filterEqual(qb, column, filter.$eq)
-    } else if(filter.$ne) {
+    } else if(!_.isNil(filter.$ne)) {
       _filterNotEqual(qb, column, filter.$ne)
-    } else if(filter.$lk) {
+    } else if(!_.isNil(filter.$lk)) {
       _filterLike(qb, column, filter.$lk)
-    } else if(filter.$ct) {
+    } else if(!_.isNil(filter.$nlk)) {
+      _filterNotLike(qb, column, filter.$nlk)
+    } else if(!_.isNil(filter.$ct)) {
       _filterContains(qb, column, filter.$ct)
-    } else if(filter.$in) {
+    } else if(!_.isNil(filter.$in)) {
       _filterIn(qb, column, filter.$in)
-    } else if(filter.$nin) {
+    } else if(!_.isNil(filter.$nin)) {
       _filterNotIn(qb, column, filter.$nin)
-    } else if(filter.$lt) {
+    } else if(!_.isNil(filter.$lt)) {
       _filterLessThan(qb, column, filter.$lt)
-    } else if(filter.$lte) {
+    } else if(!_.isNil(filter.$lte)) {
       _filterLessThanEqualTo(qb, column, filter.$lte)
-    } else if(filter.$gt) {
+    } else if(!_.isNil(filter.$gt)) {
       _filterGreaterThan(qb, column, filter.$gt)
-    } else if(filter.$gte) {
+    } else if(!_.isNil(filter.$gte)) {
       _filterGreaterThanEqualTo(qb, column, filter.$gte)
-    } else if(filter.$dr) {
+    } else if(!_.isNil(filter.$dr)) {
       _filterDateRange(qb, column, filter.$dr)
     }
+  }
+
+  const _filterNull = (qb, column) => {
+    qb.whereNull(column)
+  }
+
+  const _filterNotNull = (qb, column) => {
+    qb.whereNotNull(column)
+  }
+
+  const _filterKnown = (qb, column) => {
+    qb.whereRaw(`${column} is not null or ${column} != ?`, '')
+  }
+
+  const _filterNotKnown = (qb, column) => {
+    qb.whereRaw(`${column} is null or ${column} = ?`, '')
   }
 
   const _filterEqual = (qb, column, value) => {
@@ -108,6 +134,10 @@ const filterPlugin = function(bookshelf) {
 
   const _filterLike = (qb, column, value) => {
     qb.whereRaw(`lower(${column}) like ?`, `%${value.toLowerCase()}%`)
+  }
+
+  const _filterNotLike = (qb, column, value) => {
+    qb.whereRaw(`lower(${column}) not like ?`, `%${value.toLowerCase()}%`)
   }
 
   const _filterContains = (qb, column, value) => {
