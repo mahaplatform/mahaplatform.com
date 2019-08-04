@@ -1,4 +1,4 @@
-import { ModalPanel } from 'maha-admin'
+import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
 import Fields from './fields'
 import React from 'react'
@@ -23,15 +23,15 @@ class Types extends React.PureComponent {
     const { types } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="crm-criterion-items">
-          <div className="crm-criterion-item" onClick={ this._handleConditional.bind(this, '$and') }>
+        <div className="maha-criterion-items">
+          <div className="maha-criterion-item" onClick={ this._handleConditional.bind(this, '$and') }>
             Conditional AND Field
           </div>
-          <div className="crm-criterion-item" onClick={ this._handleConditional.bind(this, '$or') }>
+          <div className="maha-criterion-item" onClick={ this._handleConditional.bind(this, '$or') }>
             Conditional OR Field
           </div>
           { types.map((type, index) => (
-            <div className="crm-criterion-item" key={`field_${index}`} onClick={ this._handleType.bind(this, type)}>
+            <div className="maha-criterion-item" key={`field_${index}`} onClick={ this._handleType.bind(this, type)}>
               { type.label }
             </div>
           )) }

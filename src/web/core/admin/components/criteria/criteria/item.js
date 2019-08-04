@@ -22,10 +22,10 @@ class Item extends React.Component {
     const key = Object.keys(criteria)[0]
     if(key === '$and' || key === '$or') {
       return (
-        <div className={`crm-criteria-item ${key.replace('$', '')}`}>
-          <div className="crm-criteria-item-box">
+        <div className={`maha-criteria-item ${key.replace('$', '')}`}>
+          <div className="maha-criteria-item-box">
             { cindex.length > 0 &&
-              <div className="crm-criteria-item-remove" onClick={ this._handleRemove.bind(this, cindex) }>
+              <div className="maha-criteria-item-remove" onClick={ this._handleRemove.bind(this, cindex) }>
                 <i className="fa fa-remove" />
               </div>
             }
@@ -41,10 +41,10 @@ class Item extends React.Component {
     }
     const operator = Object.keys(criteria[key])[0]
     return (
-      <div className="crm-criteria-item">
-        <div className="crm-criteria-item-box" onClick={ this._handleEdit.bind(this, cindex, criteria) }>
-          The contact property <strong className="crm-criteria-property">{ key }</strong> { this._getOperator(operator) } <strong>{ criteria[key][operator] }</strong>
-          <div className="crm-criteria-item-remove" onClick={ this._handleRemove.bind(this, cindex) }>
+      <div className="maha-criteria-item">
+        <div className="maha-criteria-item-box" onClick={ this._handleEdit.bind(this, cindex, criteria) }>
+          The contact property <strong className="maha-criteria-property">{ key }</strong> { this._getOperator(operator) } <strong>{ criteria[key][operator] }</strong>
+          <div className="maha-criteria-item-remove" onClick={ this._handleRemove.bind(this, cindex) }>
             <i className="fa fa-remove" />
           </div>
         </div>

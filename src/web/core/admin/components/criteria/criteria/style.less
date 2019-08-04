@@ -1,10 +1,10 @@
-.crm-criteria {
+.maha-criteria {
   flex: 1;
   position: relative;
   overflow: hidden;
   display: flex;
 }
-.crm-criteria-panel {
+.maha-criteria-panel {
   .translate-x-transition(100%, 0, .25s);
   position: absolute;
   top: 0;
@@ -14,26 +14,26 @@
   background-color: @white;
   display: flex;
 }
-.crm-criteria-items {
+.maha-criteria-items {
   flex: 1;
   .scrollable();
-  & > .crm-criteria-item > .crm-criteria-item-box {
+  & > .maha-criteria-item > .maha-criteria-item-box {
     padding: 0.8em !important;
     background: none !important;
     border: none !important;
   }
 }
-.crm-criteria-item.and {
-  & > .crm-criteria-item-box > .crm-criteria-item:after {
+.maha-criteria-item.and {
+  & > .maha-criteria-item-box > .maha-criteria-item:after {
     content: 'and';
   }
 }
-.crm-criteria-item.or {
-  & > .crm-criteria-item-box > .crm-criteria-item:after {
+.maha-criteria-item.or {
+  & > .maha-criteria-item-box > .maha-criteria-item:after {
     content: 'or';
   }
 }
-.crm-criteria-item {
+.maha-criteria-item {
   .ui.button {
     text-transform: uppercase;
   }
@@ -44,7 +44,7 @@
     text-transform: uppercase;
   }
 }
-.crm-criteria-item-box {
+.maha-criteria-item-box {
   border: 1px solid fadeout(@black, 90);
   padding: 0.8em 2em 0.8em 0.8em;
   border-radius: 0.2em;
@@ -56,7 +56,7 @@
   &:hover {
     background-color: lighten(@black, 99);
   }
-  .crm-criteria-item:nth-last-child(2) {
+  .maha-criteria-item:nth-last-child(2) {
     margin-bottom: 0.8em;
     &:after {
       content: none !important;
@@ -64,7 +64,7 @@
     }
   }
 }
-.crm-criteria-item-remove {
+.maha-criteria-item-remove {
   position: absolute;
   right: 0.6em;
   top: 0.6em;
@@ -74,24 +74,24 @@
     color: fadeout(@black, 40);
   }
 }
-.crm-criteria-property {
+.maha-criteria-property {
   color: @blue;
 }
-.crm-criteria-result {
+.maha-criteria-result {
   border-bottom: 1px solid fadeout(@black, 95);
 }
 
 
-.crm-criterion {
+.maha-criterion {
   flex: 1;
   display: flex;
 }
 
-.crm-criterion-items {
+.maha-criterion-items {
   .scrollable();
   flex: 1;
 }
-.crm-criterion-item {
+.maha-criterion-item {
   padding: 0.8em;
   border-bottom: 1px solid fadeout(@black, 95);
   cursor: pointer;
@@ -100,10 +100,10 @@
   }
 }
 
-.crm-criterion-form {
+.maha-criterion-form {
   flex: 1;
   padding: 0.8em;
 }
-.crm-criterion-field {
+.maha-criterion-field {
   margin-bottom: 0.8em;
 }

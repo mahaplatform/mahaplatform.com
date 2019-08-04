@@ -13,9 +13,9 @@ class Results extends React.Component {
     const { records } = this.props
     const Component = this.props.format
     return (
-      <div className="crm-criteria-results">
+      <div className="maha-criteria-results">
         { records.map((record, index) => (
-          <div className="crm-criteria-result" key={ `result_message_${record.id}`}>
+          <div className="maha-criteria-result" key={ `result_message_${record.id}`}>
             <Component { ...record } />
           </div>
         )) }

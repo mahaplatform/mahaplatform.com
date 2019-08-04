@@ -7,6 +7,7 @@ import AddressField from './addressfield'
 import Checkbox from './checkbox'
 import CheckboxGroup from './select/checkbox_group'
 import ColorField from './colorfield'
+import CriteriaField from './criteriafield'
 import DateField from './datefield'
 import Dropdown from './dropdown'
 import EmailField from './emailfield'
@@ -58,6 +59,7 @@ class Control extends React.Component {
     if(type === 'checkbox') return Checkbox
     if(type === 'checkboxgroup') return CheckboxGroup
     if(type === 'colorfield') return ColorField
+    if(type === 'criteriafield') return CriteriaField
     if(type === 'datefield') return DateField
     if(type === 'dropdown') return Dropdown
     if(type === 'emailfield') return EmailField
@@ -79,7 +81,7 @@ class Control extends React.Component {
     if(type === 'timefield') return TimeField
     if(type === 'togglelist') return ToggleList
     if(type === 'videofield') return VideoField
-    return null
+    return TextField
   }
 
 }

@@ -1,12 +1,12 @@
 import { Factory } from 'redux-rubberstamp'
 import reducer from './reducer'
-import Criteria from './criteria'
+import CriteriaField from './criteriafield'
 import * as selectors from './selectors'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'crm.criteria',
-  component: Criteria,
+  namespace: 'maha.criteriafield',
+  component: CriteriaField,
   reducer,
   selectors,
   actions

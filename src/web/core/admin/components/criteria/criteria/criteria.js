@@ -28,8 +28,8 @@ class Criteria extends React.Component {
   render() {
     const { criteria } = this.props
     return (
-      <div className="crm-criteria">
-        <div className="crm-criteria-items">
+      <div className="maha-criteria">
+        <div className="maha-criteria-items">
           { criteria && Object.keys(criteria).length > 0 &&
             <Item { ...this._getItem(criteria) } />
           }

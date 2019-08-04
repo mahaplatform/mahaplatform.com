@@ -1,4 +1,4 @@
-import { Stack } from 'maha-admin'
+import Stack from '../stack/stack'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Criteria from './criteria'
@@ -26,7 +26,7 @@ class CriteriaWrapper extends React.PureComponent {
 
   render() {
     return (
-      <div className="crm-criteria">
+      <div className="maha-criteria">
         <Stack { ...this._getStack() } />
       </div>
     )

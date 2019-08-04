@@ -1,7 +1,7 @@
-import { ModalPanel } from 'maha-admin'
-import Text from './text'
+import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
 import React from 'react'
+import Text from './text'
 
 class Fields extends React.PureComponent {
 
@@ -23,9 +23,9 @@ class Fields extends React.PureComponent {
     const { type } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="crm-criterion-items">
+        <div className="maha-criterion-items">
           { type.fields.map((field, index) => (
-            <div className="crm-criterion-item" key={`field_${index}`} onClick={ this._handleField.bind(this, field)}>
+            <div className="maha-criterion-item" key={`field_${index}`} onClick={ this._handleField.bind(this, field)}>
               { field.label }
             </div>
           )) }

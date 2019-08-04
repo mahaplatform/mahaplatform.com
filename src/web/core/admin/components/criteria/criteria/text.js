@@ -1,5 +1,8 @@
-import { Button, RadioGroup, ModalPanel, TextField } from 'maha-admin'
+import RadioGroup from '../../form/select/radio_group'
+import TextField from '../../form/textfield'
+import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
+import Button from '../../button'
 import React from 'react'
 import _ from 'lodash'
 
@@ -27,14 +30,14 @@ class Text extends React.PureComponent {
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="crm-criterion-form">
-          <div className="crm-criterion-field">
+        <div className="maha-criterion-form">
+          <div className="maha-criterion-field">
             <RadioGroup { ...this._getRadioGroup() } />
           </div>
-          <div className="crm-criterion-field">
+          <div className="maha-criterion-field">
             <TextField { ...this._getTextField() } />
           </div>
-          <div className="crm-criterion-field">
+          <div className="maha-criterion-field">
             <Button { ...this._getButton() } />
           </div>
         </div>

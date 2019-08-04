@@ -1,6 +1,8 @@
-import { Infinite, Message, ModalPanel } from 'maha-admin'
+import ModalPanel from '../../modal_panel'
 import { connect } from 'react-redux'
-import Criteria from '../criteria'
+import Criteria from '../../criteria'
+import Infinite from '../../infinite'
+import Message from '../../message'
 import PropTypes from 'prop-types'
 import Results from './results'
 import React from 'react'
@@ -34,11 +36,11 @@ class Desginer extends React.Component {
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="crm-criteriafield-designer">
-          <div className="crm-criteriafield-designer-sidebar">
+        <div className="maha-criteriafield-designer">
+          <div className="maha-criteriafield-designer-sidebar">
             <Criteria { ...this._getCriteria() } />
           </div>
-          <div className="crm-criteriafield-designer-main">
+          <div className="maha-criteriafield-designer-main">
             <Infinite { ...this._getInfinite() } />
           </div>
         </div>
@@ -132,7 +134,7 @@ class Desginer extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  criteria: state.crm.criteriafield[props.cid].criteria
+  criteria: state.maha.criteriafield[props.cid].criteria
 })
 
 export default connect(mapStateToProps)(Desginer)

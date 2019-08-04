@@ -12,6 +12,7 @@ import admincollection from './components/collection'
 import admincomments from './components/comments'
 import admincomposer from './components/composer'
 import admincontainer from './components/container'
+import admincriteriaCriteria from './components/criteria/criteria'
 import admindrawer from './components/drawer'
 import adminemojis from './components/emojis'
 import adminfields from './components/fields'
@@ -20,6 +21,7 @@ import adminflash from './components/flash'
 import adminformAssignmentfield from './components/form/assignmentfield'
 import adminformAttachmentfield from './components/form/attachmentfield'
 import adminformColorfield from './components/form/colorfield'
+import adminformCriteriafield from './components/form/criteriafield'
 import adminformDatefield from './components/form/datefield'
 import adminformFilefield from './components/form/filefield'
 import adminformHtmlfield from './components/form/htmlfield'
@@ -67,8 +69,6 @@ import chatchatbar from '../../apps/chat/admin/components/chatbar'
 import chatfullchat from '../../apps/chat/admin/components/fullchat'
 import chatsubscriptions from '../../apps/chat/admin/components/subscriptions'
 import chatchat from '../../apps/chat/admin/roots/chat'
-import crmcriteria from '../../apps/crm/admin/components/criteria/criteria'
-import crmcriteriafield from '../../apps/crm/admin/components/criteriafield'
 import crmtimeline from '../../apps/crm/admin/components/timeline'
 import driveaccess from '../../apps/drive/admin/components/access'
 import driveexplorer from '../../apps/drive/admin/components/explorer'
@@ -237,6 +237,7 @@ class App extends React.Component {
       admincomments,
       admincomposer,
       admincontainer,
+      admincriteriaCriteria,
       admindrawer,
       adminemojis,
       adminfields,
@@ -245,6 +246,7 @@ class App extends React.Component {
       adminformAssignmentfield,
       adminformAttachmentfield,
       adminformColorfield,
+      adminformCriteriafield,
       adminformDatefield,
       adminformFilefield,
       adminformHtmlfield,
@@ -292,8 +294,6 @@ class App extends React.Component {
       chatfullchat,
       chatsubscriptions,
       chatchat,
-      crmcriteria,
-      crmcriteriafield,
       crmtimeline,
       driveaccess,
       driveexplorer,
