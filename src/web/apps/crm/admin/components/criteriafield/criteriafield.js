@@ -14,6 +14,8 @@ class CriteriaField extends React.PureComponent {
     contacts: PropTypes.array,
     criteria: PropTypes.object,
     defaultValue: PropTypes.object,
+    endpoint: PropTypes.string,
+    format: PropTypes.any,
     fields: PropTypes.array,
     placeholder: PropTypes.string,
     tabIndex: PropTypes.number,
@@ -66,10 +68,12 @@ class CriteriaField extends React.PureComponent {
   }
 
   _getDesigner() {
-    const { cid, criteria, fields, onSet } = this.props
+    const { cid, criteria, endpoint, format, fields, onSet } = this.props
     return {
       cid,
       criteria,
+      endpoint,
+      format,
       fields,
       onChange: onSet,
       onEnd: this._handleEnd

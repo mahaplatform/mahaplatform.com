@@ -79,7 +79,7 @@ class Text extends React.PureComponent {
   _getTextField() {
     const { operator } = this.state
     return {
-      disabled: _.includes(['$nnl','$nl'], operator),
+      disabled: _.includes(['$nkn','$kn'], operator),
       onChange: this._handleChange.bind(this, 'value')
     }
   }

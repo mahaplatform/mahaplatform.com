@@ -2,7 +2,7 @@ import { Infinite, Message, ModalPanel } from 'maha-admin'
 import { connect } from 'react-redux'
 import Criteria from '../criteria'
 import PropTypes from 'prop-types'
-import Contacts from './contacts'
+import Results from './results'
 import React from 'react'
 import _ from 'lodash'
 
@@ -14,6 +14,8 @@ class Desginer extends React.Component {
     adding: PropTypes.bool,
     contacts: PropTypes.array,
     criteria: PropTypes.object,
+    endpoint: PropTypes.string,
+    format: PropTypes.any,
     fields: PropTypes.array,
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
@@ -37,9 +39,7 @@ class Desginer extends React.Component {
             <Criteria { ...this._getCriteria() } />
           </div>
           <div className="crm-criteriafield-designer-main">
-            <div className="crm-criteriafield-designer-results">
-              <Infinite { ...this._getInfinite() } />
-            </div>
+            <Infinite { ...this._getInfinite() } />
           </div>
         </div>
       </ModalPanel>
@@ -73,12 +73,22 @@ class Desginer extends React.Component {
   }
 
   _getInfinite() {
+    const { endpoint } = this.props
     return {
       cacheKey: this.state.cacheKey,
-      endpoint: '/api/admin/crm/contacts',
+      endpoint,
       filter: this.props.criteria,
-      layout: (props) => <Contacts {...props}  />
+      layout: (props) => <Results { ...this._getResults(props) }  />
     }
+  }
+
+  _getResults(props) {
+    const { format } = this.props
+    return {
+      ...props,
+      format
+    }
+
   }
 
   _getNew() {

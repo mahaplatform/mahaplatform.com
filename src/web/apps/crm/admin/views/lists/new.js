@@ -1,4 +1,5 @@
 import CriteriaField from '../../components/criteriafield'
+import ContactToken from '../../tokens/contact'
 import TypeToken from '../../tokens/type'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -64,7 +65,7 @@ class New extends React.Component {
   _getType() {
     if(this.state.type === 'static') return []
     return [
-      { label: 'Criteria', name: 'criteria', type: CriteriaField, placeholder: 'Design criteria', required: true, fields: this._getFields() }
+      { label: 'Criteria', name: 'criteria', type: CriteriaField, placeholder: 'Design criteria', required: true, fields: this._getFields(), endpoint: '/api/admin/crm/contacts', format: ContactToken }
     ]
   }
 
