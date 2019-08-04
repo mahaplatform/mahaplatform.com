@@ -67,8 +67,8 @@ import chatchatbar from '../../apps/chat/admin/components/chatbar'
 import chatfullchat from '../../apps/chat/admin/components/fullchat'
 import chatsubscriptions from '../../apps/chat/admin/components/subscriptions'
 import chatchat from '../../apps/chat/admin/roots/chat'
+import crmcriteria from '../../apps/crm/admin/components/criteria/criteria'
 import crmcriterion from '../../apps/crm/admin/components/criteria/criterion'
-import crmcriteria from '../../apps/crm/admin/components/criteria'
 import crmcriteriafield from '../../apps/crm/admin/components/criteriafield'
 import crmtimeline from '../../apps/crm/admin/components/timeline'
 import driveaccess from '../../apps/drive/admin/components/access'
@@ -293,8 +293,8 @@ class App extends React.Component {
       chatfullchat,
       chatsubscriptions,
       chatchat,
-      crmcriterion,
       crmcriteria,
+      crmcriterion,
       crmcriteriafield,
       crmtimeline,
       driveaccess,

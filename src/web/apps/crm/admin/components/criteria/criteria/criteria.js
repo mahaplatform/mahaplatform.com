@@ -1,5 +1,4 @@
-import { CSSTransition } from 'react-transition-group'
-import Criterion from './criterion'
+import Criterion from '../criterion'
 import PropTypes from 'prop-types'
 import Item from './item'
 import React from 'react'
@@ -7,25 +6,27 @@ import _ from 'lodash'
 
 class Criteria extends React.Component {
 
-  static contextTypes = {}
+  static contextTypes = {
+    criteria: PropTypes.object
+  }
 
   static propTypes = {
     criteria: PropTypes.object,
     defaultValue: PropTypes.object,
     fields: PropTypes.array,
-    panel: PropTypes.object,
-    onAdd: PropTypes.func,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onCreate: PropTypes.func,
-    onEdit: PropTypes.func,
     onRemove: PropTypes.func,
     onSet: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
+  _handleAdd = this._handleAdd.bind(this)
+  _handleEdit = this._handleEdit.bind(this)
+
   render() {
-    const { panel, criteria } = this.props
+    const { criteria } = this.props
     return (
       <div className="crm-criteria">
         <div className="crm-criteria-items">
@@ -33,11 +34,6 @@ class Criteria extends React.Component {
             <Item { ...this._getItem(criteria) } />
           }
         </div>
-        <CSSTransition in={ panel !== null } classNames="expanded" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-          <div className="crm-criteria-panel">
-            { panel && <Criterion { ...this._getCriterion() } /> }
-          </div>
-        </CSSTransition>
       </div>
     )
   }
@@ -54,34 +50,46 @@ class Criteria extends React.Component {
     }
   }
 
-  _getCriterion() {
-    const { fields, panel, onCancel } = this.props
-    const { cindex, criterion, mode } = panel
-    const onDone = mode === 'new' ? this._handleCreate : this._handleUpdate
+  _getCriterion({ criterion, onDone }) {
+    const { fields, onCancel } = this.props
     return {
       defaultValue: criterion,
       fields,
       onCancel,
-      onDone: onDone.bind(this, cindex)
+      onDone
     }
   }
 
   _getItem(criteria) {
-    const { onAdd, onEdit, onRemove } = this.props
+    const { onRemove } = this.props
     return {
       criteria,
-      onAdd,
-      onEdit,
+      onAdd: this._handleAdd,
+      onEdit: this._handleEdit,
       onRemove
     }
   }
 
+  _handleAdd(cindex) {
+    const { criteria } = this.context
+    const onDone = this._handleCreate.bind(this, cindex)
+    criteria.push({ component: Criterion, props: this._getCriterion({ onDone }) })
+  }
+
   _handleCreate(cindex, value) {
     this.props.onCreate(cindex, value)
+    this.context.criteria.pop()
+  }
+
+  _handleEdit(cindex, criterion) {
+    const { criteria } = this.context
+    const onDone = this._handleCreate.bind(this, cindex)
+    criteria.push({ component: Criterion, props: this._getCriterion({ criterion, onDone }) })
   }
 
   _handleUpdate(cindex, value) {
     this.props.onUpdate(cindex, value)
+    this.context.criteria.pop()
   }
 
 }

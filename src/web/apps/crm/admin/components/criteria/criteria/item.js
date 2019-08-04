@@ -77,8 +77,8 @@ class Item extends React.Component {
     this.props.onAdd([...cindex,key])
   }
 
-  _handleEdit(cindex, criteria) {
-    this.props.onEdit(cindex, criteria)
+  _handleEdit(cindex, criterion) {
+    this.props.onEdit(cindex, criterion)
   }
 
   _handleRemove(cindex, e) {

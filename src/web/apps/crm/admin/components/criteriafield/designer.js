@@ -7,9 +7,7 @@ import React from 'react'
 
 class Desginer extends React.Component {
 
-  static contextTypes = {
-    form: PropTypes.object
-  }
+  static contextTypes = {}
 
   static propTypes = {
     adding: PropTypes.bool,
@@ -17,6 +15,7 @@ class Desginer extends React.Component {
     criteria: PropTypes.object,
     fields: PropTypes.array,
     onAdd: PropTypes.func,
+    onChange: PropTypes.func,
     onEnd: PropTypes.func,
     onRemove: PropTypes.func,
     onUpdate: PropTypes.func
@@ -54,11 +53,11 @@ class Desginer extends React.Component {
   }
 
   _getCriteria() {
-    const { criteria, fields } = this.props
+    const { criteria, fields, onChange } = this.props
     return {
       defaultValue: criteria,
       fields,
-      onChange: () => {}
+      onChange
     }
   }
 
@@ -105,7 +104,7 @@ class Desginer extends React.Component {
   }
 
   _handleCancel() {
-    this.context.form.pop()
+    this.props.onEnd()
   }
 
 }

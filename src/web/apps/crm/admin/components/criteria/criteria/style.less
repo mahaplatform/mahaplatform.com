@@ -1,0 +1,82 @@
+.crm-criteria {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+}
+.crm-criteria-panel {
+  .translate-x-transition(100%, 0, .25s);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: @white;
+  display: flex;
+}
+.crm-criteria-items {
+  flex: 1;
+  .scrollable();
+  & > .crm-criteria-item > .crm-criteria-item-box {
+    padding: 0.8em !important;
+    background: none !important;
+    border: none !important;
+  }
+}
+.crm-criteria-item.and {
+  & > .crm-criteria-item-box > .crm-criteria-item:after {
+    content: 'and';
+  }
+}
+.crm-criteria-item.or {
+  & > .crm-criteria-item-box > .crm-criteria-item:after {
+    content: 'or';
+  }
+}
+.crm-criteria-item {
+  .ui.button {
+    text-transform: uppercase;
+  }
+  &:after {
+    display: block;
+    margin: 0 0 0.4em;
+    color: fadeout(@black, 60);
+    text-transform: uppercase;
+  }
+}
+.crm-criteria-item-box {
+  border: 1px solid fadeout(@black, 90);
+  padding: 0.8em 2em 0.8em 0.8em;
+  border-radius: 0.2em;
+  background: @white;
+  position: relative;
+  margin-bottom: 0.4em;
+  cursor: pointer;
+  color: fadeout(@black, 40);
+  &:hover {
+    background-color: lighten(@black, 99);
+  }
+  .crm-criteria-item:nth-last-child(2) {
+    margin-bottom: 0.8em;
+    &:after {
+      content: none !important;
+      margin: 0;
+    }
+  }
+}
+.crm-criteria-item-remove {
+  position: absolute;
+  right: 0.6em;
+  top: 0.6em;
+  color: fadeout(@black, 60);
+  cursor: pointer;
+  &:hover {
+    color: fadeout(@black, 40);
+  }
+}
+.crm-criteria-property {
+  color: @blue;
+}
+.crm-criteria-result {
+  border-bottom: 1px solid fadeout(@black, 95);
+}

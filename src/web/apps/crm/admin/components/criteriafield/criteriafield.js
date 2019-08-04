@@ -10,7 +10,6 @@ class CriteriaField extends React.PureComponent {
   }
 
   static propTypes = {
-    active: PropTypes.bool,
     cid: PropTypes.string,
     contacts: PropTypes.array,
     criteria: PropTypes.object,
@@ -18,10 +17,8 @@ class CriteriaField extends React.PureComponent {
     fields: PropTypes.array,
     placeholder: PropTypes.string,
     tabIndex: PropTypes.number,
-    onBegin: PropTypes.func,
     onChange: PropTypes.func,
     onClear: PropTypes.func,
-    onEnd: PropTypes.func,
     onReady: PropTypes.func,
     onSet: PropTypes.func
   }
@@ -32,6 +29,7 @@ class CriteriaField extends React.PureComponent {
 
   _handleBegin = this._handleBegin.bind(this)
   _handleClear = this._handleClear.bind(this)
+  _handleEnd = this._handleEnd.bind(this)
 
   render() {
     const { contacts, criteria, placeholder, tabIndex } = this.props
@@ -50,11 +48,12 @@ class CriteriaField extends React.PureComponent {
           </div>
         }
         { !criteria &&
-          <div className="crm-criteriafield-prompt" onClick={ this._handleBegin.bind(this) }>
+          <div className="crm-criteriafield-prompt">
             { placeholder }
           </div>
         }
-      </div>    )
+      </div>
+    )
   }
 
   componentDidMount() {
@@ -64,33 +63,34 @@ class CriteriaField extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { form } = this.context
-    const { active, criteria } = this.props
-    if(!prevProps.active && active) {
-      form.push(<Designer { ...this._getDesigner() } />)
-    }
+    const { criteria } = this.props
     if(!_.isEqual(criteria, prevProps.criteria)) {
       this.props.onChange(criteria)
     }
   }
 
   _getDesigner() {
-    const { cid, criteria, fields, onEnd } = this.props
+    const { cid, criteria, fields, onSet } = this.props
     return {
       cid,
       criteria,
       fields,
-      onEnd
+      onChange: onSet,
+      onEnd: this._handleEnd
     }
   }
 
   _handleBegin() {
-    this.props.onBegin()
+    this.context.form.push(<Designer { ...this._getDesigner() } />)
   }
 
   _handleClear(e) {
     e.stopPropagation()
     this.props.onClear()
+  }
+
+  _handleEnd() {
+    this.context.form.pop()
   }
 
 }

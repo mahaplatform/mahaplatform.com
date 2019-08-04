@@ -4,11 +4,12 @@ import React from 'react'
 
 class Criterion extends React.PureComponent {
 
-  static contextTypes = {}
+  static contextTypes = {
+    criteria: PropTypes.object
+  }
 
   static propTypes = {
     fields: PropTypes.array,
-    onCancel: PropTypes.func,
     onDone: PropTypes.func
   }
 
@@ -40,10 +41,6 @@ class Criterion extends React.PureComponent {
     )
   }
 
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps) {}
-
   _getPanel() {
     return {
       title: 'Contact Properties',
@@ -55,7 +52,7 @@ class Criterion extends React.PureComponent {
   }
 
   _handleCancel() {
-    this.props.onCancel()
+    this.context.criteria.pop()
   }
 
   _handleConditional(type) {
