@@ -109,7 +109,7 @@ class Apps extends React.Component {
       onForward(index)
     } else if(item.route) {
       onDone()
-      router.push(item.route)
+      router.history.push(item.route)
     }
   }
 

@@ -107,13 +107,13 @@ class OmniSearch extends React.Component {
     const choice = results[model].results[index]
     this._handleSave(choice)
     onChoose(model, index)
-    router.push(choice.route)
+    router.history.push(choice.route)
   }
 
   _handleChooseRecent(choice) {
     const { router } = this.context
     this._handleSave(choice)
-    router.push(choice.route)
+    router.history.push(choice.route)
   }
 
   _handleClearRecent() {

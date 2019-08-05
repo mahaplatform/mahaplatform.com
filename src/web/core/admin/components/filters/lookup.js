@@ -46,7 +46,6 @@ class LookupPanel extends React.Component {
     )
   }
 
-
   _getPanel() {
     const { label } = this.props
     return {

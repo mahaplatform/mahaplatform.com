@@ -107,7 +107,7 @@ class Signin extends React.Component {
     const { admin, router } = this.context
     const { team, token, user } = this.props
     admin.signin(team, token, user)
-    router.push('/admin')
+    router.history.push('/admin')
   }
 
 }

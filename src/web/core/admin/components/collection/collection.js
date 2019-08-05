@@ -1,5 +1,6 @@
 import { CSSTransition } from 'react-transition-group'
 import { Empty, Results } from './results'
+import { connect } from 'react-redux'
 import Infinite from '../infinite'
 import PropTypes from 'prop-types'
 import Criteria from '../criteria'
@@ -44,6 +45,7 @@ class Collection extends React.Component {
     q: PropTypes.string,
     records: PropTypes.array,
     recordTasks: PropTypes.func,
+    route: PropTypes.object,
     rowClass: PropTypes.func,
     search: PropTypes.bool,
     selected: PropTypes.array,
@@ -117,22 +119,21 @@ class Collection extends React.Component {
   }
 
   componentDidMount() {
-    const { data, defaultSort, onSetParams, onSetRecords } = this.props
-    const filter = this._getFilterFromUrl() || this.props.filter || {}
-    const sort = defaultSort || { key: 'created_at', order: 'desc' }
-    onSetParams(filter, sort)
+    const { data, onSetRecords } = this.props
     if(data) onSetRecords(data)
+    this._handleParseUrl()
   }
 
   componentDidUpdate(prevProps) {
-    const { cacheKey, filter } = this.props
-    const { router } = this.context
+    const { cacheKey, filter, sort } = this.props
     if(cacheKey !== prevProps.cacheKey) {
       this._handleRefresh()
     }
     if(!_.isEqual(filter, prevProps.filter)) {
-      const query = qs.stringify({ $filter: filter }, { encode: false })
-      router.replace(router.pathname+'?'+query)
+      this._handleChangeUrl()
+    }
+    if(!_.isEqual(sort, prevProps.sort)) {
+      this._handleChangeUrl()
     }
   }
 
@@ -155,14 +156,6 @@ class Collection extends React.Component {
       fields: criteria,
       onChange: onSetFilter
     }
-  }
-
-  _getFilterFromUrl() {
-    const { search } = this.context.router
-    if(_.isEmpty(search)) return null
-    const query = qs.parse(search.replace('?',''))
-    if(!query.$filter) return null
-    return query.$filter
   }
 
   _getHeader() {
@@ -222,16 +215,53 @@ class Collection extends React.Component {
     return <Empty { ...this.props } />
   }
 
-  _handleRefresh() {
-    this.setState({
-      cacheKey: _.random(100000, 999999).toString(36)
-    })
+  _getSanitizedFilter(filter) {
+    if(Object.keys(filter)[0] === '$and') return filter
+    return _.isArray(filter) ? { $and: filter} : { $and: [filter] }
+  }
+
+  _getSanitizedSort(sort) {
+    if(!_.isString(sort)) return sort
+    return {
+      key: sort.replace(/^-/, ''),
+      order: sort[0] === '-' ? 'desc' : 'asc'
+    }
   }
 
   _handleAddNew() {
     this.context.modal.open(this.props.empty.modal)
   }
 
+  _handleChangeUrl() {
+    const { pathname } = this.props.route
+    const { key, order } = this.props.sort
+    const { history } = this.context.router
+    const $filter = this.props.filter
+    const $sort = order === 'desc' ? `-${key}` : key
+    const query = qs.stringify({ $filter, $sort }, { encode: false, skipNulls: true })
+    history.replace(`${pathname}?${query}`)
+  }
+
+  _handleParseUrl() {
+    const { search } = this.props.route
+    const { defaultSort, onSetParams } = this.props
+    const decoder = (str) => str.match(/^\d$/) !== null ? parseInt(str) : str
+    const query = search.length > 0 ? qs.parse(search.slice(1), { decoder }) : {}
+    const filter =  this._getSanitizedFilter(query.$filter || { $and: [] })
+    const sort = this._getSanitizedSort(query.$sort || defaultSort || { key: 'created_at', order: 'desc' })
+    onSetParams(filter, sort)
+  }
+
+  _handleRefresh() {
+    this.setState({
+      cacheKey: _.random(100000, 999999).toString(36)
+    })
+  }
+
 }
 
-export default Collection
+const mapStateToProps = (state, props) => ({
+  route: state.maha.router.history.slice(-1)[0]
+})
+
+export default connect(mapStateToProps)(Collection)

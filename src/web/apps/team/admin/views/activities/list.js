@@ -22,7 +22,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     empty: 'We have not yet recorded any activities',
     entity: 'activity',
     defaultSort: { key: 'created_at', order: 'desc' },
-    layout: (props) => <Feed { ...props } onClick={ (item) => context.router.push(item.url) } />
+    layout: (props) => <Feed { ...props } onClick={ (item) => context.router.history.push(item.url) } />
   }
 })
 

@@ -17,7 +17,6 @@ class Router extends React.Component {
     action: PropTypes.string,
     children: PropTypes.any,
     history: PropTypes.array,
-    routes: PropTypes.object,
     onPop: PropTypes.func,
     onPush: PropTypes.func
   }
@@ -39,17 +38,15 @@ class Router extends React.Component {
   }
 
   getChildContext() {
-    const { action, history } = this.props
-    const last = history.slice(-1)[0] || {}
     return {
       router: {
-        action,
-        pathname: last.pathname,
-        search: last.search,
-        hash: last.hash,
-        goBack: this._handleBack,
-        push: this._handlePush,
-        replace: this._handleReplace
+        ...this.context.router,
+        history: {
+          ...this.context.router.history,
+          goBack: this._handleBack,
+          push: this._handlePush,
+          replace: this._handleReplace
+        }
       }
     }
   }
@@ -59,16 +56,14 @@ class Router extends React.Component {
     const route = new URL(`http://localhost${path}`)
     return {
       pathname: route.pathname,
-      search: route.search.replace('?', ''),
+      search: route.search,
       hash: route.hash
     }
   }
 
   _handleBack() {
-    const { history } = this.props
     this.props.onPop()
-    const replacement = history.slice(0,-1).slice(-1)[0] || '/admin'
-    this.context.router.history.replace(replacement)
+    this.context.router.history.goBack()
   }
 
   _handleReplace(path) {
@@ -79,7 +74,7 @@ class Router extends React.Component {
   _handlePush(path) {
     const route = this._getRoute(path)
     this.props.onPush(route)
-    this.context.router.history.replace(route)
+    this.context.router.history.push(route)
   }
 
 }

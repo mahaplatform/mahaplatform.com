@@ -43,7 +43,7 @@ class EmployeePlanCreate extends React.Component {
   }
 
   _handleSuccess(result) {
-    this.context.router.push(`/admin/learning/employees/${result.employee_id}/plans/${result.id}`)
+    this.context.router.history.push(`/admin/learning/employees/${result.employee_id}/plans/${result.id}`)
     this.context.modal.close()
   }
 

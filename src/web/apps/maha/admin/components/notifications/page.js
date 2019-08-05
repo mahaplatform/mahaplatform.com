@@ -54,7 +54,7 @@ class Notifications extends React.Component {
   _handleClick(notification) {
     const { notifications, router } = this.context
     if(!notification.is_visited) notifications.markVisited(notification.id)
-    router.push(notification.url)
+    router.history.push(notification.url)
   }
 
   _handleRefresh() {

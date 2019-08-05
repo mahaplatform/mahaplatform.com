@@ -26,7 +26,7 @@ class Local extends React.Component {
   _handleClick(e) {
     const { router } = this.context
     const { title_link } = this.props
-    router.push(title_link)
+    router.history.push(title_link)
     e.stopPropagation()
   }
 

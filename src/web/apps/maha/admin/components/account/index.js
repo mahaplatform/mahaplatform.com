@@ -77,7 +77,7 @@ class AccountSidebar extends React.Component {
   }
 
   _handleSwitch() {
-    this.context.router.push('/admin/signin')
+    this.context.router.history.push('/admin/signin')
   }
 
 }

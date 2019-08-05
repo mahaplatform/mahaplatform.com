@@ -32,7 +32,7 @@ const getTasks = ({ role }, { flash, router }) => ({
         endpoint: `/api/admin/team/roles/${role.id}`,
         onSuccess: (result) => {
           flash.set('success', 'Successfully deleted this role')
-          router.goBack()
+          router.history.goBack()
         },
         onFailure: (result) => {
           flash.set('error', 'Unable to delete this role')

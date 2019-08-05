@@ -40,7 +40,7 @@ class Email extends React.Component {
   }
 
   _handleSuccess(result) {
-    this.context.router.push(`/admin/team/users/${result.id}`)
+    this.context.router.history.push(`/admin/team/users/${result.id}`)
     this.context.modal.close()
   }
 

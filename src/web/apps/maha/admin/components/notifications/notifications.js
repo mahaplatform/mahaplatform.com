@@ -104,7 +104,7 @@ class Notifications extends React.Component {
     const notification = notifications[index]
     this.props.onRemove(notification.code)
     if(!notification.route) return
-    this.context.router.push(notification.route)
+    this.context.router.history.push(notification.route)
   }
 
   _handleMarkVisited(id) {
@@ -122,7 +122,7 @@ class Notifications extends React.Component {
     e.preventDefault()
     e.target.close()
     window.focus()
-    if(notification.route) this.context.router.push(notification.route)
+    if(notification.route) this.context.router.history.push(notification.route)
   }
 
   _handlePushNotification(notification) {
@@ -162,7 +162,6 @@ class Notifications extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  history: state.maha.router.history.length,
   preferences: _.get(state, 'maha.admin.preferences')
 })
 

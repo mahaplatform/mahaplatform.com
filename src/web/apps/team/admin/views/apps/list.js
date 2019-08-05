@@ -38,7 +38,7 @@ class Apps extends React.Component {
   }
 
   _handleClick({ path, id }) {
-    this.context.router.push(`/admin/team/apps${path}/${id}`)
+    this.context.router.history.push(`/admin/team/apps${path}/${id}`)
   }
 
 }

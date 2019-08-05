@@ -27,6 +27,7 @@ const filterPlugin = function(bookshelf) {
   }
 
   const applyAnd = (qb, filters, options) => {
+    if(!filters.map) return
     filters.map(filter => {
       qb.andWhere(function(builder) {
         applyFilter(builder, Object.keys(filter)[0], Object.values(filter)[0], options)
@@ -35,6 +36,7 @@ const filterPlugin = function(bookshelf) {
   }
 
   const applyOr = (qb, filters, options) => {
+    if(!filters.map) return
     qb.andWhere(function(builder) {
       filters.map(filter => {
         builder.orWhere(function(builder2) {

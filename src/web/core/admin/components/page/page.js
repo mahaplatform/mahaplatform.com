@@ -193,7 +193,7 @@ class Page extends React.Component {
   }
 
   _handleBack() {
-    this.context.router.goBack()
+    this.context.router.history.goBack()
   }
 
   _handleCheckAccess() {
@@ -210,7 +210,7 @@ class Page extends React.Component {
     const { task } = this.props
     const { router, modal, tasks } = this.context
     if(task.route) {
-      router.push(task.route)
+      router.history.push(task.route)
     } else if(task.modal) {
       modal.open(task.modal)
     } else if(task.handler){

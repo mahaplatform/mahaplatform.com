@@ -45,7 +45,7 @@ class Complete extends React.Component {
         handler: () => {
           if(destination) {
             const destination = this.props.destination(this.props.import.id)
-            this.context.router.replace(destination)
+            this.context.router.history.replace(destination)
           }
           this.context.modal.close()
         }

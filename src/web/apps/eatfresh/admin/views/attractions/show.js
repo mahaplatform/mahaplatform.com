@@ -29,7 +29,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
           endpoint: `/api/admin/eatfresh/attractions/${ resources.attraction.id }`,
           onSuccess: (result) => {
             context.flash.set('success', 'Successfully deleted this attraction')
-            context.router.goBack()
+            context.router.history.goBack()
           },
           onFailure: (result) => context.flash.set('error', 'Unable to delete this attraction')
         }

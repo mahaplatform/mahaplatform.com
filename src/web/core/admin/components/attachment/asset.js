@@ -26,7 +26,7 @@ class Asset extends React.Component {
   _handleClick() {
     const { asset } = this.props
     const { router } = this.context
-    router.push(`/admin/assets/${asset.id}`)
+    router.history.push(`/admin/assets/${asset.id}`)
   }
 
 }

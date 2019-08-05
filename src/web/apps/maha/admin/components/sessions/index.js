@@ -10,6 +10,10 @@ import _ from 'lodash'
 
 class Sessions extends React.Component {
 
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   static propTypes = {
     apps: PropTypes.array,
     badges: PropTypes.array,
@@ -22,7 +26,8 @@ class Sessions extends React.Component {
   }
 
   render() {
-    const { pathname, roots, team, user } = this.props
+    const { pathname } = this.context.router.history.location
+    const { roots, team, user } = this.props
     if(pathname.match(/^\/admin\/activate/) !== null) return <Activate />
     if(pathname.match(/^\/admin\/reset/) !== null) return <Reset />
     if(pathname.match(/^\/admin\/signin/) !== null) return <Signin />
@@ -60,7 +65,6 @@ class Sessions extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  pathname: state.maha.router.history.slice(-1)[0].pathname,
   apps: state.maha.admin.apps,
   team: state.maha.admin.team,
   user: state.maha.admin.user

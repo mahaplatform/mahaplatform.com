@@ -155,18 +155,18 @@ class Admin extends React.Component {
   _handleRedirectToSignin() {
     const { flash, router } = this.context
     if(this.state.redirect) flash.set('error', 'You must first signin!')
-    router.push('/admin/signin')
+    router.history.push('/admin/signin')
   }
 
   _handleRedirectToSaved() {
     const { router } = this.context
-    const { pathname, hash, search } = router
+    const { pathname, hash, search } = router.history.location
     const { redirect } = this.state
     this.setState({ redirect: null })
     if(_.isEqual(redirect, { pathname, hash, search })) return
     const route = redirect || { pathname: '/admin' }
-    if(route.pathname === pathname) return router.replace(route)
-    router.push(route)
+    if(route.pathname === pathname) return router.history.replace(route)
+    router.history.push(route)
   }
 
   _handleReloadSession() {
@@ -184,18 +184,18 @@ class Admin extends React.Component {
   }
 
   _handleSaveIntent() {
-    const { pathname, search, hash } = this.context.router
+    const { pathname, search, hash } = this.context.router.history.location
     if(pathname === '/admin') return
-    this.context.router.push('/admin')
+    this.context.router.history.push('/admin')
     if(pathname.match(/(activate|signin|reset)/)) return
     const redirect = { pathname, search, hash }
     this.setState({ redirect })
   }
 
   _handleInitializeAdmin() {
-    const { pathname } = this.context.router
+    const { pathname } = this.context.router.history.location
     if(!pathname.match(/(activate|reset)/)) this.props.onLoadAdmin()
-    this.context.router.push(pathname)
+    // this.context.router.history.push(pathname)
   }
 
   _handleSignin(team, token, user) {

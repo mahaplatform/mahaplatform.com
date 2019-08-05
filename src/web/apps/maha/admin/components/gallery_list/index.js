@@ -33,7 +33,7 @@ class GalleryList extends React.Component {
   }
 
   _handleClick(asset) {
-    this.context.router.push(`/admin/assets/${asset.id}`)
+    this.context.router.history.push(`/admin/assets/${asset.id}`)
 
   }
 

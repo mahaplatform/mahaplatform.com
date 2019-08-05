@@ -1,4 +1,3 @@
-import { Flash } from 'maha-admin'
 import HTML5Backend from 'react-dnd-html5-backend'
 import Notifications from '../notifications'
 import { DndProvider } from 'react-dnd'
@@ -7,11 +6,12 @@ import { routes } from './selectors'
 import Analytics from '../analytics'
 import Presence from '../presence'
 import PropTypes from 'prop-types'
+import { Flash } from 'maha-admin'
 import Sessions from '../sessions'
 import Network from '../network'
 import Device from '../device'
-import Router from '../router'
 import Logger from '../logger'
+import Router from '../router'
 import Admin from '../admin'
 import Push from '../push'
 import React from 'react'
@@ -25,13 +25,12 @@ class Platform extends React.Component {
   }
 
   render() {
-    const { routes } = this.props
     return (
       <DndProvider backend={ HTML5Backend } >
         <div className="maha-platform">
           <Analytics>
             <Logger>
-              <Router routes={ routes }>
+              <Router>
                 <Network>
                   <Device>
                     <Push>

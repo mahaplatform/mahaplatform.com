@@ -366,7 +366,7 @@ class Tasks extends React.Component {
   }
 
   _handleView(item) {
-    this.context.router.push(`/admin/drive/files/${item.code}`)
+    this.context.router.history.push(`/admin/drive/files/${item.code}`)
   }
 
   _handleDetails(item) {

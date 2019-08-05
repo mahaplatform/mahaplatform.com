@@ -118,7 +118,7 @@ class Button extends React.Component {
   }
 
   _handleRoute(route) {
-    this.context.router.push(route)
+    this.context.router.history.push(route)
   }
 
   _handleModal(component) {

@@ -38,7 +38,7 @@ class ClassificationsNew extends React.Component {
   }
 
   _handleSuccess(result) {
-    this.context.router.push(`/admin/learning/classifications/${result.id}`)
+    this.context.router.history.push(`/admin/learning/classifications/${result.id}`)
     this.context.modal.close()
   }
 

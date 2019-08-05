@@ -8,10 +8,12 @@ const resultsSelector = (state, props) => state.results
 export const filtered = createSelector(
   filtersSelector,
   resultsSelector,
-  (filters, results) => Object.keys(results).reduce((filtered, key) => ({
-    ...filtered,
-    [key]: _getValue(filters, results, key)
-  }), { })
+  (filters, results) => ({
+    $and: Object.keys(results).reduce((filtered, key) => [
+      ...filtered,
+      { [key]: _getValue(filters, results, key) }
+    ], [])
+  })
 )
 
 const _getValue = (filters, results, key) => {

@@ -257,7 +257,7 @@ class Folder extends React.Component {
   _handleFocus() {
     const { folder } = this.props
     const path = this._getPath(folder.code)
-    this.context.router.replace(path)
+    this.context.router.history.replace(path)
   }
 
   _handleTasks(e) {

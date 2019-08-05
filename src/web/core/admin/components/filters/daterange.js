@@ -111,6 +111,7 @@ class Daterange extends React.Component {
     mutiple: PropTypes.bool,
     name: PropTypes.string,
     options: PropTypes.array,
+    results: PropTypes.object,
     values: PropTypes.object,
     onAddPanel: PropTypes.func
   }
@@ -119,16 +120,27 @@ class Daterange extends React.Component {
 
   render() {
     const { label } = this.props
+    const count = this._getCount()
     return (
       <div className="maha-filters-item" onClick={ this._handleClick }>
         <div className="maha-filters-item-title">
           { label }
         </div>
+        { count > 0 &&
+          <div className="maha-filters-item-description">
+            <div className="maha-filters-item-count">{ count }</div>
+          </div>
+        }
         <div className="maha-filters-item-icon">
           <i className="fa fa-chevron-right" />
         </div>
       </div>
     )
+  }
+
+  _getCount() {
+    const { name, results } = this.props
+    return _.isNil(results[name]) ? 0 : 1
   }
 
   _handleClick() {

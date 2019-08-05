@@ -1,4 +1,5 @@
 import matchPath from 'react-router-dom/matchPath'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Stack from './stack'
@@ -95,42 +96,9 @@ class RouterStack extends React.Component {
 
 }
 
-class RouterStackWrapper extends React.Component {
+const mapStateToProps = (state, props) => ({
+  action: state.maha.router.action.toLowerCase(),
+  pathname: state.maha.router.history.slice(-1)[0].pathname
+})
 
-  static contextTypes = {
-    router: PropTypes.object
-  }
-
-  static propTypes = {
-    children: PropTypes.any,
-    routes: PropTypes.object
-  }
-
-  render() {
-    return (
-      <RouterStack { ...this._getRouter() }>
-        { this.props.children }
-      </RouterStack>
-    )
-  }
-
-  _getRouter() {
-    const { action, pathname } = this._getHistory()
-    return {
-      ...this.props,
-      pathname,
-      action: action.toLowerCase()
-    }
-  }
-
-  _getHistory() {
-    const { router } = this.context
-    return router.history ? {
-      action: router.history.action,
-      pathname: router.history.location.pathname
-    } : router
-  }
-
-}
-
-export default RouterStackWrapper
+export default connect(mapStateToProps)(RouterStack)

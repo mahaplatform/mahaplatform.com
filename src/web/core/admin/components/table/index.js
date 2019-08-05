@@ -164,7 +164,7 @@ class Table extends React.Component {
   _handleLink(record, index) {
     const { link } = this.props
     const path = link(record)
-    this.context.router.push(path)
+    this.context.router.history.push(path)
   }
 
   _handleModal(record, index) {

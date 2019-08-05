@@ -75,7 +75,7 @@ class Cordova extends React.Component {
   }
 
   _handlePushRoute(route) {
-    this.context.router.push(route)
+    this.context.router.history.push(route)
   }
 
   _handleReceiveMessage(e) {

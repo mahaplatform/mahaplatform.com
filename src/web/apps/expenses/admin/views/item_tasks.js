@@ -54,7 +54,7 @@ const itemTasks = (type, item, user, rights, context, Edit) => {
         endpoint: `/api/admin/expenses/${type}s/${item.id}`,
         onSuccess: (result) => {
           context.flash.set('success', `Successfully deleted this ${type}`)
-          context.router.goBack()
+          context.router.history.goBack()
         },
         onFailure: (result) => context.flash.set('error', `Unable to delete this ${type}`)
       }

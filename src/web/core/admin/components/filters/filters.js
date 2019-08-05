@@ -40,17 +40,21 @@ class Filters extends React.Component {
   }
 
   _handleSet(defaultValue) {
-    const values = Object.keys(defaultValue).reduce((values, key) => ({
-      ...values,
-      [key]: this._getValue(defaultValue[key])
-    }), {})
+    const values = defaultValue.$and.reduce((values, criteria) => {
+      const key = Object.keys(criteria)[0]
+      return {
+        ...values,
+        [key]: this._getValue(criteria[key])
+      }
+    }, {})
     this.props.onSet(values)
   }
 
   _getValue(value) {
-    if(value.$in) return value.$in.map(key => ({ key: parseInt(key), value: '' }))
-    if(value.$eq) return value.$eq
-    if(value.$dr) return ({ key: value.$dr, value: '' })
+    if(value.$in) return value.$in.map(key => ({ key, value: '' }))
+    if(value.$eq) return { key: value.$eq, value: '' }
+    if(value.$dr) return { key: value.$dr, value: '' }
+    return value
   }
 
   componentDidUpdate(prevProps) {

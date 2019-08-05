@@ -63,7 +63,7 @@ class RichText extends React.Component {
 
   _handleLocalLink(link) {
     const url = new URL(link)
-    this.context.router.push(url.pathname+url.search+url.hash)
+    this.context.router.history.push(url.pathname+url.search+url.hash)
   }
 
 }

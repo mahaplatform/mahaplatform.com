@@ -38,7 +38,7 @@ class New extends React.Component {
 
   _handleSuccess(result) {
     this.context.modal.close()
-    this.context.router.push(`/admin/chat/channels/${result.id}`)
+    this.context.router.history.push(`/admin/chat/channels/${result.id}`)
   }
 
 }

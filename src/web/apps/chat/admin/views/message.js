@@ -30,7 +30,7 @@ class Component extends React.Component {
 
   _handleBack() {
     const { router } = this.context
-    router.goBack()
+    router.history.goBack()
   }
 
 }

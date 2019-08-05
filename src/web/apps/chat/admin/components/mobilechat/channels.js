@@ -37,7 +37,7 @@ class MobileChannels extends React.Component {
     }
 
     _handleChoose(id) {
-      this.context.router.push(`/admin/chat/channels/${id}`)
+      this.context.router.history.push(`/admin/chat/channels/${id}`)
     }
 
     _handleNew() {

@@ -108,7 +108,7 @@ class Explorer extends React.Component {
   }
 
   _handleChooseResource(resource) {
-    this.context.router.push(`/admin/learning/resources/${resource.id}`)
+    this.context.router.history.push(`/admin/learning/resources/${resource.id}`)
   }
 
   _handleChooseStrategy(strategy) {

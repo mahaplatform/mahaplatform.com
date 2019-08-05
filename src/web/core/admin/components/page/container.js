@@ -112,7 +112,7 @@ const PageCreator = (mapResourcesToPage, mapPropsToPage) => {
     }
 
     _handleBack() {
-      this.context.router.goBack()
+      this.context.router.history.goBack()
     }
 
     _handleFetchResources() {

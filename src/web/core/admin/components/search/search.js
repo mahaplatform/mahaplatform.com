@@ -9,6 +9,7 @@ import React from 'react'
 class Search extends React.Component {
 
   static propTypes = {
+    endpoint: PropTypes.string,
     filter: PropTypes.object
   }
 
@@ -17,7 +18,8 @@ class Search extends React.Component {
   }
 
   render() {
-    if(!this.props.endpoint) return <Options { ...this._getOptions() }  />
+    const { endpoint } = this.props
+    if(!endpoint) return <Options { ...this._getOptions() }  />
     return (
       <div className="maha-search">
         <div className="maha-search-header">

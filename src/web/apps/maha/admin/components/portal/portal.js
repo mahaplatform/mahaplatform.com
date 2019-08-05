@@ -153,7 +153,7 @@ class Portal extends React.Component {
     const { badges } = this.props
     if(document.body.clientWidth > 768) return this.props.onChoose(index)
     const badge = badges[index]
-    if(badge.route) this.context.router.push(badge.route)
+    if(badge.route) this.context.router.history.push(badge.route)
   }
 
   _handleSetMode(mode) {
@@ -166,7 +166,7 @@ class Portal extends React.Component {
 
   _handleHelp() {
     if(document.body.clientWidth > 768) return this.props.onToggleHelp()
-    this.context.router.push('/admin/help')
+    this.context.router.history.push('/admin/help')
   }
 
   _handleUpdateUnseen(unseen) {

@@ -33,7 +33,7 @@ class MobileChannel extends React.Component {
     }
 
     _handleShowMessage(message) {
-      this.context.router.push(`/admin/chat/channels/${message.channel_id}/messages/${message.id}`)
+      this.context.router.history.push(`/admin/chat/channels/${message.channel_id}/messages/${message.id}`)
     }
 
 

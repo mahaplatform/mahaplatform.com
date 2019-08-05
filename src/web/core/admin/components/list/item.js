@@ -60,7 +60,7 @@ class Item extends React.Component {
 
   _handleClick() {
     const { link, handler } = this.props
-    if(link) this.context.router.push(link)
+    if(link) this.context.router.history.push(link)
     if(handler) handler()
   }
 

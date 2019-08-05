@@ -199,7 +199,7 @@ class Chat extends React.Component {
   }
 
   _handleChoose(id) {
-    this.context.router.replace(`/admin/chat/channels/${id}`)
+    this.context.router.history.replace(`/admin/chat/channels/${id}`)
     this.props.onChoose(id)
   }
 
@@ -222,7 +222,7 @@ class Chat extends React.Component {
 
   _handleShowMessage(message) {
     const { router } = this.context
-    router.push(`/admin/chat/channels/${message.channel_id}/messages/${message.id}`)
+    router.history.push(`/admin/chat/channels/${message.channel_id}/messages/${message.id}`)
   }
 
   _handleSubscriptions() {

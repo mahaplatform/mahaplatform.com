@@ -87,7 +87,7 @@ class Teams extends React.Component {
     const { router } = this.context
     const { onDone } = this.props
     onDone()
-    router.push('/admin/signin')
+    router.history.push('/admin/signin')
   }
 
 }

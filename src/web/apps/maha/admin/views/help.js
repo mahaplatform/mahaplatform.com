@@ -21,7 +21,7 @@ class Page extends React.Component {
   }
 
   _handleDone() {
-    this.context.router.goBack()
+    this.context.router.history.goBack()
   }
 
 }
