@@ -6,6 +6,7 @@ const listRoute = async (req, res) => {
   const items = await Item.scope({
     team: req.team
   }).query(qb => {
+    qb.leftJoin('maha_users', 'maha_users.id', 'expenses_items.user_id')
     qb.leftJoin('expenses_projects', 'expenses_projects.id', 'expenses_items.project_id')
     qb.leftJoin('expenses_expense_types', 'expenses_expense_types.id', 'expenses_items.expense_type_id')
     qb.leftJoin('expenses_vendors', 'expenses_vendors.id', 'expenses_items.vendor_id')

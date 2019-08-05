@@ -17,6 +17,8 @@ class Chooser extends React.Component {
     onSetCurrent: PropTypes.func
   }
 
+  _handleCancel = this._handleCancel.bind(this)
+
   render() {
     const { month, value, year } = this.props
     const current = { month, year, day: '01'}
@@ -74,7 +76,7 @@ class Chooser extends React.Component {
     return {
       title: 'Choose Date',
       leftItems: [
-        { label: 'Cancel', handler: this._handleCancel.bind(this) }
+        { label: 'Cancel', handler: this._handleCancel }
       ]
     }
   }

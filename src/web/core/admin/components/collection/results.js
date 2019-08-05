@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import Message from '../message'
-import Table from './table'
+import Table from '../table'
 import React from 'react'
 import _ from 'lodash'
 

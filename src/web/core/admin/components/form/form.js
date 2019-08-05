@@ -73,6 +73,7 @@ class Form extends React.Component {
 
   form = null
 
+  _handleCancel = this._handleCancel.bind(this)
   _debouncedSubmit = _.debounce(this._handleSubmit.bind(this), 2500, { leading: true })
 
   render() {
@@ -149,7 +150,7 @@ class Form extends React.Component {
       position: buttonPosition,
       title,
       leftItems: (cancelText) ? [
-        { label: cancelText, handler: this._handleCancel.bind(this) }
+        { label: cancelText, handler: this._handleCancel }
       ] : null,
       rightItems: (saveText) ? [
         { label: saveText, handler: this._debouncedSubmit , className: this._getButtonClasses() }

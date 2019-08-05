@@ -42,19 +42,22 @@ class Datefield extends React.Component {
     onSet: () => {}
   }
 
+  _handleBegin = this._handleBegin.bind(this)
+  _handleClear = this._handleClear.bind(this)
+
   render() {
     const { prompt, placeholder, value, tabIndex } = this.props
     return (
       <div className="maha-datefield">
         <div className="maha-datefield-input" tabIndex={ tabIndex }>
-          <div className="maha-datefield-field" onClick={ this._handleBegin.bind(this) }>
+          <div className="maha-datefield-field" onClick={ this._handleBegin }>
             { value ?
               <div className="maha-datefield-token">{ value.format('dddd, MMMM DD, YYYY') }</div> :
               <span>{ prompt || placeholder }</span>
             }
           </div>
           { value  &&
-            <div className="maha-datefield-remove" onClick={ this._handleClear.bind(this) }>
+            <div className="maha-datefield-remove" onClick={ this._handleClear }>
               <i className="fa fa-times" />
             </div>
           }

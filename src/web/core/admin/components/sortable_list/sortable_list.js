@@ -5,6 +5,15 @@ import _ from 'lodash'
 
 class SortableList extends React.Component {
 
+  static propTypes = {
+    defaultValue: PropTypes.array,
+    items: PropTypes.array,
+    onMove: PropTypes.func,
+    onSet: PropTypes.func,
+    onToggle: PropTypes.func,
+    onUpdate: PropTypes.func
+  }
+
   render() {
     const { items } = this.props
     return (
@@ -17,7 +26,8 @@ class SortableList extends React.Component {
   }
 
   componentDidMount() {
-    if(this.props.defaultValue) this._handleSet()
+    const { defaultValue } = this.props
+    if(defaultValue) this._handleSet(defaultValue)
   }
 
   componentDidUpdate(prevProps) {

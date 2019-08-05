@@ -28,12 +28,14 @@ class Tasks extends React.Component {
     onOpen: PropTypes.func
   }
 
+  _handleClose = this._handleClose.bind(this)
+
   render() {
     const { children, allowed, open } = this.props
     return ([
       children,
       <CSSTransition key="maha-tasks-overlay" in={ open } classNames="expanded" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-        <div className="maha-tasks-overlay" onClick={ this._handleClose.bind(this) } />
+        <div className="maha-tasks-overlay" onClick={ this._handleClose } />
       </CSSTransition>,
       <CSSTransition key="maha-tasks-list" in={ open } classNames="expanded" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
         <div className="maha-tasks-list">
@@ -42,7 +44,7 @@ class Tasks extends React.Component {
               <Button key={`task_${index}`} { ...this._getButton(item) }/>
             )) }
           </div>
-          <div className="maha-tasks-cancel" onClick={ this._handleClose.bind(this) }>
+          <div className="maha-tasks-cancel" onClick={ this._handleClose }>
             Cancel
           </div>
         </div>

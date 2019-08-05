@@ -1,4 +1,4 @@
-import ModalPanel from '../../modal_panel'
+import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -15,6 +15,9 @@ class LookupPanel extends React.Component {
     onChange: PropTypes.func,
     onRemovePanel: PropTypes.func
   }
+
+  _handleRemovePanel = this._handleRemovePanel.bind(this)
+  _handleReset = this._handleReset.bind(this)
 
   render() {
     const { format, label, multiple, name, options, results } = this.props
@@ -35,7 +38,7 @@ class LookupPanel extends React.Component {
               </div>
             ))}
           </div>
-          <div className="maha-filters-footer" onClick={ this._handleReset.bind(this) }>
+          <div className="maha-filters-footer" onClick={ this._handleReset }>
             Reset { label }
           </div>
         </div>
@@ -43,13 +46,14 @@ class LookupPanel extends React.Component {
     )
   }
 
+
   _getPanel() {
     const { label } = this.props
     return {
       title: label,
       color: 'lightgrey',
       leftItems: [
-        { icon: 'chevron-left', handler: this._handleRemovePanel.bind(this) }
+        { icon: 'chevron-left', handler: this._handleRemovePanel }
       ]
     }
   }
@@ -97,10 +101,12 @@ class Lookup extends React.Component {
     mutiple: false
   }
 
+  _handleClick = this._handleClick.bind(this)
+
   render() {
     const { label } = this.props
     return (
-      <div className="maha-filters-item" onClick={ this._handleClick.bind(this) }>
+      <div className="maha-filters-item" onClick={ this._handleClick }>
         <div className="maha-filters-item-title">
           { label }
         </div>

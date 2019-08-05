@@ -24,6 +24,8 @@ class Scrollpane extends React.Component {
 
   notified = false
 
+  _handleScrollToTop = this._handleScrollToTop.bind(this)
+
   render() {
     const { children } = this.props
     const { signpost } = this.state
@@ -33,7 +35,7 @@ class Scrollpane extends React.Component {
           { children }
         </div>
         <CSSTransition in={ signpost } classNames="popin" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-          <div className="maha-scrollpane-signpost" onClick={ this._handleScrollToTop.bind(this) }>
+          <div className="maha-scrollpane-signpost" onClick={ this._handleScrollToTop }>
             <i className="fa fa-chevron-up" />
           </div>
         </CSSTransition>

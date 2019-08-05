@@ -65,23 +65,26 @@ class Lookup extends React.Component {
     onReady: () => {}
   }
 
+  _handleBegin = this._handleBegin.bind(this)
+  _handleClear = this._handleClear.bind(this)
+
   render() {
     const { chosen, format, prompt, placeholder, tabIndex, text } = this.props
     const value = chosen ? _.get(chosen, text) : ''
     return (
       <div className="maha-lookup-field" tabIndex={ tabIndex }>
         { chosen &&
-          <div className="maha-lookup-token" onClick={ this._handleBegin.bind(this) }>
+          <div className="maha-lookup-token" onClick={ this._handleBegin }>
             <Format { ...chosen } format={ format } value={ value } />
           </div>
         }
         { chosen &&
           <div className="maha-lookup-field-clear">
-            <i className="fa fa-times" onClick={ this._handleClear.bind(this) } />
+            <i className="fa fa-times" onClick={ this._handleClear } />
           </div>
         }
         { !chosen &&
-          <div className="maha-lookup-field-prompt" onClick={ this._handleBegin.bind(this) }>
+          <div className="maha-lookup-field-prompt" onClick={ this._handleBegin }>
             { placeholder || prompt }
           </div>
         }

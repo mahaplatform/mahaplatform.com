@@ -32,12 +32,14 @@ class Prompt extends React.Component {
     cancel: false
   }
 
+  _handleClose = this._handleClose.bind(this)
+
   render() {
     const { cancel, children, message, title, open, options } = this.props
     return ([
       children,
       <CSSTransition key="maha-prompt-overlay" in={ open } classNames="expanded" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-        <div className="maha-prompt-overlay" onClick={ this._handleClose.bind(this) } />
+        <div className="maha-prompt-overlay" onClick={ this._handleClose } />
       </CSSTransition>,
       <CSSTransition key="maha-prompt-options" in={ open } classNames="expanded" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
         <div className="maha-prompt-options">
@@ -55,7 +57,7 @@ class Prompt extends React.Component {
             <Button key={ `option_${index}` } { ...this._getButton(option) }  />
           ))}
           { cancel &&
-            <div className="maha-prompt-cancel" onClick={ this._handleClose.bind(this) }>
+            <div className="maha-prompt-cancel" onClick={ this._handleClose }>
               Cancel
             </div>
           }

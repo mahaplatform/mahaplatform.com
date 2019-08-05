@@ -59,10 +59,10 @@ class Assign extends React.Component {
     return {
       title: 'Assign Users',
       leftItems: [
-        { label: 'Cancel', handler: this._handleCancel.bind(this) }
+        { label: 'Cancel', handler: this._handleCancel }
       ],
       rightItems: [
-        { label: 'Done', handler: this._handleDone.bind(this) }
+        { label: 'Done', handler: this._handleDone }
       ]
     }
   }

@@ -36,13 +36,13 @@ class CriteriaField extends React.PureComponent {
   render() {
     const { criteria, placeholder, tabIndex } = this.props
     return (
-      <div className="maha-criteriafield" tabIndex={ tabIndex } onClick={ this._handleBegin.bind(this) }>
+      <div className="maha-criteriafield" tabIndex={ tabIndex } onClick={ this._handleBegin }>
         { criteria &&
           <div className="maha-criteriafield-label" />
         }
         { criteria &&
           <div className="maha-criteriafield-clear">
-            <i className="fa fa-times" onClick={ this._handleClear.bind(this) } />
+            <i className="fa fa-times" onClick={ this._handleClear } />
           </div>
         }
         { !criteria &&

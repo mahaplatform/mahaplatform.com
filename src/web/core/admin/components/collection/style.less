@@ -61,57 +61,6 @@
   display: flex;
   background-color: @white;
 }
-.maha-collection-tasks {
-  overflow: hidden;
-  display: flex;
-}
-.maha-collection-tasks-panel-container {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  flex: 1;
-}
-.maha-collection-tasks-panel {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-.maha-collection-tasks-panel-header {
-  border-bottom: 1px solid fadeout(@black, 90);
-  background-color: fadeout(@black, 95);
-  text-align: center;
-  display: flex;
-  .maha-collection-tasks-panel-header-icon {
-    &:first-child {
-      padding: 1em 0 1em 1em;
-    }
-    &:last-child {
-      padding: 1em 1em 1em 0;
-    }
-  }
-}
-.maha-collection-tasks-panel-header-icon {
-  flex: 0 0 3em;
-  display: flex;
-  cursor: pointer;
-  i {
-    color: fadeout(@black, 80);
-    margin: auto;
-  }
-}
-.maha-collection-tasks-panel-header-title {
-  flex: 1;
-  padding: 1em 0;
-  line-height: 1.4em;
-  color: fadeout(@black, 50)
-}
-.maha-collection-tasks-panel-body {
-  flex: 1;
-  .scrollable();
-}
 .maha-collection-footer {
   background-color: fadeout(@black, 10);
   display: flex;
@@ -129,17 +78,6 @@
 .maha-collection-footer-buttons {
   padding: 0.8em 0.4em;
   flex: 1;
-}
-.maha-collection-tasks-panel .maha-task,
-.maha-collection-tasks-panel-item {
-  .hover(background-color, fadeout(@black, 95));
-  line-height: 1.57em;
-  padding: 0.8em;
-  cursor: pointer;
-  color: fadeout(@black, 50);
-  i {
-    margin-right: 1em;
-  }
 }
 .maha-collection-loader {
   flex: 0 0 3.5em;
@@ -179,22 +117,6 @@
     display: block;
     background: @white !important;
   }
-}
-
-.maha-collection-tasks {
-  display: flex;
-  &.filter .maha-collection-filter,
-  &.export .maha-collection-export {
-    .translateX(0);
-  }
-}
-.maha-collection-tasks-inner {
-  flex: 1;
-  position: relative;
-}
-.maha-collection-filter,
-.maha-collection-export {
-  flex: 1;
 }
 
 .maha-collection-footer {

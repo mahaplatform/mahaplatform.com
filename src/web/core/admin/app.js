@@ -8,7 +8,6 @@ import adminauthorized from './components/authorized'
 import adminbutton from './components/button'
 import admincarousel from './components/carousel'
 import adminchooser from './components/chooser'
-import admincollectionFilters from './components/collection/filters'
 import admincollection from './components/collection'
 import admincomments from './components/comments'
 import admincomposer from './components/composer'
@@ -17,6 +16,7 @@ import admincriteriaCriteria from './components/criteria/criteria'
 import admindrawer from './components/drawer'
 import adminemojis from './components/emojis'
 import adminfields from './components/fields'
+import adminfilters from './components/filters'
 import adminflash from './components/flash'
 import adminformAssignmentfield from './components/form/assignmentfield'
 import adminformAttachmentfield from './components/form/attachmentfield'
@@ -60,7 +60,6 @@ import adminsearchbox from './components/searchbox'
 import adminsortableList from './components/sortable_list'
 import admintabs from './components/tabs'
 import admintasks from './components/tasks'
-import admintray from './components/tray'
 import adminuploader from './components/uploader'
 import appraisalsresponsibilities from '../../apps/appraisals/admin/components/responsibilities'
 import chatchannel from '../../apps/chat/admin/components/channel'
@@ -233,7 +232,6 @@ class App extends React.Component {
       adminbutton,
       admincarousel,
       adminchooser,
-      admincollectionFilters,
       admincollection,
       admincomments,
       admincomposer,
@@ -242,6 +240,7 @@ class App extends React.Component {
       admindrawer,
       adminemojis,
       adminfields,
+      adminfilters,
       adminflash,
       adminformAssignmentfield,
       adminformAttachmentfield,
@@ -285,7 +284,6 @@ class App extends React.Component {
       adminsortableList,
       admintabs,
       admintasks,
-      admintray,
       adminuploader,
       appraisalsresponsibilities,
       chatchannel,

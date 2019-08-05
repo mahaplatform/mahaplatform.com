@@ -1,7 +1,7 @@
-import Format from '../../format'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
+import Format from '../format'
 import React from 'react'
+import _ from 'lodash'
 
 class Table extends React.Component {
 

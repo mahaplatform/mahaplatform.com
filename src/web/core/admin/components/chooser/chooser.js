@@ -34,7 +34,10 @@ class chooser extends React.Component {
     multiple: false
   }
 
+  _handleCancel = this._handleCancel.bind(this)
+  _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleSave = this._handleSave.bind(this)
 
   render() {
     return (
@@ -57,10 +60,10 @@ class chooser extends React.Component {
       className: 'maha-chooser',
       title,
       leftItems: [
-        { label: 'Cancel', handler: this._handleCancel.bind(this) }
+        { label: 'Cancel', handler: this._handleCancel }
       ],
       rightItems: [
-        { label: 'Save', handler: this._handleSave.bind(this) }
+        { label: 'Save', handler: this._handleSave }
       ]
     }
   }
@@ -75,7 +78,7 @@ class chooser extends React.Component {
       multiple,
       text,
       value,
-      onChange: this._handleChange.bind(this)
+      onChange: this._handleChange
     }
   }
 

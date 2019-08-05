@@ -15,6 +15,8 @@ class Item extends React.Component {
     onToggle: PropTypes.func
   }
 
+  _handleToggle = this._handleToggle.bind(this)
+
   render() {
     const { label, connectDropTarget, connectDragPreview, connectDragSource } = this.props
     return connectDragSource(connectDropTarget(connectDragPreview(
@@ -25,7 +27,7 @@ class Item extends React.Component {
         <div className="maha-sortable-list-label">
           { label }
         </div>
-        <div className="maha-sortable-list-icon" onClick={ this._handleToggle.bind(this) }>
+        <div className="maha-sortable-list-icon" onClick={ this._handleToggle}>
           <i className={`fa fa-fw fa-${this._getIcon()}`} />
         </div>
       </div>

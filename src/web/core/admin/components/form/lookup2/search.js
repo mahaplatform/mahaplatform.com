@@ -31,6 +31,8 @@ class Search extends React.Component {
   }
 
   _handleAdd = this._handleAdd.bind(this)
+  _handleCancel = this._handleCancel.bind(this)
+  _handleDone = this._handleDone.bind(this)
 
   render() {
     const { cacheKey, form, label } = this.props
@@ -39,7 +41,7 @@ class Search extends React.Component {
         <ToggleList { ...this._getToggleList() } key={ cacheKey } />
         { form &&
           <div className="maha-lookup-panel-add">
-            <div className="ui fluid red button" onClick={ this._handleAdd.bind(this)}>
+            <div className="ui fluid red button" onClick={ this._handleAdd }>
               Add {label}
             </div>
           </div>
@@ -53,10 +55,10 @@ class Search extends React.Component {
     return {
       title: `Choose ${label}`,
       leftItems: [
-        { label: 'Cancel', handler: this._handleCancel.bind(this) }
+        { label: 'Cancel', handler: this._handleCancel }
       ],
       rightItems: multiple ? [
-        { label: 'Done', handler: this._handleDone.bind(this) }
+        { label: 'Done', handler: this._handleDone }
       ] : null
     }
   }

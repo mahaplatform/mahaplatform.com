@@ -2,7 +2,6 @@ import ModalPanel from '../../modal_panel'
 import { connect } from 'react-redux'
 import Criteria from '../../criteria'
 import Infinite from '../../infinite'
-import Message from '../../message'
 import PropTypes from 'prop-types'
 import Results from './results'
 import React from 'react'
@@ -108,17 +107,16 @@ class Desginer extends React.Component {
       onRemove,
       onUpdate
     }
-
   }
 
   _getPanel() {
     return {
       title: 'Design Criteria',
       leftItems: [
-        { label: 'Cancel', handler: this._handleCancel.bind(this) }
+        { label: 'Cancel', handler: this._handleCancel }
       ],
       rightItems: [
-        { label: 'Done', handler: this._handleCancel.bind(this) }
+        { label: 'Done', handler: this._handleCancel }
       ]
     }
   }

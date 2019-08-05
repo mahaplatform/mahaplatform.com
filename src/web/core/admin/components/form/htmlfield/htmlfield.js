@@ -20,16 +20,19 @@ class htmlfield extends React.Component {
     onReady: () => {}
   }
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      editorState: null,
-      linking: false,
-      url: null,
-      view: 'text',
-      code: ''
-    }
+  state = {
+    editorState: null,
+    linking: false,
+    url: null,
+    view: 'text',
+    code: ''
   }
+
+  _handleBeginLink = this._handleBeginLink.bind(this)
+  _handleCodeToggle = this._handleCodeToggle.bind(this)
+  _handleEndLink = this._handleEndLink.bind(this)
+  _handleTextareaChange = this._handleTextareaChange.bind(this)
+  _handleUnlink = this._handleUnlink.bind(this)
 
   render() {
     const { editorState, linking, view } = this.state
@@ -51,10 +54,10 @@ class htmlfield extends React.Component {
             </div>
           </div>
           <div className="maha-htmlfield-header-section">
-            <div className={ this._getIconClass() } onClick={ (view == 'text') ? this._handleBeginLink.bind(this) : null }>
+            <div className={ this._getIconClass() } onClick={ (view == 'text') ? this._handleBeginLink : null }>
               <i className="fa fa-fw fa-link" />
             </div>
-            <div className={ this._getIconClass() } onClick={ (view == 'text') ? this._handleUnlink.bind(this) : null }>
+            <div className={ this._getIconClass() } onClick={ (view == 'text') ? this._handleUnlink : null }>
               <i className="fa fa-fw fa-unlink" />
             </div>
           </div>
@@ -67,7 +70,7 @@ class htmlfield extends React.Component {
             </div>
           </div>
           <div className="maha-htmlfield-header-section">
-            <div className="maha-htmlfield-header-icon" onClick={ this._handleCodeToggle.bind(this) }>
+            <div className="maha-htmlfield-header-icon" onClick={ this._handleCodeToggle }>
               <i className="fa fa-fw fa-code" />
             </div>
           </div>
@@ -77,13 +80,13 @@ class htmlfield extends React.Component {
             <div className="maha-htmlfield-input-element">
               <input { ...this._getLinkInput()}/>
             </div>
-            <div className="maha-htmlfield-input-icon" onClick={ this._handleEndLink.bind(this) }>
+            <div className="maha-htmlfield-input-icon" onClick={ this._handleEndLink }>
               <i className="fa fa-times" />
             </div>
           </div>
         </CSSTransition>
         <CSSTransition in={ linking } classNames="expanded" timeout={ 150 } mountOnEnter={ true } unmountOnExit={ true }>
-          <div className="maha-htmlfield-overlay" onClick={ this._handleEndLink.bind(this) } />
+          <div className="maha-htmlfield-overlay" onClick={ this._handleEndLink } />
         </CSSTransition>
         <div className="maha-htmlfield-body">
           { editorState && view == 'text' && <Editor { ...this._getEditor() } /> }
@@ -110,7 +113,7 @@ class htmlfield extends React.Component {
 
   _getTextarea() {
     return {
-      onChange: this._handleTextareaChange.bind(this),
+      onChange: this._handleTextareaChange,
       defaultValue: this.state.code
     }
   }

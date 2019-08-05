@@ -9,12 +9,26 @@ class Drawer extends React.Component {
     drawer: PropTypes.object
   }
 
+  static propTypes = {
+    children: PropTypes.any,
+    component: PropTypes.any,
+    location: PropTypes.string,
+    open: PropTypes.bool,
+    onClear: PropTypes.func,
+    onClose: PropTypes.func,
+    onOpen: PropTypes.func
+  }
+
+  _handleClose = this._handleClose.bind(this)
+  _handleOpen = this._handleOpen.bind(this)
+
+
   render() {
     const { children, component, location, open } = this.props
     return ([
       children,
       <CSSTransition key="maha-drawer-overlay" in={ open } classNames="expanded" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
-        <div className="maha-drawer-overlay" onClick={this._handleClose.bind(this)} />
+        <div className="maha-drawer-overlay" onClick={this._handleClose } />
       </CSSTransition>,
       <CSSTransition key="maha-drawer-panel" in={ open } classNames="expanded" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
         <div className={`maha-drawer-panel maha-drawer-panel-${location}`}>
@@ -34,8 +48,8 @@ class Drawer extends React.Component {
   getChildContext() {
     return {
       drawer: {
-        open: this._handleOpen.bind(this),
-        close: this._handleClose.bind(this)
+        open: this._handleOpen,
+        close: this._handleClose
       }
     }
   }

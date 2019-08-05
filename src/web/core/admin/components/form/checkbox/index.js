@@ -1,6 +1,17 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 class Checkbox extends React.Component {
+
+  static propTypes = {
+    defaultValue: PropTypes.bool,
+    disabled: PropTypes.bool,
+    tabIndex: PropTypes.number,
+    onBusy: PropTypes.func,
+    onChange: PropTypes.func,
+    onClick: PropTypes.func,
+    onReady: PropTypes.func
+  }
 
   static defaultProps = {
     defaultValue: false,
@@ -15,11 +26,13 @@ class Checkbox extends React.Component {
     value: false
   }
 
+  _handleChange = this._handleChange.bind(this)
+
   render() {
     const { disabled, tabIndex } = this.props
     return (
       <div className={ `maha-checkbox ${(disabled) ? 'toggle-disabled' : ''}` } tabIndex={ tabIndex }>
-        <i className={ `fa fa-fw fa-${this._getIcon()} ${(disabled) ? 'disabled' : ''}` } onClick={ this._handleChange.bind(this) } />
+        <i className={ `fa fa-fw fa-${this._getIcon()} ${(disabled) ? 'disabled' : ''}` } onClick={ this._handleChange } />
       </div>
     )
   }

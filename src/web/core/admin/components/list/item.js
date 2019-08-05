@@ -10,11 +10,14 @@ class Item extends React.Component {
     tasks: PropTypes.object
   }
 
+  _handleClick = this._handleClick.bind(this)
+  _handleTasks = this._handleTasks.bind(this)
+
   render() {
     const { alt, component, content, empty, extra, format, handler, icon, label, link, tasks, units } = this.props
     if(this.props.if === false) return null
     return (
-      <div className={ this._getClass() } onClick={ this._handleClick.bind(this) }>
+      <div className={ this._getClass() } onClick={ this._handleClick }>
         { icon &&
           <div className="maha-list-item-icon">
             <i className={`fa fa-fw fa-${icon}`} />
@@ -47,7 +50,7 @@ class Item extends React.Component {
           </div>
         }
         { tasks &&
-          <div className="maha-list-item-proceed" onClick={ this._handleTasks.bind(this) }>
+          <div className="maha-list-item-proceed" onClick={ this._handleTasks }>
             <i className="fa fa-fw fa-ellipsis-v" />
           </div>
         }

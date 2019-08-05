@@ -17,6 +17,8 @@ class Search extends React.Component {
     onEnd: PropTypes.func
   }
 
+  _handleCancel = this._handleCancel.bind(this)
+
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
@@ -30,7 +32,7 @@ class Search extends React.Component {
     return {
       title: `Choose ${label}`,
       leftItems: [
-        { label: 'Cancel', handler: this._handleCancel.bind(this) }
+        { label: 'Cancel', handler: this._handleCancel }
       ]
     }
   }

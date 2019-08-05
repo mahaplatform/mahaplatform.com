@@ -2,7 +2,6 @@ import ImageFileToken from './image_file_token'
 import PlainFileToken from './plain_file_token'
 import PropTypes from 'prop-types'
 import React from 'react'
-import qs from 'qs'
 
 class Preview extends React.Component {
 
@@ -12,18 +11,13 @@ class Preview extends React.Component {
     onRemove: PropTypes.func
   }
 
+  _handleRemove = this._handleRemove.bind(this)
+
   render() {
-
-    const dpis = [1,2]
-
     const { file } = this.props
-
     const content_type = file.contentType || file.asset.content_type
-
     const isImage = (content_type.split('/')[0] === 'image')
-
     const type = isImage ? 'image' : 'plain'
-
     return (
       <div className={`maha-filefield-token ${type}`}>
         { file.status === 'added' &&
@@ -42,7 +36,7 @@ class Preview extends React.Component {
             </div>
           </div>
         }
-        <div className="maha-filefield-remove" onClick={ this._handleRemove.bind(this) }>
+        <div className="maha-filefield-remove" onClick={ this._handleRemove }>
           { isImage ? <i className="fa fa-fw fa-times-circle" /> : <i className="fa fa-fw fa-times" /> }
         </div>
         { isImage ? <ImageFileToken { ...this._getImageFile() } /> : <PlainFileToken { ...this._getPlainFile() } /> }

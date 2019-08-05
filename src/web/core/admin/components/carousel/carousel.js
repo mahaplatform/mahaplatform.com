@@ -27,6 +27,12 @@ class Carousel extends React.Component {
     transitioning: false
   }
 
+  _handleNext = this._handleNext.bind(this)
+  _handlePrevious = this._handlePrevious.bind(this)
+  _handleTouchEnd = this._handleTouchEnd.bind(this)
+  _handleTouchMove = this._handleTouchMove.bind(this)
+  _handleTouchStart = this._handleTouchStart.bind(this)
+
   render() {
     const { active, infinite, slides, total } = this.props
     return (
@@ -34,7 +40,7 @@ class Carousel extends React.Component {
         { total > 0 &&
           <div { ...this._getTheatre() }>
             { total > 1 && (infinite || active > 0) &&
-              <div className="maha-carousel-previous" onClick={ this._handlePrevious.bind(this) }>
+              <div className="maha-carousel-previous" onClick={ this._handlePrevious }>
                 <i className="fa fa-fw fa-chevron-left" />
               </div>
             }
@@ -46,7 +52,7 @@ class Carousel extends React.Component {
               ))}
             </div>
             { total > 1 && (infinite || active < total - 1) &&
-              <div className="maha-carousel-next" onClick={ this._handleNext.bind(this) }>
+              <div className="maha-carousel-next" onClick={ this._handleNext }>
                 <i className="fa fa-fw fa-chevron-right" />
               </div>
             }
@@ -105,9 +111,9 @@ class Carousel extends React.Component {
   _getTheatre() {
     return {
       className: 'maha-carousel-theatre',
-      onTouchStart: this._handleTouchStart.bind(this),
-      onTouchMove: this._handleTouchMove.bind(this),
-      onTouchEnd: this._handleTouchEnd.bind(this)
+      onTouchStart: this._handleTouchStart,
+      onTouchMove: this._handleTouchMove,
+      onTouchEnd: this._handleTouchEnd
     }
   }
 

@@ -23,7 +23,9 @@ class Searchbox extends React.Component {
     onChange: (value) => {}
   }
 
+  _handleAbort = this._handleAbort.bind(this)
   _handleChange = _.debounce(this._handleChange.bind(this), 300)
+  _handleIcon = this._handleIcon.bind(this)
 
   render() {
     const { icon, q } = this.props
@@ -31,7 +33,7 @@ class Searchbox extends React.Component {
       <div className={ this._getClass() }>
         <div className="maha-searchbox-container">
           { icon &&
-            <div className="maha-searchbox-extra" onClick={ this._handleIcon.bind(this) }>
+            <div className="maha-searchbox-extra" onClick={ this._handleIcon }>
               <i className={ `fa fa-fw fa-${icon}` } />
             </div>
           }
@@ -43,7 +45,7 @@ class Searchbox extends React.Component {
               <input { ...this._getInput() } />
             </div>
             { q.length > 0 &&
-              <div className="maha-searchbox-remove-icon" onClick={ this._handleAbort.bind(this) }>
+              <div className="maha-searchbox-remove-icon" onClick={ this._handleAbort }>
                 <i className="fa fa-times-circle" />
               </div>
             }

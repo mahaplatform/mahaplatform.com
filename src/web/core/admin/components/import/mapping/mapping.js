@@ -1,5 +1,5 @@
 import ModalPanel from '../../modal_panel'
-import Table from '../../collection/table'
+import Table from '../../table'
 import Button from '../../button'
 import PropTypes from 'prop-types'
 import Field from '../field'

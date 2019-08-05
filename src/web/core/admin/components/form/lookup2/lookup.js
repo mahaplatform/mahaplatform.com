@@ -49,13 +49,14 @@ class Lookup extends React.Component {
     text: 'text'
   }
 
+  _handleBegin = this._handleBegin.bind(this)
   _handleClear = this._handleClear.bind(this)
 
   render() {
     const { placeholder, selected, tabIndex, text } = this.props
     return (
       <div className={ this._getClass() } tabIndex={ tabIndex }>
-        <div className="maha-lookup2-items" onClick={ this._handleBegin.bind(this) }>
+        <div className="maha-lookup2-items" onClick={ this._handleBegin }>
           { selected.map((item, index) => (
             <div className="maha-lookup2-item" key={ `selected_${index}` }>
               { _.get(item, text) }

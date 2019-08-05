@@ -1,4 +1,4 @@
-import ModalPanel from '../../modal_panel'
+import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
 import Lookup from './lookup'
 import Select from './select'
@@ -19,6 +19,8 @@ class Overview extends React.Component {
     onUpdate: PropTypes.func
   }
 
+  _handleReset = this._handleReset.bind(this)
+
   render() {
     const { filters } = this.props
     return (
@@ -33,7 +35,7 @@ class Overview extends React.Component {
             })}
           </div>
           <div className="maha-filters-footer">
-            <button className="ui red fluid button" onClick={ this._handleReset.bind(this) }>
+            <button className="ui red fluid button" onClick={ this._handleReset}>
               Reset Filters
             </button>
           </div>

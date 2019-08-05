@@ -1,6 +1,6 @@
 import Searchbox from '../searchbox'
 import PropTypes from 'prop-types'
-import Export from './export'
+import Export from '../export'
 import React from 'react'
 
 class Header extends React.Component {
@@ -13,9 +13,9 @@ class Header extends React.Component {
     endpoint: PropTypes.string,
     entity: PropTypes.string,
     export: PropTypes.array,
-    filters: PropTypes.array,
     filter: PropTypes.object,
-    managing: PropTypes.bool,
+    filtering: PropTypes.bool,
+    filters: PropTypes.array,
     search: PropTypes.bool,
     sort: PropTypes.object,
     tasks: PropTypes.array,
@@ -29,13 +29,13 @@ class Header extends React.Component {
   _handleToggleFilter = this._handleToggleFilter.bind(this)
 
   render() {
-    const { filters, managing, search, tasks } = this.props
+    const { filters, filtering, search, tasks } = this.props
     if(!filters && !this.props.export && !search && !tasks) return null
     return (
       <div className="maha-collection-header">
         <div className="maha-collection-header-bar">
           <div className="maha-collection-header-action" onClick={ this._handleToggleFilter }>
-            { managing ?
+            { filtering ?
               <i className="fa fa-times" /> :
               <i className="fa fa-filter" />
             }
