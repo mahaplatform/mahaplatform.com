@@ -23,6 +23,7 @@ const editRoute = async (req, res) => {
   res.status(200).respond(expense, (req, expense) => ({
     date: expense.get('date'),
     receipt_ids: expense.get('receipt_ids'),
+    account_id: expense.get('account_id'),
     vendor_id: expense.get('vendor_id'),
     total: expense.get('total'),
     tax_total: expense.get('tax_total'),
