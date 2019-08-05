@@ -3,7 +3,7 @@ import ModalPanel from '../modal_panel'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
-import Button from '../button'
+import Buttons from '../buttons'
 import React from 'react'
 import qs from 'qs'
 
@@ -36,18 +36,23 @@ class Export extends React.Component {
           <div className="maha-export-body">
             <SortableList { ...this._getSortableList() } />
           </div>
-          <div className="maha-cexport-footer">
-            <div className="maha-cexport-footer-item">
-              <Button { ...this._getButton('csv') } />
-            </div>
-            <div className="maha-export-footer-item">
-              <Button { ...this._getButton('xlsx') } />
-            </div>
+          <div className="maha-export-footer">
+            <Buttons { ...this._getButtons() } />
           </div>
         </div>
       </ModalPanel>
     )
   }
+
+  _getButtons() {
+    return {
+      buttons: [
+        this._getButton('csv'),
+        this._getButton('xlsx')
+      ]
+    }
+  }
+
 
   _getButton(type) {
     return {

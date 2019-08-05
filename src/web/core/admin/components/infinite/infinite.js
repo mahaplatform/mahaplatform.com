@@ -49,6 +49,7 @@ class Infinite extends React.Component {
     const { all, empty, failure, header, layout, loading, notFound, records, status, total } = this.props
     return (
       <div className="maha-infinite">
+        { status === 'loading' && records && records.length > 0 && this._getComponent(Appending) }
         { header &&
           <div className="maha-infinite-header">
             { React.createElement(header, this.props) }
@@ -63,7 +64,6 @@ class Infinite extends React.Component {
             { React.createElement(layout, this.props) }
           </Scrollpane>
         }
-        { status === 'loading' && records && records.length > 0 && this._getComponent(Appending) }
       </div>
     )
   }

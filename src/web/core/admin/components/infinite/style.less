@@ -2,6 +2,7 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 .maha-infinite-loader {
   flex: 0 0 3.5em;
@@ -15,4 +16,23 @@
   span {
     font-size: 0.8em;
   }
+}
+.maha-infinite-border-loader {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 2px;
+}
+.maha-infinite-border-loader-progress {
+  animation-timing-function: linear;
+  animation: border-loader .5s 1;
+  height: 2px;
+  background-color: fadeout(@blue, 50);
+}
+@keyframes border-loader {
+  0%   { width: 0%; }
+  100% { width: 100%; }
 }
