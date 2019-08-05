@@ -13,7 +13,9 @@ class Text extends React.PureComponent {
   }
 
   static propTypes = {
+    defaultValue: PropTypes.object,
     field: PropTypes.object,
+    mode: PropTypes.string,
     onDone: PropTypes.func
   }
 
@@ -45,10 +47,16 @@ class Text extends React.PureComponent {
     )
   }
 
+  componentDidMount() {
+    const { defaultValue } = this.props
+    if(defaultValue) this._handleSet(defaultValue)
+  }
+
   _getButton() {
     const { operator, value } = this.state
+    const { mode } = this.props
     return {
-      label: 'Add Criteria',
+      label: mode === 'add' ? 'Add Criteria' : 'Update Criteria',
       color: 'blue',
       disabled: _.includes(['$eq','$lk','$nlk'], operator) && value.length === 0,
       handler: this._handleDone
@@ -82,8 +90,9 @@ class Text extends React.PureComponent {
   }
 
   _getTextField() {
-    const { operator } = this.state
+    const { operator, value } = this.state
     return {
+      defaultValue: value,
       disabled: _.includes(['$nkn','$kn'], operator),
       onChange: this._handleChange.bind(this, 'value')
     }
@@ -104,7 +113,12 @@ class Text extends React.PureComponent {
     this.setState({
       [key]: value
     })
+  }
 
+  _handleSet(defaultValue) {
+    const operator = Object.keys(defaultValue)[0]
+    const value = defaultValue[operator]
+    this.setState({ operator, value })
   }
 
 }

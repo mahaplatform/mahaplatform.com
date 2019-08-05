@@ -4,6 +4,7 @@ import Types from './types'
 import Item from './item'
 import React from 'react'
 import _ from 'lodash'
+import Text from './text'
 
 class Criteria extends React.Component {
 
@@ -53,6 +54,10 @@ class Criteria extends React.Component {
     }
   }
 
+  _getComponent(type) {
+    if(type === 'text') return Text
+  }
+
   _getPanel() {
     return {
       title: 'Filter Results',
@@ -80,8 +85,13 @@ class Criteria extends React.Component {
 
   _handleAdd(cindex) {
     const { criteria } = this.context
-    const onDone = this._handleCreate.bind(this, cindex)
-    criteria.push({ component: Types, props: this._getTypes({ onDone }) })
+    criteria.push({
+      component: Types,
+      props: this._getTypes({
+        mode: 'add',
+        onDone: this._handleCreate.bind(this, cindex)
+      })
+    })
   }
 
   _handleCreate(cindex, value) {
@@ -90,8 +100,21 @@ class Criteria extends React.Component {
 
   _handleEdit(cindex, criterion) {
     const { criteria } = this.context
-    const onDone = this._handleCreate.bind(this, cindex)
-    criteria.push({ component: Types, props: this._getTypes({ criterion, onDone }) })
+    const key = Object.keys(criterion)[0]
+    const field = this.props.fields.reduce((found, type) => {
+      return found || type.fields.reduce((found, field) => {
+        return found || (field.code === key ? field : null)
+      }, null)
+    }, null)
+    criteria.push({
+      component: this._getComponent(field.type),
+      props: {
+        defaultValue: criterion[key],
+        field,
+        mode: 'edit',
+        onDone: this._handleUpdate.bind(this, cindex)
+      }
+    })
   }
 
   _handleUpdate(cindex, value) {
