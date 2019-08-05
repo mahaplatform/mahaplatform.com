@@ -122,28 +122,7 @@ const showRoute = async (req, res) => {
             items: group_items[`${user_type.get('id')}-null`] || 0
           }
         ]
-      })),
-      {
-        id: 0,
-        title: 'Unclassified',
-        members: user_type_members['null'] || 0,
-        active: user_type_active['null'] || 0,
-        items: user_type_items['null'] || 0,
-        groups: [
-          ...groups.map(group => ({
-            title: group.get('title'),
-            members: group_members[`null-${group.get('id')}`] || 0,
-            active: group_active[`null-${group.get('id')}`] || 0,
-            items: group_items[`null-${group.get('id')}`] || 0
-          })),
-          {
-            title: 'Unaffiliated',
-            members: group_members['null-null'] || 0,
-            active: group_active['null-null'] || 0,
-            items: group_items['null-null'] || 0
-          }
-        ]
-      }
+      }))
     ],
     totals: {
       members: user_type_members.total || 0,

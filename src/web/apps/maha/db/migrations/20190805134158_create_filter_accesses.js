@@ -8,7 +8,7 @@ const CreateFilterAccess = {
       table.integer('filter_id').unsigned()
       table.foreign('filter_id').references('maha_filters.id')
       table.integer('group_id').unsigned()
-      table.foreign('group_id').references('maha_group.id')
+      table.foreign('group_id').references('maha_groups.id')
       table.integer('user_id').unsigned()
       table.foreign('user_id').references('maha_users.id')
       table.timestamps()
