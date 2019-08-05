@@ -31,10 +31,10 @@ const EmployeeTypes = {
       data.push(rowData)
     })
 
-    await knex('maha_user_types').insert({
+    const board = await knex('maha_user_types').insert({
       team_id: 1,
       text: 'Board Member'
-    })
+    }).returning('id')
 
     await Promise.mapSeries(data, async (row, index) => {
 
@@ -42,7 +42,7 @@ const EmployeeTypes = {
         if(row[4] !== null) return 1
         if(row[5] !== null) return 2
         if(row[6] !== null) return 3
-        if(row[7] !== null) return 4
+        if(row[7] !== null) return board[0]
         return null
       }
 
@@ -50,6 +50,20 @@ const EmployeeTypes = {
         id: row[0]
       }).update({
         user_type_id: getEmployeeType(row)
+      })
+
+    })
+
+    const group = await knex('maha_users_groups').where({
+      group_id: 15
+    }).whereNot('user_id', 132)
+
+    await Promise.mapSeries(group, async (member, index) => {
+
+      await knex('maha_users').where({
+        id: member.user_id
+      }).update({
+        user_type_id: board[0]
       })
 
     })

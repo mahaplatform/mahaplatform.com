@@ -63,7 +63,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Email', key: 'email' }
     ],
     filters: [
-      { label: 'User Type', name: 'user_type_id', type: 'select', options: [{ value: 1, text: 'Benefits Eligible Employees' }, { value: 2, text: 'Temp Employees' }, { value: 3, text: 'Independent Contractors / Partners' }] },
+      { label: 'User Type', name: 'user_type_id', type: 'select', endpoint: '/api/admin/team/user_types', value: 'id', text: 'text', sort: { key: 'text', order: 'asc' } },
       { label: 'Group', name: 'group_id', type: 'select', endpoint: '/api/admin/team/groups', value: 'id', text: 'title', sort: { key: 'title', order: 'asc' } },
       { label: 'Role', name: 'role_id', type: 'select', endpoint: '/api/admin/team/roles', value: 'id', text: 'title', sort: { key: 'title', order: 'asc' } },
       { label: 'App', name: 'app_id', type: 'select', endpoint: '/api/admin/team/apps', value: 'id', text: 'title', sort: { key: 'title', order: 'asc' }, format: AppToken },
