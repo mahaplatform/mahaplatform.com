@@ -1,26 +1,34 @@
 import SortableList from '../../sortable_list'
+import ModalPanel from '../../modal_panel'
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import React from 'react'
 import qs from 'qs'
 
 class Export extends React.Component {
 
+  static contextTypes = {
+    modal: PropTypes.object
+  }
+
+  static propTypes = {
+    endpoint: PropTypes.string,
+    entity: PropTypes.string,
+    filter: PropTypes.object,
+    sort: PropTypes.string,
+    token: PropTypes.string
+  }
+
   state = {
     items: []
   }
 
+  _handleDone = this._handleDone.bind(this)
+
   render() {
     return (
-      <div className="maha-collection-tasks-panel">
-        <div className="maha-collection-tasks-panel-header">
-          <div className="maha-collection-tasks-panel-header-icon" onClick={ this._handleDone.bind(this) }>
-            <i className="fa fa-chevron-left" />
-          </div>
-          <div className="maha-collection-tasks-panel-header-title">
-            Export Results
-          </div>
-          <div className="maha-collection-tasks-panel-header-icon" />
-        </div>
+      <ModalPanel { ...this._getPanel() }>
         <div className="maha-collection-tasks-panel-body">
           <SortableList { ...this._getSortableList() } />
         </div>
@@ -36,8 +44,17 @@ class Export extends React.Component {
             </div>
           </div>
         </div>
-      </div>
+      </ModalPanel>
     )
+  }
+
+  _getPanel() {
+    return {
+      title: 'Export Results',
+      leftItems: [
+        { label: 'Cancel', handler: this._handleDone }
+      ]
+    }
   }
 
   _getSortableList() {
@@ -63,12 +80,17 @@ class Export extends React.Component {
     const enclosure = encodeURIComponent('"')
     const url = `${endpoint}.${extension}?$page[limit]=0&enclosure=${enclosure}&filename=${entities}&token=${token}&download=true&${qs.stringify(query)}`
     window.location.href = url
+    this._handleDone()
   }
 
   _handleDone() {
-    this.props.onDone()
+    this.context.modal.pop()
   }
 
 }
 
-export default Export
+const mapStateToProps = (state, props) => ({
+  token: props.token || (state.maha.admin.team ? state.maha.admin.team.token : null)
+})
+
+export default connect(mapStateToProps)(Export)

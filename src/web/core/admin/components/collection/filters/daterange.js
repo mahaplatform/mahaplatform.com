@@ -1,7 +1,8 @@
+import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
-import React from 'react'
-import Search from '../search'
+import Search from '../../search'
 import moment from 'moment'
+import React from 'react'
 import _ from 'lodash'
 
 class DaterangePanel extends React.Component {
@@ -22,26 +23,30 @@ class DaterangePanel extends React.Component {
   render() {
     const { label } = this.props
     return (
-      <div className="maha-filters-panel">
-        <div className="maha-filters-header" onClick={ this._handleRemovePanel.bind(this) }>
-          <div className="maha-filters-header-icon">
-            <i className="fa fa-chevron-left" />
+      <ModalPanel { ...this._getPanel() }>
+        <div className="maha-filters-panel">
+          <div className="maha-filters-body">
+            <Search { ...this._getSearch() } />
           </div>
-          <div className="maha-filters-header-title">
-            { label }
+          <div className="maha-filters-footer">
+            <button className="ui red fluid button" onClick={ this._handleReset.bind(this) }>
+              Reset { label }
+            </button>
           </div>
-          <div className="maha-filters-header-icon" />
         </div>
-        <div className="maha-filters-body">
-          <Search { ...this._getSearch() } />
-        </div>
-        <div className="maha-filters-footer">
-          <button className="ui red fluid button" onClick={ this._handleReset.bind(this) }>
-            Reset { label }
-          </button>
-        </div>
-      </div>
+      </ModalPanel>
     )
+  }
+
+  _getPanel() {
+    const { label } = this.props
+    return {
+      title: label,
+      color: 'lightgrey',
+      leftItems: [
+        { icon: 'chevron-left', handler: this._handleRemovePanel.bind(this) }
+      ]
+    }
   }
 
   _getSearch() {

@@ -1,7 +1,6 @@
 const INITIAL_STATE = {
-  columns: [],
   filter: {},
-  managing: false,
+  filtering: false,
   open: false,
   panel: null,
   q: '',
@@ -13,110 +12,80 @@ const INITIAL_STATE = {
   }
 }
 
-const setParams = (state, action) => ({
-  ...state,
-  filter: action.filter,
-  sort: action.sort
-})
-
-const setColumns = (state, action) => ({
-  ...state,
-  columns: action.columns
-})
-
-const setSelected = (state, action) => ({
-  ...state,
-  selected: action.selected
-})
-
-const filter = (state, action) => ({
-  ...state,
-  filter: action.filter
-})
-
-const sort = (state, action) => ({
-  ...state,
-  sort: {
-    key: action.key,
-    order: (state.sort.key == action.key && state.sort.order == 'asc') ? 'desc' : 'asc'
-  }
-})
-
-const setRecords = (state, action) => ({
-  ...state,
-  records: action.records
-})
-
-const setFilter = (state, action) => ({
-  ...state,
-  filter: action.filter
-})
-
-const setQuery = (state, action) => ({
-  ...state,
-  q: action.q
-})
-
-const toggleTasks = (state, action) => ({
-  ...state,
-  managing: !state.managing
-})
-
-const addPanel = (state, action) => ({
-  ...state,
-  open: true,
-  panel: action.panel
-})
-
-const removePanel = (state, action) => ({
-  ...state,
-  open: false
-})
-
-const clearPanel = (state, action) => ({
-  ...state,
-  panel: null
-})
-
 const reducer = (state = INITIAL_STATE, action)=> {
 
   switch (action.type) {
 
   case 'SET_PARAMS':
-    return setParams(state, action)
-
-  case 'SET_COLUMNS':
-    return setColumns(state, action)
+    return {
+      ...state,
+      filter: action.filter,
+      sort: action.sort
+    }
 
   case 'SET_SELECTED':
-    return setSelected(state, action)
+    return {
+      ...state,
+      selected: action.selected
+    }
 
   case 'FILTER':
-    return filter(state, action)
+    return {
+      ...state,
+      filter: action.filter
+    }
 
   case 'SORT':
-    return sort(state, action)
+    return {
+      ...state,
+      sort: {
+        key: action.key,
+        order: (state.sort.key == action.key && state.sort.order == 'asc') ? 'desc' : 'asc'
+      }
+    }
 
   case 'SET_RECORDS':
-    return setRecords(state, action)
+    return {
+      ...state,
+      records: action.records
+    }
 
   case 'SET_FILTER':
-    return setFilter(state, action)
+    return {
+      ...state,
+      filter: action.filter
+    }
 
   case 'SET_QUERY':
-    return setQuery(state, action)
+    return {
+      ...state,
+      q: action.q
+    }
 
-  case 'TOGGLE_TASKS':
-    return toggleTasks(state, action)
+  case 'TOGGLE_FILTER':
+    return {
+      ...state,
+      filtering: !state.filtering
+    }
 
   case 'ADD_PANEL':
-    return addPanel(state, action)
+    return {
+      ...state,
+      open: true,
+      panel: action.panel
+    }
 
   case 'REMOVE_PANEL':
-    return removePanel(state, action)
+    return {
+      ...state,
+      open: false
+    }
 
   case 'CLEAR_PANEL':
-    return clearPanel(state, action)
+    return {
+      ...state,
+      panel: null
+    }
 
   default:
     return state

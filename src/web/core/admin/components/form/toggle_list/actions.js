@@ -18,16 +18,6 @@ export const setQuery = (query)=> ({
   query
 })
 
-export const setFilter = (filter) => ({
-  type: 'SET_FILTER',
-  filter
-})
-
-export const toggleFilter = (id) => ({
-  type: 'TOGGLE_FILTER',
-  id
-})
-
 export const toggleRecord = (multiple, record) => ({
   type: 'TOGGLE_RECORD',
   multiple,

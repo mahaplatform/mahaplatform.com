@@ -1,19 +1,32 @@
 import { DragSource, DropTarget } from 'react-dnd'
 import { findDOMNode } from 'react-dom'
+import PropTypes from 'prop-types'
 import React from 'react'
 
 class Item extends React.Component {
+
+  static propTypes = {
+    checked: PropTypes.bool,
+    index: PropTypes.number,
+    label: PropTypes.string,
+    connectDragPreview: PropTypes.func,
+    connectDragSource: PropTypes.func,
+    connectDropTarget: PropTypes.func,
+    onToggle: PropTypes.func
+  }
 
   render() {
     const { label, connectDropTarget, connectDragPreview, connectDragSource } = this.props
     return connectDragSource(connectDropTarget(connectDragPreview(
       <div className={ this._getClass() }>
-        <div className="maha-sortable-list-label" onClick={ this._handleToggle.bind(this) }>
-          <i className={`fa fa-fw fa-${this._getIcon()}`} />
-          { label }
-        </div>
         <div className="maha-sortable-list-icon">
           <i className="fa fa-bars" />
+        </div>
+        <div className="maha-sortable-list-label">
+          { label }
+        </div>
+        <div className="maha-sortable-list-icon" onClick={ this._handleToggle.bind(this) }>
+          <i className={`fa fa-fw fa-${this._getIcon()}`} />
         </div>
       </div>
     )))
@@ -27,7 +40,7 @@ class Item extends React.Component {
   }
 
   _getIcon() {
-    return this.props.checked ? 'check-square' : 'square-o'
+    return this.props.checked ? 'check-circle' : 'square-o'
   }
 
   _handleToggle() {

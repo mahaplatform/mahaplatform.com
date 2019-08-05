@@ -8,13 +8,8 @@
   table {
     width: 100%;
   }
-  .maha-table-pinned {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    z-index: 2;
-  }
+  .fa-caret-down,
+  .fa-caret-up,
   .fa-chevron,
   .fa-circle-o,
   .fa-check-circle {
@@ -47,6 +42,8 @@
       cursor: pointer;
       color: fadeout(@black, 50);
       border-right: 1px solid fadeout(@black, 90);
+      border-bottom: 1px solid fadeout(@black, 90);
+      line-height: 1.75em;
       &:last-child {
         border-right: none;
       }
@@ -56,12 +53,21 @@
       &.next {
         min-width: 2.8em !important;
       }
+      &.config {
+        padding: 0.8em 0;
+        min-width: 2.8em !important;
+      }
       i {
         margin: 0;
       }
-      .fa-chevron-up, .fa-chevron-down {
+      .fa-chevron-down,
+      .fa-ellipsis-v,
+      .fa-caret-up,
+      .fa-caret-down {
         position: absolute;
         right: 1em;
+        top: 50%;
+        transform: translateY(-50%);
         color: fadeout(@black, 50);
       }
     }
@@ -113,5 +119,32 @@
         display: none;
       }
     }
+  }
+}
+.maha-table-columns {
+  position: absolute;
+  top: 3em;
+  right: 0;
+  min-width: 250px;
+  background-color: @white;
+  border: 1px solid fadeout(@black, 95);
+  z-index: 2;
+  font-weight: normal;
+}
+.maha-table-column {
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.maha-table-column-label {
+  padding: 0.8em;
+  flex: 1;
+}
+.maha-table-column-icon {
+  padding: 0.8em 0.8em 0.8em 0;
+  .fa-check, .fa-lock {
+    color: @green;
   }
 }

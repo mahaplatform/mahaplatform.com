@@ -1,3 +1,4 @@
+import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
 import Lookup from './lookup'
 import Select from './select'
@@ -19,23 +20,11 @@ class Overview extends React.Component {
   }
 
   render() {
-    const { filters, onDone } = this.props
+    const { filters } = this.props
     return (
-      <div className="maha-filters-panel">
-        <div className="maha-filters-header">
-          { onDone ?
-            <div className="maha-filters-header-icon" onClick={ this._handleDone.bind(this) }>
-              <i className="fa fa-chevron-left" />
-            </div> :
-            <div className="maha-filters-header-icon" />
-          }
-          <div className="maha-filters-header-title">
-            Filter Results
-          </div>
-          <div className="maha-filters-header-icon" />
-        </div>
-        <div className="maha-filters-body">
-          <div className="maha-filters-overview">
+      <ModalPanel { ...this._getPanel() }>
+        <div className="maha-filters-panel">
+          <div className="maha-filters-body">
             { filters.map((filter, index) => {
               if(filter.type === 'toggle') return <Toggle {...this._getToggle(filter) } key={`filter_${index}`} />
               if(filter.type === 'lookup') return <Lookup {...this._getLookup(filter) } key={`filter_${index}`} />
@@ -43,14 +32,21 @@ class Overview extends React.Component {
               if(filter.type === 'daterange') return <Daterange {...this._getDaterange(filter) } key={`filter_${index}`} />
             })}
           </div>
+          <div className="maha-filters-footer">
+            <button className="ui red fluid button" onClick={ this._handleReset.bind(this) }>
+              Reset Filters
+            </button>
+          </div>
         </div>
-        <div className="maha-filters-footer">
-          <button className="ui red fluid button" onClick={ this._handleReset.bind(this) }>
-            Reset Filters
-          </button>
-        </div>
-      </div>
+      </ModalPanel>
     )
+  }
+
+  _getPanel() {
+    return {
+      title: 'Filter Results',
+      color: 'lightgrey'
+    }
   }
 
   _getToggle(filter) {

@@ -2,30 +2,29 @@
   flex: 1;
   position: relative;
   overflow:hidden;
-}
-.maha-filters-panel {
-  background-color: lighten(@black, 97);
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  &.slide-enter, &.slide-exit {
-  	.transition(transform .5s ease-in-out 0s);
+  .maha-modal-panel {
+    background-color: lighten(@black, 97);
   }
-  &.slide-exit.slide-exit-active, &.slide-enter {
-  	.translateX(100%);
+  .maha-modal-panel-header {
+    flex: none;
   }
-  &.slide-enter.slide-enter-active, &.slide-exit {
-  	.translateX(0);
+  .maha-modal-panel-header-title {
+    padding: 0.65em 0;
   }
-}
-.maha-filters-header {
-  background-color: fadeout(@black, 95);
-  text-align: center;
-  display: flex;
+  .maha-modal-panel-header-navigation-item {
+    padding: 0.65em 0.8em;
+  }
+  .maha-modal-panel {
+    &.slide-enter, &.slide-exit {
+    	.transition(transform .25s ease-in-out 0s);
+    }
+    &.slide-exit.slide-exit-active, &.slide-enter {
+    	.translateX(100%);
+    }
+    &.slide-enter.slide-enter-active, &.slide-exit {
+    	.translateX(0);
+    }
+  }
 }
 .maha-filters-item-description {
   flex: 0 0 2em;
@@ -43,35 +42,18 @@
     line-height: 2em;
   }
 }
-.maha-filters-header-icon {
-  flex: 0 0 3em;
-  display: flex;
-  color: fadeout(@black, 80);
-  cursor: pointer;
-  i {
-    margin: auto;
-  }
-}
-.maha-filters-header-title {
+.maha-filters-panel {
   flex: 1;
-  padding: 0.8em 0;
-  color: fadeout(@black, 50)
+  display: flex;
+  flex-direction: column;
 }
 .maha-filters-body {
   flex: 1;
   display: flex;
   flex-direction: column;
-  .maha-search-header,
-  .maha-searchbox-input {
-    background-color: fadeout(@black, 95);
+  .maha-search-header {
+    border-bottom: 1px solid fadeout(@black, 95);
   }
-  .maha-searchbox {
-    padding-top: 0;
-  }
-}
-.maha-filters-overview {
-  flex: 1;
-  .scrollable();
 }
 .maha-filters-footer {
   .hover(background-color, fadeout(@black, 90));
@@ -81,10 +63,11 @@
   color: fadeout(@black, 50);
 }
 .maha-filters-item {
-  .hover(background-color, fadeout(@black, 95));
+  .hover(background-color, fadeout(@black, 97));
   display: flex;
-  line-height: 1.57em;
+  line-height: 1.6em;
   cursor: pointer;
+  border-bottom: 1px solid fadeout(@black, 95);
 }
 .maha-filters-item-content {
   flex: 1;

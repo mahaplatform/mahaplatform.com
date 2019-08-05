@@ -1,6 +1,8 @@
+import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
+import Search from '../../search'
 import React from 'react'
-import Search from '../search'
+import _ from 'lodash'
 
 class SelectPanel extends React.Component {
 
@@ -24,26 +26,30 @@ class SelectPanel extends React.Component {
   render() {
     const { label } = this.props
     return (
-      <div className="maha-filters-panel">
-        <div className="maha-filters-header" onClick={ this._handleRemovePanel.bind(this) }>
-          <div className="maha-filters-header-icon">
-            <i className="fa fa-chevron-left" />
+      <ModalPanel { ...this._getPanel() }>
+        <div className="maha-filters-panel">
+          <div className="maha-filters-body">
+            <Search { ...this._getSearch() } />
           </div>
-          <div className="maha-filters-header-title">
-            { label }
+          <div className="maha-filters-footer">
+            <button className="ui red fluid button" onClick={ this._handleReset.bind(this) }>
+              Reset { label }
+            </button>
           </div>
-          <div className="maha-filters-header-icon" />
         </div>
-        <div className="maha-filters-body">
-          <Search { ...this._getSearch() } />
-        </div>
-        <div className="maha-filters-footer">
-          <button className="ui red fluid button" onClick={ this._handleReset.bind(this) }>
-            Reset { label }
-          </button>
-        </div>
-      </div>
+      </ModalPanel>
     )
+  }
+
+  _getPanel() {
+    const { label } = this.props
+    return {
+      title: label,
+      color: 'lightgrey',
+      leftItems: [
+        { icon: 'chevron-left', handler: this._handleRemovePanel.bind(this) }
+      ]
+    }
   }
 
   _getSearch() {
@@ -79,8 +85,8 @@ class Select extends React.Component {
   }
 
   render() {
-    const { label, name, results } = this.props
-    const count = results[name] ? results[name].length : 0
+    const { label } = this.props
+    const count = this._getCount()
     return (
       <div className="maha-filters-item" onClick={ this._handleClick.bind(this) }>
         <div className="maha-filters-item-title">
@@ -96,6 +102,13 @@ class Select extends React.Component {
         </div>
       </div>
     )
+  }
+
+  _getCount() {
+    const { name, results } = this.props
+    const result = results[name]
+    if(_.isNil(result)) return 0
+    return _.isArray(result) ? result.length : 1
   }
 
   _handleClick() {

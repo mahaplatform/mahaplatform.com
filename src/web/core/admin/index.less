@@ -12,11 +12,11 @@
 @pink: #E03997;
 @brown: #A5673F;
 @black: #000000;
-@grey: #767676;
 @white: #FFFFFF;
-@lightgrey: #DDD;
-@mediumgrey: #AAA;
-@darkgrey: #444444;
+@grey: fadeout(@black, 40);
+@darkgrey: fadeout(@black, 30);
+@mediumgrey: fadeout(@black, 50);
+@lightgrey: fadeout(@black, 60);
 @lightblue: #85B7D9;
 @primary_background_color: @black;
 @primary_color: @white;
@@ -59,7 +59,9 @@
 @import './components/carousel/style.less';
 @import './components/chooser/style.less';
 @import './components/collection/export/style.less';
+@import './components/collection/filters/style.less';
 @import './components/collection/style.less';
+@import './components/collection/table/style.less';
 @import './components/comments/comment/style.less';
 @import './components/comments/style.less';
 @import './components/composer/style.less';
@@ -70,7 +72,6 @@
 @import './components/emojis/style.less';
 @import './components/feed/style.less';
 @import './components/fields/style.less';
-@import './components/filters/style.less';
 @import './components/flash/style.less';
 @import './components/form/assignmentfield/style.less';
 @import './components/form/attachmentfield/style.less';
@@ -132,7 +133,6 @@
 @import './components/stack/style.less';
 @import './components/stars/star/style.less';
 @import './components/stars/starred/style.less';
-@import './components/table/style.less';
 @import './components/tabs/style.less';
 @import './components/tasks/style.less';
 @import './components/tooltip/style.less';

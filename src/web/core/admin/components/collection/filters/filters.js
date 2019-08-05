@@ -26,7 +26,7 @@ class Filters extends React.Component {
         <Overview { ...this._getOverview() } />
         <TransitionGroup>
           { panels.map((panel, index) => (
-            <CSSTransition key={ `filter_panel_${index}` } classNames="slide" timeout={ 500 }>
+            <CSSTransition key={ `filter_panel_${index}` } classNames="slide" timeout={ 250 }>
               { React.cloneElement(panel, { ...this._getPanel(), key: `filter_panel_${index}` }) }
             </CSSTransition>
           ))}

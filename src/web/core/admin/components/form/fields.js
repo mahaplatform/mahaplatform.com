@@ -8,7 +8,6 @@ class Fields extends React.Component {
     frame: PropTypes.any,
     onBusy: PropTypes.func,
     onReady: PropTypes.func,
-    onScrollTo: PropTypes.func,
     onUpdateData: PropTypes.func
   }
 
@@ -36,12 +35,11 @@ class Fields extends React.Component {
   }
 
   _getField(field) {
-    const { onBusy, onReady, onScrollTo, onUpdateData } = this.props
+    const { onBusy, onReady, onUpdateData } = this.props
     return {
       ...field,
       onBusy,
       onReady,
-      onScrollTo,
       onUpdateData
     }
 

@@ -1,6 +1,5 @@
 import { CSSTransition } from 'react-transition-group'
 import PropTypes from 'prop-types'
-import Columns from './columns'
 import Filters from '../filters'
 import Export from './export'
 import Button from '../button'
@@ -17,7 +16,6 @@ class Tasks extends React.Component {
       PropTypes.element,
       PropTypes.func
     ]),
-    table: PropTypes.array,
     tasks: PropTypes.array,
     onClearPanel: PropTypes.func,
     onAddPanel: PropTypes.func,
@@ -26,7 +24,7 @@ class Tasks extends React.Component {
   }
 
   render() {
-    const { filters, open, panel, table, tasks } = this.props
+    const { filters, open, panel, tasks } = this.props
     return (
       <div className="maha-collection-tasks">
         <div className="maha-collection-tasks-inner">
@@ -42,11 +40,6 @@ class Tasks extends React.Component {
                 </div>
               </div>
               <div className="maha-collection-tasks-panel-body">
-                { table &&
-                  <div className="maha-collection-tasks-panel-item" onClick={ this._handleColumns.bind(this) }>
-                    <i className="fa fa-fw fa-table" />Manage Columns
-                  </div>
-                }
                 { filters &&
                   <div className="maha-collection-tasks-panel-item mobile" onClick={ this._handleFilter.bind(this) }>
                     <i className="fa fa-fw fa-filter" />Filter Records
@@ -112,19 +105,6 @@ class Tasks extends React.Component {
 
   _handleToggleTasks() {
     this.props.onToggleTasks()
-  }
-
-  _handleColumns() {
-    this.props.onAddPanel((props) => {
-      const { table, columns, onSetColumns } = props
-      return React.createElement(Columns, {
-        table,
-        columns,
-        onSetColumns,
-        onDone: () => this.props.onRemovePanel()
-      })
-    })
-
   }
 
   _handleFilter() {

@@ -16,17 +16,29 @@
   &.hidden {
     opacity: 0;
   }
+  .maha-sortable-list-icon:first-child {
+    cursor: grab;
+  }
+  .maha-sortable-list-icon:last-child {
+    cursor: pointer;
+  }
 }
 .maha-sortable-list-label {
-  padding: 1em;
+  padding: 0.8em 0;
   flex: 1;
-  cursor: pointer;
   i {
     margin-right: 0.5em;
   }
 }
 .maha-sortable-list-icon {
-  padding: 1em;
-  flex: 0 0 2em;
-  cursor: grab;
+  padding: 0.8em;
+  .fa {
+    font-size: 1.2em;
+  }
+  .fa-circle-o {
+    color: fadeout(@black, 80);
+  }
+  .fa-check-circle {
+    color: @blue;
+  }
 }

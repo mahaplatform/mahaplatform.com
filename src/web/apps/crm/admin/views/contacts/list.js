@@ -15,8 +15,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/crm/contacts',
     table: [
       { label: 'Name', key: 'display_name', primary: true, format: ContactToken },
-      { label: 'Email', key: 'email', primary: false },
-      { label: 'Phone', key: 'phone', primary: false }
+      { label: 'Email', key: 'email' },
+      { label: 'Phone', key: 'phone', visible: false }
     ],
     filters: [
       { label: 'Tags', name: 'crm_taggings.tag_id', type: 'select', multiple: true, endpoint: '/api/admin/crm/tags', value: 'id', text: 'text' }

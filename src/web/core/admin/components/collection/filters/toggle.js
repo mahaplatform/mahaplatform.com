@@ -1,4 +1,4 @@
-import Format from '../format'
+import Format from '../../format'
 import PropTypes from 'prop-types'
 import React from 'react'
 

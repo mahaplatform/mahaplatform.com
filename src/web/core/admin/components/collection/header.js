@@ -1,46 +1,85 @@
-import React from 'react'
-import PropTypes from 'prop-types'
 import Searchbox from '../searchbox'
+import PropTypes from 'prop-types'
+import Export from './export'
+import React from 'react'
 
 class Header extends React.Component {
 
+  static contextTypes = {
+    modal: PropTypes.object
+  }
+
   static propTypes = {
+    endpoint: PropTypes.string,
+    entity: PropTypes.string,
     export: PropTypes.array,
     filters: PropTypes.array,
     filter: PropTypes.object,
     managing: PropTypes.bool,
     search: PropTypes.bool,
+    sort: PropTypes.object,
     tasks: PropTypes.array,
+    onRefresh: PropTypes.func,
     onSetQuery: PropTypes.func,
-    onToggleTasks: PropTypes.func
+    onToggleFilter: PropTypes.func
   }
 
+  _handleExport = this._handleExport.bind(this)
+  _handleRefresh = this._handleRefresh.bind(this)
+  _handleToggleFilter = this._handleToggleFilter.bind(this)
+
   render() {
-    const { filters, filter, search, tasks } = this.props
+    const { filters, managing, search, tasks } = this.props
     if(!filters && !this.props.export && !search && !tasks) return null
-    // const count = Object.keys(filter).reduce((count, key) => {
-    //   if(filter[key].$eq) return count + 1
-    //   if(filter[key].$in) return count + filter[key].$in.length
-    //   return count
-    // }, 0)
     return (
       <div className="maha-collection-header">
-        { search && <Searchbox { ...this._getSearchbox() } /> }
+        <div className="maha-collection-header-bar">
+          <div className="maha-collection-header-action" onClick={ this._handleToggleFilter }>
+            { managing ?
+              <i className="fa fa-times" /> :
+              <i className="fa fa-filter" />
+            }
+          </div>
+          { search && <Searchbox { ...this._getSearchbox() } /> }
+          <div className="maha-collection-header-action" onClick={ this._handleExport }>
+            <i className="fa fa-download" />
+          </div>
+          <div className="maha-collection-header-action" onClick={ this._handleRefresh }>
+            <i className="fa fa-refresh" />
+          </div>
+        </div>
       </div>
     )
   }
 
   _getSearchbox() {
-    const { filters, managing, tasks, onSetQuery } = this.props
-    return { 
-      icon: (filters || this.props.export || tasks) ? (managing ? 'times' : 'sliders') : null,
-      onIcon: this._handleToggleTasks.bind(this),
+    const { onSetQuery } = this.props
+    return {
       onChange: onSetQuery
     }
   }
 
-  _handleToggleTasks() {
-    this.props.onToggleTasks()
+  _getExport() {
+    const { endpoint, entity, filter, sort } = this.props
+    return {
+      defaultValue: this.props.export,
+      endpoint,
+      entity,
+      filter,
+      sort: sort.key ? (sort.order === 'desc' ? '-' : '') + sort.key : null
+    }
+  }
+
+  _handleExport() {
+    this.context.modal.push(<Export { ...this._getExport() } />)
+  }
+
+  _handleRefresh() {
+    this.props.onRefresh()
+  }
+
+  _handleToggleFilter() {
+    this.props.onToggleFilter()
   }
 
 }

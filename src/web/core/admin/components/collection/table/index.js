@@ -1,4 +1,4 @@
-import Format from '../format'
+import Format from '../../format'
 import PropTypes from 'prop-types'
 import _ from 'lodash'
 import React from 'react'
@@ -33,59 +33,56 @@ class Table extends React.Component {
     onSelectAll: () => {}
   }
 
-  head = null
-
   state = {
-    widths: []
+    columns: [],
+    config: false
   }
 
-  _handleResize = _.debounce(this._handleResize, 100)
+  _handleToggleConfig = this._handleToggleConfig.bind(this)
+  _handleSelectAll = this._handleSelectAll.bind(this)
 
   render(){
-    const { columns, link, records, recordTasks, selectable, selected, selectAll, sort } = this.props
+    const { link, records, recordTasks, selectable, selected, selectAll, sort } = this.props
+    const { columns, config } = this.state
     return (
       <div className="maha-table">
-        <table className="maha-table-pinned">
+        <table className="maha-table-data">
           <thead>
             <tr>
               { selectable &&
-                <td className="maha-table-check-cell" onClick={ this._handleSelectAll.bind(this) }>
-                  { selectAll ? <i className="fa fa-fw fa-check-circle" /> : <i className="fa fa-fw fa-circle-o" /> }
+                <td className="maha-table-check-cell" onClick={ this._handleSelectAll }>
+                  { selectAll ? <i className="fa fa-check-circle" /> : <i className="fa fa-circle-o" /> }
                 </td>
               }
               { columns.filter(column => column.visible !== false).map((column, columnIndex) => (
-                <td key={`header-${columnIndex}`} className={ this._getHeaderClass(column) } style={ this._getHeadStyle(columnIndex + (selectable ? 1 : 0)) } onClick={ this._handleSort.bind(this, column) }>
+                <td key={`header-${columnIndex}`} className={ this._getHeaderClass(column) } onClick={ this._handleSort.bind(this, column) }>
                   { column.label }
                   { sort && (column.key === sort.key || column.sort === sort.key) &&
-                    (sort.order === 'asc' ? <i className="fa fa-fw fa-chevron-up" /> : <i className="fa fa-fw fa-chevron-down" />)
+                    (sort.order === 'asc' ? <i className="fa fa-caret-up" /> : <i className="fa fa-caret-down" />)
                   }
                 </td>
               ))}
-              { (link || recordTasks) &&
-                <td className="maha-table-head-cell mobile collapsing next" style={ this._getHeadStyle() } />
+              { recordTasks &&
+                <td className="maha-table-head-cell mobile collapsing next" />
               }
-            </tr>
-          </thead>
-        </table>
-        <table className="maha-table-data">
-          <thead>
-            <tr ref={ (node) => this.head = node }>
-              { selectable &&
-                <td className="maha-table-check-cell" onClick={ this._handleSelectAll.bind(this) }>
-                  { selectAll ? <i className="fa fa-fw fa-check-circle" /> : <i className="fa fa-fw fa-circle-o" /> }
-                </td>
-              }
-              { columns.filter(column => column.visible !== false).map((column, columnIndex) => (
-                <td key={`header-${columnIndex}`} className={ this._getHeaderClass(column) } style={ this._getHeadStyle(columnIndex + (selectable ? 1 : 0)) } onClick={ this._handleSort.bind(this, column) }>
-                  { column.label }
-                  { sort && (column.key === sort.key || column.sort === sort.key) &&
-                    (sort.order === 'asc' ? <i className="fa fa-fw fa-chevron-up" /> : <i className="fa fa-fw fa-chevron-down" />)
-                  }
-                </td>
-              ))}
-              { (link || recordTasks) &&
-                <td className="maha-table-head-cell mobile collapsing next" style={ this._getHeadStyle() } />
-              }
+              <td className="maha-table-head-cell mobile config" onClick={ this._handleToggleConfig }>
+                <i className="fa fa-chevron-down" />
+                { config &&
+                  <div className="maha-table-columns" onMouseLeave={ this._handleToggleConfig }>
+                    { columns.map((column, index) => (
+                      <div className="maha-table-column" key={`column_${index}`} onClick={ this._handleToggleColumn.bind(this, column) }>
+                        <div className="maha-table-column-label">
+                          { column.label }
+                        </div>
+                        <div className="maha-table-column-icon">
+                          { column.visible && !column.primary && <i className="fa fa-fw fa-check" /> }
+                          { column.primary && <i className="fa fa-fw fa-lock" /> }
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                }
+              </td>
             </tr>
           </thead>
           <tbody>
@@ -93,7 +90,7 @@ class Table extends React.Component {
               <tr key={ `record_${rowIndex}` } className={ this._getBodyRowClass(record) }>
                 { selectable &&
                   <td key={`cell_${rowIndex}_select`} className="maha-table-check-cell" onClick={ this._handleSelect.bind(this, record.id) }>
-                    { _.includes(selected, record.id) ? <i className="fa fa-fw fa-check-circle" /> : <i className="fa fa-fw fa-circle-o" /> }
+                    { _.includes(selected, record.id) ? <i className="fa fa-check-circle" /> : <i className="fa fa-circle-o" /> }
                   </td>
                 }
                 { columns.filter(column => column.visible !== false).map((column, columnIndex) => (
@@ -103,14 +100,12 @@ class Table extends React.Component {
                 )) }
                 { recordTasks &&
                   <td className="icon mobile collapsing centered" onClick={ this._handleTasks.bind(this, record) }>
-                    <i className="fa fa-fw fa-ellipsis-v" />
+                    <i className="fa fa-ellipsis-v" />
                   </td>
                 }
-                { link &&
-                  <td className="maha-table-body-cell icon mobile collapsing centered">
-                    <i className="fa fa-fw fa-chevron-right" />
-                  </td>
-                }
+                <td className="maha-table-body-cell icon mobile collapsing centered">
+                  { link && <i className="fa fa-chevron-right" /> }
+                </td>
               </tr>
             ))}
           </tbody>
@@ -119,18 +114,14 @@ class Table extends React.Component {
     )
   }
 
-  componentDidMount(){
-    setTimeout(() => this._handleResize(), 250)
-    window.addEventListener('resize', this._handleResize.bind(this))
-  }
-
-  componentDidUpdate(prevProps) {
+  componentDidMount() {
     const { columns } = this.props
-    if(!_.isEqual(prevProps.columns, columns)) this._handleResize()
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this._handleResize.bind(this))
+    this.setState({
+      columns: columns.map(column => ({
+        ...column,
+        visible: column.primary === true || column.visible !== false
+      }))
+    })
   }
 
   _getHeaderClass(column) {
@@ -159,12 +150,6 @@ class Table extends React.Component {
     return classes.join(' ')
   }
 
-  _getHeadStyle(index){
-    const { widths } = this.state
-    const width = (typeof index !== 'undefined') ? widths[index] : widths[widths.length - 1]
-    return width ? { width: `${width}px` } : {}
-  }
-
   _handleClick(record, index) {
     const { link, modal, handler } = this.props
     if(link) return this._handleLink(record, index)
@@ -186,13 +171,6 @@ class Table extends React.Component {
     this.context.model.open(() => <this.props.modal record={ record } index={ index } />)
   }
 
-  _handleResize() {
-    if(!this.head) return
-    const headerCells = Array.from(this.head.childNodes)
-    const widths = headerCells.map((cell, index) => cell.offsetWidth)
-    this.setState({ widths })
-  }
-
   _handleSelect(id) {
     this.props.onSelect(id)
   }
@@ -210,6 +188,24 @@ class Table extends React.Component {
     const { recordTasks } = this.props
     const tasks = recordTasks(record)
     this.context.tasks.open(tasks)
+  }
+
+  _handleToggleConfig(e) {
+    const { config } = this.state
+    this.setState({
+      config: !config
+    })
+  }
+
+  _handleToggleColumn(c, e) {
+    const { columns } = this.state
+    this.setState({
+      columns: columns.map(column => ({
+        ...column,
+        visible: (column.key === c.key && column.primary !== true) ? !column.visible : column.visible
+      }))
+    })
+    e.stopPropagation()
   }
 
 }

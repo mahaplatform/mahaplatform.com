@@ -1,3 +1,4 @@
+import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -19,34 +20,38 @@ class LookupPanel extends React.Component {
     const { format, label, multiple, name, options, results } = this.props
     const value = results[name]
     return (
-      <div className="maha-filters-panel">
-        <div className="maha-filters-header" onClick={ this._handleRemovePanel.bind(this) }>
-          <div className="maha-filters-header-icon">
-            <i className="fa fa-chevron-left" />
-          </div>
-          <div className="maha-filters-header-title">
-            { label }
-          </div>
-          <div className="maha-filters-header-icon" />
-        </div>
-        <div className="maha-filters-body">
-          { options.map((option, index) => (
-            <div className="maha-filters-item" key={`filter_item_${index}`} onClick={ this._handleClick.bind(this, option.id) }>
-              <div className="maha-filters-item-content">
-                { React.createElement(format, { option }) }
+      <ModalPanel { ...this._getPanel() }>
+        <div className="maha-filters-panel">
+          <div className="maha-filters-body">
+            { options.map((option, index) => (
+              <div className="maha-filters-item" key={`filter_item_${index}`} onClick={ this._handleClick.bind(this, option.id) }>
+                <div className="maha-filters-item-content">
+                  { React.createElement(format, { option }) }
+                </div>
+                <div className="maha-filters-item-icon">
+                  { multiple && _.includes(value, option.id) && <i className="fa fa-check" /> }
+                  { !multiple && option.id === value && <i className="fa fa-check" /> }
+                </div>
               </div>
-              <div className="maha-filters-item-icon">
-                { multiple && _.includes(value, option.id) && <i className="fa fa-check" /> }
-                { !multiple && option.id === value && <i className="fa fa-check" /> }
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
+          <div className="maha-filters-footer" onClick={ this._handleReset.bind(this) }>
+            Reset { label }
+          </div>
         </div>
-        <div className="maha-filters-footer" onClick={ this._handleReset.bind(this) }>
-          Reset { label }
-        </div>
-      </div>
+      </ModalPanel>
     )
+  }
+
+  _getPanel() {
+    const { label } = this.props
+    return {
+      title: label,
+      color: 'lightgrey',
+      leftItems: [
+        { icon: 'chevron-left', handler: this._handleRemovePanel.bind(this) }
+      ]
+    }
   }
 
   _getValue(id) {

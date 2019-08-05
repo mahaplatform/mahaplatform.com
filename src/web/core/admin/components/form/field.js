@@ -24,11 +24,9 @@ class Field extends React.Component {
       PropTypes.string,
       PropTypes.func
     ]).isRequired,
-    scroll: PropTypes.bool,
     show: PropTypes.bool,
     onBusy: PropTypes.func,
     onReady: PropTypes.func,
-    onScrollTo: PropTypes.func,
     onUpdateData: PropTypes.func
   }
 
@@ -40,7 +38,6 @@ class Field extends React.Component {
     include: true,
     options: [],
     required: false,
-    scroll: true,
     show: true,
     onBusy: () => {},
     onReady: () => {},
@@ -68,13 +65,6 @@ class Field extends React.Component {
         { error && <div className="error-message">{ error }</div> }
       </div>
     )
-  }
-
-  componentDidUpdate(prevProps) {
-    const { scroll, data, name } = this.props
-    if(!_.isEqual(_.get(data, name), _.get(prevProps.data, name)) && scroll) {
-      setTimeout(this._handleScrollTo.bind(this), 150)
-    }
   }
 
   _getClass() {
@@ -120,11 +110,6 @@ class Field extends React.Component {
 
   _handleReady() {
     this.props.onReady(this.props.name)
-  }
-
-  _handleScrollTo() {
-    const bottom = this.control.offsetTop + this.control.offsetHeight
-    this.props.onScrollTo(bottom)
   }
 
   _handleUpdateData(value) {

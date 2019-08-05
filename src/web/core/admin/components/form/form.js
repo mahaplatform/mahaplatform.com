@@ -74,7 +74,6 @@ class Form extends React.Component {
   form = null
 
   _debouncedSubmit = _.debounce(this._handleSubmit.bind(this), 2500, { leading: true })
-  _handleScrollTo = this._handleScrollTo.bind(this)
 
   render() {
     const { after, before, config, instructions, panels, status } = this.props
@@ -185,7 +184,6 @@ class Form extends React.Component {
       data,
       errors,
       tabIndexStart,
-      onScrollTo: this._handleScrollTo.bind(this),
       onBusy: this._handleToggleBusy.bind(this),
       onReady: this._handleSetReady.bind(this),
       onSubmit: this._handleSubmit.bind(this),
@@ -259,10 +257,6 @@ class Form extends React.Component {
     onUpdateSections(sections)
   }
 
-  _handleScrollTo(bottom) {
-    if(bottom <= this.form.offsetHeight + this.form.scrollTop) return
-    this.form.scrollTop = bottom - this.form.offsetHeight + 16
-  }
 
 }
 

@@ -4,11 +4,6 @@ export const setParams = (filter, sort) => ({
   sort
 })
 
-export const setColumns = (columns) => ({
-  type: 'SET_COLUMNS',
-  columns
-})
-
 export const setSelected = (selected) => ({
   type: 'SET_SELECTED',
   selected
@@ -39,8 +34,8 @@ export const setQuery = (q) => ({
   q
 })
 
-export const toggleTasks = () => ({
-  type: 'TOGGLE_TASKS'
+export const toggleFilter = () => ({
+  type: 'TOGGLE_FILTER'
 })
 
 export const addPanel = (panel) => ({

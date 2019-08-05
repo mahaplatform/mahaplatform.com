@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import Message from '../message'
-import Table from '../table'
+import Table from './table'
 import React from 'react'
 import _ from 'lodash'
 
@@ -59,7 +59,8 @@ export class Results extends React.Component {
   }
 
   _getTable() {
-    const { columns, handler, link, modal, records, recordTasks, rowClass, selectAll, selectable, selected, sort, status, onLoadMore, onSelect, onSelectAll, onSort } = this.props
+    const { handler, link, modal, records, recordTasks, rowClass, table, selectAll, selectable, selected, sort, status, onLoadMore, onSelect, onSelectAll, onSort } = this.props
+    const columns = table
     return {
       columns,
       handler,

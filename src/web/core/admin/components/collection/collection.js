@@ -2,9 +2,9 @@ import { CSSTransition } from 'react-transition-group'
 import { Empty, Results } from './results'
 import Infinite from '../infinite'
 import PropTypes from 'prop-types'
+import Filters from './filters'
 import Buttons from '../buttons'
 import Header from './header'
-import Tasks from './tasks'
 import React from 'react'
 import _ from 'lodash'
 import qs from 'qs'
@@ -17,38 +17,24 @@ class Collection extends React.Component {
   }
 
   static propTypes = {
-    buttons: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.array
-    ]),
+    buttons: PropTypes.any,
     cacheKey: PropTypes.string,
-    columns: PropTypes.array,
     data: PropTypes.array,
     defaultSort: PropTypes.object,
     endpoint: PropTypes.string,
     entity: PropTypes.string,
-    empty: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.element,
-      PropTypes.string
-    ]),
+    empty: PropTypes.any,
     export: PropTypes.array,
-    failure: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.element
-    ]),
+    failure: PropTypes.any,
     filter: PropTypes.object,
+    filtering: PropTypes.bool,
     filters: PropTypes.array,
     footer: PropTypes.bool,
     handler: PropTypes.func,
     icon: PropTypes.string,
     layout: PropTypes.func,
-    loading: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.element
-    ]),
+    loading: PropTypes.any,
     link: PropTypes.func,
-    managing: PropTypes.bool,
     modal: PropTypes.string,
     new: PropTypes.func,
     open: PropTypes.bool,
@@ -70,13 +56,12 @@ class Collection extends React.Component {
     onRemovePanel: PropTypes.func,
     onSelect: PropTypes.func,
     onSelectAll: PropTypes.func,
-    onSetColumns: PropTypes.func,
     onSetFilter: PropTypes.func,
     onSetParams: PropTypes.func,
     onSetQuery: PropTypes.func,
     onSetSelected: PropTypes.func,
     onSetRecords: PropTypes.func,
-    onToggleTasks: PropTypes.func
+    onToggleFilter: PropTypes.func
   }
 
   static defaultProps = {
@@ -87,51 +72,76 @@ class Collection extends React.Component {
     selectable: false
   }
 
+  state = {
+    cacheKey: _.random(100000, 999999).toString(36)
+  }
+
+  _handleRefresh = this._handleRefresh.bind(this)
+
   render() {
-    const { buttons, endpoint, records, selected } = this.props
+    const { buttons, endpoint, filters, filtering, records, selected } = this.props
     return (
-      <div className={ this._getClass() }>
-        <div className="maha-collection-canvas" onClick={ this._handleToggleTasks.bind(this) } />
-        <Tasks { ...this._getTasks() } />
-        <div className="maha-collection-body">
+      <div className="maha-collection">
+        { filters && filtering &&
+          <div className="maha-collection-sidebar">
+            <Filters { ...this._getFilter() } />
+          </div>
+        }
+        <div className="maha-collection-main">
           <Header { ...this._getHeader() } />
-          { records && <Results { ...this._getResults() } /> }
-          { endpoint && <Infinite { ...this._getInfinite() } /> }
-          { buttons &&
-            <CSSTransition in={ selected.length > 0 } classNames="expanded" timeout={ 100 } mountOnEnter={ true } unmountOnExit={ true }>
-              <div className="maha-collection-footer">
-                <div className="maha-collection-footer-count">
-                  <i className="fa fa-fw fa-chevron-up" />
-                  <div className="count">
-                    { selected.length }
-                  </div>
-                </div>
-                <div className="maha-collection-footer-buttons">
-                  <Buttons { ...this._getButtons() } />
+          <div className="maha-collection-body">
+            { records && <Results { ...this._getResults() } /> }
+            { endpoint && <Infinite { ...this._getInfinite() } /> }
+          </div>
+        </div>
+        { buttons &&
+          <CSSTransition in={ selected.length > 0 } classNames="expanded" timeout={ 100 } mountOnEnter={ true } unmountOnExit={ true }>
+            <div className="maha-collection-footer">
+              <div className="maha-collection-footer-count">
+                <i className="fa fa-fw fa-chevron-up" />
+                <div className="count">
+                  { selected.length }
                 </div>
               </div>
-            </CSSTransition>
-          }
-        </div>
+              <div className="maha-collection-footer-buttons">
+                <Buttons { ...this._getButtons() } />
+              </div>
+            </div>
+          </CSSTransition>
+        }
       </div>
     )
   }
 
   componentDidMount() {
-    const { data, defaultSort, table, onSetParams, onSetColumns, onSetRecords } = this.props
+    const { data, defaultSort, onSetParams, onSetRecords } = this.props
     const filter = this._getFilterFromUrl() || this.props.filter || {}
     const sort = defaultSort || { key: 'created_at', order: 'desc' }
     onSetParams(filter, sort)
-    if(table) onSetColumns(table)
     if(data) onSetRecords(data)
   }
 
   componentDidUpdate(prevProps) {
-    const { filter } = this.props
+    const { cacheKey, filter } = this.props
     const { router } = this.context
+    if(cacheKey !== prevProps.cacheKey) {
+      this._handleRefresh()
+    }
     if(!_.isEqual(filter, prevProps.filter)) {
       const query = qs.stringify({ $filter: filter }, { encode: false })
       router.replace(router.pathname+'?'+query)
+    }
+  }
+
+  _getFilter() {
+    const { entity, filters, filter, onRemovePanel, onSetFilter } = this.props
+    const article = _.includes(['a','e','i','o'], entity[0]) ? 'an' : 'a'
+    return {
+      filters,
+      values: filter,
+      prompt: `Find ${article} ${entity}`,
+      onUpdate: onSetFilter,
+      onDone: onRemovePanel
     }
   }
 
@@ -143,23 +153,21 @@ class Collection extends React.Component {
     return query.$filter
   }
 
-  _getClass() {
-    const classes = ['maha-collection']
-    if(this.props.managing) classes.push('managing')
-    return classes.join(' ')
-  }
-
   _getHeader() {
-    const { filter, filters, managing, search, tasks, onSetQuery, onToggleTasks } = this.props
+    const { endpoint, entity, filter, filters, filtering, search, sort, tasks, onSetQuery, onToggleFilter } = this.props
     return {
+      endpoint,
+      entity,
       export: this.props.export,
       filter,
       filters,
-      managing,
+      filtering,
       search,
+      sort,
       tasks,
       onSetQuery,
-      onToggleTasks
+      onToggleFilter,
+      onRefresh: this._handleRefresh
     }
   }
 
@@ -170,10 +178,6 @@ class Collection extends React.Component {
     }
   }
 
-  _getTasks() {
-    return this.props
-  }
-
   _getResults() {
     return {
       ...this.props
@@ -181,7 +185,8 @@ class Collection extends React.Component {
   }
 
   _getInfinite() {
-    const { cacheKey, endpoint, failure, loading, q, sort, onSetSelected } = this.props
+    const { endpoint, failure, loading, q, sort, onSetSelected } = this.props
+    const { cacheKey } = this.state
     const filter = {
       ...this.props.filter,
       q
@@ -205,8 +210,10 @@ class Collection extends React.Component {
     return <Empty { ...this.props } />
   }
 
-  _handleToggleTasks() {
-    this.props.onToggleTasks()
+  _handleRefresh() {
+    this.setState({
+      cacheKey: _.random(100000, 999999).toString(36)
+    })
   }
 
   _handleAddNew() {

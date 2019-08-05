@@ -1,7 +1,6 @@
 import Token from '../../../tokens/token'
 import Searchbox from '../../searchbox'
 import Infinite from '../../infinite'
-import Filters from '../../filters'
 import PropTypes from 'prop-types'
 import Result from './results'
 import React from 'react'
@@ -11,12 +10,9 @@ class ToggleList extends React.Component{
 
   static propTypes = {
     chosen: PropTypes.any,
-    defaultFilters: PropTypes.object,
     defaultValue: PropTypes.array,
     endpoint: PropTypes.string,
     exclude_ids: PropTypes.array,
-    filtering: PropTypes.bool,
-    filters: PropTypes.array,
     full: PropTypes.bool,
     format: PropTypes.any,
     multiple: PropTypes.bool,
@@ -28,14 +24,11 @@ class ToggleList extends React.Component{
     onReady: PropTypes.func,
     onChange: PropTypes.func,
     onSetChosen: PropTypes.func,
-    onSetFilter: PropTypes.func,
     onSetQuery: PropTypes.func,
-    onToggleFilter: PropTypes.func,
     onToggleRecord: PropTypes.func
   }
 
   static defaultProps = {
-    defaultFilters: {},
     exclude_ids: [],
     format: Token,
     full: false,
@@ -47,15 +40,9 @@ class ToggleList extends React.Component{
   }
 
   render() {
-    const { chosen, endpoint, filters, multiple, options, text } = this.props
+    const { chosen, endpoint, multiple, options, text } = this.props
     return (
-      <div className={ this._getClass() }>
-        <div className="maha-toggle-list-overlay" onClick={ this._handleToggleFilter.bind(this) } />
-        { filters &&
-          <div className="maha-toggle-list-filter">
-            <Filters { ...this._getFilters() } />
-          </div>
-        }
+      <div className="maha-toggle-list">
         <div className="maha-toggle-list-body">
           <div className="maha-toggle-list-header">
             <Searchbox { ...this._getSearchbox() } />
@@ -95,41 +82,21 @@ class ToggleList extends React.Component{
     }
   }
 
-  _getClass() {
-    const classes = ['maha-toggle-list']
-    if(this.props.filtering) classes.push('filtering')
-    return classes.join(' ')
-  }
-
-  _getFilters() {
-    const { filters, filter, onSetFilter } = this.props
-    return {
-      filters,
-      values: filter,
-      onUpdate: onSetFilter
-    }
-  }
-
   _getSearchbox() {
-    const { filters, filtering, onSetQuery } = this.props
+    const { onSetQuery } = this.props
     return {
-      icon: filters ? (filtering ? 'times' : 'sliders') : null,
-      onIcon: this._handleToggleFilter.bind(this),
       onChange: onSetQuery
     }
   }
 
   _getInfinite() {
-    const { defaultFilters, endpoint, exclude_ids, chosen, query } = this.props
-    const filter = {
-      ...defaultFilters,
-      ...this.props.filter,
-      q: query
-    }
+    const { endpoint, exclude_ids, chosen, query } = this.props
     return {
       endpoint,
       exclude_ids,
-      filter,
+      filter: {
+        q: query
+      },
       chosen,
       layout: (props) => <Result { ...this._getResults() } { ...props } />
     }
@@ -155,10 +122,6 @@ class ToggleList extends React.Component{
     onSetChosen(chosen)
   }
 
-  _handleToggleFilter() {
-    const { onToggleFilter } = this.props
-    if(onToggleFilter) onToggleFilter()
-  }
 
   _handleToggleRecord(record) {
     const { multiple, onToggleRecord } = this.props
