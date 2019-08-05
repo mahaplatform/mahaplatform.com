@@ -2,6 +2,7 @@ import { CSSTransition } from 'react-transition-group'
 import { Empty, Results } from './results'
 import Infinite from '../infinite'
 import PropTypes from 'prop-types'
+import Criteria from '../criteria'
 import Filters from './filters'
 import Buttons from '../buttons'
 import Header from './header'
@@ -19,6 +20,7 @@ class Collection extends React.Component {
   static propTypes = {
     buttons: PropTypes.any,
     cacheKey: PropTypes.string,
+    criteria: PropTypes.array,
     data: PropTypes.array,
     defaultSort: PropTypes.object,
     endpoint: PropTypes.string,
@@ -79,12 +81,13 @@ class Collection extends React.Component {
   _handleRefresh = this._handleRefresh.bind(this)
 
   render() {
-    const { buttons, endpoint, filters, filtering, records, selected } = this.props
+    const { buttons, criteria, endpoint, filters, filtering, records, selected } = this.props
     return (
       <div className="maha-collection">
-        { filters && filtering &&
+        { filtering &&
           <div className="maha-collection-sidebar">
-            <Filters { ...this._getFilter() } />
+            { filters && <Filters { ...this._getFilter() } /> }
+            { criteria && <Criteria { ...this._getCriteria() } /> }
           </div>
         }
         <div className="maha-collection-main">
@@ -142,6 +145,15 @@ class Collection extends React.Component {
       prompt: `Find ${article} ${entity}`,
       onUpdate: onSetFilter,
       onDone: onRemovePanel
+    }
+  }
+
+  _getCriteria() {
+    const { criteria, filter, onSetFilter } = this.props
+    return {
+      defaultValue: Object.keys(filter).length > 0 ? filter : null,
+      fields: criteria,
+      onChange: onSetFilter
     }
   }
 

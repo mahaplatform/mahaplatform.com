@@ -20,7 +20,7 @@ class Text extends React.PureComponent {
   static defaultProps = {}
 
   state = {
-    operator: null,
+    operator: '$eq',
     value: ''
   }
 
@@ -59,7 +59,7 @@ class Text extends React.PureComponent {
     const { field } = this.props
     return {
       title: field.label,
-      color: 'grey',
+      color: 'lightgrey',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
       ]
@@ -67,7 +67,9 @@ class Text extends React.PureComponent {
   }
 
   _getRadioGroup() {
+    const { operator } = this.state
     return {
+      defaultValue: operator,
       options: [
         { value: '$eq', text: 'equals' },
         { value: '$lk', text: 'contains' },

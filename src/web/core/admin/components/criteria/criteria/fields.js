@@ -38,7 +38,7 @@ class Fields extends React.PureComponent {
     const { type } = this.props
     return {
       title: type.label,
-      color: 'grey',
+      color: 'lightgrey',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
       ]

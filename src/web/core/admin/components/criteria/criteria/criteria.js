@@ -1,3 +1,4 @@
+import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
 import Types from './types'
 import Item from './item'
@@ -28,13 +29,15 @@ class Criteria extends React.Component {
   render() {
     const { criteria } = this.props
     return (
-      <div className="maha-criteria">
-        <div className="maha-criteria-items">
-          { criteria && Object.keys(criteria).length > 0 &&
-            <Item { ...this._getItem(criteria) } />
-          }
+      <ModalPanel { ...this._getPanel() }>
+        <div className="maha-criteria">
+          <div className="maha-criteria-items">
+            { criteria && Object.keys(criteria).length > 0 &&
+              <Item { ...this._getItem(criteria) } />
+            }
+          </div>
         </div>
-      </div>
+      </ModalPanel>
     )
   }
 
@@ -47,6 +50,13 @@ class Criteria extends React.Component {
     const { criteria } = this.props
     if(!_.isEqual(criteria, prevProps.criteria)) {
       this.props.onChange(criteria)
+    }
+  }
+
+  _getPanel() {
+    return {
+      title: 'Filter Results',
+      color: 'lightgrey'
     }
   }
 

@@ -18,8 +18,13 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Email', key: 'email' },
       { label: 'Phone', key: 'phone', visible: false }
     ],
-    filters: [
-      { label: 'Tags', name: 'crm_taggings.tag_id', type: 'select', multiple: true, endpoint: '/api/admin/crm/tags', value: 'id', text: 'text' }
+    criteria: [
+      { label: 'Contact Fields', fields: [
+        { label: 'First Name', code: 'first_name', type: 'text' },
+        { label: 'Last Name', code: 'last_name', type: 'text' },
+        { label: 'Email', code: 'email', type: 'text' },
+        { label: 'Phone', code: 'phone', type: 'text' }
+      ] }
     ],
     export: [
       { label: 'ID', key: 'id' },

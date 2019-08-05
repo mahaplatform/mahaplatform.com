@@ -51,7 +51,7 @@ class Types extends React.PureComponent {
   _getPanel() {
     return {
       title: 'Choose Criteria',
-      color: 'grey',
+      color: 'lightgrey',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
       ]
