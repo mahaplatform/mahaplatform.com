@@ -85,11 +85,13 @@ const model = async (args) => {
     fixturesPath: path.join(root, 'db', 'fixtures', `${timestamp}_${tableName}.js`),
     migrationPath: path.join(root, 'db', 'migrations', `${timestamp}_create_${tableName}.js`),
     modelPath: path.join(root, 'models', `${modelName}.js`),
-    testPath: path.join(root, 'models', `${modelName}_test.js`)
+    testPath: path.join(root, 'models', `${modelName}_test.js`),
+    serializerPath: path.join(root, 'serializers', `${modelName}_serializer.js`)
   }
   createFile(data.modelPath, 'model/model.js', data)
   createFile(data.migrationPath, 'model/migration.js', data)
   createFile(data.fixturesPath, 'model/fixtures.js', data)
+  createFile(data.migrationPath, 'serializer/serializer.js', data)
   createFile(data.testPath, 'model/test.js', data)
 }
 
@@ -103,6 +105,17 @@ const migration = async (args) => {
     migrationPath: path.join(root, `${timestamp}_${name}.js`)
   }
   createFile(data.migrationPath, 'migration/migration.js', data)
+}
+
+const serializer = async (args) => {
+  const [ root, model ] = args
+  const singluar = pluralize.singular(model).toLowerCase()
+  const modelName = _.snakeCase(singluar)
+  const data = {
+    modelName,
+    serializerPath: path.join(root, 'serializers', `${modelName}_serializer.js`)
+  }
+  createFile(data.serializerPath, 'serializer/serializer.js', data)
 }
 
 const component = async (args) => {
@@ -163,6 +176,7 @@ const generate = async () => {
   if(template === 'route') return route(args)
   if(template === 'model') return model(args)
   if(template === 'migration') return migration(args)
+  if(template === 'serializer') return serializer(args)
   if(template === 'component') return component(args)
   if(template === 'rubberstamp') return rubberstamp(args)
   if(template === 'resource') return resource(args)

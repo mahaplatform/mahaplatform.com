@@ -7,6 +7,7 @@ import sessions from './sessions'
 import profiles from './profiles'
 import settings from './settings'
 import { Router } from 'express'
+import filters from './filters'
 import imports from './imports'
 import sources from './sources'
 import account from './account'
@@ -22,6 +23,8 @@ import stars from './stars'
 import help from './help'
 
 const router = new Router({ mergeParams: true })
+
+router.use('/:code/filters', filters)
 
 router.use('/:parent_type/fields', fields)
 
