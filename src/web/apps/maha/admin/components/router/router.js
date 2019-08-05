@@ -62,8 +62,10 @@ class Router extends React.Component {
   }
 
   _handleBack() {
+    const { history } = this.context.router
     this.props.onPop()
-    this.context.router.history.goBack()
+    const replacement = history.slice(0,-1).slice(-1)[0] || '/admin'
+    history.replace(replacement)
   }
 
   _handleReplace(path) {
@@ -74,7 +76,7 @@ class Router extends React.Component {
   _handlePush(path) {
     const route = this._getRoute(path)
     this.props.onPush(route)
-    this.context.router.history.push(route)
+    this.context.router.history.replace(route)
   }
 
 }

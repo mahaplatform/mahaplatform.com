@@ -17,7 +17,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/expenses/approvals',
     table: [
       { label: 'ID', key: 'item_id', visible: false, collapsing: true },
-      { label: null, key: 'type', collapsing: true, format: CompactTypeToken },
+      { label: 'Type', key: 'type', collapsing: true, format: CompactTypeToken },
       { label: 'Date', key: 'date', format: 'date', collapsing: true },
       { label: 'User', key: 'user.full_name', sort: 'maha_users.last_name', primary: true },
       { label: 'Project', key: 'project.title', sort: 'expenses_projects.title', format: CompactProjectToken },
