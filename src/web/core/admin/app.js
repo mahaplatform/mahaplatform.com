@@ -8,6 +8,7 @@ import adminauthorized from './components/authorized'
 import adminbutton from './components/button'
 import admincarousel from './components/carousel'
 import adminchooser from './components/chooser'
+import admincollectionFilters from './components/collection/filters'
 import admincollection from './components/collection'
 import admincomments from './components/comments'
 import admincomposer from './components/composer'
@@ -17,7 +18,6 @@ import admincriteriaOverview from './components/criteria/overview'
 import admindrawer from './components/drawer'
 import adminemojis from './components/emojis'
 import adminfields from './components/fields'
-import adminfilters from './components/filters'
 import adminflash from './components/flash'
 import adminformAssignmentfield from './components/form/assignmentfield'
 import adminformAttachmentfield from './components/form/attachmentfield'
@@ -233,6 +233,7 @@ class App extends React.Component {
       adminbutton,
       admincarousel,
       adminchooser,
+      admincollectionFilters,
       admincollection,
       admincomments,
       admincomposer,
@@ -242,7 +243,6 @@ class App extends React.Component {
       admindrawer,
       adminemojis,
       adminfields,
-      adminfilters,
       adminflash,
       adminformAssignmentfield,
       adminformAttachmentfield,

@@ -22,7 +22,7 @@ class Filters extends React.Component {
   render() {
     const { panels } = this.props
     return (
-      <div className="maha-filters">
+      <div className="maha-collection-filters">
         <Overview { ...this._getOverview() } />
         <TransitionGroup>
           { panels.map((panel, index) => (

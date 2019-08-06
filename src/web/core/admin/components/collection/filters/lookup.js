@@ -1,4 +1,4 @@
-import ModalPanel from '../modal_panel'
+import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -24,21 +24,21 @@ class LookupPanel extends React.Component {
     const value = results[name]
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-filters-panel">
-          <div className="maha-filters-body">
+        <div className="maha-collection-filters-panel">
+          <div className="maha-collection-filters-body">
             { options.map((option, index) => (
-              <div className="maha-filters-item" key={`filter_item_${index}`} onClick={ this._handleClick.bind(this, option.id) }>
-                <div className="maha-filters-item-content">
+              <div className="maha-collection-filters-item" key={`filter_item_${index}`} onClick={ this._handleClick.bind(this, option.id) }>
+                <div className="maha-collection-filters-item-content">
                   { React.createElement(format, { option }) }
                 </div>
-                <div className="maha-filters-item-icon">
+                <div className="maha-collection-filters-item-icon">
                   { multiple && _.includes(value, option.id) && <i className="fa fa-check" /> }
                   { !multiple && option.id === value && <i className="fa fa-check" /> }
                 </div>
               </div>
             ))}
           </div>
-          <div className="maha-filters-footer" onClick={ this._handleReset }>
+          <div className="maha-collection-filters-footer" onClick={ this._handleReset }>
             Reset { label }
           </div>
         </div>
@@ -105,11 +105,11 @@ class Lookup extends React.Component {
   render() {
     const { label } = this.props
     return (
-      <div className="maha-filters-item" onClick={ this._handleClick }>
-        <div className="maha-filters-item-title">
+      <div className="maha-collection-filters-item" onClick={ this._handleClick }>
+        <div className="maha-collection-filters-item-title">
           { label }
         </div>
-        <div className="maha-filters-item-icon">
+        <div className="maha-collection-filters-item-icon">
           <i className="fa fa-chevron-right" />
         </div>
       </div>

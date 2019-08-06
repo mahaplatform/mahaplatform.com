@@ -1,4 +1,4 @@
-import ModalPanel from '../modal_panel'
+import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
 import Lookup from './lookup'
 import Select from './select'
@@ -25,8 +25,8 @@ class Overview extends React.Component {
     const { filters } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-filters-panel">
-          <div className="maha-filters-body">
+        <div className="maha-collection-filters-panel">
+          <div className="maha-collection-filters-body">
             { filters.map((filter, index) => {
               if(filter.type === 'toggle') return <Toggle {...this._getToggle(filter) } key={`filter_${index}`} />
               if(filter.type === 'lookup') return <Lookup {...this._getLookup(filter) } key={`filter_${index}`} />
@@ -34,7 +34,7 @@ class Overview extends React.Component {
               if(filter.type === 'daterange') return <Daterange {...this._getDaterange(filter) } key={`filter_${index}`} />
             })}
           </div>
-          <div className="maha-filters-footer">
+          <div className="maha-collection-filters-footer">
             <button className="ui red fluid button" onClick={ this._handleReset}>
               Reset Filters
             </button>

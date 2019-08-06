@@ -1,4 +1,4 @@
-import Format from '../format'
+import Format from '../../format'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -17,11 +17,11 @@ class Toggle extends React.Component {
   render() {
     const { format, label, name, results } = this.props
     return (
-      <div className="maha-filters-item" onClick={ this._handleChange }>
-        <div className="maha-filters-item-title">
+      <div className="maha-collection-filters-item" onClick={ this._handleChange }>
+        <div className="maha-collection-filters-item-title">
           <Format format={ format } value={ label } />
         </div>
-        <div className="maha-filters-item-icon">
+        <div className="maha-collection-filters-item-icon">
           { results[name] && results[name] === true && <i className="fa fa-check" /> }
         </div>
       </div>

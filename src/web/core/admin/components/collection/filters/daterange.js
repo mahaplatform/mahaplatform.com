@@ -1,6 +1,6 @@
-import ModalPanel from '../modal_panel'
+import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
-import Search from '../search'
+import Search from '../../search'
 import moment from 'moment'
 import React from 'react'
 import _ from 'lodash'
@@ -27,11 +27,11 @@ class DaterangePanel extends React.Component {
     const { label } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-filters-panel">
-          <div className="maha-filters-body">
+        <div className="maha-collection-filters-panel">
+          <div className="maha-collection-filters-body">
             <Search { ...this._getSearch() } />
           </div>
-          <div className="maha-filters-footer">
+          <div className="maha-collection-filters-footer">
             <button className="ui red fluid button" onClick={ this._handleReset }>
               Reset { label }
             </button>
@@ -122,16 +122,16 @@ class Daterange extends React.Component {
     const { label } = this.props
     const count = this._getCount()
     return (
-      <div className="maha-filters-item" onClick={ this._handleClick }>
-        <div className="maha-filters-item-title">
+      <div className="maha-collection-filters-item" onClick={ this._handleClick }>
+        <div className="maha-collection-filters-item-title">
           { label }
         </div>
         { count > 0 &&
-          <div className="maha-filters-item-description">
-            <div className="maha-filters-item-count">{ count }</div>
+          <div className="maha-collection-filters-item-description">
+            <div className="maha-collection-filters-item-count">{ count }</div>
           </div>
         }
-        <div className="maha-filters-item-icon">
+        <div className="maha-collection-filters-item-icon">
           <i className="fa fa-chevron-right" />
         </div>
       </div>
