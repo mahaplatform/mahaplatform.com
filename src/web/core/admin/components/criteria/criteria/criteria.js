@@ -1,5 +1,6 @@
 import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
+import Button from '../../button'
 import Types from './types'
 import Item from './item'
 import React from 'react'
@@ -25,6 +26,7 @@ class Criteria extends React.Component {
   }
 
   _handleAdd = this._handleAdd.bind(this)
+  _handleBack = this._handleBack.bind(this)
   _handleEdit = this._handleEdit.bind(this)
 
   render() {
@@ -32,10 +34,15 @@ class Criteria extends React.Component {
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-criteria">
-          <div className="maha-criteria-items">
-            { criteria && Object.keys(criteria).length > 0 &&
-              <Item { ...this._getItem(criteria) } />
-            }
+          <div className="maha-criteria-body">
+            <div className="maha-criteria-items">
+              { criteria && Object.keys(criteria).length > 0 &&
+                <Item { ...this._getItem(criteria) } />
+              }
+            </div>
+          </div>
+          <div className="maha-criteria-footer">
+            <Button { ...this._getButton() } />
           </div>
         </div>
       </ModalPanel>
@@ -54,6 +61,16 @@ class Criteria extends React.Component {
     }
   }
 
+  _getButton() {
+    const { criteria } = this.props
+    return {
+      label: 'Save Fitler',
+      color: 'red',
+      disabled: criteria.$and.length === 0,
+      handler: () => {}
+    }
+  }
+
   _getComponent(type) {
     if(type === 'text') return Text
   }
@@ -61,7 +78,10 @@ class Criteria extends React.Component {
   _getPanel() {
     return {
       title: 'Filter Results',
-      color: 'lightgrey'
+      color: 'lightgrey',
+      leftItems: [
+        { icon: 'chevron-left', handler: this._handleBack }
+      ]
     }
   }
 
@@ -92,6 +112,10 @@ class Criteria extends React.Component {
         onDone: this._handleCreate.bind(this, cindex)
       })
     })
+  }
+
+  _handleBack() {
+
   }
 
   _handleCreate(cindex, value) {

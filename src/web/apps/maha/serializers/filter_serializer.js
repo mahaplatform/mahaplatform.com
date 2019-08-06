@@ -9,7 +9,7 @@ const filterSerializer = (req, result) => ({
 })
 
 const user = (user, key) => {
-  if(!user.id) return null
+  if(!user) return null
   return {
     id: user.get('id'),
     full_name: user.get('full_name'),

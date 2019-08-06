@@ -150,8 +150,9 @@ class Collection extends React.Component {
   }
 
   _getCriteria() {
-    const { criteria, filter, onSetFilter } = this.props
+    const { criteria, entity, filter, onSetFilter } = this.props
     return {
+      entity,
       defaultValue: Object.keys(filter).length > 0 ? filter : null,
       fields: criteria,
       onChange: onSetFilter

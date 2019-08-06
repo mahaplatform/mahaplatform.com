@@ -1,7 +1,8 @@
 import Stack from '../stack/stack'
 import PropTypes from 'prop-types'
-import React from 'react'
+import Overview from './overview'
 import Criteria from './criteria'
+import React from 'react'
 
 class CriteriaWrapper extends React.PureComponent {
 
@@ -13,6 +14,7 @@ class CriteriaWrapper extends React.PureComponent {
 
   static propTypes = {
     defaultValue: PropTypes.object,
+    entity: PropTypes.string,
     fields: PropTypes.array,
     onChange: PropTypes.func
   }
@@ -21,6 +23,7 @@ class CriteriaWrapper extends React.PureComponent {
     cards: []
   }
 
+  _handleNew = this._handleNew.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
 
@@ -35,7 +38,8 @@ class CriteriaWrapper extends React.PureComponent {
   componentDidMount() {
     this.setState({
       cards: [
-        { component: Criteria, props: this._getCriteria() }
+        { component: Overview, props: this._getOverview() }
+//        { component: Criteria, props: this._getCriteria() }
       ]
     })
   }
@@ -58,6 +62,16 @@ class CriteriaWrapper extends React.PureComponent {
     }
   }
 
+  _getOverview() {
+    const { entity, onChange } = this.props
+    return {
+      code: 'foobarbaz',
+      entity,
+      onNew: this._handleNew,
+      onChange
+    }
+  }
+
   _getStack() {
     const { cards } = this.state
     return {
@@ -66,9 +80,19 @@ class CriteriaWrapper extends React.PureComponent {
     }
   }
 
-  _handlePop(index = -1) {
+  _handleNew() {
     this.setState({
-      cards: this.state.cards.slice(0, index)
+      cards: [
+        ...this.state.cards,
+        { component: Criteria, props: this._getCriteria() }
+      ]
+    })
+  }
+
+  _handlePop(index = -1) {
+    console.log(index)
+    this.setState({
+      cards:this.state.cards.slice(0, index)
     })
   }
 

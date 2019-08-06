@@ -46,7 +46,7 @@ class Fields extends React.PureComponent {
   }
 
   _handleCancel() {
-    this.context.criteria.pop()
+    this.context.criteria.pop(-1)
   }
 
   _getComponent(type) {

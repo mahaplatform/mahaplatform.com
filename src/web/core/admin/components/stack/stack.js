@@ -5,12 +5,14 @@ class Stack extends React.Component {
 
   static propTypes = {
     cards: PropTypes.array,
+    slideBeneath:PropTypes.bool,
     slideFirst: PropTypes.bool
   }
 
   static defaultProps = {
-    slideFirst: true,
-    cards: []
+    cards: [],
+    slideBeneath: true,
+    slideFirst: true
   }
 
   constructor(props) {
@@ -25,9 +27,9 @@ class Stack extends React.Component {
     const { cards } = this.state
     if(cards.length === 0) return null
     return (
-      <div className="maha-stack">
+      <div className={ this._getClass() }>
         { cards.map((card, index) => (
-          <div key={ `card_${index}` } className={ this._getClass(index) }>
+          <div key={ `card_${index}` } className={ this._getCardClass(index) }>
             <card.component { ...card.props } active={ index === cards.length - 1} />
           </div>
         )) }
@@ -41,7 +43,14 @@ class Stack extends React.Component {
     if(prevProps.cards.length > cards.length) this._handlePop()
   }
 
-  _getClass(index) {
+  _getClass() {
+    const { slideBeneath } = this.props
+    const classes = ['maha-stack']
+    if(slideBeneath) classes.push('maha-stack-slide-beneath')
+    return classes.join(' ')
+  }
+
+  _getCardClass(index) {
     const classes = ['maha-stack-card']
     classes.push(this._getStatus(index))
     return classes.join(' ')

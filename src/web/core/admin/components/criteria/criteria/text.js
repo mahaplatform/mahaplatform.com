@@ -99,14 +99,15 @@ class Text extends React.PureComponent {
   }
 
   _handleCancel() {
-    this.context.criteria.pop()
+    const { mode } = this.props
+    this.context.criteria.pop(mode === 'edit' ? -1 : -3)
   }
 
   _handleDone() {
     const { operator, value } = this.state
-    const { field } = this.props
+    const { mode, field } = this.props
     this.props.onDone({ [field.code]: { [operator]: value } })
-    this.context.criteria.pop(1)
+    this.context.criteria.pop(mode === 'edit' ? -1 : -3)
   }
 
   _handleChange(key, value) {
