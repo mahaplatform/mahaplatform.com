@@ -152,6 +152,7 @@ class Collection extends React.Component {
   _getCriteria() {
     const { criteria, entity, filter, onSetFilter } = this.props
     return {
+      code: 'foobarbaz',
       entity,
       defaultValue: Object.keys(filter).length > 0 ? filter : null,
       fields: criteria,

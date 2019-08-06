@@ -4,8 +4,9 @@ import Button from '../../button'
 import Types from './types'
 import Item from './item'
 import React from 'react'
-import _ from 'lodash'
 import Text from './text'
+import New from './new'
+import _ from 'lodash'
 
 class Criteria extends React.Component {
 
@@ -14,6 +15,7 @@ class Criteria extends React.Component {
   }
 
   static propTypes = {
+    code: PropTypes.object,
     criteria: PropTypes.object,
     defaultValue: PropTypes.object,
     fields: PropTypes.array,
@@ -62,12 +64,12 @@ class Criteria extends React.Component {
   }
 
   _getButton() {
-    const { criteria } = this.props
+    const { criteria, code } = this.props
     return {
       label: 'Save Fitler',
       color: 'red',
       disabled: criteria.$and.length === 0,
-      handler: () => {}
+      modal: <New code={ code } criteria={ criteria } />
     }
   }
 
@@ -115,7 +117,7 @@ class Criteria extends React.Component {
   }
 
   _handleBack() {
-
+    this.context.criteria.pop()
   }
 
   _handleCreate(cindex, value) {

@@ -1,3 +1,4 @@
+import Modal from '../modal'
 import Stack from '../stack/stack'
 import PropTypes from 'prop-types'
 import Overview from './overview'
@@ -13,6 +14,7 @@ class CriteriaWrapper extends React.PureComponent {
   static contextTypes = {}
 
   static propTypes = {
+    code: PropTypes.object,
     defaultValue: PropTypes.object,
     entity: PropTypes.string,
     fields: PropTypes.array,
@@ -30,7 +32,9 @@ class CriteriaWrapper extends React.PureComponent {
   render() {
     return (
       <div className="maha-criteria">
-        <Stack { ...this._getStack() } />
+        <Modal>
+          <Stack { ...this._getStack() } />
+        </Modal>
       </div>
     )
   }
@@ -39,7 +43,6 @@ class CriteriaWrapper extends React.PureComponent {
     this.setState({
       cards: [
         { component: Overview, props: this._getOverview() }
-//        { component: Criteria, props: this._getCriteria() }
       ]
     })
   }
@@ -54,8 +57,9 @@ class CriteriaWrapper extends React.PureComponent {
   }
 
   _getCriteria() {
-    const { defaultValue, fields, onChange } = this.props
+    const { code, defaultValue, fields, onChange } = this.props
     return {
+      code,
       defaultValue,
       fields,
       onChange
@@ -63,9 +67,9 @@ class CriteriaWrapper extends React.PureComponent {
   }
 
   _getOverview() {
-    const { entity, onChange } = this.props
+    const { code, entity, onChange } = this.props
     return {
-      code: 'foobarbaz',
+      code,
       entity,
       onNew: this._handleNew,
       onChange
@@ -90,7 +94,6 @@ class CriteriaWrapper extends React.PureComponent {
   }
 
   _handlePop(index = -1) {
-    console.log(index)
     this.setState({
       cards:this.state.cards.slice(0, index)
     })

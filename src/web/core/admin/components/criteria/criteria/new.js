@@ -1,0 +1,59 @@
+import PropTypes from 'prop-types'
+import { Form } from 'maha-admin'
+import React from 'react'
+
+class New extends React.Component {
+
+  static contextTypes = {
+    modal: PropTypes.object,
+    router: PropTypes.object
+  }
+
+  static propTypes = {
+    code: PropTypes.string,
+    criteria: PropTypes.string
+  }
+
+  _handleCancel = this._handleCancel.bind(this)
+  _handleSuccess = this._handleSuccess.bind(this)
+
+  state = {
+    type: null
+  }
+
+  render() {
+    return <Form { ...this._getForm() } />
+  }
+
+  _getForm() {
+    const { code, criteria } = this.props
+    return {
+      title: 'New Filter',
+      method: 'post',
+      action: `/api/admin/${code}/filters`,
+      onCancel: this._handleCancel,
+      onSuccess: this._handleSuccess,
+      sections: [
+        {
+          fields: [
+            { name: 'code', type: 'hidden', defaultValue: code },
+            { name: 'criteria', type: 'hidden', defaultValue: criteria },
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this filter', required: true },
+            { label: 'Description', name: 'description', placeholder: 'Enter a description for this filter', type: 'textarea' }
+          ]
+        }
+      ]
+    }
+  }
+
+  _handleCancel() {
+    this.context.modal.close()
+  }
+
+  _handleSuccess(result) {
+    this.context.modal.close()
+  }
+
+}
+
+export default New

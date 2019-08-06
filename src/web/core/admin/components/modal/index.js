@@ -1,9 +1,9 @@
-import { Singleton } from 'redux-rubberstamp'
+import { Factory } from 'redux-rubberstamp'
 import reducer from './reducer'
 import modal from './modal'
 import * as actions from './actions'
 
-export default Singleton({
+export default Factory({
   namespace: 'maha.modal',
   component: modal,
   reducer,
