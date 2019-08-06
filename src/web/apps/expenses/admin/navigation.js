@@ -13,7 +13,7 @@ const navigation = async (req) => ({
     { label: 'Approvals', rights: ['expenses:manage_expenses'], access: canApprove, route: '/approvals'},
     { label: 'Items', rights: ['expenses:manage_expenses'], route: '/items' },
     { label: 'Projects', rights: ['expenses:manage_expenses'], route: '/projects' },
-    { label: 'Report', rights: ['expenses:manage_configuration'], route: '/reports' }
+    { label: 'Report', rights: ['expenses:manage_expenses'], access: canApprove, route: '/reports' }
   ]
 })
 
