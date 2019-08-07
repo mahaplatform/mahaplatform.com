@@ -5,7 +5,8 @@ class Columns extends React.Component {
 
   static propTypes = {
     columns: PropTypes.array,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onToggleHidden: PropTypes.func
   }
 
   state = {
@@ -47,11 +48,7 @@ class Columns extends React.Component {
   }
 
   _handleToggleColumn(column, e) {
-    const { columns } = this.props
-    this.props.onChange(columns.map(col => ({
-      ...col,
-      visible: (col.key === column.key && col.primary !== true) ? !col.visible : col.visible
-    })))
+    this.props.onToggleHidden(column.key)
     e.stopPropagation()
   }
 

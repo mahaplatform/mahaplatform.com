@@ -32,6 +32,7 @@ export const Empty = (props) => {
 export class Results extends React.Component {
 
   static propTypes = {
+    code: PropTypes.string,
     columns: PropTypes.array,
     handler: PropTypes.func,
     layout: PropTypes.any,
@@ -59,9 +60,10 @@ export class Results extends React.Component {
   }
 
   _getTable() {
-    const { handler, link, modal, records, recordTasks, rowClass, table, selectAll, selectable, selected, sort, status, onLoadMore, onSelect, onSelectAll, onSort } = this.props
+    const { code, handler, link, modal, records, recordTasks, rowClass, table, selectAll, selectable, selected, sort, status, onLoadMore, onSelect, onSelectAll, onSort } = this.props
     const columns = table
     return {
+      code,
       columns,
       handler,
       link,

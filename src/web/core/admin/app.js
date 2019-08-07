@@ -59,6 +59,7 @@ import adminsearch from './components/search'
 import adminsearch2 from './components/search2'
 import adminsearchbox from './components/searchbox'
 import adminsortableList from './components/sortable_list'
+import admintable from './components/table'
 import admintabs from './components/tabs'
 import admintasks from './components/tasks'
 import adminuploader from './components/uploader'
@@ -284,6 +285,7 @@ class App extends React.Component {
       adminsearch2,
       adminsearchbox,
       adminsortableList,
+      admintable,
       admintabs,
       admintasks,
       adminuploader,

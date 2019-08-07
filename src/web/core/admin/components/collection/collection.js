@@ -76,6 +76,8 @@ class Collection extends React.Component {
     selectable: false
   }
 
+  code = window.location.pathname.substr(1).replace(/\//g,'-')
+
   state = {
     cacheKey: _.random(100000, 999999).toString(36)
   }
@@ -137,6 +139,13 @@ class Collection extends React.Component {
     }
   }
 
+  _getButtons() {
+    if(!this.props.buttons) return { buttons: null }
+    return {
+      buttons: this.props.buttons(this.props)
+    }
+  }
+
   _getFilters() {
     const { entity, filters, filter, onRemovePanel, onSetFilter } = this.props
     const article = _.includes(['a','e','i','o'], entity[0]) ? 'an' : 'a'
@@ -152,7 +161,7 @@ class Collection extends React.Component {
   _getFilter() {
     const { criteria, entity, filter, onSetFilter, onToggleFilter } = this.props
     return {
-      code: 'foobarbaz',
+      code: this.code,
       entity,
       defaultValue: Object.keys(filter).length > 0 ? filter : null,
       fields: criteria,
@@ -179,19 +188,6 @@ class Collection extends React.Component {
     }
   }
 
-  _getButtons() {
-    if(!this.props.buttons) return { buttons: null }
-    return {
-      buttons: this.props.buttons(this.props)
-    }
-  }
-
-  _getResults() {
-    return {
-      ...this.props
-    }
-  }
-
   _getInfinite() {
     const { endpoint, failure, loading, q, sort, onSetSelected } = this.props
     const { cacheKey } = this.state
@@ -206,9 +202,16 @@ class Collection extends React.Component {
       loading,
       empty: this._getEmpty(),
       failure,
-      layout: (props) => <Results { ...this.props } { ...props } />,
+      layout: (props) => <Results { ...this._getResults() } { ...props } />,
       sort,
       onUpdateSelected: onSetSelected
+    }
+  }
+
+  _getResults() {
+    return {
+      ...this.props,
+      code: this.code
     }
   }
 
