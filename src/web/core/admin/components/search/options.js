@@ -40,7 +40,8 @@ class Options extends React.Component{
   }
 
   _handleChoose(value) {
-    this.props.onToggle(value)
+    const { multiple } = this.props
+    this.props.onToggle(multiple, value)
   }
 
 }

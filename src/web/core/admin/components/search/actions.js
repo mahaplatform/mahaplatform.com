@@ -8,7 +8,8 @@ export const set = (selected) => ({
   selected
 })
 
-export const toggle = (value) => ({
+export const toggle = (multiple, value) => ({
   type: 'TOGGLE',
+  multiple,
   value
 })

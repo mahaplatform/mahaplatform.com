@@ -21,6 +21,7 @@ class Infinite extends React.Component {
     loading: PropTypes.any,
     next: PropTypes.string,
     notFound: PropTypes.any,
+    props: PropTypes.object,
     records: PropTypes.array,
     selected: PropTypes.array,
     sort: PropTypes.object,
@@ -38,6 +39,7 @@ class Infinite extends React.Component {
     header: null,
     loading: Loader,
     notFound: NotFound,
+    props: {},
     sort: {
       key: null,
       order: null
@@ -46,7 +48,8 @@ class Infinite extends React.Component {
   }
 
   render() {
-    const { all, empty, failure, header, layout, loading, notFound, records, status, total } = this.props
+    const { all, empty, failure, header, loading, notFound, records, status, total } = this.props
+    const Layout = this.props.layout
     return (
       <div className="maha-infinite">
         { status === 'loading' && records && records.length > 0 && this._getComponent(Appending) }
@@ -59,9 +62,9 @@ class Infinite extends React.Component {
         { status === 'failed' && this._getComponent(failure) }
         { status !== 'failed' && total === 0 && all !== 0 && this._getComponent(notFound) }
         { status !== 'failed' && total === 0 && all === 0 && this._getComponent(empty) }
-        { status !== 'failed' && records && records.length > 0 && layout &&
+        { status !== 'failed' && records && records.length > 0 && Layout &&
           <Scrollpane { ...this._getScrollpane() }>
-            { React.createElement(layout, this.props) }
+            <Layout { ...this._getLayout() } />
           </Scrollpane>
         }
       </div>
@@ -92,6 +95,12 @@ class Infinite extends React.Component {
 
   _getComponent(component){
     return _.isFunction(component) ? React.createElement(component, this.props) : component
+  }
+
+  _getLayout() {
+    const { all, props, records, total } = this.props
+    console.log('layout', { all, records, total, ...props })
+    return { all, records, total, ...props }
   }
 
   _getScrollpane() {

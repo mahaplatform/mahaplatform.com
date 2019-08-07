@@ -202,16 +202,18 @@ class Collection extends React.Component {
       loading,
       empty: this._getEmpty(),
       failure,
-      layout: (props) => <Results { ...this._getResults() } { ...props } />,
+      layout: Results,
+      props: this._getResults(),
       sort,
       onUpdateSelected: onSetSelected
     }
   }
 
   _getResults() {
+    const { table } = this.props
     return {
-      ...this.props,
-      code: this.code
+      code: this.code,
+      table
     }
   }
 
