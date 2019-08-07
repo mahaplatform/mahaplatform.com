@@ -16,10 +16,10 @@ class Table extends React.Component {
   static propTypes = {
     code: PropTypes.string,
     columns: PropTypes.array,
+    defaults: PropTypes.array,
     display: PropTypes.array,
     handler: PropTypes.func,
     hidden: PropTypes.array,
-    invisible: PropTypes.array,
     link: PropTypes.func,
     modal: PropTypes.any,
     records: PropTypes.array,
@@ -107,9 +107,8 @@ class Table extends React.Component {
   }
 
   componentDidMount() {
-    const { invisible, code, onLoadHidden } = this.props
-    console.log(invisible)
-    onLoadHidden(code, invisible)
+    const { defaults, code, onLoadHidden } = this.props
+    onLoadHidden(code, defaults)
   }
 
   componentDidUpdate(prevProps) {

@@ -5,7 +5,7 @@ const columns = (state, props) => props.columns
 
 const hidden = (state, props) => state.hidden
 
-export const invisible = createSelector(
+export const defaults = createSelector(
   columns,
   (columns) => columns.filter(column => {
     return column.visible === false
