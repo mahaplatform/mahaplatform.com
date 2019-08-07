@@ -20,11 +20,11 @@ const mapPropsToPage = (props, context, resources, page) => ({
     ],
     criteria: [
       { label: 'Contact', fields: [
-        { label: 'First Name', key: 'first_name', type: 'text' },
-        { label: 'Last Name', key: 'last_name', type: 'text' },
-        { label: 'Email', key: 'email', type: 'text' },
-        { label: 'Phone', key: 'phone', type: 'text' },
-        { label: 'User', key: 'user_id', type: 'select', endpoint: '/api/admin/users', text: 'full_name', value: 'id' }
+        { name: 'first name', key: 'first_name', type: 'text' },
+        { name: 'last name', key: 'last_name', type: 'text' },
+        { name: 'email', key: 'email', type: 'text' },
+        { name: 'phone', key: 'phone', type: 'text' },
+        { name: 'user', key: 'user_id', type: 'select', endpoint: '/api/admin/users', text: 'full_name', value: 'id' }
       ] }
     ],
     export: [

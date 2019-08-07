@@ -2,6 +2,7 @@ import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import Loader from '../../loader'
+import Button from '../../button'
 import React from 'react'
 import _ from 'lodash'
 
@@ -61,10 +62,8 @@ class Overview extends React.Component {
                   </div>
                 </div>
               )) }
-              <div className="maha-criteria-list-item" onClick={ this._handleNew }>
-                <div className="maha-criteria-list-item-label">
-                  + New Filter
-                </div>
+              <div className="maha-criteria-list-item">
+                <Button { ...this._getButton() } />
               </div>
             </div>
           </div>
@@ -89,6 +88,14 @@ class Overview extends React.Component {
 
   componentWillUnmount() {
     this._handleLeave()
+  }
+
+  _getButton() {
+    return {
+      label: '+ New Filter',
+      className: 'maha-criteria-list-item-label',
+      handler: this._handleNew
+    }
   }
 
   _getClass(id) {

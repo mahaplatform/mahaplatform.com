@@ -8,6 +8,7 @@ class Item extends React.Component {
   static propTypes = {
     cindex: PropTypes.array,
     criteria: PropTypes.object,
+    fields: PropTypes.array,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
     onRemove: PropTypes.func
@@ -43,7 +44,7 @@ class Item extends React.Component {
     return (
       <div className="maha-criteria-item">
         <div className="maha-criteria-item-box" onClick={ this._handleEdit.bind(this, cindex, criteria) }>
-          <strong className="maha-criteria-property">{ key }</strong> { this._getOperator(operator) } <strong>{ criteria[key][operator] }</strong>
+          { this._getDescription(key, operator) }
           <div className="maha-criteria-item-remove" onClick={ this._handleRemove.bind(this, cindex) }>
             <i className="fa fa-remove" />
           </div>
@@ -53,14 +54,31 @@ class Item extends React.Component {
   }
 
   _getItem(criteria, cindex, index) {
-    const { onAdd, onEdit, onRemove} = this.props
+    const { fields, onAdd, onEdit, onRemove} = this.props
     return {
       cindex: [...cindex,...index],
       criteria,
+      fields,
       onAdd,
       onEdit,
       onRemove
     }
+  }
+
+  _getDescription(key, operator) {
+    const subject = this._getSubject(key)
+    const verb = this._getOperator(operator)
+    const object = this._getObject(key, operator)
+    return `${subject} ${verb} ${object}`
+  }
+
+  _getSubject(key) {
+    return key
+  }
+
+  _getObject(key, operator) {
+    const { criteria } = this.props
+    return criteria[key][operator]
   }
 
   _getOperator(operator) {
@@ -69,12 +87,13 @@ class Item extends React.Component {
     if(operator == '$kn') return 'is known'
     if(operator == '$nkn') return 'is not known'
     if(operator == '$eq') return 'is'
-    if(operator == '$neq') return 'does not equal'
+    if(operator == '$neq') return 'is not'
     if(operator == '$gt') return 'is greater than'
     if(operator == '$lt') return 'is less than'
     if(operator == '$gte') return 'is greater than or equal to'
     if(operator == '$lte') return 'is less than or equal to'
     if(operator == '$in') return 'is one of'
+    if(operator == '$nin') return 'is not one of'
   }
 
   _handleNew(cindex, key) {

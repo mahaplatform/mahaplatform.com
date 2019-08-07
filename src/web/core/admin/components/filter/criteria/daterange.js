@@ -21,7 +21,7 @@ class DateRange extends React.Component {
     value: []
   }
 
-  _handleChange = this._handleChange.bind(this)
+  _handleCancel = this._handleCancel.bind(this)
   _handleDone = this._handleDone.bind(this)
 
   render() {
@@ -42,6 +42,13 @@ class DateRange extends React.Component {
   componentDidMount() {
     const { defaultValue } = this.props
     if(defaultValue) this._handleSet(defaultValue)
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { value } = this.state
+    if(value !== prevState.value) {
+      this.props.onChange(this.state)
+    }
   }
 
   _getButtons() {
@@ -95,7 +102,7 @@ class DateRange extends React.Component {
   _getPanel() {
     const { field } = this.props
     return {
-      title: field.label,
+      title: field.name,
       color: 'lightgrey'
     }
   }
@@ -106,7 +113,7 @@ class DateRange extends React.Component {
     return {
       defaultValue: value,
       format: field.format,
-      label: field.label,
+      label: field.name,
       multiple: field.multiple,
       options: this._getOptions(field.include),
       text: field.text,

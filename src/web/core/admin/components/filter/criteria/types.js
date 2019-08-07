@@ -29,10 +29,10 @@ class Types extends React.PureComponent {
             Conditional
           </div>
           <div className="maha-criterion-item" onClick={ this._handleConditional.bind(this, '$and') }>
-            AND
+            and
           </div>
           <div className="maha-criterion-item" onClick={ this._handleConditional.bind(this, '$or') }>
-            OR
+            or
           </div>
           { types.reduce((items, type, index) => [
             ...items,
@@ -41,7 +41,7 @@ class Types extends React.PureComponent {
             </div>,
             ...type.fields.map((field, index) => (
               <div className="maha-criterion-item" key={`field_${index}`} onClick={ this._handleField.bind(this, field)}>
-                { field.label }
+                { field.name }
               </div>
             ))
           ], []) }

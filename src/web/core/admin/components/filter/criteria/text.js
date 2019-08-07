@@ -55,6 +55,16 @@ class Text extends React.Component {
     if(defaultValue) this._handleSet(defaultValue)
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { operator, value } = this.state
+    if(operator !== prevState.operator) {
+      this.props.onChange(this.state)
+    }
+    if(value !== prevState.value) {
+      this.props.onChange(this.state)
+    }
+  }
+
   _getButtons() {
     const { operator, value } = this.state
     const { mode } = this.props
@@ -75,7 +85,7 @@ class Text extends React.Component {
   _getPanel() {
     const { field } = this.props
     return {
-      title: field.label,
+      title: field.name,
       color: 'lightgrey'
     }
   }

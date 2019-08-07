@@ -86,9 +86,10 @@ class Criteria extends React.Component {
   }
 
   _getItem(criteria) {
-    const { onRemove } = this.props
+    const { fields, onRemove } = this.props
     return {
       criteria,
+      fields,
       onAdd: this._handleAdd,
       onEdit: this._handleEdit,
       onRemove
