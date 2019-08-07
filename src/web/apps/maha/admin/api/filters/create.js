@@ -1,5 +1,6 @@
-import FilterSerializer from '../../../serializers/filter_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
+import FilterSerializer from '../../../serializers/filter_serializer'
+import socket from '../../../../../core/services/routes/emitter'
 import Filter from '../../../models/filter'
 
 const createRoute = async (req, res) => {
@@ -13,9 +14,9 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  // await socket.refresh(req, [
-  //   '/admin/filter/filters'
-  // ])
+  await socket.refresh(req, [
+    `/admin/${req.params.code}/filters`
+  ])
 
   res.status(200).respond(filter, FilterSerializer)
 

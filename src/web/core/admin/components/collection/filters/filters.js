@@ -39,27 +39,11 @@ class Filters extends React.Component {
     if(this.props.values) this._handleSet(this.props.values)
   }
 
-  _handleSet(defaultValue) {
-    const values = defaultValue.$and.reduce((values, criteria) => {
-      const key = Object.keys(criteria)[0]
-      return {
-        ...values,
-        [key]: this._getValue(criteria[key])
-      }
-    }, {})
-    this.props.onSet(values)
-  }
-
-  _getValue(value) {
-    if(value.$in) return value.$in.map(key => ({ key, value: '' }))
-    if(value.$eq) return { key: value.$eq, value: '' }
-    if(value.$dr) return { key: value.$dr, value: '' }
-    return value
-  }
-
   componentDidUpdate(prevProps) {
     const { results } = this.props
-    if(!_.isEqual(prevProps.results, results)) this._handleChange()
+    if(!_.isEqual(prevProps.results, results)) {
+      this._handleChange()
+    }
   }
 
   _getOverview() {
@@ -75,11 +59,28 @@ class Filters extends React.Component {
     }
   }
 
+  _getValue(value) {
+    if(value.$in) return value.$in.map(key => ({ key, value: '' }))
+    if(value.$eq) return { key: value.$eq, value: '' }
+    if(value.$dr) return { key: value.$dr, value: '' }
+    return value
+  }
+
   _handleChange() {
     const { filtered } = this.props
     this.props.onUpdate(filtered)
   }
 
+  _handleSet(defaultValue) {
+    const values = defaultValue.$and.reduce((values, criteria) => {
+      const key = Object.keys(criteria)[0]
+      return {
+        ...values,
+        [key]: this._getValue(criteria[key])
+      }
+    }, {})
+    this.props.onSet(values)
+  }
 
 }
 

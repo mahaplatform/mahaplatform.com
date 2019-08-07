@@ -3,7 +3,7 @@ import { Empty, Results } from './results'
 import { connect } from 'react-redux'
 import Infinite from '../infinite'
 import PropTypes from 'prop-types'
-import Criteria from '../criteria'
+import Filter from '../filter'
 import Filters from './filters'
 import Buttons from '../buttons'
 import Header from './header'
@@ -88,8 +88,8 @@ class Collection extends React.Component {
       <div className="maha-collection">
         { filtering &&
           <div className="maha-collection-sidebar">
-            { filters && <Filters { ...this._getFilter() } /> }
-            { criteria && <Criteria { ...this._getCriteria() } /> }
+            { filters && !criteria && <Filters { ...this._getFilters() } /> }
+            { criteria && <Filter { ...this._getFilter() } /> }
           </div>
         }
         <div className="maha-collection-main">
@@ -137,7 +137,7 @@ class Collection extends React.Component {
     }
   }
 
-  _getFilter() {
+  _getFilters() {
     const { entity, filters, filter, onRemovePanel, onSetFilter } = this.props
     const article = _.includes(['a','e','i','o'], entity[0]) ? 'an' : 'a'
     return {
@@ -149,7 +149,7 @@ class Collection extends React.Component {
     }
   }
 
-  _getCriteria() {
+  _getFilter() {
     const { criteria, entity, filter, onSetFilter } = this.props
     return {
       code: 'foobarbaz',

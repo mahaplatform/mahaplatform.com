@@ -43,7 +43,7 @@ class Item extends React.Component {
     return (
       <div className="maha-criteria-item">
         <div className="maha-criteria-item-box" onClick={ this._handleEdit.bind(this, cindex, criteria) }>
-          The contact property <strong className="maha-criteria-property">{ key }</strong> { this._getOperator(operator) } <strong>{ criteria[key][operator] }</strong>
+          <strong className="maha-criteria-property">{ key }</strong> { this._getOperator(operator) } <strong>{ criteria[key][operator] }</strong>
           <div className="maha-criteria-item-remove" onClick={ this._handleRemove.bind(this, cindex) }>
             <i className="fa fa-remove" />
           </div>
@@ -74,6 +74,7 @@ class Item extends React.Component {
     if(operator == '$lt') return 'is less than'
     if(operator == '$gte') return 'is greater than or equal to'
     if(operator == '$lte') return 'is less than or equal to'
+    if(operator == '$in') return 'is one of'
   }
 
   _handleNew(cindex, key) {

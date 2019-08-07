@@ -27,12 +27,14 @@ class Stack extends React.Component {
     const { cards } = this.state
     if(cards.length === 0) return null
     return (
-      <div className={ this._getClass() }>
-        { cards.map((card, index) => (
-          <div key={ `card_${index}` } className={ this._getCardClass(index) }>
-            <card.component { ...card.props } active={ index === cards.length - 1} />
-          </div>
-        )) }
+      <div className="maha-stack">
+        <div className={ this._getClass() }>
+          { cards.map((card, index) => (
+            <div key={ `card_${index}` } className={ this._getCardClass(index) }>
+              <card.component { ...card.props } active={ index === cards.length - 1} />
+            </div>
+          )) }
+        </div>
       </div>
     )
   }
@@ -45,7 +47,7 @@ class Stack extends React.Component {
 
   _getClass() {
     const { slideBeneath } = this.props
-    const classes = ['maha-stack']
+    const classes = ['maha-stack-inner']
     if(slideBeneath) classes.push('maha-stack-slide-beneath')
     return classes.join(' ')
   }
@@ -70,13 +72,15 @@ class Stack extends React.Component {
   _handlePush() {
     const { cards } = this.props
     this.setState({ cards })
-    setTimeout(() => this.setState({ mounted: this.state.mounted + 1 }), 100)
+    const scalar = cards.length - this.state.cards.length
+    setTimeout(() => this.setState({ mounted: this.state.mounted + scalar }), 250)
   }
 
   _handlePop() {
     const { cards } = this.props
-    this.setState({ mounted: this.state.mounted - 1 })
-    setTimeout(() => this.setState({ cards }), 300)
+    const scalar = this.state.cards.length - cards.length
+    this.setState({ mounted: this.state.mounted - scalar })
+    setTimeout(() => this.setState({ cards }), 250)
   }
 
 }

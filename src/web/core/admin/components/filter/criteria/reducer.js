@@ -1,7 +1,7 @@
 import { create, remove, update } from './utils'
 
 const INITIAL_STATE = {
-  criteria: { $and: [] }
+  criteria: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {

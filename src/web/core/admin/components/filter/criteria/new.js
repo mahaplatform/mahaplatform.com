@@ -5,13 +5,14 @@ import React from 'react'
 class New extends React.Component {
 
   static contextTypes = {
+    filter: PropTypes.object,
     modal: PropTypes.object,
     router: PropTypes.object
   }
 
   static propTypes = {
     code: PropTypes.string,
-    criteria: PropTypes.string
+    criteria: PropTypes.object
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -38,8 +39,7 @@ class New extends React.Component {
           fields: [
             { name: 'code', type: 'hidden', defaultValue: code },
             { name: 'criteria', type: 'hidden', defaultValue: criteria },
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this filter', required: true },
-            { label: 'Description', name: 'description', placeholder: 'Enter a description for this filter', type: 'textarea' }
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this filter', required: true }
           ]
         }
       ]
@@ -51,6 +51,7 @@ class New extends React.Component {
   }
 
   _handleSuccess(result) {
+    this.context.filter.pop(1)
     this.context.modal.close()
   }
 

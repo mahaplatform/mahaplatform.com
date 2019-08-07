@@ -1,6 +1,7 @@
 const INITIAL_STATE = {
   active: null,
-  filters: null
+  filters: null,
+  status: 'pending'
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -16,7 +17,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'FETCH_REQUEST':
     return {
       ...state,
-      status: 'loading'
+      status: state.status === 'pending' ? 'loading' : 'refreshing'
     }
 
   case 'FETCH_SUCCESS':

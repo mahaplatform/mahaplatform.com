@@ -19,11 +19,12 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Phone', key: 'phone', visible: false }
     ],
     criteria: [
-      { label: 'Contact Fields', fields: [
-        { label: 'First Name', code: 'first_name', type: 'text' },
-        { label: 'Last Name', code: 'last_name', type: 'text' },
-        { label: 'Email', code: 'email', type: 'text' },
-        { label: 'Phone', code: 'phone', type: 'text' }
+      { label: 'Contact', fields: [
+        { label: 'First Name', key: 'first_name', type: 'text' },
+        { label: 'Last Name', key: 'last_name', type: 'text' },
+        { label: 'Email', key: 'email', type: 'text' },
+        { label: 'Phone', key: 'phone', type: 'text' },
+        { label: 'User', key: 'user_id', type: 'select', endpoint: '/api/admin/users', text: 'full_name', value: 'id' }
       ] }
     ],
     export: [

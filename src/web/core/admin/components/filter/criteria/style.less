@@ -95,10 +95,18 @@
   flex: 1;
   display: flex;
 }
-
 .maha-criterion-items {
   .scrollable();
   flex: 1;
+}
+.maha-criterion-type {
+  padding: 0.2em 0.8em;
+  border-bottom: 1px solid fadeout(@black, 95);
+  font-weight: bold;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  background-color: fadeout(@black, 80);
+  color: @white;
 }
 .maha-criterion-item {
   padding: 0.8em;
@@ -111,8 +119,25 @@
 
 .maha-criterion-form {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.maha-criterion-form-body {
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+  .maha-search-header {
+    border-bottom: 1px solid fadeout(@black, 95)
+  }
+}
+.maha-criterion-form-panel {
+  flex: 1;
   padding: 0.8em;
 }
 .maha-criterion-field {
   margin-bottom: 0.8em;
+}
+.maha-criterion-form-footer {
+  border-top: 1px solid fadeout(@black, 95);
+  padding: 0.8em;
 }

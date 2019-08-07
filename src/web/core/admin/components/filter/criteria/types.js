@@ -1,12 +1,12 @@
 import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
-import Fields from './fields'
 import React from 'react'
+import Field from './field'
 
 class Types extends React.PureComponent {
 
   static contextTypes = {
-    criteria: PropTypes.object
+    filter: PropTypes.object
   }
 
   static propTypes = {
@@ -24,33 +24,34 @@ class Types extends React.PureComponent {
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-criterion-items">
+          <div className="maha-criterion-type">
+            Conditional
+          </div>
           <div className="maha-criterion-item" onClick={ this._handleConditional.bind(this, '$and') }>
-            Conditional AND Field
+            AND
           </div>
           <div className="maha-criterion-item" onClick={ this._handleConditional.bind(this, '$or') }>
-            Conditional OR Field
+            OR
           </div>
-          { types.map((type, index) => (
-            <div className="maha-criterion-item" key={`field_${index}`} onClick={ this._handleType.bind(this, type)}>
+          { types.reduce((items, type, index) => [
+            ...items,
+            <div className="maha-criterion-type" key={`type_${index}`}>
               { type.label }
-            </div>
-          )) }
+            </div>,
+            ...type.fields.map((field, index) => (
+              <div className="maha-criterion-item" key={`field_${index}`} onClick={ this._handleField.bind(this, field)}>
+                { field.label }
+              </div>
+            ))
+          ], []) }
         </div>
       </ModalPanel>
     )
   }
 
-  _getFields(type) {
-    const { onDone } = this.props
-    return {
-      type,
-      onDone
-    }
-  }
-
   _getPanel() {
     return {
-      title: 'Choose Criteria',
+      title: 'Add Criteria',
       color: 'lightgrey',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
@@ -59,18 +60,23 @@ class Types extends React.PureComponent {
   }
 
   _handleCancel() {
-    this.context.criteria.pop()
+    this.context.filter.pop()
   }
 
   _handleConditional(type) {
     this.props.onDone({ [type]: [] })
-    this.context.criteria.pop(1)
+    this.context.filter.pop(-1)
   }
 
-  _handleType(type) {
-    this.context.criteria.push({
-      component: Fields,
-      props: this._getFields(type)
+  _handleField(field) {
+    const { onDone } = this.props
+    this.context.filter.push({
+      component: Field,
+      props: {
+        field,
+        mode: 'add',
+        onDone
+      }
     })
   }
 

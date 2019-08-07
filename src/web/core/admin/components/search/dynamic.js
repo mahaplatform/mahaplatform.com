@@ -1,27 +1,35 @@
-import React from 'react'
+import PropTypes from 'prop-types'
 import Options from './options'
+import React from 'react'
 import _ from 'lodash'
 
 class Dynamic extends React.Component {
 
+  static propTypes = {
+    cid: PropTypes.string,
+    format: PropTypes.any,
+    multiple: PropTypes.bool,
+    records: PropTypes.array,
+    selected: PropTypes.array,
+    text: PropTypes.string,
+    value: PropTypes.string,
+    onToggle: PropTypes.func
+  }
+
   render() {
-    return (this.props.records) ? <Options { ...this._getOptions() } /> : null
+    return <Options { ...this._getOptions() } />
   }
 
   _getOptions() {
-    const { format, multiple, name, records, results, status, onUpdate } = this.props
-    const options = records.map(this._getOption.bind(this))
-    return { name, format, multiple, options, results, status, onUpdate }
-  }
-
-  _getOption(record) {
-    const { text, value } = this.props
-    return {
+    const { cid, format, multiple, records, selected, text, value, onToggle } = this.props
+    const options = records.map(record => ({
       value: _.get(record, value),
       text: _.get(record, text),
       record
-    }
+    }))
+    return { cid, format, multiple, options, selected, onToggle }
   }
+
 
 }
 

@@ -1,20 +1,43 @@
+import Token from '../../tokens/token'
 import Searchbox from '../searchbox'
 import Infinite from '../infinite'
-import { digest } from 'json-hash'
 import PropTypes from 'prop-types'
 import Dynamic from './dynamic'
 import Options from './options'
 import React from 'react'
+import _ from 'lodash'
 
 class Search extends React.Component {
 
   static propTypes = {
+    cid: PropTypes.string,
+    defaultValue: PropTypes.any,
     endpoint: PropTypes.string,
-    filter: PropTypes.object
+    filter: PropTypes.object,
+    format: PropTypes.any,
+    label: PropTypes.string,
+    multiple: PropTypes.bool,
+    options: PropTypes.any,
+    prompt: PropTypes.string,
+    q: PropTypes.string,
+    selected: PropTypes.array,
+    sort: PropTypes.object,
+    text: PropTypes.string,
+    value: PropTypes.string,
+    onChange: PropTypes.func,
+    onQuery: PropTypes.func,
+    onSet: PropTypes.func,
+    onToggle: PropTypes.func
   }
 
   static defaultProps = {
-    filter: {}
+    filter: {},
+    format: Token,
+    multiple: false
+  }
+
+  state = {
+    cacheKey: _.random(100000, 999999).toString(36)
   }
 
   render() {
@@ -32,9 +55,26 @@ class Search extends React.Component {
     )
   }
 
+  componentDidMount() {
+    const { defaultValue, onSet } = this.props
+    if(defaultValue) onSet(defaultValue)
+  }
+
+  componentDidUpdate(prevProps) {
+    const { selected } = this.props
+    if(!_.isEqual(selected, prevProps.selected)) {
+      this._handleChange(selected)
+    }
+  }
+
+  _getDynamic() {
+    const { cid, format, multiple, options, selected, text, value, onToggle } = this.props
+    return { cid, format, multiple, options, selected, text, value, onToggle }
+  }
+
   _getOptions() {
-    const { format, name, multiple, options, results, onUpdate } = this.props
-    return { format, name, multiple, options, results, onUpdate }
+    const { cid, format, multiple, options, selected, onToggle } = this.props
+    return { cid, format, multiple, options, selected, onToggle }
   }
 
   _getSearchbox() {
@@ -46,8 +86,8 @@ class Search extends React.Component {
   }
 
   _getInfinite(){
-    const { endpoint, filter, q, results, sort } = this.props
-    const cacheKey = digest(results)
+    const { endpoint, filter, q, sort } = this.props
+    const { cacheKey } = this.state
     return {
       cacheKey,
       endpoint,
@@ -55,13 +95,15 @@ class Search extends React.Component {
         ...filter,
         q
       },
-      layout: (props) => <Dynamic { ...this._getDynamic() } { ...props } />,
+      layout: (props) => <Dynamic { ...props } { ...this._getDynamic() } />,
       sort
     }
   }
 
-  _getDynamic() {
-    return this.props
+  _handleChange() {
+    const { multiple, selected, onChange } = this.props
+    const value = multiple ? selected : selected[0]
+    onChange(value)
   }
 
 }

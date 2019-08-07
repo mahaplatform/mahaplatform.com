@@ -53,10 +53,10 @@ class New extends React.Component {
   _getFields() {
     return [
       { label: 'Contact Fields', fields: [
-        { label: 'First Name', code: 'first_name', type: 'text' },
-        { label: 'Last Name', code: 'last_name', type: 'text' },
-        { label: 'Email', code: 'email', type: 'text' },
-        { label: 'Phone', code: 'phone', type: 'text' }
+        { label: 'First Name', list: 'first_name', type: 'text' },
+        { label: 'Last Name', list: 'last_name', type: 'text' },
+        { label: 'Email', list: 'email', type: 'text' },
+        { label: 'Phone', list: 'phone', type: 'text' }
       ] }
     ]
   }

@@ -61,6 +61,10 @@ class Timeline extends React.PureComponent {
     this._handleJoin()
   }
 
+  componentWillUnmount() {
+    this._handleLeave()
+  }
+
   _getCall() {
     const { contact } = this.props
     return {
@@ -103,6 +107,7 @@ class Timeline extends React.PureComponent {
       { target: channel, action: 'refresh', handler: this._handleFetch }
     ])
   }
+
 }
 
 export default Timeline

@@ -3,6 +3,7 @@ const filterSerializer = (req, result) => ({
   owner: user(result.related('user')),
   title: result.get('title'),
   description: result.get('description'),
+  code: result.get('code'),
   criteria: result.get('criteria'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

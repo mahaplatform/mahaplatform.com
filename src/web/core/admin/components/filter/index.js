@@ -5,16 +5,16 @@ import Overview from './overview'
 import Criteria from './criteria'
 import React from 'react'
 
-class CriteriaWrapper extends React.PureComponent {
+class Filter extends React.PureComponent {
 
   static childContextTypes = {
-    criteria: PropTypes.object
+    filter: PropTypes.object
   }
 
   static contextTypes = {}
 
   static propTypes = {
-    code: PropTypes.object,
+    code: PropTypes.string,
     defaultValue: PropTypes.object,
     entity: PropTypes.string,
     fields: PropTypes.array,
@@ -25,13 +25,14 @@ class CriteriaWrapper extends React.PureComponent {
     cards: []
   }
 
+  _handleEdit = this._handleEdit.bind(this)
   _handleNew = this._handleNew.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
 
   render() {
     return (
-      <div className="maha-criteria">
+      <div className="maha-filter">
         <Modal>
           <Stack { ...this._getStack() } />
         </Modal>
@@ -49,18 +50,18 @@ class CriteriaWrapper extends React.PureComponent {
 
   getChildContext() {
     return {
-      criteria: {
+      filter: {
         push: this._handlePush,
         pop: this._handlePop
       }
     }
   }
 
-  _getCriteria() {
-    const { code, defaultValue, fields, onChange } = this.props
+  _getCriteria(criteria = null) {
+    const { code, fields, onChange } = this.props
     return {
       code,
-      defaultValue,
+      defaultValue: criteria,
       fields,
       onChange
     }
@@ -71,6 +72,7 @@ class CriteriaWrapper extends React.PureComponent {
     return {
       code,
       entity,
+      onEdit: this._handleEdit,
       onNew: this._handleNew,
       onChange
     }
@@ -82,6 +84,15 @@ class CriteriaWrapper extends React.PureComponent {
       cards,
       slideFirst: false
     }
+  }
+
+  _handleEdit(filter) {
+    this.setState({
+      cards: [
+        ...this.state.cards,
+        { component: Criteria, props: this._getCriteria(filter.criteria) }
+      ]
+    })
   }
 
   _handleNew() {
@@ -110,4 +121,4 @@ class CriteriaWrapper extends React.PureComponent {
 
 }
 
-export default CriteriaWrapper
+export default Filter

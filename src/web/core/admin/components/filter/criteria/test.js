@@ -2,9 +2,9 @@ import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import { spy } from 'sinon'
 import React from 'react'
-import Criteria from './criteria.js'
+import Designer from './designer.js'
 
-describe('src/web/apps/crm/admin/components/criteria', () => {
+describe('src/web/core/admin/components/criteria/designer', () => {
 
   describe('/actions.js', () => {
 
@@ -25,13 +25,13 @@ describe('src/web/apps/crm/admin/components/criteria', () => {
   })
 
 
-  describe('/criteria.js', () => {
+  describe('/designer.js', () => {
 
     it('renders', async () => {
 
-      const criteria = shallow(<Criteria />)
+      const designer = shallow(<Designer />)
 
-      expect(criteria.is('div.criteria')).to.be.true
+      expect(designer.is('div.designer')).to.be.true
 
     })
 

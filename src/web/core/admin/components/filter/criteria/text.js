@@ -1,16 +1,11 @@
 import RadioGroup from '../../form/select/radio_group'
 import TextField from '../../form/textfield'
-import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
 import Button from '../../button'
 import React from 'react'
 import _ from 'lodash'
 
-class Text extends React.PureComponent {
-
-  static contextTypes = {
-    criteria: PropTypes.object
-  }
+class Text extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.object,
@@ -18,8 +13,6 @@ class Text extends React.PureComponent {
     mode: PropTypes.string,
     onDone: PropTypes.func
   }
-
-  static defaultProps = {}
 
   state = {
     operator: '$eq',
@@ -31,19 +24,17 @@ class Text extends React.PureComponent {
 
   render() {
     return (
-      <ModalPanel { ...this._getPanel() }>
-        <div className="maha-criterion-form">
-          <div className="maha-criterion-field">
-            <RadioGroup { ...this._getRadioGroup() } />
-          </div>
-          <div className="maha-criterion-field">
-            <TextField { ...this._getTextField() } />
-          </div>
-          <div className="maha-criterion-field">
-            <Button { ...this._getButton() } />
-          </div>
+      <div className="maha-criterion-form-panel">
+        <div className="maha-criterion-field">
+          <RadioGroup { ...this._getRadioGroup() } />
         </div>
-      </ModalPanel>
+        <div className="maha-criterion-field">
+          <TextField { ...this._getTextField() } />
+        </div>
+        <div className="maha-criterion-field">
+          <Button { ...this._getButton() } />
+        </div>
+      </div>
     )
   }
 
@@ -98,16 +89,9 @@ class Text extends React.PureComponent {
     }
   }
 
-  _handleCancel() {
-    const { mode } = this.props
-    this.context.criteria.pop(mode === 'edit' ? -1 : -3)
-  }
-
   _handleDone() {
     const { operator, value } = this.state
-    const { mode, field } = this.props
-    this.props.onDone({ [field.code]: { [operator]: value } })
-    this.context.criteria.pop(mode === 'edit' ? -1 : -3)
+    this.props.onDone({ [operator]: value })
   }
 
   _handleChange(key, value) {

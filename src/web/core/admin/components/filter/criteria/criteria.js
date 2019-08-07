@@ -1,21 +1,21 @@
 import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
 import Button from '../../button'
+import Field from './field'
 import Types from './types'
 import Item from './item'
 import React from 'react'
-import Text from './text'
 import New from './new'
 import _ from 'lodash'
 
 class Criteria extends React.Component {
 
   static contextTypes = {
-    criteria: PropTypes.object
+    filter: PropTypes.object
   }
 
   static propTypes = {
-    code: PropTypes.object,
+    code: PropTypes.string,
     criteria: PropTypes.object,
     defaultValue: PropTypes.object,
     fields: PropTypes.array,
@@ -35,25 +35,28 @@ class Criteria extends React.Component {
     const { criteria } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-criteria">
-          <div className="maha-criteria-body">
-            <div className="maha-criteria-items">
-              { criteria && Object.keys(criteria).length > 0 &&
-                <Item { ...this._getItem(criteria) } />
-              }
+        { criteria &&
+          <div className="maha-criteria">
+            <div className="maha-criteria-body">
+              <div className="maha-criteria-items">
+                { Object.keys(criteria).length > 0 &&
+                  <Item { ...this._getItem(criteria) } />
+                }
+              </div>
+            </div>
+            <div className="maha-criteria-footer">
+              <Button { ...this._getButton() } />
             </div>
           </div>
-          <div className="maha-criteria-footer">
-            <Button { ...this._getButton() } />
-          </div>
-        </div>
+        }
       </ModalPanel>
     )
   }
 
   componentDidMount() {
     const { defaultValue, onSet } = this.props
-    if(defaultValue) onSet(defaultValue)
+    const value = defaultValue || { $and: [] }
+    onSet(value)
   }
 
   componentDidUpdate(prevProps) {
@@ -73,13 +76,9 @@ class Criteria extends React.Component {
     }
   }
 
-  _getComponent(type) {
-    if(type === 'text') return Text
-  }
-
   _getPanel() {
     return {
-      title: 'Filter Results',
+      title: 'Design Filter',
       color: 'lightgrey',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
@@ -106,18 +105,17 @@ class Criteria extends React.Component {
   }
 
   _handleAdd(cindex) {
-    const { criteria } = this.context
-    criteria.push({
+    const { filter } = this.context
+    filter.push({
       component: Types,
       props: this._getTypes({
-        mode: 'add',
         onDone: this._handleCreate.bind(this, cindex)
       })
     })
   }
 
   _handleBack() {
-    this.context.criteria.pop()
+    this.context.filter.pop()
   }
 
   _handleCreate(cindex, value) {
@@ -125,15 +123,15 @@ class Criteria extends React.Component {
   }
 
   _handleEdit(cindex, criterion) {
-    const { criteria } = this.context
+    const { filter } = this.context
     const key = Object.keys(criterion)[0]
     const field = this.props.fields.reduce((found, type) => {
       return found || type.fields.reduce((found, field) => {
-        return found || (field.code === key ? field : null)
+        return found || (field.key === key ? field : null)
       }, null)
     }, null)
-    criteria.push({
-      component: this._getComponent(field.type),
+    filter.push({
+      component: Field,
       props: {
         defaultValue: criterion[key],
         field,
