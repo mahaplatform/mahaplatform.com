@@ -67,11 +67,6 @@ class Search extends React.Component {
     }
   }
 
-  _getDynamic() {
-    const { cid, format, multiple, options, selected, text, value, onToggle } = this.props
-    return { cid, format, multiple, options, selected, text, value, onToggle }
-  }
-
   _getOptions() {
     const { cid, format, multiple, options, selected, onToggle } = this.props
     return { cid, format, multiple, options, selected, onToggle }
@@ -86,7 +81,7 @@ class Search extends React.Component {
   }
 
   _getInfinite(){
-    const { endpoint, filter, q, sort } = this.props
+    const { cid, endpoint, filter, format, multiple, options, q, selected, sort, text, value, onToggle } = this.props
     const { cacheKey } = this.state
     return {
       cacheKey,
@@ -95,7 +90,8 @@ class Search extends React.Component {
         ...filter,
         q
       },
-      layout: (props) => <Dynamic { ...props } { ...this._getDynamic() } />,
+      layout: Dynamic,
+      props: { cid, format, multiple, options, selected, text, value, onToggle },
       sort
     }
   }

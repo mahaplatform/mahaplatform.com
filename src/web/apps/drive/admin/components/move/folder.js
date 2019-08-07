@@ -39,7 +39,7 @@ class Folder extends React.Component {
   }
 
   _getInfinite() {
-    const { folder } = this.props
+    const { folder, onChangeFolder } = this.props
     const code = folder.code || 'drive'
     const empty = {
       icon: 'folder-open-o',
@@ -55,14 +55,10 @@ class Folder extends React.Component {
       },
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
-      layout: (props) => <Items { ...this._getItems() } { ...props } />
-    }
-  }
-
-  _getItems() {
-    const { onChangeFolder } = this.props
-    return {
-      onChangeFolder
+      layout: Items,
+      props:  {
+        onChangeFolder
+      }
     }
   }
 

@@ -150,7 +150,8 @@ class Container extends React.Component {
       cacheKey,
       endpoint,
       filter: { q },
-      layout: (props) => <Dynamic { ...this.props } { ...props } />,
+      layout: Dynamic,
+      props: this.props,
       sort,
       text,
       value

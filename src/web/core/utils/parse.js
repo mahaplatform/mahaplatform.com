@@ -88,8 +88,6 @@ const parseExcel = async (asset, quote, delimiter, headers) => {
 
         if(!parsed.rows[index]) parsed.rows[index] = []
 
-        console.log(`row ${i}, col ${j}: `, parsed.headers[j - 1], cell.value, sanitizeData(parsed.headers[j - 1], cell.value))
-
         parsed.rows[index][j - 1] = sanitizeData(parsed.headers[j - 1], cell.value)
 
       }

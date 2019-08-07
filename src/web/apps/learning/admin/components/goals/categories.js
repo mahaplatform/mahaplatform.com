@@ -43,14 +43,10 @@ class Categories extends React.Component {
       endpoint: '/api/admin/learning/categories',
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
-      layout: (props) => <Items { ...this._getItems(props) } />
-    }
-  }
-
-  _getItems(props) {
-    return {
-      ...props,
-      onChoose: this._handleChoose
+      layout: Items,
+      props: {
+        onChoose: this._handleChoose
+      }
     }
   }
 

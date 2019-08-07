@@ -90,7 +90,7 @@ class ToggleList extends React.Component{
   }
 
   _getInfinite() {
-    const { endpoint, exclude_ids, chosen, query } = this.props
+    const { chosen, endpoint, exclude_ids, format, multiple, query , text, value} = this.props
     return {
       endpoint,
       exclude_ids,
@@ -98,19 +98,15 @@ class ToggleList extends React.Component{
         q: query
       },
       chosen,
-      layout: (props) => <Result { ...this._getResults() } { ...props } />
-    }
-  }
-
-  _getResults() {
-    const { format, chosen, multiple, text, value } = this.props
-    return {
-      format,
-      chosen,
-      multiple,
-      text,
-      value,
-      onToggleRecord: this._handleToggleRecord.bind(this)
+      layout: Result,
+      props: {
+        format,
+        chosen,
+        multiple,
+        text,
+        value,
+        onToggleRecord: this._handleToggleRecord.bind(this)
+      }
     }
   }
 

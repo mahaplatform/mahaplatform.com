@@ -174,7 +174,6 @@ class Access extends React.Component {
 
   _handleRemove(index) {
     const { assigned, onRemove, onRevoke } = this.props
-    console.log(index, assigned.records)
     const assignment = assigned.records[index]
     if(!assignment.id) return onRemove(index)
     return onRevoke(index)

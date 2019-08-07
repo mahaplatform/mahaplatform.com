@@ -56,7 +56,6 @@ class Field extends React.PureComponent {
 
   _handleDone(value) {
     const { mode, field } = this.props
-    console.log({ [field.key]: value })
     this.props.onDone({ [field.key]: value })
     this.context.filter.pop(mode === 'edit' ? -1 : -2)
   }

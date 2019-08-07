@@ -75,13 +75,6 @@ class Infinite extends React.Component {
     this._handleFetch(0, true)
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    const ignored = ['con','empty','layout','footer','router']
-    return Object.keys(_.omit(this.props, ignored)).reduce((update, key) => {
-      return update || !_.isEqual(this.props[key], nextProps[key])
-    }, false)
-  }
-
   componentDidUpdate(prevProps) {
     const { cacheKey, exclude_ids, filter, records, selected, sort, onUpdateSelected } = this.props
     if(cacheKey !== prevProps.cacheKey || !_.isEqual(prevProps.exclude_ids, exclude_ids)  || !_.isEqual(prevProps.filter, filter) || !_.isEqual(prevProps.sort, sort)) {
@@ -99,7 +92,6 @@ class Infinite extends React.Component {
 
   _getLayout() {
     const { all, props, records, total } = this.props
-    console.log('layout', { all, records, total, ...props })
     return { all, records, total, ...props }
   }
 
@@ -112,13 +104,13 @@ class Infinite extends React.Component {
   _handleFetch(skip = null, reload = false) {
     const { endpoint, exclude_ids, filter, next, records, sort, total, onFetch } = this.props
     const loaded = records ? records.length : 0
-    const query = {
+    if(!onFetch || !this._getMore(next, skip, reload, loaded, total)) return
+    onFetch(endpoint, {
       $page: this._getPagination(skip),
       ...(filter ? { $filter: filter } : {}),
       ...(sort && sort.key ? { $sort: (sort.order === 'desc' ? '-' : '') + sort.key } : {}),
       ...(exclude_ids ? { $exclude_ids: exclude_ids } : {})
-    }
-    if(onFetch && this._getMore(next, skip, reload, loaded, total)) onFetch(endpoint, query)
+    })
   }
 
   _getMore(next, skip, reload, loaded, total) {

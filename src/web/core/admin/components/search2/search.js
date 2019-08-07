@@ -66,21 +66,17 @@ class Search extends React.Component  {
   }
 
   _getInfinite() {
-    const { cacheKey, empty, endpoint, exclude_ids, notFound, q } = this.props
+    const { cacheKey, empty, endpoint, exclude_ids, format, notFound, q, text, value, onChoose } = this.props
     return {
       cacheKey,
       empty,
       endpoint,
       exclude_ids,
       filter: { q },
-      layout: (props) => <Dynamic { ...this._getDynamic() } { ...props } />,
+      layout: Dynamic,
+      props: { format, text, value, onChoose },
       notFound
     }
-  }
-
-  _getDynamic() {
-    const { format, text, value, onChoose } = this.props
-    return { format, text, value, onChoose }
   }
 
 }

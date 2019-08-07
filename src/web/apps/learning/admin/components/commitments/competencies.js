@@ -52,14 +52,10 @@ class Competencies extends React.Component {
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
       filter,
-      layout: (props) => <Items { ...this._getItems(props) } />
-    }
-  }
-
-  _getItems(props) {
-    return {
-      ...props,
-      onChoose: this._handleChoose
+      layout: Items,
+      props: {
+        onChoose: this._handleChoose
+      }
     }
   }
 

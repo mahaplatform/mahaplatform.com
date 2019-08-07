@@ -20,8 +20,8 @@ const _getValue = (filters, results, key) => {
   const field = _.find(filters, { name: key })
   if(!field) return null
   const value = results[key]
-  if(field.type === 'daterange') return { $dr: value.key }
-  if(_.isArray(value)) return { $in: value.map(item => item.key) }
+  if(field.type === 'daterange') return { $dr: value }
+  if(_.isArray(value)) return { $in: value }
   if(_.isPlainObject(value)) return { $eq: value.key }
   return { $eq: value }
 }

@@ -68,6 +68,7 @@ class Filters extends React.Component {
 
   _handleChange() {
     const { filtered } = this.props
+    console.log(filtered)
     this.props.onUpdate(filtered)
   }
 

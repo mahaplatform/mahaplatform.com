@@ -189,7 +189,8 @@ class Folder extends React.Component {
       endpoint: '/api/admin/drive/shared',
       empty: <Message { ...this._getEmptyShared() } />,
       notFound: <Message { ...this._getEmptyShared() } />,
-      layout: (props) => <Items { ...this._getItems() } { ...props } />
+      layout: Items,
+      props: this._getItems()
     }
   }
 
@@ -198,7 +199,8 @@ class Folder extends React.Component {
       endpoint: '/api/admin/drive/starred',
       empty: <Message { ...this._getEmptyStarred() } />,
       notFound: <Message { ...this._getEmptyStarred() } />,
-      layout: (props) => <Items { ...this._getItems() } { ...props } />,
+      layout: Items,
+      props: this._getItems(),
       selectors
     }
   }
@@ -210,7 +212,8 @@ class Folder extends React.Component {
       endpoint: '/api/admin/drive/trash',
       empty: <Message { ...this._getEmptyTrash() } />,
       notFound: <Message { ...this._getEmptyTrash() } />,
-      layout: (props) => <Items { ...this._getItems() } { ...props } />,
+      layout: Items,
+      props: this._getItems(),
       selectors
     }
   }
@@ -223,7 +226,8 @@ class Folder extends React.Component {
       ...this._getFilter(folder.code),
       empty: <Message { ...this._getEmptyFolder() } />,
       notFound: <Message { ...this._getEmptyFolder() } />,
-      layout: (props) => <Items { ...this._getItems() } { ...props } />
+      layout: Items,
+      props: this._getItems()
     }
   }
 

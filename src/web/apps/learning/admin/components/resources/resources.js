@@ -49,15 +49,15 @@ class Resources extends React.Component {
       filter: {
         'competencies_competencies.id': { $eq: competency.id }
       },
-      layout: (props) => <Items { ...this._getItems(props) } />
+      layout: Items,
+      props: {
+        onChoose: this._handleChoose
+      }
     }
   }
 
   _getItems(props) {
-    return {
-      ...props,
-      onChoose: this._handleChoose
-    }
+    return
   }
 
   _handleBack() {

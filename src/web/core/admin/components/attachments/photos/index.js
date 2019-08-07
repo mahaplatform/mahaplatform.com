@@ -50,7 +50,7 @@ class Photos extends React.Component {
   }
 
   _getInfinite() {
-    const { network } = this.props
+    const { files, network, onCreate, onRemoveFile } = this.props
     const empty = {
       icon: 'times-circle',
       title: 'No Results',
@@ -60,17 +60,13 @@ class Photos extends React.Component {
       endpoint: `/api/admin/sources/${network}/photos`,
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
-      layout: (props) => <Items { ...this._getItems() } { ...props } />
-    }
-  }
-
-  _getItems() {
-    const { files, network, onCreate, onRemoveFile } = this.props
-    return {
-      files,
-      network,
-      onCreate,
-      onRemoveFile
+      layout: Items,
+      props: {
+        files,
+        network,
+        onCreate,
+        onRemoveFile
+      }
     }
   }
 

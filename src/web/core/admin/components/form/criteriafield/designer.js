@@ -74,22 +74,16 @@ class Desginer extends React.Component {
   }
 
   _getInfinite() {
-    const { endpoint } = this.props
+    const { endpoint, format } = this.props
     return {
       cacheKey: this.state.cacheKey,
       endpoint,
       filter: this.props.criteria,
-      layout: (props) => <Results { ...this._getResults(props) }  />
+      layout: Results,
+      props: {
+        format
+      }
     }
-  }
-
-  _getResults(props) {
-    const { format } = this.props
-    return {
-      ...props,
-      format
-    }
-
   }
 
   _getNew() {

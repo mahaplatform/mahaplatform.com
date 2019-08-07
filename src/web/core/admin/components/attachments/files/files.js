@@ -89,7 +89,7 @@ class Files extends React.Component {
   }
 
   _getInfinite() {
-    const { network, q } = this.props
+    const { files, network, q, onCreate, onRemoveFile } = this.props
     const empty = {
       icon: 'times-circle',
       title: 'No Results',
@@ -101,17 +101,13 @@ class Files extends React.Component {
       filter,
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
-      layout: (props) => <Items { ...this._getItems() } { ...props } />
-    }
-  }
-
-  _getItems() {
-    const { files, network, onCreate, onRemoveFile } = this.props
-    return {
-      files,
-      network,
-      onCreate,
-      onRemoveFile
+      layout: Items,
+      props: {
+        files,
+        network,
+        onCreate,
+        onRemoveFile
+      }
     }
   }
 

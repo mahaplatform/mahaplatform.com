@@ -28,13 +28,16 @@ class Header extends React.Component {
   _handleToggleFilter = this._handleToggleFilter.bind(this)
 
   render() {
-    const { filters, search, tasks } = this.props
+    const { filters, filtering, search, tasks } = this.props
     if(!filters && !this.props.export && !search && !tasks) return null
     return (
       <div className="maha-collection-header">
         <div className="maha-collection-header-bar">
           <div className="maha-collection-header-action" onClick={ this._handleToggleFilter }>
-            <i className="fa fa-filter" />
+            { filtering ?
+              <i className="fa fa-times" /> :
+              <i className="fa fa-filter" />
+            }
           </div>
           { search && <Searchbox { ...this._getSearchbox() } /> }
           <Export { ...this._getExport() } />

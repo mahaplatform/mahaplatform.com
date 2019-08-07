@@ -183,9 +183,7 @@ class Preview extends React.Component {
   }
 
   _getInitialMapping() {
-    console.log('_getInitialMapping')
-    const { fields, parsed, table_fields, tables } = this.props
-
+    const { fields, parsed, table_fields } = this.props
     const simplify = (string) => {
       if(!string) return null
       if(_.endsWith(string, '_code')) string = string.replace('_code','')

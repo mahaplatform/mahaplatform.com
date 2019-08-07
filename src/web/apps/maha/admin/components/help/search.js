@@ -33,7 +33,7 @@ class Search extends React.Component {
   }
 
   _getInfinite() {
-    const { q } = this.props
+    const { q, onClick } = this.props
     const empty = {
       icon: 'times',
       title: 'No Articles',
@@ -44,14 +44,10 @@ class Search extends React.Component {
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
       filter: { q },
-      layout: (props) => <Results { ...props } { ...this._getResults() } />
-    }
-  }
-
-  _getResults() {
-    const { onClick } = this.props
-    return {
-      onClick
+      layout: Results,
+      props: {
+        onClick
+      }
     }
   }
 

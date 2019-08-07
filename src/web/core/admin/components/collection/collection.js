@@ -65,6 +65,7 @@ class Collection extends React.Component {
     onSetQuery: PropTypes.func,
     onSetSelected: PropTypes.func,
     onSetRecords: PropTypes.func,
+    onSort: PropTypes.func,
     onToggleFilter: PropTypes.func
   }
 
@@ -189,31 +190,27 @@ class Collection extends React.Component {
   }
 
   _getInfinite() {
-    const { endpoint, failure, loading, q, sort, onSetSelected } = this.props
+    const { endpoint, failure, loading, q, sort, table, onSetSelected, onSort } = this.props
     const { cacheKey } = this.state
-    const filter = {
-      ...this.props.filter,
-      q
-    }
     return {
       cacheKey,
       endpoint,
-      filter,
+      filter: {
+        ...this.props.filter,
+        q
+      },
       loading,
       empty: this._getEmpty(),
       failure,
       layout: Results,
-      props: this._getResults(),
+      props: {
+        code: this.code,
+        sort,
+        table,
+        onSort
+      },
       sort,
       onUpdateSelected: onSetSelected
-    }
-  }
-
-  _getResults() {
-    const { table } = this.props
-    return {
-      code: this.code,
-      table
     }
   }
 

@@ -81,7 +81,7 @@ class Drive extends React.Component {
   }
 
   _getInfinite() {
-    const { q } = this.props
+    const { files,  q, onChangeFolder } = this.props
     const empty = {
       icon: 'times-circle',
       title: 'No Results',
@@ -92,18 +92,14 @@ class Drive extends React.Component {
       filter: { q, type: { $eq: 'file' } },
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
-      layout: (props) => <Items { ...this._getItems() } { ...props } />
-    }
-  }
-
-  _getItems() {
-    const { files, onChangeFolder } = this.props
-    return {
-      files,
-      onAddFile: this._handleAddAsset,
-      onAddAsset: this._handleAddAsset,
-      onRemoveAsset: this._handleRemoveAsset,
-      onChangeFolder
+      layout: Items,
+      props: {
+        files,
+        onAddFile: this._handleAddAsset,
+        onAddAsset: this._handleAddAsset,
+        onRemoveAsset: this._handleRemoveAsset,
+        onChangeFolder
+      }
     }
   }
 

@@ -115,7 +115,8 @@ class Explorer extends React.Component {
       filter: { q, type: { $eq: 'file' } },
       empty: <Message { ...this._getEmpty() } />,
       notFound: <Message { ...this._getEmpty() } />,
-      layout: (props) => <Items  { ...props } { ...this._getItems() } />
+      layout: Items,
+      props: this._getItems()
     }
   }
 

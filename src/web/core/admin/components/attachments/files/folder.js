@@ -45,7 +45,7 @@ class Folder extends React.Component {
   }
 
   _getInfinite() {
-    const { folder, network } = this.props
+    const { files, folder, network, onAddAsset, onChangeFolder, onCreate, onRemoveAsset } = this.props
     const $eq = folder.id || 'null'
     const filter = { folder_id: { $eq } }
     const empty = {
@@ -58,19 +58,15 @@ class Folder extends React.Component {
       filter,
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
-      layout: (props) => <Items { ...this._getItems() } { ...props } />
-    }
-  }
-
-  _getItems() {
-    const { files, network, onAddAsset, onChangeFolder, onCreate, onRemoveAsset } = this.props
-    return {
-      files,
-      network,
-      onAddAsset,
-      onChangeFolder,
-      onCreate,
-      onRemoveAsset
+      layout: Items,
+      props: {
+        files,
+        network,
+        onAddAsset,
+        onChangeFolder,
+        onCreate,
+        onRemoveAsset
+      }
     }
   }
 

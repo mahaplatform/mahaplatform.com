@@ -7,8 +7,6 @@ export const listeners = async (req, listeners) => {
 
     const listenable = _getListenable(listener)
 
-    console.log(listenable)
-
     await Listening.fetchOrCreate({
       team_id: req.team.get('id'),
       user_id: listener.user_id,

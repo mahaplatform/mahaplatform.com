@@ -85,7 +85,10 @@ class Channels extends React.Component {
       empty: () => <Empty { ...this._getEmpty() } />,
       endpoint: '/api/admin/chat/search',
       filter: { q },
-      layout: (props) => <Results {...props} onChoose={ this._handleChoose.bind(this) } />,
+      layout: Results,
+      props: {
+        onChoose: this._handleChoose.bind(this)
+      },
       notFound: NotFound
     }
   }

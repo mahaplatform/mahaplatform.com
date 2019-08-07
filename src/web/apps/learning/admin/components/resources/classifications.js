@@ -43,14 +43,10 @@ class Classifications extends React.Component {
       endpoint: '/api/admin/learning/classifications',
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
-      layout: (props) => <Items { ...this._getItems(props) } />
-    }
-  }
-
-  _getItems(props) {
-    return {
-      ...props,
-      onChoose: this._handleChoose
+      layout: Items,
+      props: {
+        onChoose: this._handleChoose
+      }
     }
   }
 

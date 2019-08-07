@@ -13,8 +13,6 @@ const mkcolRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  console.log('parent', parent)
-
   await createFolder(req, {
     parent,
     label: req.label
