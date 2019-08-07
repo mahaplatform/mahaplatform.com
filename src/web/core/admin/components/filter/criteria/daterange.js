@@ -47,7 +47,7 @@ class DateRange extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { value } = this.state
     if(value !== prevState.value) {
-      this.props.onChange(this.state)
+      this.props.onChange({ $eq: value })
     }
   }
 

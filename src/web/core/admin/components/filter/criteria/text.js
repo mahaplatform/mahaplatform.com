@@ -58,10 +58,10 @@ class Text extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { operator, value } = this.state
     if(operator !== prevState.operator) {
-      this.props.onChange(this.state)
+      this.props.onChange({ [operator]: value })
     }
     if(value !== prevState.value) {
-      this.props.onChange(this.state)
+      this.props.onChange({ [operator]: value })
     }
   }
 

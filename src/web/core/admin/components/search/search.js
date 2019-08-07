@@ -56,12 +56,17 @@ class Search extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue, onSet } = this.props
-    if(defaultValue) onSet(defaultValue)
+    this._handleSetDefault()
   }
 
   componentDidUpdate(prevProps) {
-    const { selected } = this.props
+    const { defaultValue, multiple, selected } = this.props
+    if(!_.isEqual(defaultValue, prevProps.defaultValue)) {
+      this._handleSetDefault()
+    }
+    if(!_.isEqual(multiple, prevProps.multiple)) {
+      this._handleChange(selected)
+    }
     if(!_.isEqual(selected, prevProps.selected)) {
       this._handleChange(selected)
     }
@@ -100,6 +105,11 @@ class Search extends React.Component {
     const { multiple, selected, onChange } = this.props
     const value = multiple ? selected : selected[0]
     onChange(value)
+  }
+
+  _handleSetDefault() {
+    const { defaultValue, onSet } = this.props
+    if(defaultValue) onSet(defaultValue)
   }
 
 }

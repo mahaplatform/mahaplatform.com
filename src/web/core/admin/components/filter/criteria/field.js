@@ -19,6 +19,7 @@ class Field extends React.PureComponent {
   }
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
 
   render() {
@@ -50,8 +51,9 @@ class Field extends React.PureComponent {
     this.context.filter.pop(mode == 'edit' ? -1 : -2)
   }
 
-  _handleChange() {
-
+  _handleChange(value) {
+    const { field } = this.props
+    console.log('changed', field.key, value)
   }
 
   _handleDone(value) {

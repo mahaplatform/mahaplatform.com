@@ -50,9 +50,12 @@ class Select extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { operator } = this.state
+    const { operator, value } = this.state
     if(operator !== prevState.operator) {
-      this.props.onChange(this.state)
+      this.props.onChange({ [operator]: value })
+    }
+    if(!_.isEqual(operator !== prevState.operator)) {
+      this.props.onChange({ [operator]: value })
     }
   }
 
@@ -97,7 +100,7 @@ class Select extends React.Component {
     const { operator, value } = this.state
     const { field } = this.props
     return {
-      defaultValue: value,
+      defaultValue: _.castArray(value),
       endpoint: field.endpoint,
       format: field.format,
       label: field.name,
