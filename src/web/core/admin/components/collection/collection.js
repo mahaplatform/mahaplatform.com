@@ -150,13 +150,14 @@ class Collection extends React.Component {
   }
 
   _getFilter() {
-    const { criteria, entity, filter, onSetFilter } = this.props
+    const { criteria, entity, filter, onSetFilter, onToggleFilter } = this.props
     return {
       code: 'foobarbaz',
       entity,
       defaultValue: Object.keys(filter).length > 0 ? filter : null,
       fields: criteria,
-      onChange: onSetFilter
+      onChange: onSetFilter,
+      onClose: onToggleFilter
     }
   }
 

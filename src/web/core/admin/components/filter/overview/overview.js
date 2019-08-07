@@ -20,6 +20,7 @@ class Overview extends React.Component {
     status: PropTypes.string,
     onChange: PropTypes.func,
     onChoose: PropTypes.func,
+    onClose: PropTypes.func,
     onEdit: PropTypes.func,
     onFetch: PropTypes.func,
     onNew: PropTypes.func
@@ -27,6 +28,7 @@ class Overview extends React.Component {
 
   static defaultProps = {}
 
+  _handleClose = this._handleClose.bind(this)
   _handleFetch = this._handleFetch.bind(this)
   _handleJoin = this._handleJoin.bind(this)
   _handleLeave = this._handleLeave.bind(this)
@@ -99,12 +101,19 @@ class Overview extends React.Component {
   _getPanel() {
     return {
       title: 'Filter Results',
-      color: 'lightgrey'
+      color: 'lightgrey',
+      leftItems: [
+        { icon: 'times', handler: this._handleClose }
+      ]
     }
   }
 
   _handleChoose(id) {
     this.props.onChoose(id)
+  }
+
+  _handleClose() {
+    this.props.onClose()
   }
 
   _handleFetch() {

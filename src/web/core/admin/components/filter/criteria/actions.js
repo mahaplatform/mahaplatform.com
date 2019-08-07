@@ -19,3 +19,7 @@ export const update = (cindex, value) => ({
   cindex,
   value
 })
+
+export const reset = () => ({
+  type: 'RESET'
+})

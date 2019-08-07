@@ -44,7 +44,7 @@ class DateRange extends React.Component {
     const { mode } = this.props
     return {
       label: mode === 'add' ? 'Add Criteria' : 'Update Criteria',
-      color: 'lightgrey',
+      color: 'blue',
       handler: this._handleDone
     }
   }

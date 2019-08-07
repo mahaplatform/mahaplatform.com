@@ -18,7 +18,8 @@ class Filter extends React.PureComponent {
     defaultValue: PropTypes.object,
     entity: PropTypes.string,
     fields: PropTypes.array,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onClose: PropTypes.func
   }
 
   state = {
@@ -68,13 +69,14 @@ class Filter extends React.PureComponent {
   }
 
   _getOverview() {
-    const { code, entity, onChange } = this.props
+    const { code, entity, onChange, onClose } = this.props
     return {
       code,
       entity,
       onEdit: this._handleEdit,
       onNew: this._handleNew,
-      onChange
+      onChange,
+      onClose
     }
   }
 

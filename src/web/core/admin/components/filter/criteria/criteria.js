@@ -1,6 +1,6 @@
 import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
-import Button from '../../button'
+import Buttons from '../../buttons'
 import Field from './field'
 import Types from './types'
 import Item from './item'
@@ -23,6 +23,7 @@ class Criteria extends React.Component {
     onChange: PropTypes.func,
     onCreate: PropTypes.func,
     onRemove: PropTypes.func,
+    onReset: PropTypes.func,
     onSet: PropTypes.func,
     onUpdate: PropTypes.func
   }
@@ -30,6 +31,7 @@ class Criteria extends React.Component {
   _handleAdd = this._handleAdd.bind(this)
   _handleBack = this._handleBack.bind(this)
   _handleEdit = this._handleEdit.bind(this)
+  _handleReset = this._handleReset.bind(this)
 
   render() {
     const { criteria } = this.props
@@ -45,7 +47,7 @@ class Criteria extends React.Component {
               </div>
             </div>
             <div className="maha-criteria-footer">
-              <Button { ...this._getButton() } />
+              <Buttons { ...this._getButtons() } />
             </div>
           </div>
         }
@@ -66,13 +68,20 @@ class Criteria extends React.Component {
     }
   }
 
-  _getButton() {
+  _getButtons() {
     const { criteria, code } = this.props
     return {
-      label: 'Save Fitler',
-      color: 'blue',
-      disabled: criteria.$and.length === 0,
-      modal: <New code={ code } criteria={ criteria } />
+      buttons: [{
+        label: 'Save',
+        color: 'blue',
+        disabled: criteria.$and.length === 0,
+        modal: <New code={ code } criteria={ criteria } />
+      },{
+        label: 'Reset',
+        color: 'grey',
+        disabled: criteria.$and.length === 0,
+        handler: this._handleReset
+      }]
     }
   }
 
@@ -139,6 +148,10 @@ class Criteria extends React.Component {
         onDone: this._handleUpdate.bind(this, cindex)
       }
     })
+  }
+
+  _handleReset() {
+    this.props.onReset()
   }
 
   _handleUpdate(cindex, value) {

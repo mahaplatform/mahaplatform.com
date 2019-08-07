@@ -20,16 +20,22 @@ const reducer = (state = INITIAL_STATE, action) => {
       criteria: remove(state.criteria, action.cindex)
     }
 
-  case 'UPDATE':
+  case 'RESET':
     return {
       ...state,
-      criteria: update(state.criteria, action.cindex, action.value)
+      criteria: { $and: [] }
     }
 
   case 'SET':
     return {
       ...state,
       criteria: action.criteria
+    }
+
+  case 'UPDATE':
+    return {
+      ...state,
+      criteria: update(state.criteria, action.cindex, action.value)
     }
 
   default:
