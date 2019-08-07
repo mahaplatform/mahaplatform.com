@@ -24,7 +24,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'LOAD_HIDDEN_SUCCESS':
     return {
       ...state,
-      hidden: action.value|| [],
+      hidden: action.value || action.invisible,
       status: 'success'
     }
 

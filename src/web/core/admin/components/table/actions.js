@@ -1,6 +1,7 @@
-export const loadHidden = (code) => ({
+export const loadHidden = (code, invisible) => ({
   type: 'LOCAL_GET',
   key: `table-${code}`,
+  meta: { invisible },
   request: 'LOAD_HIDDEN_REQUEST',
   success: 'LOAD_HIDDEN_SUCCESS',
   failure: 'LOAD_HIDDEN_FAILURE'

@@ -19,6 +19,7 @@ class Table extends React.Component {
     display: PropTypes.array,
     handler: PropTypes.func,
     hidden: PropTypes.array,
+    invisible: PropTypes.array,
     link: PropTypes.func,
     modal: PropTypes.any,
     records: PropTypes.array,
@@ -47,15 +48,12 @@ class Table extends React.Component {
   render() {
     const { link, records, recordTasks, selectable, selected, selectAll, sort, status } = this.props
     const columns = this.props.display
-    if(status === 'pending') return null
     return (
       <div className="maha-table">
-        { status === 'loading' &&
+        { status !== 'success' ?
           <div className="maha-table-loader">
             <Loader />
-          </div>
-        }
-        { status === 'success' &&
+          </div> :
           <table className="maha-table-data">
             <thead>
               <tr>
@@ -109,8 +107,9 @@ class Table extends React.Component {
   }
 
   componentDidMount() {
-    const { code, onLoadHidden } = this.props
-    onLoadHidden(code)
+    const { invisible, code, onLoadHidden } = this.props
+    console.log(invisible)
+    onLoadHidden(code, invisible)
   }
 
   componentDidUpdate(prevProps) {
