@@ -42,7 +42,7 @@ class Select extends React.Component {
     const { mode } = this.props
     return {
       label: mode === 'add' ? 'Add Criteria' : 'Update Criteria',
-      color: 'blue',
+      color: 'lightgrey',
       handler: this._handleDone
     }
   }

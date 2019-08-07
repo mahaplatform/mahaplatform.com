@@ -70,7 +70,7 @@ class Criteria extends React.Component {
     const { criteria, code } = this.props
     return {
       label: 'Save Fitler',
-      color: 'red',
+      color: 'blue',
       disabled: criteria.$and.length === 0,
       modal: <New code={ code } criteria={ criteria } />
     }

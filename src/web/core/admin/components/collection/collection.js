@@ -86,14 +86,14 @@ class Collection extends React.Component {
     const { buttons, criteria, endpoint, filters, filtering, records, selected } = this.props
     return (
       <div className="maha-collection">
-        { filtering &&
-          <div className="maha-collection-sidebar">
-            { filters && !criteria && <Filters { ...this._getFilters() } /> }
-            { criteria && <Filter { ...this._getFilter() } /> }
-          </div>
-        }
+        <Header { ...this._getHeader() } />
         <div className="maha-collection-main">
-          <Header { ...this._getHeader() } />
+          { filtering &&
+            <div className="maha-collection-sidebar">
+              { filters && !criteria && <Filters { ...this._getFilters() } /> }
+              { criteria && <Filter { ...this._getFilter() } /> }
+            </div>
+          }
           <div className="maha-collection-body">
             { records && <Results { ...this._getResults() } /> }
             { endpoint && <Infinite { ...this._getInfinite() } /> }

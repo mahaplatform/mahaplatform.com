@@ -48,7 +48,7 @@ class Text extends React.Component {
     return {
       label: mode === 'add' ? 'Add Criteria' : 'Update Criteria',
       color: 'blue',
-      disabled: _.includes(['$eq','$lk','$nlk'], operator) && value.length === 0,
+      disabled: _.includes(['$eq','$nek','$lk','$nlk'], operator) && value.length === 0,
       handler: this._handleDone
     }
   }
@@ -70,6 +70,7 @@ class Text extends React.Component {
       defaultValue: operator,
       options: [
         { value: '$eq', text: 'equals' },
+        { value: '$neq', text: 'does not equal' },
         { value: '$lk', text: 'contains' },
         { value: '$nlk', text: 'does not contain' },
         { value: '$kn', text: 'is known' },

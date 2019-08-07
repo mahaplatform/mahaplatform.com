@@ -80,8 +80,8 @@ const filterPlugin = function(bookshelf) {
       _filterNotKnown(qb, column)
     } else if(!_.isNil(filter.$eq)) {
       _filterEqual(qb, column, filter.$eq)
-    } else if(!_.isNil(filter.$ne)) {
-      _filterNotEqual(qb, column, filter.$ne)
+    } else if(!_.isNil(filter.$neq)) {
+      _filterNotEqual(qb, column, filter.$neq)
     } else if(!_.isNil(filter.$lk)) {
       _filterLike(qb, column, filter.$lk)
     } else if(!_.isNil(filter.$nlk)) {

@@ -69,7 +69,7 @@ class Item extends React.Component {
     if(operator == '$kn') return 'is known'
     if(operator == '$nkn') return 'is not known'
     if(operator == '$eq') return 'is'
-    if(operator == '$neq') return 'doesn\'t equal'
+    if(operator == '$neq') return 'does not equal'
     if(operator == '$gt') return 'is greater than'
     if(operator == '$lt') return 'is less than'
     if(operator == '$gte') return 'is greater than or equal to'
