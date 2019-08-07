@@ -181,6 +181,31 @@ input, textarea {
 .backface-visibility(@value) {
 	backface-visibility: @value;
 }
+.transition(@name, @property, @start, @end, @duration) {
+	&.@{name}-enter,
+	&.@{name}-exit {
+		transition: @property @duration ease-in-out 0s;
+		will-change: @property;
+	}
+	&.@{name}-enter,
+	&.@{name}-exit.@{name}-exit-active {
+		@{property}: @start;
+	}
+	&.@{name}-exit,
+	&.@{name}-enter.@{name}-enter-active,
+	&.@{name}-enter-done {
+		@{property}: @end;
+	}
+}
+.opacity-transition(@start, @end, @duration) {
+	.transition(opacity, opacity, @start, @end, @duration)
+}
+.translatex-transition(@start, @end, @duration) {
+	.transition(translatex, transform, translateX(@start), translateX(@end), @duration)
+}
+.translatey-transition(@start, @end, @duration) {
+	.transition(translatey, transform, translateY(@start), translateY(@end), @duration)
+}
 .csstransition(slideup, transform, translateY(100%), translateY(0), 0.5s ease-in-out 0s);
 .csstransition(slidedown, transform, translateY(-100%), translateY(0), 0.5s ease-in-out 0s);
 .csstransition(slideleft, transform, translateX(100%), translateX(0), 0.5s ease-in-out 0s);

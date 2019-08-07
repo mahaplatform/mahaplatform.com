@@ -1,4 +1,6 @@
 import PropTypes from 'prop-types'
+import Actions from './actions'
+import Columns from './columns'
 import Format from '../format'
 import React from 'react'
 import _ from 'lodash'
@@ -7,8 +9,7 @@ class Table extends React.Component {
 
   static contextTypes = {
     modal: PropTypes.object,
-    router: PropTypes.object,
-    tasks: PropTypes.object
+    router: PropTypes.object
   }
 
   static propTypes = {
@@ -34,16 +35,15 @@ class Table extends React.Component {
   }
 
   state = {
-    columns: [],
-    config: false
+    columns: []
   }
 
-  _handleToggleConfig = this._handleToggleConfig.bind(this)
   _handleSelectAll = this._handleSelectAll.bind(this)
+  _handleToggleColumns = this._handleToggleColumns.bind(this)
 
   render(){
     const { link, records, recordTasks, selectable, selected, selectAll, sort } = this.props
-    const { columns, config } = this.state
+    const { columns } = this.state
     return (
       <div className="maha-table">
         <table className="maha-table-data">
@@ -65,24 +65,7 @@ class Table extends React.Component {
               { recordTasks &&
                 <td className="maha-table-head-cell mobile collapsing next" />
               }
-              <td className="maha-table-head-cell mobile config" onClick={ this._handleToggleConfig }>
-                <i className="fa fa-chevron-down" />
-                { config &&
-                  <div className="maha-table-columns" onMouseLeave={ this._handleToggleConfig }>
-                    { columns.map((column, index) => (
-                      <div className="maha-table-column" key={`column_${index}`} onClick={ this._handleToggleColumn.bind(this, column) }>
-                        <div className="maha-table-column-label">
-                          { column.label }
-                        </div>
-                        <div className="maha-table-column-icon">
-                          { column.visible && !column.primary && <i className="fa fa-fw fa-check" /> }
-                          { column.primary && <i className="fa fa-fw fa-lock" /> }
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                }
-              </td>
+              <Columns { ...this._getColumns() } />
             </tr>
           </thead>
           <tbody>
@@ -98,10 +81,8 @@ class Table extends React.Component {
                     <Format { ...record } format={ column.format } value={ _.get(record, column.key) } />
                   </td>
                 )) }
-                { recordTasks &&
-                  <td className="icon mobile collapsing centered" onClick={ this._handleTasks.bind(this, record) }>
-                    <i className="fa fa-ellipsis-v" />
-                  </td>
+                { recordTasks && recordTasks.length > 0 &&
+                  <Actions { ...this._getActions(record) } />
                 }
                 <td className="maha-table-body-cell icon mobile collapsing centered">
                   { link && <i className="fa fa-chevron-right" /> }
@@ -122,6 +103,14 @@ class Table extends React.Component {
         visible: column.primary === true || column.visible !== false
       }))
     })
+  }
+
+  _getActions(record) {
+    const { recordTasks } = this.props
+    return {
+      record,
+      items: recordTasks(record)
+    }
   }
 
   _getHeaderClass(column) {
@@ -148,6 +137,14 @@ class Table extends React.Component {
     if(rowClass && _.isString(rowClass)) classes.push(rowClass)
     if(rowClass && _.isFunction(rowClass)) classes.push(rowClass(record))
     return classes.join(' ')
+  }
+
+  _getColumns() {
+    const { columns } = this.state
+    return {
+      columns,
+      onChange: this._handleToggleColumns
+    }
   }
 
   _handleClick(record, index) {
@@ -184,30 +181,9 @@ class Table extends React.Component {
     this.props.onSort(key)
   }
 
-  _handleTasks(record) {
-    const { recordTasks } = this.props
-    const tasks = recordTasks(record)
-    this.context.tasks.open(tasks)
+  _handleToggleColumns(columns) {
+    this.setState({ columns })
   }
-
-  _handleToggleConfig(e) {
-    const { config } = this.state
-    this.setState({
-      config: !config
-    })
-  }
-
-  _handleToggleColumn(c, e) {
-    const { columns } = this.state
-    this.setState({
-      columns: columns.map(column => ({
-        ...column,
-        visible: (column.key === c.key && column.primary !== true) ? !column.visible : column.visible
-      }))
-    })
-    e.stopPropagation()
-  }
-
 }
 
 export default Table

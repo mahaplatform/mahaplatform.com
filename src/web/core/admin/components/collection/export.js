@@ -1,0 +1,77 @@
+import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import pluralize from 'pluralize'
+import Button from '../button'
+import React from 'react'
+import qs from 'qs'
+
+class Export extends React.Component {
+
+  static propTypes = {
+    columns: PropTypes.array,
+    endpoint: PropTypes.string,
+    entity: PropTypes.string,
+    filter: PropTypes.object,
+    sort: PropTypes.string,
+    token: PropTypes.string
+  }
+
+  state = {
+    show: false
+  }
+
+  _handleToggle = this._handleToggle.bind(this)
+
+  render() {
+    const { show } = this.state
+    return (
+      <div className="maha-collection-header-action" onClick={ this._handleToggle }>
+        <i className="fa fa-download" />
+        { show &&
+          <div className="maha-collection-dropdown" onMouseLeave={ this._handleToggle }>
+            <Button { ...this._getButton('csv') } />
+            <Button { ...this._getButton('xlsx') } />
+          </div>
+        }
+      </div>
+    )
+  }
+
+  _getButton(type) {
+    return {
+      label: `Export ${type.toUpperCase()}`,
+      className: 'maha-collection-dropdown-item',
+      handler: this._handleDownload.bind(this, type)
+    }
+  }
+
+  _handleDownload(extension) {
+    const { columns, endpoint, entity, filter, sort, token } = this.props
+    const query = {
+      $filter: filter,
+      $sort: sort,
+      $select: columns.filter(column => column.checked).reduce((select, item) => ({
+        ...select,
+        [item.label]: item.key
+      }), {})
+    }
+    const entities = pluralize(entity)
+    const enclosure = encodeURIComponent('"')
+    const url = `${endpoint}.${extension}?$page[limit]=0&enclosure=${enclosure}&filename=${entities}&token=${token}&download=true&${qs.stringify(query)}`
+    window.location.href = url
+  }
+
+  _handleToggle(e) {
+    this.setState({
+      show: !this.state.show
+    })
+    e.stopPropagation()
+  }
+
+}
+
+const mapStateToProps = (state, props) => ({
+  token: props.token || (state.maha.admin.team ? state.maha.admin.team.token : null)
+})
+
+export default connect(mapStateToProps)(Export)

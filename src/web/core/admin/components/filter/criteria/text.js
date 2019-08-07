@@ -19,7 +19,6 @@ class Text extends React.Component {
     value: ''
   }
 
-  _handleCancel = this._handleCancel.bind(this)
   _handleDone = this._handleDone.bind(this)
 
   render() {
