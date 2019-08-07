@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import Actions from './actions'
 import Columns from './columns'
 import Format from '../format'
 import React from 'react'
@@ -9,7 +8,8 @@ class Table extends React.Component {
 
   static contextTypes = {
     modal: PropTypes.object,
-    router: PropTypes.object
+    router: PropTypes.object,
+    tasks: PropTypes.object
   }
 
   static propTypes = {
@@ -81,8 +81,10 @@ class Table extends React.Component {
                     <Format { ...record } format={ column.format } value={ _.get(record, column.key) } />
                   </td>
                 )) }
-                { recordTasks && recordTasks.length > 0 &&
-                  <Actions { ...this._getActions(record) } />
+                { recordTasks &&
+                  <td className="icon mobile collapsing centered" onClick={ this._handleTasks.bind(this, record) }>
+                    <i className="fa fa-ellipsis-v" />
+                  </td>
                 }
                 <td className="maha-table-body-cell icon mobile collapsing centered">
                   { link && <i className="fa fa-chevron-right" /> }
@@ -179,6 +181,12 @@ class Table extends React.Component {
   _handleSort(column) {
     const key = column.sort || column.key
     this.props.onSort(key)
+  }
+
+  _handleTasks(record) {
+    const { recordTasks } = this.props
+    const tasks = recordTasks(record)
+    this.context.tasks.open(tasks)
   }
 
   _handleToggleColumns(columns) {

@@ -1,7 +1,8 @@
 import RadioGroup from '../../form/select/radio_group'
+import ModalPanel from '../../modal_panel'
 import TextField from '../../form/textfield'
 import PropTypes from 'prop-types'
-import Button from '../../button'
+import Buttons from '../../buttons'
 import React from 'react'
 import _ from 'lodash'
 
@@ -11,6 +12,8 @@ class Text extends React.Component {
     defaultValue: PropTypes.object,
     field: PropTypes.object,
     mode: PropTypes.string,
+    onCancel: PropTypes.func,
+    onChange: PropTypes.func,
     onDone: PropTypes.func
   }
 
@@ -19,21 +22,31 @@ class Text extends React.Component {
     value: ''
   }
 
+  _handleCancel = this._handleCancel.bind(this)
   _handleDone = this._handleDone.bind(this)
 
   render() {
+    const { operator } = this.state
     return (
-      <div className="maha-criterion-form-panel">
-        <div className="maha-criterion-field">
-          <RadioGroup { ...this._getRadioGroup() } />
+      <ModalPanel { ...this._getPanel() }>
+        <div className="maha-criterion-form">
+          <div className="maha-criterion-form-body">
+            <div className="maha-criterion-form-panel">
+              <div className="maha-criterion-field">
+                <RadioGroup { ...this._getRadioGroup() } />
+              </div>
+              { !_.includes(['$nkn','$kn'], operator) &&
+                <div className="maha-criterion-field">
+                  <TextField { ...this._getTextField() } />
+                </div>
+              }
+            </div>
+          </div>
+          <div className="maha-criterion-form-footer">
+            <Buttons { ...this._getButtons() } />
+          </div>
         </div>
-        <div className="maha-criterion-field">
-          <TextField { ...this._getTextField() } />
-        </div>
-        <div className="maha-criterion-field">
-          <Button { ...this._getButton() } />
-        </div>
-      </div>
+      </ModalPanel>
     )
   }
 
@@ -42,14 +55,20 @@ class Text extends React.Component {
     if(defaultValue) this._handleSet(defaultValue)
   }
 
-  _getButton() {
+  _getButtons() {
     const { operator, value } = this.state
     const { mode } = this.props
     return {
-      label: mode === 'add' ? 'Add Criteria' : 'Update Criteria',
-      color: 'blue',
-      disabled: _.includes(['$eq','$nek','$lk','$nlk'], operator) && value.length === 0,
-      handler: this._handleDone
+      buttons: [{
+        label: 'Cancel',
+        color: 'lightgrey',
+        handler: this._handleCancel
+      },{
+        label: mode === 'add' ? 'Add Criteria' : 'Update Criteria',
+        color: 'blue',
+        disabled: _.includes(['$eq','$nek','$lk','$nlk'], operator) && value.length === 0,
+        handler: this._handleDone
+      }]
     }
   }
 
@@ -57,10 +76,7 @@ class Text extends React.Component {
     const { field } = this.props
     return {
       title: field.label,
-      color: 'lightgrey',
-      leftItems: [
-        { icon: 'chevron-left', handler: this._handleCancel }
-      ]
+      color: 'lightgrey'
     }
   }
 
@@ -85,8 +101,13 @@ class Text extends React.Component {
     return {
       defaultValue: value,
       disabled: _.includes(['$nkn','$kn'], operator),
+      placeholder: 'Enter a value',
       onChange: this._handleChange.bind(this, 'value')
     }
+  }
+
+  _handleCancel() {
+    this.props.onCancel()
   }
 
   _handleDone() {

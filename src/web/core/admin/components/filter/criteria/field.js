@@ -1,4 +1,3 @@
-import ModalPanel from '../../modal_panel'
 import DateRange from './daterange'
 import PropTypes from 'prop-types'
 import Select from './select'
@@ -25,14 +24,7 @@ class Field extends React.PureComponent {
   render() {
     const { field } = this.props
     const Component = this._getComponent(field.type)
-    return (
-      <ModalPanel { ...this._getPanel() }>
-        <div className="maha-criterion-form">
-          <Component { ...this._getProps() } />
-        </div>
-      </ModalPanel>
-
-    )
+    return <Component { ...this._getProps() } />
   }
 
   _getComponent(type) {
@@ -41,35 +33,31 @@ class Field extends React.PureComponent {
     if(type === 'text') return Text
   }
 
-  _getPanel() {
-    const { field } = this.props
-    return {
-      title: field.label,
-      color: 'lightgrey',
-      leftItems: [
-        { icon: 'chevron-left', handler: this._handleCancel }
-      ]
-    }
-  }
-
   _getProps() {
     const { defaultValue, field, mode } = this.props
     return {
       defaultValue,
       field,
       mode,
+      onCancel: this._handleCancel,
+      onChange: this._handleChange,
       onDone: this._handleDone
     }
+  }
+
+  _handleCancel() {
+    const { mode } = this.props
+    this.context.filter.pop(mode == 'edit' ? -1 : -2)
+  }
+
+  _handleChange() {
+
   }
 
   _handleDone(value) {
     const { mode, field } = this.props
     this.props.onDone({ [field.key]: value })
     this.context.filter.pop(mode === 'edit' ? -1 : -2)
-  }
-
-  _handleCancel() {
-    this.context.filter.pop(-1)
   }
 
 }

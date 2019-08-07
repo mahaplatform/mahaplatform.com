@@ -1,6 +1,6 @@
 import Searchbox from '../searchbox'
 import PropTypes from 'prop-types'
-import Export from './export'
+import Export from '../export'
 import React from 'react'
 
 class Header extends React.Component {
@@ -24,6 +24,7 @@ class Header extends React.Component {
     onToggleFilter: PropTypes.func
   }
 
+  _handleExport = this._handleExport.bind(this)
   _handleRefresh = this._handleRefresh.bind(this)
   _handleToggleFilter = this._handleToggleFilter.bind(this)
 
@@ -37,10 +38,12 @@ class Header extends React.Component {
             <i className="fa fa-filter" />
           </div>
           { search && <Searchbox { ...this._getSearchbox() } /> }
+          <div className="maha-collection-header-action" onClick={ this._handleExport }>
+            <i className="fa fa-download" />
+          </div>
           <div className="maha-collection-header-action" onClick={ this._handleRefresh }>
             <i className="fa fa-refresh" />
           </div>
-          <Export { ...this._getExport() } />
         </div>
       </div>
     )
@@ -56,13 +59,18 @@ class Header extends React.Component {
   _getExport() {
     const { endpoint, entity, filter, sort } = this.props
     return {
-      columns: this.props.export,
+      defaultValue: this.props.export,
       endpoint,
       entity,
       filter,
       sort: sort.key ? (sort.order === 'desc' ? '-' : '') + sort.key : null
     }
   }
+
+  _handleExport() {
+    this.context.modal.push(<Export { ...this._getExport() } />)
+  }
+
 
   _handleRefresh() {
     this.props.onRefresh()

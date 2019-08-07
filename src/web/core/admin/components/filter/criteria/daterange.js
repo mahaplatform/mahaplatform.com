@@ -1,5 +1,6 @@
+import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
-import Button from '../../button'
+import Buttons from '../../buttons'
 import Search from '../../search'
 import moment from 'moment'
 import React from 'react'
@@ -11,8 +12,9 @@ class DateRange extends React.Component {
     defaultValue: PropTypes.object,
     field: PropTypes.object,
     mode: PropTypes.string,
-    onDone: PropTypes.func,
-    onCancel: PropTypes.func
+    onCancel: PropTypes.func,
+    onChange: PropTypes.func,
+    onDone: PropTypes.func
   }
 
   state = {
@@ -24,14 +26,16 @@ class DateRange extends React.Component {
 
   render() {
     return (
-      <div className="maha-criterion-form">
-        <div className="maha-criterion-form-body">
-          <Search { ...this._getSearch() } />
+      <ModalPanel { ...this._getPanel() }>
+        <div className="maha-criterion-form">
+          <div className="maha-criterion-form-body">
+            <Search { ...this._getSearch() } />
+          </div>
+          <div className="maha-criterion-form-footer">
+            <Buttons { ...this._getButtons() } />
+          </div>
         </div>
-        <div className="maha-criterion-form-footer">
-          <Button { ...this._getButton() } />
-        </div>
-      </div>
+      </ModalPanel>
     )
   }
 
@@ -40,12 +44,18 @@ class DateRange extends React.Component {
     if(defaultValue) this._handleSet(defaultValue)
   }
 
-  _getButton() {
+  _getButtons() {
     const { mode } = this.props
     return {
-      label: mode === 'add' ? 'Add Criteria' : 'Update Criteria',
-      color: 'blue',
-      handler: this._handleDone
+      buttons: [{
+        label: 'Cancel',
+        color: 'lightgrey',
+        handler: this._handleCancel
+      },{
+        label: mode === 'add' ? 'Add Criteria' : 'Update Criteria',
+        color: 'blue',
+        handler: this._handleDone
+      }]
     }
   }
 
@@ -86,10 +96,7 @@ class DateRange extends React.Component {
     const { field } = this.props
     return {
       title: field.label,
-      color: 'lightgrey',
-      leftItems: [
-        { icon: 'chevron-left', handler: this._handleCancel }
-      ]
+      color: 'lightgrey'
     }
   }
 
@@ -106,6 +113,10 @@ class DateRange extends React.Component {
       value: field.value,
       onChange: this._handleChange
     }
+  }
+
+  _handleCancel() {
+    this.props.onCancel()
   }
 
   _handleChange(value) {

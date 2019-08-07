@@ -30,9 +30,8 @@ class Criteria extends React.Component {
   }
 
   _handleAdd = this._handleAdd.bind(this)
-  _handleBack = this._handleBack.bind(this)
   _handleEdit = this._handleEdit.bind(this)
-  _handleReset = this._handleReset.bind(this)
+  _handleCancel = this._handleCancel.bind(this)
 
   render() {
     const { criteria } = this.props
@@ -70,22 +69,41 @@ class Criteria extends React.Component {
   }
 
   _getButtons() {
-    const { criteria } = this.props
     return {
       buttons: [
-        this._getSave(),
-        {
-          label: 'Reset',
-          color: 'grey',
-          disabled: criteria.$and.length === 0,
-          handler: this._handleReset
-        }
+        this._getCancel(),
+        this._getSave()
       ]
     }
   }
 
+  _getCancel() {
+    return {
+      label: 'Cancel',
+      color: 'grey',
+      handler: this._handleCancel
+    }
+  }
+
+  _getItem(criteria) {
+    const { onRemove } = this.props
+    return {
+      criteria,
+      onAdd: this._handleAdd,
+      onEdit: this._handleEdit,
+      onRemove
+    }
+  }
+
+  _getPanel() {
+    return {
+      title: 'Design Filter',
+      color: 'lightgrey'
+    }
+  }
+
   _getSave() {
-    const { criteria, code, id }= this.props
+    const { criteria, code, id } = this.props
     const button = {
       label: 'Save',
       color: 'blue',
@@ -101,31 +119,11 @@ class Criteria extends React.Component {
     return button
   }
 
-  _getPanel() {
-    return {
-      title: 'Design Filter',
-      color: 'lightgrey',
-      leftItems: [
-        { icon: 'chevron-left', handler: this._handleBack }
-      ]
-    }
-  }
-
   _getTypes({ criterion, onDone }) {
     return {
       defaultValue: criterion,
       types: this.props.fields,
       onDone
-    }
-  }
-
-  _getItem(criteria) {
-    const { onRemove } = this.props
-    return {
-      criteria,
-      onAdd: this._handleAdd,
-      onEdit: this._handleEdit,
-      onRemove
     }
   }
 
@@ -139,7 +137,8 @@ class Criteria extends React.Component {
     })
   }
 
-  _handleBack() {
+  _handleCancel() {
+    this.props.onReset()
     this.context.filter.pop()
   }
 
@@ -164,10 +163,6 @@ class Criteria extends React.Component {
         onDone: this._handleUpdate.bind(this, cindex)
       }
     })
-  }
-
-  _handleReset() {
-    this.props.onReset()
   }
 
   _handleUpdate(cindex, value) {

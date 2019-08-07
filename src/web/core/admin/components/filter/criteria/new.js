@@ -39,7 +39,7 @@ class New extends React.Component {
           fields: [
             { name: 'code', type: 'hidden', defaultValue: code },
             { name: 'criteria', type: 'hidden', defaultValue: criteria },
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this filter', required: true }
+            { name: 'title', type: 'textfield', placeholder: 'Enter a title for this filter', required: true }
           ]
         }
       ]
