@@ -58,11 +58,11 @@ class Filter extends React.PureComponent {
     }
   }
 
-  _getCriteria(criteria = null) {
+  _getCriteria(filter = null) {
     const { code, fields, onChange } = this.props
     return {
       code,
-      defaultValue: criteria,
+      defaultValue: filter,
       fields,
       onChange
     }
@@ -92,7 +92,7 @@ class Filter extends React.PureComponent {
     this.setState({
       cards: [
         ...this.state.cards,
-        { component: Criteria, props: this._getCriteria(filter.criteria) }
+        { component: Criteria, props: this._getCriteria(filter) }
       ]
     })
   }

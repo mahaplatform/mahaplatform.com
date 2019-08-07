@@ -25,6 +25,7 @@ const destroyRoute = async (req, res) => {
   filter.destroy({
     transacting: req.trx
   })
+  
   await socket.refresh(req, channels)
 
   res.status(200).respond(true)

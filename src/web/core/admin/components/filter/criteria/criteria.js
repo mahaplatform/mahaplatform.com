@@ -19,6 +19,7 @@ class Criteria extends React.Component {
     criteria: PropTypes.object,
     defaultValue: PropTypes.object,
     fields: PropTypes.array,
+    id: PropTypes.number,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onCreate: PropTypes.func,
@@ -57,8 +58,8 @@ class Criteria extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onSet } = this.props
-    const value = defaultValue || { $and: [] }
-    onSet(value)
+    if(!defaultValue) return onSet(null, { $and: [] })
+    onSet(defaultValue.id, defaultValue.criteria)
   }
 
   componentDidUpdate(prevProps) {
@@ -69,20 +70,35 @@ class Criteria extends React.Component {
   }
 
   _getButtons() {
-    const { criteria, code } = this.props
+    const { criteria } = this.props
     return {
-      buttons: [{
-        label: 'Save',
-        color: 'blue',
-        disabled: criteria.$and.length === 0,
-        modal: <New code={ code } criteria={ criteria } />
-      },{
-        label: 'Reset',
-        color: 'grey',
-        disabled: criteria.$and.length === 0,
-        handler: this._handleReset
-      }]
+      buttons: [
+        this._getSave(),
+        {
+          label: 'Reset',
+          color: 'grey',
+          disabled: criteria.$and.length === 0,
+          handler: this._handleReset
+        }
+      ]
     }
+  }
+
+  _getSave() {
+    const { criteria, code, id }= this.props
+    const button = {
+      label: 'Save',
+      color: 'blue',
+      disabled: criteria.$and.length === 0
+    }
+    if(!id) button.modal = <New code={ code } criteria={ criteria } />
+    if(id) button.request = {
+      endpoint: `/api/admin/${code}/filters/${id}`,
+      method: 'PATCH',
+      body: { criteria },
+      onSuccess: () => this.context.filter.pop()
+    }
+    return button
   }
 
   _getPanel() {

@@ -37,10 +37,10 @@ class Header extends React.Component {
             <i className="fa fa-filter" />
           </div>
           { search && <Searchbox { ...this._getSearchbox() } /> }
-          <Export { ...this._getExport() } />
           <div className="maha-collection-header-action" onClick={ this._handleRefresh }>
             <i className="fa fa-refresh" />
           </div>
+          <Export { ...this._getExport() } />
         </div>
       </div>
     )

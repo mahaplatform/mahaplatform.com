@@ -9,8 +9,9 @@ export const remove = (cindex) => ({
   cindex
 })
 
-export const set = (criteria) => ({
+export const set = (id, criteria) => ({
   type: 'SET',
+  id,
   criteria
 })
 

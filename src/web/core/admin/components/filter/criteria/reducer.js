@@ -1,6 +1,7 @@
 import { create, remove, update } from './utils'
 
 const INITIAL_STATE = {
+  id: null,
   criteria: null
 }
 
@@ -29,6 +30,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'SET':
     return {
       ...state,
+      id: action.id,
       criteria: action.criteria
     }
 
