@@ -1,11 +1,14 @@
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
-import Button from '../button'
 import React from 'react'
 import qs from 'qs'
 
 class Export extends React.Component {
+
+  static contextTypes = {
+    tasks: PropTypes.object
+  }
 
   static propTypes = {
     columns: PropTypes.array,
@@ -16,25 +19,22 @@ class Export extends React.Component {
     token: PropTypes.string
   }
 
-  state = {
-    show: false
-  }
-
-  _handleToggle = this._handleToggle.bind(this)
+  _handleTasks = this._handleTasks.bind(this)
 
   render() {
-    const { show } = this.state
     return (
-      <div className="maha-collection-header-action" onClick={ this._handleToggle }>
+      <div className="maha-collection-header-action" onClick={ this._handleTasks }>
         <i className="fa fa-download" />
-        { show &&
-          <div className="maha-collection-dropdown" onMouseLeave={ this._handleToggle }>
-            <Button { ...this._getButton('csv') } />
-            <Button { ...this._getButton('xlsx') } />
-          </div>
-        }
       </div>
     )
+  }
+
+
+  _handleTasks() {
+    this.context.tasks.open([
+      this._getButton('csv'),
+      this._getButton('xlsx')
+    ])
   }
 
   _getButton(type) {
@@ -59,13 +59,6 @@ class Export extends React.Component {
     const enclosure = encodeURIComponent('"')
     const url = `${endpoint}.${extension}?$page[limit]=0&enclosure=${enclosure}&filename=${entities}&token=${token}&download=true&${qs.stringify(query)}`
     window.location.href = url
-  }
-
-  _handleToggle(e) {
-    this.setState({
-      show: !this.state.show
-    })
-    e.stopPropagation()
   }
 
 }
