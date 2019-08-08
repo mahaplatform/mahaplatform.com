@@ -74,7 +74,7 @@ class Unassigned extends React.Component {
 
   _handleAdd(assignee) {
     this.props.onAdd({
-      grouping: assignee.grouping,
+      grouping_id: assignee.grouping_id,
       group_id: assignee.group_id ,
       user_id: assignee.user_id
     })

@@ -879,7 +879,7 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('filter_id').unsigned()
-      table.string('grouping', 255)
+      table.integer('grouping_id').unsigned()
       table.integer('group_id').unsigned()
       table.integer('user_id').unsigned()
       table.timestamp('created_at')
@@ -894,6 +894,14 @@ const schema = {
       table.string('title', 255)
       table.text('description')
       table.jsonb('criteria')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('maha_groupings', (table) => {
+      table.increments('id').primary()
+      table.integer('delta')
+      table.string('title', 255)
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -1789,6 +1797,7 @@ const schema = {
       table.foreign('filter_id').references('maha_filters.id')
       table.foreign('group_id').references('maha_groups.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('grouping_id').references('maha_groupings.id')
     })
 
     await knex.schema.table('eatfresh_attractions', table => {
@@ -2450,61 +2459,57 @@ const schema = {
       create view maha_assignees AS
       select assignees.team_id,
       assignees.user_id,
-      assignees."grouping",
+      assignees.grouping_id,
       assignees.group_id,
       assignees.full_name,
       assignees.name,
       assignees.initials,
-      assignees.photo
+      assignees.photo,
+      assignees.is_active
       from ( select 1 as priority,
       maha_teams.id as team_id,
-      'everyone'::text as "grouping",
+      maha_groupings.id as grouping_id,
       null::integer as user_id,
       null::integer as group_id,
-      'everyone'::text as full_name,
-      'everyone'::text as name,
+      maha_groupings.delta,
+      maha_groupings.title as full_name,
+      maha_groupings.title as name,
       null::text as initials,
-      null::text as photo
-      from maha_teams
+      null::text as photo,
+      true as is_active
+      from (maha_teams
+      join maha_groupings on ((maha_groupings.id <> 0)))
       union
       select 2 as priority,
-      maha_teams.id as team_id,
-      'supervisors'::text as "grouping",
-      null::integer as user_id,
-      null::integer as group_id,
-      'supervisors'::text as full_name,
-      'supervisors'::text as name,
-      null::text as initials,
-      null::text as photo
-      from maha_teams
-      union
-      select 3 as priority,
       maha_groups.team_id,
-      null::text as "grouping",
+      null::integer as grouping_id,
       null::integer as user_id,
       maha_groups.id as group_id,
+      null::integer as delta,
       maha_groups.title as full_name,
       maha_groups.title as name,
       null::text as initials,
-      null::text as photo
+      null::text as photo,
+      true as is_active
       from maha_groups
       union
-      select 4 as priority,
+      select 3 as priority,
       maha_users.team_id,
-      null::text as "grouping",
+      null::integer as grouping_id,
       maha_users.id as user_id,
       null::integer as group_id,
+      null::integer as delta,
       concat(maha_users.first_name, ' ', maha_users.last_name) as full_name,
       maha_users.last_name as name,
       concat("left"((maha_users.first_name)::text, 1), "left"((maha_users.last_name)::text, 1)) as initials,
       case
       when (maha_assets.id is not null) then concat('/assets/', maha_assets.id, '/', maha_assets.file_name)
       else null::text
-      end as photo
+      end as photo,
+      maha_users.is_active
       from (maha_users
-      left join maha_assets on ((maha_assets.id = maha_users.photo_id)))
-      where (maha_users.is_active = true)) assignees
-      order by assignees.priority, assignees.name;
+      left join maha_assets on ((maha_assets.id = maha_users.photo_id)))) assignees
+      order by assignees.priority, assignees.delta, assignees.name;
     `)
   }
 

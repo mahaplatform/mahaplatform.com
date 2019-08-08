@@ -66,14 +66,13 @@ class Filter extends React.PureComponent {
   }
 
   _getOverview() {
-    const { code, entity, onChange, onClose } = this.props
+    const { code, entity, onChange } = this.props
     return {
       code,
       entity,
       onEdit: this._handleEdit,
       onNew: this._handleNew,
-      onChange,
-      onClose
+      onChange
     }
   }
 

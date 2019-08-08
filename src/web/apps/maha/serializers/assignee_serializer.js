@@ -1,6 +1,6 @@
 const AssigneeSerializer = (req, result) => ({
   id: result.get('id'),
-  grouping: result.get('grouping'),
+  grouping_id: result.get('grouping_id'),
   group_id: result.get('group_id'),
   user_id: result.get('user_id'),
   full_name: result.get('full_name'),

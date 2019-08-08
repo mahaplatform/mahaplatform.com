@@ -23,7 +23,7 @@ const editRoute = async (req, res) => {
     title: filter.get('title'),
     accesses: filter.related('accesses').map(access => ({
       id: access.get('id'),
-      grouping: access.get('grouping'),
+      grouping_id: access.get('grouping_id'),
       group_id: access.get('group_id'),
       user_id: access.get('user_id')
     }))

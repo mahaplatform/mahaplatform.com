@@ -20,7 +20,7 @@ class Search extends React.Component {
     options: PropTypes.any,
     prompt: PropTypes.string,
     q: PropTypes.string,
-    selected: PropTypes.array,
+    selected: PropTypes.any,
     sort: PropTypes.object,
     text: PropTypes.string,
     value: PropTypes.string,
@@ -109,7 +109,7 @@ class Search extends React.Component {
 
   _handleSetDefault() {
     const { defaultValue, onSet } = this.props
-    if(defaultValue) onSet(defaultValue)
+    if(defaultValue) onSet(_.castArray(defaultValue))
   }
 
 }

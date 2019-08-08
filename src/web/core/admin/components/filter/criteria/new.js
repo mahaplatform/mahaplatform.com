@@ -5,7 +5,6 @@ import React from 'react'
 class New extends React.Component {
 
   static contextTypes = {
-    filter: PropTypes.object,
     modal: PropTypes.object
   }
 
@@ -51,7 +50,6 @@ class New extends React.Component {
   }
 
   _handleSuccess(result) {
-    this.context.filter.pop(1)
     this.context.modal.close()
   }
 

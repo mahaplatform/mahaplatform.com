@@ -2,10 +2,10 @@ import Avatar from '../../components/avatar'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const AssigneeToken = ({ grouping, full_name, initials, photo, group_id, user_id, is_active }) => (
+const AssigneeToken = ({ grouping_id, full_name, initials, photo, group_id, user_id, is_active }) => (
   <div className="assignee-token">
     <div className="assignee-token-image">
-      { grouping &&
+      { grouping_id &&
         <div className="assignee-token-icon">
           <Avatar icon='bolt' user={{ full_name }} />
         </div>
@@ -35,7 +35,7 @@ const AssigneeToken = ({ grouping, full_name, initials, photo, group_id, user_id
 AssigneeToken.propTypes = {
   initials: PropTypes.string,
   full_name: PropTypes.string,
-  grouping: PropTypes.string,
+  grouping_id: PropTypes.number,
   group_id: PropTypes.number,
   is_active: PropTypes.bool,
   photo: PropTypes.string,

@@ -30,11 +30,11 @@ class Text extends React.Component {
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-criterion-form">
+          <div className="maha-criterion-form-header">
+            <RadioGroup { ...this._getRadioGroup() } />
+          </div>
           <div className="maha-criterion-form-body">
             <div className="maha-criterion-form-panel">
-              <div className="maha-criterion-field">
-                <RadioGroup { ...this._getRadioGroup() } />
-              </div>
               { !_.includes(['$nkn','$kn'], operator) &&
                 <div className="maha-criterion-field">
                   <TextField { ...this._getTextField() } />

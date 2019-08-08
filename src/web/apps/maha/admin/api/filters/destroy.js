@@ -22,10 +22,12 @@ const destroyRoute = async (req, res) => {
     `/admin/${filter.get('code')}/filters`
   ]
 
+  await req.trx('maha_filter_accesses').where('filter_id', filter.get('id')).del()
+
   filter.destroy({
     transacting: req.trx
   })
-  
+
   await socket.refresh(req, channels)
 
   res.status(200).respond(true)

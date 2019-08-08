@@ -100,7 +100,7 @@ class Select extends React.Component {
     const { operator, value } = this.state
     const { field } = this.props
     return {
-      defaultValue: _.castArray(value),
+      defaultValue: value,
       endpoint: field.endpoint,
       format: field.format,
       label: field.name,

@@ -13,6 +13,7 @@ class Criteria extends React.Component {
 
   static contextTypes = {
     admin: PropTypes.object,
+    flash: PropTypes.object,
     filter: PropTypes.object,
     network: PropTypes.object
   }
@@ -35,7 +36,6 @@ class Criteria extends React.Component {
   }
 
   _handleAdd = this._handleAdd.bind(this)
-  _handleDelete = this._handleDelete.bind(this)
   _handleEdit = this._handleEdit.bind(this)
   _handleCancel = this._handleCancel.bind(this)
   _handleRefresh = this._handleRefresh.bind(this)
@@ -57,6 +57,12 @@ class Criteria extends React.Component {
             { (!filter || (filter && filter.owner.id === user.id)) &&
               <div className="maha-criteria-footer">
                 <Buttons { ...this._getButtons() } />
+              </div>
+            }
+            { filter && filter.owner && filter.owner.id !== user.id &&
+              <div className="maha-criteria-alert">
+                <i className="fa fa-lock" />
+                This filter was shared by { filter.owner.full_name }
               </div>
             }
           </div>
@@ -88,8 +94,6 @@ class Criteria extends React.Component {
     if(filter && filter.owner.id === user.id) {
       buttons.push(this._getDelete())
       buttons.push(this._getEdit())
-    } else {
-      buttons.push(this._getCancel())
     }
     buttons.push(this._getSave())
     return { buttons }
@@ -104,10 +108,20 @@ class Criteria extends React.Component {
   }
 
   _getDelete() {
+    const { filter } = this.props
     return {
       label: 'Delete',
       color: 'red',
-      handler: this._handleDelete
+      confirm: 'Are you sure you want to delete this filter?',
+      request: {
+        method: 'DELETE',
+        endpoint: `/api/admin/${filter.code}/filters/${filter.id}`,
+        onSuccess: () => {
+          this.props.onReset()
+          this.context.flash.set('success', 'The filter was successfully deleted')
+          this.context.filter.pop()
+        }
+      }
     }
   }
 
@@ -136,28 +150,29 @@ class Criteria extends React.Component {
     return {
       title: filter ? filter.title : 'New Filter',
       color: 'lightgrey',
-      leftItems: filter ? [
+      leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
-      ] : null
+      ]
     }
   }
 
   _getSave() {
     const { criteria, code, filter } = this.props
     const id = filter ? filter.id : null
-    const button = {
+    return {
       label: 'Save',
       color: 'blue',
-      disabled: criteria.$and.length === 0
+      disabled: criteria.$and.length === 0,
+      modal: !id ? <New code={ code } criteria={ criteria } /> : null,
+      request: id ? {
+        endpoint: `/api/admin/${code}/filters/${id}`,
+        method: 'PATCH',
+        body: { criteria },
+        onSuccess: () => {
+          this.context.flash.set('success', 'This filter was successfully saved')
+        }
+      } : null
     }
-    if(!id) button.modal = <New code={ code } criteria={ criteria } />
-    if(id) button.request = {
-      endpoint: `/api/admin/${code}/filters/${id}`,
-      method: 'PATCH',
-      body: { criteria },
-      onSuccess: () => this.context.filter.pop()
-    }
-    return button
   }
 
   _handleAdd(cindex) {
@@ -184,18 +199,6 @@ class Criteria extends React.Component {
     this.props.onCreate(cindex, value)
   }
 
-  _handleDelete() {
-    const { filter } = this.props
-    this.context.network.request({
-      method: 'DELETE',
-      endpoint: `/api/admin/${filter.code}/filters/${filter.id}`,
-      onSuccess: () => {
-        this.props.onReset()
-        this.context.filter.pop()
-      }
-    })
-  }
-
   _handleEdit(cindex, criterion) {
     const { filter } = this.context
     const key = Object.keys(criterion)[0]
@@ -212,7 +215,7 @@ class Criteria extends React.Component {
         mode: 'edit',
         onCancel: this._handleRefresh,
         onChange: this._handleTest.bind(this, 'edit', cindex),
-        onDone: this._handleEdit.bind(this, cindex)
+        onDone: this._handleUpdate.bind(this, cindex)
       }
     })
   }
@@ -226,7 +229,7 @@ class Criteria extends React.Component {
     this.props.onTest(mode, cindex, value)
   }
 
-  _handleEdit(cindex, value) {
+  _handleUpdate(cindex, value) {
     this.props.onUpdate(cindex, value)
   }
 

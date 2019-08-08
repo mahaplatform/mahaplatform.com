@@ -24,6 +24,7 @@ class DateRange extends React.Component {
   _handleCancel = this._handleCancel.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
     return (
@@ -111,11 +112,12 @@ class DateRange extends React.Component {
   _getSearch() {
     const { value } = this.state
     const { field } = this.props
+    console.log(value)
     return {
       defaultValue: value,
       format: field.format,
       label: field.name,
-      multiple: field.multiple,
+      multiple: false,
       options: this._getOptions(field.include),
       text: field.text,
       value: field.value,
@@ -129,12 +131,12 @@ class DateRange extends React.Component {
 
   _handleChange() {
     const { value } = this.state
-    this.props.onChange({ $eq: value })
+    this.props.onChange({ $dr: value })
   }
 
   _handleDone() {
     const { value } = this.state
-    this.props.onDone({ $eq: value })
+    this.props.onDone({ $dr: value })
   }
 
   _handleSet(defaultValue) {
