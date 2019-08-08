@@ -20,7 +20,7 @@ class Sources extends React.Component {
   render() {
     const { counts, sources } = this.props
     return (
-      <ModalPanel { ...this._getModalPanel() }>
+      <ModalPanel { ...this._getPanel() }>
         <div className="maha-attachments-sources">
           { sources.map((source, index) => (
             <div className={ this._getSourceClass(index) } key={`source_${index}`} onClick={ this._handleChooseSource.bind(this, index)}>
@@ -50,7 +50,7 @@ class Sources extends React.Component {
     )
   }
 
-  _getModalPanel() {
+  _getPanel() {
     const { cancelText, doneText } = this.props
     return {
       title: 'Choose Source',

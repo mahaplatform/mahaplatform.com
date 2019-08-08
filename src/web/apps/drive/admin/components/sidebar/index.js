@@ -17,13 +17,13 @@ class Drivebar extends React.Component {
 
   render() {
     return (
-      <ModalPanel { ...this._getModalPanel() } >
+      <ModalPanel { ...this._getPanel() } >
         <Explorer />
       </ModalPanel>
     )
   }
 
-  _getModalPanel() {
+  _getPanel() {
     return {
       title: 'Drive',
       leftItems: [

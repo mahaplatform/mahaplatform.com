@@ -78,7 +78,7 @@ class Assignment extends React.Component {
   render() {
     const { assigned, assignedFormat, empty, footer, label, name, text, types, typesFormat, unassigned} = this.props
     return (
-      <ModalPanel { ...this._getModalPanel() } >
+      <ModalPanel { ...this._getPanel() } >
         <div className={ this._getClass() }>
           <div className="maha-assignment-body">
             { assigned.status === 'loading' && <Loader /> }
@@ -156,7 +156,7 @@ class Assignment extends React.Component {
     }
   }
 
-  _getModalPanel() {
+  _getPanel() {
     const { title } = this.props
     return {
       title,

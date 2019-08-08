@@ -69,7 +69,7 @@ class Page extends React.Component {
       </ModalPanel>
     )
     return (
-      <ModalPanel { ...this._getModalPanel() }>
+      <ModalPanel { ...this._getPanel() }>
         <div className="maha-page-main">
           { sidebar &&
             <div className="maha-page-sidebar">
@@ -170,7 +170,7 @@ class Page extends React.Component {
     }, true)
   }
 
-  _getModalPanel() {
+  _getPanel() {
     const { color, task, tasks, title } = this.props
     const panel = {
       leftItems: [

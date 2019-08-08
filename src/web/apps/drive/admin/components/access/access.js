@@ -39,7 +39,7 @@ class Access extends React.Component {
   render() {
     const { assigned } = this.props
     return (
-      <ModalPanel { ...this._getModalPanel() } >
+      <ModalPanel { ...this._getPanel() } >
         <div className={ this._getClass() }>
           <div className="maha-assignment-body">
             { assigned.status === 'loading' && <Loader /> }
@@ -98,7 +98,7 @@ class Access extends React.Component {
     }
   }
 
-  _getModalPanel() {
+  _getPanel() {
     return {
       title: 'Manage Access',
       leftItems: [

@@ -163,7 +163,7 @@ class VersionsModal extends React.Component {
 
   render() {
     return (
-      <ModalPanel { ...this._getModalPanel() } >
+      <ModalPanel { ...this._getPanel() } >
         <Uploader>
           <Versions { ...this.props } />
         </Uploader>
@@ -171,7 +171,7 @@ class VersionsModal extends React.Component {
     )
   }
 
-  _getModalPanel() {
+  _getPanel() {
     return {
       title: 'Manage Versions',
       rightItems: [

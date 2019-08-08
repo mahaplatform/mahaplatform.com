@@ -16,7 +16,7 @@ class Info extends React.Component {
 
   render() {
     return (
-      <ModalPanel { ...this._getModalPanel() } >
+      <ModalPanel { ...this._getPanel() } >
         <div className="drive-info">
           <List { ...this._getList() } />
         </div>
@@ -24,7 +24,7 @@ class Info extends React.Component {
     )
   }
 
-  _getModalPanel() {
+  _getPanel() {
     const { item } = this.props
     return {
       title: item.label,

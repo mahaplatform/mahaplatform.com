@@ -25,7 +25,7 @@ class Move extends React.Component {
 
   render() {
     return (
-      <ModalPanel { ...this._getModalPanel() }>
+      <ModalPanel { ...this._getPanel() }>
         <div className="drive-move">
           <div className="drive-move-body">
             <Stack { ...this._getStack() } />
@@ -46,7 +46,7 @@ class Move extends React.Component {
     }
   }
 
-  _getModalPanel() {
+  _getPanel() {
     return {
       title: 'Choose Destination',
       leftItems: [
