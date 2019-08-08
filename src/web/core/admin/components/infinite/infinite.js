@@ -23,11 +23,14 @@ class Infinite extends React.Component {
     notFound: PropTypes.any,
     props: PropTypes.object,
     records: PropTypes.array,
+    selectAll: PropTypes.bool,
     selected: PropTypes.array,
     sort: PropTypes.object,
     status: PropTypes.string,
     total: PropTypes.number,
     onFetch: PropTypes.func,
+    onSelect: PropTypes.func,
+    onSelectAll: PropTypes.func,
     onUpdateSelected: PropTypes.func
   }
 
@@ -91,8 +94,8 @@ class Infinite extends React.Component {
   }
 
   _getLayout() {
-    const { all, props, records, total } = this.props
-    return { all, records, total, ...props }
+    const { all, props, records, selected, selectAll, total, onSelect, onSelectAll } = this.props
+    return { all, records, selected, selectAll, total, onSelect, onSelectAll, ...props }
   }
 
   _getScrollpane() {

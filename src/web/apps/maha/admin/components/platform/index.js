@@ -1,4 +1,5 @@
 import HTML5Backend from 'react-dnd-html5-backend'
+import { BrowserRouter } from 'react-router-dom'
 import Notifications from '../notifications'
 import { DndProvider } from 'react-dnd'
 import { connect } from 'react-redux'
@@ -27,26 +28,29 @@ class Platform extends React.Component {
   render() {
     return (
       <DndProvider backend={ HTML5Backend } >
+
         <div className="maha-platform">
           <Analytics>
             <Logger>
-              <Router>
-                <Network>
-                  <Device>
-                    <Push>
-                      <Notifications>
-                        <Flash>
-                          <Admin>
-                            <Presence>
-                              <Sessions { ...this._getSessions() } />
-                            </Presence>
-                          </Admin>
-                        </Flash>
-                      </Notifications>
-                    </Push>
-                  </Device>
-                </Network>
-              </Router>
+              <BrowserRouter>
+                <Router>
+                  <Network>
+                    <Device>
+                      <Push>
+                        <Notifications>
+                          <Flash>
+                            <Admin>
+                              <Presence>
+                                <Sessions { ...this._getSessions() } />
+                              </Presence>
+                            </Admin>
+                          </Flash>
+                        </Notifications>
+                      </Push>
+                    </Device>
+                  </Network>
+                </Router>
+              </BrowserRouter>
             </Logger>
           </Analytics>
         </div>

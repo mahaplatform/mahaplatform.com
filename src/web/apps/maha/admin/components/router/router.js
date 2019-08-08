@@ -1,4 +1,3 @@
-import { BrowserRouter } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -30,19 +29,21 @@ class Router extends React.Component {
   }
 
   componentDidMount() {
+    const { location } = window
     this.props.onPush({
-      pathname: window.location.pathname,
-      hash: window.location.hash.slice(1),
-      search: window.location.search.slice(1)
+      pathname: location.pathname,
+      hash: location.hash.slice(1),
+      search: location.search.slice(1)
     })
   }
 
   getChildContext() {
+    const { router } = this.context
     return {
       router: {
-        ...this.context.router,
+        ...router,
         history: {
-          ...this.context.router.history,
+          ...router.history,
           goBack: this._handleBack,
           push: this._handlePush,
           replace: this._handleReplace
@@ -62,10 +63,10 @@ class Router extends React.Component {
   }
 
   _handleBack() {
-    const { history } = this.context.router
+    const { history } = this.props
     this.props.onPop()
-    const replacement = history.slice(0,-1).slice(-1)[0] || '/admin'
-    history.replace(replacement)
+    const replacement = history.slice(0,-1).slice(1)[0] || '/admin'
+    this.context.router.history.replace(replacement)
   }
 
   _handleReplace(path) {
@@ -81,20 +82,4 @@ class Router extends React.Component {
 
 }
 
-class RouterWrapper extends React.Component {
-
-  static propTypes = {
-    children: PropTypes.any
-  }
-
-  render() {
-    return (
-      <BrowserRouter>
-        <Router { ...this.props } />
-      </BrowserRouter>
-    )
-  }
-
-}
-
-export default RouterWrapper
+export default Router

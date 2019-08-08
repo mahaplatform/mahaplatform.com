@@ -57,25 +57,19 @@ const reducer = (state = INITIAL_STATE, action) => {
     }
 
   case 'SELECT':
-    const selected = (!_.includes(state.selected, action.id)) ? [
-      ...state.selected,
-      action.id
-    ] : state.selected.filter(id => id !== action.id)
-    const all = state.records ? state.records.map(record => record.id) : []
-    const selectAll = _.isEqual(all.sort(), selected.sort())
     return {
       ...state,
-      selectAll,
-      selected
+      selectAll: false,
+      selected: [
+        ..._.xor(state.selected, [action.id])
+      ]
     }
 
   case 'SELECT_ALL':
-    const all2 = state.records ? state.records.map(record => record.id) : []
-    const selectAll2 = !_.isEqual(all2.sort(), state.selected.sort())
     return {
       ...state,
-      selectAll,
-      selected: selectAll2 ? all2 : []
+      selectAll: !state.selectAll,
+      selected: !state.selectAll ? state.records.map(record => record.id) : []
     }
 
   default:

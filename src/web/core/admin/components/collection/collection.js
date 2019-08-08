@@ -190,7 +190,7 @@ class Collection extends React.Component {
   }
 
   _getInfinite() {
-    const { endpoint, failure, link, loading, q, recordTasks, sort, table, onSetSelected, onSort } = this.props
+    const { endpoint, failure, link, loading, q, recordTasks, selectable, sort, table, onSetSelected, onSort } = this.props
     const { cacheKey } = this.state
     return {
       cacheKey,
@@ -207,6 +207,7 @@ class Collection extends React.Component {
         code: this.code,
         link,
         recordTasks,
+        selectable,
         sort,
         table,
         onSort

@@ -1,4 +1,4 @@
-import { Collection, Feed } from 'maha-admin'
+import { Infinite, Message, Feed } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -20,7 +20,7 @@ class Notifications extends React.Component {
   _handleClick = this._handleClick.bind(this)
 
   render() {
-    return <Collection { ...this._getCollection() } />
+    return <Infinite { ...this._getInfinite() } />
   }
 
   componentDidMount() {
@@ -37,17 +37,21 @@ class Notifications extends React.Component {
     ])
   }
 
-  _getCollection() {
+  _getInfinite() {
     const { cacheKey } = this.state
+    const empty = {
+      icon: 'bell',
+      empty: 'You have not yet received any notifications'
+    }
     return {
       cacheKey,
       endpoint: '/api/admin/notifications',
-      defaultSort: { key: 'created_at', order: 'desc' },
-      layout: (props) => <Feed { ...props } onClick={ this._handleClick } />,
-      icon: 'bell',
-      empty: 'You have not yet received any notifications',
-      entity: 'notification',
-      search: false
+      sort: { key: 'created_at', order: 'desc' },
+      layout: Feed,
+      props: {
+        onClick: this._handleClick
+      },
+      empty: <Message { ...empty } />
     }
   }
 
@@ -58,7 +62,9 @@ class Notifications extends React.Component {
   }
 
   _handleRefresh() {
-    this.setState({ cacheKey: _.random(100000, 999999).toString(36) })
+    this.setState({
+      cacheKey: _.random(100000, 999999).toString(36)
+    })
   }
 
 }
