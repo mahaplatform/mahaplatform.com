@@ -46,15 +46,12 @@ const Details = ({ reimbursement, commentUrl }) => {
     requiredField('Total', reimbursement, 'total', { content: reimbursement.total, format: 'currency' })
   ]
   if(reimbursement.line_items.length > 1 ) {
-    list.items.push(requiredField('Total', reimbursement, 'total', { content: reimbursement.total, format: 'currency' }))
-    list.items.push(requiredField('Tax', reimbursement, 'tax_total', { content: reimbursement.tax_total, format: 'currency' }))
     list.items.push({ component: <LineItemsToken line_items={ reimbursement.line_items } item={ reimbursement } /> })
   } else {
     list.items.push(requiredField('Project', reimbursement, 'project.title', { content: reimbursement, format: CompactProjectToken }))
     list.items.push(requiredField('Expense Type', reimbursement, 'expense_type.title', { content: reimbursement, format: CompactExpenseTypeToken }))
     list.items.push(requiredField('Description', reimbursement, 'description', { content: reimbursement.description }))
     list.items.push(requiredField('Amount', reimbursement, 'amount', { content: reimbursement.amount, format: 'currency' }))
-    list.items.push(requiredField('Tax', reimbursement, 'tax', { content: reimbursement.tax, format: 'currency' }))
   }
   if(reimbursement.receipts.length > 0) {
     const previews = reimbursement.receipts.filter(receipt => receipt.status === 'processed' && (receipt.has_preview || receipt.is_image))
