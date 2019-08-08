@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form, UserToken } from 'maha-admin'
 
 class GroupsNew extends React.Component {
 
@@ -26,7 +26,8 @@ class GroupsNew extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield' }
+            { label: 'Title', name: 'title', type: 'textfield', required: true },
+            { label: 'Leader', name: 'leader_id', type: 'lookup', placeholder: 'Choose a leader', endpoint: '/api/admin/users', value: 'id', text: 'full_name', format: UserToken, required: true }
           ]
         }
       ]

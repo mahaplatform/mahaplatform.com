@@ -182,7 +182,7 @@ class Access extends React.Component {
   _handleSave() {
     const { assigned, item, onSave } = this.props
     const access = assigned.records.map(assignee => ({
-      grouping: assignee.grouping,
+      grouping_id: assignee.grouping_id,
       group_id: assignee.group_id,
       user_id: assignee.user_id,
       access_type_id: !assignee.is_revoked ? assignee.access_type_id : null

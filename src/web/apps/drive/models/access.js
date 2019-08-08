@@ -1,6 +1,7 @@
+import Grouping from '../../maha/models/grouping'
 import Model from '../../../core/objects/model'
-import User from '../../maha/models/user'
 import Group from '../../maha/models/group'
+import User from '../../maha/models/user'
 import AccessType from './access_type'
 import Item from './item'
 
@@ -20,6 +21,10 @@ const Access = new Model({
 
   group: function() {
     return this.belongsTo(Group, 'group_id')
+  },
+
+  grouping: function() {
+    return this.belongsTo(Grouping, 'grouping_id')
   },
 
   user: function() {

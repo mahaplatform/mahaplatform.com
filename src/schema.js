@@ -334,7 +334,7 @@ const schema = {
       table.integer('group_id').unsigned()
       table.integer('user_id').unsigned()
       table.integer('access_type_id').unsigned()
-      table.string('grouping', 255)
+      table.integer('grouping_id').unsigned()
     })
 
     await knex.schema.createTable('drive_access_types', (table) => {
@@ -912,6 +912,7 @@ const schema = {
       table.string('title', 255)
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('leader_id').unsigned()
     })
 
     await knex.schema.createTable('maha_import_items', (table) => {
@@ -1463,15 +1464,46 @@ const schema = {
     })
 
 
+    await knex.schema.table('appraisals_appraisals', table => {
+      table.foreign('employee_id').references('maha_users.id')
+      table.foreign('supervisor_id').references('maha_users.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('appraisals_responsibilities', table => {
       table.foreign('appraisal_id').references('appraisals_appraisals.id')
       table.foreign('responsibility_type_id').references('appraisals_responsibility_types.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('competencies_expectations', table => {
-      table.foreign('classification_id').references('competencies_classifications.id')
-      table.foreign('competency_id').references('competencies_competencies.id')
+    await knex.schema.table('chat_channels', table => {
+      table.foreign('last_message_id').references('chat_messages.id')
+      table.foreign('owner_id').references('maha_users.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('chat_messages', table => {
+      table.foreign('channel_id').references('chat_channels.id')
+      table.foreign('device_id').references('maha_devices.id')
+      table.foreign('link_id').references('maha_links.id')
+      table.foreign('message_type_id').references('chat_message_types.id')
+      table.foreign('quoted_message_id').references('chat_messages.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('chat_subscriptions', table => {
+      table.foreign('channel_id').references('chat_channels.id')
+      table.foreign('last_message_id').references('chat_messages.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('competencies_categories', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('competencies_classifications', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -1481,70 +1513,25 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('competencies_goals', table => {
-      table.foreign('plan_id').references('competencies_plans.id')
-      table.foreign('competency_id').references('competencies_competencies.id')
+    await knex.schema.table('competencies_competencies', table => {
+      table.foreign('category_id').references('competencies_categories.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('competencies_competencies_resources', table => {
-      table.foreign('resource_id').references('competencies_resources.id')
       table.foreign('competency_id').references('competencies_competencies.id')
+      table.foreign('resource_id').references('competencies_resources.id')
     })
 
-    await knex.schema.table('crm_activities', table => {
-      table.foreign('email_id').references('crm_emails.id')
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('story_id').references('maha_stories.id')
-      table.foreign('call_id').references('crm_calls.id')
-      table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('note_id').references('crm_notes.id')
+    await knex.schema.table('competencies_expectations', table => {
+      table.foreign('classification_id').references('competencies_classifications.id')
+      table.foreign('competency_id').references('competencies_competencies.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('crm_email_attachments', table => {
-      table.foreign('email_id').references('crm_emails.id')
-      table.foreign('asset_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('crm_contacts_organizations', table => {
-      table.foreign('organization_id').references('crm_organizations.id')
-      table.foreign('contact_id').references('crm_contacts.id')
-    })
-
-    await knex.schema.table('crm_taggings', table => {
-      table.foreign('organization_id').references('crm_organizations.id')
-      table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('tag_id').references('crm_tags.id')
-    })
-
-    await knex.schema.table('appraisals_appraisals', table => {
-      table.foreign('employee_id').references('maha_users.id')
-      table.foreign('supervisor_id').references('maha_users.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('chat_channels', table => {
-      table.foreign('owner_id').references('maha_users.id')
-      table.foreign('last_message_id').references('chat_messages.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('chat_messages', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('device_id').references('maha_devices.id')
-      table.foreign('channel_id').references('chat_channels.id')
-      table.foreign('message_type_id').references('chat_message_types.id')
-      table.foreign('quoted_message_id').references('chat_messages.id')
-      table.foreign('link_id').references('maha_links.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('chat_subscriptions', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('channel_id').references('chat_channels.id')
-      table.foreign('last_message_id').references('chat_messages.id')
+    await knex.schema.table('competencies_goals', table => {
+      table.foreign('competency_id').references('competencies_competencies.id')
+      table.foreign('plan_id').references('competencies_plans.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -1554,18 +1541,90 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('drive_access', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('access_type_id').references('drive_access_types.id')
-      table.foreign('group_id').references('maha_groups.id')
+    await knex.schema.table('competencies_resources', table => {
+      table.foreign('asset_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('drive_files', table => {
-      table.foreign('owner_id').references('maha_users.id')
-      table.foreign('folder_id').references('drive_folders.id')
-      table.foreign('version_id').references('drive_versions.id')
+    await knex.schema.table('crm_activities', table => {
+      table.foreign('call_id').references('crm_calls.id')
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('email_id').references('crm_emails.id')
+      table.foreign('note_id').references('crm_notes.id')
+      table.foreign('story_id').references('maha_stories.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('crm_calls', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_contacts_organizations', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('organization_id').references('crm_organizations.id')
+    })
+
+    await knex.schema.table('crm_contacts', table => {
+      table.foreign('photo_id').references('maha_assets.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_email_attachments', table => {
+      table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('email_id').references('crm_emails.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_emails', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_lists', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_notes', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_organizations', table => {
+      table.foreign('logo_id').references('maha_assets.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_subscriptions', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('list_id').references('crm_lists.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_taggings', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('organization_id').references('crm_organizations.id')
+      table.foreign('tag_id').references('crm_tags.id')
+    })
+
+    await knex.schema.table('crm_tags', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('drive_access', table => {
+      table.foreign('access_type_id').references('drive_access_types.id')
+      table.foreign('group_id').references('maha_groups.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+      table.foreign('grouping_id').references('maha_groupings.id')
+    })
+
+    await knex.schema.table('drive_files', table => {
+      table.foreign('folder_id').references('drive_folders.id')
+      table.foreign('owner_id').references('maha_users.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('version_id').references('drive_versions.id')
     })
 
     await knex.schema.table('drive_folders', table => {
@@ -1575,229 +1634,17 @@ const schema = {
     })
 
     await knex.schema.table('drive_metafiles', table => {
-      table.foreign('owner_id').references('maha_users.id')
-      table.foreign('folder_id').references('drive_folders.id')
       table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('folder_id').references('drive_folders.id')
+      table.foreign('owner_id').references('maha_users.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('drive_versions', table => {
-      table.foreign('user_id').references('maha_users.id')
+      table.foreign('asset_id').references('maha_assets.id')
       table.foreign('file_id').references('drive_files.id')
-      table.foreign('asset_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('expenses_advances', table => {
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('expense_type_id').references('expenses_expense_types.id')
-      table.foreign('batch_id').references('expenses_batches.id')
-      table.foreign('project_id').references('expenses_projects.id')
-      table.foreign('status_id').references('expenses_statuses.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('expenses_batches', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('expenses_checks', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('expense_type_id').references('expenses_expense_types.id')
-      table.foreign('batch_id').references('expenses_batches.id')
-      table.foreign('project_id').references('expenses_projects.id')
-      table.foreign('status_id').references('expenses_statuses.id')
-      table.foreign('vendor_id').references('expenses_vendors.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('expenses_expenses', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('account_id').references('expenses_accounts.id')
-      table.foreign('expense_type_id').references('expenses_expense_types.id')
-      table.foreign('batch_id').references('expenses_batches.id')
-      table.foreign('project_id').references('expenses_projects.id')
-      table.foreign('status_id').references('expenses_statuses.id')
-      table.foreign('vendor_id').references('expenses_vendors.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('expenses_members', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('member_type_id').references('expenses_member_types.id')
-      table.foreign('project_id').references('expenses_projects.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('expenses_reimbursements', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('expense_type_id').references('expenses_expense_types.id')
-      table.foreign('batch_id').references('expenses_batches.id')
-      table.foreign('project_id').references('expenses_projects.id')
-      table.foreign('status_id').references('expenses_statuses.id')
-      table.foreign('vendor_id').references('expenses_vendors.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('expenses_trips', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('expense_type_id').references('expenses_expense_types.id')
-      table.foreign('batch_id').references('expenses_batches.id')
-      table.foreign('project_id').references('expenses_projects.id')
-      table.foreign('status_id').references('expenses_statuses.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_activities', table => {
-      table.foreign('object_owner_id').references('maha_users.id')
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('app_id').references('maha_apps.id')
-      table.foreign('story_id').references('maha_stories.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_assets', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('source_id').references('maha_sources.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_audits', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('story_id').references('maha_stories.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_comments', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('quoted_comment_id').references('maha_comments.id')
-      table.foreign('link_id').references('maha_links.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_emails', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_filters', table => {
-      table.foreign('owner_id').references('maha_users.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_imports', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('asset_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_notifications', table => {
-      table.foreign('object_owner_id').references('maha_users.id')
-      table.foreign('subject_id').references('maha_users.id')
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('app_id').references('maha_apps.id')
-      table.foreign('notification_type_id').references('maha_notification_types.id')
-      table.foreign('story_id').references('maha_stories.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_profiles', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('source_id').references('maha_sources.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_reactions', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_searches', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_sessions', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('device_id').references('maha_devices.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_stars', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_supervisions', table => {
-      table.foreign('employee_id').references('maha_users.id')
-      table.foreign('supervisor_id').references('maha_users.id')
-    })
-
-    await knex.schema.table('maha_supervisors', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_users_alerts', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('alert_id').references('maha_alerts.id')
-    })
-
-    await knex.schema.table('maha_users_groups', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('group_id').references('maha_groups.id')
-    })
-
-    await knex.schema.table('maha_users_notification_types', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('notification_type_id').references('maha_notification_types.id')
-    })
-
-    await knex.schema.table('maha_users_roles', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('role_id').references('maha_roles.id')
-    })
-
-    await knex.schema.table('sites_managers', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('site_id').references('sites_sites.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('training_administrations', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('quiz_id').references('training_quizes.id')
-    })
-
-    await knex.schema.table('training_assignings', table => {
-      table.foreign('assigned_by_id').references('maha_users.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('training_assignments', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('assigning_id').references('training_assignings.id')
-      table.foreign('option_id').references('training_options.id')
-    })
-
-    await knex.schema.table('training_fulfillments', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('assignment_id').references('training_assignments.id')
-      table.foreign('verification_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('offering_id').references('training_offerings.id')
-      table.foreign('training_id').references('training_trainings.id')
-    })
-
-    await knex.schema.table('maha_filter_accesses', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('filter_id').references('maha_filters.id')
-      table.foreign('group_id').references('maha_groups.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('grouping_id').references('maha_groupings.id')
     })
 
     await knex.schema.table('eatfresh_attractions', table => {
@@ -1806,12 +1653,181 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('maha_import_items', table => {
-      table.foreign('import_id').references('maha_imports.id')
+    await knex.schema.table('eatfresh_categories_attractions', table => {
+      table.foreign('attraction_id').references('eatfresh_attractions.id')
+      table.foreign('category_id').references('eatfresh_categories.id')
+    })
+
+    await knex.schema.table('eatfresh_categories', table => {
+      table.foreign('photo_id').references('maha_assets.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('eatfresh_counties', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('eatfresh_offerings_attractions', table => {
+      table.foreign('attraction_id').references('eatfresh_attractions.id')
+      table.foreign('offering_id').references('eatfresh_offerings.id')
+    })
+
+    await knex.schema.table('eatfresh_offerings', table => {
+      table.foreign('photo_id').references('maha_assets.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('eatfresh_photos', table => {
+      table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('attraction_id').references('eatfresh_attractions.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('expenses_accounts', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('expenses_advances', table => {
+      table.foreign('batch_id').references('expenses_batches.id')
+      table.foreign('expense_type_id').references('expenses_expense_types.id')
+      table.foreign('project_id').references('expenses_projects.id')
+      table.foreign('status_id').references('expenses_statuses.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('expenses_batches', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('expenses_checks', table => {
+      table.foreign('batch_id').references('expenses_batches.id')
+      table.foreign('expense_type_id').references('expenses_expense_types.id')
+      table.foreign('project_id').references('expenses_projects.id')
+      table.foreign('status_id').references('expenses_statuses.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+      table.foreign('vendor_id').references('expenses_vendors.id')
+    })
+
+    await knex.schema.table('expenses_expense_types', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('expenses_expenses', table => {
+      table.foreign('account_id').references('expenses_accounts.id')
+      table.foreign('batch_id').references('expenses_batches.id')
+      table.foreign('expense_type_id').references('expenses_expense_types.id')
+      table.foreign('project_id').references('expenses_projects.id')
+      table.foreign('status_id').references('expenses_statuses.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+      table.foreign('vendor_id').references('expenses_vendors.id')
+    })
+
+    await knex.schema.table('expenses_members', table => {
+      table.foreign('member_type_id').references('expenses_member_types.id')
+      table.foreign('project_id').references('expenses_projects.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('expenses_projects', table => {
+      table.foreign('tax_project_id').references('expenses_projects.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('expenses_receipts', table => {
+      table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('check_id').references('expenses_checks.id')
+      table.foreign('expense_id').references('expenses_expenses.id')
+      table.foreign('reimbursement_id').references('expenses_reimbursements.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('expenses_reimbursements', table => {
+      table.foreign('batch_id').references('expenses_batches.id')
+      table.foreign('expense_type_id').references('expenses_expense_types.id')
+      table.foreign('project_id').references('expenses_projects.id')
+      table.foreign('status_id').references('expenses_statuses.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+      table.foreign('vendor_id').references('expenses_vendors.id')
+    })
+
+    await knex.schema.table('expenses_trips', table => {
+      table.foreign('batch_id').references('expenses_batches.id')
+      table.foreign('expense_type_id').references('expenses_expense_types.id')
+      table.foreign('project_id').references('expenses_projects.id')
+      table.foreign('status_id').references('expenses_statuses.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('expenses_vendors', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_activities', table => {
+      table.foreign('app_id').references('maha_apps.id')
+      table.foreign('object_owner_id').references('maha_users.id')
+      table.foreign('story_id').references('maha_stories.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
     })
 
     await knex.schema.table('maha_alerts', table => {
       table.foreign('app_id').references('maha_apps.id')
+    })
+
+    await knex.schema.table('maha_assets', table => {
+      table.foreign('source_id').references('maha_sources.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_attachments', table => {
+      table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_audits', table => {
+      table.foreign('story_id').references('maha_stories.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_comments', table => {
+      table.foreign('link_id').references('maha_links.id')
+      table.foreign('quoted_comment_id').references('maha_comments.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_devices', table => {
+      table.foreign('browser_name_id').references('maha_device_values.id')
+      table.foreign('browser_version_id').references('maha_device_values.id')
+      table.foreign('device_type_id').references('maha_device_values.id')
+      table.foreign('display_name_id').references('maha_device_values.id')
+      table.foreign('os_name_id').references('maha_device_values.id')
+      table.foreign('os_version_id').references('maha_device_values.id')
+      table.foreign('platform_type_id').references('maha_device_values.id')
+    })
+
+    await knex.schema.table('maha_domains', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_email_activities', table => {
+      table.foreign('email_id').references('maha_emails.id')
+      table.foreign('email_link_id').references('maha_email_links.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_email_links', table => {
+      table.foreign('email_id').references('maha_emails.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('maha_email_templates', table => {
@@ -1819,13 +1835,75 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('maha_emails', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_fields', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_filter_accesses', table => {
+      table.foreign('filter_id').references('maha_filters.id')
+      table.foreign('group_id').references('maha_groups.id')
+      table.foreign('grouping_id').references('maha_groupings.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_filters', table => {
+      table.foreign('owner_id').references('maha_users.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_groups', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('leader_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_import_items', table => {
+      table.foreign('import_id').references('maha_imports.id')
+    })
+
+    await knex.schema.table('maha_imports', table => {
+      table.foreign('asset_id').references('maha_assets.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
     await knex.schema.table('maha_installations', table => {
       table.foreign('app_id').references('maha_apps.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('maha_links', table => {
+      table.foreign('service_id').references('maha_services.id')
+    })
+
     await knex.schema.table('maha_notification_types', table => {
       table.foreign('app_id').references('maha_apps.id')
+    })
+
+    await knex.schema.table('maha_notifications', table => {
+      table.foreign('app_id').references('maha_apps.id')
+      table.foreign('notification_type_id').references('maha_notification_types.id')
+      table.foreign('object_owner_id').references('maha_users.id')
+      table.foreign('story_id').references('maha_stories.id')
+      table.foreign('subject_id').references('maha_users.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_profiles', table => {
+      table.foreign('source_id').references('maha_sources.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_reactions', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
     })
 
     await knex.schema.table('maha_rights', table => {
@@ -1837,25 +1915,83 @@ const schema = {
       table.foreign('role_id').references('maha_roles.id')
     })
 
+    await knex.schema.table('maha_roles_rights', table => {
+      table.foreign('right_id').references('maha_rights.id')
+      table.foreign('role_id').references('maha_roles.id')
+    })
+
+    await knex.schema.table('maha_roles', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_searches', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_sessions', table => {
+      table.foreign('device_id').references('maha_devices.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_stars', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_strategies', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_supervisions', table => {
+      table.foreign('employee_id').references('maha_users.id')
+      table.foreign('supervisor_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_supervisors', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
     await knex.schema.table('maha_teams_apps', table => {
       table.foreign('app_id').references('maha_apps.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('maha_email_activities', table => {
-      table.foreign('email_link_id').references('maha_email_links.id')
-      table.foreign('email_id').references('maha_emails.id')
+    await knex.schema.table('maha_teams', table => {
+      table.foreign('logo_id').references('maha_assets.id')
+    })
+
+    await knex.schema.table('maha_user_types', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('maha_email_links', table => {
-      table.foreign('email_id').references('maha_emails.id')
-      table.foreign('team_id').references('maha_teams.id')
+    await knex.schema.table('maha_users_alerts', table => {
+      table.foreign('alert_id').references('maha_alerts.id')
+      table.foreign('user_id').references('maha_users.id')
     })
 
-    await knex.schema.table('maha_roles_rights', table => {
+    await knex.schema.table('maha_users_groups', table => {
+      table.foreign('group_id').references('maha_groups.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_users_notification_types', table => {
+      table.foreign('notification_type_id').references('maha_notification_types.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('maha_users', table => {
+      table.foreign('photo_id').references('maha_assets.id')
+      table.foreign('security_question_id').references('maha_security_questions.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_type_id').references('maha_user_types.id')
+    })
+
+    await knex.schema.table('maha_users_roles', table => {
       table.foreign('role_id').references('maha_roles.id')
-      table.foreign('right_id').references('maha_rights.id')
+      table.foreign('user_id').references('maha_users.id')
     })
 
     await knex.schema.table('sites_emails', table => {
@@ -1869,6 +2005,12 @@ const schema = {
       table.foreign('type_id').references('sites_types.id')
     })
 
+    await knex.schema.table('sites_managers', table => {
+      table.foreign('site_id').references('sites_sites.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
     await knex.schema.table('sites_members', table => {
       table.foreign('site_id').references('sites_sites.id')
       table.foreign('team_id').references('maha_teams.id')
@@ -1879,16 +2021,26 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('sites_sites', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('sites_types', table => {
       table.foreign('site_id').references('sites_sites.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('training_answerings', table => {
-      table.foreign('question_id').references('training_questions.id')
+    await knex.schema.table('training_administrations', table => {
+      table.foreign('quiz_id').references('training_quizes.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('training_answerings', table => {
       table.foreign('administration_id').references('training_administrations.id')
       table.foreign('answer_id').references('training_answers.id')
+      table.foreign('question_id').references('training_questions.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('training_answers', table => {
@@ -1896,183 +2048,34 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('competencies_competencies', table => {
-      table.foreign('category_id').references('competencies_categories.id')
+    await knex.schema.table('training_assignings', table => {
+      table.foreign('assigned_by_id').references('maha_users.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('crm_calls', table => {
-      table.foreign('contact_id').references('crm_contacts.id')
+    await knex.schema.table('training_assignments', table => {
+      table.foreign('assigning_id').references('training_assignings.id')
+      table.foreign('option_id').references('training_options.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
     })
 
-    await knex.schema.table('crm_emails', table => {
-      table.foreign('contact_id').references('crm_contacts.id')
+    await knex.schema.table('training_fulfillments', table => {
+      table.foreign('assignment_id').references('training_assignments.id')
+      table.foreign('offering_id').references('training_offerings.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('training_id').references('training_trainings.id')
+      table.foreign('user_id').references('maha_users.id')
+      table.foreign('verification_id').references('maha_assets.id')
     })
 
-    await knex.schema.table('crm_notes', table => {
-      table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('crm_subscriptions', table => {
-      table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('list_id').references('crm_lists.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('eatfresh_categories_attractions', table => {
-      table.foreign('attraction_id').references('eatfresh_attractions.id')
-      table.foreign('category_id').references('eatfresh_categories.id')
-    })
-
-    await knex.schema.table('eatfresh_offerings_attractions', table => {
-      table.foreign('attraction_id').references('eatfresh_attractions.id')
-      table.foreign('offering_id').references('eatfresh_offerings.id')
-    })
-
-    await knex.schema.table('eatfresh_photos', table => {
-      table.foreign('attraction_id').references('eatfresh_attractions.id')
-      table.foreign('asset_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('expenses_receipts', table => {
-      table.foreign('check_id').references('expenses_checks.id')
-      table.foreign('expense_id').references('expenses_expenses.id')
-      table.foreign('reimbursement_id').references('expenses_reimbursements.id')
-      table.foreign('asset_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('expenses_projects', table => {
-      table.foreign('tax_project_id').references('expenses_projects.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('competencies_resources', table => {
-      table.foreign('asset_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('crm_contacts', table => {
-      table.foreign('photo_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('crm_organizations', table => {
-      table.foreign('logo_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('eatfresh_categories', table => {
-      table.foreign('photo_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('eatfresh_offerings', table => {
-      table.foreign('photo_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_attachments', table => {
-      table.foreign('asset_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_teams', table => {
-      table.foreign('logo_id').references('maha_assets.id')
-    })
-
-    await knex.schema.table('maha_users', table => {
-      table.foreign('photo_id').references('maha_assets.id')
-      table.foreign('security_question_id').references('maha_security_questions.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('user_type_id').references('maha_user_types.id')
-    })
-
-    await knex.schema.table('training_materials', table => {
-      table.foreign('asset_id').references('maha_assets.id')
+    await knex.schema.table('training_lessons', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('training_id').references('training_trainings.id')
     })
 
-    await knex.schema.table('maha_devices', table => {
-      table.foreign('browser_name_id').references('maha_device_values.id')
-      table.foreign('browser_version_id').references('maha_device_values.id')
-      table.foreign('device_type_id').references('maha_device_values.id')
-      table.foreign('display_name_id').references('maha_device_values.id')
-      table.foreign('os_name_id').references('maha_device_values.id')
-      table.foreign('os_version_id').references('maha_device_values.id')
-      table.foreign('platform_type_id').references('maha_device_values.id')
-    })
-
-    await knex.schema.table('maha_links', table => {
-      table.foreign('service_id').references('maha_services.id')
-    })
-
-    await knex.schema.table('competencies_categories', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('competencies_classifications', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('crm_lists', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('crm_tags', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('eatfresh_counties', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('expenses_accounts', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('expenses_expense_types', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('expenses_vendors', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_domains', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_fields', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_groups', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_roles', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_strategies', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_user_types', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('sites_sites', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('training_lessons', table => {
+    await knex.schema.table('training_materials', table => {
+      table.foreign('asset_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('training_id').references('training_trainings.id')
     })
@@ -2083,28 +2086,28 @@ const schema = {
     })
 
     await knex.schema.table('training_options', table => {
-      table.foreign('team_id').references('maha_teams.id')
       table.foreign('assigning_id').references('training_assignings.id')
-    })
-
-    await knex.schema.table('training_questions', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('quiz_id').references('training_quizes.id')
-    })
-
-    await knex.schema.table('training_quizes', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('lesson_id').references('training_lessons.id')
-      table.foreign('training_id').references('training_trainings.id')
-    })
-
-    await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('training_options_trainings', table => {
       table.foreign('option_id').references('training_options.id')
       table.foreign('training_id').references('training_trainings.id')
+    })
+
+    await knex.schema.table('training_questions', table => {
+      table.foreign('quiz_id').references('training_quizes.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('training_quizes', table => {
+      table.foreign('lesson_id').references('training_lessons.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('training_id').references('training_trainings.id')
+    })
+
+    await knex.schema.table('training_trainings', table => {
+      table.foreign('team_id').references('maha_teams.id')
     })
 
 
@@ -2245,14 +2248,8 @@ const schema = {
       maha_users.id as user_id,
       drive_access.access_type_id
       from ((drive_access
-      join maha_supervisors on (((drive_access."grouping")::text = 'supervisors'::text)))
-      join maha_users on ((((drive_access."grouping")::text = 'supervisors'::text) and (maha_users.id = maha_supervisors.user_id))))
-      union
-      select drive_access.code,
-      maha_users.id as user_id,
-      drive_access.access_type_id
-      from (drive_access
-      join maha_users on (((drive_access."grouping")::text = 'everyone'::text)))
+      join maha_groupings_users on ((maha_groupings_users.grouping_id = drive_access.grouping_id)))
+      join maha_users on ((maha_users.id = maha_groupings_users.user_id)))
       union
       select drive_access.code,
       maha_users_groups.user_id,
@@ -2510,6 +2507,43 @@ const schema = {
       from (maha_users
       left join maha_assets on ((maha_assets.id = maha_users.photo_id)))) assignees
       order by assignees.priority, assignees.delta, assignees.name;
+    `)
+
+    await knex.raw(`
+      create view maha_groupings_users AS
+      select maha_users.team_id,
+      maha_groupings.id as grouping_id,
+      maha_users.id as user_id
+      from (maha_users
+      join maha_groupings on ((maha_groupings.id = 1)))
+union
+      select maha_users.team_id,
+      maha_groupings.id as grouping_id,
+      maha_users.id as user_id
+      from ((maha_users
+      join maha_supervisors on ((maha_supervisors.user_id = maha_users.id)))
+      join maha_groupings on ((maha_groupings.id = 2)))
+union
+      select maha_users.team_id,
+      maha_groupings.id as grouping_id,
+      maha_users.id as user_id
+      from ((maha_users
+      join maha_supervisors on ((maha_supervisors.user_id = maha_users.id)))
+      join maha_groupings on ((maha_groupings.id = 2)))
+union
+      select distinct on (maha_users.id) maha_users.team_id,
+      maha_groupings.id as grouping_id,
+      maha_users.id as user_id
+      from ((maha_users
+      join maha_groups on ((maha_groups.leader_id = maha_users.id)))
+      join maha_groupings on ((maha_groupings.id = 3)))
+union
+      select distinct on (maha_users.id) maha_users.team_id,
+      maha_groupings.id as grouping_id,
+      maha_users.id as user_id
+      from ((maha_users
+      join expenses_members on (((expenses_members.user_id = maha_users.id) and (expenses_members.member_type_id <> 3))))
+      join maha_groupings on ((maha_groupings.id = 4)));
     `)
   }
 

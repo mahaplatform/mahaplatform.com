@@ -15,7 +15,7 @@ const listRoute = async (req, res) => {
     sortParams: ['id','title']
   }).fetchPage({
     page: req.query.$page,
-    withRelated: ['users.photo'],
+    withRelated: ['leader.photo'],
     transacting: req.trx
   })
 

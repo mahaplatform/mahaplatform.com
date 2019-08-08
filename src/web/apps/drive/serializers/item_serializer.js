@@ -32,7 +32,7 @@ const folder = (folder) => {
 }
 
 const access = (access) => ({
-  grouping: access.get('grouping'),
+  grouping: grouping(access.related('grouping')),
   user: user(access.related('user')),
   group: group(access.related('group')),
   access_type: access.related('access_type').get('text')
@@ -55,6 +55,14 @@ const asset = (asset) => {
     status: asset.get('status'),
     created_at: asset.get('created_at'),
     updated_at: asset.get('updated_at')
+  }
+}
+
+const grouping = (grouping) => {
+  if(!grouping.id) return null
+  return {
+    id: grouping.get('id'),
+    title: grouping.get('title')
   }
 }
 

@@ -11,7 +11,7 @@ const updateAccess = async (req, accesses, item) => {
   await Promise.map(accesses, async access => {
 
     const existing = _.find(current, {
-      grouping: access.grouping,
+      grouping_id: access.grouping_id,
       group_id: access.group_id,
       user_id: access.user_id
     })
@@ -21,7 +21,7 @@ const updateAccess = async (req, accesses, item) => {
       await knex('drive_access').transacting(req.trx).insert({
         team_id: item.team_id,
         code: item.code,
-        grouping: access.grouping,
+        grouping_id: access.grouping_id,
         group_id: access.group_id,
         user_id: access.user_id,
         access_type_id: access.access_type_id

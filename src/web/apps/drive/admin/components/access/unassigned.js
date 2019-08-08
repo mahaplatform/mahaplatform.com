@@ -71,7 +71,7 @@ class Unassigned extends React.Component {
 
   _handleChoose(assignee) {
     this.props.onChoose({
-      grouping: assignee.grouping,
+      grouping_id: assignee.grouping_id,
       user_id: assignee.user_id,
       group_id: assignee.group_id
     })

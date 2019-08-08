@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form, UserToken } from 'maha-admin'
 import React from 'react'
 
 class GroupsEdit extends React.Component {
@@ -24,14 +24,15 @@ class GroupsEdit extends React.Component {
     return {
       title: 'Edit Group',
       method: 'patch',
-      endpoint: `/api/admin/team/groups/${group.id}`,
+      endpoint: `/api/admin/team/groups/${group.id}/edit`,
       action: `/api/admin/team/groups/${group.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield' }
+            { label: 'Title', name: 'title', type: 'textfield', required: true },
+            { label: 'Leader', name: 'leader_id', type: 'lookup', placeholder: 'Choose a leader', endpoint: '/api/admin/users', value: 'id', text: 'full_name', format: UserToken, required: true }
           ]
         }
       ]

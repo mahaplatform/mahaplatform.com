@@ -7,7 +7,7 @@ class AccessToken extends React.Component {
 
   static propTypes = {
     access_type: PropTypes.string,
-    grouping: PropTypes.string,
+    grouping: PropTypes.object,
     group: PropTypes.object,
     user: PropTypes.object
   }
@@ -18,7 +18,7 @@ class AccessToken extends React.Component {
       <div className="access-token" title={ this._getTitle() }>
         { grouping &&
          <div className="assignee-token-icon">
-           <Avatar icon='bolt' user={{ full_name: _.capitalize(grouping) }} />
+           <Avatar icon='bolt' user={ this._getGrouping() } width="50" title={ false } presence={ false } />
          </div>
         }
         { group &&
@@ -39,7 +39,13 @@ class AccessToken extends React.Component {
     const { group } = this.props
     return {
       initials: group.title.split(' ').map(word => word[0]).join('')
+    }
+  }
 
+  _getGrouping() {
+    const { grouping } = this.props
+    return {
+      initials: grouping.title.split(' ').map(word => word[0]).join('')
     }
   }
 
@@ -49,7 +55,7 @@ class AccessToken extends React.Component {
 
   _getSubject() {
     const { grouping, group, user } = this.props
-    if(grouping) return _.capitalize(grouping)
+    if(grouping) return grouping.title
     if(group) return group.title
     if(user) return user.full_name
   }

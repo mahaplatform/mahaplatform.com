@@ -20,7 +20,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load group'
   })
 
-  await group.save(whitelist(req.body, ['title']), {
+  await group.save(whitelist(req.body, ['title','leader_id']), {
     transacting: req.trx
   })
 

@@ -8,11 +8,13 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/team/groups',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Title', key: 'title', primary: true }
+      { label: 'Title', key: 'title', primary: true },
+      { label: 'Leader', key: 'leader.full_name', visible: false }
     ],
     export: [
       { label: 'ID', key: 'id' },
-      { label: 'Title', key: 'title' }
+      { label: 'Title', key: 'title' },
+      { label: 'Leader', key: 'leader.full_name' }
     ],
     empty: 'You have not yet created any groups',
     entity: 'group',

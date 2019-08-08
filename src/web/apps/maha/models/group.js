@@ -25,6 +25,10 @@ const Group = new Model({
 
   },
 
+  leader() {
+    return this.belongsTo(User, 'leader_id')
+  },
+
   users() {
     return this.belongsToMany(User, 'maha_users_groups', 'group_id', 'user_id')
   }
