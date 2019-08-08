@@ -4,20 +4,6 @@
   flex-direction: column;
   background-color: lighten(@black, 95);
 }
-.maha-collection-sidebar {
-  flex: ~"0 0 calc(100% / 3)";
-  max-width: 325px;
-  display: flex;
-  border-right: 1px solid fadeout(@black, 95);
-  .maha-modal-panel-header {
-    background-color: fadeout(@black, 60) !important;
-    flex: none;
-  }
-}
-.maha-collection-main {
-  flex: 1;
-  display: flex;
-}
 .maha-collection-header {
   background-color: @red;
   padding: 0 0.8em 0.8em;
@@ -49,10 +35,21 @@
     background-color: fadeout(@white, 80);
   }
 }
-.maha-collection-body {
-  flex: 1;
+.maha-collection-main {
   display: flex;
+  flex: 1;
+}
+.maha-collection-sidebar {
+  display: flex;
+  .maha-modal-panel-header {
+    background-color: fadeout(@black, 60) !important;
+    flex: none;
+  }
+}
+.maha-collection-body {
   background-color: @white;
+  display: flex;
+  flex: 1;
 }
 .maha-collection-footer {
   background-color: fadeout(@black, 10);
@@ -195,5 +192,28 @@
   color: fadeout(@black, 50);
   &:hover {
     background-color: fadeout(@black, 97);
+  }
+}
+@media (max-width: 768px) {
+  .maha-collection-main {
+    position: relative;
+  }
+  .maha-collection-sidebar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}
+@media (min-width: 769px) {
+  .maha-collection-sidebar {
+    flex: ~"0 0 calc(100% / 3)";
+    max-width: 325px;
+    border-right: 1px solid fadeout(@black, 95);
+    order: 0;
+  }
+  .maha-collection-body {
+    order: 1;
   }
 }

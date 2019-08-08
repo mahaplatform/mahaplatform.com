@@ -195,7 +195,6 @@ class Admin extends React.Component {
   _handleInitializeAdmin() {
     const { pathname } = this.context.router.history.location
     if(!pathname.match(/(activate|reset)/)) this.props.onLoadAdmin()
-    // this.context.router.history.push(pathname)
   }
 
   _handleSignin(team, token, user) {

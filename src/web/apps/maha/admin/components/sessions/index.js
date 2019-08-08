@@ -66,6 +66,7 @@ class Sessions extends React.Component {
 
 const mapStateToProps = (state, props) => ({
   apps: state.maha.admin.apps,
+  history: state.maha.router.history,
   team: state.maha.admin.team,
   user: state.maha.admin.user
 })

@@ -91,16 +91,16 @@ class Collection extends React.Component {
       <div className="maha-collection">
         <Header { ...this._getHeader() } />
         <div className="maha-collection-main">
-          { filtering &&
-            <div className="maha-collection-sidebar">
-              { filters && !criteria && <Filters { ...this._getFilters() } /> }
-              { criteria && <Filter { ...this._getFilter() } /> }
-            </div>
-          }
           <div className="maha-collection-body">
             { records && <Results { ...this._getResults() } /> }
             { endpoint && <Infinite { ...this._getInfinite() } /> }
           </div>
+          <CSSTransition in={ filtering } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+            <div className="maha-collection-sidebar">
+              { filters && !criteria && <Filters { ...this._getFilters() } /> }
+              { criteria && <Filter { ...this._getFilter() } /> }
+            </div>
+          </CSSTransition>
         </div>
         { buttons &&
           <CSSTransition in={ selected.length > 0 } classNames="expanded" timeout={ 100 } mountOnEnter={ true } unmountOnExit={ true }>

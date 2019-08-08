@@ -38,7 +38,8 @@ class Teams extends React.Component {
         </div>
         <div className="maha-navigation-body">
           <div className="maha-navigation-accounts">
-            { teams.filter(team => team.token).map((team, index) => {
+            { teams.map((team, index) => {
+              if(!team.token) return null
               return (
                 <div key={`team_${index}`} className="maha-navigation-account" onClick={ this._handleChangeTeam.bind(this, index) }>
                   <div className="maha-navigation-account-logo">
