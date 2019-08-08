@@ -6,6 +6,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Team',
   collection: {
     table: [
+      { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Filename', key: 'original_file_name', primary: true, format: FilenameToken },
       { label: 'Uploaded By', key: 'user.full_name', primary: true },
       { label: 'Status', key: 'status', primary: true },

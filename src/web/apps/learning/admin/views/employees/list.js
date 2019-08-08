@@ -5,6 +5,7 @@ const mapPropsToPage = (props, context) => ({
   collection: {
     endpoint: '/api/admin/learning/employees',
     table: [
+      { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Name', key: 'full_name', primary: true, format: UserToken }
     ],
     defaultSort: { key: 'last_name', order: 'asc' },

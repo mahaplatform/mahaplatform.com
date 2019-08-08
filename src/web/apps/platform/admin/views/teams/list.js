@@ -17,6 +17,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Team',
   collection: {
     table: [
+      { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true, format: TeamToken }
     ],
     endpoint: '/api/admin/platform/teams',

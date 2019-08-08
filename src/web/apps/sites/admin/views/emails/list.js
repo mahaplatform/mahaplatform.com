@@ -5,6 +5,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Emails',
   collection: {
     table: [
+      { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Name', key: 'code', sort: 'code', primary: true, format: EmailToken }
     ],
     endpoint: `/api/admin/sites/sites/${page.params.site_id}/emails`,

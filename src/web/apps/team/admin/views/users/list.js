@@ -6,6 +6,7 @@ import React from 'react'
 const _getImport = () => ({
   table: 'maha_users',
   fields: [
+    { label: 'ID', key: 'id', visible: false, collapsing: true },
     { label: 'First Name', name: 'first_name', type: 'textfield' },
     { label: 'Last Name', name: 'last_name', type: 'textfield' },
     { label: 'Email', name: 'email', type: 'textfield', required: true },

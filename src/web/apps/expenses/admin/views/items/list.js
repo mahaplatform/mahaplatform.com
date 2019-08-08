@@ -21,6 +21,7 @@ import React from 'react'
 const _getImport = (user) => ({
   table: 'expenses_trips',
   fields: [
+    { label: 'ID', key: 'item_id', visible: false, collapsing: true },
     { label: 'Date', name: 'date', type: 'datefield', required: true, format: 'YYYY-MM-DD' },
     { label: 'Description', name: 'description', type: 'textfield', required: true },
     { label: 'Project Code', name: 'project_code', type: 'textfield' },

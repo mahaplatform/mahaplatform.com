@@ -98,6 +98,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: resources.type.title,
   collection: {
     table: [
+      { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true },
       { label: 'Published', key: 'is_published', primary: true, format: 'check_times', collapsing: true }
     ],

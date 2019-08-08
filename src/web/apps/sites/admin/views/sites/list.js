@@ -5,6 +5,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Sites',
   collection: {
     table: [
+      { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true }
     ],
     endpoint: '/api/admin/sites/sites',

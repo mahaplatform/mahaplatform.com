@@ -12,6 +12,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   rights: [],
   collection: {
     table: [
+      { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Name', key: 'name', primary: true, format: OrganizationToken }
     ],
     filters: [

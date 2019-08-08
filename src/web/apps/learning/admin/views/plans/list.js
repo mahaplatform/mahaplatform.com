@@ -8,6 +8,7 @@ const mapPropsToPage = (props, context) => ({
   collection: {
     endpoint: '/api/admin/learning/plans',
     table: [
+      { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Supervisor', key: 'supervisor.full_name', primary: true },
       { label: 'Due', key: 'due', format: 'date' },
       { label: 'Status', key: 'status', sort: 'expenses_statuses.text', format: Status, collapsing: true }

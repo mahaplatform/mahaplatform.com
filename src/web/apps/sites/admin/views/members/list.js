@@ -24,6 +24,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Members',
   collection: {
     table: [
+      { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Name', key: 'last_name', sort: 'last_name', primary: true, format: NameCell }
     ],
     endpoint: `/api/admin/sites/sites/${page.params.site_id}/members`,
