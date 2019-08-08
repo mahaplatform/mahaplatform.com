@@ -13,6 +13,7 @@ class Types extends React.PureComponent {
   static propTypes = {
     types: PropTypes.array,
     onCancel: PropTypes.func,
+    onChange: PropTypes.func,
     onDone: PropTypes.func
   }
 
@@ -84,12 +85,14 @@ class Types extends React.PureComponent {
   }
 
   _handleField(field) {
-    const { onDone } = this.props
+    const { onCancel, onChange, onDone } = this.props
     this.context.filter.push({
       component: Field,
       props: {
         field,
         mode: 'add',
+        onCancel,
+        onChange,
         onDone
       }
     })

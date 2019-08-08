@@ -13,6 +13,7 @@ class AssignmentField extends React.Component {
     assigned: PropTypes.array,
     assignments: PropTypes.array,
     cid: PropTypes.string,
+    defaultValue: PropTypes.array,
     q: PropTypes.string,
     status: PropTypes.string,
     unassigned: PropTypes.array,
@@ -21,7 +22,8 @@ class AssignmentField extends React.Component {
     onFetch: PropTypes.func,
     onQuery: PropTypes.func,
     onReady: PropTypes.func,
-    onRemove: PropTypes.func
+    onRemove: PropTypes.func,
+    onSet: PropTypes.func
   }
 
   static defaultProps = {
@@ -44,7 +46,9 @@ class AssignmentField extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onFetch()
+    const { defaultValue, onFetch, onSet } = this.props
+    onFetch()
+    if(defaultValue) onSet(defaultValue)
   }
 
   componentDidUpdate(prevProps) {

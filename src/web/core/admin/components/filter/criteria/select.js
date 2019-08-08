@@ -19,7 +19,7 @@ class Select extends React.Component {
 
   state = {
     operator: '$eq',
-    value: []
+    value: null
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -52,10 +52,10 @@ class Select extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { operator, value } = this.state
     if(operator !== prevState.operator) {
-      this.props.onChange({ [operator]: value })
+      this._handleChange()
     }
-    if(!_.isEqual(operator !== prevState.operator)) {
-      this.props.onChange({ [operator]: value })
+    if(!_.isEqual(value !== prevState.value)) {
+      this._handleChange()
     }
   }
 
@@ -92,7 +92,7 @@ class Select extends React.Component {
         { value: '$in', text: 'is one of' },
         { value: '$nin', text: 'is not one of' }
       ],
-      onChange: this._handleChange.bind(this, 'operator')
+      onChange: this._handleUpdate.bind(this, 'operator')
     }
   }
 
@@ -108,16 +108,21 @@ class Select extends React.Component {
       options: field.options,
       text: field.text,
       value: field.value,
-      onChange: this._handleChange.bind(this, 'value')
+      onChange: this._handleUpdate.bind(this, 'value')
     }
   }
 
-  _handleChange(key, value) {
+  _handleUpdate(key, value) {
     this.setState({ [key]: value })
   }
 
   _handleCancel() {
     this.props.onCancel()
+  }
+
+  _handleChange() {
+    const { operator, value } = this.state
+    if(value) this.props.onChange({ [operator]: value })
   }
 
   _handleDone() {

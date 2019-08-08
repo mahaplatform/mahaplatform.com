@@ -2,16 +2,14 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class New extends React.Component {
+class Edit extends React.Component {
 
   static contextTypes = {
-    filter: PropTypes.object,
     modal: PropTypes.object
   }
 
   static propTypes = {
-    code: PropTypes.string,
-    criteria: PropTypes.object
+    filter: PropTypes.object
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -26,18 +24,17 @@ class New extends React.Component {
   }
 
   _getForm() {
-    const { code, criteria } = this.props
+    const { filter } = this.props
     return {
-      title: 'New Filter',
-      method: 'post',
-      action: `/api/admin/${code}/filters`,
+      title: 'Edit Filter',
+      method: 'patch',
+      endpoint: `/api/admin/${filter.code}/filters/${filter.id}/edit`,
+      action: `/api/admin/${filter.code}/filters/${filter.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { name: 'code', type: 'hidden', defaultValue: code },
-            { name: 'criteria', type: 'hidden', defaultValue: criteria },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this filter', required: true },
             { label: 'Share With', name: 'accesses', type: 'assignmentfield', prompt: 'Share filter with others' }
           ]
@@ -51,10 +48,9 @@ class New extends React.Component {
   }
 
   _handleSuccess(result) {
-    this.context.filter.pop(1)
     this.context.modal.close()
   }
 
 }
 
-export default New
+export default Edit

@@ -47,6 +47,12 @@ const reducer = (state = INITIAL_STATE, action) => {
       ]
     }
 
+  case 'SET':
+    return {
+      ...state,
+      assignments: action.assignments
+    }
+
   default:
     return state
   }

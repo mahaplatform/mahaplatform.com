@@ -50,15 +50,9 @@ class Overview extends React.Component {
                 </div>
               </div>
               { filters && filters.map((filter, index) => (
-                <div className={ this._getClass(filter.id) } key={`filter_${index}`} onClick={ this._handleChoose.bind(this, filter.id) }>
+                <div className={ this._getClass(filter.id) } key={`filter_${index}`} onClick={ this._handleEdit.bind(this, filter) }>
                   <div className="maha-criteria-list-item-label">
                     { filter.title }
-                  </div>
-                  <div className="maha-criteria-list-item-icon" onClick={ this._handleEdit.bind(this, filter) }>
-                    <i className="fa fa-pencil" />
-                  </div>
-                  <div className="maha-criteria-list-item-icon" onClick={ this._handleRemove.bind(this, filter) }>
-                    <i className="fa fa-times" />
                   </div>
                 </div>
               )) }
@@ -154,14 +148,6 @@ class Overview extends React.Component {
 
   _handleEdit(filter, e) {
     this.props.onEdit(filter)
-    e.stopPropagation()
-  }
-
-  _handleRemove(filter, e) {
-    this.context.network.request({
-      method: 'DELETE',
-      endpoint: `/api/admin/${filter.code}/filters/${filter.id}`
-    })
     e.stopPropagation()
   }
 

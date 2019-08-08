@@ -1,4 +1,4 @@
-import { canApprove } from './utils/access'
+import { isOwnerOrAdmin, canApprove } from './utils/access'
 
 const navigation = async (req) => ({
   items: [
@@ -13,7 +13,7 @@ const navigation = async (req) => ({
     { label: 'Approvals', rights: ['expenses:manage_expenses'], access: canApprove, route: '/approvals'},
     { label: 'Items', rights: ['expenses:manage_expenses'], route: '/items' },
     { label: 'Projects', rights: ['expenses:manage_expenses'], route: '/projects' },
-    { label: 'Report', rights: ['expenses:manage_expenses'], access: canApprove, route: '/reports' }
+    { label: 'Report', rights: ['expenses:manage_expenses'], access: isOwnerOrAdmin, route: '/reports' }
   ]
 })
 

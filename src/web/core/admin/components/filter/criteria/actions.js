@@ -9,18 +9,25 @@ export const remove = (cindex) => ({
   cindex
 })
 
-export const set = (id, criteria) => ({
+export const reset = () => ({
+  type: 'RESET'
+})
+
+export const set = (filter, criteria) => ({
   type: 'SET',
-  id,
+  filter,
   criteria
+})
+
+export const test = (mode, cindex, value) => ({
+  type: 'TEST',
+  mode,
+  cindex,
+  value
 })
 
 export const update = (cindex, value) => ({
   type: 'UPDATE',
   cindex,
   value
-})
-
-export const reset = () => ({
-  type: 'RESET'
 })

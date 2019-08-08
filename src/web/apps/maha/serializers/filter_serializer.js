@@ -1,6 +1,6 @@
 const filterSerializer = (req, result) => ({
   id: result.get('id'),
-  owner: user(result.related('user')),
+  owner: user(result.related('owner')),
   title: result.get('title'),
   description: result.get('description'),
   code: result.get('code'),
@@ -10,7 +10,7 @@ const filterSerializer = (req, result) => ({
 })
 
 const user = (user, key) => {
-  if(!user) return null
+  if(!user.id) return null
   return {
     id: user.get('id'),
     full_name: user.get('full_name'),

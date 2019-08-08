@@ -15,6 +15,7 @@ class Field extends React.PureComponent {
     field: PropTypes.object,
     mode: PropTypes.string,
     onCancel: PropTypes.func,
+    onChange: PropTypes.func,
     onDone: PropTypes.func
   }
 
@@ -48,12 +49,13 @@ class Field extends React.PureComponent {
 
   _handleCancel() {
     const { mode } = this.props
+    this.props.onCancel()
     this.context.filter.pop(mode == 'edit' ? -1 : -2)
   }
 
   _handleChange(value) {
     const { field } = this.props
-    console.log('changed', field.key, value)
+    this.props.onChange({ [field.key]: value })
   }
 
   _handleDone(value) {

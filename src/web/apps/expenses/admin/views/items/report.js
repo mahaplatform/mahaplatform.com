@@ -43,7 +43,7 @@ const mapPropsToPage = (props, context, resources) => ({
         { name: 'vendor', key: 'vendor_id', type: 'select', multiple: true, endpoint: '/api/admin/expenses/vendors', value: 'id', text: 'name', format: VendorToken },
         { name: 'account', key: 'account_id', type: 'select', multiple: true, endpoint: '/api/admin/expenses/accounts', value: 'id', text: 'name' },
         { name: 'date range', key: 'date', type: 'daterange', include: ['this','last'] },
-        { name: 'status', nkeyame: 'status_id', type: 'select', multiple: true, endpoint: '/api/admin/expenses/statuses', value: 'id', text: 'name', sort: 'id', format: StatusToken }
+        { name: 'status', key: 'status_id', type: 'select', multiple: true, endpoint: '/api/admin/expenses/statuses', value: 'id', text: 'name', sort: 'id', format: StatusToken }
       ] }
     ],
     // filters: [

@@ -1,4 +1,3 @@
-import Modal from '../modal'
 import Stack from '../stack/stack'
 import PropTypes from 'prop-types'
 import Overview from './overview'
@@ -34,9 +33,7 @@ class Filter extends React.PureComponent {
   render() {
     return (
       <div className="maha-filter">
-        <Modal>
-          <Stack { ...this._getStack() } />
-        </Modal>
+        <Stack { ...this._getStack() } />
       </div>
     )
   }

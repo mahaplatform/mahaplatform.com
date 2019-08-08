@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Buttons from '../../buttons'
 import Field from './field'
 import Types from './types'
+import Edit from './edit'
 import Item from './item'
 import React from 'react'
 import New from './new'
@@ -11,7 +12,9 @@ import _ from 'lodash'
 class Criteria extends React.Component {
 
   static contextTypes = {
-    filter: PropTypes.object
+    admin: PropTypes.object,
+    filter: PropTypes.object,
+    network: PropTypes.object
   }
 
   static propTypes = {
@@ -19,22 +22,27 @@ class Criteria extends React.Component {
     criteria: PropTypes.object,
     defaultValue: PropTypes.object,
     fields: PropTypes.array,
-    id: PropTypes.number,
+    filter: PropTypes.object,
+    test: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onCreate: PropTypes.func,
     onRemove: PropTypes.func,
     onReset: PropTypes.func,
     onSet: PropTypes.func,
+    onTest: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
   _handleAdd = this._handleAdd.bind(this)
+  _handleDelete = this._handleDelete.bind(this)
   _handleEdit = this._handleEdit.bind(this)
   _handleCancel = this._handleCancel.bind(this)
+  _handleRefresh = this._handleRefresh.bind(this)
 
   render() {
-    const { criteria } = this.props
+    const { criteria, filter } = this.props
+    const { user } = this.context.admin
     return (
       <ModalPanel { ...this._getPanel() }>
         { criteria &&
@@ -46,9 +54,11 @@ class Criteria extends React.Component {
                 }
               </div>
             </div>
-            <div className="maha-criteria-footer">
-              <Buttons { ...this._getButtons() } />
-            </div>
+            { (!filter || (filter && filter.owner.id === user.id)) &&
+              <div className="maha-criteria-footer">
+                <Buttons { ...this._getButtons() } />
+              </div>
+            }
           </div>
         }
       </ModalPanel>
@@ -58,23 +68,31 @@ class Criteria extends React.Component {
   componentDidMount() {
     const { defaultValue, onSet } = this.props
     if(!defaultValue) return onSet(null, { $and: [] })
-    onSet(defaultValue.id, defaultValue.criteria)
+    onSet(defaultValue, defaultValue.criteria)
   }
 
   componentDidUpdate(prevProps) {
-    const { criteria } = this.props
+    const { criteria, test } = this.props
     if(!_.isEqual(criteria, prevProps.criteria)) {
       this.props.onChange(criteria)
+    }
+    if(!_.isEqual(test, prevProps.test)) {
+      this.props.onChange(test)
     }
   }
 
   _getButtons() {
-    return {
-      buttons: [
-        this._getCancel(),
-        this._getSave()
-      ]
+    const { user } = this.context.admin
+    const { filter } = this.props
+    const buttons = []
+    if(filter && filter.owner.id === user.id) {
+      buttons.push(this._getDelete())
+      buttons.push(this._getEdit())
+    } else {
+      buttons.push(this._getCancel())
     }
+    buttons.push(this._getSave())
+    return { buttons }
   }
 
   _getCancel() {
@@ -82,6 +100,23 @@ class Criteria extends React.Component {
       label: 'Cancel',
       color: 'grey',
       handler: this._handleCancel
+    }
+  }
+
+  _getDelete() {
+    return {
+      label: 'Delete',
+      color: 'red',
+      handler: this._handleDelete
+    }
+  }
+
+  _getEdit() {
+    const { filter } = this.props
+    return {
+      label: 'Edit',
+      color: 'blue',
+      modal: <Edit filter={ filter } />
     }
   }
 
@@ -97,14 +132,19 @@ class Criteria extends React.Component {
   }
 
   _getPanel() {
+    const { filter } = this.props
     return {
-      title: 'Design Filter',
-      color: 'lightgrey'
+      title: filter ? filter.title : 'New Filter',
+      color: 'lightgrey',
+      leftItems: filter ? [
+        { icon: 'chevron-left', handler: this._handleCancel }
+      ] : null
     }
   }
 
   _getSave() {
-    const { criteria, code, id } = this.props
+    const { criteria, code, filter } = this.props
+    const id = filter ? filter.id : null
     const button = {
       label: 'Save',
       color: 'blue',
@@ -120,21 +160,18 @@ class Criteria extends React.Component {
     return button
   }
 
-  _getTypes({ criterion, onDone }) {
-    return {
-      defaultValue: criterion,
-      types: this.props.fields,
-      onDone
-    }
-  }
-
   _handleAdd(cindex) {
     const { filter } = this.context
+    const { fields } = this.props
     filter.push({
       component: Types,
-      props: this._getTypes({
+      props: {
+        mode: 'add',
+        types: fields,
+        onCancel: this._handleRefresh,
+        onChange: this._handleTest.bind(this, 'add', cindex),
         onDone: this._handleCreate.bind(this, cindex)
-      })
+      }
     })
   }
 
@@ -145,6 +182,18 @@ class Criteria extends React.Component {
 
   _handleCreate(cindex, value) {
     this.props.onCreate(cindex, value)
+  }
+
+  _handleDelete() {
+    const { filter } = this.props
+    this.context.network.request({
+      method: 'DELETE',
+      endpoint: `/api/admin/${filter.code}/filters/${filter.id}`,
+      onSuccess: () => {
+        this.props.onReset()
+        this.context.filter.pop()
+      }
+    })
   }
 
   _handleEdit(cindex, criterion) {
@@ -161,12 +210,23 @@ class Criteria extends React.Component {
         defaultValue: criterion[key],
         field,
         mode: 'edit',
-        onDone: this._handleUpdate.bind(this, cindex)
+        onCancel: this._handleRefresh,
+        onChange: this._handleTest.bind(this, 'edit', cindex),
+        onDone: this._handleEdit.bind(this, cindex)
       }
     })
   }
 
-  _handleUpdate(cindex, value) {
+  _handleRefresh() {
+    const { criteria } = this.props
+    this.props.onChange(criteria)
+  }
+
+  _handleTest(mode, cindex, value) {
+    this.props.onTest(mode, cindex, value)
+  }
+
+  _handleEdit(cindex, value) {
     this.props.onUpdate(cindex, value)
   }
 
