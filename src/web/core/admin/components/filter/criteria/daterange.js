@@ -112,7 +112,6 @@ class DateRange extends React.Component {
   _getSearch() {
     const { value } = this.state
     const { field } = this.props
-    console.log(value)
     return {
       defaultValue: value,
       format: field.format,

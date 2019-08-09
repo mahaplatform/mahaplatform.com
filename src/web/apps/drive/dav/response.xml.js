@@ -46,7 +46,7 @@ const getResponse = (req, item, props) => {
     }
     if(props['D:author'] || props['D:allprop']) {
       found.push({ 'D:author': [{
-        'D:Name': req.item.get('owned_by')
+        'D:Name': item.get('owned_by')
       }] })
     }
     if(props['D:getetag'] || props['D:allprop']) {
@@ -66,7 +66,7 @@ const getResponse = (req, item, props) => {
         }]
       })
     }
-    if(props['D:lockdiscovery'] || props['D:allprop'] && req.item.get('lock_token') !== null) {
+    if(props['D:lockdiscovery'] || props['D:allprop'] && item.get('lock_token') !== null) {
       found.push({
         'D:lockdiscovery': [{
           'D:activelock': [{
@@ -77,10 +77,10 @@ const getResponse = (req, item, props) => {
               'D:exclusive': []
             }],
             'D:depth': [0],
-            'D:owner': [req.item.get('locked_by')],
+            'D:owner': [item.get('locked_by')],
             'D:timeout': ['infinite'],
             'D:locktoken': [{
-              'D:href': [req.item.get('locked_token')]
+              'D:href': [item.get('locked_token')]
             }],
             'D:lockroot': [{
               'D:href': ['http://www.example.com/container/']
