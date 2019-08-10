@@ -1,5 +1,5 @@
-import ChannelToken from '../channel_token'
-import MessageToken from '../message_token'
+import ChannelToken from '../../tokens/channel'
+import MessageToken from '../../tokens/message'
 import { connect } from 'react-redux'
 import { results } from './selectors'
 import PropTypes from 'prop-types'

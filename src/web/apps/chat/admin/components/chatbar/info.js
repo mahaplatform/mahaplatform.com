@@ -8,7 +8,6 @@ class ChatBarInfo extends React.Component {
   static propTypes = {
     channels: PropTypes.array,
     channel: PropTypes.object,
-    selected: PropTypes.number,
     status: PropTypes.string,
     onBack: PropTypes.func,
     onEdit: PropTypes.func,
@@ -39,10 +38,10 @@ class ChatBarInfo extends React.Component {
   }
 
   _getInfo() {
-    const { channel, selected } = this.props
+    const { channel } = this.props
     return {
       channel,
-      id: selected,
+      id: channel.id,
       showHeader: true,
       onEdit: this._handleEdit,
       onSubscriptions: this._handleSubscriptions

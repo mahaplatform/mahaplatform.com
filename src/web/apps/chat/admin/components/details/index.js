@@ -1,4 +1,3 @@
-import { List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Message from '../message'
 import React from 'react'
@@ -17,17 +16,9 @@ class Details extends React.Component {
     if(!message) return null
     return (
       <div className="chat-details">
-        <List { ...this._getList() } />
+        <Message { ...this._getMessage() } />
       </div>
     )
-  }
-
-  _getList() {
-    return {
-      items: [
-        { component: <Message { ...this._getMessage() } /> }
-      ]
-    }
   }
 
   _getMessage() {

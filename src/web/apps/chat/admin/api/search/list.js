@@ -5,6 +5,8 @@ const listRoute = async (req, res) => {
 
   const results = await Result.scope({
     team: req.team
+  }).query(qb => {
+    qb.where('user_id', req.user.get('id'))
   }).filter({
     filter: req.query.$filter,
     searchParams: ['text']

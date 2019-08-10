@@ -21,22 +21,8 @@ const serverWatch = async () => {
     '--exec',
     'babel-node'
   ]
-  apps.map(app => {
-    nodemon.push('--watch')
-    nodemon.push(path.resolve('src','web','apps',app))
-    nodemon.push('--ignore')
-    nodemon.push(path.resolve('src','web','apps',app,'admin','badges'))
-    nodemon.push('--ignore')
-    nodemon.push(path.resolve('src','web','apps',app,'admin','components'))
-    nodemon.push('--ignore')
-    nodemon.push(path.resolve('src','web','apps',app,'admin','roots'))
-    nodemon.push('--ignore')
-    nodemon.push(path.resolve('src','web','apps',app,'admin','tokens'))
-    nodemon.push('--ignore')
-    nodemon.push(path.resolve('src','web','apps',app,'admin','views'))
-  })
   nodemon.push('--watch')
-  nodemon.push(path.resolve('src','web','core'))
+  nodemon.push(path.resolve('src','web'))
 
   const proc = spawn('nodemon', nodemon, {
     stdio: ['pipe', 'pipe', 'pipe', 'ipc']
@@ -138,8 +124,8 @@ const clientWatch = async () => {
 
 export const dev = async (flags, args) => {
   await serverWatch()
-  await desktopWatch()
-  await mobileWatch()
+  // await desktopWatch()
+  // await mobileWatch()
   await clientWatch()
 }
 

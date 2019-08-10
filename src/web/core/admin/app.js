@@ -66,7 +66,6 @@ import adminuploader from './components/uploader'
 import appraisalsresponsibilities from '../../apps/appraisals/admin/components/responsibilities'
 import chatchannel from '../../apps/chat/admin/components/channel'
 import chatchannels from '../../apps/chat/admin/components/channels'
-import chatchatbar from '../../apps/chat/admin/components/chatbar'
 import chatfullchat from '../../apps/chat/admin/components/fullchat'
 import chatsubscriptions from '../../apps/chat/admin/components/subscriptions'
 import chatchat from '../../apps/chat/admin/roots/chat'
@@ -292,7 +291,6 @@ class App extends React.Component {
       appraisalsresponsibilities,
       chatchannel,
       chatchannels,
-      chatchatbar,
       chatfullchat,
       chatsubscriptions,
       chatchat,

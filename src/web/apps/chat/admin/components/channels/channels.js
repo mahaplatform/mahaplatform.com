@@ -1,6 +1,6 @@
 import { Infinite, Loader, Searchbox } from 'maha-admin'
 import { Empty, NotFound } from '../search/empty'
-import ChannelToken from '../channel_token'
+import ChannelToken from '../../tokens/channel'
 import { Results } from '../search'
 import PropTypes from 'prop-types'
 import Tasks from '../tasks'

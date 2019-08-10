@@ -1,7 +1,6 @@
 .chatbar {
   flex: 1;
-  position: relative;
-  background-color: @white;
+  display: flex;
   .chat-channels-header,
   .maha-modal-panel-header,
   .maha-searchbox {
@@ -12,6 +11,9 @@
   }
   .maha-searchbox {
     padding: 0 0.8em 0.8em;
+  }
+  .maha-stack {
+    flex: 1;
   }
 }
 .chatbar-panel {
