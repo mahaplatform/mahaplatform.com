@@ -58,7 +58,7 @@ class DateRange extends React.Component {
     return {
       buttons: [{
         label: 'Cancel',
-        color: 'lightgrey',
+        color: 'grey',
         handler: this._handleCancel
       },{
         label: mode === 'add' ? 'Add Criteria' : 'Update Criteria',
@@ -105,7 +105,7 @@ class DateRange extends React.Component {
     const { field } = this.props
     return {
       title: field.name,
-      color: 'lightgrey'
+      color: 'grey'
     }
   }
 

@@ -96,7 +96,7 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await socket.message([
+  await socket.message(req, [
     ...subscriptions.map(subscription => ({
       channel: `/admin/users/${subscription.get('user_id')}`,
       target: '/chat/channels/messages',

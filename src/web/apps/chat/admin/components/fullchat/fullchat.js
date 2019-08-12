@@ -1,13 +1,12 @@
-import { CSSTransition } from 'react-transition-group'
-import Subscriptions from '../subscriptions'
 import { Loader, Message } from 'maha-admin'
-import { connect } from 'react-redux'
+import Subscriptions from './subscriptions'
 import Edit from '../../views/edit'
 import PropTypes from 'prop-types'
 import Channels from '../channels'
 import Channel from '../channel'
 import Info from '../info'
 import React from 'react'
+import New from '../new'
 
 class Chat extends React.Component {
 
@@ -19,26 +18,19 @@ class Chat extends React.Component {
   }
 
   static propTypes = {
-    adding: PropTypes.bool,
     channels: PropTypes.array,
     channel: PropTypes.object,
-    editing: PropTypes.bool,
+    info: PropTypes.bool,
     selected: PropTypes.number,
-    managing: PropTypes.bool,
     page: PropTypes.object,
     status: PropTypes.string,
-    user_id: PropTypes.number,
     onChoose: PropTypes.func,
+    onInfo: PropTypes.func,
     onLoadChat: PropTypes.func,
-    onSaveChat: PropTypes.func,
-    onToggleAdding: PropTypes.func,
-    onToggleEditing: PropTypes.func,
-    onToggleInfo: PropTypes.func,
-    onToggleManaging: PropTypes.func
+    onSaveChat: PropTypes.func
   }
 
   _handleChoose = this._handleChoose.bind(this)
-  _handleCreate = this._handleCreate.bind(this)
   _handleEdit = this._handleEdit.bind(this)
   _handleInfo = this._handleInfo.bind(this)
   _handleNew = this._handleNew.bind(this)
@@ -46,34 +38,27 @@ class Chat extends React.Component {
   _handleSubscriptions = this._handleSubscriptions.bind(this)
 
   render() {
-    const { adding, channel, editing, managing, status } = this.props
+    const { channel, status } = this.props
     if(status === 'loading') return <Loader />
     return (
       <div className={ this._getClass() }>
         <div className="fullchat-left">
           <Channels { ...this._getChannels() } />
-          <CSSTransition in={ adding } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-            <div className="fullchat-panel">
-              <Subscriptions { ...this._getNew() } />
-            </div>
-          </CSSTransition>
         </div>
         { channel &&
           <div className="fullchat-channel">
+            <div className="fullchat-channel-header">
+              <div className="fullchat-channel-header-detail">
+                { channel.name || channel.label }
+              </div>
+              <div className="fullchat-channel-header-action" onClick={ this._handleInfo }>
+                <i className="fa fa-info-circle" />
+              </div>
+            </div>
             <div className="fullchat-channel-body">
               <Channel { ...this._getChannel() } />
-              <div className="fullchat-right">
+              <div className="fullchat-info">
                 <Info { ...this._getInfo() } />
-                <CSSTransition in={ editing } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-                  <div className="fullchat-panel">
-                    <Edit { ...this._getEdit() } />
-                  </div>
-                </CSSTransition>
-                <CSSTransition in={ managing } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-                  <div className="fullchat-panel">
-                    <Subscriptions { ...this._getSubscriptions() } />
-                  </div>
-                </CSSTransition>
               </div>
             </div>
           </div>
@@ -99,18 +84,19 @@ class Chat extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { channels, onChoose } = this.props
+    const { channels, info, onChoose, onSaveChat } = this.props
+    if(info !== prevProps.info) {
+      onSaveChat(info)
+    }
     if(channels.length > prevProps.channels.length) {
       onChoose(channels[0].id)
     }
   }
 
   _getClass() {
-    const { adding, editing, managing } = this.props
+    const { info } = this.props
     const classes = ['fullchat']
-    if(adding) classes.push('adding')
-    if(editing) classes.push('editing')
-    if(managing) classes.push('managing')
+    if(info) classes.push('info')
     return classes.join(' ')
   }
 
@@ -169,32 +155,14 @@ class Chat extends React.Component {
       saveText: 'Start',
       title: 'New Conversation',
       onCancel: this._handleNew,
-      onDone: this._handleCreate
+      onSuccess: this._handleChoose
     }
   }
 
   _getEdit() {
-    const { selected } = this.props
+    const { channel } = this.props
     return {
-      id: selected,
-      onCancel: this._handleEdit,
-      onSuccess: this._handleEdit
-    }
-  }
-
-  _getSubscriptions() {
-    const { channel, user_id } = this.props
-    return {
-      channel,
-      endpoint: `/api/admin/chat/channels/${channel.id}/subscriptions`,
-      method: 'PATCH',
-      saveText: 'Update',
-      subscription_ids: channel.subscriptions.filter(subscription => {
-        return subscription.id !== user_id
-      }).map(subscription => subscription.id),
-      title: 'Manage Members',
-      onCancel: this._handleSubscriptions,
-      onDone: this._handleSubscriptions
+      channel: channel
     }
   }
 
@@ -203,21 +171,16 @@ class Chat extends React.Component {
     this.props.onChoose(id)
   }
 
-  _handleCreate(channel) {
-    this.props.onToggleAdding()
-    this._handleChoose(channel.id)
-  }
-
   _handleEdit() {
-    this.props.onToggleEditing()
+    this.context.modal.push(<Edit { ...this._getEdit() } />)
   }
 
   _handleInfo() {
-    this.props.onToggleInfo()
+    this.props.onInfo()
   }
 
   _handleNew() {
-    this.props.onToggleAdding()
+    this.context.modal.push(<New { ...this._getNew() } />)
   }
 
   _handleShowMessage(message) {
@@ -226,13 +189,10 @@ class Chat extends React.Component {
   }
 
   _handleSubscriptions() {
-    this.props.onToggleManaging()
+    const { channel } = this.props
+    this.context.modal.push(<Subscriptions channel={ channel } />)
   }
 
 }
 
-const mapStateToProps = (state, props) => ({
-  user_id: state.maha.admin.user.id
-})
-
-export default connect(mapStateToProps)(Chat)
+export default Chat

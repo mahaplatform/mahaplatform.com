@@ -5,8 +5,7 @@ import React from 'react'
 
 class ChatBarChannels extends React.Component {
 
-  static contextTypes = {
-  }
+  static contextTypes = {}
 
   static propTypes = {
     channels: PropTypes.array,
@@ -37,7 +36,7 @@ class ChatBarChannels extends React.Component {
         { icon: 'remove', handler: this._handleClose }
       ],
       rightItems: [
-        { icon: 'plus', handler: this._handleNew}
+        { icon: 'plus', handler: this._handleNew }
       ]
     }
   }

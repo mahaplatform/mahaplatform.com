@@ -62,7 +62,7 @@ class Tasks extends React.Component {
     return {
       icon: 'pencil',
       label: 'Edit Conversation',
-      className: 'maha-list-item-link',
+      className: 'maha-list-item-padded maha-list-item-link',
       handler: this._handleEdit
     }
   }
@@ -71,7 +71,7 @@ class Tasks extends React.Component {
     return {
       icon: 'users',
       label: 'Manage Members',
-      className: 'maha-list-item-link',
+      className: 'maha-list-item-padded maha-list-item-link',
       handler: this._handleSubscriptions
     }
   }

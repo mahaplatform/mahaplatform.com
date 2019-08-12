@@ -58,7 +58,7 @@ class Types extends React.PureComponent {
     return {
       buttons: [{
         label: 'Cancel',
-        color: 'lightgrey',
+        color: 'grey',
         handler: this._handleCancel
       },{
         label: 'Add Criteria',
@@ -71,7 +71,7 @@ class Types extends React.PureComponent {
   _getPanel() {
     return {
       title: 'Add Criteria',
-      color: 'lightgrey'
+      color: 'grey'
     }
   }
 

@@ -50,7 +50,7 @@ class LookupPanel extends React.Component {
     const { label } = this.props
     return {
       title: label,
-      color: 'lightgrey',
+      color: 'grey',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleRemovePanel }
       ]

@@ -20,18 +20,6 @@ export const choose = (id) => ({
   id
 })
 
-export const toggleAdding = () => ({
-  type: 'TOGGLE_ADDING'
-})
-
-export const toggleEditing = () => ({
-  type: 'TOGGLE_EDITING'
-})
-
-export const toggleManaging = () => ({
-  type: 'TOGGLE_MANAGING'
-})
-
-export const toggleInfo = () => ({
-  type: 'TOGGLE_INFO'
+export const info = () => ({
+  type: 'INFO'
 })

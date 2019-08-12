@@ -4,10 +4,12 @@ import { Form } from 'maha-admin'
 
 class Edit extends React.Component {
 
+  static contextTypes = {
+    modal: PropTypes.object
+  }
+
   static propTypes = {
-    id: PropTypes.number,
-    onCancel: PropTypes.func,
-    onSuccess: PropTypes.func
+    channel: PropTypes.object
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -18,12 +20,12 @@ class Edit extends React.Component {
   }
 
   _getForm() {
-    const { id } = this.props
+    const { channel } = this.props
     return {
       title: 'Edit Conversation',
       method: 'patch',
-      endpoint: `/api/admin/chat/channels/${id}`,
-      action: `/api/admin/chat/channels/${id}`,
+      endpoint: `/api/admin/chat/channels/${channel.id}`,
+      action: `/api/admin/chat/channels/${channel.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
@@ -38,11 +40,11 @@ class Edit extends React.Component {
   }
 
   _handleCancel() {
-    this.props.onCancel()
+    this.context.modal.pop()
   }
 
   _handleSuccess(result) {
-    this.props.onSuccess(result)
+    this.context.modal.pop()
   }
 
 }

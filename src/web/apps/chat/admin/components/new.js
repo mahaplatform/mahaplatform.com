@@ -1,4 +1,4 @@
-import Subscriptions from '../subscriptions'
+import Subscriptions from './subscriptions'
 import PropTypes from 'prop-types'
 import React from 'react'
 

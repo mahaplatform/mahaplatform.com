@@ -4,42 +4,29 @@ import knex from '../knex'
 import _ from 'lodash'
 
 export const refresh = async (req, messages) => {
-  await knex.transaction(async trx => {
-    await Promise.map(_.castArray(messages), async message => {
-      try {
-        const channel = _getChannel(req, message)
-        const targets = _getTarget(req, message)
-        await Promise.map(_.castArray(targets), async target => {
-          await socket.in(channel).emit('message', {
-            target,
-            action: 'refresh',
-            data: null
-          })
-        })
-
-      } catch(e) {
-        process.stdout.write(e)
-      }
+  await Promise.map(_.castArray(messages), async message => {
+    const channel = _getChannel(req, message)
+    const targets = _getTargets(req, message)
+    await Promise.map(targets, async target => {
+      await socket.in(channel).emit('message', {
+        target,
+        action: 'refresh',
+        data: null
+      })
     })
   })
 }
 
 export const message = async (req, messages) => {
-  await knex.transaction(async trx => {
-    await Promise.map(_.castArray(messages), async message => {
-      try {
-        const channel = _getChannel(req, message)
-        const targets = _getTarget(req, message)
-        await Promise.map(_.castArray(targets), async target => {
-          await socket.in(channel).emit('message', {
-            target,
-            action: message.action,
-            data: message.data ? formatObjectForTransport(message.data) : null
-          })
-        })
-      } catch(e) {
-        process.stdout.write(e)
-      }
+  await Promise.map(_.castArray(messages), async message => {
+    const channel = _getChannel(req, message)
+    const targets = _getTargets(req, message)
+    await Promise.map(targets, async target => {
+      await socket.in(channel).emit('message', {
+        target,
+        action: message.action,
+        data: message.data ? formatObjectForTransport(message.data) : null
+      })
     })
   })
 }
@@ -52,9 +39,9 @@ const _getChannel = (req, message) => {
   return null
 }
 
-const _getTarget = (req, message) => {
-  if(message.target) return message.target
-  return _getChannel(req, message)
+const _getTargets = (req, message) => {
+  const target = message.target || _getChannel(req, message)
+  return _.castArray(target)
 }
 
 export default {

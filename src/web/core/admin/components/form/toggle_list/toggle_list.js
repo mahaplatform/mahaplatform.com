@@ -39,6 +39,8 @@ class ToggleList extends React.Component{
     onChange: (value) => {}
   }
 
+  _handleToggleRecord = this._handleToggleRecord.bind(this)
+
   render() {
     const { chosen, endpoint, multiple, options, text } = this.props
     return (
@@ -82,6 +84,18 @@ class ToggleList extends React.Component{
     }
   }
 
+  _getResults() {
+    const { chosen, format, multiple , text, value} = this.props
+    return {
+      format,
+      chosen,
+      multiple,
+      text,
+      value,
+      onToggleRecord: this._handleToggleRecord
+    }
+  }
+  
   _getSearchbox() {
     const { onSetQuery } = this.props
     return {
@@ -90,7 +104,7 @@ class ToggleList extends React.Component{
   }
 
   _getInfinite() {
-    const { chosen, endpoint, exclude_ids, format, multiple, query , text, value} = this.props
+    const { chosen, endpoint, exclude_ids, query } = this.props
     return {
       endpoint,
       exclude_ids,
@@ -99,14 +113,7 @@ class ToggleList extends React.Component{
       },
       chosen,
       layout: Result,
-      props: {
-        format,
-        chosen,
-        multiple,
-        text,
-        value,
-        onToggleRecord: this._handleToggleRecord.bind(this)
-      }
+      props: this._getResults()
     }
   }
 

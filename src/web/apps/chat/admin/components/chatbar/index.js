@@ -7,8 +7,8 @@ import Channel from './channel'
 import Message from './message'
 import Info from './info'
 import React from 'react'
+import New from '../new'
 import _ from 'lodash'
-import New from './new'
 
 class ChatBar extends React.Component {
 
@@ -23,10 +23,6 @@ class ChatBar extends React.Component {
     status: PropTypes.string,
     user_id: PropTypes.number,
     onChoose: PropTypes.func,
-    onSetEdit: PropTypes.func,
-    onSetInfo: PropTypes.func,
-    onSetMessage: PropTypes.func,
-    onSetNew: PropTypes.func,
     onSetSubscriptions: PropTypes.func
   }
 
@@ -36,7 +32,6 @@ class ChatBar extends React.Component {
 
   _handleChoose = this._handleChoose.bind(this)
   _handleClose = this._handleClose.bind(this)
-  _handleCreate = this._handleCreate.bind(this)
   _handleEdit = this._handleEdit.bind(this)
   _handleInfo = this._handleInfo.bind(this)
   _handleMessage = this._handleMessage.bind(this)
@@ -92,21 +87,13 @@ class ChatBar extends React.Component {
     }
   }
 
-  _getEdit(id) {
-    return {
-      id,
-      onCancel: () => {},
-      onSuccess: () => {}
-    }
-  }
-
   _getInfo(id) {
     const { channels } = this.props
     const channel = _.find(channels, { id })
     return {
       channel,
       onBack: this._handlePop,
-      onEdit: this._handleEdit.bind(this, id),
+      onEdit: this._handleEdit.bind(this, channel),
       onSubscriptions: this._handleSubscriptions.bind(this, id)
     }
   }
@@ -127,8 +114,8 @@ class ChatBar extends React.Component {
     this._handlePush(Channel, this._getChannel(id))
   }
 
-  _handleEdit(show) {
-    this.context.modal.push(<Edit { ...this._getEdit() } />)
+  _handleEdit(channel) {
+    this.context.modal.push(<Edit channel={ channel } />)
   }
 
   _handleInfo(id) {
@@ -180,11 +167,6 @@ class ChatBar extends React.Component {
       onCancel: this._handleSubscriptions.bind(this, false),
       onDone: this._handleSubscriptions.bind(this, false)
     }
-  }
-
-  _handleCreate(channel) {
-    this.props.onSetNew(false)
-    this._handleChoose(channel.id)
   }
 
   _handleSubscriptions(show) {

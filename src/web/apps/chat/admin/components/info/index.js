@@ -1,7 +1,6 @@
 import Subscriptions from './subscriptions'
 import PropTypes from 'prop-types'
 import { List } from 'maha-admin'
-import Header from '../header'
 import Tasks from '../tasks'
 import React from 'react'
 
@@ -25,7 +24,12 @@ class Info extends React.Component {
     if(!channel) return null
     return (
       <div className="chat-info">
-        <Header { ...this._getHeader() } />
+        <div className="chat-info-header">
+          <div className="chat-info-header-meta">
+            <h3>{ channel.name  || 'Private Conversation' }</h3>
+            <p>{ channel.description || `A private conversation with ${channel.label}` }</p>
+          </div>
+        </div>
         <div className="chat-info-body">
           <Tasks { ...this._getTasks() } />
           <List { ...this._getList() } />

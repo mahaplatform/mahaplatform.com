@@ -149,7 +149,7 @@ class Criteria extends React.Component {
     const { filter } = this.props
     return {
       title: filter ? filter.title : 'New Filter',
-      color: 'lightgrey',
+      color: 'grey',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
       ]

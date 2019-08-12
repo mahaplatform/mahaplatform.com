@@ -28,10 +28,6 @@ export const createChannel = async (req, user_ids) => {
     transacting: req.trx
   })
 
-  await channel.load(['owner.photo','subscriptions.user.photo','last_message'], {
-    transacting: req.trx
-  })
-
   const users = await User.query(qb => qb.whereIn('id', [
     req.user.get('id'),
     ...user_ids
@@ -67,10 +63,13 @@ export const createChannel = async (req, user_ids) => {
     transacting: req.trx
   })
 
+  await channel.load(['owner.photo','subscriptions.user.photo','last_message'], {
+    transacting: req.trx
+  })
+
   const serialized = ChannelSerializer(req, channel)
 
   await Promise.map(users.toArray(), async user => {
-
     await socket.in(`/admin/users/${user.get('id')}`).emit('message', {
       target: '/admin/chat/messages',
       action: 'add_channel',
@@ -78,7 +77,6 @@ export const createChannel = async (req, user_ids) => {
         channel: formatObjectForTransport(serialized)
       }
     })
-
   })
 
   await createMessage(req, {
