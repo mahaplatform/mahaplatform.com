@@ -1,3 +1,4 @@
+import { createBrowserHistory } from 'history'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -8,43 +9,49 @@ class Router extends React.Component {
     router: PropTypes.object
   }
 
-  static contextTypes = {
-    router: PropTypes.object
-  }
-
   static propTypes = {
     action: PropTypes.string,
     children: PropTypes.any,
     history: PropTypes.array,
     onPop: PropTypes.func,
-    onPush: PropTypes.func
+    onPush: PropTypes.func,
+    onReplace: PropTypes.func
   }
 
-  _handleBack = this._handleBack.bind(this)
+  _handlePop = this._handlePop.bind(this)
+  _handleListen = this._handleListen.bind(this)
   _handlePush = this._handlePush.bind(this)
   _handleReplace = this._handleReplace.bind(this)
+
+  history = null
+  listener = null
+  last = []
 
   render() {
     return this.props.children
   }
 
   componentDidMount() {
-    const { location } = window
+    this.history = createBrowserHistory()
+    this.listener = this.history.listen(this._handleListen)
     this.props.onPush({
-      pathname: location.pathname,
-      hash: location.hash.slice(1),
-      search: location.search.slice(1)
+      pathname: window.location.pathname,
+      hash: window.location.hash.slice(1),
+      search: window.location.search.slice(1)
     })
   }
 
+  componentWillUnmount() {
+    this.listener()
+  }
+
   getChildContext() {
-    const { router } = this.context
     return {
       router: {
-        ...router,
+        location: this.history ? this.history.location : null,
         history: {
-          ...router.history,
-          goBack: this._handleBack,
+          ...this.history,
+          goBack: this._handlePop,
           push: this._handlePush,
           replace: this._handleReplace
         }
@@ -62,22 +69,33 @@ class Router extends React.Component {
     }
   }
 
-  _handleBack() {
-    const { history } = this.props
-    this.props.onPop()
-    const replacement = history.slice(0,-1).slice(1)[0] || '/admin'
-    this.context.router.history.replace(replacement)
+  _handlePop() {
+    this.history.goBack()
+  }
+
+  _handleListen(location, action) {
+    if(this.last.length > 0 && this.last.slice(-1)[0].key === location.key) {
+      this.last = this.last.slice(0,-1)
+      this.props.onPush(location)
+    } else if(action === 'PUSH') {
+      this.last = []
+      this.props.onPush(location)
+    } else if(action === 'REPLACE') {
+      this.props.onReplace(location)
+    } else if(action === 'POP') {
+      this.last.push(this.props.history.slice(-1)[0])
+      this.props.onPop()
+    }
   }
 
   _handleReplace(path) {
     const route = this._getRoute(path)
-    this.context.router.history.replace(route)
+    this.history.replace(route)
   }
 
   _handlePush(path) {
     const route = this._getRoute(path)
-    this.props.onPush(route)
-    this.context.router.history.replace(route)
+    this.history.push(route)
   }
 
 }

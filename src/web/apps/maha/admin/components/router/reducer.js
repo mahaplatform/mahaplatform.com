@@ -1,6 +1,7 @@
 export const INITIAL_STATE = {
   action: null,
-  history: []
+  history: [],
+  routes: []
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -23,6 +24,17 @@ export default (state = INITIAL_STATE, action) => {
       action: 'POP',
       history: [
         ...state.history.slice(0, -1)
+      ]
+    }
+
+  case 'REPLACE':
+    return {
+      ...state,
+      action: 'REPLACE',
+      history: [
+        ...state.history.map((route, index) => {
+          return (index === state.history.length - 1) ? action.route : route
+        })
       ]
     }
 
