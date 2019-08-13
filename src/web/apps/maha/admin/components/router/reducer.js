@@ -1,7 +1,6 @@
 export const INITIAL_STATE = {
   action: null,
-  history: [],
-  routes: []
+  history: []
 }
 
 export default (state = INITIAL_STATE, action) => {
