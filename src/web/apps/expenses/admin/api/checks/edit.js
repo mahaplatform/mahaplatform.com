@@ -9,7 +9,7 @@ const editRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['receipts','line_items'],
+    withRelated: ['receipts','line_items.project.members'],
     transacting: req.trx
   })
 
@@ -20,6 +20,8 @@ const editRoute = async (req, res) => {
 
   const access = await getUserAccess(req, req.user)
 
+  const is_admin = _.includes(access.rights, 'expenses:access_reports')
+
   res.status(200).respond(check, (req, check) => ({
     date_needed: check.get('date_needed'),
     vendor_id: check.get('vendor_id'),
@@ -29,15 +31,19 @@ const editRoute = async (req, res) => {
     receipt_ids: check.get('receipt_ids'),
     total: check.get('total'),
     tax_total: check.get('tax_total'),
-    line_items: check.related('line_items').map(line_item => ({
-      id: line_item.get('id'),
-      project_id: line_item.get('project_id'),
-      expense_type_id: line_item.get('expense_type_id'),
-      description: line_item.get('description'),
-      amount: line_item.get('amount'),
-      can_edit: _.includes([1,2,5], line_item.get('status_id')) || _.includes(access.rights, 'expenses:access_reports'),
-      can_delete: line_item.get('id') !== check.get('id') && (_.includes([1,2,5], line_item.get('status_id')) || _.includes(access.rights, 'expenses:access_reports'))
-    }))
+    line_items: check.related('line_items').map(line_item => {
+      const is_owner_can_edit = line_item.get('owner_id') === req.user.get('id') && _.includes([1,2,5], line_item.get('status_id'))
+      const is_approver_can_edit = _.includes(line_item.get('approver_ids'), req.user.get('id')) && _.includes([1,2,3,4,5], line_item.get('status_id'))
+      return {
+        id: line_item.get('id'),
+        project_id: line_item.get('project_id'),
+        expense_type_id: line_item.get('expense_type_id'),
+        description: line_item.get('description'),
+        amount: line_item.get('amount'),
+        can_edit: is_admin || is_owner_can_edit || is_approver_can_edit,
+        can_delete: line_item.get('id') !== check.get('id') && _.includes([1,2], line_item.get('status_id'))
+      }
+    })
   }))
 
 
