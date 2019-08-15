@@ -5,7 +5,7 @@ import * as actions from './actions'
 import * as selectors from './selectors'
 
 export default Singleton({
-  namespace: 'maha.import_finalize',
+  namespace: 'maha.import.finalize',
   component: finalizing,
   reducer,
   actions,

@@ -40,17 +40,11 @@ const sanitizeData = (key, untrimmed) => {
 
   if(key === 'Date') {
 
-    const iso8601 = value.match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z/) !== null
-
-    // TODO: need to recognize and parse iso4601 ate formats from exceljs
-
-    const sanitized = iso8601 ? value.substr(0, 10) : value
-
-    return moment(sanitized, ['MM/DD/YYYY', 'MM/DD/YY', 'MM-DD-YYYY', 'MM-DD-YY', 'YYYY-MM-DD']).format('YYYY-MM-DD')
+    return moment(value).format('YYYY-MM-DD')
 
   } else if(key === 'Time Leaving' || key === 'Time Arriving'){
 
-    return moment(value, ['h:m a', 'h:mm a', 'h:ma', 'h:mma', 'H:ma', 'H:mma', 'H:m a', 'H:mm a']).format('h:mm a')
+    return moment(value).utc().format('h:mm a')
 
   } else {
 

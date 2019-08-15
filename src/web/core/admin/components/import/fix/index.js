@@ -5,7 +5,7 @@ import * as actions from './actions'
 import * as selectors from './selectors'
 
 export default Singleton({
-  namespace: 'maha.import_fix',
+  namespace: 'maha.import.fix',
   component: fix,
   reducer,
   actions,

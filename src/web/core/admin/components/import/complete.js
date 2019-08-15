@@ -1,5 +1,5 @@
-import ModalPanel from '../../modal_panel'
-import Message from '../../message'
+import ModalPanel from '../modal_panel'
+import Message from '../message'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -28,10 +28,6 @@ class Complete extends React.Component {
     )
   }
 
-  componentDidMount(){
-
-  }
-
   _getSuccessMessage() {
     const { destination } = this.props
     return {
@@ -54,14 +50,12 @@ class Complete extends React.Component {
   }
 
   _getPanel() {
-    const { status } = this.props
-    const panel = {
+    return {
       title: 'Import Complete',
       rightItems: [
         { label: 'Done', handler: this._handleDone }
       ]
     }
-    return panel
   }
 
   _handleDone() {

@@ -5,7 +5,7 @@ import * as actions from './actions'
 import * as selectors from './selectors'
 
 export default Singleton({
-  namespace: 'maha.import_mapping',
+  namespace: 'maha.import.mapping',
   component: Mapping,
   reducer,
   actions,

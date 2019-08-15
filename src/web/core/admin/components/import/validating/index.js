@@ -5,7 +5,7 @@ import * as actions from './actions'
 import * as selectors from './selectors'
 
 export default Singleton({
-  namespace: 'maha.import_validating',
+  namespace: 'maha.import.validating',
   component: validating,
   reducer,
   actions,

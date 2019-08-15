@@ -4,7 +4,7 @@ import review from './review'
 import * as actions from './actions'
 
 export default Singleton({
-  namespace: 'maha.import_review',
+  namespace: 'maha.import.review',
   component: review,
   reducer,
   actions

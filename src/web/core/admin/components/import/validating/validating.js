@@ -5,6 +5,7 @@ import React from 'react'
 import pluralize from 'pluralize'
 import Review from '../review'
 import Fix from '../fix'
+import _ from 'lodash'
 
 class Validating extends React.Component {
 
@@ -22,6 +23,7 @@ class Validating extends React.Component {
     onBack: PropTypes.func,
     onDone: PropTypes.func,
     onFail: PropTypes.func,
+    onFetch: PropTypes.func,
     onInit: PropTypes.func,
     onOmitErrors: PropTypes.func,
     onPushCard: PropTypes.func,
@@ -110,7 +112,7 @@ class Validating extends React.Component {
   }
 
   componentDidMount() {
-    const { rules, defaultValue } = this.props
+    const { defaultValue } = this.props
     this.props.onInit( defaultValue )
   }
 
@@ -187,7 +189,7 @@ class Validating extends React.Component {
     return {
       defaultValue: this.props.import,
       fields: this.props.fields,
-      onBack: this._handleBack.bind(this),
+      onBack: this._handleBack,
       rules: this.props.rules
     }
   }
@@ -223,7 +225,7 @@ class Validating extends React.Component {
   }
 
   _handleFixErrorsButton() {
-    this.props.onPushCard(Fix, this._getFix.bind(this))
+    this.props.onPushCard(Fix, this._getFix)
   }
 
   _handleSkipAllErrorsButton() {
@@ -231,7 +233,7 @@ class Validating extends React.Component {
   }
 
   _handleReviewNewButton() {
-    this.props.onPushCard(Review, this._getReview.bind(this))
+    this.props.onPushCard(Review, this._getReview)
   }
 
   _handleRunImportButton() {

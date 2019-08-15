@@ -2,6 +2,7 @@ import Loader from '../../loader'
 import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class Review extends React.Component {
 
@@ -110,11 +111,6 @@ class Review extends React.Component {
     return {
       label: 'Loading new records...'
     }
-  }
-
-  _displayFieldValue( value, type ){
-    if( type != 'upload' ) return value
-    return value + '<br /><img src="' + value + '" />'
   }
 
   _handleDone() {

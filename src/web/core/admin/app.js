@@ -35,7 +35,6 @@ import adminformSelect from './components/form/select'
 import adminformTablefield from './components/form/tablefield'
 import adminformToggleList from './components/form/toggle_list'
 import adminformVideofield from './components/form/videofield'
-import adminimportComplete from './components/import/complete'
 import adminimportConfigure from './components/import/configure'
 import adminimportField from './components/import/field'
 import adminimportFinalizing from './components/import/finalizing'
@@ -260,7 +259,6 @@ class App extends React.Component {
       adminformTablefield,
       adminformToggleList,
       adminformVideofield,
-      adminimportComplete,
       adminimportConfigure,
       adminimportField,
       adminimportFinalizing,

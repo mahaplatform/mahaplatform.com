@@ -5,7 +5,7 @@ import * as actions from './actions'
 import * as selectors from './selectors'
 
 export default Singleton({
-  namespace: 'maha.import_processing',
+  namespace: 'maha.import.processing',
   component: processing,
   reducer,
   actions,

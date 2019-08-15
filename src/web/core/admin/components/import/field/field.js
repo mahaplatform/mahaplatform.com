@@ -99,8 +99,7 @@ class Field extends React.Component {
   }
 
   componentDidUpdate(prevProps){
-    const { onGetRelationColumns, config, relation_columns } = this.props
-
+    const { onGetRelationColumns, config } = this.props
     if(!_.isEqual(this.props.config, prevProps.config) && !prevProps.config) {
       onGetRelationColumns(config.relation)
     }

@@ -1,6 +1,6 @@
 import ContactToken from '../../tokens/contact'
 import { Page } from 'maha-admin'
-import Import from './import'
+import ContactImport from './import'
 import React from 'react'
 import New from './new'
 
@@ -48,7 +48,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
         modal: () => <New fields={ resources.fields } />
       }, {
         label: 'Import Contacts',
-        modal: () => <Import />
+        modal: ContactImport
       }
     ]
   }

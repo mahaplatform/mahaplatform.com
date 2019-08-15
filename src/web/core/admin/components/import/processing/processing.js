@@ -89,14 +89,12 @@ class Processing extends React.Component {
   }
 
   _getPanel() {
-    const { status } = this.props
-    const panel = {
+    return {
       title: 'Processing Import',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
       ]
     }
-    return panel
   }
 
   _getProgress() {

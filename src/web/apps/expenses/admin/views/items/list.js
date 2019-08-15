@@ -1,6 +1,5 @@
 // import checkOwnerApprover from '../../utils/check_owner_approver'
 import CompactExpenseTypeToken from '../../tokens/expense_type/compact'
-import TripsImportFinalize from '../../components/trips_import_finalize'
 import CompactProjectToken from '../../tokens/project/compact'
 import ExpenseTypeToken from '../../tokens/expense_type'
 import CompactTypeToken from '../../tokens/type/compact'
@@ -13,84 +12,11 @@ import Status from '../../tokens/status'
 import AdvanceNew from '../advances/new'
 import CheckNew from '../checks/new'
 import ExpenseNew from '../expenses/new'
+import ItemTask from './item_task'
 import TripNew from '../trips/new'
-import { Import, Page } from 'maha-admin'
+import { Page } from 'maha-admin'
+import TripImport from './import'
 import batchTask from '../batch'
-import React from 'react'
-
-const _getImport = (user) => ({
-  table: 'expenses_trips',
-  fields: [
-    { label: 'ID', key: 'item_id', visible: false, collapsing: true },
-    { label: 'Date', name: 'date', type: 'datefield', required: true, format: 'YYYY-MM-DD' },
-    { label: 'Description', name: 'description', type: 'textfield', required: true },
-    { label: 'Project Code', name: 'project_code', type: 'textfield' },
-    { label: 'Time Leaving', name: 'time_leaving', type: 'timefield', format: 'HH:mm:ss' },
-    { label: 'Time Arriving', name: 'time_arriving', type: 'timefield', format: 'HH:mm:ss' },
-    { label: 'Odometer Start', name: 'odometer_start', type: 'textfield' },
-    { label: 'Odometer End', name: 'odometer_end', type: 'textfield' },
-    { label: 'Distance', name: 'total_miles', type: 'textfield' }
-  ],
-  primaryKey: null,
-  rules: {
-    date: ['required'],
-    description: ['required']
-  },
-  destination: (import_id) => `/admin/expenses/items?$filter[import_id][$in][0]=${import_id}`,
-  defaultParams: {
-    user_id: user.id,
-    status_id: 2
-  },
-  defaultMapping: [
-    {
-      field:'date',
-      header:'Date',
-      type:'datefield',
-      relation:null,
-      format: 'YYYY-MM-DD'
-    },{
-      field:'description',
-      header:'Description',
-      type:'text',
-      relation:null
-    },{
-      field:'project_id',
-      header:'Project Code',
-      type:'relation',
-      relation:'expenses_projects',
-      relationcolumn:'integration.project_code'
-    },{
-      field:'time_leaving',
-      header:'Time Leaving',
-      type:'timefield',
-      relation:null,
-      format: 'HH:mm:ss'
-    },{
-      field:'time_arriving',
-      header:'Time Arriving',
-      type:'timefield',
-      relation:null,
-      format: 'HH:mm:ss'
-    },{
-      field:'odometer_start',
-      header:'Odometer Start',
-      type:'integer',
-      relation:null
-    },{
-      field:'odometer_end',
-      header:'Odometer End',
-      type:'integer',
-      relation:null
-    },{
-      field:'total_miles',
-      header:'Distance',
-      type:'integer',
-      relation:null
-    }
-  ],
-  finalizeComponent: TripsImportFinalize
-
-})
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Items',
@@ -144,26 +70,15 @@ const mapPropsToPage = (props, context, resources, page) => ({
   tasks: {
     icon: 'plus',
     items: [
-      { component: itemTask('expense', 'Expense', 'I made a purchase with a work credit card or store account'), modal: ExpenseNew },
-      { component: itemTask('reimbursement', 'Reimbursement', 'I made a purchase with my own money'), modal: ReimbursementNew },
-      { component: itemTask('check', 'Check Request', 'I need a check sent to a vendor'), modal: CheckNew },
-      { component: itemTask('trip', 'Mileage', 'I need to be reimbursed for mileage'), modal: TripNew },
-      { component: itemTask('import', 'Bulk Mileage Import', 'I need to be reimbursed for many trips'), modal: () => <Import {..._getImport(props.user)} /> },
-      { component: itemTask('advance', 'Cash Advance', 'I need a check or cash in advance'), modal: AdvanceNew }
+      { component: ItemTask('expense', 'Expense', 'I made a purchase with a work credit card or store account'), modal: ExpenseNew },
+      { component: ItemTask('reimbursement', 'Reimbursement', 'I made a purchase with my own money'), modal: ReimbursementNew },
+      { component: ItemTask('check', 'Check Request', 'I need a check sent to a vendor'), modal: CheckNew },
+      { component: ItemTask('trip', 'Mileage', 'I need to be reimbursed for mileage'), modal: TripNew },
+      { component: ItemTask('import', 'Bulk Mileage Import', 'I need to be reimbursed for many trips'), modal: TripImport },
+      { component: ItemTask('advance', 'Cash Advance', 'I need a check or cash in advance'), modal: AdvanceNew }
     ]
   }
 })
 
-const itemTask = (type, title, text) => (
-  <div className="new-item-task">
-    <div className="new-item-task-icon">
-      <CompactTypeToken value={ type } />
-    </div>
-    <div className="new-item-task-description">
-      <strong>{ title }</strong><br />
-      { text }
-    </div>
-  </div>
-)
 
 export default Page(null, mapPropsToPage)

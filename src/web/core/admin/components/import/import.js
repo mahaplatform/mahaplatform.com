@@ -55,8 +55,7 @@ class Import extends React.Component {
   }
 
   componentDidMount() {
-    const { onPushCard } = this.props
-    onPushCard({ component: (props) => <Intro { ...props } { ...this._getIntro() } /> })
+    this._handlePushCard(Intro, this._getIntro())
   }
 
   getChildContext() {
@@ -97,42 +96,42 @@ class Import extends React.Component {
     }
   }
 
-  _getPreview() {
+  _getPreview(defaultValue) {
     const { fields, defaultMapping } = this.props
     return {
       defaultMapping,
       fields,
-      defaultValue: this.props.import,
+      defaultValue,
       onBack: this._handleBack,
       onDone: this._handleDone
     }
   }
 
-  _getMapping() {
+  _getMapping(defaultValue) {
     const { fields } = this.props
     return {
       fields,
-      defaultValue: this.props.import,
+      defaultValue,
       onBack: this._handleBack,
       onPushCard: this._handlePushCard,
       onDone: this._handleDone
     }
   }
 
-  _getConfigure() {
+  _getConfigure(defaultValue) {
     const { primaryKey } = this.props
     return {
-      defaultValue: this.props.import,
+      defaultValue,
       primaryKey,
       onBack: this._handleBack,
       onDone: this._handleDone
     }
   }
 
-  _getParsing() {
+  _getParsing(defaultValue) {
     const { table, primaryKey } = this.props
     return {
-      defaultValue: this.props.import,
+      defaultValue,
       primaryKey,
       table,
       onBack: this._handleBack,
@@ -141,9 +140,9 @@ class Import extends React.Component {
     }
   }
 
-  _getValidating() {
+  _getValidating(defaultValue) {
     return {
-      defaultValue: this.props.import,
+      defaultValue,
       rules: this.props.rules,
       fields: this.props.fields,
       onBack: this._handleBack,
@@ -152,10 +151,10 @@ class Import extends React.Component {
     }
   }
 
-  _getProcessing() {
+  _getProcessing(defaultValue) {
     const { table, primaryKey } = this.props
     return {
-      defaultValue: this.props.import,
+      defaultValue,
       fields: this.props.fields,
       destination: this.props.destination,
       defaultParams: this.props.defaultParams,
@@ -167,18 +166,18 @@ class Import extends React.Component {
     }
   }
 
-  _getFinalizing() {
+  _getFinalizing(defaultValue) {
     return {
-      defaultValue: this.props.import,
+      defaultValue,
       finalizeComponent: this.props.finalizeComponent,
       onDone: this._handleDone,
       onPushCard: this._handlePushCard
     }
   }
 
-  _getComplete() {
+  _getComplete(defaultValue) {
     return {
-      import: this.props.import,
+      import: defaultValue,
       destination: this.props.destination,
       onDone: this._handleDone,
       onPushCard: this._handlePushCard
@@ -194,42 +193,41 @@ class Import extends React.Component {
   }
 
   _handleGoUpload() {
-    this._handlePushCard(Upload, this._getUpload.bind(this))
+    this._handlePushCard(Upload, this._getUpload())
   }
 
   _handleGoPreview() {
-    this._handlePushCard(Preview, this._getPreview.bind(this))
+    this._handlePushCard(Preview, this._getPreview())
   }
 
   _handleDone(imp) {
-    const { onSetImport, onPopCard, finalizeComponent } = this.props
+    const { onSetImport, finalizeComponent } = this.props
     onSetImport(imp)
     if(imp.stage === 'previewing') {
-      this._handlePushCard(Preview, this._getPreview.bind(this))
+      this._handlePushCard(Preview, this._getPreview(imp))
     } else if(imp.stage === 'mapping') {
-      this._handlePushCard(Mapping, this._getMapping.bind(this))
+      this._handlePushCard(Mapping, this._getMapping(imp))
     } else if(imp.stage === 'configuring') {
-      this._handlePushCard(Configure, this._getConfigure.bind(this))
+      this._handlePushCard(Configure, this._getConfigure(imp))
     } else if(imp.stage === 'parsing') {
-      this._handlePushCard(Parsing, this._getParsing.bind(this))
+      this._handlePushCard(Parsing, this._getParsing(imp))
     } else if(imp.stage === 'validating') {
-      this._handlePushCard(Validating, this._getValidating.bind(this))
+      this._handlePushCard(Validating, this._getValidating(imp))
     } else if(imp.stage === 'processing') {
-      this._handlePushCard(Processing, this._getProcessing.bind(this))
+      this._handlePushCard(Processing, this._getProcessing(imp))
     } else if(imp.stage === 'finalizing' && finalizeComponent) {
-      this._handlePushCard(Finalizing, this._getFinalizing.bind(this))
+      this._handlePushCard(Finalizing, this._getFinalizing(imp))
     } else if(((imp.stage === 'finalizing' && !finalizeComponent)) || imp.stage === 'complete') {
       if(imp.stage === 'finalizing'){
         imp.stage = 'complete'
         onSetImport(imp)
       }
-      this._handlePushCard(Complete, this._getComplete.bind(this))
+      this._handlePushCard(Complete, this._getComplete(imp))
     }
   }
 
-  _handlePushCard(Component, config) {
-    const { onPushCard } = this.props
-    onPushCard({ component: (props) => <Component { ...props } { ...config() } /> })
+  _handlePushCard(component, props) {
+    this.props.onPushCard({ component, props })
   }
 
   _handleConfiguring(name, strategy, primary_key) {

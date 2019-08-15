@@ -5,7 +5,7 @@ import * as actions from './actions'
 import * as selectors from './selectors'
 
 export default Singleton({
-  namespace: 'maha.import_preview',
+  namespace: 'maha.import.preview',
   component: Preview,
   reducer,
   actions,

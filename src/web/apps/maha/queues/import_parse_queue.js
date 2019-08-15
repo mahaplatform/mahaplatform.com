@@ -54,6 +54,7 @@ const processor = async (job, trx) => {
     const is_nonunique = (primary_key) ? _.includes(result.primarykeys, values[primary_key]) : false
 
     await ImportItem.forge({
+      object_type: imp.get('object_type'),
       import_id: imp.get('id'),
       values,
       is_valid,

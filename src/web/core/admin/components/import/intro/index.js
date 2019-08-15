@@ -4,7 +4,7 @@ import intro from './intro'
 import * as actions from './actions'
 
 export default Singleton({
-  namespace: 'maha.import_intro',
+  namespace: 'maha.import.intro',
   component: intro,
   reducer,
   actions
