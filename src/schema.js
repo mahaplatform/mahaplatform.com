@@ -925,7 +925,6 @@ const schema = {
       table.boolean('is_duplicate').defaultsTo(false)
       table.boolean('is_omitted').defaultsTo(false)
       table.boolean('is_nonunique').defaultsTo(false)
-      table.string('object_type', 255)
     })
 
     await knex.schema.createTable('maha_imports', (table) => {
@@ -1631,10 +1630,10 @@ const schema = {
 
     await knex.schema.table('chat_messages', table => {
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('device_id').references('maha_devices.id')
       table.foreign('channel_id').references('chat_channels.id')
       table.foreign('message_type_id').references('chat_message_types.id')
       table.foreign('quoted_message_id').references('chat_messages.id')
+      table.foreign('device_id').references('maha_devices.id')
       table.foreign('link_id').references('maha_links.id')
       table.foreign('team_id').references('maha_teams.id')
     })
@@ -1676,9 +1675,9 @@ const schema = {
     await knex.schema.table('expenses_advances', table => {
       table.foreign('user_id').references('maha_users.id')
       table.foreign('expense_type_id').references('expenses_expense_types.id')
-      table.foreign('status_id').references('expenses_statuses.id')
       table.foreign('batch_id').references('expenses_batches.id')
       table.foreign('project_id').references('expenses_projects.id')
+      table.foreign('status_id').references('expenses_statuses.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -1690,21 +1689,21 @@ const schema = {
     await knex.schema.table('expenses_checks', table => {
       table.foreign('user_id').references('maha_users.id')
       table.foreign('expense_type_id').references('expenses_expense_types.id')
-      table.foreign('status_id').references('expenses_statuses.id')
+      table.foreign('vendor_id').references('expenses_vendors.id')
       table.foreign('batch_id').references('expenses_batches.id')
       table.foreign('project_id').references('expenses_projects.id')
-      table.foreign('vendor_id').references('expenses_vendors.id')
+      table.foreign('status_id').references('expenses_statuses.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('expenses_expenses', table => {
       table.foreign('user_id').references('maha_users.id')
       table.foreign('expense_type_id').references('expenses_expense_types.id')
-      table.foreign('status_id').references('expenses_statuses.id')
+      table.foreign('vendor_id').references('expenses_vendors.id')
       table.foreign('account_id').references('expenses_accounts.id')
       table.foreign('batch_id').references('expenses_batches.id')
       table.foreign('project_id').references('expenses_projects.id')
-      table.foreign('vendor_id').references('expenses_vendors.id')
+      table.foreign('status_id').references('expenses_statuses.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -1718,19 +1717,19 @@ const schema = {
     await knex.schema.table('expenses_reimbursements', table => {
       table.foreign('user_id').references('maha_users.id')
       table.foreign('expense_type_id').references('expenses_expense_types.id')
-      table.foreign('status_id').references('expenses_statuses.id')
+      table.foreign('vendor_id').references('expenses_vendors.id')
       table.foreign('batch_id').references('expenses_batches.id')
       table.foreign('project_id').references('expenses_projects.id')
-      table.foreign('vendor_id').references('expenses_vendors.id')
+      table.foreign('status_id').references('expenses_statuses.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('expenses_trips', table => {
       table.foreign('user_id').references('maha_users.id')
       table.foreign('expense_type_id').references('expenses_expense_types.id')
-      table.foreign('status_id').references('expenses_statuses.id')
       table.foreign('batch_id').references('expenses_batches.id')
       table.foreign('project_id').references('expenses_projects.id')
+      table.foreign('status_id').references('expenses_statuses.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -1788,8 +1787,8 @@ const schema = {
       table.foreign('object_owner_id').references('maha_users.id')
       table.foreign('subject_id').references('maha_users.id')
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('app_id').references('maha_apps.id')
       table.foreign('notification_type_id').references('maha_notification_types.id')
+      table.foreign('app_id').references('maha_apps.id')
       table.foreign('story_id').references('maha_stories.id')
       table.foreign('team_id').references('maha_teams.id')
     })
@@ -1870,8 +1869,8 @@ const schema = {
 
     await knex.schema.table('training_assignments', table => {
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('team_id').references('maha_teams.id')
       table.foreign('assigning_id').references('training_assignings.id')
+      table.foreign('team_id').references('maha_teams.id')
       table.foreign('option_id').references('training_options.id')
     })
 
@@ -1880,41 +1879,9 @@ const schema = {
       table.foreign('attraction_id').references('eatfresh_attractions.id')
     })
 
-    await knex.schema.table('maha_alerts', table => {
-      table.foreign('app_id').references('maha_apps.id')
-    })
-
-    await knex.schema.table('maha_email_templates', table => {
-      table.foreign('app_id').references('maha_apps.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_installations', table => {
-      table.foreign('app_id').references('maha_apps.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_notification_types', table => {
-      table.foreign('app_id').references('maha_apps.id')
-    })
-
-    await knex.schema.table('maha_rights', table => {
-      table.foreign('app_id').references('maha_apps.id')
-    })
-
-    await knex.schema.table('maha_roles_apps', table => {
-      table.foreign('app_id').references('maha_apps.id')
-      table.foreign('role_id').references('maha_roles.id')
-    })
-
-    await knex.schema.table('maha_teams_apps', table => {
-      table.foreign('app_id').references('maha_apps.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
     await knex.schema.table('maha_email_activities', table => {
-      table.foreign('email_link_id').references('maha_email_links.id')
       table.foreign('email_id').references('maha_emails.id')
+      table.foreign('email_link_id').references('maha_email_links.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -1923,17 +1890,24 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('maha_import_items', table => {
+      table.foreign('import_id').references('maha_imports.id')
+    })
+
+    await knex.schema.table('maha_roles_rights', table => {
+      table.foreign('right_id').references('maha_rights.id')
+      table.foreign('role_id').references('maha_roles.id')
+    })
+
     await knex.schema.table('sites_items', table => {
       table.foreign('type_id').references('sites_types.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('site_id').references('sites_sites.id')
     })
 
-    await knex.schema.table('training_answerings', table => {
-      table.foreign('answer_id').references('training_answers.id')
+    await knex.schema.table('training_options', table => {
+      table.foreign('assigning_id').references('training_assignings.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('administration_id').references('training_administrations.id')
-      table.foreign('question_id').references('training_questions.id')
     })
 
     await knex.schema.table('training_questions', table => {
@@ -1977,6 +1951,38 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('maha_alerts', table => {
+      table.foreign('app_id').references('maha_apps.id')
+    })
+
+    await knex.schema.table('maha_email_templates', table => {
+      table.foreign('app_id').references('maha_apps.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_installations', table => {
+      table.foreign('app_id').references('maha_apps.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_notification_types', table => {
+      table.foreign('app_id').references('maha_apps.id')
+    })
+
+    await knex.schema.table('maha_rights', table => {
+      table.foreign('app_id').references('maha_apps.id')
+    })
+
+    await knex.schema.table('maha_roles_apps', table => {
+      table.foreign('app_id').references('maha_apps.id')
+      table.foreign('role_id').references('maha_roles.id')
+    })
+
+    await knex.schema.table('maha_teams_apps', table => {
+      table.foreign('app_id').references('maha_apps.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('maha_devices', table => {
       table.foreign('browser_name_id').references('maha_device_values.id')
       table.foreign('browser_version_id').references('maha_device_values.id')
@@ -1985,15 +1991,6 @@ const schema = {
       table.foreign('os_name_id').references('maha_device_values.id')
       table.foreign('os_version_id').references('maha_device_values.id')
       table.foreign('platform_type_id').references('maha_device_values.id')
-    })
-
-    await knex.schema.table('maha_import_items', table => {
-      table.foreign('import_id').references('maha_imports.id')
-    })
-
-    await knex.schema.table('maha_roles_rights', table => {
-      table.foreign('right_id').references('maha_rights.id')
-      table.foreign('role_id').references('maha_roles.id')
     })
 
     await knex.schema.table('maha_links', table => {
@@ -2076,6 +2073,13 @@ const schema = {
       table.foreign('site_id').references('sites_sites.id')
     })
 
+    await knex.schema.table('training_answerings', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('administration_id').references('training_administrations.id')
+      table.foreign('answer_id').references('training_answers.id')
+      table.foreign('question_id').references('training_questions.id')
+    })
+
     await knex.schema.table('training_answers', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('question_id').references('training_questions.id')
@@ -2089,11 +2093,6 @@ const schema = {
     await knex.schema.table('training_offerings', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('training_id').references('training_trainings.id')
-    })
-
-    await knex.schema.table('training_options', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('assigning_id').references('training_assignings.id')
     })
 
     await knex.schema.table('training_quizes', table => {
@@ -2312,7 +2311,7 @@ union
       from ( select null::character varying as code,
       expenses_advances.id as item_id,
       expenses_advances.team_id,
-      maha_import_items.import_id,
+      maha_imports_import_items.import_id,
       'advance'::text as type,
       expenses_advances.date_needed as date,
       expenses_advances.user_id,
@@ -2333,12 +2332,12 @@ union
       expenses_advances.created_at
       from ((expenses_advances
       left join expenses_projects on ((expenses_projects.id = expenses_advances.project_id)))
-      left join maha_import_items on (((maha_import_items.object_id = expenses_advances.id) and ((maha_import_items.object_type)::text = 'expenses_advances'::text))))
+      left join maha_imports_import_items on (((maha_imports_import_items.object_id = expenses_advances.id) and ((maha_imports_import_items.object_type)::text = 'expenses_advances'::text))))
       union
       select expenses_expenses.code,
       expenses_expenses.id as item_id,
       expenses_expenses.team_id,
-      maha_import_items.import_id,
+      maha_imports_import_items.import_id,
       'expense'::text as type,
       expenses_expenses.date,
       expenses_expenses.user_id,
@@ -2359,12 +2358,12 @@ union
       expenses_expenses.created_at
       from ((expenses_expenses
       left join expenses_projects on ((expenses_projects.id = expenses_expenses.project_id)))
-      left join maha_import_items on (((maha_import_items.object_id = expenses_expenses.id) and ((maha_import_items.object_type)::text = 'expenses_expenses'::text))))
+      left join maha_imports_import_items on (((maha_imports_import_items.object_id = expenses_expenses.id) and ((maha_imports_import_items.object_type)::text = 'expenses_expenses'::text))))
       union
       select null::character varying as code,
       expenses_trips.id as item_id,
       expenses_trips.team_id,
-      maha_import_items.import_id,
+      maha_imports_import_items.import_id,
       'trip'::text as type,
       expenses_trips.date,
       expenses_trips.user_id,
@@ -2385,12 +2384,12 @@ union
       expenses_trips.created_at
       from ((expenses_trips
       left join expenses_projects on ((expenses_projects.id = expenses_trips.project_id)))
-      left join maha_import_items on (((maha_import_items.object_id = expenses_trips.id) and ((maha_import_items.object_type)::text = 'expenses_trips'::text))))
+      left join maha_imports_import_items on (((maha_imports_import_items.object_id = expenses_trips.id) and ((maha_imports_import_items.object_type)::text = 'expenses_trips'::text))))
       union
       select expenses_checks.code,
       expenses_checks.id as item_id,
       expenses_checks.team_id,
-      maha_import_items.import_id,
+      maha_imports_import_items.import_id,
       'check'::text as type,
       expenses_checks.date_needed as date,
       expenses_checks.user_id,
@@ -2411,12 +2410,12 @@ union
       expenses_checks.created_at
       from ((expenses_checks
       left join expenses_projects on ((expenses_projects.id = expenses_checks.project_id)))
-      left join maha_import_items on (((maha_import_items.object_id = expenses_checks.id) and ((maha_import_items.object_type)::text = 'expenses_checks'::text))))
+      left join maha_imports_import_items on (((maha_imports_import_items.object_id = expenses_checks.id) and ((maha_imports_import_items.object_type)::text = 'expenses_checks'::text))))
       union
       select expenses_reimbursements.code,
       expenses_reimbursements.id as item_id,
       expenses_reimbursements.team_id,
-      maha_import_items.import_id,
+      maha_imports_import_items.import_id,
       'reimbursement'::text as type,
       expenses_reimbursements.date,
       expenses_reimbursements.user_id,
@@ -2437,7 +2436,7 @@ union
       expenses_reimbursements.created_at
       from ((expenses_reimbursements
       left join expenses_projects on ((expenses_projects.id = expenses_reimbursements.project_id)))
-      left join maha_import_items on (((maha_import_items.object_id = expenses_reimbursements.id) and ((maha_import_items.object_type)::text = 'expenses_reimbursements'::text))))) items;
+      left join maha_imports_import_items on (((maha_imports_import_items.object_id = expenses_reimbursements.id) and ((maha_imports_import_items.object_type)::text = 'expenses_reimbursements'::text))))) items;
     `)
 
     await knex.raw(`
@@ -2532,6 +2531,22 @@ union
       from ((maha_users
       join expenses_members on (((expenses_members.user_id = maha_users.id) and (expenses_members.member_type_id <> 3))))
       join maha_groupings on ((maha_groupings.id = 4)));
+    `)
+
+    await knex.raw(`
+      create view maha_imports_import_items AS
+      select maha_import_items.id,
+      maha_import_items.import_id,
+      maha_import_items."values",
+      maha_import_items.is_valid,
+      maha_import_items.result,
+      maha_import_items.object_id,
+      maha_import_items.is_duplicate,
+      maha_import_items.is_omitted,
+      maha_import_items.is_nonunique,
+      maha_imports.object_type
+      from (maha_import_items
+      join maha_imports on ((maha_imports.id = maha_import_items.import_id)));
     `)
   }
 

@@ -4,8 +4,10 @@ import generateCode from '../../../../../core/utils/generate_code'
 import socket from '../../../../../core/services/routes/emitter'
 
 const createRoute = async (req, res) => {
-
-  const code = generateCode()
+  
+  const code = await generateCode(req, {
+    table: 'expenses_reimbursements'
+  })
 
   const line_items = req.body.line_items || [[]]
 

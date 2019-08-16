@@ -19,10 +19,14 @@ export const toOxfordList = (array) => {
 
 export const createChannel = async (req, user_ids) => {
 
+  const code = await generateCode(req, {
+    table: 'chat_channels'
+  })
+
   const channel = await Channel.forge({
     team_id: req.team.get('id'),
     owner_id: req.user.get('id'),
-    code: generateCode(),
+    code,
     last_message_at: moment()
   }).save(null, {
     transacting: req.trx
@@ -99,12 +103,16 @@ export const createMessage = async (req, params) => {
     transacting: req.trx
   })
 
+  const code = await generateCode(req, {
+    table: 'chat_messages'
+  })
+
   const message = await Message.forge({
     team_id: req.team.get('id'),
     channel_id,
     user_id: req.user.get('id'),
     message_type_id: message_type.get('id'),
-    code: generateCode(),
+    code,
     text
   }).save(null, {
     transacting: req.trx

@@ -17,11 +17,15 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
+  const code = await generateCode(req, {
+    table: 'maha_fields'
+  })
+
   const field = await Field.forge({
     team_id: req.team.get('id'),
     parent_type: req.params.parent_type,
     parent_id: req.params.parent_id,
-    code: generateCode(),
+    code,
     delta: delta,
     config: {},
     is_mutable: true,

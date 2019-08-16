@@ -10,6 +10,12 @@ import User from '../../../../maha/models/user'
 
 const createRoute = async (req, res) => {
 
+  const key = await generateCode(req, {
+    table: 'maha_users',
+    key: 'key',
+    length: 32
+  })
+
   const user = await User.forge({
     team_id: req.team.get('id'),
     is_active: true,
@@ -23,7 +29,7 @@ const createRoute = async (req, res) => {
     mute_evenings_end_time: '9:00',
     mute_weekends: true,
     values: {},
-    key: generateCode(32),
+    key,
     ...whitelist(req.body, ['first_name','last_name','email','secondary_email','user_type_id','is_active','email_notifications_method','photo_id','values'])
   }).save(null, {
     transacting: req.trx

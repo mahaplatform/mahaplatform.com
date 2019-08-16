@@ -1,3 +1,4 @@
+import generateCode from '../../../core/utils/generate_code'
 import { createAsset } from '../../maha/services/assets'
 import socket from '../../../core/services/emitter'
 import Reimbursement from '../models/reimbursement'
@@ -24,11 +25,16 @@ const processor = async (req, { meta, message }) => {
 
   const date = meta.type === 'checks' ? 'date_needed' : 'date'
 
+  const code = await generateCode(req, {
+    table: `expenses_${meta.type}`
+  })
+
   const item = await model.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
     status_id: 1,
     [date]: moment(),
+    code,
     description: message.subject
   }).save(null, {
     transacting: req.trx

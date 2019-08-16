@@ -25,9 +25,13 @@ const createRoute = async (req, res) => {
     values: req.body.values
   })
 
+  const code = await generateCode(req, {
+    table: 'crm_contacts'
+  })
+
   const contact = await Contact.forge({
     team_id: req.team.get('id'),
-    code: generateCode(),
+    code,
     ...whitelist(req.body, ['first_name','last_name','email','phone','photo_id']),
     values
   }).save(null, {

@@ -70,18 +70,26 @@ const createRoute = async (req, res) => {
     { label: 'First Name', name: 'first_name', type: 'textfield' },
     { label: 'Last Name', name: 'last_name', type: 'textfield' },
     { label: 'Email', name: 'email', type: 'emailfield' }
-  ], async(field, delta) => await Field.forge({
-    team_id: req.team.get('id'),
-    parent_type: 'sites_sites',
-    parent_id: site.get('id'),
-    code: generateCode(),
-    delta,
-    ...field,
-    config: {},
-    is_mutable: false
-  }).save(null, {
-    transacting: req.trx
-  }))
+  ], async(field, delta) => {
+
+    const code = await generateCode(req, {
+      table: 'maha_fields'
+    })
+
+    await Field.forge({
+      team_id: req.team.get('id'),
+      parent_type: 'sites_sites',
+      parent_id: site.get('id'),
+      code,
+      delta,
+      ...field,
+      config: {},
+      is_mutable: false
+    }).save(null, {
+      transacting: req.trx
+    })
+
+  })
 
   await site.load(['origins'], {
     transacting: req.trx

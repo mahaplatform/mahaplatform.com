@@ -5,7 +5,9 @@ import { createExpense } from '../../../services/expenses'
 
 const createRoute = async (req, res) => {
 
-  const code = generateCode()
+  const code = await generateCode(req, {
+    table: 'expenses_expenses'
+  })
 
   const line_items = req.body.line_items || [[]]
 

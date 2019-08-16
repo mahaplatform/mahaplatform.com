@@ -13,15 +13,19 @@ import _ from 'lodash'
 const getAsset = async (job, trx, url, imp) => {
 
   const asset_match = url.match(/\/assets\/(\d*)\/.*$/)
+
   if(asset_match !== null) {
-    return await Asset.where('id', asset_match[1]).fetch({
+    return await Asset.where({
+      id: asset_match[1]
+    }).fetch({
       transacting: trx
     })
   }
 
-  const id_match = url.match(/^\d*$/)
-  if(id_match !== null) {
-    return await Asset.where('id', url).fetch({
+  if(url.match(/^\d*$/) !== null) {
+    return await Asset.where({
+      id: url
+    }).fetch({
       transacting: trx
     })
   }
@@ -33,7 +37,7 @@ const getAsset = async (job, trx, url, imp) => {
 const processor = async (job, trx) => {
 
   const imp = await Import.where({
-    id:job.data.id
+    id: job.data.id
   }).fetch({
     transacting: trx
   })
@@ -42,7 +46,7 @@ const processor = async (job, trx) => {
     import_id: imp.id
   }).fetchAll({
     transacting: trx
-  })
+  }).then(results => results.toArray())
 
   const table = imp.get('object_type')
 
@@ -58,13 +62,15 @@ const processor = async (job, trx) => {
     }
   }
 
-  await Promise.mapSeries(items.toArray(), async (item, index) => {
+  await Promise.mapSeries(items, async (item, index) => {
 
     const src_values = item.get('values')
 
     const values = await Promise.reduce(Object.keys(src_values), async (values, key) => {
 
-      const type = _.find(mapping, ['field', key]).type
+      const { type, relation, relationcolumn, relationtypeid } = _.find(mapping, ['field', key])
+
+      console.log(_.find(mapping, ['field', key]))
 
       if(type === 'upload' && src_values[key].length > 0) {
 
@@ -72,23 +78,11 @@ const processor = async (job, trx) => {
 
         values[key] = asset ? asset.id : null
 
-      } else if(type === 'relation'){
+      } else if(type === 'relation') {
 
-        const relation = _.find(mapping, ['field', key]).relation
-        const relationcolumn = _.find(mapping, ['field', key]).relationcolumn
-        const relationtypeid = _.find(mapping, ['field', key]).relationtypeid
-
-        let relationIds = []
-
-        if( src_values[key].indexOf(',') > -1 ){
-          relationIds = await Promise.mapSeries(src_values[key].split(','), async (src_value, index) => {
-            return await findRelatedId(job, trx, relation, relationcolumn, src_value, imp.get('team_id'), relationtypeid)
-          })
-        } else {
-          relationIds = await findRelatedId(job, trx, relation, relationcolumn, src_values[key], imp.get('team_id'), relationtypeid)
-        }
-
-        values[key] = relationIds
+        values[key] = await Promise.mapSeries(src_values[key].split(','), async (src_value, index) => {
+          return await findRelatedId(job, trx, relation, relationcolumn, src_value, imp.get('team_id'), relationtypeid)
+        })
 
       } else {
 
@@ -102,11 +96,13 @@ const processor = async (job, trx) => {
 
     const primary_key = job.data.primaryKey
 
-    const duplicate = (primary_key) ? await knex(table).transacting(trx).where({ [primary_key]: values[primary_key] }) : 0
+    const duplicate = (primary_key) ? await knex(table).transacting(trx).where({
+      [primary_key]: values[primary_key]
+    }) : 0
 
     let object_id = null
 
-    if(!duplicate.length || strategy == 'create'){
+    if(!duplicate.length || strategy == 'create') {
 
       object_id = await knex(table).transacting(trx).insert({
         team_id: imp.get('team_id'),
@@ -144,7 +140,7 @@ const processor = async (job, trx) => {
     }
 
     await imp.save({
-      completed_count: index+1
+      completed_count: index + 1
     }, {
       patch: true,
       transacting: trx
@@ -178,17 +174,10 @@ const findRelatedId = async (job, trx, tablename, fieldname, value, team_id, typ
 
   if(!tablename || !fieldname) return null
 
-  const column = fieldname.split('.')[0]
-
-  const field = fieldname.split('.')[1]
+  const [column, field] = fieldname.split('.')
 
   const castColumn = (code) => {
-    if(tablename == 'sites_items' && column == 'values'){
-      return `${column}->'${code}'->>0`
-    } else {
-      return `${column}->>'${code}'`
-    }
-
+    return (tablename == 'sites_items' && column == 'values') ? `${column}->'${code}'->>0` : `${column}->>'${code}'`
   }
 
   const getJsonbkey = async (typeid, field) => {
@@ -200,9 +189,8 @@ const findRelatedId = async (job, trx, tablename, fieldname, value, team_id, typ
 
   const related = await knex(tablename).transacting(trx).whereRaw(`team_id = ? AND LOWER(${castColumn(code)}) = ?`, [team_id, value.toString().toLowerCase().trim()])
 
-  const id = related[0] ? related[0].id : null
 
-  return id
+  return related[0] ? related[0].id : null
 
 }
 

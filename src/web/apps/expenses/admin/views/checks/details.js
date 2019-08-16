@@ -58,11 +58,6 @@ const Details = ({ check, commentUrl }) => {
     list.items.push(requiredField('Amount', check, 'amount', { content: check.amount, format: 'currency' }))
     list.items.push(requiredField('Tax', check, 'tax', { content: check.tax, format: 'currency' }))
   }
-  if(check.line_items.length > 0 ) {
-    list.items.push({ component: <LineItemsToken line_items={ check.line_items } item={ check }  /> })
-  } else {
-    list.items.push(requiredField('Line Items', check, 'project_id', { content: check.project_id }))
-  }
   if(check.receipts.length > 0) {
     const previews = check.receipts.filter(receipt => receipt.status === 'processed' && (receipt.has_preview || receipt.is_image))
     const slides = previews.map((receipt, index) => <Receipt key={`receipt_preview_${index}`} preview={ true } value={ receipt } />)

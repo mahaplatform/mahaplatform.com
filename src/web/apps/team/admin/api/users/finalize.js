@@ -41,9 +41,15 @@ const finalizeRoute = async (req, res) => {
       transacting: req.trx
     })
 
-    user.save({
+    const key = await generateCode(req, {
+      table: 'maha_users',
+      key: 'key',
+      length: 32
+    })
+
+    await user.save({
       is_active: true,
-      key: generateCode(32)
+      key
     }).save(null, {
       transacting: req.trx
     })

@@ -47,9 +47,13 @@ export const createFile = async (req, params) => {
 
   const label = asset ? asset.get('original_file_name') : params.label
 
+  const code = await generateCode(req, {
+    table: 'drive_files'
+  })
+
   const file = await File.forge({
     team_id: req.team.get('id'),
-    code: generateCode(),
+    code,
     label,
     fullpath: parent ? `${parent.get('fullpath')}/${label}` : label,
     folder_id: parent ? parent.get('id') : null,

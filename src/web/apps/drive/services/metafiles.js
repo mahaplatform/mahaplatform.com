@@ -45,12 +45,16 @@ export const createMetaFile = async (req, params) => {
 
   const label = asset ? asset.get('original_file_name') : params.label
 
+  const code = await generateCode(req, {
+    table: 'drive_metafiles'
+  })
+
   const file = await MetaFile.forge({
     team_id: req.team.get('id'),
     owner_id: req.user.get('id'),
     folder_id: parent ? parent.get('id') : null,
     asset_id: asset ? asset.get('id') : null,
-    code: generateCode(),
+    code,
     label,
     fullpath: parent ? `${parent.get('fullpath')}/${label}` : label
   }).save(null, {

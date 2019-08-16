@@ -19,9 +19,13 @@ export const createFolder = async (req, params) => {
 
   const parent = await _getParent(req, params)
 
+  const code = await generateCode(req, {
+    table: 'drive_folders'
+  })
+
   const folder = await Folder.forge({
     team_id: req.team.get('id'),
-    code: generateCode(),
+    code,
     fullpath: parent ? `${parent.get('fullpath')}/${params.label}` : params.label,
     parent_id: parent ? parent.get('id') : null,
     owner_id: req.user.get('id'),
