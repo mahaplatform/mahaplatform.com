@@ -1,13 +1,13 @@
+import { validate } from '../../../../../core/utils/validation'
 import knex from '../../../../../core/services/knex'
-import Checkit from 'checkit'
 
 const transferRoute = async (req, res) => {
 
-  await Checkit({
+  await validate({
     from_user_id: ['required'],
     to_user_id: ['required'],
     strategy: ['required']
-  }).run(req.body)
+  }, req.body)
 
   await knex('drive_folders').transacting(req.trx)
     .where('owner_id', req.body.from_user_id)

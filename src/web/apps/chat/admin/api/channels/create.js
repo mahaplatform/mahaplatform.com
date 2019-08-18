@@ -1,14 +1,14 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import ChannelSerializer from '../../../serializers/channel_serializer'
 import socket from '../../../../../core/services/routes/emitter'
+import { validate } from '../../../../../core/utils/validation'
 import { createChannel } from '../../../services/channels'
-import Checkit from 'checkit'
 
 const createRoute = async (req, res) => {
 
-  await Checkit({
+  await validate({
     ids: ['required']
-  }).run(req.body)
+  }, req.body)
 
   const channel = await createChannel(req, req.body.ids)
 

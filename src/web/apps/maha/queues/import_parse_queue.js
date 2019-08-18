@@ -1,21 +1,12 @@
 import ImportSerializer from '../serializers/import_serializer'
-import ImportItem from '../models/import_item'
+import { isValid } from '../../../core/utils/validation'
 import socket from '../../../core/services/emitter'
 import Queue from '../../../core/objects/queue'
 import knex from '../../../core/services/knex'
+import ImportItem from '../models/import_item'
 import parse from '../../../core/utils/parse'
 import Import from '../models/import'
-import Checkit from 'checkit'
 import _ from 'lodash'
-
-const validate = async (rules, values) => {
-  try {
-    await Checkit(rules).run(values)
-    return true
-  } catch(e){
-    return false
-  }
-}
 
 const processor = async (job, trx) => {
 
@@ -47,7 +38,7 @@ const processor = async (job, trx) => {
 
     const duplicate = (primary_key) ? await knex(job.data.table).transacting(trx).where({[primary_key]: values[primary_key]}) : 0
 
-    const is_valid = await validate(job.data.rules, values)
+    const is_valid = await isValid(job.data.rules, values)
 
     const is_duplicate = (primary_key) ? duplicate.length > 0 : false
 

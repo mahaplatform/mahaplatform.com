@@ -1,13 +1,13 @@
 import { sendMail } from '../../../../../core/services/email'
-import Checkit from 'checkit'
+import { validate } from '../../../../../core/utils/validation'
 
 const emailRoute = async (req, res) => {
 
-  await Checkit({
+  await validate({
     to: 'required',
     subject: 'required',
     message: 'required'
-  }).run(req.body)
+  }, req.body)
 
   await sendMail({
     from: `${req.user.get('full_name')} at ${req.team.get('title')}  <mailer@mahaplatform.com>`,

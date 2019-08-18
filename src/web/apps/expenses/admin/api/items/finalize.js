@@ -68,7 +68,7 @@ const finalizeRoute = async (req, res) => {
       auditable: trip
     })
 
-    await socket.message({
+    await socket.message(req, {
       channel: `/admin/imports/${imp.get('id')}`,
       action: 'progress',
       data: {
@@ -79,12 +79,12 @@ const finalizeRoute = async (req, res) => {
 
   })
 
-  await socket.refresh({
+  await socket.refresh(req, {
     channel: `/admin/users/${imp.get('user_id')}`,
     target: '/admin/expenses/items'
   })
 
-  await socket.message({
+  await socket.message(req, {
     channel: `/admin/imports/${imp.get('id')}`,
     action: 'success',
     data: ImportSerializer(null, imp)

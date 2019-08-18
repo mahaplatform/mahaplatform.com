@@ -70,7 +70,7 @@ export const uploadChunk = async (req) => {
   return asset
 }
 
-export const createAssetFromUrl = async (req, url, team_id, user_id) => {
+export const createAssetFromUrl = async (req, { url, team_id, user_id }) => {
   const response = await request.get({
     url,
     resolveWithFullResponse: true,

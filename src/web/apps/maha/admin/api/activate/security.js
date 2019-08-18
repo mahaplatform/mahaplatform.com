@@ -1,13 +1,13 @@
 import { loadUserFromToken } from '../../../../../core/utils/user_tokens'
-import Checkit from 'checkit'
+import { validate } from '../../../../../core/utils/validation'
 
 const securityRoute = async (req, res) => {
 
-  await Checkit({
+  await validate({
     token: 'required',
     security_question_id: 'required',
     security_question_answer: 'required'
-  }).run(req.body)
+  }, req.body)
 
   const { user } = await loadUserFromToken('activation_id', req.body.token, req.trx)
 

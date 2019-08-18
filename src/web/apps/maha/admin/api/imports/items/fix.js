@@ -1,7 +1,7 @@
 import ImportSerializer from '../../../../serializers/import_serializer'
 import socket from '../../../../../../core/services/routes/emitter'
+import { validate } from '../../../../../../core/utils/validation'
 import ImportItem from '../../../../models/import_item'
-import Checkit from 'checkit'
 import flat from 'flat'
 
 const fixRoute = async (req, res) => {
@@ -24,7 +24,7 @@ const fixRoute = async (req, res) => {
     maxDepth: 2
   })
 
-  await Checkit(rules).run(req.body)
+  await validate(rules, req.body)
 
   await item.save({
     is_valid: true

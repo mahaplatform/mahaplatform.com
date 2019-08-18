@@ -1,18 +1,18 @@
 import { activity } from '../../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../../core/services/routes/params'
 import socket from '../../../../../../core/services/routes/emitter'
-import Checkit from 'checkit'
-import _ from 'lodash'
+import { validate } from '../../../../../../core/utils/validation'
 
 const passwordRoute = async (req, res) => {
 
-  await Checkit({
+  await validate({
     password: 'required',
     confirmation: ['required', 'matchesField:password']
-  }).run(req.body)
+  }, req.body)
 
-  const data = _.pick(req.body, ['password'])
-
-  await req.user.save(data, {
+  await req.user.save({
+    ...whitelist(req.body, ['password'])
+  }, {
     patch: true,
     transacting: req.trx
   })

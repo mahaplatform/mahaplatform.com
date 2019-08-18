@@ -1,15 +1,15 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import { createUserToken } from '../../../../../core/utils/user_tokens'
+import { validate } from '../../../../../core/utils/validation'
 import mailer from '../../../queues/mailer_queue'
 import User from '../../../models/user'
-import Checkit from 'checkit'
 
 const emailRoute = async (req, res, next) => {
 
-  await Checkit({
+  await validate({
     team_id: 'required',
     email: 'required'
-  }).run(req.body)
+  }, req.body)
 
   req.user = await User.where({
     team_id: req.body.team_id,

@@ -1,15 +1,15 @@
 import { createUserToken } from '../../../../../core/utils/user_tokens'
-import User from '../../../models/user'
+import { validate } from '../../../../../core/utils/validation'
 import { sendAlert } from '../../../services/alerts'
-import Checkit from 'checkit'
+import User from '../../../models/user'
 import moment from 'moment'
 
 const lockoutRoute = async (req, res) => {
 
-  await Checkit({
+  await validate({
     team_id: 'required',
     email: 'required'
-  }).run(req.body)
+  }, req.body)
 
   const user = await User.where({
     team_id: req.body.team_id,

@@ -1,8 +1,8 @@
+import { validate } from '../../../core/utils/validation'
 import Asset from '../models/asset'
 import Field from '../models/field'
 import Link from '../models/link'
 import geocode from './geocode'
-import Checkit from 'checkit'
 import _ from 'lodash'
 
 export const processValues = async (req, { parent_type, parent_id, values }) => {
@@ -20,7 +20,7 @@ export const processValues = async (req, { parent_type, parent_id, values }) => 
     transacting: req.trx
   }).then(result => result.toArray())
 
-  const errors = await validate(fields, values)
+  const errors = await validateValues(fields, values)
 
   if(errors) throw new Error({
     code: 422,
@@ -32,7 +32,7 @@ export const processValues = async (req, { parent_type, parent_id, values }) => 
 
 }
 
-const validate = async (fields, data) => {
+const validateValues = async (fields, data) => {
 
   const rules = fields.reduce((rules, field) => {
 
@@ -82,9 +82,7 @@ const validate = async (fields, data) => {
 
   if(Object.keys(rules).length === 0) return null
 
-  const checkit = new Checkit(rules)
-
-  const [errors] = checkit.runSync(data)
+  const [errors] = await validate(rules, data)
 
   return errors
 

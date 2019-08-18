@@ -1,12 +1,12 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import SecurityQuestion from '../../../models/security_question'
-import Checkit from 'checkit'
+import { validate } from '../../../../../core/utils/validation'
 
 const verifyRoute = async (req, res) => {
 
-  await Checkit({
+  await validate({
     token: 'required'
-  }).run(req.body)
+  }, req.body)
 
   if(req.user.get('activated_at')) return res.status(404).json({
     code: 404,

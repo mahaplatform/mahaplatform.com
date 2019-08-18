@@ -1,23 +1,21 @@
 import { notifications } from '../../../../../core/services/routes/notifications'
 import { attachments } from '../../../../../core/services/routes/attachments'
-import { objects } from '../../../../../core/services/routes/objects'
 import CommentSerializer from '../../../serializers/comment_serializer'
-import socket from '../../../../../core/services/routes/emitter'
+import { whitelist } from '../../../../../core/services/routes/params'
+import { objects } from '../../../../../core/services/routes/objects'
 import { extractAttachments } from '../../../services/attachments'
+import socket from '../../../../../core/services/routes/emitter'
 import registry from '../../../../../core/utils/registry'
 import Comment from '../../../models/comment'
-import _ from 'lodash'
 
 const createRoute = async (req, res) => {
-
-  const data = _.pick(req.body, ['uid','text','quoted_comment_id'])
 
   const comment = await Comment.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
     commentable_type: req.params.commentable_type,
     commentable_id: req.params.commentable_id,
-    ...data
+    ...whitelist(req.body, ['uid','text','quoted_comment_id'])
   }).save(null, {
     transacting: req.trx
   })

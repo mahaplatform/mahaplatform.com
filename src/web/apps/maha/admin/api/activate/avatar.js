@@ -1,11 +1,11 @@
-import Checkit from 'checkit'
+import { validate } from '../../../../../core/utils/validation'
 
 const avatarRoute = async (req, res) => {
 
-  await Checkit({
+  await validate({
     token: 'required',
     photo_id: 'required'
-  }).run(req.body)
+  }, req.body)
 
   await req.user.save({
     photo_id:

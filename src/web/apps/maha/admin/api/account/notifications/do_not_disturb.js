@@ -1,18 +1,12 @@
 import { activity } from '../../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../../core/services/routes/params'
 import socket from '../../../../../../core/services/routes/emitter'
-import _ from 'lodash'
 
 const doNotDisturbRoute = async (req, res) => {
 
-  const picker = (value) => !_.isNil(value)
-
-  await req.user.save(_.pickBy({
-    notifications_enabled: req.body.notifications_enabled,
-    mute_evenings: req.body.mute.mute_evenings,
-    mute_evenings_end_time: req.body.mute.mute_evenings_end_time,
-    mute_evenings_start_time: req.body.mute.mute_evenings_start_time,
-    mute_weekends: req.body.mute.mute_weekends
-  }, picker), {
+  await req.user.save({
+    ...whitelist(req.body, ['notifications_enabled','mute_evenings','mute_evenings_end_time','mute_evenings_start_time','mute_weekends'])
+  }, {
     patch: true,
     transacting: req.trx
   })

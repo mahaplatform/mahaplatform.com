@@ -1,13 +1,13 @@
 import { createUserToken } from '../../../../../core/utils/user_tokens'
+import { validate } from '../../../../../core/utils/validation'
 import User from '../../../models/user'
-import Checkit from 'checkit'
 
 const passwordRoute = async (req, res) => {
 
-  await Checkit({
+  await validate({
     team_id: 'required',
     email: 'required'
-  }).run(req.body)
+  }, req.body)
 
   if(!req.body.password) return res.status(422).json({
     code: 422,

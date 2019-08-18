@@ -10,7 +10,7 @@ import Asset from '../models/asset'
 import moment from 'moment'
 import _ from 'lodash'
 
-const getAsset = async (job, trx, url, imp) => {
+const getAsset = async (trx, url, imp) => {
 
   const asset_match = url.match(/\/assets\/(\d*)\/.*$/)
 
@@ -30,8 +30,39 @@ const getAsset = async (job, trx, url, imp) => {
     })
   }
 
-  return await createAssetFromUrl({ ...job, trx }, url, imp.get('team_id'), imp.get('user_id'))
+  return await createAssetFromUrl({ trx }, {
+    team_id: imp.get('team_id'),
+    user_id: imp.get('user_id'),
+    url
+  })
 
+}
+
+const castColumn = (tablename, column, code) => {
+  if(tablename == 'sites_items' && column == 'values') return `${column}->'${code}'->>0`
+  return `${column}->>'${code}'`
+}
+
+const getKey = async (trx, parent_id, name) => {
+  const row = await knex('maha_fields').transacting(trx).select('code').where({ parent_id, name })
+  return row.length > 0 ? row[0].code : null
+}
+
+const findRelatedId = async (trx, tablename, fieldname, value, team_id, parent_id) => {
+  if(!tablename || !fieldname) return null
+  const [column, field] = fieldname.split('.')
+  const code = parent_id ? await getKey(trx, parent_id, field) : field
+  const castCode = castColumn(tablename, column, code)
+  const related = await knex(tablename).transacting(trx).where({ team_id }).whereRaw(`lower(${castCode}) = ?`, value)
+  return related.length > 0 ? related[0].id : null
+}
+
+const mergeRecords = (item, duplicate, strategy) => {
+  if(strategy == 'overwrite'){
+    return _.merge(duplicate, item)
+  } else if(strategy == 'discard') {
+    return _.merge(item, duplicate)
+  }
 }
 
 const processor = async (job, trx) => {
@@ -54,14 +85,6 @@ const processor = async (job, trx) => {
 
   const strategy = imp.get('strategy')
 
-  const mergeRecords = (item, duplicate, strategy) => {
-    if(strategy == 'overwrite'){
-      return _.merge(duplicate, item)
-    } else if(strategy == 'discard') {
-      return _.merge(item, duplicate)
-    }
-  }
-
   await Promise.mapSeries(items, async (item, index) => {
 
     const src_values = item.get('values')
@@ -70,19 +93,23 @@ const processor = async (job, trx) => {
 
       const { type, relation, relationcolumn, relationtypeid } = _.find(mapping, ['field', key])
 
-      console.log(_.find(mapping, ['field', key]))
-
       if(type === 'upload' && src_values[key].length > 0) {
 
-        const asset = await getAsset(job, trx, src_values[key], imp)
+        const asset = await getAsset(trx, src_values[key], imp)
 
         values[key] = asset ? asset.id : null
 
       } else if(type === 'relation') {
 
-        values[key] = await Promise.mapSeries(src_values[key].split(','), async (src_value, index) => {
-          return await findRelatedId(job, trx, relation, relationcolumn, src_value, imp.get('team_id'), relationtypeid)
+        const items = src_values[key].split(',')
+
+        const related_ids = await Promise.mapSeries(items, async (item, index) => {
+          const value = item.toString().toLowerCase().trim()
+          const related_id = await findRelatedId(trx, relation, relationcolumn, value, imp.get('team_id'), relationtypeid)
+          return related_id
         })
+
+        values[key] = items.length > 1 ? related_ids : related_ids[0]
 
       } else {
 
@@ -98,18 +125,18 @@ const processor = async (job, trx) => {
 
     const duplicate = (primary_key) ? await knex(table).transacting(trx).where({
       [primary_key]: values[primary_key]
-    }) : 0
+    }) : []
 
     let object_id = null
 
-    if(!duplicate.length || strategy == 'create') {
+    if(duplicate.length === 0 || strategy == 'create') {
 
       object_id = await knex(table).transacting(trx).insert({
         team_id: imp.get('team_id'),
         created_at: moment(),
         updated_at: moment(),
         ...job.data.defaultParams,
-        ...unflatten({ ...values })
+        ...unflatten(values)
       }).returning('id')
 
     } else if( strategy != 'ignore' ) {
@@ -170,38 +197,12 @@ const processor = async (job, trx) => {
 
 }
 
-const findRelatedId = async (job, trx, tablename, fieldname, value, team_id, typeid) => {
-
-  if(!tablename || !fieldname) return null
-
-  const [column, field] = fieldname.split('.')
-
-  const castColumn = (code) => {
-    return (tablename == 'sites_items' && column == 'values') ? `${column}->'${code}'->>0` : `${column}->>'${code}'`
-  }
-
-  const getJsonbkey = async (typeid, field) => {
-    const row = await knex('maha_fields').transacting(trx).select('code').whereRaw('parent_id = ? AND name = ?', [typeid, field])
-    return row[0] ? row[0].code : null
-  }
-
-  const code = await getJsonbkey(typeid, field)
-
-  const related = await knex(tablename).transacting(trx).whereRaw(`team_id = ? AND LOWER(${castColumn(code)}) = ?`, [team_id, value.toString().toLowerCase().trim()])
-
-
-  return related[0] ? related[0].id : null
-
-}
-
 const failed = async (job, err) => {
-
   await socket.in(`/admin/imports/${job.data.id}`).emit('message', {
     target: `/admin/imports/${job.data.id}`,
     action: 'failed',
     data: [job,err]
   })
-
 }
 
 const ImportProcessQueue = new Queue({

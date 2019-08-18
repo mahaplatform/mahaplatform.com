@@ -1,18 +1,12 @@
 import { activity } from '../../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../../core/services/routes/params'
 import socket from '../../../../../../core/services/routes/emitter'
-import _ from 'lodash'
 
 const preferencesRoute = async (req, res) => {
 
-  const picker = (value) => !_.isNil(value)
-
-  await req.user.save(_.pickBy({
-    in_app_notifications_enabled: req.body.in_app_notifications_enabled,
-    notification_sound_enabled: req.body.sounds.notification_sound_enabled,
-    notification_sound: req.body.sounds.notification_sound,
-    push_notifications_enabled: req.body.push_notifications_enabled,
-    email_notifications_method: req.body.email_notifications_method
-  }, picker), {
+  await req.user.save({
+    ...whitelist(req.body, ['in_app_notifications_enabled','notification_sound_enabled','notification_sound','push_notifications_enabled','email_notifications_method'])
+  }, {
     patch: true,
     transacting: req.trx
   })

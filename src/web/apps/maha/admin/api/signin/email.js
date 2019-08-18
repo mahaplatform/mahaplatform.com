@@ -1,11 +1,11 @@
+import { validate } from '../../../../../core/utils/validation'
 import User from '../../../models/user'
-import Checkit from 'checkit'
 
 const emailRoute = async (req, res) => {
 
-  await Checkit({
+  await validate({
     team_id: 'required'
-  }).run(req.body)
+  }, req.body)
 
   if(!req.body.email) return res.status(422).json({
     code: 422,

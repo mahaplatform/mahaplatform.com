@@ -1,6 +1,6 @@
+import { validate } from '../../../../../core/utils/validation'
 import Field from '../../../../maha/models/field'
 import Site from '../../../models/site'
-import Checkit from 'checkit'
 
 const signupRoute = async (req, res) => {
 
@@ -22,10 +22,12 @@ const signupRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const result = new Checkit(fields.reduce((rules, field) => ({
+  const rules = fields.reduce((rules, field) => ({
     ...rules,
     [field.get('name')]: ['required']
-  }), {})).run(req.body)
+  }), {})
+
+  const result = await validate(rules, req.body)
 
   res.status(200).respond(result)
 
