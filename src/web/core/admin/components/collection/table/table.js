@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import Columns from './columns'
-import Loader from '../loader'
-import Format from '../format'
+import Loader from '../../loader'
+import Format from '../../format'
 import React from 'react'
 import _ from 'lodash'
 

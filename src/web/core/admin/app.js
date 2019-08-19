@@ -10,6 +10,7 @@ import admincarousel from './components/carousel'
 import adminchooser from './components/chooser'
 import admincollectionFilters from './components/collection/filters'
 import admincollection from './components/collection'
+import admincollectionTable from './components/collection/table'
 import admincomments from './components/comments'
 import admincomposer from './components/composer'
 import admincontainer from './components/container'
@@ -58,7 +59,6 @@ import adminsearch from './components/search'
 import adminsearch2 from './components/search2'
 import adminsearchbox from './components/searchbox'
 import adminsortableList from './components/sortable_list'
-import admintable from './components/table'
 import admintabs from './components/tabs'
 import admintasks from './components/tasks'
 import adminuploader from './components/uploader'
@@ -234,6 +234,7 @@ class App extends React.Component {
       adminchooser,
       admincollectionFilters,
       admincollection,
+      admincollectionTable,
       admincomments,
       admincomposer,
       admincontainer,
@@ -282,7 +283,6 @@ class App extends React.Component {
       adminsearch2,
       adminsearchbox,
       adminsortableList,
-      admintable,
       admintabs,
       admintasks,
       adminuploader,

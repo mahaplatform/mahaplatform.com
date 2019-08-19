@@ -36,7 +36,9 @@ const processor = async (job, trx) => {
 
     const primary_key = job.data.primaryKey
 
-    const duplicate = (primary_key) ? await knex(job.data.table).transacting(trx).where({[primary_key]: values[primary_key]}) : 0
+    const duplicate = (primary_key) ? await knex(job.data.table).transacting(trx).where({
+      [primary_key]: values[primary_key]
+    }) : 0
 
     const is_valid = await isValid(job.data.rules, values)
 

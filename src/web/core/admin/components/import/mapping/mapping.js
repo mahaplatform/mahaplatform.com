@@ -1,19 +1,9 @@
 import ModalPanel from '../../modal_panel'
-import Table from '../../table'
-import Button from '../../button'
 import PropTypes from 'prop-types'
+import Button from '../../button'
 import Field from '../field'
 import React from 'react'
 import _ from 'lodash'
-
-const ColumnToken = ({ value }) => {
-  const name = typeof value === 'number' ? `Column ${value + 1}` : value
-  return <div className="token">{ name }</div>
-}
-
-ColumnToken.propTypes = {
-  value: PropTypes.number
-}
 
 class Mapping extends React.Component {
 
@@ -39,8 +29,10 @@ class Mapping extends React.Component {
   }
 
   _handleBack = this._handleBack.bind(this)
+  _handleClick = this._handleClick.bind(this)
   _handleDone = this._handleDone.bind(this)
   _handleFieldDone = this._handleFieldDone.bind(this)
+
 
   render() {
     const { mapping, isValid } = this.props
@@ -55,7 +47,28 @@ class Mapping extends React.Component {
                 been matched to an import column
               </div>
             }
-            <Table { ...this._getTable() } />
+            <table className="ui table">
+              <thead>
+                <tr>
+                  <th>Header</th>
+                  <th>Field</th>
+                  <th className="collapsing"></th>
+                </tr>
+              </thead>
+              <tbody>
+                { mapping.map((item, index) => (
+                  <tr key={`item_${index}`} onClick={ this._handleClick }>
+                    <td>
+                      <div className="token">
+                        { typeof header === 'number' ? `Column ${item.header + 1}` : item.header }
+                      </div>
+                    </td>
+                    <td>{ item.field }</td>
+                    <td><Button { ...this._getButton() } /></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         }
       </ModalPanel>
@@ -78,32 +91,6 @@ class Mapping extends React.Component {
     }
   }
 
-  _getPanel() {
-    const { isValid } = this.props
-    return {
-      title: 'Map Fields',
-      leftItems: [
-        { icon: 'chevron-left', handler: this._handleBack }
-      ],
-      rightItems: isValid ? [
-        { label: 'Next', handler: this._handleDone }
-      ] : []
-    }
-  }
-
-  _getTable() {
-    const { mapping } = this.props
-    return {
-      columns: [
-        { label: 'Header', key: 'header', primary: true, format: ColumnToken },
-        { label: 'Field', key: 'field', primary: true },
-        { collapsing: true, format: () => <Button { ...this._getButton() } /> }
-      ],
-      records: mapping,
-      handler: this._handleClick.bind(this)
-    }
-  }
-
   _getButton(){
     return {
       label: 'Configure'
@@ -122,16 +109,29 @@ class Mapping extends React.Component {
     }
   }
 
+  _getPanel() {
+    const { isValid } = this.props
+    return {
+      title: 'Map Fields',
+      leftItems: [
+        { icon: 'chevron-left', handler: this._handleBack }
+      ],
+      rightItems: isValid ? [
+        { label: 'Next', handler: this._handleDone }
+      ] : []
+    }
+  }
+
   _handleBack() {
     this.props.onBack()
   }
 
-  _handlePushCard(Component, config) {
+  _handlePush(Component, config) {
     this.props.onPushCard(Component, config)
   }
 
   _handleClick(mappingItem, index) {
-    this._handlePushCard(Field, this._getField.bind(this, mappingItem, index))
+    this._handlePush(Field, this._getField.bind(this, mappingItem, index))
   }
 
   _handleFieldDone(mappingItem, index) {
@@ -141,7 +141,7 @@ class Mapping extends React.Component {
 
   _handleDone() {
     const stage = 'configuring'
-    this.props.onUpdateImport(this.props.import.id, { stage})
+    this.props.onUpdateImport(this.props.import.id, { stage })
   }
 
 }

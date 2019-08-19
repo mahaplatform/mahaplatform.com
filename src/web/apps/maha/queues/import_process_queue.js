@@ -10,7 +10,7 @@ import Asset from '../models/asset'
 import moment from 'moment'
 import _ from 'lodash'
 
-const getAsset = async (trx, url, imp) => {
+const getAssetId = async (trx, url, imp) => {
 
   const asset_match = url.match(/\/assets\/(\d*)\/.*$/)
 
@@ -30,11 +30,13 @@ const getAsset = async (trx, url, imp) => {
     })
   }
 
-  return await createAssetFromUrl({ trx }, {
+  const asset = await createAssetFromUrl({ trx }, {
     team_id: imp.get('team_id'),
     user_id: imp.get('user_id'),
     url
   })
+
+  return asset ? asset.id : null
 
 }
 
@@ -48,13 +50,31 @@ const getKey = async (trx, parent_id, name) => {
   return row.length > 0 ? row[0].code : null
 }
 
-const findRelatedId = async (trx, tablename, fieldname, value, team_id, parent_id) => {
-  if(!tablename || !fieldname) return null
-  const [column, field] = fieldname.split('.')
-  const code = parent_id ? await getKey(trx, parent_id, field) : field
-  const castCode = castColumn(tablename, column, code)
-  const related = await knex(tablename).transacting(trx).where({ team_id }).whereRaw(`lower(${castCode}) = ?`, value)
-  return related.length > 0 ? related[0].id : null
+const findRelatedIds = async (trx, field, values, imp ) => {
+  if(!field.relation || !field.relationcolumn) return null
+  const [column, name] = field.relationcolumn.split('.')
+  const code = field.relationtypeid ? await getKey(trx, field.relationtypeid, name) : name
+  const castCode = castColumn(field.relation, column, code)
+  const items = values.split(',')
+  const related_ids = await Promise.mapSeries(items, async (item, index) => {
+    const value = item.toString().toLowerCase().trim()
+    const related = await knex(field.relation).transacting(trx).where({
+      team_id: imp.get('team_id')
+    }).whereRaw(`lower(${castCode}) = ?`, value)
+    return related.length > 0 ? related[0].id : null
+  })
+  return items.length > 1 ? related_ids : related_ids[0]
+}
+
+const processValue = async(trx, imp, key, value) => {
+  const field = _.find(imp.get('mapping'), ['field', key])
+  if(field.type === 'upload') {
+    return value.length > 0 ? await getAssetId(trx, value, imp) : null
+  }
+  if(field.type === 'relation') {
+    return await findRelatedIds(trx, field, value, imp)
+  }
+  return value
 }
 
 const mergeRecords = (item, duplicate, strategy) => {
@@ -90,35 +110,7 @@ const processor = async (job, trx) => {
     const src_values = item.get('values')
 
     const values = await Promise.reduce(Object.keys(src_values), async (values, key) => {
-
-      const { type, relation, relationcolumn, relationtypeid } = _.find(mapping, ['field', key])
-
-      if(type === 'upload' && src_values[key].length > 0) {
-
-        const asset = await getAsset(trx, src_values[key], imp)
-
-        values[key] = asset ? asset.id : null
-
-      } else if(type === 'relation') {
-
-        const items = src_values[key].split(',')
-
-        const related_ids = await Promise.mapSeries(items, async (item, index) => {
-          const value = item.toString().toLowerCase().trim()
-          const related_id = await findRelatedId(trx, relation, relationcolumn, value, imp.get('team_id'), relationtypeid)
-          return related_id
-        })
-
-        values[key] = items.length > 1 ? related_ids : related_ids[0]
-
-      } else {
-
-        values[key] = src_values[key]
-
-      }
-
-      return values
-
+      await processValue(trx, imp, key, src_values[key])
     }, [] )
 
     const primary_key = job.data.primaryKey
