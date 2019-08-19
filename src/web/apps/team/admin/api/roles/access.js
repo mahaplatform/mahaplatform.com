@@ -1,4 +1,3 @@
-import knex from '../../../../../core/services/knex'
 import Right from '../../../../maha/models/right'
 import Role from '../../../../maha/models/role'
 import App from '../../../../maha/models/app'
@@ -19,7 +18,7 @@ const accessRoute = async (req, res) => {
   })
 
   const apps = await App.query(qb => {
-    qb.select(knex.raw('distinct on (maha_apps.id) maha_apps.*, maha_roles_apps.role_id is not null as installed'))
+    qb.select(req.trx.raw('distinct on (maha_apps.id) maha_apps.*, maha_roles_apps.role_id is not null as installed'))
     qb.joinRaw('inner join maha_installations on maha_installations.app_id = maha_apps.id and maha_installations.team_id = ?', req.team.get('id'))
     qb.joinRaw('left join maha_roles_apps on maha_roles_apps.app_id = maha_apps.id and maha_roles_apps.role_id = ?', role.get('id'))
     qb.orderByRaw('maha_apps.id asc, maha_roles_apps.role_id asc')
@@ -28,7 +27,7 @@ const accessRoute = async (req, res) => {
   })
 
   const rights = await Right.query(qb => {
-    qb.select(knex.raw('distinct on (maha_rights.id) maha_rights.*, maha_roles_rights.role_id is not null as assigned'))
+    qb.select(req.trx.raw('distinct on (maha_rights.id) maha_rights.*, maha_roles_rights.role_id is not null as assigned'))
     qb.joinRaw('left join maha_roles_rights on maha_roles_rights.right_id = maha_rights.id and maha_roles_rights.role_id = ?', role.get('id'))
     qb.orderByRaw('maha_rights.id asc, maha_roles_rights.role_id asc')
   }).fetchAll({

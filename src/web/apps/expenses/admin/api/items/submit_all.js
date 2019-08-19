@@ -2,7 +2,6 @@ import { notifications } from '../../../../../core/services/routes/notifications
 import { audit } from '../../../../../core/services/routes/audit'
 import ItemSerializer from '../../../serializers/item_serializer'
 import socket from '../../../../../core/services/routes/emitter'
-import knex from '../../../../../core/services/knex'
 import Item from '../../../models/item'
 
 const types = ['advance','check','expense','reimbursement','trip']
@@ -32,9 +31,11 @@ const submitAllRoute = async (req, res) => {
   }), {})
 
   await Promise.map(Object.keys(models), async type => {
-    await knex(`expenses_${type}s`).transacting(req.trx).whereIn('id', models[type]).update({
-      status_id: 3
-    })
+    await req.trx(`expenses_${type}s`)
+      .whereIn('id', models[type])
+      .update({
+        status_id: 3
+      })
   })
 
   await audit(req, items.map(item => ({

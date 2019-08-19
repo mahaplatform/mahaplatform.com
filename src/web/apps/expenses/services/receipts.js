@@ -1,4 +1,3 @@
-import knex from '../../../core/services/knex'
 import Receipt from '../models/receipt'
 import _ from 'lodash'
 
@@ -8,7 +7,7 @@ export const createReceipts = async (req, { type, item, receipt_ids }) => {
 
   if(_.isEqual(receipt_ids.sort(), item.get('receipt_ids').sort())) return
 
-  await knex('expenses_receipts').transacting(req.trx).where({
+  await req.trx('expenses_receipts').where({
     [`${type}_id`]: item.get('id')
   }).del()
 

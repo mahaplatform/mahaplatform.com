@@ -1,6 +1,5 @@
 import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
-import knex from '../../../../../../core/services/knex'
 import Commitment from '../../../../models/commitment'
 import Plan from '../../../../models/plan'
 
@@ -19,7 +18,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load plan'
   })
 
-  await knex('competencies_commitments').transacting(req.trx).where({
+  await req.trx('competencies_commitments').where({
     plan_id: req.params.plan_id
   }).delete()
 

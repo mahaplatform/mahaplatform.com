@@ -2,7 +2,6 @@ import { notifications } from '../../../../../core/services/routes/notifications
 import { audit } from '../../../../../core/services/routes/audit'
 import BatchSerializer from '../../../serializers/batch_serializer'
 import socket from '../../../../../core/services/routes/emitter'
-import knex from '../../../../../core/services/knex'
 import Batch from '../../../models/batch'
 import Item from '../../../models/item'
 import moment from 'moment'
@@ -52,10 +51,12 @@ const createRoute = async (req, res) => {
   }), {})
 
   await Promise.map(Object.keys(models), async type => {
-    await knex(`expenses_${type}s`).transacting(req.trx).whereIn('id', models[type]).update({
-      batch_id: batch.get('id'),
-      status_id: 7
-    })
+    await req.trx(`expenses_${type}s`)
+      .whereIn('id', models[type])
+      .update({
+        batch_id: batch.get('id'),
+        status_id: 7
+      })
   })
 
   const items = await Item.query(query).fetchAll({

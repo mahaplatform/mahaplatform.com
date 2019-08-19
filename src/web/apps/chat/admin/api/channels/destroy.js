@@ -1,5 +1,4 @@
 import socket from '../../../../../core/services/routes/emitter'
-import knex from '../../../../../core/services/knex'
 import Channel from '../../../models/channel'
 
 const destroyRoute = async (req, res) => {
@@ -15,39 +14,39 @@ const destroyRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await knex('maha_stars').transacting(req.trx).where({
+  await req.trx('maha_stars').where({
     starrable_type: 'chat_channels',
     starrable_id: req.params.id
   }).delete()
 
-  await knex('chat_channels').transacting(req.trx).where({
+  await req.trx('chat_channels').where({
     id: req.params.id
   }).update({
     last_message_id: null
   })
 
-  await knex('chat_subscriptions').transacting(req.trx).where({
+  await req.trx('chat_subscriptions').where({
     channel_id: req.params.id
   }).delete()
 
-  await knex('chat_messages').transacting(req.trx).whereNotNull('quoted_message_id').update({
+  await req.trx('chat_messages').whereNotNull('quoted_message_id').update({
     quoted_message_id: null
   })
-  const messages = await knex('chat_messages').transacting(req.trx).where({
+  const messages = await req.trx('chat_messages').where({
     channel_id: req.params.id
   })
 
   const message_ids = messages.map(message => message.id)
 
-  await knex('maha_stars').transacting(req.trx).where({
+  await req.trx('maha_stars').where({
     starrable_type: 'chat_messages'
   }).whereIn('starrable_id', message_ids).delete()
 
-  await knex('maha_reactions').transacting(req.trx).where({
+  await req.trx('maha_reactions').where({
     reactable_type: 'chat_messages'
   }).whereIn('reactable_type', message_ids).delete()
 
-  await knex('chat_messages').transacting(req.trx).where({
+  await req.trx('chat_messages').where({
     channel_id: req.params.id
   }).delete()
 

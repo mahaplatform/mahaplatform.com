@@ -1,5 +1,4 @@
 import Fulfillment from '../models/fulfillment'
-import knex from '../../../core/services/knex'
 import Training from '../models/training'
 
 export const chooseOption = async (req, assignment, params) => {
@@ -18,7 +17,7 @@ export const chooseOption = async (req, assignment, params) => {
     transacting: req.trx
   }).then (result => result.toArray())
 
-  await knex('training_fulfillments').transacting(req.trx).where({
+  await req.trx('training_fulfillments').where({
     assignment_id: assignment.get('id')
   }).del()
 

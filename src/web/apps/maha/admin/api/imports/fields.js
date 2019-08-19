@@ -1,8 +1,13 @@
-import knex from '../../../../../core/services/knex'
 
 const fieldsRoute = async (req, res) => {
 
-  const table_constraints = await knex.raw('SELECT ccu.table_name, kcu.column_name FROM information_schema.table_constraints tc JOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name AND tc.table_schema = kcu.table_schema JOIN information_schema.constraint_column_usage AS ccu ON ccu.constraint_name = tc.constraint_name AND ccu.table_schema = tc.table_schema where constraint_type = ? AND tc.table_name = ?', ['FOREIGN KEY', req.params.tablename]).transacting(req.trx)
+  const table_constraints = await req.trx.raw(`
+    SELECT ccu.table_name, kcu.column_name
+    FROM information_schema.table_constraints tc
+    INNER JOIN information_schema.key_column_usage kcu ON tc.constraint_name = kcu.constraint_name AND tc.table_schema = kcu.table_schema
+    INNER JOIN information_schema.constraint_column_usage AS ccu ON ccu.constraint_name = tc.constraint_name AND ccu.table_schema = tc.table_schema
+    WHERE constraint_type = ? AND tc.table_name = ?
+  `, ['FOREIGN KEY', req.params.tablename])
 
   const constraints = table_constraints.rows.reduce((table_constraints, table_constraint) => ({
     ...table_constraints,
@@ -12,7 +17,11 @@ const fieldsRoute = async (req, res) => {
     }
   }), {})
 
-  const fields = await knex.raw(`select * from information_schema.columns where table_name='${req.params.tablename}'`).transacting(req.trx)
+  const fields = await req.trx.raw(`
+    SELECT *
+    FROM information_schema.columns
+    WHERE table_name=?
+  `, req.params.tablename)
 
   res.status(200).respond(fields.rows.map(field => ({
     name: field.column_name,

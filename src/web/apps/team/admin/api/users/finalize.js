@@ -1,7 +1,6 @@
 import generateCode from '../../../../../core/utils/generate_code'
 import ImportItem from '../../../../maha/models/import_item'
 import { sendUserActivation } from '../../../services/users'
-import knex from '../../../../../core/services/knex'
 import User from '../../../../maha/models/user'
 
 const finalizeRoute = async (req, res) => {
@@ -15,21 +14,21 @@ const finalizeRoute = async (req, res) => {
   await Promise.mapSeries(items, async (item) => {
 
     await Promise.mapSeries(req.body.group_ids, async (group_id) => {
-      await knex('maha_users_groups').transacting(req.trx).insert({
+      await req.trx('maha_users_groups').insert({
         group_id,
         user_id: item.get('object_id')
       })
     })
 
     await Promise.mapSeries(req.body.role_ids, async (role_id) => {
-      await knex('maha_users_roles').transacting(req.trx).insert({
+      await req.trx('maha_users_roles').insert({
         role_id,
         user_id: item.get('object_id')
       })
     })
 
     await Promise.mapSeries(req.body.supervisor_ids, async (supervisor_id) => {
-      await knex('maha_supervisions').transacting(req.trx).insert({
+      await req.trx('maha_supervisions').insert({
         supervisor_id,
         employee_id: item.get('object_id')
       })

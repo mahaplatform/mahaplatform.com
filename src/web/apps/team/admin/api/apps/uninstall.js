@@ -1,7 +1,6 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import socket from '../../../../../core/services/routes/emitter'
 import Installation from '../../../../maha/models/installation'
-import knex from '../../../../../core/services/knex'
 import Right from '../../../../maha/models/right'
 import Role from '../../../../maha/models/role'
 
@@ -26,9 +25,10 @@ const uninstallRoute = async (req, res) => {
 
     const role_ids = roles.map(role => role.id)
 
-    await knex('maha_roles_apps').transacting(req.trx).where({
-      app_id: req.params.id
-    }).whereIn('role_id', role_ids).delete()
+    await req.trx('maha_roles_apps')
+      .where('app_id', req.params.id)
+      .whereIn('role_id', role_ids)
+      .delete()
 
     const rights = await Right.where({
       app_id: req.params.id
@@ -40,7 +40,10 @@ const uninstallRoute = async (req, res) => {
 
       const right_ids = rights.map(right => right.id)
 
-      await knex('maha_roles_rights').transacting(req.trx).whereIn('right_id', right_ids).whereIn('role_id', role_ids).delete()
+      await req.trx('maha_roles_rights')
+        .whereIn('right_id', right_ids)
+        .whereIn('role_id', role_ids)
+        .delete()
 
     }
 

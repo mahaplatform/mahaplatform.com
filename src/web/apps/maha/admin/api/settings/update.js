@@ -1,5 +1,4 @@
 import { activity } from '../../../../../core/services/routes/activities'
-import knex from '../../../../../core/services/knex'
 import App from '../../../../maha/models/app'
 
 const showRoute = async (req, res) => {
@@ -9,11 +8,11 @@ const showRoute = async (req, res) => {
     message: 'Unable to find app'
   })
 
-  await knex('maha_installations').transacting(req.trx).where({
-    app_id: req.apps[req.params.code].id
-  }).update({
-    settings: req.body.settings
-  })
+  await req.trx('maha_installations')
+    .where('app_id', req.apps[req.params.code].id)
+    .update({
+      settings: req.body.settings
+    })
 
   const app = await App.where({
     id: req.apps.expenses.id

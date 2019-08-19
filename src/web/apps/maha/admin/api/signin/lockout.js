@@ -31,7 +31,7 @@ const lockoutRoute = async (req, res) => {
 
   const token = createUserToken(user, 'reset_id')
 
-  await sendAlert(req, req.trx, user, 'maha:lockout', {
+  await sendAlert(req, user, 'maha:lockout', {
     first_name: user.get('first_name'),
     reset_url: `${process.env.WEB_HOST}/admin/reset/${token}`
   })

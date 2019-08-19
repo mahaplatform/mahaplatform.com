@@ -7,7 +7,6 @@ import generateCode from '../../../core/utils/generate_code'
 import socket from '../../../core/services/emitter'
 import Subscription from '../models/subscription'
 import MessageType from '../models/message_type'
-import knex from '../../../core/services/knex'
 import User from '../../maha/models/user'
 import Channel from '../models/channel'
 import Message from '../models/message'
@@ -128,14 +127,14 @@ export const sendMessage = async (req, params) => {
 
   const message = await createMessage(req, { channel_id, type, text })
 
-  await knex('chat_subscriptions').transacting(req.trx).where({
+  await req.trx('chat_subscriptions').where({
     user_id: req.user.get('id'),
     channel_id
   }).update({
     last_viewed_at: moment()
   })
 
-  await knex('chat_channels').transacting(req.trx).where({
+  await req.trx('chat_channels').where({
     id: channel_id
   }).update({
     last_message_id: message.get('id'),
@@ -152,7 +151,7 @@ export const sendMessage = async (req, params) => {
 
   const serialized = MessageSerializer(req, message)
 
-  const users = await knex('maha_users').transacting(req.trx)
+  const users = await req.trx('maha_users')
     .select('maha_users.*')
     .innerJoin('chat_subscriptions', 'chat_subscriptions.user_id', 'maha_users.id')
     .where('chat_subscriptions.channel_id', channel_id)

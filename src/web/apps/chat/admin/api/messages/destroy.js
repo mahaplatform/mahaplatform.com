@@ -1,5 +1,4 @@
 import socket from '../../../../../core/services/routes/emitter'
-import knex from '../../../../../core/services/knex'
 import User from '../../../../maha/models/user'
 import Message from '../../../models/message'
 
@@ -28,23 +27,23 @@ const destroyRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await knex('chat_subscriptions').transacting(req.trx).where({
+  await req.trx('chat_subscriptions').where({
     last_message_id: message.get('id')
   }).update({
     last_message_id: last_message ? last_message.get('id') : null
   })
 
-  await knex('chat_channels').transacting(req.trx).where({
+  await req.trx('chat_channels').where({
     last_message_id: message.get('id')
   }).update({
     last_message_id: last_message ? last_message.get('id') : null
   })
 
-  await knex('maha_stars').transacting(req.trx).where({
+  await req.trx('maha_stars').where({
     starrable_type: 'chat_messages'
   }).where('starrable_id', message.get('id')).delete()
 
-  await knex('maha_reactions').transacting(req.trx).where({
+  await req.trx('maha_reactions').where({
     reactable_type: 'chat_messages'
   }).where('reactable_type', message.get('id')).delete()
 

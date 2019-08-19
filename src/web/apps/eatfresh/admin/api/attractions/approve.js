@@ -2,7 +2,6 @@ import { notifications } from '../../../../../core/services/routes/notifications
 import AttractionSerializer from '../../../serializers/attraction_serializer'
 import { activity } from '../../../../../core/services/routes/activities'
 import socket from '../../../../../core/services/routes/emitter'
-import knex from '../../../../../core/services/knex'
 import Attraction from '../../../models/attraction'
 import User from '../../../../maha/models/user'
 
@@ -30,7 +29,7 @@ const approveRoute = async (req, res) => {
   const recipient_ids = await User.scope({
     team: req.team
   }).query(qb => {
-    qb.select(knex.raw('distinct on (maha_users.id, maha_users.first_name, maha_users.last_name, maha_users.email) maha_users.*'))
+    qb.select(req.trx.raw('distinct on (maha_users.id, maha_users.first_name, maha_users.last_name, maha_users.email) maha_users.*'))
     qb.innerJoin('maha_users_roles', 'maha_users_roles.user_id', 'maha_users.id')
     qb.innerJoin('maha_roles_apps', 'maha_roles_apps.role_id', 'maha_users_roles.role_id')
     qb.where('maha_roles_apps.app_id', 4)

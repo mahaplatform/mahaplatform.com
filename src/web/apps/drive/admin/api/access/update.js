@@ -1,10 +1,9 @@
 import socket from '../../../../../core/services/routes/emitter'
-import knex from '../../../../../core/services/knex'
 import _ from 'lodash'
 
 const updateAccess = async (req, accesses, item) => {
 
-  const current = await knex('drive_access').transacting(req.trx).where({
+  const current = await req.trx('drive_access').where({
     code: item.code
   })
 
@@ -18,7 +17,7 @@ const updateAccess = async (req, accesses, item) => {
 
     if(!existing && access.access_type_id !== null) {
 
-      await knex('drive_access').transacting(req.trx).insert({
+      await req.trx('drive_access').insert({
         team_id: item.team_id,
         code: item.code,
         grouping_id: access.grouping_id,
@@ -29,13 +28,13 @@ const updateAccess = async (req, accesses, item) => {
 
     } else if(existing && access.access_type_id === null) {
 
-      await knex('drive_access').transacting(req.trx).where({
+      await req.trx('drive_access').where({
         id: existing.id
       }).delete()
 
     } else if(existing && existing.access_type_id !== access.access_type_id) {
 
-      await knex('drive_access').transacting(req.trx).where({
+      await req.trx('drive_access').where({
         id: existing.id
       }).update({
         access_type_id: access.access_type_id
@@ -47,7 +46,7 @@ const updateAccess = async (req, accesses, item) => {
 
   if(item.type !== 'folder') return
 
-  const items = await knex('drive_items').transacting(req.trx).where({
+  const items = await req.trx('drive_items').where({
     folder_id: item.item_id
   })
 
@@ -59,7 +58,7 @@ const updateAccess = async (req, accesses, item) => {
 
 const updateRoute = async (req, res) => {
 
-  const item = await knex('drive_items').transacting(req.trx).where({
+  const item = await req.trx('drive_items').where({
     code: req.params.code
   })
 

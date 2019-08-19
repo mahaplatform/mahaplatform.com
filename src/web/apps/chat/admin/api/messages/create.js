@@ -4,7 +4,6 @@ import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
 import Attachment from '../../../../maha/models/attachment'
 import { getUnread } from '../../../services/messages'
-import knex from '../../../../../core/services/knex'
 import User from '../../../../maha/models/user'
 import Message from '../../../models/message'
 import moment from 'moment'
@@ -22,7 +21,7 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await knex('chat_subscriptions').transacting(req.trx).where({
+  await req.trx('chat_subscriptions').where({
     channel_id: req.params.channel_id,
     user_id: req.user.get('id')
   }).update({
@@ -30,7 +29,7 @@ const createRoute = async (req, res) => {
     last_viewed_at: moment()
   })
 
-  await knex('chat_channels').transacting(req.trx).where({
+  await req.trx('chat_channels').where({
     id: req.params.channel_id
   }).update({
     last_message_id: message.get('id'),

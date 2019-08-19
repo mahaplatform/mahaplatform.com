@@ -2,7 +2,6 @@ import ChannelSerializer from '../../../serializers/channel_serializer'
 import socket from '../../../../../core/services/routes/emitter'
 import { sendMessage } from '../../../services/channels'
 import Subscription from '../../../models/subscription'
-import knex from '../../../../../core/services/knex'
 import User from '../../../../maha/models/user'
 import Channel from '../../../models/channel'
 import { toOxfordList } from '../../utils'
@@ -30,7 +29,7 @@ const updateRoute = async (req, res) => {
 
   if(add_ids.length > 0) {
 
-    await knex('chat_subscriptions').transacting(req.trx).insert(add_ids.map(user_id => ({
+    await req.trx('chat_subscriptions').insert(add_ids.map(user_id => ({
       team_id: req.team.get('id'),
       channel_id: req.params.id,
       user_id,
@@ -57,7 +56,7 @@ const updateRoute = async (req, res) => {
 
   if(delete_ids.length > 0) {
 
-    await knex('chat_subscriptions').transacting(req.trx).where({
+    await req.trx('chat_subscriptions').where({
       channel_id: req.params.id
     }).whereIn('user_id', delete_ids).delete()
 

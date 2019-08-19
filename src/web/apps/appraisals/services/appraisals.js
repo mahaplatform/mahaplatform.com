@@ -1,6 +1,5 @@
 import { whitelist } from '../../../core/services/routes/params'
 import Responsibility from '../models/responsibility'
-import knex from '../../../core/services/knex'
 import _ from 'lodash'
 
 export const updateResponsibilities = async (req, appraisal, params) => {
@@ -12,7 +11,7 @@ export const updateResponsibilities = async (req, appraisal, params) => {
   })
 
   if(delete_ids) {
-    await knex('appraisals_responsibilities').transacting(req.trx).whereIn('id', delete_ids).del()
+    await req.trx('appraisals_responsibilities').whereIn('id', delete_ids).del()
   }
 
   if(req.body.responsibilities) {

@@ -1,7 +1,6 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import SiteSerializer from '../../../serializers/site_serializer'
 import socket from '../../../../../core/services/routes/emitter'
-import knex from '../../../../../core/services/knex'
 import Origin from '../../../models/origin'
 import Site from '../../../models/site'
 
@@ -18,7 +17,9 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load site'
   })
 
-  await knex('sites_origins').transacting(req.trx).where('site_id', req.params.id).delete()
+  await req.trx('sites_origins')
+    .where('site_id', req.params.id)
+    .delete()
 
   await Promise.mapSeries(req.body.origins.split('\n'), async(name) => {
     Origin.forge({

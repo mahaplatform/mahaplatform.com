@@ -1,6 +1,5 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import socket from '../../../../../core/services/routes/emitter'
-import knex from '../../../../../core/services/knex'
 import Role from '../../../../maha/models/role'
 
 const destroyRoute = async (req, res) => {
@@ -19,17 +18,11 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load role'
   })
 
-  await knex('maha_roles_apps').transacting(req.trx).where({
-    role_id: role.get('id')
-  }).del()
+  await req.trx('maha_roles_apps').where('role_id', role.get('id')).delete()
 
-  await knex('maha_roles_rights').transacting(req.trx).where({
-    role_id: role.get('id')
-  }).del()
+  await req.trx('maha_roles_rights').where('role_id', role.get('id')).delete()
 
-  await knex('maha_users_roles').transacting(req.trx).where({
-    role_id: role.get('id')
-  }).del()
+  await req.trx('maha_users_roles').where('role_id', role.get('id')).delete()
 
   const channels = [
     '/admin/team/roles',

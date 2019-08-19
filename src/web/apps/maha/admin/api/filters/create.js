@@ -1,7 +1,6 @@
 import { whitelist } from '../../../../../core/services/routes/params'
 import FilterSerializer from '../../../serializers/filter_serializer'
 import socket from '../../../../../core/services/routes/emitter'
-import knex from '../../../../../core/services/knex'
 import Filter from '../../../models/filter'
 import moment from 'moment'
 
@@ -18,7 +17,7 @@ const createRoute = async (req, res) => {
 
   if(req.body.accesses) {
     await Promise.map(req.body.accesses, async access => {
-      await knex('maha_filter_accesses').transacting(req.trx).insert({
+      await req.trx('maha_filter_accesses').insert({
         team_id: req.team.get('id'),
         filter_id: filter.get('id'),
         grouping_id: access.grouping_id,

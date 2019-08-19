@@ -1,6 +1,5 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import socket from '../../../../../core/services/routes/emitter'
-import knex from '../../../../../core/services/knex'
 import Trip from '../../../models/trip'
 
 const destroyRoute = async (req, res) => {
@@ -18,9 +17,15 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load trip'
   })
 
-  await knex('maha_audits').transacting(req.trx).where('auditable_type', 'maha_expenses').where('auditable_id', req.params.id).delete()
+  await req.trx('maha_audits')
+    .where('auditable_type', 'maha_expenses')
+    .where('auditable_id', req.params.id)
+    .delete()
 
-  await knex('maha_comments').transacting(req.trx).where('commentable_type', 'maha_expenses').where('commentable_id', req.params.id).delete()
+  await req.trx('maha_comments')
+    .where('commentable_type', 'maha_expenses')
+    .where('commentable_id', req.params.id)
+    .delete()
 
   await activity(req, {
     story: 'deleted {object}',

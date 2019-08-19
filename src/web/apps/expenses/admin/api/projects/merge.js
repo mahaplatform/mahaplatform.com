@@ -1,6 +1,5 @@
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
-import knex from '../../../../../core/services/knex'
 import Project from '../../../models/project'
 import moment from 'moment'
 
@@ -9,18 +8,18 @@ const models = ['advance','check','expense','reimbursement','trip']
 const mergeRoute = async (req, res) => {
 
   await Promise.map(models, async model => {
-    await knex(`expenses_${model}s`).transacting(req.trx).where({
+    await req.trx(`expenses_${model}s`).where({
       project_id: req.params.id
     }).update({
       project_id: req.body.project_id
     })
   })
 
-  const members = await knex('expenses_members').transacting(req.trx).where({
+  const members = await req.trx('expenses_members').where({
     project_id: req.params.id
   })
 
-  const new_members = await knex('expenses_members').transacting(req.trx).where({
+  const new_members = await req.trx('expenses_members').where({
     project_id: req.body.project_id
   })
 
@@ -29,7 +28,7 @@ const mergeRoute = async (req, res) => {
       return new_member.user_id === member.user_id
     })
     if(!exisiting) {
-      await knex('expenses_members').transacting(req.trx).insert({
+      await req.trx('expenses_members').insert({
         team_id: req.team.get('id'),
         project_id: req.body.project_id,
         user_id: member.user_id,
@@ -38,7 +37,7 @@ const mergeRoute = async (req, res) => {
         updated_at: moment()
       })
     } else if(exisiting.member_type_id > member.member_type_id) {
-      await knex('expenses_members').transacting(req.trx).where({
+      await req.trx('expenses_members').where({
         team_id: req.team.get('id'),
         project_id: req.body.project_id,
         user_id: exisiting.user_id,
@@ -51,16 +50,16 @@ const mergeRoute = async (req, res) => {
     }
   })
 
-  await knex('expenses_members').transacting(req.trx).where({
+  await req.trx('expenses_members').where({
     project_id: req.params.id
   }).del()
 
-  await knex('maha_audits').transacting(req.trx).where({
+  await req.trx('maha_audits').where({
     auditable_type: 'expenses_projects',
     auditable_id: req.params.id
   }).del()
 
-  await knex('expenses_projects').transacting(req.trx).where({
+  await req.trx('expenses_projects').where({
     id: req.params.id
   }).del()
 

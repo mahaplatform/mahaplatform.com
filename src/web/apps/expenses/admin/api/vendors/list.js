@@ -1,5 +1,4 @@
 import VendorSerializer from '../../../serializers/vendor_serializer'
-import knex from '../../../../../core/services/knex'
 import Vendor from '../../../models/vendor'
 
 const listRoute = async (req, res) => {
@@ -7,7 +6,7 @@ const listRoute = async (req, res) => {
   const vendors = await Vendor.scope({
     team: req.team
   }).query(qb => {
-    qb.select(knex.raw('expenses_vendors.*, count(expenses_items.*) as items_count'))
+    qb.select(req.trx.raw('expenses_vendors.*, count(expenses_items.*) as items_count'))
     qb.leftJoin('expenses_items', 'expenses_items.vendor_id', 'expenses_vendors.id')
     qb.groupBy('expenses_vendors.id')
   }).filter({

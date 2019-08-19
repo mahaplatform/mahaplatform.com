@@ -4,7 +4,6 @@ import { audit } from '../../../core/services/routes/audit'
 import { createReceipts } from '../services/receipts'
 import Reimbursement from '../models/reimbursement'
 import { completeItem } from '../services/items'
-import knex from '../../../core/services/knex'
 
 export const createReimbursement = async (req, params) => {
 
@@ -77,11 +76,11 @@ export const updateReimbursement = async (req, reimbursement, params) => {
 
 export const destroyReimbursement = async (req, reimbursement) => {
 
-  await knex('expenses_receipts').transacting(req.trx).where('reimbursement_id', reimbursement.get('id')).delete()
+  await req.trx('expenses_receipts').where('reimbursement_id', reimbursement.get('id')).delete()
 
-  await knex('maha_audits').transacting(req.trx).where('auditable_type', 'expenses_reimbursements').where('auditable_id', reimbursement.get('id')).delete()
+  await req.trx('maha_audits').where('auditable_type', 'expenses_reimbursements').where('auditable_id', reimbursement.get('id')).delete()
 
-  await knex('maha_comments').transacting(req.trx).where('commentable_type', 'expenses_reimbursements').where('commentable_id', reimbursement.get('id')).delete()
+  await req.trx('maha_comments').where('commentable_type', 'expenses_reimbursements').where('commentable_id', reimbursement.get('id')).delete()
 
   await activity(req, {
     story: 'deleted {object}',

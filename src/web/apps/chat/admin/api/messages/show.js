@@ -2,7 +2,6 @@ import MessageSerializer from '../../../serializers/message_serializer'
 import socket from '../../../../../core/services/routes/emitter'
 import Subscription from '../../../models/subscription'
 import { getUnread } from '../../../services/messages'
-import knex from '../../../../../core/services/knex'
 import User from '../../../../maha/models/user'
 import Message from '../../../models/message'
 import moment from 'moment'
@@ -23,7 +22,7 @@ const showRoute = async (req, res) => {
     message: 'Unable to load message'
   })
 
-  await knex('chat_subscriptions').transacting(req.trx).where({
+  await req.trx('chat_subscriptions').where({
     channel_id: req.params.channel_id,
     user_id: req.user.get('id')
   }).update({

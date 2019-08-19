@@ -1,14 +1,11 @@
 import { activity } from '../../../../../../core/services/routes/activities'
 import socket from '../../../../../../core/services/routes/emitter'
-import knex from '../../../../../../core/services/knex'
 
 const subscriptionsRoute = async (req, res) => {
 
-  await knex('maha_users_alerts').transacting('trx').where({
-    user_id: req.user.get('id')
-  }).delete()
+  await req.trx('maha_users_alerts').where('user_id', req.user.get('id')).del()
 
-  await knex('maha_users_alerts').transacting('trx').insert(req.body.ignored.map(alert_id => ({
+  await req.trx('maha_users_alerts').insert(req.body.ignored.map(alert_id => ({
     user_id: req.user.get('id'),
     alert_id
   })))

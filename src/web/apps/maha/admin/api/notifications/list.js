@@ -1,7 +1,6 @@
 import NotificationSerializer from '../../../serializers/notification_serializer'
 import socket from '../../../../../core/services/routes/emitter'
 import Notification from '../../../models/notification'
-import knex from '../../../../../core/services/knex'
 
 const listRoute = async (req, res) => {
 
@@ -21,11 +20,11 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await knex('maha_notifications').transacting(req.trx).where({
-    user_id: req.user.get('id')
-  }).update({
-    is_seen: true
-  })
+  await req.trx('maha_notifications')
+    .where('user_id', req.user.get('id'))
+    .update({
+      is_seen: true
+    })
 
   await socket.refresh(req, {
     channel: '/notifications/unread',

@@ -1,10 +1,7 @@
-import knex from '../../../../../../core/services/knex'
-
 const showRoute = async (req, res) => {
 
-  const user_notificaton_types = await knex('maha_users_notification_types').transacting(req.trx).where({
-    user_id: req.user.get('id')
-  })
+  const user_notificaton_types = await req.trx('maha_users_notification_types')
+    .where('user_id', req.user.get('id'))
 
   res.status(200).respond({
     notifications_enabled: req.user.get('notifications_enabled'),

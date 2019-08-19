@@ -3,7 +3,6 @@ import { createUserToken } from '../../../../../core/utils/user_tokens'
 import collectObjects from '../../../../../core/utils/collect_objects'
 import getUserAccess from '../../../../../core/utils/get_user_access'
 import { createSession } from '../../../services/sessions'
-import knex from '../../../../../core/services/knex'
 import signer from '../../../../../core/services/signer'
 import Session from '../../../models/session'
 import Device from '../../../models/device'
@@ -43,7 +42,7 @@ const _findOrCreateSession = async (req) => {
     transacting: req.trx
   })
   if(session) return session
-  return await createSession(req, req.trx)
+  return await createSession(req)
 }
 
 const showRoute = async (req, res) => {
@@ -82,9 +81,8 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  session.notification_types = await knex('maha_users_notification_types')
-    .transacting(req.trx)
-    .select(knex.raw('maha_apps.code as appCode, maha_notification_types.code as notificationCode, maha_users_notification_types.*'))
+  session.notification_types = await req.trx('maha_users_notification_types')
+    .select(req.trx.raw('maha_apps.code as appCode, maha_notification_types.code as notificationCode, maha_users_notification_types.*'))
     .where('user_id', req.user.get('id'))
     .innerJoin('maha_notification_types', 'maha_notification_types.id', 'maha_users_notification_types.notification_type_id')
     .innerJoin('maha_apps', 'maha_apps.id', 'maha_notification_types.app_id')

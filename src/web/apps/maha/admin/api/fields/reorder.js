@@ -1,14 +1,15 @@
 import socket from '../../../../../core/services/routes/emitter'
-import knex from '../../../../../core/services/knex'
 
 const reorderRoute = async (req, res) => {
 
-  const fields = await knex('maha_fields').transacting(req.trx).where(qb => {
-    qb.where('parent_type', req.params.parent_type)
-    if(req.params.parent_id) {
-      qb.where('parent_id', req.params.parent_id)
-    }
-  }).orderBy('delta', 'asc')
+  const fields = await req.trx('maha_fields')
+    .where('parent_type', req.params.parent_type)
+    .where(qb => {
+      if(req.params.parent_id) {
+        qb.where('parent_id', req.params.parent_id)
+      }
+    })
+    .orderBy('delta', 'asc')
 
   await Promise.map(fields, async (field) => {
 
@@ -18,27 +19,27 @@ const reorderRoute = async (req, res) => {
 
     if(from < to && field.delta > from && field.delta <= to) {
 
-      await knex('maha_fields').transacting(req.trx).where({
-        id: field.id
-      }).update({
-        delta: field.delta - 1
-      })
+      await req.trx('maha_fields')
+        .where('id', field.id)
+        .update({
+          delta: field.delta - 1
+        })
 
     } else if(from > to && field.delta < from && field.delta >= to) {
 
-      await knex('maha_fields').transacting(req.trx).where({
-        id: field.id
-      }).update({
-        delta: field.delta + 1
-      })
+      await req.trx('maha_fields')
+        .where('id', field.id)
+        .update({
+          delta: field.delta + 1
+        })
 
     } else if(field.delta === from) {
 
-      await knex('maha_fields').transacting(req.trx).where({
-        id: field.id
-      }).update({
-        delta: to
-      })
+      await req.trx('maha_fields')
+        .where('id', field.id)
+        .update({
+          delta: to
+        })
 
     }
 

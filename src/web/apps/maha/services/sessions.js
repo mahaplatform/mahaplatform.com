@@ -4,7 +4,7 @@ import socket from '../../../core/services/emitter'
 import Session from '../models/session'
 import moment from 'moment'
 
-export const createSession = async (req, trx) => {
+export const createSession = async (req) => {
 
   const code = await generateCode(req, {
     table: 'maha_sessions'
@@ -17,10 +17,10 @@ export const createSession = async (req, trx) => {
     last_active_at: moment(),
     code
   }).save(null, {
-    transacting: trx
+    transacting: req.trx
   })
 
-  await sendAlert(req, trx, req.user, 'maha:new_session', {
+  await sendAlert(req, req.user, 'maha:new_session', {
     first_name: req.user.get('first_name'),
     signin_at: moment().format('h:mm A'),
     icon: req.device.get('icon'),

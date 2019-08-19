@@ -1,6 +1,5 @@
 import ItemSerializer from '../../../serializers/item_serializer'
 import Item from '../../../models/item'
-import knex from '../../../../../core/services/knex'
 
 const listRoute = async (req, res) => {
 
@@ -22,7 +21,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  req.starred = await knex('drive_starred').transacting(req.trx).where({
+  req.starred = await req.trx('drive_starred').where({
     starrer_id: req.user.get('id')
   }).then(stars => stars.map(star => {
     return star.code

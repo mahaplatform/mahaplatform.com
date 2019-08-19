@@ -1,5 +1,4 @@
 import socket from '../../../core/services/routes/emitter'
-import knex from '../../../core/services/knex'
 import Version from '../models/version'
 import Folder from '../models/folder'
 import Item from '../models/item'
@@ -28,14 +27,14 @@ export const restoreFromTrash = async (req, item) => {
 const _toggleDeletedAt = async (req, item, deleted_at) => {
 
   if(item.get('type') === 'file') {
-    return await knex('drive_files').transacting(req.trx).where({
+    return await req.trx('drive_files').where({
       id: item.get('item_id')
     }).update({
       deleted_at
     })
   }
 
-  await knex('drive_folders').transacting(req.trx).where({
+  await req.trx('drive_folders').where({
     id: item.get('item_id')
   }).update({
     deleted_at
@@ -57,7 +56,7 @@ export const deleteForever = async (req, item) => {
 
   if(item.get('type') === 'file') {
 
-    await knex('drive_files').transacting(req.trx).where({
+    await req.trx('drive_files').where({
       id: item.get('item_id')
     }).update({
       version_id: null
@@ -69,7 +68,7 @@ export const deleteForever = async (req, item) => {
       transacting: req.trx
     }).then(versions => versions.toArray())
 
-    await knex('drive_versions').transacting(req.trx).where({
+    await req.trx('drive_versions').where({
       file_id: item.get('item_id')
     }).update({
       asset_id: null
@@ -81,7 +80,7 @@ export const deleteForever = async (req, item) => {
       })
     })
 
-    return await knex('drive_files').transacting(req.trx).where({
+    return await req.trx('drive_files').where({
       id: item.get('item_id')
     }).delete()
 
@@ -97,7 +96,7 @@ export const deleteForever = async (req, item) => {
     await deleteForever(req, item)
   })
 
-  await knex('drive_folders').transacting(req.trx).where({
+  await req.trx('drive_folders').where({
     id: item.get('item_id')
   }).delete()
 
@@ -105,21 +104,21 @@ export const deleteForever = async (req, item) => {
 
 export const propagateAccess = async (req, folder) => {
 
-  const access = await knex('drive_access').transacting(req.trx).where({
+  const access = await req.trx('drive_access').where({
     code: folder.get('code')
   })
 
-  const items = await knex('drive_items').transacting(req.trx).where({
+  const items = await req.trx('drive_items').where({
     folder_id: folder.get('id')
   })
 
   await Promise.mapSeries(items, async item => {
 
-    await knex('drive_access').transacting(req.trx).where({
+    await req.trx('drive_access').where({
       code: item.code
     }).delete()
 
-    await knex('drive_access').transacting(req.trx).insert(access.map(access => ({
+    await req.trx('drive_access').insert(access.map(access => ({
       team_id: access.team_id,
       code: item.code,
       grouping: access.grouping,

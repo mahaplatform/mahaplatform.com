@@ -2,7 +2,6 @@ import ImportSerializer from '../../../../maha/serializers/import_serializer'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import ImportItem from '../../../../maha/models/import_item'
-import knex from '../../../../../core/services/knex'
 import Import from '../../../../maha/models/import'
 import Trip from '../../../models/trip'
 import moment from 'moment'
@@ -21,16 +20,15 @@ const finalizeRoute = async (req, res) => {
     transacting: req.trx
   }).then(items => items.toArray())
 
-  const rates = await knex('expenses_rates').then(rates => {
+  const rates = await req.trx('expenses_rates').then(rates => {
     return rates.reduce((rates, record) => ({
       ...rates,
       [record.year]: record.value
     }), {})
   })
 
-  const config = await knex('maha_installations')
-    .select(knex.raw('settings->\'trip_expense_type_id\' as expense_type'))
-    .transacting(req.trx)
+  const config = await req.trx('maha_installations')
+    .select(req.trx.raw('settings->\'trip_expense_type_id\' as expense_type'))
     .innerJoin('maha_apps', 'maha_apps.id', 'maha_installations.app_id' )
     .where({
       team_id: imp.get('team_id'),

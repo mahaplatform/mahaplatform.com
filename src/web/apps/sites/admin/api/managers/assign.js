@@ -1,12 +1,11 @@
 import ManagerSerializer from '../../../serializers/manager_serializer'
-import knex from '../../../../../core/services/knex'
 import Manager from '../../../models/manager'
 
 const assignRoute = async (req, res) => {
 
-  await knex('sites_managers').transacting(req.trx).where({
-    site_id: req.params.site_id
-  }).delete()
+  await req.trx('sites_managers')
+    .where('site_id', req.params.site_id)
+    .delete()
 
   const managers = await Promise.map(req.body.assignments, async assignment => {
 

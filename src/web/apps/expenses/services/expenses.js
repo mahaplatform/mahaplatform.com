@@ -3,7 +3,6 @@ import { whitelist } from '../../../core/services/routes/params'
 import { audit } from '../../../core/services/routes/audit'
 import { createReceipts } from '../services/receipts'
 import { completeItem } from '../services/items'
-import knex from '../../../core/services/knex'
 import Expense from '../models/expense'
 
 export const createExpense = async (req, params) => {
@@ -77,11 +76,11 @@ export const updateExpense = async (req, expense, params) => {
 
 export const destroyExpense = async (req, expense) => {
 
-  await knex('expenses_receipts').transacting(req.trx).where('expense_id', expense.get('id')).delete()
+  await req.trx('expenses_receipts').where('expense_id', expense.get('id')).delete()
 
-  await knex('maha_audits').transacting(req.trx).where('auditable_type', 'expenses_expenses').where('auditable_id', expense.get('id')).delete()
+  await req.trx('maha_audits').where('auditable_type', 'expenses_expenses').where('auditable_id', expense.get('id')).delete()
 
-  await knex('maha_comments').transacting(req.trx).where('commentable_type', 'expenses_expenses').where('commentable_id', expense.get('id')).delete()
+  await req.trx('maha_comments').where('commentable_type', 'expenses_expenses').where('commentable_id', expense.get('id')).delete()
 
   await activity(req, {
     story: 'deleted {object}',

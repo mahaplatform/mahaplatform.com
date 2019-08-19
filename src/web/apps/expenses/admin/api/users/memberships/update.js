@@ -1,7 +1,6 @@
 import { activity } from '../../../../../../core/services/routes/activities'
 import { audit } from '../../../../../../core/services/routes/audit'
 import socket from '../../../../../../core/services/routes/emitter'
-import knex from '../../../../../../core/services/knex'
 import User from '../../../../../maha/models/user'
 import Project from '../../../../models/project'
 import moment from 'moment'
@@ -15,7 +14,7 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const members = await knex('expenses_members').transacting(req.trx).where({
+  const members = await req.trx('expenses_members').where({
     user_id: req.params.user_id
   })
 
@@ -44,7 +43,7 @@ const updateRoute = async (req, res) => {
   }
 
   if(add) {
-    await knex('expenses_members').transacting(req.trx).insert(add.map(member => ({
+    await req.trx('expenses_members').insert(add.map(member => ({
       team_id: req.team.get('id'),
       user_id: req.params.user_id,
       ...member,
@@ -54,7 +53,7 @@ const updateRoute = async (req, res) => {
   }
 
   if(remove) {
-    await knex('expenses_members').transacting(req.trx).where({
+    await req.trx('expenses_members').where({
       user_id: req.params.user_id
     }).whereIn('project_id', remove.map(member => {
       return member.project_id
@@ -63,7 +62,7 @@ const updateRoute = async (req, res) => {
 
   if(update) {
     await Promise.mapSeries(update, async (member) => {
-      await knex('expenses_members').transacting(req.trx).where({
+      await req.trx('expenses_members').where({
         user_id: req.params.user_id,
         project_id: member.project_id
       }).update({

@@ -1,5 +1,4 @@
 import socket from '../../../../../core/services/routes/emitter'
-import knex from '../../../../../core/services/knex'
 import Field from '../../../models/field'
 
 const destroyRoute = async (req, res) => {
@@ -21,23 +20,25 @@ const destroyRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const fields = await knex('maha_fields').transacting(req.trx).where(qb => {
-    qb.where('parent_type', req.params.parent_type)
-    if(req.params.parent_id) {
-      qb.where('parent_id', req.params.parent_id)
-    }
-  }).orderBy('delta', 'asc')
+  const fields = await req.trx('maha_fields')
+    .where('parent_type', req.params.parent_type)
+    .where(qb => {
+      if(req.params.parent_id) {
+        qb.where('parent_id', req.params.parent_id)
+      }
+    })
+    .orderBy('delta', 'asc')
 
   await Promise.mapSeries(fields, async (field, delta) => {
-    await knex('maha_fields').transacting(req.trx).where({
-      id: field.id
-    }).update({
-      delta
-    })
+    await req.trx('maha_fields')
+      .where('id', field.id)
+      .update({ delta })
   })
 
   await socket.refresh(req, {
-    channel: req.params.parent_id ? `/admin/${req.params.parent_type}/${req.params.parent_id}/fields` : `/admin/${req.params.parent_type}/fields`
+    channel: req.params.parent_id ?
+      `/admin/${req.params.parent_type}/${req.params.parent_id}/fields` :
+      `/admin/${req.params.parent_type}/fields`
   })
 
   res.status(200).respond(true)

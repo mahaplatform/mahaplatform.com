@@ -4,13 +4,12 @@ import Notification from '../../../models/notification'
 const seenRoute = async (req, res) => {
 
   if(req.body.ids) {
-
-    await Notification.transacting(req.trx).query(qb => {
+    await Notification.query(qb => {
       qb.whereIn('id', req.body.ids)
-    }).update({
+    }).save(null, {
+      transacting: req.trx,
       is_seen: true
     })
-
   }
 
   await socket.refresh(req, {
