@@ -4,14 +4,15 @@ import React from 'react'
 
 const Details = ({ contact }) => {
 
+  // const email = { component: (
+  //   <div className="maha-list-item-highlight">
+  //     To add an email to this timeline, forward it to <strong>crm{ contact.code }@mahaplatform.com</strong>
+  //   </div>
+  // ) }
+
   const list = {}
 
   list.items = [
-    { component: (
-      <div className="maha-list-item-highlight">
-        To add an email to this timeline, forward it to <strong>crm{ contact.code }@mahaplatform.com</strong>
-      </div>
-    ) },
     { label: 'Created', content: contact.created_at, format: 'date' },
     { label: 'Lists', content: (
       <div className="links">

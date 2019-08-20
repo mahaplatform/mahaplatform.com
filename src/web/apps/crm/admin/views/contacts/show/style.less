@@ -1,5 +1,5 @@
 .contact-header {
-  background-color: @red;
+  background-color: @grey;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -26,17 +26,26 @@
   width: 2.4em;
   height: 2.4em;
   border-radius: 50%;
-  background-color: @white;
+  background-color: fadeout(@white, 5);
   color: @red;
   cursor: pointer;
   text-align: center;
   .fa {
-    font-size: 1em;
-    line-height: 1em;
+    line-height: 1.9em;
+  }
+  .fa-phone {
+    font-size: 1.4em;
   }
   &.disabled {
-    background-color: fadeout(@white, 30);
+    background-color: fadeout(@white, 50);
+    color: fadeout(@black, 60);
     cursor: auto;
+    &:hover {
+      background-color: auto !important;
+    }
+  }
+  &:hover {
+    background-color: @white;
   }
   .fa {
     margin: auto;
