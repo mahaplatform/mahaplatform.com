@@ -61,13 +61,10 @@ const Select = (multiple) => {
     }
 
     componentDidMount() {
-      const { defaultValue, endpoint, options, onReady, onFetchItems, onSetItems } = this.props
+      const { defaultValue, endpoint, options, onFetchItems } = this.props
       if(defaultValue !== undefined) this._handleSetSelected(defaultValue)
       if(endpoint) return onFetchItems(endpoint)
-      if(options) {
-        onSetItems(options)
-        onReady()
-      }
+      if(options) this._handleSetOptions(options)
     }
 
     componentDidUpdate(prevProps) {
@@ -109,10 +106,18 @@ const Select = (multiple) => {
       if(!multiple && !selected) return 'circle-o'
     }
 
+    _handleSetOptions(options) {
+      const { onReady, onSetItems } = this.props
+      const items = options.map(item => {
+        return _.isString(item) ? { value: item, text: item } : item
+      })
+      onSetItems(items)
+      onReady()
+    }
+
     _handleSetSelected(defaultValue) {
       const { onSetSelected } = this.props
-      const selected = !_.isArray(defaultValue) ? [defaultValue] : defaultValue
-      onSetSelected(selected)
+      onSetSelected(_.castArray(defaultValue))
     }
 
     _handleClick(option) {

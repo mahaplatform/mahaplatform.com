@@ -8,6 +8,9 @@ const Details = ({ contact }) => {
 
   list.items = [
     { label: 'Created', content: contact.created_at, format: 'date' },
+    { label: 'Email', content: contact.email_addresses.map((email_address, index) => (
+      <div key={`address_${index}`}>{ email_address.address }</div>
+    )) },
     { label: 'Lists', content: (
       <div className="links">
         { contact.lists.map((list, index) => (

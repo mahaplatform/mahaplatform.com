@@ -32,13 +32,7 @@ class Notifications extends React.Component {
 
   _getRadioGroup() {
     return {
-      options: [
-        { code: 'none', title: 'Do Nothing', text: 'Please do not send me any notifications via email' },
-        { code: 'ondemand', title: 'On Demand', text: 'Send me an email whenever I miss a notification' },
-        { code: 'digest', title: 'Daily Digest', text: 'Send me a daily email with all of my missed notifcations from the previous day' }
-      ],
-      value: 'code',
-      text: 'title',
+      options: ['none','ondemand','digest'],
       format: NotificationMethodToken,
       onChange: this._handleNotification
     }

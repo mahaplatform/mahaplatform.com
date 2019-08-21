@@ -186,8 +186,8 @@ class Admin extends React.Component {
   _handleSaveIntent() {
     const { pathname, search, hash } = this.context.router.history.location
     if(pathname === '/admin') return
-    this.context.router.history.push('/admin')
     if(pathname.match(/(activate|signin|reset)/)) return
+    this.context.router.history.push('/admin')
     const redirect = { pathname, search, hash }
     this.setState({ redirect })
   }
