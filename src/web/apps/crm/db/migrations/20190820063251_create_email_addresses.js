@@ -7,6 +7,7 @@ const CreateEmailAddresses = {
       table.foreign('team_id').references('maha_teams.id')
       table.integer('contact_id').unsigned()
       table.foreign('contact_id').references('crm_contacts.id')
+      table.string('code')
       table.string('address')
       table.bool('is_primary')
       table.bool('is_valid')
