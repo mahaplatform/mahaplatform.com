@@ -1,8 +1,8 @@
 import Model from '../../../core/objects/model'
+import EmailAddress from './email_address'
 import Asset from '../../maha/models/asset'
 import Organization from './organization'
 import Activity from './activity'
-import Email from './email'
 import List from './list'
 import Call from './call'
 import Note from './note'
@@ -65,8 +65,8 @@ const Contact = new Model({
     return this.hasMany(Call, 'contact_id')
   },
 
-  emails() {
-    return this.hasMany(Email, 'contact_id')
+  email_addresses() {
+    return this.hasMany(EmailAddress, 'contact_id')
   },
 
   lists() {

@@ -1,5 +1,6 @@
 import { updateRelated } from '../../../../../core/services/routes/relations'
 import { activity } from '../../../../../core/services/routes/activities'
+import { updateEmailAddresses } from '../../../services/email_addresses'
 import ContactSerializer from '../../../serializers/contact_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
 import generateCode from '../../../../../core/utils/generate_code'
@@ -8,7 +9,6 @@ import socket from '../../../../../core/services/routes/emitter'
 import { contactActivity } from '../../../services/activities'
 import Field from '../../../../maha/models/field'
 import Contact from '../../../models/contact'
-
 const createRoute = async (req, res) => {
 
   req.fields = await Field.scope({
@@ -25,6 +25,10 @@ const createRoute = async (req, res) => {
     values: req.body.values
   })
 
+  const email = req.body.email_addresses.find(email => {
+    return email.is_primary
+  })
+
   const code = await generateCode(req, {
     table: 'crm_contacts'
   })
@@ -32,10 +36,16 @@ const createRoute = async (req, res) => {
   const contact = await Contact.forge({
     team_id: req.team.get('id'),
     code,
-    ...whitelist(req.body, ['first_name','last_name','email','phone','photo_id']),
+    email: email.address,
+    ...whitelist(req.body, ['first_name','last_name','phone','photo_id']),
     values
   }).save(null, {
     transacting: req.trx
+  })
+
+  await updateEmailAddresses(req, {
+    contact,
+    email_addresses: req.body.email_addresses
   })
 
   await updateRelated(req, {

@@ -9,7 +9,7 @@ const showRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['lists','organizations','photo','tags'],
+    withRelated: ['email_addresses','lists','organizations','photo','tags'],
     transacting: req.trx
   })
 

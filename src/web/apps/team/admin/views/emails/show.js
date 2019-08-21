@@ -12,43 +12,43 @@ class EmailsShow extends React.Component {
   render() {
     const { email } = this.props
     return (
-      <div className="email-canvas">
-        <div className="email">
-          <div className="email-header">
-            <div className="email-header-avatar">
+      <div className="team-email-canvas">
+        <div className="team-email">
+          <div className="team-email-header">
+            <div className="team-email-header-avatar">
               <Avatar user={ email.user } presence={ false }/>
             </div>
-            <div className="email-header-details">
+            <div className="team-email-header-details">
               <strong>To:</strong> { email.to }<br />
               <strong>Subject:</strong> { email.subject }
             </div>
           </div>
-          <div className="email-body">
+          <div className="team-email-body">
             <iframe border="0" src={ `data:text/html;charset=utf-8,${ email.html }`} />
           </div>
-          <div className="email-feed">
+          <div className="team-email-feed">
             { email.sent_at &&
-              <div className="email-feed-item">
-                <div className="email-feed-item-icon">
-                  <div className="email-feed-item-icon-badge">
+              <div className="team-email-feed-item">
+                <div className="team-email-feed-item-icon">
+                  <div className="team-email-feed-item-icon-badge">
                     <i className="fa fa-fw fa-paper-plane"></i>
                   </div>
                 </div>
-                <div className="email-feed-item-content">
+                <div className="team-email-feed-item-content">
                   <strong>{ moment(email.sent_at).format('MMM D, YYYY @ h:mm:ss A') }</strong><br />
                   email was sent
                 </div>
               </div>
             }
             { email.activities.map((activity, index) => (
-              <div className="email-feed-item" key={`feed_item_${index}`}>
-                <div className="email-feed-item-icon">
-                  <div className="email-feed-item-icon-badge">
+              <div className="team-email-feed-item" key={`feed_item_${index}`}>
+                <div className="team-email-feed-item-icon">
+                  <div className="team-email-feed-item-icon-badge">
                     { activity.type === 'open' && <i className="fa fa-fw fa-envelope-open"></i> }
                     { activity.type === 'click' && <i className="fa fa-fw fa-mouse-pointer"></i> }
                   </div>
                 </div>
-                <div className="email-feed-item-content">
+                <div className="team-email-feed-item-content">
                   <strong>{ moment(activity.created_at).format('MMM D, YYYY @ h:mm:ss A') }</strong><br />
                   { activity.type === 'open' && 'opened email' }
                   { activity.type === 'click' && `clicked the link ${activity.link.text}` }

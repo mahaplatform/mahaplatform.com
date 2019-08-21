@@ -1,0 +1,26 @@
+.emailsfield-email {
+  display: flex;
+  margin-bottom: 0.4em;
+}
+.emailsfield-email-field {
+  flex: 1;
+}
+.emailsfield-email-action {
+  padding: 0.4em;
+  display: flex;
+  .fa-check-circle {
+    color: @blue;
+  }
+  .fa-circle-o,
+  .fa-times {
+    color: fadeout(@black, 80);
+    &:hover {
+      color: fadeout(@black, 20);
+    }
+  }
+  .fa {
+    font-size: 1.2em;
+    margin: auto;
+    cursor: pointer;
+  }
+}

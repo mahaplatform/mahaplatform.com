@@ -13,7 +13,9 @@ class PhoneField extends React.Component {
   }
 
   static defaultProps = {
-    defaultCountry: 'US'
+    defaultCountry: 'US',
+    onChange: () => {},
+    onReady: () => {}
   }
 
   phone = null

@@ -11,9 +11,19 @@ const ContactSerializer = (req, result) => ({
   organizations: result.related('organizations').map(organization),
   tags: result.related('tags').map(tag),
   values: values(req, result.get('values')),
+  email_addresses: result.related('email_addresses').map(email_address),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
+
+const email_address = (email_address) => {
+  if(!email_address.id) return null
+  return {
+    id: email_address.get('id'),
+    address: email_address.get('address'),
+    is_primary: email_address.get('is_primary')
+  }
+}
 
 const list = (list) => {
   if(!list.id) return null

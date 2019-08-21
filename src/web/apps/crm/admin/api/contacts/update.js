@@ -1,5 +1,6 @@
 import { updateRelated } from '../../../../../core/services/routes/relations'
 import { activity } from '../../../../../core/services/routes/activities'
+import { updateEmailAddresses } from '../../../services/email_addresses'
 import ContactSerializer from '../../../serializers/contact_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
 import { processValues } from '../../../../maha/services/values'
@@ -24,6 +25,7 @@ const updateRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
+    withRelated: ['email_addresses'],
     transacting: req.trx
   })
 
@@ -37,11 +39,21 @@ const updateRoute = async (req, res) => {
     values: req.body.values
   })
 
+  const email = req.body.email_addresses.find(email => {
+    return email.is_primary
+  })
+
   await contact.save({
-    ...whitelist(req.body, ['first_name','last_name','email','phone','photo_id']),
+    email: email.address,
+    ...whitelist(req.body, ['first_name','last_name','phone','photo_id']),
     values
   }, {
     transacting: req.trx
+  })
+
+  await updateEmailAddresses(req, {
+    contact,
+    email_addresses: req.body.email_addresses
   })
 
   await updateRelated(req, {

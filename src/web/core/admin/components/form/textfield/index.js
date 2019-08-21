@@ -124,7 +124,7 @@ class TextField extends React.Component {
   }
 
   _handleChange() {
-    this.props.onChange(this.state.value )
+    this.props.onChange(this.state.value)
   }
 
   _handleClear() {

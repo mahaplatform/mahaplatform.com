@@ -10,6 +10,11 @@ class EmailField extends React.Component {
     onReady: PropTypes.func
   }
 
+  static defaultProps = {
+    onChange: () => {},
+    onReady: () => {}
+  }
+
   email = null
 
   state = {
