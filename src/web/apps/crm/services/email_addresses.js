@@ -1,5 +1,5 @@
 import EmailAddress from '../models/email_address'
-import generateCode from '../../../../../core/utils/generate_code'
+import generateCode from '../../../core/utils/generate_code'
 
 export const updateEmailAddresses = async (req, { contact, email_addresses }) => {
 
