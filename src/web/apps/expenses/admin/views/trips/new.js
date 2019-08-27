@@ -38,7 +38,7 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Date', name: 'date', type: 'datefield', required: true, defaultValue: moment().format('YYYY-MM-DD') },
+            { label: 'Date of Trip', name: 'date', type: 'datefield', required: true, defaultValue: moment().format('YYYY-MM-DD') },
             { label: 'Description', name: 'description', type: 'textfield', placeholder: 'Describe the trip', required: true },
             { label: 'Project', name: 'project_id', type: 'lookup', prompt: 'Choose a project', endpoint: '/api/admin/expenses/memberships', value: 'id', text: 'title', format: ProjectToken },
             { label: 'Time Leaving', name: 'time_leaving', type: 'timefield' },

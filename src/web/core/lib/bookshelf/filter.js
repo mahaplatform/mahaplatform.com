@@ -16,7 +16,7 @@ const filterPlugin = function(bookshelf) {
     if(filters.$or) return applyOr(qb, filters.$or, options)
   }
 
-  const normalizeFilters = (filters) => {
+  const andFilters = (filters) => {
     if(_.isPlainObject(filters) && !filters.$and && !filters.$or) return {
       $and: Object.keys(filters).map(key => ({
         [key]: filters[key]
@@ -24,6 +24,16 @@ const filterPlugin = function(bookshelf) {
     }
     if(_.isArray(filters)) return { $and: filters }
     return filters
+  }
+
+  const normalizeFilters = (filters) => {
+    const $filters = andFilters(filters)
+    return {
+      $and: [
+        ...$filters.$and,
+        ...filters.q ? [{ q: filters.q }] : []
+      ]
+    }
   }
 
   const applyAnd = (qb, filters, options) => {
@@ -49,8 +59,7 @@ const filterPlugin = function(bookshelf) {
   const applyFilter = (qb, name, filter, options) => {
     if(name === '$and') return applyAnd(qb, filter, options)
     if(name === '$or') return applyOr(qb, filter, options)
-    if(name === 'q') return filterSearch(qb, filter, options)
-    if(options.filterParams && !_.includes(['id',...options.filterParams], name)) {
+    if(options.filterParams && !_.includes(['id','q',...options.filterParams], name)) {
       throw new Error(`cannot filter on ${name}`)
     }
     if(options.virtualFilters && options.virtualFilters[name]) {
@@ -59,18 +68,11 @@ const filterPlugin = function(bookshelf) {
     _filterColumn(qb, name, filter, options)
   }
 
-  const filterSearch = (qb, filter, options) => {
-    if(!options.searchParams) return
-    if(filter.length === 0) return
-    const columns = options.searchParams.map(column => castColumn(options.tableName, column))
-    const phrase = `lower(concat(${columns.join(',\' \',')}))`
-    const term = `%${filter.toLowerCase()}%`
-    qb.whereRaw(`${phrase} like ?`, term)
-  }
-
   const _filterColumn = (qb, $column, filter, options) => {
     const column = castColumn(options.tableName, $column)
-    if(!_.isNil(filter.$nl)) {
+    if($column === 'q') {
+      _filterSearch(qb, filter, options)
+    } else if(!_.isNil(filter.$nl)) {
       _filterNull(qb, column)
     } else if(!_.isNil(filter.$nnl)) {
       _filterNotNull(qb, column)
@@ -103,6 +105,15 @@ const filterPlugin = function(bookshelf) {
     } else if(!_.isNil(filter.$dr)) {
       _filterDateRange(qb, column, filter.$dr)
     }
+  }
+
+  const _filterSearch = (qb, filter, options) => {
+    if(!options.searchParams) return
+    if(filter.length === 0) return
+    const columns = options.searchParams.map(column => castColumn(options.tableName, column))
+    const phrase = `lower(concat(${columns.join(',\' \',')}))`
+    const term = `%${filter.toLowerCase()}%`
+    qb.whereRaw(`${phrase} like ?`, term)
   }
 
   const _filterNull = (qb, column) => {
