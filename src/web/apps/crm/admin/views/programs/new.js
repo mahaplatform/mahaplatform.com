@@ -21,34 +21,19 @@ class New extends React.Component {
 
   _getForm() {
     return {
-      title: 'New Account',
+      title: 'New Program',
       method: 'post',
-      action: '/api/admin/expenses/accounts',
+      action: '/api/admin/crm/programs',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Name', name: 'name', type: 'textfield', required: true }
-          ]
-        },
-        ...this._getIntegration()
-      ]
-    }
-  }
-
-  _getIntegration() {
-    if(this.props.integration === 'accpac') {
-      return [
-        {
-          label: 'ACCPAC Details',
-          fields: [
-            { label: 'Vendor ID', name: 'integration.vendor_id', type: 'textfield' }
+            { label: 'Title', name: 'title', type: 'textfield', required: true }
           ]
         }
       ]
     }
-    return []
   }
 
   _handleCancel() {

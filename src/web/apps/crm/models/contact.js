@@ -3,7 +3,6 @@ import EmailAddress from './email_address'
 import Asset from '../../maha/models/asset'
 import Organization from './organization'
 import Activity from './activity'
-import List from './list'
 import Call from './call'
 import Note from './note'
 import Tag from './tag'
@@ -67,10 +66,6 @@ const Contact = new Model({
 
   email_addresses() {
     return this.hasMany(EmailAddress, 'contact_id')
-  },
-
-  lists() {
-    return this.belongsToMany(List, 'crm_subscriptions', 'contact_id', 'list_id')
   },
 
   notes() {

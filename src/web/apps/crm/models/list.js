@@ -1,4 +1,6 @@
 import Model from '../../../core/objects/model'
+import EmailAddress from './email_address'
+import Program from './program'
 
 const List = new Model({
 
@@ -8,8 +10,12 @@ const List = new Model({
 
   virtuals: {},
 
-  contacts() {
-    return this.belongsToMany(List, 'crm_subscriptions', 'list_id', 'contact_id')
+  email_addresses() {
+    return this.belongsToMany(EmailAddress, 'crm_subscriptions', 'list_id', 'email_address_id')
+  },
+
+  program() {
+    return this.belongsTo(Program, 'program_id')
   }
 
 })

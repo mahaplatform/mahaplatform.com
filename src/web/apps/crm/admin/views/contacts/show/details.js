@@ -11,13 +11,6 @@ const Details = ({ contact }) => {
     { label: 'Email', content: contact.email_addresses.map((email_address, index) => (
       <div key={`address_${index}`}>{ email_address.address }</div>
     )) },
-    { label: 'Lists', content: (
-      <div className="links">
-        { contact.lists.map((list, index) => (
-          <Button label={ list.name } route={`/admin/crm/lists/${list.id}`} className="link" key={`list_${index}`} />
-        )) }
-      </div>
-    ) },
     { label: 'Organizations', content: (
       <div className="links">
         { contact.organizations.map((organization, index) => (

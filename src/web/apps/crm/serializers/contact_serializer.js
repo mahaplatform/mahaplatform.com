@@ -7,7 +7,6 @@ const ContactSerializer = (req, result) => ({
   email: result.get('email'),
   phone: result.get('phone'),
   photo: result.related('photo') ? result.related('photo').get('path') : null,
-  lists: result.related('lists').map(list),
   organizations: result.related('organizations').map(organization),
   tags: result.related('tags').map(tag),
   values: values(req, result.get('values')),
@@ -22,14 +21,6 @@ const email_address = (email_address) => {
     id: email_address.get('id'),
     address: email_address.get('address'),
     is_primary: email_address.get('is_primary')
-  }
-}
-
-const list = (list) => {
-  if(!list.id) return null
-  return {
-    id: list.get('id'),
-    name: list.get('name')
   }
 }
 

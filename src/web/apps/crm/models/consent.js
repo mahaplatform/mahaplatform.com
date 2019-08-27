@@ -1,10 +1,10 @@
 import Model from '../../../core/objects/model'
 import EmailAddress from './email_address'
-import List from './list'
+import Program from './program'
 
-const Subscription = new Model({
+const Consent = new Model({
 
-  tableName: 'crm_subscriptions',
+  tableName: 'crm_consents',
 
   rules: {},
 
@@ -14,10 +14,10 @@ const Subscription = new Model({
     return this.belongsTo(EmailAddress, 'email_address_id')
   },
 
-  list() {
-    return this.belongsTo(List, 'list_id')
+  program() {
+    return this.belongsTo(Program, 'program_id')
   }
 
 })
 
-export default Subscription
+export default Consent

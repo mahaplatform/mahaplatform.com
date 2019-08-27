@@ -121,11 +121,13 @@ const clientWatch = async () => {
 
 }
 
-export const dev = async (flags, args) => {
-  await serverWatch()
-  // await desktopWatch()
-  // await mobileWatch()
-  await clientWatch()
+export const dev = async () => {
+  const argv = process.argv.slice(2)
+  const services = argv.length > 0 ? argv : ['server','desktop','mobile','client']
+  if(_.includes(services, 'server')) await serverWatch()
+  if(_.includes(services, 'desktop')) await desktopWatch()
+  if(_.includes(services, 'mobile')) await mobileWatch()
+  if(_.includes(services, 'client')) await clientWatch()
 }
 
 dev()

@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import Contact from './contact'
 
 const EmailAddress = new Model({
 
@@ -6,7 +7,11 @@ const EmailAddress = new Model({
 
   rules: {},
 
-  virtuals: {}
+  virtuals: {},
+
+  contact() {
+    return this.belongsTo(Contact, 'contact_id')
+  }
 
 })
 
