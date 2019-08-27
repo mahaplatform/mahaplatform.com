@@ -98,7 +98,10 @@ const clientWatch = async () => {
         ...proxies,
         `/admin/${path}/*`
       ], []),
-      '/drive/*'
+      ...'crm,drive'.split(',').reduce((apps, path) => [
+        ...apps,
+        `/${path}/**`
+      ], [])
     ].reduce((proxies, proxy) => ({
       ...proxies,
       [proxy]: `http://localhost:${process.env.SERVER_PORT}`

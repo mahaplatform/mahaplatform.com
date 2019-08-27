@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import share from './share'
+import subscriptions from './subscriptions'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/share', share)
+router.use(subscriptions)
 
 export default router

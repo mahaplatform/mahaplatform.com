@@ -14,11 +14,11 @@ router.use(transaction)
 router.use(logger)
 
 publics.map(file => {
-  router.use(file.default)
+  router.use(file.config.path, file.default)
 })
 
 admins.map(file => {
-  router.use('/admin', file.default)
+  router.use(`${file.config.path}/admin`, file.default)
 })
 
 export default router
