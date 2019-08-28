@@ -14,27 +14,11 @@ class Subscription extends React.PureComponent {
   render() {
     const { activity } = this.props
     if(!activity.data) return null
-    const { actions } = activity.data
+    const { program, email_address } = activity.data
     return (
       <div className="crm-timeline-item-card-subscription">
-        <ul>
-          { actions.map((item, index) => (
-            <li key={`item_${index}`}>
-              { item.action === 'unconsented' &&
-                <span>unsubscribed from all { item.program } mailings</span>
-              }
-              { item.action === 'subscribed' &&
-                <span>subscribed to { item.program } - { item.list }</span>
-              }
-              { item.action === 'resubscribed' &&
-                <span>resubscribed to { item.program } - { item.list }</span>
-              }
-              { item.action === 'unsubscribed' &&
-                <span>unsubscribed from { item.program } - { item.list }</span>
-              }
-            </li>
-          )) }
-        </ul>
+        <strong>Email:</strong> { email_address.address }<br />
+        <strong>Program:</strong> { program.title }
       </div>
     )
   }

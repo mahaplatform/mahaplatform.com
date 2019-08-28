@@ -1,4 +1,5 @@
 import EmailAddress from '../models/email_address'
+
 export const updateEmailAddresses = async (req, { contact, email_addresses }) => {
 
   const add = email_addresses.filter(email_address => {

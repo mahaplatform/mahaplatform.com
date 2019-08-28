@@ -314,6 +314,7 @@ const schema = {
       table.string('title', 255)
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.string('code', 255)
     })
 
     await knex.schema.createTable('crm_subscriptions', (table) => {

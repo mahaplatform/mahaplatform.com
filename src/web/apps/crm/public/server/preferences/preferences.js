@@ -36,11 +36,7 @@ const updateConsent = async(req, { consent, unsubscribe, subscriptions }) => {
 
   if(!unsubscribe) return []
 
-  return [{
-    action: 'unconsented',
-    id: consent.related('program').get('id'),
-    program: consent.related('program').get('title')
-  }]
+  return [{ action: 'unconsented' }]
 
 }
 
@@ -80,7 +76,7 @@ const updateSubscriptions = async (req, { consent, unsubscribe, subscriptions })
 
       return [
         ...actions,
-        { action: 'subscribed', id: list.get('id'), program: consent.related('program').get('title'), list: list.get('name') }
+        { action: 'subscribed', id: list.get('id'), list: list.get('name') }
       ]
 
     }
@@ -103,7 +99,7 @@ const updateSubscriptions = async (req, { consent, unsubscribe, subscriptions })
 
       return [
         ...actions,
-        { action: 'resubscribed', id: list.get('id'), program: consent.related('program').get('title'), list: list.get('name') }
+        { action: 'resubscribed', id: list.get('id'), list: list.get('name') }
       ]
 
     }
@@ -118,7 +114,7 @@ const updateSubscriptions = async (req, { consent, unsubscribe, subscriptions })
 
       return [
         ...actions,
-        { action: 'unsubscribed', id: list.get('id'), program: consent.related('program').get('title'), list: list.get('name') }
+        { action: 'unsubscribed', id: list.get('id'), list: list.get('name') }
       ]
 
     }
@@ -138,9 +134,17 @@ const updatePreferences = async (req, { consent, unsubscribe, subscriptions }) =
 
   await contactActivity(req, {
     contact: consent.related('email_address').related('contact'),
-    type: 'subscription',
+    type: 'preferences',
     story: 'updated mailing preferences',
     data: {
+      program: {
+        id: consent.related('program').get('id'),
+        title: consent.related('program').get('title')
+      },
+      email_address: {
+        id: consent.related('email_address').get('id'),
+        address: consent.related('email_address').get('address')
+      },
       actions
     }
   })
@@ -163,11 +167,15 @@ const preferencesRoute = async (req, res) => {
   if(!consent) return res.status(404).send('Not Found')
 
   if(req.method === 'POST') {
+
     await updatePreferences(req, {
       subscriptions: (req.body.subscriptions || []).map(id => parseInt(id)),
       unsubscribe: req.body.unsubscribe,
       consent
     })
+
+    return res.redirect(req.originalUrl)
+
   }
 
   const lists = await List.scope({

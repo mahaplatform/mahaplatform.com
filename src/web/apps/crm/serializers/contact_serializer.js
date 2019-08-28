@@ -40,13 +40,16 @@ const tag = (tag) => {
   }
 }
 
-const values = (req, values) => Object.keys(values).reduce((sanitized, code) => {
-  const field = req.fields.find(field => field.get('code') === code)
-  const { multiple } = field.get('config')
-  return {
-    ...sanitized,
-    [code]: multiple === true ? values[code] : values[code][0]
-  }
-}, {})
+const values = (req, values) => {
+  if(!values) return {}
+  Object.keys(values).reduce((sanitized, code) => {
+    const field = req.fields.find(field => field.get('code') === code)
+    const { multiple } = field.get('config')
+    return {
+      ...sanitized,
+      [code]: multiple === true ? values[code] : values[code][0]
+    }
+  }, {})
+}
 
 export default ContactSerializer
