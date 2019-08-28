@@ -20,8 +20,8 @@ const user = (user) => {
 
 const data = (activity) => {
   if(activity.get('type') === 'call') return call(activity.related('call'))
-  if(activity.get('type') === 'edit') return activity.get('data')
   if(activity.get('type') === 'note') return note(activity.related('note'))
+  return activity.get('data')
 }
 
 const call = (call) => {

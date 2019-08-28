@@ -79,10 +79,12 @@ const updateRoute = async (req, res) => {
     contact,
     type: 'edit',
     story: 'updated the contact',
-    changes: [
-      { action: 'added', field: 'First Name', value: 'Greg' },
-      { action: 'changed', field: 'Last Name', was: 'Kopf', value: 'Kops' }
-    ]
+    data: {
+      changes: [
+        { action: 'added', field: 'First Name', value: 'Greg' },
+        { action: 'changed', field: 'Last Name', was: 'Kopf', value: 'Kops' }
+      ]
+    }
   })
 
   await activity(req, {

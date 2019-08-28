@@ -1,8 +1,8 @@
+import preferences from './preferences'
 import { Router } from 'express'
-import subscriptions from './subscriptions'
 
 const router = new Router({ mergeParams: true })
 
-router.use(subscriptions)
+router.use('/preferences', preferences)
 
 export default router
