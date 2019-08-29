@@ -3,11 +3,11 @@ import React from 'react'
 const accesses = {
   public: {
     title: 'Public',
-    description: 'Activities are visible to all users'
+    description: 'Contact activities are visible to all users'
   },
   private: {
     title: 'Private',
-    description: 'Activities are visible to specific groups or individuals'
+    description: 'Contact activities are only visible to specific groups or individuals'
   }
 }
 
