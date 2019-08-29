@@ -1,7 +1,7 @@
 .maha-datefield-input {
-  border: 1px solid rgba(34,36,38,.15);
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.5em;
   background-color: @white;
-  border-radius: 5px;
   display: flex;
   &:focus {
     outline: none !important;
@@ -12,13 +12,28 @@
   }
 }
 .maha-datefield-field {
-  padding: 0.8em;
-  line-height: 1em;
-  flex: 1;
   color: fadeout(@black, 70);
+  flex: 1;
+  padding: 0.2em;
+  overflow: hidden;
+  min-height: 2.5em;
+  line-height: 2.5em;
+}
+.maha-datefield-prompt {
+  color: fadeout(@black, 70);
+  display: inline-block;
+  margin: 0.2em;
+  padding: 0.2em 0.5em;
+  line-height: 1.7em;
 }
 .maha-datefield-token {
+  display: inline-block;
+  margin: 0.2em;
+  padding: 0.2em 0.5em;
+  background-color: fadeout(@black, 95);
   color: fadeout(@black, 40);
+  border-radius: 0.2em;
+  line-height: 1.7em;
 }
 .maha-datefield-remove {
   padding: 0.8em 0.8em 0.8em 0;

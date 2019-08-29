@@ -46,7 +46,7 @@ class Edit extends React.Component {
             { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Choose a vendor', endpoint: '/api/admin/expenses/vendors', value: 'id', text: 'name', form: this._getVendorForm(), format: VendorToken },
             { label: 'Receipt', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Receipt', action: '/api/admin/assets/upload', endpoint: '/api/admin/expenses/receipts' },
             { label: 'Total', name: 'total', type: 'moneyfield', required: true, placeholder: 'Enter the full amount minus the tax' },
-            { label: 'Line Items', name: 'line_items', type: LineItems, projectEndpoint, total }
+            { label: 'Allocation', name: 'line_items', type: LineItems, projectEndpoint, total }
           ]
         }
       ]

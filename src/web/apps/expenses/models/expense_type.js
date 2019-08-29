@@ -10,6 +10,10 @@ const ExpenseType = new Model({
 
   virtuals: {
 
+    display: function() {
+      return `${this.get('integration').expense_code} - ${this.get('title')}`
+    },
+
     object_text: function() {
       return this.get('title')
     },

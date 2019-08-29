@@ -51,7 +51,7 @@ class Edit extends React.Component {
             { label: 'Invoice', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Invoice', action: '/api/admin/assets/upload', endpoint: '/api/admin/expenses/receipts' },
             { label: 'Total', name: 'total', type: 'moneyfield', required: true, placeholder: 'Enter the full amount minus the tax' },
             { label: 'Tax', name: 'tax_total', type: 'moneyfield', required: true, placeholder: 'Enter the tax paid if any' },
-            { label: 'Line Items', name: 'line_items', type: LineItems, projectEndpoint, tax_total, total }
+            { label: 'Allocation', name: 'line_items', type: LineItems, projectEndpoint, tax_total, total }
           ]
         }
       ]

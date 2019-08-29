@@ -28,7 +28,7 @@ class Edit extends React.Component {
   _getForm() {
     const { line_item, projectEndpoint } = this.props
     return {
-      title: 'Edit Line Item',
+      title: 'Edit Allocation',
       saveText: 'Done',
       onSubmit: this._handleSubmit,
       onCancel: this._handleCancel,

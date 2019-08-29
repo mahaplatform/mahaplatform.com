@@ -42,7 +42,7 @@ class Edit extends React.Component {
           fields: [
             { label: 'Date of Trip', name: 'date', type: 'datefield', required: true, defaultValue: moment().format('YYYY-MM-DD') },
             { label: 'Description', name: 'description', type: 'textfield', placeholder: 'Describe the trip', required: true },
-            { label: 'Project', name: 'project_id', type: 'lookup', prompt: 'Choose a project', endpoint: projectEndpoint, value: 'id', text: 'title', format: ProjectToken },
+            { label: 'Project', name: 'project_id', type: 'lookup', prompt: 'Choose a project', endpoint: projectEndpoint, value: 'id', text: 'display', format: ProjectToken },
             { label: 'Time Leaving', name: 'time_leaving', type: 'timefield' },
             this._getTimeArriving(),
             { label: 'Odometer Start', name: 'odometer_start', type: 'textfield', placeholder: 'Enter the odometer start' },

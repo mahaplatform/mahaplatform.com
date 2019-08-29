@@ -1,5 +1,6 @@
 const MembershipSerializer = (req, result) => ({
   id: result.get('id'),
+  display: result.get('display'),
   title: result.get('title'),
   integration: integration(req, result),
   member_type: result.get('member_type').toLowerCase()

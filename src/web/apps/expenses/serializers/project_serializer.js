@@ -1,5 +1,6 @@
 const projectSerializer = (req, result) => ({
   id: result.get('id'),
+  display: result.get('display'),
   title: result.get('title'),
   type: result.get('type'),
   is_active: result.get('is_active'),

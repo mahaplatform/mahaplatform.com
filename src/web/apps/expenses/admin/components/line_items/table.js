@@ -44,8 +44,13 @@ class Table extends React.PureComponent {
     const { overassigned, sum, total, unassigned } = this.props
     const line_items = this.props.display
     if(line_items.length === 0) return (
-      <div className="ui button" onClick={ this._handleNew }>
-        Add a Line Item
+      <div>
+        <div className="line-items-instructions">
+          Allocate portions of this item to one or more projects and/or expense types
+        </div>
+        <div className="ui button" onClick={ this._handleNew }>
+          Add an allocation
+        </div>
       </div>
     )
     return (
@@ -114,8 +119,8 @@ class Table extends React.PureComponent {
   _getButton() {
     const { line_items } = this.props
     return {
-      label: line_items.length > 0 ? 'Add Another Line Item' : 'Add Line Item',
-      color: 'blue',
+      className: 'link',
+      label: line_items.length > 0 ? 'Add Another Allocation' : 'Allocate to Project',
       handler: this._handleNew
     }
   }

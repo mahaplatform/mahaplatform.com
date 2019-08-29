@@ -26,7 +26,7 @@ class New extends React.Component {
   _getForm() {
     const { projectEndpoint } = this.props
     return {
-      title: 'New Line Item',
+      title: 'New Allocation',
       saveText: 'Done',
       onSubmit: this._handleSubmit,
       onCancel: this._handleCancel,
@@ -34,8 +34,8 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Project', name: 'project_id', required: true, type: 'lookup', placeholder: 'Choose a project', endpoint: projectEndpoint, value: 'id', text: 'title', format: ProjectToken },
-            { label: 'Expense Type', name: 'expense_type_id', required: true, type: 'lookup', placeholder: 'Choose an expense type', endpoint: '/api/admin/expenses/expense_types/active', value: 'id', text: 'title', format: ExpenseTypeToken },
+            { label: 'Project', name: 'project_id', required: true, type: 'lookup', placeholder: 'Choose a project', endpoint: projectEndpoint, value: 'id', text: 'display', format: ProjectToken },
+            { label: 'Expense Type', name: 'expense_type_id', required: true, type: 'lookup', placeholder: 'Choose an expense type', endpoint: '/api/admin/expenses/expense_types/active', value: 'id', text: 'display', format: ExpenseTypeToken },
             { label: 'Description', name: 'description', required: true, placeholder: 'Describe the line item', type: 'textfield' },
             { label: 'Amount', name: 'amount', required: true, placeholder: 'Enter the amount', type: 'moneyfield' }
           ]
