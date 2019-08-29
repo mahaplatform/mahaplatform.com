@@ -3,6 +3,7 @@ import { activity } from '../../../../../core/services/routes/activities'
 import { updateEmailAddresses } from '../../../services/email_addresses'
 import ContactSerializer from '../../../serializers/contact_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
+import { updatePhoneNumbers } from '../../../services/phone_numbers'
 import { processValues } from '../../../../maha/services/values'
 import socket from '../../../../../core/services/routes/emitter'
 import { contactActivity } from '../../../services/activities'
@@ -25,7 +26,7 @@ const updateRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['email_addresses'],
+    withRelated: ['email_addresses','phone_numbers'],
     transacting: req.trx
   })
 
@@ -43,9 +44,14 @@ const updateRoute = async (req, res) => {
     return email.is_primary
   })
 
+  const phone = req.body.phone_numbers.find(phone => {
+    return phone.is_primary
+  })
+
   await contact.save({
     email: email.address,
-    ...whitelist(req.body, ['first_name','last_name','phone','photo_id']),
+    phone: phone.number,
+    ...whitelist(req.body, ['first_name','last_name','photo_id']),
     values
   }, {
     transacting: req.trx
@@ -54,6 +60,11 @@ const updateRoute = async (req, res) => {
   await updateEmailAddresses(req, {
     contact,
     email_addresses: req.body.email_addresses
+  })
+
+  await updatePhoneNumbers(req, {
+    contact,
+    phone_numbers: req.body.phone_numbers
   })
 
   await updateRelated(req, {

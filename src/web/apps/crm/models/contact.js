@@ -1,7 +1,8 @@
 import Model from '../../../core/objects/model'
-import EmailAddress from './email_address'
 import Asset from '../../maha/models/asset'
+import EmailAddress from './email_address'
 import Organization from './organization'
+import PhoneNumber from './phone_number'
 import Activity from './activity'
 import Call from './call'
 import Note from './note'
@@ -74,6 +75,10 @@ const Contact = new Model({
 
   organizations() {
     return this.belongsToMany(Organization, 'crm_contacts_organizations', 'contact_id', 'organization_id')
+  },
+
+  phone_numbers() {
+    return this.hasMany(PhoneNumber, 'contact_id')
   },
 
   photo() {

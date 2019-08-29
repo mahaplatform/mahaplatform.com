@@ -16,16 +16,18 @@ class Edit extends React.PureComponent {
     const { changes } = activity.data
     return (
       <div className="crm-timeline-item-card-edit">
-        { changes.map((change, index) => (
-          <div key={`change_${index}`}>
-            { change.action === 'added' &&
-              <span>Added { change.field }: { change.value }</span>
-            }
-            { change.action === 'changed' &&
-              <span>Changed { change.field }: { change.was } &rarr; { change.value }</span>
-            }
-          </div>
-        ))}
+        <ul>
+          { changes.map((change, index) => (
+            <li key={`change_${index}`}>
+              { change.action === 'added' &&
+                <span>added { change.field }: { change.value }</span>
+              }
+              { change.action === 'changed' &&
+                <span>changed { change.field }: { change.was } &rarr; { change.value }</span>
+              }
+            </li>
+          ))}
+        </ul>
       </div>
     )
   }

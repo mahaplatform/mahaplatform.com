@@ -11,6 +11,9 @@ const Details = ({ contact }) => {
     { label: 'Email', content: contact.email_addresses.map((email_address, index) => (
       <div key={`address_${index}`}>{ email_address.address }</div>
     )) },
+    { label: 'Phone', content: contact.phone_numbers.map((phone_number, index) => (
+      <div key={`number_${index}`}>{ phone_number.number }</div>
+    )) },
     { label: 'Organizations', content: (
       <div className="links">
         { contact.organizations.map((organization, index) => (

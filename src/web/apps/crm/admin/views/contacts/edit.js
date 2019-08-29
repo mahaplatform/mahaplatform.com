@@ -1,3 +1,4 @@
+import PhonesField from '../../components/phonesfield'
 import EmailsField from '../../components/emailsfield'
 import sections from '../sections'
 import PropTypes from 'prop-types'
@@ -44,7 +45,7 @@ class Edit extends React.Component {
       { label: 'First Name', name: 'first_name', type: 'textfield' },
       { label: 'Last Name', name: 'last_name', type: 'textfield' },
       { label: 'Email', name: 'email_addresses', type: EmailsField, required: true },
-      { label: 'Phone', name: 'phone', type: 'phonefield' },
+      { label: 'Phone', name: 'phone_numbers', type: PhonesField, required: true },
       { label: 'Tags', name: 'tag_ids', type: 'lookup2', multiple: true, endpoint: '/api/admin/crm/tags', value: 'id', text: 'text', form: this._getTagsForm() },
       { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', multiple: false },
       ...results[0].fields

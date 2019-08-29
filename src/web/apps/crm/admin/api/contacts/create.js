@@ -3,6 +3,7 @@ import { activity } from '../../../../../core/services/routes/activities'
 import { updateEmailAddresses } from '../../../services/email_addresses'
 import ContactSerializer from '../../../serializers/contact_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
+import { updatePhoneNumbers } from '../../../services/phone_numbers'
 import generateCode from '../../../../../core/utils/generate_code'
 import { processValues } from '../../../../maha/services/values'
 import socket from '../../../../../core/services/routes/emitter'
@@ -29,6 +30,10 @@ const createRoute = async (req, res) => {
     return email.is_primary
   })
 
+  const phone = req.body.phone_numbers.find(phone => {
+    return phone.is_primary
+  })
+
   const code = await generateCode(req, {
     table: 'crm_contacts'
   })
@@ -37,7 +42,8 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     code,
     email: email.address,
-    ...whitelist(req.body, ['first_name','last_name','phone','photo_id']),
+    phone: phone.number,
+    ...whitelist(req.body, ['first_name','last_name','photo_id']),
     values
   }).save(null, {
     transacting: req.trx
@@ -46,6 +52,11 @@ const createRoute = async (req, res) => {
   await updateEmailAddresses(req, {
     contact,
     email_addresses: req.body.email_addresses
+  })
+
+  await updatePhoneNumbers(req, {
+    contact,
+    phone_numbers: req.body.phone_numbers
   })
 
   await updateRelated(req, {
@@ -71,10 +82,14 @@ const createRoute = async (req, res) => {
     contact,
     type: 'edit',
     story: 'created the contact',
-    changes: [
-      { action: 'added', field: 'First Name', value: 'Greg' },
-      { action: 'added', field: 'Last Name', value: 'Kops' }
-    ]
+    data: {
+      changes: [
+        { action: 'added', field: 'First Name', value: contact.get('first_name') },
+        { action: 'added', field: 'Last Name', value: contact.get('last_name') },
+        { action: 'added', field: 'Email', value: contact.get('email') },
+        { action: 'added', field: 'Phone', value: contact.get('phone') }
+      ]
+    }
   })
 
   await activity(req, {
