@@ -7,6 +7,7 @@ import { updatePhoneNumbers } from '../../../services/phone_numbers'
 import { processValues } from '../../../../maha/services/values'
 import socket from '../../../../../core/services/routes/emitter'
 import { contactActivity } from '../../../services/activities'
+import { getChanges } from '../../../services/contacts'
 import Field from '../../../../maha/models/field'
 import Contact from '../../../models/contact'
 
@@ -85,18 +86,17 @@ const updateRoute = async (req, res) => {
     related_foreign_key: 'organization_id'
   })
 
-  await contactActivity(req, {
-    user: req.user,
-    contact,
-    type: 'edit',
-    story: 'updated the contact',
-    data: {
-      changes: [
-        { action: 'added', field: 'First Name', value: 'Greg' },
-        { action: 'changed', field: 'Last Name', was: 'Kopf', value: 'Kops' }
-      ]
-    }
-  })
+  const changes = getChanges(req, { contact })
+
+  if(changes.length > 0) {
+    await contactActivity(req, {
+      user: req.user,
+      contact,
+      type: 'edit',
+      story: 'updated the contact',
+      data: { changes }
+    })
+  }
 
   await activity(req, {
     story: 'updated {object}',
