@@ -9,10 +9,14 @@ const Details = ({ contact }) => {
   list.items = [
     { label: 'Created', content: contact.created_at, format: 'date' },
     { label: 'Email', content: contact.email_addresses.map((email_address, index) => (
-      <div key={`address_${index}`}>{ email_address.address }</div>
+      <div key={`address_${index}`}>
+        { email_address.address } { email_address.is_primary && <span>[primary]</span> }
+      </div>
     )) },
     { label: 'Phone', content: contact.phone_numbers.map((phone_number, index) => (
-      <div key={`number_${index}`}>{ phone_number.number }</div>
+      <div key={`number_${index}`}>
+        { phone_number.number } { phone_number.is_primary && <span>[primary]</span> }
+      </div>
     )) },
     { label: 'Organizations', content: (
       <div className="links">

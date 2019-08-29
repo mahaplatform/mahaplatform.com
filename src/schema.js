@@ -320,6 +320,17 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('crm_program_accesses', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('program_id').unsigned()
+      table.integer('grouping_id').unsigned()
+      table.integer('group_id').unsigned()
+      table.integer('user_id').unsigned()
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('crm_programs', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -1843,6 +1854,14 @@ const schema = {
       table.foreign('verification_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('offering_id').references('training_offerings.id')
+    })
+
+    await knex.schema.table('crm_program_accesses', table => {
+      table.foreign('user_id').references('maha_users.id')
+      table.foreign('group_id').references('maha_groups.id')
+      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('grouping_id').references('maha_groupings.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('expenses_projects', table => {

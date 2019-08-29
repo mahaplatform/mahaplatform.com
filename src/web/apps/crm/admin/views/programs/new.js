@@ -29,7 +29,8 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', required: true }
+            { label: 'Title', name: 'title', type: 'textfield', required: true },
+            { label: 'Access', name: 'accesses', type: 'assignmentfield', prompt: 'Specify who can see content from this program' }
           ]
         }
       ]

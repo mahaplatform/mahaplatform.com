@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import Grouping from './grouping'
 import Filter from './filter'
 import Group from './group'
 import User from './user'
@@ -13,6 +14,10 @@ const FilterAccess = new Model({
 
   filter() {
     return this.belongsTo(Filter, 'filter_id')
+  },
+
+  grouping() {
+    return this.belongsTo(Grouping, 'grouping_id')
   },
 
   group() {
