@@ -17,6 +17,10 @@ export const add = (assignee) => ({
   assignee
 })
 
+export const clear = () => ({
+  type: 'CLEAR'
+})
+
 export const query = (q) => ({
   type: 'QUERY',
   q

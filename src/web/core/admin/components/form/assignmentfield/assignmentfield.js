@@ -14,11 +14,13 @@ class AssignmentField extends React.Component {
     assignments: PropTypes.array,
     cid: PropTypes.string,
     defaultValue: PropTypes.array,
+    placeholder: PropTypes.string,
     q: PropTypes.string,
     status: PropTypes.string,
     unassigned: PropTypes.array,
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
+    onClear: PropTypes.func,
     onFetch: PropTypes.func,
     onQuery: PropTypes.func,
     onReady: PropTypes.func,
@@ -27,20 +29,34 @@ class AssignmentField extends React.Component {
   }
 
   static defaultProps = {
+    placeholder: 'Assign Access'
   }
 
   _handleAssign = this._handleAssign.bind(this)
+  _handleClear = this._handleClear.bind(this)
 
   render() {
-    const { assigned, status } = this.props
+    const { assigned, placeholder, status } = this.props
     if(status !== 'ready') return null
     return (
       <div className="assignmentfield" onClick={ this._handleAssign }>
-        { assigned.map((assignee, index) => (
-          <div className="assignmentfield-token" key={`assignment_${index}`}>
-            { assignee.full_name }
+        <div className="assignmentfield-field">
+          { assigned.map((assignee, index) => (
+            <div className="assignmentfield-token" key={`assignment_${index}`}>
+              { assignee.full_name }
+            </div>
+          )) }
+          { assigned.length === 0 &&
+            <div className="assignmentfield-prompt">
+              { placeholder }
+            </div>
+          }
+        </div>
+        { assigned.length > 0 &&
+          <div className="assignmentfield-clear" onClick={ this._handleClear }>
+            <i className="fa fa-times" />
           </div>
-        )) }
+        }
       </div>
     )
   }
@@ -73,6 +89,11 @@ class AssignmentField extends React.Component {
 
   _handleAssign() {
     this.context.form.push(<Assign { ...this._getAssign() } />)
+  }
+
+  _handleClear(e) {
+    e.stopPropagation()
+    this.props.onClear()
   }
 
 }

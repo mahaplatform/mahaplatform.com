@@ -15,7 +15,7 @@ const createRoute = async (req, res) => {
   const program = await Program.forge({
     team_id: req.team.get('id'),
     code,
-    ...whitelist(req.body, ['title'])
+    ...whitelist(req.body, ['is_private','title'])
   }).save(null, {
     transacting: req.trx
   })

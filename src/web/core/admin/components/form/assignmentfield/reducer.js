@@ -18,6 +18,12 @@ const reducer = (state = INITIAL_STATE, action) => {
       ]
     }
 
+  case 'CLEAR':
+    return {
+      ...state,
+      assignments: []
+    }
+
   case 'FETCH_REQUEST':
     return {
       ...state,

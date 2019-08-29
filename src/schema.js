@@ -223,6 +223,7 @@ const schema = {
       table.integer('note_id').unsigned()
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('program_id').unsigned()
     })
 
     await knex.schema.createTable('crm_calls', (table) => {
@@ -234,6 +235,7 @@ const schema = {
       table.text('description')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('program_id').unsigned()
     })
 
     await knex.schema.createTable('crm_consents', (table) => {
@@ -297,6 +299,7 @@ const schema = {
       table.text('text')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('program_id').unsigned()
     })
 
     await knex.schema.createTable('crm_organizations', (table) => {
@@ -338,6 +341,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.string('code', 255)
+      table.boolean('is_private')
     })
 
     await knex.schema.createTable('crm_subscriptions', (table) => {
@@ -1535,11 +1539,13 @@ const schema = {
       table.foreign('user_id').references('maha_users.id')
       table.foreign('story_id').references('maha_stories.id')
       table.foreign('call_id').references('crm_calls.id')
+      table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('crm_calls', table => {
       table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -1555,6 +1561,7 @@ const schema = {
 
     await knex.schema.table('crm_notes', table => {
       table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 

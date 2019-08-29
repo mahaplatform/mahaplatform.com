@@ -1,9 +1,8 @@
 .assignmentfield {
-  border: 1px solid rgba(34,36,38,.15);
-  border-radius: .28571429rem;
-  background: @white;
-  padding: 0.2em;
-  min-height: 2.5em;
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.5em;
+  background-color: @white;
+  display: flex;
   &:focus {
     outline: none !important;
     border-color: @lightblue;
@@ -12,6 +11,13 @@
     box-shadow: 0 0 0 0 rgba(34,36,38,.35) inset;
   }
 }
+.assignmentfield-field {
+  color: fadeout(@black, 70);
+  flex: 1;
+  padding: 0.2em;
+  min-height: 2.5em;
+  line-height: 2.5em;
+}
 .assignmentfield-token {
   display: inline-block;
   margin: 0.2em;
@@ -19,4 +25,22 @@
   background-color: fadeout(@black, 95);
   color: fadeout(@black, 40);
   border-radius: 0.2em;
+  line-height: 1.7em;
+}
+.assignmentfield-prompt {
+  color: fadeout(@black, 70);
+  display: inline-block;
+  margin: 0.2em;
+  padding: 0.2em 0.5em;
+  line-height: 1.7em;
+}
+.assignmentfield-clear {
+  padding: 0.4em 0.8em 0.4em 0;
+  display: flex;
+  .fa {
+    .hover(color, fadeout(@black, 70));
+    margin: auto;
+    color: fadeout(@black, 80);
+    cursor: pointer;
+  }
 }

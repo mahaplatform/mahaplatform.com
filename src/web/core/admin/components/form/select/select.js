@@ -109,7 +109,7 @@ const Select = (multiple) => {
     _handleSetOptions(options) {
       const { onReady, onSetItems } = this.props
       const items = options.map(item => {
-        return _.isString(item) ? { value: item, text: item } : item
+        return _.isPlainObject(item) ? item : { value: item, text: item }
       })
       onSetItems(items)
       onReady()
