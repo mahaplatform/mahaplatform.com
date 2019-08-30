@@ -22,7 +22,7 @@ const createRoute = async (req, res) => {
   const call = await Call.forge({
     team_id: req.team.get('id'),
     contact_id: contact.get('id'),
-    ...whitelist(req.body, ['date','time','description'])
+    ...whitelist(req.body, ['program_id','date','time','description'])
   }).save(null, {
     transacting: req.trx
   })
@@ -30,6 +30,7 @@ const createRoute = async (req, res) => {
   await contactActivity(req, {
     user: req.user,
     contact,
+    program_id: req.body.program_id,
     type: 'call',
     story: 'logged a phone call',
     object: call

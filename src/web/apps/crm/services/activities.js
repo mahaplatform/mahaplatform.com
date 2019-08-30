@@ -2,13 +2,14 @@ import socket from '../../../core/services/routes/emitter'
 import Story from '../../maha/models/story'
 import Activity from '../models/activity'
 
-export const contactActivity = async (req, { user, contact, type, story, object, data }) => {
+export const contactActivity = async (req, { user, contact, program_id, type, story, object, data }) => {
 
   await Activity.forge({
     team_id: req.team.get('id'),
     user_id: user ? user.get('id') : null,
     contact_id: contact.get('id'),
     type,
+    program_id,
     story_id: await _findOrCreateStoryId(req, story),
     ...object ? { [`${type}_id`]: object.get('id') } : {},
     ...data ? { data } : {}

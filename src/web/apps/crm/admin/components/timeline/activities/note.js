@@ -32,7 +32,8 @@ class Call extends React.Component {
       sections: [
         {
           fields: [
-            { name: 'text', type: 'textarea', rows: 20, placeholder: 'Leave a note' }
+            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true },
+            { label: 'Note', name: 'text', type: 'textarea', rows: 20, placeholder: 'Leave a note' }
           ]
         }
       ]

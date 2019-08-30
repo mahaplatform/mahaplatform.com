@@ -18,7 +18,7 @@ const getSidebar = (user, { contact, fields }) => {
 const getTabs = (user, { contact, fields }) => {
   const header = document.body.clientWidth <= 768 ? <Header contact={ contact} /> : null
   const items = [
-    { label: 'Timeline', component: <Timeline contact={ contact } /> }
+    { label: 'Activities', component: <Timeline contact={ contact } /> }
   ]
   if(document.body.clientWidth <= 768) {
     items.unshift({ label: 'Details', component: <Details contact={ contact } fields={ fields } /> })

@@ -22,7 +22,7 @@ const createRoute = async (req, res) => {
   const note = await Note.forge({
     team_id: req.team.get('id'),
     contact_id: contact.get('id'),
-    ...whitelist(req.body, ['text'])
+    ...whitelist(req.body, ['program_id','text'])
   }).save(null, {
     transacting: req.trx
   })
@@ -30,6 +30,7 @@ const createRoute = async (req, res) => {
   await contactActivity(req, {
     user: req.user,
     contact,
+    program_id: req.body.program_id,
     type: 'note',
     story: 'left a note',
     object: note
