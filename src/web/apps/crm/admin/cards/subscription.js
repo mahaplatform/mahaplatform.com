@@ -14,11 +14,22 @@ class Subscription extends React.PureComponent {
   render() {
     const { activity } = this.props
     if(!activity.data) return null
-    const { program, email_address } = activity.data
+    const { program, phone_number, email_address } = activity.data
     return (
       <div className="crm-timeline-item-card-subscription">
-        <strong>Email:</strong> { email_address.address }<br />
-        <strong>Program:</strong> { program.title }
+        <div className="crm-timeline-item-card-subscription-item">
+          <strong>Program:</strong> { program }<br />
+        </div>
+        { phone_number &&
+          <div className="crm-timeline-item-card-subscription-item">
+            <strong>Phone Number:</strong> { phone_number }
+          </div>
+        }
+        { email_address &&
+          <div className="crm-timeline-item-card-subscription-item">
+            <strong>Email Address:</strong> { email_address }
+          </div>
+        }
       </div>
     )
   }

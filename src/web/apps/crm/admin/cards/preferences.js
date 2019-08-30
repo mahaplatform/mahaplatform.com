@@ -14,16 +14,30 @@ class Preferences extends React.PureComponent {
   render() {
     const { activity } = this.props
     if(!activity.data) return null
-    const { program, email_address, actions } = activity.data
+    const { program, email_address, phone_number, actions } = activity.data
     return (
       <div className="crm-timeline-item-card-subscription">
-        <strong>Email:</strong> { email_address.address }<br />
-        <strong>Program:</strong> { program.title }<br />
+        <div className="crm-timeline-item-card-subscription-item">
+          <strong>Program:</strong> { program }<br />
+        </div>
+        { phone_number &&
+          <div className="crm-timeline-item-card-subscription-item">
+            <strong>Phone Number:</strong> { phone_number }
+          </div>
+        }
+        { email_address &&
+          <div className="crm-timeline-item-card-subscription-item">
+            <strong>Email Address:</strong> { email_address }
+          </div>
+        }
         <ul>
           { actions.map((item, index) => (
             <li key={`item_${index}`}>
               { item.action === 'unconsented' &&
-                <span>unsubscribed from all mailings</span>
+                <span>opted out of all communications</span>
+              }
+              { item.action === 'consented' &&
+                <span>opted in to all communications</span>
               }
               { item.action === 'subscribed' &&
                 <span>subscribed to { item.topic }</span>

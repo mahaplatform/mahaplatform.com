@@ -28,7 +28,7 @@
         max-width: 470px;
         margin-bottom: 1.8em;
       }
-      .address {
+      .channel {
         margin-bottom: 1.8em;
       }
       .subscription {
@@ -62,11 +62,16 @@
 
             <h1><%= program.get('title') %></h1>
 
-            <p><strong>Email Preferences for <%= contact.get('full_name') %></strong></p>
+            <p><strong>Communication Preferences for <%= contact.get('full_name') %></strong></p>
 
-            <div class="address" class="ui field">
-              <label>Subscribed email address</label>
-              <input id="email" value="<%= email_address.get('address') %>" />
+            <div class="channel" class="ui field">
+              <% if(email_address) { %>
+                <label>Email Address</label>
+                <input id="email" value="<%= email_address.get('address') %>" />
+              <% } else if(phone_number) { %>
+                <label>Phone Number</label>
+                <input id="phone" value="<%= phone_number.get('number') %>" />
+              <% } %>
             </div>
 
             <div class="subscriptions">
@@ -89,19 +94,21 @@
               <div class="ui checkbox">
                 <input id="unsubscribe" name="unsubscribe" type="checkbox" value="1"<%- consent.get('unsubscribed_at') !== null ? ' checked="checked"' : '' %> />
                 <label for="unsubscribe">
-                  Please unsubscribe the email address below from all future mailings
+                  Please do not contact me at this <%= email_address ? 'email address' : 'phone number' %>
                 </label>
               </div>
             </div>
 
-            <div class="forwarded">
-              <p><%= email_address.get('address') %></p>
-              <p><strong>Not your email address?</strong></p>
-              <p>
-                This email message may have been forwarded to you from a friend or
-                colleague. Please contact them directly to stop receiving forwarded emails
-              </p>
-            </div>
+            <% if(email_address) { %>
+              <div class="forwarded">
+                <p><%= email_address.get('address') %></p>
+                <p><strong>Not your email address?</strong></p>
+                <p>
+                  This email message may have been forwarded to you from a friend or
+                  colleague. Please contact them directly to stop receiving forwarded emails
+                </p>
+              </div>
+            <% } %>
 
             <button class="ui blue button">Update</button
 
