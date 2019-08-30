@@ -280,6 +280,11 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('crm_interests', (table) => {
+      table.integer('contact_id').unsigned()
+      table.integer('topic_id').unsigned()
+    })
+
     await knex.schema.createTable('crm_lists', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -365,6 +370,15 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.string('text', 255)
+    })
+
+    await knex.schema.createTable('crm_topics', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('program_id').unsigned()
+      table.string('title', 255)
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
     })
 
     await knex.schema.createTable('drive_access', (table) => {
@@ -1576,6 +1590,11 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('crm_interests', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('topic_id').references('crm_topics.id')
+    })
+
     await knex.schema.table('drive_access', table => {
       table.foreign('access_type_id').references('drive_access_types.id')
       table.foreign('user_id').references('maha_users.id')
@@ -2000,6 +2019,11 @@ const schema = {
     })
 
     await knex.schema.table('crm_lists', table => {
+      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_topics', table => {
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
     })

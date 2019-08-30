@@ -70,13 +70,13 @@
             </div>
 
             <div class="subscriptions">
-              <p>I am interested in the following lists:</p>
-              <% lists.map(list => { %>
+              <p>I am interested in the following topics:</p>
+              <% topics.map(topic => { %>
                 <div class="subscription">
                   <div class="ui checkbox">
-                    <input class="list" id="list-<%= list.get('id') %>" name="subscriptions[]" type="checkbox"<%- list.get('is_subscribed') ? ' checked="checked"' : '' %> value="<%= list.get('id') %>" />
-                    <label for="list-<%= list.get('id') %>">
-                      <%= list.get('name') %>
+                    <input class="topic" id="topic-<%= topic.get('id') %>" name="interests[]" type="checkbox"<%- topic.get('is_interested') ? ' checked="checked"' : '' %> value="<%= topic.get('id') %>" />
+                    <label for="topic-<%= topic.get('id') %>">
+                      <%= topic.get('title') %>
                     </label>
                   </div>
                 </div>
@@ -121,7 +121,7 @@
 
       const unsubscribe = document.getElementById('unsubscribe')
 
-      const lists = document.getElementsByClassName('list')
+      const topics = document.getElementsByClassName('topic')
 
       const email = document.getElementById('email')
 
@@ -129,16 +129,16 @@
         email.blur()
       }
 
-      Array.prototype.map.call(lists, list => {
-        list.onclick = function() {
-          unsubscribe.checked = false
-        }
-      })
-      unsubscribe.onclick = function() {
-        Array.prototype.map.call(lists, list => {
-          list.checked = false
-        })
-      }
+      // Array.prototype.map.call(topics, topic => {
+      //   topic.onclick = function() {
+      //     unsubscribe.checked = false
+      //   }
+      // })
+      // unsubscribe.onclick = function() {
+      //   Array.prototype.map.call(topics, topic => {
+      //     topic.checked = false
+      //   })
+      // }
     </script>
 
   </body>

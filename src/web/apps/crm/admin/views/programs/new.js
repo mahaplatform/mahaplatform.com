@@ -9,9 +9,7 @@ class New extends React.Component {
     modal: PropTypes.object
   }
 
-  static propTypes = {
-    integration: PropTypes.string
-  }
+  static propTypes = {}
 
   state = {
     is_private: false

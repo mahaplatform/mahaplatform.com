@@ -6,6 +6,7 @@ import ListsShow from './lists/show'
 import OrganizationsList from './organizations/list'
 import OrganizationsShow from './organizations/show'
 import ProgramsList from './programs/list'
+import TopicsList from './topics/list'
 
 const routes = [
   { path: '/contacts', component: ContactsList },
@@ -15,7 +16,8 @@ const routes = [
   { path: '/lists/:id', component: ListsShow },
   { path: '/organizations', component: OrganizationsList },
   { path: '/organizations/:id', component: OrganizationsShow },
-  { path: '/programs', component: ProgramsList }
+  { path: '/programs', component: ProgramsList },
+  { path: '/topics', component: TopicsList }
 ]
 
 export default routes

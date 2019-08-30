@@ -26,13 +26,10 @@ class Preferences extends React.PureComponent {
                 <span>unsubscribed from all mailings</span>
               }
               { item.action === 'subscribed' &&
-                <span>subscribed to { item.list }</span>
-              }
-              { item.action === 'resubscribed' &&
-                <span>resubscribed to { item.list }</span>
+                <span>subscribed to { item.topic }</span>
               }
               { item.action === 'unsubscribed' &&
-                <span>unsubscribed from { item.list }</span>
+                <span>unsubscribed from { item.topic }</span>
               }
             </li>
           )) }
