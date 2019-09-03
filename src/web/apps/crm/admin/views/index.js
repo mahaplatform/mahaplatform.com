@@ -8,6 +8,8 @@ import OrganizationsShow from './organizations/show'
 import ProgramsList from './programs/list'
 import TopicsList from './topics/list'
 
+import Designer from './designer'
+
 const routes = [
   { path: '/contacts', component: ContactsList },
   { path: '/contacts/:id', component: ContactsShow },
@@ -17,7 +19,9 @@ const routes = [
   { path: '/organizations', component: OrganizationsList },
   { path: '/organizations/:id', component: OrganizationsShow },
   { path: '/programs', component: ProgramsList },
-  { path: '/topics', component: TopicsList }
+  { path: '/topics', component: TopicsList },
+  { path: '/designer', component: Designer }
+
 ]
 
 export default routes

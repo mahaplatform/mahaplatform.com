@@ -1,0 +1,42 @@
+.designer {
+  flex: 1;
+  display: flex;
+  background-color: @white;
+}
+.designer-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.designer-header {
+  padding: 0.8em;
+  background-color: fadeout(@black, 97);
+  border-bottom: 1px solid fadeout(@black, 95);
+}
+.designer-preview {
+  flex: 1;
+  display: flex;
+  background-color: fadeout(@black, 97);
+  overflow: hidden;
+  &.desktop {
+    iframe {
+      flex: 1;
+    }
+  }
+  &.mobile {
+    padding: 1.6em;
+    .scrollable();
+    iframe {
+      margin: auto;
+    }
+  }
+  iframe {
+    background-color: @white;
+    border: none;
+  }
+}
+.designer-sidebar {
+  border-left: 1px solid fadeout(@black, 95);
+  flex: 0 0 350px;
+  padding: 15px;
+}

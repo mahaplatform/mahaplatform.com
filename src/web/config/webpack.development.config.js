@@ -41,6 +41,9 @@ const webpackConfig = {
       }
     ]
   },
+  node: {
+    fs: 'empty'
+  },
   output: {
     path: path.resolve('src','web','core','admin','public'),
     filename: 'application.js',
