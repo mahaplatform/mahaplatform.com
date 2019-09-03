@@ -6,7 +6,7 @@ import React from 'react'
 import _ from 'lodash'
 import ejs from 'ejs'
 
-class Header extends React.PureComponent {
+class Preview extends React.PureComponent {
 
   static contextTypes = {}
 
@@ -70,4 +70,4 @@ class Header extends React.PureComponent {
 
 }
 
-export default Header
+export default Preview

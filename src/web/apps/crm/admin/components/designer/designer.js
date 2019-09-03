@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Sidebar from './sidebar'
 import Preview from './preview'
 import Header from './header'
 import React from 'react'
@@ -23,8 +24,7 @@ class Designer extends React.PureComponent {
           <Header { ...this._getHeader() } />
           <Preview { ...this._getPreview() } />
         </div>
-        <div className="designer-sidebar">
-        </div>
+        <Sidebar { ...this._getPreview() } />
       </div>
     )
   }

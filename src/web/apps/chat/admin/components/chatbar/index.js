@@ -145,14 +145,6 @@ class ChatBar extends React.Component {
     })
   }
 
-
-
-
-
-
-
-
-
   _getSubscriptions() {
     const { channel, user_id } = this.props
     return {

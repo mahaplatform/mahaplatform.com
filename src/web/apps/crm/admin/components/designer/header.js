@@ -40,12 +40,14 @@ class Header extends React.PureComponent {
 
   _getDevice() {
     return {
+      className: 'ui selection dropdown',
       onChange: this._handleChange.bind(this, 'device')
     }
   }
 
   _getOrientation() {
     return {
+      className: 'ui selection dropdown',
       onChange: this._handleChange.bind(this, 'orientation')
     }
   }
