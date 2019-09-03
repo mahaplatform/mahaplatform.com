@@ -19,9 +19,9 @@ export const toggle = (resource) => ({
   resource
 })
 
-export const add = (description) => ({
+export const add = (commitment) => ({
   type: 'ADD',
-  description
+  commitment
 })
 
 export const toggleReview = () => ({

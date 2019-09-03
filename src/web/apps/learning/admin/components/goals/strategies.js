@@ -10,6 +10,12 @@ class Strategies extends React.Component {
     onChoose: PropTypes.func
   }
 
+  strategies = [
+    { label: 'Assign by Classification', icon: 'briefcase', code: 'classification' },
+    { label: 'Assign by Category', icon: 'tag', code: 'category' },
+    { label: 'Assign by Competency', icon: 'cube', code: 'competencies' }
+  ]
+
   _handleChoose = this._handleChoose.bind(this)
 
   render() {
@@ -21,28 +27,19 @@ class Strategies extends React.Component {
               <Message { ...this._getOverview() } />
             </div>
             <div className="competencies-resources-strategies-body">
-              <div className="competencies-resources-item" onClick={ this._handleChoose.bind(this, 'classification') }>
-                <div className="competencies-resources-item-toggle">
-                  <i className="fa fa-fw fa-briefcase" />
+              { this.strategies.map((strategy, index) => (
+                <div className="competencies-resources-item" key={`strategy_${index}`} onClick={ this._handleChoose.bind(this, strategy.code) }>
+                  <div className="competencies-resources-item-toggle">
+                    <i className={`fa fa-fw fa-${ strategy.icon }`} />
+                  </div>
+                  <div className="competencies-resources-item-detail">
+                    { strategy.label }
+                  </div>
+                  <div className="competencies-resources-item-proceed">
+                    <i className="fa fa-chevron-right" />
+                  </div>
                 </div>
-                <div className="competencies-resources-item-detail">
-                  Browse by classification
-                </div>
-                <div className="competencies-resources-item-proceed">
-                  <i className="fa fa-chevron-right" />
-                </div>
-              </div>
-              <div className="competencies-resources-item" onClick={ this._handleChoose.bind(this, 'category') }>
-                <div className="competencies-resources-item-toggle">
-                  <i className="fa fa-fw fa-tag" />
-                </div>
-                <div className="competencies-resources-item-detail">
-                  Browse by category
-                </div>
-                <div className="competencies-resources-item-proceed">
-                  <i className="fa fa-chevron-right" />
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -52,6 +49,7 @@ class Strategies extends React.Component {
 
   _getOverview() {
     return {
+      backgroundColor: 'red',
       icon: 'trophy',
       title: 'Set Your Goals',
       text: 'Choose one or two competencies that you\'d like to develop or improve'

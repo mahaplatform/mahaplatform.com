@@ -33,6 +33,7 @@ class Search extends React.Component {
   static defaultProps = {
     filter: {},
     format: Token,
+    label: 'Item',
     multiple: false
   }
 

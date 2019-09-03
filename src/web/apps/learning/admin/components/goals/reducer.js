@@ -22,11 +22,8 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'TOGGLE':
     return {
       ...state,
-      selected: _.find(state.selected, { id: action.resource.id }) ? [
-        ...state.selected.filter(resource => resource.id !== action.resource.id)
-      ] : [
-        ...state.selected,
-        action.resource
+      selected: [
+        ..._.xorBy(state.selected, [action.resource], (item) => item.id)
       ]
     }
 

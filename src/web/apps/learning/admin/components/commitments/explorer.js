@@ -94,6 +94,7 @@ class Explorer extends React.Component {
     if(strategy === 'classification') cards.push({ component: Classifications, props: this._getClassifications() })
     if(strategy === 'goal') cards.push({ component: Goals, props: this._getGoals() })
     if(strategy === 'custom') cards.push({ component: Custom, props: this._getCustom() })
+    if(strategy === 'resources') cards.push({ component: Resources, props: this._getResources() })
     if(category || classification) cards.push({ component: Competencies, props: this._getCompetencies() })
     if(competency) cards.push({ component: Resources, props: this._getResources() })
     return { cards }
@@ -155,10 +156,11 @@ class Explorer extends React.Component {
 
   _getResources() {
     const { competency, selected } = this.props
+    const back = competency ? 'competency' : 'strategy'
     return {
       competency,
       selected,
-      onBack: this._handleBack.bind(this, 'competency'),
+      onBack: this._handleBack.bind(this, back),
       onChoose: this._handleChooseResource
     }
   }

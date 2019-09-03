@@ -52,28 +52,29 @@ class Button extends React.Component {
     onDone: () => {}
   }
 
+  link = null
+
   _handleClick = this._handleClick.bind(this)
 
   render() {
-    const { children, component, icon, label, text } = this.props
+    const { children, component, icon, label, link, text } = this.props
     return (
       <div { ...this._getButton() }>
         { icon && <i className={`fa fa-fw fa-${icon}`} /> }
         { label || text || children }
         { component }
+        { link && <a target="_blank" ref={ node => this.link = node} /> }
       </div>
     )
 
   }
 
   _getButton() {
-    const { disabled, link } = this.props
+    const { disabled } = this.props
     return {
-      href: link ? link : null,
       className: this._getClass(),
       disabled,
-      target: link ? '_blank' : null,
-      onClick: !link ? this._handleClick : null
+      onClick: this._handleClick
     }
   }
 
@@ -99,9 +100,10 @@ class Button extends React.Component {
 
   _handleClick(e) {
     e.stopPropagation()
-    const { confirm, disabled, drawer, handler, location, modal, request, route, url, onDone } = this.props
+    const { confirm, disabled, drawer, handler, link, location, modal, request, route, url, onDone } = this.props
     if(disabled) return
     const yesHandler = () => {
+      if(link) this._handleLink(link)
       if(url) this._handleUrl(url)
       if(route) this._handleRoute(route)
       if(request) this._handleRequest(request)
@@ -112,6 +114,11 @@ class Button extends React.Component {
     onDone()
     if(confirm) return this.context.confirm.open(confirm, yesHandler)
     yesHandler()
+  }
+
+  _handleLink(url) {
+    this.link.href = url
+    this.link.click()
   }
 
   _handleUrl(url) {

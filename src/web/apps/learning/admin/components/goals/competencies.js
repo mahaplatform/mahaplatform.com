@@ -28,6 +28,7 @@ class Competencies extends React.Component {
           <div className="competencies-resources-panel-header-label">
             { category && category.title }
             { classification && classification.title }
+            { !classification && !category && 'Competencies' }
           </div>
         </div>
         <div className="competencies-resources-panel-body">

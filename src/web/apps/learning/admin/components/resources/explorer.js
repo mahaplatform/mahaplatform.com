@@ -42,6 +42,7 @@ class Explorer extends React.Component {
     const cards = [ { component: Strategies, props: this._getStrategies() }]
     if(strategy === 'category') cards.push({ component: Categories, props: this._getCategories() })
     if(strategy === 'classification') cards.push({ component: Classifications, props: this._getClassifications() })
+    if(strategy === 'resources') cards.push({ component: Resources, props: this._getResources() })
     if(category || classification) cards.push({ component: Competencies, props: this._getCompetencies() })
     if(competency) cards.push({ component: Resources, props: this._getResources() })
     return { cards }
@@ -80,9 +81,10 @@ class Explorer extends React.Component {
 
   _getResources() {
     const { competency } = this.props
+    const back = competency ? 'competency' : 'strategy'
     return {
       competency,
-      onBack: this._handleBack.bind(this, 'competency'),
+      onBack: this._handleBack.bind(this, back),
       onChoose: this._handleChooseResource
     }
   }

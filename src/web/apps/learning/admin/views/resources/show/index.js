@@ -53,7 +53,7 @@ const getButtons = ({ resource, competencies }) => {
 
 const mapResourcesToPage = (props, context) => ({
   resource: `/api/admin/learning/resources/${props.params.id}`,
-  competencies: `/api/admin/learning/resources/${props.params.id}/learning`
+  competencies: `/api/admin/learning/resources/${props.params.id}/competencies`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

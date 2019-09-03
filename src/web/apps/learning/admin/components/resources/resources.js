@@ -25,7 +25,7 @@ class Resources extends React.Component {
             <i className="fa fa-chevron-left" />
           </div>
           <div className="competencies-resources-panel-header-label">
-            { competency.title }
+            { competency ? competency.title : 'Resources' }
           </div>
         </div>
         <div className="competencies-resources-panel-body">
@@ -46,9 +46,9 @@ class Resources extends React.Component {
       endpoint: '/api/admin/learning/resources',
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
-      filter: {
+      filter: competency ? {
         'competencies_competencies.id': { $eq: competency.id }
-      },
+      } : null,
       layout: Items,
       props: {
         onChoose: this._handleChoose

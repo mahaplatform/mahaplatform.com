@@ -23,13 +23,13 @@ const user = (user) => {
     id: user.get('id'),
     full_name: user.get('full_name'),
     initials: user.get('initials'),
-    photo: user.related('photo').get('path')
+    photo: user.related('photo') ? user.related('photo').get('path') : null
   }
 }
 
 const audit = (entry) => ({
   id: entry.get('id'),
-  user: user(entry, 'user'),
+  user: user(entry.related('user')),
   story: entry.related('story').get('text'),
   created_at: entry.get('created_at'),
   updated_at: entry.get('updated_at')

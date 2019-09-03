@@ -48,7 +48,10 @@ class Options extends React.Component {
   }
 
   _handleClick(item) {
-    this.props.onChoose(item)
+    this.props.onChoose({
+      resource: item,
+      description: null
+    })
   }
 
   _handleView(resource, e) {

@@ -9,6 +9,12 @@ class Strategies extends React.Component {
     onChoose: PropTypes.func
   }
 
+  strategies = [
+    { label: 'Browse by Classification', icon: 'briefcase', code: 'classification' },
+    { label: 'Browse by Category', icon: 'tag', code: 'category' },
+    { label: 'Browse all', icon: 'cube', code: 'resources' }
+  ]
+
   _handleChoose = this._handleChoose.bind(this)
 
   render() {
@@ -16,28 +22,19 @@ class Strategies extends React.Component {
       <div className="competencies-resources-panel">
         <div className="competencies-resources-panel-body">
           <div className="competencies-resources-strategies">
-            <div className="competencies-resources-item" onClick={ this._handleChoose.bind(this, 'classification') }>
-              <div className="competencies-resources-item-toggle">
-                <i className="fa fa-fw fa-briefcase" />
+            { this.strategies.map((strategy, index) => (
+              <div className="competencies-resources-item" key={`strategy_${index}`} onClick={ this._handleChoose.bind(this, strategy.code) }>
+                <div className="competencies-resources-item-toggle">
+                  <i className={`fa fa-fw fa-${ strategy.icon }`} />
+                </div>
+                <div className="competencies-resources-item-detail">
+                  { strategy.label }
+                </div>
+                <div className="competencies-resources-item-proceed">
+                  <i className="fa fa-chevron-right" />
+                </div>
               </div>
-              <div className="competencies-resources-item-detail">
-                Browse by Classification
-              </div>
-              <div className="competencies-resources-item-proceed">
-                <i className="fa fa-chevron-right" />
-              </div>
-            </div>
-            <div className="competencies-resources-item" onClick={ this._handleChoose.bind(this, 'category') }>
-              <div className="competencies-resources-item-toggle">
-                <i className="fa fa-fw fa-tag" />
-              </div>
-              <div className="competencies-resources-item-detail">
-                Browse by Category
-              </div>
-              <div className="competencies-resources-item-proceed">
-                <i className="fa fa-chevron-right" />
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </div>

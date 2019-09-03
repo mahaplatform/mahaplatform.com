@@ -16,6 +16,8 @@ class Commitments extends React.Component {
     onRemove: PropTypes.func
   }
 
+  link = null
+  
   _handleBack = this._handleBack.bind(this)
 
   render() {
@@ -53,6 +55,7 @@ class Commitments extends React.Component {
             <Message { ...this._getEmpty() } />
           }
         </div>
+        <a target="_blank" ref={ node => this.link = node} />
       </div>
     )
   }

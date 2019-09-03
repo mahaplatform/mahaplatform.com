@@ -10,6 +10,14 @@ class Strategies extends React.Component {
     onChoose: PropTypes.func
   }
 
+  strategies = [
+    { label: 'Assign by goal', icon: 'trophy', code: 'goal' },
+    { label: 'Assign by classification', icon: 'briefcase', code: 'classification' },
+    { label: 'Assign by category', icon: 'tag', code: 'category' },
+    { label: 'Assign by resource', icon: 'cube', code: 'resources' },
+    { label: 'Add a custom commitment', icon: 'pencil', code: 'custom' }
+  ]
+
   _handleChoose = this._handleChoose.bind(this)
 
   render() {
@@ -21,50 +29,19 @@ class Strategies extends React.Component {
               <Message { ...this._getOverview() } />
             </div>
             <div className="competencies-resources-strategies-body">
-              <div className="competencies-resources-item" onClick={ this._handleChoose.bind(this, 'goal') }>
-                <div className="competencies-resources-item-toggle">
-                  <i className="fa fa-fw fa-trophy" />
+              { this.strategies.map((strategy, index) => (
+                <div className="competencies-resources-item" key={`strategy_${index}`} onClick={ this._handleChoose.bind(this, strategy.code) }>
+                  <div className="competencies-resources-item-toggle">
+                    <i className={`fa fa-fw fa-${ strategy.icon }`} />
+                  </div>
+                  <div className="competencies-resources-item-detail">
+                    { strategy.label }
+                  </div>
+                  <div className="competencies-resources-item-proceed">
+                    <i className="fa fa-chevron-right" />
+                  </div>
                 </div>
-                <div className="competencies-resources-item-detail">
-                  Assign by goal
-                </div>
-                <div className="competencies-resources-item-proceed">
-                  <i className="fa fa-chevron-right" />
-                </div>
-              </div>
-              <div className="competencies-resources-item" onClick={ this._handleChoose.bind(this, 'custom') }>
-                <div className="competencies-resources-item-toggle">
-                  <i className="fa fa-fw fa-pencil" />
-                </div>
-                <div className="competencies-resources-item-detail">
-                  Add a custom commitment
-                </div>
-                <div className="competencies-resources-item-proceed">
-                  <i className="fa fa-chevron-right" />
-                </div>
-              </div>
-              <div className="competencies-resources-item" onClick={ this._handleChoose.bind(this, 'classification') }>
-                <div className="competencies-resources-item-toggle">
-                  <i className="fa fa-fw fa-briefcase" />
-                </div>
-                <div className="competencies-resources-item-detail">
-                  Assign by classification
-                </div>
-                <div className="competencies-resources-item-proceed">
-                  <i className="fa fa-chevron-right" />
-                </div>
-              </div>
-              <div className="competencies-resources-item" onClick={ this._handleChoose.bind(this, 'category') }>
-                <div className="competencies-resources-item-toggle">
-                  <i className="fa fa-fw fa-tag" />
-                </div>
-                <div className="competencies-resources-item-detail">
-                  Assign by category
-                </div>
-                <div className="competencies-resources-item-proceed">
-                  <i className="fa fa-chevron-right" />
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
@@ -74,6 +51,7 @@ class Strategies extends React.Component {
 
   _getOverview() {
     return {
+      backgroundColor: 'red',
       icon: 'handshake-o',
       title: 'Make Some Commitments',
       text: 'Based on your goals, make some commitments to your personal development'

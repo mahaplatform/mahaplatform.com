@@ -58,6 +58,7 @@ class Preview extends React.PureComponent {
 
   _handleRender() {
     const html = ejs.render(template, {
+      editable: true,
       ...this.props.config,
       moment,
       _

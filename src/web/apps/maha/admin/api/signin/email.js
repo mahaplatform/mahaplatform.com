@@ -51,7 +51,7 @@ const emailRoute = async (req, res) => {
       full_name: user.get('full_name'),
       initials: user.get('initials'),
       email: user.get('email'),
-      photo: user.related('photo').get('path'),
+      photo: user.related('photo') ? user.related('photo').get('path') : null,
       is_blocked: user.get('is_blocked'),
       locked_out_at: user.get('locked_out_at')
     }

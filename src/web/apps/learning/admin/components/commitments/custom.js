@@ -7,15 +7,13 @@ class Custom extends React.Component {
 
   static propTypes = {
     onAdd: PropTypes.func,
-    onBack: PropTypes.func,
-    onChoose: PropTypes.func
+    onBack: PropTypes.func
   }
 
   input = null
 
   _handleAdd = this._handleAdd.bind(this)
   _handleBack = this._handleBack.bind(this)
-  _handleChoose = this._handleChoose.bind(this)
 
   render() {
     return (
@@ -45,15 +43,14 @@ class Custom extends React.Component {
   }
 
   _handleAdd() {
-    this.props.onAdd(this.input.value)
+    this.props.onAdd({
+      resource: null,
+      description: this.input.value
+    })
   }
 
   _handleBack() {
     this.props.onBack()
-  }
-
-  _handleChoose(item) {
-    this.props.onChoose(item)
   }
 
 

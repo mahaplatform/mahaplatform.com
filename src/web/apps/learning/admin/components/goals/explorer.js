@@ -23,6 +23,7 @@ class Explorer extends React.Component {
     plan: PropTypes.object,
     review: PropTypes.bool,
     selected: PropTypes.array,
+    status: PropTypes.string,
     strategy: PropTypes.string,
     onSet: PropTypes.func,
     onToggle: PropTypes.func,
@@ -86,6 +87,7 @@ class Explorer extends React.Component {
     const cards = [ { component: Strategies, props: this._getStrategies() }]
     if(strategy === 'category') cards.push({ component: Categories, props: this._getCategories() })
     if(strategy === 'classification') cards.push({ component: Classifications, props: this._getClassifications() })
+    if(strategy === 'competencies') cards.push({ component: Competencies, props: this._getCompetencies() })
     if(category || classification) cards.push({ component: Competencies, props: this._getCompetencies() })
     return { cards }
   }
@@ -116,16 +118,9 @@ class Explorer extends React.Component {
     }
   }
 
-  _getCommitments() {
-    return {
-      onBack: this._handleReview,
-      onRemove: this._handleChooseResource
-    }
-  }
-
   _getCompetencies() {
     const { category, classification } = this.props
-    const back = category ? 'category' : 'classification'
+    const back = category ? 'category' : (classification ? 'classification' : 'strategy')
     return {
       category,
       classification,
@@ -137,17 +132,7 @@ class Explorer extends React.Component {
   _getGoals() {
     return {
       onBack: this._handleReview,
-      onRemove: this._handleChooseResource
-    }
-  }
-
-  _getResources() {
-    const { competency, selected } = this.props
-    return {
-      competency,
-      selected,
-      onBack: this._handleBack.bind(this, 'competency'),
-      onChoose: this._handleChooseResource
+      onRemove: this._handleChooseCompetency
     }
   }
 
