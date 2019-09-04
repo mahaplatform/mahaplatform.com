@@ -1,5 +1,4 @@
 import { font_size, letter_spacing, line_heights, fonts } from '../variables'
-import { unflatten } from 'flat'
 import { Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -60,7 +59,7 @@ class Page extends React.Component {
   }
 
   _handleChange(data) {
-    this.props.onUpdate('design.page', unflatten(data))
+    this.props.onUpdate(data)
   }
 
 }

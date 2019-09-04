@@ -32,7 +32,7 @@ class Search extends React.Component {
     return {
       title: `Choose ${label}`,
       leftItems: [
-        { label: 'Cancel', handler: this._handleCancel }
+        { icon: 'chevron-left', handler: this._handleCancel }
       ]
     }
   }

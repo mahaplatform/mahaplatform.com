@@ -31,9 +31,9 @@ class Menu extends React.Component {
     const { items } = this.props
     const numbers = ['zero','one','two','three']
     return (
-      <div className="menus">
-        <div className="menus-header">
-          <div className="menus-header-menu">
+      <div className="maha-menus">
+        <div className="maha-menus-header">
+          <div className="maha-menus-header-menu">
             <div className={`ui ${numbers[items.length]} item menu`}>
               { items.map((item, index) => (
                 <a key={`menu_${index}`} className={ this._getItemClass(index) } onClick={ this._handleChoose.bind(this, index) }>
@@ -43,10 +43,10 @@ class Menu extends React.Component {
             </div>
           </div>
         </div>
-        <div className="menus-body">
+        <div className="maha-menus-body">
           { items.map((item, index) => (
             <div key={`menu_body_${index}`} className={ this._getTabClass(index) }>
-              <div className="menus-menu-content">
+              <div className="maha-menus-menu-content">
                 { _.isFunction() ? React.createElement(item.component) : item.component }
               </div>
             </div>
@@ -70,7 +70,7 @@ class Menu extends React.Component {
   _getTabClass(index) {
     const { transitioning } = this.state
     const { chosen } = this.props
-    const classes = ['menus-menu']
+    const classes = ['maha-menus-menu']
     if(transitioning) classes.push('transitioning')
     if(index > chosen) classes.push('right')
     if(index < chosen) classes.push('left')

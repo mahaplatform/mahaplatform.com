@@ -1,7 +1,8 @@
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
-import Section from './section'
+import Sections from './sections'
+import Menu from '../menu'
 import React from 'react'
 import _ from 'lodash'
 
@@ -34,8 +35,10 @@ class Form extends React.Component {
     panels: PropTypes.array,
     ready: PropTypes.array,
     saveText: PropTypes.any,
+    showHeader: PropTypes.bool,
     sections: PropTypes.array,
     status: PropTypes.string,
+    tabs: PropTypes.array,
     title: PropTypes.string,
     validateResults: PropTypes.object,
     onCancel: PropTypes.func,
@@ -64,6 +67,7 @@ class Form extends React.Component {
     buttonPosition: 'top',
     cancelText: 'Cancel',
     saveText: 'Save',
+    showHeader: true,
     onCancel: () => {},
     onChange: () => {},
     onChangeField: () => {},
@@ -76,9 +80,13 @@ class Form extends React.Component {
 
   _handleCancel = this._handleCancel.bind(this)
   _debouncedSubmit = _.debounce(this._handleSubmit.bind(this), 2500, { leading: true })
+  _handleToggleBusy = this._handleToggleBusy.bind(this)
+  _handleSetReady = this._handleSetReady.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
+  _handleUpdateData = this._handleUpdateData.bind(this)
 
   render() {
-    const { after, before, config, instructions, panels, status } = this.props
+    const { after, before, config, instructions, panels, status, tabs } = this.props
     const configuring = _.includes(['pending', 'loading_sections','sections_loaded', 'loading_data'], status)
     return (
       <div className="maha-form">
@@ -90,10 +98,11 @@ class Form extends React.Component {
                 { instructions && <div className="instructions">{ instructions }</div> }
               </div>
             }
-            { !configuring &&
-              config.map((section, index) => (
-                <Section key={`section_${index}`} { ...this._getSection(config, section, index) } />
-              ))
+            { !configuring && config &&
+              <Sections { ...this._getSections(config) } />
+            }
+            { !configuring && tabs &&
+              <Menu { ...this._getTabs() } />
             }
             { after &&
               <div className="maha-form-footer">
@@ -119,7 +128,8 @@ class Form extends React.Component {
 
   componentDidMount() {
     const { sections, onSetSections } = this.props
-    onSetSections(sections)
+    if(sections) return onSetSections(sections)
+    this._handleLoadData()
   }
 
   componentDidUpdate(prevProps) {
@@ -147,10 +157,21 @@ class Form extends React.Component {
     }
   }
 
+  _getTabs() {
+    const { tabs } = this.props
+    return {
+      items: tabs.map(tab => ({
+        label: tab.label,
+        component: <Sections { ...this._getSections(tab.sections) } />
+      }))
+    }
+  }
+
   _getPanel() {
-    const { buttonPosition, cancelText, saveText, title } = this.props
+    const { buttonPosition, cancelText, saveText, showHeader, title } = this.props
     return {
       position: buttonPosition,
+      showHeader,
       title,
       leftItems: (cancelText) ? [
         { label: cancelText, handler: this._handleCancel }
@@ -177,21 +198,16 @@ class Form extends React.Component {
     return saveClasses.join(' ')
   }
 
-  _getSection(config, section, index) {
+  _getSections(sections) {
     const { data, errors } = this.props
-    const tabIndexStart = config.reduce((start, section, i) => {
-      if(i >= index) return start
-      return start + section.fields.length
-    }, _.random(0,1000))
     return {
-      ...section,
+      sections,
       data,
       errors,
-      tabIndexStart,
-      onBusy: this._handleToggleBusy.bind(this),
-      onReady: this._handleSetReady.bind(this),
-      onSubmit: this._handleSubmit.bind(this),
-      onUpdateData: this._handleUpdateData.bind(this)
+      onBusy: this._handleToggleBusy,
+      onReady: this._handleSetReady,
+      onSubmit: this._handleSubmit,
+      onUpdateData: this._handleUpdateData
     }
   }
 

@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 const INITIAL_STATE = {
   busy: [],
-  config: [],
+  config: null,
   data: {},
   entity: {},
   errors: {},

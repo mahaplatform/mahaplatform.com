@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types'
+import Buttons from '../buttons'
 import React from 'react'
 import _ from 'lodash'
 
 class ModalPanel extends React.Component {
 
   static propTypes = {
+    buttons: PropTypes.array,
     children: PropTypes.any,
     className: PropTypes.string,
     color: PropTypes.string,
@@ -12,19 +14,19 @@ class ModalPanel extends React.Component {
     leftItems: PropTypes.array,
     rightEnabled: PropTypes.bool,
     rightItems: PropTypes.array,
-    position: PropTypes.string,
+    showHeader: PropTypes.bool,
     title: PropTypes.string
   }
 
   static defaultProps = {
-    position: 'top'
+    showHeader: true
   }
 
   render() {
-    const { leftItems, position, rightItems, title } = this.props
+    const { buttons, leftItems, rightItems, showHeader, title } = this.props
     return (
       <div className={ this._getClass() }>
-        { position === 'top' &&
+        { showHeader &&
           <div className="maha-modal-panel-header">
             { leftItems &&
               <div className="maha-modal-panel-header-navigation">
@@ -52,30 +54,20 @@ class ModalPanel extends React.Component {
         <div className="maha-modal-panel-body">
           { this.props.children }
         </div>
-        { position === 'bottom' &&
+        { buttons &&
           <div className="maha-modal-panel-footer">
-            { leftItems &&
-              <div className="maha-modal-panel-footer-navigation">
-                { leftItems.map((item,index) => (
-                  <div key={`left_${index}`} className="ui button" onClick={ item.handler }>
-                    { this._getElement(item) }
-                  </div>
-                )) }
-              </div>
-            }
-            { rightItems &&
-              <div className="maha-modal-panel-footer-navigation">
-                { rightItems.map((item,index) => (
-                  <div key={`right_${index}`} className="ui red button" onClick={ item.handler }>
-                    { this._getElement(item) }
-                  </div>
-                )) }
-              </div>
-            }
+            <Buttons { ...this._getButtons() } />
           </div>
         }
       </div>
     )
+  }
+
+  _getButtons() {
+    const { buttons } = this.props
+    return {
+      buttons
+    }
   }
 
   _getClass() {

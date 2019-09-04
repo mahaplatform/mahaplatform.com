@@ -64,8 +64,9 @@ class Designer extends React.Component {
   }
 
   _getSidebar() {
-    const { config, onUpdate } = this.props
+    const { active, config, onUpdate } = this.props
     return {
+      active,
       config,
       onUpdate
     }

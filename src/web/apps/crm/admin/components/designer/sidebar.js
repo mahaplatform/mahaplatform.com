@@ -1,13 +1,18 @@
+import Button from './blocks/button'
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Text from './blocks/text'
+import { unflatten } from 'flat'
 import React from 'react'
 import Page from './page'
+import _ from 'lodash'
 
 class Sidebar extends React.Component {
 
   static contextTypes = {}
 
   static propTypes = {
+    active: PropTypes.object,
     config: PropTypes.object,
     onUpdate: PropTypes.func
   }
@@ -33,13 +38,33 @@ class Sidebar extends React.Component {
     this._handlePush(Page, this._getPage())
   }
 
+  componentDidUpdate(prevProps) {
+    const { active } = this.props
+    if(!_.isEqual(active, prevProps.active)) {
+      if(active.sidebar === null) this._handlePop()
+      this._handleEdit()
+    }
+  }
+
+  _getBlock() {
+    const { active, config } = this.props
+    const key = `content[${active.section}][${active.block}].config`
+    return {
+      active,
+      config,
+      onDone: this._handleDone,
+      onUpdate: this._handleUpdate.bind(this, key)
+    }
+  }
+
   _getPage() {
-    const { config, onUpdate } = this.props
+    const { config } = this.props
+    const key = 'design.page'
     return {
       config,
       onPush: this._handlePush,
       onPop: this._handlePop,
-      onUpdate
+      onUpdate: this._handleUpdate.bind(this, key)
     }
   }
 
@@ -48,6 +73,18 @@ class Sidebar extends React.Component {
     return {
       cards,
       slideFirst: false
+    }
+  }
+
+  _handleEdit() {
+    const { active, config } = this.props
+    const block = config.content[active.section][active.block]
+    if(block.type === 'button') {
+      this._handlePush(Button, this._getBlock())
+    } else if(block.type === 'text') {
+      this._handlePush(Text, this._getBlock())
+    } else {
+      this._handlePush(() => <div>Foo</div>, {})
     }
   }
 
@@ -63,6 +100,14 @@ class Sidebar extends React.Component {
         ...this.state.cards,
         { component, props }
       ]
+    })
+  }
+
+  _handleUpdate(key, value) {
+    const { config } = this.props
+    this.props.onUpdate(key, {
+      ..._.get(config, key),
+      ...unflatten(value)
     })
   }
 

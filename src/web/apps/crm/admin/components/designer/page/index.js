@@ -1,4 +1,4 @@
-import { Menu } from 'maha-admin'
+import { Menu, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Content from './content'
 import Design from './design'
@@ -18,7 +18,11 @@ class Sidebar extends React.Component {
   static defaultProps = {}
 
   render() {
-    return <Menu { ...this._getMenu() } />
+    return (
+      <ModalPanel { ...this._getPanel() }>
+        <Menu { ...this._getMenu() } />
+      </ModalPanel>
+    )
   }
 
   _getMenu() {
@@ -47,6 +51,12 @@ class Sidebar extends React.Component {
       onPop,
       onPush,
       onUpdate
+    }
+  }
+
+  _getPanel() {
+    return {
+      title: 'Email'
     }
   }
 

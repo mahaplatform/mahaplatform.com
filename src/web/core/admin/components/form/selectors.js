@@ -3,7 +3,7 @@ import { unflatten } from 'flat'
 import Checkit from 'checkit'
 import _ from 'lodash'
 
-const sections = state => state.config
+const sections = state => state.config || []
 
 const data = state => state.data
 
