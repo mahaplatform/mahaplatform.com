@@ -36,9 +36,9 @@ class Menu extends React.Component {
           <div className="menus-header-menu">
             <div className={`ui ${numbers[items.length]} item menu`}>
               { items.map((item, index) => (
-                <div key={`menu_${index}`} className={ this._getItemClass(index) } onClick={ this._handleChoose.bind(this, index) }>
+                <a key={`menu_${index}`} className={ this._getItemClass(index) } onClick={ this._handleChoose.bind(this, index) }>
                   { item.label }
-                </div>
+                </a>
               )) }
             </div>
           </div>

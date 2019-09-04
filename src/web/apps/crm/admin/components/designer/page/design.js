@@ -1,8 +1,5 @@
 import PropTypes from 'prop-types'
-import Preheader from './preheader'
-import Footer from './footer'
-import Header from './header'
-import Body from './body'
+import Section from './section'
 import React from 'react'
 import Page from './page'
 
@@ -21,11 +18,11 @@ class Design extends React.Component {
   static defaultProps = {}
 
   sections = [
-    { label: 'Page', code: 'page', component: Page, props: this._getSection() },
-    { label: 'Preheader', code: 'preheader', component: Preheader, props: this._getSection()},
-    { label: 'Header', code: 'header', component: Header, props: this._getSection() },
-    { label: 'Body', code: 'body', component: Body, props: this._getSection() },
-    { label: 'Footer', code: 'footer', component: Footer, props: this._getSection() }
+    { label: 'Page', code: 'page', component: Page, props: this._getPage() },
+    { label: 'Preheader', code: 'preheader', component: Section, props: this._getSection('preheader','Preheader')},
+    { label: 'Header', code: 'header', component: Section, props: this._getSection('header','Header') },
+    { label: 'Body', code: 'body', component: Section, props: this._getSection('body','Body') },
+    { label: 'Footer', code: 'footer', component: Section, props: this._getSection('footer','Footer') }
   ]
 
   render() {
@@ -49,10 +46,22 @@ class Design extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {}
 
-  _getSection() {
+  _getPage() {
     const { config, onPop, onPush, onUpdate } = this.props
     return {
       config,
+      onPop,
+      onPush,
+      onUpdate
+    }
+  }
+
+  _getSection(section, label) {
+    const { config, onPop, onPush, onUpdate } = this.props
+    return {
+      config,
+      label,
+      section,
       onPop,
       onPush,
       onUpdate

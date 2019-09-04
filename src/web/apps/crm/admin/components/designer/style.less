@@ -37,7 +37,9 @@
 }
 .designer-sidebar {
   border-left: 1px solid fadeout(@black, 95);
-  flex: 0 0 350px;
+  flex: 0 0 ~"calc(100% / 3)";
+  max-width: 500px;
+  min-width: 350px;
   display: flex;
 }
 .designer-sidebar-panel {
@@ -52,8 +54,6 @@
 .designer-sidebar-panel-body {
   flex: 1;
 }
-
-
 .designer-page-sections {
   flex: 1;
 }
