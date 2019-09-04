@@ -46,8 +46,8 @@ class Menu extends React.Component {
         <div className="menus-body">
           { items.map((item, index) => (
             <div key={`menu_body_${index}`} className={ this._getTabClass(index) }>
-              <div className="menu-content">
-                { item.component && <item.component { ...this._getComponent(index) } /> }
+              <div className="menus-menu-content">
+                { _.isFunction() ? React.createElement(item.component) : item.component }
               </div>
             </div>
           )) }
@@ -70,7 +70,7 @@ class Menu extends React.Component {
   _getTabClass(index) {
     const { transitioning } = this.state
     const { chosen } = this.props
-    const classes = ['menu']
+    const classes = ['menus-menu']
     if(transitioning) classes.push('transitioning')
     if(index > chosen) classes.push('right')
     if(index < chosen) classes.push('left')

@@ -4,7 +4,7 @@ import explorer from './explorer'
 import * as actions from './actions'
 
 export default Singleton({
-  namespace: 'competencies.goals',
+  namespace: 'learning.goals',
   component: explorer,
   reducer,
   actions

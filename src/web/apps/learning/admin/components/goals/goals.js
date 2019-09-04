@@ -71,7 +71,7 @@ class Goals extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  selected: state.competencies.goals.selected
+  selected: state.learning.goals.selected
 })
 
 export default connect(mapStateToProps)(Goals)

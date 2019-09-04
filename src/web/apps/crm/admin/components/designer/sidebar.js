@@ -3,11 +3,14 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import Page from './page'
 
-class Sidebar extends React.PureComponent {
+class Sidebar extends React.Component {
 
   static contextTypes = {}
 
-  static propTypes = {}
+  static propTypes = {
+    config: PropTypes.object,
+    onUpdate: PropTypes.func
+  }
 
   static defaultProps = {}
 
@@ -31,9 +34,12 @@ class Sidebar extends React.PureComponent {
   }
 
   _getPage() {
+    const { config, onUpdate } = this.props
     return {
+      config,
       onPush: this._handlePush,
-      onPop: this._handlePop
+      onPop: this._handlePop,
+      onUpdate
     }
   }
 

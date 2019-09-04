@@ -1,8 +1,8 @@
-import { devices, orientations } from './viewport'
+import { devices, orientations } from './variables'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Header extends React.PureComponent {
+class Header extends React.Component {
 
   static contextTypes = {}
 

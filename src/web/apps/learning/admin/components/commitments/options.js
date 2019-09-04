@@ -67,7 +67,7 @@ class Options extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  selected: state.competencies.commitments.selected
+  selected: state.learning.commitments.selected
 })
 
 export default connect(mapStateToProps)(Options)

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Preheader extends React.PureComponent {
+class Preheader extends React.Component {
 
   static contextTypes = {}
 

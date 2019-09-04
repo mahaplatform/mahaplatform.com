@@ -18,7 +18,7 @@ class Form extends React.Component {
     busy: PropTypes.array,
     buttonPosition: PropTypes.string,
     defaults: PropTypes.object,
-    cancelText: PropTypes.string,
+    cancelText: PropTypes.any,
     config: PropTypes.array,
     data: PropTypes.object,
     errors: PropTypes.object,
@@ -33,7 +33,7 @@ class Form extends React.Component {
     method: PropTypes.string,
     panels: PropTypes.array,
     ready: PropTypes.array,
-    saveText: PropTypes.string,
+    saveText: PropTypes.any,
     sections: PropTypes.array,
     status: PropTypes.string,
     title: PropTypes.string,
@@ -54,8 +54,9 @@ class Form extends React.Component {
     onSetSections: PropTypes.func,
     onSuccess: PropTypes.func,
     onToggleBusy: PropTypes.func,
-    onValidateForm: PropTypes.func,
-    onUpdateData: PropTypes.func
+    onUpdateData: PropTypes.func,
+    onUpdateSections: PropTypes.func,
+    onValidateForm: PropTypes.func
   }
 
   static defaultProps = {
@@ -132,7 +133,9 @@ class Form extends React.Component {
       if(status === 'success') this._handleSuccess()
       if(status === 'failure') this._handleFailure()
     }
-    if(prevProps.data != data) this._handleChange(prevProps.data, data)
+    if(!_.isEqual(prevProps.data, data)) {
+      this._handleChange(prevProps.data, data)
+    }
   }
 
   getChildContext() {

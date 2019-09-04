@@ -1,16 +1,17 @@
+import { devices, orientations } from './variables'
 import template from '!!raw-loader!./template.ejs'
-import { devices, orientations } from './viewport'
 import PropTypes from 'prop-types'
 import moment from 'moment'
 import React from 'react'
 import _ from 'lodash'
 import ejs from 'ejs'
 
-class Preview extends React.PureComponent {
+class Preview extends React.Component {
 
   static contextTypes = {}
 
   static propTypes = {
+    active: PropTypes.object,
     config: PropTypes.object,
     deviceIndex: PropTypes.number,
     orientationIndex: PropTypes.number,
@@ -34,7 +35,15 @@ class Preview extends React.PureComponent {
     this._handleRender()
   }
 
-  componentDidUpdate(prevProps) {}
+  componentDidUpdate(prevProps) {
+    const { active, config } = this.props
+    if(!_.isEqual(active, prevProps.active)) {
+      this._handleRender()
+    }
+    if(!_.isEqual(config, prevProps.config)) {
+      this._handleRender()
+    }
+  }
 
   _getClass() {
     const { deviceIndex } = this.props
@@ -57,9 +66,11 @@ class Preview extends React.PureComponent {
   }
 
   _handleRender() {
+    const { active, config } = this.props
     const html = ejs.render(template, {
       editable: true,
-      ...this.props.config,
+      active,
+      ...config,
       moment,
       _
     })

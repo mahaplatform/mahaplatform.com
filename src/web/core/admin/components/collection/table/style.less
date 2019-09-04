@@ -126,7 +126,7 @@
     }
   }
 }
-.maha-table-columns {
+.maha-table-columns-chooser {
   position: absolute;
   right: 0;
   min-width: 200px;
@@ -183,5 +183,11 @@
   }
   .fa-lock {
     color: fadeout(@black, 40);
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .maha-table-columns {
+    display: none;
   }
 }

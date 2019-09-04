@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Content extends React.PureComponent {
+class Content extends React.Component {
 
   static contextTypes = {}
 

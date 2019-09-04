@@ -50,7 +50,16 @@
     <meta name="viewport" content="width=device-width"/>
     <link href="/admin/css/foundation-emails.min.css" rel="stylesheet" />
     <% if(editable === true) { %>
+      <link href="/admin/css/font-awesome.min.css" rel="stylesheet" />
       <style type="text/css">
+        .dropzone {
+          padding: 10px;
+          background: #EEE;
+          border: 1px solid #BBB;
+        }
+        .dropzone td.first {
+          text-align: center;
+        }
         .block {
           position: relative;
           cursor: pointer;
@@ -58,18 +67,33 @@
         }
         .block.active {
           border-color: #000000;
+        }
+        .block:hover {
+          border-color: #000000;
           min-height: 45px;
         }
+        .block:hover .block-actions {
+          display: flex;
+        }
         .block-actions {
+          display: none;
           position: absolute;
           top: 0;
           left: 0;
           right: 0;
-          background-color: rgba(0,0,0,0.1);
-          display: flex;
+          background-color: rgba(0,0,0,0.4);
+        }
+        .block-actions .block-spacer {
+          flex: 1;
         }
         .block-action {
           padding: 10px;
+        }
+        .block-action .fa {
+          color: rgba(255,255,255,0.7);
+        }
+        .block-action:hover .fa {
+          color: rgb(255,255,255);
         }
       </style>
     <% } %>
@@ -165,82 +189,106 @@
               <tr>
                 <td>
                   <% sections.map((section, i) => { %>
-                  <% if(editable === true) { %>
-                    <div class="section" id="section-<%- section %>">
-                  <% } %>
-                      <% if(content[section] && content[section].length > 0) { %>
-                        <table class="email-<%- section %>">
-                          <tr>
-                            <td>
-                              <% if(styles[section].padding_top) { %>
-                                <table class="spacer">
-                                  <tbody>
-                                    <tr>
-                                      <td height="<%- styles[section].padding_top %>" style="font-size:<%- styles[section].padding_top %>;line-height:<%- styles[section].padding_top %>;">&#xA0;</td>
-                                    </tr>
-                                  </tbody>
+                    <% if(editable === true) { %>
+                      <div class="section">
+                    <% } %>
+                    <table class="email-<%- section %>">
+                      <tr>
+                        <td>
+                          <% if(styles[section].padding_top) { %>
+                            <table class="spacer">
+                              <tbody>
+                                <tr>
+                                  <td height="<%- styles[section].padding_top %>" style="font-size:<%- styles[section].padding_top %>;line-height:<%- styles[section].padding_top %>;">&#xA0;</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          <% } %>
+                          <% if(content[section].length > 0) { %>
+                            <% content[section].map((block, j) => { %>
+                              <% if(editable === true) { %>
+                                <% is_active = active.section === section && active.block === j %>
+                                <div class="block<%= is_active ? ' active' : '' %>">
+                              <% } %>
+                              <% if(block.type === 'text') { %>
+                                <table class="row email-<%- section %>-block-<%- j %>">
+                                  <tr>
+                                    <% split = block.settings.split || [12] %>
+                                    <% columns = block.settings.columns %>
+                                    <% for(var i = 0; i < columns; i++) { %>
+                                      <td class="large-<%- split[i] %><%- i === 0 ? ' first' : '' %><%- i === columns - 1 ? ' last' : '' %> columns">
+                                        <%- block.content[i] %>
+                                      </td>
+                                    <% } %>
+                                    <td class="expander"></td>
+                                  </tr>
                                 </table>
+                              <% } else if(block.type === 'imagegroup') { %>
+                                <%
+                                const imagestyle = (style) => {
+                                  const styles = []
+                                  if(style.width !== null) styles.push('border:'+style.width+'px '+style.style+' '+style.color+';')
+                                  if(style.rounded !== null) styles.push('border-radius: '+(25*2)+'%;')
+                                  return styles.join('')
+                                }
+                                %>
+                                <% layout = block.settings.layout || [1] %>
+                                <% layout.reduce((total, columns) => { %>
+                                  <table class="row">
+                                    <tr>
+                                      <% for(var i = 0; i < columns; i++) { %>
+                                        <td class="large-<%- 12 / columns %><%- i === 0 ? ' first' : '' %><%- i === columns - 1 ? ' last' : '' %> columns">
+                                          <img src="<%- block.content[total + i] %>" style="<%- imagestyle(block.style) %>" />
+                                        </td>
+                                      <% } %>
+                                    </tr>
+                                  </table>
+                                  <% return total + columns %>
+                                <% }, 0) %>
                               <% } %>
-                              <% content[section].map((block, j) => { %>
                               <% if(editable === true) { %>
-                                <div class="block" id="section-<%- section %>-block-<%- j %>">
-                              <% } %>
-                                  <% if(block.type === 'text') { %>
-                                    <table class="row email-<%- section %>-block-<%- j %>">
-                                      <tr>
-                                        <% split = block.settings.split || [12] %>
-                                        <% columns = block.settings.columns %>
-                                        <% for(var i = 0; i < columns; i++) { %>
-                                          <td class="large-<%- split[i] %><%- i === 0 ? ' first' : '' %><%- i === columns - 1 ? ' last' : '' %> columns">
-                                            <%- block.content[i] %>
-                                          </td>
-                                        <% } %>
-                                        <td class="expander"></td>
-                                      </tr>
-                                    </table>
-                                  <% } else if(block.type === 'imagegroup') { %>
-                                    <%
-                                    const imagestyle = (style) => {
-                                      const styles = []
-                                      if(style.width !== null) styles.push('border:'+style.width+'px '+style.style+' '+style.color+';')
-                                      if(style.rounded !== null) styles.push('border-radius: '+(25*2)+'%;')
-                                      return styles.join('')
-                                    }
-                                    %>
-                                    <% layout = block.settings.layout || [1] %>
-                                    <% layout.reduce((total, columns) => { %>
-                                      <table class="row">
-                                        <tr>
-                                          <% for(var i = 0; i < columns; i++) { %>
-                                            <td class="large-<%- 12 / columns %><%- i === 0 ? ' first' : '' %><%- i === columns - 1 ? ' last' : '' %> columns">
-                                              <img src="<%- block.content[total + i] %>" style="<%- imagestyle(block.style) %>" />
-                                            </td>
-                                          <% } %>
-                                        </tr>
-                                      </table>
-                                      <% return total + columns %>
-                                    <% }, 0) %>
-                                  <% } %>
-                              <% if(editable === true) { %>
+                                <div class="block-actions">
+                                  <div class="block-spacer"></div>
+                                  <div class="block-action" data-action="edit" data-section="<%= section %>" data-block="<%= j %>">
+                                    <i class="fa fa-pencil"></i>
+                                  </div>
+                                  <div class="block-action" data-action="clone" data-section="<%= section %>" data-block="<%= j %>">
+                                    <i class="fa fa-copy"></i>
+                                  </div>
+                                  <div class="block-action" data-action="remove" data-section="<%= section %>" data-block="<%= j %>">
+                                    <i class="fa fa-trash"></i>
+                                  </div>
                                 </div>
-                              <% } %>
-                              <% }) %>
-                              <% if(styles[section].padding_bottom) { %>
-                                <table class="spacer">
-                                  <tbody>
-                                    <tr>
-                                      <td height="<%- styles[section].padding_bottom %>" style="font-size:<%- styles[section].padding_bottom %>;line-height:<%- styles[section].padding_bottom %>;">&#xA0;</td>
-                                    </tr>
-                                  </tbody>
-                                </table>
-                              <% } %>
-                            </td>
-                          </tr>
-                        </table>
-                      <% } %>
-                  <% if(editable === true) { %>
-                    </div>
-                  <% } %>
+                              </div>
+                            <% } %>
+                            <% }) %>
+                          <% } else { %>
+                            <div class="dropzone">
+                              <table class="row">
+                                <tr>
+                                  <td class="large-12 first last columns">
+                                    Drop Content Blocks Here
+                                  </td>
+                                  <td class="expander"></td>
+                                </tr>
+                              </table>
+                            </div>
+                          <% } %>
+                          <% if(styles[section].padding_bottom) { %>
+                            <table class="spacer">
+                              <tbody>
+                                <tr>
+                                  <td height="<%- styles[section].padding_bottom %>" style="font-size:<%- styles[section].padding_bottom %>;line-height:<%- styles[section].padding_bottom %>;">&#xA0;</td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          <% } %>
+                        </td>
+                      </tr>
+                    </table>
+                    <% if(editable === true) { %>
+                      </div>
+                    <% } %>
                   <% }) %>
                 </td>
               </tr>
@@ -250,28 +298,18 @@
       </tr>
       <% if(editable === true) { %>
         <script>
-          const blocks = document.getElementsByClassName('block');
-          let inside
-          const onEnter = function(e) {
-            if(inside) return
-            inside = true
-            const classes = e.target.className.split(' ')
-            classes.push('active')
-            e.target.className = classes.join(' ')
-            e.target.innerHTML = e.target.innerHTML + '<div class="block-actions"><div class="block-action">edit</div></div>';
-          }
-          const onLeave = function(e) {
-            const actions = e.target.querySelector('.block-actions');
-            const classes = e.target.className.split(' ')
-            e.target.className = classes.filter(function(className) {
-              return className !== 'active'
-            }).join(' ')
-            actions.remove()
-            inside = false
-          }
-          Array.prototype.map.call(blocks, block => {
-            block.addEventListener('mouseenter', onEnter, false);
-            block.addEventListener('mouseleave', onLeave, false);
+          Array.prototype.map.call(document.getElementsByClassName('block-action'), action => {
+            action.addEventListener('click', function(e) {
+              const dataset = e.currentTarget.dataset;
+              window.parent.postMessage({
+                target: 'designer',
+                action: dataset.action,
+                data: {
+                  section: dataset.section,
+                  block: parseInt(dataset.block)
+                }
+              }, '*')
+            }, false);
           })
         </script>
       <% } %>

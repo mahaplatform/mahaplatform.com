@@ -17,7 +17,7 @@ class Commitments extends React.Component {
   }
 
   link = null
-  
+
   _handleBack = this._handleBack.bind(this)
 
   render() {
@@ -89,7 +89,7 @@ class Commitments extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  selected: state.competencies.commitments.selected
+  selected: state.learning.commitments.selected
 })
 
 export default connect(mapStateToProps)(Commitments)

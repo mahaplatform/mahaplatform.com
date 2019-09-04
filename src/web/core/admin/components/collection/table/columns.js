@@ -20,22 +20,24 @@ class Columns extends React.Component {
     const { show } = this.state
     return (
       <td className="maha-table-head-cell mobile config" onClick={ this._handleToggle }>
-        <i className="fa fa-chevron-down" />
-        { show &&
-          <div className="maha-table-columns" onMouseLeave={ this._handleToggle }>
-            { columns.map((column, index) => (
-              <div className="maha-table-column" key={`column_${index}`} onClick={ this._handleToggleColumn.bind(this, column) }>
-                <div className="maha-table-column-label">
-                  { column.label }
+        <div className="maha-table-columns" onClick={ this._handleToggle }>
+          <i className="fa fa-chevron-down" />
+          { show &&
+            <div className="maha-table-columns-chooser" onMouseLeave={ this._handleToggle }>
+              { columns.map((column, index) => (
+                <div className="maha-table-column" key={`column_${index}`} onClick={ this._handleToggleColumn.bind(this, column) }>
+                  <div className="maha-table-column-label">
+                    { column.label }
+                  </div>
+                  <div className="maha-table-column-icon">
+                    { column.visible && !column.primary && <i className="fa fa-fw fa-check" /> }
+                    { column.primary && <i className="fa fa-fw fa-lock" /> }
+                  </div>
                 </div>
-                <div className="maha-table-column-icon">
-                  { column.visible && !column.primary && <i className="fa fa-fw fa-check" /> }
-                  { column.primary && <i className="fa fa-fw fa-lock" /> }
-                </div>
-              </div>
-            ))}
-          </div>
-        }
+              ))}
+            </div>
+          }
+        </div>
       </td>
     )
   }

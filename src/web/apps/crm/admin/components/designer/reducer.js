@@ -1,6 +1,10 @@
+import _ from 'lodash'
+
 const INITIAL_STATE = {
-  deviceIndex: 0,
-  orientationIndex: 0,
+  active: {
+    section: null,
+    block: null
+  },
   config: {
     content: {
       preheader: [
@@ -50,7 +54,9 @@ const INITIAL_STATE = {
       ]
     },
     design: {}
-  }
+  },
+  deviceIndex: 0,
+  orientationIndex: 0
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -61,6 +67,60 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       [`${action.key}Index`]: action.value
+    }
+
+  case 'CLONE':
+    return {
+      ...state,
+      active: {
+        section: null,
+        block: null
+      },
+      config: {
+        ...state.config,
+        content: {
+          ...state.config.content,
+          [action.section]: [
+            ...state.config.content[action.section],
+            state.config.content[action.section][action.block]
+          ]
+        }
+      }
+    }
+
+  case 'EDIT':
+    return {
+      ...state,
+      active: {
+        section: action.section,
+        block: action.block
+      }
+    }
+
+  case 'REMOVE':
+    return {
+      ...state,
+      active: {
+        section: null,
+        block: null
+      },
+      config: {
+        ...state.config,
+        content: {
+          ...state.config.content,
+          [action.section]: [
+            ...state.config.content[action.section].filter((block, index) => {
+              return index !== action.block
+            })
+          ]
+        }
+      }
+    }
+
+  case 'UPDATE':
+    return {
+      ...state,
+      config: _.set(_.cloneDeep(state.config), action.key, action.value)
     }
 
   default:

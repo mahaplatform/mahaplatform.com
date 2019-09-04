@@ -7,13 +7,15 @@ import React from 'react'
 import Page from './page'
 
 
-class Design extends React.PureComponent {
+class Design extends React.Component {
 
   static contextTypes = {}
 
   static propTypes = {
+    config: PropTypes.object,
     onPop: PropTypes.func,
-    onPush: PropTypes.func
+    onPush: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   static defaultProps = {}
@@ -48,11 +50,13 @@ class Design extends React.PureComponent {
   componentDidUpdate(prevProps, prevState) {}
 
   _getSection() {
-    const { onPop, onPush } = this.props
+    const { config, onPop, onPush, onUpdate } = this.props
     return {
+      config,
       onPop,
-      onPush
-    }    
+      onPush,
+      onUpdate
+    }
   }
 
   _handleChoose(index) {
