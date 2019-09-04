@@ -89,6 +89,8 @@ const buildClient = async () => {
   log('info', 'client', 'Compiling...')
   await new Promise((resolve, reject) => webpack(clientConfig).run((err, stats) => {
     if(err) reject(err)
+    const info = stats.toJson()
+    if(stats.hasErrors()) console.error(info.errors)
     resolve(stats)
   }))
   log('info', 'client', 'Compiled successfully.')

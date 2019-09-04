@@ -42,6 +42,9 @@ const webpackConfig = {
       }
     ]
   },
+  node: {
+    fs: 'empty'
+  },
   optimization: {
     minimizer: [
       new TerserPlugin({
