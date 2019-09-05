@@ -8,20 +8,25 @@ export const save = (plan_id, commitments) => ({
   failure: 'SAVE_FAILURE'
 })
 
+export const add = (commitment) => ({
+  type: 'ADD',
+  commitment
+})
+
 export const set = (key, value) => ({
   type: 'SET',
   key,
   value
 })
 
+export const remove = (index) => ({
+  type: 'REMOVE',
+  index
+})
+
 export const toggle = (resource) => ({
   type: 'TOGGLE',
   resource
-})
-
-export const add = (commitment) => ({
-  type: 'ADD',
-  commitment
 })
 
 export const toggleReview = () => ({

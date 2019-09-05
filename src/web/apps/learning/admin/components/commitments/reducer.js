@@ -24,7 +24,19 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       selected: [
-        ..._.xorBy(state.selected, [action.resource], (item) => item.resource.id)
+        ..._.xorBy(state.selected, [action.resource], (item) => {
+          return item.resource.id
+        })
+      ]
+    }
+
+  case 'REMOVE':
+    return {
+      ...state,
+      selected: [
+        ...state.selected.filter((item, index) => {
+          return index !== action.index
+        })
       ]
     }
 

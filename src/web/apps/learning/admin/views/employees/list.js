@@ -1,4 +1,5 @@
 import { Page, UserToken } from 'maha-admin'
+import New from './new'
 
 const mapPropsToPage = (props, context) => ({
   title: 'Employees',
@@ -13,6 +14,10 @@ const mapPropsToPage = (props, context) => ({
     icon: 'user-circle',
     empty: 'You have not yet been assigned any employees',
     link: (record) => `/admin/learning/employees/${record.id}`
+  },
+  task: {
+    icon: 'plus',
+    modal: New
   }
 })
 

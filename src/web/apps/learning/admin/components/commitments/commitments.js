@@ -46,7 +46,7 @@ class Commitments extends React.Component {
                     }
                     { commitment.description }
                   </div>
-                  <div className="competencies-resources-item-proceed" onClick={ this._handleRemove.bind(this, commitment) }>
+                  <div className="competencies-resources-item-proceed" onClick={ this._handleRemove.bind(this, index) }>
                     <i className="fa fa-fw fa-remove" />
                   </div>
                 </div>

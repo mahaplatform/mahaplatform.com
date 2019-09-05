@@ -41,6 +41,7 @@ const updateRoute = async (req, res) => {
 
   await socket.refresh(req, [
     '/admin/learning/plans',
+    '/admin/learning/plans/employees',
     '/admin/learning/plans/reports',
     `/admin/learning/plans/${req.params.plan_id}`
   ])

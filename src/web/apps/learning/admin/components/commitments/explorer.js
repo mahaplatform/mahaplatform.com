@@ -22,13 +22,14 @@ class Explorer extends React.Component {
     category: PropTypes.object,
     classification: PropTypes.object,
     competency: PropTypes.object,
-    plan: PropTypes.number,
+    plan: PropTypes.object,
     review: PropTypes.bool,
     selected: PropTypes.array,
     status: PropTypes.string,
     strategy: PropTypes.string,
     onAdd: PropTypes.func,
     onSet: PropTypes.func,
+    onRemove: PropTypes.func,
     onToggle: PropTypes.func,
     onToggleReview: PropTypes.func,
     onSave: PropTypes.func
@@ -41,6 +42,7 @@ class Explorer extends React.Component {
   _handleChooseCompetency = this._handleChooseCompetency.bind(this)
   _handleChooseResource = this._handleChooseResource.bind(this)
   _handleChooseStrategy = this._handleChooseStrategy.bind(this)
+  _handleRemove = this._handleRemove.bind(this)
   _handleReview = this._handleReview.bind(this)
   _handleSave = this._handleSave.bind(this)
 
@@ -130,7 +132,7 @@ class Explorer extends React.Component {
   _getCommitments() {
     return {
       onBack: this._handleReview,
-      onRemove: this._handleChooseResource
+      onRemove: this._handleRemove
     }
   }
 
@@ -195,6 +197,10 @@ class Explorer extends React.Component {
 
   _handleChooseResource(resource) {
     this.props.onToggle(resource)
+  }
+
+  _handleRemove(index) {
+    this.props.onRemove(index)
   }
 
   _handleReview() {

@@ -1,6 +1,7 @@
 import { UserToken, Page } from 'maha-admin'
 import StatusToken from '../../tokens/status_token'
 import Status from '../../tokens/status'
+import New from '../employees/new'
 
 const mapPropsToPage = (props, context) => ({
   title: 'Plans',
@@ -22,6 +23,10 @@ const mapPropsToPage = (props, context) => ({
     empty: 'You do not yet have any plans',
     link: (record) => `/admin/learning/plans/${record.id}`,
     rowClass: (record) => record.status
+  },
+  task: {
+    icon: 'plus',
+    modal: New
   }
 })
 

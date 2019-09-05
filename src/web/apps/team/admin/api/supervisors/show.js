@@ -6,7 +6,7 @@ const showRoute = async (req, res) => {
   const supervisor = await Supervisor.scope({
     team: req.team
   }).query(qb => {
-    qb.where('id', req.params.id)
+    qb.where('id', id)
   }).fetch({
     withRelated: ['user.photo'],
     transacting: req.trx

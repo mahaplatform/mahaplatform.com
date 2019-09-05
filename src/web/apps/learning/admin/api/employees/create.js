@@ -10,12 +10,9 @@ const createRoute = async (req, res) => {
 
   const plan = await Plan.forge({
     team_id: req.team.get('id'),
-    employee_id: req.user.get('id'),
+    supervisor_id: req.user.get('id'),
     status: 'pending',
-    remind_me_4_weeks: req.body.reminders.remind_me_4_weeks,
-    remind_me_2_weeks: req.body.reminders.remind_me_2_weeks,
-    remind_me_1_week: req.body.reminders.remind_me_1_week,
-    ...whitelist(req.body, ['due','supervisor_id'])
+    ...whitelist(req.body, ['due','employee_id'])
   }).save(null, {
     transacting: req.trx
   })
