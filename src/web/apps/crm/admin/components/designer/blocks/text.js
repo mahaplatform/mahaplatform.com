@@ -38,7 +38,7 @@ class Text extends React.Component {
           sections: [
             {
               fields: [
-                { name: 'content.0', type: 'textarea' }
+                { name: 'content_0', type: 'htmlfield', defaultValue: config.content_0  }
               ]
             }
           ]

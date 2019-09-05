@@ -255,7 +255,7 @@
                                     <% columns = block.config.columns %>
                                     <% for(var i = 0; i < columns; i++) { %>
                                       <td class="large-<%- split[i] %><%- i === 0 ? ' first' : '' %><%- i === columns - 1 ? ' last' : '' %> columns">
-                                        <%- block.config.content[i] %>
+                                        <%- block.config[`content_${i}`] %>
                                       </td>
                                     <% } %>
                                     <td class="expander"></td>

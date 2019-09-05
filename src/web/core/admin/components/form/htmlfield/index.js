@@ -4,7 +4,7 @@ import htmlfield from './htmlfield'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'reframe.htmlfield',
+  namespace: 'maha.htmlfield',
   component: htmlfield,
   reducer,
   actions

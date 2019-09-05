@@ -5,8 +5,6 @@ import _ from 'lodash'
 
 class Sections extends React.Component {
 
-  static childContextTypes = {}
-
   static propTypes = {
     data: PropTypes.object,
     errors: PropTypes.object,

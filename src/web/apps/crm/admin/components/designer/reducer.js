@@ -11,9 +11,7 @@ const INITIAL_STATE = {
         {
           type: 'text',
           config: {
-            content: [
-              'preheader'
-            ],
+            content_0: 'preheader',
             columns: 1
           }
         }
@@ -23,9 +21,7 @@ const INITIAL_STATE = {
           type: 'text',
           config: {
             columns: 1,
-            content: [
-              'header'
-            ]
+            content_0: 'header'
           }
         }
       ],
@@ -34,9 +30,7 @@ const INITIAL_STATE = {
           type: 'text',
           config: {
             columns: 1,
-            content: [
-              '<h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3><h4>Heading 4</h4><p>Lorem ipsum dolor amet franzen taiyaki raw denim heirloom retro, prism lyft pop-up yuccie tumblr mlkshk tousled art party stumptown pug. Cold-pressed live-edge activated charcoal 90s pok pok dreamcatcher. Tousled normcore ramps, locavore edison bulb pinterest craft beer lyft four dollar toast. Lumbersexual polaroid vexillologist cornhole trust fund ethical gluten-free.</p>'
-            ]
+            content_0: '<h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3><h4>Heading 4</h4><p>Lorem ipsum dolor amet franzen taiyaki raw denim heirloom retro, prism lyft pop-up yuccie tumblr mlkshk tousled art party stumptown pug. Cold-pressed live-edge activated charcoal 90s pok pok dreamcatcher. Tousled normcore ramps, locavore edison bulb pinterest craft beer lyft four dollar toast. Lumbersexual polaroid vexillologist cornhole trust fund ethical gluten-free.</p>'
           }
         }, {
           type: 'button',
@@ -70,9 +64,7 @@ const INITIAL_STATE = {
           type: 'text',
           config: {
             columns: 1,
-            content: [
-              'footer'
-            ]
+            content_0: 'footer'
           }
         }
       ]
