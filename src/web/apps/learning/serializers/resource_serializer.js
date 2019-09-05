@@ -3,8 +3,6 @@ const resourceSerializer = (req, result) => ({
   title: result.get('title'),
   description: result.get('description'),
   url: result.get('url'),
-  review_average: result.get('review_average'),
-  review_count: result.get('review_count'),
   asset: asset(result.related('asset')),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
