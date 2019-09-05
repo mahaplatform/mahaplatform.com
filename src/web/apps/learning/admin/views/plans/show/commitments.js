@@ -21,7 +21,7 @@ const Commitments = ({ user, plan, commitments } ) => {
       }
     },
     buttons: commitments.length > 0 && plan.status !== 'completed' && (plan.status === 'pending' || user.id === plan.supervisor_id) ? [
-      { label: 'Make Commitments', color: 'blue', modal: <SetCommitments plan={ plan } commitments={ commitments } /> }
+      { label: 'Manage Commitments', color: 'blue', modal: <SetCommitments plan={ plan } commitments={ commitments } /> }
     ]: null
   }
 

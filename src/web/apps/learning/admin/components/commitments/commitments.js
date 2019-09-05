@@ -1,5 +1,5 @@
+import { Message, TextArea } from 'maha-admin'
 import { connect } from 'react-redux'
-import { Message } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -13,7 +13,8 @@ class Commitments extends React.Component {
     selected: PropTypes.array,
     onBack: PropTypes.func,
     onChoose: PropTypes.func,
-    onRemove: PropTypes.func
+    onRemove: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   link = null
@@ -30,30 +31,34 @@ class Commitments extends React.Component {
           </div>
         </div>
         <div className="competencies-resources-panel-body">
-          { selected.length > 0 ?
-            <div className="competencies-resources-items">
-              { selected.map((commitment, index) => (
-                <div className="competencies-resources-item" key={`item_${index}`}>
-                  <div className="competencies-resources-item-detail">
-                    { commitment.resource !== null &&
-                      <div className="commitment-token-resource">
-                        <strong>{ commitment.resource.title }</strong>
-                        <div>{ commitment.resource.description }</div>
-                        { (commitment.resource.url || commitment.resource.asset) &&
-                          <div className="link" onClick={ this._handleView.bind(this, commitment.resource) }>View Resource</div>
-                        }
+          <div className="ui form">
+            { selected.length > 0 ?
+              <div className="competencies-resources-items">
+                { selected.map((commitment, index) => (
+                  <div className="competencies-resources-item" key={`item_${index}`}>
+                    <div className="competencies-resources-item-detail">
+                      { commitment.resource == null ?
+                        <div className="commitment-token-resource">
+                          <strong>Custom Commitment</strong>
+                        </div> :
+                        <div className="commitment-token-resource">
+                          <strong>{ commitment.resource.title }</strong>
+                          <div>{ commitment.resource.description }</div>
+                        </div>
+                      }
+                      <div className="ui field">
+                        <TextArea { ...this._getTextArea(commitment, index) } />
                       </div>
-                    }
-                    { commitment.description }
+                    </div>
+                    <div className="competencies-resources-item-proceed" onClick={ this._handleRemove.bind(this, index) }>
+                      <i className="fa fa-fw fa-remove" />
+                    </div>
                   </div>
-                  <div className="competencies-resources-item-proceed" onClick={ this._handleRemove.bind(this, index) }>
-                    <i className="fa fa-fw fa-remove" />
-                  </div>
-                </div>
-              ))}
-            </div> :
-            <Message { ...this._getEmpty() } />
-          }
+                ))}
+              </div> :
+              <Message { ...this._getEmpty() } />
+            }
+          </div>
         </div>
         <a target="_blank" ref={ node => this.link = node} />
       </div>
@@ -74,6 +79,19 @@ class Commitments extends React.Component {
 
   _handleRemove(item) {
     this.props.onRemove(item)
+  }
+
+  _getTextArea(commitment, index) {
+    return {
+      placeholder: 'Add instructions',
+      rows: 1,
+      onChange: this._handleUpdate.bind(this, index),
+      defaultValue: commitment.description
+    }
+  }
+
+  _handleUpdate(index, description) {
+    this.props.onUpdate(index, description)
   }
 
   _handleView(resource, e) {

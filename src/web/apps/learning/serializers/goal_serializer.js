@@ -6,6 +6,7 @@ const goalSerializer = (req, result) => ({
     description: result.related('competency').get('description'),
     level: result.related('competency').get('level')
   },
+  description: result.get('description'),
   is_complete: result.get('is_complete'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

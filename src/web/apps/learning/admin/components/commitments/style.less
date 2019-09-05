@@ -14,8 +14,8 @@
 .competencies-resources-footer {
   border-top: 1px solid fadeout(@black, 95);
   padding: 0.8em;
-  background-color: fadeout(@yellow, 20);
-  color: @blue;
+  background-color: @yellow;
+  color: @white;
   text-align: center;
   cursor: pointer;
 }
@@ -59,11 +59,11 @@
   padding: 0.8em;
 }
 .competencies-resources-panel-header-close {
-  background-color: fadeout(@yellow, 20);
+  background-color: @yellow;
   flex: 1;
   padding: 0.8em;
   text-align: center;
-  color: @blue;
+  color: @white;
   cursor: pointer;
 }
 .competencies-resources-panel-body {
@@ -84,13 +84,13 @@
 .competencies-resources-strategies-body {
   flex: 1;
 }
+.competencies-resources-items {
+  flex: 1;
+  .scrollable;
+}
 .competencies-resources-item {
   display: flex;
-  border-bottom: 1px solid fadeout(@black, 95);
-  cursor: pointer;
-  &:hover {
-    background-color: fadeout(@black, 97);
-  }
+  border-bottom: 1px solid fadeout(@black, 90);
 }
 .competencies-resources-item-detail {
   padding: 0.8em;
@@ -98,6 +98,9 @@
   flex: 1;
   strong {
     color: @black;
+  }
+  .ui.field {
+    margin-top: 0.8em;
   }
 }
 .competencies-resources-item-toggle {
@@ -131,10 +134,12 @@
 }
 .competencies-resources-item-proceed {
   padding: 0.8em;
-  display: flex;
   .fa {
+    cursor: pointer;
     color: fadeout(@black, 80);
-    margin: auto;
+    &:hover {
+      color: fadeout(@black, 70);
+    }
   }
 }
 .competencies-resources-custom {

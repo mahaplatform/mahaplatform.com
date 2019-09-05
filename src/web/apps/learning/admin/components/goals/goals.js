@@ -1,5 +1,5 @@
+import { Message, TextArea } from 'maha-admin'
 import { connect } from 'react-redux'
-import { Message } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -9,7 +9,8 @@ class Goals extends React.Component {
     selected: PropTypes.array,
     onBack: PropTypes.func,
     onChoose: PropTypes.func,
-    onRemove: PropTypes.func
+    onRemove: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -24,25 +25,34 @@ class Goals extends React.Component {
           </div>
         </div>
         <div className="competencies-resources-panel-body">
-          { selected.length > 0 ?
-            <div className="competencies-resources-items">
-              { selected.map((item, index) => (
-                <div className="competencies-resources-item" key={`item_${index}`}>
-                  <div className="competencies-resources-item-detail">
-                    <strong>{ item.title }</strong>
-                    <div>{ item.description }</div>
-                    { item.url &&
-                      <div className="link" onClick={ this._handleView.bind(this, item) }>View Resource</div>
-                    }
+          <div className="ui form">
+            { selected.length > 0 ?
+              <div className="competencies-resources-items">
+                { selected.map((goal, index) => (
+                  <div className="competencies-resources-item" key={`goal_${index}`}>
+                    <div className="competencies-resources-item-detail">
+                      { goal.competency === null ?
+                        <div className="commitment-token-resource">
+                          <strong>Custom Goal</strong>
+                        </div> :
+                        <div className="commitment-token-resource">
+                          <strong>{ goal.competency.title }</strong><br />
+                          { goal.competency.description }
+                        </div>
+                      }
+                      <div className="ui field">
+                        <TextArea { ...this._getTextArea(goal, index) } />
+                      </div>
+                    </div>
+                    <div className="competencies-resources-item-proceed">
+                      <i className="fa fa-fw fa-remove" onClick={ this._handleRemove.bind(this, index) } />
+                    </div>
                   </div>
-                  <div className="competencies-resources-item-proceed" onClick={ this._handleRemove.bind(this, item) }>
-                    <i className="fa fa-fw fa-remove" />
-                  </div>
-                </div>
-              ))}
-            </div> :
-            <Message { ...this._getEmpty() } />
-          }
+                ))}
+              </div> :
+              <Message { ...this._getEmpty() } />
+            }
+          </div>
         </div>
       </div>
     )
@@ -56,16 +66,25 @@ class Goals extends React.Component {
     }
   }
 
+  _getTextArea(goal, index) {
+    return {
+      placeholder: 'Add instructions',
+      rows: 1,
+      onChange: this._handleUpdate.bind(this, index),
+      defaultValue: goal.description
+    }
+  }
+
   _handleBack() {
     this.props.onBack()
   }
 
-  _handleRemove(item) {
-    this.props.onRemove(item)
+  _handleRemove(index) {
+    this.props.onRemove(index)
   }
 
-  _handleView(item, e) {
-    e.stopPropagation()
+  _handleUpdate(index, description) {
+    this.props.onUpdate(index, description)
   }
 
 }

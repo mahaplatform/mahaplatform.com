@@ -14,6 +14,16 @@ const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
+  case 'ADD':
+    return {
+      ...state,
+      strategy: null,
+      selected: [
+        ...state.selected,
+        action.commitment
+      ]
+    }
+
   case 'SET':
     return {
       ...state,
@@ -40,16 +50,6 @@ const reducer = (state = INITIAL_STATE, action) => {
       ]
     }
 
-  case 'ADD':
-    return {
-      ...state,
-      strategy: null,
-      selected: [
-        ...state.selected,
-        action.commitment
-      ]
-    }
-
   case 'TOGGLE_REVIEW':
     return {
       ...state,
@@ -66,6 +66,20 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       status: 'saved'
+    }
+
+  case 'UPDATE':
+    return {
+      ...state,
+      selected: [
+        ...state.selected.map((item, index) => {
+          if(index !== action.index) return item
+          return {
+            ...item,
+            description: action.description
+          }
+        })
+      ]
     }
 
   default:

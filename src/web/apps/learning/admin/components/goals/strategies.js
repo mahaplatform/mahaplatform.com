@@ -11,9 +11,10 @@ class Strategies extends React.Component {
   }
 
   strategies = [
-    { label: 'Assign by Classification', icon: 'briefcase', code: 'classification' },
-    { label: 'Assign by Category', icon: 'tag', code: 'category' },
-    { label: 'Assign by Competency', icon: 'cube', code: 'competencies' }
+    { label: 'Assign by classification', icon: 'briefcase', code: 'classification' },
+    { label: 'Assign by category', icon: 'tag', code: 'category' },
+    { label: 'Assign by competency', icon: 'cube', code: 'competencies' },
+    { label: 'Add a custom goal', icon: 'pencil', code: 'custom' }
   ]
 
   _handleChoose = this._handleChoose.bind(this)

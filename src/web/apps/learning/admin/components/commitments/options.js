@@ -47,9 +47,9 @@ class Options extends React.Component {
     return _.find(selected, { resource: { id: item.id } }) ? 'check-circle' : 'circle-o'
   }
 
-  _handleClick(item) {
+  _handleClick(resource) {
     this.props.onChoose({
-      resource: item,
+      resource,
       description: null
     })
   }

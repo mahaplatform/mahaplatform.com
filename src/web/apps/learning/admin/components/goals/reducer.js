@@ -13,6 +13,40 @@ const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
+  case 'ADD':
+    return {
+      ...state,
+      strategy: null,
+      selected: [
+        ...state.selected,
+        action.goal
+      ]
+    }
+
+  case 'REMOVE':
+    return {
+      ...state,
+      selected: [
+        ...state.selected.filter((item, index) => {
+          return index !== action.index
+        })
+      ]
+    }
+
+  case 'UPDATE':
+    return {
+      ...state,
+      selected: [
+        ...state.selected.map((item, index) => {
+          if(index !== action.index) return item
+          return {
+            ...item,
+            description: action.description
+          }
+        })
+      ]
+    }
+
   case 'SET':
     return {
       ...state,

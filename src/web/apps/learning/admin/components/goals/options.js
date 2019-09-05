@@ -35,11 +35,14 @@ class Options extends React.Component {
 
   _getIcon(item) {
     const { selected } = this.props
-    return _.find(selected, { id: item.id }) ? 'check-circle' : 'circle-o'
+    return _.find(selected, { competency: { id: item.id } }) ? 'check-circle' : 'circle-o'
   }
 
-  _handleClick(item) {
-    this.props.onChoose(item)
+  _handleClick(competency) {
+    this.props.onChoose({
+      competency,
+      description: null
+    })
   }
 
   _handleView(item, e) {

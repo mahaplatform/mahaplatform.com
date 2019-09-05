@@ -32,3 +32,9 @@ export const toggle = (resource) => ({
 export const toggleReview = () => ({
   type: 'TOGGLE_REVIEW'
 })
+
+export const update = (index, description) => ({
+  type: 'UPDATE',
+  index,
+  description
+})

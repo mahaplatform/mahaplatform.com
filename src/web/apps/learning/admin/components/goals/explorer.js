@@ -6,6 +6,7 @@ import Strategies from './strategies'
 import Categories from './categories'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
+import Custom from './custom'
 import Goals from './goals'
 import React from 'react'
 
@@ -25,12 +26,15 @@ class Explorer extends React.Component {
     selected: PropTypes.array,
     status: PropTypes.string,
     strategy: PropTypes.string,
+    onAdd: PropTypes.func,
     onSet: PropTypes.func,
     onToggle: PropTypes.func,
     onToggleReview: PropTypes.func,
-    onSave: PropTypes.func
+    onSave: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
+  _handleAdd = this._handleAdd.bind(this)
   _handleCancel = this._handleCancel.bind(this)
   _handleChooseCategory = this._handleChooseCategory.bind(this)
   _handleChooseClassification = this._handleChooseClassification.bind(this)
@@ -38,6 +42,7 @@ class Explorer extends React.Component {
   _handleChooseStrategy = this._handleChooseStrategy.bind(this)
   _handleReview = this._handleReview.bind(this)
   _handleSave = this._handleSave.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
     const { review, selected } = this.props
@@ -60,6 +65,11 @@ class Explorer extends React.Component {
         </CSSTransition>
       </ModalPanel>
     )
+  }
+
+  componentDidMount() {
+    const { goals, onSet } = this.props
+    if(goals) onSet('selected', goals)
   }
 
   componentDidUpdate(prevProps) {
@@ -87,6 +97,7 @@ class Explorer extends React.Component {
     const cards = [ { component: Strategies, props: this._getStrategies() }]
     if(strategy === 'category') cards.push({ component: Categories, props: this._getCategories() })
     if(strategy === 'classification') cards.push({ component: Classifications, props: this._getClassifications() })
+    if(strategy === 'custom') cards.push({ component: Custom, props: this._getCustom() })
     if(strategy === 'competencies') cards.push({ component: Competencies, props: this._getCompetencies() })
     if(category || classification) cards.push({ component: Competencies, props: this._getCompetencies() })
     return { cards }
@@ -114,6 +125,7 @@ class Explorer extends React.Component {
 
   _getCustom() {
     return {
+      onAdd: this._handleAdd,
       onBack: this._handleBack.bind(this, 'strategy')
     }
   }
@@ -132,10 +144,15 @@ class Explorer extends React.Component {
   _getGoals() {
     return {
       onBack: this._handleReview,
-      onRemove: this._handleChooseCompetency
+      onRemove: this._handleChooseCompetency,
+      onUpdate: this._handleUpdate
     }
   }
 
+  _handleAdd(value) {
+    this.props.onAdd(value)
+  }
+  
   _handleBack(key) {
     this.props.onSet(key, null)
   }
@@ -166,8 +183,16 @@ class Explorer extends React.Component {
 
   _handleSave() {
     const { plan, selected } = this.props
-    const ids = selected.map(competency => competency.id)
-    this.props.onSave(plan.id, ids)
+    const goals = selected.map(item => ({
+      competency_id: item.competency ? item.competency.id : null,
+      description: item.description
+
+    }))
+    this.props.onSave(plan.id, goals)
+  }
+
+  _handleUpdate(index, description) {
+    this.props.onUpdate(index, description)
   }
 
 }

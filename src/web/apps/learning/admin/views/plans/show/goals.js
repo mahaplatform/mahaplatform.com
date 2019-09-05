@@ -21,7 +21,7 @@ const Goals = ({ user, plan, goals }) => {
       }
     },
     buttons: goals.length > 0 && plan.status !== 'completed' && (plan.status === 'pending' || user.id === plan.supervisor_id) ? [
-      { label: 'Set Goals', color: 'blue', modal: <SetGoals plan={ plan } goals={ goals } /> }
+      { label: 'Manage Goals', color: 'blue', modal: <SetGoals plan={ plan } goals={ goals } /> }
     ]: null
   }
 

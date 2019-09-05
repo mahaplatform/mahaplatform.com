@@ -14,6 +14,11 @@ const GoalToken = ({ goal }) => (
     { goal.competency.description &&
       <span>{ goal.competency.description }</span>
     }
+    { goal.description &&
+      <div className="goal-token-description">
+        { goal.description }
+      </div>
+    }
   </div>
 )
 

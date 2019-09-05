@@ -181,6 +181,7 @@ const schema = {
       table.boolean('is_complete').defaultsTo(false)
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.text('description')
     })
 
     await knex.schema.createTable('competencies_plans', (table) => {

@@ -22,11 +22,14 @@ const updateRoute = async (req, res) => {
     .where('plan_id', req.params.plan_id)
     .delete()
 
-  await Promise.map(req.body.ids, async id => {
+  console.log(req.body.goals)
+
+  await Promise.map(req.body.goals, async goal => {
     await Goal.forge({
       team_id: req.team.get('id'),
       plan_id: req.params.plan_id,
-      competency_id: id,
+      competency_id: goal.competency_id,
+      description: goal.description,
       is_complete: false
     }).save(null, {
       transacting: req.trx

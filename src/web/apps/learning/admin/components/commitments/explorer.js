@@ -21,6 +21,7 @@ class Explorer extends React.Component {
   static propTypes = {
     category: PropTypes.object,
     classification: PropTypes.object,
+    commitments: PropTypes.array,
     competency: PropTypes.object,
     plan: PropTypes.object,
     review: PropTypes.bool,
@@ -32,7 +33,8 @@ class Explorer extends React.Component {
     onRemove: PropTypes.func,
     onToggle: PropTypes.func,
     onToggleReview: PropTypes.func,
-    onSave: PropTypes.func
+    onSave: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   _handleAdd = this._handleAdd.bind(this)
@@ -45,6 +47,7 @@ class Explorer extends React.Component {
   _handleRemove = this._handleRemove.bind(this)
   _handleReview = this._handleReview.bind(this)
   _handleSave = this._handleSave.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
     const { review, selected } = this.props
@@ -67,6 +70,11 @@ class Explorer extends React.Component {
         </CSSTransition>
       </ModalPanel>
     )
+  }
+
+  componentDidMount() {
+    const { commitments, onSet } = this.props
+    if(commitments) onSet('selected', commitments)
   }
 
   componentDidUpdate(prevProps) {
@@ -132,7 +140,8 @@ class Explorer extends React.Component {
   _getCommitments() {
     return {
       onBack: this._handleReview,
-      onRemove: this._handleRemove
+      onRemove: this._handleRemove,
+      onUpdate: this._handleUpdate
     }
   }
 
@@ -215,6 +224,10 @@ class Explorer extends React.Component {
 
     }))
     this.props.onSave(plan.id, commitments)
+  }
+
+  _handleUpdate(index, description) {
+    this.props.onUpdate(index, description)
   }
 
 }
