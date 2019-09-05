@@ -1,7 +1,7 @@
 import { Menu, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Content from './content'
-import Style from './Style'
+import Style from './style'
 import React from 'react'
 
 class Sidebar extends React.Component {
