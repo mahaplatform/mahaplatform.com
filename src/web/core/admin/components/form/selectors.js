@@ -3,7 +3,9 @@ import { unflatten } from 'flat'
 import Checkit from 'checkit'
 import _ from 'lodash'
 
-const sections = state => state.config || []
+const sections = (state, props) => props.sections
+
+const tabs = (state, props) => props.tabs
 
 const data = state => state.data
 
@@ -11,8 +13,20 @@ const ready = state => state.ready
 
 const busy = state => state.busy
 
-export const fields = createSelector(
+const merged = createSelector(
   sections,
+  tabs,
+  (sections, tabs) => {
+    if(sections) return sections
+    if(tabs) return tabs.reduce((sections, tab) => [
+      ...sections,
+      ...tab.sections
+    ], [])
+    return []
+  })
+
+export const fields = createSelector(
+  merged,
   (sections) => sections.reduce((fields, section) => [
     ...fields,
     ...section.fields.reduce((fields, field) => [

@@ -9,6 +9,7 @@ class Text extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
+    onDone: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
     onUpdate: PropTypes.func
@@ -23,11 +24,8 @@ class Text extends React.Component {
     return <Form { ...this._getForm() } />
   }
 
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps, prevState) {}
-
   _getForm() {
+    const { config } = this.props
     return {
       title: 'Text Block',
       cancelText: <i className="fa fa-chevron-left" />,
@@ -50,11 +48,11 @@ class Text extends React.Component {
             {
               label: 'Text Style',
               fields: [
-                { label: 'Font Family', name: 'font_family', type: 'lookup', options: fonts },
-                { label: 'Font Size', name: 'font_size', type: 'lookup', options: font_size },
-                { label: 'Color', name: 'color', type: 'colorfield' },
-                { label: 'Line Height', name: 'line_height', type: 'lookup', options: line_heights },
-                { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: letter_spacing }
+                { label: 'Font Family', name: 'font_family', type: 'lookup', options: fonts, defaultValue: config.font_family },
+                { label: 'Font Size', name: 'font_size', type: 'lookup', options: font_size, defaultValue: config.font_size },
+                { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color },
+                { label: 'Line Height', name: 'line_height', type: 'lookup', options: line_heights, defaultValue: config.line_height },
+                { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: letter_spacing, defaultValue: config.letter_spacing }
               ]
             }
           ]
@@ -74,7 +72,10 @@ class Text extends React.Component {
     this.props.onUpdate(data)
   }
 
-  _handleDone() {}
+  _handleDone() {
+    this.props.onDone()
+  }
+
 
 }
 

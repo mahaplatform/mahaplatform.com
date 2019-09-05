@@ -64,10 +64,11 @@ class Designer extends React.Component {
   }
 
   _getSidebar() {
-    const { active, config, onUpdate } = this.props
+    const { active, config, onEdit, onUpdate } = this.props
     return {
       active,
       config,
+      onEdit,
       onUpdate
     }
   }

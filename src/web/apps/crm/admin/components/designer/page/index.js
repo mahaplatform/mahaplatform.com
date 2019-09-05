@@ -1,7 +1,7 @@
 import { Menu, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Content from './content'
-import Design from './design'
+import Style from './Style'
 import React from 'react'
 
 class Sidebar extends React.Component {
@@ -28,23 +28,13 @@ class Sidebar extends React.Component {
   _getMenu() {
     return {
       items: [
-        { label: 'Content', component: <Content { ...this._getContent() } /> },
-        { label: 'Design', component: <Design { ...this._getDesign() } /> }
+        { label: 'Content', component: <Content { ...this._getTab() } /> },
+        { label: 'Style', component: <Style { ...this._getTab() } /> }
       ]
     }
   }
 
-  _getContent() {
-    const { config, onPop, onPush, onUpdate } = this.props
-    return {
-      config,
-      onPop,
-      onPush,
-      onUpdate
-    }
-  }
-
-  _getDesign() {
+  _getTab() {
     const { config, onPop, onPush, onUpdate } = this.props
     return {
       config,

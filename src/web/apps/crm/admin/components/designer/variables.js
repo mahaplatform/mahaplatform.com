@@ -1,3 +1,9 @@
+export const alignments = [
+  { value: 'left', text: 'Left' },
+  { value: 'center', text: 'Center' },
+  { value: 'right', text: 'Right' }
+]
+
 export const devices = [
   { label: 'Desktop', type: 'desktop' },
   { label: 'Galaxy S5', type: 'mobile', height: 640, width: 360 },
@@ -11,9 +17,9 @@ export const devices = [
   { label: 'iPad Pro', type: 'mobile', height: 1366 , width: 1024 }
 ]
 
-export const orientations = [
-  { label: 'Portrait' },
-  { label: 'Landscape' }
+export const displays = [
+  { value: 'inline', text: 'Fit to Text' },
+  { value: 'block', text: 'Full Width' }
 ]
 
 export const fonts = [
@@ -29,6 +35,15 @@ export const fonts = [
   { value: 'Verdana, Geneva, sans-serif', text: 'Verdana' }
 ]
 
+export const font_size = [9,10,11,12,13,14,16,18,20,22,24,28,30,36,48,60,72].map(value => `${value}px`)
+
+export const link_strategies = [
+  { value: 'web', text: 'Web Address' },
+  { value: 'email', text: 'Email Address' },
+  { value: 'anchor', text: 'Anchor Link' },
+  { value: 'asset', text: 'File' }
+]
+
 export const line_heights = [
   { value: 1, text: 'Normal' },
   { value: 1.3, text: 'Slight' },
@@ -38,4 +53,7 @@ export const line_heights = [
 
 export const letter_spacing = [-5,-4,-3,-2,-1,0,1,2,3,4,5].map(value => `${value}px`)
 
-export const font_size = [9,10,11,12,13,14,16,18,24,30,36,48,60,72].map(value => `${value}px`)
+export const orientations = [
+  { label: 'Portrait' },
+  { label: 'Landscape' }
+]

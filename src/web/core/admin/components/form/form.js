@@ -86,7 +86,7 @@ class Form extends React.Component {
   _handleUpdateData = this._handleUpdateData.bind(this)
 
   render() {
-    const { after, before, config, instructions, panels, status, tabs } = this.props
+    const { after, before, instructions, panels, sections, status, tabs } = this.props
     const configuring = _.includes(['pending', 'loading_sections','sections_loaded', 'loading_data'], status)
     return (
       <div className="maha-form">
@@ -98,8 +98,8 @@ class Form extends React.Component {
                 { instructions && <div className="instructions">{ instructions }</div> }
               </div>
             }
-            { !configuring && config &&
-              <Sections { ...this._getSections(config) } />
+            { !configuring && sections &&
+              <Sections { ...this._getSections(sections) } />
             }
             { !configuring && tabs &&
               <Menu { ...this._getTabs() } />
@@ -127,16 +127,11 @@ class Form extends React.Component {
   }
 
   componentDidMount() {
-    const { sections, onSetSections } = this.props
-    if(sections) return onSetSections(sections)
     this._handleLoadData()
   }
 
   componentDidUpdate(prevProps) {
-    const { data, sections, status } = this.props
-    if(!_.isEqual(prevProps.sections, sections)) {
-      this._handleUpdateSections()
-    }
+    const { data, status } = this.props
     if(prevProps.status !== status) {
       if(status === 'sections_loaded') this._handleLoadData()
       if(status === 'validated') this._handleSubmit()

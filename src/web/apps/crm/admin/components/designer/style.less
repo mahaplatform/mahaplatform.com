@@ -9,9 +9,13 @@
   flex-direction: column;
 }
 .designer-header {
-  padding: 0.8em;
+  padding: 0.4em 0.8em;
   background-color: fadeout(@black, 97);
   border-bottom: 1px solid fadeout(@black, 95);
+  text-align: center;
+  .ui.dropdown {
+    margin: 0 0.4em;
+  }
 }
 .designer-preview {
   flex: 1;
@@ -41,6 +45,9 @@
   max-width: 500px;
   min-width: 350px;
   display: flex;
+  .maha-modal-panel-header {
+    background-color: @grey !important;
+  }
 }
 .designer-sidebar-panel {
   flex: 1;
@@ -74,5 +81,35 @@
   display: flex;
   .fa {
     margin: auto;
+    font-size: 0.8em;
+    color: fadeout(@black, 40);
   }
+}
+.content-types {
+  flex: 1;
+  padding: 0.8em;
+}
+.content-type {
+  display: flex;
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.5em;
+  margin-bottom: 0.8em;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.content-type-icon {
+  display: flex;
+  padding: 0.8em;
+  border-right: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 97);
+  .fa {
+    margin: auto;
+    font-size: 1.4em;
+  }
+}
+.content-type-label {
+  flex: 1;
+  padding: 0.8em;
 }

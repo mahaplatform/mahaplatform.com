@@ -1,8 +1,8 @@
 import React from 'react'
 
-const ValueToken = ({ value }) => (
+const ValueToken = ({ text }) => (
   <div className="maha-value-token">
-    { value }
+    { text }
   </div>
 )
 

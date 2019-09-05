@@ -3,6 +3,14 @@ import { Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
+const block_types = [
+  { text: 'Heading 1', value: 'h1' },
+  { text: 'Heading 2', value: 'h2' },
+  { text: 'Heading 3', value: 'h3' },
+  { text: 'Heading 4', value: 'h4' },
+  { text: 'Paragraph', value: 'p' }
+]
+
 class Page extends React.Component {
 
   static contextTypes = {}
@@ -28,6 +36,7 @@ class Page extends React.Component {
   componentDidUpdate(prevProps, prevState) {}
 
   _getForm() {
+    const { config } = this.props
     return {
       title: 'Page',
       onCancel: this._handleCancel,
@@ -37,17 +46,17 @@ class Page extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Background Color', name: 'background_color', type: 'colorfield' }
+            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color }
           ]
         },
-        ...[1,2,3,4].map(number => ({
-          label: `Heading ${number}`,
+        ...block_types.map(({ value, text }) => ({
+          label: text,
           fields: [
-            { label: 'Font Family', name: `h${number}.font_family`, type: 'lookup', options: fonts },
-            { label: 'Font Size', name: `h${number}.font_size`, type: 'lookup', options: font_size },
-            { label: 'Color', name: `h${number}.color`, type: 'colorfield' },
-            { label: 'Line Height', name: `h${number}.line_height`, type: 'lookup', options: line_heights },
-            { label: 'Letter Spacing', name: `h${number}.letter_spacing`, type: 'lookup', options: letter_spacing }
+            { label: 'Font Family', name: `${value}_font_family`, type: 'lookup', options: fonts, defaultValue: config[`${value}_font_family`] },
+            { label: 'Font Size', name: `${value}_font_size`, type: 'lookup', options: font_size, defaultValue: config[`${value}_font_size`] },
+            { label: 'Color', name: `${value}_color`, type: 'colorfield', defaultValue: config[`${value}_color`] },
+            { label: 'Line Height', name: `${value}_line_height`, type: 'lookup', options: line_heights, defaultValue: config[`${value}_line_height`] },
+            { label: 'Letter Spacing', name: `${value}_letter_spacing`, type: 'lookup', options: letter_spacing, defaultValue: config[`${value}_letter_spacing`] }
           ]
         }))
       ]
@@ -59,7 +68,7 @@ class Page extends React.Component {
   }
 
   _handleChange(data) {
-    this.props.onUpdate(data)
+    this.props.onUpdate('design.page', data)
   }
 
 }

@@ -1,10 +1,10 @@
 import PropTypes from 'prop-types'
 import Section from './section'
+import Mobile from './mobile'
 import React from 'react'
 import Page from './page'
 
-
-class Design extends React.Component {
+class Style extends React.Component {
 
   static contextTypes = {}
 
@@ -18,11 +18,12 @@ class Design extends React.Component {
   static defaultProps = {}
 
   sections = [
-    { label: 'Page', code: 'page', component: Page, props: this._getPage() },
+    { label: 'Page', code: 'page', component: Page, props: this._getSection('page','Page') },
     { label: 'Preheader', code: 'preheader', component: Section, props: this._getSection('preheader','Preheader')},
     { label: 'Header', code: 'header', component: Section, props: this._getSection('header','Header') },
     { label: 'Body', code: 'body', component: Section, props: this._getSection('body','Body') },
-    { label: 'Footer', code: 'footer', component: Section, props: this._getSection('footer','Footer') }
+    { label: 'Footer', code: 'footer', component: Section, props: this._getSection('footer','Footer') },
+    { label: 'Mobile', code: 'mobile', component: Mobile, props: this._getSection('mobile','Mobile') }
   ]
 
   render() {
@@ -46,20 +47,10 @@ class Design extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {}
 
-  _getPage() {
-    const { config, onPop, onPush, onUpdate } = this.props
-    return {
-      config,
-      onPop,
-      onPush,
-      onUpdate
-    }
-  }
-
   _getSection(section, label) {
     const { config, onPop, onPush, onUpdate } = this.props
     return {
-      config,
+      config: config.design[section],
       label,
       section,
       onPop,
@@ -73,7 +64,6 @@ class Design extends React.Component {
     this.props.onPush(section.component, section.props)
   }
 
-
 }
 
-export default Design
+export default Style

@@ -1,36 +1,37 @@
 <% sections = ['preheader','header','body','footer'] %>
-<% headers = ['h1','h2','h3','h4'] %>
-<% page_background_color = _.get(design, 'page.background_color', '#F3F3F3') %>
-<% page_border_top = _.get(design, 'page.border_top', 'none') %>
-<% page_email_border = _.get(design, 'page.email_border', 'none') %>
+<% block_types = ['h1','h2','h3','h4','p'] %>
+<% page_background_color = _.get(design, 'page.background_color', null) %>
+<% page_border_top = _.get(design, 'page.border_top', null) %>
+<% page_email_border = _.get(design, 'page.email_border', null) %>
 <% styles = {} %>
-<% headers.map((header, index) => { %>
-  <% styles[header] = {} %>
-  <% styles[header].font_family = _.get(design, 'page.'+header+'.font_family', 'Arial') %>
-  <% styles[header].font_size = _.get(design, 'page.'+header+'.font_size', (24 - (2 * index))+'px') %>
-  <% styles[header].color = _.get(design, 'page.'+header+'.color', '#202020') %>
-  <% styles[header].bold = _.get(design, 'page.'+header+'.bold', true) %>
-  <% styles[header].italic = _.get(design, 'page.'+header+'.italic', false) %>
-  <% styles[header].text_align = _.get(design, 'page.'+header+'.text_align', 'left') %>
-  <% styles[header].line_height = _.get(design, 'page.'+header+'.line_height', 1.5) %>
-  <% styles[header].letter_spacing = _.get(design, 'page.'+header+'.letter_spacing', 'normal') %>
+<% block_types.map((block_type, index) => { %>
+  <% styles[block_type] = {} %>
+  <% styles[block_type].font_family = _.get(design, 'page.'+block_type+'_font_family', null) %>
+  <% styles[block_type].font_size = _.get(design, 'page.'+block_type+'_font_size', null) %>
+  <% styles[block_type].color = _.get(design, 'page.'+block_type+'_color', null) %>
+  <% styles[block_type].bold = _.get(design, 'page.'+block_type+'_bold', null) %>
+  <% styles[block_type].italic = _.get(design, 'page.'+block_type+'_italic', null) %>
+  <% styles[block_type].text_align = _.get(design, 'page.'+block_type+'_text_align', null) %>
+  <% styles[block_type].line_height = _.get(design, 'page.'+block_type+'_line_height', null) %>
+  <% styles[block_type].letter_spacing = _.get(design, 'page.'+block_type+'_letter_spacing', null) %>
 <% }) %>
 <% sections.map(section => { %>
   <% styles[section] = {} %>
-  <% styles[section].background_color = _.get(design, section+'.background_color', '#FFFFFF') %>
+  <% styles[section].background_color = _.get(design, section+'.background_color', null) %>
   <% styles[section].background_image = _.get(design, section+'.background_image', null) %>
-  <% styles[section].border_top = _.get(design, section+'.border_top', 'none') %>
-  <% styles[section].border_bottom = _.get(design, section+'.border_bottom', 'none') %>
-  <% styles[section].padding_top = _.get(design, section+'.padding_top', '9px') %>
-  <% styles[section].padding_bottom = _.get(design, section+'.padding_bottom', '9px') %>
-  <% styles[section].text_font_family = _.get(design, section+'.font_family', 'Arial') %>
-  <% styles[section].text_font_size = _.get(design, section+'.font_size', '18px') %>
-  <% styles[section].text_color = _.get(design, section+'.color', '#656565') %>
-  <% styles[section].text_text_align = _.get(design, section+'.text_align', 'left') %>
-  <% styles[section].text_line_height = _.get(design, section+'.line_height', 1.5) %>
-  <% styles[section].link_color = _.get(design, section+'.link_color', '#656565') %>
-  <% styles[section].link_bold = _.get(design, section+'.link_bold', false) %>
-  <% styles[section].link_underline = _.get(design, section+'.link_underline', false) %>
+  <% styles[section].border_top = _.get(design, section+'.border_top', null) %>
+  <% styles[section].border_bottom = _.get(design, section+'.border_bottom', null) %>
+  <% styles[section].padding_top = _.get(design, section+'.padding_top', null) %>
+  <% styles[section].padding_bottom = _.get(design, section+'.padding_bottom', null) %>
+  <% styles[section].text_font_family = _.get(design, section+'.font_family', null) %>
+  <% styles[section].text_font_size = _.get(design, section+'.font_size', null) %>
+  <% styles[section].text_color = _.get(design, section+'.color', null) %>
+  <% styles[section].text_text_align = _.get(design, section+'.text_align', null) %>
+  <% styles[section].text_line_height = _.get(design, section+'.line_height', null) %>
+  <% styles[section].link_color = _.get(design, section+'.link_color', null) %>
+  <% styles[section].link_bold = _.get(design, section+'.link_bold', null) %>
+  <% styles[section].link_underline = _.get(design, section+'.link_underline', null) %>
+  <% styles[section].letter_spacing = _.get(design, section+'.letter_spacing', null) %>
   <% content[section].map((block, index) => { %>
     <% styles[section+'-block-'+index] = {} %>
     <% styles[section+'-block-'+index].font_family = _.get(content, section+'['+index+'].font_family', null) %>
@@ -53,8 +54,9 @@
       <style type="text/css">
         .dropzone {
           padding: 10px;
-          background: #EEE;
-          border: 1px solid #BBB;
+          background: #EEEEEE;
+          border-top: 1px solid #BBBBBB;
+          border-bottom: 1px solid #BBBBBB;
         }
         .dropzone td.first {
           text-align: center;
@@ -62,14 +64,15 @@
         .block {
           position: relative;
           cursor: pointer;
-          border: 1px solid transparent;
+          border-top: 1px solid transparent;
+          border-bottom: 1px solid transparent;
+          min-height: 30px;
         }
         .block.active {
           border-color: #000000;
         }
         .block:hover {
           border-color: #000000;
-          min-height: 45px;
         }
         .block:hover .block-actions {
           display: flex;
@@ -85,8 +88,11 @@
         .block-actions .block-spacer {
           flex: 1;
         }
+        .block-spacer,
         .block-action {
-          padding: 10px;
+          font-size: 16px;
+          padding: 3px 6px;
+          line-height: 24px;
         }
         .block-action .fa {
           color: rgba(255,255,255,0.7);
@@ -97,24 +103,24 @@
       </style>
     <% } %>
     <style type="text/css">
-
     @media only screen {
       html {
-        background: <%- page_background_color %>; } }
-
+        background: <%- page_background_color %>;
+      }
+    }
     table.body {
       border-top: <%- page_border_top %>;
-      background: <%- page_background_color %>; }
-
+      background: <%- page_background_color %>;
+    }
     table.body > tbody > tr > td.float-center {
-      padding: 10px; }
-
+      padding: 10px;
+    }
     td.columns,
     td.column,
     th.columns,
     th.column {
-      padding-bottom: 0; }
-
+      padding-bottom: 0;
+    }
     body,
     table.body,
     h1,
@@ -127,45 +133,52 @@
     td,
     th,
     a {
-      line-height: 1.5; }
-
-    <% headers.map(header => { %>
-      <%- header %> {
+      line-height: 1.5;
+    }
+    table.button table td {
+      background-color: #BBBBBB;
+      color: #666666;
+      border: none;
+    }
+    <% block_types.map(block_type => { %>
+      <%- block_type %> {
         word-wrap: normal;
         margin-bottom: 10px;
         Margin-bottom: 10px;
-        font-family: <%- styles[header].font_family %>;
-        font-size: <%- styles[header].font_size %>;
-        <%- styles[header].bold ? 'font-weight: bold;' : '' %>
-        <%- styles[header].italic ? 'font-style: italic;' : '' %>
-        line-height: <%- styles[header].line_height %>;
-        letter-spacing: <%- styles[header].letter_spacing %>;
-        color: <%- styles[header].color %>;
-        text-align: <%- styles[header].text_align %>; }
+        <%- styles[block_type].font_family ? 'font-family: '+styles[block_type].font_family+';' : '' %>
+        <%- styles[block_type].font_size ? 'font-size: '+styles[block_type].font_size+';' : '' %>
+        <%- styles[block_type].bold ? 'font-weight: bold;' : '' %>
+        <%- styles[block_type].italic ? 'font-style: italic;' : '' %>
+        <%- styles[block_type].color ? 'color: '+styles[block_type].color+';' : '' %>
+        <%- styles[block_type].text_align ? 'text-align: '+styles[block_type].text_align+';' : '' %>
+        <%- styles[block_type].line_height ? 'line-height: '+styles[block_type].line_height+';' : '' %>
+        <%- styles[block_type].letter_spacing ? 'letter-spacing: '+styles[block_type].letter_spacing+';' : '' %>
+      }
     <% }) %>
 
     table.email {
-      border: <%- page_email_border %>; }
-
+      <%- page_email_border ? 'border: '+page_email_border+';' : '' %>;
+    }
     <% sections.map(section => { %>
       table.email-<%- section %> {
-        border-top: <%- styles[section].border_top %>;
-        border-bottom: <%- styles[section].border_bottom %>;
-        background-color: <%- styles[section].background_color %>; }
-
+        <%- styles[section].border_top ? 'border-top: '+styles[section].border_top+';' : '' %>
+        <%- styles[section].border_bottom ? 'border-bottom: '+styles[section].border_bottom+';' : '' %>
+        <%- styles[section].background_color ? 'background-color: '+styles[section].background_color+';' : '' %>
+      }
       table.email-<%- section %> td,
       table.email-<%- section %> p {
-        font-family: <%- styles[section].text_font_family %>;
-        font-size: <%- styles[section].text_font_size %>;
-        color: <%- styles[section].text_color %>;
-        text-align: <%- styles[section].text_text_align %>;
-        line-height: <%- styles[section].text_line_height %>; }
-
+        <%- styles[section].text_font_family ? 'font-family: '+styles[section].text_font_family+';' : '' %>
+        <%- styles[section].text_font_size ? 'font-size: '+styles[section].text_font_size+';' : '' %>
+        <%- styles[section].text_color ? 'color: '+styles[section].text_color+';' : '' %>
+        <%- styles[section].text_text_align ? 'text-align: '+styles[section].text_text_align+';' : '' %>
+        <%- styles[section].text_line_height ? 'line-height: '+styles[section].text_line_height+';' : '' %>
+        <%- styles[section].text_letter_spacing ? 'letter-spacing: '+styles[section].text_letter_spacing+';' : '' %>
+      }
       table.email-<%- section %> td a {
-        color: <%- styles[section].link_color %>;
+        <%- styles[section].link_color ? 'font-color: '+styles[section].link_color+';' : '' %>
         <%- styles[section].link_bold ? 'font-weight: bold;' : '' %>
-        <%- styles[section].link_underline ? 'text-decoration: underline;' : '' %> }
-
+        <%- styles[section].link_underline ? 'text-decoration: underline;' : '' %>
+      }
       <% content[section].map((block, index) => { %>
         <% style = styles[section+'-block-'+index] %>
         table.email-<%- section %>-block-<%- index %> td,
@@ -174,28 +187,33 @@
           <%- style.font_size ? 'font-size: '+style.font_size+';' : '' %>
           <%- style.color ? 'color: '+style.color+';' : '' %>
           <%- style.text_align ? 'text-align: '+style.text_align+';' : '' %>
-          <%- style.line_height ? 'line-height: '+style.line_height+';' : '' %> }
-          <% if(block.type === 'button') { %>
-            table.email-<%- section %>-block-<%- index %> table.button table td {
-              <%- block.config.border ? 'border:'+block.config.border+';' : '' %>
-              <%- block.config.background_color ? 'background-color:'+block.config.background_color+';' : '' %>
-            }
-            table.email-<%- section %>-block-<%- index %> table.button table td a {
-              <%- block.config.font_family ? 'font-family:'+block.config.font_family+';' : '' %>
-              <%- block.config.font_size ? 'font-size:'+block.config.font_size+';' : '' %>
-              <%- block.config.color ? 'color:'+block.config.color+';' : '' %>
-            }
-          <% } else if(block.type === 'text') { %>
-            table.email-<%- section %>-block-<%- index %> td,
-            table.email-<%- section %>-block-<%- index %> p {
-              <%- block.config.font_family ? 'font-family: '+block.config.font_family+';' : '' %>
-              <%- block.config.font_size ? 'font-size: '+block.config.font_size+';' : '' %>
-              <%- block.config.color ? 'color: '+block.config.color+';' : '' %>
-              <%- block.config.text_align ? 'text-align: '+block.config.text_align+';' : '' %>
-              <%- block.config.line_height ? 'line-height: '+block.config.line_height+';' : '' %> }
-              <%- block.config.letter_spacing ? 'letter-spacing: '+block.config.letter_spacing+';' : '' %> }
-            }
-          <% } %>
+          <%- style.line_height ? 'line-height: '+style.line_height+';' : '' %>
+        }
+        <% if(block.type === 'button') { %>
+          table.email-<%- section %>-block-<%- index %> table.button table td {
+            <%- block.config.border ? 'border:'+block.config.border+';' : '' %>
+            <%- block.config.background_color ? 'background-color:'+block.config.background_color+';' : '' %>
+            <%- block.config.border_radius ? 'border-radius:'+block.config.border_radius+';' : '' %>
+          }
+          table.email-<%- section %>-block-<%- index %> table.button table td a {
+            <%- block.config.font_family ? 'font-family:'+block.config.font_family+';' : '' %>
+            <%- block.config.font_size ? 'font-size:'+block.config.font_size+';' : '' %>
+            <%- block.config.letter_spacing ? 'letter-spacing: '+block.config.letter_spacing+';' : '' %>
+            <%- block.config.color ? 'color:'+block.config.color+';' : '' %>
+            <%- block.config.padding ? 'padding-top:'+block.config.padding+';' : '' %>
+            <%- block.config.padding ? 'padding-bottom:'+block.config.padding+';' : '' %>
+          }
+        <% } else if(block.type === 'text') { %>
+          table.email-<%- section %>-block-<%- index %> td,
+          table.email-<%- section %>-block-<%- index %> p {
+            <%- block.config.font_family ? 'font-family: '+block.config.font_family+';' : '' %>
+            <%- block.config.font_size ? 'font-size: '+block.config.font_size+';' : '' %>
+            <%- block.config.color ? 'color: '+block.config.color+';' : '' %>
+            <%- block.config.text_align ? 'text-align: '+block.config.text_align+';' : '' %>
+            <%- block.config.line_height ? 'line-height: '+block.config.line_height+';' : '' %>
+            <%- block.config.letter_spacing ? 'letter-spacing: '+block.config.letter_spacing+';' : '' %>
+          }
+        <% } %>
       <% }) %>
     <% }) %>
     </style>

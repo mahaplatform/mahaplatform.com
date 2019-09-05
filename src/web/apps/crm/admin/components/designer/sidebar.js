@@ -14,6 +14,7 @@ class Sidebar extends React.Component {
   static propTypes = {
     active: PropTypes.object,
     config: PropTypes.object,
+    onEdit: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -23,6 +24,7 @@ class Sidebar extends React.Component {
     cards: []
   }
 
+  _handleDone = this._handleDone.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
 
@@ -41,7 +43,7 @@ class Sidebar extends React.Component {
   componentDidUpdate(prevProps) {
     const { active } = this.props
     if(!_.isEqual(active, prevProps.active)) {
-      if(active.sidebar === null) this._handlePop()
+      if(active.section === null) return this._handlePop()
       this._handleEdit()
     }
   }
@@ -51,7 +53,7 @@ class Sidebar extends React.Component {
     const key = `content[${active.section}][${active.block}].config`
     return {
       active,
-      config,
+      config: _.get(config, key),
       onDone: this._handleDone,
       onUpdate: this._handleUpdate.bind(this, key)
     }
@@ -59,12 +61,11 @@ class Sidebar extends React.Component {
 
   _getPage() {
     const { config } = this.props
-    const key = 'design.page'
     return {
       config,
       onPush: this._handlePush,
       onPop: this._handlePop,
-      onUpdate: this._handleUpdate.bind(this, key)
+      onUpdate: this._handleUpdate.bind(this)
     }
   }
 
@@ -74,6 +75,10 @@ class Sidebar extends React.Component {
       cards,
       slideFirst: false
     }
+  }
+
+  _handleDone() {
+    this.props.onEdit(null, null)
   }
 
   _handleEdit() {

@@ -13,6 +13,7 @@ class ColorField extends React.Component {
     onBegin: PropTypes.func,
     onBusy: PropTypes.func,
     onChange: PropTypes.func,
+    onClear: PropTypes.func,
     onReady: PropTypes.func,
     onSet: PropTypes.func
   }
@@ -32,7 +33,7 @@ class ColorField extends React.Component {
       { name: 'brown', value: '#a5673f' },
       { name: 'black', value: '#000000' },
       { name: 'grey', value: '#767676' },
-      { name: 'white', value: '#FFFFFF' },
+      { name: 'white', value: '#FFFFFF' }
     ],
     defaultValue: null,
     disabled: false,
@@ -95,7 +96,7 @@ class ColorField extends React.Component {
     return {
       type: 'text',
       ref: node => this.input = node,
-      value: this.props.color || ''
+      defaultValue: this.props.color || ''
     }
   }
 

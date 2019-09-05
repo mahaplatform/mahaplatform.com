@@ -26,13 +26,13 @@ class Options extends React.Component {
   }
 
   render() {
-    const { format, options, selected, text } = this.props
+    const { format, options, selected, text, value } = this.props
     return (
       <div className="maha-lookup-panel-results">
         { options.map((option, index) => (
           <div key={`result_${option.id || index}`} className="maha-lookup-panel-result" onClick={ this._handleChoose.bind(this, option) }>
             <div className="maha-lookup-panel-result-label">
-              <Format { ...option } format={ format } value={ _.get(option, text) } />
+              <Format { ...option } format={ format } value={ _.get(option, value) } text={ _.get(option, text) } />
             </div>
             <div className="maha-lookup-panel-result-icon">
               { index === selected ? <i className="fa fa-fw fa-check" /> : null }
