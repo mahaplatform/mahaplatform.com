@@ -20,6 +20,7 @@ const editRoute = async (req, res) => {
       'id',
       'title',
       'description',
+      'url',
       'asset_id'
     ]
   })
