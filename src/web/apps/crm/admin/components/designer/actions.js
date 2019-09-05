@@ -10,6 +10,12 @@ export const update = (key, value) => ({
   value
 })
 
+export const add = (section, block) => ({
+  type: 'ADD',
+  section,
+  block
+})
+
 export const clone = (section, block) => ({
   type: 'CLONE',
   section,

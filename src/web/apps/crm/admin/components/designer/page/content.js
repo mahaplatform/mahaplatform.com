@@ -10,13 +10,13 @@ class Content extends React.Component {
 
   static defaultProps = {}
 
-  state = {}
+  _handleDragStart = this._handleDragStart.bind(this)
 
   render() {
     return (
       <div className="content-types">
         { types.map((type, index) => (
-          <div className="content-type" key={`type_${index}`}>
+          <div className="content-type" key={`type_${index}`} { ...this._getContentType(type) }>
             <div className="content-type-icon">
               <i className={`fa fa-fw fa-${ type.icon }`} />
             </div>
@@ -29,9 +29,16 @@ class Content extends React.Component {
     )
   }
 
-  componentDidMount() {}
+  _getContentType(type) {
+    return {
+      draggable: true,
+      onDragStart: this._handleDragStart.bind(this, type)
+    }
+  }
 
-  componentDidUpdate(prevProps, prevState) {}
+  _handleDragStart(type, e) {
+    e.dataTransfer.setData('type', type.type)
+  }
 
 
 }

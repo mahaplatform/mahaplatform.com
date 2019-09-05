@@ -228,7 +228,7 @@
                 <td>
                   <% sections.map((section, i) => { %>
                     <% if(editable === true) { %>
-                      <div class="section">
+                      <div class="section" data-section="<%= section %>">
                     <% } %>
                     <table class="email-<%- section %>">
                       <tr>
@@ -258,6 +258,15 @@
                                         <%- block.config[`content_${i}`] %>
                                       </td>
                                     <% } %>
+                                    <td class="expander"></td>
+                                  </tr>
+                                </table>
+                              <% } else if(block.type === 'divider') { %>
+                                <table class="row email-<%- section %>-block-<%- j %>">
+                                  <tr>
+                                    <td class="large-12 first last columns">
+                                      <hr/>
+                                    </td>
                                     <td class="expander"></td>
                                   </tr>
                                 </table>
@@ -299,7 +308,7 @@
                                     <% } %>
                                   </tr>
                                 </table>
-                              <% } else if(block.type === 'imagegroup') { %>
+                              <% } else if(block.type === 'images') { %>
                                 <%
                                 const imagestyle = (style) => {
                                   const styles = []
@@ -343,7 +352,7 @@
                               <table class="row">
                                 <tr>
                                   <td class="large-12 first last columns">
-                                    Drop Content Blocks Here
+                                    <%= section%>
                                   </td>
                                   <td class="expander"></td>
                                 </tr>
@@ -374,6 +383,7 @@
       </tr>
       <% if(editable === true) { %>
         <script>
+
           Array.prototype.map.call(document.getElementsByClassName('block-action'), action => {
             action.addEventListener('click', function(e) {
               const dataset = e.currentTarget.dataset;
@@ -387,6 +397,30 @@
               }, '*')
             }, false);
           })
+
+          Array.prototype.map.call(document.getElementsByClassName('section'), section => {
+            section.addEventListener('dragenter', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+            }, false)
+            section.addEventListener('dragover', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+            }, false)
+            section.addEventListener('drop', function(e) {
+              e.preventDefault()
+              e.stopPropagation()
+              window.parent.postMessage({
+                target: 'designer',
+                action: 'add',
+                data: {
+                  section: e.currentTarget.dataset.section,
+                  type: e.dataTransfer.getData('type')
+                }
+              }, '*')
+            }, false)
+          })
+
         </script>
       <% } %>
     </table>

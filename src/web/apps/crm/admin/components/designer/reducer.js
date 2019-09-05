@@ -7,67 +7,10 @@ const INITIAL_STATE = {
   },
   config: {
     content: {
-      preheader: [
-        {
-          type: 'text',
-          config: {
-            content_0: 'preheader',
-            columns: 1
-          }
-        }
-      ],
-      header: [
-        {
-          type: 'text',
-          config: {
-            columns: 1,
-            content_0: 'header'
-          }
-        }
-      ],
-      body: [
-        {
-          type: 'text',
-          config: {
-            columns: 1,
-            content_0: '<h1>Heading 1</h1><h2>Heading 2</h2><h3>Heading 3</h3><h4>Heading 4</h4><p>Lorem ipsum dolor amet franzen taiyaki raw denim heirloom retro, prism lyft pop-up yuccie tumblr mlkshk tousled art party stumptown pug. Cold-pressed live-edge activated charcoal 90s pok pok dreamcatcher. Tousled normcore ramps, locavore edison bulb pinterest craft beer lyft four dollar toast. Lumbersexual polaroid vexillologist cornhole trust fund ethical gluten-free.</p>'
-          }
-        }, {
-          type: 'button',
-          config: {
-            content: 'Click Me',
-            link_strategy: 'web',
-            url: null,
-            email_address: null,
-            email_subject: null,
-            email_body: null,
-            anchor: null,
-            asset_id: null,
-            open_in_new_window: true,
-            title: null,
-            class: null,
-            border: null,
-            border_radius: null,
-            background_color: '#2185D0',
-            color: '#FFFFFF',
-            letter_spacing: 0,
-            font_family: null,
-            font_size: null,
-            padding: '10px',
-            align: 'center',
-            display: 'inline'
-          }
-        }
-      ],
-      footer: [
-        {
-          type: 'text',
-          config: {
-            columns: 1,
-            content_0: 'footer'
-          }
-        }
-      ]
+      preheader: [],
+      header: [],
+      body: [],
+      footer: []
     },
     design: {
       page: {
@@ -207,6 +150,25 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       [`${action.key}Index`]: action.value
+    }
+
+  case 'ADD':
+    return {
+      ...state,
+      active: {
+        section: null,
+        block: null
+      },
+      config: {
+        ...state.config,
+        content: {
+          ...state.config.content,
+          [action.section]: [
+            ...state.config.content[action.section],
+            action.block
+          ]
+        }
+      }
     }
 
   case 'CLONE':

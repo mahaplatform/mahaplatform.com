@@ -5,8 +5,8 @@ export const types = [
     icon: 'align-justify',
     config: {
       columns: 1,
+      content_0: '<p>Edit Me</p>',
       content_1: null,
-      content_2: null,
       font_family: null,
       font_size: null,
       color: null,
@@ -17,22 +17,12 @@ export const types = [
     label: 'Divider Block',
     type: 'divider',
     icon: 'minus',
-    config: {
-      columns: 1,
-      content_1: null,
-      content_2: null,
-      font_family: null,
-      font_size: null,
-      color: null,
-      line_height: null,
-      letter_spacing: null
-    }
+    config: {}
   }, {
     label: 'Images Block',
     type: 'images',
     icon: 'picture-o',
     config: {
-      columns: 1,
       image_1: null,
       image_2: null,
       image_3: null,

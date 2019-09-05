@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
 import Preview from './preview'
+import { types } from './types'
 import Header from './header'
 import React from 'react'
+import _ from 'lodash'
 
 class Designer extends React.Component {
 
@@ -13,6 +15,7 @@ class Designer extends React.Component {
     config: PropTypes.object,
     deviceIndex: PropTypes.number,
     orientationIndex: PropTypes.number,
+    onAdd: PropTypes.func,
     onChangeViewport: PropTypes.func,
     onClone: PropTypes.func,
     onEdit: PropTypes.func,
@@ -39,8 +42,6 @@ class Designer extends React.Component {
   componentDidMount() {
     window.addEventListener('message', this._handleMessage, false)
   }
-
-  componentDidUpdate(prevProps) {}
 
   componentWillUnmount() {
     window.removeEventListener('message', this._handleMessage, false)
@@ -76,9 +77,18 @@ class Designer extends React.Component {
   _handleMessage(e) {
     const message = e.data
     if(message.target !== 'designer') return
+    if(message.action === 'add') this._handleAdd(message.data)
     if(message.action === 'clone') this._handleClone(message.data)
     if(message.action === 'edit') this._handleEdit(message.data)
     if(message.action === 'remove') this._handleRemove(message.data)
+  }
+
+  _handleAdd({ section, type }) {
+    const content_type = _.find(types, { type })
+    this.props.onAdd(section, {
+      type: content_type.type,
+      config: content_type.config
+    })
   }
 
   _handleClone({ section, block }) {
