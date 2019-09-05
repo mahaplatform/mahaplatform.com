@@ -1,7 +1,7 @@
 import Model from '../../../core/objects/model'
 import EmailAddress from './email_address'
 import PhoneNumber from './phone_number'
-import Program from './program'
+import Program from '../../maha/models/program'
 
 const Consent = new Model({
 

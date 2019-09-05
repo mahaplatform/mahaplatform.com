@@ -1,9 +1,9 @@
 import generateCode from '../../../../../core/utils/generate_code'
 import { contactActivity } from '../../../services/activities'
 import EmailAddress from '../../../models/email_address'
+import Program from '../../../../maha/models/program'
 import Contact from '../../../models/contact'
 import Consent from '../../../models/consent'
-import Program from '../../../models/program'
 import moment from 'moment'
 
 const getEmailAddress = async (req, { params }) => {
