@@ -22,8 +22,6 @@ class Tabs extends React.Component {
     onChoose: (index) => {}
   }
 
-  _swipe = {}
-
   state = {
     visited: [],
     transitioning: false
@@ -47,7 +45,7 @@ class Tabs extends React.Component {
             )) }
           </div>
         </div>
-        <div className="maha-tabs-body" { ...this._getTabsBody() }>
+        <div className="maha-tabs-body">
           { items.map((item, index) => (
             <div key={`tab_body_${index}`} className={ this._getTabClass(index) }>
               <div className="maha-tab-content">
@@ -88,36 +86,6 @@ class Tabs extends React.Component {
     this.setState({ visited, transitioning: true })
     setTimeout(() => onChoose(index), 20)
     setTimeout(() => this.setState({ transitioning: false }), 520)
-  }
-
-  _getTabsBody() {
-    return {
-      className: 'maha-tabs-body',
-      onTouchStart: this._handleTouchStart.bind(this),
-      onTouchMove: this._handleTouchMove.bind(this),
-      onTouchEnd: this._handleTouchEnd.bind(this)
-    }
-  }
-
-  _handleTouchStart(e) {
-    this._swipe = { x: e.touches[0].clientX }
-  }
-
-  _handleTouchMove(e) {
-    if (e.changedTouches && e.changedTouches.length) {
-      this._swipe.swiping = true
-    }
-  }
-
-  _handleTouchEnd(e) {
-    const { chosen, items } = this.props
-    const touch = e.changedTouches[0]
-    const dist = touch.clientX - this._swipe.x
-    if (this._swipe.swiping && Math.abs(dist) > 30 ) {
-      if(dist < 0 && chosen < items.length - 1) this._handleChoose(chosen + 1)
-      if(dist > 0 && chosen > 0) this._handleChoose(chosen - 1)
-    }
-    this._swipe = {}
   }
 
 }

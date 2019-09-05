@@ -20,8 +20,6 @@ class Menu extends React.Component {
     onChoose: (index) => {}
   }
 
-  _swipe: Object = {}
-
   state = {
     visited: [],
     transitioning: false

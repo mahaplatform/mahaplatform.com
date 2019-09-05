@@ -22,6 +22,8 @@ class Preview extends React.Component {
 
   preview = null
 
+  _handleRender = _.throttle(this._handleRender.bind(this), 250, { leading: true, trailing: false })
+
   render() {
 
     return (
