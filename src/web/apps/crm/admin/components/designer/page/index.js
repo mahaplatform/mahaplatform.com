@@ -1,6 +1,7 @@
 import { Menu, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Content from './content'
+import Layout from './layout'
 import Style from './style'
 import React from 'react'
 
@@ -31,7 +32,7 @@ class Sidebar extends React.Component {
     return {
       items: [
         { label: 'Content', component: <Content { ...this._getTab() } /> },
-        { label: 'Layout', component: <Style { ...this._getTab() } /> },
+        { label: 'Layout', component: <Layout { ...this._getTab() } /> },
         { label: 'Design', component: <Style { ...this._getTab() } /> }
       ]
     }

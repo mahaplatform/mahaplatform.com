@@ -1,5 +1,4 @@
 import { connect } from 'react-redux'
-import Typography from './typography'
 import PropTypes from 'prop-types'
 import Section from './section'
 import React from 'react'
@@ -9,13 +8,10 @@ class Style extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
-    onAddSection: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
     onUpdate: PropTypes.func
   }
-
-  _handleAddSection = this._handleAddSection.bind(this)
 
   render() {
     const sections = this._getSections()
@@ -31,9 +27,6 @@ class Style extends React.Component {
             </div>
           </div>
         ))}
-        <div className="designer-page-section-label" onClick={ this._handleAddSection }>
-          <span className="link">Add Section</span>
-        </div>
       </div>
     )
   }
@@ -42,7 +35,6 @@ class Style extends React.Component {
     const { config } = this.props
     return [
       { label: 'Page', code: 'page', component: Page, props: this._getPage() },
-      { label: 'Typography', code: 'typography', component: Typography, props: this._getPage() },
       ...config.sections.map((section, index) => ({
         label: section.label,
         component: Section,
@@ -69,28 +61,6 @@ class Style extends React.Component {
       onPush,
       onUpdate
     }
-  }
-
-  _handleAddSection() {
-    const { config } = this.props
-    this.props.onAddSection({
-      label: `Section ${config.sections.length + 1}`,
-      background_color: null,
-      background_image: null,
-      border_top: null,
-      border_bottom: null,
-      padding_top: '10px',
-      padding_bottom: '10px',
-      text_font_family: null,
-      text_font_size: null,
-      text_color: null,
-      text_text_align: null,
-      text_line_height: null,
-      link_color: null,
-      link_bold: null,
-      link_underline: null,
-      blocks: []
-    })
   }
 
   _handleChoose(index) {
