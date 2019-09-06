@@ -6,14 +6,8 @@ const INITIAL_STATE = {
     block: null
   },
   config: {
-    content: {
-      preheader: [],
-      header: [],
-      body: [],
-      footer: []
-    },
-    design: {
-      page: {
+    page: {
+      config: {
         background_color: '#2185D0',
         h1_font_family: 'Arial, Helvetica, sans-serif',
         h1_font_size: '28px',
@@ -55,88 +49,90 @@ const INITIAL_STATE = {
         p_text_align: false,
         p_line_height: 1.5,
         p_letter_spacing: '0px'
-      },
-      preheader: {
-        background_color: null,
-        background_image: null,
-        border_top: null,
-        border_bottom: null,
-        padding_top: '10px',
-        padding_bottom: '10px',
-        text_font_family: null,
-        text_font_size: null,
-        text_color: null,
-        text_text_align: null,
-        text_line_height: null,
-        link_color: null,
-        link_bold: null,
-        link_underline: null
-      },
-      header: {
-        background_color: null,
-        background_image: null,
-        border_top: null,
-        border_bottom: null,
-        padding_top: '10px',
-        padding_bottom: '10px',
-        text_font_family: null,
-        text_font_size: null,
-        text_color: null,
-        text_text_align: null,
-        text_line_height: null,
-        link_color: null,
-        link_bold: null,
-        link_underline: null
-      },
-      body: {
-        background_color: null,
-        background_image: null,
-        border_top: null,
-        border_bottom: null,
-        padding_top: '10px',
-        padding_bottom: '10px',
-        text_font_family: null,
-        text_font_size: null,
-        text_color: null,
-        text_text_align: null,
-        text_line_height: null,
-        link_color: null,
-        link_bold: null,
-        link_underline: null
-      },
-      footer: {
-        background_color: null,
-        background_image: null,
-        border_top: null,
-        border_bottom: null,
-        padding_top: '10px',
-        padding_bottom: '10px',
-        text_font_family: null,
-        text_font_size: null,
-        text_color: null,
-        text_text_align: null,
-        text_line_height: null,
-        link_color: null,
-        link_bold: null,
-        link_underline: null
-      },
-      mobile: {
-        background_color: null,
-        background_image: null,
-        border_top: null,
-        border_bottom: null,
-        padding_top: '10px',
-        padding_bottom: '10px',
-        text_font_family: null,
-        text_font_size: null,
-        text_color: null,
-        text_text_align: null,
-        text_line_height: null,
-        link_color: null,
-        link_bold: null,
-        link_underline: null
       }
-    }
+    },
+    sections: [
+      {
+        label: 'preheader',
+        config: {
+          background_color: null,
+          background_image: null,
+          border_top: null,
+          border_bottom: null,
+          padding_top: '10px',
+          padding_bottom: '10px',
+          text_font_family: null,
+          text_font_size: null,
+          text_color: null,
+          text_text_align: null,
+          text_line_height: null,
+          link_color: null,
+          link_bold: null,
+          link_underline: null
+        },
+        blocks: []
+      },
+      {
+        label: 'header',
+        config: {
+          background_color: null,
+          background_image: null,
+          border_top: null,
+          border_bottom: null,
+          padding_top: '10px',
+          padding_bottom: '10px',
+          text_font_family: null,
+          text_font_size: null,
+          text_color: null,
+          text_text_align: null,
+          text_line_height: null,
+          link_color: null,
+          link_bold: null,
+          link_underline: null
+        },
+        blocks: []
+      },
+      {
+        label: 'body',
+        config: {
+          background_color: null,
+          background_image: null,
+          border_top: null,
+          border_bottom: null,
+          padding_top: '10px',
+          padding_bottom: '10px',
+          text_font_family: null,
+          text_font_size: null,
+          text_color: null,
+          text_text_align: null,
+          text_line_height: null,
+          link_color: null,
+          link_bold: null,
+          link_underline: null
+        },
+        blocks: []
+      },
+      {
+        label: 'footer',
+        config: {
+          background_color: null,
+          background_image: null,
+          border_top: null,
+          border_bottom: null,
+          padding_top: '10px',
+          padding_bottom: '10px',
+          text_font_family: null,
+          text_font_size: null,
+          text_color: null,
+          text_text_align: null,
+          text_line_height: null,
+          link_color: null,
+          link_bold: null,
+          link_underline: null
+        },
+        blocks: []
+      }
+    ]
   },
   deviceIndex: 0,
   orientationIndex: 0
@@ -161,13 +157,18 @@ const reducer = (state = INITIAL_STATE, action) => {
       },
       config: {
         ...state.config,
-        content: {
-          ...state.config.content,
-          [action.section]: [
-            ...state.config.content[action.section],
-            action.block
-          ]
-        }
+        sections: [
+          ...state.config.sections.map((section, i) => {
+            if(i !== action.section) return section
+            return {
+              ...state.config.sections[i],
+              blocks: [
+                ...state.config.sections[i].blocks,
+                action.block
+              ]
+            }
+          })
+        ]
       }
     }
 
@@ -180,13 +181,18 @@ const reducer = (state = INITIAL_STATE, action) => {
       },
       config: {
         ...state.config,
-        content: {
-          ...state.config.content,
-          [action.section]: [
-            ...state.config.content[action.section],
-            state.config.content[action.section][action.block]
-          ]
-        }
+        sections: [
+          ...state.config.sections.map((section, i) => {
+            if(i !== action.section) return section
+            return {
+              ...section,
+              blocks: [
+                ...state.config.sections[i].blocks,
+                state.config.sections[i].blocks[action.block]
+              ]
+            }
+          })
+        ]
       }
     }
 
@@ -208,14 +214,19 @@ const reducer = (state = INITIAL_STATE, action) => {
       },
       config: {
         ...state.config,
-        content: {
-          ...state.config.content,
-          [action.section]: [
-            ...state.config.content[action.section].filter((block, index) => {
-              return index !== action.block
-            })
-          ]
-        }
+        sections: [
+          ...state.config.sections.map((section, i) => {
+            if(i !== action.section) return section
+            return {
+              ...section,
+              blocks: [
+                ...state.config.sections[i].blocks.filter((block, j) => {
+                  return j !== action.block
+                })
+              ]
+            }
+          })
+        ]
       }
     }
 

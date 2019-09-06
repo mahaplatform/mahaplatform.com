@@ -1,46 +1,45 @@
-<% sections = ['preheader','header','body','footer'] %>
 <% block_types = ['h1','h2','h3','h4','p'] %>
-<% page_background_color = _.get(design, 'page.background_color', null) %>
-<% page_border_top = _.get(design, 'page.border_top', null) %>
-<% page_email_border = _.get(design, 'page.email_border', null) %>
+<% page_background_color = _.get(page, 'config.background_color', null) %>
+<% page_border_top = _.get(page, 'config.border_top', null) %>
+<% page_email_border = _.get(page, 'config.email_border', null) %>
 <% styles = {} %>
 <% block_types.map((block_type, index) => { %>
   <% styles[block_type] = {} %>
-  <% styles[block_type].font_family = _.get(design, 'page.'+block_type+'_font_family', null) %>
-  <% styles[block_type].font_size = _.get(design, 'page.'+block_type+'_font_size', null) %>
-  <% styles[block_type].color = _.get(design, 'page.'+block_type+'_color', null) %>
-  <% styles[block_type].bold = _.get(design, 'page.'+block_type+'_bold', null) %>
-  <% styles[block_type].italic = _.get(design, 'page.'+block_type+'_italic', null) %>
-  <% styles[block_type].text_align = _.get(design, 'page.'+block_type+'_text_align', null) %>
-  <% styles[block_type].line_height = _.get(design, 'page.'+block_type+'_line_height', null) %>
-  <% styles[block_type].letter_spacing = _.get(design, 'page.'+block_type+'_letter_spacing', null) %>
+  <% styles[block_type].font_family = _.get(page, 'config.'+block_type+'_font_family', null) %>
+  <% styles[block_type].font_size = _.get(page, 'config.'+block_type+'_font_size', null) %>
+  <% styles[block_type].color = _.get(page, 'config.'+block_type+'_color', null) %>
+  <% styles[block_type].bold = _.get(page, 'config.'+block_type+'_bold', null) %>
+  <% styles[block_type].italic = _.get(page, 'config.'+block_type+'_italic', null) %>
+  <% styles[block_type].text_align = _.get(page, 'config.'+block_type+'_text_align', null) %>
+  <% styles[block_type].line_height = _.get(page, 'config.'+block_type+'_line_height', null) %>
+  <% styles[block_type].letter_spacing = _.get(page, 'config.'+block_type+'_letter_spacing', null) %>
 <% }) %>
-<% sections.map(section => { %>
-  <% styles[section] = {} %>
-  <% styles[section].background_color = _.get(design, section+'.background_color', null) %>
-  <% styles[section].background_image = _.get(design, section+'.background_image', null) %>
-  <% styles[section].border_top = _.get(design, section+'.border_top', null) %>
-  <% styles[section].border_bottom = _.get(design, section+'.border_bottom', null) %>
-  <% styles[section].padding_top = _.get(design, section+'.padding_top', null) %>
-  <% styles[section].padding_bottom = _.get(design, section+'.padding_bottom', null) %>
-  <% styles[section].text_font_family = _.get(design, section+'.font_family', null) %>
-  <% styles[section].text_font_size = _.get(design, section+'.font_size', null) %>
-  <% styles[section].text_color = _.get(design, section+'.color', null) %>
-  <% styles[section].text_text_align = _.get(design, section+'.text_align', null) %>
-  <% styles[section].text_line_height = _.get(design, section+'.line_height', null) %>
-  <% styles[section].link_color = _.get(design, section+'.link_color', null) %>
-  <% styles[section].link_bold = _.get(design, section+'.link_bold', null) %>
-  <% styles[section].link_underline = _.get(design, section+'.link_underline', null) %>
-  <% styles[section].letter_spacing = _.get(design, section+'.letter_spacing', null) %>
-  <% content[section].map((block, index) => { %>
-    <% styles[section+'-block-'+index] = {} %>
-    <% styles[section+'-block-'+index].font_family = _.get(content, section+'['+index+'].font_family', null) %>
-    <% styles[section+'-block-'+index].font_size = _.get(content, section+'['+index+'].font_size', null) %>
-    <% styles[section+'-block-'+index].color = _.get(content, section+'['+index+'].color', null) %>
-    <% styles[section+'-block-'+index].bold = _.get(content, section+'['+index+'].bold', false) %>
-    <% styles[section+'-block-'+index].italic = _.get(content, section+'['+index+'].italic', false) %>
-    <% styles[section+'-block-'+index].text_align = _.get(content, section+'['+index+'].text_align', 'left') %>
-    <% styles[section+'-block-'+index].line_height = _.get(content, section+'['+index+'].line_height', null) %>
+<% sections.map((section, i) => { %>
+  <% styles['section-'+i] = {} %>
+  <% styles['section-'+i].background_color = _.get(section, 'config.background_color', null) %>
+  <% styles['section-'+i].background_image = _.get(section, 'config.background_image', null) %>
+  <% styles['section-'+i].border_top = _.get(section, 'config.border_top', null) %>
+  <% styles['section-'+i].border_bottom = _.get(section, 'config.border_bottom', null) %>
+  <% styles['section-'+i].padding_top = _.get(section, 'config.padding_top', null) %>
+  <% styles['section-'+i].padding_bottom = _.get(section, 'config.padding_bottom', null) %>
+  <% styles['section-'+i].text_font_family = _.get(section, 'config.font_family', null) %>
+  <% styles['section-'+i].text_font_size = _.get(section, 'config.font_size', null) %>
+  <% styles['section-'+i].text_color = _.get(section, 'config.color', null) %>
+  <% styles['section-'+i].text_text_align = _.get(section, 'config.text_align', null) %>
+  <% styles['section-'+i].text_line_height = _.get(section, 'config.line_height', null) %>
+  <% styles['section-'+i].link_color = _.get(section, 'config.link_color', null) %>
+  <% styles['section-'+i].link_bold = _.get(section, 'config.link_bold', null) %>
+  <% styles['section-'+i].link_underline = _.get(section, 'config.link_underline', null) %>
+  <% styles['section-'+i].letter_spacing = _.get(section, 'config.letter_spacing', null) %>
+  <% section.blocks.map((block, j) => { %>
+    <% styles['section-'+i+'-block-'+j] = {} %>
+    <% styles['section-'+i+'-block-'+j].font_family = _.get(block, 'config.font_family', null) %>
+    <% styles['section-'+i+'-block-'+j].font_size = _.get(block, 'config.font_size', null) %>
+    <% styles['section-'+i+'-block-'+j].color = _.get(block, 'config.color', null) %>
+    <% styles['section-'+i+'-block-'+j].bold = _.get(block, 'config.bold', false) %>
+    <% styles['section-'+i+'-block-'+j].italic = _.get(block, 'config.italic', false) %>
+    <% styles['section-'+i+'-block-'+j].text_align = _.get(block, 'config.text_align', 'left') %>
+    <% styles['section-'+i+'-block-'+j].line_height = _.get(block, 'config.line_height', null) %>
   <% }) %>
 <% }) %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -53,26 +52,50 @@
       <link href="/admin/css/font-awesome.min.css" rel="stylesheet" />
       <style type="text/css">
         .dropzone {
-          padding: 10px;
-          background: #EEEEEE;
-          border-top: 1px solid #BBBBBB;
-          border-bottom: 1px solid #BBBBBB;
+          border: 2px solid transparent;
+        }
+        .dropzone * {
+          pointer-events: none;
+        }
+        .dropzone.hover {
+          border-color: #00B5AD;
+          position: relative;
+        }
+        .dropzone.hover:after {
+          position: absolute;
+          padding: 5px;
+          font-size: 10px;
+          top: 0;
+          left: 0;
+          transform: translate(-2px, -100%);
+          background-color: #00B5AD;
+          text-transform: uppercase;
+          color: white;
+        	content: attr(data-label);
+        }
+        .dropzone-empty {
+          padding: 10px 0;
+        }
+        .dropzone-marker {
+          background-color: blue;
+          height: 1px;
         }
         .dropzone td.first {
           text-align: center;
         }
         .block {
+          margin: -2px;
+          pointer-events: auto;
           position: relative;
           cursor: pointer;
-          border-top: 1px solid transparent;
-          border-bottom: 1px solid transparent;
+          border: 2px solid transparent;
           min-height: 30px;
         }
         .block.active {
-          border-color: #000000;
+          border-color: #00B5AD;
         }
         .block:hover {
-          border-color: #000000;
+          border-color: #00B5AD;
         }
         .block:hover .block-actions {
           display: flex;
@@ -81,17 +104,13 @@
           display: none;
           position: absolute;
           top: 0;
-          left: 0;
           right: 0;
-          background-color: rgba(0,0,0,0.4);
+          background-color: #00B5AD;
         }
-        .block-actions .block-spacer {
-          flex: 1;
-        }
-        .block-spacer,
         .block-action {
+          pointer-events: auto;
           font-size: 16px;
-          padding: 3px 6px;
+          padding: 3px 8px;
           line-height: 24px;
         }
         .block-action .fa {
@@ -159,30 +178,30 @@
     table.email {
       <%- page_email_border ? 'border: '+page_email_border+';' : '' %>;
     }
-    <% sections.map(section => { %>
-      table.email-<%- section %> {
-        <%- styles[section].border_top ? 'border-top: '+styles[section].border_top+';' : '' %>
-        <%- styles[section].border_bottom ? 'border-bottom: '+styles[section].border_bottom+';' : '' %>
-        <%- styles[section].background_color ? 'background-color: '+styles[section].background_color+';' : '' %>
+    <% sections.map((section, i) => { %>
+      table.section-<%- i %> {
+        <%- styles['section-'+i].border_top ? 'border-top: '+styles['section-'+i].border_top+';' : '' %>
+        <%- styles['section-'+i].border_bottom ? 'border-bottom: '+styles['section-'+i].border_bottom+';' : '' %>
+        <%- styles['section-'+i].background_color ? 'background-color: '+styles['section-'+i].background_color+';' : '' %>
       }
-      table.email-<%- section %> td,
-      table.email-<%- section %> p {
-        <%- styles[section].text_font_family ? 'font-family: '+styles[section].text_font_family+';' : '' %>
-        <%- styles[section].text_font_size ? 'font-size: '+styles[section].text_font_size+';' : '' %>
-        <%- styles[section].text_color ? 'color: '+styles[section].text_color+';' : '' %>
-        <%- styles[section].text_text_align ? 'text-align: '+styles[section].text_text_align+';' : '' %>
-        <%- styles[section].text_line_height ? 'line-height: '+styles[section].text_line_height+';' : '' %>
-        <%- styles[section].text_letter_spacing ? 'letter-spacing: '+styles[section].text_letter_spacing+';' : '' %>
+      table.section-<%- i %> td,
+      table.section-<%- i %> p {
+        <%- styles['section-'+i].text_font_family ? 'font-family: '+styles['section-'+i].text_font_family+';' : '' %>
+        <%- styles['section-'+i].text_font_size ? 'font-size: '+styles['section-'+i].text_font_size+';' : '' %>
+        <%- styles['section-'+i].text_color ? 'color: '+styles['section-'+i].text_color+';' : '' %>
+        <%- styles['section-'+i].text_text_align ? 'text-align: '+styles['section-'+i].text_text_align+';' : '' %>
+        <%- styles['section-'+i].text_line_height ? 'line-height: '+styles['section-'+i].text_line_height+';' : '' %>
+        <%- styles['section-'+i].text_letter_spacing ? 'letter-spacing: '+styles['section-'+i].text_letter_spacing+';' : '' %>
       }
-      table.email-<%- section %> td a {
-        <%- styles[section].link_color ? 'font-color: '+styles[section].link_color+';' : '' %>
-        <%- styles[section].link_bold ? 'font-weight: bold;' : '' %>
-        <%- styles[section].link_underline ? 'text-decoration: underline;' : '' %>
+      table.section-<%- i %> td a {
+        <%- styles['section-'+i].link_color ? 'font-color: '+styles['section-'+i].link_color+';' : '' %>
+        <%- styles['section-'+i].link_bold ? 'font-weight: bold;' : '' %>
+        <%- styles['section-'+i].link_underline ? 'text-decoration: underline;' : '' %>
       }
-      <% content[section].map((block, index) => { %>
-        <% style = styles[section+'-block-'+index] %>
-        table.email-<%- section %>-block-<%- index %> td,
-        table.email-<%- section %>-block-<%- index %> p {
+      <% sections[i].blocks.map((block, j) => { %>
+        <% style = styles['section-'+i+'-block-'+j] %>
+        table.section-<%- i %>-block-<%- j %> td,
+        table.section-<%- i %>-block-<%- j %> p {
           <%- style.font_family ? 'font-family: '+style.font_family+';' : '' %>
           <%- style.font_size ? 'font-size: '+style.font_size+';' : '' %>
           <%- style.color ? 'color: '+style.color+';' : '' %>
@@ -190,12 +209,12 @@
           <%- style.line_height ? 'line-height: '+style.line_height+';' : '' %>
         }
         <% if(block.type === 'button') { %>
-          table.email-<%- section %>-block-<%- index %> table.button table td {
+          table.section-<%- i %>-block-<%- j %> table.button table td {
             <%- block.config.border ? 'border:'+block.config.border+';' : '' %>
             <%- block.config.background_color ? 'background-color:'+block.config.background_color+';' : '' %>
             <%- block.config.border_radius ? 'border-radius:'+block.config.border_radius+';' : '' %>
           }
-          table.email-<%- section %>-block-<%- index %> table.button table td a {
+          table.section-<%- i %>-block-<%- j %> table.button table td a {
             <%- block.config.font_family ? 'font-family:'+block.config.font_family+';' : '' %>
             <%- block.config.font_size ? 'font-size:'+block.config.font_size+';' : '' %>
             <%- block.config.letter_spacing ? 'letter-spacing: '+block.config.letter_spacing+';' : '' %>
@@ -204,8 +223,8 @@
             <%- block.config.padding ? 'padding-bottom:'+block.config.padding+';' : '' %>
           }
         <% } else if(block.type === 'text') { %>
-          table.email-<%- section %>-block-<%- index %> td,
-          table.email-<%- section %>-block-<%- index %> p {
+          table.section-<%- i %>-block-<%- j %> td,
+          table.section-<%- i %>-block-<%- j %> p {
             <%- block.config.font_family ? 'font-family: '+block.config.font_family+';' : '' %>
             <%- block.config.font_size ? 'font-size: '+block.config.font_size+';' : '' %>
             <%- block.config.color ? 'color: '+block.config.color+';' : '' %>
@@ -228,41 +247,41 @@
                 <td>
                   <% sections.map((section, i) => { %>
                     <% if(editable === true) { %>
-                      <div class="section" data-section="<%= section %>">
+                      <div class="dropzone" data-section="<%= i %>" data-label="<%= section.label %>">
                     <% } %>
-                    <table class="email-<%- section %>">
+                    <table class="section-<%- i %>">
                       <tr>
                         <td>
-                          <% if(styles[section].padding_top) { %>
+                          <% if(styles['section-'+i].padding_top) { %>
                             <table class="spacer">
                               <tbody>
                                 <tr>
-                                  <td height="<%- styles[section].padding_top %>" style="font-size:<%- styles[section].padding_top %>;line-height:<%- styles[section].padding_top %>;">&#xA0;</td>
+                                  <td height="<%- styles['section-'+i].padding_top %>" style="font-size:<%- styles['section-'+i].padding_top %>;line-height:<%- styles['section-'+i].padding_top %>;">&#xA0;</td>
                                 </tr>
                               </tbody>
                             </table>
                           <% } %>
-                          <% if(content[section].length > 0) { %>
-                            <% content[section].map((block, j) => { %>
+                          <% if(section.blocks.length > 0) { %>
+                            <% section.blocks.map((block, j) => { %>
                               <% if(editable === true) { %>
-                                <% is_active = active.section === section && active.block === j %>
+                                <% is_active = active.section === i && active.block === j %>
                                 <div class="block<%= is_active ? ' active' : '' %>">
                               <% } %>
                               <% if(block.type === 'text') { %>
-                                <table class="row email-<%- section %>-block-<%- j %>">
+                                <table class="row section-<%- i %>-block-<%- j %>">
                                   <tr>
-                                    <% split = block.config.split || [12] %>
                                     <% columns = block.config.columns %>
-                                    <% for(var i = 0; i < columns; i++) { %>
-                                      <td class="large-<%- split[i] %><%- i === 0 ? ' first' : '' %><%- i === columns - 1 ? ' last' : '' %> columns">
-                                        <%- block.config[`content_${i}`] %>
+                                    <% split = block.config.split %>
+                                    <% for(var k = 0; k < columns; k++) { %>
+                                      <td class="large-<%- split[k] %><%- k === 0 ? ' first' : '' %><%- k === columns - 1 ? ' last' : '' %> columns">
+                                        <%- block.config[`content_${k}`] %>
                                       </td>
                                     <% } %>
                                     <td class="expander"></td>
                                   </tr>
                                 </table>
                               <% } else if(block.type === 'divider') { %>
-                                <table class="row email-<%- section %>-block-<%- j %>">
+                                <table class="row section-<%- i %>-block-<%- j %>">
                                   <tr>
                                     <td class="large-12 first last columns">
                                       <hr/>
@@ -271,41 +290,39 @@
                                   </tr>
                                 </table>
                               <% } else if(block.type === 'button') { %>
-                                <table class="row email-<%- section %>-block-<%- j %>">
+                                <table class="row section-<%- i %>-block-<%- j %>">
                                   <tr>
-                                    <% for(var i = 0; i < columns; i++) { %>
-                                      <td class="large-12 first last columns">
-                                        <% if(block.config.align === 'center') { %>
-                                          <center>
-                                        <% } %>
-                                        <table class="button<%= block.config.display === 'block' ? ' expanded' : '' %> float-<%= block.config.align %>">
-                                          <tr>
-                                            <td>
-                                              <table>
-                                                <tr>
-                                                  <td>
-                                                    <% if(block.config.link_strategy === 'web') { %>
-                                                      <a href="<%= block.config.url %>"<%- block.config.open_in_new_window ? 'target="_blank"': '' %><%= block.config.title ? ' title="'+block.config.title+'"' : '' %>>
-                                                    <% } else if(block.config.link_strategy === 'email') { %>
-                                                      <a href="mailto:<%- block.config.email_address %>"<%= block.config.title ? ' title="'+block.config.title+'"' : '' %>>
-                                                    <% } else if(block.config.link_strategy === 'anchor') { %>
-                                                      <a href="#<%- block.config.anchor %>"<%= block.config.title ? ' title="'+block.config.title+'"' : '' %>>
-                                                    <% } else if(block.config.link_strategy === 'asset') { %>
-                                                      <a href="<%- block.config.asset_id %>"<%= block.config.title ? ' title="'+block.config.title+'"' : '' %>>
-                                                    <% } %>
-                                                      <%= block.config.content %>
-                                                    </a>
-                                                  </td>
-                                                </tr>
-                                              </table>
-                                            </td>
-                                          </tr>
-                                        </table>
-                                        <% if(block.config.align === 'center') { %>
-                                          </center>
-                                        <% } %>
-                                      </td>
-                                    <% } %>
+                                    <td class="large-12 first last columns">
+                                      <% if(block.config.align === 'center') { %>
+                                        <center>
+                                      <% } %>
+                                      <table class="button<%= block.config.display === 'block' ? ' expanded' : '' %> float-<%= block.config.align %>">
+                                        <tr>
+                                          <td>
+                                            <table>
+                                              <tr>
+                                                <td>
+                                                  <% if(block.config.link_strategy === 'web') { %>
+                                                    <a href="<%= block.config.url %>"<%- block.config.open_in_new_window ? 'target="_blank"': '' %><%= block.config.title ? ' title="'+block.config.title+'"' : '' %>>
+                                                  <% } else if(block.config.link_strategy === 'email') { %>
+                                                    <a href="mailto:<%- block.config.email_address %>"<%= block.config.title ? ' title="'+block.config.title+'"' : '' %>>
+                                                  <% } else if(block.config.link_strategy === 'anchor') { %>
+                                                    <a href="#<%- block.config.anchor %>"<%= block.config.title ? ' title="'+block.config.title+'"' : '' %>>
+                                                  <% } else if(block.config.link_strategy === 'asset') { %>
+                                                    <a href="<%- block.config.asset_id %>"<%= block.config.title ? ' title="'+block.config.title+'"' : '' %>>
+                                                  <% } %>
+                                                    <%= block.config.content %>
+                                                  </a>
+                                                </td>
+                                              </tr>
+                                            </table>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                      <% if(block.config.align === 'center') { %>
+                                        </center>
+                                      <% } %>
+                                    </td>
                                   </tr>
                                 </table>
                               <% } else if(block.type === 'images') { %>
@@ -319,11 +336,11 @@
                                 %>
                                 <% layout = block.settings.layout || [1] %>
                                 <% layout.reduce((total, columns) => { %>
-                                  <table class="row email-<%- section %>-block-<%- j %>">
+                                  <table class="row section-<%- i %>-block-<%- j %>">
                                     <tr>
-                                      <% for(var i = 0; i < columns; i++) { %>
-                                        <td class="large-<%- 12 / columns %><%- i === 0 ? ' first' : '' %><%- i === columns - 1 ? ' last' : '' %> columns">
-                                          <img src="<%- block.content[total + i] %>" style="<%- imagestyle(block.style) %>" />
+                                      <% for(var k = 0; k < columns; k++) { %>
+                                        <td class="large-<%- 12 / columns %><%- k === 0 ? ' first' : '' %><%- k === columns - 1 ? ' last' : '' %> columns">
+                                          <img src="<%- block.content[total + k] %>" style="<%- imagestyle(block.style) %>" />
                                         </td>
                                       <% } %>
                                     </tr>
@@ -334,13 +351,13 @@
                               <% if(editable === true) { %>
                                 <div class="block-actions">
                                   <div class="block-spacer"></div>
-                                  <div class="block-action" data-action="edit" data-section="<%= section %>" data-block="<%= j %>">
+                                  <div class="block-action" data-action="edit" data-section="<%= i %>" data-block="<%= j %>">
                                     <i class="fa fa-pencil"></i>
                                   </div>
-                                  <div class="block-action" data-action="clone" data-section="<%= section %>" data-block="<%= j %>">
+                                  <div class="block-action" data-action="clone" data-section="<%= i %>" data-block="<%= j %>">
                                     <i class="fa fa-copy"></i>
                                   </div>
-                                  <div class="block-action" data-action="remove" data-section="<%= section %>" data-block="<%= j %>">
+                                  <div class="block-action" data-action="remove" data-section="<%= i %>" data-block="<%= j %>">
                                     <i class="fa fa-trash"></i>
                                   </div>
                                 </div>
@@ -348,22 +365,22 @@
                             <% } %>
                             <% }) %>
                           <% } else { %>
-                            <div class="dropzone">
+                            <div class="dropzone-empty">
                               <table class="row">
                                 <tr>
                                   <td class="large-12 first last columns">
-                                    <%= section%>
+                                    <%= section.label %>
                                   </td>
                                   <td class="expander"></td>
                                 </tr>
                               </table>
                             </div>
                           <% } %>
-                          <% if(styles[section].padding_bottom) { %>
+                          <% if(styles['section-'+i].padding_bottom) { %>
                             <table class="spacer">
                               <tbody>
                                 <tr>
-                                  <td height="<%- styles[section].padding_bottom %>" style="font-size:<%- styles[section].padding_bottom %>;line-height:<%- styles[section].padding_bottom %>;">&#xA0;</td>
+                                  <td height="<%- styles['section-'+i].padding_bottom %>" style="font-size:<%- styles['section-'+i].padding_bottom %>;line-height:<%- styles['section-'+i].padding_bottom %>;">&#xA0;</td>
                                 </tr>
                               </tbody>
                             </table>
@@ -391,34 +408,58 @@
                 target: 'designer',
                 action: dataset.action,
                 data: {
-                  section: dataset.section,
+                  section: parseInt(dataset.section),
                   block: parseInt(dataset.block)
                 }
               }, '*')
             }, false);
           })
 
-          Array.prototype.map.call(document.getElementsByClassName('section'), section => {
-            section.addEventListener('dragenter', function(e) {
+          Array.prototype.map.call(document.getElementsByClassName('dropzone'), dropzone => {
+
+            var countdown = 0;
+
+            dropzone.addEventListener('dragenter', function(e) {
               e.preventDefault();
               e.stopPropagation();
-            }, false)
-            section.addEventListener('dragover', function(e) {
+              countdown = 1;
+              e.currentTarget.className = 'dropzone hover'
+            }, false);
+
+            dropzone.addEventListener("dragleave", function(e) {
               e.preventDefault();
               e.stopPropagation();
+              e.currentTarget.className = 'dropzone'
+            }, false);
+
+            dropzone.addEventListener('dragover', function(e) {
+              e.preventDefault();
+              e.stopPropagation();
+              countdown += 1;
+              if(countdown % 30 !== 0) {
+                return;
+              }
+              e.currentTarget.className = 'dropzone hover'
             }, false)
-            section.addEventListener('drop', function(e) {
+
+            dropzone.addEventListener('drop', function(e) {
               e.preventDefault()
               e.stopPropagation()
+              console.log('dropped', parseInt(e.currentTarget.dataset.section), e.dataTransfer.getData('type'))
               window.parent.postMessage({
                 target: 'designer',
                 action: 'add',
                 data: {
-                  section: e.currentTarget.dataset.section,
+                  section: parseInt(e.currentTarget.dataset.section),
                   type: e.dataTransfer.getData('type')
                 }
               }, '*')
             }, false)
+
+            dropzone.addEventListener('dragend', function(e) {
+                console.log("Drag End");
+            }, false);
+
           })
 
         </script>

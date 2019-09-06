@@ -5,6 +5,7 @@ export const types = [
     icon: 'align-justify',
     config: {
       columns: 1,
+      split: [12],
       content_0: '<p>Edit Me</p>',
       content_1: null,
       font_family: null,

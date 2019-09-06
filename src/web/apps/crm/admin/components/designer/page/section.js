@@ -1,18 +1,19 @@
 import { alignments, font_size, letter_spacing, line_heights, fonts } from '../variables'
 import FontToken from '../../../tokens/font'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import { unflatten } from 'flat'
 import React from 'react'
 
-class Preheader extends React.Component {
+class Section extends React.Component {
 
   static contextTypes = {}
 
   static propTypes = {
-    config: PropTypes.string,
+    config: PropTypes.object,
     label: PropTypes.string,
-    section: PropTypes.string,
+    index: PropTypes.number,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
     onUpdate: PropTypes.func
@@ -66,10 +67,14 @@ class Preheader extends React.Component {
   }
 
   _handleChange(data) {
-    const { section } = this.props
-    this.props.onUpdate(`design.${section}`, unflatten(data))
+    const { index } = this.props
+    this.props.onUpdate(`sections[${index}].config`, unflatten(data))
   }
 
 }
 
-export default Preheader
+const mapStateToProps = (state, props) => ({
+  config: state.crm.designer.config.sections[props.index].config
+})
+
+export default connect(mapStateToProps)(Section)

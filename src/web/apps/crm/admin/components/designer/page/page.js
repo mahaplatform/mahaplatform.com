@@ -1,6 +1,7 @@
 import { font_size, letter_spacing, line_heights, fonts } from '../variables'
-import { Form } from 'maha-admin'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { Form } from 'maha-admin'
 import React from 'react'
 
 const block_types = [
@@ -30,10 +31,6 @@ class Page extends React.Component {
   render() {
     return <Form { ...this._getForm() } />
   }
-
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps, prevState) {}
 
   _getForm() {
     const { config } = this.props
@@ -68,9 +65,13 @@ class Page extends React.Component {
   }
 
   _handleChange(data) {
-    this.props.onUpdate('design.page', data)
+    this.props.onUpdate('page.config', data)
   }
 
 }
 
-export default Page
+const mapStateToProps = (state, props) => ({
+  config: state.crm.designer.config.page.config
+})
+
+export default connect(mapStateToProps)(Page)

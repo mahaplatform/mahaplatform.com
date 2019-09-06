@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import Section from './section'
-import Mobile from './mobile'
 import React from 'react'
 import Page from './page'
 
@@ -17,19 +16,11 @@ class Style extends React.Component {
 
   static defaultProps = {}
 
-  sections = [
-    { label: 'Page', code: 'page', component: Page, props: this._getSection('page','Page') },
-    { label: 'Preheader', code: 'preheader', component: Section, props: this._getSection('preheader','Preheader')},
-    { label: 'Header', code: 'header', component: Section, props: this._getSection('header','Header') },
-    { label: 'Body', code: 'body', component: Section, props: this._getSection('body','Body') },
-    { label: 'Footer', code: 'footer', component: Section, props: this._getSection('footer','Footer') },
-    { label: 'Mobile', code: 'mobile', component: Mobile, props: this._getSection('mobile','Mobile') }
-  ]
-
   render() {
+    const sections = this._getSections()
     return (
       <div className="designer-page-sections">
-        { this.sections.map((section, index) => (
+        { sections.map((section, index) => (
           <div key={`section_${index}`} className="designer-page-section" onClick={ this._handleChoose.bind(this, index) }>
             <div className="designer-page-section-label">
               { section.label }
@@ -47,12 +38,32 @@ class Style extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {}
 
-  _getSection(section, label) {
-    const { config, onPop, onPush, onUpdate } = this.props
+  _getSections() {
+    const { config } = this.props
+    return [
+      { label: 'Page', code: 'page', component: Page, props: this._getPage() },
+      ...config.sections.map((section, index) => ({
+        label: section.label,
+        component: Section,
+        props: this._getSection(section.label, index)
+      }))
+    ]
+  }
+
+  _getPage() {
+    const { onPop, onPush, onUpdate } = this.props
     return {
-      config: config.design[section],
+      onPop,
+      onPush,
+      onUpdate
+    }
+  }
+
+  _getSection(label, index) {
+    const { onPop, onPush, onUpdate } = this.props
+    return {
+      index,
       label,
-      section,
       onPop,
       onPush,
       onUpdate
@@ -60,7 +71,8 @@ class Style extends React.Component {
   }
 
   _handleChoose(index) {
-    const section = this.sections[index]
+    const sections = this._getSections()
+    const section = sections[index]
     this.props.onPush(section.component, section.props)
   }
 

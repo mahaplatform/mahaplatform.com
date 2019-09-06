@@ -50,7 +50,7 @@ class Sidebar extends React.Component {
 
   _getBlock() {
     const { active, config } = this.props
-    const key = `content[${active.section}][${active.block}].config`
+    const key = `sections[${active.section}].blocks[${active.block}].config`
     return {
       active,
       config: _.get(config, key),
@@ -83,7 +83,7 @@ class Sidebar extends React.Component {
 
   _handleEdit() {
     const { active, config } = this.props
-    const block = config.content[active.section][active.block]
+    const block = config.sections[active.section].blocks[active.block]
     if(block.type === 'button') {
       this._handlePush(Button, this._getBlock())
     } else if(block.type === 'text') {
