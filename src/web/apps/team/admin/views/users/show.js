@@ -1,6 +1,8 @@
 import { AppToken, Avatar, List, Page } from 'maha-admin'
 import Notifications from './notifications'
 import PropTypes from 'prop-types'
+import Disable from './disable'
+import Enable from './enable'
 import React from 'react'
 import Edit from './edit'
 
@@ -101,22 +103,12 @@ const mapPropsToPage = (props, context, resources) => ({
         label: 'Disable User',
         rights: ['team:manage_people'],
         show: resources.user.is_active,
-        request: {
-          method: 'PATCH',
-          endpoint: `/api/admin/team/users/${resources.user.id}/disable`,
-          onFailure: (result) => context.flash.set('error', 'Unable to disable this user'),
-          onSuccess: (result) => context.flash.set('success', 'The user has been disabled')
-        }
+        modal: () => <Disable user={ resources.user } />
       }, {
         label: 'Enable User',
         rights: ['team:manage_people'],
         show: !resources.user.is_active,
-        request: {
-          method: 'PATCH',
-          endpoint: `/api/admin/team/users/${resources.user.id}/enable`,
-          onFailure: (result) => context.flash.set('error', 'Unable to enable this user'),
-          onSuccess: (result) => context.flash.set('success', 'The user has been enabled')
-        }
+        modal: () => <Enable user={ resources.user } />
       },{
         label: 'Resend Activation Email',
         rights: ['team:manage_people'],
