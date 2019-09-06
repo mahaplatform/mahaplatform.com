@@ -14,11 +14,15 @@ class Designer extends React.Component {
     active: PropTypes.object,
     config: PropTypes.object,
     deviceIndex: PropTypes.number,
+    editable: PropTypes.bool,
     orientationIndex: PropTypes.number,
     onAdd: PropTypes.func,
+    onAddSection: PropTypes.func,
     onChangeViewport: PropTypes.func,
     onClone: PropTypes.func,
+    onDeleteSection: PropTypes.func,
     onEdit: PropTypes.func,
+    onEditable: PropTypes.func,
     onRemove: PropTypes.func,
     onUpdate: PropTypes.func
   }
@@ -30,11 +34,18 @@ class Designer extends React.Component {
   render() {
     return (
       <div className="designer">
-        <div className="designer-main">
-          <Header { ...this._getHeader() } />
-          <Preview { ...this._getPreview() } />
+        <div className="designer-body">
+          <div className="designer-main">
+            <Header { ...this._getHeader() } />
+            <Preview { ...this._getPreview() } />
+          </div>
+          <Sidebar { ...this._getSidebar() } />
         </div>
-        <Sidebar { ...this._getSidebar() } />
+        <div className="designer-footer">
+          <div className="ui red button">
+            Done
+          </div>
+        </div>
       </div>
     )
   }
@@ -48,27 +59,32 @@ class Designer extends React.Component {
   }
 
   _getHeader() {
-    const { onChangeViewport } = this.props
+    const { editable, onChangeViewport, onEditable } = this.props
     return {
-      onChange: onChangeViewport
+      editable,
+      onChange: onChangeViewport,
+      onEditable
     }
   }
 
   _getPreview() {
-    const { active, config, deviceIndex, orientationIndex } = this.props
+    const { active, config, deviceIndex, editable, orientationIndex } = this.props
     return {
       active,
       config,
       deviceIndex,
+      editable,
       orientationIndex
     }
   }
 
   _getSidebar() {
-    const { active, config, onEdit, onUpdate } = this.props
+    const { active, config, onAddSection, onDeleteSection, onEdit, onUpdate } = this.props
     return {
       active,
       config,
+      onAddSection,
+      onDeleteSection,
       onEdit,
       onUpdate
     }
@@ -87,7 +103,7 @@ class Designer extends React.Component {
     const content_type = _.find(types, { type })
     this.props.onAdd(section, {
       type: content_type.type,
-      config: content_type.config
+      ...content_type.config
     })
   }
 

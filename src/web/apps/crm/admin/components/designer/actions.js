@@ -10,6 +10,16 @@ export const update = (key, value) => ({
   value
 })
 
+export const addSection = (section) => ({
+  type: 'ADD_SECTION',
+  section
+})
+
+export const deleteSection = (index) => ({
+  type: 'DELETE_SECTION',
+  index
+})
+
 export const add = (section, block) => ({
   type: 'ADD',
   section,
@@ -32,4 +42,9 @@ export const remove = (section, block) => ({
   type: 'REMOVE',
   section,
   block
+})
+
+export const editable = (editable) => ({
+  type: 'EDITABLE',
+  editable
 })

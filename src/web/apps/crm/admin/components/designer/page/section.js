@@ -8,41 +8,40 @@ import React from 'react'
 
 class Section extends React.Component {
 
-  static contextTypes = {}
-
   static propTypes = {
     config: PropTypes.object,
     label: PropTypes.string,
     index: PropTypes.number,
+    onDeleteSection: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
-  static defaultProps = {}
-
-  _handleCancel = this._handleCancel.bind(this)
+  _handleDelete = this._handleDelete.bind(this)
+  _handleDone = this._handleDone.bind(this)
   _handleChange = this._handleChange.bind(this)
 
   render() {
+    if(!this.props.config) return null
     return <Form { ...this._getForm() } />
   }
-
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps, prevState) {}
 
   _getForm() {
     const { config, label } = this.props
     return {
       title: label,
-      onCancel: this._handleCancel,
       onChange: this._handleChange,
-      cancelText: <i className="fa fa-chevron-left" />,
+      cancelText: null,
       saveText: null,
+      buttons: [
+        { label: 'Delete', color: 'red', handler: this._handleDelete },
+        { label: 'Save', color: 'red', handler: this._handleDone }
+      ],
       sections: [
         {
           fields: [
+            { label: 'Label', name: 'label', type: 'textfield', defaultValue: config.label },
             { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
             { label: 'Padding Top', name: 'padding_top', type: 'textfield', defaultValue: config.padding_top },
             { label: 'Padding Bottom', name: 'padding_bottom', type: 'textfield', defaultValue: config.padding_bottom }
@@ -62,19 +61,25 @@ class Section extends React.Component {
     }
   }
 
-  _handleCancel() {
+  _handleChange(data) {
+    const { index } = this.props
+    this.props.onUpdate(`sections[${index}]`, unflatten(data))
+  }
+
+  _handleDelete() {
+    const { index } = this.props
+    this.props.onDeleteSection(index)
     this.props.onPop()
   }
 
-  _handleChange(data) {
-    const { index } = this.props
-    this.props.onUpdate(`sections[${index}].config`, unflatten(data))
+  _handleDone() {
+    this.props.onPop()
   }
 
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.designer.config.sections[props.index].config
+  config: state.crm.designer.config.sections[props.index]
 })
 
 export default connect(mapStateToProps)(Section)

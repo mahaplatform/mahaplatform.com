@@ -10,6 +10,8 @@ class Sidebar extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
+    onAddSection: PropTypes.func,
+    onDeleteSection: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
     onUpdate: PropTypes.func
@@ -35,9 +37,11 @@ class Sidebar extends React.Component {
   }
 
   _getTab() {
-    const { config, onPop, onPush, onUpdate } = this.props
+    const { config, onAddSection, onDeleteSection, onPop, onPush, onUpdate } = this.props
     return {
       config,
+      onAddSection,
+      onDeleteSection,
       onPop,
       onPush,
       onUpdate

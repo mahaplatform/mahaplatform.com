@@ -2,6 +2,11 @@
   flex: 1;
   display: flex;
   background-color: @white;
+  flex-direction: column;
+}
+.designer-body {
+  flex: 1;
+  display: flex;
 }
 .designer-main {
   flex: 1;
@@ -9,13 +14,17 @@
   flex-direction: column;
 }
 .designer-header {
-  padding: 0.4em 0.8em;
-  background-color: fadeout(@black, 97);
+  padding: 0.35em 0.8em;
+  background-color: fadeout(@grey, 97);
   border-bottom: 1px solid fadeout(@black, 95);
   text-align: center;
   .ui.dropdown {
     margin: 0 0.4em;
   }
+}
+.designer-footer {
+  padding: 0.8em;
+  background-color: @grey;
 }
 .designer-preview {
   flex: 1;

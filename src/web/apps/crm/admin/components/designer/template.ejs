@@ -1,45 +1,45 @@
 <% block_types = ['h1','h2','h3','h4','p'] %>
-<% page_background_color = _.get(page, 'config.background_color', null) %>
-<% page_border_top = _.get(page, 'config.border_top', null) %>
-<% page_email_border = _.get(page, 'config.email_border', null) %>
+<% page_background_color = _.get(page, 'background_color', null) %>
+<% page_border_top = _.get(page, 'border_top', null) %>
+<% page_email_border = _.get(page, 'email_border', null) %>
 <% styles = {} %>
 <% block_types.map((block_type, index) => { %>
   <% styles[block_type] = {} %>
-  <% styles[block_type].font_family = _.get(page, 'config.'+block_type+'_font_family', null) %>
-  <% styles[block_type].font_size = _.get(page, 'config.'+block_type+'_font_size', null) %>
-  <% styles[block_type].color = _.get(page, 'config.'+block_type+'_color', null) %>
-  <% styles[block_type].bold = _.get(page, 'config.'+block_type+'_bold', null) %>
-  <% styles[block_type].italic = _.get(page, 'config.'+block_type+'_italic', null) %>
-  <% styles[block_type].text_align = _.get(page, 'config.'+block_type+'_text_align', null) %>
-  <% styles[block_type].line_height = _.get(page, 'config.'+block_type+'_line_height', null) %>
-  <% styles[block_type].letter_spacing = _.get(page, 'config.'+block_type+'_letter_spacing', null) %>
+  <% styles[block_type].font_family = _.get(page, block_type+'_font_family', null) %>
+  <% styles[block_type].font_size = _.get(page, block_type+'_font_size', null) %>
+  <% styles[block_type].color = _.get(page, block_type+'_color', null) %>
+  <% styles[block_type].bold = _.get(page, block_type+'_bold', null) %>
+  <% styles[block_type].italic = _.get(page, block_type+'_italic', null) %>
+  <% styles[block_type].text_align = _.get(page, block_type+'_text_align', null) %>
+  <% styles[block_type].line_height = _.get(page, block_type+'_line_height', null) %>
+  <% styles[block_type].letter_spacing = _.get(page, block_type+'_letter_spacing', null) %>
 <% }) %>
 <% sections.map((section, i) => { %>
   <% styles['section-'+i] = {} %>
-  <% styles['section-'+i].background_color = _.get(section, 'config.background_color', null) %>
-  <% styles['section-'+i].background_image = _.get(section, 'config.background_image', null) %>
-  <% styles['section-'+i].border_top = _.get(section, 'config.border_top', null) %>
-  <% styles['section-'+i].border_bottom = _.get(section, 'config.border_bottom', null) %>
-  <% styles['section-'+i].padding_top = _.get(section, 'config.padding_top', null) %>
-  <% styles['section-'+i].padding_bottom = _.get(section, 'config.padding_bottom', null) %>
-  <% styles['section-'+i].text_font_family = _.get(section, 'config.font_family', null) %>
-  <% styles['section-'+i].text_font_size = _.get(section, 'config.font_size', null) %>
-  <% styles['section-'+i].text_color = _.get(section, 'config.color', null) %>
-  <% styles['section-'+i].text_text_align = _.get(section, 'config.text_align', null) %>
-  <% styles['section-'+i].text_line_height = _.get(section, 'config.line_height', null) %>
-  <% styles['section-'+i].link_color = _.get(section, 'config.link_color', null) %>
-  <% styles['section-'+i].link_bold = _.get(section, 'config.link_bold', null) %>
-  <% styles['section-'+i].link_underline = _.get(section, 'config.link_underline', null) %>
-  <% styles['section-'+i].letter_spacing = _.get(section, 'config.letter_spacing', null) %>
+  <% styles['section-'+i].background_color = _.get(section, 'background_color', null) %>
+  <% styles['section-'+i].background_image = _.get(section, 'background_image', null) %>
+  <% styles['section-'+i].border_top = _.get(section, 'border_top', null) %>
+  <% styles['section-'+i].border_bottom = _.get(section, 'border_bottom', null) %>
+  <% styles['section-'+i].padding_top = _.get(section, 'padding_top', null) %>
+  <% styles['section-'+i].padding_bottom = _.get(section, 'padding_bottom', null) %>
+  <% styles['section-'+i].text_font_family = _.get(section, 'font_family', null) %>
+  <% styles['section-'+i].text_font_size = _.get(section, 'font_size', null) %>
+  <% styles['section-'+i].text_color = _.get(section, 'color', null) %>
+  <% styles['section-'+i].text_text_align = _.get(section, 'text_align', null) %>
+  <% styles['section-'+i].text_line_height = _.get(section, 'line_height', null) %>
+  <% styles['section-'+i].link_color = _.get(section, 'link_color', null) %>
+  <% styles['section-'+i].link_bold = _.get(section, 'link_bold', null) %>
+  <% styles['section-'+i].link_underline = _.get(section, 'link_underline', null) %>
+  <% styles['section-'+i].letter_spacing = _.get(section, 'letter_spacing', null) %>
   <% section.blocks.map((block, j) => { %>
     <% styles['section-'+i+'-block-'+j] = {} %>
-    <% styles['section-'+i+'-block-'+j].font_family = _.get(block, 'config.font_family', null) %>
-    <% styles['section-'+i+'-block-'+j].font_size = _.get(block, 'config.font_size', null) %>
-    <% styles['section-'+i+'-block-'+j].color = _.get(block, 'config.color', null) %>
-    <% styles['section-'+i+'-block-'+j].bold = _.get(block, 'config.bold', false) %>
-    <% styles['section-'+i+'-block-'+j].italic = _.get(block, 'config.italic', false) %>
-    <% styles['section-'+i+'-block-'+j].text_align = _.get(block, 'config.text_align', 'left') %>
-    <% styles['section-'+i+'-block-'+j].line_height = _.get(block, 'config.line_height', null) %>
+    <% styles['section-'+i+'-block-'+j].font_family = _.get(block, 'font_family', null) %>
+    <% styles['section-'+i+'-block-'+j].font_size = _.get(block, 'font_size', null) %>
+    <% styles['section-'+i+'-block-'+j].color = _.get(block, 'color', null) %>
+    <% styles['section-'+i+'-block-'+j].bold = _.get(block, 'bold', false) %>
+    <% styles['section-'+i+'-block-'+j].italic = _.get(block, 'italic', false) %>
+    <% styles['section-'+i+'-block-'+j].text_align = _.get(block, 'text_align', 'left') %>
+    <% styles['section-'+i+'-block-'+j].line_height = _.get(block, 'line_height', null) %>
   <% }) %>
 <% }) %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -52,10 +52,8 @@
       <link href="/admin/css/font-awesome.min.css" rel="stylesheet" />
       <style type="text/css">
         .dropzone {
+          margin: -4px -2px;
           border: 2px solid transparent;
-        }
-        .dropzone * {
-          pointer-events: none;
         }
         .dropzone.hover {
           border-color: #00B5AD;
@@ -73,8 +71,11 @@
           color: white;
         	content: attr(data-label);
         }
-        .dropzone-empty {
-          padding: 10px 0;
+        .dropzone-target {
+          border: 2px solid rgba(0,0,0,0.1);
+          background-color: rgba(0,0,0,0.05);
+          color: rgba(0,0,0,0.1);
+          padding: 5px 0;
         }
         .dropzone-marker {
           background-color: blue;
@@ -84,16 +85,12 @@
           text-align: center;
         }
         .block {
-          margin: -2px;
-          pointer-events: auto;
           position: relative;
           cursor: pointer;
           border: 2px solid transparent;
           min-height: 30px;
         }
-        .block.active {
-          border-color: #00B5AD;
-        }
+        .block.active,
         .block:hover {
           border-color: #00B5AD;
         }
@@ -108,7 +105,6 @@
           background-color: #00B5AD;
         }
         .block-action {
-          pointer-events: auto;
           font-size: 16px;
           padding: 3px 8px;
           line-height: 24px;
@@ -210,27 +206,27 @@
         }
         <% if(block.type === 'button') { %>
           table.section-<%- i %>-block-<%- j %> table.button table td {
-            <%- block.config.border ? 'border:'+block.config.border+';' : '' %>
-            <%- block.config.background_color ? 'background-color:'+block.config.background_color+';' : '' %>
-            <%- block.config.border_radius ? 'border-radius:'+block.config.border_radius+';' : '' %>
+            <%- block.border ? 'border:'+block.border+';' : '' %>
+            <%- block.background_color ? 'background-color:'+block.background_color+';' : '' %>
+            <%- block.border_radius ? 'border-radius:'+block.border_radius+';' : '' %>
           }
           table.section-<%- i %>-block-<%- j %> table.button table td a {
-            <%- block.config.font_family ? 'font-family:'+block.config.font_family+';' : '' %>
-            <%- block.config.font_size ? 'font-size:'+block.config.font_size+';' : '' %>
-            <%- block.config.letter_spacing ? 'letter-spacing: '+block.config.letter_spacing+';' : '' %>
-            <%- block.config.color ? 'color:'+block.config.color+';' : '' %>
-            <%- block.config.padding ? 'padding-top:'+block.config.padding+';' : '' %>
-            <%- block.config.padding ? 'padding-bottom:'+block.config.padding+';' : '' %>
+            <%- block.font_family ? 'font-family:'+block.font_family+';' : '' %>
+            <%- block.font_size ? 'font-size:'+block.font_size+';' : '' %>
+            <%- block.letter_spacing ? 'letter-spacing: '+block.letter_spacing+';' : '' %>
+            <%- block.color ? 'color:'+block.color+';' : '' %>
+            <%- block.padding ? 'padding-top:'+block.padding+';' : '' %>
+            <%- block.padding ? 'padding-bottom:'+block.padding+';' : '' %>
           }
         <% } else if(block.type === 'text') { %>
           table.section-<%- i %>-block-<%- j %> td,
           table.section-<%- i %>-block-<%- j %> p {
-            <%- block.config.font_family ? 'font-family: '+block.config.font_family+';' : '' %>
-            <%- block.config.font_size ? 'font-size: '+block.config.font_size+';' : '' %>
-            <%- block.config.color ? 'color: '+block.config.color+';' : '' %>
-            <%- block.config.text_align ? 'text-align: '+block.config.text_align+';' : '' %>
-            <%- block.config.line_height ? 'line-height: '+block.config.line_height+';' : '' %>
-            <%- block.config.letter_spacing ? 'letter-spacing: '+block.config.letter_spacing+';' : '' %>
+            <%- block.font_family ? 'font-family: '+block.font_family+';' : '' %>
+            <%- block.font_size ? 'font-size: '+block.font_size+';' : '' %>
+            <%- block.color ? 'color: '+block.color+';' : '' %>
+            <%- block.text_align ? 'text-align: '+block.text_align+';' : '' %>
+            <%- block.line_height ? 'line-height: '+block.line_height+';' : '' %>
+            <%- block.letter_spacing ? 'letter-spacing: '+block.letter_spacing+';' : '' %>
           }
         <% } %>
       <% }) %>
@@ -238,7 +234,7 @@
     </style>
   </head>
   <body>
-    <table class="body">
+    <table class="body" id="body">
       <tr>
         <td class="float-center" align="center" valign="top">
           <center>
@@ -270,11 +266,11 @@
                               <% if(block.type === 'text') { %>
                                 <table class="row section-<%- i %>-block-<%- j %>">
                                   <tr>
-                                    <% columns = block.config.columns %>
-                                    <% split = block.config.split %>
+                                    <% columns = block.columns %>
+                                    <% split = block.split %>
                                     <% for(var k = 0; k < columns; k++) { %>
                                       <td class="large-<%- split[k] %><%- k === 0 ? ' first' : '' %><%- k === columns - 1 ? ' last' : '' %> columns">
-                                        <%- block.config[`content_${k}`] %>
+                                        <%- block[`content_${k}`] %>
                                       </td>
                                     <% } %>
                                     <td class="expander"></td>
@@ -293,25 +289,25 @@
                                 <table class="row section-<%- i %>-block-<%- j %>">
                                   <tr>
                                     <td class="large-12 first last columns">
-                                      <% if(block.config.align === 'center') { %>
+                                      <% if(block.align === 'center') { %>
                                         <center>
                                       <% } %>
-                                      <table class="button<%= block.config.display === 'block' ? ' expanded' : '' %> float-<%= block.config.align %>">
+                                      <table class="button<%= block.display === 'block' ? ' expanded' : '' %> float-<%= block.align %>">
                                         <tr>
                                           <td>
                                             <table>
                                               <tr>
                                                 <td>
-                                                  <% if(block.config.link_strategy === 'web') { %>
-                                                    <a href="<%= block.config.url %>"<%- block.config.open_in_new_window ? 'target="_blank"': '' %><%= block.config.title ? ' title="'+block.config.title+'"' : '' %>>
-                                                  <% } else if(block.config.link_strategy === 'email') { %>
-                                                    <a href="mailto:<%- block.config.email_address %>"<%= block.config.title ? ' title="'+block.config.title+'"' : '' %>>
-                                                  <% } else if(block.config.link_strategy === 'anchor') { %>
-                                                    <a href="#<%- block.config.anchor %>"<%= block.config.title ? ' title="'+block.config.title+'"' : '' %>>
-                                                  <% } else if(block.config.link_strategy === 'asset') { %>
-                                                    <a href="<%- block.config.asset_id %>"<%= block.config.title ? ' title="'+block.config.title+'"' : '' %>>
+                                                  <% if(block.link_strategy === 'web') { %>
+                                                    <a href="<%= block.url %>"<%- block.open_in_new_window ? 'target="_blank"': '' %><%= block.title ? ' title="'+block.title+'"' : '' %>>
+                                                  <% } else if(block.link_strategy === 'email') { %>
+                                                    <a href="mailto:<%- block.email_address %>"<%= block.title ? ' title="'+block.title+'"' : '' %>>
+                                                  <% } else if(block.link_strategy === 'anchor') { %>
+                                                    <a href="#<%- block.anchor %>"<%= block.title ? ' title="'+block.title+'"' : '' %>>
+                                                  <% } else if(block.link_strategy === 'asset') { %>
+                                                    <a href="<%- block.asset_id %>"<%= block.title ? ' title="'+block.title+'"' : '' %>>
                                                   <% } %>
-                                                    <%= block.config.content %>
+                                                    <%= block.content %>
                                                   </a>
                                                 </td>
                                               </tr>
@@ -319,7 +315,7 @@
                                           </td>
                                         </tr>
                                       </table>
-                                      <% if(block.config.align === 'center') { %>
+                                      <% if(block.align === 'center') { %>
                                         </center>
                                       <% } %>
                                     </td>
@@ -364,12 +360,12 @@
                               </div>
                             <% } %>
                             <% }) %>
-                          <% } else { %>
-                            <div class="dropzone-empty">
+                          <% } else if(editable === true) { %>
+                            <div class="dropzone-target">
                               <table class="row">
                                 <tr>
                                   <td class="large-12 first last columns">
-                                    <%= section.label %>
+                                    Drop Block Here
                                   </td>
                                   <td class="expander"></td>
                                 </tr>
@@ -418,34 +414,51 @@
           Array.prototype.map.call(document.getElementsByClassName('dropzone'), dropzone => {
 
             var countdown = 0;
+            var counter = 0;
+            var placeholder = null;
 
             dropzone.addEventListener('dragenter', function(e) {
               e.preventDefault();
               e.stopPropagation();
               countdown = 1;
+              counter++;
               e.currentTarget.className = 'dropzone hover'
             }, false);
 
             dropzone.addEventListener("dragleave", function(e) {
               e.preventDefault();
               e.stopPropagation();
-              e.currentTarget.className = 'dropzone'
+              counter--;
+              if (counter === 0) {
+                e.currentTarget.className = 'dropzone'
+              }
             }, false);
 
             dropzone.addEventListener('dragover', function(e) {
               e.preventDefault();
               e.stopPropagation();
               countdown += 1;
-              if(countdown % 30 !== 0) {
-                return;
+              if(countdown % 30 !== 0) return;
+              var el = e.target
+              while ((el = el.parentElement) && !((el.matches || el.matchesSelector).call(el,'.block')));
+              if(!el) return
+              var rect = el.getBoundingClientRect()
+              var middle = rect.y + (rect.height / 2)
+              if(placeholder) placeholder.remove()
+              placeholder = document.createElement("div");
+              placeholder.innerHTML = '<table class="row"><tr><td class="large-12 first last columns">Drop Block Here</td><td class="expander"></td></tr></table>'
+              placeholder.className = 'dropzone-target'
+              if(e.clientY <= middle) {
+                el.insertBefore(placeholder, el.childNodes[0])
               }
-              e.currentTarget.className = 'dropzone hover'
+              if(e.clientY > middle) {
+                insert
+              }
             }, false)
 
             dropzone.addEventListener('drop', function(e) {
               e.preventDefault()
               e.stopPropagation()
-              console.log('dropped', parseInt(e.currentTarget.dataset.section), e.dataTransfer.getData('type'))
               window.parent.postMessage({
                 target: 'designer',
                 action: 'add',
@@ -455,10 +468,6 @@
                 }
               }, '*')
             }, false)
-
-            dropzone.addEventListener('dragend', function(e) {
-                console.log("Drag End");
-            }, false);
 
           })
 

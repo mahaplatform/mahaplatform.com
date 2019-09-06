@@ -4,16 +4,15 @@ import React from 'react'
 
 class Header extends React.Component {
 
-  static contextTypes = {}
-
   static propTypes = {
-    onChange: PropTypes.func
+    editable: PropTypes.bool,
+    onChange: PropTypes.func,
+    onEditable: PropTypes.func
   }
 
-  static defaultProps = {}
+  _handleEditable = this._handleEditable.bind(this)
 
   render() {
-
     return (
       <div className="designer-header">
         <select { ...this._getDevice() }>
@@ -30,18 +29,31 @@ class Header extends React.Component {
             </option>
           ))}
         </select>
+        <select { ...this._getEditable() }>
+          <option value="true">
+            Editable
+          </option>
+          <option value="false">
+            Read Only
+          </option>
+        </select>
       </div>
     )
   }
-
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps) {}
 
   _getDevice() {
     return {
       className: 'ui selection dropdown',
       onChange: this._handleChange.bind(this, 'device')
+    }
+  }
+
+  _handleEditable = this._handleEditable.bind(this)
+
+  _getEditable() {
+    return {
+      className: 'ui selection dropdown',
+      onChange: this._handleEditable
     }
   }
 
@@ -55,6 +67,10 @@ class Header extends React.Component {
   _handleChange(key, e) {
     const value = parseInt(e.target.value)
     this.props.onChange(key, value)
+  }
+
+  _handleEditable(e) {
+    this.props.onEditable(e.target.value === 'true')
   }
 
 }

@@ -1,5 +1,6 @@
-import { types } from '../types'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import { types } from '../types'
 import React from 'react'
 
 class Content extends React.Component {
@@ -40,7 +41,10 @@ class Content extends React.Component {
     e.dataTransfer.setData('type', type.type)
   }
 
-
 }
 
-export default Content
+const mapStateToProps = (state, props) => ({
+  config: state.crm.designer.config
+})
+
+export default connect(mapStateToProps)(Content)

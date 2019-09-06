@@ -13,6 +13,7 @@ class Preview extends React.Component {
   static propTypes = {
     active: PropTypes.object,
     config: PropTypes.object,
+    editable: PropTypes.bool,
     deviceIndex: PropTypes.number,
     orientationIndex: PropTypes.number,
     onChange: PropTypes.func
@@ -38,11 +39,14 @@ class Preview extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { active, config } = this.props
+    const { active, config, editable } = this.props
     if(!_.isEqual(active, prevProps.active)) {
       this._handleRender()
     }
     if(!_.isEqual(config, prevProps.config)) {
+      this._handleRender()
+    }
+    if(!_.isEqual(editable, prevProps.editable)) {
       this._handleRender()
     }
   }
@@ -68,9 +72,9 @@ class Preview extends React.Component {
   }
 
   _handleRender() {
-    const { active, config } = this.props
+    const { active, config, editable } = this.props
     const html = ejs.render(template, {
-      editable: true,
+      editable,
       active,
       ...config,
       moment,

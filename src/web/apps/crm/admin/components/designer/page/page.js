@@ -25,7 +25,7 @@ class Page extends React.Component {
 
   static defaultProps = {}
 
-  _handleCancel = this._handleCancel.bind(this)
+  _handleDone = this._handleDone.bind(this)
   _handleChange = this._handleChange.bind(this)
 
   render() {
@@ -36,10 +36,12 @@ class Page extends React.Component {
     const { config } = this.props
     return {
       title: 'Page',
-      onCancel: this._handleCancel,
       onChange: this._handleChange,
-      cancelText: <i className="fa fa-chevron-left" />,
+      cancelText: null,
       saveText: null,
+      buttons: [
+        { label: 'Done', color: 'red', handler: this._handleDone }
+      ],
       sections: [
         {
           fields: [
@@ -60,18 +62,18 @@ class Page extends React.Component {
     }
   }
 
-  _handleCancel() {
+  _handleDone() {
     this.props.onPop()
   }
 
   _handleChange(data) {
-    this.props.onUpdate('page.config', data)
+    this.props.onUpdate('page', data)
   }
 
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.designer.config.page.config
+  config: state.crm.designer.config.page
 })
 
 export default connect(mapStateToProps)(Page)

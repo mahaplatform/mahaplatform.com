@@ -34,11 +34,13 @@ class Button extends React.Component {
     const { config } = this.props
     return {
       title: 'Button Block',
-      cancelText: <i className="fa fa-chevron-left" />,
-      saveText: null,
-      onCancel: this._handleDone,
       onChangeField: this._handleChangeField,
       onChange: this._handleChange,
+      cancelText: null,
+      saveText: null,
+      buttons: [
+        { label: 'Done', color: 'red', handler: this._handleDone }
+      ],
       tabs: [
         {
           label: 'Content',

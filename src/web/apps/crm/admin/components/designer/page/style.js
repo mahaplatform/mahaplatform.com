@@ -1,3 +1,4 @@
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Section from './section'
 import React from 'react'
@@ -5,16 +6,16 @@ import Page from './page'
 
 class Style extends React.Component {
 
-  static contextTypes = {}
-
   static propTypes = {
     config: PropTypes.object,
+    onAddSection: PropTypes.func,
+    onDeleteSection: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
-  static defaultProps = {}
+  _handleAddSection = this._handleAddSection.bind(this)
 
   render() {
     const sections = this._getSections()
@@ -30,13 +31,12 @@ class Style extends React.Component {
             </div>
           </div>
         ))}
+        <div className="designer-page-section-label" onClick={ this._handleAddSection }>
+          <span className="link">Add Section</span>
+        </div>
       </div>
     )
   }
-
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps, prevState) {}
 
   _getSections() {
     const { config } = this.props
@@ -60,14 +60,37 @@ class Style extends React.Component {
   }
 
   _getSection(label, index) {
-    const { onPop, onPush, onUpdate } = this.props
+    const { onDeleteSection, onPop, onPush, onUpdate } = this.props
     return {
       index,
       label,
+      onDeleteSection,
       onPop,
       onPush,
       onUpdate
     }
+  }
+
+  _handleAddSection() {
+    const { config } = this.props
+    this.props.onAddSection({
+      label: `Section ${config.sections.length + 1}`,
+      background_color: null,
+      background_image: null,
+      border_top: null,
+      border_bottom: null,
+      padding_top: '10px',
+      padding_bottom: '10px',
+      text_font_family: null,
+      text_font_size: null,
+      text_color: null,
+      text_text_align: null,
+      text_line_height: null,
+      link_color: null,
+      link_bold: null,
+      link_underline: null,
+      blocks: []
+    })
   }
 
   _handleChoose(index) {
@@ -78,4 +101,8 @@ class Style extends React.Component {
 
 }
 
-export default Style
+const mapStateToProps = (state, props) => ({
+  config: state.crm.designer.config
+})
+
+export default connect(mapStateToProps)(Style)
