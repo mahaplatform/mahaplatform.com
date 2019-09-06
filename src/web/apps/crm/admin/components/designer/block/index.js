@@ -3,8 +3,12 @@ import Divider from './divider'
 import Button from './button'
 import Footer from './footer'
 import Images from './images'
+import Follow from './follow'
+import Share from './share'
+import Video from './video'
 import Text from './text'
 import React from 'react'
+import Code from './code'
 
 class Block extends React.Component {
 
@@ -36,6 +40,10 @@ class Block extends React.Component {
     if(block.type === 'divider') return Divider
     if(block.type === 'images') return Images
     if(block.type === 'footer') return Footer
+    if(block.type === 'video') return Video
+    if(block.type === 'code') return Code
+    if(block.type === 'share') return Share
+    if(block.type === 'follow') return Follow
   }
 
 }

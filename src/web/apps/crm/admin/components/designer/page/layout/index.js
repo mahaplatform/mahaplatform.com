@@ -1,13 +1,14 @@
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import Section from '../section'
 import React from 'react'
+import Edit from './edit'
 
-class Style extends React.Component {
+class Layout extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
     onAddSection: PropTypes.func,
+    onDeleteSection: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
     onUpdate: PropTypes.func
@@ -16,10 +17,10 @@ class Style extends React.Component {
   _handleAddSection = this._handleAddSection.bind(this)
 
   render() {
-    const sections = this._getSections()
+    const { config } = this.props
     return (
       <div className="designer-layout">
-        { sections.map((section, index) => (
+        { config.sections.map((section, index) => (
           <div key={`section_${index}`} className="designer-layout-section">
             <div className="designer-layout-section-handle">
               <i className="fa fa-bars" />
@@ -27,10 +28,10 @@ class Style extends React.Component {
             <div className="designer-layout-section-label">
               { section.label }
             </div>
-            <div className="designer-layout-section-action">
+            <div className="designer-layout-section-action" onClick={ this._handleEdit.bind(this, index) }>
               <i className="fa fa-pencil" />
             </div>
-            <div className="designer-layout-section-action">
+            <div className="designer-layout-section-action" onClick={ this._handleDelete.bind(this, index) }>
               <i className="fa fa-trash-o" />
             </div>
           </div>
@@ -42,20 +43,10 @@ class Style extends React.Component {
     )
   }
 
-  _getSections() {
-    const { config } = this.props
-    return config.sections.map((section, index) => ({
-      label: section.label,
-      component: Section,
-      props: this._getSection(section.label, index)
-    }))
-  }
-
-  _getSection(label, index) {
+  _getEdit(index) {
     const { onPop, onPush, onUpdate } = this.props
     return {
       index,
-      label,
       onPop,
       onPush,
       onUpdate
@@ -84,10 +75,12 @@ class Style extends React.Component {
     })
   }
 
-  _handleChoose(index) {
-    const sections = this._getSections()
-    const section = sections[index]
-    this.props.onPush(section.component, section.props)
+  _handleDelete(index) {
+    this.props.onDeleteSection(index)
+  }
+
+  _handleEdit(index) {
+    this.props.onPush(Edit, this._getEdit(index))
   }
 
 }
@@ -96,4 +89,4 @@ const mapStateToProps = (state, props) => ({
   config: state.crm.designer.config
 })
 
-export default connect(mapStateToProps)(Style)
+export default connect(mapStateToProps)(Layout)

@@ -1,5 +1,5 @@
-import { alignments, font_size, letter_spacing, line_heights, fonts } from '../variables'
-import FontToken from '../../../tokens/font'
+import { alignments, font_size, letter_spacing, line_heights, fonts } from '../../variables'
+import FontToken from '../../../../tokens/font'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'

@@ -4,6 +4,14 @@ export const alignments = [
   { value: 'right', text: 'Right' }
 ]
 
+export const block_types = [
+  { text: 'Heading 1', value: 'h1' },
+  { text: 'Heading 2', value: 'h2' },
+  { text: 'Heading 3', value: 'h3' },
+  { text: 'Heading 4', value: 'h4' },
+  { text: 'Text', value: 'p' }
+]
+
 export const columns = [
   { value: 1, text: '1 column' },
   { value: 2, text: '2 columns' }

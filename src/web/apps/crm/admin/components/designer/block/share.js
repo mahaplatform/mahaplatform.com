@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class Images extends React.Component {
+class Share extends React.Component {
 
   static contextTypes = {}
 
@@ -25,7 +25,7 @@ class Images extends React.Component {
   _getForm() {
     const { config } = this.props
     return {
-      title: 'Images Block',
+      title: 'Social Share Block',
       onCancel: this._handleDone,
       onChange: this._handleChange,
       cancelText: <i className="fa fa-chevron-left" />,
@@ -45,8 +45,20 @@ class Images extends React.Component {
           label: 'Style',
           sections: [
             {
-              label: 'Text Style',
+              label: 'Container Style',
               fields: []
+            }, {
+              label: 'Button Style',
+              fields: []
+            }, {
+              label: 'Text Style',
+              fields: [
+                { label: 'Font Family', name: 'font_family', type: 'lookup', options: fonts, defaultValue: config.font_family },
+                { label: 'Font Size', name: 'font_size', type: 'lookup', options: font_size, defaultValue: config.font_size },
+                { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color },
+                { label: 'Line Height', name: 'line_height', type: 'lookup', options: line_heights, defaultValue: config.line_height },
+                { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: letter_spacing, defaultValue: config.letter_spacing }
+              ]
             }
           ]
         }, {
@@ -72,4 +84,4 @@ class Images extends React.Component {
 
 }
 
-export default Images
+export default Share

@@ -6,8 +6,8 @@ export const types = [
     config: {
       columns: 1,
       split: [12],
-      content_0: '<p>Edit Me</p>',
-      content_1: '<p>Edit Me</p>',
+      content_0: '<h1>Lorem ipsum dolor amet readymade</h1><h2>Fashion axe cornhole gochujang</h2><h3>Tofu unicorn kitsch, selfies craft beer</h3><h4>Try-hard mlkshk woke adaptogen</h4><p>Messenger bag portland adaptogen food truck pabst, la croix pug vinyl mumblecore chartreuse. Art party schlitz portland, try-hard semiotics tumblr green juice gentrify letterpress tilde gochujang whatever helvetica tote bag. Locavore quinoa man braid cred selvage chambray. Post-ironic everyday carry kale chips umami woke polaroid, meggings organic pork belly air plant.</p>',
+      content_1: '<h1>Lorem ipsum dolor amet readymade</h1><h2>Fashion axe cornhole gochujang</h2><h3>Tofu unicorn kitsch, selfies craft beer</h3><h4>Try-hard mlkshk woke adaptogen</h4><p>Messenger bag portland adaptogen food truck pabst, la croix pug vinyl mumblecore chartreuse. Art party schlitz portland, try-hard semiotics tumblr green juice gentrify letterpress tilde gochujang whatever helvetica tote bag. Locavore quinoa man braid cred selvage chambray. Post-ironic everyday carry kale chips umami woke polaroid, meggings organic pork belly air plant.</p>',
       font_family: null,
       font_size: null,
       color: null,
@@ -18,7 +18,12 @@ export const types = [
     label: 'Divider Block',
     type: 'divider',
     icon: 'minus',
-    config: {}
+    config: {
+      padding_top: '18px',
+      padding_bottom: '18px',
+      border: '2px solid #000000',
+      background_color: null
+    }
   }, {
     label: 'Images Block',
     type: 'images',
@@ -83,6 +88,7 @@ export const types = [
     type: 'code',
     icon: 'code',
     config: {
+      content: '<p>This is some custom HTML</p>'
     }
   }, {
     label: 'Video Block',

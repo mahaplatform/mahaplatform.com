@@ -1,4 +1,3 @@
-import { columns, font_size, letter_spacing, line_heights, fonts } from '../variables'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -25,7 +24,7 @@ class Divider extends React.Component {
   _getForm() {
     const { config } = this.props
     return {
-      title: 'Footer Block',
+      title: 'Divider Block',
       onCancel: this._handleDone,
       onChange: this._handleChange,
       cancelText: <i className="fa fa-chevron-left" />,
@@ -33,28 +32,13 @@ class Divider extends React.Component {
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleDone }
       ],
-      tabs: [
+      sections: [
         {
-          label: 'Content',
-          sections: [
-            {
-              fields: []
-            }
-          ]
-        }, {
-          label: 'Style',
-          sections: [
-            {
-              label: 'Text Style',
-              fields: []
-            }
-          ]
-        }, {
-          label: 'Settings',
-          sections: [
-            {
-              fields: []
-            }
+          fields: [
+            { label: 'Padding Top', name: 'padding_top', type: 'textfield', defaultValue: config.padding_top },
+            { label: 'Padding Bottom', name: 'padding_bottom', type: 'textfield', defaultValue: config.padding_bottom },
+            { label: 'Border', name: 'border', type: 'textfield', defaultValue: config.border },
+            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color }
           ]
         }
       ]

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class Images extends React.Component {
+class Follow extends React.Component {
 
   static contextTypes = {}
 
@@ -25,7 +25,7 @@ class Images extends React.Component {
   _getForm() {
     const { config } = this.props
     return {
-      title: 'Images Block',
+      title: 'Social Share Block',
       onCancel: this._handleDone,
       onChange: this._handleChange,
       cancelText: <i className="fa fa-chevron-left" />,
@@ -72,4 +72,4 @@ class Images extends React.Component {
 
 }
 
-export default Images
+export default Follow

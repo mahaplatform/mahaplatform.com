@@ -1,16 +1,8 @@
-import { font_size, letter_spacing, line_heights, fonts } from '../variables'
+import { block_types, font_size, letter_spacing, line_heights, fonts } from '../../variables'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
-
-const block_types = [
-  { text: 'Heading 1', value: 'h1' },
-  { text: 'Heading 2', value: 'h2' },
-  { text: 'Heading 3', value: 'h3' },
-  { text: 'Heading 4', value: 'h4' },
-  { text: 'Text', value: 'p' }
-]
 
 class Page extends React.Component {
 
