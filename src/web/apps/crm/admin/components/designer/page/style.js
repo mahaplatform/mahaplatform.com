@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import Typography from './typography'
 import PropTypes from 'prop-types'
 import Section from './section'
 import React from 'react'
@@ -9,7 +10,6 @@ class Style extends React.Component {
   static propTypes = {
     config: PropTypes.object,
     onAddSection: PropTypes.func,
-    onDeleteSection: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
     onUpdate: PropTypes.func
@@ -42,6 +42,7 @@ class Style extends React.Component {
     const { config } = this.props
     return [
       { label: 'Page', code: 'page', component: Page, props: this._getPage() },
+      { label: 'Typography', code: 'typography', component: Typography, props: this._getPage() },
       ...config.sections.map((section, index) => ({
         label: section.label,
         component: Section,
@@ -60,11 +61,10 @@ class Style extends React.Component {
   }
 
   _getSection(label, index) {
-    const { onDeleteSection, onPop, onPush, onUpdate } = this.props
+    const { onPop, onPush, onUpdate } = this.props
     return {
       index,
       label,
-      onDeleteSection,
       onPop,
       onPush,
       onUpdate

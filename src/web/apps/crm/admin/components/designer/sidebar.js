@@ -1,8 +1,7 @@
-import Button from './blocks/button'
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Text from './blocks/text'
 import { unflatten } from 'flat'
+import Block from './block'
 import React from 'react'
 import Page from './page'
 import _ from 'lodash'
@@ -52,9 +51,11 @@ class Sidebar extends React.Component {
 
   _getBlock() {
     const { active, config } = this.props
+    const block = config.sections[active.section].blocks[active.block]
     const key = `sections[${active.section}].blocks[${active.block}]`
     return {
       active,
+      block,
       config: _.get(config, key),
       onDone: this._handleDone,
       onUpdate: this._handleUpdate.bind(this, key)
@@ -86,15 +87,7 @@ class Sidebar extends React.Component {
   }
 
   _handleEdit() {
-    const { active, config } = this.props
-    const block = config.sections[active.section].blocks[active.block]
-    if(block.type === 'button') {
-      this._handlePush(Button, this._getBlock())
-    } else if(block.type === 'text') {
-      this._handlePush(Text, this._getBlock())
-    } else {
-      this._handlePush(() => <div>Foo</div>, {})
-    }
+    this._handlePush(Block, this._getBlock())
   }
 
   _handlePop(index = -1) {

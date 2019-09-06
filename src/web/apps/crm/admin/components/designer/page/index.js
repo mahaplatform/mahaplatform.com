@@ -31,17 +31,17 @@ class Sidebar extends React.Component {
     return {
       items: [
         { label: 'Content', component: <Content { ...this._getTab() } /> },
+        { label: 'Layout', component: <Style { ...this._getTab() } /> },
         { label: 'Design', component: <Style { ...this._getTab() } /> }
       ]
     }
   }
 
   _getTab() {
-    const { config, onAddSection, onDeleteSection, onPop, onPush, onUpdate } = this.props
+    const { config, onAddSection, onPop, onPush, onUpdate } = this.props
     return {
       config,
       onAddSection,
-      onDeleteSection,
       onPop,
       onPush,
       onUpdate

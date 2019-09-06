@@ -11,8 +11,6 @@ class Button extends React.Component {
   static propTypes = {
     config: PropTypes.object,
     onDone: PropTypes.func,
-    onPop: PropTypes.func,
-    onPush: PropTypes.func,
     onUpdate: PropTypes.func
   }
 

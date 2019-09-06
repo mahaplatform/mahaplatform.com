@@ -12,13 +12,11 @@ class Section extends React.Component {
     config: PropTypes.object,
     label: PropTypes.string,
     index: PropTypes.number,
-    onDeleteSection: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
-  _handleDelete = this._handleDelete.bind(this)
   _handleDone = this._handleDone.bind(this)
   _handleChange = this._handleChange.bind(this)
 
@@ -36,8 +34,7 @@ class Section extends React.Component {
       cancelText: <i className="fa fa-chevron-left" />,
       saveText: null,
       buttons: [
-        { label: 'Delete', color: 'red', handler: this._handleDelete },
-        { label: 'Save', color: 'red', handler: this._handleDone }
+        { label: 'Done', color: 'red', handler: this._handleDone }
       ],
       sections: [
         {
@@ -65,12 +62,6 @@ class Section extends React.Component {
   _handleChange(data) {
     const { index } = this.props
     this.props.onUpdate(`sections[${index}]`, unflatten(data))
-  }
-
-  _handleDelete() {
-    const { index } = this.props
-    this.props.onDeleteSection(index)
-    this.props.onPop()
   }
 
   _handleDone() {
