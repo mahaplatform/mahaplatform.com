@@ -31,8 +31,9 @@ class Section extends React.Component {
     const { config, label } = this.props
     return {
       title: label,
+      onCancel: this._handleDone,
       onChange: this._handleChange,
-      cancelText: null,
+      cancelText: <i className="fa fa-chevron-left" />,
       saveText: null,
       buttons: [
         { label: 'Delete', color: 'red', handler: this._handleDelete },

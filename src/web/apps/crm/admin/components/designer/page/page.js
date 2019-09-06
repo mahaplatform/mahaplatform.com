@@ -36,8 +36,9 @@ class Page extends React.Component {
     const { config } = this.props
     return {
       title: 'Page',
+      onCancel: this._handleDone,
       onChange: this._handleChange,
-      cancelText: null,
+      cancelText: <i className="fa fa-chevron-left" />,
       saveText: null,
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleDone }
@@ -45,7 +46,8 @@ class Page extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color }
+            { label: 'Page Background Color', name: 'page_background_color', type: 'colorfield', defaultValue: config.page_background_color },
+            { label: 'Body Background Color', name: 'body_background_color', type: 'colorfield', defaultValue: config.body_background_color }
           ]
         },
         ...block_types.map(({ value, text }) => ({

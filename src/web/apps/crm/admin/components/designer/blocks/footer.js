@@ -1,9 +1,9 @@
-import { columns, font_size, letter_spacing, line_heights, fonts, splits } from '../variables'
+import { columns, font_size, letter_spacing, line_heights, fonts } from '../variables'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class Text extends React.Component {
+class Footer extends React.Component {
 
   static contextTypes = {}
 
@@ -17,12 +17,7 @@ class Text extends React.Component {
 
   static defaultProps = {}
 
-  state = {
-    columns: 1
-  }
-
   _handleChange = this._handleChange.bind(this)
-  _handleChangeField = this._handleChangeField.bind(this)
   _handleDone = this._handleDone.bind(this)
 
   render() {
@@ -32,10 +27,9 @@ class Text extends React.Component {
   _getForm() {
     const { config } = this.props
     return {
-      title: 'Text Block',
-      onChangeField: this._handleChangeField,
-      onChange: this._handleChange,
+      title: 'Footer Block',
       onCancel: this._handleDone,
+      onChange: this._handleChange,
       cancelText: <i className="fa fa-chevron-left" />,
       saveText: null,
       buttons: [
@@ -47,9 +41,7 @@ class Text extends React.Component {
           sections: [
             {
               fields: [
-                ...new Array(this.state.columns).fill(0).map((i, index) => {
-                  return { name: `content_${index}`, type: 'htmlfield', defaultValue: config[`content_${index}`] }
-                })
+                { name: 'content', type: 'htmlfield', defaultValue: config.content_0 }
               ]
             }
           ]
@@ -72,21 +64,12 @@ class Text extends React.Component {
           sections: [
             {
               fields: [
-                { label: 'Number of Columns', name: 'columns', type: 'lookup', options: columns, defaultValue: config.columns },
-                { label: 'Column Split', name: 'split', type: 'lookup', options: splits, defaultValue: config.split }
+                { label: 'Number of Columns', name: 'columns', type: 'lookup', options: columns, defaultValue: config.columns }
               ]
             }
           ]
         }
       ]
-    }
-  }
-
-  _handleChangeField(name, value) {
-    if(name === 'columns') {
-      this.setState({
-        columns: value
-      })
     }
   }
 
@@ -101,4 +84,4 @@ class Text extends React.Component {
 
 }
 
-export default Text
+export default Footer

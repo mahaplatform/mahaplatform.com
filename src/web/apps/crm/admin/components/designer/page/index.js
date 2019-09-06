@@ -31,7 +31,7 @@ class Sidebar extends React.Component {
     return {
       items: [
         { label: 'Content', component: <Content { ...this._getTab() } /> },
-        { label: 'Style', component: <Style { ...this._getTab() } /> }
+        { label: 'Design', component: <Style { ...this._getTab() } /> }
       ]
     }
   }

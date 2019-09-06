@@ -7,7 +7,7 @@ export const types = [
       columns: 1,
       split: [12],
       content_0: '<p>Edit Me</p>',
-      content_1: null,
+      content_1: '<p>Edit Me</p>',
       font_family: null,
       font_size: null,
       color: null,

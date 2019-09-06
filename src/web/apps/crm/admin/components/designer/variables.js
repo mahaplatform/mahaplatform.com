@@ -4,6 +4,11 @@ export const alignments = [
   { value: 'right', text: 'Right' }
 ]
 
+export const columns = [
+  { value: 1, text: '1 column' },
+  { value: 2, text: '2 columns' }
+]
+
 export const devices = [
   { label: 'Desktop', type: 'desktop' },
   { label: 'Galaxy S5', type: 'mobile', height: 640, width: 360 },
@@ -56,4 +61,10 @@ export const letter_spacing = [-5,-4,-3,-2,-1,0,1,2,3,4,5].map(value => `${value
 export const orientations = [
   { label: 'Portrait' },
   { label: 'Landscape' }
+]
+
+export const splits = [
+  { value: [6,6], text: 'Half' },
+  { value: [4,8], text: 'One Third, Two Thirds' },
+  { value: [8,4], text: 'Two Thirds, One Third' }
 ]

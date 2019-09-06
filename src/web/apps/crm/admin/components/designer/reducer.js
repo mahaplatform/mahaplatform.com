@@ -7,7 +7,8 @@ const INITIAL_STATE = {
   },
   config: {
     page: {
-      background_color: '#2185D0',
+      page_background_color: null,
+      body_background_color: null,
       h1_font_family: 'Arial, Helvetica, sans-serif',
       h1_font_size: '28px',
       h1_color: '#222222',
@@ -103,8 +104,8 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       active: {
-        section: null,
-        block: null
+        section: action.section,
+        block: state.config.sections[action.section].blocks.length
       },
       config: {
         ...state.config,

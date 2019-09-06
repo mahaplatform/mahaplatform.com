@@ -1,5 +1,6 @@
 <% block_types = ['h1','h2','h3','h4','p'] %>
-<% page_background_color = _.get(page, 'background_color', null) %>
+<% page_background_color = _.get(page, 'page_background_color', null) || '#FFFFFF' %>
+<% page_body_background_color = _.get(page, 'body_background_color', null) || 'none' %>
 <% page_border_top = _.get(page, 'border_top', null) %>
 <% page_email_border = _.get(page, 'email_border', null) %>
 <% styles = {} %>
@@ -120,12 +121,15 @@
     <style type="text/css">
     @media only screen {
       html {
-        background: <%- page_background_color %>;
+        <%- page_background_color ? 'background: '+page_background_color+';' : '' %>
       }
     }
     table.body {
-      border-top: <%- page_border_top %>;
-      background: <%- page_background_color %>;
+      <%- page_border_top ? 'border-top: '+page_border_top+';' : '' %>
+      <%- page_background_color ? 'background: '+page_background_color+';' : '' %>
+    }
+    table.container {
+      <%- page_body_background_color ? 'background: '+page_body_background_color+';' : '' %>
     }
     table.body > tbody > tr > td.float-center {
       padding: 10px;
