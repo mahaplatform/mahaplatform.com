@@ -20,7 +20,7 @@ class Style extends React.Component {
         { sections.map((section, index) => (
           <div key={`section_${index}`} className="designer-page-section" onClick={ this._handleChoose.bind(this, index) }>
             <div className="designer-page-section-label">
-              { section.label }
+              { section.label || `Section ${ index }`}
             </div>
             <div className="designer-page-section-proceed">
               <i className="fa fa-chevron-right" />

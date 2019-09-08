@@ -99,9 +99,9 @@ class Designer extends React.Component {
     if(message.action === 'remove') this._handleRemove(message.data)
   }
 
-  _handleAdd({ section, type }) {
+  _handleAdd({ section, type, index }) {
     const content_type = _.find(types, { type })
-    this.props.onAdd(section, {
+    this.props.onAdd(section, index, {
       type: content_type.type,
       ...content_type.config
     })

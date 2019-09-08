@@ -20,9 +20,10 @@ export const deleteSection = (index) => ({
   index
 })
 
-export const add = (section, block) => ({
+export const add = (section, index, block) => ({
   type: 'ADD',
   section,
+  index,
   block
 })
 

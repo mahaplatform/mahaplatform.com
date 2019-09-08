@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { types } from '../types'
+import { types } from '../../types'
 import React from 'react'
 
 class Content extends React.Component {

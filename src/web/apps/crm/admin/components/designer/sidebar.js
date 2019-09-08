@@ -1,6 +1,5 @@
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { unflatten } from 'flat'
 import Block from './block'
 import React from 'react'
 import Page from './page'
@@ -109,7 +108,7 @@ class Sidebar extends React.Component {
     const { config } = this.props
     this.props.onUpdate(key, {
       ..._.get(config, key),
-      ...unflatten(value)
+      ...value
     })
   }
 

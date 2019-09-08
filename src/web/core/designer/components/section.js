@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Target from './target'
 import Spacer from './spacer'
 import Block from './block'
 import React from 'react'
@@ -10,8 +11,10 @@ class Section extends React.Component {
     sectionIndex: PropTypes.number
   }
 
-  countdown = 0
-  counter = 0
+  state = {
+    hovering: false,
+    index: 0
+  }
 
   _handleDrop = this._handleDrop.bind(this)
   _handleDragEnter = this._handleDragEnter.bind(this)
@@ -19,6 +22,7 @@ class Section extends React.Component {
   _handleDragOver = this._handleDragOver.bind(this)
 
   render() {
+    const { hovering, index } = this.state
     const { config, sectionIndex } = this.props
     const { blocks, padding_top, padding_bottom } = config
     return (
@@ -28,23 +32,17 @@ class Section extends React.Component {
             <tr>
               <td>
                 { padding_top && <Spacer height={ padding_top } /> }
-                { blocks.map((block, index) => (
-                  <Block key={`block_${index}`} { ...this._getBlock(block, index) } />
-                )) }
-                { blocks.length === 0 &&
-                  <div className="dropzone-target">
-                    <table className="row">
-                      <tbody>
-                        <tr>
-                          <td className="large-12 first last columns">
-                            Drop Block Here
-                          </td>
-                          <td className="expander"></td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
+                { (blocks.length === 0 || (hovering && index === 0)) &&
+                  <Target />
                 }
+                { blocks.map((block, blockIndex) => (
+                  <div key={`block_${blockIndex}`} className="dropzone-block" data-index={ blockIndex }>
+                    <Block { ...this._getBlock(block, blockIndex) } />
+                    { hovering && blockIndex + 1 === index &&
+                      <Target key={`target_${blockIndex}`} />
+                    }
+                  </div>
+                )) }
                 { padding_bottom && <Spacer height={ padding_bottom } /> }
               </td>
             </tr>
@@ -63,67 +61,92 @@ class Section extends React.Component {
     }
   }
 
+  _getClass() {
+    const { hovering } = this.state
+    const classes = ['dropzone']
+    if(hovering) classes.push('hover')
+    return classes.join(' ')
+  }
 
   _getDropZone() {
     const { config, sectionIndex } = this.props
     return {
-      className: 'dropzone',
-      'data-section': sectionIndex,
-      'data-label': config.label,
-      onDragEnter: this._handleDragEnter,
-      onDragLeave: this._handleDragLeave,
-      onDragOver: this._handleDragOver,
+      className: this._getClass(),
+      'data-label': config.label || `Section ${ sectionIndex + 1 }`,
+      onDragEnter: this._handleDrag.bind(this, 'enter'),
+      onDragOver: this._handleDrag.bind(this, 'over'),
       onDrop: this._handleDrop
     }
   }
 
+  _getMiddle(el) {
+    const rect = el.getBoundingClientRect()
+    return rect.y + (rect.height / 2)
+  }
+
+  _getParent(el, selector) {
+    const matches = (el.matches || el.matchesSelector)
+    while ((el = el.parentElement) && !(matches.call(el, selector))) { null }
+    return el
+  }
+
+  _handleDrag(action, e) {
+    e.preventDefault()
+    e.stopPropagation()
+    if(action === 'enter') this._handleDragEnter()
+    if(action === 'over') this._handleDragOver(e.target, e.currentTarget, e.clientX, e.clientY)
+  }
+
   _handleDrop(e) {
+    const { index } = this.state
+    const { sectionIndex } = this.props
     e.preventDefault()
     e.stopPropagation()
     window.parent.postMessage({
       target: 'designer',
       action: 'add',
       data: {
-        section: parseInt(e.currentTarget.dataset.section),
-        type: e.dataTransfer.getData('type')
+        section: sectionIndex,
+        type: e.dataTransfer.getData('type'),
+        index
       }
     }, '*')
+    this.setState({
+      hovering: false,
+      index: 0
+    })
   }
 
-  _handleDragEnter(e) {
-    e.preventDefault()
-    e.stopPropagation()
-    this.countdown = 1
-    this.counter += 1
-    console.log('dragenter')
+  _handleDragEnter() {
+    this._handleHover(true)
   }
 
-  _handleDragLeave(e) {
-    e.preventDefault()
-    e.stopPropagation()
-    this.counter -= 1
-    if (this.counter !== 0) return
-    //e.currentTarget.className = 'dropzone'
-    console.log('dragleave')
+  _handleDragLeave() {
+    this._handleHover(false)
   }
 
-  _getParent(el) {
-    while ((el = el.parentElement) && !((el.matches || el.matchesSelector).call(el,'.block')))
-    if(el) return el
-    while ((el = el.parentElement) && !((el.matches || el.matchesSelector).call(el,'.section')))
-    return el
+  _handleDragOver(target, dropzone, x, y) {
+    const { blocks } = this.props.config
+    const block = this._getParent(target, '.dropzone-block')
+    if(this.timeout) clearTimeout(this.timeout)
+    this.timeout = setTimeout(this._handleDragLeave, 100)
+    if(block) {
+      const blockIndex = parseInt(block.dataset.index)
+      const middle = this._getMiddle(block)
+      if(y <= middle) return this._handleIndex(blockIndex)
+      if(y > middle) return this._handleIndex(blockIndex + 1)
+    }
+    const middle = this._getMiddle(dropzone)
+    if(y <= middle) return this._handleIndex(0)
+    if(y > middle) return this._handleIndex(blocks.length)
   }
 
-  _handleDragOver(e) {
-    e.preventDefault()
-    e.stopPropagation()
-    this.countdown += 1
-    if(this.countdown % 30 !== 0) return
-    var el = this._getParent(e.currentTarget)
-    if(!el) return
-    var rect = el.getBoundingClientRect()
-    var middle = rect.y + (rect.height / 2)
-    console.log('dragover')
+  _handleHover(hovering) {
+    this.setState({ hovering })
+  }
+
+  _handleIndex(index) {
+    this.setState({ index })
   }
 
 }

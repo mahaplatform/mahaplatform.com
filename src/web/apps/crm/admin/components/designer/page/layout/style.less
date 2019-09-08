@@ -1,0 +1,38 @@
+.designer-layout {
+  flex: 1;
+  padding: 0.8em;
+}
+.designer-layout-section {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.5em;
+  margin-bottom: 0.8em;
+  display: flex;
+}
+.designer-layout-section-handle {
+  padding: 0.8em;
+  .fa {
+    cursor: grab;
+  }
+}
+.designer-layout-section-label {
+  flex: 1;
+  display: flex;
+  border-left: 1px solid fadeout(@black, 90);
+  border-right: 1px solid fadeout(@black, 90);
+  .maha-input {
+    border: none;
+    flex: 1;
+    outline: none;
+    box-shadow: none;
+  }
+}
+.designer-layout-section-action {
+  padding: 0.8em;
+  .fa {
+    color: fadeout(@black, 60);
+    cursor: pointer;
+    &:hover {
+      color: fadeout(@black, 40);
+    }
+  }
+}

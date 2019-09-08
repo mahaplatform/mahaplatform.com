@@ -3,7 +3,6 @@ import FontToken from '../../../../tokens/font'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
-import { unflatten } from 'flat'
 import React from 'react'
 
 class Section extends React.Component {
@@ -26,9 +25,9 @@ class Section extends React.Component {
   }
 
   _getForm() {
-    const { config, label } = this.props
+    const { config, index, label } = this.props
     return {
-      title: label,
+      title: label || `Section ${index + 1}`,
       onCancel: this._handleDone,
       onChange: this._handleChange,
       cancelText: <i className="fa fa-chevron-left" />,
@@ -72,7 +71,7 @@ class Section extends React.Component {
 
   _handleChange(data) {
     const { index } = this.props
-    this.props.onUpdate(`sections[${index}]`, unflatten(data))
+    this.props.onUpdate(`sections[${index}]`, data)
   }
 
   _handleDone() {

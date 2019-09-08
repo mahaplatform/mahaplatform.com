@@ -117,8 +117,12 @@ const reducer = (state = INITIAL_STATE, action) => {
             return {
               ...state.config.sections[i],
               blocks: [
-                ...state.config.sections[i].blocks,
-                action.block
+                ...state.config.sections[i].blocks.reduce((blocks, block, index) => [
+                  ...blocks,
+                  ...(index === action.index) ? [action.block] : [],
+                  block
+                ], []),
+                ...action.index === state.config.sections[i].blocks.length ? [action.block] : []
               ]
             }
           })

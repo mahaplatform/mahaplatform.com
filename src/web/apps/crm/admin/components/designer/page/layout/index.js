@@ -1,7 +1,7 @@
+import { TextField } from 'maha-admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
-import Edit from './edit'
 
 class Layout extends React.Component {
 
@@ -26,10 +26,7 @@ class Layout extends React.Component {
               <i className="fa fa-bars" />
             </div>
             <div className="designer-layout-section-label">
-              { section.label }
-            </div>
-            <div className="designer-layout-section-action" onClick={ this._handleEdit.bind(this, index) }>
-              <i className="fa fa-pencil" />
+              <TextField { ...this._getTextField(section, index) } />
             </div>
             <div className="designer-layout-section-action" onClick={ this._handleDelete.bind(this, index) }>
               <i className="fa fa-trash-o" />
@@ -43,6 +40,14 @@ class Layout extends React.Component {
     )
   }
 
+  _getTextField(section, index) {
+    return {
+      defaultValue: section.label,
+      placeholder: 'Enter a name',
+      onChange: this._handleRename.bind(this, section, index)
+    }
+  }
+
   _getEdit(index) {
     const { onPop, onPush, onUpdate } = this.props
     return {
@@ -54,9 +59,8 @@ class Layout extends React.Component {
   }
 
   _handleAddSection() {
-    const { config } = this.props
     this.props.onAddSection({
-      label: `Section ${config.sections.length + 1}`,
+      label: null,
       background_color: null,
       background_image: null,
       border_top: null,
@@ -79,8 +83,11 @@ class Layout extends React.Component {
     this.props.onDeleteSection(index)
   }
 
-  _handleEdit(index) {
-    this.props.onPush(Edit, this._getEdit(index))
+  _handleRename(section, index, label) {
+    this.props.onUpdate(`sections[${index}]`, {
+      section,
+      label
+    })
   }
 
 }
