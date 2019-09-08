@@ -1,7 +1,8 @@
 import '../web/core/services/environment'
+import designerConfig from '../web/core/designer/config/webpack.development.config'
+import webConfig from '../web/config/webpack.development.config'
 import desktopConfig from '../desktop/config/webpack.config'
 import mobileConfig from '../mobile/config/webpack.config'
-import webConfig from '../web/config/webpack.development.config'
 import devServer from 'webpack-dev-server'
 import log from '../web/core/utils/log'
 import { spawn } from 'child_process'
@@ -46,31 +47,33 @@ const serverWatch = async () => {
 }
 
 const desktopWatch = async () => {
-  let compiling = false
-  chokidar.watch(path.resolve('src', 'desktop', 'app')).on('all', (event, path) => {
-    if(compiling) return
-    if(!_.includes(['add','change'], event)) return
-    compiling = true
-    log('info', 'desktop', 'Compiling...')
-    webpack(desktopConfig).run((err, stats) => {
-      compiling = false
-      if(err) return log('error', 'mobile', err)
-      log('info', 'desktop', 'Compiled successfully.')
-    })
-  })
+  const watchDir = path.resolve('src','desktop','app')
+  await watch('desktop', watchDir, desktopConfig)
 }
 
 const mobileWatch = async () => {
+  const watchDir = path.resolve('src','mobile','app')
+  await watch('mobile', watchDir, mobileConfig)
+}
+
+const designerWatch = async () => {
+  const watchDir = path.resolve('src','web','core','designer')
+  await watch('designer', watchDir, designerConfig)
+}
+
+const watch = async (module, watchDir, config) => {
   let compiling = false
-  chokidar.watch(path.resolve('src', 'mobile', 'app')).on('all', (event, path) => {
+  chokidar.watch(watchDir).on('all', (event, path) => {
     if(compiling) return
     if(!_.includes(['add','change'], event)) return
     compiling = true
-    log('info', 'mobile', 'Compiling...')
-    webpack(mobileConfig).run((err, stats) => {
+    log('info', module, 'Compiling...')
+    webpack(config).run((err, stats) => {
       compiling = false
-      if(err) return log('error', 'mobile', err)
-      log('info', 'mobile', 'Compiled successfully.')
+      if(err) return log('error', module, err)
+      const info = stats.toJson()
+      if(stats.hasErrors()) return log('error', module, info.errors)
+      log('info', module, 'Compiled successfully.')
     })
   })
 }
@@ -126,10 +129,11 @@ const clientWatch = async () => {
 
 export const dev = async () => {
   const argv = process.argv.slice(2)
-  const services = argv.length > 0 ? argv : ['server','desktop','mobile','client']
+  const services = argv.length > 0 ? argv : ['server','designer','desktop','mobile','client']
   if(_.includes(services, 'server')) await serverWatch()
-  if(_.includes(services, 'desktop')) await desktopWatch()
-  if(_.includes(services, 'mobile')) await mobileWatch()
+  if(_.includes(services, 'designer')) await designerWatch()
+  // if(_.includes(services, 'desktop')) await desktopWatch()
+  // if(_.includes(services, 'mobile')) await mobileWatch()
   if(_.includes(services, 'client')) await clientWatch()
 }
 

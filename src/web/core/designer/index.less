@@ -1,0 +1,67 @@
+.dropzone {
+  margin: -4px -2px;
+  border: 2px solid transparent;
+  &:hover {
+    border-color: #00B5AD;
+    position: relative;
+    &:after {
+      position: absolute;
+      padding: 5px;
+      font-size: 10px;
+      bottom: 0;
+      left: 0;
+      transform: translate(-2px, 100%);
+      background-color: #00B5AD;
+      text-transform: uppercase;
+      color: white;
+      content: attr(data-label);
+    }
+  }
+  td.first {
+    text-align: center;
+  }
+}
+.dropzone-target {
+  border: 2px solid rgba(0,0,0,0.1);
+  background-color: rgba(0,0,0,0.05);
+  color: rgba(0,0,0,0.1);
+  padding: 5px 0;
+}
+.dropzone-marker {
+  background-color: blue;
+  height: 1px;
+}
+.block {
+  position: relative;
+  cursor: pointer;
+  border: 2px solid transparent;
+  min-height: 30px;
+  &:active,
+  &:hover {
+    border-color: #00B5AD;
+  }
+  &:hover .block-actions {
+    display: flex;
+  }
+}
+.block-actions {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: #00B5AD;
+}
+.block-action {
+  font-size: 16px;
+  padding: 3px 8px;
+  line-height: 24px;
+  .fa {
+    color: rgba(255,255,255,0.7);
+  }
+  &:hover .fa {
+    color: rgb(255,255,255);
+  }
+}
+.divider {
+  height: 0;
+}

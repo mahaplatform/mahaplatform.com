@@ -1,10 +1,7 @@
 import { devices, orientations } from './variables'
-import template from '!!raw-loader!./template.ejs'
 import PropTypes from 'prop-types'
-import moment from 'moment'
 import React from 'react'
 import _ from 'lodash'
-import ejs from 'ejs'
 
 class Preview extends React.Component {
 
@@ -63,7 +60,7 @@ class Preview extends React.Component {
     const orientation = orientations[orientationIndex]
     return {
       ref: node => this.preview = node,
-      src: 'javascript:void(0)',
+      src: '/admin/designer.html',
       style: {
         width: orientation.label === 'Portrait' ? device.width : device.height,
         height: orientation.label === 'Portrait' ? device.height : device.width
@@ -72,17 +69,25 @@ class Preview extends React.Component {
   }
 
   _handleRender() {
-    const { active, config, editable } = this.props
-    const html = ejs.render(template, {
-      editable,
-      active,
-      ...config,
-      moment,
-      _
-    })
-    this.preview.contentWindow.document.open()
-    this.preview.contentWindow.document.write(html)
-    this.preview.contentWindow.document.close()
+    const { config } = this.props
+    this.preview.contentWindow.postMessage({
+      target: 'designer',
+      action: 'update',
+      data: {
+        config
+      }
+    }, '*')
+    // const { active, config, editable } = this.props
+    // const html = ejs.render(template, {
+    //   editable,
+    //   active,
+    //   ...config,
+    //   moment,
+    //   _
+    // })
+    // this.preview.contentWindow.document.open()
+    // this.preview.contentWindow.document.write(html)
+    // this.preview.contentWindow.document.close()
   }
 
 

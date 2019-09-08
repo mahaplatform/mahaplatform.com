@@ -7,8 +7,10 @@ const INITIAL_STATE = {
   },
   config: {
     page: {
-      page_background_color: null,
-      body_background_color: null,
+      background_color: null,
+      border_top: null,
+      email_background_color: null,
+      email_border: null,
       h1_font_family: 'Arial, Helvetica, sans-serif',
       h1_font_size: '28px',
       h1_color: '#222222',

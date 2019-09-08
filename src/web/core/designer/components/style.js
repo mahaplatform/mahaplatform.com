@@ -1,0 +1,121 @@
+import PropTypes from 'prop-types'
+import React from 'react'
+import _ from 'lodash'
+
+class Style extends React.Component {
+
+  static propTypes = {
+    config: PropTypes.object
+  }
+
+  render() {
+    return (
+      <style type="text/css">
+        { this._getStyle() }
+      </style>
+    )
+  }
+
+  _getProp(prop, key, defaultValue) {
+    const { config } = this.props
+    const value = _.get(config, key) || defaultValue
+    return value ? [{ prop, value }] : []
+  }
+
+  _getStyle() {
+    const { config } = this.props
+    const { sections } = config
+    const styles = [
+      { selector: 'html', styles: [
+        ...this._getProp('background-color', 'page.background_color')
+      ] },
+      ...['h1','h2','h3','h4','p'].map(selector => ({
+        selector, styles: [
+          ...this._getProp('font-family', `page.${selector}_font_family`),
+          ...this._getProp('font-size', `page.${selector}_font_size`),
+          //bold
+          //italic
+          ...this._getProp('color', `page.${selector}_color`),
+          ...this._getProp('text-align', `page.${selector}_text_align`),
+          ...this._getProp('line-height', `page.${selector}_line_height`),
+          ...this._getProp('letter-spacing', `page.${selector}_letter_spacing`)
+        ]
+      })),
+      { selector: 'table.body', styles: [
+        ...this._getProp('background-color', 'page.background_color'),
+        ...this._getProp('border-top', 'page.border_top')
+      ] },
+      { selector: 'table.container', styles: [
+        ...this._getProp('background', 'page.email_background_color', 'none'),
+        ...this._getProp('border', 'page.email_border')
+      ] },
+      ...sections.reduce((sectionStyles, section, i) => [
+        ...sectionStyles,
+        { selector: `table.section-${i}`, styles: [
+          ...this._getProp('background-color', `sections[${i}].background_color`),
+          ...this._getProp('border-top', `sections[${i}].border_top`),
+          ...this._getProp('border-bottom', `sections[${i}].border_bottom`),
+          ...this._getProp('padding-top', `sections[${i}].padding_top`),
+          ...this._getProp('padding-bottom', `sections[${i}].padding_bottom`)
+        ] },
+        { selector: `table.section-${i} td,table.section-${i} p`, styles: [
+          ...this._getProp('font-family',`sections[${i}].font_family`),
+          ...this._getProp('font-size',`sections[${i}].font_size`),
+          ...this._getProp('color',`sections[${i}].color`),
+          ...this._getProp('text-align',`sections[${i}].text_align`),
+          ...this._getProp('line-height',`sections[${i}].line_height`),
+          ...this._getProp('letter-spacing',`sections[${i}].letter_spacing`)
+        ] },
+        { selector: `table.section-${i} td a`, styles: [
+          ...this._getProp('color',`sections[${i}].color`)
+          // bold
+          // underline
+        ] },
+        ...sections[i].blocks.reduce((blockStyles, block, j) => [
+          ...blockStyles,
+          { selector: `table.section-${i}-block-${j} td,table.section-${i}-block-${j} p`, styles: [
+            ...this._getProp('font-family',`sections[${i}].blocks[${j}].font_family`),
+            ...this._getProp('font-size',`sections[${i}].blocks[${j}].font_size`),
+            ...this._getProp('color',`sections[${i}].blocks[${j}].color`),
+            ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`),
+            ...this._getProp('line-height',`sections[${i}].blocks[${j}].line_height`),
+            ...this._getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`)
+          ] },
+          ...block.type === 'button' ? [{
+            selector: `table.section-${i}-block-${j} td`,styles: [
+              ...this._getProp('border',`sections[${i}].blocks[${j}].border`),
+              ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`),
+              ...this._getProp('border-radius',`sections[${i}].blocks[${j}].border_radius`)
+            ]
+          },{
+            selector: `table.section-${i}-block-${j} td a`,styles: [
+              ...this._getProp('font-family',`sections[${i}].blocks[${j}].font_family`),
+              ...this._getProp('font-size',`sections[${i}].blocks[${j}].font_size`),
+              ...this._getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`),
+              ...this._getProp('color',`sections[${i}].blocks[${j}].color`),
+              ...this._getProp('padding-top',`sections[${i}].blocks[${j}].padding_top`),
+              ...this._getProp('padding-bottom',`sections[${i}].blocks[${j}].padding_bottom`)
+            ]
+          }] : [],  ...block.type === 'divider' ? [{
+            selector: `table.section-${i}-block-${j} td`,styles: [
+              ...this._getProp('padding-top',`sections[${i}].blocks[${j}].padding_top`),
+              ...this._getProp('padding-bottom',`sections[${i}].blocks[${j}].padding_bottom`),
+              ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`)
+            ]
+          },{
+            selector: `table.section-${i}-block-${j} div.divider`,styles: [
+              ...this._getProp('border',`sections[${i}].blocks[${j}].border`)
+            ]
+          }] : []
+        ], [])
+      ], [])
+    ]
+    return styles.map(item => item.styles.length === 0 ? '' : `
+      ${item.selector} {
+        ${ item.styles.map(style => `${style.prop}: ${style.value};`).join('\n') }
+      }`).join('\n')
+  }
+  
+}
+
+export default Style

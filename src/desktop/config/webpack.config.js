@@ -28,11 +28,6 @@ const config = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'thread-loader',
-            options: {
-              poolTimeout: Infinity
-            }
-          }, {
             loader: 'babel-loader',
             options: {
               cacheDirectory: path.join('tmp', '.cache'),

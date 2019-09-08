@@ -41,8 +41,10 @@ class Page extends React.Component {
           sections: [
             {
               fields: [
-                { label: 'Page Background Color', name: 'page_background_color', type: 'colorfield', defaultValue: config.page_background_color },
-                { label: 'Body Background Color', name: 'body_background_color', type: 'colorfield', defaultValue: config.body_background_color },
+                { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
+                { label: 'Top Border', name: 'border_top', type: 'textfield', defaultValue: config.border_top },
+                { label: 'Email Background Color', name: 'email_background_color', type: 'colorfield', defaultValue: config.email_background_color },
+                { label: 'Email Border', name: 'email_border', type: 'textfield', defaultValue: config.email_border },
               ]
             }
           ]

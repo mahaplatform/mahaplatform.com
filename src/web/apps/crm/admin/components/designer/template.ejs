@@ -1,248 +1,144 @@
-<% block_types = ['h1','h2','h3','h4','p'] %>
-<% page_background_color = _.get(page, 'page_background_color', null) || '#FFFFFF' %>
-<% page_body_background_color = _.get(page, 'body_background_color', null) || 'none' %>
-<% page_border_top = _.get(page, 'border_top', null) %>
-<% page_email_border = _.get(page, 'email_border', null) %>
-<% styles = {} %>
-<% block_types.map((block_type, index) => { %>
-  <% styles[block_type] = {} %>
-  <% styles[block_type].font_family = _.get(page, block_type+'_font_family', null) %>
-  <% styles[block_type].font_size = _.get(page, block_type+'_font_size', null) %>
-  <% styles[block_type].color = _.get(page, block_type+'_color', null) %>
-  <% styles[block_type].bold = _.get(page, block_type+'_bold', null) %>
-  <% styles[block_type].italic = _.get(page, block_type+'_italic', null) %>
-  <% styles[block_type].text_align = _.get(page, block_type+'_text_align', null) %>
-  <% styles[block_type].line_height = _.get(page, block_type+'_line_height', null) %>
-  <% styles[block_type].letter_spacing = _.get(page, block_type+'_letter_spacing', null) %>
-<% }) %>
-<% sections.map((section, i) => { %>
-  <% styles['section-'+i] = {} %>
-  <% styles['section-'+i].background_color = _.get(section, 'background_color', null) %>
-  <% styles['section-'+i].background_image = _.get(section, 'background_image', null) %>
-  <% styles['section-'+i].border_top = _.get(section, 'border_top', null) %>
-  <% styles['section-'+i].border_bottom = _.get(section, 'border_bottom', null) %>
-  <% styles['section-'+i].padding_top = _.get(section, 'padding_top', null) %>
-  <% styles['section-'+i].padding_bottom = _.get(section, 'padding_bottom', null) %>
-  <% styles['section-'+i].text_font_family = _.get(section, 'font_family', null) %>
-  <% styles['section-'+i].text_font_size = _.get(section, 'font_size', null) %>
-  <% styles['section-'+i].text_color = _.get(section, 'color', null) %>
-  <% styles['section-'+i].text_text_align = _.get(section, 'text_align', null) %>
-  <% styles['section-'+i].text_line_height = _.get(section, 'line_height', null) %>
-  <% styles['section-'+i].link_color = _.get(section, 'link_color', null) %>
-  <% styles['section-'+i].link_bold = _.get(section, 'link_bold', null) %>
-  <% styles['section-'+i].link_underline = _.get(section, 'link_underline', null) %>
-  <% styles['section-'+i].letter_spacing = _.get(section, 'letter_spacing', null) %>
-  <% section.blocks.map((block, j) => { %>
-    <% styles['section-'+i+'-block-'+j] = {} %>
-    <% styles['section-'+i+'-block-'+j].font_family = _.get(block, 'font_family', null) %>
-    <% styles['section-'+i+'-block-'+j].font_size = _.get(block, 'font_size', null) %>
-    <% styles['section-'+i+'-block-'+j].color = _.get(block, 'color', null) %>
-    <% styles['section-'+i+'-block-'+j].bold = _.get(block, 'bold', false) %>
-    <% styles['section-'+i+'-block-'+j].italic = _.get(block, 'italic', false) %>
-    <% styles['section-'+i+'-block-'+j].text_align = _.get(block, 'text_align', 'left') %>
-    <% styles['section-'+i+'-block-'+j].line_height = _.get(block, 'line_height', null) %>
-  <% }) %>
-<% }) %>
+<%
+getProp(prop, key) {
+  const value = _.get(config, key)
+  return value ? `${prop}: ${value}` : ''
+}
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width"/>
     <link href="/admin/css/foundation-emails.min.css" rel="stylesheet" />
-    <% if(editable === true) { %>
-      <link href="/admin/css/font-awesome.min.css" rel="stylesheet" />
-      <style type="text/css">
-        .dropzone {
-          margin: -4px -2px;
-          border: 2px solid transparent;
-        }
-        .dropzone.hover {
-          border-color: #00B5AD;
-          position: relative;
-        }
-        .dropzone.hover:after {
-          position: absolute;
-          padding: 5px;
-          font-size: 10px;
-          top: 0;
-          left: 0;
-          transform: translate(-2px, -100%);
-          background-color: #00B5AD;
-          text-transform: uppercase;
-          color: white;
-        	content: attr(data-label);
-        }
-        .dropzone-target {
-          border: 2px solid rgba(0,0,0,0.1);
-          background-color: rgba(0,0,0,0.05);
-          color: rgba(0,0,0,0.1);
-          padding: 5px 0;
-        }
-        .dropzone-marker {
-          background-color: blue;
-          height: 1px;
-        }
-        .dropzone td.first {
-          text-align: center;
-        }
-        .block {
-          position: relative;
-          cursor: pointer;
-          border: 2px solid transparent;
-          min-height: 30px;
-        }
-        .block.active,
-        .block:hover {
-          border-color: #00B5AD;
-        }
-        .block:hover .block-actions {
-          display: flex;
-        }
-        .block-actions {
-          display: none;
-          position: absolute;
-          top: 0;
-          right: 0;
-          background-color: #00B5AD;
-        }
-        .block-action {
-          font-size: 16px;
-          padding: 3px 8px;
-          line-height: 24px;
-        }
-        .block-action .fa {
-          color: rgba(255,255,255,0.7);
-        }
-        .block-action:hover .fa {
-          color: rgb(255,255,255);
-        }
-      </style>
-    <% } %>
+    <style type="text/css">
+      table.container {
+        margin: 9px 0 auto;
+        Margin: 9px 0 auto;
+      }
+      table.body > tbody > tr > td.float-center {
+        padding: 10px;
+      }
+      td.columns,
+      td.column,
+      th.columns,
+      th.column {
+        padding-bottom: 0;
+      }
+      body,
+      table.body,
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6,
+      p,
+      td,
+      th,
+      a {
+        line-height: 1.5;
+      }
+      table.button table td {
+        background-color: #BBBBBB;
+        color: #666666;
+        border: none;
+      }
+      div.divider {
+        height: 0;
+      }
+    </style>
     <style type="text/css">
     @media only screen {
       html {
-        <%- page_background_color ? 'background: '+page_background_color+';' : '' %>
+        <%- page.background_color ? 'background: '+page.background_color+';' : '' %>
       }
     }
-    table.body {
-      <%- page_border_top ? 'border-top: '+page_border_top+';' : '' %>
-      <%- page_background_color ? 'background: '+page_background_color+';' : '' %>
-    }
-    table.container {
-      <%- page_body_background_color ? 'background: '+page_body_background_color+';' : '' %>
-      margin: 9px 0 auto;
-      Margin: 9px 0 auto;
-    }
-    table.body > tbody > tr > td.float-center {
-      padding: 10px;
-    }
-    td.columns,
-    td.column,
-    th.columns,
-    th.column {
-      padding-bottom: 0;
-    }
-    body,
-    table.body,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6,
-    p,
-    td,
-    th,
-    a {
-      line-height: 1.5;
-    }
-    table.button table td {
-      background-color: #BBBBBB;
-      color: #666666;
-      border: none;
-    }
-    <% block_types.map(block_type => { %>
+    <% ['h1','h2','h3','h4','p'].map(block_type => { %>
       <%- block_type %> {
-        word-wrap: normal;
-        margin-bottom: 10px;
-        Margin-bottom: 10px;
-        <%- styles[block_type].font_family ? 'font-family: '+styles[block_type].font_family+';' : '' %>
-        <%- styles[block_type].font_size ? 'font-size: '+styles[block_type].font_size+';' : '' %>
-        <%- styles[block_type].bold ? 'font-weight: bold;' : '' %>
-        <%- styles[block_type].italic ? 'font-style: italic;' : '' %>
-        <%- styles[block_type].color ? 'color: '+styles[block_type].color+';' : '' %>
-        <%- styles[block_type].text_align ? 'text-align: '+styles[block_type].text_align+';' : '' %>
-        <%- styles[block_type].line_height ? 'line-height: '+styles[block_type].line_height+';' : '' %>
-        <%- styles[block_type].letter_spacing ? 'letter-spacing: '+styles[block_type].letter_spacing+';' : '' %>
+        <%- getProp('font-family',`page.${block_type}_font_family`) %>
+        <%- getProp('font-size',`page.${block_type}_font_size`) %>
+        <% // bold %>
+        <% // italic %>
+        <%- getProp('color',`page.${block_type}_color`) %>
+        <%- getProp('text-align',`page.${block_type}_text_align`) %>
+        <%- getProp('line-height',`page.${block_type}_line_height`) %>
+        <%- getProp('letter-spacing',`page.${block_type}_letter_spacing`) %>
       }
     <% }) %>
-
-    table.email {
-      <%- page_email_border ? 'border: '+page_email_border+';' : '' %>;
+    table.body {
+      <%- getProp('background-color','page.background_color') %>
+      <%- getProp('border-top','page.border_top') %>
+    }
+    table.container {
+      <%- getProp('background','page.email_background_color') %>
+      <%- getProp('border','page.email_border') %>
     }
     <% sections.map((section, i) => { %>
       table.section-<%- i %> {
-        <%- styles['section-'+i].border_top ? 'border-top: '+styles['section-'+i].border_top+';' : '' %>
-        <%- styles['section-'+i].border_bottom ? 'border-bottom: '+styles['section-'+i].border_bottom+';' : '' %>
-        <%- styles['section-'+i].background_color ? 'background-color: '+styles['section-'+i].background_color+';' : '' %>
+        <%- getProp('background-color',`sections[${i}].background_color`) %>
+        <%- getProp('border-top',`sections[${i}].border_top`) %>
+        <%- getProp('border-bottom',`sections[${i}].border_bottom`) %>
+        <%- getProp('padding-top',`sections[${i}].padding_top`) %>
+        <%- getProp('padding-bottom',`sections[${i}].padding_bottom`) %>
       }
       table.section-<%- i %> td,
       table.section-<%- i %> p {
-        <%- styles['section-'+i].text_font_family ? 'font-family: '+styles['section-'+i].text_font_family+';' : '' %>
-        <%- styles['section-'+i].text_font_size ? 'font-size: '+styles['section-'+i].text_font_size+';' : '' %>
-        <%- styles['section-'+i].text_color ? 'color: '+styles['section-'+i].text_color+';' : '' %>
-        <%- styles['section-'+i].text_text_align ? 'text-align: '+styles['section-'+i].text_text_align+';' : '' %>
-        <%- styles['section-'+i].text_line_height ? 'line-height: '+styles['section-'+i].text_line_height+';' : '' %>
-        <%- styles['section-'+i].text_letter_spacing ? 'letter-spacing: '+styles['section-'+i].text_letter_spacing+';' : '' %>
+        <%- getProp('font-family',`sections[${i}].font_family`) %>
+        <%- getProp('font-size',`sections[${i}].font_size`) %>
+        <%- getProp('color',`sections[${i}].color`) %>
+        <%- getProp('text-align',`sections[${i}].text_align`) %>
+        <%- getProp('line-height',`sections[${i}].line_height`) %>
+        <%- getProp('letter-spacing',`sections[${i}].letter_spacing`) %>
       }
       table.section-<%- i %> td a {
-        <%- styles['section-'+i].link_color ? 'font-color: '+styles['section-'+i].link_color+';' : '' %>
-        <%- styles['section-'+i].link_bold ? 'font-weight: bold;' : '' %>
-        <%- styles['section-'+i].link_underline ? 'text-decoration: underline;' : '' %>
+        <%- getProp('color',`sections[${i}].link_color`) %>
+        <% // bold %>
+        <% // underline %>
       }
       <% sections[i].blocks.map((block, j) => { %>
-        <% style = styles['section-'+i+'-block-'+j] %>
+        <% style = sections[i].blocks[j] %>
         table.section-<%- i %>-block-<%- j %> td,
         table.section-<%- i %>-block-<%- j %> p {
-          <%- style.font_family ? 'font-family: '+style.font_family+';' : '' %>
-          <%- style.font_size ? 'font-size: '+style.font_size+';' : '' %>
-          <%- style.color ? 'color: '+style.color+';' : '' %>
-          <%- style.text_align ? 'text-align: '+style.text_align+';' : '' %>
-          <%- style.line_height ? 'line-height: '+style.line_height+';' : '' %>
+          <%- getProp('font-family',`sections[${i}].blocks[${j}].font_family`) %>
+          <%- getProp('font-size',`sections[${i}].blocks[${j}].font_size`) %>
+          <%- getProp('color',`sections[${i}].blocks[${j}].color`) %>
+          <%- getProp('text-align',`sections[${i}].blocks[${j}].text_align`) %>
+          <%- getProp('line-height',`sections[${i}].blocks[${j}].line_height`) %>
+          <%- getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`) %>
         }
         <% if(block.type === 'button') { %>
           table.section-<%- i %>-block-<%- j %> table.button table td {
-            <%- block.border ? 'border:'+block.border+';' : '' %>
-            <%- block.background_color ? 'background-color:'+block.background_color+';' : '' %>
-            <%- block.border_radius ? 'border-radius:'+block.border_radius+';' : '' %>
+            <%- getProp('border',`sections[${i}].blocks[${j}].border`) %>
+            <%- getProp('background-color',`sections[${i}].blocks[${j}].background_color`) %>
+            <%- getProp('border-radius',`sections[${i}].blocks[${j}].border_radius`) %>
           }
           table.section-<%- i %>-block-<%- j %> table.button table td a {
-            <%- block.font_family ? 'font-family:'+block.font_family+';' : '' %>
-            <%- block.font_size ? 'font-size:'+block.font_size+';' : '' %>
-            <%- block.letter_spacing ? 'letter-spacing: '+block.letter_spacing+';' : '' %>
-            <%- block.color ? 'color:'+block.color+';' : '' %>
-            <%- block.padding ? 'padding-top:'+block.padding+';' : '' %>
-            <%- block.padding ? 'padding-bottom:'+block.padding+';' : '' %>
+            <%- getProp('font-family',`sections[${i}].blocks[${j}].font_family`) %>
+            <%- getProp('font-size',`sections[${i}].blocks[${j}].font_size`) %>
+            <%- getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`) %>
+            <%- getProp('color',`sections[${i}].blocks[${j}].color`) %>
+            <%- getProp('padding-top',`sections[${i}].blocks[${j}].padding_top`) %>
+            <%- getProp('padding-bottom',`sections[${i}].blocks[${j}].padding_bottom`) %>
           }
         <% } else if(block.type === 'divider') { %>
           table.section-<%- i %>-block-<%- j %> td {
-            <%- block.padding_top ? 'padding-top: '+block.padding_top+';' : '' %>
-            <%- block.padding_bottom ? 'padding-bottom: '+block.padding_bottom+';' : '' %>
-            <%- block.background_color ? 'background-color: '+block.background_color+';' : '' %>
+            <%- getProp('padding-top',`sections[${i}].blocks[${j}].padding_top`) %>
+            <%- getProp('padding-bottom',`sections[${i}].blocks[${j}].padding_bottom`) %>
+            <%- getProp('background-color',`sections[${i}].blocks[${j}].background_color`) %>
           }
           table.section-<%- i %>-block-<%- j %> div.divider {
             height: 0;
-            <%- block.border ? 'border-top: '+block.border+';' : '' %>
+            <%- getProp('border',`sections[${i}].blocks[${j}].border`) %>
           }
         <% } else if(block.type === 'text') { %>
           table.section-<%- i %>-block-<%- j %> td,
           table.section-<%- i %>-block-<%- j %> p {
-            <%- block.font_family ? 'font-family: '+block.font_family+';' : '' %>
-            <%- block.font_size ? 'font-size: '+block.font_size+';' : '' %>
-            <%- block.color ? 'color: '+block.color+';' : '' %>
-            <%- block.text_align ? 'text-align: '+block.text_align+';' : '' %>
-            <%- block.line_height ? 'line-height: '+block.line_height+';' : '' %>
-            <%- block.letter_spacing ? 'letter-spacing: '+block.letter_spacing+';' : '' %>
+            <%- getProp('font-family',`sections[${i}].blocks[${j}].font_family`) %>
+            <%- getProp('font-size',`sections[${i}].blocks[${j}].font_size`) %>
+            <%- getProp('color',`sections[${i}].blocks[${j}].color`) %>
+            <%- getProp('text-align',`sections[${i}].blocks[${j}].text_align`) %>
+            <%- getProp('line-height',`sections[${i}].blocks[${j}].line_height`) %>
+            <%- getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`) %>
           }
         <% } %>
       <% }) %>
@@ -250,35 +146,28 @@
     </style>
   </head>
   <body>
-    <table class="body" id="body">
+    <table class="body">
       <tr>
         <td class="float-center" align="center" valign="top">
           <center>
-            <table class="container email">
+            <table class="container">
               <tr>
                 <td>
                   <% sections.map((section, i) => { %>
-                    <% if(editable === true) { %>
-                      <div class="dropzone" data-section="<%= i %>" data-label="<%= section.label %>">
-                    <% } %>
                     <table class="section-<%- i %>">
                       <tr>
                         <td>
-                          <% if(styles['section-'+i].padding_top) { %>
+                          <% if(sections[i].padding_top) { %>
                             <table class="spacer">
                               <tbody>
                                 <tr>
-                                  <td height="<%- styles['section-'+i].padding_top %>" style="font-size:<%- styles['section-'+i].padding_top %>;line-height:<%- styles['section-'+i].padding_top %>;">&#xA0;</td>
+                                  <td height="<%- sections[i].padding_top %>" style="font-size:<%- sections[i].padding_top %>;line-height:<%- sections[i].padding_top %>;">&#xA0;</td>
                                 </tr>
                               </tbody>
                             </table>
                           <% } %>
                           <% if(section.blocks.length > 0) { %>
                             <% section.blocks.map((block, j) => { %>
-                              <% if(editable === true) { %>
-                                <% is_active = active.section === i && active.block === j %>
-                                <div class="block<%= is_active ? ' active' : '' %>">
-                              <% } %>
                               <% if(block.type === 'text') { %>
                                 <table class="row section-<%- i %>-block-<%- j %>">
                                   <tr>
@@ -369,39 +258,13 @@
                                   <% return total + columns %>
                                 <% }, 0) %>
                               <% } %>
-                              <% if(editable === true) { %>
-                                <div class="block-actions">
-                                  <div class="block-spacer"></div>
-                                  <div class="block-action" data-action="edit" data-section="<%= i %>" data-block="<%= j %>">
-                                    <i class="fa fa-pencil"></i>
-                                  </div>
-                                  <div class="block-action" data-action="clone" data-section="<%= i %>" data-block="<%= j %>">
-                                    <i class="fa fa-copy"></i>
-                                  </div>
-                                  <div class="block-action" data-action="remove" data-section="<%= i %>" data-block="<%= j %>">
-                                    <i class="fa fa-trash"></i>
-                                  </div>
-                                </div>
-                              </div>
-                            <% } %>
                             <% }) %>
-                          <% } else if(editable === true) { %>
-                            <div class="dropzone-target">
-                              <table class="row">
-                                <tr>
-                                  <td class="large-12 first last columns">
-                                    Drop Block Here
-                                  </td>
-                                  <td class="expander"></td>
-                                </tr>
-                              </table>
-                            </div>
                           <% } %>
-                          <% if(styles['section-'+i].padding_bottom) { %>
+                          <% if(sections[i].padding_bottom) { %>
                             <table class="spacer">
                               <tbody>
                                 <tr>
-                                  <td height="<%- styles['section-'+i].padding_bottom %>" style="font-size:<%- styles['section-'+i].padding_bottom %>;line-height:<%- styles['section-'+i].padding_bottom %>;">&#xA0;</td>
+                                  <td height="<%- sections[i].padding_bottom %>" style="font-size:<%- sections[i].padding_bottom %>;line-height:<%- sections[i].padding_bottom %>;">&#xA0;</td>
                                 </tr>
                               </tbody>
                             </table>
@@ -409,9 +272,6 @@
                         </td>
                       </tr>
                     </table>
-                    <% if(editable === true) { %>
-                      </div>
-                    <% } %>
                   <% }) %>
                 </td>
               </tr>
@@ -419,85 +279,6 @@
           </center>
         </td>
       </tr>
-      <% if(editable === true) { %>
-        <script>
-
-          Array.prototype.map.call(document.getElementsByClassName('block-action'), action => {
-            action.addEventListener('click', function(e) {
-              const dataset = e.currentTarget.dataset;
-              window.parent.postMessage({
-                target: 'designer',
-                action: dataset.action,
-                data: {
-                  section: parseInt(dataset.section),
-                  block: parseInt(dataset.block)
-                }
-              }, '*')
-            }, false);
-          })
-
-          Array.prototype.map.call(document.getElementsByClassName('dropzone'), dropzone => {
-
-            var countdown = 0;
-            var counter = 0;
-            var placeholder = null;
-
-            dropzone.addEventListener('dragenter', function(e) {
-              e.preventDefault();
-              e.stopPropagation();
-              countdown = 1;
-              counter++;
-              e.currentTarget.className = 'dropzone hover'
-            }, false);
-
-            dropzone.addEventListener("dragleave", function(e) {
-              e.preventDefault();
-              e.stopPropagation();
-              counter--;
-              if (counter === 0) {
-                e.currentTarget.className = 'dropzone'
-              }
-            }, false);
-
-            dropzone.addEventListener('dragover', function(e) {
-              e.preventDefault();
-              e.stopPropagation();
-              countdown += 1;
-              if(countdown % 30 !== 0) return;
-              var el = e.target
-              while ((el = el.parentElement) && !((el.matches || el.matchesSelector).call(el,'.block')));
-              if(!el) return
-              var rect = el.getBoundingClientRect()
-              var middle = rect.y + (rect.height / 2)
-              if(placeholder) placeholder.remove()
-              placeholder = document.createElement("div");
-              placeholder.innerHTML = '<table class="row"><tr><td class="large-12 first last columns">Drop Block Here</td><td class="expander"></td></tr></table>'
-              placeholder.className = 'dropzone-target'
-              if(e.clientY <= middle) {
-                el.insertBefore(placeholder, el.childNodes[0])
-              }
-              if(e.clientY > middle) {
-                insert
-              }
-            }, false)
-
-            dropzone.addEventListener('drop', function(e) {
-              e.preventDefault()
-              e.stopPropagation()
-              window.parent.postMessage({
-                target: 'designer',
-                action: 'add',
-                data: {
-                  section: parseInt(e.currentTarget.dataset.section),
-                  type: e.dataTransfer.getData('type')
-                }
-              }, '*')
-            }, false)
-
-          })
-
-        </script>
-      <% } %>
     </table>
   </body>
 </html>
