@@ -1,3 +1,4 @@
+import preferences from './preferences'
 import activities from './activities'
 import { Router } from 'express'
 import destroy from './destroy'
@@ -28,5 +29,7 @@ router.use('/:id/activities', activities)
 router.use('/:id/calls', calls)
 
 router.use('/:id/notes', notes)
+
+router.get('/:id/preferences', preferences)
 
 export default router

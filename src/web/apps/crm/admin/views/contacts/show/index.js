@@ -1,4 +1,5 @@
 import Timeline from '../../../components/timeline'
+import Preferences from './preferences'
 import { Page } from 'maha-admin'
 import Details from './details'
 import Header from './header'
@@ -15,10 +16,11 @@ const getSidebar = (user, { contact, fields }) => {
   )
 }
 
-const getTabs = (user, { contact, fields }) => {
+const getTabs = (user, { contact, fields, preferences }) => {
   const header = document.body.clientWidth <= 768 ? <Header contact={ contact} /> : null
   const items = [
-    { label: 'Activities', component: <Timeline contact={ contact } /> }
+    { label: 'Activities', component: <Timeline contact={ contact } /> },
+    { label: 'Preferences', component: <Preferences contact={ contact } preferences={ preferences } /> }
   ]
   if(document.body.clientWidth <= 768) {
     items.unshift({ label: 'Details', component: <Details contact={ contact } fields={ fields } /> })
@@ -34,6 +36,7 @@ const getTasks = (user, { contact, fields }) => ({
 
 const mapResourcesToPage = (props, context) => ({
   contact: `/api/admin/crm/contacts/${props.params.id}`,
+  preferences: `/api/admin/crm/contacts/${props.params.id}/preferences`,
   fields: '/api/admin/crm_contacts/fields'
 })
 
