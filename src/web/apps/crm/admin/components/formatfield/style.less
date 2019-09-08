@@ -1,0 +1,22 @@
+.formatfield {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.3em;
+  margin-bottom: 0.4em;
+  display: inline-flex;
+}
+.formatfield-option {
+  border-right: 1px solid fadeout(@black, 90);
+  flex: 1;
+  padding: 0.8em;
+  display: flex;
+  cursor: pointer;
+  &.selected {
+    background-color: fadeout(@black, 90) !important;
+  }
+  &:hover {
+    background-color: fadeout(@black, 95);
+  }
+  .fa {
+    margin: auto;
+  }
+}

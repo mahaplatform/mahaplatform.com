@@ -5,6 +5,8 @@ import Field from './field'
 class Fields extends React.Component {
 
   static propTypes = {
+    data: PropTypes.array,
+    fields: PropTypes.array,
     frame: PropTypes.any,
     onBusy: PropTypes.func,
     onReady: PropTypes.func,
@@ -35,8 +37,9 @@ class Fields extends React.Component {
   }
 
   _getField(field) {
-    const { onBusy, onReady, onUpdateData } = this.props
+    const { data, onBusy, onReady, onUpdateData } = this.props
     return {
+      data,
       ...field,
       onBusy,
       onReady,

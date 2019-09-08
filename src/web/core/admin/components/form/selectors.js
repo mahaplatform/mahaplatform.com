@@ -31,10 +31,10 @@ export const fields = createSelector(
     ...fields,
     ...section.fields.reduce((fields, field) => [
       ...fields,
-      (field.type === 'fields') ? field.fields.reduce((fields, field) => [
+      ...(field.type === 'fields') ? field.fields.reduce((fields, field) => [
         ...fields,
         field
-      ], []) : field
+      ], []) : [field]
     ], [])
   ], [])
 )

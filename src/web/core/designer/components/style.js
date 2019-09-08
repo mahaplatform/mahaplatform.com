@@ -22,6 +22,14 @@ class Style extends React.Component {
     return value ? [{ prop, value }] : []
   }
 
+  _getFormat(prop, targetValue, key, defaultValue) {
+    const { config } = this.props
+    const formats = _.get(config, key) || []
+    const selected = _.includes(formats, targetValue)
+    const value = selected ? targetValue : defaultValue
+    return selected ? [{ prop, value }] : []
+  }
+
   _getStyle() {
     const { config } = this.props
     const { sections } = config
@@ -33,8 +41,9 @@ class Style extends React.Component {
         selector, styles: [
           ...this._getProp('font-family', `page.${selector}_font_family`),
           ...this._getProp('font-size', `page.${selector}_font_size`),
-          //bold
-          //italic
+          ...this._getFormat('font-weight', 'bold', `page.${selector}_format`, 'normal'),
+          ...this._getFormat('font-style', 'italic', `page.${selector}_format`),
+          ...this._getFormat('text-decoration', 'underline', `page.${selector}_format`),
           ...this._getProp('color', `page.${selector}_color`),
           ...this._getProp('text-align', `page.${selector}_text_align`),
           ...this._getProp('line-height', `page.${selector}_line_height`),
@@ -115,7 +124,7 @@ class Style extends React.Component {
         ${ item.styles.map(style => `${style.prop}: ${style.value};`).join('\n') }
       }`).join('\n')
   }
-  
+
 }
 
 export default Style

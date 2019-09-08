@@ -27,6 +27,7 @@ class HtmlField extends React.Component {
     state: null
   }
 
+  _handleChange = _.throttle(this._handleChange.bind(this), 150)
   _handleEditorStateChange = this._handleEditorStateChange.bind(this)
 
   render() {

@@ -82,14 +82,7 @@ class Field extends React.Component {
   }
 
   _getFields() {
-    const { fields, form, onBusy, onReady, onUpdateData } = this.props
-    return {
-      fields,
-      form,
-      onBusy,
-      onReady,
-      onUpdateData
-    }
+    return this.props
   }
 
   _getControl() {

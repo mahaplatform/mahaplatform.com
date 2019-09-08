@@ -3,6 +3,14 @@ getProp(prop, key) {
   const value = _.get(config, key)
   return value ? `${prop}: ${value}` : ''
 }
+
+getFormat(prop, targetValue, key, defaultValue) {
+  const { config } = this.props
+  const formats = _.get(config, key) || []
+  const selected = _.includes(formats, targetValue)
+  const value = selected ? targetValue : defaultValue
+  return selected || defaultValue ? `${prop}: ${value}` : ''
+}
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -57,8 +65,9 @@ getProp(prop, key) {
       <%- block_type %> {
         <%- getProp('font-family',`page.${block_type}_font_family`) %>
         <%- getProp('font-size',`page.${block_type}_font_size`) %>
-        <% // bold %>
-        <% // italic %>
+        <%- getFormat('font-weight', 'bold', `page.${block_type}_format`) %>
+        <%- getFormat('font-style', 'italic', `page.${block_type}_format`) %>
+        <%- getFormat('text-decoration', 'underline', `page.${block_type}_format`) %>
         <%- getProp('color',`page.${block_type}_color`) %>
         <%- getProp('text-align',`page.${block_type}_text_align`) %>
         <%- getProp('line-height',`page.${block_type}_line_height`) %>
@@ -89,11 +98,15 @@ getProp(prop, key) {
         <%- getProp('text-align',`sections[${i}].text_align`) %>
         <%- getProp('line-height',`sections[${i}].line_height`) %>
         <%- getProp('letter-spacing',`sections[${i}].letter_spacing`) %>
+        <%- getFormat('font-weight', 'bold', `sections[${i}].format`, 'normal') %>
+        <%- getFormat('font-style', 'italic', `sections[${i}].format`) %>
+        <%- getFormat('text-decoration', 'underline', `sections[${i}].format`) %>
       }
       table.section-<%- i %> td a {
         <%- getProp('color',`sections[${i}].link_color`) %>
-        <% // bold %>
-        <% // underline %>
+        <%- getFormat('font-weight', 'bold', `sections[${i}].link_format`, 'normal') %>
+        <%- getFormat('font-style', 'italic', `sections[${i}].link_format`) %>
+        <%- getFormat('text-decoration', 'underline', `sections[${i}].link_format`) %>
       }
       <% sections[i].blocks.map((block, j) => { %>
         <% style = sections[i].blocks[j] %>

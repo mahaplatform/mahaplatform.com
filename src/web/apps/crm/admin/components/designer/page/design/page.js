@@ -1,4 +1,5 @@
 import { block_types, font_size, letter_spacing, line_heights, fonts } from '../../variables'
+import FormatField from '../../../formatfield'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -53,11 +54,18 @@ class Page extends React.Component {
           sections: block_types.map(({ value, text }) => ({
             label: text,
             fields: [
-              { label: 'Font Family', name: `${value}_font_family`, type: 'lookup', options: fonts, defaultValue: config[`${value}_font_family`] },
-              { label: 'Font Size', name: `${value}_font_size`, type: 'lookup', options: font_size, defaultValue: config[`${value}_font_size`] },
-              { label: 'Color', name: `${value}_color`, type: 'colorfield', defaultValue: config[`${value}_color`] },
-              { label: 'Line Height', name: `${value}_line_height`, type: 'lookup', options: line_heights, defaultValue: config[`${value}_line_height`] },
-              { label: 'Letter Spacing', name: `${value}_letter_spacing`, type: 'lookup', options: letter_spacing, defaultValue: config[`${value}_letter_spacing`] }
+              { type: 'fields', fields: [
+                { label: 'Font Family', name: `${value}_font_family`, type: 'lookup', options: fonts, defaultValue: config[`${value}_font_family`] },
+                { label: 'Font Size', name: `${value}_font_size`, type: 'lookup', options: font_size, defaultValue: config[`${value}_font_size`] }
+              ] },
+              { type: 'fields', fields: [
+                { label: 'Color', name: `${value}_color`, type: 'colorfield', defaultValue: config[`${value}_color`] },
+                { label: 'Format', name: `${value}_format`, type: FormatField, defaultValue: config[`${value}_format`] }
+              ] },
+              { type: 'fields', fields: [
+                { label: 'Line Height', name: `${value}_line_height`, type: 'lookup', options: line_heights, defaultValue: config[`${value}_line_height`] },
+                { label: 'Letter Spacing', name: `${value}_letter_spacing`, type: 'lookup', options: letter_spacing, defaultValue: config[`${value}_letter_spacing`] }
+              ] }
             ]
           }))
         }

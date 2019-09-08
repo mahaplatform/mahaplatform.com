@@ -1,5 +1,6 @@
 import { alignments, font_size, letter_spacing, line_heights, fonts } from '../../variables'
 import FontToken from '../../../../tokens/font'
+import FormatField from '../../../formatfield'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -55,12 +56,19 @@ class Section extends React.Component {
             {
               label: 'Text',
               fields: [
-                { label: 'Font Family', name: 'font_family', type: 'lookup', options: fonts, defaultValue: config.font_family, format: FontToken },
-                { label: 'Font Size', name: 'font_size', type: 'lookup', options: font_size, defaultValue: config.font_size },
-                { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color },
-                { label: 'Align', name: 'text_align', type: 'lookup', options: alignments, defaultValue: config.text_align },
-                { label: 'Line Height', name: 'line_height', type: 'lookup', options: line_heights, defaultValue: config.line_height },
-                { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: letter_spacing, defaultValue: config.letter_spacing }
+                { type: 'fields', fields: [
+                  { label: 'Font Family', name: 'font_family', type: 'lookup', options: fonts, defaultValue: config.font_family, format: FontToken },
+                  { label: 'Font Size', name: 'font_size', type: 'lookup', options: font_size, defaultValue: config.font_size }
+                ] },
+                { type: 'fields', fields: [
+                  { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color },
+                  { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format }
+                ] },
+                { type: 'fields', fields: [
+                  { label: 'Line Height', name: 'line_height', type: 'lookup', options: line_heights, defaultValue: config.line_height },
+                  { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: letter_spacing, defaultValue: config.letter_spacing }
+                ] },
+                { label: 'Align', name: 'text_align', type: 'lookup', options: alignments, defaultValue: config.text_align }
               ]
             }
           ]
