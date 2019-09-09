@@ -8,6 +8,7 @@ class EmailsField extends React.PureComponent {
   static propTypes = {
     defaultValue: PropTypes.array,
     emails: PropTypes.array,
+    tabIndex: PropTypes.number,
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
@@ -19,9 +20,9 @@ class EmailsField extends React.PureComponent {
   _handleAdd = this._handleAdd.bind(this)
 
   render() {
-    const { emails } = this.props
+    const { emails, tabIndex } = this.props
     return (
-      <div className="emailsfield">
+      <div className="emailsfield" tabIndex={ tabIndex }>
         { emails.map((email, index) => (
           <div className="emailsfield-email" key={ `email_${index}` }>
             <div className="emailsfield-email-field">

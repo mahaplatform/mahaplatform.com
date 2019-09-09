@@ -8,6 +8,7 @@ import generateCode from '../../../../../core/utils/generate_code'
 import { processValues } from '../../../../maha/services/values'
 import socket from '../../../../../core/services/routes/emitter'
 import { contactActivity } from '../../../services/activities'
+import { updateAddresses } from '../../../services/addresses'
 import Field from '../../../../maha/models/field'
 import Contact from '../../../models/contact'
 const createRoute = async (req, res) => {
@@ -34,6 +35,10 @@ const createRoute = async (req, res) => {
     return phone.is_primary
   })
 
+  const address = req.body.addresses.find(address => {
+    return address.is_primary
+  })
+
   const code = await generateCode(req, {
     table: 'crm_contacts'
   })
@@ -41,6 +46,7 @@ const createRoute = async (req, res) => {
   const contact = await Contact.forge({
     team_id: req.team.get('id'),
     code,
+    address: address.address,
     email: email.address,
     phone: phone.number,
     ...whitelist(req.body, ['first_name','last_name','photo_id']),
@@ -57,6 +63,11 @@ const createRoute = async (req, res) => {
   await updatePhoneNumbers(req, {
     contact,
     phone_numbers: req.body.phone_numbers
+  })
+
+  await updateAddresses(req, {
+    contact,
+    addresses: req.body.addresses
   })
 
   await updateRelated(req, {

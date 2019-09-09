@@ -4,16 +4,16 @@ import { Image } from 'maha-admin'
 
 const Preferences = ({ contact, preferences }) => (
   <div className="crm-contact-preferences">
-    <table className="ui table">
-      <tbody>
-        { preferences.map((program, i) => [
-          <tr key={`header_${i}`}>
+    { preferences.map((program, i) => [
+      <table className="ui table" key={`program_${i}`}>
+        <tbody>
+          <tr>
             <td className="crm-contact-program">
               <Image src={ program.logo } title={ program.title } transforms={{ w: 24, h: 24 }} />
               { program.title }
             </td>
-          </tr>,
-          <tr key={`body_${i}`}>
+          </tr>
+          <tr>
             <td className="crm-contact-consents">
               <strong>Channels</strong><br />
               <ul>
@@ -28,8 +28,8 @@ const Preferences = ({ contact, preferences }) => (
                 )) }
               </ul>
             </td>
-          </tr>,
-          <tr key={`body_${i}`}>
+          </tr>
+          <tr>
             <td className="crm-contact-consents">
               <strong>Interests</strong><br />
               <ul>
@@ -48,9 +48,9 @@ const Preferences = ({ contact, preferences }) => (
               }
             </td>
           </tr>
-        ]) }
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    ]) }
   </div>
 )
 

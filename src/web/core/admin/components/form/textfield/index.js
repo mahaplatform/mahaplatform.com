@@ -60,9 +60,9 @@ class TextField extends React.Component {
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
-    const { value } = this.state
+    const { tabIndex, value } = this.state
     return (
-      <div className={ this._getClass() }>
+      <div className={ this._getClass() } tabIndex={ tabIndex }>
         <div className="maha-input-field">
           { this.props.prefix && <div className="ui label">{this.props.prefix}</div> }
           <input { ...this._getControl() } />
@@ -105,10 +105,9 @@ class TextField extends React.Component {
   }
 
   _getControl() {
-    const { autoComplete, disabled, placeholder, tabIndex, onBlur, onFocus, onKeyPress, onKeyDown } = this.props
+    const { autoComplete, disabled, placeholder, onBlur, onFocus, onKeyPress, onKeyDown } = this.props
     const { value } = this.state
     return {
-      tabIndex,
       type: 'text',
       disabled,
       value,

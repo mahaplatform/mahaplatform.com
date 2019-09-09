@@ -2,6 +2,7 @@ import EmailAddress from '../../../models/email_address'
 import PhoneNumber from '../../../models/phone_number'
 import Program from '../../../../maha/models/program'
 import Contact from '../../../models/contact'
+import Address from '../../../models/address'
 import Topic from '../../../models/topic'
 
 const preferencesRoute = async (req, res) => {
@@ -39,6 +40,16 @@ const preferencesRoute = async (req, res) => {
     transacting: req.trx
   }).then(results => results.toArray())
 
+  const addresses = await Address.scope({
+    team: req.team
+  }).query(qb => {
+    qb.select(req.trx.raw('crm_addresses.*, crm_consents.id is not null as has_consented'))
+    qb.joinRaw('left join crm_consents on crm_consents.address_id=crm_addresses.id')
+    qb.where('contact_id', contact.get('id'))
+  }).fetchAll({
+    transacting: req.trx
+  }).then(results => results.toArray())
+
   const topics = await Topic.scope({
     team: req.team
   }).query(qb => {
@@ -58,13 +69,14 @@ const preferencesRoute = async (req, res) => {
     title: program.get('title'),
     logo: '/assets/1/cornell.jpg',
     channels: [
-      { type: 'address', label: '322 S Geneva St, Ithaca NY 14850', has_consented: false },
-      { type: 'address', label: '615 Willow Ave, Ithaca NY 14850', has_consented: false },
       ...email_addresses.map(email_address => {
         return { type: 'email_address', label: email_address.get('address'), has_consented: email_address.get('has_consented') }
       }),
       ...phone_numbers.map(phone_number => {
         return { type: 'phone_number', label: phone_number.get('number'), has_consented: phone_number.get('has_consented') }
+      }),
+      ...addresses.map(address => {
+        return { type: 'address', label: address.get('address').description, has_consented: address.get('has_consented') }
       })
     ],
     topics: topics.filter(topic => {

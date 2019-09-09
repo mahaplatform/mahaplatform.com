@@ -8,6 +8,7 @@ class Phonesfield extends React.PureComponent {
   static propTypes = {
     defaultValue: PropTypes.array,
     numbers: PropTypes.array,
+    tabIndex: PropTypes.number,
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
@@ -19,9 +20,9 @@ class Phonesfield extends React.PureComponent {
   _handleAdd = this._handleAdd.bind(this)
 
   render() {
-    const { numbers } = this.props
+    const { numbers, tabIndex } = this.props
     return (
-      <div className="phonesfield">
+      <div className="phonesfield" tabIndex={ tabIndex }>
         { numbers.map((number, index) => (
           <div className="phonesfield-number" key={ `number_${index}` }>
             <div className="phonesfield-number-field">

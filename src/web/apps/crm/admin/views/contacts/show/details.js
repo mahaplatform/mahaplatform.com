@@ -9,13 +9,18 @@ const Details = ({ contact }) => {
   list.items = [
     { label: 'Created', content: contact.created_at, format: 'date' },
     { label: 'Email', content: contact.email_addresses.map((email_address, index) => (
-      <div key={`address_${index}`}>
-        { email_address.address } { email_address.is_primary && <span class="alert">PRIMARY</span> }
+      <div key={`email_address_${index}`}>
+        { email_address.address } { email_address.is_primary && <span className="alert">PRIMARY</span> }
       </div>
     )) },
     { label: 'Phone', content: contact.phone_numbers.map((phone_number, index) => (
       <div key={`number_${index}`}>
-        { phone_number.number } { phone_number.is_primary && <span class="alert">PRIMARY</span> }
+        { phone_number.number } { phone_number.is_primary && <span className="alert">PRIMARY</span> }
+      </div>
+    )) },
+    { label: 'Address', content: contact.addresses.map((address, index) => (
+      <div key={`address_${index}`}>
+        { address.address.description } { address.is_primary && <span className="alert">PRIMARY</span> }
       </div>
     )) },
     { label: 'Organizations', content: (

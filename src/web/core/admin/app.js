@@ -20,6 +20,7 @@ import adminfields from './components/fields'
 import adminfilterCriteria from './components/filter/criteria'
 import adminfilterOverview from './components/filter/overview'
 import adminflash from './components/flash'
+import adminformAddressfield from './components/form/addressfield'
 import adminformAssignmentfield from './components/form/assignmentfield'
 import adminformAttachmentfield from './components/form/attachmentfield'
 import adminformColorfield from './components/form/colorfield'
@@ -68,6 +69,7 @@ import chatchannels from '../../apps/chat/admin/components/channels'
 import chatfullchat from '../../apps/chat/admin/components/fullchat'
 import chatsubscriptions from '../../apps/chat/admin/components/subscriptions'
 import chatchat from '../../apps/chat/admin/roots/chat'
+import crmaddressesfield from '../../apps/crm/admin/components/addressesfield'
 import crmdesigner from '../../apps/crm/admin/components/designer'
 import crmemailsfield from '../../apps/crm/admin/components/emailsfield'
 import crmphonesfield from '../../apps/crm/admin/components/phonesfield'
@@ -247,6 +249,7 @@ class App extends React.Component {
       adminfilterCriteria,
       adminfilterOverview,
       adminflash,
+      adminformAddressfield,
       adminformAssignmentfield,
       adminformAttachmentfield,
       adminformColorfield,
@@ -295,6 +298,7 @@ class App extends React.Component {
       chatfullchat,
       chatsubscriptions,
       chatchat,
+      crmaddressesfield,
       crmdesigner,
       crmemailsfield,
       crmphonesfield,

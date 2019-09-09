@@ -7,7 +7,7 @@ const editRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['email_addresses','organizations','phone_numbers','tags'],
+    withRelated: ['addresses','email_addresses','organizations','phone_numbers','tags'],
     transacting: req.trx
   })
 
@@ -28,6 +28,11 @@ const editRoute = async (req, res) => {
       id: phone_number.get('id'),
       number: phone_number.get('number'),
       is_primary: phone_number.get('is_primary')
+    })),
+    addresses: contact.related('addresses').map(address => ({
+      id: address.get('id'),
+      address: address.get('address'),
+      is_primary: address.get('is_primary')
     })),
     photo_id: contact.get('photo_id'),
     tag_ids: contact.get('tag_ids'),

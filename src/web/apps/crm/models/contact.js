@@ -4,6 +4,7 @@ import EmailAddress from './email_address'
 import Organization from './organization'
 import PhoneNumber from './phone_number'
 import Activity from './activity'
+import Address from './address'
 import Call from './call'
 import Note from './note'
 import Tag from './tag'
@@ -61,12 +62,20 @@ const Contact = new Model({
     })
   },
 
+  addresses() {
+    return this.hasMany(Address, 'contact_id').query(qb => {
+      qb.orderBy('is_primary', 'desc')
+    })
+  },
+
   calls() {
     return this.hasMany(Call, 'contact_id')
   },
 
   email_addresses() {
-    return this.hasMany(EmailAddress, 'contact_id')
+    return this.hasMany(EmailAddress, 'contact_id').query(qb => {
+      qb.orderBy('is_primary', 'desc')
+    })
   },
 
   notes() {
@@ -78,7 +87,9 @@ const Contact = new Model({
   },
 
   phone_numbers() {
-    return this.hasMany(PhoneNumber, 'contact_id')
+    return this.hasMany(PhoneNumber, 'contact_id').query(qb => {
+      qb.orderBy('is_primary', 'desc')
+    })
   },
 
   photo() {

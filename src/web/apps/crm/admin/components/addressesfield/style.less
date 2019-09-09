@@ -1,11 +1,11 @@
-.emailsfield {
+.addressesfield {
   &:focus {
     outline: none !important;
     border-color: @lightblue;
     border-radius: .28571429rem;
     background: @white;
     box-shadow: none;
-    .emailsfield-email:first-child {
+    .addressesfield-address:first-child {
       outline: none !important;
       border-color: @lightblue;
       background: @white;
@@ -13,19 +13,19 @@
     }
   }
 }
-.emailsfield-email {
+.addressesfield-address {
   display: flex;
   border: 1px solid fadeout(@black, 90);
   border-radius: 0.3em;
   margin-bottom: 0.4em;
 }
-.emailsfield-email-field {
+.addressesfield-address-field {
   flex: 1;
-  .maha-input {
+  .addressfield {
     border: none;
   }
 }
-.emailsfield-email-action {
+.addressesfield-address-action {
   padding: 0.4em 0.4em 0.4em 0;
   display: flex;
   .ui.button {

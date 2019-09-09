@@ -1,0 +1,75 @@
+.addressfield {
+  border: 1px solid rgba(34,36,38,.15);
+  background-color: @white;
+  border-radius: 5px;
+  display: flex;
+  &:focus {
+    outline: none !important;
+    border-color: #85B7D9;
+    border-radius: .28571429rem;
+    background: #FFF;
+    box-shadow: 0 0 0 0 rgba(34,36,38,.35) inset;
+  }
+}
+.addressfield-field {
+  flex: 1;
+  display: flex;
+  padding: 0.8em !important;
+  line-height: 1.2em;
+  color: fadeout(@black, 40);
+  span {
+    color: lighten(@black, 80);
+  }
+}
+.addressfield-remove {
+  flex: 0 0 2.5em;
+  display: flex;
+  .fa {
+    &:hover {
+      color: fadeout(@black, 70);
+    }
+    margin: auto;
+    color: fadeout(@black, 80);
+    cursor: pointer;
+  }
+}
+.addressfield-chooser {
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+}
+.addressfield-chooser-header {
+  border-bottom: 1px solid fadeout(@black, 90);
+}
+.addressfield-chooser-body {
+  display: flex;
+  flex: 1;
+}
+.addressfield-chooser-results {
+  flex: 1;
+  .scrollable();
+}
+.addressfield-chooser-result {
+  display: flex;
+  border-bottom: 1px solid fadeout(@black, 90);
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 95);
+  }
+}
+.addressfield-chooser-result-icon {
+  padding: 0.8em;
+  display: flex;
+  .fa {
+    margin: auto;
+    color: @red;
+    font-size: 1.6em;
+  }
+}
+.addressfield-chooser-result-details {
+  padding: 0.8em 0.8em 0.8em 0;
+  color: fadeout(@black, 60);
+  strong {
+    color: @black;
+  }
+}

@@ -1,11 +1,11 @@
 import { Factory } from 'redux-rubberstamp'
 import reducer from './reducer'
-import addressfield from './addressfield'
+import AddressesField from './addressesfield'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'maha.addressfield',
-  component: addressfield,
+  namespace: 'crm.addressesfield',
+  component: AddressesField,
   reducer,
   actions
 })
