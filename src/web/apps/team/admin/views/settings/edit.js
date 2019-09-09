@@ -5,7 +5,6 @@ import { Form } from 'maha-admin'
 class Edit extends React.Component {
 
   static contextTypes = {
-    admin: PropTypes.object,
     modal: PropTypes.object
   }
 
@@ -17,8 +16,6 @@ class Edit extends React.Component {
   }
 
   _getForm() {
-    const { admin } = this.context
-    const { token } = admin.team
     return {
       title: 'Edit Team',
       method: 'patch',
@@ -31,7 +28,7 @@ class Edit extends React.Component {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Title', required: true },
             { label: 'Team Name', name: 'subdomain', type: 'textfield', placeholder: 'Subdomain', required: true },
-            { label: 'Logo', name: 'logo_id', type: 'filefield', prompt: 'Choose Logo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', token, multiple: false }
+            { label: 'Logo', name: 'logo_id', type: 'filefield', prompt: 'Choose Logo', multiple: false }
 
           ]
         }

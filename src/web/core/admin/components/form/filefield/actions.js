@@ -2,10 +2,10 @@ export const setReady = () => ({
   type: 'SET_READY'
 })
 
-export const loadFiles = (endpoint, token, ids) => ({
+export const loadFiles = (token, ids) => ({
   type: 'API_REQUEST',
   method: 'GET',
-  endpoint,
+  endpoint: '/api/admin/assets',
   query: {
     $filter: {
       id: {
@@ -17,12 +17,6 @@ export const loadFiles = (endpoint, token, ids) => ({
   request: 'LOAD_FILES_REQUEST',
   success: 'LOAD_FILES_SUCCESS',
   failure: 'LOAD_FILES_FAILURE'
-})
-
-export const cache = (endpoint) => ({
-  type: 'API_REQUEST',
-  method: 'GET',
-  endpoint
 })
 
 export const addFile = (uniqueIdentifier, fileName, fileSize, contentType, totalChunks) => ({

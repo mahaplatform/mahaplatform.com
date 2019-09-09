@@ -2,9 +2,9 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Image } from 'maha-admin'
 
-const Preferences = ({ contact, preferences }) => (
+const Consent = ({ contact, consent }) => (
   <div className="crm-contact-preferences">
-    { preferences.map((program, i) => [
+    { consent.map((program, i) => [
       <table className="ui table" key={`program_${i}`}>
         <tbody>
           <tr>
@@ -54,4 +54,4 @@ const Preferences = ({ contact, preferences }) => (
   </div>
 )
 
-export default Preferences
+export default Consent

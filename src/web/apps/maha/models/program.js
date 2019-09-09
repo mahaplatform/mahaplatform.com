@@ -1,4 +1,6 @@
 import Model from '../../../core/objects/model'
+import ProgramAccess from './program_access'
+import Asset from './asset'
 
 const Program = new Model({
 
@@ -6,7 +8,15 @@ const Program = new Model({
 
   rules: {},
 
-  virtuals: {}
+  virtuals: {},
+
+  logo() {
+    return this.belongsTo(Asset, 'logo_id')
+  },
+
+  accesses() {
+    return this.hasMany(ProgramAccess, 'program_id')
+  }
 
 })
 

@@ -1,8 +1,5 @@
-import EmailAddress from '../../../models/email_address'
-import PhoneNumber from '../../../models/phone_number'
 import Program from '../../../../maha/models/program'
 import Contact from '../../../models/contact'
-import Address from '../../../models/address'
 import Topic from '../../../models/topic'
 
 const preferencesRoute = async (req, res) => {
@@ -20,35 +17,20 @@ const preferencesRoute = async (req, res) => {
     message: 'Unable to load contact'
   })
 
-  const email_addresses = await EmailAddress.scope({
-    team: req.team
-  }).query(qb => {
-    qb.select(req.trx.raw('crm_email_addresses.*, crm_consents.id is not null as has_consented'))
-    qb.joinRaw('left join crm_consents on crm_consents.email_address_id=crm_email_addresses.id')
-    qb.where('contact_id', contact.get('id'))
-  }).fetchAll({
-    transacting: req.trx
-  }).then(results => results.toArray())
+  const email_addresses = await req.trx('crm_email_addresses')
+    .select(req.trx.raw('crm_email_addresses.*,crm_channels.program_id,crm_channels.has_consented'))
+    .innerJoin('crm_channels','crm_channels.email_address_id','crm_email_addresses.id')
+    .where('crm_channels.contact_id', contact.get('id'))
 
-  const phone_numbers = await PhoneNumber.scope({
-    team: req.team
-  }).query(qb => {
-    qb.select(req.trx.raw('crm_phone_numbers.*, crm_consents.id is not null as has_consented'))
-    qb.joinRaw('left join crm_consents on crm_consents.phone_number_id=crm_phone_numbers.id')
-    qb.where('contact_id', contact.get('id'))
-  }).fetchAll({
-    transacting: req.trx
-  }).then(results => results.toArray())
+  const phone_numbers = await req.trx('crm_phone_numbers')
+    .select(req.trx.raw('crm_phone_numbers.*,crm_channels.program_id,crm_channels.has_consented'))
+    .innerJoin('crm_channels','crm_channels.phone_number_id','crm_phone_numbers.id')
+    .where('crm_channels.contact_id', contact.get('id'))
 
-  const addresses = await Address.scope({
-    team: req.team
-  }).query(qb => {
-    qb.select(req.trx.raw('crm_addresses.*, crm_consents.id is not null as has_consented'))
-    qb.joinRaw('left join crm_consents on crm_consents.address_id=crm_addresses.id')
-    qb.where('contact_id', contact.get('id'))
-  }).fetchAll({
-    transacting: req.trx
-  }).then(results => results.toArray())
+  const addresses = await req.trx('crm_addresses')
+    .select(req.trx.raw('crm_addresses.*,crm_channels.program_id,crm_channels.has_consented'))
+    .innerJoin('crm_channels','crm_channels.address_id','crm_addresses.id')
+    .where('crm_channels.contact_id', contact.get('id'))
 
   const topics = await Topic.scope({
     team: req.team
@@ -62,21 +44,28 @@ const preferencesRoute = async (req, res) => {
   const programs = await Program.scope({
     team: req.team
   }).fetchAll({
+    withRelated: ['logo'],
     transacting: req.trx
   }).then(results => results.toArray())
 
-  const data = programs.map(program => ({
+  const consent = programs.map(program => ({
     title: program.get('title'),
-    logo: '/assets/1/cornell.jpg',
+    logo: program.get('logo_id') ? program.related('logo').get('path') : req.team.related('logo').get('path'),
     channels: [
-      ...email_addresses.map(email_address => {
-        return { type: 'email_address', label: email_address.get('address'), has_consented: email_address.get('has_consented') }
+      ...email_addresses.filter(email_address => {
+        return email_address.program_id === program.get('id')
+      }).map(email_address => {
+        return { type: 'email_address', label: email_address.address, has_consented: email_address.has_consented }
       }),
-      ...phone_numbers.map(phone_number => {
-        return { type: 'phone_number', label: phone_number.get('number'), has_consented: phone_number.get('has_consented') }
+      ...phone_numbers.filter(phone_number => {
+        return phone_number.program_id === program.get('id')
+      }).map(phone_number => {
+        return { type: 'phone_number', label: phone_number.number, has_consented: phone_number.has_consented }
       }),
-      ...addresses.map(address => {
-        return { type: 'address', label: address.get('address').description, has_consented: address.get('has_consented') }
+      ...addresses.filter(address => {
+        return address.program_id === program.get('id')
+      }).map(address => {
+        return { type: 'address', label: address.address.description, has_consented: address.has_consented }
       })
     ],
     topics: topics.filter(topic => {
@@ -86,7 +75,7 @@ const preferencesRoute = async (req, res) => {
     })
   }))
 
-  res.status(200).respond(data)
+  res.status(200).respond({ consent })
 
 }
 

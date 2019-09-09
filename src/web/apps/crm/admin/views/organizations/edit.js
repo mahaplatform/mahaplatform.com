@@ -41,7 +41,7 @@ class Edit extends React.Component {
     const results = sections(fields)
     results[0].fields = [
       { label: 'Name', name: 'name', type: 'textfield' },
-      { label: 'Logo', name: 'logo_id', type: 'filefield', prompt: 'Choose Logo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', multiple: false },
+      { label: 'Logo', name: 'logo_id', type: 'filefield', prompt: 'Choose Logo', multiple: false },
       ...results[0].fields
     ]
     return results

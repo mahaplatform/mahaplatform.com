@@ -33,7 +33,7 @@ class New extends React.Component {
             { label: 'Title', name: 'title', type: 'textfield', required: true },
             { label: 'Categories', name: 'category_ids', type: 'lookup2', required: true, multiple: true, endpoint: '/api/admin/eatfresh/categories', value: 'id', text: 'title', format: CategoryToken },
             { label: 'Offerings', name: 'offering_ids', type: 'lookup2', required: true, multiple: true, endpoint: '/api/admin/eatfresh/offerings', value: 'id', text: 'title', format: OfferingToken },
-            { label: 'Photo', name: 'photo_id', type: 'filefield', required: true, prompt: 'Choose Photo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', multiple: false },
+            { label: 'Photo', name: 'photo_id', type: 'filefield', required: true, prompt: 'Choose Photo', multiple: false },
             { label: 'Address 1', name: 'address_1', type: 'textfield', required: true },
             { label: 'Address 2', name: 'address_2', type: 'textfield' },
             { label: 'City', name: 'city', type: 'textfield', required: true },

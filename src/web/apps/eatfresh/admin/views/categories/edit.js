@@ -32,7 +32,7 @@ class Edit extends React.Component {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
-            { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', action: '/api/admin/assets/upload', endpoint: '/api/admin/assets', multiple: false }
+            { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', multiple: false }
           ]
         }
       ]

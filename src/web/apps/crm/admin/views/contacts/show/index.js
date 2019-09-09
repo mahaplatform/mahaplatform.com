@@ -1,6 +1,7 @@
 import Timeline from '../../../components/timeline'
-import Preferences from './preferences'
+import EditConsent from '../consent'
 import { Page } from 'maha-admin'
+import Consent from './consent'
 import Details from './details'
 import Header from './header'
 import Edit from '../edit'
@@ -16,11 +17,11 @@ const getSidebar = (user, { contact, fields }) => {
   )
 }
 
-const getTabs = (user, { contact, fields, preferences }) => {
+const getTabs = (user, { consent, contact, fields }) => {
   const header = document.body.clientWidth <= 768 ? <Header contact={ contact} /> : null
   const items = [
     { label: 'Activities', component: <Timeline contact={ contact } /> },
-    { label: 'Preferences', component: <Preferences contact={ contact } preferences={ preferences } /> }
+    { label: 'Consent', component: <Consent contact={ contact } consent={ consent } /> }
   ]
   if(document.body.clientWidth <= 768) {
     items.unshift({ label: 'Details', component: <Details contact={ contact } fields={ fields } /> })
@@ -30,13 +31,14 @@ const getTabs = (user, { contact, fields, preferences }) => {
 
 const getTasks = (user, { contact, fields }) => ({
   items: [
-    { label: 'Edit Contact', modal: <Edit contact={ contact } fields={ fields } /> }
+    { label: 'Edit Contact', modal: <Edit contact={ contact } fields={ fields } /> },
+    { label: 'Manage Consent', modal: <EditConsent contact={ contact }/> }
   ]
 })
 
 const mapResourcesToPage = (props, context) => ({
   contact: `/api/admin/crm/contacts/${props.params.id}`,
-  preferences: `/api/admin/crm/contacts/${props.params.id}/preferences`,
+  consent: `/api/admin/crm/contacts/${props.params.id}/consent`,
   fields: '/api/admin/crm_contacts/fields'
 })
 

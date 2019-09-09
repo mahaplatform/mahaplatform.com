@@ -7,6 +7,7 @@ import { updatePhoneNumbers } from '../../../services/phone_numbers'
 import { processValues } from '../../../../maha/services/values'
 import socket from '../../../../../core/services/routes/emitter'
 import { contactActivity } from '../../../services/activities'
+import { updateAddresses } from '../../../services/addresses'
 import { getChanges } from '../../../services/contacts'
 import Field from '../../../../maha/models/field'
 import Contact from '../../../models/contact'
@@ -49,9 +50,14 @@ const updateRoute = async (req, res) => {
     return phone.is_primary
   })
 
+  const address = req.body.addresses.find(address => {
+    return address.is_primary
+  })
+
   await contact.save({
-    email: email.address,
-    phone: phone.number,
+    address: address ? address.address : null,
+    email: email ? email.address : null,
+    phone: phone ? phone.number : null,
     ...whitelist(req.body, ['first_name','last_name','photo_id']),
     values
   }, {
@@ -66,6 +72,11 @@ const updateRoute = async (req, res) => {
   await updatePhoneNumbers(req, {
     contact,
     phone_numbers: req.body.phone_numbers
+  })
+
+  await updateAddresses(req, {
+    contact,
+    addresses: req.body.addresses
   })
 
   await updateRelated(req, {

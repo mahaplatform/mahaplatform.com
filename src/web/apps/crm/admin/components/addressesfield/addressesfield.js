@@ -18,6 +18,7 @@ class AddressesField extends React.PureComponent {
   }
 
   _handleAdd = this._handleAdd.bind(this)
+  _handleChange = this._handleChange.bind(this)
 
   render() {
     const { addresses, tabIndex } = this.props
@@ -45,7 +46,7 @@ class AddressesField extends React.PureComponent {
 
   componentDidMount() {
     const defaultValue = this.props.defaultValue || [
-      { address: {}, is_primary: true }
+      { address: null, is_primary: true }
     ]
     this.props.onSet(defaultValue)
     this.props.onReady()
@@ -54,7 +55,7 @@ class AddressesField extends React.PureComponent {
   componentDidUpdate(prevProps) {
     const { addresses } = this.props
     if(!_.isEqual(addresses, prevProps.addresses)) {
-      this.props.onChange(addresses)
+      this._handleChange()
     }
   }
 
@@ -91,6 +92,13 @@ class AddressesField extends React.PureComponent {
 
   _handleAdd() {
     this.props.onAdd()
+  }
+
+  _handleChange() {
+    const { addresses } = this.props
+    this.props.onChange(addresses.filter(address => {
+      return address.address !== null
+    }))
   }
 
   _handleRemove(index) {

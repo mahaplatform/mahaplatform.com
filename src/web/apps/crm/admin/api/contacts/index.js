@@ -1,6 +1,6 @@
-import preferences from './preferences'
 import activities from './activities'
 import { Router } from 'express'
+import consent from './consent'
 import destroy from './destroy'
 import create from './create'
 import update from './update'
@@ -28,8 +28,8 @@ router.use('/:id/activities', activities)
 
 router.use('/:id/calls', calls)
 
-router.use('/:id/notes', notes)
+router.use('/:id/consent', consent)
 
-router.get('/:id/preferences', preferences)
+router.use('/:id/notes', notes)
 
 export default router

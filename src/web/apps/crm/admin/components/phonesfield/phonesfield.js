@@ -18,6 +18,7 @@ class Phonesfield extends React.PureComponent {
   }
 
   _handleAdd = this._handleAdd.bind(this)
+  _handleChange = this._handleChange.bind(this)
 
   render() {
     const { numbers, tabIndex } = this.props
@@ -45,7 +46,7 @@ class Phonesfield extends React.PureComponent {
 
   componentDidMount() {
     const defaultValue = this.props.defaultValue || [
-      { number: '', is_primary: true }
+      { number: null, is_primary: true }
     ]
     this.props.onSet(defaultValue)
     this.props.onReady()
@@ -54,7 +55,7 @@ class Phonesfield extends React.PureComponent {
   componentDidUpdate(prevProps) {
     const { numbers } = this.props
     if(!_.isEqual(numbers, prevProps.numbers)) {
-      this.props.onChange(numbers)
+      this._handleChange()
     }
   }
 
@@ -91,6 +92,14 @@ class Phonesfield extends React.PureComponent {
 
   _handleAdd() {
     this.props.onAdd()
+  }
+
+  _handleChange() {
+    const numbers = this.props.numbers.filter(number => {
+      return number.number !== null
+    })
+    console.log(numbers)
+    this.props.onChange(numbers)
   }
 
   _handleRemove(index) {

@@ -8,14 +8,12 @@ import _ from 'lodash'
 class FileField extends React.Component {
 
   static propTypes = {
-    action: PropTypes.string,
     defaultValue: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.array
     ]),
     button: PropTypes.element,
     disabled: PropTypes.bool,
-    endpoint: PropTypes.string,
     files: PropTypes.array,
     multiple: PropTypes.bool,
     multiplePrompt: PropTypes.string,
@@ -28,7 +26,6 @@ class FileField extends React.Component {
       PropTypes.array
     ]),
     onAddFile: PropTypes.func,
-    onCache: PropTypes.func,
     onChange: PropTypes.func,
     onChangeFile: PropTypes.func,
     onLoadFiles: PropTypes.func,
@@ -93,11 +90,11 @@ class FileField extends React.Component {
   }
 
   componentDidMount() {
-    const { endpoint, defaultValue, token, onLoadFiles, onSetReady } = this.props
+    const { defaultValue, token, onLoadFiles, onSetReady } = this.props
     if(!defaultValue) return onSetReady()
     const ids = !_.isArray(defaultValue) ? [defaultValue] : defaultValue
     if(ids.length === 0) return onSetReady()
-    onLoadFiles(endpoint, token, ids)
+    onLoadFiles(token, ids)
   }
 
   componentDidUpdate(prevProps) {
@@ -120,10 +117,10 @@ class FileField extends React.Component {
   }
 
   _initializeResumable() {
-    const { action, files, multiple, status, token } = this.props
+    const { files, multiple, status, token } = this.props
     if(status !== 'ready') return
     this.resumable = new Resumable({
-      target: action,
+      target: '/api/admin/assets/upload',
       chunkSize: 1024 * 128,
       permanentErrors: [204, 400, 404, 409, 415, 500, 501],
       maxFiles: multiple ? undefined : 1,

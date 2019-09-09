@@ -18,6 +18,7 @@ class EmailsField extends React.PureComponent {
   }
 
   _handleAdd = this._handleAdd.bind(this)
+  _handleChange = this._handleChange.bind(this)
 
   render() {
     const { emails, tabIndex } = this.props
@@ -45,7 +46,7 @@ class EmailsField extends React.PureComponent {
 
   componentDidMount() {
     const defaultValue = this.props.defaultValue || [
-      { address: '', is_primary: true }
+      { address: null, is_primary: true }
     ]
     this.props.onSet(defaultValue)
     this.props.onReady()
@@ -54,7 +55,7 @@ class EmailsField extends React.PureComponent {
   componentDidUpdate(prevProps) {
     const { emails } = this.props
     if(!_.isEqual(emails, prevProps.emails)) {
-      this.props.onChange(emails)
+      this._handleChange()
     }
   }
 
@@ -91,6 +92,13 @@ class EmailsField extends React.PureComponent {
 
   _handleAdd() {
     this.props.onAdd()
+  }
+
+  _handleChange() {
+    const { emails } = this.props
+    this.props.onChange(emails.filter(email => {
+      return email.address !== null
+    }))
   }
 
   _handleRemove(index) {
