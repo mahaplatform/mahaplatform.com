@@ -101,6 +101,16 @@ const updateInterests = async (req, { contact, program, unsubscribe, interests }
 
 }
 
+const getChannel = (consent) => {
+  if(consent.get('type') === 'email') {
+    return consent.related('email_address')
+  } else if(_.includes(['sms','voice'], consent.get('type'))) {
+    return consent.related('phone_number')
+  } else if(consent.get('type') === 'mail') {
+    return consent.related('mailing_address')
+  }
+}
+
 const preferencesRoute = async (req, res) => {
 
   const consent = await Consent.scope({
@@ -108,7 +118,7 @@ const preferencesRoute = async (req, res) => {
   }).query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
-    withRelated: ['email_address.contact','phone_number.contact','program','team'],
+    withRelated: ['email_address.contact','phone_number.contact','mailing_address.contact','program','team'],
     transacting: req.trx
   })
 
@@ -116,7 +126,7 @@ const preferencesRoute = async (req, res) => {
 
   if(!consent) return res.status(404).send('Not Found')
 
-  const channel = consent.get('email_address_id') ? consent.related('email_address') : consent.related('phone_number')
+  const channel = getChannel(consent)
 
   if(req.method === 'POST') {
 
@@ -145,13 +155,12 @@ const preferencesRoute = async (req, res) => {
   })
 
   res.status(200).render('preferences', {
-    email_address: consent.get('email_address_id') ? consent.related('email_address') : null,
-    phone_number: consent.get('phone_number_id') ? consent.related('phone_number') : null,
     contact: channel.related('contact'),
     program: consent.related('program'),
     consent,
     moment,
-    topics
+    topics,
+    _
   })
 
 }

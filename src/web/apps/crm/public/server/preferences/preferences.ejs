@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" type="text/css" href="/admin/css/semantic.min.css">
-    <title><%= program.get('title') %> Email Preferences for <%= contact.get('full_name') %></title>
+    <title><%= program.get('title') %> Communication Preferences for <%= contact.get('full_name') %></title>
     <style>
       body {
         position: relative;
@@ -65,43 +65,55 @@
             <p><strong>Communication Preferences for <%= contact.get('full_name') %></strong></p>
 
             <div class="channel" class="ui field">
-              <% if(email_address) { %>
+              <% if(consent.get('type') === 'email') { %>
                 <label>Email Address</label>
-                <input id="email" value="<%= email_address.get('address') %>" />
-              <% } else if(phone_number) { %>
+                <input id="email" value="<%= consent.related('email_address').get('address') %>" />
+              <% } else if(_.includes(['sms','voice'], consent.get('type'))) { %>
                 <label>Phone Number</label>
-                <input id="phone" value="<%= phone_number.get('number') %>" />
+                <input id="phone" value="<%= consent.related('phone_number').get('number') %>" />
+              <% } else if(consent.get('type') === 'mail') { %>
+                <label>Mailing Address</label>
+                <input id="phone" value="<%= consent.related('mailing_address').get('address').description %>" />
               <% } %>
             </div>
 
-            <div class="subscriptions">
-              <p>I am interested in the following topics:</p>
-              <% topics.map(topic => { %>
-                <div class="subscription">
-                  <div class="ui checkbox">
-                    <input class="topic" id="topic-<%= topic.get('id') %>" name="interests[]" type="checkbox"<%- topic.get('is_interested') ? ' checked="checked"' : '' %> value="<%= topic.get('id') %>" />
-                    <label for="topic-<%= topic.get('id') %>">
-                      <%= topic.get('title') %>
-                    </label>
+            <% if(topics.length > 0) { %>
+              <div class="subscriptions">
+                <p>I am interested in the following topics:</p>
+                <% topics.map(topic => { %>
+                  <div class="subscription">
+                    <div class="ui checkbox">
+                      <input class="topic" id="topic-<%= topic.get('id') %>" name="interests[]" type="checkbox"<%- topic.get('is_interested') ? ' checked="checked"' : '' %> value="<%= topic.get('id') %>" />
+                      <label for="topic-<%= topic.get('id') %>">
+                        <%= topic.get('title') %>
+                      </label>
+                    </div>
                   </div>
-                </div>
-              <% }) %>
-            </div>
-
-            <div class="ui divider"></div>
+                <% }) %>
+              </div>
+              <div class="ui divider"></div>
+            <% }%>
 
             <div class="unsubscribe">
               <div class="ui checkbox">
                 <input id="unsubscribe" name="unsubscribe" type="checkbox" value="1"<%- consent.get('unsubscribed_at') !== null ? ' checked="checked"' : '' %> />
                 <label for="unsubscribe">
-                  Please do not contact me at this <%= email_address ? 'email address' : 'phone number' %>
+                  <% if(consent.get('type') === 'email') { %>
+                    Please do not send emails to this email address
+                  <% } else if(consent.get('type') === 'sms') { %>
+                    Please do not send text messages to this phone number
+                  <% } else if(consent.get('type') === 'voice') { %>
+                    Please do not call me at this phone number
+                  <% } else if(consent.get('type') === 'mail') { %>
+                    Please do not send mail to this mailing address
+                  <% } %>
                 </label>
               </div>
             </div>
 
-            <% if(email_address) { %>
+            <% if(consent.get('type') === 'email') { %>
               <div class="forwarded">
-                <p><%= email_address.get('address') %></p>
+                <p><%= consent.related('email_address').get('address') %></p>
                 <p><strong>Not your email address?</strong></p>
                 <p>
                   This email message may have been forwarded to you from a friend or

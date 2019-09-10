@@ -1,7 +1,8 @@
+import Program from '../../maha/models/program'
 import Model from '../../../core/objects/model'
+import MailingAddress from './mailing_address'
 import EmailAddress from './email_address'
 import PhoneNumber from './phone_number'
-import Program from '../../maha/models/program'
 
 const Consent = new Model({
 
@@ -13,6 +14,10 @@ const Consent = new Model({
 
   email_address() {
     return this.belongsTo(EmailAddress, 'email_address_id')
+  },
+
+  mailing_address() {
+    return this.belongsTo(MailingAddress, 'mailing_address_id')
   },
 
   phone_number() {
