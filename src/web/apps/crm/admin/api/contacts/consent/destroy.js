@@ -3,6 +3,13 @@ import Contact from '../../../../models/contact'
 import Consent from '../../../../models/consent'
 import moment from 'moment'
 
+const _getKey = (type) => {
+  if(type === 'email') return 'email_address_id'
+  if(type === 'sms') return 'phone_number_id'
+  if(type === 'voice') return 'phone_number_id'
+  if(type === 'mail') return 'address_id'
+}
+
 const destroyRoute = async (req, res) => {
 
   const contact = await Contact.scope({
@@ -18,10 +25,13 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load contact'
   })
 
+  const key = _getKey(req.body.channel_type)
+
   const consent = await Consent.scope({
     team: req.team
   }).query(qb => {
-    qb.where(`${req.body.channel_type}_id`, req.body.channel_id)
+    qb.where(key, req.body.channel_id)
+    qb.where('type', req.body.channel_type)
     qb.where('program_id', req.body.program_id)
   }).fetch({
     transacting: req.trx

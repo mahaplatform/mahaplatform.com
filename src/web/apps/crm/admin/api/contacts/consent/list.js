@@ -50,7 +50,7 @@ const listRoute = async (req, res) => {
       ...channels.filter(channel => {
         return channel.get('program_id') === program.get('id')
       }).map(channel => {
-        return { type: channel.get('type'), id: channel.get(`${channel.get('type')}_id`), label: channel.get('label'), has_consented: channel.get('has_consented') }
+        return { type: channel.get('type'), id: channel.get(channel.get('key')), label: channel.get('label'), has_consented: channel.get('has_consented') }
       })
     ],
     topics: topics.filter(topic => {

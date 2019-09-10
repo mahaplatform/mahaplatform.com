@@ -3,13 +3,15 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class New extends React.Component {
+class Edit extends React.Component {
 
   static contextTypes = {
     modal: PropTypes.object
   }
 
-  static propTypes = {}
+  static propTypes = {
+    id: PropTypes.number
+  }
 
   state = {
     is_private: false
@@ -24,10 +26,12 @@ class New extends React.Component {
   }
 
   _getForm() {
+    const { id } = this.props
     return {
-      title: 'New Program',
-      method: 'post',
-      action: '/api/admin/team/programs',
+      title: 'Edit Program',
+      method: 'patch',
+      endpoint: `/api/admin/team/programs/${id}/edit`,
+      action: `/api/admin/team/programs/${id}`,
       onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
@@ -71,4 +75,4 @@ class New extends React.Component {
 
 }
 
-export default New
+export default Edit

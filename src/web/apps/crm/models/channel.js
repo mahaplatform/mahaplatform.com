@@ -10,7 +10,14 @@ const Channel = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+    key() {
+      if(this.get('type') === 'email') return 'email_address_id'
+      if(this.get('type') === 'sms') return 'phone_number_id'
+      if(this.get('type') === 'voice') return 'phone_number_id'
+      if(this.get('type') === 'mail') return 'address_id'
+    }
+  },
 
   address() {
     return this.belongsTo(Address, 'address_id')

@@ -18,20 +18,23 @@ class Channels extends React.Component {
   render() {
     const { consent } = this.props
     return (
-      <div className="crm-contact-consent">
+      <div className="crm-contact-channels">
         <table className="ui unstackable compact table">
           <tbody>
             { consent.map((program, i) => [
-              <tr key={`program_${i}`} className="crm-contact-consent-program" >
-                <td colSpan="2">
+              <tr key={`program_${i}`} className="crm-contact-channels-program" >
+                <td colSpan="3">
                   <Image src={ program.logo } title={ program.title } transforms={{ w: 24, h: 24 }} />
                   { program.title }
                 </td>
               </tr>,
               ...program.channels.map((channel, j) => (
-                <tr key={`channel_${j}`} className="crm-contact-consent-channel">
+                <tr key={`channel_${j}`} className="crm-contact-channels-channel">
                   <td>
                     { channel.label }
+                  </td>
+                  <td className="collapsing">
+                    { channel.type.toUpperCase() }
                   </td>
                   <td className="collapsing">
                     { channel.has_consented ?
@@ -40,7 +43,14 @@ class Channels extends React.Component {
                     }
                   </td>
                 </tr>
-              ))
+              )),
+              ...program.channels.length === 0 ? [(
+                <tr key="channels_empty" className="crm-contact-channels-empty">
+                  <td className="collapsing" colSpan="3">
+                    There are no channels for this program
+                  </td>
+                </tr>
+              )] : []
             ]) }
           </tbody>
         </table>

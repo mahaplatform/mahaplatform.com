@@ -260,6 +260,7 @@ const schema = {
       table.integer('phone_number_id').unsigned()
       table.integer('program_id').unsigned()
       table.integer('address_id').unsigned()
+      table.USER-DEFINED('type')
       table.USER-DEFINED('optin_reason')
       table.USER-DEFINED('optout_reason')
       table.text('optout_reason_other')
@@ -1101,6 +1102,10 @@ const schema = {
       table.boolean('is_private')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.boolean('has_email_channel')
+      table.boolean('has_sms_channel')
+      table.boolean('has_voice_channel')
+      table.boolean('has_mail_channel')
       table.integer('logo_id').unsigned()
     })
 
@@ -2278,7 +2283,7 @@ union
       maha_programs.team_id,
       crm_email_addresses.contact_id,
       maha_programs.id as program_id,
-      'email_address'::text as type,
+      'email'::text as type,
       crm_email_addresses.id as email_address_id,
       null::integer as phone_number_id,
       null::integer as address_id,
@@ -2286,13 +2291,14 @@ union
       ((crm_consents.id is not null) and (crm_consents.unsubscribed_at is null)) as has_consented
       from ((maha_programs
       join crm_email_addresses on ((crm_email_addresses.team_id = maha_programs.team_id)))
-      left join crm_consents on (((crm_consents.email_address_id = crm_email_addresses.id) and (crm_consents.program_id = maha_programs.id))))
+      left join crm_consents on (((crm_consents.email_address_id = crm_email_addresses.id) and (crm_consents.program_id = maha_programs.id) and (crm_consents.type = 'email'::consent_type))))
+      where (maha_programs.has_email_channel = true)
       union
       select 2 as priority,
       maha_programs.team_id,
       crm_phone_numbers.contact_id,
       maha_programs.id as program_id,
-      'phone_number'::text as type,
+      'sms'::text as type,
       null::integer as email_address_id,
       crm_phone_numbers.id as phone_number_id,
       null::integer as address_id,
@@ -2300,13 +2306,29 @@ union
       ((crm_consents.id is not null) and (crm_consents.unsubscribed_at is null)) as has_consented
       from ((maha_programs
       join crm_phone_numbers on ((crm_phone_numbers.team_id = maha_programs.team_id)))
-      left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = maha_programs.id))))
+      left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = maha_programs.id) and (crm_consents.type = 'sms'::consent_type))))
+      where (maha_programs.has_sms_channel = true)
       union
       select 3 as priority,
       maha_programs.team_id,
+      crm_phone_numbers.contact_id,
+      maha_programs.id as program_id,
+      'voice'::text as type,
+      null::integer as email_address_id,
+      crm_phone_numbers.id as phone_number_id,
+      null::integer as address_id,
+      crm_phone_numbers.number as label,
+      ((crm_consents.id is not null) and (crm_consents.unsubscribed_at is null)) as has_consented
+      from ((maha_programs
+      join crm_phone_numbers on ((crm_phone_numbers.team_id = maha_programs.team_id)))
+      left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = maha_programs.id) and (crm_consents.type = 'voice'::consent_type))))
+      where (maha_programs.has_voice_channel = true)
+      union
+      select 4 as priority,
+      maha_programs.team_id,
       crm_addresses.contact_id,
       maha_programs.id as program_id,
-      'address'::text as type,
+      'mail'::text as type,
       null::integer as email_address_id,
       null::integer as phone_number_id,
       crm_addresses.id as address_id,
@@ -2314,7 +2336,8 @@ union
       ((crm_consents.id is not null) and (crm_consents.unsubscribed_at is null)) as has_consented
       from ((maha_programs
       join crm_addresses on ((crm_addresses.team_id = maha_programs.team_id)))
-      left join crm_consents on (((crm_consents.address_id = crm_addresses.id) and (crm_consents.program_id = maha_programs.id))))) crm_channels
+      left join crm_consents on (((crm_consents.address_id = crm_addresses.id) and (crm_consents.program_id = maha_programs.id) and (crm_consents.type = 'mail'::consent_type))))
+      where (maha_programs.has_mail_channel = true)) crm_channels
       order by crm_channels.priority;
     `)
 

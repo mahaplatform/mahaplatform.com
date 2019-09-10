@@ -7,14 +7,23 @@ import Program from '../../../../../maha/models/program'
 import Address from '../../../../models/address'
 import Contact from '../../../../models/contact'
 import Consent from '../../../../models/consent'
+import _ from 'lodash'
 
-const _getConsent = async (req, { program, type, id }) => {
+const _getKey = (type) => {
+  if(type === 'email') return 'email_address_id'
+  if(type === 'sms') return 'phone_number_id'
+  if(type === 'voice') return 'phone_number_id'
+  if(type === 'mail') return 'address_id'
+}
+
+const _getConsent = async (req, { program_id, key, type, id, optin_reason }) => {
 
   const consent = await Consent.scope({
     team: req.team
   }).query(qb => {
-    qb.where('program_id', program.get('id'))
-    qb.where(type, id)
+    qb.where('program_id', program_id)
+    qb.where('type', type)
+    qb.where(key, id)
   }).fetch({
     transacting: req.trx
   })
@@ -27,17 +36,19 @@ const _getConsent = async (req, { program, type, id }) => {
 
   return await await Consent.forge({
     team_id: req.team.get('id'),
-    program_id: program.get('id'),
-    [`${req.body.channel_type}_id`]: req.body.channel_id,
+    program_id,
+    [key]: id,
+    type,
     code,
-    optin_reason: req.body.optin_reason
+    optin_reason
   }).save(null, {
     transacting: req.trx
   })
 
 }
+
 const _getChannel = async (req, { type, id }) => {
-  if(type === 'email_address') {
+  if(type === 'email') {
     return await EmailAddress.scope({
       team: req.team
     }).query(qb => {
@@ -45,7 +56,7 @@ const _getChannel = async (req, { type, id }) => {
     }).fetch({
       transacting: req.trx
     }).then(result => result.get('address'))
-  } else if(type === 'phone_number') {
+  } else if(_.includes(['sms','voice'], type)) {
     return await PhoneNumber.scope({
       team: req.team
     }).query(qb => {
@@ -88,9 +99,11 @@ const createRoute = async (req, res) => {
   })
 
   const consent = await _getConsent(req, {
-    type: `${req.body.channel_type}_id`,
+    type: req.body.channel_type,
+    key: _getKey(req.body.channel_type),
     id: req.body.channel_id,
-    program
+    program_id: program.get('id'),
+    optin_reason: req.body.optin_reason
   })
 
   await consent.save({

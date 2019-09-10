@@ -98,12 +98,9 @@ const Select = (multiple) => {
     }
 
     _getItemIcon(option) {
-      const { multiple } = this.props
       const selected = this._getSelected(option)
-      if(multiple && selected) return 'check-square'
-      if(multiple && !selected) return 'square-o'
-      if(!multiple && selected) return 'check-circle'
-      if(!multiple && !selected) return 'circle-o'
+      if(selected) return 'check-circle'
+      if(!selected) return 'circle-o'
     }
 
     _handleSetOptions(options) {

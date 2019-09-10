@@ -5,6 +5,7 @@ import generateCode from '../../../../../core/utils/generate_code'
 import socket from '../../../../../core/services/routes/emitter'
 import Program from '../../../../maha/models/program'
 import moment from 'moment'
+import _ from 'lodash'
 
 const createRoute = async (req, res) => {
 
@@ -15,6 +16,10 @@ const createRoute = async (req, res) => {
   const program = await Program.forge({
     team_id: req.team.get('id'),
     code,
+    has_email_channel: _.includes(req.body.channels, 'email'),
+    has_sms_channel: _.includes(req.body.channels, 'sms'),
+    has_voice_channel: _.includes(req.body.channels, 'voice'),
+    has_mail_channel: _.includes(req.body.channels, 'mail'),
     ...whitelist(req.body, ['logo_id','is_private','title'])
   }).save(null, {
     transacting: req.trx

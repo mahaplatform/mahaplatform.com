@@ -52,28 +52,7 @@
   }
 }
 
-.crm-contact-consent {
-  .ui.button {
-    width: 60px;
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-.crm-contact-consent-program td {
-  background-color: fadeout(@black, 97) !important;
-  font-weight: bold;
-  line-height: 1.6em;
-  margin-bottom: 0.8em;
-  .maha-image {
-    display: inline-block;
-    width: 1.6em;
-    margin: 0 0.8em -0.5em 0;
-  }
-}
-.crm-contact-consent-channel td {
-  color: fadeout(@black, 50);
-}
-
+.crm-contact-channels,
 .crm-contact-interests {
   .ui.button {
     width: 60px;
@@ -81,6 +60,7 @@
     padding-right: 0;
   }
 }
+.crm-contact-channels-program td,
 .crm-contact-interests-program td {
   background-color: fadeout(@black, 97) !important;
   font-weight: bold;
@@ -92,9 +72,11 @@
     margin: 0 0.8em -0.5em 0;
   }
 }
+.crm-contact-channels-channel td,
 .crm-contact-interests-topic td {
   color: fadeout(@black, 50);
 }
+.crm-contact-channels-empty td,
 .crm-contact-interests-empty td {
   text-align: center;
   color: fadeout(@black, 50);
