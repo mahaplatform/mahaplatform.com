@@ -52,12 +52,14 @@
   }
 }
 
-.crm-contact-preferences {
-  .ui.table {
-    background-color: @white;
+.crm-contact-consent {
+  .ui.button {
+    width: 60px;
+    padding-left: 0;
+    padding-right: 0;
   }
 }
-.crm-contact-program {
+.crm-contact-consent-program td {
   background-color: fadeout(@black, 97) !important;
   font-weight: bold;
   line-height: 1.6em;
@@ -68,30 +70,32 @@
     margin: 0 0.8em -0.5em 0;
   }
 }
-.crm-contact-consents {
-  ul {
-    margin: 0;
-    padding: 0;
+.crm-contact-consent-channel td {
+  color: fadeout(@black, 50);
+}
+
+.crm-contact-interests {
+  .ui.button {
+    width: 60px;
+    padding-left: 0;
+    padding-right: 0;
   }
-  li {
-    list-style: none;
-    line-height: 1.8em;
-    color: fadeout(@black, 40);
+}
+.crm-contact-interests-program td {
+  background-color: fadeout(@black, 97) !important;
+  font-weight: bold;
+  line-height: 1.6em;
+  margin-bottom: 0.8em;
+  .maha-image {
+    display: inline-block;
+    width: 1.6em;
+    margin: 0 0.8em -0.5em 0;
   }
-  p {
-    color: fadeout(@black, 40);
-    margin: 0;
-  }
-  strong {
-    color: @black;
-  }
-  .fa {
-    margin-right: 0.5em;
-  }
-  .fa-circle-o {
-    color: fadeout(@black, 80);
-  }
-  .fa-check-circle {
-    color: @blue;
-  }
+}
+.crm-contact-interests-topic td {
+  color: fadeout(@black, 50);
+}
+.crm-contact-interests-empty td {
+  text-align: center;
+  color: fadeout(@black, 50);
 }

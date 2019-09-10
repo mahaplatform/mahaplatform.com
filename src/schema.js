@@ -260,6 +260,9 @@ const schema = {
       table.integer('phone_number_id').unsigned()
       table.integer('program_id').unsigned()
       table.integer('address_id').unsigned()
+      table.USER-DEFINED('optin_reason')
+      table.USER-DEFINED('optout_reason')
+      table.text('optout_reason_other')
     })
 
     await knex.schema.createTable('crm_contacts', (table) => {
@@ -1870,8 +1873,8 @@ const schema = {
 
     await knex.schema.table('training_administrations', table => {
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('quiz_id').references('training_quizes.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('quiz_id').references('training_quizes.id')
     })
 
     await knex.schema.table('training_assignings', table => {
@@ -1954,13 +1957,13 @@ const schema = {
 
     await knex.schema.table('training_answerings', table => {
       table.foreign('answer_id').references('training_answers.id')
+      table.foreign('question_id').references('training_questions.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('administration_id').references('training_administrations.id')
-      table.foreign('question_id').references('training_questions.id')
     })
 
-    await knex.schema.table('training_questions', table => {
-      table.foreign('quiz_id').references('training_quizes.id')
+    await knex.schema.table('training_answers', table => {
+      table.foreign('question_id').references('training_questions.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -2199,11 +2202,6 @@ const schema = {
       table.foreign('site_id').references('sites_sites.id')
     })
 
-    await knex.schema.table('training_answers', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('question_id').references('training_questions.id')
-    })
-
     await knex.schema.table('training_lessons', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('training_id').references('training_trainings.id')
@@ -2217,6 +2215,11 @@ const schema = {
     await knex.schema.table('training_options', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('assigning_id').references('training_assignings.id')
+    })
+
+    await knex.schema.table('training_questions', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('quiz_id').references('training_quizes.id')
     })
 
     await knex.schema.table('training_quizes', table => {
@@ -2262,38 +2265,57 @@ union
 
     await knex.raw(`
       create view crm_channels AS
-      select maha_programs.team_id,
+      select crm_channels.team_id,
+      crm_channels.contact_id,
+      crm_channels.program_id,
+      crm_channels.type,
+      crm_channels.email_address_id,
+      crm_channels.phone_number_id,
+      crm_channels.address_id,
+      crm_channels.label,
+      crm_channels.has_consented
+      from ( select 1 as priority,
+      maha_programs.team_id,
       crm_email_addresses.contact_id,
       maha_programs.id as program_id,
+      'email_address'::text as type,
       crm_email_addresses.id as email_address_id,
       null::integer as phone_number_id,
       null::integer as address_id,
-      (crm_consents.id is not null) as has_consented
+      crm_email_addresses.address as label,
+      ((crm_consents.id is not null) and (crm_consents.unsubscribed_at is null)) as has_consented
       from ((maha_programs
       join crm_email_addresses on ((crm_email_addresses.team_id = maha_programs.team_id)))
       left join crm_consents on (((crm_consents.email_address_id = crm_email_addresses.id) and (crm_consents.program_id = maha_programs.id))))
-union
-      select maha_programs.team_id,
+      union
+      select 2 as priority,
+      maha_programs.team_id,
       crm_phone_numbers.contact_id,
       maha_programs.id as program_id,
+      'phone_number'::text as type,
       null::integer as email_address_id,
       crm_phone_numbers.id as phone_number_id,
       null::integer as address_id,
-      (crm_consents.id is not null) as has_consented
+      crm_phone_numbers.number as label,
+      ((crm_consents.id is not null) and (crm_consents.unsubscribed_at is null)) as has_consented
       from ((maha_programs
       join crm_phone_numbers on ((crm_phone_numbers.team_id = maha_programs.team_id)))
       left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = maha_programs.id))))
-union
-      select maha_programs.team_id,
+      union
+      select 3 as priority,
+      maha_programs.team_id,
       crm_addresses.contact_id,
       maha_programs.id as program_id,
+      'address'::text as type,
       null::integer as email_address_id,
       null::integer as phone_number_id,
       crm_addresses.id as address_id,
-      (crm_consents.id is not null) as has_consented
+      (crm_addresses.address ->> 'description'::text) as label,
+      ((crm_consents.id is not null) and (crm_consents.unsubscribed_at is null)) as has_consented
       from ((maha_programs
       join crm_addresses on ((crm_addresses.team_id = maha_programs.team_id)))
-      left join crm_consents on (((crm_consents.address_id = crm_addresses.id) and (crm_consents.program_id = maha_programs.id))));
+      left join crm_consents on (((crm_consents.address_id = crm_addresses.id) and (crm_consents.program_id = maha_programs.id))))) crm_channels
+      order by crm_channels.priority;
     `)
 
     await knex.raw(`

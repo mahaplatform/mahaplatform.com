@@ -27,7 +27,7 @@ const grounds = {
   }
 }
 
-const LawfulGroundsToken = ({ value }) => {
+const OptInToken = ({ value }) => {
   const ground = grounds[value]
   return (
     <div className="type-token">
@@ -37,4 +37,4 @@ const LawfulGroundsToken = ({ value }) => {
   )
 }
 
-export default LawfulGroundsToken
+export default OptInToken

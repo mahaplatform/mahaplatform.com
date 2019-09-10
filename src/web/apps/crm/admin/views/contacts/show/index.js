@@ -1,7 +1,7 @@
 import Timeline from '../../../components/timeline'
-import EditConsent from '../consent'
+import Interests from './interests'
 import { Page } from 'maha-admin'
-import Consent from './consent'
+import Channels from './channels'
 import Details from './details'
 import Header from './header'
 import Edit from '../edit'
@@ -21,7 +21,8 @@ const getTabs = (user, { consent, contact, fields }) => {
   const header = document.body.clientWidth <= 768 ? <Header contact={ contact} /> : null
   const items = [
     { label: 'Activities', component: <Timeline contact={ contact } /> },
-    { label: 'Consent', component: <Consent contact={ contact } consent={ consent } /> }
+    { label: 'Channels', component: <Channels contact={ contact } consent={ consent } /> },
+    { label: 'Interests', component: <Interests contact={ contact } consent={ consent } /> }
   ]
   if(document.body.clientWidth <= 768) {
     items.unshift({ label: 'Details', component: <Details contact={ contact } fields={ fields } /> })
@@ -31,8 +32,7 @@ const getTabs = (user, { consent, contact, fields }) => {
 
 const getTasks = (user, { contact, fields }) => ({
   items: [
-    { label: 'Edit Contact', modal: <Edit contact={ contact } fields={ fields } /> },
-    { label: 'Manage Consent', modal: <EditConsent contact={ contact }/> }
+    { label: 'Edit Contact', modal: <Edit contact={ contact } fields={ fields } /> }
   ]
 })
 

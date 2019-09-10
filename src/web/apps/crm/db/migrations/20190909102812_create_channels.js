@@ -24,7 +24,7 @@ const CreateChannel = {
       null::integer as phone_number_id,
       null::integer as address_id,
       crm_email_addresses.address as label,
-      crm_consents.id is not null as has_consented
+      crm_consents.id is not null and crm_consents.unsubscribed_at is null as has_consented
       from maha_programs
       inner join crm_email_addresses on crm_email_addresses.team_id=maha_programs.team_id
       left join crm_consents on crm_consents.email_address_id=crm_email_addresses.id and crm_consents.program_id=maha_programs.id
@@ -39,7 +39,7 @@ const CreateChannel = {
       crm_phone_numbers.id as phone_number_id,
       null::integer as address_id,
       crm_phone_numbers.number as label,
-      crm_consents.id is not null as has_consented
+      crm_consents.id is not null and crm_consents.unsubscribed_at is null as has_consented
       from maha_programs
       inner join crm_phone_numbers on crm_phone_numbers.team_id=maha_programs.team_id
       left join crm_consents on crm_consents.phone_number_id=crm_phone_numbers.id and crm_consents.program_id=maha_programs.id
@@ -54,7 +54,7 @@ const CreateChannel = {
       null::integer as phone_number_id,
       crm_addresses.id as address_id,
       crm_addresses.address->>'description' as label,
-      crm_consents.id is not null as has_consented
+      crm_consents.id is not null and crm_consents.unsubscribed_at is null as has_consented
       from maha_programs
       inner join crm_addresses on crm_addresses.team_id=maha_programs.team_id
       left join crm_consents on crm_consents.address_id=crm_addresses.id and crm_consents.program_id=maha_programs.id
