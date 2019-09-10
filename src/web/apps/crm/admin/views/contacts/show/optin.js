@@ -27,7 +27,7 @@ class OptIn extends React.Component {
     return {
       title: 'Opt In',
       method: 'post',
-      action: `/api/admin/crm/contacts/${contact.id}/consent`,
+      action: `/api/admin/crm/contacts/${contact.id}/channels`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [

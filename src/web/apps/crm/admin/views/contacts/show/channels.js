@@ -11,17 +11,17 @@ class Channels extends React.Component {
   }
 
   static propTypes = {
-    consent: PropTypes.array,
+    channels: PropTypes.array,
     contact: PropTypes.object
   }
 
   render() {
-    const { consent } = this.props
+    const { channels } = this.props
     return (
       <div className="crm-contact-channels">
         <table className="ui unstackable compact table">
           <tbody>
-            { consent.map((program, i) => [
+            { channels.map((program, i) => [
               <tr key={`program_${i}`} className="crm-contact-channels-program" >
                 <td colSpan="3">
                   <Image src={ program.logo } title={ program.title } transforms={{ w: 24, h: 24 }} />

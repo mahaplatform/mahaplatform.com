@@ -1,10 +1,10 @@
 import Model from '../../../core/objects/model'
+import MailingAddress from './mailing_address'
 import Asset from '../../maha/models/asset'
 import EmailAddress from './email_address'
 import Organization from './organization'
 import PhoneNumber from './phone_number'
 import Activity from './activity'
-import Address from './address'
 import Call from './call'
 import Note from './note'
 import Tag from './tag'
@@ -62,18 +62,18 @@ const Contact = new Model({
     })
   },
 
-  addresses() {
-    return this.hasMany(Address, 'contact_id').query(qb => {
-      qb.orderBy('is_primary', 'desc')
-    })
-  },
-
   calls() {
     return this.hasMany(Call, 'contact_id')
   },
 
   email_addresses() {
     return this.hasMany(EmailAddress, 'contact_id').query(qb => {
+      qb.orderBy('is_primary', 'desc')
+    })
+  },
+
+  mailing_addresses() {
+    return this.hasMany(MailingAddress, 'contact_id').query(qb => {
       qb.orderBy('is_primary', 'desc')
     })
   },

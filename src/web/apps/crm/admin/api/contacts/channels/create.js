@@ -1,10 +1,10 @@
 import generateCode from '../../../../../../core/utils/generate_code'
 import socket from '../../../../../../core/services/routes/emitter'
 import { contactActivity } from '../../../../services/activities'
+import MailingAddress from '../../../../models/mailing_address'
 import EmailAddress from '../../../../models/email_address'
 import PhoneNumber from '../../../../models/phone_number'
 import Program from '../../../../../maha/models/program'
-import Address from '../../../../models/address'
 import Contact from '../../../../models/contact'
 import Consent from '../../../../models/consent'
 import _ from 'lodash'
@@ -13,7 +13,7 @@ const _getKey = (type) => {
   if(type === 'email') return 'email_address_id'
   if(type === 'sms') return 'phone_number_id'
   if(type === 'voice') return 'phone_number_id'
-  if(type === 'mail') return 'address_id'
+  if(type === 'mail') return 'mailing_address_id'
 }
 
 const _getConsent = async (req, { program_id, key, type, id, optin_reason }) => {
@@ -64,8 +64,8 @@ const _getChannel = async (req, { type, id }) => {
     }).fetch({
       transacting: req.trx
     }).then(result => result.get('number'))
-  } else if(type === 'email_address') {
-    return await Address.scope({
+  } else if(type === 'mail') {
+    return await MailingAddress.scope({
       team: req.team
     }).query(qb => {
       qb.where('id', id)

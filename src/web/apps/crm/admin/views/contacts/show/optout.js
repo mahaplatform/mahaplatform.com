@@ -33,7 +33,7 @@ class OptOut extends React.Component {
     return {
       title: 'Opt Out',
       method: 'delete',
-      action: `/api/admin/crm/contacts/${contact.id}/consent`,
+      action: `/api/admin/crm/contacts/${contact.id}/channels`,
       onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,

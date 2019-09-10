@@ -10,7 +10,7 @@ const ContactSerializer = (req, result) => ({
   organizations: result.related('organizations').map(organization),
   tags: result.related('tags').map(tag),
   values: values(req, result.get('values')),
-  addresses: result.related('addresses').map(address),
+  mailing_addresses: result.related('mailing_addresses').map(mailing_address),
   phone_numbers: result.related('phone_numbers').map(phone_number),
   email_addresses: result.related('email_addresses').map(email_address),
   created_at: result.get('created_at'),
@@ -26,12 +26,12 @@ const email_address = (email_address) => {
   }
 }
 
-const address = (address) => {
-  if(!address.id) return null
+const mailing_address = (mailing_address) => {
+  if(!mailing_address.id) return null
   return {
-    id: address.get('id'),
-    address: address.get('address'),
-    is_primary: address.get('is_primary')
+    id: mailing_address.get('id'),
+    address: mailing_address.get('address'),
+    is_primary: mailing_address.get('is_primary')
   }
 }
 

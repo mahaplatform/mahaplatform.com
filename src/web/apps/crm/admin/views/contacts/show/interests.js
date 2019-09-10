@@ -2,11 +2,11 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import { Image } from 'maha-admin'
 
-const Consent = ({ contact, consent }) => (
+const Interests = ({ contact, interests }) => (
   <div className="crm-contact-interests">
     <table className="ui unstackable compact table">
       <tbody>
-        { consent.map((program, i) => [
+        { interests.map((program, i) => [
           <tr key={`program_${i}`} className="crm-contact-interests-program">
             <td>
               <Image src={ program.logo } title={ program.title } transforms={{ w: 24, h: 24 }} />
@@ -36,4 +36,4 @@ const Consent = ({ contact, consent }) => (
   </div>
 )
 
-export default Consent
+export default Interests

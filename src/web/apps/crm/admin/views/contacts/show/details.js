@@ -18,9 +18,9 @@ const Details = ({ contact }) => {
         { phone_number.number } { phone_number.is_primary && <span className="alert">PRIMARY</span> }
       </div>
     )) },
-    { label: 'Mailing Address', content: contact.addresses.map((address, index) => (
-      <div key={`address_${index}`}>
-        { address.address.description } { address.is_primary && <span className="alert">PRIMARY</span> }
+    { label: 'Mailing Address', content: contact.mailing_addresses.map((mailing_address, index) => (
+      <div key={`mailing_address_${index}`}>
+        { mailing_address.address.description } { mailing_address.is_primary && <span className="alert">PRIMARY</span> }
       </div>
     )) },
     { label: 'Organizations', content: (

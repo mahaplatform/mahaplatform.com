@@ -7,7 +7,7 @@ const _getKey = (type) => {
   if(type === 'email') return 'email_address_id'
   if(type === 'sms') return 'phone_number_id'
   if(type === 'voice') return 'phone_number_id'
-  if(type === 'mail') return 'address_id'
+  if(type === 'mail') return 'mailing_address_id'
 }
 
 const destroyRoute = async (req, res) => {

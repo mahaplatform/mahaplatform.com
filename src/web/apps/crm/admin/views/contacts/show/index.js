@@ -17,12 +17,12 @@ const getSidebar = (user, { contact, fields }) => {
   )
 }
 
-const getTabs = (user, { consent, contact, fields }) => {
+const getTabs = (user, { channels, contact, fields, interests }) => {
   const header = document.body.clientWidth <= 768 ? <Header contact={ contact} /> : null
   const items = [
     { label: 'Activities', component: <Timeline contact={ contact } /> },
-    { label: 'Channels', component: <Channels contact={ contact } consent={ consent } /> },
-    { label: 'Interests', component: <Interests contact={ contact } consent={ consent } /> }
+    { label: 'Channels', component: <Channels contact={ contact } channels={ channels } /> },
+    { label: 'Interests', component: <Interests contact={ contact } interests={ interests } /> }
   ]
   if(document.body.clientWidth <= 768) {
     items.unshift({ label: 'Details', component: <Details contact={ contact } fields={ fields } /> })
@@ -38,7 +38,8 @@ const getTasks = (user, { contact, fields }) => ({
 
 const mapResourcesToPage = (props, context) => ({
   contact: `/api/admin/crm/contacts/${props.params.id}`,
-  consent: `/api/admin/crm/contacts/${props.params.id}/consent`,
+  channels: `/api/admin/crm/contacts/${props.params.id}/channels`,
+  interests: `/api/admin/crm/contacts/${props.params.id}/interests`,
   fields: '/api/admin/crm_contacts/fields'
 })
 

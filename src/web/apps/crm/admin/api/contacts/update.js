@@ -1,4 +1,5 @@
 import { updateRelated } from '../../../../../core/services/routes/relations'
+import { updateMailingAddresses } from '../../../services/mailing_addresses'
 import { activity } from '../../../../../core/services/routes/activities'
 import { updateEmailAddresses } from '../../../services/email_addresses'
 import ContactSerializer from '../../../serializers/contact_serializer'
@@ -7,7 +8,6 @@ import { updatePhoneNumbers } from '../../../services/phone_numbers'
 import { processValues } from '../../../../maha/services/values'
 import socket from '../../../../../core/services/routes/emitter'
 import { contactActivity } from '../../../services/activities'
-import { updateAddresses } from '../../../services/addresses'
 import { getChanges } from '../../../services/contacts'
 import Field from '../../../../maha/models/field'
 import Contact from '../../../models/contact'
@@ -50,12 +50,12 @@ const updateRoute = async (req, res) => {
     return phone.is_primary
   })
 
-  const address = req.body.addresses.find(address => {
-    return address.is_primary
+  const mailing = req.body.mailing_addresses.find(mailing_address => {
+    return mailing_address.is_primary
   })
 
   await contact.save({
-    address: address ? address.address : null,
+    address: mailing ? mailing.address : null,
     email: email ? email.address : null,
     phone: phone ? phone.number : null,
     ...whitelist(req.body, ['first_name','last_name','photo_id']),
@@ -74,9 +74,9 @@ const updateRoute = async (req, res) => {
     phone_numbers: req.body.phone_numbers
   })
 
-  await updateAddresses(req, {
+  await updateMailingAddresses(req, {
     contact,
-    addresses: req.body.addresses
+    mailing_addresses: req.body.mailing_addresses
   })
 
   await updateRelated(req, {

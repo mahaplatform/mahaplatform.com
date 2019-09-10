@@ -2,9 +2,9 @@ import Model from '../../../core/objects/model'
 import Subscription from './subscription'
 import Contact from './contact'
 
-const Address = new Model({
+const MailingAddress = new Model({
 
-  tableName: 'crm_addresses',
+  tableName: 'crm_mailing_addresses',
 
   rules: {},
 
@@ -34,4 +34,4 @@ const Address = new Model({
 
 })
 
-export default Address
+export default MailingAddress

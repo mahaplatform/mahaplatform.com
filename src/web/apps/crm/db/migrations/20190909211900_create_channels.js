@@ -10,7 +10,7 @@ const CreateChannel = {
       type,
       email_address_id,
       phone_number_id,
-      address_id,
+      mailing_address_id,
       label,
       has_consented
       from (
@@ -22,7 +22,7 @@ const CreateChannel = {
       'email' as type,
       crm_email_addresses.id as email_address_id,
       null::integer as phone_number_id,
-      null::integer as address_id,
+      null::integer as mailing_address_id,
       crm_email_addresses.address as label,
       crm_consents.id is not null and crm_consents.unsubscribed_at is null as has_consented
       from maha_programs
@@ -38,7 +38,7 @@ const CreateChannel = {
       'sms' as type,
       null::integer as email_address_id,
       crm_phone_numbers.id as phone_number_id,
-      null::integer as address_id,
+      null::integer as mailing_address_id,
       crm_phone_numbers.number as label,
       crm_consents.id is not null and crm_consents.unsubscribed_at is null as has_consented
       from maha_programs
@@ -54,7 +54,7 @@ const CreateChannel = {
       'voice' as type,
       null::integer as email_address_id,
       crm_phone_numbers.id as phone_number_id,
-      null::integer as address_id,
+      null::integer as mailing_address_id,
       crm_phone_numbers.number as label,
       crm_consents.id is not null and crm_consents.unsubscribed_at is null as has_consented
       from maha_programs
@@ -65,17 +65,17 @@ const CreateChannel = {
       select
       4 as priority,
       maha_programs.team_id,
-      crm_addresses.contact_id,
+      crm_mailing_addresses.contact_id,
       maha_programs.id as program_id,
       'mail' as type,
       null::integer as email_address_id,
       null::integer as phone_number_id,
-      crm_addresses.id as address_id,
-      crm_addresses.address->>'description' as label,
+      crm_mailing_addresses.id as mailing_address_id,
+      crm_mailing_addresses.address->>'description' as label,
       crm_consents.id is not null and crm_consents.unsubscribed_at is null as has_consented
       from maha_programs
-      inner join crm_addresses on crm_addresses.team_id=maha_programs.team_id
-      left join crm_consents on crm_consents.address_id=crm_addresses.id and crm_consents.program_id=maha_programs.id and crm_consents.type='mail'
+      inner join crm_mailing_addresses on crm_mailing_addresses.team_id=maha_programs.team_id
+      left join crm_consents on crm_consents.mailing_address_id=crm_mailing_addresses.id and crm_consents.program_id=maha_programs.id and crm_consents.type='mail'
       where maha_programs.has_mail_channel = true
       ) crm_channels
       order by priority asc

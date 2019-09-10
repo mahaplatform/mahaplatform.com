@@ -1,6 +1,7 @@
 import activities from './activities'
+import interests from './interests'
 import { Router } from 'express'
-import consent from './consent'
+import channels from './channels'
 import destroy from './destroy'
 import create from './create'
 import update from './update'
@@ -28,7 +29,9 @@ router.use('/:id/activities', activities)
 
 router.use('/:id/calls', calls)
 
-router.use('/:id/consent', consent)
+router.use('/:id/channels', channels)
+
+router.use('/:id/interests', interests)
 
 router.use('/:id/notes', notes)
 

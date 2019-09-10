@@ -1,7 +1,6 @@
 import Program from '../../../../../maha/models/program'
 import Contact from '../../../../models/contact'
 import Channel from '../../../../models/channel'
-import Topic from '../../../../models/topic'
 
 const listRoute = async (req, res) => {
 
@@ -17,15 +16,6 @@ const listRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load contact'
   })
-
-  const topics = await Topic.scope({
-    team: req.team
-  }).query(qb => {
-    qb.select(req.trx.raw('crm_topics.*, crm_interests.topic_id is not null as is_interested'))
-    qb.joinRaw('left join crm_interests on crm_interests.topic_id=crm_topics.id and crm_interests.contact_id=?', contact.get('id'))
-  }).fetchAll({
-    transacting: req.trx
-  }).then(results => results.toArray())
 
   const programs = await Program.scope({
     team: req.team
@@ -52,12 +42,7 @@ const listRoute = async (req, res) => {
       }).map(channel => {
         return { type: channel.get('type'), id: channel.get(channel.get('key')), label: channel.get('label'), has_consented: channel.get('has_consented') }
       })
-    ],
-    topics: topics.filter(topic => {
-      return topic.get('program_id') === program.get('id')
-    }).map(topic => {
-      return { title: topic.get('title'), is_interested: topic.get('is_interested') }
-    })
+    ]
   }))
 
   res.status(200).respond(consent)

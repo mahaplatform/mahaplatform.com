@@ -1,8 +1,8 @@
-const CreateAddress = {
+const CreateMailingAddress = {
 
   up: async (knex) => {
 
-    await knex.schema.createTable('crm_addresses', (table) => {
+    await knex.schema.createTable('crm_mailing_addresses', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
@@ -18,21 +18,21 @@ const CreateAddress = {
     })
 
     await knex.schema.table('crm_consents', (table) => {
-      table.integer('address_id').unsigned()
-      table.foreign('address_id').references('crm_addresses.id')
+      table.integer('mailing_address_id').unsigned()
+      table.foreign('mailing_address_id').references('crm_mailing_addresses.id')
     })
 
     await knex.schema.table('crm_subscriptions', (table) => {
-      table.integer('address_id').unsigned()
-      table.foreign('address_id').references('crm_addresses.id')
+      table.integer('mailing_address_id').unsigned()
+      table.foreign('mailing_address_id').references('crm_mailing_addresses.id')
     })
 
   },
 
   down: async (knex) => {
-    await knex.schema.dropTable('crm_addresses')
+    await knex.schema.dropTable('crm_mailing_addresses')
   }
 
 }
 
-export default CreateAddress
+export default CreateMailingAddress
