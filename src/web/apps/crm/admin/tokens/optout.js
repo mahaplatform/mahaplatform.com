@@ -5,7 +5,7 @@ const reasons = {
   never: 'I never signed up for this mailing list',
   inappropriate: 'The emails are inappropriate',
   spam: 'The emails are spam and should be reported',
-  other: 'Other (fill in reason below)'
+  other: 'Other'
 }
 
 const OptOutToken = ({ value }) => {

@@ -50,7 +50,6 @@ class New extends React.Component {
     return [
       { label: 'Delegate Access', name: 'accesses', type: 'assignmentfield', placeholder: 'Specify who can see content from this program' }
     ]
-
   }
 
   _handleCancel() {

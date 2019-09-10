@@ -15,8 +15,14 @@ class OptOut extends React.Component {
     program: PropTypes.object
   }
 
+  state = {
+    optout_reason: false
+  }
+
   _handleCancel = this._handleCancel.bind(this)
+  _handleChangeField = this._handleChangeField.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
+
 
   render() {
     return <Form { ...this._getForm() } />
@@ -29,6 +35,7 @@ class OptOut extends React.Component {
       method: 'delete',
       action: `/api/admin/crm/contacts/${contact.id}/consent`,
       onCancel: this._handleCancel,
+      onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
       sections: [
         {
@@ -36,18 +43,34 @@ class OptOut extends React.Component {
             { name: 'channel_type', type: 'hidden', defaultValue: channel.type },
             { name: 'channel_id', type: 'hidden', defaultValue: channel.id },
             { name: 'program_id', type: 'hidden', defaultValue: program.id },
-            { name: 'optout_reason', type: 'radiogroup', options: ['done','never','inappropriate','spam','other'], format: OptOutToken, defaultValue: 'done' }
+            { name: 'optout_reason', type: 'radiogroup', options: ['done','never','inappropriate','spam','other'], format: OptOutToken, defaultValue: 'done' },
+            ...this._getOptOut()
           ]
         }
       ]
     }
   }
 
+  _getOptOut() {
+    if(this.state.optout_reason !== 'other') return []
+    return [
+      { name: 'optout_reason_other', type: 'textarea', placeholder: 'Tell us more' }
+    ]
+  }
+
   _handleCancel() {
     this.context.modal.close()
   }
 
-  _handleSuccess(result) {
+  _handleChangeField(name, value) {
+    if(name === 'optout_reason') {
+      this.setState({
+        optout_reason: value
+      })
+    }
+  }
+
+  _handleSuccess() {
     this.context.modal.close()
   }
 

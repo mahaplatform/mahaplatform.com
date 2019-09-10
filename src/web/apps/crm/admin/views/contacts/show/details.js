@@ -18,7 +18,7 @@ const Details = ({ contact }) => {
         { phone_number.number } { phone_number.is_primary && <span className="alert">PRIMARY</span> }
       </div>
     )) },
-    { label: 'Address', content: contact.addresses.map((address, index) => (
+    { label: 'Mailing Address', content: contact.addresses.map((address, index) => (
       <div key={`address_${index}`}>
         { address.address.description } { address.is_primary && <span className="alert">PRIMARY</span> }
       </div>
