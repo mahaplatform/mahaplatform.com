@@ -21,7 +21,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     empty: 'You have not yet created any programs',
     entity: 'program',
     icon: 'sitemap',
-    link: (record) => `/admin/team/programs/${record.id}`,
+    link: (record) => `/admin/crm/programs/${record.id}`,
     new: New,
     defaultSort: { key: 'title', order: 'asc' }
   },

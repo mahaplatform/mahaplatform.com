@@ -41,7 +41,9 @@ class Tasks extends React.Component {
         <div className="maha-tasks-list">
           <div className="maha-tasks-list-body">
             { allowed && allowed.map((item, index) => (
-              <Button key={`task_${index}`} { ...this._getButton(item) }/>
+              <div className="maha-tasks-list-item" key={`task_${index}`}>
+                <Button { ...this._getButton(item) }/>
+              </div>
             )) }
           </div>
           <div className="maha-tasks-cancel" onClick={ this._handleClose }>

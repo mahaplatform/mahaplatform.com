@@ -77,9 +77,17 @@
 }
 .maha-tasks-list-body {
   .scrollable();
+  .maha-tasks-list-item:last-child {
+    border: none;
+  }
 }
-
-
+.maha-tasks-list-item {
+  border-bottom: 1px solid fadeout(@black, 90);
+  cursor: pointer;
+  &:hover {
+    background: fadeout(@black, 95);
+  }
+}
 
 @media (max-width: 768px) {
   .maha-task {

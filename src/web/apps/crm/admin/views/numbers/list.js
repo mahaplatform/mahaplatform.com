@@ -1,29 +1,27 @@
 import { Page } from 'maha-admin'
-import React from 'react'
 import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Lists',
+  title: 'Phone Numbers',
   rights: [],
   collection: {
-    endpoint: '/api/admin/crm/lists',
+    endpoint: '/api/admin/crm/topics',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Name', key: 'name', primary: true },
-      { label: 'Type', key: 'type' }
+      { label: 'Sender', key: 'name', primary: true }
     ],
-    empty: 'You have not yet created any lists',
-    entity: 'list',
-    icon: 'users',
-    link: (record) => `/admin/crm/lists/${record.id}`,
-    new: () => <New />,
+    empty: 'You have not yet registered any phone numbers',
+    entity: 'number',
+    icon: 'phone',
+    link: (record) => `/admin/crm/topics/${record.id}`,
+    new: New,
     defaultSort: { key: 'title', order: 'asc' }
   },
   tasks: {
     icon: 'plus',
     items: [
       {
-        label: 'Add List',
+        label: 'Add Topics',
         modal: New
       }
     ]
