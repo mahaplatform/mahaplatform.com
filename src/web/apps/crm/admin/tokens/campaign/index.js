@@ -3,23 +3,23 @@ import React from 'react'
 const campaigns = {
   email: {
     icon: 'envelope-o',
-    title: 'Email Campaign',
-    description: 'Create an email workflow'
+    title: 'Email Blast',
+    description: 'Create and send a bulk personalized email'
   },
   sms: {
     icon: 'comment',
-    title: 'SMS Campaign',
-    description: 'Create a text message workflow'
+    title: 'Interactive SMS',
+    description: 'Create an interactive text message workflow'
   },
   voice: {
     icon: 'phone',
-    title: 'Voice Campaign',
-    description: 'Create a voice workflow'
+    title: 'Interactive Voice',
+    description: 'Create an interactive voice workflow'
   },
   mail: {
     icon: 'file-o',
-    title: 'Postal Mail Campaign',
-    description: 'Create a document for the mail'
+    title: 'Postal Mailing',
+    description: 'Personalized documents to send via postal mail'
   }
 }
 

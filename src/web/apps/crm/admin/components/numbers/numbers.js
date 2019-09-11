@@ -1,50 +1,130 @@
-import { Loader } from 'maha-admin'
+import { AddressField, Loader, ModalPanel, TextField } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class Numbers extends React.PureComponent {
 
-  static contextTypes = {}
+  static childContextTypes = {
+    form: PropTypes.object
+  }
+
+  static contextTypes = {
+    modal: PropTypes.object
+  }
 
   static propTypes = {
     areacode: PropTypes.object,
     address: PropTypes.object,
+    filters: PropTypes.object,
     numbers: PropTypes.array,
+    program_id: PropTypes.string,
     status: PropTypes.string,
-    onChoose: PropTypes.func,
     onLookup: PropTypes.func,
-    onReady: PropTypes.func
+    onSave: PropTypes.func,
+    onSetFilter: PropTypes.func
   }
 
-  static defaultProps = {
-    onChoose: () => {},
-    onReady: () => {}
-  }
+  static defaultProps = {}
+
+  _handleCancel = this._handleCancel.bind(this)
 
   render() {
-    const { numbers, status } = this.props
-    if(status !== 'success') return <Loader />
+    const { numbers } = this.props
     return (
-      <div className="numbers">
-        { numbers.map((number, index) => (
-          <div className="numbers-number" key={`number_${index}`}>
-            <strong>{ number.friendlyName }</strong><br />
-            { number.locality }, { number.region }
+      <ModalPanel { ...this._getPanel() }>
+        <div className="numbers">
+          <div className="numbers-header">
+            <div className="numbers-header-field">
+              <AddressField { ...this._getAddress() } />
+            </div>
+            <div className="numbers-header-field">
+              <TextField { ...this._getAreacode() } />
+            </div>
           </div>
-        ))}
-      </div>
+          <div className="numbers-body">
+            { status === 'loading' && <Loader /> }
+            { numbers &&
+              <div className="numbers-list">
+                { numbers.map((number, index) => (
+                  <div className="numbers-number" key={`number_${index}`} onClick={ this._handleChoose.bind(this, number) }>
+                    <div className="numbers-number-icon">
+                      <i className="fa fa-mobile" />
+                    </div>
+                    <div className="numbers-number-label">
+                      <strong>{ number.friendlyName }</strong><br />
+                      { number.locality }, { number.region }
+                    </div>
+                  </div>
+                ))}
+              </div>
+            }
+          </div>
+        </div>
+      </ModalPanel>
     )
   }
 
-  componentDidMount() {
-    const { address, areacode, onLookup, onReady } = this.props
-    const { latitude, longitude } = address
-    onLookup(areacode, latitude, longitude)
-    onReady()
+  componentDidUpdate(prevProps) {
+    const { filters, status } = this.props
+    if(!_.isEqual(filters, prevProps.filters)) {
+      if(filters.address !== null && filters.areacode !== null) {
+        this._handleLookup()
+      }
+    }
+    if(status !== prevProps.status && status === 'saved') {
+      this.context.modal.close()
+    }
   }
 
-  componentDidUpdate(prevProps) {}
+  getChildContext() {
+    return {
+      form: this.context.modal
+    }
+  }
 
+  _getPanel() {
+    return {
+      title: 'Provision Phone Number',
+      leftItems: [
+        { label: 'Cancel', handler: this._handleCancel }
+      ]
+    }
+  }
+
+  _getAddress() {
+    return {
+      onChange: this._handleChange.bind(this, 'address')
+    }
+  }
+
+  _getAreacode() {
+    return {
+      placeholder: 'Enter your area code',
+      onChange: this._handleChange.bind(this, 'areacode')
+    }
+  }
+
+  _handleCancel() {
+    this.context.modal.close()
+  }
+
+  _handleChange(key, value) {
+    this.props.onSetFilter(key, value)
+  }
+
+  _handleChoose(number) {
+    const { program_id } = this.props
+    const { phoneNumber, locality, region } = number
+    this.props.onSave(program_id, phoneNumber.replace('+',''), locality, region)
+  }
+
+  _handleLookup() {
+    const { filters, onLookup } = this.props
+    const { address, areacode } = filters
+    const { latitude, longitude } = address
+    onLookup(areacode, latitude, longitude)
+  }
 
 }
 

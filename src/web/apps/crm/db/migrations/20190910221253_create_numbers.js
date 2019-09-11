@@ -8,6 +8,8 @@ const CreateNumber = {
       table.integer('program_id').unsigned()
       table.foreign('program_id').references('crm_programs.id')
       table.string('number')
+      table.string('locality')
+      table.string('region')
       table.timestamps()
     })
   },

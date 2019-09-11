@@ -1,6 +1,13 @@
+import Numbers from '../../components/numbers'
 import { Page } from 'maha-admin'
 import React from 'react'
-import New from './new'
+
+const NumberToken = ({ number, locality, region }) => (
+  <div className="token">
+    <strong>{ number }</strong><br />
+    { locality }, { region }
+  </div>
+)
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Phone Numbers',
@@ -9,13 +16,23 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: `/api/admin/crm/programs/${page.params.program_id}/numbers`,
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Sender', key: 'name', primary: true }
+      { label: 'Number', key: 'number', primary: true, format: NumberToken }
+    ],
+    recordTasks: (program) => [
+      {
+        label: 'Release Number',
+        request: {
+          endpoint: `/api/admin/crm/programs/${page.params.program_id}/numbers/${program.id}`,
+          method: 'delete',
+          onSuccess: () => {},
+          onFailure: () => {}
+        }
+      }
     ],
     empty: 'You have not yet registered any phone numbers',
     entity: 'phone number',
     icon: 'hashtag',
-    link: (record) => `/admin/crm/programs/${page.params.program_id}/numbers/${record.id}`,
-    new: () => <New program_id={ page.params.program_id } />,
+    new: () => <Numbers program_id={ page.params.program_id } />,
     defaultSort: { key: 'title', order: 'asc' }
   },
   tasks: {
@@ -23,7 +40,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     items: [
       {
         label: 'Provision Phone Number',
-        modal: () => <New program_id={ page.params.program_id } />
+        modal: () => <Numbers program_id={ page.params.program_id } />
       }
     ]
   }

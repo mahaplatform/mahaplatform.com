@@ -4,7 +4,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Automation',
   rights: [],
   collection: {
-    endpoint: '/api/admin/crm/programs/${page.params.program_id}/workflows',
+    endpoint: `/api/admin/crm/programs/${page.params.program_id}/workflows`,
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true }
