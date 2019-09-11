@@ -30,8 +30,8 @@ class Edit extends React.Component {
     return {
       title: 'Edit Program',
       method: 'patch',
-      endpoint: `/api/admin/team/programs/${id}/edit`,
-      action: `/api/admin/team/programs/${id}`,
+      endpoint: `/api/admin/crm/programs/${id}/edit`,
+      action: `/api/admin/crm/programs/${id}`,
       onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,

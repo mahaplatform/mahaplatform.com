@@ -1,5 +1,5 @@
 import Model from '../../../core/objects/model'
-import Program from '../../maha/models/program'
+import Program from './program'
 
 const Topic = new Model({
 

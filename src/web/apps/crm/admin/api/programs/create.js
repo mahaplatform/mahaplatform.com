@@ -3,14 +3,14 @@ import { whitelist } from '../../../../../core/services/routes/params'
 import ProgramSerializer from '../../../serializers/program_serializer'
 import generateCode from '../../../../../core/utils/generate_code'
 import socket from '../../../../../core/services/routes/emitter'
-import Program from '../../../../maha/models/program'
+import Program from '../../../models/program'
 import moment from 'moment'
 import _ from 'lodash'
 
 const createRoute = async (req, res) => {
 
   const code = await generateCode(req, {
-    table: 'maha_programs'
+    table: 'crm_programs'
   })
 
   const program = await Program.forge({
@@ -27,7 +27,7 @@ const createRoute = async (req, res) => {
 
   if(req.body.accesses) {
     await Promise.map(req.body.accesses, async access => {
-      await req.trx('maha_program_accesses').insert({
+      await req.trx('crm_program_accesses').insert({
         team_id: req.team.get('id'),
         program_id: program.get('id'),
         grouping_id: access.grouping_id,
@@ -45,7 +45,7 @@ const createRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    '/admin/team/programs'
+    '/admin/crm/programs'
   ])
 
   res.status(200).respond(program, ProgramSerializer)

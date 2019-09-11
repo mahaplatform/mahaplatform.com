@@ -4,7 +4,6 @@ import activities from './activities'
 import user_types from './user_types'
 import sessions from './sessions'
 import settings from './settings'
-import programs from './programs'
 import { Router } from 'express'
 import groups from './groups'
 import access from './access'
@@ -24,8 +23,6 @@ router.use('/apps', apps)
 router.use('/device_values', device_values)
 
 router.use('/emails', emails)
-
-router.use('/programs', programs)
 
 router.use('/groups', groups)
 

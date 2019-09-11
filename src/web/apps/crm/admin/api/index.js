@@ -12,6 +12,6 @@ router.use('/organizations', organizations)
 
 router.use('/tags', tags)
 
-router.use('/programs/:program_id', programs)
+router.use('/programs', programs)
 
 export default router

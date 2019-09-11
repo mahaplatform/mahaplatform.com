@@ -28,7 +28,7 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
-            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/team/programs', value: 'id', text: 'title', required: true }
+            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true }
           ]
         }
       ]

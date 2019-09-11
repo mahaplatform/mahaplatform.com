@@ -22,7 +22,7 @@ const routes = [
   { path: '/organizations', component: OrganizationsList },
   { path: '/organizations/:id', component: OrganizationsShow },
   { path: '/programs', component: ProgramsList },
-  { path: '/programs/:program_id', component: ProgramsShow },
+  { path: '/programs/:id', component: ProgramsShow },
   { path: '/programs/:program_id/campaigns', component: CampaignsList },
   { path: '/programs/:program_id/forms', component: FormsList },
   { path: '/programs/:program_id/lists', component: ListsList },

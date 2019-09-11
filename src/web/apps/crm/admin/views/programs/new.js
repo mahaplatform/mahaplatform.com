@@ -27,7 +27,7 @@ class New extends React.Component {
     return {
       title: 'New Program',
       method: 'post',
-      action: '/api/admin/team/programs',
+      action: '/api/admin/crm/programs',
       onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,

@@ -1,9 +1,9 @@
-import Program from '../../maha/models/program'
+import Program from '../models/program'
 
 const navigation = async (req, trx) => {
 
   const programs = await Program.query(qb => {
-    qb.orderBy('maha_programs.title', 'asc')
+    qb.orderBy('crm_programs.title', 'asc')
   }).fetchAll({
     transacting: req.trx
   })
@@ -11,7 +11,7 @@ const navigation = async (req, trx) => {
   return {
     items: [
       { label: 'Programs', items: [
-        // { label: 'Programs', route: '/programs' },
+        { label: 'Programs', route: '/programs' },
         ...programs.map(program => ({
           label: program.get('title'), items: [
             { label: 'Automation', route: `/programs/${program.id}/workflows` },

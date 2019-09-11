@@ -1,15 +1,10 @@
 import { Page } from 'maha-admin'
-import Numbers from './numbers'
-import Senders from './senders'
 import Details from './details'
 import React from 'react'
 
 const getTabs = (user, { program }) => ({
   items: [
-    { label: 'Details', component: <Details program={ program } /> },
-    { label: 'Senders', component: <Senders program={ program } /> },
-    { label: 'Numbers', component: <Numbers program={ program } /> },
-    { label: 'Topics', component: <div>foo</div> }
+    { label: 'Details', component: <Details program={ program } /> }
   ]
 })
 
@@ -19,7 +14,7 @@ const getTasks = (user, { program}) => ({
 })
 
 const mapResourcesToPage = (props, context) => ({
-  program: `/api/admin/team/programs/${props.params.id}`
+  program: `/api/admin/crm/programs/${props.params.id}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

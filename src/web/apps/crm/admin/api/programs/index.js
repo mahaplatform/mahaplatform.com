@@ -1,26 +1,44 @@
-import workflows from './workflows'
 import templates from './templates'
+import workflows from './workflows'
 import campaigns from './campaigns'
 import { Router } from 'express'
+import destroy from './destroy'
 import senders from './senders'
 import topics from './topics'
-import lists from './lists'
+import create from './create'
+import update from './update'
 import forms from './forms'
+import lists from './lists'
+import edit from './edit'
+import list from './list'
+import show from './show'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/campaigns', campaigns)
+router.get('/', list)
 
-router.use('/forms', forms)
+router.post('/', create)
 
-router.use('/lists', lists)
+router.get('/:id', show)
 
-router.use('/senders', senders)
+router.get('/:id/edit', edit)
 
-router.use('/templates', templates)
+router.patch('/:id', update)
 
-router.use('/topics', topics)
+router.delete('/:id', destroy)
 
-router.use('/workflows', workflows)
+router.use('/:program_id/campaigns', campaigns)
+
+router.use('/:program_id/forms', forms)
+
+router.use('/:program_id/lists', lists)
+
+router.use('/:program_id/senders', senders)
+
+router.use('/:program_id/templates', templates)
+
+router.use('/:program_id/topics', topics)
+
+router.use('/:program_id/workflows', workflows)
 
 export default router
