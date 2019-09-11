@@ -11,8 +11,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Sender', key: 'name', primary: true }
     ],
     empty: 'You have not yet registered any phone numbers',
-    entity: 'number',
-    icon: 'phone',
+    entity: 'phone number',
+    icon: 'hashtag',
     link: (record) => `/admin/crm/topics/${record.id}`,
     new: New,
     defaultSort: { key: 'title', order: 'asc' }

@@ -19,16 +19,16 @@ class New extends React.Component {
 
   _getForm() {
     return {
-      title: 'New Topic',
+      title: 'New Sender',
       method: 'post',
-      action: '/api/admin/crm/topics',
+      action: '/api/admin/crm/senders',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', required: true },
-            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/team/programs', value: 'id', text: 'title', required: true }
+            { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Enter the from name', required: true },
+            { label: 'Email', name: 'email', type: 'textfield', placeholder: 'Enter the email address', required: true }
           ]
         }
       ]

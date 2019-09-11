@@ -1,20 +1,17 @@
 import organizations from './organizations'
+import programs from './programs'
 import contacts from './contacts'
 import { Router } from 'express'
-import topics from './topics'
-import lists from './lists'
 import tags from './tags'
 
 const router = new Router({ mergeParams: true })
 
 router.use('/contacts', contacts)
 
-router.use('/lists', lists)
-
 router.use('/organizations', organizations)
 
 router.use('/tags', tags)
 
-router.use('/topics', topics)
+router.use('/programs/:program_id', programs)
 
 export default router

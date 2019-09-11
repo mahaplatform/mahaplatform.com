@@ -1,35 +1,25 @@
 import React from 'react'
 
 const campaigns = {
-  email_blast: {
+  email: {
     icon: 'envelope-o',
-    title: 'Email Blast',
-    description: 'Send a one-time email'
+    title: 'Email Campaign',
+    description: 'Create an email workflow'
   },
-  email_drip: {
-    icon: 'tint',
-    title: 'Email Drip',
-    description: 'Create a time-based series of emails'
-  },
-  sms_blast: {
+  sms: {
     icon: 'comment',
-    title: 'SMS Blast',
-    description: 'Send a one-time text message'
-  },
-  sms_workflow: {
-    icon: 'comments',
-    title: 'SMS Workflow',
+    title: 'SMS Campaign',
     description: 'Create a text message workflow'
   },
   voice: {
     icon: 'phone',
-    title: 'Voice Autodialer',
+    title: 'Voice Campaign',
     description: 'Create a voice workflow'
   },
   mail: {
     icon: 'file-o',
-    title: 'Mail Merge',
-    description: 'Create a document for the postal mail'
+    title: 'Postal Mail Campaign',
+    description: 'Create a document for the mail'
   }
 }
 

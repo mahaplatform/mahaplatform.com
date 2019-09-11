@@ -13,17 +13,15 @@ const mapPropsToPage = (props, context, resources, page) => ({
     ],
     empty: 'You have not yet created any campaigns',
     entity: 'campaign',
-    icon: 'arrow-right',
+    icon: 'bullhorn',
     link: (record) => `/admin/crm/topics/${record.id}`,
     defaultSort: { key: 'title', order: 'asc' }
   },
   tasks: {
     icon: 'plus',
     items: [
-      { component: <CampaignToken value="email_blast" /> },
-      { component: <CampaignToken value="email_drip" /> },
-      { component: <CampaignToken value="sms_blast" /> },
-      { component: <CampaignToken value="sms_workflow" /> },
+      { component: <CampaignToken value="email" /> },
+      { component: <CampaignToken value="sms" /> },
       { component: <CampaignToken value="voice" /> },
       { component: <CampaignToken value="mail" /> }
     ]
