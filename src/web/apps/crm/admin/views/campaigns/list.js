@@ -6,7 +6,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Campaigns',
   rights: [],
   collection: {
-    endpoint: '/api/admin/crm/topics',
+    endpoint: `/api/admin/crm/programs/${page.params.program_id}/campaigns`,
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true }
@@ -14,7 +14,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     empty: 'You have not yet created any campaigns',
     entity: 'campaign',
     icon: 'bullhorn',
-    link: (record) => `/admin/crm/topics/${record.id}`,
+    link: (record) => `/admin/crm/programs/${page.params.program_id}/campaigns/${record.id}`,
+    new: <CampaignToken value="email" />,
     defaultSort: { key: 'title', order: 'asc' }
   },
   tasks: {

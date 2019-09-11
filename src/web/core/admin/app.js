@@ -72,6 +72,7 @@ import chatchat from '../../apps/chat/admin/roots/chat'
 import crmaddressesfield from '../../apps/crm/admin/components/addressesfield'
 import crmdesigner from '../../apps/crm/admin/components/designer'
 import crmemailsfield from '../../apps/crm/admin/components/emailsfield'
+import crmnumbers from '../../apps/crm/admin/components/numbers'
 import crmphonesfield from '../../apps/crm/admin/components/phonesfield'
 import crmtimeline from '../../apps/crm/admin/components/timeline'
 import driveaccess from '../../apps/drive/admin/components/access'
@@ -301,6 +302,7 @@ class App extends React.Component {
       crmaddressesfield,
       crmdesigner,
       crmemailsfield,
+      crmnumbers,
       crmphonesfield,
       crmtimeline,
       driveaccess,

@@ -1,9 +1,9 @@
-import SenderSerializer from '../../../../serializers/sender_serializer'
-import Sender from '../../../../models/sender'
+import NumberSerializer from '../../../../serializers/number_serializer'
+import Number from '../../../../models/number'
 
 const listRoute = async (req, res) => {
 
-  const senders = await Sender.scope({
+  const numbers = await Number.scope({
     team: req.team
   }).query(qb => {
     qb.where('program_id', req.params.program_id)
@@ -12,7 +12,7 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(senders, SenderSerializer)
+  res.status(200).respond(numbers, NumberSerializer)
 
 }
 

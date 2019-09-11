@@ -8,7 +8,8 @@ const createRoute = async (req, res) => {
 
   const topic = await Topic.forge({
     team_id: req.team.get('id'),
-    ...whitelist(req.body, ['program_id','title'])
+    program_id: req.params.program_id,
+    ...whitelist(req.body, ['title'])
   }).save(null, {
     transacting: req.trx
   })
@@ -19,7 +20,7 @@ const createRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    '/admin/crm/topics'
+    `/admin/crm/programs/${req.params.program_id}/topics`
   ])
 
   res.status(200).respond(topic, TopicSerializer)

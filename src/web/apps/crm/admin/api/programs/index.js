@@ -4,6 +4,7 @@ import campaigns from './campaigns'
 import { Router } from 'express'
 import destroy from './destroy'
 import senders from './senders'
+import numbers from './numbers'
 import topics from './topics'
 import create from './create'
 import update from './update'
@@ -32,6 +33,8 @@ router.use('/:program_id/campaigns', campaigns)
 router.use('/:program_id/forms', forms)
 
 router.use('/:program_id/lists', lists)
+
+router.use('/:program_id/numbers', numbers)
 
 router.use('/:program_id/senders', senders)
 

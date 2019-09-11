@@ -8,7 +8,9 @@ class New extends React.Component {
     modal: PropTypes.object
   }
 
-  static propTypes = {}
+  static propTypes = {
+    program_id: PropTypes.number
+  }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
@@ -18,10 +20,11 @@ class New extends React.Component {
   }
 
   _getForm() {
+    const { program_id } = this.props
     return {
       title: 'New Sender',
       method: 'post',
-      action: '/api/admin/crm/senders',
+      action: `/api/admin/crm/programs/${program_id}/senders`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [

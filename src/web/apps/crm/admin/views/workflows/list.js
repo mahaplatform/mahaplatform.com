@@ -1,12 +1,10 @@
-import CampaignToken from '../../tokens/campaign'
 import { Page } from 'maha-admin'
-import React from 'react'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Automation',
   rights: [],
   collection: {
-    endpoint: '/api/admin/crm/topics',
+    endpoint: '/api/admin/crm/programs/${page.params.program_id}/workflows',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true }
@@ -14,7 +12,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     empty: 'You have not yet created any workflows',
     entity: 'workflow',
     icon: 'cogs',
-    link: (record) => `/admin/crm/topics/${record.id}`,
+    link: (record) => `/admin/crm/programs/${page.params.program_id}/workflows/${record.id}`,
     defaultSort: { key: 'title', order: 'asc' }
   },
   tasks: {

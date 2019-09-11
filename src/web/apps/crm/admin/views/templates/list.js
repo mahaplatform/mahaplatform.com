@@ -6,7 +6,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Templates',
   rights: [],
   collection: {
-    endpoint: '/api/admin/crm/topics',
+    endpoint: `/api/admin/crm/programs/${page.params.program_id}/templates`,
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true }
@@ -14,7 +14,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     empty: 'You have not yet created any templates',
     entity: 'template',
     icon: 'file-o',
-    link: (record) => `/admin/crm/topics/${record.id}`,
+    link: (record) => `/admin/crm/programs/${page.params.program_id}/templates/${record.id}`,
     defaultSort: { key: 'title', order: 'asc' }
   },
   tasks: {
