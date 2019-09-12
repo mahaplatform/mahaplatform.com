@@ -27,6 +27,11 @@ class App extends React.Component {
 
   componentDidMount() {
     window.addEventListener('message', this._handleMessage, false)
+    window.parent.postMessage({
+      target: 'designer',
+      action: 'ready',
+      data: null
+    }, '*')
   }
 
   componentWillUnmount() {

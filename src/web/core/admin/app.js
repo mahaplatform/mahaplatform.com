@@ -74,6 +74,7 @@ import crmdesigner from '../../apps/crm/admin/components/designer'
 import crmemailsfield from '../../apps/crm/admin/components/emailsfield'
 import crmnumbers from '../../apps/crm/admin/components/numbers'
 import crmphonesfield from '../../apps/crm/admin/components/phonesfield'
+import crmtemplate from '../../apps/crm/admin/components/template'
 import crmtimeline from '../../apps/crm/admin/components/timeline'
 import driveaccess from '../../apps/drive/admin/components/access'
 import driveexplorer from '../../apps/drive/admin/components/explorer'
@@ -304,6 +305,7 @@ class App extends React.Component {
       crmemailsfield,
       crmnumbers,
       crmphonesfield,
+      crmtemplate,
       crmtimeline,
       driveaccess,
       driveexplorer,

@@ -244,7 +244,6 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('email_address_id').unsigned()
       table.string('code', 255)
-      table.timestamp('unsubscribed_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('phone_number_id').unsigned()
@@ -253,6 +252,8 @@ const schema = {
       table.USER-DEFINED('optin_reason')
       table.USER-DEFINED('optout_reason')
       table.text('optout_reason_other')
+      table.timestamp('optedin_at')
+      table.timestamp('optedout_at')
       table.integer('program_id').unsigned()
     })
 
@@ -415,6 +416,18 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.string('text', 255)
+    })
+
+    await knex.schema.createTable('crm_templates', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('program_id').unsigned()
+      table.integer('parent_id').unsigned()
+      table.string('title', 255)
+      table.USER-DEFINED('type')
+      table.jsonb('config')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
     })
 
     await knex.schema.createTable('crm_topics', (table) => {
@@ -2254,6 +2267,12 @@ const schema = {
       table.foreign('program_id').references('crm_programs.id')
     })
 
+    await knex.schema.table('crm_templates', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('parent_id').references('crm_templates.id')
+    })
+
     await knex.schema.table('training_options_trainings', table => {
       table.foreign('option_id').references('training_options.id')
       table.foreign('training_id').references('training_trainings.id')
@@ -2295,6 +2314,11 @@ union
       crm_channels.phone_number_id,
       crm_channels.mailing_address_id,
       crm_channels.label,
+      crm_channels.optin_reason,
+      crm_channels.optedin_at,
+      crm_channels.optout_reason,
+      crm_channels.optout_reason_other,
+      crm_channels.optedout_at,
       crm_channels.has_consented
       from ( select 1 as priority,
       crm_programs.team_id,
@@ -2305,10 +2329,15 @@ union
       null::integer as phone_number_id,
       null::integer as mailing_address_id,
       crm_email_addresses.address as label,
-      ((crm_consents.id is not null) and (crm_consents.unsubscribed_at is null)) as has_consented
+      crm_consents.optin_reason,
+      crm_consents.optedin_at,
+      crm_consents.optout_reason,
+      crm_consents.optout_reason_other,
+      crm_consents.optedout_at,
+      ((crm_consents.id is not null) and (crm_consents.optedout_at is null)) as has_consented
       from ((crm_programs
       join crm_email_addresses on ((crm_email_addresses.team_id = crm_programs.team_id)))
-      left join crm_consents on (((crm_consents.email_address_id = crm_email_addresses.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'email'::consent_type))))
+      left join crm_consents on (((crm_consents.email_address_id = crm_email_addresses.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'email'::crm_consent_type))))
       where (crm_programs.has_email_channel = true)
       union
       select 2 as priority,
@@ -2320,10 +2349,15 @@ union
       crm_phone_numbers.id as phone_number_id,
       null::integer as mailing_address_id,
       crm_phone_numbers.number as label,
-      ((crm_consents.id is not null) and (crm_consents.unsubscribed_at is null)) as has_consented
+      crm_consents.optin_reason,
+      crm_consents.optedin_at,
+      crm_consents.optout_reason,
+      crm_consents.optout_reason_other,
+      crm_consents.optedout_at,
+      ((crm_consents.id is not null) and (crm_consents.optedout_at is null)) as has_consented
       from ((crm_programs
       join crm_phone_numbers on ((crm_phone_numbers.team_id = crm_programs.team_id)))
-      left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'sms'::consent_type))))
+      left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'sms'::crm_consent_type))))
       where (crm_programs.has_sms_channel = true)
       union
       select 3 as priority,
@@ -2335,10 +2369,15 @@ union
       crm_phone_numbers.id as phone_number_id,
       null::integer as mailing_address_id,
       crm_phone_numbers.number as label,
-      ((crm_consents.id is not null) and (crm_consents.unsubscribed_at is null)) as has_consented
+      crm_consents.optin_reason,
+      crm_consents.optedin_at,
+      crm_consents.optout_reason,
+      crm_consents.optout_reason_other,
+      crm_consents.optedout_at,
+      ((crm_consents.id is not null) and (crm_consents.optedout_at is null)) as has_consented
       from ((crm_programs
       join crm_phone_numbers on ((crm_phone_numbers.team_id = crm_programs.team_id)))
-      left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'voice'::consent_type))))
+      left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'voice'::crm_consent_type))))
       where (crm_programs.has_voice_channel = true)
       union
       select 4 as priority,
@@ -2350,10 +2389,15 @@ union
       null::integer as phone_number_id,
       crm_mailing_addresses.id as mailing_address_id,
       (crm_mailing_addresses.address ->> 'description'::text) as label,
-      ((crm_consents.id is not null) and (crm_consents.unsubscribed_at is null)) as has_consented
+      crm_consents.optin_reason,
+      crm_consents.optedin_at,
+      crm_consents.optout_reason,
+      crm_consents.optout_reason_other,
+      crm_consents.optedout_at,
+      ((crm_consents.id is not null) and (crm_consents.optedout_at is null)) as has_consented
       from ((crm_programs
       join crm_mailing_addresses on ((crm_mailing_addresses.team_id = crm_programs.team_id)))
-      left join crm_consents on (((crm_consents.mailing_address_id = crm_mailing_addresses.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'mail'::consent_type))))
+      left join crm_consents on (((crm_consents.mailing_address_id = crm_mailing_addresses.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'mail'::crm_consent_type))))
       where (crm_programs.has_mail_channel = true)) crm_channels
       order by crm_channels.priority;
     `)

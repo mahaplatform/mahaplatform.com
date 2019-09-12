@@ -1,6 +1,7 @@
 import TemplateToken from '../../tokens/template'
 import { Page } from 'maha-admin'
 import React from 'react'
+import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Templates',
@@ -20,8 +21,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
   tasks: {
     icon: 'plus',
     items: [
-      { component: <TemplateToken value="email" /> },
-      { component: <TemplateToken value="webpage" /> }
+      { component: <TemplateToken value="email" />, modal: () => <New program_id={page.params.program_id} type="email" /> },
+      { component: <TemplateToken value="webpage" />, modal: () => <New program_id={page.params.program_id} type="email" />  }
     ]
   }
 })

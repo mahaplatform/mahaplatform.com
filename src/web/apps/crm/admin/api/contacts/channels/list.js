@@ -39,9 +39,18 @@ const listRoute = async (req, res) => {
     channels: [
       ...channels.filter(channel => {
         return channel.get('program_id') === program.get('id')
-      }).map(channel => {
-        return { type: channel.get('type'), id: channel.get(channel.get('key')), label: channel.get('label'), has_consented: channel.get('has_consented') }
-      })
+      }).map(channel => ({
+        type: channel.get('type'),
+        id: channel.get(channel.get('key')),
+        label: channel.get('label'),
+        optedin_at: channel.get('optedin_at'),
+        optedout_at: channel.get('optedout_at'),
+        optin_reason: channel.get('optin_reason'),
+        optout_reason: channel.get('optout_reason'),
+        optout_reason_other: channel.get('optout_reason_other'),
+        code: channel.get('code'),
+        has_consented: channel.get('has_consented')
+      }))
     ]
   }))
 

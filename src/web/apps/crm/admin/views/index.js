@@ -12,6 +12,7 @@ import ProgramsList from './programs/list'
 import ProgramsShow from './programs/show'
 import SendersList from './senders/list'
 import TemplateList from './templates/list'
+import TemplatesShow from './templates/show'
 import TopicsList from './topics/list'
 import WorkflowsList from './workflows/list'
 
@@ -30,6 +31,7 @@ const routes = [
   { path: '/programs/:program_id/numbers', component: NumbersList },
   { path: '/programs/:program_id/senders', component: SendersList },
   { path: '/programs/:program_id/templates', component: TemplateList },
+  { path: '/programs/:program_id/templates/:id', component: TemplatesShow },
   { path: '/programs/:program_id/topics', component: TopicsList },
   { path: '/programs/:program_id/workflows', component: WorkflowsList }
 ]

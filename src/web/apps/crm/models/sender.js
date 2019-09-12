@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import Program from './program'
 
 const Sender = new Model({
 
@@ -6,7 +7,11 @@ const Sender = new Model({
 
   rules: {},
 
-  virtuals: {}
+  virtuals: {},
+
+  program() {
+    return this.belongsTo(Program, 'program_id')
+  }
 
 })
 

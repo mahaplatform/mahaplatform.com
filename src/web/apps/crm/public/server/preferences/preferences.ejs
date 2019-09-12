@@ -101,7 +101,7 @@
 
               <div class="unsubscribe">
                 <div class="ui checkbox">
-                  <input id="unsubscribe" name="unsubscribe" type="checkbox" value="1"<%- consent.get('unsubscribed_at') !== null ? ' checked="checked"' : '' %> />
+                  <input id="unsubscribe" name="unsubscribe" type="checkbox" value="1"<%- consent.get('optedout_at') !== null ? ' checked="checked"' : '' %> />
                   <label for="unsubscribe">
                     <% if(consent.get('type') === 'email') { %>
                       Please do not send emails to this email address

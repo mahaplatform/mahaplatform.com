@@ -7,6 +7,7 @@ import PhoneNumber from '../../../../models/phone_number'
 import Program from '../../../../models/program'
 import Contact from '../../../../models/contact'
 import Consent from '../../../../models/consent'
+import moment from 'moment'
 import _ from 'lodash'
 
 const _getKey = (type) => {
@@ -98,16 +99,19 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
+  const key = _getKey(req.body.channel_type)
+
   const consent = await _getConsent(req, {
     type: req.body.channel_type,
-    key: _getKey(req.body.channel_type),
+    key,
     id: req.body.channel_id,
     program_id: program.get('id'),
     optin_reason: req.body.optin_reason
   })
 
   await consent.save({
-    unsubscribed_at: null,
+    optedout_at: null,
+    optedin_at: moment(),
     optin_reason: req.body.optin_reason,
     optout_reason: null,
     optout_reason_other: null
@@ -120,16 +124,18 @@ const createRoute = async (req, res) => {
     id: req.body.channel_id
   })
 
-  // await contactActivity(req, {
-  //   user: req.user,
-  //   contact,
-  //   type: 'preferences',
-  //   story: 'opted in to marketing channel',
-  //   data: {
-  //     program: program.get('title'),
-  //     [req.body.channel_type]: channel
-  //   }
-  // })
+  await contactActivity(req, {
+    user: req.user,
+    contact,
+    type: 'consent',
+    story: 'updated communication preferences',
+    data: {
+      program: program.get('title'),
+      type: req.body.channel_type,
+      [key.replace('_id','')]: channel,
+      actions: [{ action: 'consented' }]
+    }
+  })
 
   await socket.refresh(req, [
     '/admin/crm/contacts',

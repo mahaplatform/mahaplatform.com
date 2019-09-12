@@ -4,7 +4,9 @@ import Topic from '../../../models/topic'
 import moment from 'moment'
 import _ from 'lodash'
 
-const updatePreferences = async (req, { contact, program, email_address, phone_number, consent, unsubscribe, interests }) => {
+const updatePreferences = async (req, params) => {
+
+  const { contact, program, email_address, mailing_address, phone_number, consent, unsubscribe, interests } = params
 
   const actions = [
     ...await updateConsent(req, { consent, unsubscribe }),
@@ -13,10 +15,12 @@ const updatePreferences = async (req, { contact, program, email_address, phone_n
 
   await contactActivity(req, {
     contact,
-    type: 'preferences',
+    type: 'consent',
     story: 'updated communication preferences',
     data: {
       program: program.get('title'),
+      type: consent.get('type'),
+      mailing_address: mailing_address.get('address'),
       email_address: email_address.get('address'),
       phone_number: phone_number.get('number'),
       actions
@@ -27,26 +31,30 @@ const updatePreferences = async (req, { contact, program, email_address, phone_n
 
 const updateConsent = async(req, { consent, unsubscribe }) => {
 
-  if(unsubscribe && consent.get('unsubscribed_at') === null) {
+  console.log(unsubscribe, consent.get('optedout_at'))
 
+  if(unsubscribe !== undefined && consent.get('optedout_at') === null) {
     await consent.save({
-      unsubscribed_at: moment()
+      optedout_at: moment(),
+      optout_reason: null,
+      optout_reason_other: null
     }, {
       transacting: req.trx
     })
-
     return [{ action: 'unconsented' }]
+  }
 
-  } else if(!unsubscribe && consent.get('unsubscribed_at') !== null) {
-
+  if(unsubscribe === undefined && consent.get('optedout_at') !== null) {
     await consent.save({
-      unsubscribed_at: null
+      optin_reason: 'consent',
+      optedin_at: moment(),
+      optedout_at: null,
+      optout_reason: null,
+      optout_reason_other: null
     }, {
       transacting: req.trx
     })
-
     return [{ action: 'consented' }]
-
   }
 
   return []
@@ -134,6 +142,7 @@ const preferencesRoute = async (req, res) => {
       contact: channel.related('contact'),
       program: consent.related('program'),
       email_address: consent.related('email_address'),
+      mailing_address: consent.related('mailing_address'),
       phone_number: consent.related('phone_number'),
       interests: (req.body.interests || []).map(id => parseInt(id)),
       unsubscribe: req.body.unsubscribe,

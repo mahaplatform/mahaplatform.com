@@ -1,9 +1,9 @@
 import Model from '../../../core/objects/model'
 import Program from './program'
 
-const Number = new Model({
+const Template = new Model({
 
-  tableName: 'crm_numbers',
+  tableName: 'crm_templates',
 
   rules: {},
 
@@ -15,4 +15,4 @@ const Number = new Model({
 
 })
 
-export default Number
+export default Template

@@ -12,6 +12,11 @@ const CreateChannel = {
       phone_number_id,
       mailing_address_id,
       label,
+      optin_reason,
+      optedin_at,
+      optout_reason,
+      optout_reason_other,
+      optedout_at,
       has_consented
       from (
       select
@@ -24,7 +29,12 @@ const CreateChannel = {
       null::integer as phone_number_id,
       null::integer as mailing_address_id,
       crm_email_addresses.address as label,
-      crm_consents.id is not null and crm_consents.unsubscribed_at is null as has_consented
+      crm_consents.optin_reason,
+      crm_consents.optedin_at,
+      crm_consents.optout_reason,
+      crm_consents.optout_reason_other,
+      crm_consents.optedout_at,
+      crm_consents.id is not null and crm_consents.optedout_at is null as has_consented
       from maha_programs
       inner join crm_email_addresses on crm_email_addresses.team_id=maha_programs.team_id
       left join crm_consents on crm_consents.email_address_id=crm_email_addresses.id and crm_consents.program_id=maha_programs.id and crm_consents.type='email'
@@ -40,7 +50,12 @@ const CreateChannel = {
       crm_phone_numbers.id as phone_number_id,
       null::integer as mailing_address_id,
       crm_phone_numbers.number as label,
-      crm_consents.id is not null and crm_consents.unsubscribed_at is null as has_consented
+      crm_consents.optin_reason,
+      crm_consents.optedin_at,
+      crm_consents.optout_reason,
+      crm_consents.optout_reason_other,
+      crm_consents.optedout_at,
+      crm_consents.id is not null and crm_consents.optedout_at is null as has_consented
       from maha_programs
       inner join crm_phone_numbers on crm_phone_numbers.team_id=maha_programs.team_id
       left join crm_consents on crm_consents.phone_number_id=crm_phone_numbers.id and crm_consents.program_id=maha_programs.id and crm_consents.type='sms'
@@ -56,7 +71,12 @@ const CreateChannel = {
       crm_phone_numbers.id as phone_number_id,
       null::integer as mailing_address_id,
       crm_phone_numbers.number as label,
-      crm_consents.id is not null and crm_consents.unsubscribed_at is null as has_consented
+      crm_consents.optin_reason,
+      crm_consents.optedin_at,
+      crm_consents.optout_reason,
+      crm_consents.optout_reason_other,
+      crm_consents.optedout_at,
+      crm_consents.id is not null and crm_consents.optedout_at is null as has_consented
       from maha_programs
       inner join crm_phone_numbers on crm_phone_numbers.team_id=maha_programs.team_id
       left join crm_consents on crm_consents.phone_number_id=crm_phone_numbers.id and crm_consents.program_id=maha_programs.id and crm_consents.type='voice'
@@ -72,7 +92,12 @@ const CreateChannel = {
       null::integer as phone_number_id,
       crm_mailing_addresses.id as mailing_address_id,
       crm_mailing_addresses.address->>'description' as label,
-      crm_consents.id is not null and crm_consents.unsubscribed_at is null as has_consented
+      crm_consents.optin_reason,
+      crm_consents.optedin_at,
+      crm_consents.optout_reason,
+      crm_consents.optout_reason_other,
+      crm_consents.optedout_at,
+      crm_consents.id is not null and crm_consents.optedout_at is null as has_consented
       from maha_programs
       inner join crm_mailing_addresses on crm_mailing_addresses.team_id=maha_programs.team_id
       left join crm_consents on crm_consents.mailing_address_id=crm_mailing_addresses.id and crm_consents.program_id=maha_programs.id and crm_consents.type='mail'

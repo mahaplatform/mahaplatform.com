@@ -20,6 +20,7 @@ class Preview extends React.Component {
 
   preview = null
 
+  _handleMessage = this._handleMessage.bind(this)
   _handleRender = _.throttle(this._handleRender.bind(this), 250, { leading: true, trailing: false })
 
   render() {
@@ -32,7 +33,11 @@ class Preview extends React.Component {
   }
 
   componentDidMount() {
-    this._handleRender()
+    window.addEventListener('message', this._handleMessage, false)
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('message', this._handleMessage, false)
   }
 
   componentDidUpdate(prevProps) {
@@ -66,6 +71,12 @@ class Preview extends React.Component {
         height: orientation.label === 'Portrait' ? device.height : device.width
       }
     }
+  }
+
+  _handleMessage(e) {
+    const message = e.data
+    if(message.target !== 'designer') return
+    if(message.action === 'ready') this._handleRender()
   }
 
   _handleRender() {

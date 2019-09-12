@@ -1,9 +1,9 @@
-import Designer from '../components/designer'
+import Template from '../../components/template'
 import { Page } from 'maha-admin'
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Designer',
-  component: Designer
+  title: 'Template',
+  component: Template
 })
 
 export default Page(null, mapPropsToPage)

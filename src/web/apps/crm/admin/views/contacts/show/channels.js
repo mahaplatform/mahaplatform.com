@@ -3,6 +3,7 @@ import { Image } from 'maha-admin'
 import OptOut from './optout'
 import OptIn from './optin'
 import React from 'react'
+import moment from 'moment'
 
 class Channels extends React.Component {
 
@@ -15,8 +16,13 @@ class Channels extends React.Component {
     contact: PropTypes.object
   }
 
+  state = {
+    expanded: null
+  }
+
   render() {
     const { channels } = this.props
+    const { expanded } = this.state
     return (
       <div className="crm-contact-channels">
         <table className="ui unstackable compact table">
@@ -28,10 +34,13 @@ class Channels extends React.Component {
                   { program.title }
                 </td>
               </tr>,
-              ...program.channels.map((channel, j) => (
-                <tr key={`channel_${j}`} className="crm-contact-channels-channel">
+              ...program.channels.map((channel, j) => [
+                <tr key={`channel_${j}_channel`} className="crm-contact-channels-channel" onClick={ this._handleToggle.bind(this, `${i}-${j}`)}>
                   <td>
-                    { channel.label }
+                    { `${i}-${j}` === expanded ?
+                      <i className="fa fa-fw fa-caret-down" /> :
+                      <i className="fa fa-fw fa-caret-right" />
+                    } { channel.label }
                   </td>
                   <td className="collapsing">
                     { channel.type.toUpperCase() }
@@ -42,8 +51,42 @@ class Channels extends React.Component {
                       <div className="ui mini blue button" onClick={ this._handleOptIn.bind(this, channel, program) }>Opt In</div>
                     }
                   </td>
-                </tr>
-              )),
+                </tr>,
+                ...`${i}-${j}` === expanded ? [(
+                  <tr key={`channel_${j}_details`} className="crm-contact-channels-channel">
+                    <td colSpan="3">
+                      { channel.optedin_at &&
+                        <div>
+                          Opted In: { moment(channel.optedin_at).format('MMM, DD YYYY [@] hh:mm A') }
+                        </div>
+                      }
+                      { channel.optedout_at &&
+                        <div>
+                          Opted Out: { moment(channel.optedout_at).format('MMM, DD YYYY [@] hh:mm A') }
+                        </div>
+                      }
+                      { channel.optin_reason &&
+                        <div>
+                          Opt In Reason: { channel.optin_reason }
+                        </div>
+                      }
+                      { channel.optout_reason &&
+                        <div>
+                          Opt Out Reason: { channel.optout_reason }
+                        </div>
+                      }
+                      { channel.optout_reason_other &&
+                        <div>
+                          Other: { channel.optout_reason_other }
+                        </div>
+                      }
+                      { channel.code &&
+                        <a href={`/crm/preferences/${channel.code}`} target="_blank">Update preferences</a>
+                      }
+                    </td>
+                  </tr>
+                )] : []
+              ]),
               ...program.channels.length === 0 ? [(
                 <tr key="channels_empty" className="crm-contact-channels-empty">
                   <td className="collapsing" colSpan="3">
@@ -67,12 +110,20 @@ class Channels extends React.Component {
     }
   }
 
-  _handleOptIn(channel, program) {
+  _handleOptIn(channel, program, e) {
+    e.stopPropagation()
     this.context.modal.open(<OptIn { ...this._getConsent(channel, program) } />)
   }
 
-  _handleOptOut(channel, program) {
+  _handleOptOut(channel, program, e) {
+    e.stopPropagation()
     this.context.modal.open(<OptOut { ...this._getConsent(channel, program) } />)
+  }
+
+  _handleToggle(id) {
+    this.setState({
+      expanded: this.state.expanded === id ? null : id
+    })
   }
 
 }
