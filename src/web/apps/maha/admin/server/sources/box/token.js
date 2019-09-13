@@ -5,16 +5,20 @@ const box = new Box({
   clientSecret: process.env.BOX_CLIENT_SECRET
 })
 
-const token = async (req, res) => {
+const token = async (req) => {
 
-  return await new Promise((resolve, reject) => {
+  const data = await box.getTokensAuthorizationCodeGrant(req.query.code)
 
-    box.getTokensAuthorizationCodeGrant(req.query.code, null, (err, token) => {
-      if(err) reject(err)
-      resolve(token)
-    })
+  const client = box.getBasicClient(data.accessToken)
 
-  })
+  const userinfo = await client.users.get(client.CURRENT_USER_ID)
+
+  return [{
+    photo_url: userinfo.avatar_url,
+    profile_id: userinfo.id,
+    username: userinfo.login,
+    data
+  }]
 
 }
 

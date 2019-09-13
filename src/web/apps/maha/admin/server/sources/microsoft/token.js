@@ -1,4 +1,6 @@
+import { Client } from '@microsoft/microsoft-graph-client'
 import OAuth2 from 'simple-oauth2'
+import request from 'request-promise'
 
 const oauth2 = OAuth2.create({
   client: {
@@ -12,17 +14,36 @@ const oauth2 = OAuth2.create({
   }
 })
 
-const token = async (req, res, next) => {
+const token = async (req) => {
 
   let result = await oauth2.authorizationCode.getToken({
     redirect_uri: `${process.env.WEB_HOST}/admin/microsoft/token`,
-    scope: 'files.read.all',
+    scope: 'user.read files.read.all',
     code: req.query.code
   })
 
   const data = await oauth2.accessToken.create(result)
 
-  return data.token
+  const client = Client.init({
+    authProvider: (done) => done(null, data.token.access_token)
+  })
+
+  const userinfo = await client.api('/me').get()
+
+  const photo = await request.get('https://graph.microsoft.com/v1.0/me/photo/$value', {
+    auth: {
+      bearer: data.token.access_token
+    }, encoding: null
+  })
+
+  return [{
+    photo_data: photo,
+    profile_id: userinfo.id,
+    username: userinfo.userPrincipalName,
+    data: {
+      token: data.token
+    }
+  }]
 
 }
 

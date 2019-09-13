@@ -6,16 +6,32 @@ const dropbox = new Dropbox.authenticate({
   redirect_uri: `${process.env.WEB_HOST}/admin/dropbox/token`
 })
 
-const token = async (req, res) => {
+const token = async (req) => {
 
-  return await new Promise((resolve, reject) => {
-
+  const data = await new Promise((resolve, reject) => {
     dropbox.getToken(req.query.code, (err, result, response) => {
       if(err) return reject(err)
       resolve(result)
     })
-
   })
+
+  const userinfo = await new Promise((resolve, reject) => {
+    dropbox({
+      resource: 'users/get_current_account'
+    }, (err, result, response) => {
+      if(err) return reject(err)
+      resolve(result)
+    })
+  })
+
+  return [{
+    photo_url: userinfo.profile_photo_url,
+    profile_id: userinfo.account_id,
+    username: userinfo.email,
+    data: {
+      access_token: data.access_token
+    }
+  }]
 
 }
 

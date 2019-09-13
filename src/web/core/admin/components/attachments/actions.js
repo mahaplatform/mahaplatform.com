@@ -1,3 +1,16 @@
+export const fetchProfiles = (url) => ({
+  type: 'API_REQUEST',
+  method: 'GET',
+  endpoint: '/api/admin/profiles',
+  request: 'FETCH_PROFILES_REQUEST',
+  success: 'FETCH_PROFILES_SUCCESS',
+  failure: 'FETCH_PROFILES_FAILURE'
+})
+
+export const addSource = () => ({
+  type: 'ADD_SOURCE'
+})
+
 export const setSources = (sources) => ({
   type: 'SET_SOURCES',
   sources

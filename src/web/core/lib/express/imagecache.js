@@ -21,10 +21,9 @@ const convert = async (transformed, type) => {
 
 const getType = (originalUrl) => {
   const ext = path.extname(originalUrl).substr(1)
-  if(ext === 'jpg') return 'jpeg'
-  if(ext === 'jpeg') return 'jpeg'
   if(ext === 'png') return 'png'
   if(ext === 'gif') return 'gif'
+  return 'jpeg'
 }
 
 const transform = async(originalUrl) => {

@@ -16,6 +16,7 @@ class Sources extends React.Component {
   }
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleNew = this._handleNew.bind(this)
 
   render() {
     const { counts, sources } = this.props
@@ -25,13 +26,10 @@ class Sources extends React.Component {
           { sources.map((source, index) => (
             <div className={ this._getSourceClass(index) } key={`source_${index}`} onClick={ this._handleChooseSource.bind(this, index)}>
               <div className="maha-attachments-source-logo">
-                { source.icon ?
-                  <i className={`fa fa-fw fa-${source.icon}`} /> :
-                  <img src={ `/admin/images/${source.source}.png` } />
-                }
+                <img src={ `/admin/images/${source.network}.png` } />
               </div>
               <div className="maha-attachments-source-text">
-                { source.label }
+                { source.username || source.network }
               </div>
               <div className="maha-attachments-source-count">
                 { counts[source.source] &&
@@ -45,6 +43,17 @@ class Sources extends React.Component {
               </div>
             </div>
           ))}
+          <div className="maha-attachments-source" onClick={ this._handleNew }>
+            <div className="maha-attachments-source-logo">
+              <i className="fa fa-fw fa-plus-circle" />
+            </div>
+            <div className="maha-attachments-source-text">
+              Add a new source
+            </div>
+            <div className="maha-attachments-source-proceed">
+              <i className="fa fa-fw fa-chevron-right" />
+            </div>
+          </div>
         </div>
       </ModalPanel>
     )
@@ -76,6 +85,10 @@ class Sources extends React.Component {
 
   _handleCancel() {
     this.props.onCancel()
+  }
+
+  _handleNew() {
+
   }
 
 }

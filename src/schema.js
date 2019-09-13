@@ -1133,6 +1133,10 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('source_id').unsigned()
+      table.integer('photo_id').unsigned()
+      table.string('profile_id', 255)
+      table.string('username', 255)
+      table.string('email', 255)
     })
 
     await knex.schema.createTable('maha_reactions', (table) => {
@@ -1835,6 +1839,7 @@ const schema = {
 
     await knex.schema.table('maha_profiles', table => {
       table.foreign('user_id').references('maha_users.id')
+      table.foreign('photo_id').references('maha_assets.id')
       table.foreign('source_id').references('maha_sources.id')
       table.foreign('team_id').references('maha_teams.id')
     })
@@ -2319,6 +2324,7 @@ union
       crm_channels.optout_reason,
       crm_channels.optout_reason_other,
       crm_channels.optedout_at,
+      crm_channels.code,
       crm_channels.has_consented
       from ( select 1 as priority,
       crm_programs.team_id,
@@ -2334,6 +2340,7 @@ union
       crm_consents.optout_reason,
       crm_consents.optout_reason_other,
       crm_consents.optedout_at,
+      crm_consents.code,
       ((crm_consents.id is not null) and (crm_consents.optedout_at is null)) as has_consented
       from ((crm_programs
       join crm_email_addresses on ((crm_email_addresses.team_id = crm_programs.team_id)))
@@ -2354,6 +2361,7 @@ union
       crm_consents.optout_reason,
       crm_consents.optout_reason_other,
       crm_consents.optedout_at,
+      crm_consents.code,
       ((crm_consents.id is not null) and (crm_consents.optedout_at is null)) as has_consented
       from ((crm_programs
       join crm_phone_numbers on ((crm_phone_numbers.team_id = crm_programs.team_id)))
@@ -2374,6 +2382,7 @@ union
       crm_consents.optout_reason,
       crm_consents.optout_reason_other,
       crm_consents.optedout_at,
+      crm_consents.code,
       ((crm_consents.id is not null) and (crm_consents.optedout_at is null)) as has_consented
       from ((crm_programs
       join crm_phone_numbers on ((crm_phone_numbers.team_id = crm_programs.team_id)))
@@ -2394,6 +2403,7 @@ union
       crm_consents.optout_reason,
       crm_consents.optout_reason_other,
       crm_consents.optedout_at,
+      crm_consents.code,
       ((crm_consents.id is not null) and (crm_consents.optedout_at is null)) as has_consented
       from ((crm_programs
       join crm_mailing_addresses on ((crm_mailing_addresses.team_id = crm_programs.team_id)))

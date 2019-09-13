@@ -3,7 +3,6 @@ import Message from '../../message'
 import Infinite from '../../infinite'
 import Searchbox from '../../searchbox'
 import Stack from '../../stack/stack'
-import Authorized from '../../authorized'
 import PropTypes from 'prop-types'
 import Folder from './folder'
 import Items from './items'
@@ -16,6 +15,7 @@ class Files extends React.Component {
     folders: PropTypes.array,
     network: PropTypes.string,
     q: PropTypes.string,
+    source: PropTypes.object,
     onAddAsset: PropTypes.func,
     onAddFile: PropTypes.func,
     onBack: PropTypes.func,
@@ -31,15 +31,13 @@ class Files extends React.Component {
     const { q } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <Authorized { ...this._getAuthorized() }>
-          <div className="maha-attachments-drive">
-            <div className="maha-attachments-drive-search">
-              <Searchbox { ...this._getSearchbox() } />
-            </div>
-            { q.length === 0 && <Stack { ...this._getStack() } /> }
-            { q.length > 0 && <Infinite { ...this._getInfinite() } /> }
+        <div className="maha-attachments-drive">
+          <div className="maha-attachments-drive-search">
+            <Searchbox { ...this._getSearchbox() } />
           </div>
-        </Authorized>
+          { q.length === 0 && <Stack { ...this._getStack() } /> }
+          { q.length > 0 && <Infinite { ...this._getInfinite() } /> }
+        </div>
       </ModalPanel>
     )
   }
@@ -53,14 +51,6 @@ class Files extends React.Component {
       rightItems: [
         { label: 'Done', handler: this.props.onDone }
       ]
-    }
-  }
-
-  _getAuthorized() {
-    const { network } = this.props
-    return {
-      network,
-      image: `/admin/images/${network}.png`
     }
   }
 
@@ -89,7 +79,7 @@ class Files extends React.Component {
   }
 
   _getInfinite() {
-    const { files, network, q, onCreate, onRemoveFile } = this.props
+    const { files, network, q, source, onCreate, onRemoveFile } = this.props
     const empty = {
       icon: 'times-circle',
       title: 'No Results',
@@ -97,7 +87,7 @@ class Files extends React.Component {
     }
     const filter = q.length > 0 ? { q } : null
     return {
-      endpoint: `/api/admin/sources/${network}/files`,
+      endpoint: `/api/admin/profiles/${source.id}/files`,
       filter,
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
@@ -112,10 +102,10 @@ class Files extends React.Component {
   }
 
   _getFolder(folder) {
-    const { files, network, onUp, onChangeFolder, onCreate, onRemoveFile } = this.props
+    const { files, source, onUp, onChangeFolder, onCreate, onRemoveFile } = this.props
     return {
       files,
-      network,
+      source,
       folder,
       onCreate,
       onChangeFolder,

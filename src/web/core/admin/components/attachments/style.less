@@ -95,6 +95,7 @@
   flex: 1;
 }
 .maha-attachments-source {
+  .scrollable();
   display: flex;
   cursor: pointer;
   border-bottom: 1px solid fadeout(@black, 95);
@@ -112,6 +113,9 @@
   .fa-globe {
     color: @green;
   }
+  .fa-plus-circle {
+    color: @black;
+  }
   img {
     width: 1.6em;
     height: 1.6em;
@@ -121,6 +125,10 @@
 .maha-attachments-source-text {
   flex: 1;
   padding: 0.8em 0.8em 0.8em 0;
+  color: fadeout(@black, 40);
+  strong {
+    color: @black;
+  }
 }
 .maha-attachments-source-count {
   flex: 0 0 1.8em;

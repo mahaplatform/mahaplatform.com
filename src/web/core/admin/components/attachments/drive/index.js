@@ -4,7 +4,7 @@ import drive from './drive'
 import * as actions from './actions'
 
 export default Singleton({
-  namespace: 'drive.attachments',
+  namespace: 'maha.attachments_drive',
   component: drive,
   reducer,
   actions

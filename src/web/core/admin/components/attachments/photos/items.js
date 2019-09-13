@@ -6,8 +6,8 @@ class Items extends React.Component {
 
   static propTypes = {
     files: PropTypes.array,
-    network: PropTypes.string,
     records: PropTypes.array,
+    source: PropTypes.object,
     onRemoveFile: PropTypes.func,
     onCreate: PropTypes.func,
     onBack: PropTypes.func,
@@ -21,7 +21,7 @@ class Items extends React.Component {
         { records.map((photo, index) => (
           <div className="maha-attachments-photo" key={`item_${index}`} onClick={ this._handleClick.bind(this, photo) } style={{backgroundImage:`url(${photo.image})`}}>
             <div className="maha-attachments-photo-image">
-              { this._getIcon(photo) }
+              <i className={ `fa fa-fw fa-${this._getIcon(photo)}` } />
             </div>
           </div>
         )) }
@@ -30,20 +30,20 @@ class Items extends React.Component {
   }
 
   _getIcon(photo) {
-    const { network, files } = this.props
-    const file = _.find(files, { id: photo.id, network })
+    const { files, source } = this.props
+    const file = _.find(files, { id: photo.id, network: source.network })
     if(!file) return null
-    return file.asset ? <i className="fa fa-fw fa-check" /> : <i className="fa fa-spin fa-circle-o-notch" />
+    return file.asset ? 'check': 'circle-o-notch'
   }
 
   _handleClick(photo) {
-    const { network, files } = this.props
-    const file = _.find(files, { id: photo.id, network })
+    const { source, files } = this.props
+    const file = _.find(files, { id: photo.id, network: source.network })
     if(file) return this.props.onRemoveFile(file)
-    this.props.onCreate(`/api/admin/sources/${network}/photos`, {
+    this.props.onCreate(`/api/admin/profiles/${source.id}/files`, {
       id: photo.id,
       name: `${photo.id}.jpg`,
-      network,
+      network: source.network,
       content_type: 'image/jpeg',
       thumbnail: photo.image
     })

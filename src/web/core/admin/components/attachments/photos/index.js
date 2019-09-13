@@ -1,7 +1,6 @@
 import Infinite from '../../infinite'
 import Message from '../../message'
 import ModalPanel from '../../modal_panel'
-import Authorized from '../../authorized'
 import PropTypes from 'prop-types'
 import Items from './items'
 import React from 'react'
@@ -9,8 +8,8 @@ import React from 'react'
 class Photos extends React.Component {
 
   static propTypes = {
-    network: PropTypes.string,
     files: PropTypes.array,
+    source: PropTypes.object,
     onAddAsset: PropTypes.func,
     onAddFile: PropTypes.func,
     onBack: PropTypes.func,
@@ -22,9 +21,7 @@ class Photos extends React.Component {
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
-        <Authorized { ...this._getAuthorized() }>
-          <Infinite { ...this._getInfinite() } />
-        </Authorized>
+        <Infinite { ...this._getInfinite() } />
       </ModalPanel>
     )
   }
@@ -41,29 +38,21 @@ class Photos extends React.Component {
     }
   }
 
-  _getAuthorized() {
-    const { network } = this.props
-    return {
-      network,
-      image: `/admin/images/${network}.png`
-    }
-  }
-
   _getInfinite() {
-    const { files, network, onCreate, onRemoveFile } = this.props
+    const { files, source, onCreate, onRemoveFile } = this.props
     const empty = {
       icon: 'times-circle',
       title: 'No Results',
       text: 'There are no files that matched your query'
     }
     return {
-      endpoint: `/api/admin/sources/${network}/photos`,
+      endpoint: `/api/admin/profiles/${source.id}/files`,
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
       layout: Items,
       props: {
         files,
-        network,
+        source,
         onCreate,
         onRemoveFile
       }

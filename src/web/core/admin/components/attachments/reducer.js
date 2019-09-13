@@ -2,6 +2,7 @@ import _ from 'lodash'
 
 export const INITIAL_STATE = {
   active: null,
+  adding: false,
   files: [],
   sources: [],
   status: 'pending'
@@ -10,6 +11,12 @@ export const INITIAL_STATE = {
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
+
+  case 'FETCH_PROFILES_SUCCESS':
+    return {
+      ...state,
+      sources: action.result.data
+    }
 
   case 'SET_SOURCES':
     return {

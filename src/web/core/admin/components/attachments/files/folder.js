@@ -9,8 +9,8 @@ class Folder extends React.Component {
   static propTypes = {
     folder: PropTypes.object,
     files: PropTypes.array,
-    network: PropTypes.string,
     records: PropTypes.array,
+    source: PropTypes.object,
     onAddAsset: PropTypes.func,
     onChangeFolder: PropTypes.func,
     onCreate: PropTypes.func,
@@ -45,7 +45,7 @@ class Folder extends React.Component {
   }
 
   _getInfinite() {
-    const { files, folder, network, onAddAsset, onChangeFolder, onCreate, onRemoveAsset } = this.props
+    const { files, folder, source, onAddAsset, onChangeFolder, onCreate, onRemoveAsset } = this.props
     const $eq = folder.id || 'null'
     const filter = { folder_id: { $eq } }
     const empty = {
@@ -54,14 +54,13 @@ class Folder extends React.Component {
       text: 'There are no items in this folder'
     }
     return {
-      endpoint: `/api/admin/sources/${network}/files`,
+      endpoint: `/api/admin/profiles/${source.id}/files`,
       filter,
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
       layout: Items,
       props: {
         files,
-        network,
         onAddAsset,
         onChangeFolder,
         onCreate,

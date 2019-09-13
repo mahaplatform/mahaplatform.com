@@ -103,7 +103,7 @@
     "firebase-admin": "^6.2.0",
     "flat": "^4.1.0",
     "get-urls": "^7.0.0",
-    "googleapis": "^27.0.0",
+    "googleapis": "^43.0.0",
     "html-email-to-text": "^1.0.4",
     "http-auth": "^3.2.3",
     "immutable": "^3.7.6",

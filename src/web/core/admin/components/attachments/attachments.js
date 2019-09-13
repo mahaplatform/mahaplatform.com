@@ -15,6 +15,7 @@ import Device from './device'
 import Drive from './drive'
 import React from 'react'
 import Url from './url'
+import New from './new'
 import _ from 'lodash'
 
 class Attachments extends React.Component {
@@ -48,6 +49,7 @@ class Attachments extends React.Component {
     onChooseAssets: PropTypes.func,
     onChooseSource: PropTypes.func,
     onCreate: PropTypes.func,
+    onFetchProfiles: PropTypes.func,
     onDone: PropTypes.func,
     onRemoveAsset: PropTypes.func,
     onRemoveFile: PropTypes.func,
@@ -118,19 +120,20 @@ class Attachments extends React.Component {
   }
 
   componentDidMount() {
-    const { networks } = this.props
-    const sources = []
-    const hasDrive = _.findIndex(this.props.apps, { code: 'drive' }) >= 0
-    sources.push({ source: 'device', label: 'Your Device', component: Device })
-    sources.push({ source: 'web', label: 'The Web', component: Url })
-    if(hasDrive) sources.push({ source: 'maha', label: 'Maha Drive', component: Drive })
-    sources.push({ source: 'google', label: 'Google Drive', component: Google })
-    sources.push({ source: 'facebook', label: 'Facebook', component: Facebook })
-    sources.push({ source: 'instagram', label: 'Instagram', component: Instagram })
-    sources.push({ source: 'dropbox', label: 'Dropbox', component: Dropbox })
-    sources.push({ source: 'box', label: 'Box', component: Box })
-    sources.push({ source: 'microsoft', label: 'Microsoft OneDrive', component: Microsoft })
-    this.props.onSetSources(sources.filter(({ source }) => _.includes(networks, source)))
+    this.props.onFetchProfiles()
+    // const { networks } = this.props
+    // const sources = []
+    // const hasDrive = _.findIndex(this.props.apps, { code: 'drive' }) >= 0
+    // sources.push({ source: 'device', label: 'Your Device', component: Device })
+    // sources.push({ source: 'web', label: 'The Web', component: Url })
+    // if(hasDrive) sources.push({ source: 'maha', label: 'Maha Drive', component: Drive })
+    // sources.push({ source: 'google', label: 'Google Drive', component: Google })
+    // sources.push({ source: 'facebook', label: 'Facebook', component: Facebook })
+    // sources.push({ source: 'instagram', label: 'Instagram', component: Instagram })
+    // sources.push({ source: 'dropbox', label: 'Dropbox', component: Dropbox })
+    // sources.push({ source: 'box', label: 'Box', component: Box })
+    // sources.push({ source: 'microsoft', label: 'Microsoft OneDrive', component: Microsoft })
+    // this.props.onSetSources(sources.filter(({ source }) => _.includes(networks, source)))
   }
 
   componentDidUpdate() {
@@ -145,8 +148,20 @@ class Attachments extends React.Component {
     const cards = [
       { component: () => <Sources { ...this._getSources() } /> }
     ]
-    if(source) cards.push({ component: () => <source.component { ...this._getSource() } /> })
+    if(source) {
+      const Component = this._getSourceComponent(source)
+      cards.push({ component: Component, props: this._getSource() })
+    }
     return cards
+  }
+
+  _getSourceComponent(source) {
+    if(source.network === 'google') return Google
+    if(source.network === 'facebook') return Facebook
+    if(source.network === 'instagram') return Instagram
+    if(source.network === 'dropbox') return Dropbox
+    if(source.network === 'box') return Box
+    if(source.network === 'microsoft') return Microsoft
   }
 
   _getSources() {
@@ -156,7 +171,12 @@ class Attachments extends React.Component {
       cancelText,
       counts,
       doneText,
-      sources,
+      sources: [
+        { network: 'device', username: 'Your Device' },
+        { network: 'web', username: 'The Web' },
+        { network: 'maha', username: 'Maha Drive' },
+        ...sources
+      ],
       onCancel: this._handleCancel,
       onDone: this._handleDone,
       onChooseSource: this._handleChooseSource
@@ -164,8 +184,9 @@ class Attachments extends React.Component {
   }
 
   _getSource() {
-    const { files, isReady, multiple, onAddAsset, onAddFile, onCreate, onRemoveFile } = this.props
+    const { files, isReady, multiple, source, onAddAsset, onAddFile, onCreate, onRemoveFile } = this.props
     return {
+      source,
       files,
       isReady,
       multiple,
