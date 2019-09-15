@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
 import Preview from './preview'
-import { types } from './types'
 import Header from './header'
 import React from 'react'
 import _ from 'lodash'
@@ -32,7 +31,7 @@ class Designer extends React.Component {
 
   static defaultProps = {}
 
-  _handleMessage = this._handleMessage.bind(this)
+  pasteur = null
 
   render() {
     return (
@@ -49,7 +48,6 @@ class Designer extends React.Component {
   componentDidMount() {
     const defaultValue = this.props.defaultValue || this._getDefault()
     this.props.onSet(defaultValue)
-    window.addEventListener('message', this._handleMessage, false)
   }
 
   componentDidUpdate(prevProps) {
@@ -57,10 +55,6 @@ class Designer extends React.Component {
     if(!_.isEqual(config, prevProps.config)) {
       this.props.onChange(config)
     }
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('message', this._handleMessage, false)
   }
 
   _getDefault() {
@@ -120,13 +114,17 @@ class Designer extends React.Component {
   }
 
   _getPreview() {
-    const { active, config, deviceIndex, editable, orientationIndex } = this.props
+    const { active, config, deviceIndex, editable, orientationIndex, onAdd, onClone, onEdit, onUpdate } = this.props
     return {
       active,
       config,
       deviceIndex,
       editable,
-      orientationIndex
+      orientationIndex,
+      onAdd,
+      onClone,
+      onEdit,
+      onUpdate
     }
   }
 
@@ -140,35 +138,6 @@ class Designer extends React.Component {
       onEdit,
       onUpdate
     }
-  }
-
-  _handleMessage(e) {
-    const message = e.data
-    if(message.target !== 'designer') return
-    if(message.action === 'add') this._handleAdd(message.data)
-    if(message.action === 'clone') this._handleClone(message.data)
-    if(message.action === 'edit') this._handleEdit(message.data)
-    if(message.action === 'remove') this._handleRemove(message.data)
-  }
-
-  _handleAdd({ section, type, index }) {
-    const content_type = _.find(types, { type })
-    this.props.onAdd(section, index, {
-      type: content_type.type,
-      ...content_type.config
-    })
-  }
-
-  _handleClone({ section, block }) {
-    this.props.onClone(section, block)
-  }
-
-  _handleEdit({ section, block }) {
-    this.props.onEdit(section, block)
-  }
-
-  _handleRemove({ section, block }) {
-    this.props.onRemove(section, block)
   }
 
 }

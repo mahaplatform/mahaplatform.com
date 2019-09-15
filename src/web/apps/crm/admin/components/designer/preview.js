@@ -1,5 +1,7 @@
 import { devices, orientations } from './variables'
 import PropTypes from 'prop-types'
+import { types } from './types'
+import Pasteur from 'pasteur'
 import React from 'react'
 import _ from 'lodash'
 
@@ -13,31 +15,51 @@ class Preview extends React.Component {
     editable: PropTypes.bool,
     deviceIndex: PropTypes.number,
     orientationIndex: PropTypes.number,
-    onChange: PropTypes.func
+    onAdd: PropTypes.func,
+    onChange: PropTypes.func,
+    onClone: PropTypes.func,
+    onEdit: PropTypes.func,
+    onRemove: PropTypes.func
   }
 
   static defaultProps = {}
 
   preview = null
 
-  _handleMessage = this._handleMessage.bind(this)
+  _handleAdd = this._handleAdd.bind(this)
+  _handleClone = this._handleClone.bind(this)
+  _handleEdit = this._handleEdit.bind(this)
+  _handleRemove = this._handleRemove.bind(this)
   _handleRender = _.throttle(this._handleRender.bind(this), 250, { leading: true, trailing: false })
 
-  render() {
+  componentDidMount() {
+    this.pasteur = new Pasteur({
+      window,
+      target: this.preview.contentWindow,
+      name: 'designerComponent',
+      targetName: 'designerCanvas',
+      services: {
+        designer: {
+          add: this._handleAdd,
+          clone: this._handleClone,
+          edit: this._handleEdit,
+          remove: this._handleRemove,
+          ready: this._handleRender
+        }
+      }
+    })
+  }
 
+  componentWillUnmount() {
+    this.pasteur.close()
+  }
+
+  render() {
     return (
       <div className={ this._getClass() }>
         <iframe { ...this._getIframe() } />
       </div>
     )
-  }
-
-  componentDidMount() {
-    window.addEventListener('message', this._handleMessage, false)
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('message', this._handleMessage, false)
   }
 
   componentDidUpdate(prevProps) {
@@ -73,34 +95,30 @@ class Preview extends React.Component {
     }
   }
 
-  _handleMessage(e) {
-    const message = e.data
-    if(message.target !== 'designer') return
-    if(message.action === 'ready') this._handleRender()
-  }
-
   _handleRender() {
     const { config } = this.props
-    this.preview.contentWindow.postMessage({
-      target: 'designer',
-      action: 'update',
-      data: {
-        config
-      }
-    }, '*')
-    // const { active, config, editable } = this.props
-    // const html = ejs.render(template, {
-    //   editable,
-    //   active,
-    //   ...config,
-    //   moment,
-    //   _
-    // })
-    // this.preview.contentWindow.document.open()
-    // this.preview.contentWindow.document.write(html)
-    // this.preview.contentWindow.document.close()
+    this.pasteur.send('designer', 'update', { config })
   }
 
+  _handleAdd({ section, type, index }) {
+    const content_type = _.find(types, { type })
+    this.props.onAdd(section, index, {
+      type: content_type.type,
+      ...content_type.config
+    })
+  }
+
+  _handleClone({ section, block }) {
+    this.props.onClone(section, block)
+  }
+
+  _handleEdit({ section, block }) {
+    this.props.onEdit(section, block)
+  }
+
+  _handleRemove({ section, block }) {
+    this.props.onRemove(section, block)
+  }
 
 }
 

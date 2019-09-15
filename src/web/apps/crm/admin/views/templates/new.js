@@ -10,7 +10,7 @@ class New extends React.Component {
   }
 
   static propTypes = {
-    program_id: PropTypes.number,
+    program_id: PropTypes.string,
     type: PropTypes.string
   }
 

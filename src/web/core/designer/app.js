@@ -2,6 +2,7 @@ import { hot } from 'react-hot-loader'
 import Style from './components/style'
 import Email from './components/email'
 import PropTypes from 'prop-types'
+import Pasteur from 'pasteur'
 import React from 'react'
 
 class App extends React.Component {
@@ -10,12 +11,13 @@ class App extends React.Component {
     config: PropTypes.object
   }
 
-  _handleMessage = this._handleMessage.bind(this)
-  _handleUpdate = this._handleUpdate.bind(this)
+  pasteur = null
 
   state = {
     config: null
   }
+
+  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
     if(!this.state.config) return null
@@ -26,16 +28,22 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    window.addEventListener('message', this._handleMessage, false)
-    window.parent.postMessage({
-      target: 'designer',
-      action: 'ready',
-      data: null
-    }, '*')
+    this.pasteur = new Pasteur({
+      window,
+      target: window.parent,
+      name: 'designerCanvas',
+      targetName: 'designerComponent',
+      services: {
+        designer: {
+          update: this._handleUpdate
+        }
+      }
+    })
+    this.pasteur.send('designer','ready')
   }
 
   componentWillUnmount() {
-    window.removeEventListener('message', this._handleMessage, false)
+    this.pasteur.close()
   }
 
   _getEmail() {
@@ -48,13 +56,8 @@ class App extends React.Component {
     return { config }
   }
 
-  _handleMessage(e) {
-    const message = e.data
-    if(message.target !== 'designer') return
-    if(message.action === 'update') this._handleUpdate(message.data)
-  }
-
   _handleUpdate({ config }) {
+    console.log('updating')
     this.setState({ config })
   }
 
