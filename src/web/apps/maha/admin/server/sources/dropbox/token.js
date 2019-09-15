@@ -6,10 +6,10 @@ const dropbox = new Dropbox.authenticate({
   redirect_uri: `${process.env.WEB_HOST}/admin/dropbox/token`
 })
 
-const token = async (req) => {
+const token = async (code, scope) => {
 
   const data = await new Promise((resolve, reject) => {
-    dropbox.getToken(req.query.code, (err, result, response) => {
+    dropbox.getToken(code, (err, result, response) => {
       if(err) return reject(err)
       resolve(result)
     })

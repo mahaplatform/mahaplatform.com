@@ -7,7 +7,7 @@ const listRoute = async (req, res) => {
     team: req.team
   }).query(qb => {
     qb.where('maha_profiles.user_id', req.user.get('id'))
-    qb.orderByRaw('source_id asc, username asc')
+    qb.orderByRaw('created_at asc')
   }).fetchPage({
     page: req.query.$page,
     withRelated: ['source','photo'],

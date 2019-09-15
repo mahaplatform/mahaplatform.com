@@ -12,15 +12,14 @@ const oauth2 = OAuth2.create({
   }
 })
 
-const authorize = async (req, res) => {
+// scope:'user.read files.read.all'
+const authorize = async (req, { scope, state }) => {
 
   const url = await oauth2.authorizationCode.authorizeURL({
     redirect_uri: `${process.env.WEB_HOST}/admin/microsoft/token`,
-    scope: 'user.read files.read.all',
-    state: req.user.get('id')
+    scope: scope.join(' '),
+    state
   })
-
-  console.log(url)
 
   return url
 

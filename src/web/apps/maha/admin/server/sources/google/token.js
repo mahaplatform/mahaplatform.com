@@ -2,9 +2,9 @@ import { google } from 'googleapis'
 
 const auth = new google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, `${process.env.WEB_HOST}/admin/google/token`)
 
-const token = async (req) => {
+const token = async (code, scope) => {
 
-  const data = await auth.getToken(req.query.code)
+  const data = await auth.getToken(code)
 
   auth.setCredentials(data.tokens)
 

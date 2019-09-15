@@ -6,11 +6,11 @@ const dropbox = new Dropbox.authenticate({
   redirect_uri: `${process.env.WEB_HOST}/admin/dropbox/token`
 })
 
-const authorize = async (req, res) => {
+const authorize = async (req, { scope, state }) => {
 
   const path = await dropbox.generateAuthUrl()
 
-  return `${path}&state=${req.user.get('id')}`
+  return `${path}&state=${state}`
 }
 
 export default authorize

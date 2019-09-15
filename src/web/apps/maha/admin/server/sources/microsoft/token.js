@@ -14,12 +14,12 @@ const oauth2 = OAuth2.create({
   }
 })
 
-const token = async (req) => {
+const token = async (code, scope) => {
 
   let result = await oauth2.authorizationCode.getToken({
     redirect_uri: `${process.env.WEB_HOST}/admin/microsoft/token`,
-    scope: 'user.read files.read.all',
-    code: req.query.code
+    scope: scope.join(' '),
+    code
   })
 
   const data = await oauth2.accessToken.create(result)

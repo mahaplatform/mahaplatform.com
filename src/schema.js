@@ -1136,7 +1136,7 @@ const schema = {
       table.integer('photo_id').unsigned()
       table.string('profile_id', 255)
       table.string('username', 255)
-      table.string('email', 255)
+      table.string('scope', 255)
     })
 
     await knex.schema.createTable('maha_reactions', (table) => {

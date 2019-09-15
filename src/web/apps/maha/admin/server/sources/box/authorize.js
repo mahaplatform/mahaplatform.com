@@ -1,17 +1,15 @@
 import qs from 'qs'
 
-const authorize = async (req, res) => {
+const authorize = async (req, { scope, state }) => {
 
   const query = qs.stringify({
     response_type: 'code',
     client_id: process.env.BOX_CLIENT_ID,
     redirect_uri: `${process.env.WEB_HOST}/admin/box/token`,
-    state: req.user.get('id')
+    state
   })
 
-  const url = `https://account.box.com/api/oauth2/authorize?${query}`
-
-  return url
+  return `https://account.box.com/api/oauth2/authorize?${query}`
 
 }
 

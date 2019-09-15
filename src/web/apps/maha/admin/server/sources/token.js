@@ -1,31 +1,23 @@
 import { createAsset, createAssetFromUrl } from '../../../services/assets'
+import { loadUserFromToken } from '../../../../../core/utils/user_tokens'
 import socket from '../../../../../core/services/emitter'
 import Profile from '../../../models/profile'
 import Source from '../../../models/source'
 import microsoft from './microsoft/token'
 import instagram from './instagram/token'
 import facebook from './facebook/token'
-import User from '../../../models/user'
 import dropbox from './dropbox/token'
 import google from './google/token'
 import box from './box/token'
 
-const getData = async (req, { source }) => {
-
-  if(source === 'facebook') return await facebook(req)
-
-  if(source === 'google') return await google(req)
-
-  if(source === 'microsoft') return await microsoft(req)
-
-  if(source === 'instagram') return await instagram(req)
-
-  if(source === 'dropbox') return await dropbox(req)
-
-  if(source === 'box') return await box(req)
-
+const getProfileCreator = (source) => {
+  if(source === 'facebook') return facebook
+  if(source === 'google') return google
+  if(source === 'microsoft') return microsoft
+  if(source === 'instagram') return instagram
+  if(source === 'dropbox') return dropbox
+  if(source === 'box') return box
   return null
-
 }
 
 const getPhoto = async (req, { source_id, photo_url, photo_data }) => {
@@ -52,17 +44,28 @@ const getPhoto = async (req, { source_id, photo_url, photo_data }) => {
 
 }
 
+const extractState = (state) => {
+  const parts = state.split('|')
+  return parts.reduce((state,part) => {
+    const [key, value] = part.split(':')
+    return {
+      ...state,
+      [key]: value
+    }
+  }, {})
+}
+
 const token = async (req, res) => {
 
-  req.user = await User.query(qb => {
-    qb.where('id', req.query.state)
-  }).fetch({
-    transacting: req.trx
-  })
+  const { scope, token } = extractState(req.query.state)
 
-  const profiles = await getData(req, {
-    source: req.params.source
-  })
+  const { user } = await loadUserFromToken('user_id', token)
+
+  req.user = user
+
+  const profileCreator = getProfileCreator(req.params.source)
+
+  const profiles = await profileCreator(req.query.code, scope.split(','))
 
   if(!profiles) return res.render('token')
 
@@ -97,8 +100,8 @@ const token = async (req, res) => {
       photo_id: photo ? photo.get('id') : null,
       profile_id: data.profile_id,
       username: data.username,
-      email: data.email,
-      data: data.data
+      data: data.data,
+      scope
     }).save(null, {
       transacting: req.trx
     })

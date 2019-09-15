@@ -6,6 +6,7 @@ const AddNameToProfile = {
       table.foreign('photo_id').references('maha_assets.id')
       table.string('profile_id')
       table.string('username')
+      table.string('scope')
     })
   },
 

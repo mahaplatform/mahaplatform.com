@@ -6,12 +6,14 @@ const fb = new Facebook({
   Promise
 })
 
-const authorize = async (req) => {
+// scope: 'user_photos,email,public_profile,pages_show_list'
+
+const authorize = async (req, { scope, state }) => {
 
   return await fb.getLoginUrl({
-    scope: 'user_photos,email,public_profile,pages_show_list',
+    scope: scope.join(','),
     redirect_uri: `${process.env.WEB_HOST}/admin/facebook/token`,
-    state: req.user.get('id')
+    state
   })
 
 }

@@ -1,5 +1,6 @@
 import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
+import Avatar from '../avatar'
 import React from 'react'
 
 class Sources extends React.Component {
@@ -25,9 +26,17 @@ class Sources extends React.Component {
         <div className="maha-attachments-sources">
           { sources.map((source, index) => (
             <div className={ this._getSourceClass(index) } key={`source_${index}`} onClick={ this._handleChooseSource.bind(this, index)}>
-              <div className="maha-attachments-source-logo">
-                <img src={ `/admin/images/${source.network}.png` } />
-              </div>
+              { source.photo ?
+                <div className="maha-attachments-source-logo">
+                  <Avatar user={{ photo: source.photo }} />
+                  <div className="maha-attachments-source-network">
+                    <img src={ `/admin/images/${source.network}.png` } />
+                  </div>
+                </div> :
+                <div className="maha-attachments-source-logo">
+                  <img src={ `/admin/images/${source.network}.png` } />
+                </div>
+              }
               <div className="maha-attachments-source-text">
                 { source.username || source.network }
               </div>

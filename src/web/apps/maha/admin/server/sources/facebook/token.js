@@ -6,13 +6,13 @@ const fb = new Facebook({
   Promise
 })
 
-const token = async (req) => {
+const token = async (code, scope) => {
 
   const data = await fb.api('oauth/access_token', {
     client_id: process.env.FACEBOOK_APP_ID,
     client_secret: process.env.FACEBOOK_APP_SECRET,
     redirect_uri: `${process.env.WEB_HOST}/admin/facebook/token`,
-    code: req.query.code
+    code
   })
 
   fb.setAccessToken(data.access_token)
@@ -30,15 +30,13 @@ const token = async (req) => {
       photo_url: userinfo.picture ? userinfo.picture.data.url : null,
       profile_id: userinfo.id,
       username: userinfo.name,
-      data: data
+      data
     },
     ...pages.data.map(page => ({
       photo_url: page.picture ? page.picture.data.url : null,
       profile_id: page.id,
       username: page.name,
-      data: {
-        access_token: data.access_token
-      }
+      data
     }))
   ]
 

@@ -11,9 +11,9 @@ const authorize_user = Promise.promisify(ig.authorize_user)
 
 const redirect_uri = `${process.env.WEB_HOST}/admin/instagram/token`
 
-const token = async (req) => {
+const token = async (code, scope) => {
 
-  const data = await authorize_user(req.query.code, redirect_uri)
+  const data = await authorize_user(code, redirect_uri)
 
   return [{
     photo_url: data.user.profile_picture,

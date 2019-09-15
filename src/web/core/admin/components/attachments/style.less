@@ -104,7 +104,8 @@
 .maha-attachments-source-logo {
   flex: 0 0 3em;
   display: flex;
-  .fa, img {
+  position: relative;
+  & > .fa, & > img, & > .maha-avatar {
     margin: auto;
   }
   .fa {
@@ -116,10 +117,21 @@
   .fa-plus-circle {
     color: @black;
   }
-  img {
+  & > img, & > .maha-avatar {
     width: 1.6em;
     height: 1.6em;
     display: block;
+  }
+}
+.maha-attachments-source-network {
+  position: absolute;
+  right: 0.5em;
+  bottom: 0.7em;
+  width: 0.8em;
+  height: 0.8em;
+  display: block;
+  img {
+    width: 100%;
   }
 }
 .maha-attachments-source-text {

@@ -34,8 +34,6 @@ const filesRoute = async (req, res) => {
 
   const records = await list(req, profile)
 
-  console.log(records)
-
   res.status(200).respond(records)
 
 }
