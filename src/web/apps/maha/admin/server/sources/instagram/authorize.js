@@ -9,8 +9,6 @@ ig.use({
 
 const redirect_uri = `${process.env.WEB_HOST}/admin/instagram/token`
 
-// scope: 'basic'
-
 const authorize = async (req, { scope, state }) => {
 
   const url = await ig.get_authorization_url(redirect_uri, {

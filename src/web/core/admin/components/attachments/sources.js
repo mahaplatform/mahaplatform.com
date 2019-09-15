@@ -2,6 +2,7 @@ import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
 import Avatar from '../avatar'
 import React from 'react'
+import New from './new'
 
 class Sources extends React.Component {
 
@@ -13,7 +14,8 @@ class Sources extends React.Component {
     sources: PropTypes.array,
     onCancel: PropTypes.func,
     onDone: PropTypes.func,
-    onChooseSource: PropTypes.func
+    onPop: PropTypes.func,
+    onPush: PropTypes.func
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -25,7 +27,7 @@ class Sources extends React.Component {
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-attachments-sources">
           { sources.map((source, index) => (
-            <div className={ this._getSourceClass(index) } key={`source_${index}`} onClick={ this._handleChooseSource.bind(this, index)}>
+            <div className={ this._getSourceClass(index) } key={`source_${index}`} onClick={ this._handleChooseSource.bind(this, source)}>
               { source.photo ?
                 <div className="maha-attachments-source-logo">
                   <Avatar user={{ photo: source.photo }} />
@@ -68,6 +70,12 @@ class Sources extends React.Component {
     )
   }
 
+  _getNew() {
+    return {
+      onBack: this.props.onPop
+    }
+  }
+
   _getPanel() {
     const { cancelText, doneText } = this.props
     return {
@@ -81,6 +89,22 @@ class Sources extends React.Component {
     }
   }
 
+  _getSource(source) {
+    const { files, isReady, multiple, onAddAsset, onAddFile, onCreate, onRemoveFile } = this.props
+    return {
+      source,
+      files,
+      isReady,
+      multiple,
+      onAddAsset,
+      onAddFile,
+      onCreate,
+      onRemoveFile,
+      onBack: this._handleChooseSource,
+      onDone: this._handleDone
+    }
+  }
+
   _getSourceClass(index) {
     const { active } = this.props
     const classes = ['maha-attachments-source']
@@ -88,8 +112,8 @@ class Sources extends React.Component {
     return classes.join(' ')
   }
 
-  _handleChooseSource(index) {
-    this.props.onChooseSource(index)
+  _handleChooseSource(source) {
+    this.props.onPush(source.component, this._getSource(source))
   }
 
   _handleCancel() {
@@ -97,7 +121,7 @@ class Sources extends React.Component {
   }
 
   _handleNew() {
-
+    this.props.onPush(New, this._getNew())
   }
 
 }

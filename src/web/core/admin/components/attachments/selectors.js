@@ -1,16 +1,6 @@
 import { createSelector } from 'reselect'
 
-const sources = (state, props) => state.sources || []
-
-const active = (state, props) => state.active
-
 const files = (state, props) => state.files || []
-
-export const source = createSelector(
-  sources,
-  active,
-  (sources, active) => (active !== null) ? sources[active] : null
-)
 
 export const assets = createSelector(
   files,

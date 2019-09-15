@@ -6,8 +6,6 @@ const fb = new Facebook({
   Promise
 })
 
-// scope: 'user_photos,email,public_profile,pages_show_list'
-
 const authorize = async (req, { scope, state }) => {
 
   return await fb.getLoginUrl({

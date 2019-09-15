@@ -12,9 +12,16 @@ const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
+  case 'FETCH_PROFILES_REQUEST':
+    return {
+      ...state,
+      status: 'loading'
+    }
+
   case 'FETCH_PROFILES_SUCCESS':
     return {
       ...state,
+      status: 'loaded',
       sources: action.result.data
     }
 
@@ -33,7 +40,6 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'ADD_FILE':
     return {
       ...state,
-      status: 'success',
       files: [
         ...state.files,
         action.file
@@ -64,7 +70,6 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'CREATE_SUCCESS':
     return {
       ...state,
-      status: 'success',
       files: state.files.map(file => {
         if(file.id !== action.file.id) return file
         return {

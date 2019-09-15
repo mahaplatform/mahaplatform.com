@@ -12,7 +12,6 @@ const oauth2 = OAuth2.create({
   }
 })
 
-// scope:'user.read files.read.all'
 const authorize = async (req, { scope, state }) => {
 
   const url = await oauth2.authorizationCode.authorizeURL({

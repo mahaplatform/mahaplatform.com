@@ -87,7 +87,7 @@ class Files extends React.Component {
     }
     const filter = q.length > 0 ? { q } : null
     return {
-      endpoint: `/api/admin/profiles/${source.id}/files`,
+      endpoint: source.endpoint,
       filter,
       empty: <Message { ...empty } />,
       notFound: <Message { ...empty } />,
