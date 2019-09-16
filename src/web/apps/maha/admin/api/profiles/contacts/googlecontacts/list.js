@@ -3,12 +3,13 @@ import _ from 'lodash'
 
 const list = async (req, profile) => {
 
-  const people = await getClient(req, profile, 'people')
+  const client = await getClient(req, profile, 'people')
 
   const pageToken = _.get(req, 'query.$page.next')
 
-  const result = await people.people.connections.list({
+  const result = await client.people.connections.list({
     resourceName: 'people/me',
+    sortOrder: 'LAST_NAME_ASCENDING',
     personFields: ['names','emailAddresses','phoneNumbers','addresses','photos','organizations'],
     pageToken,
     pageSize: 100
@@ -17,6 +18,7 @@ const list = async (req, profile) => {
   const records = result.data.connections.filter(contact => {
     return contact.names !== undefined
   }).map(contact => ({
+    id: contact.resourceName.replace('people/',''),
     first_name: contact.names ? contact.names[0].givenName || '' : '',
     last_name: contact.names ? contact.names[0].familyName || '' : '',
     photo: contact.photos ? contact.photos[0].url : null,

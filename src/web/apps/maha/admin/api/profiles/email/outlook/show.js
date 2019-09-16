@@ -2,7 +2,7 @@ import { getClient } from '../../services/microsoft'
 
 const show = async (req, profile) => {
 
-  const outlook = await getClient(req, profile)
+  const client = await getClient(req, profile)
 
 }
 

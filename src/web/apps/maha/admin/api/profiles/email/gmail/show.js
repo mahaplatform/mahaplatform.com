@@ -32,9 +32,9 @@ const getPart = (bodyParts, mimeType) => {
 
 const show = async (req, profile) => {
 
-  const gmail = await getClient(req, profile, 'gmail')
+  const client = await getClient(req, profile, 'gmail')
 
-  const message = await gmail.users.messages.get({
+  const message = await client.users.messages.get({
     format: 'full',
     userId: 'me',
     id: req.params.id

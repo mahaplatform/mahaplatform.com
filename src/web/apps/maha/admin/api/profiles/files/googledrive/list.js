@@ -3,7 +3,7 @@ import _ from 'lodash'
 
 const listRoute = async (req, profile) => {
 
-  const drive = await getClient(req, profile, 'drive')
+  const client = await getClient(req, profile, 'drive')
 
   const folder_id = _.get(req, 'query.$filter.folder_id.$eq')
 
@@ -13,7 +13,7 @@ const listRoute = async (req, profile) => {
 
   const pageToken = _.get(req, 'query.$page.next')
 
-  const result = await drive.files.list({
+  const result = await client.files.list({
     supportsTeamDrives: true,
     includeTeamDriveItems: true,
     pageSize: 100,

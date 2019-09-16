@@ -39,15 +39,15 @@ const _getExt = (type) => {
 
 const createRoute = async (req, profile) => {
 
-  const drive = await getClient(req, profile, 'drive')
+  const client = await getClient(req, profile, 'drive')
 
-  const meta = await Promise.promisify(drive.files.get)({
+  const meta = await client.files.get({
     fileId: req.body.id,
     fields: 'id, name, mimeType, webViewLink'
   })
 
   const _export = async (fileId, mime_type) => {
-    return await Promise.promisify(drive.files.export)({
+    return await client.files.export({
       fileId,
       mimeType: _getMime(mime_type)
     },{
@@ -56,7 +56,7 @@ const createRoute = async (req, profile) => {
   }
 
   const _get = async (fileId) => {
-    return await Promise.promisify(drive.files.get)({
+    return await client.files.get({
       fileId,
       alt: 'media'
     },{

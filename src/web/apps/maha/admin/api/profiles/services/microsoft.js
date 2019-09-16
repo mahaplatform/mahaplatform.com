@@ -17,22 +17,22 @@ export const getClient = async (req, profile) => {
 
   const expiration = new Date(parseFloat(new Date(profile.get('data').expires_at).getTime() - 300000))
 
-  if(expiration <= new Date()) {
-
-    const oauth2 = getOauth2()
-
-    const data = await oauth2.accessToken.create({
-      refresh_token: profile.get('data').refresh_token
-    }).refresh()
-
-    await profile.save({
-      data: data.token
-    }, {
-      patch: true,
-      transacting: req.trx
-    })
-
-  }
+  // if(expiration <= new Date()) {
+  //
+  //   const oauth2 = getOauth2()
+  //
+  //   const data = await oauth2.accessToken.create({
+  //     refresh_token: profile.get('data').refresh_token
+  //   }).refresh()
+  //
+  //   await profile.save({
+  //     data: data.token
+  //   }, {
+  //     patch: true,
+  //     transacting: req.trx
+  //   })
+  //
+  // }
 
   return Client.init({
     authProvider: (done) => done(null, profile.get('data').access_token)
