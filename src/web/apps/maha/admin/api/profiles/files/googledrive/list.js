@@ -1,9 +1,9 @@
-import { getClient } from './utils'
+import { getClient } from '../../services/google'
 import _ from 'lodash'
 
 const listRoute = async (req, profile) => {
 
-  const drive = await getClient(req, profile)
+  const drive = await getClient(req, profile, 'drive')
 
   const folder_id = _.get(req, 'query.$filter.folder_id.$eq')
 

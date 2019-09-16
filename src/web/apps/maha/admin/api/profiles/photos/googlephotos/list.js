@@ -1,5 +1,5 @@
+import { getClient } from '../../services/googlephotos'
 import request from 'request-promise'
-import { getClient } from './utils'
 import _ from 'lodash'
 
 const listRoute = async (req, profile) => {

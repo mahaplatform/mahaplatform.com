@@ -1,4 +1,4 @@
-import { getClient } from './utils'
+import { getClient } from '../../services/instagram'
 import _ from 'lodash'
 
 const listRoute = async (req, profile) => {

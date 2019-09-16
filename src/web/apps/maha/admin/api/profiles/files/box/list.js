@@ -1,4 +1,4 @@
-import { getClient } from './utils'
+import { getClient } from '../../services/box'
 import mime from 'mime-types'
 import path from 'path'
 import _ from 'lodash'

@@ -1,6 +1,6 @@
 import { createAsset } from '../../../../../services/assets'
+import { getClient } from '../../services/google'
 import Source from '../../../../../models/source'
-import { getClient } from './utils'
 import mime from 'mime-types'
 
 const _getMime = (type) => {
@@ -39,7 +39,7 @@ const _getExt = (type) => {
 
 const createRoute = async (req, profile) => {
 
-  const drive = await getClient(req, profile)
+  const drive = await getClient(req, profile, 'drive')
 
   const meta = await Promise.promisify(drive.files.get)({
     fileId: req.body.id,

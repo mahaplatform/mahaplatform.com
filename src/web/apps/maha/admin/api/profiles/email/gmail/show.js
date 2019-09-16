@@ -1,4 +1,4 @@
-import { getClient } from './utils'
+import { getClient } from '../../services/google'
 import _ from 'lodash'
 
 const getBodyParts = (message) => {
@@ -32,7 +32,7 @@ const getPart = (bodyParts, mimeType) => {
 
 const show = async (req, profile) => {
 
-  const gmail = await getClient(req, profile)
+  const gmail = await getClient(req, profile, 'gmail')
 
   const message = await gmail.users.messages.get({
     format: 'full',

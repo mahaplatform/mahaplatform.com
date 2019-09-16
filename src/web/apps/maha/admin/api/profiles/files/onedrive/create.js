@@ -1,8 +1,7 @@
-import AssetSerializer from '../../../../../serializers/asset_serializer'
 import { createAsset } from '../../../../../services/assets'
+import { getClient } from '../../services/microsoft'
 import Source from '../../../../../models/source'
 import request from 'request-promise'
-import { getClient } from './utils'
 
 const createRoute = async (req, profile) => {
 

@@ -1,7 +1,7 @@
 import { createAsset } from '../../../../../services/assets'
+import { getClient } from '../../services/facebook'
 import Source from '../../../../../models/source'
 import request from 'request-promise'
-import { getClient } from './utils'
 
 const createRoute = async (req, profile) => {
 

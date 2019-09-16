@@ -1,6 +1,6 @@
 import { createAsset } from '../../../../../services/assets'
 import Source from '../../../../../models/source'
-import { getClient } from './utils'
+import { getClient } from '../../services/box'
 import request from 'request-promise'
 import mime from 'mime-types'
 import path from 'path'

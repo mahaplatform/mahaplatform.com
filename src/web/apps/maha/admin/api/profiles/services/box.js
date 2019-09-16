@@ -17,13 +17,11 @@ export const getClient = async (req, profile) => {
       data
     }, {
       patch: true,
-      transacting: req.trx 
+      transacting: req.trx
     })
 
   }
 
-  const client = box.getBasicClient(profile.get('data').accessToken)
-
-  return client
+  return box.getBasicClient(profile.get('data').accessToken)
 
 }

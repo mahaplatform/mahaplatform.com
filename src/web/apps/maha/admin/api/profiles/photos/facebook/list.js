@@ -1,4 +1,4 @@
-import { getClient } from './utils'
+import { getClient } from '../../services/facebook'
 import _ from 'lodash'
 
 const listRoute = async (req, profile) => {

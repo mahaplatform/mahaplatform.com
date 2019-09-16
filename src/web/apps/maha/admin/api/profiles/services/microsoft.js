@@ -34,12 +34,8 @@ export const getClient = async (req, profile) => {
 
   }
 
-  const client = Client.init({
+  return Client.init({
     authProvider: (done) => done(null, profile.get('data').access_token)
   })
-
-  console.log()
-
-  return client
 
 }

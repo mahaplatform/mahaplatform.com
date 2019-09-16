@@ -1,9 +1,9 @@
-import { getClient } from './utils'
+import { getClient } from '../../services/google'
 import _ from 'lodash'
 
 const list = (type) => async (req, profile) => {
 
-  const gmail = await getClient(req, profile)
+  const gmail = await getClient(req, profile, 'gmail')
 
   const pageToken = _.get(req, 'query.$page.next')
 

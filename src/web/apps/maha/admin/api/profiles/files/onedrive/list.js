@@ -1,4 +1,4 @@
-import { getClient } from './utils'
+import { getClient } from '../../services/microsoft'
 import _ from 'lodash'
 
 const listRoute = async (req, profile) => {

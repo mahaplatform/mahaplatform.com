@@ -1,4 +1,4 @@
-import { getClient } from './utils'
+import { getClient } from '../../services/dropbox'
 import mime from 'mime-types'
 import path from 'path'
 import _ from 'lodash'
