@@ -30,6 +30,6 @@ export const counts = createSelector(
   files,
   (files) => files.reduce((counts, file) => ({
     ...counts,
-    [file.network]: (counts[file.network] || 0) + 1
+    [file.service]: (counts[file.service] || 0) + 1
   }), {})
 )

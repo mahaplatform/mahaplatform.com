@@ -7,31 +7,34 @@ import google from './google/authorize'
 import box from './box/authorize'
 import _ from 'lodash'
 
-const getUrlCreator = (source) => {
-  if(source === 'facebook') return facebook
-  if(source === 'googledrive') return google
-  if(source === 'googlephotos') return google
-  if(source === 'googlecontacts') return google
-  if(source === 'onedrive') return microsoft
-  if(source === 'instagram') return instagram
-  if(source === 'dropbox') return dropbox
-  if(source === 'box') return box
+const getUrlCreator = (service) => {
+  if(_.includes(['googledrive','googlephotos','googlecontacts','gmail'], service)) return google
+  if(_.includes(['outlookcontacts','outlook','onedrive'], service)) return microsoft
+  if(service === 'facebook') return facebook
+  if(service === 'instagram') return instagram
+  if(service === 'dropbox') return dropbox
+  if(service === 'box') return box
   return null
 }
 
-const getType = (source) => {
-  if(_.includes(['googledrive','onedrive','dropbox','box'], source)) return 'files'
-  if(_.includes(['facebook','googlephotos','instagram'], source)) return 'photos'
-  if(_.includes(['googlecontacts'], source)) return 'contacts'
+const getType = (service) => {
+  if(_.includes(['googledrive','onedrive','dropbox','box'], service)) return 'files'
+  if(_.includes(['facebook','googlephotos','instagram'], service)) return 'photos'
+  if(_.includes(['googlecontacts','outlookcontacts'], service)) return 'contacts'
+  if(_.includes(['gmail','outlook'], service)) return 'email'
   return null
 }
 
-const getScope = (source) => {
-  if(source === 'facebook') return ['user_photos','public_profile','pages_show_list']
-  if(source === 'googledrive') return ['userinfo.profile','userinfo.email','drive.readonly','drive.photos.readonly']
-  if(source === 'googlephotos') return ['userinfo.profile','userinfo.email','photoslibrary.readonly']
-  if(source === 'onedrive') return ['user.read','files.read.all']
-  if(source === 'instagram') return ['basic']
+const getScope = (service) => {
+  if(service === 'facebook') return ['user_photos','public_profile','pages_show_list']
+  if(service === 'googledrive') return ['userinfo.profile','userinfo.email','drive.readonly','drive.photos.readonly']
+  if(service === 'googlephotos') return ['userinfo.profile','userinfo.email','photoslibrary.readonly']
+  if(service === 'googlecontacts') return ['userinfo.profile','userinfo.email','contacts.readonly']
+  if(service === 'gmail') return ['userinfo.profile','userinfo.email','gmail.readonly']
+  if(service === 'outlookcontacts') return ['user.read','contacts.read']
+  if(service === 'onedrive') return ['user.read','files.read.all']
+  if(service === 'outlook') return ['user.read','mail.read']
+  if(service === 'instagram') return ['basic']
   return []
 }
 
@@ -40,8 +43,6 @@ const authorize = async (req, res) => {
   const { user } = await loadUserFromToken('user_id', req.query.token)
 
   req.user = user
-
-  const urlCreator = getUrlCreator(req.params.source)
 
   const type = getType(req.params.source)
 
@@ -53,6 +54,10 @@ const authorize = async (req, res) => {
     `token:${req.query.token}`,
     `type:${type}`
   ].join('|')
+
+  console.log(state)
+
+  const urlCreator = getUrlCreator(req.params.source)
 
   const url = await urlCreator(req, { scope, state })
 

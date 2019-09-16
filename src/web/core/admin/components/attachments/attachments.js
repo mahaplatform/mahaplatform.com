@@ -89,7 +89,7 @@ class Attachments extends React.Component {
                        <i className="fa fa-times" onClick={ this._handleRemoveFile.bind(this, file) } /> :
                        <i className="fa fa-spin fa-circle-o-notch" />
                      }
-                     <img src={ `/admin/images/${file.network}.png` } />
+                     <img src={ `/admin/images/${file.service}.png` } />
                    </div>
                  </div>
                )) }
@@ -153,8 +153,8 @@ class Attachments extends React.Component {
     }
   }
 
-  _getSourceComponent(network) {
-    if(_.includes(['facebook','instagram','googlephotos'], network)) return Photos
+  _getSourceComponent(service) {
+    if(_.includes(['facebook','instagram','googlephotos'], service)) return Photos
     return Files
   }
 
@@ -167,12 +167,12 @@ class Attachments extends React.Component {
       counts,
       doneText,
       sources: [
-        { network: 'device', username: 'Your Device', component: Device },
-        { network: 'web', username: 'The Web', component: Url },
-        { network: 'maha', username: 'Maha Drive', component: Drive },
+        { service: 'device', username: 'Your Device', component: Device },
+        { service: 'web', username: 'The Web', component: Url },
+        { service: 'maha', username: 'Maha Drive', component: Drive },
         ...sources.map(source => ({
           ...source,
-          component: this._getSourceComponent(source.network)
+          component: this._getSourceComponent(source.service)
         }))
       ],
       onCancel: this._handleCancel,

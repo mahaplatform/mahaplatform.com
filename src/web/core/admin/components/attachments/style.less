@@ -105,7 +105,7 @@
   flex: 0 0 3em;
   display: flex;
   position: relative;
-  & > .fa, & > img, & > .maha-avatar {
+  & > .fa, & > img {
     margin: auto;
   }
   .fa {
@@ -117,24 +117,10 @@
   .fa-plus-circle {
     color: @red;
   }
-  & > img, & > .maha-avatar {
+  & > img {
     width: 1.6em;
     height: 1.6em;
     display: block;
-  }
-}
-.maha-attachments-source-network {
-  position: absolute;
-  right: 0.3em;
-  bottom: 0.4em;
-  width: 0.8em;
-  height: 0.8em;
-  display: block;
-  border-radius: 0.4em;
-  overflow: hidden;
-  img {
-    display: block;
-    width: 100%;
   }
 }
 .maha-attachments-source-favicon {
@@ -146,6 +132,13 @@
   display: block;
   img {
     width: 100%;
+  }
+  &.outlook,
+  &.googledrive,
+  &.googlecontacts,
+  &.googlephotos,
+  &.onedrive {
+    border: 1px solid fadeout(@black, 90);
   }
 }
 .maha-attachments-source-text {

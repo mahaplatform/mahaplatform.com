@@ -1,15 +1,13 @@
 import Profile from '../../../../models/profile'
-import instagram from './instagram/list'
-import facebook from './facebook/list'
-import googlephotos from './googlephotos/list'
+import outlook from './outlook/list'
+import gmail from './gmail/list'
 
-const getList = (service) => {
-  if(service === 'googlephotos') return googlephotos
-  if(service === 'instagram') return instagram
-  if(service === 'facebook') return facebook
+const getList = (service, type) => {
+  if(service === 'outlook') return outlook(type)
+  if(service === 'gmail') return gmail(type)
 }
 
-const filesRoute = async (req, res) => {
+const listRoute = (type) => async (req, res) => {
 
   const profile = await Profile.scope({
     team: req.team
@@ -25,7 +23,7 @@ const filesRoute = async (req, res) => {
     message: 'Unable to find profile'
   })
 
-  const list = getList(profile.related('source').get('text'))
+  const list = getList(profile.related('source').get('text'), type)
 
   const records = await list(req, profile)
 
@@ -33,4 +31,4 @@ const filesRoute = async (req, res) => {
 
 }
 
-export default filesRoute
+export default listRoute

@@ -158,7 +158,7 @@ class Web extends React.Component {
     onAddFile({
       id: url,
       name: url,
-      network: 'web',
+      service: 'web',
       content_type: 'image/jpeg',
       thumbnail: url
     })

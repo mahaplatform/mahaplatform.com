@@ -7,7 +7,7 @@ class Items extends React.Component {
 
   static propTypes = {
     files: PropTypes.array,
-    network: PropTypes.string,
+    service: PropTypes.string,
     records: PropTypes.array,
     onChangeFolder: PropTypes.func,
     onCreate: PropTypes.func,
@@ -46,9 +46,9 @@ class Items extends React.Component {
 
 
   _getIcon(item) {
-    const { network, files } = this.props
+    const { service, files } = this.props
     if(item.type === 'folder') return <i className="fa fa-fw fa-chevron-right" />
-    const file = _.find(files, { id: item.id, network })
+    const file = _.find(files, { id: item.id, service })
     if(!file) return null
     return file.asset ? <i className="fa fa-fw fa-check" /> : <i className="fa fa-fw fa-spin fa-refresh" />
   }
@@ -60,13 +60,13 @@ class Items extends React.Component {
   }
 
   _handleChooseFile(item) {
-    const { network, files, onRemoveFile } = this.props
-    const file = _.find(files, { id: item.id, network })
+    const { service, files, onRemoveFile } = this.props
+    const file = _.find(files, { id: item.id, service })
     if(file) return onRemoveFile(file)
-    this.props.onCreate(`/api/admin/sources/${network}/files`, {
+    this.props.onCreate(`/api/admin/sources/${service}/files`, {
       id: item.id,
       name: item.name,
-      network,
+      service,
       thumbnail: item.thumbnail,
       content_type: item.content_type
     })

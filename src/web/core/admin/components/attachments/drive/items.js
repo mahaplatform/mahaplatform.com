@@ -31,7 +31,7 @@ class Items extends React.Component {
               { item.label }
             </div>
             <div className="maha-attachments-drive-item-action">
-              { item.asset && _.findIndex(files, { network: 'maha', id: item.asset.id }) >= 0 &&
+              { item.asset && _.findIndex(files, { service: 'maha', id: item.asset.id }) >= 0 &&
                 <i className="fa fa-fw fa-check" />
               }
               { item.type === 'folder' &&
@@ -52,7 +52,7 @@ class Items extends React.Component {
 
   _handleChooseAsset(asset) {
     const { files, onAddAsset, onRemoveAsset } = this.props
-    const index = _.findIndex(files, { id: asset.id, network: 'maha' })
+    const index = _.findIndex(files, { id: asset.id, service: 'maha' })
     if(index < 0) return onAddAsset(asset)
     onRemoveAsset(asset)
   }

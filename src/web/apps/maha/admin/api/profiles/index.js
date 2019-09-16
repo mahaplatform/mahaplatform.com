@@ -1,7 +1,9 @@
+import contacts from './contacts'
 import { Router } from 'express'
 import destroy from './destroy'
 import photos from './photos'
 import files from './files'
+import email from './email'
 import list from './list'
 import show from './show'
 
@@ -13,8 +15,12 @@ router.get('/:id', show)
 
 router.delete('/:id', destroy)
 
-router.use('/:id/files', files)
+router.use('/:profile_id/contacts', contacts)
 
-router.use('/:id/photos', photos)
+router.use('/:profile_id/email', email)
+
+router.use('/:profile_id/files', files)
+
+router.use('/:profile_id/photos', photos)
 
 export default router

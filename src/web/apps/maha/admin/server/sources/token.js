@@ -10,13 +10,13 @@ import dropbox from './dropbox/token'
 import google from './google/token'
 import box from './box/token'
 
-const getProfileCreator = (source) => {
-  if(source === 'facebook') return facebook
-  if(source === 'google') return google
-  if(source === 'microsoft') return microsoft
-  if(source === 'instagram') return instagram
-  if(source === 'dropbox') return dropbox
-  if(source === 'box') return box
+const getProfileCreator = (service) => {
+  if(service === 'facebook') return facebook
+  if(service === 'google') return google
+  if(service === 'microsoft') return microsoft
+  if(service === 'instagram') return instagram
+  if(service === 'dropbox') return dropbox
+  if(service === 'box') return box
   return null
 }
 

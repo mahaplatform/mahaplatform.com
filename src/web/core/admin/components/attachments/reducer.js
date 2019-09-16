@@ -77,7 +77,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     }
 
   case 'REMOVE_FILE':
-    const fileIndex = _.findIndex(state.files, { id: action.file.id, network: action.file.network })
+    const fileIndex = _.findIndex(state.files, { id: action.file.id, service: action.file.service })
     return {
       ...state,
       files: [

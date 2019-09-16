@@ -1,15 +1,13 @@
 import Profile from '../../../../models/profile'
-import instagram from './instagram/list'
-import facebook from './facebook/list'
-import googlephotos from './googlephotos/list'
+import outlookcontacts from './outlookcontacts/list'
+import googlecontacts from './googlecontacts/list'
 
 const getList = (service) => {
-  if(service === 'googlephotos') return googlephotos
-  if(service === 'instagram') return instagram
-  if(service === 'facebook') return facebook
+  if(service === 'outlookcontacts') return outlookcontacts
+  if(service === 'googlecontacts') return googlecontacts
 }
 
-const filesRoute = async (req, res) => {
+const listRoute = async (req, res) => {
 
   const profile = await Profile.scope({
     team: req.team
@@ -33,4 +31,4 @@ const filesRoute = async (req, res) => {
 
 }
 
-export default filesRoute
+export default listRoute

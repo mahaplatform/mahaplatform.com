@@ -120,7 +120,7 @@ class Drive extends React.Component {
     onAddFile({
       id: asset.id,
       name: asset.original_file_name,
-      network: 'maha',
+      service: 'maha',
       content_type: asset.content_type,
       asset,
       thumbnail: asset.content_type.match(/image/) ? asset.signed_url : null
@@ -131,7 +131,7 @@ class Drive extends React.Component {
     const { onRemoveFile } = this.props
     onRemoveFile({
       id: asset.id,
-      network: 'maha'
+      service: 'maha'
     })
   }
 

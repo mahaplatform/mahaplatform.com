@@ -82,7 +82,7 @@ class Device extends React.Component {
     onAddFile({
       id: asset.id,
       name: asset.original_file_name,
-      network: 'device',
+      service: 'device',
       content_type: asset.content_type,
       thumbnail: asset.content_type.match(/image/) ? asset.signed_url : null,
       asset

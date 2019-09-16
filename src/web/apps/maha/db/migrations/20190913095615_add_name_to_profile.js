@@ -6,7 +6,10 @@ const AddNameToProfile = {
     await knex('maha_sources').insert([
       { text: 'googlephotos' },
       { text: 'googlecontacts' },
-      { text: 'onedrive' }
+      { text: 'onedrive' },
+      { text: 'outlookcontacts' },
+      { text: 'outlook' },
+      { text: 'gmail' }
     ])
 
     await knex.schema.dropTable('maha_profiles')
@@ -23,7 +26,7 @@ const AddNameToProfile = {
       table.foreign('photo_id').references('maha_assets.id')
       table.string('profile_id')
       table.string('username')
-      table.enum('type', ['files','photos','contacts'], { useNative: true, enumName: 'maha_profiles_type' })
+      table.enum('type', ['files','photos','contacts','email'], { useNative: true, enumName: 'maha_profiles_type' })
       table.jsonb('data')
       table.timestamps()
     })

@@ -1,14 +1,13 @@
 import AssetSerializer from '../../../../serializers/asset_serializer'
 import Profile from '../../../../models/profile'
+import googlephotos from './googlephotos/create'
 import instagram from './instagram/create'
 import facebook from './facebook/create'
-import google from './google/create'
 
-const create = async (req, profile) => {
-  const network = profile.related('source').get('text')
-  if(network === 'facebook') return facebook(req, profile)
-  if(network === 'google') return await google(req, profile)
-  if(network === 'instagram') return await instagram(req, profile)
+const getCreate = async (service) => {
+  if(service === 'googlephotos') return googlephotos
+  if(service === 'instagram') return instagram
+  if(service === 'facebook') return facebook
 }
 
 const filesRoute = async (req, res) => {
@@ -16,7 +15,7 @@ const filesRoute = async (req, res) => {
   const profile = await Profile.scope({
     team: req.team
   }).query(qb => {
-    qb.where('id', req.params.id )
+    qb.where('id', req.params.profile_id )
   }).fetch({
     withRelated: ['source'],
     transacting: req.trx
@@ -26,6 +25,8 @@ const filesRoute = async (req, res) => {
     code: 404,
     message: 'Unable to find profile'
   })
+
+  const create = getCreate(profile.related('source').get('text'))
 
   const asset = await create(req, profile)
 

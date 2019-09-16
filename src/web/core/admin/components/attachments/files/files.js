@@ -13,7 +13,7 @@ class Files extends React.Component {
   static propTypes = {
     files: PropTypes.array,
     folders: PropTypes.array,
-    network: PropTypes.string,
+    service: PropTypes.string,
     q: PropTypes.string,
     source: PropTypes.object,
     onAddAsset: PropTypes.func,
@@ -79,7 +79,7 @@ class Files extends React.Component {
   }
 
   _getInfinite() {
-    const { files, network, q, source, onCreate, onRemoveFile } = this.props
+    const { files, service, q, source, onCreate, onRemoveFile } = this.props
     const empty = {
       icon: 'times-circle',
       title: 'No Results',
@@ -94,7 +94,7 @@ class Files extends React.Component {
       layout: Items,
       props: {
         files,
-        network,
+        service,
         onCreate,
         onRemoveFile
       }
