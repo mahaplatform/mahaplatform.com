@@ -7,18 +7,15 @@ export const fetchProfiles = (url) => ({
   failure: 'FETCH_PROFILES_FAILURE'
 })
 
-export const addSource = () => ({
-  type: 'ADD_SOURCE'
-})
-
-export const setSources = (sources) => ({
-  type: 'SET_SOURCES',
-  sources
-})
-
-export const chooseSource = (index) => ({
-  type: 'CHOOSE_SOURCE',
-  index
+export const create = (endpoint, file) => ({
+  type: 'API_REQUEST',
+  method: 'POST',
+  endpoint,
+  body: { id: file.id },
+  meta: { file },
+  request: 'CREATE_REQUEST',
+  success: 'CREATE_SUCCESS',
+  failure: 'CREATE_FAILURE'
 })
 
 export const addFile = (file) => ({
@@ -40,15 +37,4 @@ export const removeFile = (file) => ({
 export const removeAsset = (asset) => ({
   type: 'REMOVE_ASSET',
   asset
-})
-
-export const create = (endpoint, file) => ({
-  type: 'API_REQUEST',
-  method: 'POST',
-  endpoint,
-  body: { id: file.id },
-  meta: { file },
-  request: 'CREATE_REQUEST',
-  success: 'CREATE_SUCCESS',
-  failure: 'CREATE_FAILURE'
 })

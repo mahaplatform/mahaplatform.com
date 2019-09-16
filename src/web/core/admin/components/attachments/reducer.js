@@ -1,7 +1,6 @@
 import _ from 'lodash'
 
 export const INITIAL_STATE = {
-  active: null,
   adding: false,
   files: [],
   sources: [],
@@ -23,18 +22,6 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       status: 'loaded',
       sources: action.result.data
-    }
-
-  case 'SET_SOURCES':
-    return {
-      ...state,
-      sources: action.sources
-    }
-
-  case 'CHOOSE_SOURCE':
-    return {
-      ...state,
-      active: action.index
     }
 
   case 'ADD_FILE':

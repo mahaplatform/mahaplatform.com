@@ -1129,14 +1129,14 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('user_id').unsigned()
-      table.jsonb('data')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
       table.integer('source_id').unsigned()
       table.integer('photo_id').unsigned()
       table.string('profile_id', 255)
       table.string('username', 255)
-      table.string('scope', 255)
+      table.USER-DEFINED('type')
+      table.jsonb('data')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
     })
 
     await knex.schema.createTable('maha_reactions', (table) => {
@@ -1837,13 +1837,6 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('maha_profiles', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('photo_id').references('maha_assets.id')
-      table.foreign('source_id').references('maha_sources.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
     await knex.schema.table('maha_reactions', table => {
       table.foreign('user_id').references('maha_users.id')
       table.foreign('team_id').references('maha_teams.id')
@@ -1934,6 +1927,13 @@ const schema = {
       table.foreign('group_id').references('maha_groups.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('program_id').references('crm_programs.id')
+    })
+
+    await knex.schema.table('maha_profiles', table => {
+      table.foreign('user_id').references('maha_users.id')
+      table.foreign('photo_id').references('maha_assets.id')
+      table.foreign('source_id').references('maha_sources.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('eatfresh_attractions', table => {

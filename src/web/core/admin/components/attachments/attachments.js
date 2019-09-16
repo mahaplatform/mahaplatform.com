@@ -1,21 +1,18 @@
 import { CSSTransition } from 'react-transition-group'
-import Instagram from './networks/instagram'
-import Microsoft from './networks/microsoft'
-import Facebook from './networks/facebook'
-import Dropbox from './networks/dropbox'
-import Google from './networks/google'
 import { connect } from 'react-redux'
 import AssetIcon from '../asset/icon'
 import Stack from '../stack/stack'
 import Uploader from '../uploader'
 import PropTypes from 'prop-types'
-import Box from './networks/box'
 import Sources from './sources'
 import Loader from '../loader'
 import Device from './device'
+import Photos from './photos'
+import Files from './files'
 import Drive from './drive'
 import React from 'react'
 import Url from './url'
+import _ from 'lodash'
 
 class Attachments extends React.Component {
 
@@ -28,7 +25,6 @@ class Attachments extends React.Component {
   static propTypes = {
     apps: PropTypes.array,
     assets: PropTypes.array,
-    active: PropTypes.number,
     cancelText: PropTypes.any,
     cards: PropTypes.array,
     counts: PropTypes.object,
@@ -46,7 +42,6 @@ class Attachments extends React.Component {
     onAddFile: PropTypes.func,
     onCancel: PropTypes.func,
     onChooseAssets: PropTypes.func,
-    onChooseSource: PropTypes.func,
     onCreate: PropTypes.func,
     onFetchProfiles: PropTypes.func,
     onDone: PropTypes.func,
@@ -70,7 +65,6 @@ class Attachments extends React.Component {
 
   _handleCancel = this._handleCancel.bind(this)
   _handleDone = this._handleDone.bind(this)
-  _handleChooseSource = this._handleChooseSource.bind(this)
   _handleFetchProfiles = this._handleFetchProfiles.bind(this)
   _handlePush = this._handlePush.bind(this)
   _handlePop = this._handlePop.bind(this)
@@ -82,7 +76,7 @@ class Attachments extends React.Component {
     return (
       <div className="maha-attachments">
         <Uploader>
-          <Stack cards={ this._getCards() } />
+          <Stack { ...this._getStack() } />
         </Uploader>
         <CSSTransition in={ files.length > 0 } classNames="expanded" timeout={ 150 } mountOnEnter={ true } unmountOnExit={ true }>
           <div className="maha-attachments-summary">
@@ -127,7 +121,6 @@ class Attachments extends React.Component {
     )
   }
 
-
   componentDidMount() {
     this._handleJoin()
     this._handleFetchProfiles()
@@ -152,32 +145,24 @@ class Attachments extends React.Component {
     this._handleLeave()
   }
 
-  _getCards() {
-    // const { active, sources } = this.props
-    // const cards = [
-    //   { component: () => <Sources { ...this._getSources() } /> }
-    // ]
-    // if(active !== null) {
-    //   const source = sources[active]
-    //   console.log(source)
-    //   cards.push({ component: source.component, props: this._getSource(source) })
-    // }
-    return this.state.cards
+  _getStack() {
+    const { cards } = this.state
+    return {
+      cards,
+      slideFirst: false
+    }
   }
 
-  _getSourceComponent(source) {
-    if(source.network === 'google') return Google
-    if(source.network === 'facebook') return Facebook
-    if(source.network === 'instagram') return Instagram
-    if(source.network === 'dropbox') return Dropbox
-    if(source.network === 'box') return Box
-    if(source.network === 'microsoft') return Microsoft
+  _getSourceComponent(network) {
+    if(_.includes(['facebook','instagram','googlephotos'], network)) return Photos
+    return Files
   }
 
   _getSources() {
-    const { active, cancelText, counts, doneText, sources } = this.props
+    const { files, isReady, multiple, onAddAsset, onAddFile, onCreate, onRemoveFile } = this.props
+    const { cancelText, counts, doneText, sources } = this.props
     return {
-      active,
+      files, isReady, multiple, onAddAsset, onAddFile, onCreate, onRemoveFile,
       cancelText,
       counts,
       doneText,
@@ -186,11 +171,8 @@ class Attachments extends React.Component {
         { network: 'web', username: 'The Web', component: Url },
         { network: 'maha', username: 'Maha Drive', component: Drive },
         ...sources.map(source => ({
-          network: source.network,
-          username: source.username,
-          photo: source.photo,
-          component: this._getSourceComponent(source.network),
-          endpoint: `/api/admin/profiles/${source.id}/files`
+          ...source,
+          component: this._getSourceComponent(source.network)
         }))
       ],
       onCancel: this._handleCancel,
@@ -200,37 +182,10 @@ class Attachments extends React.Component {
     }
   }
 
-  _getSource(source) {
-    const { files, isReady, multiple, onAddAsset, onAddFile, onCreate, onRemoveFile } = this.props
-    return {
-      source,
-      files,
-      isReady,
-      multiple,
-      onAddAsset,
-      onAddFile,
-      onCreate,
-      onRemoveFile,
-      onBack: this._handleChooseSource,
-      onDone: this._handleDone
-    }
-  }
-
-  _getSourceClass(index) {
-    const { active } = this.props
-    const classes = ['maha-attachments-source']
-    if(index === active) classes.push('active')
-    return classes.join(' ')
-  }
-
   _handleCancel() {
     const { onCancel } = this.props
     if(onCancel) return onCancel()
     this.context.modal.pop()
-  }
-
-  _handleChooseSource(index) {
-    this.props.onChooseSource(index)
   }
 
   _handleDone() {

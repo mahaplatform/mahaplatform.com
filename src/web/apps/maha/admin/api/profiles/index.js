@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import destroy from './destroy'
+import photos from './photos'
 import files from './files'
 import list from './list'
 import show from './show'
@@ -13,5 +14,7 @@ router.get('/:id', show)
 router.delete('/:id', destroy)
 
 router.use('/:id/files', files)
+
+router.use('/:id/photos', photos)
 
 export default router

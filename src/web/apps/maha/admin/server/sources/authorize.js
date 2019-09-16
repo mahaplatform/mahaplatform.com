@@ -5,15 +5,34 @@ import facebook from './facebook/authorize'
 import dropbox from './dropbox/authorize'
 import google from './google/authorize'
 import box from './box/authorize'
+import _ from 'lodash'
 
 const getUrlCreator = (source) => {
   if(source === 'facebook') return facebook
-  if(source === 'google') return google
-  if(source === 'microsoft') return microsoft
+  if(source === 'googledrive') return google
+  if(source === 'googlephotos') return google
+  if(source === 'googlecontacts') return google
+  if(source === 'onedrive') return microsoft
   if(source === 'instagram') return instagram
   if(source === 'dropbox') return dropbox
   if(source === 'box') return box
   return null
+}
+
+const getType = (source) => {
+  if(_.includes(['googledrive','onedrive','dropbox','box'], source)) return 'files'
+  if(_.includes(['facebook','googlephotos','instagram'], source)) return 'photos'
+  if(_.includes(['googlecontacts'], source)) return 'contacts'
+  return null
+}
+
+const getScope = (source) => {
+  if(source === 'facebook') return ['user_photos','public_profile','pages_show_list']
+  if(source === 'googledrive') return ['userinfo.profile','userinfo.email','drive.readonly','drive.photos.readonly']
+  if(source === 'googlephotos') return ['userinfo.profile','userinfo.email','photoslibrary.readonly']
+  if(source === 'onedrive') return ['user.read','files.read.all']
+  if(source === 'instagram') return ['basic']
+  return []
 }
 
 const authorize = async (req, res) => {
@@ -22,11 +41,18 @@ const authorize = async (req, res) => {
 
   req.user = user
 
-  const urlCreator = await getUrlCreator(req.params.source)
+  const urlCreator = getUrlCreator(req.params.source)
 
-  const scope = req.query.scope ? req.query.scope.split(',') : []
+  const type = getType(req.params.source)
 
-  const state = `token:${req.query.token}|scope:${scope.join(',')}`
+  const scope = getScope(req.params.source)
+
+  const state = [
+    `scope:${scope.join(',')}`,
+    `source:${req.params.source}`,
+    `token:${req.query.token}`,
+    `type:${type}`
+  ].join('|')
 
   const url = await urlCreator(req, { scope, state })
 

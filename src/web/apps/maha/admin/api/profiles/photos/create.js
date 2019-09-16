@@ -1,16 +1,14 @@
 import AssetSerializer from '../../../../serializers/asset_serializer'
 import Profile from '../../../../models/profile'
-import microsoft from './microsoft/create'
-import dropbox from './dropbox/create'
+import instagram from './instagram/create'
+import facebook from './facebook/create'
 import google from './google/create'
-import box from './box/create'
 
 const create = async (req, profile) => {
   const network = profile.related('source').get('text')
+  if(network === 'facebook') return facebook(req, profile)
   if(network === 'google') return await google(req, profile)
-  if(network === 'microsoft') return await microsoft(req, profile)
-  if(network === 'dropbox') return await dropbox(req, profile)
-  if(network === 'box') return await box(req, profile)
+  if(network === 'instagram') return await instagram(req, profile)
 }
 
 const filesRoute = async (req, res) => {

@@ -7,7 +7,6 @@ import New from './new'
 class Sources extends React.Component {
 
   static propTypes = {
-    active: PropTypes.number,
     cancelText: PropTypes.any,
     doneText: PropTypes.string,
     counts: PropTypes.object,
@@ -18,6 +17,7 @@ class Sources extends React.Component {
     onPush: PropTypes.func
   }
 
+  _handleBack = this._handleBack.bind(this)
   _handleCancel = this._handleCancel.bind(this)
   _handleNew = this._handleNew.bind(this)
 
@@ -27,16 +27,16 @@ class Sources extends React.Component {
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-attachments-sources">
           { sources.map((source, index) => (
-            <div className={ this._getSourceClass(index) } key={`source_${index}`} onClick={ this._handleChooseSource.bind(this, source)}>
+            <div className="maha-attachments-source" key={`source_${index}`} onClick={ this._handleChooseSource.bind(this, source)}>
               { source.photo ?
                 <div className="maha-attachments-source-logo">
                   <Avatar user={{ photo: source.photo }} />
                   <div className="maha-attachments-source-network">
-                    <img src={ `/admin/images/${source.network}.png` } />
+                    <img src={ `/admin/images/services/${source.network}.png` } />
                   </div>
                 </div> :
                 <div className="maha-attachments-source-logo">
-                  <img src={ `/admin/images/${source.network}.png` } />
+                  <img src={ `/admin/images/services/${source.network}.png` } />
                 </div>
               }
               <div className="maha-attachments-source-text">
@@ -72,7 +72,7 @@ class Sources extends React.Component {
 
   _getNew() {
     return {
-      onBack: this.props.onPop
+      onBack: this._handleBack
     }
   }
 
@@ -100,16 +100,13 @@ class Sources extends React.Component {
       onAddFile,
       onCreate,
       onRemoveFile,
-      onBack: this._handleChooseSource,
+      onBack: this._handleBack,
       onDone: this._handleDone
     }
   }
 
-  _getSourceClass(index) {
-    const { active } = this.props
-    const classes = ['maha-attachments-source']
-    if(index === active) classes.push('active')
-    return classes.join(' ')
+  _handleBack() {
+    this.props.onPop()
   }
 
   _handleChooseSource(source) {

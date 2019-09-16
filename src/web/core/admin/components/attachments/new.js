@@ -4,12 +4,13 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const sources = [
-  { label: 'Google Drive', network: 'google', scope: 'userinfo.profile,userinfo.email,drive.readonly,drive.photos.readonly' },
-  { label: 'Microsoft OneDrive', network: 'microsoft', scope: 'user.read files.read.all' },
-  { label: 'Facebook', network: 'facebook', scope: 'user_photos,email,public_profile,pages_show_list' },
-  { label: 'Instagram', network: 'instagram', scope: 'basic' },
-  { label: 'Dropbox', network: 'dropbox', scope: '' },
-  { label: 'Box', network: 'box', scope: '' }
+  { label: 'Google Drive', network: 'googledrive' },
+  { label: 'Google Photos', network: 'googlephotos' },
+  { label: 'Microsoft OneDrive', network: 'onedrive' },
+  { label: 'Facebook', network: 'facebook' },
+  { label: 'Instagram', network: 'instagram' },
+  { label: 'Dropbox', network: 'dropbox' },
+  { label: 'Box', network: 'box' }
 ]
 
 class New extends React.PureComponent {
@@ -34,7 +35,9 @@ class New extends React.PureComponent {
           { sources.map((source, index) => (
             <div className="maha-attachments-source" key={`source_${index}`} onClick={ this._handleChooseSource.bind(this, source)}>
               <div className="maha-attachments-source-logo">
-                <img src={ `/admin/images/${source.network}.png` } />
+                <div className="maha-attachments-source-favicon">
+                  <img src={ `/admin/images/services/${source.network}.png` } />
+                </div>
               </div>
               <div className="maha-attachments-source-text">
                 { source.label }
@@ -61,7 +64,7 @@ class New extends React.PureComponent {
 
   _handleChooseSource(source) {
     const { token } = this.props
-    this.context.host.openWindow(`/admin/${source.network}/authorize?scope=${source.scope}&token=${token}`)
+    this.context.host.openWindow(`/admin/${source.network}/authorize?token=${token}`)
     this.props.onBack()
   }
 

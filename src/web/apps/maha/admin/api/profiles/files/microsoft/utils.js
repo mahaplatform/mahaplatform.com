@@ -21,7 +21,9 @@ export const getClient = async (req, profile) => {
 
     const oauth2 = getOauth2()
 
-    const data = await oauth2.accessToken.create({ refresh_token: profile.get('data').refresh_token }).refresh()
+    const data = await oauth2.accessToken.create({
+      refresh_token: profile.get('data').refresh_token
+    }).refresh()
 
     await profile.save({
       data: data.token
@@ -35,6 +37,8 @@ export const getClient = async (req, profile) => {
   const client = Client.init({
     authProvider: (done) => done(null, profile.get('data').access_token)
   })
+
+  console.log()
 
   return client
 

@@ -20,14 +20,14 @@ const getProfileCreator = (source) => {
   return null
 }
 
-const getPhoto = async (req, { source_id, photo_url, photo_data }) => {
+const getPhotoId = async (req, { source_id, photo_url, photo_data }) => {
 
   if(photo_url) {
     return await createAssetFromUrl(req, {
       team_id: req.user.get('team_id'),
       user_id: req.user.get('id'),
       url: photo_url
-    })
+    }).then(asset => asset.get('id'))
   }
 
   if(photo_data) {
@@ -37,7 +37,7 @@ const getPhoto = async (req, { source_id, photo_url, photo_data }) => {
       source_id,
       file_name: 'avatar.jpg',
       file_data: photo_data
-    })
+    }).then(asset => asset.get('id'))
   }
 
   return null
@@ -57,23 +57,30 @@ const extractState = (state) => {
 
 const token = async (req, res) => {
 
-  const { scope, token } = extractState(req.query.state)
+  const state = extractState(req.query.state)
 
-  const { user } = await loadUserFromToken('user_id', token)
+  const { user } = await loadUserFromToken('user_id', state.token)
 
   req.user = user
 
   const profileCreator = getProfileCreator(req.params.source)
 
-  const profiles = await profileCreator(req.query.code, scope.split(','))
+  const profiles = await profileCreator(req.query.code, state.scope.split(','))
 
   if(!profiles) return res.render('token')
+
+  const source = await Source.where({
+    text: state.source
+  }).fetch({
+    transacting: req.trx
+  })
 
   await Promise.mapSeries(profiles, async(data) => {
 
     const profile = await Profile.scope({
       team: req.team
     }).query(qb => {
+      qb.where('source_id', source.get('id'))
       qb.where('profile_id', data.profile_id)
     }).fetch({
       transacting: req.trx
@@ -81,13 +88,7 @@ const token = async (req, res) => {
 
     if(profile) return
 
-    const source = await Source.where({
-      text: req.params.source
-    }).fetch({
-      transacting: req.trx
-    })
-
-    const photo = await getPhoto(req, {
+    const photo_id = await getPhotoId(req, {
       source_id: source.get('id'),
       photo_url: data.photo_url,
       photo_data: data.photo_data
@@ -97,11 +98,11 @@ const token = async (req, res) => {
       team_id: req.user.get('team_id'),
       user_id: req.user.get('id'),
       source_id: source.get('id'),
-      photo_id: photo ? photo.get('id') : null,
+      photo_id,
       profile_id: data.profile_id,
       username: data.username,
       data: data.data,
-      scope
+      type: state.type
     }).save(null, {
       transacting: req.trx
     })

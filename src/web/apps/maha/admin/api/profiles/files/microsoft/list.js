@@ -21,7 +21,6 @@ const listRoute = async (req, profile) => {
 
   const result = await client.api(url).get()
 
-
   const records = result.value.map(entry => ({
     id: entry.id,
     type: entry.file ? 'file' : 'folder',

@@ -1,14 +1,12 @@
 import Profile from '../../../../models/profile'
-import microsoft from './microsoft/list'
-import dropbox from './dropbox/list'
+import instagram from './instagram/list'
+import facebook from './facebook/list'
 import google from './google/list'
-import box from './box/list'
 
 const getListCreator = (network) => {
-  if(network === 'googledrive') return google
-  if(network === 'onedrive') return microsoft
-  if(network === 'dropbox') return dropbox
-  if(network === 'box') return box
+  if(network === 'facebook') return facebook
+  if(network === 'googlephotos') return google
+  if(network === 'instagram') return instagram
 }
 
 const filesRoute = async (req, res) => {
@@ -30,8 +28,6 @@ const filesRoute = async (req, res) => {
   const listCreator = getListCreator(profile.related('source').get('text'))
 
   const records = await listCreator(req, profile)
-
-  console.log(records)
 
   res.status(200).respond(records)
 

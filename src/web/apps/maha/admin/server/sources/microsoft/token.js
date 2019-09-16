@@ -14,6 +14,17 @@ const oauth2 = OAuth2.create({
   }
 })
 
+const getPhotoData = async (bearer) => {
+  try {
+    return await request.get('https://graph.microsoft.com/v1.0/me/photo/$value', {
+      auth: { bearer },
+      encoding: null
+    })
+  } catch(e) {
+    return null
+  }
+}
+
 const token = async (code, scope) => {
 
   let result = await oauth2.authorizationCode.getToken({
@@ -30,19 +41,13 @@ const token = async (code, scope) => {
 
   const userinfo = await client.api('/me').get()
 
-  const photo = await request.get('https://graph.microsoft.com/v1.0/me/photo/$value', {
-    auth: {
-      bearer: data.token.access_token
-    }, encoding: null
-  })
+  const photo_data = await getPhotoData(data.token.access_token)
 
   return [{
-    photo_data: photo,
+    photo_data,
     profile_id: userinfo.id,
     username: userinfo.userPrincipalName,
-    data: {
-      token: data.token
-    }
+    data: data.token
   }]
 
 }
