@@ -5,6 +5,7 @@ import { Image } from 'maha-admin'
 class Team extends React.Component {
 
   static contextTypes = {
+    host: PropTypes.object,
     flash: PropTypes.object
   }
 
@@ -12,6 +13,7 @@ class Team extends React.Component {
     active: PropTypes.number,
     status: PropTypes.string,
     teams: PropTypes.array,
+    team: PropTypes.object,
     onChangeMode: PropTypes.func,
     onSet: PropTypes.func,
     onTeam: PropTypes.func
@@ -100,9 +102,15 @@ class Team extends React.Component {
   }
 
   _handleNext() {
-    const { onChangeMode } = this.props
+    const { team, onChangeMode } = this.props
     this.team.blur()
-    setTimeout(() => onChangeMode('email'), 250)
+    if(team.authentication_strategy === 'local') {
+      setTimeout(() => onChangeMode('email'), 250)
+    } else {
+      const state = btoa(JSON.stringify({ team_id: team.id }))
+      this.context.host.openWindow(`/admin/auth/${team.authentication_strategy}?state=${state}`)
+      setTimeout(() => onChangeMode('wait'), 250)
+    }
   }
 
   _handleShake() {

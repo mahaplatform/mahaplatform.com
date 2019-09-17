@@ -97,7 +97,7 @@ const clientWatch = async () => {
         ...proxies,
         `/admin/*/${path}`
       ], []),
-      ...'audio,css,fonts,images,js'.split(',').reduce((proxies, path) => [
+      ...'auth,audio,css,fonts,images,js'.split(',').reduce((proxies, path) => [
         ...proxies,
         `/admin/${path}/*`
       ], []),

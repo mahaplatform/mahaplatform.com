@@ -36,8 +36,7 @@ const notificationsRoute = async (req, res) => {
       title: req.user.related('team').get('title'),
       subdomain: req.user.related('team').get('subdomain'),
       color: req.user.related('team').get('color'),
-      logo: req.user.related('team').related('logo').get('path'),
-      strategies: req.user.related('team').related('strategies').toJSON().map(strategy => strategy.name)
+      logo: req.user.related('team').related('logo').get('path')
     },
     user: {
       id: req.user.get('id'),

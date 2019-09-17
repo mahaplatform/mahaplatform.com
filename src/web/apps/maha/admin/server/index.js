@@ -1,10 +1,10 @@
 import { Router } from 'express'
-import signin from './signin'
-import oauth from './sources'
+import auth from './auth'
+import oauth from './oauth'
 
 const router = new Router({ mergeParams: true })
 
-router.use(signin)
+router.use('/auth', auth)
 
 router.use(oauth)
 

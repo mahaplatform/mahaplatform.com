@@ -10,7 +10,7 @@ const teamRoute = async (req, res) => {
   const team = await Team.where({
     subdomain: req.body.subdomain
   }).fetch({
-    withRelated: ['logo','strategies'],
+    withRelated: ['logo'],
     transacting: req.trx
   })
 
@@ -25,9 +25,7 @@ const teamRoute = async (req, res) => {
     subdomain: team.get('subdomain'),
     color: team.get('color'),
     logo: team.related('logo').get('path'),
-    strategies: team.related('strategies').map(strategy => {
-      strategy.get('name')
-    })
+    authentication_strategy: team.get('authentication_strategy')
   })
 
 }

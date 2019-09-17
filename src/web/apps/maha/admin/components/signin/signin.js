@@ -8,6 +8,7 @@ import Blocked from './blocked'
 import Email from './email'
 import React from 'react'
 import Team from './team'
+import Wait from './wait'
 import _ from 'lodash'
 
 class Signin extends React.Component {
@@ -84,6 +85,7 @@ class Signin extends React.Component {
     if(mode === 'password') return <Password { ...this._getPassword() } />
     if(mode === 'lockout') return <Lockout />
     if(mode === 'blocked') return <Blocked />
+    if(mode === 'wait') return <Wait />
     return <div />
   }
 
@@ -100,7 +102,7 @@ class Signin extends React.Component {
   }
 
   _getTeam() {
-    return _.pick(this.props, ['status','teams','onChangeMode','onSet','onTeam'])
+    return _.pick(this.props, ['status','teams','team','onChangeMode','onSet','onTeam'])
   }
 
   _handleSignin() {

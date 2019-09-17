@@ -1,7 +1,6 @@
-import sessionSerilizer from '../../../serializers/session_serializer'
+import { createUserToken } from '../../../../../core/utils/user_tokens'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
 import { Strategy as SAMLStrategy } from 'passport-saml'
-import Strategy from '../../../models/strategy'
 import LDAPStrategy from 'passport-ldapauth'
 import Team from '../../../models/team'
 import User from '../../../models/user'
@@ -30,16 +29,16 @@ const team = async (req, res, next) => {
 
 const cornell = async (req, res, next) => {
 
-  const config = await getStrategyConfig(req, 'cornell')
-
   const state = getState(req.team.get('id'))
 
   passport.use(new SAMLStrategy({
-    ...config,
-    path: `/signin/cornell?state=${state}`,
+    cert: process.env.CORNELL_CERT,
+    issuer: process.env.CORNELL_ISSUER,
+    entryPoint: process.env.CORNELL_ENTRY_POINT,
+    path: `/admin/auth/cornell?state=${state}`,
     acceptedClockSkewMs: 300000
   }, (profile, done) => {
-    loadUserByEmail(profile.email, done)
+    loadUserByEmail(req, profile.email, done)
   }))
 
   passport.authenticate('saml', {
@@ -50,16 +49,13 @@ const cornell = async (req, res, next) => {
 
 const google = async (req, res, next) => {
 
-  const config = await getStrategyConfig(req, 'google')
-
   const state = getState(req.team.get('id'))
 
   passport.use(new GoogleStrategy({
-    ...config,
     authorizationurl: `/adminhttps://accounts.google.com/o/oauth2/v2/auth?state=${state}`,
-    callbackURL: 'http://localhost:8080/admin/signin/google'
+    callbackURL: 'http://localhost:8080/admin/auth/google'
   }, (accessToken, refreshToken, profile, done) => {
-    loadUserByEmail(profile.emails[0].value, done)
+    loadUserByEmail(req, profile.emails[0].value, done)
   }))
 
   passport.authenticate('google', {
@@ -90,6 +86,7 @@ const loadUserByEmail = async (req, email, done) => {
   const user = await User.query(qb => {
     qb.where('email', email)
   }).fetch({
+    withRelated: ['photo','team.logo'],
     transacting: req.trx
   })
 
@@ -99,38 +96,15 @@ const loadUserByEmail = async (req, email, done) => {
 
 }
 
-const getStrategyConfig = async (req, name) => {
-
-  const strategy = await Strategy.query(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('name', name)
-  }).fetch({
-    transacting: req.trx
-  })
-
-  return strategy.get('config')
-
-}
-
 const getState = team_id => new Buffer(JSON.stringify({ team_id })).toString('base64')
 
 const success = strategy => async (req, res, next) => {
 
-  const team = await Team.query(qb => {
-    qb.where('id', req.user.get('team_id'))
-  }).fetch({
-    withRelated: ['logo'],
-    transacting: req.trx
+  res.render('success', {
+    token: createUserToken(req.user, 'user_id'),
+    team: req.user.related('team'),
+    user: req.user
   })
-
-  if(!team) return next(new Error({
-    code: 500,
-    message: 'unable to load team'
-  }))
-
-  const session = await sessionSerilizer(req, null, req.user)
-
-  res.render('success', { strategy, session })
 
 }
 
@@ -140,12 +114,12 @@ server.set('views', path.join(__dirname))
 
 server.set('view engine', 'ejs')
 
-server.get('/signin/cornell', team, cornell, success('cornell'))
+server.get('/cornell', team, cornell, success('cornell'))
 
-server.post('/signin/cornell', team, cornell, success('cornell'))
+server.post('/cornell', team, cornell, success('cornell'))
 
-server.get('/signin/google', team, google, success('google'))
+server.get('/google', team, google, success('google'))
 
-server.get('/signin/ldap', team, ldap, success('ldap'))
+server.get('/ldap', team, ldap, success('ldap'))
 
 export default server

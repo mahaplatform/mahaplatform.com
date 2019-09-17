@@ -1,5 +1,4 @@
 import Model from '../../../core/objects/model'
-import Strategy from './strategy'
 import Domain from './domain'
 import Asset from './asset'
 import App from './app'
@@ -34,10 +33,6 @@ const Team = new Model({
 
   logo() {
     return this.belongsTo(Asset, 'logo_id')
-  },
-
-  strategies() {
-    return this.hasMany(Strategy, 'team_id')
   }
 
 })

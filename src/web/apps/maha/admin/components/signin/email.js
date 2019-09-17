@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import { Logo } from 'maha-admin'
 import moment from 'moment'
 import React from 'react'
-import _ from 'lodash'
 
 class Email extends React.Component {
 
@@ -52,12 +51,6 @@ class Email extends React.Component {
           </form>
           <div className="maha-signin-footer">
             <p><a onClick={ this._handleBack }>Wrong team?</a></p>
-            { _.includes(team.strategies, 'cornell') &&
-              <p><a href={`/signin/cornell?state=${this.encodedState}`}>Signin with CUWebAuth</a></p>
-            }
-            { _.includes(team.strategies, 'google') &&
-              <p><a href={`/signin/google?state=${this.encodedState}`}>Signin with Google</a></p>
-            }
           </div>
         </div>
       </div>
@@ -66,7 +59,6 @@ class Email extends React.Component {
 
   componentDidMount() {
     this.props.onSet(this.props.team, null, 'email')
-    this.encodedState = btoa(JSON.stringify({ team_id: this.props.team.id }))
     setTimeout(() => this.email.focus(), 500)
   }
 

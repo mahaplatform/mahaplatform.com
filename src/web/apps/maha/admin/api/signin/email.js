@@ -16,7 +16,7 @@ const emailRoute = async (req, res) => {
     team_id: req.body.team_id,
     email: req.body.email
   }).fetch({
-    withRelated: ['photo', 'team.logo', 'team.strategies'],
+    withRelated: ['photo', 'team.logo'],
     transacting: req.trx
   })
 
@@ -41,10 +41,7 @@ const emailRoute = async (req, res) => {
       title: user.related('team').get('title'),
       subdomain: user.related('team').get('subdomain'),
       color: user.related('team').get('color'),
-      logo: user.related('team').related('logo').get('path'),
-      strategies: user.related('team').related('strategies').map(strategy => {
-        strategy.get('name')
-      })
+      logo: user.related('team').related('logo').get('path')
     },
     user: {
       id: user.get('id'),

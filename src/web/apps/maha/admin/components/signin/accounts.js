@@ -8,7 +8,8 @@ class Accounts extends React.Component {
 
   static contextTypes = {
     admin: PropTypes.object,
-    flash: PropTypes.object
+    flash: PropTypes.object,
+    host: PropTypes.object
   }
 
   static propTypes = {
@@ -116,11 +117,17 @@ class Accounts extends React.Component {
 
   _handleChoose(index) {
     const { admin } = this.context
-    const { teams, onEmail } = this.props
+    const { teams, onChangeMode, onEmail } = this.props
     if(teams[index].token) return admin.chooseTeam(index)
     const team = _.omit(teams[index], ['token'])
     const user = teams[index].user
-    onEmail(team.id, user.email)
+    if(team.authentication_strategy === 'local') {
+      onEmail(team.id, user.email)
+    } else {
+      const state = btoa(JSON.stringify({ team_id: team.id }))
+      this.context.host.openWindow(`/admin/auth/${team.authentication_strategy}?state=${state}`)
+      setTimeout(() => onChangeMode('wait'), 250)
+    }
   }
 
   _handleNew() {

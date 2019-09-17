@@ -24,7 +24,7 @@ const passwordRoute = async (req, res, next) => {
     transacting: req.trx
   })
 
-  await req.user.load(['team.logo','team.strategies'], {
+  await req.user.load(['team.logo'], {
     transacting: req.trx
   })
 
@@ -45,8 +45,7 @@ const passwordRoute = async (req, res, next) => {
       title: req.user.related('team').get('title'),
       subdomain: req.user.related('team').get('subdomain'),
       color: req.user.related('team').get('color'),
-      logo: req.user.related('team').related('logo').get('path'),
-      strategies: req.user.related('team').related('strategies').map(strategy => strategy.get('name'))
+      logo: req.user.related('team').related('logo').get('path')
     }
   })
 
