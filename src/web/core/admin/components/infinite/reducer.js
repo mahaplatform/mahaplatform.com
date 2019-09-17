@@ -1,7 +1,7 @@
 import _ from 'lodash'
 
 const INITIAL_STATE = {
-  records: null,
+  records: [],
   request_id: null,
   selectAll: false,
   selected: [],
@@ -38,6 +38,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     } else if(action.result.pagination.next !== undefined) {
       return {
         ...state,
+        skip: action.result.pagination.skip,
         next: action.result.pagination.next,
         request_id: null,
         records: (action.result.pagination.skip > 0) ? [

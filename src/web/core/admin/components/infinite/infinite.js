@@ -1,10 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import _ from 'lodash'
-import Scrollpane from '../scrollpane'
-import Loader from '../loader'
 import { Appending, Empty, Failure, NotFound } from './results'
+import Scrollpane from '../scrollpane'
 import { connect } from 'react-redux'
+import PropTypes from 'prop-types'
+import Loader from '../loader'
+import React from 'react'
+import _ from 'lodash'
 
 class Infinite extends React.Component {
 
@@ -18,13 +18,13 @@ class Infinite extends React.Component {
     filter: PropTypes.object,
     header: PropTypes.any,
     layout: PropTypes.any,
-    loading: PropTypes.any,
     next: PropTypes.string,
     notFound: PropTypes.any,
     props: PropTypes.object,
     records: PropTypes.array,
     selectAll: PropTypes.bool,
     selected: PropTypes.array,
+    skip: PropTypes.number,
     sort: PropTypes.object,
     status: PropTypes.string,
     total: PropTypes.number,
@@ -51,20 +51,21 @@ class Infinite extends React.Component {
   }
 
   render() {
-    const { all, empty, failure, header, loading, notFound, records, status, total } = this.props
+    const { all, empty, failure, header, next, notFound, records, skip, status, total } = this.props
     const Layout = this.props.layout
     return (
       <div className="maha-infinite">
-        { status === 'loading' && records && records.length > 0 && this._getComponent(Appending) }
+        { status === 'loading' && records && records.length > 0 && <Appending/> }
         { header &&
           <div className="maha-infinite-header">
             { React.createElement(header, this.props) }
           </div>
         }
-        { status === 'loading' && !records && this._getComponent(loading) }
+        { status === 'loading' && !records && <Loader /> }
         { status === 'failed' && this._getComponent(failure) }
-        { status !== 'failed' && total === 0 && all !== 0 && this._getComponent(notFound) }
-        { status !== 'failed' && total === 0 && all === 0 && this._getComponent(empty) }
+        { status !== 'failed' && records.length === 0 && skip === undefined && total === 0 && all !== 0 && this._getComponent(notFound) }
+        { status !== 'failed' && records.length === 0 && skip === undefined && total === 0 && all === 0 && this._getComponent(empty) }
+        { status !== 'failed' && records.length === 0 && all === undefined && skip === 0 && next === null && this._getComponent(empty) }
         { status !== 'failed' && records && records.length > 0 && Layout &&
           <Scrollpane { ...this._getScrollpane() }>
             <Layout { ...this._getLayout() } />
@@ -89,7 +90,7 @@ class Infinite extends React.Component {
     }
   }
 
-  _getComponent(component){
+  _getComponent(component) {
     return _.isFunction(component) ? React.createElement(component, this.props) : component
   }
 

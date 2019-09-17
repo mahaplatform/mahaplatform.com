@@ -15,7 +15,7 @@ const list = async (req, profile) => {
     pageSize: 100
   })
 
-  const records = result.data.connections.filter(contact => {
+  const records = result.data.connections ? result.data.connections.filter(contact => {
     return contact.names !== undefined
   }).map(contact => ({
     id: contact.resourceName.replace('people/',''),
@@ -42,7 +42,7 @@ const list = async (req, profile) => {
       postal_code: address.postalCode,
       country: address.countryCode
     })) : []
-  }))
+  })) : []
 
   records.pagination = {
     skip: pageToken ? 1 : 0,

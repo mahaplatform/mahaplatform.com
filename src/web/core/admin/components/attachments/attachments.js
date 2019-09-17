@@ -129,11 +129,7 @@ class Attachments extends React.Component {
   componentDidUpdate(prevProps) {
     const { status } = this.props
     if(status !== prevProps.status && status === 'loaded') {
-      this.setState({
-        cards: [
-          { component: Sources, props: this._getSources() }
-        ]
-      })
+      this._handlePush(Sources, this._getSources())
     }
     // const { files, multiple, status } = this.props
     // if( !multiple && _.get(files, '[0].id', false) && status === 'success' ){

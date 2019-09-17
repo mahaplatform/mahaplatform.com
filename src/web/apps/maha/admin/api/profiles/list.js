@@ -8,6 +8,9 @@ const listRoute = async (req, res) => {
   }).query(qb => {
     qb.where('maha_profiles.user_id', req.user.get('id'))
     qb.orderByRaw('created_at asc')
+  }).filter({
+    filter: req.query.$filter,
+    filterParams: ['type']
   }).fetchPage({
     page: req.query.$page,
     withRelated: ['source','photo'],

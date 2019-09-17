@@ -1,0 +1,100 @@
+.contactimport {
+  display: flex;
+  flex: 1;
+}
+.contactimport-sources {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.contactimport-sources-header {
+  flex: 1;
+  display: flex;
+}
+.contactimport-sources-body {
+  flex: 1;
+  .scrollable()
+}
+.contactimport-source {
+  display: flex;
+  cursor: pointer;
+  border-bottom: 1px solid fadeout(@black, 95);
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.contactimport-source-service {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  img {
+    margin: auto;
+    border-radius: 0.3em;
+    overflow: hidden;
+    width: 1.6em;
+    height: 1.6em;
+    display: block;
+  }
+  .fa-plus-circle {
+    font-size: 1.85em;
+    color: @red;
+  }
+  .excel,
+  .gmail,
+  .outlookcontacts {
+    border: 1px solid fadeout(@black, 90);
+  }
+}
+.contactimport-source-label {
+  flex: 1;
+  padding: 0.8em;
+}
+.contactimport-source-proceed {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  .fa {
+    color: fadeout(@black, 80);
+    margin: auto;
+  }
+}
+
+.contactimport-contact {
+  display: flex;
+  cursor: pointer;
+  border-bottom: 1px solid fadeout(@black, 95);
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.contactimport-contact-toggle {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  .fa {
+    margin: auto;
+  }
+  .fa-circle-o {
+    color: fadeout(@black, 80);
+  }
+  .fa-check-circle {
+    color: @blue;
+  }
+}
+.contactimport-contact-avatar {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  img {
+    margin: auto;
+    border-radius: 50%;
+    overflow: hidden;
+    width: 2.6em;
+    height: 2.6em;
+    display: block;
+  }
+}
+.contactimport-contact-label {
+  flex: 1;
+  padding: 0.8em;
+  color: fadeout(@black, 60);
+  strong {
+    color: @black;
+  }
+}

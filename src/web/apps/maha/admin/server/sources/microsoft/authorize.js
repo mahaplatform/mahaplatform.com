@@ -16,7 +16,10 @@ const authorize = async (req, { scope, state }) => {
 
   const url = await oauth2.authorizationCode.authorizeURL({
     redirect_uri: `${process.env.WEB_HOST}/admin/microsoft/token`,
-    scope: scope.join(' '),
+    scope: [
+      ...scope,
+      'offline_access'
+    ].join(' '),
     state
   })
 

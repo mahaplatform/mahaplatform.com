@@ -1,6 +1,6 @@
+import ContactImport from '../../components/contactimport'
 import ContactToken from '../../tokens/contact'
 import { Page } from 'maha-admin'
-import ContactImport from './import'
 import React from 'react'
 import New from './new'
 

@@ -50,6 +50,8 @@ const list = async (req, profile) => {
     ]
   }))
 
+  console.log(result['@odata.nextLink'])
+
   records.pagination = {
     skip: skiptoken ? 1 : 0,
     next: result['@odata.nextLink'] ? result['@odata.nextLink'].match(/skiptoken=(.*)/)[1] : null
