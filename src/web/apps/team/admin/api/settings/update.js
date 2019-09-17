@@ -1,17 +1,15 @@
 import { activity } from '../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
 
 const updateRoute = async (req, res) => {
 
   await req.team.save({
-    logo_id: req.body.logo_id,
-    subdomain: req.body.title,
-    title: req.body.title
+    ...whitelist(req.body, ['title','subdomain','logo_id','authentication_strategy'])
   }, {
     patch: true,
     transacting: req.trx
   })
-
 
   await activity(req, {
     story: 'updated {object}',

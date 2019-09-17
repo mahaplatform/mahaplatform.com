@@ -7,7 +7,8 @@ const Details = ({ team }) => {
 
   const items = [
     { label: 'Title ', content: team.title },
-    { label: 'Team Name ', content: team.subdomain }
+    { label: 'Team Name ', content: team.subdomain },
+    { label: 'Authentication', content: team.authentication_strategy }
   ]
 
   return <List items={ items } />

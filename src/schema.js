@@ -1233,15 +1233,6 @@ const schema = {
       table.string('text', 255)
     })
 
-    await knex.schema.createTable('maha_strategies', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.string('name', 255)
-      table.jsonb('config')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
     await knex.schema.createTable('maha_supervisions', (table) => {
       table.integer('supervisor_id').unsigned()
       table.integer('employee_id').unsigned()
@@ -1264,6 +1255,8 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('logo_id').unsigned()
+      table.USER-DEFINED('authentication_strategy')
+      table.jsonb('authentication_config')
     })
 
     await knex.schema.createTable('maha_teams_apps', (table) => {
@@ -2197,10 +2190,6 @@ const schema = {
     })
 
     await knex.schema.table('maha_roles', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('maha_strategies', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 

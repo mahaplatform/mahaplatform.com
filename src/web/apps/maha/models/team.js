@@ -12,7 +12,8 @@ const Team = new Model({
 
   rules: {
     title: ['required', 'unique'],
-    subdomain: ['required', 'unique']
+    subdomain: ['required', 'unique'],
+    authentication_strategy: ['required']
   },
 
   virtuals: {

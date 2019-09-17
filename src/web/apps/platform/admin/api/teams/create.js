@@ -1,3 +1,4 @@
+import { whitelist } from '../../../../../core/services/routes/params'
 import { sendUserActivation } from '../../../../team/services/users'
 import TeamSerializer from '../../../serializers/team_serializer'
 import Role from '../../../../maha/models/role'
@@ -7,8 +8,7 @@ import User from '../../../../maha/models/user'
 const createRoute = async (req, res) => {
 
   const team = await Team.forge({
-    title: req.body.title,
-    subdomain: req.body.subdomain
+    ...whitelist(req.body, ['title','subdomain','authentication_strategy'])
   }).save(null, {
     transacting: req.trx
   })

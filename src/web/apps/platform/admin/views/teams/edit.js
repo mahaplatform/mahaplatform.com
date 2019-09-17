@@ -1,6 +1,6 @@
+import { AuthenticationStrategyToken, Form } from 'maha-admin'
 import Apps from '../../components/apps'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
 import React from 'react'
 
 class GroupsEdit extends React.Component {
@@ -25,7 +25,7 @@ class GroupsEdit extends React.Component {
     return {
       title: 'Edit Team',
       method: 'patch',
-      endpoint: `/api/admin/platform/teams/${team.id}`,
+      endpoint: `/api/admin/platform/teams/${team.id}/edit`,
       action: `/api/admin/platform/teams/${team.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
@@ -34,6 +34,7 @@ class GroupsEdit extends React.Component {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
             { label: 'Team Name', name: 'subdomain', type: 'textfield', required: true },
+            { label: 'Authentication', name: 'authentication_strategy', type: 'lookup', placeholder: 'Choose a strategy', options: [{value:'local',text:'Maha'},{value:'cornell',text:'Cornell'},{value:'google',text:'Google'},{value:'ldap',text:'LDAP'}], required: true, format: AuthenticationStrategyToken },
             { label: 'Apps', name: 'app_ids', type: Apps, required: true }
           ]
         }

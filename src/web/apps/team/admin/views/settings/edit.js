@@ -1,6 +1,6 @@
-import React from 'react'
+import { AuthenticationStrategyToken, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import React from 'react'
 
 class Edit extends React.Component {
 
@@ -19,7 +19,7 @@ class Edit extends React.Component {
     return {
       title: 'Edit Team',
       method: 'patch',
-      endpoint: '/api/admin/team/settings',
+      endpoint: '/api/admin/team/settings/edit',
       action: '/api/admin/team/settings',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
@@ -28,6 +28,7 @@ class Edit extends React.Component {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Title', required: true },
             { label: 'Team Name', name: 'subdomain', type: 'textfield', placeholder: 'Subdomain', required: true },
+            { label: 'Authentication', name: 'authentication_strategy', type: 'lookup', placeholder: 'Choose a strategy', options: [{value:'local',text:'Maha'},{value:'cornell',text:'Cornell'},{value:'google',text:'Google'},{value:'ldap',text:'LDAP'}], required: true, format: AuthenticationStrategyToken },
             { label: 'Logo', name: 'logo_id', type: 'filefield', prompt: 'Choose Logo', multiple: false }
 
           ]

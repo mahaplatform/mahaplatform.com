@@ -58,7 +58,7 @@ class Sources extends React.PureComponent {
       backgroundColor: 'red',
       icon: 'download',
       title: 'Choose Source',
-      text: 'We support a many strategies for importing contacts wherever you keep them.'
+      text: 'Import contacts from wherever you keep them.'
     }
   }
 

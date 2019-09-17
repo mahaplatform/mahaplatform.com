@@ -12,7 +12,7 @@ class Logo extends React.Component {
 
   static defaultProps = {
     host: null,
-    width: 150
+    width: '150'
   }
 
   render() {
