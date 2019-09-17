@@ -1,5 +1,6 @@
 import { createUserToken } from '../../../../../core/utils/user_tokens'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
+import socket from '../../../../../core/services/routes/emitter'
 import { Strategy as SAMLStrategy } from 'passport-saml'
 import LDAPStrategy from 'passport-ldapauth'
 import Team from '../../../models/team'
@@ -17,6 +18,10 @@ const team = async (req, res, next) => {
 
   const state = JSON.parse(Buffer.from(req.query.state, 'base64'))
 
+  req.signin_id = state.signin_id
+
+  req.team_id = state.team_id
+
   req.team = await Team.query(qb => {
     qb.where('id', state.team_id)
   }).fetch({
@@ -29,7 +34,7 @@ const team = async (req, res, next) => {
 
 const cornell = async (req, res, next) => {
 
-  const state = getState(req.team.get('id'))
+  const state = getState(req)
 
   passport.use(new SAMLStrategy({
     cert: process.env.CORNELL_CERT,
@@ -43,17 +48,17 @@ const cornell = async (req, res, next) => {
 
   passport.authenticate('saml', {
     session: false
-  })(req, res, next)
+  }, result(req, res))(req, res, next)
 
 }
 
 const google = async (req, res, next) => {
 
-  const state = getState(req.team.get('id'))
+  const state = getState(req)
 
   passport.use(new GoogleStrategy({
-    authorizationurl: `/adminhttps://accounts.google.com/o/oauth2/v2/auth?state=${state}`,
-    callbackURL: 'http://localhost:8080/admin/auth/google'
+    authorizationurl: `https://accounts.google.com/o/oauth2/v2/auth?state=${state}`,
+    callbackURL: `${process.env.WEB_HOST}/admin/auth/google`
   }, (accessToken, refreshToken, profile, done) => {
     loadUserByEmail(req, profile.emails[0].value, done)
   }))
@@ -61,7 +66,7 @@ const google = async (req, res, next) => {
   passport.authenticate('google', {
     scope: ['profile','email'],
     session: false
-  })(req, res, next)
+  }, result(req, res))(req, res, next)
 
 }
 
@@ -77,13 +82,17 @@ const ldap = (req, res, next) => {
     loadUserByEmail(req, user.email, done)
   }))
 
-  passport.authenticate('ldapauth', { session: false })(req, res, next)
+  passport.authenticate('ldapauth', {
+    session: false
+  }, result(req, res))(req, res, next)
 
 }
 
 const loadUserByEmail = async (req, email, done) => {
 
-  const user = await User.query(qb => {
+  const user = await User.scope({
+    team: req.team
+  }).query(qb => {
     qb.where('email', email)
   }).fetch({
     withRelated: ['photo','team.logo'],
@@ -96,15 +105,57 @@ const loadUserByEmail = async (req, email, done) => {
 
 }
 
-const getState = team_id => new Buffer(JSON.stringify({ team_id })).toString('base64')
+const getState = (req) => {
+  return new Buffer(JSON.stringify({
+    team_id: req.team_id,
+    signin_id: req.signin_id
+  })).toString('base64')
+}
 
-const success = strategy => async (req, res, next) => {
+const result = (req, res) => async (err, user, info) => {
 
-  res.render('success', {
-    token: createUserToken(req.user, 'user_id'),
-    team: req.user.related('team'),
-    user: req.user
+  if(!user) await failure(req, res)
+
+  req.user = user
+
+  await success(req, res)
+
+}
+
+const success = async (req, res) => {
+
+  const team = req.user.related('team')
+
+  await socket.message(req, {
+    channel: `/admin/signin/${req.signin_id}`,
+    action: 'signin',
+    data: {
+      team: {
+        id: team.get('id'),
+        title: team.get('title'),
+        subdomain: team.get('subdomain'),
+        logo: team.related('logo') ? team.related('logo').get('url') : null,
+        authentication_strategy: team.get('authentication_strategy')
+      },
+      token: createUserToken(req.user, 'user_id'),
+      user: {
+        id: req.user.get('id'),
+        email: req.user.get('email'),
+        full_name: req.user.get('full_name'),
+        initials: req.user.get('initials'),
+        photo: req.user.related('photo') ? req.user.related('photo').get('url') : null
+      }
+
+    }
   })
+
+  res.render('success')
+
+}
+
+const failure = async (req, res) => {
+
+  res.render('success')
 
 }
 
@@ -114,12 +165,12 @@ server.set('views', path.join(__dirname))
 
 server.set('view engine', 'ejs')
 
-server.get('/cornell', team, cornell, success('cornell'))
+server.get('/cornell', team, cornell)
 
-server.post('/cornell', team, cornell, success('cornell'))
+server.post('/cornell', team, cornell)
 
-server.get('/google', team, google, success('google'))
+server.get('/google', team, google)
 
-server.get('/ldap', team, ldap, success('ldap'))
+server.get('/ldap', team, ldap)
 
 export default server

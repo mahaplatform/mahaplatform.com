@@ -11,6 +11,7 @@ class Team extends React.Component {
 
   static propTypes = {
     active: PropTypes.number,
+    signin_id: PropTypes.string,
     status: PropTypes.string,
     teams: PropTypes.array,
     team: PropTypes.object,
@@ -102,12 +103,15 @@ class Team extends React.Component {
   }
 
   _handleNext() {
-    const { team, onChangeMode } = this.props
+    const { signin_id, team, onChangeMode } = this.props
     this.team.blur()
     if(team.authentication_strategy === 'local') {
       setTimeout(() => onChangeMode('email'), 250)
     } else {
-      const state = btoa(JSON.stringify({ team_id: team.id }))
+      const state = btoa(JSON.stringify({
+        signin_id,
+        team_id: team.id
+      }))
       this.context.host.openWindow(`/admin/auth/${team.authentication_strategy}?state=${state}`)
       setTimeout(() => onChangeMode('wait'), 250)
     }

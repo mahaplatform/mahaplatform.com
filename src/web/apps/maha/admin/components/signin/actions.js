@@ -67,3 +67,8 @@ export const set = (team, user, mode) => ({
   user,
   mode
 })
+
+export const setId = (signin_id) => ({
+  type: 'SET_ID',
+  signin_id
+})

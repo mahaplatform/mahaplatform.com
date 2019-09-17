@@ -24,6 +24,7 @@ class Signin extends React.Component {
     error: PropTypes.string,
     mode: PropTypes.string,
     show: PropTypes.bool,
+    signin_id: PropTypes.string,
     status: PropTypes.string,
     teams: PropTypes.array,
     team: PropTypes.object,
@@ -33,6 +34,7 @@ class Signin extends React.Component {
     onEmail: PropTypes.func,
     onPassword: PropTypes.func,
     onLockout: PropTypes.func,
+    onSetId: PropTypes.func,
     onTeam: PropTypes.func
   }
 
@@ -55,6 +57,8 @@ class Signin extends React.Component {
   componentDidMount() {
     const { teams } = this.props
     const mode = teams.length > 0 ? 'accounts' : 'team'
+    const signin_id = _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
+    this.props.onSetId(signin_id)
     this.props.onChangeMode(mode)
   }
 
@@ -85,12 +89,12 @@ class Signin extends React.Component {
     if(mode === 'password') return <Password { ...this._getPassword() } />
     if(mode === 'lockout') return <Lockout />
     if(mode === 'blocked') return <Blocked />
-    if(mode === 'wait') return <Wait />
+    if(mode === 'wait') return <Wait { ...this._getWait() }  />
     return <div />
   }
 
   _getAccounts() {
-    return _.pick(this.props, ['active','removing','status','teams','user','onChangeMode','onEmail','onSet','onToggleRemove'])
+    return _.pick(this.props, ['active','removing','signin_id','status','teams','user','onChangeMode','onEmail','onSet','onToggleRemove'])
   }
 
   _getEmail() {
@@ -102,7 +106,11 @@ class Signin extends React.Component {
   }
 
   _getTeam() {
-    return _.pick(this.props, ['status','teams','team','onChangeMode','onSet','onTeam'])
+    return _.pick(this.props, ['signin_id','status','teams','team','onChangeMode','onSet','onTeam'])
+  }
+
+  _getWait() {
+    return _.pick(this.props, ['signin_id'])
   }
 
   _handleSignin() {

@@ -1,4 +1,5 @@
 export const INITIAL_STATE = {
+  signin_id: null,
   error: null,
   mode: null,
   show: false,
@@ -92,6 +93,12 @@ export default (state = INITIAL_STATE, action) => {
       team: action.team,
       user: action.user,
       mode: action.mode
+    }
+
+  case 'SET_ID':
+    return {
+      ...state,
+      signin_id: action.signin_id
     }
 
   case 'RESET':

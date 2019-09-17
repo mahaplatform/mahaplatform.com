@@ -15,6 +15,7 @@ class Accounts extends React.Component {
   static propTypes = {
     active: PropTypes.number,
     removing: PropTypes.bool,
+    signin_id: PropTypes.string,
     status: PropTypes.string,
     teams: PropTypes.array,
     user: PropTypes.object,
@@ -117,14 +118,14 @@ class Accounts extends React.Component {
 
   _handleChoose(index) {
     const { admin } = this.context
-    const { teams, onChangeMode, onEmail } = this.props
+    const { signin_id, teams, onChangeMode, onEmail } = this.props
     if(teams[index].token) return admin.chooseTeam(index)
     const team = _.omit(teams[index], ['token'])
     const user = teams[index].user
     if(team.authentication_strategy === 'local') {
       onEmail(team.id, user.email)
     } else {
-      const state = btoa(JSON.stringify({ team_id: team.id }))
+      const state = btoa(JSON.stringify({ signin_id, team_id: team.id }))
       this.context.host.openWindow(`/admin/auth/${team.authentication_strategy}?state=${state}`)
       setTimeout(() => onChangeMode('wait'), 250)
     }

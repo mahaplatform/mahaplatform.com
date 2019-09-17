@@ -1,6 +1,5 @@
 import formatObjectForTransport from '../../utils/format_object_for_transport'
 import socket from '../emitter'
-import knex from '../knex'
 import _ from 'lodash'
 
 export const refresh = async (req, messages) => {
@@ -22,6 +21,12 @@ export const message = async (req, messages) => {
     const channel = _getChannel(req, message)
     const targets = _getTargets(req, message)
     await Promise.map(targets, async target => {
+      console.log({
+        channel,
+        target,
+        action: message.action,
+        data: message.data ? formatObjectForTransport(message.data) : null
+      })
       await socket.in(channel).emit('message', {
         target,
         action: message.action,
