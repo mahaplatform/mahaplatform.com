@@ -35,8 +35,6 @@ const token = async (code, scope) => {
 
   const data = await oauth2.accessToken.create(result)
 
-  console.log(data)
-
   const client = Client.init({
     authProvider: (done) => done(null, data.token.access_token)
   })

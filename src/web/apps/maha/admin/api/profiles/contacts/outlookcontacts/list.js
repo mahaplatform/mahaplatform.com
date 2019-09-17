@@ -17,7 +17,7 @@ const list = async (req, profile) => {
     id: entry.id,
     first_name: entry.givenName,
     last_name: entry.surname,
-    photo: null, // add dynamic preview
+    photo: `/api/admin/profiles/${profile.get('id')}/contacts/${entry.id}/preview?token=${req.token}`,
     organizations: [
       ...entry.companyName ? [{
         name: entry.companyName
@@ -49,8 +49,6 @@ const list = async (req, profile) => {
       }]: []
     ]
   }))
-
-  console.log(result['@odata.nextLink'])
 
   records.pagination = {
     skip: skiptoken ? 1 : 0,

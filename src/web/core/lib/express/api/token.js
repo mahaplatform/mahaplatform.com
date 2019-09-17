@@ -15,14 +15,14 @@ const getToken = (req) => {
 
 const route = async (req, res, next) => {
 
-  const token = getToken(req)
+  req.token = getToken(req)
 
-  if(!token) return res.status(401).json({
+  if(!req.token) return res.status(401).json({
     status: 401,
     message: 'No token'
   })
 
-  const { err, data } = decode(token)
+  const { err, data } = decode(req.token)
 
   if(err && err === 'jwt expired') return res.status(401).json({
     status: 401,
