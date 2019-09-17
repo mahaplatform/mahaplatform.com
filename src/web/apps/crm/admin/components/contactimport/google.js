@@ -16,6 +16,7 @@ class Google extends React.PureComponent {
   static defaultProps = {}
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleImport = this._handleImport.bind(this)
 
   render() {
     return (
@@ -25,18 +26,19 @@ class Google extends React.PureComponent {
     )
   }
 
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps) {}
-
   _getPanel() {
     return {
       title: 'Import from Gmail',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
+      ],
+      rightItems: [
+        { label: 'Import', handler: this._handleImport }
       ]
     }
   }
+
+  _handleImport() {}
 
   _getInfinite() {
     const { source } = this.props
@@ -49,7 +51,9 @@ class Google extends React.PureComponent {
       endpoint: `/api/admin/profiles/${source.id}/contacts`,
       layout: Contacts,
       empty: <Message {...empty} />,
-      props: {}
+      props: {
+        selectable: true
+      }
     }
   }
 

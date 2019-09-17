@@ -8,7 +8,9 @@ import New from './new'
 
 class ContactImport extends React.PureComponent {
 
-  static contextTypes = {}
+  static contextTypes = {
+    network: PropTypes.object
+  }
 
   static propTypes = {
     sources: PropTypes.array,
@@ -22,6 +24,7 @@ class ContactImport extends React.PureComponent {
     cards: []
   }
 
+  _handleFetchProfiles = this._handleFetchProfiles.bind(this)
   _handlePush = this._handlePush.bind(this)
   _handlePop = this._handlePop.bind(this)
 
@@ -37,7 +40,8 @@ class ContactImport extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.props.onFetchProfiles()
+    this._handleJoin()
+    this._handleFetchProfiles()
   }
 
   componentDidUpdate(prevProps) {
@@ -45,6 +49,10 @@ class ContactImport extends React.PureComponent {
     if(status !== prevProps.status && status === 'loaded') {
       this._handlePush(Sources, this._getSources())
     }
+  }
+
+  componentWillUnmount() {
+    this._handleLeave()
   }
 
   _getNew() {
@@ -81,6 +89,28 @@ class ContactImport extends React.PureComponent {
       cards,
       slideFirst: false
     }
+  }
+
+  _handleFetchProfiles() {
+    this.props.onFetchProfiles()
+  }
+
+  _handleJoin() {
+    const { network } = this.context
+    const channel = '/admin/account/profiles'
+    network.join(channel)
+    network.subscribe([
+      { target: channel, action: 'refresh', handler: this._handleFetchProfiles }
+    ])
+  }
+
+  _handleLeave() {
+    const { network } = this.context
+    const channel = '/admin/account/profiles'
+    network.leave(channel)
+    network.unsubscribe([
+      { target: channel, action: 'refresh', handler: this._handleFetchProfiles }
+    ])
   }
 
   _handlePop(index = -1) {

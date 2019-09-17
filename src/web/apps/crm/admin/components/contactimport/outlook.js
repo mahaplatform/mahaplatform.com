@@ -16,6 +16,7 @@ class Outlook extends React.PureComponent {
   static defaultProps = {}
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleImport = this._handleImport.bind(this)
 
   render() {
     return (
@@ -34,9 +35,14 @@ class Outlook extends React.PureComponent {
       title: 'Import from Outlook',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
+      ],
+      rightItems: [
+        { label: 'Import', handler: this._handleImport }
       ]
     }
   }
+
+  _handleImport() {}
 
   _getInfinite() {
     const { source } = this.props
@@ -49,7 +55,9 @@ class Outlook extends React.PureComponent {
       endpoint: `/api/admin/profiles/${source.id}/contacts`,
       layout: Contacts,
       empty: <Message {...empty} />,
-      props: {}
+      props: {
+        selectable: true
+      }
     }
   }
 
