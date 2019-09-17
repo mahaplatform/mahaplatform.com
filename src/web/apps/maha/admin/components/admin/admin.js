@@ -75,7 +75,7 @@ class Admin extends React.Component {
     if(active !== prevProps.active && active !== null) {
       this._handleLoadSession()
     }
-    if(teams.length !== prevProps.teams.length) {
+    if(!_.isEqual(teams, prevProps.teams)) {
       this._handleSaveAdmin()
     }
     if(user_id !== prevProps.user_id && prevProps.user_id !== null) {

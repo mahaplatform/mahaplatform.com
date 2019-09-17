@@ -31,9 +31,15 @@ const updateRoute = async (req, res) => {
     related_foreign_key: 'app_id'
   })
 
+  await socket.message(req, {
+    channel: `/admin/teams/${team.get('id')}`,
+    action: 'session'
+  })
+
   await socket.refresh(req, [
     '/admin/platform/teams',
-    `/admin/platform/teams/${team.get('id')}`
+    `/admin/platform/teams/${team.get('id')}`,
+    { channel: `/admin/teams/${team.get('id')}`, target: '/admin/team/settings' }
   ])
 
   res.status(200).respond(team, TeamSerializer)

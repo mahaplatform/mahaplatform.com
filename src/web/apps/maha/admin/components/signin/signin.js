@@ -65,7 +65,7 @@ class Signin extends React.Component {
   componentWillUpdate(nextProps) {
     const { mode } = this.props
     if(nextProps.mode === mode) return
-    const modes = ['accounts','team','email','password','lockout','blocked']
+    const modes = ['accounts','team','email','password','lockout','blocked','wait']
     const oldIndex = _.indexOf(modes, mode)
     const newIndex = _.indexOf(modes, nextProps.mode)
     this.direction = (newIndex > oldIndex) ? 'forward' : 'backward'

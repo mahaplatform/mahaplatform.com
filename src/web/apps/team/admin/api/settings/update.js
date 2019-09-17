@@ -23,7 +23,7 @@ const updateRoute = async (req, res) => {
   ])
 
   await socket.message(req, {
-    channel: 'user',
+    channel: 'team',
     action: 'session'
   })
 

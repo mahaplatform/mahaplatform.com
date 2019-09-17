@@ -18,6 +18,8 @@ const team = async (req, res, next) => {
 
   const state = JSON.parse(Buffer.from(req.query.state, 'base64'))
 
+  console.log('state', state)
+
   req.signin_id = state.signin_id
 
   req.team_id = state.team_id
@@ -57,7 +59,9 @@ const google = async (req, res, next) => {
   const state = getState(req)
 
   passport.use(new GoogleStrategy({
-    authorizationurl: `https://accounts.google.com/o/oauth2/v2/auth?state=${state}`,
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    authorizationURL: `https://accounts.google.com/o/oauth2/v2/auth?state=${state}`,
     callbackURL: `${process.env.WEB_HOST}/admin/auth/google`
   }, (accessToken, refreshToken, profile, done) => {
     loadUserByEmail(req, profile.emails[0].value, done)
@@ -113,6 +117,8 @@ const getState = (req) => {
 }
 
 const result = (req, res) => async (err, user, info) => {
+
+  console.log(err, user, info)
 
   if(!user) await failure(req, res)
 

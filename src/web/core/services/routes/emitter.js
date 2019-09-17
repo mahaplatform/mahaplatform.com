@@ -21,12 +21,6 @@ export const message = async (req, messages) => {
     const channel = _getChannel(req, message)
     const targets = _getTargets(req, message)
     await Promise.map(targets, async target => {
-      console.log({
-        channel,
-        target,
-        action: message.action,
-        data: message.data ? formatObjectForTransport(message.data) : null
-      })
       await socket.in(channel).emit('message', {
         target,
         action: message.action,
