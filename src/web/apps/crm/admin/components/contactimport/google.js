@@ -41,7 +41,7 @@ class Google extends React.PureComponent {
   _getInfinite() {
     const { source } = this.props
     const empty = {
-      icon: 'times-circle',
+      icon: 'user',
       title: 'No Contacts',
       text: 'There are no contacts available'
     }

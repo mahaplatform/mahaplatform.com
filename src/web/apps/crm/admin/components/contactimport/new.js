@@ -5,7 +5,7 @@ import React from 'react'
 
 const sources = [
   { label: 'Outlook 365', service: 'outlookcontacts' },
-  { label: 'Gmail', service: 'googlecontacts' }
+  { label: 'Google Contacts', service: 'googlecontacts' }
 ]
 
 class New extends React.PureComponent {
@@ -26,15 +26,13 @@ class New extends React.PureComponent {
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-attachments-sources">
+        <div className="contactimport-sources">
           { sources.map((source, index) => (
-            <div className="maha-attachments-source" key={`source_${index}`} onClick={ this._handleChooseSource.bind(this, source)}>
-              <div className="maha-attachments-source-logo">
-                <div className={`maha-attachments-source-favicon ${source.service}`}>
-                  <img src={ `/admin/images/services/${source.service}.png` } />
-                </div>
+            <div className="contactimport-source" key={`source_${index}`} onClick={ this._handleChooseSource.bind(this, source)}>
+              <div className="contactimport-source-service">
+                <img src={ `/admin/images/services/${source.service}.png` } />
               </div>
-              <div className="maha-attachments-source-text">
+              <div className="contactimport-source-label">
                 { source.label }
               </div>
             </div>

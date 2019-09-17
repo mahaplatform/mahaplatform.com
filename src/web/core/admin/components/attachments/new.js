@@ -10,11 +10,7 @@ const sources = [
   { label: 'Facebook', service: 'facebook' },
   { label: 'Instagram', service: 'instagram' },
   { label: 'Dropbox', service: 'dropbox' },
-  { label: 'Box', service: 'box' },
-  { label: 'Outlook Contacts', service: 'outlookcontacts' },
-  { label: 'Google Contacts', service: 'googlecontacts' },
-  { label: 'Outlook', service: 'outlook' },
-  { label: 'Gmail', service: 'gmail' }
+  { label: 'Box', service: 'box' }
 ]
 
 class New extends React.PureComponent {

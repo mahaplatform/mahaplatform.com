@@ -4,7 +4,9 @@ import React from 'react'
 
 class Sources extends React.PureComponent {
 
-  static contextTypes = {}
+  static contextTypes = {
+    modal: PropTypes.object
+  }
 
   static propTypes = {
     sources: PropTypes.array,
@@ -28,7 +30,7 @@ class Sources extends React.PureComponent {
             <div className="contactimport-source" key={`source_${index}`} onClick={ this._handleClick.bind(this, source) }>
               <div className="contactimport-source-service">
                 { source.service &&
-                  <img src={`/images/services/${source.service}.png`} className={source.service} />
+                  <img src={`/images/services/${source.service}.png`} />
                 }
                 { source.icon &&
                   <i className={`fa fa-${source.icon}`} />
@@ -79,7 +81,7 @@ class Sources extends React.PureComponent {
   }
 
   _handleCancel() {
-    this.props.onPop()
+    this.context.modal.close()
   }
 
   _handleClick(source) {
