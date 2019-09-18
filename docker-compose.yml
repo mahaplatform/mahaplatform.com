@@ -1,0 +1,35 @@
+version: '3.7'
+services:
+  postgres:
+    image: circleci/postgres:10-alpine-ram
+    container_name: postgres
+    network_mode: host
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=maha
+      - POSTGRES_PASSWORD=""
+    expose:
+      - "5432"
+    ports:
+      - "15432:5432"
+  redis:
+    image: circleci/redis
+    container_name: redis
+    network_mode: host
+    expose:
+      - "6379"
+    ports:
+      - "16379:6379"
+  app:
+    image: mahaplatform/dev
+    container_name: app
+    privileged: true
+    build: .
+    volumes:
+      - ./:/var/www/app
+      - /sys/fs/cgroup:/sys/fs/cgroup
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    command:
+      sh -c 'cd /var/www/app && npm install --no-bin-links && npm run shipit sync && npm run knex migrate:up && npm run bootstrap && npm run help && npm run dev'

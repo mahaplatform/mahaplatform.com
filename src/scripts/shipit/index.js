@@ -12,7 +12,7 @@ const processor = async () => {
   shipit.initConfig({
     default: {
       deployTo: '/var/www/app',
-      key: `~/.ssh/${process.env.FINGERPRINT}`,
+      key: `${process.env.SSH_KEY}`,
       strict: 'no'
     },
     production: {

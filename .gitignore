@@ -13,4 +13,4 @@ deploy.tgz
 *.compiled.js
 npm-debug.log
 .env*
-.key
+*.key

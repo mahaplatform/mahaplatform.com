@@ -23,9 +23,9 @@ mkdir -p /var/www/app
 yum -y install java-1.8.0-openjdk
 
 # INSTALL LIBREOFFICE
-wget https://mirror.clarkson.edu/tdf/libreoffice/stable/6.2.5/rpm/x86_64/LibreOffice_6.2.5_Linux_x86-64_rpm.tar.gz
-tar -xzf LibreOffice_6.2.5_Linux_x86-64_rpm.tar.gz
-cd  LibreOffice_6.2.5.2_Linux_x86-64_rpm/RPMS
+wget https://mirror.clarkson.edu/tdf/libreoffice/stable/6.3.1/rpm/x86_64/LibreOffice_6.3.1_Linux_x86-64_rpm.tar.gz
+tar -xzf LibreOffice_6.3.1_Linux_x86-64_rpm.tar.gz
+cd LibreOffice_6.3.1.2_Linux_x86-64_rpm/RPMS
 yum -y localinstall *.rpm
 ln -s /opt/libreoffice6.2/program/soffice /usr/bin/soffice
 
