@@ -1,6 +1,7 @@
 import { Infinite, Message, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Contacts from './contacts'
+import Configure from './configure'
 import React from 'react'
 
 class Outlook extends React.PureComponent {
@@ -16,7 +17,8 @@ class Outlook extends React.PureComponent {
   static defaultProps = {}
 
   _handleCancel = this._handleCancel.bind(this)
-  _handleImport = this._handleImport.bind(this)
+  _handleDone = this._handleDone.bind(this)
+  _handleUpdateSelected = this._handleUpdateSelected.bind(this)
 
   render() {
     return (
@@ -26,10 +28,6 @@ class Outlook extends React.PureComponent {
     )
   }
 
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps) {}
-
   _getPanel() {
     return {
       title: 'Import from Outlook',
@@ -37,12 +35,22 @@ class Outlook extends React.PureComponent {
         { icon: 'chevron-left', handler: this._handleCancel }
       ],
       rightItems: [
-        { label: 'Import', handler: this._handleImport }
+        { label: 'Next', handler: this._handleDone }
       ]
     }
   }
 
-  _handleImport() {}
+  _getConfigure() {
+    const { onPop, onPush } = this.props
+    return {
+      onPop,
+      onPush
+    }
+  }
+
+  _handleDone() {
+    this.props.onPush(Configure, this._getConfigure())
+  }
 
   _getInfinite() {
     const { source } = this.props
@@ -55,6 +63,7 @@ class Outlook extends React.PureComponent {
       endpoint: `/api/admin/profiles/${source.id}/contacts`,
       layout: Contacts,
       empty: <Message {...empty} />,
+      onUpdateSelected: this._handleUpdateSelected,
       props: {
         selectable: true
       }
@@ -63,6 +72,10 @@ class Outlook extends React.PureComponent {
 
   _handleCancel() {
     this.props.onPop()
+  }
+
+  _handleUpdateSelected(contacts) {
+    this.setState({ contacts })
   }
 
 

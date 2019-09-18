@@ -1,7 +1,7 @@
-import ModalPanel from '../../modal_panel'
+import ImportStrategyToken from '../../../tokens/import_strategy'
 import RadioGroup from '../../form/select/radio_group'
 import TextField from '../../form/textfield'
-import StrategyToken from './strategy_token'
+import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -56,7 +56,6 @@ class Configure extends React.Component {
   }
 
   componentDidMount() {
-    //set strategy to ignore in reducer;
     const { defaultValue, onInit } = this.props
     onInit(defaultValue)
   }
@@ -93,23 +92,9 @@ class Configure extends React.Component {
     const { strategy } = this.props
     return {
       defaultValue: strategy,
-      format: StrategyToken,
+      format: ImportStrategyToken,
       onChange: this._handleStrategyChange,
-      options: [
-        {
-          value: 'ignore',
-          title: 'Ignore',
-          text: 'Ignore duplicate records'
-        },{
-          value: 'overwrite',
-          title: 'Merge & Overwrite',
-          text: 'Merge duplicates, overwriting existing fields with data from import'
-        },{
-          value: 'discard',
-          title: 'Merge & Discard',
-          text: 'Merge duplicates, discarding data that conflicts with existing fields'
-        }
-      ]
+      options: ['ignore','overwrite','discard']
     }
   }
 

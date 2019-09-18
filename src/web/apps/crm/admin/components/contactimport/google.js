@@ -1,6 +1,7 @@
 import { Infinite, Message, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Contacts from './contacts'
+import Configure from './configure'
 import React from 'react'
 
 class Google extends React.PureComponent {
@@ -15,8 +16,13 @@ class Google extends React.PureComponent {
 
   static defaultProps = {}
 
+  state = {
+    conatcts: []
+  }
+
   _handleCancel = this._handleCancel.bind(this)
-  _handleImport = this._handleImport.bind(this)
+  _handleDone = this._handleDone.bind(this)
+  _handleUpdateSelected = this._handleUpdateSelected.bind(this)
 
   render() {
     return (
@@ -33,12 +39,24 @@ class Google extends React.PureComponent {
         { icon: 'chevron-left', handler: this._handleCancel }
       ],
       rightItems: [
-        { label: 'Import', handler: this._handleImport }
+        { label: 'Next', handler: this._handleDone }
       ]
     }
   }
 
-  _handleImport() {}
+  _getConfigure() {
+    const { onPop, onPush } = this.props
+    const { contacts } = this.state
+    return {
+      contacts,
+      onPop,
+      onPush
+    }
+  }
+
+  _handleDone() {
+    this.props.onPush(Configure, this._getConfigure())
+  }
 
   _getInfinite() {
     const { source } = this.props
@@ -51,6 +69,7 @@ class Google extends React.PureComponent {
       endpoint: `/api/admin/profiles/${source.id}/contacts`,
       layout: Contacts,
       empty: <Message {...empty} />,
+      onUpdateSelected: this._handleUpdateSelected,
       props: {
         selectable: true
       }
@@ -59,6 +78,10 @@ class Google extends React.PureComponent {
 
   _handleCancel() {
     this.props.onPop()
+  }
+
+  _handleUpdateSelected(contacts) {
+    this.setState({ contacts })
   }
 
 }
