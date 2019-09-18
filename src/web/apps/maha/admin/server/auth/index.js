@@ -18,8 +18,6 @@ const team = async (req, res, next) => {
 
   const state = JSON.parse(Buffer.from(req.query.state, 'base64'))
 
-  console.log('state', state)
-
   req.signin_id = state.signin_id
 
   req.team_id = state.team_id

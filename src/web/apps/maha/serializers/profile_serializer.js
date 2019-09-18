@@ -1,5 +1,6 @@
 const profileSerializer = (req, result) => ({
   id: result.get('id'),
+  type: result.get('type'),
   service: result.related('source').get('text'),
   photo: result.related('photo') ? result.related('photo').get('path') : null,
   profile_id: result.get('profile_id'),

@@ -1,30 +1,23 @@
 export const INITIAL_STATE = {
-  sources: [],
   profiles: [],
-  url: null
+  status: 'pending'
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'FETCH_SOURCES_SUCCESS':
+  case 'FETCH_REQUEST':
     return {
       ...state,
-      sources: action.result.data
+      status: state.status === 'pending' ? 'loading' : 'refreshing'
     }
 
-  case 'FETCH_PROFILES_SUCCESS':
+  case 'FETCH_SUCCESS':
     return {
       ...state,
       profiles: action.result.data,
-      url: null
-    }
-
-  case 'AUTHORIZE_SUCCESS':
-    return {
-      ...state,
-      url: action.result.data
+      status: 'success'
     }
 
   default:

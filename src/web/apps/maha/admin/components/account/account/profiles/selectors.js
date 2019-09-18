@@ -1,11 +1,14 @@
 import { createSelector } from 'reselect'
 
-const profilesSelector = (state, props) => state.profiles || []
+const profiles = (state, props) => state.profiles || []
 
-export const profileList = createSelector(
-  profilesSelector,
-  (profiles) => profiles.reduce((list, profile) => [
-    ...list,
-    profile.network
-  ], [])
+export const types = createSelector(
+  profiles,
+  (profiles) => profiles.reduce((types, profile) => ({
+    ...types,
+    [profile.type]: [
+      ...types[profile.type] || [],
+      profile
+    ]
+  }), { files: [], photos: [], contacts: [], email: [] })
 )
