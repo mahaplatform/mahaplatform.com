@@ -1,6 +1,5 @@
 import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
-import AssetIcon from '../asset/icon'
 import Stack from '../stack/stack'
 import Uploader from '../uploader'
 import PropTypes from 'prop-types'
@@ -8,6 +7,7 @@ import Sources from './sources'
 import Loader from '../loader'
 import Device from './device'
 import Photos from './photos'
+import Review from './review'
 import Files from './files'
 import Drive from './drive'
 import React from 'react'
@@ -30,12 +30,11 @@ class Attachments extends React.Component {
     counts: PropTypes.object,
     doneText: PropTypes.string,
     files: PropTypes.array,
-    images: PropTypes.array,
     isReady: PropTypes.bool,
     multiple: PropTypes.bool,
     networks: PropTypes.array,
-    plains: PropTypes.array,
     prompt: PropTypes.string,
+    review: PropTypes.bool,
     sources: PropTypes.array,
     status: PropTypes.string,
     onAddAsset: PropTypes.func,
@@ -45,9 +44,9 @@ class Attachments extends React.Component {
     onCreate: PropTypes.func,
     onFetchProfiles: PropTypes.func,
     onDone: PropTypes.func,
-    onRemoveAsset: PropTypes.func,
-    onRemoveFile: PropTypes.func,
-    onSetSources: PropTypes.func
+    onRemove: PropTypes.func,
+    onSetSources: PropTypes.func,
+    onToggleReview: PropTypes.func
   }
 
   static defaultProps = {
@@ -68,53 +67,25 @@ class Attachments extends React.Component {
   _handleFetchProfiles = this._handleFetchProfiles.bind(this)
   _handlePush = this._handlePush.bind(this)
   _handlePop = this._handlePop.bind(this)
+  _handleToggleReview = this._handleToggleReview.bind(this)
 
   render() {
-    const { files, images, plains, status } = this.props
+    const { files, review, status } = this.props
     if(status === 'loading') return <Loader />
     if(status !== 'loaded') return null
     return (
       <div className="maha-attachments">
         <Uploader>
           <Stack { ...this._getStack() } />
+          <CSSTransition in={ files.length > 0 } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+            <div className="maha-attachments-footer" onClick={ this._handleToggleReview }>
+              review { files.length } files
+            </div>
+          </CSSTransition>
         </Uploader>
-        <CSSTransition in={ files.length > 0 } classNames="expanded" timeout={ 150 } mountOnEnter={ true } unmountOnExit={ true }>
-          <div className="maha-attachments-summary">
-            { images.length > 0 &&
-             <div className="maha-attachments-summary-images">
-               { images.map((file, index) => (
-                 <div className="maha-attachments-summary-image" key={`image_${index}`}>
-                   <div style={{backgroundImage:`url(${file.thumbnail })`}}>
-                     { file.asset ?
-                       <i className="fa fa-times" onClick={ this._handleRemoveFile.bind(this, file) } /> :
-                       <i className="fa fa-spin fa-circle-o-notch" />
-                     }
-                     <img src={ `/admin/images/${file.service}.png` } />
-                   </div>
-                 </div>
-               )) }
-             </div>
-            }
-            { plains.length > 0 &&
-             <div className="maha-attachments-summary-plains">
-               { plains.map((file, index) => (
-                 <div className="maha-attachments-summary-item" key={`plain_${index}`}>
-                   <div className="maha-attachments-summary-item-icon">
-                     <AssetIcon content_type={ file.content_type } />
-                   </div>
-                   <div className="maha-attachments-summary-item-name">
-                     { file.name }
-                   </div>
-                   <div className="maha-attachments-summary-item-remove">
-                     { file.asset ?
-                       <i className="fa fa-times" onClick={ this._handleRemoveFile.bind(this, file) } /> :
-                       <i className="fa fa-spin fa-circle-o-notch" />
-                     }
-                   </div>
-                 </div>
-               )) }
-             </div>
-            }
+        <CSSTransition in={ review } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+          <div className="maha-attachments-review-panel">
+            <Review { ...this._getReview() } />
           </div>
         </CSSTransition>
       </div>
@@ -141,6 +112,15 @@ class Attachments extends React.Component {
     this._handleLeave()
   }
 
+  _getReview() {
+    const { files, onRemove } = this.props
+    return {
+      files,
+      onClose: this._handleToggleReview,
+      onRemove
+    }
+  }
+
   _getStack() {
     const { cards } = this.state
     return {
@@ -155,10 +135,10 @@ class Attachments extends React.Component {
   }
 
   _getSources() {
-    const { files, isReady, multiple, onAddAsset, onAddFile, onCreate, onRemoveFile } = this.props
+    const { files, isReady, multiple, onAddAsset, onAddFile, onCreate, onRemove } = this.props
     const { cancelText, counts, doneText, sources } = this.props
     return {
-      files, isReady, multiple, onAddAsset, onAddFile, onCreate, onRemoveFile,
+      files, isReady, multiple, onAddAsset, onAddFile, onCreate, onRemove,
       cancelText,
       counts,
       doneText,
@@ -229,9 +209,10 @@ class Attachments extends React.Component {
     })
   }
 
-  _handleRemoveFile(file) {
-    this.props.onRemoveFile(file)
+  _handleToggleReview() {
+    this.props.onToggleReview()
   }
+
 
 }
 

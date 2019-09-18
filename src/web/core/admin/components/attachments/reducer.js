@@ -3,6 +3,7 @@ import _ from 'lodash'
 export const INITIAL_STATE = {
   adding: false,
   files: [],
+  review: false,
   sources: [],
   status: 'pending'
 }
@@ -76,14 +77,20 @@ const reducer = (state = INITIAL_STATE, action) => {
       ]
     }
 
-  case 'REMOVE_FILE':
-    const fileIndex = _.findIndex(state.files, { id: action.file.id, service: action.file.service })
+  case 'REMOVE':
     return {
       ...state,
       files: [
-        ...state.files.slice(0, fileIndex),
-        ...state.files.slice(fileIndex + 1)
+        ...state.files.filter((file, index) => {
+          return index !== action.index
+        })
       ]
+    }
+
+  case 'TOGGLE_REVIEW':
+    return {
+      ...state,
+      review: !state.review
     }
 
   default:

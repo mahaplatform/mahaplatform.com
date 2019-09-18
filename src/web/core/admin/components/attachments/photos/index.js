@@ -10,8 +10,6 @@ class Photos extends React.Component {
   static propTypes = {
     files: PropTypes.array,
     source: PropTypes.object,
-    onAddAsset: PropTypes.func,
-    onAddFile: PropTypes.func,
     onBack: PropTypes.func,
     onCreate: PropTypes.func,
     onDone: PropTypes.func,

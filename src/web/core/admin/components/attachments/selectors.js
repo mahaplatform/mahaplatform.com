@@ -13,19 +13,6 @@ export const assets = createSelector(
   }, [])
 )
 
-export const images = createSelector(
-  files,
-  (files) => files.filter(file => {
-    return file.thumbnail !== null
-  })
-)
-
-export const plains = createSelector(
-  files,
-  (files) => files.filter(file => {
-    return file.thumbnail === null
-  })
-)
 export const counts = createSelector(
   files,
   (files) => files.reduce((counts, file) => ({

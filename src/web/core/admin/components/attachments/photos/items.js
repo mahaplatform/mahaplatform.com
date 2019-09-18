@@ -9,9 +9,7 @@ class Items extends React.Component {
     records: PropTypes.array,
     source: PropTypes.object,
     onRemoveFile: PropTypes.func,
-    onCreate: PropTypes.func,
-    onBack: PropTypes.func,
-    onList: PropTypes.func
+    onCreate: PropTypes.func
   }
 
   render() {
@@ -21,7 +19,7 @@ class Items extends React.Component {
         { records.map((photo, index) => (
           <div className="maha-attachments-photo" key={`item_${index}`} onClick={ this._handleClick.bind(this, photo) } style={{backgroundImage:`url(${photo.image})`}}>
             <div className="maha-attachments-photo-image">
-              <i className={ `fa fa-fw fa-${this._getIcon(photo)}` } />
+              <i className={ `fa fa-${this._getIcon(photo)}` } />
             </div>
           </div>
         )) }
@@ -31,6 +29,7 @@ class Items extends React.Component {
 
   _getIcon(photo) {
     const { files, source } = this.props
+    console.log(files, photo)
     const file = _.find(files, { id: photo.id, service: source.service })
     if(!file) return null
     return file.asset ? 'check': 'circle-o-notch'
@@ -40,7 +39,7 @@ class Items extends React.Component {
     const { source, files } = this.props
     const file = _.find(files, { id: photo.id, service: source.service })
     if(file) return this.props.onRemoveFile(file)
-    this.props.onCreate(`/api/admin/profiles/${source.id}/files`, {
+    this.props.onCreate(`/api/admin/profiles/${source.id}/photos`, {
       id: photo.id,
       name: `${photo.id}.jpg`,
       service: source.service,

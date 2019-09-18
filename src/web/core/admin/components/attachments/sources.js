@@ -9,6 +9,7 @@ class Sources extends React.Component {
     cancelText: PropTypes.any,
     doneText: PropTypes.string,
     counts: PropTypes.object,
+    files: PropTypes.array,
     sources: PropTypes.array,
     onCancel: PropTypes.func,
     onDone: PropTypes.func,

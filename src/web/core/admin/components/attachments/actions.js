@@ -36,12 +36,12 @@ export const addAsset = (file_id, asset) => ({
   asset
 })
 
-export const removeFile = (file) => ({
-  type: 'REMOVE_FILE',
-  file
+export const remove = (index) => ({
+  type: 'REMOVE',
+  index
 })
 
-export const removeAsset = (asset) => ({
-  type: 'REMOVE_ASSET',
-  asset
+
+export const toggleReview = () => ({
+  type: 'TOGGLE_REVIEW'
 })

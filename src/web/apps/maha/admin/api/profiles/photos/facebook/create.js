@@ -3,7 +3,7 @@ import { getClient } from '../../services/facebook'
 import Source from '../../../../../models/source'
 import request from 'request-promise'
 
-const createRoute = async (req, profile) => {
+const create = async (req, profile) => {
 
   const client = await getClient(req, profile)
 
@@ -40,4 +40,4 @@ const createRoute = async (req, profile) => {
 
 }
 
-export default createRoute
+export default create

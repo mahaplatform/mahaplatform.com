@@ -4,7 +4,7 @@ import googlephotos from './googlephotos/create'
 import instagram from './instagram/create'
 import facebook from './facebook/create'
 
-const getCreate = async (service) => {
+const getCreate = (service) => {
   if(service === 'googlephotos') return googlephotos
   if(service === 'instagram') return instagram
   if(service === 'facebook') return facebook

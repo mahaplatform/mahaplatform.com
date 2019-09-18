@@ -1,7 +1,7 @@
 import { getClient } from '../../services/facebook'
 import _ from 'lodash'
 
-const listRoute = async (req, profile) => {
+const list = async (req, profile) => {
 
   const client = await getClient(req, profile)
 
@@ -32,4 +32,4 @@ const listRoute = async (req, profile) => {
 
 }
 
-export default listRoute
+export default list
