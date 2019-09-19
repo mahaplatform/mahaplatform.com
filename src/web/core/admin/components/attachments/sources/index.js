@@ -12,7 +12,10 @@ class Sources extends React.Component {
     cancelText: PropTypes.any,
     counts: PropTypes.object,
     files: PropTypes.array,
+    multiple: PropTypes.bool,
     sources: PropTypes.array,
+    onAdd: PropTypes.func,
+    onCreate: PropTypes.func,
     onBack: PropTypes.func,
     onCancel: PropTypes.func,
     onNext: PropTypes.func,
@@ -84,7 +87,7 @@ class Sources extends React.Component {
 
   _getNew() {
     return {
-      onCancel: this._handleCancel
+      onBack: this._handleBack
     }
   }
 
@@ -110,12 +113,11 @@ class Sources extends React.Component {
   }
 
   _getSource(source) {
-    const { multiple, onAddAsset, onAddFile, onCreate, onRemove } = this.props
+    const { multiple, onAdd, onCreate, onRemove } = this.props
     return {
       multiple,
       source,
-      onAddAsset,
-      onAddFile,
+      onAdd,
       onCreate,
       onRemove,
       onBack: this._handleBack,

@@ -1,4 +1,4 @@
-export const fetchProfiles = (url) => ({
+export const fetch = (url) => ({
   type: 'API_REQUEST',
   method: 'GET',
   endpoint: '/api/admin/profiles',
@@ -9,9 +9,9 @@ export const fetchProfiles = (url) => ({
       }
     }
   },
-  request: 'FETCH_PROFILES_REQUEST',
-  success: 'FETCH_PROFILES_SUCCESS',
-  failure: 'FETCH_PROFILES_FAILURE'
+  request: 'FETCH_REQUEST',
+  success: 'FETCH_SUCCESS',
+  failure: 'FETCH_FAILURE'
 })
 
 export const create = (endpoint, file) => ({
@@ -25,15 +25,9 @@ export const create = (endpoint, file) => ({
   failure: 'CREATE_FAILURE'
 })
 
-export const addFile = (file) => ({
-  type: 'ADD_FILE',
+export const add = (file) => ({
+  type: 'ADD',
   file
-})
-
-export const addAsset = (file_id, asset) => ({
-  type: 'ADD_ASSET',
-  file_id,
-  asset
 })
 
 export const remove = (index) => ({

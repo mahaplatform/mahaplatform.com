@@ -1,12 +1,14 @@
-import Infinite from '../../infinite'
-import Message from '../../message'
 import ModalPanel from '../../modal_panel'
 import Searchbox from '../../searchbox'
+import { connect } from 'react-redux'
 import Stack from '../../stack/stack'
+import Infinite from '../../infinite'
+import Message from '../../message'
 import PropTypes from 'prop-types'
 import Folder from './folder'
 import Items from './items'
 import React from 'react'
+import _ from 'lodash'
 
 class Drive extends React.Component {
 
@@ -14,19 +16,21 @@ class Drive extends React.Component {
     files: PropTypes.array,
     folders: PropTypes.array,
     q: PropTypes.string,
-    onAddAsset: PropTypes.func,
-    onAddFile: PropTypes.func,
+    onAdd: PropTypes.func,
     onBack: PropTypes.func,
     onChangeFolder: PropTypes.func,
     onCreate: PropTypes.func,
     onDone: PropTypes.func,
-    onRemoveFile: PropTypes.func,
+    onNext: PropTypes.func,
+    onRemove: PropTypes.func,
     onSetQuery: PropTypes.func,
     onUp: PropTypes.func
   }
 
-  _handleAddAsset = this._handleAddAsset.bind(this)
-  _handleRemoveAsset = this._handleRemoveAsset.bind(this)
+  _handleAdd = this._handleAdd.bind(this)
+  _handleBack = this._handleBack.bind(this)
+  _handleNext = this._handleNext.bind(this)
+  _handleRemove = this._handleRemove.bind(this)
 
   render() {
     const { q } = this.props
@@ -44,14 +48,15 @@ class Drive extends React.Component {
   }
 
   _getPanel() {
+    const { files } = this.props
     return {
       title: 'Choose File(s)',
       leftItems: [
         { icon: 'chevron-left', handler: this.props.onBack  }
       ],
-      rightItems: [
-        { label: 'Done', handler: this.props.onDone }
-      ]
+      rightItems: files.length > 0 ? [
+        { label: 'Next', handler: this._handleNext }
+      ] : []
     }
   }
 
@@ -81,7 +86,7 @@ class Drive extends React.Component {
   }
 
   _getInfinite() {
-    const { files,  q, onChangeFolder } = this.props
+    const { q, onChangeFolder } = this.props
     const empty = {
       icon: 'times-circle',
       title: 'No Results',
@@ -94,30 +99,27 @@ class Drive extends React.Component {
       notFound: <Message { ...empty } />,
       layout: Items,
       props: {
-        files,
-        onAddFile: this._handleAddAsset,
-        onAddAsset: this._handleAddAsset,
-        onRemoveAsset: this._handleRemoveAsset,
-        onChangeFolder
+        onAdd: this._handleAdd,
+        onChangeFolder,
+        onRemove: this._handleRemove
       }
     }
   }
 
   _getFolder(folder) {
-    const { files, onUp, onChangeFolder } = this.props
+    const { onUp, onChangeFolder } = this.props
     return {
-      files,
       folder,
-      onAddAsset: this._handleAddAsset,
+      onAdd: this._handleAdd,
       onChangeFolder,
-      onRemoveAsset: this._handleRemoveAsset,
+      onRemove: this._handleRemove,
       onUp
     }
   }
 
-  _handleAddAsset(asset) {
-    const { onAddFile } = this.props
-    onAddFile({
+  _handleAdd(asset) {
+    const { onAdd } = this.props
+    onAdd({
       id: asset.id,
       name: asset.original_file_name,
       service: 'maha',
@@ -127,14 +129,24 @@ class Drive extends React.Component {
     })
   }
 
-  _handleRemoveAsset(asset) {
-    const { onRemoveFile } = this.props
-    onRemoveFile({
-      id: asset.id,
-      service: 'maha'
-    })
+  _handleBack() {
+    this.props.onBack()
+  }
+
+  _handleNext() {
+    this.props.onNext()
+  }
+
+  _handleRemove(asset) {
+    const { files, onRemove } = this.props
+    const index = _.findIndex(files, { id: asset.id, service: 'maha' })
+    onRemove(index)
   }
 
 }
 
-export default Drive
+const mapStateToProps = (state, props) => ({
+  files: state.maha.attachments.files
+})
+
+export default connect(mapStateToProps)(Drive)

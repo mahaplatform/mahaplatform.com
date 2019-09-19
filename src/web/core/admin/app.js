@@ -3,7 +3,7 @@ import adminattachmentManager from './components/attachment_manager'
 import adminattachmentsDrive from './components/attachments/drive'
 import adminattachmentsFiles from './components/attachments/files'
 import adminattachments from './components/attachments'
-import adminattachmentsUrl from './components/attachments/url'
+import adminattachmentsWeb from './components/attachments/web'
 import adminauthorized from './components/authorized'
 import adminbutton from './components/button'
 import admincarousel from './components/carousel'
@@ -235,7 +235,7 @@ class App extends React.Component {
       adminattachmentsDrive,
       adminattachmentsFiles,
       adminattachments,
-      adminattachmentsUrl,
+      adminattachmentsWeb,
       adminauthorized,
       adminbutton,
       admincarousel,

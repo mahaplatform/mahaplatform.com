@@ -10,7 +10,7 @@ import Review from './review'
 import Files from './files'
 import Drive from './drive'
 import React from 'react'
-import Url from './url'
+import Web from './web'
 import _ from 'lodash'
 
 class Attachments extends React.Component {
@@ -35,16 +35,13 @@ class Attachments extends React.Component {
     review: PropTypes.bool,
     sources: PropTypes.array,
     status: PropTypes.string,
-    onAddAsset: PropTypes.func,
-    onAddFile: PropTypes.func,
+    onAdd: PropTypes.func,
     onCancel: PropTypes.func,
     onChooseAssets: PropTypes.func,
     onCreate: PropTypes.func,
-    onFetchProfiles: PropTypes.func,
+    onFetch: PropTypes.func,
     onDone: PropTypes.func,
-    onRemove: PropTypes.func,
-    onSetSources: PropTypes.func,
-    onToggleReview: PropTypes.func
+    onRemove: PropTypes.func
   }
 
   static defaultProps = {
@@ -62,10 +59,9 @@ class Attachments extends React.Component {
 
   _handleCancel = this._handleCancel.bind(this)
   _handleDone = this._handleDone.bind(this)
-  _handleFetchProfiles = this._handleFetchProfiles.bind(this)
+  _handleFetch = this._handleFetch.bind(this)
   _handlePush = this._handlePush.bind(this)
   _handlePop = this._handlePop.bind(this)
-  _handleToggleReview = this._handleToggleReview.bind(this)
   _handleReview = this._handleReview.bind(this)
 
   render() {
@@ -81,7 +77,7 @@ class Attachments extends React.Component {
 
   componentDidMount() {
     this._handleJoin()
-    this._handleFetchProfiles()
+    this._handleFetch()
   }
 
   componentDidUpdate(prevProps) {
@@ -127,7 +123,7 @@ class Attachments extends React.Component {
   }
 
   _getSources() {
-    const { multiple, onAddAsset, onAddFile, onCreate, onRemove } = this.props
+    const { multiple, onAdd, onCreate, onRemove } = this.props
     const { counts, cancelText, doneText, sources } = this.props
     return {
       multiple,
@@ -136,15 +132,14 @@ class Attachments extends React.Component {
       doneText,
       sources: [
         { service: 'device', username: 'Your Device', component: Device },
-        { service: 'web', username: 'The Web', component: Url },
+        { service: 'web', username: 'The Web', component: Web },
         { service: 'maha', username: 'Maha Drive', component: Drive },
         ...sources.map(source => ({
           ...source,
           component: this._getSourceComponent(source.service)
         }))
       ],
-      onAddAsset,
-      onAddFile,
+      onAdd,
       onCreate,
       onRemove,
       onCancel: this._handleCancel,
@@ -168,8 +163,8 @@ class Attachments extends React.Component {
     this.context.modal.pop()
   }
 
-  _handleFetchProfiles() {
-    this.props.onFetchProfiles()
+  _handleFetch() {
+    this.props.onFetch()
   }
 
   _handleJoin() {
@@ -177,7 +172,7 @@ class Attachments extends React.Component {
     const channel = '/admin/account/profiles'
     network.join(channel)
     network.subscribe([
-      { target: channel, action: 'refresh', handler: this._handleFetchProfiles }
+      { target: channel, action: 'refresh', handler: this._handleFetch }
     ])
   }
 
@@ -186,7 +181,7 @@ class Attachments extends React.Component {
     const channel = '/admin/account/profiles'
     network.leave(channel)
     network.unsubscribe([
-      { target: channel, action: 'refresh', handler: this._handleFetchProfiles }
+      { target: channel, action: 'refresh', handler: this._handleFetch }
     ])
   }
 
@@ -208,11 +203,6 @@ class Attachments extends React.Component {
   _handleReview() {
     this._handlePush(Review, this._getReview())
   }
-
-  _handleToggleReview() {
-    this.props.onToggleReview()
-  }
-
 
 }
 

@@ -1,26 +1,34 @@
-import Loader from '../../loader'
-import Message from '../../message'
 import ModalPanel from '../../modal_panel'
 import Searchbox from '../../searchbox'
+import { connect } from 'react-redux'
+import Message from '../../message'
 import PropTypes from 'prop-types'
+import Button from '../../button'
+import Loader from '../../loader'
 import React from 'react'
 
 class Web extends React.Component {
 
   static propTypes = {
     asset: PropTypes.object,
-    status: PropTypes.string,
+    cacheKey: PropTypes.string,
+    files: PropTypes.array,
     response: PropTypes.object,
+    status: PropTypes.string,
     url: PropTypes.string,
-    onAddAsset: PropTypes.func,
-    onAddFile: PropTypes.func,
+    onAdd: PropTypes.func,
     onBack: PropTypes.func,
+    onClear: PropTypes.func,
+    onDownload: PropTypes.func,
     onLookup: PropTypes.func,
-    onImportAsset: PropTypes.func
+    onNext: PropTypes.func
   }
 
   _handleBack = this._handleBack.bind(this)
-  _handleImport = this._handleImport.bind(this)
+  _handleAdd = this._handleAdd.bind(this)
+  _handleClear = this._handleClear.bind(this)
+  _handleDownload = this._handleDownload.bind(this)
+  _handleNext = this._handleNext.bind(this)
   _handleLookup = this._handleLookup.bind(this)
 
   render() {
@@ -39,6 +47,9 @@ class Web extends React.Component {
             { status === 'previewed' && response['content-type'].match(/image/) &&
               <div className="maha-attachments-web-preview">
                 <img src={ url } />
+                { url &&
+                  <Button { ...this._getImport() } />
+                }
               </div>
             }
             { status === 'previewed' && !response['content-type'].match(/image/) &&
@@ -48,6 +59,9 @@ class Web extends React.Component {
             { status === 'failed' &&
               <Message { ...this._getFailed() } />
             }
+            { status === 'success' &&
+              <Message { ...this._getSuccess() } />
+            }
           </div>
         </div>
       </ModalPanel>
@@ -55,33 +69,39 @@ class Web extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { asset, status, url, onAddAsset, onBack } = this.props
+    const { status } = this.props
     if(status !== prevProps.status && status === 'success') {
-      onAddAsset(url, asset)
-      onBack()
+      this._handleAdd()
     }
   }
 
   _getPanel() {
-    const { files, url } = this.props
+    const { files } = this.props
     const panel = {
       title: 'Choose File(s)',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack  }
-      ]
-    }
-    if( url && url.length > 0 ){
-      panel.rightItems = [
-        { label: 'Import', handler: this._handleImport }
-      ]
+      ],
+      rightItems: files.length > 0 ? [
+        { label: 'Next', handler: this._handleNext }
+      ] : []
     }
     return panel
   }
 
   _getSearchbox() {
+    const { cacheKey } = this.props
     return {
+      key: cacheKey,
       prompt: 'Enter a URL...',
       onChange: this._handleLookup
+    }
+  }
+
+  _getImport() {
+    return {
+      label: 'Import',
+      handler: this._handleDownload
     }
   }
 
@@ -119,7 +139,7 @@ class Web extends React.Component {
       text: 'foo',
       button: {
         label: 'Import File',
-        handler: this._handleImport
+        handler: this._handleAdd
       }
     }
   }
@@ -144,6 +164,18 @@ class Web extends React.Component {
     return 'file-text-o'
   }
 
+  _getSuccess() {
+    return {
+      icon: 'check',
+      title: 'Successfully Imported',
+      text: 'We successfully imported your file',
+      button: {
+        label: 'Import another file',
+        handler: this._handleClear
+      }
+    }
+  }
+
   _handleBack() {
     this.props.onBack()
   }
@@ -153,18 +185,35 @@ class Web extends React.Component {
     this.props.onLookup(q)
   }
 
-  _handleImport() {
-    const { url, onAddFile } = this.props
-    onAddFile({
-      id: url,
-      name: url,
+  _handleAdd() {
+    const { asset, onAdd } = this.props
+    onAdd({
+      id: asset.id,
+      name: asset.original_file_name,
       service: 'web',
-      content_type: 'image/jpeg',
-      thumbnail: url
+      content_type: asset.content_type,
+      asset,
+      thumbnail: asset.content_type.match(/image/) ? asset.signed_url : null
     })
-    this.props.onImportAsset(url)
+  }
+
+  _handleClear() {
+    this.props.onClear()
+  }
+
+  _handleDownload() {
+    const { url, onDownload } = this.props
+    onDownload(url)
+  }
+
+  _handleNext() {
+    this.props.onNext()
   }
 
 }
 
-export default Web
+const mapStateToProps = (state, props) => ({
+  files: state.maha.attachments.files
+})
+
+export default connect(mapStateToProps)(Web)

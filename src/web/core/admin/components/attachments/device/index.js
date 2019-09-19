@@ -11,7 +11,6 @@ class Device extends React.Component {
 
   static propTypes = {
     files: PropTypes.array,
-    onAddAsset: PropTypes.func,
     onAddFile: PropTypes.func,
     onBack: PropTypes.func,
     onDone: PropTypes.func

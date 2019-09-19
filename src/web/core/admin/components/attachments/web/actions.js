@@ -8,12 +8,16 @@ export const lookup = (url) => ({
   failure: 'LOOKUP_FAILURE'
 })
 
-export const importAsset = (url) => ({
+export const clear = () => ({
+  type: 'CLEAR'
+})
+
+export const download = (url) => ({
   type: 'API_REQUEST',
   method: 'POST',
   endpoint: '/api/admin/assets/url',
   body: { url },
-  request: 'IMPORT_REQUEST',
-  success: 'IMPORT_SUCCESS',
-  failure: 'IMPORT_FAILURE'
+  request: 'DOWNLOAD_REQUEST',
+  success: 'DOWNLOAD_SUCCESS',
+  failure: 'DOWNLOAD_FAILURE'
 })

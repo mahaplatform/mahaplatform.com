@@ -16,8 +16,6 @@ class Files extends React.Component {
     folders: PropTypes.array,
     q: PropTypes.string,
     source: PropTypes.object,
-    onAddAsset: PropTypes.func,
-    onAddFile: PropTypes.func,
     onBack: PropTypes.func,
     onChangeFolder: PropTypes.func,
     onCreate: PropTypes.func,
@@ -51,7 +49,7 @@ class Files extends React.Component {
     return {
       title: 'Choose File(s)',
       leftItems: [
-        { icon: 'chevron-left', handler: this.props.onBack  }
+        { icon: 'chevron-left', handler: this._handleBack }
       ],
       rightItems: files.length > 0 ? [
         { label: 'Next', handler: this._handleNext }

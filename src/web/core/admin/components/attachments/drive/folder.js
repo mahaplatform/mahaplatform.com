@@ -10,9 +10,9 @@ class Folder extends React.Component {
     folder: PropTypes.object,
     files: PropTypes.array,
     records: PropTypes.array,
-    onAddAsset: PropTypes.func,
+    onAdd: PropTypes.func,
     onChangeFolder: PropTypes.func,
-    onRemoveAsset: PropTypes.func,
+    onRemove: PropTypes.func,
     onUp: PropTypes.func
   }
 
@@ -43,7 +43,7 @@ class Folder extends React.Component {
   }
 
   _getInfinite() {
-    const { files, folder, onAddAsset, onChangeFolder, onRemoveAsset } = this.props
+    const { files, folder, onAdd, onChangeFolder, onRemove } = this.props
     const $eq = folder.item_id || 'null'
     const filter = { folder_id: { $eq } }
     const empty = {
@@ -59,9 +59,9 @@ class Folder extends React.Component {
       layout: Items,
       props: {
         files,
-        onAddAsset,
+        onAdd,
         onChangeFolder,
-        onRemoveAsset
+        onRemove
       }
     }
   }

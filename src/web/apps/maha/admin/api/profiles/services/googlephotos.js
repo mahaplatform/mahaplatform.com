@@ -30,4 +30,5 @@ export const getClient = async (req, profile) => {
   }
 
   return profile
+
 }

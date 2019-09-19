@@ -1,4 +1,5 @@
 import AssetThumbnail from '../../asset/thumbnail'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -8,13 +9,15 @@ class Items extends React.Component {
   static propTypes = {
     files: PropTypes.array,
     records: PropTypes.array,
+    onAdd: PropTypes.func,
     onChangeFolder: PropTypes.func,
-    onAddAsset: PropTypes.func,
-    onRemoveAsset: PropTypes.func
+    onRemove: PropTypes.func
   }
 
+  _handleClick = _.debounce(this._handleClick.bind(this), 500, { leading: true })
+
   render() {
-    const { files, records } = this.props
+    const { records } = this.props
     return (
       <div className="maha-attachments-drive-items">
         { records.map((item, index) => (
@@ -31,17 +34,19 @@ class Items extends React.Component {
               { item.label }
             </div>
             <div className="maha-attachments-drive-item-action">
-              { item.asset && _.findIndex(files, { service: 'maha', id: item.asset.id }) >= 0 &&
-                <i className="fa fa-fw fa-check" />
-              }
-              { item.type === 'folder' &&
-                <i className="fa fa-fw fa-chevron-right" />
-              }
+              <i className={ `fa fa-fw fa-${this._getIcon(item)}` } />
             </div>
           </div>
         ))}
       </div>
     )
+  }
+
+  _getIcon(item) {
+    const { files } = this.props
+    if(item.type === 'folder') return 'chevron-right'
+    const file = _.find(files, { id: item.asset.id, service: 'maha' })
+    return file ? 'check' : null
   }
 
   _handleClick(item) {
@@ -51,12 +56,16 @@ class Items extends React.Component {
   }
 
   _handleChooseAsset(asset) {
-    const { files, onAddAsset, onRemoveAsset } = this.props
+    const { files, onAdd, onRemove } = this.props
     const index = _.findIndex(files, { id: asset.id, service: 'maha' })
-    if(index < 0) return onAddAsset(asset)
-    onRemoveAsset(asset)
+    if(index < 0) return onAdd(asset)
+    onRemove(asset)
   }
 
 }
 
-export default Items
+const mapStateToProps = (state, props) => ({
+  files: state.maha.attachments.files
+})
+
+export default connect(mapStateToProps)(Items)

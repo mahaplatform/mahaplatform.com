@@ -1,5 +1,8 @@
+import _ from 'lodash'
+
 export const INITIAL_STATE = {
   asset: null,
+  cacheKey: _.random(100000, 999999).toString(36),
   response: null,
   status: 'pending',
   url: null
@@ -8,6 +11,15 @@ export const INITIAL_STATE = {
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
+
+  case 'CLEAR':
+    return {
+      asset: null,
+      cacheKey: _.random(100000, 999999).toString(36),
+      response: null,
+      status: 'pending',
+      url: null
+    }
 
   case 'LOOKUP_REQUEST':
     return {
@@ -30,24 +42,24 @@ const reducer = (state = INITIAL_STATE, action) => {
       status: 'previewed'
     }
 
-  case 'IMPORT_REQUEST':
+  case 'DOWNLOAD_REQUEST':
     return {
       ...state,
       url: action.request.params.url,
       status: 'importing'
     }
 
-  case 'IMPORT_FAILURE':
+  case 'DOWNLOAD_FAILURE':
     return {
       ...state,
       status: 'failed'
     }
 
-  case 'IMPORT_SUCCESS':
+  case 'DOWNLOAD_SUCCESS':
     return {
       ...state,
-      status: 'success',
-      asset: action.result.data
+      asset: action.result.data,
+      status: 'success'
     }
 
   default:
