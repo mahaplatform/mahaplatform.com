@@ -2,6 +2,7 @@ import AssetIcon from '../../asset/icon'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class Multiple extends React.Component {
 
@@ -31,8 +32,9 @@ class Multiple extends React.Component {
             <div className="maha-attachments-review-item-label">
               <div className="maha-attachments-review-item-name">
                 { file.name }<br />
-                <span className="finished">
-                  <i className={`fa fa-fw fa-${this._getIcon(file.status)}`} /> { file.status }
+                <span className={ file.status }>
+                  <i className={`fa fa-fw fa-${this._getIcon(file.status)}`} />
+                  { _.capitalize(file.status) }
                 </span>
               </div>
             </div>
