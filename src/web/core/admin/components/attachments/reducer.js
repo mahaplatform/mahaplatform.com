@@ -26,8 +26,23 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       files: [
         ...state.files,
-        action.file
+        {
+          ...action.file,
+          status: 'importing'
+        }
       ]
+    }
+
+  case 'CREATE_FAILURE':
+    return {
+      ...state,
+      files: state.files.map(file => {
+        if(file.id !== action.file.id) return file
+        return {
+          ...file,
+          status: 'failed'
+        }
+      })
     }
 
   case 'CREATE_SUCCESS':
@@ -37,7 +52,8 @@ const reducer = (state = INITIAL_STATE, action) => {
         if(file.id !== action.file.id) return file
         return {
           ...file,
-          asset: action.result.data
+          asset: action.result.data,
+          status: 'imported'
         }
       })
     }
@@ -47,7 +63,10 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       files: [
         ...state.files,
-        action.file
+        {
+          ...action.file,
+          status: 'imported'
+        }
       ]
     }
 

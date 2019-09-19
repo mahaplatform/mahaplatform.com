@@ -1,7 +1,7 @@
-import AssetToken from '../../tokens/asset'
+import AssetToken from '../../../tokens/asset'
 import PropTypes from 'prop-types'
-import Comments from '../comments'
-import List from '../list'
+import Comments from '../../comments'
+import List from '../../list'
 import React from 'react'
 
 class Info extends React.Component {

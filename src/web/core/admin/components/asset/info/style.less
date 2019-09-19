@@ -1,0 +1,33 @@
+.maha-asset-info {
+  background-color: lighten(@black, 98);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  .maha-comments {
+    flex: 1;
+  }
+}
+.maha-asset-info-header {
+  background-color: @white;
+  border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
+  .maha-asset-token {
+    flex: 1;
+    overflow: hidden;
+  }
+}
+
+.maha-asset-info-body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  .maha-comments {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .maha-comments-body {
+    flex: 1;
+    .scrollable();
+  }
+}

@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-import AssetViewer from './viewer'
-import Info from './info'
+import AssetViewer from '../viewer'
+import Info from '../info'
 import React from 'react'
 
 class Preview extends React.Component {

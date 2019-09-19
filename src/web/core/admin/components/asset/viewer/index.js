@@ -1,4 +1,4 @@
-import Message from '../message'
+import Message from '../../message'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

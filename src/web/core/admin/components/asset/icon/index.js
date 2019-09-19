@@ -4,13 +4,20 @@ import React from 'react'
 class AssetIcon extends React.Component {
 
   static propTypes = {
-    content_type: PropTypes.string
+    content_type: PropTypes.string,
+    source: PropTypes.string
   }
 
   render() {
+    const { source } = this.props
     return (
       <div className="maha-asset-icon">
-        <i className={`fa fa-fw fa-${this._getIcon()}`} />
+        <i className={`fa fa-${this._getIcon()}`} />
+        { source &&
+          <div className="maha-asset-icon-badge">
+            <img src={ `/admin/images/services/${source}.png` } />
+          </div>
+        }
       </div>
     )
   }

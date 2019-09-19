@@ -41,10 +41,7 @@ class AssetToken extends React.Component {
       <div className={ this._getClass() } onClick={ this._handleClick }>
         <div className="maha-asset-token-details">
           <div className="maha-asset-token-icon">
-            <AssetIcon content_type={ content_type } />
-            <div className="maha-asset-token-badge">
-              <img src={ `/admin/images/services/${source}.png` } />
-            </div>
+            <AssetIcon content_type={ content_type } source={source} />
           </div>
           <div className="maha-asset-token-text">
             <div className="maha-asset-token-filename">

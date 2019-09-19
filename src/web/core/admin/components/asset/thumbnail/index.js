@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
-import AssetIcon from './icon'
-import Image from '../image'
+import Image from '../../image'
+import AssetIcon from '../icon'
 import React from 'react'
 
 class AssetThumbnail extends React.Component {

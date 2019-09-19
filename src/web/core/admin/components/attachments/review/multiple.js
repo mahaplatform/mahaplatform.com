@@ -24,21 +24,16 @@ class Multiple extends React.Component {
                   </div>
                 </div> :
                 <div className="maha-attachments-review-item-icon">
-                  <AssetIcon content_type={ file.content_type } />
+                  <AssetIcon content_type={ file.content_type } source={ file.service } />
                 </div>
               }
             </div>
             <div className="maha-attachments-review-item-label">
               <div className="maha-attachments-review-item-name">
                 { file.name }<br />
-                { file.asset ?
-                  <span className="finished">
-                    <i className="fa fa-fw fa-check" /> Imported
-                  </span> :
-                  <span>
-                    <i className="fa fa-fw fa-spin fa-circle-o-notch" /> Importing
-                  </span>
-                }
+                <span className="finished">
+                  <i className={`fa fa-fw fa-${this._getIcon(file.status)}`} /> { file.status }
+                </span>
               </div>
             </div>
             <div className="maha-attachments-review-item-remove">
@@ -48,6 +43,12 @@ class Multiple extends React.Component {
         )) }
       </div>
     )
+  }
+
+  _getIcon(status) {
+    if(status === 'importing') return 'circle-o-notch fa-spin'
+    if(status === 'imported') return 'check'
+    if(status === 'failed') return 'exclamation-triangle'
   }
 
   _handleRemove(index) {
