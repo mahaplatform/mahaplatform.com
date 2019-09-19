@@ -1,4 +1,4 @@
-import ModalPanel from '../modal_panel'
+import ModalPanel from '../../modal_panel'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'

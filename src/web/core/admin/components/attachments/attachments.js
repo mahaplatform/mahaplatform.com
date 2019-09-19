@@ -1,4 +1,3 @@
-import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
 import Stack from '../stack/stack'
 import Uploader from '../uploader'
@@ -30,7 +29,6 @@ class Attachments extends React.Component {
     counts: PropTypes.object,
     doneText: PropTypes.string,
     files: PropTypes.array,
-    isReady: PropTypes.bool,
     multiple: PropTypes.bool,
     networks: PropTypes.array,
     prompt: PropTypes.string,
@@ -52,7 +50,7 @@ class Attachments extends React.Component {
   static defaultProps = {
     cancelText: 'Cancel',
     doneText: 'Done',
-    multiple: true,
+    multiple: false,
     networks: ['device','web','maha','google','facebook','instagram','dropbox','box','microsoft'],
     prompt: 'Attach Files',
     onChooseAssets: () => {}
@@ -68,27 +66,16 @@ class Attachments extends React.Component {
   _handlePush = this._handlePush.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handleToggleReview = this._handleToggleReview.bind(this)
+  _handleReview = this._handleReview.bind(this)
 
   render() {
-    const { files, review, status } = this.props
+    const { status } = this.props
     if(status === 'loading') return <Loader />
     if(status !== 'loaded') return null
     return (
-      <div className="maha-attachments">
-        <Uploader>
-          <Stack { ...this._getStack() } />
-          <CSSTransition in={ files.length > 0 } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-            <div className="maha-attachments-footer" onClick={ this._handleToggleReview }>
-              review { files.length } files
-            </div>
-          </CSSTransition>
-        </Uploader>
-        <CSSTransition in={ review } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-          <div className="maha-attachments-review-panel">
-            <Review { ...this._getReview() } />
-          </div>
-        </CSSTransition>
-      </div>
+      <Uploader>
+        <Stack { ...this._getStack() } />
+      </Uploader>
     )
   }
 
@@ -98,9 +85,12 @@ class Attachments extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { status } = this.props
+    const { multiple, files, status } = this.props
     if(status !== prevProps.status && status === 'loaded') {
       this._handlePush(Sources, this._getSources())
+    }
+    if(!multiple && files.length !== prevProps.files.length && files.length === 1) {
+      this._handleReview()
     }
     // const { files, multiple, status } = this.props
     // if( !multiple && _.get(files, '[0].id', false) && status === 'success' ){
@@ -113,10 +103,12 @@ class Attachments extends React.Component {
   }
 
   _getReview() {
-    const { files, onRemove } = this.props
+    const { doneText, multiple, onRemove } = this.props
     return {
-      files,
-      onClose: this._handleToggleReview,
+      doneText,
+      multiple,
+      onBack: this._handlePop,
+      onDone: this._handleDone,
       onRemove
     }
   }
@@ -135,12 +127,12 @@ class Attachments extends React.Component {
   }
 
   _getSources() {
-    const { files, isReady, multiple, onAddAsset, onAddFile, onCreate, onRemove } = this.props
-    const { cancelText, counts, doneText, sources } = this.props
+    const { multiple, onAddAsset, onAddFile, onCreate, onRemove } = this.props
+    const { counts, cancelText, doneText, sources } = this.props
     return {
-      files, isReady, multiple, onAddAsset, onAddFile, onCreate, onRemove,
-      cancelText,
+      multiple,
       counts,
+      cancelText,
       doneText,
       sources: [
         { service: 'device', username: 'Your Device', component: Device },
@@ -151,9 +143,13 @@ class Attachments extends React.Component {
           component: this._getSourceComponent(source.service)
         }))
       ],
+      onAddAsset,
+      onAddFile,
+      onCreate,
+      onRemove,
       onCancel: this._handleCancel,
-      onDone: this._handleDone,
-      onPop: this._handlePop,
+      onNext: this._handleReview,
+      onBack: this._handlePop,
       onPush: this._handlePush
     }
   }
@@ -207,6 +203,10 @@ class Attachments extends React.Component {
         { component, props }
       ]
     })
+  }
+
+  _handleReview() {
+    this._handlePush(Review, this._getReview())
   }
 
   _handleToggleReview() {

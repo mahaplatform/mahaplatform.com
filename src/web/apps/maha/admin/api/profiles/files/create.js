@@ -5,7 +5,7 @@ import dropbox from './dropbox/create'
 import googledrive from './googledrive/create'
 import box from './box/create'
 
-const getCreate = async (service) => {
+const getCreate = (service) => {
   if(service === 'googledrive') return googledrive
   if(service === 'onedrive') return onedrive
   if(service === 'dropbox') return dropbox

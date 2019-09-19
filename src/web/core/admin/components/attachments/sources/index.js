@@ -1,5 +1,8 @@
-import ModalPanel from '../modal_panel'
+import { CSSTransition } from 'react-transition-group'
+import ModalPanel from '../../modal_panel'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import Review from './review'
 import React from 'react'
 import New from './new'
 
@@ -7,22 +10,29 @@ class Sources extends React.Component {
 
   static propTypes = {
     cancelText: PropTypes.any,
-    doneText: PropTypes.string,
     counts: PropTypes.object,
     files: PropTypes.array,
     sources: PropTypes.array,
+    onBack: PropTypes.func,
     onCancel: PropTypes.func,
-    onDone: PropTypes.func,
-    onPop: PropTypes.func,
-    onPush: PropTypes.func
+    onNext: PropTypes.func,
+    onPush: PropTypes.func,
+    onRemove: PropTypes.func
   }
 
-  _handleBack = this._handleBack.bind(this)
+  state = {
+    review: false
+  }
+
   _handleCancel = this._handleCancel.bind(this)
+  _handleBack = this._handleBack.bind(this)
   _handleNew = this._handleNew.bind(this)
+  _handleNext = this._handleNext.bind(this)
+  _handleToggleReview = this._handleToggleReview.bind(this)
 
   render() {
-    const { counts, sources } = this.props
+    const { counts, files, sources } = this.props
+    const { review } = this.state
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-attachments-sources">
@@ -60,61 +70,90 @@ class Sources extends React.Component {
             </div>
           </div>
         </div>
+        <CSSTransition in={ files.length > 0 } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+          <div className="maha-attachments-sources-footer" onClick={ this._handleToggleReview }>
+            { files.length } files selected
+          </div>
+        </CSSTransition>
+        <CSSTransition in={ review } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+          <Review { ...this._getReview() } />
+        </CSSTransition>
       </ModalPanel>
     )
   }
 
   _getNew() {
     return {
-      onBack: this._handleBack
+      onCancel: this._handleCancel
     }
   }
 
   _getPanel() {
-    const { cancelText, doneText } = this.props
+    const { cancelText, files } = this.props
     return {
       title: 'Choose Source',
       leftItems: [
         { label: cancelText, handler: this._handleCancel }
       ],
-      rightItems: [
-        { label: doneText, handler: this.props.onDone }
-      ]
+      rightItems: files.length > 0 ? [
+        { label: 'Next', handler: this._handleNext }
+      ] : []
+    }
+  }
+
+  _getReview() {
+    const { onRemove } = this.props
+    return {
+      onClose: this._handleToggleReview,
+      onRemove
     }
   }
 
   _getSource(source) {
-    const { files, isReady, multiple, onAddAsset, onAddFile, onCreate, onRemoveFile } = this.props
+    const { multiple, onAddAsset, onAddFile, onCreate, onRemove } = this.props
     return {
-      source,
-      files,
-      isReady,
       multiple,
+      source,
       onAddAsset,
       onAddFile,
       onCreate,
-      onRemoveFile,
+      onRemove,
       onBack: this._handleBack,
-      onDone: this._handleDone
+      onNext: this._handleNext
     }
   }
 
   _handleBack() {
-    this.props.onPop()
-  }
-
-  _handleChooseSource(source) {
-    this.props.onPush(source.component, this._getSource(source))
+    this.props.onBack()
   }
 
   _handleCancel() {
     this.props.onCancel()
   }
 
+  _handleChooseSource(source) {
+    this.props.onPush(source.component, this._getSource(source))
+  }
+
   _handleNew() {
     this.props.onPush(New, this._getNew())
   }
 
+  _handleNext() {
+    this.props.onNext()
+  }
+
+  _handleToggleReview() {
+    const { review } = this.state
+    this.setState({
+      review: !review
+    })
+  }
+
 }
 
-export default Sources
+const mapStateToProps = (state, props) => ({
+  files: state.maha.attachments.files
+})
+
+export default connect(mapStateToProps)(Sources)

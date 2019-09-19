@@ -1,3 +1,4 @@
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -8,7 +9,7 @@ class Items extends React.Component {
     files: PropTypes.array,
     records: PropTypes.array,
     source: PropTypes.object,
-    onRemoveFile: PropTypes.func,
+    onRemove: PropTypes.func,
     onCreate: PropTypes.func
   }
 
@@ -29,16 +30,15 @@ class Items extends React.Component {
 
   _getIcon(photo) {
     const { files, source } = this.props
-    console.log(files, photo)
     const file = _.find(files, { id: photo.id, service: source.service })
     if(!file) return null
-    return file.asset ? 'check': 'circle-o-notch'
+    return file.asset ? 'check': 'circle-o-notch fa-spin'
   }
 
   _handleClick(photo) {
-    const { source, files } = this.props
-    const file = _.find(files, { id: photo.id, service: source.service })
-    if(file) return this.props.onRemoveFile(file)
+    const { source, files, onRemove } = this.props
+    const index = _.findIndex(files, { id: photo.id, service: source.service })
+    if(index >= 0) return onRemove(index)
     this.props.onCreate(`/api/admin/profiles/${source.id}/photos`, {
       id: photo.id,
       name: `${photo.id}.jpg`,
@@ -50,4 +50,8 @@ class Items extends React.Component {
 
 }
 
-export default Items
+const mapStateToProps = (state, props) => ({
+  files: state.maha.attachments.files
+})
+
+export default connect(mapStateToProps)(Items)

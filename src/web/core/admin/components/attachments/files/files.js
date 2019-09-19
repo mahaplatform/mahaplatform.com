@@ -1,8 +1,9 @@
 import ModalPanel from '../../modal_panel'
-import Message from '../../message'
-import Infinite from '../../infinite'
 import Searchbox from '../../searchbox'
+import Infinite from '../../infinite'
+import { connect } from 'react-redux'
 import Stack from '../../stack/stack'
+import Message from '../../message'
 import PropTypes from 'prop-types'
 import Folder from './folder'
 import Items from './items'
@@ -13,7 +14,6 @@ class Files extends React.Component {
   static propTypes = {
     files: PropTypes.array,
     folders: PropTypes.array,
-    service: PropTypes.string,
     q: PropTypes.string,
     source: PropTypes.object,
     onAddAsset: PropTypes.func,
@@ -21,11 +21,15 @@ class Files extends React.Component {
     onBack: PropTypes.func,
     onChangeFolder: PropTypes.func,
     onCreate: PropTypes.func,
-    onDone: PropTypes.func,
-    onRemoveFile: PropTypes.func,
+    onNext: PropTypes.func,
+    onRemove: PropTypes.func,
+    onProcessing: PropTypes.func,
     onSetQuery: PropTypes.func,
     onUp: PropTypes.func
   }
+
+  _handleBack = this._handleBack.bind(this)
+  _handleNext = this._handleNext.bind(this)
 
   render() {
     const { q } = this.props
@@ -43,14 +47,15 @@ class Files extends React.Component {
   }
 
   _getPanel() {
+    const { files } = this.props
     return {
       title: 'Choose File(s)',
       leftItems: [
         { icon: 'chevron-left', handler: this.props.onBack  }
       ],
-      rightItems: [
-        { label: 'Done', handler: this.props.onDone }
-      ]
+      rightItems: files.length > 0 ? [
+        { label: 'Next', handler: this._handleNext }
+      ] : []
     }
   }
 
@@ -79,7 +84,7 @@ class Files extends React.Component {
   }
 
   _getInfinite() {
-    const { files, service, q, source, onCreate, onRemoveFile } = this.props
+    const { q, source, onCreate, onRemove } = this.props
     const empty = {
       icon: 'times-circle',
       title: 'No Results',
@@ -93,26 +98,37 @@ class Files extends React.Component {
       notFound: <Message { ...empty } />,
       layout: Items,
       props: {
-        files,
-        service,
+        source,
         onCreate,
-        onRemoveFile
+        onRemove
       }
     }
   }
 
   _getFolder(folder) {
-    const { files, source, onUp, onChangeFolder, onCreate, onRemoveFile } = this.props
+    const { source, onUp, onChangeFolder, onCreate, onRemove } = this.props
     return {
-      files,
       source,
       folder,
       onCreate,
       onChangeFolder,
-      onRemoveFile,
+      onRemove,
       onUp
     }
   }
+
+  _handleBack() {
+    this.props.onBack()
+  }
+
+  _handleNext() {
+    this.props.onNext()
+  }
+
 }
 
-export default Files
+const mapStateToProps = (state, props) => ({
+  files: state.maha.attachments.files
+})
+
+export default connect(mapStateToProps)(Files)

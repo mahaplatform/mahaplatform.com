@@ -50,8 +50,8 @@ const createRoute = async (req, profile) => {
     return await client.files.export({
       fileId,
       mimeType: _getMime(mime_type)
-    },{
-      responseType: 'arraybuffer'
+    }, {
+      responseType: 'buffer'
     })
   }
 
@@ -59,15 +59,15 @@ const createRoute = async (req, profile) => {
     return await client.files.get({
       fileId,
       alt: 'media'
-    },{
-      responseType: 'arraybuffer'
+    }, {
+      responseType: 'buffer'
     })
   }
 
   const file = meta.data.mimeType.match(/google/) ? await _export(req.body.id, meta.data.mimeType) : await _get(req.body.id)
 
   const source = await Source.where({
-    text: 'google'
+    text: 'googledrive'
   }).fetch({
     transacting: req.trx
   })

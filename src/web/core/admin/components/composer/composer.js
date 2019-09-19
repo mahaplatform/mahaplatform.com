@@ -154,7 +154,8 @@ class Composer extends React.Component {
   _getAttachments() {
     return {
       prompt: 'Upload File(s)',
-      onChooseAssets: this._handleAddAssets
+      onChooseAssets: this._handleAddAssets,
+      multiple: true
     }
   }
 

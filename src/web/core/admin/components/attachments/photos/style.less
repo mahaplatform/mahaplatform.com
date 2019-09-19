@@ -1,0 +1,37 @@
+.maha-attachments-photos {
+  padding: 0.2em;
+  overflow: hidden;
+}
+.maha-attachments-photo {
+  position: relative;
+  float: left;
+  height: 0;
+  overflow: hidden;
+  cursor: pointer;
+  background-size: cover;
+  overflow: hidden;
+  margin: 0.2em;
+  display: flex;
+  @media (max-width: 768px) {
+    width: ~"calc(100% / 3 - 0.4em)";
+    padding-bottom: ~"calc(100% / 3 - 0.4em)";
+  }
+  @media (min-width: 769px) {
+    width: ~"calc(100% / 5 - 0.4em)";
+    padding-bottom: ~"calc(100% / 5 - 0.4em)";
+  }
+  .maha-attachments-photo-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+  }
+  i {
+    margin: auto;
+    font-size: 2em;
+    background-color: fadeout(@black, 97);
+    color: @white;
+  }
+}

@@ -1,6 +1,7 @@
-import Infinite from '../../infinite'
-import Message from '../../message'
 import ModalPanel from '../../modal_panel'
+import Infinite from '../../infinite'
+import { connect } from 'react-redux'
+import Message from '../../message'
 import PropTypes from 'prop-types'
 import Items from './items'
 import React from 'react'
@@ -12,9 +13,13 @@ class Photos extends React.Component {
     source: PropTypes.object,
     onBack: PropTypes.func,
     onCreate: PropTypes.func,
-    onDone: PropTypes.func,
-    onRemoveFile: PropTypes.func
+    onNext: PropTypes.func,
+    onRemove: PropTypes.func,
+    onProcessing: PropTypes.func
   }
+
+  _handleBack = this._handleBack.bind(this)
+  _handleNext = this._handleNext.bind(this)
 
   render() {
     return (
@@ -25,19 +30,20 @@ class Photos extends React.Component {
   }
 
   _getPanel() {
+    const { files } = this.props
     return {
       title: 'Choose File(s)',
       leftItems: [
-        { icon: 'chevron-left', handler: this.props.onBack  }
+        { icon: 'chevron-left', handler: this._handleBack  }
       ],
-      rightItems: [
-        { label: 'Done', handler: this.props.onDone }
-      ]
+      rightItems: files.length > 0 ? [
+        { label: 'Next', handler: this._handleNext }
+      ] : []
     }
   }
 
   _getInfinite() {
-    const { files, source, onCreate, onRemoveFile } = this.props
+    const { source, onCreate, onRemove } = this.props
     const empty = {
       icon: 'times-circle',
       title: 'No Results',
@@ -49,14 +55,25 @@ class Photos extends React.Component {
       notFound: <Message { ...empty } />,
       layout: Items,
       props: {
-        files,
         source,
         onCreate,
-        onRemoveFile
+        onRemove
       }
     }
   }
 
+  _handleBack() {
+    this.props.onBack()
+  }
+
+  _handleNext() {
+    this.props.onNext()
+  }
+
 }
 
-export default Photos
+const mapStateToProps = (state, props) => ({
+  files: state.maha.attachments.files
+})
+
+export default connect(mapStateToProps)(Photos)

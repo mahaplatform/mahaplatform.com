@@ -3,7 +3,6 @@ import _ from 'lodash'
 export const INITIAL_STATE = {
   adding: false,
   files: [],
-  review: false,
   sources: [],
   status: 'pending'
 }
@@ -85,12 +84,6 @@ const reducer = (state = INITIAL_STATE, action) => {
           return index !== action.index
         })
       ]
-    }
-
-  case 'TOGGLE_REVIEW':
-    return {
-      ...state,
-      review: !state.review
     }
 
   default:

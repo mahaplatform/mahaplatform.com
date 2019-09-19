@@ -1,0 +1,105 @@
+.maha-attachments-sources {
+  .scrollable();
+  flex: 1;
+}
+.maha-attachments-source {
+  display: flex;
+  cursor: pointer;
+  border-bottom: 1px solid fadeout(@black, 95);
+  .hover(background-color, fadeout(@black, 97));
+}
+.maha-attachments-source-logo {
+  flex: 0 0 3em;
+  display: flex;
+  position: relative;
+  & > .fa, & > img {
+    margin: auto;
+  }
+  .fa {
+    font-size: 1.8em;
+  }
+  .fa-globe {
+    color: @green;
+  }
+  .fa-plus-circle {
+    color: @red;
+  }
+  & > img {
+    width: 1.6em;
+    height: 1.6em;
+    display: block;
+  }
+}
+.maha-attachments-source-favicon {
+  margin: auto;
+  border-radius: 0.3em;
+  overflow: hidden;
+  width: 1.6em;
+  height: 1.6em;
+  display: block;
+  img {
+    width: 100%;
+  }
+}
+.maha-attachments-source-text {
+  flex: 1;
+  padding: 0.8em 0.8em 0.8em 0;
+  color: fadeout(@black, 40);
+  strong {
+    color: @black;
+  }
+}
+.maha-attachments-source-count {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+}
+.maha-attachments-source-count-badge {
+  margin: auto;
+  background-color: fadeout(@black, 90);
+  color: fadeout(@black, 70);
+  display: block;
+  border-radius: 50%;
+  text-align: center;
+  font-size: .8em;
+  width: 1.7em;
+  height: 1.7em;
+  line-height: 1.7em;
+  font-weight: bold;
+}
+.maha-attachments-source-proceed {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  i {
+    color: fadeout(@black, 80);
+    margin: auto;
+  }
+}
+.maha-attachments-sources-footer {
+  border-top: 1px solid fadeout(@black, 95);
+  padding: 0.8em;
+  background-color: @yellow;
+  color: @white;
+  text-align: center;
+  cursor: pointer;
+}
+.maha-attachments-sources-review {
+  background-color: @white;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.maha-attachments-sources-review-header {
+  padding: 0.8em;
+  background-color: @yellow;
+  color: @white;
+  text-align: center;
+  cursor: pointer;
+}
+.maha-attachments-sources-review-body {
+  display: flex;
+  flex: 1;
+}

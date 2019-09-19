@@ -43,7 +43,7 @@ class AssetToken extends React.Component {
           <div className="maha-asset-token-icon">
             <AssetIcon content_type={ content_type } />
             <div className="maha-asset-token-badge">
-              <img src={ `/admin/images/${source}.png` } />
+              <img src={ `/admin/images/services/${source}.png` } />
             </div>
           </div>
           <div className="maha-asset-token-text">

@@ -1,4 +1,5 @@
 import AssetIcon from '../../asset/icon'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -7,13 +8,13 @@ class Items extends React.Component {
 
   static propTypes = {
     files: PropTypes.array,
-    service: PropTypes.string,
     records: PropTypes.array,
+    source: PropTypes.object,
     onChangeFolder: PropTypes.func,
     onCreate: PropTypes.func,
     onBack: PropTypes.func,
     onList: PropTypes.func,
-    onRemoveFile: PropTypes.func
+    onRemove: PropTypes.func
   }
 
   _handleClick = _.debounce(this._handleClick.bind(this), 500, { leading: true })
@@ -23,8 +24,8 @@ class Items extends React.Component {
     return (
       <div className="maha-attachments-drive-items">
         { records.map((item, index) => (
-          <div className="maha-attachments-drive-item" key={`item_${index}`}>
-            <div className="maha-attachments-drive-item-icon" onClick={ this._handleClick.bind(this, item) }>
+          <div className="maha-attachments-drive-item" key={`item_${index}`} onClick={ this._handleClick.bind(this, item) }>
+            <div className="maha-attachments-drive-item-icon">
               { item.type === 'folder' &&
                 <div className="maha-asset-icon">
                   <i className="fa fa-fw fa-folder" />
@@ -32,25 +33,26 @@ class Items extends React.Component {
               }
               { item.type === 'file' && <AssetIcon content_type={ item.content_type } /> }
             </div>
-            <div className="maha-attachments-drive-item-name" onClick={ this._handleClick.bind(this, item) }>
+            <div className="maha-attachments-drive-item-name">
               { item.name }
             </div>
-            <div className="maha-attachments-drive-item-action">
-              { this._getIcon(item) }
-            </div>
+            { item.type === 'file' &&
+              <div className="maha-attachments-drive-item-action">
+                <i className={ `fa fa-fw fa-${this._getIcon(item)}` } />
+              </div>
+            }
           </div>
         )) }
       </div>
     )
   }
 
-
   _getIcon(item) {
-    const { service, files } = this.props
-    if(item.type === 'folder') return <i className="fa fa-fw fa-chevron-right" />
-    const file = _.find(files, { id: item.id, service })
+    const { source, files } = this.props
+    if(item.type === 'folder') return 'chevron-right'
+    const file = _.find(files, { id: item.id, service: source.service })
     if(!file) return null
-    return file.asset ? <i className="fa fa-fw fa-check" /> : <i className="fa fa-fw fa-spin fa-refresh" />
+    return file.asset ? 'check': 'circle-o-notch fa-spin'
   }
 
   _handleClick(item) {
@@ -60,13 +62,13 @@ class Items extends React.Component {
   }
 
   _handleChooseFile(item) {
-    const { service, files, onRemoveFile } = this.props
-    const file = _.find(files, { id: item.id, service })
-    if(file) return onRemoveFile(file)
-    this.props.onCreate(`/api/admin/sources/${service}/files`, {
+    const { source, files, onRemove } = this.props
+    const index = _.findIndex(files, { id: item.id, service: source.service })
+    if(index >= 0) return onRemove(index)
+    this.props.onCreate(`/api/admin/profiles/${source.id}/files`, {
       id: item.id,
       name: item.name,
-      service,
+      service: source.service,
       thumbnail: item.thumbnail,
       content_type: item.content_type
     })
@@ -74,4 +76,8 @@ class Items extends React.Component {
 
 }
 
-export default Items
+const mapStateToProps = (state, props) => ({
+  files: state.maha.attachments.files
+})
+
+export default connect(mapStateToProps)(Items)
