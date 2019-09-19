@@ -5,7 +5,6 @@ import React from 'react'
 class Review extends React.Component {
 
   static propTypes = {
-    files: PropTypes.array,
     onClose: PropTypes.func,
     onRemove: PropTypes.func
   }
@@ -14,11 +13,11 @@ class Review extends React.Component {
 
   render() {
     return (
-      <div className="maha-attachments-sources-review">
-        <div className="maha-attachments-sources-review-header" onClick={ this._handleClose }>
+      <div className="maha-attachments-explorer-review">
+        <div className="maha-attachments-explorer-review-header" onClick={ this._handleClose }>
           Close
         </div>
-        <div className="maha-attachments-sources-review-body">
+        <div className="maha-attachments-explorer-review-body">
           <Multiple { ...this._getMultiple() } />
         </div>
       </div>
@@ -26,8 +25,9 @@ class Review extends React.Component {
   }
 
   _getMultiple() {
+    const { onRemove } = this.props
     return {
-      
+      onRemove
     }
   }
 

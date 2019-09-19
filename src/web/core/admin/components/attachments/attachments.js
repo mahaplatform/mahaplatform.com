@@ -1,22 +1,14 @@
 import { connect } from 'react-redux'
 import Stack from '../stack/stack'
-import Uploader from '../uploader'
 import PropTypes from 'prop-types'
-import Sources from './sources'
+import Explorer from './explorer'
 import Loader from '../loader'
-import Device from './device'
-import Photos from './photos'
 import Review from './review'
-import Files from './files'
-import Drive from './drive'
 import React from 'react'
-import Web from './web'
-import _ from 'lodash'
 
 class Attachments extends React.Component {
 
   static contextTypes = {
-    admin: PropTypes.object,
     modal: PropTypes.object,
     network: PropTypes.object
   }
@@ -25,14 +17,12 @@ class Attachments extends React.Component {
     apps: PropTypes.array,
     assets: PropTypes.array,
     cancelText: PropTypes.any,
-    cards: PropTypes.array,
     counts: PropTypes.object,
     doneText: PropTypes.string,
     files: PropTypes.array,
     multiple: PropTypes.bool,
     networks: PropTypes.array,
     prompt: PropTypes.string,
-    review: PropTypes.bool,
     sources: PropTypes.array,
     status: PropTypes.string,
     onAdd: PropTypes.func,
@@ -62,17 +52,14 @@ class Attachments extends React.Component {
   _handleFetch = this._handleFetch.bind(this)
   _handlePush = this._handlePush.bind(this)
   _handlePop = this._handlePop.bind(this)
+  _handleRemove = this._handleRemove.bind(this)
   _handleReview = this._handleReview.bind(this)
 
   render() {
     const { status } = this.props
     if(status === 'loading') return <Loader />
     if(status !== 'loaded') return null
-    return (
-      <Uploader>
-        <Stack { ...this._getStack() } />
-      </Uploader>
-    )
+    return <Stack { ...this._getStack() } />
   }
 
   componentDidMount() {
@@ -81,71 +68,53 @@ class Attachments extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { multiple, files, status } = this.props
-    if(status !== prevProps.status && status === 'loaded') {
-      this._handlePush(Sources, this._getSources())
-    }
+    const { multiple, files } = this.props
     if(!multiple && files.length !== prevProps.files.length && files.length === 1) {
       this._handleReview()
     }
-    // const { files, multiple, status } = this.props
-    // if( !multiple && _.get(files, '[0].id', false) && status === 'success' ){
-    //   this._handleDone()
-    // }
   }
 
   componentWillUnmount() {
     this._handleLeave()
   }
 
+  _getExplorer() {
+    const { cancelText, doneText, multiple, onAdd, onCreate } = this.props
+    return {
+      cancelText,
+      doneText,
+      multiple,
+      onAdd,
+      onCancel: this._handleCancel,
+      onCreate,
+      onNext: this._handleReview,
+      onRemove: this._handleRemove
+    }
+  }
+
+  _handleRemove(index) {
+    this.props.onRemove(index)
+  }
+
   _getReview() {
-    const { doneText, multiple, onRemove } = this.props
+    const { doneText, multiple } = this.props
     return {
       doneText,
       multiple,
       onBack: this._handlePop,
       onDone: this._handleDone,
-      onRemove
+      onRemove: this._handleRemove
     }
   }
 
   _getStack() {
     const { cards } = this.state
     return {
-      cards,
-      slideFirst: false
-    }
-  }
-
-  _getSourceComponent(service) {
-    if(_.includes(['facebook','instagram','googlephotos'], service)) return Photos
-    return Files
-  }
-
-  _getSources() {
-    const { multiple, onAdd, onCreate, onRemove } = this.props
-    const { counts, cancelText, doneText, sources } = this.props
-    return {
-      multiple,
-      counts,
-      cancelText,
-      doneText,
-      sources: [
-        { service: 'device', username: 'Your Device', component: Device },
-        { service: 'web', username: 'The Web', component: Web },
-        { service: 'maha', username: 'Maha Drive', component: Drive },
-        ...sources.map(source => ({
-          ...source,
-          component: this._getSourceComponent(source.service)
-        }))
+      cards: [
+        { component: Explorer, props: this._getExplorer() },
+        ...cards
       ],
-      onAdd,
-      onCreate,
-      onRemove,
-      onCancel: this._handleCancel,
-      onNext: this._handleReview,
-      onBack: this._handlePop,
-      onPush: this._handlePush
+      slideFirst: false
     }
   }
 

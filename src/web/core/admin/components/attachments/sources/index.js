@@ -1,8 +1,6 @@
-import { CSSTransition } from 'react-transition-group'
 import ModalPanel from '../../modal_panel'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import Review from './review'
 import React from 'react'
 import New from './new'
 
@@ -23,19 +21,13 @@ class Sources extends React.Component {
     onRemove: PropTypes.func
   }
 
-  state = {
-    review: false
-  }
-
-  _handleCancel = this._handleCancel.bind(this)
   _handleBack = this._handleBack.bind(this)
+  _handleCancel = this._handleCancel.bind(this)
   _handleNew = this._handleNew.bind(this)
   _handleNext = this._handleNext.bind(this)
-  _handleToggleReview = this._handleToggleReview.bind(this)
 
   render() {
-    const { counts, files, sources } = this.props
-    const { review } = this.state
+    const { counts, sources } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-attachments-sources">
@@ -49,13 +41,13 @@ class Sources extends React.Component {
               <div className="maha-attachments-source-text">
                 { source.username || source.service }
               </div>
-              <div className="maha-attachments-source-count">
-                { counts[source.source] &&
+              { counts[source.service] &&
+                <div className="maha-attachments-source-count">
                   <div className="maha-attachments-source-count-badge">
-                    { counts[source.source] }
+                    { counts[source.service] }
                   </div>
-                }
-              </div>
+                </div>
+              }
               <div className="maha-attachments-source-proceed">
                 <i className="fa fa-fw fa-chevron-right" />
               </div>
@@ -73,14 +65,6 @@ class Sources extends React.Component {
             </div>
           </div>
         </div>
-        <CSSTransition in={ files.length > 0 } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-          <div className="maha-attachments-sources-footer" onClick={ this._handleToggleReview }>
-            { files.length } files selected
-          </div>
-        </CSSTransition>
-        <CSSTransition in={ review } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
-          <Review { ...this._getReview() } />
-        </CSSTransition>
       </ModalPanel>
     )
   }
@@ -101,14 +85,6 @@ class Sources extends React.Component {
       rightItems: files.length > 0 ? [
         { label: 'Next', handler: this._handleNext }
       ] : []
-    }
-  }
-
-  _getReview() {
-    const { onRemove } = this.props
-    return {
-      onClose: this._handleToggleReview,
-      onRemove
     }
   }
 
@@ -143,13 +119,6 @@ class Sources extends React.Component {
 
   _handleNext() {
     this.props.onNext()
-  }
-
-  _handleToggleReview() {
-    const { review } = this.state
-    this.setState({
-      review: !review
-    })
   }
 
 }

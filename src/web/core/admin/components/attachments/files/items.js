@@ -17,7 +17,7 @@ class Items extends React.Component {
     onRemove: PropTypes.func
   }
 
-  _handleClick = _.debounce(this._handleClick.bind(this), 500, { leading: true })
+  _handleClick = this._handleClick.bind(this)
 
   render() {
     const { records } = this.props
