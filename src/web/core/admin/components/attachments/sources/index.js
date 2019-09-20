@@ -9,9 +9,11 @@ class Sources extends React.Component {
   static propTypes = {
     cancelText: PropTypes.any,
     counts: PropTypes.object,
+    extensions: PropTypes.array,
     files: PropTypes.array,
     multiple: PropTypes.bool,
     sources: PropTypes.array,
+    types: PropTypes.array,
     onAdd: PropTypes.func,
     onCreate: PropTypes.func,
     onBack: PropTypes.func,
@@ -70,7 +72,9 @@ class Sources extends React.Component {
   }
 
   _getNew() {
+    const { types } = this.props
     return {
+      types,
       onBack: this._handleBack
     }
   }
@@ -89,8 +93,9 @@ class Sources extends React.Component {
   }
 
   _getSource(source) {
-    const { multiple, onAdd, onCreate, onRemove } = this.props
+    const { extensions, multiple, onAdd, onCreate, onRemove } = this.props
     return {
+      extensions,
       multiple,
       source,
       onAdd,

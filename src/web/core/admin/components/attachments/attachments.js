@@ -19,12 +19,13 @@ class Attachments extends React.Component {
     cancelText: PropTypes.any,
     counts: PropTypes.object,
     doneText: PropTypes.string,
+    extensions: PropTypes.array,
     files: PropTypes.array,
     multiple: PropTypes.bool,
-    networks: PropTypes.array,
     prompt: PropTypes.string,
     sources: PropTypes.array,
     status: PropTypes.string,
+    types: PropTypes.array,
     onAdd: PropTypes.func,
     onCancel: PropTypes.func,
     onChooseAssets: PropTypes.func,
@@ -38,8 +39,8 @@ class Attachments extends React.Component {
     cancelText: 'Cancel',
     doneText: 'Done',
     multiple: false,
-    networks: ['device','web','maha','google','facebook','instagram','dropbox','box','microsoft'],
     prompt: 'Attach Files',
+    types: ['files','photos'],
     onChooseAssets: () => {}
   }
 
@@ -79,11 +80,13 @@ class Attachments extends React.Component {
   }
 
   _getExplorer() {
-    const { cancelText, doneText, multiple, onAdd, onCreate } = this.props
+    const { cancelText, doneText, extensions, multiple, types, onAdd, onCreate } = this.props
     return {
       cancelText,
       doneText,
+      extensions,
       multiple,
+      types,
       onAdd,
       onCancel: this._handleCancel,
       onCreate,
@@ -133,7 +136,8 @@ class Attachments extends React.Component {
   }
 
   _handleFetch() {
-    this.props.onFetch()
+    const { types } = this.props
+    this.props.onFetch(types)
   }
 
   _handleJoin() {

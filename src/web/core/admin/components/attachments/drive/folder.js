@@ -7,6 +7,7 @@ import Items from './items'
 class Folder extends React.Component {
 
   static propTypes = {
+    extensions: PropTypes.array,
     folder: PropTypes.object,
     files: PropTypes.array,
     records: PropTypes.array,
@@ -43,7 +44,7 @@ class Folder extends React.Component {
   }
 
   _getInfinite() {
-    const { files, folder, onAdd, onChangeFolder, onRemove } = this.props
+    const { extensions, files, folder, onAdd, onChangeFolder, onRemove } = this.props
     const $eq = folder.item_id || 'null'
     const filter = { folder_id: { $eq } }
     const empty = {
@@ -58,6 +59,7 @@ class Folder extends React.Component {
       notFound: <Message { ...empty } />,
       layout: Items,
       props: {
+        extensions,
         files,
         onAdd,
         onChangeFolder,

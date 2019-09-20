@@ -12,6 +12,7 @@ import React from 'react'
 class Files extends React.Component {
 
   static propTypes = {
+    extensions: PropTypes.array,
     files: PropTypes.array,
     folders: PropTypes.array,
     q: PropTypes.string,
@@ -82,7 +83,7 @@ class Files extends React.Component {
   }
 
   _getInfinite() {
-    const { q, source, onCreate, onRemove } = this.props
+    const { extensions, q, source, onCreate, onRemove } = this.props
     const empty = {
       icon: 'times-circle',
       title: 'No Results',
@@ -96,6 +97,7 @@ class Files extends React.Component {
       notFound: <Message { ...empty } />,
       layout: Items,
       props: {
+        extensions,
         source,
         onCreate,
         onRemove
@@ -104,8 +106,9 @@ class Files extends React.Component {
   }
 
   _getFolder(folder) {
-    const { source, onUp, onChangeFolder, onCreate, onRemove } = this.props
+    const { extensions, source, onUp, onChangeFolder, onCreate, onRemove } = this.props
     return {
+      extensions,
       source,
       folder,
       onCreate,

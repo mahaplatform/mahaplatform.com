@@ -1,11 +1,11 @@
-export const fetch = (url) => ({
+export const fetch = ($in) => ({
   type: 'API_REQUEST',
   method: 'GET',
   endpoint: '/api/admin/profiles',
   query: {
     $filter: {
       type: {
-        $in: ['files','photos']
+        $in
       }
     }
   },

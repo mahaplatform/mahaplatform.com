@@ -7,6 +7,7 @@ import _ from 'lodash'
 class Items extends React.Component {
 
   static propTypes = {
+    extensions: PropTypes.array,
     files: PropTypes.array,
     records: PropTypes.array,
     onAdd: PropTypes.func,
@@ -21,7 +22,7 @@ class Items extends React.Component {
     return (
       <div className="maha-attachments-drive-items">
         { records.map((item, index) => (
-          <div className="maha-attachments-drive-item" key={`item_${index}`} onClick={ this._handleClick.bind(this, item) }>
+          <div className={ this._getClass(item) } key={`item_${index}`} onClick={ this._handleClick.bind(this, item) }>
             <div className="maha-attachments-drive-item-icon">
               { item.type === 'folder' ?
                 <div className="maha-asset-icon">
@@ -40,6 +41,14 @@ class Items extends React.Component {
         ))}
       </div>
     )
+  }
+
+  _getClass(item) {
+    const { extensions } = this.props
+    const extension = item.asset ? item.asset.original_file_name.split('.').pop() : null
+    const classes = ['maha-attachments-drive-item']
+    if(extensions && item.type === 'file' && !_.includes(extensions, extension)) classes.push('disabled')
+    return classes.join(' ')
   }
 
   _getIcon(item) {

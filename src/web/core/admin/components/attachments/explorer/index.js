@@ -21,9 +21,11 @@ class Explorer extends React.Component {
     cancelText: PropTypes.any,
     counts: PropTypes.object,
     doneText: PropTypes.string,
+    extensions: PropTypes.array,
     files: PropTypes.array,
     multiple: PropTypes.bool,
     sources: PropTypes.array,
+    types: PropTypes.array,
     onAdd: PropTypes.func,
     onCancel: PropTypes.func,
     onCreate: PropTypes.func,
@@ -84,10 +86,11 @@ class Explorer extends React.Component {
   }
 
   _getSources() {
-    const { counts, cancelText, multiple, sources, onAdd, onCancel, onCreate, onRemove } = this.props
+    const { counts, cancelText, extensions, multiple, sources, types, onAdd, onCancel, onCreate, onRemove } = this.props
     return {
       counts,
       cancelText,
+      extensions,
       multiple,
       sources: [
         { service: 'device', username: 'Your Device', component: Device },
@@ -98,6 +101,7 @@ class Explorer extends React.Component {
           component: this._getSourceComponent(source.service)
         }))
       ],
+      types,
       onAdd,
       onBack: this._handlePop,
       onCancel,

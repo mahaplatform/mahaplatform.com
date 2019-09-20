@@ -13,6 +13,7 @@ import _ from 'lodash'
 class Drive extends React.Component {
 
   static propTypes = {
+    extensions: PropTypes.array,
     files: PropTypes.array,
     folders: PropTypes.array,
     q: PropTypes.string,
@@ -86,7 +87,7 @@ class Drive extends React.Component {
   }
 
   _getInfinite() {
-    const { q, onChangeFolder } = this.props
+    const { extensions, q, onChangeFolder } = this.props
     const empty = {
       icon: 'times-circle',
       title: 'No Results',
@@ -99,6 +100,7 @@ class Drive extends React.Component {
       notFound: <Message { ...empty } />,
       layout: Items,
       props: {
+        extensions,
         onAdd: this._handleAdd,
         onChangeFolder,
         onRemove: this._handleRemove
@@ -107,8 +109,9 @@ class Drive extends React.Component {
   }
 
   _getFolder(folder) {
-    const { onUp, onChangeFolder } = this.props
+    const { extensions, onUp, onChangeFolder } = this.props
     return {
+      extensions,
       folder,
       onAdd: this._handleAdd,
       onChangeFolder,
