@@ -1,4 +1,4 @@
-import { Link, AttachmentManager, Composer, DropZone, Loader } from 'maha-admin'
+import { Link, Composer, DropZone, Loader } from 'maha-admin'
 import { CSSTransition } from 'react-transition-group'
 import QuotedMessage from '../quoted_message'
 import { connect } from 'react-redux'
@@ -82,7 +82,7 @@ class Channel extends React.Component {
 
   render() {
     const { user } = this.props
-    const { attachments, channel, link, link_status, messages, quoted_message, signpost, status } = this.props
+    const { channel, link, link_status, messages, quoted_message, signpost, status } = this.props
     if(status === 'loading') return <Loader />
     return (
       <DropZone { ...this._getDropZone() }>
@@ -113,9 +113,6 @@ class Channel extends React.Component {
               </div>
             </CSSTransition>
           </div>
-          { attachments.length > 0 &&
-            <AttachmentManager { ...this._getAttachmentManager() } />
-          }
           <div className="chat-channel-footer">
             { channel.typing && channel.typing.user_id !== user.id &&
               <div className="chat-channel-typing">
@@ -186,19 +183,6 @@ class Channel extends React.Component {
     if(text.length > 0) this._handleTypingMessage('end_type_message')
     this._handleDisappear()
     this._handleLeave()
-  }
-
-  _getAttachmentManager() {
-    const { attachments } = this.props
-    return {
-      attachments,
-      onAddAssets: this._handleAddAssets,
-      onCreate: this._handleCreate,
-      onRemove: this._handleRemoveAttachment,
-      onRemoveAll: this._handleRemoveAttachments,
-      onUpdate: this._handleUpdateAttachment,
-      onUpdateAsset: this._handleUpdateAsset
-    }
   }
 
   _getDropZone() {
@@ -301,12 +285,27 @@ class Channel extends React.Component {
   }
 
   _handleAddAssets(assets) {
-    const { attachments, text } = this.props
-    this._handleAddAttachments(assets.map((asset, index) => ({
-      type: 'asset',
-      caption: (attachments.length + index === 0) ? text : '',
-      asset
-    })))
+    const { attachments, channel, link, quoted_message, quoted_message_id, user, onCreate } = this.props
+    const message = {
+      attachments: assets.map((asset, index) => ({
+        asset_id: asset.id
+      })),
+      link_id: null,
+      code: _.random(Math.pow(36,9).toString(36), Math.pow(36, 10) - 1).toString(36),
+      quoted_message_id,
+      text: ''
+    }
+    this.props.onAddMessage({
+      ...message,
+      attachments,
+      link,
+      quoted_message,
+      reactions: [],
+      user,
+      created_at: moment().utc().format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z',
+      updated_at: moment().utc().format('YYYY-MM-DDTHH:mm:ss.SSS') + 'Z'
+    })
+    onCreate(channel.id, message)
   }
 
   _handleAddAttachments(attachments) {

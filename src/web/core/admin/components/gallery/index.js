@@ -28,7 +28,7 @@ class Gallery extends React.Component {
         { images.map((image, index) => (
           <div className="maha-gallery-photo" key={`gallery_photo_${image.asset.id}`}>
             <Image src={ image.asset.path } transforms={{ fit: 'cover', w: 300, h: 300 }} title={ image.caption } />
-            <img src={ `/admin/images/${image.asset.source}.png` } className="maha-gallery-photo-source" />
+            <img src={ `/admin/images/services/${image.asset.source}.png` } className="maha-gallery-photo-source" />
           </div>
         ))}
       </div>

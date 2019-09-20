@@ -7,7 +7,7 @@ import _ from 'lodash'
 class Items extends React.Component {
 
   static propTypes = {
-    allow: PropTypes.array,
+    allow: PropTypes.object,
     files: PropTypes.array,
     records: PropTypes.array,
     source: PropTypes.object,
@@ -56,10 +56,10 @@ class Items extends React.Component {
     const { allow } = this.props
     if(item.type === 'folder') return false
     const extension = item.name.split('.').pop()
-    const extension_allowed = allow.extensions && _.includes(allow.extensions, extension)
+    const extension_allowed = !allow.extensions || _.includes(allow.extensions, extension)
     const content_type = item.content_type
-    const content_type_allowed = allow.content_types && _.includes(allow.content_types, content_type)
-    return !extension_allowed && !content_type_allowed
+    const content_type_allowed = !allow.content_types || _.includes(allow.content_types, content_type)
+    return !(extension_allowed || content_type_allowed)
   }
 
   _getIcon(item) {

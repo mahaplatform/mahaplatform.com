@@ -1,5 +1,4 @@
 import adminassignment from './components/assignment'
-import adminattachmentManager from './components/attachment_manager'
 import adminattachmentsDrive from './components/attachments/drive'
 import adminattachmentsFiles from './components/attachments/files'
 import adminattachments from './components/attachments'
@@ -232,7 +231,6 @@ class App extends React.Component {
   _getReducers() {
     return [
       adminassignment,
-      adminattachmentManager,
       adminattachmentsDrive,
       adminattachmentsFiles,
       adminattachments,

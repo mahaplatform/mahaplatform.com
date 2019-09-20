@@ -20,6 +20,7 @@ class Composer extends React.Component {
     emojis: PropTypes.bool,
     icon: PropTypes.string,
     placeholder: PropTypes.string,
+    token: PropTypes.string,
     uploads: PropTypes.array,
     onAddAssets: PropTypes.func,
     onChange: PropTypes.func,
@@ -105,14 +106,14 @@ class Composer extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue, team } = this.props
+    const { defaultValue, token } = this.props
     if(defaultValue) this.setState({ value: defaultValue })
     this.resumable = new Resumable({
       target: '/api/admin/assets/upload',
       chunkSize: 1024 * 128,
       permanentErrors: [204, 400, 404, 409, 415, 500, 501],
       headers: {
-        'Authorization': `Bearer ${team.token}`
+        'Authorization': `Bearer ${token}`
       }
     })
     this.resumable.on('fileAdded', this._handleFileAdded)
@@ -129,17 +130,11 @@ class Composer extends React.Component {
     }
   }
 
-  _getTextarea() {
-    const { placeholder } = this.props
-    const { value } = this.state
+  _getAttachments() {
     return {
-      placeholder,
-      rows: 1,
-      value,
-      onPaste: this._handlePaste,
-      onKeyDown: this._handleKeyDown,
-      onKeyUp: this._handleKeyUp,
-      onChange: this._handleChange
+      prompt: 'Upload File(s)',
+      onChooseAssets: this._handleAddAssets,
+      multiple: true
     }
   }
 
@@ -151,18 +146,24 @@ class Composer extends React.Component {
     }
   }
 
-  _getAttachments() {
-    return {
-      prompt: 'Upload File(s)',
-      onChooseAssets: this._handleAddAssets,
-      multiple: true
-    }
-  }
-
   _getEmojis() {
     return {
       onChoose: this._handleInsertEmoji,
       onClose: this._handleToggleEmojis
+    }
+  }
+
+  _getTextarea() {
+    const { placeholder } = this.props
+    const { value } = this.state
+    return {
+      placeholder,
+      rows: 1,
+      value,
+      onPaste: this._handlePaste,
+      onKeyDown: this._handleKeyDown,
+      onKeyUp: this._handleKeyUp,
+      onChange: this._handleChange
     }
   }
 
@@ -296,7 +297,7 @@ class Composer extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  team: state.maha.admin.team
+  token: state.maha.admin.team.token
 })
 
 export default connect(mapStateToProps)(Composer)
