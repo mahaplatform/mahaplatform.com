@@ -1,8 +1,35 @@
 .maha-attachments-photos {
+  flex-direction: column;
+  display: flex;
+  flex: 1;
+}
+.maha-attachments-photos-header {
+  background-color: fadeout(@black, 95);
+  display: flex;
+  color: fadeout(@black, 50);
+}
+.maha-attachments-photos-header-icon {
+  padding: 0.8em 0 0.8em 0.8em;
+  img {
+    overflow: hidden;
+    border-radius: 0.3em;
+    display: block;
+    height: 18px;
+    width: 18px;
+  }
+}
+.maha-attachments-photos-header-label {
+  padding: 0.8em;
+}
+.maha-attachments-photos-body {
+  display: flex;
+  flex: 1;
+}
+.maha-attachments-photos-items {
   padding: 0.2em;
   overflow: hidden;
 }
-.maha-attachments-photo {
+.maha-attachments-photo-item {
   position: relative;
   float: left;
   height: 0;

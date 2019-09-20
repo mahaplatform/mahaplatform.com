@@ -22,7 +22,7 @@ class Folder extends React.Component {
   _handleUp = this._handleUp.bind(this)
 
   render() {
-    const { folder } = this.props
+    const { folder, source } = this.props
     return (
       <div className="maha-attachments-drive-folder">
         <div className="maha-attachments-drive-header">
@@ -30,7 +30,7 @@ class Folder extends React.Component {
             <div className="maha-attachments-drive-header-back">
               { folder.id ?
                 <i className="fa fa-fw fa-chevron-left" /> :
-                <i className="fa fa-fw fa-home" />
+                <img src={`/images/services/${source.service}.png`} />
               }
             </div>
             <div className="maha-attachments-drive-header-label">

@@ -74,7 +74,7 @@ class Drive extends React.Component {
     const root = {
       id: null,
       item_id: null,
-      label: 'Drive'
+      label: 'Maha Drive'
     }
     return {
       cards: [

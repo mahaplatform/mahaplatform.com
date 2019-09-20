@@ -16,9 +16,9 @@ class Items extends React.Component {
   render() {
     const { records } = this.props
     return (
-      <div className="maha-attachments-photos">
+      <div className="maha-attachments-photos-items">
         { records.map((photo, index) => (
-          <div className="maha-attachments-photo" key={`item_${index}`} onClick={ this._handleClick.bind(this, photo) } style={{backgroundImage:`url(${photo.image})`}}>
+          <div className="maha-attachments-photo-item" key={`item_${index}`} onClick={ this._handleClick.bind(this, photo) } style={{backgroundImage:`url(${photo.image})`}}>
             <div className="maha-attachments-photo-image">
               <i className={ `fa fa-${this._getIcon(photo)}` } />
             </div>

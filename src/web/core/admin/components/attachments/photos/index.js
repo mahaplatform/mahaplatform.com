@@ -22,9 +22,22 @@ class Photos extends React.Component {
   _handleNext = this._handleNext.bind(this)
 
   render() {
+    const { source } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <Infinite { ...this._getInfinite() } />
+        <div className="maha-attachments-photos">
+          <div className="maha-attachments-photos-header">
+            <div className="maha-attachments-photos-header-icon">
+              <img src={`/images/services/${source.service}.png`} />
+            </div>
+            <div className="maha-attachments-photos-header-label">
+              { source.username }
+            </div>
+          </div>
+          <div className="maha-attachments-photos-body">
+            <Infinite { ...this._getInfinite() } />
+          </div>
+        </div>
       </ModalPanel>
     )
   }

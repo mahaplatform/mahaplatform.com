@@ -57,11 +57,11 @@ class ContactImport extends React.PureComponent {
 
   _getAttachments() {
     return {
-      allow: {
-        content_types: ['application/vnd.google-apps.spreadsheet'],
-        extensions: ['csv','tsv','xls','xlsx'],
-        types: ['files']
-      },
+      // allow: {
+      //   content_types: ['application/vnd.google-apps.spreadsheet'],
+      //   extensions: ['csv','tsv','xls','xlsx'],
+      //   types: ['files']
+      // },
       cancelText: <i className="fa fa-chevron-left" />,
       onCancel: this._handlePop
     }

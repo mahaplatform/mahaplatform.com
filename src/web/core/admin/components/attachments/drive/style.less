@@ -75,7 +75,7 @@
   color: fadeout(@black, 80);
   display: flex;
   cursor: pointer;
-  i {
+  .fa {
     font-size: 1.2em;
     margin: auto;
   }
@@ -85,32 +85,21 @@
   flex: 0 0 2em;
   padding: 0.8em 0 0.8em 0.8em;
   cursor: pointer;
+  img {
+    overflow: hidden;
+    border-radius: 0.3em;
+    display: block;
+    height: 18px;
+    width: 18px;
+  }
 }
 .maha-attachments-drive-header-label {
   padding: 0.8em;
-  height: 2em;
   overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   word-break: break-all;
-}
-
-.maha-attachments-drive-breadcrumbs {
-  flex: 1;
-  padding: 0.8em;
-  .maha-attachments-drive-breadcrumb {
-    margin-right: 0.5em;
-    display: inline;
-    color: fadeout(@black, 50);
-    cursor: pointer;
-    &.active {
-      color: @black;
-    }
-
-  }
-  .fa-chevron-right {
-    margin-right: 0.5em;
-    color: fadeout(@black, 70);
-    font-size: 0.8em;
-  }
+  max-width: ~"calc(100vw - 3em)";
 }
 .maha-attachments-drive-results {
   flex: 1;

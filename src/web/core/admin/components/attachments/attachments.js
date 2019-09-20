@@ -135,14 +135,8 @@ class Attachments extends React.Component {
 
   _handleFetch() {
     const { allow } = this.props
-    const filter = allow.types ? {
-      $filter: {
-        type: {
-          $in: allow.types
-        }
-      }
-    } : null
-    this.props.onFetch(filter)
+    const types = allow.types || ['files','photos']
+    this.props.onFetch(types)
   }
 
   _handleJoin() {

@@ -67,10 +67,10 @@ class Files extends React.Component {
   }
 
   _getStack() {
-    const { folders } = this.props
+    const { folders, source } = this.props
     const root = {
       id: null,
-      name: 'Home'
+      name: source.username
     }
     return {
       cards: [
