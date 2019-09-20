@@ -1,9 +1,10 @@
-import { Attachments, Loader, Stack } from 'maha-admin'
+import { Loader, Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Sources from './sources'
 import Outlook from './outlook'
 import Google from './google'
 import React from 'react'
+import File from './file'
 import New from './new'
 
 class ContactImport extends React.PureComponent {
@@ -55,15 +56,10 @@ class ContactImport extends React.PureComponent {
     this._handleLeave()
   }
 
-  _getAttachments() {
+  _getFile() {
     return {
-      // allow: {
-      //   content_types: ['application/vnd.google-apps.spreadsheet'],
-      //   extensions: ['csv','tsv','xls','xlsx'],
-      //   types: ['files']
-      // },
-      cancelText: <i className="fa fa-chevron-left" />,
-      onCancel: this._handlePop
+      onPop: this._handlePop,
+      onPush: this._handlePush
     }
   }
 
@@ -82,8 +78,8 @@ class ContactImport extends React.PureComponent {
     const { sources } = this.props
     return {
       sources: [
-        { label: 'Your Device', service: 'device', component: <div>Foo</div> },
-        { label: 'Excel or CSV file', service: 'excel', component: () => <Attachments {...this._getAttachments() } /> },
+        // { label: 'Your Device', service: 'device', component: <div>Foo</div> },
+        { label: 'Excel or CSV file', service: 'excel', component: File },
         ...sources.map(source => ({
           ...source,
           component: this._getServiceComponent(source.service)

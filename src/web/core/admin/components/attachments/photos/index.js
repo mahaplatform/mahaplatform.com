@@ -9,6 +9,7 @@ import React from 'react'
 class Photos extends React.Component {
 
   static propTypes = {
+    doneText: PropTypes.any,
     files: PropTypes.array,
     source: PropTypes.object,
     onBack: PropTypes.func,
@@ -43,14 +44,14 @@ class Photos extends React.Component {
   }
 
   _getPanel() {
-    const { files } = this.props
+    const { doneText, files } = this.props
     return {
       title: 'Choose File(s)',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack  }
       ],
       rightItems: files.length > 0 ? [
-        { label: 'Next', handler: this._handleNext }
+        { label: doneText, handler: this._handleNext }
       ] : []
     }
   }

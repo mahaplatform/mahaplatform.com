@@ -12,6 +12,7 @@ class Web extends React.Component {
   static propTypes = {
     asset: PropTypes.object,
     cacheKey: PropTypes.string,
+    doneText: PropTypes.any,
     files: PropTypes.array,
     response: PropTypes.object,
     status: PropTypes.string,
@@ -76,14 +77,14 @@ class Web extends React.Component {
   }
 
   _getPanel() {
-    const { files } = this.props
+    const { doneText, files } = this.props
     const panel = {
       title: 'Choose File(s)',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack  }
       ],
       rightItems: files.length > 0 ? [
-        { label: 'Next', handler: this._handleNext }
+        { label: doneText, handler: this._handleNext }
       ] : []
     }
     return panel
@@ -189,6 +190,7 @@ class Web extends React.Component {
     const { asset, onAdd } = this.props
     onAdd({
       id: asset.id,
+      source_id: 'web',
       name: asset.original_file_name,
       service: 'web',
       content_type: asset.content_type,

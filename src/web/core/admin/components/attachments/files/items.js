@@ -83,6 +83,7 @@ class Items extends React.Component {
     if(index >= 0) return onRemove(index)
     this.props.onCreate(`/api/admin/profiles/${source.id}/files`, {
       id: item.id,
+      source_id: source.id,
       name: item.name,
       service: source.service,
       thumbnail: item.thumbnail,

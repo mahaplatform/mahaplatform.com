@@ -13,6 +13,7 @@ class Files extends React.Component {
 
   static propTypes = {
     allow: PropTypes.object,
+    doneText: PropTypes.any,
     files: PropTypes.array,
     folders: PropTypes.array,
     q: PropTypes.string,
@@ -46,14 +47,14 @@ class Files extends React.Component {
   }
 
   _getPanel() {
-    const { files } = this.props
+    const { doneText, files } = this.props
     return {
       title: 'Choose File(s)',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
       ],
       rightItems: files.length > 0 ? [
-        { label: 'Next', handler: this._handleNext }
+        { label: doneText, handler: this._handleNext }
       ] : []
     }
   }

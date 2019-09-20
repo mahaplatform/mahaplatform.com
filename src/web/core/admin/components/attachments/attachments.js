@@ -5,6 +5,7 @@ import Explorer from './explorer'
 import Loader from '../loader'
 import Review from './review'
 import React from 'react'
+import _ from 'lodash'
 
 class Attachments extends React.Component {
 
@@ -22,6 +23,7 @@ class Attachments extends React.Component {
     doneText: PropTypes.string,
     files: PropTypes.array,
     multiple: PropTypes.bool,
+    processed: PropTypes.bool,
     prompt: PropTypes.string,
     sources: PropTypes.array,
     status: PropTypes.string,
@@ -48,6 +50,7 @@ class Attachments extends React.Component {
   }
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleCreate = this._handleCreate.bind(this)
   _handleDone = this._handleDone.bind(this)
   _handleFetch = this._handleFetch.bind(this)
   _handlePush = this._handlePush.bind(this)
@@ -69,7 +72,7 @@ class Attachments extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { multiple, files } = this.props
-    if(!multiple && files.length !== prevProps.files.length && files.length === 1) {
+    if(!multiple && !_.isEqual(files, prevProps.files) && files.length === 1 && files[0].status === 'importing') {
       this._handleReview()
     }
   }
@@ -79,7 +82,7 @@ class Attachments extends React.Component {
   }
 
   _getExplorer() {
-    const { allow, cancelText, doneText, multiple, onAdd, onCreate } = this.props
+    const { allow, cancelText, doneText, multiple, onAdd } = this.props
     return {
       allow,
       cancelText,
@@ -87,10 +90,15 @@ class Attachments extends React.Component {
       multiple,
       onAdd,
       onCancel: this._handleCancel,
-      onCreate,
+      onCreate: this._handleCreate,
       onNext: this._handleReview,
       onRemove: this._handleRemove
     }
+  }
+
+  _handleCreate(endpoint, file) {
+    const { multiple } = this.props
+    this.props.onCreate(multiple, endpoint, file)
   }
 
   _handleRemove(index) {
@@ -129,7 +137,8 @@ class Attachments extends React.Component {
     const { assets, multiple, onChooseAssets, onDone } = this.props
     const result = (multiple) ? assets : assets[0]
     onChooseAssets(result)
-    if(onDone) return onDone()
+    if(!multiple) setTimeout(this._handlePop, 250)
+    if(onDone) return onDone(result)
     this.context.modal.pop()
   }
 
@@ -173,6 +182,8 @@ class Attachments extends React.Component {
   }
 
   _handleReview() {
+    const { processed } = this.props
+    if(processed) return this._handleDone()
     this._handlePush(Review, this._getReview())
   }
 

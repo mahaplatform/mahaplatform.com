@@ -11,6 +11,7 @@ class Sources extends React.Component {
     allow: PropTypes.object,
     cancelText: PropTypes.any,
     counts: PropTypes.object,
+    doneText: PropTypes.any,
     files: PropTypes.array,
     multiple: PropTypes.bool,
     sources: PropTypes.array,
@@ -44,10 +45,10 @@ class Sources extends React.Component {
               <div className="maha-attachments-source-text">
                 { source.username || source.service }
               </div>
-              { counts[source.service] &&
+              { counts[source.id] &&
                 <div className="maha-attachments-source-count">
                   <div className="maha-attachments-source-count-badge">
-                    { counts[source.service] }
+                    { counts[source.id] }
                   </div>
                 </div>
               }
@@ -84,14 +85,14 @@ class Sources extends React.Component {
   }
 
   _getPanel() {
-    const { cancelText, files } = this.props
+    const { cancelText, doneText, files } = this.props
     return {
       title: 'Choose Source',
       leftItems: [
         { label: cancelText, handler: this._handleCancel }
       ],
       rightItems: files.length > 0 ? [
-        { label: 'Next', handler: this._handleNext }
+        { label: doneText, handler: this._handleNext }
       ] : []
     }
   }
@@ -114,9 +115,10 @@ class Sources extends React.Component {
   }
 
   _getSource(source) {
-    const { allow, multiple, onAdd, onCreate, onRemove } = this.props
+    const { allow, doneText, multiple, onAdd, onCreate, onRemove } = this.props
     return {
       allow,
+      doneText,
       multiple,
       source,
       onAdd,

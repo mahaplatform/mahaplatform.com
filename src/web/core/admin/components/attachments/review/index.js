@@ -1,4 +1,5 @@
 import ModalPanel from '../../modal_panel'
+import { processed } from '../selectors'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Multiple from './multiple'
@@ -10,7 +11,7 @@ class Review extends React.Component {
   static propTypes = {
     multiple: PropTypes.bool,
     doneText: PropTypes.string,
-    files: PropTypes.array,
+    processed: PropTypes.bool,
     onBack: PropTypes.func,
     onDone: PropTypes.func,
     onRemove: PropTypes.func
@@ -31,19 +32,19 @@ class Review extends React.Component {
     )
   }
 
+  componentDidUpdate(prevProps) {
+    const { processed } = this.props
+    if(processed !== prevProps.processed) {
+      this._handleDone()
+    }
+  }
+
   _getPanel() {
-    const { doneText ,files } = this.props
-    const processed = files.find((file) => {
-      return file.asset === undefined
-    }) === undefined
     return {
       title: 'Review Selections',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
-      ],
-      rightItems: processed ? [
-        { label: doneText, handler: this._handleDone }
-      ] : []
+      ]
     }
   }
 
@@ -65,7 +66,7 @@ class Review extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  files: state.maha.attachments.files
+  processed: processed(state.maha.attachments, props)
 })
 
 export default connect(mapStateToProps)(Review)

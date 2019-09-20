@@ -43,17 +43,17 @@ class Explorer extends React.Component {
   _handleToggleReview = this._handleToggleReview.bind(this)
 
   render() {
+    const { multiple, files } = this.props
     const { review } = this.state
-    const { files } = this.props
     return (
       <div className="maha-attachments-explorer">
         <Stack { ...this._getStack() } />
-        <CSSTransition in={ files.length > 0 } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+        <CSSTransition in={ multiple && files.length > 0 } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
           <div className="maha-attachments-explorer-footer" onClick={ this._handleToggleReview }>
             { files.length } files selected
           </div>
         </CSSTransition>
-        <CSSTransition in={ review } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+        <CSSTransition in={ multiple && review } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
           <Review { ...this._getReview() } />
         </CSSTransition>
       </div>
@@ -87,9 +87,9 @@ class Explorer extends React.Component {
   _getServices() {
     const { allow, sources } = this.props
     return [
-      { service: 'device', username: 'Your Device', component: Device },
-      { service: 'web', username: 'The Web', component: Web },
-      { service: 'maha', username: 'Maha Drive', component: Drive },
+      { service: 'device', username: 'Your Device', component: Device, id: 'device' },
+      { service: 'web', username: 'The Web', component: Web, id: 'web' },
+      { service: 'maha', username: 'Maha Drive', component: Drive, id: 'maha' },
       ...sources.map(source => ({
         ...source,
         component: this._getSourceComponent(source.service)
@@ -102,11 +102,12 @@ class Explorer extends React.Component {
   }
 
   _getSources() {
-    const { allow, counts, cancelText, multiple, onAdd, onCancel, onCreate, onRemove } = this.props
+    const { allow, counts, cancelText, doneText, multiple, onAdd, onCancel, onCreate, onRemove } = this.props
     return {
       allow,
       counts,
       cancelText,
+      doneText,
       multiple,
       sources: this._getServices(),
       onAdd,

@@ -14,6 +14,7 @@ class Drive extends React.Component {
 
   static propTypes = {
     allow: PropTypes.object,
+    doneText: PropTypes.any,
     files: PropTypes.array,
     folders: PropTypes.array,
     q: PropTypes.string,
@@ -49,14 +50,14 @@ class Drive extends React.Component {
   }
 
   _getPanel() {
-    const { files } = this.props
+    const { doneText, files } = this.props
     return {
       title: 'Choose File(s)',
       leftItems: [
         { icon: 'chevron-left', handler: this.props.onBack  }
       ],
       rightItems: files.length > 0 ? [
-        { label: 'Next', handler: this._handleNext }
+        { label: doneText, handler: this._handleNext }
       ] : []
     }
   }
@@ -124,6 +125,7 @@ class Drive extends React.Component {
     const { onAdd } = this.props
     onAdd({
       id: asset.id,
+      source_id: 'maha',
       name: asset.original_file_name,
       service: 'maha',
       content_type: asset.content_type,

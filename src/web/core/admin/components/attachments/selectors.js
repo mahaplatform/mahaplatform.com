@@ -17,6 +17,14 @@ export const counts = createSelector(
   files,
   (files) => files.reduce((counts, file) => ({
     ...counts,
-    [file.service]: (counts[file.service] || 0) + 1
+    [file.source_id]: (counts[file.service] || 0) + 1
   }), {})
+)
+
+
+export const processed = createSelector(
+  files,
+  (files) => files.find((file) => {
+    return file.asset === undefined
+  }) === undefined
 )
