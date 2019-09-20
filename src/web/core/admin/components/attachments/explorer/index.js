@@ -18,14 +18,13 @@ class Explorer extends React.Component {
   static contextTypes = {}
 
   static propTypes = {
+    allow: PropTypes.object,
     cancelText: PropTypes.any,
     counts: PropTypes.object,
     doneText: PropTypes.string,
-    extensions: PropTypes.array,
     files: PropTypes.array,
     multiple: PropTypes.bool,
     sources: PropTypes.array,
-    types: PropTypes.array,
     onAdd: PropTypes.func,
     onCancel: PropTypes.func,
     onCreate: PropTypes.func,
@@ -85,23 +84,31 @@ class Explorer extends React.Component {
     return Files
   }
 
+  _getServices() {
+    const { allow, sources } = this.props
+    return [
+      { service: 'device', username: 'Your Device', component: Device },
+      { service: 'web', username: 'The Web', component: Web },
+      { service: 'maha', username: 'Maha Drive', component: Drive },
+      ...sources.map(source => ({
+        ...source,
+        component: this._getSourceComponent(source.service)
+      }))
+    ].filter(source => {
+      const service_allowed = !allow.services || _.includes(allow.services, source.service)
+      const type_allowed = !allow.types || !source.type || _.includes(allow.types, source.type)
+      return service_allowed && type_allowed
+    })
+  }
+
   _getSources() {
-    const { counts, cancelText, extensions, multiple, sources, types, onAdd, onCancel, onCreate, onRemove } = this.props
+    const { allow, counts, cancelText, multiple, onAdd, onCancel, onCreate, onRemove } = this.props
     return {
+      allow,
       counts,
       cancelText,
-      extensions,
       multiple,
-      sources: [
-        { service: 'device', username: 'Your Device', component: Device },
-        { service: 'web', username: 'The Web', component: Web },
-        { service: 'maha', username: 'Maha Drive', component: Drive },
-        ...sources.map(source => ({
-          ...source,
-          component: this._getSourceComponent(source.service)
-        }))
-      ],
-      types,
+      sources: this._getServices(),
       onAdd,
       onBack: this._handlePop,
       onCancel,

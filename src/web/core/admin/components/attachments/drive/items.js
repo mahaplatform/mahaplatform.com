@@ -7,7 +7,7 @@ import _ from 'lodash'
 class Items extends React.Component {
 
   static propTypes = {
-    extensions: PropTypes.array,
+    allow: PropTypes.object,
     files: PropTypes.array,
     records: PropTypes.array,
     onAdd: PropTypes.func,
@@ -44,11 +44,19 @@ class Items extends React.Component {
   }
 
   _getClass(item) {
-    const { extensions } = this.props
-    const extension = item.asset ? item.asset.original_file_name.split('.').pop() : null
     const classes = ['maha-attachments-drive-item']
-    if(extensions && item.type === 'file' && !_.includes(extensions, extension)) classes.push('disabled')
+    if(this._getDisabled(item)) classes.push('disabled')
     return classes.join(' ')
+  }
+
+  _getDisabled(item) {
+    const { allow } = this.props
+    if(item.type === 'folder' || !item.asset) return false
+    const extension = item.asset.original_file_name.split('.').pop()
+    const extension_allowed = allow.extensions && _.includes(allow.extensions, extension)
+    const content_type = item.asset.content_type
+    const content_type_allowed = allow.content_types && _.includes(allow.content_types, content_type)
+    return !extension_allowed && !content_type_allowed
   }
 
   _getIcon(item) {
@@ -60,6 +68,7 @@ class Items extends React.Component {
 
   _handleClick(item) {
     const { onChangeFolder } = this.props
+    if(this._getDisabled(item)) return
     if(item.type === 'folder') onChangeFolder(item)
     if(item.type === 'file') this._handleChooseAsset(item.asset)
   }

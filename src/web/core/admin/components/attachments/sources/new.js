@@ -2,17 +2,6 @@ import ModalPanel from '../../modal_panel'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
-import _ from 'lodash'
-
-const sources = [
-  { label: 'Google Drive', service: 'googledrive', types: ['files','photos'] },
-  { label: 'Google Photos', service: 'googlephotos', types: ['photos'] },
-  { label: 'Microsoft OneDrive', service: 'onedrive', types: ['files','photos'] },
-  { label: 'Facebook', service: 'facebook', types: ['photos'] },
-  { label: 'Instagram', service: 'instagram', types: ['photos'] },
-  { label: 'Dropbox', service: 'dropbox', types: ['files','photos'] },
-  { label: 'Box', service: 'box', types: ['files','photos'] }
-]
 
 class New extends React.PureComponent {
 
@@ -21,8 +10,8 @@ class New extends React.PureComponent {
   }
 
   static propTypes = {
+    services: PropTypes.func,
     token: PropTypes.string,
-    types: PropTypes.array,
     onBack: PropTypes.func
   }
 
@@ -31,21 +20,19 @@ class New extends React.PureComponent {
   _handleBack = this._handleBack.bind(this)
 
   render() {
-    const { types } = this.props
+    const { services } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-attachments-sources">
-          { sources.filter(source => {
-            return _.intersection(source.types, types).length > 0
-          }).map((source, index) => (
-            <div className="maha-attachments-source" key={`source_${index}`} onClick={ this._handleChooseSource.bind(this, source)}>
+        <div className="maha-attachments-services">
+          { services.map((service, index) => (
+            <div className="maha-attachments-source" key={`source_${index}`} onClick={ this._handleChooseService.bind(this, service)}>
               <div className="maha-attachments-source-logo">
-                <div className={`maha-attachments-source-favicon ${source.service}`}>
-                  <img src={ `/admin/images/services/${source.service}.png` } />
+                <div className={`maha-attachments-source-favicon ${service.name}`}>
+                  <img src={ `/admin/images/services/${service.name}.png` } />
                 </div>
               </div>
               <div className="maha-attachments-source-text">
-                { source.label }
+                { service.label }
               </div>
             </div>
           ))}
@@ -67,9 +54,9 @@ class New extends React.PureComponent {
     this.props.onBack()
   }
 
-  _handleChooseSource(source) {
+  _handleChooseService(service) {
     const { token } = this.props
-    this.context.host.openWindow(`/admin/${source.service}/authorize?token=${token}`)
+    this.context.host.openWindow(`/admin/${service.name}/authorize?token=${token}`)
     this.props.onBack()
   }
 

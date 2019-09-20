@@ -1,3 +1,4 @@
+import AssetIcon from '../../asset/icon'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -13,12 +14,17 @@ class Processing extends React.Component {
   render() {
     const file = this.props.files[0]
     return (
-      <div className="maha-attachments-processing">
-        <div className="maha-attachments-processing-image">
-          <div style={{backgroundImage:`url(${file.thumbnail })`}}>
-            <img src={ `/admin/images/services/${file.service}.png` } />
+      <div className="maha-attachments-single">
+        { file.thumbnail ?
+          <div className="maha-attachments-single-image">
+            <div style={{backgroundImage:`url(${file.thumbnail })`}}>
+              <img src={ `/admin/images/services/${file.service}.png` } />
+            </div>
+          </div> :
+          <div className="maha-attachments-single-icon">
+            <AssetIcon content_type={ file.content_type } source={ file.service } />
           </div>
-        </div>
+        }
         { file.name }<br />
         { file.asset ?
           <span className="finished">

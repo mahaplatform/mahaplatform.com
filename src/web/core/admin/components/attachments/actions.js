@@ -1,14 +1,8 @@
-export const fetch = ($in) => ({
+export const fetch = (query) => ({
   type: 'API_REQUEST',
   method: 'GET',
   endpoint: '/api/admin/profiles',
-  query: {
-    $filter: {
-      type: {
-        $in
-      }
-    }
-  },
+  query,
   request: 'FETCH_REQUEST',
   success: 'FETCH_SUCCESS',
   failure: 'FETCH_FAILURE'

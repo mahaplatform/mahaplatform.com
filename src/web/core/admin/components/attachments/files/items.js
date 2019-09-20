@@ -7,7 +7,7 @@ import _ from 'lodash'
 class Items extends React.Component {
 
   static propTypes = {
-    extensions: PropTypes.array,
+    allow: PropTypes.array,
     files: PropTypes.array,
     records: PropTypes.array,
     source: PropTypes.object,
@@ -47,11 +47,19 @@ class Items extends React.Component {
   }
 
   _getClass(item) {
-    const { extensions } = this.props
-    const extension = item.name.split('.').pop()
     const classes = ['maha-attachments-drive-item']
-    if(extensions && item.type === 'file' && !_.includes(extensions, extension)) classes.push('disabled')
+    if(this._getDisabled(item)) classes.push('disabled')
     return classes.join(' ')
+  }
+
+  _getDisabled(item) {
+    const { allow } = this.props
+    if(item.type === 'folder') return false
+    const extension = item.name.split('.').pop()
+    const extension_allowed = allow.extensions && _.includes(allow.extensions, extension)
+    const content_type = item.content_type
+    const content_type_allowed = allow.content_types && _.includes(allow.content_types, content_type)
+    return !extension_allowed && !content_type_allowed
   }
 
   _getIcon(item) {
@@ -64,6 +72,7 @@ class Items extends React.Component {
 
   _handleClick(item) {
     const { onChangeFolder } = this.props
+    if(this._getDisabled(item)) return
     if(item.type === 'folder') onChangeFolder(item)
     if(item.type === 'file') this._handleChooseFile(item)
   }

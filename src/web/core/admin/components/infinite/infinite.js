@@ -61,8 +61,8 @@ class Infinite extends React.Component {
             { React.createElement(header, this.props) }
           </div>
         }
-        { status === 'loading' && !records && <Loader /> }
         { status === 'failed' && this._getComponent(failure) }
+        { status === 'loading' && records.length === 0 && <Loader /> }
         { status !== 'failed' && records.length === 0 && skip === undefined && total === 0 && all !== 0 && this._getComponent(notFound) }
         { status !== 'failed' && records.length === 0 && skip === undefined && total === 0 && all === 0 && this._getComponent(empty) }
         { status !== 'failed' && records.length === 0 && all === undefined && skip === 0 && next === null && this._getComponent(empty) }

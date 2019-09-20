@@ -14,18 +14,17 @@ class Attachments extends React.Component {
   }
 
   static propTypes = {
+    allow: PropTypes.object,
     apps: PropTypes.array,
     assets: PropTypes.array,
     cancelText: PropTypes.any,
     counts: PropTypes.object,
     doneText: PropTypes.string,
-    extensions: PropTypes.array,
     files: PropTypes.array,
     multiple: PropTypes.bool,
     prompt: PropTypes.string,
     sources: PropTypes.array,
     status: PropTypes.string,
-    types: PropTypes.array,
     onAdd: PropTypes.func,
     onCancel: PropTypes.func,
     onChooseAssets: PropTypes.func,
@@ -36,11 +35,11 @@ class Attachments extends React.Component {
   }
 
   static defaultProps = {
+    allow: {},
     cancelText: 'Cancel',
     doneText: 'Done',
     multiple: false,
     prompt: 'Attach Files',
-    types: ['files','photos'],
     onChooseAssets: () => {}
   }
 
@@ -80,13 +79,12 @@ class Attachments extends React.Component {
   }
 
   _getExplorer() {
-    const { cancelText, doneText, extensions, multiple, types, onAdd, onCreate } = this.props
+    const { allow, cancelText, doneText, multiple, onAdd, onCreate } = this.props
     return {
+      allow,
       cancelText,
       doneText,
-      extensions,
       multiple,
-      types,
       onAdd,
       onCancel: this._handleCancel,
       onCreate,
@@ -136,8 +134,15 @@ class Attachments extends React.Component {
   }
 
   _handleFetch() {
-    const { types } = this.props
-    this.props.onFetch(types)
+    const { allow } = this.props
+    const filter = allow.types ? {
+      $filter: {
+        type: {
+          $in: allow.types
+        }
+      }
+    } : null
+    this.props.onFetch(filter)
   }
 
   _handleJoin() {

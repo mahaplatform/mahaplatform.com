@@ -3,17 +3,17 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 import New from './new'
+import _ from 'lodash'
 
 class Sources extends React.Component {
 
   static propTypes = {
+    allow: PropTypes.object,
     cancelText: PropTypes.any,
     counts: PropTypes.object,
-    extensions: PropTypes.array,
     files: PropTypes.array,
     multiple: PropTypes.bool,
     sources: PropTypes.array,
-    types: PropTypes.array,
     onAdd: PropTypes.func,
     onCreate: PropTypes.func,
     onBack: PropTypes.func,
@@ -30,6 +30,7 @@ class Sources extends React.Component {
 
   render() {
     const { counts, sources } = this.props
+    const services = this._getServices()
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-attachments-sources">
@@ -55,26 +56,29 @@ class Sources extends React.Component {
               </div>
             </div>
           ))}
-          <div className="maha-attachments-source" onClick={ this._handleNew }>
-            <div className="maha-attachments-source-logo">
-              <i className="fa fa-fw fa-plus-circle" />
+          { services.length > 0 &&
+            <div className="maha-attachments-source" onClick={ this._handleNew }>
+              <div className="maha-attachments-source-logo">
+                <i className="fa fa-fw fa-plus-circle" />
+              </div>
+              <div className="maha-attachments-source-text">
+                Add a new source
+              </div>
+              <div className="maha-attachments-source-proceed">
+                <i className="fa fa-fw fa-chevron-right" />
+              </div>
             </div>
-            <div className="maha-attachments-source-text">
-              Add a new source
-            </div>
-            <div className="maha-attachments-source-proceed">
-              <i className="fa fa-fw fa-chevron-right" />
-            </div>
-          </div>
+          }
         </div>
       </ModalPanel>
     )
   }
 
   _getNew() {
-    const { types } = this.props
+    const { allow } = this.props
     return {
-      types,
+      allow,
+      services: this._getServices(),
       onBack: this._handleBack
     }
   }
@@ -92,10 +96,27 @@ class Sources extends React.Component {
     }
   }
 
+  _getServices() {
+    const { allow } = this.props
+    return [
+      { label: 'Google Drive', name: 'googledrive' },
+      { label: 'Google Photos', name: 'googlephotos', type: 'photos' },
+      { label: 'Microsoft OneDrive', name: 'onedrive' },
+      { label: 'Facebook', name: 'facebook', type: 'photos' },
+      { label: 'Instagram', name: 'instagram', type: 'photos' },
+      { label: 'Dropbox', name: 'dropbox' },
+      { label: 'Box', name: 'box' }
+    ].filter(service => {
+      const service_allowed = !allow.services || _.includes(allow.services, service.name)
+      const type_allowed = !allow.types || !service.type || _.includes(allow.types, service.type)
+      return service_allowed && type_allowed
+    })
+  }
+
   _getSource(source) {
-    const { extensions, multiple, onAdd, onCreate, onRemove } = this.props
+    const { allow, multiple, onAdd, onCreate, onRemove } = this.props
     return {
-      extensions,
+      allow,
       multiple,
       source,
       onAdd,

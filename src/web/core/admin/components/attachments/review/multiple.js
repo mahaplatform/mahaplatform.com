@@ -15,25 +15,25 @@ class Multiple extends React.Component {
   render() {
     const { files } = this.props
     return (
-      <div className="maha-attachments-review">
+      <div className="maha-attachments-multiple">
         { files.length > 0 ?
-          <div className="maha-attachments-review-items">
+          <div className="maha-attachments-multiple-items">
             { files.map((file, index) => (
-              <div className="maha-attachments-review-item" key={`plain_${index}`}>
-                <div className="maha-attachments-review-item-preview">
+              <div className="maha-attachments-multiple-item" key={`plain_${index}`}>
+                <div className="maha-attachments-multiple-item-pmultiple">
                   { file.thumbnail ?
-                    <div className="maha-attachments-review-item-image">
+                    <div className="maha-attachments-multiple-item-image">
                       <div style={{backgroundImage:`url(${file.thumbnail })`}}>
                         <img src={ `/admin/images/services/${file.service}.png` } />
                       </div>
                     </div> :
-                    <div className="maha-attachments-review-item-icon">
+                    <div className="maha-attachments-multiple-item-icon">
                       <AssetIcon content_type={ file.content_type } source={ file.service } />
                     </div>
                   }
                 </div>
-                <div className="maha-attachments-review-item-label">
-                  <div className="maha-attachments-review-item-name">
+                <div className="maha-attachments-multiple-item-label">
+                  <div className="maha-attachments-multiple-item-name">
                     { file.name }<br />
                     <span className={ file.status }>
                       <i className={`fa fa-fw fa-${this._getIcon(file.status)}`} />
@@ -41,7 +41,7 @@ class Multiple extends React.Component {
                     </span>
                   </div>
                 </div>
-                <div className="maha-attachments-review-item-remove">
+                <div className="maha-attachments-multiple-item-remove">
                   <i className="fa fa-times" onClick={ this._handleRemove.bind(this, index) } />
                 </div>
               </div>
