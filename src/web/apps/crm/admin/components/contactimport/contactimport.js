@@ -1,4 +1,4 @@
-import { Loader, Stack } from 'maha-admin'
+import { Attachments, Loader, Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Sources from './sources'
 import Outlook from './outlook'
@@ -55,6 +55,13 @@ class ContactImport extends React.PureComponent {
     this._handleLeave()
   }
 
+  _getAttachments() {
+    return {
+      extensions: ['csv','tsv','xls','xlsx'],
+      types: ['files']
+    }
+  }
+
   _getNew() {
     return {
       onPop: this._handlePop
@@ -71,7 +78,7 @@ class ContactImport extends React.PureComponent {
     return {
       sources: [
         { label: 'Your Device', service: 'device', component: <div>Foo</div> },
-        { label: 'Excel or CSV file', service: 'excel', component: <div>Foo</div> },
+        { label: 'Excel or CSV file', service: 'excel', component: () => <Attachments {...this._getAttachments() } /> },
         ...sources.map(source => ({
           ...source,
           component: this._getServiceComponent(source.service)
