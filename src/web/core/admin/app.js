@@ -54,6 +54,7 @@ import admininfinite from './components/infinite'
 import adminmenu from './components/menu'
 import adminmodal from './components/modal'
 import adminpage from './components/page'
+import adminphotoEditor from './components/photo_editor'
 import adminpopup from './components/popup'
 import adminprompt from './components/prompt'
 import adminsearch from './components/search'
@@ -286,6 +287,7 @@ class App extends React.Component {
       adminmenu,
       adminmodal,
       adminpage,
+      adminphotoEditor,
       adminpopup,
       adminprompt,
       adminsearch,

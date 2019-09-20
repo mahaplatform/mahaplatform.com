@@ -1,0 +1,79 @@
+const INITIAL_STATE = {
+  asset: null,
+  asset_id: null,
+  transforms: [],
+  status: 'pending'
+}
+
+const reducer = (state = INITIAL_STATE, action) => {
+
+  switch (action.type) {
+
+  case 'FETCH_REQUEST':
+    return {
+      ...state,
+      status: 'loading'
+    }
+
+  case 'FETCH_FAILURE':
+    return {
+      ...state,
+      status: 'failed'
+    }
+
+  case 'FETCH_SUCCESS':
+    return {
+      ...state,
+      status: 'loaded',
+      asset: action.result.data
+    }
+
+  case 'SAVE_REQUEST':
+    return {
+      ...state,
+      status: 'saving'
+    }
+
+  case 'SAVE_FAILURE':
+    return {
+      ...state,
+      status: 'failed'
+    }
+
+  case 'SAVE_SUCCESS':
+    return {
+      ...state,
+      status: 'saveed'
+    }
+
+  case 'POP':
+    return {
+      ...state,
+      transforms: [
+        ...state.transforms.slice(0, -1)
+      ]
+    }
+
+  case 'PUSH':
+    return {
+      ...state,
+      transforms: [
+        ...state.transforms,
+        action.transform
+      ]
+    }
+
+  case 'SET':
+    return {
+      ...state,
+      asset_id: action.asset_id,
+      transforms: action.transforms
+    }
+
+  default:
+    return state
+  }
+
+}
+
+export default reducer
