@@ -1,4 +1,4 @@
-import { devices, orientations } from './variables'
+import { devices, orientations, scales } from './variables'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -27,6 +27,13 @@ class Header extends React.Component {
             </option>
           ))}
         </select>
+        <select { ...this._getScale() }>
+          { scales.map((scale, index) => (
+            <option key={`scale_${index}`} value={ index }>
+              { scale.label}
+            </option>
+          ))}
+        </select>
       </div>
     )
   }
@@ -44,6 +51,15 @@ class Header extends React.Component {
       className: deviceIndex === 0 ? 'ui disabled selection dropdown' : 'ui selection dropdown',
       disabled: deviceIndex === 0,
       onChange: this._handleChange.bind(this, 'orientation')
+    }
+  }
+
+  _getScale() {
+    const { deviceIndex} = this.props
+    return {
+      className: deviceIndex === 0 ? 'ui disabled selection dropdown' : 'ui selection dropdown',
+      disabled: deviceIndex === 0,
+      onChange: this._handleChange.bind(this, 'scale')
     }
   }
 

@@ -57,7 +57,6 @@ class App extends React.Component {
   }
 
   _handleUpdate({ config }) {
-    console.log('updating')
     this.setState({ config })
   }
 

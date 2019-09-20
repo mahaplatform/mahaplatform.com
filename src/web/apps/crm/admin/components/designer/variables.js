@@ -76,3 +76,11 @@ export const splits = [
   { value: [4,8], text: 'One Third, Two Thirds' },
   { value: [8,4], text: 'Two Thirds, One Third' }
 ]
+
+export const scales = [
+  { value: 0.50, label: '50%' },
+  { value: 0.75, label: '75%' },
+  { value: 1.00, label: '100%' },
+  { value: 1.25, label: '125%' },
+  { value: 1.50, label: '150%' }
+]

@@ -15,6 +15,7 @@ class Designer extends React.Component {
     defaultValue: PropTypes.object,
     deviceIndex: PropTypes.number,
     editable: PropTypes.bool,
+    scaleIndex: PropTypes.number,
     orientationIndex: PropTypes.number,
     onAdd: PropTypes.func,
     onAddSection: PropTypes.func,
@@ -105,22 +106,24 @@ class Designer extends React.Component {
   }
 
   _getHeader() {
-    const { deviceIndex, orientationIndex, onChangeViewport } = this.props
+    const { deviceIndex, orientationIndex, scaleIndex, onChangeViewport } = this.props
     return {
       deviceIndex,
       orientationIndex,
+      scaleIndex,
       onChange: onChangeViewport
     }
   }
 
   _getPreview() {
-    const { active, config, deviceIndex, editable, orientationIndex, onAdd, onClone, onEdit, onUpdate } = this.props
+    const { active, config, deviceIndex, editable, orientationIndex, scaleIndex, onAdd, onClone, onEdit, onUpdate } = this.props
     return {
       active,
       config,
       deviceIndex,
       editable,
       orientationIndex,
+      scaleIndex,
       onAdd,
       onClone,
       onEdit,

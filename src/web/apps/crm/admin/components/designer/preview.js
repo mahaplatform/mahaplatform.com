@@ -1,4 +1,4 @@
-import { devices, orientations } from './variables'
+import { devices, orientations, scales } from './variables'
 import PropTypes from 'prop-types'
 import { types } from './types'
 import Pasteur from 'pasteur'
@@ -15,6 +15,7 @@ class Preview extends React.Component {
     editable: PropTypes.bool,
     deviceIndex: PropTypes.number,
     orientationIndex: PropTypes.number,
+    scaleIndex: PropTypes.number,
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
     onClone: PropTypes.func,
@@ -82,15 +83,17 @@ class Preview extends React.Component {
   }
 
   _getIframe() {
-    const { deviceIndex, orientationIndex } = this.props
+    const { deviceIndex, orientationIndex, scaleIndex } = this.props
+    const portrait = orientations[orientationIndex].label === 'Portrait'
+    const scale = scales[scaleIndex].value
     const device = devices[deviceIndex]
-    const orientation = orientations[orientationIndex]
     return {
       ref: node => this.preview = node,
       src: '/admin/designer.html',
       style: {
-        width: orientation.label === 'Portrait' ? device.width : device.height,
-        height: orientation.label === 'Portrait' ? device.height : device.width
+        width: portrait ? device.width : device.height,
+        height: portrait ? device.height : device.width,
+        transform: `scale(${scale})`
       }
     }
   }

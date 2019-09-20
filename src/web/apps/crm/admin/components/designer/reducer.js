@@ -8,7 +8,8 @@ const INITIAL_STATE = {
   config: null,
   deviceIndex: 0,
   editable: true,
-  orientationIndex: 0
+  orientationIndex: 0,
+  scaleIndex: 2
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
