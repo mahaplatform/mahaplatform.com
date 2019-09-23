@@ -38,13 +38,15 @@ class Upload extends React.Component {
 
   _getAttachments() {
     return {
-      cancelText: <i className="fa fa-fw fa-chevron-left" />,
-      prompt: 'Upload File',
-      multiple: false,
-      networks: ['device','web','maha','google','dropbox','box','microsoft'],
+      allow: {
+        content_types: ['application/vnd.google-apps.spreadsheet'],
+        extensions: ['csv','tsv','xls','xlsx'],
+        types: ['files']
+      },
+      cancelText: <i className="fa fa-chevron-left" />,
       onCancel: this._handleCancel,
-      onChooseAssets: this._handleAttachment,
-      onDone: () => {}
+      doneText: 'Next',
+      onDone: this._handleAttachment
     }
   }
 

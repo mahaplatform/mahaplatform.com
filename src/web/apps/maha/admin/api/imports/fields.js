@@ -1,4 +1,3 @@
-
 const fieldsRoute = async (req, res) => {
 
   const table_constraints = await req.trx.raw(`
