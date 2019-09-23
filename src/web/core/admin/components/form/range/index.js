@@ -5,15 +5,18 @@ import _ from 'lodash'
 class Range extends React.Component {
 
   static propTypes = {
+    defaultValue: PropTypes.number,
     min: PropTypes.number,
     max: PropTypes.number,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onReady: PropTypes.func
   }
 
   static defaultProps = {
     min: 0,
     max: 100,
-    onChange: () => {}
+    onChange: () => {},
+    onReady: () => {}
   }
 
   state = {
@@ -46,6 +49,14 @@ class Range extends React.Component {
     )
   }
 
+  componentDidMount() {
+    const { defaultValue, onReady } = this.props
+    if(defaultValue) this.setState({
+      value: defaultValue
+    })
+    onReady()
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const { value } = this.state
     if(value !== prevState.value) {
@@ -72,7 +83,7 @@ class Range extends React.Component {
 
   _handleInput(e) {
     this.setState({
-      value: e.target.value
+      value: parseInt(e.target.value)
     })
   }
 

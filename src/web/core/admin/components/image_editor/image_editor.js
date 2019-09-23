@@ -24,6 +24,7 @@ class ImageEditor extends React.PureComponent {
   static defaultProps = {}
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleDone = this._handleDone.bind(this)
 
   render() {
     const { status } = this.props
@@ -64,6 +65,9 @@ class ImageEditor extends React.PureComponent {
       title: 'Photo Editor',
       leftItems: [
         { label: 'Cancel', handler: this._handleCancel }
+      ],
+      rightItems: [
+        { label: 'Done', handler: this._handleDone }
       ]
     }
   }
@@ -77,6 +81,10 @@ class ImageEditor extends React.PureComponent {
   }
 
   _handleCancel() {
+    this.context.modal.close()
+  }
+
+  _handleDone() {
     this.context.modal.close()
   }
 

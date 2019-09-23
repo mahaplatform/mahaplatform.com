@@ -1,0 +1,79 @@
+.maha-imageeditor-sidebar {
+  flex: 0 0 ~"calc(100% / 3)";
+  border-right: 1px solid fadeout(@black, 90);
+  display: flex;
+  .field {
+    margin-bottom: 0 !important;
+  }
+}
+.maha-imageeditor-panel {
+  flex: 1;
+  padding: 0.8em;
+}
+.maha-imageeditor-tools {
+  flex: 1;
+}
+.maha-imageeditor-tool {
+  display: flex;
+  border-bottom: 1px solid fadeout(@black, 90);
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 95);
+  }
+}
+.maha-imageeditor-tool-icon {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  .fa {
+    margin: auto;
+  }
+}
+.maha-imageeditor-tool-label {
+  flex: 1;
+  padding: 0.8em;
+}
+.maha-imageeditor-tool-proceed {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  .fa {
+    margin: auto;
+    font-size: 0.8em;
+    color: fadeout(@black, 50);
+  }
+}
+.maha-imageeditor-filters {
+  flex: 1;
+  .scrollable();
+}
+.maha-imageeditor-row {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 0.4em;
+}
+.maha-imageeditor-column {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+  padding: 0.4em;
+}
+.maha-imageeditor-button {
+  border: 1px solid fadeout(@black, 90);
+  padding: 0.8em;
+  text-align: center;
+  border-radius: 0.5em;
+  cursor: pointer;
+  canvas, img {
+    width: 100%;
+  }
+  &:hover {
+    background-color: fadeout(@black, 95);
+  }
+  .fa {
+    font-size: 3em;
+    display: block;
+    line-height: 1.6em;
+  }
+}

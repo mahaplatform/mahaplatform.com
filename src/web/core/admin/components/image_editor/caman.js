@@ -46,9 +46,7 @@ Caman.Filter.register('flip', function() {
 
 Caman.Plugin.register('text', function(options) {
   const value = options.value || ''
-  const line_color = options.line_color || 'FF0000'
-  const line_width = options.line_width || 3
-  const color = options.color || 'FFFFFF'
+  const color = options.color || '#FFFFFF'
   const font = options.font || 'Arial'
   const size = options.size || 60
   let canvas = null
@@ -62,9 +60,9 @@ Caman.Plugin.register('text', function(options) {
   const ctx = canvas.getContext('2d')
   ctx.save()
   ctx.font = `${size}px ${font}`
-  ctx.strokeStyle = `#${line_color}`
-  ctx.lineWidth = line_width
-  ctx.fillStyle = `#${color}`
+  if(options.line_color !== null) ctx.strokeStyle = options.line_color
+  if(options.line_width !== null) ctx.lineWidth = options.line_width
+  ctx.fillStyle = color
   ctx.textAlign = options.align || 'center'
   ctx.textBaseline = options.baseline || 'middle'
   ctx.drawImage (this.canvas, 0, 0, this.canvas.width, this.canvas.height)

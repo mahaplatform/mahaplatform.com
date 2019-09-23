@@ -20,6 +20,7 @@ class Form extends React.Component {
     buttons: PropTypes.array,
     defaults: PropTypes.object,
     cancelText: PropTypes.any,
+    color: PropTypes.string,
     config: PropTypes.array,
     data: PropTypes.object,
     errors: PropTypes.object,
@@ -65,6 +66,7 @@ class Form extends React.Component {
   static defaultProps = {
     method: 'GET',
     cancelText: 'Cancel',
+    color: 'red',
     saveText: 'Save',
     showHeader: true,
     onCancel: () => {},
@@ -162,9 +164,10 @@ class Form extends React.Component {
   }
 
   _getPanel() {
-    const { buttons, cancelText, saveText, showHeader, title } = this.props
+    const { buttons, cancelText, color, saveText, showHeader, title } = this.props
     return {
       buttons,
+      color,
       showHeader,
       title,
       leftItems: (cancelText) ? [

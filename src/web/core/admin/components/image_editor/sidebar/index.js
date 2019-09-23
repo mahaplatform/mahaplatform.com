@@ -1,4 +1,4 @@
-import Adjustment from './adjustment'
+import Tools from './tools'
 import PropTypes from 'prop-types'
 import Stack from '../../stack'
 import React from 'react'
@@ -18,6 +18,9 @@ class Sidebar extends React.PureComponent {
     cards: []
   }
 
+  _handlePop = this._handlePop.bind(this)
+  _handlePush = this._handlePush.bind(this)
+
   render() {
     return (
       <div className="maha-imageeditor-sidebar">
@@ -27,7 +30,7 @@ class Sidebar extends React.PureComponent {
   }
 
   componentDidMount() {
-    this._handlePush(Adjustment, this._getAdjustment())
+    this._handlePush(Tools, this._getTools())
   }
 
   _getStack() {
@@ -38,10 +41,9 @@ class Sidebar extends React.PureComponent {
     }
   }
 
-  _getAdjustment() {
-    const { transforms, onAdjust } = this.props
+  _getTools() {
+    const { onAdjust } = this.props
     return {
-      transforms,
       onAdjust,
       onPop: this._handlePop,
       onPush: this._handlePush

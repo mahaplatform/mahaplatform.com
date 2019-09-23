@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Caman from './caman'
+import Caman from '../caman'
 import React from 'react'
 import _ from 'lodash'
 
@@ -42,20 +42,23 @@ class Canvas extends React.PureComponent {
 
   _handleRender() {
     const { asset, transforms } = this.props
-    const { bri, con, exp, flip, gamma, hue, invert, noise, rot, sat, sepia, txt, vibrance } = transforms
+    const { blur, bri, con, exp, filter, flip, gamma, hue, invert, noise, rot, sat, sepia, sharp, text, vibrance } = transforms
     Caman(this.canvas, `/imagecache/w=630${asset.path}`, function() {
       this.revert()
-      if(bri) this.brightness(parseInt(bri))
-      if(con) this.contrast(parseInt(con))
+      if(blur) this.stackBlur(blur)
+      if(bri) this.brightness(bri)
+      if(con) this.contrast(con)
       if(exp) this.exposure(exp)
+      if(filter) this[filter]()
       if(flip) this.flip(flip)
       if(gamma) this.gamma(gamma)
       if(hue) this.hue(hue)
       if(invert) this.invert(invert)
       if(noise) this.noise(noise)
-      if(txt) this.text(txt)
+      if(text) this.text(text)
       if(sat) this.saturation(sat)
       if(sepia) this.sepia(sepia)
+      if(sharp) this.sepia(sharp)
       if(vibrance) this.vibrance(vibrance)
       if(rot) this.rotate(rot)
       this.render()
