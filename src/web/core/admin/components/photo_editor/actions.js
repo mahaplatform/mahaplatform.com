@@ -13,11 +13,8 @@ export const set = (asset_id, transforms) => ({
   transforms
 })
 
-export const push = (transform) => ({
-  type: 'PUSH',
-  transform
-})
-
-export const pop = () => ({
-  type: 'POP'
+export const adjust = (key, value) => ({
+  type: 'ADJUST',
+  key,
+  value
 })

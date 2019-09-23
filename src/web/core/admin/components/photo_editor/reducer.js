@@ -1,7 +1,7 @@
 const INITIAL_STATE = {
   asset: null,
   asset_id: null,
-  transforms: [],
+  transforms: {},
   status: 'pending'
 }
 
@@ -46,21 +46,13 @@ const reducer = (state = INITIAL_STATE, action) => {
       status: 'saveed'
     }
 
-  case 'POP':
+  case 'ADJUST':
     return {
       ...state,
-      transforms: [
-        ...state.transforms.slice(0, -1)
-      ]
-    }
-
-  case 'PUSH':
-    return {
-      ...state,
-      transforms: [
+      transforms: {
         ...state.transforms,
-        action.transform
-      ]
+        [action.key]: action.value
+      }
     }
 
   case 'SET':

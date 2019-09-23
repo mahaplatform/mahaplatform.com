@@ -12,21 +12,24 @@ class PhotoEditor extends React.PureComponent {
     asset: PropTypes.object,
     asset_id: PropTypes.number,
     defaultValue: PropTypes.object,
-    transforms: PropTypes.array,
+    status: PropTypes.string,
+    transforms: PropTypes.object,
+    onAdjust: PropTypes.func,
     onFetch: PropTypes.func,
-    onPop: PropTypes.func,
-    onPush: PropTypes.func,
     onSet: PropTypes.func
   }
 
   static defaultProps = {}
 
   render() {
+    const { status } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-photoeditor">
           <Toolbar { ...this._getToolbar() } />
-          <Canvas { ...this._getCanvas() } />
+          { status === 'loaded' &&
+            <Canvas { ...this._getCanvas() } />
+          }
         </div>
       </ModalPanel>
     )
@@ -59,10 +62,9 @@ class PhotoEditor extends React.PureComponent {
   }
 
   _getToolbar() {
-    const { onPop, onPush } = this.props
+    const { onAdjust } = this.props
     return {
-      onPop,
-      onPush
+      onAdjust
     }
   }
 
