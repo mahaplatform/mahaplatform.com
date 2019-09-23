@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import Stack from '../stack/stack'
+import Stack from '../stack'
 import PropTypes from 'prop-types'
 import Explorer from './explorer'
 import Loader from '../loader'

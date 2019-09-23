@@ -1,7 +1,7 @@
 import ModalPanel from '../../modal_panel'
 import Searchbox from '../../searchbox'
 import { connect } from 'react-redux'
-import Stack from '../../stack/stack'
+import Stack from '../../stack'
 import Infinite from '../../infinite'
 import Message from '../../message'
 import PropTypes from 'prop-types'

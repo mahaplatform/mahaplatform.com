@@ -108,6 +108,7 @@
     "html-email-to-text": "^1.0.4",
     "http-auth": "^3.2.3",
     "immutable": "^3.7.6",
+    "imports-loader": "^0.8.0",
     "inline-css": "^2.2.2",
     "instagram-node": "^0.5.8",
     "ioredis": "^3.1.2",

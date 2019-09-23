@@ -28,6 +28,7 @@
     }
   },
   "globals": {
+    "Caman": true,
     "Buffer": true,
     "__dirname": true,
     "process": true,

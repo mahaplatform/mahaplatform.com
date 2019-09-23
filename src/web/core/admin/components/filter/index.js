@@ -1,4 +1,4 @@
-import Stack from '../stack/stack'
+import Stack from '../stack'
 import PropTypes from 'prop-types'
 import Overview from './overview'
 import Criteria from './criteria'

@@ -1,12 +1,14 @@
 import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
-import Toolbar from './toolbar'
+import Sidebar from './sidebar'
 import Canvas from './canvas'
 import React from 'react'
 
-class PhotoEditor extends React.PureComponent {
+class ImageEditor extends React.PureComponent {
 
-  static contextTypes = {}
+  static contextTypes = {
+    modal: PropTypes.object
+  }
 
   static propTypes = {
     asset: PropTypes.object,
@@ -21,12 +23,14 @@ class PhotoEditor extends React.PureComponent {
 
   static defaultProps = {}
 
+  _handleCancel = this._handleCancel.bind(this)
+
   render() {
     const { status } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-photoeditor">
-          <Toolbar { ...this._getToolbar() } />
+        <div className="maha-imageeditor">
+          <Sidebar { ...this._getSidebar() } />
           { status === 'loaded' &&
             <Canvas { ...this._getCanvas() } />
           }
@@ -57,15 +61,23 @@ class PhotoEditor extends React.PureComponent {
 
   _getPanel() {
     return {
-      title: 'Photo Editor'
+      title: 'Photo Editor',
+      leftItems: [
+        { label: 'Cancel', handler: this._handleCancel }
+      ]
     }
   }
 
-  _getToolbar() {
-    const { onAdjust } = this.props
+  _getSidebar() {
+    const { transforms, onAdjust } = this.props
     return {
+      transforms,
       onAdjust
     }
+  }
+
+  _handleCancel() {
+    this.context.modal.close()
   }
 
   _handleFetch() {
@@ -79,4 +91,4 @@ class PhotoEditor extends React.PureComponent {
 
 }
 
-export default PhotoEditor
+export default ImageEditor

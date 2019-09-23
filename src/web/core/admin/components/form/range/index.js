@@ -24,9 +24,24 @@ class Range extends React.Component {
   _handleInput = this._handleInput.bind(this)
 
   render() {
+    const { min, max } = this.props
+    const { value } = this.state
     return (
       <div className="maha-range">
-        <input { ...this._getRange() } />
+        <div className="maha-range-slider">
+          <input { ...this._getRange() } />
+        </div>
+        <div className="maha-range-legend">
+          <div className="maha-range-min">
+            { min }
+          </div>
+          <div className="maha-range-value">
+            { value }
+          </div>
+          <div className="maha-range-max">
+            { max }
+          </div>
+        </div>
       </div>
     )
   }

@@ -1,12 +1,12 @@
 import { Factory } from 'redux-rubberstamp'
 import reducer from './reducer'
-import PhotoEditor from './photo_editor'
+import ImageEditor from './image_editor'
 import * as selectors from './selectors'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'maha.photo_editor',
-  component: PhotoEditor,
+  namespace: 'maha.image_editor',
+  component: ImageEditor,
   reducer,
   selectors,
   actions

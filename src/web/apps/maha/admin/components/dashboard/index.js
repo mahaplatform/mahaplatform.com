@@ -1,4 +1,4 @@
-import { Button, ModalPanel, PhotoEditor } from 'maha-admin'
+import { Button, ModalPanel, ImageEditor } from 'maha-admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -47,7 +47,7 @@ class Dashboard extends React.Component {
     return {
       label: 'Edit',
       className: 'ui blue button',
-      modal: <PhotoEditor defaultValue={{ asset_id: 8121, transforms: {} } } />
+      modal: <ImageEditor defaultValue={{ asset_id: 8121, transforms: {} }} />
     }
   }
 

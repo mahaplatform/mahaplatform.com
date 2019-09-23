@@ -1,8 +1,8 @@
 import matchPath from 'react-router-dom/matchPath'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import Stack from '../stack'
 import React from 'react'
-import Stack from './stack'
 
 class RouterStack extends React.Component {
 

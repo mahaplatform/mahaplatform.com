@@ -36,6 +36,7 @@ import adminformSelect from './components/form/select'
 import adminformTablefield from './components/form/tablefield'
 import adminformToggleList from './components/form/toggle_list'
 import adminformVideofield from './components/form/videofield'
+import adminimageEditor from './components/image_editor'
 import adminimportConfigure from './components/import/configure'
 import adminimportField from './components/import/field'
 import adminimportFinalizing from './components/import/finalizing'
@@ -53,7 +54,6 @@ import admininfinite from './components/infinite'
 import adminmenu from './components/menu'
 import adminmodal from './components/modal'
 import adminpage from './components/page'
-import adminphotoEditor from './components/photo_editor'
 import adminpopup from './components/popup'
 import adminprompt from './components/prompt'
 import adminsearch from './components/search'
@@ -268,6 +268,7 @@ class App extends React.Component {
       adminformTablefield,
       adminformToggleList,
       adminformVideofield,
+      adminimageEditor,
       adminimportConfigure,
       adminimportField,
       adminimportFinalizing,
@@ -285,7 +286,6 @@ class App extends React.Component {
       adminmenu,
       adminmodal,
       adminpage,
-      adminphotoEditor,
       adminpopup,
       adminprompt,
       adminsearch,

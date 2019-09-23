@@ -1,7 +1,7 @@
 import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
 import { counts } from '../selectors'
-import Stack from '../../stack/stack'
+import Stack from '../../stack'
 import PropTypes from 'prop-types'
 import Sources from '../sources'
 import Device from '../device'
