@@ -46,9 +46,12 @@ Caman.Filter.register('flip', function() {
 
 Caman.Plugin.register('text', function(options) {
   const value = options.value || ''
-  const color = options.color || '#FFFFFF'
+  const color = options.color || 'FFFFFF'
   const font = options.font || 'Arial'
   const size = options.size || 60
+  const baseline = options.baseline || 'middle'
+  const align = options.align || 'center'
+  const padding = options.padding || 0
   let canvas = null
   if(window === undefined) {
     const Canvas = require('canvas')
@@ -59,15 +62,33 @@ Caman.Plugin.register('text', function(options) {
   }
   const ctx = canvas.getContext('2d')
   ctx.save()
+  let x = null
+  let y = null
+  if(align === 'left') {
+    x = padding
+  } else if(align === 'center') {
+    x = this.canvas.width / 2
+  } else if(align === 'right') {
+    x = this.canvas.width - padding
+  }
+  if(baseline === 'top') {
+    y = padding
+  } else if(baseline === 'middle') {
+    y = this.canvas.height / 2
+  } else if(baseline === 'bottom') {
+    y = this.canvas.height - padding
+  }
+  ctx.drawImage(this.canvas, 0, 0, this.canvas.width, this.canvas.height)
+  ctx.textBaseline = baseline
+  ctx.textAlign = align
   ctx.font = `${size}px ${font}`
-  if(options.line_color !== null) ctx.strokeStyle = options.line_color
-  if(options.line_width !== null) ctx.lineWidth = options.line_width
   ctx.fillStyle = color
-  ctx.textAlign = options.align || 'center'
-  ctx.textBaseline = options.baseline || 'middle'
-  ctx.drawImage (this.canvas, 0, 0, this.canvas.width, this.canvas.height)
-  ctx.fillText(value, this.canvas.width / 2, this.canvas.height / 2)
-  ctx.strokeText(value, this.canvas.width / 2, this.canvas.height / 2)
+  ctx.fillText(value, x, y)
+  if(options.line_width && options.line_color) {
+    ctx.strokeStyle = options.line_color
+    ctx.lineWidth = options.line_width
+    ctx.strokeText(value, x, y)
+  }
   ctx.restore()
   this.replaceCanvas(canvas)
 })

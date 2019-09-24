@@ -7,9 +7,8 @@ export const fetch = (id) => ({
   failure: 'FETCH_FAILURE'
 })
 
-export const set = (asset_id, transforms) => ({
+export const set = (transforms) => ({
   type: 'SET',
-  asset_id,
   transforms
 })
 

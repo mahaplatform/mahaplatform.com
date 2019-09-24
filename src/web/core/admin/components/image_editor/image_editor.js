@@ -43,13 +43,7 @@ class ImageEditor extends React.PureComponent {
   componentDidMount() {
     const { defaultValue } = this.props
     if(defaultValue) this._handleSet(defaultValue)
-  }
-
-  componentDidUpdate(prevProps) {
-    const { asset_id } = this.props
-    if(asset_id !== prevProps.asset_id) {
-      this._handleFetch()
-    }
+    this._handleFetch()
   }
 
   _getCanvas() {

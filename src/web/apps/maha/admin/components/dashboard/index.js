@@ -47,7 +47,7 @@ class Dashboard extends React.Component {
     return {
       label: 'Edit',
       className: 'ui blue button',
-      modal: <ImageEditor defaultValue={{ asset_id: 8121, transforms: {} }} />
+      modal: <ImageEditor asset_id={ 8121 } />
     }
   }
 

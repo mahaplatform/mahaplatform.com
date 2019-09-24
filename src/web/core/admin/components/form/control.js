@@ -14,6 +14,8 @@ import EmailField from './emailfield'
 import Hidden from './hidden'
 import HtmlField from './htmlfield'
 import FileField from './filefield'
+import FontFamilyField from './fontfamilyfield'
+import FontSizeField from './fontsizefield'
 import Lookup from './lookup'
 import Lookup2 from './lookup2'
 import MoneyField from './moneyfield'
@@ -67,6 +69,8 @@ class Control extends React.Component {
     if(type === 'hidden') return Hidden
     if(type === 'htmlfield') return HtmlField
     if(type === 'filefield') return FileField
+    if(type === 'fontfamilyfield') return FontFamilyField
+    if(type === 'fontsizefield') return FontSizeField
     if(type === 'lookup') return Lookup
     if(type === 'lookup2') return Lookup2
     if(type === 'moneyfield') return MoneyField

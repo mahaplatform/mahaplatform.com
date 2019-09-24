@@ -1,6 +1,5 @@
 const INITIAL_STATE = {
   asset: null,
-  asset_id: null,
   transforms: {},
   status: 'pending'
 }
@@ -58,7 +57,6 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'SET':
     return {
       ...state,
-      asset_id: action.asset_id,
       transforms: action.transforms
     }
 

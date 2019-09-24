@@ -94,11 +94,11 @@ class Lookup extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue, endpoint, onChoose, onLoad, onReady } = this.props
+    const { defaultValue, endpoint, value, onChoose, onLoad, onReady } = this.props
     const options = this._getOptions()
     if(!defaultValue) return onReady()
     if(endpoint) return onLoad({ $filter: { id: { $in: [ defaultValue ] } } }, endpoint)
-    const chosen = _.find(options, { value: defaultValue })
+    const chosen = _.find(options, { [value]: defaultValue })
     onChoose(chosen)
     onReady()
   }

@@ -2,9 +2,6 @@
   flex: 0 0 ~"calc(100% / 3)";
   border-right: 1px solid fadeout(@black, 90);
   display: flex;
-  .field {
-    margin-bottom: 0 !important;
-  }
 }
 .maha-imageeditor-panel {
   flex: 1;
@@ -45,12 +42,14 @@
   flex: 1;
   .scrollable();
 }
+.maha-imageeditor-grid {
+  padding: 0.4em;
+}
 .maha-imageeditor-row {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
-  padding: 0.4em;
 }
 .maha-imageeditor-column {
   display: flex;
@@ -67,6 +66,7 @@
   cursor: pointer;
   canvas, img {
     width: 100%;
+    border: 1px solid transparent;
   }
   &:hover {
     background-color: fadeout(@black, 95);
@@ -75,5 +75,12 @@
     font-size: 3em;
     display: block;
     line-height: 1.6em;
+  }
+  &.active {
+    border-color: @blue;
+    color: @blue;
+    canvas, img {
+      border-color: @blue;
+    }
   }
 }

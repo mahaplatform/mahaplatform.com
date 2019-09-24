@@ -55,12 +55,12 @@ class Canvas extends React.PureComponent {
       if(hue) this.hue(hue)
       if(invert) this.invert(invert)
       if(noise) this.noise(noise)
-      if(text) this.text(text)
       if(sat) this.saturation(sat)
       if(sepia) this.sepia(sepia)
       if(sharp) this.sepia(sharp)
       if(vibrance) this.vibrance(vibrance)
       if(rot) this.rotate(rot)
+      if(text) this.text(text)
       this.render()
     })
   }

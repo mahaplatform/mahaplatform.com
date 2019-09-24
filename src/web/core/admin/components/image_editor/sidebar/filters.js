@@ -6,6 +6,7 @@ import React from 'react'
 import _ from 'lodash'
 
 const filters = [
+  { label: 'Original', name: 'original'},
   { label: 'Vintage', name: 'vintage' },
   { label: 'Lomo', name: 'lomo' },
   { label: 'Clarity', name: 'clarity' },
@@ -14,7 +15,6 @@ const filters = [
   { label: 'Cross Process', name: 'crossProcess' },
   { label: 'Orange Peel', name: 'orangePeel' },
   { label: 'Love', name: 'love' },
-  { label: 'Grungy', name: 'grungy' },
   { label: 'Jarques', name: 'jarques' },
   { label: 'Pinhole', name: 'pinhole' },
   { label: 'Old Boot', name: 'oldBoot' },
@@ -53,7 +53,7 @@ class Filters extends React.PureComponent {
               <div className="maha-imageeditor-row" key={`chunk_${i}`}>
                 { chunk.map((filter, j) => (
                   <div className="maha-imageeditor-column" key={`filter_${j}`}>
-                    <div className="maha-imageeditor-button" onClick={ this._handleClick.bind(this, filter.name) }>
+                    <div className={ this._getClass(filter) } onClick={ this._handleClick.bind(this, filter.name) }>
                       <img src={`/imagecache/w=125${asset.path}`} ref={ node => this.previews[filter.name] = node } />
                       { filter.label}
                     </div>
@@ -69,10 +69,19 @@ class Filters extends React.PureComponent {
 
   componentDidMount() {
     filters.map(filter => {
+      if(filter.name === 'original') return
       Caman(this.previews[filter.name], function() {
         this[filter.name]().render()
       })
     })
+  }
+
+  _getClass(filter) {
+    const { transforms } = this.props
+    const classes = ['maha-imageeditor-button']
+    if(transforms.filter === filter.name) classes.push('active')
+    if(!transforms.filter && filter.name === 'original') classes.push('active')
+    return classes.join(' ')
   }
 
   _getPanel() {
@@ -85,18 +94,20 @@ class Filters extends React.PureComponent {
     }
   }
 
-  _handleClick(value) {
-    this.props.onAdjust('filter', value)
-  }
-
   _handleBack() {
     this.props.onBack()
+  }
+
+  _handleClick(name) {
+    const value = name !== 'original' ? name : null
+    this.props.onAdjust('filter', value)
   }
 
 }
 
 const mapStateToProps = (state, props) => ({
-  asset: state.maha.image_editor.asset
+  asset: state.maha.image_editor.asset,
+  transforms: state.maha.image_editor.transforms
 })
 
 export default connect(mapStateToProps)(Filters)
