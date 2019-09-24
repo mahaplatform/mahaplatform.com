@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
 import Canvas from './canvas'
 import React from 'react'
+import Crop from './crop'
 
 class ImageEditor extends React.PureComponent {
 
@@ -13,12 +14,16 @@ class ImageEditor extends React.PureComponent {
   static propTypes = {
     asset: PropTypes.object,
     asset_id: PropTypes.number,
+    cropping: PropTypes.bool,
     defaultValue: PropTypes.object,
+    ratio: PropTypes.number,
     status: PropTypes.string,
     transforms: PropTypes.object,
     onAdjust: PropTypes.func,
+    onCrop: PropTypes.func,
     onFetch: PropTypes.func,
-    onSet: PropTypes.func
+    onSet: PropTypes.func,
+    onSetRatio: PropTypes.func
   }
 
   static defaultProps = {}
@@ -27,14 +32,19 @@ class ImageEditor extends React.PureComponent {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    const { status } = this.props
+    const { cropping, status } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-imageeditor">
           <Sidebar { ...this._getSidebar() } />
-          { status === 'loaded' &&
-            <Canvas { ...this._getCanvas() } />
-          }
+          <div className="maha-imageeditor-main">
+            { status === 'loaded' &&
+              <Canvas { ...this._getCanvas() } />
+            }
+            { cropping &&
+              <Crop { ...this._getCrop() } />
+            }
+          </div>
         </div>
       </ModalPanel>
     )
@@ -47,10 +57,21 @@ class ImageEditor extends React.PureComponent {
   }
 
   _getCanvas() {
-    const { asset, transforms } = this.props
+    const { asset, cropping, ratio, transforms } = this.props
     return {
       asset,
+      cropping,
+      ratio,
       transforms
+    }
+  }
+
+  _getCrop() {
+    const { asset, ratio, onAdjust } = this.props
+    return {
+      asset,
+      ratio,
+      onAdjust
     }
   }
 
@@ -67,10 +88,11 @@ class ImageEditor extends React.PureComponent {
   }
 
   _getSidebar() {
-    const { transforms, onAdjust } = this.props
+    const { onAdjust, onCrop, onSetRatio } = this.props
     return {
-      transforms,
-      onAdjust
+      onAdjust,
+      onCrop,
+      onSetRatio
     }
   }
 

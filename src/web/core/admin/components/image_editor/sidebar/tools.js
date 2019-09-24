@@ -38,8 +38,10 @@ class Tools extends React.Component {
   static propTypes = {
     transforms: PropTypes.object,
     onAdjust: PropTypes.func,
+    onCrop: PropTypes.func,
     onPush: PropTypes.func,
-    onPop: PropTypes.func
+    onPop: PropTypes.func,
+    onSetRatio: PropTypes.func
   }
 
   static defaultProps = {}
@@ -74,11 +76,13 @@ class Tools extends React.Component {
   }
 
   _getTool(tool) {
-    const { transforms, onAdjust, onPop } = this.props
+    const { transforms, onAdjust, onPop, onCrop, onSetRatio } = this.props
     return {
       transforms,
       onAdjust,
-      onBack: onPop
+      onBack: onPop,
+      onCrop,
+      onSetRatio
     }
   }
 

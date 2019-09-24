@@ -1,5 +1,7 @@
 const INITIAL_STATE = {
   asset: null,
+  cropping: false,
+  ratio: 1,
   transforms: {},
   status: 'pending'
 }
@@ -58,6 +60,18 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       transforms: action.transforms
+    }
+
+  case 'CROP':
+    return {
+      ...state,
+      cropping: action.cropping
+    }
+
+  case 'SET_RATIO':
+    return {
+      ...state,
+      ratio: action.ratio
     }
 
   default:

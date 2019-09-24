@@ -8,8 +8,9 @@ class Sidebar extends React.PureComponent {
   static contextTypes = {}
 
   static propTypes = {
-    transforms: PropTypes.object,
-    onAdjust: PropTypes.func
+    onAdjust: PropTypes.func,
+    onCrop: PropTypes.func,
+    onSetRatio: PropTypes.func
   }
 
   static defaultProps = {}
@@ -42,11 +43,13 @@ class Sidebar extends React.PureComponent {
   }
 
   _getTools() {
-    const { onAdjust } = this.props
+    const { onAdjust, onCrop, onSetRatio } = this.props
     return {
       onAdjust,
       onPop: this._handlePop,
-      onPush: this._handlePush
+      onPush: this._handlePush,
+      onCrop,
+      onSetRatio
     }
   }
 

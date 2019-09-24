@@ -2,16 +2,15 @@ import ModalPanel from '../../modal_panel'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
-import _ from 'lodash'
 
 const ratios = [
-  { label: 'Square', name: 'square', w: 1, h: 1 },
-  { label: '3:2', name: '3_2', w: 3, h: 2 },
-  { label: '5:3', name: '5_3', w: 5, h: 3 },
-  { label: '4:3', name: '4_3', w: 4, h: 3 },
-  { label: '5:4', name: '5_4', w: 5, h: 4 },
-  { label: '7:5', name: '7_5', w: 7, h: 5 },
-  { label: '16:9', name: '16_9', w: 16, h: 9 }
+  { label: 'Square', ratio: 1.00 },
+  { label: '3:2', ratio: 1.50 },
+  { label: '5:3', ratio: 1.66 },
+  { label: '4:3', ratio: 1.33 },
+  { label: '5:4', ratio: 1.25 },
+  { label: '7:5', ratio: 1.40 },
+  { label: '16:9', ratio: 1.77 }
 ]
 
 class Crop extends React.PureComponent {
@@ -19,9 +18,12 @@ class Crop extends React.PureComponent {
   static contextTypes = {}
 
   static propTypes = {
+    ratio: PropTypes.number,
     transforms: PropTypes.object,
     onAdjust: PropTypes.func,
-    onBack: PropTypes.func
+    onBack: PropTypes.func,
+    onCrop: PropTypes.func,
+    onSetRatio: PropTypes.func
   }
 
   static defaultProps = {}
@@ -36,7 +38,7 @@ class Crop extends React.PureComponent {
             { ratios.map((ratio, i) => (
               <div className="maha-imageeditor-row" key={`chunk_${i}`}>
                 <div className="maha-imageeditor-column">
-                  <div className={ this._getClass(ratio) } onClick={ this._handleClick.bind(this, ratio.name) }>
+                  <div className={ this._getClass(ratio) } onClick={ this._handleClick.bind(this, ratio.ratio) }>
                     { ratio.label}
                   </div>
                 </div>
@@ -48,10 +50,17 @@ class Crop extends React.PureComponent {
     )
   }
 
-  _getClass(filter) {
-    const { transforms } = this.props
+  componentDidMount() {
+    this.props.onCrop(true)
+  }
+
+  componentWillUnmount() {
+    this.props.onCrop(false)
+  }
+
+  _getClass(ratio) {
     const classes = ['maha-imageeditor-button']
-    if(transforms.crop === filter.name) classes.push('active')
+    if(this.props.ratio === ratio.ratio) classes.push('active')
     return classes.join(' ')
   }
 
@@ -73,14 +82,14 @@ class Crop extends React.PureComponent {
     this.props.onBack()
   }
 
-  _handleClick(name) {
-    // const value = name !== 'original' ? name : null
-    // this.props.onAdjust('filter', value)
+  _handleClick(ratio) {
+    this.props.onSetRatio(ratio)
   }
 
 }
 
 const mapStateToProps = (state, props) => ({
+  ratio: state.maha.image_editor.ratio,
   transforms: state.maha.image_editor.transforms
 })
 

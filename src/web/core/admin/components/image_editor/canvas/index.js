@@ -22,9 +22,7 @@ class Canvas extends React.PureComponent {
   render() {
     return (
       <div className="maha-imageeditor-canvas">
-        <div className="maha-imageeditor-canvas-frame">
-          <canvas ref={ node => this.canvas = node } />
-        </div>
+        <canvas ref={ node => this.canvas = node } />
       </div>
     )
   }

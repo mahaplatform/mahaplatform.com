@@ -36,6 +36,7 @@ import adminformSelect from './components/form/select'
 import adminformTablefield from './components/form/tablefield'
 import adminformToggleList from './components/form/toggle_list'
 import adminformVideofield from './components/form/videofield'
+import adminimageEditorCrop from './components/image_editor/crop'
 import adminimageEditor from './components/image_editor'
 import adminimportConfigure from './components/import/configure'
 import adminimportField from './components/import/field'
@@ -268,6 +269,7 @@ class App extends React.Component {
       adminformTablefield,
       adminformToggleList,
       adminformVideofield,
+      adminimageEditorCrop,
       adminimageEditor,
       adminimportConfigure,
       adminimportField,

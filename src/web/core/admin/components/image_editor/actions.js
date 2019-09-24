@@ -17,3 +17,13 @@ export const adjust = (key, value) => ({
   key,
   value
 })
+
+export const crop = (cropping) => ({
+  type: 'CROP',
+  cropping
+})
+
+export const setRatio = (ratio) => ({
+  type: 'SET_RATIO',
+  ratio
+})

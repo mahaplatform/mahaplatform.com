@@ -1,0 +1,35 @@
+.maha-imageeditor-crop {
+  background-color: lighten(@black, 95);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.maha-imageeditor-crop-body {
+  flex: 1;
+  overflow: hidden;
+  position: relative;
+  img {
+    position: absolute;
+  }
+}
+.maha-imageeditor-crop-footer {
+  padding: 0 0.8em;
+  display: flex;
+  height: 30px;
+  input {
+    margin: auto;
+    width: 100%;
+    display: block
+  }
+}
+.maha-imageeditor-crop-frame {
+  position: absolute;
+  box-shadow: 0 0 2000px 2000px fadeout(@black, 50);
+  border: 1px solid @white;
+  cursor: move;
+}
