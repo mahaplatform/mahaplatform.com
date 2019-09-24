@@ -60,8 +60,8 @@ class ImageEditor extends React.PureComponent {
     const { asset, cropping, ratio, transforms } = this.props
     return {
       asset,
-      cropping,
       ratio,
+      cropping,
       transforms
     }
   }

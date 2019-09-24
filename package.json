@@ -86,6 +86,7 @@
     "clamscan": "^1.0.3",
     "connect-multiparty": "^2.0.0",
     "cors": "^2.8.5",
+    "croppie": "^2.6.4",
     "csv-parse": "^2.4.0",
     "dotenv": "^4.0.0",
     "draft-convert": "^2.0.1",

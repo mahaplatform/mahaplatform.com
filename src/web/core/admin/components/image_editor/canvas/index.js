@@ -9,6 +9,7 @@ class Canvas extends React.PureComponent {
 
   static propTypes = {
     asset: PropTypes.object,
+    ratio: PropTypes.number,
     transforms: PropTypes.object,
     width: PropTypes.number
   }
@@ -40,9 +41,10 @@ class Canvas extends React.PureComponent {
 
   _handleRender() {
     const { asset, transforms } = this.props
-    const { blur, bri, con, exp, filter, flip, gamma, hue, invert, noise, rot, sat, sepia, sharp, text, vibrance } = transforms
-    Caman(this.canvas, `/imagecache/w=630${asset.path}`, function() {
-      this.revert()
+    const { blur, bri, con, crop, exp, filter, flip, gamma, hue, invert, noise, rot, sat, sepia, sharp, text, vibrance } = transforms
+    Caman(this.canvas, `/imagecache/${asset.path}`, function() {
+      this.reset()
+      if(crop) this.crop(...crop)
       if(blur) this.stackBlur(blur)
       if(bri) this.brightness(bri)
       if(con) this.contrast(con)
