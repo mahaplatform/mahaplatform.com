@@ -68,10 +68,11 @@ class ImageEditor extends React.PureComponent {
   }
 
   _getCrop() {
-    const { asset, ratio, onAdjust } = this.props
+    const { asset, ratio, transforms, onAdjust } = this.props
     return {
       asset,
       ratio,
+      transforms,
       onAdjust
     }
   }

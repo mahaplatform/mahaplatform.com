@@ -115,17 +115,21 @@ class Crop extends React.PureComponent {
   }
 
   _handleChange() {
-    const { natural, image, frame } = this.state
+    const { natural, image, frame, zoom } = this.state
     const scale = {
       x: natural.w / image.w,
       y: natural.h / image.h
     }
-    this.props.onAdjust('crop', [
-      Math.floor(frame.w * scale.x),
-      Math.floor(frame.h * scale.y),
-      Math.floor(((image.w / 2) - (frame.w / 2) - image.x) * scale.x),
-      Math.floor(((image.h / 2) - (frame.h / 2) - image.y) * scale.y)
-    ])
+    this.props.onAdjust('crop', {
+      w: Math.floor(frame.w * scale.x),
+      h: Math.floor(frame.h * scale.y),
+      x: Math.floor(((image.w / 2) - (frame.w / 2) - image.x) * scale.x),
+      y: Math.floor(((image.h / 2) - (frame.h / 2) - image.y) * scale.y),
+      ra: ratio,
+      zo: zoom,
+      rx: image.x,
+      ry: image.y
+    })
   }
 
   _handleDragStart(e) {
@@ -157,25 +161,30 @@ class Crop extends React.PureComponent {
   }
 
   _handleInit() {
+    const { crop } = this.props.transforms
     const { clientWidth, clientHeight, naturalWidth, naturalHeight } = this.image
     const { offsetWidth, offsetHeight } = this.panel
     const ratio = this.props.ratio || (naturalWidth / naturalHeight)
     const natural = { w: naturalWidth, h: naturalHeight }
     const panel = { x: 0, y: 0, w: offsetWidth, h: offsetHeight }
-    const image = { x: 0, y: 0 }
+    const zoom = crop ? crop.zo : 0
+    const image = {}
+    image.x = crop ? crop.rx : 0
+    image.y = crop ? crop.ry : 0
     image.w = panel.w - this.padding
     image.h = (clientHeight / clientWidth) * image.w
     const frame = {
       w: image.w > image.h ? ratio * image.h : image.h,
       h: image.w > image.h ? image.h : ratio * image.w
     }
-    frame.x = (panel.w - frame.w) / 2,
-    frame.y = (panel.h - frame.h) / 2,
+    frame.x = (panel.w - frame.w) / 2
+    frame.y = (panel.h - frame.h) / 2
     this.setState({
       frame,
       natural,
       image,
-      panel
+      panel,
+      zoom
     })
   }
 
@@ -200,14 +209,6 @@ class Crop extends React.PureComponent {
       x: (image.w / 2) - (frame.w / 2) + extra,
       y: extra
     }
-    console.log({
-      image: {
-        ...this.state.image,
-        x: Math.floor(Math.max(min.x, Math.min(max.x, newimage.x))),
-        y: Math.floor(Math.max(min.y, Math.min(max.y, newimage.y)))
-      },
-      zoom: Math.max(0, newzoom)
-    })
     this.setState({
       image: {
         ...this.state.image,

@@ -97,4 +97,9 @@ Caman.Filter.register('text', function() {
   this.processPlugin('text', Array.prototype.slice.call(arguments, 0))
 })
 
+Caman.Filter.register('crop', function() {
+  const crop = Array.prototype.slice.call(arguments, 0)[0]
+  this.processPlugin('crop', [crop.w,crop.h,crop.x,crop.y])
+})
+
 export default Caman
