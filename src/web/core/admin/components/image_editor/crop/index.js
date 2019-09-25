@@ -101,8 +101,8 @@ class Crop extends React.PureComponent {
     const { zoom, image, offset, panel } = this.state
     if(!image) return { width: '100%' }
     return {
-      top: ((panel.h - image.h) / 2) - ((this.scale * zoom) / 2) + offset.y,
-      left: ((panel.w - image.w) / 2) - ((this.scale * zoom) / 2) + offset.x,
+      top: ((panel.h - image.h) / 2) + offset.y,
+      left: ((panel.w - image.w) / 2) + offset.x,
       width: image.w + (this.scale * zoom),
       height: image.h + (this.scale * zoom)
     }
@@ -217,14 +217,14 @@ class Crop extends React.PureComponent {
     const image = state.image || this.state.image
     const zoom = Math.max(0, state.zoom || this.state.zoom)
     const offset = state.offset || this.state.offset
-    const extra = (zoom * this.scale) / 2
+    const zoomscale = zoom * this.scale
     const min = {
-      x: (frame.w / 2) - (image.w / 2) - extra,
-      y: 0 - extra
+      x: (frame.w / 2) - (image.w / 2) - zoomscale,
+      y: 0 - zoomscale
     }
     const max = {
-      x: (image.w / 2) - (frame.w / 2) + extra,
-      y: extra
+      x: (image.w / 2) - (frame.w / 2),
+      y: 0
     }
     this.setState({
       ...state,
