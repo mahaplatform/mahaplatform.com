@@ -43,7 +43,7 @@ class Crop extends React.PureComponent {
     return (
       <div className="maha-imageeditor-crop" ref={ node => this.panel = node }>
         <div className="maha-imageeditor-crop-body" { ...this._getBody() }>
-          <img src={`/imagecache/w=630${asset.path}`} style={ this._getImageStyle() } ref={ node => this.image = node } onLoad={ this._handleInit } />
+          <img src={`/imagecache/${asset.path}`} style={ this._getImageStyle() } ref={ node => this.image = node } onLoad={ this._handleInit } />
           <div className="maha-imageeditor-crop-frame" { ...this._getFrame() } />
         </div>
         <div className="maha-imageeditor-crop-footer">
@@ -115,13 +115,16 @@ class Crop extends React.PureComponent {
   }
 
   _handleChange() {
-    const { image, frame } = this.state
-    console.log(image)
+    const { natural, image, frame } = this.state
+    const scale = {
+      x: natural.w / image.w,
+      y: natural.h / image.h
+    }
     this.props.onAdjust('crop', [
-      Math.floor(frame.w),
-      Math.floor(frame.h),
-      Math.floor((image.w - frame.w) / 2 - image.x),
-      Math.floor((image.h - frame.h) / 2 - image.y)
+      Math.floor(frame.w * scale.x),
+      Math.floor(frame.h * scale.y),
+      Math.floor(((image.w / 2) - (frame.w / 2) - image.x) * scale.x),
+      Math.floor(((image.h / 2) - (frame.h / 2) - image.y) * scale.y)
     ])
   }
 
@@ -197,6 +200,14 @@ class Crop extends React.PureComponent {
       x: (image.w / 2) - (frame.w / 2) + extra,
       y: extra
     }
+    console.log({
+      image: {
+        ...this.state.image,
+        x: Math.floor(Math.max(min.x, Math.min(max.x, newimage.x))),
+        y: Math.floor(Math.max(min.y, Math.min(max.y, newimage.y)))
+      },
+      zoom: Math.max(0, newzoom)
+    })
     this.setState({
       image: {
         ...this.state.image,
