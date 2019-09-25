@@ -57,7 +57,7 @@ class Crop extends React.PureComponent {
       this._handleInit()
     } else if(zoom !== prevState.zoom) {
       this._handleChange()
-    } else if(!_.isEqual(image, prevState.image)) {
+    } else if(!_.isEqual(offset, prevState.offset)) {
       this._handleChange()
     }
   }
