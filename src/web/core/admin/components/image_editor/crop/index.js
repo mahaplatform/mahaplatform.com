@@ -23,6 +23,7 @@ class Crop extends React.PureComponent {
     offset: null,
     origin: null,
     panel: null,
+    portrait: null,
     zoom: 0
   }
 
@@ -40,7 +41,7 @@ class Crop extends React.PureComponent {
     return (
       <div className="maha-imageeditor-crop" ref={ node => this.panel = node }>
         <div className="maha-imageeditor-crop-body" { ...this._getBody() }>
-          <img src={`/imagecache/${asset.path}`} { ...this._getImage() } />
+          <img src={`/imagecache/fit=contain&w=400&h=200/${asset.path}`} { ...this._getImage() } />
           <div className="maha-imageeditor-crop-frame" { ...this._getFrame() } />
         </div>
         <div className="maha-imageeditor-crop-footer">
@@ -54,7 +55,7 @@ class Crop extends React.PureComponent {
     const { zoom, offset } = this.state
     const { ratio } = this.props
     if(ratio !== prevProps.ratio) {
-      this._handleInit()
+      this._handleChangeRatio()
     } else if(zoom !== prevState.zoom) {
       this._handleChange()
     } else if(!_.isEqual(offset, prevState.offset)) {
@@ -100,11 +101,14 @@ class Crop extends React.PureComponent {
   _getImageStyle() {
     const { zoom, image, offset, panel } = this.state
     if(!image) return { width: '100%' }
+    const zoomscale = zoom * this.scale
+    const width = image.w + zoomscale
+    const height = (image.h / image.w) * (image.w + zoomscale)
     return {
-      top: ((panel.h - image.h) / 2) + offset.y,
-      left: ((panel.w - image.w) / 2) + offset.x,
-      width: image.w + (this.scale * zoom),
-      height: image.h + (this.scale * zoom)
+      width,
+      height,
+      left: (panel.w / 2) - (width / 2) + offset.x,
+      top: (panel.h / 2) - (height / 2) + offset.y
     }
   }
 
@@ -122,15 +126,30 @@ class Crop extends React.PureComponent {
   _handleChange() {
     const { natural, image, frame, offset, zoom } = this.state
     const { ratio } = this.props
-    const scale = {
-      x: natural.w / image.w,
-      y: natural.h / image.h
+    const scale = natural.w / image.w
+    const zoomscale = zoom * this.scale
+    const zoomed = {
+      w: image.w + zoomscale,
+      h: (image.h / image.w) * (image.w + zoomscale)
+    }
+    const cropped = {
+      w: (frame.w / zoomed.w) * zoomed.w,
+      h: (frame.h / zoomed.h) * zoomed.h,
+      x: (zoomed.w / 2) - (frame.w / 2) - frame.w - offset.x,
+      y: (zoomed.h / 2) - (frame.h / 2) - frame.h - offset.y
+    }
+    console.log(offset, zoomscale, cropped)
+    const scaled = {
+      w: Math.floor(cropped.w * scale),
+      h: Math.floor(cropped.h * scale),
+      x: Math.floor(cropped.x * scale),
+      y: Math.floor(cropped.y * scale)
     }
     this.props.onAdjust('crop', {
-      w: Math.floor(frame.w * scale.x),
-      h: Math.floor(frame.h * scale.y),
-      x: Math.floor(((image.w / 2) - (frame.w / 2) - offset.x) * scale.x),
-      y: Math.floor(((image.h / 2) - (frame.h / 2) - offset.y) * scale.y),
+      w: Math.floor(cropped.w * scale),
+      h: Math.floor(cropped.h * scale),
+      x: Math.floor(cropped.x * scale),
+      y: Math.floor(cropped.y * scale),
       ra: ratio,
       zo: zoom,
       ox: offset.x,
@@ -172,8 +191,9 @@ class Crop extends React.PureComponent {
     const { crop } = this.props.transforms
     const { clientWidth, clientHeight, naturalWidth, naturalHeight } = this.image
     const { offsetWidth, offsetHeight } = this.panel
-    const ratio = this.props.ratio || (naturalWidth / naturalHeight)
     const natural = { w: naturalWidth, h: naturalHeight }
+    const ratio = this.props.ratio || (natural.w / natural.h)
+    const portrait = natural.w > natural.h
     const panel = { x: 0, y: 0, w: offsetWidth, h: offsetHeight }
     const zoom = crop ? crop.zo : 0
     const offset = {
@@ -184,8 +204,8 @@ class Crop extends React.PureComponent {
     image.w = panel.w - this.padding
     image.h = (clientHeight / clientWidth) * image.w
     const frame = {
-      w: image.w > image.h ? ratio * image.h : image.h,
-      h: image.w > image.h ? image.h : ratio * image.w
+      w: portrait ? ratio * image.h : image.h,
+      h: portrait ? image.h : ratio * image.w
     }
     frame.x = (panel.w - frame.w) / 2
     frame.y = (panel.h - frame.h) / 2
@@ -195,8 +215,21 @@ class Crop extends React.PureComponent {
       image,
       offset,
       panel,
+      portrait,
       zoom
     })
+  }
+
+  _handleChangeRatio() {
+    const { image, natural, panel, portrait } = this.state
+    const ratio = this.props.ratio || (natural.w / natural.h)
+    const frame = {
+      w: portrait ? ratio * image.h : image.h,
+      h: portrait ? image.h : ratio * image.w
+    }
+    frame.x = (panel.w - frame.w) / 2
+    frame.y = (panel.h - frame.h) / 2
+    this._handleUpdate({ frame })
   }
 
   _handleWheel(e) {
@@ -218,13 +251,15 @@ class Crop extends React.PureComponent {
     const zoom = Math.max(0, state.zoom || this.state.zoom)
     const offset = state.offset || this.state.offset
     const zoomscale = zoom * this.scale
+    const width = image.w + zoomscale
+    const height = (image.h / image.w) * (image.w + zoomscale)
     const min = {
-      x: (frame.w / 2) - (image.w / 2) - zoomscale,
-      y: 0 - zoomscale
+      x: (frame.w / 2) - (width / 2),
+      y: (frame.h / 2) - (height / 2)
     }
     const max = {
-      x: (image.w / 2) - (frame.w / 2),
-      y: 0
+      x: (width / 2) - (frame.w / 2),
+      y: (height / 2) - (frame.h / 2)
     }
     this.setState({
       ...state,

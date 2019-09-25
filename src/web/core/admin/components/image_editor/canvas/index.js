@@ -38,7 +38,7 @@ class Canvas extends React.PureComponent {
   _handleRender() {
     const { asset, transforms } = this.props
     const { blur, bri, con, crop, exp, filter, flip, gamma, hue, invert, noise, rot, sat, sepia, sharp, text, vibrance } = transforms
-    Caman(this.canvas, `/imagecache/${asset.path}`, function() {
+    Caman(this.canvas, `/imagecache/fit=contain&w=400&h=200/${asset.path}`, function() {
       this.reset()
       if(crop) this.crop(crop)
       if(blur) this.stackBlur(blur)
