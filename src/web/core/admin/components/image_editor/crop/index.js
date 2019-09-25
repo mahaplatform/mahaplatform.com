@@ -51,7 +51,7 @@ class Crop extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { zoom, image } = this.state
+    const { zoom, offset } = this.state
     const { ratio } = this.props
     if(ratio !== prevProps.ratio) {
       this._handleInit()
