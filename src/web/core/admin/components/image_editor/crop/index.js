@@ -13,6 +13,7 @@ class Crop extends React.PureComponent {
     onAdjust: PropTypes.func
   }
 
+  padding = 20
   panel = null
   image = null
   scale = 5
@@ -115,11 +116,12 @@ class Crop extends React.PureComponent {
 
   _handleChange() {
     const { image, frame } = this.state
+    console.log(image)
     this.props.onAdjust('crop', [
-      Math.floor(image.w),
-      Math.floor(image.h),
-      Math.floor((image.w / 2) - (frame.w / 2) - image.x),
-      Math.floor((image.h / 2) - (frame.h / 2) - image.y)
+      Math.floor(frame.w),
+      Math.floor(frame.h),
+      Math.floor((image.w - frame.w) / 2 - image.x),
+      Math.floor((image.h - frame.h) / 2 - image.y)
     ])
   }
 
@@ -154,16 +156,18 @@ class Crop extends React.PureComponent {
   _handleInit() {
     const { clientWidth, clientHeight, naturalWidth, naturalHeight } = this.image
     const { offsetWidth, offsetHeight } = this.panel
-    const { ratio } = this.props
-    const image = { x: 0, y: 0, w: clientWidth, h: clientHeight }
+    const ratio = this.props.ratio || (naturalWidth / naturalHeight)
     const natural = { w: naturalWidth, h: naturalHeight }
     const panel = { x: 0, y: 0, w: offsetWidth, h: offsetHeight }
+    const image = { x: 0, y: 0 }
+    image.w = panel.w - this.padding
+    image.h = (clientHeight / clientWidth) * image.w
     const frame = {
       w: image.w > image.h ? ratio * image.h : image.h,
       h: image.w > image.h ? image.h : ratio * image.w
     }
-    frame.x = (panel.w - frame.w) / 2 + 1,
-    frame.y = (panel.h - frame.h) / 2 + 1,
+    frame.x = (panel.w - frame.w) / 2,
+    frame.y = (panel.h - frame.h) / 2,
     this.setState({
       frame,
       natural,
@@ -184,19 +188,20 @@ class Crop extends React.PureComponent {
 
   _handleUpdate(newimage, newzoom) {
     const { frame, image } = this.state
+    const extra = (newzoom * this.scale) / 2
     const min = {
-      x: (frame.w / 2) - (image.w / 2),
-      y: -1 * (newzoom * this.scale) / 2
+      x: (frame.w / 2) - (image.w / 2) - extra,
+      y: 0 - extra
     }
     const max = {
-      x: (image.w / 2) - (frame.w / 2),
-      y: (newzoom * this.scale) / 2
+      x: (image.w / 2) - (frame.w / 2) + extra,
+      y: extra
     }
     this.setState({
       image: {
         ...this.state.image,
-        x: Math.max(min.x, Math.min(max.x, newimage.x)),
-        y: Math.max(min.y, Math.min(max.y, newimage.y))
+        x: Math.floor(Math.max(min.x, Math.min(max.x, newimage.x))),
+        y: Math.floor(Math.max(min.y, Math.min(max.y, newimage.y)))
       },
       zoom: Math.max(0, newzoom)
     })

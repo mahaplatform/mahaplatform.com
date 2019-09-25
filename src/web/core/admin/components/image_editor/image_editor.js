@@ -1,3 +1,4 @@
+import { CSSTransition } from 'react-transition-group'
 import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
@@ -41,9 +42,9 @@ class ImageEditor extends React.PureComponent {
             { status === 'loaded' &&
               <Canvas { ...this._getCanvas() } />
             }
-            { cropping &&
+            <CSSTransition in={ cropping } classNames="fadein" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
               <Crop { ...this._getCrop() } />
-            }
+            </CSSTransition>
           </div>
         </div>
       </ModalPanel>

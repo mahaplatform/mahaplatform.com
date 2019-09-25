@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const ratios = [
+  { label: 'Original', ratio: null },
   { label: 'Square', ratio: 1.00 },
   { label: '3:2', ratio: 1.50 },
   { label: '5:3', ratio: 1.66 },

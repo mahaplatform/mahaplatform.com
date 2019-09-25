@@ -1,7 +1,7 @@
 const INITIAL_STATE = {
   asset: null,
   cropping: false,
-  ratio: 1,
+  ratio: null,
   transforms: {},
   status: 'pending'
 }
