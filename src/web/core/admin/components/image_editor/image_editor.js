@@ -5,6 +5,7 @@ import Sidebar from './sidebar'
 import Canvas from './canvas'
 import React from 'react'
 import Crop from './crop'
+import _ from 'lodash'
 
 class ImageEditor extends React.PureComponent {
 
@@ -26,8 +27,6 @@ class ImageEditor extends React.PureComponent {
     onSet: PropTypes.func,
     onSetRatio: PropTypes.func
   }
-
-  static defaultProps = {}
 
   _handleCancel = this._handleCancel.bind(this)
   _handleDone = this._handleDone.bind(this)
@@ -53,7 +52,9 @@ class ImageEditor extends React.PureComponent {
 
   componentDidMount() {
     const { defaultValue } = this.props
+    const ratio = _.get(defaultValue, 'crop.ra')
     if(defaultValue) this._handleSet(defaultValue)
+    if(ratio) this.props.onSetRatio(ratio)
     this._handleFetch()
   }
 
@@ -111,8 +112,8 @@ class ImageEditor extends React.PureComponent {
     onFetch(asset_id)
   }
 
-  _handleSet({ asset_id, transforms }) {
-    this.props.onSet(asset_id, transforms)
+  _handleSet(transforms) {
+    this.props.onSet(transforms)
   }
 
 }

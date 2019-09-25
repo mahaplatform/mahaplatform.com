@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const INITIAL_STATE = {
   asset: null,
   cropping: false,

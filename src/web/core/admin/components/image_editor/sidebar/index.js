@@ -5,15 +5,11 @@ import React from 'react'
 
 class Sidebar extends React.PureComponent {
 
-  static contextTypes = {}
-
   static propTypes = {
     onAdjust: PropTypes.func,
     onCrop: PropTypes.func,
     onSetRatio: PropTypes.func
   }
-
-  static defaultProps = {}
 
   state = {
     cards: []

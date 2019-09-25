@@ -28,16 +28,12 @@ const filters = [
 
 class Filters extends React.PureComponent {
 
-  static contextTypes = {}
-
   static propTypes = {
     asset: PropTypes.object,
     transforms: PropTypes.object,
     onAdjust: PropTypes.func,
     onBack: PropTypes.func
   }
-
-  static defaultProps = {}
 
   previews = []
 

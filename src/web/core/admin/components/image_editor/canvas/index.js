@@ -5,8 +5,6 @@ import _ from 'lodash'
 
 class Canvas extends React.PureComponent {
 
-  static contextTypes = {}
-
   static propTypes = {
     asset: PropTypes.object,
     ratio: PropTypes.number,
@@ -15,8 +13,6 @@ class Canvas extends React.PureComponent {
   }
 
   canvas = null
-
-  static defaultProps = {}
 
   _handleRender = _.throttle(this._handleRender.bind(this), 500)
 

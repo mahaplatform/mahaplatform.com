@@ -6,15 +6,11 @@ import _ from 'lodash'
 
 class Orientation extends React.PureComponent {
 
-  static contextTypes = {}
-
   static propTypes = {
     transforms: PropTypes.object,
     onAdjust: PropTypes.func,
     onBack: PropTypes.func
   }
-
-  static defaultProps = {}
 
   orientations = [
     { label: 'Rotate CW', icon: 'repeat', handler: this._handleRotate.bind(this, 90) },

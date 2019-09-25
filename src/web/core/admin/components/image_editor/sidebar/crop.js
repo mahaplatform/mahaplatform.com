@@ -16,8 +16,6 @@ const ratios = [
 
 class Crop extends React.PureComponent {
 
-  static contextTypes = {}
-
   static propTypes = {
     ratio: PropTypes.number,
     transforms: PropTypes.object,
@@ -26,8 +24,6 @@ class Crop extends React.PureComponent {
     onCrop: PropTypes.func,
     onSetRatio: PropTypes.func
   }
-
-  static defaultProps = {}
 
   _handleBack = this._handleBack.bind(this)
 

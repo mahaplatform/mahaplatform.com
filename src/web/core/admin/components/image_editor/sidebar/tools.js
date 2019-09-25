@@ -33,8 +33,6 @@ const tools = [
 
 class Tools extends React.Component {
 
-  static contextTypes = {}
-
   static propTypes = {
     transforms: PropTypes.object,
     onAdjust: PropTypes.func,
@@ -43,8 +41,6 @@ class Tools extends React.Component {
     onPop: PropTypes.func,
     onSetRatio: PropTypes.func
   }
-
-  static defaultProps = {}
 
   render() {
     return (

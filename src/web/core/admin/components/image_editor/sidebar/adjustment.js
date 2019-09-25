@@ -5,15 +5,11 @@ import React from 'react'
 
 class Adjustment extends React.PureComponent {
 
-  static contextTypes = {}
-
   static propTypes = {
     transforms: PropTypes.object,
     onAdjust: PropTypes.func,
     onBack: PropTypes.func
   }
-
-  static defaultProps = {}
 
   _handleBack = this._handleBack.bind(this)
   _handleChangeField = this._handleChangeField.bind(this)
