@@ -2,6 +2,7 @@ import { CSSTransition } from 'react-transition-group'
 import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
+import Loader from '../loader'
 import Canvas from './canvas'
 import React from 'react'
 import Crop from './crop'
@@ -18,18 +19,23 @@ class ImageEditor extends React.PureComponent {
     asset_id: PropTypes.number,
     cropping: PropTypes.bool,
     defaultValue: PropTypes.object,
+    height: PropTypes.number,
     ratio: PropTypes.number,
     status: PropTypes.string,
     transforms: PropTypes.object,
+    width: PropTypes.number,
     onAdjust: PropTypes.func,
     onCrop: PropTypes.func,
     onFetch: PropTypes.func,
     onSet: PropTypes.func,
+    onSetDimensions: PropTypes.func,
     onSetRatio: PropTypes.func
   }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleLoad = this._handleLoad.bind(this)
+  _handleMeasure = this._handleMeasure.bind(this)
 
   render() {
     const { cropping, status } = this.props
@@ -38,8 +44,9 @@ class ImageEditor extends React.PureComponent {
         <div className="maha-imageeditor">
           <Sidebar { ...this._getSidebar() } />
           <div className="maha-imageeditor-main">
-            { status === 'loaded' &&
-              <Canvas { ...this._getCanvas() } />
+            { status === 'ready' ?
+              <Canvas { ...this._getCanvas() } /> :
+              <Loader />
             }
             <CSSTransition in={ cropping } classNames="fadein" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
               <Crop { ...this._getCrop() } />
@@ -58,13 +65,22 @@ class ImageEditor extends React.PureComponent {
     this._handleFetch()
   }
 
+  componentDidUpdate(prevProps) {
+    const { asset } = this.props
+    if(!_.isEqual(asset, prevProps.asset)) {
+      this._handleMeasure()
+    }
+  }
+
   _getCanvas() {
-    const { asset, cropping, ratio, transforms } = this.props
+    const { asset, cropping, height, ratio, transforms, width } = this.props
     return {
       asset,
       ratio,
       cropping,
-      transforms
+      height,
+      transforms,
+      width
     }
   }
 
@@ -110,6 +126,18 @@ class ImageEditor extends React.PureComponent {
   _handleFetch() {
     const { asset_id, onFetch } = this.props
     onFetch(asset_id)
+  }
+
+  _handleLoad(e) {
+    const { width, height } = e.target
+    this.props.onSetDimensions(width, height)
+  }
+
+  _handleMeasure() {
+    const { asset } = this.props
+    const img = new Image()
+    img.onload = this._handleLoad
+    img.src = `/imagecache${asset.path}`
   }
 
   _handleSet(transforms) {

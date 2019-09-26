@@ -1,11 +1,11 @@
-import _ from 'lodash'
-
 const INITIAL_STATE = {
   asset: null,
   cropping: false,
+  height: null,
   ratio: null,
   transforms: {},
-  status: 'pending'
+  status: 'pending',
+  width: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -74,6 +74,14 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       ratio: action.ratio
+    }
+
+  case 'SET_DIMENSIONS':
+    return {
+      ...state,
+      width: action.width,
+      height: action.height,
+      status: 'ready'
     }
 
   default:

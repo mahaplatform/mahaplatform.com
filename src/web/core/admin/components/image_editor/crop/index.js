@@ -41,7 +41,7 @@ class Crop extends React.PureComponent {
     return (
       <div className="maha-imageeditor-crop">
         <div className="maha-imageeditor-crop-body" { ...this._getBody() }>
-          <img src={`/imagecache/fit=cover&w=200&h=400/${asset.path}`} { ...this._getImage() } />
+          <img src={`/imagecache${asset.path}`} { ...this._getImage() } />
           <div className="maha-imageeditor-crop-frame" { ...this._getFrame() } />
         </div>
         <div className="maha-imageeditor-crop-footer">

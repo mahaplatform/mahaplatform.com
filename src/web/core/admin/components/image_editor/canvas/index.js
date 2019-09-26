@@ -7,19 +7,21 @@ class Canvas extends React.PureComponent {
 
   static propTypes = {
     asset: PropTypes.object,
+    height: PropTypes.number,
     ratio: PropTypes.number,
     transforms: PropTypes.object,
     width: PropTypes.number
   }
 
   canvas = null
+  panel = null
 
   _handleRender = _.throttle(this._handleRender.bind(this), 500)
 
   render() {
     return (
-      <div className="maha-imageeditor-canvas">
-        <canvas ref={ node => this.canvas = node } />
+      <div className="maha-imageeditor-canvas" ref={ node => this.panel = node }>
+        <canvas ref={ node => this.canvas = node } style={ this._getStyle() } />
       </div>
     )
   }
@@ -35,10 +37,21 @@ class Canvas extends React.PureComponent {
     }
   }
 
+  _getStyle() {
+    if(!this.panel) return {}
+    const { offsetWidth, offsetHeight } = this.panel
+    const { width, height } = this.props
+    const landscape = width >= height
+    return {
+      width: landscape ? null : Math.floor((width / height) * (offsetHeight - 50)),
+      height: landscape ? Math.floor((height / width) * (offsetWidth - 20)) : null
+    }
+  }
+
   _handleRender() {
     const { asset, transforms } = this.props
     const { blur, bri, con, crop, exp, filter, flip, gamma, hue, invert, noise, rot, sat, sepia, sharp, text, vibrance } = transforms
-    Caman(this.canvas, `/imagecache/fit=cover&w=200&h=400/${asset.path}`, function() {
+    Caman(this.canvas, `/imagecache${asset.path}`, function() {
       this.reset()
       if(crop) this.crop(crop)
       if(blur) this.stackBlur(blur)

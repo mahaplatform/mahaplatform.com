@@ -27,3 +27,9 @@ export const setRatio = (ratio) => ({
   type: 'SET_RATIO',
   ratio
 })
+
+export const setDimensions = (width, height) => ({
+  type: 'SET_DIMENSIONS',
+  width,
+  height
+})
