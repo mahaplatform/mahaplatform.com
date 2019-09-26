@@ -30,6 +30,9 @@ const webpackConfig = {
           'less-loader'
         ]
       }, {
+        test: /^caman$/,
+        use: 'imports-loader?exports=>undefined,require=>false,this=>window'
+      }, {
         test: /\.js$/,
         exclude: /(node_modules)/,
         loader: 'babel-loader',

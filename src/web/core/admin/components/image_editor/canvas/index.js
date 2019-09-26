@@ -57,7 +57,7 @@ class Canvas extends React.PureComponent {
 
   _handleRender() {
     const { asset, transforms } = this.props
-    const { blur, bri, con, crop, exp, filter, flip, gamma, hue, invert, noise, rot, sat, sepia, sharp, text, vibrance } = transforms
+    const { blur, bri, con, crop, exp, filter, flip, gamma, hue, invert, noise, rot, sat, sepia, sharp, vibrance } = transforms
     Caman(this.canvas, `/imagecache${asset.path}`, function() {
       this.reset()
       if(crop) this.crop(crop)
@@ -69,14 +69,13 @@ class Canvas extends React.PureComponent {
       if(flip) this.flip(flip)
       if(gamma) this.gamma(gamma)
       if(hue) this.hue(hue)
-      if(invert) this.invert(invert)
+      if(invert) this.invert()
       if(noise) this.noise(noise)
       if(sat) this.saturation(sat)
       if(sepia) this.sepia(sepia)
-      if(sharp) this.sepia(sharp)
+      if(sharp) this.sharp(sharp)
       if(vibrance) this.vibrance(vibrance)
       if(rot) this.rotate(rot)
-      if(text) this.text(text)
       this.render()
     })
   }

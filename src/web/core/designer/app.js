@@ -30,7 +30,6 @@ class App extends React.Component {
 
   componentDidMount() {
     this.pasteur = new Pasteur({
-      debug: true,
       window,
       target: window.parent,
       name: 'designerCanvas',

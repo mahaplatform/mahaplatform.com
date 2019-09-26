@@ -1,4 +1,4 @@
-import 'imports-loader?exports=>undefined,require=>false,this=>window!caman'
+import { Caman } from 'caman'
 
 const CopyAttributes = function(from, to, opts) {
   var attr, _i, _len, _ref, _ref1, _results
@@ -19,7 +19,7 @@ const CopyAttributes = function(from, to, opts) {
 
 Caman.Plugin.register('flip', function(axis) {
   let canvas = null
-  if(window === undefined) {
+  if(typeof(window) === 'undefined') {
     const Canvas = require('canvas')
     canvas = new Canvas()
   } else {
@@ -30,8 +30,8 @@ Caman.Plugin.register('flip', function(axis) {
   const flipV = axis.match(/v/) !== null
   const scaleH = flipH ? -1 : 1
   const scaleV = flipV ? -1 : 1
-  const posX = flipH ? this.canvas.width * -1 : 0
-  const posY = flipV ? this.canvas.height * -1 : 0
+  const posX = flipH ? this.canvas.width * -1 : 1
+  const posY = flipV ? this.canvas.height * -1 : 1
   const ctx = canvas.getContext('2d')
   ctx.save()
   ctx.scale(scaleH, scaleV)

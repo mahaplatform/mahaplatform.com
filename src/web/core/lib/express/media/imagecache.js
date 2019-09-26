@@ -1,4 +1,4 @@
-import s3 from '../../services/s3'
+import s3 from '../../../services/s3'
 import { Router } from 'express'
 import sharp from 'sharp'
 import path from 'path'

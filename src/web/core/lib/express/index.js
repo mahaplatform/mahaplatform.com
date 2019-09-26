@@ -1,17 +1,18 @@
 import 'express-async-errors'
 import './responder'
 import multiparty from 'connect-multiparty'
+import imagecache from './media/imagecache'
 import deeplinkMiddleware from './deeplink'
 import mailboxMiddleware from './mailbox'
 import rollbarMiddleware from './rollbar'
 import legacyMiddleware from './legacy'
 import serverMiddleware from './server'
 import staticMiddleware from './static'
-import imagecache from './imagecache'
 import emailMiddleware from './email'
 import bodyParser from 'body-parser'
 import homeMiddleware from './home'
 import apiMiddleware from './api'
+import caman from './media/caman'
 import express from 'express'
 import arena from './arena'
 import ping from './ping'
@@ -37,6 +38,8 @@ server.use(dav)
 server.use('/ping', ping)
 
 server.use('/imagecache', imagecache)
+
+server.use('/caman', caman)
 
 server.use('/.well-known', deeplinkMiddleware)
 

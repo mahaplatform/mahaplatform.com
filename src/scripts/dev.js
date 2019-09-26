@@ -85,7 +85,7 @@ const clientWatch = async () => {
     hot: true,
     publicPath: '/admin',
     proxy: [
-      ...'api/,jobs/,imagecache/,.well-known/,mailbox_mime/,v,c,ns,so'.split(',').reduce((proxies, path) => [
+      ...'api/,jobs/,caman/,imagecache/,.well-known/,mailbox_mime/,v,c,ns,so'.split(',').reduce((proxies, path) => [
         ...proxies,
         `/${path}*`
       ], []),
