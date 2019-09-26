@@ -27,6 +27,7 @@ class Canvas extends React.PureComponent {
   }
 
   componentDidMount() {
+    this._handleInit()
     this._handleRender()
   }
 
@@ -38,14 +39,20 @@ class Canvas extends React.PureComponent {
   }
 
   _getStyle() {
-    if(!this.panel) return {}
+    if(!this.panel) return
+    const { width, height } = this.state
+    if(width) return { width }
+    if(height) return { height }
+  }
+
+  _handleInit() {
     const { offsetWidth, offsetHeight } = this.panel
     const { width, height } = this.props
     const landscape = width >= height
-    return {
+    this.setState({
       width: landscape ? null : Math.floor((width / height) * (offsetHeight - 50)),
       height: landscape ? Math.floor((height / width) * (offsetWidth - 20)) : null
-    }
+    })
   }
 
   _handleRender() {

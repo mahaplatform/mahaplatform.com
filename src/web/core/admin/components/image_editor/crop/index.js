@@ -11,7 +11,7 @@ class Crop extends React.PureComponent {
     onAdjust: PropTypes.func
   }
 
-  padding = 20
+  padding = 18
   panel = null
   image = null
   scale = 5
