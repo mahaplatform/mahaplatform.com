@@ -2,6 +2,7 @@ import { columns, font_size, letter_spacing, line_heights, fonts } from '../vari
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
+import ImagesField from '../imagesfield'
 
 class Images extends React.Component {
 
@@ -38,7 +39,9 @@ class Images extends React.Component {
           label: 'Content',
           sections: [
             {
-              fields: []
+              fields: [
+                { name: 'images', type: ImagesField, defaultValue: config.images }
+              ]
             }
           ]
         }, {

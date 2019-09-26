@@ -1,4 +1,4 @@
-import { Menu, ModalPanel } from 'maha-admin'
+import { Button, Menu, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Content from './content'
 import Layout from './layout'
@@ -24,6 +24,7 @@ class Sidebar extends React.Component {
     return (
       <ModalPanel { ...this._getPanel() }>
         <Menu { ...this._getMenu() } />
+        <Button { ...this._getSave() } />
       </ModalPanel>
     )
   }
@@ -31,9 +32,10 @@ class Sidebar extends React.Component {
   _getMenu() {
     return {
       items: [
-        { label: 'Content', component: <Content { ...this._getTab() } /> },
         { label: 'Layout', component: <Layout { ...this._getLayout() } /> },
-        { label: 'Design', component: <Design { ...this._getTab() } /> }
+        { label: 'Design', component: <Design { ...this._getTab() } /> },
+        { label: 'Content', component: <Content { ...this._getTab() } /> },
+        { label: 'Preview', component: <Design { ...this._getTab() } /> }
       ]
     }
   }
@@ -63,6 +65,12 @@ class Sidebar extends React.Component {
   _getPanel() {
     return {
       title: 'Email'
+    }
+  }
+
+  _getSave() {
+    return {
+      label: 'Save'
     }
   }
 

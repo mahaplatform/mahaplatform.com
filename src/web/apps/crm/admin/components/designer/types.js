@@ -29,11 +29,14 @@ export const types = [
     type: 'images',
     icon: 'picture-o',
     config: {
-      image_1: null,
-      image_2: null,
-      image_3: null,
-      image_4: null,
-      image_5: null,
+      images: [
+        { asset_id: 8117, transforms: { bri: 50 } },
+        { asset_id: 8120, transforms: { bri: -50 } },
+        { asset_id: 8368, transforms: { filter: 'orangePeel' } },
+        { asset_id: 8117, transforms: { filter: 'vintage' } },
+        { asset_id: 8120, transforms: { con: 80 } },
+        { asset_id: 8368, transforms: { con: -80 } }
+      ],
       border: null,
       border_radius: null,
       layout: [1]

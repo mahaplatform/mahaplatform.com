@@ -35,12 +35,7 @@ const transform = async(type, originalUrl) => {
   return await new Promise((resolve, reject) => {
     Caman(data, function() {
       const { blur, bri, con, crop, exp, filter, flip, gamma, hue, invert, noise, rot, sat, sepia, sharp, vibrance } = transforms
-      if(crop) this.crop({
-        w: parseInt(crop.w),
-        h: parseInt(crop.h),
-        x: parseInt(crop.x),
-        y: parseInt(crop.y)
-      })
+      if(crop) this.crop(parseInt(crop.w), parseInt(crop.h), parseInt(crop.x), parseInt(crop.y))
       if(blur) this.stackBlur(parseInt(blur))
       if(bri) this.brightness(parseInt(bri))
       if(con) this.contrast(parseInt(con))
