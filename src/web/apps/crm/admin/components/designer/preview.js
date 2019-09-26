@@ -33,6 +33,14 @@ class Preview extends React.Component {
   _handleRemove = this._handleRemove.bind(this)
   _handleRender = _.throttle(this._handleRender.bind(this), 250, { leading: true, trailing: false })
 
+  render() {
+    return (
+      <div className={ this._getClass() }>
+        <iframe { ...this._getIframe() } />
+      </div>
+    )
+  }
+  
   componentDidMount() {
     this.pasteur = new Pasteur({
       window,
@@ -53,14 +61,6 @@ class Preview extends React.Component {
 
   componentWillUnmount() {
     this.pasteur.close()
-  }
-
-  render() {
-    return (
-      <div className={ this._getClass() }>
-        <iframe { ...this._getIframe() } />
-      </div>
-    )
   }
 
   componentDidUpdate(prevProps) {

@@ -7,7 +7,8 @@ class Email extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
-    children: PropTypes.any
+    children: PropTypes.any,
+    onAction: PropTypes.func
   }
 
   render() {
@@ -38,9 +39,11 @@ class Email extends React.Component {
   }
 
   _getSection(section, index) {
+    const { onAction } = this.props
     return {
       config: section,
-      sectionIndex: index
+      sectionIndex: index,
+      onAction
     }
   }
 

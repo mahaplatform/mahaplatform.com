@@ -116,7 +116,7 @@ class Designer extends React.Component {
   }
 
   _getPreview() {
-    const { active, config, deviceIndex, editable, orientationIndex, scaleIndex, onAdd, onClone, onEdit, onUpdate } = this.props
+    const { active, config, deviceIndex, editable, orientationIndex, scaleIndex, onAdd, onClone, onEdit, onRemove, onUpdate } = this.props
     return {
       active,
       config,
@@ -127,6 +127,7 @@ class Designer extends React.Component {
       onAdd,
       onClone,
       onEdit,
+      onRemove,
       onUpdate
     }
   }

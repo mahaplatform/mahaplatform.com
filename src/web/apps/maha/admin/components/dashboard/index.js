@@ -1,4 +1,4 @@
-import { Button, ModalPanel, ImageEditor } from 'maha-admin'
+import { ModalPanel } from 'maha-admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -35,20 +35,11 @@ class Dashboard extends React.Component {
             </div>
             <div className="date">
               { moment().format('dddd, MMM Do, YYYY') }
-              <Button { ...this._getButton() } />
             </div>
           </div>
         </div>
       </ModalPanel>
     )
-  }
-
-  _getButton() {
-    return {
-      label: 'Edit',
-      className: 'ui blue button',
-      modal: <ImageEditor asset_id={ 8117 } />
-    }
   }
 
   componentDidMount() {

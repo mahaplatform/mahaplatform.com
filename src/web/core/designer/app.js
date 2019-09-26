@@ -17,6 +17,7 @@ class App extends React.Component {
     config: null
   }
 
+  _handleAction = this._handleAction.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
@@ -29,6 +30,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.pasteur = new Pasteur({
+      debug: true,
       window,
       target: window.parent,
       name: 'designerCanvas',
@@ -48,12 +50,19 @@ class App extends React.Component {
 
   _getEmail() {
     const { config } = this.state
-    return { config }
+    return {
+      config,
+      onAction: this._handleAction
+    }
   }
 
   _getStyle() {
     const { config } = this.state
     return { config }
+  }
+
+  _handleAction(action, data) {
+    this.pasteur.send('designer', action, data)
   }
 
   _handleUpdate({ config }) {

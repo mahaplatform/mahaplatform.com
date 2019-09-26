@@ -24,12 +24,14 @@ const tools = [
     label: 'Filters',
     icon: 'picture-o',
     component: Filters
-  }, {
-    label: 'Text',
-    icon: 'font',
-    component: Text
   }
 ]
+
+// {
+//   label: 'Text',
+//   icon: 'font',
+//   component: Text
+// }
 
 class Tools extends React.Component {
 

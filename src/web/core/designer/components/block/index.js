@@ -15,7 +15,8 @@ class Block extends React.Component {
   static propTypes = {
     blockIndex: PropTypes.number,
     config: PropTypes.object,
-    sectionIndex: PropTypes.number
+    sectionIndex: PropTypes.number,
+    onAction: PropTypes.func
   }
 
   render() {
@@ -70,15 +71,11 @@ class Block extends React.Component {
   }
 
   _handleAction(action) {
-    const { sectionIndex, blockIndex } = this.props
-    window.parent.postMessage({
-      target: 'designer',
-      action,
-      data: {
-        section: sectionIndex,
-        block: blockIndex
-      }
-    }, '*')
+    const { sectionIndex, blockIndex, onAction } = this.props
+    onAction(action, {
+      section: sectionIndex,
+      block: blockIndex
+    })
   }
 
 }

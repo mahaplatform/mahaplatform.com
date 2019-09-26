@@ -8,7 +8,8 @@ class Section extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
-    sectionIndex: PropTypes.number
+    sectionIndex: PropTypes.number,
+    onAction: PropTypes.func
   }
 
   state = {
@@ -53,11 +54,12 @@ class Section extends React.Component {
   }
 
   _getBlock(config, blockIndex) {
-    const { sectionIndex } = this.props
+    const { sectionIndex, onAction } = this.props
     return {
       sectionIndex,
       blockIndex,
-      config
+      config,
+      onAction
     }
   }
 
@@ -99,18 +101,14 @@ class Section extends React.Component {
 
   _handleDrop(e) {
     const { index } = this.state
-    const { sectionIndex } = this.props
+    const { sectionIndex, onAction } = this.props
     e.preventDefault()
     e.stopPropagation()
-    window.parent.postMessage({
-      target: 'designer',
-      action: 'add',
-      data: {
-        section: sectionIndex,
-        type: e.dataTransfer.getData('type'),
-        index
-      }
-    }, '*')
+    onAction('add', {
+      section: sectionIndex,
+      type: e.dataTransfer.getData('type'),
+      index
+    })
     this.setState({
       hovering: false,
       index: 0
