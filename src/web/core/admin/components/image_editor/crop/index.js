@@ -18,7 +18,6 @@ class Crop extends React.PureComponent {
 
   state = {
     dragging: false,
-    natural: null,
     offset: null,
     origin: null,
     panel: null,
@@ -124,10 +123,10 @@ class Crop extends React.PureComponent {
   }
 
   _handleChange() {
-    const { image, natural, source, frame, offset, zoom } = this.state
-    const { ratio } = this.props
-    const dscale = natural.w / source.w
-    const pscale = natural.w / image.w
+    const { image, source, frame, offset, zoom } = this.state
+    const { asset, ratio } = this.props
+    const dscale = asset.metadata.width / source.w
+    const pscale = asset.metadata.width / image.w
     const cropped = {
       w: (source.w / image.w) * frame.w,
       h: (source.h / image.h) * frame.h,
@@ -147,8 +146,9 @@ class Crop extends React.PureComponent {
   }
 
   _handleChangeRatio() {
-    const { panel, landscape, natural, source } = this.state
-    const ratio = this.props.ratio || natural.w / natural.h
+    const { panel, landscape, source } = this.state
+    const { asset } = this.props
+    const ratio = this.props.ratio || asset.metadata.width / asset.metadata.height
     const frame = {
       w: landscape ? ratio * source.h : source.w,
       h: landscape ? source.h : source.w / ratio
@@ -189,12 +189,12 @@ class Crop extends React.PureComponent {
   }
 
   _handleInit() {
-    const { crop } = this.props.transforms
-    const { clientWidth, clientHeight, naturalWidth, naturalHeight } = this.image
+    const { asset, transforms } = this.props
+    const { crop } = transforms
+    const { clientWidth, clientHeight } = this.image
     const { offsetWidth, offsetHeight } = this.panel
-    const natural = { w: naturalWidth, h: naturalHeight }
-    const ratio = this.props.ratio || natural.w / natural.h
-    const landscape = natural.w >= natural.h
+    const ratio = this.props.ratio || asset.metadata.width / asset.metadata.height
+    const landscape = asset.metadata.width >= asset.metadata.height
     const panel = { x: 0, y: 0, w: offsetWidth, h: offsetHeight }
     const zoom = crop ? crop.zo : 0
     const offset = {
@@ -212,7 +212,6 @@ class Crop extends React.PureComponent {
     frame.y = (panel.h - frame.h) / 2
     this._handleUpdate({
       frame,
-      natural,
       offset,
       panel,
       landscape,

@@ -7,10 +7,8 @@ class Canvas extends React.PureComponent {
 
   static propTypes = {
     asset: PropTypes.object,
-    height: PropTypes.number,
     ratio: PropTypes.number,
-    transforms: PropTypes.object,
-    width: PropTypes.number
+    transforms: PropTypes.object
   }
 
   canvas = null
@@ -47,7 +45,8 @@ class Canvas extends React.PureComponent {
 
   _handleInit() {
     const { offsetWidth, offsetHeight } = this.panel
-    const { width, height } = this.props
+    const { asset } = this.props
+    const { width, height } = asset.metadata
     const landscape = width >= height
     this.setState({
       width: landscape ? null : Math.floor((width / height) * (offsetHeight - 50)),

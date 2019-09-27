@@ -1,5 +1,4 @@
 import { createAsset } from '../../../../../services/assets'
-import Source from '../../../../../models/source'
 import { getClient } from '../../services/box'
 import request from 'request-promise'
 import mime from 'mime-types'
@@ -11,26 +10,23 @@ const _getContentType = (name) => {
   return type || 'text/plain'
 }
 
-const createRoute = async (req, profle) => {
+const createRoute = async (req, profile) => {
 
-  const client = await getClient(req, profle)
+  const client = await getClient(req, profile)
 
   const meta = await client.files.get(req.body.id)
 
   const url = await client.files.getDownloadURL(req.body.id)
 
-  const file_data = await request.get({ url, encoding: null }).promise()
-
-  const source = await Source.where({
-    text: 'box'
-  }).fetch({
-    transacting: req.trx
-  })
+  const file_data = await request.get({
+    url,
+    encoding: null
+  }).promise()
 
   const asset = await createAsset(req, {
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
-    source_id: source.get('id'),
+    source_id: profile.get('source_id'),
     source_identifier: req.body.id,
     file_name: meta.name,
     file_data,

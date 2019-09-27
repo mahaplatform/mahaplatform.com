@@ -1,6 +1,5 @@
 import { createAsset } from '../../../../../services/assets'
 import { getClient } from '../../services/google'
-import Source from '../../../../../models/source'
 import mime from 'mime-types'
 
 const _getMime = (type) => {
@@ -66,16 +65,10 @@ const createRoute = async (req, profile) => {
 
   const file = meta.data.mimeType.match(/google/) ? await _export(req.body.id, meta.data.mimeType) : await _get(req.body.id)
 
-  const source = await Source.where({
-    text: 'googledrive'
-  }).fetch({
-    transacting: req.trx
-  })
-
   const asset = await createAsset(req, {
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
-    source_id: source.get('id'),
+    source_id: profile.get('source_id'),
     source_identifier: req.body.id,
     source_url: meta.data.mimeType.match(/google/) ? meta.data.webViewLink : null,
     file_name: _withExt(meta.data.name, meta.data.mimeType),

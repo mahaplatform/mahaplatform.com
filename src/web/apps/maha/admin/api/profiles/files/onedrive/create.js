@@ -1,6 +1,5 @@
 import { createAsset } from '../../../../../services/assets'
 import { getClient } from '../../services/microsoft'
-import Source from '../../../../../models/source'
 import request from 'request-promise'
 
 const createRoute = async (req, profile) => {
@@ -14,16 +13,10 @@ const createRoute = async (req, profile) => {
     encoding: null
   }).promise()
 
-  const source = await Source.where({
-    text: 'microsoft'
-  }).fetch({
-    transacting: req.trx
-  })
-
   const asset = await createAsset(req, {
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
-    source_id: source.get('id'),
+    source_id: profile.get('source_id'),
     source_identifier: req.body.id,
     source_url: result.webUrl,
     file_name: result.name,

@@ -1,10 +1,8 @@
 const INITIAL_STATE = {
   cropping: false,
-  height: null,
   ratio: null,
   transforms: {},
-  status: 'pending',
-  width: null
+  status: 'pending'
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -54,14 +52,6 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       ratio: action.ratio
-    }
-
-  case 'SET_DIMENSIONS':
-    return {
-      ...state,
-      width: action.width,
-      height: action.height,
-      status: 'ready'
     }
 
   default:

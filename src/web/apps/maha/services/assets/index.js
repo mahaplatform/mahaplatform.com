@@ -82,7 +82,7 @@ export const createAssetFromUrl = async (req, { url, team_id, user_id }) => {
   }).fetch({
     transacting: req.trx
   })
-  const asset = await createAsset(req, {
+  return await createAsset(req, {
     team_id: (req.team) ? req.team.get('id') : team_id,
     user_id: (req.user) ? req.user.get('id') : user_id,
     source_id: source.get('id'),
@@ -91,7 +91,6 @@ export const createAssetFromUrl = async (req, { url, team_id, user_id }) => {
     file_data: response.body,
     content_type: response.headers['content-type']
   }, req.trx)
-  return asset
 }
 
 export const assembleAsset = async (req, asset) => {
@@ -129,7 +128,8 @@ export const createAsset = async (req, params) => {
     transacting: req.trx
   })
   if(!params.file_data || params.file_data.length === 0) return asset
-  await _saveFildata(req, asset, params.file_data)
+  await _saveMetadata(req, asset, params.file_data)
+  await _saveFiledata(req, asset, params.file_data)
   return asset
 }
 
@@ -146,7 +146,7 @@ export const updateAsset = async (req, asset, params) => {
     chunks_total: 1,
     status: 'assembled'
   })
-  await _saveFildata(req, asset, params.file_data)
+  await _saveFiledata(req, asset, params.file_data)
   return asset
 }
 
@@ -210,7 +210,7 @@ const _saveAsset = async (req, asset, params) => {
   })
 }
 
-const _saveFildata = async (req, asset, file_data) => {
+const _saveFiledata = async (req, asset, file_data) => {
   const normalizedData = await _getNormalizedData(asset, file_data)
   await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
   await ProcessAssetQueue.enqueue(req, asset.id)
@@ -226,6 +226,17 @@ const _processAsset = async (req, data, asset) => {
     status: 'processed'
   })
   await _refreshAsset(req, asset)
+}
+
+const _saveMetadata = async (req, asset, data) => {
+  if(!asset.get('content_type').match(/image/)) return
+  const metadata = await sharp(data).metadata()
+  await _saveAsset(req, asset, {
+    metadata: {
+      width: metadata.width,
+      height: metadata.height
+    }
+  })
 }
 
 const _getNormalizedData = async (asset, fileData) => {

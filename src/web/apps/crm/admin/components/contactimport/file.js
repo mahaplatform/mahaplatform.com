@@ -2,7 +2,6 @@ import { Attachments } from 'maha-admin'
 import Configure from './configure'
 import PropTypes from 'prop-types'
 import React from 'react'
-import _ from 'lodash'
 
 class File extends React.PureComponent {
 

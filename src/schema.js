@@ -835,6 +835,7 @@ const schema = {
       table.text('status')
       table.boolean('is_infected')
       table.specificType('viruses', 'varchar[]')
+      table.jsonb('metadata')
     })
 
     await knex.schema.createTable('maha_attachments', (table) => {
