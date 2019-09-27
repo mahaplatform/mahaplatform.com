@@ -19,10 +19,10 @@ class Multiple extends React.Component {
           <div className="maha-attachments-items">
             { files.map((file, index) => (
               <div className="maha-attachments-item" key={`plain_${index}`}>
-                <div className="maha-attachments-item-pmultiple">
+                <div className="maha-attachments-item-preview">
                   { file.thumbnail ?
                     <div className="maha-attachments-item-image">
-                      <div style={{backgroundImage:`url(${file.thumbnail })`}}>
+                      <div style={{backgroundImage:`url('${file.thumbnail}')`}}>
                         <img src={ `/admin/images/services/${file.service}.png` } />
                       </div>
                     </div> :
@@ -58,6 +58,7 @@ class Multiple extends React.Component {
   }
 
   _getIcon(status) {
+    if(status === 'pending') return 'clock-o'
     if(status === 'importing') return 'circle-o-notch fa-spin'
     if(status === 'imported') return 'check'
     if(status === 'failed') return 'exclamation-triangle'

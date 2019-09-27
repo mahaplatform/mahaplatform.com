@@ -13,7 +13,7 @@ class Photos extends React.Component {
     files: PropTypes.array,
     source: PropTypes.object,
     onBack: PropTypes.func,
-    onCreate: PropTypes.func,
+    onAdd: PropTypes.func,
     onNext: PropTypes.func,
     onRemove: PropTypes.func,
     onProcessing: PropTypes.func
@@ -57,7 +57,7 @@ class Photos extends React.Component {
   }
 
   _getInfinite() {
-    const { source, onCreate, onRemove } = this.props
+    const { source, onAdd, onRemove } = this.props
     const empty = {
       icon: 'times-circle',
       title: 'No Results',
@@ -70,7 +70,7 @@ class Photos extends React.Component {
       layout: Items,
       props: {
         source,
-        onCreate,
+        onAdd,
         onRemove
       }
     }

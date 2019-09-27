@@ -30,7 +30,7 @@ class Review extends React.Component {
                     <div className="maha-attachments-item-preview">
                       { file.thumbnail ?
                         <div className="maha-attachments-item-image">
-                          <div style={{backgroundImage:`url(${file.thumbnail })`}}>
+                          <div style={{backgroundImage:`url('${file.thumbnail}')`}}>
                             <img src={ `/admin/images/services/${file.service}.png` } />
                           </div>
                         </div> :

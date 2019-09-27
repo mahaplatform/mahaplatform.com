@@ -16,7 +16,6 @@ class Sources extends React.Component {
     multiple: PropTypes.bool,
     sources: PropTypes.array,
     onAdd: PropTypes.func,
-    onCreate: PropTypes.func,
     onBack: PropTypes.func,
     onCancel: PropTypes.func,
     onNext: PropTypes.func,
@@ -115,14 +114,13 @@ class Sources extends React.Component {
   }
 
   _getSource(source) {
-    const { allow, doneText, multiple, onAdd, onCreate, onRemove } = this.props
+    const { allow, doneText, multiple, onAdd, onRemove } = this.props
     return {
       allow,
       doneText,
       multiple,
       source,
       onAdd,
-      onCreate,
       onRemove,
       onBack: this._handleBack,
       onNext: this._handleNext

@@ -10,7 +10,7 @@ class Items extends React.Component {
     records: PropTypes.array,
     source: PropTypes.object,
     onRemove: PropTypes.func,
-    onCreate: PropTypes.func
+    onAdd: PropTypes.func
   }
 
   render() {
@@ -38,13 +38,18 @@ class Items extends React.Component {
     const { source, files, onRemove } = this.props
     const index = _.findIndex(files, { id: photo.id, service: source.service })
     if(index >= 0) return onRemove(index)
-    this.props.onCreate(`/api/admin/profiles/${source.id}/photos`, {
+    this.props.onAdd({
       id: photo.id,
+      create: {
+        endpoint: `/api/admin/profiles/${source.id}/photos`,
+        body: { id: photo.id }
+      },
       source_id: source.id,
       name: `${photo.id}.jpg`,
       service: source.service,
       content_type: 'image/jpeg',
-      thumbnail: photo.image
+      thumbnail: photo.image,
+      status: 'pending'
     })
   }
 

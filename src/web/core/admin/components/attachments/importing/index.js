@@ -37,10 +37,7 @@ class Review extends React.Component {
 
   _getPanel() {
     return {
-      title: 'Review Selections',
-      leftItems: [
-        { icon: 'chevron-left', handler: this._handleBack }
-      ]
+      title: 'Importing Files'
     }
   }
 

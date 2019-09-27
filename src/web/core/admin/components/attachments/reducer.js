@@ -63,10 +63,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       files: [
         ...state.files,
-        {
-          ...action.file,
-          status: 'imported'
-        }
+        action.file
       ]
     }
 

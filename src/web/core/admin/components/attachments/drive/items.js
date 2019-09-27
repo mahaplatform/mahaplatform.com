@@ -76,7 +76,10 @@ class Items extends React.Component {
   _handleChooseAsset(asset) {
     const { files, onAdd, onRemove } = this.props
     const index = _.findIndex(files, { id: asset.id, service: 'maha' })
-    if(index < 0) return onAdd(asset)
+    if(index < 0) return onAdd({
+      ...asset,
+      status: 'imported'
+    })
     onRemove(asset)
   }
 

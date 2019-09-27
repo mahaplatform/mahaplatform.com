@@ -11,13 +11,3 @@ export const lookup = (url) => ({
 export const clear = () => ({
   type: 'CLEAR'
 })
-
-export const download = (url) => ({
-  type: 'API_REQUEST',
-  method: 'POST',
-  endpoint: '/api/admin/assets/url',
-  body: { url },
-  request: 'DOWNLOAD_REQUEST',
-  success: 'DOWNLOAD_SUCCESS',
-  failure: 'DOWNLOAD_FAILURE'
-})

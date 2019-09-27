@@ -1,4 +1,6 @@
 import request from 'request-promise'
+import path from 'path'
+import Url from 'url'
 
 const urlRoute = async (req, res) => {
 
@@ -6,7 +8,12 @@ const urlRoute = async (req, res) => {
 
     const response = await request.head(req.query.url).promise()
 
-    res.status(200).respond(response)
+    const parsed = Url.parse(req.query.url)
+
+    res.status(200).respond({
+      ...response,
+      file_name: path.basename(parsed.pathname)
+    })
 
   } catch(e) {
 

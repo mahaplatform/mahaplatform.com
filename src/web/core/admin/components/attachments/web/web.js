@@ -10,17 +10,16 @@ import React from 'react'
 class Web extends React.Component {
 
   static propTypes = {
-    asset: PropTypes.object,
     cacheKey: PropTypes.string,
     doneText: PropTypes.any,
     files: PropTypes.array,
     response: PropTypes.object,
     status: PropTypes.string,
+    token: PropTypes.string,
     url: PropTypes.string,
     onAdd: PropTypes.func,
     onBack: PropTypes.func,
     onClear: PropTypes.func,
-    onDownload: PropTypes.func,
     onLookup: PropTypes.func,
     onNext: PropTypes.func
   }
@@ -28,7 +27,6 @@ class Web extends React.Component {
   _handleBack = this._handleBack.bind(this)
   _handleAdd = this._handleAdd.bind(this)
   _handleClear = this._handleClear.bind(this)
-  _handleDownload = this._handleDownload.bind(this)
   _handleNext = this._handleNext.bind(this)
   _handleLookup = this._handleLookup.bind(this)
 
@@ -47,21 +45,16 @@ class Web extends React.Component {
             { status == 'previewing' && <Loader { ...this._getPreviewing() } /> }
             { status === 'previewed' && response['content-type'].match(/image/) &&
               <div className="maha-attachments-web-preview">
-                <img src={ url } />
-                { url &&
+                <div className="maha-attachments-web-preview-body">
+                  <img src={ url } />
+                </div>
+                <div className="maha-attachments-web-preview-footer">
                   <Button { ...this._getImport() } />
-                }
+                </div>
               </div>
             }
             { status === 'previewed' && !response['content-type'].match(/image/) &&
               <Message { ...this._getPreview() } />
-            }
-            { status == 'importing' && <Loader { ...this._getImporting() } /> }
-            { status === 'failed' &&
-              <Message { ...this._getFailed() } />
-            }
-            { status === 'success' &&
-              <Message { ...this._getSuccess() } />
             }
           </div>
         </div>
@@ -101,8 +94,9 @@ class Web extends React.Component {
 
   _getImport() {
     return {
-      label: 'Import',
-      handler: this._handleDownload
+      label: 'Add to Queue',
+      color: 'red',
+      handler: this._handleAdd
     }
   }
 
@@ -165,18 +159,6 @@ class Web extends React.Component {
     return 'file-text-o'
   }
 
-  _getSuccess() {
-    return {
-      icon: 'check',
-      title: 'Successfully Imported',
-      text: 'We successfully imported your file',
-      button: {
-        label: 'Import another file',
-        handler: this._handleClear
-      }
-    }
-  }
-
   _handleBack() {
     this.props.onBack()
   }
@@ -187,25 +169,25 @@ class Web extends React.Component {
   }
 
   _handleAdd() {
-    const { asset, onAdd } = this.props
+    const { response, token, url, onAdd } = this.props
     onAdd({
-      id: asset.id,
+      id: url,
+      create: {
+        endpoint: '/api/admin/assets/url',
+        body: { url }
+      },
       source_id: 'web',
-      name: asset.original_file_name,
+      name: response.file_name,
       service: 'web',
-      content_type: asset.content_type,
-      asset,
-      thumbnail: asset.content_type.match(/image/) ? asset.signed_url : null
+      content_type: response['content-type'],
+      thumbnail: `/api/admin/assets/url/preview?token=${token}&url=${encodeURI(url)}`,
+      status: 'pending'
     })
+    this.props.onClear()
   }
 
   _handleClear() {
     this.props.onClear()
-  }
-
-  _handleDownload() {
-    const { url, onDownload } = this.props
-    onDownload(url)
   }
 
   _handleNext() {
@@ -215,6 +197,7 @@ class Web extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
+  token: state.maha.admin.team.token,
   files: state.maha.attachments.files
 })
 

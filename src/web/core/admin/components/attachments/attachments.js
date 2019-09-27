@@ -49,6 +49,7 @@ class Attachments extends React.Component {
     cards: []
   }
 
+  _handleAdd = this._handleAdd.bind(this)
   _handleCancel = this._handleCancel.bind(this)
   _handleCreate = this._handleCreate.bind(this)
   _handleDone = this._handleDone.bind(this)
@@ -82,15 +83,14 @@ class Attachments extends React.Component {
   }
 
   _getExplorer() {
-    const { allow, cancelText, doneText, multiple, onAdd } = this.props
+    const { allow, cancelText, doneText, multiple } = this.props
     return {
       allow,
       cancelText,
       doneText,
       multiple,
-      onAdd,
+      onAdd: this._handleAdd,
       onCancel: this._handleCancel,
-      onCreate: this._handleCreate,
       onNext: this._handleImporting,
       onRemove: this._handleRemove
     }
@@ -116,6 +116,13 @@ class Attachments extends React.Component {
       ],
       slideFirst: false
     }
+  }
+
+  _handleAdd(file) {
+    const { files } = this.props
+    const index = _.findIndex(files, { id: file.id, service: file.service })
+    if(index >= 0) return
+    this.props.onAdd(file)
   }
 
   _handleCancel() {

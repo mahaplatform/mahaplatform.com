@@ -130,7 +130,8 @@ class Drive extends React.Component {
       service: 'maha',
       content_type: asset.content_type,
       asset,
-      thumbnail: asset.content_type.match(/image/) ? asset.signed_url : null
+      thumbnail: asset.content_type.match(/image/) ? asset.signed_url : null,
+      status: 'imported'
     })
   }
 

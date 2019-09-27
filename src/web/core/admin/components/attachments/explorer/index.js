@@ -27,7 +27,6 @@ class Explorer extends React.Component {
     sources: PropTypes.array,
     onAdd: PropTypes.func,
     onCancel: PropTypes.func,
-    onCreate: PropTypes.func,
     onNext: PropTypes.func,
     onRemove: PropTypes.func
   }
@@ -46,7 +45,7 @@ class Explorer extends React.Component {
     const { multiple, files } = this.props
     const { review } = this.state
     return (
-      <div className="maha-attachments-explorer">
+      <div className={ this._getClass() }>
         <Stack { ...this._getStack() } />
         <CSSTransition in={ multiple && files.length > 0 } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
           <div className="maha-attachments-explorer-footer" onClick={ this._handleToggleReview }>
@@ -58,6 +57,13 @@ class Explorer extends React.Component {
         </CSSTransition>
       </div>
     )
+  }
+
+  _getClass() {
+    const { multiple, files } = this.props
+    const classes = ['maha-attachments-explorer']
+    if(multiple && files.length > 0) classes.push('reviewable')
+    return classes.join(' ')
   }
 
   _getReview() {
@@ -102,7 +108,7 @@ class Explorer extends React.Component {
   }
 
   _getSources() {
-    const { allow, counts, cancelText, doneText, multiple, onAdd, onCancel, onCreate, onRemove } = this.props
+    const { allow, counts, cancelText, doneText, multiple, onAdd, onCancel, onRemove } = this.props
     return {
       allow,
       counts,
@@ -113,7 +119,6 @@ class Explorer extends React.Component {
       onAdd,
       onBack: this._handlePop,
       onCancel,
-      onCreate,
       onNext: this._handleNext,
       onPush: this._handlePush,
       onRemove

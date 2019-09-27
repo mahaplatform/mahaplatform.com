@@ -12,7 +12,7 @@ class Items extends React.Component {
     records: PropTypes.array,
     source: PropTypes.object,
     onChangeFolder: PropTypes.func,
-    onCreate: PropTypes.func,
+    onAdd: PropTypes.func,
     onBack: PropTypes.func,
     onList: PropTypes.func,
     onRemove: PropTypes.func
@@ -80,13 +80,18 @@ class Items extends React.Component {
     const { source, files, onRemove } = this.props
     const index = _.findIndex(files, { id: item.id, service: source.service })
     if(index >= 0) return onRemove(index)
-    this.props.onCreate(`/api/admin/profiles/${source.id}/files`, {
+    this.props.onAdd({
       id: item.id,
+      create: {
+        endpoint: `/api/admin/profiles/${source.id}/files`,
+        body: { id: item.id }
+      },
       source_id: source.id,
       name: item.name,
       service: source.service,
+      content_type: item.content_type,
       thumbnail: item.thumbnail,
-      content_type: item.content_type
+      status: 'pending'
     })
   }
 

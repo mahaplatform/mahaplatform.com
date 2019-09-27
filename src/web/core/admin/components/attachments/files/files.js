@@ -20,7 +20,7 @@ class Files extends React.Component {
     source: PropTypes.object,
     onBack: PropTypes.func,
     onChangeFolder: PropTypes.func,
-    onCreate: PropTypes.func,
+    onAdd: PropTypes.func,
     onNext: PropTypes.func,
     onRemove: PropTypes.func,
     onProcessing: PropTypes.func,
@@ -84,7 +84,7 @@ class Files extends React.Component {
   }
 
   _getInfinite() {
-    const { allow, q, source, onCreate, onRemove } = this.props
+    const { allow, q, source, onAdd, onRemove } = this.props
     const empty = {
       icon: 'times-circle',
       title: 'No Results',
@@ -100,19 +100,19 @@ class Files extends React.Component {
       props: {
         allow,
         source,
-        onCreate,
+        onAdd,
         onRemove
       }
     }
   }
 
   _getFolder(folder) {
-    const { allow, source, onUp, onChangeFolder, onCreate, onRemove } = this.props
+    const { allow, source, onUp, onChangeFolder, onAdd, onRemove } = this.props
     return {
       allow,
       source,
       folder,
-      onCreate,
+      onAdd,
       onChangeFolder,
       onRemove,
       onUp
