@@ -13,7 +13,9 @@ class Imagesfield extends React.PureComponent {
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
-    onSet: PropTypes.func
+    onRemove: PropTypes.func,
+    onSet: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   static defaultProps = {
@@ -33,8 +35,8 @@ class Imagesfield extends React.PureComponent {
               <img src="http://localhost:8080/imagecache/fit=cover&w=50&h=50/assets/8117/fairfax-bridge-crop-0.jpg" />
             </div>
             <div className="imagesfield-image-details">
-              image<br />
-              <Button { ...this._getEdit(image) } />
+              narrow-bridge.jpg<br />
+              <Button { ...this._getEdit(image, index) } /> | <Button { ...this._getRemove(index) } />
             </div>
           </div>
         )) }
@@ -58,8 +60,8 @@ class Imagesfield extends React.PureComponent {
 
   _getAdd() {
     return {
-      label: 'Add Images',
-      className: 'imagefield-add',
+      label: <span><i className="fa fa-plus" />Add Image(s)</span>,
+      className: 'imagesfield-add',
       modal: <Attachments { ...this._getAttachments() } />
     }
   }
@@ -72,12 +74,27 @@ class Imagesfield extends React.PureComponent {
     }
   }
 
-  _getEdit(image) {
-    console.log(image)
+  _getEdit(image, index) {
     return {
       label: 'edit',
       className: 'link',
-      modal: <ImageEditor { ...image } />
+      modal: <ImageEditor { ...this._getImage(image, index) } />
+    }
+  }
+
+  _getImage(image, index) {
+    return {
+      asset_id: image.asset_id,
+      defaultValue: image.transforms,
+      onChange: this._handleUpdate.bind(this, index)
+    }
+  }
+
+  _getRemove(index) {
+    return {
+      label: 'remove',
+      className: 'link',
+      handler: this._handleRemove.bind(this, index)
     }
   }
 
@@ -86,6 +103,14 @@ class Imagesfield extends React.PureComponent {
       asset_id: asset.id,
       transforms: {}
     })))
+  }
+
+  _handleRemove(index) {
+    this.props.onRemove(index)
+  }
+
+  _handleUpdate(index, transforms) {
+    this.props.onUpdate(index, transforms)
   }
 
 }

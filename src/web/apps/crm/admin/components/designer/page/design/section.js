@@ -36,41 +36,31 @@ class Section extends React.Component {
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleDone }
       ],
-      tabs: [
+      sections: [
         {
-          label: 'Layout',
-          sections: [
-            {
-              fields: [
-                { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
-                { label: 'Border Top', name: 'border_top', type: 'textfield', defaultValue: config.border_top },
-                { label: 'Border Bottom', name: 'border_bottom', type: 'textfield', defaultValue: config.border_bottom },
-                { label: 'Padding Top', name: 'padding_top', type: 'textfield', defaultValue: config.padding_top },
-                { label: 'Padding Bottom', name: 'padding_bottom', type: 'textfield', defaultValue: config.padding_bottom }
-              ]
-            }
+          fields: [
+            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
+            { label: 'Border Top', name: 'border_top', type: 'textfield', defaultValue: config.border_top },
+            { label: 'Border Bottom', name: 'border_bottom', type: 'textfield', defaultValue: config.border_bottom },
+            { label: 'Padding Top', name: 'padding_top', type: 'textfield', defaultValue: config.padding_top },
+            { label: 'Padding Bottom', name: 'padding_bottom', type: 'textfield', defaultValue: config.padding_bottom }
           ]
         }, {
-          label: 'Typography',
-          sections: [
-            {
-              label: 'Text',
-              fields: [
-                { type: 'fields', fields: [
-                  { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config.font_family },
-                  { label: 'Font Size', name: 'font_size', type: 'lookup', options: font_size, defaultValue: config.font_size }
-                ] },
-                { type: 'fields', fields: [
-                  { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color },
-                  { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format }
-                ] },
-                { type: 'fields', fields: [
-                  { label: 'Line Height', name: 'line_height', type: 'lookup', options: line_heights, defaultValue: config.line_height },
-                  { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: letter_spacing, defaultValue: config.letter_spacing }
-                ] },
-                { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.alignment }
-              ]
-            }
+          label: 'Text',
+          fields: [
+            { type: 'fields', fields: [
+              { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config.font_family },
+              { label: 'Font Size', name: 'font_size', type: 'lookup', options: font_size, defaultValue: config.font_size }
+            ] },
+            { type: 'fields', fields: [
+              { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color },
+              { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format }
+            ] },
+            { type: 'fields', fields: [
+              { label: 'Line Height', name: 'line_height', type: 'lookup', options: line_heights, defaultValue: config.line_height },
+              { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: letter_spacing, defaultValue: config.letter_spacing }
+            ] },
+            { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.alignment }
           ]
         }
       ]

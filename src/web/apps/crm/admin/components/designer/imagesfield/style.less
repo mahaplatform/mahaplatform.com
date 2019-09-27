@@ -4,6 +4,11 @@
 .imagesfield-image {
   display: flex;
   border-bottom: 1px solid fadeout(@black, 90);
+  img {
+    width: 3.2em;
+    height: 3.2em;
+    display: block;
+  }
 }
 .imagesfield-image-image {
   padding: 0.8em 0 0.8em 0.8em;
@@ -16,4 +21,18 @@
   border-bottom: 1px solid fadeout(@black, 90);
   padding: 0.8em;
   cursor: pointer;
+  overflow: hidden;
+  line-height: 3.2em;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+  .fa {
+    display: inline-block;
+    width: 3.2em;
+    height: 3.2em;
+    background: fadeout(@black, 90);
+    text-align: center;
+    line-height: 3.2em;
+    color: fadeout(@black, 40);
+  }
 }

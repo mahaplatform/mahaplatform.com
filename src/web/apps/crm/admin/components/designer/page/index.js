@@ -71,17 +71,14 @@ class Page extends React.Component {
     const { changes } = this.props
     return {
       title: 'Email',
-      buttons: changes > 0 ? [
+      buttons: [
         {
-          label: 'Revert',
-          color: 'red',
-          handler: this._handleRevert
-        }, {
           label: 'Save',
           color: 'red',
+          disabled: changes === 0,
           handler: this._handleSave
         }
-      ] : []
+      ]
     }
   }
 

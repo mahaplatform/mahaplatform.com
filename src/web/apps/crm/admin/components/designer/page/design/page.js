@@ -36,39 +36,32 @@ class Page extends React.Component {
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleDone }
       ],
-      tabs: [
+      sections: [
         {
-          label: 'Layout',
-          sections: [
-            {
-              fields: [
-                { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
-                { label: 'Top Border', name: 'border_top', type: 'textfield', defaultValue: config.border_top },
-                { label: 'Email Background Color', name: 'email_background_color', type: 'colorfield', defaultValue: config.email_background_color },
-                { label: 'Email Border', name: 'email_border', type: 'textfield', defaultValue: config.email_border }
-              ]
-            }
+          fields: [
+            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
+            { label: 'Top Border', name: 'border_top', type: 'textfield', defaultValue: config.border_top },
+            { label: 'Email Background Color', name: 'email_background_color', type: 'colorfield', defaultValue: config.email_background_color },
+            { label: 'Email Border', name: 'email_border', type: 'textfield', defaultValue: config.email_border }
           ]
-        }, {
-          label: 'Typography',
-          sections: block_types.map(({ value, text }) => ({
-            label: text,
-            fields: [
-              { type: 'fields', fields: [
-                { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config[`${value}_font_family`] },
-                { label: 'Font Size', name: `${value}_font_size`, type: 'lookup', options: font_size, defaultValue: config[`${value}_font_size`] }
-              ] },
-              { type: 'fields', fields: [
-                { label: 'Color', name: `${value}_color`, type: 'colorfield', defaultValue: config[`${value}_color`] },
-                { label: 'Format', name: `${value}_format`, type: FormatField, defaultValue: config[`${value}_format`] }
-              ] },
-              { type: 'fields', fields: [
-                { label: 'Line Height', name: `${value}_line_height`, type: 'lookup', options: line_heights, defaultValue: config[`${value}_line_height`] },
-                { label: 'Letter Spacing', name: `${value}_letter_spacing`, type: 'lookup', options: letter_spacing, defaultValue: config[`${value}_letter_spacing`] }
-              ] }
-            ]
-          }))
-        }
+        },
+        ...block_types.map(({ value, text }) => ({
+          label: text,
+          fields: [
+            { type: 'fields', fields: [
+              { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config[`${value}_font_family`] },
+              { label: 'Font Size', name: `${value}_font_size`, type: 'lookup', options: font_size, defaultValue: config[`${value}_font_size`] }
+            ] },
+            { type: 'fields', fields: [
+              { label: 'Color', name: `${value}_color`, type: 'colorfield', defaultValue: config[`${value}_color`] },
+              { label: 'Format', name: `${value}_format`, type: FormatField, defaultValue: config[`${value}_format`] }
+            ] },
+            { type: 'fields', fields: [
+              { label: 'Line Height', name: `${value}_line_height`, type: 'lookup', options: line_heights, defaultValue: config[`${value}_line_height`] },
+              { label: 'Letter Spacing', name: `${value}_letter_spacing`, type: 'lookup', options: letter_spacing, defaultValue: config[`${value}_letter_spacing`] }
+            ] }
+          ]
+        }))
       ]
     }
   }

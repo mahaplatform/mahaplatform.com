@@ -25,11 +25,16 @@ class ImageEditor extends React.PureComponent {
     transforms: PropTypes.object,
     width: PropTypes.number,
     onAdjust: PropTypes.func,
+    onChange: PropTypes.func,
     onCrop: PropTypes.func,
     onFetch: PropTypes.func,
     onSet: PropTypes.func,
     onSetDimensions: PropTypes.func,
     onSetRatio: PropTypes.func
+  }
+
+  static defaultProps = {
+    onChange: () => {}
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -66,7 +71,10 @@ class ImageEditor extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { asset } = this.props
+    const { asset, transforms } = this.props
+    if(!_.isEqual(transforms, prevProps.transforms)) {
+      this.props.onChange(transforms)
+    }
     if(!_.isEqual(asset, prevProps.asset)) {
       this._handleMeasure()
     }

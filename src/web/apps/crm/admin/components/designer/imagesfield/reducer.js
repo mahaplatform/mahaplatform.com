@@ -21,6 +21,30 @@ const reducer = (state = INITIAL_STATE, action) => {
       images: action.images
     }
 
+  case 'REMOVE':
+    return {
+      ...state,
+      images: [
+        ...state.images.filter((image, index) => {
+          return index !== action.index
+        })
+      ]
+    }
+
+  case 'UPDATE':
+    return {
+      ...state,
+      images: [
+        ...state.images.map((image, index) => {
+          if(index !== action.index) return image
+          return {
+            ...image,
+            transforms: action.transforms
+          }
+        })
+      ]
+    }
+
   default:
     return state
   }
