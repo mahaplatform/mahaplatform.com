@@ -55,7 +55,7 @@ class Page extends React.Component {
             label: text,
             fields: [
               { type: 'fields', fields: [
-                { label: 'Font Family', name: `${value}_font_family`, type: 'lookup', options: fonts, defaultValue: config[`${value}_font_family`] },
+                { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config[`${value}_font_family`] },
                 { label: 'Font Size', name: `${value}_font_size`, type: 'lookup', options: font_size, defaultValue: config[`${value}_font_size`] }
               ] },
               { type: 'fields', fields: [

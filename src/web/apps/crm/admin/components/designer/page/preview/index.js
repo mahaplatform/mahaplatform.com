@@ -15,8 +15,7 @@ class Preview extends React.Component {
   render() {
     return (
       <div className="designer-preview">
-        Preview on Device<br />
-        Preview via Email
+        Email Preview
       </div>
     )
   }

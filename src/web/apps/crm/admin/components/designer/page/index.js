@@ -38,8 +38,8 @@ class Page extends React.Component {
     return {
       items: [
         { label: 'Layout', component: <Layout { ...this._getLayout() } /> },
-        { label: 'Design', component: <Design { ...this._getTab() } /> },
         { label: 'Content', component: <Content { ...this._getTab() } /> },
+        { label: 'Design', component: <Design { ...this._getTab() } /> },
         { label: 'Preview', component: <Preview { ...this._getTab() } /> }
       ]
     }

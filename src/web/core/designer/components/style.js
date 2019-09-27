@@ -101,6 +101,7 @@ class Style extends React.Component {
               ...this._getProp('font-family',`sections[${i}].blocks[${j}].font_family`),
               ...this._getProp('font-size',`sections[${i}].blocks[${j}].font_size`),
               ...this._getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`),
+              ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`),
               ...this._getProp('color',`sections[${i}].blocks[${j}].color`),
               ...this._getProp('padding-top',`sections[${i}].blocks[${j}].padding_top`),
               ...this._getProp('padding-bottom',`sections[${i}].blocks[${j}].padding_bottom`)

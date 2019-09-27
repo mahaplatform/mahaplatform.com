@@ -39,6 +39,7 @@ class FontFamilyField extends React.Component {
       type: 'lookup',
       options: font_families,
       format: FontToken,
+      placeholder: 'Choose a font',
       value,
       text
     }

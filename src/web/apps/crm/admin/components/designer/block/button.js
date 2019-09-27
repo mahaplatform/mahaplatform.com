@@ -1,5 +1,4 @@
 import { alignments, displays, font_size, letter_spacing, link_strategies, fonts } from '../variables'
-import FontToken from '../../../tokens/font'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -66,10 +65,14 @@ class Button extends React.Component {
             {
               label: 'Button Text Style',
               fields: [
-                { label: 'Font Family', name: 'font_family', type: 'lookup', options: fonts, defaultValue: config.font_family, format: FontToken },
-                { label: 'Font Size', name: 'font_size', type: 'lookup', options: font_size, defaultValue: config.font_size },
-                { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color },
-                { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: letter_spacing, defaultValue: config.letter_spacing }
+                { type: 'fields', fields: [
+                  { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config.font_family },
+                  { label: 'Font Size', name: 'font_size', type: 'lookup', options: font_size, defaultValue: config.font_size }
+                ] },
+                { type: 'fields', fields: [
+                  { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color },
+                  { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: letter_spacing, defaultValue: config.letter_spacing }
+                ] }
               ]
             }
           ]

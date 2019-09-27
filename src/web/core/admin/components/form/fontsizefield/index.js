@@ -16,7 +16,8 @@ class FontSizeField extends React.Component {
     return {
       ...this.props,
       type: 'lookup',
-      options: font_sizes
+      options: font_sizes,
+      placeholder: 'Choose a size'
     }
   }
 

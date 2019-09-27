@@ -2,13 +2,13 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-const styles = [
-  { label: 'Bold', icon: 'bold', code: 'bold' },
-  { label: 'Italic', icon: 'italic', code: 'italic' },
-  { label: 'Underline', icon: 'underline', code: 'underline' }
+const alignments = [
+  { label: 'Left', icon: 'align-left', code: 'left' },
+  { label: 'Center', icon: 'align-center', code: 'center' },
+  { label: 'Right', icon: 'align-right', code: 'right' }
 ]
 
-class FormatField extends React.Component {
+class AlignmentField extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.array,
@@ -22,8 +22,8 @@ class FormatField extends React.Component {
 
   render() {
     return (
-      <div className="formatfield">
-        { styles.map((style, index) => (
+      <div className="alignmentfield">
+        { alignments.map((style, index) => (
           <div key={`style_${index}`} {...this._getStyle(style)}>
             <i className={`fa fa-fw fa-${style.icon}`} />
           </div>
@@ -48,13 +48,13 @@ class FormatField extends React.Component {
   _getStyle(style) {
     return {
       className: this._getClass(style),
-      onClick: this._handleToggle.bind(this, style.code)
+      onClick: this._handleSet.bind(this, style.code)
     }
   }
 
   _getClass(style) {
     const { selected } = this.state
-    const classes = ['formatfield-option']
+    const classes = ['alignmentfield-option']
     if(_.includes(selected, style.code)) classes.push('selected')
     return classes.join(' ')
   }
@@ -63,13 +63,6 @@ class FormatField extends React.Component {
     this.setState({ selected })
   }
 
-  _handleToggle(code) {
-    const { selected } = this.state
-    this.setState({
-      selected: _.xor(selected, [code])
-    })
-  }
-
 }
 
-export default FormatField
+export default AlignmentField
