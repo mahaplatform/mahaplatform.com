@@ -25,17 +25,7 @@ class Template extends React.PureComponent {
   render() {
     const { status } = this.props
     if(status !== 'success') return <Loader />
-    return (
-      <div className="template">
-        <div className="template-body">
-          <Designer { ...this._getDesigner() } / >
-        </div>
-        <div className="template-footer">
-          <Button { ...this._getPreview() } />
-          <Button { ...this._getSave() } />
-        </div>
-      </div>
-    )
+    return <Designer { ...this._getDesigner() } / >
   }
 
   componentDidMount() {

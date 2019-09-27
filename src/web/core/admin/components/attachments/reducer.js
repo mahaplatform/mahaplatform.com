@@ -25,7 +25,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       files: [
-        ...action.multiple ? [state.files] : [],
+        ...action.multiple ? state.files : [],
         {
           ...action.file,
           status: 'importing'

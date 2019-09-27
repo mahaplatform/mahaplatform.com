@@ -5,9 +5,9 @@ const INITIAL_STATE = {
     section: null,
     block: null
   },
+  changes: 0,
   config: null,
   deviceIndex: 0,
-  editable: true,
   orientationIndex: 0,
   scaleIndex: 2
 }
@@ -29,6 +29,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         section: null,
         block: null
       },
+      changes: state.changes + 1,
       config: {
         ...state.config,
         sections: [
@@ -45,6 +46,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         section: null,
         block: null
       },
+      changes: state.changes + 1,
       config: {
         ...state.config,
         sections: [
@@ -62,6 +64,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         section: action.section,
         block: state.config.sections[action.section].blocks.length
       },
+      changes: state.changes + 1,
       config: {
         ...state.config,
         sections: [
@@ -90,6 +93,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         section: null,
         block: null
       },
+      changes: state.changes + 1,
       config: {
         ...state.config,
         sections: [
@@ -110,6 +114,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'EDIT':
     return {
       ...state,
+      changes: state.changes + 1,
       active: {
         section: action.section,
         block: action.block
@@ -123,6 +128,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         section: null,
         block: null
       },
+      changes: state.changes + 1,
       config: {
         ...state.config,
         sections: [
@@ -144,18 +150,14 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'UPDATE':
     return {
       ...state,
+      changes: state.changes + 1,
       config: _.set(_.cloneDeep(state.config), action.key, action.value)
-    }
-
-  case 'EDITABLE':
-    return {
-      ...state,
-      editable: action.editable
     }
 
   case 'SET':
     return {
       ...state,
+      changes: 0,
       config: action.config
     }
 

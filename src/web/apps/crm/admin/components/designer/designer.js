@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
-import Preview from './preview'
+import Canvas from './canvas'
 import Header from './header'
 import React from 'react'
 import _ from 'lodash'
@@ -11,10 +11,10 @@ class Designer extends React.Component {
 
   static propTypes = {
     active: PropTypes.object,
+    changes: PropTypes.number,
     config: PropTypes.object,
     defaultValue: PropTypes.object,
     deviceIndex: PropTypes.number,
-    editable: PropTypes.bool,
     scaleIndex: PropTypes.number,
     orientationIndex: PropTypes.number,
     onAdd: PropTypes.func,
@@ -24,7 +24,6 @@ class Designer extends React.Component {
     onClone: PropTypes.func,
     onDeleteSection: PropTypes.func,
     onEdit: PropTypes.func,
-    onEditable: PropTypes.func,
     onRemove: PropTypes.func,
     onSet: PropTypes.func,
     onUpdate: PropTypes.func
@@ -39,7 +38,7 @@ class Designer extends React.Component {
       <div className="designer">
         <div className="designer-main">
           <Header { ...this._getHeader() } />
-          <Preview { ...this._getPreview() } />
+          <Canvas { ...this._getCanvas() } />
         </div>
         <Sidebar { ...this._getSidebar() } />
       </div>
@@ -115,13 +114,12 @@ class Designer extends React.Component {
     }
   }
 
-  _getPreview() {
-    const { active, config, deviceIndex, editable, orientationIndex, scaleIndex, onAdd, onClone, onEdit, onRemove, onUpdate } = this.props
+  _getCanvas() {
+    const { active, config, deviceIndex, orientationIndex, scaleIndex, onAdd, onClone, onEdit, onRemove, onUpdate } = this.props
     return {
       active,
       config,
       deviceIndex,
-      editable,
       orientationIndex,
       scaleIndex,
       onAdd,

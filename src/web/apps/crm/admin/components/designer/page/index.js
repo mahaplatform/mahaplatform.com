@@ -1,15 +1,18 @@
-import { Button, Menu, ModalPanel } from 'maha-admin'
+import { Menu, ModalPanel } from 'maha-admin'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import Preview from './preview'
 import Content from './content'
 import Layout from './layout'
 import Design from './design'
 import React from 'react'
 
-class Sidebar extends React.Component {
+class Page extends React.Component {
 
   static contextTypes = {}
 
   static propTypes = {
+    changes: PropTypes.number,
     config: PropTypes.object,
     onAddSection: PropTypes.func,
     onDeleteSection: PropTypes.func,
@@ -20,11 +23,13 @@ class Sidebar extends React.Component {
 
   static defaultProps = {}
 
+  _handleRevert = this._handleRevert.bind(this)
+  _handleSave = this._handleSave.bind(this)
+
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
         <Menu { ...this._getMenu() } />
-        <Button { ...this._getSave() } />
       </ModalPanel>
     )
   }
@@ -35,7 +40,7 @@ class Sidebar extends React.Component {
         { label: 'Layout', component: <Layout { ...this._getLayout() } /> },
         { label: 'Design', component: <Design { ...this._getTab() } /> },
         { label: 'Content', component: <Content { ...this._getTab() } /> },
-        { label: 'Preview', component: <Design { ...this._getTab() } /> }
+        { label: 'Preview', component: <Preview { ...this._getTab() } /> }
       ]
     }
   }
@@ -63,17 +68,31 @@ class Sidebar extends React.Component {
   }
 
   _getPanel() {
+    const { changes } = this.props
     return {
-      title: 'Email'
+      title: 'Email',
+      buttons: changes > 0 ? [
+        {
+          label: 'Revert',
+          color: 'red',
+          handler: this._handleRevert
+        }, {
+          label: 'Save',
+          color: 'red',
+          handler: this._handleSave
+        }
+      ] : []
     }
   }
 
-  _getSave() {
-    return {
-      label: 'Save'
-    }
-  }
+  _handleRevert() {}
+
+  _handleSave() {}
 
 }
 
-export default Sidebar
+const mapStateToProps = (state, props) => ({
+  changes: state.crm.designer.changes
+})
+
+export default connect(mapStateToProps)(Page)

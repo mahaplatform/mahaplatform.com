@@ -45,11 +45,6 @@ export const remove = (section, block) => ({
   block
 })
 
-export const editable = (editable) => ({
-  type: 'EDITABLE',
-  editable
-})
-
 export const set = (config) => ({
   type: 'SET',
   config

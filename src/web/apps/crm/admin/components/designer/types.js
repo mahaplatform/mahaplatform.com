@@ -29,17 +29,11 @@ export const types = [
     type: 'images',
     icon: 'picture-o',
     config: {
-      images: [
-        { asset_id: 8117, transforms: { bri: 50 } },
-        { asset_id: 8120, transforms: { bri: -50 } },
-        { asset_id: 8368, transforms: { filter: 'orangePeel' } },
-        { asset_id: 8117, transforms: { filter: 'vintage' } },
-        { asset_id: 8120, transforms: { con: 80 } },
-        { asset_id: 8368, transforms: { con: -80 } }
-      ],
       border: null,
       border_radius: null,
-      layout: [1]
+      images: [],
+      layout: [1],
+      padding: 0
     }
   }, {
     label: 'Button Block',

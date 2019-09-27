@@ -1,6 +1,7 @@
-import { Button, ImageEditor } from 'maha-admin'
+import { Attachments, Button, ImageEditor } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class Imagesfield extends React.PureComponent {
 
@@ -9,11 +10,18 @@ class Imagesfield extends React.PureComponent {
   static propTypes = {
     defaultValue: PropTypes.array,
     images: PropTypes.array,
+    onAdd: PropTypes.func,
+    onChange: PropTypes.func,
     onReady: PropTypes.func,
     onSet: PropTypes.func
   }
 
-  static defaultProps = {}
+  static defaultProps = {
+    onChange: () => {},
+    onReady: () => {}
+  }
+
+  _handleAdd = this._handleAdd.bind(this)
 
   render() {
     const { images } = this.props
@@ -30,6 +38,7 @@ class Imagesfield extends React.PureComponent {
             </div>
           </div>
         )) }
+        <Button { ...this._getAdd() } />
       </div>
     )
   }
@@ -40,14 +49,43 @@ class Imagesfield extends React.PureComponent {
     this.props.onReady()
   }
 
-  componentDidUpdate(prevProps) {}
+  componentDidUpdate(prevProps) {
+    const { images } = this.props
+    if(!_.isEqual(images, prevProps.images)) {
+      this.props.onChange(images)
+    }
+  }
+
+  _getAdd() {
+    return {
+      label: 'Add Images',
+      className: 'imagefield-add',
+      modal: <Attachments { ...this._getAttachments() } />
+    }
+  }
+
+  _getAttachments() {
+    return {
+      multiple: true,
+      type: 'photos',
+      onChooseAssets: this._handleAdd
+    }
+  }
 
   _getEdit(image) {
+    console.log(image)
     return {
       label: 'edit',
       className: 'link',
       modal: <ImageEditor { ...image } />
     }
+  }
+
+  _handleAdd(assets) {
+    this.props.onAdd(assets.map(asset => ({
+      asset_id: asset.id,
+      transforms: {}
+    })))
   }
 
 }

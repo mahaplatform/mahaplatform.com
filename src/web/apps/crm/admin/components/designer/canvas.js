@@ -5,7 +5,7 @@ import Pasteur from 'pasteur'
 import React from 'react'
 import _ from 'lodash'
 
-class Preview extends React.Component {
+class Canvas extends React.Component {
 
   static contextTypes = {}
 
@@ -40,7 +40,7 @@ class Preview extends React.Component {
       </div>
     )
   }
-  
+
   componentDidMount() {
     this.pasteur = new Pasteur({
       window,
@@ -79,7 +79,7 @@ class Preview extends React.Component {
   _getClass() {
     const { deviceIndex } = this.props
     const device = devices[deviceIndex]
-    return `designer-preview ${device.type}`
+    return `designer-canvas ${device.type}`
   }
 
   _getIframe() {
@@ -125,4 +125,4 @@ class Preview extends React.Component {
 
 }
 
-export default Preview
+export default Canvas

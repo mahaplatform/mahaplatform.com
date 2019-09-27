@@ -22,9 +22,6 @@ class Layout extends React.Component {
       <div className="designer-layout">
         { config.sections.map((section, index) => (
           <div key={`section_${index}`} className="designer-layout-section">
-            <div className="designer-layout-section-handle">
-              <i className="fa fa-bars" />
-            </div>
             <div className="designer-layout-section-label">
               <TextField { ...this._getTextField(section, index) } />
             </div>

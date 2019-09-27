@@ -96,15 +96,6 @@ class Attachments extends React.Component {
     }
   }
 
-  _handleCreate(endpoint, file) {
-    const { multiple } = this.props
-    this.props.onCreate(multiple, endpoint, file)
-  }
-
-  _handleRemove(index) {
-    this.props.onRemove(index)
-  }
-
   _getReview() {
     const { doneText, multiple } = this.props
     return {
@@ -131,6 +122,11 @@ class Attachments extends React.Component {
     const { onCancel } = this.props
     if(onCancel) return onCancel()
     this.context.modal.pop()
+  }
+
+  _handleCreate(endpoint, file) {
+    const { multiple } = this.props
+    this.props.onCreate(multiple, endpoint, file)
   }
 
   _handleDone() {
@@ -179,6 +175,10 @@ class Attachments extends React.Component {
         { component, props }
       ]
     })
+  }
+
+  _handleRemove(index) {
+    this.props.onRemove(index)
   }
 
   _handleReview() {
