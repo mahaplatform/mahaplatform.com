@@ -25,37 +25,43 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       files: [
-        ...action.multiple ? state.files : [],
-        {
-          ...action.file,
-          status: 'importing'
-        }
+        ...state.files.map((file, index) => {
+          if(index !== action.index) return file
+          return {
+            ...file,
+            status: 'importing'
+          }
+        })
       ]
     }
 
   case 'CREATE_FAILURE':
     return {
       ...state,
-      files: state.files.map(file => {
-        if(file.id !== action.file.id) return file
-        return {
-          ...file,
-          status: 'failed'
-        }
-      })
+      files: [
+        ...state.files.map((file, index) => {
+          if(index !== action.index) return file
+          return {
+            ...file,
+            status: 'failed'
+          }
+        })
+      ]
     }
 
   case 'CREATE_SUCCESS':
     return {
       ...state,
-      files: state.files.map(file => {
-        if(file.id !== action.file.id) return file
-        return {
-          ...file,
-          asset: action.result.data,
-          status: 'imported'
-        }
-      })
+      files: [
+        ...state.files.map((file, index) => {
+          if(index !== action.index) return file
+          return {
+            ...file,
+            asset: action.result.data,
+            status: 'imported'
+          }
+        })
+      ]
     }
 
   case 'ADD':

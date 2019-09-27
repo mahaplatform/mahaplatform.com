@@ -21,7 +21,6 @@ class Attachments extends React.Component {
     assets: PropTypes.array,
     cancelText: PropTypes.any,
     counts: PropTypes.object,
-    doneText: PropTypes.string,
     files: PropTypes.array,
     multiple: PropTypes.bool,
     processed: PropTypes.bool,
@@ -40,7 +39,6 @@ class Attachments extends React.Component {
   static defaultProps = {
     allow: {},
     cancelText: 'Cancel',
-    doneText: 'Done',
     multiple: false,
     prompt: 'Attach Files',
     onChooseAssets: () => {}
@@ -52,7 +50,6 @@ class Attachments extends React.Component {
 
   _handleAdd = this._handleAdd.bind(this)
   _handleCancel = this._handleCancel.bind(this)
-  _handleCreate = this._handleCreate.bind(this)
   _handleDone = this._handleDone.bind(this)
   _handleFetch = this._handleFetch.bind(this)
   _handlePush = this._handlePush.bind(this)
@@ -90,11 +87,10 @@ class Attachments extends React.Component {
   }
 
   _getExplorer() {
-    const { allow, cancelText, doneText, multiple } = this.props
+    const { allow, cancelText, multiple } = this.props
     return {
       allow,
       cancelText,
-      doneText,
       multiple,
       onAdd: this._handleAdd,
       onCancel: this._handleCancel,
@@ -104,13 +100,11 @@ class Attachments extends React.Component {
   }
 
   _getImporting() {
-    const { doneText, multiple } = this.props
+    const { multiple, onCreate } = this.props
     return {
-      doneText,
       multiple,
-      onBack: this._handlePop,
       onDone: this._handleDone,
-      onRemove: this._handleRemove
+      onCreate
     }
   }
 
@@ -146,11 +140,6 @@ class Attachments extends React.Component {
     const { onCancel } = this.props
     if(onCancel) return onCancel()
     this.context.modal.pop()
-  }
-
-  _handleCreate(endpoint, file) {
-    const { multiple } = this.props
-    this.props.onCreate(multiple, endpoint, file)
   }
 
   _handleDone() {

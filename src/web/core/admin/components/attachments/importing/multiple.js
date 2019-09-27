@@ -48,7 +48,7 @@ class Multiple extends React.Component {
       </div>
     )
   }
-
+  
   _getEmpty() {
     return {
       icon: 'file-o',

@@ -9,10 +9,11 @@ import React from 'react'
 class Review extends React.Component {
 
   static propTypes = {
+    files: PropTypes.array,
     multiple: PropTypes.bool,
-    doneText: PropTypes.string,
     processed: PropTypes.bool,
     onBack: PropTypes.func,
+    onCreate: PropTypes.func,
     onDone: PropTypes.func
   }
 
@@ -26,6 +27,13 @@ class Review extends React.Component {
         { multiple ? <Multiple /> : <Single /> }
       </ModalPanel>
     )
+  }
+
+  componentDidMount() {
+    this.props.files.map((file, index) => {
+      const { endpoint, body } = file.create
+      this.props.onCreate(endpoint, body, index)
+    })
   }
 
   componentDidUpdate(prevProps) {
@@ -52,6 +60,7 @@ class Review extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
+  files: state.maha.attachments.files,
   processed: processed(state.maha.attachments, props)
 })
 

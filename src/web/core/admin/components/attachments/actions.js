@@ -14,12 +14,12 @@ export const fetch = (types) => ({
   failure: 'FETCH_FAILURE'
 })
 
-export const create = (multiple, endpoint, file) => ({
+export const create = (endpoint, body, index) => ({
   type: 'API_REQUEST',
   method: 'POST',
   endpoint,
-  body: { id: file.id },
-  meta: { multiple, file },
+  body,
+  meta: { index },
   request: 'CREATE_REQUEST',
   success: 'CREATE_SUCCESS',
   failure: 'CREATE_FAILURE'
