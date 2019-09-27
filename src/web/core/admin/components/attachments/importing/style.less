@@ -1,0 +1,39 @@
+.maha-attachments-multiple {
+  flex: 1;
+  display: flex;
+}
+
+
+.maha-attachments-single {
+  flex: 1;
+}
+.maha-attachments-single-image {
+  display: block;
+  position: relative;
+  width: 6em;
+  height: 6em;
+  & > div {
+    border-radius: 0.5em;
+    position: absolute;
+    display:flex;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-color: fadeout(@white, 90);
+  }
+  img {
+    width: 0.8em;
+    height: 0.8em;
+    border-radius: 0.2em;
+    position: absolute;
+    bottom: -0.2em;
+    right: -0.2em;
+  }
+}
+.maha-attachments-single-icon {
+  .maha-icon {
+    width: 5em;
+  }
+}

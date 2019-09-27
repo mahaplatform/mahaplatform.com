@@ -97,7 +97,6 @@ class Imagesfield extends React.PureComponent {
   }
 
   _getImage(image, index) {
-    console.log(image)
     return {
       asset: image.asset,
       defaultValue: image.transforms,
@@ -146,7 +145,7 @@ class Imagesfield extends React.PureComponent {
     const { onSet } = this.props
     return onSet(images.map(image => ({
       asset: {
-        id: image.asset_id
+        id: image.asset.id
       },
       transforms: image.transforms
     })))

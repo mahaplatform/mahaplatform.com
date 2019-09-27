@@ -8,8 +8,7 @@ import _ from 'lodash'
 class Multiple extends React.Component {
 
   static propTypes = {
-    files: PropTypes.array,
-    onRemove: PropTypes.func
+    files: PropTypes.array
   }
 
   render() {
@@ -17,32 +16,29 @@ class Multiple extends React.Component {
     return (
       <div className="maha-attachments-multiple">
         { files.length > 0 ?
-          <div className="maha-attachments-multiple-items">
+          <div className="maha-attachments-items">
             { files.map((file, index) => (
-              <div className="maha-attachments-multiple-item" key={`plain_${index}`}>
-                <div className="maha-attachments-multiple-item-pmultiple">
+              <div className="maha-attachments-item" key={`plain_${index}`}>
+                <div className="maha-attachments-item-pmultiple">
                   { file.thumbnail ?
-                    <div className="maha-attachments-multiple-item-image">
+                    <div className="maha-attachments-item-image">
                       <div style={{backgroundImage:`url(${file.thumbnail })`}}>
                         <img src={ `/admin/images/services/${file.service}.png` } />
                       </div>
                     </div> :
-                    <div className="maha-attachments-multiple-item-icon">
+                    <div className="maha-attachments-item-icon">
                       <AssetIcon content_type={ file.content_type } source={ file.service } />
                     </div>
                   }
                 </div>
-                <div className="maha-attachments-multiple-item-label">
-                  <div className="maha-attachments-multiple-item-name">
+                <div className="maha-attachments-item-label">
+                  <div className="maha-attachments-item-name">
                     { file.name }<br />
                     <span className={ file.status }>
                       <i className={`fa fa-fw fa-${this._getIcon(file.status)}`} />
                       { _.capitalize(file.status) }
                     </span>
                   </div>
-                </div>
-                <div className="maha-attachments-multiple-item-remove">
-                  <i className="fa fa-times" onClick={ this._handleRemove.bind(this, index) } />
                 </div>
               </div>
             )) }
@@ -65,10 +61,6 @@ class Multiple extends React.Component {
     if(status === 'importing') return 'circle-o-notch fa-spin'
     if(status === 'imported') return 'check'
     if(status === 'failed') return 'exclamation-triangle'
-  }
-
-  _handleRemove(index) {
-    this.props.onRemove(index)
   }
 
 }

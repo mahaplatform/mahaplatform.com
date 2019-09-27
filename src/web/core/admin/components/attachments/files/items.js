@@ -66,8 +66,7 @@ class Items extends React.Component {
     const { source, files } = this.props
     if(item.type === 'folder') return 'chevron-right'
     const file = _.find(files, { id: item.id, service: source.service })
-    if(!file) return null
-    return file.asset ? 'check': 'circle-o-notch fa-spin'
+    return file ? 'check' : null
   }
 
   _handleClick(item) {

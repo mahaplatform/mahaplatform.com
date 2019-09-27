@@ -31,8 +31,7 @@ class Items extends React.Component {
   _getIcon(photo) {
     const { files, source } = this.props
     const file = _.find(files, { id: photo.id, service: source.service })
-    if(!file) return null
-    return file.asset ? 'check': 'circle-o-notch fa-spin'
+    return file ? 'check' : null
   }
 
   _handleClick(photo) {

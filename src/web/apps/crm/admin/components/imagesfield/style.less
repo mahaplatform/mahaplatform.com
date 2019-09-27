@@ -4,14 +4,16 @@
 .imagesfield-image {
   display: flex;
   border-bottom: 1px solid fadeout(@black, 90);
+}
+.imagesfield-image-image {
+  padding: 0.8em 0 0.8em 0.8em;
   img {
     width: 3.2em;
     height: 3.2em;
     display: block;
+    border-radius: 0.5em;
+    overflow: hidden;
   }
-}
-.imagesfield-image-image {
-  padding: 0.8em 0 0.8em 0.8em;
 }
 .imagesfield-image-details {
   padding: 0.8em;
@@ -34,5 +36,6 @@
     text-align: center;
     line-height: 3.2em;
     color: fadeout(@black, 40);
+    border-radius: 0.5em;
   }
 }

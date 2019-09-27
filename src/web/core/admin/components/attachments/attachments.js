@@ -3,7 +3,7 @@ import Stack from '../stack'
 import PropTypes from 'prop-types'
 import Explorer from './explorer'
 import Loader from '../loader'
-import Review from './review'
+import Importing from './importing'
 import React from 'react'
 import _ from 'lodash'
 
@@ -56,7 +56,7 @@ class Attachments extends React.Component {
   _handlePush = this._handlePush.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handleRemove = this._handleRemove.bind(this)
-  _handleReview = this._handleReview.bind(this)
+  _handleImporting = this._handleImporting.bind(this)
 
   render() {
     const { status } = this.props
@@ -73,7 +73,7 @@ class Attachments extends React.Component {
   componentDidUpdate(prevProps) {
     const { multiple, files } = this.props
     if(!multiple && !_.isEqual(files, prevProps.files) && files.length === 1 && files[0].status === 'importing') {
-      this._handleReview()
+      this._handleImportinging()
     }
   }
 
@@ -91,12 +91,12 @@ class Attachments extends React.Component {
       onAdd,
       onCancel: this._handleCancel,
       onCreate: this._handleCreate,
-      onNext: this._handleReview,
+      onNext: this._handleImporting,
       onRemove: this._handleRemove
     }
   }
 
-  _getReview() {
+  _getImporting() {
     const { doneText, multiple } = this.props
     return {
       doneText,
@@ -144,6 +144,12 @@ class Attachments extends React.Component {
     this.props.onFetch(types)
   }
 
+  _handleImporting() {
+    const { processed } = this.props
+    if(processed) return this._handleDone()
+    this._handlePush(Importing, this._getImporting())
+  }
+
   _handleJoin() {
     const { network } = this.context
     const channel = '/admin/account/profiles'
@@ -179,12 +185,6 @@ class Attachments extends React.Component {
 
   _handleRemove(index) {
     this.props.onRemove(index)
-  }
-
-  _handleReview() {
-    const { processed } = this.props
-    if(processed) return this._handleDone()
-    this._handlePush(Review, this._getReview())
   }
 
 }

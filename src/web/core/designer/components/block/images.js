@@ -11,8 +11,8 @@ class Images extends React.Component {
   }
 
   render() {
-    const { blockIndex, config, sectionIndex } = this.props
-    const rows = this._getFormated(config.images, [1,2])
+    const { blockIndex, sectionIndex } = this.props
+    const rows = this._getRows()
     return (
       <table className={`row section-${ sectionIndex }-block-${ blockIndex }`}>
         <tbody>
@@ -40,12 +40,14 @@ class Images extends React.Component {
     )
   }
 
-  _getFormated(images, format) {
+  _getRows() {
+    const { config } = this.props
+    const { images, layout } = config
     return images.reduce((rows, image, index) => {
       const total = rows.reduce((sum, row) => sum + row.length, 0)
       return total < images.length ? [
         ...rows,
-        format[index % format.length] === 2 ? [
+        layout[index % layout.length] === 2 ? [
           images[total],
           images[total + 1]
         ] : [
@@ -61,7 +63,7 @@ class Images extends React.Component {
         const crop = transforms[key]
         return {
           ...args,
-          crop: [crop.w, crop.h, crop.x, crop.y]
+          crop: { w: crop.w, h: crop.h, x: crop.x, y: crop.y }
         }
       } else if(key === 'invert') {
         return {

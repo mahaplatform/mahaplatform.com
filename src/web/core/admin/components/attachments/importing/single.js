@@ -7,8 +7,7 @@ class Processing extends React.Component {
 
   static propTypes = {
     files: PropTypes.array,
-    onBack: PropTypes.func,
-    onRemove: PropTypes.func
+    onBack: PropTypes.func
   }
 
   render() {
@@ -36,10 +35,6 @@ class Processing extends React.Component {
         }
       </div>
     )
-  }
-
-  _handleRemove(index) {
-    this.props.onRemove(index)
   }
 
 }
