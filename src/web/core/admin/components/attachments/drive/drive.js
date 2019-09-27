@@ -14,7 +14,6 @@ class Drive extends React.Component {
 
   static propTypes = {
     allow: PropTypes.object,
-    doneText: PropTypes.any,
     files: PropTypes.array,
     folders: PropTypes.array,
     q: PropTypes.string,
@@ -50,14 +49,14 @@ class Drive extends React.Component {
   }
 
   _getPanel() {
-    const { doneText, files } = this.props
+    const { files } = this.props
     return {
       title: 'Choose File(s)',
       leftItems: [
         { icon: 'chevron-left', handler: this.props.onBack  }
       ],
       rightItems: files.length > 0 ? [
-        { label: doneText, handler: this._handleNext }
+        { label: 'Next', handler: this._handleNext }
       ] : []
     }
   }

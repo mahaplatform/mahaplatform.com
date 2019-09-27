@@ -11,7 +11,6 @@ class Web extends React.Component {
 
   static propTypes = {
     cacheKey: PropTypes.string,
-    doneText: PropTypes.any,
     files: PropTypes.array,
     response: PropTypes.object,
     status: PropTypes.string,
@@ -70,14 +69,14 @@ class Web extends React.Component {
   }
 
   _getPanel() {
-    const { doneText, files } = this.props
+    const { files } = this.props
     const panel = {
       title: 'Choose File(s)',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack  }
       ],
       rightItems: files.length > 0 ? [
-        { label: doneText, handler: this._handleNext }
+        { label: 'Next', handler: this._handleNext }
       ] : []
     }
     return panel
@@ -114,24 +113,9 @@ class Web extends React.Component {
     }
   }
 
-  _getImporting() {
-    return {
-      label: 'Importing'
-    }
-  }
-
-  _getFailed() {
-    return {
-      icon: 'exclamation-triangle',
-      title: 'Invalid URL',
-      text: 'We can\'t find the image at that URL. Please check the address for typing errors.'
-    }
-  }
-
   _getPreview() {
     return {
       icon: this._getIcon(),
-      text: 'foo',
       button: {
         label: 'Import File',
         handler: this._handleAdd

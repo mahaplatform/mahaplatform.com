@@ -11,9 +11,7 @@ class Sources extends React.Component {
     allow: PropTypes.object,
     cancelText: PropTypes.any,
     counts: PropTypes.object,
-    doneText: PropTypes.any,
     files: PropTypes.array,
-    multiple: PropTypes.bool,
     sources: PropTypes.array,
     onAdd: PropTypes.func,
     onBack: PropTypes.func,
@@ -84,14 +82,14 @@ class Sources extends React.Component {
   }
 
   _getPanel() {
-    const { cancelText, doneText, files } = this.props
+    const { cancelText, files } = this.props
     return {
       title: 'Choose Source',
       leftItems: [
         { label: cancelText, handler: this._handleCancel }
       ],
       rightItems: files.length > 0 ? [
-        { label: doneText, handler: this._handleNext }
+        { label: 'Next', handler: this._handleNext }
       ] : []
     }
   }
@@ -114,11 +112,10 @@ class Sources extends React.Component {
   }
 
   _getSource(source) {
-    const { allow, doneText, multiple, onAdd, onRemove } = this.props
+    const { allow, doneText, onAdd, onRemove } = this.props
     return {
       allow,
       doneText,
-      multiple,
       source,
       onAdd,
       onRemove,

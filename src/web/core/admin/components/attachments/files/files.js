@@ -2,9 +2,9 @@ import ModalPanel from '../../modal_panel'
 import Searchbox from '../../searchbox'
 import Infinite from '../../infinite'
 import { connect } from 'react-redux'
-import Stack from '../../stack'
 import Message from '../../message'
 import PropTypes from 'prop-types'
+import Stack from '../../stack'
 import Folder from './folder'
 import Items from './items'
 import React from 'react'
@@ -13,7 +13,6 @@ class Files extends React.Component {
 
   static propTypes = {
     allow: PropTypes.object,
-    doneText: PropTypes.any,
     files: PropTypes.array,
     folders: PropTypes.array,
     q: PropTypes.string,
@@ -47,14 +46,14 @@ class Files extends React.Component {
   }
 
   _getPanel() {
-    const { doneText, files } = this.props
+    const { files } = this.props
     return {
       title: 'Choose File(s)',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
       ],
       rightItems: files.length > 0 ? [
-        { label: doneText, handler: this._handleNext }
+        { label: 'Next', handler: this._handleNext }
       ] : []
     }
   }

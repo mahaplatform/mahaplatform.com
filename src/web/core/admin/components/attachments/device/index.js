@@ -1,7 +1,7 @@
 import ModalPanel from '../../modal_panel'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
-import _ from 'lodash'
 
 class Device extends React.Component {
 
@@ -11,22 +11,20 @@ class Device extends React.Component {
 
   static propTypes = {
     files: PropTypes.array,
-    onAddFile: PropTypes.func,
     onBack: PropTypes.func,
-    onDone: PropTypes.func
+    onNext: PropTypes.func
   }
 
-  drop = null
-
+  _handleBack = this._handleBack.bind(this)
   _handleBrowse = this._handleBrowse.bind(this)
-  _handleFile = this._handleFile.bind(this)
+  _handleNext = this._handleNext.bind(this)
 
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-attachments-device">
           <div className="maha-attachments-device-body">
-            <div className="maha-attachments-device-drop" ref={ (node) => this.drop = node }>
+            <div className="maha-attachments-device-drop">
               <div className="maha-attachments-device-text">
                 <p>Drop Files Here</p>
                 <span>or</span>
@@ -41,54 +39,35 @@ class Device extends React.Component {
     )
   }
 
-  componentDidMount() {
-    this.context.uploader.assignDrop(this.drop, this._handleFile)
-  }
-
   _getPanel() {
     const { files } = this.props
-    const panel = {
+    return {
       title: 'Choose File(s)',
       leftItems: [
-        { icon: 'chevron-left', handler: this.props.onBack  }
-      ]
+        { icon: 'chevron-left', handler: this._handleBack }
+      ],
+      rightItems: files.length > 0 ? [
+        { label: 'Next', handler: this._handleNext }
+      ] : []
     }
-    if( files.length > 0 ){
-      panel.rightItems = [
-        { label: 'Done', handler: this.props.onDone }
-      ]
-    }
-    return panel
   }
 
-  _getHost() {
-    const hosts = [
-      process.env.DATA_ASSET_CDN_HOST,
-      process.env.DATA_ASSET_HOST
-    ]
-    return hosts.reduce((found, host) => {
-      if(found) return found
-      return !_.isEmpty(host) ? host : null
-    }, null) || ''
+  _handleBack() {
+    this.props.onBack()
   }
 
   _handleBrowse() {
-    this.context.uploader.browse(this._handleFile)
+    this.context.uploader.browse()
   }
 
-  _handleFile(asset) {
-    const { onAddFile } = this.props
-    onAddFile({
-      id: asset.id,
-      name: asset.original_file_name,
-      service: 'device',
-      content_type: asset.content_type,
-      thumbnail: asset.content_type.match(/image/) ? asset.signed_url : null,
-      asset
-    })
+  _handleNext() {
+    this.props.onNext()
   }
-
 
 }
 
-export default Device
+const mapStateToProps = (state, props) => ({
+  files: state.maha.attachments.files
+})
+
+export default connect(mapStateToProps)(Device)

@@ -1,9 +1,10 @@
 import { connect } from 'react-redux'
-import Stack from '../stack'
+import Importing from './importing'
 import PropTypes from 'prop-types'
+import Uploader from './uploader'
 import Explorer from './explorer'
 import Loader from '../loader'
-import Importing from './importing'
+import Stack from '../stack'
 import React from 'react'
 import _ from 'lodash'
 
@@ -63,7 +64,13 @@ class Attachments extends React.Component {
     const { status } = this.props
     if(status === 'loading') return <Loader />
     if(status !== 'loaded') return null
-    return <Stack { ...this._getStack() } />
+    return (
+      <Uploader { ... this._getUploader() }>
+        <Stack { ...this._getStack() } />
+      </Uploader>
+    )
+
+
   }
 
   componentDidMount() {
@@ -118,10 +125,20 @@ class Attachments extends React.Component {
     }
   }
 
+  _getUploader() {
+    const { allow, multiple } = this.props
+    return {
+      allow,
+      multiple,
+      onAdd: this._handleAdd
+    }
+  }
+
   _handleAdd(file) {
-    const { files } = this.props
+    const { multiple, files } = this.props
     const index = _.findIndex(files, { id: file.id, service: file.service })
     if(index >= 0) return
+    if(!multiple) this.props.onRemove(0)
     this.props.onAdd(file)
   }
 

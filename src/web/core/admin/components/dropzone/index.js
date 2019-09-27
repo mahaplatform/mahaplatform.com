@@ -12,6 +12,7 @@ class DropZone extends React.Component {
 
   static propTypes = {
     children: PropTypes.any,
+    token: PropTypes.string,
     user: PropTypes.object,
     onAdd: PropTypes.func,
     onUpdate: PropTypes.func
@@ -47,13 +48,13 @@ class DropZone extends React.Component {
   }
 
   componentDidMount() {
-    const { team } = this.props
+    const { token } = this.props
     this.resumable = new Resumable({
       target: '/api/admin/assets/upload',
       chunkSize: 1024 * 128,
       permanentErrors: [204, 400, 404, 409, 415, 500, 501],
       headers: {
-        'Authorization': `Bearer ${team.token}`
+        'Authorization': `Bearer ${token}`
       }
     })
     this.resumable.on('fileAdded', this._handleAdd)
@@ -149,7 +150,7 @@ class DropZone extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  team: state.maha.admin.team
+  token: state.maha.admin.team.token
 })
 
 export default connect(mapStateToProps)(DropZone)
