@@ -16,7 +16,6 @@ class ImageEditor extends React.PureComponent {
 
   static propTypes = {
     asset: PropTypes.object,
-    asset_id: PropTypes.number,
     cropping: PropTypes.bool,
     defaultValue: PropTypes.object,
     height: PropTypes.number,
@@ -67,16 +66,13 @@ class ImageEditor extends React.PureComponent {
     const ratio = _.get(defaultValue, 'crop.ra')
     if(defaultValue) this._handleSet(defaultValue)
     if(ratio) this.props.onSetRatio(ratio)
-    this._handleFetch()
+    this._handleMeasure()
   }
 
   componentDidUpdate(prevProps) {
-    const { asset, transforms } = this.props
+    const { transforms } = this.props
     if(!_.isEqual(transforms, prevProps.transforms)) {
       this.props.onChange(transforms)
-    }
-    if(!_.isEqual(asset, prevProps.asset)) {
-      this._handleMeasure()
     }
   }
 
@@ -115,8 +111,9 @@ class ImageEditor extends React.PureComponent {
   }
 
   _getSidebar() {
-    const { onAdjust, onCrop, onSetRatio } = this.props
+    const { asset, onAdjust, onCrop, onSetRatio } = this.props
     return {
+      asset,
       onAdjust,
       onCrop,
       onSetRatio

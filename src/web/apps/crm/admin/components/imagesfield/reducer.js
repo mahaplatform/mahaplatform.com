@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
-  images: []
+  images: [],
+  status: 'pending'
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -15,10 +16,24 @@ const reducer = (state = INITIAL_STATE, action) => {
       ]
     }
 
-  case 'SET':
+  case 'FETCH_REQUEST':
     return {
       ...state,
-      images: action.images
+      status: 'loading'
+    }
+
+  case 'FETCH_SUCCESS':
+    return {
+      ...state,
+      status: 'ready',
+      images: [
+        ...state.images.map(image => ({
+          ...image,
+          asset: action.result.data.find(asset => {
+            return asset.id === image.asset.id
+          })
+        }))
+      ]
     }
 
   case 'REMOVE':
@@ -29,6 +44,13 @@ const reducer = (state = INITIAL_STATE, action) => {
           return index !== action.index
         })
       ]
+    }
+
+  case 'SET':
+    return {
+      ...state,
+      images: action.images,
+      status: action.images.length > 0 ? 'initialized' : 'ready'
     }
 
   case 'UPDATE':

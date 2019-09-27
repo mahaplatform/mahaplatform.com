@@ -1,11 +1,11 @@
-import { Factory } from 'redux-rubberstamp'
+import { Singleton } from 'redux-rubberstamp'
 import reducer from './reducer'
 import Imagesfield from './imagesfield'
 import * as selectors from './selectors'
 import * as actions from './actions'
 
-export default Factory({
-  namespace: 'crm.designer.imagesfield',
+export default Singleton({
+  namespace: 'crm.imagesfield',
   component: Imagesfield,
   reducer,
   selectors,

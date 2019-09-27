@@ -1,4 +1,4 @@
-import { Attachments, Button, ImageEditor } from 'maha-admin'
+import { Attachments, Button, ImageEditor, Loader } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -10,8 +10,10 @@ class Imagesfield extends React.PureComponent {
   static propTypes = {
     defaultValue: PropTypes.array,
     images: PropTypes.array,
+    status: PropTypes.string,
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
+    onFetch: PropTypes.func,
     onReady: PropTypes.func,
     onRemove: PropTypes.func,
     onSet: PropTypes.func,
@@ -24,18 +26,22 @@ class Imagesfield extends React.PureComponent {
   }
 
   _handleAdd = this._handleAdd.bind(this)
+  _handleChange = this._handleChange.bind(this)
+  _handleSet = this._handleSet.bind(this)
+  _handleFetch = this._handleFetch.bind(this)
 
   render() {
-    const { images } = this.props
+    const { images, status } = this.props
+    if(status !== 'ready') return null
     return (
       <div className="imagesfield">
         { images.map((image, index) => (
           <div className="imagesfield-image" key={`image_${index}`}>
             <div className="imagesfield-image-image">
-              <img src="http://localhost:8080/imagecache/fit=cover&w=50&h=50/assets/8117/fairfax-bridge-crop-0.jpg" />
+              <img src={`/imagecache/fit=cover&w=50&h=50/${image.asset.path}`} />
             </div>
             <div className="imagesfield-image-details">
-              narrow-bridge.jpg<br />
+              { image.asset.original_file_name }<br />
               <Button { ...this._getEdit(image, index) } /> | <Button { ...this._getRemove(index) } />
             </div>
           </div>
@@ -46,15 +52,23 @@ class Imagesfield extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { defaultValue, onSet } = this.props
-    if(defaultValue) onSet(defaultValue)
-    this.props.onReady()
+    const { defaultValue } = this.props
+    const images = defaultValue || []
+    this._handleSet(images)
   }
 
   componentDidUpdate(prevProps) {
-    const { images } = this.props
+    const { images, status } = this.props
+    if(status !== prevProps.status) {
+      if(status === 'initialized') {
+        this._handleFetch()
+      }
+      if(status === 'ready') {
+        this.props.onReady()
+      }
+    }
     if(!_.isEqual(images, prevProps.images)) {
-      this.props.onChange(images)
+      this._handleChange()
     }
   }
 
@@ -83,8 +97,9 @@ class Imagesfield extends React.PureComponent {
   }
 
   _getImage(image, index) {
+    console.log(image)
     return {
-      asset_id: image.asset_id,
+      asset: image.asset,
       defaultValue: image.transforms,
       onChange: this._handleUpdate.bind(this, index)
     }
@@ -100,13 +115,41 @@ class Imagesfield extends React.PureComponent {
 
   _handleAdd(assets) {
     this.props.onAdd(assets.map(asset => ({
-      asset_id: asset.id,
+      asset,
       transforms: {}
     })))
   }
 
+  _handleChange() {
+    const { images } = this.props
+    this.props.onChange(images.map(image => ({
+      asset: {
+        id: image.asset.id,
+        path: image.asset.path
+      },
+      transforms: image.transforms
+    })))
+  }
+
+  _handleFetch() {
+    const { images } = this.props
+    this.props.onFetch(images.map(image => {
+      return image.asset.id
+    }))
+  }
+
   _handleRemove(index) {
     this.props.onRemove(index)
+  }
+
+  _handleSet(images) {
+    const { onSet } = this.props
+    return onSet(images.map(image => ({
+      asset: {
+        id: image.asset_id
+      },
+      transforms: image.transforms
+    })))
   }
 
   _handleUpdate(index, transforms) {

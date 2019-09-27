@@ -1,8 +1,8 @@
 import { columns, font_size, letter_spacing, line_heights, fonts } from '../variables'
+import ImagesField from '../../imagesfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
-import ImagesField from '../imagesfield'
 
 class Images extends React.Component {
 

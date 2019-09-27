@@ -6,6 +6,7 @@ import React from 'react'
 class Adjustment extends React.PureComponent {
 
   static propTypes = {
+    asset: PropTypes.object,
     transforms: PropTypes.object,
     onAdjust: PropTypes.func,
     onBack: PropTypes.func

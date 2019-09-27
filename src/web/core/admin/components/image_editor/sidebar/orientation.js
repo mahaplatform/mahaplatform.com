@@ -7,6 +7,7 @@ import _ from 'lodash'
 class Orientation extends React.PureComponent {
 
   static propTypes = {
+    asset: PropTypes.object,
     transforms: PropTypes.object,
     onAdjust: PropTypes.func,
     onBack: PropTypes.func

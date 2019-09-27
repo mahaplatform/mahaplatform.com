@@ -11,6 +11,11 @@ const campaigns = {
     title: 'Interactive SMS',
     description: 'Create an interactive text message workflow'
   },
+  facebook: {
+    icon: 'facebook',
+    title: 'Facebook Post',
+    description: 'Create and post a facebook post'
+  },
   voice: {
     icon: 'phone',
     title: 'Interactive Voice',
@@ -19,7 +24,7 @@ const campaigns = {
   mail: {
     icon: 'file-o',
     title: 'Postal Mailing',
-    description: 'Personalized documents to send via postal mail'
+    description: 'Personalize documents to send via postal mail'
   }
 }
 

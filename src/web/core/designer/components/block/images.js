@@ -55,7 +55,7 @@ class Images extends React.Component {
     }, [])
   }
 
-  _getUrl({ asset_id, transforms }) {
+  _getUrl({ asset, transforms }) {
     const args = transforms ? Object.keys(transforms).reduce((args, key) => {
       if(key === 'crop') {
         const crop = transforms[key]
@@ -76,7 +76,7 @@ class Images extends React.Component {
       }
     }, {}) : {}
     const querystring = Object.keys(args).length > 0 ? `/${qs.stringify(args)}` : ''
-    return `/caman${querystring}/assets/8117/fairfax-bridge-crop-0.jpg`
+    return `/caman${querystring}${asset.path}`
   }
 
 }

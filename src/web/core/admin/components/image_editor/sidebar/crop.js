@@ -28,6 +28,7 @@ const portrait = [
 class Crop extends React.PureComponent {
 
   static propTypes = {
+    asset: PropTypes.object,
     height: PropTypes.number,
     ratio: PropTypes.number,
     transforms: PropTypes.object,

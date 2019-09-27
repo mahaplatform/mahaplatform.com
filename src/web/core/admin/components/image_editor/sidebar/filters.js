@@ -102,7 +102,6 @@ class Filters extends React.PureComponent {
 }
 
 const mapStateToProps = (state, props) => ({
-  asset: state.maha.image_editor.asset,
   transforms: state.maha.image_editor.transforms
 })
 

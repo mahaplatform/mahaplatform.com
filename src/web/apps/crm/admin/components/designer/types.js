@@ -25,7 +25,7 @@ export const types = [
       background_color: null
     }
   }, {
-    label: 'Images Block',
+    label: 'Image Block',
     type: 'images',
     icon: 'picture-o',
     config: {

@@ -6,6 +6,7 @@ import React from 'react'
 class Sidebar extends React.PureComponent {
 
   static propTypes = {
+    asset: PropTypes.object,
     onAdjust: PropTypes.func,
     onCrop: PropTypes.func,
     onSetRatio: PropTypes.func
@@ -39,8 +40,9 @@ class Sidebar extends React.PureComponent {
   }
 
   _getTools() {
-    const { onAdjust, onCrop, onSetRatio } = this.props
+    const { asset, onAdjust, onCrop, onSetRatio } = this.props
     return {
+      asset,
       onAdjust,
       onPop: this._handlePop,
       onPush: this._handlePush,

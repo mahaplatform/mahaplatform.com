@@ -1,5 +1,4 @@
 const INITIAL_STATE = {
-  asset: null,
   cropping: false,
   height: null,
   ratio: null,
@@ -11,25 +10,6 @@ const INITIAL_STATE = {
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
-
-  case 'FETCH_REQUEST':
-    return {
-      ...state,
-      status: 'loading'
-    }
-
-  case 'FETCH_FAILURE':
-    return {
-      ...state,
-      status: 'failed'
-    }
-
-  case 'FETCH_SUCCESS':
-    return {
-      ...state,
-      status: 'loaded',
-      asset: action.result.data
-    }
 
   case 'SAVE_REQUEST':
     return {
