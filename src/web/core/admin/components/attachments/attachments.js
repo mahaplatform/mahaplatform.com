@@ -25,6 +25,7 @@ class Attachments extends React.Component {
     multiple: PropTypes.bool,
     processed: PropTypes.bool,
     prompt: PropTypes.string,
+    retry: PropTypes.string,
     sources: PropTypes.array,
     status: PropTypes.string,
     onAdd: PropTypes.func,

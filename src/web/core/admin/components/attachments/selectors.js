@@ -21,10 +21,16 @@ export const counts = createSelector(
   }), {})
 )
 
-
 export const processed = createSelector(
   files,
   (files) => files.find((file) => {
     return file.asset === undefined
   }) === undefined
+)
+
+export const retry = createSelector(
+  files,
+  (files) => files.find((file) => {
+    return file.status === 'failed'
+  }) !== undefined
 )

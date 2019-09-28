@@ -29,8 +29,10 @@ class Uploader extends React.Component {
 
   _handleAdd = this._handleAdd.bind(this)
   _handleBrowse = this._handleBrowse.bind(this)
+  _handleFailure = this._handleFailure.bind(this)
   _handleProcessed = this._handleProcessed.bind(this)
   _handleProgress = this._handleProgress.bind(this)
+  _handleRetry = this._handleRetry.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
   _handleUpload = this._handleUpload.bind(this)
 
@@ -54,6 +56,7 @@ class Uploader extends React.Component {
       }
     })
     this.resumable.on('fileAdded', this._handleAdd)
+    this.resumable.on('fileError', this._handleFailure)
     this.resumable.on('fileProgress', this._handleProgress)
     this.resumable.on('fileSuccess', this._handleSuccess)
     this.resumable.assignBrowse(this.browse)
@@ -71,6 +74,7 @@ class Uploader extends React.Component {
     return {
       uploader: {
         browse: this._handleBrowse,
+        retry: this._handleRetry,
         upload:this._handleUpload
       }
     }
@@ -102,6 +106,13 @@ class Uploader extends React.Component {
 
   _handleBrowse() {
     setTimeout(() => this.browse.click(), 250)
+  }
+
+  _handleFailure(file) {
+    const index = this._getFileIndex(file)
+    this.props.onUpdate(index, {
+      status: 'failed'
+    })
   }
 
   _handleLoad(file, e) {
@@ -170,6 +181,11 @@ class Uploader extends React.Component {
         { target: `/admin/assets/${asset.id}`, action: 'refresh', handler: this._handleProcessed }
       ])
     }
+  }
+
+  _handleRetry(id) {
+    const file = this.resumable.getFromUniqueIdentifier(id)
+    file.retry()
   }
 
   _handleUpload() {

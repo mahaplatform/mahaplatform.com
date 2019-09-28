@@ -1,8 +1,9 @@
+import { processed, retry } from '../selectors'
 import ModalPanel from '../../modal_panel'
-import { processed } from '../selectors'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Multiple from './multiple'
+import Button from '../../button'
 import Single from './single'
 import React from 'react'
 
@@ -16,6 +17,7 @@ class Review extends React.Component {
     files: PropTypes.array,
     multiple: PropTypes.bool,
     processed: PropTypes.bool,
+    retry: PropTypes.bool,
     onBack: PropTypes.func,
     onCreate: PropTypes.func,
     onDone: PropTypes.func
@@ -23,23 +25,31 @@ class Review extends React.Component {
 
   _handleBack = this._handleBack.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleRetry = this._handleRetry.bind(this)
 
   render() {
-    const { multiple } = this.props
+    const { multiple, retry } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
+        { retry &&
+          <div className="maha-attachments-retry">
+            <i className="fa fa-exclamation-triangle" /> One or more of your file imports failed! <Button { ...this._getRetry() } />
+          </div>
+        }
         { multiple ? <Multiple /> : <Single /> }
       </ModalPanel>
     )
   }
 
   componentDidMount() {
-    this.props.files.map((file, index) => {
+    const { files, onCreate } = this.props
+    const { uploader } = this.context
+    files.map((file, index) => {
       if(!file.create) return
       const { endpoint, body } = file.create
-      this.props.onCreate(endpoint, body, index)
+      onCreate(endpoint, body, index)
     })
-    this.context.uploader.upload()
+    uploader.upload()
   }
 
   componentDidUpdate(prevProps) {
@@ -55,6 +65,14 @@ class Review extends React.Component {
     }
   }
 
+  _getRetry() {
+    return {
+      label: 'Try again?',
+      className: 'link',
+      handler: this._handleRetry
+    }
+  }
+
   _handleBack() {
     this.props.onBack()
   }
@@ -63,11 +81,23 @@ class Review extends React.Component {
     this.props.onDone()
   }
 
+  _handleRetry() {
+    const { files, onCreate } = this.props
+    const { uploader } = this.context
+    files.map((file, index) => {
+      if(file.status !== 'failed') return
+      if(!file.create) return uploader.retry(file.id)
+      const { endpoint, body } = file.create
+      return onCreate(endpoint, body, index)
+    })
+  }
+
 }
 
 const mapStateToProps = (state, props) => ({
   files: state.maha.attachments.files,
-  processed: processed(state.maha.attachments, props)
+  processed: processed(state.maha.attachments, props),
+  retry: retry(state.maha.attachments, props)
 })
 
 export default connect(mapStateToProps)(Review)

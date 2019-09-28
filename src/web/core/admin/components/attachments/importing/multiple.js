@@ -1,6 +1,6 @@
 import AssetIcon from '../../asset/icon'
-import Message from '../../message'
 import { connect } from 'react-redux'
+import Message from '../../message'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
