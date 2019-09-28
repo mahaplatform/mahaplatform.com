@@ -58,7 +58,7 @@ const reducer = (state = INITIAL_STATE, action) => {
           return {
             ...file,
             asset: action.result.data,
-            status: 'imported'
+            status: 'complete'
           }
         })
       ]
@@ -70,6 +70,20 @@ const reducer = (state = INITIAL_STATE, action) => {
       files: [
         ...state.files,
         action.file
+      ]
+    }
+
+  case 'UPDATE':
+    return {
+      ...state,
+      files: [
+        ...state.files.map((file, index) => {
+          if(index !== action.index) return file
+          return {
+            ...file,
+            ...action.data
+          }
+        })
       ]
     }
 

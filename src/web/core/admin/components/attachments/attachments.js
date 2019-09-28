@@ -1,7 +1,7 @@
+import Uploader from './device/uploader'
 import { connect } from 'react-redux'
 import Importing from './importing'
 import PropTypes from 'prop-types'
-import Uploader from './uploader'
 import Explorer from './explorer'
 import Loader from '../loader'
 import Stack from '../stack'
@@ -33,7 +33,8 @@ class Attachments extends React.Component {
     onCreate: PropTypes.func,
     onFetch: PropTypes.func,
     onDone: PropTypes.func,
-    onRemove: PropTypes.func
+    onRemove: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   static defaultProps = {
@@ -120,11 +121,12 @@ class Attachments extends React.Component {
   }
 
   _getUploader() {
-    const { allow, multiple } = this.props
+    const { allow, multiple, onUpdate } = this.props
     return {
       allow,
       multiple,
-      onAdd: this._handleAdd
+      onAdd: this._handleAdd,
+      onUpdate
     }
   }
 

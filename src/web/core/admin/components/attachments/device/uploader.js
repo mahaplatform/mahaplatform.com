@@ -17,20 +17,22 @@ class Uploader extends React.Component {
   static propTypes = {
     allow: PropTypes.object,
     children: PropTypes.any,
+    files: PropTypes.array,
     multiple: PropTypes.bool,
     token: PropTypes.string,
-    onAdd: PropTypes.func
+    onAdd: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   browse = null
   drop = null
 
   _handleAdd = this._handleAdd.bind(this)
-  _handleAssignBrowse = this._handleAssignBrowse.bind(this)
-  _handleAssignDrop = this._handleAssignDrop.bind(this)
   _handleBrowse = this._handleBrowse.bind(this)
-  _handleProcessSuccess = this._handleProcessSuccess.bind(this)
-  _handleUploadSuccess = this._handleUploadSuccess.bind(this)
+  _handleProcessed = this._handleProcessed.bind(this)
+  _handleProgress = this._handleProgress.bind(this)
+  _handleSuccess = this._handleSuccess.bind(this)
+  _handleUpload = this._handleUpload.bind(this)
 
   render() {
     return (
@@ -52,26 +54,34 @@ class Uploader extends React.Component {
       }
     })
     this.resumable.on('fileAdded', this._handleAdd)
+    this.resumable.on('fileProgress', this._handleProgress)
+    this.resumable.on('fileSuccess', this._handleSuccess)
     this.resumable.assignBrowse(this.browse)
     this.resumable.assignDrop(this.drop)
+  }
+
+  componentDidUpdate(prevProps) {
+    const { files } = this.props
+    if(files.length < prevProps.files.length) {
+      this._handleRemove(prevProps.files)
+    }
   }
 
   getChildContext() {
     return {
       uploader: {
-        assignBrowse: this._handleAssignBrowse,
-        assignDrop: this._handleAssignDrop,
-        browse: this._handleBrowse
+        browse: this._handleBrowse,
+        upload:this._handleUpload
       }
     }
   }
 
-  _handleAssignBrowse(ref) {
-    this.resumable.assignBrowse(ref)
-  }
-
-  _handleAssignDrop(ref) {
-    this.resumable.assignDrop(ref)
+  _getFileIndex(file) {
+    const { files } = this.props
+    return _.findIndex(files, {
+      id: file.uniqueIdentifier,
+      service: 'device'
+    })
   }
 
   _handleAdd(file) {
@@ -111,44 +121,65 @@ class Uploader extends React.Component {
       status: 'pending'
     })
   }
-  
-  _handleUploadSuccess(file, message) {
+
+  _handleProcessed(asset) {
     const { network } = this.context
-    const { onUpdateUpload, onRemoveUpload } = this.props
+    if(asset.status !== 'processed') return
+    const file = _.find(file, { asset: { id: asset.id } })
+    const index = this.findIndex(file)
+    this.props.onUpdate(index, {
+      status: 'imported'
+    })
+    network.leave(`/admin/assets/${asset.id}`)
+    network.unsubscribe([
+      { target: `/admin/assets/${asset.id}`, action: 'refresh', handler: this._handleProcessed }
+    ])
+  }
+
+  _handleProgress(file) {
+    const { files } = this.props
+    const index = this._getFileIndex(file)
+    if(files[index].status === 'uploading') return
+    this.props.onUpdate(index, {
+      status: 'uploading'
+    })
+  }
+
+  _handleRemove(oldFiles) {
+    const { files } = this.props
+    const removed = oldFiles.find(file => {
+      return _.find(files, { id: file.id, service: file.service }) === undefined
+    })
+    if(removed.service !== 'device') return
+    const file = this.resumable.getFromUniqueIdentifier(removed.id)
+    this.resumable.removeFile(file)
+  }
+
+  _handleSuccess(file, message) {
+    const { network } = this.context
     const asset = JSON.parse(message).data
     this.resumable.removeFile(file)
-    onUpdateUpload(file.file.uniqueIdentifier, {
-      asset_id: asset.id,
+    const index = this._getFileIndex(file)
+    this.props.onUpdate(index, {
+      asset,
       status: asset.status === 'assembled' ? 'processing' : 'complete'
     })
     if(asset.status === 'assembled') {
       network.join(`/admin/assets/${asset.id}`)
       network.subscribe([
-        { target: `/admin/assets/${asset.id}`, action: 'refresh', handler: this._handleProcessSuccess }
+        { target: `/admin/assets/${asset.id}`, action: 'refresh', handler: this._handleProcessed }
       ])
-    } else {
-      if(this.handler) this.handler(asset)
-      onRemoveUpload(file)
     }
   }
 
-  _handleProcessSuccess(asset) {
-    const { network } = this.context
-    if(asset.status !== 'processed') return
-    const { uploads, onRemoveUpload, onUpdateUpload } = this.props
-    const file = _.find(uploads, { asset_id: asset.id })
-    onUpdateUpload(file.file.uniqueIdentifier, { status: 'complete' })
-    network.leave(`/admin/assets/${asset.id}`)
-    network.unsubscribe([
-      { target: `/admin/assets/${asset.id}`, action: 'refresh', handler: this._handleProcessSuccess }
-    ])
-    if(this.handler) this.handler(asset)
-    onRemoveUpload(file)
+  _handleUpload() {
+    this.resumable.upload()
   }
 
 }
 
 const mapStateToProps = (state, props) => ({
+  files: state.maha.attachments.files,
   token: state.maha.admin.team.token
 })
 

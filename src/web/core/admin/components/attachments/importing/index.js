@@ -8,6 +8,10 @@ import React from 'react'
 
 class Review extends React.Component {
 
+  static contextTypes = {
+    uploader: PropTypes.object
+  }
+
   static propTypes = {
     files: PropTypes.array,
     multiple: PropTypes.bool,
@@ -31,9 +35,11 @@ class Review extends React.Component {
 
   componentDidMount() {
     this.props.files.map((file, index) => {
+      if(!file.create) return
       const { endpoint, body } = file.create
       this.props.onCreate(endpoint, body, index)
     })
+    this.context.uploader.upload()
   }
 
   componentDidUpdate(prevProps) {

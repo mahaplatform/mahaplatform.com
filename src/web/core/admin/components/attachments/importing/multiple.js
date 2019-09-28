@@ -48,7 +48,7 @@ class Multiple extends React.Component {
       </div>
     )
   }
-  
+
   _getEmpty() {
     return {
       icon: 'file-o',
@@ -59,8 +59,8 @@ class Multiple extends React.Component {
 
   _getIcon(status) {
     if(status === 'pending') return 'clock-o'
-    if(status === 'importing') return 'circle-o-notch fa-spin'
-    if(status === 'imported') return 'check'
+    if(_.includes(['importing','uploading','processing'], status)) return 'circle-o-notch fa-spin'
+    if(status === 'complete') return 'check'
     if(status === 'failed') return 'exclamation-triangle'
   }
 
