@@ -4,7 +4,7 @@ import Adjustment from './adjustment'
 import PropTypes from 'prop-types'
 import Filters from './filters'
 import Crop from './crop'
-// import Text from './text'
+import Text from './text'
 import React from 'react'
 
 const tools = [
@@ -24,14 +24,14 @@ const tools = [
     label: 'Filters',
     icon: 'picture-o',
     component: Filters
+  }, {
+    label: 'Text',
+    icon: 'font',
+    component: Text
   }
 ]
 
-// {
-//   label: 'Text',
-//   icon: 'font',
-//   component: Text
-// }
+
 
 class Tools extends React.Component {
 
