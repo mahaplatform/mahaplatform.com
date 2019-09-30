@@ -2,11 +2,14 @@ import { Router } from 'express'
 import destroy from './destroy'
 import create from './create'
 import update from './update'
+import upload from './upload'
 import show from './show'
 
 const router = new Router({ mergeParams: true })
 
 router.post('/', create)
+
+router.post('/upload', upload)
 
 router.get('/:code', show)
 

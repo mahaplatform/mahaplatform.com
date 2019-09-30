@@ -2,6 +2,7 @@ import { Searchbox, Infinite, Message, Stack } from 'maha-admin'
 import DragLayer from './drag_layer'
 import PropTypes from 'prop-types'
 import specials from '../specials'
+import Uploader from '../uploader'
 import Details from '../details'
 import Folder from './folder'
 import Tasks from '../tasks'
@@ -58,8 +59,10 @@ class Explorer extends React.Component {
         <div className="drive-main">
           <DragLayer />
           <div className="drive-list">
-            { q.length === 0 && <Stack { ...this._getStack() } /> }
-            { q.length > 0 && <Infinite { ...this._getInfinite() } /> }
+            <Uploader>
+              { q.length === 0 && <Stack { ...this._getStack() } /> }
+              { q.length > 0 && <Infinite { ...this._getInfinite() } /> }
+            </Uploader>
           </div>
           <div className="drive-overlay" onClick={ this._handleShowDetails.bind(this, false) } />
           <Details { ...this._getDetails() } />

@@ -83,6 +83,7 @@ import driveexplorer from '../../apps/drive/admin/components/explorer'
 import drivemove from '../../apps/drive/admin/components/move'
 import drivechat from '../../apps/drive/admin/components/share/chat'
 import driveshare from '../../apps/drive/admin/components/share'
+import driveuploader from '../../apps/drive/admin/components/uploader'
 import driveversions from '../../apps/drive/admin/components/versions'
 import expenseslineItems from '../../apps/expenses/admin/components/line_items'
 import expensestripsImportFinalize from '../../apps/expenses/admin/components/trips_import_finalize'
@@ -316,6 +317,7 @@ class App extends React.Component {
       drivemove,
       drivechat,
       driveshare,
+      driveuploader,
       driveversions,
       expenseslineItems,
       expensestripsImportFinalize,
