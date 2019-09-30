@@ -1,6 +1,6 @@
+import { FolderItem, FileItem } from './item'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import Item from './item'
 import React from 'react'
 
 class Items extends React.Component {
@@ -44,9 +44,10 @@ class Items extends React.Component {
           <div className="drive-head-item drive-action" />
           <div className="drive-head-item drive-action" />
         </div>
-        { records.map((item, index) => (
-          <Item key={`item_${item.code}`} { ...this._getItem(item) } />
-        )) }
+        { records.map((item, index) => {
+          if(item.type === 'folder') return <FolderItem { ...this._getItem(item) } />
+          if(item.type === 'file') return <FileItem { ...this._getItem(item) } />
+        })}
       </div>
     )
   }
@@ -58,6 +59,7 @@ class Items extends React.Component {
       folder,
       items: records,
       item,
+      key: `item_${item.code}`,
       preview,
       selected,
       onAddSelected,

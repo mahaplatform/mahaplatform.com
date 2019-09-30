@@ -5,6 +5,8 @@ import Folder from '../../../models/folder'
 
 const _createFolder = async (req, { parent, path }) => {
 
+  console.log(`looking for ${path[0]}`)
+
   const folder = await Folder.scope({
     team: req.team
   }).query(qb => {
@@ -27,22 +29,22 @@ const _createFolder = async (req, { parent, path }) => {
 
 const uploadRoute = async (req, res) => {
 
-  const files = await Promise.mapSeries(req.body.files, async(item) => {
+  const parent = req.body.folder_id ? await Folder.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('id', req.body.folder_id)
+  }).fetch({
+    transacting: req.trx
+  }) : null
 
-    const parent = item.folder_code ? await Folder.scope({
-      team: req.team
-    }).query(qb => {
-      qb.where('code', item.folder_code)
-    }).fetch({
-      transacting: req.trx
-    }) : null
+  const files = await Promise.mapSeries(req.body.files, async(item) => {
 
     const path = item.path.split('/').slice(0,-1)
 
     const folder = path.length > 0 ? await _createFolder(req, {
       parent,
       path
-    }) : parent
+    }) : null
 
     const file = await createFile(req, {
       asset_id: item.asset_id,

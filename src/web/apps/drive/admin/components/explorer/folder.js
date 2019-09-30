@@ -51,7 +51,7 @@ class Folder extends React.Component {
   render() {
     const { folder } = this.props
     return (
-      <div { ...this._getContainer() }>
+      <div className="drive-folder">
         <div className="drive-header">
           <div className="drive-header-breadcrumb" onClick={ this._handleUp }>
             <div className="drive-header-back">
@@ -111,15 +111,6 @@ class Folder extends React.Component {
       prompt: 'Upload File(s)',
       networks: ['device','web','google','dropbox','box','microsoft'],
       onChooseAssets: this._handleCreate
-    }
-  }
-
-  _getContainer() {
-    const special = ['drive','shared','starred','trash']
-    const { folder } = this.props
-    return {
-      className: 'drive-folder',
-      'data-code': _.includes(special, folder.code) ? null : folder.code
     }
   }
 

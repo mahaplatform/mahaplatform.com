@@ -3,11 +3,11 @@ export const add = (file) => ({
   file
 })
 
-export const create = (files) => ({
+export const create = (folder_id, files) => ({
   type: 'API_REQUEST',
   method: 'POST',
   endpoint: '/api/admin/drive/files/upload',
-  body: { files },
+  body: { folder_id, files },
   request: 'CREATE_REQUEST',
   success: 'CREATE_SUCCESS',
   failure: 'CREATE_FAILURE'

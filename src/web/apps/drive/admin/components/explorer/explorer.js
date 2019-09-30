@@ -1,5 +1,5 @@
 import { Searchbox, Infinite, Message, Stack } from 'maha-admin'
-// import DragLayer from './drag_layer'
+import DragLayer from './drag_layer'
 import PropTypes from 'prop-types'
 import specials from '../specials'
 import Uploader from '../uploader'
@@ -49,7 +49,6 @@ class Explorer extends React.Component {
   _handleTasks = this._handleTasks.bind(this)
   _handleTrash = this._handleTrash.bind(this)
 
-  // <DragLayer />
   render() {
     const { q } = this.props
     return (
@@ -58,6 +57,7 @@ class Explorer extends React.Component {
           <Searchbox { ...this._getSearchBox() } />
         </div>
         <div className="drive-main">
+          <DragLayer />
           <div className="drive-list">
             <Uploader>
               { q.length === 0 && <Stack { ...this._getStack() } /> }

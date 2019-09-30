@@ -101,14 +101,6 @@ class Uploader extends React.Component {
     }
   }
 
-  _getFolderCode(container) {
-    const item = container.closest('.drive-item')
-    if(item && item.dataset.type === 'folder') return item.dataset.code
-    const folder = container.closest('.drive-folder')
-    if(folder) return folder.dataset.code
-    return null
-  }
-
   _getFileIndex(file) {
     const { files } = this.props
     return _.findIndex(files, {
@@ -132,7 +124,6 @@ class Uploader extends React.Component {
     if(!file.file.type.match(/image/)) {
       return this.props.onAdd({
         id: file.uniqueIdentifier,
-        folder_code: this._getFolderCode(file.container),
         source_id: 'device',
         name: file.file.name,
         service: 'device',
@@ -152,11 +143,10 @@ class Uploader extends React.Component {
 
   _handleCreate() {
     const files = this.props.files.map(file => ({
-      folder_code: file.folder_code,
       path: file.path,
       asset_id: file.asset.id
     }))
-    this.props.onCreate(files)
+    this.props.onCreate(null, files)
   }
 
   _handleFailure(file) {
@@ -175,7 +165,6 @@ class Uploader extends React.Component {
     const base64 = window.btoa(binary)
     this.props.onAdd({
       id: file.uniqueIdentifier,
-      folder_code: this._getFolderCode(file.container),
       source_id: 'device',
       name: file.file.name,
       service: 'device',
