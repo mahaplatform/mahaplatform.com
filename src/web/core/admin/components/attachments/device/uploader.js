@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
+const ignored = ['.DS_Store','Thumbs.db']
+
 class Uploader extends React.Component {
 
   static childContextTypes = {
@@ -89,6 +91,9 @@ class Uploader extends React.Component {
   }
 
   _handleAdd(file) {
+    if(_.includes(ignored, file.file.name)) {
+      return this.resumable.removeFile(file)
+    }
     if(!file.file.type.match(/image/)) {
       return this.props.onAdd({
         id: file.uniqueIdentifier,
