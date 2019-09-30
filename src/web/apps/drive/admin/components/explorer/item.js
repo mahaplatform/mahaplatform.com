@@ -50,7 +50,7 @@ class Item extends React.Component {
   render() {
     const { connectDropTarget, connectDragSource, item } = this.props
     const view = (
-      <div { ...this._getItem() }>
+      <div { ...this._getItem(item) }>
         <div className="drive-item-meta drive-name">
           <div className="drive-item-token">
             <div className="drive-item-token-icon">
@@ -106,8 +106,10 @@ class Item extends React.Component {
     return emptyImage
   }
 
-  _getItem() {
+  _getItem(item) {
     return {
+      'data-type': item.type,
+      'data-code': item.code,
       className: this._getClass(),
       onContextMenu: this._handleTasks,
       onMouseDown: this._handleMouseDown,
