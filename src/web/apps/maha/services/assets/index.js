@@ -99,9 +99,11 @@ export const assembleAsset = async (req, asset) => {
   const normalizedData = await _getNormalizedData(asset, fileData)
   await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
   await _deleteChunks(asset)
+  const metadata = await _getMetadata(asset.get('content_type'), normalizedData)
   await _saveAsset(req, asset, {
     fingerprint: _getFingerprint(normalizedData),
-    status: asset.get('has_preview') ? 'assembled' : 'processed'
+    status: asset.get('has_preview') ? 'assembled' : 'processed',
+    ...metadata
   })
   if(asset.get('has_preview')) await ProcessAssetQueue.enqueue(req, asset.get('id'))
   await ScanAssetQueue.enqueue(req, asset.id)

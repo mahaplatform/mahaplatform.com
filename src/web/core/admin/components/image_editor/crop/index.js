@@ -146,12 +146,17 @@ class Crop extends React.PureComponent {
   }
 
   _handleChangeRatio() {
-    const { panel, landscape, source } = this.state
+    const { panel, landscape } = this.state
     const { asset } = this.props
+    const { padding } = this
     const ratio = this.props.ratio || asset.metadata.width / asset.metadata.height
+    const padded = {
+      w: panel.w - padding,
+      h: panel.h - padding
+    }
     const frame = {
-      w: landscape ? ratio * source.h : source.w,
-      h: landscape ? source.h : source.w / ratio
+      w: landscape ? padded.w : padded.h * ratio,
+      h: landscape ? padded.w / ratio : padded.h
     }
     frame.x = (panel.w - frame.w) / 2
     frame.y = (panel.h - frame.h) / 2
