@@ -9,6 +9,7 @@ class DnD extends React.Component {
     children: PropTypes.any,
     items: PropTypes.array,
     selected: PropTypes.array,
+    onMove: PropTypes.func,
     onSelect: PropTypes.func
   }
 
@@ -20,6 +21,7 @@ class DnD extends React.Component {
   }
 
   _handleMouseDown = this._handleMouseDown.bind(this)
+  _handleMouseLeave = this._handleMouseLeave.bind(this)
   _handleMouseMove = this._handleMouseMove.bind(this)
   _handleMouseUp = this._handleMouseUp.bind(this)
   _handleMove = _.throttle(this._handleMove.bind(this), 25)
@@ -53,6 +55,7 @@ class DnD extends React.Component {
     return {
       className: 'drive-dnd',
       onMouseDown: this._handleMouseDown,
+      onMouseLeave: this._handleMouseLeave,
       onMouseMove: this._handleMouseMove,
       onMouseUp: this._handleMouseUp
     }
@@ -86,10 +89,19 @@ class DnD extends React.Component {
       y: e.screenY
     }
     this.setState({
-      item: item,
       dragging: draggable !== null,
+      item,
       position: coordinates,
       start: coordinates
+    })
+  }
+
+  _handleMouseLeave(e) {
+    this.setState({
+      dragging: false,
+      item: null,
+      position: null,
+      start: null
     })
   }
 
@@ -107,11 +119,13 @@ class DnD extends React.Component {
 
   _handleMouseUp(e) {
     if(!this.state.start) return
+    const { onMove } = this.props
     const dropable = e.target.closest('.drive-item')
     const item = dropable ? this._getItem(dropable.dataset.code) : null
+    if(item && item.type === 'folder') onMove(item)
     this.setState({
-      item: null,
       dragging: false,
+      item: null,
       position: null,
       start: null
     })

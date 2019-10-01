@@ -25,7 +25,7 @@ class Item extends React.Component {
     onChangeFolder: PropTypes.func,
     onClearSelected: PropTypes.func,
     onCreateFile: PropTypes.func,
-    onMoveItem: PropTypes.func,
+    onMove: PropTypes.func,
     onPreview: PropTypes.func,
     onTasks: PropTypes.func,
     onUpdateFile: PropTypes.func

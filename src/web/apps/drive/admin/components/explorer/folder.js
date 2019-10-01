@@ -22,7 +22,7 @@ class Folder extends React.Component {
     onClearSelected: PropTypes.func,
     onChangeFolder: PropTypes.func,
     onCreateFile: PropTypes.func,
-    onMoveItem: PropTypes.func,
+    onMove: PropTypes.func,
     onDrive: PropTypes.func,
     onPreview: PropTypes.func,
     onReplaceSelected: PropTypes.func,
@@ -173,7 +173,7 @@ class Folder extends React.Component {
     if(folder.code === 'trash') return this._getTrash()
     return this._getFolder(folder)
   }
-  
+
   _getResults() {
     return {
       onClick: this._handlePreview,
@@ -239,14 +239,14 @@ class Folder extends React.Component {
   }
 
   _getItems() {
-    const { folder, onAddSelected, onChangeFolder, onClearSelected, onCreateFile, onMoveItem, onPreview, onReplaceSelected, onTasks, onUpdateFile } = this.props
+    const { folder, onAddSelected, onChangeFolder, onClearSelected, onCreateFile, onMove, onPreview, onReplaceSelected, onTasks, onUpdateFile } = this.props
     return {
       folder,
       onAddSelected,
       onChangeFolder,
       onClearSelected,
       onCreateFile,
-      onMoveItem,
+      onMove,
       onPreview,
       onReplaceSelected,
       onTasks,

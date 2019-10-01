@@ -16,7 +16,7 @@ class Items extends React.Component {
     onClearSelected: PropTypes.func,
     onChangeFolder: PropTypes.func,
     onCreateFile: PropTypes.func,
-    onMoveItem: PropTypes.func,
+    onMove: PropTypes.func,
     onPreview: PropTypes.func,
     onReplaceSelected: PropTypes.func,
     onTasks: PropTypes.func,
@@ -55,16 +55,17 @@ class Items extends React.Component {
   }
 
   _getDnD() {
-    const { records, selected } = this.props
+    const { records, selected, onMove } = this.props
     return {
       items: records,
       selected,
+      onMove,
       onSelect: this._handleSelect
     }
   }
 
   _getItem(item) {
-    const { folder, preview, records, selected, onChangeFolder, onClearSelected, onCreateFile, onMoveItem, onPreview, onTasks, onUpdateFile } = this.props
+    const { folder, preview, records, selected, onChangeFolder, onClearSelected, onCreateFile, onMove, onPreview, onTasks, onUpdateFile } = this.props
     return {
       folder,
       items: records,
@@ -74,7 +75,7 @@ class Items extends React.Component {
       onChangeFolder,
       onClearSelected,
       onCreateFile,
-      onMoveItem,
+      onMove,
       onPreview,
       onSelect: this._handleSelect,
       onTasks,

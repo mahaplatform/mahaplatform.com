@@ -27,7 +27,7 @@ class Explorer extends React.Component {
     onChangeFolder: PropTypes.func,
     onClearSelected: PropTypes.func,
     onCreateFile: PropTypes.func,
-    onMoveItem: PropTypes.func,
+    onMove: PropTypes.func,
     onFetchFolder: PropTypes.func,
     onPreview: PropTypes.func,
     onReplaceSelected: PropTypes.func,
@@ -40,7 +40,7 @@ class Explorer extends React.Component {
 
   _handleChangeFolder = this._handleChangeFolder.bind(this)
   _handleDrive = this._handleDrive.bind(this)
-  _handleMoveItem = this._handleMoveItem.bind(this)
+  _handleMove = this._handleMove.bind(this)
   _handleShared = this._handleShared.bind(this)
   _handleStarred = this._handleStarred.bind(this)
   _handleTasks = this._handleTasks.bind(this)
@@ -128,7 +128,7 @@ class Explorer extends React.Component {
   }
 
   _getItems() {
-    const { onAddSelected, onClearSelected, onCreateFile, onMoveItem, onReplaceSelected, onPreview, onTasks, onUpdateFile } = this.props
+    const { onAddSelected, onClearSelected, onCreateFile, onMove, onReplaceSelected, onPreview, onTasks, onUpdateFile } = this.props
     return {
       folder: {
         code: 'search'
@@ -136,7 +136,7 @@ class Explorer extends React.Component {
       onAddSelected,
       onClearSelected,
       onCreateFile,
-      onMoveItem,
+      onMove,
       onPreview,
       onReplaceSelected,
       onTasks,
@@ -169,7 +169,7 @@ class Explorer extends React.Component {
       onShowDetails,
       onChangeFolder: this._handleChangeFolder,
       onDrive: this._handleDrive,
-      onMoveItem: this._handleMoveItem,
+      onMove: this._handleMove,
       onShared: this._handleShared,
       onStarred: this._handleStarred,
       onTasks: this._handleTasks,
@@ -222,7 +222,7 @@ class Explorer extends React.Component {
     this.props.onFetchFolder(code)
   }
 
-  _handleMoveItem(target) {
+  _handleMove(target) {
     const { selected } = this.props
     const { alert, confirm } = this.context
     const codes = selected.map(item => item.code)
@@ -231,7 +231,7 @@ class Explorer extends React.Component {
     if(target.access_type === 'view') return alert.open('You do not have permission to move files to this folder')
     const message = <span>Are you sure you want to move these {selected.length} files to the folder <strong>{target.label}</strong>?</span>
     confirm.open(message, () => {
-      this.props.onMoveItem(codes, target.item_id)
+      this.props.onMove(codes, target.item_id)
     })
   }
 

@@ -27,7 +27,7 @@ export const updateFile = (code, asset_id) => ({
   failure: 'UPDATE_FILE_FAILURE'
 })
 
-export const moveItem = (codes, folder_id) => ({
+export const move = (codes, folder_id) => ({
   type: 'API_REQUEST',
   method: 'PATCH',
   endpoint: '/api/admin/drive/items/move',
