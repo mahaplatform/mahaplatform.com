@@ -19,11 +19,9 @@ class Folder extends React.Component {
     folder: PropTypes.object,
     records: PropTypes.array,
     onAddSelected: PropTypes.func,
-    onBeginDrag: PropTypes.func,
     onClearSelected: PropTypes.func,
     onChangeFolder: PropTypes.func,
     onCreateFile: PropTypes.func,
-    onEndDrag: PropTypes.func,
     onMoveItem: PropTypes.func,
     onDrive: PropTypes.func,
     onPreview: PropTypes.func,
@@ -168,6 +166,14 @@ class Folder extends React.Component {
     }
   }
 
+  _getInfinite() {
+    const { folder } = this.props
+    if(folder.code === 'shared') return this._getShared()
+    if(folder.code === 'starred') return this._getStarred()
+    if(folder.code === 'trash') return this._getTrash()
+    return this._getFolder(folder)
+  }
+  
   _getResults() {
     return {
       onClick: this._handlePreview,
@@ -183,14 +189,6 @@ class Folder extends React.Component {
       onStarred,
       onTrash
     }
-  }
-
-  _getInfinite() {
-    const { folder } = this.props
-    if(folder.code === 'shared') return this._getShared()
-    if(folder.code === 'starred') return this._getStarred()
-    if(folder.code === 'trash') return this._getTrash()
-    return this._getFolder(folder)
   }
 
   _getShared() {
@@ -241,15 +239,13 @@ class Folder extends React.Component {
   }
 
   _getItems() {
-    const { folder, onAddSelected, onBeginDrag, onChangeFolder, onClearSelected, onCreateFile, onEndDrag, onMoveItem, onPreview, onReplaceSelected, onTasks, onUpdateFile } = this.props
+    const { folder, onAddSelected, onChangeFolder, onClearSelected, onCreateFile, onMoveItem, onPreview, onReplaceSelected, onTasks, onUpdateFile } = this.props
     return {
       folder,
       onAddSelected,
-      onBeginDrag,
       onChangeFolder,
       onClearSelected,
       onCreateFile,
-      onEndDrag,
       onMoveItem,
       onPreview,
       onReplaceSelected,

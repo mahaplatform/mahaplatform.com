@@ -6,6 +6,16 @@
   background-color: @white;
   position: relative;
 }
+.drive-dnd {
+  display: flex;
+  flex: 1;
+  min-height: 100%;
+}
+.drive-dnd-bounding-box {
+  border: 1px solid fadeout(@blue, 20);
+  background-color: fadeout(@blue, 90);
+  position: absolute;
+}
 .drive-drag-layer {
   background-color: lighten(@blue, 40);
   border: 1px solid lighten(@black, 95);

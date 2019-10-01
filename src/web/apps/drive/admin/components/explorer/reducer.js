@@ -2,7 +2,6 @@ import specials from '../specials'
 import _ from 'lodash'
 
 export const INITIAL_STATE = {
-  dragging: false,
   details: false,
   folders: [ specials.root ],
   q: '',
@@ -13,20 +12,6 @@ export const INITIAL_STATE = {
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
-
-  case 'BEGIN_DRAG':
-    return {
-      ...state,
-      dragging: true
-
-    }
-
-  case 'END_DRAG':
-    return {
-      ...state,
-      dragging: false
-
-    }
 
   case 'CHANGE_FOLDER':
     return {

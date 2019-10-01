@@ -78,11 +78,3 @@ export const showDetails = (show) => ({
   type: 'SHOW_DETAILS',
   show
 })
-
-export const beginDrag = () => ({
-  type: 'BEGIN_DRAG'
-})
-
-export const endDrag = () => ({
-  type: 'END_DRAG'
-})

@@ -1,27 +1,23 @@
 import { AssetThumbnail } from 'maha-admin'
-import { DragLayer } from 'react-dnd'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class CustomDragLayer extends React.Component {
+class DragLayer extends React.Component {
 
   static propTypes = {
-    clientOffset: PropTypes.object,
-    isDragging: PropTypes.bool,
     item: PropTypes.object,
-    itemType: PropTypes.string,
+    position: PropTypes.object,
     selected: PropTypes.array
   }
 
   render() {
-    const { isDragging, item } = this.props
-    if(!isDragging) return null
+    const { item, selected } = this.props
     return (
       <div className="drive-drag-layer" style={ this._getStyle() }>
         <div className="drive-drag-layer-inner">
-          { item.selected && item.selected.length > 1 &&
+          { selected && selected.length > 1 &&
             <div className="drive-drag-layer-count">
-              { item.selected.length }
+              { selected.length }
             </div>
           }
           <div className="drive-drag-layer-thumbnail">
@@ -37,10 +33,10 @@ class CustomDragLayer extends React.Component {
   }
 
   _getStyle() {
-    const { clientOffset } = this.props
-    if(!clientOffset) return {}
-    const x = clientOffset.x - 50
-    const y = clientOffset.y - 90
+    const { position } = this.props
+    if(!position) return {}
+    const x = position.x - 50
+    const y = position.y - 90
     const transform = `translate(${x}px, ${y}px)`
     return {
       transform,
@@ -50,11 +46,4 @@ class CustomDragLayer extends React.Component {
 
 }
 
-const collect = (monitor) => ({
-  clientOffset: monitor.getClientOffset(),
-  isDragging: monitor.isDragging(),
-  item: monitor.getItem(),
-  itemType: monitor.getItemType()
-})
-
-export default DragLayer(collect)(CustomDragLayer)
+export default DragLayer

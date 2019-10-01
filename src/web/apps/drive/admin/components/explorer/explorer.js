@@ -1,5 +1,4 @@
 import { Searchbox, Infinite, Message, Stack } from 'maha-admin'
-import DragLayer from './drag_layer'
 import PropTypes from 'prop-types'
 import specials from '../specials'
 import Uploader from '../uploader'
@@ -25,11 +24,9 @@ class Explorer extends React.Component {
     q: PropTypes.string,
     selected: PropTypes.array,
     onAddSelected: PropTypes.func,
-    onBeginDrag: PropTypes.func,
     onChangeFolder: PropTypes.func,
     onClearSelected: PropTypes.func,
     onCreateFile: PropTypes.func,
-    onEndDrag: PropTypes.func,
     onMoveItem: PropTypes.func,
     onFetchFolder: PropTypes.func,
     onPreview: PropTypes.func,
@@ -57,7 +54,6 @@ class Explorer extends React.Component {
           <Searchbox { ...this._getSearchBox() } />
         </div>
         <div className="drive-main">
-          <DragLayer />
           <div className="drive-list">
             <Uploader>
               { q.length === 0 && <Stack { ...this._getStack() } /> }
@@ -132,16 +128,14 @@ class Explorer extends React.Component {
   }
 
   _getItems() {
-    const { onAddSelected, onBeginDrag, onClearSelected, onCreateFile, onEndDrag, onMoveItem, onReplaceSelected, onPreview, onTasks, onUpdateFile } = this.props
+    const { onAddSelected, onClearSelected, onCreateFile, onMoveItem, onReplaceSelected, onPreview, onTasks, onUpdateFile } = this.props
     return {
       folder: {
         code: 'search'
       },
       onAddSelected,
-      onBeginDrag,
       onClearSelected,
       onCreateFile,
-      onEndDrag,
       onMoveItem,
       onPreview,
       onReplaceSelected,
@@ -162,14 +156,12 @@ class Explorer extends React.Component {
   }
 
   _getFolder(folder) {
-    const { onAddSelected, onBeginDrag, onClearSelected, onCreateFile, onEndDrag, onPreview, onReplaceSelected, onUpdateFile, onUp, onShowDetails } = this.props
+    const { onAddSelected, onClearSelected, onCreateFile, onPreview, onReplaceSelected, onUpdateFile, onUp, onShowDetails } = this.props
     return {
       folder,
       onAddSelected,
-      onBeginDrag,
       onClearSelected,
       onCreateFile,
-      onEndDrag,
       onPreview,
       onReplaceSelected,
       onUpdateFile,
