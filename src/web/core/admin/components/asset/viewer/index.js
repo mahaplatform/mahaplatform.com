@@ -108,7 +108,7 @@ class AssetViewer extends React.Component {
 
   _getType() {
     const { content_type } = this.props.asset
-    if(content_type.match(/image/)) return 'image'
+    if(content_type.match(/(jpeg|jpg|gif|png)/)) return 'image'
     if(content_type.match(/audio/)) return 'audio'
     if(content_type.match(/video/)) return 'video'
     if(content_type.match(/pdf/)) return 'pdf'

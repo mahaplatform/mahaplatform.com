@@ -17,7 +17,7 @@ class GalleryList extends React.Component {
     return (
       <div className="maha-gallery-list">
         { attachments.filter(attachment => {
-          return attachment.asset.content_type.match(/image/) !== null
+          return attachment.asset.content_type.match(/(jpeg|jpg|gif|png)/) !== null
         }).map(attachment => (
           <div className="maha-gallery-list-item" key={`gallery_list_item_${attachment.id}`} onClick={ this._handleClick.bind(this, attachment.asset) }>
             <div className="maha-gallery-list-item-photo">

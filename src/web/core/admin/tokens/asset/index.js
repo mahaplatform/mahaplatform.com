@@ -90,7 +90,7 @@ class AssetToken extends React.Component {
 
   _getPrint() {
     const { id, content_type, signed_url, token } = this.props
-    if(content_type.match(/image/) !== null) {
+    if(content_type.match(/(jpeg|jpg|gif|png)/) !== null) {
       return {
         printable: signed_url,
         type: 'image'

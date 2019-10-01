@@ -28,7 +28,7 @@ const listRoute = async (req, profile) => {
     id: entry.id,
     name: entry.name,
     type: entry.mimeType.match(/folder/) ? 'folder' : 'file',
-    thumbnail: entry.mimeType.match(/image/) ? entry.thumbnailLink : null,
+    thumbnail: entry.mimeType.match(/(jpeg|jpg|gif|png)/) ? entry.thumbnailLink : null,
     content_type: entry.mimeType
   }))
 

@@ -42,7 +42,7 @@ class Web extends React.Component {
               <Message { ...this._getIntro() } />
             }
             { status == 'previewing' && <Loader { ...this._getPreviewing() } /> }
-            { status === 'previewed' && response['content-type'].match(/image/) &&
+            { status === 'previewed' && response['content-type'].match(/(jpeg|jpg|gif|png)/) &&
               <div className="maha-attachments-web-preview">
                 <div className="maha-attachments-web-preview-body">
                   <img src={ url } />
@@ -52,7 +52,7 @@ class Web extends React.Component {
                 </div>
               </div>
             }
-            { status === 'previewed' && !response['content-type'].match(/image/) &&
+            { status === 'previewed' && !response['content-type'].match(/(jpeg|jpg|gif|png)/) &&
               <Message { ...this._getPreview() } />
             }
           </div>
@@ -125,7 +125,7 @@ class Web extends React.Component {
 
   _getIcon() {
     const content_type = this.props.response['content-type']
-    if(content_type.match(/image/)) return 'picture-o'
+    if(content_type.match(/(jpeg|jpg|gif|png)/)) return 'picture-o'
     if(content_type.match(/audio/)) return 'volume-up'
     if(content_type.match(/video/)) return 'play-circle'
     if(content_type.match(/pdf/)) return 'file-pdf-o'

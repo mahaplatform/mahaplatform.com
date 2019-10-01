@@ -8,8 +8,8 @@ const multipleSelector = (state, props) => props.multiple
 export const files = createSelector(
   filesSelector,
   (files) => files.sort((fileA, fileB) => {
-    const aIsImage = (fileA.contentType || fileA.asset.content_type).match(/image/) !== null
-    const bIsImage = (fileB.contentType || fileB.asset.content_type).match(/image/) !== null
+    const aIsImage = (fileA.contentType || fileA.asset.content_type).match(/(jpeg|jpg|gif|png)/) !== null
+    const bIsImage = (fileB.contentType || fileB.asset.content_type).match(/(jpeg|jpg|gif|png)/) !== null
     if (aIsImage && !bIsImage) return -1
     if (bIsImage && !aIsImage) return 1
     return 0

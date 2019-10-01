@@ -73,7 +73,7 @@ const listRoute = async (req, profile) => {
       id: entry.id,
       type: entry['.tag'],
       name: entry.name,
-      thumbnail: content_type.match(/image/) ? `/admin/dropbox/preview?path=${encodeURIComponent(entry.path_lower)}`: null,
+      thumbnail: content_type.match(/(jpeg|jpg|gif|png)/) ? `/admin/dropbox/preview?path=${encodeURIComponent(entry.path_lower)}`: null,
       content_type
     }
 

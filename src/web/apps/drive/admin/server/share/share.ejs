@@ -72,7 +72,7 @@
       <div class="share-body">
         <% if ((asset.content_type.match(/pdf/)) || (asset.content_type.match(/excel/)) || (asset.content_type.match(/spreadsheetml/)) || (asset.content_type.match(/msword/)) || (asset.content_type.match(/wordprocessingml/)) || (asset.content_type.match(/powerpoint/)) || (asset.content_type.match(/presentationml/))) { %>
           <iframe src="https://docs.google.com/gview?url=<%= encodeURI(asset.signed_url) %>&embedded=true"></iframe>
-        <% } else if(asset.content_type.match(/image/)) { %>
+        <% } else if(asset.content_type.match(/(jpeg|jpg|gif|png)/)) { %>
           <img src="<%= asset.signed_url %>" alt="<%= asset.original_file_name %>" />
         <% } else if(asset.content_type.match(/video/)) { %>
           <video width="500" height="350" controls>

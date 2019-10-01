@@ -23,7 +23,7 @@ class AssetThumbnail extends React.Component {
     if(!content_type) return null
     return (
       <div className="maha-asset-thumbnail">
-        { content_type.match(/image/) && file_size > 0 ?
+        { content_type.match(/(jpeg|jpg|gif|png)/) && file_size > 0 ?
           <Image src={ previewSrc } title={ original_file_name } transforms={{ fit: 'cover', h: 50, w: 50 }} /> :
           <AssetIcon content_type={ content_type } />
         }

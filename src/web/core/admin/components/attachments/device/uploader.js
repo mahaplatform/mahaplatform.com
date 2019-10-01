@@ -94,7 +94,7 @@ class Uploader extends React.Component {
     if(_.includes(ignored, file.file.name)) {
       return this.resumable.removeFile(file)
     }
-    if(!file.file.type.match(/image/)) {
+    if(!file.file.type.match(/(jpeg|jpg|gif|png)/)) {
       return this.props.onAdd({
         id: file.uniqueIdentifier,
         source_id: 'device',

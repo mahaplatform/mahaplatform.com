@@ -129,7 +129,7 @@ class Uploader extends React.Component {
     if(_.includes(ignored, file.file.name)) {
       return this.resumable.removeFile(file)
     }
-    if(!file.file.type.match(/image/)) {
+    if(!file.file.type.match(/(jpeg|jpg|gif|png)/)) {
       return this.props.onAdd({
         id: file.uniqueIdentifier,
         folder_code: this._getFolderCode(file.container),
@@ -182,7 +182,8 @@ class Uploader extends React.Component {
       content_type: file.file.type,
       path: file.relativePath,
       thumbnail: `data:${file.file.type};base64,${base64}`,
-      status: 'pending'
+      status: 'pending',
+      progress: 0
     })
   }
 
@@ -202,10 +203,9 @@ class Uploader extends React.Component {
   }
 
   _handleProgress(file) {
-    const { files } = this.props
     const index = this._getFileIndex(file)
-    if(files[index].status === 'uploading') return
     this.props.onUpdate(index, {
+      progress: file.progress(),
       status: 'uploading'
     })
   }

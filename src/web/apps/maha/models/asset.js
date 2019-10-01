@@ -18,7 +18,7 @@ const Assets = new Model({
     },
 
     is_image: function() {
-      return this.get('content_type').match(/image/) !== null
+      return this.get('content_type').match(/(jpeg|jpg|gif|png)/) !== null
     },
 
     has_preview: function() {

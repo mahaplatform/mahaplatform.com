@@ -136,7 +136,7 @@ class Tasks extends React.Component {
   _getPrintable(asset) {
     const { token } = this.props
     const { id, content_type, signed_url } = asset
-    if(content_type.match(/image/) !== null) {
+    if(content_type.match(/(jpeg|jpg|gif|png)/) !== null) {
       return {
         printable: signed_url,
         type: 'image'

@@ -60,7 +60,7 @@ const listRoute = async (req, profile) => {
       id: entry.id,
       type: entry.type,
       name: entry.name,
-      thumbnail: content_type.match(/image/) ? `/admin/box/preview?path=${entry.id}`: null,
+      thumbnail: content_type.match(/(jpeg|jpg|gif|png)/) ? `/admin/box/preview?path=${entry.id}`: null,
       content_type
     }
 

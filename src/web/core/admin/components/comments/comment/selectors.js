@@ -4,7 +4,7 @@ const attachments = (state, props) => props.attachments
 
 const _getType = (attachment) => {
   if(!attachment.asset) return 'files'
-  if(attachment.asset.content_type.match(/image/)) return 'images'
+  if(attachment.asset.content_type.match(/(jpeg|jpg|gif|png)/)) return 'images'
   if(attachment.asset.content_type.match(/video/)) return 'media'
   if(attachment.asset.content_type.match(/audio/)) return 'media'
   return 'files'

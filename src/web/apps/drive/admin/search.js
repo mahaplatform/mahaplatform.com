@@ -1,7 +1,7 @@
 import Item from '../models/item'
 
 const icon = (content_type) => {
-  if(content_type.match(/image/)) return 'picture-o'
+  if(content_type.match(/(jpeg|jpg|gif|png)/)) return 'picture-o'
   if(content_type.match(/audio/)) return 'volume-up'
   if(content_type.match(/video/)) return 'play-circle'
   if(content_type.match(/pdf/)) return 'file-pdf-o'

@@ -86,7 +86,7 @@ class Details extends React.Component {
     const folder = item.folder || specials.drive
     const items = []
     if(asset) {
-      const is_image = asset.content_type.match(/image/)
+      const is_image = asset.content_type.match(/(jpeg|jpg|gif|png)/)
       const previewSrc = is_image ? asset.path : `/assets/${asset.id}/preview.jpg`
       items.push({ component: <Image src={ previewSrc } onClick={ this._handleView } title={ asset.original_file_name } transforms={{ fit: 'cover', h: 200, w: 320 }} />})
     } else {

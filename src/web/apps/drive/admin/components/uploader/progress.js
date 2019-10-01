@@ -1,5 +1,6 @@
 import { AssetIcon, Message } from 'maha-admin'
 import PropTypes from 'prop-types'
+import numeral from 'numeral'
 import React from 'react'
 import _ from 'lodash'
 
@@ -41,7 +42,7 @@ class Progress extends React.Component {
                       { file.name }<br />
                       <span className={ file.status }>
                         <i className={`fa fa-fw fa-${this._getIcon(file.status)}`} />
-                        { _.capitalize(file.status) }
+                        { _.capitalize(file.status) } ({numeral(file.progress).format('0%')})
                       </span>
                     </div>
                   </div>

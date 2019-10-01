@@ -139,6 +139,12 @@ export const deleteForever = async (req, item) => {
       id: item.get('item_id')
     }).delete()
 
+  } else if(item.get('type') === 'metafile') {
+
+    return await req.trx('drive_metafiles').where({
+      id: item.get('item_id')
+    }).delete()
+
   }
 
   const items = await Item.where({

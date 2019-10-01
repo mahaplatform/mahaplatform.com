@@ -142,7 +142,7 @@ class FileField extends React.Component {
   _handleFileAdded(file) {
     const fileReader = new FileReader()
     this.props.onAddFile(file.uniqueIdentifier, file.file.name, file.file.size, file.file.type, file.chunks.length)
-    if(!file.file.type.match(/image/)) return
+    if(!file.file.type.match(/(jpeg|jpg|gif|png)/)) return
     fileReader.readAsDataURL(file.file)
     fileReader.onload = this._handleImagePreview.bind(this, file.file.uniqueIdentifier)
   }

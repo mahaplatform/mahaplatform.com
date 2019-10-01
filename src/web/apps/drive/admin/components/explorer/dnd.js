@@ -32,9 +32,13 @@ class DnD extends React.Component {
       <div { ...this._getDnD() }>
         { this.props.children }
         { dragging && <DragLayer { ...this._getDragLayer() } /> }
-        { start && <div { ...this._getBoundingBox() } /> }
+        { false && start && <div { ...this._getBoundingBox() } /> }
       </div>
     )
+  }
+
+  _getAllowed(item, target) {
+    return target && target.type === 'folder' && item && target.code !== item.code
   }
 
   _getBoundingBox() {
@@ -49,6 +53,12 @@ class DnD extends React.Component {
         height: Math.max(start.y, position.y) - Math.min(start.y, position.y)
       }
     }
+  }
+
+  _getDistance(s, p) {
+    const w = Math.max(s.x, p.x) - Math.min(s.x, p.x)
+    const h = Math.max(s.y, p.y) - Math.min(s.y, p.y)
+    return Math.floor(Math.sqrt(w * w + h * h))
   }
 
   _getDnD() {
@@ -89,7 +99,6 @@ class DnD extends React.Component {
       y: e.screenY
     }
     this.setState({
-      dragging: draggable !== null,
       item,
       position: coordinates,
       start: coordinates
@@ -107,22 +116,29 @@ class DnD extends React.Component {
 
   _handleMouseMove(e) {
     if(!this.state.start) return
+    const dropable = e.target.closest('.drive-item')
     this._handleMove({
       x: e.screenX,
       y: e.screenY
+    },
+    dropable)
+  }
+
+  _handleMove(position, dropable) {
+    const { item, start, dragging } = this.state
+    const distance = this._getDistance(start, position)
+    this.setState({
+      dragging: dragging || (item && distance > 10),
+      position
     })
   }
 
-  _handleMove(position) {
-    this.setState({ position })
-  }
-
   _handleMouseUp(e) {
-    if(!this.state.start) return
-    const { onMove } = this.props
+    const { item, start } = this.state
+    if(!start) return
     const dropable = e.target.closest('.drive-item')
-    const item = dropable ? this._getItem(dropable.dataset.code) : null
-    if(item && item.type === 'folder') onMove(item)
+    const target = dropable ? this._getItem(dropable.dataset.code) : null
+    if(this._getAllowed(item, target)) this.props.onMove(target)
     this.setState({
       dragging: false,
       item: null,

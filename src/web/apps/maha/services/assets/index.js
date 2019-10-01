@@ -229,7 +229,7 @@ const _processAsset = async (req, data, asset) => {
 }
 
 const _saveMetadata = async (req, asset, data) => {
-  if(!asset.get('content_type').match(/image/)) return
+  if(!asset.get('content_type').match(/(jpeg|jpg|gif|png)/)) return
   const metadata = await sharp(data).metadata()
   await _saveAsset(req, asset, {
     metadata: {
@@ -241,7 +241,7 @@ const _saveMetadata = async (req, asset, data) => {
 
 const _getNormalizedData = async (asset, fileData) => {
   const content_type = asset.get('content_type') || ''
-  const isImage = content_type.match(/image/) && content_type !== 'image/gif'
+  const isImage = content_type.match(/(jpeg|jpg|gif|png)/) && content_type !== 'image/gif'
   return isImage ? await _rotateImage(fileData) : fileData
 }
 
