@@ -10,7 +10,6 @@ const AddAssetDimensions = {
       table.string('fingerprint')
       table.integer('width')
       table.integer('height')
-      table.jsonb('metadata')
     })
 
     const url = s3.getSignedUrl('getObject', {

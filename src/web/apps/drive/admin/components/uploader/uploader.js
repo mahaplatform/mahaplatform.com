@@ -138,7 +138,8 @@ class Uploader extends React.Component {
         service: 'device',
         content_type: file.file.type,
         path: file.relativePath,
-        status: 'pending'
+        status: 'pending',
+        progress: 0
       })
     }
     const filereader = new FileReader()

@@ -42,7 +42,10 @@ class Progress extends React.Component {
                       { file.name }<br />
                       <span className={ file.status }>
                         <i className={`fa fa-fw fa-${this._getIcon(file.status)}`} />
-                        { _.capitalize(file.status) } ({numeral(file.progress).format('0%')})
+                        { _.capitalize(file.status) }
+                        { file.status === 'uploading' &&
+                          <span>({ numeral(file.progress).format('0%') })</span>
+                        }
                       </span>
                     </div>
                   </div>

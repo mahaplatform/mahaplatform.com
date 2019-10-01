@@ -2,6 +2,7 @@ import AssetIcon from '../../asset/icon'
 import { connect } from 'react-redux'
 import Message from '../../message'
 import PropTypes from 'prop-types'
+import numeral from 'numeral'
 import React from 'react'
 import _ from 'lodash'
 
@@ -37,6 +38,9 @@ class Multiple extends React.Component {
                     <span className={ file.status }>
                       <i className={`fa fa-fw fa-${this._getIcon(file.status)}`} />
                       { _.capitalize(file.status) }
+                      { file.status === 'uploading' &&
+                        <span>({ numeral(file.progress).format('0%') })</span>
+                      }
                     </span>
                   </div>
                 </div>

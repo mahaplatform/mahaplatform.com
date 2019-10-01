@@ -101,7 +101,8 @@ class Uploader extends React.Component {
         name: file.file.name,
         service: 'device',
         content_type: file.file.type,
-        status: 'pending'
+        status: 'pending',
+        progress: 0
       })
     }
     const filereader = new FileReader()
@@ -134,7 +135,8 @@ class Uploader extends React.Component {
       service: 'device',
       content_type: file.file.type,
       thumbnail: `data:${file.file.type};base64,${base64}`,
-      status: 'pending'
+      status: 'pending',
+      progress: 0
     })
   }
 
@@ -153,10 +155,9 @@ class Uploader extends React.Component {
   }
 
   _handleProgress(file) {
-    const { files } = this.props
     const index = this._getFileIndex(file)
-    if(files[index].status === 'uploading') return
     this.props.onUpdate(index, {
+      progress: file.progress(),
       status: 'uploading'
     })
   }
