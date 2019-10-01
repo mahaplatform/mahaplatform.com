@@ -1,50 +1,42 @@
-import s3 from '../../../../core/services/s3'
+import s3 from '../../../../../web/core/services/s3'
+import csvparse from 'csv-parse/lib/sync'
 import request from 'request-promise'
-import sharp from 'sharp'
 
 const AddAssetDimensions = {
 
   up: async (knex) => {
 
     await knex.schema.table('maha_assets', (table) => {
+      table.string('fingerprint')
+      table.integer('width')
+      table.integer('height')
       table.jsonb('metadata')
     })
-    // 
-    // const images = await knex('maha_assets').whereRaw('content_type like ?', 'image/jpeg')
-    //
-    // await Promise.mapSeries(images, async (image) => {
-    //
-    //   const url = s3.getSignedUrl('getObject', {
-    //     Bucket: 'cdn.mahaplatform.com',//process.env.AWS_BUCKET,
-    //     Key: `assets/${image.id}/${image.file_name}`,
-    //     Expires: 60
-    //   })
-    //
-    //   try {
-    //
-    //     const data = await request.get(url, {
-    //       encoding: null
-    //     })
-    //
-    //     const metadata = await sharp(data).metadata()
-    //
-    //     await knex('maha_assets').where('id', image.id).update({
-    //       metadata: {
-    //         width: metadata.width,
-    //         height: metadata.height
-    //       }
-    //     })
-    //
-    //   } catch(e) {
-    //     console.log(e, `failed on ${image.id}`)
-    //   }
-    //
-    // })
+
+    const url = s3.getSignedUrl('getObject', {
+      Bucket: 'cdn.mahaplatform.com',
+      Key: 'data/metadata.csv',
+      Expires: 60
+    })
+
+    const data = await request.get(url, {
+      encoding: null
+    })
+
+    const parsed = csvparse(data)
+
+    await Promise.map(parsed, async (row) => {
+      const [id,fingerprint,width,height] = row
+      await knex('maha_assets').where({ id }).update({
+        fingerprint,
+        width: width || null,
+        height: height || null
+      })
+    })
 
   },
 
-  down: async (knex) => {
-  }
+  down: async (knex) => {}
 
 }
 

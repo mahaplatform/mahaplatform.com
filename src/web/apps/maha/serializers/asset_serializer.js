@@ -14,7 +14,10 @@ const assetSerializer = (req, result) => ({
   source_url: result.get('source_url'),
   status: result.get('status'),
   user: user(result.related('user')),
-  metadata: result.get('metadata'),
+  metadata: {
+    width: result.get('width'),
+    height: result.get('height')
+  },
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

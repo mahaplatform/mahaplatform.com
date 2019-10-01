@@ -19,7 +19,8 @@
     "help": "babel-node ./src/scripts/help/index.js",
     "knex": "babel-node ./src/scripts/knex.js",
     "shipit": "babel-node ./src/scripts/shipit/index.js",
-    "test": "NODE_ENV=test babel-node ./src/scripts/test.js"
+    "test": "NODE_ENV=test babel-node ./src/scripts/test.js",
+    "metadata": "babel-node ./src/scripts/metadata.js"
   },
   "devDependencies": {
     "autoprefixer": "^9.6.1",
@@ -87,6 +88,7 @@
     "clamscan": "^1.0.3",
     "connect-multiparty": "^2.0.0",
     "cors": "^2.8.5",
+    "crypto": "^1.0.1",
     "csv-parse": "^2.4.0",
     "dotenv": "^4.0.0",
     "draft-convert": "^2.0.1",

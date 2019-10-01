@@ -6,15 +6,16 @@ import Clamscan from '../../../../core/services/clamscan'
 import socket from '../../../../core/services/emitter'
 import { simpleParser } from 'mailparser'
 import Source from '../../models/source'
+import Asset from '../../models/asset'
 import request from 'request-promise'
 import { exec } from 'child_process'
-import Asset from '../../models/asset'
 import fileType from 'file-type'
 import * as local from './local'
 import { Duplex } from 'stream'
 import webshot from 'webshot'
 import mime from 'mime-types'
 import * as aws from './aws'
+import crypto from 'crypto'
 import sharp from 'sharp'
 import path from 'path'
 import _ from 'lodash'
@@ -99,6 +100,7 @@ export const assembleAsset = async (req, asset) => {
   await _saveFile(normalizedData, `assets/${asset.get('id')}/${asset.get('file_name')}`, asset.get('content_type'))
   await _deleteChunks(asset)
   await _saveAsset(req, asset, {
+    fingerprint: _getFingerprint(normalizedData),
     status: asset.get('has_preview') ? 'assembled' : 'processed'
   })
   if(asset.get('has_preview')) await ProcessAssetQueue.enqueue(req, asset.get('id'))
@@ -112,7 +114,7 @@ export const processAsset = async (req, id) => {
 }
 
 export const createAsset = async (req, params) => {
-  const asset = await Asset.forge({
+  const data = {
     team_id: params.team_id,
     user_id: params.user_id,
     source_id: params.source_id,
@@ -120,15 +122,19 @@ export const createAsset = async (req, params) => {
     source_url: params.source_url,
     original_file_name: params.file_name,
     file_name: _getNormalizedFileName(params.file_name),
+    fingerprint: _getFingerprint(params.file_data),
     content_type: _getFileType(params.file_data, params.file_name),
     file_size: !_.isNil(params.file_size) ? params.file_size : _getFilesize(params.file_data),
     chunks_total: 1,
     status: params.file_data && params.file_data.length > 0 ? 'assembled' : 'processed'
+  }
+  const asset = await Asset.forge({
+    ...data,
+    ..._getMetadata(data.content_type, params.file_data)
   }).save(null, {
     transacting: req.trx
   })
   if(!params.file_data || params.file_data.length === 0) return asset
-  await _saveMetadata(req, asset, params.file_data)
   await _saveFiledata(req, asset, params.file_data)
   return asset
 }
@@ -228,15 +234,13 @@ const _processAsset = async (req, data, asset) => {
   await _refreshAsset(req, asset)
 }
 
-const _saveMetadata = async (req, asset, data) => {
-  if(!asset.get('content_type').match(/(jpeg|jpg|gif|png)/)) return
+const _getMetadata = async (content_type, data) => {
+  if(!content_type.match(/(jpeg|jpg|gif|png)/)) return
   const metadata = await sharp(data).metadata()
-  await _saveAsset(req, asset, {
-    metadata: {
-      width: metadata.width,
-      height: metadata.height
-    }
-  })
+  return {
+    width: metadata.width,
+    height: metadata.height
+  }
 }
 
 const _getNormalizedData = async (asset, fileData) => {
@@ -282,6 +286,11 @@ const _getFileType = (file_data, file_name) => {
   } else {
     return mime.lookup(file_name) || 'text/plain'
   }
+}
+
+const _getFingerprint = (data) => {
+  if(!data) return null
+  return crypto.createHash('md5').update(data).digest('hex')
 }
 
 const _getFilesize = (fileData) => {

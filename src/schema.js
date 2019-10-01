@@ -835,6 +835,9 @@ const schema = {
       table.text('status')
       table.boolean('is_infected')
       table.specificType('viruses', 'varchar[]')
+      table.string('fingerprint', 255)
+      table.integer('width')
+      table.integer('height')
       table.jsonb('metadata')
     })
 
