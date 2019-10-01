@@ -53,6 +53,10 @@ const asset = (asset) => {
     source: asset.related('source').get('text'),
     source_url: asset.get('source_url'),
     status: asset.get('status'),
+    metadata: {
+      width: asset.get('width'),
+      height: asset.get('height')      
+    },
     created_at: asset.get('created_at'),
     updated_at: asset.get('updated_at')
   }

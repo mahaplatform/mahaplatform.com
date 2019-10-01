@@ -107,7 +107,7 @@ class Crop extends React.PureComponent {
       width: image.w,
       height: image.h,
       left: (panel.w / 2) - (image.w / 2) + offset.x,
-      top: (panel.h / 2) - (image.h / 2) + offset.y
+      top: (panel.h / 2) - (image.h / 2) - offset.y
     }
   }
 
@@ -131,7 +131,7 @@ class Crop extends React.PureComponent {
       w: (source.w / image.w) * frame.w,
       h: (source.h / image.h) * frame.h,
       x: (image.w / 2) - (frame.w / 2) - offset.x,
-      y: (image.h / 2) - (frame.h / 2) - offset.y
+      y: (image.h / 2) - (frame.h / 2) + offset.y
     }
     this.props.onAdjust('crop', {
       w: Math.floor(cropped.w * dscale),
@@ -164,7 +164,7 @@ class Crop extends React.PureComponent {
       dragging: true,
       origin: {
         x: e.screenX - offset.x,
-        y: e.screenY - offset.y
+        y: e.screenY + offset.y
       }
     })
   }
@@ -183,7 +183,7 @@ class Crop extends React.PureComponent {
     this._handleUpdate({
       offset: {
         x: e.screenX - origin.x,
-        y: e.screenY - origin.y
+        y: origin.y - e.screenY
       }
     })
   }
