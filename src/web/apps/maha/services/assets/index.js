@@ -128,9 +128,10 @@ export const createAsset = async (req, params) => {
     chunks_total: 1,
     status: params.file_data && params.file_data.length > 0 ? 'assembled' : 'processed'
   }
+  const metadata = await _getMetadata(data.content_type, params.file_data)
   const asset = await Asset.forge({
     ...data,
-    ..._getMetadata(data.content_type, params.file_data)
+    ...metadata
   }).save(null, {
     transacting: req.trx
   })
@@ -235,7 +236,7 @@ const _processAsset = async (req, data, asset) => {
 }
 
 const _getMetadata = async (content_type, data) => {
-  if(!content_type.match(/(jpeg|jpg|gif|png)/)) return
+  if(!content_type.match(/(jpeg|jpg|gif|png)/)) return {}
   const metadata = await sharp(data).metadata()
   return {
     width: metadata.width,

@@ -41,7 +41,7 @@ class ImageEditor extends React.PureComponent {
         <div className="maha-imageeditor">
           <Sidebar { ...this._getSidebar() } />
           <div className="maha-imageeditor-main">
-            <Canvas { ...this._getCanvas() } /> :
+            <Canvas { ...this._getCanvas() } />
             <CSSTransition in={ cropping } classNames="fadein" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
               <Crop { ...this._getCrop() } />
             </CSSTransition>

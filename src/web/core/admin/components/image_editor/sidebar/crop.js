@@ -42,7 +42,8 @@ class Crop extends React.PureComponent {
   _handleBack = this._handleBack.bind(this)
 
   render() {
-    const { width, height } = this.props
+    const { asset } = this.props
+    const { width, height } = asset.metadata
     const ratios = width >= height ? landscape : portrait
     return (
       <ModalPanel { ...this._getPanel() }>

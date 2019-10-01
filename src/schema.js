@@ -838,7 +838,6 @@ const schema = {
       table.string('fingerprint', 255)
       table.integer('width')
       table.integer('height')
-      table.jsonb('metadata')
     })
 
     await knex.schema.createTable('maha_attachments', (table) => {
