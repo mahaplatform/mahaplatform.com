@@ -67,12 +67,23 @@ export const types = [
     type: 'share',
     icon: 'share',
     config: {
+      align: 'center',
+      icon_style: 'outline',
+      icon_color: 'dark',
+      button_background_color: null,
+      button_border_radius: 0,
+      networks: [
+        { service: 'facebook', text: 'Share' },
+        { service: 'twitter', text: 'Tweet' },
+        { service: 'forwardtofriend', text: 'Forward' }
+      ]
     }
   }, {
     label: 'Social Follow Block',
     type: 'follow',
     icon: 'plus',
     config: {
+      networks: []
     }
   }, {
     label: 'Footer Block',

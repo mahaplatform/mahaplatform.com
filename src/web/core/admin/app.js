@@ -54,6 +54,7 @@ import admininfinite from './components/infinite'
 import adminmenu from './components/menu'
 import adminmodal from './components/modal'
 import adminpage from './components/page'
+import adminpicklist from './components/picklist'
 import adminpopup from './components/popup'
 import adminprompt from './components/prompt'
 import adminsearch from './components/search'
@@ -76,6 +77,7 @@ import crmemailsfield from '../../apps/crm/admin/components/emailsfield'
 import crmimagesfield from '../../apps/crm/admin/components/imagesfield'
 import crmnumbers from '../../apps/crm/admin/components/numbers'
 import crmphonesfield from '../../apps/crm/admin/components/phonesfield'
+import crmsharesfield from '../../apps/crm/admin/components/sharesfield'
 import crmtemplate from '../../apps/crm/admin/components/template'
 import crmtimeline from '../../apps/crm/admin/components/timeline'
 import driveaccess from '../../apps/drive/admin/components/access'
@@ -288,6 +290,7 @@ class App extends React.Component {
       adminmenu,
       adminmodal,
       adminpage,
+      adminpicklist,
       adminpopup,
       adminprompt,
       adminsearch,
@@ -310,6 +313,7 @@ class App extends React.Component {
       crmimagesfield,
       crmnumbers,
       crmphonesfield,
+      crmsharesfield,
       crmtemplate,
       crmtimeline,
       driveaccess,

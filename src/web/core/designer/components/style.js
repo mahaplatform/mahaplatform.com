@@ -16,10 +16,11 @@ class Style extends React.Component {
     )
   }
 
-  _getProp(prop, key, defaultValue) {
+  _getProp(prop, key, unit = null, defaultValue = null) {
     const { config } = this.props
     const value = _.get(config, key) || defaultValue
-    return value ? [{ prop, value }] : []
+    const formatted = unit ? `${value}${unit}` : value
+    return value ? [{ prop, value: formatted }] : []
   }
 
   _getFormat(prop, targetValue, key, defaultValue) {
@@ -55,7 +56,7 @@ class Style extends React.Component {
         ...this._getProp('border-top', 'page.border_top')
       ] },
       { selector: 'table.container', styles: [
-        ...this._getProp('background', 'page.email_background_color', 'none'),
+        ...this._getProp('background', 'page.email_background_color', null, 'none'),
         ...this._getProp('border', 'page.email_border')
       ] },
       ...sections.reduce((sectionStyles, section, i) => [
@@ -90,33 +91,46 @@ class Style extends React.Component {
             ...this._getProp('line-height',`sections[${i}].blocks[${j}].line_height`),
             ...this._getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`)
           ] },
-          ...block.type === 'button' ? [{
-            selector: `table.section-${i}-block-${j} td`,styles: [
-              ...this._getProp('border',`sections[${i}].blocks[${j}].border`),
-              ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`),
-              ...this._getProp('border-radius',`sections[${i}].blocks[${j}].border_radius`)
-            ]
-          },{
-            selector: `table.section-${i}-block-${j} td a`,styles: [
-              ...this._getProp('font-family',`sections[${i}].blocks[${j}].font_family`),
-              ...this._getProp('font-size',`sections[${i}].blocks[${j}].font_size`),
-              ...this._getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`),
-              ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`),
-              ...this._getProp('color',`sections[${i}].blocks[${j}].color`),
-              ...this._getProp('padding-top',`sections[${i}].blocks[${j}].padding_top`),
-              ...this._getProp('padding-bottom',`sections[${i}].blocks[${j}].padding_bottom`)
-            ]
-          }] : [],  ...block.type === 'divider' ? [{
-            selector: `table.section-${i}-block-${j} td`,styles: [
-              ...this._getProp('padding-top',`sections[${i}].blocks[${j}].padding_top`),
-              ...this._getProp('padding-bottom',`sections[${i}].blocks[${j}].padding_bottom`),
-              ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`)
-            ]
-          },{
-            selector: `table.section-${i}-block-${j} div.divider`,styles: [
-              ...this._getProp('border',`sections[${i}].blocks[${j}].border`)
-            ]
-          }] : []
+          ...block.type === 'button' ? [
+            {
+              selector: `table.section-${i}-block-${j} td`,styles: [
+                ...this._getProp('border',`sections[${i}].blocks[${j}].border`),
+                ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`),
+                ...this._getProp('border-radius',`sections[${i}].blocks[${j}].border_radius`)
+              ]
+            },{
+              selector: `table.section-${i}-block-${j} td a`,styles: [
+                ...this._getProp('font-family',`sections[${i}].blocks[${j}].font_family`),
+                ...this._getProp('font-size',`sections[${i}].blocks[${j}].font_size`),
+                ...this._getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`),
+                ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`),
+                ...this._getProp('color',`sections[${i}].blocks[${j}].color`),
+                ...this._getProp('padding-top',`sections[${i}].blocks[${j}].padding_top`),
+                ...this._getProp('padding-bottom',`sections[${i}].blocks[${j}].padding_bottom`)
+              ]
+            }
+          ] : [],
+          ...block.type === 'share' ? [
+            {
+              selector: 'table.social table',styles: [
+                ...this._getProp('background-color',`sections[${i}].blocks[${j}].button_background_color`),
+                ...this._getProp('border-radius',`sections[${i}].blocks[${j}].button_border_radius`, 'px')
+              ]
+            }
+          ] : [],
+          ...block.type === 'divider' ? [
+            {
+              selector: `table.section-${i}-block-${j} td`,styles: [
+                ...this._getProp('padding-top',`sections[${i}].blocks[${j}].padding_top`),
+                ...this._getProp('padding-bottom',`sections[${i}].blocks[${j}].padding_bottom`),
+                ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`)
+              ]
+            },{
+              selector: `table.section-${i}-block-${j} div.divider`,styles: [
+                ...this._getProp('border',`sections[${i}].blocks[${j}].border`)
+              ]
+            }
+          ] : []
         ], [])
       ], [])
     ]

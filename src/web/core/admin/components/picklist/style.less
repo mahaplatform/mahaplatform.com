@@ -1,0 +1,15 @@
+.picklist {
+  flex: 1;
+  display: flex;
+}
+.picklist-options {
+  flex: 1;
+  .scrollable();
+}
+.picklist-option {
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+  border-bottom: 1px solid fadeout(@black, 90);
+}
