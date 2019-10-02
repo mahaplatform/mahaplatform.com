@@ -58,12 +58,12 @@ class ImageEditor extends React.PureComponent {
     if(ratio) this.props.onSetRatio(ratio)
   }
 
-  componentDidUpdate(prevProps) {
-    const { transforms } = this.props
-    if(!_.isEqual(transforms, prevProps.transforms)) {
-      this.props.onChange(transforms)
-    }
-  }
+  // componentDidUpdate(prevProps) {
+  //   const { transforms } = this.props
+  //   if(!_.isEqual(transforms, prevProps.transforms)) {
+  //     this.props.onChange(transforms)
+  //   }
+  // }
 
   _getCanvas() {
     const { asset, cropping, ratio, transforms } = this.props

@@ -122,6 +122,19 @@ class Crop extends React.PureComponent {
     }
   }
 
+  _getZoom(frame) {
+    const { source, landscape } = this.state
+    const { scale } = this
+    if(landscape) {
+      // const height = (source.h / source.w) * frame.w
+      if(source.h >= frame.h) return 0
+      return (frame.h - source.h) / scale
+    }
+    // const width = (source.w / source.h) * frame.h
+    if(source.w >= frame.w) return 0
+    return (frame.w - source.w) / scale
+  }
+
   _handleChange() {
     const { image, source, frame, offset, zoom } = this.state
     const { asset, ratio } = this.props
@@ -160,7 +173,15 @@ class Crop extends React.PureComponent {
     }
     frame.x = (panel.w - frame.w) / 2
     frame.y = (panel.h - frame.h) / 2
-    this._handleUpdate({ frame })
+    const zoom = this._getZoom(frame)
+    this._handleUpdate({
+      frame,
+      offset: {
+        x: 0,
+        y: 0
+      },
+      zoom
+    })
   }
 
   _handleDragStart(e) {
@@ -195,11 +216,12 @@ class Crop extends React.PureComponent {
 
   _handleInit() {
     const { asset, transforms } = this.props
-    const { crop } = transforms
     const { clientWidth, clientHeight } = this.image
     const { offsetWidth, offsetHeight } = this.panel
-    const ratio = this.props.ratio || asset.metadata.width / asset.metadata.height
-    const landscape = asset.metadata.width >= asset.metadata.height
+    const { width, height } = asset.metadata
+    const { crop } = transforms
+    const ratio = this.props.ratio || width / height
+    const landscape = width >= height
     const panel = { x: 0, y: 0, w: offsetWidth, h: offsetHeight }
     const zoom = crop ? crop.zo : 0
     const offset = {
@@ -210,8 +232,8 @@ class Crop extends React.PureComponent {
     source.w = landscape ? panel.w - this.padding : (clientWidth / clientHeight) * (panel.h - this.padding)
     source.h = landscape ? (clientHeight / clientWidth) * (panel.w - this.padding) : panel.h - this.padding
     const frame = {
-      w: landscape ? ratio * source.h : source.w,
-      h: landscape ? source.h : source.w / ratio
+      w: landscape ? source.w : ratio * source.h,
+      h: landscape ? source.w / ratio : source.h
     }
     frame.x = (panel.w - frame.w) / 2
     frame.y = (panel.h - frame.h) / 2
@@ -226,14 +248,15 @@ class Crop extends React.PureComponent {
   }
 
   _handleUpdate(state) {
+    const landscape = state.landscape || this.state.landscape
     const frame = state.frame || this.state.frame
     const source = state.source || this.state.source
-    const zoom = Math.max(0, state.zoom || this.state.zoom)
+    const zoom = Math.max(0, state.zoom !== null ? state.zoom : this.state.zoom)
     const offset = state.offset || this.state.offset
     const zoomscale = zoom * this.scale
     const image = {
-      w: source.w + zoomscale,
-      h: (source.h / source.w) * (source.w + zoomscale)
+      w: landscape ? (source.w / source.h) * (source.h + zoomscale) : source.w + zoomscale,
+      h: landscape ? source.h + zoomscale : (source.h / source.w) * (source.w + zoomscale)
     }
     const min = {
       x: (frame.w / 2) - (image.w / 2),
@@ -257,13 +280,13 @@ class Crop extends React.PureComponent {
   _handleWheel(e) {
     const { zoom } = this.state
     this._handleUpdate({
-      zoom: zoom - e.movementY
+      zoom: Math.floor(zoom - e.movementY)
     })
   }
 
   _handleZoom(e) {
     this._handleUpdate({
-      zoom: e.target.value
+      zoom: Math.floor(e.target.value)
     })
   }
 
