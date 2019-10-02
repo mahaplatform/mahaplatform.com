@@ -1,12 +1,12 @@
 import { Factory } from 'redux-rubberstamp'
 import reducer from './reducer'
-import SharesField from './sharesfield'
+import FollowsField from './followsfield'
 import * as selectors from './selectors'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'crm.sharesfield',
-  component: SharesField,
+  namespace: 'crm.followsfield',
+  component: FollowsField,
   reducer,
   selectors,
   actions

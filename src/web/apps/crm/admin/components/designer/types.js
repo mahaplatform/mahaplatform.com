@@ -83,7 +83,16 @@ export const types = [
     type: 'follow',
     icon: 'plus',
     config: {
-      networks: []
+      align: 'center',
+      icon_style: 'outline',
+      icon_color: 'dark',
+      button_background_color: null,
+      button_border_radius: 0,
+      networks: [
+        { service: 'facebook', url: 'http://facebook.com' },
+        { service: 'twitter', url: 'http://twitter.com' },
+        { service: 'website', url: 'http://yourwebsite.com' }
+      ]
     }
   }, {
     label: 'Footer Block',

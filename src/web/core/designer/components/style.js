@@ -110,8 +110,12 @@ class Style extends React.Component {
               ]
             }
           ] : [],
-          ...block.type === 'share' ? [
+          ..._.includes(['follow','share'], block.type) ? [
             {
+              selector: `table.section-${i}-block-${j}`,styles: [
+                ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`)
+              ]
+            },{
               selector: 'table.social table',styles: [
                 ...this._getProp('background-color',`sections[${i}].blocks[${j}].button_background_color`),
                 ...this._getProp('border-radius',`sections[${i}].blocks[${j}].button_border_radius`, 'px')

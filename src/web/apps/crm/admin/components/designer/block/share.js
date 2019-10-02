@@ -51,7 +51,9 @@ class Share extends React.Component {
           sections: [
             {
               label: 'Container Style',
-              fields: []
+              fields: [
+                { label: 'Background', name: 'background_color', type: 'colorfield', defaultValue: config.background_color }
+              ]
             }, {
               label: 'Button Style',
               fields: [

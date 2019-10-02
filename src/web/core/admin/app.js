@@ -74,6 +74,7 @@ import crmaddressesfield from '../../apps/crm/admin/components/addressesfield'
 import crmcontactimport from '../../apps/crm/admin/components/contactimport'
 import crmdesigner from '../../apps/crm/admin/components/designer'
 import crmemailsfield from '../../apps/crm/admin/components/emailsfield'
+import crmfollowsfield from '../../apps/crm/admin/components/followsfield'
 import crmimagesfield from '../../apps/crm/admin/components/imagesfield'
 import crmnumbers from '../../apps/crm/admin/components/numbers'
 import crmphonesfield from '../../apps/crm/admin/components/phonesfield'
@@ -310,6 +311,7 @@ class App extends React.Component {
       crmcontactimport,
       crmdesigner,
       crmemailsfield,
+      crmfollowsfield,
       crmimagesfield,
       crmnumbers,
       crmphonesfield,

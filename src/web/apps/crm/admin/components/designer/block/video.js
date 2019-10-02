@@ -38,7 +38,10 @@ class Video extends React.Component {
           label: 'Content',
           sections: [
             {
-              fields: []
+              fields: [
+                { label: 'Video URL', type: 'textfield', defaultValue: config.video_url },
+                { label: 'Caption', type: 'textarea', defaultValue: config.video_caption }
+              ]
             }
           ]
         }, {

@@ -7,27 +7,47 @@ import _ from 'lodash'
 const services = {
   facebook: {
     service: 'facebook',
-    text: 'Share'
+    url: 'http://www.facebook.com'
   },
-  forwardtofriend: {
-    service: 'forwardtofriend',
-    text: 'Forward'
+  instagram: {
+    service: 'instagram',
+    url: 'http://instagram.com'
   },
   linkedin: {
     service: 'linkedin',
-    text: 'Share'
+    url: 'http://www.linkedin.com'
+  },
+  medium: {
+    service: 'medium',
+    url: 'http://www.medium.com'
   },
   pinterest: {
     service: 'pinterest',
-    text: 'Pin'
+    url: 'http://www.pinterest.com'
+  },
+  snapchat: {
+    service: 'snapchat',
+    url: 'https://www.snapchat.com'
   },
   twitter: {
     service: 'twitter',
-    text: 'Tweet'
+    url: 'http://www.twitter.com'
+  },
+  vimeo: {
+    service: 'vimeo',
+    url: 'http://www.vimeo.com'
+  },
+  website: {
+    service: 'website',
+    url: 'http://www.yourwebsite.com'
+  },
+  youtube: {
+    service: 'youtube',
+    url: 'http://www.youtube.com'
   }
 }
 
-class SharesField extends React.PureComponent {
+class FollowsField extends React.PureComponent {
 
   static contextTypes = {
     form: PropTypes.object
@@ -117,8 +137,8 @@ class SharesField extends React.PureComponent {
 
   _getTextField(network, index) {
     return {
-      placeholder: services[network.service].text,
-      defaultValue: network.text,
+      placeholder: services[network.service].url,
+      defaultValue: network.url,
       onChange: this._handleUpdate.bind(this, network, index)
     }
   }
@@ -150,4 +170,4 @@ class SharesField extends React.PureComponent {
 
 }
 
-export default SharesField
+export default FollowsField
