@@ -4,7 +4,7 @@ import React from 'react'
 class Spacer extends React.Component {
 
   static propTypes = {
-    height: PropTypes.string
+    height: PropTypes.number
   }
 
   render() {
@@ -22,10 +22,10 @@ class Spacer extends React.Component {
   _getCell() {
     const { height } = this.props
     return {
-      height,
+      height: height,
       style: {
-        fontSize: height,
-        lineHeight: height
+        fontSize: `${height}px`,
+        lineHeight: `${height}px`
       }
     }
   }

@@ -32,7 +32,7 @@ class Section extends React.Component {
           <tbody>
             <tr>
               <td>
-                { padding_top && <Spacer height={ padding_top } /> }
+                { padding_top !== null && <Spacer height={ padding_top } /> }
                 { (blocks.length === 0 || (hovering && index === 0)) &&
                   <Target />
                 }
@@ -44,7 +44,7 @@ class Section extends React.Component {
                     }
                   </div>
                 )) }
-                { padding_bottom && <Spacer height={ padding_bottom } /> }
+                { padding_bottom !== null && <Spacer height={ padding_bottom } /> }
               </td>
             </tr>
           </tbody>

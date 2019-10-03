@@ -10,8 +10,7 @@ class Follow extends React.Component {
   }
 
   render() {
-    const { blockIndex, sectionIndex } = this.props
-    const { config } = this.props
+    const { blockIndex, sectionIndex, config } = this.props
     const { align, icon_style, icon_color, networks } = config
     const icons = (
       <table align={ align } className={`menu social float-${align}`}>

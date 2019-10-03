@@ -14,6 +14,7 @@ class Sidebar extends React.Component {
     config: PropTypes.object,
     onAddSection: PropTypes.func,
     onDeleteSection: PropTypes.func,
+    onMoveSection: PropTypes.func,
     onEdit: PropTypes.func,
     onUpdate: PropTypes.func
   }
@@ -62,11 +63,12 @@ class Sidebar extends React.Component {
   }
 
   _getPage() {
-    const { config, onAddSection, onDeleteSection } = this.props
+    const { config, onAddSection, onDeleteSection, onMoveSection } = this.props
     return {
       config,
       onAddSection,
       onDeleteSection,
+      onMoveSection,
       onPush: this._handlePush,
       onPop: this._handlePop,
       onUpdate: this._handleUpdate.bind(this)

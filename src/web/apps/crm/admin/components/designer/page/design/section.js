@@ -48,19 +48,19 @@ class Section extends React.Component {
         }, {
           label: 'Text',
           fields: [
+            { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config.font_family },
             { type: 'fields', fields: [
-              { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config.font_family },
-              { label: 'Font Size', name: 'font_size', type: 'lookup', options: font_size, defaultValue: config.font_size }
+              { label: 'Font Size', name: 'font_size', type: 'lookup', options: font_size, defaultValue: config.font_size },
+              { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color }
             ] },
             { type: 'fields', fields: [
-              { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color },
-              { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format }
+              { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format },
+              { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.alignment }
             ] },
             { type: 'fields', fields: [
               { label: 'Line Height', name: 'line_height', type: 'lookup', options: line_heights, defaultValue: config.line_height },
               { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: letter_spacing, defaultValue: config.letter_spacing }
-            ] },
-            { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.alignment }
+            ] }
           ]
         }
       ]

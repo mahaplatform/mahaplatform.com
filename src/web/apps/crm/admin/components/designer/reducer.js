@@ -57,6 +57,26 @@ const reducer = (state = INITIAL_STATE, action) => {
       }
     }
 
+  case 'MOVE_SECTION':
+    return {
+      ...state,
+      config: {
+        ...state.config,
+        sections: (action.from < action.to) ? [
+          ...state.config.sections.slice(0, action.from),
+          ...state.config.sections.slice(action.from + 1, action.to + 1),
+          state.config.sections[action.from],
+          ...state.config.sections.slice(action.to + 1)
+        ] : [
+          ...state.config.sections.slice(0, action.to),
+          state.config.sections[action.from],
+          ...state.config.sections.slice(action.to, action.from),
+          ...state.config.sections.slice(action.from + 1)
+        ]
+      }
+
+    }
+
   case 'ADD':
     return {
       ...state,

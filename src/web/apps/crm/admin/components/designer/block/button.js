@@ -1,4 +1,4 @@
-import { alignments, displays, font_size, letter_spacing, link_strategies, fonts } from '../variables'
+import { alignments, displays, font_size, letter_spacing, link_strategies, line_heights, fonts } from '../variables'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -59,18 +59,19 @@ class Button extends React.Component {
                 { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
                 { label: 'Padding', name: 'padding', type: 'textfield', defaultValue: config.padding },
                 { label: 'Border', name: 'border', type: 'textfield', defaultValue: config.border },
-                { label: 'Radius', name: 'border_radius', type: 'textfield', defaultValue: config.border_radius }
+                { label: 'Rounded Corners', name: 'border_radius', type: 'range', min: 0, max: 20, defaultValue: config.border_radius }
               ]
             },
             {
               label: 'Button Text Style',
               fields: [
+                { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config.font_family },
                 { type: 'fields', fields: [
-                  { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config.font_family },
-                  { label: 'Font Size', name: 'font_size', type: 'lookup', options: font_size, defaultValue: config.font_size }
+                  { label: 'Font Size', name: 'font_size', type: 'lookup', options: font_size, defaultValue: config.font_size },
+                  { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color }
                 ] },
                 { type: 'fields', fields: [
-                  { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color },
+                  { label: 'Line Height', name: 'line_height', type: 'lookup', options: line_heights, defaultValue: config.line_height },
                   { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: letter_spacing, defaultValue: config.letter_spacing }
                 ] }
               ]

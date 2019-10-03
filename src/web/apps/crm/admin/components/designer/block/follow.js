@@ -59,7 +59,6 @@ class Follow extends React.Component {
               fields: [
                 { label: 'Background', name: 'button_background_color', type: 'colorfield', defaultValue: config.button_background_color },
                 { label: 'Rounded Corners', name: 'button_border_radius', type: 'range', min: 0, max: 20, defaultValue: config.button_border_radius }
-
               ]
             }, {
               label: 'Text Style',

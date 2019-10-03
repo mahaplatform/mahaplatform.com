@@ -20,6 +20,12 @@ export const deleteSection = (index) => ({
   index
 })
 
+export const moveSection = (from, to) => ({
+  type: 'MOVE_SECTION',
+  from,
+  to
+})
+
 export const add = (section, index, block) => ({
   type: 'ADD',
   section,

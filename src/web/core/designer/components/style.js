@@ -65,8 +65,8 @@ class Style extends React.Component {
           ...this._getProp('background-color', `sections[${i}].background_color`),
           ...this._getProp('border-top', `sections[${i}].border_top`),
           ...this._getProp('border-bottom', `sections[${i}].border_bottom`),
-          ...this._getProp('padding-top', `sections[${i}].padding_top`),
-          ...this._getProp('padding-bottom', `sections[${i}].padding_bottom`)
+          ...this._getProp('padding-top', `sections[${i}].padding_top`, 'px'),
+          ...this._getProp('padding-bottom', `sections[${i}].padding_bottom`, 'px')
         ] },
         { selector: `table.section-${i} td,table.section-${i} p`, styles: [
           ...this._getProp('font-family',`sections[${i}].font_family`),
@@ -93,20 +93,19 @@ class Style extends React.Component {
           ] },
           ...block.type === 'button' ? [
             {
-              selector: `table.section-${i}-block-${j} td`,styles: [
-                ...this._getProp('border',`sections[${i}].blocks[${j}].border`),
+              selector: `table.section-${i}-block-${j} table.button table td`,styles: [
                 ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`),
-                ...this._getProp('border-radius',`sections[${i}].blocks[${j}].border_radius`)
+                ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px'),
+                ...this._getProp('border',`sections[${i}].blocks[${j}].border`),
+                ...this._getProp('border-radius',`sections[${i}].blocks[${j}].border_radius`, 'px')
               ]
             },{
-              selector: `table.section-${i}-block-${j} td a`,styles: [
+              selector: `table.section-${i}-block-${j} table.button td`,styles: [
                 ...this._getProp('font-family',`sections[${i}].blocks[${j}].font_family`),
                 ...this._getProp('font-size',`sections[${i}].blocks[${j}].font_size`),
                 ...this._getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`),
                 ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`),
-                ...this._getProp('color',`sections[${i}].blocks[${j}].color`),
-                ...this._getProp('padding-top',`sections[${i}].blocks[${j}].padding_top`),
-                ...this._getProp('padding-bottom',`sections[${i}].blocks[${j}].padding_bottom`)
+                ...this._getProp('color',`sections[${i}].blocks[${j}].color`)
               ]
             }
           ] : [],

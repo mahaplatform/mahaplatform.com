@@ -24,6 +24,7 @@ class Designer extends React.Component {
     onClone: PropTypes.func,
     onDeleteSection: PropTypes.func,
     onEdit: PropTypes.func,
+    onMoveSection: PropTypes.func,
     onRemove: PropTypes.func,
     onSet: PropTypes.func,
     onUpdate: PropTypes.func
@@ -131,12 +132,13 @@ class Designer extends React.Component {
   }
 
   _getSidebar() {
-    const { active, config, onAddSection, onDeleteSection, onEdit, onUpdate } = this.props
+    const { active, config, onAddSection, onDeleteSection, onMoveSection, onEdit, onUpdate } = this.props
     return {
       active,
       config,
       onAddSection,
       onDeleteSection,
+      onMoveSection,
       onEdit,
       onUpdate
     }

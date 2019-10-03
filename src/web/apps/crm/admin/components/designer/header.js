@@ -7,29 +7,31 @@ class Header extends React.Component {
   static propTypes = {
     deviceIndex: PropTypes.number,
     orientationIndex: PropTypes.number,
+    scaleIndex: PropTypes.number,
     onChange: PropTypes.func
   }
 
   render() {
+    const { deviceIndex, orientationIndex, scaleIndex } = this.props
     return (
       <div className="designer-header">
         <select { ...this._getDevice() }>
           { devices.map((device, index) => (
-            <option key={`device_${index}`} value={ index }>
+            <option key={`device_${index}`} value={ index } selected={ index === deviceIndex }>
               { device.label}
             </option>
           ))}
         </select>
         <select { ...this._getOrientation() }>
           { orientations.map((orientation, index) => (
-            <option key={`orientation_${index}`} value={ index }>
+            <option key={`orientation_${index}`} value={ index } selected={ index === orientationIndex }>
               { orientation.label}
             </option>
           ))}
         </select>
         <select { ...this._getScale() }>
           { scales.map((scale, index) => (
-            <option key={`scale_${index}`} value={ index }>
+            <option key={`scale_${index}`} value={ index } selected={ index === scaleIndex }>
               { scale.label}
             </option>
           ))}

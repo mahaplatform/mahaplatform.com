@@ -1,4 +1,5 @@
 import { block_types, font_size, letter_spacing, line_heights, fonts } from '../../variables'
+import AlignmentField from '../../../alignmentfield'
 import FormatField from '../../../formatfield'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -48,13 +49,14 @@ class Page extends React.Component {
         ...block_types.map(({ value, text }) => ({
           label: text,
           fields: [
+            { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config[`${value}_font_family`] },
             { type: 'fields', fields: [
-              { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config[`${value}_font_family`] },
-              { label: 'Font Size', name: `${value}_font_size`, type: 'lookup', options: font_size, defaultValue: config[`${value}_font_size`] }
+              { label: 'Font Size', name: `${value}_font_size`, type: 'lookup', options: font_size, defaultValue: config[`${value}_font_size`] },
+              { label: 'Color', name: `${value}_color`, type: 'colorfield', defaultValue: config[`${value}_color`] }
             ] },
             { type: 'fields', fields: [
-              { label: 'Color', name: `${value}_color`, type: 'colorfield', defaultValue: config[`${value}_color`] },
-              { label: 'Format', name: `${value}_format`, type: FormatField, defaultValue: config[`${value}_format`] }
+              { label: 'Format', name: `${value}_format`, type: FormatField, defaultValue: config[`${value}_format`] },
+              { label: 'Alignment', name: `${value}_text_align`, type: AlignmentField, defaultValue: config[`${value}_text_align`] }
             ] },
             { type: 'fields', fields: [
               { label: 'Line Height', name: `${value}_line_height`, type: 'lookup', options: line_heights, defaultValue: config[`${value}_line_height`] },

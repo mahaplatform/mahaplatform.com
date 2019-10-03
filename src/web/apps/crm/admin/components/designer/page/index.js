@@ -15,6 +15,7 @@ class Page extends React.Component {
     changes: PropTypes.number,
     config: PropTypes.object,
     onAddSection: PropTypes.func,
+    onMoveSection: PropTypes.func,
     onDeleteSection: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
@@ -46,11 +47,12 @@ class Page extends React.Component {
   }
 
   _getLayout() {
-    const { config, onAddSection, onDeleteSection, onPop, onPush, onUpdate } = this.props
+    const { config, onAddSection, onDeleteSection, onMoveSection, onPop, onPush, onUpdate } = this.props
     return {
       config,
       onAddSection,
       onDeleteSection,
+      onMoveSection,
       onPop,
       onPush,
       onUpdate

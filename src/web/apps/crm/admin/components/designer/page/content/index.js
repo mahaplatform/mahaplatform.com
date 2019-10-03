@@ -38,6 +38,7 @@ class Content extends React.Component {
   }
 
   _handleDragStart(type, e) {
+    e.dataTransfer.dropEffect = 'all'
     e.dataTransfer.setData('type', type.type)
   }
 

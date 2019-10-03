@@ -1,6 +1,6 @@
-import { TextField } from 'maha-admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import Section from './section'
 import React from 'react'
 
 class Layout extends React.Component {
@@ -9,6 +9,7 @@ class Layout extends React.Component {
     config: PropTypes.object,
     onAddSection: PropTypes.func,
     onDeleteSection: PropTypes.func,
+    onMoveSection: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
     onUpdate: PropTypes.func
@@ -21,14 +22,7 @@ class Layout extends React.Component {
     return (
       <div className="designer-layout">
         { config.sections.map((section, index) => (
-          <div key={`section_${index}`} className="designer-layout-section">
-            <div className="designer-layout-section-label">
-              <TextField { ...this._getTextField(section, index) } />
-            </div>
-            <div className="designer-layout-section-action" onClick={ this._handleDelete.bind(this, index) }>
-              <i className="fa fa-trash-o" />
-            </div>
-          </div>
+          <Section key={`section_${index}`} { ...this._getSection(section, index) } />
         ))}
         <div className="designer-page-section-label" onClick={ this._handleAddSection }>
           <span className="link">Add Section</span>
@@ -37,20 +31,13 @@ class Layout extends React.Component {
     )
   }
 
-  _getTextField(section, index) {
-    return {
-      defaultValue: section.label,
-      placeholder: 'Enter a name',
-      onChange: this._handleRename.bind(this, section, index)
-    }
-  }
-
-  _getEdit(index) {
-    const { onPop, onPush, onUpdate } = this.props
+  _getSection(section, index) {
+    const { onDeleteSection, onMoveSection, onUpdate } = this.props
     return {
       index,
-      onPop,
-      onPush,
+      section,
+      onDeleteSection,
+      onMoveSection,
       onUpdate
     }
   }
@@ -62,8 +49,8 @@ class Layout extends React.Component {
       background_image: null,
       border_top: null,
       border_bottom: null,
-      padding_top: '10px',
-      padding_bottom: '10px',
+      padding_top: 10,
+      padding_bottom: 10,
       font_family: null,
       font_size: null,
       color: null,
@@ -73,17 +60,6 @@ class Layout extends React.Component {
       link_bold: null,
       link_underline: null,
       blocks: []
-    })
-  }
-
-  _handleDelete(index) {
-    this.props.onDeleteSection(index)
-  }
-
-  _handleRename(section, index, label) {
-    this.props.onUpdate(`sections[${index}]`, {
-      section,
-      label
     })
   }
 

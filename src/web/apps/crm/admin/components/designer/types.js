@@ -58,9 +58,9 @@ export const types = [
       letter_spacing: 0,
       font_family: null,
       font_size: null,
-      padding: '10px',
+      padding: 10,
       align: 'center',
-      display: 'inline'
+      display: 'block'
     }
   }, {
     label: 'Social Share Block',
