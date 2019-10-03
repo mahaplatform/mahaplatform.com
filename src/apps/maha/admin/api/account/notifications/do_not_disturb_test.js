@@ -1,4 +1,4 @@
-import { testHandler } from '../../../../../../web/core/utils/test'
+import { testHandler } from '../../../../../../core/utils/test'
 import { expect } from 'chai'
 import do_not_disturb from './do_not_disturb'
 

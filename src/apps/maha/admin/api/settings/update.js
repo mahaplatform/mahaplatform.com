@@ -1,4 +1,4 @@
-import { activity } from '../../../../../web/core/services/routes/activities'
+import { activity } from '../../../../../core/services/routes/activities'
 import App from '../../../../maha/models/app'
 
 const showRoute = async (req, res) => {

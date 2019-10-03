@@ -1,4 +1,4 @@
-import { whitelist } from '../../../../../../web/core/services/routes/params'
+import { whitelist } from '../../../../../../core/services/routes/params'
 import CallSerializer from '../../../../serializers/call_serializer'
 import { contactActivity } from '../../../../services/activities'
 import Contact from '../../../../models/contact'

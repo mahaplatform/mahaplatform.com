@@ -1,5 +1,5 @@
-import { activity } from '../../../../../web/core/services/routes/activities'
-import socket from '../../../../../web/core/services/routes/emitter'
+import { activity } from '../../../../../core/services/routes/activities'
+import socket from '../../../../../core/services/routes/emitter'
 import Role from '../../../../maha/models/role'
 
 const destroyRoute = async (req, res) => {

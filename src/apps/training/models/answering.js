@@ -1,6 +1,6 @@
 import Administration from './administration'
 import Question from './question'
-import Model from '../../../web/core/objects/model'
+import Model from '../../../core/objects/model'
 import Answer from './answer'
 
 const Answering = new Model({

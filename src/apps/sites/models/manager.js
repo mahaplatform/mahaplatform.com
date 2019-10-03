@@ -1,5 +1,5 @@
 import Site from './site'
-import Model from '../../../web/core/objects/model'
+import Model from '../../../core/objects/model'
 import User from '../../maha/models/user'
 
 const Manager = new Model({

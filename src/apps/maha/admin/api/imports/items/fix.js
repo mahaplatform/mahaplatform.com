@@ -1,6 +1,6 @@
 import ImportSerializer from '../../../../serializers/import_serializer'
-import socket from '../../../../../../web/core/services/routes/emitter'
-import { validate } from '../../../../../../web/core/utils/validation'
+import socket from '../../../../../../core/services/routes/emitter'
+import { validate } from '../../../../../../core/utils/validation'
 import ImportItem from '../../../../models/import_item'
 import flat from 'flat'
 

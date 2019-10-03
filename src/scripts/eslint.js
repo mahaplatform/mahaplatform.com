@@ -1,4 +1,4 @@
-import '../web/core/services/environment'
+import '../core/services/environment'
 import { CLIEngine } from 'eslint'
 import chalk from 'chalk'
 import glob from 'glob'

@@ -1,4 +1,4 @@
-import Model from '../../../web/core/objects/model'
+import Model from '../../../core/objects/model'
 import User from '../../maha/models/user'
 import MemberType from './member_type'
 import Project from './project'

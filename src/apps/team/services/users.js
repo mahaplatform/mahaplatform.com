@@ -1,4 +1,4 @@
-import { createUserToken } from '../../../web/core/utils/user_tokens'
+import { createUserToken } from '../../../core/utils/user_tokens'
 import mailer from '../../maha/queues/mailer_queue'
 
 export const sendUserActivation = async (req, user) => {

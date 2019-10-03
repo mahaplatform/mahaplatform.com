@@ -1,6 +1,6 @@
 import ImportSerializer from '../../../../maha/serializers/import_serializer'
-import { audit } from '../../../../../web/core/services/routes/audit'
-import socket from '../../../../../web/core/services/routes/emitter'
+import { audit } from '../../../../../core/services/routes/audit'
+import socket from '../../../../../core/services/routes/emitter'
 import ImportItem from '../../../../maha/models/import_item'
 import Import from '../../../../maha/models/import'
 import Trip from '../../../models/trip'

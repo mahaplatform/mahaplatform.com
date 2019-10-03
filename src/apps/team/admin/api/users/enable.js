@@ -1,7 +1,7 @@
-import { updateRelated } from '../../../../../web/core/services/routes/relations'
-import { activity } from '../../../../../web/core/services/routes/activities'
-import { whitelist } from '../../../../../web/core/services/routes/params'
-import socket from '../../../../../web/core/services/routes/emitter'
+import { updateRelated } from '../../../../../core/services/routes/relations'
+import { activity } from '../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../core/services/routes/params'
+import socket from '../../../../../core/services/routes/emitter'
 import User from '../../../../maha/models/user'
 
 const enableRoute = async (req, res) => {

@@ -1,5 +1,5 @@
 import DeviceValue from './device_value'
-import Model from '../../../web/core/objects/model'
+import Model from '../../../core/objects/model'
 import Session from './session'
 
 const Device = new Model({

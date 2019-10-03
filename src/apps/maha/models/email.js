@@ -1,4 +1,4 @@
-import Model from '../../../web/core/objects/model'
+import Model from '../../../core/objects/model'
 import EmailActivity from './email_activity'
 import User from './user'
 

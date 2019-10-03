@@ -1,5 +1,5 @@
-import '../web/core/services/environment'
-import db from '../web/core/scripts/db/db'
+import '../core/services/environment'
+import db from '../core/scripts/db/db'
 import register from 'babel-register'
 import fs from 'fs'
 

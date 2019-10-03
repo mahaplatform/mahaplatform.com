@@ -1,5 +1,5 @@
 import User from '../../maha/models/user'
-import Model from '../../../web/core/objects/model'
+import Model from '../../../core/objects/model'
 import Answering from './answering'
 import Quiz from './quiz'
 

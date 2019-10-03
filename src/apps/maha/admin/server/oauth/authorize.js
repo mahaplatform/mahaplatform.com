@@ -1,4 +1,4 @@
-import { loadUserFromToken } from '../../../../../web/core/utils/user_tokens'
+import { loadUserFromToken } from '../../../../../core/utils/user_tokens'
 import microsoft from './microsoft/authorize'
 import instagram from './instagram/authorize'
 import facebook from './facebook/authorize'

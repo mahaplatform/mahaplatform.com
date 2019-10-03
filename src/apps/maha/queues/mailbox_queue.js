@@ -1,5 +1,5 @@
-import Queue from '../../../web/core/objects/queue'
-import s3 from '../../../web/core/services/s3'
+import Queue from '../../../core/objects/queue'
+import s3 from '../../../core/services/s3'
 import User from '../models/user'
 import path from 'path'
 

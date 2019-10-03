@@ -1,5 +1,5 @@
 import AttractionSerializer from '../../../serializers/attraction_serializer'
-import knex from '../../../../../web/core/services/knex'
+import knex from '../../../../../core/services/knex'
 import Attraction from '../../../models/attraction'
 
 const listRoute = async (req, res) => {

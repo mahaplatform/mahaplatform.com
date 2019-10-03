@@ -1,4 +1,4 @@
-import Model from '../../../web/core/objects/model'
+import Model from '../../../core/objects/model'
 import MailingAddress from './mailing_address'
 import Asset from '../../maha/models/asset'
 import EmailAddress from './email_address'

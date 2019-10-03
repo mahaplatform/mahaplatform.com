@@ -1,6 +1,6 @@
-import { activity } from '../../../../../web/core/services/routes/activities'
+import { activity } from '../../../../../core/services/routes/activities'
 import EmailSerializer from '../../../serializers/email_serializer'
-import socket from '../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import Email from '../../../models/email'
 
 const updateRoute = async (req, res) => {

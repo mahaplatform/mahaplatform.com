@@ -1,5 +1,5 @@
 import ImportSerializer from '../../../../serializers/import_serializer'
-import socket from '../../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../../core/services/routes/emitter'
 import ImportItem from '../../../../models/import_item'
 
 const omitRoute = async (req, res) => {

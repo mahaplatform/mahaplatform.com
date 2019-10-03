@@ -1,4 +1,4 @@
-import { validate } from '../../../web/core/utils/validation'
+import { validate } from '../../../core/utils/validation'
 import Asset from '../models/asset'
 import Field from '../models/field'
 import Link from '../models/link'

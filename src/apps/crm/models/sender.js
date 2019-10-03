@@ -1,4 +1,4 @@
-import Model from '../../../web/core/objects/model'
+import Model from '../../../core/objects/model'
 import Program from './program'
 
 const Sender = new Model({

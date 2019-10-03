@@ -1,4 +1,4 @@
-import Model from '../../../web/core/objects/model'
+import Model from '../../../core/objects/model'
 import Source from './source'
 import Asset from './asset'
 import User from './user'

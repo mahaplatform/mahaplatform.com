@@ -1,5 +1,5 @@
 import ResponsibilityType from './responsibility_type'
-import Model from '../../../web/core/objects/model'
+import Model from '../../../core/objects/model'
 import Appraisal from './appraisal'
 
 const Responsibility = new Model({

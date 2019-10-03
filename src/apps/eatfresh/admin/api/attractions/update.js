@@ -1,8 +1,8 @@
-import { updateRelated } from '../../../../../web/core/services/routes/relations'
+import { updateRelated } from '../../../../../core/services/routes/relations'
 import AttractionSerializer from '../../../serializers/attraction_serializer'
-import { activity } from '../../../../../web/core/services/routes/activities'
-import { whitelist } from '../../../../../web/core/services/routes/params'
-import socket from '../../../../../web/core/services/routes/emitter'
+import { activity } from '../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../core/services/routes/params'
+import socket from '../../../../../core/services/routes/emitter'
 import Attraction from '../../../models/attraction'
 
 const updateRoute = async (req, res) => {

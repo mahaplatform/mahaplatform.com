@@ -1,6 +1,6 @@
-import { whitelist } from '../../../../../web/core/services/routes/params'
+import { whitelist } from '../../../../../core/services/routes/params'
 import FieldSerializer from '../../../serializers/field_serializer'
-import socket from '../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import Field from '../../../models/field'
 
 const update = async (req, res) => {

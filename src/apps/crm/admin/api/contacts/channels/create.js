@@ -1,5 +1,5 @@
-import generateCode from '../../../../../../web/core/utils/generate_code'
-import socket from '../../../../../../web/core/services/routes/emitter'
+import generateCode from '../../../../../../core/utils/generate_code'
+import socket from '../../../../../../core/services/routes/emitter'
 import { contactActivity } from '../../../../services/activities'
 import MailingAddress from '../../../../models/mailing_address'
 import EmailAddress from '../../../../models/email_address'

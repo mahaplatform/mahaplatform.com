@@ -1,6 +1,6 @@
 import { createCheck, updateCheck, destroyCheck } from '../../../services/checks'
 import CheckSerializer from '../../../serializers/check_serializer'
-import socket from '../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import Check from '../../../models/check'
 
 const getLineItems = (item, line_items) => {

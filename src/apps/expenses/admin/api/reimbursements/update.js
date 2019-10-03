@@ -1,6 +1,6 @@
 import { createReimbursement, updateReimbursement, destroyReimbursement } from '../../../services/reimbursements'
 import ReimbursementSerializer from '../../../serializers/reimbursement_serializer'
-import socket from '../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import Reimbursement from '../../../models/reimbursement'
 
 const getLineItems = (item, line_items) => {

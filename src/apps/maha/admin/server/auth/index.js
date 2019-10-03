@@ -1,6 +1,6 @@
-import { createUserToken } from '../../../../../web/core/utils/user_tokens'
+import { createUserToken } from '../../../../../core/utils/user_tokens'
 import { Strategy as GoogleStrategy } from 'passport-google-oauth20'
-import socket from '../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import { Strategy as SAMLStrategy } from 'passport-saml'
 import LDAPStrategy from 'passport-ldapauth'
 import Team from '../../../models/team'

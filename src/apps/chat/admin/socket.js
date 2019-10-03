@@ -1,4 +1,4 @@
-import knex from '../../../web/core/services/knex'
+import knex from '../../../core/services/knex'
 
 const chat = async (io, socket) => {
 

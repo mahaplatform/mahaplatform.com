@@ -1,5 +1,5 @@
-import { sendMail } from '../../../../../web/core/services/email'
-import { validate } from '../../../../../web/core/utils/validation'
+import { sendMail } from '../../../../../core/services/email'
+import { validate } from '../../../../../core/utils/validation'
 import Member from '../../../models/member'
 import Email from '../../../models/email'
 import Site from '../../../models/site'

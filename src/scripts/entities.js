@@ -1,4 +1,4 @@
-import '../web/core/services/environment'
+import '../core/services/environment'
 import inspector from 'inspector'
 import path from 'path'
 

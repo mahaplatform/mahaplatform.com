@@ -1,5 +1,5 @@
 import ChannelSerializer from '../../../serializers/channel_serializer'
-import socket from '../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import { sendMessage } from '../../../services/channels'
 import Subscription from '../../../models/subscription'
 import User from '../../../../maha/models/user'

@@ -1,4 +1,4 @@
-import socket from '../../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../../core/services/routes/emitter'
 import Contact from '../../../../models/contact'
 import Consent from '../../../../models/consent'
 import moment from 'moment'

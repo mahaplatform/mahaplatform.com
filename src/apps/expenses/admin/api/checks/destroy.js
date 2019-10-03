@@ -1,5 +1,5 @@
 import { destroyCheck } from '../../../services/checks'
-import socket from '../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import Check from '../../../models/check'
 
 const destroyRoute = async (req, res) => {

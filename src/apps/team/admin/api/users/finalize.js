@@ -1,4 +1,4 @@
-import generateCode from '../../../../../web/core/utils/generate_code'
+import generateCode from '../../../../../core/utils/generate_code'
 import ImportItem from '../../../../maha/models/import_item'
 import { sendUserActivation } from '../../../services/users'
 import User from '../../../../maha/models/user'

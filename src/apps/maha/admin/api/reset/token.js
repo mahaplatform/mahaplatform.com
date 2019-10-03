@@ -1,4 +1,4 @@
-import { decode } from '../../../../../web/core/services/jwt'
+import { decode } from '../../../../../core/services/jwt'
 import User from '../../../models/user'
 import moment from 'moment'
 

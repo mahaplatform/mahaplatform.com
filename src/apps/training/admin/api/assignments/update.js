@@ -1,5 +1,5 @@
 import AssignmentSerializer from '../../../serializers/assignment_serializer'
-import socket from '../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import { chooseOption } from '../../../services/assignments'
 import Assignment from '../../../models/assignment'
 

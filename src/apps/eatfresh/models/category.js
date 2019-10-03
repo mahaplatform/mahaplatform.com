@@ -1,5 +1,5 @@
 import Asset from '../../maha/models/asset'
-import Model from '../../../web/core/objects/model'
+import Model from '../../../core/objects/model'
 import Attraction from './attraction'
 
 const Category = new Model({

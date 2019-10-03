@@ -1,5 +1,5 @@
 import { processAsset } from '../services/assets'
-import Queue from '../../../web/core/objects/queue'
+import Queue from '../../../core/objects/queue'
 
 const enqueue = async (req, asset_id) => ({ asset_id })
 

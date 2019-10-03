@@ -1,6 +1,6 @@
-import { activity } from '../../../../../web/core/services/routes/activities'
-import { createUserToken } from '../../../../../web/core/utils/user_tokens'
-import { validate } from '../../../../../web/core/utils/validation'
+import { activity } from '../../../../../core/services/routes/activities'
+import { createUserToken } from '../../../../../core/utils/user_tokens'
+import { validate } from '../../../../../core/utils/validation'
 import moment from 'moment'
 
 const notificationsRoute = async (req, res) => {

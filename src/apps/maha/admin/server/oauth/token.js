@@ -1,6 +1,6 @@
 import { createAsset, createAssetFromUrl } from '../../../services/assets'
-import { loadUserFromToken } from '../../../../../web/core/utils/user_tokens'
-import socket from '../../../../../web/core/services/emitter'
+import { loadUserFromToken } from '../../../../../core/utils/user_tokens'
+import socket from '../../../../../core/services/emitter'
 import Profile from '../../../models/profile'
 import Source from '../../../models/source'
 import microsoft from './microsoft/token'

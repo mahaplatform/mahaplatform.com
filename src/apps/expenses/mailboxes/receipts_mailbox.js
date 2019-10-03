@@ -1,6 +1,6 @@
-import generateCode from '../../../web/core/utils/generate_code'
+import generateCode from '../../../core/utils/generate_code'
 import { createAsset } from '../../maha/services/assets'
-import socket from '../../../web/core/services/emitter'
+import socket from '../../../core/services/emitter'
 import Reimbursement from '../models/reimbursement'
 import Source from '../../maha/models/source'
 import Story from '../../maha/models/story'

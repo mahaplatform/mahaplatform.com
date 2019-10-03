@@ -1,6 +1,6 @@
-import { whitelist } from '../../../web/core/services/routes/params'
-import generateCode from '../../../web/core/utils/generate_code'
-import socket from '../../../web/core/services/routes/emitter'
+import { whitelist } from '../../../core/services/routes/params'
+import generateCode from '../../../core/utils/generate_code'
+import socket from '../../../core/services/routes/emitter'
 import Folder from '../models/folder'
 import Access from '../models/access'
 

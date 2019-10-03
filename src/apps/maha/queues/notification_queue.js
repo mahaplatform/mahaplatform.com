@@ -1,7 +1,7 @@
 import NotificationSerializer from '../serializers/notification_serializer'
 import { sendNotification } from '../services/notifications'
 import Notification from '../models/notification'
-import Queue from '../../../web/core/objects/queue'
+import Queue from '../../../core/objects/queue'
 
 const enqueue = async (req, id) => ({ id })
 

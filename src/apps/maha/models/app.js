@@ -1,5 +1,5 @@
-import collectObjects from '../../../web/core/utils/collect_objects'
-import Model from '../../../web/core/objects/model'
+import collectObjects from '../../../core/utils/collect_objects'
+import Model from '../../../core/objects/model'
 import Role from './role'
 import _ from 'lodash'
 

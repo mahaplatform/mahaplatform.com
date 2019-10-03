@@ -1,5 +1,5 @@
 import FilterSerializer from '../../../serializers/filter_serializer'
-import socket from '../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import Filter from '../../../models/filter'
 
 const updateRoute = async (req, res) => {

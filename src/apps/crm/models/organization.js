@@ -1,4 +1,4 @@
-import Model from '../../../web/core/objects/model'
+import Model from '../../../core/objects/model'
 import Asset from '../../maha/models/asset'
 import Contact from './contact'
 import Tag from './tag'

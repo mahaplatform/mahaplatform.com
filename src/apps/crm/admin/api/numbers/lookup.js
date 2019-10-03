@@ -1,4 +1,4 @@
-import twilio from '../../../../../web/core/services/twilio'
+import twilio from '../../../../../core/services/twilio'
 
 const lookupRoute = async (req, res) => {
 

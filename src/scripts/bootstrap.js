@@ -1,5 +1,5 @@
-import '../web/core/services/environment'
-import { bootstrapApps, bootstrapType } from '../web/core/scripts/bootstrap/bootstrap'
+import '../core/services/environment'
+import { bootstrapApps, bootstrapType } from '../core/scripts/bootstrap/bootstrap'
 import register from 'babel-register'
 import fs from 'fs'
 

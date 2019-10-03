@@ -1,5 +1,5 @@
 import ItemSerializer from '../../../serializers/item_serializer'
-import socket from '../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import { processValues } from '../../../../maha/services/values'
 import { addIndex } from '../../../services/search'
 import Field from '../../../../maha/models/field'

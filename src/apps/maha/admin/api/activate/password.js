@@ -1,5 +1,5 @@
-import { loadUserFromToken } from '../../../../../web/core/utils/user_tokens'
-import { validate } from '../../../../../web/core/utils/validation'
+import { loadUserFromToken } from '../../../../../core/utils/user_tokens'
+import { validate } from '../../../../../core/utils/validation'
 
 const passwordRoute = async (req, res) => {
 

@@ -1,4 +1,4 @@
-import { sendMail } from '../../../../../../web/core/services/email'
+import { sendMail } from '../../../../../../core/services/email'
 import Template from '../../../../models/template'
 import moment from 'moment'
 import path from 'path'

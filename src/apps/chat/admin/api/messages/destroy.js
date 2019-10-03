@@ -1,4 +1,4 @@
-import socket from '../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import User from '../../../../maha/models/user'
 import Message from '../../../models/message'
 

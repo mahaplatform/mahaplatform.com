@@ -1,4 +1,4 @@
-import socket from '../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import Channel from '../../../models/channel'
 
 const destroyRoute = async (req, res) => {

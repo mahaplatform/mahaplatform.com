@@ -1,5 +1,5 @@
-import { activity } from '../../../../../web/core/services/routes/activities'
-import { createUserToken } from '../../../../../web/core/utils/user_tokens'
+import { activity } from '../../../../../core/services/routes/activities'
+import { createUserToken } from '../../../../../core/utils/user_tokens'
 import mailer from '../../../../maha/queues/mailer_queue'
 import User from '../../../../maha/models/user'
 

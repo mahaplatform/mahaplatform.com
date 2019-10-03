@@ -1,8 +1,8 @@
-import { activity } from '../../../../../web/core/services/routes/activities'
+import { activity } from '../../../../../core/services/routes/activities'
 import ProjectSerializer from '../../../serializers/project_serializer'
-import { whitelist } from '../../../../../web/core/services/routes/params'
-import { audit } from '../../../../../web/core/services/routes/audit'
-import socket from '../../../../../web/core/services/routes/emitter'
+import { whitelist } from '../../../../../core/services/routes/params'
+import { audit } from '../../../../../core/services/routes/audit'
+import socket from '../../../../../core/services/routes/emitter'
 import Project from '../../../models/project'
 import _ from 'lodash'
 

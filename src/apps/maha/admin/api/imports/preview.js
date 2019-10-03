@@ -1,4 +1,4 @@
-import parse from '../../../../../web/core/utils/parse'
+import parse from '../../../../../core/utils/parse'
 import Import from '../../../models/import'
 import Asset from '../../../models/asset'
 

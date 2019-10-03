@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt-nodejs'
-import Model from '../../../web/core/objects/model'
+import Model from '../../../core/objects/model'
 import Site from './site'
 
 const Member = new Model({

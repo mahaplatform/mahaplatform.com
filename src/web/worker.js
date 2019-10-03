@@ -1,6 +1,6 @@
-import './core/services/environment'
-import collectObjects from './core/utils/collect_objects'
-import log from './core/utils/log'
+import '../core/services/environment'
+import collectObjects from '../core/utils/collect_objects'
+import log from '../core/utils/log'
 
 const queueFiles = collectObjects('queues/*')
 

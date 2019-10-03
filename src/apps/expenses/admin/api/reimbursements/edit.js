@@ -1,4 +1,4 @@
-import getUserAccess from '../../../../../web/core/utils/get_user_access'
+import getUserAccess from '../../../../../core/utils/get_user_access'
 import Reimbursement from '../../../models/reimbursement'
 import _ from 'lodash'
 

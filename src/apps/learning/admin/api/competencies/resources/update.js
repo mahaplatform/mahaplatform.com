@@ -1,5 +1,5 @@
-import { updateRelated } from '../../../../../../web/core/services/routes/relations'
-import socket from '../../../../../../web/core/services/routes/emitter'
+import { updateRelated } from '../../../../../../core/services/routes/relations'
+import socket from '../../../../../../core/services/routes/emitter'
 import Competency from '../../../../models/competency'
 
 const updateRoute = async (req, res) => {

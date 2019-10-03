@@ -1,4 +1,4 @@
-import { messaging } from '../../../../../web/core/services/firebase'
+import { messaging } from '../../../../../core/services/firebase'
 import Device from '../../../models/device'
 
 const pushRoute = async (req, res) => {

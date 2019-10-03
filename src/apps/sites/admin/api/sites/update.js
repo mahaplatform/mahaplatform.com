@@ -1,6 +1,6 @@
-import { activity } from '../../../../../web/core/services/routes/activities'
+import { activity } from '../../../../../core/services/routes/activities'
 import SiteSerializer from '../../../serializers/site_serializer'
-import socket from '../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import Origin from '../../../models/origin'
 import Site from '../../../models/site'
 

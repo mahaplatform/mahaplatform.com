@@ -1,4 +1,4 @@
-import '../../web/core/services/environment'
+import '../../core/services/environment'
 import Shipit from 'shipit-cli'
 import utils from 'shipit-utils'
 import roles from './roles'

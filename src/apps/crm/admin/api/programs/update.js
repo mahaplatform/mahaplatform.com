@@ -1,7 +1,7 @@
-import { activity } from '../../../../../web/core/services/routes/activities'
+import { activity } from '../../../../../core/services/routes/activities'
 import ProgramSerializer from '../../../serializers/program_serializer'
-import { whitelist } from '../../../../../web/core/services/routes/params'
-import socket from '../../../../../web/core/services/routes/emitter'
+import { whitelist } from '../../../../../core/services/routes/params'
+import socket from '../../../../../core/services/routes/emitter'
 import Program from '../../../models/program'
 import _ from 'lodash'
 

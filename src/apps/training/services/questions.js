@@ -1,4 +1,4 @@
-import { whitelist } from '../../../web/core/services/routes/params'
+import { whitelist } from '../../../core/services/routes/params'
 import Question from '../models/question'
 import { updateAnswers } from './answers'
 

@@ -1,9 +1,9 @@
 import NotificationSerializer from '../serializers/notification_serializer'
 import { sendNotificationEmail } from '../services/notification_email'
 import Notification from '../models/notification'
-import socket from '../../../web/core/services/emitter'
-import knex from '../../../web/core/services/knex'
-import cron from '../../../web/core/objects/cron'
+import socket from '../../../core/services/emitter'
+import knex from '../../../core/services/knex'
+import cron from '../../../core/objects/cron'
 import moment from 'moment'
 import _ from 'lodash'
 

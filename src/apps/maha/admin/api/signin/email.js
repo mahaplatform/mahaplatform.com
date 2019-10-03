@@ -1,4 +1,4 @@
-import { validate } from '../../../../../web/core/utils/validation'
+import { validate } from '../../../../../core/utils/validation'
 import User from '../../../models/user'
 
 const emailRoute = async (req, res) => {

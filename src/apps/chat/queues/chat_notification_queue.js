@@ -1,6 +1,6 @@
 import MessageSerializer from '../serializers/message_serializer'
 import { sendNotification } from '../../maha/services/notifications'
-import Queue from '../../../web/core/objects/queue'
+import Queue from '../../../core/objects/queue'
 import Subscription from '../models/subscription'
 import Message from '../models/message'
 

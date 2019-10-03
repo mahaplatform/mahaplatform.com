@@ -1,7 +1,7 @@
 import SearchIndex from 'search-index'
 import path from 'path'
 
-const prodRoot = path.resolve(__dirname,'..','..','..','..','..')
+const prodRoot = path.resolve(__dirname,'..','..','..','..')
 
 const devRoot = path.join(prodRoot,'..','..')
 

@@ -1,4 +1,4 @@
-import '../../web/core/services/environment'
+import '../../core/services/environment'
 import buildHelp from './help'
 import path from 'path'
 

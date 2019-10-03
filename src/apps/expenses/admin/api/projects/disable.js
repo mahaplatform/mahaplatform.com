@@ -1,6 +1,6 @@
-import { activity } from '../../../../../web/core/services/routes/activities'
-import { audit } from '../../../../../web/core/services/routes/audit'
-import socket from '../../../../../web/core/services/routes/emitter'
+import { activity } from '../../../../../core/services/routes/activities'
+import { audit } from '../../../../../core/services/routes/audit'
+import socket from '../../../../../core/services/routes/emitter'
 import Project from '../../../models/project'
 
 const enableRoute = async (req, res) => {

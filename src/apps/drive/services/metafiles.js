@@ -1,6 +1,6 @@
 import { createAsset, updateAsset } from '../../maha/services/assets'
-import { whitelist } from '../../../web/core/services/routes/params'
-import generateCode from '../../../web/core/utils/generate_code'
+import { whitelist } from '../../../core/services/routes/params'
+import generateCode from '../../../core/utils/generate_code'
 import Asset from '../../maha/models/asset'
 import MetaFile from '../models/metafile'
 import Access from '../models/access'

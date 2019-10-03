@@ -1,5 +1,5 @@
-import { activity } from '../../../../../web/core/services/routes/activities'
-import { whitelist } from '../../../../../web/core/services/routes/params'
+import { activity } from '../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../core/services/routes/params'
 import ImportSerializer from '../../../serializers/import_serializer'
 import Import from '../../../models/import'
 

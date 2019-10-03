@@ -1,4 +1,4 @@
-import generateCode from '../../../../web/core/utils/generate_code'
+import generateCode from '../../../../core/utils/generate_code'
 
 const AddUserKeys = {
 

@@ -1,5 +1,5 @@
-import { activity } from '../../../../../web/core/services/routes/activities'
-import { createUserToken } from '../../../../../web/core/utils/user_tokens'
+import { activity } from '../../../../../core/services/routes/activities'
+import { createUserToken } from '../../../../../core/utils/user_tokens'
 import moment from 'moment'
 
 const passwordRoute = async (req, res, next) => {

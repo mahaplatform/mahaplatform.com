@@ -1,6 +1,6 @@
 import FulfillmentSerializer from '../../../serializers/fulfillment_serializer'
-import { whitelist } from '../../../../../web/core/services/routes/params'
-import socket from '../../../../../web/core/services/routes/emitter'
+import { whitelist } from '../../../../../core/services/routes/params'
+import socket from '../../../../../core/services/routes/emitter'
 import Fulfillment from '../../../models/fulfillment'
 
 const reviewRoute = async (req, res) => {

@@ -1,6 +1,6 @@
 import ExpenseSerializer from '../../../serializers/expense_serializer'
-import generateCode from '../../../../../web/core/utils/generate_code'
-import socket from '../../../../../web/core/services/routes/emitter'
+import generateCode from '../../../../../core/utils/generate_code'
+import socket from '../../../../../core/services/routes/emitter'
 import { createExpense } from '../../../services/expenses'
 
 const createRoute = async (req, res) => {

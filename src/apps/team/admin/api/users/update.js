@@ -1,8 +1,8 @@
-import { updateRelated } from '../../../../../web/core/services/routes/relations'
-import { activity } from '../../../../../web/core/services/routes/activities'
-import { whitelist } from '../../../../../web/core/services/routes/params'
+import { updateRelated } from '../../../../../core/services/routes/relations'
+import { activity } from '../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../core/services/routes/params'
 import UserSerializer from '../../../serializers/user_serializer'
-import socket from '../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import User from '../../../../maha/models/user'
 
 const updateRoute = async (req, res) => {

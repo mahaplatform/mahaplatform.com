@@ -1,4 +1,4 @@
-import { whitelist } from '../../../../../web/core/services/routes/params'
+import { whitelist } from '../../../../../core/services/routes/params'
 import { sendUserActivation } from '../../../../team/services/users'
 import TeamSerializer from '../../../serializers/team_serializer'
 import Role from '../../../../maha/models/role'

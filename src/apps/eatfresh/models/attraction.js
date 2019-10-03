@@ -1,5 +1,5 @@
 import Asset from '../../maha/models/asset'
-import Model from '../../../web/core/objects/model'
+import Model from '../../../core/objects/model'
 import Offering from './offering'
 import Category from './category'
 import County from './county'

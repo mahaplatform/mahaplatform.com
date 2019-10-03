@@ -1,5 +1,5 @@
-import { activity } from '../../../../../web/core/services/routes/activities'
-import socket from '../../../../../web/core/services/routes/emitter'
+import { activity } from '../../../../../core/services/routes/activities'
+import socket from '../../../../../core/services/routes/emitter'
 import Installation from '../../../../maha/models/installation'
 import Right from '../../../../maha/models/right'
 import Role from '../../../../maha/models/role'

@@ -1,4 +1,4 @@
-import Model from '../../../web/core/objects/model'
+import Model from '../../../core/objects/model'
 import Grouping from './grouping'
 import Filter from './filter'
 import Group from './group'

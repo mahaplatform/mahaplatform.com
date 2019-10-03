@@ -1,9 +1,9 @@
-import { activity } from '../../../../../web/core/services/routes/activities'
-import { createUserToken } from '../../../../../web/core/utils/user_tokens'
+import { activity } from '../../../../../core/services/routes/activities'
+import { createUserToken } from '../../../../../core/utils/user_tokens'
 import MemberSerializer from '../../../serializers/member_serializer'
-import socket from '../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import { processValues } from '../../../../maha/services/values'
-import { sendMail } from '../../../../../web/core/services/email'
+import { sendMail } from '../../../../../core/services/email'
 import Member from '../../../models/member'
 import Email from '../../../models/email'
 

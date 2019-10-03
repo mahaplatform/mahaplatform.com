@@ -1,4 +1,4 @@
-import generateCode from '../../../../../web/core/utils/generate_code'
+import generateCode from '../../../../../core/utils/generate_code'
 import { contactActivity } from '../../../services/activities'
 import EmailAddress from '../../../models/email_address'
 import Program from '../../../models/program'

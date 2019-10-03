@@ -1,5 +1,5 @@
-import Model from '../../../web/core/objects/model'
-import s3 from '../../../web/core/services/s3'
+import Model from '../../../core/objects/model'
+import s3 from '../../../core/services/s3'
 import Source from './source'
 import User from './user'
 

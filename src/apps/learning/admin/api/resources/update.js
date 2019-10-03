@@ -1,7 +1,7 @@
 import ResourceSerializer from '../../../serializers/resource_serializer'
-import { activity } from '../../../../../web/core/services/routes/activities'
-import { whitelist } from '../../../../../web/core/services/routes/params'
-import socket from '../../../../../web/core/services/routes/emitter'
+import { activity } from '../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../core/services/routes/params'
+import socket from '../../../../../core/services/routes/emitter'
 import Resource from '../../../models/resource'
 
 const updateRoute = async (req, res) => {

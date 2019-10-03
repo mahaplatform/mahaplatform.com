@@ -1,5 +1,5 @@
 import MessageSerializer from '../../../serializers/message_serializer'
-import socket from '../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import Subscription from '../../../models/subscription'
 import { getUnread } from '../../../services/messages'
 import User from '../../../../maha/models/user'

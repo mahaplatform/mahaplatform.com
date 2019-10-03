@@ -1,7 +1,7 @@
-import { activity } from '../../../../../../web/core/services/routes/activities'
-import { whitelist } from '../../../../../../web/core/services/routes/params'
+import { activity } from '../../../../../../core/services/routes/activities'
+import { whitelist } from '../../../../../../core/services/routes/params'
 import ListSerializer from '../../../../serializers/list_serializer'
-import socket from '../../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../../core/services/routes/emitter'
 import List from '../../../../models/list'
 
 const createRoute = async (req, res) => {

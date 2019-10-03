@@ -1,6 +1,6 @@
 import { createMetaFile, renameMetaFile, destroyMetaFile } from '../services/metafiles'
 import { renameFile, updateFile } from '../services/files'
-import socket from '../../../web/core/services/routes/emitter'
+import socket from '../../../core/services/routes/emitter'
 import { renameAsset } from '../../maha/services/assets'
 import { renameFolder } from '../services/folders'
 import MetaFile from '../models/metafile'

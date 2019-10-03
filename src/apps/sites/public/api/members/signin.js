@@ -1,4 +1,4 @@
-import { createUserToken } from '../../../../../web/core/utils/user_tokens'
+import { createUserToken } from '../../../../../core/utils/user_tokens'
 import Member from '../../../models/member'
 import Site from '../../../models/site'
 

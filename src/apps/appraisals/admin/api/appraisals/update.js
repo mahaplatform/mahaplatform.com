@@ -1,8 +1,8 @@
-import { activity } from '../../../../../web/core/services/routes/activities'
+import { activity } from '../../../../../core/services/routes/activities'
 import AppraisalSerializer from '../../../serializers/appraisal_serializer'
-import { whitelist } from '../../../../../web/core/services/routes/params'
+import { whitelist } from '../../../../../core/services/routes/params'
 import { updateResponsibilities } from '../../../services/appraisals'
-import socket from '../../../../../web/core/services/routes/emitter'
+import socket from '../../../../../core/services/routes/emitter'
 import Appraisal from '../../../models/appraisal'
 
 const updateRoute = async (req, res) => {

@@ -1,4 +1,4 @@
-import { validate } from '../../../../../web/core/utils/validation'
+import { validate } from '../../../../../core/utils/validation'
 
 const avatarRoute = async (req, res) => {
 
