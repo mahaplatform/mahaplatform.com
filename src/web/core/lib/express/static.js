@@ -3,11 +3,11 @@ import path from 'path'
 
 const prodRoot = path.resolve(__dirname,'..','..','..','public','admin')
 
-const devRoot = path.resolve(__dirname,'..','..','admin')
+const devRoot = path.resolve(__dirname,'..','..','..','public')
 
 const getStaticRoot = () => {
   if(process.env.NODE_ENV === 'production') return prodRoot
-  return path.join(devRoot,'public')
+  return devRoot
 }
 
 const root = getStaticRoot()

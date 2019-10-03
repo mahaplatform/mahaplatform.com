@@ -78,7 +78,7 @@ const webpackConfig = {
       filename: 'css/[name]-[hash].min.css'
     }),
     new CopyWebpackPlugin([{
-      from: path.resolve('src','web','core','admin','public'),
+      from: path.resolve('src','web','public'),
       to: path.resolve('dist.staged','public','admin')
     }]),
     new HtmlWebpackPlugin({

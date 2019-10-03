@@ -1,6 +1,7 @@
 import '../web/core/services/environment'
-import designerConfig from '../web/core/designer/config/webpack.development.config'
-import webConfig from '../web/config/webpack.development.config'
+import * as template from '../web/core/templates/config/webpack.development.config'
+import webConfig from '../web/core/admin/config/webpack.development.config'
+import * as form from '../web/core/forms/config/webpack.development.config'
 import desktopConfig from '../desktop/config/webpack.config'
 import mobileConfig from '../mobile/config/webpack.config'
 import devServer from 'webpack-dev-server'
@@ -56,9 +57,19 @@ const mobileWatch = async () => {
   await watch('mobile', watchDir, mobileConfig)
 }
 
-const designerWatch = async () => {
-  const watchDir = path.resolve('src','web','core','designer')
-  await watch('designer', watchDir, designerConfig)
+const templateWatch = async () => {
+  const { emailConfig, webConfig } = template
+  const watchDir = path.resolve('src','web','core','templates')
+  await watch('template:email', path.join(watchDir,'email'), emailConfig)
+  await watch('template:web', path.join(watchDir,'web'), webConfig)
+}
+
+const formWatch = async () => {
+  const { designerConfig, embedConfig, formConfig } = form
+  const watchDir = path.resolve('src','web','core','forms')
+  await watch('form:designer', path.join(watchDir,'designer'), designerConfig)
+  await watch('form:embed', path.join(watchDir,'embed'), embedConfig)
+  await watch('form:form', path.join(watchDir,'form'), formConfig)
 }
 
 const watch = async (module, watchDir, config) => {
@@ -78,10 +89,10 @@ const watch = async (module, watchDir, config) => {
   })
 }
 
-const clientWatch = async () => {
+const adminWatch = async () => {
 
   const devserver = new devServer(webpack(webConfig), {
-    contentBase: path.resolve('src','web','core','admin','public'),
+    contentBase: path.resolve('src','web','public'),
     hot: true,
     publicPath: '/admin',
     proxy: [
@@ -129,12 +140,13 @@ const clientWatch = async () => {
 
 export const dev = async () => {
   const argv = process.argv.slice(2)
-  const services = argv.length > 0 ? argv : ['server','designer','desktop','mobile','client']
+  const services = argv.length > 0 ? argv : ['server','template','form','desktop','mobile','admin']
   if(_.includes(services, 'server')) await serverWatch()
-  if(_.includes(services, 'designer')) await designerWatch()
+  // if(_.includes(services, 'template')) await templateWatch()
+  // if(_.includes(services, 'form')) await formWatch()
   // if(_.includes(services, 'desktop')) await desktopWatch()
   // if(_.includes(services, 'mobile')) await mobileWatch()
-  if(_.includes(services, 'client')) await clientWatch()
+  if(_.includes(services, 'admin')) await adminWatch()
 }
 
 dev()

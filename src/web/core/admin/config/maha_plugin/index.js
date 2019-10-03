@@ -1,6 +1,6 @@
-import transpile from '../../core/utils/transpile'
-import apps from '../../core/utils/apps'
-import log from '../../core/utils/log'
+import transpile from '../../../utils/transpile'
+import apps from '../../../utils/apps'
+import log from '../../../utils/log'
 import glob from 'glob'
 import path from 'path'
 import _ from 'lodash'
@@ -68,7 +68,7 @@ const cards = (pattern) => collectObjects(pattern).map(file => {
 const renderTemplate = (templateName, variables) => {
   const template = fs.readFileSync(path.join(__dirname, `${templateName}.ejs`), 'utf8')
   const data = ejs.render(template, variables)
-  fs.writeFileSync(path.join(__dirname,'..','..','core','admin',templateName), data, 'utf8')
+  fs.writeFileSync(path.join(__dirname,'..','..','..','admin',templateName), data, 'utf8')
 }
 
 class MahaWebpackPlugin {

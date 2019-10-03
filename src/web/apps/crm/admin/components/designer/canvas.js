@@ -89,7 +89,7 @@ class Canvas extends React.Component {
     const device = devices[deviceIndex]
     return {
       ref: node => this.preview = node,
-      src: '/admin/designer.html',
+      src: '/templates/email.html',
       style: {
         width: portrait ? device.width : device.height,
         height: portrait ? device.height : device.width,

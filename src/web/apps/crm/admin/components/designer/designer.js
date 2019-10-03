@@ -32,8 +32,6 @@ class Designer extends React.Component {
 
   static defaultProps = {}
 
-  pasteur = null
-
   render() {
     return (
       <div className="designer">

@@ -1,4 +1,3 @@
-import HtmlWebpackExcludeAssetsPlugin from 'html-webpack-exclude-assets-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
@@ -6,11 +5,11 @@ import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
 import path from 'path'
 
-const webpackConfig = {
+const webpackConfig = (name) => ({
   devtool: 'none',
   entry: [
-    path.resolve('src','web','core','designer','index.js'),
-    path.resolve('src','web','core','designer','index.less')
+    path.resolve('src','web','core','templates',name,'index.js'),
+    path.resolve('src','web','core','templates',name,'index.less')
   ],
   mode: 'development',
   module: {
@@ -53,20 +52,21 @@ const webpackConfig = {
     ]
   },
   output: {
-    path: path.resolve('src','web','core','admin','public'),
-    filename: 'js/designer.min.js',
-    publicPath: '/admin'
+    path: path.resolve('src','web','public'),
+    filename: `templates/js/${name}.js`,
+    publicPath: '/'
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: 'css/designer.min.css'
+      filename: `templates/css/${name}.css`
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve('src','web','core','designer','index.html'),
-      filename: 'designer.html'
-    }),
-    new HtmlWebpackExcludeAssetsPlugin()
+      template: path.resolve('src','web','core','templates',name,'index.html'),
+      filename: `templates/${name}.html`
+    })
   ]
-}
+})
 
-export default webpackConfig
+export const emailConfig = webpackConfig('email')
+
+export const webConfig = webpackConfig('web')
