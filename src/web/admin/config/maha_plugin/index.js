@@ -1,6 +1,6 @@
-import transpile from '../../../../../core/utils/transpile'
-import apps from '../../../../../core/utils/apps'
-import log from '../../../../../core/utils/log'
+import transpile from '../../../../core/utils/transpile'
+import apps from '../../../../core/utils/apps'
+import log from '../../../../core/utils/log'
 import glob from 'glob'
 import path from 'path'
 import _ from 'lodash'
@@ -19,8 +19,8 @@ const configs = apps.reduce((configs, app) => {
 }, {})
 
 const collectObjects = (pattern) => [
-  ...glob.sync(`src/web/entries/${pattern}`),
-  ...glob.sync(`src/web/entries/${pattern}/index.js`),
+  ...glob.sync(`src/web/${pattern}`),
+  ...glob.sync(`src/web/${pattern}/index.js`),
   ...glob.sync(`src/apps/*/${pattern}`),
   ...glob.sync(`src/apps/*/${pattern}/index.js`)
 ]
@@ -30,9 +30,9 @@ const extract = (pattern) => collectObjects(pattern).map(file => {
   if(appMatches) return {
     ...configs[appMatches[2]],
     name: _.camelCase(appMatches[1].replace('/',' ')),
-    filepath: `../../../apps/${appMatches[1]}`
+    filepath: `../../apps/${appMatches[1]}`
   }
-  const matches = file.match(/src\/web\/entries\/admin\/(([^/]*).*)/)
+  const matches = file.match(/src\/web\/admin\/(([^/]*).*)/)
   return {
     code: 'admin',
     name: _.camelCase(matches[1].replace('/',' ')),
@@ -45,9 +45,9 @@ const reducers = (pattern) => collectObjects('admin/**/reducer.js').map(file => 
   if(appMatches) return {
     ...configs[appMatches[2]],
     name: _.camelCase(appMatches[4].replace('/',' ')),
-    filepath: `../../../apps/${appMatches[1]}`
+    filepath: `../../apps/${appMatches[1]}`
   }
-  const matches = file.match(/src\/web\/entries\/admin\/(([^/]*)\/(.*))\/reducer.js/)
+  const matches = file.match(/src\/web\/admin\/(([^/]*)\/(.*))\/reducer.js/)
   return {
     code: 'admin',
     name: _.camelCase(matches[3].replace('/',' ')),
@@ -61,7 +61,7 @@ const cards = (pattern) => collectObjects(pattern).map(file => {
     ...configs[appMatches[2]],
     name: appMatches[3],
     component: _.capitalize(appMatches[3]),
-    filepath: `../../../apps/${appMatches[1]}`
+    filepath: `../../apps/${appMatches[1]}`
   }
 })
 

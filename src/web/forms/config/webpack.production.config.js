@@ -1,15 +1,14 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
 import path from 'path'
 
-const webpackConfig = (name) => ({
+const webpackConfig = (name, css) => ({
   devtool: 'none',
   entry: [
-    path.resolve('src','web','entries','templates',name,'index.js'),
-    path.resolve('src','web','entries','templates',name,'index.less')
+    path.resolve('src','web','forms',name,'index.js'),
+    ...css ? [path.resolve('src','web','forms',name,'index.less')] : []
   ],
   mode: 'development',
   module: {
@@ -53,20 +52,18 @@ const webpackConfig = (name) => ({
   },
   output: {
     path: path.resolve('dist.staged','public'),
-    filename: 'templates/js/[name]-[chunkhash].min.js',
+    filename: 'forms/js/[name]-[chunkhash].min.js',
     publicPath: '/'
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: `templates/css/${name}.css`
-    }),
-    new HtmlWebpackPlugin({
-      template: path.resolve('src','web','entries','templates',name,'index.html'),
-      filename: `templates/${name}.html`
+      filename: `forms/css/${name}.css`
     })
   ]
 })
 
-export const emailConfig = webpackConfig('email')
+export const designerConfig = webpackConfig('designer', false)
 
-export const webConfig = webpackConfig('web')
+export const embedConfig = webpackConfig('embed', false)
+
+export const formConfig = webpackConfig('form', true)

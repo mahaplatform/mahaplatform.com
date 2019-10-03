@@ -1,7 +1,7 @@
 import '../core/services/environment'
-import * as templates from '../web/entries/templates/config/webpack.development.config'
-import adminConfig from '../web/entries/admin/config/webpack.development.config'
-import * as forms from '../web/entries/forms/config/webpack.development.config'
+import * as templates from '../web/templates/config/webpack.development.config'
+import adminConfig from '../web/admin/config/webpack.development.config'
+import * as forms from '../web/forms/config/webpack.development.config'
 import desktopConfig from '../desktop/config/webpack.config'
 import mobileConfig from '../mobile/config/webpack.config'
 import devServer from 'webpack-dev-server'
@@ -22,6 +22,10 @@ const serverWatch = async () => {
     '--exec',
     'babel-node'
   ]
+  nodemon.push('--watch')
+  nodemon.push(path.resolve('src','apps'))
+  nodemon.push('--watch')
+  nodemon.push(path.resolve('src','core'))
   nodemon.push('--watch')
   nodemon.push(path.resolve('src','web'))
 
@@ -59,14 +63,14 @@ const mobileWatch = async () => {
 
 const templateWatch = async () => {
   const { emailConfig, webConfig } = templates
-  const watchDir = path.resolve('src','web','entries','templates')
+  const watchDir = path.resolve('src','web','templates')
   await watch('template:email', path.join(watchDir,'email'), emailConfig)
   await watch('template:web', path.join(watchDir,'web'), webConfig)
 }
 
 const formWatch = async () => {
   const { designerConfig, embedConfig, formConfig } = forms
-  const watchDir = path.resolve('src','web','entries','forms')
+  const watchDir = path.resolve('src','web','forms')
   await watch('form:designer', path.join(watchDir,'designer'), designerConfig)
   await watch('form:embed', path.join(watchDir,'embed'), embedConfig)
   await watch('form:form', path.join(watchDir,'form'), formConfig)

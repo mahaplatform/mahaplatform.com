@@ -12,8 +12,8 @@ import path from 'path'
 const webpackConfig = {
   devtool: 'none',
   entry: [
-    path.resolve('src','web','entries','admin','index.js'),
-    path.resolve('src','web','entries','admin','index.less')
+    path.resolve('src','web','admin','index.js'),
+    path.resolve('src','web','admin','index.less')
   ],
   mode: 'production',
   module: {
@@ -82,7 +82,7 @@ const webpackConfig = {
       to: path.resolve('dist.staged','public','admin')
     }]),
     new HtmlWebpackPlugin({
-      template: path.resolve('src','web','entries','admin','index.html')
+      template: path.resolve('src','web','admin','index.html')
     }),
     new HtmlWebpackExcludeAssetsPlugin(),
     new webpack.SourceMapDevToolPlugin({
@@ -110,7 +110,7 @@ const webpackConfig = {
   ],
   resolve: {
     alias: {
-      'maha-admin': path.resolve('src','web','entries','admin','client.js')
+      'maha-admin': path.resolve('src','web','admin','client.js')
     }
   },
   resolveLoader: {
