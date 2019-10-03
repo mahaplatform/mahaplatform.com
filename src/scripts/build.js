@@ -1,5 +1,7 @@
 import '../web/core/services/environment'
-import clientConfig from '../web/config/webpack.production.config'
+import * as templates from '../web/entries/templates/config/webpack.production.config'
+import adminConfig from '../web/entries/admin/config/webpack.production.config'
+import * as forms from '../web/entries/forms/config/webpack.production.config'
 import apps from '../web/core/utils/apps'
 import log from '../web/core/utils/log'
 import { transform } from 'babel-core'
@@ -85,15 +87,25 @@ const buildDir = async (dir) => {
   await Promise.mapSeries(items, item => buildItem(item, srcPath, destPath))
 }
 
-const buildClient = async () => {
-  log('info', 'client', 'Compiling...')
-  await new Promise((resolve, reject) => webpack(clientConfig).run((err, stats) => {
+const compile = async (module, config) => {
+  log('info', module, 'Compiling...')
+  await new Promise((resolve, reject) => webpack(config).run((err, stats) => {
     if(err) reject(err)
     const info = stats.toJson()
     if(stats.hasErrors()) console.error(info.errors)
     resolve(stats)
   }))
-  log('info', 'client', 'Compiled successfully.')
+  log('info', module, 'Compiled successfully.')
+
+}
+
+const buildClients = async () => {
+  await compile('admin', adminConfig)
+  await compile('forms:designer', forms.designerConfig)
+  await compile('forms:embed', forms.embedConfig)
+  await compile('forms:form', forms.formConfig)
+  await compile('templates:email', templates.emailConfig)
+  await compile('templates:web', templates.webConfig)
 }
 
 const buildServer = async () => {
@@ -101,7 +113,7 @@ const buildServer = async () => {
   const appDirs = apps.map(app => `apps/${app}`)
   await Promise.map([...appDirs, 'core'], buildDir)
   await Promise.map(['cron.js','server.js','worker.js'], buildEntry)
-  await copy(path.join('src','web','config','ecosystem.config.js'), path.join(staged,'ecosystem.config.js'))
+  await copy(path.join('src','web','entries','admin','config','ecosystem.config.js'), path.join(staged,'ecosystem.config.js'))
   await copy(path.join('package.json'), path.join(staged,'package.json'))
   await copy(path.join('package-lock.json'), path.join(staged,'package-lock.json'))
   log('info', 'server', 'Compiled successfully.')
@@ -132,7 +144,7 @@ const build = async (flags, args) => {
   mkdirp.sync(staged)
   await Promise.all([
     buildServer(),
-    buildClient(),
+    buildClients(),
     buildHelp(),
     buildEnv()
   ])

@@ -1,7 +1,7 @@
 import '../web/core/services/environment'
-import * as template from '../web/entries/templates/config/webpack.development.config'
-import webConfig from '../web/entries/admin/config/webpack.development.config'
-import * as form from '../web/entries/forms/config/webpack.development.config'
+import * as templates from '../web/entries/templates/config/webpack.development.config'
+import adminConfig from '../web/entries/admin/config/webpack.development.config'
+import * as forms from '../web/entries/forms/config/webpack.development.config'
 import desktopConfig from '../desktop/config/webpack.config'
 import mobileConfig from '../mobile/config/webpack.config'
 import devServer from 'webpack-dev-server'
@@ -58,14 +58,14 @@ const mobileWatch = async () => {
 }
 
 const templateWatch = async () => {
-  const { emailConfig, webConfig } = template
+  const { emailConfig, webConfig } = templates
   const watchDir = path.resolve('src','web','entries','templates')
   await watch('template:email', path.join(watchDir,'email'), emailConfig)
   await watch('template:web', path.join(watchDir,'web'), webConfig)
 }
 
 const formWatch = async () => {
-  const { designerConfig, embedConfig, formConfig } = form
+  const { designerConfig, embedConfig, formConfig } = forms
   const watchDir = path.resolve('src','web','entries','forms')
   await watch('form:designer', path.join(watchDir,'designer'), designerConfig)
   await watch('form:embed', path.join(watchDir,'embed'), embedConfig)
@@ -91,7 +91,7 @@ const watch = async (module, watchDir, config) => {
 
 const adminWatch = async () => {
 
-  const devserver = new devServer(webpack(webConfig), {
+  const devserver = new devServer(webpack(adminConfig), {
     contentBase: path.resolve('src','web','public'),
     hot: true,
     publicPath: '/admin',
