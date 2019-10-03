@@ -1,5 +1,5 @@
-import Session from '../../../apps/maha/models/session'
-import User from '../../../apps/maha/models/user'
+import Session from '../../../../apps/maha/models/session'
+import User from '../../../../apps/maha/models/user'
 import * as jwt from '../../services/jwt'
 
 export const authenticate = async (token) => {

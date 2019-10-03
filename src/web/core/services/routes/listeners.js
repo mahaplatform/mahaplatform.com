@@ -1,4 +1,4 @@
-import Listening from '../../../apps/maha/models/listening'
+import Listening from '../../../../apps/maha/models/listening'
 import _ from 'lodash'
 
 export const listeners = async (req, listeners) => {

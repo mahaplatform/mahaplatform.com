@@ -153,7 +153,7 @@ const _getSortedFiles = (appPaths, targetPath) => {
 }
 
 const _getAppPaths = () => {
-  return apps.map(app => path.resolve(__dirname,'..','..','..','apps', app))
+  return apps.map(app => path.resolve(__dirname,'..','..','..','..','apps', app))
 }
 
 const _getTables = async (constraints) => {

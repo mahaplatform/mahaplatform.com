@@ -1,5 +1,5 @@
 import * as jwt from '../services/jwt'
-import User from '../../apps/maha/models/user'
+import User from '../../../apps/maha/models/user'
 
 const TWO_WEEKS = 60 * 60 * 24 * 7 * 2
 

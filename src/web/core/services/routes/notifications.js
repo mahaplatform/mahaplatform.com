@@ -1,8 +1,8 @@
-import NotificationQueue from '../../../apps/maha/queues/notification_queue'
-import NotificationType from '../../../apps/maha/models/notification_type'
-import Notification from '../../../apps/maha/models/notification'
-import Story from '../../../apps/maha/models/story'
-import App from '../../../apps/maha/models/app'
+import NotificationQueue from '../../../../apps/maha/queues/notification_queue'
+import NotificationType from '../../../../apps/maha/models/notification_type'
+import Notification from '../../../../apps/maha/models/notification'
+import Story from '../../../../apps/maha/models/story'
+import App from '../../../../apps/maha/models/app'
 import _ from 'lodash'
 
 export const notifications = async (req, notifications) => {

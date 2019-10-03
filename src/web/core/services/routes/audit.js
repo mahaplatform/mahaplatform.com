@@ -1,5 +1,5 @@
-import Story from '../../../apps/maha/models/story'
-import Audit from '../../../apps/maha/models/audit'
+import Story from '../../../../apps/maha/models/story'
+import Audit from '../../../../apps/maha/models/audit'
 import _ from 'lodash'
 
 export const audit = async (req, entries) => {

@@ -1,4 +1,4 @@
-import Email from '../../../../apps/maha/models/email'
+import Email from '../../../../../apps/maha/models/email'
 import request from 'request-promise'
 
 const feedbackRoute = async (req, res) => {

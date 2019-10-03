@@ -1,4 +1,4 @@
-import Team from '../../../../apps/maha/models/team'
+import Team from '../../../../../apps/maha/models/team'
 
 export const rawParser = (req, res, next) => {
   if(req.method !== 'PUT') return next()

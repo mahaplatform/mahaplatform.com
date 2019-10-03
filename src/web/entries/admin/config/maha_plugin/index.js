@@ -8,7 +8,7 @@ import ejs from 'ejs'
 import fs from 'fs'
 
 const configs = apps.reduce((configs, app) => {
-  const configPath = path.join('src','web','apps',app,'app.js')
+  const configPath = path.join('src','apps',app,'app.js')
   const contents = fs.readFileSync(configPath, 'utf8')
   const transpiled = transpile(contents)
   const config = eval(transpiled)
@@ -21,16 +21,16 @@ const configs = apps.reduce((configs, app) => {
 const collectObjects = (pattern) => [
   ...glob.sync(`src/web/entries/${pattern}`),
   ...glob.sync(`src/web/entries/${pattern}/index.js`),
-  ...glob.sync(`src/web/apps/*/${pattern}`),
-  ...glob.sync(`src/web/apps/*/${pattern}/index.js`)
+  ...glob.sync(`src/apps/*/${pattern}`),
+  ...glob.sync(`src/apps/*/${pattern}/index.js`)
 ]
 
 const extract = (pattern) => collectObjects(pattern).map(file => {
-  const appMatches = file.match(/src\/web\/apps\/(([^/]*).*)/)
+  const appMatches = file.match(/src\/apps\/(([^/]*).*)/)
   if(appMatches) return {
     ...configs[appMatches[2]],
     name: _.camelCase(appMatches[1].replace('/',' ')),
-    filepath: `../../apps/${appMatches[1]}`
+    filepath: `../../../apps/${appMatches[1]}`
   }
   const matches = file.match(/src\/web\/entries\/admin\/(([^/]*).*)/)
   return {
@@ -41,11 +41,11 @@ const extract = (pattern) => collectObjects(pattern).map(file => {
 })
 
 const reducers = (pattern) => collectObjects('admin/**/reducer.js').map(file => {
-  const appMatches = file.match(/src\/web\/apps\/(([^/]*)\/admin\/(.*)\/(.*))\/reducer.js/)
+  const appMatches = file.match(/src\/apps\/(([^/]*)\/admin\/(.*)\/(.*))\/reducer.js/)
   if(appMatches) return {
     ...configs[appMatches[2]],
     name: _.camelCase(appMatches[4].replace('/',' ')),
-    filepath: `../../apps/${appMatches[1]}`
+    filepath: `../../../apps/${appMatches[1]}`
   }
   const matches = file.match(/src\/web\/entries\/admin\/(([^/]*)\/(.*))\/reducer.js/)
   return {
@@ -56,19 +56,19 @@ const reducers = (pattern) => collectObjects('admin/**/reducer.js').map(file => 
 })
 
 const cards = (pattern) => collectObjects(pattern).map(file => {
-  const appMatches = file.match(/src\/web\/apps\/(([^/]*)\/admin\/cards\/(.*).js)/)
+  const appMatches = file.match(/src\/apps\/(([^/]*)\/admin\/cards\/(.*).js)/)
   return {
     ...configs[appMatches[2]],
     name: appMatches[3],
     component: _.capitalize(appMatches[3]),
-    filepath: `../../apps/${appMatches[1]}`
+    filepath: `../../../apps/${appMatches[1]}`
   }
 })
 
 const renderTemplate = (templateName, variables) => {
   const template = fs.readFileSync(path.join(__dirname, `${templateName}.ejs`), 'utf8')
   const data = ejs.render(template, variables)
-  fs.writeFileSync(path.join(__dirname,'..','..','..','admin',templateName), data, 'utf8')
+  fs.writeFileSync(path.join(__dirname,'..','..',templateName), data, 'utf8')
 }
 
 class MahaWebpackPlugin {

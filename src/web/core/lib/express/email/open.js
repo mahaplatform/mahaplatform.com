@@ -1,5 +1,5 @@
-import EmailActivity from '../../../../apps/maha/models/email_activity'
-import Email from '../../../../apps/maha/models/email'
+import EmailActivity from '../../../../../apps/maha/models/email_activity'
+import Email from '../../../../../apps/maha/models/email'
 import moment from 'moment'
 import path from 'path'
 

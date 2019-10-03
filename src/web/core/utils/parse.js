@@ -1,4 +1,4 @@
-import { getAssetData } from '../../apps/maha/services/assets'
+import { getAssetData } from '../../../apps/maha/services/assets'
 import csvparse from 'csv-parse/lib/sync'
 import moment from 'moment'
 import Excel from 'exceljs'

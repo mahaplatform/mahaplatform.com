@@ -1,6 +1,6 @@
-import Installation from '../../apps/maha/models/installation'
-import Right from '../../apps/maha/models/right'
-import App from '../../apps/maha/models/app'
+import Installation from '../../../apps/maha/models/installation'
+import Right from '../../../apps/maha/models/right'
+import App from '../../../apps/maha/models/app'
 import knex from '../services/knex'
 
 export default async (req, user) => {

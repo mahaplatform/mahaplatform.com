@@ -1,4 +1,4 @@
-import App from '../../../../apps/maha/models/app'
+import App from '../../../../../apps/maha/models/app'
 
 const route = (code) => async(req, res, next) => {
 

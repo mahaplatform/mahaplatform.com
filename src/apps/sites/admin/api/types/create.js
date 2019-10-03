@@ -1,0 +1,58 @@
+import { activity } from '../../../../../web/core/services/routes/activities'
+import { whitelist } from '../../../../../web/core/services/routes/params'
+import generateCode from '../../../../../web/core/utils/generate_code'
+import TypeSerializer from '../../../serializers/type_serializer'
+import socket from '../../../../../web/core/services/routes/emitter'
+import Field from '../../../../maha/models/field'
+import Type from '../../../models/type'
+
+const createRoute = async (req, res) => {
+
+  const type = await Type.forge({
+    team_id: req.team.get('id'),
+    site_id: req.params.site_id,
+    ...whitelist(req.body, ['title','description'])
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  const code = await generateCode(req, {
+    table: 'maha_fields'
+  })
+
+  await Field.forge({
+    team_id: req.team.get('id'),
+    parent_type: 'sites_types',
+    parent_id: type.get('id'),
+    code,
+    delta: 0,
+    label: 'Title',
+    name: 'title',
+    type: 'textfield',
+    config: {
+      required: true
+    }
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  await activity(req, {
+    story: 'created {object}',
+    object: type
+  })
+
+  await socket.message(req, {
+    channel: 'user',
+    action: 'session'
+  })
+
+  await socket.refresh(req, [
+    `/admin/sites/sites/${req.params.site_id}/types`,
+    `/admin/sites/sites/${req.params.site_id}/types/${type.get('id')}`
+  ])
+
+  res.status(200).respond(type, TypeSerializer)
+
+}
+
+export default createRoute

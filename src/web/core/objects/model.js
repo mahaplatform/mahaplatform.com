@@ -39,36 +39,36 @@ class Model {
       },
 
       activities: function() {
-        const Activity = require('../../apps/maha/models/activity').default
+        const Activity = require('../../../apps/maha/models/activity').default
         return this.morphMany(Activity, 'activable', ['object_table', 'object_id'])
       },
 
       audit: function() {
-        const Audit = require('../../apps/maha/models/audit').default
+        const Audit = require('../../../apps/maha/models/audit').default
         return this.morphMany(Audit, 'auditable').query(qb => {
           qb.orderBy('created_at', 'asc')
         })
       },
 
       comments: function() {
-        const Comment = require('../../apps/maha/models/comment').default
+        const Comment = require('../../../apps/maha/models/comment').default
         return this.morphMany(Comment, 'commentable')
       },
 
       reactions: function() {
-        const Reaction = require('../../apps/maha/models/reaction').default
+        const Reaction = require('../../../apps/maha/models/reaction').default
         return this.morphMany(Reaction, 'reactable').query(qb => {
           qb.whereNull('unreacted_at')
         })
       },
 
       stars: function() {
-        const Star = require('../../apps/maha/models/star').default
+        const Star = require('../../../apps/maha/models/star').default
         return this.morphMany(Star, 'starrable')
       },
 
       team: function() {
-        const Team = require('../../apps/maha/models/team').default
+        const Team = require('../../../apps/maha/models/team').default
         return this.belongsTo(Team, 'team_id')
       },
 

@@ -5,7 +5,7 @@ import glob from 'glob'
 import path from 'path'
 import _ from 'lodash'
 
-const root = path.resolve(__dirname,'..','..','..','apps')
+const root = path.resolve(__dirname,'..','..','..','..','apps')
 
 export const bootstrapApps = async () => {
 

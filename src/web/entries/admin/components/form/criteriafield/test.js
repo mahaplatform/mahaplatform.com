@@ -4,7 +4,7 @@ import { spy } from 'sinon'
 import React from 'react'
 import Criteria from './criteria.js'
 
-describe('src/web/apps/crm/admin/components/criteria', () => {
+describe('src/apps/crm/admin/components/criteria', () => {
 
   describe('/actions.js', () => {
 

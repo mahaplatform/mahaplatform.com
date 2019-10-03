@@ -3,7 +3,7 @@ import glob from 'glob'
 import path from 'path'
 import _ from 'lodash'
 
-const root = path.join(__dirname,'..','..','apps')
+const root = path.join(__dirname,'..','..','..','apps')
 
 const configs = apps.map(app => {
   const configPath = path.join(root,app,'app.js')
