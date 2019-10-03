@@ -1,11 +1,15 @@
+import { Message, ModalPanel } from 'maha-admin'
 import { Stack } from 'maha-admin'
-import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Article from './article'
 import Search from './search'
 import React from 'react'
 
 class Help extends React.Component {
+
+  static contextTypes = {
+    logger: PropTypes.object
+  }
 
   static propTypes = {
     articles: PropTypes.array,
@@ -18,11 +22,21 @@ class Help extends React.Component {
     onType: PropTypes.func
   }
 
+  static getDerivedStateFromError(error) {
+    return { error: true }
+  }
+
+  state = {
+    error: false
+  }
+
   _handleDone = this._handleDone.bind(this)
   _handleFetch = this._handleFetch.bind(this)
   _handleType = this._handleType.bind(this)
 
   render() {
+    const { error } = this.state
+    if(error) return this.renderError()
     return (
       <div className="maha-help">
         <ModalPanel { ...this._getPanel() }>
@@ -35,13 +49,16 @@ class Help extends React.Component {
     )
   }
 
-  _getStack() {
-    const { articles } = this.props
-    return {
-      cards: articles.map(article => ({
-        component: ()=> <Article { ...this._getArticle(article) }/>
-      }))
-    }
+  renderError() {
+    return (
+      <ModalPanel { ...this._getErrorPanel() }>
+        <Message { ...this._getError() } />
+      </ModalPanel>
+    )
+  }
+
+  componentDidCatch(error, info) {
+    this.context.logger.error(error, info)
   }
 
   _getArticle(article) {
@@ -49,6 +66,23 @@ class Help extends React.Component {
     return {
       article,
       onDone: onClose
+    }
+  }
+
+  _getErrorPanel() {
+    return {
+      leftItems: [
+        { icon: 'chevron-left', handler: this._handleBack }
+      ],
+      title: 'Error'
+    }
+  }
+
+  _getError() {
+    return {
+      icon: 'exclamation-triangle',
+      title: 'Error',
+      text: 'There was a problem'
     }
   }
 
@@ -67,6 +101,15 @@ class Help extends React.Component {
       q: this.props.q,
       onClick: this._handleFetch,
       onType: this._handleType
+    }
+  }
+
+  _getStack() {
+    const { articles } = this.props
+    return {
+      cards: articles.map(article => ({
+        component: ()=> <Article { ...this._getArticle(article) }/>
+      }))
     }
   }
 

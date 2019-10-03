@@ -1,12 +1,12 @@
-import Button from '../button'
-import Collection from '../collection'
-import Message from '../message'
-import ModalPanel from '../modal_panel'
-import Panel from '../panel'
-import Tabs from '../tabs'
 import { CSSTransition } from 'react-transition-group'
+import ModalPanel from '../modal_panel'
+import Collection from '../collection'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import Message from '../message'
+import Button from '../button'
+import Panel from '../panel'
+import Tabs from '../tabs'
 import React from 'react'
 import _ from 'lodash'
 
@@ -45,12 +45,17 @@ class Page extends React.Component {
     user: PropTypes.object
   }
 
+  static getDerivedStateFromError(error) {
+    return { error: true }
+  }
+
   static defaultProps = {
     color: 'red'
   }
 
   state = {
-    access: null
+    access: null,
+    error: false
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -59,15 +64,12 @@ class Page extends React.Component {
   _handleUpdateTitle = this._handleUpdateTitle.bind(this)
 
   render() {
-    const { access } = this.state
+    const { access, error } = this.state
     const { buttons, collection, message, panel, sidebar, tabs } = this.props
     const Component = this.props.component
     if(access === null) return null
-    if(!access) return (
-      <ModalPanel { ...this._getForbiddenPanel() }>
-        <Message { ...this._getForbidden() } />
-      </ModalPanel>
-    )
+    if(error) return this.renderError()
+    if(!access) return this.renderForbidden()
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-page-main">
@@ -100,10 +102,30 @@ class Page extends React.Component {
     )
   }
 
+  renderError() {
+    return (
+      <ModalPanel { ...this._getErrorPanel() }>
+        <Message { ...this._getError() } />
+      </ModalPanel>
+    )
+  }
+
+  renderForbidden() {
+    return (
+      <ModalPanel { ...this._getForbiddenPanel() }>
+        <Message { ...this._getForbidden() } />
+      </ModalPanel>
+    )
+  }
+
   componentDidMount() {
     const { title } = this.props
     this._handleCheckAccess()
     this._handleUpdateTitle(title)
+  }
+
+  componentDidCatch(error, info) {
+    this.context.logger.error(error, info)
   }
 
   componentDidUpdate(prevProps) {
@@ -143,6 +165,23 @@ class Page extends React.Component {
       cacheKey,
       token: team.token,
       ...collection
+    }
+  }
+
+  _getErrorPanel() {
+    return {
+      leftItems: [
+        { icon: 'chevron-left', handler: this._handleBack }
+      ],
+      title: 'Error'
+    }
+  }
+
+  _getError() {
+    return {
+      icon: 'exclamation-triangle',
+      title: 'Error',
+      text: 'There was a problem'
     }
   }
 

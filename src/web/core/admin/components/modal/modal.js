@@ -1,6 +1,8 @@
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import Loader from '../loader'
+import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
+import Message from '../message'
+import Loader from '../loader'
 import React from 'react'
 import _ from 'lodash'
 
@@ -8,6 +10,10 @@ class Modal extends React.Component {
 
   static childContextTypes = {
     modal: PropTypes.object
+  }
+
+  static contextTypes = {
+    logger: PropTypes.object
   }
 
   static propTypes = {
@@ -19,12 +25,17 @@ class Modal extends React.Component {
     onPush: PropTypes.func
   }
 
+  static getDerivedStateFromError(error) {
+    return { error: true }
+  }
+
   state = {
+    error: false,
     panels: []
   }
 
   render() {
-    const { panels } = this.state
+    const { panels, error } = this.state
     const { children } = this.props
     return ([
       children,
@@ -42,9 +53,12 @@ class Modal extends React.Component {
             <TransitionGroup component={ null }>
               { panels.map((panel, index) => (
                 <CSSTransition component={ null } classNames={ index > 0 ? 'stack' : ''} timeout={ 500 } key={ `panel_${index}` }>
-                  <div className="maha-modal-window-panel">
-                    { _.isFunction(panel) ? React.createElement(panel) : panel }
-                  </div>
+                  { error ?
+                    this.renderError() :
+                    <div className="maha-modal-window-panel">
+                      { _.isFunction(panel) ? React.createElement(panel) : panel }
+                    </div>
+                  }
                 </CSSTransition>
               ))}
             </TransitionGroup>
@@ -52,6 +66,18 @@ class Modal extends React.Component {
         </div>
       </CSSTransition>
     ])
+  }
+
+  renderError() {
+    return (
+      <ModalPanel { ...this._getErrorPanel() }>
+        <Message { ...this._getError() } />
+      </ModalPanel>
+    )
+  }
+
+  componentDidCatch(error, info) {
+    this.context.logger.error(error, info)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -70,6 +96,23 @@ class Modal extends React.Component {
         pop: this._handlePop.bind(this),
         push: this._handlePush.bind(this)
       }
+    }
+  }
+
+  _getErrorPanel() {
+    return {
+      leftItems: [
+        { icon: 'chevron-left', handler: this._handleBack }
+      ],
+      title: 'Error'
+    }
+  }
+
+  _getError() {
+    return {
+      icon: 'exclamation-triangle',
+      title: 'Error',
+      text: 'There was a problem'
     }
   }
 
