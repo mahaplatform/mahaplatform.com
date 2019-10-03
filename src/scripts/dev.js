@@ -1,7 +1,7 @@
 import '../web/core/services/environment'
-import * as template from '../web/core/templates/config/webpack.development.config'
-import webConfig from '../web/core/admin/config/webpack.development.config'
-import * as form from '../web/core/forms/config/webpack.development.config'
+import * as template from '../web/entries/templates/config/webpack.development.config'
+import webConfig from '../web/entries/admin/config/webpack.development.config'
+import * as form from '../web/entries/forms/config/webpack.development.config'
 import desktopConfig from '../desktop/config/webpack.config'
 import mobileConfig from '../mobile/config/webpack.config'
 import devServer from 'webpack-dev-server'
@@ -59,14 +59,14 @@ const mobileWatch = async () => {
 
 const templateWatch = async () => {
   const { emailConfig, webConfig } = template
-  const watchDir = path.resolve('src','web','core','templates')
+  const watchDir = path.resolve('src','web','entries','templates')
   await watch('template:email', path.join(watchDir,'email'), emailConfig)
   await watch('template:web', path.join(watchDir,'web'), webConfig)
 }
 
 const formWatch = async () => {
   const { designerConfig, embedConfig, formConfig } = form
-  const watchDir = path.resolve('src','web','core','forms')
+  const watchDir = path.resolve('src','web','entries','forms')
   await watch('form:designer', path.join(watchDir,'designer'), designerConfig)
   await watch('form:embed', path.join(watchDir,'embed'), embedConfig)
   await watch('form:form', path.join(watchDir,'form'), formConfig)
@@ -142,8 +142,8 @@ export const dev = async () => {
   const argv = process.argv.slice(2)
   const services = argv.length > 0 ? argv : ['server','template','form','desktop','mobile','admin']
   if(_.includes(services, 'server')) await serverWatch()
-  // if(_.includes(services, 'template')) await templateWatch()
-  // if(_.includes(services, 'form')) await formWatch()
+  if(_.includes(services, 'template')) await templateWatch()
+  if(_.includes(services, 'form')) await formWatch()
   // if(_.includes(services, 'desktop')) await desktopWatch()
   // if(_.includes(services, 'mobile')) await mobileWatch()
   if(_.includes(services, 'admin')) await adminWatch()

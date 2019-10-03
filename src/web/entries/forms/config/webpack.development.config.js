@@ -7,8 +7,8 @@ import path from 'path'
 const webpackConfig = (name, css) => ({
   devtool: 'none',
   entry: [
-    path.resolve('src','web','core','forms',name,'index.js'),
-    ...css ? [path.resolve('src','web','core','forms',name,'index.less')] : []
+    path.resolve('src','web','entries','forms',name,'index.js'),
+    ...css ? [path.resolve('src','web','entries','forms',name,'index.less')] : []
   ],
   mode: 'development',
   module: {

@@ -8,8 +8,8 @@ import path from 'path'
 const webpackConfig = (name) => ({
   devtool: 'none',
   entry: [
-    path.resolve('src','web','core','templates',name,'index.js'),
-    path.resolve('src','web','core','templates',name,'index.less')
+    path.resolve('src','web','entries','templates',name,'index.js'),
+    path.resolve('src','web','entries','templates',name,'index.less')
   ],
   mode: 'development',
   module: {
@@ -61,7 +61,7 @@ const webpackConfig = (name) => ({
       filename: `templates/css/${name}.css`
     }),
     new HtmlWebpackPlugin({
-      template: path.resolve('src','web','core','templates',name,'index.html'),
+      template: path.resolve('src','web','entries','templates',name,'index.html'),
       filename: `templates/${name}.html`
     })
   ]

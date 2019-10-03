@@ -1,6 +1,6 @@
-import transpile from '../../../utils/transpile'
-import apps from '../../../utils/apps'
-import log from '../../../utils/log'
+import transpile from '../../../../core/utils/transpile'
+import apps from '../../../../core/utils/apps'
+import log from '../../../../core/utils/log'
 import glob from 'glob'
 import path from 'path'
 import _ from 'lodash'
@@ -19,8 +19,8 @@ const configs = apps.reduce((configs, app) => {
 }, {})
 
 const collectObjects = (pattern) => [
-  ...glob.sync(`src/web/core/${pattern}`),
-  ...glob.sync(`src/web/core/${pattern}/index.js`),
+  ...glob.sync(`src/web/entries/${pattern}`),
+  ...glob.sync(`src/web/entries/${pattern}/index.js`),
   ...glob.sync(`src/web/apps/*/${pattern}`),
   ...glob.sync(`src/web/apps/*/${pattern}/index.js`)
 ]
@@ -32,7 +32,7 @@ const extract = (pattern) => collectObjects(pattern).map(file => {
     name: _.camelCase(appMatches[1].replace('/',' ')),
     filepath: `../../apps/${appMatches[1]}`
   }
-  const matches = file.match(/src\/web\/core\/admin\/(([^/]*).*)/)
+  const matches = file.match(/src\/web\/entries\/admin\/(([^/]*).*)/)
   return {
     code: 'admin',
     name: _.camelCase(matches[1].replace('/',' ')),
@@ -47,7 +47,7 @@ const reducers = (pattern) => collectObjects('admin/**/reducer.js').map(file => 
     name: _.camelCase(appMatches[4].replace('/',' ')),
     filepath: `../../apps/${appMatches[1]}`
   }
-  const matches = file.match(/src\/web\/core\/admin\/(([^/]*)\/(.*))\/reducer.js/)
+  const matches = file.match(/src\/web\/entries\/admin\/(([^/]*)\/(.*))\/reducer.js/)
   return {
     code: 'admin',
     name: _.camelCase(matches[3].replace('/',' ')),

@@ -1,4 +1,8 @@
+import HtmlWebpackExcludeAssetsPlugin from 'html-webpack-exclude-assets-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import MahaPlugin from './maha_plugin'
 import webpack from 'webpack'
@@ -6,21 +10,19 @@ import cssnano from 'cssnano'
 import path from 'path'
 
 const webpackConfig = {
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'none',
   entry: [
-    `webpack-dev-server/client?http://localhost:${process.env.DEVSERVER_PORT}`,
-    'webpack/hot/only-dev-server',
-    path.resolve('src','web','core','admin','index.js'),
-    path.resolve('src','web','core','admin','index.less')
+    path.resolve('src','web','entries','admin','index.js'),
+    path.resolve('src','web','entries','admin','index.less')
   ],
-  mode: 'development',
+  mode: 'production',
   module: {
     rules: [
       {
         test: /\.less$/,
-        exclude: /(node_modules)/,
+        exclude: /node_modules/,
         use: [
-          'style-loader',
+          MiniCssExtractPlugin.loader,
           { loader: 'css-loader', options: {
             url: false, sourceMap: false }
           },
@@ -34,11 +36,10 @@ const webpackConfig = {
         use: 'imports-loader?exports=>undefined,require=>false,this=>window'
       }, {
         test: /\.js$/,
-        exclude: /(node_modules)/,
         loader: 'babel-loader',
+        exclude: /node_modules/,
         options: {
           cacheDirectory: true,
-          plugins: ['react-hot-loader/babel'],
           presets: ['es2015', 'react', 'stage-0']
         }
       }
@@ -47,17 +48,47 @@ const webpackConfig = {
   node: {
     fs: 'empty'
   },
+  optimization: {
+    minimizer: [
+      new TerserPlugin({
+        terserOptions: {
+          mangle: true,
+          safari10: true
+        }
+      })
+    ],
+    splitChunks: {
+      cacheGroups: {
+        commons: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendors',
+          chunks: 'all'
+        }
+      }
+    }
+  },
   output: {
-    path: path.resolve('src','web','public'),
-    filename: 'application.js',
+    path: path.resolve('dist.staged','public','admin'),
+    filename: 'js/[name]-[chunkhash].min.js',
     publicPath: '/admin'
   },
   plugins: [
     new MahaPlugin(),
-    new HtmlWebpackPlugin({
-      template: path.resolve('src','web','core','admin','index.html')
+    new MiniCssExtractPlugin({
+      filename: 'css/[name]-[hash].min.css'
     }),
-    new webpack.HotModuleReplacementPlugin(),
+    new CopyWebpackPlugin([{
+      from: path.resolve('src','web','public'),
+      to: path.resolve('dist.staged','public','admin')
+    }]),
+    new HtmlWebpackPlugin({
+      template: path.resolve('src','web','entries','admin','index.html')
+    }),
+    new HtmlWebpackExcludeAssetsPlugin(),
+    new webpack.SourceMapDevToolPlugin({
+      filename: '[file].map',
+      exclude: [/(vendors|style)/]
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         'DOMAIN': JSON.stringify(process.env.DOMAIN || 'localhost'),
@@ -79,11 +110,8 @@ const webpackConfig = {
   ],
   resolve: {
     alias: {
-      'maha-admin': path.resolve('src','web','core','admin','client.js')
-    },
-    modules: [
-      path.resolve('node_modules')
-    ]
+      'maha-admin': path.resolve('src','web','entries','admin','client.js')
+    }
   },
   resolveLoader: {
     modules: [
