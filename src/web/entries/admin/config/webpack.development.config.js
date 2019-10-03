@@ -48,7 +48,7 @@ const webpackConfig = {
     fs: 'empty'
   },
   output: {
-    path: path.resolve('src','web','public'),
+    path: path.resolve('src','public'),
     filename: 'application.js',
     publicPath: '/admin'
   },

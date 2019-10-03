@@ -92,7 +92,7 @@ const watch = async (module, watchDir, config) => {
 const adminWatch = async () => {
 
   const devserver = new devServer(webpack(adminConfig), {
-    contentBase: path.resolve('src','web','public'),
+    contentBase: path.resolve('src','public'),
     hot: true,
     publicPath: '/admin',
     proxy: [

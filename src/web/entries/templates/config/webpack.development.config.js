@@ -52,7 +52,7 @@ const webpackConfig = (name) => ({
     ]
   },
   output: {
-    path: path.resolve('src','web','public'),
+    path: path.resolve('src','public'),
     filename: `templates/js/${name}.js`,
     publicPath: '/'
   },

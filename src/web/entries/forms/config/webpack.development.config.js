@@ -51,7 +51,7 @@ const webpackConfig = (name, css) => ({
     ]
   },
   output: {
-    path: path.resolve('src','web','public'),
+    path: path.resolve('src','public'),
     filename: `forms/js/${name}.js`,
     publicPath: '/'
   },

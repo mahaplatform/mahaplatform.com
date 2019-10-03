@@ -14,5 +14,5 @@ deploy.tgz
 npm-debug.log
 .env*
 *.key
-src/web/public/templates
-src/web/public/forms
+src/public/templates
+src/public/forms

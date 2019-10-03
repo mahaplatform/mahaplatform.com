@@ -1,9 +1,9 @@
 import express from 'express'
 import path from 'path'
 
-const prodRoot = path.resolve(__dirname,'..','..','..','public','admin')
+const prodRoot = path.resolve(__dirname,'..','..','..','..','public','admin')
 
-const devRoot = path.resolve(__dirname,'..','..','..','public')
+const devRoot = path.resolve(__dirname,'..','..','..','..','public')
 
 const getStaticRoot = () => {
   if(process.env.NODE_ENV === 'production') return prodRoot
