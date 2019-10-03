@@ -4,8 +4,8 @@ import path from 'path'
 
 inspector.open()
 
-require(path.join('..','web','server'))
+require(path.join('..','server'))
 
-require(path.join('..','web','worker'))
+require(path.join('..','worker'))
 
-require(path.join('..','web','cron'))
+require(path.join('..','cron'))
