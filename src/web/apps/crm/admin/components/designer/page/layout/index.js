@@ -24,8 +24,13 @@ class Layout extends React.Component {
         { config.sections.map((section, index) => (
           <Section key={`section_${index}`} { ...this._getSection(section, index) } />
         ))}
-        <div className="designer-page-section-label" onClick={ this._handleAddSection }>
-          <span className="link">Add Section</span>
+        <div className="designer-layout-section-add" onClick={ this._handleAddSection }>
+          <div className="designer-layout-section-add-icon">
+            <i className="fa fa-plus" />
+          </div>
+          <div className="designer-layout-section-add-label">
+            Add Section
+          </div>
         </div>
       </div>
     )

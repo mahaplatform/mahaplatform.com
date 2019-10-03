@@ -8,9 +8,14 @@
 .sharesfield-network-handle {
   padding: 0.8em 0 0.8em 0.8em;
   display: flex;
+  cursor: grab;
   .fa {
-    color: fadeout(@black, 50);
+    font-size: 1.2em;
     margin: auto;
+    color: fadeout(@black, 60);
+    &:hover {
+      color: fadeout(@black, 40);
+    }
   }
 }
 .sharesfield-network-icon {
@@ -31,14 +36,13 @@
   padding: 0.8em 0.8em 0.8em 0;
   display: flex;
   cursor: pointer;
-  &:hover {
-    .fa {
-      color: fadeout(@black, 50);
-    }
-  }
   .fa {
-    color: fadeout(@black, 80);
+    font-size: 1.2em;
     margin: auto;
+    color: fadeout(@black, 60);
+    &:hover {
+      color: fadeout(@black, 40);
+    }
   }
 }
 .sharesfield-network-add {
