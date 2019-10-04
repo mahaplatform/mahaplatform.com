@@ -101,3 +101,11 @@ export const border_widths = Array(20).fill(0).map((i,j) => ({
   value: j + 1,
   text: `${j + 1}px`
 }))
+
+export const paddings = [
+  { value: 0, text: 'None' },
+  ...Array(20).fill(0).map((i,j) => ({
+    value: j + 1,
+    text: `${j + 1}px`
+  }))
+]

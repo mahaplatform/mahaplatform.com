@@ -18,9 +18,10 @@ class Style extends React.Component {
 
   _getProp(prop, key, unit = null, defaultValue = null) {
     const { config } = this.props
-    const value = _.get(config, key) || defaultValue
-    const formatted = unit ? `${value}${unit}` : value
-    return value ? [{ prop, value: formatted }] : []
+    const value = _.get(config, key)
+    const adjusted = !_.isNil(value) ? value : defaultValue
+    const formatted = unit ? `${adjusted}${unit}` : value
+    return !_.isNil(value) ? [{ prop, value: formatted }] : []
   }
 
   _getFormat(prop, targetValue, key, defaultValue) {
@@ -29,6 +30,17 @@ class Style extends React.Component {
     const selected = _.includes(formats, targetValue)
     const value = selected ? targetValue : defaultValue
     return selected ? [{ prop, value }] : []
+  }
+
+  _getBorder(prop, key) {
+    const { config } = this.props
+    const width = _.get(config, `${key}_width`)
+    const style = _.get(config, `${key}_style`)
+    const color = _.get(config, `${key}_color`)
+    if(!_.isNil(width) && !_.isNil(style) && !_.isNil(color)) {
+      return [{ prop, value: `${width}px ${style} ${color}` }]
+    }
+    return []
   }
 
   _getStyle() {
@@ -53,21 +65,21 @@ class Style extends React.Component {
       })),
       { selector: 'table.body', styles: [
         ...this._getProp('background-color', 'page.background_color'),
-        ...this._getProp('border-top', 'page.border_top')
+        ...this._getBorder('border-top', 'page.border_top')
       ] },
       { selector: 'table.body>tbody>tr>td.float-center', styles: [
         ...this._getProp('padding', 'page.padding', 'px')
       ] },
       { selector: 'table.container', styles: [
         ...this._getProp('background', 'page.email_background_color', null, 'none'),
-        ...this._getProp('border', 'page.email_border')
+        ...this._getBorder('border', 'page.email_border')
       ] },
       ...sections.reduce((sectionStyles, section, i) => [
         ...sectionStyles,
         { selector: `table.section-${i}`, styles: [
           ...this._getProp('background-color', `sections[${i}].background_color`),
-          ...this._getProp('border-top', `sections[${i}].border_top`),
-          ...this._getProp('border-bottom', `sections[${i}].border_bottom`),
+          ...this._getBorder('border-top', `sections[${i}].border_top`),
+          ...this._getBorder('border-bottom', `sections[${i}].border_bottom`),
           ...this._getProp('padding-top', `sections[${i}].padding_top`, 'px'),
           ...this._getProp('padding-bottom', `sections[${i}].padding_bottom`, 'px')
         ] },

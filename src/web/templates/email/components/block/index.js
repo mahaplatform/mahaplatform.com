@@ -45,7 +45,6 @@ class Block extends React.Component {
   _getClass() {
     const { active, blockIndex, sectionIndex } = this.props
     const is_active = active && active.section === sectionIndex && active.block === blockIndex
-    console.log(is_active, active, blockIndex, sectionIndex)
     const classes=['block']
     if(is_active) classes.push('active')
     return classes.join(' ')

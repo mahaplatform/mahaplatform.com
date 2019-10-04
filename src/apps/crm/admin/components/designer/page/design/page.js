@@ -1,4 +1,4 @@
-import { block_types, font_size, letter_spacing, line_heights, fonts } from '../../variables'
+import * as options from '../../variables'
 import AlignmentField from '../../../alignmentfield'
 import FormatField from '../../../formatfield'
 import { connect } from 'react-redux'
@@ -39,20 +39,34 @@ class Page extends React.Component {
       ],
       sections: [
         {
+          label: 'Canvas Style',
           fields: [
             { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
-            { label: 'Top Border', name: 'border_top', type: 'textfield', defaultValue: config.border_top },
-            { label: 'Padding', name: 'padding', type: 'textfield', defaultValue: config.padding },
-            { label: 'Email Background Color', name: 'email_background_color', type: 'colorfield', defaultValue: config.email_background_color },
-            { label: 'Email Border', name: 'email_border', type: 'textfield', defaultValue: config.email_border }
+            { label: 'Top Border', type:'fields', fields: [
+              { name: 'border_top_style', type: 'lookup', options: options.border_styles, placeholder: 'Choose a style', defaultValue: config.border_top_style },
+              { name: 'border_top_width', type: 'lookup', options: options.border_widths, placeholder: 'Choose a width', defaultValue: config.border_top_width },
+              { name: 'border_top_color', type: 'colorfield', defaultValue: config.border_top_color }
+            ] },
+            { label: 'Padding', name: 'padding', type: 'lookup', options: options.paddings, defaultValue: config.padding }
           ]
         },
-        ...block_types.map(({ value, text }) => ({
-          label: text,
+        {
+          label: 'Email Style',
+          fields: [
+            { label: 'Background Color', name: 'email_background_color', type: 'colorfield', defaultValue: config.email_background_color },
+            { label: 'Top Border', type:'fields', fields: [
+              { name: 'email_border_style', type: 'lookup', options: options.border_styles, placeholder: 'Choose a style', defaultValue: config.email_border_style },
+              { name: 'email_border_width', type: 'lookup', options: options.border_widths, placeholder: 'Choose a width', defaultValue: config.email_border_width },
+              { name: 'email_border_color', type: 'colorfield', defaultValue: config.email_border_color }
+            ] }
+          ]
+        },
+        ...options.block_types.map(({ value, text }) => ({
+          label: `${text} Style`,
           fields: [
             { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config[`${value}_font_family`] },
             { type: 'fields', fields: [
-              { label: 'Font Size', name: `${value}_font_size`, type: 'lookup', options: font_size, defaultValue: config[`${value}_font_size`] },
+              { label: 'Font Size', name: `${value}_font_size`, type: 'lookup', options: options.font_size, defaultValue: config[`${value}_font_size`] },
               { label: 'Color', name: `${value}_color`, type: 'colorfield', defaultValue: config[`${value}_color`] }
             ] },
             { type: 'fields', fields: [
@@ -60,8 +74,8 @@ class Page extends React.Component {
               { label: 'Alignment', name: `${value}_text_align`, type: AlignmentField, defaultValue: config[`${value}_text_align`] }
             ] },
             { type: 'fields', fields: [
-              { label: 'Line Height', name: `${value}_line_height`, type: 'lookup', options: line_heights, defaultValue: config[`${value}_line_height`] },
-              { label: 'Letter Spacing', name: `${value}_letter_spacing`, type: 'lookup', options: letter_spacing, defaultValue: config[`${value}_letter_spacing`] }
+              { label: 'Line Height', name: `${value}_line_height`, type: 'lookup', options: options.line_heights, defaultValue: config[`${value}_line_height`] },
+              { label: 'Letter Spacing', name: `${value}_letter_spacing`, type: 'lookup', options: options.letter_spacing, defaultValue: config[`${value}_letter_spacing`] }
             ] }
           ]
         }))

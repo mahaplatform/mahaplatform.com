@@ -53,7 +53,9 @@ class Designer extends React.Component {
     return {
       page: {
         background_color: null,
-        border_top: null,
+        border_top_style: null,
+        border_top_width: null,
+        border_top_color: null,
         padding: 10,
         email_background_color: null,
         email_border: null,
