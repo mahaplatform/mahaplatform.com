@@ -3,6 +3,7 @@ import ContactsList from './contacts/list'
 import ContactsShow from './contacts/show'
 import FieldsShow from './fields/show'
 import FormsList from './forms/list'
+import FormsShow from './forms/show'
 import ListsList from './lists/list'
 import ListsShow from './lists/show'
 import NumbersList from './numbers/list'
@@ -25,6 +26,7 @@ const routes = [
   { path: '/programs/:id', component: ProgramsShow },
   { path: '/programs/:program_id/campaigns', component: CampaignsList },
   { path: '/programs/:program_id/forms', component: FormsList },
+  { path: '/programs/:program_id/forms/:id', component: FormsShow },
   { path: '/programs/:program_id/fields', component: FieldsShow },
   { path: '/programs/:program_id/lists', component: ListsList },
   { path: '/programs/:program_id/lists/:id', component: ListsShow },

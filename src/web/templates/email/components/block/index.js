@@ -13,6 +13,7 @@ import Code from './code'
 class Block extends React.Component {
 
   static propTypes = {
+    active: PropTypes.object,
     blockIndex: PropTypes.number,
     config: PropTypes.object,
     sectionIndex: PropTypes.number,
@@ -24,6 +25,7 @@ class Block extends React.Component {
     return (
       <div className={ this._getClass() }>
         <Component { ...this._getBlock() } />
+        <div className="block-highlight" />
         <div className="block-actions">
           <div className="block-spacer"></div>
           <div className="block-action" onClick={ this._handleAction.bind(this, 'edit') }>
@@ -41,8 +43,9 @@ class Block extends React.Component {
   }
 
   _getClass() {
-    //    const is_active = active.section === i && active.block === j
-    const is_active = null
+    const { active, blockIndex, sectionIndex } = this.props
+    const is_active = active && active.section === sectionIndex && active.block === blockIndex
+    console.log(is_active, active, blockIndex, sectionIndex)
     const classes=['block']
     if(is_active) classes.push('active')
     return classes.join(' ')

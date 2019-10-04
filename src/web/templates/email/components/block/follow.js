@@ -13,7 +13,7 @@ class Follow extends React.Component {
     const { blockIndex, sectionIndex, config } = this.props
     const { align, icon_style, icon_color, networks } = config
     const icons = (
-      <table align={ align } className={`menu social float-${align}`}>
+      <table align={ align } className={`menu social float-${align} follow-block block`}>
         <tbody>
           <tr>
             { networks.map((network, index) => (

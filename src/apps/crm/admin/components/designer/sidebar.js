@@ -1,5 +1,6 @@
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Preview from './preview'
 import Block from './block'
 import React from 'react'
 import Page from './page'
@@ -16,6 +17,7 @@ class Sidebar extends React.Component {
     onDeleteSection: PropTypes.func,
     onMoveSection: PropTypes.func,
     onEdit: PropTypes.func,
+    onSave: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -27,6 +29,7 @@ class Sidebar extends React.Component {
 
   _handleDone = this._handleDone.bind(this)
   _handlePop = this._handlePop.bind(this)
+  _handlePreview = this._handlePreview.bind(this)
   _handlePush = this._handlePush.bind(this)
 
   render() {
@@ -63,15 +66,24 @@ class Sidebar extends React.Component {
   }
 
   _getPage() {
-    const { config, onAddSection, onDeleteSection, onMoveSection } = this.props
+    const { onAddSection, onDeleteSection, onMoveSection, onSave } = this.props
     return {
-      config,
       onAddSection,
       onDeleteSection,
       onMoveSection,
       onPush: this._handlePush,
       onPop: this._handlePop,
+      onPreview: this._handlePreview,
+      onSave,
       onUpdate: this._handleUpdate.bind(this)
+    }
+  }
+
+  _getPreview() {
+    const { config } = this.props
+    return {
+      config,
+      onBack: this._handlePop
     }
   }
 
@@ -95,6 +107,10 @@ class Sidebar extends React.Component {
     this.setState({
       cards:this.state.cards.slice(0, index)
     })
+  }
+
+  _handlePreview() {
+    this._handlePush(Preview, this._getPreview())
   }
 
   _handlePush(component, props) {

@@ -13,7 +13,7 @@ class Text extends React.Component {
     const { blockIndex, config, sectionIndex } = this.props
     const { columns } = config
     return (
-      <table className={`row section-${ sectionIndex }-block-${ blockIndex }`}>
+      <table className={`row section-${ sectionIndex }-block-${ blockIndex } text-block block`}>
         <tbody>
           <tr>
             { new Array(columns).fill(0).map((column, index) => (

@@ -15,7 +15,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     entity: 'form',
     icon: 'check-square-o',
     link: (record) => `/admin/crm/programs/${page.params.program_id}/forms/${record.id}`,
-    new: New,
+    new: <New program_id={page.params.program_id} />,
     defaultSort: { key: 'title', order: 'asc' }
   },
   tasks: {
@@ -23,7 +23,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     items: [
       {
         label: 'Create Form',
-        modal: New
+        modal: <New program_id={page.params.program_id} />
       }
     ]
   }

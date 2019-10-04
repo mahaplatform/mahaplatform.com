@@ -32,7 +32,7 @@ class Dropdown extends React.Component {
   _handleClose = this._handleClose.bind(this)
 
   render() {
-    const { options } = this.props
+    const options = this._getOptions()
     return (
       <div className="maha-dropdown">
         <div className={ this._getDropdownClass() } onClick={ this._handleOpen }>
@@ -48,6 +48,12 @@ class Dropdown extends React.Component {
         </div>
       </div>
     )
+  }
+
+  _getOptions() {
+    return this.props.options.map(option => {
+      return _.isString(option) ? { value: option, text: option } : option
+    })
   }
 
   componentDidMount() {

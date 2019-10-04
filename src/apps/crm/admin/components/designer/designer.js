@@ -3,7 +3,6 @@ import Sidebar from './sidebar'
 import Canvas from './canvas'
 import Header from './header'
 import React from 'react'
-import _ from 'lodash'
 
 class Designer extends React.Component {
 
@@ -26,6 +25,7 @@ class Designer extends React.Component {
     onEdit: PropTypes.func,
     onMoveSection: PropTypes.func,
     onRemove: PropTypes.func,
+    onSave: PropTypes.func,
     onSet: PropTypes.func,
     onUpdate: PropTypes.func
   }
@@ -47,13 +47,6 @@ class Designer extends React.Component {
   componentDidMount() {
     const defaultValue = this.props.defaultValue || this._getDefault()
     this.props.onSet(defaultValue)
-  }
-
-  componentDidUpdate(prevProps) {
-    const { config } = this.props
-    if(!_.isEqual(config, prevProps.config)) {
-      this.props.onChange(config)
-    }
   }
 
   _getDefault() {
@@ -130,7 +123,7 @@ class Designer extends React.Component {
   }
 
   _getSidebar() {
-    const { active, config, onAddSection, onDeleteSection, onMoveSection, onEdit, onUpdate } = this.props
+    const { active, config, onAddSection, onDeleteSection, onMoveSection, onEdit, onSave, onUpdate } = this.props
     return {
       active,
       config,
@@ -138,7 +131,8 @@ class Designer extends React.Component {
       onDeleteSection,
       onMoveSection,
       onEdit,
-      onUpdate
+      onUpdate,
+      onSave
     }
   }
 

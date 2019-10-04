@@ -30,6 +30,7 @@ class Canvas extends React.Component {
   _handleAdd = this._handleAdd.bind(this)
   _handleClone = this._handleClone.bind(this)
   _handleEdit = this._handleEdit.bind(this)
+  _handleHighlight = this._handleHighlight.bind(this)
   _handleRemove = this._handleRemove.bind(this)
   _handleRender = _.throttle(this._handleRender.bind(this), 250, { leading: true, trailing: false })
 
@@ -59,13 +60,10 @@ class Canvas extends React.Component {
     })
   }
 
-  componentWillUnmount() {
-    this.pasteur.close()
-  }
-
   componentDidUpdate(prevProps) {
     const { active, config, editable } = this.props
     if(!_.isEqual(active, prevProps.active)) {
+      this._handleHighlight()
       this._handleRender()
     }
     if(!_.isEqual(config, prevProps.config)) {
@@ -74,6 +72,10 @@ class Canvas extends React.Component {
     if(!_.isEqual(editable, prevProps.editable)) {
       this._handleRender()
     }
+  }
+
+  componentWillUnmount() {
+    this.pasteur.close()
   }
 
   _getClass() {
@@ -117,6 +119,11 @@ class Canvas extends React.Component {
 
   _handleEdit({ section, block }) {
     this.props.onEdit(section, block)
+  }
+
+  _handleHighlight() {
+    const { active } = this.props
+    this.pasteur.send('designer', 'highlight', { active })
   }
 
   _handleRemove({ section, block }) {

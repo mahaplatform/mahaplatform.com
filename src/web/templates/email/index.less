@@ -14,7 +14,7 @@
 @black: #000000;
 @white: #FFFFFF;
 
-.dropzone {
+div.dropzone {
   margin: -4px -2px;
   border: 2px solid transparent;
   &.hover {
@@ -37,37 +37,47 @@
     text-align: center;
   }
 }
-.dropzone-target {
+div.dropzone-target {
   border: 2px solid fadeout(@black, 90);
   background-color: fadeout(@black, 95);
   color:  fadeout(@black, 90);
   padding: 5px 0;
 }
-.dropzone-marker {
+div.dropzone-marker {
   background-color: blue;
   height: 1px;
 }
-.block {
+div.block {
   position: relative;
   cursor: pointer;
-  border: 2px solid transparent;
   min-height: 30px;
-  &:active,
-  &:hover {
-    border-color: @teal;
+  &.active .block-highlight {
+    display: block;
+  }
+  &:hover .block-highlight {
+    display: block;
   }
   &:hover .block-actions {
     display: flex;
   }
 }
-.block-actions {
+div.block-highlight {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  border: 2px solid @teal;
+}
+div.block-actions {
   display: none;
   position: absolute;
   top: 0;
   right: 0;
   background-color: @teal;
 }
-.block-action {
+div.block-action {
   font-size: 16px;
   padding: 3px 8px;
   line-height: 24px;
@@ -81,6 +91,6 @@
     }
   }
 }
-.divider {
+div.divider {
   height: 0;
 }

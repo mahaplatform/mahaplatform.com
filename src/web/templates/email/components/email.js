@@ -6,6 +6,7 @@ import React from 'react'
 class Email extends React.Component {
 
   static propTypes = {
+    active: PropTypes.object,
     config: PropTypes.object,
     children: PropTypes.any,
     onAction: PropTypes.func
@@ -39,8 +40,9 @@ class Email extends React.Component {
   }
 
   _getSection(section, index) {
-    const { onAction } = this.props
+    const { active, onAction } = this.props
     return {
+      active,
       config: section,
       sectionIndex: index,
       onAction

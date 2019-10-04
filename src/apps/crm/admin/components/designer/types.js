@@ -112,6 +112,14 @@ export const types = [
     type: 'video',
     icon: 'play-circle',
     config: {
+      video: null,
+      card_background_color: null,
+      card_border: null,
+      image_border: null,
+      image_border_radius: 0,
+      caption_position: 'top',
+      image_alignment: 'center',
+      caption_width: 'two_thirds'
     }
   }
 ]

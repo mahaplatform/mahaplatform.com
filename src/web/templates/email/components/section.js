@@ -7,6 +7,7 @@ import React from 'react'
 class Section extends React.Component {
 
   static propTypes = {
+    active: PropTypes.object,
     config: PropTypes.object,
     sectionIndex: PropTypes.number,
     onAction: PropTypes.func
@@ -28,7 +29,7 @@ class Section extends React.Component {
     const { blocks, padding_top, padding_bottom } = config
     return (
       <div { ...this._getDropZone() }>
-        <table className={`section-${sectionIndex}`}>
+        <table className={`section-${sectionIndex} section`}>
           <tbody>
             <tr>
               <td>
@@ -54,8 +55,9 @@ class Section extends React.Component {
   }
 
   _getBlock(config, blockIndex) {
-    const { sectionIndex, onAction } = this.props
+    const { active, sectionIndex, onAction } = this.props
     return {
+      active,
       sectionIndex,
       blockIndex,
       config,

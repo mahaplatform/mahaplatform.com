@@ -35,14 +35,18 @@
   background-color: fadeout(@black, 98);
 }
 
-.maha-form {
+.maha-form-sections {
   position: relative;
   .ui.segment {
+    border-bottom: 1px solid fadeout(@black, 90);
     position: static;
     padding: 0;
-    margin: 0 0 1px;
+    margin: 0;
+    &:last-child {
+      border-bottom: none;
+    }
     & > h4 {
-      border-top: 1px solid fadeout(@black, 90);
+      border-bottom: 1px solid fadeout(@black, 90);
       background-color: fadeout(@black, 95);
       padding: 0.8em;
       color: @black, 50;

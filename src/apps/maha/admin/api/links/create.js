@@ -3,7 +3,7 @@ import { findOrCreateByUrl } from '../../../services/links'
 
 const showRoute = async (req, res) => {
 
-  const link = await findOrCreateByUrl(req.body.url, res.trx)
+  const link = await findOrCreateByUrl(req, req.body.url)
 
   res.status(200).respond(link, LinkSerializer)
 

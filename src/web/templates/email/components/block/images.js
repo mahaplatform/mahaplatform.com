@@ -14,7 +14,7 @@ class Images extends React.Component {
     const { blockIndex, sectionIndex } = this.props
     const rows = this._getRows()
     return (
-      <table className={`row section-${ sectionIndex }-block-${ blockIndex }`}>
+      <table className={`row section-${ sectionIndex }-block-${ blockIndex } image-block block`}>
         <tbody>
           <tr>
             <td>

@@ -24,34 +24,19 @@ const download = async (url) => await new Promise((resolve, reject) => {
 
 })
 
-const getMetaData = async (url, trx) => {
-
-  const uri = Url.parse(url)
-
-  const response = await download(url)
-
-  if(response.statusCode !== 200) return null
-
-  const type = response.headers['content-type'].split('/')[0]
-
-  if(type === 'image') return processImageUrl(url, response)
-
-  return processOpenGraphUrl(uri, url, response, trx)
-
-}
 
 const processImageUrl = (url, response) => ({
   type: 'image',
   image_url: url
 })
 
-const processOpenGraphUrl = async (uri, url, response, trx) => {
+const processOpenGraphUrl = async (req, uri, url, response) => {
 
   const meta = og.parse(response.body)
 
   const $ = cheerio.load(response.body)
 
-  const service = await getService($, url, trx)
+  const service = await getService(req, $, url)
 
   if(Object.keys(meta).length > 0) {
     return {
@@ -74,22 +59,22 @@ const processOpenGraphUrl = async (uri, url, response, trx) => {
 }
 
 const unpackOgArray = (value) => {
-
   if(!value) return null
-
   if(_.isArray(value)) return value[0]
-
   return value
-
 }
 
-const getService = async ($, url, trx) => {
+const getService = async (req, $, url) => {
 
   const uri = Url.parse(url)
 
   const name = uri.hostname
 
-  const service = await Service.where({ name }).fetch({ transacting: trx })
+  const service = await Service.query(qb => {
+    qb.where('name', name)
+  }).fetch({
+    transacting: req.trx
+  })
 
   if(service) return service
 
@@ -107,56 +92,60 @@ const getService = async ($, url, trx) => {
 
   const href = icons.length > 0 ? icons[0].attribs.href : null
 
-  const icon = href ? absoluteUrl(uri, href) : null
-
-  return await Service.forge({ name, icon }).save(null, { transacting: trx })
+  return await Service.forge({
+    name,
+    icon: href ? absoluteUrl(uri, href) : null
+  }).save(null, {
+    transacting: req.trx
+  })
 
 }
 
 const getImage = (uri, image) => {
-
   if(!image) return {}
-
   const image_url = image.secure_url ? unpackOgArray(image.secure_url) : unpackOgArray(image.url)
-
   return {
     image_url: absoluteUrl(uri, image_url),
     image_width: unpackOgArray(image.width),
     image_height:  unpackOgArray(image.height)
   }
-
 }
 
 const getVideo = (uri, video) => {
-
   if(!video) return {}
-
   const video_url = video.secure_url ? unpackOgArray(video.secure_url) : unpackOgArray(video.url)
-
   return {
     video_url: absoluteUrl(uri, video_url),
     video_width: unpackOgArray(video.width),
     video_height: unpackOgArray(video.height)
   }
-
 }
 
 const absoluteUrl = (uri, url) => {
-
   return Url.resolve(`${uri.protocol}//${uri.host}/${uri.pathname}`, url)
-
 }
 
-export const findOrCreateByUrl = async (url, trx) => {
+export const getMetaData = async (req, url) => {
+  const uri = Url.parse(url)
+  const response = await download(url)
+  if(response.statusCode !== 200) return null
+  const type = response.headers['content-type'].split('/')[0]
+  if(type === 'image') return processImageUrl(url, response)
+  return processOpenGraphUrl(req, uri, url, response)
+}
 
-  const link = await Link.where({ url }).fetch({
+export const findOrCreateByUrl = async (req, url) => {
+
+  const link = await Link.query(qb => {
+    qb.where('url', url)
+  }).fetch({
     withRelated: ['service'],
-    transacting: trx
+    transacting: req.trx
   })
 
   if(link) return link
 
-  const meta = await getMetaData(url, trx)
+  const meta = await getMetaData(req, url)
 
   if(!meta) return null
 
@@ -165,9 +154,13 @@ export const findOrCreateByUrl = async (url, trx) => {
   const newlink = await Link.forge({
     url,
     ...meta
-  }).save(null, { transacting: trx })
+  }).save(null, {
+    transacting: req.trx
+  })
 
-  await newlink.load(['service'], { transacting: trx })
+  await newlink.load(['service'], {
+    transacting: req.trx 
+  })
 
   return newlink
 

@@ -40,7 +40,7 @@ class Share extends React.Component {
       </table>
     )
     return (
-      <table className={`row section-${ sectionIndex }-block-${ blockIndex }`}>
+      <table className={`row section-${ sectionIndex }-block-${ blockIndex } share-block block`}>
         <tbody>
           <tr>
             <td className="small-12 large-12 columns first last">

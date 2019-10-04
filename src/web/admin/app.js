@@ -81,6 +81,7 @@ import crmphonesfield from '../../apps/crm/admin/components/phonesfield'
 import crmsharesfield from '../../apps/crm/admin/components/sharesfield'
 import crmtemplate from '../../apps/crm/admin/components/template'
 import crmtimeline from '../../apps/crm/admin/components/timeline'
+import crmvideofield from '../../apps/crm/admin/components/videofield'
 import driveaccess from '../../apps/drive/admin/components/access'
 import driveexplorer from '../../apps/drive/admin/components/explorer'
 import drivemove from '../../apps/drive/admin/components/move'
@@ -318,6 +319,7 @@ class App extends React.Component {
       crmsharesfield,
       crmtemplate,
       crmtimeline,
+      crmvideofield,
       driveaccess,
       driveexplorer,
       drivemove,

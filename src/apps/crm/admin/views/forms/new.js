@@ -30,6 +30,7 @@ class New extends React.Component {
       sections: [
         {
           fields: [
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter the title', required: true }
           ]
         }
       ]

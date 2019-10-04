@@ -84,3 +84,20 @@ export const scales = [
   { value: 1.25, label: '125%' },
   { value: 1.50, label: '150%' }
 ]
+
+export const border_styles = [
+  { value: null, text: 'None' },
+  { value: 'solid', text: 'Solid' },
+  { value: 'dashed', text: 'Dashed' },
+  { value: 'dotted', text: 'Dotted' },
+  { value: 'double', text: 'Double' },
+  { value: 'groove', text: 'Groove' },
+  { value: 'ridge', text: 'Ridge' },
+  { value: 'inset', text: 'Inset' },
+  { value: 'outset', text: 'Outset' }
+]
+
+export const border_widths = Array(20).fill(0).map((i,j) => ({
+  value: j + 1,
+  text: `${j + 1}px`
+}))

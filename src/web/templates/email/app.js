@@ -14,10 +14,12 @@ class App extends React.Component {
   pasteur = null
 
   state = {
+    active: null,
     config: null
   }
 
   _handleAction = this._handleAction.bind(this)
+  _handleHighlight = this._handleHighlight.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
@@ -36,6 +38,7 @@ class App extends React.Component {
       targetName: 'designerComponent',
       services: {
         designer: {
+          highlight: this._handleHighlight,
           update: this._handleUpdate
         }
       }
@@ -48,8 +51,9 @@ class App extends React.Component {
   }
 
   _getEmail() {
-    const { config } = this.state
+    const { active, config } = this.state
     return {
+      active,
       config,
       onAction: this._handleAction
     }
@@ -62,6 +66,10 @@ class App extends React.Component {
 
   _handleAction(action, data) {
     this.pasteur.send('designer', action, data)
+  }
+
+  _handleHighlight({ active }) {
+    this.setState({ active })
   }
 
   _handleUpdate({ config }) {

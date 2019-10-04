@@ -1,7 +1,6 @@
 import { Menu, ModalPanel } from 'maha-admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import Preview from './preview'
 import Content from './content'
 import Layout from './layout'
 import Design from './design'
@@ -18,13 +17,15 @@ class Page extends React.Component {
     onMoveSection: PropTypes.func,
     onDeleteSection: PropTypes.func,
     onPop: PropTypes.func,
+    onPreview: PropTypes.func,
     onPush: PropTypes.func,
+    onSave: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
   static defaultProps = {}
 
-  _handleRevert = this._handleRevert.bind(this)
+  _handlePreview = this._handlePreview.bind(this)
   _handleSave = this._handleSave.bind(this)
 
   render() {
@@ -40,8 +41,7 @@ class Page extends React.Component {
       items: [
         { label: 'Layout', component: <Layout { ...this._getLayout() } /> },
         { label: 'Content', component: <Content { ...this._getTab() } /> },
-        { label: 'Design', component: <Design { ...this._getTab() } /> },
-        { label: 'Preview', component: <Preview { ...this._getTab() } /> }
+        { label: 'Design', component: <Design { ...this._getTab() } /> }
       ]
     }
   }
@@ -79,19 +79,29 @@ class Page extends React.Component {
           color: 'red',
           disabled: changes === 0,
           handler: this._handleSave
+        },{
+          label: 'Preview',
+          color: 'red',
+          handler: this._handlePreview
         }
       ]
     }
   }
 
-  _handleRevert() {}
+  _handlePreview() {
+    this.props.onPreview()
+  }
 
-  _handleSave() {}
+  _handleSave() {
+    const { config } = this.props
+    this.props.onSave(config)
+  }
 
 }
 
 const mapStateToProps = (state, props) => ({
-  changes: state.crm.designer.changes
+  changes: state.crm.designer.changes,
+  config: state.crm.designer.config
 })
 
 export default connect(mapStateToProps)(Page)

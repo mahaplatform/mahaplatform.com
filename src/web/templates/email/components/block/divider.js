@@ -12,7 +12,7 @@ class Divider extends React.Component {
   render() {
     const { blockIndex, sectionIndex } = this.props
     return (
-      <table className={`row section-${ sectionIndex }-block-${ blockIndex }`}>
+      <table className={`row section-${ sectionIndex }-block-${ blockIndex } divider-block block`}>
         <tbody>
           <tr>
             <td className="large-12 first last columns">
