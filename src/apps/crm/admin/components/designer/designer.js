@@ -54,6 +54,7 @@ class Designer extends React.Component {
       page: {
         background_color: null,
         border_top: null,
+        padding: 10,
         email_background_color: null,
         email_border: null,
         h1_font_family: 'Arial, Helvetica, sans-serif',
