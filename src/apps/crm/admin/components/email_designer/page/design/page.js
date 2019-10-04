@@ -11,6 +11,7 @@ class Page extends React.Component {
   static contextTypes = {}
 
   static propTypes = {
+    cid: PropTypes.string,
     config: PropTypes.object,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
@@ -94,7 +95,7 @@ class Page extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.designer.config.page
+  config: state.crm.email_designer[props.cid].config.page
 })
 
 export default connect(mapStateToProps)(Page)

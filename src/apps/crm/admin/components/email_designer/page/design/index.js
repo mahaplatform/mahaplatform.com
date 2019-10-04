@@ -7,6 +7,7 @@ import Page from './page'
 class Style extends React.Component {
 
   static propTypes = {
+    cid: PropTypes.string,
     config: PropTypes.object,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
@@ -44,8 +45,9 @@ class Style extends React.Component {
   }
 
   _getPage() {
-    const { onPop, onPush, onUpdate } = this.props
+    const { cid, onPop, onPush, onUpdate } = this.props
     return {
+      cid,
       onPop,
       onPush,
       onUpdate
@@ -53,8 +55,9 @@ class Style extends React.Component {
   }
 
   _getSection(label, index) {
-    const { onPop, onPush, onUpdate } = this.props
+    const { cid, onPop, onPush, onUpdate } = this.props
     return {
+      cid,
       index,
       label,
       onPop,
@@ -72,7 +75,7 @@ class Style extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.designer.config
+  config: state.crm.email_designer[props.cid].config
 })
 
 export default connect(mapStateToProps)(Style)

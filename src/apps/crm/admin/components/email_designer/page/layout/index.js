@@ -6,6 +6,7 @@ import React from 'react'
 class Layout extends React.Component {
 
   static propTypes = {
+    cid: PropTypes.string,
     config: PropTypes.object,
     onAddSection: PropTypes.func,
     onDeleteSection: PropTypes.func,
@@ -20,15 +21,15 @@ class Layout extends React.Component {
   render() {
     const { config } = this.props
     return (
-      <div className="designer-layout">
+      <div className="email-designer-layout">
         { config.sections.map((section, index) => (
           <Section key={`section_${index}`} { ...this._getSection(section, index) } />
         ))}
-        <div className="designer-layout-section-add" onClick={ this._handleAddSection }>
-          <div className="designer-layout-section-add-icon">
+        <div className="email-designer-layout-section-add" onClick={ this._handleAddSection }>
+          <div className="email-designer-layout-section-add-icon">
             <i className="fa fa-plus" />
           </div>
-          <div className="designer-layout-section-add-label">
+          <div className="email-designer-layout-section-add-label">
             Add Section
           </div>
         </div>
@@ -71,7 +72,7 @@ class Layout extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.designer.config
+  config: state.crm.email_designer[props.cid].config
 })
 
 export default connect(mapStateToProps)(Layout)

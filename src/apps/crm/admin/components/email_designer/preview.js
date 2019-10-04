@@ -6,6 +6,7 @@ import React from 'react'
 class Preview extends React.Component {
 
   static propTypes = {
+    cid: PropTypes.string,
     config: PropTypes.object,
     user: PropTypes.object,
     onBack: PropTypes.func
@@ -50,6 +51,7 @@ class Preview extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
+  config: state.crm.email_designer[props.cid].config,
   user: state.maha.admin.user
 })
 

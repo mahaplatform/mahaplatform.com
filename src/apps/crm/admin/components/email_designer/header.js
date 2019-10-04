@@ -14,7 +14,7 @@ class Header extends React.Component {
   render() {
     const { deviceIndex, orientationIndex, scaleIndex } = this.props
     return (
-      <div className="designer-header">
+      <div className="email-designer-header">
         <select { ...this._getDevice() }>
           { devices.map((device, index) => (
             <option key={`device_${index}`} value={ index } selected={ index === deviceIndex }>

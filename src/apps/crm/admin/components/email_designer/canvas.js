@@ -81,7 +81,7 @@ class Canvas extends React.Component {
   _getClass() {
     const { deviceIndex } = this.props
     const device = devices[deviceIndex]
-    return `designer-canvas ${device.type}`
+    return `email-designer-canvas ${device.type}`
   }
 
   _getIframe() {

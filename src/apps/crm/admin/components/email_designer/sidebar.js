@@ -12,6 +12,7 @@ class Sidebar extends React.Component {
 
   static propTypes = {
     active: PropTypes.object,
+    cid: PropTypes.string,
     config: PropTypes.object,
     onAddSection: PropTypes.func,
     onDeleteSection: PropTypes.func,
@@ -34,7 +35,7 @@ class Sidebar extends React.Component {
 
   render() {
     return (
-      <div className="designer-sidebar">
+      <div className="email-designer-sidebar">
         <Stack { ...this._getStack() } />
       </div>
     )
@@ -53,12 +54,13 @@ class Sidebar extends React.Component {
   }
 
   _getBlock() {
-    const { active, config } = this.props
+    const { active, cid, config } = this.props
     const block = config.sections[active.section].blocks[active.block]
     const key = `sections[${active.section}].blocks[${active.block}]`
     return {
       active,
       block,
+      cid,
       config: _.get(config, key),
       onDone: this._handleDone,
       onUpdate: this._handleUpdate.bind(this, key)
@@ -66,8 +68,9 @@ class Sidebar extends React.Component {
   }
 
   _getPage() {
-    const { onAddSection, onDeleteSection, onMoveSection, onSave } = this.props
+    const { cid, onAddSection, onDeleteSection, onMoveSection, onSave } = this.props
     return {
+      cid,
       onAddSection,
       onDeleteSection,
       onMoveSection,
@@ -80,9 +83,9 @@ class Sidebar extends React.Component {
   }
 
   _getPreview() {
-    const { config } = this.props
+    const { cid } = this.props
     return {
-      config,
+      cid,
       onBack: this._handlePop
     }
   }

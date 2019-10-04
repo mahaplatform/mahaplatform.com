@@ -2,9 +2,9 @@ import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import { spy } from 'sinon'
 import React from 'react'
-import Template from './template.js'
+import FormDesigner from './form_designer.js'
 
-describe('src/apps/crm/admin/components/template', () => {
+describe('src/apps/crm/admin/components/form_designer', () => {
 
   describe('/actions.js', () => {
 
@@ -25,13 +25,13 @@ describe('src/apps/crm/admin/components/template', () => {
   })
 
 
-  describe('/template.js', () => {
+  describe('/form-designer.js', () => {
 
     it('renders', async () => {
 
-      const template = shallow(<Template />)
+      const form-designer = shallow(<FormDesigner />)
 
-      expect(template.is('div.template')).to.be.true
+      expect(form-designer.is('div.form-designer')).to.be.true
 
     })
 

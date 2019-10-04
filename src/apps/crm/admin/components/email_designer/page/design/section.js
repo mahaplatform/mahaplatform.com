@@ -9,6 +9,7 @@ import React from 'react'
 class Section extends React.Component {
 
   static propTypes = {
+    cid: PropTypes.string,
     config: PropTypes.object,
     label: PropTypes.string,
     index: PropTypes.number,
@@ -87,7 +88,7 @@ class Section extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.designer.config.sections[props.index]
+  config: state.crm.email_designer[props.cid].config.sections[props.index]
 })
 
 export default connect(mapStateToProps)(Section)

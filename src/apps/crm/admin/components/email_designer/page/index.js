@@ -12,6 +12,7 @@ class Page extends React.Component {
 
   static propTypes = {
     changes: PropTypes.number,
+    cid: PropTypes.string,
     config: PropTypes.object,
     onAddSection: PropTypes.func,
     onMoveSection: PropTypes.func,
@@ -47,9 +48,9 @@ class Page extends React.Component {
   }
 
   _getLayout() {
-    const { config, onAddSection, onDeleteSection, onMoveSection, onPop, onPush, onUpdate } = this.props
+    const { cid, onAddSection, onDeleteSection, onMoveSection, onPop, onPush, onUpdate } = this.props
     return {
-      config,
+      cid,
       onAddSection,
       onDeleteSection,
       onMoveSection,
@@ -60,9 +61,9 @@ class Page extends React.Component {
   }
 
   _getTab() {
-    const { config, onPop, onPush, onUpdate } = this.props
+    const { cid, onPop, onPush, onUpdate } = this.props
     return {
-      config,
+      cid,
       onPop,
       onPush,
       onUpdate
@@ -100,8 +101,8 @@ class Page extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  changes: state.crm.designer.changes,
-  config: state.crm.designer.config
+  changes: state.crm.email_designer[props.cid].changes,
+  config: state.crm.email_designer[props.cid].config
 })
 
 export default connect(mapStateToProps)(Page)

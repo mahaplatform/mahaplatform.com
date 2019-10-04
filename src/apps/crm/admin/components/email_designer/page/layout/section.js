@@ -20,14 +20,14 @@ class Section extends React.Component {
   render() {
     // const { connectDragSource, connectDropTarget } = this.props
     return (
-      <div className="designer-layout-section">
-        <div className="designer-layout-section-handle">
+      <div className="email-designer-layout-section">
+        <div className="email-designer-layout-section-handle">
           <i className="fa fa-bars" />
         </div>
-        <div className="designer-layout-section-label">
+        <div className="email-designer-layout-section-label">
           <TextField { ...this._getTextField() } />
         </div>
-        <div className="designer-layout-section-action" onClick={ this._handleDelete }>
+        <div className="email-designer-layout-section-action" onClick={ this._handleDelete }>
           <i className="fa fa-trash-o" />
         </div>
       </div>

@@ -7,7 +7,10 @@ class Content extends React.Component {
 
   static contextTypes = {}
 
-  static propTypes = {}
+  static propTypes = {
+    cid: PropTypes.string,
+    config: PropTypes.object
+  }
 
   static defaultProps = {}
 
@@ -15,13 +18,13 @@ class Content extends React.Component {
 
   render() {
     return (
-      <div className="content-types">
+      <div className="email-designer-content-types">
         { types.map((type, index) => (
-          <div className="content-type" key={`type_${index}`} { ...this._getContentType(type) }>
-            <div className="content-type-icon">
+          <div className="email-designer-content-type" key={`type_${index}`} { ...this._getContentType(type) }>
+            <div className="email-designer-content-type-icon">
               <i className={`fa fa-fw fa-${ type.icon }`} />
             </div>
-            <div className="content-type-label">
+            <div className="email-designer-content-type-label">
               { type.label }
             </div>
           </div>
@@ -45,7 +48,7 @@ class Content extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.designer.config
+  config: state.crm.email_designer[props.cid].config
 })
 
 export default connect(mapStateToProps)(Content)

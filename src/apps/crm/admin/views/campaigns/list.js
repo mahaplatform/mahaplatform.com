@@ -22,7 +22,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     icon: 'plus',
     items: [
       { component: <CampaignToken value="email" /> },
-      { component: <CampaignToken value="facebook" /> },
+      { component: <CampaignToken value="social" /> },
       { component: <CampaignToken value="sms" /> },
       { component: <CampaignToken value="voice" /> },
       { component: <CampaignToken value="mail" /> }

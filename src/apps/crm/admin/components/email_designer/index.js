@@ -1,11 +1,13 @@
 import { Factory } from 'redux-rubberstamp'
 import reducer from './reducer'
-import Template from './template'
+import EmailDesigner from './email_designer'
+import * as selectors from './selectors'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'crm.template',
-  component: Template,
+  namespace: 'crm.email_designer',
+  component: EmailDesigner,
   reducer,
+  selectors,
   actions
 })

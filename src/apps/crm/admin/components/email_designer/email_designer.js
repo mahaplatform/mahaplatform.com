@@ -4,13 +4,14 @@ import Canvas from './canvas'
 import Header from './header'
 import React from 'react'
 
-class Designer extends React.Component {
+class EmailDesigner extends React.Component {
 
   static contextTypes = {}
 
   static propTypes = {
     active: PropTypes.object,
     changes: PropTypes.number,
+    cid: PropTypes.string,
     config: PropTypes.object,
     defaultValue: PropTypes.object,
     deviceIndex: PropTypes.number,
@@ -34,8 +35,8 @@ class Designer extends React.Component {
 
   render() {
     return (
-      <div className="designer">
-        <div className="designer-main">
+      <div className="email-designer">
+        <div className="email-designer-main">
           <Header { ...this._getHeader() } />
           <Canvas { ...this._getCanvas() } />
         </div>
@@ -126,9 +127,10 @@ class Designer extends React.Component {
   }
 
   _getSidebar() {
-    const { active, config, onAddSection, onDeleteSection, onMoveSection, onEdit, onSave, onUpdate } = this.props
+    const { active, cid, config, onAddSection, onDeleteSection, onMoveSection, onEdit, onSave, onUpdate } = this.props
     return {
       active,
+      cid,
       config,
       onAddSection,
       onDeleteSection,
@@ -141,4 +143,4 @@ class Designer extends React.Component {
 
 }
 
-export default Designer
+export default EmailDesigner

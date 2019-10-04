@@ -16,8 +16,3 @@ export const save = (program_id, id, config) => ({
   success: 'SAVE_SUCCESS',
   failure: 'SAVE_FAILURE'
 })
-
-export const update = (config) => ({
-  type: 'UPDATE',
-  config
-})

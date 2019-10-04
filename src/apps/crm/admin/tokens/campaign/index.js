@@ -11,10 +11,10 @@ const campaigns = {
     title: 'Interactive SMS',
     description: 'Create an interactive text message workflow'
   },
-  facebook: {
-    icon: 'facebook',
-    title: 'Facebook Post',
-    description: 'Create and post a facebook post'
+  social: {
+    icon: 'users',
+    title: 'Social Post',
+    description: 'Create and publish a post to Facebook, Instagram, or Twitter'
   },
   voice: {
     icon: 'phone',

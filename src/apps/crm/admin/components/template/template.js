@@ -1,5 +1,5 @@
 import { Loader } from 'maha-admin'
-import Designer from '../designer'
+import EmailDesigner from '../email_designer'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -23,7 +23,7 @@ class Template extends React.PureComponent {
   render() {
     const { status } = this.props
     if(status !== 'success') return <Loader />
-    return <Designer { ...this._getDesigner() } / >
+    return <EmailDesigner { ...this._getEmailDesigner() } / >
   }
 
   componentDidMount() {
@@ -32,7 +32,7 @@ class Template extends React.PureComponent {
     this.props.onFetch(program_id, id)
   }
 
-  _getDesigner() {
+  _getEmailDesigner() {
     const { config } = this.props
     return {
       defaultValue: config,
