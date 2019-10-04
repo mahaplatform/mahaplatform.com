@@ -1,12 +1,12 @@
-import { columns, font_size, letter_spacing, line_heights, fonts } from '../variables'
-import AlignmentField from '../../alignmentfield'
-import FormatField from '../../formatfield'
-import SharesField from '../../sharesfield'
+import { columns, font_size, letter_spacing, line_heights, fonts } from '../../variables'
+import AlignmentField from '../../../alignmentfield'
+import FormatField from '../../../formatfield'
+import FollowsField from '../../../followsfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class Share extends React.Component {
+class Follow extends React.Component {
 
   static contextTypes = {}
 
@@ -42,7 +42,7 @@ class Share extends React.Component {
           sections: [
             {
               fields: [
-                { name: 'networks', type: SharesField, defaultValue: config.networks }
+                { name: 'networks', type: FollowsField, defaultValue: config.networks }
               ]
             }
           ]
@@ -59,7 +59,6 @@ class Share extends React.Component {
               fields: [
                 { label: 'Background', name: 'button_background_color', type: 'colorfield', defaultValue: config.button_background_color },
                 { label: 'Rounded Corners', name: 'button_border_radius', type: 'range', min: 0, max: 20, defaultValue: config.button_border_radius }
-
               ]
             }, {
               label: 'Text Style',
@@ -107,4 +106,4 @@ class Share extends React.Component {
 
 }
 
-export default Share
+export default Follow

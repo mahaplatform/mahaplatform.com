@@ -39,6 +39,11 @@
   background-color: @white;
   display: flex;
   position: relative;
+  iframe {
+    background-color: @white;
+    border: none;
+    flex: 1;
+  }
 }
 .designer-sidebar {
   border-left: 1px solid fadeout(@black, 90);
@@ -48,5 +53,8 @@
   display: flex;
   .maha-modal-panel-header {
     background-color: @grey !important;
+  }
+  & > * {
+    flex: 1;
   }
 }

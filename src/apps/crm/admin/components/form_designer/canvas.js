@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { types } from './types'
+// import { types } from './types'
 import Pasteur from 'pasteur'
 import React from 'react'
 import _ from 'lodash'
@@ -69,7 +69,7 @@ class Canvas extends React.Component {
   _getIframe() {
     return {
       ref: node => this.preview = node,
-      src: '/templates/email.html'
+      src: '/forms/designer.html'
     }
   }
 

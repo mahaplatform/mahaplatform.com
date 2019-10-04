@@ -1,4 +1,4 @@
-import { alignments, displays, font_size, letter_spacing, link_strategies, line_heights } from '../variables'
+import { alignments, displays, font_size, letter_spacing, link_strategies, line_heights } from '../../variables'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'

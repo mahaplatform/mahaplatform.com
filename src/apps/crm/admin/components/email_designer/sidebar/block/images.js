@@ -1,9 +1,10 @@
-import { columns, font_size, letter_spacing, line_heights, fonts } from '../variables'
+import { columns, font_size, letter_spacing, line_heights, fonts } from '../../variables'
+import ImagesField from '../../../imagesfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class Code extends React.Component {
+class Images extends React.Component {
 
   static contextTypes = {}
 
@@ -25,7 +26,7 @@ class Code extends React.Component {
   _getForm() {
     const { config } = this.props
     return {
-      title: 'Code Block',
+      title: 'Images Block',
       onCancel: this._handleDone,
       onChange: this._handleChange,
       cancelText: <i className="fa fa-chevron-left" />,
@@ -33,10 +34,30 @@ class Code extends React.Component {
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleDone }
       ],
-      sections: [
+      tabs: [
         {
-          fields: [
-            { name: 'content', type: 'textarea', rows: 10, defaultValue: config.content}
+          label: 'Content',
+          sections: [
+            {
+              fields: [
+                { name: 'images', type: ImagesField, defaultValue: config.images }
+              ]
+            }
+          ]
+        }, {
+          label: 'Style',
+          sections: [
+            {
+              label: 'Text Style',
+              fields: []
+            }
+          ]
+        }, {
+          label: 'Settings',
+          sections: [
+            {
+              fields: []
+            }
           ]
         }
       ]
@@ -54,4 +75,4 @@ class Code extends React.Component {
 
 }
 
-export default Code
+export default Images

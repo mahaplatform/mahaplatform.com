@@ -1,7 +1,7 @@
+import { Designer } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
 import Canvas from './canvas'
-import Header from './header'
 import React from 'react'
 
 class EmailDesigner extends React.Component {
@@ -14,13 +14,9 @@ class EmailDesigner extends React.Component {
     cid: PropTypes.string,
     config: PropTypes.object,
     defaultValue: PropTypes.object,
-    deviceIndex: PropTypes.number,
-    scaleIndex: PropTypes.number,
-    orientationIndex: PropTypes.number,
     onAdd: PropTypes.func,
     onAddSection: PropTypes.func,
     onChange: PropTypes.func,
-    onChangeViewport: PropTypes.func,
     onClone: PropTypes.func,
     onDeleteSection: PropTypes.func,
     onEdit: PropTypes.func,
@@ -34,15 +30,7 @@ class EmailDesigner extends React.Component {
   static defaultProps = {}
 
   render() {
-    return (
-      <div className="email-designer">
-        <div className="email-designer-main">
-          <Header { ...this._getHeader() } />
-          <Canvas { ...this._getCanvas() } />
-        </div>
-        <Sidebar { ...this._getSidebar() } />
-      </div>
-    )
+    return <Designer { ...this._getDesigner() } />
   }
 
   componentDidMount() {
@@ -100,24 +88,18 @@ class EmailDesigner extends React.Component {
     }
   }
 
-  _getHeader() {
-    const { deviceIndex, orientationIndex, scaleIndex, onChangeViewport } = this.props
+  _getDesigner() {
     return {
-      deviceIndex,
-      orientationIndex,
-      scaleIndex,
-      onChange: onChangeViewport
+      canvas: <Canvas { ...this._getCanvas() } />,
+      sidebar: <Sidebar { ...this._getSidebar() } />
     }
   }
 
   _getCanvas() {
-    const { active, config, deviceIndex, orientationIndex, scaleIndex, onAdd, onClone, onEdit, onRemove, onUpdate } = this.props
+    const { active, config, onAdd, onClone, onEdit, onRemove, onUpdate } = this.props
     return {
       active,
       config,
-      deviceIndex,
-      orientationIndex,
-      scaleIndex,
       onAdd,
       onClone,
       onEdit,

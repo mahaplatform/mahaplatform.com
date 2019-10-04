@@ -6,21 +6,12 @@ const INITIAL_STATE = {
     block: null
   },
   changes: 0,
-  config: null,
-  deviceIndex: 0,
-  orientationIndex: 0,
-  scaleIndex: 2
+  config: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
-
-  case 'CHANGE_VIEWPORT':
-    return {
-      ...state,
-      [`${action.key}Index`]: action.value
-    }
 
   case 'ADD_SECTION':
     return {

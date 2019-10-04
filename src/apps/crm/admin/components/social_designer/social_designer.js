@@ -4,11 +4,13 @@ import Sidebar from './sidebar'
 import Canvas from './canvas'
 import React from 'react'
 
-class FormDesigner extends React.PureComponent {
+class SocialDesigner extends React.PureComponent {
 
   static contextTypes = {}
 
-  static propTypes = {}
+  static propTypes = {
+    config: PropTypes.object
+  }
 
   static defaultProps = {}
 
@@ -20,6 +22,13 @@ class FormDesigner extends React.PureComponent {
 
   componentDidUpdate(prevProps) {}
 
+  _getCanvas() {
+    const { config } = this.props
+    return {
+      config
+    }
+  }
+
   _getDesigner() {
     return {
       canvas: <Canvas { ...this._getCanvas() } />,
@@ -27,16 +36,10 @@ class FormDesigner extends React.PureComponent {
     }
   }
 
-  _getCanvas() {
-    // const {} = this.props
-    return {}
-  }
-
   _getSidebar() {
-    // const {} = this.props
     return {}
   }
 
 }
 
-export default FormDesigner
+export default SocialDesigner

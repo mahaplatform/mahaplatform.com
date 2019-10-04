@@ -1,4 +1,5 @@
 import CampaignsList from './campaigns/list'
+import CampaignsSocial from './campaigns/social'
 import ContactsList from './contacts/list'
 import ContactsShow from './contacts/show'
 import FieldsShow from './fields/show'
@@ -18,6 +19,7 @@ import TopicsList from './topics/list'
 import WorkflowsList from './workflows/list'
 
 const routes = [
+  { path: '/campaigns/social', component: CampaignsSocial },
   { path: '/contacts', component: ContactsList },
   { path: '/contacts/:id', component: ContactsShow },
   { path: '/organizations', component: OrganizationsList },

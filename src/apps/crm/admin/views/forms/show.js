@@ -1,5 +1,6 @@
+import FormDesigner from '../../components/form_designer'
 import PropTypes from 'prop-types'
-import { Designer, Page } from 'maha-admin'
+import { Page } from 'maha-admin'
 import React from 'react'
 
 class Form extends React.Component {
@@ -22,7 +23,7 @@ class Form extends React.Component {
 
   render() {
     if(!this.state.form) return null
-    return <Designer { ...this._getFormDesigner() } />
+    return <FormDesigner { ...this._getFormDesigner() } />
   }
 
   componentDidMount() {

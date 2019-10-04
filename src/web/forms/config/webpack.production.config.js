@@ -1,10 +1,11 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
 import path from 'path'
 
-const webpackConfig = (name, css) => ({
+const webpackConfig = (name, css, index) => ({
   devtool: 'none',
   entry: [
     path.resolve('src','web','forms',name,'index.js'),
@@ -58,12 +59,18 @@ const webpackConfig = (name, css) => ({
   plugins: [
     new MiniCssExtractPlugin({
       filename: `forms/css/${name}.css`
-    })
+    }),
+    ...index ? [
+      new HtmlWebpackPlugin({
+        template: path.resolve('src','web','forms',name,'index.html'),
+        filename: `forms/${name}.html`
+      })
+    ] : []
   ]
 })
 
-export const designerConfig = webpackConfig('designer', false)
+export const designerConfig = webpackConfig('designer', false, true)
 
-export const embedConfig = webpackConfig('embed', false)
+export const embedConfig = webpackConfig('embed', false, false)
 
-export const formConfig = webpackConfig('form', true)
+export const formConfig = webpackConfig('form', true, false)

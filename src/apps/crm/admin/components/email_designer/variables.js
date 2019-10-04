@@ -17,19 +17,6 @@ export const columns = [
   { value: 2, text: '2 columns' }
 ]
 
-export const devices = [
-  { label: 'Desktop', type: 'desktop' },
-  { label: 'Galaxy S5', type: 'mobile', height: 640, width: 360 },
-  { label: 'Pixel 2', type: 'mobile', height: 731, width: 411 },
-  { label: 'Galaxy 2 XL', type: 'mobile', height: 823, width: 411 },
-  { label: 'iPhone 5/SE', type: 'mobile', height: 568, width: 320 },
-  { label: 'iPhone 6/7/8', type: 'mobile', height: 667, width: 375 },
-  { label: 'iPhone 6/7/8 Plus', type: 'mobile', height: 736, width: 414 },
-  { label: 'iPhone X', type: 'mobile', height: 812, width: 375 },
-  { label: 'iPad', type: 'mobile', height: 1024 , width: 768 },
-  { label: 'iPad Pro', type: 'mobile', height: 1366 , width: 1024 }
-]
-
 export const displays = [
   { value: 'inline', text: 'Fit to Text' },
   { value: 'block', text: 'Full Width' }
@@ -66,23 +53,10 @@ export const line_heights = [
 
 export const letter_spacing = [-5,-4,-3,-2,-1,0,1,2,3,4,5].map(value => `${value}px`)
 
-export const orientations = [
-  { label: 'Portrait' },
-  { label: 'Landscape' }
-]
-
 export const splits = [
   { value: [6,6], text: 'Half' },
   { value: [4,8], text: 'One Third, Two Thirds' },
   { value: [8,4], text: 'Two Thirds, One Third' }
-]
-
-export const scales = [
-  { value: 0.50, label: '50%' },
-  { value: 0.75, label: '75%' },
-  { value: 1.00, label: '100%' },
-  { value: 1.25, label: '125%' },
-  { value: 1.50, label: '150%' }
 ]
 
 export const border_styles = [
