@@ -12,6 +12,7 @@ class FormDesigner extends React.PureComponent {
   render() {
     return (
       <div className="form-designer">
+        form designer
       </div>
     )
   }

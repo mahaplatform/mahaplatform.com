@@ -80,7 +80,6 @@ import crmimagesfield from '../../apps/crm/admin/components/imagesfield'
 import crmnumbers from '../../apps/crm/admin/components/numbers'
 import crmphonesfield from '../../apps/crm/admin/components/phonesfield'
 import crmsharesfield from '../../apps/crm/admin/components/sharesfield'
-import crmtemplate from '../../apps/crm/admin/components/template'
 import crmtimeline from '../../apps/crm/admin/components/timeline'
 import crmvideofield from '../../apps/crm/admin/components/videofield'
 import driveaccess from '../../apps/drive/admin/components/access'
@@ -319,7 +318,6 @@ class App extends React.Component {
       crmnumbers,
       crmphonesfield,
       crmsharesfield,
-      crmtemplate,
       crmtimeline,
       crmvideofield,
       driveaccess,

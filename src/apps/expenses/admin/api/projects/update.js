@@ -25,7 +25,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load project'
   })
 
-  await project.save(whitelist(req.body, ['title','tax_project_id','integration']), {
+  await project.save(whitelist(req.body, ['title','type','tax_project_id','integration']), {
     transacting: req.trx
   })
 

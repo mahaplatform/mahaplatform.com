@@ -1,6 +1,10 @@
 const listRoute = async (req, res) => {
 
-  res.status(200).respond({ data: [], pagination: { all: 0, total: 0 } })
+  const data = []
+
+  data.pagination = { all: 0, total: 0 }
+
+  res.status(200).respond(data)
 
 }
 
