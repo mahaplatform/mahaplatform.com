@@ -16,6 +16,7 @@ class Page extends React.Component {
     admin: PropTypes.object,
     configuration: PropTypes.object,
     host: PropTypes.object,
+    logger: PropTypes.object,
     modal: PropTypes.object,
     network: PropTypes.object,
     router: PropTypes.object,

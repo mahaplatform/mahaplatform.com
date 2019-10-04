@@ -61,7 +61,7 @@ class Logger extends React.Component {
   }
 
   _handleError(error, info) {
-    this.Rollbar.error(error, info)
+    this.rollbar.error(error, info)
   }
 
 }

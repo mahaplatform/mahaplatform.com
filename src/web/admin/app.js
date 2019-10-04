@@ -13,6 +13,7 @@ import admincollectionTable from './components/collection/table'
 import admincomments from './components/comments'
 import admincomposer from './components/composer'
 import admincontainer from './components/container'
+import admindesigner from './components/designer'
 import admindrawer from './components/drawer'
 import adminemojis from './components/emojis'
 import adminfields from './components/fields'
@@ -251,6 +252,7 @@ class App extends React.Component {
       admincomments,
       admincomposer,
       admincontainer,
+      admindesigner,
       admindrawer,
       adminemojis,
       adminfields,

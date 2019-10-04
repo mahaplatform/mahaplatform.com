@@ -1,0 +1,52 @@
+.designer {
+  flex: 1;
+  display: flex;
+  background-color: @white;
+}
+.designer-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.designer-header {
+  padding: 0.35em 0.8em;
+  background-color: fadeout(@grey, 97);
+  border-bottom: 1px solid fadeout(@black, 90);
+  text-align: center;
+  .ui.dropdown {
+    margin: 0 0.4em;
+  }
+}
+.designer-body {
+  flex: 1;
+  display: flex;
+  background-color: fadeout(@black, 10);
+  overflow: hidden;
+  &.desktop {
+    .designer-frame {
+      flex: 1;
+    }
+  }
+  &.mobile {
+    padding: 1.6em;
+    .scrollable();
+    .designer-frame {
+      margin: auto;
+    }
+  }
+}
+.designer-frame {
+  background-color: @white;
+  display: flex;
+  position: relative;
+}
+.designer-sidebar {
+  border-left: 1px solid fadeout(@black, 90);
+  flex: 0 0 ~"calc(100% / 3)";
+  max-width: 500px;
+  min-width: 350px;
+  display: flex;
+  .maha-modal-panel-header {
+    background-color: @grey !important;
+  }
+}
