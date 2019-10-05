@@ -37,7 +37,10 @@ class SocialDesigner extends React.PureComponent {
   }
 
   _getSidebar() {
-    return {}
+    const { config } = this.props
+    return {
+      config
+    }
   }
 
 }

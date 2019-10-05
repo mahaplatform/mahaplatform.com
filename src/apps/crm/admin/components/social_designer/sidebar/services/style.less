@@ -1,0 +1,61 @@
+.social-designer-services {
+  flex: 1;
+  .scrollable();
+}
+.social-designer-service {
+  display: flex;
+  cursor: pointer;
+  border-bottom: 1px solid fadeout(@black, 95);
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.social-designer-service-logo {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  img {
+    margin: auto;
+    border-radius: 0.3em;
+    overflow: hidden;
+    width: 1.6em;
+    height: 1.6em;
+    display: block;
+  }
+  .fa-plus-circle {
+    font-size: 1.85em;
+    color: @red;
+  }
+}
+.social-designer-service-username {
+  flex: 1;
+  padding: 0.8em;
+}
+.social-designer-service-proceed {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  .fa {
+    color: fadeout(@black, 80);
+    margin: auto;
+  }
+}
+.social-designer-service-add {
+  border-bottom: 1px solid fadeout(@black, 90);
+  cursor: pointer;
+  display: flex;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.social-designer-service-add-icon {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  .fa {
+    color: @red;
+    margin: auto;
+    font-size: 1.8em;
+  }
+}
+.social-designer-service-add-label {
+  padding: 0.8em;
+  flex: 1;
+}

@@ -32,7 +32,7 @@ class Canvas extends React.PureComponent {
   _getComponent() {
     const { config } = this.props
     const { services } = config
-    const service = services[2]
+    const service = services[0]
     if(service.service === 'facebook') return Facebook
     if(service.service === 'instagram') return Instagram
     if(service.service === 'twitter') return Twitter

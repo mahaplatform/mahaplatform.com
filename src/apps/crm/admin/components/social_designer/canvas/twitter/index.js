@@ -26,7 +26,7 @@ class twitter extends React.PureComponent {
               { service.name }
             </span>
             <span className="social-designer-twitter-username">
-              { service.username }
+              @{ service.username }
             </span>
             <span className="social-designer-twitter-timestamp">
               • Now

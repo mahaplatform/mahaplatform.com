@@ -19,7 +19,7 @@ const INITIAL_STATE = {
       }, {
         service: 'twitter',
         name: 'Free Associations',
-        username: '@freeassociations',
+        username: 'freeassociations',
         logo: 'https://scontent.xx.fbcdn.net/v/t1.0-1/c66.66.828.828a/s50x50/1234543_423266591128174_1564843963_n.png?_nc_cat=101&_nc_oc=AQnWL_vK14fHVSoC2DMOw3jixfyVBej0wz8k8UvrmLhsKrm-sH0BwHD6Hk1aNAh10Eo&_nc_ht=scontent.xx&oh=654e24df3c98fab64c0a3758be42a5d0&oe=5DF0E80D',
         message: 'Lorem ipsum dolor amet four loko keffiyeh synth, marfa truffaut williamsburg whatever retro man braid roof party. Af enamel pin before they sold out heirloom. Swag polaroid la croix copper mug offal, crucifix occupy meggings bicycle rights cray hot chicken seitan pickled 90s.',
         photos: [
