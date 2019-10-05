@@ -1,3 +1,24 @@
 .social-designer {
-
+  flex: 1;
+  display: flex;
+  background-color: @white;
+}
+.social-designer-main {
+  background-color: fadeout(@black, 97);
+  flex-direction: column;
+  flex: 1;
+  display: flex;
+}
+.social-designer-sidebar {
+  border-left: 1px solid fadeout(@black, 90);
+  flex: 0 0 ~"calc(100% / 3)";
+  max-width: 500px;
+  min-width: 350px;
+  display: flex;
+  .maha-modal-panel-header {
+    background-color: @grey !important;
+  }
+  & > * {
+    flex: 1;
+  }
 }

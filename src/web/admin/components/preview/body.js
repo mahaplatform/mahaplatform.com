@@ -5,19 +5,19 @@ import React from 'react'
 class Body extends React.Component {
 
   static propTypes = {
+    children: PropTypes.any,
     deviceIndex: PropTypes.number,
-    canvas: PropTypes.object,
     orientationIndex: PropTypes.number,
     scaleIndex: PropTypes.number,
     onChange: PropTypes.func
   }
 
   render() {
-    const { canvas } = this.props
+    const { children } = this.props
     return (
       <div className={ this._getClass() }>
         <div { ...this._getFrame() }>
-          { canvas }
+          { children }
         </div>
       </div>
     )
@@ -26,7 +26,7 @@ class Body extends React.Component {
   _getClass() {
     const { deviceIndex } = this.props
     const device = devices[deviceIndex]
-    return `designer-body ${device.type}`
+    return `preview-body ${device.type}`
   }
 
   _getFrame() {
@@ -35,7 +35,7 @@ class Body extends React.Component {
     const scale = scales[scaleIndex].value
     const device = devices[deviceIndex]
     return {
-      className: 'designer-frame',
+      className: 'preview-frame',
       style: {
         width: portrait ? device.width : device.height,
         height: portrait ? device.height : device.width,

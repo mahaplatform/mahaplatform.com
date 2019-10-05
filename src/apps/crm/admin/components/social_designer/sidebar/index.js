@@ -1,6 +1,6 @@
-import { Stack } from 'maha-admin'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import Services from './services'
+import { Form } from 'maha-admin'
 import React from 'react'
 
 class Sidebar extends React.PureComponent {
@@ -8,60 +8,87 @@ class Sidebar extends React.PureComponent {
   static contextTypes = {}
 
   static propTypes = {
-    config: PropTypes.object
+    cid: PropTypes.string,
+    config: PropTypes.object,
+    profiles: PropTypes.array,
+    onUpdate: PropTypes.func
   }
 
   static defaultProps = {}
 
   state = {
-    cards: []
+    attachment: 'none'
   }
 
-  _handlePop = this._handlePop.bind(this)
-  _handlePush = this._handlePush.bind(this)
+  _handleChange = this._handleChange.bind(this)
+  _handleChangeField = this._handleChangeField.bind(this)
+  _handleSave = this._handleSave.bind(this)
 
   render() {
-    return <Stack { ...this._getStack() } />
+    return <Form { ...this._getForm() } />
   }
 
-  componentDidMount() {
-    this._handlePush(Services, this._getServices())
-  }
-
-  componentDidUpdate(prevProps) {}
-
-  _getStack() {
-    const { cards } = this.state
-    return {
-      cards,
-      slideFirst: false
-    }
-  }
-
-  _getServices() {
+  _getForm() {
+    const { attachment } = this.state
     const { config } = this.props
     return {
-      services: config.services,
-      onPop: this._handlePop,
-      onPush: this._handlePush
+      title: 'Post',
+      onChange: this._handleChange,
+      onChangeField: this._handleChangeField,
+      cancelText: null,
+      saveText: null,
+      buttons: [
+        { label: 'Save', color: 'red', handler: this._handleSave }
+      ],
+      sections: [
+        {
+          fields: [
+            { label: 'Profile', name: 'profile', type: 'profilefield', formatter: (profile) => profile, defaultValue: config.profile },
+            { label: 'Message', name: 'message', type: 'textarea', defaultValue: config.message },
+            { label: 'Attachment', name: 'attachment', type: 'radiogroup', options: ['none','photos','link'], defaultValue: attachment },
+            ...this._getAttachmentField()
+          ]
+        }
+      ]
     }
   }
 
-  _handlePop(index = -1) {
-    this.setState({
-      cards:this.state.cards.slice(0, index)
-    })
+  _getAttachmentField() {
+    const { attachment } = this.state
+    const { config } = this.props
+    if(attachment === 'photos') {
+      return [
+        { label: 'Photos', name: 'photos', type: 'attachmentfield', multiple: true, formatter: (asset) => asset, prompt: 'Add Photos', defaultValue: config.photos }
+      ]
+    }
+    if(attachment === 'link') {
+      return [
+        { label: 'Link', name: 'link', type: 'textfield', defaultValue: config.link }
+      ]
+    }
+    return []
   }
 
-  _handlePush(component, props) {
-    this.setState({
-      cards: [
-        ...this.state.cards,
-        { component, props }
-      ]
-    })
+  _handleChange(config) {
+    this.props.onUpdate(config)
+  }
+
+  _handleChangeField(key, value) {
+    if(key === 'attachment') {
+      this.setState({
+        attachment: value
+      })
+    }
+  }
+
+  _handleSave() {
+
   }
 
 }
 
-export default Sidebar
+const mapStateToProps = (state, props) => ({
+  config: state.crm.social_designer[props.cid].config
+})
+
+export default connect(mapStateToProps)(Sidebar)

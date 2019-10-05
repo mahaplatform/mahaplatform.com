@@ -4,14 +4,14 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const sources = [
-  { label: 'Twitter', service: 'twitter' },
   { label: 'Facebook', service: 'facebook' },
-  { label: 'Instagram', service: 'instagram' }
+  { label: 'Twitter', service: 'twitter' }
 ]
 
 class New extends React.PureComponent {
 
   static contextTypes = {
+    form: PropTypes.object,
     host: PropTypes.object
   }
 
@@ -53,13 +53,13 @@ class New extends React.PureComponent {
   }
 
   _handleBack() {
-    this.props.onPop()
+    this.context.form.pop()
   }
 
   _handleChooseSource(source) {
     const { token } = this.props
     this.context.host.openWindow(`/admin/${source.service}/authorize?token=${token}`)
-    this.props.onPop()
+    this.context.form.pop()
   }
 
 }

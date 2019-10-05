@@ -13,7 +13,7 @@ class Header extends React.Component {
 
   render() {
     return (
-      <div className="designer-header">
+      <div className="preview-header">
         <select { ...this._getDevice() }>
           { devices.map((device, index) => (
             <option key={`device_${index}`} value={ index }>

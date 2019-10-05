@@ -7,7 +7,7 @@ import Button from '../../button'
 import Single from './single'
 import React from 'react'
 
-class Review extends React.Component {
+class Importing extends React.Component {
 
   static contextTypes = {
     uploader: PropTypes.object
@@ -100,4 +100,4 @@ const mapStateToProps = (state, props) => ({
   retry: retry(state.maha.attachments, props)
 })
 
-export default connect(mapStateToProps)(Review)
+export default connect(mapStateToProps)(Importing)

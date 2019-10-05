@@ -21,6 +21,7 @@ import Lookup2 from './lookup2'
 import MoneyField from './moneyfield'
 import NumberField from './numberfield'
 import Password from './password'
+import ProfileField from './profilefield'
 import PhoneField from './phonefield'
 import RadioGroup from './select/radio_group'
 import Range from './range'
@@ -77,6 +78,7 @@ class Control extends React.Component {
     if(type === 'numberfield') return NumberField
     if(type === 'password') return Password
     if(type === 'phonefield') return PhoneField
+    if(type === 'profilefield') return ProfileField
     if(type === 'rating') return Rating
     if(type === 'range') return Range
     if(type === 'radiogroup') return RadioGroup

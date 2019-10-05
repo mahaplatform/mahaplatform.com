@@ -80,7 +80,7 @@ class Attachments extends React.Component {
   componentDidUpdate(prevProps) {
     const { multiple, files } = this.props
     if(!multiple && !_.isEqual(files, prevProps.files) && files.length === 1 && files[0].status === 'importing') {
-      this._handleImportinging()
+      this._handleImporting()
     }
   }
 
@@ -147,10 +147,9 @@ class Attachments extends React.Component {
 
   _handleDone() {
     const { assets, multiple, onChooseAssets, onDone } = this.props
-    const result = (multiple) ? assets : assets[0]
-    onChooseAssets(result)
+    onChooseAssets(assets)
     if(!multiple) setTimeout(this._handlePop, 250)
-    if(onDone) return onDone(result)
+    if(onDone) return onDone(assets)
     this.context.modal.pop()
   }
 

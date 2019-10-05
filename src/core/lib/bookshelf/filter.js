@@ -138,7 +138,7 @@ const filterPlugin = function(bookshelf) {
     if(value === 'true') return qb.whereRaw(`${column} = ?`, true)
     if(value === 'false') return qb.whereRaw(`${column} = ?`, false)
     if(value.match(/^\d*$/)) return qb.whereRaw(`${column} = ?`, value)
-    return qb.whereRaw(`lower(${column}) = ?`, value.toLowerCase())
+    return qb.whereRaw(`lower(${column}::varchar) = ?`, value.toLowerCase())
   }
 
   const _filterNotEqual = (qb, column, value) => {

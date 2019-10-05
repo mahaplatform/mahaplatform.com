@@ -8,37 +8,28 @@ class Designer extends React.PureComponent {
   static contextTypes = {}
 
   static propTypes = {
-    canvas: PropTypes.any,
+    children: PropTypes.any,
     deviceIndex: PropTypes.number,
     orientationIndex: PropTypes.number,
     scaleIndex: PropTypes.number,
-    sidebar: PropTypes.any,
     onChangeViewport: PropTypes.func
   }
 
   static defaultProps = {
-    canvas: <div />,
-    sidebar: <div />
+    canvas: <div />
   }
 
   render() {
-    const { sidebar } = this.props
+    const { children } = this.props
     return (
-      <div className="designer">
-        <div className="designer-main">
-          <Header { ...this._getHeader() } />
-          <Body { ...this._getBody() } />
-        </div>
-        <div className="designer-sidebar">
-          { sidebar }
-        </div>
+      <div className="preview">
+        <Header { ...this._getHeader() } />
+        <Body { ...this._getBody() }>
+          { children }
+        </Body>
       </div>
     )
   }
-
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps) {}
 
   _getHeader() {
     const { deviceIndex, orientationIndex, scaleIndex, onChangeViewport } = this.props
@@ -51,9 +42,8 @@ class Designer extends React.PureComponent {
   }
 
   _getBody() {
-    const { canvas, deviceIndex, orientationIndex, scaleIndex } = this.props
+    const { deviceIndex, orientationIndex, scaleIndex } = this.props
     return {
-      canvas,
       deviceIndex,
       orientationIndex,
       scaleIndex

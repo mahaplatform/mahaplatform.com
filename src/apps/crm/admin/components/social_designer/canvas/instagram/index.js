@@ -3,46 +3,38 @@ import React from 'react'
 
 class Instagram extends React.PureComponent {
 
-  static contextTypes = {}
-
   static propTypes = {
     config: PropTypes.object
   }
 
-  static defaultProps = {}
-
   render() {
     const { config } = this.props
-    const service = config.services[1]
+    const profile = config.profile
     return (
       <div className="social-designer-instagram">
         <div className="social-designer-instagram-header">
           <div className="social-designer-instagram-logo">
-            <img src={ service.logo } alt={ service.username } />
+            <img src={`/imagecache/w=40${ profile.photo }`} alt={ profile.username } />
           </div>
           <div className="social-designer-instagram-details">
             <div className="social-designer-instagram-username">
-              { service.username }
+              { profile.username }
             </div>
           </div>
         </div>
-        { service.photo &&
+        { profile.photo &&
           <div className="social-designer-instagram-body">
-            <img src={ service.photo } />
+            <img src={ profile.photo } />
           </div>
         }
-        { service.message &&
+        { profile.message &&
           <div className="social-designer-instagram-message">
-            <strong>{ service.username }</strong> { service.message }
+            <strong>{ profile.username }</strong> { profile.message }
           </div>
         }
       </div>
     )
   }
-
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps) {}
 
 }
 

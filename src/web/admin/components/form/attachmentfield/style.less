@@ -1,3 +1,6 @@
+.maha-attachmentfield-assets {
+  overflow: hidden;
+}
 .maha-attachmentfield-asset {
   margin-bottom: 0.8em;
   width: 100%;
@@ -9,8 +12,30 @@
   .maha-asset {
     display: flex;
   }
+  img {
+    width: 3em;
+    height: 3em;
+  }
 }
-.maha-attachmentfield-asset-remove {
+.maha-attachmentfield-image {
+  position: relative;
+  border: 1px solid fadeout(@black, 90);
+  background-color: @white;
+  border-radius: 0.5em;
+  overflow: hidden;
+  width: 100px;
+  float: left;
+  margin: 0 0.5em 0.5em 0;
+  img {
+    width: 100%;
+  }
+  .maha-attachmentfield-remove {
+    position: absolute;
+    top: 0.5em;
+    right: 0.5em;
+  }
+}
+.maha-attachmentfield-remove {
   flex: 0 0 2em;
   display: flex;
   .fa {

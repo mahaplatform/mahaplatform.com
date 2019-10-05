@@ -33,7 +33,7 @@ class TextArea extends React.Component {
   }
 
   _handleUpdate = this._handleUpdate.bind(this)
-  _handleChange = _.debounce(this._handleChange.bind(this), 250, { trailing:  true })
+  _handleChange = _.throttle(this._handleChange.bind(this), 250, { trailing:  true })
 
   render() {
     const { value } = this.state

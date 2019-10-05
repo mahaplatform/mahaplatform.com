@@ -1,14 +1,14 @@
 import AssetSerializer from '../../../../serializers/asset_serializer'
+import facebookphotos from './facebookphotos/create'
 import Profile from '../../../../models/profile'
 import googlephotos from './googlephotos/create'
 import Asset from '../../../../models/asset'
 import instagram from './instagram/create'
-import facebook from './facebook/create'
 
 const getCreate = (service) => {
+  if(service === 'facebookphotos') return facebookphotos
   if(service === 'googlephotos') return googlephotos
   if(service === 'instagram') return instagram
-  if(service === 'facebook') return facebook
 }
 
 const filesRoute = async (req, res) => {

@@ -1,3 +1,26 @@
+.email-designer {
+  flex: 1;
+  display: flex;
+  background-color: @white;
+}
+.email-designer-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.email-designer-sidebar {
+  border-left: 1px solid fadeout(@black, 90);
+  flex: 0 0 ~"calc(100% / 3)";
+  max-width: 500px;
+  min-width: 350px;
+  display: flex;
+  .maha-modal-panel-header {
+    background-color: @grey !important;
+  }
+  & > * {
+    flex: 1;
+  }
+}
 .email-designer-sidebar-panel {
   flex: 1;
   display: flex;

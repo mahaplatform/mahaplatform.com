@@ -100,7 +100,7 @@ class Sources extends React.Component {
       { label: 'Google Drive', name: 'googledrive' },
       { label: 'Google Photos', name: 'googlephotos', type: 'photos' },
       { label: 'Microsoft OneDrive', name: 'onedrive' },
-      { label: 'Facebook', name: 'facebook', type: 'photos' },
+      { label: 'Facebook', name: 'facebookphotos', type: 'photos' },
       { label: 'Instagram', name: 'instagram', type: 'photos' },
       { label: 'Dropbox', name: 'dropbox' },
       { label: 'Box', name: 'box' }
@@ -112,10 +112,9 @@ class Sources extends React.Component {
   }
 
   _getSource(source) {
-    const { allow, doneText, onAdd, onRemove } = this.props
+    const { allow, onAdd, onRemove } = this.props
     return {
       allow,
-      doneText,
       source,
       onAdd,
       onRemove,

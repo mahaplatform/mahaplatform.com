@@ -1,14 +1,9 @@
-.designer {
-  flex: 1;
-  display: flex;
-  background-color: @white;
-}
-.designer-main {
-  flex: 1;
+.preview {
   display: flex;
   flex-direction: column;
+  flex: 1;
 }
-.designer-header {
+.preview-header {
   padding: 0.35em 0.8em;
   background-color: fadeout(@grey, 97);
   border-bottom: 1px solid fadeout(@black, 90);
@@ -17,44 +12,31 @@
     margin: 0 0.4em;
   }
 }
-.designer-body {
+.preview-body {
   flex: 1;
   display: flex;
   background-color: fadeout(@black, 10);
   overflow: hidden;
   &.desktop {
-    .designer-frame {
+    .preview-frame {
       flex: 1;
     }
   }
   &.mobile {
     padding: 1.6em;
     .scrollable();
-    .designer-frame {
+    .preview-frame {
       margin: auto;
     }
   }
 }
-.designer-frame {
+.preview-frame {
   background-color: @white;
   display: flex;
   position: relative;
   iframe {
     background-color: @white;
     border: none;
-    flex: 1;
-  }
-}
-.designer-sidebar {
-  border-left: 1px solid fadeout(@black, 90);
-  flex: 0 0 ~"calc(100% / 3)";
-  max-width: 500px;
-  min-width: 350px;
-  display: flex;
-  .maha-modal-panel-header {
-    background-color: @grey !important;
-  }
-  & > * {
     flex: 1;
   }
 }

@@ -4,52 +4,49 @@ import React from 'react'
 
 class Facebook extends React.PureComponent {
 
-  static contextTypes = {}
-
   static propTypes = {
     config: PropTypes.object
   }
 
-  static defaultProps = {}
-
   render() {
     const { config } = this.props
-    const service = config.services[0]
+    const { profile, message, photos, link } = config
     return (
       <div className="social-designer-facebook">
         <div className="social-designer-facebook-header">
           <div className="social-designer-facebook-logo">
-            <img src={ service.logo } alt={ service.username } />
+            <img src={`/imagecache/w=40${ profile.photo }`} alt={ profile.username } />
           </div>
           <div className="social-designer-facebook-details">
             <div className="social-designer-facebook-username">
-              { service.username }
+              { profile.username }
             </div>
             <div className="social-designer-facebook-timestamp">
-              { moment(service.timestamp).format('MMMM d [at] h:mm A') } •
+              { moment(profile.timestamp).format('MMMM d [at] h:mm A') } •
               <img src="/images/public.png" />
             </div>
           </div>
         </div>
-        { service.message &&
+        { message &&
           <div className="social-designer-facebook-message">
-            { service.message }
+            { message }
           </div>
         }
-        { service.photos.length > 0 &&
+        { link &&
+          <div className="social-designer-facebook-link">
+            { link }
+          </div>
+        }
+        { photos && photos.length > 0 &&
           <div className="social-designer-facebook-body">
-            { service.photos.map((photo, index) => (
-              <img src={ photo } key={`photo_${index}`} />
+            { photos.map((photo, index) => (
+              <img src={ photo.signed_url } key={`photo_${index}`} />
             )) }
           </div>
         }
       </div>
     )
   }
-
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps) {}
 
 }
 

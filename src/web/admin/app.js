@@ -13,7 +13,6 @@ import admincollectionTable from './components/collection/table'
 import admincomments from './components/comments'
 import admincomposer from './components/composer'
 import admincontainer from './components/container'
-import admindesigner from './components/designer'
 import admindrawer from './components/drawer'
 import adminemojis from './components/emojis'
 import adminfields from './components/fields'
@@ -30,6 +29,7 @@ import adminformFilefield from './components/form/filefield'
 import adminformHtmlfield from './components/form/htmlfield'
 import adminformLookup from './components/form/lookup'
 import adminformLookup2 from './components/form/lookup2'
+import adminformProfilefield from './components/form/profilefield'
 import adminform from './components/form'
 import adminformSelectCheckboxGroup from './components/form/select/checkbox_group'
 import adminformSelectRadioGroup from './components/form/select/radio_group'
@@ -57,6 +57,7 @@ import adminmodal from './components/modal'
 import adminpage from './components/page'
 import adminpicklist from './components/picklist'
 import adminpopup from './components/popup'
+import adminpreview from './components/preview'
 import adminprompt from './components/prompt'
 import adminsearch from './components/search'
 import adminsearch2 from './components/search2'
@@ -253,7 +254,6 @@ class App extends React.Component {
       admincomments,
       admincomposer,
       admincontainer,
-      admindesigner,
       admindrawer,
       adminemojis,
       adminfields,
@@ -270,6 +270,7 @@ class App extends React.Component {
       adminformHtmlfield,
       adminformLookup,
       adminformLookup2,
+      adminformProfilefield,
       adminform,
       adminformSelectCheckboxGroup,
       adminformSelectRadioGroup,
@@ -297,6 +298,7 @@ class App extends React.Component {
       adminpage,
       adminpicklist,
       adminpopup,
+      adminpreview,
       adminprompt,
       adminsearch,
       adminsearch2,

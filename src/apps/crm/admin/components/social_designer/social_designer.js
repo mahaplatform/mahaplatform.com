@@ -1,4 +1,3 @@
-import { Designer } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
 import Canvas from './canvas'
@@ -9,13 +8,25 @@ class SocialDesigner extends React.PureComponent {
   static contextTypes = {}
 
   static propTypes = {
-    config: PropTypes.object
+    cid: PropTypes.string,
+    config: PropTypes.object,
+    profiles: PropTypes.array,
+    onUpdate: PropTypes.func
   }
 
   static defaultProps = {}
 
   render() {
-    return <Designer { ...this._getDesigner() } />
+    return (
+      <div className="social-designer">
+        <div className="social-designer-main">
+          <Canvas { ...this._getCanvas() } />
+        </div>
+        <div className="social-designer-sidebar">
+          <Sidebar { ...this._getSidebar() } />
+        </div>
+      </div>
+    )
   }
 
   componentDidMount() {}
@@ -29,17 +40,13 @@ class SocialDesigner extends React.PureComponent {
     }
   }
 
-  _getDesigner() {
-    return {
-      canvas: <Canvas { ...this._getCanvas() } />,
-      sidebar: <Sidebar { ...this._getSidebar() } />
-    }
-  }
-
   _getSidebar() {
-    const { config } = this.props
+    const { cid, config, profiles, onUpdate } = this.props
     return {
-      config
+      cid,
+      config,
+      profiles,
+      onUpdate
     }
   }
 

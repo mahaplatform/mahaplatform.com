@@ -1,4 +1,4 @@
-import { Designer } from 'maha-admin'
+import { Preview } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
 import Canvas from './canvas'
@@ -30,7 +30,18 @@ class EmailDesigner extends React.Component {
   static defaultProps = {}
 
   render() {
-    return <Designer { ...this._getDesigner() } />
+    return (
+      <div className="email-designer">
+        <div className="email-designer-main">
+          <Preview>
+            <Canvas { ...this._getCanvas() } />
+          </Preview>
+        </div>
+        <div className="email-designer-sidebar">
+          <Sidebar { ...this._getSidebar() } />
+        </div>
+      </div>
+    )
   }
 
   componentDidMount() {
@@ -85,13 +96,6 @@ class EmailDesigner extends React.Component {
         p_letter_spacing: '0px'
       },
       sections: []
-    }
-  }
-
-  _getDesigner() {
-    return {
-      canvas: <Canvas { ...this._getCanvas() } />,
-      sidebar: <Sidebar { ...this._getSidebar() } />
     }
   }
 

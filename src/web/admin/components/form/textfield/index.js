@@ -54,7 +54,7 @@ class TextField extends React.Component {
     value: ''
   }
 
-  _handleChange = _.debounce(this._handleChange.bind(this), 250, { trailing:  true })
+  _handleChange = _.throttle(this._handleChange.bind(this), 250, { trailing:  true })
   _handleClear = this._handleClear.bind(this)
   _handleKeyUp = this._handleKeyUp.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)

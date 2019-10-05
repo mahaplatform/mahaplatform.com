@@ -15,12 +15,12 @@ class Canvas extends React.PureComponent {
   static defaultProps = {}
 
   render() {
+    const { config } = this.props
+    if(!config.profile) return null
     const Component = this._getComponent()
     return (
-      <div className="social-designer-canvas">
-        <div className="social-designer-post">
-          <Component { ...this._getSocial() } />
-        </div>
+      <div className="social-designer-post">
+        <Component { ...this._getSocial() } />
       </div>
     )
   }
@@ -31,11 +31,10 @@ class Canvas extends React.PureComponent {
 
   _getComponent() {
     const { config } = this.props
-    const { services } = config
-    const service = services[0]
-    if(service.service === 'facebook') return Facebook
-    if(service.service === 'instagram') return Instagram
-    if(service.service === 'twitter') return Twitter
+    const { profile } = config
+    if(profile.service === 'facebook') return Facebook
+    if(profile.service === 'instagram') return Instagram
+    if(profile.service === 'twitter') return Twitter
   }
 
   _getSocial() {

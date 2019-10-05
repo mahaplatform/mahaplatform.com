@@ -1,12 +1,12 @@
+import facebookphotos from './facebookphotos/list'
 import Profile from '../../../../models/profile'
-import instagram from './instagram/list'
-import facebook from './facebook/list'
 import googlephotos from './googlephotos/list'
+import instagram from './instagram/list'
 
 const getList = (service) => {
+  if(service === 'facebookphotos') return facebookphotos
   if(service === 'googlephotos') return googlephotos
   if(service === 'instagram') return instagram
-  if(service === 'facebook') return facebook
 }
 
 const filesRoute = async (req, res) => {
