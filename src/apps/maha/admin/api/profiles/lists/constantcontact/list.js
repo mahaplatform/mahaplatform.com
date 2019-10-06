@@ -1,4 +1,4 @@
-import { getClient } from '../../services/mailchimp'
+import { getClient } from '../../services/constantcontact'
 
 const list = async (req, profile) => {
 

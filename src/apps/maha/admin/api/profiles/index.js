@@ -5,6 +5,7 @@ import photos from './photos'
 import files from './files'
 import email from './email'
 import posts from './posts'
+import lists from './lists'
 import list from './list'
 import show from './show'
 
@@ -21,6 +22,8 @@ router.use('/:profile_id/contacts', contacts)
 router.use('/:profile_id/email', email)
 
 router.use('/:profile_id/files', files)
+
+router.use('/:profile_id/lists', lists)
 
 router.use('/:profile_id/photos', photos)
 

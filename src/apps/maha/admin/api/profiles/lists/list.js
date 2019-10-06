@@ -1,14 +1,10 @@
 import Profile from '../../../../models/profile'
 import constantcontact from './constantcontact/list'
-import googlecontacts from './googlecontacts/list'
 import mailchimp from './mailchimp/list'
-import outlook from './outlook/list'
 
 const getList = (service) => {
   if(service === 'constantcontact') return constantcontact
-  if(service === 'googlecontacts') return googlecontacts
   if(service === 'mailchimp') return mailchimp
-  if(service === 'outlook') return outlook
 }
 
 const listRoute = async (req, res) => {
