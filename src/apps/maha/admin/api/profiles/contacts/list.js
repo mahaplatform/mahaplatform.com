@@ -1,10 +1,12 @@
 import Profile from '../../../../models/profile'
 import outlookcontacts from './outlookcontacts/list'
 import googlecontacts from './googlecontacts/list'
+import mailchimp from './mailchimp/list'
 
 const getList = (service) => {
   if(service === 'outlookcontacts') return outlookcontacts
   if(service === 'googlecontacts') return googlecontacts
+  if(service === 'mailchimp') return mailchimp
 }
 
 const listRoute = async (req, res) => {

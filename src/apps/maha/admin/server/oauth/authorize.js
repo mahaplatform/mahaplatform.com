@@ -1,5 +1,7 @@
 import { loadUserFromToken } from '../../../../../core/utils/user_tokens'
+import constantcontact from './constantcontact/authorize'
 import microsoft from './microsoft/authorize'
+import mailchimp from './mailchimp/authorize'
 import instagram from './instagram/authorize'
 import facebook from './facebook/authorize'
 import dropbox from './dropbox/authorize'
@@ -12,9 +14,11 @@ const getUrlCreator = (service) => {
   if(_.includes(['googledrive','googlephotos','googlecontacts','gmail'], service)) return google
   if(_.includes(['outlookcontacts','outlook','onedrive'], service)) return microsoft
   if(_.includes(['facebookphotos','facebook'], service)) return facebook
-  if(service === 'twitter') return twitter
+  if(service === 'constantcontact') return constantcontact
   if(service === 'instagram') return instagram
+  if(service === 'mailchimp') return mailchimp
   if(service === 'dropbox') return dropbox
+  if(service === 'twitter') return twitter
   if(service === 'box') return box
   return null
 }
@@ -28,8 +32,10 @@ const getScope = (service) => {
   if(service === 'gmail') return ['userinfo.profile','userinfo.email','gmail.readonly']
   if(service === 'outlookcontacts') return ['user.read','contacts.read']
   if(service === 'onedrive') return ['user.read','files.read.all']
+  if(service === 'constantcontact') return ['authorization_code']
   if(service === 'outlook') return ['user.read','mail.read']
-  if(service === 'instagram') return ['basic']
+  if(service === 'mailchimp') return ['authorization_code']
+  if(service === 'twitter') return ['authorization_code']
   return []
 }
 

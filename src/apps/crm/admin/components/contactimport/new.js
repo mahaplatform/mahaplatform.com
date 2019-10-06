@@ -4,8 +4,10 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const sources = [
-  { label: 'Outlook 365', service: 'outlookcontacts' },
-  { label: 'Google Contacts', service: 'googlecontacts' }
+  { label: 'Constant Contact', service: 'constantcontact' },
+  { label: 'Google Contacts', service: 'googlecontacts' },
+  { label: 'Mailchimp', service: 'mailchimp' },
+  { label: 'Outlook 365', service: 'outlookcontacts' }
 ]
 
 class New extends React.PureComponent {

@@ -9,6 +9,8 @@ const AddNameToProfile = {
       { text: 'googlecontacts' },
       { text: 'onedrive' },
       { text: 'outlookcontacts' },
+      { text: 'constantcontact' },
+      { text: 'mailchimp' },
       { text: 'twitter' },
       { text: 'outlook' },
       { text: 'gmail' }

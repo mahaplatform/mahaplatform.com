@@ -1,9 +1,11 @@
 import { createAsset, createAssetFromUrl } from '../../../services/assets'
 import { loadUserFromToken } from '../../../../../core/utils/user_tokens'
 import socket from '../../../../../core/services/emitter'
+import constantcontact from './constantcontact/token'
 import Profile from '../../../models/profile'
 import Source from '../../../models/source'
 import microsoft from './microsoft/token'
+import mailchimp from './mailchimp/token'
 import instagram from './instagram/token'
 import facebook from './facebook/token'
 import twitter from './twitter/token'
@@ -18,6 +20,8 @@ const getProfileCreator = (service) => {
   if(service === 'instagram') return instagram
   if(service === 'twitter') return twitter
   if(service === 'dropbox') return dropbox
+  if(service === 'mailchimp') return mailchimp
+  if(service === 'constantcontact') return constantcontact
   if(service === 'box') return box
   return null
 }
