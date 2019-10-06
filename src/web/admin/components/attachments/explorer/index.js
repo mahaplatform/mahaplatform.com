@@ -86,7 +86,7 @@ class Explorer extends React.Component {
   }
 
   _getSourceComponent(service) {
-    if(_.includes(['facebookphotos','instagram','googlephotos'], service)) return Photos
+    if(_.includes(['facebook','instagram','googlephotos'], service)) return Photos
     return Files
   }
 

@@ -1,8 +1,8 @@
 import Profile from '../../../../models/profile'
-import outlookcontacts from './outlookcontacts/preview'
+import outlook from './outlook/preview'
 
 const getPreview= (service) => {
-  if(service === 'outlookcontacts') return outlookcontacts
+  if(service === 'outlook') return outlook
 }
 
 const listRoute = async (req, res) => {

@@ -71,7 +71,7 @@ class ContactImport extends React.PureComponent {
 
   _getServiceComponent(service) {
     if(service === 'googlecontacts') return Google
-    if(service === 'outlookcontacts') return Outlook
+    if(service === 'outlook') return Outlook
   }
 
   _getSources() {

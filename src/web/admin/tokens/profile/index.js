@@ -5,12 +5,13 @@ const services = {
   googlecontacts: 'Google Conatcts',
   googledrive: 'Google Drive',
   googlephotos: 'Google Photos',
-  outlookcontacts: 'Outlook 365',
+  facebook: 'Facebook',
   outlook: 'Outlook 365',
   onedrive: 'Microsoft OneDrive',
   dropbox: 'Dropbox',
-  facebook: 'Facebook',
   instagram: 'Instagram',
+  mailchimp: 'Mail Chimp',
+  constantcontact: 'Constant Contact',
   box: 'Box'
 }
 

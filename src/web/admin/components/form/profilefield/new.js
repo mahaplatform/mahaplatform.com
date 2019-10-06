@@ -1,6 +1,7 @@
 import { ModalPanel } from 'maha-admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 import React from 'react'
 
 const sources = [
@@ -59,7 +60,8 @@ class New extends React.PureComponent {
 
   _handleChooseSource(source) {
     const { token } = this.props
-    this.context.host.openWindow(`/admin/${source.service}/authorize?type=posts&token=${token}`)
+    const timestamp = moment().format('x')
+    this.context.host.openWindow(`/admin/${source.service}/authorize?type=posts&timestamp=${timestamp}&token=${token}`)
     this.context.form.pop()
   }
 

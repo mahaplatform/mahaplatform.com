@@ -1,6 +1,7 @@
 import ModalPanel from '../../modal_panel'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 import React from 'react'
 import _ from 'lodash'
 
@@ -52,7 +53,7 @@ class New extends React.PureComponent {
   }
 
   _getType(service) {
-    if(_.includes(['googlephotos','facebookphotos','instagram'], service)) return 'photos'
+    if(_.includes(['googlephotos','facebook','instagram'], service)) return 'photos'
     return 'files'
   }
 
@@ -63,7 +64,8 @@ class New extends React.PureComponent {
   _handleChooseService(service) {
     const { token } = this.props
     const type = this._getType(service.name)
-    this.context.host.openWindow(`/admin/${service.name}/authorize?type=${type}&token=${token}`)
+    const timestamp = moment().format('x')
+    this.context.host.openWindow(`/admin/${service.name}/authorize?type=${type}&timestamp=${timestamp}&token=${token}`)
     this.props.onBack()
   }
 

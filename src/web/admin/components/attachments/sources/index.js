@@ -97,13 +97,13 @@ class Sources extends React.Component {
   _getServices() {
     const { allow } = this.props
     return [
-      { label: 'Google Drive', name: 'googledrive' },
+      { label: 'Google Drive', name: 'googledrive', type: 'files' },
       { label: 'Google Photos', name: 'googlephotos', type: 'photos' },
-      { label: 'Microsoft OneDrive', name: 'onedrive' },
-      { label: 'Facebook', name: 'facebookphotos', type: 'photos' },
+      { label: 'Microsoft OneDrive', name: 'onedrive', type: 'files' },
+      { label: 'Facebook', name: 'facebook', type: 'photos' },
       { label: 'Instagram', name: 'instagram', type: 'photos' },
-      { label: 'Dropbox', name: 'dropbox' },
-      { label: 'Box', name: 'box' }
+      { label: 'Dropbox', name: 'dropbox', type: 'files' },
+      { label: 'Box', name: 'box', type: 'files' }
     ].filter(service => {
       const service_allowed = !allow.services || _.includes(allow.services, service.name)
       const type_allowed = !allow.types || !service.type || _.includes(allow.types, service.type)

@@ -1,13 +1,14 @@
 import { ModalPanel } from 'maha-admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 import React from 'react'
 
 const sources = [
   { label: 'Constant Contact', service: 'constantcontact' },
   { label: 'Google Contacts', service: 'googlecontacts' },
   { label: 'Mailchimp', service: 'mailchimp' },
-  { label: 'Outlook 365', service: 'outlookcontacts' }
+  { label: 'Outlook 365', service: 'outlook' }
 ]
 
 class New extends React.PureComponent {
@@ -59,7 +60,8 @@ class New extends React.PureComponent {
 
   _handleChooseSource(source) {
     const { token } = this.props
-    this.context.host.openWindow(`/admin/${source.service}/authorize?type=contacts&token=${token}`)
+    const timestamp = moment().format('x')
+    this.context.host.openWindow(`/admin/${source.service}/authorize?type=contacts&timestamp=${timestamp}&token=${token}`)
     this.props.onPop()
   }
 

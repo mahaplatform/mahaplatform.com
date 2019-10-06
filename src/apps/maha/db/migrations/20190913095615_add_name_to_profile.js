@@ -4,11 +4,10 @@ const AddNameToProfile = {
 
     const googledrive = await knex('maha_sources').insert({ text: 'googledrive' }).returning('id')
     await knex('maha_sources').insert([
-      { text: 'facebookphotos' },
       { text: 'googlephotos' },
       { text: 'googlecontacts' },
       { text: 'onedrive' },
-      { text: 'outlookcontacts' },
+      { text: 'outlook' },
       { text: 'constantcontact' },
       { text: 'mailchimp' },
       { text: 'twitter' },

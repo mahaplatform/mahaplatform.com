@@ -1,10 +1,10 @@
-import facebookphotos from './facebookphotos/list'
 import Profile from '../../../../models/profile'
 import googlephotos from './googlephotos/list'
 import instagram from './instagram/list'
+import facebook from './facebook/list'
 
 const getList = (service) => {
-  if(service === 'facebookphotos') return facebookphotos
+  if(service === 'facebook') return facebook
   if(service === 'googlephotos') return googlephotos
   if(service === 'instagram') return instagram
 }
