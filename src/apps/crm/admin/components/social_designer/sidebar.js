@@ -79,7 +79,7 @@ class Sidebar extends React.PureComponent {
 
   _getAttachmentOptions() {
     const { profile } = this.state
-    return profile.service === 'instagram' ? ['none','photos'] : ['none','photos','link']
+    return profile.service === 'instagram' ? ['photos'] : ['photos','link']
   }
 
   _getAttachmentField() {

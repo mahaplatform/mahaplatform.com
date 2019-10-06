@@ -34,7 +34,17 @@ class Facebook extends React.PureComponent {
         }
         { link &&
           <div className="social-designer-facebook-link">
-            { link }
+            <div className="social-designer-facebook-link-image">
+              <img src={ link.image_url } />
+            </div>
+            <div className="social-designer-facebook-link-details">
+              <div className="social-designer-facebook-link-source">
+                { link.service_name }<br />
+              </div>
+              <div className="social-designer-facebook-link-title">
+                { link.title }
+              </div>
+            </div>
           </div>
         }
         { photos && photos.length > 0 &&

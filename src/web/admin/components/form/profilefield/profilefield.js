@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import Picker from './picker'
 import React from 'react'
+import _ from 'lodash'
 
 class Profilefield extends React.PureComponent {
 
@@ -44,7 +45,7 @@ class Profilefield extends React.PureComponent {
             </div>
             <div className="profilefield-profile-details">
               <strong>{ profile.username }</strong><br />
-              { profile.service }
+              { _.capitalize(profile.service) }
             </div>
             <div className="profilefield-profile-remove" onClick={ this._handleClear }>
               <i className="fa fa-times" />
@@ -117,7 +118,7 @@ class Profilefield extends React.PureComponent {
       { target: channel, action: 'refresh', handler: this._handleFetch }
     ])
   }
-  
+
   _handlePick() {
     this.context.form.push(<Picker { ...this._getPicker() } />)
   }

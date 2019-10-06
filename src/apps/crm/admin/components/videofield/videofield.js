@@ -1,6 +1,7 @@
 import { Loader, Message, TextArea } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class VideoField extends React.Component{
 
@@ -68,7 +69,7 @@ class VideoField extends React.Component{
 
   componentDidUpdate(prevProps) {
     const { video, onChange } = this.props
-    if(video !== prevProps.video) {
+    if(!_.isEqual(video, prevProps.video)) {
       onChange(video)
     }
   }
