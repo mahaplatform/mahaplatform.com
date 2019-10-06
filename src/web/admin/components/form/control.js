@@ -11,11 +11,12 @@ import CriteriaField from './criteriafield'
 import DateField from './datefield'
 import Dropdown from './dropdown'
 import EmailField from './emailfield'
-import Hidden from './hidden'
-import HtmlField from './htmlfield'
 import FileField from './filefield'
 import FontFamilyField from './fontfamilyfield'
 import FontSizeField from './fontsizefield'
+import Hidden from './hidden'
+import HtmlField from './htmlfield'
+import LinkField from './linkfield'
 import Lookup from './lookup'
 import Lookup2 from './lookup2'
 import MoneyField from './moneyfield'
@@ -72,6 +73,7 @@ class Control extends React.Component {
     if(type === 'filefield') return FileField
     if(type === 'fontfamilyfield') return FontFamilyField
     if(type === 'fontsizefield') return FontSizeField
+    if(type === 'linkfield') return LinkField
     if(type === 'lookup') return Lookup
     if(type === 'lookup2') return Lookup2
     if(type === 'moneyfield') return MoneyField

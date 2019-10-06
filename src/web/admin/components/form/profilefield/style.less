@@ -29,6 +29,17 @@
     color: @black;
   }
 }
+.profilefield-profile-remove {
+  padding: 0.4em 0.8em;
+  .fa {
+    cursor: pointer;
+    color: fadeout(@black, 70);
+    &:hover {
+      color: fadeout(@black, 50);
+    }
+
+  }
+}
 
 
 .profilefield-picker-profiles {
@@ -81,6 +92,7 @@
   }
 }
 .profilefield-picker-profile-add-label {
+  line-height: 1.7em;
   padding: 0.8em;
   flex: 1;
 }

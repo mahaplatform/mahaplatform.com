@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
+import _ from 'lodash'
 
 class Sidebar extends React.PureComponent {
 
@@ -17,7 +18,8 @@ class Sidebar extends React.PureComponent {
   static defaultProps = {}
 
   state = {
-    attachment: 'none'
+    attachment: 'none',
+    profile: null
   }
 
   _handleChange = this._handleChange.bind(this)
@@ -29,7 +31,6 @@ class Sidebar extends React.PureComponent {
   }
 
   _getForm() {
-    const { attachment } = this.state
     const { config } = this.props
     return {
       title: 'Post',
@@ -44,13 +45,41 @@ class Sidebar extends React.PureComponent {
         {
           fields: [
             { label: 'Profile', name: 'profile', type: 'profilefield', formatter: (profile) => profile, defaultValue: config.profile },
-            { label: 'Message', name: 'message', type: 'textarea', defaultValue: config.message },
-            { label: 'Attachment', name: 'attachment', type: 'radiogroup', options: ['none','photos','link'], defaultValue: attachment },
+            ...this._getProfileFields(),
             ...this._getAttachmentField()
           ]
         }
       ]
     }
+  }
+
+  _getProfileFields() {
+    const { attachment, profile } = this.state
+    const { config } = this.props
+    if(profile) {
+      if(profile.service === 'instagram') {
+        return [
+          { label: 'Photos', name: 'photos', type: 'attachmentfield', multiple: true, formatter: (asset) => asset, prompt: 'Add Photos', defaultValue: config.photos },
+          { label: 'Caption', name: 'message', type: 'textarea', defaultValue: config.message }
+        ]
+      } else if(profile.service === 'twitter') {
+        return [
+          { label: 'Tweet', name: 'message', type: 'textarea', maxLength: 280, defaultValue: config.message },
+          { label: 'Attachment', name: 'attachment', type: 'radiogroup', options: this._getAttachmentOptions(), defaultValue: attachment }
+        ]
+      } else if(profile.service === 'facebook') {
+        return [
+          { label: 'Post', name: 'message', type: 'textarea', defaultValue: config.message },
+          { label: 'Attachment', name: 'attachment', type: 'radiogroup', options: this._getAttachmentOptions(), defaultValue: attachment }
+        ]
+      }
+    }
+    return []
+  }
+
+  _getAttachmentOptions() {
+    const { profile } = this.state
+    return profile.service === 'instagram' ? ['none','photos'] : ['none','photos','link']
   }
 
   _getAttachmentField() {
@@ -60,10 +89,9 @@ class Sidebar extends React.PureComponent {
       return [
         { label: 'Photos', name: 'photos', type: 'attachmentfield', multiple: true, formatter: (asset) => asset, prompt: 'Add Photos', defaultValue: config.photos }
       ]
-    }
-    if(attachment === 'link') {
+    } else if(attachment === 'link') {
       return [
-        { label: 'Link', name: 'link', type: 'textfield', defaultValue: config.link }
+        { label: 'Link', name: 'link', type: 'linkfield', defaultValue: config.link }
       ]
     }
     return []
@@ -74,9 +102,9 @@ class Sidebar extends React.PureComponent {
   }
 
   _handleChangeField(key, value) {
-    if(key === 'attachment') {
+    if(_.includes['attachment','profile'], key) {
       this.setState({
-        attachment: value
+        [key]: value
       })
     }
   }

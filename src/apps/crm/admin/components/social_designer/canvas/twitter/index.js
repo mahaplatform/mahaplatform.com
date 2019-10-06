@@ -9,7 +9,7 @@ class Twitter extends React.PureComponent {
 
   render() {
     const { config } = this.props
-    const profile = config.profile
+    const { profile, message, photos, link } = config
     return (
       <div className="social-designer-twitter">
         <div className="social-designer-twitter-header">
@@ -26,17 +26,17 @@ class Twitter extends React.PureComponent {
             <span className="social-designer-twitter-timestamp">
               • Now
             </span>
-            { profile.message &&
+            { message &&
               <div className="social-designer-twitter-message">
-                { profile.message }
+                { message }
               </div>
             }
           </div>
         </div>
-        { profile.photos.length > 0 &&
+        { photos && photos.length > 0 &&
           <div className="social-designer-twitter-photo">
-            { profile.photos.map((photo, index) => (
-              <img src={ photo } key={`photo_${index}`} />
+            { photos.map((photo, index) => (
+              <img src={`/imagecache/cover=fit&w=1024&h=512${photo.path}`} key={`photo_${index}`} />
             )) }
           </div>
         }

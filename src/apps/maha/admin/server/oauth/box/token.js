@@ -5,7 +5,7 @@ const box = new Box({
   clientSecret: process.env.BOX_CLIENT_SECRET
 })
 
-const token = async (code, scope) => {
+const token = async ({ code }, scope) => {
 
   const data = await box.getTokensAuthorizationCodeGrant(code)
 

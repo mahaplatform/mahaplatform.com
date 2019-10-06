@@ -22,7 +22,7 @@ class Facebook extends React.PureComponent {
               { profile.username }
             </div>
             <div className="social-designer-facebook-timestamp">
-              { moment(profile.timestamp).format('MMMM d [at] h:mm A') } •
+              { moment().format('MMMM d [at] h:mm A') } •
               <img src="/images/public.png" />
             </div>
           </div>
@@ -38,9 +38,11 @@ class Facebook extends React.PureComponent {
           </div>
         }
         { photos && photos.length > 0 &&
-          <div className="social-designer-facebook-body">
+          <div className={`social-designer-facebook-photos photos-${photos.length}`}>
             { photos.map((photo, index) => (
-              <img src={ photo.signed_url } key={`photo_${index}`} />
+              <div className="social-designer-facebook-photo" key={`photo_${index}`}>
+                <img src={`/imagecache/cover=fit&w=1024&h=512${photo.path}`} />
+              </div>
             )) }
           </div>
         }

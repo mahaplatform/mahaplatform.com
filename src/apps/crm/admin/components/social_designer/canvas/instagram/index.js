@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import moment from 'moment'
 import React from 'react'
 
 class Instagram extends React.PureComponent {
@@ -9,7 +10,7 @@ class Instagram extends React.PureComponent {
 
   render() {
     const { config } = this.props
-    const profile = config.profile
+    const { profile, message, photos } = config
     return (
       <div className="social-designer-instagram">
         <div className="social-designer-instagram-header">
@@ -22,16 +23,19 @@ class Instagram extends React.PureComponent {
             </div>
           </div>
         </div>
-        { profile.photo &&
-          <div className="social-designer-instagram-body">
-            <img src={ profile.photo } />
-          </div>
-        }
-        { profile.message &&
+        <div className="social-designer-instagram-body">
+          { photos && photos.map((photo, index) => (
+            <img src={`/imagecache/cover=fit&w=1024&h=512${photo.path}`} key={`photo_${index}`} />
+          )) }
+        </div>
+        <div className="social-designer-instagram-footer">
           <div className="social-designer-instagram-message">
-            <strong>{ profile.username }</strong> { profile.message }
+            <strong>{ profile.username }</strong> { message }
           </div>
-        }
+          <div className="social-designer-instagram-timestamp">
+            <time>{ moment().fromNow() }</time>
+          </div>
+        </div>
       </div>
     )
   }

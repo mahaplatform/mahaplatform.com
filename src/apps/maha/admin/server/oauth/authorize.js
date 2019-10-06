@@ -11,20 +11,11 @@ import _ from 'lodash'
 const getUrlCreator = (service) => {
   if(_.includes(['googledrive','googlephotos','googlecontacts','gmail'], service)) return google
   if(_.includes(['outlookcontacts','outlook','onedrive'], service)) return microsoft
-  if(_.includes(['facebookphotos','facebook'], 'facebook')) return facebook
+  if(_.includes(['facebookphotos','facebook'], service)) return facebook
   if(service === 'twitter') return twitter
   if(service === 'instagram') return instagram
   if(service === 'dropbox') return dropbox
   if(service === 'box') return box
-  return null
-}
-
-const getType = (service) => {
-  if(_.includes(['googledrive','onedrive','dropbox','box'], service)) return 'files'
-  if(_.includes(['facebookphotos','googlephotos','instagram'], service)) return 'photos'
-  if(_.includes(['googlecontacts','outlookcontacts'], service)) return 'contacts'
-  if(_.includes(['facebook','twitter'], service)) return 'posts'
-  if(_.includes(['gmail','outlook'], service)) return 'email'
   return null
 }
 
@@ -48,15 +39,13 @@ const authorize = async (req, res) => {
 
   req.user = user
 
-  const type = getType(req.params.source)
-
   const scope = getScope(req.params.source)
 
   const state = [
     `scope:${scope.join(',')}`,
     `source:${req.params.source}`,
     `token:${req.query.token}`,
-    `type:${type}`
+    `type:${req.query.type}`
   ].join('|')
 
   const urlCreator = getUrlCreator(req.params.source)

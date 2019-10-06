@@ -28,11 +28,17 @@
   margin: 0 0.5em 0.5em 0;
   img {
     width: 100%;
+    display: block;
   }
-  .maha-attachmentfield-remove {
+  .fa {
     position: absolute;
-    top: 0.5em;
-    right: 0.5em;
+    top: 0.3em;
+    right: 0.3em;
+    cursor: pointer;
+    color: fadeout(@white, 10);
+    &:hover {
+      color: @white;
+    }
   }
 }
 .maha-attachmentfield-remove {

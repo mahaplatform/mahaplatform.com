@@ -2,7 +2,7 @@ import { google } from 'googleapis'
 
 const auth = new google.auth.OAuth2(process.env.GOOGLE_CLIENT_ID, process.env.GOOGLE_CLIENT_SECRET, `${process.env.WEB_HOST}/admin/google/token`)
 
-const token = async (code, scope) => {
+const token = async ({ code }, scope) => {
 
   const data = await auth.getToken(code)
 
@@ -18,6 +18,7 @@ const token = async (code, scope) => {
   return [{
     photo_url: userinfo.data.picture,
     profile_id: userinfo.data.id,
+    name: userinfo.data.name,
     username: userinfo.data.email,
     data: data.tokens
   }]

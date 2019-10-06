@@ -6,7 +6,7 @@ const fb = new Facebook({
   Promise
 })
 
-const token = async (code, scope) => {
+const token = async ({ code }, scope) => {
 
   const data = await fb.api('oauth/access_token', {
     client_id: process.env.FACEBOOK_APP_ID,

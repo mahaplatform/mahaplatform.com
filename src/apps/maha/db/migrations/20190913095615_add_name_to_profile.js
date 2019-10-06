@@ -9,6 +9,7 @@ const AddNameToProfile = {
       { text: 'googlecontacts' },
       { text: 'onedrive' },
       { text: 'outlookcontacts' },
+      { text: 'twitter' },
       { text: 'outlook' },
       { text: 'gmail' }
     ])
@@ -26,6 +27,7 @@ const AddNameToProfile = {
       table.integer('photo_id').unsigned()
       table.foreign('photo_id').references('maha_assets.id')
       table.string('profile_id')
+      table.string('name')
       table.string('username')
       table.enum('type', ['files','photos','contacts','emails','posts','events'], { useNative: true, enumName: 'maha_profiles_type' })
       table.jsonb('data')

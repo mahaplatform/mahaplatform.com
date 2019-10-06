@@ -3,6 +3,7 @@
 .social-designer-facebook {
   border: 1px solid lighten(@black, 85);
   border-radius: 5px;
+  flex: 1;
 }
 .social-designer-facebook-header {
   display: flex;
@@ -40,9 +41,39 @@
   line-height: normal;
   padding: 0 12px 12px;
 }
-.social-designer-facebook-body {
+.social-designer-facebook-photos {
+  .social-designer-facebook-photo {
+    float: left;
+    overflow: hidden;
+  }
   img {
     width: 100%;
     display: block;
+  }
+  &.photos-1 {
+    .social-designer-facebook-photo {
+      width: 100%;
+    }
+  }
+  &.photos-2 {
+    .social-designer-facebook-photo {
+      width: 100%;
+    }
+  }
+  &.photos-3 {
+    .social-designer-facebook-photo {
+      &:nth-child(3n + 1) {
+        width: ~"calc(100% / 3 * 2)";
+      }
+      &:nth-child(3n + 2),
+      &:nth-child(3n + 3) {
+        width: ~"calc(100% / 3)";
+      }
+    }
+  }
+  &.photos-4 {
+    .social-designer-facebook-photo {
+      width: ~"calc(100% / 2)";
+    }
   }
 }

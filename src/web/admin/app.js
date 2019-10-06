@@ -27,6 +27,7 @@ import adminformCriteriafield from './components/form/criteriafield'
 import adminformDatefield from './components/form/datefield'
 import adminformFilefield from './components/form/filefield'
 import adminformHtmlfield from './components/form/htmlfield'
+import adminformLinkfield from './components/form/linkfield'
 import adminformLookup from './components/form/lookup'
 import adminformLookup2 from './components/form/lookup2'
 import adminformProfilefield from './components/form/profilefield'
@@ -268,6 +269,7 @@ class App extends React.Component {
       adminformDatefield,
       adminformFilefield,
       adminformHtmlfield,
+      adminformLinkfield,
       adminformLookup,
       adminformLookup2,
       adminformProfilefield,

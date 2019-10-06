@@ -46,9 +46,7 @@ class AttachmentField extends React.Component {
           { images.map((asset,index) => (
             <div className="maha-attachmentfield-image" key={ `image_${index}` }>
               <img src={`/imagecache/fit=cover&w=100&h=100${ asset.path }`} />
-              <div className="maha-attachmentfield-remove" onClick={ this._handleRemove.bind(this, index) }>
-                <i className="fa fa-fw fa-times" />
-              </div>
+              <i className="fa fa-fw fa-times" onClick={ this._handleRemove.bind(this, index) } />
             </div>
           )) }
           { plains.map((asset,index) => (

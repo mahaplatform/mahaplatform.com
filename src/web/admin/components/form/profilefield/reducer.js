@@ -27,6 +27,12 @@ const reducer = (state = INITIAL_STATE, action) => {
       selected: action.index
     }
 
+  case 'CLEAR':
+    return {
+      ...state,
+      selected: null
+    }
+
   default:
     return state
   }

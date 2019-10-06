@@ -5,6 +5,7 @@ import React from 'react'
 
 const sources = [
   { label: 'Facebook', service: 'facebook' },
+  { label: 'Instagram', service: 'instagram' },
   { label: 'Twitter', service: 'twitter' }
 ]
 
@@ -58,7 +59,7 @@ class New extends React.PureComponent {
 
   _handleChooseSource(source) {
     const { token } = this.props
-    this.context.host.openWindow(`/admin/${source.service}/authorize?token=${token}`)
+    this.context.host.openWindow(`/admin/${source.service}/authorize?type=posts&token=${token}`)
     this.context.form.pop()
   }
 

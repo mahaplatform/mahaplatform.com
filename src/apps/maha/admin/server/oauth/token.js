@@ -6,6 +6,7 @@ import Source from '../../../models/source'
 import microsoft from './microsoft/token'
 import instagram from './instagram/token'
 import facebook from './facebook/token'
+import twitter from './twitter/token'
 import dropbox from './dropbox/token'
 import google from './google/token'
 import box from './box/token'
@@ -15,6 +16,7 @@ const getProfileCreator = (service) => {
   if(service === 'google') return google
   if(service === 'microsoft') return microsoft
   if(service === 'instagram') return instagram
+  if(service === 'twitter') return twitter
   if(service === 'dropbox') return dropbox
   if(service === 'box') return box
   return null
@@ -65,7 +67,7 @@ const token = async (req, res) => {
 
   const profileCreator = getProfileCreator(req.params.source)
 
-  const profiles = await profileCreator(req.query.code, state.scope.split(','))
+  const profiles = await profileCreator(req.query, state.scope.split(','))
 
   if(!profiles) return res.render('token')
 
@@ -75,13 +77,14 @@ const token = async (req, res) => {
     transacting: req.trx
   })
 
-  await Promise.mapSeries(profiles, async(data) => {
+  await Promise.mapSeries(profiles, async (data) => {
 
     const profile = await Profile.scope({
       team: req.team
     }).query(qb => {
       qb.where('source_id', source.get('id'))
       qb.where('profile_id', data.profile_id)
+      qb.where('type', state.type)
     }).fetch({
       transacting: req.trx
     })
@@ -100,6 +103,7 @@ const token = async (req, res) => {
       source_id: source.get('id'),
       photo_id,
       profile_id: data.profile_id,
+      name: data.name,
       username: data.username,
       data: data.data,
       type: state.type

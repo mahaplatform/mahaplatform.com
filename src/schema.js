@@ -1157,6 +1157,7 @@ const schema = {
       table.integer('source_id').unsigned()
       table.integer('photo_id').unsigned()
       table.string('profile_id', 255)
+      table.string('name', 255)
       table.string('username', 255)
       table.USER-DEFINED('type')
       table.jsonb('data')

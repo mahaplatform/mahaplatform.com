@@ -18,3 +18,7 @@ export const choose = (index) => ({
   type: 'CHOOSE',
   index
 })
+
+export const clear = () => ({
+  type: 'CLEAR'
+})

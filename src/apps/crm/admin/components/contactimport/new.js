@@ -57,7 +57,7 @@ class New extends React.PureComponent {
 
   _handleChooseSource(source) {
     const { token } = this.props
-    this.context.host.openWindow(`/admin/${source.service}/authorize?token=${token}`)
+    this.context.host.openWindow(`/admin/${source.service}/authorize?type=contacts&token=${token}`)
     this.props.onPop()
   }
 
