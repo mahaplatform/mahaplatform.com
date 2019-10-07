@@ -20,7 +20,7 @@ const token = async ({ code }, scope) => {
     headers: {
       'Authorization': `Bearer ${data.access_token}`
     },
-    query: {
+    qs: {
       extra_fields: 'company_logo'
     },
     json: true

@@ -1,0 +1,44 @@
+import { getClient } from '../../services/mailchimp'
+import _ from 'lodash'
+
+const members = async (req, profile) => {
+
+  const client = getClient(req, profile)
+
+  const skip = _.get(req, 'query.$page.skip') || 0
+
+  const limit = _.get(req, 'query.$page.limit') || 100
+
+  const response = await client({
+    method: 'GET',
+    path: `/lists/${req.params.id}/members`,
+    query: {
+      offset: skip,
+      count: limit
+    }
+  })
+
+  const records = response.members.map(contact => ({
+    id: contact.id,
+    first_name: contact.merge_fields.FNAME,
+    last_name: contact.merge_fields.LNAME,
+    email_address: contact.email_address,
+    phone: contact.merge_fields.PHONE,
+    organization: null,
+    optedin: contact.status,
+    optedin_at: contact.timestamp_opt
+  }))
+
+  return {
+    all: response.total_items,
+    limit,
+    records,
+    skip,
+    total: response.total_items
+  }
+
+
+
+}
+
+export default members

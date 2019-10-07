@@ -1,9 +1,11 @@
 import { Router } from 'express'
-import preview from './preview'
+import members from './members'
 import list from './list'
 
 const router = new Router({ mergeParams: true })
 
 router.get('/', list)
+
+router.get('/:id/members', members)
 
 export default router
