@@ -22,7 +22,7 @@ class Facebook extends React.PureComponent {
               { profile.username }
             </div>
             <div className="social-designer-facebook-timestamp">
-              { moment().format('MMMM d [at] h:mm A') } •
+              { moment().format('MMMM dd [at] h:mm A') } •
               <img src="/images/public.png" />
             </div>
           </div>

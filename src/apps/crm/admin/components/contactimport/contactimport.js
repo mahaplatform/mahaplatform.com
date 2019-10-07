@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Sources from './sources'
 import Outlook from './outlook'
 import Google from './google'
+import Lists from './lists'
 import React from 'react'
 import File from './file'
 import New from './new'
@@ -70,7 +71,9 @@ class ContactImport extends React.PureComponent {
   }
 
   _getServiceComponent(service) {
+    if(service === 'constantcontact') return Lists
     if(service === 'googlecontacts') return Google
+    if(service === 'mailchimp') return Lists
     if(service === 'outlook') return Outlook
   }
 

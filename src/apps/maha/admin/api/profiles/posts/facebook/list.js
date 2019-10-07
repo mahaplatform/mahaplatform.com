@@ -26,7 +26,7 @@ const list = async (req, profile) => {
     next: result.paging ? result.paging.cursors.after : null
   }
 
-  return records
+  return result.data
 
 }
 

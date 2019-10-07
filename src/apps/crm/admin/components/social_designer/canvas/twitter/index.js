@@ -9,7 +9,7 @@ class Twitter extends React.PureComponent {
 
   render() {
     const { config } = this.props
-    const { profile, message, photos, link } = config
+    const { profile, message, photos } = config
     return (
       <div className="social-designer-twitter">
         <div className="social-designer-twitter-header">

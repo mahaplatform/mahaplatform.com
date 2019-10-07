@@ -9,7 +9,11 @@ const list = async (req, profile) => {
     path: '/contact_lists'
   })
 
-  return records
+  return records.lists.map(list => ({
+    id: list.list_id,
+    name: list.name
+  }))
+
 
 }
 
