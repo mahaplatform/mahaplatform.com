@@ -21,6 +21,7 @@ const getTabs = (user, { channels, contact, fields, interests }) => {
   const header = document.body.clientWidth <= 768 ? <Header contact={ contact} /> : null
   const items = [
     { label: 'Activities', component: <Timeline contact={ contact } /> },
+    { label: 'Properties', component: <Details contact={ contact } fields={ fields } /> },
     { label: 'Channels', component: <Channels contact={ contact } channels={ channels } /> },
     { label: 'Interests', component: <Interests contact={ contact } interests={ interests } /> }
   ]

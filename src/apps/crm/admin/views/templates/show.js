@@ -44,7 +44,7 @@ class Template extends React.Component {
     const { program_id, id } = page.params
     this.context.network.request({
       method: 'get',
-      endpoint: `/api/admin/crm/programs/${program_id}/templates/${id}`,
+      endpoint: `/api/admin/crm/templates/${id}`,
       onSuccess: this._handleSuccess
     })
   }
@@ -54,7 +54,7 @@ class Template extends React.Component {
     const { program_id, id } = page.params
     this.context.network.request({
       method: 'patch',
-      endpoint: `/api/admin/crm/programs/${program_id}/templates/${id}`,
+      endpoint: `/api/admin/crm/templates/${id}`,
       body: { config },
       onSuccess: this._handleSuccess
     })

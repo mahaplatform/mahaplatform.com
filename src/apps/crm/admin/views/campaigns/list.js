@@ -1,4 +1,4 @@
-import CampaignToken from '../../tokens/campaign'
+import NewCampaign from '../../components/campaign'
 import { Page } from 'maha-admin'
 import React from 'react'
 
@@ -6,7 +6,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Campaigns',
   rights: [],
   collection: {
-    endpoint: `/api/admin/crm/programs/${page.params.program_id}/campaigns`,
+    endpoint: '/api/admin/crm/campaigns',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true }
@@ -14,18 +14,17 @@ const mapPropsToPage = (props, context, resources, page) => ({
     empty: 'You have not yet created any campaigns',
     entity: 'campaign',
     icon: 'bullhorn',
-    link: (record) => `/admin/crm/programs/${page.params.program_id}/campaigns/${record.id}`,
-    new: <CampaignToken value="email" />,
+    link: (record) => `/admin/crm/campaigns/${record.id}`,
+    new: NewCampaign,
     defaultSort: { key: 'title', order: 'asc' }
   },
   tasks: {
     icon: 'plus',
     items: [
-      { component: <CampaignToken value="email" /> },
-      { component: <CampaignToken value="social" /> },
-      { component: <CampaignToken value="sms" /> },
-      { component: <CampaignToken value="voice" /> },
-      { component: <CampaignToken value="mail" /> }
+      {
+        label: 'New Campaign',
+        modal: NewCampaign
+      }
     ]
   }
 })

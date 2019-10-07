@@ -7,7 +7,7 @@ const campaigns = {
     description: 'Create and send a bulk personalized email'
   },
   sms: {
-    icon: 'comment',
+    icon: 'comments',
     title: 'Interactive SMS',
     description: 'Create an interactive text message workflow'
   },

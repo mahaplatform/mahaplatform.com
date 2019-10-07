@@ -19,25 +19,25 @@ import TopicsList from './topics/list'
 import WorkflowsList from './workflows/list'
 
 const routes = [
+  { path: '/campaigns', component: CampaignsList },
   { path: '/campaigns/social', component: CampaignsSocial },
   { path: '/contacts', component: ContactsList },
   { path: '/contacts/:id', component: ContactsShow },
+  { path: '/forms', component: FormsList },
+  { path: '/forms/:id', component: FormsShow },
+  { path: '/fields', component: FieldsShow },
+  { path: '/lists', component: ListsList },
+  { path: '/lists/:id', component: ListsShow },
+  { path: '/numbers', component: NumbersList },
   { path: '/organizations', component: OrganizationsList },
   { path: '/organizations/:id', component: OrganizationsShow },
   { path: '/programs', component: ProgramsList },
   { path: '/programs/:id', component: ProgramsShow },
-  { path: '/programs/:program_id/campaigns', component: CampaignsList },
-  { path: '/programs/:program_id/forms', component: FormsList },
-  { path: '/programs/:program_id/forms/:id', component: FormsShow },
-  { path: '/programs/:program_id/fields', component: FieldsShow },
-  { path: '/programs/:program_id/lists', component: ListsList },
-  { path: '/programs/:program_id/lists/:id', component: ListsShow },
-  { path: '/programs/:program_id/numbers', component: NumbersList },
-  { path: '/programs/:program_id/senders', component: SendersList },
-  { path: '/programs/:program_id/templates', component: TemplateList },
-  { path: '/programs/:program_id/templates/:id', component: TemplatesShow },
-  { path: '/programs/:program_id/topics', component: TopicsList },
-  { path: '/programs/:program_id/workflows', component: WorkflowsList }
+  { path: '/senders', component: SendersList },
+  { path: '/templates', component: TemplateList },
+  { path: '/templates/:id', component: TemplatesShow },
+  { path: '/topics', component: TopicsList },
+  { path: '/workflows', component: WorkflowsList }
 ]
 
 export default routes

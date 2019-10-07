@@ -1,6 +1,5 @@
 import ValueToken from './value_token'
 import PropTypes from 'prop-types'
-import Format from '../../format'
 import Search from './search'
 import Form from '../../form'
 import React from 'react'
@@ -16,9 +15,10 @@ class Lookup extends React.Component {
     active: PropTypes.bool,
     adding: PropTypes.bool,
     chosen: PropTypes.object,
-    disabled: PropTypes.bool,
     defaultValue: PropTypes.any,
+    disabled: PropTypes.bool,
     endpoint: PropTypes.string,
+    filter: PropTypes.object,
     format: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.func
@@ -53,6 +53,7 @@ class Lookup extends React.Component {
   static defaultProps = {
     defaultValue: null,
     disabled: false,
+    filter: {},
     format: ValueToken,
     options: [],
     prompt: 'Choose an item',
@@ -65,13 +66,15 @@ class Lookup extends React.Component {
     onReady: () => {}
   }
 
+  input = null
+
   _handleBegin = this._handleBegin.bind(this)
   _handleClear = this._handleClear.bind(this)
 
   render() {
     const { chosen, prompt, placeholder, tabIndex, text } = this.props
     return (
-      <div className="maha-lookup" tabIndex={ tabIndex }>
+      <div ref={ node => this.input = node } className={ this._getClass() } tabIndex={ tabIndex }>
         <div className="maha-lookup-field" onClick={ this._handleBegin }>
           { chosen &&
             <div className="maha-lookup-token">
@@ -91,6 +94,13 @@ class Lookup extends React.Component {
         }
       </div>
     )
+  }
+
+  _getClass() {
+    const { disabled } = this.props
+    const classes = ['maha-input','maha-lookup']
+    if(disabled) classes.push('disabled')
+    return classes.join(' ')
   }
 
   componentDidMount() {
@@ -127,6 +137,8 @@ class Lookup extends React.Component {
   }
 
   _handleBegin() {
+    const { disabled } = this.props
+    if(disabled) return this.input.blur()
     this.props.onBegin()
   }
 

@@ -100,6 +100,7 @@ class Container extends React.Component {
   static propTypes = {
     cacheKey: PropTypes.string,
     endpoint: PropTypes.string,
+    filter: PropTypes.object,
     form: PropTypes.object,
     label: PropTypes.string,
     options: PropTypes.array,
@@ -145,11 +146,14 @@ class Container extends React.Component {
   }
 
   _getInfinite() {
-    const { cacheKey, endpoint, q, sort, text, value } = this.props
+    const { cacheKey, endpoint, filter, q, sort, text, value } = this.props
     return {
       cacheKey,
       endpoint,
-      filter: { q },
+      filter: {
+        ...filter,
+        q
+      },
       layout: Dynamic,
       props: this.props,
       sort,

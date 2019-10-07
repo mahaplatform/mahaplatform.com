@@ -32,7 +32,7 @@ class Section extends React.Component {
       title: label || `Section ${index + 1}`,
       onCancel: this._handleDone,
       onChange: this._handleChange,
-      cancelText: <i className="fa fa-chevron-left" />,
+      cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleDone }

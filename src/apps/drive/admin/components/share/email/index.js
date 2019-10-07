@@ -28,7 +28,7 @@ class Email extends React.Component {
       title: 'Share via Email',
       method: 'post',
       action: '/api/admin/drive/share/email',
-      cancelText: <i className="fa fa-chevron-left" />,
+      cancelIcon: 'chevron-left',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       before: (

@@ -1,3 +1,4 @@
+import ProgramToken from '../../tokens/program'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -8,9 +9,7 @@ class New extends React.Component {
     modal: PropTypes.object
   }
 
-  static propTypes = {
-    program_id: PropTypes.string
-  }
+  static propTypes = {}
 
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
@@ -20,16 +19,16 @@ class New extends React.Component {
   }
 
   _getForm() {
-    const { program_id } = this.props
     return {
       title: 'New Topic',
       method: 'post',
-      action: `/api/admin/crm/programs/${program_id}/topics`,
+      action: '/api/admin/crm/topics',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
+            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true, format: ProgramToken },
             { label: 'Title', name: 'title', type: 'textfield', required: true }
           ]
         }

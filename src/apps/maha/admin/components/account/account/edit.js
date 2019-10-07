@@ -22,7 +22,7 @@ class Edit extends React.Component {
       method: 'patch',
       endpoint: '/api/admin/account',
       action: '/api/admin/account',
-      cancelText: <i className="fa fa-chevron-left" />,
+      cancelIcon: 'chevron-left',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [

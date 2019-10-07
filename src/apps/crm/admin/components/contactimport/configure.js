@@ -24,7 +24,7 @@ class Configure extends React.PureComponent {
   _getForm() {
     return {
       title: 'Configure Import',
-      cancelText: <i className="fa fa-chevron-left" />,
+      cancelIcon: 'chevron-left',
       saveText: 'Next',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,

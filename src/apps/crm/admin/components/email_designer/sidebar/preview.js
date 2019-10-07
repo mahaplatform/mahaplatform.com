@@ -24,7 +24,7 @@ class Preview extends React.Component {
     return {
       title: 'Send Preview',
       onCancel: this._handleBack,
-      cancelText: <i className="fa fa-chevron-left" />,
+      cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
         { label: 'Send', color: 'red', handler: this._handleSend }

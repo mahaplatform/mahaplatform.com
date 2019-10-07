@@ -34,11 +34,18 @@ class Section extends React.Component {
   }
 
   render() {
-    const { fields, instructions, label } = this.props
+    const { collapsing, fields, instructions, label } = this.props
+    const { collapsed } = this.state
     return (
       <div className={ this._getClass() }>
         { label &&
           <h4 className="ui header" onClick={ this._handleToggle.bind(this)} >
+            { collapsing && collapsed &&
+              <i className="fa fa-fw fa-caret-right" />
+            }
+            { collapsing && !collapsed &&
+              <i className="fa fa-fw fa-caret-down" />
+            }
             { label }
           </h4>
         }

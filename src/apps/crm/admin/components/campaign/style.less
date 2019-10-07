@@ -1,0 +1,29 @@
+.crm-new-campaign-types {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+.crm-new-campaign-types-header {
+  display: flex;
+  flex: 1;
+}
+.crm-new-campaign-types-body {}
+.crm-new-campaign-type {
+  border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.crm-new-campaign-type-details {
+  flex: 1;
+  display: flex;
+}
+.crm-new-campaign-type-proceed {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  .fa {
+    margin: auto;
+  }
+}

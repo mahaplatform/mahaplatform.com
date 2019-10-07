@@ -31,7 +31,7 @@ class New extends React.Component {
     return {
       title: 'New Number',
       method: 'post',
-      action: `/api/admin/crm/programs/${program_id}/numbers`,
+      action: `/api/admin/crm/numbers`,
       onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,

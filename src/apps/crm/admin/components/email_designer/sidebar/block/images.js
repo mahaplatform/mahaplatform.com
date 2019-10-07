@@ -29,7 +29,7 @@ class Images extends React.Component {
       title: 'Images Block',
       onCancel: this._handleDone,
       onChange: this._handleChange,
-      cancelText: <i className="fa fa-chevron-left" />,
+      cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleDone }

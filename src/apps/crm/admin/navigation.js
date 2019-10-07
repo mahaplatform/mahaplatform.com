@@ -10,25 +10,21 @@ const navigation = async (req, trx) => {
 
   return {
     items: [
-      { label: 'Programs', items: [
+      { label: 'Admin', items: [
         { label: 'Programs', route: '/programs' },
-        ...programs.map(program => ({
-          label: program.get('title'), items: [
-            { label: 'Automation', route: `/programs/${program.id}/workflows` },
-            { label: 'Campaigns', route: `/programs/${program.id}/campaigns` },
-            { label: 'Fields', route: `/programs/${program.id}/fields` },
-            { label: 'Forms', route: `/programs/${program.id}/forms` },
-            { label: 'Lists', route: `/programs/${program.id}/lists` },
-            { label: 'Media', route: `/programs/${program.id}/media` },
-            { label: 'Phone Numbers', route: `/programs/${program.id}/numbers` },
-            { label: 'Senders', route: `/programs/${program.id}/senders` },
-            { label: 'Templates', route: `/programs/${program.id}/templates` },
-            { label: 'Topics', route: `/programs/${program.id}/topics` }
-          ]
-        }))
+        { label: 'Phone Numbers', route: '/numbers' }
       ] },
+      { label: 'Automation', route: '/workflows' },
       { label: 'Contacts', route: '/contacts' },
-      { label: 'Organizations', route: '/organizations' }
+      { label: 'Campaigns', route: '/campaigns' },
+      { label: 'Fields', route: '/fields' },
+      { label: 'Forms', route: '/forms' },
+      { label: 'Lists', route: '/lists' },
+      { label: 'Media', route: '/media' },
+      { label: 'Organizations', route: '/organizations' },
+      { label: 'Senders', route: '/senders' },
+      { label: 'Templates', route: '/templates' },
+      { label: 'Topics', route: '/topics' }
     ]
   }
 }

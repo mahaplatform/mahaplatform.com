@@ -34,7 +34,7 @@ class Button extends React.Component {
       onChangeField: this._handleChangeField,
       onChange: this._handleChange,
       onCancel: this._handleDone,
-      cancelText: <i className="fa fa-chevron-left" />,
+      cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleDone }

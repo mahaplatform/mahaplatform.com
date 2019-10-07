@@ -43,7 +43,7 @@ class Form extends React.Component {
     const { program_id, id } = page.params
     this.context.network.request({
       method: 'get',
-      endpoint: `/api/admin/crm/programs/${program_id}/forms/${id}`,
+      endpoint: `/api/admin/crm/forms/${id}`,
       onSuccess: this._handleSuccess
     })
   }
@@ -53,7 +53,7 @@ class Form extends React.Component {
     const { program_id, id } = page.params
     this.context.network.request({
       method: 'patch',
-      endpoint: `/api/admin/crm/programs/${program_id}/forms/${id}`,
+      endpoint: `/api/admin/crm/forms/${id}`,
       body: { config },
       onSuccess: this._handleSuccess
     })

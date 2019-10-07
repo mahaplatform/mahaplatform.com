@@ -32,7 +32,7 @@ class DoNotDisturb extends React.Component {
       method: 'patch',
       endpoint: '/api/admin/account/notifications',
       action: '/api/admin/account/notifications/do_not_disturb',
-      cancelText: <i className="fa fa-chevron-left" />,
+      cancelIcon: 'chevron-left',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [

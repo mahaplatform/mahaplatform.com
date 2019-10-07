@@ -7,6 +7,7 @@ const listRoute = async (req, res) => {
     team: req.team
   }).fetchPage({
     page: req.query.$page,
+    withRelated: ['logo'],
     transacting: req.trx
   })
 

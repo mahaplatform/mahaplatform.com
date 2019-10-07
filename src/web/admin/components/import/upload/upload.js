@@ -43,7 +43,7 @@ class Upload extends React.Component {
         extensions: ['csv','tsv','xls','xlsx'],
         types: ['files']
       },
-      cancelText: <i className="fa fa-chevron-left" />,
+      cancelIcon: 'chevron-left',
       onCancel: this._handleCancel,
       doneText: 'Next',
       onDone: this._handleAttachment

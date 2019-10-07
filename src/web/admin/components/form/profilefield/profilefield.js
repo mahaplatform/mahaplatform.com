@@ -12,11 +12,13 @@ class Profilefield extends React.PureComponent {
 
   static propTypes = {
     cid: PropTypes.string,
+    disabled: PropTypes.bool,
     formatter: PropTypes.func,
     profiles: PropTypes.array,
     profile: PropTypes.object,
     selected: PropTypes.number,
     status: PropTypes.string,
+    tabIndex: PropTypes.number,
     onChange: PropTypes.func,
     onChoose: PropTypes.func,
     onClear: PropTypes.func,
@@ -25,7 +27,9 @@ class Profilefield extends React.PureComponent {
   }
 
   static defaultProps = {
+    disabled: false,
     formatter: (profile) => profile.id,
+    tabIndex: 0,
     onChange: () => {},
     onReady: () => {}
   }
@@ -35,9 +39,9 @@ class Profilefield extends React.PureComponent {
   _handlePick = this._handlePick.bind(this)
 
   render() {
-    const { profile } = this.props
+    const { profile, tabIndex } = this.props
     return (
-      <div className="profilefield" onClick={ this._handlePick }>
+      <div className={ this._getClass() } onClick={ this._handlePick } tabIndex={ tabIndex }>
         { profile ?
           <div className="profilefield-profile">
             <div className="profilefield-profile-logo">
@@ -78,6 +82,13 @@ class Profilefield extends React.PureComponent {
     this._handleLeave()
   }
 
+  _getClass() {
+    const { disabled } = this.props
+    const classes = ['maha-input','profilefield']
+    if(disabled) classes.push('disabled')
+    return classes.join(' ')
+  }
+
   _getPicker() {
     const { cid, onChoose } = this.props
     return {
@@ -88,6 +99,7 @@ class Profilefield extends React.PureComponent {
 
   _handleChange() {
     const { formatter } = this.props
+    if(!this.props.profile) return 
     const profile = formatter(this.props.profile)
     this.props.onChange(profile)
   }
@@ -120,6 +132,8 @@ class Profilefield extends React.PureComponent {
   }
 
   _handlePick() {
+    const { disabled } = this.props
+    if(disabled) return
     this.context.form.push(<Picker { ...this._getPicker() } />)
   }
 

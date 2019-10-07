@@ -23,13 +23,6 @@ const Details = ({ contact }) => {
         { mailing_address.address.description } { mailing_address.is_primary && <span className="alert">PRIMARY</span> }
       </div>
     )) },
-    { label: 'Organizations', content: (
-      <div className="links">
-        { contact.organizations.map((organization, index) => (
-          <Button label={ organization.name } route={`/admin/crm/organizations/${organization.id}`} className="link" key={`organization_${index}`} />
-        )) }
-      </div>
-    ) },
     { label: 'Tags', content: (
       <div className="links">
         { contact.tags.map((tag, index) => (

@@ -24,7 +24,7 @@ class New extends React.Component {
     return {
       title: 'New Form',
       method: 'post',
-      action: `/api/admin/crm/programs/${program_id}/forms`,
+      action: `/api/admin/crm/forms`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [

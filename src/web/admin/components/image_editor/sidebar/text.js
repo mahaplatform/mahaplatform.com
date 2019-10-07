@@ -25,7 +25,7 @@ class Text extends React.PureComponent {
       title: 'Text',
       onChange: this._handleChange,
       onCancel: this._handleBack,
-      cancelText: <i className="fa fa-chevron-left" />,
+      cancelIcon: 'chevron-left',
       color: 'grey',
       saveText: null,
       sections: [

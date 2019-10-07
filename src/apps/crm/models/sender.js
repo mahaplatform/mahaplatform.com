@@ -7,7 +7,13 @@ const Sender = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    rfc822: function() {
+      return `${this.get('name')} <${this.get('email')}>`
+    }
+
+  },
 
   program() {
     return this.belongsTo(Program, 'program_id')

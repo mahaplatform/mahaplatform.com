@@ -26,7 +26,7 @@ class New extends React.Component {
     return {
       title: 'New Template',
       method: 'post',
-      action: `/api/admin/crm/programs/${program_id}/templates`,
+      action: `/api/admin/crm/templates`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [

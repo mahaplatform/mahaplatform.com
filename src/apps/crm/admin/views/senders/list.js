@@ -7,7 +7,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Senders',
   rights: [],
   collection: {
-    endpoint: `/api/admin/crm/programs/${page.params.program_id}/senders`,
+    endpoint: `/api/admin/crm/senders`,
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Sender', key: 'name', primary: true, format: SenderToken }
@@ -15,7 +15,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     empty: 'You have not yet registered any senders',
     entity: 'sender',
     icon: 'paper-plane-o',
-    link: (record) => `/api/admin/crm/programs/${page.params.program_id}/senders/${record.id}`,
+    link: (record) => `/api/admin/crm/senders/${record.id}`,
     new: () => <New program_id={ page.params.program_id } />,
     defaultSort: { key: 'title', order: 'asc' }
   },

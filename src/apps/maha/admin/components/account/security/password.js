@@ -34,7 +34,7 @@ class Password extends React.Component {
       title: 'Change Password',
       method: 'patch',
       action: '/api/admin/account/security/password',
-      cancelText: <i className="fa fa-chevron-left" />,
+      cancelIcon: 'chevron-left',
       onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,

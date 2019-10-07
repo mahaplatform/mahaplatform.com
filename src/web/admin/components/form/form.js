@@ -19,7 +19,8 @@ class Form extends React.Component {
     busy: PropTypes.array,
     buttons: PropTypes.array,
     defaults: PropTypes.object,
-    cancelText: PropTypes.any,
+    cancelIcon: PropTypes.string,
+    cancelText: PropTypes.string,
     color: PropTypes.string,
     config: PropTypes.array,
     data: PropTypes.object,
@@ -35,7 +36,8 @@ class Form extends React.Component {
     method: PropTypes.string,
     panels: PropTypes.array,
     ready: PropTypes.array,
-    saveText: PropTypes.any,
+    saveIcon: PropTypes.string,
+    saveText: PropTypes.string,
     showHeader: PropTypes.bool,
     sections: PropTypes.array,
     status: PropTypes.string,
@@ -164,17 +166,19 @@ class Form extends React.Component {
   }
 
   _getPanel() {
-    const { buttons, cancelText, color, saveText, showHeader, title } = this.props
+    const { buttons, cancelIcon, cancelText, color, saveIcon, saveText, showHeader, title } = this.props
+    const cancel = cancelIcon ? <i className={`fa fa-${cancelIcon}`} /> : cancelText
+    const save = saveIcon ? <i className={`fa fa-${saveIcon}`} /> : saveText
     return {
       buttons,
       color,
       showHeader,
       title,
-      leftItems: (cancelText) ? [
-        { label: cancelText, handler: this._handleCancel }
+      leftItems: (cancel) ? [
+        { label: cancel, handler: this._handleCancel }
       ] : null,
-      rightItems: (saveText) ? [
-        { label: saveText, handler: this._debouncedSubmit , className: this._getButtonClasses() }
+      rightItems: (save) ? [
+        { label: save, handler: this._debouncedSubmit , className: this._getButtonClasses() }
       ] : null
     }
   }

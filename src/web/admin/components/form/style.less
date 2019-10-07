@@ -137,7 +137,11 @@
     box-shadow: none;
   }
   &.disabled {
-    background-color: fadeout(@black, 97) !important;
+    background-color: fadeout(@black, 97);
+    color: fadeout(@black, 90);
+    * {
+      color: fadeout(@black, 90) !important;
+    }
   }
 }
 .maha-input-field {
