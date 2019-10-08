@@ -1,6 +1,5 @@
 const INITIAL_STATE = {
   filters: {
-    address: null,
     areacode: null
   },
   numbers: null,

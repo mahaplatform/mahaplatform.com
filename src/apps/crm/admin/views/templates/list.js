@@ -7,10 +7,11 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Templates',
   rights: [],
   collection: {
-    endpoint: `/api/admin/crm/templates`,
+    endpoint: '/api/admin/crm/templates',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Title', key: 'title', primary: true }
+      { label: 'Title', key: 'title', primary: true },
+      { label: 'Program', key: 'program.title', primary: true }
     ],
     empty: 'You have not yet created any templates',
     entity: 'template',

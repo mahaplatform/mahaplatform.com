@@ -1,8 +1,6 @@
-import ProgramToken from '../../tokens/program'
 import { Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
-import _ from 'lodash'
 
 class Voice extends React.PureComponent {
 
@@ -11,14 +9,12 @@ class Voice extends React.PureComponent {
   }
 
   static propTypes = {
-    onBack: PropTypes.func
+    program_id: PropTypes.number,
+    onBack: PropTypes.func,
+    onDone: PropTypes.func
   }
 
   static defaultProps = {}
-
-  state = {
-    program_id: null
-  }
 
   _handleBack = this._handleBack.bind(this)
   _handleChangeField = this._handleChangeField.bind(this)
@@ -29,13 +25,12 @@ class Voice extends React.PureComponent {
   }
 
   _getForm() {
-    const { program_id } = this.state
-    const disabled = _.isNil(program_id)
-    const filter = !disabled ? { program_id: { $eq: program_id } } : null
+    const { program_id } = this.props
+    const filter = { program_id: { $eq: program_id } }
     return {
       title: 'New Interactive Voice',
       method: 'post',
-      action: '/api/admin/crm/campaigns/sms',
+      action: '/api/admin/crm/campaigns/voice',
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
       onChangeField: this._handleChangeField,
@@ -43,9 +38,9 @@ class Voice extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Program', name: 'program_id', type: 'lookup', placeholder: 'Choose a program', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true, format: ProgramToken },
-            { label: 'Title', name: 'title', type: 'textfield', disabled, placeholder: 'Enter a title for this campaign', required: true },
-            { label: 'Phone Number', name: 'number_id', type: 'lookup', disabled, placeholder: 'Choose a phone number', endpoint: '/api/admin/crm/numbers', filter, value: 'id', text: 'number', required: true }
+            { name: 'program_id', type: 'hidden', defaultValue: program_id },
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
+            { label: 'Phone Number', name: 'number_id', type: 'lookup', placeholder: 'Choose a phone number', endpoint: '/api/admin/crm/numbers', filter, value: 'id', text: 'number', required: true }
           ]
         }
       ]
@@ -65,7 +60,7 @@ class Voice extends React.PureComponent {
   }
 
   _handleSuccess() {
-
+    this.props.onDone()
   }
 
 }

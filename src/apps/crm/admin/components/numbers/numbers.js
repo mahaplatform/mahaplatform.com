@@ -1,4 +1,4 @@
-import { AddressField, Loader, ModalPanel, TextField } from 'maha-admin'
+import { Loader, ModalPanel, TextField } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -35,12 +35,7 @@ class Numbers extends React.PureComponent {
       <ModalPanel { ...this._getPanel() }>
         <div className="numbers">
           <div className="numbers-header">
-            <div className="numbers-header-field">
-              <AddressField { ...this._getAddress() } />
-            </div>
-            <div className="numbers-header-field">
-              <TextField { ...this._getAreacode() } />
-            </div>
+            <TextField { ...this._getAreacode() } />
           </div>
           <div className="numbers-body">
             { status === 'loading' && <Loader /> }
@@ -68,7 +63,7 @@ class Numbers extends React.PureComponent {
   componentDidUpdate(prevProps) {
     const { filters, status } = this.props
     if(!_.isEqual(filters, prevProps.filters)) {
-      if(filters.address !== null && filters.areacode !== null) {
+      if(filters.areacode !== null) {
         this._handleLookup()
       }
     }
@@ -89,12 +84,6 @@ class Numbers extends React.PureComponent {
       leftItems: [
         { label: 'Cancel', handler: this._handleCancel }
       ]
-    }
-  }
-
-  _getAddress() {
-    return {
-      onChange: this._handleChange.bind(this, 'address')
     }
   }
 
@@ -121,9 +110,8 @@ class Numbers extends React.PureComponent {
 
   _handleLookup() {
     const { filters, onLookup } = this.props
-    const { address, areacode } = filters
-    const { latitude, longitude } = address
-    onLookup(areacode, latitude, longitude)
+    const { areacode } = filters
+    onLookup(areacode)
   }
 
 }

@@ -1,8 +1,6 @@
-import ProgramToken from '../../tokens/program'
 import { Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
-import _ from 'lodash'
 
 class Email extends React.PureComponent {
 
@@ -11,14 +9,12 @@ class Email extends React.PureComponent {
   }
 
   static propTypes = {
-    onBack: PropTypes.func
+    program_id: PropTypes.number,
+    onBack: PropTypes.func,
+    onDone: PropTypes.func
   }
 
   static defaultProps = {}
-
-  state = {
-    program_id: null
-  }
 
   _handleBack = this._handleBack.bind(this)
   _handleChangeField = this._handleChangeField.bind(this)
@@ -30,12 +26,10 @@ class Email extends React.PureComponent {
   }
 
   _getForm() {
-    const { program_id } = this.state
-    const disabled = _.isNil(program_id)
     return {
       title: 'New Email Blast',
       method: 'post',
-      action: '/api/admin/crm/campaigns/mail',
+      action: '/api/admin/crm/campaigns/postal',
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
       onChangeField: this._handleChangeField,
@@ -43,9 +37,9 @@ class Email extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Program', name: 'program_id', type: 'lookup', placeholder: 'Choose a program', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true, format: ProgramToken },
-            { label: 'Title', name: 'title', type: 'textfield', disabled, placeholder: 'Enter a title for this campaign', required: true },
-            { label: 'To', name: 'to', type: 'textfield', disabled, placeholder: 'Choose criteria', required: true }
+            { name: 'program_id', type: 'hidden', defaultValue: program_id },
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
+            { label: 'To', name: 'to', type: 'textfield', placeholder: 'Choose criteria' }
           ]
         }
       ]
@@ -65,7 +59,7 @@ class Email extends React.PureComponent {
   }
 
   _handleSuccess() {
-
+    this.props.onDone()
   }
 
 }

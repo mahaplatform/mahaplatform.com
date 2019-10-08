@@ -1,5 +1,9 @@
 import CampaignsList from './campaigns/list'
-import CampaignsSocial from './campaigns/social'
+import CampaignsPostal from './campaigns/postal/show'
+import CampaignsSocial from './campaigns/social/show'
+import CampaignsVoice from './campaigns/voice/show'
+import CampaignsEmail from './campaigns/email/show'
+import CampaignsSMS from './campaigns/sms/show'
 import ContactsList from './contacts/list'
 import ContactsShow from './contacts/show'
 import FieldsShow from './fields/show'
@@ -20,7 +24,11 @@ import WorkflowsList from './workflows/list'
 
 const routes = [
   { path: '/campaigns', component: CampaignsList },
-  { path: '/campaigns/social', component: CampaignsSocial },
+  { path: '/campaigns/postal/:id', component: CampaignsPostal },
+  { path: '/campaigns/social/:id', component: CampaignsSocial },
+  { path: '/campaigns/voice/:id', component: CampaignsVoice },
+  { path: '/campaigns/email/:id', component: CampaignsEmail },
+  { path: '/campaigns/sms/:id', component: CampaignsSMS },
   { path: '/contacts', component: ContactsList },
   { path: '/contacts/:id', component: ContactsShow },
   { path: '/forms', component: FormsList },

@@ -1,8 +1,6 @@
-import ProgramToken from '../../tokens/program'
 import { Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
-import _ from 'lodash'
 
 class Social extends React.PureComponent {
 
@@ -11,14 +9,12 @@ class Social extends React.PureComponent {
   }
 
   static propTypes = {
-    onBack: PropTypes.func
+    program_id: PropTypes.number,
+    onBack: PropTypes.func,
+    onDone: PropTypes.func
   }
 
   static defaultProps = {}
-
-  state = {
-    program_id: null
-  }
 
   _handleBack = this._handleBack.bind(this)
   _handleChangeField = this._handleChangeField.bind(this)
@@ -29,12 +25,10 @@ class Social extends React.PureComponent {
   }
 
   _getForm() {
-    const { program_id } = this.state
-    const disabled = _.isNil(program_id)
     return {
       title: 'New Social Post',
       method: 'post',
-      action: '/api/admin/crm/campaigns/email',
+      action: '/api/admin/crm/campaigns/social',
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
       onChangeField: this._handleChangeField,
@@ -42,9 +36,9 @@ class Social extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true, format: ProgramToken, selectedFormat: ProgramToken },
-            { label: 'Title', name: 'title', type: 'textfield', disabled, placeholder: 'Enter a title for this campaign', required: true },
-            { label: 'Profile', name: 'profile_id', type: 'profilefield', disabled }
+            { name: 'program_id', type: 'hidden', defaultValue: program_id },
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
+            { label: 'Profile', name: 'profile_id', type: 'profilefield' }
           ]
         }
       ]
@@ -64,7 +58,7 @@ class Social extends React.PureComponent {
   }
 
   _handleSuccess() {
-
+    this.props.onDone()
   }
 
 }

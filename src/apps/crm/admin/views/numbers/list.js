@@ -13,10 +13,11 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Phone Numbers',
   rights: [],
   collection: {
-    endpoint: `/api/admin/crm/numbers`,
+    endpoint: '/api/admin/crm/numbers',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Number', key: 'number', primary: true, format: NumberToken }
+      { label: 'Number', key: 'number', primary: true, format: NumberToken },
+      { label: 'Program', key: 'program.title', primary: true }
     ],
     recordTasks: (program) => [
       {

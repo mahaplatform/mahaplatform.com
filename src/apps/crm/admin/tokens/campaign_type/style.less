@@ -1,0 +1,29 @@
+.crm-campaign-type-token {
+  padding: 0.8em;
+  display: flex;
+  &.email .fa {
+    background-color: @green;
+  }
+  &.sms .fa {
+    background-color: @purple;
+  }
+  &.voice .fa {
+    background-color: @yellow;
+  }
+  &.postal .fa {
+    background-color: @orange;
+  }
+  &.social .fa {
+    background-color: @blue;
+  }
+  .fa {
+    margin: auto;
+    display: block;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 2em;
+    color: @white;
+  }
+}

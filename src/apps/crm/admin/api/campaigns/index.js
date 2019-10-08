@@ -1,23 +1,23 @@
 import { Router } from 'express'
-import destroy from './destroy'
-import create from './create'
-import update from './update'
-import edit from './edit'
+import social from './social'
+import postal from './postal'
+import voice from './voice'
+import email from './email'
 import list from './list'
-import show from './show'
+import sms from './sms'
 
 const router = new Router({ mergeParams: true })
 
 router.get('/', list)
 
-router.post('/', create)
+router.use('/email', email)
 
-router.get('/:id', show)
+router.use('/postal', postal)
 
-router.get('/:id/edit', edit)
+router.use('/social', social)
 
-router.patch('/:id', update)
+router.use('/sms', sms)
 
-router.delete('/:id', destroy)
+router.use('/voice', voice)
 
 export default router

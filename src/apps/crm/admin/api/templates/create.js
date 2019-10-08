@@ -8,8 +8,7 @@ const createRoute = async (req, res) => {
 
   const template = await Template.forge({
     team_id: req.team.get('id'),
-    program_id: req.params.program_id,
-    ...whitelist(req.body, ['title','type','parent_id'])
+    ...whitelist(req.body, ['program_id','title','type','parent_id'])
   }).save(null, {
     transacting: req.trx
   })
@@ -20,7 +19,7 @@ const createRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    `/api/admin/crm/templates`
+    '/api/admin/crm/templates'
   ])
 
   res.status(200).respond(template, TemplateSerializer)

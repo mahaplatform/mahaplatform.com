@@ -1,12 +1,14 @@
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Programs from './programs'
+import Postal from './postal'
 import Social from './social'
 import Voice from './voice'
 import Email from './email'
 import Types from './types'
 import React from 'react'
-import Mail from './mail'
 import SMS from './sms'
+import _ from 'lodash'
 
 const types = [
   {
@@ -22,11 +24,10 @@ const types = [
     value: 'voice',
     component: Voice
   },{
-    value: 'mail',
-    component: Mail
+    value: 'postal',
+    component: Postal
   }
 ]
-
 
 class Campaign extends React.PureComponent {
 
@@ -34,16 +35,19 @@ class Campaign extends React.PureComponent {
     modal: PropTypes.object
   }
 
-  static propTypes = {}
-
-  static defaultProps = {}
+  static propTypes = {
+    type: PropTypes.string,
+    onSet: PropTypes.func
+  }
 
   state = {
     cards: []
   }
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleDone = this._handleDone.bind(this)
   _handlePop = this._handlePop.bind(this)
+  _handleProgram = this._handleProgram.bind(this)
   _handlePush = this._handlePush.bind(this)
   _handleType = this._handleType.bind(this)
 
@@ -55,13 +59,18 @@ class Campaign extends React.PureComponent {
     this._handlePush(Types, this._getTypes())
   }
 
-  componentDidUpdate(prevProps) {}
-
   _getStack() {
     const { cards } = this.state
     return {
       cards,
       slideFirst: false
+    }
+  }
+
+  _getPrograms() {
+    return {
+      onBack: this._handlePop,
+      onChoose: this._handleProgram
     }
   }
 
@@ -73,10 +82,11 @@ class Campaign extends React.PureComponent {
     }
   }
 
-  _getType() {
+  _getType(program_id) {
     return {
-      types,
-      onBack: this._handlePop
+      program_id,
+      onBack: this._handlePop,
+      onDone: this._handleDone
     }
   }
 
@@ -84,10 +94,19 @@ class Campaign extends React.PureComponent {
     this.context.modal.close()
   }
 
+  _handleDone() {
+    this.context.modal.close()
+  }
+
   _handlePop(index = -1) {
     this.setState({
       cards:this.state.cards.slice(0, index)
     })
+  }
+
+  _handleProgram(program) {
+    const type = _.find(types, { value: this.props.type })
+    this._handlePush(type.component, this._getType(program.id))
   }
 
   _handlePush(component, props) {
@@ -100,7 +119,8 @@ class Campaign extends React.PureComponent {
   }
 
   _handleType(type) {
-    this._handlePush(type.component, this._getType())
+    this.props.onSet('type', type.value)
+    this._handlePush(Programs, this._getPrograms())
   }
 
 }

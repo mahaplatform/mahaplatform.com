@@ -1,8 +1,9 @@
+import CampaignType from '../campaign_type'
 import React from 'react'
 
 const campaigns = {
   email: {
-    icon: 'envelope-o',
+    icon: 'envelope',
     title: 'Email Blast',
     description: 'Create and send a bulk personalized email'
   },
@@ -21,8 +22,8 @@ const campaigns = {
     title: 'Interactive Voice',
     description: 'Create an interactive voice workflow'
   },
-  mail: {
-    icon: 'file-o',
+  postal: {
+    icon: 'file',
     title: 'Postal Mailing',
     description: 'Personalize documents to send via postal mail'
   }
@@ -32,9 +33,7 @@ const CampaignToken = ({ value }) => {
   const campaign = campaigns[value]
   return (
     <div className="campaign-token">
-      <div className="campaign-token-icon">
-        <i className={`fa fa-fw fa-${ campaign.icon }`} />
-      </div>
+      <CampaignType value={ value } />
       <div className="campaign-token-label">
         <strong>{ campaign.title }</strong><br />
         { campaign.description }

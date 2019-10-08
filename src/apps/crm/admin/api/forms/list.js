@@ -5,10 +5,12 @@ const listRoute = async (req, res) => {
 
   const forms = await Form.scope({
     team: req.team
-  }).query(qb => {
-    qb.where('program_id', req.params.program_id)
+  }).filter({
+    filter: req.query.$filter,
+    filterParams: ['program_id']
   }).fetchPage({
     page: req.query.$page,
+    withRelated: ['program'],
     transacting: req.trx
   })
 

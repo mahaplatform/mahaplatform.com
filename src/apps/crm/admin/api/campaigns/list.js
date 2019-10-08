@@ -1,10 +1,20 @@
+import CampaignSerializer from '../../../serializers/campaign_serializer'
+import Campaign from '../../../models/campaign'
+
 const listRoute = async (req, res) => {
 
-  const data = []
+  const campaigns = await Campaign.scope({
+    team: req.team
+  }).filter({
+    filter: req.query.$filter,
+    filterParams: ['program_id']
+  }).fetchPage({
+    page: req.query.$page,
+    withRelated: ['program'],
+    transacting: req.trx
+  })
 
-  data.pagination = { all: 0, total: 0 }
-
-  res.status(200).respond(data)
+  res.status(200).respond(campaigns, CampaignSerializer)
 
 }
 
