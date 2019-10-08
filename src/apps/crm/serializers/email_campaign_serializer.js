@@ -9,6 +9,7 @@ const EmailCampaignSerializer = (req, result) => ({
   code: result.get('code'),
   type: result.get('type'),
   status: result.get('status'),
+  config: result.get('config'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

@@ -1,10 +1,16 @@
-import { List } from 'maha-admin'
+import { Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 const Details = ({ campaign }) => {
 
   const config = {}
+
+  const design = {
+    label: 'Design Email',
+    className: 'link',
+    route: `/admin/crm/campaigns/email/${campaign.code}/design`
+  }
 
   config.items = [
     { label: 'Title', content: campaign.title },
@@ -13,7 +19,8 @@ const Details = ({ campaign }) => {
     { label: 'To', content: campaign.to },
     { label: 'Reply To', content: campaign.reply_to },
     { label: 'Subject', content: campaign.subject },
-    { label: 'Status', content: campaign.status }
+    { label: 'Status', content: campaign.status },
+    { label: 'Content', content: <Button { ...design } /> }
   ]
 
   return <List { ...config } />

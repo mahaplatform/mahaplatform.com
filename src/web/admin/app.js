@@ -83,10 +83,13 @@ import crmformDesigner from '../../apps/crm/admin/components/form_designer'
 import crmimagesfield from '../../apps/crm/admin/components/imagesfield'
 import crmnumbers from '../../apps/crm/admin/components/numbers'
 import crmphonesfield from '../../apps/crm/admin/components/phonesfield'
+import crmpostalDesigner from '../../apps/crm/admin/components/postal_designer'
 import crmsharesfield from '../../apps/crm/admin/components/sharesfield'
+import crmsmsDesigner from '../../apps/crm/admin/components/sms_designer'
 import crmsocialDesigner from '../../apps/crm/admin/components/social_designer'
 import crmtimeline from '../../apps/crm/admin/components/timeline'
 import crmvideofield from '../../apps/crm/admin/components/videofield'
+import crmvoiceDesigner from '../../apps/crm/admin/components/voice_designer'
 import driveaccess from '../../apps/drive/admin/components/access'
 import driveexplorer from '../../apps/drive/admin/components/explorer'
 import drivemove from '../../apps/drive/admin/components/move'
@@ -326,10 +329,13 @@ class App extends React.Component {
       crmimagesfield,
       crmnumbers,
       crmphonesfield,
+      crmpostalDesigner,
       crmsharesfield,
+      crmsmsDesigner,
       crmsocialDesigner,
       crmtimeline,
       crmvideofield,
+      crmvoiceDesigner,
       driveaccess,
       driveexplorer,
       drivemove,

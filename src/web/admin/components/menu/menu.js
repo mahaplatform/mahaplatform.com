@@ -27,7 +27,7 @@ class Menu extends React.Component {
 
   render() {
     const { items } = this.props
-    const numbers = ['zero','one','two','three','four','five']
+    const numbers = ['zero','one','two','three','four','five','six','seven','eight']
     return (
       <div className="maha-menus">
         <div className="maha-menus-header">

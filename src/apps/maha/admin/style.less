@@ -46,30 +46,6 @@ input, textarea {
 	  height: 6px !important;
 	}
 }
-.links {
-	.link {
-		display: inline-block;
-		&:last-child {
-			&:after {
-				content: '';
-			}
-		}
-		&:after {
-			color: @black;
-			content: ',';
-			margin: 0 3px;
-		}
-	}
-}
-.link {
-	color: @blue;
-	text-decoration: underline;
-	cursor: pointer;
-	display: inline-block;
-	&:hover {
-		color: darken(@blue, 10);
-	}
-}
 .maha-table tbody *, .maha-list-item *, .maha-message-content * {
 	.selectable()
 }

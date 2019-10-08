@@ -6,3 +6,25 @@
     background: @white !important;
   }
 }
+.links {
+	.link {
+		&:last-child {
+			&:after {
+				content: '';
+			}
+		}
+		&:after {
+			color: @black;
+			content: ',';
+			margin: 0 3px;
+		}
+	}
+}
+.link {
+	color: @blue;
+	cursor: pointer;
+	display: inline-block;
+	&:hover {
+		color: darken(@blue, 10);
+	}
+}

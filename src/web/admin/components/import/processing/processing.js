@@ -1,5 +1,5 @@
 import ModalPanel from '../../modal_panel'
-import Progress from '../../progress'
+import ProgressPie from '../../progress/pie'
 import Message from '../../message'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -41,7 +41,7 @@ class Processing extends React.Component {
       <ModalPanel { ...this._getPanel() }>
         <div className="import-processing">
           { status === 'processing' &&
-            <Progress { ...this._getProgress() } />
+            <ProgressPie { ...this._getProgress() } />
           }
           { status === 'failure' &&
             <Message { ...this._getErrorMessage() } />

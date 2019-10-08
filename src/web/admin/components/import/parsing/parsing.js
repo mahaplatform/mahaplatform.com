@@ -1,6 +1,6 @@
 import Message from '../../message'
 import ModalPanel from '../../modal_panel'
-import Progress from '../../progress'
+import ProgressPie from '../../progress/pie'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -39,7 +39,7 @@ class Parsing extends React.Component {
       <ModalPanel { ...this._getPanel() }>
         <div className="import-parsing">
           { status === 'parsing' &&
-            <Progress { ...this._getProgress() } />
+            <ProgressPie { ...this._getProgress() } />
           }
           { status === 'failure' &&
             <Message { ...this._getErrorMessage() } />

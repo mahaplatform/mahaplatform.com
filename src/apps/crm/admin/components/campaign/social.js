@@ -25,6 +25,7 @@ class Social extends React.PureComponent {
   }
 
   _getForm() {
+    const { program_id } = this.props
     return {
       title: 'New Social Post',
       method: 'post',

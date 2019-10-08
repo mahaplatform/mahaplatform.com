@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-class Progress extends React.Component {
+class ProgressPie extends React.Component {
 
   static propTypes = {
     label: PropTypes.string,
@@ -14,7 +14,7 @@ class Progress extends React.Component {
     const { label, title, text } = this.props
     const percent = this._getPercent()
     return (
-      <div className="maha-progress">
+      <div className="maha-progress-pie">
         <div className={ `pie p${percent}` }>
           <span>{ label || `${percent}%` }</span>
           <div className="slice">
@@ -35,4 +35,4 @@ class Progress extends React.Component {
 
 }
 
-export default Progress
+export default ProgressPie

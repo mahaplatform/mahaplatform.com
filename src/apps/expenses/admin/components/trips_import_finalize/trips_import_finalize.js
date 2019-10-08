@@ -1,4 +1,4 @@
-import { ModalPanel, Progress } from 'maha-admin'
+import { ModalPanel, ProgressPie } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -34,7 +34,7 @@ class TripsImportFinalize extends React.Component {
       <ModalPanel { ...this._getPanel() }>
         <div className="import-finalize">
           { imp &&
-            <Progress { ...this._getProgress() } />
+            <ProgressPie { ...this._getProgress() } />
           }
         </div>
       </ModalPanel>
