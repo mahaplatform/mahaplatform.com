@@ -13,10 +13,6 @@
     flex: 1;
   }
 }
-.maha-form-sections {
-  flex: 1;
-  .scrollable();
-}
 .maha-form-panels > div > div {
   position: absolute;
   top: 0;
@@ -34,98 +30,119 @@
   left: 0;
   background-color: fadeout(@black, 98);
 }
-
 .maha-form-sections {
   position: relative;
-  .ui.segment {
-    border-bottom: 1px solid fadeout(@black, 90);
-    position: static;
-    padding: 0;
-    margin: 0;
-    &:last-child {
-      border-bottom: none;
-    }
-    & > h4 {
-      border-bottom: 1px solid fadeout(@black, 90);
-      background-color: fadeout(@black, 95);
-      padding: 0.8em;
-      color: @black, 50;
-      margin: 0;
-      font-weight: normal;
-    }
-    &.collapsing {
-      cursor: pointer;
-      &.collapsed .section {
-        display: none;
-      }
-    }
-  	input, textarea {
-  		color: lighten(@black, 40) !important;
-  	}
-  	textarea {
-  		line-height: 1.5em !important;
-  	}
-  }
-  .section {
-    padding: 0.8em;
-    & > .field {
-      line-height: 1.6em;
-      margin-bottom: 0.8em;
-      & > label {
-        margin-bottom: 0;
-      }
-      &:last-child {
-        margin-bottom: 0;
-      }
-    }
-  }
-  .instructions {
-    color: fadeout(@black, 40);
-    line-height: 1.6em;
-    margin-bottom: 0.8em;
-    ul {
-      padding: 0 1.6em;
-    }
-  }
-  .error {
-    input, textarea, select, .lookup-field, .dropdown {
-      border-color: @red !important;
-      background-color: @white !important;
-      border-radius: 5px 5px 0 0 !important;
-    }
-    & > label {
-      color: @red !important;
-    }
-    .error-message {
-      background-color: @red !important;
-      color: @white !important;
-      padding: 5px 10px;
-      font-size: .8em;
-      border-radius: 0 0 5px 5px !important;
-    }
-    .ui.right {
-      input {
-        border-radius: 5px 0 0 0 !important;
-      }
-      .ui.label {
-        border-radius: 0 5px 0 0 !important;
-      }
-    }
-    .ui.left {
-      input {
-        border-radius: 0 5px 0 0 !important;
-      }
-      .ui.label {
-        border-radius: 5px 0 0 0 !important;
-      }
-    }
-    .ui.label {
-      background-color: @red !important;
-      color: @white !important;
-    }
+  flex: 1;
+  .scrollable();
+  .maha-form-section:last-child {
+    border-bottom: none;
   }
 }
-
+.maha-form-section {
+  border-bottom: 1px solid fadeout(@black, 90);
+  position: static;
+  padding: 0;
+  margin: 0;
+  &.collapsing {
+    cursor: pointer;
+    &.collapsed .maha-form-section-body {
+      display: none;
+    }
+  }
+	input, textarea {
+		color: lighten(@black, 40) !important;
+	}
+	textarea {
+		line-height: 1.5em !important;
+	}
+}
+.maha-form-section-header {
+  border-bottom: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 95);
+  padding: 0.8em;
+  color: @black, 50;
+  margin: 0;
+  font-weight: normal;
+}
+.maha-form-section-body {
+  padding: 0.4em 0;
+}
+.error {
+  input, textarea, select, .lookup-field, .dropdown {
+    border-color: @red !important;
+    background-color: @white !important;
+    border-radius: 5px 5px 0 0 !important;
+  }
+  & > label {
+    color: @red !important;
+  }
+  .error-message {
+    background-color: @red !important;
+    color: @white !important;
+    padding: 5px 10px;
+    font-size: .8em;
+    border-radius: 0 0 5px 5px !important;
+  }
+  .ui.right {
+    input {
+      border-radius: 5px 0 0 0 !important;
+    }
+    .ui.label {
+      border-radius: 0 5px 0 0 !important;
+    }
+  }
+  .ui.left {
+    input {
+      border-radius: 0 5px 0 0 !important;
+    }
+    .ui.label {
+      border-radius: 5px 0 0 0 !important;
+    }
+  }
+  .ui.label {
+    background-color: @red !important;
+    color: @white !important;
+  }
+}
+.maha-form-section-instructions {
+  color: fadeout(@black, 40);
+  line-height: 1.6em;
+  margin: 0.4em 0;
+  ul {
+    padding: 0 1.6em;
+  }
+}
+.maha-form-field {
+  display: flex;
+  padding: 0.4em 0.8em;
+  line-height: 1.6em;
+  margin: 0 !important;
+  &.required .maha-form-field-label:after {
+    margin: -.2em 0 0 .2em;
+    content: '*';
+    color: @red;
+  }
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+.maha-form-field-label {
+  @media (min-width: 769px) {
+    flex: 0 0 14em;
+    padding: 0.6em 0;
+  }
+  color: fadeout(@black, 10);
+  font-weight: bold;
+}
+.maha-form-field-instructions {
+  color: fadeout(@black, 40);
+  line-height: 1.6em;
+  margin: 0.4em 0;
+}
+.maha-form-field-control {
+  flex: 1;
+  padding: 0;
+}
 .maha-input {
   border: 1px solid rgba(34,36,38,.15);
   background-color: @white;

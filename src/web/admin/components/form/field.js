@@ -56,13 +56,27 @@ class Field extends React.Component {
     if(!include || !show) return null
     return (
       <div className={ this._getClass() } key="control" ref={ node => this.control = node }>
-        { label && <label>{ label }</label> }
-        { instructions && <div className="instructions">{ instructions }</div> }
-        { type === 'fields' ?
-          <Fields { ...this._getFields() } /> :
-          <Control { ...this._getControl() } />
+        { label &&
+          <div className="maha-form-field-label">
+            { label }
+          </div>
         }
-        { error && <div className="error-message">{ error }</div> }
+        <div className="maha-form-field-control">
+          { instructions &&
+            <div className="maha-form-field-instructions">
+              { instructions }
+            </div>
+          }
+          { type === 'fields' ?
+            <Fields { ...this._getFields() } /> :
+            <Control { ...this._getControl() } />
+          }
+          { error &&
+            <div className="error-message">
+              { error }
+            </div>
+          }
+        </div>
       </div>
     )
   }
@@ -70,7 +84,7 @@ class Field extends React.Component {
   _getClass() {
     const { required } = this.props
     const error = this._getError()
-    const classes = ['field']
+    const classes = ['maha-form-field field']
     if(required) classes.push('required')
     if(error) classes.push('error')
     return classes.join(' ')

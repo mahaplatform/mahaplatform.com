@@ -39,7 +39,7 @@ class Section extends React.Component {
     return (
       <div className={ this._getClass() }>
         { label &&
-          <h4 className="ui header" onClick={ this._handleToggle.bind(this)} >
+          <div className="maha-form-section-header" onClick={ this._handleToggle.bind(this)} >
             { collapsing && collapsed &&
               <i className="fa fa-fw fa-caret-right" />
             }
@@ -47,10 +47,14 @@ class Section extends React.Component {
               <i className="fa fa-fw fa-caret-down" />
             }
             { label }
-          </h4>
+          </div>
         }
-        <div className="section">
-          { instructions && <div className="instructions">{ instructions }</div> }
+        <div className="maha-form-section-body">
+          { instructions &&
+             <div className="maha-form-section-instructions">
+              { instructions }
+             </div>
+           }
           { fields.map((field, index) => (
             <Field key={`field_${index}`} {...this._getField(field, index) } />
           ))}
@@ -62,7 +66,7 @@ class Section extends React.Component {
   _getClass() {
     const { collapsing } = this.props
     const { collapsed } = this.state
-    let classes = ['ui', 'basic', 'segment']
+    let classes = ['maha-form-section']
     if(collapsing) {
       classes.push('collapsing')
       classes.push(collapsed ? 'collapsed' : 'expanded')

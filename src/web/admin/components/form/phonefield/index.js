@@ -61,7 +61,7 @@ class PhoneField extends React.Component {
     return {
       className: 'ui input',
       type: 'tel',
-      placeholder: 'Phone',
+      placeholder: 'Enter phone number',
       tabIndex,
       value,
       ref: node => this.phone = node,

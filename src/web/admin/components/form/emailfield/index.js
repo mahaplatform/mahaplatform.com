@@ -58,7 +58,7 @@ class EmailField extends React.Component {
     return {
       className: 'ui input',
       type: 'email',
-      placeholder: 'Email',
+      placeholder: 'Enter email address',
       tabIndex,
       value,
       ref: node => this.email = node,
