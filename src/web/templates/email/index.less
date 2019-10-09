@@ -15,24 +15,30 @@
 @white: #FFFFFF;
 
 div.dropzone {
-  &.hover {
-    border-color: @teal;
-    position: relative;
-    &:after {
-      position: absolute;
-      padding: 5px;
-      font-size: 10px;
-      bottom: 0;
-      left: 0;
-      transform: translate(-2px, 100%);
-      background-color: @teal;
-      text-transform: uppercase;
-      color: white;
-      content: attr(data-label);
-    }
-  }
+  position: relative;
   td.first {
     text-align: center;
+  }
+}
+div.dropzone-highlight {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  border: 2px solid @teal;
+  &:after {
+    position: absolute;
+    padding: 5px;
+    font-size: 10px;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 100%);
+    background-color: @teal;
+    text-transform: uppercase;
+    color: white;
+    content: attr(data-label);
+    z-index: 10;
   }
 }
 div.dropzone-target {

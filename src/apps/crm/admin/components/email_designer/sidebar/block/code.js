@@ -1,4 +1,3 @@
-import { columns, font_size, letter_spacing, line_heights, fonts } from '../../variables'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'

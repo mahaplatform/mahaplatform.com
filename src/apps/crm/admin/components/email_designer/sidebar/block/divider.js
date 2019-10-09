@@ -1,3 +1,4 @@
+import * as options from '../../variables'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -35,9 +36,13 @@ class Divider extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Padding Top', name: 'padding_top', type: 'textfield', defaultValue: config.padding_top },
-            { label: 'Padding Bottom', name: 'padding_bottom', type: 'textfield', defaultValue: config.padding_bottom },
-            { label: 'Border', name: 'border', type: 'textfield', defaultValue: config.border },
+            { label: 'Padding Top', name: 'padding', type: 'lookup', options: options.paddings, defaultValue: config.padding_top },
+            { label: 'Padding Bottom', name: 'padding', type: 'lookup', options: options.paddings, defaultValue: config.padding_bottom },
+            { label: 'Border', type:'fields', fields: [
+              { name: 'border_width', type: 'lookup', options: options.border_widths, placeholder: 'Width', defaultValue: config.border_width },
+              { name: 'border_style', type: 'lookup', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style },
+              { name: 'border_color', type: 'colorfield', defaultValue: config.border_color }
+            ] },
             { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color }
           ]
         }

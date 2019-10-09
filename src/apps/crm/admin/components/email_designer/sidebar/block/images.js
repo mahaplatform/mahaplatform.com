@@ -1,4 +1,6 @@
-import { columns, font_size, letter_spacing, line_heights, fonts } from '../../variables'
+import * as options from '../../variables'
+import AlignmentField from '../../../alignmentfield'
+import FormatField from '../../../formatfield'
 import ImagesField from '../../../imagesfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -49,7 +51,15 @@ class Images extends React.Component {
           sections: [
             {
               label: 'Text Style',
-              fields: []
+              fields: [
+                { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config.font_family },
+                { label: 'Font Size', name: 'font_size', type: 'lookup', options: options.font_size, defaultValue: config.font_size },
+                { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color },
+                { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format },
+                { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.alignment },
+                { label: 'Line Height', name: 'line_height', type: 'lookup', options: options.line_heights, defaultValue: config.line_height },
+                { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: options.letter_spacing, defaultValue: config.letter_spacing }
+              ]
             }
           ]
         }, {

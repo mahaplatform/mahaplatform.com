@@ -1,4 +1,4 @@
-import { columns, font_size, letter_spacing, line_heights, fonts } from '../../variables'
+import * as options from '../../variables'
 import AlignmentField from '../../../alignmentfield'
 import FormatField from '../../../formatfield'
 import PropTypes from 'prop-types'
@@ -51,18 +51,12 @@ class Footer extends React.Component {
             {
               label: 'Text Style',
               fields: [
-                { type: 'fields', fields: [
-                  { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config.font_family },
-                  { label: 'Font Size', name: 'font_size', type: 'lookup', options: font_size, defaultValue: config.font_size }
-                ] },
-                { type: 'fields', fields: [
-                  { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color },
-                  { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format }
-                ] },
-                { type: 'fields', fields: [
-                  { label: 'Line Height', name: 'line_height', type: 'lookup', options: line_heights, defaultValue: config.line_height },
-                  { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: letter_spacing, defaultValue: config.letter_spacing }
-                ] },
+                { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config.font_family },
+                { label: 'Font Size', name: 'font_size', type: 'lookup', options: options.font_size, defaultValue: config.font_size },
+                { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color },
+                { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format },
+                { label: 'Line Height', name: 'line_height', type: 'lookup', options: options.line_heights, defaultValue: config.line_height },
+                { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: options.letter_spacing, defaultValue: config.letter_spacing },
                 { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.alignment }
               ]
             }
@@ -72,7 +66,7 @@ class Footer extends React.Component {
           sections: [
             {
               fields: [
-                { label: 'Number of Columns', name: 'columns', type: 'lookup', options: columns, defaultValue: config.columns }
+                { label: 'Number of Columns', name: 'columns', type: 'lookup', options: options.columns, defaultValue: config.columns }
               ]
             }
           ]

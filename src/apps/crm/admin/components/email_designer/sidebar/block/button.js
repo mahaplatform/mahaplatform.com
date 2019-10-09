@@ -1,4 +1,4 @@
-import { alignments, displays, font_size, letter_spacing, link_strategies, line_heights } from '../../variables'
+import * as options from '../../variables'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -46,7 +46,7 @@ class Button extends React.Component {
             {
               fields: [
                 { label: 'Button Text', name: 'content', type: 'textfield', defaultValue: config.content },
-                { label: 'Link To', name: 'link_strategy', type: 'lookup', options: link_strategies, defaultValue: config.link_strategy },
+                { label: 'Link To', name: 'link_strategy', type: 'lookup', options: options.link_strategies, defaultValue: config.link_strategy },
                 ...this._getLinkStrategy()
               ]
             }
@@ -58,6 +58,11 @@ class Button extends React.Component {
               fields: [
                 { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
                 { label: 'Padding', name: 'padding', type: 'textfield', defaultValue: config.padding },
+                { label: 'Border', type:'fields', fields: [
+                  { name: 'border_width', type: 'lookup', options: options.border_widths, placeholder: 'Width', defaultValue: config.border_width },
+                  { name: 'border_style', type: 'lookup', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style },
+                  { name: 'border_color', type: 'colorfield', defaultValue: config.border_color }
+                ] },
                 { label: 'Border', name: 'border', type: 'textfield', defaultValue: config.border },
                 { label: 'Rounded Corners', name: 'border_radius', type: 'range', min: 0, max: 20, defaultValue: config.border_radius }
               ]
@@ -66,14 +71,10 @@ class Button extends React.Component {
               label: 'Button Text Style',
               fields: [
                 { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config.font_family },
-                { type: 'fields', fields: [
-                  { label: 'Font Size', name: 'font_size', type: 'lookup', options: font_size, defaultValue: config.font_size },
-                  { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color }
-                ] },
-                { type: 'fields', fields: [
-                  { label: 'Line Height', name: 'line_height', type: 'lookup', options: line_heights, defaultValue: config.line_height },
-                  { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: letter_spacing, defaultValue: config.letter_spacing }
-                ] }
+                { label: 'Font Size', name: 'font_size', type: 'lookup', options: options.font_size, defaultValue: config.font_size },
+                { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color },
+                { label: 'Line Height', name: 'line_height', type: 'lookup', options: options.line_heights, defaultValue: config.line_height },
+                { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: options.letter_spacing, defaultValue: config.letter_spacing }
               ]
             }
           ]
@@ -82,8 +83,8 @@ class Button extends React.Component {
           sections: [
             {
               fields: [
-                { label: 'Align', name: 'align', type: 'lookup', options: alignments, defaultValue: config.align },
-                { label: 'Width', name: 'display', type: 'lookup', options: displays, defaultValue: config.display }
+                { label: 'Align', name: 'align', type: 'lookup', options: options.alignments, defaultValue: config.align },
+                { label: 'Width', name: 'display', type: 'lookup', options: options.displays, defaultValue: config.display }
               ]
             }
           ]

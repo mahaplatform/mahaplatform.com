@@ -29,6 +29,9 @@ class Section extends React.Component {
     const { blocks, padding_top, padding_bottom } = config
     return (
       <div { ...this._getDropZone() }>
+        { hovering &&
+          <div className="dropzone-highlight" data-label={config.label || `Section ${ sectionIndex + 1 }`} />
+        }
         <table className={`section-${sectionIndex} section`}>
           <tbody>
             <tr>
@@ -65,18 +68,9 @@ class Section extends React.Component {
     }
   }
 
-  _getClass() {
-    const { hovering } = this.state
-    const classes = ['dropzone']
-    if(hovering) classes.push('hover')
-    return classes.join(' ')
-  }
-
   _getDropZone() {
-    const { config, sectionIndex } = this.props
     return {
-      className: this._getClass(),
-      'data-label': config.label || `Section ${ sectionIndex + 1 }`,
+      className: 'dropzone',
       onDragEnter: this._handleDrag.bind(this, 'enter'),
       onDragOver: this._handleDrag.bind(this, 'over'),
       onDrop: this._handleDrop

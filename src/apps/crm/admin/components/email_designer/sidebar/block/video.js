@@ -73,26 +73,20 @@ class Video extends React.Component {
               label: 'Text Style',
               fields: [
                 { label: 'Font', name: 'font_family', type: 'fontfamilyfield', defaultValue: config.font_family },
-                { type: 'fields', fields: [
-                  { label: 'Size', name: 'font_size', type: 'lookup', options: options.font_size, defaultValue: config.font_size },
-                  { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color }
-                ] },
-                { type: 'fields', fields: [
-                  { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format },
-                  { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.alignment }
-                ] },
-                { type: 'fields', fields: [
-                  { label: 'Line Height', name: 'line_height', type: 'lookup', options: options.line_heights, defaultValue: config.line_height },
-                  { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: options.letter_spacing, defaultValue: config.letter_spacing }
-                ] }
+                { label: 'Size', name: 'font_size', type: 'lookup', options: options.font_size, defaultValue: config.font_size },
+                { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color },
+                { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format },
+                { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.alignment },
+                { label: 'Line Height', name: 'line_height', type: 'lookup', options: options.line_heights, defaultValue: config.line_height },
+                { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: options.letter_spacing, defaultValue: config.letter_spacing }
               ]
             }, {
               label: 'Card Style',
               fields: [
                 { label: 'Background', name: 'card_background_color', type: 'colorfield', defaultValue: config.card_background_color },
                 { label: 'Border', type:'fields', fields: [
-                  { name: 'card_border_style', type: 'lookup', options: options.border_styles, placeholder: 'Choose a style', defaultValue: config.card_border_style },
-                  { name: 'card_border_width', type: 'lookup', options: options.border_widths, placeholder: 'Choose a width', defaultValue: config.card_border_width },
+                  { name: 'card_border_width', type: 'lookup', options: options.border_widths, placeholder: 'Width', defaultValue: config.card_border_width },
+                  { name: 'card_border_style', type: 'lookup', options: options.border_styles, placeholder: 'Style', defaultValue: config.card_border_style },
                   { name: 'card_border_color', type: 'colorfield', defaultValue: config.card_border_color }
                 ] }
               ]
@@ -100,8 +94,8 @@ class Video extends React.Component {
               label: 'Image Style',
               fields: [
                 { label: 'Border', type:'fields', fields: [
-                  { name: 'image_border_style', type: 'lookup', options: options.border_styles, placeholder: 'Choose a style', defaultValue: config.image_border_style },
-                  { name: 'image_border_width', type: 'lookup', options: options.border_widths, placeholder: 'Choose a width', defaultValue: config.image_border_width },
+                  { name: 'image_border_width', type: 'lookup', options: options.border_widths, placeholder: 'Width', defaultValue: config.image_border_width },
+                  { name: 'image_border_style', type: 'lookup', options: options.border_styles, placeholder: 'Style', defaultValue: config.image_border_style },
                   { name: 'image_border_color', type: 'colorfield', defaultValue: config.image_border_color }
                 ] },
                 { label: 'Rounded Corners', name: 'image_border_radius', type: 'range', min: 0, max: 20, defaultValue: config.image_border_radius }
