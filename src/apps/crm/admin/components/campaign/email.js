@@ -19,7 +19,6 @@ class Email extends React.PureComponent {
   static defaultProps = {}
 
   _handleBack = this._handleBack.bind(this)
-  _handleChangeField = this._handleChangeField.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
@@ -35,7 +34,6 @@ class Email extends React.PureComponent {
       action: '/api/admin/crm/campaigns/email',
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
-      onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
       sections: [
         {
@@ -55,14 +53,6 @@ class Email extends React.PureComponent {
 
   _handleBack() {
     this.props.onBack()
-  }
-
-  _handleChangeField(key, value) {
-    if(key === 'program_id') {
-      this.setState({
-        program_id: value
-      })
-    }
   }
 
   _handleSuccess(campaign) {
