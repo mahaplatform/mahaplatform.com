@@ -12,16 +12,15 @@ class Results extends React.Component {
 
   render() {
     return (
-      <div>
-        <List { ...this._getDelivery() } />
-        <List { ...this._getPerformance() } />
+      <div className="crm-email-campaign-results">
+        <List { ...this._getList() } />
       </div>
     )
   }
 
-  _getDelivery() {
+  _getList() {
     const { results } = this.props
-    const { sent, delivered, bounced, opened, desktop, mobile } = results
+    const { sent, delivered, bounced, opened, desktop, mobile, complained, clicked, unsubscribed } = results
     return {
       sections: [
         {
@@ -41,21 +40,32 @@ class Results extends React.Component {
                 </ul>
               </div>
             ) },
-            { label: 'Delivered', content: this._getStat(delivered, sent, 'was_delivered') },
-            { label: 'Bounced', content: this._getStat(bounced, sent, 'was_bounced')  },
-            { label: 'Opened', content: this._getStat(opened, delivered, 'was_opened') }
+            { component: (
+              <table className="ui table">
+                <tbody>
+                  <tr>
+                    <td>Delivered</td>
+                    <td className="right aligned">
+                      { this._getStat(delivered, sent, 'was_delivered') }
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Bounced</td>
+                    <td className="right aligned">
+                      { this._getStat(bounced, sent, 'was_bounced') }
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Opened</td>
+                    <td className="right aligned">
+                      { this._getStat(opened, delivered, 'was_opened') }
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            ) }
           ]
-        }
-      ]
-    }
-  }
-
-  _getPerformance() {
-    const { results } = this.props
-    const { opened, complained, clicked, unsubscribed } = results
-    return {
-      sections: [
-        {
+        }, {
           title: 'Performance',
           items: [
             { component: (
@@ -64,9 +74,60 @@ class Results extends React.Component {
                 <ProgressBar color="blue" percent={ clicked / opened } />
               </div>
             ) },
-            { label: 'Clicked', content: this._getStat(clicked, opened, 'was_clicked') },
-            { label: 'Compained', content: this._getStat(complained, opened, 'was_complained') },
-            { label: 'Unsubscribed', content: this._getStat(unsubscribed, opened, 'was_unsubscribed') }
+            { component: (
+              <table className="ui table">
+                <tbody>
+                  <tr>
+                    <td>Clicked</td>
+                    <td className="right aligned">
+                      { this._getStat(clicked, opened, 'was_clicked') }
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Complained</td>
+                    <td className="right aligned">
+                      { this._getStat(complained, opened, 'was_complained') }
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Unsubscribed</td>
+                    <td className="right aligned">
+                      { this._getStat(unsubscribed, opened, 'was_unsubscribed') }
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            ) }
+          ]
+        }, {
+          title: 'Links',
+          items: [
+            { component: (
+              <table className="ui table">
+                <tbody>
+                  <tr>
+                    <td>
+                      <a href="http://www.ccetompkins.org/baz/bar/foo" target="_blank">
+                        http://www.ccetompkins.org/baz/bar/foo
+                      </a>
+                    </td>
+                    <td className="right aligned">
+                      { this._getStat(unsubscribed, opened, 'was_unsubscribed') }
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <a href="http://www.ccetompkins.org/baz/bar/foo" target="_blank">
+                        http://www.ccetompkins.org/baz/bar/foo
+                      </a>
+                    </td>
+                    <td className="right aligned">
+                      { this._getStat(unsubscribed, opened, 'was_unsubscribed') }
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            ) }
           ]
         }
       ]

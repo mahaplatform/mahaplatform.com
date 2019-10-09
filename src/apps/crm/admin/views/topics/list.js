@@ -16,7 +16,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     entity: 'topic',
     icon: 'book',
     link: (record) => `/admin/crm/topics/${record.id}`,
-    new: () => <New program_id={ page.params.program_id } />,
+    new: New,
     defaultSort: { key: 'title', order: 'asc' }
   },
   tasks: {
@@ -24,7 +24,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     items: [
       {
         label: 'Create Topic',
-        modal: () => <New program_id={ page.params.program_id } />
+        modal: New
       }
     ]
   }

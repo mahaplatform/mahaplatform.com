@@ -6,7 +6,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Forms',
   rights: [],
   collection: {
-    endpoint: `/api/admin/crm/forms`,
+    endpoint: '/api/admin/crm/forms',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true }
@@ -15,7 +15,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     entity: 'form',
     icon: 'check-square-o',
     link: (record) => `/admin/crm/forms/${record.id}`,
-    new: <New program_id={page.params.program_id} />,
+    new: New,
     defaultSort: { key: 'title', order: 'asc' }
   },
   tasks: {

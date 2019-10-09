@@ -32,6 +32,7 @@ class Timeline extends React.PureComponent {
         <div className="crm-timeline-buttons">
           <div className="ui fluid basic buttons">
             <Button { ...this._getNote() } />
+            <Button { ...this._getEmail() } />
             <Button { ...this._getCall() } />
           </div>
         </div>
@@ -71,6 +72,15 @@ class Timeline extends React.PureComponent {
       label: 'Log Call',
       className: 'ui button',
       modal: () => <Call contact={ contact } />
+    }
+  }
+
+  _getEmail() {
+    const { contact } = this.props
+    return {
+      label: 'Link Email',
+      className: 'ui button',
+      modal: () => <Note contact={ contact } />
     }
   }
 

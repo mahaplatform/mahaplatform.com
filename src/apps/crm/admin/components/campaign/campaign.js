@@ -97,7 +97,7 @@ class Campaign extends React.PureComponent {
 
   _handleDone(result) {
     const { type } = this.props
-    this.context.router.history.push(`/admin/crm/campaigns/${type}/${result.id}`)
+    this.context.router.history.push(`/admin/crm/campaigns/${type}/${result.code}`)
     this.context.modal.close()
   }
 

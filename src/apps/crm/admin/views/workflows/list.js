@@ -1,10 +1,11 @@
 import { Page } from 'maha-admin'
+import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Automation',
   rights: [],
   collection: {
-    endpoint: `/api/admin/crm/workflows`,
+    endpoint: '/api/admin/crm/workflows',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true }
@@ -13,6 +14,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     entity: 'workflow',
     icon: 'cogs',
     link: (record) => `/admin/crm/workflows/${record.id}`,
+    new: New,
     defaultSort: { key: 'title', order: 'asc' }
   },
   tasks: {
@@ -20,7 +22,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     items: [
       {
         label: 'Create Workflow',
-        // modal: New
+        modal: New
       }
     ]
   }

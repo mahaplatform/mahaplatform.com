@@ -8,8 +8,7 @@ const createRoute = async (req, res) => {
 
   const form = await Form.forge({
     team_id: req.team.get('id'),
-    program_id: req.params.program_id,
-    ...whitelist(req.body, ['title'])
+    ...whitelist(req.body, ['program_id','title'])
   }).save(null, {
     transacting: req.trx
   })

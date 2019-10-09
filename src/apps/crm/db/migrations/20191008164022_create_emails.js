@@ -11,6 +11,7 @@ const CreateEmailCampaignDelivery = {
       table.foreign('program_id').references('crm_programs.id')
       table.string('emailable_type')
       table.integer('emailable_id')
+      table.string('code')
       table.string('ses_id')
       table.string('bounce_type')
       table.string('bounce_subtype')

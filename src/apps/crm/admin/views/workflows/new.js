@@ -9,7 +9,9 @@ class New extends React.Component {
     modal: PropTypes.object
   }
 
-  static propTypes = {}
+  static propTypes = {
+    program_id: PropTypes.number
+  }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
@@ -20,15 +22,16 @@ class New extends React.Component {
 
   _getForm() {
     return {
-      title: 'New Campaign',
+      title: 'New Workflow',
       method: 'post',
-      action: '/api/admin/crm/forms',
+      action: '/api/admin/crm/workflows',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
             { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true, format: ProgramToken },
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter the title', required: true }
           ]
         }
       ]
