@@ -29,7 +29,7 @@ const types = [
   }
 ]
 
-class Campaign extends React.PureComponent {
+class NewCampaign extends React.PureComponent {
 
   static contextTypes = {
     modal: PropTypes.object,
@@ -128,4 +128,4 @@ class Campaign extends React.PureComponent {
 
 }
 
-export default Campaign
+export default NewCampaign

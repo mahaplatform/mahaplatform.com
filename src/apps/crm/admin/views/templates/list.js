@@ -22,8 +22,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
   tasks: {
     icon: 'plus',
     items: [
-      { component: <TemplateToken value="email" />, modal: () => <New program_id={page.params.program_id} type="email" /> },
-      { component: <TemplateToken value="webpage" />, modal: () => <New program_id={page.params.program_id} type="email" />  }
+      { component: <TemplateToken value="document" />, modal: () => <New type="document" /> },
+      { component: <TemplateToken value="email" />, modal: () => <New type="email" /> },
+      { component: <TemplateToken value="webpage" />, modal: () => <New type="email" />  }
     ]
   }
 })

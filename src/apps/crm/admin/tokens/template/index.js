@@ -1,6 +1,11 @@
 import React from 'react'
 
 const templates = {
+  document: {
+    icon: 'file-o',
+    title: 'Document Template',
+    description: 'Create an document template'
+  },
   email: {
     icon: 'envelope-o',
     title: 'Email Template',

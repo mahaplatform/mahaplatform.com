@@ -1,4 +1,4 @@
-import PostalDesigner from '../../../components/postal_designer'
+import DocumentDesigner from '../../../components/document_designer'
 import PropTypes from 'prop-types'
 import { Page } from 'maha-admin'
 import React from 'react'
@@ -24,14 +24,14 @@ class Designer extends React.Component {
 
   render() {
     if(!this.state.campaign) return null
-    return <PostalDesigner { ...this._getPostalDesigner() } />
+    return <DocumentDesigner { ...this._getDocumentDesigner() } />
   }
 
   componentDidMount() {
     this._handleFetch()
   }
 
-  _getPostalDesigner() {
+  _getDocumentDesigner() {
     const { campaign } = this.state
     return {
       defaultValue: campaign.config,

@@ -3,7 +3,7 @@ import Sidebar from './sidebar'
 import Canvas from './canvas'
 import React from 'react'
 
-class VoiceDesigner extends React.PureComponent {
+class DocumentDesigner extends React.PureComponent {
 
   static contextTypes = {}
 
@@ -38,4 +38,4 @@ class VoiceDesigner extends React.PureComponent {
 
 }
 
-export default VoiceDesigner
+export default DocumentDesigner

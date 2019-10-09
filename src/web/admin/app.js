@@ -74,16 +74,16 @@ import chatfullchat from '../../apps/chat/admin/components/fullchat'
 import chatsubscriptions from '../../apps/chat/admin/components/subscriptions'
 import chatchat from '../../apps/chat/admin/roots/chat'
 import crmaddressesfield from '../../apps/crm/admin/components/addressesfield'
-import crmcampaign from '../../apps/crm/admin/components/campaign'
 import crmcontactimport from '../../apps/crm/admin/components/contactimport'
+import crmdocumentDesigner from '../../apps/crm/admin/components/document_designer'
 import crmemailDesigner from '../../apps/crm/admin/components/email_designer'
 import crmemailsfield from '../../apps/crm/admin/components/emailsfield'
 import crmfollowsfield from '../../apps/crm/admin/components/followsfield'
 import crmformDesigner from '../../apps/crm/admin/components/form_designer'
 import crmimagesfield from '../../apps/crm/admin/components/imagesfield'
+import crmnewcampaign from '../../apps/crm/admin/components/newcampaign'
 import crmnumbers from '../../apps/crm/admin/components/numbers'
 import crmphonesfield from '../../apps/crm/admin/components/phonesfield'
-import crmpostalDesigner from '../../apps/crm/admin/components/postal_designer'
 import crmsharesfield from '../../apps/crm/admin/components/sharesfield'
 import crmsmsDesigner from '../../apps/crm/admin/components/sms_designer'
 import crmsocialDesigner from '../../apps/crm/admin/components/social_designer'
@@ -320,16 +320,16 @@ class App extends React.Component {
       chatsubscriptions,
       chatchat,
       crmaddressesfield,
-      crmcampaign,
       crmcontactimport,
+      crmdocumentDesigner,
       crmemailDesigner,
       crmemailsfield,
       crmfollowsfield,
       crmformDesigner,
       crmimagesfield,
+      crmnewcampaign,
       crmnumbers,
       crmphonesfield,
-      crmpostalDesigner,
       crmsharesfield,
       crmsmsDesigner,
       crmsocialDesigner,

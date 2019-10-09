@@ -1,5 +1,5 @@
 import CampaignTypeToken from '../../tokens/campaign_type'
-import NewCampaign from '../../components/campaign'
+import NewCampaign from '../../components/newcampaign'
 import { Page } from 'maha-admin'
 
 const mapPropsToPage = (props, context, resources, page) => ({
