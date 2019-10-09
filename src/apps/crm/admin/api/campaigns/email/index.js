@@ -1,4 +1,6 @@
+import deliveries from './deliveries'
 import { Router } from 'express'
+import results from './results'
 import destroy from './destroy'
 import create from './create'
 import update from './update'
@@ -11,7 +13,11 @@ router.post('/', create)
 
 router.get('/:id', show)
 
+router.get('/:id/deliveries', deliveries)
+
 router.get('/:id/edit', edit)
+
+router.get('/:id/results', results)
 
 router.patch('/:id', update)
 

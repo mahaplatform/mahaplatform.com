@@ -19,7 +19,7 @@ const createRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    '/api/admin/crm/templates'
+    '/admin/crm/templates'
   ])
 
   res.status(200).respond(template, TemplateSerializer)

@@ -59,8 +59,8 @@ class SMS extends React.PureComponent {
     }
   }
 
-  _handleSuccess() {
-    this.props.onDone()
+  _handleSuccess(campaign) {
+    this.props.onDone(campaign)
   }
 
 }

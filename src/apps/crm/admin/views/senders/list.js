@@ -7,10 +7,11 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Senders',
   rights: [],
   collection: {
-    endpoint: `/api/admin/crm/senders`,
+    endpoint: '/api/admin/crm/senders',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Sender', key: 'name', primary: true, format: SenderToken }
+      { label: 'Sender', key: 'name', primary: true, format: SenderToken },
+      { label: 'Program', key: 'program.title', primary: true }
     ],
     empty: 'You have not yet registered any senders',
     entity: 'sender',

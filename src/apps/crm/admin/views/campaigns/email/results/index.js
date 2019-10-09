@@ -6,6 +6,7 @@ import React from 'react'
 class Results extends React.Component {
 
   static propTypes = {
+    campaign: PropTypes.object,
     results: PropTypes.object
   }
 
@@ -29,22 +30,20 @@ class Results extends React.Component {
             { component: (
               <div className="crm-email-campaign-results-header">
                 <strong>Open Rate</strong>
-                <ProgressBar color="blue" size="large" percent={ opened / delivered } />
+                <ProgressBar color="blue" percent={ opened / delivered } />
                 <ul>
                   <li>
-                    Desktop <i className="fa fa-fw fa-desktop" /> { this._getPercent(desktop, opened, 'desktop') }
+                    Desktop <i className="fa fa-fw fa-desktop" /> { this._getPercent(desktop, opened, 'is_desktop') }
                   </li>
                   <li>
-                    Mobile <i className="fa fa-fw fa-tablet" /> { this._getPercent(mobile, opened, 'mobile') }
+                    Mobile <i className="fa fa-fw fa-tablet" /> { this._getPercent(mobile, opened, 'is_mobile') }
                   </li>
                 </ul>
               </div>
             ) },
-            { label: 'Sent', content: this._getStat(sent, sent, 'sent') },
-            { label: 'Delivered', content: this._getStat(delivered, sent, 'delivered') },
-            { label: 'Bounced', content: this._getStat(bounced, sent, 'bounced')  },
-            { label: 'Opened', content: this._getStat(opened, delivered, 'opened') },
-            { label: 'Unopened', content: this._getStat(delivered - opened, delivered, 'unopened') }
+            { label: 'Delivered', content: this._getStat(delivered, sent, 'was_delivered') },
+            { label: 'Bounced', content: this._getStat(bounced, sent, 'was_bounced')  },
+            { label: 'Opened', content: this._getStat(opened, delivered, 'was_opened') }
           ]
         }
       ]
@@ -53,7 +52,7 @@ class Results extends React.Component {
 
   _getPerformance() {
     const { results } = this.props
-    const { delivered, opened, complained, clicked, unsubscribed } = results
+    const { opened, complained, clicked, unsubscribed } = results
     return {
       sections: [
         {
@@ -62,12 +61,12 @@ class Results extends React.Component {
             { component: (
               <div className="crm-email-campaign-results-header">
                 <strong>Click Rate</strong>
-                <ProgressBar color="blue" size="large" percent={ clicked / opened } />
+                <ProgressBar color="blue" percent={ clicked / opened } />
               </div>
             ) },
-            { label: 'Clicked', content: this._getStat(clicked, opened, 'clicked') },
-            { label: 'Compained', content: this._getStat(complained, delivered, 'complained') },
-            { label: 'Unsubscribed', content: this._getStat(unsubscribed, opened, 'unsubscribed') }
+            { label: 'Clicked', content: this._getStat(clicked, opened, 'was_clicked') },
+            { label: 'Compained', content: this._getStat(complained, opened, 'was_complained') },
+            { label: 'Unsubscribed', content: this._getStat(unsubscribed, opened, 'was_unsubscribed') }
           ]
         }
       ]
@@ -75,19 +74,18 @@ class Results extends React.Component {
   }
 
   _getPercent(quantity, total, report) {
+    const { campaign } = this.props
     const percent = quantity / total
-    const format = percent % 100 > 0 ? '0.0%' : '0%'
-    if(quantity === 0) return '0%'
     const button = {
-      label: numeral(percent).format(format),
+      label: numeral(percent).format('0.0%'),
       className: 'link',
-      route: `/admin/crm/campaigns/email/1234/${report}`
+      route: `/admin/crm/campaigns/email/${campaign.code}/deliveries?$filter[${report}][$eq]=true`
     }
     return <Button { ...button } />
   }
 
   _getStat(quantity, total, report) {
-    const percent = this._getPercent(quantity, total)
+    const percent = this._getPercent(quantity, total, report)
     const portion = `[${quantity} / ${total}]`
     return (
       <div>

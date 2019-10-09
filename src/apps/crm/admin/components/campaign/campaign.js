@@ -32,7 +32,8 @@ const types = [
 class Campaign extends React.PureComponent {
 
   static contextTypes = {
-    modal: PropTypes.object
+    modal: PropTypes.object,
+    router: PropTypes.object
   }
 
   static propTypes = {
@@ -94,7 +95,9 @@ class Campaign extends React.PureComponent {
     this.context.modal.close()
   }
 
-  _handleDone() {
+  _handleDone(result) {
+    const { type } = this.props
+    this.context.router.history.push(`/admin/crm/campaigns/${type}/${result.id}`)
     this.context.modal.close()
   }
 

@@ -6,6 +6,7 @@ import CampaignsSocialDesign from './campaigns/social/design'
 import CampaignsVoice from './campaigns/voice/show'
 import CampaignsVoiceDesign from './campaigns/voice/design'
 import CampaignsEmail from './campaigns/email/show'
+import CampaignsEmailDeliveries from './campaigns/email/deliveries'
 import CampaignsEmailDesign from './campaigns/email/design'
 import CampaignsSMS from './campaigns/sms/show'
 import CampaignsSMSDesign from './campaigns/sms/design'
@@ -36,6 +37,7 @@ const routes = [
   { path: '/campaigns/voice/:id', component: CampaignsVoice },
   { path: '/campaigns/voice/:id/design', component: CampaignsVoiceDesign },
   { path: '/campaigns/email/:id', component: CampaignsEmail },
+  { path: '/campaigns/email/:id/deliveries', component: CampaignsEmailDeliveries },
   { path: '/campaigns/email/:id/design', component: CampaignsEmailDesign },
   { path: '/campaigns/sms/:id', component: CampaignsSMS },
   { path: '/campaigns/sms/:id/design', component: CampaignsSMSDesign },
