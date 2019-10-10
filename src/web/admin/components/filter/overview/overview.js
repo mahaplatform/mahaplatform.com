@@ -48,9 +48,15 @@ class Overview extends React.Component {
                 </div>
               </div>
               { filters && filters.map((filter, index) => (
-                <div className={ this._getClass(filter.id) } key={`filter_${index}`} onClick={ this._handleEdit.bind(this, filter) }>
+                <div className={ this._getClass(filter.id) } key={`filter_${index}`} onClick={ this._handleChoose.bind(this, filter.id) }>
                   <div className="maha-criteria-list-item-label">
                     { filter.title }
+                  </div>
+                  <div className="maha-criteria-list-item-action" onClick={ this._handleEdit.bind(this, filter) }>
+                    <i className="fa fa-pencil" />
+                  </div>
+                  <div className="maha-criteria-list-item-action" onClick={ this._handleEdit.bind(this, filter) }>
+                    <i className="fa fa-trash-o" />
                   </div>
                 </div>
               )) }

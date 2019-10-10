@@ -11,8 +11,8 @@
   }
   &:hover {
     background-color: fadeout(@black, 97);
-    .maha-criteria-list-item-icon {
-      display: block;
+    .maha-criteria-list-item-action {
+      display: flex;
     }
   }
 }
@@ -20,12 +20,15 @@
   flex: 1;
   padding: 0.8em;
 }
-.maha-criteria-list-item-icon {
+.maha-criteria-list-item-action {
   display: none;
   padding: 0.8em 0.8em 0.8em 0;
-  color: fadeout(@black, 80);
-  cursor: pointer;
-  &:hover {
-    color: fadeout(@black, 40);
+  .fa {
+    color: fadeout(@black, 80);
+    margin: auto;
+    cursor: pointer;
+    &:hover {
+      color: fadeout(@black, 40);
+    }
   }
 }

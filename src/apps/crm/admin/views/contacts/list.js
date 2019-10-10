@@ -25,7 +25,13 @@ const mapPropsToPage = (props, context, resources, page) => ({
         { name: 'last name', key: 'last_name', type: 'text' },
         { name: 'email', key: 'email', type: 'text' },
         { name: 'phone', key: 'phone', type: 'text' },
-        { name: 'user', key: 'user_id', type: 'select', endpoint: '/api/admin/users', text: 'full_name', value: 'id' }
+        { name: 'address', key: 'phone', type: 'text' },
+        { name: 'tags', key: 'tag_id', type: 'select', endpoint: '/api/admin/crm/tags', text: 'text', value: 'id' }
+      ] },
+      { label: 'Email Campaigns', fields: [
+        { name: 'received', key: 'was_delivered', type: 'select', endpoint: '/api/admin/crm/campaigns/email', text: 'title', value: 'id' },
+        { name: 'opened', key: 'was_opened', type: 'select', endpoint: '/api/admin/crm/campaigns/email', text: 'title', value: 'id' },
+        { name: 'clicked', key: 'was_clicked', type: 'select', endpoint: '/api/admin/crm/campaigns/email', text: 'title', value: 'id' }
       ] }
     ],
     export: [

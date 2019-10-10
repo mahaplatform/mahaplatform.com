@@ -320,7 +320,8 @@ const schema = {
     await knex.schema.createTable('crm_email_links', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.integer('email_id').unsigned()
+      table.string('emailable_type', 255)
+      table.integer('emailable_id')
       table.string('code', 255)
       table.string('text', 255)
       table.string('url', 255)
@@ -335,6 +336,7 @@ const schema = {
       table.integer('program_id').unsigned()
       table.string('emailable_type', 255)
       table.integer('emailable_id')
+      table.string('code', 255)
       table.string('ses_id', 255)
       table.string('bounce_type', 255)
       table.string('bounce_subtype', 255)
@@ -554,6 +556,22 @@ const schema = {
       table.string('title', 255)
       table.USER-DEFINED('type')
       table.jsonb('config')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('crm_texts', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('phone_number_id').unsigned()
+      table.integer('number_id').unsigned()
+      table.integer('contact_id').unsigned()
+      table.USER-DEFINED('type')
+      table.text('body')
+      table.string('sid', 255)
+      table.USER-DEFINED('status')
+      table.timestamp('received_at')
+      table.timestamp('sent_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -1765,6 +1783,13 @@ const schema = {
       table.foreign('mailing_address_id').references('crm_mailing_addresses.id')
     })
 
+    await knex.schema.table('crm_texts', table => {
+      table.foreign('phone_number_id').references('crm_phone_numbers.id')
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('number_id').references('crm_numbers.id')
+    })
+
     await knex.schema.table('crm_interests', table => {
       table.foreign('topic_id').references('crm_topics.id')
       table.foreign('contact_id').references('crm_contacts.id')
@@ -2463,7 +2488,6 @@ const schema = {
 
     await knex.schema.table('crm_email_links', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('email_id').references('crm_emails.id')
     })
 
     await knex.schema.table('crm_email_activities', table => {

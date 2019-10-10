@@ -8,7 +8,13 @@ const PhoneNumber = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    international() {
+      return `+1${this.get('number').replace(/[^\d]/g,'')}`
+    }
+
+  },
 
   contact() {
     return this.belongsTo(Contact, 'contact_id')

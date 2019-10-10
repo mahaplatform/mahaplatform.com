@@ -8,6 +8,9 @@ const listRoute = async (req, res) => {
     team: req.team
   }).query(qb => {
     qb.select(req.trx.raw('distinct on (crm_contacts.id,crm_contacts.first_name,crm_contacts.last_name,crm_contacts.email) crm_contacts.*'))
+    qb.leftJoin('crm_email_addresses', 'crm_email_addresses.contact_id', 'crm_contacts.id')
+    qb.leftJoin('crm_phone_numbers', 'crm_phone_numbers.contact_id', 'crm_contacts.id')
+    qb.leftJoin('crm_mailing_addresses', 'crm_mailing_addresses.contact_id', 'crm_contacts.id')
     qb.leftJoin('crm_taggings', 'crm_taggings.contact_id', 'crm_contacts.id')
   }).filter({
     filter: req.query.$filter,

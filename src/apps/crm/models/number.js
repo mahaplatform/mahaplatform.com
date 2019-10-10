@@ -7,7 +7,13 @@ const Number = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    international() {
+      return `+1${this.get('number').replace(/[^\d]/g,'')}`
+    }
+
+  },
 
   program() {
     return this.belongsTo(Program, 'program_id')
