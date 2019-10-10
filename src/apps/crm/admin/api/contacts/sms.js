@@ -1,11 +1,11 @@
-import TextSerializer from '../../../serializers/text_serializer'
-import SendTextQueue from '../../../queues/send_text_queue'
+import SMSSerializer from '../../../serializers/sms_serializer'
+import SendSMSQueue from '../../../queues/send_sms_queue'
 import PhoneNumber from '../../../models/phone_number'
 import Contact from '../../../models/contact'
 import Number from '../../../models/number'
-import Text from '../../../models/text'
+import SMS from '../../../models/sms'
 
-const textRoute = async (req, res) => {
+const smsRoute = async (req, res) => {
 
   const contact = await Contact.scope({
     team: req.team
@@ -47,7 +47,7 @@ const textRoute = async (req, res) => {
     message: 'Unable to load number'
   })
 
-  const text = await Text.forge({
+  const sms = await SMS.forge({
     team_id: req.team.get('id'),
     contact_id: contact.get('id'),
     phone_number_id: phone_number.get('id'),
@@ -58,12 +58,12 @@ const textRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await SendTextQueue.enqueue(req, {
-    id: text.get('id')
+  await SendSMSQueue.enqueue(req, {
+    id: sms.get('id')
   })
 
-  res.status(200).respond(text, TextSerializer)
+  res.status(200).respond(sms, SMSSerializer)
 
 }
 
-export default textRoute
+export default smsRoute

@@ -9,8 +9,9 @@ const Number = new Model({
 
   virtuals: {
 
-    international() {
-      return `+1${this.get('number').replace(/[^\d]/g,'')}`
+    formatted() {
+      const parts = this.get('number').match(/\+1(\d{3})(\d{3})(\d{4})/)
+      return `(${parts[1]}) ${parts[2]}-${parts[3]}`
     }
 
   },

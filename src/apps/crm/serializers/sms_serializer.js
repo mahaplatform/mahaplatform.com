@@ -1,4 +1,4 @@
-const TextSerializer = (req, result) => ({
+const SMSSerializer = (req, result) => ({
   id: result.get('id'),
   body: result.get('body'),
   created_at: result.get('created_at'),
@@ -6,4 +6,4 @@ const TextSerializer = (req, result) => ({
 })
 
 
-export default TextSerializer
+export default SMSSerializer

@@ -1,16 +1,21 @@
 import Model from '../../../core/objects/model'
+import SMSAttachment from './sms_attachment'
 import PhoneNumber from './phone_number'
 import Program from './program'
 import Contact from './contact'
 import Number from './number'
 
-const Text = new Model({
+const Sms = new Model({
 
-  tableName: 'crm_texts',
+  tableName: 'crm_smses',
 
   rules: {},
 
   virtuals: {},
+
+  attachments() {
+    return this.hasMany(SMSAttachment, 'sms_id')
+  },
 
   contact() {
     return this.belongsTo(Contact, 'contact_id')
@@ -30,4 +35,4 @@ const Text = new Model({
 
 })
 
-export default Text
+export default Sms

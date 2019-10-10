@@ -11,7 +11,7 @@ import edit from './edit'
 import list from './list'
 import show from './show'
 
-import text from './text'
+import sms from './sms'
 
 const router = new Router({ mergeParams: true })
 
@@ -37,6 +37,6 @@ router.use('/:id/interests', interests)
 
 router.use('/:id/notes', notes)
 
-router.post('/:id/text', text)
+router.post('/:id/sms', sms)
 
 export default router

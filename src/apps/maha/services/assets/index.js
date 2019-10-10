@@ -71,7 +71,8 @@ export const uploadChunk = async (req) => {
   return asset
 }
 
-export const createAssetFromUrl = async (req, { url, team_id, user_id }) => {
+export const createAssetFromUrl = async (req, params) => {
+  const { url, team_id, user_id } = params
   const response = await request.get({
     url,
     resolveWithFullResponse: true,
@@ -79,7 +80,7 @@ export const createAssetFromUrl = async (req, { url, team_id, user_id }) => {
   }).promise().then(response => response.toJSON())
   const parsed = Url.parse(url)
   const source = await Source.where({
-    text: 'web'
+    text: params.source || 'web'
   }).fetch({
     transacting: req.trx
   })

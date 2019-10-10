@@ -1,7 +1,12 @@
-const CreateText = {
+const CreateSms = {
 
   up: async (knex) => {
-    await knex.schema.createTable('crm_texts', (table) => {
+
+    await knex('maha_sources').insert({
+      text: 'sms'
+    })
+
+    await knex.schema.createTable('crm_smses', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
@@ -14,17 +19,18 @@ const CreateText = {
       table.enum('type', ['incoming','outgoing'], { useNative: true, enumName: 'crm_texts_type' })
       table.text('body')
       table.string('sid')
-      table.enum('status', ['queued','sent','failed'], { useNative: true, enumName: 'crm_texts_status' })
+      table.enum('status', ['queued','sent','received','failed'], { useNative: true, enumName: 'crm_texts_status' })
       table.timestamp('received_at')
       table.timestamp('sent_at')
       table.timestamps()
     })
+    
   },
 
   down: async (knex) => {
-    await knex.schema.dropTable('crm_texts')
+    await knex.schema.dropTable('crm_smses')
   }
 
 }
 
-export default CreateText
+export default CreateSms

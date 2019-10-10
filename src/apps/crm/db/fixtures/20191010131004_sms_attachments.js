@@ -2,8 +2,8 @@ const moment = require('moment')
 
 exports.seed = async (knex, Promise) => {
 
-  await knex('texts').del()
+  await knex('sms_attachments').del()
 
-  await knex('texts').insert([])
+  await knex('sms_attachments').insert([])
 
 }

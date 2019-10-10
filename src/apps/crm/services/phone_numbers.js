@@ -21,7 +21,7 @@ export const updatePhoneNumbers = async (req, { contact, phone_numbers }) => {
       await PhoneNumber.forge({
         team_id: req.team.get('id'),
         contact_id: contact.get('id'),
-        number: phone_number.number,
+        number: `+1${phone_number.number.replace(/[^\d]/g,'')}`,
         is_primary: phone_number.is_primary,
         is_valid: true
       }).save(null, {
@@ -36,7 +36,7 @@ export const updatePhoneNumbers = async (req, { contact, phone_numbers }) => {
         return item.get('id') === phone_number.id
       })
       await number.save({
-        number: phone_number.number,
+        number: `+1${phone_number.number.replace(/[^\d]/g,'')}`,
         is_primary: phone_number.is_primary
       }, {
         transacting: req.trx
