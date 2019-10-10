@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import Section from './section'
-
 import React from 'react'
 
 class Email extends React.Component {

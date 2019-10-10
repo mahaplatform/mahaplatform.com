@@ -30,19 +30,16 @@
 	}
 }
 
-body {
+html,body {
   margin: 0;
   padding: 0;
-  display: relative;
+  height: 100%
 }
 #designer {
-  background-color: fadeout(@black, 97);
-  display: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
+  overflow: hidden;
   .scrollable()
 }
 .document {
@@ -50,4 +47,92 @@ body {
   background-color: @white;
   border: 1px solid fadeout(@black, 90);
   overflow: hidden;
+}
+
+
+
+
+div.dropzone {
+  position: relative;
+  td.first {
+    text-align: center;
+  }
+}
+div.dropzone-highlight {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  border: 2px solid @teal;
+  &:after {
+    position: absolute;
+    padding: 5px;
+    font-size: 10px;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 100%);
+    background-color: @teal;
+    text-transform: uppercase;
+    color: white;
+    content: attr(data-label);
+    z-index: 10;
+  }
+}
+div.dropzone-target {
+  border: 2px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 95);
+  color:  fadeout(@black, 90);
+  padding: 5px 0;
+}
+div.dropzone-marker {
+  background-color: blue;
+  height: 1px;
+}
+div.block {
+  position: relative;
+  cursor: pointer;
+  min-height: 30px;
+  &.active .block-highlight {
+    display: block;
+  }
+  &:hover .block-highlight {
+    display: block;
+  }
+  &:hover .block-actions {
+    display: flex;
+  }
+}
+div.block-highlight {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  border: 2px solid @teal;
+}
+div.block-actions {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: @teal;
+}
+div.block-action {
+  font-size: 16px;
+  padding: 3px 8px;
+  line-height: 24px;
+  .fa {
+    color: fadeout(@white, 30);
+  }
+  &:hover {
+    background-color: fadeout(@black, 85);
+    .fa {
+      color: @white;
+    }
+  }
+}
+div.divider {
+  height: 0;
 }

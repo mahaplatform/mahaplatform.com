@@ -50,6 +50,10 @@
 .maha-lookup-panel-search {
   border-bottom: 1px solid fadeout(@black, 85);
 }
+.maha-lookup-panel-body {
+  flex: 1;
+  .scrollable();
+}
 .maha-lookup-panel-add {
   padding: 0.8em;
   border-top: 1px solid fadeout(@black, 85);
@@ -59,19 +63,19 @@
   display:flex;
   flex-direction: column;
 }
-.maha-lookup-panel-results {
+.maha-lookup-panel-options {
   flex: 1;
 }
-.maha-lookup-panel-result {
+.maha-lookup-panel-option {
   .hover(background-color, fadeout(@black, 98));
   border-bottom: 1px solid fadeout(@black, 95);
   cursor: pointer;
   display: flex;
   color:  fadeout(@black, 30) !important;
-  .maha-lookup-panel-result-label {
+  .maha-lookup-panel-option-label {
     flex: 1;
   }
-  .maha-lookup-panel-result-icon {
+  .maha-lookup-panel-option-icon {
     flex: 0 0 25px;
     .fa {
       color: @green;

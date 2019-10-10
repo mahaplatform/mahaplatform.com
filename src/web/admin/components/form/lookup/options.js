@@ -28,13 +28,13 @@ class Options extends React.Component {
   render() {
     const { format, options, selected, text, value } = this.props
     return (
-      <div className="maha-lookup-panel-results">
+      <div className="maha-lookup-panel-options">
         { options.map((option, index) => (
-          <div key={`result_${option.id || index}`} className="maha-lookup-panel-result" onClick={ this._handleChoose.bind(this, option) }>
-            <div className="maha-lookup-panel-result-label">
+          <div key={`result_${option.id || index}`} className="maha-lookup-panel-option" onClick={ this._handleChoose.bind(this, option) }>
+            <div className="maha-lookup-panel-option-label">
               <Format { ...option } format={ format } value={ _.get(option, value) } text={ _.get(option, text) } />
             </div>
-            <div className="maha-lookup-panel-result-icon">
+            <div className="maha-lookup-panel-option-icon">
               { index === selected ? <i className="fa fa-fw fa-check" /> : null }
             </div>
           </div>
@@ -125,7 +125,11 @@ class Container extends React.Component {
           </div>
         }
         { endpoint && <Infinite { ...this._getInfinite() } /> }
-        { !endpoint && <Options { ...this._getStaticOptions() } /> }
+        { !endpoint &&
+          <div className="maha-lookup-panel-body">
+            <Options { ...this._getStaticOptions() } />
+          </div>
+        }
         { form &&
           <div className="maha-lookup-panel-add">
             <div className="ui fluid red button" onClick={ this._handleAdd.bind(this)}>

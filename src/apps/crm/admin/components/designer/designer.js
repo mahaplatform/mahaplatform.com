@@ -1,0 +1,120 @@
+import { Preview } from 'maha-admin'
+import PropTypes from 'prop-types'
+import Sidebar from './sidebar'
+import Canvas from './canvas'
+import React from 'react'
+
+class EmailDesigner extends React.Component {
+
+  static contextTypes = {}
+
+  static propTypes = {
+    active: PropTypes.object,
+    blocks: PropTypes.array,
+    changes: PropTypes.number,
+    cid: PropTypes.string,
+    canvas: PropTypes.string,
+    config: PropTypes.object,
+    defaultValue: PropTypes.object,
+    defaults: PropTypes.object,
+    preview: PropTypes.bool,
+    title: PropTypes.string,
+    onAdd: PropTypes.func,
+    onAddSection: PropTypes.func,
+    onChange: PropTypes.func,
+    onClone: PropTypes.func,
+    onDeleteSection: PropTypes.func,
+    onEdit: PropTypes.func,
+    onMoveSection: PropTypes.func,
+    onRemove: PropTypes.func,
+    onSave: PropTypes.func,
+    onSet: PropTypes.func,
+    onUpdate: PropTypes.func
+  }
+
+  static defaultProps = {
+    preview: false
+  }
+
+  _handleAdd = this._handleAdd.bind(this)
+  _handleAddSection = this._handleAddSection.bind(this)
+
+  render() {
+    const { preview } = this.props
+    return (
+      <div className="designer">
+        <div className="designer-main">
+          { preview ?
+            <Preview>
+              <Canvas { ...this._getCanvas() } />
+            </Preview> :
+            <Canvas { ...this._getCanvas() } />
+          }
+        </div>
+        <div className="designer-sidebar">
+          <Sidebar { ...this._getSidebar() } />
+        </div>
+      </div>
+    )
+  }
+
+  componentDidMount() {
+    const defaultValue = this.props.defaultValue || this._getDefault()
+    this.props.onSet(defaultValue)
+  }
+
+  _getDefault() {
+    const { defaults } = this.props
+    return {
+      page: defaults.page,
+      sections: []
+    }
+  }
+
+  _getCanvas() {
+    const { active, canvas, config, onClone, onEdit, onRemove, onUpdate } = this.props
+    return {
+      active,
+      canvas,
+      config,
+      onAdd: this._handleAdd,
+      onClone,
+      onEdit,
+      onRemove,
+      onUpdate
+    }
+  }
+
+  _getSidebar() {
+    const { active, blocks, cid, config, title, onDeleteSection, onMoveSection, onEdit, onSave, onUpdate } = this.props
+    return {
+      active,
+      blocks,
+      cid,
+      config,
+      title,
+      onAddSection: this._handleAddSection,
+      onDeleteSection,
+      onMoveSection,
+      onEdit,
+      onUpdate,
+      onSave
+    }
+  }
+
+  _handleAdd(section, index, type) {
+    const { defaults, onAdd } = this.props
+    onAdd(section, index, {
+      type,
+      ...defaults[type]
+    })
+  }
+
+  _handleAddSection() {
+    const { defaults, onAddSection } = this.props
+    onAddSection(defaults.section)
+  }
+
+}
+
+export default EmailDesigner

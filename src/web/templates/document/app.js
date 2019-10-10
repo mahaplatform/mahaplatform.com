@@ -1,6 +1,6 @@
 import Document from './components/document'
-import Style from './components/style'
 import { hot } from 'react-hot-loader'
+import Style from './components/style'
 import PropTypes from 'prop-types'
 import Pasteur from 'pasteur'
 import React from 'react'
@@ -14,24 +14,16 @@ class App extends React.Component {
   pasteur = null
 
   state = {
-    config: {
-      page: {
-        padding_top: 50,
-        padding_right: 50,
-        padding_left: 50,
-        padding_bottom: 50,
-        h1_color: 'blue',
-        h2_color: 'green',
-        p_color: 'black',
-        p_line_height: 1.5
-      }
-    }
+    active: null,
+    config: null
   }
 
+  _handleAction = this._handleAction.bind(this)
+  _handleHighlight = this._handleHighlight.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
-    // if(!this.state.config) return null
+    if(!this.state.config) return null
     return [
       <Style key="style" { ...this._getStyle() } />,
       <Document key="document" { ...this._getDocument() } />
@@ -69,6 +61,14 @@ class App extends React.Component {
   _getStyle() {
     const { config } = this.state
     return { config }
+  }
+
+  _handleAction(action, data) {
+    this.pasteur.send('designer', action, data)
+  }
+
+  _handleHighlight({ active }) {
+    this.setState({ active })
   }
 
   _handleUpdate({ config }) {
