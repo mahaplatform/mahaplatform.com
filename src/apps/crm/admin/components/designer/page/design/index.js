@@ -8,6 +8,7 @@ class Style extends React.Component {
 
   static propTypes = {
     cid: PropTypes.string,
+    components: PropTypes.object,
     config: PropTypes.object,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
@@ -45,9 +46,10 @@ class Style extends React.Component {
   }
 
   _getPage() {
-    const { cid, onPop, onPush, onUpdate } = this.props
+    const { cid, components, onPop, onPush, onUpdate } = this.props
     return {
       cid,
+      components,
       onPop,
       onPush,
       onUpdate
@@ -55,9 +57,10 @@ class Style extends React.Component {
   }
 
   _getSection(label, index) {
-    const { cid, onPop, onPush, onUpdate } = this.props
+    const { cid, components, onPop, onPush, onUpdate } = this.props
     return {
       cid,
+      components,
       index,
       label,
       onPop,

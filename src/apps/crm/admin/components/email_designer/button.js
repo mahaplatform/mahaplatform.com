@@ -1,4 +1,4 @@
-import * as options from '../variables'
+import * as options from './variables'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'

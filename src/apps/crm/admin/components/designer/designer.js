@@ -14,6 +14,7 @@ class EmailDesigner extends React.Component {
     changes: PropTypes.number,
     cid: PropTypes.string,
     canvas: PropTypes.string,
+    components: PropTypes.object,
     config: PropTypes.object,
     defaultValue: PropTypes.object,
     defaults: PropTypes.object,
@@ -86,11 +87,12 @@ class EmailDesigner extends React.Component {
   }
 
   _getSidebar() {
-    const { active, blocks, cid, config, title, onDeleteSection, onMoveSection, onEdit, onSave, onUpdate } = this.props
+    const { active, blocks, cid, components, config, title, onDeleteSection, onMoveSection, onEdit, onSave, onUpdate } = this.props
     return {
       active,
       blocks,
       cid,
+      components,
       config,
       title,
       onAddSection: this._handleAddSection,

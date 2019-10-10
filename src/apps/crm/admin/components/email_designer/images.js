@@ -1,12 +1,12 @@
-import * as options from '../variables'
-import AlignmentField from '../../alignmentfield'
-import FormatField from '../../formatfield'
-import FollowsField from '../../followsfield'
+import * as options from './variables'
+import AlignmentField from '../alignmentfield'
+import FormatField from '../formatfield'
+import ImagesField from '../imagesfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 
-class Follow extends React.Component {
+class Images extends React.Component {
 
   static contextTypes = {}
 
@@ -28,7 +28,7 @@ class Follow extends React.Component {
   _getForm() {
     const { config } = this.props
     return {
-      title: 'Social Share Block',
+      title: 'Images Block',
       onCancel: this._handleDone,
       onChange: this._handleChange,
       cancelIcon: 'chevron-left',
@@ -42,7 +42,7 @@ class Follow extends React.Component {
           sections: [
             {
               fields: [
-                { name: 'networks', type: FollowsField, defaultValue: config.networks }
+                { name: 'images', type: ImagesField, defaultValue: config.images }
               ]
             }
           ]
@@ -50,17 +50,6 @@ class Follow extends React.Component {
           label: 'Style',
           sections: [
             {
-              label: 'Container Style',
-              fields: [
-                { label: 'Background', name: 'background_color', type: 'colorfield', defaultValue: config.background_color }
-              ]
-            }, {
-              label: 'Button Style',
-              fields: [
-                { label: 'Background', name: 'button_background_color', type: 'colorfield', defaultValue: config.button_background_color },
-                { label: 'Rounded Corners', name: 'button_border_radius', type: 'range', min: 0, max: 20, defaultValue: config.button_border_radius }
-              ]
-            }, {
               label: 'Text Style',
               fields: [
                 { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config.font_family },
@@ -77,11 +66,7 @@ class Follow extends React.Component {
           label: 'Settings',
           sections: [
             {
-              fields: [
-                { label: 'Align', name: 'align', type: 'lookup', options: ['left','center','right'], defaultValue: config.align },
-                { label: 'Icon Style', name: 'icon_style', type: 'lookup', options: ['solid','outline'], defaultValue: config.icon_style },
-                { label: 'Icon Color', name: 'icon_color', type: 'lookup', options: ['color','dark','gray','light'], defaultValue: config.icon_color }
-              ]
+              fields: []
             }
           ]
         }
@@ -100,4 +85,4 @@ class Follow extends React.Component {
 
 }
 
-export default Follow
+export default Images

@@ -31,15 +31,17 @@ class Section extends React.Component {
         { hovering &&
           <div className="dropzone-highlight" data-label={config.label || `Section ${ sectionIndex + 1 }`} />
         }
-        <Target />
-        { blocks.map((block, blockIndex) => (
-          <div key={`block_${blockIndex}`} className="dropzone-block" data-index={ blockIndex }>
-            <Block { ...this._getBlock(block, blockIndex) } />
-            { hovering && blockIndex + 1 === index &&
-              <Target key={`target_${blockIndex}`} />
-            }
-          </div>
-        )) }
+        <div className={`section-${sectionIndex} section`}>
+          <Target />
+          { blocks.map((block, blockIndex) => (
+            <div key={`block_${blockIndex}`} className="dropzone-block" data-index={ blockIndex }>
+              <Block { ...this._getBlock(block, blockIndex) } />
+              { hovering && blockIndex + 1 === index &&
+                <Target key={`target_${blockIndex}`} />
+              }
+            </div>
+          )) }
+        </div>
       </div>
     )
   }

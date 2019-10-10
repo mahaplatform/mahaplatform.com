@@ -1,8 +1,11 @@
 import Designer from '../designer'
-import Divider from './blocks/divider'
-import Images from './blocks/images'
-import Text from './blocks/text'
+import Divider from './divider'
+import Section from './section'
+import Layout from './layout'
+import Images from './images'
+import Text from './text'
 import React from 'react'
+import Page from './page'
 
 class DocumentDesigner extends React.Component {
 
@@ -14,55 +17,62 @@ class DocumentDesigner extends React.Component {
     return {
       title: 'Document',
       canvas: '/templates/document.html',
+      components: {
+        divider: Divider,
+        image: Images,
+        layout: Layout,
+        page: Page,
+        section: Section,
+        text: Text
+      },
       defaults: {
         page: {
-          background_color: '#FFFFFF',
-          padding_top: 50,
-          padding_right: 50,
-          padding_bottom: 50,
-          padding_left: 50,
+          page_color: '#FFFFFF',
+          orientation: 'portrait',
+          paper_size: 'letter',
+          margin_top: 1,
+          margin_bottom: 1,
+          margin_left: 1,
+          margin_right: 1,
           h1_font_family: 'Arial, Helvetica, sans-serif',
           h1_font_size: '28px',
           h1_color: '#222222',
           h1_format: ['bold'],
-          h1_text_align: false,
+          h1_text_align: null,
           h1_line_height: 1,
-          h1_letter_spacing: '0px',
+          h1_letter_spacing: null,
           h2_font_family: 'Arial, Helvetica, sans-serif',
           h2_font_size: '24px',
           h2_color: '#222222',
           h2_format: ['bold'],
-          h2_text_align: false,
+          h2_text_align: null,
           h2_line_height: 1,
-          h2_letter_spacing: '0px',
+          h2_letter_spacing: null,
           h3_font_family: 'Arial, Helvetica, sans-serif',
           h3_font_size: '22px',
           h3_color: '#222222',
           h3_format: ['bold'],
-          h3_text_align: false,
+          h3_text_align: null,
           h3_line_height: 1,
-          h3_letter_spacing: '0px',
+          h3_letter_spacing: null,
           h4_font_family: 'Arial, Helvetica, sans-serif',
           h4_font_size: '20px',
           h4_color: '#222222',
           h4_format: ['bold'],
-          h4_text_align: false,
+          h4_text_align: null,
           h4_line_height: 1,
-          h4_letter_spacing: '0px',
+          h4_letter_spacing: null,
           p_font_family: 'Arial, Helvetica, sans-serif',
           p_font_size: '18px',
           p_color: '#222222',
           p_format: [],
-          p_text_align: false,
+          p_text_align: null,
           p_line_height: 1.5,
-          p_letter_spacing: '0px'
+          p_letter_spacing: null
         },
         section: {
           label: null,
           background_color: null,
-          background_image: null,
-          border_top: null,
-          border_bottom: null,
           padding_top: 10,
           padding_bottom: 10,
           font_family: null,
@@ -104,23 +114,19 @@ class DocumentDesigner extends React.Component {
         {
           label: 'Text Block',
           type: 'text',
-          icon: 'align-justify',
-          component: Text
+          icon: 'align-justify'
         }, {
           label: 'Divider Block',
           type: 'divider',
-          icon: 'minus',
-          component: Divider
+          icon: 'minus'
         }, {
           label: 'Layout Block',
           type: 'layout',
-          icon: 'columns',
-          component: Divider
+          icon: 'columns'
         }, {
           label: 'Image Block',
           type: 'images',
-          icon: 'picture-o',
-          component: Images
+          icon: 'picture-o'
         }
       ]
     }

@@ -44,8 +44,9 @@ class Style extends React.Component {
   }
 
   _getStyle() {
-    // const { config } = this.props
-    // const { sections } = config
+    const { config } = this.props
+    const { sections } = config
+    console.log(config.sections)
     const styles = [
       { selector: '.document', styles: [
         ...this._getProp('background-color', 'page.background_color'),
@@ -66,8 +67,17 @@ class Style extends React.Component {
           ...this._getProp('line-height', `page.${selector}_line_height`),
           ...this._getProp('letter-spacing', `page.${selector}_letter_spacing`)
         ]
-      }))
+      })),
+      ...sections.reduce((sectionStyles, section, i) => [
+        ...sectionStyles,
+        { selector: `div.section-${i}`, styles: [
+          ...this._getProp('background-color', `sections[${i}].background_color`),
+          ...this._getProp('padding-top', `sections[${i}].padding_top`, 'px'),
+          ...this._getProp('padding-bottom', `sections[${i}].padding_bottom`, 'px')
+        ] }
+      ], [])
     ]
+    console.log(styles)
     return styles.map(item => item.styles.length === 0 ? '' : `
       ${item.selector} {
         ${ item.styles.map(style => `${style.prop}: ${style.value};`).join('\n') }

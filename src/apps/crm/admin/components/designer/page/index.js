@@ -14,6 +14,7 @@ class Page extends React.Component {
     blocks: PropTypes.array,
     changes: PropTypes.number,
     cid: PropTypes.string,
+    components: PropTypes.object,
     config: PropTypes.object,
     title: PropTypes.string,
     onAddSection: PropTypes.func,
@@ -61,9 +62,10 @@ class Page extends React.Component {
   }
 
   _getDesign() {
-    const { cid, onPop, onPush, onUpdate } = this.props
+    const { cid, components, onPop, onPush, onUpdate } = this.props
     return {
       cid,
+      components,
       onPop,
       onPush,
       onUpdate

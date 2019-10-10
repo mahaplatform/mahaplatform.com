@@ -12,6 +12,7 @@ class Sidebar extends React.Component {
   static propTypes = {
     active: PropTypes.object,
     blocks: PropTypes.array,
+    components: PropTypes.object,
     cid: PropTypes.string,
     config: PropTypes.object,
     title: PropTypes.string,
@@ -61,10 +62,11 @@ class Sidebar extends React.Component {
   }
 
   _getPage() {
-    const { blocks, cid, title, onAddSection, onDeleteSection, onMoveSection, onSave } = this.props
+    const { blocks, cid, components, title, onAddSection, onDeleteSection, onMoveSection, onSave } = this.props
     return {
       blocks,
       cid,
+      components,
       title,
       onAddSection,
       onDeleteSection,
@@ -98,10 +100,9 @@ class Sidebar extends React.Component {
   }
 
   _handleEdit() {
-    const { active, blocks } = this.props
+    const { active, components } = this.props
     const config = this.props.config.sections[active.section].blocks[active.block]
-    const block = _.find(blocks, { type: config.type })
-    this._handlePush(block.component, this._getBlock())
+    this._handlePush(components[config.type], this._getBlock())
   }
 
   _handlePop(index = -1) {

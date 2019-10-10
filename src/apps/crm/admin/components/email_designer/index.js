@@ -1,14 +1,16 @@
 import Designer from '../designer'
-import Divider from './blocks/divider'
-import Button from './blocks/button'
-import Footer from './blocks/footer'
-import Images from './blocks/images'
-import Follow from './blocks/follow'
-import Share from './blocks/share'
-import Video from './blocks/video'
-import Text from './blocks/text'
-import Code from './blocks/code'
+import Divider from './divider'
+import Section from './section'
+import Button from './button'
+import Footer from './footer'
+import Images from './images'
+import Follow from './follow'
+import Share from './share'
+import Video from './video'
+import Text from './text'
+import Code from './code'
 import React from 'react'
+import Page from './page'
 
 class EmailDesigner extends React.Component {
 
@@ -21,6 +23,19 @@ class EmailDesigner extends React.Component {
       title: 'Email',
       canvas: '/templates/email.html',
       preview: true,
+      components: {
+        button: Button,
+        code: Code,
+        divider: Divider,
+        footer: Footer,
+        follow: Follow,
+        images: Images,
+        page: Page,
+        section: Section,
+        share: Share,
+        text: Text,
+        video: Video
+      },
       defaults: {
         page: {
           background_color: null,
@@ -174,48 +189,39 @@ class EmailDesigner extends React.Component {
         {
           label: 'Text Block',
           type: 'text',
-          icon: 'align-justify',
-          component: Text
+          icon: 'align-justify'
         }, {
           label: 'Divider Block',
           type: 'divider',
-          icon: 'minus',
-          component: Divider
+          icon: 'minus'
         }, {
           label: 'Image Block',
           type: 'images',
-          icon: 'picture-o',
-          component: Images
+          icon: 'picture-o'
         }, {
           label: 'Button Block',
           type: 'button',
-          icon: 'mouse-pointer',
-          component: Button
+          icon: 'mouse-pointer'
         }, {
           label: 'Social Share Block',
           type: 'share',
-          icon: 'share',
-          component: Share
+          icon: 'share'
         }, {
           label: 'Social Follow Block',
           type: 'follow',
-          icon: 'plus',
-          component: Follow
+          icon: 'plus'
         }, {
           label: 'Footer Block',
           type: 'footer',
-          icon: 'file-text-o',
-          component: Footer
+          icon: 'file-text-o'
         }, {
           label: 'Code Block',
           type: 'code',
-          icon: 'code',
-          component: Code
+          icon: 'code'
         }, {
           label: 'Video Block',
           type: 'video',
-          icon: 'play-circle',
-          component: Video
+          icon: 'play-circle'
         }
       ]
     }
