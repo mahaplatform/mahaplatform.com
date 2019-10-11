@@ -28,7 +28,7 @@ const destroyRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    '/api/admin/team/numbers'
+    '/admin/team/numbers'
   ])
 
   res.status(200).respond(true)

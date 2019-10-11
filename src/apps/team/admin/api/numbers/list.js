@@ -6,7 +6,8 @@ const listRoute = async (req, res) => {
   const numbers = await Number.scope({
     team: req.team
   }).filter({
-    filter: req.query.$filter
+    filter: req.query.$filter,
+    filterParams: ['type']
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx

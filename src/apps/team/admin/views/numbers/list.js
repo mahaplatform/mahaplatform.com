@@ -9,7 +9,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/team/numbers',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Number', key: 'number', primary: true, format: NumberToken }
+      { label: 'Number', key: 'number', primary: true, format: NumberToken },
+      { label: 'Type', key: 'type', primary: true }
     ],
     recordTasks: (program) => [
       {

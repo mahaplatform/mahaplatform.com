@@ -1,5 +1,6 @@
 const NumberSerializer = (req, result) => ({
   id: result.get('id'),
+  type: result.get('type'),
   number: result.get('number'),
   locality: result.get('locality'),
   region: result.get('region'),
