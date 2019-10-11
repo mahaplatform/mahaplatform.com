@@ -1,6 +1,7 @@
 import { Avatar, Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import SMS from './sms'
 
 class Header extends React.Component {
 
@@ -53,7 +54,7 @@ class Header extends React.Component {
       className: 'contact-header-button',
       disabled: contact.phone === null,
       icon: 'comment',
-      onClick: this._handleMessage
+      modal: <SMS contact={ contact } />
     }
   }
 

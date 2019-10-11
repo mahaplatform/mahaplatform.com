@@ -13,6 +13,12 @@ export const sendSMS = async (req, { id }) => {
 
   try {
 
+    console.log({
+      from: sms.related('number').get('number'),
+      to: sms.related('phone_number').get('number'),
+      body: sms.get('body')
+    })
+
     const result = await twilio.messages.create({
       from: sms.related('number').get('number'),
       to: sms.related('phone_number').get('number'),
@@ -28,6 +34,8 @@ export const sendSMS = async (req, { id }) => {
     })
 
   } catch(err) {
+
+    console.log(err)
 
     await sms.save({
       status: 'failed'
