@@ -7,7 +7,6 @@ const navigation = async (req, trx) => ({
     { label: 'Forms', route: '/forms' },
     { label: 'Lists', route: '/lists' },
     { label: 'Organizations', route: '/organizations' },
-    { label: 'Phone Numbers', route: '/numbers' },
     { label: 'Programs', route: '/programs' },
     { label: 'Senders', route: '/senders' },
     { label: 'Templates', route: '/templates' },

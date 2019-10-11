@@ -81,7 +81,6 @@ import crmfollowsfield from '../../apps/crm/admin/components/followsfield'
 import crmformDesigner from '../../apps/crm/admin/components/form_designer'
 import crmimagesfield from '../../apps/crm/admin/components/imagesfield'
 import crmnewcampaign from '../../apps/crm/admin/components/newcampaign'
-import crmnumbers from '../../apps/crm/admin/components/numbers'
 import crmphonesfield from '../../apps/crm/admin/components/phonesfield'
 import crmsharesfield from '../../apps/crm/admin/components/sharesfield'
 import crmsmsDesigner from '../../apps/crm/admin/components/sms_designer'
@@ -127,6 +126,7 @@ import mahastars from '../../apps/maha/admin/roots/stars'
 import platformapps from '../../apps/platform/admin/components/apps'
 import sitessitesImportFinalize from '../../apps/sites/admin/components/sites_import_finalize'
 import teamaccess from '../../apps/team/admin/components/access'
+import teamnumbers from '../../apps/team/admin/components/numbers'
 import teamroles from '../../apps/team/admin/components/roles'
 import trainingoptions from '../../apps/training/admin/components/options'
 import traininganswers from '../../apps/training/admin/components/questions/answers'
@@ -326,7 +326,6 @@ class App extends React.Component {
       crmformDesigner,
       crmimagesfield,
       crmnewcampaign,
-      crmnumbers,
       crmphonesfield,
       crmsharesfield,
       crmsmsDesigner,
@@ -372,6 +371,7 @@ class App extends React.Component {
       platformapps,
       sitessitesImportFinalize,
       teamaccess,
+      teamnumbers,
       teamroles,
       trainingoptions,
       traininganswers,

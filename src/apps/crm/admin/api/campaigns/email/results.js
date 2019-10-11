@@ -20,8 +20,7 @@ const resultsRoute = async (req, res) => {
   const result = await EmailResult.scope({
     team: req.team
   }).query(qb => {
-    qb.where('emailable_type', 'crm_email_campaigns')
-    qb.where('emailable_id', campaign.get('id'))
+    qb.where('email_campaign_id', campaign.get('id'))
   }).fetch({
     transacting: req.trx
   })

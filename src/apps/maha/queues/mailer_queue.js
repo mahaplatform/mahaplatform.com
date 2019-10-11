@@ -12,18 +12,18 @@ import _ from 'lodash'
 import ejs from 'ejs'
 import fs from 'fs'
 
+const emails = collectObjects('emails/*/index.js')
+
+const templates = emails.reduce((emails, email) => ({
+  ...emails,
+  [`${email.config.code}:${email.default.code}`]: {
+    subject: email.default.subject,
+    envelope: email.default.envelope,
+    html: fs.readFileSync(path.join(email.filepath, 'html.ejs')).toString()
+  }
+}), {})
+
 const enqueue = async (req, options) => {
-
-  const emails = collectObjects('emails/*/index.js')
-
-  const templates = emails.reduce((emails, email) => ({
-    ...emails,
-    [`${email.config.code}:${email.default.code}`]: {
-      subject: email.default.subject,
-      envelope: email.default.envelope,
-      html: fs.readFileSync(path.join(email.filepath, 'html.ejs')).toString()
-    }
-  }), {})
 
   const template = templates[options.template]
 
@@ -56,7 +56,7 @@ const enqueue = async (req, options) => {
     html,
     code: _.random(100000, 999999).toString(36)
   }).save(null, {
-    transacting: req.trx 
+    transacting: req.trx
   })
 
   return {

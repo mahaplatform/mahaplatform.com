@@ -1,9 +1,9 @@
-import SMSSerializer from '../../../serializers/sms_serializer'
-import SendSMSQueue from '../../../queues/send_sms_queue'
+import SMSSerializer from '../../../../maha/serializers/sms_serializer'
+import SendSMSQueue from '../../../../maha/queues/send_sms_queue'
 import PhoneNumber from '../../../models/phone_number'
+import Number from '../../../../maha/models/number'
 import Contact from '../../../models/contact'
-import Number from '../../../models/number'
-import SMS from '../../../models/sms'
+import SMS from '../../../../maha/models/sms'
 
 const smsRoute = async (req, res) => {
 
@@ -49,7 +49,6 @@ const smsRoute = async (req, res) => {
 
   const sms = await SMS.forge({
     team_id: req.team.get('id'),
-    contact_id: contact.get('id'),
     phone_number_id: phone_number.get('id'),
     number_id: number.get('id'),
     type: 'outgoing',

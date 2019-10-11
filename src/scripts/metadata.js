@@ -46,7 +46,7 @@ const processor = async () => {
 
   const output = data.map(row => row.join(',')).join('\n')
 
-  fs.writeFileSync(path.join('src','apps','maha','db','metadata.csv'), output, 'utf8')
+  fs.writeFileSync(path.join('metadata.csv'), output, 'utf8')
 
 }
 

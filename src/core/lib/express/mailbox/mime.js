@@ -5,7 +5,7 @@ import s3 from '../../../services/s3'
 import path from 'path'
 import _ from 'lodash'
 
-const mailboxes = collectObjects('mailboxes/*')
+const mailboxes = collectObjects('hooks/email/*')
 
 const simpleParser = Promise.promisify(require('mailparser').simpleParser)
 

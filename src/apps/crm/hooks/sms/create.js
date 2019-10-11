@@ -1,8 +1,8 @@
 import { createAssetFromUrl } from '../../../maha/services/assets'
-import SMSAttachment from '../../models/sms_attachment'
+import SMSAttachment from '../../../maha/models/sms_attachment'
 import PhoneNumber from '../../models/phone_number'
-import Number from '../../models/number'
-import SMS from '../../models/sms'
+import Number from '../../../maha/models/number'
+import SMS from '../../../maha/models/sms'
 
 const createRoute = async (req, res) => {
 
@@ -33,7 +33,6 @@ const createRoute = async (req, res) => {
 
   const sms = await SMS.forge({
     team_id: phone_number.get('team_id'),
-    contact_id: phone_number.get('contact_id'),
     phone_number_id: phone_number.get('id'),
     number_id: number.get('id'),
     type: 'incoming',

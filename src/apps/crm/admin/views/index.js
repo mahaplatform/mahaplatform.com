@@ -17,7 +17,6 @@ import FormsList from './forms/list'
 import FormsShow from './forms/show'
 import ListsList from './lists/list'
 import ListsShow from './lists/show'
-import NumbersList from './numbers/list'
 import OrganizationsList from './organizations/list'
 import OrganizationsShow from './organizations/show'
 import ProgramsList from './programs/list'
@@ -48,7 +47,6 @@ const routes = [
   { path: '/fields', component: FieldsShow },
   { path: '/lists', component: ListsList },
   { path: '/lists/:id', component: ListsShow },
-  { path: '/numbers', component: NumbersList },
   { path: '/organizations', component: OrganizationsList },
   { path: '/organizations/:id', component: OrganizationsShow },
   { path: '/programs', component: ProgramsList },

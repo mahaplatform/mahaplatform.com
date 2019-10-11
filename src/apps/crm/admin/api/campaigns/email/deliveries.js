@@ -1,6 +1,6 @@
 import EmailSerializer from '../../../../serializers/email_serializer'
 import EmailCampaign from '../../../../models/email_campaign'
-import Email from '../../../../models/email'
+import Email from '../../../../../maha/models/email'
 
 const deliveriesRoute = async (req, res) => {
 
@@ -20,8 +20,7 @@ const deliveriesRoute = async (req, res) => {
   const emails = await Email.scope({
     team: req.team
   }).query(qb => {
-    qb.where('emailable_type', 'crm_email_campaigns')
-    qb.where('emailable_id', campaign.get('id'))
+    qb.where('email_campaign_id', campaign.get('id'))
   }).filter({
     filter: req.query.$filter,
     filterParams: ['was_delivered','was_bounced','was_opened','is_mobile','was_clicked','was_complained','was_unsubscribed']

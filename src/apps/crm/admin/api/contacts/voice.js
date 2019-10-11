@@ -1,7 +1,9 @@
-import PhoneNumber from '../../../models/phone_number'
-import Contact from '../../../models/contact'
-import Number from '../../../models/number'
+import MakeCallQueue from '../../../../maha/queues/make_call_queue'
 import twilio from '../../../../../core/services/twilio'
+import PhoneNumber from '../../../models/phone_number'
+import Number from '../../../../maha/models/number'
+import Call from '../../../../maha/models/call'
+import Contact from '../../../models/contact'
 
 const smsRoute = async (req, res) => {
 
@@ -45,13 +47,18 @@ const smsRoute = async (req, res) => {
     message: 'Unable to load number'
   })
 
-  twilio.calls.create({
-    machineDetection: 'DetectMessageEnd',
-    from: number.get('number'),
-    to: phone_number.get('number'),
-    url: `${process.env.TWIML_HOST}/crm/voice`
+  const call = await Call.forge({
+    team_id: req.team.get('id'),
+    phone_number_id: phone_number.get('id'),
+    number_id: number.get('id'),
+    type: 'outgoing'
+  }).save({}, {
+    transacting: req.trx
   })
 
+  MakeCallQueue.enqueue(req, {
+    id: call.get('id')
+  })
 
   res.status(200).respond(true)
 

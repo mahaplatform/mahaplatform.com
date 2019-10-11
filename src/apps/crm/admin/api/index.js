@@ -6,7 +6,6 @@ import programs from './programs'
 import contacts from './contacts'
 import { Router } from 'express'
 import senders from './senders'
-import numbers from './numbers'
 import topics from './topics'
 import forms from './forms'
 import lists from './lists'
@@ -20,11 +19,7 @@ router.use('/contacts', contacts)
 
 router.use('/forms', forms)
 
-router.use('/numbers', numbers)
-
 router.use('/lists', lists)
-
-router.use('/numbers', numbers)
 
 router.use('/organizations', organizations)
 

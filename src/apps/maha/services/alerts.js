@@ -1,4 +1,4 @@
-import mailer from '../queues/mailer_queue'
+import SendAlertQueue from '../queues/send_alert_queue'
 import Alert from '../models/alert'
 import App from '../models/app'
 
@@ -13,10 +13,9 @@ export const sendAlert = async (req, user, code, data) => {
 
   if(exclusion[0].excluded !== '0') return
 
-  await mailer.enqueue(req, {
-    team_id: user.get('team_id'),
-    user,
-    template: code,
+  await SendAlertQueue.enqueue(req, {
+    user_id: user.get('id'),
+    code,
     data
   })
 

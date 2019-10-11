@@ -1,6 +1,6 @@
 import Model from '../../../core/objects/model'
+import Number from '../../maha/models/number'
 import Program from './program'
-import Number from './number'
 
 const VoiceCampaign = new Model({
 

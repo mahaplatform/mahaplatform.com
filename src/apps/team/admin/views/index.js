@@ -5,6 +5,7 @@ import EmailsList from './emails/list'
 import EmailsShow from './emails/show'
 import GroupsList from './groups/list'
 import GroupsShow from './groups/show'
+import NumbersList from './numbers/list'
 import RolesList from './roles/list'
 import RolesShow from './roles/show'
 import SessionsList from './sessions/list'
@@ -23,6 +24,7 @@ const routes = [
   { path: '/emails/:id', component: EmailsShow },
   { path: '/groups', component: GroupsList },
   { path: '/groups/:id', component: GroupsShow },
+  { path: '/numbers', component: NumbersList },
   { path: '/roles', component: RolesList },
   { path: '/roles/:id', component: RolesShow },
   { path: '/sessions', component: SessionsList },

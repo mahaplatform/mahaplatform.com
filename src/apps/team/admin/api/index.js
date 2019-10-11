@@ -5,6 +5,7 @@ import user_types from './user_types'
 import sessions from './sessions'
 import settings from './settings'
 import { Router } from 'express'
+import numbers from './numbers'
 import groups from './groups'
 import access from './access'
 import emails from './emails'
@@ -25,6 +26,8 @@ router.use('/device_values', device_values)
 router.use('/emails', emails)
 
 router.use('/groups', groups)
+
+router.use('/numbers', numbers)
 
 router.use('/roles', roles)
 
