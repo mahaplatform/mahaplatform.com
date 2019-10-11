@@ -1,5 +1,5 @@
-import MetaFile from '../models/metafile'
-import File from '../models/file'
+import MetaFile from '../../models/metafile'
+import File from '../../models/file'
 
 const unlockRoute = async (req, res) => {
 

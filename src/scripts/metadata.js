@@ -1,6 +1,6 @@
-import './core/services/environment'
-import knex from './core/services/knex'
-import s3 from './core/services/s3'
+import '../core/services/environment'
+import knex from '../core/services/knex'
+import s3 from '../core/services/s3'
 import request from 'request-promise'
 import crypto from 'crypto'
 import sharp from 'sharp'
@@ -12,6 +12,8 @@ const processor = async () => {
   const assets = await knex('maha_assets').orderBy('created_at','asc')
 
   const data = await Promise.reduce(assets, async (data, asset, index) => {
+
+    console.log(asset.original_file_name)
 
     const { id, content_type, file_name } = asset
 
@@ -44,7 +46,7 @@ const processor = async () => {
 
   const output = data.map(row => row.join(',')).join('\n')
 
-  fs.writeFileSync(path.join('src','web','apps','maha','db','metadata.csv'), output, 'utf8')
+  fs.writeFileSync(path.join('src','apps','maha','db','metadata.csv'), output, 'utf8')
 
 }
 

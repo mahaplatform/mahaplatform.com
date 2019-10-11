@@ -1,4 +1,4 @@
-import { moveToTrash } from '../services/items'
+import { moveToTrash } from '../../services/items'
 
 const destroyRoute = async (req, res) => {
 

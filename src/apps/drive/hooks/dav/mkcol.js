@@ -1,6 +1,6 @@
-import socket from '../../../core/services/routes/emitter'
-import { createFolder } from '../services/folders'
-import Folder from '../models/folder'
+import socket from '../../../../core/services/routes/emitter'
+import { createFolder } from '../../services/folders'
+import Folder from '../../models/folder'
 
 const mkcolRoute = async (req, res) => {
 

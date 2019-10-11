@@ -1,6 +1,6 @@
-import MetaFile from '../models/metafile'
+import MetaFile from '../../models/metafile'
 import { generateUUID } from './utils'
-import File from '../models/file'
+import File from '../../models/file'
 import moment from 'moment'
 import xml from 'xml'
 

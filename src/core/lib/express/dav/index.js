@@ -9,7 +9,7 @@ import express from 'express'
 import auth from './auth'
 import cors from './cors'
 
-const davFiles = collectObjects('dav/index.js')
+const davFiles = collectObjects('hooks/dav/index.js')
 
 bodyParserXML(bodyParser)
 

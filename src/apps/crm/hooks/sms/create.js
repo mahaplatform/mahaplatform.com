@@ -1,8 +1,8 @@
-import { createAssetFromUrl } from '../../../../maha/services/assets'
-import SMSAttachment from '../../../models/sms_attachment'
-import PhoneNumber from '../../../models/phone_number'
-import Number from '../../../models/number'
-import SMS from '../../../models/sms'
+import { createAssetFromUrl } from '../../../maha/services/assets'
+import SMSAttachment from '../../models/sms_attachment'
+import PhoneNumber from '../../models/phone_number'
+import Number from '../../models/number'
+import SMS from '../../models/sms'
 
 const createRoute = async (req, res) => {
 
