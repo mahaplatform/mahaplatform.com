@@ -1068,7 +1068,7 @@ const schema = {
       table.string('to', 255)
       table.string('from', 255)
       table.USER-DEFINED('type')
-      table.integer('numPages')
+      table.integer('num_pages')
       table.string('sid', 255)
       table.USER-DEFINED('status')
       table.timestamp('received_at')

@@ -1,6 +1,11 @@
 const CreateFax = {
 
   up: async (knex) => {
+
+    await knex('maha_sources').insert({
+      text: 'fax'
+    })
+
     await knex.schema.createTable('maha_faxes', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -11,14 +16,15 @@ const CreateFax = {
       table.foreign('asset_id').references('maha_assets.id')
       table.string('to')
       table.string('from')
-      table.enum('type', ['incoming','outgoing'], { useNative: true, enumName: 'maha_faxes_type' })
-      table.integer('numPages')
+      table.enum('type', ['inbound','outbound'], { useNative: true, enumName: 'maha_faxes_type' })
+      table.integer('num_pages')
       table.string('sid')
-      table.enum('status', ['queued','no-answer','busy','failed','answering_machine','hangup','completed'], { useNative: true, enumName: 'maha_faxes_status' })
+      table.enum('status', ['pending','queued','no-answer','busy','failed','answering_machine','hangup','sent','receiving','received'], { useNative: true, enumName: 'maha_faxes_status' })
       table.timestamp('received_at')
       table.timestamp('sent_at')
       table.timestamps()
     })
+
   },
 
   down: async (knex) => {

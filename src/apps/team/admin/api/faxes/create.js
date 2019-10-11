@@ -9,6 +9,7 @@ const createRoute = async (req, res) => {
 
   const fax = await Fax.forge({
     team_id: req.team.get('id'),
+    type: 'outbound',
     ...whitelist(req.body, ['number_id','to','asset_id'])
   }).save(null, {
     transacting: req.trx

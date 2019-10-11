@@ -7,8 +7,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/team/faxes',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'From', key: 'from.number', primary: true },
-      { label: 'To', key: 'to', primary: true }
+      { label: 'From', key: 'from', primary: true },
+      { label: 'To', key: 'to', primary: true },
+      { label: 'Status', key: 'status', primary: true }
     ],
     empty: 'You have not yet sent or received any faxes',
     entity: 'fax',

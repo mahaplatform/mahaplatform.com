@@ -19,6 +19,7 @@ import arena from './arena'
 import ping from './ping'
 import dav from './dav'
 import sms from './sms'
+import fax from './fax'
 import qs from 'qs'
 
 const server = express()
@@ -38,6 +39,8 @@ server.use(rollbarMiddleware)
 server.use(dav)
 
 server.use(sms)
+
+server.use(fax)
 
 server.use(voice)
 

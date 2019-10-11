@@ -101,7 +101,7 @@ const adminWatch = async () => {
     hot: true,
     publicPath: '/admin',
     proxy: [
-      ...'dav/,sms/,voice/,api/,jobs/,caman/,imagecache/,.well-known/,mailbox_mime/,v,c,ns,so'.split(',').reduce((proxies, path) => [
+      ...'dav/,sms/,voice/,fax/,api/,jobs/,caman/,imagecache/,.well-known/,mailbox_mime/,v,c,ns,so'.split(',').reduce((proxies, path) => [
         ...proxies,
         `/${path}*`
       ], []),

@@ -12,7 +12,7 @@ const CreateCall = {
       table.enum('type', ['incoming','outgoing'], { useNative: true, enumName: 'maha_calls_type' })
       table.text('body')
       table.string('sid')
-      table.enum('status', ['queued','no-answer','busy','failed','answering_machine','hangup','completed'], { useNative: true, enumName: 'maha_calls_status' })
+      table.enum('status', ['pending','queued','no-answer','busy','failed','answering_machine','hangup','completed'], { useNative: true, enumName: 'maha_calls_status' })
       table.timestamp('received_at')
       table.timestamp('sent_at')
       table.timestamps()
