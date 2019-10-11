@@ -6,6 +6,7 @@ const lookupRoute = async (req, res) => {
     mmsEnabled: true,
     smsEnabled: true,
     voiceEnabled: true,
+    faxEnabled: true,
     areaCode: req.query.areacode,
     distance: 50,
     limit: 20

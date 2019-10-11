@@ -1,7 +1,6 @@
-import Numbers from '../../components/numbers'
 import NumberToken from '../../tokens/number'
 import { Page } from 'maha-admin'
-import React from 'react'
+import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Phone Numbers',
@@ -26,7 +25,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     empty: 'You have not yet registered any phone numbers',
     entity: 'phone number',
     icon: 'hashtag',
-    new: () => <Numbers program_id={ page.params.program_id } />,
+    new: New,
     defaultSort: { key: 'title', order: 'asc' }
   },
   tasks: {
@@ -34,7 +33,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     items: [
       {
         label: 'Provision Phone Number',
-        modal: () => <Numbers program_id={ page.params.program_id } />
+        modal: New
       }
     ]
   }

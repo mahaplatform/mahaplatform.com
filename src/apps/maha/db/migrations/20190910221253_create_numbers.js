@@ -5,6 +5,7 @@ const CreateNumber = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
+      table.enum('type', ['voice','fax'], { useNative: true, enumName: 'maha_numbers_type' })
       table.string('sid')
       table.string('number')
       table.string('locality')

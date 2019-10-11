@@ -1,7 +1,5 @@
 const INITIAL_STATE = {
-  filters: {
-    areacode: null
-  },
+  chosen: null,
   numbers: null,
   status: 'pending'
 }
@@ -35,13 +33,16 @@ const reducer = (state = INITIAL_STATE, action) => {
       status: 'saved'
     }
 
-  case 'SET_FILTER':
+  case 'CHOOSE':
     return {
       ...state,
-      filters: {
-        ...state.filters,
-        [action.key]: action.value
-      }
+      chosen: action.index
+    }
+
+  case 'CLEAR':
+    return {
+      ...state,
+      chosen: null
     }
 
   default:

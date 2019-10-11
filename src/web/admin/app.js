@@ -126,7 +126,7 @@ import mahastars from '../../apps/maha/admin/roots/stars'
 import platformapps from '../../apps/platform/admin/components/apps'
 import sitessitesImportFinalize from '../../apps/sites/admin/components/sites_import_finalize'
 import teamaccess from '../../apps/team/admin/components/access'
-import teamnumbers from '../../apps/team/admin/components/numbers'
+import teamnumberfield from '../../apps/team/admin/components/numberfield'
 import teamroles from '../../apps/team/admin/components/roles'
 import trainingoptions from '../../apps/training/admin/components/options'
 import traininganswers from '../../apps/training/admin/components/questions/answers'
@@ -371,7 +371,7 @@ class App extends React.Component {
       platformapps,
       sitessitesImportFinalize,
       teamaccess,
-      teamnumbers,
+      teamnumberfield,
       teamroles,
       trainingoptions,
       traininganswers,

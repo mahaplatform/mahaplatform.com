@@ -1,9 +1,9 @@
-.numbers {
+.numberfield {
   flex: 1;
   display: flex;
   flex-direction: column;
 }
-.numbers-header {
+.numberfield-header {
   border-bottom: 1px solid fadeout(@black, 90);
   display: flex;
   padding: 0.8em;
@@ -12,15 +12,15 @@
     width: 100%;
   }
 }
-.numbers-body {
+.numberfield-body {
   display: flex;
   flex: 1;
 }
-.numbers-list {
+.numberfield-list {
   .scrollable();
   flex: 1;
 }
-.numbers-number {
+.numberfield-number {
   border-bottom: 1px solid fadeout(@black, 90);
   cursor: pointer;
   display: flex;
@@ -28,7 +28,7 @@
     background-color: fadeout(@black, 97);
   }
 }
-.numbers-number-icon {
+.numberfield-number-icon {
   padding: 0.8em 0 0.8em 0.8em;
   display: flex;
   .fa {
@@ -36,7 +36,7 @@
     font-size: 2em;
   }
 }
-.numbers-number-label {
+.numberfield-number-label {
   padding: 0.8em;
   flex: 1;
   color: fadeout(@black, 40);

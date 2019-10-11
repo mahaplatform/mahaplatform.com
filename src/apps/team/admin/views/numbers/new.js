@@ -1,4 +1,4 @@
-import Numbers from '../../components/numbers'
+import NumberField from '../../components/numberfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -31,27 +31,25 @@ class New extends React.Component {
       onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
+      saveText: 'Provision',
       sections: [
         {
           fields: [
-            { type: 'fields', fields: [
-              { name: 'address', type: 'addressfield', placeholder: 'Enter your address' },
-              { name: 'areacode', type: 'numberfield', placeholder: 'Enter your area code' }
-            ] },
-            ...this._getNumbers()
+            { label: 'Type', name: 'type', type: 'lookup', options: [{ value: 'voice', text: 'Voice / SMS' },{ value: 'fax', text: 'Fax' }], required: true },
+            { label: 'Number', name: 'number', type: NumberField, required: true }
           ]
         }
       ]
     }
   }
 
-  _getNumbers() {
-    const { areacode, address } = this.state
-    if(!address || !areacode) return []
-    return [
-      { name: 'number', type: Numbers, address, areacode }
-    ]
-  }
+  // _getNumbers() {
+  //   const { areacode, address } = this.state
+  //   if(!address || !areacode) return []
+  //   return [
+  //     { name: 'number', type: Numbers, address, areacode }
+  //   ]
+  // }
 
   _handleCancel() {
     this.context.modal.close()
