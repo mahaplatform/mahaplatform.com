@@ -1,6 +1,23 @@
+import FaxSerializer from '../../../serializers/fax_serializer'
+import Fax from '../../../../maha/models/fax'
+
 const showRoute = async (req, res) => {
 
-  res.status(200).respond()
+  const fax = await Fax.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('id', req.params.id)
+  }).fetch({
+    withRelated: ['asset.user.photo'],
+    transacting: req.trx
+  })
+
+  if(!fax) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load fax'
+  })
+
+  res.status(200).respond(fax, FaxSerializer)
 
 }
 

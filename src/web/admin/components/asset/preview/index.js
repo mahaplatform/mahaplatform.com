@@ -22,9 +22,9 @@ class Preview extends React.Component {
           <div className="maha-asset-preview-body">
             <AssetViewer asset={ asset } />
           </div>
-          { comments && document.body.clientWidth > 768 &&
+          { document.body.clientWidth > 768 &&
             <div className="maha-asset-preview-sidebar">
-              <Info asset={ asset } />
+              <Info asset={ asset } comments={ comments } />
             </div>
           }
         </div>

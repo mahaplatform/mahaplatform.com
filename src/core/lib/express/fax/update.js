@@ -10,7 +10,7 @@ const receiveRoute = async (req, res) => {
 
   const incoming = await twilio.fax.faxes(FaxSid).fetch()
 
-  const { media_url, num_pages, sid, status } = incoming
+  const { mediaUrl, num_pages, sid, status } = incoming
 
   const fax = await Fax.where({
     sid
@@ -18,8 +18,8 @@ const receiveRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const asset = media_url ? await createAssetFromUrl(req, {
-    url: media_url,
+  const asset = mediaUrl ? await createAssetFromUrl(req, {
+    url: mediaUrl,
     team_id: fax.get('team_id'),
     user_id: null,
     source: 'fax'

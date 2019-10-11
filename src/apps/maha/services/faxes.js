@@ -19,7 +19,7 @@ export const sendFax = async (req, { id }) => {
       mediaUrl: fax.related('asset').get('signed_url')
     })
 
-    await result.save({
+    await fax.save({
       sid: result.sid,
       status: 'queued',
       sent_at: moment()
@@ -28,6 +28,8 @@ export const sendFax = async (req, { id }) => {
     })
 
   } catch(err) {
+
+    console.log(err)
 
     await fax.save({
       status: 'failed'

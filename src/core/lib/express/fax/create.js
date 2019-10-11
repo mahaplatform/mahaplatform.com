@@ -37,8 +37,7 @@ const redirectRoute = async (req, res) => {
 
   response.receive({
     method: 'POST',
-    action: `${process.env.TWIML_HOST}/fax/update`,
-    storeMedia: false
+    action: `${process.env.TWIML_HOST}/fax/update`
   })
 
   res.status(200).type('application/xml').send(response.toString())

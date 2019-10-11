@@ -1,0 +1,19 @@
+.fax-status-token {
+  margin: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  display: block;
+  text-align: center;
+  color: @white;
+  font-size: 0.8em;
+  margin: 0;
+  padding: 4px;
+  text-transform: uppercase;
+  width: 7.5em;
+  &.pending { background-color: @grey; }
+  &.queued { background-color: @teal; }
+  &.receiving { background-color: @teal; }
+  &.received { background-color: @green; }
+  &.sent { background-color: @green; }
+  &.failed { background-color: @red; }
+}

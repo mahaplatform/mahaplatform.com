@@ -10,11 +10,12 @@ class Info extends React.Component {
   }
 
   static propTypes = {
+    comments: PropTypes.bool,
     asset: PropTypes.object
   }
 
   render() {
-    const { asset } = this.props
+    const { asset, comments } = this.props
     return (
       <div className="maha-asset-info">
         <div className="maha-asset-info-header">
@@ -22,7 +23,9 @@ class Info extends React.Component {
         </div>
         <div className="maha-asset-info-body">
           <List { ...this._getList() } />
-          <Comments entity={`maha_assets/${asset.id}`} />
+          { comments &&
+            <Comments entity={`maha_assets/${asset.id}`} />
+          }
         </div>
       </div>
     )
