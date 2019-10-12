@@ -1,3 +1,4 @@
+import phone_numbers from './phone_numbers'
 import device_values from './device_values'
 import supervisors from './supervisors'
 import activities from './activities'
@@ -5,7 +6,6 @@ import user_types from './user_types'
 import sessions from './sessions'
 import settings from './settings'
 import { Router } from 'express'
-import numbers from './numbers'
 import groups from './groups'
 import access from './access'
 import emails from './emails'
@@ -30,7 +30,7 @@ router.use('/faxes', faxes)
 
 router.use('/groups', groups)
 
-router.use('/numbers', numbers)
+router.use('/phone_numbers', phone_numbers)
 
 router.use('/roles', roles)
 

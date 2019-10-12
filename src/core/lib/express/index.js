@@ -14,12 +14,10 @@ import homeMiddleware from './home'
 import apiMiddleware from './api'
 import caman from './media/caman'
 import express from 'express'
-import voice from './voice'
+import hooks from './hooks'
 import arena from './arena'
 import ping from './ping'
 import dav from './dav'
-import sms from './sms'
-import fax from './fax'
 import qs from 'qs'
 
 const server = express()
@@ -38,11 +36,7 @@ server.use(rollbarMiddleware)
 
 server.use(dav)
 
-server.use(sms)
-
-server.use(fax)
-
-server.use(voice)
+server.use(hooks)
 
 server.use('/ping', ping)
 

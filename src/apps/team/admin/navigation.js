@@ -5,7 +5,7 @@ const navigation = async (req) => ({
     { label: 'Emails', rights: ['team:manage_team'], route: '/emails' },
     { label: 'Faxes', route: '/faxes' },
     { label: 'Groups', rights: ['team:manage_people'], route: '/groups' },
-    { label: 'Phone Numbers', route: '/numbers' },
+    { label: 'Phone Numbers', route: '/phone_numbers' },
     { label: 'Roles', rights: ['team:manage_people'], route: '/roles' },
     { label: 'Sessions', rights: ['team:manage_people'], route: '/sessions' },
     { label: 'Settings', rights: ['team:manage_team'], route: '/settings' },

@@ -1,17 +1,28 @@
-import SendFaxQueue from '../../../../maha/queues/send_fax_queue'
-import FaxSerializer from '../../../serializers/fax_serializer'
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
+import { findOrCreateNumber } from '../../../../maha/services/numbers'
+import SendFaxQueue from '../../../../maha/queues/send_fax_queue'
 import socket from '../../../../../core/services/routes/emitter'
+import FaxSerializer from '../../../serializers/fax_serializer'
 import Fax from '../../../../maha/models/fax'
 
 const createRoute = async (req, res) => {
+
+  const from = await findOrCreateNumber(req, {
+    number: req.body.from
+  })
+
+  const to = await findOrCreateNumber(req, {
+    number: req.body.to
+  })
 
   const fax = await Fax.forge({
     team_id: req.team.get('id'),
     type: 'outbound',
     status: 'pending',
-    ...whitelist(req.body, ['number_id','to','asset_id'])
+    from_id: from.get('id'),
+    to_id: to.get('id'),
+    ...whitelist(req.body, ['asset_id'])
   }).save(null, {
     transacting: req.trx
   })

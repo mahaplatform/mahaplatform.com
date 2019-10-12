@@ -27,7 +27,7 @@ class New extends React.Component {
     return {
       title: 'New Number',
       method: 'post',
-      action: '/api/admin/team/numbers',
+      action: '/api/admin/team/phone_numbers',
       onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
@@ -35,7 +35,7 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Type', name: 'type', type: 'lookup', options: [{ value: 'voice', text: 'Voice / SMS' },{ value: 'fax', text: 'Fax' }], required: true },
+            { label: 'Type', name: 'type', type: 'radiogroup', options: [{ value: 'voice', text: 'Voice / SMS' },{ value: 'fax', text: 'Fax' }], required: true, defaultValue: 'voice' },
             { label: 'Number', name: 'number', type: NumberField, required: true }
           ]
         }

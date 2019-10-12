@@ -1,7 +1,7 @@
 export const lookup = (areacode) => ({
   type: 'API_REQUEST',
   method: 'GET',
-  endpoint: '/api/admin/team/numbers/lookup',
+  endpoint: '/api/admin/team/phone_numbers/lookup',
   query: { areacode },
   request: 'LOOKUP_REQUEST',
   success: 'LOOKUP_SUCCESS',

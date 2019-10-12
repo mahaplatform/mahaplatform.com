@@ -14,8 +14,12 @@ const Fax = new Model({
     return this.belongsTo(Asset, 'asset_id')
   },
 
-  number() {
-    return this.belongsTo(Number, 'number_id')
+  from() {
+    return this.belongsTo(Number, 'from_id')
+  },
+
+  to() {
+    return this.belongsTo(Number, 'to_id')
   }
 
 })

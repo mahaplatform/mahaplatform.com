@@ -1,7 +1,7 @@
-import Number from '../../../../apps/maha/models/number'
-import socket from '../../../services/routes/emitter'
-import Fax from '../../../../apps/maha/models/fax'
-import twilio from '../../../services/twilio'
+import Number from '../../../../../apps/maha/models/number'
+import socket from '../../../../services/routes/emitter'
+import Fax from '../../../../../apps/maha/models/fax'
+import twilio from '../../../../services/twilio'
 import { twiml } from 'twilio'
 
 const redirectRoute = async (req, res) => {

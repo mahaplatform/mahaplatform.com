@@ -1,11 +1,11 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import twilio from '../../../../../core/services/twilio'
 import socket from '../../../../../core/services/routes/emitter'
-import Number from '../../../../maha/models/number'
+import PhoneNumber from '../../../../maha/models/phone_number'
 
 const destroyRoute = async (req, res) => {
 
-  const number = await Number.scope({
+  const phone_number = await PhoneNumber.scope({
     team: req.team
   }).query(qb => {
     qb.where('id', req.params.id)
@@ -13,22 +13,22 @@ const destroyRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!number) return res.status(404).respond({
+  if(!phone_number) return res.status(404).respond({
     code: 404,
-    message: 'Unable to load number'
+    message: 'Unable to load phone number'
   })
 
-  await twilio.incomingPhoneNumbers(number.get('sid')).remove()
+  await twilio.incomingPhoneNumbers(phone_number.get('sid')).remove()
 
-  await number.destroy()
+  await phone_number.destroy()
 
   await activity(req, {
     story: 'released {object}',
-    object: number
+    object: phone_number
   })
 
   await socket.refresh(req, [
-    '/admin/team/numbers'
+    '/admin/team/phone_numbers'
   ])
 
   res.status(200).respond(true)

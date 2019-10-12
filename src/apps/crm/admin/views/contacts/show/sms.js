@@ -31,9 +31,10 @@ class SMS extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Number', name: 'number_id', type: 'lookup', endpoint: '/api/admin/team/numbers', filter: { type: { $eq: 'voice' } }, value: 'id', text: 'number' },
-            { label: 'Phone Number', name: 'phone_number_id', type: 'lookup', options: contact.phone_numbers, value: 'id', text: 'number' },
-            { label: 'Message', name: 'body', type: 'textarea' }
+            { label: 'From', name: 'from_number_id', type: 'lookup', endpoint: '/api/admin/team/phone_numbers', filter: { type: { $eq: 'voice' } }, value: 'id', text: 'number' },
+            { label: 'To', name: 'to_number_id', type: 'lookup', options: contact.phone_numbers, value: 'id', text: 'number' },
+            { label: 'Message', name: 'body', type: 'textarea' },
+            { label: 'Attachments', name: 'asset_ids', type: 'attachmentfield', multiple: true }
           ]
         }
       ]

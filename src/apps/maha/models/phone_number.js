@@ -2,11 +2,7 @@ import Model from '../../../core/objects/model'
 
 const Number = new Model({
 
-  hasTimestamps: false,
-
-  belongsToTeam: false,
-
-  tableName: 'maha_numbers',
+  tableName: 'maha_phone_numbers',
 
   rules: {},
 

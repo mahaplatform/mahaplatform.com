@@ -1,7 +1,7 @@
-import { createAssetFromUrl } from '../../../../apps/maha/services/assets'
-import socket from '../../../services/routes/emitter'
-import Fax from '../../../../apps/maha/models/fax'
-import twilio from '../../../services/twilio'
+import { createAssetFromUrl } from '../../../../../apps/maha/services/assets'
+import socket from '../../../../services/routes/emitter'
+import Fax from '../../../../../apps/maha/models/fax'
+import twilio from '../../../../services/twilio'
 import moment from 'moment'
 
 const receiveRoute = async (req, res) => {

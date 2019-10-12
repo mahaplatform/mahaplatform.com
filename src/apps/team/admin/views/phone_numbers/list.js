@@ -6,7 +6,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Phone Numbers',
   rights: [],
   collection: {
-    endpoint: '/api/admin/team/numbers',
+    endpoint: '/api/admin/team/phone_numbers',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Number', key: 'number', primary: true, format: NumberToken },
@@ -16,7 +16,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       {
         label: 'Release Number',
         request: {
-          endpoint: `/api/admin/team/numbers/${program.id}`,
+          endpoint: `/api/admin/team/phone_numbers/${program.id}`,
           method: 'delete',
           onSuccess: () => {},
           onFailure: () => {}

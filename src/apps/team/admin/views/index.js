@@ -7,7 +7,7 @@ import FaxesList from './faxes/list'
 import FaxesShow from './faxes/show'
 import GroupsList from './groups/list'
 import GroupsShow from './groups/show'
-import NumbersList from './numbers/list'
+import PhoneNumbersList from './phone_numbers/list'
 import RolesList from './roles/list'
 import RolesShow from './roles/show'
 import SessionsList from './sessions/list'
@@ -28,7 +28,7 @@ const routes = [
   { path: '/faxes/:id', component: FaxesShow },
   { path: '/groups', component: GroupsList },
   { path: '/groups/:id', component: GroupsShow },
-  { path: '/numbers', component: NumbersList },
+  { path: '/phone_numbers', component: PhoneNumbersList },
   { path: '/roles', component: RolesList },
   { path: '/roles/:id', component: RolesShow },
   { path: '/sessions', component: SessionsList },

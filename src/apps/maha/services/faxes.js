@@ -7,15 +7,15 @@ export const sendFax = async (req, { id }) => {
   const fax = await Fax.query(qb => {
     qb.where('id', id)
   }).fetch({
-    withRelated: ['asset','number'],
+    withRelated: ['asset','from','to'],
     transacting: req.trx
   })
 
   try {
 
     const result = await twilio.fax.faxes.create({
-      from: fax.related('number').get('number'),
-      to: fax.get('to'),
+      from: fax.related('from').get('number'),
+      to: fax.related('to').get('number'),
       mediaUrl: fax.related('asset').get('signed_url')
     })
 
@@ -29,13 +29,13 @@ export const sendFax = async (req, { id }) => {
 
   } catch(err) {
 
-    console.log(err)
-
     await fax.save({
       status: 'failed'
     }, {
       transacting: req.trx
     })
+
+    throw(err)
 
   }
 
