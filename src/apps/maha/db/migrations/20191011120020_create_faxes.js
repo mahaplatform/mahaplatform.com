@@ -20,7 +20,7 @@ const CreateFax = {
       table.integer('num_pages')
       table.string('sid')
       table.enum('status', ['pending','queued','no-answer','busy','failed','answering_machine','hangup','sent','receiving','received'], { useNative: true, enumName: 'maha_faxes_status' })
-      table.decimal('price', 3, 2)
+      table.decimal('price', 5, 4)
       table.timestamp('received_at')
       table.timestamp('sent_at')
       table.timestamps()

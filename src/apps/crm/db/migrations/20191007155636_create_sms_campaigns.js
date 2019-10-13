@@ -6,7 +6,7 @@ const CreateSmsCampaign = {
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
       table.integer('program_id').unsigned()
-      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('program_id').references('maha_programs.id')
       table.integer('number_id').unsigned()
       table.foreign('number_id').references('maha_numbers.id')
       table.enum('status', ['draft','published'], { useNative: true, enumName: 'crm_sms_campaigns_status' })

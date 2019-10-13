@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import Program from './program'
 
 const Number = new Model({
 
@@ -13,6 +14,10 @@ const Number = new Model({
       return `(${parts[1]}) ${parts[2]}-${parts[3]}`
     }
 
+  },
+
+  program() {
+    return this.belongsTo(Program, 'program_id')
   }
 
 })

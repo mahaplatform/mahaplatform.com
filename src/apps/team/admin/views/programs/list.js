@@ -7,7 +7,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Programs',
   rights: [],
   collection: {
-    endpoint: '/api/admin/crm/programs',
+    endpoint: '/api/admin/team/programs',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true }
@@ -21,7 +21,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     empty: 'You have not yet created any programs',
     entity: 'program',
     icon: 'sitemap',
-    link: (record) => `/admin/crm/programs/${record.id}`,
+    link: (record) => `/admin/team/programs/${record.id}`,
     new: New,
     defaultSort: { key: 'title', order: 'asc' }
   },

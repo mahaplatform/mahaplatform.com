@@ -4,7 +4,7 @@ import Asset from '../../maha/models/asset'
 
 const Program = new Model({
 
-  tableName: 'crm_programs',
+  tableName: 'maha_programs',
 
   rules: {},
 

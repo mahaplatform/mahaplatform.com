@@ -14,7 +14,7 @@ const getTasks = (user, { program}) => ({
 })
 
 const mapResourcesToPage = (props, context) => ({
-  program: `/api/admin/crm/programs/${props.params.id}`
+  program: `/api/admin/team/programs/${props.params.id}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

@@ -1,4 +1,4 @@
-import Program from '../../../../models/program'
+import Program from '../../../../../maha/models/program'
 import Contact from '../../../../models/contact'
 import Channel from '../../../../models/channel'
 

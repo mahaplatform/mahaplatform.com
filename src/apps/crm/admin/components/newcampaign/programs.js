@@ -1,5 +1,4 @@
-import { Infinite, ModalPanel } from 'maha-admin'
-import ProgramToken from '../../tokens/program'
+import { Infinite, ModalPanel, ProgramToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import List from '../list'
@@ -52,7 +51,7 @@ class Programs extends React.PureComponent {
   _getInfinite() {
     const { onChoose } = this.props
     return {
-      endpoint: '/api/admin/crm/programs',
+      endpoint: '/api/admin/programs',
       layout: Items,
       props: {
         onChoose

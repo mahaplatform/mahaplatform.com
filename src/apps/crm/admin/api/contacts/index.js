@@ -34,7 +34,7 @@ router.use('/:id/calls', calls)
 
 router.use('/:id/channels', channels)
 
-router.use('/:id/interests', interests)
+router.get('/:id/interests', interests)
 
 router.use('/:id/notes', notes)
 

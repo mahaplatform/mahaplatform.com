@@ -1,4 +1,4 @@
-import Program from '../../../models/program'
+import Program from '../../../../maha/models/program'
 
 const editRoute = async (req, res) => {
 

@@ -5,6 +5,7 @@ import activities from './activities'
 import user_types from './user_types'
 import sessions from './sessions'
 import settings from './settings'
+import programs from './programs'
 import { Router } from 'express'
 import groups from './groups'
 import access from './access'
@@ -35,6 +36,8 @@ router.use('/faxes', faxes)
 router.use('/groups', groups)
 
 router.use('/phone_numbers', phone_numbers)
+
+router.use('/programs', programs)
 
 router.use('/roles', roles)
 

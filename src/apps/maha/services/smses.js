@@ -89,7 +89,7 @@ export const sendSMS = async (req, { id }) => {
 
 }
 
-export const updateSMS = async (req, { sid, status }) => {
+export const updateSMS = async (req, { price, sid, status }) => {
 
   const sms = await SMS.query(qb => {
     qb.where('sid', sid)
@@ -98,6 +98,7 @@ export const updateSMS = async (req, { sid, status }) => {
   })
 
   await sms.save({
+    price,
     status
   }, {
     transacting: req.trx

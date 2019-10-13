@@ -14,6 +14,7 @@ const CreateSms = {
       table.text('body')
       table.string('sid')
       table.enum('status', ['queued','sent','delivered','received','failed'], { useNative: true, enumName: 'maha_smses_status' })
+      table.decimal('price', 5, 4)
       table.timestamp('received_at')
       table.timestamp('sent_at')
       table.timestamps()

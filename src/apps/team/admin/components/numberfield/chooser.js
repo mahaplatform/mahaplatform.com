@@ -24,7 +24,7 @@ class Chooser extends React.PureComponent {
   _handleChange = this._handleChange.bind(this)
 
   render() {
-    const { numbers } = this.props
+    const { numbers, status } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="numberfield">
@@ -33,6 +33,9 @@ class Chooser extends React.PureComponent {
           </div>
           <div className="numberfield-body">
             { status === 'loading' && <Loader /> }
+            { status === 'pending' &&
+              <Message { ...this._getMessage() } />
+            }
             { numbers &&
               <div className="numberfield-list">
                 { numbers.map((number, index) => (
@@ -54,20 +57,28 @@ class Chooser extends React.PureComponent {
     )
   }
 
+  _getAreacode() {
+    return {
+      maxlength: 3,
+      placeholder: 'Enter your area code',
+      onChange: this._handleChange
+    }
+  }
+
+  _getMessage() {
+    return {
+      icon: 'map-marker',
+      title: 'Area Code',
+      text: 'Enter your area code'
+    }
+  }
+
   _getPanel() {
     return {
       title: 'Choose Phone Number',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
       ]
-    }
-  }
-
-  _getAreacode() {
-    return {
-      maxlength: 3,
-      placeholder: 'Enter your area code',
-      onChange: this._handleChange
     }
   }
 
@@ -89,7 +100,8 @@ class Chooser extends React.PureComponent {
 
 const mapStateToProps = (state, props) => ({
   chosen: state.team.numberfield[props.cid].chosen,
-  numbers: state.team.numberfield[props.cid].numbers
+  numbers: state.team.numberfield[props.cid].numbers,
+  status: state.team.numberfield[props.cid].status
 })
 
 export default connect(mapStateToProps)(Chooser)

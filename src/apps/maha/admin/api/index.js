@@ -6,6 +6,7 @@ import comments from './comments'
 import sessions from './sessions'
 import profiles from './profiles'
 import settings from './settings'
+import programs from './programs'
 import { Router } from 'express'
 import filters from './filters'
 import imports from './imports'
@@ -57,6 +58,8 @@ router.use('/links', links)
 router.use('/notifications', notifications)
 
 router.use('/profiles', profiles)
+
+router.use('/programs', programs)
 
 router.use('/search', search)
 

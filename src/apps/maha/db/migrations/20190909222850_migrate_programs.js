@@ -4,7 +4,19 @@ const MigratePrograms = {
 
     await knex.raw('drop view crm_channels')
 
-    await knex.schema.createTable('crm_programs', (table) => {
+    await Promise.mapSeries(['calls','consents','lists','activities','notes','topics'], async (type) => {
+      await knex.schema.table(`crm_${type}`, (table) => {
+        table.dropColumn('program_id')
+      })
+    })
+
+    await knex.schema.dropTable('maha_program_accesses')
+
+    await knex.schema.dropTable('maha_program_members')
+
+    await knex.schema.dropTable('maha_programs')
+
+    await knex.schema.createTable('maha_programs', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
@@ -20,12 +32,12 @@ const MigratePrograms = {
       table.timestamps()
     })
 
-    await knex.schema.createTable('crm_program_accesses', (table) => {
+    await knex.schema.createTable('maha_program_accesses', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
       table.integer('program_id').unsigned()
-      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('program_id').references('maha_programs.id')
       table.integer('grouping_id').unsigned()
       table.foreign('grouping_id').references('maha_groupings.id')
       table.integer('group_id').unsigned()
@@ -37,11 +49,8 @@ const MigratePrograms = {
 
     await Promise.mapSeries(['calls','consents','lists','activities','notes','topics'], async (type) => {
       await knex.schema.table(`crm_${type}`, (table) => {
-        table.dropColumn('program_id')
-      })
-      await knex.schema.table(`crm_${type}`, (table) => {
         table.integer('program_id').unsigned()
-        table.foreign('program_id').references('crm_programs.id')
+        table.foreign('program_id').references('maha_programs.id')
       })
     })
 
@@ -65,9 +74,9 @@ const MigratePrograms = {
       from (
       select
       1 as priority,
-      crm_programs.team_id,
+      maha_programs.team_id,
       crm_email_addresses.contact_id,
-      crm_programs.id as program_id,
+      maha_programs.id as program_id,
       'email' as type,
       crm_email_addresses.id as email_address_id,
       null::integer as phone_number_id,
@@ -80,16 +89,16 @@ const MigratePrograms = {
       crm_consents.optedout_at,
       crm_consents.code,
       crm_consents.id is not null and crm_consents.optedout_at is null as has_consented
-      from crm_programs
-      inner join crm_email_addresses on crm_email_addresses.team_id=crm_programs.team_id
-      left join crm_consents on crm_consents.email_address_id=crm_email_addresses.id and crm_consents.program_id=crm_programs.id and crm_consents.type='email'
-      where crm_programs.has_email_channel = true
+      from maha_programs
+      inner join crm_email_addresses on crm_email_addresses.team_id=maha_programs.team_id
+      left join crm_consents on crm_consents.email_address_id=crm_email_addresses.id and crm_consents.program_id=maha_programs.id and crm_consents.type='email'
+      where maha_programs.has_email_channel = true
       union
       select
       2 as priority,
-      crm_programs.team_id,
+      maha_programs.team_id,
       crm_phone_numbers.contact_id,
-      crm_programs.id as program_id,
+      maha_programs.id as program_id,
       'sms' as type,
       null::integer as email_address_id,
       crm_phone_numbers.id as phone_number_id,
@@ -102,16 +111,16 @@ const MigratePrograms = {
       crm_consents.optedout_at,
       crm_consents.code,
       crm_consents.id is not null and crm_consents.optedout_at is null as has_consented
-      from crm_programs
-      inner join crm_phone_numbers on crm_phone_numbers.team_id=crm_programs.team_id
-      left join crm_consents on crm_consents.phone_number_id=crm_phone_numbers.id and crm_consents.program_id=crm_programs.id and crm_consents.type='sms'
-      where crm_programs.has_sms_channel = true
+      from maha_programs
+      inner join crm_phone_numbers on crm_phone_numbers.team_id=maha_programs.team_id
+      left join crm_consents on crm_consents.phone_number_id=crm_phone_numbers.id and crm_consents.program_id=maha_programs.id and crm_consents.type='sms'
+      where maha_programs.has_sms_channel = true
       union
       select
       3 as priority,
-      crm_programs.team_id,
+      maha_programs.team_id,
       crm_phone_numbers.contact_id,
-      crm_programs.id as program_id,
+      maha_programs.id as program_id,
       'voice' as type,
       null::integer as email_address_id,
       crm_phone_numbers.id as phone_number_id,
@@ -124,16 +133,16 @@ const MigratePrograms = {
       crm_consents.optedout_at,
       crm_consents.code,
       crm_consents.id is not null and crm_consents.optedout_at is null as has_consented
-      from crm_programs
-      inner join crm_phone_numbers on crm_phone_numbers.team_id=crm_programs.team_id
-      left join crm_consents on crm_consents.phone_number_id=crm_phone_numbers.id and crm_consents.program_id=crm_programs.id and crm_consents.type='voice'
-      where crm_programs.has_voice_channel = true
+      from maha_programs
+      inner join crm_phone_numbers on crm_phone_numbers.team_id=maha_programs.team_id
+      left join crm_consents on crm_consents.phone_number_id=crm_phone_numbers.id and crm_consents.program_id=maha_programs.id and crm_consents.type='voice'
+      where maha_programs.has_voice_channel = true
       union
       select
       4 as priority,
-      crm_programs.team_id,
+      maha_programs.team_id,
       crm_mailing_addresses.contact_id,
-      crm_programs.id as program_id,
+      maha_programs.id as program_id,
       'mail' as type,
       null::integer as email_address_id,
       null::integer as phone_number_id,
@@ -146,19 +155,13 @@ const MigratePrograms = {
       crm_consents.optedout_at,
       crm_consents.code,
       crm_consents.id is not null and crm_consents.optedout_at is null as has_consented
-      from crm_programs
-      inner join crm_mailing_addresses on crm_mailing_addresses.team_id=crm_programs.team_id
-      left join crm_consents on crm_consents.mailing_address_id=crm_mailing_addresses.id and crm_consents.program_id=crm_programs.id and crm_consents.type='mail'
-      where crm_programs.has_mail_channel = true
+      from maha_programs
+      inner join crm_mailing_addresses on crm_mailing_addresses.team_id=maha_programs.team_id
+      left join crm_consents on crm_consents.mailing_address_id=crm_mailing_addresses.id and crm_consents.program_id=maha_programs.id and crm_consents.type='mail'
+      where maha_programs.has_mail_channel = true
       ) crm_channels
       order by priority asc
     `)
-
-    await knex.schema.dropTable('maha_program_accesses')
-
-    await knex.schema.dropTable('maha_program_members')
-
-    await knex.schema.dropTable('maha_programs')
 
   },
 

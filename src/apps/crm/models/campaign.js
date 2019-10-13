@@ -1,5 +1,5 @@
 import Model from '../../../core/objects/model'
-import Program from './program'
+import Program from '../../maha/models/program'
 
 const Campaign = new Model({
 

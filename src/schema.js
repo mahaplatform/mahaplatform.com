@@ -389,32 +389,6 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('crm_program_accesses', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('program_id').unsigned()
-      table.integer('grouping_id').unsigned()
-      table.integer('group_id').unsigned()
-      table.integer('user_id').unsigned()
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
-    await knex.schema.createTable('crm_programs', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('logo_id').unsigned()
-      table.string('title', 255)
-      table.string('code', 255)
-      table.boolean('has_email_channel')
-      table.boolean('has_sms_channel')
-      table.boolean('has_voice_channel')
-      table.boolean('has_mail_channel')
-      table.boolean('is_private')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
     await knex.schema.createTable('crm_responses', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -961,6 +935,7 @@ const schema = {
       table.text('body')
       table.string('sid', 255)
       table.USER-DEFINED('status')
+      table.decimal('price', 3, 2)
       table.timestamp('received_at')
       table.timestamp('sent_at')
       table.timestamp('created_at')
@@ -1070,6 +1045,7 @@ const schema = {
       table.integer('num_pages')
       table.string('sid', 255)
       table.USER-DEFINED('status')
+      table.decimal('price', 3, 2)
       table.timestamp('received_at')
       table.timestamp('sent_at')
       table.timestamp('created_at')
@@ -1239,6 +1215,7 @@ const schema = {
     await knex.schema.createTable('maha_phone_numbers', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
+      table.integer('program_id').unsigned()
       table.USER-DEFINED('type')
       table.string('sid', 255)
       table.string('number', 255)
@@ -1259,6 +1236,32 @@ const schema = {
       table.string('username', 255)
       table.USER-DEFINED('type')
       table.jsonb('data')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('maha_program_accesses', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('program_id').unsigned()
+      table.integer('grouping_id').unsigned()
+      table.integer('group_id').unsigned()
+      table.integer('user_id').unsigned()
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('maha_programs', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('logo_id').unsigned()
+      table.string('title', 255)
+      table.string('code', 255)
+      table.boolean('has_email_channel')
+      table.boolean('has_sms_channel')
+      table.boolean('has_voice_channel')
+      table.boolean('has_mail_channel')
+      table.boolean('is_private')
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -1726,6 +1729,12 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('competencies_expectations', table => {
+      table.foreign('classification_id').references('competencies_classifications.id')
+      table.foreign('competency_id').references('competencies_competencies.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('competencies_commitments', table => {
       table.foreign('plan_id').references('competencies_plans.id')
       table.foreign('resource_id').references('competencies_resources.id')
@@ -1741,6 +1750,35 @@ const schema = {
     await knex.schema.table('competencies_competencies_resources', table => {
       table.foreign('resource_id').references('competencies_resources.id')
       table.foreign('competency_id').references('competencies_competencies.id')
+    })
+
+    await knex.schema.table('crm_consents', table => {
+      table.foreign('email_address_id').references('crm_email_addresses.id')
+      table.foreign('phone_number_id').references('crm_phone_numbers.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('mailing_address_id').references('crm_mailing_addresses.id')
+      table.foreign('program_id').references('maha_programs.id')
+    })
+
+    await knex.schema.table('crm_subscriptions', table => {
+      table.foreign('email_address_id').references('crm_email_addresses.id')
+      table.foreign('phone_number_id').references('crm_phone_numbers.id')
+      table.foreign('list_id').references('crm_lists.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('mailing_address_id').references('crm_mailing_addresses.id')
+    })
+
+    await knex.schema.table('crm_interests', table => {
+      table.foreign('topic_id').references('crm_topics.id')
+      table.foreign('contact_id').references('crm_contacts.id')
+    })
+
+    await knex.schema.table('drive_access', table => {
+      table.foreign('access_type_id').references('drive_access_types.id')
+      table.foreign('user_id').references('maha_users.id')
+      table.foreign('grouping_id').references('maha_groupings.id')
+      table.foreign('group_id').references('maha_groups.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('appraisals_appraisals', table => {
@@ -1785,15 +1823,7 @@ const schema = {
       table.foreign('note_id').references('crm_notes.id')
       table.foreign('story_id').references('maha_stories.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('crm_programs.id')
-    })
-
-    await knex.schema.table('drive_access', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('access_type_id').references('drive_access_types.id')
-      table.foreign('grouping_id').references('maha_groupings.id')
-      table.foreign('group_id').references('maha_groups.id')
-      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('program_id').references('maha_programs.id')
     })
 
     await knex.schema.table('drive_files', table => {
@@ -1849,9 +1879,9 @@ const schema = {
 
     await knex.schema.table('expenses_expenses', table => {
       table.foreign('user_id').references('maha_users.id')
+      table.foreign('account_id').references('expenses_accounts.id')
       table.foreign('expense_type_id').references('expenses_expense_types.id')
       table.foreign('project_id').references('expenses_projects.id')
-      table.foreign('account_id').references('expenses_accounts.id')
       table.foreign('batch_id').references('expenses_batches.id')
       table.foreign('status_id').references('expenses_statuses.id')
       table.foreign('vendor_id').references('expenses_vendors.id')
@@ -1939,8 +1969,8 @@ const schema = {
       table.foreign('object_owner_id').references('maha_users.id')
       table.foreign('subject_id').references('maha_users.id')
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('app_id').references('maha_apps.id')
       table.foreign('notification_type_id').references('maha_notification_types.id')
+      table.foreign('app_id').references('maha_apps.id')
       table.foreign('story_id').references('maha_stories.id')
       table.foreign('team_id').references('maha_teams.id')
     })
@@ -2022,19 +2052,19 @@ const schema = {
 
     await knex.schema.table('training_fulfillments', table => {
       table.foreign('user_id').references('maha_users.id')
+      table.foreign('offering_id').references('training_offerings.id')
       table.foreign('verification_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('assignment_id').references('training_assignments.id')
-      table.foreign('offering_id').references('training_offerings.id')
       table.foreign('training_id').references('training_trainings.id')
     })
 
-    await knex.schema.table('crm_program_accesses', table => {
+    await knex.schema.table('maha_program_accesses', table => {
       table.foreign('user_id').references('maha_users.id')
       table.foreign('grouping_id').references('maha_groupings.id')
       table.foreign('group_id').references('maha_groups.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('program_id').references('maha_programs.id')
     })
 
     await knex.schema.table('maha_profiles', table => {
@@ -2051,6 +2081,12 @@ const schema = {
       table.foreign('email_campaign_id').references('crm_email_campaigns.id')
     })
 
+    await knex.schema.table('eatfresh_attractions', table => {
+      table.foreign('county_id').references('eatfresh_counties.id')
+      table.foreign('photo_id').references('maha_assets.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('expenses_projects', table => {
       table.foreign('tax_project_id').references('expenses_projects.id')
       table.foreign('team_id').references('maha_teams.id')
@@ -2060,21 +2096,50 @@ const schema = {
       table.foreign('import_id').references('maha_imports.id')
     })
 
-    await knex.schema.table('competencies_competencies', table => {
-      table.foreign('category_id').references('competencies_categories.id')
+    await knex.schema.table('maha_devices', table => {
+      table.foreign('browser_name_id').references('maha_device_values.id')
+      table.foreign('browser_version_id').references('maha_device_values.id')
+      table.foreign('device_type_id').references('maha_device_values.id')
+      table.foreign('display_name_id').references('maha_device_values.id')
+      table.foreign('os_name_id').references('maha_device_values.id')
+      table.foreign('os_version_id').references('maha_device_values.id')
+      table.foreign('platform_type_id').references('maha_device_values.id')
+    })
+
+    await knex.schema.table('maha_users', table => {
+      table.foreign('security_question_id').references('maha_security_questions.id')
+      table.foreign('photo_id').references('maha_assets.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_type_id').references('maha_user_types.id')
+    })
+
+    await knex.schema.table('sites_items', table => {
+      table.foreign('type_id').references('sites_types.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('site_id').references('sites_sites.id')
+    })
+
+    await knex.schema.table('training_answerings', table => {
+      table.foreign('answer_id').references('training_answers.id')
+      table.foreign('question_id').references('training_questions.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('administration_id').references('training_administrations.id')
+    })
+
+    await knex.schema.table('training_answers', table => {
+      table.foreign('question_id').references('training_questions.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('competencies_expectations', table => {
-      table.foreign('classification_id').references('competencies_classifications.id')
-      table.foreign('competency_id').references('competencies_competencies.id')
+    await knex.schema.table('competencies_competencies', table => {
+      table.foreign('category_id').references('competencies_categories.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('crm_calls', table => {
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('program_id').references('maha_programs.id')
     })
 
     await knex.schema.table('crm_contacts_organizations', table => {
@@ -2087,15 +2152,10 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('crm_interests', table => {
-      table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('topic_id').references('crm_topics.id')
-    })
-
     await knex.schema.table('crm_notes', table => {
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('program_id').references('maha_programs.id')
     })
 
     await knex.schema.table('crm_phone_numbers', table => {
@@ -2120,22 +2180,6 @@ const schema = {
       table.foreign('form_id').references('crm_forms.id')
     })
 
-    await knex.schema.table('crm_consents', table => {
-      table.foreign('email_address_id').references('crm_email_addresses.id')
-      table.foreign('phone_number_id').references('crm_phone_numbers.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('mailing_address_id').references('crm_mailing_addresses.id')
-      table.foreign('program_id').references('crm_programs.id')
-    })
-
-    await knex.schema.table('crm_subscriptions', table => {
-      table.foreign('email_address_id').references('crm_email_addresses.id')
-      table.foreign('list_id').references('crm_lists.id')
-      table.foreign('phone_number_id').references('crm_phone_numbers.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('mailing_address_id').references('crm_mailing_addresses.id')
-    })
-
     await knex.schema.table('eatfresh_categories_attractions', table => {
       table.foreign('attraction_id').references('eatfresh_attractions.id')
       table.foreign('category_id').references('eatfresh_categories.id')
@@ -2149,12 +2193,6 @@ const schema = {
     await knex.schema.table('eatfresh_photos', table => {
       table.foreign('attraction_id').references('eatfresh_attractions.id')
       table.foreign('asset_id').references('maha_assets.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('eatfresh_attractions', table => {
-      table.foreign('county_id').references('eatfresh_counties.id')
-      table.foreign('photo_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -2227,20 +2265,13 @@ const schema = {
       table.foreign('logo_id').references('maha_assets.id')
     })
 
-    await knex.schema.table('maha_users', table => {
-      table.foreign('photo_id').references('maha_assets.id')
-      table.foreign('security_question_id').references('maha_security_questions.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('user_type_id').references('maha_user_types.id')
-    })
-
     await knex.schema.table('training_materials', table => {
       table.foreign('asset_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('training_id').references('training_trainings.id')
     })
 
-    await knex.schema.table('crm_programs', table => {
+    await knex.schema.table('maha_programs', table => {
       table.foreign('logo_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
     })
@@ -2256,16 +2287,6 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('from_id').references('maha_numbers.id')
       table.foreign('to_id').references('maha_numbers.id')
-    })
-
-    await knex.schema.table('maha_devices', table => {
-      table.foreign('browser_name_id').references('maha_device_values.id')
-      table.foreign('browser_version_id').references('maha_device_values.id')
-      table.foreign('device_type_id').references('maha_device_values.id')
-      table.foreign('display_name_id').references('maha_device_values.id')
-      table.foreign('os_name_id').references('maha_device_values.id')
-      table.foreign('os_version_id').references('maha_device_values.id')
-      table.foreign('platform_type_id').references('maha_device_values.id')
     })
 
     await knex.schema.table('maha_roles_rights', table => {
@@ -2287,7 +2308,7 @@ const schema = {
 
     await knex.schema.table('crm_lists', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('program_id').references('maha_programs.id')
     })
 
     await knex.schema.table('crm_tags', table => {
@@ -2296,7 +2317,7 @@ const schema = {
 
     await knex.schema.table('crm_topics', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('program_id').references('maha_programs.id')
     })
 
     await knex.schema.table('eatfresh_counties', table => {
@@ -2336,12 +2357,6 @@ const schema = {
       table.foreign('site_id').references('sites_sites.id')
     })
 
-    await knex.schema.table('sites_items', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('site_id').references('sites_sites.id')
-      table.foreign('type_id').references('sites_types.id')
-    })
-
     await knex.schema.table('sites_members', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('site_id').references('sites_sites.id')
@@ -2359,18 +2374,6 @@ const schema = {
     await knex.schema.table('sites_types', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('site_id').references('sites_sites.id')
-    })
-
-    await knex.schema.table('training_answerings', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('administration_id').references('training_administrations.id')
-      table.foreign('answer_id').references('training_answers.id')
-      table.foreign('question_id').references('training_questions.id')
-    })
-
-    await knex.schema.table('training_answers', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('question_id').references('training_questions.id')
     })
 
     await knex.schema.table('training_lessons', table => {
@@ -2405,51 +2408,52 @@ const schema = {
 
     await knex.schema.table('crm_senders', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('program_id').references('maha_programs.id')
     })
 
     await knex.schema.table('maha_phone_numbers', table => {
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('program_id').references('maha_programs.id')
     })
 
     await knex.schema.table('crm_templates', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('program_id').references('maha_programs.id')
       table.foreign('parent_id').references('crm_templates.id')
     })
 
     await knex.schema.table('crm_forms', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('program_id').references('maha_programs.id')
     })
 
     await knex.schema.table('crm_email_campaigns', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('program_id').references('maha_programs.id')
       table.foreign('sender_id').references('crm_senders.id')
       table.foreign('template_id').references('crm_templates.id')
     })
 
     await knex.schema.table('crm_sms_campaigns', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('program_id').references('maha_programs.id')
       table.foreign('number_id').references('maha_numbers.id')
     })
 
     await knex.schema.table('crm_voice_campaigns', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('program_id').references('maha_programs.id')
       table.foreign('number_id').references('maha_numbers.id')
     })
 
     await knex.schema.table('crm_postal_campaigns', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('program_id').references('maha_programs.id')
     })
 
     await knex.schema.table('crm_social_campaigns', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('crm_programs.id')
+      table.foreign('program_id').references('maha_programs.id')
       table.foreign('profile_id').references('maha_profiles.id')
     })
 
@@ -2583,9 +2587,9 @@ union
       crm_channels.code,
       crm_channels.has_consented
       from ( select 1 as priority,
-      crm_programs.team_id,
+      maha_programs.team_id,
       crm_email_addresses.contact_id,
-      crm_programs.id as program_id,
+      maha_programs.id as program_id,
       'email'::text as type,
       crm_email_addresses.id as email_address_id,
       null::integer as phone_number_id,
@@ -2598,15 +2602,15 @@ union
       crm_consents.optedout_at,
       crm_consents.code,
       ((crm_consents.id is not null) and (crm_consents.optedout_at is null)) as has_consented
-      from ((crm_programs
-      join crm_email_addresses on ((crm_email_addresses.team_id = crm_programs.team_id)))
-      left join crm_consents on (((crm_consents.email_address_id = crm_email_addresses.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'email'::crm_consent_type))))
-      where (crm_programs.has_email_channel = true)
+      from ((maha_programs
+      join crm_email_addresses on ((crm_email_addresses.team_id = maha_programs.team_id)))
+      left join crm_consents on (((crm_consents.email_address_id = crm_email_addresses.id) and (crm_consents.program_id = maha_programs.id) and (crm_consents.type = 'email'::crm_consent_type))))
+      where (maha_programs.has_email_channel = true)
       union
       select 2 as priority,
-      crm_programs.team_id,
+      maha_programs.team_id,
       crm_phone_numbers.contact_id,
-      crm_programs.id as program_id,
+      maha_programs.id as program_id,
       'sms'::text as type,
       null::integer as email_address_id,
       crm_phone_numbers.id as phone_number_id,
@@ -2619,15 +2623,15 @@ union
       crm_consents.optedout_at,
       crm_consents.code,
       ((crm_consents.id is not null) and (crm_consents.optedout_at is null)) as has_consented
-      from ((crm_programs
-      join crm_phone_numbers on ((crm_phone_numbers.team_id = crm_programs.team_id)))
-      left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'sms'::crm_consent_type))))
-      where (crm_programs.has_sms_channel = true)
+      from ((maha_programs
+      join crm_phone_numbers on ((crm_phone_numbers.team_id = maha_programs.team_id)))
+      left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = maha_programs.id) and (crm_consents.type = 'sms'::crm_consent_type))))
+      where (maha_programs.has_sms_channel = true)
       union
       select 3 as priority,
-      crm_programs.team_id,
+      maha_programs.team_id,
       crm_phone_numbers.contact_id,
-      crm_programs.id as program_id,
+      maha_programs.id as program_id,
       'voice'::text as type,
       null::integer as email_address_id,
       crm_phone_numbers.id as phone_number_id,
@@ -2640,15 +2644,15 @@ union
       crm_consents.optedout_at,
       crm_consents.code,
       ((crm_consents.id is not null) and (crm_consents.optedout_at is null)) as has_consented
-      from ((crm_programs
-      join crm_phone_numbers on ((crm_phone_numbers.team_id = crm_programs.team_id)))
-      left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'voice'::crm_consent_type))))
-      where (crm_programs.has_voice_channel = true)
+      from ((maha_programs
+      join crm_phone_numbers on ((crm_phone_numbers.team_id = maha_programs.team_id)))
+      left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = maha_programs.id) and (crm_consents.type = 'voice'::crm_consent_type))))
+      where (maha_programs.has_voice_channel = true)
       union
       select 4 as priority,
-      crm_programs.team_id,
+      maha_programs.team_id,
       crm_mailing_addresses.contact_id,
-      crm_programs.id as program_id,
+      maha_programs.id as program_id,
       'mail'::text as type,
       null::integer as email_address_id,
       null::integer as phone_number_id,
@@ -2661,10 +2665,10 @@ union
       crm_consents.optedout_at,
       crm_consents.code,
       ((crm_consents.id is not null) and (crm_consents.optedout_at is null)) as has_consented
-      from ((crm_programs
-      join crm_mailing_addresses on ((crm_mailing_addresses.team_id = crm_programs.team_id)))
-      left join crm_consents on (((crm_consents.mailing_address_id = crm_mailing_addresses.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'mail'::crm_consent_type))))
-      where (crm_programs.has_mail_channel = true)) crm_channels
+      from ((maha_programs
+      join crm_mailing_addresses on ((crm_mailing_addresses.team_id = maha_programs.team_id)))
+      left join crm_consents on (((crm_consents.mailing_address_id = crm_mailing_addresses.id) and (crm_consents.program_id = maha_programs.id) and (crm_consents.type = 'mail'::crm_consent_type))))
+      where (maha_programs.has_mail_channel = true)) crm_channels
       order by crm_channels.priority;
     `)
 

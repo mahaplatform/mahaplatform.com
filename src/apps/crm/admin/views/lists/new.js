@@ -41,7 +41,7 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Enter a name', required: true },
-            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true },
+            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/programs', value: 'id', text: 'title', required: true },
             { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Enter a description', required: true },
             { label: 'Type', name: 'type', type: 'radiogroup', required: true, options: [{ value:'static', text:'Static List' }, { value:'active', text:'Active List' }], defaultValue: type, format: TypeToken },
             ...this._getType()

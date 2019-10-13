@@ -40,6 +40,7 @@ const phone_number = (phone_number) => {
   return {
     id: phone_number.get('id'),
     number: phone_number.get('number'),
+    formatted: phone_number.get('formatted'),
     is_primary: phone_number.get('is_primary')
   }
 }

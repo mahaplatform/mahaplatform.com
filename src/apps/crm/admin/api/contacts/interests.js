@@ -1,6 +1,6 @@
-import Program from '../../../../models/program'
-import Contact from '../../../../models/contact'
-import Topic from '../../../../models/topic'
+import Program from '../../../../maha/models/program'
+import Contact from '../../../models/contact'
+import Topic from '../../../models/topic'
 
 const listRoute = async (req, res) => {
 

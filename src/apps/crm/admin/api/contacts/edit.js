@@ -26,7 +26,7 @@ const editRoute = async (req, res) => {
     })),
     phone_numbers: contact.related('phone_numbers').map(phone_number => ({
       id: phone_number.get('id'),
-      number: phone_number.get('number'),
+      number: phone_number.get('formatted'),
       is_primary: phone_number.get('is_primary')
     })),
     mailing_addresses: contact.related('mailing_addresses').map(mailing_address => ({

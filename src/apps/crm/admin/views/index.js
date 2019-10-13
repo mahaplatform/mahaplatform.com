@@ -19,8 +19,6 @@ import ListsList from './lists/list'
 import ListsShow from './lists/show'
 import OrganizationsList from './organizations/list'
 import OrganizationsShow from './organizations/show'
-import ProgramsList from './programs/list'
-import ProgramsShow from './programs/show'
 import SendersList from './senders/list'
 import TemplateList from './templates/list'
 import TemplatesShow from './templates/show'
@@ -49,8 +47,6 @@ const routes = [
   { path: '/lists/:id', component: ListsShow },
   { path: '/organizations', component: OrganizationsList },
   { path: '/organizations/:id', component: OrganizationsShow },
-  { path: '/programs', component: ProgramsList },
-  { path: '/programs/:id', component: ProgramsShow },
   { path: '/senders', component: SendersList },
   { path: '/templates', component: TemplateList },
   { path: '/templates/:id', component: TemplatesShow },

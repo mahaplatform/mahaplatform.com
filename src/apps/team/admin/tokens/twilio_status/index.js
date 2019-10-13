@@ -1,7 +1,7 @@
 import React from 'react'
 
 const FaxStatusToken = ({ value }) => (
-  <div className={`fax-status-token ${value}`}>
+  <div className={`twilio-status-token ${value}`}>
     { value }
   </div>
 )

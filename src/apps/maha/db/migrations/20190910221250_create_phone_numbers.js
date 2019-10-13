@@ -5,6 +5,8 @@ const CreatePhoneNumber = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
+      table.integer('program_id').unsigned()
+      table.foreign('program_id').references('maha_programs.id')
       table.enum('type', ['voice','fax'], { useNative: true, enumName: 'maha_phone_numbers_type' })
       table.string('sid')
       table.string('number')

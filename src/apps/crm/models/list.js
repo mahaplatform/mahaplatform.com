@@ -1,6 +1,6 @@
 import Model from '../../../core/objects/model'
+import Program from '../../maha/models/program'
 import EmailAddress from './email_address'
-import Program from './program'
 
 const List = new Model({
 

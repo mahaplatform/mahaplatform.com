@@ -1,6 +1,6 @@
 import NumberField from '../../components/numberfield'
+import { Form, ProgramToken } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
 import React from 'react'
 
 class New extends React.Component {
@@ -9,14 +9,7 @@ class New extends React.Component {
     modal: PropTypes.object
   }
 
-  static propTypes = {}
-
-  state = {
-    areacode: null
-  }
-
   _handleCancel = this._handleCancel.bind(this)
-  _handleChangeField = this._handleChangeField.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
@@ -29,13 +22,13 @@ class New extends React.Component {
       method: 'post',
       action: '/api/admin/team/phone_numbers',
       onCancel: this._handleCancel,
-      onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
       saveText: 'Provision',
       sections: [
         {
           fields: [
             { label: 'Type', name: 'type', type: 'radiogroup', options: [{ value: 'voice', text: 'Voice / SMS' },{ value: 'fax', text: 'Fax' }], required: true, defaultValue: 'voice' },
+            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/programs', value: 'id', text: 'title', required: true, format: ProgramToken },
             { label: 'Number', name: 'number', type: NumberField, required: true }
           ]
         }
@@ -43,28 +36,8 @@ class New extends React.Component {
     }
   }
 
-  // _getNumbers() {
-  //   const { areacode, address } = this.state
-  //   if(!address || !areacode) return []
-  //   return [
-  //     { name: 'number', type: Numbers, address, areacode }
-  //   ]
-  // }
-
   _handleCancel() {
     this.context.modal.close()
-  }
-
-  _handleChangeField(name, value) {
-    if(name === 'areacode') {
-      this.setState({
-        areacode: value
-      })
-    } else if(name === 'address') {
-      this.setState({
-        address: value
-      })
-    }
   }
 
   _handleSuccess() {

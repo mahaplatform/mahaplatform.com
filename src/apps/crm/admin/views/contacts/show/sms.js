@@ -1,6 +1,18 @@
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Form, Logo } from 'maha-admin'
 import React from 'react'
+
+const PhoneNumberToken = ({ formatted, program }) => (
+  <div className="program-token">
+    <div className="program-token-logo">
+      <Logo team={ program } width="24" />
+    </div>
+    <div className="program-token-label">
+      <strong>{ program.title }</strong><br />
+      { formatted }
+    </div>
+  </div>
+)
 
 class SMS extends React.Component {
 
@@ -14,7 +26,6 @@ class SMS extends React.Component {
 
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
-
 
   render() {
     return <Form { ...this._getForm() } />
@@ -31,8 +42,8 @@ class SMS extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'From', name: 'from_number_id', type: 'lookup', endpoint: '/api/admin/team/phone_numbers', filter: { type: { $eq: 'voice' } }, value: 'id', text: 'number' },
-            { label: 'To', name: 'to_number_id', type: 'lookup', options: contact.phone_numbers, value: 'id', text: 'number' },
+            { label: 'From', name: 'from_number_id', type: 'lookup', endpoint: '/api/admin/team/phone_numbers', filter: { type: { $eq: 'voice' } }, value: 'id', text: 'formatted', format: PhoneNumberToken },
+            { label: 'To', name: 'to_number_id', type: 'lookup', options: contact.phone_numbers, value: 'id', text: 'formatted' },
             { label: 'Message', name: 'body', type: 'textarea' },
             { label: 'Attachments', name: 'asset_ids', type: 'attachmentfield', multiple: true }
           ]
