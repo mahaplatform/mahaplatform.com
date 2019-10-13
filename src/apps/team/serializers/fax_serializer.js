@@ -2,9 +2,11 @@ const FaxSerializer = (req, result) => ({
   id: result.get('id'),
   to: number(result.related('to')),
   from: number(result.related('from')),
+  direction: result.get('direction'),
   type: result.get('type'),
   status: result.get('status'),
   asset: asset(result.related('asset')),
+  num_pages: result.get('num_pages'),
   price: result.get('price'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

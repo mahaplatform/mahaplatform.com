@@ -1,4 +1,3 @@
-import SMSSerializer from '../../../../maha/serializers/sms_serializer'
 import FromPhoneNumber from '../../../../maha/models/phone_number'
 import { createSMS } from '../../../../maha/services/smses'
 import ToPhoneNumber from '../../../models/phone_number'
@@ -46,14 +45,14 @@ const smsRoute = async (req, res) => {
     message: 'Unable to load number'
   })
 
-  const sms = await createSMS(req, {
+  await createSMS(req, {
     from: from.get('number'),
     to: to.get('number'),
     body: req.body.body,
     asset_ids: req.body.asset_ids
   })
 
-  res.status(200).respond(sms, SMSSerializer)
+  res.status(200).respond(true)
 
 }
 

@@ -19,7 +19,7 @@ export const createSMS = async (req, params) => {
     team_id: req.team.get('id'),
     from_id: from.get('id'),
     to_id: to.get('id'),
-    type: 'outgoing',
+    direction: 'outbound',
     body: params.body
   }).save(null, {
     transacting: req.trx

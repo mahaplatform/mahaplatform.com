@@ -1,4 +1,4 @@
-import { Page } from 'maha-admin'
+import { Page, ProgramToken } from 'maha-admin'
 import New from './new'
 import Edit from './edit'
 import React from 'react'
@@ -10,7 +10,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/team/programs',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Title', key: 'title', primary: true }
+      { label: 'Title', key: 'title', primary: true, format: ProgramToken }
     ],
     recordTasks: (program) => [
       {

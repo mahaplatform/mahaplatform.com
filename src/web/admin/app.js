@@ -30,6 +30,7 @@ import adminformHtmlfield from './components/form/htmlfield'
 import adminformLinkfield from './components/form/linkfield'
 import adminformLookup from './components/form/lookup'
 import adminformLookup2 from './components/form/lookup2'
+import adminformPhonenumberfield from './components/form/phonenumberfield'
 import adminformProfilefield from './components/form/profilefield'
 import adminform from './components/form'
 import adminformSelectCheckboxGroup from './components/form/select/checkbox_group'
@@ -126,7 +127,6 @@ import mahastars from '../../apps/maha/admin/roots/stars'
 import platformapps from '../../apps/platform/admin/components/apps'
 import sitessitesImportFinalize from '../../apps/sites/admin/components/sites_import_finalize'
 import teamaccess from '../../apps/team/admin/components/access'
-import teamnumberfield from '../../apps/team/admin/components/numberfield'
 import teamroles from '../../apps/team/admin/components/roles'
 import trainingoptions from '../../apps/training/admin/components/options'
 import traininganswers from '../../apps/training/admin/components/questions/answers'
@@ -276,6 +276,7 @@ class App extends React.Component {
       adminformLinkfield,
       adminformLookup,
       adminformLookup2,
+      adminformPhonenumberfield,
       adminformProfilefield,
       adminform,
       adminformSelectCheckboxGroup,
@@ -372,7 +373,6 @@ class App extends React.Component {
       platformapps,
       sitessitesImportFinalize,
       teamaccess,
-      teamnumberfield,
       teamroles,
       trainingoptions,
       traininganswers,

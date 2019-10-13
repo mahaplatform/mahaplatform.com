@@ -10,7 +10,7 @@ const CreateSms = {
       table.foreign('from_id').references('maha_numbers.id')
       table.integer('to_id').unsigned()
       table.foreign('to_id').references('maha_numbers.id')
-      table.enum('type', ['incoming','outgoing'], { useNative: true, enumName: 'maha_smses_type' })
+      table.enum('direction', ['inbound','outbound'], { useNative: true, enumName: 'maha_smses_direction' })
       table.text('body')
       table.string('sid')
       table.enum('status', ['queued','sent','delivered','received','failed'], { useNative: true, enumName: 'maha_smses_status' })

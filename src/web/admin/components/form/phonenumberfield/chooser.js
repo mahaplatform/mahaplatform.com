@@ -1,6 +1,9 @@
-import { Loader, Message, ModalPanel, TextField } from 'maha-admin'
+import ModalPanel from '../../modal_panel'
+import TextField from '../textfield'
 import { connect } from 'react-redux'
+import Message from '../../message'
 import PropTypes from 'prop-types'
+import Loader from '../../loader'
 import React from 'react'
 
 class Chooser extends React.PureComponent {
@@ -99,9 +102,9 @@ class Chooser extends React.PureComponent {
 }
 
 const mapStateToProps = (state, props) => ({
-  chosen: state.team.numberfield[props.cid].chosen,
-  numbers: state.team.numberfield[props.cid].numbers,
-  status: state.team.numberfield[props.cid].status
+  chosen: state.maha.phonenumberfield[props.cid].chosen,
+  numbers: state.maha.phonenumberfield[props.cid].numbers,
+  status: state.maha.phonenumberfield[props.cid].status
 })
 
 export default connect(mapStateToProps)(Chooser)

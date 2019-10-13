@@ -3,7 +3,7 @@ import Chooser from './chooser'
 import React from 'react'
 import _ from 'lodash'
 
-class NumberField extends React.PureComponent {
+class PhoneNumberField extends React.PureComponent {
 
   static contextTypes = {
     form: PropTypes.object
@@ -91,4 +91,4 @@ class NumberField extends React.PureComponent {
 
 }
 
-export default NumberField
+export default PhoneNumberField

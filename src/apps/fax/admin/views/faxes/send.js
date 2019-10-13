@@ -26,9 +26,9 @@ class Send extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'From', name: 'number_id', type: 'lookup', placeholder: 'Choose Sending Number', endpoint: '/api/admin/team/numbers', filter: { type: { $eq: 'fax' } }, value: 'id', text: 'number' },
-            { label: 'To', name: 'to', type: 'textfield', placeholder: 'Enter To Number' },
-            { label: 'Document', name: 'asset_id', type: 'attachmentfield', prompt: 'Choose Document', multiple: false }
+            { label: 'From', name: 'number_id', type: 'lookup', placeholder: 'Choose Sending Number', endpoint: '/api/admin/team/numbers', filter: { type: { $eq: 'fax' } }, value: 'id', text: 'number', required: true },
+            { label: 'To', name: 'to', type: 'textfield', placeholder: 'Enter To Number', required: true },
+            { label: 'Document', name: 'asset_id', type: 'attachmentfield', prompt: 'Choose Document', multiple: false, required: true }
           ]
         }
       ]

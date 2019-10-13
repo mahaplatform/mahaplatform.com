@@ -4,6 +4,7 @@ const SMSCampaignSerializer = (req, result) => ({
   program: program(result.related('program')),
   number: number(result.related('number')),
   code: result.get('code'),
+  direction: result.get('direction'),
   status: result.get('status'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

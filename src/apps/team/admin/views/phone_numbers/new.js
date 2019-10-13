@@ -1,4 +1,3 @@
-import NumberField from '../../components/numberfield'
 import { Form, ProgramToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -28,8 +27,8 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Type', name: 'type', type: 'radiogroup', options: [{ value: 'voice', text: 'Voice / SMS' },{ value: 'fax', text: 'Fax' }], required: true, defaultValue: 'voice' },
-            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/programs', value: 'id', text: 'title', required: true, format: ProgramToken },
-            { label: 'Number', name: 'number', type: NumberField, required: true }
+            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/programs', value: 'id', text: 'title', format: ProgramToken },
+            { label: 'Number', name: 'number', type: 'phonenumberfield', required: true }
           ]
         }
       ]

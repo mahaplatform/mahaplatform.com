@@ -21,7 +21,7 @@ const redirectRoute = async (req, res) => {
   await Fax.forge({
     team_id: number.get('team_id'),
     number_id: number.get('id'),
-    type: direction,
+    direction,
     from,
     sid,
     status

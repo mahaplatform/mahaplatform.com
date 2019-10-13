@@ -20,7 +20,11 @@ const destroyRoute = async (req, res) => {
 
   await twilio.incomingPhoneNumbers(phone_number.get('sid')).remove()
 
-  await phone_number.destroy()
+  await phone_number.save({
+    is_active: false
+  }, {
+    transacting: req.trx
+  })
 
   await activity(req, {
     story: 'released {object}',

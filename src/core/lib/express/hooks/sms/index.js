@@ -9,6 +9,6 @@ const router = new Router({ mergeParams: true })
 
 router.post('/feedback', feedback)
 
-router.post('/receive', receive)
+router.post('/', receive)
 
 export default router

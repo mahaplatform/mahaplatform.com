@@ -1,12 +1,12 @@
 import { Factory } from 'redux-rubberstamp'
 import reducer from './reducer'
-import NumberField from './numberfield'
+import PhoneNumberField from './phonenumberfield'
 import * as selectors from './selectors'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'team.numberfield',
-  component: NumberField,
+  namespace: 'maha.phonenumberfield',
+  component: PhoneNumberField,
   reducer,
   selectors,
   actions

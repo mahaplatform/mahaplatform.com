@@ -34,7 +34,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     icon: 'plus',
     items: [
       {
-        label: 'Provision Phone Number',
+        label: 'Provision Number',
         modal: New
       }
     ]

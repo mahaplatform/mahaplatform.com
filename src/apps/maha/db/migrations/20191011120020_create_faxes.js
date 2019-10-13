@@ -16,7 +16,7 @@ const CreateFax = {
       table.foreign('to_id').references('maha_numbers.id')
       table.integer('asset_id').unsigned()
       table.foreign('asset_id').references('maha_assets.id')
-      table.enum('type', ['inbound','outbound'], { useNative: true, enumName: 'maha_faxes_type' })
+      table.enum('direction', ['inbound','outbound'], { useNative: true, enumName: 'maha_faxes_direction' })
       table.integer('num_pages')
       table.string('sid')
       table.enum('status', ['pending','queued','no-answer','busy','failed','answering_machine','hangup','sent','receiving','received'], { useNative: true, enumName: 'maha_faxes_status' })

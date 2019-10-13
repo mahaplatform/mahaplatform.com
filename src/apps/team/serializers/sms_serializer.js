@@ -4,7 +4,7 @@ const SMSSerializer = (req, result) => ({
   from: number(result.related('from')),
   attachments: result.related('attachments').map(attachment),
   body: result.get('body'),
-  type: result.get('type'),
+  direction: result.get('direction'),
   status: result.get('status'),
   price: result.get('price'),
   created_at: result.get('created_at'),

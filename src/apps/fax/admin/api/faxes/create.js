@@ -1,34 +1,28 @@
 import { activity } from '../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../core/services/routes/params'
-import { findOrCreateNumber } from '../../../../maha/services/numbers'
-import SendFaxQueue from '../../../../maha/queues/send_fax_queue'
 import socket from '../../../../../core/services/routes/emitter'
 import FaxSerializer from '../../../serializers/fax_serializer'
-import Fax from '../../../../maha/models/fax'
+import PhoneNumber from '../../../../maha/models/phone_number'
+import { sendFax } from '../../../../maha/services/faxes'
 
 const createRoute = async (req, res) => {
 
-  const from = await findOrCreateNumber(req, {
-    number: req.body.from
-  })
-
-  const to = await findOrCreateNumber(req, {
-    number: req.body.to
-  })
-
-  const fax = await Fax.forge({
-    team_id: req.team.get('id'),
-    type: 'outbound',
-    status: 'pending',
-    from_id: from.get('id'),
-    to_id: to.get('id'),
-    ...whitelist(req.body, ['asset_id'])
-  }).save(null, {
+  const from = await PhoneNumber.scope({
+    team: req.team
+  }).query(qb => {
+    qb.where('id', req.body.from_number_id)
+  }).fetch({
     transacting: req.trx
   })
 
-  await SendFaxQueue.enqueue(req, {
-    id: fax.get('id')
+  if(!from) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load number'
+  })
+
+  const fax = await sendFax(req, {
+    from: from.get('number'),
+    to: req.body.to,
+    asset_id: req.body.asset_id
   })
 
   await activity(req, {
