@@ -10,7 +10,7 @@ const PhoneNumber = new Model({
 
   virtuals: {
 
-    friendly() {
+    formatted() {
       const parts = this.get('number').match(/\+1(\d{3})(\d{3})(\d{4})/)
       return `(${parts[1]}) ${parts[2]}-${parts[3]}`
     }

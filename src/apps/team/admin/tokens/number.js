@@ -1,8 +1,8 @@
 import React from 'react'
 
-const NumberToken = ({ number, locality, region }) => (
+const NumberToken = ({ formatted, locality, region }) => (
   <div className="token">
-    <strong>{ number }</strong><br />
+    <strong>{ formatted }</strong><br />
     { locality }, { region }
   </div>
 )

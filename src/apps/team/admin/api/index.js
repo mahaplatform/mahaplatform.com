@@ -12,6 +12,8 @@ import emails from './emails'
 import faxes from './faxes'
 import roles from './roles'
 import users from './users'
+import calls from './calls'
+import smses from './smses'
 import apps from './apps'
 
 const router = new Router({ mergeParams: true })
@@ -21,6 +23,8 @@ router.use('/access', access)
 router.use('/activities', activities)
 
 router.use('/apps', apps)
+
+router.use('/calls', calls)
 
 router.use('/device_values', device_values)
 
@@ -37,6 +41,8 @@ router.use('/roles', roles)
 router.use('/sessions', sessions)
 
 router.use('/settings', settings)
+
+router.use('/smses', smses)
 
 router.use('/supervisors', supervisors)
 

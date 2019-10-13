@@ -2,10 +2,14 @@ const navigation = async (req) => ({
   items: [
     { label: 'Activities', rights: ['team:manage_team'], route: '/activities' },
     { label: 'Apps', rights: ['team:manage_apps'], route: '/apps' },
-    { label: 'Emails', rights: ['team:manage_team'], route: '/emails' },
-    { label: 'Faxes', route: '/faxes' },
+    { label: 'Communication', items: [
+      { label: 'Email', rights: ['team:manage_team'], route: '/emails' },
+      { label: 'Calls', route: '/calls' },
+      { label: 'Numbers', route: '/phone_numbers' },
+      { label: 'Faxes', route: '/faxes' },
+      { label: 'SMS', route: '/sms' }
+    ] },
     { label: 'Groups', rights: ['team:manage_people'], route: '/groups' },
-    { label: 'Phone Numbers', route: '/phone_numbers' },
     { label: 'Roles', rights: ['team:manage_people'], route: '/roles' },
     { label: 'Sessions', rights: ['team:manage_people'], route: '/sessions' },
     { label: 'Settings', rights: ['team:manage_team'], route: '/settings' },
