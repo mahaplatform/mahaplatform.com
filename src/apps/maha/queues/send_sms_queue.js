@@ -1,8 +1,8 @@
 import Queue from '../../../core/objects/queue'
-import { sendSMS } from '../services/smses'
+import { queueSMS } from '../services/smses'
 
 const processor = async (job, trx) => {
-  await sendSMS({ trx }, {
+  await queueSMS({ trx }, {
     id: job.data.id
   })
 }

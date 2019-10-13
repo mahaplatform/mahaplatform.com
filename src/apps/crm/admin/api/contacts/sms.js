@@ -1,5 +1,5 @@
 import FromPhoneNumber from '../../../../maha/models/phone_number'
-import { createSMS } from '../../../../maha/services/smses'
+import { sendSMS } from '../../../../maha/services/smses'
 import ToPhoneNumber from '../../../models/phone_number'
 import Contact from '../../../models/contact'
 
@@ -45,7 +45,7 @@ const smsRoute = async (req, res) => {
     message: 'Unable to load number'
   })
 
-  await createSMS(req, {
+  await sendSMS(req, {
     from: from.get('number'),
     to: to.get('number'),
     body: req.body.body,

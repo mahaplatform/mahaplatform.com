@@ -1,4 +1,4 @@
-import { Page } from 'maha-admin'
+import { Page, TwilioStatusToken } from 'maha-admin'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Calls',

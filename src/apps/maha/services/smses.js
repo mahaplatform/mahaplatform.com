@@ -69,13 +69,14 @@ export const createSMS = async (req, params) => {
   })
 
   const sms = await SMS.forge({
-    team_id: req.team.get('id'),
+    team_id: params.team_id || req.team.get('id'),
     from_id: from.get('id'),
     to_id: to.get('id'),
     direction: 'outbound',
     body: params.body,
     num_media: params.asset_ids ? params.asset_ids.length : 0,
-    status: 'queued'
+    status: 'queued',
+    sid: params.sid
   }).save(null, {
     transacting: req.trx
   })
@@ -92,6 +93,15 @@ export const createSMS = async (req, params) => {
     })
   }
 
+  return sms
+
+}
+
+
+export const sendSMS = async (req, params) => {
+
+  const sms = await createSMS(req, params)
+
   await SendSMSQueue.enqueue(req, {
     id: sms.get('id')
   })
@@ -100,7 +110,7 @@ export const createSMS = async (req, params) => {
 
 }
 
-export const sendSMS = async (req, { id }) => {
+export const queueSMS = async (req, { id }) => {
 
   const sms = await SMS.query(qb => {
     qb.where('id', id)
@@ -127,6 +137,7 @@ export const sendSMS = async (req, { id }) => {
       status: 'queued',
       sent_at: moment()
     }, {
+      patch: true,
       transacting: req.trx
     })
 
@@ -135,6 +146,7 @@ export const sendSMS = async (req, { id }) => {
     await sms.save({
       status: 'failed'
     }, {
+      patch: true,
       transacting: req.trx
     })
 
@@ -156,6 +168,7 @@ export const updateSMS = async (req, { price, sid, status }) => {
     price,
     status
   }, {
+    patch: true,
     transacting: req.trx
   })
 
