@@ -1,6 +1,6 @@
-import collectObjects from '../../../../utils/collect_objects'
 import PhoneNumber from '../../../../../apps/maha/models/phone_number'
 import { receiveSMS } from '../../../../../apps/maha/services/smses'
+import collectObjects from '../../../../utils/collect_objects'
 import socket from '../../../../services/routes/emitter'
 import twilio from '../../../../services/twilio'
 
@@ -10,9 +10,7 @@ const receiveRoute = async (req, res) => {
 
   const incoming = req.body
 
-  const message = await twilio.messages(incoming.MessageSid).fetch()
-
-  const { body, from, sid, to } = message
+  const { body, from, sid, to } = await twilio.messages(incoming.MessageSid).fetch()
 
   const phone_number = await PhoneNumber.where({
     number: to

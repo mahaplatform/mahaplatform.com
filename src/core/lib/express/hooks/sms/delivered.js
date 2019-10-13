@@ -30,8 +30,6 @@ const deliveredRoute = async (req, res) => {
     })
   }
 
-  console.log(message)
-
   await updateSMS(req, {
     price: Math.abs(message.price),
     sid: message.sid,
