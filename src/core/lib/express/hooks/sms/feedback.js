@@ -13,7 +13,7 @@ const feedbackRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    '/admin/team/smses'
+    '/admin/team/sms'
   ])
 
   res.status(200).send(true)

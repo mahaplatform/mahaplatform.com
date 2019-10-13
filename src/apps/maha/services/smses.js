@@ -2,8 +2,62 @@ import SMSAttachment from '../models/sms_attachment'
 import SendSMSQueue from '../queues/send_sms_queue'
 import twilio from '../../../core/services/twilio'
 import { findOrCreateNumber } from './numbers'
+import { createAssetFromUrl } from './assets'
 import SMS from '../models/sms'
 import moment from 'moment'
+import _ from 'lodash'
+
+export const receiveSMS = async (req, params) => {
+
+  const from = await findOrCreateNumber(req, {
+    number: params.from
+  })
+
+  const to = await findOrCreateNumber(req, {
+    number: params.to
+  })
+
+  const { body, price, sid, incoming } = params
+
+  const num_media = parseInt(incoming.NumMedia)
+
+  const sms = await SMS.forge({
+    team_id: params.team_id,
+    from_id: from.get('id'),
+    to_id: to.get('id'),
+    direction: 'inbound',
+    num_media,
+    body,
+    price,
+    sid,
+    status: 'received',
+    received_at: moment()
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  if(num_media > 0) {
+    await Promise.map(Array(num_media).fill(0), async(num, index) => {
+      if(!incoming[`MediaUrl${index}`]) return
+      const asset = await createAssetFromUrl(req, {
+        url: incoming[`MediaUrl${index}`],
+        team_id: params.team_id,
+        user_id: null,
+        source: 'sms'
+      })
+      await SMSAttachment.forge({
+        team_id: params.team_id,
+        sms_id: sms.get('id'),
+        asset_id: asset.get('id')
+      }).save(null, {
+        transacting: req.trx
+      })
+    })
+  }
+
+  return sms
+
+}
 
 export const createSMS = async (req, params) => {
 
@@ -20,7 +74,9 @@ export const createSMS = async (req, params) => {
     from_id: from.get('id'),
     to_id: to.get('id'),
     direction: 'outbound',
-    body: params.body
+    body: params.body,
+    num_media: params.asset_ids ? params.asset_ids.length : 0,
+    status: 'queued'
   }).save(null, {
     transacting: req.trx
   })

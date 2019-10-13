@@ -11,7 +11,7 @@ const listRoute = async (req, res) => {
     sortParams: ['created_at']
   }).fetchPage({
     page: req.query.$page,
-    withRelated: ['to','from','attachments.asset'],
+    withRelated: ['to','from'],
     transacting: req.trx
   })
 

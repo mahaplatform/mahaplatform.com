@@ -9,6 +9,8 @@ const router = new Router({ mergeParams: true })
 
 router.post('/feedback', feedback)
 
+router.post('/status', (req, res) => res.send(true))
+
 router.post('/', receive)
 
 

@@ -20,18 +20,14 @@ const redirectRoute = async (req, res) => {
 
   await Fax.forge({
     team_id: number.get('team_id'),
-    number_id: number.get('id'),
     direction,
     from,
+    to,
     sid,
     status
   }).save(null, {
     transacting: req.trx
   })
-
-  await socket.refresh(req, [
-    '/admin/team/faxes'
-  ])
 
   const response = new twiml.FaxResponse()
 
@@ -39,6 +35,10 @@ const redirectRoute = async (req, res) => {
     method: 'POST',
     action: `${process.env.TWIML_HOST}/fax/update`
   })
+
+  await socket.refresh(req, [
+    '/admin/team/faxes'
+  ])
 
   res.status(200).type('application/xml').send(response.toString())
 
