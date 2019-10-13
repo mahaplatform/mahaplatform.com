@@ -10,7 +10,7 @@ const receiveRoute = async (req, res) => {
 
   const incoming = await twilio.fax.faxes(FaxSid).fetch()
 
-  const { mediaUrl, num_pages, sid, status } = incoming
+  const { mediaUrl, num_pages, price, sid, status } = incoming
 
   const fax = await Fax.where({
     sid
@@ -29,6 +29,7 @@ const receiveRoute = async (req, res) => {
     asset_id: asset ? asset.get('id') : null,
     num_pages,
     status,
+    price,
     received_at: moment()
   }, {
     transacting: req.trx

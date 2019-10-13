@@ -1,5 +1,4 @@
 import MakeCallQueue from '../../../../maha/queues/make_call_queue'
-import twilio from '../../../../../core/services/twilio'
 import PhoneNumber from '../../../models/phone_number'
 import Number from '../../../../maha/models/number'
 import Call from '../../../../maha/models/call'
