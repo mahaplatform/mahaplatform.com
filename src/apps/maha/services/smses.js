@@ -5,7 +5,6 @@ import { findOrCreateNumber } from './numbers'
 import { createAssetFromUrl } from './assets'
 import SMS from '../models/sms'
 import moment from 'moment'
-import _ from 'lodash'
 
 export const receiveSMS = async (req, params) => {
 
@@ -17,7 +16,7 @@ export const receiveSMS = async (req, params) => {
     number: params.to
   })
 
-  const { body, price, sid, incoming } = params
+  const { body, sid, incoming } = params
 
   const num_media = parseInt(incoming.NumMedia)
 
@@ -28,7 +27,7 @@ export const receiveSMS = async (req, params) => {
     direction: 'inbound',
     num_media,
     body,
-    price,
+    price: num_media > 0 ? num_media * 0.01 : 0.0075,
     sid,
     status: 'received',
     received_at: moment()
