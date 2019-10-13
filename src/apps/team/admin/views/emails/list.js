@@ -2,7 +2,7 @@ import { Page } from 'maha-admin'
 import EmailToken from '../../tokens/email'
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Sent Mail',
+  title: 'Email',
   rights: ['team:manage_team'],
   collection: {
     endpoint: '/api/admin/team/emails',

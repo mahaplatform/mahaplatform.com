@@ -5,7 +5,6 @@ import CallList from './calls/list'
 import EmailsList from './emails/list'
 import EmailsShow from './emails/show'
 import FaxesList from './faxes/list'
-import FaxesShow from './faxes/show'
 import GroupsList from './groups/list'
 import GroupsShow from './groups/show'
 import PhoneNumbersList from './phone_numbers/list'
@@ -30,7 +29,6 @@ const routes = [
   { path: '/emails', component: EmailsList },
   { path: '/emails/:id', component: EmailsShow },
   { path: '/faxes', component: FaxesList },
-  { path: '/faxes/:id', component: FaxesShow },
   { path: '/groups', component: GroupsList },
   { path: '/groups/:id', component: GroupsShow },
   { path: '/phone_numbers', component: PhoneNumbersList },

@@ -22,7 +22,7 @@ const createFile = (filepath, templateName, data = {}) => {
 
 const app = async (args) => {
   const [ appName ] = args
-  const root = path.join('src','web','apps',appName)
+  const root = path.join('src','apps',appName)
   const data = { appName }
   createFile(`${root}/admin/api/index.js`, 'app/api.js', data)
   createFile(`${root}/admin/badges/.gitkeep`, 'app/gitkeep', data)

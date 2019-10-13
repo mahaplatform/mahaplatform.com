@@ -1,18 +1,6 @@
+import { Form, Logo, PhoneNumberToken } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { Form, Logo } from 'maha-admin'
 import React from 'react'
-
-const PhoneNumberToken = ({ formatted, program }) => (
-  <div className="program-token">
-    <div className="program-token-logo">
-      <Logo team={ program } width="24" />
-    </div>
-    <div className="program-token-label">
-      <strong>{ program.title }</strong><br />
-      { formatted }
-    </div>
-  </div>
-)
 
 class SMS extends React.Component {
 

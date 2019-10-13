@@ -1,6 +1,4 @@
-import TwilioStatusToken from '../../tokens/twilio_status'
-import { Page } from 'maha-admin'
-import Send from './send'
+import { Page, TwilioStatusToken } from 'maha-admin'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Faxes',
@@ -17,15 +15,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     empty: 'You have not yet sent or received any faxes',
     entity: 'fax',
     icon: 'fax',
-    link: (record) => `/admin/team/faxes/${record.id}`,
-    new: Send,
     defaultSort: { key: 'created_at', order: 'desc' }
-  },
-  task: {
-    label: 'New Group',
-    icon: 'plus',
-    modal: Send,
-    rights: ['team:manage_people']
   }
 })
 
