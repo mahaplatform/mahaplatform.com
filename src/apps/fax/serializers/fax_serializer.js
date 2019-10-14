@@ -15,7 +15,8 @@ const number = (number) => {
   return {
     id: number.get('id'),
     number: number.get('number'),
-    formatted: number.get('formatted')
+    formatted: number.get('formatted'),
+    name: number.get('name')
   }
 }
 

@@ -104,12 +104,14 @@ export const queueFax = async (req, { id }) => {
     const result = await twilio.fax.faxes.create({
       from: fax.related('from').get('number'),
       to: fax.related('to').get('number'),
-      mediaUrl: fax.related('asset').get('signed_url')
+      mediaUrl: fax.related('asset').get('signed_url'),
+      StatusCallbackMethod: 'POST',
+      statusCallback: `${process.env.TWIML_HOST}/fax/feedback`
     })
 
     await fax.save({
       sid: result.sid,
-      status: 'queued',
+      status: 'sending',
       sent_at: moment()
     }, {
       patch: true,
@@ -128,5 +130,23 @@ export const queueFax = async (req, { id }) => {
     throw(err)
 
   }
+
+}
+
+export const updateFax = async (req, { price, sid, status }) => {
+
+  const sms = await Fax.query(qb => {
+    qb.where('sid', sid)
+  }).fetch({
+    transacting: req.trx
+  })
+
+  await sms.save({
+    price,
+    status
+  }, {
+    patch: true,
+    transacting: req.trx
+  })
 
 }

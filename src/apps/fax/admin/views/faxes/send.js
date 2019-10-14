@@ -9,6 +9,10 @@ class Send extends React.Component {
     router: PropTypes.object
   }
 
+  static propTypes = {
+    numbers: PropTypes.array
+  }
+
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
@@ -20,19 +24,30 @@ class Send extends React.Component {
     return {
       title: 'Send Fax',
       method: 'post',
-      action: '/api/admin/faxes/faxes',
+      action: '/api/admin/fax/faxes',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
+      saveText: 'Send',
       sections: [
         {
           fields: [
-            { label: 'From', name: 'number_id', type: 'lookup', placeholder: 'Choose Sending Number', endpoint: '/api/admin/numbers', filter: { type: { $eq: 'fax' } }, value: 'id', text: 'number', required: true },
-            { label: 'To', name: 'to', type: 'textfield', placeholder: 'Enter To Number', required: true },
+            ...this._getFrom(),
+            { label: 'To', name: 'to', type: 'phonefield', placeholder: 'Enter To Number', required: true },
             { label: 'Document', name: 'asset_id', type: 'attachmentfield', prompt: 'Choose Document', multiple: false, required: true }
           ]
         }
       ]
     }
+  }
+
+  _getFrom() {
+    const { numbers } = this.props
+    if(numbers.length > 1) {
+      return [{ label: 'From', name: 'from_number_id', type: 'lookup', placeholder: 'Choose From Number', endpoint: '/api/admin/fax/numbers', filter: { type: { $eq: 'fax' } }, value: 'id', text: 'formatted', required: true }]
+    } else if(numbers.length === 1) {
+      return [{ name: 'from_number_id', type: 'hidden', defaultValue: numbers[0].id }]
+    }
+    return []
   }
 
   _handleCancel() {

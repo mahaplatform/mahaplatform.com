@@ -86,7 +86,7 @@ class Table extends React.Component {
                   }
                   { columns.filter(column => column.visible !== false).map((column, columnIndex) => (
                     <td key={ `cell_${rowIndex}_${columnIndex}` } className={ this._getBodyClass(column) } onClick={ this._handleClick.bind(this, record, rowIndex) }>
-                      <Format { ...record } format={ column.format } value={ _.get(record, column.key) } />
+                      <Format { ...record } format={ column.format } value={ this._getValue(record, column.key) } />
                     </td>
                   )) }
                   { recordTasks &&
@@ -157,6 +157,16 @@ class Table extends React.Component {
     return {
       columns: this.props.display,
       onToggleHidden
+    }
+  }
+
+  _getValue(record, key) {
+    if(typeof key === 'function') {
+      return key(record)
+    } else if(typeof key === 'string') {
+      return _.get(record, key)
+    } else {
+      return ''
     }
   }
 

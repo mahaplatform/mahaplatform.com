@@ -403,7 +403,7 @@ class App extends React.Component {
       { path: '/admin/drive', children: driveRoutes },
       { path: '/admin/eatfresh', children: eatfreshRoutes },
       { path: '/admin/expenses', children: expensesRoutes },
-      { path: '/admin/faxes', children: faxRoutes },
+      { path: '/admin/fax', children: faxRoutes },
       { path: '/admin/learning', children: competenciesRoutes },
       { path: '/admin', children: mahaRoutes },
       { path: '/admin/platform', children: platformRoutes },

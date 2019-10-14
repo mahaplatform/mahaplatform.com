@@ -19,8 +19,8 @@ const receiveRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    '/admin/team/faxes',
-    '/admin/faxes'
+    '/admin/fax/faxes/incoming',
+    '/admin/team/faxes'
   ])
 
   res.status(200).send(null)

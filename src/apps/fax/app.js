@@ -1,7 +1,7 @@
 const app = {
   code: 'fax',
   title: 'Fax',
-  path: '/faxes',
+  path: '/fax',
   description: '',
   color: 'brown',
   icon: 'fax'

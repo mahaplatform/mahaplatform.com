@@ -2,6 +2,7 @@ import { activity } from '../../../../../core/services/routes/activities'
 import socket from '../../../../../core/services/routes/emitter'
 import FaxSerializer from '../../../serializers/fax_serializer'
 import PhoneNumber from '../../../../maha/models/phone_number'
+import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import { sendFax } from '../../../../maha/services/faxes'
 
 const createRoute = async (req, res) => {
@@ -19,9 +20,11 @@ const createRoute = async (req, res) => {
     message: 'Unable to load number'
   })
 
+  const to = parsePhoneNumberFromString(req.body.to, 'US')
+
   const fax = await sendFax(req, {
     from: from.get('number'),
-    to: req.body.to,
+    to: to.number,
     asset_id: req.body.asset_id
   })
 
@@ -31,6 +34,7 @@ const createRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
+    '/admin/fax/faxes/outgoing',
     '/admin/team/faxes'
   ])
 
