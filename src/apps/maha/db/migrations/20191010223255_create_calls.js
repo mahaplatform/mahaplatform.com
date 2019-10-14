@@ -1,6 +1,11 @@
 const CreateCall = {
 
   up: async (knex) => {
+
+    await knex('maha_sources').insert({
+      text: 'call'
+    })
+
     await knex.schema.createTable('maha_calls', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -19,6 +24,7 @@ const CreateCall = {
       table.timestamp('sent_at')
       table.timestamps()
     })
+
   },
 
   down: async (knex) => {

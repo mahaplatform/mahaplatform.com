@@ -1,8 +1,8 @@
-import { createSMS, updateSMS } from '../../../../../apps/maha/services/smses'
-import PhoneNumber from '../../../../../apps/maha/models/phone_number'
-import SMS from '../../../../../apps/maha/models/sms'
-import socket from '../../../../services/routes/emitter'
-import twilio from '../../../../services/twilio'
+import { createSMS, updateSMS } from '../../../../apps/maha/services/smses'
+import PhoneNumber from '../../../../apps/maha/models/phone_number'
+import SMS from '../../../../apps/maha/models/sms'
+import socket from '../../../services/routes/emitter'
+import twilio from '../../../services/twilio'
 
 const deliveredRoute = async (req, res) => {
 

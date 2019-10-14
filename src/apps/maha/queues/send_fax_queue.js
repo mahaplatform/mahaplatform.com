@@ -1,8 +1,8 @@
 import Queue from '../../../core/objects/queue'
-import { sendFax } from '../services/faxes'
+import { queueFax } from '../services/faxes'
 
 const processor = async (job, trx) => {
-  await sendFax({ trx }, {
+  await queueFax({ trx }, {
     id: job.data.id
   })
 }

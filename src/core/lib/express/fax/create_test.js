@@ -1,4 +1,4 @@
-import { testHandler } from '../../../hooks/utils/test'
+import { testHandler } from '../hooks/utils/test'
 import { expect } from 'chai'
 import create from './create'
 

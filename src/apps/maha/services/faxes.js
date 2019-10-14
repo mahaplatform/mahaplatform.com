@@ -1,10 +1,67 @@
+import { createAssetFromUrl } from '../services/assets'
 import SendFaxQueue from '../queues/send_fax_queue'
 import twilio from '../../../core/services/twilio'
 import { findOrCreateNumber } from './numbers'
 import Fax from '../models/fax'
 import moment from 'moment'
 
-export const createCall = async (req, params) => {
+export const createFax = async (req, params) => {
+
+  const { status, sid } = params
+
+  const from = await findOrCreateNumber(req, {
+    number: params.from
+  })
+
+  const to = await findOrCreateNumber(req, {
+    number: params.to
+  })
+
+  const fax = await Fax.forge({
+    team_id: params.team_id || req.team.get('id'),
+    from_id: from.get('id'),
+    to_id: to.get('id'),
+    direction: 'inbound',
+    sid,
+    status
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  return fax
+
+}
+
+export const receiveFax = async (req, params) => {
+
+  const { mediaUrl, num_pages, price, sid, status } = params
+
+  const fax = await Fax.query(qb => {
+    qb.where('sid', sid)
+  }).fetch({
+    transacting: req.trx
+  })
+
+  const asset = mediaUrl ? await createAssetFromUrl(req, {
+    url: mediaUrl,
+    team_id: fax.get('team_id'),
+    user_id: null,
+    source: 'fax'
+  }) : null
+
+  await fax.save({
+    asset_id: asset ? asset.get('id') : null,
+    num_pages,
+    status,
+    price,
+    received_at: moment()
+  }, {
+    transacting: req.trx
+  })
+
+}
+
+export const sendFax = async (req, params) => {
 
   const from = await findOrCreateNumber(req, {
     number: params.from
@@ -33,7 +90,7 @@ export const createCall = async (req, params) => {
 
 }
 
-export const sendFax = async (req, { id }) => {
+export const queueFax = async (req, { id }) => {
 
   const fax = await Fax.query(qb => {
     qb.where('id', id)
@@ -55,6 +112,7 @@ export const sendFax = async (req, { id }) => {
       status: 'queued',
       sent_at: moment()
     }, {
+      patch: true,
       transacting: req.trx
     })
 
@@ -63,6 +121,7 @@ export const sendFax = async (req, { id }) => {
     await fax.save({
       status: 'failed'
     }, {
+      patch: true,
       transacting: req.trx
     })
 

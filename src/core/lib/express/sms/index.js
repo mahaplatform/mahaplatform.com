@@ -1,9 +1,9 @@
 import transaction from '../transaction'
+import delivered from './delivered'
+import feedback from './feedback'
 import { Router } from 'express'
+import receive from './receive'
 import logger from '../logger'
-import voice from './voice'
-import fax from './fax'
-import sms from './sms'
 
 const router = new Router({ mergeParams: true })
 
@@ -11,10 +11,10 @@ router.use(transaction)
 
 router.use(logger)
 
-router.use('/voice', voice)
+router.post('/feedback', feedback)
 
-router.use('/fax', fax)
+router.post('/delivered', delivered)
 
-router.use('/sms', sms)
+router.post('/', receive)
 
 export default router

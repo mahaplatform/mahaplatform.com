@@ -1,6 +1,6 @@
-import { updateCall } from '../../../../../apps/maha/services/calls'
-import socket from '../../../../services/routes/emitter'
-import twilio from '../../../../services/twilio'
+import { updateCall } from '../../../../apps/maha/services/calls'
+import socket from '../../../services/routes/emitter'
+import twilio from '../../../services/twilio'
 
 const feedbackRoute = async (req, res) => {
 

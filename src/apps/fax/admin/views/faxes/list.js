@@ -16,15 +16,14 @@ const mapPropsToPage = (props, context, resources, page) => ({
     empty: 'You have not yet sent or received any faxes',
     entity: 'fax',
     icon: 'fax',
-    link: (record) => `/admin/team/faxes/${record.id}`,
+    link: (record) => `/admin/faxes/${record.id}`,
     new: Send,
     defaultSort: { key: 'created_at', order: 'desc' }
   },
   task: {
     label: 'New Group',
     icon: 'plus',
-    modal: Send,
-    rights: ['team:manage_people']
+    modal: Send
   }
 })
 

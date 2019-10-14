@@ -20,13 +20,13 @@ class Send extends React.Component {
     return {
       title: 'Send Fax',
       method: 'post',
-      action: '/api/admin/team/faxes',
+      action: '/api/admin/faxes/faxes',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'From', name: 'number_id', type: 'lookup', placeholder: 'Choose Sending Number', endpoint: '/api/admin/team/numbers', filter: { type: { $eq: 'fax' } }, value: 'id', text: 'number', required: true },
+            { label: 'From', name: 'number_id', type: 'lookup', placeholder: 'Choose Sending Number', endpoint: '/api/admin/numbers', filter: { type: { $eq: 'fax' } }, value: 'id', text: 'number', required: true },
             { label: 'To', name: 'to', type: 'textfield', placeholder: 'Enter To Number', required: true },
             { label: 'Document', name: 'asset_id', type: 'attachmentfield', prompt: 'Choose Document', multiple: false, required: true }
           ]

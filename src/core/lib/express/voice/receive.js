@@ -1,10 +1,10 @@
-import PhoneNumber from '../../../../../apps/maha/models/phone_number'
-import { receiveCall } from '../../../../../apps/maha/services/calls'
-import collectObjects from '../../../../utils/collect_objects'
-import socket from '../../../../services/routes/emitter'
-import twilio from '../../../../services/twilio'
+import PhoneNumber from '../../../../apps/maha/models/phone_number'
+import { receiveCall } from '../../../../apps/maha/services/calls'
+import collectObjects from '../../../utils/collect_objects'
+import socket from '../../../services/routes/emitter'
+import twilio from '../../../services/twilio'
 
-const voiceFiles = collectObjects('hooks/voice/*')
+const voiceHooks = collectObjects('hooks/voice/*')
 
 const receiveRoute = async (req, res) => {
 
@@ -26,7 +26,7 @@ const receiveRoute = async (req, res) => {
     status
   })
 
-  const response = await Promise.reduce(voiceFiles, async (response, hook) => {
+  const response = await Promise.reduce(voiceHooks, async (response, hook) => {
     return await hook.default(req, call)
   }, null)
 
