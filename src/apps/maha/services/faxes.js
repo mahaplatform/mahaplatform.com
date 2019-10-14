@@ -73,6 +73,7 @@ export const sendFax = async (req, params) => {
 
   const fax = await Fax.forge({
     team_id: req.team.get('id'),
+    user_id: req.user.get('id'),
     direction: 'outbound',
     status: 'pending',
     from_id: from.get('id'),

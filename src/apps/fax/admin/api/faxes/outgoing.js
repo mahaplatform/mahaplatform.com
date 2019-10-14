@@ -6,6 +6,7 @@ const outgoingRoute = async (req, res) => {
   const faxes = await Fax.scope({
     team: req.team
   }).query(qb => {
+    qb.where('user_id', req.user.get('id'))
     qb.where('direction', 'outbound')
   }).sort({
     sort: req.query.$sort,

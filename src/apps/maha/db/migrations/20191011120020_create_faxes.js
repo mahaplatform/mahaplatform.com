@@ -10,6 +10,8 @@ const CreateFax = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
+      table.integer('user_id').unsigned()
+      table.foreign('user_id').references('maha_users.id')
       table.integer('from_id').unsigned()
       table.foreign('from_id').references('maha_numbers.id')
       table.integer('to_id').unsigned()
