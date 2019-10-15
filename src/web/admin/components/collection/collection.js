@@ -20,7 +20,6 @@ class Collection extends React.Component {
   }
 
   static propTypes = {
-    alert: PropTypes.any,
     buttons: PropTypes.any,
     cacheKey: PropTypes.string,
     criteria: PropTypes.array,
@@ -87,7 +86,7 @@ class Collection extends React.Component {
   _handleRefresh = this._handleRefresh.bind(this)
 
   render() {
-    const { alert, buttons, criteria, endpoint, filters, filtering, records, selected } = this.props
+    const { buttons, criteria, endpoint, filters, filtering, records, selected } = this.props
     return (
       <div className="maha-collection">
         <Header { ...this._getHeader() } />
@@ -103,11 +102,6 @@ class Collection extends React.Component {
             </div>
           }
         </div>
-        { alert &&
-          <div className="maha-collection-alert">
-            { alert }
-          </div>
-        }
         { buttons &&
           <CSSTransition in={ selected.length > 0 } classNames="expanded" timeout={ 100 } mountOnEnter={ true } unmountOnExit={ true }>
             <div className="maha-collection-footer">

@@ -24,6 +24,7 @@ class Page extends React.Component {
   }
 
   static propTypes = {
+    alert: PropTypes.any,
     access: PropTypes.func,
     active: PropTypes.bool,
     buttons: PropTypes.array,
@@ -66,7 +67,7 @@ class Page extends React.Component {
 
   render() {
     const { access, error } = this.state
-    const { buttons, collection, message, panel, sidebar, tabs } = this.props
+    const { alert, buttons, collection, message, panel, sidebar, tabs } = this.props
     const Component = this.props.component
     if(access === null) return null
     if(error) return this.renderError()
@@ -87,6 +88,11 @@ class Page extends React.Component {
             { panel && <Panel { ...panel } /> }
             { this.props.children }
           </div>
+          { alert &&
+            <div className="maha-page-alert">
+              { alert }
+            </div>
+          }
         </div>
         <CSSTransition in={ !_.isNil(buttons) } classNames="expanded" timeout={ 150 } mountOnEnter={ true } unmountOnExit={ true }>
           <div className="maha-page-footer">

@@ -7,12 +7,14 @@ const mapResourcesToPage = (props, context) => ({
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Incoming Faxes',
+  alert: resources.numbers.length > 0 ? (
+    <span>
+      <i className="fa fa-fw fa-fax" /> You can receive faxes at <strong>
+        { resources.numbers[0].formatted }
+      </strong>
+    </span>
+  ) : null,
   collection: {
-    alert: (
-      <span>
-        You can receive faxes at <strong>{ resources.numbers[0].formatted }</strong>
-      </span>
-    ),
     endpoint: '/api/admin/fax/faxes/incoming',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
