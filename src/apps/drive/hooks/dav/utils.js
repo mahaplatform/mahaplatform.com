@@ -3,8 +3,8 @@ import Item from '../../models/item'
 export const loadItem = async (req, res, next) => {
   if(req.fullpath.length === 0) return next()
   if(req.method === 'MKCOL') return next()
-  req.item = await Item.scope({
-    team: req.team
+  req.item = await Item.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.select('drive_items.*','drive_access_types.text as access_type')
     qb.joinRaw('inner join drive_items_access on drive_items_access.code=drive_items.code and drive_items_access.user_id=?', req.user.get('id'))

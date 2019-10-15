@@ -8,8 +8,8 @@ import moment from 'moment'
 
 const showRoute = async (req, res) => {
 
-  const message = await Message.scope({
-    team: req.team
+  const message = await Message.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

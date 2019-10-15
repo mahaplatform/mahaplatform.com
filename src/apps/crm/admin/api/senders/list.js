@@ -3,8 +3,8 @@ import Sender from '../../../models/sender'
 
 const listRoute = async (req, res) => {
 
-  const senders = await Sender.scope({
-    team: req.team
+  const senders = await Sender.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
     filterParams: ['program_id']

@@ -4,8 +4,8 @@ import Notification from '../../../models/notification'
 
 const listRoute = async (req, res) => {
 
-  const notifications = await Notification.scope({
-    team: req.team
+  const notifications = await Notification.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('user_id', req.user.get('id'))
   }).filter({

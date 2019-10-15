@@ -2,8 +2,8 @@ import Contact from '../../../models/contact'
 
 const editRoute = async (req, res) => {
 
-  const contact = await Contact.scope({
-    team: req.team
+  const contact = await Contact.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

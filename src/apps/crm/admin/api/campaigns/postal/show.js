@@ -3,8 +3,8 @@ import PostalCampaign from '../../../../models/postal_campaign'
 
 const showRoute = async (req, res) => {
 
-  const campaign = await PostalCampaign.scope({
-    team: req.team
+  const campaign = await PostalCampaign.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('code', req.params.id)
   }).fetch({

@@ -9,8 +9,8 @@ const getList = (service, type) => {
 
 const listRoute = (type) => async (req, res) => {
 
-  const profile = await Profile.scope({
-    team: req.team
+  const profile = await Profile.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.profile_id )
   }).fetch({

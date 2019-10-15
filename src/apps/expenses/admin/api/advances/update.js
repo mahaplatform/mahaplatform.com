@@ -8,8 +8,8 @@ import Advance from '../../../models/advance'
 
 const updateRoute = async (req, res) => {
 
-  const advance = await Advance.scope({
-    team: req.team
+  const advance = await Advance.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

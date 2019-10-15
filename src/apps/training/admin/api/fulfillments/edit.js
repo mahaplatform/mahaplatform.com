@@ -2,8 +2,8 @@ import Fulfillment from '../../../models/fulfillment'
 
 const showRoute = async (req, res) => {
 
-  const fulfillment = await Fulfillment.scope({
-    team: req.team
+  const fulfillment = await Fulfillment.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

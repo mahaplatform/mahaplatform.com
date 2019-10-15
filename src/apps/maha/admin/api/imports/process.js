@@ -5,8 +5,8 @@ import Import from '../../../models/import'
 
 const processRoute = async (req, res) => {
 
-  const _import = await Import.scope({
-    team: req.team
+  const _import = await Import.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

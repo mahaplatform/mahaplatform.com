@@ -13,8 +13,8 @@ const getLineItems = (item, line_items) => {
 
 const updateRoute = async (req, res) => {
 
-  const reimbursement = await Reimbursement.scope({
-    team: req.team
+  const reimbursement = await Reimbursement.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
@@ -27,8 +27,8 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load reimbursement'
   })
 
-  const line_items = await Reimbursement.scope({
-    team: req.team
+  const line_items = await Reimbursement.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('code', reimbursement.get('code'))
   }).fetchAll({

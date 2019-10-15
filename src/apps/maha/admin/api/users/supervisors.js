@@ -3,10 +3,9 @@ import User from '../../../models/user'
 
 const supervisorsRoute = async (req, res) => {
 
-  const users = await User.scope({
-    team: req.team
-  }).query(qb => {
+  const users = await User.scope(qb => {
     qb.innerJoin('maha_supervisors', 'maha_supervisors.user_id', 'maha_users.id')
+    qb.where('team_id', req.team.get('id'))
     qb.where('is_active', true)
   }).filter({
     filter: req.query.$filter,

@@ -3,8 +3,8 @@ import Subscription from '../../../models/subscription'
 
 const listRoute = async (req, res) => {
 
-  const subscriptions = await Subscription.scope({
-    team: req.team
+  const subscriptions = await Subscription.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).sort({
     sort: req.query.$sort
   }).fetchPage({

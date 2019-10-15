@@ -5,8 +5,8 @@ import Field from '../../../models/field'
 
 const update = async (req, res) => {
 
-  const field = await Field.scope({
-    team: req.team
+  const field = await Field.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

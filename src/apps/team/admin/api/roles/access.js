@@ -4,8 +4,8 @@ import App from '../../../../maha/models/app'
 
 const accessRoute = async (req, res) => {
 
-  const role = await Role.scope({
-    team: req.team
+  const role = await Role.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

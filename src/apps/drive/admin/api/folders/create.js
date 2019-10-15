@@ -4,8 +4,8 @@ import Item from '../../../models/item'
 
 const createRoute = async (req, res) => {
 
-  const preexisting = await Item.scope({
-    team: req.team
+  const preexisting = await Item.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.joinRaw('inner join drive_items_access on drive_items_access.code=drive_items.code and drive_items_access.user_id=?', req.user.get('id'))
     qb.whereNull('drive_items.deleted_at')

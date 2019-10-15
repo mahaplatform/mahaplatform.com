@@ -3,8 +3,8 @@ import Offering from '../../../models/offering'
 
 const listRoute = async (req, res) => {
 
-  const offerings = await Offering.scope({
-    team: req.team
+  const offerings = await Offering.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filterParams: ['training_id'],
     filter: req.query.$filter

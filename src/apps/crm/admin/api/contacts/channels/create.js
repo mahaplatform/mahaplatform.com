@@ -19,8 +19,8 @@ const _getKey = (type) => {
 
 const _getConsent = async (req, { program_id, key, type, id, optin_reason }) => {
 
-  const consent = await Consent.scope({
-    team: req.team
+  const consent = await Consent.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('program_id', program_id)
     qb.where('type', type)
@@ -50,24 +50,24 @@ const _getConsent = async (req, { program_id, key, type, id, optin_reason }) => 
 
 const _getChannel = async (req, { type, id }) => {
   if(type === 'email') {
-    return await EmailAddress.scope({
-      team: req.team
+    return await EmailAddress.scope(qb => {
+      qb.where('team_id', req.team.get('id'))
     }).query(qb => {
       qb.where('id', id)
     }).fetch({
       transacting: req.trx
     }).then(result => result.get('address'))
   } else if(_.includes(['sms','voice'], type)) {
-    return await PhoneNumber.scope({
-      team: req.team
+    return await PhoneNumber.scope(qb => {
+      qb.where('team_id', req.team.get('id'))
     }).query(qb => {
       qb.where('id', id)
     }).fetch({
       transacting: req.trx
     }).then(result => result.get('number'))
   } else if(type === 'mail') {
-    return await MailingAddress.scope({
-      team: req.team
+    return await MailingAddress.scope(qb => {
+      qb.where('team_id', req.team.get('id'))
     }).query(qb => {
       qb.where('id', id)
     }).fetch({
@@ -78,8 +78,8 @@ const _getChannel = async (req, { type, id }) => {
 
 const createRoute = async (req, res) => {
 
-  const contact = await Contact.scope({
-    team: req.team
+  const contact = await Contact.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
@@ -91,8 +91,8 @@ const createRoute = async (req, res) => {
     message: 'Unable to load contact'
   })
 
-  const program = await Program.scope({
-    team: req.team
+  const program = await Program.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.body.program_id)
   }).fetch({

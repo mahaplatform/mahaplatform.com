@@ -5,8 +5,8 @@ const createOrUpdateAnswer = async (req, question, data) => {
 
   if(data.id) {
 
-    const answer = await Answer.scope({
-      team: req.team
+    const answer = await Answer.scope(qb => {
+      qb.where('team_id', req.team.get('id'))
     }).query(qb => {
       qb.where('id', data.id)
     }).fetch({

@@ -3,11 +3,10 @@ import User from '../../../../maha/models/user'
 
 const listRoute = async (req, res) => {
 
-  const users = await User.scope({
-    team: req.team
-  }).query(qb => {
+  const users = await User.scope(qb => {
     qb.innerJoin('maha_supervisions', 'supervisor_id', 'id')
     qb.whereRaw('maha_supervisions.employee_id=?', req.user.get('id'))
+    qb.where('maha_users.team_id', req.team.get('id'))
   }).fetchPage({
     page: req.query.$page,
     withRelated: ['photo'],

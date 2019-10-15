@@ -14,20 +14,15 @@ const fetchPagePlugin = function(bookshelf) {
 
     const skip = page && page.skip ? parseInt(page.skip) : DEFAULT_SKIP
 
-    const team_id = await new Promise((resolve, reject) => {
-      this.clone().query(qb => {
-        const team = qb._statements.find(statement => {
-          return statement.grouping === 'where' && statement.type === 'whereBasic' && statement.column.match(/team_id/)
-        })
-        resolve(team ? team.value : null)
+    const allsql = await new Promise((resolve, reject) => {
+      this.clone().resetQuery().query(this.scopeQuery).query(qb => {
+        resolve(`select count(*) from (${qb.toString()}) total`)
       })
     })
 
-    const all = await this.clone().resetQuery().query(qb => {
-      if(team_id) qb.where('team_id', team_id)
-    }).count({
-      transacting: trx
-    }).then(result => parseInt(result))
+    const all = await bookshelf.knex.raw(allsql).transacting(trx).then(result => {
+      return parseInt(result.rows[0].count)
+    })
 
     const totalsql = await new Promise((resolve, reject) => {
       this.clone().query(qb => {

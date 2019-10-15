@@ -242,8 +242,8 @@ export const _destroyFile = async (req, file) => {
 
 const _getDotFile = async (req, file) => {
 
-  return await File.scope({
-    team: req.team
+  return await File.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('folder_id', file.get('folder_id'))
     qb.where('label', `._${file.get('label')}`)

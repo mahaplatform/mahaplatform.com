@@ -4,8 +4,8 @@ import _ from 'lodash'
 
 const editRoute = async (req, res) => {
 
-  const expense = await Expense.scope({
-    team: req.team
+  const expense = await Expense.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

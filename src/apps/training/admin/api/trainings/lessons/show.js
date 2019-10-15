@@ -3,8 +3,8 @@ import Lesson from '../../../../models/lesson'
 
 const showRoute = async (req, res) => {
 
-  const lesson = await Lesson.scope({
-    team: req.team
+  const lesson = await Lesson.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

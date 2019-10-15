@@ -5,8 +5,8 @@ import Goal from '../../../../models/goal'
 
 const updateRoute = async (req, res) => {
 
-  const plan = await Plan.scope({
-    team: req.team
+  const plan = await Plan.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.plan_id)
   }).fetch({

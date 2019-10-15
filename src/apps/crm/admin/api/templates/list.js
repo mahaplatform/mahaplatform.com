@@ -3,8 +3,8 @@ import Template from '../../../models/template'
 
 const listRoute = async (req, res) => {
 
-  const templates = await Template.scope({
-    team: req.team
+  const templates = await Template.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
     filterParams: ['program_id']

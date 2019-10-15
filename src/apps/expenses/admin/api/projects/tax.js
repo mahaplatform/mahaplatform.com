@@ -3,8 +3,8 @@ import Project from '../../../models/project'
 
 const taxRoute = async (req, res) => {
 
-  const projects = await Project.scope({
-    team: req.team
+  const projects = await Project.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('type', 'tax')
   }).fetchPage({

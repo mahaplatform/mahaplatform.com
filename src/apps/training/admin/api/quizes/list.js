@@ -3,8 +3,8 @@ import Quiz from '../../../models/quiz'
 
 const quizesRoute = async (req, res) => {
 
-  const quizes = await Quiz.scope({
-    team: req.team
+  const quizes = await Quiz.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     if(req.params.quizable_type === 'trainings') {
       qb.where('training_id', req.params.quizable_id)

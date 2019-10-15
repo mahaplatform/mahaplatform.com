@@ -28,8 +28,8 @@ export const updateResponsibilities = async (req, appraisal, params) => {
         })
       }
 
-      const responsibility  = await Responsibility.scope({
-        team: req.team
+      const responsibility  = await Responsibility.scope(qb => {
+        qb.where('team_id', req.team.get('id'))
       }).query(qb => {
         qb.where('id', data.id)
       }).fetch({

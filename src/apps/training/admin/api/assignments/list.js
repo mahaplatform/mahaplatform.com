@@ -3,9 +3,8 @@ import Assignment from '../../../models/assignment'
 
 const listRoute = async (req, res) => {
 
-  const assignments = await Assignment.scope({
-    team: req.team
-  }).query(qb => {
+  const assignments = await Assignment.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('user_id', req.user.get('id'))
   }).filter({
     filterParams: ['user_id'],

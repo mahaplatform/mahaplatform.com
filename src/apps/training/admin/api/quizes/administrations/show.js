@@ -3,10 +3,9 @@ import Quiz from '../../../../models/quiz'
 
 const getAdministration = async (req, quiz) => {
 
-  const administration = await Administration.scope({
-    team: req.team
+  const administration = await Administration.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
-    qb.where('team_id', req.team.get('id')),
     qb.where('user_id', req.user.get('id'))
     qb.where('quiz_id', quiz.get('id'))
   }).fetch({
@@ -29,8 +28,8 @@ const getAdministration = async (req, quiz) => {
 
 const showRoute = async (req, res) => {
 
-  const quiz = await Quiz.scope({
-    team: req.team
+  const quiz = await Quiz.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.quiz_id)
   }).fetch({

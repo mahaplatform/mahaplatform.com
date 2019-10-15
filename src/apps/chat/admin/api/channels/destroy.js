@@ -3,8 +3,8 @@ import Channel from '../../../models/channel'
 
 const destroyRoute = async (req, res) => {
 
-  const channel = await Channel.scope({
-    team: req.team
+  const channel = await Channel.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.innerJoin('chat_subscriptions', 'chat_subscriptions.channel_id', 'chat_channels.id')
     qb.where('chat_subscriptions.user_id', req.user.get('id'))

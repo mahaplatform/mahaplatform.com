@@ -6,13 +6,12 @@ import Field from '../../../models/field'
 
 const createRoute = async (req, res) => {
 
-  const delta = await Field.scope({
-    team: req.team
-  }).query(qb => {
+  const delta = await Field.scope(qb => {
     qb.where('maha_fields.parent_type', req.params.parent_type)
     if(req.params.parent_id) {
       qb.where('maha_fields.parent_id', req.params.parent_id)
     }
+    qb.where('team_id', req.team.get('id'))
   }).count('*', {
     transacting: req.trx
   })

@@ -4,8 +4,8 @@ import Topic from '../../../models/topic'
 
 const preferencesRoute = async (req, res) => {
 
-  const contact = await Contact.scope({
-    team: req.team
+  const contact = await Contact.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
@@ -32,8 +32,8 @@ const preferencesRoute = async (req, res) => {
     .innerJoin('crm_channels','crm_channels.address_id','crm_addresses.id')
     .where('crm_channels.contact_id', contact.get('id'))
 
-  const topics = await Topic.scope({
-    team: req.team
+  const topics = await Topic.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.select(req.trx.raw('crm_topics.*, crm_interests.topic_id is not null as is_interested'))
     qb.joinRaw('left join crm_interests on crm_interests.topic_id=crm_topics.id and crm_interests.contact_id=?', contact.get('id'))
@@ -41,8 +41,8 @@ const preferencesRoute = async (req, res) => {
     transacting: req.trx
   }).then(results => results.toArray())
 
-  const programs = await Program.scope({
-    team: req.team
+  const programs = await Program.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).fetchAll({
     withRelated: ['logo'],
     transacting: req.trx

@@ -8,8 +8,8 @@ import moment from 'moment'
 
 const getEmailAddress = async (req, { params }) => {
 
-  const email_address = await EmailAddress.scope({
-    team: req.team
+  const email_address = await EmailAddress.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('address', params.email)
   }).fetch({
@@ -53,8 +53,8 @@ const getEmailAddress = async (req, { params }) => {
 
 const getConsent = async (req, { program, email_address, params }) => {
 
-  const consent = await Consent.scope({
-    team: req.team
+  const consent = await Consent.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('program_id', program.get('id'))
     qb.where('email_address_id', email_address.get('id'))
@@ -113,8 +113,8 @@ const subscribeContact = async (req, { program, params }) => {
 
 const subscribeRoute = async (req, res) => {
 
-  const program = await Program.scope({
-    team: req.team
+  const program = await Program.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('code', req.params.code)
   }).fetch({

@@ -5,8 +5,8 @@ import Project from '../../../models/project'
 
 const enableRoute = async (req, res) => {
 
-  const project = await Project.scope({
-    team: req.team
+  const project = await Project.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

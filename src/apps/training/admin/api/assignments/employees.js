@@ -4,10 +4,9 @@ import Assignment from '../../../models/assignment'
 
 const reportRoute = async (req, res) => {
 
-  const assignments = await Assignment.scope({
-    team: req.team
-  }).query(qb => {
+  const assignments = await Assignment.scope(qb => {
     qb.joinRaw('inner join maha_supervisions on maha_supervisions.employee_id=training_assignments.user_id and maha_supervisions.supervisor_id=?', req.user.get('id'))
+    qb.where('training_assignments.team_id', req.team.get('id'))
   }).filter({
     filterParams: ['user_id'],
     filter: req.query.$filter

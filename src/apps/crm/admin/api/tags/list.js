@@ -3,8 +3,8 @@ import Tag from '../../../models/tag'
 
 const listRoute = async (req, res) => {
 
-  const tags = await Tag.scope({
-    team: req.team
+  const tags = await Tag.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx

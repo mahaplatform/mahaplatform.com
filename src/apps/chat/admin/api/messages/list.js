@@ -8,9 +8,8 @@ import moment from 'moment'
 
 const listRoute = async (req, res) => {
 
-  const messages = await Message.scope({
-    team: req.team
-  }).query(qb => {
+  const messages = await Message.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('channel_id', req.params.channel_id)
   }).filter({
     filter: req.query.$filter,

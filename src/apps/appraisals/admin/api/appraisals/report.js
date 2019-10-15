@@ -3,8 +3,8 @@ import Appraisal from '../../../models/appraisal'
 
 const reportRoute = async (req, res) => {
 
-  const appraisals = await Appraisal.scope({
-    team: req.team
+  const appraisals = await Appraisal.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
     filterParams: ['supervisor_id','employee_id']

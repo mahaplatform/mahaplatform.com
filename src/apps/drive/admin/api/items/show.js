@@ -3,8 +3,8 @@ import Item from '../../../models/item'
 
 const showRoute = async (req, res) => {
 
-  const item = await Item.scope({
-    team: req.team
+  const item = await Item.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.select('drive_items.*','drive_access_types.text as access_type')
     qb.joinRaw('inner join drive_items_access on drive_items_access.code=drive_items.code and drive_items_access.user_id=?', req.user.get('id'))

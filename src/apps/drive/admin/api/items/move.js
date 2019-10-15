@@ -13,8 +13,8 @@ const models = {
 
 const moveRoute = async (req, res) => {
 
-  const items = await Item.scope({
-    team: req.team
+  const items = await Item.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.joinRaw('inner join drive_items_access on drive_items_access.code=drive_items.code and drive_items_access.user_id=?', req.user.get('id'))
     qb.whereRaw('drive_items.type != ?', 'metafile')
@@ -25,8 +25,8 @@ const moveRoute = async (req, res) => {
     transacting: req.trx
   }).then(items => items.toArray())
 
-  const folder = await Folder.scope({
-    team: req.team
+  const folder = await Folder.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.body.folder_id)
   }).fetch({

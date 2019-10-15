@@ -3,8 +3,8 @@ import PhoneNumber from '../../../../maha/models/phone_number'
 
 const listRoute = async (req, res) => {
 
-  const phone_numbers = await PhoneNumber.scope({
-    team: req.team
+  const phone_numbers = await PhoneNumber.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
     filterParams: ['type']

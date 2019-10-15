@@ -3,8 +3,8 @@ import Form from '../../../models/form'
 
 const listRoute = async (req, res) => {
 
-  const forms = await Form.scope({
-    team: req.team
+  const forms = await Form.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
     filterParams: ['program_id']

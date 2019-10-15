@@ -3,12 +3,11 @@ import Project from '../../../models/project'
 
 const listRoute = async (req, res) => {
 
-  const projects = await Project.scope({
-    team: req.team
-  }).query(qb => {
+  const projects = await Project.scope(qb => {
     qb.select('expenses_projects.*', 'expenses_member_types.name as member_type')
     qb.joinRaw('inner join expenses_members on expenses_members.project_id=expenses_projects.id and expenses_members.user_id=?', [req.user.get('id')])
     qb.joinRaw('inner join expenses_member_types on expenses_member_types.id=expenses_members.member_type_id')
+    qb.where('expenses_projects.team_id', req.team.get('id'))
     qb.where('expenses_projects.is_active', true)
   }).filter({
     filter: req.query.$filter,

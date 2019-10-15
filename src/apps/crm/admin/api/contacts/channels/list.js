@@ -4,8 +4,8 @@ import Channel from '../../../../models/channel'
 
 const listRoute = async (req, res) => {
 
-  const contact = await Contact.scope({
-    team: req.team
+  const contact = await Contact.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
@@ -17,15 +17,15 @@ const listRoute = async (req, res) => {
     message: 'Unable to load contact'
   })
 
-  const programs = await Program.scope({
-    team: req.team
+  const programs = await Program.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).fetchAll({
     withRelated: ['logo'],
     transacting: req.trx
   }).then(results => results.toArray())
 
-  const channels = await Channel.scope({
-    team: req.team
+  const channels = await Channel.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('contact_id', contact.get('id'))
   }).fetchAll({

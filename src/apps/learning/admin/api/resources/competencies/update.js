@@ -4,8 +4,8 @@ import Resource from '../../../../models/resource'
 
 const updateRoute = async (req, res) => {
 
-  const resource = await Resource.scope({
-    team: req.team
+  const resource = await Resource.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.resource_id)
   }).fetch({

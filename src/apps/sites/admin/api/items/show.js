@@ -4,8 +4,8 @@ import Item from '../../../models/item'
 
 const showRoute = async (req, res) => {
 
-  req.fields = await Field.scope({
-    team: req.team
+  req.fields = await Field.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('parent_type', 'sites_types')
     qb.where('parent_id', req.params.type_id)
@@ -14,8 +14,8 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   }).then(result => result.toArray())
 
-  const item = await Item.scope({
-    team: req.team
+  const item = await Item.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('site_id', req.params.site_id)
     qb.where('type_id', req.params.type_id)

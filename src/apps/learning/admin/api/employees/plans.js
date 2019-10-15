@@ -3,10 +3,9 @@ import Plan from '../../../models/plan'
 
 const plansRoute = async (req, res) => {
 
-  const plans = await Plan.scope({
-    team: req.team
-  }).query(qb => {
+  const plans = await Plan.scope(qb => {
     qb.whereRaw('competencies_plans.employee_id=?', req.params.id)
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
     searchParams: ['id','title']

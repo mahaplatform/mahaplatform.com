@@ -5,8 +5,8 @@ import Contact from '../../../models/contact'
 
 const smsRoute = async (req, res) => {
 
-  const contact = await Contact.scope({
-    team: req.team
+  const contact = await Contact.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
@@ -18,8 +18,8 @@ const smsRoute = async (req, res) => {
     message: 'Unable to load contact'
   })
 
-  const to = await ToPhoneNumber.scope({
-    team: req.team
+  const to = await ToPhoneNumber.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('contact_id', contact.get('id'))
     qb.where('id', req.body.to_number_id)
@@ -32,8 +32,8 @@ const smsRoute = async (req, res) => {
     message: 'Unable to load phone number'
   })
 
-  const from = await FromPhoneNumber.scope({
-    team: req.team
+  const from = await FromPhoneNumber.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.body.from_number_id)
   }).fetch({

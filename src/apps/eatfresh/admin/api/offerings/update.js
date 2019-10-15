@@ -6,8 +6,8 @@ import Offering from '../../../models/offering'
 
 const updateRoute = async (req, res) => {
 
-  const offering = await Offering.scope({
-    team: req.team
+  const offering = await Offering.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

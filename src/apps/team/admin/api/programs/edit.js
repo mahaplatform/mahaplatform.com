@@ -2,8 +2,8 @@ import Program from '../../../../maha/models/program'
 
 const editRoute = async (req, res) => {
 
-  const program = await Program.scope({
-    team: req.team
+  const program = await Program.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

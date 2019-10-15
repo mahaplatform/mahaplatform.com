@@ -4,8 +4,8 @@ import Folder from '../../../models/folder'
 
 const updateRoute = async (req, res) => {
 
-  const folder = await Folder.scope({
-    team: req.team
+  const folder = await Folder.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('code', req.params.code)
   }).fetch({

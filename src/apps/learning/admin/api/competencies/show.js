@@ -3,8 +3,8 @@ import Competency from '../../../models/competency'
 
 const showRoute = async (req, res) => {
 
-  const competency = await Competency.scope({
-    team: req.team
+  const competency = await Competency.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

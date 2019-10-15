@@ -7,8 +7,8 @@ import User from '../../../../maha/models/user'
 
 const rejectRoute = async (req, res) => {
 
-  const attraction = await Attraction.scope({
-    team: req.team
+  const attraction = await Attraction.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
@@ -26,8 +26,8 @@ const rejectRoute = async (req, res) => {
     object: attraction
   })
 
-  const recipient_ids = await User.scope({
-    team: req.team
+  const recipient_ids = await User.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.select(req.trx.raw('distinct on (maha_users.id, maha_users.first_name, maha_users.last_name, maha_users.email) maha_users.*'))
     qb.innerJoin('maha_users_roles', 'maha_users_roles.user_id', 'maha_users.id')

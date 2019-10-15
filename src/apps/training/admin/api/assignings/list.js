@@ -3,8 +3,8 @@ import Assigning from '../../../models/assigning'
 
 const listRoute = async (req, res) => {
 
-  const assignings = await Assigning.scope({
-    team: req.team
+  const assignings = await Assigning.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filterParams: ['assigning_id','user_id'],
     filter: req.query.$filter

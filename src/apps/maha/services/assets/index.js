@@ -30,8 +30,8 @@ export const checkUploadedFile = async (req) => {
   const chunkFilename = _getChunkFilename(req.query.resumableIdentifier, req.query.resumableChunkNumber)
   const exists = await _chunkExists(chunkFilename)
   if(!exists) return false
-  const asset = await Asset.scope({
-    team: req.team
+  const asset = await Asset.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('original_file_name', req.query.resumableFilename)
     qb.where('file_size', req.query.resumableTotalSize)

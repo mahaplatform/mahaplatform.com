@@ -3,8 +3,8 @@ import Plan from '../../../models/plan'
 
 const reportRoute = async (req, res) => {
 
-  const plans = await Plan.scope({
-    team: req.team
+  const plans = await Plan.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
     searchParams: ['id','title']

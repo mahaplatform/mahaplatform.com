@@ -4,8 +4,8 @@ import Manager from '../../../models/manager'
 
 const listRoute = async (req, res) => {
 
-  req.fields = await Field.scope({
-    team: req.team
+  req.fields = await Field.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('parent_type', 'sites_sites')
     qb.where('parent_id', req.params.site_id)
@@ -14,9 +14,8 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   }).then(result => result.toArray())
 
-  const managers = await Manager.scope({
-    team: req.team
-  }).query(qb => {
+  const managers = await Manager.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
     qb.where('site_id', req.params.site_id)
   }).filter({
     filter: req.query.$filter

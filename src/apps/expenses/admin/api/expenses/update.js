@@ -13,8 +13,8 @@ const getLineItems = (item, line_items) => {
 
 const updateRoute = async (req, res) => {
 
-  const expense = await Expense.scope({
-    team: req.team
+  const expense = await Expense.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
@@ -26,8 +26,8 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load expense'
   })
 
-  const line_items = await Expense.scope({
-    team: req.team
+  const line_items = await Expense.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('code', expense.get('code'))
   }).fetchAll({

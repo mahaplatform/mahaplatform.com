@@ -63,8 +63,8 @@ const updateConsent = async(req, { consent, unsubscribe }) => {
 
 const updateInterests = async (req, { contact, program, unsubscribe, interests }) => {
 
-  const topics = await Topic.scope({
-    team: req.team
+  const topics = await Topic.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.select(req.trx.raw('crm_topics.*,crm_interests.topic_id is not null as is_interested'))
     qb.joinRaw('left join crm_interests on crm_interests.topic_id=crm_topics.id and crm_interests.contact_id=?', contact.get('id'))
@@ -121,8 +121,8 @@ const getChannel = (consent) => {
 
 const preferencesRoute = async (req, res) => {
 
-  const consent = await Consent.scope({
-    team: req.team
+  const consent = await Consent.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
@@ -153,8 +153,8 @@ const preferencesRoute = async (req, res) => {
 
   }
 
-  const topics = await Topic.scope({
-    team: req.team
+  const topics = await Topic.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.select(req.trx.raw('crm_topics.*,crm_interests.topic_id is not null as is_interested'))
     qb.joinRaw('left join crm_interests on crm_interests.topic_id=crm_topics.id and crm_interests.contact_id=?', channel.get('contact_id'))

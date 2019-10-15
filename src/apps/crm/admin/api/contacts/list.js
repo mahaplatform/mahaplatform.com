@@ -4,14 +4,13 @@ import Contact from '../../../models/contact'
 
 const listRoute = async (req, res) => {
 
-  const contacts = await Contact.scope({
-    team: req.team
-  }).query(qb => {
+  const contacts = await Contact.scope(qb => {
     qb.select(req.trx.raw('distinct on (crm_contacts.id,crm_contacts.first_name,crm_contacts.last_name,crm_contacts.email) crm_contacts.*'))
     qb.leftJoin('crm_email_addresses', 'crm_email_addresses.contact_id', 'crm_contacts.id')
     qb.leftJoin('crm_phone_numbers', 'crm_phone_numbers.contact_id', 'crm_contacts.id')
     qb.leftJoin('crm_mailing_addresses', 'crm_mailing_addresses.contact_id', 'crm_contacts.id')
     qb.leftJoin('crm_taggings', 'crm_taggings.contact_id', 'crm_contacts.id')
+    qb.where('crm_contacts.team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
     filterParams: ['first_name','last_name','email','phone','crm_taggings.tag_id'],
@@ -26,8 +25,8 @@ const listRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  req.fields = await Field.scope({
-    team: req.team
+  req.fields = await Field.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('parent_type', 'crm_contacts')
     qb.orderBy('delta', 'asc')

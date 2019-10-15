@@ -3,8 +3,8 @@ import VoiceCampaign from '../../../../models/voice_campaign'
 
 const showRoute = async (req, res) => {
 
-  const campaign = await VoiceCampaign.scope({
-    team: req.team
+  const campaign = await VoiceCampaign.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('code', req.params.id)
   }).fetch({

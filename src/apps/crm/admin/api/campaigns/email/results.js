@@ -4,8 +4,8 @@ import EmailResult from '../../../../models/email_result'
 
 const resultsRoute = async (req, res) => {
 
-  const campaign = await EmailCampaign.scope({
-    team: req.team
+  const campaign = await EmailCampaign.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('code', req.params.id)
   }).fetch({
@@ -17,8 +17,8 @@ const resultsRoute = async (req, res) => {
     message: 'Unable to load campaign'
   })
 
-  const result = await EmailResult.scope({
-    team: req.team
+  const result = await EmailResult.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('email_campaign_id', campaign.get('id'))
   }).fetch({

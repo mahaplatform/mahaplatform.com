@@ -2,8 +2,8 @@ import Fulfillment from '../../../../models/fulfillment'
 
 const reviewsRoute = async (req, res) => {
 
-  const fulfillments = await Fulfillment.scope({
-    team: req.team
+  const fulfillments = await Fulfillment.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.whereNotNull('overall_rating')
     qb.where('offering_id', req.params.offering_id)

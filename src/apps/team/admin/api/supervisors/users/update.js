@@ -4,8 +4,8 @@ import Supervisor from '../../../../../maha/models/supervisor'
 
 const updateRoute = async (req, res) => {
 
-  const supervisor = await Supervisor.scope({
-    team: req.team
+  const supervisor = await Supervisor.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

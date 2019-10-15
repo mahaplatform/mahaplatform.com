@@ -14,8 +14,8 @@ import Contact from '../../../models/contact'
 
 const updateRoute = async (req, res) => {
 
-  req.fields = await Field.scope({
-    team: req.team
+  req.fields = await Field.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('parent_type', 'crm_contacts')
     qb.orderBy('delta', 'asc')
@@ -23,8 +23,8 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   }).then(result => result.toArray())
 
-  const contact = await Contact.scope({
-    team: req.team
+  const contact = await Contact.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

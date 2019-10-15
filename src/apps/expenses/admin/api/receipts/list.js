@@ -3,8 +3,8 @@ import Receipt from '../../../models/receipt'
 
 const listRoute = async (req, res) => {
 
-  const receipts = await Receipt.scope({
-    team: req.team
+  const receipts = await Receipt.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filterParams: ['id'],
     filter: req.query.$filter

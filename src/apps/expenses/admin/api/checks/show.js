@@ -3,8 +3,8 @@ import Check from '../../../models/check'
 
 const showRoute = async (req, res) => {
 
-  const check = await Check.scope({
-    team: req.team
+  const check = await Check.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

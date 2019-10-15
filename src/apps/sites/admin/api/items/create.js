@@ -22,8 +22,8 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  req.fields = await Field.scope({
-    team: req.team
+  req.fields = await Field.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('parent_type', 'sites_types')
     qb.where('parent_id', req.params.type_id)
@@ -32,8 +32,8 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   }).then(result => result.toArray())
 
-  const map = await Field.scope({
-    team: req.team
+  const map = await Field.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('parent_type', 'sites_types')
     qb.orderBy(['parent_id','delta'])

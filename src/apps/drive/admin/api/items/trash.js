@@ -3,8 +3,8 @@ import Item from '../../../models/item'
 
 const trashRoute = async (req, res) => {
 
-  const items = await Item.scope({
-    team: req.team
+  const items = await Item.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.joinRaw('inner join drive_items_access on drive_items_access.code=drive_items.code and drive_items_access.user_id=?', req.user.get('id'))
     qb.whereRaw('drive_items.type != ?', 'metafile')

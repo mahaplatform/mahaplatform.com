@@ -3,8 +3,8 @@ import Site from '../../../models/site'
 
 const listRoute = async (req, res) => {
 
-  const sites = await Site.scope({
-    team: req.team
+  const sites = await Site.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter
   }).sort({

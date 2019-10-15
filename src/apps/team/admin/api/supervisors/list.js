@@ -3,10 +3,9 @@ import Supervisor from '../../../../maha/models/supervisor'
 
 const listRoute = async (req, res) => {
 
-  const supervisors = await Supervisor.scope({
-    team: req.team
-  }).query(qb => {
+  const supervisors = await Supervisor.scope(qb => {
     qb.innerJoin('maha_users', 'maha_users.id', 'maha_supervisors.user_id')
+    qb.where('maha_supervisors.team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
     filterParams: ['user_id'],

@@ -7,8 +7,8 @@ import Appraisal from '../../../models/appraisal'
 
 const updateRoute = async (req, res) => {
 
-  const appraisal = await Appraisal.scope({
-    team: req.team
+  const appraisal = await Appraisal.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

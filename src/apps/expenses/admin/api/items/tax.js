@@ -3,12 +3,11 @@ import Item from '../../../models/item'
 
 const taxRoute = async (req, res) => {
 
-  const items = await Item.scope({
-    team: req.team
-  }).query(qb => {
+  const items = await Item.scope(qb => {
     qb.leftJoin('expenses_projects', 'expenses_projects.id', 'expenses_items.tax_project_id')
     qb.leftJoin('expenses_statuses', 'expenses_statuses.id', 'expenses_items.status_id')
     qb.where('expenses_items.user_id', req.user.get('id'))
+    qb.where('expenses_items.team_id', req.team.get('id'))
     qb.whereNotNull('expenses_items.tax')
     qb.whereRaw('expenses_items.tax > ?', 0)
   }).filter({

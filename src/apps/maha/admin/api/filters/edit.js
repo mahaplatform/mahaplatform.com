@@ -2,8 +2,8 @@ import Filter from '../../../models/filter'
 
 const editRoute = async (req, res) => {
 
-  const filter = await Filter.scope({
-    team: req.team
+  const filter = await Filter.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('owner_id', req.user.get('id'))
     qb.where('code', req.params.code)

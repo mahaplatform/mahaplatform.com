@@ -2,8 +2,8 @@ import Trip from '../../../models/trip'
 
 const editRoute = async (req, res) => {
 
-  const trip = await Trip.scope({
-    team: req.team
+  const trip = await Trip.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

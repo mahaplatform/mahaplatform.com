@@ -4,8 +4,8 @@ import Field from '../../../../maha/models/field'
 
 const showRoute = async (req, res) => {
 
-  const organization = await Organization.scope({
-    team: req.team
+  const organization = await Organization.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
@@ -18,8 +18,8 @@ const showRoute = async (req, res) => {
     message: 'Unable to load organization'
   })
 
-  req.fields = await Field.scope({
-    team: req.team
+  req.fields = await Field.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('parent_type', 'crm_organizations')
     qb.orderBy('delta', 'asc')

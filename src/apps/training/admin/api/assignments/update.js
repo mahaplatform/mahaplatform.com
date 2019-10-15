@@ -5,8 +5,8 @@ import Assignment from '../../../models/assignment'
 
 const updateRoute = async (req, res) => {
 
-  const assignment = await Assignment.scope({
-    team: req.team
+  const assignment = await Assignment.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

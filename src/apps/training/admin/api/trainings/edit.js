@@ -2,8 +2,8 @@ import Training from '../../../models/training'
 
 const showRoute = async (req, res) => {
 
-  const training = await Training.scope({
-    team: req.team
+  const training = await Training.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

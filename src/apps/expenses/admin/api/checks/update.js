@@ -13,8 +13,8 @@ const getLineItems = (item, line_items) => {
 
 const updateRoute = async (req, res) => {
 
-  const check = await Check.scope({
-    team: req.team
+  const check = await Check.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
@@ -26,8 +26,8 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load check'
   })
 
-  const line_items = await Check.scope({
-    team: req.team
+  const line_items = await Check.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('code', check.get('code'))
   }).fetchAll({

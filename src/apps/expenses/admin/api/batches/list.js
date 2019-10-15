@@ -3,8 +3,8 @@ import Batch from '../../../models/batch'
 
 const listRoute = async (req, res) => {
 
-  const batches = await Batch.scope({
-    team: req.team
+  const batches = await Batch.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter
   }).sort({

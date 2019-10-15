@@ -11,8 +11,8 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const preexisting = await Item.scope({
-    team: req.team
+  const preexisting = await Item.scope(qb => {
+    qb.where('code', req.params.code)
   }).query(qb => {
     qb.joinRaw('inner join drive_items_access on drive_items_access.code=drive_items.code and drive_items_access.user_id=?', req.user.get('id'))
     qb.whereNull('drive_items.deleted_at')

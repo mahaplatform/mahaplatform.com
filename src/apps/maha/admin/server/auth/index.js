@@ -92,8 +92,8 @@ const ldap = (req, res, next) => {
 
 const loadUserByEmail = async (req, email, done) => {
 
-  const user = await User.scope({
-    team: req.team
+  const user = await User.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('email', email)
   }).fetch({

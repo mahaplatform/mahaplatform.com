@@ -4,8 +4,8 @@ import Group from '../../../../../maha/models/group'
 
 const updateRoute = async (req, res) => {
 
-  const group = await Group.scope({
-    team: req.team
+  const group = await Group.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

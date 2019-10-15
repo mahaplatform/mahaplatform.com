@@ -3,8 +3,8 @@ import Training from '../../../models/training'
 
 const listRoute = async (req, res) => {
 
-  const trainings = await Training.scope({
-    team: req.team
+  const trainings = await Training.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
     filterParams: ['type'],

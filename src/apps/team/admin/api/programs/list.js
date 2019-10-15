@@ -3,8 +3,8 @@ import Program from '../../../../maha/models/program'
 
 const listRoute = async (req, res) => {
 
-  const programs = await Program.scope({
-    team: req.team
+  const programs = await Program.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).fetchPage({
     page: req.query.$page,
     withRelated: ['logo'],

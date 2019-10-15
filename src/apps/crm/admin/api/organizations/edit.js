@@ -2,8 +2,8 @@ import Organization from '../../../models/organization'
 
 const editRoute = async (req, res) => {
 
-  const organization = await Organization.scope({
-    team: req.team
+  const organization = await Organization.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

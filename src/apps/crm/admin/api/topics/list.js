@@ -3,8 +3,8 @@ import Topic from '../../../models/topic'
 
 const listRoute = async (req, res) => {
 
-  const topics = await Topic.scope({
-    team: req.team
+  const topics = await Topic.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
     filterParams: ['program_id']

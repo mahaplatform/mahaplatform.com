@@ -3,8 +3,8 @@ import Assignment from '../../../models/assignment'
 
 const reportRoute = async (req, res) => {
 
-  const assignments = await Assignment.scope({
-    team: req.team
+  const assignments = await Assignment.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filterParams: ['assigning_id','user_id'],
     filter: req.query.$filter

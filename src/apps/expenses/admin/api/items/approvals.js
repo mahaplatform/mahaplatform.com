@@ -9,9 +9,7 @@ const approvalRoute = async (req, res) => {
     message: 'You do not have the rights to access this resource.'
   })
 
-  const items = await Item.scope({
-    team: req.team
-  }).query(qb => {
+  const items = await Item.scope(qb => {
     qb.leftJoin('maha_users', 'maha_users.id', 'expenses_items.user_id')
     qb.leftJoin('expenses_projects', 'expenses_projects.id', 'expenses_items.project_id')
     qb.leftJoin('expenses_expense_types', 'expenses_expense_types.id', 'expenses_items.expense_type_id')
@@ -20,6 +18,7 @@ const approvalRoute = async (req, res) => {
     qb.leftJoin('expenses_statuses', 'expenses_statuses.id', 'expenses_items.status_id')
     qb.joinRaw('inner join expenses_members on expenses_members.project_id = expenses_items.project_id and expenses_members.user_id=? and expenses_members.member_type_id != ?', [req.user.get('id'), 3])
     qb.whereNot('expenses_items.user_id', req.user.get('id'))
+    qb.where('expenses_items.team_id', req.team.get('id'))
     qb.whereIn('expenses_items.status_id', [1,2,3,4,5])
   }).filter({
     filter: req.query.$filter,

@@ -3,8 +3,8 @@ import Fax from '../../../../maha/models/fax'
 
 const showRoute = async (req, res) => {
 
-  const fax = await Fax.scope({
-    team: req.team
+  const fax = await Fax.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

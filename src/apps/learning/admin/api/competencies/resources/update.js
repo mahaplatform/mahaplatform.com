@@ -4,8 +4,8 @@ import Competency from '../../../../models/competency'
 
 const updateRoute = async (req, res) => {
 
-  const competency = await Competency.scope({
-    team: req.team
+  const competency = await Competency.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.competency_id)
   }).fetch({

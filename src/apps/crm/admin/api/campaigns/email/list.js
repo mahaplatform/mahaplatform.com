@@ -3,8 +3,8 @@ import EmailCampaign from '../../../../models/email_campaign'
 
 const listRoute = async (req, res) => {
 
-  const campaigns = await EmailCampaign.scope({
-    team: req.team
+  const campaigns = await EmailCampaign.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
     filterParams: ['program_id']

@@ -3,8 +3,8 @@ import Asset from '../../../models/asset'
 
 const route = async (req, res) => {
 
-  const asset = await Asset.scope({
-    team: req.team
+  const asset = await Asset.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id )
   }).fetch({

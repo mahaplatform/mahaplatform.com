@@ -15,8 +15,8 @@ const route = async (req, res) => {
 
   if(!req.item) {
 
-    const folder = await Folder.scope({
-      team: req.team
+    const folder = await Folder.scope(qb => {
+      qb.where('team_id', req.team.get('id'))
     }).where(qb => {
       qb.where('fullpath', req.parent_path)
       qb.whereNull('deleted_at')

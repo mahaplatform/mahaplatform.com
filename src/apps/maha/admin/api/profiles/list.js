@@ -3,10 +3,10 @@ import Profile from '../../../models/profile'
 
 const listRoute = async (req, res) => {
 
-  const profiles = await Profile.scope({
-    team: req.team
+  const profiles = await Profile.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('user_id', req.user.get('id'))
   }).query(qb => {
-    qb.where('maha_profiles.user_id', req.user.get('id'))
     qb.orderByRaw('created_at asc')
   }).filter({
     filter: req.query.$filter,

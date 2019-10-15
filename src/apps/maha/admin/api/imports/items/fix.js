@@ -6,8 +6,8 @@ import flat from 'flat'
 
 const fixRoute = async (req, res) => {
 
-  const item = await ImportItem.scope({
-    team: req.team
+  const item = await ImportItem.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({

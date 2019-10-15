@@ -7,8 +7,8 @@ import { sendFax } from '../../../../maha/services/faxes'
 
 const createRoute = async (req, res) => {
 
-  const from = await PhoneNumber.scope({
-    team: req.team
+  const from = await PhoneNumber.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.body.from_number_id)
   }).fetch({

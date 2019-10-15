@@ -3,8 +3,8 @@ import List from '../../../models/list'
 
 const listRoute = async (req, res) => {
 
-  const lists = await List.scope({
-    team: req.team
+  const lists = await List.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx
