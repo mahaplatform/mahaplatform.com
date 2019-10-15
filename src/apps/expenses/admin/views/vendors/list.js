@@ -23,7 +23,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Name', key: 'name' },
       { label: 'Items', key: 'items_count' }
     ],
-    link: (record) => `/admin/expenses/reports?$filter[vendor_id][$in][0]=${record.id}`,
+    onClick: (record) => context.router.history.push(`/admin/expenses/reports?$filter[vendor_id][$in][0]=${record.id}`),
     recordTasks: (record) => [
       {
         label: 'Merge Vendor',
@@ -39,7 +39,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Vendors',
       text: 'You have not yet created any vendors',
       buttons: [
-        { label: 'Create Vendor', modal: () => <New integration={ resources.app.settings.integration } /> }
+        { label: 'Create Vendor', modal: <New integration={ resources.app.settings.integration } /> }
       ]
     },
     entity: 'vendor'
@@ -47,7 +47,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   task: {
     label: 'New Vendor',
     icon: 'plus',
-    modal: () => <New integration={ resources.app.settings.integration } />
+    modal: <New integration={ resources.app.settings.integration } />
   }
 })
 

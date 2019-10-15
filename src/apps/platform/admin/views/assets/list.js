@@ -5,6 +5,7 @@ import SourceToken from '../../tokens/source'
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Team',
   collection: {
+    endpoint: '/api/admin/platform/assets',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Filename', key: 'original_file_name', primary: true, format: FilenameToken },
@@ -18,10 +19,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Source', name: 'source_id', type: 'select', endpoint: '/api/admin/profiles/sources', value: 'id', text: 'text', format: SourceToken },
       { label: 'Status', name: 'status_id', type: 'select', options: [{value:'chunked',text:'chunked'},{value:'assembled',text:'assembled'},{value:'processed',text:'processed'}] }
     ],
-    endpoint: '/api/admin/platform/assets',
     entity: 'asset',
-    link: (record) => `/admin/assets/${record.id}`,
     defaultSort: { key: 'created_at', order: 'desc' },
+    onClick: (record) => context.router.history.push(`/admin/assets/${record.id}`),
     recordTasks: (record) => [
       {
         label: 'Reprocess Asset',

@@ -57,7 +57,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Expense Types',
       text: 'You have not yet created any expense types',
       buttons: [
-        { label: 'Create Expense Type', modal: (props) => <New { ...props } integration={ resources.app.settings.integration } /> }
+        { label: 'Create Expense Type', modal: <New integration={ resources.app.settings.integration } /> }
       ]
     },
     entity: 'expense_type'
@@ -65,7 +65,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   task: {
     label: 'New Expense Type',
     icon: 'plus',
-    modal: (props) => <New { ...props } integration={ resources.app.settings.integration } />
+    modal:  <New integration={ resources.app.settings.integration } />
   }
 })
 

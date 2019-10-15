@@ -58,7 +58,6 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Amount', key: 'amount' },
       { label: 'Status', key: 'status' }
     ],
-    link: (record) => `/admin/expenses/${record.type}s/${record.item_id}`,
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {
       icon: 'dollar',
@@ -67,10 +66,10 @@ const mapPropsToPage = (props, context, resources, page) => ({
     },
     selectable: true,
     entity: 'items',
-    icon: 'dollar',
     buttons: (props) => props.selected.length > 0 ? [
       batchTask(context, props, 'blue', 'submit', 'submitted', 'pending', '/api/admin/expenses/items/submit_all')
-    ] : null
+    ] : null,
+    onClick: (record) => context.router.history.push(`/admin/expenses/${record.type}s/${record.item_id}`)
   },
   tasks: {
     icon: 'plus',

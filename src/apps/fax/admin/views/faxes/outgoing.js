@@ -25,8 +25,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     entity: 'fax',
-    link: (record) => `/admin/fax/faxes/${record.id}`,
-    defaultSort: { key: 'created_at', order: 'desc' }
+    defaultSort: { key: 'created_at', order: 'desc' },
+    onClick: (record) => context.router.history.push(`/admin/fax/faxes/${record.id}`)
   },
   task: {
     label: 'Send Fax',

@@ -17,7 +17,7 @@ const mapPropsToPage = (props, context) => ({
       text: 'You have not yet created any assignments'
     },
     entity: 'assignment',
-    link: (record) => `/admin/training/assignments/${record.id}`
+    onClick: (record) => context.router.history.push(`/admin/training/assignments/${record.id}`)
   }
 })
 

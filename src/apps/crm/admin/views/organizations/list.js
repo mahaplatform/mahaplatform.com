@@ -29,7 +29,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     entity: 'organization',
-    link: (record) => `/admin/crm/organizations/${record.id}`,
+    onClick: (record) => context.router.history.push(`/admin/crm/organizations/${record.id}`),
     export: [
       { label: 'ID', key: 'id' },
       { label: 'Name', key: 'name' }
@@ -38,7 +38,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   task: {
     icon: 'plus',
     rights: [],
-    modal: () => <New fields={ resources.fields } />
+    modal: <New fields={ resources.fields } />
   }
 })
 

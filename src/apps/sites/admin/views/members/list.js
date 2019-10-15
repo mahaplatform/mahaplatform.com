@@ -37,8 +37,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     entity: 'member',
-    link: (record) => `/admin/sites/sites/${page.params.site_id}/members/${record.id}`,
-    defaultSort: { key: 'created_at', order: 'asc' }
+    defaultSort: { key: 'created_at', order: 'asc' },
+    onClick: (record) => context.router.history.push(`/admin/sites/sites/${page.params.site_id}/members/${record.id}`)
   },
   task: {
     icon: 'plus',

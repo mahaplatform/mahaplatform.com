@@ -19,8 +19,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     entity: 'type',
-    link: (record) => `/admin/sites/sites/${page.params.site_id}/types/${record.id}`,
-    defaultSort: { key: 'title', order: 'asc' }
+    defaultSort: { key: 'title', order: 'asc' },
+    onClick: (record) => context.router.history.push(`/admin/sites/sites/${page.params.site_id}/types/${record.id}`)
   },
   tasks: {
     icon: 'plus',

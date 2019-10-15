@@ -34,11 +34,8 @@ class Collection extends React.Component {
     filtering: PropTypes.bool,
     filters: PropTypes.array,
     footer: PropTypes.bool,
-    handler: PropTypes.func,
     layout: PropTypes.func,
     loading: PropTypes.any,
-    link: PropTypes.func,
-    modal: PropTypes.string,
     open: PropTypes.bool,
     panel: PropTypes.any,
     q: PropTypes.string,
@@ -55,6 +52,7 @@ class Collection extends React.Component {
     token: PropTypes.string,
     onAddPanel: PropTypes.func,
     onClearPanel: PropTypes.func,
+    onClick: PropTypes.func,
     onFetch: PropTypes.func,
     onRemovePanel: PropTypes.func,
     onSelect: PropTypes.func,
@@ -190,7 +188,7 @@ class Collection extends React.Component {
   }
 
   _getInfinite() {
-    const { empty, endpoint, failure, layout, link, loading, q, recordTasks, selectable, sort, table, onSetSelected, onSort } = this.props
+    const { empty, endpoint, failure, layout, loading, q, recordTasks, selectable, sort, table, onSetSelected, onClick, onSort } = this.props
     const { cacheKey } = this.state
     return {
       cacheKey,
@@ -206,11 +204,11 @@ class Collection extends React.Component {
       props: {
         code: this.code,
         layout,
-        link,
         recordTasks,
         selectable,
         sort,
         table,
+        onClick,
         onSort
       },
       sort,
@@ -229,10 +227,6 @@ class Collection extends React.Component {
       key: sort.replace(/^-/, ''),
       order: sort[0] === '-' ? 'desc' : 'asc'
     }
-  }
-
-  _handleAddNew() {
-    this.context.modal.open(this.props.empty.modal)
   }
 
   _handleChangeUrl() {

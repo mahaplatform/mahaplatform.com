@@ -55,7 +55,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Attraction',
       text: 'You have not yet created any attractions'
     },
-    link: (record) => `/admin/eatfresh/attractions/${record.id}`
+    onClick: (record) => context.router.history.push(`/admin/eatfresh/attractions/${record.id}`)
   },
   task: {
     icon: 'plus',

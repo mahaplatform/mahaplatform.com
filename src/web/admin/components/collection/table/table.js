@@ -8,8 +8,6 @@ import _ from 'lodash'
 class Table extends React.Component {
 
   static contextTypes = {
-    modal: PropTypes.object,
-    router: PropTypes.object,
     tasks: PropTypes.object
   }
 
@@ -18,10 +16,7 @@ class Table extends React.Component {
     columns: PropTypes.array,
     defaults: PropTypes.array,
     display: PropTypes.array,
-    handler: PropTypes.func,
     hidden: PropTypes.array,
-    link: PropTypes.func,
-    modal: PropTypes.any,
     records: PropTypes.array,
     recordTasks: PropTypes.func,
     rowClass: PropTypes.func,
@@ -30,6 +25,7 @@ class Table extends React.Component {
     selectAll: PropTypes.bool,
     sort: PropTypes.object,
     status: PropTypes.string,
+    onClick: PropTypes.func,
     onLoadHidden: PropTypes.func,
     onSaveHidden: PropTypes.func,
     onSelect: PropTypes.func,
@@ -46,7 +42,7 @@ class Table extends React.Component {
   _handleSelectAll = this._handleSelectAll.bind(this)
 
   render() {
-    const { link, records, recordTasks, selectable, selected, selectAll, sort, status } = this.props
+    const { records, recordTasks, selectable, selected, selectAll, sort, status, onClick } = this.props
     const columns = this.props.display
     return (
       <div className="maha-table">
@@ -95,7 +91,7 @@ class Table extends React.Component {
                     </td>
                   }
                   <td className="maha-table-body-cell icon mobile collapsing centered">
-                    { link && <i className="fa fa-chevron-right" /> }
+                    { onClick && <i className="fa fa-chevron-right" /> }
                   </td>
                 </tr>
               ))}
@@ -144,9 +140,9 @@ class Table extends React.Component {
   }
 
   _getBodyRowClass(record) {
-    const { link, modal, handler, rowClass } = this.props
+    const { rowClass, onClick } = this.props
     let classes = []
-    if(link || modal || handler) classes.push('maha-table-link')
+    if(onClick) classes.push('maha-table-link')
     if(rowClass && _.isString(rowClass)) classes.push(rowClass)
     if(rowClass && _.isFunction(rowClass)) classes.push(rowClass(record))
     return classes.join(' ')
@@ -171,24 +167,7 @@ class Table extends React.Component {
   }
 
   _handleClick(record, index) {
-    const { link, modal, handler } = this.props
-    if(link) return this._handleLink(record, index)
-    if(modal) return this._handleModal(record, index)
-    if(handler) return this._handleHandler(record, index)
-  }
-
-  _handleHandler(record, index) {
-    this.props.handler(record, index)
-  }
-
-  _handleLink(record, index) {
-    const { link } = this.props
-    const path = link(record)
-    this.context.router.history.push(path)
-  }
-
-  _handleModal(record, index) {
-    this.context.model.open(() => <this.props.modal record={ record } index={ index } />)
+    this.props.onClick(record, index)
   }
 
   _handleSelect(id) {

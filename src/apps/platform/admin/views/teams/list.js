@@ -10,8 +10,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     ],
     endpoint: '/api/admin/platform/teams',
     entity: 'users',
-    link: (record) => `/admin/platform/teams/${record.id}`,
-    defaultSort: { key: 'title', order: 'asc' }
+    defaultSort: { key: 'title', order: 'asc' },
+    onClick: (record) => context.router.history.push(`/admin/platform/teams/${record.id}`)
   },
   task: {
     icon: 'plus',

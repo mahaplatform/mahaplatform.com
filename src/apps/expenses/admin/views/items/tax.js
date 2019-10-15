@@ -34,8 +34,9 @@ const mapPropsToPage = (props, context, resources) => ({
       { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] },
       { label: 'Status', name: 'status_id', type: 'select', multiple: true, endpoint: '/api/admin/expenses/statuses', value: 'id', text: 'name', sort: 'id', format: StatusToken }
     ],
-    link: (record) => `/admin/expenses/${record.type}s/${record.item_id}`,
-    defaultSort: { key: 'created_at', order: 'desc' }
+    defaultSort: { key: 'created_at', order: 'desc' },
+    onClick: (record) => context.router.history.push(`/admin/expenses/${record.type}s/${record.item_id}`)
+
   }
 })
 

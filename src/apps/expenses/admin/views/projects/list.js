@@ -57,7 +57,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Active', key: 'is_active' },
       ..._getIntegrationExports(resources.app.settings.integration)
     ],
-    link: (record) => `/admin/expenses/projects/${record.id}`,
+    onClick: (record) => context.router.history.push(`/admin/expenses/projects/${record.item_id}`),
     recordTasks: (record) => [
       {
         label: 'Edit Project',
@@ -94,7 +94,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Projects',
       text: 'You have not yet created any projects',
       buttons: [
-        { label: 'Create Project', modal: New }
+        { label: 'Create Project', modal: <New integration={ resources.app.settings.integration } /> }
       ]
     },
     entity: 'project'
@@ -103,7 +103,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     label: 'New Project',
     rights: ['expenses:manage_configuration'],
     icon: 'plus',
-    modal: (props) => <New { ...props } integration={ resources.app.settings.integration } />
+    modal: <New integration={ resources.app.settings.integration } />
   }
 })
 

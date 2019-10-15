@@ -7,10 +7,7 @@ class Results extends React.Component {
   static propTypes = {
     code: PropTypes.string,
     columns: PropTypes.array,
-    handler: PropTypes.func,
     layout: PropTypes.any,
-    link: PropTypes.func,
-    modal: PropTypes.func,
     records: PropTypes.array,
     recordTasks: PropTypes.func,
     rowClass: PropTypes.func,
@@ -20,6 +17,7 @@ class Results extends React.Component {
     sort: PropTypes.object,
     status: PropTypes.string,
     table: PropTypes.array,
+    onClick: PropTypes.func,
     onLoadMore: PropTypes.func,
     onSelect: PropTypes.func,
     onSelectAll: PropTypes.func,
@@ -33,14 +31,11 @@ class Results extends React.Component {
   }
 
   _getTable() {
-    const { code, handler, link, modal, records, recordTasks, rowClass, table, selectAll, selectable, selected, sort, status, onLoadMore, onSelect, onSelectAll, onSort } = this.props
+    const { code, records, recordTasks, rowClass, table, selectAll, selectable, selected, sort, status, onClick, onLoadMore, onSelect, onSelectAll, onSort } = this.props
     const columns = table
     return {
       code,
       columns,
-      handler,
-      link,
-      modal,
       records,
       recordTasks,
       rowClass,
@@ -49,6 +44,7 @@ class Results extends React.Component {
       selected,
       sort,
       status,
+      onClick,
       onLoadMore,
       onSelect,
       onSelectAll,

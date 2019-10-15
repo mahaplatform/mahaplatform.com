@@ -53,14 +53,14 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Amount', key: 'amount' },
       { label: 'Status', key: 'status' }
     ],
-    link: (record) => `/admin/expenses/${record.type}s/${record.item_id}`,
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {
       icon: 'dollar',
       title: 'No Items',
       text: 'No items have been submitted yet in a project you own'
     },
-    entity: 'items'
+    entity: 'items',
+    onClick: (record) => context.router.history.push(`/admin/expenses/${record.type}s/${record.item_id}`)
   }
 })
 

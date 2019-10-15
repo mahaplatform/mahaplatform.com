@@ -72,12 +72,12 @@ const mapPropsToPage = (props, context, resources) => ({
       { label: 'Amount', key: 'amount' },
       { label: 'Status', key: 'status' }
     ],
-    link: (record) => `/admin/expenses/${record.type}s/${record.item_id}`,
     defaultSort: { key: 'created_at', order: 'desc' },
     buttons: (props) => props.selected.length > 0 ? [
       getIntegrationTasks(resources.app.settings.integration, context, props)
     ] : null,
-    selectable: true
+    selectable: true,
+    onClick: (record) => context.router.history.push(`/admin/expenses/${record.type}s/${record.item_id}`)
   }
 })
 

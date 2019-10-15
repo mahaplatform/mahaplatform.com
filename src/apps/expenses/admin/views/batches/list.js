@@ -18,7 +18,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       text: 'You have not yet created any batches'
     },
     entity: 'batch',
-    link: (record) => `/admin/expenses/reports?$filter[batch_id][$in][0]=${record.id}`,
+    onClick: (record) => context.router.history.push(`/admin/expenses/reports?$filter[batch_id][$in][0]=${record.id}`),
     recordTasks: (record) => [
       {
         label: 'Download Batch',

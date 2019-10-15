@@ -21,7 +21,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     entity: 'sender',
-    link: (record) => `/api/admin/crm/senders/${record.id}`,
+    onClick: (record) => context.router.history.push(`/admin/crm/senders/${record.id}`),
     defaultSort: { key: 'title', order: 'asc' }
   },
   tasks: {

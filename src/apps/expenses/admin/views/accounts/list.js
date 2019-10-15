@@ -31,7 +31,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Accounts',
       text: 'You have not yet created any accounts',
       buttons: [
-        { label: 'Create Account', modal: (props) => <New { ...props } integration={ resources.app.settings.integration } /> }
+        { label: 'Create Account', modal: <New integration={ resources.app.settings.integration } /> }
       ]
     },
     entity: 'account'
@@ -39,7 +39,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   task: {
     label: 'New Account',
     icon: 'plus',
-    modal: (props) => <New { ...props } integration={ resources.app.settings.integration } />
+    modal: <New integration={ resources.app.settings.integration } />
   }
 })
 
