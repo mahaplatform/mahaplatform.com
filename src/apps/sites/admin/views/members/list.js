@@ -23,23 +23,26 @@ const mapResourcesToPage = (props, context, page) => ({
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Members',
   collection: {
+    endpoint: `/api/admin/sites/sites/${page.params.site_id}/members`,
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Name', key: 'last_name', sort: 'last_name', primary: true, format: NameCell }
     ],
-    endpoint: `/api/admin/sites/sites/${page.params.site_id}/members`,
-    empty: 'This site does not have any members',
+    empty: {
+      icon: 'users',
+      title: 'No Members',
+      text: 'This site does not have any members',
+      buttons: [
+        { label: 'Create Member', modal: <New fields={ resources.fields } site_id={ page.params.site_id } /> }
+      ]
+    },
     entity: 'member',
-    icon: 'users',
     link: (record) => `/admin/sites/sites/${page.params.site_id}/members/${record.id}`,
-    new: () => <New fields={ resources.fields } site_id={ page.params.site_id } />,
     defaultSort: { key: 'created_at', order: 'asc' }
   },
-  tasks: {
+  task: {
     icon: 'plus',
-    items: [
-      { label: 'Add Member', modal: () => <New fields={ resources.fields } site_id={ page.params.site_id } /> }
-    ]
+    modal: <New fields={ resources.fields } site_id={ page.params.site_id } />
   }
 })
 

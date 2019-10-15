@@ -11,12 +11,17 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true }
     ],
-    empty: 'You have not yet created any forms',
+    defaultSort: { key: 'title', order: 'asc' },
+    empty: {
+      icon: 'check-square-o',
+      title: 'No Forms',
+      text: 'You have not yet created any forms',
+      buttons: [
+        { label: 'Create New Form', modal: New }
+      ]
+    },
     entity: 'form',
-    icon: 'check-square-o',
-    link: (record) => `/admin/crm/forms/${record.id}`,
-    new: New,
-    defaultSort: { key: 'title', order: 'asc' }
+    link: (record) => `/admin/crm/forms/${record.id}`
   },
   tasks: {
     icon: 'plus',

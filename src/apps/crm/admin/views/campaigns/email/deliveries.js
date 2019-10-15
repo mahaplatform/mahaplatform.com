@@ -11,10 +11,13 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Contact', key: 'contact.display_name', primary: true, format: (email) => <ContactToken { ...email.contact } /> }
     ],
-    empty: 'This email campaign has not yet been sent',
-    entity: 'email',
-    icon: 'envelope',
-    defaultSort: { key: 'created_at', order: 'desc' }
+    defaultSort: { key: 'created_at', order: 'desc' },
+    empty: {
+      icon: 'envelope',
+      title: 'No Deliveries',
+      text: 'This email campaign has not yet been sent'
+    },
+    entity: 'email'
   }
 })
 

@@ -10,9 +10,15 @@ const mapPropsToPage = (props, context) => ({
       { label: 'Name', key: 'full_name', primary: true, format: UserToken }
     ],
     defaultSort: { key: 'last_name', order: 'asc' },
+    empty: {
+      icon: 'user-circle',
+      title: 'No Employees',
+      text: 'You have not yet created any employees',
+      buttons: [
+        { label: 'Create Employee', modal: New }
+      ]
+    },
     entity: 'employee',
-    icon: 'user-circle',
-    empty: 'You have not yet been assigned any employees',
     link: (record) => `/admin/learning/employees/${record.id}`
   },
   task: {

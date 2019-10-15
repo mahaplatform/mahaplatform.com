@@ -5,17 +5,22 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Lists',
   rights: [],
   collection: {
-    endpoint: `/api/admin/crm/lists`,
+    endpoint: '/api/admin/crm/lists',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Name', key: 'name', primary: true },
       { label: 'Type', key: 'type' }
     ],
-    empty: 'You have not yet created any lists',
+    empty: {
+      icon: 'users',
+      title: 'No Lists',
+      text: 'You have not yet created any lists',
+      buttons: [
+        { label: 'Create New List', modal: New }
+      ]
+    },
     entity: 'list',
-    icon: 'users',
     link: (record) => `/api/admin/crm/lists/${record.id}`,
-    new: New,
     defaultSort: { key: 'title', order: 'asc' }
   },
   tasks: {

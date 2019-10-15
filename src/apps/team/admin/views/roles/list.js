@@ -15,12 +15,17 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'ID', key: 'id' },
       { label: 'Title', key: 'title' }
     ],
-    empty: 'You have not yet created any roles',
+    defaultSort: { key: 'title', order: 'asc' },
+    empty: {
+      icon: 'sitemap',
+      title: 'No Roles',
+      text: 'You have not yet created any roles',
+      buttons: [
+        { label: 'Create Role', modal: New }
+      ]
+    },
     entity: 'role',
-    icon: 'protect',
-    link: (record) => `/admin/team/roles/${record.id}`,
-    new: New,
-    defaultSort: { key: 'title', order: 'asc' }
+    link: (record) => `/admin/team/roles/${record.id}`
   },
   task: {
     label: 'New Role',

@@ -14,10 +14,13 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Price', key: 'price' },
       { label: 'Status', key: 'status', primary: true, collapsing: true, format: TwilioStatusToken }
     ],
-    empty: 'You have not yet sent or received any text messages',
-    entity: 'messages',
-    icon: 'comments',
-    defaultSort: { key: 'created_at', order: 'desc' }
+    defaultSort: { key: 'created_at', order: 'desc' },
+    empty: {
+      icon: 'comments',
+      title: 'No Messages',
+      text: 'You have not yet sent or received any text messages'
+    },
+    entity: 'messages'
   }
 })
 

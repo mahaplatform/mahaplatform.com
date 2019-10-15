@@ -4,15 +4,18 @@ import { Page } from 'maha-admin'
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Emails',
   collection: {
+    endpoint: `/api/admin/sites/sites/${page.params.site_id}/emails`,
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Name', key: 'code', sort: 'code', primary: true, format: EmailToken }
     ],
-    endpoint: `/api/admin/sites/sites/${page.params.site_id}/emails`,
-    empty: 'This site does not have any emails',
-    entity: 'email',
-    icon: 'envelope',
-    defaultSort: { key: 'code', order: 'asc' }
+    defaultSort: { key: 'code', order: 'asc' },
+    empty: {
+      icon: 'cube',
+      title: 'No Emails',
+      text: 'You have not yet created any emails'
+    },
+    entity: 'email'
   }
 })
 

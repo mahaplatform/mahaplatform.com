@@ -15,15 +15,21 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Title', key: 'title' }
     ],
     defaultSort: { key: 'title', order: 'asc' },
+    empty: {
+      icon: 'tag',
+      title: 'No Categories',
+      text: 'You have not yet created any categories',
+      buttons: [
+        { label: 'Create Category', modal: New }
+      ]
+    },
     entity: 'category',
-    icon: 'tag',
     recordTasks: (record) => [
       {
         label: 'Edit Category',
         modal: Edit
       }
-    ],
-    new: New
+    ]
   },
   task: {
     icon: 'plus',

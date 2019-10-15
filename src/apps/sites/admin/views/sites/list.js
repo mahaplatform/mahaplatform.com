@@ -4,17 +4,22 @@ import New from './new'
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Sites',
   collection: {
+    endpoint: '/api/admin/sites/sites',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true }
     ],
-    endpoint: '/api/admin/sites/sites',
-    empty: 'You have not yet created any sites',
+    defaultSort: { key: 'title', order: 'asc' },
+    empty: {
+      icon: 'globe',
+      title: 'No Sites',
+      text: 'You have not yet created any sites',
+      buttons: [
+        { label: 'Create Site', modal: New }
+      ]
+    },
     entity: 'site',
-    icon: 'globe',
-    link: (record) => `/admin/sites/sites/${record.id}`,
-    new: New,
-    defaultSort: { key: 'title', order: 'asc' }
+    link: (record) => `/admin/sites/sites/${record.id}`
   },
   tasks: {
     icon: 'plus',

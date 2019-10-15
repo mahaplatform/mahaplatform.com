@@ -11,6 +11,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Organizations',
   rights: [],
   collection: {
+    endpoint: '/api/admin/crm/organizations',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Name', key: 'name', primary: true, format: OrganizationToken }
@@ -18,17 +19,21 @@ const mapPropsToPage = (props, context, resources, page) => ({
     filters: [
       { label: 'Tags', name: 'crm_taggings.tag_id', type: 'select', multiple: true, endpoint: '/api/admin/crm/tags', value: 'id', text: 'text' }
     ],
-    endpoint: '/api/admin/crm/organizations',
-    empty: 'You have not yet created any organizations',
+    defaultSort: { key: 'name', order: 'asc' },
+    empty: {
+      icon: 'building-o',
+      title: 'No Organizations',
+      text: 'You have not yet created any organizations',
+      buttons: [
+        { label: 'Create New Organization', modal: <New fields={ resources.fields } /> }
+      ]
+    },
     entity: 'organization',
-    icon: 'building-o',
     link: (record) => `/admin/crm/organizations/${record.id}`,
-    new: () => <New fields={ resources.fields } />,
     export: [
       { label: 'ID', key: 'id' },
       { label: 'Name', key: 'name' }
-    ],
-    defaultSort: { key: 'name', order: 'asc' }
+    ]
   },
   task: {
     icon: 'plus',

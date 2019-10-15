@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Button from '../button'
+import Buttons from '../buttons'
+import _ from 'lodash'
 
 class Message extends React.Component {
 
@@ -17,6 +18,7 @@ class Message extends React.Component {
     title: PropTypes.string,
     color: PropTypes.string,
     component: PropTypes.object,
+    buttons: PropTypes.array,
     button: PropTypes.object
   }
 
@@ -31,7 +33,7 @@ class Message extends React.Component {
   }
 
   render() {
-    const { button, component, icon, image, text, title } = this.props
+    const { buttons, button, component, icon, image, text, title } = this.props
     return (
       <div className={ this._getClass() }>
         <div className="maha-message-panel">
@@ -50,7 +52,7 @@ class Message extends React.Component {
           { title && <h3>{ title }</h3> }
           { text && <p>{ text }</p> }
           { component }
-          { button && <Button { ...this._getButton() } /> }
+          { (buttons || button) && <Buttons { ...this._getButtons() } /> }
         </div>
       </div>
     )
@@ -82,15 +84,20 @@ class Message extends React.Component {
     return classes.join(' ')
   }
 
-  _getButton() {
-    const { button } = this.props
+  _getButtons() {
+    const { buttons, button } = this.props
     return {
-      basic: true,
-      color: 'red',
-      label: button.label,
-      modal: button.modal,
-      handler: button.handler,
-      request: button.request
+      buttons: [
+        ...button ? _.castArray(button) : [],
+        ...buttons || []
+      ].map(button => ({
+        basic: true,
+        color: 'red',
+        label: button.label,
+        modal: button.modal,
+        handler: button.handler,
+        request: button.request
+      }))
     }
   }
 

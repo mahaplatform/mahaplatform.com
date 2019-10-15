@@ -16,12 +16,17 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Title', key: 'title' },
       { label: 'Leader', key: 'leader.full_name' }
     ],
-    empty: 'You have not yet created any groups',
+    defaultSort: { key: 'title', order: 'asc' },
+    empty: {
+      icon: 'users',
+      title: 'No Groups',
+      text: 'You have not yet created any groups',
+      buttons: [
+        { label: 'Create Group', modal: New }
+      ]
+    },
     entity: 'group',
-    icon: 'sitemap',
-    link: (record) => `/admin/team/groups/${record.id}`,
-    new: New,
-    defaultSort: { key: 'title', order: 'asc' }
+    link: (record) => `/admin/team/groups/${record.id}`
   },
   task: {
     label: 'New Group',

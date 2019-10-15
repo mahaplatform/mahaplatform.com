@@ -23,10 +23,16 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Category', key: 'category' }
     ],
     defaultSort: { key: 'title', order: 'asc' },
+    empty: {
+      icon: 'trophy',
+      title: 'No Competencies',
+      text: 'You have not yet created any competencies',
+      buttons: [
+        { label: 'Create Competency', modal: New }
+      ]
+    },
     entity: 'competency',
-    icon: 'trophy',
-    link: (record) => `/admin/learning/competencies/${record.id}`,
-    new: New
+    link: (record) => `/admin/learning/competencies/${record.id}`
   },
   task: {
     icon: 'plus',

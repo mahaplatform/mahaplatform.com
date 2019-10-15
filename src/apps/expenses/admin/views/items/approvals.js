@@ -55,9 +55,12 @@ const mapPropsToPage = (props, context, resources, page) => ({
     ],
     link: (record) => `/admin/expenses/${record.type}s/${record.item_id}`,
     defaultSort: { key: 'created_at', order: 'desc' },
-    entity: 'items',
-    icon: 'dollar',
-    empty: 'No items have been submitted yet in a project you own'
+    empty: {
+      icon: 'dollar',
+      title: 'No Items',
+      text: 'No items have been submitted yet in a project you own'
+    },
+    entity: 'items'
   }
 })
 

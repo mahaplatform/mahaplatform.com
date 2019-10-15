@@ -12,8 +12,12 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Date', key: 'date', primary: true, collapsing: true, format: 'date' }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
+    empty: {
+      icon: 'copy',
+      title: 'No Batches',
+      text: 'You have not yet created any batches'
+    },
     entity: 'batch',
-    icon: 'copy',
     link: (record) => `/admin/expenses/reports?$filter[batch_id][$in][0]=${record.id}`,
     recordTasks: (record) => [
       {

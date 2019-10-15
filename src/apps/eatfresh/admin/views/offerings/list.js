@@ -22,8 +22,15 @@ const mapPropsToPage = (props, context, resources, page) => ({
       }
     ],
     defaultSort: { key: 'title', order: 'asc' },
-    entity: 'offering',
-    icon: 'check-circle'
+    empty: {
+      icon: 'check-circle',
+      title: 'No Offerings',
+      text: 'You have not yet created any offerings',
+      buttons: [
+        { label: 'Create Offering', modal: New }
+      ]
+    },
+    entity: 'offering'
   },
   task: {
     icon: 'plus',

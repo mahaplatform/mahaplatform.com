@@ -21,10 +21,15 @@ const mapPropsToPage = (props, context, resources, page) => ({
         }
       }
     ],
-    empty: 'You have not yet registered any phone numbers',
+    empty: {
+      icon: 'fax',
+      title: 'No Phone Numbers',
+      text: 'You have not yet created any phone numbers',
+      buttons: [
+        { label: 'Create Phone Number', modal: New }
+      ]
+    },
     entity: 'phone number',
-    icon: 'hashtag',
-    new: New,
     defaultSort: { key: 'title', order: 'asc' }
   },
   tasks: {

@@ -12,12 +12,17 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Title', key: 'title', primary: true },
       { label: 'Program', key: 'program.title', primary: true }
     ],
-    empty: 'You have not yet created any topics',
+    defaultSort: { key: 'title', order: 'asc' },
+    empty: {
+      icon: 'book',
+      title: 'No Topics',
+      text: 'You have not yet created any topics',
+      buttons: [
+        { label: 'Create New Topic', modal: New }
+      ]
+    },
     entity: 'topic',
-    icon: 'book',
-    link: (record) => `/admin/crm/topics/${record.id}`,
-    new: New,
-    defaultSort: { key: 'title', order: 'asc' }
+    link: (record) => `/admin/crm/topics/${record.id}`
   },
   tasks: {
     icon: 'plus',

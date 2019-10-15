@@ -1,4 +1,4 @@
-import { Import, Page } from 'maha-admin'
+import { Page } from 'maha-admin'
 import ItemsImport from './import'
 import pluralize from 'pluralize'
 import React from 'react'
@@ -19,9 +19,15 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Published', key: 'is_published', primary: true, format: 'check_times', collapsing: true }
     ],
     endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${page.params.type_id}/items`,
-    empty: `You have not yet created any ${resources.type.title}`,
+    empty: {
+      icon: 'database',
+      title: `No ${resources.type.title}s`,
+      text: `You have not yet created any ${resources.type.title}`,
+      buttons: [
+        { label: `Create ${resources.type.title}`, modal: New }
+      ]
+    },
     entity: resources.type.title,
-    icon: 'database',
     recordTasks: (record) => [
       {
         label: 'Edit Item',

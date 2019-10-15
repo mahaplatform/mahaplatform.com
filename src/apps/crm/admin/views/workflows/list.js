@@ -10,11 +10,16 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true }
     ],
-    empty: 'You have not yet created any workflows',
+    empty: {
+      icon: 'cogs',
+      title: 'No Workflow',
+      text: 'You have not yet created any workflows',
+      buttons: [
+        { label: 'Create Workflow', modal: New }
+      ]
+    },
     entity: 'workflow',
-    icon: 'cogs',
     link: (record) => `/admin/crm/workflows/${record.id}`,
-    new: New,
     defaultSort: { key: 'title', order: 'asc' }
   },
   tasks: {

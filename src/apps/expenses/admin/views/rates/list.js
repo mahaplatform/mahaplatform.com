@@ -13,9 +13,15 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Value', key: 'value', primary: true }
     ],
     defaultSort: { key: 'year', order: 'asc' },
+    empty: {
+      icon: 'percent',
+      title: 'No Rates',
+      text: 'You have not yet created any rates',
+      buttons: [
+        { label: 'Create Rate', modal: New }
+      ]
+    },
     entity: 'rate',
-    icon: 'percent',
-    new: New,
     recordTasks: (record) => [
       {
         label: 'Edit Rate',

@@ -13,11 +13,17 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Title', key: 'title', primary: true },
       { label: 'Program', key: 'program.title', primary: true }
     ],
-    empty: 'You have not yet created any templates',
+    defaultSort: { key: 'title', order: 'asc' },
+    empty: {
+      icon: 'file-o',
+      title: 'No Templates',
+      text: 'You have not yet created any templates',
+      buttons: [
+        { label: 'Create New Template', modal: New }
+      ]
+    },
     entity: 'template',
-    icon: 'file-o',
-    link: (record) => `/admin/crm/templates/${record.id}`,
-    defaultSort: { key: 'title', order: 'asc' }
+    link: (record) => `/admin/crm/templates/${record.id}`
   },
   tasks: {
     icon: 'plus',

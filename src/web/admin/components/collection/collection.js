@@ -1,11 +1,12 @@
 import { CSSTransition } from 'react-transition-group'
-import { Empty, Results } from './results'
 import { connect } from 'react-redux'
 import Infinite from '../infinite'
 import PropTypes from 'prop-types'
-import Filter from '../filter'
-import Filters from './filters'
+import Message from '../message'
 import Buttons from '../buttons'
+import Results from './results'
+import Filters from './filters'
+import Filter from '../filter'
 import Header from './header'
 import React from 'react'
 import _ from 'lodash'
@@ -27,7 +28,7 @@ class Collection extends React.Component {
     defaultSort: PropTypes.object,
     endpoint: PropTypes.string,
     entity: PropTypes.string,
-    empty: PropTypes.any,
+    empty: PropTypes.object,
     export: PropTypes.array,
     failure: PropTypes.any,
     filter: PropTypes.object,
@@ -35,12 +36,10 @@ class Collection extends React.Component {
     filters: PropTypes.array,
     footer: PropTypes.bool,
     handler: PropTypes.func,
-    icon: PropTypes.string,
     layout: PropTypes.func,
     loading: PropTypes.any,
     link: PropTypes.func,
     modal: PropTypes.string,
-    new: PropTypes.func,
     open: PropTypes.bool,
     panel: PropTypes.any,
     q: PropTypes.string,
@@ -197,7 +196,7 @@ class Collection extends React.Component {
   }
 
   _getInfinite() {
-    const { endpoint, failure, layout, link, loading, q, recordTasks, selectable, sort, table, onSetSelected, onSort } = this.props
+    const { empty, endpoint, failure, layout, link, loading, q, recordTasks, selectable, sort, table, onSetSelected, onSort } = this.props
     const { cacheKey } = this.state
     return {
       cacheKey,
@@ -207,7 +206,7 @@ class Collection extends React.Component {
         q
       },
       loading,
-      empty: this._getEmpty(),
+      empty: <Message { ...empty } />,
       failure,
       layout,
       props: {
@@ -223,12 +222,6 @@ class Collection extends React.Component {
       sort,
       onUpdateSelected: onSetSelected
     }
-  }
-
-  _getEmpty() {
-    const { empty } = this.props
-    if(_.isFunction(empty)) return React.createElement(empty, this.props)
-    return <Empty { ...this.props } />
   }
 
   _getSanitizedFilter(filter) {

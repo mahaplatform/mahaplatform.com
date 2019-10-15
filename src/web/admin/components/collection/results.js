@@ -1,35 +1,8 @@
 import PropTypes from 'prop-types'
-import pluralize from 'pluralize'
-import Message from '../message'
 import Table from './table'
 import React from 'react'
-import _ from 'lodash'
 
-export const Empty = (props) => {
-
-  const { empty, entity, icon } = props
-
-  const entitities = pluralize(entity.replace('_', ' '))
-
-  const text = empty || `You have not yet created any ${entitities}`
-
-  const button = (props.new) ? {
-    label: `Create New ${_.startCase(entity.replace('_', ' '))}`,
-    modal: props.new
-  } : null
-
-  const message = {
-    icon,
-    title: `No ${_.startCase(pluralize(entity.replace('_', ' ')))}`,
-    text,
-    button
-  }
-
-  return <Message { ...message } />
-
-}
-
-export class Results extends React.Component {
+class Results extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
@@ -95,3 +68,5 @@ export class Results extends React.Component {
   }
 
 }
+
+export default Results

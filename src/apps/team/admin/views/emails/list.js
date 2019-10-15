@@ -20,14 +20,18 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Status', key: 'status' },
       { label: 'Sent At', key: 'sent_at' }
     ],
-    icon: 'envelope',
-    entity: 'email',
     filters: [
       { label: 'User', name: 'user_id', type: 'select', multiple: true, endpoint: '/api/admin/team/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' } },
       { label: 'Sent', name: 'sent_at', type: 'daterange', include: ['this','last'] }
     ],
-    link: (record) => `/admin/team/emails/${record.id}`,
-    defaultSort: { key: 'created_at', order: 'desc' }
+    defaultSort: { key: 'created_at', order: 'desc' },
+    empty: {
+      icon: 'envelope',
+      title: 'No Emails',
+      text: 'You have not yet sent any emails'
+    },
+    entity: 'email',
+    link: (record) => `/admin/team/emails/${record.id}`
   }
 })
 

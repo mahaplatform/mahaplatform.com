@@ -18,11 +18,16 @@ const mapPropsToPage = (props, context, resources, page) => ({
         modal: <Edit id={ program.id } />
       }
     ],
-    empty: 'You have not yet created any programs',
+    empty: {
+      icon: 'sitemap',
+      title: 'No Programs',
+      text: 'You have not yet created any programs',
+      buttons: [
+        { label: 'Create Program', modal: New }
+      ]
+    },
     entity: 'program',
-    icon: 'sitemap',
     link: (record) => `/admin/team/programs/${record.id}`,
-    new: New,
     defaultSort: { key: 'title', order: 'asc' }
   },
   tasks: {

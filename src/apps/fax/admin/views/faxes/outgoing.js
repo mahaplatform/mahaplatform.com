@@ -16,11 +16,16 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'To', key: (fax) => fax.to.name || fax.to.formatted },
       { label: 'Status', key: 'status', primary: true, collapsing: true, format: TwilioStatusToken }
     ],
-    empty: 'You have not yet sent any faxes',
+    empty: {
+      icon: 'fax',
+      title: 'No Faxes',
+      text: 'You have not yet sent any faxes',
+      buttons: [
+        { label: 'Send Fax', modal: <Send numbers={ resources.numbers } /> }
+      ]
+    },
     entity: 'fax',
-    icon: 'fax',
     link: (record) => `/admin/fax/faxes/${record.id}`,
-    new: <Send numbers={ resources.numbers } />,
     defaultSort: { key: 'created_at', order: 'desc' }
   },
   task: {

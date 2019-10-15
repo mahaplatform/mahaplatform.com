@@ -1,6 +1,5 @@
 import SenderToken from '../../tokens/sender'
 import { Page } from 'maha-admin'
-import React from 'react'
 import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
@@ -13,11 +12,16 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Sender', key: 'name', primary: true, format: SenderToken },
       { label: 'Program', key: 'program.title', primary: true }
     ],
-    empty: 'You have not yet registered any senders',
+    empty: {
+      icon: 'paper-plane-o',
+      title: 'No Sender',
+      text: 'You have not yet created any senders',
+      buttons: [
+        { label: 'Create New Sender', modal: New }
+      ]
+    },
     entity: 'sender',
-    icon: 'paper-plane-o',
     link: (record) => `/api/admin/crm/senders/${record.id}`,
-    new: () => <New program_id={ page.params.program_id } />,
     defaultSort: { key: 'title', order: 'asc' }
   },
   tasks: {
@@ -25,7 +29,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     items: [
       {
         label: 'Create Sender',
-        modal: () => <New program_id={ page.params.program_id } />
+        modal: New
       }
     ]
   }

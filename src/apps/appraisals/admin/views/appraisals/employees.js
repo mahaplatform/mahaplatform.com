@@ -14,10 +14,16 @@ const mapPropsToPage = (props, context) => ({
       { label: 'Employee', name: 'employee_id', type: 'select', multiple: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: UserToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
+    empty: {
+      icon: 'fax',
+      title: 'No Appraisals',
+      text: 'You have not yet created any appraisals',
+      buttons: [
+        { label: 'Create New Appraisal', modal: New }
+      ]
+    },
     entity: 'appraisal',
-    icon: 'check',
-    link: (record) => `/admin/appraisals/appraisals/${record.id}`,
-    new: New
+    link: (record) => `/admin/appraisals/appraisals/${record.id}`
   },
   task: {
     icon: 'plus',

@@ -17,8 +17,12 @@ const mapPropsToPage = (props, context) => ({
       { label: 'User', name: 'user_id', type: 'select', multiple: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: UserToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
+    empty: {
+      icon: 'check',
+      title: 'No Assignments',
+      text: 'No trainings have been assigned'
+    },
     entity: 'assignment',
-    icon: 'check',
     link: (record) => `/admin/training/assignments/${record.id}`
   }
 })

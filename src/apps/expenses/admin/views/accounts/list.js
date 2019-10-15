@@ -26,9 +26,15 @@ const mapPropsToPage = (props, context, resources, page) => ({
       }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
-    entity: 'account',
-    icon: 'credit-card',
-    new: (props) => <New { ...props } integration={ resources.app.settings.integration } />
+    empty: {
+      icon: 'credit-card',
+      title: 'No Accounts',
+      text: 'You have not yet created any accounts',
+      buttons: [
+        { label: 'Create Account', modal: (props) => <New { ...props } integration={ resources.app.settings.integration } /> }
+      ]
+    },
+    entity: 'account'
   },
   task: {
     label: 'New Account',

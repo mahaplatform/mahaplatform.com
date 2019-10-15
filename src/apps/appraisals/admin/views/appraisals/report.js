@@ -15,8 +15,12 @@ const mapPropsToPage = (props, context) => ({
       { label: 'Supervisor', name: 'supervisor_id', type: 'select', multiple: true, endpoint: '/api/admin/users/supervisors', value: 'id', text: 'full_name', sort: { key: 'last_name', order: 'asc' }, format: UserToken }
     ],
     defaultSort: { key: 'title', order: 'asc' },
+    empty: {
+      icon: 'check',
+      title: 'No Appraisals',
+      text: 'There aren\'t any appraisals'
+    },
     entity: 'appraisal',
-    icon: 'check',
     link: (record) => `/admin/appraisals/appraisals/${record.id}`
   }
 })

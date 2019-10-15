@@ -29,7 +29,6 @@ const mapPropsToPage = (props, context, resources, page) => ({
     ],
     defaultSort: { key: 'title', order: 'asc' },
     entity: 'attraction',
-    icon: 'cutlery',
     filters: [
       { label: 'Approved', name: 'is_approved', type: 'select', multiple: true, options: [ { value: true, text: 'Approved' }, { value: false, text: 'Rejected' }, { value: 'null', text: 'Pending' } ], defaultValue: [true,'null'] },
       { label: 'Category', type: 'select', name: 'category_id', endpoint: '/api/admin/eatfresh/categories', value: 'id', text: 'title', sort: { key: 'title', order: 'asc' }, format: CategoryToken },
@@ -51,6 +50,11 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Website', key: 'website' },
       { label: 'Facebook', key: 'facebook' }
     ],
+    empty: {
+      icon: 'cutlery',
+      title: 'No Attraction',
+      text: 'You have not yet created any attractions'
+    },
     link: (record) => `/admin/eatfresh/attractions/${record.id}`
   },
   task: {

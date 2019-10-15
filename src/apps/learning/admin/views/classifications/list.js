@@ -14,10 +14,16 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Title', key: 'title' }
     ],
     defaultSort: { key: 'title', order: 'asc' },
+    empty: {
+      icon: 'briefcase',
+      title: 'No Classifications',
+      text: 'You have not yet created any classifications',
+      buttons: [
+        { label: 'Create Classification', modal: New }
+      ]
+    },
     entity: 'classification',
-    icon: 'briefcase',
-    link: (record) => `/admin/learning/classifications/${record.id}`,
-    new: New
+    link: (record) => `/admin/learning/classifications/${record.id}`
   },
   task: {
     icon: 'plus',

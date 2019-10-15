@@ -14,10 +14,16 @@ const mapPropsToPage = (props, context) => ({
       { label: 'Type', name: 'type', type: 'select', multiple: true, options: [{ value: 'local', text: 'Local'},{ value: 'remote', text: 'Remote'},{ value: 'online', text: 'Online'},{ value: 'maha', text: 'Maha'}] }
     ],
     defaultSort: { key: 'title', order: 'asc' },
+    empty: {
+      icon: 'graduation-cap',
+      title: 'No Trainings',
+      text: 'You have not yet created any trainings',
+      buttons: [
+        { label: 'Create Training', modal: New }
+      ]
+    },
     entity: 'training',
-    icon: 'graduation-cap',
-    link: (record) => `/admin/training/trainings/${record.id}`,
-    new: New
+    link: (record) => `/admin/training/trainings/${record.id}`
   },
   task: {
     icon: 'plus',

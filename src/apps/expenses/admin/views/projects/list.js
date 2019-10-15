@@ -89,9 +89,15 @@ const mapPropsToPage = (props, context, resources, page) => ({
       }
     ],
     defaultSort: { key: 'integration->>\'project_code\'', order: 'asc' },
-    entity: 'project',
-    icon: 'folder',
-    new: New
+    empty: {
+      icon: 'folder',
+      title: 'No Projects',
+      text: 'You have not yet created any projects',
+      buttons: [
+        { label: 'Create Project', modal: New }
+      ]
+    },
+    entity: 'project'
   },
   task: {
     label: 'New Project',

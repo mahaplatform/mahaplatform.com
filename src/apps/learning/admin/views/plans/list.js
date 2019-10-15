@@ -19,9 +19,15 @@ const mapPropsToPage = (props, context) => ({
       { label: 'Status', name: 'status', type: 'select', multiple: true, options:[{ value:'pending',text:'pending' },{ value:'active',text:'active' },{ value:'submitted',text:'submitted' },{ value:'completed',text:'completed' }], format: StatusToken }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
+    empty: {
+      icon: 'list',
+      title: 'No Plans',
+      text: 'You have not yet created any plans',
+      buttons: [
+        { label: 'Create Plan', modal: New }
+      ]
+    },
     entity: 'plan',
-    icon: 'list',
-    empty: 'You do not yet have any plans',
     link: (record) => `/admin/learning/plans/${record.id}`,
     rowClass: (record) => record.status
   },

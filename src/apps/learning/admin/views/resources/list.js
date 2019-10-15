@@ -23,10 +23,16 @@ const mapPropsToPage = (props, context) => ({
       { label: 'URL', key: 'url' }
     ],
     defaultSort: { key: 'title', order: 'asc' },
+    empty: {
+      icon: 'cube',
+      title: 'No Resources',
+      text: 'You have not yet created any resources',
+      buttons: [
+        { label: 'Create Resource', modal: New }
+      ]
+    },
     entity: 'resource',
-    icon: 'cube',
-    link: (record) => `/admin/learning/resources/${record.id}`,
-    new: New
+    link: (record) => `/admin/learning/resources/${record.id}`
   },
   task: {
     icon: 'plus',

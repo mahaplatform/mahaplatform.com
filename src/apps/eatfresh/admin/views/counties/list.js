@@ -21,8 +21,15 @@ const mapPropsToPage = (props, context, resources, page) => ({
       }
     ],
     defaultSort: { key: 'name', order: 'asc' },
-    entity: 'county',
-    icon: 'map-o'
+    empty: {
+      icon: 'map-o',
+      title: 'No Counties',
+      text: 'You have not yet created any counties',
+      buttons: [
+        { label: 'Create County', modal: New }
+      ]
+    },
+    entity: 'county'
   },
   task: {
     icon: 'plus',

@@ -52,9 +52,15 @@ const mapPropsToPage = (props, context, resources, page) => ({
       }
     ],
     defaultSort: { key: 'title', order: 'asc' },
-    entity: 'expense_type',
-    icon: 'tag',
-    new: (props) => <New { ...props } integration={ resources.app.settings.integration } />
+    empty: {
+      icon: 'tag',
+      title: 'No Expense Types',
+      text: 'You have not yet created any expense types',
+      buttons: [
+        { label: 'Create Expense Type', modal: (props) => <New { ...props } integration={ resources.app.settings.integration } /> }
+      ]
+    },
+    entity: 'expense_type'
   },
   task: {
     label: 'New Expense Type',

@@ -34,17 +34,23 @@ const mapPropsToPage = (props, context, resources, page) => ({
         { name: 'clicked', key: 'was_clicked', type: 'select', endpoint: '/api/admin/crm/campaigns/email', text: 'title', value: 'id' }
       ] }
     ],
+    defaultSort: { key: 'last_name', order: 'asc' },
     export: [
       { label: 'ID', key: 'id' },
       { label: 'Name', key: 'full_name' },
       { label: 'Email', key: 'email' }
     ],
-    empty: 'You have not yet created any contacts',
+    empty: {
+      icon: 'user-circle',
+      title: 'No Contacts',
+      text: 'You have not yet created any contacts',
+      buttons: [
+        { label: 'Create Contact', modal: <New fields={ resources.fields } /> },
+        { label: 'Import Contacts', modal: ContactImport }
+      ]
+    },
     entity: 'contact',
-    icon: 'user-circle',
-    link: (record) => `/admin/crm/contacts/${record.id}`,
-    new: () => <New fields={ resources.fields } />,
-    defaultSort: { key: 'last_name', order: 'asc' }
+    link: (record) => `/admin/crm/contacts/${record.id}`
   },
   tasks: {
     icon: 'plus',

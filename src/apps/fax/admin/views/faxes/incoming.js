@@ -20,9 +20,12 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'From', key: (fax) => fax.from.name || fax.from.formatted },
       { label: 'Status', key: 'status', primary: true, collapsing: true, format: TwilioStatusToken }
     ],
-    empty: 'You have not yet received any faxes',
+    empty: {
+      icon: 'fax',
+      title: 'No Faxes',
+      text: 'You have not yet received any faxes'
+    },
     entity: 'fax',
-    icon: 'fax',
     link: (record) => `/admin/fax/faxes/${record.id}`,
     defaultSort: { key: 'created_at', order: 'desc' }
   }

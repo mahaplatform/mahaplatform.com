@@ -23,10 +23,16 @@ const mapPropsToPage = (props, context) => ({
       { label: 'Attendees', key: 'fulfillments_count', primary: false, format: AttendeesCell }
     ],
     defaultSort: { key: 'date', order: 'desc' },
+    empty: {
+      icon: 'calendar',
+      title: 'No Offering',
+      text: 'You have not created any offerings',
+      buttons: [
+        { label: 'Create Offering', modal: New }
+      ]
+    },
     entity: 'offering',
-    icon: 'calendar',
-    link: (record) => `/admin/training/offerings/${record.id}`,
-    new: New
+    link: (record) => `/admin/training/offerings/${record.id}`
   },
   task: {
     icon: 'plus',

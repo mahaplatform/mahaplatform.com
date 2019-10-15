@@ -10,10 +10,16 @@ const mapPropsToPage = (props, context) => ({
       { label: 'Name', key: 'maha_users.last_name', primary: true, format: UserToken }
     ],
     defaultSort: { key: 'maha_users.last_name', order: 'asc' },
+    empty: {
+      icon: 'user-circle',
+      title: 'No Supervisors',
+      text: 'You have not yet created any supervisors',
+      buttons: [
+        { label: 'Create Supervisor', modal: New }
+      ]
+    },
     entity: 'supervisor',
-    icon: 'user-circle',
-    link: (record) => `/admin/team/supervisors/${record.id}`,
-    new: New
+    link: (record) => `/admin/team/supervisors/${record.id}`
   },
   task: {
     icon: 'plus',

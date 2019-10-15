@@ -13,12 +13,17 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Title', key: 'title', primary: true },
       { label: 'Program', key: 'program.title', primary: true }
     ],
-    empty: 'You have not yet created any campaigns',
+    defaultSort: { key: 'created_at', order: 'desc' },
+    empty: {
+      icon: 'bullhorn',
+      title: 'No Campaigns',
+      text: 'You have not yet created any campaigns',
+      buttons: [
+        { label: 'Create New Campaign', modal: NewCampaign }
+      ]
+    },
     entity: 'campaign',
-    icon: 'bullhorn',
-    link: (record) => `/admin/crm/campaigns/${record.type}/${record.code}`,
-    new: NewCampaign,
-    defaultSort: { key: 'created_at', order: 'desc' }
+    link: (record) => `/admin/crm/campaigns/${record.type}/${record.code}`
   },
   tasks: {
     icon: 'plus',

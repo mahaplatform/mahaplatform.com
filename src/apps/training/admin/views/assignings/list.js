@@ -13,10 +13,16 @@ const mapPropsToPage = (props, context) => ({
       { label: 'Due By', key: 'completed_by', primary: false, format: 'date' }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
+    empty: {
+      icon: 'check',
+      title: 'No Assignments',
+      text: 'You have not yet created any assignments',
+      buttons: [
+        { label: 'Create Assignment', modal: New }
+      ]
+    },
     entity: 'assignment',
-    icon: 'check',
-    link: (record) => `/admin/training/assignings/${record.id}`,
-    new: New
+    link: (record) => `/admin/training/assignings/${record.id}`
   },
   task: {
     icon: 'plus',

@@ -50,13 +50,12 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Users',
   rights: ['team:manage_people'],
   collection: {
+    endpoint: '/api/admin/team/users',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Name', key: 'last_name', primary: true, format: UserToken },
       { label: 'Email', key: 'email' }
     ],
-    endpoint: '/api/admin/team/users',
-    entity: 'user',
     export: [
       { label: 'ID', key: 'id' },
       { label: 'First Name', key: 'first_name' },
@@ -70,8 +69,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'App', name: 'app_id', type: 'select', endpoint: '/api/admin/team/apps', value: 'id', text: 'title', sort: { key: 'title', order: 'asc' }, format: AppToken },
       { label: 'Active', name: 'is_active', type: 'select', options: [{ value: '1', text: 'Active' }, { value: '0', text: 'Inactive' }] }
     ],
-    link: (record) => `/admin/team/users/${record.id}`,
-    defaultSort: { key: 'last_name', order: 'asc' }
+    defaultSort: { key: 'last_name', order: 'asc' },
+    entity: 'user',
+    link: (record) => `/admin/team/users/${record.id}`
   },
   tasks : {
     icon: 'plus',

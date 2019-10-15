@@ -34,9 +34,15 @@ const mapPropsToPage = (props, context, resources, page) => ({
       }
     ],
     defaultSort: { key: 'name', order: 'asc' },
-    entity: 'vendor',
-    icon: 'shop',
-    new: () => <New integration={ resources.app.settings.integration } />
+    empty: {
+      icon: 'percent',
+      title: 'No Vendors',
+      text: 'You have not yet created any vendors',
+      buttons: [
+        { label: 'Create Vendor', modal: () => <New integration={ resources.app.settings.integration } /> }
+      ]
+    },
+    entity: 'vendor'
   },
   task: {
     label: 'New Vendor',

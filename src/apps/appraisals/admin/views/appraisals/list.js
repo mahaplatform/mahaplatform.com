@@ -10,8 +10,12 @@ const mapPropsToPage = (props, context) => ({
       { label: 'Created', key: 'created_at', format: 'date' }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
+    empty: {
+      icon: 'check',
+      title: 'No Appraisals',
+      text: 'You have not yet created any appraisals'
+    },
     entity: 'appraisal',
-    icon: 'check',
     link: (record) => `/admin/appraisals/appraisals/${record.id}`
   }
 })
