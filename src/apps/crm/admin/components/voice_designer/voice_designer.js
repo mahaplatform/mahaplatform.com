@@ -7,7 +7,9 @@ class VoiceDesigner extends React.PureComponent {
 
   static contextTypes = {}
 
-  static propTypes = {}
+  static propTypes = {
+    config: PropTypes.array
+  }
 
   static defaultProps = {}
 
@@ -29,11 +31,17 @@ class VoiceDesigner extends React.PureComponent {
   componentDidUpdate(prevProps) {}
 
   _getCanvas() {
-    return {}
+    const { config } = this.props
+    return {
+      config
+    }
   }
 
   _getSidebar() {
-    return {}
+    const { config } = this.props
+    return {
+      config
+    }
   }
 
 }

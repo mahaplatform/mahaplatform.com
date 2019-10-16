@@ -1,23 +1,26 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Hangup extends React.PureComponent {
+class List extends React.PureComponent {
 
   static contextTypes = {}
 
-  static propTypes = {}
+  static propTypes = {
+    action: PropTypes.string
+  }
 
   static defaultProps = {}
 
   render() {
+    const { action } = this.props
     return (
       <div className="flowchart-box-padding">
-        <div className="flowchart-box flowchart-box-hangup">
+        <div className="flowchart-box flowchart-box-list">
           <div className="flowchart-box-icon">
-            <i className="fa fa-phone" />
+            <i className="fa fa-users" />
           </div>
           <div className="flowchart-box-label">
-            hangup
+            { action === 'add' ? 'add to list' : 'remove from list' }
           </div>
         </div>
       </div>
@@ -31,4 +34,4 @@ class Hangup extends React.PureComponent {
 
 }
 
-export default Hangup
+export default List

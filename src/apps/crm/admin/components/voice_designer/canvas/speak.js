@@ -12,11 +12,13 @@ class Speak extends React.PureComponent {
   render() {
     return (
       <div className="flowchart-box-padding">
-        <div className="flowchart-box speak">
+        <div className="flowchart-box flowchart-box-speak">
           <div className="flowchart-box-icon">
-            <i className="fa fa-volume-control-phone"></i>
+            <i className="fa fa-volume-control-phone" />
           </div>
-          speak
+          <div className="flowchart-box-label">
+            speak
+          </div>
         </div>
       </div>
     )

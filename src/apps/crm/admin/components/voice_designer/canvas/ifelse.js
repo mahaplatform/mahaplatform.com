@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import Box from './box'
 
-class Question extends React.PureComponent {
+class IfElse extends React.PureComponent {
 
   static contextTypes = {}
 
@@ -16,12 +16,12 @@ class Question extends React.PureComponent {
     const { options } = this.props
     return (
       <div className="flowchart-box-padding">
-        <div className="flowchart-box flowchart-box-question">
+        <div className="flowchart-box flowchart-box-ifelse">
           <div className="flowchart-box-icon">
-            <i className="fa fa-question" />
+            <i className="fa fa-random" />
           </div>
           <div className="flowchart-box-label">
-            question
+            if / else
           </div>
         </div>
         <div className="flowchart-connector">
@@ -57,4 +57,4 @@ class Question extends React.PureComponent {
 
 }
 
-export default Question
+export default IfElse

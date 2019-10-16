@@ -41,33 +41,59 @@
 .flowchart-box {
   position: relative;
   border-radius: 0.3em;
-  border: 1px solid fadeout(@black, 80);
+  border: 2px solid fadeout(@black, 80);
   font-weight: bold;
   background-color: @white;
   color: fadeout(@black, 40);
-  padding: 1.2em 0.8em 0.8em;
+  padding: 1.2em 0.4em 0.8em;
   text-align: center;
   margin: 0 auto;
-  width: 120px;
+  width: 175px;
   text-transform: uppercase;
-  &.speak .flowchart-box-icon {
-    background-color: @green;
-  }
-  &.gather .flowchart-box-icon {
-    background-color: @blue;
-  }
-  &.hangup .flowchart-box-icon {
-    background-color: @red;
+  cursor: pointer;
+  &:hover {
+    background-color: lighten(@black, 95);
   }
 }
+&.flowchart-box-speak .flowchart-box-icon {
+  background-color: @green;
+}
+&.flowchart-box-question .flowchart-box-icon {
+  background-color: @blue;
+}
+&.flowchart-box-hangup .flowchart-box-icon {
+  background-color: @red;
+}
+&.flowchart-box-workflow .flowchart-box-icon {
+  background-color: @purple;
+}
+&.flowchart-box-list .flowchart-box-icon {
+  background-color: @pink;
+}
+&.flowchart-box-interest .flowchart-box-icon {
+  background-color: @olive;
+}
+&.flowchart-box-ifelse .flowchart-box-icon {
+  background-color: @orange;
+}
+&.flowchart-box-property .flowchart-box-icon {
+  background-color: @teal;
+}
+&.flowchart-box-email .flowchart-box-icon {
+  background-color: @yellow;
+}
+&.flowchart-box-sms .flowchart-box-icon {
+  background-color: @violet;
+}
+
 .flowchart-box-icon {
+  border: 2px solid fadeout(@black, 80);
   border-radius: 50%;
   color: @white;
   display: block;
   width: 2em;
   height: 2em;
-  line-height: 2em;
-  text-align: center;
+  line-height: 1.7em;
   position: absolute;
   left: 50%;
   top: 0;
@@ -75,50 +101,60 @@
   .fa-phone {
     transform: rotate(135deg);
   }
+  .fa-volume-control-phone {
+    transform: rotate(-45deg);
+  }
 }
-.flowchart-tree {
-  display: flex;
-  flex-direction: column;
+.flowchart-box-label {
+  text-align: center;
+  font-size: 0.8em;
+  line-height: 2em;
 }
-.flowchart-tree-trunk {
+.flowchart-connector {
   display: flex;
 }
 .flowchart-branches {
   display: flex;
 }
-.flowchart-tree-trunk > .flowchart-line {
-  padding: 1em;
+.flowchart-connector {
+  & > .flowchart-line {
+    padding: 1em;
+  }
+  & > .flowchart-line:before {
+    border-left: 2px solid lighten(@black, 75);
+    left: 50%;
+  }
 }
-.flowchart-tree-trunk > .flowchart-line:before {
-  border-left: 2px solid fadeout(@black, 90);
-  left: 50%;
+.flowchart-branch {
+  & > .flowchart-line {
+    padding: 2.4em;
+  }
+  & > .flowchart-line:before {
+    border-left: 2px solid lighten(@black, 75);
+    left: 50%;
+    width: 100%;
+  }
+  & > .flowchart-line:after {
+    border-top: 2px solid lighten(@black, 75);
+    width: 100%;
+    left: 0;
+  }
 }
-.flowchart-branch > .flowchart-line {
-  padding: 2.4em;
-}
-.flowchart-branch > .flowchart-line:before {
-  border-left: 2px solid fadeout(@black, 90);
-  left: 50%;
-  width: 100%;
-}
-.flowchart-branch > .flowchart-line:after {
-  border-top: 2px solid fadeout(@black, 90);
-  width: 100%;
-  left: 0;
-}
-.flowchart-branch:first-child > .flowchart-line:after {
-  left: 50% !important;
-  width: 50%;
-}
-.flowchart-branch:last-child > .flowchart-line:after {
-  left: 0 !important;
-  width: 50%;
-}
-.flowchart-branch:last-child > .flowchart-line:before {
-  border-left: none !important;
-  border-right: 2px solid fadeout(@black, 90);
-  left: 0 !important;
-  width: 50%;
+.flowchart-branches {
+  .flowchart-branch:first-child > .flowchart-line:after {
+    left: 50% !important;
+    width: 50%;
+  }
+  .flowchart-branch:last-child > .flowchart-line:after {
+    left: 0 !important;
+    width: 50%;
+  }
+  .flowchart-branch:last-child > .flowchart-line:before {
+    border-left: none !important;
+    border-right: 2px solid lighten(@black, 75);
+    left: 0 !important;
+    width: 50%;
+  }
 }
 .flowchart-line {
   flex: 1;
