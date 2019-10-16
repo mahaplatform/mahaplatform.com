@@ -5,7 +5,9 @@ class Speak extends React.PureComponent {
 
   static contextTypes = {}
 
-  static propTypes = {}
+  static propTypes = {
+    action: PropTypes.string
+  }
 
   static defaultProps = {}
 
@@ -14,19 +16,27 @@ class Speak extends React.PureComponent {
       <div className="flowchart-box-padding">
         <div className="flowchart-box flowchart-box-speak">
           <div className="flowchart-box-icon">
-            <i className="fa fa-volume-control-phone" />
+            <i className={`fa fa-${this._getIcon()}`} />
           </div>
           <div className="flowchart-box-label">
-            speak
+            { this._getLabel() }
           </div>
         </div>
       </div>
     )
   }
 
-  componentDidMount() {}
+  _getIcon() {
+    const { action } = this.props
+    if(action === 'play') return 'play'
+    if(action === 'say') return 'volume-control-phone'
+  }
 
-  componentDidUpdate(prevProps) {}
+  _getLabel() {
+    const { action } = this.props
+    if(action === 'play') return 'Play Recording'
+    if(action === 'say') return 'Speak text'
+  }
 
 
 }

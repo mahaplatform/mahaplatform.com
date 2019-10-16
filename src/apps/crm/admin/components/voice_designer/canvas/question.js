@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Hangup from './hangup'
 import React from 'react'
 import Box from './box'
 
@@ -43,6 +44,14 @@ class Question extends React.PureComponent {
                   </div>
                 ] : []
               ])}
+              { option.then[option.then.length - 1].type !== 'question' &&
+                <div className="flowchart-connector" key={`box_connector_${index}`}>
+                  <div className="flowchart-line" />
+                </div>
+              }
+              { option.then[option.then.length - 1].type !== 'question' &&
+                <Hangup />
+              }
             </div>
           )) }
         </div>

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Interest extends React.PureComponent {
+class Goal extends React.PureComponent {
 
   static contextTypes = {}
 
@@ -12,12 +12,12 @@ class Interest extends React.PureComponent {
   render() {
     return (
       <div className="flowchart-box-padding">
-        <div className="flowchart-box flowchart-box-interest">
+        <div className="flowchart-box flowchart-box-goal">
           <div className="flowchart-box-icon">
-            <i className="fa fa-book" />
+            <i className="fa fa-flag" />
           </div>
           <div className="flowchart-box-label">
-            add interest
+            goal
           </div>
         </div>
       </div>
@@ -31,4 +31,4 @@ class Interest extends React.PureComponent {
 
 }
 
-export default Interest
+export default Goal
