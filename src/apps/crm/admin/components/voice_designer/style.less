@@ -10,7 +10,7 @@
   display: flex;
 }
 .voice-designer-sidebar {
-  border-left: 1px solid fadeout(@black, 90);
+  border-left: 1px solid fadeout(@black, 70);
   flex: 0 0 ~"calc(100% / 3)";
   max-width: 500px;
   min-width: 350px;
@@ -21,4 +21,130 @@
   & > * {
     flex: 1;
   }
+}
+
+
+
+
+.flowchart-canvas {
+  flex: 1;
+  display: flex;
+  padding: 0.8em;
+  overflow: scroll;
+}
+.flowchart {
+  margin: 0.8em auto;
+}
+.flowchart-box-padding {
+  padding: 0 0.4em;
+}
+.flowchart-box {
+  position: relative;
+  border-radius: 0.3em;
+  border: 1px solid fadeout(@black, 80);
+  font-weight: bold;
+  background-color: @white;
+  color: fadeout(@black, 40);
+  padding: 1.2em 0.8em 0.8em;
+  text-align: center;
+  margin: 0 auto;
+  width: 120px;
+  text-transform: uppercase;
+  &.speak .flowchart-box-icon {
+    background-color: @green;
+  }
+  &.gather .flowchart-box-icon {
+    background-color: @blue;
+  }
+  &.hangup .flowchart-box-icon {
+    background-color: @red;
+  }
+}
+.flowchart-box-icon {
+  border-radius: 50%;
+  color: @white;
+  display: block;
+  width: 2em;
+  height: 2em;
+  line-height: 2em;
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translate(-50%, -50%);
+  .fa-phone {
+    transform: rotate(135deg);
+  }
+}
+.flowchart-tree {
+  display: flex;
+  flex-direction: column;
+}
+.flowchart-tree-trunk {
+  display: flex;
+}
+.flowchart-branches {
+  display: flex;
+}
+.flowchart-branch {
+}
+.flowchart-tree-trunk > .flowchart-tree-line {
+  padding: 1em;
+}
+.flowchart-tree-trunk > .flowchart-tree-line:before {
+  border-left: 2px solid fadeout(@black, 90);
+  left: 50%;
+}
+.flowchart-branches > .flowchart-branch > .flowchart-tree-line {
+  padding: 2.4em;
+}
+.flowchart-branches > .flowchart-branch > .flowchart-tree-line:before {
+  border-left: 2px solid fadeout(@black, 90);
+  left: 50%;
+  width: 100%;
+}
+.flowchart-branches > .flowchart-branch:last-child > .flowchart-tree-line:before {
+  border-left: none !important;
+  border-right: 2px solid fadeout(@black, 90);
+  left: 0 !important;
+  width: 50%;
+}
+.flowchart-branches > .flowchart-branch > .flowchart-tree-line:after {
+  border-top: 2px solid fadeout(@black, 90);
+  width: 100%;
+  left: 0;
+}
+.flowchart-branches > .flowchart-branch:first-child > .flowchart-tree-line:after {
+  left: 50% !important;
+  width: 50%;
+}
+.flowchart-branches > .flowchart-branch:last-child > .flowchart-tree-line:after {
+  left: 0 !important;
+  width: 50%;
+}
+.flowchart-tree-line {
+  flex: 1;
+  position: relative;
+  &:before, &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+  }
+}
+.flowchart-tree-line-label {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
+  border: 1px solid fadeout(@black, 80);
+  background-color: @white;
+  color: fadeout(@black, 40);
+  text-align: center;
+  border-radius: 0.3em;
+  font-size: 0.8em;
+  padding: 0 0.8em;
+  text-transform: uppercase;
+  font-weight: bold;
 }

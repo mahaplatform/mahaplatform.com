@@ -38,7 +38,7 @@ class Voice extends React.PureComponent {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
-            { label: 'Phone Number', name: 'number_id', type: 'lookup', placeholder: 'Choose a phone number', endpoint: '/api/admin/crm/numbers', filter, value: 'id', text: 'number', required: true }
+            { label: 'Phone Number', name: 'number_id', type: 'lookup', placeholder: 'Choose a phone number', endpoint: '/api/admin/team/phone_numbers', filter, value: 'id', text: 'number', required: true }
           ]
         }
       ]

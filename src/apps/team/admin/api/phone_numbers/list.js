@@ -7,7 +7,7 @@ const listRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
-    filterParams: ['type']
+    filterParams: ['type','program_id']
   }).fetchPage({
     page: req.query.$page,
     withRelated: ['program.logo'],
