@@ -86,43 +86,41 @@
 .flowchart-branches {
   display: flex;
 }
-.flowchart-branch {
-}
-.flowchart-tree-trunk > .flowchart-tree-line {
+.flowchart-tree-trunk > .flowchart-line {
   padding: 1em;
 }
-.flowchart-tree-trunk > .flowchart-tree-line:before {
+.flowchart-tree-trunk > .flowchart-line:before {
   border-left: 2px solid fadeout(@black, 90);
   left: 50%;
 }
-.flowchart-branches > .flowchart-branch > .flowchart-tree-line {
+.flowchart-branch > .flowchart-line {
   padding: 2.4em;
 }
-.flowchart-branches > .flowchart-branch > .flowchart-tree-line:before {
+.flowchart-branch > .flowchart-line:before {
   border-left: 2px solid fadeout(@black, 90);
   left: 50%;
   width: 100%;
 }
-.flowchart-branches > .flowchart-branch:last-child > .flowchart-tree-line:before {
+.flowchart-branch > .flowchart-line:after {
+  border-top: 2px solid fadeout(@black, 90);
+  width: 100%;
+  left: 0;
+}
+.flowchart-branch:first-child > .flowchart-line:after {
+  left: 50% !important;
+  width: 50%;
+}
+.flowchart-branch:last-child > .flowchart-line:after {
+  left: 0 !important;
+  width: 50%;
+}
+.flowchart-branch:last-child > .flowchart-line:before {
   border-left: none !important;
   border-right: 2px solid fadeout(@black, 90);
   left: 0 !important;
   width: 50%;
 }
-.flowchart-branches > .flowchart-branch > .flowchart-tree-line:after {
-  border-top: 2px solid fadeout(@black, 90);
-  width: 100%;
-  left: 0;
-}
-.flowchart-branches > .flowchart-branch:first-child > .flowchart-tree-line:after {
-  left: 50% !important;
-  width: 50%;
-}
-.flowchart-branches > .flowchart-branch:last-child > .flowchart-tree-line:after {
-  left: 0 !important;
-  width: 50%;
-}
-.flowchart-tree-line {
+.flowchart-line {
   flex: 1;
   position: relative;
   &:before, &:after {
@@ -132,7 +130,7 @@
     bottom: 0;
   }
 }
-.flowchart-tree-line-label {
+.flowchart-line-label {
   position: absolute;
   top: 30%;
   left: 50%;
