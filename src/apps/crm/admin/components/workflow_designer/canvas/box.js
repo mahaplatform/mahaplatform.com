@@ -6,6 +6,7 @@ import _ from 'lodash'
 class Box extends React.PureComponent {
 
   static propTypes = {
+    active: PropTypes.string,
     action: PropTypes.string,
     answer: PropTypes.string,
     blocks: PropTypes.array,
@@ -15,24 +16,26 @@ class Box extends React.PureComponent {
     parent: PropTypes.string,
     type: PropTypes.string,
     onAdd: PropTypes.func,
+    onEdit: PropTypes.func,
     onRemove: PropTypes.func
   }
 
+  _handleEdit = this._handleEdit.bind(this)
   _handleRemove = this._handleRemove.bind(this)
 
   render() {
     const { icon, label } = this._getBlock()
-    const { code, options, type } = this.props
+    const { active, code, options, type } = this.props
     return (
       <div className="workflow-box-padding">
-        <div className={`workflow-box-item workflow-box-${type}`}>
-          { !_.includes(['trigger','ending'], type) &&
+        <div className={ this._getClass() }>
+          { (code === active || !_.includes(['trigger','ending'], type)) &&
             <div className="workflow-box-highlight" />
           }
           { !_.includes(['trigger','ending'], type) &&
             <div className="workflow-box-actions">
               <div className="workflow-box-spacer"></div>
-              <div className="workflow-box-action">
+              <div className="workflow-box-action" onClick={ this._handleEdit }>
                 <i className="fa fa-pencil" />
               </div>
               <div className="workflow-box-action" onClick={ this._handleRemove }>
@@ -76,14 +79,28 @@ class Box extends React.PureComponent {
     return _.find(blocks, { type })
   }
 
+  _getClass() {
+    const { active, code, type } = this.props
+    const classes = ['workflow-box-item', `workflow-box-${type}`]
+    if(active === code) classes.push('active')
+    return classes.join(' ')
+  }
+
   _getTrunk(option) {
-    const { blocks, onAdd, onRemove } = this.props
+    const { active, blocks, onAdd, onEdit, onRemove } = this.props
     return {
+      active,
       boxes: option.then,
       blocks,
       onAdd,
+      onEdit,
       onRemove
     }
+  }
+
+  _handleEdit() {
+    const { code } = this.props
+    this.props.onEdit(code)
   }
 
   _handleRemove() {

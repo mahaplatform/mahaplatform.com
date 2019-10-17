@@ -8,7 +8,18 @@ export const add = (step) => ({
   step
 })
 
+export const edit = (code) => ({
+  type: 'EDIT',
+  code
+})
+
 export const remove = (step) => ({
   type: 'REMOVE',
   step
+})
+
+export const update = (code, config) => ({
+  type: 'UPDATE',
+  code,
+  config
 })

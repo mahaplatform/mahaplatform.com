@@ -5,9 +5,11 @@ import React from 'react'
 class Canvas extends React.PureComponent {
 
   static propTypes = {
+    active: PropTypes.string,
     blocks: PropTypes.array,
     config: PropTypes.array,
     onAdd: PropTypes.func,
+    onEdit: PropTypes.func,
     onRemove: PropTypes.func
   }
 
@@ -22,11 +24,13 @@ class Canvas extends React.PureComponent {
   }
 
   _getTrunk() {
-    const { blocks, config, onAdd, onRemove } = this.props
+    const { active, blocks, config, onAdd, onEdit, onRemove } = this.props
     return {
+      active,
       boxes: config,
       blocks,
       onAdd,
+      onEdit,
       onRemove
     }
   }

@@ -8,13 +8,16 @@ class VoiceDesigner extends React.PureComponent {
   static contextTypes = {}
 
   static propTypes = {
+    active: PropTypes.string,
     blocks: PropTypes.array,
     config: PropTypes.array,
     defaultValue: PropTypes.array,
     steps: PropTypes.array,
     onAdd: PropTypes.func,
+    onEdit: PropTypes.func,
     onRemove: PropTypes.func,
-    onSet: PropTypes.func
+    onSet: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   static defaultProps = {}
@@ -39,20 +42,25 @@ class VoiceDesigner extends React.PureComponent {
   componentDidUpdate(prevProps) {}
 
   _getCanvas() {
-    const { blocks, config, onAdd, onRemove } = this.props
+    const { active, blocks, config, onAdd, onEdit, onRemove } = this.props
     return {
+      active,
       blocks,
       config,
       onAdd,
+      onEdit,
       onRemove
     }
   }
 
   _getSidebar() {
-    const { blocks, config } = this.props
+    const { active, blocks, steps, onEdit, onUpdate } = this.props
     return {
+      active,
       blocks,
-      config
+      steps,
+      onEdit,
+      onUpdate
     }
   }
 

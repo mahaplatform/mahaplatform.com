@@ -1,4 +1,5 @@
 const INITIAL_STATE = {
+  active: null,
   steps: []
 }
 
@@ -15,6 +16,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'ADD':
     return {
       ...state,
+      active: action.step.code,
       steps: [
         ...state.steps.map(step => ({
           ...step,
@@ -22,6 +24,12 @@ const reducer = (state = INITIAL_STATE, action) => {
         })),
         action.step
       ]
+    }
+
+  case 'EDIT':
+    return {
+      ...state,
+      active: action.code
     }
 
   case 'REMOVE':
@@ -36,6 +44,21 @@ const reducer = (state = INITIAL_STATE, action) => {
         }))
       ]
     }
+
+  case 'UPDATE':
+    return {
+      ...state,
+      steps: [
+        ...state.steps.map(step => {
+          if(step.code !== action.code) return step
+          return {
+            ...step,
+            config: action.config
+          }
+        })
+      ]
+    }
+
   default:
     return state
   }

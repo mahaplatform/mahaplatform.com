@@ -7,9 +7,11 @@ import _ from 'lodash'
 class Trunk extends React.PureComponent {
 
   static propTypes = {
+    active: PropTypes.string,
     boxes: PropTypes.array,
     blocks: PropTypes.array,
     onAdd: PropTypes.func,
+    onEdit: PropTypes.func,
     onRemove: PropTypes.func
   }
 
@@ -46,12 +48,14 @@ class Trunk extends React.PureComponent {
   }
 
   _getBox(box, index) {
-    const { blocks, onAdd, onRemove } = this.props
+    const { active, blocks, onAdd, onEdit, onRemove } = this.props
     return {
       ...box,
+      active,
       blocks,
       index,
       onAdd,
+      onEdit,
       onRemove
     }
   }

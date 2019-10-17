@@ -2,6 +2,7 @@ import WorkflowDesigner from '../workflow_designer'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Edit from './edit'
+import Say from './say'
 
 class VoiceDesigner extends React.PureComponent {
 
@@ -31,7 +32,7 @@ class VoiceDesigner extends React.PureComponent {
           label: 'Speak Text',
           type: 'verb',
           action: 'say',
-          component: Edit
+          component: Say
         }, {
           icon: 'microphone',
           label: 'Record',
