@@ -98,12 +98,11 @@ class Trunk extends React.PureComponent {
     const subtype = e.dataTransfer.getData('subtype')
     const search = subtype ? { type, subtype } : { type }
     const block = _.find(blocks, search)
-    console.log(search, block)
     this.props.onAdd({
       id: null,
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
-      type,
-      subtype,
+      type: block.type,
+      subtype: block.subtype,
       delta: delta - 1,
       parent: parent ? parent.dataset.parent : null,
       answer: answer ? answer.dataset.answer : null,

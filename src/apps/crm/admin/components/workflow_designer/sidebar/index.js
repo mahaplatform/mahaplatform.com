@@ -11,6 +11,7 @@ class Sidebar extends React.PureComponent {
     blocks: PropTypes.array,
     steps: PropTypes.array,
     onEdit: PropTypes.func,
+    onSave: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -37,9 +38,9 @@ class Sidebar extends React.PureComponent {
   }
 
   _getContent() {
-    const { blocks } = this.props
+    const { blocks, onSave } = this.props
     return {
-      blocks
+      blocks, onSave
     }
   }
 

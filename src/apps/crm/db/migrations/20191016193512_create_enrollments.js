@@ -9,6 +9,7 @@ const CreateEnrollment = {
       table.foreign('workflow_id').references('crm_workflows.id')
       table.integer('contact_id').unsigned()
       table.foreign('contact_id').references('crm_contacts.id')
+      table.string('code')
       table.boolean('was_converted')
       table.timestamps()
     })

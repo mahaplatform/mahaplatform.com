@@ -17,7 +17,7 @@ const feedbackRoute = async (req, res) => {
     '/admin/team/faxes'
   ])
 
-  res.status(200).send(true)
+  res.status(200).send(null)
 
 }
 

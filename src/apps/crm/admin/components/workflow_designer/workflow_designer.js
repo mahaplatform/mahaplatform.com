@@ -5,8 +5,6 @@ import React from 'react'
 
 class VoiceDesigner extends React.PureComponent {
 
-  static contextTypes = {}
-
   static propTypes = {
     active: PropTypes.string,
     blocks: PropTypes.array,
@@ -16,11 +14,12 @@ class VoiceDesigner extends React.PureComponent {
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
     onRemove: PropTypes.func,
+    onSave: PropTypes.func,
     onSet: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
-  static defaultProps = {}
+  _handleSave = this._handleSave.bind(this)
 
   render() {
     return (
@@ -38,8 +37,6 @@ class VoiceDesigner extends React.PureComponent {
   componentDidMount() {
     this.props.onSet(this.props.defaultValue)
   }
-
-  componentDidUpdate(prevProps) {}
 
   _getCanvas() {
     const { active, blocks, config, onAdd, onEdit, onRemove } = this.props
@@ -60,8 +57,15 @@ class VoiceDesigner extends React.PureComponent {
       blocks,
       steps,
       onEdit,
+      onSave: this._handleSave,
       onUpdate
     }
+  }
+
+  _handleSave() {
+    const { steps, onSave } = this.props
+    console.log(steps)
+    onSave(steps)
   }
 
 }

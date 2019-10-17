@@ -26,8 +26,15 @@ const receiveRoute = async (req, res) => {
     status
   })
 
+  await call.load(['from','to'], {
+    transacting: req.trx
+  })
+
   const response = await Promise.reduce(voiceHooks, async (response, hook) => {
-    return await hook.default(req, call)
+    return await hook.default(req, {
+      call,
+      phone_number
+    })
   }, null)
 
   await socket.refresh(req, [

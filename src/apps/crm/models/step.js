@@ -14,6 +14,10 @@ const Step = new Model({
     return this.belongsTo(Action, 'step_id')
   },
 
+  parent() {
+    return this.belongsTo(Step, 'parent_id')
+  },
+
   workflow() {
     return this.belongsTo(Workflow, 'workflow_id')
   }

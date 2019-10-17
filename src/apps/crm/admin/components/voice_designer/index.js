@@ -8,7 +8,8 @@ import Say from './say'
 class VoiceDesigner extends React.PureComponent {
 
   static propTypes = {
-    config: PropTypes.array
+    defaultValue: PropTypes.array,
+    onSave: PropTypes.func
   }
 
   render() {
@@ -16,6 +17,7 @@ class VoiceDesigner extends React.PureComponent {
   }
 
   _getWorkflowDesigner() {
+    const { defaultValue, onSave } = this.props
     return {
       blocks: [
         {
@@ -116,7 +118,8 @@ class VoiceDesigner extends React.PureComponent {
           component: Edit
         }
       ],
-      defaultValue: []
+      defaultValue,
+      onSave
     }
   }
 

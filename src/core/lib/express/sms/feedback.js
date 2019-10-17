@@ -16,7 +16,7 @@ const feedbackRoute = async (req, res) => {
     '/admin/team/sms'
   ])
 
-  res.status(200).send(true)
+  res.status(200).send(null)
 
 }
 

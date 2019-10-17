@@ -1,7 +1,8 @@
 import Model from '../../../core/objects/model'
 import Program from './program'
+import Number from './number'
 
-const Number = new Model({
+const PhoneNumber = new Model({
 
   tableName: 'maha_phone_numbers',
 
@@ -16,10 +17,18 @@ const Number = new Model({
 
   },
 
+  from() {
+    return this.belongsTo(Number, 'from_number_id')
+  },
+
   program() {
     return this.belongsTo(Program, 'program_id')
+  },
+
+  to() {
+    return this.belongsTo(Number, 'to_number_id')
   }
 
 })
 
-export default Number
+export default PhoneNumber

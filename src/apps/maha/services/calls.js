@@ -86,6 +86,7 @@ export const initiateCall = async (req, { id }) => {
       status: 'queued',
       sent_at: moment()
     }, {
+      patch: true,
       transacting: req.trx
     })
 
@@ -94,9 +95,29 @@ export const initiateCall = async (req, { id }) => {
     await call.save({
       status: 'failed'
     }, {
+      patch: true,
       transacting: req.trx
     })
 
   }
+
+}
+
+export const updateCall = async (req, { duration, price, sid, status }) => {
+
+  const call = await Call.query(qb => {
+    qb.where('sid', sid)
+  }).fetch({
+    transacting: req.trx
+  })
+
+  await call.save({
+    duration,
+    price,
+    status
+  }, {
+    patch: true,
+    transacting: req.trx
+  })
 
 }

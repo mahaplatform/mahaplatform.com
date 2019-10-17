@@ -4,6 +4,7 @@ import feedback from './feedback'
 import { Router } from 'express'
 import receive from './receive'
 import logger from '../logger'
+import status from './status'
 
 const voiceFiles = collectObjects('voice/*')
 
@@ -19,7 +20,7 @@ voiceFiles.map(middleware => {
 
 router.post('/feedback', feedback)
 
-router.post('/status', (req, res) => res.send(true))
+router.post('/status', status)
 
 router.post('/', receive)
 
