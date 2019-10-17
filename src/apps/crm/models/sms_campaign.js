@@ -1,6 +1,7 @@
 import PhoneNumber from '../../maha/models/phone_number'
 import Model from '../../../core/objects/model'
 import Program from '../../maha/models/program'
+import Workflow from './workflow'
 
 const SmsCampaign = new Model({
 
@@ -16,6 +17,10 @@ const SmsCampaign = new Model({
 
   program() {
     return this.belongsTo(Program, 'program_id')
+  },
+
+  workflow() {
+    return this.belongsTo(Workflow, 'workflow_id')
   }
 
 })

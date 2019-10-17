@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 
 const steps = (state, props) => [
-  { parent: null, answer: null, type: 'trigger' },
+  { parent: null, answer: null, type: 'trigger', subtype: null },
   ...state.steps || []
 ]
 
@@ -14,7 +14,6 @@ const segment = (steps, parent, answer) => {
     if(step.type === 'conditional') {
       return {
         ...step,
-        action: step.config.action,
         options: step.config.options.map(option => ({
           ...option,
           then: segment(steps, `${step.code}` , option.value)
@@ -30,7 +29,7 @@ const segment = (steps, parent, answer) => {
   return [
     ...result,
     ...result.length == 0 || result[result.length - 1].type !== 'conditional' ? [
-      { parent: null, answer: null, type: 'ending' }
+      { parent: null, answer: null, type: 'ending', subtype: null }
     ] : []
   ]
 }

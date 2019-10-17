@@ -7,14 +7,8 @@ class Box extends React.PureComponent {
 
   static propTypes = {
     active: PropTypes.string,
-    action: PropTypes.string,
-    answer: PropTypes.string,
+    box: PropTypes.object,
     blocks: PropTypes.array,
-    code: PropTypes.string,
-    delta: PropTypes.number,
-    options: PropTypes.array,
-    parent: PropTypes.string,
-    type: PropTypes.string,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
     onRemove: PropTypes.func
@@ -25,7 +19,8 @@ class Box extends React.PureComponent {
 
   render() {
     const { icon, label } = this._getBlock()
-    const { active, code, options, type } = this.props
+    const { active, box } = this.props
+    const { code, options, type } = box
     return (
       <div className="workflow-box-padding">
         <div className={ this._getClass() }>
@@ -74,13 +69,15 @@ class Box extends React.PureComponent {
   }
 
   _getBlock() {
-    const { action, blocks, type } = this.props
-    if(action) return _.find(blocks, { type, action })
+    const { blocks, box } = this.props
+    const { subtype, type } = box
+    if(subtype) return _.find(blocks, { type, subtype })
     return _.find(blocks, { type })
   }
 
   _getClass() {
-    const { active, code, type } = this.props
+    const { active, box } = this.props
+    const { code, type } = box
     const classes = ['workflow-box-item', `workflow-box-${type}`]
     if(active === code) classes.push('active')
     return classes.join(' ')
@@ -99,13 +96,13 @@ class Box extends React.PureComponent {
   }
 
   _handleEdit() {
-    const { code } = this.props
-    this.props.onEdit(code)
+    const { box } = this.props
+    this.props.onEdit(box.code)
   }
 
   _handleRemove() {
-    const { parent, answer, delta, code } = this.props
-    this.props.onRemove({ parent, answer, delta, code })
+    const { box } = this.props
+    this.props.onRemove(box)
   }
 
 }

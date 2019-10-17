@@ -50,7 +50,7 @@ class Trunk extends React.PureComponent {
   _getBox(box, index) {
     const { active, blocks, onAdd, onEdit, onRemove } = this.props
     return {
-      ...box,
+      box,
       active,
       blocks,
       index,
@@ -95,19 +95,19 @@ class Trunk extends React.PureComponent {
     const parent = this._getParent(e.target, '.workflow-branches')
     const answer = this._getParent(e.target, '.workflow-branch')
     const type = e.dataTransfer.getData('type')
-    const action = e.dataTransfer.getData('action')
-    const block = _.find(blocks, { type, action })
+    const subtype = e.dataTransfer.getData('subtype')
+    const search = subtype ? { type, subtype } : { type }
+    const block = _.find(blocks, search)
+    console.log(search, block)
     this.props.onAdd({
       id: null,
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
       type,
+      subtype,
       delta: delta - 1,
       parent: parent ? parent.dataset.parent : null,
       answer: answer ? answer.dataset.answer : null,
-      config: {
-        action,
-        ...block.default
-      }
+      config: block.config
     })
     this.setState({
       delta: 0,

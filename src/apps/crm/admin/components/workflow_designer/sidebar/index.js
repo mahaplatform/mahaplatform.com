@@ -67,8 +67,10 @@ class Sidebar extends React.PureComponent {
   _handleEdit() {
     const { active, blocks, steps } = this.props
     const step = _.find(steps, { code: active })
-    const block = _.find(blocks, { type: step.type, action: step.config.action })
-    this._handlePush(block.component, this._getEdit(step))
+    const { type, subtype } = step
+    const search = subtype ? { type, subtype } : { type }
+    const block = _.find(blocks, search)
+    if(block.component) this._handlePush(block.component, this._getEdit(step))
   }
 
   _handlePop(index = -1) {
