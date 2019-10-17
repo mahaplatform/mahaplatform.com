@@ -17,7 +17,7 @@ class Box extends React.PureComponent {
     const { icon, label } = this._getBlock()
     return (
       <div className="flowchart-box-padding">
-        <div className="flowchart-box">
+        <div className={`flowchart-box flowchart-box-${type}`}>
           <div className={`flowchart-box-icon workflow-designer-icon-${type}`}>
             <i className={`fa fa-${icon}`} />
           </div>

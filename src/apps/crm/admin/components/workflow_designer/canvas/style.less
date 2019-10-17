@@ -26,10 +26,17 @@
     background-color: lighten(@black, 95);
   }
 }
-&.flowchart-box-icon-ending .fa-phone {
+.flowchart-box-trigger,
+.flowchart-box-ending {
+  cursor: auto !important;
+  &:hover {
+    background-color: @white !important;
+  }
+}
+.flowchart-box-icon-ending .fa-phone {
   transform: rotate(135deg);
 }
-&.flowchart-box-icon-action .fa-volume-control-phone {
+.flowchart-box-icon-action .fa-volume-control-phone {
   transform: rotate(-45deg);
 }
 .flowchart-box-icon {
