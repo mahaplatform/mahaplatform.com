@@ -1,0 +1,29 @@
+.workflow-designer-blocks {
+  flex: 1;
+  padding: 0.8em;
+  .scrollable();
+}
+.workflow-designer-block {
+  display: flex;
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.5em;
+  margin-bottom: 0.8em;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+  overflow: hidden;
+}
+.workflow-designer-block-icon {
+  display: flex;
+  padding: 0.6em;
+  background-color: fadeout(@black, 97);
+  color: @white;
+  .fa {
+    margin: auto;
+  }
+}
+.workflow-designer-block-label {
+  flex: 1;
+  padding: 0.6em;
+}

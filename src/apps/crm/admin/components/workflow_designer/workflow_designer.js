@@ -8,38 +8,46 @@ class VoiceDesigner extends React.PureComponent {
   static contextTypes = {}
 
   static propTypes = {
-    config: PropTypes.array
+    blocks: PropTypes.array,
+    config: PropTypes.array,
+    defaultValue: PropTypes.array,
+    steps: PropTypes.array,
+    onSet: PropTypes.array
   }
 
   static defaultProps = {}
 
   render() {
     return (
-      <div className="voice-designer">
-        <div className="voice-designer-main">
+      <div className="workflow-designer">
+        <div className="workflow-designer-main">
           <Canvas { ...this._getCanvas() } />
         </div>
-        <div className="voice-designer-sidebar">
+        <div className="workflow-designer-sidebar">
           <Sidebar { ...this._getSidebar() } />
         </div>
       </div>
     )
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.onSet(this.props.defaultValue)
+  }
 
   componentDidUpdate(prevProps) {}
 
   _getCanvas() {
-    const { config } = this.props
+    const { blocks, config } = this.props
     return {
+      blocks,
       config
     }
   }
 
   _getSidebar() {
-    const { config } = this.props
+    const { blocks, config } = this.props
     return {
+      blocks,
       config
     }
   }

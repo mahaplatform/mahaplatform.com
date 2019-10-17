@@ -40,7 +40,7 @@ class SMS extends React.PureComponent {
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { name: 'direction', type: 'hidden', defaultValue: direction },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
-            { label: 'Phone Number', name: 'phone_number_id', type: 'lookup', placeholder: 'Choose a phone number', endpoint: '/api/admin/crm/numbers', filter, value: 'id', text: 'formatted', required: true }
+            { label: 'Phone Number', name: 'phone_number_id', type: 'lookup', placeholder: 'Choose a phone number', endpoint: '/api/admin/team/phone_numbers', filter, value: 'id', text: 'formatted', required: true }
           ]
         }
       ]

@@ -1,31 +1,3 @@
-.voice-designer {
-  flex: 1;
-  display: flex;
-  background-color: @white;
-}
-.voice-designer-main {
-  background-color: #e9ebee;
-  flex-direction: column;
-  flex: 1;
-  display: flex;
-}
-.voice-designer-sidebar {
-  border-left: 1px solid fadeout(@black, 70);
-  flex: 0 0 ~"calc(100% / 3)";
-  max-width: 500px;
-  min-width: 350px;
-  display: flex;
-  .maha-modal-panel-header {
-    background-color: @grey !important;
-  }
-  & > * {
-    flex: 1;
-  }
-}
-
-
-
-
 .flowchart-canvas {
   flex: 1;
   display: flex;
@@ -55,31 +27,10 @@
     background-color: lighten(@black, 95);
   }
 }
-&.flowchart-box-beginning .flowchart-box-icon {
-  background-color: @green;
-}
-&.flowchart-box-verb .flowchart-box-icon {
-  background-color: @olive;
-}
-&.flowchart-box-conditional .flowchart-box-icon {
-  background-color: @blue;
-}
-&.flowchart-box-delay .flowchart-box-icon {
-  background-color: @purple;
-}
-&.flowchart-box-action .flowchart-box-icon {
-  background-color: @teal;
-}
-&.flowchart-box-goal .flowchart-box-icon {
-  background-color: @pink;
-}
-&.flowchart-box-ending .flowchart-box-icon {
-  background-color: @red;
-}
-&.flowchart-box-ending .fa-phone {
+&.flowchart-box-icon-ending .fa-phone {
   transform: rotate(135deg);
 }
-&.flowchart-box-action .fa-volume-control-phone {
+&.flowchart-box-icon-action .fa-volume-control-phone {
   transform: rotate(-45deg);
 }
 .flowchart-box-icon {
@@ -117,7 +68,7 @@
 }
 .flowchart-branch {
   & > .flowchart-line {
-    padding: 2.4em;
+    padding: 3em;
   }
   & > .flowchart-line:before {
     border-left: 2px solid lighten(@black, 75);
@@ -135,13 +86,13 @@
     left: 50% !important;
     width: 50%;
   }
-  .flowchart-branch:last-child > .flowchart-line:after {
-    left: 0 !important;
-    width: 50%;
-  }
   .flowchart-branch:last-child > .flowchart-line:before {
     border-left: none !important;
     border-right: 2px solid lighten(@black, 75);
+    left: 0 !important;
+    width: calc(50% + 2px);
+  }
+  .flowchart-branch:last-child > .flowchart-line:after {
     left: 0 !important;
     width: 50%;
   }
@@ -158,9 +109,9 @@
 }
 .flowchart-line-label {
   position: absolute;
-  top: 30%;
+  top: 50%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   display: block;
   border: 2px solid fadeout(@black, 80);
   background-color: @white;

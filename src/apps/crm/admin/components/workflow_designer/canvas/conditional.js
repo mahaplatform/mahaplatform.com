@@ -1,25 +1,21 @@
 import PropTypes from 'prop-types'
-import Ending from './ending'
 import React from 'react'
 import Box from './box'
 
 class Conditional extends React.PureComponent {
 
-  static contextTypes = {}
-
   static propTypes = {
+    blocks: PropTypes.array,
     action: PropTypes.string,
     options: PropTypes.array
   }
-
-  static defaultProps = {}
 
   render() {
     const { options } = this.props
     return (
       <div className="flowchart-box-padding">
-        <div className="flowchart-box flowchart-box-conditional">
-          <div className="flowchart-box-icon">
+        <div className="flowchart-box">
+          <div className="flowchart-box-icon workflow-designer-icon-conditional">
             <i className={`fa fa-${this._getIcon()}`} />
           </div>
           <div className="flowchart-box-label">
@@ -38,26 +34,34 @@ class Conditional extends React.PureComponent {
                 </div>
               </div>
               { option.then.map((box, index) => [
-                <Box { ...box } key={`box_${index}`} />,
+                <Box { ...this._getBox(box) } key={`box_${index}`} />,
                 ...(index < option.then.length - 1) ? [
                   <div className="flowchart-connector" key={`box_connector_${index}`}>
                     <div className="flowchart-line" />
                   </div>
                 ] : []
               ])}
-              { option.then[option.then.length - 1].type !== 'question' &&
-                <div className="flowchart-connector" key={`box_connector_${index}`}>
-                  <div className="flowchart-line" />
-                </div>
-              }
-              { option.then[option.then.length - 1].type !== 'question' &&
-                <Ending />
-              }
+              { (option.then.length === 0 || option.then[option.then.length - 1].type !== 'conditional') && [
+                ...(option.then.length > 0) ? [
+                  <div className="flowchart-connector" key="connector">
+                    <div className="flowchart-line" />
+                  </div>
+                ] : [],
+                <Box { ...this._getBox({ type: 'ending' }) } key="ending" />
+              ] }
             </div>
           )) }
         </div>
       </div>
     )
+  }
+
+  _getBox(box) {
+    const { blocks } = this.props
+    return {
+      ...box,
+      blocks
+    }
   }
 
   _getIcon() {
@@ -71,7 +75,6 @@ class Conditional extends React.PureComponent {
     if(action === 'question') return 'Question'
     if(action === 'ifelse') return 'If / Else'
   }
-
 
 }
 

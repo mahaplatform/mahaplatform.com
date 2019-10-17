@@ -84,11 +84,10 @@ import crmimagesfield from '../../apps/crm/admin/components/imagesfield'
 import crmnewcampaign from '../../apps/crm/admin/components/newcampaign'
 import crmphonesfield from '../../apps/crm/admin/components/phonesfield'
 import crmsharesfield from '../../apps/crm/admin/components/sharesfield'
-import crmsmsDesigner from '../../apps/crm/admin/components/sms_designer'
 import crmsocialDesigner from '../../apps/crm/admin/components/social_designer'
 import crmtimeline from '../../apps/crm/admin/components/timeline'
 import crmvideofield from '../../apps/crm/admin/components/videofield'
-import crmvoiceDesigner from '../../apps/crm/admin/components/voice_designer'
+import crmworkflowDesigner from '../../apps/crm/admin/components/workflow_designer'
 import driveaccess from '../../apps/drive/admin/components/access'
 import driveexplorer from '../../apps/drive/admin/components/explorer'
 import drivemove from '../../apps/drive/admin/components/move'
@@ -330,11 +329,10 @@ class App extends React.Component {
       crmnewcampaign,
       crmphonesfield,
       crmsharesfield,
-      crmsmsDesigner,
       crmsocialDesigner,
       crmtimeline,
       crmvideofield,
-      crmvoiceDesigner,
+      crmworkflowDesigner,
       driveaccess,
       driveexplorer,
       drivemove,
