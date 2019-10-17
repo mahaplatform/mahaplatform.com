@@ -31,18 +31,7 @@ class VoiceDesigner extends React.PureComponent {
         { icon: 'flag', label: 'Goal', type: 'goal', action: 'goal' },
         { icon: 'phone', label: 'Hangup', type: 'ending' }
       ],
-      defaultValue: [
-        { id: 1, code: 'abc123', type: 'verb', delta: 0, parent_id: null, answer: null, config: { action: 'play' } },
-        { id: 2, code: 'bcd123', type: 'conditional', delta: 1, parent_id: null, answer: null, config: { action: 'question', options: [{ value: 1, text: 1 }, { value: 2, text: 2 }] } },
-        { id: 3, code: 'cde123', type: 'verb', delta: 0, parent_id: 2, answer: 1, config: { action: 'say' } },
-        { id: 4, code: 'def123', type: 'action', delta: 1, parent_id: 2, answer: 1, config: { action: 'update_property' } },
-        { id: 6, code: 'bcd123', type: 'conditional', delta: 2, parent_id: 2, answer: 1, config: { action: 'question', options: [{ value: 1, text: 1 }, { value: 2, text: 2 }] } },
-        { id: 5, code: 'fgh123', type: 'verb', delta: 0, parent_id: 2, answer: 2, config: { action: 'say' } },
-        { id: 7, code: 'ghi123', type: 'action', delta: 1, parent_id: 2, answer: 2, config: { action: 'add_to_list' } },
-        { id: 8, code: 'ghi123', type: 'action', delta: 2, parent_id: 2, answer: 2, config: { action: 'send_email' } },
-        { id: 9, code: 'hij123', type: 'goal', delta: 3, parent_id: 2, answer: 2, config: {} },
-        { id: 10, code: 'fgh123', type: 'verb', delta: 0, parent_id: 6, answer: 1, config: { action: 'say' } }
-      ]
+      defaultValue: []
     }
   }
 

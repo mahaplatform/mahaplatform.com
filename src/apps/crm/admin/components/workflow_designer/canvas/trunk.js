@@ -1,42 +1,143 @@
 import PropTypes from 'prop-types'
+import Target from './target'
 import React from 'react'
 import Box from './box'
+import _ from 'lodash'
 
 class Trunk extends React.PureComponent {
 
   static propTypes = {
     boxes: PropTypes.array,
-    blocks: PropTypes.array
+    blocks: PropTypes.array,
+    onAdd: PropTypes.func,
+    onRemove: PropTypes.func
   }
+
+  state = {
+    delta: 0,
+    hovering: false
+  }
+
+  _handleDrop = this._handleDrop.bind(this)
+  _handleDragEnter = this._handleDragEnter.bind(this)
+  _handleDragLeave = this._handleDragLeave.bind(this)
+  _handleDragOver = this._handleDragOver.bind(this)
 
   render() {
+    const { delta, hovering } = this.state
     const { boxes } = this.props
-    return boxes.map((box, index) => [
-      ...!(boxes[0].type === 'trigger' && index === 0) && false ? [
-        <div className="flowchart-box-padding" key={`dropzone_${index}`}>
-          <div className="flowchart-dropzone">
-            dropzone
+    return (
+      <div { ...this._getDropZone()}>
+        { boxes.map((box, index) => (
+          <div className="workflow-segment" key={`box_${index}`} data-delta={ index }>
+            { !(boxes[0].type === 'trigger' && index === 0) && hovering && index === delta &&
+              <Target key={`dropzone_${index}`} />
+            }
+            <Box { ...this._getBox(box, index) } />
+            { (index < boxes.length - 1) &&
+              <div className="workflow-connector" key={`box_connector_${index}`}>
+                <div className="workflow-line" />
+              </div>
+            }
           </div>
-        </div>,
-        <div className="flowchart-connector" key={`dropzone_connector_${index}`}>
-          <div className="flowchart-line" />
-        </div>
-      ] : [],
-      <Box { ...this._getBox(box) } key={`box_${index}`} />,
-      ...(index < boxes.length - 1) ? [
-        <div className="flowchart-connector" key={`box_connector_${index}`}>
-          <div className="flowchart-line" />
-        </div>
-      ] : []
-    ])
+        )) }
+      </div>
+    )
   }
 
-  _getBox(box) {
-    const { blocks } = this.props
+  _getBox(box, index) {
+    const { blocks, onAdd, onRemove } = this.props
     return {
       ...box,
-      blocks
+      blocks,
+      index,
+      onAdd,
+      onRemove
     }
+  }
+
+  _getDropZone() {
+    return {
+      className: 'workflow-segments',
+      onDragEnter: this._handleDrag.bind(this, 'enter'),
+      onDragOver: this._handleDrag.bind(this, 'over'),
+      onDrop: this._handleDrop
+    }
+  }
+
+  _getMiddle(el) {
+    const rect = el.getBoundingClientRect()
+    return rect.y + (rect.height / 2)
+  }
+
+  _getParent(el, selector) {
+    const matches = (el.matches || el.matchesSelector)
+    while ((el = el.parentElement) && !(matches.call(el, selector))) { null }
+    return el
+  }
+
+  _handleDrag(action, e) {
+    e.preventDefault()
+    e.stopPropagation()
+    if(action === 'enter') this._handleDragEnter()
+    if(action === 'over') this._handleDragOver(e.target, e.currentTarget, e.clientX, e.clientY)
+  }
+
+  _handleDrop(e) {
+    const { delta } = this.state
+    e.preventDefault()
+    e.stopPropagation()
+    const parent = this._getParent(e.target, '.workflow-branches')
+    const answer = this._getParent(e.target, '.workflow-branch')
+    const type = e.dataTransfer.getData('type')
+    this.props.onAdd({
+      id: null,
+      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
+      type,
+      delta: delta - 1,
+      parent: parent ? parent.dataset.parent : null,
+      answer: answer ? answer.dataset.answer : null,
+      config: {
+        action: e.dataTransfer.getData('action'),
+        ...type === 'conditional' ? {
+          options: [{ value: '1', text: '1' }, { value: '2', text: '2' }]
+        } : {}
+      }
+    })
+    this.setState({
+      delta: 0,
+      hovering: false
+    })
+  }
+
+  _handleDragEnter() {
+    this._handleHover(true)
+  }
+
+  _handleDragLeave() {
+    this._handleHover(false)
+  }
+
+  _handleDragOver(target, dropzone, x, y) {
+    const segment = this._getParent(target, '.workflow-segment')
+    if(this.timeout) clearTimeout(this.timeout)
+    this.timeout = setTimeout(this._handleDragLeave, 100)
+    if(segment) {
+      const delta = parseInt(segment.dataset.delta)
+      const middle = this._getMiddle(segment)
+      if(y <= middle) return this._handleDelta(delta)
+      if(y > middle) return this._handleDelta(delta + 1)
+    }
+    const middle = this._getMiddle(dropzone)
+    if(y <= middle) return this._handleDelta(0)
+  }
+
+  _handleHover(hovering) {
+    this.setState({ hovering })
+  }
+
+  _handleDelta(delta) {
+    this.setState({ delta })
   }
 
 }

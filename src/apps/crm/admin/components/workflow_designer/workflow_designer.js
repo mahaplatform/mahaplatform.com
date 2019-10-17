@@ -12,6 +12,8 @@ class VoiceDesigner extends React.PureComponent {
     config: PropTypes.array,
     defaultValue: PropTypes.array,
     steps: PropTypes.array,
+    onAdd: PropTypes.func,
+    onRemove: PropTypes.func,
     onSet: PropTypes.func
   }
 
@@ -37,10 +39,12 @@ class VoiceDesigner extends React.PureComponent {
   componentDidUpdate(prevProps) {}
 
   _getCanvas() {
-    const { blocks, config } = this.props
+    const { blocks, config, onAdd, onRemove } = this.props
     return {
       blocks,
-      config
+      config,
+      onAdd,
+      onRemove
     }
   }
 

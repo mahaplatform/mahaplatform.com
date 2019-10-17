@@ -6,28 +6,30 @@ class Canvas extends React.PureComponent {
 
   static propTypes = {
     blocks: PropTypes.array,
-    config: PropTypes.array
+    config: PropTypes.array,
+    onAdd: PropTypes.func,
+    onRemove: PropTypes.func
   }
 
   render() {
-    const { blocks, config } = this.props
     return (
-      <div className="flowchart-canvas">
-        <div className="flowchart">
-          <Trunk boxes={ config } blocks={ blocks } />
+      <div className="workflow-canvas">
+        <div className="workflow">
+          <Trunk { ...this._getTrunk() } />
         </div>
       </div>
     )
   }
 
-  _getBox(box) {
-    const { blocks } = this.props
+  _getTrunk() {
+    const { blocks, config, onAdd, onRemove } = this.props
     return {
-      ...box,
-      blocks
+      boxes: config,
+      blocks,
+      onAdd,
+      onRemove
     }
   }
-
 }
 
 export default Canvas

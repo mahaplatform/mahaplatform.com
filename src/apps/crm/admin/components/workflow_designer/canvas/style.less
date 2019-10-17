@@ -1,16 +1,49 @@
-.flowchart-canvas {
+.workflow-canvas {
   flex: 1;
   display: flex;
   padding: 0.8em;
   overflow: scroll;
 }
-.flowchart {
+.workflow {
   margin: 0.8em auto;
 }
-.flowchart-box-padding {
+.workflow-box-padding {
   padding: 0 0.4em;
 }
-.flowchart-box {
+.workflow-box-highlight {
+  display: none;
+  border: 2px solid @teal;
+  border-radius: 0.3em;
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  bottom: -2px;
+  left: -2px;
+}
+.workflow-box-actions {
+  display: none;
+  border-radius: 0.3em;
+  position: absolute;
+  top: -2px;
+  right: -2px;
+  background-color: @teal;
+  overflow: hidden;
+}
+.workflow-box-action {
+  padding: 0.2em .4em;
+  cursor: pointer;
+  .fa {
+    font-size: 0.8em;
+    color: fadeout(@white, 30);
+  }
+  &:hover {
+    background-color: fadeout(@black, 85);
+    .fa {
+      color: @white;
+    }
+  }
+}
+.workflow-box-item {
   position: relative;
   border-radius: 0.3em;
   border: 2px solid fadeout(@black, 80);
@@ -22,24 +55,28 @@
   width: 175px;
   text-transform: uppercase;
   cursor: pointer;
-  &:hover {
-    background-color: lighten(@black, 95);
+  &.active .workflow-box-highlight,
+  &:hover .workflow-box-highlight {
+    display: block;
+  }
+  &:hover .workflow-box-actions {
+    display: flex;
   }
 }
-.flowchart-box-trigger,
-.flowchart-box-ending {
+.workflow-box-trigger,
+.workflow-box-ending {
   cursor: auto !important;
   &:hover {
     background-color: @white !important;
   }
 }
-.flowchart-box-icon-ending .fa-phone {
+.workflow-box-icon-ending .fa-phone {
   transform: rotate(135deg);
 }
-.flowchart-box-icon-action .fa-volume-control-phone {
+.workflow-box-icon-action .fa-volume-control-phone {
   transform: rotate(-45deg);
 }
-.flowchart-box-icon {
+.workflow-box-icon {
   border: 2px solid fadeout(@black, 80);
   border-radius: 50%;
   color: @white;
@@ -53,18 +90,18 @@
   transform: translate(-50%, -50%);
   text-align: center;
 }
-.flowchart-box-label {
+.workflow-box-label {
   text-align: center;
   font-size: 0.8em;
   line-height: 2em;
 }
-.flowchart-dropzone {
+.workflow-dropzone {
   border-radius: 0.3em;
   border: 2px solid fadeout(@black, 80);
   font-weight: bold;
   background-color: lighten(@black, 95);
   color: fadeout(@black, 40);
-  padding: 1.4em 0.4em;
+  padding: ~"calc(1.6em - 4px) 0.4em";
   text-align: center;
   margin: 0 auto;
   width: 175px;
@@ -72,53 +109,53 @@
   font-size: 0.8em;
   line-height: 2em;
 }
-.flowchart-connector {
+.workflow-connector {
   display: flex;
 }
-.flowchart-branches {
+.workflow-branches {
   display: flex;
 }
-.flowchart-connector {
-  & > .flowchart-line {
+.workflow-connector {
+  & > .workflow-line {
     padding: 1em;
   }
-  & > .flowchart-line:before {
+  & > .workflow-line:before {
     border-left: 2px solid lighten(@black, 75);
     left: 50%;
   }
 }
-.flowchart-branch {
-  & > .flowchart-line {
+.workflow-branch {
+  & > .workflow-line {
     padding: 3em;
   }
-  & > .flowchart-line:before {
+  & > .workflow-line:before {
     border-left: 2px solid lighten(@black, 75);
     left: 50%;
     width: 100%;
   }
-  & > .flowchart-line:after {
+  & > .workflow-line:after {
     border-top: 2px solid lighten(@black, 75);
     width: 100%;
     left: 0;
   }
 }
-.flowchart-branches {
-  .flowchart-branch:first-child > .flowchart-line:after {
+.workflow-branches {
+  .workflow-branch:first-child > .workflow-line:after {
     left: 50% !important;
     width: 50%;
   }
-  .flowchart-branch:last-child > .flowchart-line:before {
+  .workflow-branch:last-child > .workflow-line:before {
     border-left: none !important;
     border-right: 2px solid lighten(@black, 75);
     left: 0 !important;
     width: calc(50% + 2px);
   }
-  .flowchart-branch:last-child > .flowchart-line:after {
+  .workflow-branch:last-child > .workflow-line:after {
     left: 0 !important;
     width: 50%;
   }
 }
-.flowchart-line {
+.workflow-line {
   flex: 1;
   position: relative;
   &:before, &:after {
@@ -128,7 +165,7 @@
     bottom: 0;
   }
 }
-.flowchart-line-label {
+.workflow-line-label {
   position: absolute;
   top: 50%;
   left: 50%;
