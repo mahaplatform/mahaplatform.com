@@ -2,7 +2,7 @@ const SMSCampaignSerializer = (req, result) => ({
   id: result.get('id'),
   title: result.get('title'),
   program: program(result.related('program')),
-  number: number(result.related('number')),
+  phone_number: phone_number(result.related('phone_number')),
   code: result.get('code'),
   direction: result.get('direction'),
   status: result.get('status'),
@@ -18,13 +18,14 @@ const program = (program) => {
   }
 }
 
-const number = (number) => {
-  if(!number.id) return
+const phone_number = (phone_number) => {
+  if(!phone_number.id) return
   return {
-    id: number.get('id'),
-    number: number.get('number'),
-    locality: number.get('locality'),
-    region: number.get('region')
+    id: phone_number.get('id'),
+    number: phone_number.get('number'),
+    formatted: phone_number.get('formatted'),
+    locality: phone_number.get('locality'),
+    region: phone_number.get('region')
   }
 }
 

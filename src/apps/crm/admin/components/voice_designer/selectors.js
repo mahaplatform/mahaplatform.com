@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect'
-import _ from 'lodash'
 
 const steps = (state, props) => state.steps || []
 
@@ -9,21 +8,20 @@ const segment = (steps, parent_id, answer_value) => {
   }).sort((a, b) => {
     return a < b ? -1 : 1
   }).map(step => {
-    if(_.includes(['question','ifelse'], step.type)) {
+    if(step.type === 'conditional') {
       return {
         ...step,
+        action: step.config.action,
         options: step.config.options.map(option => ({
           ...option,
           then: segment(steps, step.id, option.value)
         }))
       }
-    } else if(_.includes(['action','speak','send'], step.type)) {
+    } else {
       return {
         ...step,
         ...step.config
       }
-    } else {
-      return step
     }
   })
 }

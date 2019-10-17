@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Speak extends React.PureComponent {
+class Verb extends React.PureComponent {
 
   static contextTypes = {}
 
@@ -14,7 +14,7 @@ class Speak extends React.PureComponent {
   render() {
     return (
       <div className="flowchart-box-padding">
-        <div className="flowchart-box flowchart-box-speak">
+        <div className="flowchart-box flowchart-box-verb">
           <div className="flowchart-box-icon">
             <i className={`fa fa-${this._getIcon()}`} />
           </div>
@@ -38,7 +38,6 @@ class Speak extends React.PureComponent {
     if(action === 'say') return 'Speak text'
   }
 
-
 }
 
-export default Speak
+export default Verb

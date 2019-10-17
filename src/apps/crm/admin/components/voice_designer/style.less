@@ -76,8 +76,12 @@
 &.flowchart-box-ending .flowchart-box-icon {
   background-color: @red;
 }
-
-
+&.flowchart-box-ending .fa-phone {
+  transform: rotate(135deg);
+}
+&.flowchart-box-action .fa-volume-control-phone {
+  transform: rotate(-45deg);
+}
 .flowchart-box-icon {
   border: 2px solid fadeout(@black, 80);
   border-radius: 50%;
@@ -90,12 +94,6 @@
   left: 50%;
   top: 0;
   transform: translate(-50%, -50%);
-  .fa-phone {
-    transform: rotate(135deg);
-  }
-  .fa-volume-control-phone {
-    transform: rotate(-45deg);
-  }
 }
 .flowchart-box-label {
   text-align: center;
@@ -164,7 +162,7 @@
   left: 50%;
   transform: translateX(-50%);
   display: block;
-  border: 1px solid fadeout(@black, 80);
+  border: 2px solid fadeout(@black, 80);
   background-color: @white;
   color: fadeout(@black, 40);
   text-align: center;

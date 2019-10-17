@@ -1,3 +1,4 @@
+import Beginning from './beginning'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Box from './box'
@@ -18,6 +19,10 @@ class Canvas extends React.PureComponent {
       <div className="flowchart-canvas">
         <div className="flowchart">
           <div className="flowchart-branch">
+            <Beginning />
+            <div className="flowchart-connector">
+              <div className="flowchart-line" />
+            </div>
             { config.map((box, index) => [
               <Box { ...box } key={`box_${index}`} />,
               ...(index < config.length - 1) ? [

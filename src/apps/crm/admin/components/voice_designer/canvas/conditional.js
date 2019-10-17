@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types'
-import Hangup from './hangup'
+import Ending from './ending'
 import React from 'react'
 import Box from './box'
 
-class Question extends React.PureComponent {
+class Conditional extends React.PureComponent {
 
   static contextTypes = {}
 
   static propTypes = {
+    action: PropTypes.string,
     options: PropTypes.array
   }
 
@@ -17,12 +18,12 @@ class Question extends React.PureComponent {
     const { options } = this.props
     return (
       <div className="flowchart-box-padding">
-        <div className="flowchart-box flowchart-box-question">
+        <div className="flowchart-box flowchart-box-conditional">
           <div className="flowchart-box-icon">
-            <i className="fa fa-question" />
+            <i className={`fa fa-${this._getIcon()}`} />
           </div>
           <div className="flowchart-box-label">
-            question
+            { this._getLabel() }
           </div>
         </div>
         <div className="flowchart-connector">
@@ -50,7 +51,7 @@ class Question extends React.PureComponent {
                 </div>
               }
               { option.then[option.then.length - 1].type !== 'question' &&
-                <Hangup />
+                <Ending />
               }
             </div>
           )) }
@@ -59,11 +60,19 @@ class Question extends React.PureComponent {
     )
   }
 
-  componentDidMount() {}
+  _getIcon() {
+    const { action } = this.props
+    if(action === 'question') return 'question'
+    if(action === 'ifelse') return 'random'
+  }
 
-  componentDidUpdate(prevProps) {}
+  _getLabel() {
+    const { action } = this.props
+    if(action === 'question') return 'Question'
+    if(action === 'ifelse') return 'If / Else'
+  }
 
 
 }
 
-export default Question
+export default Conditional

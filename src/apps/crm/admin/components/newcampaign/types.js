@@ -1,5 +1,5 @@
 import CampaignToken from '../../tokens/campaign'
-import { Message, ModalPanel } from 'maha-admin'
+import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import List from '../list'
 import React from 'react'

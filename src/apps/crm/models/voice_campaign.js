@@ -1,6 +1,6 @@
+import PhoneNumber from '../../maha/models/phone_number'
 import Model from '../../../core/objects/model'
 import Program from '../../maha/models/program'
-import Number from '../../maha/models/number'
 
 const VoiceCampaign = new Model({
 
@@ -10,8 +10,8 @@ const VoiceCampaign = new Model({
 
   virtuals: {},
 
-  number() {
-    return this.belongsTo(Number, 'number_id')
+  phone_number() {
+    return this.belongsTo(PhoneNumber, 'phone_number_id')
   },
 
   program() {

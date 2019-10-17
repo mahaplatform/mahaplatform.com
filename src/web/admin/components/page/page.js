@@ -74,19 +74,21 @@ class Page extends React.Component {
     if(!access) return this.renderForbidden()
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-page-main">
-          { sidebar &&
-            <div className="maha-page-sidebar">
-              { _.isFunction(sidebar) ? React.createElement(sidebar) : sidebar }
+        <div className="maha-page">
+          <div className="maha-page-main">
+            { sidebar &&
+              <div className="maha-page-sidebar">
+                { _.isFunction(sidebar) ? React.createElement(sidebar) : sidebar }
+              </div>
+            }
+            <div className="maha-page-body">
+              { Component && <Component { ...this._getComponent() } /> }
+              { collection && <Collection { ...this._getCollection() } /> }
+              { message && <Message { ...message } /> }
+              { tabs && <Tabs { ...tabs } /> }
+              { panel && <Panel { ...panel } /> }
+              { this.props.children }
             </div>
-          }
-          <div className="maha-page-body">
-            { Component && <Component { ...this._getComponent() } /> }
-            { collection && <Collection { ...this._getCollection() } /> }
-            { message && <Message { ...message } /> }
-            { tabs && <Tabs { ...tabs } /> }
-            { panel && <Panel { ...panel } /> }
-            { this.props.children }
           </div>
           { alert &&
             <div className="maha-page-alert">

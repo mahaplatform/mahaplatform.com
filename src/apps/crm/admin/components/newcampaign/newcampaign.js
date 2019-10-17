@@ -13,18 +13,18 @@ import _ from 'lodash'
 const types = [
   {
     value: 'inbound_voice',
-    component: Email,
+    component: Voice,
     direction: 'inbound'
   },{
-    value: 'inbound_sms',
-    component: Email,
-    direction: 'inbound'
-  },{
-    value: 'voice',
+    value: 'outbound_voice',
     component: Voice,
     direction: 'outbound'
   },{
-    value: 'sms',
+    value: 'inbound_sms',
+    component: SMS,
+    direction: 'inbound'
+  },{
+    value: 'outbound_sms',
     component: SMS,
     direction: 'outbound'
   },{
@@ -96,8 +96,9 @@ class NewCampaign extends React.PureComponent {
     }
   }
 
-  _getType(program_id) {
+  _getType(direction, program_id) {
     return {
+      direction,
       program_id,
       onBack: this._handlePop,
       onDone: this._handleDone
@@ -122,7 +123,7 @@ class NewCampaign extends React.PureComponent {
 
   _handleProgram(program) {
     const type = _.find(types, { value: this.props.type })
-    this._handlePush(type.component, this._getType(program.id))
+    this._handlePush(type.component, this._getType(type.direction, program.id))
   }
 
   _handlePush(component, props) {

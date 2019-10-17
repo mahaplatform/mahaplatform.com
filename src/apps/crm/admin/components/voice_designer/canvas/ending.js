@@ -3,16 +3,10 @@ import React from 'react'
 
 class Hangup extends React.PureComponent {
 
-  static contextTypes = {}
-
-  static propTypes = {}
-
-  static defaultProps = {}
-
   render() {
     return (
       <div className="flowchart-box-padding">
-        <div className="flowchart-box flowchart-box-hangup">
+        <div className="flowchart-box flowchart-box-ending">
           <div className="flowchart-box-icon">
             <i className="fa fa-phone" />
           </div>
@@ -23,11 +17,6 @@ class Hangup extends React.PureComponent {
       </div>
     )
   }
-
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps) {}
-
 
 }
 

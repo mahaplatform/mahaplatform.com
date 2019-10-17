@@ -2,12 +2,17 @@ import CampaignType from '../campaign_type'
 import React from 'react'
 
 const campaigns = {
-  email: {
-    icon: 'envelope',
-    title: 'Email Blast',
-    description: 'Create and send a bulk personalized email'
+  inbound_voice: {
+    icon: 'phone',
+    title: 'Inbound Voice',
+    description: 'Answer and handle inbound voice calls'
   },
-  sms: {
+  outbound_voice: {
+    icon: 'phone',
+    title: 'Voice Broadcast',
+    description: 'Create an interactive voice workflow'
+  },
+  outbound_sms: {
     icon: 'comments',
     title: 'SMS Broadcast',
     description: 'Create an interactive text message workflow'
@@ -17,20 +22,15 @@ const campaigns = {
     title: 'Inbound SMS',
     description: 'Respond to inbound SMS messages'
   },
+  email: {
+    icon: 'envelope',
+    title: 'Email Blast',
+    description: 'Create and send a bulk personalized email'
+  },
   social: {
     icon: 'users',
     title: 'Social Post',
     description: 'Create and publish a post to Facebook, Instagram, or Twitter'
-  },
-  voice: {
-    icon: 'phone',
-    title: 'Voice Broadcast',
-    description: 'Create an interactive voice workflow'
-  },
-  inbound_voice: {
-    icon: 'phone',
-    title: 'Inbound Voice',
-    description: 'Answer and handle inbound voice calls'
   },
   postal: {
     icon: 'file',

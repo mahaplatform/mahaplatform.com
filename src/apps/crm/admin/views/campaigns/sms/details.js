@@ -15,7 +15,7 @@ const Details = ({ campaign }) => {
   config.items = [
     { label: 'Title', content: campaign.title },
     { label: 'Program', content: campaign.program.title },
-    { label: 'Number', content: campaign.number.number },
+    { label: 'Phone Number', content: campaign.phone_number.formatted },
     { label: 'Content', content: <Button { ...design } /> }
   ]
 
