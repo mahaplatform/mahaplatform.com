@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Trunk from './trunk'
 import React from 'react'
 import Box from './box'
 
@@ -33,22 +34,7 @@ class Conditional extends React.PureComponent {
                   { option.text }
                 </div>
               </div>
-              { option.then.map((box, index) => [
-                <Box { ...this._getBox(box) } key={`box_${index}`} />,
-                ...(index < option.then.length - 1) ? [
-                  <div className="flowchart-connector" key={`box_connector_${index}`}>
-                    <div className="flowchart-line" />
-                  </div>
-                ] : []
-              ])}
-              { (option.then.length === 0 || option.then[option.then.length - 1].type !== 'conditional') && [
-                ...(option.then.length > 0) ? [
-                  <div className="flowchart-connector" key="connector">
-                    <div className="flowchart-line" />
-                  </div>
-                ] : [],
-                <Box { ...this._getBox({ type: 'ending' }) } key="ending" />
-              ] }
+              <Trunk boxes={ option.then } blocks={ this.props.blocks } />
             </div>
           )) }
         </div>

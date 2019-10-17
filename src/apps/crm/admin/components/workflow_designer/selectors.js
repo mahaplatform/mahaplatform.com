@@ -1,10 +1,13 @@
 import { createSelector } from 'reselect'
 
-const steps = (state, props) => state.steps || []
+const steps = (state, props) => [
+  { parent_id: null, answer: null, type: 'trigger' },
+  ...state.steps || []
+]
 
-const segment = (steps, parent_id, answer_value) => {
-  return steps.filter((step) => {
-    return step.parent_id === parent_id && step.answer_value === answer_value
+const segment = (steps, parent_id, answer) => {
+  const result = steps.filter((step) => {
+    return step.parent_id === parent_id && step.answer === answer
   }).sort((a, b) => {
     return a < b ? -1 : 1
   }).map(step => {
@@ -24,6 +27,12 @@ const segment = (steps, parent_id, answer_value) => {
       }
     }
   })
+  return [
+    ...result,
+    ...result.length == 0 || result[result.length - 1].type !== 'conditional' ? [
+      { parent_id: null, answer: null, type: 'ending' }
+    ] : []
+  ]
 }
 
 export const config = createSelector(

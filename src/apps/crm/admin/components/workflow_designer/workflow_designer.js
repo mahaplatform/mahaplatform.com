@@ -12,7 +12,7 @@ class VoiceDesigner extends React.PureComponent {
     config: PropTypes.array,
     defaultValue: PropTypes.array,
     steps: PropTypes.array,
-    onSet: PropTypes.array
+    onSet: PropTypes.func
   }
 
   static defaultProps = {}
