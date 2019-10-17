@@ -84,12 +84,15 @@ class Trunk extends React.PureComponent {
   }
 
   _handleDrop(e) {
+    const { blocks } = this.props
     const { delta } = this.state
     e.preventDefault()
     e.stopPropagation()
     const parent = this._getParent(e.target, '.workflow-branches')
     const answer = this._getParent(e.target, '.workflow-branch')
     const type = e.dataTransfer.getData('type')
+    const action = e.dataTransfer.getData('action')
+    const block = _.find(blocks, { type, action })
     this.props.onAdd({
       id: null,
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
@@ -98,10 +101,8 @@ class Trunk extends React.PureComponent {
       parent: parent ? parent.dataset.parent : null,
       answer: answer ? answer.dataset.answer : null,
       config: {
-        action: e.dataTransfer.getData('action'),
-        ...type === 'conditional' ? {
-          options: [{ value: '1', text: '1' }, { value: '2', text: '2' }]
-        } : {}
+        action,
+        ...block.default
       }
     })
     this.setState({

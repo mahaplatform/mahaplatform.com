@@ -1,6 +1,7 @@
+import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
-import React from 'react'
 import Content from './content'
+import React from 'react'
 
 class Sidebar extends React.PureComponent {
 
@@ -8,8 +9,16 @@ class Sidebar extends React.PureComponent {
     blocks: PropTypes.array
   }
 
+  state = {
+    cards: []
+  }
+
   render() {
-    return <Content { ...this._getContent() } />
+    return <Stack { ...this._getStack() } />
+  }
+
+  componentDidMount() {
+    this._handlePush(Content, this._getContent())
   }
 
   _getContent() {
@@ -19,6 +28,28 @@ class Sidebar extends React.PureComponent {
     }
   }
 
+  _getStack() {
+    const { cards } = this.state
+    return {
+      cards,
+      slideFirst: false
+    }
+  }
+
+  _handlePop(index = -1) {
+    this.setState({
+      cards:this.state.cards.slice(0, index)
+    })
+  }
+
+  _handlePush(component, props) {
+    this.setState({
+      cards: [
+        ...this.state.cards,
+        { component, props }
+      ]
+    })
+  }
 
 }
 
