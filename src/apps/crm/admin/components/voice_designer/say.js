@@ -5,7 +5,7 @@ import React from 'react'
 class Say extends React.PureComponent {
 
   static propTypes = {
-    config: PropTypes.array,
+    config: PropTypes.object,
     onChange: PropTypes.func,
     onDone: PropTypes.func
   }
@@ -18,6 +18,7 @@ class Say extends React.PureComponent {
   }
 
   getForm() {
+    const { config } = this.props
     return {
       title: 'Speak Text',
       onChange: this._handleChange,
@@ -30,8 +31,8 @@ class Say extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Voice', name: 'voice', type: 'lookup', options: [{ value: 'woman', text: 'Woman' },{ value: 'man', text: 'Man' }], defaultValue: 'woman' },
-            { label: 'Message', name: 'message', type: 'textarea' }
+            { label: 'Voice', name: 'voice', type: 'lookup', options: [{ value: 'woman', text: 'Woman' },{ value: 'man', text: 'Man' }], defaultValue: config.voice },
+            { label: 'Message', name: 'message', type: 'textarea', defaultValue: config.message }
           ]
         }
       ]

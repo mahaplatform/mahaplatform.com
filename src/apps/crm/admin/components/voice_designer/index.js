@@ -32,7 +32,11 @@ class VoiceDesigner extends React.PureComponent {
           label: 'Speak Text',
           type: 'verb',
           action: 'say',
-          component: Say
+          component: Say,
+          default: {
+            voice: 'woman',
+            message: 'Hello! How are you?'
+          }
         }, {
           icon: 'microphone',
           label: 'Record',
