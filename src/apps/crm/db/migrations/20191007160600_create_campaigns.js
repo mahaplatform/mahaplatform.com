@@ -14,16 +14,53 @@ const CreateCampaigns = {
       crm_email_campaigns.updated_at
       from crm_email_campaigns
       union
+      select crm_voice_campaigns.id as item_id,
+      crm_voice_campaigns.team_id,
+      crm_voice_campaigns.program_id,
+      'inbound_voice' as type,
+      crm_voice_campaigns.code,
+      crm_voice_campaigns.title,
+      cast(crm_voice_campaigns.status as varchar),
+      crm_voice_campaigns.created_at,
+      crm_voice_campaigns.updated_at
+      from crm_voice_campaigns
+      where direction = 'inbound'
+      union
+      select crm_voice_campaigns.id as item_id,
+      crm_voice_campaigns.team_id,
+      crm_voice_campaigns.program_id,
+      'outbound_voice' as type,
+      crm_voice_campaigns.code,
+      crm_voice_campaigns.title,
+      cast(crm_voice_campaigns.status as varchar),
+      crm_voice_campaigns.created_at,
+      crm_voice_campaigns.updated_at
+      from crm_voice_campaigns
+      where direction = 'outbound'
+      union
       select crm_sms_campaigns.id as item_id,
       crm_sms_campaigns.team_id,
       crm_sms_campaigns.program_id,
-      'sms' as type,
+      'inbound_sms' as type,
       crm_sms_campaigns.code,
       crm_sms_campaigns.title,
       cast(crm_sms_campaigns.status as varchar),
       crm_sms_campaigns.created_at,
       crm_sms_campaigns.updated_at
       from crm_sms_campaigns
+      where direction = 'inbound'
+      union
+      select crm_sms_campaigns.id as item_id,
+      crm_sms_campaigns.team_id,
+      crm_sms_campaigns.program_id,
+      'outbound_sms' as type,
+      crm_sms_campaigns.code,
+      crm_sms_campaigns.title,
+      cast(crm_sms_campaigns.status as varchar),
+      crm_sms_campaigns.created_at,
+      crm_sms_campaigns.updated_at
+      from crm_sms_campaigns
+      where direction = 'outbound'
       union
       select crm_social_campaigns.id as item_id,
       crm_social_campaigns.team_id,
@@ -35,17 +72,6 @@ const CreateCampaigns = {
       crm_social_campaigns.created_at,
       crm_social_campaigns.updated_at
       from crm_social_campaigns
-      union
-      select crm_voice_campaigns.id as item_id,
-      crm_voice_campaigns.team_id,
-      crm_voice_campaigns.program_id,
-      'voice' as type,
-      crm_voice_campaigns.code,
-      crm_voice_campaigns.title,
-      cast(crm_voice_campaigns.status as varchar),
-      crm_voice_campaigns.created_at,
-      crm_voice_campaigns.updated_at
-      from crm_voice_campaigns
       union
       select crm_postal_campaigns.id as item_id,
       crm_postal_campaigns.team_id,

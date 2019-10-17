@@ -12,20 +12,33 @@ import _ from 'lodash'
 
 const types = [
   {
-    value: 'email',
-    component: Email
+    value: 'inbound_voice',
+    component: Email,
+    direction: 'inbound'
   },{
-    value: 'sms',
-    component: SMS
-  },{
-    value: 'social',
-    component: Social
+    value: 'inbound_sms',
+    component: Email,
+    direction: 'inbound'
   },{
     value: 'voice',
-    component: Voice
+    component: Voice,
+    direction: 'outbound'
+  },{
+    value: 'sms',
+    component: SMS,
+    direction: 'outbound'
+  },{
+    value: 'email',
+    component: Email,
+    direction: 'outbound'
+  },{
+    value: 'social',
+    component: Social,
+    direction: 'outbound'
   },{
     value: 'postal',
-    component: Postal
+    component: Postal,
+    direction: 'outbound'
   }
 ]
 

@@ -1,11 +1,13 @@
 import React from 'react'
 
 const types = {
+  inbound_voice: 'phone',
+  inbound_sms: 'comments',
   email: 'envelope',
-  sms: 'comments',
-  social: 'users',
   voice: 'phone',
-  postal: 'file'
+  sms: 'comments',
+  postal: 'file',
+  social: 'users'
 }
 
 const CampaignTypeToken = ({ value }) => (

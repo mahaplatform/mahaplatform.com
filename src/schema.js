@@ -212,6 +212,15 @@ const schema = {
       table.integer('asset_id').unsigned()
     })
 
+    await knex.schema.createTable('crm_actions', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('enrollment_id').unsigned()
+      table.integer('step_id').unsigned()
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('crm_activities', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -303,6 +312,15 @@ const schema = {
       table.jsonb('config')
       table.timestamp('send_at')
       table.timestamp('sent_at')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('crm_enrollments', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('workflow_id').unsigned()
+      table.integer('contact_id').unsigned()
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -415,7 +433,8 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('program_id').unsigned()
-      table.integer('number_id').unsigned()
+      table.integer('phone_number_id').unsigned()
+      table.USER-DEFINED('direction')
       table.USER-DEFINED('status')
       table.string('title', 255)
       table.string('code', 255)
@@ -434,6 +453,20 @@ const schema = {
       table.USER-DEFINED('status')
       table.string('title', 255)
       table.string('code', 255)
+      table.jsonb('config')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('crm_steps', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('workflow_id').unsigned()
+      table.integer('parent_id').unsigned()
+      table.USER-DEFINED('type')
+      table.string('code', 255)
+      table.string('answer', 255)
+      table.integer('delta')
       table.jsonb('config')
       table.timestamp('created_at')
       table.timestamp('updated_at')
@@ -488,13 +521,24 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('program_id').unsigned()
-      table.integer('number_id').unsigned()
+      table.integer('phone_number_id').unsigned()
+      table.USER-DEFINED('direction')
       table.USER-DEFINED('status')
       table.string('title', 255)
       table.string('code', 255)
       table.jsonb('config')
       table.timestamp('send_at')
       table.timestamp('sent_at')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('crm_workflows', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.USER-DEFINED('type')
+      table.string('title', 255)
+      table.string('description', 255)
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -2427,13 +2471,13 @@ const schema = {
     await knex.schema.table('crm_sms_campaigns', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('program_id').references('maha_programs.id')
-      table.foreign('number_id').references('maha_numbers.id')
+      table.foreign('phone_number_id').references('maha_phone_numbers.id')
     })
 
     await knex.schema.table('crm_voice_campaigns', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('program_id').references('maha_programs.id')
-      table.foreign('number_id').references('maha_numbers.id')
+      table.foreign('phone_number_id').references('maha_phone_numbers.id')
     })
 
     await knex.schema.table('crm_postal_campaigns', table => {
@@ -2491,6 +2535,28 @@ const schema = {
       table.foreign('asset_id').references('maha_assets.id')
     })
 
+    await knex.schema.table('crm_workflows', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_steps', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('parent_id').references('crm_steps.id')
+    })
+
+    await knex.schema.table('crm_enrollments', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('contact_id').references('crm_contacts.id')
+    })
+
+    await knex.schema.table('crm_actions', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('enrollment_id').references('crm_enrollments.id')
+      table.foreign('step_id').references('crm_steps.id')
+    })
+
 
     await knex.raw(`
       create view chat_results AS
@@ -2530,16 +2596,53 @@ union
       crm_email_campaigns.updated_at
       from crm_email_campaigns
 union
+      select crm_voice_campaigns.id as item_id,
+      crm_voice_campaigns.team_id,
+      crm_voice_campaigns.program_id,
+      'inbound_voice'::text as type,
+      crm_voice_campaigns.code,
+      crm_voice_campaigns.title,
+      (crm_voice_campaigns.status)::character varying as status,
+      crm_voice_campaigns.created_at,
+      crm_voice_campaigns.updated_at
+      from crm_voice_campaigns
+      where (crm_voice_campaigns.direction = 'inbound'::crm_voice_campaigns_direction)
+union
+      select crm_voice_campaigns.id as item_id,
+      crm_voice_campaigns.team_id,
+      crm_voice_campaigns.program_id,
+      'outbound_voice'::text as type,
+      crm_voice_campaigns.code,
+      crm_voice_campaigns.title,
+      (crm_voice_campaigns.status)::character varying as status,
+      crm_voice_campaigns.created_at,
+      crm_voice_campaigns.updated_at
+      from crm_voice_campaigns
+      where (crm_voice_campaigns.direction = 'outbound'::crm_voice_campaigns_direction)
+union
       select crm_sms_campaigns.id as item_id,
       crm_sms_campaigns.team_id,
       crm_sms_campaigns.program_id,
-      'sms'::text as type,
+      'inbound_sms'::text as type,
       crm_sms_campaigns.code,
       crm_sms_campaigns.title,
       (crm_sms_campaigns.status)::character varying as status,
       crm_sms_campaigns.created_at,
       crm_sms_campaigns.updated_at
       from crm_sms_campaigns
+      where (crm_sms_campaigns.direction = 'inbound'::crm_sms_campaigns_direction)
+union
+      select crm_sms_campaigns.id as item_id,
+      crm_sms_campaigns.team_id,
+      crm_sms_campaigns.program_id,
+      'outbound_sms'::text as type,
+      crm_sms_campaigns.code,
+      crm_sms_campaigns.title,
+      (crm_sms_campaigns.status)::character varying as status,
+      crm_sms_campaigns.created_at,
+      crm_sms_campaigns.updated_at
+      from crm_sms_campaigns
+      where (crm_sms_campaigns.direction = 'outbound'::crm_sms_campaigns_direction)
 union
       select crm_social_campaigns.id as item_id,
       crm_social_campaigns.team_id,
@@ -2551,17 +2654,6 @@ union
       crm_social_campaigns.created_at,
       crm_social_campaigns.updated_at
       from crm_social_campaigns
-union
-      select crm_voice_campaigns.id as item_id,
-      crm_voice_campaigns.team_id,
-      crm_voice_campaigns.program_id,
-      'voice'::text as type,
-      crm_voice_campaigns.code,
-      crm_voice_campaigns.title,
-      (crm_voice_campaigns.status)::character varying as status,
-      crm_voice_campaigns.created_at,
-      crm_voice_campaigns.updated_at
-      from crm_voice_campaigns
 union
       select crm_postal_campaigns.id as item_id,
       crm_postal_campaigns.team_id,

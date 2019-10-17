@@ -25,7 +25,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     entity: 'campaign',
     onClick: (record) => context.router.history.push(`/admin/crm/campaigns/${record.type}/${record.code}`)
   },
-  tasks: {
+  task: {
     icon: 'plus',
     modal: NewCampaign
   }

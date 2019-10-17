@@ -23,9 +23,6 @@ class Types extends React.PureComponent {
     return (
       <ModalPanel { ...this._getPanel()}>
         <div className="crm-new-campaign-types">
-          <div className="crm-new-campaign-types-header">
-            <Message { ...this._getOverview() } />
-          </div>
           <div className="crm-new-campaign-types-body">
             <List { ...this._getList() } />
           </div>
@@ -38,7 +35,19 @@ class Types extends React.PureComponent {
     const { types } = this.props
     return {
       format: CampaignToken,
-      items: types,
+      sections: [
+        {
+          title: 'Inbound Campaigns',
+          items: types.filter(type => {
+            return type.direction === 'inbound'
+          })
+        }, {
+          title: 'Outbound Campaigns',
+          items: types.filter(type => {
+            return type.direction === 'outbound'
+          })
+        }
+      ],
       handler: this._handleChoose
     }
   }
@@ -54,7 +63,7 @@ class Types extends React.PureComponent {
 
   _getPanel() {
     return {
-      title: 'Create Campaign',
+      title: 'Choose Campaign Type',
       leftItems: [
         { label: 'Cancel', handler: this._handleCancel}
       ]

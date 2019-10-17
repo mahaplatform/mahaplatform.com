@@ -9,8 +9,13 @@ const campaigns = {
   },
   sms: {
     icon: 'comments',
-    title: 'Interactive SMS',
+    title: 'SMS Broadcast',
     description: 'Create an interactive text message workflow'
+  },
+  inbound_sms: {
+    icon: 'comments',
+    title: 'Inbound SMS',
+    description: 'Respond to inbound SMS messages'
   },
   social: {
     icon: 'users',
@@ -19,8 +24,13 @@ const campaigns = {
   },
   voice: {
     icon: 'phone',
-    title: 'Interactive Voice',
+    title: 'Voice Broadcast',
     description: 'Create an interactive voice workflow'
+  },
+  inbound_voice: {
+    icon: 'phone',
+    title: 'Inbound Voice',
+    description: 'Answer and handle inbound voice calls'
   },
   postal: {
     icon: 'file',

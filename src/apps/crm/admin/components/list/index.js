@@ -1,13 +1,15 @@
-import { Format, Token } from 'maha-admin'
+import { Token } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Sections from './sections'
+import Items from './items'
 import React from 'react'
-import _ from 'lodash'
 
 class List extends React.PureComponent {
 
   static propTypes = {
     format: PropTypes.any,
     handler: PropTypes.func,
+    sections: PropTypes.array,
     items: PropTypes.array,
     value: PropTypes.string
   }
@@ -17,24 +19,37 @@ class List extends React.PureComponent {
   }
 
   render() {
-    const { format, items, value } = this.props
+    const { items, sections } = this.props
     return (
       <div className="list">
-        { items.map((item, index) => (
-          <div className="list-item" key={`item_${index}`} onClick={ this._handleClick.bind(this, item) }>
-            <div className="list-item-details">
-              { value ?
-                <Format { ...item } format={ format } value={ _.get(item, value) } /> :
-                <Format { ...item } format={ format } />
-              }
-            </div>
-            <div className="list-item-proceed">
-              <i className="fa fa-chevron-right" />
-            </div>
-          </div>
-        )) }
+        { items &&
+          <Items { ...this._getItems() } />
+        }
+        { sections &&
+          <Sections { ...this._getSections() } />
+        }
       </div>
     )
+  }
+
+  _getItems() {
+    const { format, handler, items, value } = this.props
+    return {
+      format,
+      handler,
+      items,
+      value
+    }
+  }
+
+  _getSections() {
+    const { format, handler, sections, value } = this.props
+    return {
+      format,
+      handler,
+      sections,
+      value
+    }
   }
 
   _handleClick(item) {

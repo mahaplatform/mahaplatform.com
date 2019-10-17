@@ -9,31 +9,22 @@ const segment = (steps, parent_id, answer_value) => {
   }).sort((a, b) => {
     return a < b ? -1 : 1
   }).map(step => {
-    if(step.type === 'question') {
+    if(_.includes(['question','ifelse'], step.type)) {
       return {
         ...step,
         options: step.config.options.map(option => ({
           ...option,
-          then: segment(steps, step.id, option.value)[0]
+          then: segment(steps, step.id, option.value)
         }))
       }
-    }
-    if(_.includes(['answer','iselse'], step.type)) {
-      return segment(steps, step.id, null)
-    }
-    if(_.includes(['action','speak'], step.type)) {
+    } else if(_.includes(['action','speak','send'], step.type)) {
       return {
         ...step,
         ...step.config
       }
+    } else {
+      return step
     }
-    if(step.type === 'send') {
-      return {
-        ...step,
-        ...step.config
-      }
-    }
-    return step
   })
 }
 
