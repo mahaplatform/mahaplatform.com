@@ -35,6 +35,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'REMOVE':
     return {
       ...state,
+      active: state.active !== action.step.code ? state.active : null,
       steps: [
         ...state.steps.filter(step => {
           return step.code !== action.step.code && step.parent !== action.step.code

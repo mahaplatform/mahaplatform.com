@@ -52,7 +52,7 @@ class Content extends React.Component {
     return {
       title: 'Workflow',
       buttons: [
-        { label: 'Save', handler: this._handleSave }
+        { label: 'Save', color: 'red', handler: this._handleSave }
       ]
     }
   }

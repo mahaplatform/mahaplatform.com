@@ -1,7 +1,16 @@
 import WorkflowDesigner from '../workflow_designer'
+import EnrollInWorkflow from './enroll_in_workflow'
+import RemoveFromList from './remove_from_list'
+import UpdateProperty from './update_property'
+import UpdateInterest from './update_interest'
+import AddToList from './add_to_list'
+import SendEmail from './send_email'
 import PropTypes from 'prop-types'
+import Question from './question'
+import SendSMS from './send_sms'
+import Record from './record'
+import IfElse from './ifelse'
 import React from 'react'
-import Edit from './edit'
 import Play from './play'
 import Say from './say'
 
@@ -48,74 +57,75 @@ class VoiceDesigner extends React.PureComponent {
           label: 'Record',
           type: 'verb',
           subtype: 'record',
-          component: Edit
+          component: Record
         }, {
           icon: 'question',
           label: 'Question',
           type: 'conditional',
           subtype: 'question',
+          component: Question,
           config: {
             options: [{ value: '1', text: '1' }, { value: '2', text: '2' }]
-          },
-          component: Edit
+          }
         }, {
           icon: 'random',
           label: 'If / Else',
           type: 'conditional',
           subtype: 'ifelse',
-          component: Edit
+          component: IfElse,
+          config: {
+            options: [{ value: '1', text: '1' }, { value: '2', text: '2' }]
+          }
         }, {
           icon: 'users',
           label: 'Add to List',
           type: 'action',
           subtype: 'add_to_list',
-          component: Edit
+          component: AddToList
         }, {
           icon: 'users',
           label: 'Remove from List',
           type: 'action',
           subtype: 'remove_from_list',
-          component: Edit
+          component: RemoveFromList
         }, {
           icon: 'gears',
           label: 'Enroll in Workflow',
           type: 'action',
           subtype: 'enroll_in_workflow',
-          component: Edit
+          component: EnrollInWorkflow
         }, {
           icon: 'user',
           label: 'Update Property',
           type: 'action',
           subtype: 'update_property',
-          component: Edit
+          component: UpdateProperty
         }, {
           icon: 'book',
           label: 'Update Interest',
           type: 'action',
           subtype: 'update_interest',
-          component: Edit
+          component: UpdateInterest
         }, {
           icon: 'envelope',
           label: 'Send Email',
           type: 'action',
           subtype: 'send_email',
-          component: Edit
+          component: SendEmail
         }, {
           icon: 'comment',
           label: 'Send SMS',
           type: 'action',
           subtype: 'send_sms',
-          component: Edit
+          component: SendSMS
         }, {
           icon: 'flag',
           label: 'Goal',
-          type: 'goal',
-          component: Edit
+          type: 'goal'
         }, {
           icon: 'phone',
           label: 'Hangup',
-          type: 'ending',
-          component: Edit
+          type: 'ending'
         }
       ],
       defaultValue,

@@ -12,10 +12,10 @@ const say = async (req, response, { voice, message }) => {
 
 }
 
-const play = async (req, response, { loop, asset_id }) => {
+const play = async (req, response, { loop, recording_id }) => {
 
   const asset = await Asset.query(qb => {
-    qb.where('id', asset_id)
+    qb.where('id', recording_id)
   }).fetch({
     transacting: req.trx
   })
@@ -57,6 +57,7 @@ const send_sms = async (req, response, config) => {
 const ask = async (req, response) => {
 
   response.gather({
+    numDigits: 1,
     action: `${process.env.TWIML_HOST}/voice/crm/enrollments/${req.enrollment.get('code')}/steps/${req.step.get('code')}`,
     method: 'POST'
   })
@@ -118,8 +119,11 @@ const stepRoute = async (req, res) => {
   req.enrollment = await Enrollment.query(qb => {
     qb.where('code', req.params.enrollment_id)
   }).fetch({
+    withRelated: ['contact'],
     transacting: req.trx
   })
+
+  req.contact = req.enrollment.related('contact')
 
   req.step = await Step.query(qb => {
     qb.where('workflow_id', req.enrollment.get('workflow_id'))
@@ -167,8 +171,6 @@ const stepRoute = async (req, res) => {
   if(type === 'goal') await goal(req, response, config)
 
   if(type !== 'question') await next(req, response)
-
-  console.log(response.toString())
 
   return res.status(200).type('text/xml').send(response.toString())
 
