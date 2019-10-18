@@ -5,6 +5,10 @@ const listRoute = async (req, res) => {
 
   const calls = await Call.scope(qb => {
     qb.where('team_id', req.team.get('id'))
+  }).sort({
+    sort: req.query.$sort,
+    defaultSort: '-created_at',
+    sortParams: ['created_at']
   }).fetchPage({
     page: req.query.$page,
     withRelated: ['to','from'],

@@ -11,11 +11,13 @@
   text-transform: uppercase;
   width: 7.5em;
   &.pending { background-color: @grey; }
-  &.queued { background-color: @teal; }
+  &.queued { background-color: @grey; }
   &.sending { background-color: @teal; }
+  &.receiving { background-color: @teal; }
+  &.ringing { background-color: @teal; }
   &.sent { background-color: @green; }
   &.delivered { background-color: @green; }
-  &.receiving { background-color: @teal; }
   &.received { background-color: @green; }
+  &.completed { background-color: @green; }
   &.failed { background-color: @red; }
 }

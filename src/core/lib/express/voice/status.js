@@ -8,7 +8,7 @@ const statusRoute = async (req, res) => {
 
   await updateCall(req, {
     duration: call.duration,
-    price: Math.abs(call.price),
+    price: call.price ? Math.abs(call.price) : Math.ceil(call.duration / 60) * 0.0085,
     sid: call.sid,
     status: call.status
   })

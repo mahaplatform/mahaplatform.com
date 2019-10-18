@@ -43,7 +43,7 @@ const receive = async (req, { call, phone_number }) => {
   })
 
   response.redirect({
-    method: 'POST'
+    method: 'GET'
   }, `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}/steps/${step.get('code')}`)
 
   return response.toString()

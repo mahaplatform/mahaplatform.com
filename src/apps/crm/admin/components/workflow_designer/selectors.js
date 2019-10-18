@@ -9,7 +9,7 @@ const segment = (steps, parent, answer) => {
   const result = steps.filter((step) => {
     return step.parent === parent && step.answer === answer
   }).sort((a, b) => {
-    return a < b ? -1 : 1
+    return a.delta < b.delta ? -1 : 1
   }).map(step => {
     if(step.type === 'conditional') {
       return {
