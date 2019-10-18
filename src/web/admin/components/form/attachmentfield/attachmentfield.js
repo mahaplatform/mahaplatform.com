@@ -11,6 +11,7 @@ class AttachmentField extends React.Component {
   }
 
   static propTypes = {
+    allow: PropTypes.object,
     assets: PropTypes.array,
     defaultValue: PropTypes.array,
     formatter: PropTypes.func,
@@ -39,7 +40,7 @@ class AttachmentField extends React.Component {
   _handleSet = this._handleSet.bind(this)
 
   render() {
-    const { images, plains, prompt } = this.props
+    const { assets, images, multiple, plains, prompt } = this.props
     return (
       <div className="maha-attachmentfield">
         <div className="maha-attachmentfield-assets">
@@ -58,9 +59,11 @@ class AttachmentField extends React.Component {
             </div>
           )) }
         </div>
-        <div className="ui button" onClick={ this._handleClick }>
-          { prompt }
-        </div>
+        { (multiple || assets.length === 0) &&
+          <div className="ui button" onClick={ this._handleClick }>
+            { prompt }
+          </div>
+        }
       </div>
     )
   }
@@ -79,8 +82,9 @@ class AttachmentField extends React.Component {
   }
 
   _getAttachments() {
-    const { multiple } = this.props
+    const { allow, multiple } = this.props
     return {
+      allow,
       multiple,
       onCancel: this._handleCancel,
       onChooseAssets: this._handleSet,

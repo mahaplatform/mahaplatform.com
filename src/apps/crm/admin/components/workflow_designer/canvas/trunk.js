@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import Target from './target'
 import React from 'react'
 import Box from './box'
-import _ from 'lodash'
 
 class Trunk extends React.PureComponent {
 
@@ -88,7 +87,7 @@ class Trunk extends React.PureComponent {
   }
 
   _handleDrop(e) {
-    const { blocks } = this.props
+    const { onAdd } = this.props
     const { delta } = this.state
     e.preventDefault()
     e.stopPropagation()
@@ -96,18 +95,7 @@ class Trunk extends React.PureComponent {
     const answer = this._getParent(e.target, '.workflow-branch')
     const type = e.dataTransfer.getData('type')
     const subtype = e.dataTransfer.getData('subtype')
-    const search = subtype ? { type, subtype } : { type }
-    const block = _.find(blocks, search)
-    this.props.onAdd({
-      id: null,
-      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
-      type: block.type,
-      subtype: block.subtype,
-      delta: delta - 1,
-      parent: parent ? parent.dataset.parent : null,
-      answer: answer ? answer.dataset.answer : null,
-      config: block.config
-    })
+    onAdd(type, subtype, parent, answer, delta)
     this.setState({
       delta: 0,
       hovering: false

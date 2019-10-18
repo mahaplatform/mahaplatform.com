@@ -31,6 +31,7 @@ class EnrollInWorkflow extends React.PureComponent {
       sections: [
         {
           fields: [
+            { label: 'Workflow', name: 'workflow_id', type: 'lookup', endpoint: '/api/admin/crm/workflows', value: 'id', text: 'title', defaultValue: config.workflow_id }
           ]
         }
       ]

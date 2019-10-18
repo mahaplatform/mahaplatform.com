@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
 import Canvas from './canvas'
 import React from 'react'
+import _ from 'lodash'
 
 class VoiceDesigner extends React.PureComponent {
 
@@ -19,6 +20,7 @@ class VoiceDesigner extends React.PureComponent {
     onUpdate: PropTypes.func
   }
 
+  _handleAdd = this._handleAdd.bind(this)
   _handleSave = this._handleSave.bind(this)
 
   render() {
@@ -44,7 +46,7 @@ class VoiceDesigner extends React.PureComponent {
       active,
       blocks,
       config,
-      onAdd,
+      onAdd: this._handleAdd,
       onEdit,
       onRemove
     }
@@ -62,9 +64,24 @@ class VoiceDesigner extends React.PureComponent {
     }
   }
 
+  _handleAdd(type, subtype, parent, answer, delta) {
+    const { blocks, onAdd } = this.props
+    const search = subtype ? { type, subtype } : { type }
+    const block = _.find(blocks, search)
+    onAdd({
+      id: null,
+      code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
+      type: block.type,
+      subtype: block.subtype,
+      delta: delta - 1,
+      parent: parent ? parent.dataset.parent : null,
+      answer: answer ? answer.dataset.answer : null,
+      config: block.config || {}
+    })
+  }
+
   _handleSave() {
     const { steps, onSave } = this.props
-    console.log(steps)
     onSave(steps)
   }
 

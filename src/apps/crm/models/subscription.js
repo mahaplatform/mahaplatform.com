@@ -1,5 +1,5 @@
 import Model from '../../../core/objects/model'
-import EmailAddress from './email_address'
+import Contact from './contact'
 import List from './list'
 
 const Subscription = new Model({
@@ -10,8 +10,8 @@ const Subscription = new Model({
 
   virtuals: {},
 
-  email_address() {
-    return this.belongsTo(EmailAddress, 'email_address_id')
+  contact() {
+    return this.belongsTo(Contact, 'contact_id')
   },
 
   list() {

@@ -1,6 +1,6 @@
 import Model from '../../../core/objects/model'
 import Program from '../../maha/models/program'
-import EmailAddress from './email_address'
+import Contact from './contact'
 
 const List = new Model({
 
@@ -10,8 +10,8 @@ const List = new Model({
 
   virtuals: {},
 
-  email_addresses() {
-    return this.belongsToMany(EmailAddress, 'crm_subscriptions', 'list_id', 'email_address_id')
+  contacts() {
+    return this.belongsToMany(Contact, 'crm_subscriptions', 'list_id', 'contact_id')
   },
 
   program() {

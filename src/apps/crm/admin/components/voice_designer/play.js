@@ -1,5 +1,6 @@
-import { Form } from 'maha-admin'
+import RecordingField from '../recordingfield'
 import PropTypes from 'prop-types'
+import { Form } from 'maha-admin'
 import React from 'react'
 
 class Play extends React.PureComponent {
@@ -20,7 +21,7 @@ class Play extends React.PureComponent {
   getForm() {
     const { config } = this.props
     return {
-      title: 'Speak Text',
+      title: 'Play Recording',
       onChange: this._handleChange,
       onCancel: this._handleDone,
       cancelIcon: 'chevron-left',
@@ -31,8 +32,8 @@ class Play extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Recording', name: 'recording_id', type: 'attachmentfield', prompt: 'Choose Audio File', multiple: false, defaultValue: config.recording_id },
-            { label: 'Play', name: 'loop', type: 'lookup', options: [{ value: 0, text: 'Loop Infinitely' },{ value: 1, text: 'Once' },{ value: 2, text: 'Twice' }], defaultValue: config.loop }
+            { label: 'Recording', name: 'recording_id', type: RecordingField },
+            { label: 'Play', name: 'loop', type: 'lookup', search: false, options: [{ value: 0, text: 'Loop Infinitely' },{ value: 1, text: 'Once' },{ value: 2, text: 'Twice' }], defaultValue: config.loop }
           ]
         }
       ]

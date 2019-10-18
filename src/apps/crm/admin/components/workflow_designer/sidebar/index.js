@@ -20,6 +20,7 @@ class Sidebar extends React.PureComponent {
   }
 
   _handleDone = this._handleDone.bind(this)
+  _handleEdit = this._handleEdit.bind(this)
 
   render() {
     return <Stack { ...this._getStack() } />
@@ -32,8 +33,14 @@ class Sidebar extends React.PureComponent {
   componentDidUpdate(prevProps) {
     const { active } = this.props
     if(active !== prevProps.active) {
-      if(active === null) return this._handlePop()
-      this._handleEdit()
+      if(active === null) {
+        this._handlePop()
+      } else if(prevProps.active) {
+        this._handlePop()
+        setTimeout(this._handleEdit, 300)
+      } else if(active) {
+        this._handleEdit()
+      }
     }
   }
 
