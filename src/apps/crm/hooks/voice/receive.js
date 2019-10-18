@@ -2,8 +2,42 @@ import generateCode from '../../../../core/utils/generate_code'
 import VoiceCampaign from '../../models/voice_campaign'
 import PhoneNumber from '../../models/phone_number'
 import Enrollment from '../../models/enrollment'
-import Step from '../../models/step'
+import Contact from '../../models/contact'
 import { twiml } from 'twilio'
+
+const getPhoneNumber = async (req, { campaign, number }) => {
+
+  const phone_number = await PhoneNumber.query(qb => {
+    qb.where('number', number)
+  }).fetch({
+    transacting: req.trx
+  })
+
+  if(phone_number) return phone_number
+
+  const code = await generateCode(req, {
+    table: 'crm_contacts'
+  })
+
+  const contact = await Contact.forge({
+    team_id: campaign.get('team_id'),
+    code,
+    phone: number
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  return await PhoneNumber.forge({
+    team_id: campaign.get('team_id'),
+    contact_id: contact.get('id'),
+    number,
+    is_primary: true,
+    is_valid: true
+  }).save(null, {
+    transacting: req.trx
+  })
+
+}
 
 const receive = async (req, { call, phone_number }) => {
 
@@ -14,10 +48,9 @@ const receive = async (req, { call, phone_number }) => {
     transacting: req.trx
   })
 
-  const from = await PhoneNumber.query(qb => {
-    qb.where('number', call.related('from').get('number'))
-  }).fetch({
-    transacting: req.trx
+  const from = await getPhoneNumber(req, {
+    campaign,
+    number: call.related('from').get('number')
   })
 
   const response = new twiml.VoiceResponse()
@@ -30,21 +63,19 @@ const receive = async (req, { call, phone_number }) => {
     team_id: campaign.get('team_id'),
     workflow_id: campaign.get('workflow_id'),
     contact_id: from.get('contact_id'),
-    code
+    code,
+    actions: []
   }).save(null, {
     transacting: req.trx
   })
 
-  const step = await Step.query(qb => {
-    qb.where('parent_id', null)
-    qb.orderBy('delta', 'asc')
-  }).fetch({
-    transacting: req.trx
+  const step = campaign.related('workflow').get('steps').find(step => {
+    return step.parent === null && step.delta === 0
   })
 
   response.redirect({
     method: 'GET'
-  }, `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}/steps/${step.get('code')}`)
+  }, `${process.env.TWIML_HOST}/voice/crm/enrollments/${enrollment.get('code')}/steps/${step.code}`)
 
   return response.toString()
 

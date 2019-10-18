@@ -6,7 +6,6 @@ const showRoute = async (req, res) => {
   const template = await Template.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
-    qb.where('program_id', req.params.program_id)
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx

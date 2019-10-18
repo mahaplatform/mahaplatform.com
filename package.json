@@ -20,7 +20,8 @@
     "knex": "babel-node ./src/scripts/knex.js",
     "shipit": "babel-node ./src/scripts/shipit/index.js",
     "test": "NODE_ENV=test babel-node ./src/scripts/test.js",
-    "metadata": "babel-node ./src/scripts/metadata.js"
+    "metadata": "babel-node ./src/scripts/metadata.js",
+    "ngrok": "./ngrok http --host-header=rewrite 8080"
   },
   "devDependencies": {
     "autoprefixer": "^9.6.1",

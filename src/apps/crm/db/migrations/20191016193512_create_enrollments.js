@@ -10,6 +10,7 @@ const CreateEnrollment = {
       table.integer('contact_id').unsigned()
       table.foreign('contact_id').references('crm_contacts.id')
       table.string('code')
+      table.specificType('actions', 'jsonb[]')
       table.boolean('was_converted')
       table.timestamps()
     })

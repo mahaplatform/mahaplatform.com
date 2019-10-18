@@ -212,15 +212,6 @@ const schema = {
       table.integer('asset_id').unsigned()
     })
 
-    await knex.schema.createTable('crm_actions', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('enrollment_id').unsigned()
-      table.integer('step_id').unsigned()
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
     await knex.schema.createTable('crm_activities', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -321,10 +312,11 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('workflow_id').unsigned()
       table.integer('contact_id').unsigned()
+      table.string('code', 255)
+      table.specificType('actions', 'jsonb[]')
       table.boolean('was_converted')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.string('code', 255)
     })
 
     await knex.schema.createTable('crm_forms', (table) => {
@@ -461,21 +453,6 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('crm_steps', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('workflow_id').unsigned()
-      table.integer('parent_id').unsigned()
-      table.USER-DEFINED('type')
-      table.USER-DEFINED('subtype')
-      table.string('code', 255)
-      table.string('answer', 255)
-      table.integer('delta')
-      table.jsonb('config')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
     await knex.schema.createTable('crm_subscriptions', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -540,11 +517,12 @@ const schema = {
       table.integer('team_id').unsigned()
       table.USER-DEFINED('type')
       table.USER-DEFINED('status')
+      table.string('code', 255)
       table.string('title', 255)
       table.string('description', 255)
+      table.specificType('steps', 'jsonb[]')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.string('code', 255)
     })
 
     await knex.schema.createTable('drive_access', (table) => {
@@ -2499,18 +2477,6 @@ const schema = {
 
     await knex.schema.table('crm_workflows', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('crm_steps', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('workflow_id').references('crm_workflows.id')
-      table.foreign('parent_id').references('crm_steps.id')
-    })
-
-    await knex.schema.table('crm_actions', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('step_id').references('crm_steps.id')
-      table.foreign('enrollment_id').references('crm_enrollments.id')
     })
 
     await knex.schema.table('crm_email_campaigns', table => {

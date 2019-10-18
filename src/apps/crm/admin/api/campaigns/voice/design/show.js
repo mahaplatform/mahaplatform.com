@@ -8,7 +8,7 @@ const showRoute = async (req, res) => {
   }).query(qb => {
     qb.where('code', req.params.campaign_id)
   }).fetch({
-    withRelated: ['workflow.steps.parent'],
+    withRelated: ['workflow'],
     transacting: req.trx
   })
 

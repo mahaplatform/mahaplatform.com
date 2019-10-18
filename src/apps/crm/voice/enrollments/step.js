@@ -1,7 +1,5 @@
 import Enrollment from '../../models/enrollment'
 import Asset from '../../../maha/models/asset'
-import Action from '../../models/action'
-import Step from '../../models/step'
 import { twiml } from 'twilio'
 
 const say = async (req, response, { voice, message }) => {
@@ -58,7 +56,7 @@ const ask = async (req, response) => {
 
   response.gather({
     numDigits: 1,
-    action: `${process.env.TWIML_HOST}/voice/crm/enrollments/${req.enrollment.get('code')}/steps/${req.step.get('code')}`,
+    action: `${process.env.TWIML_HOST}/voice/crm/enrollments/${req.enrollment.get('code')}/steps/${req.step.code}`,
     method: 'POST'
   })
 
@@ -66,18 +64,17 @@ const ask = async (req, response) => {
 
 const answer = async (req, response) => {
 
-  const next = await Step.query(qb => {
-    qb.where('workflow_id', req.enrollment.get('workflow_id'))
-    qb.where('parent_id', req.step.get('id'))
-    qb.where('answer', req.body.Digits)
-    qb.where('delta', 0)
-  }).fetch({
-    transacting: req.trx
+  const next = req.enrollment.related('workflow').get('steps').filter(step => {
+    return step.parent === req.step.code && step.answer === req.body.Digits
+  }).sort((a, b) => {
+    return a.delta < b.delta ? -1 : 1
+  }).find((step, index) => {
+    return index === 0
   })
 
   response.redirect({
     method: 'GET'
-  }, `${process.env.TWIML_HOST}/voice/crm/enrollments/${req.enrollment.get('code')}/steps/${next.get('code')}`)
+  }, `${process.env.TWIML_HOST}/voice/crm/enrollments/${req.enrollment.get('code')}/steps/${next.code}`)
 
 }
 
@@ -95,19 +92,18 @@ const goal = async (req, response) => {
 
 const next = async (req, response) => {
 
-  const next = await Step.query(qb => {
-    qb.where('workflow_id', req.enrollment.get('workflow_id'))
-    qb.where('parent_id', req.step.get('parent_id'))
-    qb.where('answer', req.step.get('answer'))
-    qb.where('delta', '>', req.step.get('delta'))
-  }).fetch({
-    transacting: req.trx
+  const next = req.enrollment.related('workflow').get('steps').filter(step => {
+    return step.parent === req.step.parent && step.answer === req.step.answer
+  }).sort((a, b) => {
+    return a.delta < b.delta ? -1 : 1
+  }).find(step => {
+    return step.delta > req.step.delta
   })
 
   if(next) {
     response.redirect({
       method: 'GET'
-    }, `${process.env.TWIML_HOST}/voice/crm/enrollments/${req.enrollment.get('code')}/steps/${next.get('code')}`)
+    }, `${process.env.TWIML_HOST}/voice/crm/enrollments/${req.enrollment.get('code')}/steps/${next.code}`)
   } else {
     response.hangup()
   }
@@ -119,30 +115,29 @@ const stepRoute = async (req, res) => {
   req.enrollment = await Enrollment.query(qb => {
     qb.where('code', req.params.enrollment_id)
   }).fetch({
-    withRelated: ['contact'],
+    withRelated: ['contact','workflow'],
     transacting: req.trx
   })
 
   req.contact = req.enrollment.related('contact')
 
-  req.step = await Step.query(qb => {
-    qb.where('workflow_id', req.enrollment.get('workflow_id'))
-    qb.where('code', req.params.step_id)
-  }).fetch({
+  req.step = req.enrollment.related('workflow').get('steps').find(step => {
+    return step.code === req.params.step_id
+  })
+
+  await req.enrollment.save({
+    actions: [
+      ...req.enrollment.get('actions'),
+      { step: req.step.code }
+    ]
+  }, {
+    patch: true,
     transacting: req.trx
   })
 
-  await Action.forge({
-    team_id: req.enrollment.get('team_id'),
-    enrollment_id: req.enrollment.get('id'),
-    step_id: req.step.get('id')
-  }).save(null, {
-    transacting: req.trx
-  })
+  const config = req.step.config
 
-  const config = req.step.get('config')
-
-  const { type, subtype } = req.step.toJSON()
+  const { type, subtype } = req.step
 
   const response = new twiml.VoiceResponse()
 

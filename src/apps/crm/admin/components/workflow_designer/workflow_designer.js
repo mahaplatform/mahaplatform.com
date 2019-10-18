@@ -69,7 +69,6 @@ class VoiceDesigner extends React.PureComponent {
     const search = subtype ? { type, subtype } : { type }
     const block = _.find(blocks, search)
     onAdd({
-      id: null,
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
       type: block.type,
       subtype: block.subtype,

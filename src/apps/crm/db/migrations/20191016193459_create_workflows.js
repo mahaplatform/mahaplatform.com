@@ -10,6 +10,7 @@ const CreateWorkflow = {
       table.string('code')
       table.string('title')
       table.string('description')
+      table.specificType('steps', 'jsonb[]')
       table.timestamps()
     })
   },

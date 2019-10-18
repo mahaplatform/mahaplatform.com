@@ -13,9 +13,7 @@ const Contact = new Model({
 
   tableName: 'crm_contacts',
 
-  rules: {
-    'email': ['required']
-  },
+  rules: {},
 
   virtuals: {
 

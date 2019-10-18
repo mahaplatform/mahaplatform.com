@@ -17,7 +17,8 @@ const createRoute = async (req, res) => {
     code: workflowcode,
     type: 'voice',
     status: 'draft',
-    title: 'Inbound Voice Campaign'
+    title: 'Inbound Voice Campaign',
+    steps: []
   }).save(null, {
     transacting: req.trx
   })
