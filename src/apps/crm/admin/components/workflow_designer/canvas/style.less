@@ -47,13 +47,10 @@
   position: relative;
   border-radius: 0.3em;
   border: 2px solid fadeout(@black, 80);
-  font-weight: bold;
   background-color: @white;
-  color: fadeout(@black, 40);
-  padding: 1.2em 0.4em 0.8em;
+  padding: 1.2em 0.8em 0.8em;
   margin: 0 auto;
   width: 175px;
-  text-transform: uppercase;
   cursor: pointer;
   &.active .workflow-box-highlight,
   &:hover .workflow-box-highlight {
@@ -62,6 +59,19 @@
   &:hover .workflow-box-actions {
     display: flex;
   }
+}
+.workflow-box-label {
+  text-align: center;
+  font-size: 0.8em;
+  line-height: 2em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.workflow-box-details {
+  color: fadeout(@black, 40);
+  line-height: 1.4em;
+  text-align: center;
+  font-size: 0.8em;
 }
 .workflow-box-trigger,
 .workflow-box-ending {
@@ -89,11 +99,6 @@
   top: 0;
   transform: translate(-50%, -50%);
   text-align: center;
-}
-.workflow-box-label {
-  text-align: center;
-  font-size: 0.8em;
-  line-height: 2em;
 }
 .workflow-dropzone {
   border-radius: 0.3em;

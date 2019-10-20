@@ -20,7 +20,7 @@ class UpdateInterest extends React.PureComponent {
   getForm() {
     const { config } = this.props
     return {
-      title: 'Add to List',
+      title: 'Update Interest',
       onChange: this._handleChange,
       onCancel: this._handleDone,
       cancelIcon: 'chevron-left',
@@ -31,6 +31,7 @@ class UpdateInterest extends React.PureComponent {
       sections: [
         {
           fields: [
+            { label: 'Topic', name: 'topic_id', type: 'lookup', endpoint: '/api/admin/crm/topics', value: 'id', text: 'title', defaultValue: config.topic_id }
           ]
         }
       ]

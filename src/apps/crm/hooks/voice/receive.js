@@ -1,4 +1,5 @@
 import generateCode from '../../../../core/utils/generate_code'
+import { contactActivity } from '../../services/activities'
 import VoiceCampaign from '../../models/voice_campaign'
 import PhoneNumber from '../../models/phone_number'
 import Enrollment from '../../models/enrollment'
@@ -10,6 +11,7 @@ const getPhoneNumber = async (req, { campaign, number }) => {
   const phone_number = await PhoneNumber.query(qb => {
     qb.where('number', number)
   }).fetch({
+    withRelated: ['contact'],
     transacting: req.trx
   })
 
@@ -27,7 +29,7 @@ const getPhoneNumber = async (req, { campaign, number }) => {
     transacting: req.trx
   })
 
-  return await PhoneNumber.forge({
+  const new_phone_number = await PhoneNumber.forge({
     team_id: campaign.get('team_id'),
     contact_id: contact.get('id'),
     number,
@@ -36,6 +38,12 @@ const getPhoneNumber = async (req, { campaign, number }) => {
   }).save(null, {
     transacting: req.trx
   })
+
+  await new_phone_number.load(['contact'], {
+    transacting: req.trx
+  })
+
+  return new_phone_number
 
 }
 
@@ -51,6 +59,15 @@ const receive = async (req, { call, phone_number }) => {
   const from = await getPhoneNumber(req, {
     campaign,
     number: call.related('from').get('number')
+  })
+
+  await contactActivity(req, {
+    team_id: campaign.get('team_id'),
+    contact: from.related('contact'),
+    program_id: campaign.get('program_id'),
+    type: 'workflow',
+    story: 'triggered an incoming voice workflow',
+    // object: call
   })
 
   const response = new twiml.VoiceResponse()

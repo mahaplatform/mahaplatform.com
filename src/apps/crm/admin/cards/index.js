@@ -1,3 +1,4 @@
+import Workflow from './workflow'
 import Consent from './consent'
 import Edit from './edit'
 import Note from './note'
@@ -7,7 +8,8 @@ const cards = {
   call: { component: Call, color: 'teal', icon: 'phone' },
   edit: { component: Edit, color: 'olive', icon: 'pencil' },
   note: { component: Note, color: 'orange', icon: 'sticky-note' },
-  consent: { component: Consent, color: 'blue', icon: 'sliders' }
+  consent: { component: Consent, color: 'blue', icon: 'sliders' },
+  workflow: { component: Workflow, color: 'pink', icon: 'gears' }
 }
 
 export default cards

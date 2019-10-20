@@ -15,7 +15,7 @@ const Details = ({ contact }) => {
     )) },
     { label: 'Phone', content: contact.phone_numbers.map((phone_number, index) => (
       <div key={`number_${index}`}>
-        { phone_number.number } { phone_number.is_primary && <span className="alert">PRIMARY</span> }
+        { phone_number.formatted } { phone_number.is_primary && <span className="alert">PRIMARY</span> }
       </div>
     )) },
     { label: 'Mailing Address', content: contact.mailing_addresses.map((mailing_address, index) => (

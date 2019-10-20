@@ -20,7 +20,7 @@ class Box extends React.PureComponent {
   render() {
     const { icon, label } = this._getBlock()
     const { active, box } = this.props
-    const { code, options, type } = box
+    const { code, options, type, subtype, config } = box
     return (
       <div className="workflow-box-padding">
         <div className={ this._getClass() }>
@@ -44,6 +44,16 @@ class Box extends React.PureComponent {
           <div className="workflow-box-label">
             { label }
           </div>
+          { subtype === 'say' &&
+            <div className="workflow-box-details">
+              { config.message }
+            </div>
+          }
+          { subtype === 'question' &&
+            <div className="workflow-box-details">
+              { config.question }
+            </div>
+          }
         </div>
         { type === 'conditional' &&
           <div className="workflow-connector">
