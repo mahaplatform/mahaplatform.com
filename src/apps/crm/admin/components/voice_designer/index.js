@@ -12,7 +12,7 @@ import Say from './say'
 class VoiceDesigner extends React.PureComponent {
 
   static propTypes = {
-    defaultValue: PropTypes.array,
+    campaign: PropTypes.object,
     onSave: PropTypes.func
   }
 
@@ -20,15 +20,29 @@ class VoiceDesigner extends React.PureComponent {
     return <WorkflowDesigner { ...this._getWorkflowDesigner() } />
   }
 
+  _getTrigger() {
+    const { campaign } = this.props
+    if(campaign.direction === 'inbound') {
+      return {
+        icon: 'phone',
+        label: 'Incoming Call',
+        type: 'trigger'
+      }
+    } else {
+      return {
+        icon: 'phone',
+        label: 'Outgoing Call',
+        type: 'trigger'
+      }
+    }
+  }
+
   _getWorkflowDesigner() {
-    const { defaultValue, onSave } = this.props
+    const { campaign, onSave } = this.props
     return {
       blocks: [
+        this._getTrigger(),
         {
-          icon: 'phone',
-          label: 'Incoming Call',
-          type: 'trigger'
-        }, {
           icon: 'play',
           label: 'Play Recording',
           type: 'verb',
@@ -118,7 +132,7 @@ class VoiceDesigner extends React.PureComponent {
           type: 'ending'
         }
       ],
-      defaultValue,
+      defaultValue: campaign.steps,
       onSave
     }
   }

@@ -8,6 +8,9 @@ const listRoute = async (req, res) => {
   }).filter({
     filter: req.query.$filter,
     filterParams: ['program_id']
+  }).sort({
+    defaultSort:  '-created_at',
+    sortParams: ['created_at']
   }).fetchPage({
     page: req.query.$page,
     withRelated: ['program'],
