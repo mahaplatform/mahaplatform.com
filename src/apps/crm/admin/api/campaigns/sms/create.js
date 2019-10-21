@@ -4,8 +4,15 @@ import { whitelist } from '../../../../../../core/services/routes/params'
 import generateCode from '../../../../../../core/utils/generate_code'
 import socket from '../../../../../../core/services/routes/emitter'
 import SMSCampaign from '../../../../models/sms_campaign'
+import Program from '../../../../../maha/models/program'
 
 const createRoute = async (req, res) => {
+
+  const program = await Program.query(qb => {
+    qb.where('id', req.body.program_id)
+  }).fetch({
+    transacting: req.trx
+  })
 
   const code = await generateCode(req, {
     table: 'crm_sms_campaigns'
@@ -15,7 +22,11 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     code,
     status: 'draft',
-    ...whitelist(req.body, ['title','direction','program_id','phone_number_id'])
+    term: req.body.term.toLowerCase(),
+    steps: [],
+    program_id: program.get('id'),
+    phone_number_id: program.get('phone_number_id'),
+    ...whitelist(req.body, ['title','direction'])
   }).save(null, {
     transacting: req.trx
   })

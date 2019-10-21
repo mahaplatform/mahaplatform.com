@@ -21,7 +21,6 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     sid: number.sid,
     type: req.body.type,
-    program_id: req.body.program_id,
     number: req.body.number.phoneNumber,
     locality: req.body.number.locality,
     region: req.body.number.region

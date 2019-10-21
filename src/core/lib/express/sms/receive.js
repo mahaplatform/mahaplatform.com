@@ -27,8 +27,15 @@ const receiveRoute = async (req, res) => {
     sid
   })
 
+  await sms.load(['from','to'], {
+    transacting: req.trx
+  })
+
   const response = await Promise.reduce(smsFiles, async (response, hook) => {
-    return await hook.default(req, sms)
+    return await hook.default(req, {
+      sms,
+      phone_number
+    })
   }, null)
 
   await socket.refresh(req, [

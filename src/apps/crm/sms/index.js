@@ -1,11 +1,8 @@
+import enrollments from './enrollments'
 import { Router } from 'express'
-import update from './update'
-import show from './show'
 
 const router = new Router({ mergeParams: true })
 
-router.get('/', show)
-
-router.patch('/', update)
+router.use('/enrollments', enrollments)
 
 export default router

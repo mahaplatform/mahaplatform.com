@@ -26,7 +26,6 @@ class Voice extends React.PureComponent {
 
   _getForm() {
     const { direction, program_id } = this.props
-    const filter = { program_id: { $eq: program_id } }
     return {
       title: 'New Interactive Voice',
       method: 'post',
@@ -39,8 +38,7 @@ class Voice extends React.PureComponent {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { name: 'direction', type: 'hidden', defaultValue: direction },
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
-            { label: 'Phone Number', name: 'phone_number_id', type: 'lookup', placeholder: 'Choose a phone number', endpoint: '/api/admin/team/phone_numbers', filter, value: 'id', text: 'formatted', required: true }
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true }
           ]
         }
       ]

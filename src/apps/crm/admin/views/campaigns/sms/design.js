@@ -34,7 +34,7 @@ class Designer extends React.Component {
   _getSMSDesigner() {
     const { campaign } = this.state
     return {
-      defaultValue: campaign.config,
+      defaultValue: campaign.steps,
       onSave: this._handleSave
     }
   }
@@ -49,13 +49,13 @@ class Designer extends React.Component {
     })
   }
 
-  _handleSave(config) {
+  _handleSave(steps) {
     const { page } = this.props
     const { id } = page.params
     this.context.network.request({
       method: 'patch',
       endpoint: `/api/admin/crm/campaigns/sms/${id}`,
-      body: { config },
+      body: { steps },
       onSuccess: this._handleSuccess
     })
   }

@@ -8,12 +8,12 @@ const generateCode = async (req, options = {}) => {
   let done = false
   while(!done) {
     code = proposeCode(length)
-    done = table === undefined || isUniquene(req, key, table, code)
+    done = table === undefined || isUnique(req, key, table, code)
   }
   return code
 }
 
-const isUniquene = async (req, key, table, code) => {
+const isUnique = async (req, key, table, code) => {
   const items = await req.trx(table).where({ [key]: code })
   return items.length === 0
 }

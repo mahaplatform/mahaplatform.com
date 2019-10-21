@@ -10,7 +10,6 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Number', key: 'number', primary: true, format: NumberToken },
-      { label: 'Program', key: 'program.title' },
       { label: 'Type', key: 'type' }
     ],
     recordTasks: (program) => [

@@ -311,6 +311,8 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('workflow_id').unsigned()
+      table.integer('sms_campaign_id').unsigned()
+      table.integer('voice_campaign_id').unsigned()
       table.integer('contact_id').unsigned()
       table.string('code', 255)
       table.specificType('actions', 'jsonb[]')
@@ -428,12 +430,12 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('program_id').unsigned()
       table.integer('phone_number_id').unsigned()
-      table.integer('workflow_id').unsigned()
       table.USER-DEFINED('direction')
       table.USER-DEFINED('status')
       table.string('title', 255)
       table.string('code', 255)
-      table.jsonb('config')
+      table.string('term', 255)
+      table.specificType('steps', 'jsonb[]')
       table.timestamp('send_at')
       table.timestamp('sent_at')
       table.timestamp('created_at')
@@ -500,12 +502,12 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('program_id').unsigned()
       table.integer('phone_number_id').unsigned()
-      table.integer('workflow_id').unsigned()
       table.USER-DEFINED('direction')
       table.USER-DEFINED('status')
       table.string('title', 255)
       table.string('code', 255)
       table.jsonb('config')
+      table.specificType('steps', 'jsonb[]')
       table.timestamp('send_at')
       table.timestamp('sent_at')
       table.timestamp('created_at')
@@ -515,7 +517,6 @@ const schema = {
     await knex.schema.createTable('crm_workflows', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.USER-DEFINED('type')
       table.USER-DEFINED('status')
       table.string('code', 255)
       table.string('title', 255)
@@ -1244,7 +1245,6 @@ const schema = {
     await knex.schema.createTable('maha_phone_numbers', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.integer('program_id').unsigned()
       table.USER-DEFINED('type')
       table.string('sid', 255)
       table.string('number', 255)
@@ -1284,6 +1284,7 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('logo_id').unsigned()
+      table.integer('phone_number_id').unsigned()
       table.string('title', 255)
       table.string('code', 255)
       table.boolean('has_email_channel')
@@ -2214,6 +2215,8 @@ const schema = {
     await knex.schema.table('crm_enrollments', table => {
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('sms_campaign_id').references('crm_sms_campaigns.id')
+      table.foreign('voice_campaign_id').references('crm_voice_campaigns.id')
       table.foreign('workflow_id').references('crm_workflows.id')
     })
 
@@ -2317,6 +2320,7 @@ const schema = {
     await knex.schema.table('maha_programs', table => {
       table.foreign('logo_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('phone_number_id').references('maha_phone_numbers.id')
     })
 
     await knex.schema.table('maha_sms_attachments', table => {
@@ -2442,12 +2446,11 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('crm_senders', table => {
+    await knex.schema.table('maha_phone_numbers', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('maha_programs.id')
     })
 
-    await knex.schema.table('maha_phone_numbers', table => {
+    await knex.schema.table('crm_senders', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('program_id').references('maha_programs.id')
     })
@@ -2475,10 +2478,6 @@ const schema = {
       table.foreign('to_id').references('maha_numbers.id')
     })
 
-    await knex.schema.table('crm_workflows', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
     await knex.schema.table('crm_email_campaigns', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('program_id').references('maha_programs.id')
@@ -2488,16 +2487,14 @@ const schema = {
 
     await knex.schema.table('crm_sms_campaigns', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('maha_programs.id')
       table.foreign('phone_number_id').references('maha_phone_numbers.id')
-      table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('program_id').references('maha_programs.id')
     })
 
     await knex.schema.table('crm_voice_campaigns', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('maha_programs.id')
       table.foreign('phone_number_id').references('maha_phone_numbers.id')
-      table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('program_id').references('maha_programs.id')
     })
 
     await knex.schema.table('crm_postal_campaigns', table => {
@@ -2509,6 +2506,10 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('program_id').references('maha_programs.id')
       table.foreign('profile_id').references('maha_profiles.id')
+    })
+
+    await knex.schema.table('crm_workflows', table => {
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('maha_email_links', table => {

@@ -4,22 +4,13 @@ import { whitelist } from '../../../../../../core/services/routes/params'
 import generateCode from '../../../../../../core/utils/generate_code'
 import socket from '../../../../../../core/services/routes/emitter'
 import VoiceCampaign from '../../../../models/voice_campaign'
-import Workflow from '../../../../models/workflow'
+import Program from '../../../../../maha/models/program'
 
 const createRoute = async (req, res) => {
 
-  const workflowcode = await generateCode(req, {
-    table: 'crm_workflows'
-  })
-
-  const workflow = await Workflow.forge({
-    team_id: req.team.get('id'),
-    code: workflowcode,
-    type: 'voice',
-    status: 'draft',
-    title: 'Inbound Voice Campaign',
-    steps: []
-  }).save(null, {
+  const program = await Program.query(qb => {
+    qb.where('id', req.body.program_id)
+  }).fetch({
     transacting: req.trx
   })
 
@@ -31,8 +22,10 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     code,
     status: 'draft',
-    workflow_id: workflow.get('id'),
-    ...whitelist(req.body, ['title','direction','program_id','phone_number_id'])
+    steps: [],
+    program_id: program.get('id'),
+    phone_number_id: program.get('phone_number_id'),
+    ...whitelist(req.body, ['title','direction'])
   }).save(null, {
     transacting: req.trx
   })

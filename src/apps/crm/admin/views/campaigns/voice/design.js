@@ -15,7 +15,7 @@ class Designer extends React.Component {
   }
 
   state = {
-    workflow: null
+    campaign: null
   }
 
   _handleFetch = this._handleFetch.bind(this)
@@ -23,7 +23,7 @@ class Designer extends React.Component {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    if(!this.state.workflow) return null
+    if(!this.state.campaign) return null
     return <VoiceDesigner { ...this._getVoiceDesigner() } />
   }
 
@@ -32,9 +32,9 @@ class Designer extends React.Component {
   }
 
   _getVoiceDesigner() {
-    const { workflow } = this.state
+    const { campaign } = this.state
     return {
-      defaultValue: workflow.steps,
+      defaultValue: campaign.steps,
       onSave: this._handleSave
     }
   }
@@ -44,7 +44,7 @@ class Designer extends React.Component {
     const { id } = page.params
     this.context.network.request({
       method: 'get',
-      endpoint: `/api/admin/crm/campaigns/voice/${id}/design`,
+      endpoint: `/api/admin/crm/campaigns/voice/${id}`,
       onSuccess: this._handleSuccess
     })
   }
@@ -54,7 +54,7 @@ class Designer extends React.Component {
     const { id } = page.params
     this.context.network.request({
       method: 'patch',
-      endpoint: `/api/admin/crm/campaigns/voice/${id}/design`,
+      endpoint: `/api/admin/crm/campaigns/voice/${id}`,
       body: { steps },
       onSuccess: this._handleSuccess
     })
@@ -62,7 +62,7 @@ class Designer extends React.Component {
 
   _handleSuccess(result) {
     this.setState({
-      workflow: result.data
+      campaign: result.data
     })
   }
 

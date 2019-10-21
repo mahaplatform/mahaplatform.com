@@ -1,12 +1,79 @@
+import generateCode from '../../../../core/utils/generate_code'
+import { contactActivity } from '../../services/activities'
+import SMSCampaign from '../../models/sms_campaign'
+import Enrollment from '../../models/enrollment'
+import { getContact } from '../utils'
 import { twiml } from 'twilio'
 
-const receive = async (req, sms) => {
+const receive = async (req, { sms, phone_number }) => {
 
   const response = new twiml.MessagingResponse()
 
-  response.message({
-    action: `${process.env.TWIML_HOST}/sms/delivered`
-  }, 'Got it')
+  if(!req.session.code) {
+
+    const campaign = await SMSCampaign.query(qb => {
+      qb.where('phone_number_id', phone_number.get('id'))
+      qb.where('term', sms.get('body').toLowerCase())
+    }).fetch({
+      transacting: req.trx
+    })
+
+    const contact = await getContact(req, {
+      team_id: campaign.get('team_id'),
+      number: sms.related('from').get('number')
+    })
+
+    await contactActivity(req, {
+      team_id: campaign.get('team_id'),
+      contact,
+      program_id: campaign.get('program_id'),
+      type: 'workflow',
+      story: 'triggered an incoming sms workflow',
+      // object: sms
+    })
+
+    const code = await generateCode(req, {
+      table: 'crm_enrollments'
+    })
+
+    const enrollment = await Enrollment.forge({
+      team_id: campaign.get('team_id'),
+      sms_campaign_id: campaign.get('id'),
+      contact_id: contact.get('id'),
+      code,
+      actions: []
+    }).save(null, {
+      transacting: req.trx
+    })
+
+    req.session.code = code
+
+    const step = campaign.get('steps').find(step => {
+      return step.parent === null && step.delta === 0
+    })
+
+    response.redirect({
+      method: 'GET'
+    }, `${process.env.TWIML_HOST}/sms/crm/enrollments/${enrollment.get('code')}/steps/${step.code}`)
+
+  } else {
+
+    const enrollment = await Enrollment.query(qb => {
+      qb.where('code', req.session.code)
+    }).fetch({
+      withRelated: ['sms_campaign'],
+      transacting: req.trx
+    })
+
+    const step = enrollment.related('sms_campaign').get('steps').find(step => {
+      return step.parent === null && step.delta === 0
+    })
+
+    response.redirect({
+      method: 'GET'
+    }, `${process.env.TWIML_HOST}/sms/crm/enrollments/${enrollment.get('code')}/steps/${step.code}`)
+
+  }
 
   return response.toString()
 

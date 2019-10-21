@@ -52,7 +52,6 @@ const receive = async (req, { call, phone_number }) => {
   const campaign = await VoiceCampaign.query(qb => {
     qb.where('phone_number_id', phone_number.get('id'))
   }).fetch({
-    withRelated: ['workflow'],
     transacting: req.trx
   })
 
@@ -78,7 +77,7 @@ const receive = async (req, { call, phone_number }) => {
 
   const enrollment = await Enrollment.forge({
     team_id: campaign.get('team_id'),
-    workflow_id: campaign.get('workflow_id'),
+    voice_campaign_id: campaign.get('id'),
     contact_id: from.get('contact_id'),
     code,
     actions: []
@@ -86,7 +85,7 @@ const receive = async (req, { call, phone_number }) => {
     transacting: req.trx
   })
 
-  const step = campaign.related('workflow').get('steps').find(step => {
+  const step = campaign.get('steps').find(step => {
     return step.parent === null && step.delta === 0
   })
 

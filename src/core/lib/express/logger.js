@@ -27,6 +27,7 @@ const logger = (req, res, next) => {
     const [,url] = req.originalUrl.match(/^([^?]*)(.*)?$/)
     const log = []
     log.push(`${chalk.white('REQUEST:')} ${req.method} ${url}`)
+    if(req.session && Object.keys(req.session).length > 0) log.push(`${chalk.red('SESSION:')} ${chalk.grey(JSON.stringify(_.omit(req.session, ['cookie'])))}`)
     if(req.params && Object.keys(req.params).length > 0) log.push(`${chalk.red('PARAMS:')} ${chalk.grey(JSON.stringify(req.params))}`)
     if(req.body && Object.keys(req.body).length > 0) log.push(`${chalk.red('BODY:')} ${chalk.grey(JSON.stringify(req.body))}`)
     if(req.query && Object.keys(req.query).length > 0) log.push(`${chalk.red('QUERY:')} ${chalk.grey(JSON.stringify(req.query))}`)

@@ -1,11 +1,14 @@
 import WorkflowDesigner from '../workflow_designer'
 import PropTypes from 'prop-types'
+import Question from './question'
+import Message from './message'
 import React from 'react'
 
 class SMSDesigner extends React.PureComponent {
 
   static propTypes = {
-    config: PropTypes.array
+    defaultValue: PropTypes.array,
+    onSave: PropTypes.func
   }
 
   render() {
@@ -13,23 +16,38 @@ class SMSDesigner extends React.PureComponent {
   }
 
   _getWorkflowDesigner() {
+    const { defaultValue, onSave } = this.props
     return {
       blocks: [
-        { icon: 'comment', label: 'Incoming SMS', type: 'trigger' },
-        { icon: 'comment', label: 'Respond', type: 'verb', action: 'message' },
-        { icon: 'question', label: 'Question', type: 'conditional', action: 'question' },
-        { icon: 'random', label: 'If / Else', type: 'conditional', action: 'ifelse' },
-        { icon: 'users', label: 'Add to List', type: 'action', action: 'add_to_list' },
-        { icon: 'users', label: 'Remove from List', type: 'action', action: 'remove_from_list' },
-        { icon: 'gears', label: 'Enroll in Workflow', type: 'action', action: 'enroll_in_workflow' },
-        { icon: 'user', label: 'Update Property', type: 'action', action: 'update_property' },
-        { icon: 'book', label: 'Update Interest', type: 'action', action: 'update_interest' },
-        { icon: 'envelope', label: 'Send Email', type: 'action', action: 'send_email' },
-        { icon: 'comment', label: 'Send SMS', type: 'action', action: 'send_sms' },
-        { icon: 'flag', label: 'Goal', type: 'goal', action: 'goal' },
-        { icon: 'stop', label: 'End', type: 'ending' }
+        {
+          icon: 'comment',
+          label: 'Incoming SMS',
+          type: 'trigger'
+        }, {
+          icon: 'comment',
+          label: 'Message',
+          type: 'verb',
+          subtype: 'message',
+          component: Message,
+          config: {}
+        }, {
+          icon: 'question',
+          label: 'Question',
+          type: 'conditional',
+          subtype: 'question',
+          component: Question,
+          config: {
+            question: 'Would you like to buy a vowel?',
+            options: [{ value: 'yes', text: 'YES' }, { value: 'no', text: 'NO' }]
+          }
+        }, {
+          icon: 'phone',
+          label: 'Hangup',
+          type: 'ending'
+        }
       ],
-      defaultValue: []
+      defaultValue,
+      onSave
     }
   }
 

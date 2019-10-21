@@ -1,6 +1,5 @@
 import Model from '../../../core/objects/model'
 import Program from './program'
-import Number from './number'
 
 const PhoneNumber = new Model({
 
@@ -17,16 +16,8 @@ const PhoneNumber = new Model({
 
   },
 
-  from() {
-    return this.belongsTo(Number, 'from_number_id')
-  },
-
   program() {
-    return this.belongsTo(Program, 'program_id')
-  },
-
-  to() {
-    return this.belongsTo(Number, 'to_number_id')
+    return this.hasOne(Program, 'phone_number_id')
   }
 
 })

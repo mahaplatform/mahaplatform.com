@@ -4,6 +4,7 @@ const VoiceCampaignSerializer = (req, result) => ({
   program: program(result.related('program')),
   phone_number: phone_number(result.related('phone_number')),
   code: result.get('code'),
+  steps: result.get('steps'),
   status: result.get('status'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

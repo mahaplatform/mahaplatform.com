@@ -2,26 +2,14 @@ const MigratePrograms = {
 
   up: async (knex) => {
 
-    await knex.raw('drop view crm_channels')
-
-    await Promise.mapSeries(['calls','consents','lists','activities','notes','topics'], async (type) => {
-      await knex.schema.table(`crm_${type}`, (table) => {
-        table.dropColumn('program_id')
-      })
-    })
-
-    await knex.schema.dropTable('maha_program_accesses')
-
-    await knex.schema.dropTable('maha_program_members')
-
-    await knex.schema.dropTable('maha_programs')
-
     await knex.schema.createTable('maha_programs', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
       table.integer('logo_id').unsigned()
       table.foreign('logo_id').references('maha_assets.id')
+      table.integer('phone_number_id').unsigned()
+      table.foreign('phone_number_id').references('maha_phone_numbers.id')
       table.string('title')
       table.string('code')
       table.boolean('has_email_channel')

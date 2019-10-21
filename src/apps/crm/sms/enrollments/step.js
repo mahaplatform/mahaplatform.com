@@ -1,26 +1,9 @@
 import Enrollment from '../../models/enrollment'
-import Asset from '../../../maha/models/asset'
 import { twiml } from 'twilio'
 
-const say = async (req, response, { voice, message }) => {
+const message = async (req, response, { message }) => {
 
-  response.say({
-    voice
-  }, message)
-
-}
-
-const play = async (req, response, { loop, recording_id }) => {
-
-  const asset = await Asset.query(qb => {
-    qb.where('id', recording_id)
-  }).fetch({
-    transacting: req.trx
-  })
-
-  response.play({
-    loop
-  }, asset.get('signed_url'))
+  response.message(message)
 
 }
 
@@ -52,13 +35,9 @@ const send_sms = async (req, response, config) => {
 
 }
 
-const ask = async (req, response) => {
+const ask = async (req, response, { question }) => {
 
-  response.gather({
-    numDigits: 1,
-    action: `${process.env.TWIML_HOST}/voice/crm/enrollments/${req.enrollment.get('code')}/steps/${req.step.code}`,
-    method: 'POST'
-  })
+  response.message(question)
 
 }
 
@@ -74,7 +53,7 @@ const answer = async (req, response) => {
 
   response.redirect({
     method: 'GET'
-  }, `${process.env.TWIML_HOST}/voice/crm/enrollments/${req.enrollment.get('code')}/steps/${next.code}`)
+  }, `${process.env.TWIML_HOST}/sms/crm/enrollments/${req.enrollment.get('code')}/steps/${next.code}`)
 
 }
 
@@ -103,9 +82,9 @@ const next = async (req, response) => {
   if(next) {
     response.redirect({
       method: 'GET'
-    }, `${process.env.TWIML_HOST}/voice/crm/enrollments/${req.enrollment.get('code')}/steps/${next.code}`)
+    }, `${process.env.TWIML_HOST}/sms/crm/enrollments/${req.enrollment.get('code')}/steps/${next.code}`)
   } else {
-    response.hangup()
+    req.session.code = null
   }
 
 }
@@ -115,11 +94,11 @@ const stepRoute = async (req, res) => {
   req.enrollment = await Enrollment.query(qb => {
     qb.where('code', req.params.enrollment_id)
   }).fetch({
-    withRelated: ['contact','voice_campaign'],
+    withRelated: ['contact','sms_campaign'],
     transacting: req.trx
   })
 
-  req.campaign = req.enrollment.related('voice_campaign')
+  req.campaign = req.enrollment.related('sms_campaign')
 
   req.contact = req.enrollment.related('contact')
 
@@ -141,15 +120,13 @@ const stepRoute = async (req, res) => {
 
   const { type, subtype } = req.step
 
-  const response = new twiml.VoiceResponse()
+  const response = new twiml.MessagingResponse()
 
-  if(subtype === 'question' && req.method === 'GET') await ask(req, response, config)
+  if(subtype === 'question') await ask(req, response, config)
 
-  if(subtype === 'question' && req.method === 'POST') await answer(req, response, config)
+  // if(subtype === 'question') await answer(req, response, config)
 
-  if(subtype === 'say') await say(req, response, config)
-
-  if(subtype === 'play') await play(req, response, config)
+  if(subtype === 'message') await message(req, response, config)
 
   if(subtype === 'add_to_list') await add_to_list(req, response, config)
 
@@ -167,7 +144,9 @@ const stepRoute = async (req, res) => {
 
   if(type === 'goal') await goal(req, response, config)
 
-  if(type !== 'question') await next(req, response)
+  if(type !== 'conditional') await next(req, response)
+
+  console.log(response.toString())
 
   return res.status(200).type('text/xml').send(response.toString())
 
