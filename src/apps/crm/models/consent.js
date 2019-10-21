@@ -1,5 +1,5 @@
 import Model from '../../../core/objects/model'
-import Program from '../../maha/models/program'
+import Program from './program'
 import MailingAddress from './mailing_address'
 import EmailAddress from './email_address'
 import PhoneNumber from './phone_number'

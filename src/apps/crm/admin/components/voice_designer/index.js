@@ -26,7 +26,8 @@ class VoiceDesigner extends React.PureComponent {
       return {
         icon: 'phone',
         label: 'Incoming Call',
-        type: 'trigger'
+        type: 'trigger',
+        details: () => campaign.phone_number.formatted
       }
     } else {
       return {
@@ -60,7 +61,8 @@ class VoiceDesigner extends React.PureComponent {
           config: {
             voice: 'woman',
             message: 'Hello! How are you?'
-          }
+          },
+          details: ({ message }) => message
         }, {
           icon: 'microphone',
           label: 'Record',
@@ -133,6 +135,7 @@ class VoiceDesigner extends React.PureComponent {
         }
       ],
       defaultValue: campaign.steps,
+      status: campaign.status,
       onSave
     }
   }

@@ -19,11 +19,14 @@ import ListsList from './lists/list'
 import ListsShow from './lists/show'
 import OrganizationsList from './organizations/list'
 import OrganizationsShow from './organizations/show'
+import ProgramsList from './programs/list'
+import ProgramsShow from './programs/show'
 import SendersList from './senders/list'
 import TemplateList from './templates/list'
 import TemplatesShow from './templates/show'
 import TopicsList from './topics/list'
 import WorkflowsList from './workflows/list'
+import WorkflowsShow from './workflows/show'
 
 const routes = [
   { path: '/campaigns', component: CampaignsList },
@@ -47,11 +50,14 @@ const routes = [
   { path: '/lists/:id', component: ListsShow },
   { path: '/organizations', component: OrganizationsList },
   { path: '/organizations/:id', component: OrganizationsShow },
+  { path: '/programs', component: ProgramsList },
+  { path: '/programs/:id', component: ProgramsShow },
   { path: '/senders', component: SendersList },
   { path: '/templates', component: TemplateList },
   { path: '/templates/:id', component: TemplatesShow },
   { path: '/topics', component: TopicsList },
-  { path: '/workflows', component: WorkflowsList }
+  { path: '/workflows', component: WorkflowsList },
+  { path: '/workflows/:id', component: WorkflowsShow }
 ]
 
 export default routes

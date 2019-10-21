@@ -4,7 +4,7 @@ import { whitelist } from '../../../../../../core/services/routes/params'
 import generateCode from '../../../../../../core/utils/generate_code'
 import socket from '../../../../../../core/services/routes/emitter'
 import VoiceCampaign from '../../../../models/voice_campaign'
-import Program from '../../../../../maha/models/program'
+import Program from '../../../../models/program'
 
 const createRoute = async (req, res) => {
 

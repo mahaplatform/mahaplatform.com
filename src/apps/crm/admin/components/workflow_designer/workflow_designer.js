@@ -11,6 +11,7 @@ class VoiceDesigner extends React.PureComponent {
     blocks: PropTypes.array,
     config: PropTypes.array,
     defaultValue: PropTypes.array,
+    status: PropTypes.array,
     steps: PropTypes.array,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
@@ -27,13 +28,33 @@ class VoiceDesigner extends React.PureComponent {
     return (
       <div className="workflow-designer">
         <div className="workflow-designer-main">
-          <Canvas { ...this._getCanvas() } />
+          <div className="workflow-designer-status">
+            { this._getStatus() }
+          </div>
+          <div className="workflow-designer-canvas">
+            <Canvas { ...this._getCanvas() } />
+          </div>
         </div>
         <div className="workflow-designer-sidebar">
           <Sidebar { ...this._getSidebar() } />
         </div>
       </div>
     )
+  }
+
+  _getStatus() {
+    const { status } = this.props
+    if(status === 'draft') {
+      return 'This campaign is in draft mode'
+    } else if(status === 'scheduled') {
+      return 'This campaign is scheduled'
+    } else if(status === 'sent') {
+      return 'This campaign has been sent'
+    } else if(status === 'active') {
+      return 'This campaign is active'
+    } else if(status === 'inactive') {
+      return 'This campaign has been deactivated'
+    }
   }
 
   componentDidMount() {

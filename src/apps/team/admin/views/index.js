@@ -8,8 +8,6 @@ import FaxesList from './faxes/list'
 import GroupsList from './groups/list'
 import GroupsShow from './groups/show'
 import PhoneNumbersList from './phone_numbers/list'
-import ProgramsList from './programs/list'
-import ProgramsShow from './programs/show'
 import RolesList from './roles/list'
 import RolesShow from './roles/show'
 import SessionsList from './sessions/list'
@@ -32,8 +30,6 @@ const routes = [
   { path: '/groups', component: GroupsList },
   { path: '/groups/:id', component: GroupsShow },
   { path: '/phone_numbers', component: PhoneNumbersList },
-  { path: '/programs', component: ProgramsList },
-  { path: '/programs/:id', component: ProgramsShow },
   { path: '/roles', component: RolesList },
   { path: '/roles/:id', component: RolesShow },
   { path: '/sessions', component: SessionsList },

@@ -8,7 +8,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/crm/workflows',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Title', key: 'title', primary: true }
+      { label: 'Title', key: 'title', primary: true },
+      { label: 'Program', key: 'program.title', primary: true }
     ],
     empty: {
       icon: 'cogs',
@@ -20,7 +21,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     },
     defaultSort: { key: 'title', order: 'asc' },
     entity: 'workflow',
-    onClick: (record) => context.router.history.push(`/admin/crm/workflows/${record.id}`)
+    onClick: (record) => context.router.history.push(`/admin/crm/workflows/${record.code}`)
   },
   tasks: {
     icon: 'plus',

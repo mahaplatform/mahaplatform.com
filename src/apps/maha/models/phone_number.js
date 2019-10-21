@@ -1,5 +1,4 @@
 import Model from '../../../core/objects/model'
-import Program from './program'
 
 const PhoneNumber = new Model({
 
@@ -14,10 +13,6 @@ const PhoneNumber = new Model({
       return `(${parts[1]}) ${parts[2]}-${parts[3]}`
     }
 
-  },
-
-  program() {
-    return this.hasOne(Program, 'phone_number_id')
   }
 
 })

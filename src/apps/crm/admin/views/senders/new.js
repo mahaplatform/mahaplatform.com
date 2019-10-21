@@ -27,7 +27,7 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/programs', value: 'id', text: 'title', required: true, format: ProgramToken },
+            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true, format: ProgramToken },
             { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Enter the from name', required: true },
             { label: 'Email', name: 'email', type: 'textfield', placeholder: 'Enter the email address', required: true }
           ]

@@ -1,12 +1,12 @@
 import Model from '../../../core/objects/model'
-import Grouping from './grouping'
+import Grouping from '../../maha/models/grouping'
 import Program from './program'
-import Group from './group'
-import User from './user'
+import Group from '../../maha/models/group'
+import User from '../../maha/models/user'
 
 const ProgramAccess = new Model({
 
-  tableName: 'maha_program_accesses',
+  tableName: 'crm_program_accesses',
 
   rules: {},
 

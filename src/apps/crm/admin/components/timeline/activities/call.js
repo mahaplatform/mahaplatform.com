@@ -35,7 +35,7 @@ class Call extends React.Component {
           fields: [
             { label: 'Date', name: 'date', type: 'datefield', defaultValue: moment().format('YYYY-MM-DD') },
             { label: 'Time', name: 'time', type: 'timefield', defaultValue: moment().format('hh:mm a') },
-            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/programs', value: 'id', text: 'title', required: true },
+            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true },
             { label: 'Description', name: 'description', type: 'textarea', rows: 20, placeholder: 'Describe the call' }
           ]
         }

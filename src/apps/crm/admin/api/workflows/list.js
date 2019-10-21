@@ -1,10 +1,23 @@
+import WorkflowSerializer from '../../../serializers/workflow_serializer'
+import Workflow from '../../../models/workflow'
+
 const listRoute = async (req, res) => {
 
-  const records = []
+  const workflows = await Workflow.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
+  }).filter({
+    filter: req.query.$filter,
+    filterParams: ['program_id']
+  }).sort({
+    defaultSort:  '-created_at',
+    sortParams: ['created_at']
+  }).fetchPage({
+    withRelated: ['program'],
+    page: req.query.$page,
+    transacting: req.trx
+  })
 
-  records.pagination = { all: 0, total: 0 }
-
-  res.status(200).respond(records)
+  res.status(200).respond(workflows, WorkflowSerializer)
 
 }
 

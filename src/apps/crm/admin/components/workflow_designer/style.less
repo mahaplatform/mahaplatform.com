@@ -4,13 +4,25 @@
   background-color: @white;
 }
 .workflow-designer-main {
-  background-color: #e9ebee;
   flex-direction: column;
   flex: 1;
   display: flex;
 }
+.workflow-designer-status {
+  background-color: fadeout(@yellow, 60);
+  color: darken(@yellow, 20);
+  text-align: center;
+  padding: 0.8em;
+  line-height: 1.8em;
+  flex: 0 0 3.5em;
+}
+.workflow-designer-canvas {
+  background-color: fadeout(@black, 97);
+  flex: 1;
+  display: flex;
+}
 .workflow-designer-sidebar {
-  border-left: 1px solid fadeout(@black, 70);
+  border-left: 1px solid fadeout(@black, 90);
   flex: ~"0 0 calc(100% / 3)";
   max-width: 500px;
   min-width: 350px;

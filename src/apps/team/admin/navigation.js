@@ -10,7 +10,6 @@ const navigation = async (req) => ({
       { label: 'Numbers', route: '/phone_numbers' },
       { label: 'SMS', route: '/sms' }
     ] },
-    { label: 'Programs', route: '/programs' },
     { label: 'Roles', rights: ['team:manage_people'], route: '/roles' },
     { label: 'Sessions', rights: ['team:manage_people'], route: '/sessions' },
     { label: 'Settings', rights: ['team:manage_team'], route: '/settings' },

@@ -5,6 +5,8 @@ const CreateWorkflow = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
+      table.integer('program_id').unsigned()
+      table.foreign('program_id').references('crm_programs.id')
       table.enum('status', ['draft','active','inactive'], { useNative: true, enumName: 'crm_workflows_status' })
       table.string('code')
       table.string('title')

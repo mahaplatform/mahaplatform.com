@@ -1,11 +1,11 @@
+import PhoneNumber from '../../maha/models/phone_number'
 import Model from '../../../core/objects/model'
 import ProgramAccess from './program_access'
 import Asset from '../../maha/models/asset'
-import PhoneNumber from './phone_number'
 
 const Program = new Model({
 
-  tableName: 'maha_programs',
+  tableName: 'crm_programs',
 
   rules: {},
 

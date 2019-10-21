@@ -7,7 +7,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Programs',
   rights: [],
   collection: {
-    endpoint: '/api/admin/team/programs',
+    endpoint: '/api/admin/crm/programs',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true, format: ProgramToken }
@@ -28,7 +28,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     },
     entity: 'program',
     defaultSort: { key: 'title', order: 'asc' },
-    onClick: (record) => context.router.history.push(`/admin/team/programs/${record.id}`)
+    onClick: (record) => context.router.history.push(`/admin/crm/programs/${record.id}`)
   },
   tasks: {
     icon: 'plus',

@@ -403,6 +403,33 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('crm_programs', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('logo_id').unsigned()
+      table.integer('phone_number_id').unsigned()
+      table.string('title', 255)
+      table.string('code', 255)
+      table.boolean('has_email_channel')
+      table.boolean('has_sms_channel')
+      table.boolean('has_voice_channel')
+      table.boolean('has_mail_channel')
+      table.boolean('is_private')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('crm_programs_accesses', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('program_id').unsigned()
+      table.integer('grouping_id').unsigned()
+      table.integer('group_id').unsigned()
+      table.integer('user_id').unsigned()
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('crm_responses', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -517,6 +544,7 @@ const schema = {
     await knex.schema.createTable('crm_workflows', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
+      table.integer('program_id').unsigned()
       table.USER-DEFINED('status')
       table.string('code', 255)
       table.string('title', 255)
@@ -1269,33 +1297,6 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('maha_program_accesses', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('program_id').unsigned()
-      table.integer('grouping_id').unsigned()
-      table.integer('group_id').unsigned()
-      table.integer('user_id').unsigned()
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
-    await knex.schema.createTable('maha_programs', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('logo_id').unsigned()
-      table.integer('phone_number_id').unsigned()
-      table.string('title', 255)
-      table.string('code', 255)
-      table.boolean('has_email_channel')
-      table.boolean('has_sms_channel')
-      table.boolean('has_voice_channel')
-      table.boolean('has_mail_channel')
-      table.boolean('is_private')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
     await knex.schema.createTable('maha_reactions', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -1789,7 +1790,7 @@ const schema = {
       table.foreign('phone_number_id').references('crm_phone_numbers.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('mailing_address_id').references('crm_mailing_addresses.id')
-      table.foreign('program_id').references('maha_programs.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('crm_interests', table => {
@@ -1847,7 +1848,7 @@ const schema = {
       table.foreign('note_id').references('crm_notes.id')
       table.foreign('story_id').references('maha_stories.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('maha_programs.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('drive_files', table => {
@@ -2083,12 +2084,12 @@ const schema = {
       table.foreign('training_id').references('training_trainings.id')
     })
 
-    await knex.schema.table('maha_program_accesses', table => {
+    await knex.schema.table('crm_programs_accesses', table => {
       table.foreign('user_id').references('maha_users.id')
       table.foreign('grouping_id').references('maha_groupings.id')
       table.foreign('group_id').references('maha_groups.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('maha_programs.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('maha_profiles', table => {
@@ -2171,7 +2172,7 @@ const schema = {
     await knex.schema.table('crm_calls', table => {
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('maha_programs.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('crm_contacts_organizations', table => {
@@ -2187,7 +2188,7 @@ const schema = {
     await knex.schema.table('crm_notes', table => {
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('maha_programs.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('crm_phone_numbers', table => {
@@ -2317,7 +2318,7 @@ const schema = {
       table.foreign('training_id').references('training_trainings.id')
     })
 
-    await knex.schema.table('maha_programs', table => {
+    await knex.schema.table('crm_programs', table => {
       table.foreign('logo_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('phone_number_id').references('maha_phone_numbers.id')
@@ -2348,7 +2349,7 @@ const schema = {
 
     await knex.schema.table('crm_lists', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('maha_programs.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('crm_tags', table => {
@@ -2357,7 +2358,7 @@ const schema = {
 
     await knex.schema.table('crm_topics', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('maha_programs.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('eatfresh_counties', table => {
@@ -2452,18 +2453,18 @@ const schema = {
 
     await knex.schema.table('crm_senders', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('maha_programs.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('crm_templates', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('maha_programs.id')
+      table.foreign('program_id').references('crm_programs.id')
       table.foreign('parent_id').references('crm_templates.id')
     })
 
     await knex.schema.table('crm_forms', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('maha_programs.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('maha_smses', table => {
@@ -2480,7 +2481,7 @@ const schema = {
 
     await knex.schema.table('crm_email_campaigns', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('maha_programs.id')
+      table.foreign('program_id').references('crm_programs.id')
       table.foreign('sender_id').references('crm_senders.id')
       table.foreign('template_id').references('crm_templates.id')
     })
@@ -2488,28 +2489,29 @@ const schema = {
     await knex.schema.table('crm_sms_campaigns', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('phone_number_id').references('maha_phone_numbers.id')
-      table.foreign('program_id').references('maha_programs.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('crm_voice_campaigns', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('phone_number_id').references('maha_phone_numbers.id')
-      table.foreign('program_id').references('maha_programs.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('crm_postal_campaigns', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('maha_programs.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('crm_social_campaigns', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('maha_programs.id')
+      table.foreign('program_id').references('crm_programs.id')
       table.foreign('profile_id').references('maha_profiles.id')
     })
 
     await knex.schema.table('crm_workflows', table => {
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('maha_email_links', table => {
@@ -2635,9 +2637,9 @@ union
       crm_channels.code,
       crm_channels.has_consented
       from ( select 1 as priority,
-      maha_programs.team_id,
+      crm_programs.team_id,
       crm_email_addresses.contact_id,
-      maha_programs.id as program_id,
+      crm_programs.id as program_id,
       'email'::text as type,
       crm_email_addresses.id as email_address_id,
       null::integer as phone_number_id,
@@ -2650,15 +2652,15 @@ union
       crm_consents.optedout_at,
       crm_consents.code,
       ((crm_consents.id is not null) and (crm_consents.optedout_at is null)) as has_consented
-      from ((maha_programs
-      join crm_email_addresses on ((crm_email_addresses.team_id = maha_programs.team_id)))
-      left join crm_consents on (((crm_consents.email_address_id = crm_email_addresses.id) and (crm_consents.program_id = maha_programs.id) and (crm_consents.type = 'email'::crm_consent_type))))
-      where (maha_programs.has_email_channel = true)
+      from ((crm_programs
+      join crm_email_addresses on ((crm_email_addresses.team_id = crm_programs.team_id)))
+      left join crm_consents on (((crm_consents.email_address_id = crm_email_addresses.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'email'::crm_consent_type))))
+      where (crm_programs.has_email_channel = true)
       union
       select 2 as priority,
-      maha_programs.team_id,
+      crm_programs.team_id,
       crm_phone_numbers.contact_id,
-      maha_programs.id as program_id,
+      crm_programs.id as program_id,
       'sms'::text as type,
       null::integer as email_address_id,
       crm_phone_numbers.id as phone_number_id,
@@ -2671,15 +2673,15 @@ union
       crm_consents.optedout_at,
       crm_consents.code,
       ((crm_consents.id is not null) and (crm_consents.optedout_at is null)) as has_consented
-      from ((maha_programs
-      join crm_phone_numbers on ((crm_phone_numbers.team_id = maha_programs.team_id)))
-      left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = maha_programs.id) and (crm_consents.type = 'sms'::crm_consent_type))))
-      where (maha_programs.has_sms_channel = true)
+      from ((crm_programs
+      join crm_phone_numbers on ((crm_phone_numbers.team_id = crm_programs.team_id)))
+      left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'sms'::crm_consent_type))))
+      where (crm_programs.has_sms_channel = true)
       union
       select 3 as priority,
-      maha_programs.team_id,
+      crm_programs.team_id,
       crm_phone_numbers.contact_id,
-      maha_programs.id as program_id,
+      crm_programs.id as program_id,
       'voice'::text as type,
       null::integer as email_address_id,
       crm_phone_numbers.id as phone_number_id,
@@ -2692,15 +2694,15 @@ union
       crm_consents.optedout_at,
       crm_consents.code,
       ((crm_consents.id is not null) and (crm_consents.optedout_at is null)) as has_consented
-      from ((maha_programs
-      join crm_phone_numbers on ((crm_phone_numbers.team_id = maha_programs.team_id)))
-      left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = maha_programs.id) and (crm_consents.type = 'voice'::crm_consent_type))))
-      where (maha_programs.has_voice_channel = true)
+      from ((crm_programs
+      join crm_phone_numbers on ((crm_phone_numbers.team_id = crm_programs.team_id)))
+      left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'voice'::crm_consent_type))))
+      where (crm_programs.has_voice_channel = true)
       union
       select 4 as priority,
-      maha_programs.team_id,
+      crm_programs.team_id,
       crm_mailing_addresses.contact_id,
-      maha_programs.id as program_id,
+      crm_programs.id as program_id,
       'mail'::text as type,
       null::integer as email_address_id,
       null::integer as phone_number_id,
@@ -2713,10 +2715,10 @@ union
       crm_consents.optedout_at,
       crm_consents.code,
       ((crm_consents.id is not null) and (crm_consents.optedout_at is null)) as has_consented
-      from ((maha_programs
-      join crm_mailing_addresses on ((crm_mailing_addresses.team_id = maha_programs.team_id)))
-      left join crm_consents on (((crm_consents.mailing_address_id = crm_mailing_addresses.id) and (crm_consents.program_id = maha_programs.id) and (crm_consents.type = 'mail'::crm_consent_type))))
-      where (maha_programs.has_mail_channel = true)) crm_channels
+      from ((crm_programs
+      join crm_mailing_addresses on ((crm_mailing_addresses.team_id = crm_programs.team_id)))
+      left join crm_consents on (((crm_consents.mailing_address_id = crm_mailing_addresses.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'mail'::crm_consent_type))))
+      where (crm_programs.has_mail_channel = true)) crm_channels
       order by crm_channels.priority;
     `)
 

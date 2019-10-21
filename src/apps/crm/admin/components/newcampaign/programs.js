@@ -51,7 +51,7 @@ class Programs extends React.PureComponent {
   _getInfinite() {
     const { onChoose } = this.props
     return {
-      endpoint: '/api/admin/programs',
+      endpoint: '/api/admin/crm/programs',
       layout: Items,
       props: {
         onChoose

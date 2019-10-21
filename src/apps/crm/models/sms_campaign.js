@@ -1,6 +1,6 @@
 import PhoneNumber from '../../maha/models/phone_number'
 import Model from '../../../core/objects/model'
-import Program from '../../maha/models/program'
+import Program from './program'
 
 const SmsCampaign = new Model({
 

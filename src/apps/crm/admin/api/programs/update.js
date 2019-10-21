@@ -2,7 +2,7 @@ import { activity } from '../../../../../core/services/routes/activities'
 import ProgramSerializer from '../../../serializers/program_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
-import Program from '../../../../maha/models/program'
+import Program from '../../../models/program'
 import _ from 'lodash'
 
 const updateRoute = async (req, res) => {
@@ -36,8 +36,8 @@ const updateRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    '/admin/team/programs',
-    `/admin/team/programs/${program.get('id')}`
+    '/admin/crm/programs',
+    `/admin/crm/programs/${program.get('id')}`
   ])
 
   res.status(200).respond(program, ProgramSerializer)
