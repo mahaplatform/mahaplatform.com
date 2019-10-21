@@ -18,6 +18,8 @@ const receive = async (req, { sms, phone_number }) => {
       transacting: req.trx
     })
 
+    if(!campaign) return null
+
     const contact = await getContact(req, {
       team_id: campaign.get('team_id'),
       number: sms.related('from').get('number')
@@ -48,13 +50,9 @@ const receive = async (req, { sms, phone_number }) => {
 
     req.session.code = code
 
-    const step = campaign.get('steps').find(step => {
-      return step.parent === null && step.delta === 0
-    })
-
     response.redirect({
-      method: 'GET'
-    }, `${process.env.TWIML_HOST}/sms/crm/enrollments/${enrollment.get('code')}/steps/${step.code}`)
+      method: 'POST'
+    }, `${process.env.TWIML_HOST}/sms/crm/enrollments/${enrollment.get('code')}`)
 
   } else {
 
@@ -65,13 +63,9 @@ const receive = async (req, { sms, phone_number }) => {
       transacting: req.trx
     })
 
-    const step = enrollment.related('sms_campaign').get('steps').find(step => {
-      return step.parent === null && step.delta === 0
-    })
-
     response.redirect({
-      method: 'GET'
-    }, `${process.env.TWIML_HOST}/sms/crm/enrollments/${enrollment.get('code')}/steps/${step.code}`)
+      method: 'POST'
+    }, `${process.env.TWIML_HOST}/sms/crm/enrollments/${enrollment.get('code')}`)
 
   }
 

@@ -29,7 +29,8 @@ class SMSDesigner extends React.PureComponent {
           type: 'verb',
           subtype: 'message',
           component: Message,
-          config: {}
+          config: {},
+          details: 'message'
         }, {
           icon: 'question',
           label: 'Question',
@@ -39,7 +40,8 @@ class SMSDesigner extends React.PureComponent {
           config: {
             question: 'Would you like to buy a vowel?',
             options: [{ value: 'yes', text: 'YES' }, { value: 'no', text: 'NO' }]
-          }
+          },
+          details: 'question'
         }, {
           icon: 'phone',
           label: 'Hangup',

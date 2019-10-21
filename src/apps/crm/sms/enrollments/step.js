@@ -39,21 +39,27 @@ const ask = async (req, response, { question }) => {
 
   response.message(question)
 
+  req.session.asked = true
+
 }
 
 const answer = async (req, response) => {
 
   const next = req.campaign.get('steps').filter(step => {
-    return step.parent === req.step.code && step.answer === req.body.Digits
+    return step.parent === req.step.code && step.answer === req.body.Body.toLowerCase()
   }).sort((a, b) => {
     return a.delta < b.delta ? -1 : 1
   }).find((step, index) => {
     return index === 0
   })
 
+  delete req.session.asked
+
+  req.session.step = next.code
+
   response.redirect({
-    method: 'GET'
-  }, `${process.env.TWIML_HOST}/sms/crm/enrollments/${req.enrollment.get('code')}/steps/${next.code}`)
+    method: 'POST'
+  }, `${process.env.TWIML_HOST}/sms/crm/enrollments/${req.enrollment.get('code')}`)
 
 }
 
@@ -80,16 +86,26 @@ const next = async (req, response) => {
   })
 
   if(next) {
+
+    req.session.step = next.code
+
     response.redirect({
-      method: 'GET'
-    }, `${process.env.TWIML_HOST}/sms/crm/enrollments/${req.enrollment.get('code')}/steps/${next.code}`)
+      method: 'POST'
+    }, `${process.env.TWIML_HOST}/sms/crm/enrollments/${req.enrollment.get('code')}`)
+
   } else {
-    req.session.code = null
+
+    delete req.session.asked
+    delete req.session.code
+    delete req.session.step
+
   }
 
 }
 
 const stepRoute = async (req, res) => {
+
+  const { code, asked } = req.session
 
   req.enrollment = await Enrollment.query(qb => {
     qb.where('code', req.params.enrollment_id)
@@ -103,7 +119,8 @@ const stepRoute = async (req, res) => {
   req.contact = req.enrollment.related('contact')
 
   req.step = req.campaign.get('steps').find(step => {
-    return step.code === req.params.step_id
+    if(req.session.step && step.code === req.session.step) return true
+    return step.parent === null && step.delta === 0
   })
 
   await req.enrollment.save({
@@ -122,9 +139,9 @@ const stepRoute = async (req, res) => {
 
   const response = new twiml.MessagingResponse()
 
-  if(subtype === 'question') await ask(req, response, config)
+  if(subtype === 'question' && !asked) await ask(req, response, config)
 
-  // if(subtype === 'question') await answer(req, response, config)
+  if(subtype === 'question' && asked) await answer(req, response, config)
 
   if(subtype === 'message') await message(req, response, config)
 

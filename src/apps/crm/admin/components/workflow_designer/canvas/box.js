@@ -18,9 +18,9 @@ class Box extends React.PureComponent {
   _handleRemove = this._handleRemove.bind(this)
 
   render() {
-    const { icon, label } = this._getBlock()
+    const { icon, label, details } = this._getBlock()
     const { active, box } = this.props
-    const { code, options, type, subtype, config } = box
+    const { code, options, type, config } = box
     return (
       <div className="workflow-box-padding">
         <div className={ this._getClass() }>
@@ -44,14 +44,9 @@ class Box extends React.PureComponent {
           <div className="workflow-box-label">
             { label }
           </div>
-          { subtype === 'say' &&
+          { details &&
             <div className="workflow-box-details">
-              { config.message }
-            </div>
-          }
-          { subtype === 'question' &&
-            <div className="workflow-box-details">
-              { config.question }
+              { config[details] }
             </div>
           }
         </div>
