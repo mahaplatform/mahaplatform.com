@@ -1,9 +1,4 @@
 import WorkflowDesigner from '../workflow_designer'
-import EnrollInWorkflow from './enroll_in_workflow'
-import RemoveFromList from './remove_from_list'
-import UpdateProperty from './update_property'
-import UpdateInterest from './update_interest'
-import AddToList from './add_to_list'
 import SendEmail from './send_email'
 import PropTypes from 'prop-types'
 import Question from './question'
@@ -80,32 +75,27 @@ class VoiceDesigner extends React.PureComponent {
           icon: 'users',
           label: 'Add to List',
           type: 'action',
-          action: 'add_to_list',
-          component: AddToList
+          action: 'add_to_list'
         }, {
           icon: 'users',
           label: 'Remove from List',
           type: 'action',
-          action: 'remove_from_list',
-          component: RemoveFromList
+          action: 'remove_from_list'
         }, {
           icon: 'gears',
           label: 'Enroll in Workflow',
           type: 'action',
-          action: 'enroll_in_workflow',
-          component: EnrollInWorkflow
+          action: 'enroll_in_workflow'
         }, {
           icon: 'user',
           label: 'Update Property',
           type: 'action',
-          action: 'update_property',
-          component: UpdateProperty
+          action: 'update_property'
         }, {
           icon: 'book',
           label: 'Update Interest',
           type: 'action',
-          action: 'update_interest',
-          component: UpdateInterest
+          action: 'update_interest'
         }, {
           icon: 'envelope',
           label: 'Send Email',

@@ -1,5 +1,4 @@
 import WorkflowDesigner from '../workflow_designer'
-import { Image } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Question from './question'
 import Message from './message'
@@ -9,7 +8,7 @@ import React from 'react'
 class SMSDesigner extends React.PureComponent {
 
   static propTypes = {
-    defaultValue: PropTypes.array,
+    campaign: PropTypes.object,
     onSave: PropTypes.func
   }
 
@@ -18,14 +17,16 @@ class SMSDesigner extends React.PureComponent {
   }
 
   _getWorkflowDesigner() {
-    const { defaultValue, onSave } = this.props
+    const { campaign, onSave } = this.props
+    const { steps, term } = campaign
     return {
       blocks: [
         {
           icon: 'comment',
           label: 'Incoming SMS',
           type: 'trigger',
-          action: 'trigger'
+          action: 'trigger',
+          details: () => `"${term}"`
         }, {
           icon: 'comment',
           label: 'Send Message',
@@ -63,6 +64,31 @@ class SMSDesigner extends React.PureComponent {
           },
           details: ({ question }) => question
         }, {
+          icon: 'users',
+          label: 'Add to List',
+          type: 'action',
+          action: 'add_to_list'
+        }, {
+          icon: 'users',
+          label: 'Remove from List',
+          type: 'action',
+          action: 'remove_from_list'
+        }, {
+          icon: 'gears',
+          label: 'Enroll in Workflow',
+          type: 'action',
+          action: 'enroll_in_workflow'
+        }, {
+          icon: 'user',
+          label: 'Update Property',
+          type: 'action',
+          action: 'update_property'
+        }, {
+          icon: 'book',
+          label: 'Update Interest',
+          type: 'action',
+          action: 'update_interest'
+        }, {
           icon: 'flag',
           label: 'Goal',
           type: 'goal',
@@ -74,7 +100,7 @@ class SMSDesigner extends React.PureComponent {
           action: 'ending'
         }
       ],
-      defaultValue,
+      defaultValue: steps,
       onSave
     }
   }

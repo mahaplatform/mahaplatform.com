@@ -1,3 +1,8 @@
+import EnrollInWorkflow from './enroll_in_workflow'
+import RemoveFromList from './remove_from_list'
+import UpdateProperty from './update_property'
+import UpdateInterest from './update_interest'
+import AddToList from './add_to_list'
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Content from './content'
@@ -44,6 +49,16 @@ class Sidebar extends React.PureComponent {
     }
   }
 
+  _getComponent(block) {
+    if(block.component) return block.component
+    if(block.action === 'add_to_list') return AddToList
+    if(block.action === 'enroll_in_workflow') return EnrollInWorkflow
+    if(block.action === 'remove_from_list') return RemoveFromList
+    if(block.action === 'update_interest') return UpdateInterest
+    if(block.action === 'update_property') return UpdateProperty
+    return null
+  }
+
   _getContent() {
     const { blocks, onSave } = this.props
     return {
@@ -78,7 +93,8 @@ class Sidebar extends React.PureComponent {
     const { type, action } = step
     const search = action ? { type, action } : { type }
     const block = _.find(blocks, search)
-    if(block.component) this._handlePush(block.component, this._getEdit(step))
+    const component = this._getComponent(block)
+    if(component) this._handlePush(component, this._getEdit(step))
   }
 
   _handlePop(index = -1) {

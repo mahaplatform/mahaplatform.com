@@ -34,7 +34,7 @@ class Designer extends React.Component {
   _getSMSDesigner() {
     const { campaign } = this.state
     return {
-      defaultValue: campaign.steps,
+      campaign,
       onSave: this._handleSave
     }
   }
