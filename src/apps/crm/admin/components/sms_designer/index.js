@@ -22,12 +22,13 @@ class SMSDesigner extends React.PureComponent {
         {
           icon: 'comment',
           label: 'Incoming SMS',
-          type: 'trigger'
+          type: 'trigger',
+          action: 'trigger'
         }, {
           icon: 'comment',
           label: 'Message',
           type: 'verb',
-          subtype: 'message',
+          action: 'message',
           component: Message,
           config: {},
           details: 'message'
@@ -35,7 +36,7 @@ class SMSDesigner extends React.PureComponent {
           icon: 'question',
           label: 'Question',
           type: 'conditional',
-          subtype: 'question',
+          action: 'question',
           component: Question,
           config: {
             question: 'Would you like to buy a vowel?',
@@ -43,9 +44,15 @@ class SMSDesigner extends React.PureComponent {
           },
           details: 'question'
         }, {
+          icon: 'flag',
+          label: 'Goal',
+          type: 'goal',
+          action: 'ending'
+        }, {
           icon: 'phone',
           label: 'Hangup',
-          type: 'ending'
+          type: 'ending',
+          action: 'ending'
         }
       ],
       defaultValue,

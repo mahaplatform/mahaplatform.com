@@ -80,7 +80,8 @@ const receive = async (req, { call, phone_number }) => {
     voice_campaign_id: campaign.get('id'),
     contact_id: from.get('contact_id'),
     code,
-    actions: []
+    actions: [],
+    was_converted: false
   }).save(null, {
     transacting: req.trx
   })

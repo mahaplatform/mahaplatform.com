@@ -31,6 +31,7 @@ const deliveredRoute = async (req, res) => {
   }
 
   await updateSMS(req, {
+    num_media: message.numMedia,
     price: Math.abs(message.price),
     sid: message.sid,
     status: message.status

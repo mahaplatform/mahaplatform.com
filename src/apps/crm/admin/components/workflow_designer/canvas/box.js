@@ -75,8 +75,8 @@ class Box extends React.PureComponent {
 
   _getBlock() {
     const { blocks, box } = this.props
-    const { subtype, type } = box
-    if(subtype) return _.find(blocks, { type, subtype })
+    const { action, type } = box
+    if(action) return _.find(blocks, { type, action })
     return _.find(blocks, { type })
   }
 

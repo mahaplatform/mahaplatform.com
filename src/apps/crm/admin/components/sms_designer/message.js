@@ -31,7 +31,8 @@ class Message extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Message', name: 'message', type: 'textarea', defaultValue: config.message }
+            { label: 'Message', name: 'message', type: 'textarea', defaultValue: config.message },
+            { label: 'Attachments', name: 'asset_ids', type: 'attachmentfield', multiple: true, defaultValue: config.asset_ids }
           ]
         }
       ]

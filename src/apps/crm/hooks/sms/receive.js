@@ -43,7 +43,8 @@ const receive = async (req, { sms, phone_number }) => {
       sms_campaign_id: campaign.get('id'),
       contact_id: contact.get('id'),
       code,
-      actions: []
+      actions: [],
+      was_converted: false
     }).save(null, {
       transacting: req.trx
     })

@@ -64,15 +64,15 @@ class VoiceDesigner extends React.PureComponent {
     }
   }
 
-  _handleAdd(type, subtype, parent, answer, delta) {
+  _handleAdd(type, action, parent, answer, delta) {
     const { blocks, onAdd } = this.props
-    const search = subtype ? { type, subtype } : { type }
+    const search = action ? { type, action } : { type }
     const block = _.find(blocks, search)
     onAdd({
       code: _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36),
       type: block.type,
-      subtype: block.subtype,
-      delta: delta - 1,
+      action: block.action,
+      delta: parent ? delta : delta - 1,
       parent: parent ? parent.dataset.parent : null,
       answer: answer ? answer.dataset.answer : null,
       config: block.config || {}

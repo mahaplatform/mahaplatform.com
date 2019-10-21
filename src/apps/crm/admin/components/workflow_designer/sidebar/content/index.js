@@ -60,7 +60,7 @@ class Content extends React.Component {
   _handleDragStart(block, e) {
     e.dataTransfer.dropEffect = 'all'
     e.dataTransfer.setData('type', block.type)
-    if(block.subtype) e.dataTransfer.setData('subtype', block.subtype)
+    if(block.action) e.dataTransfer.setData('action', block.action)
   }
 
   _handleSave() {

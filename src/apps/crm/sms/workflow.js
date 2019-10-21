@@ -1,9 +1,29 @@
-import Enrollment from '../../models/enrollment'
+import Enrollment from '../models/enrollment'
+import Asset from '../../maha/models/asset'
 import { twiml } from 'twilio'
 
-const message = async (req, response, { message }) => {
+const message = async (req, response, { message, asset_ids }) => {
 
-  response.message(message)
+  const msg = response.message({
+    action: '/sms/delivered',
+    method: 'POST'
+  })
+
+  if(message) {
+    msg.body(message)
+  }
+
+  if(asset_ids) {
+    const assets = await Asset.where(qb => {
+      qb.whereIn('id', asset_ids)
+    }).fetchAll({
+      transacting: req.trx
+    })
+
+    assets.map(asset => {
+      msg.media(asset.get('signed_url'))
+    })
+  }
 
 }
 
@@ -37,7 +57,10 @@ const send_sms = async (req, response, config) => {
 
 const ask = async (req, response, { question }) => {
 
-  response.message(question)
+  response.message({
+    action: '/sms/delivered',
+    method: 'POST'
+  }, question)
 
   req.session.asked = true
 
@@ -74,7 +97,6 @@ const goal = async (req, response) => {
 
 }
 
-
 const next = async (req, response) => {
 
   const next = req.campaign.get('steps').filter(step => {
@@ -103,9 +125,26 @@ const next = async (req, response) => {
 
 }
 
+const save_action = async (req, response) => {
+
+  await req.enrollment.save({
+    actions: [
+      ...req.enrollment.get('actions'),
+      { step: req.step.code }
+    ]
+  }, {
+    patch: true,
+    transacting: req.trx
+  })
+
+}
+
 const stepRoute = async (req, res) => {
 
-  const { code, asked } = req.session
+  if(req.session.code !== req.params.enrollment_id) return res.status(400).respond({
+    code: 404,
+    message: 'Invalid workflow'
+  })
 
   req.enrollment = await Enrollment.query(qb => {
     qb.where('code', req.params.enrollment_id)
@@ -119,51 +158,43 @@ const stepRoute = async (req, res) => {
   req.contact = req.enrollment.related('contact')
 
   req.step = req.campaign.get('steps').find(step => {
-    if(req.session.step && step.code === req.session.step) return true
-    return step.parent === null && step.delta === 0
-  })
-
-  await req.enrollment.save({
-    actions: [
-      ...req.enrollment.get('actions'),
-      { step: req.step.code }
-    ]
-  }, {
-    patch: true,
-    transacting: req.trx
+    if(req.session.step !== undefined && step.code === req.session.step) return true
+    return req.session.step === undefined && step.parent === null && step.delta === 0
   })
 
   const config = req.step.config
 
-  const { type, subtype } = req.step
+  const { type, action } = req.step
+
+  const { asked } = req.session
 
   const response = new twiml.MessagingResponse()
 
-  if(subtype === 'question' && !asked) await ask(req, response, config)
+  if(action === 'question' && !asked) await ask(req, response, config)
 
-  if(subtype === 'question' && asked) await answer(req, response, config)
+  if(action === 'question' && asked) await answer(req, response, config)
 
-  if(subtype === 'message') await message(req, response, config)
+  if(action === 'message') await message(req, response, config)
 
-  if(subtype === 'add_to_list') await add_to_list(req, response, config)
+  if(action === 'add_to_list') await add_to_list(req, response, config)
 
-  if(subtype === 'remove_from_list') await remove_from_list(req, response, config)
+  if(action === 'remove_from_list') await remove_from_list(req, response, config)
 
-  if(subtype === 'enroll_in_workflow') await enroll_in_workflow(req, response, config)
+  if(action === 'enroll_in_workflow') await enroll_in_workflow(req, response, config)
 
-  if(subtype === 'update_property') await update_property(req, response, config)
+  if(action === 'update_property') await update_property(req, response, config)
 
-  if(subtype === 'update_interest') await update_interest(req, response, config)
+  if(action === 'update_interest') await update_interest(req, response, config)
 
-  if(subtype === 'send_email') await send_email(req, response, config)
+  if(action === 'send_email') await send_email(req, response, config)
 
-  if(subtype === 'send_sms') await send_sms(req, response, config)
+  if(action === 'send_sms') await send_sms(req, response, config)
 
   if(type === 'goal') await goal(req, response, config)
 
   if(type !== 'conditional') await next(req, response)
 
-  console.log(response.toString())
+  await save_action(req, response)
 
   return res.status(200).type('text/xml').send(response.toString())
 

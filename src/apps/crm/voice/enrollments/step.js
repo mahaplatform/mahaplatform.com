@@ -139,31 +139,31 @@ const stepRoute = async (req, res) => {
 
   const config = req.step.config
 
-  const { type, subtype } = req.step
+  const { type, action } = req.step
 
   const response = new twiml.VoiceResponse()
 
-  if(subtype === 'question' && req.method === 'GET') await ask(req, response, config)
+  if(action === 'question' && req.method === 'GET') await ask(req, response, config)
 
-  if(subtype === 'question' && req.method === 'POST') await answer(req, response, config)
+  if(action === 'question' && req.method === 'POST') await answer(req, response, config)
 
-  if(subtype === 'say') await say(req, response, config)
+  if(action === 'say') await say(req, response, config)
 
-  if(subtype === 'play') await play(req, response, config)
+  if(action === 'play') await play(req, response, config)
 
-  if(subtype === 'add_to_list') await add_to_list(req, response, config)
+  if(action === 'add_to_list') await add_to_list(req, response, config)
 
-  if(subtype === 'remove_from_list') await remove_from_list(req, response, config)
+  if(action === 'remove_from_list') await remove_from_list(req, response, config)
 
-  if(subtype === 'enroll_in_workflow') await enroll_in_workflow(req, response, config)
+  if(action === 'enroll_in_workflow') await enroll_in_workflow(req, response, config)
 
-  if(subtype === 'update_property') await update_property(req, response, config)
+  if(action === 'update_property') await update_property(req, response, config)
 
-  if(subtype === 'update_interest') await update_interest(req, response, config)
+  if(action === 'update_interest') await update_interest(req, response, config)
 
-  if(subtype === 'send_email') await send_email(req, response, config)
+  if(action === 'send_email') await send_email(req, response, config)
 
-  if(subtype === 'send_sms') await send_sms(req, response, config)
+  if(action === 'send_sms') await send_sms(req, response, config)
 
   if(type === 'goal') await goal(req, response, config)
 

@@ -94,8 +94,8 @@ class Trunk extends React.PureComponent {
     const parent = this._getParent(e.target, '.workflow-branches')
     const answer = this._getParent(e.target, '.workflow-branch')
     const type = e.dataTransfer.getData('type')
-    const subtype = e.dataTransfer.getData('subtype')
-    onAdd(type, subtype, parent, answer, delta)
+    const action = e.dataTransfer.getData('action')
+    onAdd(type, action, parent, answer, delta)
     this.setState({
       delta: 0,
       hovering: false

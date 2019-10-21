@@ -37,7 +37,7 @@ class VoiceDesigner extends React.PureComponent {
           icon: 'play',
           label: 'Play Recording',
           type: 'verb',
-          subtype: 'play',
+          action: 'play',
           component: Play,
           config: {
             loop: 1
@@ -46,7 +46,7 @@ class VoiceDesigner extends React.PureComponent {
           icon: 'volume-control-phone',
           label: 'Speak Text',
           type: 'verb',
-          subtype: 'say',
+          action: 'say',
           component: Say,
           config: {
             voice: 'woman',
@@ -56,13 +56,13 @@ class VoiceDesigner extends React.PureComponent {
           icon: 'microphone',
           label: 'Record',
           type: 'verb',
-          subtype: 'record',
+          action: 'record',
           component: Record
         }, {
           icon: 'question',
           label: 'Question',
           type: 'conditional',
-          subtype: 'question',
+          action: 'question',
           component: Question,
           config: {
             options: [{ value: '1', text: '1' }, { value: '2', text: '2' }]
@@ -71,7 +71,7 @@ class VoiceDesigner extends React.PureComponent {
           icon: 'random',
           label: 'If / Else',
           type: 'conditional',
-          subtype: 'ifelse',
+          action: 'ifelse',
           component: IfElse,
           config: {
             options: [{ value: '1', text: '1' }, { value: '2', text: '2' }]
@@ -80,43 +80,43 @@ class VoiceDesigner extends React.PureComponent {
           icon: 'users',
           label: 'Add to List',
           type: 'action',
-          subtype: 'add_to_list',
+          action: 'add_to_list',
           component: AddToList
         }, {
           icon: 'users',
           label: 'Remove from List',
           type: 'action',
-          subtype: 'remove_from_list',
+          action: 'remove_from_list',
           component: RemoveFromList
         }, {
           icon: 'gears',
           label: 'Enroll in Workflow',
           type: 'action',
-          subtype: 'enroll_in_workflow',
+          action: 'enroll_in_workflow',
           component: EnrollInWorkflow
         }, {
           icon: 'user',
           label: 'Update Property',
           type: 'action',
-          subtype: 'update_property',
+          action: 'update_property',
           component: UpdateProperty
         }, {
           icon: 'book',
           label: 'Update Interest',
           type: 'action',
-          subtype: 'update_interest',
+          action: 'update_interest',
           component: UpdateInterest
         }, {
           icon: 'envelope',
           label: 'Send Email',
           type: 'action',
-          subtype: 'send_email',
+          action: 'send_email',
           component: SendEmail
         }, {
           icon: 'comment',
           label: 'Send SMS',
           type: 'action',
-          subtype: 'send_sms',
+          action: 'send_sms',
           component: SendSMS
         }, {
           icon: 'flag',

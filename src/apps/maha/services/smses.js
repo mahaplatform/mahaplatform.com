@@ -156,7 +156,7 @@ export const queueSMS = async (req, { id }) => {
 
 }
 
-export const updateSMS = async (req, { price, sid, status }) => {
+export const updateSMS = async (req, { num_media, price, sid, status }) => {
 
   const sms = await SMS.query(qb => {
     qb.where('sid', sid)
@@ -165,6 +165,7 @@ export const updateSMS = async (req, { price, sid, status }) => {
   })
 
   await sms.save({
+    num_media,
     price,
     status
   }, {
