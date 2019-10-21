@@ -1,7 +1,9 @@
 import WorkflowDesigner from '../workflow_designer'
+import { Image } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Question from './question'
 import Message from './message'
+import Listen from './listen'
 import React from 'react'
 
 class SMSDesigner extends React.PureComponent {
@@ -26,12 +28,29 @@ class SMSDesigner extends React.PureComponent {
           action: 'trigger'
         }, {
           icon: 'comment',
-          label: 'Message',
+          label: 'Send Message',
           type: 'verb',
           action: 'message',
           component: Message,
           config: {},
-          details: 'message'
+          details: ({ asset_ids, message }) => (
+            <div>
+              { asset_ids &&
+                <div>
+                  <img src="/imagecache/fit=cover&w=100&h=100/assets/8121/hardcider.jpeg" />
+                </div>
+              }
+              { message }
+            </div>
+          )
+        }, {
+          icon: 'volume-up',
+          label: 'Listen',
+          type: 'verb',
+          action: 'listen',
+          component: Listen,
+          config: {},
+          details: ({ message }) => message
         }, {
           icon: 'question',
           label: 'Question',
@@ -42,7 +61,7 @@ class SMSDesigner extends React.PureComponent {
             question: 'Would you like to buy a vowel?',
             options: [{ value: 'yes', text: 'YES' }, { value: 'no', text: 'NO' }]
           },
-          details: 'question'
+          details: ({ question }) => question
         }, {
           icon: 'flag',
           label: 'Goal',
@@ -50,7 +69,7 @@ class SMSDesigner extends React.PureComponent {
           action: 'ending'
         }, {
           icon: 'phone',
-          label: 'Hangup',
+          label: 'End Conversation',
           type: 'ending',
           action: 'ending'
         }

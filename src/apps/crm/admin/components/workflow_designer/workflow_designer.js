@@ -41,7 +41,7 @@ class VoiceDesigner extends React.PureComponent {
   }
 
   _getCanvas() {
-    const { active, blocks, config, onAdd, onEdit, onRemove } = this.props
+    const { active, blocks, config, onEdit, onRemove } = this.props
     return {
       active,
       blocks,

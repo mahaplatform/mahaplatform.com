@@ -1,6 +1,18 @@
 import Enrollment from '../models/enrollment'
 import Asset from '../../maha/models/asset'
 import { twiml } from 'twilio'
+import ejs from 'ejs'
+
+const interpolate = (req, message) => {
+  return ejs.render(message, {
+    contact: {
+      first_name: req.contact.get('first_name'),
+      last_name: req.contact.get('last_name'),
+      email: req.contact.get('email'),
+      phone: req.contact.get('phone')
+    }
+  })
+}
 
 const message = async (req, response, { message, asset_ids }) => {
 
@@ -10,7 +22,7 @@ const message = async (req, response, { message, asset_ids }) => {
   })
 
   if(message) {
-    msg.body(message)
+    msg.body(interpolate(req, message))
   }
 
   if(asset_ids) {
