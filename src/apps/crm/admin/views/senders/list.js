@@ -10,7 +10,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Sender', key: 'name', primary: true, format: SenderToken },
-      { label: 'Program', key: 'program.title', primary: true }
+      { label: 'Program', key: 'program.title', primary: true },
+      { label: 'Verified', key: 'is_verified', primary: true, format: 'check' }
     ],
     empty: {
       icon: 'paper-plane-o',
