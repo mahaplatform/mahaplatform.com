@@ -13,8 +13,10 @@ const types = {
 }
 
 const CampaignTypeToken = ({ value }) => (
-  <div className={`crm-campaign-type-token ${value}`}>
-    <i className={`fa fa-${types[value]}`} />
+  <div className="crm-campaign-type-token">
+    <div className={`crm-campaign-type-token-icon ${value}`}>
+      <i className={`fa fa-${types[value]}`} />
+    </div>
   </div>
 )
 

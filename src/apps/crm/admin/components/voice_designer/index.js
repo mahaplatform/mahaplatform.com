@@ -17,24 +17,6 @@ class VoiceDesigner extends React.PureComponent {
     return <FlowchartDesigner { ...this._getFlowchartDesigner() } />
   }
 
-  _getTrigger() {
-    const { campaign } = this.props
-    if(campaign.direction === 'inbound') {
-      return {
-        icon: 'phone',
-        label: 'Incoming Call',
-        type: 'trigger',
-        token: () => campaign.phone_number.formatted
-      }
-    } else {
-      return {
-        icon: 'phone',
-        label: 'Outgoing Call',
-        type: 'trigger'
-      }
-    }
-  }
-
   _getFlowchartDesigner() {
     const { campaign, onSave } = this.props
     const { steps, status } = campaign
@@ -88,6 +70,25 @@ class VoiceDesigner extends React.PureComponent {
       defaultValue: steps,
       status,
       onSave
+    }
+  }
+
+  _getTrigger() {
+    const { campaign } = this.props
+    if(campaign.direction === 'inbound') {
+      return {
+        icon: 'phone',
+        label: 'Incoming Call',
+        type: 'trigger',
+        token: () => campaign.phone_number.formatted
+      }
+    } else {
+      return {
+        icon: 'phone',
+        label: 'Outgoing Call',
+        type: 'trigger',
+        token: () => campaign.phone_number.formatted
+      }
     }
   }
 

@@ -51,7 +51,12 @@ class SMSDesigner extends React.PureComponent {
       label: 'Incoming SMS',
       type: 'trigger',
       action: 'trigger',
-      token: () => `"${campaign.term}"`
+      token: () => (
+        <div>
+          <div>{ campaign.phone_number.formatted}</div>
+          <div>&quot;{ campaign.term }&quot;</div>
+        </div>
+      )
     }
   }
 

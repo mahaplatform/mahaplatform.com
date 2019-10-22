@@ -1,34 +1,39 @@
 .crm-campaign-type-token {
   padding: 0.8em;
   display: flex;
-  &.outbound_sms .fa,
-  &.inbound_sms .fa,
-  &.sms .fa {
+}
+.crm-campaign-type-token-icon {
+  &.outbound_sms,
+  &.inbound_sms,
+  &.sms {
     background-color: @blue;
   }
-  &.outbound_voice .fa,
-  &.inbound_voice .fa,
-  &.voice .fa {
+  &.outbound_voice,
+  &.inbound_voice,
+  &.voice {
     background-color: @red;
   }
-  &.email .fa {
+  &.email {
     background-color: @green;
   }
-  &.social .fa {
+  &.social {
     background-color: @teal;
   }
-  &.postal .fa {
+  &.postal {
     background-color: @orange;
   }
+  margin: auto;
+  display: flex;
+  width: 1.8em;
+  height: 1.8em;
+  border-radius: 50%;
+  border: 2px solid fadeout(@black, 80);
+  .fa-phone {
+    font-size: 1em !important;
+  }
   .fa {
-    margin: auto;
-    display: block;
-    width: 2em;
-    height: 2em;
-    border-radius: 50%;
-    border: 2px solid fadeout(@black, 80);
-    text-align: center;
-    line-height: 1.8em;
+    margin: auto !important;
     color: @white;
+    font-size: 0.9em;
   }
 }

@@ -14,31 +14,38 @@ const types = [
   {
     value: 'inbound_voice',
     component: Voice,
-    direction: 'inbound'
+    direction: 'inbound',
+    medium: 'voice'
   },{
     value: 'outbound_voice',
     component: Voice,
-    direction: 'outbound'
+    direction: 'outbound',
+    medium: 'voice'
   },{
     value: 'inbound_sms',
     component: SMS,
-    direction: 'inbound'
+    direction: 'inbound',
+    medium: 'sms'
   },{
     value: 'outbound_sms',
     component: SMS,
-    direction: 'outbound'
+    direction: 'outbound',
+    medium: 'sms'
   },{
     value: 'email',
     component: Email,
-    direction: 'outbound'
+    direction: 'outbound',
+    medium: 'email'
   },{
     value: 'social',
     component: Social,
-    direction: 'outbound'
+    direction: 'outbound',
+    medium: 'social'
   },{
     value: 'postal',
     component: Postal,
-    direction: 'outbound'
+    direction: 'outbound',
+    medium: 'postal'
   }
 ]
 
@@ -110,8 +117,8 @@ class NewCampaign extends React.PureComponent {
   }
 
   _handleDone(result) {
-    const { type } = this.props
-    this.context.router.history.push(`/admin/crm/campaigns/${type}/${result.code}`)
+    const type = _.find(types, { value: this.props.type })
+    this.context.router.history.push(`/admin/crm/campaigns/${type.medium}/${result.code}`)
     this.context.modal.close()
   }
 
