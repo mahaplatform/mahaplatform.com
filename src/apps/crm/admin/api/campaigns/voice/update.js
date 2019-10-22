@@ -9,6 +9,7 @@ const updateRoute = async (req, res) => {
   }).query(qb => {
     qb.where('code', req.params.id)
   }).fetch({
+    withRelated: ['phone_number','program'],
     transacting: req.trx
   })
 

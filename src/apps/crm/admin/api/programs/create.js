@@ -3,8 +3,8 @@ import { whitelist } from '../../../../../core/services/routes/params'
 import ProgramSerializer from '../../../serializers/program_serializer'
 import generateCode from '../../../../../core/utils/generate_code'
 import socket from '../../../../../core/services/routes/emitter'
+import ProgramAccess from '../../../models/program_access'
 import Program from '../../../models/program'
-import moment from 'moment'
 import _ from 'lodash'
 
 const createRoute = async (req, res) => {
@@ -25,19 +25,14 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(req.body.accesses) {
-    await Promise.map(req.body.accesses, async access => {
-      await req.trx('crm_program_accesses').insert({
-        team_id: req.team.get('id'),
-        program_id: program.get('id'),
-        grouping_id: access.grouping_id,
-        group_id: access.group_id,
-        user_id: access.user_id,
-        created_at: moment(),
-        updated_at: moment()
-      })
-    })
-  }
+  await ProgramAccess.forge({
+    team_id: req.team.get('id'),
+    program_id: program.get('id'),
+    grouping_id: 1,
+    type: 'view'
+  }).save(null, {
+    transacting: req.trx
+  })
 
   await activity(req, {
     story: 'created {object}',

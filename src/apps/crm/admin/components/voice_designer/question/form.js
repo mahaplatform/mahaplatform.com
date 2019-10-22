@@ -30,11 +30,7 @@ class Question extends React.PureComponent {
       ],
       sections: [
         {
-          fields: [
-            { label: 'Voice', name: 'voice', type: 'lookup', options: [{ value: 'woman', text: 'Woman' },{ value: 'man', text: 'Man' }], defaultValue: config.voice },
-            { label: 'Question', name: 'question', type: 'textarea', defaultValue: config.question },
-            { label: 'Answers', name: 'answers', type: 'textfield' }
-          ]
+          fields: []
         }
       ]
     }

@@ -403,6 +403,18 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('crm_program_accesses', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('program_id').unsigned()
+      table.integer('grouping_id').unsigned()
+      table.integer('group_id').unsigned()
+      table.integer('user_id').unsigned()
+      table.USER-DEFINED('type')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('crm_programs', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -414,17 +426,6 @@ const schema = {
       table.boolean('has_sms_channel')
       table.boolean('has_voice_channel')
       table.boolean('has_mail_channel')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
-    await knex.schema.createTable('crm_programs_accesses', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('program_id').unsigned()
-      table.integer('grouping_id').unsigned()
-      table.integer('group_id').unsigned()
-      table.integer('user_id').unsigned()
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -2079,7 +2080,7 @@ const schema = {
       table.foreign('training_id').references('training_trainings.id')
     })
 
-    await knex.schema.table('crm_programs_accesses', table => {
+    await knex.schema.table('crm_program_accesses', table => {
       table.foreign('user_id').references('maha_users.id')
       table.foreign('grouping_id').references('maha_groupings.id')
       table.foreign('group_id').references('maha_groups.id')

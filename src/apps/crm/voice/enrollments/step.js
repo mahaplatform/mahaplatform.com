@@ -1,3 +1,4 @@
+import socket from '../../../../core/services/routes/emitter'
 import Enrollment from '../../models/enrollment'
 import Asset from '../../../maha/models/asset'
 import { twiml } from 'twilio'
@@ -24,11 +25,21 @@ const play = async (req, response, { loop, recording_id }) => {
 
 }
 
-const add_to_list = async (req, response, config) => {
+const add_to_list = async (req, response, { list_id }) => {
+
+  await req.trx('crm_subscriptions').insert({
+    contact_id: req.contact.id,
+    list_id
+  })
 
 }
 
-const remove_from_list = async (req, response, config) => {
+const remove_from_list = async (req, response, { list_id }) => {
+
+  await req.trx('crm_subscriptions').where({
+    contact_id: req.contact.id,
+    list_id
+  }).del()
 
 }
 
@@ -40,7 +51,12 @@ const update_property = async (req, response, config) => {
 
 }
 
-const update_interest = async (req, response, config) => {
+const update_interest = async (req, response, { topic_id }) => {
+
+  await req.trx('crm_interests').insert({
+    contact_id: req.contact.id,
+    topic_id
+  })
 
 }
 
@@ -52,13 +68,17 @@ const send_sms = async (req, response, config) => {
 
 }
 
-const ask = async (req, response) => {
+const ask = async (req, response, { question }) => {
 
-  response.gather({
+  const gather = response.gather({
     numDigits: 1,
     action: `${process.env.TWIML_HOST}/voice/crm/enrollments/${req.enrollment.get('code')}/steps/${req.step.code}`,
     method: 'POST'
   })
+
+  gather.say(question)
+
+  response.say('We didn\'t receive any input. Goodbye!')
 
 }
 
@@ -168,6 +188,10 @@ const stepRoute = async (req, res) => {
   if(type === 'goal') await goal(req, response, config)
 
   if(type !== 'question') await next(req, response)
+
+  await socket.refresh(req, [
+    `/admin/crm/contacts/${req.contact.get('id')}`
+  ])
 
   return res.status(200).type('text/xml').send(response.toString())
 

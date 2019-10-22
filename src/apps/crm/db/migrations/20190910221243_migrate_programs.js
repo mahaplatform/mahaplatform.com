@@ -33,7 +33,7 @@ const MigratePrograms = {
       table.timestamps()
     })
 
-    await knex.schema.createTable('crm_programs_accesses', (table) => {
+    await knex.schema.createTable('crm_program_accesses', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
@@ -45,6 +45,7 @@ const MigratePrograms = {
       table.foreign('group_id').references('maha_groups.id')
       table.integer('user_id').unsigned()
       table.foreign('user_id').references('maha_users.id')
+      table.enum('type', ['manage','edit','view'], { useNative: true, enumName: 'crm_program_accesses_types' })
       table.timestamps()
     })
 

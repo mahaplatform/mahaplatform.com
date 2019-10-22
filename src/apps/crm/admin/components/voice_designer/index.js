@@ -1,6 +1,6 @@
 import FlowchartDesigner from '../flowchart_designer'
 import PropTypes from 'prop-types'
-import Question from './question'
+import question from './question'
 import Record from './record'
 import React from 'react'
 import Play from './play'
@@ -67,16 +67,8 @@ class VoiceDesigner extends React.PureComponent {
           type: 'verb',
           action: 'record',
           form: Record
-        }, {
-          icon: 'question',
-          label: 'Question',
-          type: 'conditional',
-          action: 'question',
-          form: Question,
-          config: {
-            options: [{ value: '1', text: '1' }, { value: '2', text: '2' }]
-          }
         },
+        question,
         { action: 'ifelse' },
         { action: 'add_to_list' },
         { action: 'remove_from_list' },

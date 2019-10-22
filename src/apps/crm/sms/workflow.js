@@ -1,3 +1,4 @@
+import socket from '../../../core/services/routes/emitter'
 import Enrollment from '../models/enrollment'
 import Asset from '../../maha/models/asset'
 import { twiml } from 'twilio'
@@ -39,11 +40,22 @@ const message = async (req, response, { message, asset_ids }) => {
 
 }
 
-const add_to_list = async (req, response, config) => {
+
+const add_to_list = async (req, response, { list_id }) => {
+
+  await req.trx('crm_subscriptions').insert({
+    contact_id: req.contact.id,
+    list_id
+  })
 
 }
 
-const remove_from_list = async (req, response, config) => {
+const remove_from_list = async (req, response, { list_id }) => {
+
+  await req.trx('crm_subscriptions').where({
+    contact_id: req.contact.id,
+    list_id
+  }).del()
 
 }
 
@@ -55,7 +67,12 @@ const update_property = async (req, response, config) => {
 
 }
 
-const update_interest = async (req, response, config) => {
+const update_interest = async (req, response, { topic_id }) => {
+
+  await req.trx('crm_interests').insert({
+    contact_id: req.contact.id,
+    topic_id
+  })
 
 }
 
@@ -207,6 +224,10 @@ const stepRoute = async (req, res) => {
   if(type !== 'conditional') await next(req, response)
 
   await save_action(req, response)
+
+  await socket.refresh(req, [
+    `/admin/crm/contacts/${req.contact.get('id')}`
+  ])
 
   return res.status(200).type('text/xml').send(response.toString())
 
