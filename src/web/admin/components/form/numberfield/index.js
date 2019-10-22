@@ -12,6 +12,7 @@ class NumberField extends React.Component {
     defaultValue: PropTypes.number,
     placeholder: PropTypes.string,
     tabIndex: PropTypes.number,
+    units: PropTypes.string,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
@@ -32,14 +33,22 @@ class NumberField extends React.Component {
 
   render() {
     const { value } = this.state
+    const { tabIndex, units } = this.props
     return (
-      <div className="maha-input">
-        <div className="maha-input-field">
-          <input { ...this._getInput() }/>
+      <div className="maha-numberfield" tabIndex={ tabIndex }>
+        <div className="maha-input">
+          <div className="maha-input-field">
+            <input { ...this._getInput() } />
+          </div>
+          { value !== null && value.length > 0 &&
+            <div className="maha-input-clear" onClick={ this._handleClear }>
+              <i className="fa fa-times" />
+            </div>
+          }
         </div>
-        { value && value.length > 0 &&
-          <div className="maha-input-clear" onClick={ this._handleClear }>
-            <i className="fa fa-times" />
+        { units &&
+          <div className="maha-numberfield-units">
+            { units }
           </div>
         }
       </div>
@@ -48,7 +57,7 @@ class NumberField extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onReady } = this.props
-    if(defaultValue) this.setState({ value: defaultValue })
+    if(!_.isNil(defaultValue)) this.setState({ value: defaultValue })
     onReady()
   }
 
@@ -64,7 +73,7 @@ class NumberField extends React.Component {
     return {
       tabIndex,
       className: 'ui input',
-      type: 'text',
+      type: 'textfield',
       placeholder,
       value,
       ref: node => this.number = node,

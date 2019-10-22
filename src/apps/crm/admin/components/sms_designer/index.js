@@ -1,8 +1,9 @@
-import WorkflowDesigner from '../workflow_designer'
+import FlowchartDesigner from '../flowchart_designer'
 import PropTypes from 'prop-types'
-import Question from './question'
-import Message from './message'
-import Listen from './listen'
+import question from './question'
+import message from './message'
+import listen from './listen'
+import ending from './ending'
 import React from 'react'
 
 class SMSDesigner extends React.PureComponent {
@@ -13,95 +14,44 @@ class SMSDesigner extends React.PureComponent {
   }
 
   render() {
-    return <WorkflowDesigner { ...this._getWorkflowDesigner() } />
+    return <FlowchartDesigner { ...this._getFlowchartDesigner() } />
   }
 
-  _getWorkflowDesigner() {
+  _getFlowchartDesigner() {
     const { campaign, onSave } = this.props
-    const { steps, term } = campaign
+    const { steps, status } = campaign
     return {
       blocks: [
-        {
-          icon: 'comment',
-          label: 'Incoming SMS',
-          type: 'trigger',
-          action: 'trigger',
-          details: () => `"${term}"`
-        }, {
-          icon: 'comment',
-          label: 'Send Message',
-          type: 'verb',
-          action: 'message',
-          component: Message,
-          config: {},
-          details: ({ asset_ids, message }) => (
-            <div>
-              { asset_ids &&
-                <div>
-                  <img src="/imagecache/fit=cover&w=100&h=100/assets/8121/hardcider.jpeg" />
-                </div>
-              }
-              { message }
-            </div>
-          )
-        }, {
-          icon: 'volume-up',
-          label: 'Listen',
-          type: 'verb',
-          action: 'listen',
-          component: Listen,
-          config: {},
-          details: ({ message }) => message
-        }, {
-          icon: 'question',
-          label: 'Question',
-          type: 'conditional',
-          action: 'question',
-          component: Question,
-          config: {
-            question: 'Would you like to buy a vowel?',
-            options: [{ value: 'yes', text: 'YES' }, { value: 'no', text: 'NO' }]
-          },
-          details: ({ question }) => question
-        }, {
-          icon: 'users',
-          label: 'Add to List',
-          type: 'action',
-          action: 'add_to_list'
-        }, {
-          icon: 'users',
-          label: 'Remove from List',
-          type: 'action',
-          action: 'remove_from_list'
-        }, {
-          icon: 'gears',
-          label: 'Enroll in Workflow',
-          type: 'action',
-          action: 'enroll_in_workflow'
-        }, {
-          icon: 'user',
-          label: 'Update Property',
-          type: 'action',
-          action: 'update_property'
-        }, {
-          icon: 'book',
-          label: 'Update Interest',
-          type: 'action',
-          action: 'update_interest'
-        }, {
-          icon: 'flag',
-          label: 'Goal',
-          type: 'goal',
-          action: 'ending'
-        }, {
-          icon: 'phone',
-          label: 'End Conversation',
-          type: 'ending',
-          action: 'ending'
-        }
+        this._getTrigger(),
+        message,
+        listen,
+        { action: 'wait' },
+        question,
+        { action: 'ifelse' },
+        { action: 'add_to_list' },
+        { action: 'remove_from_list' },
+        { action: 'enroll_in_workflow' },
+        { action: 'update_property' },
+        { action: 'update_interest' },
+        { action: 'send_internal_email' },
+        { action: 'send_internal_sms' },
+        { action: 'goal' },
+        ending
       ],
       defaultValue: steps,
+      status,
       onSave
+    }
+  }
+
+  _getTrigger() {
+    const { campaign } = this.props
+    return {
+      icon: 'comment',
+      label: 'Incoming SMS',
+      type: 'trigger',
+      action: 'trigger',
+      token: () => `"${campaign.term}"`
     }
   }
 

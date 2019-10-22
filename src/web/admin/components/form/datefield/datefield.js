@@ -52,7 +52,7 @@ class Datefield extends React.Component {
         <div className="maha-datefield-input" tabIndex={ tabIndex }>
           <div className="maha-datefield-field" onClick={ this._handleBegin }>
             { value ?
-              <div className="maha-datefield-token">{ value.format('dddd, MMMM DD, YYYY') }</div> :
+              <div className="maha-datefield-token">{ value.format('MMM DD, YYYY') }</div> :
               <div className="maha-datefield-prompt">{ prompt || placeholder }</div>
             }
           </div>

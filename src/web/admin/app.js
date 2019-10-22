@@ -78,6 +78,7 @@ import crmaddressesfield from '../../apps/crm/admin/components/addressesfield'
 import crmcontactimport from '../../apps/crm/admin/components/contactimport'
 import crmdesigner from '../../apps/crm/admin/components/designer'
 import crmemailsfield from '../../apps/crm/admin/components/emailsfield'
+import crmflowchartDesigner from '../../apps/crm/admin/components/flowchart_designer'
 import crmfollowsfield from '../../apps/crm/admin/components/followsfield'
 import crmformDesigner from '../../apps/crm/admin/components/form_designer'
 import crmimagesfield from '../../apps/crm/admin/components/imagesfield'
@@ -88,7 +89,6 @@ import crmsharesfield from '../../apps/crm/admin/components/sharesfield'
 import crmsocialDesigner from '../../apps/crm/admin/components/social_designer'
 import crmtimeline from '../../apps/crm/admin/components/timeline'
 import crmvideofield from '../../apps/crm/admin/components/videofield'
-import crmworkflowDesigner from '../../apps/crm/admin/components/workflow_designer'
 import driveaccess from '../../apps/drive/admin/components/access'
 import driveexplorer from '../../apps/drive/admin/components/explorer'
 import drivemove from '../../apps/drive/admin/components/move'
@@ -324,6 +324,7 @@ class App extends React.Component {
       crmcontactimport,
       crmdesigner,
       crmemailsfield,
+      crmflowchartDesigner,
       crmfollowsfield,
       crmformDesigner,
       crmimagesfield,
@@ -334,7 +335,6 @@ class App extends React.Component {
       crmsocialDesigner,
       crmtimeline,
       crmvideofield,
-      crmworkflowDesigner,
       driveaccess,
       driveexplorer,
       drivemove,

@@ -1,0 +1,33 @@
+.flowchart-designer-blocks {
+  flex: 1;
+  padding: 0.8em;
+  .scrollable();
+}
+.flowchart-designer-block {
+  display: flex;
+  border: 1px solid fadeout(@black, 90);
+  background-color: @white;
+  border-radius: 0.5em;
+  margin-bottom: 0.8em;
+  cursor: pointer;
+  &:hover {
+    background-color: lighten(@black, 97);
+  }
+  overflow: hidden;
+}
+.flowchart-designer-block-icon {
+  display: flex;
+  padding: 0.6em;
+  color: @white;
+  .fa {
+    margin: auto;
+  }
+}
+.flowchart-designer-block-label {
+  color: fadeout(@black, 40);
+  text-transform: uppercase;
+  flex: 1;
+  padding: 0.8em;
+  font-size: 0.8em;
+  font-weight: bold;
+}

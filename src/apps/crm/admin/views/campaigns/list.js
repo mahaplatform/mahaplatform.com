@@ -11,7 +11,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { key: 'type', collapsing: true, format: CampaignTypeToken },
       { label: 'Title', key: 'title', primary: true },
-      { label: 'Program', key: 'program.title', primary: true }
+      { label: 'Program', key: 'program.title', primary: true },
+      { label: 'Status', key: 'status', primary: true, collapsing: true }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {

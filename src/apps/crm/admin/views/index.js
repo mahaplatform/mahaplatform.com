@@ -27,6 +27,7 @@ import TemplatesShow from './templates/show'
 import TopicsList from './topics/list'
 import WorkflowsList from './workflows/list'
 import WorkflowsShow from './workflows/show'
+import WorkflowsDesign from './workflows/design'
 
 const routes = [
   { path: '/campaigns', component: CampaignsList },
@@ -57,7 +58,8 @@ const routes = [
   { path: '/templates/:id', component: TemplatesShow },
   { path: '/topics', component: TopicsList },
   { path: '/workflows', component: WorkflowsList },
-  { path: '/workflows/:id', component: WorkflowsShow }
+  { path: '/workflows/:id', component: WorkflowsShow },
+  { path: '/workflows/:id/design', component: WorkflowsDesign }
 ]
 
 export default routes

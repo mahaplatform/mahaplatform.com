@@ -1,0 +1,76 @@
+.flowchart-designer {
+  flex: 1;
+  display: flex;
+  background-color: @white;
+}
+.flowchart-designer-main {
+  flex-direction: column;
+  flex: 1;
+  display: flex;
+}
+.flowchart-designer-status {
+  color: fadeout(@black, 40);
+  text-align: center;
+  padding: 0.8em;
+  line-height: 1.8em;
+  flex: 0 0 3.5em;
+  &.draft {
+    background-color: fadeout(@yellow, 60);
+  }
+  &.scheduled {
+    background-color: fadeout(@teal, 70);
+  }
+  &.active, &.sent {
+    background-color: fadeout(@green, 60);
+  }
+  &.inactive {
+    background-color: fadeout(@red, 80);
+  }
+}
+.flowchart-designer-canvas {
+  background-color: fadeout(@black, 97);
+  flex: 1;
+  display: flex;
+}
+.flowchart-designer-sidebar {
+  border-left: 1px solid fadeout(@black, 90);
+  flex: ~"0 0 calc(100% / 3)";
+  max-width: 500px;
+  min-width: 350px;
+  display: flex;
+  .maha-modal-panel-header {
+    background-color: @grey !important;
+  }
+  .maha-form-field {
+    flex-direction: column;
+  }
+  .maha-form-field-label {
+    flex: 1;
+    padding: 0;
+  }
+  & > * {
+    flex: 1;
+  }
+}
+
+&.flowchart-designer-icon-trigger {
+  background-color: @green;
+}
+&.flowchart-designer-icon-verb {
+  background-color: @purple;
+}
+&.flowchart-designer-icon-conditional {
+  background-color: @blue;
+}
+&.flowchart-designer-icon-delay {
+  background-color: @orange;
+}
+&.flowchart-designer-icon-action {
+  background-color: @teal;
+}
+&.flowchart-designer-icon-goal {
+  background-color: @pink;
+}
+&.flowchart-designer-icon-ending {
+  background-color: @red;
+}

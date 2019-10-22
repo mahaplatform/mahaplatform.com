@@ -1,10 +1,7 @@
-import WorkflowDesigner from '../workflow_designer'
-import SendEmail from './send_email'
+import FlowchartDesigner from '../flowchart_designer'
 import PropTypes from 'prop-types'
 import Question from './question'
-import SendSMS from './send_sms'
 import Record from './record'
-import IfElse from './ifelse'
 import React from 'react'
 import Play from './play'
 import Say from './say'
@@ -17,7 +14,7 @@ class VoiceDesigner extends React.PureComponent {
   }
 
   render() {
-    return <WorkflowDesigner { ...this._getWorkflowDesigner() } />
+    return <FlowchartDesigner { ...this._getFlowchartDesigner() } />
   }
 
   _getTrigger() {
@@ -27,7 +24,7 @@ class VoiceDesigner extends React.PureComponent {
         icon: 'phone',
         label: 'Incoming Call',
         type: 'trigger',
-        details: () => campaign.phone_number.formatted
+        token: () => campaign.phone_number.formatted
       }
     } else {
       return {
@@ -38,8 +35,9 @@ class VoiceDesigner extends React.PureComponent {
     }
   }
 
-  _getWorkflowDesigner() {
+  _getFlowchartDesigner() {
     const { campaign, onSave } = this.props
+    const { steps, status } = campaign
     return {
       blocks: [
         this._getTrigger(),
@@ -48,7 +46,7 @@ class VoiceDesigner extends React.PureComponent {
           label: 'Play Recording',
           type: 'verb',
           action: 'play',
-          component: Play,
+          form: Play,
           config: {
             loop: 1
           }
@@ -57,85 +55,46 @@ class VoiceDesigner extends React.PureComponent {
           label: 'Speak Text',
           type: 'verb',
           action: 'say',
-          component: Say,
+          form: Say,
           config: {
             voice: 'woman',
             message: 'Hello! How are you?'
           },
-          details: ({ message }) => message
+          token: ({ message }) => message
         }, {
           icon: 'microphone',
           label: 'Record',
           type: 'verb',
           action: 'record',
-          component: Record
+          form: Record
         }, {
           icon: 'question',
           label: 'Question',
           type: 'conditional',
           action: 'question',
-          component: Question,
+          form: Question,
           config: {
             options: [{ value: '1', text: '1' }, { value: '2', text: '2' }]
           }
-        }, {
-          icon: 'random',
-          label: 'If / Else',
-          type: 'conditional',
-          action: 'ifelse',
-          component: IfElse,
-          config: {
-            options: [{ value: '1', text: '1' }, { value: '2', text: '2' }]
-          }
-        }, {
-          icon: 'users',
-          label: 'Add to List',
-          type: 'action',
-          action: 'add_to_list'
-        }, {
-          icon: 'users',
-          label: 'Remove from List',
-          type: 'action',
-          action: 'remove_from_list'
-        }, {
-          icon: 'gears',
-          label: 'Enroll in Workflow',
-          type: 'action',
-          action: 'enroll_in_workflow'
-        }, {
-          icon: 'user',
-          label: 'Update Property',
-          type: 'action',
-          action: 'update_property'
-        }, {
-          icon: 'book',
-          label: 'Update Interest',
-          type: 'action',
-          action: 'update_interest'
-        }, {
-          icon: 'envelope',
-          label: 'Send Email',
-          type: 'action',
-          action: 'send_email',
-          component: SendEmail
-        }, {
-          icon: 'comment',
-          label: 'Send SMS',
-          type: 'action',
-          action: 'send_sms',
-          component: SendSMS
-        }, {
-          icon: 'flag',
-          label: 'Goal',
-          type: 'goal'
-        }, {
+        },
+        { action: 'ifelse' },
+        { action: 'add_to_list' },
+        { action: 'remove_from_list' },
+        { action: 'enroll_in_workflow' },
+        { action: 'update_property' },
+        { action: 'update_interest' },
+        { action: 'send_internal_email' },
+        { action: 'send_internal_sms' },
+        { action: 'goal' },
+        {
           icon: 'phone',
           label: 'Hangup',
-          type: 'ending'
+          type: 'ending',
+          action: 'ending'
         }
       ],
-      defaultValue: campaign.steps,
-      status: campaign.status,
+      defaultValue: steps,
+      status,
       onSave
     }
   }
