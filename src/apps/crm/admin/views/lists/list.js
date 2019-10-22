@@ -8,7 +8,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/crm/lists',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Name', key: 'name', primary: true },
+      { label: 'Title', key: 'title', primary: true },
       { label: 'Type', key: 'type' }
     ],
     empty: {

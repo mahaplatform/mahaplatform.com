@@ -5,8 +5,10 @@ import EmailAddress from './email_address'
 import Organization from './organization'
 import PhoneNumber from './phone_number'
 import Activity from './activity'
+import Topic from './topic'
 import Call from './call'
 import Note from './note'
+import List from './list'
 import Tag from './tag'
 
 const Contact = new Model({
@@ -50,6 +52,14 @@ const Contact = new Model({
 
     tag_ids: function() {
       return this.related('tags').map(tag => tag.id)
+    },
+
+    topic_ids: function() {
+      return this.related('topics').map(topic => topic.id)
+    },
+
+    list_ids: function() {
+      return this.related('lists').map(list => list.id)
     }
 
   },
@@ -68,6 +78,10 @@ const Contact = new Model({
     return this.hasMany(EmailAddress, 'contact_id').query(qb => {
       qb.orderBy('is_primary', 'desc')
     })
+  },
+
+  lists() {
+    return this.belongsToMany(List, 'crm_subscriptions', 'contact_id', 'list_id')
   },
 
   mailing_addresses() {
@@ -96,6 +110,10 @@ const Contact = new Model({
 
   tags() {
     return this.belongsToMany(Tag, 'crm_taggings', 'contact_id', 'tag_id')
+  },
+
+  topics() {
+    return this.belongsToMany(Topic, 'crm_interests', 'contact_id', 'topic_id')
   }
 
 })

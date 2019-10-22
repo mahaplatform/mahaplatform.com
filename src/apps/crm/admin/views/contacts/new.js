@@ -1,3 +1,4 @@
+import CheckboxesField from '../../components/checkboxesfield'
 import AddressesField from '../../components/addressesfield'
 import PhonesField from '../../components/phonesfield'
 import EmailsField from '../../components/emailsfield'
@@ -53,7 +54,18 @@ class New extends React.Component {
           label: 'Interests',
           sections: [
             {
-              fields: []
+              fields: [
+                { name: 'topic_ids', type: CheckboxesField, endpoint: '/api/admin/crm/topics' }
+              ]
+            }
+          ]
+        }, {
+          label: 'Lists',
+          sections: [
+            {
+              fields: [
+                { name: 'list_ids', type: CheckboxesField, endpoint: '/api/admin/crm/lists', filters: { type: { $eq: 'static' } } }
+              ]
             }
           ]
         }, {
@@ -65,36 +77,28 @@ class New extends React.Component {
                 { label: 'Custom Field 1', name: 'custom_field_1', type: 'textfield' },
                 { label: 'Custom Field 2', name: 'custom_field_1', type: 'textfield' },
                 { label: 'Custom Field 3', name: 'custom_field_1', type: 'textfield' }
-              ],
-              collapsing: true,
-              collapsed: true
+              ]
             }, {
               label: 'Healthy Food For All',
               fields: [
                 { label: 'Custom Field 1', name: 'custom_field_1', type: 'textfield' },
                 { label: 'Custom Field 2', name: 'custom_field_1', type: 'textfield' },
                 { label: 'Custom Field 3', name: 'custom_field_1', type: 'textfield' }
-              ],
-              collapsing: true,
-              collapsed: true
+              ]
             }, {
               label: 'Parents Apart',
               fields: [
                 { label: 'Custom Field 1', name: 'custom_field_1', type: 'textfield' },
                 { label: 'Custom Field 2', name: 'custom_field_1', type: 'textfield' },
                 { label: 'Custom Field 3', name: 'custom_field_1', type: 'textfield' }
-              ],
-              collapsing: true,
-              collapsed: true
+              ]
             }, {
               label: 'Master Composters',
               fields: [
                 { label: 'Custom Field 1', name: 'custom_field_1', type: 'textfield' },
                 { label: 'Custom Field 2', name: 'custom_field_1', type: 'textfield' },
                 { label: 'Custom Field 3', name: 'custom_field_1', type: 'textfield' }
-              ],
-              collapsing: true,
-              collapsed: true
+              ]
             }
           ]
         }

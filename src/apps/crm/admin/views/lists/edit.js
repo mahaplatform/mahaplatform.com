@@ -31,8 +31,8 @@ class Edit extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Enter a name', required: true },
-            { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Enter a description', required: true }
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a name', required: true },
+            { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Enter a description' }
           ]
         }
       ]

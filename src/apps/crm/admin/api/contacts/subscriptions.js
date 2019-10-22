@@ -1,8 +1,8 @@
 import Program from '../../../models/program'
 import Contact from '../../../models/contact'
-import Topic from '../../../models/topic'
+import List from '../../../models/list'
 
-const interestsRoute = async (req, res) => {
+const subscriptionsRoute = async (req, res) => {
 
   const contact = await Contact.scope(qb => {
     qb.where('team_id', req.team.get('id'))
@@ -17,11 +17,11 @@ const interestsRoute = async (req, res) => {
     message: 'Unable to load contact'
   })
 
-  const topics = await Topic.scope(qb => {
+  const lists = await List.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
-    qb.select(req.trx.raw('crm_topics.*, crm_interests.topic_id is not null as is_interested'))
-    qb.joinRaw('left join crm_interests on crm_interests.topic_id=crm_topics.id and crm_interests.contact_id=?', contact.get('id'))
+    qb.select(req.trx.raw('crm_lists.*, crm_subscriptions.list_id is not null as is_subscribed'))
+    qb.joinRaw('left join crm_subscriptions on crm_subscriptions.list_id=crm_lists.id and crm_subscriptions.contact_id=?', contact.get('id'))
   }).fetchAll({
     transacting: req.trx
   }).then(results => results.toArray())
@@ -37,10 +37,10 @@ const interestsRoute = async (req, res) => {
     id: program.get('id'),
     title: program.get('title'),
     logo: program.get('logo_id') ? program.related('logo').get('path') : req.team.related('logo').get('path'),
-    topics: topics.filter(topic => {
-      return topic.get('program_id') === program.get('id')
-    }).map(topic => {
-      return { title: topic.get('title'), is_interested: topic.get('is_interested') }
+    lists: lists.filter(list => {
+      return list.get('program_id') === program.get('id')
+    }).map(list => {
+      return { title: list.get('title'), is_subscribed: list.get('is_subscribed') }
     })
   }))
 
@@ -48,4 +48,4 @@ const interestsRoute = async (req, res) => {
 
 }
 
-export default interestsRoute
+export default subscriptionsRoute

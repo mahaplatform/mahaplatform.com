@@ -9,6 +9,7 @@ const listRoute = async (req, res) => {
     filter: req.query.$filter,
     filterParams: ['type']
   }).fetchPage({
+    withRelated: ['program'],
     page: req.query.$page,
     transacting: req.trx
   })

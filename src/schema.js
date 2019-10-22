@@ -340,13 +340,13 @@ const schema = {
     await knex.schema.createTable('crm_lists', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.string('name', 255)
+      table.integer('program_id').unsigned()
+      table.string('title', 255)
       table.text('description')
+      table.USER-DEFINED('type')
       table.jsonb('criteria')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.USER-DEFINED('type')
-      table.integer('program_id').unsigned()
     })
 
     await knex.schema.createTable('crm_mailing_addresses', (table) => {
@@ -414,7 +414,6 @@ const schema = {
       table.boolean('has_sms_channel')
       table.boolean('has_voice_channel')
       table.boolean('has_mail_channel')
-      table.boolean('is_private')
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -483,12 +482,8 @@ const schema = {
     })
 
     await knex.schema.createTable('crm_subscriptions', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
       table.integer('list_id').unsigned()
       table.integer('contact_id').unsigned()
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
     })
 
     await knex.schema.createTable('crm_taggings', (table) => {
@@ -2224,7 +2219,6 @@ const schema = {
     await knex.schema.table('crm_subscriptions', table => {
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('list_id').references('crm_lists.id')
-      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('eatfresh_categories_attractions', table => {
@@ -2345,11 +2339,6 @@ const schema = {
 
     await knex.schema.table('competencies_classifications', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('crm_lists', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('crm_tags', table => {
@@ -2523,6 +2512,11 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('email_id').references('maha_emails.id')
       table.foreign('email_link_id').references('maha_email_links.id')
+    })
+
+    await knex.schema.table('crm_lists', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('training_options_trainings', table => {

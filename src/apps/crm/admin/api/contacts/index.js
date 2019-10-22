@@ -1,3 +1,4 @@
+import subscriptions from './subscriptions'
 import activities from './activities'
 import interests from './interests'
 import { Router } from 'express'
@@ -34,6 +35,8 @@ router.use('/:id/calls', calls)
 router.use('/:id/channels', channels)
 
 router.get('/:id/interests', interests)
+
+router.get('/:id/subscriptions', subscriptions)
 
 router.use('/:id/notes', notes)
 

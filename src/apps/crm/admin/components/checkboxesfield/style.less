@@ -1,0 +1,32 @@
+.checkboxesfield {
+  margin: -0.8em;
+}
+.checkboxesfield-header {
+  border-bottom: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 95);
+  padding: 0.8em;
+}
+.checkboxesfield-item {
+  border-bottom: 1px solid fadeout(@black, 90);
+  cursor: pointer;
+  display: flex;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.checkboxesfield-item-icon {
+  padding: 0.8em 0 0.8em 0.8em;
+  display: flex;
+  .fa {
+    margin: auto;
+  }
+  .fa-check-circle {
+    color: @blue;
+  }
+  .fa-circle-o {
+    color: fadeout(@black, 60);
+  }
+}
+.checkboxesfield-item-label {
+  padding: 0.8em;
+}

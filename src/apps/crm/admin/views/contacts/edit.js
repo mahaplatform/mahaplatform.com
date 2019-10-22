@@ -1,7 +1,7 @@
+import CheckboxesField from '../../components/checkboxesfield'
 import AddressesField from '../../components/addressesfield'
 import PhonesField from '../../components/phonesfield'
 import EmailsField from '../../components/emailsfield'
-import sections from '../sections'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -56,7 +56,18 @@ class Edit extends React.Component {
           label: 'Interests',
           sections: [
             {
-              fields: []
+              fields: [
+                { name: 'topic_ids', type: CheckboxesField, endpoint: '/api/admin/crm/topics' }
+              ]
+            }
+          ]
+        }, {
+          label: 'Lists',
+          sections: [
+            {
+              fields: [
+                { name: 'list_ids', type: CheckboxesField, endpoint: '/api/admin/crm/lists' }
+              ]
             }
           ]
         }, {

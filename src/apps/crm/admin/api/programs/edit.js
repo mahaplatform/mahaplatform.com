@@ -24,8 +24,7 @@ const editRoute = async (req, res) => {
       ...program.get('has_sms_channel') ? ['sms'] : [],
       ...program.get('has_voice_channel') ? ['voice'] : [],
       ...program.get('has_mail_channel') ? ['mail'] : []
-    ],
-    is_private: program.get('is_private')
+    ]
   })
 
 }

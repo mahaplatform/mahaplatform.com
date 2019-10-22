@@ -1,4 +1,5 @@
 import Timeline from '../../../components/timeline'
+import Subscriptions from './subscriptions'
 import Interests from './interests'
 import { Page } from 'maha-admin'
 import Channels from './channels'
@@ -17,13 +18,14 @@ const getSidebar = (user, { contact, fields }) => {
   )
 }
 
-const getTabs = (user, { channels, contact, fields, interests }) => {
+const getTabs = (user, { channels, contact, fields, interests, subscriptions }) => {
   const header = document.body.clientWidth <= 768 ? <Header contact={ contact} /> : null
   const items = [
     { label: 'Activities', component: <Timeline contact={ contact } /> },
     { label: 'Properties', component: <Details contact={ contact } fields={ fields } /> },
     { label: 'Channels', component: <Channels contact={ contact } channels={ channels } /> },
-    { label: 'Interests', component: <Interests contact={ contact } interests={ interests } /> }
+    { label: 'Interests', component: <Interests contact={ contact } interests={ interests } /> },
+    { label: 'Subscriptions', component: <Subscriptions contact={ contact } subscriptions={ subscriptions } /> }
   ]
   if(document.body.clientWidth <= 768) {
     items.unshift({ label: 'Details', component: <Details contact={ contact } fields={ fields } /> })
@@ -41,6 +43,7 @@ const mapResourcesToPage = (props, context) => ({
   contact: `/api/admin/crm/contacts/${props.params.id}`,
   channels: `/api/admin/crm/contacts/${props.params.id}/channels`,
   interests: `/api/admin/crm/contacts/${props.params.id}/interests`,
+  subscriptions: `/api/admin/crm/contacts/${props.params.id}/subscriptions`,
   fields: '/api/admin/crm_contacts/fields'
 })
 

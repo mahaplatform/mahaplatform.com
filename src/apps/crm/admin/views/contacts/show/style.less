@@ -53,6 +53,7 @@
 }
 
 .crm-contact-channels,
+.crm-contact-subscriptions,
 .crm-contact-interests {
   .ui.button {
     width: 60px;
@@ -61,6 +62,7 @@
   }
 }
 .crm-contact-channels-program td,
+.crm-contact-subscriptions-program td,
 .crm-contact-interests-program td {
   background-color: fadeout(@black, 97) !important;
   font-weight: bold;
@@ -73,10 +75,18 @@
   }
 }
 .crm-contact-channels-channel td,
+.crm-contact-subscriptions-list td,
 .crm-contact-interests-topic td {
   color: fadeout(@black, 50);
+  .fa-check-circle {
+    color: @blue
+  }
+  .fa-circle-o {
+    color: fadeout(@black, 80);
+  }
 }
 .crm-contact-channels-empty td,
+.crm-contact-subscriptions-empty td,
 .crm-contact-interests-empty td {
   text-align: center;
   color: fadeout(@black, 50);

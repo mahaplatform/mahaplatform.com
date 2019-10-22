@@ -30,7 +30,6 @@ const MigratePrograms = {
       table.boolean('has_sms_channel')
       table.boolean('has_voice_channel')
       table.boolean('has_mail_channel')
-      table.boolean('is_private')
       table.timestamps()
     })
 

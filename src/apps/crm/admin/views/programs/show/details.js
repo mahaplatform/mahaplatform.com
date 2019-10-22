@@ -7,8 +7,7 @@ const Details = ({ program }) => {
   const list = {}
 
   list.items = [
-    { label: 'Title', content: program.title },
-    { label: 'Visibility', content: program.is_private ? 'Private' : 'Public' }
+    { label: 'Title', content: program.title }
   ]
 
   return <List { ...list } />

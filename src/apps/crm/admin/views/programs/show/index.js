@@ -1,16 +1,17 @@
 import { Page } from 'maha-admin'
 import Details from './details'
+import Access from './access'
 import React from 'react'
 
 const getTabs = (user, { program }) => ({
   items: [
-    { label: 'Details', component: <Details program={ program } /> }
+    { label: 'Details', component: <Details program={ program } /> },
+    { label: 'Access', component: <Access program={ program } /> }
   ]
 })
 
 const getTasks = (user, { program}) => ({
-  items: [
-  ]
+  items: []
 })
 
 const mapResourcesToPage = (props, context) => ({
