@@ -101,9 +101,6 @@ class Modal extends React.Component {
 
   _getErrorPanel() {
     return {
-      leftItems: [
-        { icon: 'chevron-left', handler: this._handleBack }
-      ],
       title: 'Error'
     }
   }

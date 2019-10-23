@@ -1,9 +1,19 @@
 import PropTypes from 'prop-types'
+import { List } from 'maha-admin'
 import React from 'react'
 
 const Results = () => {
 
-  return <div>Foo</div>
+  const list = {
+    sections: [
+      {
+        title: 'Delivery',
+        items: []
+      }
+    ]
+  }
+
+  return <List { ...list } />
 
 }
 

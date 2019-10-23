@@ -24,7 +24,7 @@ const AssigneeToken = ({ grouping_id, full_name, initials, photo, group_id, user
     <div className="assignee-token-name">
       <span>{ full_name }</span>
       { is_active === false &&
-        <span className="compact-user-token-activity">
+        <span className="user-token-activity">
           INACTIVE
         </span>
       }

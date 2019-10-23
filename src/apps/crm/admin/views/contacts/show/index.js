@@ -25,7 +25,7 @@ const getTabs = (user, { channels, contact, fields, interests, subscriptions }) 
     { label: 'Properties', component: <Details contact={ contact } fields={ fields } /> },
     { label: 'Channels', component: <Channels contact={ contact } channels={ channels } /> },
     { label: 'Interests', component: <Interests contact={ contact } interests={ interests } /> },
-    { label: 'Subscriptions', component: <Subscriptions contact={ contact } subscriptions={ subscriptions } /> }
+    { label: 'Lists', component: <Subscriptions contact={ contact } subscriptions={ subscriptions } /> }
   ]
   if(document.body.clientWidth <= 768) {
     items.unshift({ label: 'Details', component: <Details contact={ contact } fields={ fields } /> })

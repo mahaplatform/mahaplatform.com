@@ -9,6 +9,7 @@ const CreateEmailCampaign = {
       table.foreign('program_id').references('crm_programs.id')
       table.integer('sender_id').unsigned()
       table.foreign('sender_id').references('crm_senders.id')
+      table.enum('purpose', ['transactional','marketing'], { useNative: true, enumName: 'crm_email_campaigns_purpose' })
       table.enum('status', ['draft','scheduled','sent'], { useNative: true, enumName: 'crm_email_campaigns_status' })
       table.string('title')
       table.string('code')

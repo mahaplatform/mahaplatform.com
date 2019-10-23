@@ -9,6 +9,7 @@ const CreateVoiceCampaign = {
       table.foreign('program_id').references('crm_programs.id')
       table.integer('phone_number_id').unsigned()
       table.foreign('phone_number_id').references('maha_phone_numbers.id')
+      table.enum('purpose', ['transactional','marketing'], { useNative: true, enumName: 'crm_voice_campaigns_purpose' })
       table.enum('direction', ['inbound','outbound'], { useNative: true, enumName: 'crm_voice_campaigns_direction' })
       table.enum('status', ['draft','scheduled','sent','active','inactive'], { useNative: true, enumName: 'crm_voice_campaigns_status' })
       table.string('title')

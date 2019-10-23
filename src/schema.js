@@ -292,8 +292,8 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('program_id').unsigned()
-      table.integer('template_id').unsigned()
       table.integer('sender_id').unsigned()
+      table.USER-DEFINED('purpose')
       table.USER-DEFINED('status')
       table.string('title', 255)
       table.string('code', 255)
@@ -457,6 +457,7 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('program_id').unsigned()
       table.integer('phone_number_id').unsigned()
+      table.USER-DEFINED('purpose')
       table.USER-DEFINED('direction')
       table.USER-DEFINED('status')
       table.string('title', 255)
@@ -525,6 +526,7 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('program_id').unsigned()
       table.integer('phone_number_id').unsigned()
+      table.USER-DEFINED('purpose')
       table.USER-DEFINED('direction')
       table.USER-DEFINED('status')
       table.string('title', 255)
@@ -2473,7 +2475,6 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('sender_id').references('crm_senders.id')
-      table.foreign('template_id').references('crm_templates.id')
     })
 
     await knex.schema.table('crm_sms_campaigns', table => {
@@ -2557,6 +2558,7 @@ union
       crm_email_campaigns.team_id,
       crm_email_campaigns.program_id,
       'email'::text as type,
+      (crm_email_campaigns.purpose)::character varying as purpose,
       'outbound'::character varying as direction,
       crm_email_campaigns.code,
       crm_email_campaigns.title,
@@ -2569,6 +2571,7 @@ union
       crm_voice_campaigns.team_id,
       crm_voice_campaigns.program_id,
       'voice'::text as type,
+      (crm_voice_campaigns.purpose)::character varying as purpose,
       (crm_voice_campaigns.direction)::character varying as direction,
       crm_voice_campaigns.code,
       crm_voice_campaigns.title,
@@ -2581,6 +2584,7 @@ union
       crm_sms_campaigns.team_id,
       crm_sms_campaigns.program_id,
       'sms'::text as type,
+      (crm_sms_campaigns.purpose)::character varying as purpose,
       (crm_sms_campaigns.direction)::character varying as direction,
       crm_sms_campaigns.code,
       crm_sms_campaigns.title,
@@ -2593,6 +2597,7 @@ union
       crm_social_campaigns.team_id,
       crm_social_campaigns.program_id,
       'social'::text as type,
+      'marketing'::character varying as purpose,
       'outbound'::character varying as direction,
       crm_social_campaigns.code,
       crm_social_campaigns.title,
@@ -2605,6 +2610,7 @@ union
       crm_postal_campaigns.team_id,
       crm_postal_campaigns.program_id,
       'postal'::text as type,
+      'marketing'::character varying as purpose,
       'outbound'::character varying as direction,
       crm_postal_campaigns.code,
       crm_postal_campaigns.title,

@@ -19,7 +19,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     entity: 'site',
-    onClick: (record) => context.router.history.push(`/admin/sites/sites/${page.params.id}`)
+    onClick: (record) => context.router.history.push(`/admin/sites/sites/${record.id}`)
   },
   tasks: {
     icon: 'plus',

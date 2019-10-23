@@ -1,13 +1,15 @@
+import ProgramAccessToken from '../../../tokens/program_access'
+import Access from '../../../components/access'
 import PropTypes from 'prop-types'
 import { List } from 'maha-admin'
 import React from 'react'
 
-const Access = ({ access }) => {
+const ProgramAccess = ({ accesses, program }) => {
 
   const list = {
-    // items: memberships.map((membership, index) => ({
-    //   component: (props) => <MembershipToken type="user" membership={ membership } />
-    // })),
+    items: accesses.map((access, index) => ({
+      component: (props) => <ProgramAccessToken access={ access } />
+    })),
     // empty: {
     //   icon: 'user-circle',
     //   title: 'No members',
@@ -17,17 +19,17 @@ const Access = ({ access }) => {
     //     modal: <Memberships project_id={ project.id } />
     //   }
     // },
-    // buttons: allowed(memberships, rights, user) ? [
-    //   { label: 'Manage Members', color: 'blue', modal: <Memberships project_id={ project.id } /> }
-    // ] : null
+    buttons: [
+      { label: 'Manage Access', color: 'blue', modal: <Access program_id={ program.id } /> }
+    ]
   }
 
   return <List { ...list } />
 
 }
 
-Access.propTypes = {
+ProgramAccess.propTypes = {
   access: PropTypes.array
 }
 
-export default Access
+export default ProgramAccess

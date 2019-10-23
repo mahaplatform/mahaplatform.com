@@ -74,6 +74,7 @@ import chatchannels from '../../apps/chat/admin/components/channels'
 import chatfullchat from '../../apps/chat/admin/components/fullchat'
 import chatsubscriptions from '../../apps/chat/admin/components/subscriptions'
 import chatchat from '../../apps/chat/admin/roots/chat'
+import crmaccess from '../../apps/crm/admin/components/access'
 import crmaddressesfield from '../../apps/crm/admin/components/addressesfield'
 import crmcheckboxesfield from '../../apps/crm/admin/components/checkboxesfield'
 import crmcontactimport from '../../apps/crm/admin/components/contactimport'
@@ -321,6 +322,7 @@ class App extends React.Component {
       chatfullchat,
       chatsubscriptions,
       chatchat,
+      crmaccess,
       crmaddressesfield,
       crmcheckboxesfield,
       crmcontactimport,

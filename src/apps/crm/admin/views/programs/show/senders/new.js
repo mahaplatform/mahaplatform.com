@@ -8,6 +8,10 @@ class New extends React.Component {
     modal: PropTypes.object
   }
 
+  static propTypes = {
+    program_id: PropTypes.number
+  }
+
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
@@ -16,18 +20,18 @@ class New extends React.Component {
   }
 
   _getForm() {
+    const { program_id } = this.props
     return {
-      title: 'New Number',
+      title: 'New Sender',
       method: 'post',
-      action: '/api/admin/team/phone_numbers',
+      action: `/api/admin/crm/programs/${program_id}/senders`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
-      saveText: 'Provision',
       sections: [
         {
           fields: [
-            { label: 'Type', name: 'type', type: 'radiogroup', options: [{ value: 'voice', text: 'Voice / SMS' },{ value: 'fax', text: 'Fax' }], required: true, defaultValue: 'voice' },
-            { label: 'Number', name: 'number', type: 'phonenumberfield', required: true }
+            { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Enter the from name', required: true },
+            { label: 'Email', name: 'email', type: 'textfield', placeholder: 'Enter the email address', required: true }
           ]
         }
       ]
