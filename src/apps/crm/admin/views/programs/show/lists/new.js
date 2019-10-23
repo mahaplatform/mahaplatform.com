@@ -1,7 +1,7 @@
-import { Form, ProgramToken } from 'maha-admin'
-import ContactToken from '../../tokens/contact'
-import TypeToken from '../../tokens/type'
+import ContactToken from '../../../../tokens/contact'
+import TypeToken from '../../../../tokens/type'
 import PropTypes from 'prop-types'
+import { Form } from 'maha-admin'
 import React from 'react'
 
 class New extends React.Component {
@@ -11,7 +11,9 @@ class New extends React.Component {
     router: PropTypes.object
   }
 
-  static propTypes = {}
+  static propTypes = {
+    program_id: PropTypes.number
+  }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
@@ -29,11 +31,12 @@ class New extends React.Component {
   }
 
   _getForm() {
+    const { program_id } = this.props
     const { type } = this.state
     return {
       title: 'New List',
       method: 'post',
-      action: '/api/admin/crm/lists',
+      action: `/api/admin/crm/programs/${program_id}/lists`,
       onCancel: this._handleCancel,
       onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
@@ -41,8 +44,6 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a name', required: true },
-            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true, format: ProgramToken },
-            { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Enter a description' },
             { label: 'Type', name: 'type', type: 'radiogroup', required: true, options: [{ value:'static', text:'Static List' }, { value:'active', text:'Active List' }], defaultValue: type, format: TypeToken },
             ...this._getType()
           ]

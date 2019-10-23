@@ -1,5 +1,5 @@
-import ListSerializer from '../../../serializers/list_serializer'
-import List from '../../../models/list'
+import ListSerializer from '../../../../serializers/list_serializer'
+import List from '../../../../models/list'
 
 const showRoute = async (req, res) => {
 

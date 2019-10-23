@@ -5,6 +5,7 @@ import campaigns from './campaigns'
 import programs from './programs'
 import contacts from './contacts'
 import { Router } from 'express'
+import topics from './topics'
 import forms from './forms'
 import lists from './lists'
 import tags from './tags'
@@ -24,6 +25,8 @@ router.use('/organizations', organizations)
 router.use('/programs', programs)
 
 router.use('/tags', tags)
+
+router.use('/topics', topics)
 
 router.use('/templates', templates)
 

@@ -3,14 +3,16 @@ import Senders from './senders'
 import Details from './details'
 import Access from './access'
 import Topics from './topics'
+import Lists from './lists'
 import Edit from '../edit'
 import React from 'react'
 
-const getTabs = (user, { accesses, program, senders, topics }) => ({
+const getTabs = (user, { accesses, lists, program, senders, topics }) => ({
   items: [
     { label: 'Details', component: <Details program={ program } /> },
     { label: 'Access', component: <Access program={ program } accesses={ accesses } /> },
     { label: 'Senders', component: <Senders program={ program } senders={ senders } /> },
+    { label: 'Lists', component: <Lists program={ program } lists={ lists } /> },
     { label: 'Topics', component: <Topics program={ program } topics={ topics } /> },
     { label: 'Fields', component: <Fields parent_type="crm_contacts" /> }
   ]
@@ -24,6 +26,7 @@ const getTasks = (user, { fields, program }) => ({
 
 const mapResourcesToPage = (props, context) => ({
   accesses: `/api/admin/crm/programs/${props.params.id}/access`,
+  lists: `/api/admin/crm/programs/${props.params.id}/lists`,
   program: `/api/admin/crm/programs/${props.params.id}`,
   senders: `/api/admin/crm/programs/${props.params.id}/senders`,
   topics: `/api/admin/crm/programs/${props.params.id}/topics`

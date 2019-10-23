@@ -165,6 +165,10 @@ const MigratePrograms = {
       order by priority asc
     `)
 
+    await knex.schema.table('crm_lists', (table) => {
+      table.dropColumn('description')
+    })
+
   },
 
   down: async (knex) => {
