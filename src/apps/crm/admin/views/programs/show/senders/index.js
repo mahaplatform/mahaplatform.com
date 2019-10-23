@@ -1,4 +1,3 @@
-import SenderToken from '../../../../tokens/sender'
 import PropTypes from 'prop-types'
 import { List } from 'maha-admin'
 import React from 'react'
@@ -8,7 +7,11 @@ const Senders = ({ program, senders }) => {
 
   const list = {
     items: senders.map((sender, index) => ({
-      component: (props) => <SenderToken { ...sender } />
+      component: (props) => (
+        <div className="token">
+          { sender.rfc822 }
+        </div>
+      )
     })),
     empty: {
       icon: 'paper-plane-o',

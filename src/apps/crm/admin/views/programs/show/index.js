@@ -3,6 +3,7 @@ import Senders from './senders'
 import Details from './details'
 import Access from './access'
 import Topics from './topics'
+import Edit from '../edit'
 import React from 'react'
 
 const getTabs = (user, { accesses, program, senders, topics }) => ({
@@ -15,8 +16,10 @@ const getTabs = (user, { accesses, program, senders, topics }) => ({
   ]
 })
 
-const getTasks = (user, { program}) => ({
-  items: []
+const getTasks = (user, { fields, program }) => ({
+  items: [
+    { label: 'Edit Program', modal: <Edit id={ program.id } fields={ fields } /> }
+  ]
 })
 
 const mapResourcesToPage = (props, context) => ({
