@@ -21,10 +21,6 @@ const updateRoute = async (req, res) => {
   })
 
   await program.save({
-    has_email_channel: _.includes(req.body.channels, 'email'),
-    has_sms_channel: _.includes(req.body.channels, 'sms'),
-    has_voice_channel: _.includes(req.body.channels, 'voice'),
-    has_mail_channel: _.includes(req.body.channels, 'mail'),
     ...whitelist(req.body, ['logo_id','title'])
   }, {
     transacting: req.trx

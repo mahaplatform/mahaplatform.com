@@ -38,7 +38,6 @@ const CreateChannel = {
       from maha_programs
       inner join crm_email_addresses on crm_email_addresses.team_id=maha_programs.team_id
       left join crm_consents on crm_consents.email_address_id=crm_email_addresses.id and crm_consents.program_id=maha_programs.id and crm_consents.type='email'
-      where maha_programs.has_email_channel = true
       union
       select
       2 as priority,
@@ -59,7 +58,6 @@ const CreateChannel = {
       from maha_programs
       inner join crm_phone_numbers on crm_phone_numbers.team_id=maha_programs.team_id
       left join crm_consents on crm_consents.phone_number_id=crm_phone_numbers.id and crm_consents.program_id=maha_programs.id and crm_consents.type='sms'
-      where maha_programs.has_sms_channel = true
       union
       select
       3 as priority,
@@ -80,7 +78,6 @@ const CreateChannel = {
       from maha_programs
       inner join crm_phone_numbers on crm_phone_numbers.team_id=maha_programs.team_id
       left join crm_consents on crm_consents.phone_number_id=crm_phone_numbers.id and crm_consents.program_id=maha_programs.id and crm_consents.type='voice'
-      where maha_programs.has_voice_channel = true
       union
       select
       4 as priority,
@@ -101,7 +98,6 @@ const CreateChannel = {
       from maha_programs
       inner join crm_mailing_addresses on crm_mailing_addresses.team_id=maha_programs.team_id
       left join crm_consents on crm_consents.mailing_address_id=crm_mailing_addresses.id and crm_consents.program_id=maha_programs.id and crm_consents.type='mail'
-      where maha_programs.has_mail_channel = true
       ) crm_channels
       order by priority asc
     `)

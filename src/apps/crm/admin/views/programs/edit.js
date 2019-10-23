@@ -32,8 +32,7 @@ class Edit extends React.Component {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
-            { label: 'Logo', name: 'logo_id', type: 'filefield', prompt: 'Choose Logo', multiple: false },
-            { label: 'Channels', name: 'channels', type: 'checkboxgroup', options: [{text:'Email',value:'email'},{text:'SMS',value:'sms'},{text:'Voice',value:'voice'},{text:'Mail',value:'mail'}] }
+            { label: 'Logo', name: 'logo_id', type: 'filefield', prompt: 'Choose Logo', multiple: false }
           ]
         }
       ]

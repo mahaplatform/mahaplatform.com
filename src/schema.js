@@ -422,10 +422,6 @@ const schema = {
       table.integer('phone_number_id').unsigned()
       table.string('title', 255)
       table.string('code', 255)
-      table.boolean('has_email_channel')
-      table.boolean('has_sms_channel')
-      table.boolean('has_voice_channel')
-      table.boolean('has_mail_channel')
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -2656,7 +2652,6 @@ union
       from ((crm_programs
       join crm_email_addresses on ((crm_email_addresses.team_id = crm_programs.team_id)))
       left join crm_consents on (((crm_consents.email_address_id = crm_email_addresses.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'email'::crm_consent_type))))
-      where (crm_programs.has_email_channel = true)
       union
       select 2 as priority,
       crm_programs.team_id,
@@ -2677,7 +2672,6 @@ union
       from ((crm_programs
       join crm_phone_numbers on ((crm_phone_numbers.team_id = crm_programs.team_id)))
       left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'sms'::crm_consent_type))))
-      where (crm_programs.has_sms_channel = true)
       union
       select 3 as priority,
       crm_programs.team_id,
@@ -2698,7 +2692,6 @@ union
       from ((crm_programs
       join crm_phone_numbers on ((crm_phone_numbers.team_id = crm_programs.team_id)))
       left join crm_consents on (((crm_consents.phone_number_id = crm_phone_numbers.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'voice'::crm_consent_type))))
-      where (crm_programs.has_voice_channel = true)
       union
       select 4 as priority,
       crm_programs.team_id,
@@ -2718,8 +2711,7 @@ union
       ((crm_consents.id is not null) and (crm_consents.optedout_at is null)) as has_consented
       from ((crm_programs
       join crm_mailing_addresses on ((crm_mailing_addresses.team_id = crm_programs.team_id)))
-      left join crm_consents on (((crm_consents.mailing_address_id = crm_mailing_addresses.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'mail'::crm_consent_type))))
-      where (crm_programs.has_mail_channel = true)) crm_channels
+      left join crm_consents on (((crm_consents.mailing_address_id = crm_mailing_addresses.id) and (crm_consents.program_id = crm_programs.id) and (crm_consents.type = 'mail'::crm_consent_type))))) crm_channels
       order by crm_channels.priority;
     `)
 

@@ -26,10 +26,6 @@ const MigratePrograms = {
       table.foreign('phone_number_id').references('maha_phone_numbers.id')
       table.string('title')
       table.string('code')
-      table.boolean('has_email_channel')
-      table.boolean('has_sms_channel')
-      table.boolean('has_voice_channel')
-      table.boolean('has_mail_channel')
       table.timestamps()
     })
 
@@ -94,7 +90,6 @@ const MigratePrograms = {
       from crm_programs
       inner join crm_email_addresses on crm_email_addresses.team_id=crm_programs.team_id
       left join crm_consents on crm_consents.email_address_id=crm_email_addresses.id and crm_consents.program_id=crm_programs.id and crm_consents.type='email'
-      where crm_programs.has_email_channel = true
       union
       select
       2 as priority,
@@ -116,7 +111,6 @@ const MigratePrograms = {
       from crm_programs
       inner join crm_phone_numbers on crm_phone_numbers.team_id=crm_programs.team_id
       left join crm_consents on crm_consents.phone_number_id=crm_phone_numbers.id and crm_consents.program_id=crm_programs.id and crm_consents.type='sms'
-      where crm_programs.has_sms_channel = true
       union
       select
       3 as priority,
@@ -138,7 +132,6 @@ const MigratePrograms = {
       from crm_programs
       inner join crm_phone_numbers on crm_phone_numbers.team_id=crm_programs.team_id
       left join crm_consents on crm_consents.phone_number_id=crm_phone_numbers.id and crm_consents.program_id=crm_programs.id and crm_consents.type='voice'
-      where crm_programs.has_voice_channel = true
       union
       select
       4 as priority,
@@ -160,7 +153,6 @@ const MigratePrograms = {
       from crm_programs
       inner join crm_mailing_addresses on crm_mailing_addresses.team_id=crm_programs.team_id
       left join crm_consents on crm_consents.mailing_address_id=crm_mailing_addresses.id and crm_consents.program_id=crm_programs.id and crm_consents.type='mail'
-      where crm_programs.has_mail_channel = true
       ) crm_channels
       order by priority asc
     `)

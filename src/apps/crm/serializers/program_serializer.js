@@ -3,10 +3,6 @@ const ProgramSerializer = (req, result) => ({
   title: result.get('title'),
   logo: result.related('logo') ? result.related('logo').get('path') : null,
   phone_number: phone_number(result.related('phone_number')),
-  has_email_channel: result.get('has_email_channel'),
-  has_sms_channel: result.get('has_sms_channel'),
-  has_voice_channel: result.get('has_voice_channel'),
-  has_mail_channel: result.get('has_mail_channel'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

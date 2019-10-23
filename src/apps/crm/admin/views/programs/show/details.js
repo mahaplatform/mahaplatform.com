@@ -13,18 +13,11 @@ const Details = ({ program }) => {
     modal: <PhoneNumber program_id={ program.id } />
   }
 
-  const channels = []
-  if(program.has_email_channel) channels.push('email')
-  if(program.has_sms_channel) channels.push('sms')
-  if(program.has_voice_channel) channels.push('voice')
-  if(program.has_mail_channel) channels.push('mail')
-
   list.items = [
     { label: 'Title', content: program.title },
     { label: 'Phone Number', content: program.phone_number ? (
       <span>{ program.phone_number.formatted }</span>
-    ) : <Button { ...button } /> },
-    { label: 'Channels', content: channels.join(', ') }
+    ) : <Button { ...button } /> }
   ]
 
   return <List { ...list } />

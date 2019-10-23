@@ -18,13 +18,7 @@ const editRoute = async (req, res) => {
   res.status(200).respond({
     id: program.get('id'),
     title: program.get('title'),
-    logo_id: program.get('logo_id'),
-    channels: [
-      ...program.get('has_email_channel') ? ['email'] : [],
-      ...program.get('has_sms_channel') ? ['sms'] : [],
-      ...program.get('has_voice_channel') ? ['voice'] : [],
-      ...program.get('has_mail_channel') ? ['mail'] : []
-    ]
+    logo_id: program.get('logo_id')
   })
 
 }
