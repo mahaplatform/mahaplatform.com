@@ -14,9 +14,9 @@ const Lists = ({ lists, program }) => {
       )
     })),
     empty: {
-      icon: 'book',
-      title: 'No topics',
-      text: 'There are no topics for this program',
+      icon: 'users',
+      title: 'No Lists',
+      text: 'There are no lists for this program',
       button: {
         label: 'Add List',
         modal: <New program_id={ program.id } />

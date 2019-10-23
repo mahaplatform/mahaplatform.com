@@ -33,4 +33,5 @@ const sender = (sender) => {
     rfc822: sender.get('rfc822')
   }
 }
+
 export default EmailCampaignSerializer

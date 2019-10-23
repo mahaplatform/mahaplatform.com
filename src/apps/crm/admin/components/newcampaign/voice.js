@@ -1,5 +1,6 @@
-import { Form } from 'maha-admin'
+import PurposeToken from '../../tokens/purpose'
 import PropTypes from 'prop-types'
+import { Form } from 'maha-admin'
 import React from 'react'
 
 class Voice extends React.PureComponent {
@@ -38,11 +39,22 @@ class Voice extends React.PureComponent {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { name: 'direction', type: 'hidden', defaultValue: direction },
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true }
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
+            ...this._getDirection()
           ]
         }
       ]
     }
+  }
+
+  _getDirection() {
+    const { direction } = this.props
+    if(direction === 'outbound') {
+      return [
+        { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: 'marketing' }
+      ]
+    }
+    return []
   }
 
   _handleBack() {

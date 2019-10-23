@@ -25,7 +25,7 @@ const createRoute = async (req, res) => {
     steps: [],
     program_id: program.get('id'),
     phone_number_id: program.get('phone_number_id'),
-    ...whitelist(req.body, ['title','direction'])
+    ...whitelist(req.body, ['title','direction','purpose'])
   }).save(null, {
     transacting: req.trx
   })

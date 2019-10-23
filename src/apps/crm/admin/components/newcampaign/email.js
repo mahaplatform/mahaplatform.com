@@ -1,3 +1,4 @@
+import PurposeToken from '../../tokens/purpose'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -40,7 +41,7 @@ class Email extends React.PureComponent {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
-            { label: 'Template', name: 'template_id', type: 'lookup', placeholder: 'Choose a template', endpoint: '/api/admin/crm/templates', filter, value: 'id', text: 'title' },
+            { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: 'marketing' },
             { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: '/api/admin/crm/senders', filter, value: 'id', text: 'rfc822', required: true },
             { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: user.email },
             { label: 'To', name: 'to', type: 'textfield', placeholder: 'Choose criteria'},
