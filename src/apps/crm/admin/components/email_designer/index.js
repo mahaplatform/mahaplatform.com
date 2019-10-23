@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import Designer from '../designer'
 import Divider from './divider'
 import Section from './section'
@@ -14,11 +15,17 @@ import Page from './page'
 
 class EmailDesigner extends React.Component {
 
+  static propTypes = {
+    defaultValue: PropTypes.object,
+    onSave: PropTypes.func
+  }
+
   render() {
     return <Designer { ...this._getDesigner() } />
   }
 
   _getDesigner() {
+    const { defaultValue, onSave } = this.props
     return {
       title: 'Email',
       canvas: '/templates/email.html',
@@ -223,7 +230,9 @@ class EmailDesigner extends React.Component {
           type: 'video',
           icon: 'play-circle'
         }
-      ]
+      ],
+      defaultValue,
+      onSave
     }
   }
 

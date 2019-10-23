@@ -4,7 +4,7 @@ import Sidebar from './sidebar'
 import Canvas from './canvas'
 import React from 'react'
 
-class EmailDesigner extends React.Component {
+class Designer extends React.Component {
 
   static contextTypes = {}
 
@@ -119,4 +119,4 @@ class EmailDesigner extends React.Component {
 
 }
 
-export default EmailDesigner
+export default Designer

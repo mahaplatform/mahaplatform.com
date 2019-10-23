@@ -4,6 +4,7 @@ import { whitelist } from '../../../../../../core/services/routes/params'
 import generateCode from '../../../../../../core/utils/generate_code'
 import socket from '../../../../../../core/services/routes/emitter'
 import EmailCampaign from '../../../../models/email_campaign'
+import Template from '../../../../models/template'
 
 const createRoute = async (req, res) => {
 
@@ -11,11 +12,20 @@ const createRoute = async (req, res) => {
     table: 'crm_email_campaigns'
   })
 
+  const template = req.body.template_id ? await Template.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
+  }).query(qb => {
+    qb.where('id', req.body.template_id)
+  }).fetch({
+    transacting: req.trx
+  }) : null
+
   const campaign = await EmailCampaign.forge({
     team_id: req.team.get('id'),
     code,
     status: 'draft',
-    ...whitelist(req.body, ['program_id','template_id','sender_id','title','reply_to','to','subject'])
+    config: template ? template.get('config') : null,
+    ...whitelist(req.body, ['program_id','sender_id','title','reply_to','to','subject'])
   }).save(null, {
     transacting: req.trx
   })

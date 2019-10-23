@@ -18,6 +18,24 @@ const createRoute = async (req, res) => {
       EmailAddress: req.body.email,
       TemplateName: 'maha_crm_safe_sender'
     }).promise()
+
+    await ses.setIdentityNotificationTopic({
+      Identity: req.body.email,
+      NotificationType: 'Bounce',
+      SnsTopic: 'arn:aws:sns:us-east-1:927906310648:mahaplatform-bounces'
+    }).promise()
+
+    await ses.setIdentityNotificationTopic({
+      Identity: req.body.email,
+      NotificationType: 'Complaint',
+      SnsTopic: 'arn:aws:sns:us-east-1:927906310648:mahaplatform-complaints'
+    }).promise()
+
+    await ses.setIdentityNotificationTopic({
+      Identity: req.body.email,
+      NotificationType: 'Delivery',
+      SnsTopic: 'arn:aws:sns:us-east-1:927906310648:mahaplatform-deliveries'
+    }).promise()
   }
 
   const sender = await Sender.forge({

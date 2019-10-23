@@ -1,6 +1,7 @@
 import { beginLogger, endLogger, printQueueLogger } from '../utils/logger'
 import knex from '../services/knex'
 import redis from 'ioredis'
+import moment from 'moment'
 import Bull from 'bull'
 import _ from 'lodash'
 
@@ -22,11 +23,12 @@ class Queue {
   }
 
   async enqueue(req, options) {
+    const delay = options.until ? options.until.diff(moment()) : 2000
     const job = await this._enqueue(req, options)
     if(process.env.NODE_ENV === 'test') return
     await new Promise((resolve, reject) => {
       setTimeout(() => {
-        this.queue.add(job, { delay: 2000, attempts: 3, backoff: 5000 })
+        this.queue.add(job, { delay, attempts: 3, backoff: 5000 })
         resolve()
       }, 500)
     })
