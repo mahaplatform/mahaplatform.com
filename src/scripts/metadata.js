@@ -9,11 +9,11 @@ import fs from 'fs'
 
 const processor = async () => {
 
-  const assets = await knex('maha_assets').orderBy('created_at','asc')
+  const assets = await knex('maha_assets').where('id','>','9160').orderBy('id','asc')
 
   const data = await Promise.reduce(assets, async (data, asset, index) => {
 
-    console.log(asset.original_file_name)
+    console.log(asset.id, asset.original_file_name)
 
     const { id, content_type, file_name } = asset
 

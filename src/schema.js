@@ -1043,9 +1043,9 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('email_id').unsigned()
       table.integer('email_link_id').unsigned()
-      table.USER-DEFINED('type')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.USER-DEFINED('type')
     })
 
     await knex.schema.createTable('maha_email_links', (table) => {
@@ -1059,30 +1059,49 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('maha_email_templates', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('app_id').unsigned()
+      table.string('code', 255)
+      table.string('name', 255)
+      table.string('subject', 255)
+      table.text('html')
+      table.text('text')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('maha_emails', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('user_id').unsigned()
-      table.integer('contact_id').unsigned()
-      table.integer('email_campaign_id').unsigned()
       table.string('code', 255)
+      table.string('to', 255)
+      table.string('cc', 255)
+      table.string('bcc', 255)
+      table.string('subject', 255)
       table.string('ses_id', 255)
-      table.string('bounce_type', 255)
-      table.string('bounce_subtype', 255)
-      table.string('complaint_type', 255)
+      table.text('html')
       table.string('error', 255)
-      table.boolean('was_delivered')
-      table.boolean('was_bounced')
-      table.boolean('was_opened')
-      table.boolean('was_clicked')
-      table.boolean('was_complained')
-      table.boolean('was_unsubscribed')
-      table.USER-DEFINED('status')
-      table.boolean('is_mobile')
-      table.integer('attempts')
+      table.boolean('was_delivered').defaultsTo(false)
+      table.boolean('was_opened').defaultsTo(false)
+      table.boolean('was_bounced').defaultsTo(false)
+      table.boolean('was_complained').defaultsTo(false)
+      table.integer('attempts').defaultsTo(0)
       table.timestamp('sent_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('contact_id').unsigned()
+      table.integer('email_campaign_id').unsigned()
+      table.USER-DEFINED('bounce_type')
+      table.USER-DEFINED('bounce_subtype')
+      table.USER-DEFINED('complaint_type')
+      table.boolean('was_clicked')
+      table.boolean('was_unsubscribed')
+      table.USER-DEFINED('direction')
+      table.USER-DEFINED('status')
+      table.boolean('is_mobile')
     })
 
     await knex.schema.createTable('maha_faxes', (table) => {
@@ -1960,6 +1979,13 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('maha_emails', table => {
+      table.foreign('user_id').references('maha_users.id')
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('email_campaign_id').references('crm_email_campaigns.id')
+    })
+
     await knex.schema.table('maha_filter_accesses', table => {
       table.foreign('user_id').references('maha_users.id')
       table.foreign('filter_id').references('maha_filters.id')
@@ -2101,13 +2127,6 @@ const schema = {
       table.foreign('to_id').references('maha_numbers.id')
     })
 
-    await knex.schema.table('maha_emails', table => {
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('email_campaign_id').references('crm_email_campaigns.id')
-    })
-
     await knex.schema.table('eatfresh_attractions', table => {
       table.foreign('county_id').references('eatfresh_counties.id')
       table.foreign('photo_id').references('maha_assets.id')
@@ -2131,6 +2150,17 @@ const schema = {
       table.foreign('os_name_id').references('maha_device_values.id')
       table.foreign('os_version_id').references('maha_device_values.id')
       table.foreign('platform_type_id').references('maha_device_values.id')
+    })
+
+    await knex.schema.table('maha_email_activities', table => {
+      table.foreign('email_id').references('maha_emails.id')
+      table.foreign('email_link_id').references('maha_email_links.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_email_links', table => {
+      table.foreign('email_id').references('maha_emails.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('maha_users', table => {
@@ -2246,6 +2276,11 @@ const schema = {
 
     await knex.schema.table('maha_alerts', table => {
       table.foreign('app_id').references('maha_apps.id')
+    })
+
+    await knex.schema.table('maha_email_templates', table => {
+      table.foreign('app_id').references('maha_apps.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('maha_installations', table => {
@@ -2499,17 +2534,6 @@ const schema = {
     await knex.schema.table('crm_workflows', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('program_id').references('crm_programs.id')
-    })
-
-    await knex.schema.table('maha_email_links', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('email_id').references('maha_emails.id')
-    })
-
-    await knex.schema.table('maha_email_activities', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('email_id').references('maha_emails.id')
-      table.foreign('email_link_id').references('maha_email_links.id')
     })
 
     await knex.schema.table('crm_lists', table => {
