@@ -132,7 +132,7 @@ const _findOrCreateLink = async (email, link, trx) => {
 }
 
 const mailerQueue = new Queue({
-  name: 'mailer',
+  name: 'send_email',
   enqueue,
   processor
 })

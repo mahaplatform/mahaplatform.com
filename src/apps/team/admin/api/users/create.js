@@ -3,9 +3,9 @@ import { activity } from '../../../../../core/services/routes/activities'
 import { createUserToken } from '../../../../../core/utils/user_tokens'
 import { whitelist } from '../../../../../core/services/routes/params'
 import generateCode from '../../../../../core/utils/generate_code'
+import send_email from '../../../../maha/queues/send_email_queue'
 import UserSerializer from '../../../serializers/user_serializer'
 import socket from '../../../../../core/services/routes/emitter'
-import mailer from '../../../../maha/queues/mailer_queue'
 import User from '../../../../maha/models/user'
 
 const createRoute = async (req, res) => {
@@ -69,7 +69,7 @@ const createRoute = async (req, res) => {
 
   const token = createUserToken(user, 'activation_id')
 
-  await mailer.enqueue(req, {
+  await send_email.enqueue(req, {
     team_id: req.team.get('id'),
     user,
     template: 'team:activation',

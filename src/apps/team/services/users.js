@@ -1,11 +1,11 @@
 import { createUserToken } from '../../../core/utils/user_tokens'
-import mailer from '../../maha/queues/mailer_queue'
+import send_email from '../../maha/queues/send_email_queue'
 
 export const sendUserActivation = async (req, user) => {
 
   const token = createUserToken(user, 'activation_id')
 
-  await mailer.enqueue(req, {
+  await send_email.enqueue(req, {
     team_id: user.get('team_id'),
     user,
     template: 'team:activation',
