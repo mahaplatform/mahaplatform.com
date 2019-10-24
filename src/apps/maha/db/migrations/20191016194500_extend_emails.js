@@ -29,6 +29,14 @@ const ExtendEmails = {
       direction: 'outbound'
     })
 
+    const alerts = await knex('maha_emails').whereRaw('subject like ?', 'SECURITY%')
+
+    await knex('maha_email_links').whereIn('email_id', alerts.map(alert => alert.id)).del()
+
+    await knex('maha_email_activities').whereIn('email_id', alerts.map(alert => alert.id)).del()
+
+    await knex('maha_emails').whereIn('id', alerts.map(alert => alert.id)).del()
+
     const activities = await knex('maha_email_activities')
 
     await knex.schema.table('maha_email_activities', (table) => {
