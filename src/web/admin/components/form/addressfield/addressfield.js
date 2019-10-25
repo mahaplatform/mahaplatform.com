@@ -118,7 +118,7 @@ class Addressfield extends React.Component {
 
   _handleChoose(value) {
     this.props.onChoose(value)
-    this.context.form.push(<Edit { ...this._getEdit() } />)
+    this.context.form.pop()
   }
 
   _handleClear() {
@@ -127,7 +127,7 @@ class Addressfield extends React.Component {
 
   _handleDone(value) {
     this.props.onChoose(value)
-    this.context.form.pop(2)
+    this.context.form.pop()
   }
 
 }
