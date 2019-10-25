@@ -1,23 +1,15 @@
 import request from 'request-promise'
 import _ from 'lodash'
 
-const geocode = async ({ address, street1, street2, city, province, postalcode}) => {
+const geocode = async (address) => {
+
+  if(address.latitude && address.longitude && address.county && address.country) return address
+
+  const { street_1, street_2, city, state_province, postal_code } = address
 
   const endpoint = 'https://maps.googleapis.com/maps/api/geocode/json'
 
-  const parts = []
-
-  if(street1) parts.push(street1)
-
-  if(street2) parts.push(street2)
-
-  if(city) parts.push(city)
-
-  if(province) parts.push(province)
-
-  if(postalcode) parts.push(postalcode)
-
-  const fulladdress = address || parts.join(',').replace(/\s/g, '+').toLowerCase()
+  const fulladdress = address || [street_1,street_2,city,state_province,postal_code].filter(item => typeof(item) === 'string' && item.length > 0).join(', ').toLowerCase()
 
   const result = await request({
     uri: `${endpoint}?address=${fulladdress}&key=${process.env.GOOGLE_MAPS_API_KEY}`,

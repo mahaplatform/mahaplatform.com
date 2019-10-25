@@ -19,19 +19,15 @@ export const processValues = async (req, { parent_type, parent_id, values }) => 
     transacting: req.trx
   }).then(result => result.toArray())
 
-  const errors = await validateValues(fields, values)
+  const rules = await getRules(fields)
 
-  if(errors) throw new Error({
-    code: 422,
-    message: 'Unable to complete request',
-    errors: errors.toJSON()
-  })
+  await validate(rules, { values })
 
   return await transformValues(req, fields, values)
 
 }
 
-const validateValues = async (fields, data) => {
+const getRules = async (fields) => {
 
   const rules = fields.reduce((rules, field) => {
 
@@ -74,16 +70,12 @@ const validateValues = async (fields, data) => {
 
     return {
       ...rules,
-      [field.get('code')]: fieldRules
+      [`values.${field.get('code')}`]: fieldRules
     }
 
   }, {})
 
-  if(Object.keys(rules).length === 0) return null
-
-  const [errors] = await validate(rules, data)
-
-  return errors
+  return Object.keys(rules).length === 0 ? null : rules
 
 }
 
@@ -95,18 +87,11 @@ const transformValues = async (req, fields, values) => {
   }), {})
 
   return await Promise.reduce(Object.keys(values), async (transformed, key) => {
-
-    const value = values[key]
-
-    const field = fieldMap[key]
-
-    const transformedValue = await transformValue(req, field, value)
-
+    const transformedValue = await transformValue(req, fieldMap[key], values[key])
     return {
       ...transformed,
-      [key]: _.castArray(transformedValue)
+      [key]: _.castArray(transformedValue).filter(item => !_.isNil(item))
     }
-
   }, {})
 
 }
@@ -117,7 +102,7 @@ const transformValue = async (req, field, value) => {
 
   if(field.get('type') === 'addressfield') {
 
-    const required = ['street1','city','province']
+    const required = ['street_1','city','state_province']
 
     const valid = required.reduce((valid, field) => {
 
