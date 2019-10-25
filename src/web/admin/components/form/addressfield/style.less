@@ -12,14 +12,27 @@
   }
 }
 .addressfield-field {
+  color: fadeout(@black, 70);
   flex: 1;
-  display: flex;
-  padding: 0.8em !important;
-  line-height: 1.4em;
+  padding: 0.2em;
+  min-height: 2.5em;
+  line-height: 2.5em;
+}
+.addressfield-placeholder {
+  color: fadeout(@black, 70);
+  display: inline-block;
+  margin: 0.2em;
+  padding: 0.2em 0.5em;
+  line-height: 1.7em;
+}
+.addressfield-token {
+  display: inline-block;
+  margin: 0.2em;
+  padding: 0.2em 0.5em;
+  background-color: fadeout(@black, 95);
   color: fadeout(@black, 40);
-  span {
-    color: lighten(@black, 80);
-  }
+  border-radius: 0.2em;
+  line-height: 1.7em;
 }
 .addressfield-remove {
   flex: 0 0 2.5em;

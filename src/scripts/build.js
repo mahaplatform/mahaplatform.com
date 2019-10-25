@@ -74,13 +74,13 @@ const buildItem = async (item, srcPath, destPath) => {
 }
 
 const buildEntry = async (entry) => {
-  const srcPath = path.resolve('src','web',entry)
+  const srcPath = path.resolve('src',entry)
   const destPath = path.join(staged,entry)
   await transpileFile(srcPath, destPath)
 }
 
 const buildDir = async (dir) => {
-  const srcPath = path.resolve('src','web',dir)
+  const srcPath = path.resolve('src',dir)
   const destPath = path.join(staged,dir)
   mkdirp.sync(destPath)
   const items = listItems(srcPath)
@@ -113,7 +113,7 @@ const buildServer = async () => {
   const appDirs = apps.map(app => `apps/${app}`)
   await Promise.map([...appDirs, 'core'], buildDir)
   await Promise.map(['cron.js','server.js','worker.js'], buildEntry)
-  await copy(path.join('src','web','entries','admin','config','ecosystem.config.js'), path.join(staged,'ecosystem.config.js'))
+  await copy(path.join('src','web','admin','config','ecosystem.config.js'), path.join(staged,'ecosystem.config.js'))
   await copy(path.join('package.json'), path.join(staged,'package.json'))
   await copy(path.join('package-lock.json'), path.join(staged,'package-lock.json'))
   log('info', 'server', 'Compiled successfully.')

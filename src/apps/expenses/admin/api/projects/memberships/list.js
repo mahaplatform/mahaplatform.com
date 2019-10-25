@@ -7,7 +7,7 @@ const listRoute = async (req, res) => {
     qb.innerJoin('maha_users','maha_users.id','expenses_members.user_id')
     qb.innerJoin('expenses_projects','expenses_projects.id','expenses_members.project_id')
     qb.where('project_id', req.params.project_id)
-    qb.where('team_id', req.team.get('id'))
+    qb.where('expenses_members.team_id', req.team.get('id'))
   }).sort({
     sort: req.query.$sort,
     defaultSort: ['member_type_id']

@@ -15,6 +15,7 @@ const webpackConfig = {
     path.resolve('src','web','admin','index.js'),
     path.resolve('src','web','admin','index.less')
   ],
+  externals: ['canvas'],
   mode: 'production',
   module: {
     rules: [
@@ -78,7 +79,7 @@ const webpackConfig = {
       filename: 'css/[name]-[hash].min.css'
     }),
     new CopyWebpackPlugin([{
-      from: path.resolve('src','public'),
+      from: path.resolve('src','public','admin'),
       to: path.resolve('dist.staged','public','admin')
     }]),
     new HtmlWebpackPlugin({

@@ -1,4 +1,5 @@
 import '../core/services/environment'
+import csvparse from 'csv-parse/lib/sync'
 import knex from '../core/services/knex'
 import s3 from '../core/services/s3'
 import request from 'request-promise'
@@ -9,7 +10,21 @@ import fs from 'fs'
 
 const processor = async () => {
 
-  const assets = await knex('maha_assets').where('id','>','9160').orderBy('id','asc')
+  const url = s3.getSignedUrl('getObject', {
+    Bucket: 'cdn.mahaplatform.com',
+    Key: 'data/metadata.csv',
+    Expires: 60
+  })
+
+  const existing = await request.get(url, {
+    encoding: null
+  })
+
+  const parsed = csvparse(existing)
+
+  const last = parsed.slice(-1)[0]
+
+  const assets = await knex('maha_assets').where('id','>',last[0]).orderBy('id','asc')
 
   const data = await Promise.reduce(assets, async (data, asset, index) => {
 
@@ -46,7 +61,15 @@ const processor = async () => {
 
   const output = data.map(row => row.join(',')).join('\n')
 
-  fs.writeFileSync(path.join('metadata.csv'), output, 'utf8')
+  fs.writeFileSync(path.join('metadata.csv'), existing+output, 'utf8')
+
+  await s3.upload({
+    ACL: 'private',
+    Body: existing+output,
+    Bucket: 'cdn.mahaplatform.com',
+    ContentType: 'text/csv',
+    Key: 'data/metadata.csv'
+  }).promise()
 
 }
 

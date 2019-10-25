@@ -9,7 +9,7 @@ const buildHelp = async (root) => {
 
   const readable = new Stream.Readable({ objectMode: true })
 
-  const helpFiles = path.resolve(__dirname,'..','..','web','apps','*','help','*.html')
+  const helpFiles = path.resolve(__dirname,'..','..','apps','*','help','*.html')
 
   glob.sync(helpFiles).map((filePath, id) => {
     const matches = filePath.match(/apps\/([^/]*)\/help/)

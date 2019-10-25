@@ -44,7 +44,16 @@ class Addressfield extends React.Component {
     return (
       <div className="addressfield" tabIndex={ tabIndex }>
         <div className="addressfield-field" onClick={ this._handleBegin }>
-          { value ? value.description : <span>{ placeholder }</span> }
+          { value &&
+            <div className="addressfield-token">
+              { value.description }
+            </div>
+          }
+          { !value &&
+            <div className="addressfield-placeholder">
+              { placeholder }
+            </div>
+          }
         </div>
         { value &&
           <div className="addressfield-remove" onClick={ this._handleClear }>

@@ -115,6 +115,12 @@ class Chooser extends React.Component {
     this.props.onCancel()
   }
 
+  _getCounty(result) {
+    const component = result.address_components.find(component => {
+      return component.long_name.toLowerCase().match(/county/)
+    })
+    return component ? component.short_name : null
+  }
 
   _getType(result, type) {
     const component = result.address_components.find(component => {
@@ -136,6 +142,7 @@ class Chooser extends React.Component {
       city: this._getType(result, 'locality'),
       state_province: this._getType(result, 'administrative_area_level_1'),
       postal_code: this._getType(result, 'postal_code'),
+      county: this._getCounty(result),
       country: this._getType(result, 'country'),
       latitude: result.geometry.location.lat(),
       longitude: result.geometry.location.lng()

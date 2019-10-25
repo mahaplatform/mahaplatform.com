@@ -13,6 +13,7 @@ const webpackConfig = {
     path.resolve('src','web','admin','index.js'),
     path.resolve('src','web','admin','index.less')
   ],
+  externals: ['canvas'],
   mode: 'development',
   module: {
     rules: [
