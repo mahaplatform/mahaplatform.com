@@ -54,11 +54,12 @@ const mapPropsToPage = (props, context, resources, page) => ({
         }
       },{
         label: 'Delete Item',
+        confirm: 'Are you sure you want to delete this item?',
         request: {
           endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${resources.type.id}/items/${record.id}`,
           method: 'DELETE',
-          onFailure: () => {},
-          onSuccess: () => {}
+          onFailure: (result) => context.flash.set('error', 'Unable to delete this item'),
+          onSuccess: (result) => context.flash.set('success', 'You successfully deleted this item')
         }
       }
     ],

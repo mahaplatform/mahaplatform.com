@@ -2,7 +2,6 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Form from '../../form'
 import React from 'react'
-import _ from 'lodash'
 
 class Edit extends React.Component {
 
@@ -69,7 +68,7 @@ class Edit extends React.Component {
     const { value } = this.state
     const { street_1, street_2, city, state_province, postal_code } = value
     const description = [street_1, street_2, city, state_province, postal_code].filter(item => {
-      return !_.isNil(item)
+      return typeof(item) === 'string' && item.length > 0
     }).join(', ')
     this.props.onDone({
       ...value,
