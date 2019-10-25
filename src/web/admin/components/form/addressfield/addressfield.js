@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import Chooser from './chooser'
 import React from 'react'
+import Edit from './edit'
 import _ from 'lodash'
 
 class Addressfield extends React.Component {
@@ -10,7 +11,7 @@ class Addressfield extends React.Component {
   }
 
   static propTypes = {
-    active: PropTypes.bool,
+    cid: PropTypes.string,
     defaultValue: PropTypes.object,
     options: PropTypes.array,
     placeholder: PropTypes.string,
@@ -18,13 +19,14 @@ class Addressfield extends React.Component {
     q: PropTypes.string,
     tabIndex: PropTypes.number,
     value: PropTypes.object,
-    onBegin: PropTypes.func,
+    onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onChoose: PropTypes.func,
     onClear: PropTypes.func,
+    onQuery: PropTypes.func,
+    onReady: PropTypes.func,
     onSet: PropTypes.func,
-    onSetOptions: PropTypes.func,
-    onReady: PropTypes.func
+    onSetOptions: PropTypes.func
   }
 
   static defaultProps = {
@@ -37,7 +39,10 @@ class Addressfield extends React.Component {
   field = null
 
   _handleBegin = this._handleBegin.bind(this)
+  _handleCancel = this._handleCancel.bind(this)
+  _handleChoose = this._handleChoose.bind(this)
   _handleClear = this._handleClear.bind(this)
+  _handleDone = this._handleDone.bind(this)
 
   render() {
     const { placeholder, tabIndex, value } = this.props
@@ -71,30 +76,58 @@ class Addressfield extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { active, defaultValue, value, onChange, onChoose } = this.props
-    const { form } = this.context
+    const { defaultValue, value, onChange, onChoose } = this.props
     if(defaultValue !== prevProps.defaultValue) {
       onChoose(defaultValue)
     }
     if(!_.isEqual(value, prevProps.value)) {
       onChange(value)
     }
-    if(active !== prevProps.active) {
-      if(active) form.push(<Chooser { ...this._getChooser() } />)
-      if(!active) form.pop()
-    }
   }
 
   _getChooser() {
-    return this.props
+    const { cid, onQuery, onSetOptions } = this.props
+    return {
+      cid,
+      onCancel: this._handleCancel,
+      onChoose: this._handleChoose,
+      onQuery,
+      onSetOptions
+    }
+  }
+
+  _getEdit() {
+    const { cid } = this.props
+    return {
+      cid,
+      onCancel: this._handleCancel,
+      onDone: this._handleDone
+    }
   }
 
   _handleBegin() {
-    this.props.onBegin()
+    const { form } = this.context
+    const { value } = this.props
+    if(value) return form.push(<Edit { ...this._getEdit() } />)
+    return form.push(<Chooser { ...this._getChooser() } />)
+  }
+
+  _handleCancel() {
+    this.context.form.pop()
+  }
+
+  _handleChoose(value) {
+    this.props.onChoose(value)
+    this.context.form.push(<Edit { ...this._getEdit() } />)
   }
 
   _handleClear() {
     this.props.onClear()
+  }
+
+  _handleDone(value) {
+    this.props.onChoose(value)
+    this.context.form.pop(2)
   }
 
 }

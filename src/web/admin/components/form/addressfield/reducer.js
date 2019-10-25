@@ -1,5 +1,4 @@
 const INITIAL_STATE = {
-  active: false,
   q: '',
   value: null,
   options: []
@@ -9,23 +8,16 @@ const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'BEGIN':
-    return {
-      ...state,
-      active: true
-    }
-
   case 'CANCEL':
     return {
       ...state,
-      options: [],
-      active: false
+      options: []
     }
 
   case 'CHOOSE':
     return {
       ...state,
-      active: false,
+      q: '',
       options: [],
       value: action.value
     }
