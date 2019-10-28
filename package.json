@@ -81,7 +81,6 @@
     "bull-arena": "^2.6.2",
     "bytes": "^3.1.0",
     "caman": "^4.1.2",
-    "canvas": "^1.6.13",
     "chalk": "2.1.0",
     "chart.js": "^2.8.0",
     "chartjs-plugin-annotation": "^0.5.7",
