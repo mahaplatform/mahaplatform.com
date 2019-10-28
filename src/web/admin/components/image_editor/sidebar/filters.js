@@ -1,7 +1,7 @@
 import ModalPanel from '../../modal_panel'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import Caman from '../caman'
+// import Caman from '../caman'
 import React from 'react'
 import _ from 'lodash'
 

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Caman from '../caman'
+// import Caman from '../caman'
 import React from 'react'
 import _ from 'lodash'
 
