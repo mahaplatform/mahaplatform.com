@@ -1,4 +1,5 @@
-import { Attachments, Button, ImageEditor, Loader } from 'maha-admin'
+import { Attachments, Button } from 'maha-admin'
+// import { ImageEditor } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -42,7 +43,10 @@ class Imagesfield extends React.PureComponent {
             </div>
             <div className="imagesfield-image-details">
               { image.asset.original_file_name }<br />
-              <Button { ...this._getEdit(image, index) } /> | <Button { ...this._getRemove(index) } />
+              { false &&
+                <Button { ...this._getEdit(image, index) } />
+              }
+              <Button { ...this._getRemove(index) } />
             </div>
           </div>
         )) }
@@ -88,13 +92,13 @@ class Imagesfield extends React.PureComponent {
     }
   }
 
-  _getEdit(image, index) {
-    return {
-      label: 'edit',
-      className: 'link',
-      modal: <ImageEditor { ...this._getImage(image, index) } />
-    }
-  }
+  // _getEdit(image, index) {
+  //   return {
+  //     label: 'edit',
+  //     className: 'link',
+  //     modal: <ImageEditor { ...this._getImage(image, index) } />
+  //   }
+  // }
 
   _getImage(image, index) {
     return {
