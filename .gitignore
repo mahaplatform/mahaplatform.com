@@ -17,3 +17,4 @@ npm-debug.log
 src/public/templates
 src/public/forms
 ngrok
+metadata.csv

@@ -3,7 +3,7 @@ import Team from '../../../../maha/models/team'
 
 const listRoute = async (req, res) => {
 
-  const teams = await Team.filter({
+  const teams = await Team.scope().filter({
     filter: req.query.$filter
   }).sort({
     sort: req.query.$sort,

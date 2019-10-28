@@ -3,7 +3,7 @@ import Asset from '../../../../maha/models/asset'
 
 const listRoute = async (req, res) => {
 
-  const assets = await Asset.filter({
+  const assets = await Asset.scope().filter({
     filter: req.query.$filter,
     filterParams: ['user_id','source_id','team_id','status']
   }).sort({

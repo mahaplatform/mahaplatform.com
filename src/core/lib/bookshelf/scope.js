@@ -1,6 +1,6 @@
 const scopePlugin = function(bookshelf) {
 
-  const scope = function(scopeQuery) {
+  const scope = function(scopeQuery = () => {}) {
     this.scopeQuery = scopeQuery
     this.__super__.scopeQuery = scopeQuery
     return this.query(scopeQuery)
