@@ -1,8 +1,9 @@
+import CampaignStatusToken from '../../tokens/campaign_status'
 import { Page } from 'maha-admin'
 import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Automation',
+  title: 'Workflows',
   rights: [],
   collection: {
     endpoint: '/api/admin/crm/workflows',
@@ -10,7 +11,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true },
       { label: 'Program', key: 'program.title', primary: true },
-      { label: 'Status', key: 'status', primary: true, collapsing: true }
+      { label: 'Status', key: 'status', primary: true, collapsing: true, format: CampaignStatusToken }
     ],
     empty: {
       icon: 'cogs',

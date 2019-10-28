@@ -12,6 +12,8 @@ import CampaignsSMS from './campaigns/sms/show'
 import CampaignsSMSDesign from './campaigns/sms/design'
 import ContactsList from './contacts/list'
 import ContactsShow from './contacts/show'
+import EnrollmentsList from './workflows/enrollments/list'
+import EnrollmentsShow from './workflows/enrollments/show'
 import FormsList from './forms/list'
 import FormsShow from './forms/show'
 import OrganizationsList from './organizations/list'
@@ -49,7 +51,9 @@ const routes = [
   { path: '/templates/:id', component: TemplatesShow },
   { path: '/workflows', component: WorkflowsList },
   { path: '/workflows/:id', component: WorkflowsShow },
-  { path: '/workflows/:id/design', component: WorkflowsDesign }
+  { path: '/workflows/:id/design', component: WorkflowsDesign },
+  { path: '/workflows/:workflow_id/enrollments', component: EnrollmentsList },
+  { path: '/workflows/:workflow_id/enrollments/:id', component: EnrollmentsShow }
 ]
 
 export default routes
