@@ -1,6 +1,9 @@
 # base.image
 # ami-081b06033f1134220
 
+# INSTALL CANVAS DEVEPENDENCIES
+yum -y install cairo cairo-devel libjpeg-devel
+
 # INSTALL NODEJS
 wget https://nodejs.org/dist/v8.14.0/node-v8.14.0.tar.gz
 tar -xzf node-v8.14.0.tar.gz
