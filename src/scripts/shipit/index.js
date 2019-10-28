@@ -135,7 +135,7 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:zip', async () => {
-    await shipit.local('cd ./dist && tar -czf ../tmp/dist.tgz .')
+    await shipit.local('cd ./dist && tar -czf ../dist.tgz .')
   })
 
   utils.registerTask(shipit, 'deploy:mkdir', async () => {
@@ -145,7 +145,7 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'deploy:upload', async () => {
-    await shipit.remoteCopy('tmp/dist.tgz', `${releaseDir}/dist.tgz`, {
+    await shipit.remoteCopy('dist.tgz', `${releaseDir}/dist.tgz`, {
       roles: ['appserver','cron','worker']
     })
   })
