@@ -13,6 +13,7 @@ const reportRoute = async (req, res) => {
     qb.leftJoin('expenses_statuses', 'expenses_statuses.id', 'expenses_items.status_id')
     qb.where('expenses_items.team_id', req.team.get('id'))
     if(_.includes(req.rights, 'expenses:access_reports')) return
+    qb.leftJoin('expenses_members', 'expenses_members.project_id', 'expenses_items.project_id')
     qb.whereRaw('expenses_members.user_id=? and expenses_members.member_type_id != 3', req.user.get('id'))
   }).filter({
     filter: req.query.$filter,
