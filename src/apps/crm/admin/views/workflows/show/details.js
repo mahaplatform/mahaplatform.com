@@ -4,7 +4,17 @@ import React from 'react'
 
 const Details = ({ workflow }) => {
 
-  const config = {}
+  const list = {}
+
+  if(workflow.status === 'draft') {
+    list.alert = { color: 'grey', message: 'This workflow is in draft mode' }
+  }
+  if(workflow.status === 'active') {
+    list.alert = { color: 'green', message: 'This workflow is active' }
+  }
+  if(workflow.status === 'inactive') {
+    list.alert = { color: 'red', message: 'This workflow is inactive' }
+  }
 
   const design = {
     label: 'Design Workflow',
@@ -12,13 +22,13 @@ const Details = ({ workflow }) => {
     route: `/admin/crm/workflows/${workflow.code}/design`
   }
 
-  config.items = [
+  list.items = [
     { label: 'Title', content: workflow.title },
     { label: 'Program', content: workflow.program.title },
     { label: 'Content', content: <Button { ...design } /> }
   ]
 
-  return <List { ...config } />
+  return <List { ...list } />
 
 }
 

@@ -37,7 +37,6 @@ class LineChart extends Component {
     const { datasets } = this.props
     const ctx = this.node.getContext('2d')
     new Chart(ctx, {
-      animation: false,
       type: 'line',
       data: {
         datasets: datasets.map((dataset, index) => ({
@@ -47,6 +46,9 @@ class LineChart extends Component {
         }))
       },
       options: {
+        animation: {
+          duration: 0
+        },
         legend: false,
         scales: {
           xAxes: [{
