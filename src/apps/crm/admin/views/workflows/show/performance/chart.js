@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import Chart from 'chart.js'
 import 'chartjs-plugin-annotation'
-import moment from 'moment'
 
 class LineChart extends Component {
 
@@ -36,11 +35,13 @@ class LineChart extends Component {
   createBarChart() {
     const { datasets } = this.props
     const ctx = this.node.getContext('2d')
+    const colors = ['#DB2828','#F2711C','#FBBD08','#B5CC18','#21BA45']
     new Chart(ctx, {
       type: 'line',
       data: {
         datasets: datasets.map((dataset, index) => ({
           ...dataset,
+          borderColor: colors[index % colors.length],
           borderWidth: 2,
           fill: false
         }))

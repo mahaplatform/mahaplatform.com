@@ -1,8 +1,8 @@
 import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
-import numeral from 'numeral'
 import Chart from './chart'
 import React from 'react'
+import _ from 'lodash'
 
 class Results extends React.Component {
 
@@ -13,7 +13,7 @@ class Results extends React.Component {
 
   state = {
     scope: 'daily',
-    stats: [0,1,2,3,4]
+    hidden: []
   }
 
   render() {
@@ -23,15 +23,16 @@ class Results extends React.Component {
       { value: 'monthly', text: 'Monthly' },
       { value: 'yearly', text: 'Yearly' }
     ]
-    const stats = [
-      { label: 'Enrolled', value: 100, total: 100 },
-      { label: 'Active', value: 31, total: 100 },
-      { label: 'Lost', value: 20, total: 100 },
-      { label: 'Completed', value: 21, total: 100 },
-      { label: 'Converted', value: 28, total: 100 }
-    ]
     const { performance } = this.props
-    const { active, conversions, enrollments } = performance.metrics
+    const { data, metrics, totals } = performance
+    const { active, conversions, enrollments } = metrics
+    const groups = [
+      { label: 'Enrolled', name: 'enrolled', total: totals.enrolled, data: data.enrolled },
+      { label: 'Active', name: 'active', total: totals.active, data: data.active },
+      { label: 'Lost', name: 'lost', total: totals.lost, data: data.lost },
+      { label: 'Completed', name: 'completed', total: totals.completed, data: data.completed },
+      { label: 'Converted', name: 'converted', total: totals.converted, data: data.converted }
+    ]
     return (
       <div className="crm-report">
         <div className="crm-report-title">
@@ -52,7 +53,7 @@ class Results extends React.Component {
         <div className="crm-report-metrics">
           <div className="crm-report-metric">
             <div className="crm-report-metric-title">
-              Enrollments
+              Total Enrollments
             </div>
             <div className="crm-report-metric-value">
               { enrollments }
@@ -60,7 +61,7 @@ class Results extends React.Component {
           </div>
           <div className="crm-report-metric">
             <div className="crm-report-metric-title">
-              Active
+              Active Contacts
             </div>
             <div className="crm-report-metric-value">
               { active }
@@ -68,56 +69,27 @@ class Results extends React.Component {
           </div>
           <div className="crm-report-metric">
             <div className="crm-report-metric-title">
-              Conversions
+              Conversion Rate
             </div>
             <div className="crm-report-metric-value">
-              { conversions }
+              { conversions }%
             </div>
           </div>
         </div>
         <div className="crm-report-table">
-          <table className="ui table">
+          <table className="ui unstackable table">
             <tbody>
-              <tr>
-                <td>
-                  <i className="fa fa-check-square" /> Enrolled
-                </td>
-                <td className="right aligned">
-                  <div className="link">100</div>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <i className="fa fa-check-square" /> Active
-                </td>
-                <td className="right aligned">
-                  { this._getStat(31, 100) }
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <i className="fa fa-check-square" /> Lost
-                </td>
-                <td className="right aligned">
-                  { this._getStat(20, 100) }
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <i className="fa fa-check-square" /> Completed
-                </td>
-                <td className="right aligned">
-                  { this._getStat(21, 100) }
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <i className="fa fa-check-square" /> Converted
-                </td>
-                <td className="right aligned">
-                  { this._getStat(28, 100) }
-                </td>
-              </tr>
+              { groups.map((group, index) => (
+                <tr key={`total_${index}`}>
+                  <td>
+                    <i className={`fa fa-${this._getIcon(index)}`} onClick={ this._handleToggle.bind(this, index)} />
+                    { group.label }
+                  </td>
+                  <td className="right aligned">
+                    { this._getStat(group.total, group.name) }
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -134,56 +106,50 @@ class Results extends React.Component {
   }
 
   _getChart() {
+    const { hidden } = this.state
     const { performance } = this.props
-    const { active, completed, conversions, enrolled, lost } = performance.data
+    const { data, totals } = performance
+    const groups = [
+      { label: 'Enrolled', name: 'enrolled', total: totals.enrolled, data: data.enrolled },
+      { label: 'Active', name: 'active', total: totals.active, data: data.active },
+      { label: 'Lost', name: 'lost', total: totals.lost, data: data.lost },
+      { label: 'Completed', name: 'completed', total: totals.completed, data: data.completed },
+      { label: 'Converted', name: 'converted', total: totals.converted, data: data.converted }
+    ]
     return {
-      datasets: [{
-        label: 'Enrolled',
-        borderColor: '#DB2828',
-        data: enrolled
-      }, {
-        label: 'Active',
-        borderColor: '#F2711C',
-        data: active
-      }, {
-        label: 'Lost',
-        borderColor: '#FBBD08',
-        data: lost
-      }, {
-        label: 'Completed',
-        borderColor: '#B5CC18',
-        data: completed
-      }, {
-        label: 'Conversions',
-        borderColor: '#21BA45',
-        data: conversions
-      }]
+      datasets: groups.filter((group, index) => {
+        return !_.includes(hidden, index)
+      }).map(group => ({
+        label: group.label,
+        data: group.data
+      }))
     }
   }
 
-  _getPercent(quantity, total) {
+  _getIcon(index) {
+    const { hidden } = this.state
+    return _.includes(hidden, index) ? 'square': 'check-square'
+  }
+
+  _getStat(quantity, report) {
     const { workflow } = this.props
-    const percent = quantity / total
     const button = {
-      label: numeral(percent).format('0.0%'),
+      label: quantity,
       className: 'link',
-      route: `/admin/crm/workflows/${workflow.code}/enrollments`
+      route: `/admin/crm/workflows/${workflow.code}/enrollments?report=${report}`
     }
     return <Button { ...button } />
   }
 
-  _getStat(quantity, total) {
-    const percent = this._getPercent(quantity, total)
-    const portion = `[${quantity} / ${total}]`
-    return (
-      <div>
-        { percent } { portion }
-      </div>
-    )
-  }
-
   _handleScope(scope) {
     this.setState({ scope })
+  }
+
+  _handleToggle(index) {
+    const { hidden } = this.state
+    this.setState({
+      hidden: _.xor(hidden, [index])
+    })
   }
 
 }

@@ -8,6 +8,8 @@ import _ from 'lodash'
 
 const listRoute = async (req, res) => {
 
+  console.log(req.team)
+
   const fields = await Field.where({
     parent_type: 'sites_types',
     parent_id: req.params.type_id

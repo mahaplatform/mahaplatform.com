@@ -5,6 +5,7 @@ const WorkflowSerializer = (req, result) => ({
   program: program(result.related('program')),
   steps: result.get('steps'),
   status: result.get('status'),
+  audit: [],
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

@@ -1,0 +1,28 @@
+.crm-email-leaderboard {
+  td:nth-child(2),
+  td:nth-child(3),
+  td:nth-child(4),
+  td:nth-child(5),
+  td:nth-child(6) {
+    cursor: pointer;
+    width: 100px;
+    &:hover {
+      background-color: fadeout(@black, 97);
+    }
+  }
+  strong {
+    line-height: 1em;
+    display: block;
+    color: @red;
+  }
+  span {
+    color: fadeout(@black, 60);
+    line-height: 1em;
+    font-size: 0.8em;
+  }
+}
+.crm-email-leaderboard-header {
+  background-color: fadeout(@black, 30);
+  color: @white;
+  padding: 0.8em;
+}

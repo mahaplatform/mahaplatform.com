@@ -4,6 +4,10 @@ import React from 'react'
 
 class Emails extends React.Component {
 
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   static propTypes = {
     emails: PropTypes.array,
     workflow: PropTypes.object
@@ -12,44 +16,68 @@ class Emails extends React.Component {
   render() {
     const { emails } = this.props
     return (
-      <div>
-        <table className="ui table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th className="collapsing">Sent</th>
-              <th className="collapsing">Delivered</th>
-              <th className="collapsing">Opened</th>
-              <th className="collapsing">Complained</th>
-              <th className="collapsing">Clicked</th>
-            </tr>
-          </thead>
-          <tbody>
-            { emails.map((email, index) => (
-              <tr key={`email_${index}`}>
-                <td>
-                  <Button { ...this._getEmail(email) } />
-                </td>
-                <td className="right aligned">81%</td>
-                <td className="right aligned">26%</td>
-                <td className="right aligned">32%</td>
-                <td className="right aligned">15%</td>
-                <td className="right aligned">10%</td>
+      <div className="crm-email-leaderboard">
+        <div className="crm-email-leaderboard-header">
+          Emails
+        </div>
+        <div className="crm-email-leaderboard-body">
+          <table className="ui unstackable table">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th className="center aligned">Sent</th>
+                <th className="center aligned">Delivered</th>
+                <th className="center aligned">Opened</th>
+                <th className="center aligned">Complained</th>
+                <th className="center aligned">Clicked</th>
               </tr>
-            )) }
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              { emails.map((email, index) => (
+                <tr key={`email_${index}`}>
+                  <td>
+                    <Button { ...this._getEmail(email) } />
+                  </td>
+                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'sent')}>
+                    <strong>80.7%</strong>
+                    <span>162 / 200</span>
+                  </td>
+                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'delivered')}>
+                    <strong>80.7%</strong>
+                    <span>162 / 200</span>
+                  </td>
+                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'opened')}>
+                    <strong>80.7%</strong>
+                    <span>162 / 200</span>
+                  </td>
+                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'complained')}>
+                    <strong>80.7%</strong>
+                    <span>162 / 200</span>
+                  </td>
+                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'clicked')}>
+                    <strong>80.7%</strong>
+                    <span>162 / 200</span>
+                  </td>
+                </tr>
+              )) }
+            </tbody>
+          </table>
+        </div>
       </div>
     )
   }
 
   _getEmail(email) {
-    const { workflow } = this.props
     return {
       label: email.title,
       className: 'link',
-      route: `/admin/crm/workflows/${workflow.code}/emails/${email.code}`
+      route: `/admin/crm/emails/${email.code}`
     }
+  }
+
+  _handleClick(email, report) {
+    const { router } = this.context
+    router.history.push(`/admin/crm/emails/${email.code}/deliveries?report=${report}`)
   }
 
 }

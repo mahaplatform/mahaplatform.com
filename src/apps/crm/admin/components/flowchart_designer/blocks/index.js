@@ -5,6 +5,7 @@ import remove_from_list from './remove_from_list'
 import update_property from './update_property'
 import update_interest from './update_interest'
 import add_to_list from './add_to_list'
+import send_email from './send_email'
 import ifelse from './ifelse'
 import wait from './wait'
 import goal from './goal'
@@ -12,6 +13,7 @@ import goal from './goal'
 const blocks = {
   ifelse,
   wait,
+  send_email,
   add_to_list,
   remove_from_list,
   enroll_in_workflow,

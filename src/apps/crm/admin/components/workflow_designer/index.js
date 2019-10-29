@@ -26,6 +26,7 @@ class SMSDesigner extends React.PureComponent {
         },
         { action: 'ifelse' },
         { action: 'wait' },
+        { action: 'send_email' },
         { action: 'add_to_list' },
         { action: 'remove_from_list' },
         { action: 'enroll_in_workflow' },

@@ -1,7 +1,9 @@
 import Performance from './performance'
+import Email from '../emails/new'
 import { Page } from 'maha-admin'
 import Details from './details'
 import Emails from './emails'
+import Edit from '../edit'
 import React from 'react'
 
 const getTabs = ({ emails, performance, workflow }) => ({
@@ -14,8 +16,8 @@ const getTabs = ({ emails, performance, workflow }) => ({
 
 const getTasks = ({ workflow, list }) => ({
   items: [
-    { label: 'Create Email' },
-    { label: 'Edit Workflow' },
+    { label: 'Edit Workflow', modal: <Edit workflow={ workflow } /> },
+    { label: 'Create Email', modal: <Email workflow={ workflow } /> },
     {
       label: 'Activate Workflow',
       show: workflow.status !== 'active',

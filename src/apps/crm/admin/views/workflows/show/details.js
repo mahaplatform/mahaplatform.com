@@ -1,4 +1,4 @@
-import { Button, List } from 'maha-admin'
+import { Audit, Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -25,7 +25,8 @@ const Details = ({ workflow }) => {
   list.items = [
     { label: 'Title', content: workflow.title },
     { label: 'Program', content: workflow.program.title },
-    { label: 'Content', content: <Button { ...design } /> }
+    { label: 'Content', content: <Button { ...design } /> },
+    { component: <Audit entries={ workflow.audit } /> }
   ]
 
   return <List { ...list } />

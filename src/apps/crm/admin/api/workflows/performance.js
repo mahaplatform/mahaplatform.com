@@ -6,7 +6,14 @@ const performanceRoute = async (req, res) => {
     metrics: {
       enrollments: 995,
       active: 340,
-      conversions: 207
+      conversions: 34.5
+    },
+    totals: {
+      enrolled: 678,
+      active: 122,
+      lost: 465,
+      completed: 468,
+      converted: 38
     },
     data: {
       enrolled: [
@@ -37,7 +44,7 @@ const performanceRoute = async (req, res) => {
         { x: moment().subtract(2, 'months'), y: 62 },
         { x: moment().subtract(1, 'months'), y: 16 }
       ],
-      conversions: [
+      converted: [
         { x: moment().subtract(5, 'months'), y: 5 },
         { x: moment().subtract(4, 'months'), y: 32 },
         { x: moment().subtract(3, 'months'), y: 30 },

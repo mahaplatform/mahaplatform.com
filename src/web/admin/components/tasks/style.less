@@ -60,7 +60,7 @@
   .maha-task,
   .maha-tasks-cancel {
     .hover(background-color, darken(@white, 5%));
-    border-top: 1px solid #CCC;
+    border-top: 1px solid fadeout(@black, 90);
     display: block;
     padding: 15px;
     text-align: center;
@@ -76,7 +76,6 @@
   }
 }
 .maha-tasks-list-body {
-  .scrollable();
   .maha-tasks-list-item:last-child {
     border: none;
   }

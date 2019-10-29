@@ -30,9 +30,6 @@ class FlowchartDesigner extends React.PureComponent {
     return (
       <div className="flowchart-designer">
         <div className="flowchart-designer-main">
-          <div className={`flowchart-designer-status ${status}`}>
-            { this._getStatus() }
-          </div>
           <div className="flowchart-designer-canvas">
             <Canvas { ...this._getCanvas() } />
           </div>
