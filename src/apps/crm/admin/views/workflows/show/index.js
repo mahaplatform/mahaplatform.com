@@ -1,13 +1,15 @@
+import Performance from './performance'
 import { Page } from 'maha-admin'
 import Details from './details'
-import Results from './results'
+import Emails from './emails'
 import React from 'react'
 
-const getTabs = ({ workflow }) => {
+const getTabs = ({ emails, report, workflow }) => {
 
   const items = [
     { label: 'Details', component: <Details workflow={ workflow } /> },
-    { label: 'Results', component: <Results workflow={ workflow } /> }
+    { label: 'Emails', component: <Emails workflow={ workflow } emails={ emails } /> },
+    { label: 'Performance', component: <Performance workflow={ workflow } report={ report } /> }
   ]
 
   return { items }
@@ -17,6 +19,8 @@ const getTabs = ({ workflow }) => {
 const getTasks = ({ list }) => []
 
 const mapResourcesToPage = (props, context) => ({
+  emails: `/api/admin/crm/workflows/${props.params.id}/emails`,
+  report: `/api/admin/crm/workflows/${props.params.id}/enrollments/report`,
   workflow: `/api/admin/crm/workflows/${props.params.id}`
 })
 

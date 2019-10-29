@@ -3,6 +3,7 @@ import { Router } from 'express'
 import destroy from './destroy'
 import create from './create'
 import update from './update'
+import emails from './emails'
 import edit from './edit'
 import list from './list'
 import show from './show'
@@ -20,6 +21,8 @@ router.get('/:id/edit', edit)
 router.patch('/:id', update)
 
 router.delete('/:id', destroy)
+
+router.use('/:workflow_id/emails', emails)
 
 router.use('/:workflow_id/enrollments', enrollments)
 

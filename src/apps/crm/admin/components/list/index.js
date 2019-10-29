@@ -9,6 +9,7 @@ class List extends React.PureComponent {
   static propTypes = {
     format: PropTypes.any,
     handler: PropTypes.func,
+    route: PropTypes.func,
     sections: PropTypes.array,
     items: PropTypes.array,
     value: PropTypes.string
@@ -33,27 +34,25 @@ class List extends React.PureComponent {
   }
 
   _getItems() {
-    const { format, handler, items, value } = this.props
+    const { format, handler, items, route, value } = this.props
     return {
       format,
       handler,
       items,
+      route,
       value
     }
   }
 
   _getSections() {
-    const { format, handler, sections, value } = this.props
+    const { format, handler, route, sections, value } = this.props
     return {
       format,
       handler,
+      route,
       sections,
       value
     }
-  }
-
-  _handleClick(item) {
-    this.props.handler(item)
   }
 
 }

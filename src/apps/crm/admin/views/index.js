@@ -25,6 +25,7 @@ import TemplatesShow from './templates/show'
 import WorkflowsList from './workflows/list'
 import WorkflowsShow from './workflows/show'
 import WorkflowsDesign from './workflows/design'
+import WorkflowsEmail from './workflows/email'
 
 const routes = [
   { path: '/campaigns', component: CampaignsList },
@@ -52,6 +53,7 @@ const routes = [
   { path: '/workflows', component: WorkflowsList },
   { path: '/workflows/:id', component: WorkflowsShow },
   { path: '/workflows/:id/design', component: WorkflowsDesign },
+  { path: '/workflows/:workflow_id/emails/:id', component: WorkflowsEmail },
   { path: '/workflows/:workflow_id/enrollments', component: EnrollmentsList },
   { path: '/workflows/:workflow_id/enrollments/:id', component: EnrollmentsShow }
 ]

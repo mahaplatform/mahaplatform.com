@@ -1,6 +1,15 @@
 .crm-report {
   background-color: @white;
 }
+.crm-report-title {
+  background-color: fadeout(@black, 30);
+  color: @white;
+  padding: 0.8em;
+}
+.crm-report-header {
+  padding: 0.8em;
+  text-align: right;
+}
 .crm-report-chart {
   padding: 0.8em;
 }
@@ -8,6 +17,15 @@
   border-top: 1px solid fadeout(@black, 90);
   .ui.table {
     border: none
+  }
+  tbody {
+    tr:nth-child(1) .fa { color: @red; }
+    tr:nth-child(2) .fa { color: @orange; }
+    tr:nth-child(3) .fa { color: @yellow; }
+    tr:nth-child(4) .fa { color: @olive; }
+    tr:nth-child(5) .fa { color: @green; }
+    tr:nth-child(6) .fa { color: @blue; }
+    tr:nth-child(7) .fa { color: @teal; }
   }
 }
 .crm-report-key {

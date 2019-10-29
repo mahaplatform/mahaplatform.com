@@ -5,10 +5,15 @@ import _ from 'lodash'
 
 class Items extends React.PureComponent {
 
+  static contextTypes = {
+    router: PropTypes.object
+  }
+
   static propTypes = {
     format: PropTypes.any,
     handler: PropTypes.func,
     items: PropTypes.array,
+    route: PropTypes.func,
     value: PropTypes.string
   }
 
@@ -38,7 +43,11 @@ class Items extends React.PureComponent {
   }
 
   _handleClick(item) {
-    this.props.handler(item)
+    const { router } = this.context
+    const { handler, route } = this.props
+    console.log(this.props)
+    if(handler) handler(item)
+    if(route) router.history.push(route(item))
   }
 
 }

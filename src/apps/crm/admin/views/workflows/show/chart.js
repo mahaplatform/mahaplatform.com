@@ -34,62 +34,13 @@ class LineChart extends Component {
   }
 
   createBarChart() {
+    const { datasets } = this.props
     const ctx = this.node.getContext('2d')
-    const results = [{
-      label: 'Enrolled',
-      borderColor: '#DB2828',
-      data: [
-        { x: moment().subtract(5, 'months'), y: 10 },
-        { x: moment().subtract(4, 'months'), y: 50 },
-        { x: moment().subtract(3, 'months'), y: 85 },
-        { x: moment().subtract(2, 'months'), y: 62 },
-        { x: moment().subtract(1, 'months'), y: 16 }
-      ]
-    }, {
-      label: 'Active',
-      borderColor: '#F2711C',
-      data: [
-        { x: moment().subtract(5, 'months'), y: 10 },
-        { x: moment().subtract(4, 'months'), y: 50 },
-        { x: moment().subtract(3, 'months'), y: 85 },
-        { x: moment().subtract(2, 'months'), y: 62 },
-        { x: moment().subtract(1, 'months'), y: 16 }
-      ]
-    }, {
-      label: 'Lost',
-      borderColor: '#FBBD08',
-      data: [
-        { x: moment().subtract(5, 'months'), y: 10 },
-        { x: moment().subtract(4, 'months'), y: 50 },
-        { x: moment().subtract(3, 'months'), y: 85 },
-        { x: moment().subtract(2, 'months'), y: 62 },
-        { x: moment().subtract(1, 'months'), y: 16 }
-      ]
-    }, {
-      label: 'Completed',
-      borderColor: '#B5CC18',
-      data: [
-        { x: moment().subtract(5, 'months'), y: 10 },
-        { x: moment().subtract(4, 'months'), y: 50 },
-        { x: moment().subtract(3, 'months'), y: 85 },
-        { x: moment().subtract(2, 'months'), y: 62 },
-        { x: moment().subtract(1, 'months'), y: 16 }
-      ]
-    }, {
-      label: 'Conversions',
-      borderColor: '#21BA45',
-      data: [
-        { x: moment().subtract(5, 'months'), y: 5 },
-        { x: moment().subtract(4, 'months'), y: 32 },
-        { x: moment().subtract(3, 'months'), y: 30 },
-        { x: moment().subtract(2, 'months'), y: 25 },
-        { x: moment().subtract(1, 'months'), y: 10 }
-      ]
-    }]
     new Chart(ctx, {
+      animation: false,
       type: 'line',
       data: {
-        datasets: results.map((dataset, index) => ({
+        datasets: datasets.map((dataset, index) => ({
           ...dataset,
           borderWidth: 2,
           fill: false

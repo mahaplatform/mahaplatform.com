@@ -8,6 +8,7 @@ class Sections extends React.PureComponent {
   static propTypes = {
     format: PropTypes.any,
     handler: PropTypes.func,
+    route: PropTypes.func,
     sections: PropTypes.array,
     value: PropTypes.string
   }
@@ -33,11 +34,12 @@ class Sections extends React.PureComponent {
   }
 
   _getItems(items) {
-    const { format, handler, value } = this.props
+    const { format, handler, route, value } = this.props
     return {
       format,
       handler,
       items,
+      route,
       value
     }
   }
