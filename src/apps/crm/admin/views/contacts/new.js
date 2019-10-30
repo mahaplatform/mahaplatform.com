@@ -70,14 +70,14 @@ class New extends React.Component {
             }
           ]
         }, {
-          label: 'Custom',
-          sections: this._getCustomFields()
+          label: 'Properties',
+          sections: this._getProperties()
         }
       ]
     }
   }
 
-  _getCustomFields() {
+  _getProperties() {
     const {fields} = this.props
     const programs = fields.reduce((programs, field) => ({
       ...programs,

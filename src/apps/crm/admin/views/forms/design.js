@@ -40,7 +40,7 @@ class Form extends React.Component {
 
   _handleFetch() {
     const { page } = this.props
-    const { program_id, id } = page.params
+    const { id } = page.params
     this.context.network.request({
       method: 'get',
       endpoint: `/api/admin/crm/forms/${id}`,
@@ -50,7 +50,7 @@ class Form extends React.Component {
 
   _handleSave(config) {
     const { page } = this.props
-    const { program_id, id } = page.params
+    const { id } = page.params
     this.context.network.request({
       method: 'patch',
       endpoint: `/api/admin/crm/forms/${id}`,

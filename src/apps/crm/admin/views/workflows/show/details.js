@@ -8,11 +8,9 @@ const Details = ({ workflow }) => {
 
   if(workflow.status === 'draft') {
     list.alert = { color: 'grey', message: 'This workflow is in draft mode' }
-  }
-  if(workflow.status === 'active') {
+  } else if(workflow.status === 'active') {
     list.alert = { color: 'green', message: 'This workflow is active' }
-  }
-  if(workflow.status === 'inactive') {
+  } else if(workflow.status === 'inactive') {
     list.alert = { color: 'red', message: 'This workflow is inactive' }
   }
 

@@ -22,10 +22,10 @@ const getTabs = (user, { channels, contact, fields, interests, subscriptions }) 
   const header = document.body.clientWidth <= 768 ? <Header contact={ contact} /> : null
   const items = [
     { label: 'Activities', component: <Timeline contact={ contact } /> },
-    { label: 'Properties', component: <Details contact={ contact } fields={ fields } /> },
     { label: 'Channels', component: <Channels contact={ contact } channels={ channels } /> },
     { label: 'Interests', component: <Interests contact={ contact } interests={ interests } /> },
-    { label: 'Lists', component: <Subscriptions contact={ contact } subscriptions={ subscriptions } /> }
+    { label: 'Lists', component: <Subscriptions contact={ contact } subscriptions={ subscriptions } /> },
+    { label: 'Properties', component: <Details contact={ contact } fields={ fields } /> }
   ]
   if(document.body.clientWidth <= 768) {
     items.unshift({ label: 'Details', component: <Details contact={ contact } fields={ fields } /> })
@@ -44,7 +44,7 @@ const mapResourcesToPage = (props, context) => ({
   channels: `/api/admin/crm/contacts/${props.params.id}/channels`,
   interests: `/api/admin/crm/contacts/${props.params.id}/interests`,
   subscriptions: `/api/admin/crm/contacts/${props.params.id}/subscriptions`,
-  fields: '/api/admin/crm_contacts/fields'
+  fields: '/api/admin/crm/fields'
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

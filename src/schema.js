@@ -2,6 +2,16 @@ const schema = {
 
   load: async (knex) => {
 
+    await knex.schema.createTable('actions', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('enrollment_id').unsigned()
+      table.integer('story_id').unsigned()
+      table.jsonb('data')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('appraisals_appraisals', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -330,6 +340,7 @@ const schema = {
       table.jsonb('config')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.USER-DEFINED('status')
     })
 
     await knex.schema.createTable('crm_interests', (table) => {
@@ -546,6 +557,11 @@ const schema = {
       table.specificType('steps', 'jsonb[]')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.USER-DEFINED('trigger_type')
+      table.integer('form_id').unsigned()
+      table.integer('topic_id').unsigned()
+      table.integer('list_id').unsigned()
+      table.integer('email_id').unsigned()
     })
 
     await knex.schema.createTable('drive_access', (table) => {
@@ -1893,6 +1909,10 @@ const schema = {
 
     await knex.schema.table('crm_workflows', table => {
       table.foreign('program_id').references('crm_programs.id')
+      table.foreign('email_id').references('maha_emails.id')
+      table.foreign('topic_id').references('crm_topics.id')
+      table.foreign('form_id').references('crm_forms.id')
+      table.foreign('list_id').references('crm_lists.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -2338,6 +2358,12 @@ const schema = {
 
     await knex.schema.table('maha_links', table => {
       table.foreign('service_id').references('maha_services.id')
+    })
+
+    await knex.schema.table('actions', table => {
+      table.foreign('story_id').references('maha_stories.id')
+      table.foreign('enrollment_id').references('crm_enrollments.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('sites_items', table => {

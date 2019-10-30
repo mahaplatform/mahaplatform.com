@@ -1,4 +1,5 @@
 import CampaignStatusToken from '../../tokens/campaign_status'
+import WorkflowToken from '../../tokens/workflow'
 import { Page } from 'maha-admin'
 import New from './new'
 
@@ -9,7 +10,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/crm/workflows',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Title', key: 'title', primary: true },
+      { label: 'Title', key: 'title', primary: true, format: WorkflowToken },
       { label: 'Program', key: 'program.title', primary: true },
       { label: 'Status', key: 'status', primary: true, collapsing: true, format: CampaignStatusToken }
     ],

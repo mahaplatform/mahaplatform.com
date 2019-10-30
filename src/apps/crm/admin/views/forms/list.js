@@ -1,3 +1,4 @@
+import FormStatusToken from '../../tokens/form_status'
 import { Page } from 'maha-admin'
 import React from 'react'
 import New from './new'
@@ -10,7 +11,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true },
-      { label: 'Program', key: 'program.title', primary: true }
+      { label: 'Program', key: 'program.title', primary: true },
+      { label: 'Status', key: 'status', primary: true, collapsing: true, format: FormStatusToken }
     ],
     defaultSort: { key: 'title', order: 'asc' },
     empty: {
@@ -22,7 +24,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     entity: 'form',
-    onClick: (record) => context.router.history.push(`/admin/crm/forms/${record.id}`)
+    onClick: (record) => context.router.history.push(`/admin/crm/forms/${record.code}`)
   },
   tasks: {
     icon: 'plus',
