@@ -1,4 +1,7 @@
 .phonesfield {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.3em;
+  overflow: hidden;
   &:focus {
     outline: none !important;
     border-color: @lightblue;
@@ -14,10 +17,8 @@
   }
 }
 .phonesfield-number {
+  border-bottom: 1px solid fadeout(@black, 90);
   display: flex;
-  border: 1px solid fadeout(@black, 90);
-  border-radius: 0.3em;
-  margin-bottom: 0.4em;
 }
 .phonesfield-number-field {
   flex: 1;
@@ -40,5 +41,13 @@
     &:hover {
       color: fadeout(@black, 20);
     }
+  }
+}
+.phonesfield-add {
+  padding: 0.4em 0.8em;
+  background-color: fadeout(@black, 98);
+  .link {
+    color: fadeout(@black, 60);
+    font-size: 0.8em;
   }
 }

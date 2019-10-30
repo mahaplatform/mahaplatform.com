@@ -4,8 +4,6 @@ const AddTriggers = {
 
     await knex.schema.table('crm_workflows', (table) => {
       table.enum('trigger_type', ['workflow','form','contact','list','interest','email','consent'], { useNative: true, enumName: 'crm_workflows_trigger_type' })
-      table.integer('workflow_id').unsigned()
-      table.foreign('workflow_id').references('crm_workflows.id')
       table.integer('form_id').unsigned()
       table.foreign('form_id').references('crm_forms.id')
       table.integer('topic_id').unsigned()

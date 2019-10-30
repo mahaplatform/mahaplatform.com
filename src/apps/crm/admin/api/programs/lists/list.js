@@ -5,6 +5,7 @@ const listRoute = async (req, res) => {
 
   const lists = await List.scope(qb => {
     qb.where('team_id', req.team.get('id'))
+    qb.where('program_id', req.params.program_id)
   }).filter({
     filter: req.query.$filter,
     filterParams: ['type']

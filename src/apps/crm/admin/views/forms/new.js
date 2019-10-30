@@ -1,5 +1,6 @@
+import ProgramToken from '../../tokens/program'
 import PropTypes from 'prop-types'
-import { Form, ProgramToken } from 'maha-admin'
+import { Form } from 'maha-admin'
 import React from 'react'
 
 class New extends React.Component {
@@ -30,11 +31,7 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true, format: ProgramToken },
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter the title', required: true },
-            { label: 'Send Responses To', name: 'send_responses_to', type: 'textarea', placeholder: 'Enter one email per line' },
-            { label: 'Max Responses', name: 'max_repsonses', type: 'number', placeholder: 'Enter maximum responses' },
-            { label: 'Open Form', name: 'open_form_on', type: 'datefield', placeholder: 'Enter start date' },
-            { label: 'Close Form', name: 'close_form_on', type: 'datefield', placeholder: 'Enter end date' }
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter the title', required: true }
           ]
         }
       ]

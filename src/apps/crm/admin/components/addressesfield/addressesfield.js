@@ -39,7 +39,9 @@ class AddressesField extends React.PureComponent {
             }
           </div>
         ))}
-        <Button { ...this._getAddButton() } />
+        <div className="addressesfield-add">
+          <Button { ...this._getAddButton() } />
+        </div>
       </div>
     )
   }
