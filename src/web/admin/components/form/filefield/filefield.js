@@ -14,6 +14,7 @@ class FileField extends React.Component {
     ]),
     button: PropTypes.element,
     disabled: PropTypes.bool,
+    endpoint: PropTypes.string,
     files: PropTypes.array,
     multiple: PropTypes.bool,
     multiplePrompt: PropTypes.string,
@@ -44,6 +45,7 @@ class FileField extends React.Component {
   static defaultProps = {
     defaultValue: null,
     disabled: false,
+    endpoint: '/api/admin/assets',
     multiple: false,
     multiplePrompt: 'Choose Another File',
     prompt: 'Choose File',
@@ -81,20 +83,12 @@ class FileField extends React.Component {
     )
   }
 
-  _getFile(file, index) {
-    return {
-      file,
-      preview: this.state.previews[file.uniqueIdentifier],
-      onRemove: this._handleRemoveFile.bind(this, index)
-    }
-  }
-
   componentDidMount() {
-    const { defaultValue, token, onLoadFiles, onSetReady } = this.props
+    const { defaultValue, endpoint, token, onLoadFiles, onSetReady } = this.props
     if(!defaultValue) return onSetReady()
     const ids = !_.isArray(defaultValue) ? [defaultValue] : defaultValue
     if(ids.length === 0) return onSetReady()
-    onLoadFiles(token, ids)
+    onLoadFiles(endpoint, token, ids)
   }
 
   componentDidUpdate(prevProps) {
@@ -136,6 +130,14 @@ class FileField extends React.Component {
     if(multiple || (!multiple && files.length === 0)) {
       this.resumable.assignBrowse(this.button)
       this.resumable.assignDrop(this.button)
+    }
+  }
+
+  _getFile(file, index) {
+    return {
+      file,
+      preview: this.state.previews[file.uniqueIdentifier],
+      onRemove: this._handleRemoveFile.bind(this, index)
     }
   }
 

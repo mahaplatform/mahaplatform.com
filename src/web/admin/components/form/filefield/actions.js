@@ -2,10 +2,10 @@ export const setReady = () => ({
   type: 'SET_READY'
 })
 
-export const loadFiles = (token, ids) => ({
+export const loadFiles = (endpoint, token, ids) => ({
   type: 'API_REQUEST',
   method: 'GET',
-  endpoint: '/api/admin/assets',
+  endpoint,
   query: {
     $filter: {
       id: {
