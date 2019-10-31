@@ -1,8 +1,8 @@
-import { Button, List } from 'maha-admin'
+import { Audit, Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Details = ({ form }) => {
+const Details = ({ audits, form }) => {
 
   const design = {
     label: 'Design Form',
@@ -46,8 +46,8 @@ const Details = ({ form }) => {
         <Button { ...url } /> | <Button { ...embed } />
       </div>
     ) },
-    { label: 'Responses', content: <Button { ...responses } /> }
-
+    { label: 'Responses', content: <Button { ...responses } /> },
+    { component: <Audit entries={ audits } /> }
   ]
 
   return <List { ...list } />
@@ -55,6 +55,7 @@ const Details = ({ form }) => {
 }
 
 Details.propTypes = {
+  audits: PropTypes.array,
   form: PropTypes.object
 }
 

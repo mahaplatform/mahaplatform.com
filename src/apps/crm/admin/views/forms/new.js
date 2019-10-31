@@ -6,7 +6,8 @@ import React from 'react'
 class New extends React.Component {
 
   static contextTypes = {
-    modal: PropTypes.object
+    modal: PropTypes.object,
+    router: PropTypes.object
   }
 
   static propTypes = {
@@ -42,7 +43,8 @@ class New extends React.Component {
     this.context.modal.close()
   }
 
-  _handleSuccess() {
+  _handleSuccess(result) {
+    this.context.router.history.push(`/admin/crm/forms/${result.id}`)
     this.context.modal.close()
   }
 

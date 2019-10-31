@@ -1,20 +1,19 @@
+import Performance from './performance'
 import Workflows from './workflows'
 import { Page } from 'maha-admin'
 import Details from './details'
-import Results from './results'
 import React from 'react'
 
 const getTabs = ({ campaign, performance, workflows }) => {
 
   const items = [
     { label: 'Details', component: <Details campaign={ campaign } /> },
-    { label: 'Workflows', component: <Workflows workflows={ workflows } /> },
-    { label: 'Performance', component: <Details campaign={ campaign } /> }
+    { label: 'Workflows', component: <Workflows workflows={ workflows } /> }
   ]
 
-  if(campaign.sent_at !== null) {
-    items.push({ label: 'Performance', component: <Results campaign={ campaign }  performance={ performance } /> })
-  }
+  // if(campaign.sent_at !== null) {
+    items.push({ label: 'Performance', component: <Performance campaign={ campaign } performance={ performance } /> })
+  // }
 
   return { items }
 

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'
 
-class Results extends React.Component {
+class Performance extends React.Component {
 
   static propTypes = {
     campaign: PropTypes.object,
-    results: PropTypes.object
+    performance: PropTypes.object
   }
 
   render() {
@@ -19,8 +19,8 @@ class Results extends React.Component {
   }
 
   _getList() {
-    const { results } = this.props
-    const { sent, delivered, bounced, opened, desktop, mobile, complained, clicked, unsubscribed } = results
+    const { performance } = this.props
+    const { sent, delivered, bounced, opened, desktop, mobile, complained, clicked, unsubscribed } = performance
     return {
       sections: [
         {
@@ -157,4 +157,4 @@ class Results extends React.Component {
 
 }
 
-export default Results
+export default Performance

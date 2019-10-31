@@ -22,7 +22,8 @@ class SMSDesigner extends React.PureComponent {
           icon: 'comment',
           label: 'Trigger',
           type: 'trigger',
-          action: 'trigger'
+          action: 'trigger',
+          token: () => 'Form is completed'
         },
         { action: 'ifelse' },
         { action: 'wait' },

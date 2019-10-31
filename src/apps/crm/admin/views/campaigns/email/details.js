@@ -7,7 +7,7 @@ const Details = ({ campaign }) => {
   const config = {}
 
   const design = {
-    label: 'design email',
+    label: 'Design Email',
     className: 'link',
     route: `/admin/crm/campaigns/email/${campaign.code}/design`
   }
