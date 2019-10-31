@@ -4,9 +4,9 @@ const performanceRoute = async (req, res) => {
 
   const data = {
     metrics: {
-      enrollments: 995,
-      active: 340,
-      conversions: 34.5
+      enrollments: 678,
+      active: 122,
+      conversions: ((38 / 678) * 100).toFixed(2)
     },
     totals: {
       enrolled: 678,

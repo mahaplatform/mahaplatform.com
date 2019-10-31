@@ -10,6 +10,11 @@ const Senders = ({ program, senders }) => {
       component: (props) => (
         <div className="token">
           { sender.rfc822 }
+          { sender.is_verified &&
+            <div>
+              verified
+            </div>
+          }
         </div>
       )
     })),

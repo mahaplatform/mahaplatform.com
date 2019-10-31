@@ -1,5 +1,6 @@
 import { Button }from 'maha-admin'
 import PropTypes from 'prop-types'
+import numeral from 'numeral'
 import React from 'react'
 
 class Emails extends React.Component {
@@ -25,7 +26,6 @@ class Emails extends React.Component {
             <thead>
               <tr>
                 <th>Name</th>
-                <th className="center aligned">Sent</th>
                 <th className="center aligned">Delivered</th>
                 <th className="center aligned">Opened</th>
                 <th className="center aligned">Complained</th>
@@ -33,30 +33,33 @@ class Emails extends React.Component {
               </tr>
             </thead>
             <tbody>
+              { emails.length === 0 &&
+                <tr>
+                  <td colSpan="5">
+                    There are no emails for this email
+                  </td>
+                </tr>
+              }
               { emails.map((email, index) => (
                 <tr key={`email_${index}`}>
                   <td>
                     <Button { ...this._getEmail(email) } />
                   </td>
-                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'sent')}>
-                    <strong>80.7%</strong>
-                    <span>162 / 200</span>
-                  </td>
                   <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'delivered')}>
-                    <strong>80.7%</strong>
-                    <span>162 / 200</span>
+                    <strong>{ this._getRate(email.delivered, email.sent) }</strong>
+                    <span>{ email.delivered } / { email.sent }</span>
                   </td>
                   <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'opened')}>
-                    <strong>80.7%</strong>
-                    <span>162 / 200</span>
+                    <strong>{ this._getRate(email.opened, email.delivered) }</strong>
+                    <span>{ email.opened } / { email.delivered }</span>
                   </td>
                   <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'complained')}>
-                    <strong>80.7%</strong>
-                    <span>162 / 200</span>
+                    <strong>{ this._getRate(email.complained, email.delivered) }</strong>
+                    <span>{ email.complained } / { email.delivered }</span>
                   </td>
                   <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'clicked')}>
-                    <strong>80.7%</strong>
-                    <span>162 / 200</span>
+                    <strong>{ this._getRate(email.clicked, email.delivered) }</strong>
+                    <span>{ email.clicked } / { email.delivered }</span>
                   </td>
                 </tr>
               )) }
@@ -67,17 +70,24 @@ class Emails extends React.Component {
     )
   }
 
+  _getRate(numerator, denomenator) {
+    if(denomenator === 0) return '0%'
+    return numeral(numerator / denomenator).format('0.0%')
+  }
+
   _getEmail(email) {
+    const { workflow } = this.props
     return {
       label: email.title,
       className: 'link',
-      route: `/admin/crm/emails/${email.code}`
+      route: `/admin/crm/workflows/${workflow.id}/emails/${email.id}`
     }
   }
 
   _handleClick(email, report) {
     const { router } = this.context
-    router.history.push(`/admin/crm/emails/${email.code}/deliveries?report=${report}`)
+    const { workflow } = this.props
+    router.history.push(`/admin/crm/workflows/${workflow.id}/emails/${email.id}/deliveries?report=${report}`)
   }
 
 }

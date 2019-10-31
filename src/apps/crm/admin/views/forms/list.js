@@ -24,7 +24,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     entity: 'form',
-    onClick: (record) => context.router.history.push(`/admin/crm/forms/${record.code}`)
+    onClick: (record) => context.router.history.push(`/admin/crm/forms/${record.id}`)
   },
   tasks: {
     icon: 'plus',

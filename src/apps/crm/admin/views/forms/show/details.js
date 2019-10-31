@@ -5,15 +5,27 @@ import React from 'react'
 const Details = ({ form }) => {
 
   const design = {
-    label: 'edit design',
+    label: 'Design Form',
     className: 'link',
-    route: `/admin/crm/forms/${form.code}/design`
+    route: `/admin/crm/forms/${form.id}/design`
   }
 
   const responses = {
-    label: '256 responses',
+    label: `${form.responses} responses`,
     className: 'link',
-    route: `/admin/crm/forms/${form.code}/responses`
+    route: `/admin/crm/forms/${form.id}/responses`
+  }
+
+  const url = {
+    label: 'Public Form',
+    className: 'link',
+    href: `${process.env.WEB_HOST}/forms/${form.code}`
+  }
+
+  const embed = {
+    label: 'Embed Code',
+    className: 'link',
+    href: `${process.env.WEB_HOST}/forms/${form.code}`
   }
 
   const list = {}
@@ -29,6 +41,11 @@ const Details = ({ form }) => {
   list.items = [
     { label: 'Title', content: form.title },
     { label: 'Design', content: <Button { ...design } /> },
+    { label: 'View', content: (
+      <div>
+        <Button { ...url } /> | <Button { ...embed } />
+      </div>
+    ) },
     { label: 'Responses', content: <Button { ...responses } /> }
 
   ]

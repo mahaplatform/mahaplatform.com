@@ -7,7 +7,7 @@ const updateRoute = async (req, res) => {
   const workflow = await Workflow.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
-    qb.where('code', req.params.id)
+    qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
   })

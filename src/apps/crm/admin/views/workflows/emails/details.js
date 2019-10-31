@@ -2,19 +2,20 @@ import { Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Details = ({ email }) => {
+const Details = ({ email, workflow }) => {
 
   const list = {}
 
   const design = {
     label: 'Design Email',
     className: 'link',
-    route: '/admin/crm/emails/abcdef/design'
+    route: `/admin/crm/workflows/${workflow.id}/emails/${email.id}/design`
   }
 
   list.items = [
-    { label: 'Title', content: 'Email #1' },
-    { label: 'Subject', content: 'Foo Bar' },
+    { label: 'Title', content: email.title },
+    { label: 'From', content: email.sender.rfc822 },
+    { label: 'Subject', content: email.subject },
     { label: 'Content', content: <Button { ...design } /> }
   ]
 
@@ -23,7 +24,8 @@ const Details = ({ email }) => {
 }
 
 Details.propTypes = {
-  email: PropTypes.object
+  email: PropTypes.object,
+  workflow: PropTypes.object
 }
 
 export default Details

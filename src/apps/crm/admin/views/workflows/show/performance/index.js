@@ -4,7 +4,7 @@ import Chart from './chart'
 import React from 'react'
 import _ from 'lodash'
 
-class Results extends React.Component {
+class Performance extends React.Component {
 
   static propTypes = {
     performance: PropTypes.object,
@@ -136,7 +136,7 @@ class Results extends React.Component {
     const button = {
       label: quantity,
       className: 'link',
-      route: `/admin/crm/workflows/${workflow.code}/enrollments?report=${report}`
+      route: `/admin/crm/workflows/${workflow.id}/enrollments?report=${report}`
     }
     return <Button { ...button } />
   }
@@ -154,4 +154,4 @@ class Results extends React.Component {
 
 }
 
-export default Results
+export default Performance

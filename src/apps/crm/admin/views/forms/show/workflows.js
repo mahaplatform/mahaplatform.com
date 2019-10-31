@@ -14,9 +14,7 @@ class Workflows extends React.Component {
   }
 
   render() {
-    const workflows = [
-      { code: 'jd0k8rfbnv', title: 'Results and Confirmation' }
-    ]
+    const { workflows } = this.props
     return (
       <div className="crm-email-leaderboard">
         <div className="crm-email-leaderboard-header">
@@ -27,34 +25,34 @@ class Workflows extends React.Component {
             <thead>
               <tr>
                 <th>Title</th>
-                <th className="center aligned">Enrollments</th>
+                <th className="center aligned">Enrolled</th>
                 <th className="center aligned">Active</th>
                 <th className="center aligned">Lost</th>
-                <th className="center aligned">Completed</th>
+                <th className="center aligned">Converted</th>
                 <th className="center aligned">Completed</th>
               </tr>
             </thead>
             <tbody>
-              { workflows.map((email, index) => (
-                <tr key={`email_${index}`}>
+              { workflows.map((workflow, index) => (
+                <tr key={`workflow_${index}`}>
                   <td>
-                    <Button { ...this._getEmail(email) } /><br />
-                    Triggered when form is completed
+                    <Button { ...this._getWorkflow(workflow) } /><br />
+                    <span>Triggered when contact completes form</span>
                   </td>
-                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'sent')}>
-                    162
+                  <td className="center aligned" onClick={ this._handleClick.bind(this, workflow, 'sent')}>
+                    155
                   </td>
-                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'delivered')}>
-                    162
+                  <td className="center aligned" onClick={ this._handleClick.bind(this, workflow, 'delivered')}>
+                    0
                   </td>
-                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'opened')}>
-                    162
+                  <td className="center aligned" onClick={ this._handleClick.bind(this, workflow, 'opened')}>
+                    0
                   </td>
-                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'complained')}>
-                    162
+                  <td className="center aligned" onClick={ this._handleClick.bind(this, workflow, 'complained')}>
+                    155
                   </td>
-                  <td className="center aligned" onClick={ this._handleClick.bind(this, email, 'clicked')}>
-                    162
+                  <td className="center aligned" onClick={ this._handleClick.bind(this, workflow, 'clicked')}>
+                    155
                   </td>
                 </tr>
               )) }
@@ -65,17 +63,17 @@ class Workflows extends React.Component {
     )
   }
 
-  _getEmail(email) {
+  _getWorkflow(workflow) {
     return {
-      label: email.title,
+      label: workflow.title,
       className: 'link',
-      route: `/admin/crm/workflows/${email.code}`
+      route: `/admin/crm/workflows/${workflow.id}`
     }
   }
 
-  _handleClick(workflows, report) {
+  _handleClick(workflow, report) {
     const { router } = this.context
-    router.history.push(`/admin/crm/workflows/${workflows.code}/deliveries?report=${report}`)
+    router.history.push(`/admin/crm/workflows/${workflow.id}/enrollments?report=${report}`)
   }
 
 }

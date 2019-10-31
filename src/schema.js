@@ -317,6 +317,20 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('crm_emails', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('workflow_id').unsigned()
+      table.integer('sender_id').unsigned()
+      table.string('title', 255)
+      table.string('code', 255)
+      table.string('subject', 255)
+      table.string('reply_to', 255)
+      table.jsonb('config')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('crm_enrollments', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -542,6 +556,20 @@ const schema = {
       table.specificType('steps', 'jsonb[]')
       table.timestamp('send_at')
       table.timestamp('sent_at')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
+    await knex.schema.createTable('crm_workflow_emails', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('workflow_id').unsigned()
+      table.integer('sender_id').unsigned()
+      table.string('title', 255)
+      table.string('code', 255)
+      table.string('subject', 255)
+      table.string('reply_to', 255)
+      table.jsonb('config')
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })
@@ -2432,6 +2460,18 @@ const schema = {
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('organization_id').references('crm_organizations.id')
       table.foreign('tag_id').references('crm_tags.id')
+    })
+
+    await knex.schema.table('crm_emails', table => {
+      table.foreign('sender_id').references('crm_senders.id')
+      table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('crm_workflow_emails', table => {
+      table.foreign('sender_id').references('crm_senders.id')
+      table.foreign('workflow_id').references('crm_workflows.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('eatfresh_categories_attractions', table => {

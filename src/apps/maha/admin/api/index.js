@@ -16,6 +16,7 @@ import session from './session'
 import assets from './assets'
 import search from './search'
 import fields from './fields'
+import audits from './audits'
 import users from './users'
 import react from './react'
 import links from './links'
@@ -35,6 +36,8 @@ router.use('/:commentable_type/:commentable_id/comments', comments)
 router.use('/:starrable_type/:starrable_id/star', stars)
 
 router.use('/:attachable_type/:attachable_id/attachments', attachments)
+
+router.use('/:auditable_type/:auditable_id/audits', audits)
 
 router.use('/:reactable_type/:reactable_id/react/:type', react)
 

@@ -1,5 +1,5 @@
-import enrollments from './enrollments'
 import performance from './performance'
+import enrollments from './enrollments'
 import activate from './activate'
 import { Router } from 'express'
 import destroy from './destroy'

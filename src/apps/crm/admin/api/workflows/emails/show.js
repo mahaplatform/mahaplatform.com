@@ -1,3 +1,5 @@
+import WorkflowEmailSerializer from '../../../../serializers/workflow_email_serializer'
+import WorkflowEmail from '../../../../models/workflow_email'
 import Workflow from '../../../../models/workflow'
 
 const showRoute = async (req, res) => {
@@ -5,7 +7,7 @@ const showRoute = async (req, res) => {
   const workflow = await Workflow.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
-    qb.where('code', req.params.workflow_id)
+    qb.where('id', req.params.workflow_id)
   }).fetch({
     transacting: req.trx
   })
@@ -15,9 +17,16 @@ const showRoute = async (req, res) => {
     message: 'Unable to load workflow'
   })
 
-  const data = { code: 'abcdef', title: 'Email #1' }
+  const email = await WorkflowEmail.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('workflow_id', workflow.get('id'))
+    qb.where('id', req.params.id)
+  }).fetch({
+    withRelated: ['sender'],
+    transacting: req.trx
+  })
 
-  res.status(200).respond(data)
+  res.status(200).respond(email, WorkflowEmailSerializer)
 
 }
 

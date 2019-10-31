@@ -1,5 +1,6 @@
 import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Chart from './chart'
 import React from 'react'
 
 class Performance extends React.Component {
@@ -14,6 +15,8 @@ class Performance extends React.Component {
   }
 
   render() {
+    const { performance } = this.props
+    const { totals } = performance
     const scopes = [
       { value: 'daily', text: 'Daily' },
       { value: 'weekly', text: 'Weekly' },
@@ -34,6 +37,9 @@ class Performance extends React.Component {
             ))}
           </div>
         </div>
+        <div className="crm-report-chart">
+          <Chart { ...this._getChart() } />
+        </div>
         <div className="crm-report-table">
           <table className="ui unstackable table">
             <tbody>
@@ -42,7 +48,7 @@ class Performance extends React.Component {
                   Responses
                 </td>
                 <td className="right aligned">
-                  253
+                  { totals.responses }
                 </td>
               </tr>
             </tbody>
@@ -50,6 +56,16 @@ class Performance extends React.Component {
         </div>
       </div>
     )
+  }
+
+  _getChart() {
+    const { performance } = this.props
+    const { data } = performance
+    return {
+      datasets: [
+        { label: 'Responses', data: data.responses }
+      ]
+    }
   }
 
   _getScope(scope) {

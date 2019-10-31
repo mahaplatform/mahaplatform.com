@@ -2,7 +2,7 @@ import EmailResultSerializer from '../../../../serializers/email_result_serializ
 import EmailCampaign from '../../../../models/email_campaign'
 import EmailResult from '../../../../models/email_result'
 
-const resultsRoute = async (req, res) => {
+const performanceRoute = async (req, res) => {
 
   const campaign = await EmailCampaign.scope(qb => {
     qb.where('team_id', req.team.get('id'))
@@ -31,4 +31,4 @@ const resultsRoute = async (req, res) => {
 
 }
 
-export default resultsRoute
+export default performanceRoute

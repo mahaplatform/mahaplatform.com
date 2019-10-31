@@ -78,7 +78,8 @@ class Images extends React.Component {
       }
     }, {}) : {}
     const querystring = Object.keys(args).length > 0 ? `/${qs.stringify(args)}` : ''
-    return `/caman${querystring}${asset.path}`
+    // return `/caman${querystring}${asset.path}`
+    return `/imagecache/${asset.path}`
   }
 
 }

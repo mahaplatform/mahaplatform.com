@@ -5,6 +5,7 @@ const FormSerializer = (req, result) => ({
   config: result.get('config'),
   program: program(result.related('program')),
   status: result.get('status'),
+  responses: 233,
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

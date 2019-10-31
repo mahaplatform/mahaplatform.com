@@ -6,11 +6,13 @@ import React from 'react'
 const getTabs = ({ campaign, results }) => {
 
   const items = [
-    { label: 'Details', component: <Details campaign={ campaign } /> }
+    { label: 'Details', component: <Details campaign={ campaign } /> },
+    { label: 'Workflows', component: <Details campaign={ campaign } /> },
+    { label: 'Performance', component: <Details campaign={ campaign } /> }
   ]
 
   if(campaign.sent_at !== null) {
-    items.push({ label: 'Results', component: <Results campaign={ campaign }  results={ results } /> })
+    items.push({ label: 'Performance', component: <Results campaign={ campaign }  results={ results } /> })
   }
 
   return { items }
@@ -21,7 +23,7 @@ const getTasks = ({ list }) => []
 
 const mapResourcesToPage = (props, context) => ({
   campaign: `/api/admin/crm/campaigns/email/${props.params.id}`,
-  results: `/api/admin/crm/campaigns/email/${props.params.id}/results`
+  performance: `/api/admin/crm/campaigns/email/${props.params.id}/performance`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
