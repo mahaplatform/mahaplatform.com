@@ -55,7 +55,7 @@ class LineChart extends Component {
           xAxes: [{
             type: 'time',
             time: {
-              unit: 'month',
+              unit: 'day',
               displayFormats: {
                 minute: 'mm/dd/yyyy'
               }

@@ -1,6 +1,7 @@
 import Model from '../../../core/objects/model'
 import Story from '../../maha/models/story'
 import User from '../../maha/models/user'
+import Program from './program'
 import Contact from './contact'
 import Call from './call'
 import Note from './note'
@@ -23,6 +24,10 @@ const Activity = new Model({
 
   note() {
     return this.belongsTo(Note, 'note_id')
+  },
+
+  program() {
+    return this.belongsTo(Program, 'program_id')
   },
 
   story() {

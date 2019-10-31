@@ -24,7 +24,7 @@ const listRoute = async (req, res) => {
     qb.orderBy('created_at', 'desc')
   }).fetchPage({
     page: req.query.$page,
-    withRelated: ['call','note','story','user.photo'],
+    withRelated: ['call','note','program','story','user.photo'],
     transacting: req.trx
   })
 
