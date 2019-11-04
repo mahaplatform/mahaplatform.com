@@ -7,7 +7,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: `/api/admin/crm/forms/${props.params.form_id}/responses`,
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Contact', key: 'contact.full_name', primary: true }
+      { label: 'Contact', key: 'contact.full_name', primary: true },
+      { label: 'Created At', key: 'created_at', primary: true, format: 'datetime' }
     ],
     empty: {
       icon: 'user',

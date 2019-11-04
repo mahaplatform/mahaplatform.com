@@ -1,5 +1,5 @@
-import ListSerializer from '../../../../serializers/list_serializer'
-import List from '../../../../models/list'
+import ListSerializer from '../../../serializers/list_serializer'
+import List from '../../../models/list'
 
 const showRoute = async (req, res) => {
 
@@ -9,11 +9,6 @@ const showRoute = async (req, res) => {
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
-  })
-
-  if(!list) return res.status(404).respond({
-    code: 404,
-    message: 'Unable to load list'
   })
 
   res.status(200).respond(list, ListSerializer)

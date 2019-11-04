@@ -33,6 +33,11 @@ class Workflows extends React.Component {
               </tr>
             </thead>
             <tbody>
+              { workflows.length === 0 &&
+                <tr>
+                  <td colSpan="6"> There are no workflows for this form</td>
+                </tr>
+              }
               { workflows.map((workflow, index) => (
                 <tr key={`workflow_${index}`}>
                   <td>

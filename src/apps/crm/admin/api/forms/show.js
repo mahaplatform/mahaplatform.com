@@ -11,6 +11,11 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
+  if(!form) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load form'
+  })
+
   res.status(200).respond(form, FormSerializer)
 
 }

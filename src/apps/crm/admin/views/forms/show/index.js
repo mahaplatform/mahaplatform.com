@@ -5,11 +5,11 @@ import Details from './details'
 import Edit from '../edit'
 import React from 'react'
 
-const getTabs = ({ audits, form, performance, workflows }) => ({
+const getTabs = ({ audits, form, workflows }) => ({
   items: [
     { label: 'Details', component: <Details form={ form } audits={ audits } /> },
     { label: 'Workflows', component: <Workflows form={ form } workflows={ workflows } /> },
-    { label: 'Performance', component: <Performance form={ form } performance={ performance } /> }
+    { label: 'Performance', component: <Performance form={ form } /> }
   ]
 })
 
@@ -44,7 +44,6 @@ const getTasks = ({ form }) => ({
 const mapResourcesToPage = (props, context) => ({
   audits: `/api/admin/crm_forms/${props.params.id}/audits`,
   form: `/api/admin/crm/forms/${props.params.id}`,
-  performance: `/api/admin/crm/forms/${props.params.id}/performance`,
   workflows: `/api/admin/crm/forms/${props.params.id}/workflows`
 })
 

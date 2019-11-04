@@ -10,7 +10,7 @@ class New extends React.Component {
   }
 
   static propTypes = {
-    program_id: PropTypes.number
+    form: PropTypes.object
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -21,16 +21,17 @@ class New extends React.Component {
   }
 
   _getForm() {
+    const { form } = this.props
     return {
-      title: 'New Form',
-      method: 'post',
-      action: '/api/admin/crm/forms',
+      title: 'Edit Form',
+      method: 'patch',
+      endpoint: `/api/admin/crm/forms/${form.id}/edit`,
+      action: `/api/admin/crm/forms/${form.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true, format: ProgramToken },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter the title', required: true }
           ]
         }

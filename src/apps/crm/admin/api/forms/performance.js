@@ -1,36 +1,58 @@
+import Form from '../../../models/form'
 import moment from 'moment'
 
 const performanceRoute = async (req, res) => {
 
-  const data = {
+  const form = await Form.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
+  }).query(qb => {
+    qb.where('id', req.params.id)
+  }).fetch({
+    transacting: req.trx
+  })
+
+  if(!form) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load form'
+  })
+
+  const responses = await req.trx.raw(`
+    with filled_dates AS (
+    select date
+    from generate_series(?::timestamp, ?::timestamp, ?) AS date
+    )
+    select filled_dates.date, count(crm_responses.*) as count
+    from filled_dates
+    left join crm_responses on date_trunc(?, crm_responses.created_at) = filled_dates.date and crm_responses.form_id=?
+    group by filled_dates.date
+    order by filled_dates.date asc
+  `, [
+    req.query.start,
+    req.query.end,
+    `1 ${req.query.step}`,
+    req.query.step,
+    form.get('id')
+  ]).then(results => results.rows.map(segment => ({
+    date: moment(segment.date),
+    count: parseInt(segment.count)
+  })))
+
+  const total = responses.reduce((total, segment) => total + segment.count, 0)
+
+  res.status(200).respond({
     metrics: {
-      responses: 155
+      responses: total
     },
     totals: {
-      responses: 155
+      responses: total
     },
     data: {
-      responses: [
-        { x: moment().subtract(15, 'days'), y: 0 },
-        { x: moment().subtract(14, 'days'), y: 0 },
-        { x: moment().subtract(13, 'days'), y: 0 },
-        { x: moment().subtract(12, 'days'), y: 0 },
-        { x: moment().subtract(11, 'days'), y: 0 },
-        { x: moment().subtract(10, 'days'), y: 0 },
-        { x: moment().subtract(9, 'days'), y: 5 },
-        { x: moment().subtract(8, 'days'), y: 15 },
-        { x: moment().subtract(7, 'days'), y: 33 },
-        { x: moment().subtract(6, 'days'), y: 40 },
-        { x: moment().subtract(5, 'days'), y: 50 },
-        { x: moment().subtract(4, 'days'), y: 5 },
-        { x: moment().subtract(3, 'days'), y: 10 },
-        { x: moment().subtract(2, 'days'), y: 0 },
-        { x: moment().subtract(1, 'days'), y: 0 }
-      ]
+      responses: responses.map(segment => ({
+        x: segment.date,
+        y: segment.count
+      }))
     }
-  }
-
-  res.status(200).respond(data)
+  })
 
 }
 

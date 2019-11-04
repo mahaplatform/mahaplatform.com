@@ -1,4 +1,4 @@
-import FormStatusToken from '../../tokens/form_status'
+import StatusToken from '../../tokens/status'
 import { Page } from 'maha-admin'
 import React from 'react'
 import New from './new'
@@ -12,7 +12,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true },
       { label: 'Program', key: 'program.title', primary: true },
-      { label: 'Status', key: 'status', primary: true, collapsing: true, format: FormStatusToken }
+      { label: 'Status', key: 'status', primary: true, collapsing: true, format: StatusToken }
     ],
     defaultSort: { key: 'title', order: 'asc' },
     empty: {

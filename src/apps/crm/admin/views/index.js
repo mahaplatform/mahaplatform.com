@@ -15,6 +15,8 @@ import ContactsShow from './contacts/show'
 import FormsList from './forms/list'
 import FormsShow from './forms/show'
 import FormsDesign from './forms/design'
+import ListsShow from './lists/show'
+import ListsContacts from './lists/contacts'
 import OrganizationsList from './organizations/list'
 import OrganizationsShow from './organizations/show'
 import ProgramsList from './programs/list'
@@ -52,6 +54,8 @@ const routes = [
   { path: '/forms/:id/design', component: FormsDesign },
   { path: '/forms/:form_id/responses', component: ResponsesList },
   { path: '/forms/:form_id/responses/:id', component: ResponsesShow },
+  { path: '/lists/:id', component: ListsShow },
+  { path: '/lists/:id/contacts', component: ListsContacts },
   { path: '/organizations', component: OrganizationsList },
   { path: '/organizations/:id', component: OrganizationsShow },
   { path: '/programs', component: ProgramsList },
