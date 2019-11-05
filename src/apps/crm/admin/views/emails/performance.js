@@ -12,6 +12,19 @@ const ranges = [
   { value: 'ltd', text: 'Life to Date' }
 ]
 
+const totals = [
+  { label: 'Delivered', name: 'delivered', color: '#DB2828' },
+  { label: 'Opened', name: 'opened', color: '#F2711C' },
+  { label: 'Complained', name: 'complained', color: '#FBBD08' },
+  { label: 'Clicked', name: 'clicked', color: '#B5CC18' }
+]
+
+const metrics = [
+  { label: 'Sent', name: 'sent' },
+  { label: 'Open Rate', name: 'open_rate' },
+  { label: 'Click Rate', name: 'click_rate' }
+]
+
 class Performance extends React.Component {
 
   static contextTypes = {
@@ -19,7 +32,7 @@ class Performance extends React.Component {
   }
 
   static propTypes = {
-    form: PropTypes.object
+    email: PropTypes.object
   }
 
   static defaultProps = {}
@@ -28,6 +41,7 @@ class Performance extends React.Component {
   node = null
 
   state = {
+    hidden: [],
     performance: null,
     range: '30_days'
   }
@@ -42,7 +56,7 @@ class Performance extends React.Component {
     return (
       <div className="crm-report">
         <div className="crm-report-title">
-          Responses
+          Enrollments
         </div>
         <div className="crm-report-header">
           <div className="crm-report-filter">
@@ -56,15 +70,32 @@ class Performance extends React.Component {
         <div className="crm-report-chart">
           <canvas ref={ node => this.node = node } className="monitor-chart" />
         </div>
+        <div className="crm-report-metrics">
+          { metrics.map((metric, index) => (
+            <div className="crm-report-metric" key={`metric_${index}`}>
+              <div className="crm-report-metric-title">
+                { metric.label }
+              </div>
+              <div className="crm-report-metric-value">
+                { performance.metrics[metric.name] }
+              </div>
+            </div>
+          ))}
+        </div>
         <div className="crm-report-table">
           <table className="ui unstackable table">
             <tbody>
-              <tr>
-                <td>Responses</td>
-                <td className="right aligned">
-                  { this._getStat(performance.metrics.responses) }
-                </td>
-              </tr>
+              { totals.map((total, index) => (
+                <tr key={`total_${index}`} onClick={ this._handleToggle.bind(this, index) }>
+                  <td>
+                    <i className={`fa fa-${this._getIcon(index)}`} />
+                    { total.label }
+                  </td>
+                  <td className="right aligned">
+                    <Button { ...this._getButton(total.name) } />
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </div>
@@ -77,34 +108,38 @@ class Performance extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { performance, range } = this.state
+    const { hidden, performance, range } = this.state
     if(range !== prevState.range) {
       this._handleFetch()
+    }
+    if(hidden !== prevState.hidden) {
+      this._handlePlot()
     }
     if(!_.isEqual(performance, prevState.performance)) {
       this._handlePlot()
     }
   }
 
-  _getRange(range) {
+  _getButton(name, report) {
+    const { performance } = this.state
+    const { email } = this.props
     return {
-      label: range.text,
-      className: this.state.range !== range.value ? 'link' : 'text',
-      handler: this._handleRange.bind(this, range.value)
+      label: performance.metrics[name],
+      className: 'link',
+      route: `/admin/crm/emails/${email.id}/deliveries?report=${report}`
     }
   }
 
-  _getStep(start, end) {
-    const diff = end.diff(start, 'days')
-    if(diff <= 60) return 'day'
-    return 'month'
+  _getIcon(index) {
+    const { hidden } = this.state
+    return _.includes(hidden, index) ? 'square': 'check-square'
   }
 
   _getQuery() {
     const { range } = this.state
-    const { form } = this.props
+    const { email } = this.props
     if(range === 'ltd') {
-      const start = moment(form.created_at)
+      const start = moment(email.created_at)
       const end = moment()
       const step = this._getStep(start, end)
       return {
@@ -136,21 +171,25 @@ class Performance extends React.Component {
     }
   }
 
-  _getStat(quantity) {
-    const { form } = this.props
-    const button = {
-      label: quantity,
-      className: 'link',
-      route: `/admin/crm/forms/${form.id}/responses`
+  _getRange(range) {
+    return {
+      label: range.text,
+      className: this.state.range !== range.value ? 'link' : 'text',
+      handler: this._handleRange.bind(this, range.value)
     }
-    return <Button { ...button } />
+  }
+
+  _getStep(start, end) {
+    const diff = end.diff(start, 'days')
+    if(diff <= 60) return 'day'
+    return 'month'
   }
 
   _handleFetch() {
-    const { form } = this.props
+    const { email } = this.props
     this.context.network.request({
       method: 'get',
-      endpoint: `/api/admin/crm/forms/${form.id}/performance`,
+      endpoint: `/api/admin/crm/emails/${email.id}/performance`,
       query: this._getQuery(),
       onSuccess: this._handleSuccess
     })
@@ -199,20 +238,22 @@ class Performance extends React.Component {
 
   _handlePlot() {
     const { step } = this._getQuery()
-    const { performance } = this.state
+    const { hidden, performance } = this.state
     if(!this.chart) this._handleInit()
     this.chart.options.scales.xAxes[0].time.unit = step
-    this.chart.data.datasets = [{
-      label: 'Responses',
-      data: performance.data.responses,
-      borderColor: '#DB2828',
+    this.chart.data.datasets = totals.filter((total, index) => {
+      return !_.includes(hidden, index)
+    }).map((total, index) => ({
+      label: total.label,
+      data: performance.data[total.name],
+      borderColor: total.color,
       pointBackgroundColor: '#FFFFFF',
       pointRadius: 3,
-      pointHoverBackgroundColor: '#DB2828',
+      pointHoverBackgroundColor: total.color,
       pointHoverRadius: 3,
       borderWidth: 2,
       fill: false
-    }]
+    }))
     this.chart.update()
   }
 
@@ -223,6 +264,13 @@ class Performance extends React.Component {
   _handleSuccess(result) {
     this.setState({
       performance: result.data
+    })
+  }
+
+  _handleToggle(index) {
+    const { hidden } = this.state
+    this.setState({
+      hidden: _.xor(hidden, [index])
     })
   }
 

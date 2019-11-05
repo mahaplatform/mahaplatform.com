@@ -76,18 +76,16 @@ class Emails extends React.Component {
   }
 
   _getEmail(email) {
-    const { workflow } = this.props
     return {
       label: email.title,
       className: 'link',
-      route: `/admin/crm/workflows/${workflow.id}/emails/${email.id}`
+      route: `/admin/crm/emails/${email.id}`
     }
   }
 
   _handleClick(email, report) {
     const { router } = this.context
-    const { workflow } = this.props
-    router.history.push(`/admin/crm/workflows/${workflow.id}/emails/${email.id}/deliveries?report=${report}`)
+    router.history.push(`/admin/crm/emails/${email.id}/deliveries?report=${report}`)
   }
 
 }

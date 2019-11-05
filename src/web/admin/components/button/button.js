@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import _ from 'lodash'
 
 class Button extends React.Component {
 
@@ -57,16 +58,24 @@ class Button extends React.Component {
   _handleClick = this._handleClick.bind(this)
 
   render() {
-    const { children, component, icon, label, link, text } = this.props
+    const { icon, link } = this.props
     return (
       <div { ...this._getButton() }>
         { icon && <i className={`fa fa-fw fa-${icon}`} /> }
-        { label || text || children }
-        { component }
+        { this._getLabel() }
         { link && <a target="_blank" ref={ node => this.link = node} /> }
       </div>
     )
 
+  }
+
+  _getLabel() {
+    const { children, component, label, text } = this.props
+    if(!_.isNil(label)) return label
+    if(!_.isNil(text)) return text
+    if(!_.isNil(children)) return children
+    if(!_.isNil(component)) return component
+    return null
   }
 
   _getButton() {

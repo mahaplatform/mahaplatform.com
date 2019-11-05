@@ -12,6 +12,9 @@ import CampaignsSMS from './campaigns/sms/show'
 import CampaignsSMSDesign from './campaigns/sms/design'
 import ContactsList from './contacts/list'
 import ContactsShow from './contacts/show'
+import EmailsShow from './emails/show'
+import EmailsDeliveries from './emails/deliveries'
+import EmailsDesign from './emails/design'
 import FormsList from './forms/list'
 import FormsShow from './forms/show'
 import FormsDesign from './forms/design'
@@ -28,9 +31,6 @@ import TemplatesShow from './templates/show'
 import WorkflowsList from './workflows/list'
 import WorkflowsShow from './workflows/show'
 import WorkflowsDesign from './workflows/design'
-import WorkflowEmailsShow from './workflows/emails/show'
-import WorkflowEmailsDeliveries from './workflows/emails/deliveries'
-import WorkflowEmailsDesign from './workflows/emails/design'
 import WorkflowEnrollmentsList from './workflows/enrollments/list'
 import WorkflowEnrollmentsShow from './workflows/enrollments/show'
 
@@ -49,6 +49,9 @@ const routes = [
   { path: '/campaigns/sms/:id/design', component: CampaignsSMSDesign },
   { path: '/contacts', component: ContactsList },
   { path: '/contacts/:id', component: ContactsShow },
+  { path: '/emails/:id', component: EmailsShow },
+  { path: '/emails/:id/deliveries', component: EmailsDeliveries },
+  { path: '/emails/:id/design', component: EmailsDesign },
   { path: '/forms', component: FormsList },
   { path: '/forms/:id', component: FormsShow },
   { path: '/forms/:id/design', component: FormsDesign },
@@ -65,9 +68,6 @@ const routes = [
   { path: '/workflows', component: WorkflowsList },
   { path: '/workflows/:id', component: WorkflowsShow },
   { path: '/workflows/:id/design', component: WorkflowsDesign },
-  { path: '/workflows/:workflow_id/emails/:id', component: WorkflowEmailsShow },
-  { path: '/workflows/:workflow_id/emails/:id/deliveries', component: WorkflowEmailsDeliveries },
-  { path: '/workflows/:workflow_id/emails/:id/design', component: WorkflowEmailsDesign },
   { path: '/workflows/:workflow_id/enrollments', component: WorkflowEnrollmentsList },
   { path: '/workflows/:workflow_id/enrollments/:id', component: WorkflowEnrollmentsShow }
 

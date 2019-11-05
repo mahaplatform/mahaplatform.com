@@ -43,9 +43,6 @@ const performanceRoute = async (req, res) => {
     metrics: {
       responses: total
     },
-    totals: {
-      responses: total
-    },
     data: {
       responses: responses.map(segment => ({
         x: segment.date,

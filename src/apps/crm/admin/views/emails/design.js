@@ -1,4 +1,4 @@
-import EmailDesigner from '../../../components/email_designer'
+import EmailDesigner from '../../components/email_designer'
 import PropTypes from 'prop-types'
 import { Page } from 'maha-admin'
 import React from 'react'
@@ -41,20 +41,20 @@ class Designer extends React.Component {
 
   _handleFetch() {
     const { page } = this.props
-    const { workflow_id, id } = page.params
+    const { id } = page.params
     this.context.network.request({
       method: 'get',
-      endpoint: `/api/admin/crm/workflows/${workflow_id}/emails/${id}`,
+      endpoint: `/api/admin/crm/emails/${id}`,
       onSuccess: this._handleSuccess
     })
   }
 
   _handleSave(config) {
     const { page } = this.props
-    const { workflow_id, id } = page.params
+    const { id } = page.params
     this.context.network.request({
       method: 'patch',
-      endpoint: `/api/admin/crm/workflows/${workflow_id}/emails/${id}`,
+      endpoint: `/api/admin/crm/emails/${id}`,
       body: { config },
       onSuccess: this._handleSuccess
     })

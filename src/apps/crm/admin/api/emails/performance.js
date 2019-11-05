@@ -1,20 +1,19 @@
-import Workflow from '../../../models/workflow'
+import Email from '../../../models/workflow_email'
 import moment from 'moment'
 
 const performanceRoute = async (req, res) => {
 
-  const workflow = await Workflow.scope(qb => {
+  const email = await Email.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['program'],
     transacting: req.trx
   })
 
-  if(!workflow) return res.status(404).respond({
+  if(!email) return res.status(404).respond({
     code: 404,
-    message: 'Unable to load workflow'
+    message: 'Unable to load email'
   })
 
   const filled = `
@@ -28,12 +27,12 @@ const performanceRoute = async (req, res) => {
     req.query.end,
     `1 ${req.query.step}`,
     req.query.step,
-    workflow.get('id')
+    email.get('id')
   ]
 
   const data = {}
 
-  data.enrolled = await req.trx.raw(`
+  data.sent = await req.trx.raw(`
     ${filled}
     select filled_dates.date, count(crm_enrollments.*) as count
     from filled_dates
@@ -45,7 +44,7 @@ const performanceRoute = async (req, res) => {
     count: parseInt(segment.count)
   })))
 
-  data.active = await req.trx.raw(`
+  data.delivered = await req.trx.raw(`
     ${filled}
     select filled_dates.date, count(crm_enrollments.*) as count
     from filled_dates
@@ -57,7 +56,7 @@ const performanceRoute = async (req, res) => {
     count: parseInt(segment.count)
   })))
 
-  data.lost = await req.trx.raw(`
+  data.opened = await req.trx.raw(`
     ${filled}
     select filled_dates.date, count(crm_enrollments.*) as count
     from filled_dates
@@ -69,7 +68,7 @@ const performanceRoute = async (req, res) => {
     count: parseInt(segment.count)
   })))
 
-  data.completed = await req.trx.raw(`
+  data.complained = await req.trx.raw(`
     ${filled}
     select filled_dates.date, count(crm_enrollments.*) as count
     from filled_dates
@@ -81,7 +80,7 @@ const performanceRoute = async (req, res) => {
     count: parseInt(segment.count)
   })))
 
-  data.converted = await req.trx.raw(`
+  data.clicked = await req.trx.raw(`
     ${filled}
     select filled_dates.date, count(crm_enrollments.*) as count
     from filled_dates
@@ -107,9 +106,11 @@ const performanceRoute = async (req, res) => {
     }), {})
   }
 
-  const { converted, enrolled } = results.metrics
+  const { delivered, opened, clicked } = results.metrics
 
-  results.metrics.conversion_rate = enrolled > 0 ? ((converted / enrolled) * 100).toFixed(2) : 0
+  results.metrics.open_rate = delivered > 0 ? ((opened / delivered) * 100).toFixed(2) : 0
+
+  results.metrics.click_rate = delivered > 0 ? ((clicked / delivered) * 100).toFixed(2) : 0
 
   res.status(200).respond(results)
 

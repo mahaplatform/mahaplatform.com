@@ -5,6 +5,7 @@ import campaigns from './campaigns'
 import programs from './programs'
 import contacts from './contacts'
 import { Router } from 'express'
+import emails from './emails'
 import fields from './fields'
 import topics from './topics'
 import forms from './forms'
@@ -16,6 +17,8 @@ const router = new Router({ mergeParams: true })
 router.use('/campaigns', campaigns)
 
 router.use('/contacts', contacts)
+
+router.use('/emails', emails)
 
 router.use('/fields', fields)
 
