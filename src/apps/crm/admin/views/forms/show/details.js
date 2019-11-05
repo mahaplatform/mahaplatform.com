@@ -11,7 +11,7 @@ const Details = ({ audits, form }) => {
   }
 
   const responses = {
-    label: `${form.responses} responses`,
+    label: `${form.num_responses} responses`,
     className: 'link',
     route: `/admin/crm/forms/${form.id}/responses`
   }

@@ -7,6 +7,7 @@ import _ from 'lodash'
 
 const ranges = [
   { value: '30_days', text: 'Last 30 days' },
+  { value: '60_days', text: 'Last 60 days' },
   { value: 'ytd', text: 'Year to Date' },
   { value: 'ltd', text: 'Life to Date' }
 ]
@@ -61,7 +62,7 @@ class Performance extends React.Component {
               <tr>
                 <td>Responses</td>
                 <td className="right aligned">
-                  { performance.totals.responses }
+                  { this._getStat(performance.totals.responses) }
                 </td>
               </tr>
             </tbody>
@@ -130,6 +131,12 @@ class Performance extends React.Component {
         end: end.add(1, step).startOf(step).format('YYYY-MM-DD'),
         step
       }
+    } else if(range === '60_days') {
+      return {
+        start: moment().subtract(60, 'days').format('YYYY-MM-DD'),
+        end: moment().add(1, 'day').format('YYYY-MM-DD'),
+        step: 'day'
+      }
     } else if(range === '30_days') {
       return {
         start: moment().subtract(30, 'days').format('YYYY-MM-DD'),
@@ -137,6 +144,16 @@ class Performance extends React.Component {
         step: 'day'
       }
     }
+  }
+
+  _getStat(quantity) {
+    const { form } = this.props
+    const button = {
+      label: quantity,
+      className: 'link',
+      route: `/admin/crm/forms/${form.id}/responses`
+    }
+    return <Button { ...button } />
   }
 
   _handleFetch() {
@@ -184,6 +201,7 @@ class Performance extends React.Component {
           }],
           yAxes: [{
             ticks: {
+              min: 0,
               stepSize: 1
             }
           }]

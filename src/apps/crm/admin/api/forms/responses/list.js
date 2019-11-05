@@ -21,6 +21,7 @@ const listRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('form_id', form.get('id'))
   }).fetchPage({
+    withRelated: ['contact.photo'],
     page: req.query.$page,
     transacting: req.trx
   })

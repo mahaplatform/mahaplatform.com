@@ -1,4 +1,6 @@
+import ContactToken from '../../../tokens/contact'
 import { Page } from 'maha-admin'
+import React from 'react'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Responses',
@@ -7,7 +9,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: `/api/admin/crm/forms/${props.params.form_id}/responses`,
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Contact', key: 'contact.full_name', primary: true },
+      { label: 'Contact', key: 'contact.display_name', primary: true, format: ({ contact }) => <ContactToken { ...contact } /> },
       { label: 'Created At', key: 'created_at', primary: true, format: 'datetime' }
     ],
     empty: {
