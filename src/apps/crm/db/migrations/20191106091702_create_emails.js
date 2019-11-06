@@ -2,7 +2,7 @@ const CreateEmail = {
 
   up: async (knex) => {
 
-    await knex.schema.dropTable('crm_maha_email_templates')
+    await knex.schema.dropTable('maha_email_templates')
 
     await knex.schema.dropTable('crm_workflow_emails')
 
