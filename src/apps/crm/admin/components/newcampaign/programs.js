@@ -1,4 +1,5 @@
-import { Infinite, ModalPanel, ProgramToken } from 'maha-admin'
+import { Infinite, ModalPanel } from 'maha-admin'
+import ProgramToken from '../../tokens/program'
 import PropTypes from 'prop-types'
 import React from 'react'
 import List from '../list'

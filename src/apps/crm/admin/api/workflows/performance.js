@@ -1,60 +1,117 @@
+import Workflow from '../../../models/workflow'
 import moment from 'moment'
 
 const performanceRoute = async (req, res) => {
 
-  const data = {
-    metrics: {
-      enrollments: 995,
-      active: 340,
-      conversions: 34.5
-    },
-    totals: {
-      enrolled: 678,
-      active: 122,
-      lost: 465,
-      completed: 468,
-      converted: 38
-    },
-    data: {
-      enrolled: [
-        { x: moment().subtract(5, 'months'), y: 10 },
-        { x: moment().subtract(4, 'months'), y: 50 },
-        { x: moment().subtract(3, 'months'), y: 85 },
-        { x: moment().subtract(2, 'months'), y: 62 },
-        { x: moment().subtract(1, 'months'), y: 16 }
-      ],
-      active: [
-        { x: moment().subtract(5, 'months'), y: 5 },
-        { x: moment().subtract(4, 'months'), y: 3 },
-        { x: moment().subtract(3, 'months'), y: 20 },
-        { x: moment().subtract(2, 'months'), y: 22 },
-        { x: moment().subtract(1, 'months'), y: 124 }
-      ],
-      lost: [
-        { x: moment().subtract(5, 'months'), y: 15 },
-        { x: moment().subtract(4, 'months'), y: 43 },
-        { x: moment().subtract(3, 'months'), y: 60 },
-        { x: moment().subtract(2, 'months'), y: 22 },
-        { x: moment().subtract(1, 'months'), y: 13 }
-      ],
-      completed: [
-        { x: moment().subtract(5, 'months'), y: 10 },
-        { x: moment().subtract(4, 'months'), y: 50 },
-        { x: moment().subtract(3, 'months'), y: 85 },
-        { x: moment().subtract(2, 'months'), y: 62 },
-        { x: moment().subtract(1, 'months'), y: 16 }
-      ],
-      converted: [
-        { x: moment().subtract(5, 'months'), y: 5 },
-        { x: moment().subtract(4, 'months'), y: 32 },
-        { x: moment().subtract(3, 'months'), y: 30 },
-        { x: moment().subtract(2, 'months'), y: 25 },
-        { x: moment().subtract(1, 'months'), y: 10 }
-      ]
-    }
+  const workflow = await Workflow.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
+  }).query(qb => {
+    qb.where('id', req.params.id)
+  }).fetch({
+    withRelated: ['program'],
+    transacting: req.trx
+  })
+
+  if(!workflow) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load workflow'
+  })
+
+  const filled = `
+    with filled_dates AS (
+    select date
+    from generate_series(?::timestamp, ?::timestamp, ?) AS date
+    )`
+
+  const params = [
+    req.query.start,
+    req.query.end,
+    `1 ${req.query.step}`,
+    req.query.step,
+    workflow.get('id')
+  ]
+
+  const data = {}
+
+  data.enrolled = await req.trx.raw(`
+    ${filled}
+    select filled_dates.date, count(crm_enrollments.*) as count
+    from filled_dates
+    left join crm_enrollments on date_trunc(?, crm_enrollments.created_at) = filled_dates.date and crm_enrollments.workflow_id=?
+    group by filled_dates.date
+    order by filled_dates.date asc
+  `, params).then(results => results.rows.map(segment => ({
+    date: moment(segment.date),
+    count: parseInt(segment.count)
+  })))
+
+  data.active = await req.trx.raw(`
+    ${filled}
+    select filled_dates.date, count(crm_enrollments.*) as count
+    from filled_dates
+    left join crm_enrollments on date_trunc(?, crm_enrollments.created_at) = filled_dates.date and crm_enrollments.workflow_id=?
+    group by filled_dates.date
+    order by filled_dates.date asc
+  `, params).then(results => results.rows.map(segment => ({
+    date: moment(segment.date),
+    count: parseInt(segment.count)
+  })))
+
+  data.lost = await req.trx.raw(`
+    ${filled}
+    select filled_dates.date, count(crm_enrollments.*) as count
+    from filled_dates
+    left join crm_enrollments on date_trunc(?, crm_enrollments.created_at) = filled_dates.date and crm_enrollments.workflow_id=?
+    group by filled_dates.date
+    order by filled_dates.date asc
+  `, params).then(results => results.rows.map(segment => ({
+    date: moment(segment.date),
+    count: parseInt(segment.count)
+  })))
+
+  data.completed = await req.trx.raw(`
+    ${filled}
+    select filled_dates.date, count(crm_enrollments.*) as count
+    from filled_dates
+    left join crm_enrollments on date_trunc(?, crm_enrollments.created_at) = filled_dates.date and crm_enrollments.workflow_id=?
+    group by filled_dates.date
+    order by filled_dates.date asc
+  `, params).then(results => results.rows.map(segment => ({
+    date: moment(segment.date),
+    count: parseInt(segment.count)
+  })))
+
+  data.converted = await req.trx.raw(`
+    ${filled}
+    select filled_dates.date, count(crm_enrollments.*) as count
+    from filled_dates
+    left join crm_enrollments on date_trunc(?, crm_enrollments.created_at) = filled_dates.date and crm_enrollments.workflow_id=?
+    group by filled_dates.date
+    order by filled_dates.date asc
+  `, params).then(results => results.rows.map(segment => ({
+    date: moment(segment.date),
+    count: parseInt(segment.count)
+  })))
+
+  const results = {
+    metrics: Object.keys(data).reduce((all, key) => ({
+      ...all,
+      [key]: data[key].reduce((total, segment) => total + segment.count, 0)
+    }), {}),
+    data: Object.keys(data).reduce((all, key) => ({
+      ...all,
+      [key]: data[key].map(segment => ({
+        x: segment.date,
+        y: segment.count
+      }))
+    }), {})
   }
 
-  res.status(200).respond(data)
+  const { converted, enrolled } = results.metrics
+
+  results.metrics.conversion_rate = enrolled > 0 ? ((converted / enrolled) * 100).toFixed(2) : 0
+
+  res.status(200).respond(results)
 
 }
 

@@ -1,17 +1,19 @@
+import Performance from './performance'
+import Workflows from './workflows'
 import { Page } from 'maha-admin'
 import Details from './details'
-import Results from './results'
 import React from 'react'
 
-const getTabs = ({ campaign, results }) => {
+const getTabs = ({ campaign, performance, workflows }) => {
 
   const items = [
-    { label: 'Details', component: <Details campaign={ campaign } /> }
+    { label: 'Details', component: <Details campaign={ campaign } /> },
+    { label: 'Workflows', component: <Workflows workflows={ workflows } /> }
   ]
 
-  if(campaign.sent_at !== null) {
-    items.push({ label: 'Results', component: <Results campaign={ campaign }  results={ results } /> })
-  }
+  // if(campaign.sent_at !== null) {
+    items.push({ label: 'Performance', component: <Performance campaign={ campaign } performance={ performance } /> })
+  // }
 
   return { items }
 
@@ -21,7 +23,8 @@ const getTasks = ({ list }) => []
 
 const mapResourcesToPage = (props, context) => ({
   campaign: `/api/admin/crm/campaigns/email/${props.params.id}`,
-  results: `/api/admin/crm/campaigns/email/${props.params.id}/results`
+  performance: `/api/admin/crm/campaigns/email/${props.params.id}/performance`,
+  workflows: `/api/admin/crm/campaigns/email/${props.params.id}/workflows`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

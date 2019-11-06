@@ -112,7 +112,8 @@ class Style extends React.Component {
                 ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`),
                 ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px'),
                 ...this._getProp('border',`sections[${i}].blocks[${j}].border`),
-                ...this._getProp('border-radius',`sections[${i}].blocks[${j}].border_radius`, 'px')
+                ...this._getProp('border-radius',`sections[${i}].blocks[${j}].border_radius`, 'px'),
+                ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`)
               ]
             },{
               selector: `table.section-${i}-block-${j} table.button td`,styles: [

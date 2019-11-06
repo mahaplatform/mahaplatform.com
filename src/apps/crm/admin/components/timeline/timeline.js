@@ -78,7 +78,7 @@ class Timeline extends React.PureComponent {
   _getEmail() {
     const { contact } = this.props
     return {
-      label: 'Link Email',
+      label: 'Import Email',
       className: 'ui button',
       modal: () => <Note contact={ contact } />
     }

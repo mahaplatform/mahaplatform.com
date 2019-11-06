@@ -2,6 +2,7 @@ import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
 import WorkflowSerializer from '../../../serializers/workflow_serializer'
 import generateCode from '../../../../../core/utils/generate_code'
+import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import Workflow from '../../../models/workflow'
 
@@ -19,6 +20,11 @@ const createRoute = async (req, res) => {
     ...whitelist(req.body, ['title','program_id'])
   }).save(null, {
     transacting: req.trx
+  })
+
+  await audit(req, {
+    story: 'created',
+    auditable: workflow
   })
 
   await activity(req, {

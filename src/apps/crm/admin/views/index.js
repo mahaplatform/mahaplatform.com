@@ -15,19 +15,23 @@ import ContactsShow from './contacts/show'
 import EmailsShow from './emails/show'
 import EmailsDeliveries from './emails/deliveries'
 import EmailsDesign from './emails/design'
-import EnrollmentsList from './workflows/enrollments/list'
-import EnrollmentsShow from './workflows/enrollments/show'
 import FormsList from './forms/list'
 import FormsShow from './forms/show'
+import FormsDesign from './forms/design'
+import ListsShow from './lists/show'
+import ListsContacts from './lists/contacts'
 import OrganizationsList from './organizations/list'
 import OrganizationsShow from './organizations/show'
 import ProgramsList from './programs/list'
 import ProgramsShow from './programs/show'
-import TemplateList from './templates/list'
-import TemplatesShow from './templates/show'
+import ResponsesList from './forms/responses/list'
+import ResponsesShow from './forms/responses/show'
+import TemplatesDesign from './templates/design'
 import WorkflowsList from './workflows/list'
 import WorkflowsShow from './workflows/show'
 import WorkflowsDesign from './workflows/design'
+import WorkflowEnrollmentsList from './workflows/enrollments/list'
+import WorkflowEnrollmentsShow from './workflows/enrollments/show'
 
 const routes = [
   { path: '/campaigns', component: CampaignsList },
@@ -49,17 +53,22 @@ const routes = [
   { path: '/emails/:id/design', component: EmailsDesign },
   { path: '/forms', component: FormsList },
   { path: '/forms/:id', component: FormsShow },
+  { path: '/forms/:id/design', component: FormsDesign },
+  { path: '/forms/:form_id/responses', component: ResponsesList },
+  { path: '/forms/:form_id/responses/:id', component: ResponsesShow },
+  { path: '/lists/:id', component: ListsShow },
+  { path: '/lists/:id/contacts', component: ListsContacts },
   { path: '/organizations', component: OrganizationsList },
   { path: '/organizations/:id', component: OrganizationsShow },
   { path: '/programs', component: ProgramsList },
   { path: '/programs/:id', component: ProgramsShow },
-  { path: '/templates', component: TemplateList },
-  { path: '/templates/:id', component: TemplatesShow },
+  { path: '/templates/:id/design', component: TemplatesDesign },
   { path: '/workflows', component: WorkflowsList },
   { path: '/workflows/:id', component: WorkflowsShow },
   { path: '/workflows/:id/design', component: WorkflowsDesign },
-  { path: '/workflows/:workflow_id/enrollments', component: EnrollmentsList },
-  { path: '/workflows/:workflow_id/enrollments/:id', component: EnrollmentsShow }
+  { path: '/workflows/:workflow_id/enrollments', component: WorkflowEnrollmentsList },
+  { path: '/workflows/:workflow_id/enrollments/:id', component: WorkflowEnrollmentsShow }
+
 ]
 
 export default routes

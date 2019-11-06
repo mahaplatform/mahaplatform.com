@@ -78,7 +78,6 @@ class Lookup extends React.Component {
   componentDidMount() {
     const { defaultValue, endpoint, multiple, value, onFetch, onReady } = this.props
     const query = { $filter: { [value]: { $in: defaultValue } } }
-    console.log(defaultValue)
     if(defaultValue && (!multiple || defaultValue.length > 0)) onFetch(endpoint, query)
     onReady()
   }

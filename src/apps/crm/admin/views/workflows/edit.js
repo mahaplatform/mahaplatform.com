@@ -24,6 +24,7 @@ class Edit extends React.Component {
     return {
       title: 'Edit Workflow',
       method: 'patch',
+      endpoint: `/api/admin/crm/workflows/${workflow.id}/edit`,
       action: `/api/admin/crm/workflows/${workflow.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,

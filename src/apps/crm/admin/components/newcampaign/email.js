@@ -28,7 +28,6 @@ class Email extends React.PureComponent {
 
   _getForm() {
     const { program_id, user } = this.props
-    const filter = { program_id: { $eq: program_id } }
     return {
       title: 'New Email Blast',
       method: 'post',
@@ -42,7 +41,7 @@ class Email extends React.PureComponent {
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
             { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: 'marketing' },
-            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: '/api/admin/crm/senders', filter, value: 'id', text: 'rfc822', required: true },
+            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true },
             { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: user.email },
             { label: 'To', name: 'to', type: 'textfield', placeholder: 'Choose criteria'},
             { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true }

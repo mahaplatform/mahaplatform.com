@@ -39,7 +39,9 @@ class EmailsField extends React.PureComponent {
             }
           </div>
         ))}
-        <Button { ...this._getAddButton() } />
+        <div className="emailsfield-add">
+          <Button { ...this._getAddButton() } />
+        </div>
       </div>
     )
   }

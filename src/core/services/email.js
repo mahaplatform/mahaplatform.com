@@ -1,5 +1,5 @@
 import htmlToText from 'html-email-to-text'
-import ses from '../services/ses'
+import nodemailer from '../services/nodemailer'
 import inline from 'inline-css'
 import moment from 'moment'
 
@@ -49,7 +49,7 @@ const _sendViaSES = async (rendered) => {
 
   const result = await new Promise((resolve, reject) => {
 
-    ses.sendMail(rendered, async (err, info) => {
+    nodemailer.sendMail(rendered, async (err, info) => {
 
       if(err) reject(err)
 

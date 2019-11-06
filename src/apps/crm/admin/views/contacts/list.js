@@ -5,7 +5,7 @@ import React from 'react'
 import New from './new'
 
 const mapResourcesToPage = (props, context) => ({
-  fields: '/api/admin/crm_contacts/fields'
+  fields: '/api/admin/crm/fields'
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

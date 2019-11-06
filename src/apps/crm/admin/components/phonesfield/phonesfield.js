@@ -30,7 +30,7 @@ class Phonesfield extends React.PureComponent {
               <PhoneField { ...this._getPhoneField(number, index) } />
             </div>
             { numbers.length > 1 &&
-              <div className="emailsfield-email-action">
+              <div className="phonesfield-number-action">
                 <Button { ...this._getPrimaryButton(number, index) } />
               </div>
             }
@@ -39,7 +39,9 @@ class Phonesfield extends React.PureComponent {
             }
           </div>
         ))}
-        <Button { ...this._getAddButton() } />
+        <div className="phonesfield-add">
+          <Button { ...this._getAddButton() } />
+        </div>
       </div>
     )
   }

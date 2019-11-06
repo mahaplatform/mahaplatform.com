@@ -1,4 +1,4 @@
-import VisibilityToken from '../../../tokens/visibility'
+import ProgramToken from '../../../tokens/program'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -33,7 +33,7 @@ class Call extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true },
+            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true, format: ProgramToken },
             { label: 'Note', name: 'text', type: 'textarea', placeholder: 'Leave a note' }
           ]
         }

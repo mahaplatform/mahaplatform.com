@@ -1,12 +1,21 @@
 const ActivitySerializer = (req, result) => ({
   id: result.get('id'),
   type: result.get('type'),
+  program: program(result.related('program')),
   user: user(result.related('user')),
   story: result.related('story').get('text'),
   data: data(result),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
+
+const program = (program) => {
+  if(!program.id) return
+  return {
+    id: program.get('id'),
+    title: program.get('title')
+  }
+}
 
 const user = (user) => {
   if(!user.id) return null

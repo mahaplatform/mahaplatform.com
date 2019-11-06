@@ -1,12 +1,14 @@
-import { Image } from 'maha-admin'
 import PropTypes from 'prop-types'
+import { Image } from 'maha-admin'
 import React from 'react'
 
 const Subscriptions = ({ contact, subscriptions }) => (
   <div className="crm-contact-subscriptions">
     <table className="ui unstackable compact table">
       <tbody>
-        { subscriptions.map((program, i) => [
+        { subscriptions.filter(program => {
+          return program.lists.length > 0
+        }).map((program, i) => [
           <tr key={`program_${i}`} className="crm-contact-subscriptions-program">
             <td colSpan="2">
               <Image src={ program.logo } title={ program.title } transforms={{ w: 24, h: 24 }} />
@@ -23,18 +25,16 @@ const Subscriptions = ({ contact, subscriptions }) => (
               </td>
               <td>{ list.title }</td>
             </tr>
-          )),
-          ...program.lists.length === 0 ? [(
-            <tr key="subscriptions_empty" className="crm-contact-subscriptions-empty">
-              <td colSpan="2">
-                There are no lists for this program
-              </td>
-            </tr>
-          )] : []
+          ))
         ]) }
       </tbody>
     </table>
   </div>
 )
+
+Subscriptions.propTypes = {
+  contact: PropTypes.object,
+  subscriptions: PropTypes.array
+}
 
 export default Subscriptions

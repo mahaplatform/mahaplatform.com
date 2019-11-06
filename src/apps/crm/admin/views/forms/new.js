@@ -1,18 +1,26 @@
+import ProgramToken from '../../tokens/program'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Form, ProgramToken } from 'maha-admin'
+import { Form } from 'maha-admin'
 import React from 'react'
 
 class New extends React.Component {
 
   static contextTypes = {
-    modal: PropTypes.object
+    modal: PropTypes.object,
+    router: PropTypes.object
   }
 
   static propTypes = {
-    program_id: PropTypes.number
+    user: PropTypes.object
+  }
+
+  state = {
+    program_id: null
   }
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleChangeField = this._handleChangeField.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
@@ -20,21 +28,27 @@ class New extends React.Component {
   }
 
   _getForm() {
+    const { program_id } = this.state
+    const { user } = this.props
     return {
       title: 'New Form',
       method: 'post',
       action: '/api/admin/crm/forms',
+      onChangeField: this._handleChangeField,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
             { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true, format: ProgramToken },
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter the title', required: true },
-            { label: 'Send Responses To', name: 'send_responses_to', type: 'textarea', placeholder: 'Enter one email per line' },
-            { label: 'Max Responses', name: 'max_repsonses', type: 'number', placeholder: 'Enter maximum responses' },
-            { label: 'Open Form', name: 'open_form_on', type: 'datefield', placeholder: 'Enter start date' },
-            { label: 'Close Form', name: 'close_form_on', type: 'datefield', placeholder: 'Enter end date' }
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter the title', required: true }
+          ]
+        }, {
+          label: 'Confirmation Email',
+          fields: [
+            { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', disabled: program_id === null, endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true },
+            { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: user.email },
+            { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true, defaultValue: 'Thank you for filling out our form' }
           ]
         }
       ]
@@ -45,10 +59,23 @@ class New extends React.Component {
     this.context.modal.close()
   }
 
-  _handleSuccess() {
+  _handleChangeField(name, value) {
+    if(name === 'program_id') {
+      this.setState({
+        program_id: value
+      })
+    }
+  }
+
+  _handleSuccess(result) {
+    this.context.router.history.push(`/admin/crm/forms/${result.id}`)
     this.context.modal.close()
   }
 
 }
 
-export default New
+const mapStateToProps = (state, props) => ({
+  user: state.maha.admin.user
+})
+
+export default connect(mapStateToProps)(New)

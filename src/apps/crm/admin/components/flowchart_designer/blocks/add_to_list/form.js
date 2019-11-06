@@ -31,7 +31,7 @@ class AddToList extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'List', name: 'list_id', type: 'lookup', endpoint: '/api/admin/crm/lists', filter: { type: { $eq: 'static' } }, value: 'id', text: 'name', defaultValue: config.list_id }
+            { label: 'List', name: 'list_id', type: 'lookup', endpoint: '/api/admin/crm/lists', filter: { type: { $eq: 'static' } }, value: 'id', text: 'title', defaultValue: config.list_id }
           ]
         }
       ]

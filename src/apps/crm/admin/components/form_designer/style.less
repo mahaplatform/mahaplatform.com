@@ -1,3 +1,42 @@
 .form-designer {
-
+  flex: 1;
+  display: flex;
+  background-color: @white;
+}
+.form-designer-main {
+  flex-direction: column;
+  flex: 1;
+  display: flex;
+}
+.form-designer-canvas {
+  background-color: fadeout(@black, 97);
+  flex: 1;
+  // display: flex;
+  .ui.form {
+    display: block;
+    width: 650px;
+    margin: 0.8em auto;
+    background-color: @white;
+    padding: 0.8em;
+  }
+}
+.form-designer-sidebar {
+  border-left: 1px solid fadeout(@black, 90);
+  flex: ~"0 0 calc(100% / 3)";
+  max-width: 500px;
+  min-width: 350px;
+  display: flex;
+  .maha-modal-panel-header {
+    background-color: @grey !important;
+  }
+  .maha-form-field {
+    flex-direction: column;
+  }
+  .maha-form-field-label {
+    flex: 1;
+    padding: 0;
+  }
+  & > * {
+    flex: 1;
+  }
 }

@@ -7,7 +7,7 @@ const listRoute = async (req, res) => {
   const workflow = await Workflow.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
-    qb.where('code', req.params.workflow_id)
+    qb.where('id', req.params.workflow_id)
   }).fetch({
     transacting: req.trx
   })

@@ -1,6 +1,7 @@
 import Model from '../../../core/objects/model'
 import Enrollment from './enrollment'
 import Program from './program'
+import Email from './email'
 
 const Workflow = new Model({
 
@@ -9,6 +10,10 @@ const Workflow = new Model({
   rules: {},
 
   virtuals: {},
+
+  emails() {
+    return this.hasMany(Email, 'workflow_id')
+  },
 
   enrollments() {
     return this.hasMany(Enrollment, 'workflow_id')

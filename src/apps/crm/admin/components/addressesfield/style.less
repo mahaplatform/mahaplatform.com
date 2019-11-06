@@ -1,4 +1,7 @@
 .addressesfield {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.3em;
+  overflow: hidden;
   &:focus {
     outline: none !important;
     border-color: @lightblue;
@@ -14,10 +17,8 @@
   }
 }
 .addressesfield-address {
+  border-bottom: 1px solid fadeout(@black, 90);
   display: flex;
-  border: 1px solid fadeout(@black, 90);
-  border-radius: 0.3em;
-  margin-bottom: 0.4em;
 }
 .addressesfield-address-field {
   flex: 1;
@@ -40,5 +41,12 @@
     &:hover {
       color: fadeout(@black, 20);
     }
+  }
+}
+.addressesfield-add {
+  padding: 0.4em 0.8em;
+  background-color: fadeout(@black, 98);
+  .link {
+    font-size: 0.8em;
   }
 }

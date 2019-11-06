@@ -1,12 +1,14 @@
-import { Image } from 'maha-admin'
 import PropTypes from 'prop-types'
+import { Image } from 'maha-admin'
 import React from 'react'
 
 const Interests = ({ contact, interests }) => (
   <div className="crm-contact-interests">
     <table className="ui unstackable compact table">
       <tbody>
-        { interests.map((program, i) => [
+        { interests.filter(program => {
+          return program.topics.length > 0
+        }).map((program, i) => [
           <tr key={`program_${i}`} className="crm-contact-interests-program">
             <td colSpan="2">
               <Image src={ program.logo } title={ program.title } transforms={{ w: 24, h: 24 }} />
@@ -23,18 +25,16 @@ const Interests = ({ contact, interests }) => (
               </td>
               <td>{ topic.title }</td>
             </tr>
-          )),
-          ...program.topics.length === 0 ? [(
-            <tr key="interests_empty" className="crm-contact-interests-empty">
-              <td colSpan="2">
-                There are no topics for this program
-              </td>
-            </tr>
-          )] : []
+          ))
         ]) }
       </tbody>
     </table>
   </div>
 )
+
+Interests.propTypes = {
+  contact: PropTypes.object,
+  interests: PropTypes.array
+}
 
 export default Interests

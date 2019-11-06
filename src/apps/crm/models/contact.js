@@ -4,10 +4,11 @@ import Asset from '../../maha/models/asset'
 import EmailAddress from './email_address'
 import Organization from './organization'
 import PhoneNumber from './phone_number'
+import Email from './contact_email'
 import Activity from './activity'
+import Call from './contact_call'
+import Note from './contact_note'
 import Topic from './topic'
-import Call from './call'
-import Note from './note'
 import List from './list'
 import Tag from './tag'
 
@@ -72,6 +73,11 @@ const Contact = new Model({
 
   calls() {
     return this.hasMany(Call, 'contact_id')
+  },
+
+
+  emails() {
+    return this.hasMany(Email, 'contact_id')
   },
 
   email_addresses() {

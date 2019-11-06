@@ -1,3 +1,3 @@
-const Token = ({ list_id }) => `contact.first_name = 'Greg'`
+const Token = ({ list_id }) => `form.has_participated = true`
 
 export default Token

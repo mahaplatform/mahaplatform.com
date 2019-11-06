@@ -1,3 +1,5 @@
-const Token = ({ subject }) => 'Subject of Email'
+import React from 'react'
+
+const Token = ({ email }) => <div>{ email.subject }</div>
 
 export default Token

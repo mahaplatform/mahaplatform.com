@@ -22,10 +22,10 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   }).then(result => result.toArray())
 
-  const values = await processValues(req, {
-    parent_type: 'crm_contacts',
-    values: req.body.values
-  })
+  const values = null//await processValues(req, {
+  //   parent_type: 'crm_contacts',
+  //   values: req.body.values
+  // })
 
   const email = req.body.email_addresses.find(email => {
     return email.is_primary

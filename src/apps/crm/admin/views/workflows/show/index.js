@@ -6,11 +6,11 @@ import Emails from './emails'
 import Edit from '../edit'
 import React from 'react'
 
-const getTabs = ({ emails, performance, workflow }) => ({
+const getTabs = ({ audits, emails, performance, workflow }) => ({
   items: [
-    { label: 'Details', component: <Details workflow={ workflow } /> },
+    { label: 'Details', component: <Details workflow={ workflow } audits={ audits } /> },
     { label: 'Emails', component: <Emails workflow={ workflow } emails={ emails } /> },
-    { label: 'Performance', component: <Performance workflow={ workflow } performance={ performance } /> }
+    { label: 'Performance', component: <Performance workflow={ workflow } /> }
   ]
 })
 
@@ -23,7 +23,7 @@ const getTasks = ({ workflow, list }) => ({
       show: workflow.status !== 'active',
       request: {
         method: 'PATCH',
-        endpoint: `/api/admin/crm/workflows/${workflow.code}/activate`,
+        endpoint: `/api/admin/crm/workflows/${workflow.id}/activate`,
         body: { is_active: true },
         success: () => {},
         failure: () => {}
@@ -33,7 +33,7 @@ const getTasks = ({ workflow, list }) => ({
       show: workflow.status === 'active',
       request: {
         method: 'PATCH',
-        endpoint: `/api/admin/crm/workflows/${workflow.code}/activate`,
+        endpoint: `/api/admin/crm/workflows/${workflow.id}/activate`,
         body: { is_active: false },
         success: () => {},
         failure: () => {}
@@ -43,8 +43,8 @@ const getTasks = ({ workflow, list }) => ({
 })
 
 const mapResourcesToPage = (props, context) => ({
+  audits: `/api/admin/crm_workflows/${props.params.id}/audits`,
   emails: `/api/admin/crm/workflows/${props.params.id}/emails`,
-  performance: `/api/admin/crm/workflows/${props.params.id}/performance`,
   workflow: `/api/admin/crm/workflows/${props.params.id}`
 })
 
