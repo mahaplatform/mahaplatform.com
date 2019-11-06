@@ -2,9 +2,9 @@ import Model from '../../../core/objects/model'
 import Workflow from './workflow'
 import Sender from './sender'
 
-const WorkflowEmail = new Model({
+const Email = new Model({
 
-  tableName: 'crm_workflow_emails',
+  tableName: 'crm_emails',
 
   rules: {},
 
@@ -20,4 +20,4 @@ const WorkflowEmail = new Model({
 
 })
 
-export default WorkflowEmail
+export default Email

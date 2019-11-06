@@ -1,7 +1,7 @@
 import Model from '../../../core/objects/model'
 import Enrollment from './enrollment'
 import Program from './program'
-import Email from './workflow_email'
+import Email from './email'
 
 const Workflow = new Model({
 

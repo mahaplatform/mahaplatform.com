@@ -1,4 +1,4 @@
-import Email from '../../../models/workflow_email'
+import Email from '../../../models/email'
 import moment from 'moment'
 
 const performanceRoute = async (req, res) => {

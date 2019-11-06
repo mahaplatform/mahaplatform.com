@@ -1,10 +1,10 @@
-import WorkflowEamilSerializer from '../../../../serializers/workflow_email_serializer'
 import { activity } from '../../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../../core/services/routes/params'
+import EmailSerializer from '../../../../serializers/email_serializer'
 import generateCode from '../../../../../../core/utils/generate_code'
 import socket from '../../../../../../core/services/routes/emitter'
-import WorkflowEmail from '../../../../models/workflow_email'
 import Workflow from '../../../../models/workflow'
+import Email from '../../../../models/email'
 
 const createRoute = async (req, res) => {
 
@@ -22,10 +22,10 @@ const createRoute = async (req, res) => {
   })
 
   const code = await generateCode(req, {
-    table: 'crm_workflow_emails'
+    table: 'crm_emails'
   })
 
-  const email = await WorkflowEmail.forge({
+  const email = await Email.forge({
     team_id: req.team.get('id'),
     workflow_id: workflow.get('id'),
     code,
@@ -43,7 +43,7 @@ const createRoute = async (req, res) => {
     `/admin/crm/workflows/${workflow.get('id')}`
   ])
 
-  res.status(200).respond(email, WorkflowEamilSerializer)
+  res.status(200).respond(email, EmailSerializer)
 
 }
 

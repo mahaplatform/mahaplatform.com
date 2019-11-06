@@ -26,8 +26,7 @@ import ProgramsList from './programs/list'
 import ProgramsShow from './programs/show'
 import ResponsesList from './forms/responses/list'
 import ResponsesShow from './forms/responses/show'
-import TemplateList from './templates/list'
-import TemplatesShow from './templates/show'
+import TemplatesDesign from './templates/design'
 import WorkflowsList from './workflows/list'
 import WorkflowsShow from './workflows/show'
 import WorkflowsDesign from './workflows/design'
@@ -63,8 +62,7 @@ const routes = [
   { path: '/organizations/:id', component: OrganizationsShow },
   { path: '/programs', component: ProgramsList },
   { path: '/programs/:id', component: ProgramsShow },
-  { path: '/templates', component: TemplateList },
-  { path: '/templates/:id', component: TemplatesShow },
+  { path: '/templates/:id/design', component: TemplatesDesign },
   { path: '/workflows', component: WorkflowsList },
   { path: '/workflows/:id', component: WorkflowsShow },
   { path: '/workflows/:id/design', component: WorkflowsDesign },

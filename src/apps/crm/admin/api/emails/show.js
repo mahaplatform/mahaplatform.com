@@ -1,5 +1,5 @@
-import EmailSerializer from '../../../serializers/workflow_email_serializer'
-import Email from '../../../models/workflow_email'
+import EmailSerializer from '../../../serializers/email_serializer'
+import Email from '../../../models/email'
 
 const showRoute = async (req, res) => {
 

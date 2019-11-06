@@ -1,8 +1,8 @@
+import NoteSerializer from '../../../../serializers/contact_note_serializer'
 import { whitelist } from '../../../../../../core/services/routes/params'
-import NoteSerializer from '../../../../serializers/note_serializer'
 import { contactActivity } from '../../../../services/activities'
+import Note from '../../../../models/contact_note'
 import Contact from '../../../../models/contact'
-import Note from '../../../../models/note'
 
 const createRoute = async (req, res) => {
 
@@ -31,6 +31,7 @@ const createRoute = async (req, res) => {
     user: req.user,
     contact,
     program_id: req.body.program_id,
+    foreign_key: 'contact_note_id',
     type: 'note',
     story: 'left a note',
     object: note

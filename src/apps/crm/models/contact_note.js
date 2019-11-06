@@ -2,9 +2,9 @@ import Model from '../../../core/objects/model'
 import Program from './program'
 import Contact from './contact'
 
-const Call = new Model({
+const ContactNote = new Model({
 
-  tableName: 'crm_calls',
+  tableName: 'crm_contact_notes',
 
   rules: {},
 
@@ -20,4 +20,4 @@ const Call = new Model({
 
 })
 
-export default Call
+export default ContactNote

@@ -1,8 +1,8 @@
+import CallSerializer from '../../../../serializers/contact_call_serializer'
 import { whitelist } from '../../../../../../core/services/routes/params'
-import CallSerializer from '../../../../serializers/call_serializer'
 import { contactActivity } from '../../../../services/activities'
+import Call from '../../../../models/contact_call'
 import Contact from '../../../../models/contact'
-import Call from '../../../../models/call'
 
 const createRoute = async (req, res) => {
 
@@ -30,6 +30,7 @@ const createRoute = async (req, res) => {
   await contactActivity(req, {
     user: req.user,
     contact,
+    foreign_key: 'contact_call_id',
     program_id: req.body.program_id,
     type: 'call',
     story: 'logged a phone call',

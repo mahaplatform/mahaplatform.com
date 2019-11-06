@@ -4,8 +4,8 @@ import generateCode from '../../../../../core/utils/generate_code'
 import FormSerializer from '../../../serializers/form_serializer'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
-import Email from '../../../models/workflow_email'
 import Workflow from '../../../models/workflow'
+import Email from '../../../models/email'
 import Form from '../../../models/form'
 
 const createRoute = async (req, res) => {
@@ -51,7 +51,7 @@ const createRoute = async (req, res) => {
   })
 
   const emailCode = await generateCode(req, {
-    table: 'crm_workflow_emails'
+    table: 'crm_emails'
   })
 
   const email = await Email.forge({
