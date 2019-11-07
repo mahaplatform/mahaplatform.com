@@ -8,7 +8,7 @@ export const fetch = (table) => ({
         $eq: table
       },
       stage: {
-        $ne: 'complete'
+        $neq: 'complete'
       }
     }
   },

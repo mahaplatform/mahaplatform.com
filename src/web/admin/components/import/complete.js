@@ -29,7 +29,6 @@ class Complete extends React.Component {
   }
 
   _getSuccessMessage() {
-    const { destination } = this.props
     return {
       title: 'Import Successful!',
       text: 'Great job! Your data was imported successfully.',
@@ -37,12 +36,8 @@ class Complete extends React.Component {
       color: 'green',
       animation: 'tada',
       button: {
-        label: 'Go to records',
+        label: 'Finish',
         handler: () => {
-          if(destination) {
-            const destination = this.props.destination(this.props.import.id)
-            this.context.router.history.replace(destination)
-          }
           this.context.modal.close()
         }
       }

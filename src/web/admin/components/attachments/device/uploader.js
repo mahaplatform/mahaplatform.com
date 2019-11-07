@@ -144,7 +144,7 @@ class Uploader extends React.Component {
     const { network } = this.context
     if(asset.status !== 'processed') return
     const file = _.find(file, { asset: { id: asset.id } })
-    const index = this.findIndex(file)
+    const index = this._getFileIndex(file)
     this.props.onUpdate(index, {
       status: 'imported'
     })

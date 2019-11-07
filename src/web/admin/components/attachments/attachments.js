@@ -79,7 +79,7 @@ class Attachments extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { multiple, files } = this.props
-    if(!multiple && !_.isEqual(files, prevProps.files) && files.length === 1 && files[0].status !== 'importing') {
+    if(!multiple && !_.isEqual(files, prevProps.files) && files.length === 1 && files[0].status === 'pending') {
       this._handleImporting()
     }
   }

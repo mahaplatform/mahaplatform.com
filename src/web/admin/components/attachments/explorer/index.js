@@ -47,12 +47,12 @@ class Explorer extends React.Component {
     return (
       <div className={ this._getClass() }>
         <Stack { ...this._getStack() } />
-        <CSSTransition in={ files.length > 0 } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+        <CSSTransition in={ multiple && files.length > 0 } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
           <div className="maha-attachments-explorer-footer" onClick={ this._handleToggleReview }>
             { files.length } files selected
           </div>
         </CSSTransition>
-        <CSSTransition in={ review && multiple } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+        <CSSTransition in={ review } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
           <Review { ...this._getReview() } />
         </CSSTransition>
       </div>
@@ -60,9 +60,9 @@ class Explorer extends React.Component {
   }
 
   _getClass() {
-    const { files } = this.props
+    const { files, multiple } = this.props
     const classes = ['maha-attachments-explorer']
-    if(files.length > 0) classes.push('reviewable')
+    if(multiple && files.length > 0) classes.push('reviewable')
     return classes.join(' ')
   }
 

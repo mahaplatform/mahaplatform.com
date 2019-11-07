@@ -5,13 +5,16 @@ import TypeSerializer from '../../../serializers/type_serializer'
 import socket from '../../../../../core/services/routes/emitter'
 import Field from '../../../../maha/models/field'
 import Type from '../../../models/type'
+import pluralize from 'pluralize'
 
 const createRoute = async (req, res) => {
 
   const type = await Type.forge({
     team_id: req.team.get('id'),
     site_id: req.params.site_id,
-    ...whitelist(req.body, ['title','description'])
+    title: req.body.title,
+    name: pluralize.singular(req.body.title),
+    ...whitelist(req.body, ['description'])
   }).save(null, {
     transacting: req.trx
   })

@@ -4,6 +4,7 @@ import pluralize from 'pluralize'
 import React from 'react'
 import Edit from './edit'
 import New from './new'
+import _ from 'lodash'
 
 const mapResourcesToPage = (props, context, page) => ({
   fields: `/api/admin/sites_types/${page.params.type_id}/fields`,
@@ -21,20 +22,20 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${page.params.type_id}/items`,
     empty: {
       icon: 'database',
-      title: `No ${resources.type.title}s`,
+      title: `No ${_.startCase(pluralize(resources.type.name))}`,
       text: `You have not yet created any ${resources.type.title}`,
       buttons: [
-        { label: `Create ${resources.type.title}`, modal: <New type={ resources.type } fields={ resources.fields } site_id={ page.params.site_id } /> },
-        { label: `Import ${pluralize(resources.type.title)}`, modal: <ItemsImport user={ props.user } fields={ resources.fields } page={ page } /> }
+        { label: `Create ${_.startCase(resources.type.name)}`, modal: <New type={ resources.type } fields={ resources.fields } site_id={ page.params.site_id } /> },
+        { label: `Import ${_.startCase(pluralize(resources.type.name))}`, modal: <ItemsImport user={ props.user } fields={ resources.fields } page={ page } /> }
       ]
     },
     entity: resources.type.title,
     recordTasks: (record) => [
       {
-        label: 'Edit Item',
+        label: `Edit ${_.startCase(resources.type.name)}`,
         modal: <Edit { ...record } type={ resources.type } fields={ resources.fields } site_id={ page.params.site_id } />
       },{
-        label: 'Publish Item',
+        label: `Publish ${_.startCase(resources.type.name)}`,
         show: !record.is_published,
         request: {
           method: 'PATCH',
@@ -44,7 +45,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
           onSuccess: () => {}
         }
       },{
-        label: 'Unpublish Item',
+        label: `Unpublish ${_.startCase(resources.type.name)}`,
         show: record.is_published,
         request: {
           method: 'PATCH',
@@ -54,7 +55,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
           onSuccess: () => {}
         }
       },{
-        label: 'Delete Item',
+        label: `Delete ${_.startCase(resources.type.name)}`,
         confirm: 'Are you sure you want to delete this item?',
         request: {
           endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${resources.type.id}/items/${record.id}`,
@@ -113,8 +114,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
   tasks: {
     icon: 'plus',
     items: [
-      { label: `Add ${resources.type.title}`, modal: <New type={ resources.type } fields={ resources.fields } site_id={ page.params.site_id } /> },
-      { label: `Bulk Import ${resources.type.title}`, modal: <ItemsImport user={ props.user } fields={ resources.fields } page={ page } /> }
+      { label: `Create ${_.startCase(resources.type.name)}`, modal: <New type={ resources.type } fields={ resources.fields } site_id={ page.params.site_id } /> },
+      { label: `Import ${_.startCase(pluralize(resources.type.name))}`, modal: <ItemsImport user={ props.user } fields={ resources.fields } page={ page } /> }
     ]
   }
 })

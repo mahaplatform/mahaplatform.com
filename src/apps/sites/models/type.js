@@ -1,5 +1,5 @@
-import Site from './site'
 import Model from '../../../core/objects/model'
+import Site from './site'
 import Item from './item'
 
 const Type = new Model({

@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
-import React from 'react'
 import sections from './sections'
+import React from 'react'
+import _ from 'lodash'
 
 class New extends React.Component {
 
@@ -25,7 +26,7 @@ class New extends React.Component {
   _getForm() {
     const { site_id, fields, type } = this.props
     return {
-      title: `New ${type.title}`,
+      title: `New ${_.startCase(type.name)}`,
       method: 'post',
       action: `/api/admin/sites/sites/${site_id}/types/${type.id}/items`,
       onCancel: this._handleCancel,

@@ -19,7 +19,7 @@ class Processing extends React.Component {
     return {
       icon: this._getIcon(file.content_type),
       title: file.name,
-      text: (
+      component: (
         <span>
           <i className="fa fa-fw fa-spin fa-circle-o-notch" /> Importing
         </span>

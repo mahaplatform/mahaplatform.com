@@ -1,5 +1,6 @@
 import Asset from '../../../../maha/models/asset'
 import Field from '../../../../maha/models/field'
+import stringify from 'csv-stringify/lib/sync'
 import Site from '../../../models/site'
 import Type from '../../../models/type'
 import Item from '../../../models/item'
@@ -71,6 +72,10 @@ const backupRoute = async (req, res) => {
       const getValue = async (type, code, config, values) => {
 
         const value = values[code]
+
+        if(!value) return []
+
+        if(value.length === 0) return value
 
         if(type === 'addressfield') return value[0] ? [
           value[0].street1,
@@ -158,7 +163,7 @@ const backupRoute = async (req, res) => {
     zlib: { level: 9 }
   })
 
-  archive.on('error', function(err) {
+  archive.on('error', function(err,a,b) {
     res.status(500).send({ error: err.message })
   })
 
@@ -166,9 +171,11 @@ const backupRoute = async (req, res) => {
 
   archive.pipe(res)
 
-  matrix.map(sheet => archive.append(sheet.data.map(row => {
-    return row.map(cell => `"${cell}"`).join(',')
-  }).join('\n'), {
+  matrix.map(sheet => archive.append(stringify(sheet.data, {
+    delimiter: ',',
+    escape: '\\',
+    quoted: true
+  }), {
     name: `${sheet.name}.csv`
   }))
 

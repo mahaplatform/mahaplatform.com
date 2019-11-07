@@ -1,8 +1,9 @@
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
-import React from 'react'
 import sections from './sections'
+import React from 'react'
+import _ from 'lodash'
 
 class Edit extends React.Component {
 
@@ -27,7 +28,7 @@ class Edit extends React.Component {
   _getForm() {
     const { site_id, fields, id, type } = this.props
     return {
-      title: `Edit ${type.title}`,
+      title: `Edit ${_.startCase(type.name)}`,
       method: 'PATCH',
       action: `/api/admin/sites/sites/${site_id}/types/${type.id}/items/${id}`,
       endpoint: `/api/admin/sites/sites/${site_id}/types/${type.id}/items/${id}`,
