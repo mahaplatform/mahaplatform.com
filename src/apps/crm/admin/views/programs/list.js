@@ -13,12 +13,6 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true, format: ProgramToken }
     ],
-    recordTasks: (program) => [
-      {
-        label: 'Edit Program',
-        modal: <Edit id={ program.id } />
-      }
-    ],
     empty: {
       icon: 'sitemap',
       title: 'No Programs',

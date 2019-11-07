@@ -53,6 +53,11 @@ class Programs extends React.PureComponent {
     const { onChoose } = this.props
     return {
       endpoint: '/api/admin/crm/programs',
+      filter: {
+        access_type: {
+          $in: ['manage','edit']
+        }
+      },
       layout: Items,
       props: {
         onChoose
