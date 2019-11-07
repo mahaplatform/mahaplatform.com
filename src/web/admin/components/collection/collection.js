@@ -2,7 +2,6 @@ import { CSSTransition } from 'react-transition-group'
 import { connect } from 'react-redux'
 import Infinite from '../infinite'
 import PropTypes from 'prop-types'
-import Message from '../message'
 import Buttons from '../buttons'
 import Results from './results'
 import Filters from './filters'
@@ -198,7 +197,7 @@ class Collection extends React.Component {
         q
       },
       loading,
-      empty: <Message { ...empty } />,
+      empty,
       failure,
       layout,
       props: {

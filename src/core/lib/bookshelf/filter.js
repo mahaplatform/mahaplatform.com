@@ -69,7 +69,7 @@ const filterPlugin = function(bookshelf) {
   }
 
   const _filterColumn = (qb, $column, filter, options) => {
-    const column = castColumn(options.tableName, $column)
+    const column = castColumn($column, options)
     if($column === 'q') {
       _filterSearch(qb, filter, options)
     } else if(!_.isNil(filter.$nl)) {
@@ -110,7 +110,7 @@ const filterPlugin = function(bookshelf) {
   const _filterSearch = (qb, filter, options) => {
     if(!options.searchParams) return
     if(filter.length === 0) return
-    const columns = options.searchParams.map(column => castColumn(options.tableName, column))
+    const columns = options.searchParams.map(column => castColumn(column, options))
     const phrase = `lower(concat(${columns.join(',\' \',')}))`
     const term = `%${filter.toLowerCase()}%`
     qb.whereRaw(`${phrase} like ?`, term)
@@ -154,7 +154,7 @@ const filterPlugin = function(bookshelf) {
   }
 
   const _filterContains = (qb, column, value) => {
-    qb.whereRaw(`${castColumn(column)} @> ?`, value)
+    qb.whereRaw(`${column} @> ?`, value)
   }
 
   const _filterIn = (qb, column, value) => {
@@ -250,7 +250,14 @@ const filterPlugin = function(bookshelf) {
     qb.whereRaw(`${column} <= ?`, end.format('YYYY-MM-DD'))
   }
 
-  const castColumn = function(tableName, column) {
+  const getAliased = (column, options)  => {
+    if(!options.aliases) return column
+    return options.aliases[column] || column
+  }
+
+  const castColumn = function($column, options) {
+    const column = getAliased($column, options)
+    const { tableName } = options
     const matches = column.match(/(.*)\.(.*)/)
     return !matches && tableName !== undefined ? `${tableName}.${column}` : column
   }

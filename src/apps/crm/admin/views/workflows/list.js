@@ -18,23 +18,30 @@ const mapPropsToPage = (props, context, resources, page) => ({
       icon: 'cogs',
       title: 'No Workflow',
       text: 'You have not yet created any workflows',
-      buttons: [
+      buttons: resources.programs.length > 0 ? [
         { label: 'Create Workflow', modal: New }
-      ]
+      ] : null
     },
     defaultSort: { key: 'title', order: 'asc' },
     entity: 'workflow',
     onClick: (record) => context.router.history.push(`/admin/crm/workflows/${record.id}`)
   },
-  tasks: {
-    icon: 'plus',
-    items: [
-      {
-        label: 'Create Workflow',
-        modal: New
+  tasks: resources.programs.length > 0 ? {
+    label: 'Create Workflow',
+    modal: New
+  } : null
+
+})
+
+const mapResourcesToPage = (props, context) => ({
+  programs: {
+    endpoint: '/api/admin/crm/programs',
+    filter: {
+      access_type: {
+        $in: ['manage','edit']
       }
-    ]
+    }
   }
 })
 
-export default Page(null, mapPropsToPage)
+export default Page(mapResourcesToPage, mapPropsToPage)

@@ -45,7 +45,6 @@ class Items extends React.PureComponent {
   _handleClick(item) {
     const { router } = this.context
     const { handler, route } = this.props
-    console.log(this.props)
     if(handler) handler(item)
     if(route) router.history.push(route(item))
   }

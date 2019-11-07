@@ -21,17 +21,28 @@ const mapPropsToPage = (props, context, resources, page) => ({
       icon: 'bullhorn',
       title: 'No Campaigns',
       text: 'You have not yet created any campaigns',
-      buttons: [
+      buttons: resources.programs.length > 0 ? [
         { label: 'Create New Campaign', modal: NewCampaign }
-      ]
+      ] : null
     },
     entity: 'campaign',
     onClick: (record) => context.router.history.push(`/admin/crm/campaigns/${record.type}/${record.code}`)
   },
-  task: {
+  task: resources.programs.length > 0 ? {
     icon: 'plus',
     modal: NewCampaign
+  } : null
+})
+
+const mapResourcesToPage = (props, context) => ({
+  programs: {
+    endpoint: '/api/admin/crm/programs',
+    filter: {
+      access_type: {
+        $in: ['manage','edit']
+      }
+    }
   }
 })
 
-export default Page(null, mapPropsToPage)
+export default Page(mapResourcesToPage, mapPropsToPage)

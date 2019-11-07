@@ -1,7 +1,8 @@
-import { Appending, Empty, Failure, NotFound } from './results'
+import { Appending } from './results'
 import Scrollpane from '../scrollpane'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import Message from '../message'
 import Loader from '../loader'
 import React from 'react'
 import _ from 'lodash'
@@ -36,12 +37,24 @@ class Infinite extends React.Component {
 
   static defaultProps = {
     cacheKey: null,
-    empty: Empty,
-    failure: Failure,
+    empty: {
+      icon: 'times',
+      title: 'No records',
+      text: 'There are no records'
+    },
+    failure: {
+      icon: 'exclamation-triangle ',
+      title: 'Unable to load records',
+      text: 'There was a problem with fetching your data'
+    },
     filter: {},
     header: null,
     loading: Loader,
-    notFound: NotFound,
+    notFound: {
+      icon: 'times',
+      title: 'No Results Found',
+      text: 'No records matched your query'
+    },
     props: {},
     sort: {
       key: null,
@@ -63,9 +76,15 @@ class Infinite extends React.Component {
         }
         { status === 'failed' && this._getComponent(failure) }
         { status === 'loading' && records.length === 0 && <Loader /> }
-        { status !== 'failed' && records.length === 0 && skip === undefined && total === 0 && all !== 0 && this._getComponent(notFound) }
-        { status !== 'failed' && records.length === 0 && skip === undefined && total === 0 && all === 0 && this._getComponent(empty) }
-        { status !== 'failed' && records.length === 0 && all === undefined && skip === 0 && next === null && this._getComponent(empty) }
+        { status !== 'failed' && records.length === 0 && skip === undefined && total === 0 && all !== 0 &&
+          <Message { ...notFound } />
+        }
+        { status !== 'failed' && records.length === 0 && skip === undefined && total === 0 && all === 0 &&
+          <Message { ...empty } />
+        }
+        { status !== 'failed' && records.length === 0 && all === undefined && skip === 0 && next === null &&
+          <Message { ...failure } />
+        }
         { status !== 'failed' && records && records.length > 0 && Layout &&
           <Scrollpane { ...this._getScrollpane() }>
             <Layout { ...this._getLayout() } />

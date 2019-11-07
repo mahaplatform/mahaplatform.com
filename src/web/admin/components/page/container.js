@@ -115,12 +115,22 @@ const PageCreator = (mapResourcesToPage, mapPropsToPage) => {
       this.context.router.history.goBack()
     }
 
+    _getResourceParams(params) {
+      if(_.isString(params)) return [params, null]
+      if(params.filter) return [params.endpoint, { $filter: params.filter }]
+      if(params.query) return [params.endpoint, params.query]
+      return [params.endpoint]
+    }
+
     _handleFetchResources() {
       const { params, pathname, onFetchResource } = this.props
       const page = { params, pathname }
       if(!mapResourcesToPage) return
       const resources = mapResourcesToPage(this.props, this.context, page)
-      Object.keys(resources).map(prop => onFetchResource(prop, resources[prop]))
+      Object.keys(resources).map(prop => {
+        const params = this._getResourceParams(resources[prop])
+        onFetchResource(prop, ...params)
+      })
     }
 
     _handleInit() {
