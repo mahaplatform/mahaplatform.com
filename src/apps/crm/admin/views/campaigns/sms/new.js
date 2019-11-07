@@ -1,4 +1,4 @@
-import PurposeToken from '../../tokens/purpose'
+import PurposeToken from '../../../tokens/purpose'
 import { Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -6,14 +6,14 @@ import React from 'react'
 class SMS extends React.PureComponent {
 
   static contextTypes = {
-    modal: PropTypes.object
+    modal: PropTypes.object,
+    router: PropTypes.object
   }
 
   static propTypes = {
     direction: PropTypes.string,
     program_id: PropTypes.number,
-    onBack: PropTypes.func,
-    onDone: PropTypes.func
+    onBack: PropTypes.func
   }
 
   static defaultProps = {}
@@ -65,7 +65,8 @@ class SMS extends React.PureComponent {
   }
 
   _handleSuccess(campaign) {
-    this.props.onDone(campaign)
+    this.context.router.history.push(`/admin/crm/campaigns/sms/${campaign.code}`)
+    this.context.modal.close()
   }
 
 }

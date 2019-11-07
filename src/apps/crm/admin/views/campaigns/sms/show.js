@@ -1,13 +1,13 @@
+import Performance from './performance'
 import { Page } from 'maha-admin'
 import Details from './details'
-import Results from './results'
 import React from 'react'
 
 const getTabs = ({ campaign }) => {
 
   const items = [
     { label: 'Details', component: <Details campaign={ campaign } /> },
-    { label: 'Results', component: <Results campaign={ campaign } /> }
+    { label: 'Performance', component: <Performance campaign={ campaign } /> }
   ]
 
   return { items }

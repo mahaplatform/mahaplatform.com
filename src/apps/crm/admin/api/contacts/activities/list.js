@@ -18,8 +18,9 @@ const listRoute = async (req, res) => {
   })
 
   const activities = await Activity.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-    qb.where('contact_id', contact.get('id'))
+    qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_activities.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
+    qb.where('crm_activities.team_id', req.team.get('id'))
+    qb.where('crm_activities.contact_id', contact.get('id'))
   }).query(qb => {
     qb.orderBy('created_at', 'desc')
   }).fetchPage({

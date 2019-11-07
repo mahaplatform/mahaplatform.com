@@ -18,6 +18,8 @@ const listRoute = async (req, res) => {
   })
 
   const programs = await Program.scope(qb => {
+    qb.select(req.trx.raw('crm_programs.*,crm_program_user_access.type as access_type'))
+    qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_programs.id and crm_program_user_access.user_id=?', req.user.get('id'))
     qb.where('team_id', req.team.get('id'))
   }).fetchAll({
     withRelated: ['logo'],
@@ -34,6 +36,7 @@ const listRoute = async (req, res) => {
 
   const consent = programs.map(program => ({
     id: program.get('id'),
+    access_type: program.get('access_type'),
     title: program.get('title'),
     logo: program.get('logo_id') ? program.related('logo').get('path') : req.team.related('logo').get('path'),
     channels: [

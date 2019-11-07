@@ -1,4 +1,4 @@
-import PurposeToken from '../../tokens/purpose'
+import PurposeToken from '../../../tokens/purpose'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -7,14 +7,14 @@ import React from 'react'
 class Email extends React.PureComponent {
 
   static contextTypes = {
-    modal: PropTypes.object
+    modal: PropTypes.object,
+    router: PropTypes.object
   }
 
   static propTypes = {
     program_id: PropTypes.number,
     user: PropTypes.object,
-    onBack: PropTypes.func,
-    onDone: PropTypes.func
+    onBack: PropTypes.func
   }
 
   static defaultProps = {}
@@ -56,7 +56,8 @@ class Email extends React.PureComponent {
   }
 
   _handleSuccess(campaign) {
-    this.props.onDone(campaign)
+    this.context.router.history.push(`/admin/crm/campaigns/email/${campaign.code}`)
+    this.context.modal.close()
   }
 
 }

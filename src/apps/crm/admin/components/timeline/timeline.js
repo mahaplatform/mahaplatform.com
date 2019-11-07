@@ -1,10 +1,10 @@
+import Note from '../../views/contacts/notes/new'
+import Call from '../../views/contacts/calls/new'
 import { Button, Loader } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Activity from './activity'
 import moment from 'moment'
 import React from 'react'
-import Note from './activities/note'
-import Call from './activities/call'
 
 class Timeline extends React.PureComponent {
 

@@ -1,13 +1,13 @@
+import Postal from '../../views/campaigns/postal/new'
+import Social from '../../views/campaigns/social/new'
+import Voice from '../../views/campaigns/voice/new'
+import Email from '../../views/campaigns/email/new'
+import SMS from '../../views/campaigns/sms/new'
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Programs from './programs'
-import Postal from './postal'
-import Social from './social'
-import Voice from './voice'
-import Email from './email'
 import Types from './types'
 import React from 'react'
-import SMS from './sms'
 import _ from 'lodash'
 
 const types = [
