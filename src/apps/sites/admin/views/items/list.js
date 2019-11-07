@@ -24,7 +24,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: `No ${resources.type.title}s`,
       text: `You have not yet created any ${resources.type.title}`,
       buttons: [
-        { label: `Create ${resources.type.title}`, modal: <New type={ resources.type } fields={ resources.fields } site_id={ page.params.site_id } /> }
+        { label: `Create ${resources.type.title}`, modal: <New type={ resources.type } fields={ resources.fields } site_id={ page.params.site_id } /> },
+        { label: `Import ${pluralize(resources.type.title)}`, modal: <ItemsImport user={ props.user } fields={ resources.fields } page={ page } /> }
       ]
     },
     entity: resources.type.title,

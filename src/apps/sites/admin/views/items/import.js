@@ -73,11 +73,11 @@ class ItemsImport extends React.Component {
 
   _getAddressField({ code }) {
     return [
-      { field: `preimport.${code}.street1`, header: 'Street 1', type: 'text', relation: null },
-      { field: `preimport.${code}.street2`, header: 'Street 2', type: 'text', relation: null },
+      { field: `preimport.${code}.street_1`, header: 'Street 1', type: 'text', relation: null },
+      { field: `preimport.${code}.street_2`, header: 'Street 2', type: 'text', relation: null },
       { field: `preimport.${code}.city`, header: 'City', type: 'text', relation: null },
-      { field: `preimport.${code}.province`, header: 'State/Province', type: 'text', relation: null },
-      { field: `preimport.${code}.postalcode`, header: 'Postal Code', type: 'text', relation: null }
+      { field: `preimport.${code}.state_province`, header: 'State/Province', type: 'text', relation: null },
+      { field: `preimport.${code}.postal_code`, header: 'Postal Code', type: 'text', relation: null }
     ]
   }
 
