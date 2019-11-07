@@ -42,7 +42,7 @@ class Explorer extends React.Component {
   _handleToggleReview = this._handleToggleReview.bind(this)
 
   render() {
-    const { files } = this.props
+    const { files, multiple } = this.props
     const { review } = this.state
     return (
       <div className={ this._getClass() }>
@@ -52,7 +52,7 @@ class Explorer extends React.Component {
             { files.length } files selected
           </div>
         </CSSTransition>
-        <CSSTransition in={ review } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
+        <CSSTransition in={ review && multiple } classNames="slideup" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
           <Review { ...this._getReview() } />
         </CSSTransition>
       </div>

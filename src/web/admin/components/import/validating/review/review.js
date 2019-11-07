@@ -1,5 +1,5 @@
-import Loader from '../../loader'
-import ModalPanel from '../../modal_panel'
+import Loader from '../../../loader'
+import ModalPanel from '../../../modal_panel'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'

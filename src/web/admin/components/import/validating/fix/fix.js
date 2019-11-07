@@ -1,7 +1,7 @@
-import ModalPanel from '../../modal_panel'
-import Form from '../../form'
-import Button from '../../button'
-import Loader from '../../loader'
+import ModalPanel from '../../../modal_panel'
+import Form from '../../../form'
+import Button from '../../../button'
+import Loader from '../../../loader'
 import PropTypes from 'prop-types'
 import React from 'react'
 

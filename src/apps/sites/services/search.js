@@ -1,7 +1,7 @@
 import _ from 'lodash'
 import Item from '../models/item'
 
-export const addIndex = async (item, map, trx) => {
+export const addIndex = async (req, { item, map }) => {
 
   const values = item.get('values')
 
@@ -15,13 +15,17 @@ export const addIndex = async (item, map, trx) => {
 
     const config = field.get('config')
 
+    if(!values[field.get('code')]) return ''
+
     if(_.includes(text, type)) return values[field.get('code')]
 
     if(type === 'lookup') {
 
       const related = await Item.query(qb => {
         qb.whereIn('id', values[field.get('code')])
-      }).fetchAll({ transacting: trx })
+      }).fetchAll({
+        transacting: req.trx
+      })
 
       const title = map[config.datasource.type_id].find(field => {
         return field.get('name') === config.datasource.text
@@ -37,7 +41,7 @@ export const addIndex = async (item, map, trx) => {
 
   await item.save({ index }, {
     patch: true,
-    transacting: trx
+    transacting: req.trx
   })
 
 }

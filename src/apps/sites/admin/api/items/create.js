@@ -47,7 +47,10 @@ const createRoute = async (req, res) => {
     ]
   }), {}))
 
-  await addIndex(item, map, req.trx)
+  await addIndex(req, {
+    item,
+    map
+  })
 
   await socket.refresh(req, [
     `/admin/sites/sites/${req.params.site_id}/types/${req.params.type_id}/items`,

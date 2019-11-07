@@ -101,7 +101,7 @@ class Processing extends React.Component {
     const imp = this.props.import
     return {
       percent: (imp && imp.completed_count) ? (imp.completed_count / imp.valid_count) * 100 : 0,
-      title: 'Processing your import',
+      title: 'Processing your data',
       label: (imp && imp.completed_count) ? `${imp.completed_count}/${imp.valid_count}` : ''
     }
   }

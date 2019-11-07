@@ -3,8 +3,8 @@ import Button from '../../button'
 import PropTypes from 'prop-types'
 import React from 'react'
 import pluralize from 'pluralize'
-import Review from '../review'
-import Fix from '../fix'
+import Review from './review'
+import Fix from './fix'
 import _ from 'lodash'
 
 class Validating extends React.Component {
@@ -225,7 +225,7 @@ class Validating extends React.Component {
   }
 
   _handleFixErrorsButton() {
-    this.props.onPushCard(Fix, this._getFix)
+    this.props.onPushCard(Fix, this._getFix())
   }
 
   _handleSkipAllErrorsButton() {
@@ -233,7 +233,7 @@ class Validating extends React.Component {
   }
 
   _handleReviewNewButton() {
-    this.props.onPushCard(Review, this._getReview)
+    this.props.onPushCard(Review, this._getReview())
   }
 
   _handleRunImportButton() {

@@ -68,11 +68,11 @@ class Upload extends React.Component {
     this.props.onBack()
   }
 
-  _handleAttachment(asset) {
+  _handleAttachment(assets) {
     const { table } = this.props
     this.props.onCreateImport({
       object_type: table,
-      asset_id: asset.id,
+      asset_id: assets[0].id,
       stage: 'previewing'
     })
   }

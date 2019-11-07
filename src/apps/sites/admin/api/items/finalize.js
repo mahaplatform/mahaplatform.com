@@ -9,6 +9,17 @@ import Item from '../../../models/item'
 
 const finalizeRoute = async (req, res) => {
 
+  const imp = await Import.where({
+    id: req.body.import_id
+  }).fetch({
+    transacting: req.trx
+  })
+
+  if(!imp) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load import'
+  })
+
   const fields = await Field.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
@@ -26,19 +37,14 @@ const finalizeRoute = async (req, res) => {
     ]
   }), {})
 
-  const imp = await Import.where({
-    id: req.body.import_id
-  }).fetch({
-    transacting: req.trx
-  })
 
   const importItems = await ImportItem.where({
     import_id: req.body.import_id
   }).fetchAll({
     transacting: req.trx
-  })
+  }).then(results => results.toArray())
 
-  await Promise.mapSeries(importItems.toArray(), async (importItem, index) => {
+  await Promise.mapSeries(importItems, async (importItem, index) => {
 
     const item = await Item.where({
       id: importItem.get('object_id')
@@ -59,7 +65,10 @@ const finalizeRoute = async (req, res) => {
       transacting: req.trx
     })
 
-    await addIndex(item, map, req.trx)
+    await addIndex(req, {
+      item,
+      map
+    })
 
     await socket.message(req, {
       channel: `/admin/imports/${imp.get('id')}`,

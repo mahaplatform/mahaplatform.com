@@ -67,7 +67,7 @@ const findRelatedIds = async (trx, field, values, imp ) => {
 }
 
 const processValue = async(trx, imp, key, value) => {
-  const field = _.find(imp.get('mapping'), ['field', key])
+  const field = _.find(imp.get('mapping'), { field: key })
   if(field.type === 'upload') {
     return value.length > 0 ? await getAssetId(trx, value, imp) : null
   }
@@ -109,9 +109,10 @@ const processor = async (job, trx) => {
 
     const src_values = item.get('values')
 
-    const values = await Promise.reduce(Object.keys(src_values), async (values, key) => {
-      await processValue(trx, imp, key, src_values[key])
-    }, [] )
+    const values = await Promise.reduce(Object.keys(src_values), async (values, key) => ({
+      ...values,
+      [key]: await processValue(trx, imp, key, src_values[key])
+    }), {}).then(values => unflatten(values))
 
     const primary_key = job.data.primaryKey
 
@@ -128,7 +129,7 @@ const processor = async (job, trx) => {
         created_at: moment(),
         updated_at: moment(),
         ...job.data.defaultParams,
-        ...unflatten(values)
+        ...values
       }).returning('id')
 
     } else if( strategy != 'ignore' ) {

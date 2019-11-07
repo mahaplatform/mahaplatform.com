@@ -57,7 +57,10 @@ const updateRoute = async (req, res) => {
     ]
   }), {}))
 
-  await addIndex(item, map, req.trx)
+  await addIndex(req, {
+    item,
+    map
+  })
 
   res.status(200).respond(item, ItemSerializer)
 

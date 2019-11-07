@@ -11,31 +11,7 @@ class Processing extends React.Component {
   }
 
   render() {
-    const file = this.props.files[0]
     return <Message { ...this._getMessage() } />
-    // return (
-    //   <div className="maha-attachments-single">
-    //     { file.thumbnail ?
-    //       <div className="maha-attachments-single-image">
-    //         <div style={{backgroundImage:`url(${file.thumbnail })`}}>
-    //           <img src={ `/admin/images/services/${file.service}.png` } />
-    //         </div>
-    //       </div> :
-    //       <div className="maha-attachments-single-icon">
-    //         <AssetIcon content_type={ file.content_type } source={ file.service } />
-    //       </div>
-    //     }
-    //     { file.name }<br />
-    //     { file.asset ?
-    //       <span className="finished">
-    //         <i className="fa fa-fw fa-check" /> Imported
-    //       </span> :
-    //       <span>
-    //         <i className="fa fa-fw fa-spin fa-circle-o-notch" /> Importing
-    //       </span>
-    //     }
-    //   </div>
-    // )
   }
 
   _getMessage() {

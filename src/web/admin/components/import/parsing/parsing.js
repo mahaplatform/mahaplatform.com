@@ -17,8 +17,9 @@ class Parsing extends React.Component {
     import: PropTypes.object,
     primaryKey: PropTypes.string,
     progress: PropTypes.object,
-    table: PropTypes.string,
+    rules: PropTypes.object,
     status: PropTypes.string,
+    table: PropTypes.string,
     onBack: PropTypes.func,
     onDone: PropTypes.func,
     onFail: PropTypes.func,
@@ -89,7 +90,7 @@ class Parsing extends React.Component {
     const { progress } = this.props
     return {
       percent: progress ? (progress.completed/ progress.total) * 100 : 0,
-      title: 'Parsing your import',
+      title: 'Parsing your data',
       label: progress ? `${progress.completed}/${progress.total}` : ''
     }
   }

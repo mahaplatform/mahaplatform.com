@@ -43,16 +43,16 @@ import adminimageEditor from './components/image_editor'
 import adminimportConfigure from './components/import/configure'
 import adminimportField from './components/import/field'
 import adminimportFinalizing from './components/import/finalizing'
-import adminimportFix from './components/import/fix'
 import adminimportIntro from './components/import/intro'
 import adminimportMapping from './components/import/mapping'
 import adminimportParsing from './components/import/parsing'
 import adminimportPreview from './components/import/preview'
 import adminimportProcessing from './components/import/processing'
 import adminimport from './components/import'
-import adminimportReview from './components/import/review'
 import adminimportUpload from './components/import/upload'
+import adminimportValidatingFix from './components/import/validating/fix'
 import adminimportValidating from './components/import/validating'
+import adminimportValidatingReview from './components/import/validating/review'
 import admininfinite from './components/infinite'
 import adminmenu from './components/menu'
 import adminmodal from './components/modal'
@@ -291,16 +291,16 @@ class App extends React.Component {
       adminimportConfigure,
       adminimportField,
       adminimportFinalizing,
-      adminimportFix,
       adminimportIntro,
       adminimportMapping,
       adminimportParsing,
       adminimportPreview,
       adminimportProcessing,
       adminimport,
-      adminimportReview,
       adminimportUpload,
+      adminimportValidatingFix,
       adminimportValidating,
+      adminimportValidatingReview,
       admininfinite,
       adminmenu,
       adminmodal,

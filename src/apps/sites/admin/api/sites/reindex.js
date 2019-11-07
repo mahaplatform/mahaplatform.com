@@ -26,7 +26,10 @@ const reindexRoute = async (req, res) => {
   }).then(result => result.toArray())
 
   await Promise.mapSeries(items, async(item) => {
-    await addIndex(item, map, req.trx)
+    await addIndex(req, {
+      item,
+      map
+    })
   })
 
   res.status(200).respond(true)

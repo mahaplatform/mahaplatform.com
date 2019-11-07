@@ -25,7 +25,7 @@ class Attachments extends React.Component {
     multiple: PropTypes.bool,
     processed: PropTypes.bool,
     prompt: PropTypes.string,
-    retry: PropTypes.string,
+    retry: PropTypes.bool,
     sources: PropTypes.array,
     status: PropTypes.string,
     onAdd: PropTypes.func,
@@ -79,7 +79,7 @@ class Attachments extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { multiple, files } = this.props
-    if(!multiple && !_.isEqual(files, prevProps.files) && files.length === 1 && files[0].status === 'importing') {
+    if(!multiple && !_.isEqual(files, prevProps.files) && files.length === 1 && files[0].status !== 'importing') {
       this._handleImporting()
     }
   }
