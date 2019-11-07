@@ -40,12 +40,6 @@ const updateRoute = async (req, res) => {
         type: access.type
       })
 
-    } else if(existing && access.type === null) {
-
-      await req.trx('crm_program_accesses').where({
-        id: existing.id
-      }).delete()
-
     } else if(existing && existing.type !== access.type) {
 
       await req.trx('crm_program_accesses').where({
@@ -57,6 +51,23 @@ const updateRoute = async (req, res) => {
     }
 
   })
+
+  await Promise.map(current, async access => {
+
+    const existing = _.find(req.body.access, {
+      grouping_id: access.grouping_id,
+      group_id: access.group_id,
+      user_id: access.user_id
+    })
+
+    if(existing) return
+
+    await req.trx('crm_program_accesses').where({
+      id: access.id
+    }).delete()
+
+  })
+
 
   await socket.refresh(req, [
     `/admin/crm/programs/${req.params.program_id}`

@@ -5,7 +5,6 @@ import generateCode from '../../../../../core/utils/generate_code'
 import socket from '../../../../../core/services/routes/emitter'
 import ProgramAccess from '../../../models/program_access'
 import Program from '../../../models/program'
-import _ from 'lodash'
 
 const createRoute = async (req, res) => {
 

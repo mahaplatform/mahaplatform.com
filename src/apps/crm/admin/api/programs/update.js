@@ -3,13 +3,12 @@ import ProgramSerializer from '../../../serializers/program_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
 import Program from '../../../models/program'
-import _ from 'lodash'
 
 const updateRoute = async (req, res) => {
 
-  const program = await Program.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
+  const program = await Program.query(qb => {
+    qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_programs.id and crm_program_user_access.user_id=?', req.user.get('id'))
+    qb.where('crm_programs.team_id', req.team.get('id'))
     qb.where('id', req.params.id)
   }).fetch({
     transacting: req.trx
