@@ -14,7 +14,7 @@ class Item extends React.Component {
   _handleTasks = this._handleTasks.bind(this)
 
   render() {
-    const { alt, component, content, empty, extra, format, handler, icon, label, link, tasks, units } = this.props
+    const { alt, component, content, empty, extra, format, handler, icon, label, link, route, tasks, units } = this.props
     if(this.props.if === false) return null
     return (
       <div className={ this._getClass() } onClick={ this._handleClick }>
@@ -44,7 +44,7 @@ class Item extends React.Component {
             { _.isFunction(extra) ? React.createElement(extra, content) : extra }
           </div>
         }
-        { (handler || link) &&
+        { (handler || link || route) &&
           <div className="maha-list-item-proceed">
             <i className="fa fa-fw fa-chevron-right" />
           </div>
@@ -59,16 +59,17 @@ class Item extends React.Component {
   }
 
   _handleClick() {
-    const { link, handler } = this.props
+    const { link, handler, route } = this.props
     if(link) this.context.router.history.push(link)
+    if(route) this.context.router.history.push(route)
     if(handler) handler()
   }
 
   _getClass() {
-    const { className, handler, link } = this.props
+    const { className, handler, link, route } = this.props
     const classes = ['maha-list-item']
     if(className) classes.push(className)
-    if(link || handler) classes.push('maha-list-item-link')
+    if(link || handler || route) classes.push('maha-list-item-link')
     return classes.join(' ')
   }
 

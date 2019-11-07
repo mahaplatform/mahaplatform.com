@@ -17,12 +17,12 @@ const Lists = ({ lists, program }) => {
       icon: 'users',
       title: 'No Lists',
       text: 'There are no lists for this program',
-      button: {
+      button: program.access_type === 'manage' ? {
         label: 'Add List',
         modal: <New program_id={ program.id } />
-      }
+      } : null
     },
-    buttons: lists.length > 0 ? [
+    buttons: program.access_type === 'manage' && lists.length > 0 ? [
       { label: 'Add List', color: 'blue', modal: <New program_id={ program.id } /> }
     ] : null
   }

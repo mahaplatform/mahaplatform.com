@@ -15,14 +15,14 @@ const Topics = ({ program, topics }) => {
     })),
     empty: {
       icon: 'book',
-      title: 'No topics',
+      title: 'No Topics',
       text: 'There are no topics for this program',
-      button: {
+      button: program.access_type === 'manage' ? {
         label: 'Add Topic',
         modal: <New program_id={ program.id } />
-      }
+      } : null
     },
-    buttons: topics.length > 0 ? [
+    buttons: program.access_type === 'manage' && topics.length > 0 ? [
       { label: 'Add Topic', color: 'blue', modal: <New program_id={ program.id } /> }
     ] : null
   }

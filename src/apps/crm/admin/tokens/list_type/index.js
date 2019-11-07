@@ -11,11 +11,11 @@ const types = {
   }
 }
 
-const TypeToken = ({ value }) => (
+const ListTypeToken = ({ value }) => (
   <div className="type-token">
     <strong>{ types[value].title }</strong><br />
     { types[value].description }
   </div>
 )
 
-export default TypeToken
+export default ListTypeToken

@@ -17,12 +17,12 @@ const Senders = ({ program, senders }) => {
       icon: 'paper-plane-o',
       title: 'No senders',
       text: 'There are no senders for this program',
-      button: {
+      button: program.access_type === 'manage' ? {
         label: 'Add Sender',
         modal: <New program_id={ program.id } />
-      }
+      } : null
     },
-    buttons: senders.length > 0 ? [
+    buttons: program.access_type === 'manage' && senders.length > 0 ? [
       { label: 'Add Sender', color: 'blue', modal: <New program_id={ program.id } /> }
     ] : null
   }

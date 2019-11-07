@@ -10,18 +10,18 @@ const ProgramAccess = ({ accesses, program }) => {
     items: accesses.map((access, index) => ({
       component: (props) => <ProgramAccessToken access={ access } />
     })),
-    // empty: {
-    //   icon: 'user-circle',
-    //   title: 'No members',
-    //   text: 'This project does not yet have any members',
-    //   button: {
-    //     label: 'Manage Members',
-    //     modal: <Memberships project_id={ project.id } />
-    //   }
-    // },
-    buttons: [
+    empty: {
+      icon: 'user-circle',
+      title: 'No access',
+      text: 'This programs has no authorized users',
+      button: {
+        label: 'Manage Access',
+        modal: <Access program_id={ program.id } />
+      }
+    },
+    buttons: program.access_type === 'manage' ? [
       { label: 'Manage Access', color: 'blue', modal: <Access program_id={ program.id } /> }
-    ]
+    ] : null
   }
 
   return <List { ...list } />
@@ -29,7 +29,8 @@ const ProgramAccess = ({ accesses, program }) => {
 }
 
 ProgramAccess.propTypes = {
-  access: PropTypes.array
+  accesses: PropTypes.array,
+  program: PropTypes.object
 }
 
 export default ProgramAccess

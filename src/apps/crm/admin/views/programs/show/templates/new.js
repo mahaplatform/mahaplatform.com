@@ -1,4 +1,3 @@
-import ProgramToken from '../../tokens/program'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -11,6 +10,7 @@ class New extends React.Component {
   }
 
   static propTypes = {
+    program_id: PropTypes.number,
     type: PropTypes.string
   }
 
@@ -22,19 +22,19 @@ class New extends React.Component {
   }
 
   _getForm() {
-    const { type } = this.props
+    const { type, program_id } = this.props
     return {
       title: 'New Template',
       method: 'post',
-      action: '/api/admin/crm/templates',
+      action: `/api/admin/crm/programs/${program_id}/templates`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
             { type: 'hidden', name: 'type', defaultValue: type },
-            { label: 'Program', name: 'program_id', type: 'lookup', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true, format: ProgramToken },
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter the title', required: true }
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter the title', required: true },
+            { label: 'Type', name: 'type', type: 'radiogroup', options: ['email','web'], required: true, defaultView: 'email' }
           ]
         }
       ]

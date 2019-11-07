@@ -1,6 +1,7 @@
-import React from 'react'
+import ListTypeToken from '../../../../tokens/list_type'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
+import React from 'react'
 
 class Edit extends React.Component {
 

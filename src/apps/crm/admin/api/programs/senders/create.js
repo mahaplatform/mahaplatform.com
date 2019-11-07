@@ -2,22 +2,18 @@ import { activity } from '../../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../../core/services/routes/params'
 import SenderSerializer from '../../../../serializers/sender_serializer'
 import socket from '../../../../../../core/services/routes/emitter'
+import { checkProgramAccess } from '../../../../services/programs'
 import ses from '../../../../../../core/services/ses'
-import Program from '../../../../models/program'
 import Sender from '../../../../models/sender'
 
 const createRoute = async (req, res) => {
 
-  const program = await Program.query(qb => {
-    qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_programs.id and crm_program_user_access.user_id=?', req.user.get('id'))
-    qb.whereIn('crm_program_user_access.type', ['manage','edit'])
-    qb.where('crm_programs.team_id', req.team.get('id'))
-    qb.where('id', req.params.program_id)
-  }).fetch({
-    transacting: req.trx
+  const access = await checkProgramAccess(req, {
+    program_id: req.params.program_id,
+    types: ['manage']
   })
 
-  if(!program) return res.status(403).respond({
+  if(!access) return res.status(403).respond({
     code: 403,
     message: 'You dont have sufficient access to perform this action'
   })
@@ -55,7 +51,7 @@ const createRoute = async (req, res) => {
 
   const sender = await Sender.forge({
     team_id: req.team.get('id'),
-    program_id: program.get('id'),
+    program_id: req.params.program_id,
     is_verified: false,
     ...whitelist(req.body, ['name','email'])
   }).save(null, {

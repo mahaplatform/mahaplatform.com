@@ -1,24 +1,21 @@
 import socket from '../../../../../../core/services/routes/emitter'
-import Program from '../../../../models/program'
+import { checkProgramAccess } from '../../../../services/programs'
 import _ from 'lodash'
 
 const updateRoute = async (req, res) => {
 
-  const program = await Program.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
-    qb.where('id', req.params.program_id)
-  }).fetch({
-    transacting: req.trx
+  const access = await checkProgramAccess(req, {
+    program_id: req.params.program_id,
+    types: ['manage']
   })
 
-  if(!program) return res.status(404).respond({
-    code: 404,
-    message: 'Unable to load program'
+  if(!access) return res.status(403).respond({
+    code: 403,
+    message: 'You dont have sufficient access to perform this action'
   })
 
   const current = await req.trx('crm_program_accesses').where({
-    program_id: program.get('id')
+    program_id: req.params.program_id
   })
 
   await Promise.map(req.body.access, async access => {
@@ -32,8 +29,8 @@ const updateRoute = async (req, res) => {
     if(!existing && access.type !== null) {
 
       await req.trx('crm_program_accesses').insert({
-        team_id: program.get('team_id'),
-        program_id: program.get('id'),
+        team_id: req.team.get('id'),
+        program_id: req.params.program_id,
         grouping_id: access.grouping_id,
         group_id: access.group_id,
         user_id: access.user_id,
