@@ -49,12 +49,20 @@ class Channels extends React.Component {
                   <td className="collapsing">
                     { channel.type.toUpperCase() }
                   </td>
-                  <td className="collapsing">
-                    { channel.has_consented ?
-                      <div className="ui mini red button" onClick={ this._handleOptOut.bind(this, channel, program) }>Opt Out</div> :
-                      <div className="ui mini blue button" onClick={ this._handleOptIn.bind(this, channel, program) }>Opt In</div>
-                    }
-                  </td>
+                  { program.access === 'manage' ?
+                    <td className="collapsing">
+                      { channel.has_consented ?
+                        <div className="ui mini red button" onClick={ this._handleOptOut.bind(this, channel, program) }>Opt Out</div> :
+                        <div className="ui mini blue button" onClick={ this._handleOptIn.bind(this, channel, program) }>Opt In</div>
+                      }
+                    </td> :
+                    <td className="collapsing">
+                      { channel.has_consented ?
+                        <div>Opted In</div> :
+                        <div>Opted Out</div>
+                      }
+                    </td>
+                  }
                 </tr>,
                 ...`${i}-${j}` === expanded ? [(
                   <tr key={`channel_${j}_details`} className="crm-contact-channels-channel">

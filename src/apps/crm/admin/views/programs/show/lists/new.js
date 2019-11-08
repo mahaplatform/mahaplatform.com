@@ -1,3 +1,4 @@
+import ListTypeToken from '../../../../tokens/list_type'
 import ContactToken from '../../../../tokens/contact'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -49,17 +50,6 @@ class New extends React.Component {
         }
       ]
     }
-  }
-
-  _getFields() {
-    return [
-      { label: 'Contact Fields', fields: [
-        { label: 'First Name', list: 'first_name', type: 'text' },
-        { label: 'Last Name', list: 'last_name', type: 'text' },
-        { label: 'Email', list: 'email', type: 'text' },
-        { label: 'Phone', list: 'phone', type: 'text' }
-      ] }
-    ]
   }
 
   _getType() {
