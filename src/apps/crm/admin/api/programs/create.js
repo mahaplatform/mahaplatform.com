@@ -20,14 +20,27 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await ProgramAccess.forge({
-    team_id: req.team.get('id'),
-    program_id: program.get('id'),
-    grouping_id: 1,
-    type: 'view'
-  }).save(null, {
-    transacting: req.trx
+  await Promise.map(req.body.manager_ids, async(user_id) => {
+    await ProgramAccess.forge({
+      team_id: req.team.get('id'),
+      program_id: program.get('id'),
+      user_id,
+      type: 'manage'
+    }).save(null, {
+      transacting: req.trx
+    })
   })
+
+  if(req.body.visibility === 'public') {
+    await ProgramAccess.forge({
+      team_id: req.team.get('id'),
+      program_id: program.get('id'),
+      grouping_id: 1,
+      type: 'view'
+    }).save(null, {
+      transacting: req.trx
+    })
+  }
 
   await activity(req, {
     story: 'created {object}',

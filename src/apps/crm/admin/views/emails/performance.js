@@ -1,7 +1,7 @@
+import moment from 'moment-timezone'
 import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Chart from 'chart.js'
-import moment from 'moment'
 import React from 'react'
 import _ from 'lodash'
 
@@ -138,6 +138,7 @@ class Performance extends React.Component {
   _getQuery() {
     const { range } = this.state
     const { email } = this.props
+    const tz = moment().tz(moment.tz.guess()).format('z')
     if(range === 'ltd') {
       const start = moment(email.created_at)
       const end = moment()
@@ -145,7 +146,8 @@ class Performance extends React.Component {
       return {
         start: start.startOf(step).format('YYYY-MM-DD'),
         end: end.add(1, step).startOf(step).format('YYYY-MM-DD'),
-        step
+        step,
+        tz
       }
     } else if(range === 'ytd') {
       const start = moment().startOf('year')
@@ -154,19 +156,22 @@ class Performance extends React.Component {
       return {
         start: start.startOf(step).format('YYYY-MM-DD'),
         end: end.add(1, step).startOf(step).format('YYYY-MM-DD'),
-        step
+        step,
+        tz
       }
     } else if(range === '60_days') {
       return {
         start: moment().subtract(60, 'days').format('YYYY-MM-DD'),
         end: moment().add(1, 'day').format('YYYY-MM-DD'),
-        step: 'day'
+        step: 'day',
+        tz
       }
     } else if(range === '30_days') {
       return {
         start: moment().subtract(30, 'days').format('YYYY-MM-DD'),
         end: moment().add(1, 'day').format('YYYY-MM-DD'),
-        step: 'day'
+        step: 'day',
+        tz
       }
     }
   }

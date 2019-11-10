@@ -28,20 +28,9 @@ const reducer = (state = INITIAL_STATE, action) => {
     }
 
   case 'TOGGLE_RECORD':
-    const getChosen = () => {
-      if(!action.multiple) return [action.record]
-      if(_.find(state.chosen, { id: action.record.id }) !== undefined) {
-        return state.chosen.filter(record => record.id !== action.record.id)
-      }
-      return [
-        ...state.chosen,
-        action.record
-      ]
-    }
-
     return {
       ...state,
-      chosen: getChosen()
+      chosen: _.xor(state.chosen, [action.record])
     }
 
   default:

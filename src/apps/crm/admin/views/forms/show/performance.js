@@ -103,6 +103,7 @@ class Performance extends React.Component {
   _getQuery() {
     const { range } = this.state
     const { form } = this.props
+    const tz = moment().tz(moment.tz.guess()).format('z')
     if(range === 'ltd') {
       const start = moment(form.created_at)
       const end = moment()
@@ -110,7 +111,8 @@ class Performance extends React.Component {
       return {
         start: start.startOf(step).format('YYYY-MM-DD'),
         end: end.add(1, step).startOf(step).format('YYYY-MM-DD'),
-        step
+        step,
+        tz
       }
     } else if(range === 'ytd') {
       const start = moment().startOf('year')
@@ -119,19 +121,22 @@ class Performance extends React.Component {
       return {
         start: start.startOf(step).format('YYYY-MM-DD'),
         end: end.add(1, step).startOf(step).format('YYYY-MM-DD'),
-        step
+        step,
+        tz
       }
     } else if(range === '60_days') {
       return {
         start: moment().subtract(60, 'days').format('YYYY-MM-DD'),
         end: moment().add(1, 'day').format('YYYY-MM-DD'),
-        step: 'day'
+        step: 'day',
+        tz
       }
     } else if(range === '30_days') {
       return {
         start: moment().subtract(30, 'days').format('YYYY-MM-DD'),
         end: moment().add(1, 'day').format('YYYY-MM-DD'),
-        step: 'day'
+        step: 'day',
+        tz
       }
     }
   }

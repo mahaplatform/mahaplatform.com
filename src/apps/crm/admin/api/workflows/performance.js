@@ -28,6 +28,7 @@ const performanceRoute = async (req, res) => {
     req.query.end,
     `1 ${req.query.step}`,
     req.query.step,
+    req.query.tz,
     workflow.get('id')
   ]
 
@@ -37,7 +38,7 @@ const performanceRoute = async (req, res) => {
     ${filled}
     select filled_dates.date, count(crm_enrollments.*) as count
     from filled_dates
-    left join crm_enrollments on date_trunc(?, crm_enrollments.created_at) = filled_dates.date and crm_enrollments.workflow_id=?
+    left join crm_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_enrollments.workflow_id=?
     group by filled_dates.date
     order by filled_dates.date asc
   `, params).then(results => results.rows.map(segment => ({
@@ -49,7 +50,7 @@ const performanceRoute = async (req, res) => {
     ${filled}
     select filled_dates.date, count(crm_enrollments.*) as count
     from filled_dates
-    left join crm_enrollments on date_trunc(?, crm_enrollments.created_at) = filled_dates.date and crm_enrollments.workflow_id=?
+    left join crm_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_enrollments.workflow_id=?
     group by filled_dates.date
     order by filled_dates.date asc
   `, params).then(results => results.rows.map(segment => ({
@@ -61,7 +62,7 @@ const performanceRoute = async (req, res) => {
     ${filled}
     select filled_dates.date, count(crm_enrollments.*) as count
     from filled_dates
-    left join crm_enrollments on date_trunc(?, crm_enrollments.created_at) = filled_dates.date and crm_enrollments.workflow_id=?
+    left join crm_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_enrollments.workflow_id=?
     group by filled_dates.date
     order by filled_dates.date asc
   `, params).then(results => results.rows.map(segment => ({
@@ -73,7 +74,7 @@ const performanceRoute = async (req, res) => {
     ${filled}
     select filled_dates.date, count(crm_enrollments.*) as count
     from filled_dates
-    left join crm_enrollments on date_trunc(?, crm_enrollments.created_at) = filled_dates.date and crm_enrollments.workflow_id=?
+    left join crm_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_enrollments.workflow_id=?
     group by filled_dates.date
     order by filled_dates.date asc
   `, params).then(results => results.rows.map(segment => ({
@@ -85,7 +86,7 @@ const performanceRoute = async (req, res) => {
     ${filled}
     select filled_dates.date, count(crm_enrollments.*) as count
     from filled_dates
-    left join crm_enrollments on date_trunc(?, crm_enrollments.created_at) = filled_dates.date and crm_enrollments.workflow_id=?
+    left join crm_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_enrollments.workflow_id=?
     group by filled_dates.date
     order by filled_dates.date asc
   `, params).then(results => results.rows.map(segment => ({

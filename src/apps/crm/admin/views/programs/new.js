@@ -1,5 +1,6 @@
+import VisibilityToken from '../../tokens/visibility'
+import { Form, UserToken } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
 import React from 'react'
 
 class New extends React.Component {
@@ -28,7 +29,9 @@ class New extends React.Component {
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
-            { label: 'Logo', name: 'logo_id', type: 'filefield', prompt: 'Choose Logo', multiple: false }
+            { label: 'Logo', name: 'logo_id', type: 'filefield', prompt: 'Choose Logo', multiple: false },
+            { label: 'Managers', name: 'manager_ids', type: 'lookup2', placeholder: 'Assign admin privileges', multiple: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', format: UserToken },
+            { label: 'Visibility', name: 'visibility', type: 'radiogroup', options: ['public','private'], format: VisibilityToken, defaultValue: 'public' }
           ]
         }
       ]

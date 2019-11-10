@@ -3,16 +3,16 @@ import React from 'react'
 const visbilities = {
   public: {
     title: 'Public',
-    description: 'Visible to all users'
+    description: 'Assign view privileges to everyone'
   },
   private: {
     title: 'Private',
-    description: 'Visible to specific groups or individuals'
+    description: 'Do not assign view privileges to everyone'
   }
 }
 
 const VisibilityToken = ({ value }) => {
-  const visbility = value ? visbilities.private : visbilities.public
+  const visbility = visbilities[value]
   return (
     <div className="type-token">
       <strong>{ visbility.title }</strong><br />
