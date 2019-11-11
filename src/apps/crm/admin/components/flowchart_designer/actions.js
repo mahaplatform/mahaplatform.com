@@ -13,6 +13,14 @@ export const edit = (code) => ({
   code
 })
 
+export const move = (code, parent, answer, delta) => ({
+  type: 'MOVE',
+  code,
+  parent,
+  answer,
+  delta
+})
+
 export const remove = (step) => ({
   type: 'REMOVE',
   step

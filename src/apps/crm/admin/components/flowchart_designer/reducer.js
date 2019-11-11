@@ -32,6 +32,29 @@ const reducer = (state = INITIAL_STATE, action) => {
       active: action.code
     }
 
+  case 'MOVE':
+    return {
+      ...state,
+      steps: [
+        ...state.steps.map(step => {
+          if(step.code === action.code) {
+            return {
+              ...step,
+              parent: action.parent,
+              answer: action.answer,
+              delta: action.delta
+            }
+          } else if(step.parent === action.parent && step.parent === action.parent) {
+            return {
+              ...step,
+              delta: step.delta + 1
+            }
+          } else {
+            return step
+          }
+        })
+      ]
+    }
   case 'REMOVE':
     return {
       ...state,

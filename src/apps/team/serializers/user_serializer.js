@@ -6,6 +6,7 @@ const userSerializer = (req, result) => ({
   initials: result.get('initials'),
   email: result.get('email'),
   secondary_email: result.get('secondary_email'),
+  cell_phone: result.get('cell_phone'),
   photo_id: result.get('photo_id'),
   photo: result.related('photo').get('path'),
   groups: result.related('groups').map(group => ({

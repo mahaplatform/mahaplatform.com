@@ -1,11 +1,14 @@
 import { Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
-class UpdateInterest extends React.PureComponent {
+class RemoveInterest extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
+    topics: PropTypes.array,
+    program: PropTypes.object,
     onChange: PropTypes.func,
     onDone: PropTypes.func
   }
@@ -14,13 +17,13 @@ class UpdateInterest extends React.PureComponent {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    return <Form { ...this.getForm() } />
+    return <Form { ...this._getForm() } />
   }
 
-  getForm() {
-    const { config } = this.props
+  _getForm() {
+    const { config, topics } = this.props
     return {
-      title: 'Update Interest',
+      title: 'Remove Interest',
       onChange: this._handleChange,
       onCancel: this._handleDone,
       cancelIcon: 'chevron-left',
@@ -31,7 +34,7 @@ class UpdateInterest extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Topic', name: 'topic_id', type: 'lookup', endpoint: '/api/admin/crm/topics', value: 'id', text: 'title', defaultValue: config.topic_id }
+            { label: 'Topic', name: 'topic_id', type: 'lookup', options: topics, value: 'id', text: 'title', required: true, defaultValue: _.get(config, 'topic.id') }
           ]
         }
       ]
@@ -39,7 +42,14 @@ class UpdateInterest extends React.PureComponent {
   }
 
   _handleChange(config) {
-    this.props.onChange(config)
+    const { topics } = this.props
+    const topic = _.find(topics, { id: config.topic_id })
+    this.props.onChange({
+      topic: topic ? {
+        id: topic.id,
+        title: topic.title
+      } : null
+    })
   }
 
   _handleDone() {
@@ -48,4 +58,4 @@ class UpdateInterest extends React.PureComponent {
 
 }
 
-export default UpdateInterest
+export default RemoveInterest

@@ -20,7 +20,7 @@ class Wait extends React.PureComponent {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    return <Form { ...this.getForm() } />
+    return <Form { ...this._getForm() } />
   }
 
   componentDidMount() {
@@ -30,7 +30,7 @@ class Wait extends React.PureComponent {
     })
   }
 
-  getForm() {
+  _getForm() {
     const { strategy } = this.state
     return {
       title: 'Wait',

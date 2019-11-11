@@ -11,6 +11,7 @@ class Trunk extends React.PureComponent {
     blocks: PropTypes.array,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
+    onMove: PropTypes.func,
     onRemove: PropTypes.func
   }
 
@@ -87,15 +88,17 @@ class Trunk extends React.PureComponent {
   }
 
   _handleDrop(e) {
-    const { onAdd } = this.props
+    const { onAdd, onMove } = this.props
     const { delta } = this.state
     e.preventDefault()
     e.stopPropagation()
     const parent = this._getParent(e.target, '.flowchart-branches')
     const answer = this._getParent(e.target, '.flowchart-branch')
+    const code = e.dataTransfer.getData('code')
     const type = e.dataTransfer.getData('type')
     const action = e.dataTransfer.getData('action')
-    onAdd(type, action, parent, answer, delta)
+    if(type) onAdd(type, action, parent, answer, delta)
+    if(code) onMove(code, parent, answer, delta)
     this.setState({
       delta: 0,
       hovering: false

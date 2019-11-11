@@ -1,13 +1,13 @@
 import { Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
-class EnrollInWorkflow extends React.PureComponent {
+class AddInterest extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
-    workflows: PropTypes.array,
-    program: PropTypes.object,
+    topics: PropTypes.array,
     onChange: PropTypes.func,
     onDone: PropTypes.func
   }
@@ -20,9 +20,9 @@ class EnrollInWorkflow extends React.PureComponent {
   }
 
   _getForm() {
-    const { config, workflows } = this.props
+    const { config, topics } = this.props
     return {
-      title: 'Enroll in Workflow',
+      title: 'Add Interest',
       onChange: this._handleChange,
       onCancel: this._handleDone,
       cancelIcon: 'chevron-left',
@@ -33,7 +33,7 @@ class EnrollInWorkflow extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Workflow', name: 'workflow_id', type: 'lookup', options: workflows, value: 'id', text: 'title', required: true, defaultValue: config.workflow_id }
+            { label: 'Topic', name: 'topic_id', type: 'lookup', options: topics, value: 'id', text: 'title', required: true, defaultValue: _.get(config, 'topic.id') }
           ]
         }
       ]
@@ -41,7 +41,14 @@ class EnrollInWorkflow extends React.PureComponent {
   }
 
   _handleChange(config) {
-    this.props.onChange(config)
+    const { topics } = this.props
+    const topic = _.find(topics, { id: config.topic_id })
+    this.props.onChange({
+      topic: topic ? {
+        id: topic.id,
+        title: topic.title
+      } : null
+    })
   }
 
   _handleDone() {
@@ -50,4 +57,4 @@ class EnrollInWorkflow extends React.PureComponent {
 
 }
 
-export default EnrollInWorkflow
+export default AddInterest

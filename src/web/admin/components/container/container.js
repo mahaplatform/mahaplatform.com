@@ -25,8 +25,7 @@ const Creator = (mapResourcesToPage, Component) => {
     static propTypes = {
       component: PropTypes.object,
       data: PropTypes.object,
-      params: PropTypes.object,
-      pathname: PropTypes.string,
+      ready: PropTypes.bool,
       resources: PropTypes.object,
       status: PropTypes.string,
       onFetchResource: PropTypes.func,
@@ -80,13 +79,20 @@ const Creator = (mapResourcesToPage, Component) => {
 
     _getComponent() {
       const { cacheKey } = this.state
-      const { data, params, pathname } = this.props
-      const page = { params, pathname }
+      const { data } = this.props
+
       return {
-        cacheKey,
+        key: cacheKey,
         ...data,
-        page
+        ..._.omit(this.props, ['cid','con','component','data','ready','resources','onFetchResource','onReady'])
       }
+    }
+
+    _getResourceParams(params) {
+      if(_.isString(params)) return [params, null]
+      if(params.filter) return [params.endpoint, { $filter: params.filter }]
+      if(params.query) return [params.endpoint, params.query]
+      return [params.endpoint]
     }
 
     _handleFetchResources() {
@@ -94,7 +100,10 @@ const Creator = (mapResourcesToPage, Component) => {
       const page = { params, pathname }
       if(!mapResourcesToPage) return
       const resources = mapResourcesToPage(this.props, this.context, page)
-      Object.keys(resources).map(prop => onFetchResource(prop, resources[prop]))
+      Object.keys(resources).map(prop => {
+        const params = this._getResourceParams(resources[prop])
+        onFetchResource(prop, ...params)
+      })
     }
 
     _handleInit() {

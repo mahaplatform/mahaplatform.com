@@ -16,6 +16,7 @@ class FlowchartDesigner extends React.PureComponent {
     steps: PropTypes.array,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
+    onMove: PropTypes.func,
     onRemove: PropTypes.func,
     onSave: PropTypes.func,
     onSet: PropTypes.func,
@@ -23,10 +24,10 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   _handleAdd = this._handleAdd.bind(this)
+  _handleMove = this._handleMove.bind(this)
   _handleSave = this._handleSave.bind(this)
 
   render() {
-    const { status } = this.props
     return (
       <div className="flowchart-designer">
         <div className="flowchart-designer-main">
@@ -62,6 +63,7 @@ class FlowchartDesigner extends React.PureComponent {
       config,
       onAdd: this._handleAdd,
       onEdit,
+      onMove: this._handleMove,
       onRemove
     }
   }
@@ -107,6 +109,16 @@ class FlowchartDesigner extends React.PureComponent {
       answer: answer ? answer.dataset.answer : null,
       config: block.config || {}
     })
+  }
+
+  _handleMove(code, parent, answer, delta) {
+    const { onMove } = this.props
+    onMove(
+      code,
+      parent,
+      answer,
+      parent ? delta : delta - 1
+    )
   }
 
   _handleSave() {

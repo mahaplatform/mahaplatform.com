@@ -15,10 +15,10 @@ class Play extends React.PureComponent {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    return <Form { ...this.getForm() } />
+    return <Form { ...this._getForm() } />
   }
 
-  getForm() {
+  _getForm() {
     const { config } = this.props
     return {
       title: 'Play Recording',

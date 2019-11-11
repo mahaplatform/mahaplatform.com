@@ -1,11 +1,13 @@
 import { Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class SendEmail extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
+    emails: PropTypes.array,
     onChange: PropTypes.func,
     onDone: PropTypes.func
   }
@@ -14,11 +16,11 @@ class SendEmail extends React.PureComponent {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    return <Form { ...this.getForm() } />
+    return <Form { ...this._getForm() } />
   }
 
-  getForm() {
-    const { config } = this.props
+  _getForm() {
+    const { config, emails } = this.props
     return {
       title: 'Send Email',
       onChange: this._handleChange,
@@ -31,6 +33,7 @@ class SendEmail extends React.PureComponent {
       sections: [
         {
           fields: [
+            { label: 'Email', name: 'email_id', type: 'lookup', options: emails, value: 'id', text: 'title', required: true, defaultValue: _.get(config, 'email.id') }
           ]
         }
       ]
@@ -38,7 +41,14 @@ class SendEmail extends React.PureComponent {
   }
 
   _handleChange(config) {
-    this.props.onChange(config)
+    const { emails } = this.props
+    const email = _.find(emails, { id: config.email_id })
+    this.props.onChange({
+      email: email ? {
+        id: email.id,
+        title: email.title
+      } : null
+    })
   }
 
   _handleDone() {

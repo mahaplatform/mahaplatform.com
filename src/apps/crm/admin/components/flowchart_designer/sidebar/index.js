@@ -1,4 +1,4 @@
-import { Stack } from 'maha-admin'
+import { Container, Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Content from './content'
 import React from 'react'
@@ -51,7 +51,7 @@ class Sidebar extends React.PureComponent {
     }
   }
 
-  _getEdit(step) {
+  _getForm(step) {
     const { code, config } = step
     return {
       config,
@@ -78,7 +78,10 @@ class Sidebar extends React.PureComponent {
     const { type, action } = step
     const search = action ? { type, action } : { type }
     const block = _.find(blocks, search)
-    if(block.form) this._handlePush(block.form, this._getEdit(step))
+    if(!block.form) return
+    const mapping = block.mapping ? () => block.mapping : null
+    const form = mapping ? Container(mapping)(block.form) : block.form
+    this._handlePush(form, this._getForm(step))
   }
 
   _handlePop(index = -1) {

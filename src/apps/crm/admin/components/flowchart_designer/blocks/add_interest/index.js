@@ -3,9 +3,9 @@ import Form from './form'
 
 export default {
   icon: 'book',
-  label: 'Update Interest',
+  label: 'Add Interest',
   type: 'action',
-  action: 'update_interest',
+  action: 'add_interest',
   form: Form,
   token: Token
 }

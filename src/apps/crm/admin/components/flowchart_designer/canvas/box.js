@@ -14,6 +14,7 @@ class Box extends React.PureComponent {
     onRemove: PropTypes.func
   }
 
+  _handleDragStart = this._handleDragStart.bind(this)
   _handleEdit = this._handleEdit.bind(this)
   _handleRemove = this._handleRemove.bind(this)
 
@@ -24,7 +25,7 @@ class Box extends React.PureComponent {
     const { code, options, type, config } = box
     return (
       <div className="flowchart-box-padding">
-        <div className={ this._getClass() }>
+        <div { ...this._getBox() }>
           { (code === active || !_.includes(['trigger','ending'], type)) &&
             <div className="flowchart-box-highlight" />
           }
@@ -74,6 +75,14 @@ class Box extends React.PureComponent {
     )
   }
 
+  _getBox() {
+    return {
+      className: this._getClass(),
+      draggable: true,
+      onDragStart: this._handleDragStart
+    }
+  }
+
   _getBlock() {
     const { blocks, box } = this.props
     const { action, type } = box
@@ -99,6 +108,12 @@ class Box extends React.PureComponent {
       onEdit,
       onRemove
     }
+  }
+
+  _handleDragStart(e) {
+    const { box } = this.props
+    e.dataTransfer.dropEffect = 'all'
+    e.dataTransfer.setData('code', box.code)
   }
 
   _handleEdit() {

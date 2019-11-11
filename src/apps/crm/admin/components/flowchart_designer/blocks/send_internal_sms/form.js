@@ -1,11 +1,13 @@
-import { Form } from 'maha-admin'
+import { Form, UserToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class SendSMS extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
+    users: PropTypes.array,
     onChange: PropTypes.func,
     onDone: PropTypes.func
   }
@@ -14,11 +16,11 @@ class SendSMS extends React.PureComponent {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    return <Form { ...this.getForm() } />
+    return <Form { ...this._getForm() } />
   }
 
-  getForm() {
-    const { config } = this.props
+  _getForm() {
+    const { config, users } = this.props
     return {
       title: 'Send SMS',
       onChange: this._handleChange,
@@ -31,6 +33,8 @@ class SendSMS extends React.PureComponent {
       sections: [
         {
           fields: [
+            { label: 'User', name: 'user_id', type: 'lookup', options: users, value: 'id', text: 'full_name', format: UserToken, defaultValue: _.get(config, 'user.id'), required: true },
+            { label: 'Message', name: 'message', type: 'textarea', defaultValue: config.message, required: true }
           ]
         }
       ]
@@ -38,7 +42,15 @@ class SendSMS extends React.PureComponent {
   }
 
   _handleChange(config) {
-    this.props.onChange(config)
+    const { users } = this.props
+    const user = _.find(users, { id: config.user_id })
+    this.props.onChange({
+      user: user ? {
+        id: user.id,
+        full_name: user.full_name
+      } : null,
+      message: config.message
+    })
   }
 
   _handleDone() {

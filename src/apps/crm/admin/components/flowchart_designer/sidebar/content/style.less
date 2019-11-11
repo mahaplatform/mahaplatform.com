@@ -5,7 +5,6 @@
 }
 .flowchart-designer-block {
   display: flex;
-  border: 1px solid fadeout(@black, 90);
   background-color: @white;
   border-radius: 0.5em;
   margin-bottom: 0.8em;
@@ -24,6 +23,9 @@
   }
 }
 .flowchart-designer-block-label {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0 0.5em 0.5em 0;
+  border-left: none;
   color: fadeout(@black, 40);
   text-transform: uppercase;
   flex: 1;

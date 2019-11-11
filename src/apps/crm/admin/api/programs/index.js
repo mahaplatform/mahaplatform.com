@@ -6,6 +6,7 @@ import create from './create'
 import update from './update'
 import access from './access'
 import topics from './topics'
+import fields from './fields'
 import lists from './lists'
 import edit from './edit'
 import list from './list'
@@ -26,6 +27,8 @@ router.patch('/:id', update)
 router.delete('/:id', destroy)
 
 router.use('/:program_id/access', access)
+
+router.use('/:program_id/fields', fields)
 
 router.use('/:program_id/lists', lists)
 

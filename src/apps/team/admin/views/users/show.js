@@ -14,6 +14,7 @@ const Details = ({ user, appUserValues }) => {
         items: [
           { label: 'Email', content: user.email },
           { label: 'Secondary Email', content: user.secondary_email },
+          { label: 'Cell Phone', content: user.cell_phone },
           { label: 'Notifications', content: user.email_notifications_method },
           { label: 'Employee Type', content: user.user_type },
           { label: 'Roles', content: user.roles.map(role => role.title).join(', ') },

@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Token = ({ email }) => (
+const Token = ({ topic }) => (
   <div>
-    { email &&
+    { topic &&
       <div>
-        { email.title }
+        { topic.title }
       </div>
     }
   </div>
 )
 
 Token.propTypes = {
-  email: PropTypes.object
+  topic: PropTypes.object
 }
 
 export default Token

@@ -2,7 +2,7 @@ import FlowchartDesigner from '../flowchart_designer'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class SMSDesigner extends React.PureComponent {
+class WorkflowDesigner extends React.PureComponent {
 
   static propTypes = {
     workflow: PropTypes.object,
@@ -27,14 +27,90 @@ class SMSDesigner extends React.PureComponent {
         },
         { action: 'ifelse' },
         { action: 'wait' },
-        { action: 'send_email' },
-        { action: 'add_to_list' },
-        { action: 'remove_from_list' },
-        { action: 'enroll_in_workflow' },
-        { action: 'update_property' },
-        { action: 'update_interest' },
-        { action: 'send_internal_email' },
-        { action: 'send_internal_sms' },
+        {
+          action: 'send_email',
+          mapping: {
+            emails: {
+              endpoint: `/api/admin/crm/workflows/${workflow.id}/emails`
+            }
+          }
+        },
+        {
+          action: 'add_to_list',
+          mapping: {
+            lists: {
+              endpoint: `/api/admin/crm/programs/${workflow.program.id}/lists`,
+              filter: { type: { $eq: 'static' } }
+            }
+          }
+        },
+        {
+          action: 'remove_from_list',
+          mapping: {
+            lists: {
+              endpoint: `/api/admin/crm/programs/${workflow.program.id}/lists`,
+              filter: { type: { $eq: 'static' } }
+            }
+          }
+        },
+        {
+          action: 'add_interest',
+          mapping: {
+            topics: {
+              endpoint: `/api/admin/crm/programs/${workflow.program.id}/topics`
+            }
+          }
+        },
+        {
+          action: 'remove_interest',
+          mapping: {
+            topics: {
+              endpoint: `/api/admin/crm/programs/${workflow.program.id}/topics`
+            }
+          }
+        },
+        {
+          action: 'enroll_in_workflow',
+          mapping: {
+            workflows: {
+              endpoint: '/api/admin/crm/workflows',
+              filter: {
+                $and: [
+                  { program_id: { $eq: workflow.program.id } },
+                  { id: { $neq: workflow.id } }
+                ]
+              }
+            }
+          }
+        },
+        {
+          action: 'update_property',
+          mapping: {
+            fields: {
+              endpoint: `/api/admin/crm/programs/${workflow.program.id}/fields`
+            }
+          }
+        },
+        {
+          action: 'send_internal_email',
+          mapping: {
+            users: {
+              endpoint: '/api/admin/users'
+            },
+            emails: {
+              endpoint: `/api/admin/crm/workflows/${workflow.id}/emails`
+            }
+          }
+        },
+        {
+          action: 'send_internal_sms' ,
+          mapping: {
+            users: {
+              endpoint: '/api/admin/users',
+              filter: { cell_phone: { $neq: 'null' } }
+            }
+          }
+        },
         { action: 'goal' },
         {
           icon: 'phone',
@@ -51,4 +127,4 @@ class SMSDesigner extends React.PureComponent {
 
 }
 
-export default SMSDesigner
+export default WorkflowDesigner

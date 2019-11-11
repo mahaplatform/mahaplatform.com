@@ -1531,6 +1531,7 @@ const schema = {
       table.timestamp('locked_out_at')
       table.string('key', 255)
       table.integer('user_type_id').unsigned()
+      table.string('cell_phone', 255)
     })
 
     await knex.schema.createTable('maha_users_alerts', (table) => {

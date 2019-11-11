@@ -1,11 +1,14 @@
 import { Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class RemoveFromList extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
+    lists: PropTypes.array,
+    program: PropTypes.object,
     onChange: PropTypes.func,
     onDone: PropTypes.func
   }
@@ -14,11 +17,11 @@ class RemoveFromList extends React.PureComponent {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    return <Form { ...this.getForm() } />
+    return <Form { ...this._getForm() } />
   }
 
-  getForm() {
-    const { config } = this.props
+  _getForm() {
+    const { config, lists } = this.props
     return {
       title: 'Remove from List',
       onChange: this._handleChange,
@@ -31,7 +34,7 @@ class RemoveFromList extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'List', name: 'list_id', type: 'lookup', endpoint: '/api/admin/crm/lists', filter: { type: { $eq: 'static' } }, value: 'id', text: 'title', defaultValue: config.list_id }
+            { label: 'List', name: 'list_id', type: 'lookup', options: lists, value: 'id', text: 'title', required: true, defaultValue: _.get(config, 'list.id')}
           ]
         }
       ]
@@ -39,7 +42,14 @@ class RemoveFromList extends React.PureComponent {
   }
 
   _handleChange(config) {
-    this.props.onChange(config)
+    const { lists } = this.props
+    const list = _.find(lists, { id: config.list_id })
+    this.props.onChange({
+      list: list ? {
+        id: list.id,
+        title: list.title
+      } : null
+    })
   }
 
   _handleDone() {
