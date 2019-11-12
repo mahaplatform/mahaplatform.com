@@ -4,6 +4,7 @@ import React from 'react'
 class Text extends React.Component {
 
   static propTypes = {
+    code: PropTypes.string,
     text: PropTypes.string
   }
 

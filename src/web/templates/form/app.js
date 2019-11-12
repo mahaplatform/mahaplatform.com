@@ -39,7 +39,10 @@ class App extends React.Component {
         { label: 'First Name', name: 'first_name', type: 'textfield', placeholder: 'First Name', required: true },
         { label: 'Last Name', name: 'last_name', type: 'textfield', placeholder: 'Last Name', required: true },
         { label: 'Email', name: 'email', type: 'textfield', placeholder: 'Email', required: true },
-        { label: 'Gender', name: 'gender', type: 'dropdown', placeholder: 'Gender', options: [{value:'male',text:'Male'},{value:'female',text:'Female'}], required: true }
+        { label: 'Gender', name: 'gender', type: 'dropdown', placeholder: 'Gender', options: [{value:'male',text:'Male'},{value:'female',text:'Female'}], required: true },
+        { label: 'Resume', name: 'resume', type: 'filefield', multiple: true, required: true },
+        { label: 'Description', name: 'description', type: 'textarea', placeholder: 'Description', required: true },
+
       ],
       footer: {
         // text: '<p>foo bar baz</p>'
