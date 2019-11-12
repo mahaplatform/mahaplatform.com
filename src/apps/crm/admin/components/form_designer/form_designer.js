@@ -7,7 +7,14 @@ class FormDesigner extends React.PureComponent {
 
   static contextTypes = {}
 
-  static propTypes = {}
+  static propTypes = {
+    changes: PropTypes.number,
+    cid: PropTypes.string,
+    config: PropTypes.object,
+    defaultValue: PropTypes.object,
+    onSave: PropTypes.func,
+    onSet: PropTypes.func
+  }
 
   static defaultProps = {}
 
@@ -26,13 +33,28 @@ class FormDesigner extends React.PureComponent {
     )
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const defaultValue = this.props.defaultValue || this._getDefault()
+    this.props.onSet(defaultValue)
+  }
 
   componentDidUpdate(prevProps) {}
 
-  _getCanvas() {}
+  _getCanvas() {
+    const { config } = this.props
+    return {
+      config
+    }
+  }
 
-  _getSidebar() {}
+  _getSidebar() {
+    const { cid, config, onSave } = this.props
+    return {
+      cid,
+      config,
+      onSave
+    }
+  }
 
 }
 

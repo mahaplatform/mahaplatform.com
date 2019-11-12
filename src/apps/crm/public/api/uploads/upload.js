@@ -1,6 +1,6 @@
 const uploadRoute = async (req, res) => {
 
-  res.status(500).respond(true)
+  res.status(200).respond(true)
 
 }
 

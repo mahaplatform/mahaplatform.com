@@ -39,7 +39,7 @@ class FileField extends React.Component {
             { files.map((file, index) => (
               <div className="maha-filefield-file" key={`file_${index}`} style={ this._getProgress(file) }>
                 <div className="maha-filefield-file-icon">
-                  <i className={`fa fa-${this._getIcon(file)}`} />
+                  <i className={`fa fa-fw fa-${this._getIcon(file)}`} />
                 </div>
                 <div className="maha-filefield-file-details">
                   <div className="maha-filefield-file-label">
@@ -88,8 +88,8 @@ class FileField extends React.Component {
   }
 
   _getIcon(file) {
-    if(file.status === 'uploaded') return 'check'
-    if(file.status === 'failed') return 'warning'
+    if(file.status === 'uploaded') return 'check-circle'
+    if(file.status === 'failed') return 'exclamation-circle'
     return 'circle-o-notch fa-spin'
   }
 

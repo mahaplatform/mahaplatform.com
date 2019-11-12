@@ -1,8 +1,7 @@
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Fields from './Fields'
+import Page from './page'
 import React from 'react'
-import _ from 'lodash'
 
 class Sidebar extends React.Component {
 
@@ -34,11 +33,17 @@ class Sidebar extends React.Component {
   }
 
   componentDidMount() {
-    this._handlePush(Fields, this._getFields())
+    this._handlePush(Page, this._getPage())
   }
 
-  _getFields() {
-    return {}
+  _getPage() {
+    const { cid, onSave } = this.props
+    return {
+      cid,
+      onSave,
+      onPop: this._handlePop,
+      onPush: this._handlePush
+    }
   }
 
   _getStack() {

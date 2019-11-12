@@ -1,3 +1,5 @@
+import Checkboxes from './checkboxes'
+import RadioGroup from './radiogroup'
 import FileField from './filefield'
 import TextField from './textfield'
 import PropTypes from 'prop-types'
@@ -30,6 +32,8 @@ class Field extends React.Component {
         { type === 'text' && <Text { ...this._getField() } /> }
         { type === 'textfield' && <TextField { ...this._getField() } /> }
         { type === 'textarea' && <TextArea{ ...this._getField() } /> }
+        { type === 'radiogroup' && <RadioGroup { ...this._getField() } /> }
+        { type === 'checkboxes' && <Checkboxes { ...this._getField() } /> }
         { type === 'dropdown' && <Dropdown { ...this._getField() } /> }
         { type === 'filefield' && <FileField { ...this._getField() } /> }
       </div>

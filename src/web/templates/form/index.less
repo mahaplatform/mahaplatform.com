@@ -148,3 +148,35 @@
     color: @white;
   }
 }
+.maha-checkboxes {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.28em;
+}
+.maha-checkbox {
+  display: flex;
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.maha-checkbox-icon {
+  display: flex;
+  padding: 0.4em 0 0.4em 0.4em;
+  .fa {
+    margin: auto;
+    cursor: pointer;
+    font-size: 1.2em;
+  }
+  .fa-square-o,
+  .fa-circle-o {
+    color: fadeout(@black, 80);
+  }
+  .fa-check-square,
+  .fa-check-circle {
+    color: @blue;
+  }
+}
+.maha-checkbox-label {
+  padding: 0.4em;
+  flex: 1;
+}

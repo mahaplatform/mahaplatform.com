@@ -4,7 +4,7 @@ import Section from './section'
 import React from 'react'
 import Page from './page'
 
-class Style extends React.Component {
+class Design extends React.Component {
 
   static propTypes = {
     cid: PropTypes.string,
@@ -81,4 +81,4 @@ const mapStateToProps = (state, props) => ({
   config: state.crm.designer[props.cid].config
 })
 
-export default connect(mapStateToProps)(Style)
+export default connect(mapStateToProps)(Design)

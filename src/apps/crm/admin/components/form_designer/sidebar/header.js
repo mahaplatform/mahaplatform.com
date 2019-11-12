@@ -9,7 +9,6 @@ class Page extends React.PureComponent {
 
   static propTypes = {
     cid: PropTypes.string,
-    config: PropTypes.object,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
     onSave: PropTypes.func

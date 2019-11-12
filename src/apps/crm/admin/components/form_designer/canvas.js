@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-// import { types } from './types'
 import Pasteur from 'pasteur'
 import React from 'react'
 import _ from 'lodash'

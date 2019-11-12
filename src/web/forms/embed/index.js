@@ -32,7 +32,6 @@ class Embed {
   }
 
   _handleResize(height) {
-    console.log(height)
     this.iframe.style.height = `${height}px`
   }
 

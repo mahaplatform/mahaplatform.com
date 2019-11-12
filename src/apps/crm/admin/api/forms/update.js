@@ -21,7 +21,7 @@ const updateRoute = async (req, res) => {
   })
 
   await form.save({
-    ...whitelist(req.body, ['title'])
+    ...whitelist(req.body, ['title','config'])
   }, {
     patch: true,
     transacting: req.trx
