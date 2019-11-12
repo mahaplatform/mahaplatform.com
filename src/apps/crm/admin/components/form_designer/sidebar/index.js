@@ -1,6 +1,6 @@
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Page from './page'
+import Fields from './Fields'
 import React from 'react'
 import _ from 'lodash'
 
@@ -26,7 +26,6 @@ class Sidebar extends React.Component {
     cards: []
   }
 
-  _handleDone = this._handleDone.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
 
@@ -35,52 +34,11 @@ class Sidebar extends React.Component {
   }
 
   componentDidMount() {
-    this._handlePush(Page, this._getPage())
+    this._handlePush(Fields, this._getFields())
   }
 
-  componentDidUpdate(prevProps) {
-    const { active } = this.props
-    if(!_.isEqual(active, prevProps.active)) {
-      if(active.section === null) return this._handlePop()
-      this._handleEdit()
-    }
-  }
-
-  _getBlock() {
-    const { active, cid, config } = this.props
-    const block = config.sections[active.section].blocks[active.block]
-    const key = `sections[${active.section}].blocks[${active.block}]`
-    return {
-      active,
-      block,
-      cid,
-      config: _.get(config, key),
-      onDone: this._handleDone,
-      onUpdate: this._handleUpdate.bind(this, key)
-    }
-  }
-
-  _getPage() {
-    const { cid, onAddSection, onDeleteSection, onMoveSection, onSave } = this.props
-    return {
-      cid,
-      onAddSection,
-      onDeleteSection,
-      onMoveSection,
-      onPush: this._handlePush,
-      onPop: this._handlePop,
-      onPreview: this._handlePreview,
-      onSave,
-      onUpdate: this._handleUpdate.bind(this)
-    }
-  }
-
-  _getPreview() {
-    const { cid } = this.props
-    return {
-      cid,
-      onBack: this._handlePop
-    }
+  _getFields() {
+    return {}
   }
 
   _getStack() {
@@ -89,14 +47,6 @@ class Sidebar extends React.Component {
       cards,
       slideFirst: false
     }
-  }
-
-  _handleDone() {
-    this.props.onEdit(null, null)
-  }
-
-  _handleEdit() {
-    this._handlePush(Block, this._getBlock())
   }
 
   _handlePop(index = -1) {
@@ -111,14 +61,6 @@ class Sidebar extends React.Component {
         ...this.state.cards,
         { component, props }
       ]
-    })
-  }
-
-  _handleUpdate(key, value) {
-    const { config } = this.props
-    this.props.onUpdate(key, {
-      ..._.get(config, key),
-      ...value
     })
   }
 

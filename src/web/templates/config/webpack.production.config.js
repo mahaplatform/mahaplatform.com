@@ -67,6 +67,10 @@ const webpackConfig = (name) => ({
   ]
 })
 
+export const documentConfig = webpackConfig('document')
+
 export const emailConfig = webpackConfig('email')
+
+export const formConfig = webpackConfig('form')
 
 export const webConfig = webpackConfig('web')

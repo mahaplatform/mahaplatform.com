@@ -69,8 +69,6 @@ const webpackConfig = (name, css, index) => ({
   ]
 })
 
-export const designerConfig = webpackConfig('designer', false, true)
-
 export const embedConfig = webpackConfig('embed', false, false)
 
 export const formConfig = webpackConfig('form', true, false)
