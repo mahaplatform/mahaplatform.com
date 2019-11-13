@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class TextField extends React.Component {
+class DateField extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
@@ -21,15 +21,22 @@ class TextField extends React.Component {
   render() {
     const { value } = this.state
     return (
-      <div className="maha-input maha-textfield">
-        <div className="maha-input-field">
-          <input ref={ node => this.input = node } { ...this._getInput() } />
-        </div>
-        { value && value.length > 0 &&
-          <div className="maha-input-clear" onClick={ this._handleClear }>
-            <i className="fa fa-times" />
+      <div className="maha-datefield">
+        <div className="maha-datefield-field">
+          <div className="maha-input">
+            <div className="maha-input-field">
+              <input ref={ node => this.input = node } { ...this._getInput() } />
+            </div>
+            { value && value.length > 0 &&
+              <div className="maha-input-clear" onClick={ this._handleClear }>
+                <i className="fa fa-times" />
+              </div>
+            }
           </div>
-        }
+        </div>
+        <div className="maha-datefield-icon">
+          <i className="fa fa-calendar" />
+        </div>
       </div>
     )
   }
@@ -62,4 +69,4 @@ class TextField extends React.Component {
 
 }
 
-export default TextField
+export default DateField

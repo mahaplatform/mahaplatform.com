@@ -1,7 +1,11 @@
+import ProductField from './productfield'
+import PaymentField from './paymentfield'
 import Checkboxes from './checkboxes'
 import RadioGroup from './radiogroup'
 import FileField from './filefield'
 import TextField from './textfield'
+import DateField from './datefield'
+import TimeField from './timefield'
 import PropTypes from 'prop-types'
 import TextArea from './textarea'
 import Dropdown from './dropdown'
@@ -26,9 +30,9 @@ class Field extends React.Component {
     const { code } = this.state
     return (
       <div className={ this._getClass() }>
-        { label &&
-          <label htmlFor={ code }>{ label }</label>
-        }
+        { label && <label htmlFor={ code }>{ label }</label> }
+        { type === 'datefield' && <DateField { ...this._getField() } /> }
+        { type === 'timefield' && <TimeField { ...this._getField() } /> }
         { type === 'text' && <Text { ...this._getField() } /> }
         { type === 'textfield' && <TextField { ...this._getField() } /> }
         { type === 'textarea' && <TextArea{ ...this._getField() } /> }
@@ -36,6 +40,8 @@ class Field extends React.Component {
         { type === 'checkboxes' && <Checkboxes { ...this._getField() } /> }
         { type === 'dropdown' && <Dropdown { ...this._getField() } /> }
         { type === 'filefield' && <FileField { ...this._getField() } /> }
+        { type === 'productfield' && <ProductField { ...this._getField() } /> }
+        { type === 'paymentfield' && <PaymentField { ...this._getField() } /> }
       </div>
     )
   }

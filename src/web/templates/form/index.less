@@ -11,6 +11,8 @@
 @brown: #A5673F;
 @black: #000000;
 @white: #FFFFFF;
+@android: #A4C639;
+@paypal: #0079C1;
 
 .dropzone {
   margin: -4px -2px;
@@ -82,10 +84,6 @@
 .divider {
   height: 0;
 }
-#designer {
-  width: 100%;
-  height: 100%;
-}
 .maha-form {
   width: 100%;
   max-width: 770px;
@@ -105,78 +103,34 @@
 .maha-form-footer-text {
   padding: 0.8em;
 }
-.maha-textarea {
-  textarea {
-    box-sizing: border-box !important;
-    resize: none !important;
-    overflow: hidden !important;
-  }
-}
-.maha-filefield {
-  .ui.button {
-    margin-bottom: 0.4em;
-  }
-}
-.maha-filefield-file {
-  transition: background-image .1s ease;
-  margin-bottom: 0.4em;
-  border-radius: 0.28em;
-  display: flex;
-}
-.maha-filefield-file-icon {
-  display: flex;
-  padding: 0.54em 0 0.54em 0.54em;
-  .fa {
-    margin: auto;
-    color: @white;
-  }
-}
-.maha-filefield-file-details {
-  flex: 1;
-  padding: 0.54em;
-  color: @white;
-}
-.maha-filefield-file-remove {
-  display: flex;
-  padding: 0.54em 0.54em 0.54em 0;
-  cursor: pointer;
-  .fa {
-    margin: auto;
-    color: fadeout(@white, 10);
-  }
-  &:hover .fa {
-    color: @white;
-  }
-}
-.maha-checkboxes {
+.maha-input {
   border: 1px solid fadeout(@black, 90);
   border-radius: 0.28em;
-}
-.maha-checkbox {
   display: flex;
-  cursor: pointer;
-  &:hover {
-    background-color: fadeout(@black, 97);
-  }
+  width: 100%;
 }
-.maha-checkbox-icon {
+.maha-input-field {
   display: flex;
-  padding: 0.4em 0 0.4em 0.4em;
-  .fa {
-    margin: auto;
-    cursor: pointer;
-    font-size: 1.2em;
-  }
-  .fa-square-o,
-  .fa-circle-o {
-    color: fadeout(@black, 80);
-  }
-  .fa-check-square,
-  .fa-check-circle {
-    color: @blue;
-  }
-}
-.maha-checkbox-label {
-  padding: 0.4em;
   flex: 1;
+  input {
+    border: none !important;
+  }
 }
+.maha-input-clear {
+  flex: 0 0 2em;
+  display: flex;
+  padding: 0.4em;
+  .fa {
+    color: fadeout(@black, 80);
+    cursor: pointer;
+    margin: auto;
+  }
+}
+
+
+
+@import './components/checkboxes/style.less';
+@import './components/datefield/style.less';
+@import './components/filefield/style.less';
+@import './components/paymentfield/style.less';
+@import './components/productfield/style.less';

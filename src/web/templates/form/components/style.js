@@ -48,27 +48,18 @@ class Style extends React.Component {
       { selector: 'body', styles: [
         ...this._getProp('background-color', 'page.background_color')
       ] },
-      ...['h1','h2','h3','h4','p'].map(selector => ({
-        selector, styles: [
-          ...this._getProp('font-family', `page.${selector}_font_family`),
-          ...this._getProp('font-size', `page.${selector}_font_size`),
-          ...this._getFormat('font-weight', 'bold', `page.${selector}_format`, 'normal'),
-          ...this._getFormat('font-style', 'italic', `page.${selector}_format`),
-          ...this._getFormat('text-decoration', 'underline', `page.${selector}_format`),
-          ...this._getProp('color', `page.${selector}_color`),
-          ...this._getProp('text-align', `page.${selector}_text_align`),
-          ...this._getProp('line-height', `page.${selector}_line_height`),
-          ...this._getProp('letter-spacing', `page.${selector}_letter_spacing`)
-        ]
-      })),
       { selector: '.maha-form', styles: [
-        ...this._getProp('background-color', 'form.background_color')
+        ...this._getProp('background-color', 'form.background_color'),
+        ...this._getProp('margin-top', 'page.padding_top', 'px'),
+        ...this._getProp('margin-bottom', 'page.padding_bottom', 'px')
       ] },
       { selector: '.maha-form-header', styles: [
-        ...this._getProp('background-color', 'header.background_color')
+        ...this._getProp('background-color', 'header.background_color'),
+        ...this._getProp('color', 'header.color')
       ] },
       { selector: '.maha-form-footer', styles: [
-        ...this._getProp('background-color', 'footer.background_color')
+        ...this._getProp('background-color', 'footer.background_color'),
+        ...this._getProp('color', 'footer.color')
       ] }
     ]
     return styles.map(item => item.styles.length === 0 ? '' : `

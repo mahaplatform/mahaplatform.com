@@ -1,0 +1,31 @@
+.maha-productfield {
+  td, th {
+    color: fadeout(@black, 40);
+  }
+  tbody tr {
+    td:nth-child(2),
+    td:nth-child(3),
+    td:nth-child(4) {
+      width: 50px !important;
+      text-align: right;
+    }
+    td.input {
+      padding: 0.4em;
+      width: 0;
+      input {
+        color: fadeout(@black, 40) !important;
+        padding: 0.4em !important;
+        border-radius: 0 !important;
+        width: 50px !important;
+        text-align: center;
+      }
+    }
+    &.total td {
+      &:first-child {
+        background-color: fadeout(@black, 97);
+      }
+      color: @black;
+      font-weight: bold;
+    }
+  }
+}

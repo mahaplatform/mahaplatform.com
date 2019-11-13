@@ -1,3 +1,4 @@
+import { Preview } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
 import Canvas from './canvas'
@@ -23,7 +24,9 @@ class FormDesigner extends React.PureComponent {
       <div className="form-designer">
         <div className="form-designer-main">
           <div className="form-designer-canvas">
-            <Canvas { ...this._getCanvas() } />
+            <Preview>
+              <Canvas { ...this._getCanvas() } />
+            </Preview> :
           </div>
         </div>
         <div className="form-designer-sidebar">

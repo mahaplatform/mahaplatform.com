@@ -3,10 +3,15 @@ import React from 'react'
 
 const fields = [
   { label: 'Text', icon: 'align-left', type: 'text' },
+  { label: 'Textfield', icon: 'font', type: 'text' },
   { label: 'Radio Group', icon: 'check-circle', type: 'radiogroup' },
   { label: 'Checkboxes', icon: 'check-square', type: 'checkboxes' },
   { label: 'Dropdown', icon: 'caret-square-o-down', type: 'dropdown' },
-  { label: 'File Upload', icon: 'cloud-upload', type: 'fileupload' }
+  { label: 'File Upload', icon: 'cloud-upload', type: 'fileupload' },
+  { label: 'Datefield', icon: 'calendar', type: 'datefield' },
+  { label: 'Timefield', icon: 'clock-o', type: 'timefield' },
+  { label: 'Productfield', icon: 'shopping-bag', type: 'productfield' },
+  { label: 'Paymentfield', icon: 'dollar', type: 'paymentfield' }
 ]
 
 class Fields extends React.Component {
