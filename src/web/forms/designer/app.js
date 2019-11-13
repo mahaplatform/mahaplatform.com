@@ -1,6 +1,7 @@
 import { hot } from 'react-hot-loader'
 import Style from './components/style'
-import Form from './components/form'
+import Body from './components/body'
+import Root from './components/root'
 import PropTypes from 'prop-types'
 import Pasteur from 'pasteur'
 import React from 'react'
@@ -26,7 +27,9 @@ class App extends React.Component {
     if(!this.state.config) return null
     return [
       <Style key="style" { ...this._getStyle() } />,
-      <Form key="form" { ...this._getForm() } />
+      <Root key="root">
+        <Body { ...this._getBody() } />
+      </Root>
     ]
   }
 
@@ -50,7 +53,7 @@ class App extends React.Component {
     this.pasteur.close()
   }
 
-  _getForm() {
+  _getBody() {
     const { active, config } = this.state
     return {
       active,

@@ -17,7 +17,9 @@ class Field extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
-    field: PropTypes.object
+    errors: PropTypes.array,
+    field: PropTypes.object,
+    onChange: PropTypes.func
   }
 
   state = {
@@ -25,7 +27,7 @@ class Field extends React.Component {
   }
 
   render() {
-    const { field } = this.props
+    const { errors, field } = this.props
     const { label, type } = field
     const { code } = this.state
     return (
@@ -42,6 +44,11 @@ class Field extends React.Component {
         { type === 'filefield' && <FileField { ...this._getField() } /> }
         { type === 'productfield' && <ProductField { ...this._getField() } /> }
         { type === 'paymentfield' && <PaymentField { ...this._getField() } /> }
+        { errors &&
+          <div className="field-error">
+            { errors[0] }
+          </div>
+        }
       </div>
     )
   }
@@ -53,18 +60,20 @@ class Field extends React.Component {
   }
 
   _getClass() {
-    const { field } = this.props
+    const { errors, field } = this.props
     const classes = ['field']
     if(field.required) classes.push('required')
+    if(errors) classes.push('error')
     return classes.join(' ')
   }
 
   _getField() {
-    const { field } = this.props
+    const { field, onChange } = this.props
     const { code } = this.state
     return {
       code,
-      ...field
+      ...field,
+      onChange
     }
   }
 

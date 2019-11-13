@@ -62,17 +62,17 @@ const mobileWatch = async () => {
 }
 
 const templateWatch = async () => {
-  const { documentConfig, emailConfig, formConfig, webConfig } = templates
+  const { documentConfig, emailConfig, webConfig } = templates
   const watchDir = path.resolve('src','web','templates')
   await watch('template:document', path.join(watchDir,'document'), documentConfig)
   await watch('template:email', path.join(watchDir,'email'), emailConfig)
-  await watch('template:form', path.join(watchDir,'form'), formConfig)
   await watch('template:web', path.join(watchDir,'web'), webConfig)
 }
 
 const formWatch = async () => {
-  const { embedConfig, formConfig } = forms
+  const { designerConfig, embedConfig, formConfig } = forms
   const watchDir = path.resolve('src','web','forms')
+  await watch('form:designer', path.join(watchDir,'designer'), designerConfig)
   await watch('form:embed', path.join(watchDir,'embed'), embedConfig)
   await watch('form:form', path.join(watchDir,'form'), formConfig)
 }

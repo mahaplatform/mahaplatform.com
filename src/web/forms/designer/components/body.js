@@ -1,12 +1,14 @@
+import { hot } from 'react-hot-loader'
 import PropTypes from 'prop-types'
 import Header from './header'
 import Footer from './footer'
-import Fields from './fields'
 import React from 'react'
+import Form from './form'
 
-class Form extends React.Component {
+class App extends React.Component {
 
   static propTypes = {
+    active: PropTypes.object,
     config: PropTypes.object
   }
 
@@ -14,15 +16,19 @@ class Form extends React.Component {
     return (
       <div className="maha-form">
         <Header { ...this._getHeader() } />
-        <Fields { ...this._getFields() } />
+        <Form { ...this._getForm() } />
         <Footer { ...this._getFooter() } />
       </div>
     )
   }
 
-  _getFields() {
-    const { fields } = this.props.config
-    return { fields }
+  _getForm() {
+    const { active, config } = this.props
+    return {
+      active,
+      fields: config.fields,
+      onAction: this._handleAction
+    }
   }
 
   _getFooter() {
@@ -35,4 +41,4 @@ class Form extends React.Component {
 
 }
 
-export default Form
+export default hot(module)(App)

@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import React from 'react'
+import _ from 'lodash'
 
 class ProductField extends React.Component {
 
@@ -8,25 +9,26 @@ class ProductField extends React.Component {
     code: PropTypes.string,
     name: PropTypes.string,
     placeholder: PropTypes.string,
-    products: PropTypes.array
+    products: PropTypes.array,
+    onChange: PropTypes.func
   }
 
   state = {
-    quantities: {
-      abcdef: 2,
-      ghijkl: 2
-    }
+    quantities: {}
   }
 
   input = null
 
   render() {
     const { quantities } = this.state
-    const products = this.props.products.map(product => ({
-      ...product,
-      quantity: quantities[product.code],
-      total: quantities[product.code] * product.price
-    }))
+    const products = this.props.products.map(product => {
+      const quantity = quantities[product.code] || 0
+      return {
+        ...product,
+        quantity,
+        total: quantity * product.price
+      }
+    })
     const subtotal = products.reduce((subtotal, product) => {
       return subtotal + product.total
     }, 0.00)
@@ -74,16 +76,26 @@ class ProductField extends React.Component {
     )
   }
 
-  _getInput(product) {
+  componentDidUpdate(prevProps, prevState) {
     const { quantities } = this.state
-    return {
-      type: 'text',
-      value: quantities[product.code],
-      onChange: this._handleChange.bind(this, product.code)
+    if(!_.isEqual(quantities, prevState.quantities)) {
+      this._handleChange()
     }
   }
 
-  _handleChange(code, e) {
+  _getInput(product) {
+    return {
+      type: 'text',
+      value: product.quantity,
+      onChange: this._handleUpdate.bind(this, product.code)
+    }
+  }
+
+  _handleChange() {
+    this.props.onChange(this.state.quantities)
+  }
+
+  _handleUpdate(code, e) {
     const { quantities } = this.state
     this.setState({
       quantities: {

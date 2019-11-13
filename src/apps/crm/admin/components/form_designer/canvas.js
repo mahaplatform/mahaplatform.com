@@ -68,7 +68,7 @@ class Canvas extends React.Component {
   _getIframe() {
     return {
       ref: node => this.preview = node,
-      src: '/templates/form.html'
+      src: '/forms/designer.html'
     }
   }
 

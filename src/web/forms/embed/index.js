@@ -14,7 +14,7 @@ class Embed {
 
   _handleInit() {
     this.iframe = document.createElement('iframe')
-    this.iframe.src = 'http://localhost:8080/crm/forms/1234'
+    this.iframe.src = 'http://localhost:8080/crm/forms/<%= form.code %>'
     this.iframe.frameBorder = 0
     this.iframe.style.width = '100%'
     document.body.appendChild(this.iframe)

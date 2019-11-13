@@ -8,12 +8,15 @@ class RadioGroup extends React.Component {
     defaultValue: PropTypes.array,
     name: PropTypes.string,
     options: PropTypes.array,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    onChange: PropTypes.func
   }
 
   state = {
     selected: null
   }
+
+  _handleChange = this._handleChange.bind(this)
 
   render() {
     const { options } = this.props
@@ -40,19 +43,20 @@ class RadioGroup extends React.Component {
     })
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { selected } = this.state
+    if(selected !== prevState.selected) {
+      this._handleChange()
+    }
+  }
+
   _getIcon(option) {
     const { selected } = this.state
     return option.value === selected ? 'check-circle' : 'circle-o'
   }
 
-  _getInput() {
-    const { code, name, placeholder } = this.props
-    return {
-      id: code,
-      type: 'text',
-      name,
-      placeholder
-    }
+  _handleChange() {
+    this.props.onChange(this.state.selected)
   }
 
   _handleChoose(option) {

@@ -1,12 +1,14 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class TextField extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
     name: PropTypes.string,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    onChange: PropTypes.func
   }
 
   state = {
@@ -15,8 +17,9 @@ class TextField extends React.Component {
 
   input = null
 
-  _handleChange = this._handleChange.bind(this)
+  _handleChange = _.debounce(this._handleChange.bind(this), 250, { leading: true })
   _handleClear = this._handleClear.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
     const { value } = this.state
@@ -34,6 +37,13 @@ class TextField extends React.Component {
     )
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { value } = this.state
+    if(value !== prevState.value) {
+      this._handleChange()
+    }
+  }
+
   _getInput() {
     const { code, name, placeholder } = this.props
     const { value } = this.state
@@ -42,21 +52,25 @@ class TextField extends React.Component {
       type: 'text',
       name,
       placeholder,
-      onChange: this._handleChange,
+      onChange: this._handleUpdate,
       value
     }
   }
 
-  _handleChange(e) {
-    if(e.which == 13) return
-    this.setState({
-      value: e.target.value
-    })
+  _handleChange() {
+    this.props.onChange(this.state.value)
   }
 
   _handleClear() {
     this.setState({
       value: ''
+    })
+  }
+
+  _handleUpdate(e) {
+    if(e.which == 13) return
+    this.setState({
+      value: e.target.value
     })
   }
 

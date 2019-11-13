@@ -9,12 +9,15 @@ class Checkboxes extends React.Component {
     defaultValue: PropTypes.array,
     name: PropTypes.string,
     options: PropTypes.array,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    onChange: PropTypes.func
   }
 
   state = {
     selected: []
   }
+
+  _handleChange = this._handleChange.bind(this)
 
   render() {
     const { options } = this.props
@@ -41,19 +44,20 @@ class Checkboxes extends React.Component {
     })
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { selected } = this.state
+    if(!_.isEqual(selected, prevState.selected)) {
+      this._handleChange()
+    }
+  }
+
   _getIcon(option) {
     const { selected } = this.state
     return _.includes(selected, option.value) ? 'check-square' : 'square-o'
   }
 
-  _getInput() {
-    const { code, name, placeholder } = this.props
-    return {
-      id: code,
-      type: 'text',
-      name,
-      placeholder
-    }
+  _handleChange() {
+    this.props.onChange(this.state.selected)
   }
 
   _handleChoose(option) {
