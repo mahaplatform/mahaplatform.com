@@ -17,12 +17,12 @@ class App extends React.Component {
   _handleResize = this._handleResize.bind(this)
 
   render() {
-    return (
+    return [
       <Style key="style" { ...this._getStyle() } />,
       <Root key="root">
         <Body { ...this._getBody() } />
       </Root>
-    )
+    ]
   }
 
   componentDidMount() {

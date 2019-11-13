@@ -8,6 +8,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import qs from 'qs'
 
+import productfield from './form/productfield'
 import form from './form'
 
 class Root extends React.Component {
@@ -22,7 +23,8 @@ class Root extends React.Component {
     super(props)
 
     const reducer = combineReducers([
-      form
+      form,
+      productfield
     ])
 
     const loggerMiddleware = createLogger({ collapsed: true })

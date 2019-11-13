@@ -10,32 +10,17 @@ class ProductField extends React.Component {
     name: PropTypes.string,
     placeholder: PropTypes.string,
     products: PropTypes.array,
-    onChange: PropTypes.func
+    quantities: PropTypes.object,
+    subtotal: PropTypes.number,
+    tax: PropTypes.number,
+    total: PropTypes.number,
+    value: PropTypes.object,
+    onChange: PropTypes.func,
+    onSet: PropTypes.func
   }
-
-  state = {
-    quantities: {}
-  }
-
-  input = null
 
   render() {
-    const { quantities } = this.state
-    const products = this.props.products.map(product => {
-      const quantity = quantities[product.code] || 0
-      return {
-        ...product,
-        quantity,
-        total: quantity * product.price
-      }
-    })
-    const subtotal = products.reduce((subtotal, product) => {
-      return subtotal + product.total
-    }, 0.00)
-    const tax = products.reduce((tax, product) => {
-      return tax + (product.total * product.tax)
-    }, 0.00)
-    const total = subtotal + tax
+    const { products, subtotal, tax, total } = this.props
     return (
       <div className="maha-productfield">
         <table className="ui unstackable celled table">
@@ -76,9 +61,9 @@ class ProductField extends React.Component {
     )
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const { quantities } = this.state
-    if(!_.isEqual(quantities, prevState.quantities)) {
+  componentDidUpdate(prevProps) {
+    const { quantities } = this.props
+    if(!_.isEqual(quantities, prevProps.quantities)) {
       this._handleChange()
     }
   }
@@ -92,17 +77,13 @@ class ProductField extends React.Component {
   }
 
   _handleChange() {
-    this.props.onChange(this.state.quantities)
+    this.props.onChange(this.props.value)
   }
 
   _handleUpdate(code, e) {
-    const { quantities } = this.state
-    this.setState({
-      quantities: {
-        ...quantities,
-        [code]: e.target.value.length > 0 ? parseInt(e.target.value) : 0
-      }
-    })
+    const raw = e.target.value
+    const value = raw.length > 0 ? parseInt(raw) : 0
+    this.props.onSet(code, value)
   }
 
 }
