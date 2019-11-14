@@ -17,10 +17,13 @@ class Field extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
-    errors: PropTypes.array,
+    error: PropTypes.string,
     field: PropTypes.object,
+    status: PropTypes.string,
     onChange: PropTypes.func,
-    onSetReady: PropTypes.func
+    onReady: PropTypes.func,
+    onFinalize: PropTypes.func,
+    onValidate: PropTypes.func
   }
 
   state = {
@@ -28,7 +31,7 @@ class Field extends React.Component {
   }
 
   render() {
-    const { errors, field } = this.props
+    const { error, field } = this.props
     const { label, type } = field
     const { code } = this.state
     return (
@@ -45,9 +48,9 @@ class Field extends React.Component {
         { type === 'filefield' && <FileField { ...this._getField() } /> }
         { type === 'productfield' && <ProductField { ...this._getField() } /> }
         { type === 'paymentfield' && <PaymentField { ...this._getField() } /> }
-        { errors &&
+        { error &&
           <div className="field-error">
-            { errors[0] }
+            { error }
           </div>
         }
       </div>
@@ -61,21 +64,24 @@ class Field extends React.Component {
   }
 
   _getClass() {
-    const { errors, field } = this.props
+    const { error, field } = this.props
     const classes = ['field']
     if(field.required) classes.push('required')
-    if(errors) classes.push('error')
+    if(error) classes.push('error')
     return classes.join(' ')
   }
 
   _getField() {
-    const { field, onChange, onReady } = this.props
+    const { field, status, onChange, onReady, onFinalize, onValidate } = this.props
     const { code } = this.state
     return {
       code,
       ...field,
+      status,
       onChange,
-      onReady
+      onReady,
+      onFinalize,
+      onValidate
     }
   }
 

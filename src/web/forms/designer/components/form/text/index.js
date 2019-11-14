@@ -5,8 +5,11 @@ class Text extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
+    status: PropTypes.string,
     text: PropTypes.string,
-    onReady: PropTypes.func
+    onFinalize: PropTypes.func,
+    onReady: PropTypes.func,
+    onValidate: PropTypes.func
   }
 
   render() {
@@ -19,6 +22,14 @@ class Text extends React.Component {
   componentDidMount() {
     const { onReady } = this.props
     onReady()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { status, onFinalize, onValidate } = this.props
+    if(status !== prevProps.status) {
+      if(status === 'validating') onValidate('valid')
+      if(status === 'finalizing') onFinalize(null)
+    }
   }
 
 }

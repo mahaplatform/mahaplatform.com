@@ -1,48 +1,18 @@
 import PropTypes from 'prop-types'
-import PayPal from './paypal'
-import Card from './card'
+import methods from './methods'
 import React from 'react'
-import ACH from './ach'
-
-const methods = [
-  {
-    name: 'apple',
-    label: 'Apple Pay',
-    icon: 'apple',
-    component: null
-  },
-  {
-    name: 'google',
-    label: 'Google Pay',
-    icon: 'android',
-    component: null
-  },
-  {
-    name: 'paypal',
-    label: 'PayPal',
-    icon: 'paypal',
-    component: PayPal
-  },
-  {
-    name: 'card',
-    label: 'Credit Card',
-    icon: 'credit-card-alt',
-    component: Card
-  },
-  {
-    name: 'ach',
-    label: 'Bank Account',
-    icon: 'university',
-    component: ACH
-  }
-]
 
 class PaymentField extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
     name: PropTypes.string,
-    onReady: PropTypes.func
+    required: PropTypes.bool,
+    status: PropTypes.string,
+    onChange: PropTypes.func,
+    onFinalize: PropTypes.func,
+    onReady: PropTypes.func,
+    onValidate: PropTypes.func
   }
 
   state = {
@@ -96,6 +66,14 @@ class PaymentField extends React.Component {
     onReady()
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { status } = this.props
+    if(status !== prevProps.status) {
+      if(status === 'validating') this._handleValidate()
+      if(status === 'finalizing') this._handleFinalize()
+    }
+  }
+
   _getComponent() {
     const { selected } = this.state
     const Component = methods[selected].component
@@ -104,6 +82,15 @@ class PaymentField extends React.Component {
 
   _handleChoose(selected) {
     this.setState({ selected })
+  }
+
+  _handleFinalize() {
+    this.props.onFinalize('paymentToken')
+  }
+
+  _handleValidate() {
+    console.log('validating payment field')
+    this.props.onValidate('valid')
   }
 
 }

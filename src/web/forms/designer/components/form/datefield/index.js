@@ -8,8 +8,12 @@ class DateField extends React.Component {
     code: PropTypes.string,
     name: PropTypes.string,
     placeholder: PropTypes.string,
+    required: PropTypes.bool,
+    status: PropTypes.string,
     onChange: PropTypes.func,
-    onReady: PropTypes.func
+    onFinalize: PropTypes.func,
+    onReady: PropTypes.func,
+    onValidate: PropTypes.func
   }
 
   control = null
@@ -65,15 +69,20 @@ class DateField extends React.Component {
     onReady()
   }
 
-  componentWillUnmount() {
-    document.removeEventListener('mousedown', this._handleClickOutside)
-  }
-
   componentDidUpdate(prevProps, prevState) {
+    const { status } = this.props
     const { value } = this.state
     if(value !== prevState.value) {
       this._handleChange()
     }
+    if(status !== prevProps.status) {
+      if(status === 'validating') this._handleValidate()
+      if(status === 'finalizing') this._handleFinalize()
+    }
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this._handleClickOutside)
   }
 
   _getChooser() {
@@ -114,6 +123,20 @@ class DateField extends React.Component {
     this.setState({
       value: null
     })
+  }
+
+  _handleFinalize() {
+    this.props.onFinalize(this.state.value)
+  }
+
+  _handleValidate() {
+    const { required } = this.props
+    const { value } = this.state
+    if(required && value === null) {
+      this.props.onValidate('invalid', 'You must choose a date')
+    } else {
+      this.props.onValidate('valid')
+    }
   }
 
 }

@@ -8,8 +8,12 @@ class TextField extends React.Component {
     code: PropTypes.string,
     name: PropTypes.string,
     placeholder: PropTypes.string,
+    required: PropTypes.bool,
+    status: PropTypes.string,
     onChange: PropTypes.func,
-    onReady: PropTypes.func
+    onFinalize: PropTypes.func,
+    onReady: PropTypes.func,
+    onValidate: PropTypes.func
   }
 
   state = {
@@ -42,11 +46,16 @@ class TextField extends React.Component {
     const { onReady } = this.props
     onReady()
   }
-  
+
   componentDidUpdate(prevProps, prevState) {
+    const { status } = this.props
     const { value } = this.state
     if(value !== prevState.value) {
       this._handleChange()
+    }
+    if(status !== prevProps.status) {
+      if(status === 'validating') this._handleValidate()
+      if(status === 'finalizing') this._handleFinalize()
     }
   }
 
@@ -73,11 +82,25 @@ class TextField extends React.Component {
     })
   }
 
+  _handleFinalize() {
+    this.props.onFinalize(this.state.value)
+  }
+
   _handleUpdate(e) {
     if(e.which == 13) return
     this.setState({
       value: e.target.value
     })
+  }
+
+  _handleValidate() {
+    const { required } = this.props
+    const { value } = this.state
+    if(required && value.length === 0) {
+      this.props.onValidate('invalid', 'You must enter a value')
+    } else {
+      this.props.onValidate('valid')
+    }
   }
 
 }

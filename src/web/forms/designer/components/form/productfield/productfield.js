@@ -11,13 +11,17 @@ class ProductField extends React.Component {
     placeholder: PropTypes.string,
     products: PropTypes.array,
     quantities: PropTypes.object,
+    required: PropTypes.bool,
+    status: PropTypes.string,
     subtotal: PropTypes.number,
     tax: PropTypes.number,
     total: PropTypes.number,
     value: PropTypes.object,
     onChange: PropTypes.func,
+    onFinalize: PropTypes.func,
     onReady: PropTypes.func,
-    onSet: PropTypes.func
+    onSet: PropTypes.func,
+    onValidate: PropTypes.func
   }
 
   render() {
@@ -68,9 +72,13 @@ class ProductField extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { quantities } = this.props
+    const { quantities, status } = this.props
     if(!_.isEqual(quantities, prevProps.quantities)) {
       this._handleChange()
+    }
+    if(status !== prevProps.status) {
+      if(status === 'validating') this._handleValidate()
+      if(status === 'finalizing') this._handleFinalize()
     }
   }
 
@@ -86,10 +94,23 @@ class ProductField extends React.Component {
     this.props.onChange(this.props.value)
   }
 
+  _handleFinalize() {
+    this.props.onFinalize(this.props.value)
+  }
+
   _handleUpdate(code, e) {
     const raw = e.target.value
     const value = raw.length > 0 ? parseInt(raw) : 0
     this.props.onSet(code, value)
+  }
+
+  _handleValidate() {
+    const { required, subtotal } = this.props
+    if(required && subtotal === 0) {
+      this.props.onValidate('invalid', 'You must specify at least one item')
+    } else {
+      this.props.onValidate('valid')
+    }
   }
 
 }

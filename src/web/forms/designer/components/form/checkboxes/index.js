@@ -10,8 +10,12 @@ class Checkboxes extends React.Component {
     name: PropTypes.string,
     options: PropTypes.array,
     placeholder: PropTypes.string,
+    required: PropTypes.bool,
+    status: PropTypes.string,
     onChange: PropTypes.func,
-    onReady: PropTypes.func
+    onReady: PropTypes.func,
+    onFinalize: PropTypes.func,
+    onValidate: PropTypes.func
   }
 
   state = {
@@ -48,8 +52,13 @@ class Checkboxes extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { selected } = this.state
+    const { status } = this.props
     if(!_.isEqual(selected, prevState.selected)) {
       this._handleChange()
+    }
+    if(status !== prevProps.status) {
+      if(status === 'validating') this._handleValidate()
+      if(status === 'finalizing') this._handleFinalize()
     }
   }
 
@@ -69,6 +78,20 @@ class Checkboxes extends React.Component {
         ..._.xor(selected, [option.value])
       ]
     })
+  }
+
+  _handleFinalize() {
+    this.props.onFinalize(this.state.selected)
+  }
+
+  _handleValidate() {
+    const { required } = this.props
+    const { selected } = this.state
+    if(required && selected.length === 0) {
+      this.props.onValidate('invalid', 'You must choose at least one value')
+    } else {
+      this.props.onValidate('valid')
+    }
   }
 
 }

@@ -8,18 +8,32 @@ export const save = (endpoint, body) => ({
   failure: 'SAVE_FAILURE'
 })
 
-export const change = (key, value) => ({
+export const change = (name, value) => ({
   type: 'CHANGE',
-  key,
+  name,
   value
 })
 
-export const setErrors = (errors) => ({
-  type: 'SET_ERRORS',
-  errors
+export const setStatus = (name, status) => ({
+  type: 'SET_STATUS',
+  name,
+  status
 })
 
-export const setReady = (name) => ({
-  type: 'SET_READY',
-  name
+export const setAllStatus = (status) => ({
+  type: 'SET_All_STATUS',
+  status
+})
+
+export const setFinalized = (name, value) => ({
+  type: 'SET_FINALIZED',
+  name,
+  value
+})
+
+export const setValidate = (name, status, error) => ({
+  type: 'SET_VALIDATE',
+  name,
+  status,
+  error
 })

@@ -1,7 +1,7 @@
 export const INITIAL_STATE = {
   data: {},
   errors: {},
-  ready: []
+  status: {}
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -13,32 +13,67 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       data: {
         ...state.data,
-        [action.key]: action.value
+        [action.name]: action.value
       },
       errors: {
-        ...Object.keys(state.errors).reduce((errors, key) => {
-          if(key === action.key) return errors
+        ...Object.keys(state.errors).reduce((errors, name) => {
+          if(name === action.name) return errors
           return {
             ...errors,
-            [key]: state.errors[key]
+            [name]: state.errors[name]
           }
         }, {})
+      },
+      status: {
+        ...state.status,
+        [action.name]: 'ready'
       }
     }
 
-  case 'SET_ERRORS':
+  case 'SET_FINALIZED':
     return {
       ...state,
-      errors: action.errors
+      data: {
+        ...state.data,
+        [action.name]: action.value
+      },
+      status: {
+        ...state.status,
+        [action.name]: 'finalized'
+      }
     }
 
-  case 'SET_READY':
+  case 'SET_STATUS':
     return {
       ...state,
-      ready: [
-        ...state.ready,
-        action.name
-      ]
+      status: {
+        ...state.status,
+        [action.name]: action.status
+      }
+    }
+
+  case 'SET_All_STATUS':
+    return {
+      ...state,
+      status: {
+        ...Object.keys(state.status).reduce((status, name) => ({
+          ...status,
+          [name]: action.status
+        }), {})
+      }
+    }
+
+  case 'SET_VALIDATE':
+    return {
+      ...state,
+      status: {
+        ...state.status,
+        [action.name]: action.status
+      },
+      errors: action.error ? {
+        ...state.errors,
+        [action.name]: action.error
+      } : state.errors
     }
 
   default:

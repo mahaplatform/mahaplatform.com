@@ -35,16 +35,11 @@ export const total = createSelector(
 
 export const value = createSelector(
   products,
-  subtotal,
-  tax,
-  total,
-  (products, subtotal, tax, total) => ({
-    products: products.filter(product => product.quantity > 1).map(product => ({
-      quantity: product.quantity,
-      tax: product.tax,
-      price: product.price
-    })),
-    subtotal,
-    tax,
-    total
-  }))
+  (products) => products.filter(product => {
+    return product.quantity > 0
+  }).map(product => ({
+    code: product.code,
+    quantity: product.quantity,
+    tax: product.tax,
+    price: product.price
+  })))

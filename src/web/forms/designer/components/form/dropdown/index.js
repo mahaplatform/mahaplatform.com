@@ -8,7 +8,12 @@ class Dropdown extends React.Component {
     name: PropTypes.string,
     options: PropTypes.array,
     placeholder: PropTypes.string,
-    onReady: PropTypes.func
+    required: PropTypes.bool,
+    status: PropTypes.string,
+    onChange: PropTypes.func,
+    onFinalize: PropTypes.func,
+    onReady: PropTypes.func,
+    onValidate: PropTypes.func
   }
 
   render() {
@@ -30,6 +35,23 @@ class Dropdown extends React.Component {
   componentDidMount() {
     const { onReady } = this.props
     onReady()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { status } = this.props
+    if(status !== prevProps.status) {
+      if(status === 'validating') this._handleValidate()
+      if(status === 'finalizing') this._handleFinalize()
+    }
+  }
+
+  _handleFinalize() {
+    this.props.onFinalize('paymentToken')
+  }
+
+  _handleValidate() {
+    console.log('validating dropdown')
+    this.props.onValidate('valid')
   }
 
 }

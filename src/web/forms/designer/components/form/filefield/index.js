@@ -2,6 +2,7 @@ import Resumable from 'resumablejs'
 import PropTypes from 'prop-types'
 import React from 'react'
 import bytes from 'bytes'
+import _ from 'lodash'
 
 class FileField extends React.Component {
 
@@ -10,7 +11,12 @@ class FileField extends React.Component {
     multiple: PropTypes.bool,
     name: PropTypes.string,
     prompt: PropTypes.string,
-    onReady: PropTypes.func
+    required: PropTypes.bool,
+    status: PropTypes.string,
+    onChange: PropTypes.func,
+    onReady: PropTypes.func,
+    onFinalize: PropTypes.func,
+    onValidate: PropTypes.func
   }
 
   static defaultProps = {
@@ -77,6 +83,18 @@ class FileField extends React.Component {
     onReady()
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { files } = this.state
+    const { status } = this.props
+    if(!_.isEqual(files, prevState.files)) {
+      this._handleChange()
+    }
+    if(status !== prevProps.status) {
+      if(status === 'validating') this._handleValidate()
+      if(status === 'finalizing') this._handleFinalize()
+    }
+  }
+
   _getButton() {
     const { code, multiple } = this.props
     const { files } = this.state
@@ -100,6 +118,24 @@ class FileField extends React.Component {
     const percent = status !== 'failed' ? Math.ceil(progress * 100)+'%' : '100%'
     return {
       backgroundImage: `linear-gradient(to right, ${color} ${percent}, #999999 ${percent} 100%)`
+    }
+  }
+
+  _handleChange() {
+    this.props.onChange(this.state.files)
+  }
+
+  _handleFinalize() {
+    this.props.onFinalize(this.state.files)
+  }
+
+  _handleValidate() {
+    const { required } = this.props
+    const { files } = this.state
+    if(required && files.length === 0) {
+      this.props.onValidate('invalid', 'You must upload at least one file')
+    } else {
+      this.props.onValidate('valid')
     }
   }
 
@@ -165,7 +201,6 @@ class FileField extends React.Component {
   }
 
   _handleUploadFailure(file) {
-    console.log('failed', file)
     const { files } = this.state
     this.setState({
       files: [
