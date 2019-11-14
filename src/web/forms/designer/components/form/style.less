@@ -1,3 +1,42 @@
+.maha-input {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.28em;
+  display: flex;
+  width: 100%;
+}
+.maha-input-field {
+  display: flex;
+  flex: 1;
+  input {
+    border: none !important;
+  }
+}
+.maha-input-placeholder {
+  display: flex;
+  flex: 1;
+  padding: 0.6em 1em;
+  color: fadeout(@black, 75);
+  cursor: pointer;
+}
+.maha-input-token {
+  display: flex;
+  flex: 1;
+  padding: 0.6em 1em;
+  cursor: pointer;
+}
+.maha-input-clear {
+  flex: 0 0 2em;
+  display: flex;
+  padding: 0.4em;
+  cursor: pointer;
+  &:hover .fa {
+    color: fadeout(@black, 60);
+  }
+  .fa {
+    color: fadeout(@black, 80);
+    margin: auto;
+  }
+}
 .field-error {
   color: @red;
   font-style: italic;

@@ -8,9 +8,11 @@ class Form extends React.Component {
     data: PropTypes.object,
     errors: PropTypes.object,
     fields: PropTypes.array,
+    isReady: PropTypes.bool,
     onChange: PropTypes.func,
     onSave: PropTypes.func,
-    onSetErrors: PropTypes.func
+    onSetErrors: PropTypes.func,
+    onSetReady: PropTypes.func
   }
 
   _handleValidate = this._handleValidate.bind(this)
@@ -35,7 +37,8 @@ class Form extends React.Component {
     return {
       field,
       errors: errors[field.name],
-      onChange: this._handleChange.bind(this, field.name)
+      onChange: this._handleChange.bind(this, field.name),
+      onReady: this._handleSetReady.bind(this, field.name)
     }
   }
 
@@ -52,6 +55,10 @@ class Form extends React.Component {
 
   _handleChange(name, value) {
     this.props.onChange(name, value)
+  }
+
+  _handleSetReady(name) {
+    this.props.onSetReady(name)
   }
 
   _handleValidate() {

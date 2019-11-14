@@ -1,6 +1,7 @@
 export const INITIAL_STATE = {
   data: {},
-  errors: {}
+  errors: {},
+  ready: []
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -29,6 +30,15 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       errors: action.errors
+    }
+
+  case 'SET_READY':
+    return {
+      ...state,
+      ready: [
+        ...state.ready,
+        action.name
+      ]
     }
 
   default:

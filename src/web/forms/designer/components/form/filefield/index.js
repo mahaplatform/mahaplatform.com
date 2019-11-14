@@ -9,7 +9,8 @@ class FileField extends React.Component {
     code: PropTypes.string,
     multiple: PropTypes.bool,
     name: PropTypes.string,
-    prompt: PropTypes.string
+    prompt: PropTypes.string,
+    onReady: PropTypes.func
   }
 
   static defaultProps = {
@@ -61,7 +62,7 @@ class FileField extends React.Component {
   }
 
   componentDidMount() {
-    const { multiple } = this.props
+    const { multiple, onReady } = this.props
     this.resumable = new Resumable({
       target: '/api/crm/uploads',
       chunkSize: 1024 * 128,
@@ -73,6 +74,7 @@ class FileField extends React.Component {
     this.resumable.on('fileSuccess', this._handleUploadSuccess.bind(this))
     this.resumable.on('fileError', this._handleUploadFailure.bind(this))
     this.resumable.assignBrowse(this.button)
+    onReady()
   }
 
   _getButton() {

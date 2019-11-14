@@ -8,7 +8,8 @@ class TextArea extends React.Component {
     code: PropTypes.string,
     name: PropTypes.string,
     placeholder: PropTypes.string,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onReady: PropTypes.func
   }
 
   state = {
@@ -31,8 +32,10 @@ class TextArea extends React.Component {
   }
 
   componentDidMount() {
+    const { onReady } = this.props
     this.input.style.boxSizing = 'border-box'
     this.offset = this.input.offsetHeight - this.input.clientHeight
+    onReady()
   }
 
   componentDidUpdate(prevProps, prevState) {

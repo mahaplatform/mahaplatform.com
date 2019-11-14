@@ -19,7 +19,8 @@ class Field extends React.Component {
     code: PropTypes.string,
     errors: PropTypes.array,
     field: PropTypes.object,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onSetReady: PropTypes.func
   }
 
   state = {
@@ -68,12 +69,13 @@ class Field extends React.Component {
   }
 
   _getField() {
-    const { field, onChange } = this.props
+    const { field, onChange, onReady } = this.props
     const { code } = this.state
     return {
       code,
       ...field,
-      onChange
+      onChange,
+      onReady
     }
   }
 

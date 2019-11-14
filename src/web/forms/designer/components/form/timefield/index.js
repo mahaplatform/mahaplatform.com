@@ -6,26 +6,27 @@ class TimeField extends React.Component {
   static propTypes = {
     code: PropTypes.string,
     name: PropTypes.string,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    onChange: PropTypes.func,
+    onReady: PropTypes.func
   }
 
   state = {
     value: ''
   }
 
-  input = null
-
   _handleChange = this._handleChange.bind(this)
   _handleClear = this._handleClear.bind(this)
 
   render() {
+    const { placeholder } = this.props
     const { value } = this.state
     return (
       <div className="maha-datefield">
         <div className="maha-datefield-field">
           <div className="maha-input">
-            <div className="maha-input-field">
-              <input ref={ node => this.input = node } { ...this._getInput() } />
+            <div className="maha-input-placeholder">
+              { placeholder }
             </div>
             { value && value.length > 0 &&
               <div className="maha-input-clear" onClick={ this._handleClear }>
@@ -41,24 +42,12 @@ class TimeField extends React.Component {
     )
   }
 
-  _getInput() {
-    const { code, name, placeholder } = this.props
-    const { value } = this.state
-    return {
-      id: code,
-      type: 'text',
-      name,
-      placeholder,
-      onChange: this._handleChange,
-      value
-    }
+  componentDidMount() {
+    const { onReady } = this.props
+    onReady()
   }
 
-  _handleChange(e) {
-    if(e.which == 13) return
-    this.setState({
-      value: e.target.value
-    })
+  _handleChange() {
   }
 
   _handleClear() {

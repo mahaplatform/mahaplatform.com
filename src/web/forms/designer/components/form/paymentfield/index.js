@@ -41,7 +41,8 @@ class PaymentField extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
-    name: PropTypes.string
+    name: PropTypes.string,
+    onReady: PropTypes.func
   }
 
   state = {
@@ -88,6 +89,11 @@ class PaymentField extends React.Component {
         }
       </div>
     )
+  }
+
+  componentDidMount() {
+    const { onReady } = this.props
+    onReady()
   }
 
   _getComponent() {

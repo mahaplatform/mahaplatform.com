@@ -7,7 +7,8 @@ class Dropdown extends React.Component {
     code: PropTypes.string,
     name: PropTypes.string,
     options: PropTypes.array,
-    placeholder: PropTypes.string
+    placeholder: PropTypes.string,
+    onReady: PropTypes.func
   }
 
   render() {
@@ -24,6 +25,11 @@ class Dropdown extends React.Component {
         </div>
       </div>
     )
+  }
+
+  componentDidMount() {
+    const { onReady } = this.props
+    onReady()
   }
 
 }

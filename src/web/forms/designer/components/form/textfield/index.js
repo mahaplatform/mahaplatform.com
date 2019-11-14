@@ -8,7 +8,8 @@ class TextField extends React.Component {
     code: PropTypes.string,
     name: PropTypes.string,
     placeholder: PropTypes.string,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onReady: PropTypes.func
   }
 
   state = {
@@ -37,6 +38,11 @@ class TextField extends React.Component {
     )
   }
 
+  componentDidMount() {
+    const { onReady } = this.props
+    onReady()
+  }
+  
   componentDidUpdate(prevProps, prevState) {
     const { value } = this.state
     if(value !== prevState.value) {

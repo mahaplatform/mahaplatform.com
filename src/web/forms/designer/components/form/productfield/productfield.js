@@ -16,6 +16,7 @@ class ProductField extends React.Component {
     total: PropTypes.number,
     value: PropTypes.object,
     onChange: PropTypes.func,
+    onReady: PropTypes.func,
     onSet: PropTypes.func
   }
 
@@ -59,6 +60,11 @@ class ProductField extends React.Component {
         </table>
       </div>
     )
+  }
+
+  componentDidMount() {
+    const { onReady } = this.props
+    onReady()
   }
 
   componentDidUpdate(prevProps) {

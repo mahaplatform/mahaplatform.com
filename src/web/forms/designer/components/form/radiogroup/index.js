@@ -9,7 +9,8 @@ class RadioGroup extends React.Component {
     name: PropTypes.string,
     options: PropTypes.array,
     placeholder: PropTypes.string,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onReady: PropTypes.func
   }
 
   state = {
@@ -37,10 +38,11 @@ class RadioGroup extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue } = this.props
+    const { defaultValue, onReady } = this.props
     if(defaultValue) this.setState({
       selected: defaultValue
     })
+    onReady()
   }
 
   componentDidUpdate(prevProps, prevState) {

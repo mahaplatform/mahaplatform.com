@@ -5,7 +5,8 @@ class Text extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
-    text: PropTypes.string
+    text: PropTypes.string,
+    onReady: PropTypes.func
   }
 
   render() {
@@ -13,6 +14,11 @@ class Text extends React.Component {
     return (
       <div className="field" dangerouslySetInnerHTML={{ __html: text }} />
     )
+  }
+
+  componentDidMount() {
+    const { onReady } = this.props
+    onReady()
   }
 
 }

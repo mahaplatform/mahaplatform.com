@@ -18,3 +18,8 @@ export const setErrors = (errors) => ({
   type: 'SET_ERRORS',
   errors
 })
+
+export const setReady = (name) => ({
+  type: 'SET_READY',
+  name
+})
