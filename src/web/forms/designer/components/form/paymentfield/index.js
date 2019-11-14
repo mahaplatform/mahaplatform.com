@@ -50,11 +50,7 @@ class PaymentField extends React.Component {
                 change
               </div>
             </div>
-            { methods[selected].component &&
-              <div className="maha-paymentfield-fields">
-                { this._getComponent() }
-              </div>
-            }
+            { methods[selected].component && this._getComponent() }
           </div>
         }
       </div>

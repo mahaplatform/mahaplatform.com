@@ -108,7 +108,8 @@ class DateField extends React.Component {
   }
 
   _handleClickOutside(e) {
-    if(this.control.contains(e.target)) return
+    const { show } = this.state
+    if(!show || this.control.contains(e.target)) return
     this.setState({
       show: false
     })

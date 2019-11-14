@@ -12,7 +12,7 @@ class PayPal extends React.Component {
 
   render() {
     return (
-      <div className="">
+      <div className="maha-paymentfield-form">
         PayPal
       </div>
     )
