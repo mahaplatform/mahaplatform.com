@@ -1,6 +1,6 @@
 const checkRoute = async (req, res) => {
 
-  res.status(404).respond(false)
+  res.status(204).respond(false)
 
 }
 
