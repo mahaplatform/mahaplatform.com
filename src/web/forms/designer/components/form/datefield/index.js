@@ -19,7 +19,8 @@ class DateField extends React.Component {
   control = null
 
   state = {
-    active: false,
+    position: 'below',
+    show: false,
     value: null
   }
 
@@ -31,7 +32,7 @@ class DateField extends React.Component {
 
   render() {
     const { placeholder } = this.props
-    const { active, value } = this.state
+    const { position, show, value } = this.state
     return (
       <div className="maha-datefield" ref={ node => this.control = node }>
         <div className="maha-datefield-field" onClick={ this._handleBegin }>
@@ -54,8 +55,8 @@ class DateField extends React.Component {
         <div className="maha-datefield-icon" onClick={ this._handleBegin }>
           <i className="fa fa-calendar" />
         </div>
-        { active &&
-          <div className="maha-datefield-panel">
+        { show &&
+          <div className={`maha-datefield-panel ${position}`}>
             <Chooser { ...this._getChooser() } />
           </div>
         }
@@ -94,10 +95,12 @@ class DateField extends React.Component {
     }
   }
 
-  _handleBegin() {
-    this.setState({
-      active: true
-    })
+  _handleBegin(e) {
+    e.stopPropagation()
+    const percent = (e.clientY / window.innerHeight) * 100
+    const show = true
+    const position = percent < 75 ? 'below' : 'above'
+    this.setState({ show, position })
   }
 
   _handleChange() {
@@ -107,13 +110,13 @@ class DateField extends React.Component {
   _handleClickOutside(e) {
     if(this.control.contains(e.target)) return
     this.setState({
-      active: false
+      show: false
     })
   }
 
   _handleChoose(value) {
     this.setState({
-      active: false,
+      show: false,
       value
     })
   }

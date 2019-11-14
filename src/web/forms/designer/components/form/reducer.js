@@ -1,6 +1,7 @@
 export const INITIAL_STATE = {
   data: {},
   errors: {},
+  human: false,
   status: {}
 }
 
@@ -28,6 +29,12 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state.status,
         [action.name]: 'ready'
       }
+    }
+
+  case 'SET_HUMAN':
+    return {
+      ...state,
+      human: true
     }
 
   case 'SET_FINALIZED':

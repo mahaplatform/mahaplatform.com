@@ -1,3 +1,4 @@
+import Recaptcha from './recaptcha'
 import PropTypes from 'prop-types'
 import Field from './field'
 import React from 'react'
@@ -10,6 +11,7 @@ class Form extends React.Component {
     fields: PropTypes.array,
     finalized: PropTypes.object,
     isFinalized: PropTypes.bool,
+    human: PropTypes.bool,
     isReady: PropTypes.bool,
     isValid: PropTypes.bool,
     status: PropTypes.object,
@@ -17,6 +19,7 @@ class Form extends React.Component {
     onSave: PropTypes.func,
     onSetAllStatus: PropTypes.func,
     onSetFinalized: PropTypes.func,
+    onSetHuman: PropTypes.func,
     onSetStatus: PropTypes.func,
     onSetValidate: PropTypes.func
   }
@@ -32,7 +35,8 @@ class Form extends React.Component {
           { fields.map((field, index) => (
             <Field key={`field_${index}`} { ...this._getField(field) } />
           )) }
-          <button className="ui blue fluid button" onClick={ this._handleValidate }>Submit</button>
+          <Recaptcha { ...this._getRecaptcha() } />
+          <button { ...this._getButton()}>Submit</button>
         </div>
       </div>
     )
@@ -51,6 +55,14 @@ class Form extends React.Component {
     }
   }
 
+  _getButton() {
+    const { human } = this.props
+    return {
+      className: human ? 'ui blue button' : 'ui blue disabled button',
+      onClick: human ? this._handleValidate : () => {}
+    }
+  }
+
   _getField(field) {
     const { errors, status } = this.props
     return {
@@ -61,6 +73,13 @@ class Form extends React.Component {
       onReady: this.onSetStatus.bind(this, field.name, 'ready'),
       onValidate: this._handleSetValidate.bind(this, field.name),
       onFinalize: this._handleSetFinalized.bind(this, field.name)
+    }
+  }
+
+  _getRecaptcha() {
+    const { onSetHuman } = this.props
+    return {
+      onSuccess: onSetHuman
     }
   }
 

@@ -3,6 +3,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
+import webpack from 'webpack'
 import path from 'path'
 
 const webpackConfig = (name, css, index) => ({
@@ -59,6 +60,11 @@ const webpackConfig = (name, css, index) => ({
   plugins: [
     new MiniCssExtractPlugin({
       filename: `forms/css/${name}.css`
+    }),
+    new webpack.DefinePlugin({
+      'process.env': {
+        'RECAPTCHA_SITE_KEY': JSON.stringify(process.env.RECAPTCHA_SITE_KEY)
+      }
     }),
     ...index ? [
       new HtmlWebpackPlugin({
