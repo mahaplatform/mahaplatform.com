@@ -1,4 +1,4 @@
-import { client } from 'braintree-web'
+import { client, usBankAccount } from 'braintree-web'
 import _ from 'lodash'
 
 export default store => next => action => {
@@ -31,15 +31,34 @@ export default store => next => action => {
 
   return client.create({
     authorization: action.token
-  }, function(createErr, clientInstance) {
-    clientInstance.request({
-      endpoint: action.endpoint,
-      method: action.method,
-      data: action.data
-    }, function (requestErr, response) {
-      if (requestErr) return failure(requestErr)
-      success(response)
-    })
+  }, function(err, clientInstance) {
+    if(err) return failure(err)
+    if(action.method === 'card') {
+      clientInstance.request({
+        endpoint: 'payment_methods/credit_cards',
+        method: 'post',
+        data: {
+          credit_card: action.data
+        }
+      }, function (err, response) {
+        if(err) return failure(err)
+        success(response.creditCards[0])
+      })
+    } else if(action.method === 'ach') {
+      usBankAccount.create({
+        client: clientInstance
+      }, function (err, usBankAccountInstance) {
+        if(err) return failure(err)
+        usBankAccountInstance.tokenize({
+          bankDetails: action.data,
+          mandateText: action.mandate
+        }, function (err, response) {
+          if (err) return failure(err)
+          success(response)
+        })
+      })
+
+    }
   })
 
 }

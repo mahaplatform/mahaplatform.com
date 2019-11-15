@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
+const mandate = 'By clicking ["Checkout"], I authorize Braintree, a service of PayPal, on behalf of [your business name here] (i) to verify my bank account information using bank information and consumer reports and (ii) to debit my bank account.'
+
 class ACH extends React.Component {
 
   static propTypes = {
-  }
-
-  state = {
-    selected: null
+    accountNumber: PropTypes.string,
+    routingNumber: PropTypes.string,
+    token: PropTypes.string,
+    onSubmit: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   render() {
@@ -16,34 +19,37 @@ class ACH extends React.Component {
         <div className="two fields">
           <div className="field">
             <label>Routing Number</label>
-            <input type="text" placeholder="Routing Number" />
+            <input { ...this._getInput('routingNumber', '123456789') } />
           </div>
           <div className="field">
             <label>Account Number</label>
-            <input type="text" placeholder="Account Number" />
+            <input { ...this._getInput('accountNumber', '123456789') } />
           </div>
         </div>
-        <div className="field">
-          <label>Type</label>
-          <input type="text" />
-        </div>
-        <div className="two fields">
-          <div className="field">
-            <label>First Name</label>
-            <input type="text" placeholder="First Name" />
-          </div>
-          <div className="field">
-            <label>Last Name</label>
-            <input type="text" placeholder="Last Name" />
-          </div>
-        </div>
-        <div className="field">
-          <label>Business Name</label>
-          <input type="text" placeholder="Last Name" />
-        </div>
+        { mandate }
       </div>
     )
   }
+
+  _getInput(name, placeholder) {
+    return {
+      type: 'text',
+      placeholder,
+      onChange: this._handleUpdate.bind(this, name),
+      value: this.props[name]
+    }
+  }
+
+  _handleSubmit() {
+    const { accountNumber, routingNumber, token } = this.props
+    const data = { accountNumber, routingNumber }
+    this.props.onSubmit(token, data, mandate)
+  }
+
+  _handleUpdate(name, e) {
+    this.props.onUpdate(name, e.target.value)
+  }
+
 }
 
 export default ACH

@@ -10,6 +10,7 @@ import React from 'react'
 import qs from 'qs'
 
 import paymentfield from '../form/paymentfield'
+import googlepay from '../form/paymentfield/googlepay'
 import ach from '../form/paymentfield/ach'
 import card from '../form/paymentfield/card'
 import productfield from '../form/productfield'
@@ -28,6 +29,7 @@ class Root extends React.Component {
     super(props)
 
     const reducer = combineReducers([
+      googlepay,
       ach,
       card,
       form,
