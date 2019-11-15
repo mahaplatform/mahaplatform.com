@@ -1,11 +1,11 @@
 import { Factory } from 'redux-rubberstamp'
 import reducer from './reducer'
-import paymentfield from './paymentfield'
+import card from './card'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'paymentfield',
-  component: paymentfield,
+  namespace: 'card',
+  component: card,
   reducer,
   actions
 })

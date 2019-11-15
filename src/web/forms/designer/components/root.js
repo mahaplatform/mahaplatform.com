@@ -8,6 +8,9 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import qs from 'qs'
 
+import paymentfield from './form/paymentfield'
+import ach from './form/paymentfield/ach'
+import card from './form/paymentfield/card'
 import productfield from './form/productfield'
 import filefield from './form/filefield'
 import form from './form'
@@ -24,8 +27,11 @@ class Root extends React.Component {
     super(props)
 
     const reducer = combineReducers([
+      ach,
+      card,
       form,
       filefield,
+      paymentfield,
       productfield
     ])
 

@@ -1,3 +1,4 @@
+import { client } from 'braintree-web'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -36,6 +37,14 @@ class Card extends React.Component {
       </div>
     )
   }
+
+  componentDidMount() {
+    this.client = client.create({
+      authorization
+    })
+    console.log(client)
+  }
+
 }
 
 export default Card
