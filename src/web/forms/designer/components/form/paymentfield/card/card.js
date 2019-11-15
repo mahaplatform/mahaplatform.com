@@ -1,10 +1,11 @@
-import { client } from 'braintree-web'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 class Card extends React.Component {
 
   static propTypes = {
+    token: PropTypes.string,
+    onSubmit: PropTypes.func
   }
 
   state = {
@@ -39,10 +40,16 @@ class Card extends React.Component {
   }
 
   componentDidMount() {
-    this.client = client.create({
-      authorization
-    })
-    console.log(client)
+    const { token } = this.props
+    const data = {
+      creditCard: {
+        name_on_card: 'Greg Kops',
+        number: '4111111111111111',
+        cvv: '123',
+        expirationDate: '10/25'
+      }
+    }
+    this.props.onSubmit(token, data)
   }
 
 }

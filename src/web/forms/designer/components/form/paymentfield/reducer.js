@@ -9,7 +9,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'FETCH_SUCCESS':
     return {
       ...state,
-      token: action.result.data
+      token: action.result.data.token
     }
 
   default:

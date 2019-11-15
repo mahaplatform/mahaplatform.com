@@ -1,6 +1,7 @@
 import { createStore, applyMiddleware } from 'redux'
 import { combineReducers } from 'redux-rubberstamp'
 import createApiRequest from 'redux-api-request'
+import braintreeMiddleware from './braintree'
 import { createLogger } from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import { Provider } from 'react-redux'
@@ -8,12 +9,12 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import qs from 'qs'
 
-import paymentfield from './form/paymentfield'
-import ach from './form/paymentfield/ach'
-import card from './form/paymentfield/card'
-import productfield from './form/productfield'
-import filefield from './form/filefield'
-import form from './form'
+import paymentfield from '../form/paymentfield'
+import ach from '../form/paymentfield/ach'
+import card from '../form/paymentfield/card'
+import productfield from '../form/productfield'
+import filefield from '../form/filefield'
+import form from '../form'
 
 class Root extends React.Component {
 
@@ -46,6 +47,7 @@ class Root extends React.Component {
     const middleware = [
       thunkMiddleware,
       apiRequestMiddleware,
+      braintreeMiddleware,
       ...(!isProduction || logFlag) ? [loggerMiddleware] : []
     ]
 

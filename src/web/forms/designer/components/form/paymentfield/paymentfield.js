@@ -75,9 +75,13 @@ class PaymentField extends React.Component {
   }
 
   _getComponent() {
+    const { token } = this.props
     const { selected } = this.state
+    const props = {
+      token
+    }
     const Component = methods[selected].component
-    return Component ? <Component /> : null
+    return Component ? <Component { ...props } /> : null
   }
 
   _handleChoose(selected) {
