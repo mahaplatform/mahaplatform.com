@@ -1,12 +1,10 @@
+import { AsYouType } from 'libphonenumber-js'
 import PropTypes from 'prop-types'
 import React from 'react'
-import _ from 'lodash'
 
-class TextField extends React.Component {
+class PhoneField extends React.Component {
 
   static propTypes = {
-    code: PropTypes.string,
-    name: PropTypes.string,
     placeholder: PropTypes.string,
     required: PropTypes.bool,
     status: PropTypes.string,
@@ -16,28 +14,33 @@ class TextField extends React.Component {
     onValidate: PropTypes.func
   }
 
+  static defaultProps = {
+    placeholder: 'Enter phone number'
+  }
+
+  phone = null
+
   state = {
     value: ''
   }
 
-  input = null
-
-  _handleChange = _.debounce(this._handleChange.bind(this), 250, { leading: true })
-  _handleClear = this._handleClear.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
+  _handleClear = this._handleClear.bind(this)
 
   render() {
     const { value } = this.state
     return (
-      <div className="maha-input maha-textfield">
-        <div className="maha-input-field">
-          <input ref={ node => this.input = node } { ...this._getInput() } />
-        </div>
-        { value && value.length > 0 &&
-          <div className="maha-input-clear" onClick={ this._handleClear }>
-            <i className="fa fa-times" />
+      <div className="maha-phonefield">
+        <div className="maha-input">
+          <div className="maha-input-field">
+            <input { ...this._getInput() }/>
           </div>
-        }
+          { value && value.length > 0 &&
+            <div className="maha-input-clear" onClick={ this._handleClear }>
+              <i className="fa fa-times" />
+            </div>
+          }
+        </div>
       </div>
     )
   }
@@ -59,15 +62,15 @@ class TextField extends React.Component {
   }
 
   _getInput() {
-    const { code, name, placeholder } = this.props
+    const { placeholder } = this.props
     const { value } = this.state
     return {
-      id: code,
-      type: 'text',
-      name,
+      className: 'ui input',
+      type: 'tel',
       placeholder,
-      onChange: this._handleUpdate,
-      value
+      value,
+      ref: node => this.phone = node,
+      onChange: this._handleUpdate
     }
   }
 
@@ -86,9 +89,9 @@ class TextField extends React.Component {
   }
 
   _handleUpdate(e) {
-    if(e.which == 13) return
+    const asyoutype = new AsYouType('US')
     this.setState({
-      value: e.target.value
+      value: asyoutype.input(e.target.value)
     })
   }
 
@@ -104,4 +107,4 @@ class TextField extends React.Component {
 
 }
 
-export default TextField
+export default PhoneField

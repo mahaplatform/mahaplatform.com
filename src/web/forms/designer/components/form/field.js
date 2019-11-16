@@ -2,6 +2,7 @@ import ProductField from './productfield'
 import PaymentField from './paymentfield'
 import Checkboxes from './checkboxes'
 import RadioGroup from './radiogroup'
+import PhoneField from './phonefield'
 import FileField from './filefield'
 import TextField from './textfield'
 import DateField from './datefield'
@@ -37,17 +38,18 @@ class Field extends React.Component {
     return (
       <div className={ this._getClass() }>
         { label && <label htmlFor={ code }>{ label }</label> }
+        { type === 'checkboxes' && <Checkboxes { ...this._getField() } /> }
         { type === 'datefield' && <DateField { ...this._getField() } /> }
-        { type === 'timefield' && <TimeField { ...this._getField() } /> }
+        { type === 'dropdown' && <Dropdown { ...this._getField() } /> }
+        { type === 'filefield' && <FileField { ...this._getField() } /> }
+        { type === 'paymentfield' && <PaymentField { ...this._getField() } /> }
+        { type === 'phonefield' && <PhoneField { ...this._getField() } /> }
+        { type === 'productfield' && <ProductField { ...this._getField() } /> }
+        { type === 'radiogroup' && <RadioGroup { ...this._getField() } /> }
         { type === 'text' && <Text { ...this._getField() } /> }
         { type === 'textfield' && <TextField { ...this._getField() } /> }
         { type === 'textarea' && <TextArea{ ...this._getField() } /> }
-        { type === 'radiogroup' && <RadioGroup { ...this._getField() } /> }
-        { type === 'checkboxes' && <Checkboxes { ...this._getField() } /> }
-        { type === 'dropdown' && <Dropdown { ...this._getField() } /> }
-        { type === 'filefield' && <FileField { ...this._getField() } /> }
-        { type === 'productfield' && <ProductField { ...this._getField() } /> }
-        { type === 'paymentfield' && <PaymentField { ...this._getField() } /> }
+        { type === 'timefield' && <TimeField { ...this._getField() } /> }
         { error &&
           <div className="field-error">
             { error }
