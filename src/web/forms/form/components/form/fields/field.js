@@ -1,5 +1,4 @@
 import ProductField from './productfield'
-import PaymentField from './paymentfield'
 import Checkboxes from './checkboxes'
 import RadioGroup from './radiogroup'
 import PhoneField from './phonefield'
@@ -42,7 +41,6 @@ class Field extends React.Component {
         { type === 'datefield' && <DateField { ...this._getField() } /> }
         { type === 'dropdown' && <Dropdown { ...this._getField() } /> }
         { type === 'filefield' && <FileField { ...this._getField() } /> }
-        { type === 'paymentfield' && <PaymentField { ...this._getField() } /> }
         { type === 'phonefield' && <PhoneField { ...this._getField() } /> }
         { type === 'productfield' && <ProductField { ...this._getField() } /> }
         { type === 'radiogroup' && <RadioGroup { ...this._getField() } /> }

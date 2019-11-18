@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import methods from './methods'
 import React from 'react'
 
-class PaymentField extends React.Component {
+class payment extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
@@ -12,7 +12,6 @@ class PaymentField extends React.Component {
     token: PropTypes.string,
     onChange: PropTypes.func,
     onFetch: PropTypes.func,
-    onFinalize: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func
   }
@@ -24,15 +23,15 @@ class PaymentField extends React.Component {
   render() {
     const { selected } = this.state
     return (
-      <div className="maha-paymentfield">
+      <div className="maha-payment">
         { selected === null &&
-          <div className="maha-paymentfield-methods">
+          <div className="maha-payment-methods">
             { methods.map((method, index) => (
-              <div className={`maha-paymentfield-method ${method.name}`} key={`method_${index}`} onClick={ this._handleChoose.bind(this, index) }>
-                <div className="maha-paymentfield-method-icon">
+              <div className={`maha-payment-method ${method.name}`} key={`method_${index}`} onClick={ this._handleChoose.bind(this, index) }>
+                <div className="maha-payment-method-icon">
                   <i className={`fa fa-${ method.icon }`} />
                 </div>
-                <div className="maha-paymentfield-method-label">
+                <div className="maha-payment-method-label">
                   Pay with { method.label }
                 </div>
               </div>
@@ -40,15 +39,15 @@ class PaymentField extends React.Component {
           </div>
         }
         { selected !== null &&
-          <div className="maha-paymentfield-payment">
-            <div className={`maha-paymentfield-chosen ${methods[selected].name}`}>
-              <div className="maha-paymentfield-chosen-icon">
+          <div className="maha-payment-payment">
+            <div className={`maha-payment-chosen ${methods[selected].name}`}>
+              <div className="maha-payment-chosen-icon">
                 <i className={`fa fa-${ methods[selected].icon }`} />
               </div>
-              <div className="maha-paymentfield-chosen-label">
+              <div className="maha-payment-chosen-label">
                 { methods[selected].label }
               </div>
-              <div className="maha-paymentfield-chosen-change" onClick={ this._handleChoose.bind(this, null) }>
+              <div className="maha-payment-chosen-change" onClick={ this._handleChoose.bind(this, null) }>
                 change
               </div>
             </div>
@@ -66,7 +65,7 @@ class PaymentField extends React.Component {
   componentDidUpdate(prevProps) {
     const { status, token, onReady } = this.props
     if(token !== prevProps.token && token) {
-      onReady()
+      // onReady()
     }
     if(status !== prevProps.status) {
       if(status === 'validating') this._handleValidate()
@@ -88,15 +87,15 @@ class PaymentField extends React.Component {
     this.setState({ selected })
   }
 
-  _handleFinalize() {
-    this.props.onFinalize('paymentToken')
-  }
-
-  _handleValidate() {
-    console.log('validating payment field')
-    this.props.onValidate('valid')
-  }
+  // _handleFinalize() {
+  //   this.props.onFinalize('paymentToken')
+  // }
+  //
+  // _handleValidate() {
+  //   console.log('validating payment field')
+  //   this.props.onValidate('valid')
+  // }
 
 }
 
-export default PaymentField
+export default payment

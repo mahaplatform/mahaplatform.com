@@ -1,10 +1,13 @@
 import { Router } from 'express'
-import payment from './payment'
+import forms from './forms'
+import payments from './payments'
 import uploads from './uploads'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/payment', payment)
+router.use('/forms', forms)
+
+router.use('/payments', payments)
 
 router.use('/uploads', uploads)
 

@@ -1,11 +1,21 @@
-export const save = (endpoint, body) => ({
+export const validate = (id, body) => ({
   type: 'API_REQUEST',
   method: 'POST',
-  endpoint,
+  endpoint: `/api/crm/forms/${id}/validate`,
   body,
-  request: 'SAVE_REQUEST',
-  success: 'SAVE_SUCCESS',
-  failure: 'SAVE_FAILURE'
+  request: 'VALIDATE_REQUEST',
+  success: 'VALIDATE_SUCCESS',
+  failure: 'VALIDATE_FAILURE'
+})
+
+export const submit = (id, body) => ({
+  type: 'API_REQUEST',
+  method: 'POST',
+  endpoint: `/api/crm/forms/${id}`,
+  body,
+  request: 'SUBMIT_REQUEST',
+  success: 'SUBMIT_SUCCESS',
+  failure: 'SUBMIT_FAILURE'
 })
 
 export const change = (name, value) => ({

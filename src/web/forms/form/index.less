@@ -1,1 +1,113 @@
-@import '../designer/index.less';
+@red: #DB2828;
+@orange: #F2711C;
+@yellow: #FBBD08;
+@olive: #B5CC18;
+@green: #21BA45;
+@teal: #00B5AD;
+@blue: #2185D0;
+@violet: #6435C9;
+@purple: #A333C8;
+@pink: #E03997;
+@brown: #A5673F;
+@black: #000000;
+@white: #FFFFFF;
+@android: #A4C639;
+@paypal: #0079C1;
+
+html, body {
+  height: auto;
+  background: none;
+}
+
+.dropzone {
+  margin: -4px -2px;
+  border: 2px solid transparent;
+  &.hover {
+    border-color: @teal;
+    position: relative;
+    &:after {
+      position: absolute;
+      padding: 5px;
+      font-size: 10px;
+      bottom: 0;
+      left: 0;
+      transform: translate(-2px, 100%);
+      background-color: @teal;
+      text-transform: uppercase;
+      color: white;
+      content: attr(data-label);
+    }
+  }
+  td.first {
+    text-align: center;
+  }
+}
+.dropzone-target {
+  border: 2px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 95);
+  color:  fadeout(@black, 90);
+  padding: 5px 0;
+}
+.dropzone-marker {
+  background-color: blue;
+  height: 1px;
+}
+.block {
+  position: relative;
+  cursor: pointer;
+  border: 2px solid transparent;
+  min-height: 30px;
+  &:active,
+  &:hover {
+    border-color: @teal;
+  }
+  &:hover .block-actions {
+    display: flex;
+  }
+}
+.block-actions {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: @teal;
+}
+.block-action {
+  font-size: 16px;
+  padding: 3px 8px;
+  line-height: 24px;
+  .fa {
+    color: fadeout(@white, 30);
+  }
+  &:hover {
+    background-color: fadeout(@black, 85);
+    .fa {
+      color: @white;
+    }
+  }
+}
+.divider {
+  height: 0;
+}
+.maha-form {
+  width: 100%;
+  max-width: 770px;
+  margin: 0 auto;
+}
+.maha-form-header-image {
+  img {
+    width: 100%;
+  }
+}
+.maha-form-header-text {
+  padding: 0.8em;
+}
+.maha-form-fields {
+  padding: 0.8em;
+}
+.maha-form-footer-text {
+  padding: 0.8em;
+}
+
+
+@import './components/form/style.less';

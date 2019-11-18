@@ -9,13 +9,14 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import qs from 'qs'
 
-import paymentfield from '../form/paymentfield'
-import googlepay from '../form/paymentfield/googlepay'
-import ach from '../form/paymentfield/ach'
-import card from '../form/paymentfield/card'
-import productfield from '../form/productfield'
-import filefield from '../form/filefield'
-import form from '../form'
+import paymentfield from './form/payment'
+import googlepay from './form/payment/googlepay'
+import ach from './form/payment/ach'
+import card from './form/payment/card'
+
+import productfield from './form/fields/productfield'
+import filefield from './form/fields/filefield'
+import form from './form'
 
 class Root extends React.Component {
 

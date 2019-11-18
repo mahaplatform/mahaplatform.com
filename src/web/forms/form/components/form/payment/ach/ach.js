@@ -15,7 +15,7 @@ class ACH extends React.Component {
 
   render() {
     return (
-      <div className="maha-paymentfield-form">
+      <div className="maha-payment-form">
         <div className="two fields">
           <div className="field">
             <label>Routing Number</label>

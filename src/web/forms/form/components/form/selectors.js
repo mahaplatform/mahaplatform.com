@@ -3,14 +3,14 @@ import _ from 'lodash'
 
 const data = (state, props) => state.data
 
-const given = (state, props) => props.fields
+const config = (state, props) => props.config
 
 const status = (state, props) => state.status
 
 export const fields = createSelector(
-  given,
+  config,
   status,
-  (fields, status) => fields.map(field => ({
+  (config, status) => config.fields.map(field => ({
     ...field,
     status: status[field.name] || 'pending'
   }))

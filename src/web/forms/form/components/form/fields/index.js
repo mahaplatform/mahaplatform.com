@@ -3,9 +3,10 @@ import PropTypes from 'prop-types'
 import Field from './field'
 import React from 'react'
 
-class Form extends React.Component {
+class Fields extends React.Component {
 
   static propTypes = {
+    config: PropTypes.object,
     data: PropTypes.object,
     errors: PropTypes.object,
     fields: PropTypes.array,
@@ -28,6 +29,8 @@ class Form extends React.Component {
   _handleValidate = this._handleValidate.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
 
+
+
   render() {
     const { fields, requiresPayment } = this.props
     return (
@@ -43,19 +46,6 @@ class Form extends React.Component {
         </div>
       </div>
     )
-  }
-
-  componentDidUpdate(prevProps) {
-    const { isFinalized, isValid, isReady } = this.props
-    if(isFinalized !== prevProps.isFinalized && isFinalized) {
-      this._handleSubmit()
-    }
-    if(isValid !== prevProps.isValid && isValid) {
-      this.props.onSetAllStatus('finalizing')
-    }
-    if(isReady !== prevProps.isReady && isReady) {
-      console.log('ready')
-    }
   }
 
   _getButton() {
@@ -90,10 +80,6 @@ class Form extends React.Component {
     this.props.onChange(name, value)
   }
 
-  _handleFinalize() {
-
-  }
-
   onSetStatus(name, status) {
     this.props.onSetStatus(name, status)
   }
@@ -117,4 +103,4 @@ class Form extends React.Component {
 
 }
 
-export default Form
+export default Fields
