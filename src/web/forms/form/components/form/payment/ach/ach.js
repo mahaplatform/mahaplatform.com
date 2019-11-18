@@ -1,17 +1,20 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const mandate = 'By clicking ["Checkout"], I authorize Braintree, a service of PayPal, on behalf of [your business name here] (i) to verify my bank account information using bank information and consumer reports and (ii) to debit my bank account.'
+const mandate = 'By clicking "Pay", I authorize Braintree, a service of PayPal, on behalf of [your business name here] (i) to verify my bank account information using bank information and consumer reports and (ii) to debit my bank account.'
 
 class ACH extends React.Component {
 
   static propTypes = {
     accountNumber: PropTypes.string,
     routingNumber: PropTypes.string,
+    payment: PropTypes.object,
     token: PropTypes.string,
     onSubmit: PropTypes.func,
     onUpdate: PropTypes.func
   }
+
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     return (
@@ -26,9 +29,19 @@ class ACH extends React.Component {
             <input { ...this._getInput('accountNumber', '123456789') } />
           </div>
         </div>
-        { mandate }
+        <p className="maha-payment-mandate">{ mandate }</p>
+        <button className="ui fluid blue button" onClick={ this._handleSubmit }>
+          Submit Payment
+        </button>
       </div>
     )
+  }
+
+  componentDidUpdate(prevProps) {
+    const { payment } = this.props
+    if(payment !== prevProps.payment) {
+      console.log(payment)
+    }
   }
 
   _getInput(name, placeholder) {

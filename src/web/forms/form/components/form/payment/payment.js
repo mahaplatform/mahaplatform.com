@@ -1,8 +1,13 @@
 import PropTypes from 'prop-types'
-import methods from './methods'
+import { methods } from './config'
+import Summary from './summary'
+import Methods from './methods'
 import React from 'react'
 
-class payment extends React.Component {
+import GooglePay from './googlepay'
+import PayPal from './paypal'
+
+class Payment extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
@@ -20,40 +25,36 @@ class payment extends React.Component {
     selected: null
   }
 
+  _handleChoose = this._handleChoose.bind(this)
+
   render() {
+    const { token } = this.props
     const { selected } = this.state
+    if(!token) return null
     return (
       <div className="maha-payment">
-        { selected === null &&
-          <div className="maha-payment-methods">
-            { methods.map((method, index) => (
-              <div className={`maha-payment-method ${method.name}`} key={`method_${index}`} onClick={ this._handleChoose.bind(this, index) }>
-                <div className="maha-payment-method-icon">
-                  <i className={`fa fa-${ method.icon }`} />
-                </div>
-                <div className="maha-payment-method-label">
-                  Pay with { method.label }
-                </div>
-              </div>
-            ))}
+        <Summary { ...this._getSummary() } />
+        <div className="maha-payment-item">
+          <div className="maha-payment-header">
+            <strong>Payment Method</strong>
           </div>
-        }
-        { selected !== null &&
-          <div className="maha-payment-payment">
-            <div className={`maha-payment-chosen ${methods[selected].name}`}>
-              <div className="maha-payment-chosen-icon">
-                <i className={`fa fa-${ methods[selected].icon }`} />
-              </div>
-              <div className="maha-payment-chosen-label">
-                { methods[selected].label }
-              </div>
-              <div className="maha-payment-chosen-change" onClick={ this._handleChoose.bind(this, null) }>
-                change
-              </div>
+          <Methods { ...this._getMethods() } />
+          <div className="ui stackable two column grid">
+            <div className="column">
+              <GooglePay { ...this._getButton() } />
             </div>
-            { methods[selected].component && this._getComponent() }
+            <div className="column">
+              <PayPal { ...this._getButton() } />
+            </div>
           </div>
-        }
+          <div className="maha-payment-form">
+            { selected !== null && methods[selected].component &&
+              <div className="ui form">
+                { this._getComponent() }
+              </div>
+            }
+          </div>
+        </div>
       </div>
     )
   }
@@ -73,6 +74,13 @@ class payment extends React.Component {
     }
   }
 
+  _getButton() {
+    const { token } = this.props
+    return {
+      token
+    }
+  }
+
   _getComponent() {
     const { token } = this.props
     const { selected } = this.state
@@ -81,6 +89,33 @@ class payment extends React.Component {
     }
     const Component = methods[selected].component
     return Component ? <Component { ...props } /> : null
+  }
+
+  _getMethods() {
+    const { selected } = this.state
+    return {
+      methods,
+      selected,
+      onChoose: this._handleChoose
+    }
+  }
+
+  _getSummary() {
+    return {
+      products: [
+        {
+          tax: 0.08,
+          code: 'ghijkl',
+          name: '1 Flock (5 Ducks)',
+          price: 5,
+          quantity: 2,
+          total: 10
+        }
+      ],
+      subtotal: 10,
+      total: 10,
+      tax: 0
+    }
   }
 
   _handleChoose(selected) {
@@ -98,4 +133,4 @@ class payment extends React.Component {
 
 }
 
-export default payment
+export default Payment

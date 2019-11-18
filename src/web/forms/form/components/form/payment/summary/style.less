@@ -1,0 +1,21 @@
+.maha-payment-summary {
+  margin-bottom: 0.8em;
+  td, th {
+    color: fadeout(@black, 40);
+  }
+  tbody tr {
+    td:nth-child(2),
+    td:nth-child(3),
+    td:nth-child(4) {
+      width: 65px !important;
+      text-align: right;
+    }
+    &.total td {
+      &:first-child {
+        background-color: fadeout(@black, 97);
+      }
+      color: @black;
+      font-weight: bold;
+    }
+  }
+}

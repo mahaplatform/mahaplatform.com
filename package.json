@@ -140,6 +140,7 @@
     "passport-saml": "^0.15.0",
     "password-validator": "^4.1.1",
     "pasteur": "^1.0.6",
+    "paypal-checkout": "^4.0.303",
     "pg": "^6.4.2",
     "pluralize": "^6.0.0",
     "print-js": "^1.0.61",

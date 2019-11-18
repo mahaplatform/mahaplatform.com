@@ -50,7 +50,19 @@ export default store => next => action => {
       }, function (err, usBankAccountInstance) {
         if(err) return failure(err)
         usBankAccountInstance.tokenize({
-          bankDetails: action.data,
+          bankDetails: {
+            ...action.data,
+            ownershipType: 'personal',
+            accountType: 'checking',
+            firstName: 'Greg',
+            lastName: 'Kops',
+            billingAddress: {
+              streetAddress: '322 S Geneva St',
+              locality: 'Ithaca',
+              region: 'NY',
+              postalCode: '14850'
+            }
+          },
           mandateText: action.mandate
         }, function (err, response) {
           if (err) return failure(err)

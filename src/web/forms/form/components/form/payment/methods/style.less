@@ -1,0 +1,43 @@
+.maha-payment-methods {
+  border-radius: 0.28em;
+  margin-bottom: 0.8em;
+  overflow: hidden;
+  display: flex;
+}
+.maha-payment-method {
+  background-color: fadeout(@black, 90);
+  border-right: 1px solid @white;
+  color: fadeout(@black, 40);
+  padding: 0.8em;
+  cursor: pointer;
+  &.selected {
+    background-color: fadeout(@black, 30);
+    color: @white;
+  }
+}
+.maha-payment-method-icon {
+  display: flex;
+  margin-bottom: 0.8em;
+  .fa {
+    margin: auto;
+    font-size: 1.8em;
+  }
+}
+.maha-payment-method-label {
+  text-align: center;
+  font-size: 0.8em;
+}
+.maha-payment-method {
+  flex: 1;
+  cursor: pointer;
+  position: relative;
+  &:hover:after {
+    content: ' ';
+    background-color: fadeout(@white, 80);
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+  }
+}

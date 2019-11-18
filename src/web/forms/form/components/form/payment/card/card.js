@@ -8,10 +8,13 @@ class Card extends React.Component {
     expirationDate: PropTypes.string,
     nameOnCard: PropTypes.string,
     number: PropTypes.string,
+    payment: PropTypes.object,
     token: PropTypes.string,
     onSubmit: PropTypes.func,
     onUpdate: PropTypes.func
   }
+
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     return (
@@ -36,8 +39,18 @@ class Card extends React.Component {
             <input { ...this._getInput('cvv', '123') } />
           </div>
         </div>
+        <button className="ui fluid blue button" onClick={ this._handleSubmit }>
+          Submit Payment
+        </button>
       </div>
     )
+  }
+
+  componentDidUpdate(prevProps) {
+    const { payment } = this.props
+    if(payment !== prevProps.payment) {
+      console.log(payment)
+    }
   }
 
   _getInput(name, placeholder) {

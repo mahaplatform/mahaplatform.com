@@ -11,6 +11,7 @@ import chokidar from 'chokidar'
 import webpack from 'webpack'
 import path from 'path'
 import _ from 'lodash'
+import fs from 'fs'
 
 const serverWatch = async () => {
 
@@ -97,6 +98,7 @@ const watch = async (module, watchDir, config) => {
 const adminWatch = async () => {
 
   const devserver = new devServer(webpack(adminConfig), {
+    https: true,
     contentBase: path.resolve('src','public','admin'),
     hot: true,
     publicPath: '/admin',

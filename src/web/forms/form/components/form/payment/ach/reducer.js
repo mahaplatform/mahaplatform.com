@@ -1,4 +1,5 @@
 export const INITIAL_STATE = {
+  payment: null,
   routingNumber: '011000015',
   accountNumber: '1000000000'
 }
@@ -10,9 +11,12 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'SUBMIT_SUCCESS':
     return {
       ...state,
-      nonce: action.result.creditCards[0].nonce
+      payment: {
+        nonce: action.result.nonce,
+        last_four: action.result.description.substr(-4)
+      }
     }
-    
+
   case 'UPDATE':
     return {
       ...state,

@@ -1,3 +1,4 @@
+.DS_Store
 node_modules
 /help
 /dist
@@ -14,6 +15,7 @@ deploy.tgz
 npm-debug.log
 .env*
 *.key
+*.crt
 src/public/templates
 src/public/forms
 ngrok

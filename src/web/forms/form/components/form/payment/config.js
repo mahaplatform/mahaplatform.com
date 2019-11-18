@@ -1,20 +1,10 @@
+import GooglePay from './googlepay'
+import ApplePay from './applepay'
 import PayPal from './paypal'
 import Card from './card'
 import ACH from './ach'
 
-const methods = [
-  {
-    name: 'google',
-    label: 'Google Pay',
-    icon: 'android',
-    component: null
-  },
-  {
-    name: 'paypal',
-    label: 'PayPal',
-    icon: 'paypal',
-    component: PayPal
-  },
+export const methods = [
   {
     name: 'card',
     label: 'Credit Card',
@@ -30,12 +20,10 @@ const methods = [
 ]
 
 if (window.ApplePaySession && ApplePaySession.supportsVersion(3) && ApplePaySession.canMakePayments()) {
-  methods.push(  {
+  methods.push({
     name: 'apple',
     label: 'Apple Pay',
     icon: 'apple',
     component: null
   })
 }
-
-export default methods
