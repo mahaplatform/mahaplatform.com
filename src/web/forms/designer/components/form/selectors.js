@@ -16,6 +16,14 @@ export const fields = createSelector(
   }))
 )
 
+export const requiresPayment = createSelector(
+  fields,
+  (fields) => fields.find(field => {
+    return field.type === 'productfield'
+  }) !== undefined
+)
+
+
 export const finalized = createSelector(
   data,
   (data) => Object.keys(data).reduce((finalized, key) => ({

@@ -14,6 +14,7 @@ class Form extends React.Component {
     human: PropTypes.bool,
     isReady: PropTypes.bool,
     isValid: PropTypes.bool,
+    requiresPayment: PropTypes.bool,
     status: PropTypes.object,
     onChange: PropTypes.func,
     onSave: PropTypes.func,
@@ -28,7 +29,7 @@ class Form extends React.Component {
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    const { fields } = this.props
+    const { fields, requiresPayment } = this.props
     return (
       <div className="maha-form-fields">
         <div className="ui form">
@@ -36,7 +37,9 @@ class Form extends React.Component {
             <Field key={`field_${index}`} { ...this._getField(field) } />
           )) }
           <Recaptcha { ...this._getRecaptcha() } />
-          <button { ...this._getButton()}>Submit</button>
+          <button { ...this._getButton()}>
+            { requiresPayment ? 'Next' : 'Submit' }
+          </button>
         </div>
       </div>
     )
