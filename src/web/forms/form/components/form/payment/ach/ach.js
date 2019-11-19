@@ -41,7 +41,7 @@ class ACH extends React.Component {
         <div className="two fields">
           <div className="field">
             <label>Account Type</label>
-            <input { ...this._getInput('AccountType', 'Account Type') } />
+            <input { ...this._getInput('accountType', 'Account Type') } />
           </div>
           <div className="field">
             <label>Ownership Type</label>

@@ -1,15 +1,8 @@
-import braintree from 'braintree'
+import { getGateway } from './utils'
 
 const tokenRoute = async (req, res) => {
 
-  const { Sandbox, Production } = braintree.Environment
-
-  var gateway = braintree.connect({
-    environment: process.env.BRAINTREE_ENVIRONMENT === 'production' ? Production : Sandbox,
-    merchantId: 'zzwjk4rf85jn7mwq',
-    publicKey: process.env.BRAINTREE_PUBLIC_KEY,
-    privateKey: process.env.BRAINTREE_PRIVATE_KEY
-  })
+  const gateway = getGateway('zzwjk4rf85jn7mwq')
 
   const response = await new Promise((resolve, reject) => {
     gateway.clientToken.generate((err, response) => {

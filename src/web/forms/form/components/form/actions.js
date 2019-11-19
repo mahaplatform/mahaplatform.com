@@ -18,6 +18,16 @@ export const submit = (id, body) => ({
   failure: 'SUBMIT_FAILURE'
 })
 
+export const pay = (body) => ({
+  type: 'API_REQUEST',
+  method: 'POST',
+  endpoint: '/api/crm/payments',
+  body,
+  request: 'PAY_REQUEST',
+  success: 'PAY_SUCCESS',
+  failure: 'PAY_FAILURE'
+})
+
 export const change = (name, value) => ({
   type: 'CHANGE',
   name,

@@ -20,6 +20,7 @@ class Form extends React.Component {
     requiresPayment: PropTypes.bool,
     status: PropTypes.object,
     onChange: PropTypes.func,
+    onPay: PropTypes.func,
     onSave: PropTypes.func,
     onSetAllStatus: PropTypes.func,
     onSetFinalized: PropTypes.func,
@@ -91,7 +92,7 @@ class Form extends React.Component {
   }
 
   _handlePayment(method, payment) {
-    console.log(method, payment)
+    this.props.onPay({ method, payment })
   }
 
 }
