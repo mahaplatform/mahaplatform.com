@@ -98,8 +98,8 @@ import drivechat from '../../apps/drive/admin/components/share/chat'
 import driveshare from '../../apps/drive/admin/components/share'
 import driveuploader from '../../apps/drive/admin/components/uploader'
 import driveversions from '../../apps/drive/admin/components/versions'
-import expenseslineItems from '../../apps/expenses/admin/components/line_items'
-import expensestripsImportFinalize from '../../apps/expenses/admin/components/trips_import_finalize'
+import financelineItems from '../../apps/finance/admin/components/line_items'
+import financetripsImportFinalize from '../../apps/finance/admin/components/trips_import_finalize'
 import competenciescommitments from '../../apps/learning/admin/components/commitments'
 import competenciesgoals from '../../apps/learning/admin/components/goals'
 import competenciesresources from '../../apps/learning/admin/components/resources'
@@ -140,8 +140,8 @@ import chatRoutes from '../../apps/chat/admin/views/index.js'
 import crmRoutes from '../../apps/crm/admin/views/index.js'
 import driveRoutes from '../../apps/drive/admin/views/index.js'
 import eatfreshRoutes from '../../apps/eatfresh/admin/views/index.js'
-import expensesRoutes from '../../apps/expenses/admin/views/index.js'
 import faxRoutes from '../../apps/fax/admin/views/index.js'
+import financeRoutes from '../../apps/finance/admin/views/index.js'
 import competenciesRoutes from '../../apps/learning/admin/views/index.js'
 import mahaRoutes from '../../apps/maha/admin/views/index.js'
 import platformRoutes from '../../apps/platform/admin/views/index.js'
@@ -153,12 +153,12 @@ import driveBadges from '../../apps/drive/admin/badges/index.js'
 import mahaBadges from '../../apps/maha/admin/badges/index.js'
 import chatRoots from '../../apps/chat/admin/roots/index.js'
 import mahaRoots from '../../apps/maha/admin/roots/index.js'
-import expensesUserTasks from '../../apps/expenses/admin/user_tasks.js'
-import expensesUserFields from '../../apps/expenses/admin/user_fields.js'
-import expensesUserValues from '../../apps/expenses/admin/user_values.js'
+import financeUserTasks from '../../apps/finance/admin/user_tasks.js'
+import financeUserFields from '../../apps/finance/admin/user_fields.js'
+import financeUserValues from '../../apps/finance/admin/user_values.js'
 import crmCards from '../../apps/crm/admin/cards/index.js'
-import expensesUsage from '../../apps/expenses/admin/usage.js'
-import expensesSettings from '../../apps/expenses/admin/settings.js'
+import financeUsage from '../../apps/finance/admin/usage.js'
+import financeSettings from '../../apps/finance/admin/settings.js'
 import Platform from '../../apps/maha/admin/components/platform'
 import NotFound from '../../apps/maha/admin/views/not_found'
 import Root from '../../apps/maha/admin/components/root'
@@ -197,19 +197,19 @@ class App extends React.Component {
 
   _getAppUserFields() {
     return [
-      expensesUserFields,
+      financeUserFields,
     ]
   }
 
   _getAppUserTasks() {
     return [
-      expensesUserTasks,
+      financeUserTasks,
     ]
   }
 
   _getAppUserValues() {
     return [
-      expensesUserValues,
+      financeUserValues,
     ]
   }
 
@@ -346,8 +346,8 @@ class App extends React.Component {
       driveshare,
       driveuploader,
       driveversions,
-      expenseslineItems,
-      expensestripsImportFinalize,
+      financelineItems,
+      financetripsImportFinalize,
       competenciescommitments,
       competenciesgoals,
       competenciesresources,
@@ -406,8 +406,8 @@ class App extends React.Component {
       { path: '/admin/crm', children: crmRoutes },
       { path: '/admin/drive', children: driveRoutes },
       { path: '/admin/eatfresh', children: eatfreshRoutes },
-      { path: '/admin/expenses', children: expensesRoutes },
       { path: '/admin/fax', children: faxRoutes },
+      { path: '/admin/finance', children: financeRoutes },
       { path: '/admin/learning', children: competenciesRoutes },
       { path: '/admin', children: mahaRoutes },
       { path: '/admin/platform', children: platformRoutes },
@@ -420,13 +420,13 @@ class App extends React.Component {
 
   _getSettings() {
     return {
-      expenses: expensesSettings,
+      finance: financeSettings,
     }
   }
 
   _getUsage() {
     return {
-      expenses: expensesUsage,
+      finance: financeUsage,
     }
   }
 
