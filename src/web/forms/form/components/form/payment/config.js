@@ -16,14 +16,20 @@ export const methods = [
     label: 'Bank Account',
     icon: 'university',
     component: ACH
+  },
+  {
+    name: 'googlepay',
+    component: GooglePay
+  },
+  {
+    name: 'paypal',
+    component: PayPal
   }
 ]
 
 if (window.ApplePaySession && ApplePaySession.supportsVersion(3) && ApplePaySession.canMakePayments()) {
   methods.push({
     name: 'apple',
-    label: 'Apple Pay',
-    icon: 'apple',
     component: null
   })
 }

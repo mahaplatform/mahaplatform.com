@@ -7,6 +7,7 @@ class PayPal extends React.Component {
 
   static propTypes = {
     token: PropTypes.string,
+    onChoose: PropTypes.func,
     onSuccess: PropTypes.func
   }
 
@@ -19,7 +20,7 @@ class PayPal extends React.Component {
   }
 
   componentDidMount() {
-    const { token, onSuccess } = this.props
+    const { token, onChoose, onSuccess } = this.props
     client.create({
       authorization: token
     }).then(function(clientInstance) {
@@ -37,6 +38,7 @@ class PayPal extends React.Component {
           height: 40
         },
         payment: function () {
+          onChoose('paypal')
           return paypalCheckoutInstance.createPayment({
             flow: 'checkout',
             currency: 'USD',

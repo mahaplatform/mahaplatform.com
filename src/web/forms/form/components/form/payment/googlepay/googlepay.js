@@ -6,6 +6,7 @@ class Card extends React.Component {
   static propTypes = {
     payment: PropTypes.object,
     token: PropTypes.string,
+    onChoose: PropTypes.func,
     onSubmit: PropTypes.func,
     onSuccess: PropTypes.func
   }
@@ -18,8 +19,7 @@ class Card extends React.Component {
   _handlePayment = this._handlePayment.bind(this)
 
   render() {
-    const { ready } = this.state
-    if(!ready) return null
+    if(!this.state.ready) return null
     return (
       <div className="googlepay-button">
         <button className="gpay-button black short" onClick={ this._handlePayment } />
@@ -55,7 +55,8 @@ class Card extends React.Component {
   }
 
   _handlePayment() {
-    const { token, onSubmit } = this.props
+    const { token, onChoose, onSubmit } = this.props
+    onChoose('googlepay')
     onSubmit(token)
   }
 

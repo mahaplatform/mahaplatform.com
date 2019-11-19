@@ -30,6 +30,8 @@ class Form extends React.Component {
     onSubmit: PropTypes.func
   }
 
+  _handlePayment = this._handlePayment.bind(this)
+
   render() {
     return (
       <div className="maha-form">
@@ -59,7 +61,25 @@ class Form extends React.Component {
   }
 
   _getPayment() {
-    return this.props
+    return {
+      ...this.props,
+      summary: {
+        products: [
+          {
+            tax: 0.08,
+            code: 'ghijkl',
+            name: '1 Flock (5 Ducks)',
+            price: 5,
+            quantity: 2,
+            total: 10
+          }
+        ],
+        subtotal: 10,
+        total: 10,
+        tax: 0
+      },
+      onPayment: this._handlePayment
+    }
   }
 
   _getFooter() {
@@ -68,6 +88,10 @@ class Form extends React.Component {
 
   _getHeader() {
     return this.props.config.header
+  }
+
+  _handlePayment(method, payment) {
+    console.log(method, payment)
   }
 
 }

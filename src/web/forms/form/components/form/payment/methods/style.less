@@ -1,36 +1,40 @@
-.maha-payment-methods {
-  border-radius: 0.28em;
+.maha-payment-options {
   margin-bottom: 0.8em;
-  overflow: hidden;
-  display: flex;
 }
-.maha-payment-method {
+@media (min-width: 769px) {
+  .maha-payment-options {
+    display: flex;
+    .maha-payment-option:last-child {
+      padding-right: 0;
+    }
+  }
+  .maha-payment-option {
+    flex: 1;
+    padding-right: 0.8em;
+  }
+}
+@media (max-width: 768px) {
+  .maha-payment-option {
+    margin-bottom: 0.8em;
+  }
+}
+.maha-payment-button {
   background-color: fadeout(@black, 90);
   border-right: 1px solid @white;
+  border-radius: 0.28em;
   color: fadeout(@black, 40);
   padding: 0.8em;
   cursor: pointer;
-  &.selected {
-    background-color: fadeout(@black, 30);
+  position: relative;
+  text-align: center;
+  &.card {
+    background-color: @red;
     color: @white;
   }
-}
-.maha-payment-method-icon {
-  display: flex;
-  margin-bottom: 0.8em;
-  .fa {
-    margin: auto;
-    font-size: 1.8em;
+  &.ach {
+    background-color: @violet;
+    color: @white;
   }
-}
-.maha-payment-method-label {
-  text-align: center;
-  font-size: 0.8em;
-}
-.maha-payment-method {
-  flex: 1;
-  cursor: pointer;
-  position: relative;
   &:hover:after {
     content: ' ';
     background-color: fadeout(@white, 80);
