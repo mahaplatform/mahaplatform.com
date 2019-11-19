@@ -62,17 +62,27 @@ class SelectPanel extends React.Component {
   }
 
   _getOptions() {
-    return this.props.options.map(option => {
+    const { options } = this.props
+    return options ? options.map(option => {
       return _.isString(option) ? { value: option, text: option } : option
-    })
+    }) : null
   }
 
   _getSearch() {
     const { endpoint, filter, format, label, name, multiple, sort, text, value, results } = this.props
-    const defaultValue = results[name]
-    const onChange = this._handleChange
-    const options = this._getOptions()
-    return { defaultValue, endpoint, filter, format, label, multiple, options, sort, text, value, onChange }
+    return { 
+      defaultValue: results[name],
+      endpoint,
+      filter,
+      format,
+      label,
+      multiple,
+      options: this._getOptions(),
+      sort,
+      text,
+      value,
+      onChange: this._handleChange
+    }
   }
 
   _handleChange(value) {

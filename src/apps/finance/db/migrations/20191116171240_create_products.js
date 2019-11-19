@@ -9,6 +9,7 @@ const CreateProduct = {
       table.foreign('project_id').references('finance_projects.id')
       table.integer('revenue_type_id').unsigned()
       table.foreign('revenue_type_id').references('finance_revenue_types.id')
+      table.string('title')
       table.enum('price_type', ['fixed','sliding_scale'], { useNative: true, enumName: 'finance_products_price_type' })
       table.decimal('fixed_price', 6, 2)
       table.decimal('low_price', 6, 2)

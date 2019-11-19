@@ -6,12 +6,14 @@ import CheckShow from './checks/show'
 import ExpenseShow from './expenses/show'
 import ExpenseTypeList from './expense_types/list'
 import ItemList from './items/list'
+import ProductList from './products/list'
 import ProjectList from './projects/list'
 import ProjectShow from './projects/show'
 import RateList from './rates/list'
 import ReceiptShow from './receipts/show'
 import ReimbursementShow from './reimbursements/show'
 import ReportList from './items/report'
+import RevenueTypeList from './revenue_types/list'
 import TaxList from './items/tax'
 import TripShow from './trips/show'
 import VendorList from './vendors/list'
@@ -25,6 +27,7 @@ const routes = [
   { path: '/expenses/:id', component: ExpenseShow },
   { path: '/expense_types', component: ExpenseTypeList },
   { path: '/items', component: ItemList },
+  { path: '/products', component: ProductList },
   { path: '/projects', component: ProjectList },
   { path: '/projects/:id', component: ProjectShow },
   { path: '/rates', component: RateList },
@@ -32,6 +35,7 @@ const routes = [
   { path: '/reports', component: ReportList },
   { path: '/tax', component: TaxList },
   { path: '/receipts/:id', component: ReceiptShow },
+  { path: '/revenue_types', component: RevenueTypeList },
   { path: '/trips/:id', component: TripShow },
   { path: '/vendors', component: VendorList }
 ]
