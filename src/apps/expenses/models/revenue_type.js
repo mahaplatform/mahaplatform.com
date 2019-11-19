@@ -3,7 +3,7 @@ import Product from './product'
 
 const RevenueType = new Model({
 
-  tableName: 'expenses_revenue_types',
+  tableName: 'finance_revenue_types',
 
   rules: {},
 

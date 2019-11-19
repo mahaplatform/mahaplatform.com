@@ -4,7 +4,7 @@ import Payment from './payment'
 
 const Credit = new Model({
 
-  tableName: 'expenses_credits',
+  tableName: 'finance_credits',
 
   rules: {},
 

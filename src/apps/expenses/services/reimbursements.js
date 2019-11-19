@@ -9,7 +9,7 @@ export const createReimbursement = async (req, params) => {
 
   const reimbursement = await Reimbursement.forge({
     team_id: req.team.get('id'),
-    status_id: 1,
+    status: 'incomplete',
     ...whitelist(params, ['user_id','code','date','vendor_id','total','project_id','expense_type_id','description','amount'])
   }).save(null, {
     transacting: req.trx
@@ -76,11 +76,11 @@ export const updateReimbursement = async (req, reimbursement, params) => {
 
 export const destroyReimbursement = async (req, reimbursement) => {
 
-  await req.trx('expenses_receipts').where('reimbursement_id', reimbursement.get('id')).delete()
+  await req.trx('finance_receipts').where('reimbursement_id', reimbursement.get('id')).delete()
 
-  await req.trx('maha_audits').where('auditable_type', 'expenses_reimbursements').where('auditable_id', reimbursement.get('id')).delete()
+  await req.trx('maha_audits').where('auditable_type', 'finance_reimbursements').where('auditable_id', reimbursement.get('id')).delete()
 
-  await req.trx('maha_comments').where('commentable_type', 'expenses_reimbursements').where('commentable_id', reimbursement.get('id')).delete()
+  await req.trx('maha_comments').where('commentable_type', 'finance_reimbursements').where('commentable_id', reimbursement.get('id')).delete()
 
   await activity(req, {
     story: 'deleted {object}',

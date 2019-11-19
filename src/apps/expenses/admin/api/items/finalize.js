@@ -20,7 +20,7 @@ const finalizeRoute = async (req, res) => {
     transacting: req.trx
   }).then(items => items.toArray())
 
-  const rates = await req.trx('expenses_rates').then(rates => {
+  const rates = await req.trx('finance_rates').then(rates => {
     return rates.reduce((rates, record) => ({
       ...rates,
       [record.year]: record.value

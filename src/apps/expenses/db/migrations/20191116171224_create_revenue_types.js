@@ -1,7 +1,7 @@
 const CreateRevenueType = {
 
   up: async (knex) => {
-    await knex.schema.createTable('expenses_revenue_types', (table) => {
+    await knex.schema.createTable('finance_revenue_types', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
@@ -14,7 +14,7 @@ const CreateRevenueType = {
   },
 
   down: async (knex) => {
-    await knex.schema.dropTable('expenses_revenue_types')
+    await knex.schema.dropTable('finance_revenue_types')
   }
 
 }

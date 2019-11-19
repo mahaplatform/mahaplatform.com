@@ -1,21 +1,21 @@
 const CreatePayment = {
 
   up: async (knex) => {
-    await knex.schema.createTable('expenses_payments', (table) => {
+    await knex.schema.createTable('finance_payments', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
       table.integer('invoice_id').unsigned()
-      table.foreign('invoice_id').references('expenses_invoices.id')
+      table.foreign('invoice_id').references('finance_invoices.id')
       table.integer('credit_id').unsigned()
-      table.foreign('credit_id').references('expenses_credits.id')
+      table.foreign('credit_id').references('finance_credits.id')
       table.integer('scholarship_id').unsigned()
-      table.foreign('scholarship_id').references('expenses_scholarships.id')
+      table.foreign('scholarship_id').references('finance_scholarships.id')
       table.integer('merchant_id').unsigned()
-      table.foreign('merchant_id').references('expenses_merchants.id')
-      table.enum('method', ['credit','scholarship','card','ach','applepay','googlepay','paypal'], { useNative: true, enumName: 'expenses_payments_method' })
+      table.foreign('merchant_id').references('finance_merchants.id')
+      table.enum('method', ['credit','scholarship','card','ach','applepay','googlepay','paypal'], { useNative: true, enumName: 'finance_payments_method' })
       table.decimal('amount', 6, 2)
-      table.enum('status', ['captured','settled','disbursed'], { useNative: true, enumName: 'expenses_payments_status' })
+      table.enum('status', ['captured','settled','disbursed'], { useNative: true, enumName: 'finance_payments_status' })
       table.string('braintree_id')
       table.timestamp('voided_at')
       table.timestamps()
@@ -23,7 +23,7 @@ const CreatePayment = {
   },
 
   down: async (knex) => {
-    await knex.schema.dropTable('expenses_payments')
+    await knex.schema.dropTable('finance_payments')
   }
 
 }

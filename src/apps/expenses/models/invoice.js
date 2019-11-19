@@ -6,7 +6,7 @@ import Coupon from './coupon'
 
 const Invoice = new Model({
 
-  tableName: 'expenses_invoices',
+  tableName: 'finance_invoices',
 
   rules: {},
 

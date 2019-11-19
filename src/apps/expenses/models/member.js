@@ -1,16 +1,15 @@
 import Model from '../../../core/objects/model'
 import User from '../../maha/models/user'
-import MemberType from './member_type'
 import Project from './project'
 
 const Member = new Model({
 
-  tableName: 'expenses_members',
+  tableName: 'finance_members',
 
   rules: {
     user_id: ['required'],
     project_id: ['required'],
-    member_type_id: ['required']
+    type: ['required']
   },
 
   virtuals: {
@@ -19,10 +18,6 @@ const Member = new Model({
       return 'full_name'
     }
 
-  },
-
-  member_type() {
-    return this.belongsTo(MemberType, 'member_type_id')
   },
 
   project() {

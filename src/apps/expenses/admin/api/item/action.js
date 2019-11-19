@@ -11,10 +11,10 @@ import tensify from 'tensify'
 import _ from 'lodash'
 
 const statuses = [
-  { id: 3, text: 'submit', roles: ['owner'] },
-  { id: 4, text: 'approve', roles: ['approver'] },
-  { id: 5, text: 'reject', roles: ['approver','manager'] },
-  { id: 6, text: 'review', roles: ['manager'] }
+  { text: 'submitted', action: 'submit', roles: ['owner'] },
+  { text: 'approved', action: 'approve', roles: ['approver'] },
+  { text: 'rejected', action: 'reject', roles: ['approver','manager'] },
+  { text: 'reviewed', action: 'review', roles: ['manager'] }
 ]
 
 const types = [
@@ -44,10 +44,10 @@ const actionRoute = async (req, res) => {
   })
 
   const status = _.find(statuses, {
-    text: req.params.action
+    action: req.params.action
   })
 
-  if(item.get('status_id') === status.id) return res.status(403).respond({
+  if(item.get('status') === status.text) return res.status(403).respond({
     code: 403,
     message: 'You are not allowed to perform this action'
   })
@@ -66,7 +66,7 @@ const actionRoute = async (req, res) => {
   })
 
   await item.save({
-    status_id: status.id
+    status: status.text
   }, {
     patch: true,
     transacting: req.trx

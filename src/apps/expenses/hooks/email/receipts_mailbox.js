@@ -32,7 +32,7 @@ const processor = async (req, { meta, message }) => {
   const item = await model.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
-    status_id: 1,
+    status: 'incomplete',
     [date]: moment(),
     code,
     description: message.subject

@@ -1,7 +1,7 @@
 const CreateScholarship = {
 
   up: async (knex) => {
-    await knex.schema.createTable('expenses_scholarships', (table) => {
+    await knex.schema.createTable('finance_scholarships', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
@@ -13,7 +13,7 @@ const CreateScholarship = {
   },
 
   down: async (knex) => {
-    await knex.schema.dropTable('expenses_scholarships')
+    await knex.schema.dropTable('finance_scholarships')
   }
 
 }

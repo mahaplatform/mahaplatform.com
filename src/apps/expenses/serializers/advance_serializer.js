@@ -7,7 +7,7 @@ const advanceSerializer = (req, result) => ({
   approver_ids: result.get('approver_ids'),
   user: user(result.related('user')),
   amount: result.get('amount'),
-  status: result.related('status').get('text'),
+  status: result.get('status'),
   audit: result.related('audit').map(audit),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

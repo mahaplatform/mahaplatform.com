@@ -22,6 +22,7 @@ const editRoute = async (req, res) => {
       'date',
       'description',
       'amount',
+      'status',
       'project_id',
       'expense_type_id'
     ]

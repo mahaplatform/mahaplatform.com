@@ -12,7 +12,7 @@ const expenseSerializer = (req, result) => ({
   user: user(result.related('user')),
   amount: result.get('amount'),
   tax: result.get('tax'),
-  status: result.related('status').get('text'),
+  status: result.get('status'),
   account: account(result.related('account')),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

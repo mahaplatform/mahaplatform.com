@@ -4,7 +4,7 @@ import Expense from './expense'
 
 const Vendor = new Model({
 
-  tableName: 'expenses_vendors',
+  tableName: 'finance_vendors',
 
   rules: {
     name: ['required', 'unique']

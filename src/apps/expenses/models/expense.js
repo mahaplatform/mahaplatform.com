@@ -4,12 +4,11 @@ import Account from  './account'
 import ExpenseType from  './expense_type'
 import Project from  './project'
 import Receipt from  './receipt'
-import Status from  './status'
 import Vendor from  './vendor'
 
 const Expense = new Model({
 
-  tableName: 'expenses_expenses',
+  tableName: 'finance_expenses',
 
   rules: {
     date: ['required', 'datestring']
@@ -20,7 +19,7 @@ const Expense = new Model({
     approver_ids: function() {
       if(!this.get('project_id')) return []
       return this.related('project').related('members').filter(member => {
-        return member.get('member_type_id') !== 3
+        return member.get('type') !== 'member'
       }).map(member => {
         return member.get('user_id')
       })
@@ -66,10 +65,10 @@ const Expense = new Model({
   listener_ids(trx) {
     return User.query(qb => {
       qb.select('maha_users.id')
-      qb.joinRaw('left join maha_comments on maha_comments.user_id=maha_users.id and maha_comments.commentable_type=? and maha_comments.commentable_id=?', ['expenses_expenses', this.get('id')])
-      qb.joinRaw('left join maha_audits on maha_audits.user_id=maha_users.id and maha_audits.auditable_type=? and maha_audits.auditable_id=?', ['expenses_expenses', this.get('id')])
-      qb.joinRaw('left join expenses_members on expenses_members.user_id=maha_users.id and expenses_members.project_id = ? and expenses_members.member_type_id = ?', [this.get('project_id'), 1])
-      qb.whereRaw('maha_comments.id is not null or maha_audits.id is not null or expenses_members.id is not null')
+      qb.joinRaw('left join maha_comments on maha_comments.user_id=maha_users.id and maha_comments.commentable_type=? and maha_comments.commentable_id=?', ['finance_expenses', this.get('id')])
+      qb.joinRaw('left join maha_audits on maha_audits.user_id=maha_users.id and maha_audits.auditable_type=? and maha_audits.auditable_id=?', ['finance_expenses', this.get('id')])
+      qb.joinRaw('left join finance_members on finance_members.user_id=maha_users.id and finance_members.project_id = ? and finance_members.type = ?', [this.get('project_id'), 'owner'])
+      qb.whereRaw('maha_comments.id is not null or maha_audits.id is not null or finance_members.id is not null')
       qb.groupBy('maha_users.id')
     }).fetchAll({
       transacting: trx
@@ -82,10 +81,6 @@ const Expense = new Model({
 
   receipts() {
     return this.hasMany(Receipt, 'expense_id')
-  },
-
-  status() {
-    return this.belongsTo(Status, 'status_id')
   },
 
   user() {

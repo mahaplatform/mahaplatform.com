@@ -4,15 +4,14 @@ import _ from 'lodash'
 export const canApprove = async (req) => {
 
   const members = await Member.query(qb => {
-    qb.joinRaw('inner join expenses_projects on expenses_projects.id=expenses_members.project_id')
-    qb.where('expenses_members.user_id', req.user.get('id'))
+    qb.joinRaw('inner join finance_projects on finance_projects.id=finance_members.project_id')
+    qb.where('finance_members.user_id', req.user.get('id'))
   }).fetchAll({
-    withRelated: ['member_type'],
     transacting: req.trx
   })
 
   return members.reduce((allowed, member) => {
-    return !allowed ? (member.get('member_type_id') != 3) : true
+    return !allowed ? (member.get('type') !== 'member') : true
   }, false)
 
 }

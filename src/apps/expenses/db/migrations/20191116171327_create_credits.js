@@ -1,7 +1,7 @@
 const CreateCredit = {
 
   up: async (knex) => {
-    await knex.schema.createTable('expenses_credits', (table) => {
+    await knex.schema.createTable('finance_credits', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
@@ -14,7 +14,7 @@ const CreateCredit = {
   },
 
   down: async (knex) => {
-    await knex.schema.dropTable('expenses_credits')
+    await knex.schema.dropTable('finance_credits')
   }
 
 }

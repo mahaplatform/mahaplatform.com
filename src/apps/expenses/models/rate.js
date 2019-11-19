@@ -6,7 +6,7 @@ const Rate = new Model({
 
   hasTimestamps: false,
 
-  tableName: 'expenses_rates',
+  tableName: 'finance_rates',
 
   virtuals: {
 

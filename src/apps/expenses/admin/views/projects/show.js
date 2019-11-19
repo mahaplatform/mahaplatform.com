@@ -81,7 +81,7 @@ Members.propTypes = {
 
 const allowed = (memberships, rights, user) => {
   return _.includes(rights, 'expenses:manage_configuration') || memberships.find(membership => {
-    return  membership.user.id === user.id && membership.member_type_id === 1
+    return  membership.user.id === user.id && membership.type === 'owner'
   }) !== undefined
 }
 

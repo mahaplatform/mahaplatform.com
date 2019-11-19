@@ -5,14 +5,14 @@ import _ from 'lodash'
 const listRoute = async (req, res) => {
 
   const projects = await Project.scope(qb => {
-    qb.select(req.trx.raw('distinct on (expenses_projects.id,expenses_projects.integration->>\'project_code\',expenses_projects.title) expenses_projects.*'))
+    qb.select(req.trx.raw('distinct on (finance_projects.id,finance_projects.integration->>\'project_code\',finance_projects.title) finance_projects.*'))
     if(_.includes(req.rights, 'expenses:manage_configuration')) {
-      qb.leftJoin('expenses_members', 'expenses_members.project_id', 'expenses_projects.id')
+      qb.leftJoin('finance_members', 'finance_members.project_id', 'finance_projects.id')
     } else  {
-      qb.joinRaw('inner join expenses_members on expenses_members.project_id=expenses_projects.id and expenses_members.user_id=?', [req.user.get('id')])
-      qb.where('expenses_projects.is_active', true)
+      qb.joinRaw('inner join finance_members on finance_members.project_id=finance_projects.id and finance_members.user_id=?', [req.user.get('id')])
+      qb.where('finance_projects.is_active', true)
     }
-    qb.where('expenses_projects.team_id', req.team.get('id'))
+    qb.where('finance_projects.team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
     filterParams: ['type','is_active','user_id','tax_project_id'],
@@ -20,7 +20,7 @@ const listRoute = async (req, res) => {
     virtualFilters: {
       user_id: (qb, filter) => {
         if(!filter.$eq) return
-        qb.where('expenses_members.user_id', filter.$eq)
+        qb.where('finance_members.user_id', filter.$eq)
       }
     }
   }).sort({

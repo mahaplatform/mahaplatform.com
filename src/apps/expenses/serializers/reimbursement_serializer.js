@@ -6,7 +6,7 @@ const reimbursementSerializer = (req, result) => ({
   approver_ids: result.get('approver_ids'),
   vendor: vendor(result.related('vendor')),
   user: user(result.related('user')),
-  status: result.related('status').get('text'),
+  status: result.get('status'),
   total: result.get('total'),
   project: project(result.related('project')),
   expense_type: expense_type(result.related('expense_type')),

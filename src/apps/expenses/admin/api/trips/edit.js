@@ -31,7 +31,8 @@ const editRoute = async (req, res) => {
       'odometer_end',
       'total_miles',
       'mileage_rate',
-      'amount'
+      'amount',
+      'status'
     ]
   })
 

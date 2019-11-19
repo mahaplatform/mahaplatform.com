@@ -15,7 +15,7 @@ const submitAllRoute = async (req, res) => {
         qb2.whereIn('item_id', req.body[`${type}_ids`]).andWhere('type', type)
       })
     })
-    qb.whereNot('status_id', 3)
+    qb.whereNot('status', 'submitted')
     qb.orderBy('user_id', 'asc')
   }).fetchAll({
     withRelated: ['project.members','expense_type'],
@@ -31,17 +31,17 @@ const submitAllRoute = async (req, res) => {
   }), {})
 
   await Promise.map(Object.keys(models), async type => {
-    await req.trx(`expenses_${type}s`)
+    await req.trx(`finance_${type}s`)
       .whereIn('id', models[type])
       .update({
-        status_id: 3
+        status: 'submitted'
       })
   })
 
   await audit(req, items.map(item => ({
     story: 'submitted',
     auditable: {
-      tableName: `expenses_${item.get('type')}s`,
+      tableName: `finance_${item.get('type')}s`,
       id: item.get('item_id')
     }
   })))

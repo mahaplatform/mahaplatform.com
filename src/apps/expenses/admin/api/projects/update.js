@@ -12,7 +12,7 @@ const updateRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     if(!_.includes(req.rights, 'expenses:manage_configuration')) {
-      qb.joinRaw('inner join expenses_members on expenses_members.project_id=expenses_projects.id and expenses_members.user_id=?', [req.user.get('id')])
+      qb.joinRaw('inner join finance_members on finance_members.project_id=finance_projects.id and finance_members.user_id=?', [req.user.get('id')])
     }
     qb.where('id', req.params.id)
   }).fetch({

@@ -3,7 +3,6 @@ import expense_types from './expense_types'
 import memberships from './memberships'
 import accounts from './accounts'
 import projects from './projects'
-import statuses from './statuses'
 import receipts from './receipts'
 import advances from './advances'
 import expenses from './expenses'
@@ -45,8 +44,6 @@ router.use('/rates', rates)
 router.use('/receipts', receipts)
 
 router.use('/reimbursements', reimbursements)
-
-router.use('/statuses', statuses)
 
 router.use('/trips', trips)
 

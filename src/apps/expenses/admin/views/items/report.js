@@ -25,13 +25,13 @@ const mapPropsToPage = (props, context, resources) => ({
       { label: 'Type', key: 'type', collapsing: true, format: CompactTypeToken },
       { label: 'Date', key: 'date', format: 'date', collapsing: true },
       { label: 'User', key: 'user.full_name', sort: 'maha_users.last_name', primary: true },
-      { label: 'Project', key: 'project.title', sort: 'expenses_projects.title', format: CompactProjectToken },
+      { label: 'Project', key: 'project.title', sort: 'finance_projects.title', format: CompactProjectToken },
       { label: 'Description', key: 'description' },
-      { label: 'Expense Type', key: 'expense_type.title', sort: 'expenses_expense_types.title', format: CompactExpenseTypeToken },
-      { label: 'Vendor', key: 'vendor.name', sort: 'expenses_vendors.name', format: CompactVendorToken },
-      { label: 'Account', key: 'account.name', sort: 'expenses_accounts.name' },
+      { label: 'Expense Type', key: 'expense_type.title', sort: 'finance_expense_types.title', format: CompactExpenseTypeToken },
+      { label: 'Vendor', key: 'vendor.name', sort: 'finance_vendors.name', format: CompactVendorToken },
+      { label: 'Account', key: 'account.name', sort: 'finance_accounts.name' },
       { label: 'Amount', key: 'amount', primary: true, format: 'currency', collapsing: true },
-      { label: 'Status', key: 'status', primary: true, sort: 'expenses_statuses.text', format: Status, collapsing: true }
+      { label: 'Status', key: 'status', primary: true, format: Status, collapsing: true }
     ],
     // criteria: [
     //   { label: 'item', fields: [
@@ -43,7 +43,6 @@ const mapPropsToPage = (props, context, resources) => ({
     //     { name: 'vendor', key: 'vendor_id', type: 'select', multiple: true, endpoint: '/api/admin/expenses/vendors', value: 'id', text: 'name', format: VendorToken },
     //     { name: 'account', key: 'account_id', type: 'select', multiple: true, endpoint: '/api/admin/expenses/accounts', value: 'id', text: 'name' },
     //     { name: 'date range', key: 'date', type: 'daterange', include: ['this','last'] },
-    //     { name: 'status', key: 'status_id', type: 'select', multiple: true, endpoint: '/api/admin/expenses/statuses', value: 'id', text: 'name', sort: 'id', format: StatusToken }
     //   ] }
     // ],
     filters: [
@@ -55,7 +54,7 @@ const mapPropsToPage = (props, context, resources) => ({
       { label: 'Vendor', name: 'vendor_id', type: 'select', multiple: true, endpoint: '/api/admin/expenses/vendors', value: 'id', text: 'name', format: VendorToken },
       { label: 'Account', name: 'account_id', type: 'select', multiple: true, endpoint: '/api/admin/expenses/accounts', value: 'id', text: 'name' },
       { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] },
-      { label: 'Status', name: 'status_id', type: 'select', multiple: true, endpoint: '/api/admin/expenses/statuses', value: 'id', text: 'name', sort: 'id', format: StatusToken }
+      { label: 'Status', name: 'status', type: 'select', multiple: true, options: ['incomplete','pending','submitted','approved','rejected','reviewed','processed'], format: StatusToken }
     ],
     export: [
       { label: 'ID', key: 'id' },

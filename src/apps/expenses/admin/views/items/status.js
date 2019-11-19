@@ -1,3 +1,4 @@
+import StatusToken from '../../tokens/status_token'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -32,7 +33,7 @@ class Status extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Status', name: 'status_id', type: 'lookup', endpoint: '/api/admin/expenses/statuses', value: 'id', text: 'text', sort: 'id' }
+            { label: 'Status', name: 'status', type: 'lookup', options: ['incomplete','pending','submitted','approved','rejected','reviewed','processed'], format: StatusToken }
           ]
         }
       ]

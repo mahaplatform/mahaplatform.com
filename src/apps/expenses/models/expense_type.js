@@ -2,7 +2,7 @@ import Model from '../../../core/objects/model'
 
 const ExpenseType = new Model({
 
-  tableName: 'expenses_expense_types',
+  tableName: 'finance_expense_types',
 
   rules: {
     title: 'required'

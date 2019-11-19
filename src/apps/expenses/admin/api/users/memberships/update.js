@@ -14,12 +14,12 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const members = await req.trx('expenses_members').where({
+  const members = await req.trx('finance_members').where({
     user_id: req.params.user_id
   })
 
   const existing = members.map(member => ({
-    member_type_id: member.member_type_id,
+    type: member.type,
     project_id: member.project_id
   }))
 
@@ -35,7 +35,7 @@ const updateRoute = async (req, res) => {
     const membership = _.find(existing, {
       project_id: member.project_id
     })
-    return membership !== undefined && membership.member_type_id !== member.member_type_id
+    return membership !== undefined && membership.type !== member.type
   })
 
   if(add.length === 0 && remove.length === 0 && update.length === 0) {
@@ -43,7 +43,7 @@ const updateRoute = async (req, res) => {
   }
 
   if(add) {
-    await req.trx('expenses_members').insert(add.map(member => ({
+    await req.trx('finance_members').insert(add.map(member => ({
       team_id: req.team.get('id'),
       user_id: req.params.user_id,
       ...member,
@@ -53,7 +53,7 @@ const updateRoute = async (req, res) => {
   }
 
   if(remove) {
-    await req.trx('expenses_members').where({
+    await req.trx('finance_members').where({
       user_id: req.params.user_id
     }).whereIn('project_id', remove.map(member => {
       return member.project_id
@@ -62,11 +62,11 @@ const updateRoute = async (req, res) => {
 
   if(update) {
     await Promise.mapSeries(update, async (member) => {
-      await req.trx('expenses_members').where({
+      await req.trx('finance_members').where({
         user_id: req.params.user_id,
         project_id: member.project_id
       }).update({
-        member_type_id: member.member_type_id,
+        type: member.type,
         updated_at: moment()
       })
     })

@@ -6,7 +6,7 @@ import { createExpense } from '../../../services/expenses'
 const createRoute = async (req, res) => {
 
   const code = await generateCode(req, {
-    table: 'expenses_expenses'
+    table: 'finance_expenses'
   })
 
   const line_items = req.body.line_items || [[]]
@@ -15,7 +15,7 @@ const createRoute = async (req, res) => {
 
     return await createExpense(req, {
       user_id: req.user.get('id'),
-      status_id: 1,
+      status: 'incomplete',
       code,
       ...req.body,
       ...line_item

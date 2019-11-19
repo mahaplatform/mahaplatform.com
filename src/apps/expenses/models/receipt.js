@@ -6,7 +6,7 @@ import Check from  './check'
 
 const Receipt = new Model({
 
-  tableName: 'expenses_receipts',
+  tableName: 'finance_receipts',
 
   asset() {
     return this.belongsTo(Asset, 'asset_id')

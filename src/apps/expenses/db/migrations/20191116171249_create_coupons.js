@@ -1,7 +1,7 @@
 const CreateCoupon = {
 
   up: async (knex) => {
-    await knex.schema.createTable('expenses_coupons', (table) => {
+    await knex.schema.createTable('finance_coupons', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
@@ -15,7 +15,7 @@ const CreateCoupon = {
   },
 
   down: async (knex) => {
-    await knex.schema.dropTable('expenses_coupons')
+    await knex.schema.dropTable('finance_coupons')
   }
 
 }

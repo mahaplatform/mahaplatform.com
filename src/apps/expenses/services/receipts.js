@@ -7,7 +7,7 @@ export const createReceipts = async (req, { type, item, receipt_ids }) => {
 
   if(_.isEqual(receipt_ids.sort(), item.get('receipt_ids').sort())) return
 
-  await req.trx('expenses_receipts').where({
+  await req.trx('finance_receipts').where({
     [`${type}_id`]: item.get('id')
   }).del()
 

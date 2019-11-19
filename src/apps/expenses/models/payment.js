@@ -7,7 +7,7 @@ import Refund from './refund'
 
 const Payment = new Model({
 
-  tableName: 'expenses_payments',
+  tableName: 'finance_payments',
 
   rules: {},
 

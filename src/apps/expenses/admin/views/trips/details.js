@@ -52,7 +52,7 @@ const Details = ({ trip, commentUrl }) => {
   ]
   list.items.push({ component: <Audit entries={ trip.audit } /> })
 
-  list.footer = <Comments entity={`expenses_trips/${trip.id}`} />
+  list.footer = <Comments entity={`finance_trips/${trip.id}`} />
 
   return <List { ...list } />
 }

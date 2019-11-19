@@ -3,7 +3,7 @@ import Expense from './expense'
 
 const Account = new Model({
 
-  tableName: 'expenses_accounts',
+  tableName: 'finance_accounts',
 
   virtuals: {
 

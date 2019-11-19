@@ -8,18 +8,18 @@ const models = ['advance','check','expense','reimbursement','trip']
 const mergeRoute = async (req, res) => {
 
   await Promise.map(models, async model => {
-    await req.trx(`expenses_${model}s`).where({
+    await req.trx(`finance_${model}s`).where({
       project_id: req.params.id
     }).update({
       project_id: req.body.project_id
     })
   })
 
-  const members = await req.trx('expenses_members').where({
+  const members = await req.trx('finance_members').where({
     project_id: req.params.id
   })
 
-  const new_members = await req.trx('expenses_members').where({
+  const new_members = await req.trx('finance_members').where({
     project_id: req.body.project_id
   })
 
@@ -28,38 +28,38 @@ const mergeRoute = async (req, res) => {
       return new_member.user_id === member.user_id
     })
     if(!exisiting) {
-      await req.trx('expenses_members').insert({
+      await req.trx('finance_members').insert({
         team_id: req.team.get('id'),
         project_id: req.body.project_id,
         user_id: member.user_id,
-        member_type_id: member.member_type_id,
+        type: member.type,
         created_at: moment(),
         updated_at: moment()
       })
-    } else if(exisiting.member_type_id > member.member_type_id) {
-      await req.trx('expenses_members').where({
+    } else if(exisiting.type === 'member' > member.type !== 'member' || exisiting.type === 'approver' > member.type === 'owner') {
+      await req.trx('finance_members').where({
         team_id: req.team.get('id'),
         project_id: req.body.project_id,
         user_id: exisiting.user_id,
-        member_type_id: exisiting.member_type_id,
+        type: exisiting.type,
         created_at: moment(),
         updated_at: moment()
       }).update({
-        member_type_id: member.member_type_id
+        type: member.type
       })
     }
   })
 
-  await req.trx('expenses_members').where({
+  await req.trx('finance_members').where({
     project_id: req.params.id
   }).del()
 
   await req.trx('maha_audits').where({
-    auditable_type: 'expenses_projects',
+    auditable_type: 'finance_projects',
     auditable_id: req.params.id
   }).del()
 
-  await req.trx('expenses_projects').where({
+  await req.trx('finance_projects').where({
     id: req.params.id
   }).del()
 

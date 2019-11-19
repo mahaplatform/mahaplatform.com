@@ -741,7 +741,7 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('expenses_accounts', (table) => {
+    await knex.schema.createTable('finance_accounts', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.string('name', 255)
@@ -751,22 +751,22 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('expenses_advances', (table) => {
+    await knex.schema.createTable('finance_advances', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('user_id').unsigned()
       table.integer('project_id').unsigned()
       table.integer('expense_type_id').unsigned()
-      table.integer('status_id').unsigned()
       table.date('date_needed')
       table.decimal('amount', 9, 2)
       table.text('description')
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('batch_id').unsigned()
+      table.USER-DEFINED('status')
     })
 
-    await knex.schema.createTable('expenses_batches', (table) => {
+    await knex.schema.createTable('finance_batches', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('user_id').unsigned()
@@ -778,14 +778,13 @@ const schema = {
       table.date('date')
     })
 
-    await knex.schema.createTable('expenses_checks', (table) => {
+    await knex.schema.createTable('finance_checks', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('user_id').unsigned()
       table.integer('project_id').unsigned()
       table.integer('expense_type_id').unsigned()
       table.integer('vendor_id').unsigned()
-      table.integer('status_id').unsigned()
       table.integer('batch_id').unsigned()
       table.string('delivery_method', 255)
       table.date('date_needed')
@@ -800,9 +799,10 @@ const schema = {
       table.decimal('total', 9, 2)
       table.decimal('tax_total', 6, 2)
       table.decimal('tax', 6, 2)
+      table.USER-DEFINED('status')
     })
 
-    await knex.schema.createTable('expenses_coupons', (table) => {
+    await knex.schema.createTable('finance_coupons', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.string('code', 255)
@@ -814,7 +814,7 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('expenses_credits', (table) => {
+    await knex.schema.createTable('finance_credits', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('contact_id').unsigned()
@@ -824,7 +824,7 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('expenses_expense_types', (table) => {
+    await knex.schema.createTable('finance_expense_types', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.string('title', 255)
@@ -835,14 +835,13 @@ const schema = {
       table.boolean('is_active').defaultsTo(false)
     })
 
-    await knex.schema.createTable('expenses_expenses', (table) => {
+    await knex.schema.createTable('finance_expenses', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('user_id').unsigned()
       table.integer('project_id').unsigned()
       table.integer('expense_type_id').unsigned()
       table.integer('vendor_id').unsigned()
-      table.integer('status_id').unsigned()
       table.date('date')
       table.text('description')
       table.decimal('amount', 9, 2)
@@ -855,9 +854,10 @@ const schema = {
       table.decimal('total', 9, 2)
       table.decimal('tax_total', 6, 2)
       table.decimal('tax', 6, 2)
+      table.USER-DEFINED('status')
     })
 
-    await knex.schema.createTable('expenses_invoices', (table) => {
+    await knex.schema.createTable('finance_invoices', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('contact_id').unsigned()
@@ -867,7 +867,7 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('expenses_line_items', (table) => {
+    await knex.schema.createTable('finance_line_items', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('invoice_id').unsigned()
@@ -879,25 +879,17 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('expenses_member_types', (table) => {
-      table.increments('id').primary()
-      table.string('name', 255)
-      table.text('description')
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
-    await knex.schema.createTable('expenses_members', (table) => {
+    await knex.schema.createTable('finance_members', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('project_id').unsigned()
       table.integer('user_id').unsigned()
-      table.integer('member_type_id').unsigned()
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.USER-DEFINED('type')
     })
 
-    await knex.schema.createTable('expenses_merchants', (table) => {
+    await knex.schema.createTable('finance_merchants', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.string('title', 255)
@@ -907,7 +899,7 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('expenses_payments', (table) => {
+    await knex.schema.createTable('finance_payments', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('invoice_id').unsigned()
@@ -923,7 +915,7 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('expenses_products', (table) => {
+    await knex.schema.createTable('finance_products', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('project_id').unsigned()
@@ -938,7 +930,7 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('expenses_projects', (table) => {
+    await knex.schema.createTable('finance_projects', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.string('title', 255)
@@ -950,13 +942,13 @@ const schema = {
       table.integer('tax_project_id').unsigned()
     })
 
-    await knex.schema.createTable('expenses_rates', (table) => {
+    await knex.schema.createTable('finance_rates', (table) => {
       table.increments('id').primary()
       table.integer('year')
       table.decimal('value', 4, 3)
     })
 
-    await knex.schema.createTable('expenses_receipts', (table) => {
+    await knex.schema.createTable('finance_receipts', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('expense_id').unsigned()
@@ -968,7 +960,7 @@ const schema = {
       table.integer('reimbursement_id').unsigned()
     })
 
-    await knex.schema.createTable('expenses_refunds', (table) => {
+    await knex.schema.createTable('finance_refunds', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('payment_id').unsigned()
@@ -978,14 +970,13 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('expenses_reimbursements', (table) => {
+    await knex.schema.createTable('finance_reimbursements', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('user_id').unsigned()
       table.integer('project_id').unsigned()
       table.integer('expense_type_id').unsigned()
       table.integer('vendor_id').unsigned()
-      table.integer('status_id').unsigned()
       table.integer('batch_id').unsigned()
       table.date('date')
       table.text('description')
@@ -995,9 +986,10 @@ const schema = {
       table.string('code', 255)
       table.string('delta', 255)
       table.decimal('total', 9, 2)
+      table.USER-DEFINED('status')
     })
 
-    await knex.schema.createTable('expenses_revenue_types', (table) => {
+    await knex.schema.createTable('finance_revenue_types', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.string('title', 255)
@@ -1008,7 +1000,7 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('expenses_scholarships', (table) => {
+    await knex.schema.createTable('finance_scholarships', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('contact_id').unsigned()
@@ -1017,18 +1009,12 @@ const schema = {
       table.timestamp('updated_at')
     })
 
-    await knex.schema.createTable('expenses_statuses', (table) => {
-      table.increments('id').primary()
-      table.string('text', 255)
-    })
-
-    await knex.schema.createTable('expenses_trips', (table) => {
+    await knex.schema.createTable('finance_trips', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('user_id').unsigned()
       table.integer('project_id').unsigned()
       table.integer('expense_type_id').unsigned()
-      table.integer('status_id').unsigned()
       table.date('date')
       table.text('description')
       table.time('time_leaving')
@@ -1041,9 +1027,10 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('batch_id').unsigned()
+      table.USER-DEFINED('status')
     })
 
-    await knex.schema.createTable('expenses_vendors', (table) => {
+    await knex.schema.createTable('finance_vendors', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.string('name', 255)
@@ -2258,89 +2245,83 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('expenses_accounts', table => {
+    await knex.schema.table('finance_accounts', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('expenses_advances', table => {
-      table.foreign('batch_id').references('expenses_batches.id')
-      table.foreign('expense_type_id').references('expenses_expense_types.id')
-      table.foreign('project_id').references('expenses_projects.id')
-      table.foreign('status_id').references('expenses_statuses.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('user_id').references('maha_users.id')
-    })
-
-    await knex.schema.table('expenses_batches', table => {
+    await knex.schema.table('finance_advances', table => {
+      table.foreign('batch_id').references('finance_batches.id')
+      table.foreign('expense_type_id').references('finance_expense_types.id')
+      table.foreign('project_id').references('finance_projects.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
     })
 
-    await knex.schema.table('expenses_checks', table => {
-      table.foreign('batch_id').references('expenses_batches.id')
-      table.foreign('expense_type_id').references('expenses_expense_types.id')
-      table.foreign('project_id').references('expenses_projects.id')
-      table.foreign('status_id').references('expenses_statuses.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('vendor_id').references('expenses_vendors.id')
-    })
-
-    await knex.schema.table('expenses_expense_types', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('expenses_expenses', table => {
-      table.foreign('account_id').references('expenses_accounts.id')
-      table.foreign('batch_id').references('expenses_batches.id')
-      table.foreign('expense_type_id').references('expenses_expense_types.id')
-      table.foreign('project_id').references('expenses_projects.id')
-      table.foreign('status_id').references('expenses_statuses.id')
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('user_id').references('maha_users.id')
-      table.foreign('vendor_id').references('expenses_vendors.id')
-    })
-
-    await knex.schema.table('expenses_members', table => {
-      table.foreign('member_type_id').references('expenses_member_types.id')
-      table.foreign('project_id').references('expenses_projects.id')
+    await knex.schema.table('finance_batches', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
     })
 
-    await knex.schema.table('expenses_projects', table => {
-      table.foreign('tax_project_id').references('expenses_projects.id')
+    await knex.schema.table('finance_checks', table => {
+      table.foreign('batch_id').references('finance_batches.id')
+      table.foreign('expense_type_id').references('finance_expense_types.id')
+      table.foreign('project_id').references('finance_projects.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+      table.foreign('vendor_id').references('finance_vendors.id')
+    })
+
+    await knex.schema.table('finance_expense_types', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('expenses_receipts', table => {
+    await knex.schema.table('finance_expenses', table => {
+      table.foreign('account_id').references('finance_accounts.id')
+      table.foreign('batch_id').references('finance_batches.id')
+      table.foreign('expense_type_id').references('finance_expense_types.id')
+      table.foreign('project_id').references('finance_projects.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+      table.foreign('vendor_id').references('finance_vendors.id')
+    })
+
+    await knex.schema.table('finance_members', table => {
+      table.foreign('project_id').references('finance_projects.id')
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('user_id').references('maha_users.id')
+    })
+
+    await knex.schema.table('finance_projects', table => {
+      table.foreign('tax_project_id').references('finance_projects.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('finance_receipts', table => {
       table.foreign('asset_id').references('maha_assets.id')
-      table.foreign('check_id').references('expenses_checks.id')
-      table.foreign('expense_id').references('expenses_expenses.id')
-      table.foreign('reimbursement_id').references('expenses_reimbursements.id')
+      table.foreign('check_id').references('finance_checks.id')
+      table.foreign('expense_id').references('finance_expenses.id')
+      table.foreign('reimbursement_id').references('finance_reimbursements.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('expenses_reimbursements', table => {
-      table.foreign('batch_id').references('expenses_batches.id')
-      table.foreign('expense_type_id').references('expenses_expense_types.id')
-      table.foreign('project_id').references('expenses_projects.id')
-      table.foreign('status_id').references('expenses_statuses.id')
+    await knex.schema.table('finance_reimbursements', table => {
+      table.foreign('batch_id').references('finance_batches.id')
+      table.foreign('expense_type_id').references('finance_expense_types.id')
+      table.foreign('project_id').references('finance_projects.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('vendor_id').references('expenses_vendors.id')
+      table.foreign('vendor_id').references('finance_vendors.id')
     })
 
-    await knex.schema.table('expenses_trips', table => {
-      table.foreign('batch_id').references('expenses_batches.id')
-      table.foreign('expense_type_id').references('expenses_expense_types.id')
-      table.foreign('project_id').references('expenses_projects.id')
-      table.foreign('status_id').references('expenses_statuses.id')
+    await knex.schema.table('finance_trips', table => {
+      table.foreign('batch_id').references('finance_batches.id')
+      table.foreign('expense_type_id').references('finance_expense_types.id')
+      table.foreign('project_id').references('finance_projects.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
     })
 
-    await knex.schema.table('expenses_vendors', table => {
+    await knex.schema.table('finance_vendors', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -2709,58 +2690,58 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('expenses_revenue_types', table => {
+    await knex.schema.table('finance_revenue_types', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('expenses_products', table => {
+    await knex.schema.table('finance_products', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('project_id').references('expenses_projects.id')
-      table.foreign('revenue_type_id').references('expenses_revenue_types.id')
+      table.foreign('project_id').references('finance_projects.id')
+      table.foreign('revenue_type_id').references('finance_revenue_types.id')
     })
 
-    await knex.schema.table('expenses_coupons', table => {
+    await knex.schema.table('finance_coupons', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('expenses_invoices', table => {
+    await knex.schema.table('finance_invoices', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('coupon_id').references('expenses_coupons.id')
+      table.foreign('coupon_id').references('finance_coupons.id')
       table.foreign('logo_id').references('maha_assets.id')
     })
 
-    await knex.schema.table('expenses_line_items', table => {
+    await knex.schema.table('finance_line_items', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('invoice_id').references('expenses_invoices.id')
-      table.foreign('product_id').references('expenses_products.id')
+      table.foreign('invoice_id').references('finance_invoices.id')
+      table.foreign('product_id').references('finance_products.id')
     })
 
-    await knex.schema.table('expenses_credits', table => {
+    await knex.schema.table('finance_credits', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('contact_id').references('crm_contacts.id')
     })
 
-    await knex.schema.table('expenses_scholarships', table => {
+    await knex.schema.table('finance_scholarships', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('contact_id').references('crm_contacts.id')
     })
 
-    await knex.schema.table('expenses_merchants', table => {
+    await knex.schema.table('finance_merchants', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('expenses_payments', table => {
+    await knex.schema.table('finance_payments', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('invoice_id').references('expenses_invoices.id')
-      table.foreign('credit_id').references('expenses_credits.id')
-      table.foreign('scholarship_id').references('expenses_scholarships.id')
-      table.foreign('merchant_id').references('expenses_merchants.id')
+      table.foreign('invoice_id').references('finance_invoices.id')
+      table.foreign('credit_id').references('finance_credits.id')
+      table.foreign('scholarship_id').references('finance_scholarships.id')
+      table.foreign('merchant_id').references('finance_merchants.id')
     })
 
-    await knex.schema.table('expenses_refunds', table => {
+    await knex.schema.table('finance_refunds', table => {
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('payment_id').references('expenses_payments.id')
+      table.foreign('payment_id').references('finance_payments.id')
     })
 
 
@@ -3223,9 +3204,8 @@ union
     `)
 
     await knex.raw(`
-      create view expenses_items AS
+      create view finance_items AS
       select row_number() over (order by items.type, items.item_id) as id,
-      items.code,
       items.item_id,
       items.team_id,
       items.import_id,
@@ -3233,149 +3213,108 @@ union
       items.date,
       items.user_id,
       items.project_id,
-      items.tax_project_id,
       items.expense_type_id,
       items.description,
-      items.account_number,
-      items.invoice_number,
       items.vendor_id,
-      items.total,
-      items.tax_total,
       items.amount,
-      items.tax,
       items.account_id,
-      items.status_id,
+      items.status,
       items.batch_id,
       items.created_at
-      from ( select null::character varying as code,
-      expenses_advances.id as item_id,
-      expenses_advances.team_id,
-      maha_imports_import_items.import_id,
+      from ( select finance_advances.id as item_id,
+      finance_advances.team_id,
+      maha_import_items.import_id,
       'advance'::text as type,
-      expenses_advances.date_needed as date,
-      expenses_advances.user_id,
-      expenses_advances.project_id,
-      expenses_projects.tax_project_id,
-      expenses_advances.expense_type_id,
-      expenses_advances.description,
-      null::text as account_number,
-      null::text as invoice_number,
+      finance_advances.date_needed as date,
+      finance_advances.user_id,
+      finance_advances.project_id,
+      finance_advances.expense_type_id,
+      finance_advances.description,
       null::integer as vendor_id,
-      null::numeric as total,
-      null::numeric as tax_total,
-      expenses_advances.amount,
-      null::numeric as tax,
+      finance_advances.amount,
       null::integer as account_id,
-      expenses_advances.status_id,
-      expenses_advances.batch_id,
-      expenses_advances.created_at
-      from ((expenses_advances
-      left join expenses_projects on ((expenses_projects.id = expenses_advances.project_id)))
-      left join maha_imports_import_items on (((maha_imports_import_items.object_id = expenses_advances.id) and ((maha_imports_import_items.object_type)::text = 'expenses_advances'::text))))
+      (finance_advances.status)::character varying as status,
+      finance_advances.batch_id,
+      finance_advances.created_at
+      from ((finance_advances
+      left join maha_import_items on ((maha_import_items.object_id = finance_advances.id)))
+      left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'finance_advances'::text))))
       union
-      select expenses_expenses.code,
-      expenses_expenses.id as item_id,
-      expenses_expenses.team_id,
-      maha_imports_import_items.import_id,
+      select finance_expenses.id as item_id,
+      finance_expenses.team_id,
+      maha_import_items.import_id,
       'expense'::text as type,
-      expenses_expenses.date,
-      expenses_expenses.user_id,
-      expenses_expenses.project_id,
-      expenses_projects.tax_project_id,
-      expenses_expenses.expense_type_id,
-      expenses_expenses.description,
-      null::text as account_number,
-      null::text as invoice_number,
-      expenses_expenses.vendor_id,
-      expenses_expenses.total,
-      expenses_expenses.tax_total,
-      expenses_expenses.amount,
-      expenses_expenses.tax,
-      expenses_expenses.account_id,
-      expenses_expenses.status_id,
-      expenses_expenses.batch_id,
-      expenses_expenses.created_at
-      from ((expenses_expenses
-      left join expenses_projects on ((expenses_projects.id = expenses_expenses.project_id)))
-      left join maha_imports_import_items on (((maha_imports_import_items.object_id = expenses_expenses.id) and ((maha_imports_import_items.object_type)::text = 'expenses_expenses'::text))))
+      finance_expenses.date,
+      finance_expenses.user_id,
+      finance_expenses.project_id,
+      finance_expenses.expense_type_id,
+      finance_expenses.description,
+      finance_expenses.vendor_id,
+      finance_expenses.amount,
+      finance_expenses.account_id,
+      (finance_expenses.status)::character varying as status,
+      finance_expenses.batch_id,
+      finance_expenses.created_at
+      from ((finance_expenses
+      left join maha_import_items on ((maha_import_items.object_id = finance_expenses.id)))
+      left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'finance_expenses'::text))))
       union
-      select null::character varying as code,
-      expenses_trips.id as item_id,
-      expenses_trips.team_id,
-      maha_imports_import_items.import_id,
+      select finance_trips.id as item_id,
+      finance_trips.team_id,
+      maha_import_items.import_id,
       'trip'::text as type,
-      expenses_trips.date,
-      expenses_trips.user_id,
-      expenses_trips.project_id,
-      expenses_projects.tax_project_id,
-      expenses_trips.expense_type_id,
-      expenses_trips.description,
-      null::text as account_number,
-      null::text as invoice_number,
+      finance_trips.date,
+      finance_trips.user_id,
+      finance_trips.project_id,
+      finance_trips.expense_type_id,
+      finance_trips.description,
       null::integer as vendor_id,
-      null::numeric as total,
-      null::numeric as tax_total,
-      expenses_trips.amount,
-      null::numeric as tax,
+      finance_trips.amount,
       null::integer as account_id,
-      expenses_trips.status_id,
-      expenses_trips.batch_id,
-      expenses_trips.created_at
-      from ((expenses_trips
-      left join expenses_projects on ((expenses_projects.id = expenses_trips.project_id)))
-      left join maha_imports_import_items on (((maha_imports_import_items.object_id = expenses_trips.id) and ((maha_imports_import_items.object_type)::text = 'expenses_trips'::text))))
+      (finance_trips.status)::character varying as status,
+      finance_trips.batch_id,
+      finance_trips.created_at
+      from ((finance_trips
+      left join maha_import_items on ((maha_import_items.object_id = finance_trips.id)))
+      left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'finance_trips'::text))))
       union
-      select expenses_checks.code,
-      expenses_checks.id as item_id,
-      expenses_checks.team_id,
-      maha_imports_import_items.import_id,
+      select finance_checks.id as item_id,
+      finance_checks.team_id,
+      maha_import_items.import_id,
       'check'::text as type,
-      expenses_checks.date_needed as date,
-      expenses_checks.user_id,
-      expenses_checks.project_id,
-      expenses_projects.tax_project_id,
-      expenses_checks.expense_type_id,
-      expenses_checks.description,
-      expenses_checks.account_number,
-      expenses_checks.invoice_number,
-      expenses_checks.vendor_id,
-      expenses_checks.total,
-      expenses_checks.tax_total,
-      expenses_checks.amount,
-      expenses_checks.tax,
+      finance_checks.date_needed as date,
+      finance_checks.user_id,
+      finance_checks.project_id,
+      finance_checks.expense_type_id,
+      finance_checks.description,
+      finance_checks.vendor_id,
+      finance_checks.amount,
       null::integer as account_id,
-      expenses_checks.status_id,
-      expenses_checks.batch_id,
-      expenses_checks.created_at
-      from ((expenses_checks
-      left join expenses_projects on ((expenses_projects.id = expenses_checks.project_id)))
-      left join maha_imports_import_items on (((maha_imports_import_items.object_id = expenses_checks.id) and ((maha_imports_import_items.object_type)::text = 'expenses_checks'::text))))
+      (finance_checks.status)::character varying as status,
+      finance_checks.batch_id,
+      finance_checks.created_at
+      from ((finance_checks
+      left join maha_import_items on ((maha_import_items.object_id = finance_checks.id)))
+      left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'finance_checks'::text))))
       union
-      select expenses_reimbursements.code,
-      expenses_reimbursements.id as item_id,
-      expenses_reimbursements.team_id,
-      maha_imports_import_items.import_id,
+      select finance_reimbursements.id as item_id,
+      finance_reimbursements.team_id,
+      maha_import_items.import_id,
       'reimbursement'::text as type,
-      expenses_reimbursements.date,
-      expenses_reimbursements.user_id,
-      expenses_reimbursements.project_id,
-      expenses_projects.tax_project_id,
-      expenses_reimbursements.expense_type_id,
-      expenses_reimbursements.description,
-      null::text as account_number,
-      null::text as invoice_number,
-      expenses_reimbursements.vendor_id,
-      expenses_reimbursements.total,
-      null::numeric as tax_total,
-      expenses_reimbursements.amount,
-      null::numeric as tax,
+      finance_reimbursements.date,
+      finance_reimbursements.user_id,
+      finance_reimbursements.project_id,
+      finance_reimbursements.expense_type_id,
+      finance_reimbursements.description,
+      finance_reimbursements.vendor_id,
+      finance_reimbursements.amount,
       null::integer as account_id,
-      expenses_reimbursements.status_id,
-      expenses_reimbursements.batch_id,
-      expenses_reimbursements.created_at
-      from ((expenses_reimbursements
-      left join expenses_projects on ((expenses_projects.id = expenses_reimbursements.project_id)))
-      left join maha_imports_import_items on (((maha_imports_import_items.object_id = expenses_reimbursements.id) and ((maha_imports_import_items.object_type)::text = 'expenses_reimbursements'::text))))) items;
+      (finance_reimbursements.status)::character varying as status,
+      finance_reimbursements.batch_id,
+      finance_reimbursements.created_at
+      from ((finance_reimbursements
+      left join maha_import_items on ((maha_import_items.object_id = finance_reimbursements.id)))
+      left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'finance_reimbursements'::text))))) items;
     `)
 
     await knex.raw(`
@@ -3468,7 +3407,7 @@ union
       maha_groupings.id as grouping_id,
       maha_users.id as user_id
       from ((maha_users
-      join expenses_members on (((expenses_members.user_id = maha_users.id) and (expenses_members.member_type_id <> 3))))
+      join finance_members on (((finance_members.user_id = maha_users.id) and (finance_members.type <> 'member'::expenses_members_type))))
       join maha_groupings on ((maha_groupings.id = 4)));
     `)
 

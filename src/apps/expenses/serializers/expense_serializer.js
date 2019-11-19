@@ -6,7 +6,7 @@ const expenseSerializer = (req, result) => ({
   approver_ids: result.get('approver_ids'),
   vendor: vendor(result.related('vendor')),
   user: user(result.related('user')),
-  status: result.related('status').get('text'),
+  status: result.get('status'),
   account: account(result.related('account')),
   total: result.get('total'),
   tax_total: result.get('tax_total'),

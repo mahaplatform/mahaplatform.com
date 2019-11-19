@@ -26,10 +26,11 @@ const editRoute = async (req, res) => {
     date: reimbursement.get('date'),
     receipt_ids: reimbursement.get('receipt_ids'),
     vendor_id: reimbursement.get('vendor_id'),
+    status: reimbursement.get('status'),
     total: reimbursement.get('total'),
     line_items: reimbursement.related('line_items').map(line_item => {
-      const is_owner_can_edit = line_item.get('owner_id') === req.user.get('id') && _.includes([1,2,5], line_item.get('status_id'))
-      const is_approver_can_edit = _.includes(line_item.get('approver_ids'), req.user.get('id')) && _.includes([1,2,3,4,5], line_item.get('status_id'))
+      const is_owner_can_edit = line_item.get('owner_id') === req.user.get('id') && _.includes(['incomplete','pending','rejected'], line_item.get('status'))
+      const is_approver_can_edit = _.includes(line_item.get('approver_ids'), req.user.get('id')) && _.includes(['incomplete','pending','submitted','approved','rejected'], line_item.get('status'))
       return {
         id: line_item.get('id'),
         project_id: line_item.get('project_id'),
@@ -37,7 +38,7 @@ const editRoute = async (req, res) => {
         description: line_item.get('description'),
         amount: line_item.get('amount'),
         can_edit: is_admin || is_owner_can_edit || is_approver_can_edit,
-        can_delete: line_item.get('id') !== reimbursement.get('id') && _.includes([1,2], line_item.get('status_id'))
+        can_delete: line_item.get('id') !== reimbursement.get('id') && _.includes(['incomplete','pending'], line_item.get('status'))
       }
     })
   }))

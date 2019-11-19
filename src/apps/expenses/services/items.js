@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 export const completeItem = async (req, { item, required }) => {
 
-  if(item.get('status_id') !== 1) return
+  if(item.get('status') !== 'incomplete') return
 
   const complete = required.reduce((complete, key) => {
     const value = item.get(key)
@@ -14,7 +14,7 @@ export const completeItem = async (req, { item, required }) => {
   if(!complete) return
 
   await item.save({
-    status_id: 2
+    status: 'pending'
   }, {
     patch: true,
     transacting: req.trx

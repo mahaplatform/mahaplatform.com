@@ -4,7 +4,7 @@ import Payment from './payment'
 
 const Scholarship = new Model({
 
-  tableName: 'expenses_scholarships',
+  tableName: 'finance_scholarships',
 
   rules: {},
 

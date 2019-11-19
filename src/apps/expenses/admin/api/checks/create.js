@@ -6,7 +6,7 @@ import socket from '../../../../../core/services/routes/emitter'
 const createRoute = async (req, res) => {
 
   const code = await generateCode(req, {
-    table: 'expenses_checks'
+    table: 'finance_checks'
   })
 
   const line_items = req.body.line_items || [[]]
@@ -15,7 +15,7 @@ const createRoute = async (req, res) => {
 
     return await createCheck(req, {
       user_id: req.user.get('id'),
-      status_id: 1,
+      status: 'incomplete',
       code,
       ...req.body,
       ...line_item

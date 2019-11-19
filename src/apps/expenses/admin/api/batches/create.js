@@ -51,11 +51,11 @@ const createRoute = async (req, res) => {
   }), {})
 
   await Promise.map(Object.keys(models), async type => {
-    await req.trx(`expenses_${type}s`)
+    await req.trx(`finance_${type}s`)
       .whereIn('id', models[type])
       .update({
         batch_id: batch.get('id'),
-        status_id: 7
+        status: 'processed'
       })
   })
 
@@ -67,7 +67,7 @@ const createRoute = async (req, res) => {
   await audit(req, items.map(item => ({
     story: 'processed',
     auditable: {
-      tableName: `expenses_${item.get('type')}s`,
+      tableName: `finance_${item.get('type')}s`,
       id: item.get('item_id')
     }
   })))

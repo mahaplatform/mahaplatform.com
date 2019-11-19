@@ -4,9 +4,9 @@ import generateCode from '../../../../../core/utils/generate_code'
 import socket from '../../../../../core/services/routes/emitter'
 
 const createRoute = async (req, res) => {
-  
+
   const code = await generateCode(req, {
-    table: 'expenses_reimbursements'
+    table: 'finance_reimbursements'
   })
 
   const line_items = req.body.line_items || [[]]
@@ -15,7 +15,7 @@ const createRoute = async (req, res) => {
 
     return await createReimbursement(req, {
       user_id: req.user.get('id'),
-      status_id: 1,
+      status: 'incomplete',
       code,
       ...req.body,
       ...line_item

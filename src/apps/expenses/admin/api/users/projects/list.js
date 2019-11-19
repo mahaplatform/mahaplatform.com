@@ -4,17 +4,16 @@ import Project from '../../../../models/project'
 const listRoute = async (req, res) => {
 
   const projects = await Project.scope(qb => {
-    qb.select('expenses_projects.*', 'expenses_member_types.name as member_type')
-    qb.joinRaw('inner join expenses_members on expenses_members.project_id=expenses_projects.id and expenses_members.user_id=?', [req.params.user_id])
-    qb.joinRaw('inner join expenses_member_types on expenses_member_types.id=expenses_members.member_type_id')
-    qb.where('expenses_projects.is_active', true)
-    qb.where('expenses_projects.team_id', req.team.get('id'))
+    qb.select('finance_projects.*', 'finance_members.type as member_type')
+    qb.joinRaw('inner join finance_members on finance_members.project_id=finance_projects.id and finance_members.user_id=?', [req.params.user_id])
+    qb.where('finance_projects.is_active', true)
+    qb.where('finance_projects.team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
-    searchParams: ['expenses_projects.title','integration->>\'project_code\'']
+    searchParams: ['finance_projects.title','integration->>\'project_code\'']
   }).sort({
     sort: req.query.$sort,
-    defaultSort: ['expenses_projects.integration->>\'project_code\'', 'expenses_projects.title']
+    defaultSort: ['finance_projects.integration->>\'project_code\'', 'finance_projects.title']
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx

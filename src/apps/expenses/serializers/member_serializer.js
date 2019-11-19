@@ -2,7 +2,7 @@ const memberSerializer = (req, result) => ({
   id: result.get('id'),
   user: user(result.related('user')),
   project: project(result.related('project')),
-  member_type_id: result.get('member_type_id')
+  type: result.get('type')
 })
 
 const user = (user) => {

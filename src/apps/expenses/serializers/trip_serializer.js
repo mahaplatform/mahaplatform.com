@@ -13,7 +13,7 @@ const tripSerializer = (req, result) => ({
   total_miles: result.get('total_miles'),
   mileage_rate: result.get('mileage_rate'),
   amount: result.get('amount'),
-  status: result.related('status').get('text'),
+  status: result.get('status'),
   audit: result.related('audit').map(audit),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

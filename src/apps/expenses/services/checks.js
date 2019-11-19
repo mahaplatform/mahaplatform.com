@@ -9,7 +9,7 @@ export const createCheck = async (req, params) => {
 
   const check = await Check.forge({
     team_id: req.team.get('id'),
-    status_id: 1,
+    status: 'incomplete',
     ...whitelist(params, ['user_id','code','date_needed','vendor_id','delivery_method','invoice_number','account_number','total','tax_total','project_id','expense_type_id','description','amount','tax'])
   }).save(null, {
     transacting: req.trx
@@ -76,11 +76,11 @@ export const updateCheck = async (req, check, params) => {
 
 export const destroyCheck = async (req, check) => {
 
-  await req.trx('expenses_receipts').where('check_id', check.get('id')).delete()
+  await req.trx('finance_receipts').where('check_id', check.get('id')).delete()
 
-  await req.trx('maha_audits').where('auditable_type', 'expenses_checks').where('auditable_id', check.get('id')).delete()
+  await req.trx('maha_audits').where('auditable_type', 'finance_checks').where('auditable_id', check.get('id')).delete()
 
-  await req.trx('maha_comments').where('commentable_type', 'expenses_checks').where('commentable_id', check.get('id')).delete()
+  await req.trx('maha_comments').where('commentable_type', 'finance_checks').where('commentable_id', check.get('id')).delete()
 
   await activity(req, {
     story: 'deleted {object}',

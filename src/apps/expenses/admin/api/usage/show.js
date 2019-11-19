@@ -28,7 +28,7 @@ const showRoute = async (req, res) => {
     from (
     select maha_users.*
     from maha_users
-    inner join expenses_items on expenses_items.user_id=maha_users.id
+    inner join finance_items on finance_items.user_id=maha_users.id
     where maha_users.is_active=true
     group by maha_users.id
     order by maha_users.id
@@ -42,9 +42,9 @@ const showRoute = async (req, res) => {
   }), {}))
 
   const user_type_items = await req.trx.raw(`
-    select maha_users.user_type_id,count(expenses_items.id) as count
-    from expenses_items
-    inner join maha_users on maha_users.id=expenses_items.user_id
+    select maha_users.user_type_id,count(finance_items.id) as count
+    from finance_items
+    inner join maha_users on maha_users.id=finance_items.user_id
     where maha_users.is_active=true
     group by maha_users.user_type_id
   `).then(result => result.rows.reduce((items, item) => ({
@@ -71,7 +71,7 @@ const showRoute = async (req, res) => {
     from (
     select maha_users.*
     from maha_users
-    inner join expenses_items on expenses_items.user_id=maha_users.id
+    inner join finance_items on finance_items.user_id=maha_users.id
     where maha_users.is_active=true
     group by maha_users.id
     order by maha_users.id
@@ -87,10 +87,10 @@ const showRoute = async (req, res) => {
 
 
   const group_items = await req.trx.raw(`
-    select maha_users.user_type_id,maha_users_groups.group_id,count(expenses_items.id) as count
-    from expenses_items
-    inner join maha_users on maha_users.id=expenses_items.user_id
-    left join maha_users_groups on maha_users_groups.user_id=expenses_items.user_id
+    select maha_users.user_type_id,maha_users_groups.group_id,count(finance_items.id) as count
+    from finance_items
+    inner join maha_users on maha_users.id=finance_items.user_id
+    left join maha_users_groups on maha_users_groups.user_id=finance_items.user_id
     where maha_users.is_active=true
     group by maha_users.user_type_id,maha_users_groups.group_id
     order by maha_users.user_type_id,maha_users_groups.group_id

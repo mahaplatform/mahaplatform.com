@@ -4,7 +4,7 @@ import Project from './project'
 
 const Product = new Model({
 
-  tableName: 'expenses_products',
+  tableName: 'finance_products',
 
   rules: {},
 

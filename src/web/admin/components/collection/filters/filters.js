@@ -60,7 +60,7 @@ class Filters extends React.Component {
   }
 
   _getValue(value) {
-    if(value.$in) return value.$in.map(key => ({ key, value: '' }))
+    if(value.$in) return value.$in
     if(value.$eq) return { key: value.$eq, value: '' }
     if(value.$dr) return { key: value.$dr, value: '' }
     return value
@@ -68,7 +68,6 @@ class Filters extends React.Component {
 
   _handleChange() {
     const { filtered } = this.props
-    console.log(filtered)
     this.props.onUpdate(filtered)
   }
 

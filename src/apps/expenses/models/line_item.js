@@ -4,7 +4,7 @@ import Invoice from './invoice'
 
 const LineItem = new Model({
 
-  tableName: 'expenses_line_items',
+  tableName: 'finance_line_items',
 
   rules: {},
 

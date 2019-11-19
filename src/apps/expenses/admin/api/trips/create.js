@@ -27,7 +27,7 @@ const createRoute = async (req, res) => {
   const trip = await Trip.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
-    status_id: 1,
+    status: 'incomplete',
     expense_type_id: req.apps.expenses.settings.trip_expense_type_id,
     mileage_rate,
     amount,

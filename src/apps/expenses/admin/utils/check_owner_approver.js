@@ -12,7 +12,7 @@ export default (user, token) => {
 
     return response.entity.data.reduce((allowed, membership) => {
 
-      return !allowed ? _.includes(['owner','approver'], membership.member_type) : true
+      return !allowed ? _.includes(['owner','approver'], membership.type) : true
 
     }, false)
 

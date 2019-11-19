@@ -6,7 +6,6 @@ import Reimbursement from '../../../models/reimbursement'
 import Expense from '../../../models/expense'
 import Advance from '../../../models/advance'
 import Check from '../../../models/check'
-import Status from '../../../models/status'
 import Trip from '../../../models/trip'
 import _ from 'lodash'
 
@@ -38,7 +37,7 @@ const statusRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(item.get('status_id') === req.body.status_id) return res.status(403).respond({
+  if(item.get('status') === req.body.status) return res.status(403).respond({
     code: 403,
     message: 'You are not allowed to perform this action'
   })
@@ -50,26 +49,20 @@ const statusRoute = async (req, res) => {
     message: 'You are not allowed to perform this action'
   })
 
-  const status = await Status.query(qb => {
-    qb.where('id', req.body.status_id)
-  }).fetch({
-    transacting: req.trx
-  })
-
   await item.save({
-    status_id: req.body.status_id
+    status: req.body.status
   }, {
     patch: true,
     transacting: req.trx
   })
 
   await activity(req, {
-    story: `changed {object} to ${status.get('text')}`,
+    story: `changed {object} to ${req.body.status}`,
     object: item
   })
 
   await audit(req, {
-    story: `status changed to ${status.get('text')}`,
+    story: `status changed to ${req.body.status}`,
     auditable: item
   })
 
@@ -77,7 +70,7 @@ const statusRoute = async (req, res) => {
     type: 'expenses:item_changed',
     listenable: item,
     subject_id: req.user.get('id'),
-    story: `changed {object} to ${status.get('text')}`,
+    story: `changed {object} to ${req.body.status}`,
     object: item
   })
 

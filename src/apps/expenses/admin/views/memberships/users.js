@@ -29,11 +29,11 @@ class Users extends React.Component {
       text: 'full_name',
       title: 'Manage Users',
       typesFormat: (membership) => <CompactMemberTypeToken { ...membership } />,
-      typesName: 'member_type_id',
+      typesName: 'type',
       typesOptions: [
-        { value: 3, text: 'member' },
-        { value: 2, text: 'approver' },
-        { value: 1, text: 'owner' }
+        { value: 'member', text: 'member' },
+        { value: 'approver', text: 'approver' },
+        { value: 'owner', text: 'owner' }
       ],
       unassignedEndpoint: '/api/admin/users',
       unassignedFormat: (user) => <UserToken { ...user } />,

@@ -3,7 +3,7 @@ import Member from './member'
 
 const Project = new Model({
 
-  tableName: 'expenses_projects',
+  tableName: 'finance_projects',
 
   rules: {
     title: ['required', 'unique']

@@ -11,7 +11,7 @@ const createRoute = async (req, res) => {
   const advance = await Advance.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
-    status_id: 1,
+    status: 'incomplete',
     ...whitelist(req.body, ['project_id','expense_type_id','date_needed','description','amount','description'])
   }).save(null, {
     transacting: req.trx

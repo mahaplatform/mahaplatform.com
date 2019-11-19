@@ -9,7 +9,7 @@ import Trip from './trip'
 
 const Batch = new Model({
 
-  tableName: 'expenses_batches',
+  tableName: 'finance_batches',
 
   advances() {
     return this.hasMany(Advance, 'batch_id')

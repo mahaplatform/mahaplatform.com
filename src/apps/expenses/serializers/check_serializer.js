@@ -13,7 +13,7 @@ const checkSerializer = (req, result) => ({
   vendor: vendor(result.related('vendor')),
   user: user(result.related('user')),
   amount: result.get('amount'),
-  status: result.related('status').get('text'),
+  status: result.get('status'),
   total: result.get('total'),
   tax_total: result.get('tax_total'),
   project: project(result.related('project')),

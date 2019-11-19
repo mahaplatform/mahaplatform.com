@@ -3,7 +3,7 @@ import Payment from './payment'
 
 const Merchant = new Model({
 
-  tableName: 'expenses_merchants',
+  tableName: 'finance_merchants',
 
   rules: {},
 

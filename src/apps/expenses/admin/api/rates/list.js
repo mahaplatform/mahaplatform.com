@@ -3,7 +3,7 @@ import Rate from '../../../models/rate'
 
 const listRoute = async (req, res) => {
 
-  const rates = await Rate.sort({
+  const rates = await Rate.scope().sort({
     sort: req.query.$sort,
     defaultSort: ['year'],
     sortParams: ['year','value']

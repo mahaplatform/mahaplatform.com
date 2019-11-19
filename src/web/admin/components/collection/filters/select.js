@@ -23,6 +23,11 @@ class SelectPanel extends React.Component {
     onRemovePanel: PropTypes.func
   }
 
+  static defaultProps = {
+    text: 'text',
+    value: 'value'
+  }
+
   _handleChange = this._handleChange.bind(this)
   _handleRemovePanel = this._handleRemovePanel.bind(this)
   _handleReset = this._handleReset.bind(this)
@@ -56,10 +61,17 @@ class SelectPanel extends React.Component {
     }
   }
 
+  _getOptions() {
+    return this.props.options.map(option => {
+      return _.isString(option) ? { value: option, text: option } : option
+    })
+  }
+
   _getSearch() {
-    const { endpoint, filter, format, label, name, multiple, options, sort, text, value, results } = this.props
+    const { endpoint, filter, format, label, name, multiple, sort, text, value, results } = this.props
     const defaultValue = results[name]
     const onChange = this._handleChange
+    const options = this._getOptions()
     return { defaultValue, endpoint, filter, format, label, multiple, options, sort, text, value, onChange }
   }
 
