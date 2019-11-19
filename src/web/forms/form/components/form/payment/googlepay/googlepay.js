@@ -5,6 +5,7 @@ class Card extends React.Component {
 
   static propTypes = {
     payment: PropTypes.object,
+    summary: PropTypes.object,
     token: PropTypes.string,
     onChoose: PropTypes.func,
     onSubmit: PropTypes.func,
@@ -55,9 +56,9 @@ class Card extends React.Component {
   }
 
   _handlePayment() {
-    const { token, onChoose, onSubmit } = this.props
+    const { summary, token, onChoose, onSubmit } = this.props
     onChoose('googlepay')
-    onSubmit(token)
+    onSubmit(token, summary)
   }
 
 }

@@ -2,7 +2,7 @@ import { getGateway } from './utils'
 
 const tokenRoute = async (req, res) => {
 
-  const gateway = getGateway('zzwjk4rf85jn7mwq')
+  const gateway = getGateway()
 
   const response = await new Promise((resolve, reject) => {
     gateway.clientToken.generate((err, response) => {

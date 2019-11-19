@@ -6,6 +6,7 @@ import React from 'react'
 class Payment extends React.Component {
 
   static propTypes = {
+    program: PropTypes.object,
     summary: PropTypes.object,
     token: PropTypes.string,
     onFetch: PropTypes.func,
@@ -27,9 +28,11 @@ class Payment extends React.Component {
   }
 
   _getMethods() {
-    const { token, onPayment } = this.props
+    const { program, summary, token, onPayment } = this.props
     return {
+      program,
       token,
+      summary,
       onSuccess: onPayment
     }
   }

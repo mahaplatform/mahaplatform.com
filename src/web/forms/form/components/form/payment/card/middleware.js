@@ -26,7 +26,7 @@ export default store => next => action => {
 
   return client.create({
     authorization: action.token
-  }).then(function(clientInstance) {
+  }).then(clientInstance => {
     return  clientInstance.request({
       endpoint: 'payment_methods/credit_cards',
       method: 'post',
@@ -34,9 +34,9 @@ export default store => next => action => {
         credit_card: action.data
       }
     })
-  }).then(function(response) {
+  }).then(response => {
     success(response.creditCards[0])
-  }).catch(function (err) {
+  }).catch(err => {
     return failure(err)
   })
 

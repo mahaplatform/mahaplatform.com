@@ -1,18 +1,11 @@
-import PropTypes from 'prop-types'
-import React from 'react'
+import { Factory } from 'redux-rubberstamp'
+import reducer from './reducer'
+import applepay from './applepay'
+import * as actions from './actions'
 
-class ApplePay extends React.Component {
-
-  static propTypes = {
-  }
-
-  render() {
-    return (
-      <div className="maha-payment-form">
-      </div>
-    )
-  }
-
-}
-
-export default ApplePay
+export default Factory({
+  namespace: 'applepay',
+  component: applepay,
+  reducer,
+  actions
+})

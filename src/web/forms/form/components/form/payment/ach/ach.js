@@ -17,6 +17,7 @@ class ACH extends React.Component {
     region: PropTypes.string,
     routingNumber: PropTypes.string,
     streetAddress: PropTypes.string,
+    summary: PropTypes.object,
     token: PropTypes.string,
     onSubmit: PropTypes.func,
     onSuccess: PropTypes.func,

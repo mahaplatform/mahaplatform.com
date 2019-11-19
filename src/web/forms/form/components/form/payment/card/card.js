@@ -8,6 +8,7 @@ class Card extends React.Component {
     expirationDate: PropTypes.string,
     number: PropTypes.string,
     payment: PropTypes.object,
+    summary: PropTypes.object,
     token: PropTypes.string,
     onSubmit: PropTypes.func,
     onSuccess: PropTypes.func,

@@ -1,4 +1,5 @@
 import GooglePay from '../googlepay'
+import ApplePay from '../applepay'
 import PropTypes from 'prop-types'
 import PayPal from '../paypal'
 import Card from '../card'
@@ -14,7 +15,9 @@ class Methods extends React.Component {
 
   static propTypes = {
     methods: PropTypes.array,
-    token: PropTypes.array,
+    program: PropTypes.object,
+    summary: PropTypes.object,
+    token: PropTypes.string,
     selected: PropTypes.number,
     onChoose: PropTypes.func,
     onSuccess: PropTypes.func
@@ -42,6 +45,11 @@ class Methods extends React.Component {
               Bank Account
             </div>
           </div>
+          { window.ApplePaySession && window.ApplePaySession.supportsVersion(3) && window.ApplePaySession.canMakePayments() &&
+            <div className="maha-payment-option">
+              <ApplePay { ...this._getMethod('applepay') } />
+            </div>
+          }
           <div className="maha-payment-option">
             <GooglePay { ...this._getMethod('googlepay') } />
           </div>
@@ -72,8 +80,10 @@ class Methods extends React.Component {
   }
 
   _getMethod(method) {
-    const { token } = this.props
+    const { program, summary, token } = this.props
     return {
+      program,
+      summary,
       token,
       onChoose: this._handleChoose.bind(this, method),
       onSuccess: this._handleSuccess.bind(this, method)

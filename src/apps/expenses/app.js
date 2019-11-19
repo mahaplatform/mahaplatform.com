@@ -1,6 +1,6 @@
 const app = {
   code: 'expenses',
-  title: 'Expenses',
+  title: 'Finance',
   path: '/expenses',
   description: 'Manage expenses for expenses, advances, and vehicle trips',
   color: 'green',

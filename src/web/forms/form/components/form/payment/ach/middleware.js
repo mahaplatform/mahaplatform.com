@@ -27,18 +27,18 @@ export default store => next => action => {
 
   return client.create({
     authorization: action.token
-  }).then(function(clientInstance) {
+  }).then(clientInstance => {
     return usBankAccount.create({
       client: clientInstance
     })
-  }).then(function(usBankAccountInstance) {
+  }).then(usBankAccountInstance => {
     return usBankAccountInstance.tokenize({
       bankDetails: action.data,
       mandateText: action.mandate
     }, function (err, response) {
       success(response)
     })
-  }).catch(function (err) {
+  }).catch(err => {
     return failure(err)
   })
 

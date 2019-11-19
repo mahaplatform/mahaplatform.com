@@ -39,7 +39,7 @@ const createTransaction = async (req, gateway) => {
 
 const createRoute = async (req, res) => {
 
-  const gateway = getGateway('zzwjk4rf85jn7mwq')
+  const gateway = getGateway()
 
   const transaction = await createTransaction(req, gateway)
 

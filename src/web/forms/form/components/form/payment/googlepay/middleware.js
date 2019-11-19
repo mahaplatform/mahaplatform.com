@@ -33,12 +33,12 @@ export default store => next => action => {
 
   return client.create({
     authorization: action.token
-  }).then(function(clientInstance) {
+  }).then(clientInstance => {
     return googlePayment.create({
       client: clientInstance,
       googlePayVersion: 2
     })
-  }).then(function (instance) {
+  }).then(instance => {
     googlePaymentInstance = instance
     return paymentsClient.isReadyToPay({
       apiVersion: 2,
@@ -46,23 +46,17 @@ export default store => next => action => {
       allowedPaymentMethods: googlePaymentInstance.createPaymentDataRequest().allowedPaymentMethods,
       existingPaymentMethodRequired: true
     })
-  }).then(function (isReadyToPay) {
+  }).then(isReadyToPay => {
     if(!isReadyToPay.result) return
     var paymentDataRequest = googlePaymentInstance.createPaymentDataRequest({
       transactionInfo: {
         currencyCode: 'USD',
         totalPriceStatus: 'FINAL',
-        totalPrice: '100.00'
+        totalPrice: action.data.total
       }
     })
-    // var cardPaymentMethod = paymentDataRequest.allowedPaymentMethods[0]
-    // cardPaymentMethod.parameters.billingAddressRequired = true
-    // cardPaymentMethod.parameters.billingAddressParameters = {
-    //   format: 'FULL',
-    //   phoneNumberRequired: true
-    // }
     return  paymentsClient.loadPaymentData(paymentDataRequest)
-  }).then(function(paymentData) {
+  }).then(paymentData => {
     const { tokenizationData } = paymentData.paymentMethodData
     const token = JSON.parse(tokenizationData.token)
     const { details, nonce } = token.androidPayCards[0]

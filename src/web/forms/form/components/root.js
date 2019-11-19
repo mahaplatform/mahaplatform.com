@@ -10,9 +10,11 @@ import qs from 'qs'
 
 import achMiddleware from './form/payment/ach/middleware'
 import cardMiddleware from './form/payment/card/middleware'
+import applepayMiddleware from './form/payment/applepay/middleware'
 import googlepayMiddleware from './form/payment/googlepay/middleware'
 
 import paymentfield from './form/payment'
+import applepay from './form/payment/applepay'
 import googlepay from './form/payment/googlepay'
 import ach from './form/payment/ach'
 import card from './form/payment/card'
@@ -33,6 +35,7 @@ class Root extends React.Component {
     super(props)
 
     const reducer = combineReducers([
+      applepay,
       googlepay,
       ach,
       card,
@@ -55,6 +58,7 @@ class Root extends React.Component {
       apiRequestMiddleware,
       achMiddleware,
       cardMiddleware,
+      applepayMiddleware,
       googlepayMiddleware,
       ...(!isProduction || logFlag) ? [loggerMiddleware] : []
     ]

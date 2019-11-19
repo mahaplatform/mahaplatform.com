@@ -62,8 +62,10 @@ class Form extends React.Component {
   }
 
   _getPayment() {
+    const { config } = this.props
     return {
       ...this.props,
+      program: config.program,
       summary: {
         products: [
           {
