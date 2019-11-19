@@ -6,11 +6,11 @@ class Card extends React.Component {
   static propTypes = {
     cvv: PropTypes.string,
     expirationDate: PropTypes.string,
-    nameOnCard: PropTypes.string,
     number: PropTypes.string,
     payment: PropTypes.object,
     token: PropTypes.string,
     onSubmit: PropTypes.func,
+    onSuccess: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -19,15 +19,9 @@ class Card extends React.Component {
   render() {
     return (
       <div className="maha-payment-form">
-        <div className="two fields">
-          <div className="field">
-            <label>Name on Card</label>
-            <input { ...this._getInput('nameOnCard', 'Name on Card') } />
-          </div>
-          <div className="field">
-            <label>Card Number</label>
-            <input { ...this._getInput('number', '1111 1111 1111 1111') } />
-          </div>
+        <div className="field">
+          <label>Card Number</label>
+          <input { ...this._getInput('number', '1111 1111 1111 1111') } />
         </div>
         <div className="two fields">
           <div className="field">
@@ -47,9 +41,9 @@ class Card extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { payment } = this.props
+    const { payment, onSuccess } = this.props
     if(payment !== prevProps.payment) {
-      console.log(payment)
+      onSuccess(payment)
     }
   }
 

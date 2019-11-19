@@ -41,10 +41,10 @@ class Payment extends React.Component {
           <Methods { ...this._getMethods() } />
           <div className="ui stackable two column grid">
             <div className="column">
-              <GooglePay { ...this._getButton() } />
+              <GooglePay { ...this._getMethod('googlepay') } />
             </div>
             <div className="column">
-              <PayPal { ...this._getButton() } />
+              <PayPal { ...this._getMethod('paypal') } />
             </div>
           </div>
           <div className="maha-payment-form">
@@ -74,24 +74,21 @@ class Payment extends React.Component {
     }
   }
 
-  _getButton() {
+  _getComponent() {
+    const { selected } = this.state
+    const method = methods[selected]
+    return method.component ? <method.component { ...this._getMethod(method.name) } /> : null
+  }
+
+  _getMethod(method) {
     const { token } = this.props
     return {
-      token
+      token,
+      onSuccess: this._handlePayment.bind(this, method)
     }
   }
 
-  _getComponent() {
-    const { token } = this.props
-    const { selected } = this.state
-    const props = {
-      token
-    }
-    const Component = methods[selected].component
-    return Component ? <Component { ...props } /> : null
-  }
-
-  _getMethods() {
+  _getMethods(method) {
     const { selected } = this.state
     return {
       methods,
@@ -120,6 +117,10 @@ class Payment extends React.Component {
 
   _handleChoose(selected) {
     this.setState({ selected })
+  }
+
+  _handlePayment(method, payment) {
+    console.log(method, payment)
   }
 
   // _handleFinalize() {

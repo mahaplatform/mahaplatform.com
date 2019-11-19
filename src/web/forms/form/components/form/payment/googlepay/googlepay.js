@@ -6,7 +6,8 @@ class Card extends React.Component {
 
   static propTypes = {
     token: PropTypes.string,
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    onSuccess: PropTypes.func
   }
 
   button = null

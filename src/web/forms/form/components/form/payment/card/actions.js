@@ -1,6 +1,5 @@
 export const submit = (token, data) => ({
-  type: 'BRAINTREE_REQUEST',
-  method: 'card',
+  type: 'CARD_REQUEST',
   token,
   data,
   request: 'SUBMIT_REQUEST',

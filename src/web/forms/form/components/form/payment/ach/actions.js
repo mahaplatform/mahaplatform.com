@@ -1,6 +1,5 @@
 export const submit = (token, data, mandate) => ({
-  type: 'BRAINTREE_REQUEST',
-  method: 'ach',
+  type: 'ACH_REQUEST',
   token,
   data,
   mandate,

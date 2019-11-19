@@ -1,6 +1,5 @@
 export const INITIAL_STATE = {
   payment: null,
-  nameOnCard: 'Greg Kops',
   number: '4111111111111111',
   cvv: '123',
   expirationDate: '10/25'

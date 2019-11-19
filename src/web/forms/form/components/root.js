@@ -1,13 +1,15 @@
 import { createStore, applyMiddleware } from 'redux'
 import { combineReducers } from 'redux-rubberstamp'
 import createApiRequest from 'redux-api-request'
-import braintreeMiddleware from './braintree'
 import { createLogger } from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import { Provider } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 import qs from 'qs'
+
+import achMiddleware from './form/payment/ach/middleware'
+import cardMiddleware from './form/payment/card/middleware'
 
 import paymentfield from './form/payment'
 import googlepay from './form/payment/googlepay'
@@ -50,7 +52,8 @@ class Root extends React.Component {
     const middleware = [
       thunkMiddleware,
       apiRequestMiddleware,
-      braintreeMiddleware,
+      achMiddleware,
+      cardMiddleware,
       ...(!isProduction || logFlag) ? [loggerMiddleware] : []
     ]
 
