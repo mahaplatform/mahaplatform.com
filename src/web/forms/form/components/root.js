@@ -10,6 +10,7 @@ import qs from 'qs'
 
 import achMiddleware from './form/payment/ach/middleware'
 import cardMiddleware from './form/payment/card/middleware'
+import googlepayMiddleware from './form/payment/googlepay/middleware'
 
 import paymentfield from './form/payment'
 import googlepay from './form/payment/googlepay'
@@ -54,6 +55,7 @@ class Root extends React.Component {
       apiRequestMiddleware,
       achMiddleware,
       cardMiddleware,
+      googlepayMiddleware,
       ...(!isProduction || logFlag) ? [loggerMiddleware] : []
     ]
 

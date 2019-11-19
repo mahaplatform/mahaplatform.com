@@ -1,6 +1,5 @@
 export const submit = (token, data) => ({
-  type: 'BRAINTREE_REQUEST',
-  method: 'google',
+  type: 'GOOGLEPAY_REQUEST',
   token,
   data,
   request: 'SUBMIT_REQUEST',

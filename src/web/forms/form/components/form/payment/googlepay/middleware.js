@@ -1,4 +1,4 @@
-import { client, usBankAccount } from 'braintree-web'
+import { client, googlePayment } from 'braintree-web'
 
 export default store => next => action => {
 
@@ -25,21 +25,54 @@ export default store => next => action => {
     mandate: action.mandate
   })
 
+  const paymentsClient = new window.google.payments.api.PaymentsClient({
+    environment: 'TEST'
+  })
+
+  let googlePaymentInstance = null
+
   return client.create({
     authorization: action.token
   }).then(function(clientInstance) {
-    return usBankAccount.create({
-      client: clientInstance
+    return googlePayment.create({
+      client: clientInstance,
+      googlePayVersion: 2
     })
-  }).then(function(usBankAccountInstance) {
-    return usBankAccountInstance.tokenize({
-      bankDetails: action.data,
-      mandateText: action.mandate
-    }, function (err, response) {
-      success(response)
+  }).then(function (instance) {
+    googlePaymentInstance = instance
+    return paymentsClient.isReadyToPay({
+      apiVersion: 2,
+      apiVersionMinor: 0,
+      allowedPaymentMethods: googlePaymentInstance.createPaymentDataRequest().allowedPaymentMethods,
+      existingPaymentMethodRequired: true
+    })
+  }).then(function (isReadyToPay) {
+    if(!isReadyToPay.result) return
+    var paymentDataRequest = googlePaymentInstance.createPaymentDataRequest({
+      transactionInfo: {
+        currencyCode: 'USD',
+        totalPriceStatus: 'FINAL',
+        totalPrice: '100.00'
+      }
+    })
+    // var cardPaymentMethod = paymentDataRequest.allowedPaymentMethods[0]
+    // cardPaymentMethod.parameters.billingAddressRequired = true
+    // cardPaymentMethod.parameters.billingAddressParameters = {
+    //   format: 'FULL',
+    //   phoneNumberRequired: true
+    // }
+    return  paymentsClient.loadPaymentData(paymentDataRequest)
+  }).then(function(paymentData) {
+    const { tokenizationData } = paymentData.paymentMethodData
+    const token = JSON.parse(tokenizationData.token)
+    const { details, nonce } = token.androidPayCards[0]
+    success({
+      nonce,
+      card_type: details.cardType.toLowerCase(),
+      last_four: details.lastFour
     })
   }).catch(function (err) {
-    return failure(err)
+    failure(err)
   })
 
 }
