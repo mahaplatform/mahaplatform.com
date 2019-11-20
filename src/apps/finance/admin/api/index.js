@@ -2,14 +2,15 @@ import reimbursements from './reimbursements'
 import expense_types from './expense_types'
 import revenue_types from './revenue_types'
 import memberships from './memberships'
+import merchants from './merchants'
 import accounts from './accounts'
-import coupons from './coupons'
 import products from './products'
 import projects from './projects'
 import receipts from './receipts'
 import advances from './advances'
 import expenses from './expenses'
 import { Router } from 'express'
+import coupons from './coupons'
 import batches from './batches'
 import vendors from './vendors'
 import checks from './checks'
@@ -41,6 +42,8 @@ router.use(items)
 router.use(item)
 
 router.use('/memberships', memberships)
+
+router.use('/merchants', merchants)
 
 router.use('/projects', projects)
 

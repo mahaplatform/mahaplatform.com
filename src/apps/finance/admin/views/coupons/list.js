@@ -20,7 +20,6 @@ const mapPropsToPage = (props, context, resources, page) => ({
       buttons: [
         { label: 'Create Coupon', modal: New }
       ]
-
     },
     entity: 'coupon',
     recordTasks: (record) => [

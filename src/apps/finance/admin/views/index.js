@@ -8,6 +8,7 @@ import ExpenseShow from './expenses/show'
 import ExpenseTypeList from './expense_types/list'
 import InvoiceList from './invoices/list'
 import ItemList from './items/list'
+import MerchantList from './merchants/list'
 import PaymentList from './payments/list'
 import ProductList from './products/list'
 import ProjectList from './projects/list'
@@ -32,6 +33,7 @@ const routes = [
   { path: '/expense_types', component: ExpenseTypeList },
   { path: '/invoices', component: InvoiceList },
   { path: '/items', component: ItemList },
+  { path: '/merchants', component: MerchantList },
   { path: '/payments', component: PaymentList },
   { path: '/products', component: ProductList },
   { path: '/projects', component: ProjectList },

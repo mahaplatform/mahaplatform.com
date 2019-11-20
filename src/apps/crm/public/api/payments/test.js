@@ -1,10 +1,8 @@
-import { getGateway } from './utils'
+import braintree from '../../../../../core/services/braintree'
 
 const testRoute = async (req, res) => {
 
-  const gateway = getGateway()
-
-  const data = await gateway.transaction.find(req.params.id)
+  const data = await braintree.transaction.find(req.params.id)
 
   // const data = await new Promise((resolve, reject) => {
   //   gateway.transaction.search(search => {

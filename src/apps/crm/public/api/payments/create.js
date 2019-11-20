@@ -1,13 +1,13 @@
+import braintree from '../../../../../core/services/braintree'
 import { UsBankAccountVerification } from 'braintree'
-import { getGateway } from './utils'
 
 const createTransaction = async (req, gateway) => {
 
   if(req.body.method === 'ach') {
 
-    const customer = await gateway.customer.create({})
+    const customer = await braintree.customer.create({})
 
-    const method = await gateway.paymentMethod.create({
+    const method = await braintree.paymentMethod.create({
       customerId: customer.customer.id,
       paymentMethodNonce: req.body.payment.nonce,
       options: {
@@ -15,7 +15,7 @@ const createTransaction = async (req, gateway) => {
       }
     })
 
-    return await gateway.transaction.sale({
+    return await braintree.transaction.sale({
       amount: '10.00',
       paymentMethodToken: method.usBankAccount.token,
       merchantAccountId: 'cornellcooperativeextensionassociationoflivingstoncounty',
@@ -26,7 +26,7 @@ const createTransaction = async (req, gateway) => {
 
   }
 
-  return await gateway.transaction.sale({
+  return await braintree.transaction.sale({
     amount: '10.00',
     paymentMethodNonce: req.body.payment.nonce,
     merchantAccountId: 'cornellcooperativeextensionassociationoflivingstoncounty',
@@ -39,9 +39,7 @@ const createTransaction = async (req, gateway) => {
 
 const createRoute = async (req, res) => {
 
-  const gateway = getGateway()
-
-  const transaction = await createTransaction(req, gateway)
+  const transaction = await createTransaction(req)
 
   res.status(200).respond(transaction)
 

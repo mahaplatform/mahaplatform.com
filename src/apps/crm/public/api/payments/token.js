@@ -1,11 +1,9 @@
-import { getGateway } from './utils'
+import braintree from '../../../../../core/services/braintree'
 
 const tokenRoute = async (req, res) => {
 
-  const gateway = getGateway()
-
   const response = await new Promise((resolve, reject) => {
-    gateway.clientToken.generate((err, response) => {
+    braintree.clientToken.generate((err, response) => {
       if(err) return reject(err)
       resolve(response)
     })
