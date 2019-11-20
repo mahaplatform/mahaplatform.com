@@ -8,7 +8,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   collection: {
     endpoint: '/api/admin/finance/products',
     table: [
-      { label: 'ID', key: 'id', primary: true, collapsing: true },
+      { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', sort: 'title', primary: true }
     ],
     filters: [

@@ -1,11 +1,10 @@
-import merchants from './merchants'
 import { Router } from 'express'
+import destroy from './destroy'
 import create from './create'
 import update from './update'
-import list from './list'
 import edit from './edit'
+import list from './list'
 import show from './show'
-import apps from './apps'
 
 const router = new Router({ mergeParams: true })
 
@@ -15,12 +14,10 @@ router.post('/', create)
 
 router.get('/:id', show)
 
-router.patch('/:id', update)
-
 router.get('/:id/edit', edit)
 
-router.get('/:id/apps', apps)
+router.patch('/:id', update)
 
-router.use('/:team_id/merchants', merchants)
+router.delete('/:id', destroy)
 
 export default router

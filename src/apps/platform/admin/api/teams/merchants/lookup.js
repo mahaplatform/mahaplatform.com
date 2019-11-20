@@ -1,5 +1,5 @@
-import braintree from '../../../../../core/services/braintree'
-import Merchant from '../../../models/merchant'
+import braintree from '../../../../../../core/services/braintree'
+import Merchant from '../../../../../finance/models/merchant'
 import _ from 'lodash'
 
 const lookupRoute = async (req, res) => {

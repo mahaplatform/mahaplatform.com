@@ -8,7 +8,9 @@ class New extends React.Component {
     modal: PropTypes.object
   }
 
-  static propTypes = {}
+  static propTypes = {
+    team_id: PropTypes.number
+  }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
@@ -18,17 +20,18 @@ class New extends React.Component {
   }
 
   _getForm() {
+    const { team_id } = this.props
     return {
       title: 'New Bank Account',
       method: 'post',
-      action: '/api/admin/finance/merchants',
+      action: `/api/admin/platform/teams/${team_id}/merchants`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true },
-            { label: 'Merchant Account ID', name: 'braintree_id', type: 'lookup', endpoint: '/api/admin/finance/merchants/lookup', placeholder: 'Choose a merchant', value: 'id', text: 'id', required: true }
+            { label: 'Braintree ID', name: 'braintree_id', type: 'lookup', endpoint: `/api/admin/platform/teams/${team_id}/merchants/lookup`, placeholder: 'Choose a Braintree ID', value: 'id', text: 'id', required: true }
           ]
         }
       ]

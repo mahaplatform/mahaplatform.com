@@ -10,7 +10,7 @@ class GroupsEdit extends React.Component {
   }
 
   static propTypes = {
-    team: PropTypes.object
+    team_id: PropTypes.number
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -21,12 +21,12 @@ class GroupsEdit extends React.Component {
   }
 
   _getForm() {
-    const { team } = this.props
+    const { team_id } = this.props
     return {
       title: 'Edit Team',
       method: 'patch',
-      endpoint: `/api/admin/platform/teams/${team.id}/edit`,
-      action: `/api/admin/platform/teams/${team.id}`,
+      endpoint: `/api/admin/platform/teams/${team_id}/edit`,
+      action: `/api/admin/platform/teams/${team_id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
