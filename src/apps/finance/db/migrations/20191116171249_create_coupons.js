@@ -1,6 +1,7 @@
 const CreateCoupon = {
 
   up: async (knex) => {
+
     await knex.schema.createTable('finance_coupons', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -12,6 +13,14 @@ const CreateCoupon = {
       table.boolean('is_active')
       table.timestamps()
     })
+
+    await knex.schema.createTable('finance_coupons_products', (table) => {
+      table.integer('coupon_id').unsigned()
+      table.foreign('coupon_id').references('finance_coupons.id')
+      table.integer('product_id').unsigned()
+      table.foreign('product_id').references('finance_products.id')
+    })
+
   },
 
   down: async (knex) => {

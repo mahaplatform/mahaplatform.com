@@ -52,7 +52,7 @@ export default store => next => action => {
       transactionInfo: {
         currencyCode: 'USD',
         totalPriceStatus: 'FINAL',
-        totalPrice: action.data.total
+        totalPrice: `${action.data.total}`
       }
     })
     return  paymentsClient.loadPaymentData(paymentDataRequest)
@@ -66,6 +66,7 @@ export default store => next => action => {
       last_four: details.lastFour
     })
   }).catch(function (err) {
+    if(err.statusCode === 'CANCELED') return
     failure(err)
   })
 

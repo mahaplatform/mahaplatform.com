@@ -25,7 +25,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
 
     },
-    entity: 'batch',
+    entity: 'product',
     onClick: (record) => context.router.history.push(`/admin/finance/products/${record.id}`)
   },
   task: {

@@ -1,6 +1,7 @@
 import Model from '../../../core/objects/model'
 import RevenueType from './revenue_type'
 import Project from './project'
+import Coupon from './coupon'
 
 const Product = new Model({
 
@@ -9,6 +10,10 @@ const Product = new Model({
   rules: {},
 
   virtuals: {},
+
+  coupons() {
+    return this.belongsToMany(Coupon, 'finance_coupons_products', 'product_id', 'coupon_id')
+  },
 
   revenue_type() {
     return this.belongsTo(RevenueType, 'revenue_type_id')

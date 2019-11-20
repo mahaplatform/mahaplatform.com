@@ -814,6 +814,11 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('finance_coupons_products', (table) => {
+      table.integer('coupon_id').unsigned()
+      table.integer('product_id').unsigned()
+    })
+
     await knex.schema.createTable('finance_credits', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -920,6 +925,7 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('project_id').unsigned()
       table.integer('revenue_type_id').unsigned()
+      table.string('title', 255)
       table.USER-DEFINED('price_type')
       table.decimal('fixed_price', 6, 2)
       table.decimal('low_price', 6, 2)
@@ -2704,6 +2710,11 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('finance_coupons_products', table => {
+      table.foreign('coupon_id').references('finance_coupons.id')
+      table.foreign('product_id').references('finance_products.id')
+    })
+
     await knex.schema.table('finance_invoices', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('contact_id').references('crm_contacts.id')
@@ -3206,6 +3217,7 @@ union
     await knex.raw(`
       create view finance_items AS
       select row_number() over (order by items.type, items.item_id) as id,
+      items.code,
       items.item_id,
       items.team_id,
       items.import_id,
@@ -3213,108 +3225,149 @@ union
       items.date,
       items.user_id,
       items.project_id,
+      items.tax_project_id,
       items.expense_type_id,
       items.description,
+      items.account_number,
+      items.invoice_number,
       items.vendor_id,
+      items.total,
+      items.tax_total,
       items.amount,
+      items.tax,
       items.account_id,
       items.status,
       items.batch_id,
       items.created_at
-      from ( select finance_advances.id as item_id,
+      from ( select null::character varying as code,
+      finance_advances.id as item_id,
       finance_advances.team_id,
-      maha_import_items.import_id,
+      maha_imports_import_items.import_id,
       'advance'::text as type,
       finance_advances.date_needed as date,
       finance_advances.user_id,
       finance_advances.project_id,
+      finance_projects.tax_project_id,
       finance_advances.expense_type_id,
       finance_advances.description,
+      null::text as account_number,
+      null::text as invoice_number,
       null::integer as vendor_id,
+      null::numeric as total,
+      null::numeric as tax_total,
       finance_advances.amount,
+      null::numeric as tax,
       null::integer as account_id,
       (finance_advances.status)::character varying as status,
       finance_advances.batch_id,
       finance_advances.created_at
       from ((finance_advances
-      left join maha_import_items on ((maha_import_items.object_id = finance_advances.id)))
-      left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'finance_advances'::text))))
+      left join finance_projects on ((finance_projects.id = finance_advances.project_id)))
+      left join maha_imports_import_items on (((maha_imports_import_items.object_id = finance_advances.id) and ((maha_imports_import_items.object_type)::text = 'finance_advances'::text))))
       union
-      select finance_expenses.id as item_id,
+      select finance_expenses.code,
+      finance_expenses.id as item_id,
       finance_expenses.team_id,
-      maha_import_items.import_id,
+      maha_imports_import_items.import_id,
       'expense'::text as type,
       finance_expenses.date,
       finance_expenses.user_id,
       finance_expenses.project_id,
+      finance_projects.tax_project_id,
       finance_expenses.expense_type_id,
       finance_expenses.description,
+      null::text as account_number,
+      null::text as invoice_number,
       finance_expenses.vendor_id,
+      finance_expenses.total,
+      finance_expenses.tax_total,
       finance_expenses.amount,
+      finance_expenses.tax,
       finance_expenses.account_id,
       (finance_expenses.status)::character varying as status,
       finance_expenses.batch_id,
       finance_expenses.created_at
       from ((finance_expenses
-      left join maha_import_items on ((maha_import_items.object_id = finance_expenses.id)))
-      left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'finance_expenses'::text))))
+      left join finance_projects on ((finance_projects.id = finance_expenses.project_id)))
+      left join maha_imports_import_items on (((maha_imports_import_items.object_id = finance_expenses.id) and ((maha_imports_import_items.object_type)::text = 'finance_expenses'::text))))
       union
-      select finance_trips.id as item_id,
+      select null::character varying as code,
+      finance_trips.id as item_id,
       finance_trips.team_id,
-      maha_import_items.import_id,
+      maha_imports_import_items.import_id,
       'trip'::text as type,
       finance_trips.date,
       finance_trips.user_id,
       finance_trips.project_id,
+      finance_projects.tax_project_id,
       finance_trips.expense_type_id,
       finance_trips.description,
+      null::text as account_number,
+      null::text as invoice_number,
       null::integer as vendor_id,
+      null::numeric as total,
+      null::numeric as tax_total,
       finance_trips.amount,
+      null::numeric as tax,
       null::integer as account_id,
       (finance_trips.status)::character varying as status,
       finance_trips.batch_id,
       finance_trips.created_at
       from ((finance_trips
-      left join maha_import_items on ((maha_import_items.object_id = finance_trips.id)))
-      left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'finance_trips'::text))))
+      left join finance_projects on ((finance_projects.id = finance_trips.project_id)))
+      left join maha_imports_import_items on (((maha_imports_import_items.object_id = finance_trips.id) and ((maha_imports_import_items.object_type)::text = 'finance_trips'::text))))
       union
-      select finance_checks.id as item_id,
+      select finance_checks.code,
+      finance_checks.id as item_id,
       finance_checks.team_id,
-      maha_import_items.import_id,
+      maha_imports_import_items.import_id,
       'check'::text as type,
       finance_checks.date_needed as date,
       finance_checks.user_id,
       finance_checks.project_id,
+      finance_projects.tax_project_id,
       finance_checks.expense_type_id,
       finance_checks.description,
+      finance_checks.account_number,
+      finance_checks.invoice_number,
       finance_checks.vendor_id,
+      finance_checks.total,
+      finance_checks.tax_total,
       finance_checks.amount,
+      finance_checks.tax,
       null::integer as account_id,
       (finance_checks.status)::character varying as status,
       finance_checks.batch_id,
       finance_checks.created_at
       from ((finance_checks
-      left join maha_import_items on ((maha_import_items.object_id = finance_checks.id)))
-      left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'finance_checks'::text))))
+      left join finance_projects on ((finance_projects.id = finance_checks.project_id)))
+      left join maha_imports_import_items on (((maha_imports_import_items.object_id = finance_checks.id) and ((maha_imports_import_items.object_type)::text = 'finance_checks'::text))))
       union
-      select finance_reimbursements.id as item_id,
+      select finance_reimbursements.code,
+      finance_reimbursements.id as item_id,
       finance_reimbursements.team_id,
-      maha_import_items.import_id,
+      maha_imports_import_items.import_id,
       'reimbursement'::text as type,
       finance_reimbursements.date,
       finance_reimbursements.user_id,
       finance_reimbursements.project_id,
+      finance_projects.tax_project_id,
       finance_reimbursements.expense_type_id,
       finance_reimbursements.description,
+      null::text as account_number,
+      null::text as invoice_number,
       finance_reimbursements.vendor_id,
+      finance_reimbursements.total,
+      null::numeric as tax_total,
       finance_reimbursements.amount,
+      null::numeric as tax,
       null::integer as account_id,
       (finance_reimbursements.status)::character varying as status,
       finance_reimbursements.batch_id,
       finance_reimbursements.created_at
       from ((finance_reimbursements
-      left join maha_import_items on ((maha_import_items.object_id = finance_reimbursements.id)))
-      left join maha_imports on (((maha_imports.id = maha_import_items.import_id) and ((maha_imports.object_type)::text = 'finance_reimbursements'::text))))) items;
+      left join finance_projects on ((finance_projects.id = finance_reimbursements.project_id)))
+      left join maha_imports_import_items on (((maha_imports_import_items.object_id = finance_reimbursements.id) and ((maha_imports_import_items.object_type)::text = 'finance_reimbursements'::text))))) items;
     `)
 
     await knex.raw(`

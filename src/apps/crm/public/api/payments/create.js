@@ -1,5 +1,5 @@
-import { getGateway } from './utils'
 import { UsBankAccountVerification } from 'braintree'
+import { getGateway } from './utils'
 
 const createTransaction = async (req, gateway) => {
 

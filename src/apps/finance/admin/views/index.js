@@ -2,10 +2,13 @@ import AccountList from './accounts/list'
 import AdvanceShow from './advances/show'
 import ApprovalList from './items/approvals'
 import BatchList from './batches/list'
+import CouponList from './coupons/list'
 import CheckShow from './checks/show'
 import ExpenseShow from './expenses/show'
 import ExpenseTypeList from './expense_types/list'
+import InvoiceList from './invoices/list'
 import ItemList from './items/list'
+import PaymentList from './payments/list'
 import ProductList from './products/list'
 import ProjectList from './projects/list'
 import ProjectShow from './projects/show'
@@ -23,10 +26,13 @@ const routes = [
   { path: '/approvals', component: ApprovalList },
   { path: '/advances/:id', component: AdvanceShow },
   { path: '/batches', component: BatchList },
+  { path: '/coupons', component: CouponList },
   { path: '/checks/:id', component: CheckShow },
   { path: '/expenses/:id', component: ExpenseShow },
   { path: '/expense_types', component: ExpenseTypeList },
+  { path: '/invoices', component: InvoiceList },
   { path: '/items', component: ItemList },
+  { path: '/payments', component: PaymentList },
   { path: '/products', component: ProductList },
   { path: '/projects', component: ProjectList },
   { path: '/projects/:id', component: ProjectShow },
