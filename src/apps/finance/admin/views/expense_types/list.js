@@ -51,7 +51,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
         modal: <Edit { ...record } integration={ resources.app.settings.integration } />
       }
     ],
-    defaultSort: { key: 'title', order: 'asc' },
+    defaultSort: { key: 'expense_code', order: 'asc' },
     empty: {
       icon: 'tag',
       title: 'No Expense Types',

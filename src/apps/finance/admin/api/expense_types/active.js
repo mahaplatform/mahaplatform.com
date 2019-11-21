@@ -7,12 +7,18 @@ const listRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('is_active', true)
   }).filter({
+    aliases: {
+      expense_code: 'integration->>\'expense_code\''
+    },
     filter: req.query.$filter,
-    searchParams: ['title','description','integration->>\'expense_code\'']
+    searchParams: ['title','description','expense_code']
   }).sort({
+    aliases: {
+      expense_code: 'integration->>\'expense_code\''
+    },
     sort: req.query.$sort,
-    defaultSort: ['title'],
-    sortParams: ['id','title','created_at']
+    defaultSort: ['expense_code'],
+    sortParams: ['id','title','expense_code','created_at']
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx
