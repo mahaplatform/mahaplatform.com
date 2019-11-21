@@ -41,7 +41,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/finance/projects',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Title', key: 'integration->>\'project_code\'', primary: true, format: ProjectToken },
+      { label: 'Title', key: 'project_code', sort: 'project_code', primary: true, format: ProjectToken },
       { label: 'Active', key: 'is_active', primary: false, format: 'check' },
       ..._getIntegrationColumns(resources.app.settings.integration)
     ],
@@ -88,7 +88,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
         }
       }
     ],
-    defaultSort: { key: 'integration->>\'project_code\'', order: 'asc' },
+    defaultSort: { key: 'project_code', order: 'asc' },
     empty: {
       icon: 'folder',
       title: 'No Projects',

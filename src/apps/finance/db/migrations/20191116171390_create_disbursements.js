@@ -1,7 +1,7 @@
 const CreateDisbursement = {
 
   up: async (knex) => {
-    await knex.schema.createTable('disbursements', (table) => {
+    await knex.schema.createTable('finance_disbursements', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
@@ -13,7 +13,7 @@ const CreateDisbursement = {
   },
 
   down: async (knex) => {
-    await knex.schema.dropTable('disbursements')
+    await knex.schema.dropTable('finance_disbursements')
   }
 
 }

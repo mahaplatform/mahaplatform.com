@@ -829,6 +829,15 @@ const schema = {
       table.timestamp('updated_at')
     })
 
+    await knex.schema.createTable('finance_disbursements', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('merchant_id').unsigned()
+      table.date('date')
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('finance_expense_types', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -911,9 +920,13 @@ const schema = {
       table.integer('credit_id').unsigned()
       table.integer('scholarship_id').unsigned()
       table.integer('merchant_id').unsigned()
+      table.integer('disbursement_id').unsigned()
       table.USER-DEFINED('method')
-      table.decimal('amount', 6, 2)
       table.USER-DEFINED('status')
+      table.USER-DEFINED('card_type')
+      table.decimal('amount', 6, 2)
+      table.decimal('fee', 6, 2)
+      table.string('reference', 255)
       table.string('braintree_id', 255)
       table.timestamp('voided_at')
       table.timestamp('created_at')
@@ -2742,12 +2755,18 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('finance_disbursements', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('merchant_id').references('finance_merchants.id')
+    })
+
     await knex.schema.table('finance_payments', table => {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('invoice_id').references('finance_invoices.id')
       table.foreign('credit_id').references('finance_credits.id')
       table.foreign('scholarship_id').references('finance_scholarships.id')
       table.foreign('merchant_id').references('finance_merchants.id')
+      table.foreign('disbursement_id').references('finance_disbursements.id')
     })
 
     await knex.schema.table('finance_refunds', table => {

@@ -175,11 +175,12 @@ const idglacct = (item, project, expense_type) => {
   const expense_code = expense_type_integration.expense_code
   const expense_type_source_code = expense_type_integration ? expense_type_integration.source_code : null
   const project_integration = project.get('integration')
+  const main_project_code = project_integration.main_project_code
   const project_code = project_integration.project_code
   const program_code = project_integration.program_code
   const source_code = expense_type_source_code || project_integration.source_code
   const match = project_integration.match
-  return `${expense_code}-${program_code}-${source_code}-${match}-${project_code}`
+  return `${expense_code}-${program_code}-${source_code}-${match}-${main_project_code}-${project_code}-0000000`
 }
 
 const _getVendorKey = (record) => {

@@ -59,7 +59,7 @@ class New extends React.Component {
     if(this.props.integration === 'accpac') {
       return [
         { label: 'Main Project Code', name: 'integration.main_project_code', type: 'textfield', placeholder: 'Enter a main project code' },
-        { label: 'Project Code', name: 'integration.project_code', type: 'textfield', placeholder: 'Enter a project code', required: true },
+        { label: 'County Project Code', name: 'integration.project_code', type: 'textfield', placeholder: 'Enter a county project code', required: true },
         { label: 'Program Code', name: 'integration.program_code', type: 'textfield', placeholder: 'Enter a program code', required: true },
         { label: 'Source Code', name: 'integration.source_code', type: 'textfield', placeholder: 'Enter a source code', required: true },
         { label: 'Match', name: 'integration.match', type: 'textfield', placeholder: 'Enter a match', required: true }

@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import Disbursement from './disbursement'
 import Scholarship from './scholarship'
 import Merchant from './merchant'
 import Invoice from './invoice'
@@ -15,6 +16,10 @@ const Payment = new Model({
 
   credit() {
     return this.belongsTo(Credit, 'credit_id')
+  },
+
+  disbursement() {
+    return this.belongsTo(Disbursement, 'disbursement_id')
   },
 
   invoice() {

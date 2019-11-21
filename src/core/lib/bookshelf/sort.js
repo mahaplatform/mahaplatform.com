@@ -40,14 +40,21 @@ const sortPlugin = function(bookshelf) {
       throw new Error(`cannot sort on ${sort.column}`)
     }
     return {
-      column: castColumn(options.tableName, sort.column),
+      column: castColumn(sort.column, options),
       order: sort.order || 'asc'
     }
   }
 
-  const castColumn = function(tableName, column) {
+  const getAliased = (column, options)  => {
+    if(!options.aliases) return column
+    return options.aliases[column] || column
+  }
+
+  const castColumn = function($column, options) {
+    const column = getAliased($column, options)
+    const { tableName } = options
     const matches = column.match(/(.*)\.(.*)/)
-    return matches === null && tableName ? `${tableName}.${column}` : column
+    return !matches && tableName !== undefined ? `${tableName}.${column}` : column
   }
 
   bookshelf.Collection.prototype.sort = sort

@@ -21,7 +21,7 @@ const Details = ({ project, integration }) => {
   if(integration === 'accpac') {
     list.items = list.items.concat([
       { label: 'Main Project Code', content: project.integration.main_project_code },
-      { label: 'Project Code', content: project.integration.project_code },
+      { label: 'County Project Code', content: project.integration.project_code },
       { label: 'Program Code', content: project.integration.program_code },
       { label: 'Source Code', content: project.integration.source_code },
       { label: 'Match', content: project.integration.match }

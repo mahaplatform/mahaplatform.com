@@ -14,9 +14,12 @@ const listRoute = async (req, res) => {
     }
     qb.where('finance_projects.team_id', req.team.get('id'))
   }).filter({
+    aliases: {
+      project_code: 'integration->>\'project_code\''
+    },
     filter: req.query.$filter,
     filterParams: ['type','is_active','user_id','tax_project_id'],
-    searchParams: ['title','integration->>\'project_code\''],
+    searchParams: ['title','project_code'],
     virtualFilters: {
       user_id: (qb, filter) => {
         if(!filter.$eq) return
@@ -24,9 +27,12 @@ const listRoute = async (req, res) => {
       }
     }
   }).sort({
+    aliases: {
+      project_code: 'integration->>\'project_code\''
+    },
     sort: req.query.$sort,
-    defaultSort: ['integration->>\'project_code\'', 'title'],
-    sortParams: ['id','title','is_active','integration->>\'project_code\'','created_at']
+    defaultSort: ['project_code', 'title'],
+    sortParams: ['id','title','is_active','project_code','created_at']
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx
