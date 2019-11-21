@@ -18,9 +18,9 @@ const MigrateProjects = {
 
       if(index === 0) return
 
-      const [ code, title, program_code, source_code, main_project_code ] = row
+      const [ project_code, title, county_project_code, program_code, source_code, main_project_code ] = row
 
-      const result = await knex('finance_projects').whereRaw('integration->>\'project_code\' = ?', code)
+      const result = await knex('finance_projects').whereRaw('integration->>\'project_code\' = ?', project_code)
 
       if(result.length === 0) return
 
@@ -35,7 +35,7 @@ const MigrateProjects = {
         integration: {
           program_code,
           source_code,
-          project_code: `10${integration.project_code}`,
+          project_code: county_project_code,
           match: integration.match,
           main_project_code
         }

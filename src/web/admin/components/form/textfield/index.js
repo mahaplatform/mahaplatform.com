@@ -50,6 +50,8 @@ class TextField extends React.Component {
     onSubmit: () => {}
   }
 
+  code = _.random(100000000, 999999999).toString(36)
+
   state = {
     value: ''
   }
@@ -58,6 +60,7 @@ class TextField extends React.Component {
   _handleClear = this._handleClear.bind(this)
   _handleKeyUp = this._handleKeyUp.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
+  _handleSet = this._handleSet.bind(this)
 
   render() {
     const { tabIndex, value } = this.state
@@ -79,15 +82,14 @@ class TextField extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onReady } = this.props
-    if(defaultValue) this.setState({
-      value: _.toString(defaultValue)
-    })
+    if(defaultValue) this._handleSet(_.toString(defaultValue))
     onReady()
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(this.props.defaultValue !== prevProps.defaultValue) {
-      this.setValue(this.props.defaultValue)
+    const { defaultValue } = this.props
+    if(this.props.defaultValue !== defaultValue) {
+      this._handleSet(this.props.defaultValue)
     }
     if(this.state.value !== prevState.value) {
       this._handleChange()
@@ -127,7 +129,7 @@ class TextField extends React.Component {
   }
 
   _handleClear() {
-    this.setValue('')
+    this._handleSet('')
   }
 
   _handleKeyUp(event) {
@@ -138,15 +140,15 @@ class TextField extends React.Component {
     }
   }
 
+  _handleSet(value) {
+    if(this.props.maxLength && value.length > this.props.maxLength) return
+    this.setState({ value })
+  }
+
   _handleUpdate(event) {
     const sanitized = this.props.sanitize(event.target.value)
     if(!this.props.validate(sanitized)) return event.preventDefault()
-    this.setValue(sanitized)
-  }
-
-  setValue(value) {
-    if(this.props.maxLength && value.length > this.props.maxLength) return
-    this.setState({ value })
+    this._handleSet(sanitized)
   }
 
 }

@@ -44,8 +44,6 @@ class Field extends React.Component {
     onUpdateData: () => {}
   }
 
-  control = null
-
   _handleBusy = this._handleBusy.bind(this)
   _handleReady = this._handleReady.bind(this)
   _handleUpdateData = this._handleUpdateData.bind(this)
@@ -55,7 +53,7 @@ class Field extends React.Component {
     const error = this._getError()
     if(!include || !show) return null
     return (
-      <div className={ this._getClass() } key="control" ref={ node => this.control = node }>
+      <div className={ this._getClass() }>
         { label &&
           <div className="maha-form-field-label">
             { label }

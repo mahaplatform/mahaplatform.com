@@ -83,10 +83,7 @@ class Form extends React.Component {
 
   _handleCancel = this._handleCancel.bind(this)
   _debouncedSubmit = _.debounce(this._handleSubmit.bind(this), 2500, { leading: true })
-  _handleToggleBusy = this._handleToggleBusy.bind(this)
-  _handleSetReady = this._handleSetReady.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
-  _handleUpdateData = this._handleUpdateData.bind(this)
 
   render() {
     const { after, before, instructions, panels, sections, status, tabs } = this.props
@@ -200,15 +197,15 @@ class Form extends React.Component {
   }
 
   _getSections(sections) {
-    const { data, errors } = this.props
+    const { data, errors, onSetReady, onToggleBusy, onUpdateData } = this.props
     return {
       sections,
       data,
       errors,
-      onBusy: this._handleToggleBusy,
-      onReady: this._handleSetReady,
+      onBusy: onToggleBusy,
+      onReady: onSetReady,
       onSubmit: this._handleSubmit,
-      onUpdateData: this._handleUpdateData
+      onUpdateData
     }
   }
 
@@ -237,14 +234,6 @@ class Form extends React.Component {
     onSetData(defaults)
   }
 
-  _handleSetReady(key) {
-    this.props.onSetReady(key)
-  }
-
-  _handleToggleBusy(key) {
-    this.props.onToggleBusy(key)
-  }
-
   _handlePop(num = 1) {
     this.props.onPop(num)
   }
@@ -267,10 +256,6 @@ class Form extends React.Component {
 
   _handleSuccess() {
     this.props.onSuccess(this.props.entity)
-  }
-
-  _handleUpdateData(key, value) {
-    this.props.onUpdateData(key, value)
   }
 
   _handleUpdateSections() {
