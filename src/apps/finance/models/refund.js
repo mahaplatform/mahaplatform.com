@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import Contact from '../../crm/models/contact'
 import Payment from './payment'
 
 const Refund = new Model({
@@ -8,6 +9,10 @@ const Refund = new Model({
   rules: {},
 
   virtuals: {},
+
+  contact() {
+    this.belongsTo(Contact, 'contact_id')
+  },
 
   payment() {
     return this.belongsTo(Payment, 'payment_id')

@@ -5,6 +5,8 @@ const CreatePayment = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.foreign('team_id').references('maha_teams.id')
+      table.integer('contact_id').unsigned()
+      table.foreign('contact_id').references('crm_contacts.id')
       table.integer('invoice_id').unsigned()
       table.foreign('invoice_id').references('finance_invoices.id')
       table.integer('credit_id').unsigned()

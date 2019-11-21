@@ -8,7 +8,17 @@ const LineItem = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    tax() {
+      return this.get('total') * this.get('tax_rate')
+    },
+
+    total() {
+      return this.get('quantity') * this.get('price')
+    }
+
+  },
 
   invoice() {
     return this.belongsTo(Invoice, 'invoice_id')

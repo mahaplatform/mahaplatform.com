@@ -10,7 +10,49 @@ const Invoice = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    balance() {
+      return this.get('total') - this.get('paid')
+    },
+
+    discount() {
+      if(!this.related('coupon')) {
+        return 0.00
+      } else if(this.related('coupon').get('percent')) {
+        return this.get('subtotal') * this.related('coupon').get('percent')
+      } else if(this.related('coupon').get('amount')) {
+        return this.related('coupon').get('amount')
+      }
+    },
+
+    is_paid() {
+      return this.get('paid') === this.get('total')
+    },
+
+    paid() {
+      return this.related('payments').reduce((paid, payment) => {
+        return paid + payment.get('amount')
+      }, 0.00)
+    },
+
+    subtotal() {
+      return this.related('line_items').reduce((subtotal, line_item) => {
+        return subtotal + line_item.get('total')
+      }, 0.00)
+    },
+
+    tax() {
+      return this.related('line_items').reduce((tax, line_item) => {
+        return tax + line_item.get('tax')
+      }, 0.00)
+    },
+
+    total() {
+      return this.get('subtotal') + this.get('tax') - this.get('discount')
+    }
+
+  },
 
   contact() {
     this.belongsTo(Contact, 'contact_id')

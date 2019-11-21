@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import Contact from '../../crm/models/contact'
 import Disbursement from './disbursement'
 import Scholarship from './scholarship'
 import Merchant from './merchant'
@@ -13,6 +14,10 @@ const Payment = new Model({
   rules: {},
 
   virtuals: {},
+
+  contact() {
+    this.belongsTo(Contact, 'contact_id')
+  },
 
   credit() {
     return this.belongsTo(Credit, 'credit_id')

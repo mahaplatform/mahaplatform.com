@@ -11,6 +11,11 @@ const CreateInvoice = {
       table.foreign('coupon_id').references('finance_coupons.id')
       table.integer('logo_id').unsigned()
       table.foreign('logo_id').references('maha_assets.id')
+      table.string('code')
+      table.date('date')
+      table.date('due')
+      table.text('notes')
+      table.timestamp('voided_at')
       table.timestamps()
     })
   },
