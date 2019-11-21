@@ -1,4 +1,5 @@
 import { Page } from 'maha-admin'
+import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Invoices',
@@ -12,9 +13,17 @@ const mapPropsToPage = (props, context, resources, page) => ({
     empty: {
       icon: 'dollar',
       title: 'No Invoice',
-      text: 'You have not yet created any invoices'
+      text: 'You have not yet created any invoices',
+      buttons: [
+        { label: 'Create Invoice', modal: New }
+      ]
     },
     entity: 'invoice'
+  },
+  task: {
+    label: 'New Invoice',
+    icon: 'plus',
+    modal:  New
   }
 })
 

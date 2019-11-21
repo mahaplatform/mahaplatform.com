@@ -15,6 +15,10 @@ const rights = [
     code: 'access_reports',
     title: 'Access Reports',
     description: 'access advance, expense, and trip reports'
+  }, {
+    code: 'manage_revenue',
+    title: 'Manage Revenue',
+    description: 'manage products, invoices, and payments'
   }
 ]
 

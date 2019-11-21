@@ -13,7 +13,7 @@ const navigation = async (req) => ({
       { label: 'Taxes', rights: ['finance:manage_configuration'], route: '/tax' },
       { label: 'Vendors', route: '/vendors' }
     ] },
-    { label: 'Revenue', items: [
+    { label: 'Revenue', rights: ['finance:manage_revenue'], items: [
       { label: 'Coupons', route: '/coupons' },
       { label: 'Credits', route: '/credits' },
       { label: 'Invoices', route: '/invoices' },
