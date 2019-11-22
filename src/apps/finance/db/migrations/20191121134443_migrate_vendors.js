@@ -18,7 +18,7 @@ const MigrateVendors = {
 
   up: async (knex) => {
 
-    await Promise.mapSeries(getRows('user_vendors'), async(row, index) => {
+    await Promise.mapSeries(getRows('users_vendors'), async(row, index) => {
 
       if(index === 0) return
 
@@ -37,7 +37,7 @@ const MigrateVendors = {
 
     })
 
-    await Promise.mapSeries(getRows('vendors'), async(row, index) => {
+    await Promise.mapSeries(getRows('vendors_vendors'), async(row, index) => {
 
       if(index === 0) return
 
