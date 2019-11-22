@@ -1,4 +1,9 @@
 import Form from '../../../models/form'
+import { readFile } from './utils'
+import path from 'path'
+import ejs from 'ejs'
+
+const template = readFile(path.join('form.html'))
 
 const showRoute = async (req, res) => {
 
@@ -13,7 +18,7 @@ const showRoute = async (req, res) => {
 
   const team = form.related('team')
 
-  res.status(200).render('show', {
+  const content = ejs.render(template, {
     form: {
       code: form.get('code'),
       config: {
@@ -33,6 +38,8 @@ const showRoute = async (req, res) => {
       logo: team.related('logo') ? team.related('logo').get('path') : null
     }
   })
+
+  res.status(200).send(content)
 
 }
 

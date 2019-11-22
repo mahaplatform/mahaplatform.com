@@ -79,4 +79,4 @@ export const designerConfig = webpackConfig('designer', true, true)
 
 export const embedConfig = webpackConfig('embed', false, false)
 
-export const formConfig = webpackConfig('form', true, false)
+export const formConfig = webpackConfig('form', true, true)

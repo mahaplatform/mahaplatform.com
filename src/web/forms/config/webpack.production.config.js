@@ -6,7 +6,7 @@ import cssnano from 'cssnano'
 import webpack from 'webpack'
 import path from 'path'
 
-const webpackConfig = (name, css, index) => ({
+const webpackConfig = (name, css, index, hash) => ({
   devtool: 'none',
   entry: [
     path.resolve('src','web','forms',name,'index.js'),
@@ -54,12 +54,12 @@ const webpackConfig = (name, css, index) => ({
   },
   output: {
     path: path.resolve('dist.staged','public'),
-    filename: 'forms/js/[name]-[chunkhash].min.js',
+    filename: `forms/js/${name}${hash ? '-[chunkhash]' : ''}.js`,
     publicPath: '/'
   },
   plugins: [
     new MiniCssExtractPlugin({
-      filename: `forms/css/${name}.css`
+      filename: `forms/css/${name}${hash ? '-[chunkhash]' : ''}.css`
     }),
     new webpack.DefinePlugin({
       'process.env': {
@@ -75,8 +75,8 @@ const webpackConfig = (name, css, index) => ({
   ]
 })
 
-export const designerConfig = webpackConfig('designer', true, true)
+export const designerConfig = webpackConfig('designer', true, true, true)
 
-export const embedConfig = webpackConfig('embed', false, false)
+export const embedConfig = webpackConfig('embed', false, false, false)
 
-export const formConfig = webpackConfig('form', true, false)
+export const formConfig = webpackConfig('form', true, true, true)

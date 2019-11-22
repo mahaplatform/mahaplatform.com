@@ -1,3 +1,4 @@
+<% const tagify = (text,output) => '<'+(output ? '%-' : '%' )+' '+text+' %'+'>' %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -5,15 +6,13 @@
   <meta name="viewport" content="width=device-width"/>
   <link href="/admin/css/semantic.min.css" rel="stylesheet" />
   <link href="/admin/css/font-awesome.min.css" rel="stylesheet" />
-  <link href="/forms/css/form.css" rel="stylesheet" />
-  <% logo = program.logo || team.logo %>
-  <link rel="apple-touch-icon" type="image/jpeg" sizes="180x180" href="/imagecache/fit=cover&w=180&h=180<%= logo %>">
+  <%= tagify('logo = program.logo || team.logo', false) %>
+  <link rel="apple-touch-icon" type="image/jpeg" sizes="180x180" href="/imagecache/fit=cover&w=180&h=180<%= tagify('logo', true) %>">
 </head>
 <body>
   <div id="form" />
   <script>
-    window.config = <%- JSON.stringify(form.config) %>;
+    window.config = <%= tagify('JSON.stringify(form.config)', true) %>;
   </script>
-  <script src="/forms/js/form.js"></script>
 </body>
 </html>
