@@ -2352,6 +2352,74 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('finance_coupons_products', table => {
+      table.foreign('coupon_id').references('finance_coupons.id')
+      table.foreign('product_id').references('finance_products.id')
+    })
+
+    await knex.schema.table('finance_coupons', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('finance_credits', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('finance_disbursements', table => {
+      table.foreign('merchant_id').references('finance_merchants.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('finance_invoices', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('coupon_id').references('finance_coupons.id')
+      table.foreign('logo_id').references('maha_assets.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('finance_line_items', table => {
+      table.foreign('invoice_id').references('finance_invoices.id')
+      table.foreign('product_id').references('finance_products.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('finance_merchants', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('finance_payments', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('credit_id').references('finance_credits.id')
+      table.foreign('disbursement_id').references('finance_disbursements.id')
+      table.foreign('invoice_id').references('finance_invoices.id')
+      table.foreign('merchant_id').references('finance_merchants.id')
+      table.foreign('scholarship_id').references('finance_scholarships.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('finance_products', table => {
+      table.foreign('project_id').references('finance_projects.id')
+      table.foreign('revenue_type_id').references('finance_revenue_types.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('finance_refunds', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('credit_id').references('finance_credits.id')
+      table.foreign('payment_id').references('finance_payments.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('finance_revenue_types', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('finance_scholarships', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('maha_activities', table => {
       table.foreign('app_id').references('maha_apps.id')
       table.foreign('object_owner_id').references('maha_users.id')
@@ -2715,74 +2783,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('finance_revenue_types', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('finance_products', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('project_id').references('finance_projects.id')
-      table.foreign('revenue_type_id').references('finance_revenue_types.id')
-    })
-
-    await knex.schema.table('finance_coupons', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('finance_coupons_products', table => {
-      table.foreign('coupon_id').references('finance_coupons.id')
-      table.foreign('product_id').references('finance_products.id')
-    })
-
-    await knex.schema.table('finance_invoices', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('coupon_id').references('finance_coupons.id')
-      table.foreign('logo_id').references('maha_assets.id')
-    })
-
-    await knex.schema.table('finance_line_items', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('invoice_id').references('finance_invoices.id')
-      table.foreign('product_id').references('finance_products.id')
-    })
-
-    await knex.schema.table('finance_credits', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('contact_id').references('crm_contacts.id')
-    })
-
-    await knex.schema.table('finance_scholarships', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('contact_id').references('crm_contacts.id')
-    })
-
-    await knex.schema.table('finance_merchants', table => {
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('finance_disbursements', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('merchant_id').references('finance_merchants.id')
-    })
-
-    await knex.schema.table('finance_payments', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('invoice_id').references('finance_invoices.id')
-      table.foreign('credit_id').references('finance_credits.id')
-      table.foreign('scholarship_id').references('finance_scholarships.id')
-      table.foreign('merchant_id').references('finance_merchants.id')
-      table.foreign('disbursement_id').references('finance_disbursements.id')
-    })
-
-    await knex.schema.table('finance_refunds', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('contact_id').references('crm_contacts.id')
-      table.foreign('payment_id').references('finance_payments.id')
-      table.foreign('credit_id').references('finance_credits.id')
     })
 
 

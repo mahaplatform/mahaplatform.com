@@ -89,16 +89,15 @@ export default (state = INITIAL_STATE, action) => {
     }
 
   case 'FETCH_DATA_SUCCESS':
-    const loaded = flatten(action.result.data)
     return {
       ...state,
       status: 'data_loaded',
       data: _.uniq([
         ...Object.keys(action.defaults),
-        ...Object.keys(loaded)
+        ...Object.keys(action.result.data)
       ]).reduce((data, key) => ({
         ...data,
-        [key]: _.get(loaded, key) || action.defaults[key] || null
+        [key]: _.get(action.result.data, key) !== undefined ? _.get(action.result.data, key) : action.defaults[key] || null
       }), {})
     }
 
