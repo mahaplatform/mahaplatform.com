@@ -408,6 +408,7 @@ class App extends React.Component {
       { path: '/admin/eatfresh', children: eatfreshRoutes },
       { path: '/admin/fax', children: faxRoutes },
       { path: '/admin/finance', children: financeRoutes },
+      { path: '/admin/expenses', children: financeRoutes },
       { path: '/admin/learning', children: competenciesRoutes },
       { path: '/admin', children: mahaRoutes },
       { path: '/admin/platform', children: platformRoutes },

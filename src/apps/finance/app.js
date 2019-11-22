@@ -2,6 +2,7 @@ const app = {
   code: 'finance',
   title: 'Finance',
   path: '/finance',
+  aliases: ['/expenses'],
   description: 'Manage revenue and expenses',
   color: 'green',
   icon: 'dollar'
