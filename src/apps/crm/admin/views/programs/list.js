@@ -1,7 +1,5 @@
 import ProgramToken from '../../tokens/program'
 import { Page } from 'maha-admin'
-import Edit from './edit'
-import React from 'react'
 import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({

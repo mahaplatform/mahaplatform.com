@@ -1,5 +1,6 @@
 import Model from '../../../core/objects/model'
 import Contact from '../../crm/models/contact'
+import Program from '../../crm/models/program'
 import LineItem from './line_item'
 import Payment from './payment'
 import Coupon from './coupon'
@@ -17,7 +18,7 @@ const Invoice = new Model({
     },
 
     discount() {
-      if(!this.related('coupon')) {
+      if(!this.related('coupon').id) {
         return 0.00
       } else if(this.related('coupon').get('percent')) {
         return this.get('subtotal') * this.related('coupon').get('percent')
@@ -32,7 +33,7 @@ const Invoice = new Model({
 
     paid() {
       return this.related('payments').reduce((paid, payment) => {
-        return paid + payment.get('amount')
+        return paid + Number(payment.get('amount'))
       }, 0.00)
     },
 
@@ -55,7 +56,7 @@ const Invoice = new Model({
   },
 
   contact() {
-    this.belongsTo(Contact, 'contact_id')
+    return this.belongsTo(Contact, 'contact_id')
   },
 
   coupon() {
@@ -68,6 +69,10 @@ const Invoice = new Model({
 
   payments() {
     return this.hasMany(Payment, 'invoice_id')
+  },
+
+  program() {
+    return this.belongsTo(Program, 'program_id')
   }
 
 })

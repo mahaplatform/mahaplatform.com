@@ -16,7 +16,7 @@ const Payment = new Model({
   virtuals: {},
 
   contact() {
-    this.belongsTo(Contact, 'contact_id')
+    return this.belongsTo(Contact, 'contact_id')
   },
 
   credit() {

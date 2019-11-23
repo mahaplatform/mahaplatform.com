@@ -99,7 +99,7 @@ const migration = async (args) => {
   const [ pathname ] = args
   const timestamp = moment().format('YYYYMMDDHHmmss')
   const name = pathname.split('/').slice(-1)[0]
-  const root = path.join(...pathname.split('/').slice(0,-1))
+  const root = path.join(...pathname.split('/'),'db','migration')
   const data = {
     className:  _.upperFirst(_.camelCase(name)),
     migrationPath: path.join(root, `${timestamp}_${name}.js`)

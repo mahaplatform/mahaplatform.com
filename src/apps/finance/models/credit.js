@@ -11,11 +11,11 @@ const Credit = new Model({
   virtuals: {},
 
   contact() {
-    this.belongsTo(Contact, 'contact_id')
+    return this.belongsTo(Contact, 'contact_id')
   },
 
   payments() {
-    this.hasMany(Payment, 'credit_id')
+    return this.hasMany(Payment, 'credit_id')
   }
 
 })

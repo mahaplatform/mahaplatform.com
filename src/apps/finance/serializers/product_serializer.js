@@ -4,6 +4,7 @@ const productSerializer = (req, result) => ({
   project: project(result.related('project')),
   revenue_type: revenue_type(result.related('revenue_type')),
   price_type: result.get('price_type'),
+  price: result.get('price'),
   fixed_price: result.get('fixed_price'),
   low_price: result.get('low_price'),
   high_price: result.get('high_price'),

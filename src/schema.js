@@ -876,7 +876,6 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('contact_id').unsigned()
       table.integer('coupon_id').unsigned()
-      table.integer('logo_id').unsigned()
       table.string('code', 255)
       table.date('date')
       table.date('due')
@@ -884,6 +883,7 @@ const schema = {
       table.timestamp('voided_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('program_id').unsigned()
     })
 
     await knex.schema.createTable('finance_line_items', (table) => {
@@ -937,6 +937,7 @@ const schema = {
       table.timestamp('voided_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.date('date')
     })
 
     await knex.schema.createTable('finance_products', (table) => {
@@ -2374,8 +2375,8 @@ const schema = {
     await knex.schema.table('finance_invoices', table => {
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('coupon_id').references('finance_coupons.id')
-      table.foreign('logo_id').references('maha_assets.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('finance_line_items', table => {

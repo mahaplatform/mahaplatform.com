@@ -7,12 +7,14 @@ const listRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
   }).filter({
     filter: req.query.$filter,
+    filterParams: ['method','card_type','contact_id'],
     searchParams: ['code']
   }).sort({
     sort: req.query.$sort,
     defaultSort: ['-created_at'],
     sortParams: ['id','code','created_at']
   }).fetchPage({
+    withRelated: ['contact'],
     page: req.query.$page,
     transacting: req.trx
   })

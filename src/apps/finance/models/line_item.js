@@ -11,11 +11,11 @@ const LineItem = new Model({
   virtuals: {
 
     tax() {
-      return this.get('total') * this.get('tax_rate')
+      return Number(this.get('total') * this.get('tax_rate'))
     },
 
     total() {
-      return this.get('quantity') * this.get('price')
+      return Number(this.get('quantity') * this.get('price'))
     }
 
   },
