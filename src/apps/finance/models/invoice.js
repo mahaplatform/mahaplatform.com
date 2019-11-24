@@ -1,7 +1,7 @@
 import Model from '../../../core/objects/model'
-import Contact from '../../crm/models/contact'
 import Program from '../../crm/models/program'
 import LineItem from './line_item'
+import Customer from './customer'
 import Payment from './payment'
 import Coupon from './coupon'
 
@@ -55,8 +55,8 @@ const Invoice = new Model({
 
   },
 
-  contact() {
-    return this.belongsTo(Contact, 'contact_id')
+  customer() {
+    return this.belongsTo(Customer, 'customer_id')
   },
 
   coupon() {
@@ -65,6 +65,10 @@ const Invoice = new Model({
 
   line_items() {
     return this.hasMany(LineItem, 'invoice_id')
+  },
+
+  listener_ids(trx) {
+    return []
   },
 
   payments() {

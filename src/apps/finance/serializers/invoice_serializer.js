@@ -1,7 +1,7 @@
 const InvoiceSerializer = (req, result) => ({
   id: result.get('id'),
   code: result.get('code'),
-  contact: contact(result.related('contact')),
+  customer: customer(result.related('customer')),
   coupon: coupon(result.related('coupon')),
   balance: result.get('balance'),
   date: result.get('date'),
@@ -20,11 +20,11 @@ const InvoiceSerializer = (req, result) => ({
   updated_at: result.get('updated_at')
 })
 
-const contact = (contact) => {
-  if(!contact.id) return null
+const customer = (customer) => {
+  if(!customer.id) return null
   return {
-    id: contact.get('id'),
-    display_name: contact.get('display_name')
+    id: customer.get('id'),
+    display_name: customer.get('display_name')
   }
 }
 

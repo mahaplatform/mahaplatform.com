@@ -30,7 +30,7 @@ class Invoice extends React.PureComponent {
               <tbody>
                 <tr>
                   <td>Customer:</td>
-                  <td>{ invoice.contact.display_name }</td>
+                  <td>{ invoice.customer.display_name }</td>
                 </tr>
                 <tr>
                   <td>Date:</td>
@@ -106,10 +106,12 @@ class Invoice extends React.PureComponent {
                   <td>-{ numeral(payment.amount).format('0.00') }</td>
                 </tr>
               )) }
-              <tr className="total">
-                <td colSpan="3">BALANCE DUE</td>
-                <td>{ numeral(invoice.balance).format('0.00') }</td>
-              </tr>
+              { invoice.payments.length > 1 &&
+                <tr className="total">
+                  <td colSpan="3">BALANCE DUE</td>
+                  <td>{ numeral(invoice.balance).format('0.00') }</td>
+                </tr>
+              }
             </tbody>
           </table>
         </div>
@@ -122,11 +124,13 @@ class Invoice extends React.PureComponent {
     if(method === 'card') return `Charged ${card_type.toUpperCase()}-${reference}`
     if(method === 'scholarship') return 'Applied scholarship'
     if(method === 'credit') return 'Applied customer credit'
+    if(method === 'cash') return 'Received cash'
+    if(method === 'check') return `Received check (${reference})`
     return `Charged ${card_type.toUpperCase()}-${reference} with ${method.toUpperCase()}`
   }
 
   _getImage({ method, card_type }) {
-    if(method === 'paypal') return 'paypal'
+    if(!card_type) return method
     return `${method}-${card_type}`
   }
 

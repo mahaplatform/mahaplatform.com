@@ -1,7 +1,7 @@
 import React from 'react'
 
 const _getImage = (method, card_type) => {
-  if(method === 'paypal') return 'paypal'
+  if(!card_type) return method
   return `${method}-${card_type}`
 }
 

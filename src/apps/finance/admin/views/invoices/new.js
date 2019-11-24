@@ -28,7 +28,8 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Customer', name: 'contact_id', type: 'lookup', placeholder: 'Choose contact', endpoint: '/api/admin/crm/contacts', value: 'id', text: 'display_name', required: true },
+            { label: 'Customer', name: 'customer_id', type: 'lookup', placeholder: 'Choose a customer', endpoint: '/api/admin/finance/customers', value: 'id', text: 'display_name', required: true },
+            { label: 'Program', name: 'program_id', type: 'lookup', placeholder: 'Choose a program', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true },
             { label: 'Date', name: 'date', type: 'datefield', placeholder: 'Date', required: true, defaultValue: moment() },
             { label: 'Due', name: 'date', type: 'datefield', placeholder: 'Date', required: true, defaultValue: moment() }
           ]

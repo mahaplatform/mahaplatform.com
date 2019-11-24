@@ -44,7 +44,7 @@ const Contact = new Model({
     },
 
     display_name: function() {
-      return this.get('full_name') ?this.get('full_name') : 'Unknown'
+      return this.get('full_name') ? this.get('full_name') : 'Unknown'
     },
 
     organization_ids: function() {

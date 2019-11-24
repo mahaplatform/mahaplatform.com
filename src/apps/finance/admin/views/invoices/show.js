@@ -1,27 +1,29 @@
 import { Page } from 'maha-admin'
+import Payment from './payment'
 import Details from './details'
 import React from 'react'
 
-const getTabs = ({ invoice }) => ({
+const getTabs = ({ audits, invoice }) => ({
   items: [
-    { label: 'Details', component: <Details invoice={ invoice } /> },
-    { label: 'Payments', component: <Details invoice={ invoice } /> }
+    { label: 'Details', component: <Details audits={ audits } invoice={ invoice } /> }
   ]
 })
 
-const getTasks = ({ workflow, list }) => ({
+const getTasks = ({ invoice }) => ({
   items: [
     {
       label: 'Edit Invoice'
     }, {
       label: 'Send Invoice'
     }, {
-      label: 'Receive Payment'
+      label: 'Receive Payment',
+      modal: <Payment invoice={ invoice } />
     }
   ]
 })
 
 const mapResourcesToPage = (props, context) => ({
+  audits: `/api/admin/finance_invoices/${props.params.id}/audits`,
   invoice: `/api/admin/finance/invoices/${props.params.id}`
 })
 

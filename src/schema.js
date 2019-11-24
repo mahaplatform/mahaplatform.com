@@ -822,7 +822,7 @@ const schema = {
     await knex.schema.createTable('finance_credits', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.integer('contact_id').unsigned()
+      table.integer('customer_id').unsigned()
       table.decimal('amount', 6, 2)
       table.text('description')
       table.timestamp('created_at')
@@ -874,7 +874,7 @@ const schema = {
     await knex.schema.createTable('finance_invoices', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.integer('contact_id').unsigned()
+      table.integer('customer_id').unsigned()
       table.integer('coupon_id').unsigned()
       table.string('code', 255)
       table.date('date')
@@ -921,7 +921,6 @@ const schema = {
     await knex.schema.createTable('finance_payments', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.integer('contact_id').unsigned()
       table.integer('invoice_id').unsigned()
       table.integer('credit_id').unsigned()
       table.integer('scholarship_id').unsigned()
@@ -989,7 +988,6 @@ const schema = {
     await knex.schema.createTable('finance_refunds', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.integer('contact_id').unsigned()
       table.integer('payment_id').unsigned()
       table.integer('credit_id').unsigned()
       table.string('braintree_id', 255)
@@ -1031,7 +1029,7 @@ const schema = {
     await knex.schema.createTable('finance_scholarships', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
-      table.integer('contact_id').unsigned()
+      table.integer('customer_id').unsigned()
       table.decimal('amount', 6, 2)
       table.timestamp('created_at')
       table.timestamp('updated_at')
@@ -2363,7 +2361,7 @@ const schema = {
     })
 
     await knex.schema.table('finance_credits', table => {
-      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('customer_id').references('crm_contacts.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -2373,7 +2371,7 @@ const schema = {
     })
 
     await knex.schema.table('finance_invoices', table => {
-      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('customer_id').references('crm_contacts.id')
       table.foreign('coupon_id').references('finance_coupons.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('program_id').references('crm_programs.id')
@@ -2390,7 +2388,6 @@ const schema = {
     })
 
     await knex.schema.table('finance_payments', table => {
-      table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('credit_id').references('finance_credits.id')
       table.foreign('disbursement_id').references('finance_disbursements.id')
       table.foreign('invoice_id').references('finance_invoices.id')
@@ -2406,7 +2403,6 @@ const schema = {
     })
 
     await knex.schema.table('finance_refunds', table => {
-      table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('credit_id').references('finance_credits.id')
       table.foreign('payment_id').references('finance_payments.id')
       table.foreign('team_id').references('maha_teams.id')
@@ -2417,7 +2413,7 @@ const schema = {
     })
 
     await knex.schema.table('finance_scholarships', table => {
-      table.foreign('contact_id').references('crm_contacts.id')
+      table.foreign('customer_id').references('crm_contacts.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -3243,6 +3239,18 @@ union
       maha_stars.user_id as starrer_id
       from (drive_items
       join maha_stars on ((((maha_stars.starrable_type)::text = concat('drive_', drive_items.type, 's')) and (maha_stars.starrable_id = drive_items.item_id))));
+    `)
+
+    await knex.raw(`
+      create view finance_customers AS
+      select crm_contacts.id,
+      crm_contacts.first_name,
+      crm_contacts.last_name,
+      crm_contacts.email,
+      crm_contacts.phone,
+      crm_contacts.address
+      from (crm_contacts
+      join finance_invoices on ((finance_invoices.customer_id = crm_contacts.id)));
     `)
 
     await knex.raw(`

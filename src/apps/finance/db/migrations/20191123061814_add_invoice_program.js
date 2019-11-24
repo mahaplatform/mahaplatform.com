@@ -1,4 +1,4 @@
-const Finance = {
+const AddInvoiceProgram = {
 
   up: async (knex) => {
 
@@ -15,4 +15,4 @@ const Finance = {
 
 }
 
-export default Finance
+export default AddInvoiceProgram

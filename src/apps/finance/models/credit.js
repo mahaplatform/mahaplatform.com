@@ -1,5 +1,5 @@
 import Model from '../../../core/objects/model'
-import Contact from '../../crm/models/contact'
+import Customer from './customer'
 import Payment from './payment'
 
 const Credit = new Model({
@@ -10,8 +10,8 @@ const Credit = new Model({
 
   virtuals: {},
 
-  contact() {
-    return this.belongsTo(Contact, 'contact_id')
+  customer() {
+    return this.belongsTo(Customer, 'customer_id')
   },
 
   payments() {

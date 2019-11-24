@@ -2,6 +2,7 @@ import reimbursements from './reimbursements'
 import expense_types from './expense_types'
 import revenue_types from './revenue_types'
 import memberships from './memberships'
+import customers from './customers'
 import merchants from './merchants'
 import accounts from './accounts'
 import payments from './payments'
@@ -34,6 +35,8 @@ router.use('/batches', batches)
 router.use('/checks', checks)
 
 router.use('/coupons', coupons)
+
+router.use('/customers', customers)
 
 router.use('/expense_types', expense_types)
 

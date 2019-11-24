@@ -15,13 +15,12 @@ const navigation = async (req) => ({
     ] },
     { label: 'Revenue', rights: ['finance:manage_revenue'], items: [
       { label: 'Coupons', route: '/coupons' },
-      { label: 'Credits', route: '/credits' },
+      { label: 'Customers', route: '/customers' },
       { label: 'Invoices', route: '/invoices' },
       { label: 'Payments', route: '/payments' },
       { label: 'Products', route: '/products' },
       { label: 'Refunds', route: '/refunds' },
-      { label: 'Revenue Types', route: '/revenue_types' },
-      { label: 'Scholarships', route: '/scholarships' }
+      { label: 'Revenue Types', route: '/revenue_types' }
     ] },
     { label: 'Projects', route: '/projects' }
   ]

@@ -8,21 +8,22 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { primary: true, format: PaymentTypeToken, collapsing: true },
-      { label: 'Contact', key: 'contact.display_name', primary: true },
-      { label: 'Date', key: 'date', primary: true, format: 'date' },
+      { label: 'Customer', key: 'customer.display_name', sort: 'customer', primary: true },
+      { label: 'Method', key: 'method', primary: true, collapsing: true },
+      { label: 'Date', key: 'date', primary: true, format: 'date', collapsing: true },
       { label: 'Amount', key: 'amount', primary: true, format: 'currency', collapsing: true  }
     ],
     filters: [
-      { label: 'Contact', name: 'contact_id', type: 'select', multiple: true, endpoint: '/api/admin/crm/contacts', value: 'id', text: 'display_name', sort: { key: 'last_name', order: 'asc' } },
+      { label: 'ContCustomeract', name: 'customer_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/customers', value: 'id', text: 'display_name', sort: { key: 'last_name', order: 'asc' } },
       { label: 'Method', name: 'method', type: 'select', multiple: true, options: [{value:'cash',text:'Cash'},{value:'check',text:'Check'},{value:'card',text:'Credit Card'},{value:'googlepay',text:'Google Pay'},{value:'applepay',text:'Apple Pay'},{value:'paypal',text:'PayPal'}] },
       { label: 'Card Type', name: 'card_type', type: 'select', multiple: true, options: [{value:'visa',text:'Visa'},{value:'mastercard',text:'Master Card'},{value:'amex',text:'American Express'},{value:'discover',text:'Discover'},{value:'jcb',text:'JCB'}] }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
-    onClick: (record) => context.router.history.push(`/admin/finance/invoices/${record.id}`),
+    onClick: (record) => context.router.history.push(`/admin/finance/payments/${record.id}`),
     empty: {
       icon: 'dollar',
-      title: 'No Payment',
-      text: 'You have not yet created any payments'
+      title: 'No Payments',
+      text: 'You have not yet received any payments'
     },
     entity: 'payment'
   }
