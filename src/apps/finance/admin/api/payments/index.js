@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import refunds from './refunds'
 import destroy from './destroy'
 import create from './create'
 import update from './update'
@@ -19,5 +20,7 @@ router.get('/:id/edit', edit)
 router.patch('/:id', update)
 
 router.delete('/:id', destroy)
+
+router.get('/:payment_id/refunds', refunds)
 
 export default router

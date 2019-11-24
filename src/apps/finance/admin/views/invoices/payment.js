@@ -64,11 +64,28 @@ class Payment extends React.Component {
       ]
     } else if(method === 'scholarship') {
       return [
-        { label: 'Scholarship', name: 'scholarship_id', type: 'lookup', placeholder: 'Choose a scholarship', endpoint: `/api/admin/finance/${invoice.customer.id}/scholarships`, value: 'id', text: 'id', required: true },
+        { label: 'Scholarship', name: 'scholarship_id', type: 'lookup', placeholder: 'Choose a scholarship', endpoint: `/api/admin/finance/customers/${invoice.customer.id}/scholarships`, value: 'id', text: 'id', form: this._getScholarshipForm(), required: true },
         { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }
       ]
     }
     return []
+  }
+
+
+  _getScholarshipForm() {
+    const { invoice } = this.props
+    return {
+      title: 'New Vendor',
+      method: 'post',
+      action: `/api/admin/finance/customers/${invoice.customer.id}/scholarships`,
+      sections: [
+        {
+          fields: [
+            { label: 'Amount', name: 'amount', type: 'moneyfield' }
+          ]
+        }
+      ]
+    }
   }
 
   _handleCancel() {

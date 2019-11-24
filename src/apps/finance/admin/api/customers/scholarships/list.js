@@ -1,6 +1,6 @@
 import ScholarshipSerializer from '../../../../serializers/scholarship_serializer'
-import Customer from '../../../../models/customer'
 import Scholarship from '../../../../models/scholarship'
+import Customer from '../../../../models/customer'
 
 const listRoute = async (req, res) => {
 
@@ -21,7 +21,8 @@ const listRoute = async (req, res) => {
   const scholarships = await Scholarship.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('customer_id', customer.get('id'))
-  }).fetchAll({
+  }).fetchPage({
+    page: req.query.$page,
     transacting: req.trx
   })
 

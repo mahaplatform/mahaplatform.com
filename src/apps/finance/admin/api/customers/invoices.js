@@ -21,7 +21,8 @@ const invoicesRoute = async (req, res) => {
   const invoices = await Invoice.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('customer_id', customer.get('id'))
-  }).fetchAll({
+  }).fetchPage({
+    page: req.query.$page,
     transacting: req.trx
   })
 

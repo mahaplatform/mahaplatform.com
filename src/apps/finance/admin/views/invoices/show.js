@@ -1,11 +1,13 @@
 import { Page } from 'maha-admin'
+import Payments from './payments'
 import Payment from './payment'
 import Details from './details'
 import React from 'react'
 
-const getTabs = ({ audits, invoice }) => ({
+const getTabs = ({ audits, invoice, payments }) => ({
   items: [
-    { label: 'Details', component: <Details audits={ audits } invoice={ invoice } /> }
+    { label: 'Details', component: <Details audits={ audits } invoice={ invoice } /> },
+    { label: 'Payments', component: <Payments payments={ payments } /> }
   ]
 })
 
@@ -16,6 +18,8 @@ const getTasks = ({ invoice }) => ({
     }, {
       label: 'Send Invoice'
     }, {
+      label: 'Void Invoice'
+    }, {
       label: 'Receive Payment',
       modal: <Payment invoice={ invoice } />
     }
@@ -24,7 +28,8 @@ const getTasks = ({ invoice }) => ({
 
 const mapResourcesToPage = (props, context) => ({
   audits: `/api/admin/finance_invoices/${props.params.id}/audits`,
-  invoice: `/api/admin/finance/invoices/${props.params.id}`
+  invoice: `/api/admin/finance/invoices/${props.params.id}`,
+  payments: `/api/admin/finance/invoices/${props.params.id}/payments`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

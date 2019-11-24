@@ -21,7 +21,8 @@ const listRoute = async (req, res) => {
   const credits = await Credit.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('customer_id', customer.get('id'))
-  }).fetchAll({
+  }).fetchPage({
+    page: req.query.$page,
     transacting: req.trx
   })
 

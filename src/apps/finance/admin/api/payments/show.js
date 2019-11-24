@@ -1,6 +1,23 @@
+import PaymentSerializer from '../../../serializers/payment_serializer'
+import Payment from '../../../models/payment'
+
 const showRoute = async (req, res) => {
 
-  res.status(200).respond()
+  const payment = await Payment.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
+  }).query(qb => {
+    qb.where('id', req.params.id)
+  }).fetch({
+    withRelated: ['invoice.customer'],
+    transacting: req.trx
+  })
+
+  if(!payment) return res.status(404).respond({
+    code: 404,
+    message: 'Unable to load payment'
+  })
+
+  res.status(200).respond(payment, PaymentSerializer)
 
 }
 

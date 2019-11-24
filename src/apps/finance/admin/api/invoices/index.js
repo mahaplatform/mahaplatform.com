@@ -1,3 +1,4 @@
+import payments from './payments'
 import { Router } from 'express'
 import payment from './payment'
 import destroy from './destroy'
@@ -20,6 +21,8 @@ router.get('/:id/edit', edit)
 router.patch('/:id', update)
 
 router.delete('/:id', destroy)
+
+router.get('/:invoice_id/payments', payments)
 
 router.post('/:invoice_id/payments', payment)
 

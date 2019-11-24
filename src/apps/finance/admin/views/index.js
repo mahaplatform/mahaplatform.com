@@ -12,6 +12,7 @@ import InvoiceList from './invoices/list'
 import InvoiceShow from './invoices/show'
 import ItemList from './items/list'
 import PaymentList from './payments/list'
+import PaymentShow from './payments/show'
 import ProductList from './products/list'
 import ProjectList from './projects/list'
 import ProjectShow from './projects/show'
@@ -39,6 +40,7 @@ const routes = [
   { path: '/invoices/:id', component: InvoiceShow },
   { path: '/items', component: ItemList },
   { path: '/payments', component: PaymentList },
+  { path: '/payments/:id', component: PaymentShow },
   { path: '/products', component: ProductList },
   { path: '/projects', component: ProjectList },
   { path: '/projects/:id', component: ProjectShow },

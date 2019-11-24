@@ -100,13 +100,12 @@ class Invoice extends React.PureComponent {
               { invoice.payments.map((payment, index) => (
                 <tr key={`payment_${index}`}>
                   <td colSpan="3">
-                    <img src={`/admin/images/payments/${ this._getImage(payment) }.png`} />
                     { this._getMethod(payment) } on { moment(payment.date).format('MM/DD/YYYY')}
                   </td>
                   <td>-{ numeral(payment.amount).format('0.00') }</td>
                 </tr>
               )) }
-              { invoice.payments.length > 1 &&
+              { invoice.payments.length > 0 &&
                 <tr className="total">
                   <td colSpan="3">BALANCE DUE</td>
                   <td>{ numeral(invoice.balance).format('0.00') }</td>
@@ -127,11 +126,6 @@ class Invoice extends React.PureComponent {
     if(method === 'cash') return 'Received cash'
     if(method === 'check') return `Received check (${reference})`
     return `Charged ${card_type.toUpperCase()}-${reference} with ${method.toUpperCase()}`
-  }
-
-  _getImage({ method, card_type }) {
-    if(!card_type) return method
-    return `${method}-${card_type}`
   }
 
 }
