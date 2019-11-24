@@ -13,6 +13,7 @@ const InvoiceSerializer = (req, result) => ({
   payments: result.related('payments').map(payment),
   paid: result.get('paid'),
   program: program(result.related('program')),
+  status: result.get('status'),
   subtotal: result.get('subtotal'),
   tax: result.get('tax'),
   total: result.get('total'),

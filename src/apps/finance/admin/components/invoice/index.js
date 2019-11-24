@@ -14,6 +14,7 @@ class Invoice extends React.PureComponent {
     const { invoice } = this.props
     return (
       <div className="finance-invoice">
+        <img src={`/admin/images/payments/${invoice.status}.png`} />
         <div className="finance-invoice-details">
           <div className="finance-invoice-vendor">
             <div className="finance-invoice-vendor-logo">

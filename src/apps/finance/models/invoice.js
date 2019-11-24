@@ -37,6 +37,12 @@ const Invoice = new Model({
       }, 0.00)
     },
 
+    status() {
+      if(this.get('paid')) return 'paid'
+      if(this.get('voided_at')) return 'void'
+      return 'unpaid'
+    },
+
     subtotal() {
       return this.related('line_items').reduce((subtotal, line_item) => {
         return subtotal + line_item.get('total')
