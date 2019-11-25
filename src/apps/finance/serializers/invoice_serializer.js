@@ -17,6 +17,7 @@ const InvoiceSerializer = (req, result) => ({
   subtotal: result.get('subtotal'),
   tax: result.get('tax'),
   total: result.get('total'),
+  voided_at: result.get('voided_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
@@ -25,7 +26,8 @@ const customer = (customer) => {
   if(!customer.id) return null
   return {
     id: customer.get('id'),
-    display_name: customer.get('display_name')
+    display_name: customer.get('display_name'),
+    email: customer.get('email')
   }
 }
 

@@ -21,6 +21,7 @@ const updateRoute = async (req, res) => {
   })
 
   await coupon.save(whitelist(req.body, ['code','amount','percent','is_active']), {
+    patch: true,
     transacting: req.trx
   })
 

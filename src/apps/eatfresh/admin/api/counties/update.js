@@ -20,6 +20,7 @@ const updateRoute = async (req, res) => {
   })
 
   await county.save(whitelist(req.body, ['name']), {
+    patch: true,
     transacting: req.trx
   })
 

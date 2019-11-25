@@ -14,39 +14,47 @@ class Invoice extends React.PureComponent {
     const { invoice } = this.props
     return (
       <div className="finance-invoice">
-        <img src={`/admin/images/payments/${invoice.status}.png`} />
-        <div className="finance-invoice-details">
-          <div className="finance-invoice-vendor">
-            <div className="finance-invoice-vendor-logo">
-              <Logo team={ invoice.program } width="110" />
-            </div>
-            <div className="finance-invoice-vendor-details">
-              <strong>{ invoice.program.title }</strong><br />
-              615 Willow Ave<br />
-              Ithaca, NY 14850
-            </div>
+        <div className="finance-invoice-row">
+          <div className="finance-invoice-status">
+            { invoice.status !== 'unpaid' &&
+              <img src={`/admin/images/payments/${invoice.status}.png`} />
+            }
           </div>
-          <div className="finance-invoice-properties">
+          <div className="finance-invoice-col">
             <table>
               <tbody>
                 <tr>
-                  <td>Customer:</td>
-                  <td>{ invoice.customer.display_name }</td>
-                </tr>
-                <tr>
-                  <td>Date:</td>
+                  <td>Date</td>
                   <td>{ moment(invoice.date).format('MMM DD, YYYY') }</td>
                 </tr>
                 <tr>
-                  <td>Due:</td>
+                  <td>Due</td>
                   <td>{ moment(invoice.due).format('MMM DD, YYYY') }</td>
                 </tr>
                 <tr>
-                  <td>Invoice ID:</td>
+                  <td>Invoice ID</td>
                   <td>{ invoice.code }</td>
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+        <div className="finance-invoice-row">
+          <div className="finance-invoice-col">
+            <div className="finance-invoice-vendor">
+              <div className="finance-invoice-vendor-logo">
+                <Logo team={ invoice.program } width="110" />
+              </div>
+              <div className="finance-invoice-vendor-details">
+                <strong>{ invoice.program.title }</strong><br />
+                615 Willow Ave<br />
+                Ithaca, NY 14850
+              </div>
+            </div>
+          </div>
+          <div className="finance-invoice-col">
+            <strong>{ invoice.customer.display_name }</strong><br />
+            { invoice.customer.email }
           </div>
         </div>
         <div className="finance-invoice-lineitems">

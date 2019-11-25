@@ -21,6 +21,7 @@ const updateRoute = async (req, res) => {
   })
 
   await group.save(whitelist(req.body, ['title','leader_id']), {
+    patch: true,
     transacting: req.trx
   })
 

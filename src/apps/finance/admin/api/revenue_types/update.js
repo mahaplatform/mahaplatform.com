@@ -20,6 +20,7 @@ const updateRoute = async (req, res) => {
   })
 
   await revenue_type.save(whitelist(req.body, ['title','description','integration','is_active']), {
+    patch: true,
     transacting: req.trx
   })
 

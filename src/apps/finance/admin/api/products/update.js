@@ -20,6 +20,7 @@ const updateRoute = async (req, res) => {
   })
 
   await product.save(whitelist(req.body, ['title','project_id','revenue_type_id','price_type','fixed_price','low_price','high_price','tax_rate']), {
+    patch: true,
     transacting: req.trx
   })
 

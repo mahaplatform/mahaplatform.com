@@ -18,6 +18,7 @@ const updateRoute = async (req, res) => {
   })
 
   await rate.save(whitelist(req.body, ['year','value']), {
+    patch: true,
     transacting: req.trx
   })
 

@@ -4,6 +4,7 @@ import LineItem from './line_item'
 import Customer from './customer'
 import Payment from './payment'
 import Coupon from './coupon'
+import moment from 'moment'
 
 const Invoice = new Model({
 
@@ -38,8 +39,9 @@ const Invoice = new Model({
     },
 
     status() {
-      if(this.get('paid')) return 'paid'
       if(this.get('voided_at')) return 'void'
+      if(this.get('is_paid')) return 'paid'
+      if(moment().diff(moment(this.get('due'))) >= 0) return 'overdue'
       return 'unpaid'
     },
 

@@ -21,6 +21,7 @@ const updateRoute = async (req, res) => {
   })
 
   await attraction.save(whitelist(req.body, ['county','photo','photos.asset','offerings.photo','categories.photo']), {
+    patch: true,
     transacting: req.trx
   })
 

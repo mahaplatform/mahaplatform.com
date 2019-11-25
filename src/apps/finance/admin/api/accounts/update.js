@@ -21,6 +21,7 @@ const updateRoute = async (req, res) => {
   })
 
   await account.save(whitelist(req.body, ['name', 'integration']), {
+    patch: true,
     transacting: req.trx
   })
 

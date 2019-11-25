@@ -11,7 +11,6 @@ import chokidar from 'chokidar'
 import webpack from 'webpack'
 import path from 'path'
 import _ from 'lodash'
-import fs from 'fs'
 
 const serverWatch = async () => {
 
@@ -119,7 +118,7 @@ const adminWatch = async () => {
         ...proxies,
         `/admin/${path}/*`
       ], []),
-      ...'crm,drive'.split(',').reduce((apps, path) => [
+      ...'crm,drive,finance'.split(',').reduce((apps, path) => [
         ...apps,
         `/${path}/**`
       ], [])

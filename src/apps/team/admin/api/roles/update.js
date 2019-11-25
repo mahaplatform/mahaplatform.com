@@ -22,6 +22,7 @@ const updateRoute = async (req, res) => {
   })
 
   await role.save(whitelist(req.body, ['title','description']), {
+    patch: true,
     transacting: req.trx
   })
 

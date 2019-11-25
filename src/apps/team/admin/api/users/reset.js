@@ -32,7 +32,7 @@ const resetRoute = async (req, res) => {
 
   await activity(req, {
     story: 'reset {object}',
-    object_owner_id: req.resource.get('id'),
+    object_owner_id: user.get('id'),
     object_text: 'password'
   })
 

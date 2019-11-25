@@ -23,6 +23,7 @@ const updateRoute = async (req, res) => {
   })
 
   await advance.save(whitelist(req.body, ['project_id','expense_type_id','date_needed','description','amount','description']), {
+    patch: true,
     transacting: req.trx
   })
 

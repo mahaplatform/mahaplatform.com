@@ -21,6 +21,7 @@ const updateRoute = async (req, res) => {
   })
 
   await offering.save(whitelist(req.body, ['title','photo_id']), {
+    patch: true,
     transacting: req.trx
   })
 

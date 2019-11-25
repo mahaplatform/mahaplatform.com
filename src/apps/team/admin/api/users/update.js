@@ -21,6 +21,7 @@ const updateRoute = async (req, res) => {
   })
 
   await user.save(whitelist(req.body, ['first_name','last_name','email','secondary_email','user_type_id','cell_phone','email_notifications_method','photo_id','values']), {
+    patch: true,
     transacting: req.trx
   })
 

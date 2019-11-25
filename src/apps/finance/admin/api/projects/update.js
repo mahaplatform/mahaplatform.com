@@ -26,6 +26,7 @@ const updateRoute = async (req, res) => {
   })
 
   await project.save(whitelist(req.body, ['title','type','tax_project_id','integration']), {
+    patch: true,
     transacting: req.trx
   })
 

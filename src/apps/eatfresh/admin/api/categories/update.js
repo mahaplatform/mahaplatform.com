@@ -20,6 +20,7 @@ const updateRoute = async (req, res) => {
   })
 
   await category.save(whitelist(req.body, ['title','photo_id']), {
+    patch: true,
     transacting: req.trx
   })
 

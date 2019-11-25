@@ -20,6 +20,7 @@ const updateRoute = async (req, res) => {
   })
 
   await vendor.save(whitelist(req.body, ['name','address_1','address_2','city','state','zip','integration']), {
+    patch: true,
     transacting: req.trx
   })
 

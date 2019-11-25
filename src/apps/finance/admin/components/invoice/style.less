@@ -2,36 +2,41 @@
   border: 1px solid fadeout(@black, 90);
   background-color: @white;
 }
-.finance-invoice-details {
+.finance-invoice-row {
   display: flex;
+  & > div {
+    flex: 0 0 50%;
+  }
+}
+.finance-invoice-col {
+  padding: 0.8em;
+  table {
+    width: 100%;
+    border-top: 1px solid fadeout(@black, 85);
+    border-left: 1px solid fadeout(@black, 85);
+  }
+  tr {
+    td {
+      border-bottom: 1px solid fadeout(@black, 85);
+      border-right: 1px solid fadeout(@black, 85);
+      padding: 0.4em;
+      &:first-child {
+        font-weight: bold;
+      }
+    }
+  }
 }
 .finance-invoice-vendor {
   flex: 1;
   display: flex;
 }
 .finance-invoice-vendor-logo {
-  flex: 0 0 110px;
-  padding: 0.8em;
+  flex: 0 0 4.8em;
 }
 .finance-invoice-vendor-details {
-  padding: 0.8em 0.8em 0.8em 0;
+  padding-left: 0.8em;
   line-height: 1.6em;
   flex: 1;
-}
-.finance-invoice-properties {
-  padding: 0.8em;
-  tr {
-    td {
-      line-height: 1.6em;
-      &:first-child {
-        width: 100px;
-        font-weight: bold;
-      }
-      &:last-child {
-        width: 150px;
-      }
-    }
-  }
 }
 .finance-invoice-lineitems {
   padding: 0.8em;

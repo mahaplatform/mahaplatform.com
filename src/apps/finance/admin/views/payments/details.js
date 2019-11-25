@@ -23,7 +23,7 @@ const Details = ({ payment }) => {
     list.items.push({ label: 'Scholarship', content: payment.scholarship.id })
   } else if(payment.method === 'credit') {
     list.items.push({ label: 'Credit', content: payment.credit.id })
-  } else if(_.include(['card','googlepay','applepay'], payment.method)) {
+  } else if(_.includes(['card','googlepay','applepay'], payment.method)) {
     list.items.push({ label: 'Card', content: payment.card })
     list.items.push({ label: 'Braintree ID', content: payment.braintree_id })
   }
