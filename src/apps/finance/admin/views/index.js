@@ -6,11 +6,15 @@ import CouponList from './coupons/list'
 import CustomerList from './customers/list'
 import CustomerShow from './customers/show'
 import CheckShow from './checks/show'
+import DisbursementList from './disbursements/list'
+import DisbursementShow from './disbursements/show'
 import ExpenseShow from './expenses/show'
 import ExpenseTypeList from './expense_types/list'
 import InvoiceList from './invoices/list'
 import InvoiceShow from './invoices/show'
 import ItemList from './items/list'
+import MerchantList from './merchants/list'
+import MerchantShow from './merchants/show'
 import PaymentList from './payments/list'
 import PaymentShow from './payments/show'
 import ProductList from './products/list'
@@ -35,10 +39,14 @@ const routes = [
   { path: '/customers', component: CustomerList },
   { path: '/customers/:id', component: CustomerShow },
   { path: '/expenses/:id', component: ExpenseShow },
+  { path: '/disbursements', component: DisbursementList },
+  { path: '/disbursements/:id', component: DisbursementShow },
   { path: '/expense_types', component: ExpenseTypeList },
   { path: '/invoices', component: InvoiceList },
   { path: '/invoices/:id', component: InvoiceShow },
   { path: '/items', component: ItemList },
+  { path: '/merchants', component: MerchantList },
+  { path: '/merchants/:id', component: MerchantShow },
   { path: '/payments', component: PaymentList },
   { path: '/payments/:id', component: PaymentShow },
   { path: '/products', component: ProductList },

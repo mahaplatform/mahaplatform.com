@@ -1,11 +1,11 @@
-import Invoice from '../../../models/invoice'
+import Invoice from '../../../models/payment'
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
 
 const voidRoute = async (req, res) => {
 
-  const invoice = await Invoice.scope(qb => {
+  const payment = await Invoice.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
@@ -13,24 +13,24 @@ const voidRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!invoice) return res.status(404).respond({
+  if(!payment) return res.status(404).respond({
     code: 404,
-    message: 'Unable to load invoice'
+    message: 'Unable to load payment'
   })
 
-  await invoice.save(whitelist(req.body, ['voided_at']), {
+  await payment.save(whitelist(req.body, ['voided_at']), {
     patch: true,
     transacting: req.trx
   })
 
   await activity(req, {
     story: 'voided {object}',
-    object: invoice
+    object: payment
   })
 
   await socket.refresh(req, [
-    '/admin/finance/invoices',
-    `/admin/finance/invoices/${invoice.get('id')}`
+    '/admin/finance/payments',
+    `/admin/finance/payments/${payment.get('id')}`
   ])
 
   res.status(200).respond(true)

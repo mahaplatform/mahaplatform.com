@@ -8,7 +8,25 @@ const Disbursement = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    amount() {
+      return this.get('total') - this.get('fees')
+    },
+
+    total() {
+      return this.related('payments').reduce((total, payment) => {
+        return total + Number(payment.get('amount'))
+      }, 0.00)
+    },
+
+    fees() {
+      return this.related('payments').reduce((fees, payment) => {
+        return fees + Number(payment.get('fee'))
+      }, 0.00)
+    }
+
+  },
 
   merchant() {
     return this.belongsTo(Merchant, 'merchant_id')

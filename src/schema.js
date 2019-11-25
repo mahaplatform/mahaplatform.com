@@ -916,6 +916,14 @@ const schema = {
       table.boolean('is_active')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.jsonb('integration')
+      table.string('bank_name', 255)
+      table.string('routing_number', 255)
+      table.string('account_number', 255)
+      table.boolean('paypal')
+      table.boolean('has_paypal')
+      table.decimal('rate', 5, 2)
+      table.decimal('amex_rate', 5, 2)
     })
 
     await knex.schema.createTable('finance_payments', (table) => {
@@ -930,13 +938,13 @@ const schema = {
       table.USER-DEFINED('status')
       table.USER-DEFINED('card_type')
       table.decimal('amount', 6, 2)
-      table.decimal('fee', 6, 2)
       table.string('reference', 255)
       table.string('braintree_id', 255)
       table.timestamp('voided_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.date('date')
+      table.decimal('rate', 5, 2)
     })
 
     await knex.schema.createTable('finance_products', (table) => {
@@ -2373,8 +2381,8 @@ const schema = {
     await knex.schema.table('finance_invoices', table => {
       table.foreign('customer_id').references('crm_contacts.id')
       table.foreign('coupon_id').references('finance_coupons.id')
-      table.foreign('team_id').references('maha_teams.id')
       table.foreign('program_id').references('crm_programs.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('finance_line_items', table => {

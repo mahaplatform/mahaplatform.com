@@ -1,6 +1,7 @@
 import { Page } from 'maha-admin'
 import Details from './details'
 import Refunds from './refunds'
+import Void from './void'
 import React from 'react'
 
 const getTabs = ({ payment, refunds }) => ({
@@ -10,10 +11,11 @@ const getTabs = ({ payment, refunds }) => ({
   ]
 })
 
-const getTasks = ({ invoice }) => ({
+const getTasks = ({ payment }) => ({
   items: [
     {
-      label: 'Void Payment'
+      label: 'Void Payment',
+      modal: <Void payment={ payment } />
     }, {
       label: 'Issue Refund'
     }

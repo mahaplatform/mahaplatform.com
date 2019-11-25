@@ -8,7 +8,7 @@ const showRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['credit','invoice.customer','scholarship'],
+    withRelated: ['credit','disbursement.merchant','invoice.customer','scholarship'],
     transacting: req.trx
   })
 

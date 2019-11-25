@@ -2,7 +2,6 @@ import PropTypes from 'prop-types'
 import { List } from 'maha-admin'
 import React from 'react'
 
-
 const Details = ({ customer }) => {
 
   const list = {

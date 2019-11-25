@@ -14,8 +14,10 @@ const navigation = async (req) => ({
       { label: 'Vendors', route: '/vendors' }
     ] },
     { label: 'Revenue', rights: ['finance:manage_revenue'], items: [
+      { label: 'Bank Accounts', route: '/merchants' },
       { label: 'Coupons', route: '/coupons' },
       { label: 'Customers', route: '/customers' },
+      { label: 'Disbursements', route: '/disbursements' },
       { label: 'Invoices', route: '/invoices' },
       { label: 'Payments', route: '/payments' },
       { label: 'Products', route: '/products' },

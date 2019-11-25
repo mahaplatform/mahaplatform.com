@@ -5,6 +5,7 @@ import Merchant from './merchant'
 import Invoice from './invoice'
 import Credit from './credit'
 import Refund from './refund'
+import _ from 'lodash'
 
 const Payment = new Model({
 
@@ -12,7 +13,27 @@ const Payment = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    braintree_link() {
+      const subdomain = process.env.BRAINTREE_ENVIRONMENT === 'sandbox' ? 'sandbox.' : ''
+      const domain = `https://${subdomain}braintreegateway.com`
+      return `${domain}/merchants/${process.env.BRAINTREE_MERCHANT_ID}/transactions/${this.get('braintree_id')}`
+    },
+
+    description() {
+      if(_.includes(['googlepay','applepay','card'], this.get('method'))) return `${this.get('card_type').toUpperCase()}-${this.get('reference')}`
+      if(this.get('method') === 'paypal') return `PAYPAL-${this.get('reference')}`
+      if(this.get('method') === 'check') return this.get('reference')
+      return null
+    },
+
+    fee() {
+      const fee = this.get('rate') * this.get('amount')
+      return (Math.floor(fee * 100) / 100) + 0.30
+    }
+
+  },
 
   credit() {
     return this.belongsTo(Credit, 'credit_id')

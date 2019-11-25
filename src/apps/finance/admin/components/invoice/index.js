@@ -24,6 +24,10 @@ class Invoice extends React.PureComponent {
             <table>
               <tbody>
                 <tr>
+                  <td>Invoice ID</td>
+                  <td>{ invoice.code }</td>
+                </tr>
+                <tr>
                   <td>Date</td>
                   <td>{ moment(invoice.date).format('MMM DD, YYYY') }</td>
                 </tr>
@@ -31,30 +35,30 @@ class Invoice extends React.PureComponent {
                   <td>Due</td>
                   <td>{ moment(invoice.due).format('MMM DD, YYYY') }</td>
                 </tr>
-                <tr>
-                  <td>Invoice ID</td>
-                  <td>{ invoice.code }</td>
-                </tr>
               </tbody>
             </table>
           </div>
         </div>
         <div className="finance-invoice-row">
           <div className="finance-invoice-col">
-            <div className="finance-invoice-vendor">
-              <div className="finance-invoice-vendor-logo">
-                <Logo team={ invoice.program } width="110" />
-              </div>
-              <div className="finance-invoice-vendor-details">
-                <strong>{ invoice.program.title }</strong><br />
-                615 Willow Ave<br />
-                Ithaca, NY 14850
+            <div className="finance-invoice-box">
+              <div className="finance-invoice-vendor">
+                <div className="finance-invoice-vendor-logo">
+                  <Logo team={ invoice.program } width="110" />
+                </div>
+                <div className="finance-invoice-vendor-details">
+                  <strong>{ invoice.program.title }</strong><br />
+                  615 Willow Ave<br />
+                  Ithaca, NY 14850
+                </div>
               </div>
             </div>
           </div>
           <div className="finance-invoice-col">
-            <strong>{ invoice.customer.display_name }</strong><br />
-            { invoice.customer.email }
+            <div className="finance-invoice-box">
+              <strong>{ invoice.customer.display_name }</strong><br />
+              { invoice.customer.email }
+            </div>
           </div>
         </div>
         <div className="finance-invoice-lineitems">
@@ -127,14 +131,16 @@ class Invoice extends React.PureComponent {
     )
   }
 
-  _getMethod({ method, card_type, reference }) {
-    if(method === 'paypal') return `Charged ${method.toUpperCase()}-${reference}`
-    if(method === 'card') return `Charged ${card_type.toUpperCase()}-${reference}`
+  _getMethod(props) {
+    const { description, method } = props
+    console.log(props)
+    if(method === 'paypal') return `Charged ${description}`
+    if(method === 'card') return `Charged ${description}`
     if(method === 'scholarship') return 'Applied scholarship'
     if(method === 'credit') return 'Applied customer credit'
     if(method === 'cash') return 'Received cash'
-    if(method === 'check') return `Received check (${reference})`
-    return `Charged ${card_type.toUpperCase()}-${reference} with ${method.toUpperCase()}`
+    if(method === 'check') return `Received check (${description})`
+    return `Charged ${description}`
   }
 
 }

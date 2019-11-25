@@ -41,7 +41,7 @@ const Invoice = new Model({
     status() {
       if(this.get('voided_at')) return 'void'
       if(this.get('is_paid')) return 'paid'
-      if(moment().diff(moment(this.get('due'))) >= 0) return 'overdue'
+      if(moment().diff(moment(this.get('due')), 'days') > 0) return 'overdue'
       return 'unpaid'
     },
 
