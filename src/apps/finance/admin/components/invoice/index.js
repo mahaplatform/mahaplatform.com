@@ -111,11 +111,15 @@ class Invoice extends React.PureComponent {
                 <td>{ numeral(invoice.total).format('0.00') }</td>
               </tr>
               { invoice.payments.map((payment, index) => (
-                <tr key={`payment_${index}`}>
+                <tr key={`payment_${index}`} className={ this._getPaymentClass(payment) }>
                   <td colSpan="3">
-                    { this._getMethod(payment) } on { moment(payment.date).format('MM/DD/YYYY')}
+                    <span>
+                      { this._getMethod(payment) } on { moment(payment.date).format('MM/DD/YYYY') }
+                    </span> { payment.voided_at &&
+                      `(voided on ${ moment(payment.voided_at).format('MM/DD/YYYY') })`
+                    }
                   </td>
-                  <td>-{ numeral(payment.amount).format('0.00') }</td>
+                  <td><span>-{ numeral(payment.amount).format('0.00') }</span></td>
                 </tr>
               )) }
               { invoice.payments.length > 0 &&
@@ -129,6 +133,13 @@ class Invoice extends React.PureComponent {
         </div>
       </div>
     )
+  }
+
+  _getPaymentClass(payment) {
+    const classes = []
+    if(payment.voided_at) classes.push('voided')
+    return classes.join(' ')
+
   }
 
   _getMethod(props) {

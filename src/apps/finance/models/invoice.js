@@ -33,7 +33,9 @@ const Invoice = new Model({
     },
 
     paid() {
-      return this.related('payments').reduce((paid, payment) => {
+      return this.related('payments').toArray().filter(payment => {
+        return payment.get('voided_at') === null
+      }).reduce((paid, payment) => {
         return paid + Number(payment.get('amount'))
       }, 0.00)
     },

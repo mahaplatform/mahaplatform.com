@@ -5,12 +5,19 @@ import Details from './details'
 import Void from './void'
 import React from 'react'
 
-const getTabs = ({ audits, invoice, payments }) => ({
-  items: [
-    { label: 'Details', component: <Details audits={ audits } invoice={ invoice } /> },
-    { label: 'Payments', component: <Payments payments={ payments } /> }
+const getTabs = ({ audits, invoice, payments }) => {
+
+  const items = [
+    { label: 'Details', component: <Details audits={ audits } invoice={ invoice } /> }
   ]
-})
+
+  if(payments.length > 0) {
+    items.push({ label: 'Payments', component: <Payments payments={ payments } /> })
+  }
+
+  return { items }
+
+}
 
 const getTasks = ({ invoice }) => ({
   items: [

@@ -56,9 +56,11 @@ const payment = (payment) => {
   if(!payment.id) return null
   return {
     id: payment.get('id'),
+    date: payment.get('date'),
     method: payment.get('method'),
     description: payment.get('description'),
-    amount: payment.get('amount')
+    amount: payment.get('amount'),
+    voided_at: payment.get('voided_at')
   }
 }
 
