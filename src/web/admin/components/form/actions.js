@@ -1,22 +1,3 @@
-export const setSections = (sections) => ({
-  type: 'SET_SECTIONS',
-  sections
-})
-
-export const updateSections = (sections) => ({
-  type: 'UPDATE_SECTIONS',
-  sections
-})
-
-export const fetchSections = (endpoint) => ({
-  type: 'API_REQUEST',
-  method: 'GET',
-  endpoint,
-  request: 'FETCH_SECTIONS_REQUEST',
-  success: 'FETCH_SECTIONS_SUCCESS',
-  failure: 'FETCH_SECTIONS_FAILURE'
-})
-
 export const fetchData = (endpoint, defaults) => ({
   type: 'API_REQUEST',
   method: 'GET',
@@ -71,8 +52,4 @@ export const submitForm = (method, endpoint, body) => ({
 export const validateForm = (validateResults) => ({
   type: 'VALIDATE_FORM',
   validateResults
-})
-
-export const reset = () => ({
-  type: 'RESET'
 })

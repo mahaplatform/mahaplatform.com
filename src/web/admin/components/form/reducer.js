@@ -1,9 +1,7 @@
-import flatten from 'flat'
 import _ from 'lodash'
 
 const INITIAL_STATE = {
   busy: [],
-  config: null,
   data: {},
   entity: {},
   errors: {},
@@ -15,38 +13,6 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
-
-  case 'SET_SECTIONS':
-    return {
-      ...state,
-      config: action.sections,
-      status: 'sections_loaded'
-    }
-
-  case 'UPDATE_SECTIONS':
-    return {
-      ...state,
-      config: action.sections
-    }
-
-  case 'RESET':
-    return {
-      ...state,
-      data: {}
-    }
-
-  case 'FETCH_SECTIONS_REQUEST':
-    return {
-      ...state,
-      status: 'loading_sections'
-    }
-
-  case 'FETCH_SECTIONS_SUCCESS':
-    return {
-      ...state,
-      status: 'sections_loaded',
-      config: action.result.data
-    }
 
   case 'POP':
     return {
@@ -136,7 +102,6 @@ export default (state = INITIAL_STATE, action) => {
       entity: action.result.data
     }
 
-  case 'FETCH_SECTIONS_FAILURE':
   case 'FETCH_DATA_FAILURE':
   case 'SUBMIT_FAILURE':
     return {

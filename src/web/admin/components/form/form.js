@@ -51,17 +51,13 @@ class Form extends React.Component {
     onSubmitForm: PropTypes.func,
     onFailure: PropTypes.func,
     onFetchData: PropTypes.func,
-    onFetchSections: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
-    onResetForm: PropTypes.func,
     onSetData: PropTypes.func,
     onSetReady: PropTypes.func,
-    onSetSections: PropTypes.func,
     onSuccess: PropTypes.func,
     onToggleBusy: PropTypes.func,
     onUpdateData: PropTypes.func,
-    onUpdateSections: PropTypes.func,
     onValidateForm: PropTypes.func
   }
 
@@ -257,12 +253,6 @@ class Form extends React.Component {
   _handleSuccess() {
     this.props.onSuccess(this.props.entity)
   }
-
-  _handleUpdateSections() {
-    const { sections, onUpdateSections } = this.props
-    onUpdateSections(sections)
-  }
-
 
 }
 

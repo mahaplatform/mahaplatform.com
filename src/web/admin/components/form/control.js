@@ -49,9 +49,10 @@ class Control extends React.Component {
   }
 
   render() {
+    const Component = this._getElement()
     return (
       <div className="maha-control">
-        { React.createElement(this._getElement(), this.props) }
+        <Component {...this.props } />
       </div>
     )
   }

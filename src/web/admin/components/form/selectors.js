@@ -41,34 +41,27 @@ export const fields = createSelector(
 
 export const defaults = createSelector(
   fields,
-  (fields) => fields.reduce((defaults, field) => {
-    if(field.include === false) return defaults
-    return {
-      ...defaults,
-      [field.name]: field.defaultValue
-    }
-  }, {})
+  (fields) => fields.reduce((defaults, field) => ({
+    ...defaults,
+    ...field.include !== false ? { [field.name]: field.defaultValue } : {}
+  }), {})
 )
 
 export const filtered = createSelector(
   fields,
   data,
-  (fields, data) => unflatten(fields.reduce((entity, field) => {
-    if(field.include === false || field.type == 'text') return entity
-    return {
-      ...entity,
-      [field.name]: !_.isNil(_.get(data, field.name)) ? _.get(data, field.name) : null
-    }
-  }, {}))
+  (fields, data) => unflatten(fields.reduce((entity, field) => ({
+    ...entity,
+    ...(field.include && field.type !== 'text') ? { [field.name]: _.get(data, field.name) } : {}
+  }), {}))
 )
 
 export const isReady = createSelector(
   fields,
   ready,
-  (fields, ready) => fields.reduce((isReady, field) => {
-    if(!isReady) return false
-    return _.includes(ready, field.name)
-  }, true)
+  (fields, ready) => fields.find(field => {
+    return !_.includes(ready, field.name)
+  }) === undefined
 )
 
 export const isBusy = createSelector(
