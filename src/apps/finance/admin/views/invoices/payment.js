@@ -1,3 +1,4 @@
+import Card from '../../components/card'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import moment from 'moment'
@@ -52,6 +53,11 @@ class Payment extends React.Component {
     const { method } = this.state
     if(method === 'cash') {
       return [{ label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }]
+    } else if(method === 'card') {
+      return [
+        { name: 'nonce', type: Card },
+        { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }
+      ]
     } else if(method === 'check') {
       return [
         { label: 'Check #', name: 'reference', type: 'textfield', placeholder: 'Enter an check number', required: true },

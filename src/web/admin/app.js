@@ -98,6 +98,7 @@ import drivechat from '../../apps/drive/admin/components/share/chat'
 import driveshare from '../../apps/drive/admin/components/share'
 import driveuploader from '../../apps/drive/admin/components/uploader'
 import driveversions from '../../apps/drive/admin/components/versions'
+import financecard from '../../apps/finance/admin/components/card'
 import financelineItems from '../../apps/finance/admin/components/line_items'
 import financetripsImportFinalize from '../../apps/finance/admin/components/trips_import_finalize'
 import competenciescommitments from '../../apps/learning/admin/components/commitments'
@@ -346,6 +347,7 @@ class App extends React.Component {
       driveshare,
       driveuploader,
       driveversions,
+      financecard,
       financelineItems,
       financetripsImportFinalize,
       competenciescommitments,

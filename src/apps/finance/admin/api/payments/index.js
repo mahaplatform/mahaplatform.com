@@ -3,6 +3,7 @@ import refunds from './refunds'
 import destroy from './destroy'
 import create from './create'
 import update from './update'
+import token from './token'
 import edit from './edit'
 import list from './list'
 import show from './show'
@@ -13,6 +14,8 @@ const router = new Router({ mergeParams: true })
 router.get('/', list)
 
 router.post('/', create)
+
+router.get('/token', token)
 
 router.get('/:id', show)
 
