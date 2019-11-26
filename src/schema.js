@@ -884,6 +884,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('program_id').unsigned()
+      table.text('voided_reason')
     })
 
     await knex.schema.createTable('finance_line_items', (table) => {
@@ -921,8 +922,8 @@ const schema = {
       table.string('routing_number', 255)
       table.string('account_number', 255)
       table.boolean('has_paypal')
-      table.decimal('rate', 5, 2)
-      table.decimal('amex_rate', 5, 2)
+      table.decimal('rate', 5, 4)
+      table.decimal('amex_rate', 5, 4)
     })
 
     await knex.schema.createTable('finance_payments', (table) => {
@@ -942,8 +943,9 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.date('date')
-      table.decimal('rate', 5, 2)
+      table.decimal('rate', 5, 4)
       table.USER-DEFINED('status')
+      table.text('voided_reason')
     })
 
     await knex.schema.createTable('finance_products', (table) => {
@@ -1004,6 +1006,7 @@ const schema = {
       table.USER-DEFINED('type')
       table.timestamp('voided_at')
       table.USER-DEFINED('status')
+      table.text('voided_reason')
     })
 
     await knex.schema.createTable('finance_reimbursements', (table) => {

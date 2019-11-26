@@ -15,7 +15,7 @@ const AddRefundFields = {
     await knex.raw('DROP TYPE finance_payments_status;')
 
     await knex.schema.table('finance_payments', (table) => {
-      table.enum('status', ['captured','settled','disbursed','voided'], { useNative: true, enumName: 'finance_payments_status' })
+      table.enum('status', ['received','captured','settled','disbursed','voided'], { useNative: true, enumName: 'finance_payments_status' })
     })
 
   },

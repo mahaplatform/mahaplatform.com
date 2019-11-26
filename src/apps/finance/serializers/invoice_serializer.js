@@ -17,7 +17,8 @@ const InvoiceSerializer = (req, result) => ({
   subtotal: result.get('subtotal'),
   tax: result.get('tax'),
   total: result.get('total'),
-  voided_at: result.get('voided_at'),
+  voided_date: result.get('voided_date'),
+  voided_reason: result.get('voided_reason'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
@@ -60,7 +61,7 @@ const payment = (payment) => {
     method: payment.get('method'),
     description: payment.get('description'),
     amount: payment.get('amount'),
-    voided_at: payment.get('voided_at')
+    voided_date: payment.get('voided_date')
   }
 }
 

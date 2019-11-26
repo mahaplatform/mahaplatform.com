@@ -31,7 +31,8 @@ class Void extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Date', name: 'voided_at', type: 'datefield', placeholder: 'Date', required: true, defaultValue: moment() }
+            { label: 'Date', name: 'voided_date', type: 'datefield', placeholder: 'Date', required: true, defaultValue: moment() },
+            { label: 'Reason', name: 'voided_reason', type: 'textarea', placeholder: 'Why are you voiding this payment?', required: true }
           ]
         }
       ]

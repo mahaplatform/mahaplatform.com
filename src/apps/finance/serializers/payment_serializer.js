@@ -17,7 +17,8 @@ const PaymentSerializer = (req, result) => ({
   refundable: result.get('refundable'),
   scholarship: scholarship(result.related('scholarship')),
   status: result.get('status'),
-  voided_at: result.get('voided_at'),
+  voided_date: result.get('voided_date'),
+  voided_reason: result.get('voided_reason'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

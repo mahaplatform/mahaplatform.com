@@ -115,8 +115,8 @@ class Invoice extends React.PureComponent {
                   <td colSpan="3">
                     <span>
                       { this._getMethod(payment) } on { moment(payment.date).format('MM/DD/YYYY') }
-                    </span> { payment.voided_at &&
-                      `(voided on ${ moment(payment.voided_at).format('MM/DD/YYYY') })`
+                    </span> { payment.voided_date &&
+                      `(voided on ${ moment(payment.voided_date).format('MM/DD/YYYY') })`
                     }
                   </td>
                   <td><span>-{ numeral(payment.amount).format('0.00') }</span></td>
@@ -137,7 +137,7 @@ class Invoice extends React.PureComponent {
 
   _getPaymentClass(payment) {
     const classes = []
-    if(payment.voided_at) classes.push('voided')
+    if(payment.voided_date) classes.push('voided')
     return classes.join(' ')
 
   }

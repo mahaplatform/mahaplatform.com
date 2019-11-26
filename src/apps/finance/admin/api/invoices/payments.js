@@ -21,6 +21,7 @@ const paymentsRoute = async (req, res) => {
   const payments = await Payment.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('invoice_id', invoice.get('id'))
+    qb.orderByRaw('date desc, created_at desc')
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx

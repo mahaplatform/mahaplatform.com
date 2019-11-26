@@ -34,14 +34,14 @@ const Invoice = new Model({
 
     paid() {
       return this.related('payments').toArray().filter(payment => {
-        return payment.get('voided_at') === null
+        return payment.get('voided_date') === null
       }).reduce((paid, payment) => {
         return paid + Number(payment.get('amount'))
       }, 0.00)
     },
 
     status() {
-      if(this.get('voided_at')) return 'void'
+      if(this.get('voided_date')) return 'void'
       if(this.get('is_paid')) return 'paid'
       if(moment().diff(moment(this.get('due')), 'days') > 0) return 'overdue'
       return 'unpaid'

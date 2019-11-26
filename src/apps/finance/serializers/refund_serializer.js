@@ -6,7 +6,8 @@ const PaymentSerializer = (req, result) => ({
   customer: customer(result.related('payment').related('invoice').related('customer')),
   status: result.get('status'),
   type: result.get('type'),
-  voided_at: result.get('voided_at'),
+  voided_date: result.get('voided_date'),
+  voided_reason: result.get('voided_reason'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

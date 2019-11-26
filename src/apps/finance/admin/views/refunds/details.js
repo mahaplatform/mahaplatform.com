@@ -13,8 +13,8 @@ const Details = ({ refund }) => {
     ]
   }
 
-  if(refund.voided_at) {
-    list.items.push({ label: 'Voided At', content: moment(refund.voided_at).format('MM/DD/YYYY')})
+  if(refund.voided_date) {
+    list.items.push({ label: 'Voided Date', content: moment(refund.voided_date).format('MM/DD/YYYY')})
   }
 
   if(refund.type === 'card') {

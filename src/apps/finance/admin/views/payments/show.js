@@ -4,6 +4,7 @@ import Refunds from './refunds'
 import Refund from './refund'
 import Void from './void'
 import React from 'react'
+import _ from 'lodash'
 
 const getTabs = ({ payment, refunds }) => {
 
@@ -30,7 +31,7 @@ const getTasks = ({ payment }) => {
     })
   }
 
-  if(payment.braintree_id === null || payment.status !== 'captured') {
+  if(payment.braintree_id === null || !_.includes(['captured','voided'], payment.status !== 'captured')) {
     items.push({
       label: 'Issue Refund',
       modal: <Refund payment={ payment } />

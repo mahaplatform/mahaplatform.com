@@ -18,7 +18,7 @@ const voidRoute = async (req, res) => {
     message: 'Unable to load invoice'
   })
 
-  await invoice.save(whitelist(req.body, ['voided_at']), {
+  await invoice.save(whitelist(req.body, ['voided_date','voided_reason']), {
     patch: true,
     transacting: req.trx
   })

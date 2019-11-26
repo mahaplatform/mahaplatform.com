@@ -13,10 +13,6 @@ const Details = ({ payment }) => {
     { label: 'Method', content: payment.method }
   ]
 
-  if(payment.voided_at) {
-    items.push({ label: 'Voided At', content: moment(payment.voided_at).format('MM/DD/YYYY')})
-  }
-
   const braintree = {
     className: 'link',
     label: payment.braintree_id,
@@ -32,6 +28,8 @@ const Details = ({ payment }) => {
     items.push({ label: 'Braintree', content: <Button { ...braintree } /> })
   }
 
+  items.push({ label: 'Status', content: payment.status })
+
   items.push({ label: 'Amount', content: numeral(payment.amount).format('$0.00') })
 
   if(payment.refunded) {
@@ -44,12 +42,26 @@ const Details = ({ payment }) => {
     ]
   }
 
-  if(payment.status === 'captured') {
+  if(payment.voided_date !== null) {
+    list.alert = { color: 'red', message: 'This payment was voided' }
+  } else if(payment.status === 'captured') {
     list.alert = { color: 'teal', message: 'This payment is pending settlement' }
   } else if(payment.status === 'settled') {
     list.alert = { color: 'blue', message: 'This payment has been settled' }
   } else if(payment.status === 'disbursed') {
     list.alert = { color: 'green', message: 'This payment has been disbursed' }
+  }
+
+  if(payment.status === 'voided') {
+
+    list.sections.push({
+      title: 'Voided',
+      items: [
+        { label: 'Date', content: moment(payment.voided_date).format('MM/DD/YYYY') },
+        { label: 'Reason', content: payment.voided_reason }
+      ]
+    })
+
   }
 
   if(payment.status === 'disbursed') {

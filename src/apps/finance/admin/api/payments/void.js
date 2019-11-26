@@ -20,22 +20,22 @@ const voidRoute = async (req, res) => {
     message: 'Unable to load payment'
   })
 
-  if(payment.get('status') !== 'captured') return res.status(422).send({
+  if(payment.get('braintree_id') && payment.get('status') !== 'captured') return res.status(422).send({
     errors: {
-      voided_at: ['cannot void a payment once it has been settled']
+      voided_date: ['cannot void a payment once it has been settled']
     },
     message: 'Unable to void payment',
     status: 422
   })
 
-  if(payment.braintree_id) {
-    const result = await braintree.transaction.void(payment.braintree_id)
+  if(payment.get('braintree_id')) {
+    const result = await braintree.transaction.void(payment.get('braintree_id'))
     console.log(result)
   }
 
   await payment.save({
     status: 'voided',
-    ...whitelist(req.body, ['voided_at'])
+    ...whitelist(req.body, ['voided_date','voided_reason'])
   }, {
     patch: true,
     transacting: req.trx

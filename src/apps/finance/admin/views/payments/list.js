@@ -11,7 +11,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Customer', key: 'customer.display_name', sort: 'customer', primary: true },
       { label: 'Method', key: 'method', primary: true, collapsing: true },
       { label: 'Date', key: 'date', primary: true, format: 'date', collapsing: true },
-      { label: 'Amount', key: 'amount', primary: true, format: 'currency', collapsing: true  }
+      { label: 'Amount', key: 'amount', primary: true, format: 'currency', collapsing: true  },
+      { label: 'Status', key: 'status', primary: true, format: 'status', collapsing: true  }
     ],
     filters: [
       { label: 'Customer', name: 'customer_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/customers', value: 'id', text: 'display_name', sort: { key: 'last_name', order: 'asc' } },

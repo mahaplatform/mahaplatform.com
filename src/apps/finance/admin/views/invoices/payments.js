@@ -8,7 +8,7 @@ const Payments = ({ payments }) => {
 
   const button = (payment) => ({
     className: 'link',
-    label: payment.description,
+    label: `${payment.method.toUpperCase()} ${payment.description ? `(${payment.description})` : ''}`,
     route: `/admin/finance/payments/${payment.id}`
   })
 
