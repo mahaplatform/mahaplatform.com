@@ -1,21 +1,34 @@
 .finance-invoice {
-  border: 1px solid fadeout(@black, 90);
   background-color: @white;
 }
-.finance-invoice-row {
-  display: flex;
-  & > div {
-    flex: 0 0 50%;
+
+@media (max-width: 768px) {
+  .finance-invoice-col {
+    padding: 0.4em 0.8em;
   }
 }
+@media (min-width: 769px) {
+  .finance-invoice-row {
+    display: flex;
+    & > div {
+      flex: 0 0 50%;
+    }
+  }
+  .finance-invoice-col {
+    padding: 0.8em;
+  }
+}
+
 .finance-invoice-box {
   border: 1px solid fadeout(@black, 85);
   border-radius: 0.5em;
   padding: 0.8em;
   flex: 1;
 }
+.finance-invoice-status {
+  padding: 0 !important;
+}
 .finance-invoice-col {
-  padding: 0.8em;
   display: flex;
   table {
     width: 100%;

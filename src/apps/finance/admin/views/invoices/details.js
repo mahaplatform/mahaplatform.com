@@ -3,7 +3,6 @@ import PropTypes from 'prop-types'
 import { Audit, Comments, List } from 'maha-admin'
 import React from 'react'
 
-
 const Details = ({ audits, invoice }) => {
 
   const list = {

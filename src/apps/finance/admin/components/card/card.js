@@ -58,6 +58,12 @@ class Card extends React.PureComponent {
     }
   }
 
+  _getPanel() {
+    return {
+      title: 'Charge Card'
+    }
+  }
+
   _getInput(name, placeholder) {
     return {
       type: 'text',

@@ -15,7 +15,7 @@ class Invoice extends React.PureComponent {
     return (
       <div className="finance-invoice">
         <div className="finance-invoice-row">
-          <div className="finance-invoice-status">
+          <div className="finance-invoice-col finance-invoice-status">
             { invoice.status !== 'unpaid' &&
               <img src={`/admin/images/payments/${invoice.status}.png`} />
             }

@@ -28,8 +28,6 @@ const Details = ({ payment }) => {
     items.push({ label: 'Braintree', content: <Button { ...braintree } /> })
   }
 
-  items.push({ label: 'Status', content: payment.status })
-
   items.push({ label: 'Amount', content: numeral(payment.amount).format('$0.00') })
 
   if(payment.refunded) {
@@ -50,6 +48,8 @@ const Details = ({ payment }) => {
     list.alert = { color: 'blue', message: 'This payment has been settled' }
   } else if(payment.status === 'disbursed') {
     list.alert = { color: 'green', message: 'This payment has been disbursed' }
+  } else if(payment.status === 'received') {
+    list.alert = { color: 'green', message: 'This payment was received' }
   }
 
   if(payment.status === 'voided') {
