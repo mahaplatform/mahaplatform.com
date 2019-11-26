@@ -133,14 +133,15 @@ class Invoice extends React.PureComponent {
 
   _getMethod(props) {
     const { description, method } = props
-    console.log(props)
     if(method === 'paypal') return `Charged ${description}`
     if(method === 'card') return `Charged ${description}`
+    if(method === 'googlepay') return `Charged ${description} via GooglePay`
+    if(method === 'applepay') return `Charged ${description} via ApplePay`
+    if(method === 'check') return `Received check (${description})`
     if(method === 'scholarship') return 'Applied scholarship'
     if(method === 'credit') return 'Applied customer credit'
     if(method === 'cash') return 'Received cash'
-    if(method === 'check') return `Received check (${description})`
-    return `Charged ${description}`
+
   }
 
 }

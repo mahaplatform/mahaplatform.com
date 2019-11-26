@@ -4,13 +4,15 @@ import Invoices from './invoices'
 import Payments from './payments'
 import Details from './details'
 import Credits from './credits'
+import Refunds from './refunds'
 import React from 'react'
 
-const getTabs = ({ customer, invoices, payments, credits, scholarships }) => ({
+const getTabs = ({ customer, invoices, payments, refunds, credits, scholarships }) => ({
   items: [
     { label: 'Details', component: <Details customer={ customer }/> },
     { label: 'Invoices', component: <Invoices invoices={ invoices }/> },
     { label: 'Payments', component: <Payments payments={ payments } /> },
+    { label: 'Refunds', component: <Refunds refunds={ refunds } /> },
     { label: 'Credits', component: <Credits credits={ credits }/> },
     { label: 'Scholarships', component: <Scholarships scholarships={ scholarships }/> }
   ]
@@ -24,6 +26,7 @@ const mapResourcesToPage = (props, context) => ({
   customer: `/api/admin/finance/customers/${props.params.id}`,
   invoices: `/api/admin/finance/customers/${props.params.id}/invoices`,
   payments: `/api/admin/finance/customers/${props.params.id}/payments`,
+  refunds: `/api/admin/finance/customers/${props.params.id}/refunds`,
   credits: `/api/admin/finance/customers/${props.params.id}/credits`,
   scholarships: `/api/admin/finance/customers/${props.params.id}/scholarships`
 })

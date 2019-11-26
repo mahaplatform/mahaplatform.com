@@ -1,8 +1,12 @@
 const PaymentSerializer = (req, result) => ({
   id: result.get('id'),
   amount: result.get('amount'),
+  braintree_id: result.get('braintree_id'),
+  braintree_link: result.get('braintree_link'),
   customer: customer(result.related('payment').related('invoice').related('customer')),
-  date: result.get('date'),
+  status: result.get('status'),
+  type: result.get('type'),
+  voided_at: result.get('voided_at'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

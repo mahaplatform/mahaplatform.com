@@ -1,15 +1,14 @@
-import RefundSerializer from '../../../serializers/refund_serializer'
-import Payment from '../../../models/payment'
-import Refund from '../../../models/refund'
+import RefundSerializer from '../../../../serializers/refund_serializer'
+import Payment from '../../../../models/payment'
+import Refund from '../../../../models/refund'
 
-const refundsRoute = async (req, res) => {
+const listRoute = async (req, res) => {
 
   const payment = await Payment.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.payment_id)
   }).fetch({
-    withRelated: ['invoice.customer'],
     transacting: req.trx
   })
 
@@ -21,6 +20,7 @@ const refundsRoute = async (req, res) => {
   const refunds = await Refund.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('payment_id', payment.get('id'))
+    qb.orderBy('created_at', 'desc')
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx
@@ -30,4 +30,4 @@ const refundsRoute = async (req, res) => {
 
 }
 
-export default refundsRoute
+export default listRoute

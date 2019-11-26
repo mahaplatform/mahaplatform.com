@@ -11,7 +11,7 @@ const listRoute = async (req, res) => {
   }).sort({
     sort: req.query.$sort,
     defaultSort: ['title'],
-    sortParams: ['id','title','created_at']
+    sortParams: ['id','title','tax_rate','created_at']
   }).fetchPage({
     page: req.query.$page,
     withRelated: ['project','revenue_type'],

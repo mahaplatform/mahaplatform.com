@@ -7,7 +7,15 @@ const Refund = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    braintree_link() {
+      const subdomain = process.env.BRAINTREE_ENVIRONMENT === 'sandbox' ? 'sandbox.' : ''
+      const domain = `https://${subdomain}braintreegateway.com`
+      return `${domain}/merchants/${process.env.BRAINTREE_MERCHANT_ID}/transactions/${this.get('braintree_id')}`
+    }
+
+  },
 
   payment() {
     return this.belongsTo(Payment, 'payment_id')

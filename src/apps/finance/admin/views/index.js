@@ -22,6 +22,7 @@ import ProjectList from './projects/list'
 import ProjectShow from './projects/show'
 import RateList from './rates/list'
 import ReceiptShow from './receipts/show'
+import RefundShow from './refunds/show'
 import ReimbursementShow from './reimbursements/show'
 import ReportList from './items/report'
 import RevenueTypeList from './revenue_types/list'
@@ -53,6 +54,7 @@ const routes = [
   { path: '/projects', component: ProjectList },
   { path: '/projects/:id', component: ProjectShow },
   { path: '/rates', component: RateList },
+  { path: '/refunds/:id', component: RefundShow },
   { path: '/reimbursements/:id', component: ReimbursementShow },
   { path: '/reports', component: ReportList },
   { path: '/tax', component: TaxList },

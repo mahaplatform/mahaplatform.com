@@ -1,6 +1,7 @@
 import { Page } from 'maha-admin'
 import Details from './details'
 import Refunds from './refunds'
+import Refund from './refund'
 import Void from './void'
 import React from 'react'
 
@@ -17,7 +18,8 @@ const getTasks = ({ payment }) => ({
       label: 'Void Payment',
       modal: <Void payment={ payment } />
     }, {
-      label: 'Issue Refund'
+      label: 'Issue Refund',
+      modal: <Refund payment={ payment } />
     }
   ]
 })

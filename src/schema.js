@@ -920,7 +920,6 @@ const schema = {
       table.string('bank_name', 255)
       table.string('routing_number', 255)
       table.string('account_number', 255)
-      table.boolean('paypal')
       table.boolean('has_paypal')
       table.decimal('rate', 5, 2)
       table.decimal('amex_rate', 5, 2)
@@ -935,7 +934,6 @@ const schema = {
       table.integer('merchant_id').unsigned()
       table.integer('disbursement_id').unsigned()
       table.USER-DEFINED('method')
-      table.USER-DEFINED('status')
       table.USER-DEFINED('card_type')
       table.decimal('amount', 6, 2)
       table.string('reference', 255)
@@ -945,6 +943,7 @@ const schema = {
       table.timestamp('updated_at')
       table.date('date')
       table.decimal('rate', 5, 2)
+      table.USER-DEFINED('status')
     })
 
     await knex.schema.createTable('finance_products', (table) => {
@@ -1002,6 +1001,9 @@ const schema = {
       table.decimal('amount', 6, 2)
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.USER-DEFINED('type')
+      table.timestamp('voided_at')
+      table.USER-DEFINED('status')
     })
 
     await knex.schema.createTable('finance_reimbursements', (table) => {

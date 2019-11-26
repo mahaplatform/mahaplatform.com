@@ -1,38 +1,35 @@
-import PaymentTypeToken from '../../tokens/payment_type'
+import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
-import moment from 'moment'
 import React from 'react'
 
-const Payments = ({ disbursement, payments }, { router }) => {
+const Payments = ({ disbursement, payments }) => {
 
-  const _handleClick = (payment) => {
-    router.history.push(`/admin/finance/payments/${payment.id}`)
-  }
+  const button = (payment) => ({
+    className: 'link',
+    label: payment.description,
+    route: `/admin/finance/payments/${payment.id}`
+  })
 
   return (
-    <table className="ui celled compact table">
+    <table className="ui celled compact unstackable table">
       <thead>
         <tr>
-          <th className="collapsing" />
-          <th>Method</th>
-          <th className="collapsing">Date</th>
+          <th>Description</th>
           <th className="collapsing">Amount</th>
           <th className="collapsing">Fee</th>
         </tr>
       </thead>
       <tbody>
         { payments.map((payment, index) => (
-          <tr key={`payment_${index}`} onClick={ _handleClick.bind(this, payment) }>
-            <td><PaymentTypeToken { ...payment } /></td>
-            <td>{ payment.description }</td>
-            <td>{ moment(payment.date).format('MM/DD/YYYY') }</td>
+          <tr key={`payment_${index}`}>
+            <td><Button { ...button(payment) } /></td>
             <td className="right aligned">{ numeral(payment.amount).format('0.00') }</td>
             <td className="right aligned">{ numeral(payment.fee).format('0.00') }</td>
           </tr>
         )) }
         <tr>
-          <td colSpan="3">Total</td>
+          <td>Total</td>
           <td className="right aligned">{ numeral(disbursement.total).format('0.00') }</td>
           <td className="right aligned">{ numeral(disbursement.fees).format('0.00') }</td>
         </tr>
@@ -42,11 +39,8 @@ const Payments = ({ disbursement, payments }, { router }) => {
 
 }
 
-Payments.contextTypes = {
-  router: PropTypes.object
-}
-
 Payments.propTypes = {
+  disbursement: PropTypes.array,
   payments: PropTypes.array
 }
 

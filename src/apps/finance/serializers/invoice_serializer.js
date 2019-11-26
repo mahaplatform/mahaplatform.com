@@ -57,8 +57,7 @@ const payment = (payment) => {
   return {
     id: payment.get('id'),
     method: payment.get('method'),
-    card_type: payment.get('card_type'),
-    reference: payment.get('reference'),
+    description: payment.get('description'),
     amount: payment.get('amount')
   }
 }

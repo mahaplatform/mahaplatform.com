@@ -29,8 +29,18 @@ const Payment = new Model({
     },
 
     fee() {
-      const fee = this.get('rate') * this.get('amount')
-      return (Math.floor(fee * 100) / 100) + 0.30
+      const fee = Math.floor((this.get('rate') * 10000) * (this.get('amount') * 10000)) / 100000000
+      return fee + 0.30
+    },
+
+    refunded() {
+      return this.related('refunds').reduce((refunded, refund) => {
+        return refunded + Number(refund.get('amount'))
+      }, 0.00)
+    },
+
+    refundable() {
+      return (this.get('amount') - this.get('refunded')).toFixed(2)
     }
 
   },
