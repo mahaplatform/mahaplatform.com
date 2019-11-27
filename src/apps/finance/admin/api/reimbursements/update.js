@@ -3,11 +3,11 @@ import ReimbursementSerializer from '../../../serializers/reimbursement_serializ
 import socket from '../../../../../core/services/routes/emitter'
 import Reimbursement from '../../../models/reimbursement'
 
-const getLineItems = (item, line_items) => {
-  const items = !line_items || line_items.length === 0 ? [{}] : line_items
-  return items.map((line_item, index) => ({
-    ...line_item,
-    id: index === 0 && !line_item.id ? item.get('id') : line_item.id
+const getAllocations = (item, allocations) => {
+  const items = !allocations || allocations.length === 0 ? [{}] : allocations
+  return items.map((allocation, index) => ({
+    ...allocation,
+    id: index === 0 && !allocation.id ? item.get('id') : allocation.id
   }))
 }
 
@@ -18,7 +18,7 @@ const updateRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['line_items'],
+    withRelated: ['allocations'],
     transacting: req.trx
   })
 
@@ -27,7 +27,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load reimbursement'
   })
 
-  const line_items = await Reimbursement.scope(qb => {
+  const allocations = await Reimbursement.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('code', reimbursement.get('code'))
@@ -35,9 +35,9 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const new_line_items = getLineItems(reimbursement, req.body.line_items)
+  const new_allocations = getAllocations(reimbursement, req.body.allocations)
 
-  const reimbursements = await Promise.mapSeries(new_line_items, async(data) => {
+  const reimbursements = await Promise.mapSeries(new_allocations, async(data) => {
 
     if(!data.id) {
       return await createReimbursement(req, {
@@ -48,24 +48,24 @@ const updateRoute = async (req, res) => {
       })
     }
 
-    const line_item = line_items.find(line_item => {
-      return line_item.get('id') === data.id
+    const allocation = allocations.find(allocation => {
+      return allocation.get('id') === data.id
     })
 
-    return await updateReimbursement(req, line_item, {
+    return await updateReimbursement(req, allocation, {
       ...req.body,
       ...data
     })
 
   })
 
-  await Promise.map(line_items, async (line_item) => {
+  await Promise.map(allocations, async (allocation) => {
 
     const found = reimbursements.find(reimbursement => {
-      return reimbursement.get('id') === line_item.get('id')
+      return reimbursement.get('id') === allocation.get('id')
     })
 
-    if(!found) await destroyReimbursement(req, line_item)
+    if(!found) await destroyReimbursement(req, allocation)
 
   })
 

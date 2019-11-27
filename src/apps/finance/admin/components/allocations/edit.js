@@ -12,7 +12,7 @@ class Edit extends React.Component {
 
   static propTypes = {
     index: PropTypes.number,
-    line_item: PropTypes.object,
+    allocation: PropTypes.object,
     projectEndpoint: PropTypes.string,
     onSubmit: PropTypes.func
   }
@@ -26,7 +26,7 @@ class Edit extends React.Component {
   }
 
   _getForm() {
-    const { line_item, projectEndpoint } = this.props
+    const { allocation, projectEndpoint } = this.props
     return {
       title: 'Edit Allocation',
       saveText: 'Done',
@@ -36,11 +36,11 @@ class Edit extends React.Component {
       sections: [
         {
           fields: [
-            { name: 'id', type: 'hidden', defaultValue: line_item.id },
-            { label: 'Project', name: 'project_id', required: true, type: 'lookup', placeholder: 'Choose a project', endpoint: projectEndpoint, value: 'id', text: 'title', format: ProjectToken, defaultValue: line_item.project_id },
-            { label: 'Expense Type', name: 'expense_type_id', required: true, type: 'lookup', placeholder: 'Choose an expense type', endpoint: '/api/admin/finance/expense_types/active', value: 'id', text: 'title', format: ExpenseTypeToken, defaultValue: line_item.expense_type_id },
-            { label: 'Description', name: 'description', required: true, placeholder: 'Describe the line item', type: 'textfield', defaultValue: line_item.description },
-            { label: 'Amount', name: 'amount', required: true, placeholder: 'Enter the amount', type: 'moneyfield', defaultValue: line_item.amount }
+            { name: 'id', type: 'hidden', defaultValue: allocation.id },
+            { label: 'Project', name: 'project_id', required: true, type: 'lookup', placeholder: 'Choose a project', endpoint: projectEndpoint, value: 'id', text: 'title', format: ProjectToken, defaultValue: allocation.project_id },
+            { label: 'Expense Type', name: 'expense_type_id', required: true, type: 'lookup', placeholder: 'Choose an expense type', endpoint: '/api/admin/finance/expense_types/active', value: 'id', text: 'title', format: ExpenseTypeToken, defaultValue: allocation.expense_type_id },
+            { label: 'Description', name: 'description', required: true, placeholder: 'Describe the line item', type: 'textfield', defaultValue: allocation.description },
+            { label: 'Amount', name: 'amount', required: true, placeholder: 'Enter the amount', type: 'moneyfield', defaultValue: allocation.amount }
           ]
         }
       ]
@@ -51,9 +51,9 @@ class Edit extends React.Component {
     this.context.form.pop()
   }
 
-  _handleSubmit(line_item) {
+  _handleSubmit(allocation) {
     const { index } = this.props
-    this.props.onSubmit(line_item, index)
+    this.props.onSubmit(allocation, index)
     return true
   }
 

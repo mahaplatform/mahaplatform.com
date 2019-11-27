@@ -3,13 +3,13 @@ import Table from './table'
 import React from 'react'
 import _ from 'lodash'
 
-class LineItems extends React.PureComponent {
+class Allocations extends React.PureComponent {
 
   static propTypes = {
+    allocations: PropTypes.array,
     defaultValue: PropTypes.array,
     display: PropTypes.array,
     expense_types: PropTypes.object,
-    line_items: PropTypes.array,
     overassigned: PropTypes.number,
     projects: PropTypes.object,
     projectEndpoint: PropTypes.string,
@@ -36,7 +36,7 @@ class LineItems extends React.PureComponent {
     const { status } = this.props
     if(status !== 'ready') return null
     return (
-      <div className="line-items">
+      <div className="allocations">
         <Table { ...this.props } />
       </div>
     )
@@ -50,27 +50,27 @@ class LineItems extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { line_items, status } = this.props
+    const { allocations, status } = this.props
     if(status !== prevProps.status && status === 'ready') {
       this.props.onReady()
     }
-    if(!_.isEqual(line_items, prevProps.line_items)) {
+    if(!_.isEqual(allocations, prevProps.allocations)) {
       this._handleChange()
     }
   }
 
   _handleChange() {
-    const { line_items, tax_total, total } = this.props
-    this.props.onChange(line_items.map((line_item, index) => {
+    const { allocations, tax_total, total } = this.props
+    this.props.onChange(allocations.map((allocation, index) => {
       const round = index === 0 ? _.ceil : _.floor
       return {
-        ...line_item,
+        ...allocation,
         delta: index,
-        tax: tax_total ? round(tax_total * (line_item.amount / total), 2) : 0.00
+        tax: tax_total ? round(tax_total * (allocation.amount / total), 2) : 0.00
       }
     }))
   }
 
 }
 
-export default LineItems
+export default Allocations

@@ -3,7 +3,7 @@ const INITIAL_STATE = {
     records: [],
     status: 'pending'
   },
-  line_items: [],
+  allocations: [],
   projects: {
     records: [],
     status: 'pending'
@@ -17,9 +17,9 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'ADD':
     return {
       ...state,
-      line_items: [
-        ...state.line_items,
-        action.line_item
+      allocations: [
+        ...state.allocations,
+        action.allocation
       ]
     }
 
@@ -44,8 +44,8 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'REMOVE':
     return {
       ...state,
-      line_items: [
-        ...state.line_items.filter((line_item, index) => {
+      allocations: [
+        ...state.allocations.filter((allocation, index) => {
           return index !== action.index
         })
       ]
@@ -54,15 +54,15 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'SET':
     return {
       ...state,
-      line_items: action.line_items
+      allocations: action.allocations
     }
 
   case 'UPDATE':
     return {
       ...state,
-      line_items: [
-        ...state.line_items.map((line_item, index) => {
-          return (index === action.index) ? action.line_item : line_item
+      allocations: [
+        ...state.allocations.map((allocation, index) => {
+          return (index === action.index) ? action.allocation : allocation
         })
       ]
     }

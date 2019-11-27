@@ -2,9 +2,9 @@ import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import { spy } from 'sinon'
 import React from 'react'
-import LineItems from './line_items.js'
+import Allocations from './allocations.js'
 
-describe('src/apps/expenses/admin/components/line_items', () => {
+describe('src/apps/expenses/admin/components/allocations', () => {
 
   describe('/actions.js', () => {
 
@@ -25,13 +25,13 @@ describe('src/apps/expenses/admin/components/line_items', () => {
   })
 
 
-  describe('/line-items.js', () => {
+  describe('/allocations.js', () => {
 
     it('renders', async () => {
 
-      const line-items = shallow(<LineItems />)
+      const allocations = shallow(<Allocations />)
 
-      expect(line-items.is('div.line-items')).to.be.true
+      expect(allocations.is('div.allocations')).to.be.true
 
     })
 

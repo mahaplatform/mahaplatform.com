@@ -2,7 +2,7 @@ import CompactExpenseTypeToken from '../../tokens/expense_type/compact'
 import CompactProjectToken from '../../tokens/project/compact'
 import CompactVendorToken from '../../tokens/vendor/compact'
 import { Audit, List, Comments, Carousel } from 'maha-admin'
-import LineItemsToken from '../../tokens/line_items'
+import AllocationsToken from '../../tokens/allocations'
 import Receipt from '../../components/receipt'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -47,10 +47,10 @@ const Details = ({ check, commentUrl }) => {
     { label: 'Account Number', content: check.account_number },
     { label: 'Invoice Number', content: check.invoice_number }
   ]
-  if(check.line_items.length > 1 ) {
+  if(check.allocations.length > 1 ) {
     list.items.push(requiredField('Total', check, 'total', { content: check.total, format: 'currency' }))
     list.items.push(requiredField('Tax', check, 'tax_total', { content: check.tax_total, format: 'currency' }))
-    list.items.push({ component: <LineItemsToken line_items={ check.line_items } item={ check } /> })
+    list.items.push({ component: <AllocationsToken allocations={ check.allocations } item={ check } /> })
   } else {
     list.items.push(requiredField('Project', check, 'project.title', { content: check, format: CompactProjectToken }))
     list.items.push(requiredField('Expense Type', check, 'expense_type.title', { content: check, format: CompactExpenseTypeToken }))

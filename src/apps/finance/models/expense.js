@@ -51,15 +51,15 @@ const Expense = new Model({
     return this.belongsTo(Account, 'account_id')
   },
 
-  expense_type() {
-    return this.belongsTo(ExpenseType, 'expense_type_id')
-  },
-
-  line_items() {
+  allocations() {
     return this.hasMany(Expense, 'code', 'code').query(qb => {
       qb.whereNotNull('amount')
       qb.orderBy('delta', 'asc')
     })
+  },
+
+  expense_type() {
+    return this.belongsTo(ExpenseType, 'expense_type_id')
   },
 
   listener_ids(trx) {

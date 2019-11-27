@@ -1,6 +1,6 @@
+import CardNumberField from '../cardnumberfield'
 import Expiration from './expiration'
 import PropTypes from 'prop-types'
-import Number from './number'
 import React from 'react'
 
 class Card extends React.PureComponent {
@@ -28,7 +28,7 @@ class Card extends React.PureComponent {
         <div className="maha-form-field field required">
           <div className="maha-form-field-label">Card Number</div>
           <div className="maha-form-field-control">
-            <Number { ...this._getNumber() } />
+            <CardNumberField { ...this._getCardNumberField() } />
           </div>
         </div>
         <div className="maha-form-field field required">
@@ -79,7 +79,7 @@ class Card extends React.PureComponent {
     }
   }
 
-  _getNumber() {
+  _getCardNumberField() {
     return {
       onChange: this._handleUpdate.bind(this, 'number')
     }

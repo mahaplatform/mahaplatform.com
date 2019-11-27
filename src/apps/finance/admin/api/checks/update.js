@@ -3,11 +3,11 @@ import CheckSerializer from '../../../serializers/check_serializer'
 import socket from '../../../../../core/services/routes/emitter'
 import Check from '../../../models/check'
 
-const getLineItems = (item, line_items) => {
-  const items = !line_items || line_items.length === 0 ? [{}] : line_items
-  return items.map((line_item, index) => ({
-    ...line_item,
-    id: index === 0 && !line_item.id ? item.get('id') : line_item.id
+const getAllocations = (item, allocations) => {
+  const items = !allocations || allocations.length === 0 ? [{}] : allocations
+  return items.map((allocation, index) => ({
+    ...allocation,
+    id: index === 0 && !allocation.id ? item.get('id') : allocation.id
   }))
 }
 
@@ -26,7 +26,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load check'
   })
 
-  const line_items = await Check.scope(qb => {
+  const allocations = await Check.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('code', check.get('code'))
@@ -34,9 +34,9 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const new_line_items = getLineItems(check, req.body.line_items)
+  const new_allocations = getAllocations(check, req.body.allocations)
 
-  const checks = await Promise.mapSeries(new_line_items, async(data) => {
+  const checks = await Promise.mapSeries(new_allocations, async(data) => {
 
     if(!data.id) {
       return await createCheck(req, {
@@ -47,24 +47,24 @@ const updateRoute = async (req, res) => {
       })
     }
 
-    const line_item = line_items.find(line_item => {
-      return line_item.get('id') === data.id
+    const allocation = allocations.find(allocation => {
+      return allocation.get('id') === data.id
     })
 
-    return await updateCheck(req, line_item, {
+    return await updateCheck(req, allocation, {
       ...req.body,
       ...data
     })
 
   })
 
-  await Promise.map(line_items, async (line_item) => {
+  await Promise.map(allocations, async (allocation) => {
 
     const found = checks.find(check => {
-      return check.get('id') === line_item.get('id')
+      return check.get('id') === allocation.get('id')
     })
 
-    if(!found) await destroyCheck(req, line_item)
+    if(!found) await destroyCheck(req, allocation)
 
   })
 

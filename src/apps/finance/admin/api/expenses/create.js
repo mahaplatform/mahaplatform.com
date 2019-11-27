@@ -9,16 +9,16 @@ const createRoute = async (req, res) => {
     table: 'finance_expenses'
   })
 
-  const line_items = req.body.line_items || [[]]
+  const allocations = req.body.allocations || [[]]
 
-  const expenses = await Promise.mapSeries(line_items, async(line_item) => {
+  const expenses = await Promise.mapSeries(allocations, async(allocation) => {
 
     return await createExpense(req, {
       user_id: req.user.get('id'),
       status: 'incomplete',
       code,
       ...req.body,
-      ...line_item
+      ...allocation
     })
 
   })

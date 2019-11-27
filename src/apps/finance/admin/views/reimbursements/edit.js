@@ -1,4 +1,4 @@
-import LineItems from '../../components/line_items'
+import Allocations from '../../components/allocations'
 import VendorToken from '../../tokens/vendor'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -46,7 +46,7 @@ class Edit extends React.Component {
             { label: 'Vendor', name: 'vendor_id', type: 'lookup', placeholder: 'Choose a vendor', endpoint: '/api/admin/finance/vendors', value: 'id', text: 'name', form: this._getVendorForm(), format: VendorToken },
             { label: 'Receipt', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Receipt', action: '/api/admin/assets/upload', endpoint: '/api/admin/finance/receipts' },
             { label: 'Total', name: 'total', type: 'moneyfield', required: true, placeholder: 'Enter the full amount minus the tax' },
-            { label: 'Allocations', name: 'line_items', type: LineItems, projectEndpoint, total }
+            { label: 'Allocations', name: 'allocations', type: Allocations, projectEndpoint, total }
           ]
         }
       ]

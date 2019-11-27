@@ -16,9 +16,9 @@ export const fetchExpenseTypes = () => ({
   failure: 'FETCH_EXPENSE_TYPES_FAILURE'
 })
 
-export const add = (line_item) => ({
+export const add = (allocation) => ({
   type: 'ADD',
-  line_item
+  allocation
 })
 
 export const remove = (index) => ({
@@ -26,13 +26,13 @@ export const remove = (index) => ({
   index
 })
 
-export const set = (line_items) => ({
+export const set = (allocations) => ({
   type: 'SET',
-  line_items
+  allocations
 })
 
-export const update = (line_item, index) => ({
+export const update = (allocation, index) => ({
   type: 'UPDATE',
-  line_item,
+  allocation,
   index
 })

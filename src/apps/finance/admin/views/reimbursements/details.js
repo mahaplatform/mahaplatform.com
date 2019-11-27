@@ -2,7 +2,7 @@ import CompactExpenseTypeToken from '../../tokens/expense_type/compact'
 import CompactProjectToken from '../../tokens/project/compact'
 import CompactVendorToken from '../../tokens/vendor/compact'
 import { Audit, List, Comments, Carousel } from 'maha-admin'
-import LineItemsToken from '../../tokens/line_items'
+import AllocationsToken from '../../tokens/allocations'
 import Receipt from '../../components/receipt'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -45,8 +45,8 @@ const Details = ({ reimbursement, commentUrl }) => {
     requiredField('Vendor', reimbursement, 'vendor.name', { content: reimbursement, format: CompactVendorToken }),
     requiredField('Total', reimbursement, 'total', { content: reimbursement.total, format: 'currency' })
   ]
-  if(reimbursement.line_items.length > 1 ) {
-    list.items.push({ component: <LineItemsToken line_items={ reimbursement.line_items } item={ reimbursement } /> })
+  if(reimbursement.allocations.length > 1 ) {
+    list.items.push({ component: <AllocationsToken allocations={ reimbursement.allocations } item={ reimbursement } /> })
   } else {
     list.items.push(requiredField('Project', reimbursement, 'project.title', { content: reimbursement, format: CompactProjectToken }))
     list.items.push(requiredField('Expense Type', reimbursement, 'expense_type.title', { content: reimbursement, format: CompactExpenseTypeToken }))

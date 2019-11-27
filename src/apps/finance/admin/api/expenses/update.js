@@ -3,11 +3,11 @@ import ExpenseSerializer from '../../../serializers/expense_serializer'
 import socket from '../../../../../core/services/routes/emitter'
 import Expense from '../../../models/expense'
 
-const getLineItems = (item, line_items) => {
-  const items = !line_items || line_items.length === 0 ? [{}] : line_items
-  return items.map((line_item, index) => ({
-    ...line_item,
-    id: index === 0 && !line_item.id ? item.get('id') : line_item.id
+const getAllocations = (item, allocations) => {
+  const items = !allocations || allocations.length === 0 ? [{}] : allocations
+  return items.map((allocation, index) => ({
+    ...allocation,
+    id: index === 0 && !allocation.id ? item.get('id') : allocation.id
   }))
 }
 
@@ -26,7 +26,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load expense'
   })
 
-  const line_items = await Expense.scope(qb => {
+  const allocations = await Expense.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('code', expense.get('code'))
@@ -34,9 +34,9 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const new_line_items = getLineItems(expense, req.body.line_items)
+  const new_allocations = getAllocations(expense, req.body.allocations)
 
-  const expenses = await Promise.mapSeries(new_line_items, async(data) => {
+  const expenses = await Promise.mapSeries(new_allocations, async(data) => {
 
     if(!data.id) {
       return await createExpense(req, {
@@ -47,24 +47,24 @@ const updateRoute = async (req, res) => {
       })
     }
 
-    const line_item = line_items.find(line_item => {
-      return line_item.get('id') === data.id
+    const allocation = allocations.find(allocation => {
+      return allocation.get('id') === data.id
     })
 
-    return await updateExpense(req, line_item, {
+    return await updateExpense(req, allocation, {
       ...req.body,
       ...data
     })
 
   })
 
-  await Promise.map(line_items, async (line_item) => {
+  await Promise.map(allocations, async (allocation) => {
 
     const found = expenses.find(expense => {
-      return expense.get('id') === line_item.get('id')
+      return expense.get('id') === allocation.get('id')
     })
 
-    if(!found) await destroyExpense(req, line_item)
+    if(!found) await destroyExpense(req, allocation)
 
   })
 

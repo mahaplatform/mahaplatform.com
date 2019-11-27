@@ -1,4 +1,4 @@
-import LineItems from '../../components/line_items'
+import Allocations from '../../components/allocations'
 import VendorToken from '../../tokens/vendor'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -48,7 +48,7 @@ class New extends React.Component {
             { label: 'Invoice', name: 'receipt_ids', type: 'filefield', multiple: true, prompt: 'Upload Invoice', action: '/api/admin/assets/upload', endpoint: '/api/admin/finance/receipts' },
             { label: 'Total', name: 'total', type: 'moneyfield', required: true, placeholder: 'Enter the full amount minus the tax' },
             { label: 'Tax', name: 'tax_total', type: 'moneyfield', required: true, placeholder: 'Enter the tax paid if any' },
-            { label: 'Allocations', name: 'line_items', type: LineItems, tax_total, total }
+            { label: 'Allocations', name: 'allocations', type: Allocations, tax_total, total }
           ]
         }
       ]

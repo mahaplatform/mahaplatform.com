@@ -48,8 +48,8 @@ class New extends React.Component {
     this.context.form.pop()
   }
 
-  _handleSubmit(line_item) {
-    this.props.onSubmit(line_item)
+  _handleSubmit(allocation) {
+    this.props.onSubmit(allocation)
     return true
   }
 

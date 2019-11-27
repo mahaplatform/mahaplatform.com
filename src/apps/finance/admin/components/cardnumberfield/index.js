@@ -3,16 +3,18 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class Number extends React.PureComponent {
+class CardNumberField extends React.PureComponent {
 
   static contextTypes = {}
 
   static propTypes = {
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onReady: PropTypes.func
   }
 
   static defaultProps = {
-    onChange: () => {}
+    onChange: () => {},
+    onReady: () => {}
   }
 
   state = {
@@ -29,12 +31,12 @@ class Number extends React.PureComponent {
     return (
       <div className="maha-input">
         <div className="maha-input-field">
-          <div className="finance-card-number">
-            <div className="finance-card-number-input">
+          <div className="finance-card-number-field">
+            <div className="finance-card-number-field-input">
               <input { ...this._getInput() }  />
             </div>
             { icon &&
-              <div className="finance-card-number-icon">
+              <div className="finance-card-number-field-icon">
                 <img src={`/admin/images/payments/${icon}.png`} />
               </div>
             }
@@ -99,4 +101,4 @@ class Number extends React.PureComponent {
 
 }
 
-export default Number
+export default CardNumberField

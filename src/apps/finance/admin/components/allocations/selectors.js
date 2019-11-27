@@ -5,22 +5,22 @@ const expense_types = (state, props) => state.expense_types
 
 const projects = (state, props) => state.projects
 
-const line_items = (state, props) => state.line_items
+const allocations = (state, props) => state.allocations
 
 const total = (state, props) => props.total || 0.00
 
 export const display = createSelector(
-  line_items,
+  allocations,
   expense_types,
   projects,
-  (line_items, expense_types, projects) => line_items.map((line_item) => ({
-    id: line_item.id,
-    expense_type: _.find(expense_types.records, { id: line_item.expense_type_id }),
-    project: _.find(projects.records, { id: line_item.project_id }),
-    description: line_item.description,
-    amount: Number(line_item.amount),
-    can_edit: line_item.can_edit,
-    can_delete: line_item.can_delete
+  (allocations, expense_types, projects) => allocations.map((allocation) => ({
+    id: allocation.id,
+    expense_type: _.find(expense_types.records, { id: allocation.expense_type_id }),
+    project: _.find(projects.records, { id: allocation.project_id }),
+    description: allocation.description,
+    amount: Number(allocation.amount),
+    can_edit: allocation.can_edit,
+    can_delete: allocation.can_delete
   }))
 )
 
@@ -34,8 +34,8 @@ export const status = createSelector(
 
 export const sum = createSelector(
   display,
-  (line_items) => line_items.reduce((sum, line_item) => {
-    return sum + Number(line_item.amount)
+  (allocations) => allocations.reduce((sum, allocation) => {
+    return sum + Number(allocation.amount)
   }, 0.00)
 )
 

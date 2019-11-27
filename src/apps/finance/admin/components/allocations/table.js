@@ -12,10 +12,10 @@ class Table extends React.PureComponent {
   }
 
   static propTypes = {
+    allocations: PropTypes.array,
     defaultValue: PropTypes.array,
     display: PropTypes.array,
     expense_types: PropTypes.object,
-    line_items: PropTypes.array,
     overassigned: PropTypes.number,
     projects: PropTypes.object,
     projectEndpoint: PropTypes.string,
@@ -42,14 +42,14 @@ class Table extends React.PureComponent {
 
   render() {
     const { overassigned, sum, total, unassigned } = this.props
-    const line_items = this.props.display
-    if(line_items.length === 0) return (
+    const allocations = this.props.display
+    if(allocations.length === 0) return (
       <div className="ui button" onClick={ this._handleNew }>
         Add an allocation
       </div>
     )
     return (
-      <div className="line-items-table">
+      <div className="allocations-table">
         <table className="ui unstackable celled table">
           <thead>
             <tr>
@@ -59,32 +59,32 @@ class Table extends React.PureComponent {
             </tr>
           </thead>
           <tbody>
-            { line_items.map((line_item, index) => [
-              <tr key={`line_item_${index}`}>
+            { allocations.map((allocation, index) => [
+              <tr key={`allocation_${index}`}>
                 <td>
-                  { line_item.project.integration.project_code } - { line_item.project.title }
+                  { allocation.project.integration.project_code } - { allocation.project.title }
                 </td>
-                <td className="right aligned">{ numeral(line_item.amount).format('0.00') }</td>
-                { line_item.can_edit === false ?
-                  <td className="line-items-action disabled">
+                <td className="right aligned">{ numeral(allocation.amount).format('0.00') }</td>
+                { allocation.can_edit === false ?
+                  <td className="allocations-action disabled">
                     <i className="fa fa-pencil" />
                   </td> :
-                  <td className="line-items-action" onClick={ this._handleEdit.bind(this, index) }>
+                  <td className="allocations-action" onClick={ this._handleEdit.bind(this, index) }>
                     <i className="fa fa-pencil" />
                   </td>
                 }
-                { line_item.can_delete === false ?
-                  <td className="line-items-action disabled">
+                { allocation.can_delete === false ?
+                  <td className="allocations-action disabled">
                     <i className="fa fa-times" />
                   </td> :
-                  <td className="line-items-action" onClick={ this._handleRemove.bind(this, index) }>
+                  <td className="allocations-action" onClick={ this._handleRemove.bind(this, index) }>
                     <i className="fa fa-times" />
                   </td>
                 }
               </tr>
             ]) }
           </tbody>
-          { line_items.length > 0 &&
+          { allocations.length > 0 &&
             <tfoot>
               <tr>
                 <th>Total</th>
@@ -112,19 +112,19 @@ class Table extends React.PureComponent {
   }
 
   _getButton() {
-    const { line_items } = this.props
+    const { allocations } = this.props
     return {
       className: 'link',
-      label: line_items.length > 0 ? 'Add Another Allocation' : 'Allocate to Project',
+      label: allocations.length > 0 ? 'Add Another Allocation' : 'Allocate to Project',
       handler: this._handleNew
     }
   }
 
-  _getEdit(line_item, index) {
+  _getEdit(allocation, index) {
     const { projectEndpoint } = this.props
     return {
       projectEndpoint,
-      line_item,
+      allocation,
       index,
       onSubmit: this._handleUpdate
     }
@@ -138,13 +138,13 @@ class Table extends React.PureComponent {
     }
   }
 
-  _handleAdd(line_item) {
-    this.props.onAdd(line_item)
+  _handleAdd(allocation) {
+    this.props.onAdd(allocation)
   }
 
   _handleEdit(index) {
-    const { line_items } = this.props
-    this.context.form.push(Edit, this._getEdit.bind(this, line_items[index], index))
+    const { allocations } = this.props
+    this.context.form.push(Edit, this._getEdit.bind(this, allocations[index], index))
   }
 
   _handleNew() {
@@ -156,8 +156,8 @@ class Table extends React.PureComponent {
     this.props.onRemove(index)
   }
 
-  _handleUpdate(line_item, index) {
-    this.props.onUpdate(line_item, index)
+  _handleUpdate(allocation, index) {
+    this.props.onUpdate(allocation, index)
   }
 
 }

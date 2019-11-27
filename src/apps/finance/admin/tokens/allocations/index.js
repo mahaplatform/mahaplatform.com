@@ -6,11 +6,11 @@ import numeral from 'numeral'
 import React from 'react'
 import _ from 'lodash'
 
-class LineItems extends React.Component {
+class Allocations extends React.Component {
 
   static propTypes = {
     item: PropTypes.object,
-    line_items: PropTypes.array
+    allocations: PropTypes.array
   }
 
   state = {
@@ -19,15 +19,15 @@ class LineItems extends React.Component {
 
   render() {
     const { expanded } = this.state
-    const { line_items, item } = this.props
-    const sums = line_items.reduce((sums, line_item) => ({
-      amount: sums.amount + Number(line_item.amount),
-      tax: sums.tax + Number(line_item.tax)
+    const { allocations, item } = this.props
+    const sums = allocations.reduce((sums, allocation) => ({
+      amount: sums.amount + Number(allocation.amount),
+      tax: sums.tax + Number(allocation.tax)
     }), { amount: 0.00, tax: 0.00 })
     const unassigned = item.total > sums.amount ? item.total - sums.amount : null
     const overassigned = sums.amount > item.total ? sums.amount - item.total : null
     return (
-      <div className="line-items-token">
+      <div className="allocations-token">
         <table className="ui celled compact unstackable table">
           <thead>
             <tr>
@@ -39,26 +39,26 @@ class LineItems extends React.Component {
             </tr>
           </thead>
           <tbody>
-            { line_items.length === 0 &&
+            { allocations.length === 0 &&
               <tr>
                 <td colSpan="2">There are no line items for this item</td>
               </tr>
             }
-            { line_items.map((line_item, index) => [
-              <tr key={`line_item_${index}`} className={ this._getClass(line_item) } onClick={ this._handleToggle.bind(this, index) }>
+            { allocations.map((allocation, index) => [
+              <tr key={`allocation_${index}`} className={ this._getClass(allocation) } onClick={ this._handleToggle.bind(this, index) }>
                 <td>
                   <i className={ `fa fa-fw fa-caret-${_.includes(expanded, index) ? 'down' : 'right' }`} />
-                  { line_item.project.integration.project_code } - { line_item.project.title }
+                  { allocation.project.integration.project_code } - { allocation.project.title }
                 </td>
-                <td className="right aligned">{ numeral(line_item.amount).format('0.00') }</td>
+                <td className="right aligned">{ numeral(allocation.amount).format('0.00') }</td>
                 { item.tax_total &&
-                  <td className="right aligned">{ numeral(line_item.tax).format('0.00') }</td>
+                  <td className="right aligned">{ numeral(allocation.tax).format('0.00') }</td>
                 }
               </tr>,
               ..._.includes(expanded, index) ? [(
-                <tr className="expanded" key={`line_item_expanded_${index}`}>
+                <tr className="expanded" key={`allocation_expanded_${index}`}>
                   <td colSpan="3">
-                    <List items={ this._getItems(line_item) } />
+                    <List items={ this._getItems(allocation) } />
                   </td>
                 </tr>
               )] : []
@@ -92,21 +92,21 @@ class LineItems extends React.Component {
     )
   }
 
-  _getClass(line_item) {
+  _getClass(allocation) {
     const { item } = this.props
     const classes = []
-    if(line_item.id === item.id) classes.push('selected')
+    if(allocation.id === item.id) classes.push('selected')
     return classes.join(' ')
   }
 
-  _getItems(line_item) {
+  _getItems(allocation) {
     const { item } = this.props
     return [
-      { label: 'Project', content: line_item, format: CompactProjectToken },
-      { label: 'Expense Type', content: line_item, format: CompactExpenseTypeToken },
-      { label: 'Description', content: line_item.description },
-      { label: 'Amount', content: numeral(line_item.amount).format('0.00') },
-      ...item.tax_total ? [{ label: 'Tax', content: numeral(line_item.tax).format('0.00') }] : []
+      { label: 'Project', content: allocation, format: CompactProjectToken },
+      { label: 'Expense Type', content: allocation, format: CompactExpenseTypeToken },
+      { label: 'Description', content: allocation.description },
+      { label: 'Amount', content: numeral(allocation.amount).format('0.00') },
+      ...item.tax_total ? [{ label: 'Tax', content: numeral(allocation.tax).format('0.00') }] : []
     ]
   }
 
@@ -117,4 +117,4 @@ class LineItems extends React.Component {
 
 }
 
-export default LineItems
+export default Allocations
