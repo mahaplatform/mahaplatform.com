@@ -80,7 +80,7 @@ class Options extends React.PureComponent {
   }
 
   _handleNew() {
-    this.context.form.push(<New { ...this._getNew() } />)
+    this.context.form.push(New, this._getNew.bind(this))
   }
 
   _handleRemove(index) {

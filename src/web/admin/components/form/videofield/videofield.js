@@ -102,7 +102,7 @@ class VideoField extends React.Component{
   }
 
   _handlePicker() {
-    this.context.form.push(<Picker { ...this._getPicker() } />)
+    this.context.form.push(Picker, this._getPicker.bind(this))
   }
 
   _handleRemove() {

@@ -13,6 +13,8 @@ const ready = state => state.ready
 
 const busy = state => state.busy
 
+const status = state => state.status
+
 const merged = createSelector(
   sections,
   tabs,
@@ -25,7 +27,7 @@ const merged = createSelector(
     return []
   })
 
-export const fields = createSelector(
+const fields = createSelector(
   merged,
   (sections) => sections.reduce((fields, section) => [
     ...fields,
@@ -50,10 +52,12 @@ export const defaults = createSelector(
 export const filtered = createSelector(
   fields,
   data,
-  (fields, data) => unflatten(fields.reduce((entity, field) => ({
-    ...entity,
-    ...(field.include && field.type !== 'text') ? { [field.name]: _.get(data, field.name) } : {}
-  }), {}))
+  (fields, data) => unflatten(fields.reduce((entity, field) => {
+    return {
+      ...entity,
+      ...(field.include !== false && field.type !== 'text') ? { [field.name]: _.get(data, field.name) } : {}
+    }
+  }, {}))
 )
 
 export const isReady = createSelector(
@@ -80,7 +84,6 @@ export const rules = createSelector(
   }), {})
 )
 
-
 export const validateResults = createSelector(
   rules,
   filtered,
@@ -93,4 +96,9 @@ export const validateResults = createSelector(
 export const isValid = createSelector(
   validateResults,
   (validateResults) => validateResults === null
+)
+
+export const isConfiguring = createSelector(
+  status,
+  (status) => _.includes(['pending', 'loading_sections','sections_loaded', 'loading_data'], status)
 )

@@ -98,7 +98,7 @@ class Mute extends React.Component {
 
   _handleLookup(type, e) {
     e.stopPropagation()
-    this.context.form.push(<Times { ...this._getTimes(type) } />)
+    this.context.form.push(Times, this._getTimes.bind(this, type))
   }
 
   _handleToggleMuteEvenings() {

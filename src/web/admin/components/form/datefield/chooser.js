@@ -101,6 +101,8 @@ class Chooser extends React.Component {
 
 }
 
-const mapStateToProps = (state, props) => state.maha.datefield[props.cid]
+const mapStateToProps = (state, props) => ({
+  ...state.maha.datefield[props.cid]
+})
 
 export default connect(mapStateToProps)(Chooser)

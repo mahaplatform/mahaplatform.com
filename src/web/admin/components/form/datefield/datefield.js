@@ -11,7 +11,7 @@ class Datefield extends React.Component {
 
   static propTypes = {
     active: PropTypes.bool,
-    defaultValue: PropTypes.string,
+    defaultValue: PropTypes.any,
     disabled: PropTypes.bool,
     month: PropTypes.number,
     placeholder: PropTypes.string,
@@ -86,7 +86,7 @@ class Datefield extends React.Component {
     }
     if(active !== prevProps.active) {
       if(active) {
-        form.push(<Chooser { ...this._getChooser() } />)
+        form.push(Chooser, this._getChooser.bind(this))
       } else  {
         form.pop()
       }

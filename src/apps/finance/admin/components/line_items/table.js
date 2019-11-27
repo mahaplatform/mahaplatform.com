@@ -144,11 +144,11 @@ class Table extends React.PureComponent {
 
   _handleEdit(index) {
     const { line_items } = this.props
-    this.context.form.push(<Edit { ...this._getEdit(line_items[index], index) }  />)
+    this.context.form.push(Edit, this._getEdit.bind(this, line_items[index], index))
   }
 
   _handleNew() {
-    this.context.form.push(<New { ...this._getNew() }  />)
+    this.context.form.push(New, this._getNew.bind(this))
   }
 
   _handleRemove(index, e) {

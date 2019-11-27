@@ -47,10 +47,6 @@ class Question extends React.PureComponent {
     )))
   }
 
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps) {}
-
   _getClass() {
     const { isDragging } = this.props
     const classes = ['question']
@@ -58,9 +54,16 @@ class Question extends React.PureComponent {
     return classes.join(' ')
   }
 
-  _handleEdit() {
+  _getEdit() {
     const { question } = this.props
-    this.context.form.push(<Edit question={ question } onSubmit={ this._handleUpdate } />)
+    return {
+      question,
+      onSubmit: this._handleUpdate
+    }
+  }
+
+  _handleEdit() {
+    this.context.form.push(Edit, this._getEdit.bind(this))
   }
 
   _handleRemove() {

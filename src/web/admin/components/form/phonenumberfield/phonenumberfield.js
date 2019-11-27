@@ -76,7 +76,7 @@ class PhoneNumberField extends React.PureComponent {
   }
 
   _handleBegin() {
-    this.context.form.push(<Chooser { ...this._getChooser() } />)
+    this.context.form.push(Chooser, this._getChooser.bind(this))
   }
 
   _handleChange() {

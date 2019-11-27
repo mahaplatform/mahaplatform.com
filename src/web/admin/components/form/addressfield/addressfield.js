@@ -108,8 +108,8 @@ class Addressfield extends React.Component {
   _handleBegin() {
     const { form } = this.context
     const { value } = this.props
-    if(value) return form.push(<Edit { ...this._getEdit() } />)
-    return form.push(<Chooser { ...this._getChooser() } />)
+    if(value) return form.push(Edit, this._getEdit.bind(this))
+    return form.push(Chooser, this._getChooser.bind(this))
   }
 
   _handleCancel() {

@@ -81,7 +81,7 @@ class CriteriaField extends React.PureComponent {
   }
 
   _handleBegin() {
-    this.context.form.push(<Designer { ...this._getDesigner() } />)
+    this.context.form.push(Designer, this._getDesigner.bind(this))
   }
 
   _handleClear(e) {

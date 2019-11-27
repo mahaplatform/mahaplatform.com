@@ -39,10 +39,10 @@ class New extends React.Component {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true },
             { label: 'Type', name: 'type', type: 'lookup', placeholder: 'Choose a type', required: true, options: [{value:'basic',text:'Basic Project'},{value:'tax',text:'Tax Account'}] },
-            ...this._getTypeFields(),
-            ...this._getIntegration()
+            ...this._getTypeFields()
           ]
-        }
+        },
+        ...this._getIntegration()
       ]
     }
   }
@@ -57,13 +57,16 @@ class New extends React.Component {
 
   _getIntegration() {
     if(this.props.integration === 'accpac') {
-      return [
-        { label: 'County Project Code', name: 'integration.project_code', type: 'textfield', placeholder: 'Enter a county project code', required: true },
-        { label: 'Main Project Code', name: 'integration.main_project_code', type: 'textfield', placeholder: 'Enter a main project code' },
-        { label: 'Program Code', name: 'integration.program_code', type: 'textfield', placeholder: 'Enter a program code', required: true },
-        { label: 'Source Code', name: 'integration.source_code', type: 'textfield', placeholder: 'Enter a source code', required: true },
-        { label: 'Match', name: 'integration.match', type: 'textfield', placeholder: 'Enter a match', required: true }
-      ]
+      return [{
+        label: 'ACCPAC Details',
+        fields: [
+          { label: 'County Project Code', name: 'integration.project_code', type: 'textfield', placeholder: 'Enter a county project code', required: true },
+          { label: 'Main Project Code', name: 'integration.main_project_code', type: 'textfield', placeholder: 'Enter a main project code' },
+          { label: 'Program Code', name: 'integration.program_code', type: 'textfield', placeholder: 'Enter a program code', required: true },
+          { label: 'Source Code', name: 'integration.source_code', type: 'textfield', placeholder: 'Enter a source code', required: true },
+          { label: 'Match', name: 'integration.match', type: 'textfield', placeholder: 'Enter a match', required: true }
+        ]
+      }]
     }
     return []
   }

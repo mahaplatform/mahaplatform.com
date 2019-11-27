@@ -115,7 +115,7 @@ class AttachmentField extends React.Component {
   }
 
   _handleClick() {
-    this.context.form.push(<Attachments { ...this._getAttachments() } />)
+    this.context.form.push(Attachments, this._getAttachments.bind(this))
   }
 
   _handleRemove(index) {

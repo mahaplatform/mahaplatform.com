@@ -99,7 +99,7 @@ class Profilefield extends React.PureComponent {
 
   _handleChange() {
     const { formatter } = this.props
-    if(!this.props.profile) return 
+    if(!this.props.profile) return
     const profile = formatter(this.props.profile)
     this.props.onChange(profile)
   }
@@ -134,7 +134,7 @@ class Profilefield extends React.PureComponent {
   _handlePick() {
     const { disabled } = this.props
     if(disabled) return
-    this.context.form.push(<Picker { ...this._getPicker() } />)
+    this.context.form.push(Picker, this._getPicker.bind(this))
   }
 
 }

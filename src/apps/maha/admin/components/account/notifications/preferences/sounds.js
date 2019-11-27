@@ -85,7 +85,7 @@ class Sounds extends React.Component {
 
   _handleLookup(e) {
     e.stopPropagation()
-    this.context.form.push(<Sound { ...this._getSound() } />)
+    this.context.form.push(Sound, this._getSound.bind(this))
   }
 
   _handleChange(notification_sound) {

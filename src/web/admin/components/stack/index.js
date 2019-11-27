@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class Stack extends React.Component {
 
@@ -31,7 +32,7 @@ class Stack extends React.Component {
         <div className={ this._getClass() }>
           { cards.map((card, index) => (
             <div key={ `card_${index}` } className={ this._getCardClass(index) }>
-              <card.component { ...card.props } active={ index === cards.length - 1} />
+              <card.component { ...this._getProps(index) } active={ index === cards.length - 1} />
             </div>
           )) }
         </div>
@@ -56,6 +57,14 @@ class Stack extends React.Component {
     const classes = ['maha-stack-card']
     classes.push(this._getStatus(index))
     return classes.join(' ')
+  }
+
+  _getProps(index) {
+    const card = this.props.cards[index] || this.state.cards[index]
+    const { props } = card
+    if(_.isFunction(props)) return props()
+    if(_.isPlainObject(props)) return props
+    return {}
   }
 
   _getStatus(index) {

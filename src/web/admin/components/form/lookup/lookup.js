@@ -118,8 +118,8 @@ class Lookup extends React.Component {
     const { active, adding, disabled, status, onClear, onReady } = this.props
     if(prevProps.status !== status && status === 'success') onReady()
     if(prevProps.disabled !== disabled) onClear()
-    if(!prevProps.active && active) form.push(<Search { ...this._getSearch() } />)
-    if(!prevProps.adding && adding) form.push(<Form { ...this._getForm() } />)
+    if(!prevProps.active && active) form.push(Search, this._getSearch.bind(this))
+    if(!prevProps.adding && adding) form.push(Form, this._getForm.bind(this))
   }
 
   _getOptions() {

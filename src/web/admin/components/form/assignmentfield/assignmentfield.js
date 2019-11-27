@@ -88,7 +88,7 @@ class AssignmentField extends React.Component {
   }
 
   _handleAssign() {
-    this.context.form.push(<Assign { ...this._getAssign() } />)
+    this.context.form.push(Assign, this._getAssign.bind(this))
   }
 
   _handleClear(e) {

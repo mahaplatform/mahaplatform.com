@@ -11,7 +11,6 @@ class Sections extends React.Component {
     sections: PropTypes.array,
     onBusy: PropTypes.func,
     onReady: PropTypes.func,
-    onSubmit: PropTypes.func,
     onUpdateData: PropTypes.func
   }
 
@@ -27,7 +26,7 @@ class Sections extends React.Component {
   }
 
   _getSection(config, section, index) {
-    const { data, errors, onBusy, onReady, onSubmit, onUpdateData } = this.props
+    const { data, errors, onBusy, onReady, onUpdateData } = this.props
     const tabIndexStart = config.reduce((start, section, i) => {
       if(i >= index) return start
       return start + section.fields.length
@@ -39,7 +38,6 @@ class Sections extends React.Component {
       tabIndexStart,
       onBusy,
       onReady,
-      onSubmit,
       onUpdateData
     }
   }

@@ -36,8 +36,7 @@ const Select = (multiple) => {
       text: 'text',
       onBusy: () => {},
       onChange: () => {},
-      onReady: () => {},
-      onSubmit: (selected) => {}
+      onReady: () => {}
     }
 
     _handleKeyDown = this._handleKeyDown.bind(this)

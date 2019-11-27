@@ -110,7 +110,7 @@ class Responsibilities extends React.PureComponent {
   }
 
   _handleNew() {
-    this.context.form.push(<New onSubmit={ this._handleAdd } />)
+    this.context.form.push(New, this._handleAdd.bind(this))
   }
 
   _handleRemove(index) {

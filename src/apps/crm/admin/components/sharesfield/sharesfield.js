@@ -130,7 +130,7 @@ class SharesField extends React.PureComponent {
   }
 
   _handleClick() {
-    this.context.form.push(<New { ...this._getNew() } />)
+    this.context.form.push(New, this._getNew.bind(this))
   }
 
   _handlePop() {

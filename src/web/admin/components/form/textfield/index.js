@@ -23,8 +23,7 @@ class TextField extends React.Component {
     onKeyPress: PropTypes.func,
     onKeyUp: PropTypes.func,
     onKeyDown: PropTypes.func,
-    onReady: PropTypes.func,
-    onSubmit: PropTypes.func
+    onReady: PropTypes.func
   }
 
   static defaultProps = {
@@ -46,8 +45,7 @@ class TextField extends React.Component {
     onKeyPress: () => {},
     onKeyUp: () => {},
     onKeyDown: () => {},
-    onReady: () => {},
-    onSubmit: () => {}
+    onReady: () => {}
   }
 
   code = _.random(100000000, 999999999).toString(36)
@@ -136,7 +134,6 @@ class TextField extends React.Component {
     this.props.onKeyUp(this.state.value)
     if(event.which == 13) {
       event.preventDefault()
-      this.props.onSubmit()
     }
   }
 

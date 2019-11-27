@@ -66,8 +66,14 @@ class Questions extends React.PureComponent {
     }
   }
 
+  _getNew() {
+    return {
+      onSubmit: this._handleAdd
+    }
+  }
+
   _handleNew() {
-    this.context.form.push(<New onSubmit={ this._handleAdd } />)
+    this.context.form.push(New, this._getNew.bind(this))
   }
 
   _handleAdd(question) {

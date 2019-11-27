@@ -5,7 +5,6 @@ const INITIAL_STATE = {
   data: {},
   entity: {},
   errors: {},
-  panels: [],
   ready: [],
   status: 'pending'
 }
@@ -13,21 +12,6 @@ const INITIAL_STATE = {
 export default (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
-
-  case 'POP':
-    return {
-      ...state,
-      panels: state.panels.slice(0, 0 - action.num)
-    }
-
-  case 'PUSH':
-    return {
-      ...state,
-      panels: [
-        ...state.panels,
-        action.component
-      ]
-    }
 
   case 'SET_DATA':
     return {
