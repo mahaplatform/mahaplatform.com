@@ -1,0 +1,54 @@
+.finance-line-items-empty {
+  td {
+    text-align: center !important;
+  }
+}
+.finance-line-items-header {
+  th:nth-child(2),
+  th:nth-child(3),
+  th:nth-child(4) {
+    width: 80px;
+  }
+  th:nth-child(5),
+  th:nth-child(6) {
+    width: 40px;
+  }
+}
+.finance-line-items-row {
+  td:nth-child(2),
+  td:nth-child(3),
+  td:nth-child(4) {
+    text-align: right;
+    width: 80px;
+  }
+  td:nth-child(5),
+  td:nth-child(6) {
+    width: 40px;
+    text-align: center;
+    cursor: pointer;
+    &.disabled .fa {
+      color: fadeout(@black, 80);
+    }
+    &:hover .fa {
+      color: @black;
+    }
+    .fa {
+      color: fadeout(@black, 50);
+    }
+  }
+}
+.finance-line-items-total {
+  td:nth-child(2) {
+    font-weight: bold;
+    text-align: right;
+  }
+  td:first-child,
+  td:nth-child(3) {
+    background-color: fadeout(@black, 97);
+  }
+}
+.finance-line-items-addon {
+  td:nth-child(2) {
+    text-align: right;
+  }
+}

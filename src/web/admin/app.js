@@ -100,6 +100,7 @@ import driveuploader from '../../apps/drive/admin/components/uploader'
 import driveversions from '../../apps/drive/admin/components/versions'
 import financeallocations from '../../apps/finance/admin/components/allocations'
 import financecard from '../../apps/finance/admin/components/card'
+import financelineItems from '../../apps/finance/admin/components/line_items'
 import financetripsImportFinalize from '../../apps/finance/admin/components/trips_import_finalize'
 import competenciescommitments from '../../apps/learning/admin/components/commitments'
 import competenciesgoals from '../../apps/learning/admin/components/goals'
@@ -349,6 +350,7 @@ class App extends React.Component {
       driveversions,
       financeallocations,
       financecard,
+      financelineItems,
       financetripsImportFinalize,
       competenciescommitments,
       competenciesgoals,

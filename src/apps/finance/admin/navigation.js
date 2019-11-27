@@ -3,15 +3,15 @@ import { isOwnerOrAdmin, canApprove } from './utils/access'
 const navigation = async (req) => ({
   items: [
     { label: 'Expenses', rights: ['finance:manage_expenses'], items: [
-      { label: 'Accounts', route: '/accounts'},
+      { label: 'Accounts', rights: ['finance:manage_configuration'], route: '/accounts'},
       { label: 'Approvals', access: canApprove, route: '/approvals'},
-      { label: 'Batches', route: '/batches'},
-      { label: 'Expense Types', route: '/expense_types' },
+      { label: 'Batches', rights: ['finance:manage_configuration'], route: '/batches'},
+      { label: 'Expense Types', rights: ['finance:manage_configuration'], route: '/expense_types' },
       { label: 'Items', route: '/items' },
-      { label: 'Rates', route: '/rates' },
+      { label: 'Rates', rights: ['finance:manage_configuration'], route: '/rates' },
       { label: 'Report', access: isOwnerOrAdmin, route: '/reports' },
       { label: 'Taxes', rights: ['finance:manage_configuration'], route: '/tax' },
-      { label: 'Vendors', route: '/vendors' }
+      { label: 'Vendors', rights: ['finance:manage_configuration'], route: '/vendors' }
     ] },
     { label: 'Revenue', rights: ['finance:manage_revenue'], items: [
       { label: 'Bank Accounts', route: '/merchants' },
