@@ -19,27 +19,30 @@ class Sections extends React.Component {
     return (
       <div className="maha-form-sections">
         { sections.map((section, index) => (
-          <Section key={`section_${index}`} { ...this._getSection(sections, section, index) } />
+          <Section key={`section_${index}`} { ...this._getSection(section, index) } />
         )) }
       </div>
     )
   }
 
-  _getSection(config, section, index) {
+  _getSection(section, index) {
     const { data, errors, onBusy, onReady, onUpdateData } = this.props
-    const tabIndexStart = config.reduce((start, section, i) => {
-      if(i >= index) return start
-      return start + section.fields.length
-    }, _.random(0,1000))
     return {
       ...section,
       data,
       errors,
-      tabIndexStart,
+      tabIndexStart: this._getTabIndexStart(section, index),
       onBusy,
       onReady,
       onUpdateData
     }
+  }
+
+  _getTabIndexStart(section, index) {
+    const { sections } = this.props
+    return sections.reduce((start, section, i) => {
+      return start + (i < index ? section.fields.length : 0)
+    }, _.random(0,1000))
   }
 
 }

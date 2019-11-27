@@ -5,16 +5,13 @@ import Field from './field'
 class Section extends React.Component {
 
   static propTypes = {
-    label: PropTypes.string,
-    instructions: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.element
-    ]),
     collapsing: PropTypes.bool,
     collapsed: PropTypes.bool,
-    fields: PropTypes.array,
     data: PropTypes.object,
     errors: PropTypes.object,
+    fields: PropTypes.array,
+    instructions: PropTypes.any,
+    label: PropTypes.string,
     tabIndexStart: PropTypes.number,
     onBusy: PropTypes.func,
     onReady: PropTypes.func,
@@ -22,8 +19,7 @@ class Section extends React.Component {
   }
 
   static defaultProps = {
-    collapsing: false,
-    tabIndexStart: 1
+    collapsing: false
   }
 
   constructor(props) {
@@ -51,9 +47,9 @@ class Section extends React.Component {
         <div className="maha-form-section-body">
           { instructions &&
              <div className="maha-form-section-instructions">
-              { instructions }
+               { instructions }
              </div>
-           }
+          }
           { fields.map((field, index) => (
             <Field key={`field_${index}`} {...this._getField(field, index) } />
           ))}
@@ -66,18 +62,15 @@ class Section extends React.Component {
     const { collapsing } = this.props
     const { collapsed } = this.state
     let classes = ['maha-form-section']
-    if(collapsing) {
-      classes.push('collapsing')
-      classes.push(collapsed ? 'collapsed' : 'expanded')
-    }
+    if(collapsing) classes.push('collapsing')
+    if(collapsing) classes.push(collapsed ? 'collapsed' : 'expanded')
     return classes.join(' ')
-
   }
 
   _getField(field, index) {
     const { data, errors, tabIndexStart, onBusy, onReady, onUpdateData } = this.props
     return {
-      ...field,
+      field,
       data,
       errors,
       tabIndex: tabIndexStart + index,
@@ -88,7 +81,9 @@ class Section extends React.Component {
   }
 
   _handleToggle() {
-    this.setState({collapsed: !this.state.collapsed})
+    this.setState({
+      collapsed: !this.state.collapsed
+    })
   }
 
 }

@@ -6,28 +6,23 @@ class Fields extends React.Component {
 
   static propTypes = {
     data: PropTypes.object,
-    fields: PropTypes.array,
-    frame: PropTypes.any,
+    errors: PropTypes.object,
+    field: PropTypes.object,
+    tabIndex: PropTypes.number,
     onBusy: PropTypes.func,
     onReady: PropTypes.func,
     onUpdateData: PropTypes.func
   }
 
-  static defaultProps = {
-    fields: [],
-    onBusy: () => {},
-    onReady: () => {},
-    onUpdateData: () => {}
-  }
-
   render() {
-    const { fields } = this.props
+    const { field } = this.props
+    const { fields } = field
     const numbers = ['zero','one','two','three','four','five','six']
     return (
       <div className={`${numbers[fields.length]} fields`}>
-        {fields.map((field, index) => {
-          return <Field key={`field_${index}`} { ...this._getField(field) } />
-        })}
+        { fields.map((field, index) => (
+          <Field key={`field_${index}`} { ...this._getField(field) } />
+        )) }
       </div>
     )
   }
@@ -37,15 +32,16 @@ class Fields extends React.Component {
   }
 
   _getField(field) {
-    const { data, onBusy, onReady, onUpdateData } = this.props
+    const { data, errors, tabIndex, onBusy, onReady, onUpdateData } = this.props
     return {
       data,
-      ...field,
+      errors,
+      field,
+      tabIndex,
       onBusy,
       onReady,
       onUpdateData
     }
-
   }
 
 }

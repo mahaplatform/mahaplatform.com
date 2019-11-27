@@ -53,8 +53,7 @@ class Main extends React.Component {
   }
 
   _handleCancel = this._handleCancel.bind(this)
-  _debouncedSubmit = _.debounce(this._handleSubmit.bind(this), 2500, { leading: true })
-  _handleSubmit = this._handleSubmit.bind(this)
+  _handleSubmit = _.debounce(this._handleSubmit.bind(this), 2500, { leading: true })
 
   render() {
     const { after, before, isConfiguring, instructions, sections, tabs } = this.props
@@ -71,7 +70,7 @@ class Main extends React.Component {
             <Sections { ...this._getSections(sections) } />
           }
           { !isConfiguring && tabs &&
-            <Menu { ...this._getTabs() } />
+            <Menu { ...this._getMenu() } />
           }
           { after &&
             <div className="maha-form-footer">
@@ -107,7 +106,7 @@ class Main extends React.Component {
 
   _getSave() {
     const { saveIcon, saveText } = this.props
-    const handler = this._debouncedSubmit
+    const handler = this._handleSubmit
     if(saveIcon) return [{ icon: saveIcon, handler }]
     if(saveText) return [{ label: saveText, handler }]
     return null
@@ -128,16 +127,16 @@ class Main extends React.Component {
   _getSections(sections) {
     const { data, errors, onSetReady, onToggleBusy, onUpdateData } = this.props
     return {
-      sections,
       data,
       errors,
+      sections,
       onBusy: onToggleBusy,
       onReady: onSetReady,
       onUpdateData
     }
   }
 
-  _getTabs() {
+  _getMenu() {
     const { tabs } = this.props
     return {
       items: tabs.map(tab => ({

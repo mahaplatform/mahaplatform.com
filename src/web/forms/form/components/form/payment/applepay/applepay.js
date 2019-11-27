@@ -57,9 +57,9 @@ class ApplePay extends React.Component {
 
     const session = new window.ApplePaySession(3, paymentRequest)
 
-    session.onvalidatemerchant = (event) => {
+    session.onvalidatemerchant = (e) => {
       this.applePayInstance.performValidation({
-        validationURL: event.validationURL,
+        validationURL: e.validationURL,
         displayName: program.title
       }).then(merchantSession => {
         session.completeMerchantValidation(merchantSession)
@@ -69,15 +69,15 @@ class ApplePay extends React.Component {
       })
     }
 
-    session.onpaymentauthorized = (event) => {
-      console.log('Your shipping address is:', event.payment.shippingContact)
+    session.onpaymentauthorized = (e) => {
+      console.log('Your shipping address is:', e.payment.shippingContact)
 
       this.applePayInstance.tokenize({
-        token: event.payment.token
+        token: e.payment.token
       }).then(payload => {
         console.log('nonce:', payload.nonce)
 
-        console.log('billingPostalCode:', event.payment.billingContact.postalCode)
+        console.log('billingPostalCode:', e.payment.billingContact.postalCode)
 
         session.completePayment(window.ApplePaySession.STATUS_SUCCESS)
       }).catch(err => {

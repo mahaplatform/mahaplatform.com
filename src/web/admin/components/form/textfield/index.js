@@ -130,11 +130,9 @@ class TextField extends React.Component {
     this._handleSet('')
   }
 
-  _handleKeyUp(event) {
+  _handleKeyUp(e) {
     this.props.onKeyUp(this.state.value)
-    if(event.which == 13) {
-      event.preventDefault()
-    }
+    if(e.which == 13) e.preventDefault()
   }
 
   _handleSet(value) {
@@ -142,9 +140,9 @@ class TextField extends React.Component {
     this.setState({ value })
   }
 
-  _handleUpdate(event) {
-    const sanitized = this.props.sanitize(event.target.value)
-    if(!this.props.validate(sanitized)) return event.preventDefault()
+  _handleUpdate(e) {
+    const sanitized = this.props.sanitize(e.target.value)
+    if(!this.props.validate(sanitized)) return e.preventDefault()
     this._handleSet(sanitized)
   }
 

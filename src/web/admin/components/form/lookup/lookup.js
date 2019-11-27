@@ -69,7 +69,9 @@ class Lookup extends React.Component {
   input = null
 
   _handleBegin = this._handleBegin.bind(this)
+  _handleCancel = this._handleCancel.bind(this)
   _handleClear = this._handleClear.bind(this)
+  _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
     const { chosen, prompt, placeholder, tabIndex, text } = this.props
@@ -122,6 +124,14 @@ class Lookup extends React.Component {
     if(!prevProps.adding && adding) form.push(Form, this._getForm.bind(this))
   }
 
+  _getForm() {
+    return {
+      ...this.props.form,
+      onCancel: this._handleCancel,
+      onSuccess: this._handleSuccess
+    }
+  }
+
   _getOptions() {
     const { options } = this.props
     return options.map(option => {
@@ -142,28 +152,22 @@ class Lookup extends React.Component {
     this.props.onBegin()
   }
 
-  _handleClear() {
-    const { onClear, onChange } = this.props
-    onClear()
-    onChange()
+  _handleCancel() {
+    this.props.onHideForm()
+    this.context.form.pop()
   }
 
-  _getForm() {
-    const { form } = this.context
-    const { value, onChoose, onChange, onHideForm } = this.props
-    return {
-      ...this.props.form,
-      onCancel: () => {
-        onHideForm()
-        form.pop()
-      },
-      onSuccess: (chosen) => {
-        onChoose(chosen)
-        onHideForm()
-        onChange(_.get(chosen, value))
-        form.pop(2)
-      }
-    }
+  _handleClear() {
+    this.props.onClear()
+    this.props.onChange()
+  }
+
+  _handleSuccess(chosen) {
+    const { value } = this.props
+    this.props.onChoose(chosen)
+    this.props.onHideForm()
+    this.props.onChange(_.get(chosen, value))
+    this.context.form.pop(2)
   }
 
 }

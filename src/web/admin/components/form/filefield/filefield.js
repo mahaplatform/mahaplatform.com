@@ -149,11 +149,11 @@ class FileField extends React.Component {
     fileReader.onload = this._handleImagePreview.bind(this, file.file.uniqueIdentifier)
   }
 
-  _handleImagePreview(uid, event) {
+  _handleImagePreview(uid, e) {
     this.setState({
       previews: {
         ...this.state.previews,
-        [uid]: event.target.result
+        [uid]: e.target.result
       }
     })
   }

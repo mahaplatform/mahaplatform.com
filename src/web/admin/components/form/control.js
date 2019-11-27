@@ -1,6 +1,3 @@
-import PropTypes from 'prop-types'
-import React from 'react'
-import _ from 'lodash'
 import AssignmentField from './assignmentfield'
 import AttachmentField from './attachmentfield'
 import AddressField from './addressfield'
@@ -35,30 +32,32 @@ import TextField from './textfield'
 import TimeField from './timefield'
 import ToggleList from './toggle_list'
 import VideoField from './videofield'
+import PropTypes from 'prop-types'
+import React from 'react'
+import _ from 'lodash'
 
 class Control extends React.Component {
 
   static propTypes = {
-    type: PropTypes.any,
-    options: PropTypes.array
-  }
-
-  static defaultProps = {
-    type: 'textfield',
-    options: []
+    field: PropTypes.object,
+    defaultValue: PropTypes.any,
+    onBusy: PropTypes.func,
+    onChange: PropTypes.func,
+    onReady: PropTypes.func
   }
 
   render() {
     const Component = this._getElement()
     return (
       <div className="maha-control">
-        <Component {...this.props } />
+        <Component {...this._getProps() } />
       </div>
     )
   }
 
   _getElement() {
-    const { type } = this.props
+    const { field } = this.props
+    const type = field.type || 'textfield'
     if(!_.isString(type)) return type
     if(type === 'assignmentfield') return AssignmentField
     if(type === 'attachmentfield') return AttachmentField
@@ -70,11 +69,11 @@ class Control extends React.Component {
     if(type === 'datefield') return DateField
     if(type === 'dropdown') return Dropdown
     if(type === 'emailfield') return EmailField
-    if(type === 'hidden') return Hidden
-    if(type === 'htmlfield') return HtmlField
     if(type === 'filefield') return FileField
     if(type === 'fontfamilyfield') return FontFamilyField
     if(type === 'fontsizefield') return FontSizeField
+    if(type === 'hidden') return Hidden
+    if(type === 'htmlfield') return HtmlField
     if(type === 'linkfield') return LinkField
     if(type === 'lookup') return Lookup
     if(type === 'lookup2') return Lookup2
@@ -84,9 +83,9 @@ class Control extends React.Component {
     if(type === 'phonefield') return PhoneField
     if(type === 'phonenumberfield') return PhoneNumberField
     if(type === 'profilefield') return ProfileField
-    if(type === 'rating') return Rating
     if(type === 'range') return Range
     if(type === 'radiogroup') return RadioGroup
+    if(type === 'rating') return Rating
     if(type === 'tablefield') return TableField
     if(type === 'text') return Text
     if(type === 'textarea') return TextArea
@@ -94,7 +93,17 @@ class Control extends React.Component {
     if(type === 'timefield') return TimeField
     if(type === 'togglelist') return ToggleList
     if(type === 'videofield') return VideoField
-    return TextField
+  }
+
+  _getProps() {
+    const { field, defaultValue, onBusy, onChange, onReady } = this.props
+    return {
+      ...field,
+      defaultValue,
+      onBusy,
+      onChange,
+      onReady
+    }
   }
 
 }

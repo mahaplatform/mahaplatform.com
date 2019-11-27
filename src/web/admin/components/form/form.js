@@ -65,8 +65,8 @@ class Form extends React.Component {
     onChange: () => {},
     onChangeField: () => {},
     onSubmit: () => {},
-    onFailure: (error) => {},
-    onSuccess: (entity) => {}
+    onFailure: () => {},
+    onSuccess: () => {}
   }
 
   state = {
@@ -128,11 +128,9 @@ class Form extends React.Component {
 
   _handleChange(previous, current) {
     const { onChangeField, onChange } = this.props
-    if(onChangeField) {
-      _.forOwn(current, (value, code) => {
-        if(previous[code] != current[code]) onChangeField(code, value)
-      })
-    }
+    Object.keys(current).map(code => {
+      if(previous[code] != current[code]) onChangeField(code, current[code])
+    })
     if(onChange) onChange(current)
   }
 

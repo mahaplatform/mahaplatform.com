@@ -100,5 +100,5 @@ export const isValid = createSelector(
 
 export const isConfiguring = createSelector(
   status,
-  (status) => _.includes(['pending', 'loading_sections','sections_loaded', 'loading_data'], status)
+  (status) => _.includes(['pending','loading_data'], status)
 )

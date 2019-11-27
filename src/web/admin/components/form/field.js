@@ -7,41 +7,13 @@ import _ from 'lodash'
 class Field extends React.Component {
 
   static propTypes = {
-    action: PropTypes.string,
-    columns: PropTypes.array,
     data: PropTypes.object,
-    endpoint: PropTypes.string,
     errors: PropTypes.object,
-    fields: PropTypes.array,
-    include: PropTypes.bool,
-    instructions: PropTypes.string,
-    label: PropTypes.string,
-    name: PropTypes.string,
-    options: PropTypes.array,
-    required: PropTypes.bool,
+    field: PropTypes.object,
     tabIndex: PropTypes.number,
-    type: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.func
-    ]).isRequired,
-    show: PropTypes.bool,
     onBusy: PropTypes.func,
     onReady: PropTypes.func,
     onUpdateData: PropTypes.func
-  }
-
-  static defaultProps = {
-    columns: [],
-    data: {},
-    errors: {},
-    fields: [],
-    include: true,
-    options: [],
-    required: false,
-    show: true,
-    onBusy: () => {},
-    onReady: () => {},
-    onUpdateData: () => {}
   }
 
   _handleBusy = this._handleBusy.bind(this)
@@ -49,9 +21,10 @@ class Field extends React.Component {
   _handleUpdateData = this._handleUpdateData.bind(this)
 
   render() {
-    const { include, instructions, label, show, type } = this.props
+    const { field } = this.props
+    const { include, instructions, label, show, type } = field
     const error = this._getError()
-    if(!include || !show) return null
+    if(include === false || show === false) return null
     return (
       <div className={ this._getClass() }>
         { label &&
@@ -80,7 +53,8 @@ class Field extends React.Component {
   }
 
   _getClass() {
-    const { required } = this.props
+    const { field } = this.props
+    const { required } = field
     const error = this._getError()
     const classes = ['maha-form-field field']
     if(required) classes.push('required')
@@ -89,7 +63,8 @@ class Field extends React.Component {
   }
 
   _getError() {
-    const { errors, name } = this.props
+    const { errors, field } = this.props
+    const { name } = field
     return (errors && errors[name]) ? errors[name][0] : null
   }
 
@@ -98,27 +73,27 @@ class Field extends React.Component {
   }
 
   _getControl() {
-    const { data, name } = this.props
-    const defaultValue = _.get(data, name)
+    const { data, field } = this.props
+    const { name } = field
     return {
-      ...this.props,
-      defaultValue,
-      onBusy: this._handleBusy,
-      onChange: this._handleUpdateData,
-      onReady: this._handleReady
+      field,
+      defaultValue: _.get(data, name),
+      onBusy: this._handleBusy.bind(this, name),
+      onChange: this._handleUpdateData.bind(this, name),
+      onReady: this._handleReady.bind(this, name)
     }
   }
 
-  _handleBusy() {
-    this.props.onBusy(this.props.name)
+  _handleBusy(name) {
+    this.props.onBusy(name)
   }
 
-  _handleReady() {
-    this.props.onReady(this.props.name)
+  _handleReady(name) {
+    this.props.onReady(name)
   }
 
-  _handleUpdateData(value) {
-    this.props.onUpdateData(this.props.name, value)
+  _handleUpdateData(name, value) {
+    this.props.onUpdateData(name, value)
   }
 
 }

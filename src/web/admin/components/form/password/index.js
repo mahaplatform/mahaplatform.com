@@ -101,9 +101,9 @@ class Password extends React.Component {
     }
   }
 
-  _handleChange(event) {
-    this.setValue(event.target.value)
-    this.props.onChange(event.target.value)
+  _handleChange(e) {
+    this.setValue(e.target.value)
+    this.props.onChange(e.target.value)
   }
 
   _handleConfigure() {

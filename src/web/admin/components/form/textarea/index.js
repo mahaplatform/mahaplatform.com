@@ -92,8 +92,8 @@ class TextArea extends React.Component {
     this.props.onChange(this.state.value )
   }
 
-  _handleUpdate(event) {
-    this.setValue(event.target.value)
+  _handleUpdate(e) {
+    this.setValue(e.target.value)
   }
 
   setValue(value) {
