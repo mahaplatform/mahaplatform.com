@@ -6,16 +6,32 @@ import React from 'react'
 
 const Details = ({ refund }) => {
 
-  const list = {
-    items: [
-      { label: 'Date', content: moment(refund.created_at).format('MM/DD/YYYY') },
-      { label: 'Amount', content: numeral(refund.amount).format('$0.00') }
-    ]
+  const payment = {
+    className: 'link',
+    label: refund.payment.code,
+    route: `/admin/finance/payments/${refund.payment.id}`
   }
 
-  if(refund.voided_date) {
-    list.items.push({ label: 'Voided Date', content: moment(refund.voided_date).format('MM/DD/YYYY')})
+  const items = [
+    { label: 'Date', content: moment(refund.created_at).format('MM/DD/YYYY') },
+    { label: 'Customer', content: refund.payment.customer.display_name },
+    { label: 'Payment', content: <Button { ...payment } /> },
+    { label: 'Type', content: refund.type }
+  ]
+
+  if(refund.credit) {
+
+    const credit = {
+      className: 'link',
+      label: refund.credit.id,
+      route: `/admin/finance/credits/${refund.credit.id}`
+    }
+
+    items.push({ label: 'Credit', content: <Button { ...credit } /> })
+
   }
+
+  items.push({ label: 'Amount', content: numeral(refund.amount).format('$0.00') })
 
   if(refund.type === 'card') {
 
@@ -25,8 +41,24 @@ const Details = ({ refund }) => {
       link: refund.braintree_link
     }
 
-    list.items.push({ label: 'Braintree', content: <Button { ...braintree } /> })
-    list.items.push({ label: 'Status', content: refund.status })
+    items.push({ label: 'Braintree', content: <Button { ...braintree } /> })
+    items.push({ label: 'Status', content: refund.status })
+  }
+
+  const list = {
+    sections: [
+      { items }
+    ]
+  }
+
+  if(refund.voided_date) {
+    list.sections.push({
+      title: 'Voided',
+      items: [
+        { label: 'Date', content: moment(refund.voided_date).format('MM/DD/YYYY') },
+        { label: 'Reason', content: refund.voided_reason }
+      ]
+    })
   }
 
   return <List { ...list } />

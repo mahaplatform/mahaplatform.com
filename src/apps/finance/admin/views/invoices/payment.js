@@ -55,7 +55,7 @@ class Payment extends React.Component {
       return [{ label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }]
     } else if(method === 'card') {
       return [
-        { name: 'nonce', type: Card },
+        { name: 'payment', type: Card },
         { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }
       ]
     } else if(method === 'check') {

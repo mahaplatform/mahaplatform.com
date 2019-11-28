@@ -9,7 +9,7 @@ const Details = ({ disbursement }) => {
   const list = {
     items: [
       { label: 'Date', content: moment(disbursement.date).format('MM/DD/YYYY') },
-      { label: 'Bank Account', content: disbursement.merchant.title },
+      { label: 'Merchant Account', content: disbursement.merchant.title },
       { label: 'Total', content: numeral(disbursement.total).format('$0.00') },
       { label: 'Fees', content: numeral(disbursement.fees).format('$0.00') },
       { label: 'Amount', content: numeral(disbursement.amount).format('$0.00') }

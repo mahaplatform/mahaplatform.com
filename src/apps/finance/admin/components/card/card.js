@@ -5,8 +5,6 @@ import React from 'react'
 
 class Card extends React.PureComponent {
 
-  static contextTypes = {}
-
   static propTypes = {
     cvv: PropTypes.string,
     expirationDate: PropTypes.string,
@@ -14,13 +12,17 @@ class Card extends React.PureComponent {
     payment: PropTypes.object,
     summary: PropTypes.object,
     token: PropTypes.string,
+    onAuthorize: PropTypes.func,
+    onChange: PropTypes.func,
     onFetch: PropTypes.func,
     onReady: PropTypes.func,
-    onSubmit: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
-  static defaultProps = {}
+  static defaultProps = {
+    onChange: () => {},
+    onReady: () => {}
+  }
 
   render() {
     return (
@@ -43,6 +45,9 @@ class Card extends React.PureComponent {
             <input { ...this._getInput('cvv', '123') } />
           </div>
         </div>
+        <div className="ui blue button" onClick={ this._handleAuthorize.bind(this) }>
+          Authorize
+        </div>
       </div>
     )
   }
@@ -52,9 +57,12 @@ class Card extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { token } = this.props
+    const { payment, token } = this.props
     if(token !== prevProps.token) {
       this.props.onReady()
+    }
+    if(payment !== prevProps.payment) {
+      this.props.onChange(payment)
     }
   }
 
@@ -75,7 +83,7 @@ class Card extends React.PureComponent {
 
   _getExpiration() {
     return {
-      onChange: this._handleUpdate.bind(this, 'expiration')
+      onChange: this._handleUpdate.bind(this, 'expirationDate')
     }
   }
 
@@ -85,10 +93,10 @@ class Card extends React.PureComponent {
     }
   }
 
-  _handleSubmit() {
+  _handleAuthorize() {
     const {number, cvv, expirationDate, token } = this.props
     const data = { number, cvv, expirationDate }
-    this.props.onSubmit(token, data)
+    this.props.onAuthorize(token, data)
   }
 
   _handleUpdateInput(name, e) {

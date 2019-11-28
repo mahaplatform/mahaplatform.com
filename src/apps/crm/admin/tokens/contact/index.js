@@ -1,4 +1,5 @@
 import { Avatar } from 'maha-admin'
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const ContactToken = (contact) => (
@@ -11,5 +12,9 @@ const ContactToken = (contact) => (
     </div>
   </div>
 )
+
+ContactToken.propTypes = {
+  value: PropTypes.string
+}
 
 export default ContactToken

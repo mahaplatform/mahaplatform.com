@@ -6,12 +6,12 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/finance/disbursements',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Bank Account', key: 'merchant.title', sort:'merchant', primary: true },
+      { label: 'Merchant Account', key: 'merchant.title', sort:'merchant', primary: true },
       { label: 'Date', key: 'date', primary: true, format: 'date', collapsing: true },
       { label: 'Amount', key: 'amount', primary: true, format: 'currency', collapsing: true }
     ],
     filters: [
-      { label: 'Bank Account', name: 'merchant_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/merchants', value: 'id', text: 'title' },
+      { label: 'Merchant Account', name: 'merchant_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/merchants', value: 'id', text: 'title' },
       { label: 'Date Range', name: 'date', type: 'daterange', include: ['this','last'] }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },

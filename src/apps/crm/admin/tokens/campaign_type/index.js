@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import React from 'react'
 
 const types = {
@@ -19,5 +20,9 @@ const CampaignTypeToken = ({ value }) => (
     </div>
   </div>
 )
+
+CampaignTypeToken.propTypes = {
+  value: PropTypes.string
+}
 
 export default CampaignTypeToken

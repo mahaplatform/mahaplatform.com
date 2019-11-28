@@ -6,6 +6,7 @@ import braintree from '../../../../../../core/services/braintree'
 import Payment from '../../../../models/payment'
 import Credit from '../../../../models/credit'
 import Refund from '../../../../models/refund'
+import _ from 'lodash'
 
 const createRoute = async (req, res) => {
 
@@ -14,7 +15,7 @@ const createRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.payment_id)
   }).fetch({
-    withRelated: ['refunds'],
+    withRelated: ['invoice','refunds'],
     transacting: req.trx
   })
 
@@ -28,7 +29,7 @@ const createRoute = async (req, res) => {
     message: 'Invalid amount'
   })
 
-  const result = req.body.type === 'card' ? await new Promise((resolve, reject) => {
+  const result = _.includes(['ach','card'], req.body.type) ? await new Promise((resolve, reject) => {
     braintree.transaction.refund(payment.get('braintree_id'), req.body.amount, (err, data) => {
       if(err) return reject(err)
       resolve(data)
@@ -37,7 +38,7 @@ const createRoute = async (req, res) => {
 
   const credit = req.body.type === 'credit' ? await Credit.forge({
     team_id: req.team.get('id'),
-    customer_id: payment.get('customer_id'),
+    customer_id: payment.related('invoice').get('customer_id'),
     description: 'Refunded payment',
     ...whitelist(req.body, ['amount'])
   }).save(null, {

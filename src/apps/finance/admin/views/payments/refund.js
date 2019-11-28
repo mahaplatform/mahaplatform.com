@@ -1,7 +1,8 @@
+import RefundStrategyToken from '../../tokens/refund_strategy'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
-import moment from 'moment'
 import React from 'react'
+import _ from 'lodash'
 
 class Refund extends React.Component {
 
@@ -22,8 +23,9 @@ class Refund extends React.Component {
 
   _getForm() {
     const { payment } = this.props
+    const strategies = this._getStrategies()
     return {
-      title: 'refund Payment',
+      title: 'Refund Payment',
       method: 'post',
       action: `/api/admin/finance/payments/${payment.id}/refunds`,
       onCancel: this._handleCancel,
@@ -31,12 +33,23 @@ class Refund extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Strategy', name: 'strategy', type: 'radiogroup', options: ['card','credit'], required: true, defaultValue: 'card' },
+            { label: 'Type', name: 'type', type: 'radiogroup', options: strategies, format: RefundStrategyToken, required: true, defaultValue: 'card' },
             { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Amount', required: true, defaultValue: payment.refundable }
           ]
         }
       ]
     }
+  }
+
+  _getStrategies() {
+    const { method } = this.props.payment
+    const strategies = ['credit']
+    if(method === 'ach') {
+      strategies.push('ach')
+    } else if(_.includes(['card','googlepay','applepay'], method)) {
+      strategies.push('card')
+    }
+    return strategies
   }
 
   _handleCancel() {

@@ -22,6 +22,7 @@ const paymentsRoute = async (req, res) => {
     qb.innerJoin('finance_invoices','finance_invoices.id', 'finance_payments.invoice_id')
     qb.where('finance_payments.team_id', req.team.get('id'))
     qb.where('finance_invoices.customer_id', customer.get('id'))
+    qb.orderByRaw('finance_payments.date desc, finance_payments.created_at desc')
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx

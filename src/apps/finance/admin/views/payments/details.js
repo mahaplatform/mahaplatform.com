@@ -60,7 +60,6 @@ const Details = ({ payment }) => {
   }
 
   if(payment.status === 'voided') {
-
     list.sections.push({
       title: 'Voided',
       items: [
@@ -68,7 +67,6 @@ const Details = ({ payment }) => {
         { label: 'Reason', content: payment.voided_reason }
       ]
     })
-
   }
 
   if(payment.status === 'disbursed') {
@@ -83,7 +81,7 @@ const Details = ({ payment }) => {
       title: 'Disbursement',
       items: [
         { label: 'Date', content: <Button { ...disbursement } /> },
-        { label: 'Bank Account', content: payment.disbursement.merchant.title },
+        { label: 'Merchant Account', content: payment.disbursement.merchant.title },
         { label: 'Fee', content: (
           <span>{ numeral(payment.fee).format('$0.00') } ({ numeral(payment.rate).format('0.00%') } + 0.30)</span>
         ) }

@@ -10,6 +10,7 @@ import thunkMiddleware from 'redux-thunk'
 import { Provider } from 'react-redux'
 import pushNative from './push_native'
 import tokenMiddleware from './token'
+import cardMiddleware from './card'
 import PropTypes from 'prop-types'
 import pushWeb from './push_web'
 import React from 'react'
@@ -59,6 +60,7 @@ class Root extends React.Component {
       localStorageMiddleware,
       authenticationMiddleware,
       pushMiddleware,
+      cardMiddleware,
       ...(!isProduction || logFlag) ? [loggerMiddleware] : []
     ]
 

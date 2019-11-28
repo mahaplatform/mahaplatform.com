@@ -13,7 +13,7 @@ const listRoute = async (req, res) => {
       customer_id: 'finance_invoices.customer_id'
     },
     filter: req.query.$filter,
-    filterParams: ['method','card_type','customer_id'],
+    filterParams: ['method','card_type','customer_id','status'],
     searchParams: ['code']
   }).sort({
     aliases: {

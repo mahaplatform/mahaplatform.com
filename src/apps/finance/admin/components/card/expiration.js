@@ -65,7 +65,7 @@ class Expiration extends React.PureComponent {
   }
 
   _handleChange() {
-    const { value } = this.state
+    const value = this._getFormatted()
     this.props.onChange(value)
   }
 

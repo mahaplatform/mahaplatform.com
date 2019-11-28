@@ -16,13 +16,15 @@ const reducer = (state = INITIAL_STATE, action) => {
       token: action.result.data.token
     }
 
-  case 'SUBMIT_SUCCESS':
+  case 'AUTHORIZE_SUCCESS':
     return {
       ...state,
       payment: {
-        nonce: action.result.nonce,
+        card_type: action.result.details.cardType.toLowerCase(),
+        exp_month: action.result.details.expirationMonth,
+        exp_year: action.result.details.expirationYear,
         last_four: action.result.details.lastFour,
-        type: action.result.details.cardType.toLowerCase()
+        nonce: action.result.nonce
       }
     }
 

@@ -9,14 +9,17 @@ const getTabs = ({ refund }) => ({
   ]
 })
 
-const getTasks = ({ refund }) => ({
-  items: [
-    {
-      label: 'Void Refund',
-      modal: <Void refund={ refund } />
-    }
-  ]
-})
+const getTasks = ({ refund }) => {
+  if(refund.voided_date) return null
+  return {
+    items: [
+      {
+        label: 'Void Refund',
+        modal: <Void refund={ refund } />
+      }
+    ]
+  }
+}
 
 const mapResourcesToPage = (props, context) => ({
   refund: `/api/admin/finance/refunds/${props.params.id}`

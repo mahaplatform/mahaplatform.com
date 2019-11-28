@@ -946,6 +946,8 @@ const schema = {
       table.USER-DEFINED('status')
       table.date('voided_date')
       table.text('voided_reason')
+      table.string('code', 255)
+      table.jsonb('metadata')
     })
 
     await knex.schema.createTable('finance_products', (table) => {
@@ -1003,10 +1005,10 @@ const schema = {
       table.decimal('amount', 6, 2)
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.USER-DEFINED('type')
       table.USER-DEFINED('status')
       table.date('voided_date')
       table.text('voided_reason')
+      table.USER-DEFINED('type')
     })
 
     await knex.schema.createTable('finance_reimbursements', (table) => {

@@ -3,7 +3,6 @@ import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
 import braintree from '../../../../../core/services/braintree'
 import Payment from '../../../models/payment'
-import _ from 'lodash'
 
 const voidRoute = async (req, res) => {
 
@@ -29,8 +28,7 @@ const voidRoute = async (req, res) => {
   })
 
   if(payment.get('braintree_id')) {
-    const result = await braintree.transaction.void(payment.get('braintree_id'))
-    console.log(result)
+    await braintree.transaction.void(payment.get('braintree_id'))
   }
 
   await payment.save({
@@ -48,7 +46,9 @@ const voidRoute = async (req, res) => {
 
   await socket.refresh(req, [
     '/admin/finance/payments',
-    `/admin/finance/payments/${payment.get('id')}`
+    `/admin/finance/payments/${payment.get('id')}`,
+    '/admin/finance/invoices',
+    `/admin/finance/invoices/${payment.get('invoice_id')}`
   ])
 
   res.status(200).respond(true)

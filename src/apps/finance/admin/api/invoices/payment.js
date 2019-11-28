@@ -3,8 +3,36 @@ import PaymentSerializer from '../../../serializers/payment_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
+import braintree from '../../../../../core/services/braintree'
 import Payment from '../../../models/payment'
 import Invoice from '../../../models/invoice'
+
+const chargeCard = async (payment, amount) => {
+
+  const { nonce, card_type, last_four, exp_month, exp_year } = payment
+
+  const result = await braintree.transaction.sale({
+    amount,
+    paymentMethodNonce: nonce,
+    merchantAccountId: 'cornellcooperativeextensionassociationoftompkinscounty',
+    options: {
+      submitForSettlement: true
+    }
+  })
+  return {
+    braintree_id: result.transaction.id,
+    card_type,
+    metadata: {
+      card_type,
+      last_four,
+      exp_month,
+      exp_year
+    },
+    reference: last_four,
+    status: 'captured'
+  }
+
+}
 
 const paymentRoute = async (req, res) => {
 
@@ -22,11 +50,14 @@ const paymentRoute = async (req, res) => {
     message: 'Unable to load invoice'
   })
 
+  const charge = (req.body.method === 'card') ? await chargeCard(req.body.payment, req.body.amount) : {}
+
   const payment = await Payment.forge({
     team_id: req.team.get('id'),
     invoice_id: invoice.get('id'),
     status: 'received',
-    ...whitelist(req.body, ['date','method','credit_id','scholarship_id','reference','amount'])
+    ...charge,
+    ...whitelist(req.body, ['date','method','merchant_id','credit_id','scholarship_id','reference','amount'])
   }).save(null, {
     transacting: req.trx
   })

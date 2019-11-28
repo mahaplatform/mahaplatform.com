@@ -9,7 +9,6 @@ const invoicesRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.customer_id)
   }).fetch({
-    withRelated: [],
     transacting: req.trx
   })
 
@@ -21,7 +20,9 @@ const invoicesRoute = async (req, res) => {
   const invoices = await Invoice.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('customer_id', customer.get('id'))
+    qb.orderByRaw('date desc, created_at desc')
   }).fetchPage({
+    withRelated: ['coupon','line_items'],
     page: req.query.$page,
     transacting: req.trx
   })

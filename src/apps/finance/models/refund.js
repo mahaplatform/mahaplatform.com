@@ -1,5 +1,6 @@
 import Model from '../../../core/objects/model'
 import Payment from './payment'
+import Credit from './credit'
 
 const Refund = new Model({
 
@@ -15,6 +16,10 @@ const Refund = new Model({
       return `${domain}/merchants/${process.env.BRAINTREE_MERCHANT_ID}/transactions/${this.get('braintree_id')}`
     }
 
+  },
+
+  credit() {
+    return this.belongsTo(Credit, 'credit_id')
   },
 
   payment() {

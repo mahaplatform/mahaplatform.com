@@ -1,7 +1,7 @@
 import { Page } from 'maha-admin'
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Invoices',
+  title: 'Merchant Accounts',
   collection: {
     endpoint: '/api/admin/finance/merchants',
     table: [
@@ -12,16 +12,16 @@ const mapPropsToPage = (props, context, resources, page) => ({
     onClick: (record) => context.router.history.push(`/admin/finance/merchants/${record.id}`),
     empty: {
       icon: 'university',
-      title: 'No Bank Accounts',
-      text: 'You have not yet added any bank accounts',
+      title: 'No Merchant Accounts',
+      text: 'You have not yet added any merchant accounts',
       buttons: [
-        { label: 'Add Bank Account', route: 'http://google.com' }
+        { label: 'Add Merchant Account', route: 'http://google.com' }
       ]
     },
     entity: 'invoice'
   },
   task: {
-    label: 'Add Bank Account',
+    label: 'Add Merchant Account',
     icon: 'plus',
     route: 'http://google.com'
   }
