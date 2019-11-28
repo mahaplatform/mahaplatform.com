@@ -1,4 +1,5 @@
 import { Page } from 'maha-admin'
+import New from './new'
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Merchant Accounts',
@@ -15,7 +16,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Merchant Accounts',
       text: 'You have not yet added any merchant accounts',
       buttons: [
-        { label: 'Add Merchant Account', route: 'http://google.com' }
+        { label: 'Add Merchant Account', modal: New }
       ]
     },
     entity: 'invoice'
@@ -23,7 +24,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
   task: {
     label: 'Add Merchant Account',
     icon: 'plus',
-    route: 'http://google.com'
+    modal: New
   }
 })
 

@@ -1,5 +1,3 @@
-//https://www.routingnumbers.info/api/data.json?rn=221381867
-
 const AddIntegrationToMerchant = {
 
   up: async (knex) => {

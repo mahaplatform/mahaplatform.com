@@ -4,17 +4,26 @@ import { whitelist } from '../../../../../core/services/routes/params'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import braintree from '../../../../../core/services/braintree'
+import Merchant from '../../../models/merchant'
 import Payment from '../../../models/payment'
 import Invoice from '../../../models/invoice'
 
-const chargeCard = async (payment, amount) => {
+const chargeCard = async (req, { payment, amount }) => {
 
-  const { nonce, card_type, last_four, exp_month, exp_year } = payment
+  const { nonce, merchant_id, card_type, last_four, exp_month, exp_year } = payment
+
+  const merchant = await Merchant.scope(qb => {
+    qb.where('team_id', req.team.get('id'))
+  }).query(qb => {
+    qb.where('id', merchant_id)
+  }).fetch({
+    transacting: req.trx
+  })
 
   const result = await braintree.transaction.sale({
     amount,
     paymentMethodNonce: nonce,
-    merchantAccountId: 'cornellcooperativeextensionassociationoftompkinscounty',
+    merchantAccountId: merchant.get('braintree_id'),
     options: {
       submitForSettlement: true
     }
@@ -50,7 +59,7 @@ const paymentRoute = async (req, res) => {
     message: 'Unable to load invoice'
   })
 
-  const charge = (req.body.method === 'card') ? await chargeCard(req.body.payment, req.body.amount) : {}
+  const charge = (req.body.method === 'card') ? await chargeCard(req, req.body) : {}
 
   const payment = await Payment.forge({
     team_id: req.team.get('id'),

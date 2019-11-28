@@ -918,12 +918,11 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.string('bank_name', 255)
-      table.string('routing_number', 255)
-      table.string('account_number', 255)
       table.decimal('rate', 5, 4)
       table.decimal('amex_rate', 5, 4)
       table.boolean('has_paypal')
       table.jsonb('integration')
+      table.string('last_four', 255)
     })
 
     await knex.schema.createTable('finance_payments', (table) => {
