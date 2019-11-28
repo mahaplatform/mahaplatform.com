@@ -1,4 +1,5 @@
 import PaymentTypeToken from '../../tokens/payment_type'
+import StatusToken from '../../tokens/status'
 import { Page } from 'maha-admin'
 
 const mapPropsToPage = (props, context, resources, page) => ({
@@ -8,11 +9,11 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { primary: true, format: PaymentTypeToken, collapsing: true },
-      { label: 'Customer', key: 'customer.display_name', sort: 'customer', primary: true },
+      { label: 'Customer', key: 'invoice.customer.display_name', sort: 'customer', primary: true },
       { label: 'Method', key: 'method', primary: true, collapsing: true },
       { label: 'Date', key: 'date', primary: true, format: 'date', collapsing: true },
       { label: 'Amount', key: 'amount', primary: true, format: 'currency', collapsing: true  },
-      { label: 'Status', key: 'status', primary: true, format: 'status', collapsing: true  }
+      { label: 'Status', key: 'status', primary: true, collapsing: true, format: StatusToken  }
     ],
     filters: [
       { label: 'Customer', name: 'customer_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/customers', value: 'id', text: 'display_name', sort: { key: 'last_name', order: 'asc' } },

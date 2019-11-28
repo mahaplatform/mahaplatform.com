@@ -28,7 +28,7 @@ export const line_items = createSelector(
   (line_items) => line_items.map(line_item => {
     return {
       ...line_item,
-      total: line_item.quantity * line_item.product.price
+      total: line_item.quantity * line_item.price
     }
   }))
 
@@ -41,7 +41,7 @@ export const subtotal = createSelector(
 export const tax = createSelector(
   line_items,
   (line_items) => line_items.reduce((tax, line_item) => {
-    return tax + (line_item.total * line_item.product.tax_rate)
+    return tax + (line_item.total * line_item.tax_rate)
   }, 0.00))
 
 export const discount = createSelector(
@@ -62,3 +62,13 @@ export const total = createSelector(
   tax,
   discount,
   (subtotal, tax, discount) => subtotal + tax - discount)
+
+
+export const value = createSelector(
+  line_items,
+  (line_items) => line_items.map(line_item => ({
+    product_id: line_item.product.id,
+    quantity: line_item.quantity,
+    price: line_item.price,
+    tax_rate: line_item.tax_rate
+  })))

@@ -1,6 +1,7 @@
 import Invoice from '../../../models/invoice'
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
+import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 
 const voidRoute = async (req, res) => {
@@ -21,6 +22,11 @@ const voidRoute = async (req, res) => {
   await invoice.save(whitelist(req.body, ['voided_date','voided_reason']), {
     patch: true,
     transacting: req.trx
+  })
+
+  await audit(req, {
+    story: 'voided',
+    auditable: invoice
   })
 
   await activity(req, {

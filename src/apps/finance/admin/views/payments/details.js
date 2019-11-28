@@ -7,8 +7,15 @@ import _ from 'lodash'
 
 const Details = ({ payment }) => {
 
+  const invoice = {
+    className: 'link',
+    label: payment.invoice.code,
+    route: `/admin/finance/invoices/${payment.invoice.id}`
+  }
+
   const items = [
-    { label: 'Customer', content: payment.customer.display_name },
+    { label: 'Customer', content: payment.invoice.customer.display_name },
+    { label: 'Invoice', content: <Button { ...invoice } /> },
     { label: 'Date', content: moment(payment.date).format('MM/DD/YYYY') },
     { label: 'Method', content: payment.method }
   ]

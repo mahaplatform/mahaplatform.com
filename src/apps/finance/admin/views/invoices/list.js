@@ -1,3 +1,4 @@
+import StatusToken from '../../tokens/status'
 import { Page } from 'maha-admin'
 import New from './new'
 
@@ -8,11 +9,11 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Code', key: 'code', primary: true, collapsing: true },
-      { label: 'Contact', key: 'customer.display_name', primary: true },
+      { label: 'Customer', key: 'customer.display_name', primary: true },
       { label: 'Program', key: 'program.title', primary: true },
       { label: 'Date', key: 'date', primary: true, format: 'date', collapsing: true },
       { label: 'Total', key: 'total', primary: true, format: 'currency', collapsing: true  },
-      { label: 'Paid', key: 'is_paid', primary: true, format: 'check_times', collapsing: true  }
+      { label: 'Status', key: 'status', primary: true, collapsing: true, format: StatusToken  }
     ],
     filters: [
       { label: 'Customer', name: 'customer_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/customers', value: 'id', text: 'display_name', sort: { key: 'last_name', order: 'asc' } },

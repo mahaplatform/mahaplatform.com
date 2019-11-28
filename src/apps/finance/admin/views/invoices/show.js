@@ -19,21 +19,19 @@ const getTabs = ({ audits, invoice, payments }) => {
 
 }
 
-const getTasks = ({ invoice }) => ({
-  items: [
-    {
-      label: 'Edit Invoice'
-    }, {
-      label: 'Send Invoice'
-    }, {
-      label: 'Void Invoice',
-      modal: <Void invoice={ invoice } />
-    }, {
-      label: 'Receive Payment',
-      modal: <Payment invoice={ invoice } />
-    }
-  ]
-})
+const getTasks = ({ invoice }) => {
+  if(invoice.status === 'voided') return null
+  const items = []
+  if(invoice.status !== 'paid') {
+    items.push({ label: 'Edit Invoice' })
+    items.push({ label: 'Void Invoice' })
+    items.push({ label: 'Receive Payment', modal: <Payment invoice={ invoice } /> })
+    items.push({ label: 'Send Invoice' })
+  } else {
+    items.push({ label: 'Send Receipt' })    
+  }
+  return { items }
+}
 
 const mapResourcesToPage = (props, context) => ({
   audits: `/api/admin/finance_invoices/${props.params.id}/audits`,

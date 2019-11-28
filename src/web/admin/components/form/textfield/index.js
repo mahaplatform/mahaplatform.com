@@ -86,10 +86,11 @@ class TextField extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { defaultValue } = this.props
-    if(this.props.defaultValue !== defaultValue) {
-      this._handleSet(this.props.defaultValue)
+    const { value } = this.state
+    if(defaultValue !== prevProps.defaultValue) {
+      this._handleSet(defaultValue)
     }
-    if(this.state.value !== prevState.value) {
+    if(value !== prevState.value) {
       this._handleChange()
     }
   }

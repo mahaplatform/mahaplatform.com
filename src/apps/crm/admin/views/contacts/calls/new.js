@@ -23,7 +23,7 @@ class Call extends React.Component {
     return <Form { ...this._getForm() } />
   }
 
-  _getForm() {
+  _getForm() {  
     const { contact } = this.props
     const filter = {
       access_type: {

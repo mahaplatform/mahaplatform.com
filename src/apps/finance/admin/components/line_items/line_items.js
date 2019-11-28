@@ -21,7 +21,9 @@ class LineItems extends React.PureComponent {
     subtotal: PropTypes.number,
     tax: PropTypes.number,
     total: PropTypes.number,
+    value: PropTypes.array,
     onAdd: PropTypes.func,
+    onChange: PropTypes.func,
     onFetchCoupons: PropTypes.func,
     onFetchProducts: PropTypes.func,
     onReady: PropTypes.func,
@@ -30,6 +32,7 @@ class LineItems extends React.PureComponent {
   }
 
   static defaultProps = {
+    onChange: () => {},
     onReady: () => {}
   }
 
@@ -116,9 +119,12 @@ class LineItems extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { status, onReady } = this.props
+    const { line_items, status, value, onReady } = this.props
     if(status !== prevProps.status) {
       if(status === 'success') return onReady()
+    }
+    if(!_.isEqual(line_items, prevProps.line_items)) {
+      this.props.onChange(value)
     }
   }
 
@@ -130,7 +136,9 @@ class LineItems extends React.PureComponent {
   }
 
   _getNew() {
+    const { products } = this.props
     return {
+      products: products.records,
       onSubmit: this._handleAdd
     }
   }
@@ -144,13 +152,7 @@ class LineItems extends React.PureComponent {
   }
 
   _handleAdd(line_item) {
-    const { products } = this.props
-    const { quantity, product_id } = line_item
-    const product = _.find(products.records, { id: product_id })
-    this.props.onAdd({
-      product,
-      quantity
-    })
+    this.props.onAdd(line_item)
   }
 
   _handleNew() {

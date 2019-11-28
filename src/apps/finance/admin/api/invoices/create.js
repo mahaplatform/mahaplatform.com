@@ -2,6 +2,7 @@ import { activity } from '../../../../../core/services/routes/activities'
 import InvoiceSerializer from '../../../serializers/invoice_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
 import generateCode from '../../../../../core/utils/generate_code'
+import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import LineItem from '../../../models/line_item'
 import Product from '../../../models/product'
@@ -16,14 +17,10 @@ const createRoute = async (req, res) => {
   const invoice = await Invoice.forge({
     team_id: req.team.get('id'),
     code,
-    ...whitelist(req.body, ['customer_id','date','due'])
+    ...whitelist(req.body, ['customer_id','program_id','date','due'])
   }).save(null, {
     transacting: req.trx
   })
-
-  req.body.line_items = [
-    { product_id: 1, quantity: 2, price: 10.00, tax_rate: 0.00 }
-  ]
 
   await Promise.map(req.body.line_items, async(line_item) => {
 
@@ -46,6 +43,11 @@ const createRoute = async (req, res) => {
       transacting: req.trx
     })
 
+  })
+
+  await audit(req, {
+    story: 'created',
+    auditable: invoice
   })
 
   await activity(req, {

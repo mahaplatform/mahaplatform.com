@@ -27,7 +27,7 @@ const merged = createSelector(
     return []
   })
 
-const fields = createSelector(
+export const fields = createSelector(
   merged,
   (sections) => sections.reduce((fields, section) => [
     ...fields,

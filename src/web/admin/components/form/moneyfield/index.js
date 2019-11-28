@@ -21,11 +21,16 @@ class MoneyField extends React.Component {
   }
 
   static defaultProps = {
-    tabIndex: 0
+    tabIndex: 0,
+    onReady: () => {}
   }
 
   render() {
     return <TextField { ...this._getTextField() } />
+  }
+
+  componentDidMount() {
+    this.props.onReady()
   }
 
   _getTextField() {

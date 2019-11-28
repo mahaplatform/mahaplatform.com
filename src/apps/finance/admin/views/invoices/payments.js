@@ -24,7 +24,11 @@ const Payments = ({ payments }) => {
       <tbody>
         { payments.map((payment, index) => (
           <tr key={`payment_${index}`}>
-            <td><Button { ...button(payment) } /></td>
+            <td>
+              <Button { ...button(payment) } /> { payment.voided_date &&
+                <span>(voided on {moment(payment.voided_date).format('MM/DD/YYYY') })</span>
+              }
+            </td>
             <td>{ moment(payment.date).format('MM/DD/YYYY') }</td>
             <td className="right aligned">{ numeral(payment.amount).format('0.00') }</td>
           </tr>

@@ -51,7 +51,7 @@ class Section extends React.Component {
              </div>
           }
           { fields.map((field, index) => (
-            <Field key={`field_${index}`} {...this._getField(field, index) } />
+            <Field key={`field_${field.name || index}`} {...this._getField(field, index) } />
           ))}
         </div>
       </div>

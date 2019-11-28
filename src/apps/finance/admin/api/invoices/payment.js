@@ -25,6 +25,7 @@ const paymentRoute = async (req, res) => {
   const payment = await Payment.forge({
     team_id: req.team.get('id'),
     invoice_id: invoice.get('id'),
+    status: 'received',
     ...whitelist(req.body, ['date','method','credit_id','scholarship_id','reference','amount'])
   }).save(null, {
     transacting: req.trx
@@ -41,6 +42,7 @@ const paymentRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
+    '/admin/finance/invoices',
     `/admin/finance/invoices/${invoice.get('id')}`
   ])
 

@@ -24,6 +24,7 @@ class Form extends React.Component {
     errors: PropTypes.object,
     endpoint: PropTypes.string,
     entity: PropTypes.any,
+    fields: PropTypes.any,
     filtered: PropTypes.object,
     instructions: PropTypes.any,
     isConfiguring: PropTypes.bool,
@@ -90,15 +91,16 @@ class Form extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { data, status } = this.props
+    const { data, fields, status } = this.props
     if(prevProps.status !== status) {
       if(status === 'sections_loaded') this._handleLoadData()
       if(status === 'validated') this._handleSubmit()
       if(status === 'success') this._handleSuccess()
       if(status === 'failure') this._handleFailure()
-    }
-    if(!_.isEqual(prevProps.data, data)) {
+    } else if(!_.isEqual(prevProps.data, data)) {
       this._handleChange(prevProps.data, data)
+    } else if(!_.isEqual(prevProps.fields, fields)) {
+      this._handleNewFields(prevProps.fields, fields)
     }
   }
 
@@ -143,6 +145,15 @@ class Form extends React.Component {
     if(Object.keys(data).length > 1) return onSetData(data)
     if(endpoint) return onFetchData(endpoint, defaults)
     onSetData(defaults)
+  }
+
+  _handleNewFields(previous, current) {
+    const { data, onUpdateData } = this.props
+    current.map(field => {
+      if(data[field.name] === undefined) {
+        return onUpdateData(field.name, field.defaultValue)
+      }
+    })
   }
 
   _handlePop(index = -1) {

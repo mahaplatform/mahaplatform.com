@@ -5,11 +5,11 @@ const PaymentSerializer = (req, result) => ({
   braintree_link: result.get('braintree_link'),
   card_type: result.get('card_type'),
   credit: credit(result.related('credit')),
-  customer: customer(result.related('invoice').related('customer')),
   date: result.get('date'),
   description: result.get('description'),
   disbursement: disbursement(result.related('disbursement')),
   fee: result.get('fee'),
+  invoice: invoice(result.related('invoice')),
   method: result.get('method'),
   rate: result.get('rate'),
   reference: result.get('reference'),
@@ -22,6 +22,15 @@ const PaymentSerializer = (req, result) => ({
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })
+
+const invoice = (invoice) => {
+  if(!invoice.id) return null
+  return {
+    id: invoice.get('id'),
+    code: invoice.get('code'),
+    customer: customer(invoice.related('customer'))
+  }
+}
 
 const customer = (customer) => {
   if(!customer.id) return null
