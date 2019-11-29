@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import lookup from './lookup'
-import create from './create'
+import update from './update'
 import list from './list'
 
 const router = new Router({ mergeParams: true })
@@ -9,6 +9,6 @@ router.get('/lookup', lookup)
 
 router.get('/', list)
 
-router.post('/', create)
+router.post('/:id', update)
 
 export default router

@@ -10,6 +10,23 @@ class Item extends React.Component {
     tasks: PropTypes.object
   }
 
+  static propTypes = {
+    alt: PropTypes.string,
+    className: PropTypes.string,
+    component: PropTypes.any,
+    content: PropTypes.string,
+    empty: PropTypes.string,
+    format: PropTypes.any,
+    handler: PropTypes.func,
+    icon: PropTypes.string,
+    if: PropTypes.bool,
+    label: PropTypes.string,
+    link: PropTypes.string,
+    route: PropTypes.string,
+    tasks: PropTypes.object,
+    units: PropTypes.string
+  }
+
   _handleClick = this._handleClick.bind(this)
   _handleTasks = this._handleTasks.bind(this)
 

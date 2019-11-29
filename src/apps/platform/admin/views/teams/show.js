@@ -36,9 +36,12 @@ Apps.propTypes = {
   apps: PropTypes.array
 }
 
-const Merchants = ({ merchants }) => {
+const Merchants = ({ team, merchants }) => {
 
   const items = merchants.map(merchant => ({
+    tasks: [
+      { label: 'Edit Merchant Account', modal: <Merchant merchant={ merchant } team_id={ team.id } /> }
+    ],
     component: <MerchantToken merchant={ merchant } />
   }))
 
@@ -47,15 +50,15 @@ const Merchants = ({ merchants }) => {
 }
 
 Merchants.propTypes = {
-  merchants: PropTypes.array
+  merchants: PropTypes.array,
+  team: PropTypes.object
 }
-
 
 const getTabs = ({ team, apps, merchants }) => ({
   items:  [
     { label: 'Details', component: <Details team={ team } /> },
     { label: 'Apps', component: <Apps apps={ apps } /> },
-    { label: 'Bank Accounts', component: <Merchants merchants={ merchants } /> }
+    { label: 'Bank Accounts', component: <Merchants team={ team } merchants={ merchants } /> }
   ]
 })
 
@@ -64,9 +67,6 @@ const getTasks = ({ team }) => ({
     {
       label: 'Edit Team',
       modal: <Edit team_id={ team.id } />
-    }, {
-      label: 'Add Bank Account',
-      modal: <Merchant team_id={ team.id } />
     }
   ]
 })

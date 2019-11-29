@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import { List } from 'maha-admin'
+import Signup from './signup'
 import React from 'react'
 
 const Details = ({ merchant }) => {
@@ -12,6 +13,10 @@ const Details = ({ merchant }) => {
       { label: 'Account Number', content: merchant.account_number },
       { label: 'PayPal', content: merchant.has_paypal, format: 'check_times' }
     ]
+  }
+
+  if(!merchant.braintree_id) {
+    list.items.unshift({ component: <Signup merchant={ merchant }/> })
   }
 
   return <List { ...list } />

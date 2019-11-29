@@ -1,14 +1,16 @@
-import React from 'react'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
+import React from 'react'
 
-class New extends React.Component {
+class Edit extends React.Component {
 
   static contextTypes = {
-    modal: PropTypes.object
+    modal: PropTypes.object,
+    router: PropTypes.object
   }
 
   static propTypes = {
+    merchant: PropTypes.object,
     team_id: PropTypes.number
   }
 
@@ -20,17 +22,17 @@ class New extends React.Component {
   }
 
   _getForm() {
-    const { team_id } = this.props
+    const { merchant, team_id } = this.props
     return {
-      title: 'New Bank Account',
-      method: 'post',
-      action: `/api/admin/platform/teams/${team_id}/merchants`,
+      title: 'Edit Merchant Account',
+      method: 'patch',
+      endpoint: `/api/admin/finance/merchants/${merchant.id}/edit`,
+      action: `/api/admin/finance/merchants/${merchant.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title', required: true },
             { label: 'Braintree ID', name: 'braintree_id', type: 'lookup', endpoint: `/api/admin/platform/teams/${team_id}/merchants/lookup`, placeholder: 'Choose a Braintree ID', value: 'id', text: 'id', required: true }
           ]
         }
@@ -48,4 +50,4 @@ class New extends React.Component {
 
 }
 
-export default New
+export default Edit
