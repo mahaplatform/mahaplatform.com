@@ -5,6 +5,7 @@ const MerchantSerializer = (req, result) => ({
   routing_number: result.get('routing_number'),
   account_number: result.get('account_number'),
   braintree_id: result.get('braintree_id'),
+  braintree_link: result.get('braintree_link'),
   has_paypal: result.get('has_paypal'),
   applied_on: result.get('applied_on'),
   created_at: result.get('created_at'),

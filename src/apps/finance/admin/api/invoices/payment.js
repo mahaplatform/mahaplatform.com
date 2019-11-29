@@ -8,9 +8,9 @@ import Merchant from '../../../models/merchant'
 import Payment from '../../../models/payment'
 import Invoice from '../../../models/invoice'
 
-const chargeCard = async (req, { payment, amount }) => {
+const chargeCard = async (req, { merchant_id, payment, amount }) => {
 
-  const { nonce, merchant_id, card_type, last_four, exp_month, exp_year } = payment
+  const { nonce, card_type, last_four, exp_month, exp_year } = payment
 
   const merchant = await Merchant.scope(qb => {
     qb.where('team_id', req.team.get('id'))

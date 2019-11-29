@@ -8,7 +8,15 @@ const Merchant = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+
+    braintree_link() {
+      const subdomain = process.env.BRAINTREE_ENVIRONMENT === 'sandbox' ? 'sandbox.' : ''
+      const domain = `https://${subdomain}braintreegateway.com`
+      return `${domain}/merchants/${process.env.BRAINTREE_MERCHANT_ID}/home`
+    }
+
+  },
 
   disbursements() {
     return this.hasMany(Disbursement, 'merchant_id')

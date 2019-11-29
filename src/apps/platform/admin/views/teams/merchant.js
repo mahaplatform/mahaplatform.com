@@ -26,8 +26,7 @@ class Edit extends React.Component {
     return {
       title: 'Edit Merchant Account',
       method: 'patch',
-      endpoint: `/api/admin/finance/merchants/${merchant.id}/edit`,
-      action: `/api/admin/finance/merchants/${merchant.id}`,
+      action: `/api/admin/platform/teams/${team_id}/merchants/${merchant.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [

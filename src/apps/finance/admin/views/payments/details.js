@@ -20,19 +20,22 @@ const Details = ({ payment }) => {
     { label: 'Method', content: payment.method }
   ]
 
-  const braintree = {
-    className: 'link',
-    label: payment.braintree_id,
-    link: payment.braintree_link
-  }
-
   if(payment.method === 'scholarship') {
     items.push({ label: 'Scholarship', content: payment.scholarship.id })
   } else if(payment.method === 'credit') {
     items.push({ label: 'Credit', content: payment.credit.id })
   } else if(_.includes(['card','googlepay','applepay'], payment.method)) {
+
+    const braintree = {
+      className: 'link',
+      label: payment.braintree_id,
+      link: payment.braintree_link
+    }
+
     items.push({ label: 'Card', content: payment.description })
-    items.push({ label: 'Braintree', content: <Button { ...braintree } /> })
+    items.push({ label: 'Merchant', content: payment.merchant.title })
+    items.push({ label: 'Braintree ID', content: <Button { ...braintree } /> })
+
   }
 
   items.push({ label: 'Amount', content: numeral(payment.amount).format('$0.00') })

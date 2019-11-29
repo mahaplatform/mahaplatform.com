@@ -55,6 +55,7 @@ class Payment extends React.Component {
       return [{ label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }]
     } else if(method === 'card') {
       return [
+        { label: 'Merchant', name: 'merchant_id', type: 'lookup', placeholder: 'Choose a merchant account', endpoint: '/api/admin/finance/merchants', value: 'id', text: 'title', required: true },
         { name: 'payment', type: Card },
         { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }
       ]

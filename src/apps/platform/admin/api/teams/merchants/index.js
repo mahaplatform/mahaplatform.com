@@ -9,6 +9,6 @@ router.get('/lookup', lookup)
 
 router.get('/', list)
 
-router.post('/:id', update)
+router.patch('/:id', update)
 
 export default router
