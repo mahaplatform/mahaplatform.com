@@ -302,6 +302,7 @@ const schema = {
       table.timestamp('updated_at')
       table.string('code', 255)
       table.jsonb('address')
+      table.string('braintree_id', 255)
     })
 
     await knex.schema.createTable('crm_contacts_organizations', (table) => {
@@ -3266,6 +3267,7 @@ union
       crm_contacts.email,
       crm_contacts.phone,
       crm_contacts.address,
+      crm_contacts.braintree_id,
       crm_contacts.created_at,
       crm_contacts.updated_at
       from (crm_contacts

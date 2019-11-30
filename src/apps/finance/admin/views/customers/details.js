@@ -1,5 +1,5 @@
+import { Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { List } from 'maha-admin'
 import React from 'react'
 
 const Details = ({ customer }) => {
@@ -11,6 +11,18 @@ const Details = ({ customer }) => {
       { label: 'Phone', content: customer.phone },
       { label: 'Address', content: customer.address }
     ]
+  }
+
+  if(customer.braintree_id) {
+
+    const braintree = {
+      className: 'link',
+      label: customer.braintree_id,
+      link: customer.braintree_link
+    }
+
+    list.items.push({ label: 'Braintree ID', content: <Button { ...braintree } /> })
+
   }
 
   return <List { ...list } />

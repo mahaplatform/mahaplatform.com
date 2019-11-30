@@ -1,5 +1,6 @@
 import Model from '../../../core/objects/model'
 import Scholarship from './scholarship'
+import Contact from '../../crm/models/contact'
 import Invoice from './invoice'
 import Credit from './credit'
 
@@ -24,8 +25,18 @@ const Customer = new Model({
 
     display_name() {
       return this.get('full_name') ? this.get('full_name') : 'Unknown'
+    },
+
+    braintree_link() {
+      const subdomain = process.env.BRAINTREE_ENVIRONMENT === 'sandbox' ? 'sandbox.' : ''
+      const domain = `https://${subdomain}braintreegateway.com`
+      return `${domain}/merchants/${process.env.BRAINTREE_MERCHANT_ID}/customers/${this.get('braintree_id')}`
     }
 
+  },
+
+  contact() {
+    return this.belongsTo(Contact, 'id')
   },
 
   credits() {

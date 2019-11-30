@@ -8,7 +8,35 @@ import Merchant from '../../../models/merchant'
 import Payment from '../../../models/payment'
 import Invoice from '../../../models/invoice'
 
-const chargeCard = async (req, { merchant_id, payment, amount }) => {
+const getCustomer = async(req, { customer }) => {
+
+  if(customer.get('braintree_id')) {
+
+    const result = await braintree.customer.find(customer.get('braintree_id'))
+
+    return result
+
+  }
+
+  const result = await braintree.customer.create({
+    firstName: customer.get('first_name'),
+    lastName: customer.get('last_name'),
+    email: customer.get('email')
+  })
+
+  await customer.load(['contact'])
+
+  await customer.related('contact').save({
+    braintree_id: result.customer.id
+  }, {
+    transacting: req.trx
+  })
+
+  return result.customer
+
+}
+
+const chargeCard = async (req, { invoice, merchant_id, payment, amount }) => {
 
   const { nonce, card_type, last_four, exp_month, exp_year } = payment
 
@@ -20,7 +48,12 @@ const chargeCard = async (req, { merchant_id, payment, amount }) => {
     transacting: req.trx
   })
 
+  const customer = await getCustomer(req, {
+    customer: invoice.related('customer')
+  })
+
   const result = await braintree.transaction.sale({
+    customerId: customer.id,
     amount,
     paymentMethodNonce: nonce,
     merchantAccountId: merchant.get('braintree_id'),
@@ -59,7 +92,10 @@ const paymentRoute = async (req, res) => {
     message: 'Unable to load invoice'
   })
 
-  const charge = (req.body.method === 'card') ? await chargeCard(req, req.body) : {}
+  const charge = (req.body.method === 'card') ? await chargeCard(req, {
+    ...req.body,
+    invoice
+  }) : {}
 
   const payment = await Payment.forge({
     team_id: req.team.get('id'),
