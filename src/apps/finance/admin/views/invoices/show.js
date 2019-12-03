@@ -24,11 +24,11 @@ const getTasks = ({ invoice }) => {
   const items = []
   if(invoice.status !== 'paid') {
     items.push({ label: 'Edit Invoice' })
-    items.push({ label: 'Void Invoice' })
+    items.push({ label: 'Void Invoice', modal: <Void invoice={ invoice } />  })
     items.push({ label: 'Receive Payment', modal: <Payment invoice={ invoice } /> })
     items.push({ label: 'Send Invoice' })
   } else {
-    items.push({ label: 'Send Receipt' })    
+    items.push({ label: 'Send Receipt' })
   }
   return { items }
 }

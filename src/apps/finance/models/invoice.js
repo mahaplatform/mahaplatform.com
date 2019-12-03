@@ -15,7 +15,7 @@ const Invoice = new Model({
   virtuals: {
 
     balance() {
-      return this.get('total') - this.get('paid')
+      return Math.max(this.get('total') - this.get('paid'), 0.00)
     },
 
     discount() {
@@ -29,7 +29,7 @@ const Invoice = new Model({
     },
 
     is_paid() {
-      return this.get('paid') === this.get('total')
+      return this.get('paid') >= this.get('total')
     },
 
     paid() {

@@ -12,7 +12,7 @@
     "bootstrap": "babel-node ./src/scripts/bootstrap.js",
     "build": "babel-node ./src/scripts/build.js",
     "cron": "pm2 startOrRestart ./dist/ecosystem.js",
-    "dev": "babel-node ./src/scripts/dev.js",
+    "dev": "NODE_ENV=development babel-node ./src/scripts/dev.js",
     "env": "babel-node ./src/scripts/env/index.js",
     "eslint": "babel-node ./src/scripts/eslint.js",
     "g": "babel-node ./src/scripts/generate/index.js",

@@ -1,7 +1,5 @@
 const error = (err, req, res, next) => {
 
-  console.log(err)
-
   if(process.env.NODE_ENV === 'development') {
     console.log(err)
   }

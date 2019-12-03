@@ -75,7 +75,7 @@ const chargeCard = async (req, { invoice, merchant_id, payment, amount }) => {
       status: 422,
       message: 'Unable to process payment',
       errors: {
-        payment: [`Processor error (${result.transaction.processorResponseText})`]
+        payment: [`Payment declined (${result.transaction.processorResponseText})`]
       }
     })
   }
@@ -110,6 +110,27 @@ const paymentRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load invoice'
   })
+
+
+  if(invoice.get('balance') <= 0) {
+    throw new RouteError({
+      status: 422,
+      message: 'Unable to process payment',
+      errors: {
+        amount: ['invoice has been paid in full']
+      }
+    })
+  }
+
+  if(Number(req.body.amount) > invoice.get('balance')) {
+    throw new RouteError({
+      status: 422,
+      message: 'Unable to process payment',
+      errors: {
+        amount: [`must be less than or equal to the balance (${invoice.get('balance').toFixed(2)})`]
+      }
+    })
+  }
 
   const charge = (req.body.method === 'card') ? await chargeCard(req, {
     ...req.body,
