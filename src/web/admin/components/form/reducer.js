@@ -51,10 +51,12 @@ export default (state = INITIAL_STATE, action) => {
       }), {})
     }
 
-  case 'TOGGLE_BUSY':
+  case 'SET_BUSY':
     return {
       ...state,
-      busy: _.includes(state.busy, action.field) ? _.without(state.busy, action.field) : [ ...state.busy, action.field ]
+      busy: [
+        ...action.value ? _.union(state.busy, [action.field]) : _.without(state.busy, action.field)
+      ]
     }
 
   case 'UPDATE_DATA':

@@ -1,8 +1,5 @@
 const INITIAL_STATE = {
-  cvv: '',
-  expirationDate: '',
   payment: null,
-  number: '',
   token: null
 }
 
@@ -28,10 +25,10 @@ const reducer = (state = INITIAL_STATE, action) => {
       }
     }
 
-  case 'UPDATE':
+  case 'CLEAR':
     return {
       ...state,
-      [action.key]: action.value
+      payment: null
     }
 
   default:

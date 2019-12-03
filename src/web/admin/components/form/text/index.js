@@ -33,10 +33,6 @@ class Text extends React.Component {
     )
   }
 
-  componentDidMount() {
-    this.props.onReady()
-  }
-
 }
 
 export default Text

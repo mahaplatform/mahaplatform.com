@@ -25,6 +25,7 @@ import PhoneNumberField from './phonenumberfield'
 import RadioGroup from './select/radio_group'
 import Range from './range'
 import Rating from './rating'
+import Submit from './submit'
 import TableField from './tablefield'
 import Text from './text'
 import TextArea from './textarea'
@@ -43,7 +44,8 @@ class Control extends React.Component {
     defaultValue: PropTypes.any,
     onBusy: PropTypes.func,
     onChange: PropTypes.func,
-    onReady: PropTypes.func
+    onReady: PropTypes.func,
+    onSubmit: PropTypes.func
   }
 
   render() {
@@ -86,6 +88,7 @@ class Control extends React.Component {
     if(type === 'range') return Range
     if(type === 'radiogroup') return RadioGroup
     if(type === 'rating') return Rating
+    if(type === 'submit') return Submit
     if(type === 'tablefield') return TableField
     if(type === 'text') return Text
     if(type === 'textarea') return TextArea
@@ -96,13 +99,14 @@ class Control extends React.Component {
   }
 
   _getProps() {
-    const { field, defaultValue, onBusy, onChange, onReady } = this.props
+    const { field, defaultValue, onBusy, onChange, onReady, onSubmit } = this.props
     return {
       ...field,
       defaultValue,
       onBusy,
       onChange,
-      onReady
+      onReady,
+      onSubmit
     }
   }
 

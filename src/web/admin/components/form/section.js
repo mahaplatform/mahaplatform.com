@@ -15,6 +15,7 @@ class Section extends React.Component {
     tabIndexStart: PropTypes.number,
     onBusy: PropTypes.func,
     onReady: PropTypes.func,
+    onSubmit: PropTypes.func,
     onUpdateData: PropTypes.func
   }
 
@@ -68,7 +69,7 @@ class Section extends React.Component {
   }
 
   _getField(field, index) {
-    const { data, errors, tabIndexStart, onBusy, onReady, onUpdateData } = this.props
+    const { data, errors, tabIndexStart, onBusy, onReady, onSubmit, onUpdateData } = this.props
     return {
       field,
       data,
@@ -76,6 +77,7 @@ class Section extends React.Component {
       tabIndex: tabIndexStart + index,
       onBusy,
       onReady,
+      onSubmit,
       onUpdateData
     }
   }

@@ -7,17 +7,17 @@ class Fields extends React.Component {
   static propTypes = {
     data: PropTypes.object,
     errors: PropTypes.object,
-    field: PropTypes.object,
+    fields: PropTypes.array,
     tabIndex: PropTypes.number,
     onBusy: PropTypes.func,
     onReady: PropTypes.func,
+    onSubmit: PropTypes.func,
     onUpdateData: PropTypes.func
   }
 
   render() {
-    const { field } = this.props
-    const { fields } = field
-    const numbers = ['zero','one','two','three','four','five','six']
+    const { fields } = this.props
+    const numbers = ['zero','one','two','three','four','five','six','seven','eight','nine','ten']
     return (
       <div className={`${numbers[fields.length]} fields`}>
         { fields.map((field, index) => (
@@ -32,7 +32,7 @@ class Fields extends React.Component {
   }
 
   _getField(field) {
-    const { data, errors, tabIndex, onBusy, onReady, onUpdateData } = this.props
+    const { data, errors, tabIndex, onBusy, onReady, onSubmit, onUpdateData } = this.props
     return {
       data,
       errors,
@@ -40,6 +40,7 @@ class Fields extends React.Component {
       tabIndex,
       onBusy,
       onReady,
+      onSubmit,
       onUpdateData
     }
   }

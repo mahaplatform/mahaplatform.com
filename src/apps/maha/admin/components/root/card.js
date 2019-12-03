@@ -32,6 +32,9 @@ export default store => next => action => {
       method: 'post',
       data: {
         credit_card: action.data
+      },
+      options: {
+        validate: true
       }
     })
   }).then(response => {

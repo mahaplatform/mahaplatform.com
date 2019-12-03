@@ -13,6 +13,7 @@ class Field extends React.Component {
     tabIndex: PropTypes.number,
     onBusy: PropTypes.func,
     onReady: PropTypes.func,
+    onSubmit: PropTypes.func,
     onUpdateData: PropTypes.func
   }
 
@@ -69,23 +70,34 @@ class Field extends React.Component {
   }
 
   _getFields() {
-    return this.props
+    const { data, errors, field, tabIndex, onBusy, onReady, onSubmit, onUpdateData } = this.props
+    return {
+      data,
+      errors,
+      fields: field.fields,
+      tabIndex,
+      onBusy,
+      onReady,
+      onSubmit,
+      onUpdateData
+    }
   }
 
   _getControl() {
-    const { data, field } = this.props
+    const { data, field, onSubmit } = this.props
     const { name } = field
     return {
       field,
       defaultValue: _.get(data, name),
       onBusy: this._handleBusy.bind(this, name),
       onChange: this._handleUpdateData.bind(this, name),
-      onReady: this._handleReady.bind(this, name)
+      onReady: this._handleReady.bind(this, name),
+      onSubmit
     }
   }
 
-  _handleBusy(name) {
-    this.props.onBusy(name)
+  _handleBusy(name, value) {
+    this.props.onBusy(name, value)
   }
 
   _handleReady(name) {

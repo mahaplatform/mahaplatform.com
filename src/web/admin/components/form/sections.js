@@ -11,6 +11,7 @@ class Sections extends React.Component {
     sections: PropTypes.array,
     onBusy: PropTypes.func,
     onReady: PropTypes.func,
+    onSubmit: PropTypes.func,
     onUpdateData: PropTypes.func
   }
 
@@ -26,7 +27,7 @@ class Sections extends React.Component {
   }
 
   _getSection(section, index) {
-    const { data, errors, onBusy, onReady, onUpdateData } = this.props
+    const { data, errors, onBusy, onReady, onSubmit, onUpdateData } = this.props
     return {
       ...section,
       data,
@@ -34,6 +35,7 @@ class Sections extends React.Component {
       tabIndexStart: this._getTabIndexStart(section, index),
       onBusy,
       onReady,
+      onSubmit,
       onUpdateData
     }
   }

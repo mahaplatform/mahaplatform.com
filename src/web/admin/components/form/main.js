@@ -1,4 +1,5 @@
 import ModalPanel from '../modal_panel'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Sections from './sections'
 import Menu from '../menu'
@@ -22,6 +23,7 @@ class Main extends React.Component {
     endpoint: PropTypes.string,
     entity: PropTypes.any,
     filtered: PropTypes.object,
+    inline: PropTypes.bool,
     instructions: PropTypes.any,
     isConfiguring: PropTypes.bool,
     isReady: PropTypes.bool,
@@ -47,7 +49,7 @@ class Main extends React.Component {
     onSetData: PropTypes.func,
     onSetReady: PropTypes.func,
     onSuccess: PropTypes.func,
-    onToggleBusy: PropTypes.func,
+    onSetBusy: PropTypes.func,
     onUpdateData: PropTypes.func,
     onValidateForm: PropTypes.func
   }
@@ -89,13 +91,6 @@ class Main extends React.Component {
     return classes.join(' ')
   }
 
-  _getFormClasses() {
-    const { isConfiguring, isReady, status } = this.props
-    const classes = ['ui','form',status]
-    if(isConfiguring || !isReady || status === 'submitting') classes.push('loading')
-    return classes.join(' ')
-  }
-
   _getCancel() {
     const { cancelIcon, cancelText } = this.props
     const handler = this._handleCancel
@@ -104,36 +99,11 @@ class Main extends React.Component {
     return null
   }
 
-  _getSave() {
-    const { saveIcon, saveText } = this.props
-    const handler = this._handleSubmit
-    if(saveIcon) return [{ icon: saveIcon, handler }]
-    if(saveText) return [{ label: saveText, handler }]
-    return null
-  }
-
-  _getPanel() {
-    const { buttons, color, showHeader, title } = this.props
-    return {
-      buttons,
-      color,
-      showHeader,
-      title,
-      leftItems: this._getCancel(),
-      rightItems: this._getSave()
-    }
-  }
-
-  _getSections(sections) {
-    const { data, errors, onSetReady, onToggleBusy, onUpdateData } = this.props
-    return {
-      data,
-      errors,
-      sections,
-      onBusy: onToggleBusy,
-      onReady: onSetReady,
-      onUpdateData
-    }
+  _getFormClasses() {
+    const { isConfiguring, isReady, status } = this.props
+    const classes = ['ui','form',status]
+    if(isConfiguring || !isReady || status === 'submitting') classes.push('loading')
+    return classes.join(' ')
   }
 
   _getMenu() {
@@ -144,6 +114,40 @@ class Main extends React.Component {
         component: <Sections { ...this._getSections(tab.sections) } />
       }))
     }
+  }
+
+  _getPanel() {
+    const { buttons, color, inline, showHeader, title } = this.props
+    return {
+      buttons,
+      color,
+      showHeader: showHeader && !inline,
+      title,
+      leftItems: this._getCancel(),
+      rightItems: this._getSave()
+    }
+  }
+
+  _getSections(sections) {
+    const { data, errors, onSetReady, onSetBusy, onUpdateData } = this.props
+    return {
+      data,
+      errors,
+      sections,
+      onBusy: onSetBusy,
+      onReady: onSetReady,
+      onSubmit: this._handleSubmit,
+      onUpdateData
+    }
+  }
+
+  _getSave() {
+    const { isBusy, saveIcon, saveText } = this.props
+    if(isBusy) return null
+    const handler = this._handleSubmit
+    if(saveIcon) return [{ icon: saveIcon, handler }]
+    if(saveText) return [{ label: saveText, handler }]
+    return null
   }
 
   _handleCancel() {
@@ -172,4 +176,8 @@ class Main extends React.Component {
 
 }
 
-export default Main
+const mapStateToProps = (state, props) => ({
+  ...state.maha.form[props.cid]
+})
+
+export default connect(mapStateToProps)(Main)

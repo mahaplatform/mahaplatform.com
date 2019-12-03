@@ -10,6 +10,10 @@ class Form extends React.Component {
     form: PropTypes.object
   }
 
+  static contextTypes = {
+    form: PropTypes.object
+  }
+
   static propTypes = {
     action: PropTypes.string,
     after: PropTypes.string,
@@ -26,6 +30,7 @@ class Form extends React.Component {
     entity: PropTypes.any,
     fields: PropTypes.any,
     filtered: PropTypes.object,
+    inline: PropTypes.bool,
     instructions: PropTypes.any,
     isConfiguring: PropTypes.bool,
     isReady: PropTypes.bool,
@@ -48,15 +53,16 @@ class Form extends React.Component {
     onSubmitForm: PropTypes.func,
     onFailure: PropTypes.func,
     onFetchData: PropTypes.func,
+    onSetBusy: PropTypes.func,
     onSetData: PropTypes.func,
     onSetReady: PropTypes.func,
     onSuccess: PropTypes.func,
-    onToggleBusy: PropTypes.func,
     onUpdateData: PropTypes.func,
     onValidateForm: PropTypes.func
   }
 
   static defaultProps = {
+    inline: false,
     method: 'GET',
     cancelText: 'Cancel',
     color: 'red',
@@ -80,7 +86,7 @@ class Form extends React.Component {
 
   render() {
     return (
-      <div className="maha-form">
+      <div className={ this._getClass() }>
         <Stack { ...this._getStack() } />
       </div>
     )
@@ -111,6 +117,13 @@ class Form extends React.Component {
         pop: this._handlePop
       }
     }
+  }
+
+  _getClass() {
+    const { inline  } = this.props
+    const classes = ['maha-form']
+    if(inline) classes.push('inline')
+    return classes.join(' ')
   }
 
   _getStack() {
@@ -148,21 +161,25 @@ class Form extends React.Component {
   }
 
   _handleNewFields(previous, current) {
-    const { data, onUpdateData } = this.props
-    current.map(field => {
-      if(data[field.name] === undefined) {
-        return onUpdateData(field.name, field.defaultValue)
-      }
-    })
+    // const { data, onUpdateData } = this.props
+    // current.map(field => {
+    //   if(data[field.name] === undefined) {
+    //     return onUpdateData(field.name, field.defaultValue)
+    //   }
+    // })
   }
 
   _handlePop(index = -1) {
+    const { form } = this.context
+    if(form) return form.pop(index)
     this.setState({
       cards: this.state.cards.slice(0, index)
     })
   }
 
   _handlePush(component, props) {
+    const { form } = this.context
+    if(form) return form.push(component, props)
     this.setState({
       cards: [
         ...this.state.cards,

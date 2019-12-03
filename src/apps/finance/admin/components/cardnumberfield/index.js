@@ -1,3 +1,4 @@
+import creditcard from 'credit-card'
 import { card } from 'creditcards'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -32,14 +33,15 @@ class CardNumberField extends React.PureComponent {
       <div className="maha-input">
         <div className="maha-input-field">
           <div className="finance-card-number-field">
+            <div className="finance-card-number-field-icon">
+              { icon ?
+                <img src={`/admin/images/payments/${icon}.png`} /> :
+                <i className="fa fa-credit-card-alt" />
+              }
+            </div>
             <div className="finance-card-number-field-input">
               <input { ...this._getInput() }  />
             </div>
-            { icon &&
-              <div className="finance-card-number-field-icon">
-                <img src={`/admin/images/payments/${icon}.png`} />
-              </div>
-            }
           </div>
         </div>
         { value && value.length > 0 &&
@@ -51,6 +53,10 @@ class CardNumberField extends React.PureComponent {
     )
   }
 
+  componentDidMount() {
+    this.props.onReady()
+  }
+
   componentDidUpdate(prevProps, prevState) {
     const { value } = this.state
     if(value !== prevState.value) {
@@ -60,11 +66,12 @@ class CardNumberField extends React.PureComponent {
 
   _getIcon() {
     const { value } = this.state
-    const type = card.type(value, true)
-    if(type === 'Visa') return 'visa'
-    if(type === 'Master Card') return 'mastercard'
-    if(type === 'American Express') return 'amex'
-    if(type === 'Discover') return 'discover'
+    const type = creditcard.determineCardType(value, { allowPartial: true })
+    if(type === 'VISA') return 'visa'
+    if(type === 'MASTERCARD') return 'mastercard'
+    if(type === 'AMERICANEXPRESS') return 'amex'
+    if(type === 'DISCOVER') return 'discover'
+    if(type === 'JCB') return 'jcb'
     return null
   }
 

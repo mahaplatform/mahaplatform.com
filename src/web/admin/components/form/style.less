@@ -113,6 +113,9 @@
     color: @red;
   }
   flex-direction: column;
+  .fields {
+    margin: 0 -0.5em !important;
+  }
 }
 .maha-form-field-label {
   color: fadeout(@black, 10);
@@ -126,6 +129,30 @@
 .maha-form-field-control {
   flex: 1;
   padding: 0;
+}
+.maha-form.inline {
+  flex: none;
+  display: block;
+  .maha-form,
+  .maha-stack,
+  .maha-stack-inner,
+  .maha-stack-card,
+  .maha-modal-panel {
+    flex: none;
+    display: block;
+  }
+  .maha-stack-card {
+    position: static;
+    transform: none;
+    background: none;
+  }
+  .maha-modal-panel {
+    position: static;
+    background: none;
+  }
+  .maha-form-sections {
+    overflow-y: visible;
+  }
 }
 .maha-input {
   border: 1px solid rgba(34,36,38,.15);

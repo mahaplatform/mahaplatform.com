@@ -52,11 +52,13 @@ class Payment extends React.Component {
     const { invoice } = this.props
     const { method } = this.state
     if(method === 'cash') {
-      return [{ label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }]
+      return [
+        { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }
+      ]
     } else if(method === 'card') {
       return [
         { label: 'Merchant', name: 'merchant_id', type: 'lookup', placeholder: 'Choose a merchant account', endpoint: '/api/admin/finance/merchants', value: 'id', text: 'title', required: true },
-        { name: 'payment', type: Card },
+        { label: 'Credit Card', name: 'payment', type: Card, color: 'blue' },
         { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }
       ]
     } else if(method === 'check') {
@@ -82,7 +84,7 @@ class Payment extends React.Component {
   _getScholarshipForm() {
     const { invoice } = this.props
     return {
-      title: 'New Vendor',
+      title: 'New Scholarship',
       method: 'post',
       action: `/api/admin/finance/customers/${invoice.customer.id}/scholarships`,
       sections: [

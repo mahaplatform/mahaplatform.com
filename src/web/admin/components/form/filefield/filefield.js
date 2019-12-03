@@ -161,7 +161,7 @@ class FileField extends React.Component {
   _handleUploadBegin() {
     this.resumable.upload()
     this.props.onUploadBegin()
-    this.props.onBusy()
+    this.props.onBusy(true)
   }
 
   _handleUploadProgress(file) {
@@ -170,13 +170,13 @@ class FileField extends React.Component {
 
   _handleUploadFailure(file, message) {
     this.props.onUploadFailure(message)
-    this.props.onBusy()
+    this.props.onBusy(false)
   }
 
   _handleUploadSuccess(file, message) {
     const asset = JSON.parse(message)
     this.props.onUploadSuccess(file.file.uniqueIdentifier, asset)
-    this.props.onBusy()
+    this.props.onBusy(false)
   }
 
   _handleRemoveFile(index) {

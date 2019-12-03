@@ -11,11 +11,7 @@ import Invoice from '../../../models/invoice'
 const getCustomer = async(req, { customer }) => {
 
   if(customer.get('braintree_id')) {
-
-    const result = await braintree.customer.find(customer.get('braintree_id'))
-
-    return result
-
+    return await braintree.customer.find(customer.get('braintree_id'))
   }
 
   const result = await braintree.customer.create({
@@ -61,6 +57,7 @@ const chargeCard = async (req, { invoice, merchant_id, payment, amount }) => {
       submitForSettlement: true
     }
   })
+  
   return {
     braintree_id: result.transaction.id,
     card_type,

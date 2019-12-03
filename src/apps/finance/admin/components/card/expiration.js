@@ -7,11 +7,13 @@ class Expiration extends React.PureComponent {
   static contextTypes = {}
 
   static propTypes = {
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    onReady: PropTypes.func
   }
 
   static defaultProps = {
-    onChange: () => {}
+    onChange: () => {},
+    onReady: () => {}
   }
 
   state = {
@@ -36,6 +38,10 @@ class Expiration extends React.PureComponent {
         }
       </div>
     )
+  }
+
+  componentDidMount() {
+    this.props.onReady()
   }
 
   componentDidUpdate(prevProps, prevState) {

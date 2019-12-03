@@ -16,8 +16,6 @@ export const authorize = (token, data) => ({
   failure: 'AUTHORIZE_FAILURE'
 })
 
-export const update = (key, value) => ({
-  type: 'UPDATE',
-  key,
-  value
+export const clear = () => ({
+  type: 'CLEAR'
 })

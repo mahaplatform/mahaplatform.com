@@ -17,8 +17,8 @@ class Dropdown extends React.Component {
     placeholder: 'Select an option...',
     defaultValue: null,
     options: [],
-    onBusy: (value) => {},
-    onChange: (value) => {},
+    onBusy: () => {},
+    onChange: () => {},
     onReady: () => {}
   }
 

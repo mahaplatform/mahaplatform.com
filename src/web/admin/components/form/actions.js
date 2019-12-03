@@ -18,9 +18,10 @@ export const setReady = (field) => ({
   field
 })
 
-export const toggleBusy = (field) => ({
-  type: 'TOGGLE_BUSY' ,
-  field
+export const setBusy = (field, value) => ({
+  type: 'SET_BUSY' ,
+  field,
+  value
 })
 
 export const updateData = (key, value) => ({
