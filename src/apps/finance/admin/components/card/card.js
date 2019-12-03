@@ -140,8 +140,7 @@ class Card extends React.PureComponent {
     const parts = exp.match(/(\d{2})\/(\d{2})/)
     if(parts === null) {
       throw new Error('Invalid date. Must be in the format MM/YY')
-    }
-    if(creditcard.isExpired(parts[1],`20${parts[2]}`)) {
+    } else if(creditcard.isExpired(parts[1],`20${parts[2]}`)) {
       throw new Error('This date is in the past')
     }
   }

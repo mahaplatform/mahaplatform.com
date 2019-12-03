@@ -3,6 +3,7 @@ import PaymentSerializer from '../../../serializers/payment_serializer'
 import { whitelist } from '../../../../../core/services/routes/params'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
+import RouteError from '../../../../../core/objects/route_error'
 import braintree from '../../../../../core/services/braintree'
 import Merchant from '../../../models/merchant'
 import Payment from '../../../models/payment'
@@ -19,6 +20,17 @@ const getCustomer = async(req, { customer }) => {
     lastName: customer.get('last_name'),
     email: customer.get('email')
   })
+
+  if(!result.success) {
+    throw new RouteError({
+      status: 422,
+      message: 'Unable to process payment',
+      errors: {
+        payment: ['Processor error (Unable to create customer)']
+      }
+    })
+
+  }
 
   await customer.load(['contact'])
 
@@ -57,7 +69,17 @@ const chargeCard = async (req, { invoice, merchant_id, payment, amount }) => {
       submitForSettlement: true
     }
   })
-  
+
+  if(!result.success) {
+    throw new RouteError({
+      status: 422,
+      message: 'Unable to process payment',
+      errors: {
+        payment: [`Processor error (${result.transaction.processorResponseText})`]
+      }
+    })
+  }
+
   return {
     braintree_id: result.transaction.id,
     card_type,
