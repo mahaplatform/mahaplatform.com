@@ -48,6 +48,13 @@ const submittable = createSelector(
   })
 )
 
+export const fieldNames = createSelector(
+  submittable,
+  (fields) => fields.filter(field => {
+    return field.name !== undefined
+  }).map(field => field.name)
+)
+
 export const defaults = createSelector(
   submittable,
   (fields) => {
