@@ -29,10 +29,6 @@ class Fields extends React.Component {
     )
   }
 
-  componentDidMount() {
-    this.props.onReady()
-  }
-
   _getField(field) {
     const { data, errors, status, tabIndex, onBusy, onReady, onSubmit, onUpdateData, onValid } = this.props
     return {

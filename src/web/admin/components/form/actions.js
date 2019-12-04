@@ -18,9 +18,9 @@ export const submitForm = (method, endpoint, body) => ({
   failure: 'SUBMIT_FAILURE'
 })
 
-export const setBusy = (field, value) => ({
+export const setBusy = (key, value) => ({
   type: 'SET_BUSY' ,
-  field,
+  key,
   value
 })
 
@@ -29,9 +29,15 @@ export const setData = (data) => ({
   data
 })
 
-export const setReady = (field) => ({
+export const setReady = (key) => ({
   type: 'SET_READY',
-  field
+  key
+})
+
+
+export const setStatus = (status) => ({
+  type: 'SET_STATUS',
+  status
 })
 
 export const setValid = (key, value, errors) => ({

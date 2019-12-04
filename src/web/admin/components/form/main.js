@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import Sections from './sections'
 import Menu from '../menu'
 import React from 'react'
-import _ from 'lodash'
 
 class Main extends React.Component {
 
@@ -47,6 +46,7 @@ class Main extends React.Component {
     onSetBusy: PropTypes.func,
     onSetData: PropTypes.func,
     onSetReady: PropTypes.func,
+    onSetStatus: PropTypes.func,
     onSetValid: PropTypes.func,
     onSubmit: PropTypes.func,
     onSubmitForm: PropTypes.func,
@@ -56,7 +56,6 @@ class Main extends React.Component {
   }
 
   _handleCancel = this._handleCancel.bind(this)
-  _handleValidate = _.debounce(this._handleValidate.bind(this), 2500, { leading: true })
 
   render() {
     const { after, before, isConfiguring, instructions, sections, tabs } = this.props
@@ -130,7 +129,7 @@ class Main extends React.Component {
   }
 
   _getSections(sections) {
-    const { data, errors, status, onSetBusy, onSetReady, onSetValid, onUpdateData } = this.props
+    const { data, errors, status, onSetBusy, onSetReady, onSetValid, onUpdateData, onValidate } = this.props
     return {
       data,
       errors,
@@ -138,16 +137,16 @@ class Main extends React.Component {
       status,
       onBusy: onSetBusy,
       onReady: onSetReady,
-      onSubmit: this._handleValidate,
+      onSubmit: onValidate,
       onUpdateData,
       onValid: onSetValid
     }
   }
 
   _getSave() {
-    const { isBusy, saveIcon, saveText } = this.props
+    const { isBusy, saveIcon, saveText, onValidate } = this.props
     if(isBusy) return null
-    const handler = this._handleValidate
+    const handler = onValidate
     if(saveIcon) return [{ icon: saveIcon, handler }]
     if(saveText) return [{ label: saveText, handler }]
     return null
@@ -156,13 +155,6 @@ class Main extends React.Component {
   _handleCancel() {
     this.props.onCancel()
   }
-
-  _handleValidate() {
-    const { isBusy, onValidate } = this.props
-    if(isBusy) return
-    onValidate()
-  }
-
 
 }
 

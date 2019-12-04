@@ -51,6 +51,9 @@ class Control extends React.Component {
     onValid: PropTypes.func
   }
 
+  onValidate = null
+
+  _handleReady = this._handleReady.bind(this)
   _handleValidate = this._handleValidate.bind(this)
 
   render() {
@@ -65,7 +68,7 @@ class Control extends React.Component {
   componentDidUpdate(prevProps) {
     const { status } = this.props
     if(status !== prevProps.status) {
-      if(status === 'validating') this._handleValidate()
+      if(status === 'validating') this.onValidate()
     }
   }
 
@@ -111,15 +114,22 @@ class Control extends React.Component {
   }
 
   _getProps() {
-    const { field, defaultValue, onBusy, onChange, onReady, onSubmit } = this.props
+    const { field, defaultValue, onBusy, onChange, onSubmit, onValid } = this.props
     return {
       ...field,
       defaultValue,
       onBusy,
       onChange,
-      onReady,
-      onSubmit
+      onReady: this._handleReady,
+      onSubmit,
+      onValid
     }
+  }
+
+  _handleReady(onValidate) {
+    const { onReady } = this.props
+    this.onValidate = onValidate || this._handleValidate
+    onReady()
   }
 
   _handleValidate() {

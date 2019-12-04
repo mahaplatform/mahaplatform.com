@@ -1,5 +1,5 @@
 import CardNumberField from '../cardnumberfield'
-import { Button, Form } from 'maha-admin'
+import { Form } from 'maha-admin'
 import Expiration from './expiration'
 import creditcard from 'credit-card'
 import PropTypes from 'prop-types'
@@ -17,14 +17,18 @@ class Card extends React.PureComponent {
     onClear: PropTypes.func,
     onFetch: PropTypes.func,
     onReady: PropTypes.func,
-    onUpdate: PropTypes.func
+    onUpdate: PropTypes.func,
+    onValid: PropTypes.func
   }
 
   static defaultProps = {
     onBusy: () => {},
     onChange: () => {},
-    onReady: () => {}
+    onReady: () => {},
+    onValid: () => {}
   }
+
+  form = null
 
   state = {
     number: null
@@ -33,20 +37,12 @@ class Card extends React.PureComponent {
   _handleAuthorize = this._handleAuthorize.bind(this)
   _handleClear = this._handleClear.bind(this)
   _handleChangeField = this._handleChangeField.bind(this)
+  _handleValidate = this._handleValidate.bind(this)
 
   render() {
-    const { payment } = this.props
     return (
       <div className="finance-card">
-        { payment ?
-          <div className="finance-card-token">
-            <img src={`/admin/images/payments/${this._getIcon()}.png`} />
-            { payment.card_type.toUpperCase() }-{ payment.last_four }<br />
-            Expires { payment.exp_month }/{ payment.exp_year }<br />
-            <Button { ...this._getButton()} />
-          </div> :
-          <Form { ...this._getForm() } />
-        }
+        <Form { ...this._getForm() } />
       </div>
     )
   }
@@ -58,10 +54,10 @@ class Card extends React.PureComponent {
   componentDidUpdate(prevProps) {
     const { payment, token } = this.props
     if(token !== prevProps.token) {
-      this.props.onReady()
+      this.props.onReady(this._handleValidate)
     }
     if(payment !== prevProps.payment) {
-      this.props.onChange(payment)
+      this.props.onValid(payment)
     }
   }
 
@@ -75,6 +71,7 @@ class Card extends React.PureComponent {
 
   _getForm() {
     return {
+      reference: form => this.form = form,
       inline: true,
       onChangeField: this._handleChangeField,
       onSubmit: this._handleAuthorize,
@@ -106,9 +103,11 @@ class Card extends React.PureComponent {
     const { token } = this.props
     const { number, cvv, expirationDate } = props
     this.props.onAuthorize(token, { number, cvv, expirationDate })
+    return true
   }
 
   _handleChangeField(key, value) {
+    this.props.onChange()
     if(key === 'number') {
       this.setState({
         number: value
@@ -118,6 +117,11 @@ class Card extends React.PureComponent {
 
   _handleClear() {
     this.props.onClear()
+  }
+
+  _handleValidate() {
+    console.log('validate card')
+    this.form.submit()
   }
 
   _handleValidateCVV(cvv) {

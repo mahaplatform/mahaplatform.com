@@ -18,7 +18,7 @@ export default (state = INITIAL_STATE, action) => {
     return {
       ...state,
       busy: [
-        ...action.value ? _.union(state.busy, [action.field]) : _.without(state.busy, action.field)
+        ...action.value ? _.union(state.busy, [action.key]) : _.without(state.busy, action.key)
       ]
     }
 
@@ -36,8 +36,14 @@ export default (state = INITIAL_STATE, action) => {
     return {
       ...state,
       ready: [
-        ..._.union(state.ready, [action.field])
+        ..._.union(state.ready, [action.key])
       ]
+    }
+
+  case 'SET_STATUS':
+    return {
+      ...state,
+      status: action.status
     }
 
   case 'SET_VALID':
@@ -107,7 +113,7 @@ export default (state = INITIAL_STATE, action) => {
     return {
       ...state,
       status: 'failure',
-      errors: action.result.errors,
+      errors: action.result.errors || {},
       message: action.result.message
     }
 

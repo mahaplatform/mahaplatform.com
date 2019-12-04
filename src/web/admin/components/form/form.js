@@ -39,6 +39,7 @@ class Form extends React.Component {
     isValid: PropTypes.bool,
     method: PropTypes.string,
     ready: PropTypes.array,
+    reference: PropTypes.func,
     saveIcon: PropTypes.string,
     saveText: PropTypes.string,
     showHeader: PropTypes.bool,
@@ -55,6 +56,7 @@ class Form extends React.Component {
     onSetBusy: PropTypes.func,
     onSetData: PropTypes.func,
     onSetReady: PropTypes.func,
+    onSetStatus: PropTypes.func,
     onSetValid: PropTypes.func,
     onSubmit: PropTypes.func,
     onSubmitForm: PropTypes.func,
@@ -68,6 +70,7 @@ class Form extends React.Component {
     method: 'GET',
     cancelText: 'Cancel',
     color: 'red',
+    reference: () => {},
     saveText: 'Save',
     showHeader: true,
     onCancel: () => {},
@@ -86,6 +89,7 @@ class Form extends React.Component {
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
+  _handleValidate = _.debounce(this._handleValidate.bind(this), 2500, { leading: true })
 
   render() {
     return (
@@ -96,7 +100,11 @@ class Form extends React.Component {
   }
 
   componentDidMount() {
+    const { reference } = this.props
     this._handleLoadData()
+    if(reference) reference({
+      submit: this._handleValidate
+    })
   }
 
   componentDidUpdate(prevProps) {
@@ -143,7 +151,10 @@ class Form extends React.Component {
   }
 
   _getMain() {
-    return this.props
+    return {
+      ...this.props,
+      onValidate: this._handleValidate
+    }
   }
 
   _handleChange(previous, current) {
@@ -194,17 +205,23 @@ class Form extends React.Component {
   }
 
   _handleSubmit() {
-    const { action, filtered, method, onSubmit, onSubmitForm } = this.props
+    const { action, filtered, method, onSetStatus, onSubmit, onSubmitForm } = this.props
     if(action) return onSubmitForm(method, action, filtered)
     if(onSubmit) {
-      if(onSubmit(filtered)) return this._handleSuccess()
-      return this._handleFailure()
+      if(onSubmit(filtered)) return onSetStatus('success')
+      return onSetStatus('failure')
     }
-    this._handleSuccess()
+    return onSetStatus('success')
   }
 
   _handleSuccess() {
     this.props.onSuccess(this.props.entity)
+  }
+
+  _handleValidate() {
+    const { isBusy, onValidate } = this.props
+    if(isBusy) return
+    onValidate()
   }
 
 }

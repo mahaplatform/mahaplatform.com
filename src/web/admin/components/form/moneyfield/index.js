@@ -29,10 +29,6 @@ class MoneyField extends React.Component {
     return <TextField { ...this._getTextField() } />
   }
 
-  componentDidMount() {
-    this.props.onReady()
-  }
-
   _getTextField() {
     return {
       ...this.props,
