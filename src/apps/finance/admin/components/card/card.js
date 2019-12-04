@@ -52,7 +52,6 @@ class Card extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.props.onBusy(true)
     this.props.onFetch()
   }
 
@@ -62,13 +61,8 @@ class Card extends React.PureComponent {
       this.props.onReady()
     }
     if(payment !== prevProps.payment) {
-      this.props.onBusy(payment === null)
       this.props.onChange(payment)
     }
-  }
-
-  componentWillUnmount() {
-    this.props.onBusy(false)
   }
 
   _getButton() {
@@ -91,8 +85,7 @@ class Card extends React.PureComponent {
               { label: 'Card Number', name: 'number', type: CardNumberField, required: true, rules: [this._handleValidateNumber.bind(this)] },
               { label: 'Card Expiration', name: 'expirationDate', type: Expiration, required: true, rules: [this._handleValidateExp.bind(this)] },
               { label: 'CVV', name: 'cvv', type: 'textfield', placeholder: '123', required: true, rules: [this._handleValidateCVV.bind(this)] }
-            ] },
-            { type: 'submit', text: 'Authorize Card' }
+            ] }
           ]
         }
       ]
