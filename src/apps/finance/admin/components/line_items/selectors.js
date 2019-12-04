@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect'
+import _ from 'lodash'
 
 const given = (state, props) => state.line_items
 
@@ -6,7 +7,7 @@ const coupons = (state, props) => state.coupons
 
 const products = (state, props) => state.products
 
-const coupon = (state, props) => state.coupon
+const coupon_id = (state, props) => state.coupon_id
 
 export const status = createSelector(
   coupons,
@@ -25,9 +26,15 @@ export const status = createSelector(
 
 export const line_items = createSelector(
   given,
-  (line_items) => line_items.map(line_item => {
+  products,
+  (line_items, products) => line_items.map(line_item => {
+    const product = _.find(products.records, { id: line_item.product_id })
     return {
       ...line_item,
+      product: {
+        id: product.id,
+        title: product.title
+      },
       total: line_item.quantity * line_item.price
     }
   }))
@@ -43,6 +50,12 @@ export const tax = createSelector(
   (line_items) => line_items.reduce((tax, line_item) => {
     return tax + (line_item.total * line_item.tax_rate)
   }, 0.00))
+
+export const coupon = createSelector(
+  coupons,
+  coupon_id,
+  (coupons, coupon_id) => _.find(coupons.records, { id: coupon_id }) || null
+)
 
 export const discount = createSelector(
   coupon,
@@ -68,6 +81,7 @@ export const value = createSelector(
   line_items,
   (line_items) => line_items.map(line_item => ({
     product_id: line_item.product.id,
+    description: line_item.description,
     quantity: line_item.quantity,
     price: line_item.price,
     tax_rate: line_item.tax_rate

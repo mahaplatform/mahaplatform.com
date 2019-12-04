@@ -16,12 +16,21 @@ export const fetchCoupons = (types) => ({
   failure: 'FETCH_COUPONS_FAILURE'
 })
 
-export const add = (line_item) => ({
-  type: 'ADD',
+export const addCoupon = (coupon_id) => ({
+  type: 'ADD_COUPON',
+  coupon_id
+})
+
+export const removeCoupon = () => ({
+  type: 'REMOVE_COUPON'
+})
+
+export const addLineItem = (line_item) => ({
+  type: 'ADD_LINE_ITEM',
   line_item
 })
 
-export const remove = (index) => ({
-  type: 'REMOVE',
+export const removeLineItem = (index) => ({
+  type: 'REMOVE_LINE_ITEM',
   index
 })

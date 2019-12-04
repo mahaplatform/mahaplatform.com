@@ -898,6 +898,7 @@ const schema = {
       table.decimal('tax_rate', 3, 2)
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.string('description', 255)
     })
 
     await knex.schema.createTable('finance_members', (table) => {

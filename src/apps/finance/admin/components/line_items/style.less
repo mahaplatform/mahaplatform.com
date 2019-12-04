@@ -1,3 +1,13 @@
+.finance-line-items {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.5em;
+  overflow: hidden;
+  table.ui.table {
+    border-radius: 0;
+    border: none;
+    margin: 0 !important;
+  }
+}
 .finance-line-items-empty {
   td {
     text-align: center !important;
@@ -9,8 +19,7 @@
   th:nth-child(4) {
     width: 70px;
   }
-  th:nth-child(5),
-  th:nth-child(6) {
+  th:nth-child(5) {
     width: 35px;
   }
 }
@@ -20,21 +29,6 @@
   td:nth-child(4) {
     text-align: right;
     width: 70px;
-  }
-  td:nth-child(5),
-  td:nth-child(6) {
-    width: 35px;
-    text-align: center;
-    cursor: pointer;
-    &.disabled .fa {
-      color: fadeout(@black, 80);
-    }
-    &:hover .fa {
-      color: @black;
-    }
-    .fa {
-      color: fadeout(@black, 50);
-    }
   }
 }
 .finance-line-items-total {
@@ -51,4 +45,26 @@
   td:nth-child(2) {
     text-align: right;
   }
+}
+
+.finance-line-items-row,
+.finance-line-items-addon {
+  td:last-child {
+    width: 35px;
+    text-align: center;
+    cursor: pointer;
+    &.disabled .fa {
+      color: fadeout(@black, 80);
+    }
+    &:hover .fa {
+      color: @black;
+    }
+    .fa {
+      color: fadeout(@black, 50);
+    }
+  }
+}
+.finance-line-items-actions {
+  border-top: 1px solid fadeout(@black, 90);
+  padding: 0.8em;
 }

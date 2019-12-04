@@ -53,10 +53,11 @@ class New extends React.Component {
     const product = _.find(products, { id: product_id })
     const { price_type, low_price, high_price } = product
     const fields = []
+    fields.push({ label: 'Description', name: 'description', required: true, type: 'textfield', placeholder: 'Describe this item', defaultValue: product.title })
     if(price_type === 'sliding_scale') {
       fields.push({ label: 'Price', name: 'price', required: true, type: 'textfield', instructions: `sliding scale ${low_price} - ${high_price}`, placeholder: 'Enter a price', defaultValue: high_price })
     }
-    fields.push({ label: 'Quantity', name: 'quantity', required: true, type: 'textfield', placeholder: 'Enter a quanity' })
+    fields.push({ label: 'Quantity', name: 'quantity', required: true, type: 'numberfield', numberType: 'integer', placeholder: 'Enter a quantity' })
     return fields
   }
 
@@ -74,14 +75,12 @@ class New extends React.Component {
 
   _handleSubmit(line_item) {
     const { products } = this.props
-    const { product_id, price, quantity } = line_item
+    const { product_id, description, price, quantity } = line_item
     const product = _.find(products, { id: product_id })
     const { price_type, fixed_price, tax_rate } = product
     this.props.onSubmit({
-      product: {
-        id: product.id,
-        title: product.title
-      },
+      product_id,
+      description,
       price: price_type === 'fixed' ? fixed_price : price,
       quantity,
       tax_rate

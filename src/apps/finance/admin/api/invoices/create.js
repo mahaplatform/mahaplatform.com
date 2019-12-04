@@ -36,6 +36,7 @@ const createRoute = async (req, res) => {
       team_id: req.team.get('id'),
       invoice_id: invoice.get('id'),
       product_id: product.get('id'),
+      description: line_item.description,
       quantity: line_item.quantity,
       price: line_item.price,
       tax_rate: line_item.tax_rate

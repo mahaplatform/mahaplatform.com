@@ -47,6 +47,7 @@ const line_items = (line_item) => {
   return {
     id: line_item.get('id'),
     product: product(line_item.related('product')),
+    description: line_item.get('description'),
     quantity: line_item.get('quantity'),
     price: line_item.get('price'),
     total: line_item.get('total')

@@ -8,7 +8,7 @@ const INITIAL_STATE = {
     status: 'pending'
   },
   line_items: [],
-  coupon: null
+  coupon_id: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -49,7 +49,19 @@ const reducer = (state = INITIAL_STATE, action) => {
       }
     }
 
-  case 'ADD':
+  case 'ADD_COUPON':
+    return {
+      ...state,
+      coupon_id: action.coupon_id
+    }
+
+  case 'REMOVE_COUPON':
+    return {
+      ...state,
+      coupon_id: null
+    }
+
+  case 'ADD_LINE_ITEM':
     return {
       ...state,
       line_items: [
@@ -58,7 +70,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       ]
     }
 
-  case 'REMOVE':
+  case 'REMOVE_LINE_ITEM':
     return {
       ...state,
       line_items: [

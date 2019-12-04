@@ -74,7 +74,7 @@ class Invoice extends React.PureComponent {
             <tbody>
               { invoice.line_items.map((line_item, index) => (
                 <tr key={`line_item_${index}`}>
-                  <td>{ line_item.product.title }</td>
+                  <td>{ line_item.description }</td>
                   <td>{ line_item.quantity }</td>
                   <td>{ numeral(line_item.price).format('0.00') }</td>
                   <td>{ numeral(line_item.total).format('0.00') }</td>

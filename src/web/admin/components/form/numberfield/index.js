@@ -4,7 +4,9 @@ import _ from 'lodash'
 
 const SPECIAL_KEYS = ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Backspace']
 
-const REGEX = /^-?[0-9]*\.?[0-9]*$/
+const FLOAT_REGEX = /^-?[0-9]*\.?[0-9]*$/
+
+const INTEGER_REGEX = /^-?[0-9]*$/
 
 class NumberField extends React.Component {
 
@@ -12,12 +14,14 @@ class NumberField extends React.Component {
     defaultValue: PropTypes.number,
     placeholder: PropTypes.string,
     tabIndex: PropTypes.number,
+    numberType: PropTypes.string,
     units: PropTypes.string,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
 
   static defaultProps = {
+    numberType: 'float',
     placeholder: 'Enter a number'
   }
 
@@ -57,7 +61,9 @@ class NumberField extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onReady } = this.props
-    if(!_.isNil(defaultValue)) this.setState({ value: defaultValue })
+    if(defaultValue !== undefined) this.setState({
+      value: defaultValue
+    })
     onReady()
   }
 
@@ -95,11 +101,13 @@ class NumberField extends React.Component {
   }
 
   _handleKeyDown(e) {
+    const { numberType } = this.props
     if(_.includes(SPECIAL_KEYS, e.key)) return
     if(e.ctrlKey || e.metaKey) return
     const value = this.number.value || ''
     const newvalue = value + e.key
-    if(newvalue.match(REGEX)) return
+    const regex = numberType === 'integer' ? INTEGER_REGEX : FLOAT_REGEX
+    if(newvalue.match(regex)) return
     e.preventDefault()
   }
 

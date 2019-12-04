@@ -1,5 +1,6 @@
 import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Coupon from './coupon'
 import numeral from 'numeral'
 import React from 'react'
 import New from './new'
@@ -13,6 +14,7 @@ class LineItems extends React.PureComponent {
 
   static propTypes = {
     coupon: PropTypes.object,
+    coupon_id: PropTypes.number,
     coupons: PropTypes.object,
     discount: PropTypes.number,
     line_items: PropTypes.array,
@@ -22,12 +24,14 @@ class LineItems extends React.PureComponent {
     tax: PropTypes.number,
     total: PropTypes.number,
     value: PropTypes.array,
-    onAdd: PropTypes.func,
+    onAddCoupon: PropTypes.func,
+    onAddLineItem: PropTypes.func,
     onChange: PropTypes.func,
     onFetchCoupons: PropTypes.func,
     onFetchProducts: PropTypes.func,
     onReady: PropTypes.func,
-    onRemove: PropTypes.func,
+    onRemoveCoupon: PropTypes.func,
+    onRemoveLineItem: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -36,8 +40,12 @@ class LineItems extends React.PureComponent {
     onReady: () => {}
   }
 
-  _handleAdd = this._handleAdd.bind(this)
+  _handleAddCoupon = this._handleAddCoupon.bind(this)
+  _handleAddLineItem = this._handleAddLineItem.bind(this)
+  _handleCoupon = this._handleCoupon.bind(this)
   _handleNew = this._handleNew.bind(this)
+  _handleRemoveCoupon = this._handleRemoveCoupon.bind(this)
+  _handleRemoveLineItem = this._handleRemoveLineItem.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
@@ -53,20 +61,16 @@ class LineItems extends React.PureComponent {
               <th>Price</th>
               <th>Total</th>
               <th />
-              <th />
             </tr>
           </thead>
           <tbody>
             { line_items.map((line_item, index) => (
               <tr className="finance-line-items-row" key={`line_item_${index}`}>
-                <td>{ line_item.product.title }</td>
+                <td>{ line_item.description }</td>
                 <td>{ line_item.quantity }</td>
                 <td>{ numeral(line_item.price).format('0.00') }</td>
                 <td>{ numeral(line_item.total).format('0.00') }</td>
-                <td>
-                  <i className="fa fa-pencil" />
-                </td>
-                <td onClick={ this._handleRemove.bind(this, index)}>
+                <td onClick={ this._handleRemoveLineItem.bind(this, index)}>
                   <i className="fa fa-times" />
                 </td>
               </tr>
@@ -80,34 +84,38 @@ class LineItems extends React.PureComponent {
               <tr className="finance-line-items-total">
                 <td colSpan="3">Subtotal</td>
                 <td>{ numeral(subtotal).format('0.00') }</td>
-                <td colSpan="2" />
+                <td />
               </tr>
             }
             { tax > 0 &&
               <tr className="finance-line-items-addon">
                 <td colSpan="3">Tax</td>
                 <td>{ numeral(tax).format('0.00') }</td>
-                <td colSpan="2" />
+                <td />
               </tr>
             }
             { discount > 0 &&
               <tr className="finance-line-items-addon">
                 <td colSpan="3">Discount (Coupon { coupon.code })</td>
                 <td>-{ numeral(discount).format('0.00') }</td>
-                <td colSpan="2" />
+                <td onClick={ this._handleRemoveCoupon }>
+                  <i className="fa fa-times" />
+                </td>
               </tr>
             }
             <tr className="finance-line-items-total">
               <td colSpan="3">Total</td>
               <td>{ numeral(total).format('0.00') }</td>
-              <td colSpan="2" />
+              <td />
             </tr>
           </tbody>
         </table>
-        <Button { ...this._getNewButton() } />
-        { coupon === null &&
-          <Button { ...this._getCouponButton() } />
-        }
+        <div className="finance-line-items-actions">
+          <Button { ...this._getNewButton() } />
+          { line_items.length > 0 && coupon === null &&
+            <span> | <Button { ...this._getCouponButton() } /></span>
+          }
+        </div>
       </div>
     )
   }
@@ -115,7 +123,6 @@ class LineItems extends React.PureComponent {
   componentDidMount() {
     this.props.onFetchCoupons()
     this.props.onFetchProducts()
-
   }
 
   componentDidUpdate(prevProps) {
@@ -128,10 +135,17 @@ class LineItems extends React.PureComponent {
     }
   }
 
+  _getCoupon() {
+    return {
+      onChoose: this._handleAddCoupon
+    }
+  }
+
   _getCouponButton() {
     return {
       label: 'Add Coupon',
-      className: 'link'
+      className: 'link',
+      handler: this._handleCoupon
     }
   }
 
@@ -139,7 +153,7 @@ class LineItems extends React.PureComponent {
     const { products } = this.props
     return {
       products: products.records,
-      onSubmit: this._handleAdd
+      onSubmit: this._handleAddLineItem
     }
   }
 
@@ -151,17 +165,30 @@ class LineItems extends React.PureComponent {
     }
   }
 
-  _handleAdd(line_item) {
-    this.props.onAdd(line_item)
+  _handleAddCoupon(coupon) {
+    this.props.onAddCoupon(coupon)
+  }
+
+  _handleAddLineItem(line_item) {
+    this.props.onAddLineItem(line_item)
+  }
+
+  _handleCoupon() {
+    this.context.form.push(Coupon, this._getCoupon.bind(this))
   }
 
   _handleNew() {
     this.context.form.push(New, this._getNew.bind(this))
   }
 
-  _handleRemove(index, e) {
+  _handleRemoveCoupon(e) {
     e.stopPropagation()
-    this.props.onRemove(index)
+    this.props.onRemoveCoupon()
+  }
+
+  _handleRemoveLineItem(index, e) {
+    e.stopPropagation()
+    this.props.onRemoveLineItem(index)
   }
 
   _handleUpdate(allocation, index) {
