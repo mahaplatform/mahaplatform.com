@@ -5,18 +5,16 @@ import Field from './field'
 class Section extends React.Component {
 
   static propTypes = {
-    collapsing: PropTypes.bool,
-    collapsed: PropTypes.bool,
     data: PropTypes.object,
     errors: PropTypes.object,
-    fields: PropTypes.array,
-    instructions: PropTypes.any,
-    label: PropTypes.string,
+    section: PropTypes.object,
+    status: PropTypes.string,
     tabIndexStart: PropTypes.number,
     onBusy: PropTypes.func,
     onReady: PropTypes.func,
     onSubmit: PropTypes.func,
-    onUpdateData: PropTypes.func
+    onUpdateData: PropTypes.func,
+    onValid: PropTypes.func
   }
 
   static defaultProps = {
@@ -25,12 +23,13 @@ class Section extends React.Component {
 
   constructor(props) {
     super(props)
-    const collapsed = (props.collapsed !== null) ? props.collapsed : props.collapsing
+    const collapsed = (props.section.collapsed !== null) ? props.section.collapsed : props.section.collapsing
     this.state = { collapsed }
   }
 
   render() {
-    const { collapsing, fields, instructions, label } = this.props
+    const { section } = this.props
+    const { collapsing, fields, instructions, label } = section
     const { collapsed } = this.state
     return (
       <div className={ this._getClass() }>
@@ -60,7 +59,8 @@ class Section extends React.Component {
   }
 
   _getClass() {
-    const { collapsing } = this.props
+    const { section } = this.props
+    const { collapsing } = section
     const { collapsed } = this.state
     let classes = ['maha-form-section']
     if(collapsing) classes.push('collapsing')
@@ -69,16 +69,18 @@ class Section extends React.Component {
   }
 
   _getField(field, index) {
-    const { data, errors, tabIndexStart, onBusy, onReady, onSubmit, onUpdateData } = this.props
+    const { data, errors, status, tabIndexStart, onBusy, onReady, onSubmit, onUpdateData, onValid } = this.props
     return {
       field,
       data,
       errors,
+      status,
       tabIndex: tabIndexStart + index,
       onBusy,
       onReady,
       onSubmit,
-      onUpdateData
+      onUpdateData,
+      onValid
     }
   }
 

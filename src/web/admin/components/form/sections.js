@@ -9,10 +9,12 @@ class Sections extends React.Component {
     data: PropTypes.object,
     errors: PropTypes.object,
     sections: PropTypes.array,
+    status: PropTypes.string,
     onBusy: PropTypes.func,
     onReady: PropTypes.func,
     onSubmit: PropTypes.func,
-    onUpdateData: PropTypes.func
+    onUpdateData: PropTypes.func,
+    onValid: PropTypes.func
   }
 
   render() {
@@ -27,16 +29,18 @@ class Sections extends React.Component {
   }
 
   _getSection(section, index) {
-    const { data, errors, onBusy, onReady, onSubmit, onUpdateData } = this.props
+    const { data, errors, status, onBusy, onReady, onSubmit, onUpdateData, onValid } = this.props
     return {
-      ...section,
       data,
       errors,
+      section,
+      status,
       tabIndexStart: this._getTabIndexStart(section, index),
       onBusy,
       onReady,
       onSubmit,
-      onUpdateData
+      onUpdateData,
+      onValid
     }
   }
 

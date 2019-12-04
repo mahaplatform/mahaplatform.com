@@ -6,17 +6,26 @@ const INITIAL_STATE = {
   entity: {},
   errors: {},
   ready: [],
-  status: 'pending'
+  status: 'pending',
+  validated: []
 }
 
 export default (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
+  case 'SET_BUSY':
+    return {
+      ...state,
+      busy: [
+        ...action.value ? _.union(state.busy, [action.field]) : _.without(state.busy, action.field)
+      ]
+    }
+
   case 'SET_DATA':
     return {
       ...state,
-      status: 'data_loaded',
+      status: 'ready',
       data: {
         ...state.data,
         ..._.omitBy(action.data, _.isNil)
@@ -27,21 +36,38 @@ export default (state = INITIAL_STATE, action) => {
     return {
       ...state,
       ready: [
-        ...state.ready,
-        action.field
+        ..._.union(state.ready, [action.field])
       ]
+    }
+
+  case 'SET_VALID':
+    return {
+      ...state,
+      validated: [
+        ..._.union(state.validated, [action.key])
+      ],
+      data: {
+        ...state.data,
+        [action.key]: action.value
+      },
+      errors: {
+        ...state.errors,
+        ...action.errors ? {
+          [action.key]: action.errors
+        } : {}
+      }
     }
 
   case 'FETCH_REQUEST':
     return {
       ...state,
-      status: 'loading_data'
+      status: 'loading'
     }
 
   case 'FETCH_SUCCESS':
     return {
       ...state,
-      status: 'data_loaded',
+      status: 'ready',
       data: _.uniq([
         ...Object.keys(action.defaults),
         ...Object.keys(action.result.data)
@@ -51,14 +77,6 @@ export default (state = INITIAL_STATE, action) => {
       }), {})
     }
 
-  case 'SET_BUSY':
-    return {
-      ...state,
-      busy: [
-        ...action.value ? _.union(state.busy, [action.field]) : _.without(state.busy, action.field)
-      ]
-    }
-
   case 'UPDATE_DATA':
     return {
       ...state,
@@ -66,7 +84,9 @@ export default (state = INITIAL_STATE, action) => {
         ...state.data,
         [action.key]: action.value
       },
-      errors: _.omit(state.errors, action.key)
+      errors: _.omit(state.errors, action.key),
+      status: 'ready',
+      validated: _.without(state.validated, action.key)
     }
 
   case 'SUBMIT_REQUEST':
@@ -91,12 +111,11 @@ export default (state = INITIAL_STATE, action) => {
       message: action.result.message
     }
 
-  case 'VALIDATE_FORM':
+  case 'VALIDATE':
     return {
       ...state,
-      status: 'failure',
-      errors: action.validateResults,
-      message: 'The form has not passed validation.'
+      status: 'validating',
+      validated: []
     }
 
   default:

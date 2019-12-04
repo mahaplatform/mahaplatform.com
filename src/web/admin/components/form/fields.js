@@ -8,11 +8,13 @@ class Fields extends React.Component {
     data: PropTypes.object,
     errors: PropTypes.object,
     fields: PropTypes.array,
+    status: PropTypes.string,
     tabIndex: PropTypes.number,
     onBusy: PropTypes.func,
     onReady: PropTypes.func,
     onSubmit: PropTypes.func,
-    onUpdateData: PropTypes.func
+    onUpdateData: PropTypes.func,
+    onValid: PropTypes.func
   }
 
   render() {
@@ -32,16 +34,18 @@ class Fields extends React.Component {
   }
 
   _getField(field) {
-    const { data, errors, tabIndex, onBusy, onReady, onSubmit, onUpdateData } = this.props
+    const { data, errors, status, tabIndex, onBusy, onReady, onSubmit, onUpdateData, onValid } = this.props
     return {
       data,
       errors,
       field,
+      status,
       tabIndex,
       onBusy,
       onReady,
       onSubmit,
-      onUpdateData
+      onUpdateData,
+      onValid
     }
   }
 

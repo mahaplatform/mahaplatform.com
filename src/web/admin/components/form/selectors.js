@@ -1,6 +1,5 @@
 import { createSelector } from 'reselect'
 import { unflatten } from 'flat'
-import Checkit from 'checkit'
 import _ from 'lodash'
 
 const sections = (state, props) => props.sections
@@ -9,11 +8,15 @@ const tabs = (state, props) => props.tabs
 
 const data = state => state.data
 
+const errors = state => state.errors
+
 const ready = state => state.ready
 
 const busy = state => state.busy
 
 const status = state => state.status
+
+const validated = state => state.validated
 
 const merged = createSelector(
   sections,
@@ -89,32 +92,16 @@ export const isBusy = createSelector(
   (busy) => busy.length > 0
 )
 
-export const rules = createSelector(
-  submittable,
-  (fields) => fields.reduce((rules,field) => ({
-    ...rules,
-    [field.name]: [
-      ...field.required ? ['required'] : [],
-      ...field.rules || []
-    ]
-  }), {})
-)
-
-export const validateResults = createSelector(
-  rules,
-  filtered,
-  (rules, filtered) => {
-    const results = Checkit(rules).validateSync(filtered)
-    return results[0] ? results[0].toJSON() : null
-  }
+export const isConfiguring = createSelector(
+  status,
+  (status) => _.includes(['pending','loading'], status)
 )
 
 export const isValid = createSelector(
-  validateResults,
-  (validateResults) => validateResults === null
-)
-
-export const isConfiguring = createSelector(
-  status,
-  (status) => _.includes(['pending','loading_data'], status)
+  submittable,
+  validated,
+  errors,
+  (fields, validated, errors) => Object.keys(errors).length === 0 && fields.find(field => {
+    return !_.includes(validated, field.name)
+  }) === undefined
 )

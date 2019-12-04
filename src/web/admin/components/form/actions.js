@@ -18,6 +18,12 @@ export const submitForm = (method, endpoint, body) => ({
   failure: 'SUBMIT_FAILURE'
 })
 
+export const setBusy = (field, value) => ({
+  type: 'SET_BUSY' ,
+  field,
+  value
+})
+
 export const setData = (data) => ({
   type: 'SET_DATA',
   data
@@ -28,10 +34,11 @@ export const setReady = (field) => ({
   field
 })
 
-export const setBusy = (field, value) => ({
-  type: 'SET_BUSY' ,
-  field,
-  value
+export const setValid = (key, value, errors) => ({
+  type: 'SET_VALID',
+  key,
+  value,
+  errors
 })
 
 export const updateData = (key, value) => ({
@@ -40,8 +47,6 @@ export const updateData = (key, value) => ({
   value
 })
 
-
-export const validateForm = (validateResults) => ({
-  type: 'VALIDATE_FORM',
-  validateResults
+export const validate = () => ({
+  type: 'VALIDATE'
 })

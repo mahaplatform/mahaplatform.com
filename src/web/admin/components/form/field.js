@@ -10,11 +10,13 @@ class Field extends React.Component {
     data: PropTypes.object,
     errors: PropTypes.object,
     field: PropTypes.object,
+    status: PropTypes.string,
     tabIndex: PropTypes.number,
     onBusy: PropTypes.func,
     onReady: PropTypes.func,
     onSubmit: PropTypes.func,
-    onUpdateData: PropTypes.func
+    onUpdateData: PropTypes.func,
+    onValid: PropTypes.func
   }
 
   _handleBusy = this._handleBusy.bind(this)
@@ -70,29 +72,33 @@ class Field extends React.Component {
   }
 
   _getFields() {
-    const { data, errors, field, tabIndex, onBusy, onReady, onSubmit, onUpdateData } = this.props
+    const { data, errors, field, status, tabIndex, onBusy, onReady, onSubmit, onUpdateData, onValid } = this.props
     return {
       data,
       errors,
       fields: field.fields,
+      status,
       tabIndex,
       onBusy,
       onReady,
       onSubmit,
-      onUpdateData
+      onUpdateData,
+      onValid
     }
   }
 
   _getControl() {
-    const { data, field, onSubmit } = this.props
+    const { data, field, status, onSubmit } = this.props
     const { name } = field
     return {
-      field,
       defaultValue: _.get(data, name),
+      field,
+      status,
       onBusy: this._handleBusy.bind(this, name),
       onChange: this._handleUpdateData.bind(this, name),
       onReady: this._handleReady.bind(this, name),
-      onSubmit
+      onSubmit,
+      onValid: this._handleValid.bind(this, name)
     }
   }
 
@@ -106,6 +112,10 @@ class Field extends React.Component {
 
   _handleUpdateData(name, value) {
     this.props.onUpdateData(name, value)
+  }
+
+  _handleValid(name, value, errors) {
+    this.props.onValid(name, value, errors)
   }
 
 }

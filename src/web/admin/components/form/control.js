@@ -34,19 +34,24 @@ import TimeField from './timefield'
 import ToggleList from './toggle_list'
 import VideoField from './videofield'
 import PropTypes from 'prop-types'
+import Checkit from 'checkit'
 import React from 'react'
 import _ from 'lodash'
 
 class Control extends React.Component {
 
   static propTypes = {
-    field: PropTypes.object,
     defaultValue: PropTypes.any,
+    field: PropTypes.object,
+    status: PropTypes.string,
     onBusy: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    onValid: PropTypes.func
   }
+
+  _handleValidate = this._handleValidate.bind(this)
 
   render() {
     const Component = this._getElement()
@@ -55,6 +60,13 @@ class Control extends React.Component {
         <Component {...this._getProps() } />
       </div>
     )
+  }
+
+  componentDidUpdate(prevProps) {
+    const { status } = this.props
+    if(status !== prevProps.status) {
+      if(status === 'validating') this._handleValidate()
+    }
   }
 
   _getElement() {
@@ -108,6 +120,20 @@ class Control extends React.Component {
       onReady,
       onSubmit
     }
+  }
+
+  _handleValidate() {
+    const { field, defaultValue, onValid } = this.props
+    const { name, required } = field
+    const rules = field.rules || []
+    if(required) rules.unshift('required')
+    const results = Checkit({
+      [name]: rules
+    }).validateSync({
+      [name]: defaultValue
+    })
+    const errors = results[0] ? results[0].toJSON()[name] : null
+    onValid(defaultValue, errors)
   }
 
 }

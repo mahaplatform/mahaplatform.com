@@ -46,7 +46,7 @@ class Form extends React.Component {
     status: PropTypes.string,
     tabs: PropTypes.array,
     title: PropTypes.string,
-    validateResults: PropTypes.object,
+    validated: PropTypes.array,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onChangeField: PropTypes.func,
@@ -55,11 +55,12 @@ class Form extends React.Component {
     onSetBusy: PropTypes.func,
     onSetData: PropTypes.func,
     onSetReady: PropTypes.func,
+    onSetValid: PropTypes.func,
     onSubmit: PropTypes.func,
     onSubmitForm: PropTypes.func,
     onSuccess: PropTypes.func,
     onUpdateData: PropTypes.func,
-    onValidateForm: PropTypes.func
+    onValidate: PropTypes.func
   }
 
   static defaultProps = {
@@ -84,6 +85,7 @@ class Form extends React.Component {
   _handleChange = this._handleChange.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handlePush = this._handlePush.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     return (
@@ -98,15 +100,17 @@ class Form extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { data, fields, fieldNames, status } = this.props
-    if(prevProps.status !== status) {
-      if(status === 'sections_loaded') this._handleLoadData()
-      if(status === 'validated') this._handleSubmit()
+    const { data, fields, fieldNames, isValid, status } = this.props
+    if(status !== prevProps.status) {
       if(status === 'success') this._handleSuccess()
       if(status === 'failure') this._handleFailure()
-    } else if(!_.isEqual(prevProps.data, data)) {
+    }
+    if(isValid !== prevProps.isValid && isValid) {
+      this._handleSubmit()
+    }
+    if(!_.isEqual(data, prevProps.data)) {
       this._handleChange(prevProps.data, data)
-    } else if(!_.isEqual(prevProps.fieldNames, fieldNames)) {
+    } else if(!_.isEqual(fieldNames, prevProps.fieldNames)) {
       this._handleNewFields(prevProps.fields, fields)
     }
   }
@@ -187,6 +191,16 @@ class Form extends React.Component {
         { component, props }
       ]
     })
+  }
+
+  _handleSubmit() {
+    const { action, filtered, method, onSubmit, onSubmitForm } = this.props
+    if(action) return onSubmitForm(method, action, filtered)
+    if(onSubmit) {
+      if(onSubmit(filtered)) return this._handleSuccess()
+      return this._handleFailure()
+    }
+    this._handleSuccess()
   }
 
   _handleSuccess() {

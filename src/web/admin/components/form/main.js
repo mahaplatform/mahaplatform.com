@@ -38,24 +38,25 @@ class Main extends React.Component {
     status: PropTypes.string,
     tabs: PropTypes.array,
     title: PropTypes.string,
-    validateResults: PropTypes.object,
+    validated: PropTypes.array,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onChangeField: PropTypes.func,
     onFailure: PropTypes.func,
     onFetch: PropTypes.func,
+    onSetBusy: PropTypes.func,
     onSetData: PropTypes.func,
     onSetReady: PropTypes.func,
+    onSetValid: PropTypes.func,
     onSubmit: PropTypes.func,
     onSubmitForm: PropTypes.func,
     onSuccess: PropTypes.func,
-    onSetBusy: PropTypes.func,
     onUpdateData: PropTypes.func,
-    onValidateForm: PropTypes.func
+    onValidate: PropTypes.func
   }
 
   _handleCancel = this._handleCancel.bind(this)
-  _handleSubmit = _.debounce(this._handleSubmit.bind(this), 2500, { leading: true })
+  _handleValidate = _.debounce(this._handleValidate.bind(this), 2500, { leading: true })
 
   render() {
     const { after, before, isConfiguring, instructions, sections, tabs } = this.props
@@ -129,22 +130,24 @@ class Main extends React.Component {
   }
 
   _getSections(sections) {
-    const { data, errors, onSetReady, onSetBusy, onUpdateData } = this.props
+    const { data, errors, status, onSetBusy, onSetReady, onSetValid, onUpdateData } = this.props
     return {
       data,
       errors,
       sections,
+      status,
       onBusy: onSetBusy,
       onReady: onSetReady,
-      onSubmit: this._handleSubmit,
-      onUpdateData
+      onSubmit: this._handleValidate,
+      onUpdateData,
+      onValid: onSetValid
     }
   }
 
   _getSave() {
     const { isBusy, saveIcon, saveText } = this.props
     if(isBusy) return null
-    const handler = this._handleSubmit
+    const handler = this._handleValidate
     if(saveIcon) return [{ icon: saveIcon, handler }]
     if(saveText) return [{ label: saveText, handler }]
     return null
@@ -154,25 +157,12 @@ class Main extends React.Component {
     this.props.onCancel()
   }
 
-  _handleFailure() {
-    this.props.onFailure()
-  }
-
-  _handleSubmit() {
-    const { action, filtered, isBusy, isValid, method, onSubmit, onSubmitForm, onValidateForm, validateResults } = this.props
+  _handleValidate() {
+    const { isBusy, onValidate } = this.props
     if(isBusy) return
-    if(!isValid) return onValidateForm(validateResults)
-    if(action) return onSubmitForm(method, action, filtered)
-    if(onSubmit) {
-      if(onSubmit(filtered)) return this._handleSuccess()
-      return this._handleFailure()
-    }
-    this._handleSuccess()
+    onValidate()
   }
 
-  _handleSuccess() {
-    this.props.onSuccess(this.props.entity)
-  }
 
 }
 
