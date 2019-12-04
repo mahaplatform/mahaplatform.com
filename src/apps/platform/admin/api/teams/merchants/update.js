@@ -20,6 +20,7 @@ const createRoute = async (req, res) => {
   })
 
   await merchant.save({
+    status: 'active',
     ...whitelist(req.body, ['braintree_id'])
   }, {
     transacting: req.trx

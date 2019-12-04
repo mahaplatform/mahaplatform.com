@@ -10,21 +10,22 @@
   padding: 4px;
   text-transform: uppercase;
   width: 7.5em;
+  &.unpaid { background-color: @grey; }
   &.incomplete { background-color: @grey; }
   &.pending { background-color: @teal; }
+  &.captured { background-color: @teal; }
   &.submitted { background-color: @blue; }
-  &.approved { background-color: @green; }
+  &.settled { background-color: @blue; }
+  &.overdue { background-color: @orange; }
   &.rejected { background-color: @red; }
+  &.voided { background-color: @red; }
+  &.approved { background-color: @green; }
+  &.disbursed { background-color: @green; }
+  &.received { background-color: @green; }
+  &.active { background-color: @green; }
+  &.paid { background-color: @green; }
   &.reviewed { background-color: @pink; }
   &.processed { background-color: @violet; }
-  &.captured { background-color: @teal; }
-  &.settled { background-color: @blue; }
-  &.disbursed { background-color: @green; }
-  &.voided { background-color: @red; }
-  &.overdue { background-color: @orange; }
-  &.received { background-color: @green; }
-  &.paid { background-color: @green; }
-  &.unpaid { background-color: @grey; }
 }
 @media (max-width: 768px) {
   tr {

@@ -7,6 +7,7 @@ const createRoute = async (req, res) => {
 
   const merchant = await Merchant.forge({
     team_id: req.team.get('id'),
+    status: 'pending',
     title: req.body.title,
     bank_name: req.body.routing.bank_name,
     routing_number: req.body.routing.number,

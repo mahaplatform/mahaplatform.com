@@ -1,6 +1,28 @@
 .finance-card-number-field {
   flex: 1;
   display: flex;
+  border: 1px solid rgba(34,36,38,.15);
+  background-color: @white;
+  border-radius: 5px;
+  display: flex;
+  &:focus {
+    outline: none !important;
+    border-color: @lightblue;
+    box-shadow: none;
+  }
+  &.disabled {
+    background-color: fadeout(@black, 97);
+    color: fadeout(@black, 90);
+    * {
+      color: fadeout(@black, 90) !important;
+    }
+  }
+  .maha-input {
+    flex: 1;
+    border: none;
+    border-radius: 0;
+    background: none;
+  }
 }
 .finance-card-number-field-input {
   flex: 1;

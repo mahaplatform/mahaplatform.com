@@ -886,6 +886,7 @@ const schema = {
       table.integer('program_id').unsigned()
       table.date('voided_date')
       table.text('voided_reason')
+      table.USER-DEFINED('status')
     })
 
     await knex.schema.createTable('finance_line_items', (table) => {
@@ -927,6 +928,7 @@ const schema = {
       table.boolean('has_paypal')
       table.jsonb('integration')
       table.date('applied_on')
+      table.USER-DEFINED('status')
     })
 
     await knex.schema.createTable('finance_payments', (table) => {

@@ -38,10 +38,8 @@ class TextField extends React.Component {
     tabIndex: 0,
     trim: true,
     validate: (value) => true,
-    onBlur: () => {},
     onBusy: () => {},
     onChange: () => {},
-    onFocus: () => {},
     onKeyPress: () => {},
     onKeyUp: () => {},
     onKeyDown: () => {},
@@ -51,11 +49,14 @@ class TextField extends React.Component {
   code = _.random(100000000, 999999999).toString(36)
 
   state = {
+    focused: false,
     value: ''
   }
 
+  _handleBlur = this._handleBlur.bind(this)
   _handleChange = _.throttle(this._handleChange.bind(this), 250, { trailing:  true })
   _handleClear = this._handleClear.bind(this)
+  _handleFocus = this._handleFocus.bind(this)
   _handleKeyUp = this._handleKeyUp.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
   _handleSet = this._handleSet.bind(this)
@@ -95,7 +96,6 @@ class TextField extends React.Component {
     }
   }
 
-
   _getClass() {
     const { disabled, prefix, suffix } = this.props
     const classes = ['maha-input','maha-textfield']
@@ -106,21 +106,27 @@ class TextField extends React.Component {
   }
 
   _getControl() {
-    const { autoComplete, disabled, placeholder, onBlur, onFocus, onKeyPress, onKeyDown } = this.props
-    const { value } = this.state
+    const { autoComplete, disabled, placeholder, onKeyPress, onKeyDown } = this.props
+    const { focused, value } = this.state
     return {
       type: 'text',
       disabled,
       value,
       autoComplete,
-      placeholder,
+      placeholder: !focused ? placeholder : '',
+      onBlur: this._handleBlur,
       onChange: this._handleUpdate,
-      onBlur,
-      onFocus,
+      onFocus: this._handleFocus,
       onKeyPress,
       onKeyUp: this._handleKeyUp,
       onKeyDown
     }
+  }
+
+  _handleBlur() {
+    this.setState({
+      focused: false
+    })
   }
 
   _handleChange() {
@@ -129,6 +135,12 @@ class TextField extends React.Component {
 
   _handleClear() {
     this._handleSet('')
+  }
+
+  _handleFocus() {
+    this.setState({
+      focused: true
+    })
   }
 
   _handleKeyUp(e) {

@@ -6,6 +6,7 @@ const listRoute = async (req, res) => {
   const merchants = await Merchant.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).filter({
+    sortParams: ['status'],
     filter: req.query.$filter,
     searchParams: ['title']
   }).sort({

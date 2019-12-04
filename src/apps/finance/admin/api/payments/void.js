@@ -11,6 +11,7 @@ const voidRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
+    withRelated: ['invoice'],
     transacting: req.trx
   })
 
@@ -36,6 +37,12 @@ const voidRoute = async (req, res) => {
     ...whitelist(req.body, ['voided_date','voided_reason'])
   }, {
     patch: true,
+    transacting: req.trx
+  })
+
+  await payment.related('invoice').save({
+    status: 'unpaid'
+  }, {
     transacting: req.trx
   })
 

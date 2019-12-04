@@ -1,3 +1,4 @@
+import { TextField } from 'maha-admin'
 import creditcard from 'credit-card'
 import { card } from 'creditcards'
 import PropTypes from 'prop-types'
@@ -27,28 +28,18 @@ class CardNumberField extends React.PureComponent {
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
-    const { value } = this.state
     const icon = this._getIcon()
     return (
-      <div className="maha-input">
-        <div className="maha-input-field">
-          <div className="finance-card-number-field">
-            <div className="finance-card-number-field-icon">
-              { icon ?
-                <img src={`/admin/images/payments/${icon}.png`} /> :
-                <i className="fa fa-credit-card-alt" />
-              }
-            </div>
-            <div className="finance-card-number-field-input">
-              <input { ...this._getInput() }  />
-            </div>
-          </div>
+      <div className="finance-card-number-field">
+        <div className="finance-card-number-field-icon">
+          { icon ?
+            <img src={`/admin/images/payments/${icon}.png`} /> :
+            <i className="fa fa-credit-card-alt" />
+          }
         </div>
-        { value && value.length > 0 &&
-          <div className="maha-input-clear" onClick={ this._handleClear }>
-            <i className="fa fa-times" />
-          </div>
-        }
+        <div className="finance-card-number-field-input">
+          <TextField { ...this._getTextField() } />
+        </div>
       </div>
     )
   }
@@ -75,12 +66,11 @@ class CardNumberField extends React.PureComponent {
     return null
   }
 
-  _getInput() {
+  _getTextField() {
     return {
-      type: 'text',
       placeholder: '1111 1111 1111 1111',
       onChange: this._handleUpdate,
-      value: this._getFormatted()
+      defaultValue: this._getFormatted()
     }
   }
 
@@ -100,9 +90,9 @@ class CardNumberField extends React.PureComponent {
     })
   }
 
-  _handleUpdate(e) {
+  _handleUpdate(value) {
     this.setState({
-      value: card.parse(e.target.value)
+      value: card.parse(value)
     })
   }
 
