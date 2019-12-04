@@ -50,13 +50,13 @@ class Form extends React.Component {
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onChangeField: PropTypes.func,
-    onSubmit: PropTypes.func,
-    onSubmitForm: PropTypes.func,
     onFailure: PropTypes.func,
-    onFetchData: PropTypes.func,
+    onFetch: PropTypes.func,
     onSetBusy: PropTypes.func,
     onSetData: PropTypes.func,
     onSetReady: PropTypes.func,
+    onSubmit: PropTypes.func,
+    onSubmitForm: PropTypes.func,
     onSuccess: PropTypes.func,
     onUpdateData: PropTypes.func,
     onValidateForm: PropTypes.func
@@ -155,9 +155,9 @@ class Form extends React.Component {
   }
 
   _handleLoadData() {
-    const { data, defaults, endpoint, onFetchData, onSetData } = this.props
+    const { data, defaults, endpoint, onFetch, onSetData } = this.props
     if(Object.keys(data).length > 1) return onSetData(data)
-    if(endpoint) return onFetchData(endpoint, defaults)
+    if(endpoint) return onFetch(endpoint, defaults)
     onSetData(defaults)
   }
 

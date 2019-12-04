@@ -32,13 +32,13 @@ export default (state = INITIAL_STATE, action) => {
       ]
     }
 
-  case 'FETCH_DATA_REQUEST':
+  case 'FETCH_REQUEST':
     return {
       ...state,
       status: 'loading_data'
     }
 
-  case 'FETCH_DATA_SUCCESS':
+  case 'FETCH_SUCCESS':
     return {
       ...state,
       status: 'data_loaded',
@@ -69,12 +69,6 @@ export default (state = INITIAL_STATE, action) => {
       errors: _.omit(state.errors, action.key)
     }
 
-  case 'UPDATE_FIELD':
-    return {
-      ...state,
-      config: [..._.set(state.config, `[${action.sectionIndex}].fields[${action.fieldIndex}]`, action.field)]
-    }
-
   case 'SUBMIT_REQUEST':
     return {
       ...state,
@@ -88,7 +82,7 @@ export default (state = INITIAL_STATE, action) => {
       entity: action.result.data
     }
 
-  case 'FETCH_DATA_FAILURE':
+  case 'FETCH_FAILURE':
   case 'SUBMIT_FAILURE':
     return {
       ...state,

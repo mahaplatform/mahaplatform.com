@@ -44,7 +44,7 @@ export const fields = createSelector(
 const submittable = createSelector(
   fields,
   (fields) => fields.filter(field => {
-    return field.include !== false && !_.includes(['text','submit'], field.type)
+    return field.include !== false && !_.includes(['fields','submit','text'], field.type)
   })
 )
 
