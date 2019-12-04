@@ -1,6 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import Rollbar from 'rollbar'
+// import Rollbar from 'rollbar'
 
 class Logger extends React.Component {
 
@@ -35,17 +35,21 @@ class Logger extends React.Component {
   _getRollbar() {
     if(process.env.NODE_ENV !== 'production') {
       return {
-        configure: function(user) {},
+        configure: () => {},
         error: console.error
       }
     }
-    return Rollbar.init({
-      accessToken: process.env.ROLLBAR_CLIENT_TOKEN,
-      captureUncaught: true,
-      payload: {
-        environment: 'production'
-      }
-    })
+    return {
+      configure: () => {},
+      error: () => {}
+    }
+    // return Rollbar.init({
+    //   accessToken: process.env.ROLLBAR_CLIENT_TOKEN,
+    //   captureUncaught: true,
+    //   payload: {
+    //     environment: 'production'
+    //   }
+    // })
   }
 
   _handleLogin(user) {
