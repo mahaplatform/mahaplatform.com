@@ -26,7 +26,7 @@ const processor = async (req, { meta, message }) => {
   const date = meta.type === 'checks' ? 'date_needed' : 'date'
 
   const code = await generateCode(req, {
-    table: `expenses_${meta.type}`
+    table: `finance_${meta.type}`
   })
 
   const item = await model.forge({
@@ -94,7 +94,7 @@ const processor = async (req, { meta, message }) => {
   await Audit.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
-    auditable_type: `expenses_${meta.type}`,
+    auditable_type: `finance_${meta.type}`,
     auditable_id: item.get('id'),
     story_id
   }).save(null, {
