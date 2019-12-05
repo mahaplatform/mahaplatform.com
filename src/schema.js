@@ -3263,7 +3263,7 @@ union
 
     await knex.raw(`
       create view finance_customers AS
-      select crm_contacts.id,
+      select distinct on (crm_contacts.id) crm_contacts.id,
       crm_contacts.team_id,
       crm_contacts.first_name,
       crm_contacts.last_name,

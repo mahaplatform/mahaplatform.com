@@ -18,6 +18,7 @@ import MerchantShow from './merchants/show'
 import PaymentList from './payments/list'
 import PaymentShow from './payments/show'
 import ProductList from './products/list'
+import ProductsShow from './products/show'
 import ProjectList from './projects/list'
 import ProjectShow from './projects/show'
 import RateList from './rates/list'
@@ -51,6 +52,7 @@ const routes = [
   { path: '/payments', component: PaymentList },
   { path: '/payments/:id', component: PaymentShow },
   { path: '/products', component: ProductList },
+  { path: '/products/:id', component: ProductsShow },
   { path: '/projects', component: ProjectList },
   { path: '/projects/:id', component: ProjectShow },
   { path: '/rates', component: RateList },

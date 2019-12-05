@@ -1,16 +1,12 @@
-const ContactBraintree = {
+const UpdateCustomers = {
 
   up: async (knex) => {
-
-    await knex.schema.table('crm_contacts', (table) => {
-      table.string('braintree_id')
-    })
 
     await knex.raw('drop view finance_customers')
 
     await knex.raw(`
       create view finance_customers AS
-      select crm_contacts.id,
+      select distinct on (crm_contacts.id) crm_contacts.id,
       crm_contacts.team_id,
       crm_contacts.first_name,
       crm_contacts.last_name,
@@ -23,7 +19,7 @@ const ContactBraintree = {
       from crm_contacts
       inner join finance_invoices on finance_invoices.customer_id=crm_contacts.id
     `)
-    
+
   },
 
   down: async (knex) => {
@@ -31,4 +27,4 @@ const ContactBraintree = {
 
 }
 
-export default ContactBraintree
+export default UpdateCustomers
