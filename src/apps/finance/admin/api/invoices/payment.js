@@ -43,9 +43,12 @@ const getCustomer = async(req, { customer }) => {
 
 }
 
-const chargeCard = async (req, { invoice, merchant_id, payment, amount }) => {
+const getCardType = (type) => {
+  if(type === 'American Express') return 'amex'
+  return type.toLowerCase()
+}
 
-  const { nonce, card_type, last_four, exp_month, exp_year } = payment
+const chargeCard = async (req, { invoice, merchant_id, nonce, amount }) => {
 
   const merchant = await Merchant.scope(qb => {
     qb.where('team_id', req.team.get('id'))
@@ -79,17 +82,21 @@ const chargeCard = async (req, { invoice, merchant_id, payment, amount }) => {
     })
   }
 
+  const { cardType, last4, expirationMonth, expirationYear } = result.transaction.creditCard
+
+  const card_type = getCardType(cardType)
+
   return {
     braintree_id: result.transaction.id,
     card_type,
     rate: card_type === 'amex' ? merchant.get('amex_rate') : merchant.get('rate'),
     metadata: {
       card_type,
-      last_four,
-      exp_month,
-      exp_year
+      last_four: last4,
+      exp_month: expirationMonth,
+      exp_year: expirationYear
     },
-    reference: last_four,
+    reference: last4,
     status: 'captured'
   }
 
