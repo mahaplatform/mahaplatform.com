@@ -1,10 +1,12 @@
 import { Page } from 'maha-admin'
 import Details from './details'
+import Sales from './sales'
 import React from 'react'
 
 const getTabs = ({ merchant }) => ({
   items: [
-    { label: 'Details', component: <Details merchant={ merchant }/> }
+    { label: 'Details', component: <Details merchant={ merchant }/> },
+    { label: 'Sales', component: <Sales merchant={ merchant }/> }
   ]
 })
 
