@@ -13,6 +13,7 @@ const PaymentSerializer = (req, result) => ({
   invoice: invoice(result.related('invoice')),
   merchant: merchant(result.related('merchant')),
   method: result.get('method'),
+  photo: photo(result.related('photo')),
   rate: result.get('rate'),
   reference: result.get('reference'),
   refunded: result.get('refunded'),
@@ -71,6 +72,25 @@ const scholarship = (scholarship) => {
   if(!scholarship.id) return null
   return {
     id: scholarship.get('id')
+  }
+}
+
+const photo = (photo) => {
+  if(!photo.get('id')) return null
+  return {
+    id: photo.get('id'),
+    original_file_name: photo.get('original_file_name'),
+    file_name: photo.get('file_name'),
+    file_size: photo.get('file_size'),
+    content_type: photo.get('content_type'),
+    has_preview: photo.get('has_preview'),
+    is_image: photo.get('is_image'),
+    status: photo.get('status'),
+    icon: photo.get('icon'),
+    path: photo.get('path'),
+    signed_url: photo.get('signed_url'),
+    source: photo.related('source').get('text'),
+    source_url: photo.get('source_url')
   }
 }
 

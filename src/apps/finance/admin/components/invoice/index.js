@@ -131,6 +131,11 @@ class Invoice extends React.PureComponent {
             </tbody>
           </table>
         </div>
+        { invoice.notes &&
+          <div className="finance-invoice-notes">
+            { invoice.notes }
+          </div>
+        }
       </div>
     )
   }

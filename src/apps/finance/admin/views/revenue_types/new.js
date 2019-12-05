@@ -44,7 +44,7 @@ class New extends React.Component {
         {
           label: 'ACCPAC Details',
           fields: [
-            { label: 'Expense Code', name: 'integration.revenue_code', type: 'textfield', required: true },
+            { label: 'Revenue Code', name: 'integration.revenue_code', type: 'textfield', required: true },
             { label: 'Source Code', name: 'integration.source_code', type: 'textfield' }
           ]
         }

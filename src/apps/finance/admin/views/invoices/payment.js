@@ -64,6 +64,7 @@ class Payment extends React.Component {
       ]
     } else if(method === 'check') {
       return [
+        { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Upload Check Photo' },
         { label: 'Check #', name: 'reference', type: 'textfield', placeholder: 'Enter an check number', required: true },
         { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }
       ]

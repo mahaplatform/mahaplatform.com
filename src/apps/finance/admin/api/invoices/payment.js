@@ -142,7 +142,7 @@ const paymentRoute = async (req, res) => {
     invoice_id: invoice.get('id'),
     status: 'received',
     ...charge,
-    ...whitelist(req.body, ['date','method','merchant_id','credit_id','scholarship_id','reference','amount'])
+    ...whitelist(req.body, ['date','method','merchant_id','photo_id','credit_id','scholarship_id','reference','amount'])
   }).save(null, {
     transacting: req.trx
   })

@@ -35,7 +35,9 @@ class New extends React.Component {
             { label: 'Program', name: 'program_id', type: 'lookup', placeholder: 'Choose a program', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true, format: ProgramToken },
             { label: 'Date', name: 'date', type: 'datefield', placeholder: 'Date', required: true, defaultValue: moment() },
             { label: 'Due', name: 'due', type: 'datefield', placeholder: 'Date', required: true, defaultValue: moment() },
-            { label: 'Line Items', name: 'line_items', type: LineItems, required: true }
+            { label: 'Line Items', name: 'line_items', type: LineItems, required: true },
+            { label: 'Notes', name: 'notes', type: 'textarea', placeholder: 'Add notes' }
+
           ]
         }
       ]

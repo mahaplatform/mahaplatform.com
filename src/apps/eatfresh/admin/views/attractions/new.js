@@ -52,7 +52,7 @@ class New extends React.Component {
             { label: 'Organic / USDA Organic', name: 'is_organic', type: 'checkbox' },
             { label: 'Senior Discount', name: 'is_senior', type: 'checkbox' },
             { label: 'Vegetarian / Vegan', name: 'is_vegetarian', type: 'checkbox' },
-            { label: 'Photos', name: 'photo_ids', type: 'filefield', multiple: true, prompt: 'Upload Photo', action: '/api/admin/assets/upload', endpoint: '/api/admin/eatfresh/photos' }
+            { label: 'Photos', name: 'photo_ids', type: 'filefield', multiple: true, prompt: 'Upload Photo', endpoint: '/api/admin/eatfresh/photos' }
           ]
         }
       ]

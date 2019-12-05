@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types'
+import Receipt from '../../components/receipt'
 import { Button, List } from 'maha-admin'
+import PropTypes from 'prop-types'
 import numeral from 'numeral'
 import moment from 'moment'
 import React from 'react'
@@ -48,6 +49,12 @@ const Details = ({ payment }) => {
     sections: [
       { items }
     ]
+  }
+
+  if(payment.method === 'check' && payment.photo) {
+    const value = { asset_id: payment.photo.id, ...payment.photo }
+    list.sections[0].items.unshift({ component: <Receipt preview={ false } value={ value } /> })
+    list.header = <Receipt preview={ true } value={ value } />
   }
 
   if(payment.voided_date !== null) {

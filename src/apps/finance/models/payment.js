@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import Asset from '../../maha/models/asset'
 import Disbursement from './disbursement'
 import Scholarship from './scholarship'
 import Merchant from './merchant'
@@ -59,6 +60,10 @@ const Payment = new Model({
 
   merchant() {
     return this.belongsTo(Merchant, 'merchant_id')
+  },
+
+  photo() {
+    return this.belongsTo(Asset, 'photo_id')
   },
 
   refunds() {

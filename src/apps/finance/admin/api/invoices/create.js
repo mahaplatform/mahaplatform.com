@@ -18,7 +18,7 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     code,
     status: 'unpaid',
-    ...whitelist(req.body, ['customer_id','program_id','date','due'])
+    ...whitelist(req.body, ['customer_id','program_id','date','due','notes'])
   }).save(null, {
     transacting: req.trx
   })
@@ -37,6 +37,8 @@ const createRoute = async (req, res) => {
       team_id: req.team.get('id'),
       invoice_id: invoice.get('id'),
       product_id: product.get('id'),
+      project_id: product.get('project_id'),
+      revenue_type_id: product.get('revenue_type_id'),
       description: line_item.description,
       quantity: line_item.quantity,
       price: line_item.price,

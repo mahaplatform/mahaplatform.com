@@ -900,6 +900,8 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.string('description', 255)
+      table.integer('project_id').unsigned()
+      table.integer('revenue_type_id').unsigned()
     })
 
     await knex.schema.createTable('finance_members', (table) => {
@@ -953,6 +955,7 @@ const schema = {
       table.text('voided_reason')
       table.string('code', 255)
       table.jsonb('metadata')
+      table.integer('photo_id').unsigned()
     })
 
     await knex.schema.createTable('finance_products', (table) => {
@@ -2401,6 +2404,8 @@ const schema = {
       table.foreign('invoice_id').references('finance_invoices.id')
       table.foreign('product_id').references('finance_products.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('project_id').references('finance_projects.id')
+      table.foreign('revenue_type_id').references('finance_revenue_types.id')
     })
 
     await knex.schema.table('finance_merchants', table => {
@@ -2414,6 +2419,7 @@ const schema = {
       table.foreign('merchant_id').references('finance_merchants.id')
       table.foreign('scholarship_id').references('finance_scholarships.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('photo_id').references('maha_assets.id')
     })
 
     await knex.schema.table('finance_products', table => {
