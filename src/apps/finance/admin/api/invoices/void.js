@@ -1,8 +1,9 @@
-import Invoice from '../../../models/invoice'
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
 import { audit } from '../../../../../core/services/routes/audit'
+import RouteError from '../../../../../core/objects/route_error'
 import socket from '../../../../../core/services/routes/emitter'
+import Invoice from '../../../models/invoice'
 
 const voidRoute = async (req, res) => {
 
@@ -11,6 +12,7 @@ const voidRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
+    withRelated: ['payments'],
     transacting: req.trx
   })
 
@@ -18,6 +20,16 @@ const voidRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load invoice'
   })
+
+  if(invoice.related('payments').length > 0) {
+    throw new RouteError({
+      status: 422,
+      message: 'Unable to void invoice',
+      errors: {
+        voided_date: ['Cannot void invoice after a payment has been received']
+      }
+    })
+  }
 
   await invoice.save({
     status: 'voided',

@@ -120,7 +120,6 @@ class Card extends React.PureComponent {
   }
 
   _handleValidate() {
-    console.log('validate card')
     this.form.submit()
   }
 

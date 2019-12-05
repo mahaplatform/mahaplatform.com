@@ -29,7 +29,6 @@ const getCustomer = async(req, { customer }) => {
         payment: ['Processor error (Unable to create customer)']
       }
     })
-
   }
 
   await customer.load(['contact'])
@@ -83,6 +82,7 @@ const chargeCard = async (req, { invoice, merchant_id, payment, amount }) => {
   return {
     braintree_id: result.transaction.id,
     card_type,
+    rate: card_type === 'amex' ? merchant.get('amex_rate') : merchant.get('rate'),
     metadata: {
       card_type,
       last_four,

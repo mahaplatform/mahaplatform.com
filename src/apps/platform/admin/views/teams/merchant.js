@@ -26,13 +26,16 @@ class Edit extends React.Component {
     return {
       title: 'Edit Merchant Account',
       method: 'patch',
+      endpoint: `/api/admin/platform/teams/${team_id}/merchants/${merchant.id}/edit`,
       action: `/api/admin/platform/teams/${team_id}/merchants/${merchant.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Braintree ID', name: 'braintree_id', type: 'lookup', endpoint: `/api/admin/platform/teams/${team_id}/merchants/lookup`, placeholder: 'Choose a Braintree ID', value: 'id', text: 'id', required: true }
+            { label: 'Braintree ID', name: 'braintree_id', type: 'lookup', endpoint: `/api/admin/platform/teams/${team_id}/merchants/lookup`, placeholder: 'Choose a Braintree ID', value: 'id', text: 'id', required: true },
+            { label: 'Rate', name: 'rate', type: 'numberfield', placeholder: 'Rate', required: true, defaultValue: '0.029' },
+            { label: 'Amex Rate', name: 'amex_rate', type: 'numberfield', placeholder: 'Amex Rate', required: true, defaultValue: '0.0375' }
           ]
         }
       ]

@@ -38,9 +38,21 @@ export default store => next => action => {
       }
     })
   }).then(response => {
-    success(response.creditCards[0])
+    const { details, nonce } = response.creditCards[0]
+    success({
+      card_type: getCardType(details.cardType),
+      exp_month: details.expirationMonth,
+      exp_year: details.expirationYear,
+      last_four: details.lastFour,
+      nonce
+    })
   }).catch(err => {
     return failure(err)
   })
 
+}
+
+const getCardType = (type) => {
+  if(type === 'American Express') return 'amex'
+  return type.toLowerCase()
 }

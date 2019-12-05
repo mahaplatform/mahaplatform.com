@@ -1,8 +1,10 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
 import socket from '../../../../../core/services/routes/emitter'
+import RouteError from '../../../../../core/objects/route_error'
 import braintree from '../../../../../core/services/braintree'
 import Payment from '../../../models/payment'
+import _ from 'lodash'
 
 const voidRoute = async (req, res) => {
 
@@ -19,6 +21,16 @@ const voidRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load payment'
   })
+
+  if(_.includes(['settled','disbused'], payment)) {
+    throw new RouteError({
+      status: 422,
+      message: 'Unable to void payment',
+      errors: {
+        voided_date: ['Cannot void a settled payment']
+      }
+    })
+  }
 
   if(payment.get('braintree_id') && payment.get('status') !== 'captured') return res.status(422).send({
     errors: {

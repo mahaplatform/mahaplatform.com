@@ -74,7 +74,9 @@ const Invoice = new Model({
   },
 
   payments() {
-    return this.hasMany(Payment, 'invoice_id')
+    return this.hasMany(Payment, 'invoice_id').query(qb => {
+      qb.orderByRaw('date asc, created_at asc')
+    })
   },
 
   program() {

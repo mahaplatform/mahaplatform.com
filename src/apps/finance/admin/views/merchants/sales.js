@@ -230,57 +230,57 @@ class Sales extends React.Component {
               display: false
             }
           }]
-        },
-        tooltips: {
-          enabled: false,
-          custom: function(tooltipModel) {
-            var tooltipEl = document.getElementById('chartjs-tooltip')
-            if (!tooltipEl) {
-              tooltipEl = document.createElement('div')
-              tooltipEl.id = 'chartjs-tooltip'
-              tooltipEl.innerHTML = '<table></table>'
-              document.body.appendChild(tooltipEl)
-            }
-            if(tooltipModel.opacity === 0) return tooltipEl.style.opacity = 0
-            tooltipEl.classList.remove('above', 'below', 'no-transform')
-            if (tooltipModel.yAlign) {
-              tooltipEl.classList.add(tooltipModel.yAlign)
-            } else {
-              tooltipEl.classList.add('no-transform')
-            }
-            const getBody = (bodyItem) => bodyItem.lines
-            if (tooltipModel.body) {
-              var titleLines = tooltipModel.title || []
-              var bodyLines = tooltipModel.body.map(getBody)
-              var innerHtml = '<thead>'
-              titleLines.forEach(function(title) {
-                innerHtml += '<tr><th>' + title + '</th></tr>'
-              })
-              innerHtml += '</thead><tbody>'
-              bodyLines.forEach(function(body, i) {
-                var colors = tooltipModel.labelColors[i]
-                var style = 'background:' + colors.backgroundColor
-                style += ' border-color:' + colors.borderColor
-                style += ' border-width: 2px'
-                var span = '<span style="' + style + '"></span>'
-                innerHtml += '<tr><td>' + span + body + '</td></tr>'
-              })
-              innerHtml += '</tbody>'
-
-              var tableRoot = tooltipEl.querySelector('table')
-              tableRoot.innerHTML = innerHtml
-            }
-            var position = this._chart.canvas.getBoundingClientRect()
-            tooltipEl.style.opacity = 1
-            tooltipEl.style.position = 'absolute'
-            tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px'
-            tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px'
-            tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily
-            tooltipEl.style.fontSize = tooltipModel.bodyFontSize + 'px'
-            tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle
-            tooltipEl.style.padding = tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px'
-            tooltipEl.style.pointerEvents = 'none'
-          }
+        // },
+        // tooltips: {
+          // enabled: false,
+          // custom: function(tooltipModel) {
+          //   var tooltipEl = document.getElementById('chartjs-tooltip')
+          //   if (!tooltipEl) {
+          //     tooltipEl = document.createElement('div')
+          //     tooltipEl.id = 'chartjs-tooltip'
+          //     tooltipEl.innerHTML = '<table></table>'
+          //     document.body.appendChild(tooltipEl)
+          //   }
+          //   if(tooltipModel.opacity === 0) return tooltipEl.style.opacity = 0
+          //   tooltipEl.classList.remove('above', 'below', 'no-transform')
+          //   if (tooltipModel.yAlign) {
+          //     tooltipEl.classList.add(tooltipModel.yAlign)
+          //   } else {
+          //     tooltipEl.classList.add('no-transform')
+          //   }
+          //   const getBody = (bodyItem) => bodyItem.lines
+          //   if (tooltipModel.body) {
+          //     var titleLines = tooltipModel.title || []
+          //     var bodyLines = tooltipModel.body.map(getBody)
+          //     var innerHtml = '<thead>'
+          //     titleLines.forEach(function(title) {
+          //       innerHtml += '<tr><th>' + title + '</th></tr>'
+          //     })
+          //     innerHtml += '</thead><tbody>'
+          //     bodyLines.forEach(function(body, i) {
+          //       var colors = tooltipModel.labelColors[i]
+          //       var style = 'background:' + colors.backgroundColor
+          //       style += ' border-color:' + colors.borderColor
+          //       style += ' border-width: 2px'
+          //       var span = '<span style="' + style + '"></span>'
+          //       innerHtml += '<tr><td>' + span + body + '</td></tr>'
+          //     })
+          //     innerHtml += '</tbody>'
+          //
+          //     var tableRoot = tooltipEl.querySelector('table')
+          //     tableRoot.innerHTML = innerHtml
+          //   }
+          //   var position = this._chart.canvas.getBoundingClientRect()
+          //   tooltipEl.style.opacity = 1
+          //   tooltipEl.style.position = 'absolute'
+          //   tooltipEl.style.left = position.left + window.pageXOffset + tooltipModel.caretX + 'px'
+          //   tooltipEl.style.top = position.top + window.pageYOffset + tooltipModel.caretY + 'px'
+          //   tooltipEl.style.fontFamily = tooltipModel._bodyFontFamily
+          //   tooltipEl.style.fontSize = tooltipModel.bodyFontSize + 'px'
+          //   tooltipEl.style.fontStyle = tooltipModel._bodyFontStyle
+          //   tooltipEl.style.padding = tooltipModel.yPadding + 'px ' + tooltipModel.xPadding + 'px'
+          //   tooltipEl.style.pointerEvents = 'none'
+          // }
         }
       }
     })

@@ -24,7 +24,9 @@ const getTasks = ({ invoice }) => {
   const items = []
   if(invoice.status !== 'paid') {
     items.push({ label: 'Edit Invoice' })
-    items.push({ label: 'Void Invoice', modal: <Void invoice={ invoice } />  })
+    if(invoice.payments.length === 0) {
+      items.push({ label: 'Void Invoice', modal: <Void invoice={ invoice } />  })
+    }
     items.push({ label: 'Receive Payment', modal: <Payment invoice={ invoice } /> })
     items.push({ label: 'Send Invoice' })
   } else {
@@ -40,7 +42,7 @@ const mapResourcesToPage = (props, context) => ({
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Invoice',
+  title: 'Customer Invoice',
   tabs: getTabs(resources),
   tasks: getTasks(resources)
 })

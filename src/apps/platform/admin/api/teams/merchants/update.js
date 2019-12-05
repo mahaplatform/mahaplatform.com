@@ -7,7 +7,7 @@ import Merchant from '../../../../../finance/models/merchant'
 const createRoute = async (req, res) => {
 
   const merchant = await Merchant.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
+    qb.where('team_id', req.params.team_id)
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
@@ -21,7 +21,7 @@ const createRoute = async (req, res) => {
 
   await merchant.save({
     status: 'active',
-    ...whitelist(req.body, ['braintree_id'])
+    ...whitelist(req.body, ['braintree_id','rate','amex_rate'])
   }, {
     transacting: req.trx
   })
