@@ -8,6 +8,7 @@ import destroy from './destroy'
 import create from './create'
 import update from './update'
 import cards from './cards'
+import sales from './sales'
 import edit from './edit'
 import list from './list'
 import show from './show'
@@ -35,6 +36,8 @@ router.use('/:customer_id/invoices', invoices)
 router.use('/:customer_id/payments', payments)
 
 router.use('/:customer_id/refunds', refunds)
+
+router.use('/:customer_id/sales', sales)
 
 router.use('/:customer_id/scholarships', scholarships)
 

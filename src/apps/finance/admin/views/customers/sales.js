@@ -5,7 +5,7 @@ import React from 'react'
 class Sales extends React.Component {
 
   static propTypes = {
-    merchant: PropTypes.object
+    customer: PropTypes.object
   }
 
   static defaultProps = {}
@@ -15,15 +15,15 @@ class Sales extends React.Component {
   }
 
   _getSales() {
-    const { merchant } = this.props
+    const { customer } = this.props
     return {
-      endpoint: `/api/admin/finance/merchants/${merchant.id}/sales`,
+      endpoint: `/api/admin/finance/customers/${customer.id}/sales`,
       filter: {
-        merchant_id: {
-          $in: [merchant.id]
+        customer_id: {
+          $in: [customer.id]
         }
       },
-      start: merchant.created_at
+      start: customer.created_at
     }
   }
 

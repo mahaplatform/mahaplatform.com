@@ -4,19 +4,19 @@ import Invoices from './invoices'
 import Payments from './payments'
 import Details from './details'
 import Credits from './credits'
-import Refunds from './refunds'
 import Cards from './cards'
+import Sales from './sales'
 import React from 'react'
 
 const getTabs = ({ cards, customer, invoices, payments, refunds, credits, scholarships }) => ({
   items: [
     { label: 'Details', component: <Details customer={ customer }/> },
-    { label: 'Cards', component: <Cards cards={ cards }/> },
     { label: 'Invoices', component: <Invoices invoices={ invoices }/> },
     { label: 'Payments', component: <Payments payments={ payments } /> },
-    { label: 'Refunds', component: <Refunds refunds={ refunds } /> },
     { label: 'Credits', component: <Credits credits={ credits }/> },
-    { label: 'Scholarships', component: <Scholarships scholarships={ scholarships }/> }
+    { label: 'Scholarships', component: <Scholarships scholarships={ scholarships }/> },
+    { label: 'Cards', component: <Cards cards={ cards }/> },
+    { label: 'Sales', component: <Sales customer={ customer }/> }
   ]
 })
 

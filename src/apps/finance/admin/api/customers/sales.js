@@ -1,19 +1,20 @@
-import Merchant from '../../../models/merchant'
+import Customer from '../../../models/customer'
 import moment from 'moment'
 
 const salesRoute = async (req, res) => {
 
-  const merchant = await Merchant.scope(qb => {
+  const customer = await Customer.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
-    qb.where('id', req.params.merchant_id)
+    qb.where('id', req.params.customer_id)
   }).fetch({
+    withRelated: [],
     transacting: req.trx
   })
 
-  if(!merchant) return res.status(404).respond({
+  if(!customer) return res.status(404).respond({
     code: 404,
-    message: 'Unable to load merchant'
+    message: 'Unable to load customer'
   })
 
   const filled = `
@@ -22,22 +23,29 @@ const salesRoute = async (req, res) => {
     from generate_series(?::timestamp, ?::timestamp, ?) AS date
     )`
 
+  const payments = `
+    payments AS (
+    select finance_payments.amount,finance_invoices.customer_id,finance_payments.created_at
+    from finance_payments
+    inner join finance_invoices on finance_invoices.id=finance_payments.invoice_id
+    )`
+
   const params = [
     req.query.start,
     req.query.end,
     `1 ${req.query.step}`,
     req.query.step,
     req.query.tz,
-    merchant.get('id')
+    customer.get('id')
   ]
 
   const data = {}
 
   data.revenue = await req.trx.raw(`
-    with ${filled}
-    select filled_dates.date, sum(finance_payments.amount) as amount
+    with ${filled}, ${payments}
+    select filled_dates.date, sum(payments.amount) as amount
     from filled_dates
-    left join finance_payments on date_trunc(?, timezone(?, finance_payments.created_at::timestamptz)) = filled_dates.date and finance_payments.merchant_id=?
+    left join payments on date_trunc(?, timezone(?, payments.created_at::timestamptz)) = filled_dates.date and payments.customer_id=?
     group by filled_dates.date
     order by filled_dates.date asc
   `, params).then(results => results.rows.map(segment => ({
@@ -46,10 +54,10 @@ const salesRoute = async (req, res) => {
   })))
 
   data.transactions = await req.trx.raw(`
-    with ${filled}
-    select filled_dates.date, count(finance_payments.*) as count
+    with ${filled}, ${payments}
+    select filled_dates.date, count(payments.*) as count
     from filled_dates
-    left join finance_payments on date_trunc(?, timezone(?, finance_payments.created_at::timestamptz)) = filled_dates.date and finance_payments.merchant_id=?
+    left join payments on date_trunc(?, timezone(?, payments.created_at::timestamptz)) = filled_dates.date and payments.customer_id=?
     group by filled_dates.date
     order by filled_dates.date asc
   `, params).then(results => results.rows.map(segment => ({
