@@ -61,7 +61,7 @@ class NumberField extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onReady } = this.props
-    if(defaultValue !== undefined) this.setState({
+    if(!_.isNil(defaultValue)) this.setState({
       value: defaultValue
     })
     onReady()

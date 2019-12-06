@@ -60,12 +60,10 @@ export const fieldNames = createSelector(
 
 export const defaults = createSelector(
   submittable,
-  (fields) => {
-    return fields.reduce((defaults, field) => ({
-      ...defaults,
-      [field.name]: field.defaultValue
-    }), {})
-  }
+  (fields) => fields.reduce((defaults, field) => ({
+    ...defaults,
+    [field.name]: field.defaultValue
+  }), {})
 )
 
 export const filtered = createSelector(

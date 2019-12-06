@@ -5,11 +5,13 @@ import Payments from './payments'
 import Details from './details'
 import Credits from './credits'
 import Refunds from './refunds'
+import Cards from './cards'
 import React from 'react'
 
-const getTabs = ({ customer, invoices, payments, refunds, credits, scholarships }) => ({
+const getTabs = ({ cards, customer, invoices, payments, refunds, credits, scholarships }) => ({
   items: [
     { label: 'Details', component: <Details customer={ customer }/> },
+    { label: 'Cards', component: <Cards cards={ cards }/> },
     { label: 'Invoices', component: <Invoices invoices={ invoices }/> },
     { label: 'Payments', component: <Payments payments={ payments } /> },
     { label: 'Refunds', component: <Refunds refunds={ refunds } /> },
@@ -24,10 +26,11 @@ const getTasks = ({ invoice }) => ({
 
 const mapResourcesToPage = (props, context) => ({
   customer: `/api/admin/finance/customers/${props.params.id}`,
+  cards: `/api/admin/finance/customers/${props.params.id}/cards`,
+  credits: `/api/admin/finance/customers/${props.params.id}/credits`,
   invoices: `/api/admin/finance/customers/${props.params.id}/invoices`,
   payments: `/api/admin/finance/customers/${props.params.id}/payments`,
   refunds: `/api/admin/finance/customers/${props.params.id}/refunds`,
-  credits: `/api/admin/finance/customers/${props.params.id}/credits`,
   scholarships: `/api/admin/finance/customers/${props.params.id}/scholarships`
 })
 

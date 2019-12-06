@@ -3,6 +3,7 @@ import Scholarship from './scholarship'
 import Contact from '../../crm/models/contact'
 import Invoice from './invoice'
 import Credit from './credit'
+import Card from './card'
 
 const Customer = new Model({
 
@@ -33,6 +34,10 @@ const Customer = new Model({
       return `${domain}/merchants/${process.env.BRAINTREE_MERCHANT_ID}/customers/${this.get('braintree_id')}`
     }
 
+  },
+
+  cards() {
+    return this.hasMany(Card, 'customer_id')
   },
 
   contact() {

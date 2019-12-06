@@ -1,10 +1,9 @@
 const PaymentSerializer = (req, result) => ({
   id: result.get('id'),
-  code: result.get('code'),
   amount: result.get('amount'),
   braintree_id: result.get('braintree_id'),
   braintree_link: result.get('braintree_link'),
-  card_type: result.get('card_type'),
+  card: card(result.related('card')),
   credit: credit(result.related('credit')),
   date: result.get('date'),
   description: result.get('description'),
@@ -58,6 +57,17 @@ const merchant = (merchant) => {
     id: merchant.get('id'),
     title: merchant.get('title'),
     braintree_id: merchant.get('braintree_id')
+  }
+}
+
+const card = (card) => {
+  if(!card.id) return null
+  return {
+    id: card.get('id'),
+    type: card.get('type'),
+    last_four: card.get('last_four'),
+    expiration_month: card.get('expiration_month'),
+    expiration_year: card.get('expiration_year')
   }
 }
 

@@ -6,6 +6,7 @@ import Merchant from './merchant'
 import Invoice from './invoice'
 import Credit from './credit'
 import Refund from './refund'
+import Card from './card'
 import _ from 'lodash'
 
 const Payment = new Model({
@@ -23,7 +24,7 @@ const Payment = new Model({
     },
 
     description() {
-      if(_.includes(['googlepay','applepay','card'], this.get('method'))) return `${this.get('card_type').toUpperCase()}-${this.get('reference')}`
+      if(_.includes(['googlepay','applepay','card'], this.get('method'))) return `${this.related('card').get('description')}`
       if(this.get('method') === 'paypal') return `PAYPAL-${this.get('reference')}`
       if(this.get('method') === 'check') return this.get('reference')
       return null
@@ -44,6 +45,10 @@ const Payment = new Model({
       return (this.get('amount') - this.get('refunded')).toFixed(2)
     }
 
+  },
+
+  card() {
+    return this.belongsTo(Card, 'card_id')
   },
 
   credit() {

@@ -79,7 +79,7 @@ export default (state = INITIAL_STATE, action) => {
         ...Object.keys(action.result.data)
       ]).reduce((data, key) => ({
         ...data,
-        [key]: _.get(action.result.data, key) !== undefined ? _.get(action.result.data, key) : action.defaults[key] || null
+        [key]: !_.isNil(_.get(action.result.data, key)) ? _.get(action.result.data, key) : action.defaults[key] || null
       }), {})
     }
 

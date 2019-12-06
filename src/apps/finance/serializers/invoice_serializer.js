@@ -58,11 +58,23 @@ const payment = (payment) => {
   if(!payment.id) return null
   return {
     id: payment.get('id'),
+    card: card(payment.related('card')),
     date: payment.get('date'),
     method: payment.get('method'),
     description: payment.get('description'),
     amount: payment.get('amount'),
     voided_date: payment.get('voided_date')
+  }
+}
+
+const card = (card) => {
+  if(!card.id) return null
+  return {
+    id: card.get('id'),
+    type: card.get('type'),
+    last_four: card.get('last_four'),
+    expiration_month: card.get('expiration_month'),
+    expiration_year: card.get('expiration_year')
   }
 }
 

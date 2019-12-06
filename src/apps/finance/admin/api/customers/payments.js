@@ -24,6 +24,7 @@ const paymentsRoute = async (req, res) => {
     qb.where('finance_invoices.customer_id', customer.get('id'))
     qb.orderByRaw('finance_payments.date desc, finance_payments.created_at desc')
   }).fetchPage({
+    withRelated: ['card'],
     page: req.query.$page,
     transacting: req.trx
   })

@@ -68,6 +68,7 @@ class CardNumberField extends React.PureComponent {
 
   _getTextField() {
     return {
+      autoComplete: 'cc-number',
       placeholder: '1111 1111 1111 1111',
       onChange: this._handleUpdate,
       defaultValue: this._getFormatted()

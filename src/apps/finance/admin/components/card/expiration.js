@@ -52,6 +52,7 @@ class Expiration extends React.PureComponent {
 
   _getTextField() {
     return {
+      autoComplete: 'cc-exp',
       placeholder: '10/24',
       onChange: this._handleUpdate,
       defaultValue: this._getFormatted()
