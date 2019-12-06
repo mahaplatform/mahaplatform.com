@@ -391,10 +391,10 @@ const schema = {
       table.integer('program_id').unsigned()
       table.string('title', 255)
       table.text('description')
-      table.USER-DEFINED('type')
       table.jsonb('criteria')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.USER-DEFINED('type')
     })
 
     await knex.schema.createTable('crm_mailing_addresses', (table) => {
@@ -821,11 +821,11 @@ const schema = {
       table.integer('team_id').unsigned()
       table.string('code', 255)
       table.decimal('amount', 5, 2)
-      table.decimal('percent', 3, 0)
       table.integer('max_uses')
       table.boolean('is_active')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.decimal('percent', 5, 4)
     })
 
     await knex.schema.createTable('finance_coupons_products', (table) => {
@@ -900,7 +900,8 @@ const schema = {
       table.integer('program_id').unsigned()
       table.date('voided_date')
       table.text('voided_reason')
-      table.USER-DEFINED('status')
+      table.decimal('discount_amount', 5, 2)
+      table.decimal('discount_percent', 5, 4)
     })
 
     await knex.schema.createTable('finance_line_items', (table) => {
@@ -994,8 +995,8 @@ const schema = {
       table.jsonb('integration')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.text('type')
       table.integer('tax_project_id').unsigned()
+      table.USER-DEFINED('type')
     })
 
     await knex.schema.createTable('finance_rates', (table) => {
@@ -1148,12 +1149,12 @@ const schema = {
       table.integer('source_id').unsigned()
       table.string('source_identifier', 255)
       table.text('source_url')
-      table.text('status')
       table.boolean('is_infected')
       table.specificType('viruses', 'varchar[]')
       table.string('fingerprint', 255)
       table.integer('width')
       table.integer('height')
+      table.USER-DEFINED('status')
     })
 
     await knex.schema.createTable('maha_attachments', (table) => {
@@ -1232,8 +1233,8 @@ const schema = {
       table.timestamp('updated_at')
       table.integer('platform_type_id').unsigned()
       table.integer('display_name_id').unsigned()
-      table.text('icon')
       table.text('push_token')
+      table.USER-DEFINED('icon')
     })
 
     await knex.schema.createTable('maha_domains', (table) => {
@@ -1326,11 +1327,11 @@ const schema = {
       table.string('label', 255)
       table.string('name', 255)
       table.text('instructions')
-      table.text('type')
       table.jsonb('config')
       table.boolean('is_mutable')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.USER-DEFINED('type')
     })
 
     await knex.schema.createTable('maha_filter_accesses', (table) => {
@@ -1378,11 +1379,11 @@ const schema = {
       table.integer('import_id').unsigned()
       table.jsonb('values')
       table.boolean('is_valid').defaultsTo(false)
-      table.text('result')
       table.integer('object_id')
       table.boolean('is_duplicate').defaultsTo(false)
       table.boolean('is_omitted').defaultsTo(false)
       table.boolean('is_nonunique').defaultsTo(false)
+      table.USER-DEFINED('result')
     })
 
     await knex.schema.createTable('maha_imports', (table) => {
@@ -1394,7 +1395,6 @@ const schema = {
       table.string('name', 255)
       table.boolean('headers').defaultsTo(false)
       table.string('delimiter', 255)
-      table.text('strategy')
       table.specificType('mapping', 'jsonb[]')
       table.string('primary_key', 255)
       table.integer('item_count')
@@ -1409,7 +1409,8 @@ const schema = {
       table.integer('duplicate_count')
       table.integer('nonunique_count')
       table.integer('completed_count')
-      table.text('stage')
+      table.USER-DEFINED('stage')
+      table.USER-DEFINED('strategy')
     })
 
     await knex.schema.createTable('maha_installations', (table) => {
@@ -1510,10 +1511,10 @@ const schema = {
       table.integer('user_id').unsigned()
       table.string('reactable_type', 255)
       table.integer('reactable_id')
-      table.text('type')
       table.timestamp('unreacted_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.USER-DEFINED('type')
     })
 
     await knex.schema.createTable('maha_rights', (table) => {
@@ -1682,11 +1683,9 @@ const schema = {
       table.timestamp('updated_at')
       table.string('secondary_email', 255)
       table.jsonb('values').defaultsTo('{}')
-      table.text('email_notifications_method')
       table.boolean('notifications_enabled').defaultsTo(false)
       table.boolean('in_app_notifications_enabled').defaultsTo(false)
       table.boolean('notification_sound_enabled').defaultsTo(false)
-      table.text('notification_sound')
       table.boolean('push_notifications_enabled').defaultsTo(false)
       table.boolean('mute_evenings').defaultsTo(false)
       table.time('mute_evenings_end_time')
@@ -1697,6 +1696,8 @@ const schema = {
       table.string('key', 255)
       table.integer('user_type_id').unsigned()
       table.string('cell_phone', 255)
+      table.USER-DEFINED('email_notifications_method')
+      table.USER-DEFINED('notification_sound')
     })
 
     await knex.schema.createTable('maha_users_alerts', (table) => {
@@ -1755,9 +1756,9 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('site_id').unsigned()
       table.integer('user_id').unsigned()
-      table.text('role')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.USER-DEFINED('role')
     })
 
     await knex.schema.createTable('sites_members', (table) => {
@@ -1953,7 +1954,6 @@ const schema = {
       table.integer('team_id').unsigned()
       table.string('title', 255)
       table.text('description')
-      table.text('type')
       table.string('url', 255)
       table.string('location', 255)
       table.string('contact', 255)
@@ -1961,6 +1961,7 @@ const schema = {
       table.timestamp('updated_at')
       table.boolean('is_verification_required')
       table.text('notes')
+      table.USER-DEFINED('type')
     })
 
 
@@ -3306,6 +3307,70 @@ union
     `)
 
     await knex.raw(`
+      create view finance_invoice_details AS
+      select finance_invoices.id as invoice_id,
+      finance_invoice_subtotals.subtotal,
+      finance_invoice_subtotals.tax,
+      finance_invoice_payments.paid,
+      finance_invoice_subtotals.discount,
+      finance_invoice_totals.total,
+      (finance_invoice_totals.total - finance_invoice_payments.paid) as balance,
+      case
+      when (finance_invoices.voided_date is not null) then 'void'::text
+      when (finance_invoice_payments.paid >= finance_invoice_totals.total) then 'paid'::text
+      when (finance_invoices.due > now()) then 'overdue'::text
+      else 'unpaid'::text
+      end as status
+      from (((finance_invoices
+      join finance_invoice_totals on ((finance_invoice_totals.invoice_id = finance_invoices.id)))
+      join finance_invoice_subtotals on ((finance_invoice_subtotals.invoice_id = finance_invoices.id)))
+      join finance_invoice_payments on ((finance_invoice_payments.invoice_id = finance_invoices.id)));
+    `)
+
+    await knex.raw(`
+      create view finance_invoice_line_items AS
+      select finance_invoices.id as invoice_id,
+      sum(((finance_line_items.quantity)::numeric * finance_line_items.price)) as total,
+      round(sum((((finance_line_items.quantity)::numeric * finance_line_items.price) * finance_line_items.tax_rate)), 2) as tax
+      from (finance_invoices
+      join finance_line_items on ((finance_line_items.invoice_id = finance_invoices.id)))
+      group by finance_invoices.id;
+    `)
+
+    await knex.raw(`
+      create view finance_invoice_payments AS
+      select finance_invoices.id as invoice_id,
+      coalesce(sum(finance_payments.amount), 0.00) as paid
+      from (finance_invoices
+      left join finance_payments on (((finance_payments.invoice_id = finance_invoices.id) and (finance_payments.voided_date is null))))
+      group by finance_invoices.id;
+    `)
+
+    await knex.raw(`
+      create view finance_invoice_subtotals AS
+      select finance_invoices.id as invoice_id,
+      sum(finance_invoice_line_items.total) as subtotal,
+      sum(finance_invoice_line_items.tax) as tax,
+      case
+      when (finance_invoices.discount_percent is not null) then round((sum(finance_invoice_line_items.total) * finance_invoices.discount_percent), 2)
+      when (finance_invoices.discount_amount is not null) then finance_invoices.discount_amount
+      else 0.00
+      end as discount
+      from (finance_invoices
+      join finance_invoice_line_items on ((finance_invoice_line_items.invoice_id = finance_invoices.id)))
+      group by finance_invoices.id;
+    `)
+
+    await knex.raw(`
+      create view finance_invoice_totals AS
+      select finance_invoices.id as invoice_id,
+      ((finance_invoice_subtotals.subtotal + finance_invoice_subtotals.tax) - finance_invoice_subtotals.discount) as total
+      from ((finance_invoices
+      join finance_invoice_subtotals on ((finance_invoice_subtotals.invoice_id = finance_invoices.id)))
+      join finance_invoice_payments on ((finance_invoice_payments.invoice_id = finance_invoices.id)));
+    `)
+
+    await knex.raw(`
       create view finance_items AS
       select row_number() over (order by items.type, items.item_id) as id,
       items.code,
@@ -3551,7 +3616,7 @@ union
       maha_groupings.id as grouping_id,
       maha_users.id as user_id
       from ((maha_users
-      join finance_members on (((finance_members.user_id = maha_users.id) and (finance_members.type <> 'member'::expenses_members_type))))
+      join finance_members on (((finance_members.user_id = maha_users.id) and (finance_members.type <> 'member'::finance_members_type))))
       join maha_groupings on ((maha_groupings.id = 4)));
     `)
 
@@ -3561,11 +3626,11 @@ union
       maha_import_items.import_id,
       maha_import_items."values",
       maha_import_items.is_valid,
-      maha_import_items.result,
       maha_import_items.object_id,
       maha_import_items.is_duplicate,
       maha_import_items.is_omitted,
       maha_import_items.is_nonunique,
+      maha_import_items.result,
       maha_imports.object_type
       from (maha_import_items
       join maha_imports on ((maha_imports.id = maha_import_items.import_id)));

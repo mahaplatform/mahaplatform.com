@@ -17,7 +17,6 @@ const createRoute = async (req, res) => {
   const invoice = await Invoice.forge({
     team_id: req.team.get('id'),
     code,
-    status: 'unpaid',
     ...whitelist(req.body, ['customer_id','program_id','date','due','notes'])
   }).save(null, {
     transacting: req.trx

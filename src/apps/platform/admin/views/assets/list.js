@@ -17,7 +17,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'User', name: 'user_id', type: 'select', endpoint: '/api/admin/users', value: 'id', text: 'full_name', format: UserToken },
       { label: 'Team', name: 'team_id', type: 'select', endpoint: '/api/admin/platform/teams', value: 'id', text: 'title' },
       { label: 'Source', name: 'source_id', type: 'select', endpoint: '/api/admin/profiles/sources', value: 'id', text: 'text', format: SourceToken },
-      { label: 'Status', name: 'status_id', type: 'select', options: [{value:'chunked',text:'chunked'},{value:'assembled',text:'assembled'},{value:'processed',text:'processed'}] }
+      { label: 'Status', name: 'status', type: 'select', options: ['chunked','assembled','processed'] }
     ],
     entity: 'asset',
     defaultSort: { key: 'created_at', order: 'desc' },

@@ -195,14 +195,6 @@ const paymentRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(invoice.get('is_paid')) {
-    await invoice.save({
-      status: 'paid'
-    }, {
-      transacting: req.trx
-    })
-  }
-
   await audit(req, {
     story: 'payment received',
     auditable: invoice
