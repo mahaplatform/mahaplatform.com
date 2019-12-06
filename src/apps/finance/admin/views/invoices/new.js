@@ -31,13 +31,16 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Customer', name: 'customer_id', type: 'lookup', placeholder: 'Choose a customer', endpoint: '/api/admin/crm/contacts', value: 'id', text: 'display_name', required: true },
-            { label: 'Program', name: 'program_id', type: 'lookup', placeholder: 'Choose a program', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true, format: ProgramToken },
-            { label: 'Date', name: 'date', type: 'datefield', placeholder: 'Date', required: true, defaultValue: moment() },
-            { label: 'Due', name: 'due', type: 'datefield', placeholder: 'Date', required: true, defaultValue: moment() },
+            { type: 'fields', fields: [
+              { label: 'Date', name: 'date', type: 'datefield', placeholder: 'Date', required: true, defaultValue: moment() },
+              { label: 'Due', name: 'due', type: 'datefield', placeholder: 'Date', required: true, defaultValue: moment() }
+            ] },
+            { type: 'fields', fields: [
+              { label: 'Program', name: 'program_id', type: 'lookup', placeholder: 'Choose a program', endpoint: '/api/admin/crm/programs', value: 'id', text: 'title', required: true, format: ProgramToken },
+              { label: 'Customer', name: 'customer_id', type: 'lookup', placeholder: 'Choose a customer', endpoint: '/api/admin/crm/contacts', value: 'id', text: 'display_name', required: true }
+            ] },
             { label: 'Line Items', name: 'line_items', type: LineItems, required: true },
-            { label: 'Notes', name: 'notes', type: 'textarea', placeholder: 'Add notes' }
-
+            { label: 'Notes', name: 'notes', type: 'textfield', placeholder: 'Add notes' }
           ]
         }
       ]

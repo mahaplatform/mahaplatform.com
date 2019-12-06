@@ -11,7 +11,6 @@ const createRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.customer_id)
   }).fetch({
-    withRelated: [],
     transacting: req.trx
   })
 
@@ -23,7 +22,7 @@ const createRoute = async (req, res) => {
   const scholarship = await Scholarship.forge({
     team_id: req.team.get('id'),
     customer_id: customer.get('id'),
-    ...whitelist(req.body, ['amount'])
+    ...whitelist(req.body, ['program_id','description','amount'])
   }).save(null, {
     transacting: req.trx
   })

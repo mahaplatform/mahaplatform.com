@@ -1,9 +1,11 @@
 import Scholarships from './scholarships'
+import Scholarship from './scholarship'
 import { Page } from 'maha-admin'
 import Invoices from './invoices'
 import Payments from './payments'
 import Details from './details'
 import Credits from './credits'
+import Credit from './credit'
 import Cards from './cards'
 import Sales from './sales'
 import React from 'react'
@@ -20,8 +22,11 @@ const getTabs = ({ cards, customer, invoices, payments, refunds, credits, schola
   ]
 })
 
-const getTasks = ({ invoice }) => ({
-  items: []
+const getTasks = ({ customer }) => ({
+  items: [
+    { label: 'Create Credit', modal: <Credit customer={ customer } /> },
+    { label: 'Create Scholarship', modal: <Scholarship customer={ customer } /> }
+  ]
 })
 
 const mapResourcesToPage = (props, context) => ({

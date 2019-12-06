@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import Program from '../../crm/models/program'
 import Customer from './customer'
 import Payment from './payment'
 
@@ -16,6 +17,10 @@ const Credit = new Model({
 
   payments() {
     return this.hasMany(Payment, 'credit_id')
+  },
+
+  program() {
+    return this.belongsTo(Program, 'program_id')
   }
 
 })

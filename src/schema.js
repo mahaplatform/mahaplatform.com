@@ -838,9 +838,10 @@ const schema = {
       table.integer('team_id').unsigned()
       table.integer('customer_id').unsigned()
       table.decimal('amount', 6, 2)
-      table.text('description')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('program_id').unsigned()
+      table.string('description', 255)
     })
 
     await knex.schema.createTable('finance_disbursements', (table) => {
@@ -1067,6 +1068,8 @@ const schema = {
       table.decimal('amount', 6, 2)
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('program_id').unsigned()
+      table.string('description', 255)
     })
 
     await knex.schema.createTable('finance_trips', (table) => {
@@ -2397,6 +2400,7 @@ const schema = {
     await knex.schema.table('finance_credits', table => {
       table.foreign('customer_id').references('crm_contacts.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('finance_disbursements', table => {
@@ -2453,6 +2457,7 @@ const schema = {
     await knex.schema.table('finance_scholarships', table => {
       table.foreign('customer_id').references('crm_contacts.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('maha_activities', table => {

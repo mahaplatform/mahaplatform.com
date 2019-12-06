@@ -9,7 +9,6 @@ const listRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.customer_id)
   }).fetch({
-    withRelated: [],
     transacting: req.trx
   })
 
@@ -22,6 +21,7 @@ const listRoute = async (req, res) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('customer_id', customer.get('id'))
   }).fetchPage({
+    withRelated: ['program'],
     page: req.query.$page,
     transacting: req.trx
   })

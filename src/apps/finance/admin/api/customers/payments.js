@@ -9,7 +9,6 @@ const paymentsRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.customer_id)
   }).fetch({
-    withRelated: [],
     transacting: req.trx
   })
 
