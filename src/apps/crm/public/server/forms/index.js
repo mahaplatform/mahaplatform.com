@@ -8,6 +8,4 @@ server.get('/:code/embed.js', embed)
 
 server.get('/:code', show)
 
-server.post('/:code', show)
-
 export default server

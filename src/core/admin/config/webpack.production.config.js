@@ -1,10 +1,10 @@
 import HtmlWebpackExcludeAssetsPlugin from 'html-webpack-exclude-assets-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import MahaPlugin from '../../lib/webpack/maha_plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 import autoprefixer from 'autoprefixer'
-import MahaPlugin from './maha_plugin'
 import webpack from 'webpack'
 import cssnano from 'cssnano'
 import path from 'path'
@@ -12,8 +12,8 @@ import path from 'path'
 const webpackConfig = {
   devtool: 'none',
   entry: [
-    path.resolve('src','web','admin','index.js'),
-    path.resolve('src','web','admin','index.less')
+    path.resolve(__dirname,'..','index.js'),
+    path.resolve(__dirname,'..','index.less')
   ],
   externals: ['canvas'],
   mode: 'production',
@@ -79,11 +79,11 @@ const webpackConfig = {
       filename: 'css/[name]-[hash].min.css'
     }),
     new CopyWebpackPlugin([{
-      from: path.resolve('src','public','admin'),
+      from: path.resolve('src','core','admin','public'),
       to: path.resolve('dist.staged','public','admin')
     }]),
     new HtmlWebpackPlugin({
-      template: path.resolve('src','web','admin','index.html')
+      template: path.resolve(__dirname,'..','index.html')
     }),
     new HtmlWebpackExcludeAssetsPlugin(),
     new webpack.SourceMapDevToolPlugin({
@@ -111,7 +111,7 @@ const webpackConfig = {
   ],
   resolve: {
     alias: {
-      'maha-admin': path.resolve('src','web','admin','client.js')
+      'maha-admin': path.resolve(__dirname,'..','client.js')
     }
   },
   resolveLoader: {

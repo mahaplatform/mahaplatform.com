@@ -3,9 +3,9 @@ import { readFile } from './utils'
 import path from 'path'
 import ejs from 'ejs'
 
-const template = readFile(path.join('form.html'))
-
 const showRoute = async (req, res) => {
+
+  const template = await readFile(path.join('embedded','index.html'))
 
   const form = await Form.query(qb => {
     qb.where('code', req.params.code)

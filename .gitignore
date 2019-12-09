@@ -16,7 +16,7 @@ npm-debug.log
 .env*
 *.key
 *.crt
-src/public/templates
-src/public/forms
+src/public/*
+!src/public/admin
 ngrok
 metadata.csv

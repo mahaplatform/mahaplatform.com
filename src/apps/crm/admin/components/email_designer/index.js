@@ -28,7 +28,7 @@ class EmailDesigner extends React.Component {
     const { defaultValue, onSave } = this.props
     return {
       title: 'Email',
-      canvas: '/templates/email.html',
+      canvas: '/crm/email/index.html',
       preview: true,
       components: {
         button: Button,

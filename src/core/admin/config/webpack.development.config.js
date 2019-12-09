@@ -1,6 +1,6 @@
+import MahaPlugin from '../../lib/webpack/maha_plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import autoprefixer from 'autoprefixer'
-import MahaPlugin from './maha_plugin'
 import webpack from 'webpack'
 import cssnano from 'cssnano'
 import path from 'path'
@@ -8,10 +8,10 @@ import path from 'path'
 const webpackConfig = {
   devtool: 'cheap-module-eval-source-map',
   entry: [
-    `webpack-dev-server/client?http://localhost:${process.env.DEVSERVER_PORT}`,
+    `webpack-dev-server/client?${process.env.WEB_HOST}`,
     'webpack/hot/only-dev-server',
-    path.resolve('src','web','admin','index.js'),
-    path.resolve('src','web','admin','index.less')
+    path.resolve(__dirname,'..','index.js'),
+    path.resolve(__dirname,'..','index.less')
   ],
   externals: ['canvas'],
   mode: 'development',
@@ -50,13 +50,13 @@ const webpackConfig = {
   },
   output: {
     path: path.resolve('src','public'),
-    filename: 'application.js',
+    filename: path.join('js','application.js'),
     publicPath: '/admin'
   },
   plugins: [
     new MahaPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve('src','web','admin','index.html')
+      template: path.resolve(__dirname,'..','index.html')
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
@@ -80,7 +80,7 @@ const webpackConfig = {
   ],
   resolve: {
     alias: {
-      'maha-admin': path.resolve('src','web','admin','client.js')
+      'maha-admin': path.resolve(__dirname,'..','client.js')
     },
     modules: [
       path.resolve('node_modules')

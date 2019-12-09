@@ -6,7 +6,7 @@ import fs from 'fs'
 
 const icons = async () => {
 
-  const src = path.join('src','assets','icon.png')
+  const src = path.join('src','core','assets','icon.png')
 
   const output = path.join('src','mobile','res')
 

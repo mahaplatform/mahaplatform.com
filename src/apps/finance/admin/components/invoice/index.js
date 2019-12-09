@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Logo } from 'maha-admin'
+import { Button, Logo } from 'maha-admin'
 import numeral from 'numeral'
 import moment from 'moment'
 import React from 'react'
@@ -136,8 +136,18 @@ class Invoice extends React.PureComponent {
             { invoice.notes }
           </div>
         }
+        <Button { ...this._getPublic() } />
       </div>
     )
+  }
+
+  _getPublic() {
+    const { invoice } = this.props
+    return {
+      label: 'View Public',
+      link: `${process.env.WEB_HOST}/finance/invoices/${invoice.code}`,
+      className: 'link'
+    }
   }
 
   _getPaymentClass(payment) {

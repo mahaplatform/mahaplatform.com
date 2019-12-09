@@ -3,16 +3,18 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 import cssnano from 'cssnano'
-import webpack from 'webpack'
 import path from 'path'
+import fs from 'fs'
 
-const webpackConfig = (name, css, index) => ({
+const webpackConfig = (app, name, root, port) => ({
   devtool: 'none',
   entry: [
-    path.resolve('src','web','forms',name,'index.js'),
-    ...css ? [path.resolve('src','web','forms',name,'index.less')] : []
+    path.resolve(root,'index.js'),
+    ...fs.existsSync(path.resolve(root,'index.less')) ? [
+      path.resolve(root,'index.less')
+    ] : []
   ],
-  mode: 'development',
+  mode: 'production',
   module: {
     rules: [
       {
@@ -53,30 +55,27 @@ const webpackConfig = (name, css, index) => ({
     ]
   },
   output: {
-    path: path.resolve('src','public'),
-    filename: `forms/js/${name}.js`,
+    path: path.resolve('dist.staged','public',app,name),
+    ...fs.existsSync(path.resolve(root,'index.html')) ? {
+      filename: path.join('js', '[name]-[chunkhash].js')
+    } : {
+      filename: path.join('js', '[name].js')
+    },
     publicPath: '/'
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      filename: `forms/css/${name}.css`
-    }),
-    new webpack.DefinePlugin({
-      'process.env': {
-        'RECAPTCHA_SITE_KEY': JSON.stringify(process.env.RECAPTCHA_SITE_KEY)
-      }
-    }),
-    ...index ? [
+    ...fs.existsSync(path.resolve(root,'index.less')) ? [
+      new MiniCssExtractPlugin({
+        filename: path.join('css','[name]-[chunkhash].css')
+      })
+    ] : [],
+    ...fs.existsSync(path.resolve(root,'index.html')) ? [
       new HtmlWebpackPlugin({
-        template: path.resolve('src','web','forms',name,'index.html'),
-        filename: `forms/${name}.html`
+        template: path.resolve(root,'index.html'),
+        filename: 'index.html'
       })
     ] : []
   ]
 })
 
-export const designerConfig = webpackConfig('designer', true, true)
-
-export const embedConfig = webpackConfig('embed', false, false)
-
-export const formConfig = webpackConfig('form', true, true)
+export default webpackConfig

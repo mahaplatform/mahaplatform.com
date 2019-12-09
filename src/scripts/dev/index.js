@@ -1,16 +1,35 @@
-import '../core/services/environment'
-import * as templates from '../web/templates/config/webpack.development.config'
-import adminConfig from '../web/admin/config/webpack.development.config'
-import * as forms from '../web/forms/config/webpack.development.config'
-import desktopConfig from '../desktop/config/webpack.config'
-import mobileConfig from '../mobile/config/webpack.config'
+import '../../core/services/environment'
+import adminConfig from '../../core/admin/config/webpack.development.config'
+import desktopConfig from '../../desktop/config/webpack.config'
+import mobileConfig from '../../mobile/config/webpack.config'
+import webpackConfig from './webpack.config'
 import devServer from 'webpack-dev-server'
-import log from '../core/utils/log'
+import log from '../../core/utils/log'
 import { spawn } from 'child_process'
 import chokidar from 'chokidar'
 import webpack from 'webpack'
 import path from 'path'
 import _ from 'lodash'
+import fs from 'fs'
+
+const appsDir = path.resolve('src','apps')
+
+const subapps = fs.readdirSync(appsDir).reduce((apps, app) => {
+  const appDir = path.join(appsDir, app, 'web')
+  return [
+    ...apps,
+    ...fs.existsSync(appDir) ? fs.readdirSync(appDir).reduce((apps, subapp, index) => {
+      const dir = path.join(appsDir, app, 'web',subapp)
+      return [
+        ...apps,
+        { app, subapp, dir }
+      ]
+    }, []) : []
+  ]
+}, []).map((subapp, index) => ({
+  ...subapp,
+  port: parseInt(process.env.DEVSERVER_PORT) + index + 2
+}))
 
 const serverWatch = async () => {
 
@@ -61,22 +80,6 @@ const mobileWatch = async () => {
   await watch('mobile', watchDir, mobileConfig)
 }
 
-const templateWatch = async () => {
-  const { documentConfig, emailConfig, webConfig } = templates
-  const watchDir = path.resolve('src','web','templates')
-  await watch('template:document', path.join(watchDir,'document'), documentConfig)
-  await watch('template:email', path.join(watchDir,'email'), emailConfig)
-  await watch('template:web', path.join(watchDir,'web'), webConfig)
-}
-
-const formWatch = async () => {
-  const { designerConfig, embedConfig, formConfig } = forms
-  const watchDir = path.resolve('src','web','forms')
-  await watch('form:designer', path.join(watchDir,'designer'), designerConfig)
-  await watch('form:embed', path.join(watchDir,'embed'), embedConfig)
-  await watch('form:form', path.join(watchDir,'form'), formConfig)
-}
-
 const watch = async (module, watchDir, config) => {
   let compiling = false
   chokidar.watch(watchDir).on('all', (event, path) => {
@@ -94,17 +97,46 @@ const watch = async (module, watchDir, config) => {
   })
 }
 
-const adminWatch = async () => {
+const webWatch = async () => {
+  subapps.map((item, index) => {
+    const { app, subapp, dir, port } = item
+    const publicPath = `/${app}/${subapp}`
+    const config = webpack(webpackConfig(app, subapp, dir, port))
+    const devserver = new devServer(config, {
+      https: true,
+      hot: true,
+      publicPath,
+      quiet: true,
+      historyApiFallback: {
+        disableDotRule: true,
+        rewrites: [
+          { from: /.*/, to: publicPath }
+        ]
+      }
+    })
+    devserver.listen(port, null, () => {
+      log('info', `${app}:${subapp}`, `Listening on port ${port}`)
+    })
+  })
+}
 
-  const devserver = new devServer(webpack(adminConfig), {
-    https: true,
-    contentBase: path.resolve('src','public','admin'),
-    hot: true,
-    publicPath: '/admin',
-    proxy: [
-      ...'dav/,sms/,voice/,fax/,api/,forms/,templates/,jobs/,caman/,imagecache/,.well-known/,mailbox_mime/,v,c,ns,so'.split(',').reduce((proxies, path) => [
+const adminWatch = async () => {
+  const proxy = {
+    '/socket': {
+      target: `http://localhost:${process.env.SERVER_PORT}`,
+      ws: true
+    },
+    ...subapps.reduce((proxies, proxy) => ({
+      ...proxies,
+      [`/${proxy.app}/${proxy.subapp}/**`]: {
+        target: `https://localhost:${proxy.port}`,
+        secure: false
+      }
+    }), {}),
+    ...[
+      ...'dav,sms,voice,fax,api,forms,templates,jobs,caman,imagecache,.well-known,mailbox_mime'.split(',').reduce((proxies, path) => [
         ...proxies,
-        `/${path}*`
+        `/${path}/*`
       ], []),
       ...'html,json'.split(',').reduce((proxies, ext) => [
         ...proxies,
@@ -121,16 +153,22 @@ const adminWatch = async () => {
       ...'crm,drive,finance'.split(',').reduce((apps, path) => [
         ...apps,
         `/${path}/**`
+      ], []),
+      ...'v,c,ns,so'.split(',').reduce((proxies, path) => [
+        ...proxies,
+        `/${path}*`
       ], [])
     ].reduce((proxies, proxy) => ({
       ...proxies,
       [proxy]: `http://localhost:${process.env.SERVER_PORT}`
-    }), {
-      '/socket': {
-        target: `http://localhost:${process.env.SERVER_PORT}`,
-        ws: true
-      }
-    }),
+    }), {})
+  }
+  const devserver = new devServer(webpack(adminConfig), {
+    https: true,
+    contentBase: path.resolve('src','core','admin','public'),
+    hot: true,
+    publicPath: '/admin',
+    proxy,
     quiet: true,
     historyApiFallback: {
       disableDotRule: true,
@@ -139,19 +177,16 @@ const adminWatch = async () => {
       ]
     }
   })
-
   devserver.listen(process.env.DEVSERVER_PORT)
-
 }
 
 export const dev = async () => {
   const argv = process.argv.slice(2)
-  const services = argv.length > 0 ? argv : ['server','template','form','desktop','mobile','admin']
+  const services = argv.length > 0 ? argv : ['server','web','desktop','mobile','admin']
   if(_.includes(services, 'server')) await serverWatch()
-  if(_.includes(services, 'template')) await templateWatch()
-  if(_.includes(services, 'form')) await formWatch()
   // if(_.includes(services, 'desktop')) await desktopWatch()
   // if(_.includes(services, 'mobile')) await mobileWatch()
+  if(_.includes(services, 'web')) await webWatch()
   if(_.includes(services, 'admin')) await adminWatch()
 }
 

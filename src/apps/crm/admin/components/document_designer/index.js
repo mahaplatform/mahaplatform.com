@@ -16,7 +16,7 @@ class DocumentDesigner extends React.Component {
   _getDesigner() {
     return {
       title: 'Document',
-      canvas: '/templates/document.html',
+      canvas: '/crm/document/index.html',
       components: {
         divider: Divider,
         image: Images,

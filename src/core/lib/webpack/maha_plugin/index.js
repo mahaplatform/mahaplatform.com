@@ -19,8 +19,8 @@ const configs = apps.reduce((configs, app) => {
 }, {})
 
 const collectObjects = (pattern) => [
-  ...glob.sync(`src/web/${pattern}`),
-  ...glob.sync(`src/web/${pattern}/index.js`),
+  ...glob.sync(`src/core/${pattern}`),
+  ...glob.sync(`src/core/${pattern}/index.js`),
   ...glob.sync(`src/apps/*/${pattern}`),
   ...glob.sync(`src/apps/*/${pattern}/index.js`)
 ]
@@ -32,7 +32,7 @@ const extract = (pattern) => collectObjects(pattern).map(file => {
     name: _.camelCase(appMatches[1].replace('/',' ')),
     filepath: `../../apps/${appMatches[1]}`
   }
-  const matches = file.match(/src\/web\/admin\/(([^/]*).*)/)
+  const matches = file.match(/src\/core\/admin\/(([^/]*).*)/)
   return {
     code: 'admin',
     name: _.camelCase(matches[1].replace('/',' ')),
@@ -47,7 +47,7 @@ const reducers = (pattern) => collectObjects('admin/**/reducer.js').map(file => 
     name: _.camelCase(appMatches[4].replace('/',' ')),
     filepath: `../../apps/${appMatches[1]}`
   }
-  const matches = file.match(/src\/web\/admin\/(([^/]*)\/(.*))\/reducer.js/)
+  const matches = file.match(/src\/core\/admin\/(([^/]*)\/(.*))\/reducer.js/)
   return {
     code: 'admin',
     name: _.camelCase(matches[3].replace('/',' ')),
