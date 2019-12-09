@@ -1,0 +1,55 @@
+.maha-stack {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+}
+.maha-stack-inner {
+  position: relative;
+  flex: 1;
+}
+.maha-stack-card {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  background-color: @white;
+  transition: transform .25s ease-in-out 0s;
+  &:after {
+    transition: opacity .25s ease-in-out 0s;
+    background-color: @black;
+    .opacity(0);
+    content: " ";
+  }
+  &.active {
+    .translateX(0);
+  }
+  &.mounting {
+    .translateX(100%);
+  }
+  &.covered {
+    &:after {
+      .opacity(.2);
+    }
+  }
+  &.covered, &.covering {
+    &:after {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+.maha-stack-slide-beneath {
+  .covered {
+    .translateX(-25%);
+  }
+}
+.maha-modal-window-panel {
+  .maha-stack {
+    flex: 1;
+  }
+}

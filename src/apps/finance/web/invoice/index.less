@@ -11,6 +11,7 @@
 @brown: #A5673F;
 @black: #000000;
 @white: #FFFFFF;
+@grey: #333333;
 @android: #A4C639;
 @paypal: #0079C1;
 
@@ -36,8 +37,37 @@ body {
 .transition(@transition) {
   transition: @transition;
 }
+.translateXY(@x, @y) {
+  transform: translate(@x, @y);
+}
+.translateX(@x) {
+  transform: translateX(@x);
+}
 .translateY(@y) {
   transform: translateY(@y);
+}
+.opacity(@opacity: 0.5) {
+	opacity: @opacity;
+}
+.expanded(@begin, @end) {
+  &.expanded-appear,
+  &.expanded-enter,
+  &.expanded-exit.expanded-exit-active {
+    @begin();
+  }
+  &.expanded-appear.expanded-appear-active,
+  &.expanded-enter.expanded-enter-active,
+  &.expanded-exit {
+    @end();
+  }
+}
+.opacity-transition(@start, @end, @duration) {
+  .transition(opacity @duration ease-in-out 0s);
+  .expanded({
+    .opacity(@start);
+  }, {
+    .opacity(@end);
+  })
 }
 .translate-y-transition(@start, @end, @duration) {
   .transition(transform @duration ease-in-out 0s);
@@ -48,7 +78,10 @@ body {
   })
 }
 
+@import './components/image/style.less';
 @import './components/invoice/style.less';
 @import './components/loader/style.less';
+@import './components/logo/style.less';
 @import './components/modal/style.less';
 @import './components/network/style.less';
+@import './components/stack/style.less';
