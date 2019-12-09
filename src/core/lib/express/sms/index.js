@@ -16,6 +16,8 @@ router.use(transaction)
 router.use(logger)
 
 router.use(session({
+  resave: true,
+  saveUninitialized: true,
   secret: process.env.SECRET
 }))
 

@@ -1,5 +1,5 @@
 import '../../core/services/environment'
-import adminConfig from '../../core/admin/config/webpack.production.config'
+import adminConfig from './webpack.admin.config'
 import webpackConfig from './webpack.config'
 import apps from '../../core/utils/apps'
 import log from '../../core/utils/log'
@@ -114,7 +114,7 @@ const compile = async (module, config) => {
 }
 
 const buildClients = async () => {
-  // await compile('admin', adminConfig)
+  await compile('admin', adminConfig)
   await Promise.map(subapps, async (item) => {
     const { app, subapp, dir } = item
     const config = webpackConfig(app, subapp, dir)
@@ -128,7 +128,7 @@ const buildServer = async () => {
   const coreDirs = ['lib','objects','scripts','services','utils'].map(dir => `core/${dir}`)
   await Promise.map([...appDirs, ...coreDirs], buildDir)
   await Promise.map(['cron.js','server.js','worker.js'], buildEntry)
-  await copy(path.join('src','core','admin','config','ecosystem.config.js'), path.join(staged,'ecosystem.config.js'))
+  await copy(path.join('src','scripts','build','ecosystem.config.js'), path.join(staged,'ecosystem.config.js'))
   await copy(path.join('package.json'), path.join(staged,'package.json'))
   await copy(path.join('package-lock.json'), path.join(staged,'package-lock.json'))
   log('info', 'server', 'Compiled successfully.')
@@ -158,10 +158,10 @@ const build = async (flags, args) => {
   rimraf.sync(staged)
   mkdirp.sync(path.join(staged, 'public'))
   await Promise.all([
-    // buildServer(),
+    buildServer(),
     buildClients(),
-    // buildHelp(),
-    // buildEnv()
+    buildHelp(),
+    buildEnv()
   ])
   rimraf.sync(dist)
   await move(staged, dist)

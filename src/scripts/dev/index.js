@@ -1,7 +1,7 @@
 import '../../core/services/environment'
-import adminConfig from '../../core/admin/config/webpack.development.config'
 import desktopConfig from '../../desktop/config/webpack.config'
 import mobileConfig from '../../mobile/config/webpack.config'
+import adminConfig from './webpack.admin.config'
 import webpackConfig from './webpack.config'
 import devServer from 'webpack-dev-server'
 import log from '../../core/utils/log'
