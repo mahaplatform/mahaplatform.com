@@ -1,8 +1,7 @@
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
-import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
-import Message from '../message'
 import Loader from '../loader'
+import Error from '../error'
 import React from 'react'
 import _ from 'lodash'
 
@@ -25,12 +24,7 @@ class Modal extends React.Component {
     onPush: PropTypes.func
   }
 
-  static getDerivedStateFromError(error) {
-    return { error: true }
-  }
-
   state = {
-    error: false,
     panels: []
   }
 
@@ -44,40 +38,30 @@ class Modal extends React.Component {
       </CSSTransition>,
       <CSSTransition key="maha-modal-window" in={ this.props.panels.length > 0 } classNames="expanded" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
         <div className="maha-modal-window">
-          <div className="maha-modal-window-container">
-            { panels.length === 0 &&
-              <div className="maha-modal-loader">
-                <Loader />
-              </div>
-            }
-            <TransitionGroup component={ null }>
-              { panels.map((panel, index) => (
-                <CSSTransition component={ null } classNames={ index > 0 ? 'stack' : ''} timeout={ 500 } key={ `panel_${index}` }>
-                  { error ?
-                    this.renderError() :
-                    <div className="maha-modal-window-panel">
-                      { _.isFunction(panel) ? React.createElement(panel) : panel }
-                    </div>
-                  }
-                </CSSTransition>
-              ))}
-            </TransitionGroup>
-          </div>
+          <Error>
+            <div className="maha-modal-window-container">
+              { panels.length === 0 &&
+                <div className="maha-modal-loader">
+                  <Loader />
+                </div>
+              }
+              <TransitionGroup component={ null }>
+                { panels.map((panel, index) => (
+                  <CSSTransition component={ null } classNames={ index > 0 ? 'stack' : ''} timeout={ 500 } key={ `panel_${index}` }>
+                    { error ?
+                      this.renderError() :
+                      <div className="maha-modal-window-panel">
+                        { _.isFunction(panel) ? React.createElement(panel) : panel }
+                      </div>
+                    }
+                  </CSSTransition>
+                ))}
+              </TransitionGroup>
+            </div>
+          </Error>
         </div>
       </CSSTransition>
     ])
-  }
-
-  renderError() {
-    return (
-      <ModalPanel { ...this._getErrorPanel() }>
-        <Message { ...this._getError() } />
-      </ModalPanel>
-    )
-  }
-
-  componentDidCatch(error, info) {
-    this.context.logger.error(error, info)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -96,20 +80,6 @@ class Modal extends React.Component {
         pop: this._handlePop.bind(this),
         push: this._handlePush.bind(this)
       }
-    }
-  }
-
-  _getErrorPanel() {
-    return {
-      title: 'Error'
-    }
-  }
-
-  _getError() {
-    return {
-      icon: 'exclamation-triangle',
-      title: 'Error',
-      text: 'There was a problem'
     }
   }
 

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 import Message from '../message'
 import Button from '../button'
 import Panel from '../panel'
+import Error from '../error'
 import Tabs from '../tabs'
 import React from 'react'
 import _ from 'lodash'
@@ -47,17 +48,12 @@ class Page extends React.Component {
     user: PropTypes.object
   }
 
-  static getDerivedStateFromError(error) {
-    return { error: true }
-  }
-
   static defaultProps = {
     color: 'red'
   }
 
   state = {
-    access: null,
-    error: false
+    access: null
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -66,55 +62,48 @@ class Page extends React.Component {
   _handleUpdateTitle = this._handleUpdateTitle.bind(this)
 
   render() {
-    const { access, error } = this.state
+    const { access } = this.state
     const { alert, buttons, collection, message, panel, sidebar, tabs } = this.props
     const Component = this.props.component
     if(access === null) return null
-    if(error) return this.renderError()
     if(!access) return this.renderForbidden()
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-page">
-          <div className="maha-page-main">
-            { sidebar &&
-              <div className="maha-page-sidebar">
-                { _.isFunction(sidebar) ? React.createElement(sidebar) : sidebar }
+        <Error>
+          <div className="maha-page">
+            <div className="maha-page-main">
+              { sidebar &&
+                <div className="maha-page-sidebar">
+                  { _.isFunction(sidebar) ? React.createElement(sidebar) : sidebar }
+                </div>
+              }
+              <div className="maha-page-body">
+                { Component && <Component { ...this._getComponent() } /> }
+                { collection && <Collection { ...this._getCollection() } /> }
+                { message && <Message { ...message } /> }
+                { tabs && <Tabs { ...tabs } /> }
+                { panel && <Panel { ...panel } /> }
+                { this.props.children }
+              </div>
+            </div>
+            { alert &&
+              <div className="maha-page-alert">
+                { alert }
               </div>
             }
-            <div className="maha-page-body">
-              { Component && <Component { ...this._getComponent() } /> }
-              { collection && <Collection { ...this._getCollection() } /> }
-              { message && <Message { ...message } /> }
-              { tabs && <Tabs { ...tabs } /> }
-              { panel && <Panel { ...panel } /> }
-              { this.props.children }
-            </div>
           </div>
-          { alert &&
-            <div className="maha-page-alert">
-              { alert }
+          <CSSTransition in={ !_.isNil(buttons) } classNames="expanded" timeout={ 150 } mountOnEnter={ true } unmountOnExit={ true }>
+            <div className="maha-page-footer">
+              <div className="maha-page-footer-items">
+                { buttons && buttons.map((button, index) => (
+                  <div key={`pager_footer_${index}`} className="maha-page-footer-item">
+                    <Button { ...button } />
+                  </div>
+                )) }
+              </div>
             </div>
-          }
-        </div>
-        <CSSTransition in={ !_.isNil(buttons) } classNames="expanded" timeout={ 150 } mountOnEnter={ true } unmountOnExit={ true }>
-          <div className="maha-page-footer">
-            <div className="maha-page-footer-items">
-              { buttons && buttons.map((button, index) => (
-                <div key={`pager_footer_${index}`} className="maha-page-footer-item">
-                  <Button { ...button } />
-                </div>
-              )) }
-            </div>
-          </div>
-        </CSSTransition>
-      </ModalPanel>
-    )
-  }
-
-  renderError() {
-    return (
-      <ModalPanel { ...this._getErrorPanel() }>
-        <Message { ...this._getError() } />
+          </CSSTransition>
+        </Error>
       </ModalPanel>
     )
   }
@@ -131,10 +120,6 @@ class Page extends React.Component {
     const { title } = this.props
     this._handleCheckAccess()
     this._handleUpdateTitle(title)
-  }
-
-  componentDidCatch(error, info) {
-    this.context.logger.error(error, info)
   }
 
   componentDidUpdate(prevProps) {
@@ -174,23 +159,6 @@ class Page extends React.Component {
       cacheKey,
       token: team.token,
       ...collection
-    }
-  }
-
-  _getErrorPanel() {
-    return {
-      leftItems: [
-        { icon: 'chevron-left', handler: this._handleBack }
-      ],
-      title: 'Error'
-    }
-  }
-
-  _getError() {
-    return {
-      icon: 'exclamation-triangle',
-      title: 'Error',
-      text: 'There was a problem'
     }
   }
 
