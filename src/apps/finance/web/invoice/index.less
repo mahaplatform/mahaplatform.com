@@ -77,11 +77,48 @@ body {
     .translateY(@end);
   })
 }
-
+.colorize(@property) {
+	&.red { @{property}: @red; }
+	&.orange { @{property}: @orange; }
+	&.yellow { @{property}: @yellow; }
+	&.olive { @{property}: @olive; }
+	&.green { @{property}: @green; }
+	&.teal { @{property}: @teal; }
+	&.blue { @{property}: @blue; }
+	&.purple { @{property}: @purple; }
+	&.violet { @{property}: @violet; }
+	&.pink { @{property}: @pink; }
+	&.brown { @{property}: @brown; }
+	&.grey { @{property}: @grey; }
+	&.black { @{property}: @black; }
+}
+.colorizeItem(@item, @property) {
+	&.red .@{item} { @{property}: @red; }
+	&.orange .@{item} { @{property}: @orange; }
+	&.yellow .@{item} { @{property}: @yellow; }
+	&.olive .@{item} { @{property}: @olive; }
+	&.green .@{item} { @{property}: @green; }
+	&.teal .@{item} { @{property}: @teal; }
+	&.blue .@{item} { @{property}: @blue; }
+	&.purple .@{item} { @{property}: @purple; }
+	&.violet .@{item} { @{property}: @violet; }
+	&.pink .@{item} { @{property}: @pink; }
+	&.brown .@{item} { @{property}: @brown; }
+	&.grey .@{item} { @{property}: @grey; }
+	&.black .@{item} { @{property}: @black; }
+}
+.hover(@property, @value) {
+  &:hover {
+    @media (min-width: 769px) {
+      @{property}: @value;
+    }
+  }
+}
 @import './components/image/style.less';
 @import './components/invoice/style.less';
 @import './components/loader/style.less';
 @import './components/logo/style.less';
 @import './components/modal/style.less';
+@import './components/modal_panel/style.less';
 @import './components/network/style.less';
 @import './components/stack/style.less';

@@ -1,3 +1,4 @@
+import Payment from './components/payment'
 import Invoice from './components/invoice'
 import Network from './components/network'
 import Modal from './components/modal'
@@ -28,7 +29,8 @@ class App extends React.Component {
     return {
       reducers: [
         Invoice,
-        Network
+        Network,
+        Payment
       ]
     }
   }

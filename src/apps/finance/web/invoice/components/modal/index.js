@@ -17,6 +17,11 @@ class Modal extends React.Component {
     cards: []
   }
 
+  _handleClose = this._handleClose.bind(this)
+  _handleOpen =  this._handleOpen.bind(this)
+  _handlePop =  this._handlePop.bind(this)
+  _handlePush =  this._handlePush.bind(this)
+
   render() {
     const { cards } = this.state
     const { children } = this.props
@@ -36,10 +41,10 @@ class Modal extends React.Component {
   getChildContext() {
     return {
       modal: {
-        close: this._handleClose.bind(this),
-        open: this._handleOpen.bind(this),
-        pop: this._handlePop.bind(this),
-        push: this._handlePush.bind(this)
+        close: this._handleClose,
+        open: this._handleOpen,
+        pop: this._handlePop,
+        push: this._handlePush
       }
     }
   }
@@ -57,6 +62,7 @@ class Modal extends React.Component {
   }
 
   _handleOpen(component) {
+    console.log('here')
     this._handlePush(component)
   }
 

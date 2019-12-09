@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Payment from '../payment'
 import numeral from 'numeral'
 import moment from 'moment'
 import Logo from '../logo'
@@ -6,11 +7,17 @@ import React from 'react'
 
 class Invoice extends React.Component {
 
+  static contextTypes = {
+    modal: PropTypes.object
+  }
+
   static propTypes = {
     invoice: PropTypes.object,
     status: PropTypes.string,
     onFetch: PropTypes.func
   }
+
+  _handlePayment = this._handlePayment.bind(this)
 
   render() {
     const { invoice, status } = this.props
@@ -145,7 +152,7 @@ class Invoice extends React.Component {
         </div>
         <div className="finance-invoice-footer">
           <div className="finance-invoice-footer-inner">
-            <div className="ui fluid button">
+            <div className="ui fluid button" onClick={ this._handlePayment }>
               Pay Invoice
             </div>
           </div>
@@ -176,6 +183,10 @@ class Invoice extends React.Component {
     if(method === 'scholarship') return 'Applied scholarship'
     if(method === 'credit') return 'Applied customer credit'
     if(method === 'cash') return 'Received cash'
+  }
+
+  _handlePayment() {
+    this.context.modal.open(Payment)
   }
 
 }
