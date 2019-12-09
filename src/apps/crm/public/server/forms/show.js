@@ -5,7 +5,7 @@ import ejs from 'ejs'
 
 const showRoute = async (req, res) => {
 
-  const template = await readFile(path.join('embedded','index.html'))
+  const template = await readFile(path.join('crm','embedded','index.html'))
 
   const form = await Form.query(qb => {
     qb.where('code', req.params.code)

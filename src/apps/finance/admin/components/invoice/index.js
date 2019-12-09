@@ -167,7 +167,6 @@ class Invoice extends React.PureComponent {
     if(method === 'scholarship') return 'Applied scholarship'
     if(method === 'credit') return 'Applied customer credit'
     if(method === 'cash') return 'Received cash'
-
   }
 
 }

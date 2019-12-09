@@ -1,3 +1,54 @@
-body {
-  background-color: red;
+@red: #DB2828;
+@orange: #F2711C;
+@yellow: #FBBD08;
+@olive: #B5CC18;
+@green: #21BA45;
+@teal: #00B5AD;
+@blue: #2185D0;
+@violet: #6435C9;
+@purple: #A333C8;
+@pink: #E03997;
+@brown: #A5673F;
+@black: #000000;
+@white: #FFFFFF;
+@android: #A4C639;
+@paypal: #0079C1;
+
+html, body {
+  height: 100%;
 }
+body {
+  background: fadeout(@black, 97);
+}
+#app {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+}
+.scrollable() {
+  -webkit-transform: translateZ(0);
+  -webkit-backface-visibility: hidden;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+}
+.transition(@transition) {
+  transition: @transition;
+}
+.translateY(@y) {
+  transform: translateY(@y);
+}
+.translate-y-transition(@start, @end, @duration) {
+  .transition(transform @duration ease-in-out 0s);
+  .expanded({
+    .translateY(@start);
+  }, {
+    .translateY(@end);
+  })
+}
+
+@import './components/invoice/style.less';
+@import './components/loader/style.less';
+@import './components/modal/style.less';
+@import './components/network/style.less';

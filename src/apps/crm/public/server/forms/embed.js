@@ -4,7 +4,7 @@ import path from 'path'
 
 const embedRoute = async (req, res) => {
 
-  const template = await readFile(path.join('embed','js','main.js'))
+  const template = await readFile(path.join('crm','embed','js','main.js'))
 
   const form = await Form.query(qb => {
     qb.where('code', req.params.code)

@@ -1,6 +1,29 @@
 .finance-invoice {
-  background-color: @white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
+.finance-invoice-footer {
+  border-top: 1px solid fadeout(@black, 90);
+}
+.finance-invoice-footer-inner {
+  padding: 0.8em;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 768px;
+}
+.finance-invoice-body {
+  padding: 0.8em;
+  flex: 1;
+  .scrollable();
+}
+.finance-invoice-document {
+  background-color: @white;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 768px;
+}
+
 @media (max-width: 768px) {
   .finance-invoice-col {
     padding: 0.4em 0.8em;

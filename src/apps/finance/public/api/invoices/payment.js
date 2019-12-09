@@ -1,11 +1,6 @@
 import Invoice from '../../../models/invoice'
-import { readFile } from './utils'
-import path from 'path'
-import ejs from 'ejs'
 
-const showRoute = async (req, res) => {
-
-  const template = await readFile(path.join('finance','invoice','index.html'))
+const paymentRoute = async (req, res) => {
 
   const invoice = await Invoice.query(qb => {
     qb.where('code', req.params.code)
@@ -19,12 +14,8 @@ const showRoute = async (req, res) => {
     message: 'Unable to load invoice'
   })
 
-  const content = ejs.render(template, {
-    invoice
-  })
-
-  res.status(200).send(content)
+  res.status(200).respond(true)
 
 }
 
-export default showRoute
+export default paymentRoute
