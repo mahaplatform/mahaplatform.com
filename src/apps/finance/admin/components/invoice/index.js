@@ -113,7 +113,7 @@ class Invoice extends React.PureComponent {
                 <tr key={`payment_${index}`} className={ this._getPaymentClass(payment) }>
                   <td colSpan="3">
                     <span>
-                      { this._getMethod(payment) } on { moment(payment.date).format('MM/DD/YYYY') }
+                      { payment.description } on { moment(payment.date).format('MM/DD/YYYY') }
                     </span> { payment.voided_date &&
                       `(voided on ${ moment(payment.voided_date).format('MM/DD/YYYY') })`
                     }
@@ -137,18 +137,6 @@ class Invoice extends React.PureComponent {
         }
       </div>
     )
-  }
-
-  _getMethod(props) {
-    const { description, method } = props
-    if(method === 'paypal') return `Charged ${description}`
-    if(method === 'card') return `Charged ${description}`
-    if(method === 'googlepay') return `Charged ${description} via GooglePay`
-    if(method === 'applepay') return `Charged ${description} via ApplePay`
-    if(method === 'check') return `Received check (${description})`
-    if(method === 'scholarship') return 'Applied scholarship'
-    if(method === 'credit') return 'Applied customer credit'
-    if(method === 'cash') return 'Received cash'
   }
 
   _getPaymentClass(payment) {

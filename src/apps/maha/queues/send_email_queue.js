@@ -37,6 +37,7 @@ const enqueue = async (req, options) => {
     moment,
     numeral,
     pluralize,
+    _,
     team,
     maha: options.maha !== undefined ? options.maha : true,
     host: process.env.WEB_HOST,
