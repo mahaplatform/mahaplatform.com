@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Button, Logo } from 'maha-admin'
+import { Logo } from 'maha-admin'
 import numeral from 'numeral'
 import moment from 'moment'
 import React from 'react'
@@ -48,8 +48,7 @@ class Invoice extends React.PureComponent {
                 </div>
                 <div className="finance-invoice-vendor-details">
                   <strong>{ invoice.program.title }</strong><br />
-                  615 Willow Ave<br />
-                  Ithaca, NY 14850
+                  <span dangerouslySetInnerHTML={{ __html: invoice.program.address.replace(/\n/g,'<br />') }} />
                 </div>
               </div>
             </div>
@@ -136,25 +135,8 @@ class Invoice extends React.PureComponent {
             { invoice.notes }
           </div>
         }
-        <Button { ...this._getPublic() } />
       </div>
     )
-  }
-
-  _getPublic() {
-    const { invoice } = this.props
-    return {
-      label: 'View Public',
-      link: `${process.env.WEB_HOST}/finance/invoices/${invoice.code}`,
-      className: 'link'
-    }
-  }
-
-  _getPaymentClass(payment) {
-    const classes = []
-    if(payment.voided_date) classes.push('voided')
-    return classes.join(' ')
-
   }
 
   _getMethod(props) {
@@ -167,6 +149,12 @@ class Invoice extends React.PureComponent {
     if(method === 'scholarship') return 'Applied scholarship'
     if(method === 'credit') return 'Applied customer credit'
     if(method === 'cash') return 'Received cash'
+  }
+
+  _getPaymentClass(payment) {
+    const classes = []
+    if(payment.voided_date) classes.push('voided')
+    return classes.join(' ')
   }
 
 }

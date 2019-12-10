@@ -19,7 +19,7 @@ const templates = emails.reduce((emails, email) => ({
   [`${email.config.code}:${email.default.code}`]: {
     subject: email.default.subject,
     envelope: email.default.envelope,
-    html: fs.readFileSync(path.join(email.filepath, 'html.ejs')).toString()
+    filepath: email.filepath
   }
 }), {})
 
@@ -42,7 +42,9 @@ const enqueue = async (req, options) => {
     ...options.data || {}
   }
 
-  const innerContent = ejs.render(template.html, options.data)
+  const content = fs.readFileSync(path.join(template.filepath, 'html.ejs')).toString()
+
+  const innerContent = ejs.render(content, options.data)
 
   const envelopeTemplate = fs.readFileSync(path.resolve(__dirname, '..', 'emails', 'envelope.ejs')).toString()
 

@@ -20,7 +20,7 @@ const updateRoute = async (req, res) => {
   })
 
   await program.save({
-    ...whitelist(req.body, ['logo_id','title'])
+    ...whitelist(req.body, ['logo_id','title','address'])
   }, {
     transacting: req.trx
   })

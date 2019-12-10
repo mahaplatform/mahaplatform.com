@@ -2,6 +2,7 @@ import { Page } from 'maha-admin'
 import Payments from './payments'
 import Payment from './payment'
 import Details from './details'
+import Send from './send'
 import Void from './void'
 import React from 'react'
 
@@ -28,8 +29,10 @@ const getTasks = ({ invoice }) => {
       items.push({ label: 'Void Invoice', modal: <Void invoice={ invoice } />  })
     }
     items.push({ label: 'Receive Payment', modal: <Payment invoice={ invoice } /> })
-    items.push({ label: 'Send Invoice' })
+    items.push({ label: 'View Public Invoice', link: `${process.env.WEB_HOST}/finance/invoices/${invoice.code}` })
+    items.push({ label: 'Send Invoice', modal: <Send invoice={ invoice } />  })
   } else {
+    items.push({ label: 'View Public Invoice', link: `${process.env.WEB_HOST}/finance/invoices/${invoice.code}` })
     items.push({ label: 'Send Receipt' })
   }
   return { items }

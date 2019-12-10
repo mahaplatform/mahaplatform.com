@@ -1,6 +1,7 @@
 const ProgramSerializer = (req, result) => ({
   id: result.get('id'),
   title: result.get('title'),
+  address: result.get('address'),
   logo: result.related('logo') ? result.related('logo').get('path') : null,
   phone_number: phone_number(result.related('phone_number')),
   access_type: result.get('access_type'),

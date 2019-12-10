@@ -18,6 +18,7 @@ const editRoute = async (req, res) => {
   res.status(200).respond({
     id: program.get('id'),
     title: program.get('title'),
+    address: program.get('address'),
     logo_id: program.get('logo_id')
   })
 

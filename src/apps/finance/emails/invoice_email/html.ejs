@@ -1,0 +1,45 @@
+<table align="center" class="container panel">
+  <tbody>
+    <tr>
+      <td class="small-12 large-12 columns first last">
+        <p><%= message %></p>
+        <table>
+          <tbody>
+            <tr>
+              <td>Invoice ID</td>
+              <td><%= invoice.code %></td>
+            </tr>
+            <tr>
+              <td>Date</td>
+              <td><%= moment(invoice.date).format('MMM DD, YYYY') %></td>
+            </tr>
+            <tr>
+              <td>Due</td>
+              <td><%= moment(invoice.due).format('MMM DD, YYYY') %></td>
+            </tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr>
+              <td>ITEM</td>
+              <td>QTY</td>
+              <td>PRICE</td>
+              <td>TOTAL</td>
+            </tr>
+          </thead>
+          <tbody>
+            <% invoice.line_items.map((invoice) => { %>
+              <tr>
+                <td><%= invoice.description %></td>
+                <td><%= invoice.quantity %></td>
+                <td><%= invoice.price %></td>
+                <td><%= invoice.total %></td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>

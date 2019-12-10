@@ -462,6 +462,7 @@ const schema = {
       table.string('code', 255)
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.text('address')
     })
 
     await knex.schema.createTable('crm_responses', (table) => {
@@ -1648,6 +1649,7 @@ const schema = {
       table.integer('logo_id').unsigned()
       table.USER-DEFINED('authentication_strategy')
       table.jsonb('authentication_config')
+      table.text('address')
     })
 
     await knex.schema.createTable('maha_teams_apps', (table) => {

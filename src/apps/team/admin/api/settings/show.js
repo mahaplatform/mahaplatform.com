@@ -1,16 +1,12 @@
+import TeamSerializer from '../../../serializers/team_serializer'
+
 const showRoute = async (req, res) => {
 
   await req.team.load('logo', {
     transacting: req.trx
   })
 
-  res.status(200).respond(req.team, (req, result) => ({
-    title: result.get('title'),
-    subdomain: result.get('subdomain'),
-    authentication_strategy: result.get('authentication_strategy'),
-    logo_id: result.get('logo_id'),
-    logo: result.related('logo').get('path')
-  }))
+  res.status(200).respond(req.team, TeamSerializer)
 
 }
 

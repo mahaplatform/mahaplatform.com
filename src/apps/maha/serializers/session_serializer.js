@@ -34,6 +34,7 @@ const SessionSerializer = (req, session) => ({
     id: session.team.get('id'),
     authentication_strategy: session.team.get('authentication_strategy'),
     title: session.team.get('title'),
+    address: session.team.get('address'),
     subdomain: session.team.get('subdomain'),
     logo: session.team.related('logo').get('path'),
     token: session.token

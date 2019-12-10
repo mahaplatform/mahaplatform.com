@@ -22,7 +22,6 @@ class Invoice extends React.Component {
 
   render() {
     const { invoice } = window
-    console.log(invoice)
     return (
       <div className="finance-invoice">
         <div className="finance-invoice-body">
@@ -205,7 +204,6 @@ class Invoice extends React.Component {
     items.push({ label: 'Credit Card', modal: Card })
     items.push({ label: 'Bank Account', modal: ACH })
     this.context.tasks.open({
-      title: 'Pay with',
       items
     })
   }

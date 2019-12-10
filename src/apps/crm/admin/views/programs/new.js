@@ -1,5 +1,6 @@
 import VisibilityToken from '../../tokens/visibility'
 import { Form, UserToken } from 'maha-admin'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -9,7 +10,9 @@ class New extends React.Component {
     modal: PropTypes.object
   }
 
-  static propTypes = {}
+  static propTypes = {
+    team: PropTypes.object
+  }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
@@ -19,6 +22,7 @@ class New extends React.Component {
   }
 
   _getForm() {
+    const { team } = this.props
     return {
       title: 'New Program',
       method: 'post',
@@ -30,6 +34,7 @@ class New extends React.Component {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
             { label: 'Logo', name: 'logo_id', type: 'filefield', prompt: 'Choose Logo', multiple: false },
+            { label: 'Invoice Address', name: 'address', type: 'textarea', rows: 2, required: true, defaultValue: team.address },
             { label: 'Managers', name: 'manager_ids', type: 'lookup2', placeholder: 'Assign admin privileges', multiple: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', format: UserToken },
             { label: 'Visibility', name: 'visibility', type: 'radiogroup', options: ['public','private'], format: VisibilityToken, defaultValue: 'public' }
           ]
@@ -48,4 +53,8 @@ class New extends React.Component {
 
 }
 
-export default New
+const mapStateToProps = (state, props) => ({
+  team: state.maha.admin.team
+})
+
+export default connect(mapStateToProps)(New)
