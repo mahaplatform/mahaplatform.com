@@ -1,6 +1,7 @@
 const emailSerializer = (req, result) => ({
   id: result.get('id'),
-  user: user(result, 'user'),
+  user: user(result.related('user')),
+  from: result.get('from'),
   to: result.get('to'),
   subject: result.get('subject'),
   html: result.get('html'),
@@ -21,7 +22,7 @@ const activity = (activity) => ({
 })
 
 const link = (link) => {
-  if(link.get('id')) return null
+  if(!link.id) return null
   return {
     id: link.get('id'),
     text: link.get('text'),

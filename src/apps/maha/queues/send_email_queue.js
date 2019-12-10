@@ -38,30 +38,28 @@ const enqueue = async (req, options) => {
     numeral,
     pluralize,
     team,
+    maha: options.maha !== undefined ? options.maha : true,
     host: process.env.WEB_HOST,
     ...options.data || {}
   }
 
   const contentTemplate = fs.readFileSync(path.join(template.filepath, 'html.ejs')).toString()
 
-  const mahaTemplate = fs.readFileSync(path.resolve(__dirname, '..', 'emails', 'maha.ejs')).toString()
-
   const envelopeTemplate = fs.readFileSync(path.resolve(__dirname, '..', 'emails', 'envelope.ejs')).toString()
 
-  let content = ejs.render(contentTemplate, options.data)
+  const content = ejs.render(contentTemplate, options.data)
 
-  content = options.maha !== false ? ejs.render(mahaTemplate, { ...options.data, content }) : content
-
-  content = options.envelope !== false ? ejs.render(envelopeTemplate, { ...options.data, content }) : content
+  const html = template.envelope !== false ? ejs.render(envelopeTemplate, { ...options.data, content }) : content
 
   const subject = options.subject || template.subject
 
   const email = await Email.forge({
     team_id: options.team_id,
     user_id: options.user ? options.user.get('id') : null,
+    from: options.from || 'Maha <mailer@mahaplatform.com>',
     to: options.to || options.user.get('rfc822'),
     subject: ejs.render(subject, options.data),
-    html: content,
+    html,
     code: _.random(100000, 999999).toString(36)
   }).save(null, {
     transacting: req.trx
@@ -92,7 +90,7 @@ const processor = async (job, trx) => {
   })).get()
 
   const rendered = {
-    from: 'Maha <mailer@mahaplatform.com>',
+    from: email.get('from'),
     to: email.get('to'),
     subject: email.get('subject'),
     html: parsed.html(),

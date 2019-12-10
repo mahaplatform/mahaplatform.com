@@ -23,7 +23,9 @@ const Email = new Model({
   },
 
   activities() {
-    return this.hasMany(EmailActivity, 'email_id')
+    return this.hasMany(EmailActivity, 'email_id').query(qb => {
+      qb.orderBy('created_at','asc')
+    })
   },
 
   user() {

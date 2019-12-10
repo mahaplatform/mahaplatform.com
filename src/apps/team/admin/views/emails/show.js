@@ -15,16 +15,19 @@ class EmailsShow extends React.Component {
       <div className="team-email-canvas">
         <div className="team-email">
           <div className="team-email-header">
-            <div className="team-email-header-avatar">
-              <Avatar user={ email.user } presence={ false }/>
-            </div>
+            { email.user &&
+              <div className="team-email-header-avatar">
+                <Avatar user={ email.user } presence={ false }/>
+              </div>
+            }
             <div className="team-email-header-details">
+              <strong>From:</strong> { email.from }<br />
               <strong>To:</strong> { email.to }<br />
               <strong>Subject:</strong> { email.subject }
             </div>
           </div>
           <div className="team-email-body">
-            <iframe border="0" src={ `data:text/html;charset=utf-8,${ email.html }`} />
+            <iframe border="0" src={ `data:text/html;charset=utf-8,${ encodeURIComponent(email.html) }`} />
           </div>
           <div className="team-email-feed">
             { email.sent_at &&

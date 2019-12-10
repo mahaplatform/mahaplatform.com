@@ -5,6 +5,8 @@ import generateCode from '../../../../../core/utils/generate_code'
 import socket from '../../../../../core/services/routes/emitter'
 import ProgramAccess from '../../../models/program_access'
 import Program from '../../../models/program'
+import Sender from '../../../models/sender'
+import _ from 'lodash'
 
 const createRoute = async (req, res) => {
 
@@ -20,16 +22,18 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await Promise.map(req.body.manager_ids, async(user_id) => {
-    await ProgramAccess.forge({
-      team_id: req.team.get('id'),
-      program_id: program.get('id'),
-      user_id,
-      type: 'manage'
-    }).save(null, {
-      transacting: req.trx
+  if(req.body.manager_ids) {
+    await Promise.map(req.body.manager_ids, async(user_id) => {
+      await ProgramAccess.forge({
+        team_id: req.team.get('id'),
+        program_id: program.get('id'),
+        user_id,
+        type: 'manage'
+      }).save(null, {
+        transacting: req.trx
+      })
     })
-  })
+  }
 
   if(req.body.visibility === 'public') {
     await ProgramAccess.forge({
@@ -41,6 +45,16 @@ const createRoute = async (req, res) => {
       transacting: req.trx
     })
   }
+
+  await Sender.forge({
+    team_id: req.team.get('id'),
+    program_id: program.get('id'),
+    name: program.get('title'),
+    email: `${program.get('title').replace(/\s*/g,'').toLowerCase()}@mahaplatform.com`,
+    is_verified: true
+  }).save(null, {
+    transacting: req.trx
+  })
 
   await activity(req, {
     story: 'created {object}',

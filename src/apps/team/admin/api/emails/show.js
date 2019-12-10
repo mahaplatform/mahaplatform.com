@@ -6,12 +6,7 @@ const showRoute = async (req, res) => {
   const email = await Email.where({
     id: req.params.id
   }).fetch({
-    withRelated: [
-      {
-        activities: qb => qb.orderBy('created_at','asc')
-      },
-      'activities.link','user.photo'
-    ],
+    withRelated: ['activities.link','user.photo'],
     transacting: req.trx
   })
 

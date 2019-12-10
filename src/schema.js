@@ -1298,6 +1298,7 @@ const schema = {
       table.USER-DEFINED('direction')
       table.USER-DEFINED('status')
       table.boolean('is_mobile')
+      table.string('from', 255)
     })
 
     await knex.schema.createTable('maha_faxes', (table) => {
@@ -2391,6 +2392,11 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
+    await knex.schema.table('finance_cards', table => {
+      table.foreign('customer_id').references('crm_contacts.id')
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
     await knex.schema.table('finance_coupons_products', table => {
       table.foreign('coupon_id').references('finance_coupons.id')
       table.foreign('product_id').references('finance_products.id')
@@ -2402,8 +2408,8 @@ const schema = {
 
     await knex.schema.table('finance_credits', table => {
       table.foreign('customer_id').references('crm_contacts.id')
-      table.foreign('team_id').references('maha_teams.id')
       table.foreign('program_id').references('crm_programs.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('finance_disbursements', table => {
@@ -2421,9 +2427,9 @@ const schema = {
     await knex.schema.table('finance_line_items', table => {
       table.foreign('invoice_id').references('finance_invoices.id')
       table.foreign('product_id').references('finance_products.id')
-      table.foreign('team_id').references('maha_teams.id')
       table.foreign('project_id').references('finance_projects.id')
       table.foreign('revenue_type_id').references('finance_revenue_types.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('finance_merchants', table => {
@@ -2431,14 +2437,14 @@ const schema = {
     })
 
     await knex.schema.table('finance_payments', table => {
+      table.foreign('card_id').references('finance_cards.id')
       table.foreign('credit_id').references('finance_credits.id')
       table.foreign('disbursement_id').references('finance_disbursements.id')
       table.foreign('invoice_id').references('finance_invoices.id')
       table.foreign('merchant_id').references('finance_merchants.id')
+      table.foreign('photo_id').references('maha_assets.id')
       table.foreign('scholarship_id').references('finance_scholarships.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('photo_id').references('maha_assets.id')
-      table.foreign('card_id').references('finance_cards.id')
     })
 
     await knex.schema.table('finance_products', table => {
@@ -2459,8 +2465,8 @@ const schema = {
 
     await knex.schema.table('finance_scholarships', table => {
       table.foreign('customer_id').references('crm_contacts.id')
-      table.foreign('team_id').references('maha_teams.id')
       table.foreign('program_id').references('crm_programs.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('maha_activities', table => {
@@ -2826,11 +2832,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('finance_cards', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('customer_id').references('crm_contacts.id')
     })
 
 
