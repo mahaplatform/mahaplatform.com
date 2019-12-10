@@ -42,13 +42,17 @@ const enqueue = async (req, options) => {
     ...options.data || {}
   }
 
-  const content = fs.readFileSync(path.join(template.filepath, 'html.ejs')).toString()
+  const contentTemplate = fs.readFileSync(path.join(template.filepath, 'html.ejs')).toString()
 
-  const innerContent = ejs.render(content, options.data)
+  const mahaTemplate = fs.readFileSync(path.resolve(__dirname, '..', 'emails', 'maha.ejs')).toString()
 
   const envelopeTemplate = fs.readFileSync(path.resolve(__dirname, '..', 'emails', 'envelope.ejs')).toString()
 
-  const html = template.envelope !== null ? ejs.render(envelopeTemplate, { ...options.data, content: innerContent}) : innerContent
+  let content = ejs.render(contentTemplate, options.data)
+
+  content = options.maha !== false ? ejs.render(mahaTemplate, { ...options.data, content }) : content
+
+  content = options.envelope !== false ? ejs.render(envelopeTemplate, { ...options.data, content }) : content
 
   const subject = options.subject || template.subject
 
@@ -57,7 +61,7 @@ const enqueue = async (req, options) => {
     user_id: options.user ? options.user.get('id') : null,
     to: options.to || options.user.get('rfc822'),
     subject: ejs.render(subject, options.data),
-    html,
+    html: content,
     code: _.random(100000, 999999).toString(36)
   }).save(null, {
     transacting: req.trx
@@ -115,7 +119,10 @@ const processor = async (job, trx) => {
 
   const result = await sendMail(mapped)
 
-  await email.save(result, { patch: true, transacting: trx })
+  await email.save(result, {
+    patch: true,
+    transacting: trx
+  })
 
 }
 

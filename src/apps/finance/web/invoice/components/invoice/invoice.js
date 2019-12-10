@@ -5,6 +5,7 @@ import moment from 'moment'
 import Card from '../card'
 import React from 'react'
 import ACH from '../ach'
+import _ from 'lodash'
 
 class Invoice extends React.Component {
 
@@ -150,11 +151,13 @@ class Invoice extends React.Component {
             }
           </div>
         </div>
-        <div className="finance-invoice-footer">
-          <div className="finance-invoice-footer-inner">
-            <Button { ...this._getPayment() } />
+        { !_.includes(['paid','void'], invoice.status) &&
+          <div className="finance-invoice-footer">
+            <div className="finance-invoice-footer-inner">
+              <Button { ...this._getPayment() } />
+            </div>
           </div>
-        </div>
+        }
       </div>
     )
   }

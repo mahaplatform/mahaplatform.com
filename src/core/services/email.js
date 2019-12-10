@@ -1,5 +1,5 @@
 import htmlToText from 'html-email-to-text'
-import nodemailer from '../services/nodemailer'
+import nodemailer from './nodemailer'
 import inline from 'inline-css'
 import moment from 'moment'
 
@@ -16,7 +16,7 @@ export const sendMail = async (email) => {
 
   try {
 
-    if(process.env.EMAIL_DELIVERY === 'console') return await _sendViaConsole(rendered)
+    // if(process.env.EMAIL_DELIVERY === 'console') return await _sendViaConsole(rendered)
 
     if(process.env.EMAIL_DELIVERY === 'ses') return await _sendViaSES(rendered)
 

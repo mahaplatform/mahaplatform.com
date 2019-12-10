@@ -1,0 +1,165 @@
+<style>
+  body,
+  html,
+  .body {
+    background: #4D4D4D !important;
+  }
+  .body-border {
+    background: #FFFFFF !important;
+  }
+
+  .container.header {
+    background: #4D4D4D;
+  }
+  .panel {
+    margin-top: 15px;
+  }
+  .panel .small-12 {
+    background-color: #F9F9F9 !important;
+    border-radius: 5px;
+    padding: 16px;
+  }
+  .panel p {
+    color: #888888;
+    font-size: 14px;
+    line-height: 24px;
+    margin: 0 0 12px;
+  }
+  .intro {
+    margin-top: 15px;
+  }
+  .intro .small-12 {
+    background-color: #F9F9F9 !important;
+    border-bottom: 1px solid #EEE;
+    border-radius: 5px 5px 0 0;
+    padding: 16px 16px 0;
+  }
+  .intro p {
+    color: #888888;
+    font-size: 14px;
+    line-height: 24px;
+    margin: 0 0 12px;
+  }
+  .intro p:last-child {
+    margin: 0 !important;
+  }
+  .notifications {
+    padding: 0 !important;
+  }
+  .notification {
+    display: block;
+    font-size: 14px !important;
+    line-height: 20px !important;
+    padding: 15px 0 15px 15px;
+    border-bottom: 1px solid #EEE;
+  }
+  .notification a {
+    display: block;
+    text-decoration: none;
+    color: #888888;
+  }
+  .notifications td .notification:last-child {
+    margin-bottom: 0;
+  }
+  .notification:hover {
+    background-color: #F0F0F0 !important;
+  }
+  @media only screen and (max-width: 596px) {
+    .notification .row .small-2 { width: 14% !important; }
+    .notification .row .small-9 { width: 80% !important; }
+    .notification .row .small-1 { width: 6% !important; }
+  }
+  @media only screen and (min-width: 597px) {
+    .notification .row .small-2 { width: 10% !important; }
+    .notification .row .small-9 { width: 84% !important; }
+    .notification .row .small-1 { width: 6% !important; }
+  }
+  .notification .row .small-2,
+  .notification .row .small-9 {
+    padding-bottom: 0 !important;
+    font-size: 14px !important;
+    line-height: 20px !important;
+  }
+  .notification .small-2 img {
+    border-radius: 50%;
+    max-width: 40px !important;
+    width: 40px !important;
+    height: 40px !important;
+  }
+  .notification .small-1 img {
+    display: block;
+    max-width: 10px !important;
+    width: 10px !important;
+    height: 10px !important;
+  }
+  .notification .small-1 {
+    text-align: right !important;
+    vertical-align: middle !important;
+  }
+  .notification .timestamp {
+    color: #AAA !important;
+    font-size: 12px;
+  }
+  .notification strong {
+    color: #000;
+  }
+  .notification td {
+    padding-bottom: 0 !important;
+  }
+  .more .small-12 {
+    border-top: 1px solid #EEE;
+    display: block;
+    font-size: 12px !important;
+    line-height: 18px !important;
+    padding: 10px;
+    background-color: #F0F0F0;
+    color: #888;
+    text-align: center;
+    text-decoration: underline;
+  }
+
+  .cap .small-12 {
+    background-color: #FFFFFF !important;
+    color: #888888 !important;
+    padding: 15px 30px;
+    border-radius: 0 0 5px 5px;
+    font-size: 12px;
+    line-height: 20px;
+    margin: 0 auto 15px !important;
+    text-align: center;
+  }
+  .preferences .small-12 {
+    background-color: #2185d0 !important;
+    color: #FFFFFF !important;
+    padding: 15px 30px;
+    border-radius: 0 0 5px 5px;
+    font-size: 12px;
+    line-height: 20px;
+    margin: 0 auto 15px !important;
+    text-align: center;
+  }
+  .preferences .small-12 a {
+    color: #FFFFFF !important;
+    text-decoration: underline;
+  }
+  .copyright .small-12 {
+    padding: 5px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 12px;
+    line-height: 20px;
+    color: #FFFFFF !important;
+  }
+</style>
+
+<%- content %>
+
+<table align="center" class="container copyright">
+  <tbody>
+    <tr>
+      <td class="small-12 large-12 columns first last">
+        &copy; Copyright <%= moment().format('Y') %> The Maha Platform. All rights Reserved.
+      </td>
+    </tr>
+  </tbody>
+</table>
