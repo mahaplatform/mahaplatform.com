@@ -91,7 +91,7 @@
   <tbody>
     <tr>
       <td class="small-12 large-12 columns first last">
-        <p><%= message %></p>
+        <p><%- message.replace(/\n/g, '<br />') %></p>
         <table class="invoice">
           <tbody>
             <tr>
@@ -200,7 +200,7 @@
                     <% invoice.payments.map((payment) => { %>
                       <tr>
                         <td colspan="3">
-                          <%= payment.description %>
+                          <%= payment.description %> on
                           <%= moment(payment.date).format('MM/DD/YYYY') %>
                           <% if(payment.voided_date) { %>
                             (voided on <%= moment(payment.voided_date).format('MM/DD/YYYY') %>)

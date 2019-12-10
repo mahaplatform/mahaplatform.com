@@ -1,11 +1,25 @@
 .finance-invoice {
   flex: 1;
-  display: flex;
-  flex-direction: column;
+  .scrollable();
+  padding: 0.8em;
+
+  // display: flex;
+  // flex-direction: column;
 }
 .finance-invoice-footer {
-  border-top: 1px solid fadeout(@black, 90);
-  background-color: fadeout(@black, 30);
+  // border-top: 1px solid fadeout(@black, 90);
+  // background-color: fadeout(@black, 30);
+}
+.finance-invoice-footer-buttons {
+  max-width: 768px;
+  padding: 0 0.4em;
+  margin: 0 auto;
+  width: 100%;
+  display: flex;
+}
+.finance-invoice-footer-button {
+  flex: 1;
+  padding: 0.4em;
 }
 .finance-invoice-footer-inner {
   max-width: 768px;
@@ -13,15 +27,11 @@
   margin: 0 auto;
   width: 100%;
 }
-.finance-invoice-footer-button {
-  padding: 0.4em;
-  flex: 1;
-}
-.finance-invoice-body {
-  padding: 0.8em;
-  flex: 1;
-  .scrollable();
-}
+// .finance-invoice-body {
+//   padding: 0.8em;
+//   flex: 1;
+//   .scrollable();
+// }
 .finance-invoice-document {
   background-color: @white;
   margin: 0 auto;

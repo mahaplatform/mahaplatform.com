@@ -31,11 +31,11 @@ class PayPal extends React.Component {
       return paypal.Button.render({
         env: 'sandbox',
         style: {
-          color: 'black',
+          color: 'blue',
           shape: 'rect',
           label: 'paypal',
           tagline: false,
-          height: 45
+          height: 35
         },
         commit: 'true',
         payment: () => {

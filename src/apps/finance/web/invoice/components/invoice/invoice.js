@@ -127,7 +127,7 @@ class Invoice extends React.Component {
                     <tr key={`payment_${index}`} className={ this._getPaymentClass(payment) }>
                       <td colSpan="3">
                         <span>
-                          { this._getMethod(payment) } on { moment(payment.date).format('MM/DD/YYYY') }
+                          { payment.description } on { moment(payment.date).format('MM/DD/YYYY') }
                         </span> { payment.voided_date &&
                           `(voided on ${ moment(payment.voided_date).format('MM/DD/YYYY') })`
                         }
@@ -153,8 +153,26 @@ class Invoice extends React.Component {
         </div>
         { !_.includes(['paid','void'], invoice.status) &&
           <div className="finance-invoice-footer">
-            <div className="finance-invoice-footer-inner">
-              <Button { ...this._getPayment() } />
+            <div className="finance-invoice-footer-buttons">
+              <div className="finance-invoice-footer-button">
+                <PayPal { ...this._getPayButton() } />
+              </div>
+              { window.ApplePaySession &&
+                <div className="finance-invoice-footer-button">
+                  <ApplePay { ...this._getPayButton() } />
+                </div>
+              }
+              <div className="finance-invoice-footer-button">
+                <GooglePay { ...this._getPayButton() } />
+              </div>
+            </div>
+            <div className="finance-invoice-footer-buttons">
+              <div className="finance-invoice-footer-button">
+                <Button { ...this._getCard() } />
+              </div>
+              <div className="finance-invoice-footer-button">
+                <Button { ...this._getBank() } />
+              </div>
             </div>
           </div>
         }
@@ -174,9 +192,17 @@ class Invoice extends React.Component {
     if(method === 'cash') return 'Received cash'
   }
 
-  _getPayment() {
+  _getCard() {
     return {
-      label: 'Make Payment',
+      label: 'Credit Card',
+      color: 'red',
+      handler: this._handlePayment
+    }
+  }
+
+  _getBank() {
+    return {
+      label: 'Bank Account',
       color: 'red',
       handler: this._handlePayment
     }
@@ -199,11 +225,6 @@ class Invoice extends React.Component {
 
   _handlePayment() {
     const items = []
-    items.push({ component: <div className="maha-task-button"><PayPal { ...this._getPayButton() } /></div> })
-    if(window.ApplePaySession) {
-      items.push({ component: <div className="maha-task-button"><ApplePay { ...this._getPayButton() } /></div> })
-    }
-    items.push({ component: <div className="maha-task-button"><GooglePay { ...this._getPayButton() } /></div> })
     items.push({ label: 'Credit Card', modal: Card })
     items.push({ label: 'Bank Account', modal: ACH })
     this.context.tasks.open({

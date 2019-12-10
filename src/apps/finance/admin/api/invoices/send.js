@@ -2,6 +2,7 @@ import InvoiceSerializer from '../../../serializers/invoice_serializer'
 import { activity } from '../../../../../core/services/routes/activities'
 import send_email from '../../../../maha/queues/send_email_queue'
 import { audit } from '../../../../../core/services/routes/audit'
+import socket from '../../../../../core/services/routes/emitter'
 import Sender from '../../../../crm//models/sender'
 import Invoice from '../../../models/invoice'
 
@@ -51,6 +52,10 @@ const sendRoute = async (req, res) => {
     story: 'sent {object}',
     object: invoice
   })
+
+  await socket.refresh(req, [
+    `/admin/finance/invoices/${invoice.get('id')}`
+  ])
 
   res.status(200).respond(true)
 
