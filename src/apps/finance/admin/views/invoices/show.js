@@ -33,7 +33,7 @@ const getTasks = ({ invoice }) => {
     items.push({ label: 'Send Invoice', modal: <Send invoice={ invoice } />  })
   } else {
     items.push({ label: 'View Public Invoice', link: `${process.env.WEB_HOST}/finance/invoices/${invoice.code}` })
-    items.push({ label: 'Send Receipt' })
+    items.push({ label: 'Send Receipt', modal: <Send invoice={ invoice } />  })
   }
   return { items }
 }

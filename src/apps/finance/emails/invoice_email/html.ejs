@@ -19,6 +19,10 @@
             </tr>
           </tbody>
         </table>
+        <img src="<%= invoice.program.logo %>" />
+        <strong><%= invoice.program.title %></strong><br />
+        <%- invoice.program.address.replace(/\n/g, '<br />') %>
+
         <table>
           <thead>
             <tr>
@@ -37,8 +41,79 @@
                 <td><%= invoice.total %></td>
               </tr>
             <% }) %>
+            <% if(invoice.tax > 0 || invoice.discount > 0) { %>
+              <tr className="total">
+                <td colSpan="3">SUBTOTAL</td>
+                <td><%= numeral(invoice.subtotal).format('0.00') %></td>
+              </tr>
+            <% } %>
+            <% if(invoice.tax > 0) { %>
+              <tr>
+                <td colSpan="3">Tax</td>
+                <td><%= numeral(invoice.tax).format('0.00') %></td>
+              </tr>
+            <% } %>
+            <% if(invoice.discount > 0) { %>
+              <tr>
+                <td colSpan="3">
+                  <% if(invoice.discount_amount) { %>
+                    <%= numeral(invoice.discount_amount).format('$0.00') %>
+                  <% } %>
+                  <% if(invoice.discount_percent) { %>
+                    <%= numeral(invoice.discount_percent).format('0.0%') %>
+                  <% } %>
+                  discount
+                  (coupon code <%= invoice.coupon.code %>)
+                </td>
+                <td>-<%= numeral(invoice.discount).format('0.00') %></td>
+              </tr>
+            <% } %>
+            <tr className="total">
+              <td colSpan="3">TOTAL</td>
+              <td><%= numeral(invoice.total).format('0.00')%></td>
+            </tr>
+            <% invoice.payments.map((payment) => { %>
+              <tr>
+                <td colSpan="3">
+                  <%= moment(payment.date).format('MM/DD/YYYY') %>
+                  <% if(payment.voided_date) { %>
+                    (voided on <%= moment(payment.voided_date).format('MM/DD/YYYY') %>)
+                  <% } %>
+                </td>
+                <td><span>-<%= numeral(payment.amount).format('0.00')%></span></td>
+              </tr>
+            <% }) %>
+            <% if(invoice.payments.length > 0) { %>
+              <tr className="total">
+                <td colSpan="3">BALANCE DUE</td>
+                <td><%= numeral(invoice.balance).format('0.00') %></td>
+              </tr>
+            <% } %>
           </tbody>
         </table>
+        <table class="button radius expand">
+          <tbody>
+            <tr>
+              <td>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <center>
+                          <a href="<%= host %>/finance/invoices/<%= invoice.code %>" align="center" class="float-center">
+                            Make Payment
+                          </a>
+                        </center>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td class="expander"></td>
+            </tr>
+          </tbody>
+        </table>
+
       </td>
     </tr>
   </tbody>

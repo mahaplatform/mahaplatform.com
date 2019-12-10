@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
-
-const message = 'Here is a copy of your invoice.'
+import _ from 'lodash'
 
 class Send extends React.Component {
 
@@ -23,8 +22,11 @@ class Send extends React.Component {
 
   _getForm() {
     const { invoice } = this.props
+    const item = invoice.status === 'paid' ? 'receipt' : 'invoice'
+    const subject = `Your ${item}`
+    const message = `Here is a copy of your ${item}.`
     return {
-      title: 'Send Invoice',
+      title: `Send ${_.capitalize(item)}`,
       method: 'patch',
       action: `/api/admin/finance/invoices/${invoice.id}/send`,
       onCancel: this._handleCancel,
@@ -33,7 +35,8 @@ class Send extends React.Component {
         {
           fields: [
             { label: 'To', name: 'to', type: 'emailfield', placeholder: 'To', required: true, defaultValue: invoice.customer.email },
-            { label: 'Message', name: 'message', type: 'textarea', placeholder: 'Write a message...', required: true, rows: 10, defaultValue: message }
+            { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true, defaultValue: subject },
+            { label: 'Message', name: 'message', type: 'textarea', placeholder: 'Enter a message', required: true, rows: 10, defaultValue: message }
           ]
         }
       ]

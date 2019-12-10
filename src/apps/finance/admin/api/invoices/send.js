@@ -24,6 +24,7 @@ const sendRoute = async (req, res) => {
     team_id: req.team.get('id'),
     to: req.body.to,
     template: 'finance:invoice',
+    subject: req.body.subject,
     data: {
       message: req.body.message,
       invoice: InvoiceSerializer(req, invoice)

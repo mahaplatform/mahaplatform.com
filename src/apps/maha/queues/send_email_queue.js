@@ -50,11 +50,13 @@ const enqueue = async (req, options) => {
 
   const html = template.envelope !== null ? ejs.render(envelopeTemplate, { ...options.data, content: innerContent}) : innerContent
 
+  const subject = options.subject || template.subject
+
   const email = await Email.forge({
     team_id: options.team_id,
     user_id: options.user ? options.user.get('id') : null,
     to: options.to || options.user.get('rfc822'),
-    subject: ejs.render(template.subject, options.data),
+    subject: ejs.render(subject, options.data),
     html,
     code: _.random(100000, 999999).toString(36)
   }).save(null, {
