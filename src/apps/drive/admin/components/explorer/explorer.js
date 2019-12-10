@@ -236,9 +236,11 @@ class Explorer extends React.Component {
   }
 
   _handleTasks(items) {
-    this.context.tasks.open([
-      { component: <Tasks { ...this._getTasks(items) } /> }
-    ])
+    this.context.tasks.open({
+      items: [
+        { component: <Tasks { ...this._getTasks(items) } /> }
+      ]
+    })
   }
 
 }

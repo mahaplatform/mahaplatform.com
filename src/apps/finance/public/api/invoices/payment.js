@@ -1,3 +1,4 @@
+import { makePayment } from '../../../services/payments'
 import Invoice from '../../../models/invoice'
 
 const paymentRoute = async (req, res) => {
@@ -14,6 +15,11 @@ const paymentRoute = async (req, res) => {
     message: 'Unable to load invoice'
   })
 
+  const payment = await makePayment(req, {
+    invoice,
+    params: req.body
+  })
+  
   res.status(200).respond(true)
 
 }

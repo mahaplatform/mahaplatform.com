@@ -58,19 +58,21 @@ class Field extends React.Component {
 
   _handleTasks(id) {
     const { endpoint, field } = this.props
-    this.context.tasks.open([
-      {
-        label: 'Edit Field',
-        modal: () => <Edit endpoint={ endpoint } id={ field.id } />
-      }, {
-        label: 'Remove Field',
-        request: {
-          method: 'DELETE',
-          endpoint: `${endpoint}/${field.id}`,
-          onFailure: (result) => this.context.flash.set('error', 'Unable to remove this field')
+    this.context.tasks.open({
+      items: [
+        {
+          label: 'Edit Field',
+          modal: () => <Edit endpoint={ endpoint } id={ field.id } />
+        }, {
+          label: 'Remove Field',
+          request: {
+            method: 'DELETE',
+            endpoint: `${endpoint}/${field.id}`,
+            onFailure: (result) => this.context.flash.set('error', 'Unable to remove this field')
+          }
         }
-      }
-    ])
+      ]
+    })
   }
 
 }

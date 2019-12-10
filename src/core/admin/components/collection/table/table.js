@@ -185,8 +185,9 @@ class Table extends React.Component {
 
   _handleTasks(record) {
     const { recordTasks } = this.props
-    const tasks = recordTasks(record)
-    this.context.tasks.open(tasks)
+    this.context.tasks.open({
+      items: recordTasks(record)
+    })
   }
 
 }

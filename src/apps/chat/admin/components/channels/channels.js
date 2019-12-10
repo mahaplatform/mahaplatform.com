@@ -133,9 +133,11 @@ class Channels extends React.Component {
   _handleTasks(channel, e) {
     e.stopPropagation()
     e.preventDefault()
-    this.context.tasks.open([
-      { component: <Tasks { ...this._getTasks(channel) } /> }
-    ])
+    this.context.tasks.open({
+      items: [
+        { component: <Tasks { ...this._getTasks(channel) } /> }
+      ]
+    })
     return false
   }
 

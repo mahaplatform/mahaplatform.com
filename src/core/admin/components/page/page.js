@@ -219,7 +219,9 @@ class Page extends React.Component {
 
   _handleTasks() {
     const { tasks } = this.props
-    this.context.tasks.open(tasks.items)
+    this.context.tasks.open({
+      items: tasks.items
+    })
   }
 
   _handleTask() {

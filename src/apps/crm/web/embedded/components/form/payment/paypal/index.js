@@ -13,6 +13,10 @@ class PayPal extends React.Component {
     onSuccess: PropTypes.func
   }
 
+  static defaultProps = {
+    onChoose: () => {}
+  }
+
   state = {
     selected: null
   }

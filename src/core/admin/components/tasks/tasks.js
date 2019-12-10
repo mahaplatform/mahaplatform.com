@@ -23,6 +23,7 @@ class Tasks extends React.Component {
     items: PropTypes.array,
     open: PropTypes.bool,
     rights: PropTypes.array,
+    title: PropTypes.string,
     onClear: PropTypes.func,
     onClose: PropTypes.func,
     onOpen: PropTypes.func
@@ -31,7 +32,7 @@ class Tasks extends React.Component {
   _handleClose = this._handleClose.bind(this)
 
   render() {
-    const { children, allowed, open } = this.props
+    const { children, allowed, open, title } = this.props
     return ([
       children,
       <CSSTransition key="maha-tasks-overlay" in={ open } classNames="expanded" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
@@ -39,6 +40,11 @@ class Tasks extends React.Component {
       </CSSTransition>,
       <CSSTransition key="maha-tasks-list" in={ open } classNames="expanded" timeout={ 250 } mountOnEnter={ true } unmountOnExit={ true }>
         <div className="maha-tasks-list">
+          { title &&
+            <div className="maha-tasks-list-header">
+              { title }
+            </div>
+          }
           <div className="maha-tasks-list-body">
             { allowed && allowed.map((item, index) => (
               <div className="maha-tasks-list-item" key={`task_${index}`}>

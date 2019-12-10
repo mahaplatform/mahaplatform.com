@@ -68,7 +68,7 @@ const cards = (pattern) => collectObjects(pattern).map(file => {
 const renderTemplate = (templateName, variables) => {
   const template = fs.readFileSync(path.join(__dirname, `${templateName}.ejs`), 'utf8')
   const data = ejs.render(template, variables)
-  fs.writeFileSync(path.join(__dirname,'..','..',templateName), data, 'utf8')
+  fs.writeFileSync(path.join(__dirname,'..','..','..','admin',templateName), data, 'utf8')
 }
 
 class MahaWebpackPlugin {

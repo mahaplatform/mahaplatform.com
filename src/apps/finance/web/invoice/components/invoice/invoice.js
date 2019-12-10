@@ -1,27 +1,28 @@
+import { ApplePay, Button, GooglePay, Logo, PayPal } from 'maha-public'
 import PropTypes from 'prop-types'
-import Payment from '../payment'
 import numeral from 'numeral'
 import moment from 'moment'
-import Logo from '../logo'
+import Card from '../card'
 import React from 'react'
+import ACH from '../ach'
 
 class Invoice extends React.Component {
 
   static contextTypes = {
-    modal: PropTypes.object
+    modal: PropTypes.object,
+    tasks: PropTypes.object
   }
 
   static propTypes = {
-    invoice: PropTypes.object,
-    status: PropTypes.string,
-    onFetch: PropTypes.func
+    onFetch: PropTypes.func,
+    onToken: PropTypes.func
   }
 
   _handlePayment = this._handlePayment.bind(this)
 
   render() {
-    const { invoice, status } = this.props
-    if(status !== 'success') return null
+    const { invoice } = window
+    console.log(invoice)
     return (
       <div className="finance-invoice">
         <div className="finance-invoice-body">
@@ -152,25 +153,11 @@ class Invoice extends React.Component {
         </div>
         <div className="finance-invoice-footer">
           <div className="finance-invoice-footer-inner">
-            <div className="ui fluid button" onClick={ this._handlePayment }>
-              Pay Invoice
-            </div>
+            <Button { ...this._getPayment() } />
           </div>
         </div>
       </div>
     )
-  }
-
-  componentDidMount() {
-    const parts = window.location.pathname.match(/\/invoices\/(.*)/)
-    this.props.onFetch(parts[1])
-  }
-
-  _getPaymentClass(payment) {
-    const classes = []
-    if(payment.voided_date) classes.push('voided')
-    return classes.join(' ')
-
   }
 
   _getMethod(props) {
@@ -185,8 +172,42 @@ class Invoice extends React.Component {
     if(method === 'cash') return 'Received cash'
   }
 
+  _getPayment() {
+    return {
+      label: 'Make Payment',
+      color: 'red',
+      handler: this._handlePayment
+    }
+  }
+
+  _getPayButton() {
+    const { invoice, token } = window
+    return {
+      onChoose: () => {},
+      invoice,
+      token
+    }
+  }
+
+  _getPaymentClass(payment) {
+    const classes = []
+    if(payment.voided_date) classes.push('voided')
+    return classes.join(' ')
+  }
+
   _handlePayment() {
-    this.context.modal.open(Payment)
+    const items = []
+    items.push({ component: <div className="maha-task-button"><PayPal { ...this._getPayButton() } /></div> })
+    if(window.ApplePaySession) {
+      items.push({ component: <div className="maha-task-button"><ApplePay { ...this._getPayButton() } /></div> })
+    }
+    items.push({ component: <div className="maha-task-button"><GooglePay { ...this._getPayButton() } /></div> })
+    items.push({ label: 'Credit Card', modal: Card })
+    items.push({ label: 'Bank Account', modal: ACH })
+    this.context.tasks.open({
+      title: 'Pay with',
+      items
+    })
   }
 
 }

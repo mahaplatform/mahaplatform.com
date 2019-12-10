@@ -2,9 +2,9 @@ import { shallow } from 'enzyme'
 import { expect } from 'chai'
 import { spy } from 'sinon'
 import React from 'react'
-import Payment from './payment.js'
+import Ach from './ach.js'
 
-describe('src/apps/finance/web/invoice/components/payment', () => {
+describe('src/apps/finance/web/invoice/components/ach', () => {
 
   describe('/actions.js', () => {
 
@@ -25,13 +25,13 @@ describe('src/apps/finance/web/invoice/components/payment', () => {
   })
 
 
-  describe('/payment.js', () => {
+  describe('/ach.js', () => {
 
     it('renders', async () => {
 
-      const payment = shallow(<Payment />)
+      const ach = shallow(<Ach />)
 
-      expect(payment.is('div.payment')).to.be.true
+      expect(ach.is('div.ach')).to.be.true
 
     })
 

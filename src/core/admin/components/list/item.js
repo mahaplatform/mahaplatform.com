@@ -92,7 +92,9 @@ class Item extends React.Component {
 
   _handleTasks() {
     const { tasks } = this.props
-    this.context.tasks.open(tasks)
+    this.context.tasks.open({
+      items: tasks
+    })
   }
 
 }

@@ -24,10 +24,7 @@ const Payment = new Model({
     },
 
     description() {
-      if(_.includes(['googlepay','applepay','card'], this.get('method'))) return `${this.related('card').get('description')}`
-      if(this.get('method') === 'paypal') return `PAYPAL-${this.get('reference')}`
-      if(this.get('method') === 'check') return this.get('reference')
-      return null
+      return this.get('reference')
     },
 
     fee() {

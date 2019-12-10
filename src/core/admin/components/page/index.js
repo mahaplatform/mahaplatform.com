@@ -14,7 +14,7 @@ export const Page = (pageResources, pageProps) => Factory({
 
 export default {
   reducer: {
-    'function': reducer,
-    'namespace': 'maha.page'
+    function: reducer,
+    namespace: 'maha.page'
   }
 }

@@ -31,10 +31,12 @@ class Export extends React.Component {
 
 
   _handleTasks() {
-    this.context.tasks.open([
-      this._getButton('csv'),
-      this._getButton('xlsx')
-    ])
+    this.context.tasks.open({
+      items: [
+        this._getButton('csv'),
+        this._getButton('xlsx')
+      ]
+    })
   }
 
   _getButton(type) {

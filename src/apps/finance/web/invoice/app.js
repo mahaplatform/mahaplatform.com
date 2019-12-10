@@ -1,11 +1,13 @@
-import Payment from './components/payment'
+import * as components from 'maha-public'
+import { Modal, Network, Tasks } from 'maha-public'
 import Invoice from './components/invoice'
-import Network from './components/network'
-import Modal from './components/modal'
 import { hot } from 'react-hot-loader'
 import Root from './components/root'
 import PropTypes from 'prop-types'
 import React from 'react'
+
+import ACH from './components/ach'
+import Card from './components/card'
 
 class App extends React.Component {
 
@@ -18,7 +20,9 @@ class App extends React.Component {
       <Root { ...this._getRoot() }>
         <Network>
           <Modal>
-            <Invoice />
+            <Tasks>
+              <Invoice />
+            </Tasks>
           </Modal>
         </Network>
       </Root>
@@ -28,9 +32,12 @@ class App extends React.Component {
   _getRoot() {
     return {
       reducers: [
-        Invoice,
-        Network,
-        Payment
+        ...Object.values(components).filter(component => {
+          return component.reducer !== undefined
+        }),
+        ACH,
+        Card,
+        Invoice
       ]
     }
   }

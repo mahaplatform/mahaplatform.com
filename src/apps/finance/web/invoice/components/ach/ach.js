@@ -1,8 +1,8 @@
-import ModalPanel from '../modal_panel'
+import { ModalPanel } from 'maha-public'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Payment extends React.PureComponent {
+class Ach extends React.PureComponent {
 
   static contextTypes = {
     modal: PropTypes.object
@@ -15,19 +15,17 @@ class Payment extends React.PureComponent {
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="payment">
-          payment
-        </div>
+        card
       </ModalPanel>
     )
   }
 
   _getPanel() {
     return {
-      title: 'Make Payment',
       leftItems: [
         { label: 'Cancel', handler: this._handleCancel }
-      ]
+      ],
+      title: 'Pay with Bank Account'
     }
   }
 
@@ -37,4 +35,4 @@ class Payment extends React.PureComponent {
 
 }
 
-export default Payment
+export default Ach

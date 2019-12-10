@@ -1,13 +1,11 @@
 import { Factory } from 'redux-rubberstamp'
 import reducer from './reducer'
-import Payment from './payment'
-import * as selectors from './selectors'
+import button from './button'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'payment',
-  component: Payment,
+  namespace: 'maha.button',
+  component: button,
   reducer,
-  selectors,
   actions
 })

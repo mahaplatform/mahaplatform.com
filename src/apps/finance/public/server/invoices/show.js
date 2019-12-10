@@ -1,3 +1,5 @@
+import InvoiceSerializer from '../../../serializers/invoice_serializer'
+import braintree from '../../../../../core/services/braintree'
 import Invoice from '../../../models/invoice'
 import { readFile } from './utils'
 import path from 'path'
@@ -8,6 +10,8 @@ const showRoute = async (req, res) => {
   const template = await readFile(path.join('finance','invoice','index.html'))
 
   const invoice = await Invoice.query(qb => {
+    qb.select('finance_invoices.*','finance_invoice_details.*')
+    qb.innerJoin('finance_invoice_details', 'finance_invoice_details.invoice_id', 'finance_invoices.id')
     qb.where('code', req.params.code)
   }).fetch({
     withRelated: ['customer','coupon','line_items.product','payments','program.logo'],
@@ -19,8 +23,16 @@ const showRoute = async (req, res) => {
     message: 'Unable to load invoice'
   })
 
+  const response = await new Promise((resolve, reject) => {
+    braintree.clientToken.generate((err, response) => {
+      if(err) return reject(err)
+      resolve(response)
+    })
+  })
+
   const content = ejs.render(template, {
-    invoice
+    invoice: InvoiceSerializer(req, invoice),
+    token: response.clientToken
   })
 
   res.status(200).send(content)
