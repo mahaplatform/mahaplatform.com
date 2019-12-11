@@ -16,8 +16,11 @@ class Invoice extends React.Component {
 
   static propTypes = {
     onFetch: PropTypes.func,
+    onSubmit: PropTypes.func,
     onToken: PropTypes.func
   }
+
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     const { invoice } = window
@@ -209,7 +212,8 @@ class Invoice extends React.Component {
     return {
       onChoose: () => {},
       invoice,
-      token
+      token,
+      onSuccess: this._handleSubmit
     }
   }
 
@@ -217,6 +221,11 @@ class Invoice extends React.Component {
     const classes = []
     if(payment.voided_date) classes.push('voided')
     return classes.join(' ')
+  }
+
+  _handleSubmit({ nonce }) {
+    const { invoice } = window
+    this.props.onSubmit(invoice.code, nonce)
   }
 
 }

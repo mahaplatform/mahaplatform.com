@@ -6,7 +6,7 @@ const paymentRoute = async (req, res) => {
   const invoice = await Invoice.query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
-    withRelated: ['customer','coupon','line_items.product','payments','program.logo'],
+    withRelated: ['customer','coupon','line_items.product','payments','program.logo','team'],
     transacting: req.trx
   })
 
@@ -15,11 +15,21 @@ const paymentRoute = async (req, res) => {
     message: 'Unable to load invoice'
   })
 
+  req.team = invoice.related('team')
+
+  const merchant_id = 1
+
+  const amount = invoice.get('balance')
+
   const payment = await makePayment(req, {
     invoice,
-    params: req.body
+    params: {
+      merchant_id,
+      amount,
+      ...req.body
+    }
   })
-  
+
   res.status(200).respond(true)
 
 }

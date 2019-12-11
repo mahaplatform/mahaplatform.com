@@ -73,7 +73,8 @@ const resource = async (args) => {
 }
 
 const model = async (args) => {
-  const [ root, model ] = args
+  const [ app, model ] = args
+  const root = path.join('src','apps',app)
   const timestamp = moment().format('YYYYMMDDHHmmss')
   const singluar = pluralize.singular(model).toLowerCase()
   const plural = pluralize.plural(model).toLowerCase()
@@ -96,9 +97,9 @@ const model = async (args) => {
 }
 
 const migration = async (args) => {
-  const [ pathname, name ] = args
+  const [ app, name ] = args
   const timestamp = moment().format('YYYYMMDDHHmmss')
-  const root = path.join(...pathname.split('/'),'db','migrations')
+  const root = path.join('src','apps',app,'db','migrations')
   const data = {
     className:  _.upperFirst(_.camelCase(name)),
     migrationPath: path.join(root, `${timestamp}_${name}.js`)

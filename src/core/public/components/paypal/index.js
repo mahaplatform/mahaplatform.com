@@ -8,7 +8,13 @@ class PayPal extends React.Component {
   static propTypes = {
     invoice: PropTypes.object,
     token: PropTypes.string,
+    onChoose: PropTypes.func,
     onSuccess: PropTypes.func
+  }
+
+  static defaultProps = {
+    onChoose: () => {},
+    onSuccess: () => {}
   }
 
   state = {

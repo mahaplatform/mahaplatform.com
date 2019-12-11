@@ -4,8 +4,8 @@ import React from 'react'
 class Card extends React.Component {
 
   static propTypes = {
+    invoice: PropTypes.object,
     payment: PropTypes.object,
-    summary: PropTypes.object,
     token: PropTypes.string,
     onChoose: PropTypes.func,
     onSubmit: PropTypes.func,
@@ -13,7 +13,8 @@ class Card extends React.Component {
   }
 
   static defaultProps = {
-    onChoose: () => {}
+    onChoose: () => {},
+    onSuccess: () => {}
   }
 
   state = {
@@ -59,10 +60,10 @@ class Card extends React.Component {
   }
 
   _handlePayment() {
-    const { summary, token, onChoose, onSubmit } = this.props
+    const { invoice, token, onChoose, onSubmit } = this.props
     if(!this.state.ready) return
     onChoose('googlepay')
-    onSubmit(token, summary)
+    onSubmit(token, invoice.total)
   }
 
 }

@@ -6,7 +6,6 @@ import socket from '../../../../../core/services/routes/emitter'
 import ProgramAccess from '../../../models/program_access'
 import Program from '../../../models/program'
 import Sender from '../../../models/sender'
-import _ from 'lodash'
 
 const createRoute = async (req, res) => {
 
@@ -17,7 +16,7 @@ const createRoute = async (req, res) => {
   const program = await Program.forge({
     team_id: req.team.get('id'),
     code,
-    ...whitelist(req.body, ['logo_id','title','address'])
+    ...whitelist(req.body, ['logo_id','title','address','merchant_id'])
   }).save(null, {
     transacting: req.trx
   })

@@ -21,8 +21,7 @@ export default store => next => action => {
   store.dispatch({
     type: `${namespace}/${action.request}`,
     cid: action.cid,
-    data: action.data,
-    mandate: action.mandate
+    total: action.total
   })
 
   const paymentsClient = new window.google.payments.api.PaymentsClient({
@@ -52,7 +51,7 @@ export default store => next => action => {
       transactionInfo: {
         currencyCode: 'USD',
         totalPriceStatus: 'FINAL',
-        totalPrice: `${action.data.total}`
+        totalPrice: `${action.total}`
       }
     })
     return  paymentsClient.loadPaymentData(paymentDataRequest)

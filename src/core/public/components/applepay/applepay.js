@@ -12,6 +12,11 @@ class ApplePay extends React.Component {
     onSuccess: PropTypes.func
   }
 
+  static defaultProps = {
+    onChoose: () => {},
+    onSuccess: () => {}
+  }
+
   applePayInstance = null;
 
   state = {

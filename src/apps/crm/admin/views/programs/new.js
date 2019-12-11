@@ -1,3 +1,4 @@
+import MerchantToken from '../../../../finance/admin/tokens/merchant'
 import VisibilityToken from '../../tokens/visibility'
 import { Form, UserToken } from 'maha-admin'
 import { connect } from 'react-redux'
@@ -34,9 +35,14 @@ class New extends React.Component {
           fields: [
             { label: 'Title', name: 'title', type: 'textfield', required: true },
             { label: 'Logo', name: 'logo_id', type: 'filefield', prompt: 'Choose Logo', multiple: false },
-            { label: 'Invoice Address', name: 'address', type: 'textarea', rows: 2, required: true, defaultValue: team.address },
             { label: 'Managers', name: 'manager_ids', type: 'lookup2', placeholder: 'Assign admin privileges', multiple: true, endpoint: '/api/admin/users', value: 'id', text: 'full_name', format: UserToken },
             { label: 'Visibility', name: 'visibility', type: 'radiogroup', options: ['public','private'], format: VisibilityToken, defaultValue: 'public' }
+          ]
+        },  {
+          label: 'Finance',
+          fields: [
+            { label: 'Merchant', name: 'merchant_id', type: 'lookup', placeholder: 'Choose a merchant account', endpoint: '/api/admin/finance/merchants', filter: { status: { $eq: 'active' } }, value: 'id', text: 'title', required: true, format: MerchantToken },
+            { label: 'Invoice Address', name: 'address', type: 'textarea', rows: 2, required: true, defaultValue: team.address }
           ]
         }
       ]
