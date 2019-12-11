@@ -26,7 +26,7 @@ class Card extends React.Component {
   render() {
     return (
       <div className="googlepay-button">
-        <button className="gpay-button black short" onClick={ this._handlePayment } />
+        <button className="gpay-button white short" onClick={ this._handlePayment } />
       </div>
     )
   }

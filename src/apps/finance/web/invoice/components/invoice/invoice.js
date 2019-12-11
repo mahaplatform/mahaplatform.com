@@ -19,8 +19,6 @@ class Invoice extends React.Component {
     onToken: PropTypes.func
   }
 
-  _handlePayment = this._handlePayment.bind(this)
-
   render() {
     const { invoice } = window
     return (
@@ -154,9 +152,6 @@ class Invoice extends React.Component {
         { !_.includes(['paid','void'], invoice.status) &&
           <div className="finance-invoice-footer">
             <div className="finance-invoice-footer-buttons">
-              <div className="finance-invoice-footer-button">
-                <PayPal { ...this._getPayButton() } />
-              </div>
               { window.ApplePaySession &&
                 <div className="finance-invoice-footer-button">
                   <ApplePay { ...this._getPayButton() } />
@@ -165,8 +160,9 @@ class Invoice extends React.Component {
               <div className="finance-invoice-footer-button">
                 <GooglePay { ...this._getPayButton() } />
               </div>
-            </div>
-            <div className="finance-invoice-footer-buttons">
+              <div className="finance-invoice-footer-button">
+                <PayPal { ...this._getPayButton() } />
+              </div>
               <div className="finance-invoice-footer-button">
                 <Button { ...this._getCard() } />
               </div>
@@ -196,15 +192,15 @@ class Invoice extends React.Component {
     return {
       label: 'Credit Card',
       color: 'red',
-      handler: this._handlePayment
+      modal: Card
     }
   }
 
   _getBank() {
     return {
       label: 'Bank Account',
-      color: 'red',
-      handler: this._handlePayment
+      color: 'violet',
+      modal: ACH
     }
   }
 
@@ -221,15 +217,6 @@ class Invoice extends React.Component {
     const classes = []
     if(payment.voided_date) classes.push('voided')
     return classes.join(' ')
-  }
-
-  _handlePayment() {
-    const items = []
-    items.push({ label: 'Credit Card', modal: Card })
-    items.push({ label: 'Bank Account', modal: ACH })
-    this.context.tasks.open({
-      items
-    })
   }
 
 }
