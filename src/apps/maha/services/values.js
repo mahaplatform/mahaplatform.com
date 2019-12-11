@@ -205,6 +205,8 @@ export const expandValues = async (req, parent_type, parent_id, data) => {
 
     }
 
+    if(!fieldMap[code]) return values
+
     return {
       ...values,
       [fieldMap[code].get('name')]: await getValue(code)
