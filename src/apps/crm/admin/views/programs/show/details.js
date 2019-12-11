@@ -15,7 +15,8 @@ const Details = ({ program }) => {
 
   list.items = [
     { label: 'Title', content: program.title },
-    { label: 'Address', content: <span dangerouslySetInnerHTML={{ __html: program.address.replace(/\n/g,'<br />') }} /> },
+    { label: 'Invoice Address', content: <span dangerouslySetInnerHTML={{ __html: program.address.replace(/\n/g,'<br />') }} /> },
+    { label: 'Merchant Account', content: program.merchant ? program.merchant.title : 'NONE' },
     { label: 'Phone Number', content: program.phone_number ? (
       <span>{ program.phone_number.formatted }</span>
     ) : <Button { ...button } /> }

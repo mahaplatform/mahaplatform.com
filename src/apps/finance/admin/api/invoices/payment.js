@@ -12,7 +12,7 @@ const paymentRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.invoice_id)
   }).fetch({
-    withRelated: ['customer','coupon','line_items.product','payments','program.logo'],
+    withRelated: ['customer','coupon','line_items.product','payments','program.merchant','program.logo'],
     transacting: req.trx
   })
 

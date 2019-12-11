@@ -1,7 +1,6 @@
 import { whitelist } from '../../../core/services/routes/params'
 import RouteError from '../../../core/objects/route_error'
 import braintree from '../../../core/services/braintree'
-import Merchant from '../models/merchant'
 import Payment from '../models/payment'
 import Card from '../models/card'
 import _ from 'lodash'
@@ -110,6 +109,7 @@ const chargeCard = async (req, { customer, merchant, credit_card, amount }) => {
   }
 
   return {
+    merchant_id: merchant.get('id'),
     braintree_id: result.transaction.id,
     card_id: card.get('id'),
     rate: card.get('type') === 'amex' ? merchant.get('amex_rate') : merchant.get('rate'),
@@ -192,26 +192,18 @@ const chargeBank = async (req, {}) => {
 
 const chargeCustomer = async (req, { invoice, params }) => {
 
-  const { method, merchant_id, credit_card, amount } = params
+  const { method, credit_card, amount } = params
 
   if(_.includes(['cash','check','credit','scholarship'], method)) return {}
-
-  const merchant = await Merchant.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
-    qb.where('id', merchant_id)
-  }).fetch({
-    transacting: req.trx
-  })
 
   const customer = await getCustomer(req, {
     customer: invoice.related('customer')
   })
 
-  if(method === 'credit_card') {
+  if(method === 'card') {
     return await chargeCard(req, {
       customer,
-      merchant,
+      merchant: invoice.related('program').related('merchant'),
       credit_card,
       amount
     })
@@ -220,8 +212,7 @@ const chargeCustomer = async (req, { invoice, params }) => {
   if(method === 'ach') {
     return await chargeBank(req, {
       customer,
-      merchant,
-      bank_account,
+      merchant: invoice.related('program').related('merchant'),
       amount
     })
   }
@@ -263,7 +254,7 @@ export const makePayment = async (req, { invoice, params }) => {
     invoice_id: invoice.get('id'),
     status: 'received',
     ...charge,
-    ...whitelist(params, ['date','method','merchant_id','photo_id','credit_id','scholarship_id','reference','amount'])
+    ...whitelist(params, ['date','method','photo_id','credit_id','scholarship_id','reference','amount'])
   }).save(null, {
     transacting: req.trx
   })

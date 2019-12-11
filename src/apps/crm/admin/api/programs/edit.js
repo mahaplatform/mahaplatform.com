@@ -15,11 +15,14 @@ const editRoute = async (req, res) => {
     message: 'Unable to load program'
   })
 
-  res.status(200).respond({
-    id: program.get('id'),
-    title: program.get('title'),
-    address: program.get('address'),
-    logo_id: program.get('logo_id')
+  res.status(200).respond(program, {
+    fields: [
+      'id',
+      'title',
+      'logo_id',
+      'address',
+      'merchant_id'
+    ]
   })
 
 }

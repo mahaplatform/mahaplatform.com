@@ -2174,9 +2174,9 @@ const schema = {
 
     await knex.schema.table('crm_programs', table => {
       table.foreign('logo_id').references('maha_assets.id')
+      table.foreign('merchant_id').references('finance_merchants.id')
       table.foreign('phone_number_id').references('maha_phone_numbers.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('merchant_id').references('finance_merchants.id')
     })
 
     await knex.schema.table('crm_responses', table => {

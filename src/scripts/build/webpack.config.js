@@ -75,7 +75,20 @@ const webpackConfig = (app, name, root, port) => ({
         filename: 'index.html'
       })
     ] : []
-  ]
+  ],
+  resolve: {
+    alias: {
+      'maha-public': path.resolve('src','core','public','client.js')
+    },
+    modules: [
+      path.resolve('node_modules')
+    ]
+  },
+  resolveLoader: {
+    modules: [
+      path.resolve('node_modules')
+    ]
+  }
 })
 
 export default webpackConfig

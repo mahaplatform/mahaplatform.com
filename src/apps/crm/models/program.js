@@ -1,4 +1,5 @@
 import PhoneNumber from '../../maha/models/phone_number'
+import Merchant from '../../finance/models/merchant'
 import Model from '../../../core/objects/model'
 import ProgramAccess from './program_access'
 import Asset from '../../maha/models/asset'
@@ -17,6 +18,10 @@ const Program = new Model({
 
   accesses() {
     return this.hasMany(ProgramAccess, 'program_id')
+  },
+
+  merchant() {
+    return this.belongsTo(Merchant, 'merchant_id')
   },
 
   phone_number() {

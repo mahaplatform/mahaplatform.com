@@ -3,6 +3,7 @@ const ProgramSerializer = (req, result) => ({
   title: result.get('title'),
   address: result.get('address'),
   logo: result.related('logo') ? result.related('logo').get('path') : null,
+  merchant: merchant(result.related('merchant')),
   phone_number: phone_number(result.related('phone_number')),
   access_type: result.get('access_type'),
   created_at: result.get('created_at'),
@@ -19,4 +20,13 @@ const phone_number = (phone_number) => {
     region: phone_number.get('region')
   }
 }
+
+const merchant = (merchant) => {
+  if(!merchant.id) return null
+  return {
+    id: merchant.get('id'),
+    title: merchant.get('title')
+  }
+}
+
 export default ProgramSerializer

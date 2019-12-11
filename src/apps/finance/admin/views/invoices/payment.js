@@ -58,7 +58,6 @@ class Payment extends React.Component {
       ]
     } else if(method === 'card') {
       return [
-        { label: 'Merchant', name: 'merchant_id', type: 'lookup', placeholder: 'Choose a merchant account', endpoint: '/api/admin/finance/merchants', filter: { status: { $eq: 'active' } }, value: 'id', text: 'title', required: true, format: MerchantToken },
         { label: 'Credit Card', name: 'credit_card', type: Card, color: 'blue' },
         { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }
       ]

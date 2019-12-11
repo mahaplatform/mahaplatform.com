@@ -196,6 +196,7 @@ export const expandValues = async (req, parent_type, parent_id, data) => {
           content_type: asset.get('content_type'),
           file_name: asset.get('file_name'),
           file_size: asset.get('file_size'),
+          path: asset.get('path'),
           url: asset.get('signed_url')
         }
 
