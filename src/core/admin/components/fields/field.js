@@ -65,6 +65,7 @@ class Field extends React.Component {
           modal: () => <Edit endpoint={ endpoint } id={ field.id } />
         }, {
           label: 'Remove Field',
+          confirm: 'Are you sure you want to delete this field?',
           request: {
             method: 'DELETE',
             endpoint: `${endpoint}/${field.id}`,
@@ -90,7 +91,7 @@ const source = {
     const source = monitor.getItem()
     const target = monitor.getDropResult()
     if(!target) return
-    source.onReorder(source.parent_type, source.parent_id, source.delta, target.index)
+    source.onReorder(source.delta, target.index)
   }
 }
 

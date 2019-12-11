@@ -24,9 +24,9 @@ class New extends React.Component {
     const { site_id, id } = this.props
     return {
       title: 'Edit Type',
-      method: 'post',
+      method: 'patch',
       endpoint: `/api/admin/sites/sites/${site_id}/types/${id}/edit`,
-      action: `/api/admin/sites/sites/${site_id}/types`,
+      action: `/api/admin/sites/sites/${site_id}/types/${id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [

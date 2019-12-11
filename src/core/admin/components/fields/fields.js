@@ -28,6 +28,7 @@ class Fields extends React.Component {
   _handleJoin = this._handleJoin.bind(this)
   _handleLeave = this._handleLeave.bind(this)
   _handleNew = this._handleNew.bind(this)
+  _handleReorder = this._handleReorder.bind(this)
 
   render() {
     const { fields } = this.props
@@ -71,13 +72,13 @@ class Fields extends React.Component {
   }
 
   _getField(field, index) {
-    const { endpoint, onMove, onReorder } = this.props
+    const { endpoint, onMove } = this.props
     return {
       field,
       index,
       endpoint,
       onMove,
-      onReorder
+      onReorder: this._handleReorder
     }
   }
 
@@ -109,6 +110,11 @@ class Fields extends React.Component {
   _handleNew() {
     const { datasources, endpoint } = this.props
     this.context.modal.push(<New action={ endpoint } datasources={ datasources } />)
+  }
+
+  _handleReorder(from, to) {
+    const { endpoint, onReorder } = this.props
+    onReorder(endpoint, from, to)
   }
 
 }

@@ -17,7 +17,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true },
-      { label: 'Published', key: 'is_published', primary: true, format: 'check_times', collapsing: true }
+      { label: 'Published', key: 'is_published', primary: true, format: 'check_times', collapsing: true },
+      { label: 'Updated', key: 'updated_at', visible: false, format: 'date', collapsing: true }
     ],
     endpoint: `/api/admin/sites/sites/${page.params.site_id}/types/${page.params.type_id}/items`,
     empty: {

@@ -17,7 +17,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load type'
   })
 
-  await type.save(whitelist(req.body, ['title','description']), {
+  await type.save(whitelist(req.body, ['title','description','requires_approval','has_public_submission']), {
     patch: true,
     transacting: req.trx
   })

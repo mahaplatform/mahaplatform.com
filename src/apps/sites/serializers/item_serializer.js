@@ -15,6 +15,7 @@ const title = (req, result) => {
 
 const values = (req, values) => Object.keys(values).reduce((sanitized, code) => {
   const field = req.fields.find(field => field.get('code') === code)
+  if(!field) return sanitized
   const { multiple } = field.get('config')
   return {
     ...sanitized,

@@ -19,15 +19,19 @@ const listRoute = async (req, res) => {
     qb.where('site_id', req.params.site_id)
     qb.where('type_id', req.params.type_id)
   }).query(qb => {
-    const title = req.fields[0].get('code')
-    const order = req.query.$sort === '-title' ? 'desc' : 'asc'
-    qb.orderByRaw(`values->>'${title}' ${order}`)
     if(req.query.$filter && req.query.$filter.q) {
       const term = `%${req.query.$filter.q.toLowerCase()}%`
       qb.whereRaw('lower(sites_items.index) like ?', term)
     }
   }).filter({
     filter: req.query.$filter
+  }).sort({
+    aliases: {
+      title: `values->>'${req.fields[0].get('code')}'`
+    },
+    defaultSort: ['title'],
+    sort: req.query.$sort,
+    sortParams: ['id','title','created_at','is_published','updated_at']
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx

@@ -463,6 +463,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.text('address')
+      table.integer('merchant_id').unsigned()
     })
 
     await knex.schema.createTable('crm_responses', (table) => {
@@ -2175,6 +2176,7 @@ const schema = {
       table.foreign('logo_id').references('maha_assets.id')
       table.foreign('phone_number_id').references('maha_phone_numbers.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('merchant_id').references('finance_merchants.id')
     })
 
     await knex.schema.table('crm_responses', table => {
