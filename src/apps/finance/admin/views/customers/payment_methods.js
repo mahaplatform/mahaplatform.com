@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Cards = ({ cards }) => {
+const PaymentMethods = ({ payment_methods }) => {
 
   return (
     <table className="ui celled compact unstackable table">
@@ -11,9 +11,9 @@ const Cards = ({ cards }) => {
         </tr>
       </thead>
       <tbody>
-        { cards.map((card, index) => (
+        { payment_methods.map((payment_method, index) => (
           <tr key={`card_${index}`}>
-            <td>{ card.description } </td>
+            <td>{ payment_method.description } </td>
           </tr>
         )) }
       </tbody>
@@ -22,8 +22,8 @@ const Cards = ({ cards }) => {
 
 }
 
-Cards.propTypes = {
-  cards: PropTypes.array
+PaymentMethods.propTypes = {
+  payment_methods: PropTypes.array
 }
 
-export default Cards
+export default PaymentMethods

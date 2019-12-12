@@ -58,7 +58,7 @@ class Payment extends React.Component {
       ]
     } else if(method === 'card') {
       return [
-        { label: 'Credit Card', name: 'credit_card', type: Card, color: 'blue' },
+        { label: 'Credit Card', name: 'payment', type: Card, color: 'blue' },
         { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }
       ]
     } else if(method === 'check') {

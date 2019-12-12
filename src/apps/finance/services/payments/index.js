@@ -1,6 +1,8 @@
 import RouteError from '../../../../core/objects/route_error'
 import braintree from '../../../../core/services/braintree'
+import { chargeScholarship } from './scholarship'
 import { chargeGooglePay } from './googlepay'
+import { chargeCredit } from './credit'
 import { chargePayPal } from './paypal'
 import { chargeCheck } from './check'
 import { chargeCard } from './card'
@@ -9,12 +11,14 @@ import { chargeACH } from './ach'
 import _ from 'lodash'
 
 const getPaymentCreator = (method) => {
+  if(method === 'scholarship') return chargeScholarship
   if(method === 'googlepay') return chargeGooglePay
   if(method === 'paypal') return chargePayPal
-  if(method === 'card') return chargeCard
-  if(method === 'ach') return chargeACH
-  if(method === 'cash') return chargeCash
+  if(method === 'credit') return chargeCredit
   if(method === 'check') return chargeCheck
+  if(method === 'card') return chargeCard
+  if(method === 'cash') return chargeCash
+  if(method === 'ach') return chargeACH
 }
 
 const getCustomer = async(req, { customer }) => {

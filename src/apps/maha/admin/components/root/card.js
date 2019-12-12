@@ -40,7 +40,7 @@ export default store => next => action => {
   }).then(response => {
     const { details, nonce } = response.creditCards[0]
     success({
-      type: getCardType(details.cardType),
+      card_type: getCardType(details.cardType),
       last_four: details.lastFour,
       expiration_month: details.expirationMonth,
       expiration_year: details.expirationYear,
