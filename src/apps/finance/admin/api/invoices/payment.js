@@ -26,7 +26,7 @@ const paymentRoute = async (req, res) => {
     params: req.body
   })
 
-  await payment.load(['card'], {
+  await payment.load(['payment_method'], {
     transacting: req.trx
   })
 

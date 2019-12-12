@@ -51,7 +51,7 @@ class GooglePay extends React.PureComponent {
       this.props.onDone({
         amount: invoice.balance,
         method: 'googlepay',
-        credit_card: payment
+        payment
       })
     }
   }

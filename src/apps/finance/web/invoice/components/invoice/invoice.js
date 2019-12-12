@@ -125,7 +125,7 @@ class Invoice extends React.Component {
                     <tr key={`payment_${index}`} className={ this._getPaymentClass(payment) }>
                       <td colSpan="3">
                         <span>
-                          { payment.description } on { moment(payment.date).format('MM/DD/YYYY') }
+                          { payment.activity } on { moment(payment.date).format('MM/DD/YYYY') }
                         </span> { payment.voided_date &&
                           `(voided on ${ moment(payment.voided_date).format('MM/DD/YYYY') })`
                         }

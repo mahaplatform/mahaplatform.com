@@ -6,9 +6,11 @@ const showRoute = async (req, res) => {
   const payment = await Payment.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
+    qb.select('finance_payments.*','finance_payment_details.*')
+    qb.innerJoin('finance_payment_details', 'finance_payment_details.payment_id', 'finance_payments.id')
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['card','credit','disbursement.merchant','invoice.customer','merchant','photo','refunds','scholarship'],
+    withRelated: ['credit','disbursement.merchant','invoice.customer','merchant','payment_method','photo','refunds','scholarship'],
     transacting: req.trx
   })
 

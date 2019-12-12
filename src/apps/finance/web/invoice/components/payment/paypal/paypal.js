@@ -64,12 +64,11 @@ class PayPal extends React.PureComponent {
           })
         },
         onAuthorize: (data, actions) => {
-          return paypalCheckoutInstance.tokenizePayment(data, function (err, payload) {
-            const { email, nonce } = payload
+          return paypalCheckoutInstance.tokenizePayment(data, function (err, payment) {
             onDone({
               amount: invoice.balance,
               method: 'paypal',
-              paypal: payload
+              payment
             })
           })
         },

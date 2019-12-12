@@ -200,7 +200,7 @@
                     <% invoice.payments.map((payment) => { %>
                       <tr>
                         <td colspan="3">
-                          <%= payment.description %> on
+                          <%= payment.activity %> on
                           <%= moment(payment.date).format('MM/DD/YYYY') %>
                           <% if(payment.voided_date) { %>
                             (voided on <%= moment(payment.voided_date).format('MM/DD/YYYY') %>)

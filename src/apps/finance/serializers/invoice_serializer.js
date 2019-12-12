@@ -59,23 +59,27 @@ const payment = (payment) => {
   if(!payment.id) return null
   return {
     id: payment.get('id'),
-    card: card(payment.related('card')),
-    date: payment.get('date'),
-    method: payment.get('method'),
-    description: payment.get('description'),
+    activity: payment.get('activity'),
     amount: payment.get('amount'),
+    date: payment.get('date'),
+    description: payment.get('description'),
+    method: payment.get('method'),
+    payment_method: payment_method(payment.related('payment_method')),
     voided_date: payment.get('voided_date')
   }
 }
 
-const card = (card) => {
-  if(!card.id) return null
+const payment_method = (payment_method) => {
+  if(!payment_method.id) return null
   return {
-    id: card.get('id'),
-    type: card.get('type'),
-    last_four: card.get('last_four'),
-    expiration_month: card.get('expiration_month'),
-    expiration_year: card.get('expiration_year')
+    id: payment_method.get('id'),
+    account_type: payment_method.get('card_type'),
+    card_type: payment_method.get('card_type'),
+    expiration_month: payment_method.get('expiration_month'),
+    expiration_year: payment_method.get('expiration_year'),
+    ownership_type: payment_method.get('card_type'),
+    last_four: payment_method.get('last_four'),
+    method: payment_method.get('method')
   }
 }
 

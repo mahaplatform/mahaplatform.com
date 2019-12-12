@@ -1,9 +1,9 @@
 import Model from '../../../core/objects/model'
-import Scholarship from './scholarship'
 import Contact from '../../crm/models/contact'
+import PaymentMethod from './payment_method'
+import Scholarship from './scholarship'
 import Invoice from './invoice'
 import Credit from './credit'
-import Card from './card'
 
 const Customer = new Model({
 
@@ -36,8 +36,8 @@ const Customer = new Model({
 
   },
 
-  cards() {
-    return this.hasMany(Card, 'customer_id')
+  payment_methods() {
+    return this.hasMany(PaymentMethod, 'payment_method_id')
   },
 
   contact() {

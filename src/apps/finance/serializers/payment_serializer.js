@@ -3,7 +3,6 @@ const PaymentSerializer = (req, result) => ({
   amount: result.get('amount'),
   braintree_id: result.get('braintree_id'),
   braintree_link: result.get('braintree_link'),
-  card: card(result.related('card')),
   credit: credit(result.related('credit')),
   date: result.get('date'),
   description: result.get('description'),
@@ -12,6 +11,7 @@ const PaymentSerializer = (req, result) => ({
   invoice: invoice(result.related('invoice')),
   merchant: merchant(result.related('merchant')),
   method: result.get('method'),
+  payment_method: payment_method(result.related('payment_method')),
   photo: photo(result.related('photo')),
   rate: result.get('rate'),
   reference: result.get('reference'),
@@ -60,14 +60,18 @@ const merchant = (merchant) => {
   }
 }
 
-const card = (card) => {
-  if(!card.id) return null
+const payment_method = (payment_method) => {
+  if(!payment_method.id) return null
   return {
-    id: card.get('id'),
-    type: card.get('type'),
-    last_four: card.get('last_four'),
-    expiration_month: card.get('expiration_month'),
-    expiration_year: card.get('expiration_year')
+    id: payment_method.get('id'),
+    account_type: payment_method.get('card_type'),
+    card_type: payment_method.get('card_type'),
+    email: payment_method.get('email'),
+    expiration_month: payment_method.get('expiration_month'),
+    expiration_year: payment_method.get('expiration_year'),
+    ownership_type: payment_method.get('card_type'),
+    last_four: payment_method.get('last_four'),
+    method: payment_method.get('method')
   }
 }
 

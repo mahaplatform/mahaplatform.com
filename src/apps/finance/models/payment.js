@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import PaymentMethod from './payment_method'
 import Asset from '../../maha/models/asset'
 import Disbursement from './disbursement'
 import Scholarship from './scholarship'
@@ -6,8 +7,6 @@ import Merchant from './merchant'
 import Invoice from './invoice'
 import Credit from './credit'
 import Refund from './refund'
-import Card from './card'
-import _ from 'lodash'
 
 const Payment = new Model({
 
@@ -23,12 +22,12 @@ const Payment = new Model({
       return `${domain}/merchants/${process.env.BRAINTREE_MERCHANT_ID}/transactions/${this.get('braintree_id')}`
     },
 
-    description() {
-      if(this.get('method') === 'paypal') return `Charged ${this.get('reference')}`
-      if(this.get('method') === 'card') return `Charged ${this.get('reference')}`
-      if(this.get('method') === 'googlepay') return `Charged ${this.get('reference')} via GooglePay`
-      if(this.get('method') === 'applepay') return `Charged ${this.get('reference')} via ApplePay`
-      if(this.get('method') === 'check') return `Received check (${this.get('reference')})`
+    activity() {
+      if(this.get('method') === 'googlepay') return `Charged ${this.get('description')} via GooglePay`
+      if(this.get('method') === 'applepay') return `Charged ${this.get('description')} via ApplePay`
+      if(this.get('method') === 'paypal') return `Charged paypal account ${this.get('description')}`
+      if(this.get('method') === 'check') return `Received check ${this.get('description')}`
+      if(this.get('method') === 'card') return `Charged ${this.get('description')}`
       if(this.get('method') === 'scholarship') return 'Applied scholarship'
       if(this.get('method') === 'credit') return 'Applied customer credit'
       if(this.get('method') === 'cash') return 'Received cash'
@@ -51,10 +50,6 @@ const Payment = new Model({
 
   },
 
-  card() {
-    return this.belongsTo(Card, 'card_id')
-  },
-
   credit() {
     return this.belongsTo(Credit, 'credit_id')
   },
@@ -69,6 +64,10 @@ const Payment = new Model({
 
   merchant() {
     return this.belongsTo(Merchant, 'merchant_id')
+  },
+
+  payment_method() {
+    return this.belongsTo(PaymentMethod, 'payment_method_id')
   },
 
   photo() {

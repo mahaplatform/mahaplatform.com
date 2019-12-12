@@ -1,8 +1,8 @@
-import CardSerializer from '../../../serializers/card_serializer'
+import PaymentMethodSerializer from '../../../serializers/payment_method_serializer'
+import PaymentMethod from '../../../models/payment_method'
 import Customer from '../../../models/customer'
-import Card from '../../../models/card'
 
-const cardsRoute = async (req, res) => {
+const paymentMethodsRoute = async (req, res) => {
 
   const customer = await Customer.scope(qb => {
     qb.where('team_id', req.team.get('id'))
@@ -17,7 +17,7 @@ const cardsRoute = async (req, res) => {
     message: 'Unable to load customer'
   })
 
-  const cards = await Card.query(qb => {
+  const paymentMethods = await PaymentMethod.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('customer_id', customer.get('id'))
   }).fetchPage({
@@ -25,8 +25,8 @@ const cardsRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(cards, CardSerializer)
+  res.status(200).respond(paymentMethods, PaymentMethodSerializer)
 
 }
 
-export default cardsRoute
+export default paymentMethodsRoute

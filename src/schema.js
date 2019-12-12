@@ -781,19 +781,6 @@ const schema = {
       table.date('date')
     })
 
-    await knex.schema.createTable('finance_cards', (table) => {
-      table.increments('id').primary()
-      table.integer('team_id').unsigned()
-      table.integer('customer_id').unsigned()
-      table.USER-DEFINED('type')
-      table.string('last_four', 255)
-      table.string('expiration_month', 255)
-      table.string('expiration_year', 255)
-      table.string('braintree_id', 255)
-      table.timestamp('created_at')
-      table.timestamp('updated_at')
-    })
-
     await knex.schema.createTable('finance_checks', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -950,6 +937,22 @@ const schema = {
       table.USER-DEFINED('status')
     })
 
+    await knex.schema.createTable('finance_payment_methods', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.integer('customer_id').unsigned()
+      table.USER-DEFINED('method')
+      table.USER-DEFINED('card_type')
+      table.USER-DEFINED('account_type')
+      table.USER-DEFINED('ownership_type')
+      table.string('last_four', 255)
+      table.string('expiration_month', 255)
+      table.string('expiration_year', 255)
+      table.string('braintree_id', 255)
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('finance_payments', (table) => {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
@@ -970,7 +973,7 @@ const schema = {
       table.date('voided_date')
       table.text('voided_reason')
       table.integer('photo_id').unsigned()
-      table.integer('card_id').unsigned()
+      table.integer('payment_method_id').unsigned()
     })
 
     await knex.schema.createTable('finance_products', (table) => {
@@ -2394,11 +2397,6 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('finance_cards', table => {
-      table.foreign('customer_id').references('crm_contacts.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
     await knex.schema.table('finance_coupons_products', table => {
       table.foreign('coupon_id').references('finance_coupons.id')
       table.foreign('product_id').references('finance_products.id')
@@ -2439,7 +2437,6 @@ const schema = {
     })
 
     await knex.schema.table('finance_payments', table => {
-      table.foreign('card_id').references('finance_cards.id')
       table.foreign('credit_id').references('finance_credits.id')
       table.foreign('disbursement_id').references('finance_disbursements.id')
       table.foreign('invoice_id').references('finance_invoices.id')
@@ -2447,6 +2444,7 @@ const schema = {
       table.foreign('photo_id').references('maha_assets.id')
       table.foreign('scholarship_id').references('finance_scholarships.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('payment_method_id').references('finance_payment_methods.id')
     })
 
     await knex.schema.table('finance_products', table => {
@@ -2834,6 +2832,11 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('finance_payment_methods', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('customer_id').references('crm_contacts.id')
     })
 
 

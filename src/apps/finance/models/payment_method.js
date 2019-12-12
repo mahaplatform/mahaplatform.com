@@ -2,9 +2,9 @@ import Model from '../../../core/objects/model'
 import Customer from './customer'
 import Payment from './payment'
 
-const Card = new Model({
+const PaymentMethod = new Model({
 
-  tableName: 'finance_cards',
+  tableName: 'finance_payment_methods',
 
   rules: {},
 
@@ -17,7 +17,8 @@ const Card = new Model({
     },
 
     description() {
-      return `${this.get('type').toUpperCase()}-${this.get('last_four')}`
+      if(this.get('method') === 'paypal') return `PAYPAL-${this.get('email')}`
+      return `${this.get('card_type').toUpperCase()}-${this.get('last_four')}`
     }
 
   },
@@ -32,4 +33,4 @@ const Card = new Model({
 
 })
 
-export default Card
+export default PaymentMethod

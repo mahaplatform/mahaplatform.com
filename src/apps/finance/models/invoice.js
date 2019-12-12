@@ -31,6 +31,8 @@ const Invoice = new Model({
 
   payments() {
     return this.hasMany(Payment, 'invoice_id').query(qb => {
+      qb.select('finance_payments.*','finance_payment_details.*')
+      qb.innerJoin('finance_payment_details', 'finance_payment_details.payment_id', 'finance_payments.id')
       qb.orderByRaw('date asc, created_at asc')
     })
   },
