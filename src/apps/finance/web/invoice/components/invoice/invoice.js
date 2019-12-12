@@ -1,10 +1,9 @@
-import { ApplePay, Button, GooglePay, Logo, PayPal } from 'maha-public'
+import { Button, Logo } from 'maha-public'
 import PropTypes from 'prop-types'
+import Payment from '../payment'
 import numeral from 'numeral'
 import moment from 'moment'
-import Card from '../card'
 import React from 'react'
-import ACH from '../ach'
 import _ from 'lodash'
 
 class Invoice extends React.Component {
@@ -19,8 +18,6 @@ class Invoice extends React.Component {
     onSubmit: PropTypes.func,
     onToken: PropTypes.func
   }
-
-  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     const { invoice } = window
@@ -155,20 +152,6 @@ class Invoice extends React.Component {
         { !_.includes(['paid','void'], invoice.status) &&
           <div className="finance-invoice-footer">
             <div className="finance-invoice-footer-buttons">
-              { window.ApplePaySession &&
-                <div className="finance-invoice-footer-button">
-                  <ApplePay { ...this._getPayButton() } />
-                </div>
-              }
-              <div className="finance-invoice-footer-button">
-                <GooglePay { ...this._getPayButton() } />
-              </div>
-              <div className="finance-invoice-footer-button">
-                <PayPal { ...this._getPayButton() } />
-              </div>
-              <div className="finance-invoice-footer-button">
-                <Button { ...this._getCard() } />
-              </div>
               <div className="finance-invoice-footer-button">
                 <Button { ...this._getBank() } />
               </div>
@@ -179,41 +162,11 @@ class Invoice extends React.Component {
     )
   }
 
-  _getMethod(props) {
-    const { description, method } = props
-    if(method === 'paypal') return `Charged ${description}`
-    if(method === 'card') return `Charged ${description}`
-    if(method === 'googlepay') return `Charged ${description} via GooglePay`
-    if(method === 'applepay') return `Charged ${description} via ApplePay`
-    if(method === 'check') return `Received check (${description})`
-    if(method === 'scholarship') return 'Applied scholarship'
-    if(method === 'credit') return 'Applied customer credit'
-    if(method === 'cash') return 'Received cash'
-  }
-
-  _getCard() {
-    return {
-      label: 'Credit Card',
-      color: 'red',
-      modal: Card
-    }
-  }
-
   _getBank() {
     return {
-      label: 'Bank Account',
-      color: 'violet',
-      modal: ACH
-    }
-  }
-
-  _getPayButton() {
-    const { invoice, token } = window
-    return {
-      onChoose: () => {},
-      invoice,
-      token,
-      onSuccess: this._handleSubmit
+      label: 'Make Payment',
+      color: 'red',
+      modal: Payment
     }
   }
 
@@ -221,11 +174,6 @@ class Invoice extends React.Component {
     const classes = []
     if(payment.voided_date) classes.push('voided')
     return classes.join(' ')
-  }
-
-  _handleSubmit({ nonce }) {
-    const { invoice } = window
-    this.props.onSubmit(invoice.code, nonce)
   }
 
 }

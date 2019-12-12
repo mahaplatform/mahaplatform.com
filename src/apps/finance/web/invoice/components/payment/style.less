@@ -1,0 +1,36 @@
+.finance-payment-methods {
+  flex: 1;
+  .scrollable()
+}
+.finance-payment-method {
+  display: flex;
+  border-bottom: 1px solid fadeout(@black, 90);
+  cursor: pointer;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}
+.finance-payment-method-mark {
+  padding: 0.8em 0 0.8em 0.8em;
+  flex: 0 0 5em;
+  display: flex;
+  align-items: center;
+  img {
+    width: 100%;
+  }
+}
+.finance-payment-method-label {
+  flex: 1;
+  padding: 0.8em;
+  display: flex;
+  align-items: center;
+}
+.finance-payment-method-proceed {
+  padding: 0.8em 0.8em 0.8em 0;
+  display: flex;
+  .fa {
+    font-size: 1.2em;
+    color: fadeout(@black, 80);
+    margin: auto;
+  }
+}

@@ -6,8 +6,9 @@ import Root from './components/root'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-import ACH from './components/ach'
+import Payment from './components/payment'
 import Card from './components/card'
+import ACH from './components/ach'
 
 class App extends React.Component {
 
@@ -37,7 +38,8 @@ class App extends React.Component {
         }),
         ACH,
         Card,
-        Invoice
+        Invoice,
+        Payment
       ]
     }
   }
