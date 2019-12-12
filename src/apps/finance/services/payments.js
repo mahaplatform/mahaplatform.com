@@ -119,6 +119,29 @@ const chargeCard = async (req, { customer, merchant, credit_card, amount }) => {
 
 }
 
+const chargeGooglePay = async (req, { customer, merchant, credit_card, amount }) => {
+
+  const result = await braintree.paymentMethod.create({
+    customerId: customer.get('braintree_id'),
+    paymentMethodNonce: credit_card.nonce
+  })
+
+  console.log(result)
+
+}
+
+const chargePayPal = async (req, { customer, merchant, paypal, amount }) => {
+
+  const result = await braintree.paymentMethod.create({
+    customerId: customer.get('braintree_id'),
+    paymentMethodNonce: paypal.nonce
+  })
+
+  console.log(result)
+
+}
+
+
 
 const getBank = async(req, { customer, bank_account }) => {
 
@@ -192,7 +215,7 @@ const chargeBank = async (req, {}) => {
 
 const chargeCustomer = async (req, { invoice, params }) => {
 
-  const { method, credit_card, amount } = params
+  const { method, credit_card, paypal, amount } = params
 
   if(_.includes(['cash','check','credit','scholarship'], method)) return {}
 
@@ -200,11 +223,29 @@ const chargeCustomer = async (req, { invoice, params }) => {
     customer: invoice.related('customer')
   })
 
+  if(method === 'googlepay') {
+    return await chargeGooglePay(req, {
+      customer,
+      merchant: invoice.related('program').related('merchant'),
+      credit_card,
+      amount
+    })
+  }
+
+  if(method === 'paypal') {
+    return await chargePayPal(req, {
+      customer,
+      merchant: invoice.related('program').related('merchant'),
+      paypal,
+      amount
+    })
+  }
+
   if(method === 'card') {
     return await chargeCard(req, {
       customer,
       merchant: invoice.related('program').related('merchant'),
-      credit_card,
+      nonce,
       amount
     })
   }

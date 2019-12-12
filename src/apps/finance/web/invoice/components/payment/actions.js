@@ -7,10 +7,11 @@ export const token = (code) => ({
   failure: 'TOKEN_FAILURE'
 })
 
-export const pay = (code, nonce) => ({
+export const pay = (code, body) => ({
   type: 'API_REQUEST',
   method: 'POST',
   endpoint: `/api/finance/invoices/${code}/payments`,
+  body,
   request: 'PAY_REQUEST',
   success: 'PAY_SUCCESS',
   failure: 'PAY_FAILURE'

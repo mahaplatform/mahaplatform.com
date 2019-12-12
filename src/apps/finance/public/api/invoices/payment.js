@@ -17,15 +17,10 @@ const paymentRoute = async (req, res) => {
 
   req.team = invoice.related('team')
 
-  const merchant_id = 1
-
-  const amount = invoice.get('balance')
-
   const payment = await makePayment(req, {
     invoice,
     params: {
-      merchant_id,
-      amount,
+      merchant_id: invoice.related('program').get('merchant_id'),
       ...req.body
     }
   })

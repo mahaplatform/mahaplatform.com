@@ -11,6 +11,7 @@ class Payment extends React.PureComponent {
 
   static propTypes = {
     invoice: PropTypes.object,
+    status: PropTypes.string,
     token: PropTypes.string,
     onToken: PropTypes.func,
     onPay: PropTypes.func
@@ -27,13 +28,33 @@ class Payment extends React.PureComponent {
   _handlePush = this._handlePush.bind(this)
 
   render() {
-    return <Stack { ...this._getStack() } />
+    return (
+      <div className={ this._getClass() }>
+        <Stack { ...this._getStack() } />
+      </div>
+    )
   }
 
   componentDidMount() {
     const { invoice } = this.props
     this.props.onToken(invoice.code)
     this._handlePush(Methods, this._getMethods.bind(this))
+  }
+
+  componentDidUpdate(prevProps) {
+    const { status } = this.props
+    if(status !== prevProps.status) {
+      if(status === 'success') {
+        this.context.modal.close()
+      }
+    }
+  }
+
+  _getClass() {
+    const { status } = this.props
+    const classes = ['finance-payment']
+    if(status === 'saving') classes.push('ui form loading')
+    return classes.join(' ')
   }
 
   _getMethods() {

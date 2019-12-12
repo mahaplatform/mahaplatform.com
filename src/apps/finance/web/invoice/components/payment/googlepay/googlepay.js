@@ -1,6 +1,7 @@
 import { ModalPanel } from 'maha-public'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class GooglePay extends React.PureComponent {
 
@@ -13,6 +14,7 @@ class GooglePay extends React.PureComponent {
     payment: PropTypes.object,
     token: PropTypes.string,
     onBack: PropTypes.func,
+    onDone: PropTypes.func,
     onSubmit: PropTypes.func
   }
 
@@ -44,9 +46,13 @@ class GooglePay extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { payment } = this.props
+    const { invoice, payment } = this.props
     if(!_.isEqual(payment, prevProps.payment)) {
-      this.props.onDone(payment)
+      this.props.onDone({
+        amount: invoice.balance,
+        method: 'googlepay',
+        credit_card: payment
+      })
     }
   }
 

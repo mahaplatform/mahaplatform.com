@@ -1,3 +1,25 @@
-.paypal {
-
+.finance-payment-paypal {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+.finance-payment-paypal-body {
+  flex: 1;
+  padding: 0.8em;
+}
+.finance-payment-paypal-footer {
+  border-top: 1px solid fadeout(@black, 90);
+  background-color: fadeout(@black, 97);
+  padding: 0.8em;
+  z-index: 99;
+}
+.paypal-button {
+  display: block;
+  height: 45px;
+  max-height: 45px;
+  position: relative !important;
+  .zoid-outlet {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
 }
