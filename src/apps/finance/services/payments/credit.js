@@ -34,7 +34,7 @@ export const chargeCredit = async (req, { invoice, date, amount, credit_id }) =>
   return await Payment.forge({
     team_id: req.team.get('id'),
     invoice_id: invoice.get('id'),
-    status: 'received',
+    status: 'applied',
     method: 'credit',
     credit_id: credit.get('id'),
     amount,

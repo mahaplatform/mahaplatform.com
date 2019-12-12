@@ -42,6 +42,16 @@ const CreatePaymentMethod = {
       left join finance_payment_methods on finance_payment_methods.id = finance_payments.payment_method_id
     `)
 
+    await knex.schema.table('finance_payments', (table) => {
+      table.dropColumn('status')
+    })
+
+    await knex.raw('DROP TYPE finance_payments_status;')
+
+    await knex.schema.table('finance_payments', (table) => {
+      table.enum('status', ['applied','received','captured','settled','disbursed','voided'], { useNative: true, enumName: 'finance_payments_status' })
+    })
+
   },
 
   down: async (knex) => {

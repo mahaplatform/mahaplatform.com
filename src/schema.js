@@ -945,6 +945,7 @@ const schema = {
       table.USER-DEFINED('card_type')
       table.USER-DEFINED('account_type')
       table.USER-DEFINED('ownership_type')
+      table.string('email', 255)
       table.string('last_four', 255)
       table.string('expiration_month', 255)
       table.string('expiration_year', 255)
@@ -969,11 +970,11 @@ const schema = {
       table.timestamp('updated_at')
       table.date('date')
       table.decimal('rate', 5, 4)
-      table.USER-DEFINED('status')
       table.date('voided_date')
       table.text('voided_reason')
       table.integer('photo_id').unsigned()
       table.integer('payment_method_id').unsigned()
+      table.USER-DEFINED('status')
     })
 
     await knex.schema.createTable('finance_products', (table) => {
@@ -3532,6 +3533,21 @@ union
       from ((finance_reimbursements
       left join finance_projects on ((finance_projects.id = finance_reimbursements.project_id)))
       left join maha_imports_import_items on (((maha_imports_import_items.object_id = finance_reimbursements.id) and ((maha_imports_import_items.object_type)::text = 'finance_reimbursements'::text))))) items;
+    `)
+
+    await knex.raw(`
+      create view finance_payment_details AS
+      select finance_payments.id as payment_id,
+      case
+      when (finance_payments.method = 'scholarship'::finance_payments_method) then null::text
+      when (finance_payments.method = 'credit'::finance_payments_method) then null::text
+      when (finance_payments.method = 'cash'::finance_payments_method) then null::text
+      when (finance_payments.method = 'check'::finance_payments_method) then concat('#', finance_payments.reference)
+      when (finance_payments.method = 'paypal'::finance_payments_method) then (finance_payment_methods.email)::text
+      else upper(concat(finance_payment_methods.card_type, '-', finance_payment_methods.last_four))
+      end as description
+      from (finance_payments
+      left join finance_payment_methods on ((finance_payment_methods.id = finance_payments.payment_method_id)));
     `)
 
     await knex.raw(`

@@ -34,7 +34,7 @@ export const chargeScholarship = async (req, { invoice, date, amount, scholarshi
   return await Payment.forge({
     team_id: req.team.get('id'),
     invoice_id: invoice.get('id'),
-    status: 'received',
+    status: 'applied',
     method: 'scholarship',
     scholarship_id: scholarship.get('id'),
     amount,
