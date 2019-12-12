@@ -1,5 +1,6 @@
-import { ModalPanel } from 'maha-public'
+import { Stack } from 'maha-public'
 import PropTypes from 'prop-types'
+import Methods from './methods'
 import React from 'react'
 
 class Payment extends React.PureComponent {
@@ -8,54 +9,71 @@ class Payment extends React.PureComponent {
     modal: PropTypes.object
   }
 
-  static propTypes = {}
+  static propTypes = {
+    invoice: PropTypes.object,
+    token: PropTypes.string,
+    onToken: PropTypes.func,
+    onPay: PropTypes.func
+  }
 
   static defaultProps = {}
 
-  _handleCancel = this._handleCancel.bind(this)
-
-  render() {
-    const methods = [
-      { label: 'Apple Pay', name: 'applepay' },
-      { label: 'Google Pay', name: 'googlepay' },
-      { label: 'PayPal', name: 'paypal' },
-      { label: 'Credit Card', name: 'card' },
-      { label: 'Bank Account', name: 'ach' }
-    ]
-    return (
-      <ModalPanel { ...this._getPanel() }>
-        <div className="finance-payment-methods">
-          { methods.map((method, index) => (
-            <div className="finance-payment-method" key={`method_${index}`}>
-              <div className="finance-payment-method-mark">
-                <img src={`/admin/images/payments/${method.name}-mark.png`} />
-              </div>
-              <div className="finance-payment-method-label">
-                { method.label }
-              </div>
-              <div className="finance-payment-method-proceed">
-                <i className="fa fa-chevron-right" />
-              </div>
-            </div>
-          )) }
-        </div>
-      </ModalPanel>
-    )
+  state = {
+    cards: []
   }
 
-  _getPanel() {
+  _handlePay = this._handlePay.bind(this)
+  _handlePop = this._handlePop.bind(this)
+  _handlePush = this._handlePush.bind(this)
+
+  render() {
+    return <Stack { ...this._getStack() } />
+  }
+
+  componentDidMount() {
+    const { invoice } = this.props
+    this.props.onToken(invoice.code)
+    this._handlePush(Methods, this._getMethods.bind(this))
+  }
+
+  _getMethods() {
+    const { invoice, token } = this.props
     return {
-      title: 'Choose Payment Method',
-      leftItems: [
-        { label: 'Cancel', handler: this._handleCancel }
-      ]
+      invoice,
+      token,
+      onDone: this._handlePay,
+      onPop: this._handlePop,
+      onPush: this._handlePush
     }
   }
 
-  _handleCancel() {
-    this.context.modal.close()
+  _getStack() {
+    const { cards } = this.state
+    return {
+      cards,
+      slideFirst: false
+    }
   }
 
+  _handlePay(payment) {
+    const { invoice } = this.props
+    this.props.onPay(invoice.code, payment)
+  }
+
+  _handlePop(index = -1) {
+    this.setState({
+      cards: this.state.cards.slice(0, index)
+    })
+  }
+
+  _handlePush(component, props) {
+    this.setState({
+      cards: [
+        ...this.state.cards,
+        { component, props }
+      ]
+    })
+  }
 
 }
 

@@ -1,81 +1,86 @@
-import { ApplePay, Button, GooglePay, PayPal } from 'maha-public'
 import { ModalPanel } from 'maha-public'
+import GooglePay from './googlepay'
 import PropTypes from 'prop-types'
+import ApplePay from './applepay'
+import PayPal from './paypal'
 import React from 'react'
-import Card from '../card'
-import ACH from '../ach'
+import Card from './card'
+import ACH from './ach'
 
 class Methods extends React.PureComponent {
 
-  static propTypes = {}
-
-  static defaultProps = {
-    onSubmit: PropTypes.func
+  static contextTypes = {
+    modal: PropTypes.object
   }
 
-  _handleSubmit = this._handleSubmit.bind(this)
+  static propTypes = {
+    invoice: PropTypes.object,
+    token: PropTypes.string,
+    onDone: PropTypes.func,
+    onPop: PropTypes.func,
+    onPush: PropTypes.func
+  }
+
+  static defaultProps = {}
+
+  _handleCancel = this._handleCancel.bind(this)
 
   render() {
+    const methods = [
+      { label: 'Google Pay', name: 'googlepay', component: GooglePay },
+      { label: 'PayPal', name: 'paypal', component: PayPal },
+      { label: 'Credit Card', name: 'card', component: Card },
+      { label: 'Bank Account', name: 'ach', component: ACH }
+    ]
+    if(window.ApplePaySession) {
+      methods.unshift({ label: 'Apple Pay', name: 'applepay', component: ApplePay })
+    }
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="finance-invoice-footer-button">
-          { window.ApplePaySession &&
-            <div className="finance-invoice-footer-button">
-              <ApplePay { ...this._getPayButton() } />
+        <div className="finance-payment-methods">
+          { methods.map((method, index) => (
+            <div className="finance-payment-method" key={`method_${index}`} onClick={ this._handleMethod.bind(this, method.component) }>
+              <div className="finance-payment-method-mark">
+                <img src={`/admin/images/payments/${method.name}-mark.png`} />
+              </div>
+              <div className="finance-payment-method-label">
+                { method.label }
+              </div>
+              <div className="finance-payment-method-proceed">
+                <i className="fa fa-chevron-right" />
+              </div>
             </div>
-          }
-          <div className="finance-invoice-footer-button">
-            <GooglePay { ...this._getPayButton() } />
-          </div>
-          <div className="finance-invoice-footer-button">
-            <PayPal { ...this._getPayButton() } />
-          </div>
-          <div className="finance-invoice-footer-button">
-            <Button { ...this._getCard() } />
-          </div>
-          <div className="finance-invoice-footer-button">
-            <Button { ...this._getBank() } />
-          </div>
+          )) }
         </div>
       </ModalPanel>
     )
   }
 
-  _getPanel() {
+  _getMethod() {
+    const { invoice, token, onPop, onDone } = this.props
     return {
-
-    }
-  }
-
-  _getCard() {
-    return {
-      label: 'Credit Card',
-      color: 'red',
-      modal: Card
-    }
-  }
-
-  _getBank() {
-    return {
-      label: 'Bank Account',
-      color: 'violet',
-      modal: ACH
-    }
-  }
-
-  _getPayButton() {
-    const { invoice, token } = window
-    return {
-      onChoose: () => {},
       invoice,
       token,
-      onSuccess: this._handleSubmit
+      onBack: onPop,
+      onDone
     }
   }
 
-  _handleSubmit({ nonce }) {
-    const { invoice } = window
-    this.props.onSubmit(invoice.code, nonce)
+  _getPanel() {
+    return {
+      title: 'Choose Payment Method',
+      leftItems: [
+        { label: 'Cancel', handler: this._handleCancel }
+      ]
+    }
+  }
+
+  _handleCancel() {
+    this.context.modal.close()
+  }
+
+  _handleMethod(component) {
+    this.props.onPush(component, this._getMethod.bind(this))
   }
 
 }

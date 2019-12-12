@@ -62,7 +62,6 @@ class Modal extends React.Component {
   }
 
   _handleOpen(component) {
-    console.log('here')
     this._handlePush(component)
   }
 

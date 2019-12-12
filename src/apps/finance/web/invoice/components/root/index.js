@@ -1,4 +1,4 @@
-import googlepayMiddleware from '../../../../../../core/public/components/googlepay/middleware'
+import googlepayMiddleware from '../payment/googlepay/middleware'
 import { createStore, applyMiddleware } from 'redux'
 import { combineReducers } from 'redux-rubberstamp'
 import createApiRequest from 'redux-api-request'

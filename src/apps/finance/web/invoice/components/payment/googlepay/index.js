@@ -1,11 +1,11 @@
 import { Factory } from 'redux-rubberstamp'
 import reducer from './reducer'
-import Payment from './payment'
+import GooglePay from './googlepay'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'payment',
-  component: Payment,
+  namespace: 'googlepay',
+  component: GooglePay,
   reducer,
   actions
 })

@@ -1,15 +1,15 @@
 export const INITIAL_STATE = {
-  token: null
+  payment: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'TOKEN_SUCCESS':
+  case 'SUBMIT_SUCCESS':
     return {
       ...state,
-      token: action.result.data.token
+      payment: action.result
     }
 
   default:

@@ -151,10 +151,8 @@ class Invoice extends React.Component {
         </div>
         { !_.includes(['paid','void'], invoice.status) &&
           <div className="finance-invoice-footer">
-            <div className="finance-invoice-footer-buttons">
-              <div className="finance-invoice-footer-button">
-                <Button { ...this._getBank() } />
-              </div>
+            <div className="finance-invoice-footer-button">
+              <Button { ...this._getBank() } />
             </div>
           </div>
         }
@@ -166,7 +164,14 @@ class Invoice extends React.Component {
     return {
       label: 'Make Payment',
       color: 'red',
-      modal: Payment
+      modal: () => <Payment { ...this._getPayment() } />
+    }
+  }
+
+  _getPayment() {
+    const { invoice } = window
+    return {
+      invoice
     }
   }
 

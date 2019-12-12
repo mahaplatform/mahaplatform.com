@@ -7,8 +7,11 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 import Payment from './components/payment'
-import Card from './components/card'
-import ACH from './components/ach'
+import ACH from './components/payment/ach'
+import ApplePay from './components/payment/applepay'
+import GooglePay from './components/payment/googlepay'
+import PayPal from './components/payment/paypal'
+import Card from './components/payment/card'
 
 class App extends React.Component {
 
@@ -36,6 +39,9 @@ class App extends React.Component {
         ...Object.values(components).filter(component => {
           return component.reducer !== undefined
         }),
+        ApplePay,
+        GooglePay,
+        PayPal,
         ACH,
         Card,
         Invoice,

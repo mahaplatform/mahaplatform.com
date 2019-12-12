@@ -2,20 +2,22 @@ import { ModalPanel } from 'maha-public'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Ach extends React.PureComponent {
+class Card extends React.PureComponent {
 
   static contextTypes = {
     modal: PropTypes.object
   }
 
-  static propTypes = {}
+  static propTypes = {
+    onBack: PropTypes.func
+  }
 
-  _handleCancel = this._handleCancel.bind(this)
+  _handleBack = this._handleBack.bind(this)
 
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
-        card
+        credit card
       </ModalPanel>
     )
   }
@@ -23,16 +25,16 @@ class Ach extends React.PureComponent {
   _getPanel() {
     return {
       leftItems: [
-        { label: 'Cancel', handler: this._handleCancel }
+        { icon: 'chevron-left', handler: this._handleBack }
       ],
-      title: 'Pay with Bank Account'
+      title: 'Credit Card'
     }
   }
 
-  _handleCancel() {
-    this.context.modal.close()
+  _handleBack() {
+    this.props.onBack()
   }
 
 }
 
-export default Ach
+export default Card
