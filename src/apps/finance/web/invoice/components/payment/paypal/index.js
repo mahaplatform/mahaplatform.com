@@ -90,11 +90,11 @@ class PayPal extends React.PureComponent {
       return paypal.Button.render({
         env: 'sandbox',
         style: {
-          color: 'gold',
+          color: 'black',
           shape: 'rect',
           label: 'paypal',
           tagline: false,
-          height: 45
+          height: 40
         },
         commit: 'true',
         payment,

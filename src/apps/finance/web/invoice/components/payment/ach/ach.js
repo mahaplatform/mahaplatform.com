@@ -13,6 +13,7 @@ class ACH extends React.PureComponent {
   }
 
   _handleBack = this._handleBack.bind(this)
+  _handleAuthorize = this._handleAuthorize.bind(this)
 
   render() {
     return <Form { ...this._getForm() } />
@@ -23,8 +24,15 @@ class ACH extends React.PureComponent {
       title: 'Bank Account',
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
-      fields: {}
+      onSubmit: this._handleAuthorize,
+      fields: [
+        { label: 'Routing Number', name: 'routing_number', type: 'textfield' },
+        { label: 'Account Number', name: 'account_number', type: 'textfield' }
+      ]
     }
+  }
+
+  _handleAuthorize() {
   }
 
   _handleBack() {

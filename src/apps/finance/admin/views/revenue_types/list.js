@@ -35,7 +35,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     endpoint: '/api/admin/finance/revenue_types',
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
-      { label: 'Title', key: 'title', primary: true, format: RevenueTypeToken },
+      { label: 'Title', key: 'title', sort: 'revenue_code', primary: true, format: RevenueTypeToken },
       { label: 'Active', key: 'is_active', primary: true, format: 'check' },
       ..._getIntegrationColumns(resources.app.settings.integration)
     ],
@@ -51,7 +51,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
         modal: <Edit { ...record } integration={ resources.app.settings.integration } />
       }
     ],
-    defaultSort: { key: 'title', order: 'asc' },
+    defaultSort: { key: 'revenue_code', order: 'asc' },
     empty: {
       icon: 'tag',
       title: 'No Revenue Types',

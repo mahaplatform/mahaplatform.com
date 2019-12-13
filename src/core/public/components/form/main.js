@@ -1,5 +1,6 @@
 import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
+import Field from './field'
 import React from 'react'
 
 class Main extends React.PureComponent {
@@ -7,6 +8,7 @@ class Main extends React.PureComponent {
   static propTypes = {
     cancelIcon: PropTypes.string,
     cancelText: PropTypes.string,
+    fields: PropTypes.array,
     saveIcon: PropTypes.string,
     saveText: PropTypes.string,
     title: PropTypes.string,
@@ -16,9 +18,16 @@ class Main extends React.PureComponent {
   _handleCancel = this._handleCancel.bind(this)
 
   render() {
+    const { fields } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        form
+        <div className="maha-form">
+          <div className="ui form">
+            { fields.map((field, index) => (
+              <Field key={`field_${index}`} { ...this._getField(field) } />
+            )) }
+          </div>
+        </div>
       </ModalPanel>
     )
   }
@@ -29,6 +38,19 @@ class Main extends React.PureComponent {
     if(cancelIcon) return [{ icon: cancelIcon, handler }]
     if(cancelText) return [{ label: cancelText, handler }]
     return null
+  }
+
+  _getField(field) {
+    // const { errors, status } = this.props
+    return {
+      field,
+      // error: errors[field.name],
+      // status: status[field.name],
+      // onChange: this._handleChange.bind(this, field.name),
+      // onReady: this.onSetStatus.bind(this, field.name, 'ready'),
+      // onValidate: this._handleSetValidate.bind(this, field.name),
+      // onFinalize: this._handleSetFinalized.bind(this, field.name)
+    }
   }
 
   _getPanel() {

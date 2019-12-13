@@ -13,6 +13,7 @@ class Card extends React.PureComponent {
   }
 
   _handleBack = this._handleBack.bind(this)
+  _handleAuthorize = this._handleAuthorize.bind(this)
 
   render() {
     return <Form { ...this._getForm() } />
@@ -23,10 +24,18 @@ class Card extends React.PureComponent {
       title: 'Credit Card',
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
-      fields: {}
+      onSubmit: this._handleAuthorize,
+      fields: [
+        { label: 'Number', name: 'number', type: 'textfield' },
+        { label: 'Expiration', name: 'expiration', type: 'textfield' },
+        { label: 'CVV', name: 'cvv', type: 'textfield' },
+        { label: 'Amount', name: 'amount', type: 'textfield' }
+      ]
     }
   }
 
+  _handleAuthorize() {
+  }
 
   _handleBack() {
     this.props.onBack()
