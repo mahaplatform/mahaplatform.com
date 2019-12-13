@@ -7,7 +7,7 @@ const CreatePaymentMethod = {
       table.foreign('team_id').references('maha_teams.id')
       table.integer('customer_id').unsigned()
       table.foreign('customer_id').references('crm_contacts.id')
-      table.enum('method', ['applepay','googlepay','card','ach'], { useNative: true, enumName: 'finance_payment_methods_method' })
+      table.enum('method', ['applepay','googlepay','card','ach','paypal'], { useNative: true, enumName: 'finance_payment_methods_method' })
       table.enum('card_type', ['visa','mastercard','discover','amex','jcb'], { useNative: true, enumName: 'finance_payment_methods_type' })
       table.enum('account_type', ['checking','savings'], { useNative: true, enumName: 'finance_payment_methods_bank_account_type' })
       table.enum('ownership_type', ['personal','business'], { useNative: true, enumName: 'finance_payment_methods_ownership_type' })

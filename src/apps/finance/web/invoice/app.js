@@ -10,7 +10,6 @@ import Payment from './components/payment'
 import ACH from './components/payment/ach'
 import ApplePay from './components/payment/applepay'
 import GooglePay from './components/payment/googlepay'
-import PayPal from './components/payment/paypal'
 import Card from './components/payment/card'
 
 class App extends React.Component {
@@ -41,7 +40,6 @@ class App extends React.Component {
         }),
         ApplePay,
         GooglePay,
-        PayPal,
         ACH,
         Card,
         Invoice,

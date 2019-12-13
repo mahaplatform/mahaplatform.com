@@ -12,7 +12,7 @@ const listRoute = async (req, res) => {
     aliases: {
       access_type: 'crm_program_user_access.type'
     },
-    filterParams: ['access_type']
+    filterParams: ['access_type','merchant_id']
   }).fetchPage({
     page: req.query.$page,
     withRelated: ['logo'],

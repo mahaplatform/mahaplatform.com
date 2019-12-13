@@ -57,16 +57,18 @@ export const chargePayPal= async (req, { invoice, customer, merchant, payment, a
     })
   }
 
+  console.log(result.transaction)
+
   return await Payment.forge({
     team_id: req.team.get('id'),
     invoice_id: invoice.get('id'),
     merchant_id: merchant.get('id'),
     braintree_id: result.transaction.id,
-    card_id: payment_method.get('id'),
+    payment_method_id: payment_method.get('id'),
     // rate: payment_method.get('card_type') === 'amex' ? merchant.get('amex_rate') : merchant.get('rate'),
     reference: payment_method.get('description'),
     status: 'captured',
-    method: 'googlepay',
+    method: 'paypal',
     amount,
     date: moment().format('YYYY-MM-DD')
   }).save(null, {
