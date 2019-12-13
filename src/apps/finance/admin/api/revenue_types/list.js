@@ -9,9 +9,12 @@ const listRoute = async (req, res) => {
     filter: req.query.$filter,
     searchParams: ['title','description','integration->>\'revenue_code\'']
   }).sort({
+    aliases: {
+      revenue_code: 'integration->>\'revenue_code\''
+    },
     sort: req.query.$sort,
-    defaultSort: ['title'],
-    sortParams: ['id','title','is_active','created_at']
+    defaultSort: ['revenue_code'],
+    sortParams: ['id','title','revenue_code','is_active','created_at']
   }).fetchPage({
     page: req.query.$page,
     transacting: req.trx
