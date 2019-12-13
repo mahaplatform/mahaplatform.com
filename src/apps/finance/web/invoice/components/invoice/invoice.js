@@ -10,17 +10,22 @@ class Invoice extends React.Component {
 
   static contextTypes = {
     modal: PropTypes.object,
+    network: PropTypes.object,
     tasks: PropTypes.object
   }
 
   static propTypes = {
+    invoice: PropTypes.object,
     onFetch: PropTypes.func,
     onSubmit: PropTypes.func,
     onToken: PropTypes.func
   }
 
+  _handleRefresh = this._handleRefresh.bind(this)
+
   render() {
-    const { invoice } = window
+    const { invoice } = this.props
+    if(!invoice) return null
     return (
       <div className="finance-invoice">
         <div className="finance-invoice-body">
@@ -160,6 +165,11 @@ class Invoice extends React.Component {
     )
   }
 
+  componentDidMount() {
+    const { invoice } = window
+    this.props.onFetch(invoice.code)
+  }
+
   _getBank() {
     return {
       label: 'Make Payment',
@@ -169,9 +179,10 @@ class Invoice extends React.Component {
   }
 
   _getPayment() {
-    const { invoice } = window
+    const { invoice } = this.props
     return {
-      invoice
+      invoice,
+      onDone: this._handleRefresh
     }
   }
 
@@ -179,6 +190,11 @@ class Invoice extends React.Component {
     const classes = []
     if(payment.voided_date) classes.push('voided')
     return classes.join(' ')
+  }
+
+  _handleRefresh() {
+    const { invoice } = this.props
+    this.props.onFetch(invoice.code)
   }
 
 }

@@ -19,10 +19,12 @@ class GooglePay extends React.PureComponent {
   }
 
   state = {
+    amount: '',
     ready: false
   }
 
   _handleBack = this._handleBack.bind(this)
+  _handleChange = this._handleChange.bind(this)
   _handleCheck = this._handleCheck.bind(this)
   _handlePayment = this._handlePayment.bind(this)
 
@@ -31,7 +33,12 @@ class GooglePay extends React.PureComponent {
       <ModalPanel { ...this._getPanel() }>
         <div className="finance-payment-googlepay">
           <div className="finance-payment-googlepay-body">
-            GooglePay
+            <div className="ui form">
+              <div className="field">
+                <label>Amount</label>
+                <input { ...this._getInput() } />
+              </div>
+            </div>
           </div>
           <div className="finance-payment-googlepay-footer">
             <div className="gpay-button black short" onClick={ this._handlePayment } />
@@ -42,17 +49,31 @@ class GooglePay extends React.PureComponent {
   }
 
   componentDidMount() {
+    const { invoice } = this.props
+    this.setState({
+      amount: invoice.balance
+    })
     this._handleLoad()
   }
 
   componentDidUpdate(prevProps) {
-    const { invoice, payment } = this.props
+    const { payment } = this.props
+    const { amount } = this.state
     if(!_.isEqual(payment, prevProps.payment)) {
       this.props.onDone({
-        amount: invoice.balance,
+        amount,
         method: 'googlepay',
         payment
       })
+    }
+  }
+
+  _getInput() {
+    const { amount } = this.state
+    return {
+      type: 'text',
+      value: amount,
+      onChange: this._handleChange
     }
   }
 
@@ -67,6 +88,13 @@ class GooglePay extends React.PureComponent {
 
   _handleBack() {
     this.props.onBack()
+  }
+
+  _handleChange(e) {
+    if(e.target.value.match(/^-?\d*\.?\d{0,2}$/) === null) return
+    this.setState({
+      amount: e.target.value
+    })
   }
 
   _handleCheck() {
@@ -86,8 +114,9 @@ class GooglePay extends React.PureComponent {
   }
 
   _handlePayment() {
-    const { invoice, token } = this.props
-    this.props.onSubmit(token, invoice.total)
+    const { amount } = this.state
+    const { token } = this.props
+    this.props.onSubmit(token, amount)
   }
 
 }

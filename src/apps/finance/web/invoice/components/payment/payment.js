@@ -13,6 +13,7 @@ class Payment extends React.PureComponent {
     invoice: PropTypes.object,
     status: PropTypes.string,
     token: PropTypes.string,
+    onDone: PropTypes.func,
     onToken: PropTypes.func,
     onPay: PropTypes.func
   }
@@ -44,9 +45,7 @@ class Payment extends React.PureComponent {
   componentDidUpdate(prevProps) {
     const { status } = this.props
     if(status !== prevProps.status) {
-      if(status === 'success') {
-        this.context.modal.close()
-      }
+      if(status === 'success') this._handleDone()
     }
   }
 
@@ -74,6 +73,11 @@ class Payment extends React.PureComponent {
       cards,
       slideFirst: false
     }
+  }
+
+  _handleDone() {
+    this.context.modal.close()
+    this.props.onDone()
   }
 
   _handlePay(payment) {

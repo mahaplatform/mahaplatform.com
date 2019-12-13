@@ -1,11 +1,13 @@
 import { Factory } from 'redux-rubberstamp'
 import reducer from './reducer'
-import applepay from './applepay'
+import Form from './form'
+import * as selectors from './selectors'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'applepay',
-  component: applepay,
+  namespace: 'form',
+  component: Form,
   reducer,
+  selectors,
   actions
 })

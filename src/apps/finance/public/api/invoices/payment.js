@@ -1,3 +1,4 @@
+import socket from '../../../../../core/services/routes/emitter'
 import { makePayment } from '../../../services/payments'
 import Invoice from '../../../models/invoice'
 
@@ -17,13 +18,18 @@ const paymentRoute = async (req, res) => {
 
   req.team = invoice.related('team')
 
-  const payment = await makePayment(req, {
+  await makePayment(req, {
     invoice,
     params: {
       merchant_id: invoice.related('program').get('merchant_id'),
       ...req.body
     }
   })
+
+  await socket.refresh(req, [
+    '/admin/finance/invoices',
+    `/admin/finance/invoices/${invoice.get('id')}`
+  ])
 
   res.status(200).respond(true)
 

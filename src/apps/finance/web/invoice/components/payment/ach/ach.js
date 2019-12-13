@@ -1,4 +1,4 @@
-import { ModalPanel } from 'maha-public'
+import { Form } from 'maha-public'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -15,19 +15,15 @@ class ACH extends React.PureComponent {
   _handleBack = this._handleBack.bind(this)
 
   render() {
-    return (
-      <ModalPanel { ...this._getPanel() }>
-        bank account
-      </ModalPanel>
-    )
+    return <Form { ...this._getForm() } />
   }
 
-  _getPanel() {
+  _getForm() {
     return {
-      leftItems: [
-        { icon: 'chevron-left', handler: this._handleBack }
-      ],
-      title: 'Bank Account'
+      title: 'Bank Account',
+      cancelIcon: 'chevron-left',
+      onCancel: this._handleBack,
+      fields: {}
     }
   }
 
