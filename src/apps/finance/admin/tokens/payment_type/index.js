@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const _getImage = (method, payment_method) => {
-  if(!payment_method) return method
+  if(!payment_method || payment_method.method === 'paypal') return method
   return `${method}-${payment_method.card_type}`
 }
 

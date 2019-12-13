@@ -23,7 +23,7 @@ const listRoute = async (req, res) => {
     },
     sort: req.query.$sort,
     defaultSort: ['-created_at'],
-    sortParams: ['id','amount','customer','date','created_at']
+    sortParams: ['id','amount','customer','date','method','status','created_at']
   }).fetchPage({
     withRelated: ['payment_method','invoice.customer'],
     page: req.query.$page,
