@@ -78,11 +78,15 @@ export const total = createSelector(
 
 
 export const value = createSelector(
+  coupon_id,
   line_items,
-  (line_items) => line_items.map(line_item => ({
-    product_id: line_item.product.id,
-    description: line_item.description,
-    quantity: line_item.quantity,
-    price: line_item.price,
-    tax_rate: line_item.tax_rate
-  })))
+  (coupon_id, line_items) => ({
+    coupon_id,
+    line_items: line_items.map(line_item => ({
+      product_id: line_item.product.id,
+      description: line_item.description,
+      quantity: line_item.quantity,
+      price: line_item.price,
+      tax_rate: line_item.tax_rate
+    }))
+  }))

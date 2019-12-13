@@ -9,7 +9,12 @@ class Card extends React.PureComponent {
   }
 
   static propTypes = {
-    onBack: PropTypes.func
+    invoice: PropTypes.object,
+    payment: PropTypes.object,
+    token: PropTypes.string,
+    onBack: PropTypes.func,
+    onDone: PropTypes.func,
+    onSubmit: PropTypes.func
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -20,6 +25,7 @@ class Card extends React.PureComponent {
   }
 
   _getForm() {
+    const { invoice } = this.props
     return {
       title: 'Credit Card',
       cancelIcon: 'chevron-left',
@@ -29,7 +35,7 @@ class Card extends React.PureComponent {
         { label: 'Number', name: 'number', type: 'textfield' },
         { label: 'Expiration', name: 'expiration', type: 'textfield' },
         { label: 'CVV', name: 'cvv', type: 'textfield' },
-        { label: 'Amount', name: 'amount', type: 'textfield' }
+        { label: 'Amount', name: 'amount', type: 'textfield', defaultValue: invoice.balance }
       ]
     }
   }

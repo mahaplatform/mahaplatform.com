@@ -126,11 +126,11 @@ class LineItems extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { line_items, status, value, onReady } = this.props
+    const { status, value, onReady } = this.props
     if(status !== prevProps.status) {
       if(status === 'success') return onReady()
     }
-    if(!_.isEqual(line_items, prevProps.line_items)) {
+    if(!_.isEqual(value, prevProps.value)) {
       this.props.onChange(value)
     }
   }

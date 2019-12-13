@@ -7,6 +7,7 @@ import socket from '../../../../../core/services/routes/emitter'
 import LineItem from '../../../models/line_item'
 import Product from '../../../models/product'
 import Invoice from '../../../models/invoice'
+import Coupon from '../../../models/coupon'
 
 const createRoute = async (req, res) => {
 
@@ -14,15 +15,29 @@ const createRoute = async (req, res) => {
     table: 'finance_invoices'
   })
 
+  const { line_items, coupon_id } = req.body.details
+
+  const coupon = coupon_id ? await Coupon.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('id', coupon_id)
+  }).fetch({
+    transacting: req.trx
+  }) : null
+
   const invoice = await Invoice.forge({
     team_id: req.team.get('id'),
     code,
+    ...coupon ? {
+      coupon_id: coupon.get('id'),
+      discount_amount: coupon.get('amount'),
+      discount_percent: coupon.get('percent')
+    } : {},
     ...whitelist(req.body, ['customer_id','program_id','date','due','notes'])
   }).save(null, {
     transacting: req.trx
   })
 
-  await Promise.map(req.body.line_items, async(line_item) => {
+  await Promise.map(line_items, async(line_item) => {
 
     const product = await Product.scope(qb => {
       qb.where('team_id', req.team.get('id'))

@@ -9,7 +9,12 @@ class ACH extends React.PureComponent {
   }
 
   static propTypes = {
-    onBack: PropTypes.func
+    invoice: PropTypes.object,
+    payment: PropTypes.object,
+    token: PropTypes.string,
+    onBack: PropTypes.func,
+    onDone: PropTypes.func,
+    onSubmit: PropTypes.func
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -20,6 +25,7 @@ class ACH extends React.PureComponent {
   }
 
   _getForm() {
+    const { invoice } = this.props
     return {
       title: 'Bank Account',
       cancelIcon: 'chevron-left',
@@ -27,7 +33,8 @@ class ACH extends React.PureComponent {
       onSubmit: this._handleAuthorize,
       fields: [
         { label: 'Routing Number', name: 'routing_number', type: 'textfield' },
-        { label: 'Account Number', name: 'account_number', type: 'textfield' }
+        { label: 'Account Number', name: 'account_number', type: 'textfield' },
+        { label: 'Amount', name: 'amount', type: 'textfield', defaultValue: invoice.balance }
       ]
     }
   }

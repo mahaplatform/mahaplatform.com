@@ -14,7 +14,8 @@ class ApplePay extends React.PureComponent {
     token: PropTypes.string,
     onBack: PropTypes.func,
     onDone: PropTypes.func,
-    onSubmit: PropTypes.func  }
+    onSubmit: PropTypes.func
+  }
 
   state = {
     amount: ''
