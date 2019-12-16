@@ -18,54 +18,63 @@ class Chooser extends React.Component {
     onSetOptions: PropTypes.func
   }
 
+  state = {
+    ready: false
+  }
+
   autocomplete = null
   geocoder = null
 
   _handleAutocomplete = this._handleAutocomplete.bind(this)
   _handleCancel = this._handleCancel.bind(this)
+  _handleCheck = this._handleCheck.bind(this)
   _handleChoose = this._handleChoose.bind(this)
   _handleGeocode = this._handleGeocode.bind(this)
+  _handleInit = this._handleInit.bind(this)
+  _handleLoad = this._handleLoad.bind(this)
   _handleType = this._handleType.bind(this)
 
   render() {
     const { options, q } = this.props
+    const { ready } = this.state
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="addressfield-chooser">
-          <div className="addressfield-chooser-header">
-            <Searchbox { ...this._getSearchbox() } />
-          </div>
-          <div className="addressfield-chooser-body">
-            { options.length === 0 && q.length === 0 &&
-              <Message { ...this._getMessage() } />
-            }
-            { options.length === 0 && q.length > 0 &&
-              <Message { ...this._getEmpty() } />
-            }
-            { options.length > 0 &&
-              <div className="addressfield-chooser-results">
-                { options.map((option, index) => (
-                  <div className="addressfield-chooser-result" key={`options_${index}`} onClick={ this._handleChoose.bind(this, option) }>
-                    <div className="addressfield-chooser-result-icon">
-                      <i className="fa fa-map-marker" />
+        { ready &&
+          <div className="addressfield-chooser">
+            <div className="addressfield-chooser-header">
+              <Searchbox { ...this._getSearchbox() } />
+            </div>
+            <div className="addressfield-chooser-body">
+              { options.length === 0 && q.length === 0 &&
+                <Message { ...this._getMessage() } />
+              }
+              { options.length === 0 && q.length > 0 &&
+                <Message { ...this._getEmpty() } />
+              }
+              { options.length > 0 &&
+                <div className="addressfield-chooser-results">
+                  { options.map((option, index) => (
+                    <div className="addressfield-chooser-result" key={`options_${index}`} onClick={ this._handleChoose.bind(this, option) }>
+                      <div className="addressfield-chooser-result-icon">
+                        <i className="fa fa-map-marker" />
+                      </div>
+                      <div className="addressfield-chooser-result-details">
+                        <strong>{ option.structured_formatting.main_text }</strong><br />
+                        { option.structured_formatting.secondary_text }
+                      </div>
                     </div>
-                    <div className="addressfield-chooser-result-details">
-                      <strong>{ option.structured_formatting.main_text }</strong><br />
-                      { option.structured_formatting.secondary_text }
-                    </div>
-                  </div>
-                )) }
-              </div>
-            }
+                  )) }
+                </div>
+              }
+            </div>
           </div>
-        </div>
+        }
       </ModalPanel>
     )
   }
 
   componentDidMount() {
-    this.autocomplete = new window.google.maps.places.AutocompleteService()
-    this.geocoder = new window.google.maps.Geocoder()
+    this._handleLoad()
   }
 
   componentDidUpdate(prevProps) {
@@ -149,10 +158,34 @@ class Chooser extends React.Component {
     })
   }
 
+  _handleCheck() {
+    const ready = typeof window !== 'undefined' && typeof window.google !== 'undefined' && typeof window.google.maps !== 'undefined'
+    if(ready) return this._handleInit()
+    this.setState({ ready })
+    setTimeout(this._handleCheck, 1000)
+  }
+
   _handleChoose(address) {
     this.geocoder.geocode({
       placeId: address.place_id
     }, this._handleGeocode)
+  }
+
+  _handleInit() {
+    this.setState({ ready: true })
+    this.autocomplete = new window.google.maps.places.AutocompleteService()
+    this.geocoder = new window.google.maps.Geocoder()
+  }
+
+  _handleLoad() {
+    const ready = typeof window !== 'undefined' && typeof window.google !== 'undefined' && typeof window.google.maps !== 'undefined'
+    if(ready) return this._handleInit()
+    const script = document.createElement('script')
+    script.async = true
+    script.defer = true
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=places`
+    document.body.appendChild(script)
+    setTimeout(this._handleCheck, 1000)
   }
 
   _handleType(q) {
