@@ -34,7 +34,6 @@ export const setReady = (key) => ({
   key
 })
 
-
 export const setStatus = (status) => ({
   type: 'SET_STATUS',
   status

@@ -58,7 +58,13 @@ const webpackConfig = (app, name, root, port) => ({
         template: path.resolve(root,'index.html'),
         filename: 'index.html'
       })
-    ] : []
+    ] : [],
+    new webpack.DefinePlugin({
+      'process.env': {
+        'GOOGLE_MAPS_API_KEY': JSON.stringify(process.env.GOOGLE_MAPS_API_KEY || ''),
+        'GOOGLE_TRACKING_ID': JSON.stringify(process.env.GOOGLE_TRACKING_ID || '')
+      }
+    })
   ],
   resolve: {
     alias: {

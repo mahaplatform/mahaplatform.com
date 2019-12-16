@@ -1,5 +1,4 @@
 import InvoiceSerializer from '../../../serializers/invoice_serializer'
-import braintree from '../../../../../core/services/braintree'
 import Invoice from '../../../models/invoice'
 import { readFile } from './utils'
 import path from 'path'
@@ -23,16 +22,8 @@ const showRoute = async (req, res) => {
     message: 'Unable to load invoice'
   })
 
-  const response = await new Promise((resolve, reject) => {
-    braintree.clientToken.generate((err, response) => {
-      if(err) return reject(err)
-      resolve(response)
-    })
-  })
-
   const content = ejs.render(template, {
-    invoice: InvoiceSerializer(req, invoice),
-    token: response.clientToken
+    invoice: InvoiceSerializer(req, invoice)
   })
 
   res.status(200).send(content)

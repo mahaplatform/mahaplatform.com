@@ -29,6 +29,13 @@ class Card extends React.PureComponent {
     return {
       title: 'Credit Card',
       cancelIcon: 'chevron-left',
+      buttons: [
+        {
+          label: 'Make Payment',
+          color: 'red',
+          handler: () => { console.log('foo') }
+        }
+      ],
       onCancel: this._handleBack,
       onSubmit: this._handleAuthorize,
       fields: [
