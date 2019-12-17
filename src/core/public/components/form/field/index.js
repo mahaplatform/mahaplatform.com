@@ -29,13 +29,13 @@ class Field extends React.Component {
 
   render() {
     const { error, field } = this.props
-    const { label, type } = field
+    const { label } = field
     const { code } = this.state
+    const Component = this._getControl()
     return (
       <div className={ this._getClass() }>
         { label && <label htmlFor={ code }>{ label }</label> }
-        { type === 'dropdown' && <DropDown { ...this._getField() } /> }
-        { type === 'textfield' && <TextField { ...this._getField() } /> }
+        <Component { ...this._getField() } />
         { error &&
           <div className="field-error">
             { error }
@@ -43,6 +43,16 @@ class Field extends React.Component {
         }
       </div>
     )
+  }
+
+  _getControl() {
+    const { field } = this.props
+    if(field.type === 'dropdown') return DropDown
+    if(field.type === 'textfield') return TextField
+    const type = field.type || 'textfield'
+    if(!_.isString(type)) return type
+    if(type === 'dropdown') return DropDown
+    if(type === 'textfield') return TextField
   }
 
   componentDidMount() {
@@ -80,7 +90,6 @@ class Field extends React.Component {
   }
 
   _handleReady(onValidate) {
-    console.log(this.props.field.name, 'ready')
     const { onReady } = this.props
     this.onValidate = onValidate || this._handleValidate
     onReady()

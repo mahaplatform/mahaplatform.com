@@ -1,5 +1,6 @@
 import googlepayMiddleware from '../payment/googlepay/middleware'
 import cardMiddleware from '../payment/card/middleware'
+import achMiddleware from '../payment/ach/middleware'
 import { createStore, applyMiddleware } from 'redux'
 import { combineReducers } from 'redux-rubberstamp'
 import createApiRequest from 'redux-api-request'
@@ -40,6 +41,7 @@ class Root extends React.Component {
       thunkMiddleware,
       apiRequestMiddleware,
       cardMiddleware,
+      achMiddleware,
       googlepayMiddleware,
       ...(!isProduction || logFlag) ? [loggerMiddleware] : []
     ]

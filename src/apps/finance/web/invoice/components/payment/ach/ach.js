@@ -12,12 +12,14 @@ class ACH extends React.PureComponent {
     invoice: PropTypes.object,
     payment: PropTypes.object,
     token: PropTypes.string,
+    onAuthorize: PropTypes.func,
     onBack: PropTypes.func,
     onDone: PropTypes.func,
     onSubmit: PropTypes.func
   }
 
   state = {
+    amount: 0.00,
     account_type: 'checking',
     ownership_type: 'personal'
   }
@@ -32,6 +34,7 @@ class ACH extends React.PureComponent {
 
   _getForm() {
     const { account_type, ownership_type } = this.state
+    const { invoice } = this.props
     return {
       title: 'Bank Account',
       cancelIcon: 'chevron-left',
@@ -41,12 +44,13 @@ class ACH extends React.PureComponent {
       onChangeField: this._handleChangeField,
       onSubmit: this._handleAuthorize,
       fields: [
-        { label: 'Routing Number', name: 'routing_number', type: 'textfield', placeholder: 'XXXXXXXXX', required: true },
-        { label: 'Account Number', name: 'account_number', type: 'textfield', required: true },
-        { label: 'Account Type', name: 'account_type', type: 'dropdown', required: true, options: ['checking','savings'], defaultValue: account_type },
-        { label: 'Ownership Type', name: 'ownership_type', type: 'dropdown', required: true, options: ['personal','business'], defaultValue: ownership_type },
+        { label: 'Routing Number', name: 'routingNumber', type: 'textfield', placeholder: 'XXXXXXXXX', required: true },
+        { label: 'Account Number', name: 'accountNumber', type: 'textfield', required: true },
+        { label: 'Account Type', name: 'accountType', type: 'dropdown', required: true, options: ['checking','savings'], defaultValue: account_type },
+        { label: 'Ownership Type', name: 'ownershipType', type: 'dropdown', required: true, options: ['personal','business'], defaultValue: ownership_type },
         ...this._getOwnershipFields(),
-        { label: 'Address', name: 'address', type: 'textfield', required: true }
+        { label: 'Address', name: 'billingAddress', type: 'textfield', required: true },
+        { label: 'Amount', name: 'amount', type: 'textfield', required: true, defaultValue: invoice.balance }
       ]
     }
   }
@@ -55,18 +59,23 @@ class ACH extends React.PureComponent {
     const { ownership_type } = this.state
     if(ownership_type === 'personal') {
       return [
-        { label: 'First Name', name: 'first_name', type: 'textfield', required: true },
-        { label: 'Last Name', name: 'last_name', type: 'textfield', required: true }
+        { label: 'First Name', name: 'firstName', type: 'textfield', required: true },
+        { label: 'Last Name', name: 'lastName', type: 'textfield', required: true }
       ]
     } else {
       return [
-        { label: 'Business Name', name: 'business_name', type: 'textfield', required: true }
+        { label: 'Business Name', name: 'businessName', type: 'textfield', required: true }
       ]
     }
   }
 
   _handleAuthorize(data) {
-    console.log('authorize ach', data)
+    const { token } = this.props
+    const { amount, routingNumber, accountNumber, accountType, ownershipType, firstName, lastName, businessName, billingAddress } = data
+    this.setState({ amount })
+    const shared = { routingNumber, accountNumber, accountType, ownershipType, billingAddress }
+    if(accountType === 'business') return this.props.onAuthorize(token, { ...shared, businessName })
+    this.props.onAuthorize(token, { ...shared, firstName, lastName })
   }
 
   _handleChangeField(key, value) {

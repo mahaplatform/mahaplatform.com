@@ -1,3 +1,4 @@
+import CardField from './cardfield'
 import { Form } from 'maha-public'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -45,15 +46,14 @@ class Card extends React.PureComponent {
   _getForm() {
     const { invoice } = this.props
     return {
+      modal: false,
       title: 'Credit Card',
       cancelIcon: 'chevron-left',
       saveButton: 'Make Payment',
       onCancel: this._handleBack,
       onSubmit: this._handleAuthorize,
       fields: [
-        { label: 'Number', name: 'number', type: 'textfield', required: true },
-        { label: 'Expiration', name: 'expirationDate', type: 'textfield', required: true },
-        { label: 'CVV', name: 'cvv', type: 'textfield', required: true },
+        { label: 'Card', name: 'card', type: CardField, required: true },
         { label: 'Amount', name: 'amount', type: 'textfield', required: true, defaultValue: invoice.balance }
       ]
     }
@@ -61,9 +61,9 @@ class Card extends React.PureComponent {
 
   _handleAuthorize(data) {
     const { token } = this.props
-    const { amount, number, expirationDate, cvv } = data
+    const { amount, card } = data
     this.setState({ amount })
-    this.props.onAuthorize(token, { number, expirationDate, cvv })
+    this.props.onAuthorize(token, card)
   }
 
   _handleBack() {
