@@ -1,3 +1,4 @@
+import Buttons from '../buttons'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -5,6 +6,7 @@ import _ from 'lodash'
 class ModalPanel extends React.Component {
 
   static propTypes = {
+    buttons: PropTypes.array,
     children: PropTypes.any,
     className: PropTypes.string,
     color: PropTypes.string,
@@ -21,7 +23,7 @@ class ModalPanel extends React.Component {
   }
 
   render() {
-    const { leftItems, rightItems, showHeader, title } = this.props
+    const { buttons, leftItems, rightItems, showHeader, title } = this.props
     return (
       <div className={ this._getClass() }>
         { showHeader &&
@@ -52,8 +54,18 @@ class ModalPanel extends React.Component {
         <div className="maha-modal-panel-body">
           { this.props.children }
         </div>
+        { buttons &&
+          <div className="maha-modal-panel-footer">
+            <Buttons { ...this._getButtons() } />
+          </div>
+        }
       </div>
     )
+  }
+
+  _getButtons() {
+    const { buttons } = this.props
+    return { buttons }
   }
 
   _getClass() {

@@ -17,6 +17,11 @@ class ACH extends React.PureComponent {
     onSubmit: PropTypes.func
   }
 
+  state = {
+    account_type: 'checking',
+    ownership_type: 'personal'
+  }
+
   _handleBack = this._handleBack.bind(this)
   _handleChangeField = this._handleChangeField.bind(this)
   _handleAuthorize = this._handleAuthorize.bind(this)
@@ -26,38 +31,51 @@ class ACH extends React.PureComponent {
   }
 
   _getForm() {
+    const { account_type, ownership_type } = this.state
     return {
       title: 'Bank Account',
       cancelIcon: 'chevron-left',
+      saveText: null,
+      saveButton: 'Make Payment',
       onCancel: this._handleBack,
       onChangeField: this._handleChangeField,
       onSubmit: this._handleAuthorize,
-      buttons: [
-        {
-          label: 'Make Payment',
-          color: 'red',
-          handler: () => { console.log('foo') }
-        }
-      ],
       fields: [
-        { label: 'Routing Number', name: 'routing_number', type: 'textfield', placeholder: 'XXXXXXXXX' },
-        { label: 'Account Number', name: 'account_number', type: 'textfield' },
-        { label: 'Account Type', name: 'account_type', type: 'dropdown', options: ['checking','savings'] },
-        { label: 'Ownership Type', name: 'ownership_type', type: 'dropdown', options: ['personal','business'] },
-        { label: 'Account Number', name: 'account_number', type: 'textfield' },
-        { label: 'First Name', name: 'first_name', type: 'textfield' },
-        { label: 'Last Name', name: 'last_name', type: 'textfield' },
-        { label: 'Business Name', name: 'business_name', type: 'textfield' },
-        { label: 'Address', name: 'address', type: 'addressfield' }
+        { label: 'Routing Number', name: 'routing_number', type: 'textfield', placeholder: 'XXXXXXXXX', required: true },
+        { label: 'Account Number', name: 'account_number', type: 'textfield', required: true },
+        { label: 'Account Type', name: 'account_type', type: 'dropdown', required: true, options: ['checking','savings'], defaultValue: account_type },
+        { label: 'Ownership Type', name: 'ownership_type', type: 'dropdown', required: true, options: ['personal','business'], defaultValue: ownership_type },
+        ...this._getOwnershipFields(),
+        { label: 'Address', name: 'address', type: 'textfield', required: true }
       ]
     }
   }
 
-  _handleAuthorize() {
+  _getOwnershipFields() {
+    const { ownership_type } = this.state
+    if(ownership_type === 'personal') {
+      return [
+        { label: 'First Name', name: 'first_name', type: 'textfield', required: true },
+        { label: 'Last Name', name: 'last_name', type: 'textfield', required: true }
+      ]
+    } else {
+      return [
+        { label: 'Business Name', name: 'business_name', type: 'textfield', required: true }
+      ]
+    }
+  }
+
+  _handleAuthorize(data) {
+    console.log('authorize ach', data)
   }
 
   _handleChangeField(key, value) {
-    console.log(key, value)
+    if(key === 'account_type') {
+      this.setState({ account_type: value })
+    }
+    if(key === 'ownership_type') {
+      this.setState({ ownership_type: value })
+    }
   }
 
   _handleBack() {

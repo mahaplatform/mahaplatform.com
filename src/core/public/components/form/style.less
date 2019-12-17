@@ -1,12 +1,13 @@
+.maha-modal-panel-body {
+  .maha-form {
+    flex: 1;
+    .scrollable();
+  }
+}
 .maha-form {
   flex: 1;
   padding: 0.8em;
-  .scrollable();
 }
-
-
-
-
 
 .maha-input {
   border: 1px solid rgba(34,36,38,.15);
@@ -67,4 +68,12 @@
     margin: auto;
     cursor: pointer;
   }
+}
+.field-error {
+  background-color: @red !important;
+  color: @white !important;
+  padding: 5px 10px;
+  font-size: .8em;
+  margin-top: -5px;
+  z-index: 10;
 }
