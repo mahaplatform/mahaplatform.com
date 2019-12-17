@@ -2,6 +2,13 @@ import { Form } from 'maha-public'
 import PropTypes from 'prop-types'
 import React from 'react'
 
+const types = [
+  { value: 'personal checking', text: 'Personal Checking' },
+  { value: 'personal savings', text: 'Personal Savings' },
+  { value: 'business checking', text: 'Business Checking' },
+  { value: 'business savings', text: 'Business Savings' }
+]
+
 class ACH extends React.PureComponent {
 
   static contextTypes = {
@@ -18,10 +25,11 @@ class ACH extends React.PureComponent {
     onSubmit: PropTypes.func
   }
 
+  mandate = ''
+
   state = {
     amount: 0.00,
-    account_type: 'checking',
-    ownership_type: 'personal'
+    type: 'personal checking'
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -32,9 +40,14 @@ class ACH extends React.PureComponent {
     return <Form { ...this._getForm() } />
   }
 
-  _getForm() {
-    const { account_type, ownership_type } = this.state
+  _getMandate() {
     const { invoice } = this.props
+    return `By submitting this form, I authorize Braintree, a service of PayPal, on behalf of ${ invoice.program.title } to verify my bank account information using bank information and consumer reports and to debit my bank account.`
+  }
+
+  _getForm() {
+    const { invoice } = this.props
+    const { type } = this.state
     return {
       title: 'Bank Account',
       cancelIcon: 'chevron-left',
@@ -44,23 +57,27 @@ class ACH extends React.PureComponent {
       onChangeField: this._handleChangeField,
       onSubmit: this._handleAuthorize,
       fields: [
-        { label: 'Routing Number', name: 'routingNumber', type: 'textfield', placeholder: 'XXXXXXXXX', required: true },
-        { label: 'Account Number', name: 'accountNumber', type: 'textfield', required: true },
-        { label: 'Account Type', name: 'accountType', type: 'dropdown', required: true, options: ['checking','savings'], defaultValue: account_type },
-        { label: 'Ownership Type', name: 'ownershipType', type: 'dropdown', required: true, options: ['personal','business'], defaultValue: ownership_type },
+        { label: 'Account Type', name: 'type', type: 'dropdown', required: true, options: types, defaultValue: type },
         ...this._getOwnershipFields(),
         { label: 'Address', name: 'billingAddress', type: 'textfield', required: true },
-        { label: 'Amount', name: 'amount', type: 'textfield', required: true, defaultValue: invoice.balance }
+        { type: 'fields', fields: [
+          { label: 'Routing Number', name: 'routingNumber', type: 'textfield', placeholder: 'XXXXXXXXX', required: true },
+          { label: 'Account Number', name: 'accountNumber', type: 'textfield', required: true }
+        ] },
+        { label: 'Amount', name: 'amount', type: 'textfield', required: true, defaultValue: invoice.balance },
+        { type: 'text', style: 'warning', text: this._getMandate()  }
       ]
     }
   }
 
   _getOwnershipFields() {
-    const { ownership_type } = this.state
-    if(ownership_type === 'personal') {
+    const { type } = this.state
+    if(type.match(/personal/)) {
       return [
-        { label: 'First Name', name: 'firstName', type: 'textfield', required: true },
-        { label: 'Last Name', name: 'lastName', type: 'textfield', required: true }
+        { type: 'fields', fields: [
+          { label: 'First Name', name: 'firstName', type: 'textfield', required: true },
+          { label: 'Last Name', name: 'lastName', type: 'textfield', required: true }
+        ] }
       ]
     } else {
       return [
@@ -69,21 +86,27 @@ class ACH extends React.PureComponent {
     }
   }
 
+  _getTypes(type) {
+    return {
+      accountType: type.match(/checking/) ? 'checking' : 'savings',
+      ownershipType: type.match(/personal/) ? 'personal' : 'business'
+    }
+  }
+
   _handleAuthorize(data) {
     const { token } = this.props
-    const { amount, routingNumber, accountNumber, accountType, ownershipType, firstName, lastName, businessName, billingAddress } = data
+    const mandate = this._getMandate()
+    const { amount, routingNumber, accountNumber, type, firstName, lastName, businessName, billingAddress } = data
+    const { accountType, ownershipType } = this._getTypes(type)
     this.setState({ amount })
     const shared = { routingNumber, accountNumber, accountType, ownershipType, billingAddress }
-    if(accountType === 'business') return this.props.onAuthorize(token, { ...shared, businessName })
-    this.props.onAuthorize(token, { ...shared, firstName, lastName })
+    if(ownershipType === 'business') return this.props.onAuthorize(token, { ...shared, businessName })
+    this.props.onAuthorize(token, { ...shared, firstName, lastName }, mandate)
   }
 
   _handleChangeField(key, value) {
-    if(key === 'account_type') {
-      this.setState({ account_type: value })
-    }
-    if(key === 'ownership_type') {
-      this.setState({ ownership_type: value })
+    if(key === 'type') {
+      this.setState({ type: value })
     }
   }
 

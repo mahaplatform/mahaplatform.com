@@ -11,13 +11,20 @@ const ready = (state, props) => state.ready
 
 const validated = (state, props) => state.validated
 
+const submitable = createSelector(
+  fields,
+  (fields) => fields.filter(field => {
+    return !_.includes(['fields','text','recaptcha'], field.type)
+  })
+)
+
 export const isBusy = createSelector(
   busy,
   (busy) => busy.length > 0
 )
 
 export const isReady = createSelector(
-  fields,
+  submitable,
   ready,
   (fields, ready) => fields.find(field => {
     return !_.includes(ready, field.name)
@@ -25,7 +32,7 @@ export const isReady = createSelector(
 )
 
 export const isValid = createSelector(
-  fields,
+  submitable,
   validated,
   errors,
   (fields, validated, errors) => Object.keys(errors).length === 0 && fields.find(field => {

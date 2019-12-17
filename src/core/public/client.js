@@ -11,3 +11,5 @@ export ModalPanel from './components/modal_panel'
 export Network from './components/network'
 export Stack from './components/stack'
 export Tasks from './components/tasks'
+
+export FileField from './components/form/filefield'

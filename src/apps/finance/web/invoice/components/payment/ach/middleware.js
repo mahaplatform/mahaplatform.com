@@ -36,6 +36,7 @@ export default store => next => action => {
       bankDetails: action.data,
       mandateText: action.mandate
     }, function (err, response) {
+      if(err) return failure(err)
       success(response)
     })
   }).catch(err => {

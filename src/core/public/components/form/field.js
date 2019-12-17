@@ -1,8 +1,18 @@
+import PhoneField from './phonefield'
+import RadioGroup from './radiogroup'
+import Checkboxes from './checkboxes'
+import DateField from './datefield'
+import TimeField from './timefield'
 import TextField from './textfield'
+import FileField from './filefield'
+import Recaptcha from './recaptcha'
 import PropTypes from 'prop-types'
+import TextArea from './textarea'
 import DropDown from './dropdown'
+import Fields from './fields'
 import Checkit from 'checkit'
 import React from 'react'
+import Text from './text'
 import _ from 'lodash'
 
 class Field extends React.Component {
@@ -13,6 +23,7 @@ class Field extends React.Component {
     error: PropTypes.array,
     field: PropTypes.object,
     status: PropTypes.string,
+    onBusy: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
     onValid: PropTypes.func
@@ -29,8 +40,9 @@ class Field extends React.Component {
 
   render() {
     const { error, field } = this.props
-    const { label } = field
+    const { label, type } = field
     const { code } = this.state
+    if(type === 'fields') return <Fields { ...this._getFields() } />
     const Component = this._getControl()
     return (
       <div className={ this._getClass() }>
@@ -47,12 +59,21 @@ class Field extends React.Component {
 
   _getControl() {
     const { field } = this.props
-    if(field.type === 'dropdown') return DropDown
-    if(field.type === 'textfield') return TextField
     const type = field.type || 'textfield'
     if(!_.isString(type)) return type
+    if(type === 'radiogroup') return RadioGroup
+    if(type === 'checkboxes') return Checkboxes
     if(type === 'dropdown') return DropDown
     if(type === 'textfield') return TextField
+    if(type === 'textarea') return TextArea
+    if(type === 'datefield') return DateField
+    if(type === 'textfield') return TextField
+    if(type === 'timefield') return TimeField
+    if(type === 'filefield') return FileField
+    if(type === 'phonefield') return PhoneField
+    if(type === 'captcha') return Recaptcha
+    if(type === 'text') return Text
+    return TextField
   }
 
   componentDidMount() {
@@ -77,12 +98,13 @@ class Field extends React.Component {
   }
 
   _getField() {
-    const { field, status, onChange, onValid } = this.props
+    const { field, status, onBusy, onChange, onValid } = this.props
     const { code } = this.state
     return {
       code,
       ...field,
       status,
+      onBusy,
       onChange,
       onReady: this._handleReady,
       onValid

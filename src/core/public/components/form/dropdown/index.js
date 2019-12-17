@@ -12,8 +12,8 @@ class Dropdown extends React.Component {
     placeholder: PropTypes.string,
     required: PropTypes.bool,
     status: PropTypes.string,
+    onBusy: PropTypes.func,
     onChange: PropTypes.func,
-    onFinalize: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func
   }

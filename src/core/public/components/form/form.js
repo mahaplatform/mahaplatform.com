@@ -1,12 +1,10 @@
+import ModalPanel from '../modal_panel'
 import PropTypes from 'prop-types'
-import Stack from '../stack'
+import Control from './control'
 import React from 'react'
-import Main from './main'
 import _ from 'lodash'
 
 class Form extends React.PureComponent {
-
-  static contextTypes = {}
 
   static propTypes = {
     busy: PropTypes.array,
@@ -43,19 +41,22 @@ class Form extends React.PureComponent {
     onSubmit: () => {}
   }
 
-  state = {
-    cards: []
-  }
-
-  _handlePop =  this._handlePop.bind(this)
-  _handlePush =  this._handlePush.bind(this)
+  _handleCancel = this._handleCancel.bind(this)
+  _handleSave = this._handleSave.bind(this)
 
   render() {
-    return <Stack { ...this._getStack() } />
-  }
-
-  componentDidMount() {
-    this._handlePush(Main, this._getMain.bind(this))
+    const { fields } = this.props
+    return (
+      <ModalPanel { ...this._getPanel() }>
+        <div className="maha-form">
+          <div className="ui form">
+            { fields.map((field, index) => (
+              <Control key={`field_${index}`} { ...this._getControl(field) } />
+            )) }
+          </div>
+        </div>
+      </ModalPanel>
+    )
   }
 
   componentDidUpdate(prevProps) {
@@ -68,16 +69,56 @@ class Form extends React.PureComponent {
     }
   }
 
-  _getMain() {
-    return this.props
+  _getButtons() {
+    const { saveButton } = this.props
+    const handler = this._handleSave
+    const buttons = []
+    if(saveButton) buttons.push({ label: saveButton, color: 'blue', handler })
+    return buttons.length > 0 ? buttons : null
   }
 
-  _getStack() {
-    const { cards } = this.state
+  _getCancel() {
+    const { cancelIcon, cancelText } = this.props
+    const handler = this._handleCancel
+    if(cancelIcon) return [{ icon: cancelIcon, handler }]
+    if(cancelText) return [{ label: cancelText, handler }]
+    return null
+  }
+
+  _getControl(field) {
+    const { data, errors, status, onSetBusy, onSetReady, onSetValid, onUpdate } = this.props
     return {
-      cards,
-      slideFirst: false
+      data,
+      errors,
+      field,
+      status,
+      onSetBusy,
+      onSetReady,
+      onSetValid,
+      onUpdate
     }
+  }
+
+  _getPanel() {
+    const { title } = this.props
+    return {
+      buttons: this._getButtons(),
+      title,
+      leftItems: this._getCancel(),
+      rightItems: this._getSave()
+    }
+  }
+
+  _getSave() {
+    const { saveIcon, saveText } = this.props
+    const handler = this._handleSave
+    if(saveIcon) return [{ icon: saveIcon, handler }]
+    if(saveText) return [{ label: saveText, handler }]
+    return null
+  }
+
+  _handleCancel() {
+    this.props.onCancel()
   }
 
   _handleChange(previous, current) {
@@ -88,19 +129,8 @@ class Form extends React.PureComponent {
     if(onChange) onChange(current)
   }
 
-  _handlePop(index = -1) {
-    this.setState({
-      cards:this.state.cards.slice(0, index)
-    })
-  }
-
-  _handlePush(component, props) {
-    this.setState({
-      cards: [
-        ...this.state.cards,
-        { component, props }
-      ]
-    })
+  _handleSave() {
+    this.props.onValidate()
   }
 
   _handleSubmit() {
