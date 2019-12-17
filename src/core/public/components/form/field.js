@@ -1,3 +1,4 @@
+import AddressField from './addressfield'
 import PhoneField from './phonefield'
 import RadioGroup from './radiogroup'
 import Checkboxes from './checkboxes'
@@ -61,6 +62,7 @@ class Field extends React.Component {
     const { field } = this.props
     const type = field.type || 'textfield'
     if(!_.isString(type)) return type
+    if(type === 'addressfield') return AddressField
     if(type === 'radiogroup') return RadioGroup
     if(type === 'checkboxes') return Checkboxes
     if(type === 'dropdown') return DropDown

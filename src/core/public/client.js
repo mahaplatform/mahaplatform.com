@@ -12,4 +12,5 @@ export Network from './components/network'
 export Stack from './components/stack'
 export Tasks from './components/tasks'
 
+export AddressField from './components/form/addressfield'
 export FileField from './components/form/filefield'

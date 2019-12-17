@@ -18,6 +18,7 @@ const PaymentMethod = new Model({
 
     description() {
       if(this.get('method') === 'paypal') return `PAYPAL-${this.get('email')}`
+      if(this.get('method') === 'ach') return `${this.get('bank_name')}-${this.get('last_four')}`
       return `${this.get('card_type').toUpperCase()}-${this.get('last_four')}`
     }
 

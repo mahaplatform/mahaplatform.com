@@ -1,6 +1,7 @@
 import { Form } from 'maha-public'
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 const types = [
   { value: 'personal checking', text: 'Personal Checking' },
@@ -40,9 +41,16 @@ class ACH extends React.PureComponent {
     return <Form { ...this._getForm() } />
   }
 
-  _getMandate() {
-    const { invoice } = this.props
-    return `By submitting this form, I authorize Braintree, a service of PayPal, on behalf of ${ invoice.program.title } to verify my bank account information using bank information and consumer reports and to debit my bank account.`
+  componentDidUpdate(prevProps) {
+    const { payment } = this.props
+    const { amount } = this.state
+    if(!_.isEqual(payment, prevProps.payment)) {
+      this.props.onDone({
+        amount,
+        method: 'ach',
+        payment
+      })
+    }
   }
 
   _getForm() {
@@ -58,16 +66,21 @@ class ACH extends React.PureComponent {
       onSubmit: this._handleAuthorize,
       fields: [
         { label: 'Account Type', name: 'type', type: 'dropdown', required: true, options: types, defaultValue: type },
-        ...this._getOwnershipFields(),
-        { label: 'Address', name: 'billingAddress', type: 'textfield', required: true },
         { type: 'fields', fields: [
           { label: 'Routing Number', name: 'routingNumber', type: 'textfield', placeholder: 'XXXXXXXXX', required: true },
           { label: 'Account Number', name: 'accountNumber', type: 'textfield', required: true }
         ] },
+        ...this._getOwnershipFields(),
+        { label: 'Address', name: 'address', type: 'addressfield', required: true },
         { label: 'Amount', name: 'amount', type: 'textfield', required: true, defaultValue: invoice.balance },
         { type: 'text', style: 'warning', text: this._getMandate()  }
       ]
     }
+  }
+
+  _getMandate() {
+    const { invoice } = this.props
+    return `By submitting this form, I authorize Braintree, a service of PayPal, on behalf of ${ invoice.program.title } to verify my bank account information using bank information and consumer reports and to debit my bank account.`
   }
 
   _getOwnershipFields() {
@@ -96,7 +109,13 @@ class ACH extends React.PureComponent {
   _handleAuthorize(data) {
     const { token } = this.props
     const mandate = this._getMandate()
-    const { amount, routingNumber, accountNumber, type, firstName, lastName, businessName, billingAddress } = data
+    const { amount, routingNumber, accountNumber, type, firstName, lastName, businessName, address } = data
+    const billingAddress = {
+      streetAddress: address.street_1,
+      locality: address.city,
+      region: address.state_province,
+      postalCode: address.postal_code
+    }
     const { accountType, ownershipType } = this._getTypes(type)
     this.setState({ amount })
     const shared = { routingNumber, accountNumber, accountType, ownershipType, billingAddress }

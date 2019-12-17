@@ -952,6 +952,7 @@ const schema = {
       table.string('braintree_id', 255)
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.string('bank_name', 255)
     })
 
     await knex.schema.createTable('finance_payments', (table) => {

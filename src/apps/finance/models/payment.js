@@ -28,6 +28,7 @@ const Payment = new Model({
       if(this.get('method') === 'paypal') return `Charged paypal account ${this.get('description')}`
       if(this.get('method') === 'check') return `Received check ${this.get('description')}`
       if(this.get('method') === 'card') return `Charged ${this.get('description')}`
+      if(this.get('method') === 'ach') return `Debited ${this.get('description')}`
       if(this.get('method') === 'scholarship') return 'Applied scholarship'
       if(this.get('method') === 'credit') return 'Applied customer credit'
       if(this.get('method') === 'cash') return 'Received cash'
