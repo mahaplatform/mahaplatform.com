@@ -98,7 +98,6 @@ import driveshare from '../../apps/drive/admin/components/share'
 import driveuploader from '../../apps/drive/admin/components/uploader'
 import driveversions from '../../apps/drive/admin/components/versions'
 import financeallocations from '../../apps/finance/admin/components/allocations'
-import financeamountfield from '../../apps/finance/admin/components/amountfield'
 import financecardfield from '../../apps/finance/admin/components/cardfield'
 import financelineItems from '../../apps/finance/admin/components/line_items'
 import financeroutingnumberfield from '../../apps/finance/admin/components/routingnumberfield'
@@ -349,7 +348,6 @@ class App extends React.Component {
       driveuploader,
       driveversions,
       financeallocations,
-      financeamountfield,
       financecardfield,
       financelineItems,
       financeroutingnumberfield,
