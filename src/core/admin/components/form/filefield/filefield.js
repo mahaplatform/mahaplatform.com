@@ -22,6 +22,7 @@ class FileField extends React.Component {
     status: PropTypes.string,
     token: PropTypes.string,
     tabIndex: PropTypes.number,
+    types: PropTypes.array,
     value: PropTypes.oneOfType([
       PropTypes.number,
       PropTypes.array
@@ -111,13 +112,14 @@ class FileField extends React.Component {
   }
 
   _initializeResumable() {
-    const { files, multiple, status, token } = this.props
+    const { files, multiple, status, token, types } = this.props
     if(status !== 'ready') return
     this.resumable = new Resumable({
       target: '/api/admin/assets/upload',
       chunkSize: 1024 * 128,
       permanentErrors: [204, 400, 404, 409, 415, 500, 501],
       maxFiles: multiple ? undefined : 1,
+      fileType: types,
       headers: {
         'Authorization': `Bearer ${token}`
       }

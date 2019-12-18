@@ -1,5 +1,5 @@
-import MerchantToken from '../../tokens/merchant'
-import Card from '../../components/card'
+import AmountField from '../../components/amountfield'
+import CardField from '../../components/cardfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import moment from 'moment'
@@ -54,28 +54,28 @@ class Payment extends React.Component {
     const { method } = this.state
     if(method === 'cash') {
       return [
-        { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }
+        { label: 'Amount', name: 'amount', type: AmountField, required: true, balance: invoice.balance }
       ]
     } else if(method === 'card') {
       return [
-        { label: 'Credit Card', name: 'payment', type: Card, color: 'blue' },
-        { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }
+        { label: 'Credit Card', name: 'payment', type: CardField, color: 'blue' },
+        { label: 'Amount', name: 'amount', type: AmountField, required: true, balance: invoice.balance }
       ]
     } else if(method === 'check') {
       return [
-        { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Upload Check Photo' },
+        { label: 'Photo', name: 'photo_id', type: 'filefield', types: ['jpeg','jpg','gif','png'], prompt: 'Upload Check Photo' },
         { label: 'Check #', name: 'reference', type: 'textfield', placeholder: 'Enter an check number', required: true },
-        { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }
+        { label: 'Amount', name: 'amount', type: AmountField, required: true, balance: invoice.balance }
       ]
     } else if(method === 'credit') {
       return [
         { label: 'Credit', name: 'credit_id', type: 'lookup', placeholder: 'Choose a credit', endpoint: `/api/admin/finance/customers/${invoice.customer.id}/credits`, value: 'id', text: 'id', required: true },
-        { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }
+        { label: 'Amount', name: 'amount', type: AmountField, required: true, balance: invoice.balance }
       ]
     } else if(method === 'scholarship') {
       return [
         { label: 'Scholarship', name: 'scholarship_id', type: 'lookup', placeholder: 'Choose a scholarship', endpoint: `/api/admin/finance/customers/${invoice.customer.id}/scholarships`, value: 'id', text: 'id', form: this._getScholarshipForm(), required: true },
-        { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }
+        { label: 'Amount', name: 'amount', type: AmountField, required: true, balance: invoice.balance }
       ]
     }
     return []
