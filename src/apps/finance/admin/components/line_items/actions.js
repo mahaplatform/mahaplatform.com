@@ -34,3 +34,8 @@ export const removeLineItem = (index) => ({
   type: 'REMOVE_LINE_ITEM',
   index
 })
+
+export const set = (details) => ({
+  type: 'SET',
+  details
+})

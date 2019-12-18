@@ -3,6 +3,7 @@ import Payments from './payments'
 import Payment from './payment'
 import Details from './details'
 import Send from './send'
+import Edit from './edit'
 import Void from './void'
 import React from 'react'
 
@@ -24,8 +25,8 @@ const getTasks = ({ invoice }) => {
   if(invoice.status === 'voided') return null
   const items = []
   if(invoice.status !== 'paid') {
-    items.push({ label: 'Edit Invoice' })
     if(invoice.payments.length === 0) {
+      items.push({ label: 'Edit Invoice', modal: <Edit invoice={ invoice } /> })
       items.push({ label: 'Void Invoice', modal: <Void invoice={ invoice } />  })
     }
     items.push({ label: 'Receive Payment', modal: <Payment invoice={ invoice } /> })

@@ -10,9 +10,10 @@ export const audit = async (req, entries) => {
 
     const story_id = await _findOrCreateStoryId(entry.story, req.trx)
 
+    const subject = _getSubject(req, entry)
+
     await Audit.forge({
-      team_id: req.user.get('team_id'),
-      user_id: req.user.get('id'),
+      ...subject,
       auditable_type: auditable.type,
       auditable_id: auditable.id,
       story_id
@@ -22,6 +23,19 @@ export const audit = async (req, entries) => {
 
   })
 
+}
+
+const _getSubject = (req, entry) => {
+  if(entry.contact) {
+    return {
+      team_id: entry.contact.get('team_id'),
+      contact_id: entry.contact.get('id')
+    }
+  }
+  return {
+    team_id: req.user.get('team_id'),
+    user_id: req.user.get('id')
+  }
 }
 
 const _getAuditable = async (entry) => ({

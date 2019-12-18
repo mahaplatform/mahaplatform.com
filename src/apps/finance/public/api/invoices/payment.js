@@ -1,3 +1,4 @@
+import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
 import { makePayment } from '../../../services/payments'
 import Invoice from '../../../models/invoice'
@@ -24,6 +25,12 @@ const paymentRoute = async (req, res) => {
       merchant_id: invoice.related('program').get('merchant_id'),
       ...req.body
     }
+  })
+
+  await audit(req, {
+    contact: invoice.related('customer'),
+    story: 'payment made',
+    auditable: invoice
   })
 
   await socket.refresh(req, [

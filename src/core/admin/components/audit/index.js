@@ -16,12 +16,12 @@ class Audit extends React.Component {
         { entries.map((entry, index) => (
           <div className="maha-audit-entry" key={`entry_${index}`}>
             <div className="maha-audit-entry-avatar">
-              <Avatar user={ entry.user } width="16" height="16" presence={ false } />
+              <Avatar user={ this._getSubject(entry) } width="16" height="16" presence={ false } />
             </div>
             <div className="maha-audit-entry-details">
               <div className="maha-audit-entry-text">
                 { entry.story }
-                { ` by ${entry.user.full_name}` }
+                { ` by ${this._getSubject(entry).full_name}` }
               </div>
               <div className="maha-audit-entry-timestamp">
                 { moment(entry.created_at).format('MM/DD/YY @ h:mm A') }
@@ -32,6 +32,11 @@ class Audit extends React.Component {
       </div>
     )
   }
+
+  _getSubject(entry) {
+    return entry.contact || entry.user
+  }
+  
 }
 
 export default Audit

@@ -1,7 +1,7 @@
 .finance-card-number-field {
   flex: 1;
   display: flex;
-  border: 1px solid rgba(34,36,38,.15);
+  border: 1px solid fadeout(@black, 90);
   background-color: @white;
   border-radius: 5px;
   display: flex;
@@ -17,11 +17,12 @@
       color: fadeout(@black, 90) !important;
     }
   }
-  .maha-input {
+  input {
     flex: 1;
-    border: none;
-    border-radius: 0;
-    background: none;
+    border: none !important;
+    border-radius: 0 !important;
+    background: none !important;
+    padding: 0.8em 0.6em !important;
   }
 }
 .finance-card-number-field-input {
@@ -29,7 +30,7 @@
   display: flex;
 }
 .finance-card-number-field-icon {
-  flex: 0 0 3em;
+  flex: 0 0 2em;
   padding: 0.6em 0 0.6em 0.6em;
   display: flex;
   .fa {
@@ -40,5 +41,26 @@
   img {
     margin: auto;
     width: 32px;
+  }
+}
+
+.finance-card-number-field-number {
+  flex: 1;
+}
+.finance-card-number-field-expiration {
+  flex: 0 0 5em;
+}
+.finance-card-number-field-cvv {
+  flex: 0 0 3.5em;
+}
+.finance-card-number-field-clear {
+  display: flex;
+  padding: 0.6em;
+  flex: 0 0 2em;
+  .fa {
+    .hover(color, fadeout(@black, 70));
+    color: fadeout(@black, 80);
+    margin: auto;
+    cursor: pointer;
   }
 }

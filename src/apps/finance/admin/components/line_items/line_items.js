@@ -16,6 +16,7 @@ class LineItems extends React.PureComponent {
     coupon: PropTypes.object,
     coupon_id: PropTypes.number,
     coupons: PropTypes.object,
+    defaultValue: PropTypes.number,
     discount: PropTypes.number,
     line_items: PropTypes.array,
     products: PropTypes.object,
@@ -32,6 +33,7 @@ class LineItems extends React.PureComponent {
     onReady: PropTypes.func,
     onRemoveCoupon: PropTypes.func,
     onRemoveLineItem: PropTypes.func,
+    onSet: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -121,8 +123,10 @@ class LineItems extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.props.onFetchCoupons()
-    this.props.onFetchProducts()
+    const { onFetchCoupons, onFetchProducts, onSet, defaultValue } = this.props
+    if(defaultValue) onSet(defaultValue)
+    onFetchCoupons()
+    onFetchProducts()
   }
 
   componentDidUpdate(prevProps) {

@@ -25,7 +25,7 @@ const Details = ({ payment }) => {
     items.push({ label: 'Scholarship', content: payment.scholarship.id })
   } else if(payment.method === 'credit') {
     items.push({ label: 'Credit', content: payment.credit.id })
-  } else if(_.includes(['card','googlepay','applepay','paypal'], payment.method)) {
+  } else if(_.includes(['card','googlepay','applepay','paypal','ach'], payment.method)) {
 
     const braintree = {
       className: 'link',
@@ -33,7 +33,9 @@ const Details = ({ payment }) => {
       link: payment.braintree_link
     }
 
-    if(payment.method === 'paypal') {
+    if(payment.method === 'ach') {
+      items.push({ label: 'Bank Account', content: payment.description })
+    } else if(payment.method === 'paypal') {
       items.push({ label: 'Email', content: payment.description })
     } else {
       items.push({ label: 'Card', content: payment.description })

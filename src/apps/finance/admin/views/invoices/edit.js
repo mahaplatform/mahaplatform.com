@@ -6,14 +6,16 @@ import { Form } from 'maha-admin'
 import moment from 'moment'
 import React from 'react'
 
-class New extends React.Component {
+class Edit extends React.Component {
 
   static contextTypes = {
     modal: PropTypes.object,
     router: PropTypes.object
   }
 
-  static propTypes = {}
+  static propTypes = {
+    invoice: PropTypes.object
+  }
 
   _handleCancel = this._handleCancel.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
@@ -23,10 +25,12 @@ class New extends React.Component {
   }
 
   _getForm() {
+    const { invoice } = this.props
     return {
-      title: 'New Customer Invoice',
-      method: 'post',
-      action: '/api/admin/finance/invoices',
+      title: 'Edit Customer Invoice',
+      method: 'patch',
+      endpoint: `/api/admin/finance/invoices/${invoice.id}/edit`,
+      action: `/api/admin/finance/invoices/${invoice.id}`,
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
@@ -37,8 +41,8 @@ class New extends React.Component {
               { label: 'Customer', name: 'customer_id', type: 'lookup', placeholder: 'Choose a customer', endpoint: '/api/admin/crm/contacts', value: 'id', text: 'display_name', required: true, format: ContactToken }
             ] },
             { type: 'fields', fields: [
-              { label: 'Date', name: 'date', type: 'datefield', placeholder: 'Date', required: true, defaultValue: moment() },
-              { label: 'Due', name: 'due', type: 'datefield', placeholder: 'Date', required: true, defaultValue: moment() }
+              { label: 'Date', name: 'date', type: 'datefield', placeholder: 'Date', required: true },
+              { label: 'Due', name: 'due', type: 'datefield', placeholder: 'Date', required: true }
             ] },
             { label: 'Notes', name: 'notes', type: 'textfield', placeholder: 'Add notes' },
             { label: 'Details', name: 'details', type: LineItems, required: true }
@@ -53,10 +57,9 @@ class New extends React.Component {
   }
 
   _handleSuccess(invoice) {
-    this.context.router.history.push(`/admin/finance/invoices/${invoice.id}`)
     this.context.modal.close()
   }
 
 }
 
-export default New
+export default Edit

@@ -7,6 +7,27 @@ const AddBankName = {
     })
 
     await knex.raw(`
+      create or replace view finance_invoice_details as
+      select finance_invoices.id as invoice_id,
+      finance_invoice_subtotals.subtotal,
+      finance_invoice_subtotals.tax,
+      finance_invoice_payments.paid,
+      finance_invoice_subtotals.discount,
+      finance_invoice_totals.total,
+      finance_invoice_totals.total - finance_invoice_payments.paid as balance,
+      case
+      when finance_invoices.voided_date is not null then 'voided'
+      when finance_invoice_payments.paid >= finance_invoice_totals.total then 'paid'
+      when finance_invoices.due < date(now()) then 'overdue'
+      else 'unpaid'
+      end as status
+      from finance_invoices
+      inner join finance_invoice_totals on finance_invoice_totals.invoice_id = finance_invoices.id
+      inner join finance_invoice_subtotals on finance_invoice_subtotals.invoice_id = finance_invoices.id
+      inner join finance_invoice_payments on finance_invoice_payments.invoice_id = finance_invoices.id;
+    `)
+
+    await knex.raw(`
       create or replace view finance_payment_details as
       select finance_payments.id as payment_id,
       case

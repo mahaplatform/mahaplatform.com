@@ -1188,6 +1188,7 @@ const schema = {
       table.integer('story_id').unsigned()
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('contact_id').unsigned()
     })
 
     await knex.schema.createTable('maha_calls', (table) => {
@@ -2438,20 +2439,15 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('finance_payment_methods', table => {
-      table.foreign('customer_id').references('crm_contacts.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
     await knex.schema.table('finance_payments', table => {
       table.foreign('credit_id').references('finance_credits.id')
       table.foreign('disbursement_id').references('finance_disbursements.id')
       table.foreign('invoice_id').references('finance_invoices.id')
       table.foreign('merchant_id').references('finance_merchants.id')
-      table.foreign('payment_method_id').references('finance_payment_methods.id')
       table.foreign('photo_id').references('maha_assets.id')
       table.foreign('scholarship_id').references('finance_scholarships.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('payment_method_id').references('finance_payment_methods.id')
     })
 
     await knex.schema.table('finance_products', table => {
@@ -2503,6 +2499,7 @@ const schema = {
       table.foreign('story_id').references('maha_stories.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
+      table.foreign('contact_id').references('crm_contacts.id')
     })
 
     await knex.schema.table('maha_calls', table => {
@@ -2839,6 +2836,11 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('finance_payment_methods', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('customer_id').references('crm_contacts.id')
     })
 
 
@@ -3326,9 +3328,9 @@ union
       finance_invoice_totals.total,
       (finance_invoice_totals.total - finance_invoice_payments.paid) as balance,
       case
-      when (finance_invoices.voided_date is not null) then 'void'::text
+      when (finance_invoices.voided_date is not null) then 'voided'::text
       when (finance_invoice_payments.paid >= finance_invoice_totals.total) then 'paid'::text
-      when (finance_invoices.due > now()) then 'overdue'::text
+      when (finance_invoices.due < now()) then 'overdue'::text
       else 'unpaid'::text
       end as status
       from (((finance_invoices
@@ -3545,6 +3547,7 @@ union
       when (finance_payments.method = 'cash'::finance_payments_method) then null::text
       when (finance_payments.method = 'check'::finance_payments_method) then concat('#', finance_payments.reference)
       when (finance_payments.method = 'paypal'::finance_payments_method) then (finance_payment_methods.email)::text
+      when (finance_payments.method = 'ach'::finance_payments_method) then concat(finance_payment_methods.bank_name, '-', finance_payment_methods.last_four)
       else upper(concat(finance_payment_methods.card_type, '-', finance_payment_methods.last_four))
       end as description
       from (finance_payments

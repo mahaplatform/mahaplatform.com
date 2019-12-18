@@ -10,7 +10,7 @@ const listRoute = async (req, res) => {
   }).query(qb => {
     qb.orderBy('created_at', 'asc')
   }).fetchAll({
-    withRelated: ['story','user.photo'],
+    withRelated: ['story','contact.photo','user.photo'],
     transacting: req.trx
   })
 

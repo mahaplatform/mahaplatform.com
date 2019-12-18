@@ -17,6 +17,7 @@ const getTasks = ({ form }) => ({
   items: [
     { label: 'Edit Form', modal: <Edit form={ form } /> },
     { label: 'Create Workflow' },
+    { label: 'View Public Form', link: `${process.env.WEB_HOST}/crm/forms/${form.code}` },
     {
       label: 'Activate Form',
       show: form.status !== 'active',

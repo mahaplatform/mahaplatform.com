@@ -1,8 +1,6 @@
-import CardNumberField from '../cardnumberfield'
-import { Form } from 'maha-admin'
-import Expiration from './expiration'
-import creditcard from 'credit-card'
+import CardField from './cardfield'
 import PropTypes from 'prop-types'
+import { Form } from 'maha-admin'
 import React from 'react'
 
 class Card extends React.PureComponent {
@@ -35,8 +33,6 @@ class Card extends React.PureComponent {
   }
 
   _handleAuthorize = this._handleAuthorize.bind(this)
-  _handleClear = this._handleClear.bind(this)
-  _handleChangeField = this._handleChangeField.bind(this)
   _handleValidate = this._handleValidate.bind(this)
 
   render() {
@@ -61,14 +57,6 @@ class Card extends React.PureComponent {
     }
   }
 
-  _getButton() {
-    return {
-      label: 'Use a different card',
-      className: 'link',
-      handler: this._handleClear
-    }
-  }
-
   _getForm() {
     return {
       reference: form => this.form = form,
@@ -78,11 +66,7 @@ class Card extends React.PureComponent {
       sections: [
         {
           fields: [
-            { type: 'fields', fields: [
-              { label: 'Card Number', name: 'number', type: CardNumberField, required: true, rules: [this._handleValidateNumber.bind(this)] },
-              { label: 'Card Expiration', name: 'expirationDate', type: Expiration, required: true, rules: [this._handleValidateExp.bind(this)] },
-              { label: 'CVV', name: 'cvv', type: 'textfield', placeholder: '123', required: true, rules: [this._handleValidateCVV.bind(this)] }
-            ] }
+            { name: 'card', type: CardField }
           ]
         }
       ]
@@ -99,53 +83,14 @@ class Card extends React.PureComponent {
     return null
   }
 
-  _handleAuthorize(props) {
+  _handleAuthorize({ card }) {
     const { token } = this.props
-    const { number, cvv, expirationDate } = props
-    this.props.onAuthorize(token, { number, cvv, expirationDate })
+    this.props.onAuthorize(token, card)
     return true
-  }
-
-  _handleChangeField(key, value) {
-    this.props.onChange()
-    if(key === 'number') {
-      this.setState({
-        number: value
-      })
-    }
-  }
-
-  _handleClear() {
-    this.props.onClear()
   }
 
   _handleValidate() {
     this.form.submit()
-  }
-
-  _handleValidateCVV(cvv) {
-    const { number } = this.state
-    if(!number) return
-    const type = creditcard.determineCardType(number)
-    if(!creditcard.doesCvvMatchType(cvv, type)) {
-      throw new Error('Invalid CVV number for this card type')
-    }
-  }
-
-  _handleValidateExp(exp) {
-    const parts = exp.match(/(\d{2})\/(\d{2})/)
-    if(parts === null) {
-      throw new Error('Invalid date. Must be in the format MM/YY')
-    } else if(creditcard.isExpired(parts[1],`20${parts[2]}`)) {
-      throw new Error('This date is in the past')
-    }
-  }
-
-  _handleValidateNumber(number) {
-    if(!creditcard.luhn(number)) {
-      throw new Error('Invalid credit card number')
-    }
-
   }
 
 }

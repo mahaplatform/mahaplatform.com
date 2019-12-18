@@ -5,7 +5,7 @@ const given = (state, props) => state.line_items
 
 const coupons = (state, props) => state.coupons
 
-const products = (state, props) => state.products
+const products = (state, props) => state.products.records || []
 
 const coupon_id = (state, props) => state.coupon_id
 
@@ -27,8 +27,8 @@ export const status = createSelector(
 export const line_items = createSelector(
   given,
   products,
-  (line_items, products) => line_items.map(line_item => {
-    const product = _.find(products.records, { id: line_item.product_id })
+  (line_items, products) => products.length > 0 ? line_items.map(line_item => {
+    const product = _.find(products, { id: line_item.product_id })
     return {
       ...line_item,
       product: {
@@ -37,7 +37,8 @@ export const line_items = createSelector(
       },
       total: line_item.quantity * line_item.price
     }
-  }))
+  }) : []
+)
 
 export const subtotal = createSelector(
   line_items,
@@ -83,6 +84,7 @@ export const value = createSelector(
   (coupon_id, line_items) => ({
     coupon_id,
     line_items: line_items.map(line_item => ({
+      id: line_item.id,
       product_id: line_item.product.id,
       description: line_item.description,
       quantity: line_item.quantity,

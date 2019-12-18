@@ -80,6 +80,12 @@ const reducer = (state = INITIAL_STATE, action) => {
       ]
     }
 
+  case 'SET':
+    return {
+      ...state,
+      ...action.details
+    }
+
   default:
     return state
   }

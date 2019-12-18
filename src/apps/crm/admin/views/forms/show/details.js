@@ -16,18 +16,6 @@ const Details = ({ audits, form }) => {
     route: `/admin/crm/forms/${form.id}/responses`
   }
 
-  const url = {
-    label: 'Public Form',
-    className: 'link',
-    href: `${process.env.WEB_HOST}/forms/${form.code}`
-  }
-
-  const embed = {
-    label: 'Embed Code',
-    className: 'link',
-    href: `${process.env.WEB_HOST}/forms/${form.code}`
-  }
-
   const list = {}
 
   if(form.status === 'draft') {
@@ -41,11 +29,6 @@ const Details = ({ audits, form }) => {
   list.items = [
     { label: 'Title', content: form.title },
     { label: 'Design', content: <Button { ...design } /> },
-    { label: 'View', content: (
-      <div>
-        <Button { ...url } /> | <Button { ...embed } />
-      </div>
-    ) },
     { label: 'Responses', content: <Button { ...responses } /> },
     { component: <Audit entries={ audits } /> }
   ]

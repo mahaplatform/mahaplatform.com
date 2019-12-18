@@ -1,6 +1,7 @@
 const auditSerializer = (req, result) => ({
   id: result.get('id'),
   user: user(result.related('user')),
+  contact: user(result.related('contact')),
   story: result.related('story').get('text'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')

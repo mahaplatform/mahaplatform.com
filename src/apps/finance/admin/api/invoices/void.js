@@ -32,7 +32,6 @@ const voidRoute = async (req, res) => {
   }
 
   await invoice.save({
-    status: 'voided',
     ...whitelist(req.body, ['voided_date','voided_reason'])
   }, {
     patch: true,

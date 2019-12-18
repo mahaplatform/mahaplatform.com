@@ -37,8 +37,8 @@ class Form extends React.Component {
     return (
       <div className="maha-form">
         <Header { ...this._getHeader() } />
-        <Payment { ...this._getPayment() } />
-        { false && <Fields { ...this._getFields() } /> }
+        { false && <Payment { ...this._getPayment() } /> }
+        <Fields { ...this._getFields() } />
         <Footer { ...this._getFooter() } />
       </div>
     )
