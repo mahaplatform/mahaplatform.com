@@ -1,3 +1,4 @@
+import AmountField from '../amountfield'
 import { Form } from 'maha-public'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -72,7 +73,7 @@ class ACH extends React.PureComponent {
         ] },
         ...this._getOwnershipFields(),
         { label: 'Address', name: 'address', type: 'addressfield', required: true },
-        { label: 'Amount', name: 'amount', type: 'textfield', required: true, defaultValue: invoice.balance },
+        { label: 'Amount', name: 'amount', type: AmountField, required: true, balance: invoice.balance },
         { type: 'text', style: 'warning', text: this._getMandate()  }
       ]
     }

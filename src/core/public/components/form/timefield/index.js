@@ -11,7 +11,7 @@ class TimeField extends React.Component {
     status: PropTypes.string,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
-    onValidate: PropTypes.func
+    onValid: PropTypes.func
   }
 
   state = {

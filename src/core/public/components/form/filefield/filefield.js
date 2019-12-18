@@ -20,7 +20,7 @@ class FileField extends React.Component {
     onReady: PropTypes.func,
     onRemoveFile: PropTypes.func,
     onUpdateFile: PropTypes.func,
-    onValidate: PropTypes.func
+    onValid: PropTypes.func
   }
 
   static defaultProps = {

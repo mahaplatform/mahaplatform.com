@@ -61,7 +61,7 @@ class Main extends React.Component {
     const { after, before, isConfiguring, instructions, sections, tabs } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className={ this._getFormClasses() }>
+        <div className={ this._getClass() }>
           { (before || instructions) &&
             <div className="maha-form-header">
               { before && <div className="maha-form-before">{ before }</div> }
@@ -99,7 +99,7 @@ class Main extends React.Component {
     return null
   }
 
-  _getFormClasses() {
+  _getClass() {
     const { isConfiguring, isReady, status } = this.props
     const classes = ['ui','form',status]
     if(isConfiguring || !isReady || status === 'submitting') classes.push('loading')

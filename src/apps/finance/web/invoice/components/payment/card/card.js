@@ -1,3 +1,4 @@
+import AmountField from '../amountfield'
 import CardField from './cardfield'
 import { Form } from 'maha-public'
 import PropTypes from 'prop-types'
@@ -54,7 +55,7 @@ class Card extends React.PureComponent {
       onSubmit: this._handleAuthorize,
       fields: [
         { label: 'Card', name: 'card', type: CardField, required: true },
-        { label: 'Amount', name: 'amount', type: 'textfield', required: true, defaultValue: invoice.balance }
+        { label: 'Amount', name: 'amount', type: AmountField, required: true, balance: invoice.balance }
       ]
     }
   }

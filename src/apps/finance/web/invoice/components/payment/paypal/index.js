@@ -1,5 +1,6 @@
 import { client, paypalCheckout } from 'braintree-web'
-import { ModalPanel } from 'maha-public'
+import { Form, ModalPanel } from 'maha-public'
+import AmountField from '../amountfield'
 import paypal from 'paypal-checkout'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -31,12 +32,7 @@ class PayPal extends React.PureComponent {
       <ModalPanel { ...this._getPanel() }>
         <div className="finance-payment-paypal">
           <div className="finance-payment-paypal-body">
-            <div className="ui form">
-              <div className="field">
-                <label>Amount</label>
-                <input { ...this._getInput() } />
-              </div>
-            </div>
+            <Form { ...this._getForm() } />
           </div>
           <div className="finance-payment-paypal-footer">
             <div className="paypal-button" id="paypal-button" />
@@ -54,12 +50,14 @@ class PayPal extends React.PureComponent {
     this._handleInit()
   }
 
-  _getInput() {
-    const { amount } = this.state
+  _getForm() {
+    const { invoice } = this.props
     return {
-      type: 'text',
-      value: amount,
-      onChange: this._handleChange
+      inline: true,
+      onChange: this._handleChange,
+      fields: [
+        { label: 'Amount', name: 'amount', type: AmountField, required: true, balance: invoice.balance }
+      ]
     }
   }
 
@@ -113,11 +111,8 @@ class PayPal extends React.PureComponent {
     })
   }
 
-  _handleChange(e) {
-    if(e.target.value.match(/^-?\d*\.?\d{0,2}$/) === null) return
-    this.setState({
-      amount: e.target.value
-    })
+  _handleChange({ amount }) {
+    this.setState({ amount })
   }
 
   _handleDone(err, payment) {

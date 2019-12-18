@@ -15,7 +15,7 @@ class Dropdown extends React.Component {
     onBusy: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
-    onValidate: PropTypes.func
+    onValid: PropTypes.func
   }
 
   control = null

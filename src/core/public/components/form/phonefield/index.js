@@ -11,7 +11,7 @@ class PhoneField extends React.Component {
     onChange: PropTypes.func,
     onFinalize: PropTypes.func,
     onReady: PropTypes.func,
-    onValidate: PropTypes.func
+    onValid: PropTypes.func
   }
 
   static defaultProps = {
@@ -99,9 +99,9 @@ class PhoneField extends React.Component {
     const { required } = this.props
     const { value } = this.state
     if(required && value.length === 0) {
-      this.props.onValidate('invalid', 'You must enter a value')
+      this.props.onValid('invalid', 'You must enter a value')
     } else {
-      this.props.onValidate('valid')
+      this.props.onValid('valid')
     }
   }
 

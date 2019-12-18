@@ -6,16 +6,15 @@ class RadioGroup extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
-    defaultValue: PropTypes.array,
+    defaultValue: PropTypes.string,
     name: PropTypes.string,
     options: PropTypes.array,
     placeholder: PropTypes.string,
     required: PropTypes.bool,
     status: PropTypes.string,
     onChange: PropTypes.func,
-    onFinalize: PropTypes.func,
     onReady: PropTypes.func,
-    onValidate: PropTypes.func
+    onValid: PropTypes.func
   }
 
   state = {
@@ -23,6 +22,7 @@ class RadioGroup extends React.Component {
   }
 
   _handleChange = this._handleChange.bind(this)
+  _handleValidate = this._handleValidate.bind(this)
 
   render() {
     const options = this._getOptions()
@@ -47,7 +47,7 @@ class RadioGroup extends React.Component {
     if(defaultValue) this.setState({
       selected: defaultValue
     })
-    onReady()
+    onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -58,7 +58,6 @@ class RadioGroup extends React.Component {
     }
     if(status !== prevProps.status) {
       if(status === 'validating') this._handleValidate()
-      if(status === 'finalizing') this._handleFinalize()
     }
   }
 
@@ -84,17 +83,13 @@ class RadioGroup extends React.Component {
     })
   }
 
-  _handleFinalize() {
-    this.props.onFinalize(this.state.selected)
-  }
-
   _handleValidate() {
     const { required } = this.props
     const { selected } = this.state
     if(required && selected === null) {
-      this.props.onValidate('invalid', 'You must choose a value')
+      this.props.onValid('invalid', 'You must choose a value')
     } else {
-      this.props.onValidate('valid')
+      this.props.onValid('valid')
     }
   }
 

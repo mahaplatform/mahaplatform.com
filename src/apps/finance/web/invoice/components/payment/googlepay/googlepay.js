@@ -1,4 +1,5 @@
-import { ModalPanel } from 'maha-public'
+import { Form, ModalPanel } from 'maha-public'
+import AmountField from '../amountfield'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -33,12 +34,7 @@ class GooglePay extends React.PureComponent {
       <ModalPanel { ...this._getPanel() }>
         <div className="finance-payment-googlepay">
           <div className="finance-payment-googlepay-body">
-            <div className="ui form">
-              <div className="field">
-                <label>Amount</label>
-                <input { ...this._getInput() } />
-              </div>
-            </div>
+            <Form { ...this._getForm() } />
           </div>
           <div className="finance-payment-googlepay-footer">
             <div className="gpay-button black short" onClick={ this._handlePayment } />
@@ -68,12 +64,14 @@ class GooglePay extends React.PureComponent {
     }
   }
 
-  _getInput() {
-    const { amount } = this.state
+  _getForm() {
+    const { invoice } = this.props
     return {
-      type: 'text',
-      value: amount,
-      onChange: this._handleChange
+      inline: true,
+      onChange: this._handleChange,
+      fields: [
+        { label: 'Amount', name: 'amount', type: AmountField, required: true, balance: invoice.balance }
+      ]
     }
   }
 
@@ -90,11 +88,8 @@ class GooglePay extends React.PureComponent {
     this.props.onBack()
   }
 
-  _handleChange(e) {
-    if(e.target.value.match(/^-?\d*\.?\d{0,2}$/) === null) return
-    this.setState({
-      amount: e.target.value
-    })
+  _handleChange({ amount }) {
+    this.setState({ amount })
   }
 
   _handleCheck() {

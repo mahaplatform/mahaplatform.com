@@ -13,7 +13,7 @@ class DateField extends React.Component {
     onChange: PropTypes.func,
     onFinalize: PropTypes.func,
     onReady: PropTypes.func,
-    onValidate: PropTypes.func
+    onValid: PropTypes.func
   }
 
   control = null

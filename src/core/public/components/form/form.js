@@ -14,10 +14,12 @@ class Form extends React.PureComponent {
     cancelText: PropTypes.string,
     errors: PropTypes.object,
     fields: PropTypes.array,
+    inline: PropTypes.bool,
     isBusy: PropTypes.bool,
     isReady: PropTypes.bool,
     isValid: PropTypes.bool,
     ready: PropTypes.array,
+    reference: PropTypes.func,
     saveButton: PropTypes.string,
     saveIcon: PropTypes.string,
     saveText: PropTypes.string,
@@ -36,19 +38,22 @@ class Form extends React.PureComponent {
   }
 
   static defaultProps = {
+    inline: false,
+    reference: () => {},
     onChange: () => {},
     onChangeField: () => {},
     onSubmit: () => {}
   }
 
   _handleCancel = this._handleCancel.bind(this)
-  _handleSave = this._handleSave.bind(this)
+  _handleValidate = this._handleValidate.bind(this)
+  _handleValidate = _.debounce(this._handleValidate.bind(this), 2500, { leading: true })
 
   render() {
     const { fields } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-form">
+        <div className={ this._getClass() }>
           <div className="ui form">
             { fields.map((field, index) => (
               <Control key={`field_${index}`} { ...this._getControl(field) } />
@@ -57,6 +62,13 @@ class Form extends React.PureComponent {
         </div>
       </ModalPanel>
     )
+  }
+
+  componentDidMount() {
+    const { reference } = this.props
+    if(reference) reference({
+      submit: this._handleValidate
+    })
   }
 
   componentDidUpdate(prevProps) {
@@ -71,7 +83,7 @@ class Form extends React.PureComponent {
 
   _getButtons() {
     const { saveButton } = this.props
-    const handler = this._handleSave
+    const handler = this._handleValidate
     const buttons = []
     if(saveButton) buttons.push({ label: saveButton, color: 'blue', handler })
     return buttons.length > 0 ? buttons : null
@@ -83,6 +95,13 @@ class Form extends React.PureComponent {
     if(cancelIcon) return [{ icon: cancelIcon, handler }]
     if(cancelText) return [{ label: cancelText, handler }]
     return null
+  }
+
+  _getClass() {
+    const { inline  } = this.props
+    const classes = ['maha-form']
+    if(inline) classes.push('inline')
+    return classes.join(' ')
   }
 
   _getControl(field) {
@@ -100,8 +119,9 @@ class Form extends React.PureComponent {
   }
 
   _getPanel() {
-    const { title } = this.props
+    const { inline, title } = this.props
     return {
+      showHeader: !inline,
       buttons: this._getButtons(),
       title,
       leftItems: this._getCancel(),
@@ -111,7 +131,7 @@ class Form extends React.PureComponent {
 
   _getSave() {
     const { saveIcon, saveText } = this.props
-    const handler = this._handleSave
+    const handler = this._handleValidate
     if(saveIcon) return [{ icon: saveIcon, handler }]
     if(saveText) return [{ label: saveText, handler }]
     return null
@@ -129,15 +149,16 @@ class Form extends React.PureComponent {
     if(onChange) onChange(current)
   }
 
-  _handleSave() {
-    this.props.onValidate()
-  }
-
   _handleSubmit() {
     const { data } = this.props
     this.props.onSubmit(data)
   }
 
+  _handleValidate() {
+    const { isBusy, onValidate } = this.props
+    if(isBusy) return
+    onValidate()
+  }
 }
 
 export default Form
