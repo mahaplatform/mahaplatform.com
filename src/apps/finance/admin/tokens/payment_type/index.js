@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 const _getImage = (method, payment_method) => {
-  if(!payment_method || payment_method.method === 'paypal') return method
+  if(!payment_method || _.includes(['ach','paypal'], payment_method.method)) return method
   return `${method}-${payment_method.card_type}`
 }
 
