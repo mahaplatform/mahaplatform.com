@@ -1,6 +1,7 @@
 import { Page } from 'maha-admin'
 import Details from './details'
 import React from 'react'
+import Edit from './edit'
 
 const getTabs = ({ product }) => {
 
@@ -14,7 +15,11 @@ const getTabs = ({ product }) => {
 
 const getTasks = ({ product }) => {
 
-  const items = []
+  const items = [
+    { label: 'Edit Product', modal: <Edit product={ product } /> }
+  ]
+  items.push()
+
 
   return { items }
 }

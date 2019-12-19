@@ -25,7 +25,8 @@ const editRoute = async (req, res) => {
       'fixed_price',
       'low_price',
       'high_price',
-      'tax_rate'
+      'tax_rate',
+      'is_tax_deductible'
     ]
   })
 

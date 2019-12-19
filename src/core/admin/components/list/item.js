@@ -14,7 +14,7 @@ class Item extends React.Component {
     alt: PropTypes.string,
     className: PropTypes.string,
     component: PropTypes.any,
-    content: PropTypes.string,
+    content: PropTypes.any,
     empty: PropTypes.string,
     format: PropTypes.any,
     handler: PropTypes.func,
@@ -49,10 +49,10 @@ class Item extends React.Component {
           <div className="maha-list-item-content">
             { label && <div className="maha-list-item-content-label">{ label }</div> }
             <div className="maha-list-item-content-value">
-              { content && <Format { ...content } format={ format } value={ content } /> }
-              { content && units && ` ${units}` }
-              { !content && alt && <span>{ alt}</span> }
-              { !content && empty && <span className="maha-list-item-content-empty">{ empty }</span>}
+              { !_.isNil(content) && <Format { ...content } format={ format } value={ content } /> }
+              { !_.isNil(content) && units && ` ${units}` }
+              { _.isNil(content) && alt && <span>{ alt}</span> }
+              { _.isNil(content) && empty && <span className="maha-list-item-content-empty">{ empty }</span>}
             </div>
           </div>
         }

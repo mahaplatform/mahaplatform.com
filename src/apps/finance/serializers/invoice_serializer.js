@@ -17,6 +17,7 @@ const InvoiceSerializer = (req, result) => ({
   status: result.get('status'),
   subtotal: result.get('subtotal'),
   tax: result.get('tax'),
+  tax_deductible: result.get('tax_deductible'),
   total: result.get('total'),
   voided_date: result.get('voided_date'),
   voided_reason: result.get('voided_reason'),
@@ -29,6 +30,7 @@ const customer = (customer) => {
   return {
     id: customer.get('id'),
     display_name: customer.get('display_name'),
+    address: customer.get('address'),
     email: customer.get('email')
   }
 }
@@ -51,7 +53,8 @@ const line_items = (line_item) => {
     description: line_item.get('description'),
     quantity: line_item.get('quantity'),
     price: line_item.get('price'),
-    total: line_item.get('total')
+    total: line_item.get('total'),
+    is_tax_deductible: line_item.get('is_tax_deductible')
   }
 }
 

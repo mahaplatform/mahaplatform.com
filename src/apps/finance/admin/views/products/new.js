@@ -41,7 +41,8 @@ class New extends React.Component {
             { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', value: 'id', text: 'title', required: true, format: RevenueTypeToken },
             { label: 'Price Type', name: 'price_type', type: 'radiogroup', options: [{value:'fixed',text:'Fixed Price'},{value:'sliding_scale',text:'Sliding Scale'}], required: true, defaultValue: price_type },
             ...this._getPriceType(),
-            { label: 'Tax Rate', name: 'tax_rate', type: 'moneyfield', placeholder: 'Tax Rate', required: true }
+            { label: 'Tax Rate', name: 'tax_rate', type: 'numberfield', placeholder: 'Tax Rate', required: true, defaultValue: '0.000' },
+            { label: 'Tax Deductible?', name: 'is_tax_deductible', type: 'checkbox', defaultValue: false }
           ]
         }
       ]

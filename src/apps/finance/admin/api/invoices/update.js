@@ -82,6 +82,7 @@ const updateRoute = async (req, res) => {
       product_id: product.get('id'),
       project_id: product.get('project_id'),
       revenue_type_id: product.get('revenue_type_id'),
+      is_tax_deductible: product.get('is_tax_deductible'),
       description: line_item.description,
       quantity: line_item.quantity,
       price: line_item.price,

@@ -56,6 +56,17 @@ class Invoice extends React.PureComponent {
           <div className="finance-invoice-col">
             <div className="finance-invoice-box">
               <strong>{ invoice.customer.display_name }</strong><br />
+              { invoice.customer.address &&
+                <div>
+                  <div>{ invoice.customer.address.street_1 }</div>
+                  { invoice.customer.address.street_2 &&
+                    <div>{ invoice.customer.address.street_2 }</div>
+                  }
+                  <div>
+                    { invoice.customer.address.city }, { invoice.customer.address.state_province } { invoice.customer.address.postal_code }
+                  </div>
+                </div>
+              }
               { invoice.customer.email }
             </div>
           </div>
@@ -73,7 +84,11 @@ class Invoice extends React.PureComponent {
             <tbody>
               { invoice.line_items.map((line_item, index) => (
                 <tr key={`line_item_${index}`}>
-                  <td>{ line_item.description }</td>
+                  <td>
+                    { line_item.description } { line_item.is_tax_deductible &&
+                      <span className="finance-invoice-asterix">*</span>
+                    }
+                  </td>
                   <td>{ line_item.quantity }</td>
                   <td>{ numeral(line_item.price).format('0.00') }</td>
                   <td>{ numeral(line_item.total).format('0.00') }</td>
@@ -130,9 +145,20 @@ class Invoice extends React.PureComponent {
             </tbody>
           </table>
         </div>
+        { invoice.tax_deductible &&
+          <div className="finance-invoice-footnote">
+            <span className="finance-invoice-asterix">*</span> No substantial goods or services were provided in return for this gift
+          </div>
+        }
         { invoice.notes &&
           <div className="finance-invoice-notes">
             { invoice.notes }
+          </div>
+        }
+        { invoice.tax_deductible &&
+          <div className="finance-invoice-tax-deductible">
+            <strong>Charitable Contribution</strong><br/>
+            Eligible amount of contribution for tax purposes: { numeral(invoice.tax_deductible).format('0.00') }
           </div>
         }
       </div>

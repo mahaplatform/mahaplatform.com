@@ -6,6 +6,7 @@ const listRoute = async (req, res) => {
   const products = await Product.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).filter({
+    filterParams: ['project_id','revenue_type_id','is_tax_deductible'],
     filter: req.query.$filter,
     searchParams: ['title']
   }).sort({

@@ -58,6 +58,7 @@ const enqueue = async (req, options) => {
     team_id: options.team_id,
     user_id: options.user ? options.user.get('id') : null,
     from: options.from || 'Maha <mailer@mahaplatform.com>',
+    reply_to: options.reply_to,
     to: options.to || options.user.get('rfc822'),
     subject: ejs.render(subject, options.data),
     html,
@@ -93,14 +94,15 @@ const processor = async (job, trx) => {
   const rendered = {
     from: email.get('from'),
     to: email.get('to'),
+    reply_to: email.get('reply_to') || 'no-reply@mahaplatform.com',
     subject: email.get('subject'),
     html: parsed.html(),
-    list: {
-      unsubscribe: {
-        url: `${process.env.WEB_HOST}#preferences`,
-        comment: 'Unsubscribe'
-      }
-    }
+    // list: {
+    //   unsubscribe: {
+    //     url: `${process.env.WEB_HOST}#preferences`,
+    //     comment: 'Unsubscribe'
+    //   }
+    // }
   }
 
   const mapped = await Promise.reduce(links, async (rendered, link) => {

@@ -486,6 +486,7 @@ const schema = {
       table.boolean('is_verified')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.string('reply_to', 255)
     })
 
     await knex.schema.createTable('crm_sms_campaigns', (table) => {
@@ -906,6 +907,7 @@ const schema = {
       table.string('description', 255)
       table.integer('project_id').unsigned()
       table.integer('revenue_type_id').unsigned()
+      table.boolean('is_tax_deductible')
     })
 
     await knex.schema.createTable('finance_members', (table) => {
@@ -992,6 +994,7 @@ const schema = {
       table.boolean('is_active')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.boolean('is_tax_deductible')
     })
 
     await knex.schema.createTable('finance_projects', (table) => {
@@ -1306,6 +1309,7 @@ const schema = {
       table.USER-DEFINED('status')
       table.boolean('is_mobile')
       table.string('from', 255)
+      table.string('reply_to', 255)
     })
 
     await knex.schema.createTable('maha_faxes', (table) => {
@@ -3323,14 +3327,15 @@ union
       select finance_invoices.id as invoice_id,
       finance_invoice_subtotals.subtotal,
       finance_invoice_subtotals.tax,
+      finance_invoice_subtotals.tax_deductible,
       finance_invoice_payments.paid,
       finance_invoice_subtotals.discount,
       finance_invoice_totals.total,
       (finance_invoice_totals.total - finance_invoice_payments.paid) as balance,
       case
-      when (finance_invoices.voided_date is not null) then 'voided'::text
+      when (finance_invoices.voided_date is not null) then 'void'::text
       when (finance_invoice_payments.paid >= finance_invoice_totals.total) then 'paid'::text
-      when (finance_invoices.due < now()) then 'overdue'::text
+      when (finance_invoices.due > now()) then 'overdue'::text
       else 'unpaid'::text
       end as status
       from (((finance_invoices
@@ -3343,6 +3348,11 @@ union
       create view finance_invoice_line_items AS
       select finance_invoices.id as invoice_id,
       sum(((finance_line_items.quantity)::numeric * finance_line_items.price)) as total,
+      sum((((finance_line_items.quantity)::numeric * finance_line_items.price) * (
+      case
+      when finance_line_items.is_tax_deductible then 1
+      else 0
+      end)::numeric)) as tax_deductible,
       round(sum((((finance_line_items.quantity)::numeric * finance_line_items.price) * finance_line_items.tax_rate)), 2) as tax
       from (finance_invoices
       join finance_line_items on ((finance_line_items.invoice_id = finance_invoices.id)))
@@ -3363,6 +3373,7 @@ union
       select finance_invoices.id as invoice_id,
       sum(finance_invoice_line_items.total) as subtotal,
       sum(finance_invoice_line_items.tax) as tax,
+      sum(finance_invoice_line_items.tax_deductible) as tax_deductible,
       case
       when (finance_invoices.discount_percent is not null) then round((sum(finance_invoice_line_items.total) * finance_invoices.discount_percent), 2)
       when (finance_invoices.discount_amount is not null) then finance_invoices.discount_amount

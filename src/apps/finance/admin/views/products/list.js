@@ -10,12 +10,14 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true },
-      { label: 'Price', key: 'price', primary: true  },
-      { label: 'Tax Rate', key: 'tax_rate', visible: false, collapsing: true  }
+      { label: 'Price', key: 'price', primary: true, collapsing: true  },
+      { label: 'Tax Rate', key: 'tax_rate', visible: false, collapsing: true  },
+      { label: 'Tax Deductible', key: 'is_tax_deductible', visible: false, format: 'check'  }
     ],
     filters: [
       { label: 'Projects', name: 'project_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/projects', value: 'id', text: 'title', format: ProjectToken },
-      { label: 'Revenue Type', name: 'revenue_type_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/revenue_types', value: 'id', text: 'title', format: RevenueTypeToken }
+      { label: 'Revenue Type', name: 'revenue_type_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/revenue_types', value: 'id', text: 'title', format: RevenueTypeToken },
+      { label: 'Tax Deductible', name: 'is_tax_deductible', type: 'select', options: [{ value: true, text: 'Yes' },{ value: false, text: 'No' }] }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {

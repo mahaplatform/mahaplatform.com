@@ -9,6 +9,7 @@ const productSerializer = (req, result) => ({
   low_price: result.get('low_price'),
   high_price: result.get('high_price'),
   tax_rate: result.get('tax_rate'),
+  is_tax_deductible: result.get('is_tax_deductible'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

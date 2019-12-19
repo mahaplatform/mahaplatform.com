@@ -33,6 +33,7 @@ const sendRoute = async (req, res) => {
   await send_email.enqueue(req, {
     team_id: req.team.get('id'),
     from: sender.get('rfc822'),
+    reply_to: req.body.reply_to,
     to: req.body.to,
     template: 'finance:invoice',
     subject: req.body.subject,

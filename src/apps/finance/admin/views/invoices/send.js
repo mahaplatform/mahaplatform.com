@@ -1,3 +1,4 @@
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -10,7 +11,8 @@ class Send extends React.Component {
   }
 
   static propTypes = {
-    invoice: PropTypes.object
+    invoice: PropTypes.object,
+    user: PropTypes.object
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -21,7 +23,7 @@ class Send extends React.Component {
   }
 
   _getForm() {
-    const { invoice } = this.props
+    const { invoice, user } = this.props
     const item = invoice.status === 'paid' ? 'receipt' : 'invoice'
     const subject = `Your ${item}`
     const message = `Here is a copy of your ${item}.`
@@ -36,6 +38,7 @@ class Send extends React.Component {
           fields: [
             { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${invoice.program.id}/senders`, filter: { is_verified: { $eq: 'true' } }, value: 'id', text: 'rfc822', required: true },
             { label: 'To', name: 'to', type: 'emailfield', placeholder: 'To', required: true, defaultValue: invoice.customer.email },
+            { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter an email address', defaultValue: user.email },
             { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true, defaultValue: subject },
             { label: 'Message', name: 'message', type: 'textarea', placeholder: 'Enter a message', required: true, rows: 10, defaultValue: message }
           ]
@@ -54,4 +57,8 @@ class Send extends React.Component {
 
 }
 
-export default Send
+const mapStateToProps = (state, props) => ({
+  user: state.maha.admin.user
+})
+
+export default connect(mapStateToProps)(Send)

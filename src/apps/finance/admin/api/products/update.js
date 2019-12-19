@@ -19,7 +19,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load product'
   })
 
-  await product.save(whitelist(req.body, ['title','project_id','revenue_type_id','price_type','fixed_price','low_price','high_price','tax_rate']), {
+  await product.save(whitelist(req.body, ['title','project_id','revenue_type_id','price_type','fixed_price','low_price','high_price','tax_rate','is_tax_deductible']), {
     patch: true,
     transacting: req.trx
   })
@@ -30,7 +30,8 @@ const updateRoute = async (req, res) => {
   })
 
   await socket.refresh(req, [
-    '/admin/finance/products'
+    '/admin/finance/products',
+    `/admin/finance/products/${product.get('id')}`
   ])
 
   res.status(200).respond(product, ProductSerializer)
