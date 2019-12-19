@@ -20,7 +20,7 @@ class GooglePay extends React.PureComponent {
   }
 
   state = {
-    amount: '',
+    amount: 0.00,
     ready: false
   }
 
@@ -45,10 +45,6 @@ class GooglePay extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { invoice } = this.props
-    this.setState({
-      amount: invoice.balance
-    })
     this._handleLoad()
   }
 
