@@ -74,7 +74,7 @@ class ACH extends React.PureComponent {
         ...this._getOwnershipFields(),
         { label: 'Address', name: 'address', type: 'addressfield', required: true },
         { label: 'Amount', name: 'amount', type: AmountField, required: true, balance: invoice.balance },
-        { type: 'text', style: 'warning', text: this._getMandate()  }
+        { name: 'mandate', type: 'text', style: 'warning', text: this._getMandate() }
       ]
     }
   }

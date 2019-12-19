@@ -45,7 +45,7 @@ class Card extends React.PureComponent {
   }
 
   _getForm() {
-    const { invoice } = this.props
+    const { invoice, token } = this.props
     return {
       modal: false,
       title: 'Credit Card',
@@ -54,7 +54,7 @@ class Card extends React.PureComponent {
       onCancel: this._handleBack,
       onSubmit: this._handleAuthorize,
       fields: [
-        { label: 'Card', name: 'card', type: CardField, required: true },
+        { label: 'Card', name: 'card', type: CardField, required: true, token },
         { label: 'Amount', name: 'amount', type: AmountField, required: true, balance: invoice.balance }
       ]
     }

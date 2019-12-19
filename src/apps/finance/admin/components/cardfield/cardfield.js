@@ -233,7 +233,7 @@ class Card extends React.PureComponent {
     } else if(creditcard.isExpired(parts[1],`20${parts[2]}`)) {
       return onValid(null, ['This date is in the past'])
     }
-    this._handleAuthorize()
+    onValid({ number, expirationDate, cvv })
   }
 
 }

@@ -62,7 +62,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'VALIDATE':
     return {
       ...state,
-      status: 'validating',
+      status: action.reset ? 'ready' : 'validating',
       validated: []
     }
 

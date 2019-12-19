@@ -18,6 +18,7 @@ class Form extends React.PureComponent {
     isBusy: PropTypes.bool,
     isReady: PropTypes.bool,
     isValid: PropTypes.bool,
+    isValidated: PropTypes.bool,
     ready: PropTypes.array,
     reference: PropTypes.func,
     saveButton: PropTypes.string,
@@ -67,14 +68,15 @@ class Form extends React.PureComponent {
   componentDidMount() {
     const { reference } = this.props
     if(reference) reference({
-      submit: this._handleValidate
+      submit: this._handleValidate.bind(this, false)
     })
   }
 
   componentDidUpdate(prevProps) {
-    const { data, isValid } = this.props
-    if(isValid !== prevProps.isValid && isValid) {
-      this._handleSubmit()
+    const { data, isValid, isValidated } = this.props
+    if(isValidated !== prevProps.isValidated) {
+      if(isValid) this._handleSubmit()
+      if(!isValid) this._handleValidate(true)
     }
     if(!_.isEqual(data, prevProps.data)) {
       this._handleChange(prevProps.data, data)
@@ -83,7 +85,7 @@ class Form extends React.PureComponent {
 
   _getButtons() {
     const { saveButton } = this.props
-    const handler = this._handleValidate
+    const handler = this._handleValidate.bind(this, false)
     const buttons = []
     if(saveButton) buttons.push({ label: saveButton, color: 'blue', handler })
     return buttons.length > 0 ? buttons : null
@@ -150,14 +152,13 @@ class Form extends React.PureComponent {
   }
 
   _handleSubmit() {
-    const { data } = this.props
-    this.props.onSubmit(data)
+    const { data, onSubmit } = this.props
+    onSubmit(data)
   }
 
-  _handleValidate() {
+  _handleValidate(reset = false) {
     const { isBusy, onValidate } = this.props
-    if(isBusy) return
-    onValidate()
+    if(!isBusy) onValidate(reset)
   }
 }
 

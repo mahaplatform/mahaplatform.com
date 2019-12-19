@@ -10,7 +10,8 @@ class CardField extends React.PureComponent {
 
   static propTypes = {
     onChange: PropTypes.func,
-    onReady: PropTypes.func
+    onReady: PropTypes.func,
+    onValid: PropTypes.func
   }
 
   static defaultProps = {
@@ -35,6 +36,7 @@ class CardField extends React.PureComponent {
   _handleCVV = this._handleCVV.bind(this)
   _handleExpiration = this._handleExpiration.bind(this)
   _handleNumber = this._handleNumber.bind(this)
+  _handleValidate = this._handleValidate.bind(this)
 
   render() {
     const { number, expirationDate, cvv } = this.state
@@ -67,7 +69,7 @@ class CardField extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.props.onReady()
+    this.props.onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -185,9 +187,29 @@ class CardField extends React.PureComponent {
   }
 
   _handleFocus(focused) {
-    this.setState({
-      focused
-    })
+    this.setState({ focused })
+  }
+
+  _handleValidate() {
+    const { onValid } = this.props
+    const { number, expirationDate, cvv } = this.state
+    if(!number) return onValid(null, ['Card number is required'])
+    if(!expirationDate) return onValid(null, ['Expiration  is required'])
+    if(!cvv) return onValid(null, ['CVV is required'])
+    if(!creditcard.luhn(number)) {
+      return onValid(null, ['Invalid credit card number'])
+    }
+    const type = creditcard.determineCardType(number)
+    if(!creditcard.doesCvvMatchType(cvv, type)) {
+      return onValid(null, ['Invalid CVV number for this card type'])
+    }
+    const parts = expirationDate.match(/(\d{2})\/(\d{2})/)
+    if(parts === null) {
+      return onValid(null, ['Invalid date. Must be in the format MM/YY'])
+    } else if(creditcard.isExpired(parts[1],`20${parts[2]}`)) {
+      return onValid(null, ['This date is in the past'])
+    }
+    onValid({ number, expirationDate, cvv })
   }
 
 }

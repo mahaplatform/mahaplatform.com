@@ -21,6 +21,7 @@ export const update = (key, value) => ({
   value
 })
 
-export const validate = () => ({
-  type: 'VALIDATE'
+export const validate = (reset) => ({
+  type: 'VALIDATE',
+  reset
 })

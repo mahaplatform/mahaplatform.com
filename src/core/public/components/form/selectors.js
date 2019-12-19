@@ -31,11 +31,15 @@ export const isReady = createSelector(
   }) === undefined
 )
 
-export const isValid = createSelector(
+export const isValidated =  createSelector(
   submitable,
   validated,
-  errors,
-  (fields, validated, errors) => Object.keys(errors).length === 0 && fields.find(field => {
+  (fields, validated) => fields.find(field => {
     return !_.includes(validated, field.name)
   }) === undefined
+)
+
+export const isValid = createSelector(
+  errors,
+  (errors) => Object.keys(errors).length === 0 
 )

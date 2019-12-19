@@ -77,7 +77,8 @@ class Amountfield extends React.PureComponent {
     })
   }
 
-  _handleSubmit({ strategy, other }) {
+  _handleSubmit(data) {
+    const { strategy, other } = data
     const { balance, onValid } = this.props
     const amount = strategy === 'balance' ? balance : other
     onValid(amount)
