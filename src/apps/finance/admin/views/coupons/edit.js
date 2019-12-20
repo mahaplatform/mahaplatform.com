@@ -32,9 +32,9 @@ class Edit extends React.Component {
         {
           fields: [
             { label: 'Code', name: 'code', type: 'textfield', placeholder: 'Enter a code', required: true },
+            { label: 'Product', name: 'product_id', type: 'lookup', placeholder: 'Choose a product', endpoint: '/api/admin/finance/products', value: 'id', text: 'title', required: true },
             { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount' },
             { label: 'Percent', name: 'percent', type: 'moneyfield', placeholder: 'Enter a percent' },
-            { label: 'Products', name: 'product_ids', type: 'lookup2', placeholder: 'Assign products', multiple: true, endpoint: '/api/admin/finance/products', value: 'id', text: 'title' },
             { label: 'Active', name: 'is_active', type: 'checkbox' }
           ]
         }

@@ -8,6 +8,7 @@ import LineItem from '../../../models/line_item'
 import Product from '../../../models/product'
 import Invoice from '../../../models/invoice'
 import Coupon from '../../../models/coupon'
+import _ from 'lodash'
 
 const createRoute = async (req, res) => {
 
@@ -27,11 +28,7 @@ const createRoute = async (req, res) => {
   const invoice = await Invoice.forge({
     team_id: req.team.get('id'),
     code,
-    ...coupon ? {
-      coupon_id: coupon.get('id'),
-      discount_amount: coupon.get('amount'),
-      discount_percent: coupon.get('percent')
-    } : {},
+    coupon_id: coupon ? coupon.get('id') : null,
     ...whitelist(req.body, ['customer_id','program_id','date','due','notes'])
   }).save(null, {
     transacting: req.trx
@@ -57,7 +54,11 @@ const createRoute = async (req, res) => {
       description: line_item.description,
       quantity: line_item.quantity,
       price: line_item.price,
-      tax_rate: line_item.tax_rate
+      tax_rate: line_item.tax_rate,
+      ...(coupon && product.get('id') === coupon.get('product_id')) ? {
+        discount_amount: coupon.get('amount'),
+        discount_percent: coupon.get('percent')
+      } : {}
     }).save(null, {
       transacting: req.trx
     })

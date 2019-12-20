@@ -1,3 +1,4 @@
+import allocations from './allocations'
 import { Router } from 'express'
 import refunds from './refunds'
 import token from './token'
@@ -16,5 +17,7 @@ router.get('/:id', show)
 router.patch('/:id/void', voyd)
 
 router.use('/:payment_id/refunds', refunds)
+
+router.use('/:payment_id/allocations', allocations)
 
 export default router

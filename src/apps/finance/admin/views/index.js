@@ -27,6 +27,7 @@ import RefundShow from './refunds/show'
 import ReimbursementShow from './reimbursements/show'
 import ReportList from './items/report'
 import RevenueTypeList from './revenue_types/list'
+import RevenueReport from './reports/revenue'
 import TaxList from './items/tax'
 import TripShow from './trips/show'
 import VendorList from './vendors/list'
@@ -62,6 +63,7 @@ const routes = [
   { path: '/tax', component: TaxList },
   { path: '/receipts/:id', component: ReceiptShow },
   { path: '/revenue_types', component: RevenueTypeList },
+  { path: '/reports/revenue', component: RevenueReport },
   { path: '/trips/:id', component: TripShow },
   { path: '/vendors', component: VendorList }
 ]

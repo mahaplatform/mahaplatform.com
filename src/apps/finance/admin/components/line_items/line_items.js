@@ -140,7 +140,9 @@ class LineItems extends React.PureComponent {
   }
 
   _getCoupon() {
+    const { line_items } = this.props
     return {
+      line_items,
       onChoose: this._handleAddCoupon
     }
   }

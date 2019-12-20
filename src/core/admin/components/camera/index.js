@@ -12,12 +12,12 @@ class Camera extends React.Component {
   static propTypes = {
     icon: PropTypes.string,
     team: PropTypes.object,
-    onAdd: PropTypes.func,
-    onUpdate: PropTypes.func
+    onDone: PropTypes.func
   }
 
   static defaultProps = {
-    icon: 'camera'
+    icon: 'camera',
+    onDone: () => {}
   }
 
   button = null
@@ -60,12 +60,6 @@ class Camera extends React.Component {
   }
 
   _handleAdd(file) {
-    this.props.onAdd({
-      content_type: file.file.type,
-      file: file.file,
-      identifier: file.uniqueIdentifier,
-      source: 'device'
-    })
     this.resumable.upload()
   }
 
@@ -79,13 +73,12 @@ class Camera extends React.Component {
   _handleFinish(asset) {
     const { network } = this.context
     if(asset.status !== 'processed') return
-    const file = this.files[asset.id]
     network.leave(`/admin/assets/${asset.id}`)
     network.unsubscribe([
       { target: `/admin/assets/${asset.id}`, action: 'refresh', handler: this._handleFinish }
     ])
     delete this.files[asset.id]
-    this.props.onUpdate(file.uniqueIdentifier, asset)
+    this.props.onDone(asset)
   }
 
   _handleSuccess(file, message) {
@@ -93,7 +86,6 @@ class Camera extends React.Component {
     const response = JSON.parse(message)
     const asset = response.data
     this.resumable.removeFile(file)
-    this.props.onUpdate(file.uniqueIdentifier, asset)
     this.files[asset.id] = file
     network.join(`/admin/assets/${asset.id}`)
     network.subscribe([

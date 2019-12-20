@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const RevenueToken = ({ description, integration, title }) => (
+const RevenueTypeToken = ({ description, integration, title }) => (
   <div className="token revenue-type-token">
     { integration && integration.revenue_code && <strong>{ integration.revenue_code  } - </strong> }
     { title }<br />
@@ -11,10 +11,10 @@ const RevenueToken = ({ description, integration, title }) => (
   </div>
 )
 
-RevenueToken.propTypes = {
+RevenueTypeToken.propTypes = {
   description: PropTypes.string,
   integration: PropTypes.string,
   title: PropTypes.string
 }
 
-export default RevenueToken
+export default RevenueTypeToken

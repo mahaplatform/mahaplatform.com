@@ -9,6 +9,7 @@ class Coupon extends React.Component {
   }
 
   static propTypes = {
+    line_items: PropTypes.func,
     onChoose: PropTypes.func
   }
 
@@ -33,8 +34,14 @@ class Coupon extends React.Component {
   }
 
   _getSearch() {
+    const { line_items } = this.props
     return {
       endpoint: '/api/admin/finance/coupons',
+      filter: {
+        product_id: {
+          $in: line_items.map(line_item => line_item.product_id)
+        }
+      },
       label: 'Coupon',
       value: 'id',
       text: 'code',

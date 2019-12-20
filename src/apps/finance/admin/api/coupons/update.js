@@ -1,4 +1,3 @@
-import { updateRelated } from '../../../../../core/services/routes/relations'
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
 import CouponSerializer from '../../../serializers/coupon_serializer'
@@ -20,18 +19,9 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load coupon'
   })
 
-  await coupon.save(whitelist(req.body, ['code','amount','percent','is_active']), {
+  await coupon.save(whitelist(req.body, ['code','product_id','amount','percent','is_active']), {
     patch: true,
     transacting: req.trx
-  })
-
-  await updateRelated(req, {
-    object: coupon,
-    related: 'products',
-    table: 'finance_coupons_products',
-    ids: req.body.product_ids,
-    foreign_key: 'coupon_id',
-    related_foreign_key: 'product_id'
   })
 
   await activity(req, {

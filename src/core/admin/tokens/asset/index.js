@@ -83,7 +83,7 @@ class AssetToken extends React.Component {
   _getClass() {
     const { file_name, onClick } = this.props
     const classes = ['maha-asset-token']
-    classes.push(file_name.split('.').pop().substr(0, 3))
+    if(file_name) classes.push(file_name.split('.').pop().substr(0, 3))
     if(onClick) classes.push('maha-asset-token-click')
     return classes.join(' ')
   }

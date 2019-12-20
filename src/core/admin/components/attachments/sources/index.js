@@ -12,6 +12,7 @@ class Sources extends React.Component {
     cancelText: PropTypes.any,
     counts: PropTypes.object,
     files: PropTypes.array,
+    multiple: PropTypes.bool,
     sources: PropTypes.array,
     onAdd: PropTypes.func,
     onBack: PropTypes.func,
@@ -112,9 +113,10 @@ class Sources extends React.Component {
   }
 
   _getSource(source) {
-    const { allow, onAdd, onRemove } = this.props
+    const { allow, multiple, onAdd, onRemove } = this.props
     return {
       allow,
+      multiple,
       source,
       onAdd,
       onRemove,

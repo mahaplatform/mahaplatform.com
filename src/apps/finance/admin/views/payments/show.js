@@ -1,3 +1,4 @@
+import Allocations from './allocations'
 import { Page } from 'maha-admin'
 import Details from './details'
 import Refunds from './refunds'
@@ -6,10 +7,13 @@ import Void from './void'
 import React from 'react'
 import _ from 'lodash'
 
-const getTabs = ({ payment, refunds }) => {
+const getTabs = ({ allocations, payment, refunds }) => {
+
+  console.log(payment)
 
   const items = [
-    { label: 'Details', component: <Details payment={ payment }/> }
+    { label: 'Details', component: <Details payment={ payment } /> },
+    { label: 'Allocations', component: <Allocations payment={ payment } allocations={ allocations }/> }
   ]
 
   if(refunds.length > 0) {
@@ -43,6 +47,7 @@ const getTasks = ({ payment }) => {
 
 const mapResourcesToPage = (props, context) => ({
   payment: `/api/admin/finance/payments/${props.params.id}`,
+  allocations: `/api/admin/finance/payments/${props.params.id}/allocations`,
   refunds: `/api/admin/finance/payments/${props.params.id}/refunds`
 })
 

@@ -8,20 +8,14 @@ const Coupon = new Model({
 
   rules: {},
 
-  virtuals: {
-
-    product_ids: function() {
-      return this.related('products').map(product => product.id)
-    }
-
-  },
+  virtuals: {},
 
   invoices() {
     return this.hasMany(Invoice, 'coupon_id')
   },
 
-  products() {
-    return this.belongsToMany(Product, 'finance_coupons_products', 'coupon_id', 'product_id')
+  product() {
+    return this.belongsTo(Product, 'product_id')
   }
 
 })

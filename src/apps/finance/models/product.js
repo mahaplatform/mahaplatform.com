@@ -20,7 +20,7 @@ const Product = new Model({
   },
 
   coupons() {
-    return this.belongsToMany(Coupon, 'finance_coupons_products', 'product_id', 'coupon_id')
+    return this.hasMany(Coupon, 'product_id')
   },
 
   project() {

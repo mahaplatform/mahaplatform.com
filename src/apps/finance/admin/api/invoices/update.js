@@ -41,11 +41,7 @@ const updateRoute = async (req, res) => {
   }) : null
 
   await invoice.save({
-    ...coupon ? {
-      coupon_id: coupon.get('id'),
-      discount_amount: coupon.get('amount'),
-      discount_percent: coupon.get('percent')
-    } : {},
+    coupon_id: coupon ? coupon.get('id') : null,
     ...whitelist(req.body, ['customer_id','program_id','date','due','notes'])
   }, {
     patch: true,
@@ -54,9 +50,26 @@ const updateRoute = async (req, res) => {
 
   await Promise.map(invoice.related('line_items'), async(line_item) => {
 
-    if(line_items.find(item => {
+    const item = line_items.find(item => {
       return item.id === line_item.id
-    }) !== undefined) return
+    })
+
+    if(item) {
+
+      return await line_item.save({
+        ...(coupon && line_item.get('product_id') === coupon.get('product_id')) ? {
+          discount_amount: coupon.get('amount'),
+          discount_percent: coupon.get('percent')
+        } : {
+          discount_amount: null,
+          discount_percent: null
+        }
+      }, {
+        patch: true,
+        transacting: req.trx
+      })
+
+    }
 
     await line_item.destroy({
       transacting: req.trx
@@ -86,7 +99,11 @@ const updateRoute = async (req, res) => {
       description: line_item.description,
       quantity: line_item.quantity,
       price: line_item.price,
-      tax_rate: line_item.tax_rate
+      tax_rate: line_item.tax_rate,
+      ...(coupon && product.get('id') === coupon.get('product_id')) ? {
+        discount_amount: coupon.get('amount'),
+        discount_percent: coupon.get('percent')
+      } : {}
     }).save(null, {
       transacting: req.trx
     })

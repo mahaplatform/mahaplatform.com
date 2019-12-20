@@ -14,6 +14,7 @@ import advances from './advances'
 import expenses from './expenses'
 import invoices from './invoices'
 import { Router } from 'express'
+import reports from './reports'
 import coupons from './coupons'
 import batches from './batches'
 import vendors from './vendors'
@@ -71,6 +72,8 @@ router.use('/refunds', refunds)
 router.use('/reimbursements', reimbursements)
 
 router.use('/revenue_types', revenue_types)
+
+router.use('/reports', reports)
 
 router.use('/trips', trips)
 

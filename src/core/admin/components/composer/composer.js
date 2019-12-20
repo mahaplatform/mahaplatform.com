@@ -26,11 +26,14 @@ class Composer extends React.Component {
     onChange: PropTypes.func,
     onFocus: PropTypes.func,
     onGrow: PropTypes.func,
+    onKeyUp: PropTypes.func,
     onReady: PropTypes.func,
+    onPaste: PropTypes.func,
     onSetState: PropTypes.func,
     onSubmit: PropTypes.func,
     onToggleEmojis: PropTypes.func,
-    onUpArrow: PropTypes.func
+    onUpArrow: PropTypes.func,
+    onUpdateAsset: PropTypes.func
   }
 
   static defaultProps = {
@@ -58,8 +61,7 @@ class Composer extends React.Component {
   _handleAddAssets = this._handleAddAssets.bind(this)
   _handleAttachments = this._handleAttachments.bind(this)
   _handleAutogrow = this._handleAutogrow.bind(this)
-  _handleCameraAdd = this._handleCameraAdd.bind(this)
-  _handleCameraUpdate = this._handleCameraUpdate.bind(this)
+  _handleCamera = this._handleCamera.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleFileAdded = this._handleFileAdded.bind(this)
   _handleFileSuccess = this._handleFileSuccess.bind(this)
@@ -141,8 +143,7 @@ class Composer extends React.Component {
   _getCamera() {
     return {
       icon: 'camera',
-      onAdd: this._handleCameraAdd,
-      onUpdate: this._handleCameraUpdate
+      onDone: this._handleCamera
     }
   }
 
@@ -185,12 +186,8 @@ class Composer extends React.Component {
     this.props.onGrow()
   }
 
-  _handleCameraAdd(asset) {
+  _handleCamera(asset) {
     this.props.onAddAssets([asset])
-  }
-
-  _handleCameraUpdate(identifier, asset) {
-    this.props.onUpdateAsset(identifier, asset)
   }
 
   _handleChange() {

@@ -7,7 +7,6 @@ const editRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['products'],
     transacting: req.trx
   })
 
@@ -22,7 +21,7 @@ const editRoute = async (req, res) => {
       'code',
       'amount',
       'percent',
-      'product_ids',
+      'product_id',
       'is_active'
     ]
   })

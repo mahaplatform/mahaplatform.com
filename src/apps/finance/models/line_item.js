@@ -3,6 +3,7 @@ import RevenueType from './revenue_type'
 import Project from './project'
 import Product from './product'
 import Invoice from './invoice'
+import Customer from './customer'
 
 const LineItem = new Model({
 
