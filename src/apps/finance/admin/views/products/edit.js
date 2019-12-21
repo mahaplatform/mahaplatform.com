@@ -37,10 +37,7 @@ class Edit extends React.Component {
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a Title', required: true },
             { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/projects', value: 'id', text: 'title', required: true, format: ProjectToken },
             { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', value: 'id', text: 'title', required: true, format: RevenueTypeToken },
-            { label: 'Price Type', name: 'price_type', type: 'radiogroup', options: [{value:'fixed',text:'Fixed Price'},{value:'sliding_scale',text:'Sliding Scale'}], required: true },
-            { label: 'Fixed Price', name: 'fixed_price', type: 'moneyfield', placeholder: 'Fixed Price', required: true },
-            { label: 'Low Price', name: 'low_price', type: 'moneyfield', placeholder: 'Low Price' },
-            { label: 'High Price', name: 'high_price', type: 'moneyfield', placeholder: 'High Price' },
+            { label: 'Price', name: 'price', type: 'moneyfield', placeholder: 'Price', required: true },
             { label: 'Tax Rate', name: 'tax_rate', type: 'numberfield', placeholder: 'Tax Rate' },
             { label: 'Tax Deductible?', name: 'is_tax_deductible', type: 'checkbox' }
           ]

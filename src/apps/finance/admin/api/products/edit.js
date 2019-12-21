@@ -21,10 +21,7 @@ const editRoute = async (req, res) => {
       'title',
       'project_id',
       'revenue_type_id',
-      'price_type',
-      'fixed_price',
-      'low_price',
-      'high_price',
+      'price',
       'tax_rate',
       'is_tax_deductible'
     ]

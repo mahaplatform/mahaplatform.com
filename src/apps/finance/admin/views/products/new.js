@@ -12,12 +12,7 @@ class New extends React.Component {
 
   static propTypes = {}
 
-  state = {
-    price_type: 'fixed'
-  }
-
   _handleCancel = this._handleCancel.bind(this)
-  _handleChangeField = this._handleChangeField.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
@@ -25,7 +20,6 @@ class New extends React.Component {
   }
 
   _getForm() {
-    const { price_type } = this.state
     return {
       title: 'New Product',
       method: 'post',
@@ -39,8 +33,7 @@ class New extends React.Component {
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a Title', required: true },
             { label: 'Project', name: 'project_id', type: 'lookup', placeholder: 'Choose a Project', endpoint: '/api/admin/finance/projects', value: 'id', text: 'title', required: true, format: ProjectToken },
             { label: 'Revenue Type', name: 'revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', value: 'id', text: 'title', required: true, format: RevenueTypeToken },
-            { label: 'Price Type', name: 'price_type', type: 'radiogroup', options: [{value:'fixed',text:'Fixed Price'},{value:'sliding_scale',text:'Sliding Scale'}], required: true, defaultValue: price_type },
-            ...this._getPriceType(),
+            { label: 'Price', name: 'price', type: 'moneyfield', placeholder: 'Price', required: true },
             { label: 'Tax Rate', name: 'tax_rate', type: 'numberfield', placeholder: 'Tax Rate', required: true, defaultValue: '0.000' },
             { label: 'Tax Deductible?', name: 'is_tax_deductible', type: 'checkbox', defaultValue: false }
           ]
@@ -49,30 +42,8 @@ class New extends React.Component {
     }
   }
 
-  _getPriceType() {
-    const { price_type } = this.state
-    if(price_type === 'fixed') {
-      return [
-        { label: 'Fixed Price', name: 'fixed_price', type: 'moneyfield', placeholder: 'Fixed Price', required: true }
-      ]
-    } else {
-      return [
-        { label: 'Low Price', name: 'low_price', type: 'moneyfield', placeholder: 'Low Price', required: true },
-        { label: 'High Price', name: 'high_price', type: 'moneyfield', placeholder: 'High Price', required: true }
-      ]
-    }
-  }
-
   _handleCancel() {
     this.context.modal.close()
-  }
-
-  _handleChangeField(key, value) {
-    if(key === 'price_type') {
-      this.setState({
-        price_type: value
-      })
-    }
   }
 
   _handleSuccess() {
