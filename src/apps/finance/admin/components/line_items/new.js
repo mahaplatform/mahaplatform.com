@@ -55,9 +55,9 @@ class New extends React.Component {
     const fields = []
     fields.push({ label: 'Description', name: 'description', required: true, type: 'textfield', placeholder: 'Describe this item', defaultValue: product.title })
     if(price_type === 'sliding_scale') {
-      fields.push({ label: 'Price', name: 'price', required: true, type: 'textfield', instructions: `sliding scale ${low_price} - ${high_price}`, placeholder: 'Enter a price', defaultValue: high_price })
+      fields.push({ label: 'Price', name: 'price', required: true, type: 'textfield', instructions: `sliding scale ${low_price} - ${high_price}`, placeholder: 'Enter a price', defaultValue: low_price })
     }
-    fields.push({ label: 'Quantity', name: 'quantity', required: true, type: 'numberfield', numberType: 'integer', placeholder: 'Enter a quantity' })
+    fields.push({ label: 'Quantity', name: 'quantity', required: true, type: 'numberfield', number_type: 'integer', placeholder: 'Enter a quantity' })
     return fields
   }
 

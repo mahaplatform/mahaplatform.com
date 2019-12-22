@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Control from './control'
+import Segment from './segment'
 import Fields from './fields'
 import _ from 'lodash'
 
@@ -41,10 +42,9 @@ class Field extends React.Component {
               { instructions }
             </div>
           }
-          { type === 'fields' ?
-            <Fields { ...this._getFields() } /> :
-            <Control { ...this._getControl() } />
-          }
+          { type === 'fields' && <Fields { ...this._getFields() } /> }
+          { type === 'segment' && <Segment { ...this._getFields() } /> }
+          { !_.includes(['fields','segment'], type) && <Control { ...this._getControl() } /> }
           { error &&
             <div className="error-message">
               { error }

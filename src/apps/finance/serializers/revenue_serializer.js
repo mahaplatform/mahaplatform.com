@@ -7,6 +7,7 @@ const RevenueSerializer = (req, result) => ({
   project: project(result.related('project')),
   revenue_type: revenue_type(result.related('revenue_type')),
   amount: result.get('amount'),
+  total: result.get('total'),
   date: result.get('date'),
   created_at: result.get('created_at')
 })

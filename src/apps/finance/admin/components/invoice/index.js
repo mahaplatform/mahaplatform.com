@@ -145,7 +145,7 @@ class Invoice extends React.PureComponent {
             </tbody>
           </table>
         </div>
-        { invoice.tax_deductible &&
+        { invoice.tax_deductible > 0 &&
           <div className="finance-invoice-footnote">
             <span className="finance-invoice-asterix">*</span> No substantial goods or services were provided in return for this gift
           </div>
@@ -155,7 +155,7 @@ class Invoice extends React.PureComponent {
             { invoice.notes }
           </div>
         }
-        { invoice.tax_deductible &&
+        { invoice.tax_deductible > 0 &&
           <div className="finance-invoice-tax-deductible">
             <strong>Charitable Contribution</strong><br/>
             Eligible amount of contribution for tax purposes: { numeral(invoice.tax_deductible).format('0.00') }

@@ -9,7 +9,7 @@ const InvoiceSerializer = (req, result) => ({
   discount_amount: result.get('discount_amount'),
   discount_percent: result.get('discount_percent'),
   due: result.get('due'),
-  line_items: result.related('line_items').map(line_items),
+  line_items: result.related('invoice_line_items').map(line_items),
   notes: result.get('notes'),
   payments: result.related('payments').map(payment),
   paid: result.get('paid'),
@@ -46,10 +46,9 @@ const coupon = (coupon) => {
 }
 
 const line_items = (line_item) => {
-  if(!line_item.id) return null
+  if(!line_item.get('line_item_id')) return null
   return {
-    id: line_item.get('id'),
-    product: product(line_item.related('product')),
+    id: line_item.get('line_item_id'),
     description: line_item.get('description'),
     quantity: line_item.get('quantity'),
     price: line_item.get('price'),

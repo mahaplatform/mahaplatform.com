@@ -9,8 +9,6 @@ import _ from 'lodash'
 
 const getTabs = ({ allocations, payment, refunds }) => {
 
-  console.log(payment)
-
   const items = [
     { label: 'Details', component: <Details payment={ payment } /> },
     { label: 'Allocations', component: <Allocations payment={ payment } allocations={ allocations }/> }

@@ -8,7 +8,6 @@ import LineItem from '../../../models/line_item'
 import Product from '../../../models/product'
 import Invoice from '../../../models/invoice'
 import Coupon from '../../../models/coupon'
-import _ from 'lodash'
 
 const createRoute = async (req, res) => {
 
@@ -58,7 +57,15 @@ const createRoute = async (req, res) => {
       ...(coupon && product.get('id') === coupon.get('product_id')) ? {
         discount_amount: coupon.get('amount'),
         discount_percent: coupon.get('percent')
-      } : {}
+      } : {},
+      ...(product.get('overage_strategy') === 'donation') ? {
+        base_price: product.get('low_price'),
+        donation: line_item.price - product.get('low_price'),
+        donation_revenue_type_id: product.get('donation_revenue_type_id')
+      } : {
+        base_price: line_item.price,
+        donation: 0.00
+      }
     }).save(null, {
       transacting: req.trx
     })

@@ -5,6 +5,10 @@ import Customer from './customer'
 import Payment from './payment'
 import Coupon from './coupon'
 
+const InvoiceLineItem = new Model({
+  tableName: 'finance_invoice_line_items'
+})
+
 const Invoice = new Model({
 
   tableName: 'finance_invoices',
@@ -19,6 +23,12 @@ const Invoice = new Model({
 
   coupon() {
     return this.belongsTo(Coupon, 'coupon_id')
+  },
+
+  invoice_line_items() {
+    return this.hasMany(InvoiceLineItem, 'invoice_id').query(qb => {
+      qb.orderByRaw('weight asc,created_at asc')
+    })
   },
 
   line_items() {

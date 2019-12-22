@@ -1,6 +1,21 @@
-const TaxDeductible = {
+const CreateOverageStrategy = {
 
   up: async (knex) => {
+
+    await knex.schema.table('finance_products', (table) => {
+      table.enum('overage_strategy', ['income','donation'], { useNative: true, enumName: 'finance_products_overage_strategy' })
+      table.integer('donation_revenue_type_id').unsigned()
+      table.foreign('donation_revenue_type_id').references('finance_revenue_types.id')
+    })
+
+    await knex.schema.table('finance_line_items', (table) => {
+      table.decimal('base_price', 5, 2)
+      table.decimal('donation', 5, 2)
+      table.integer('donation_revenue_type_id').unsigned()
+      table.foreign('donation_revenue_type_id').references('finance_revenue_types.id')
+    })
+
+    await knex.raw('drop view finance_revenues')
 
     await knex.raw('drop view finance_invoice_details')
 
@@ -10,42 +25,48 @@ const TaxDeductible = {
 
     await knex.raw('drop view finance_invoice_line_items')
 
-    await knex.schema.dropTable('finance_coupons_products')
-
-    await knex.schema.table('finance_coupons', (table) => {
-      table.integer('product_id').unsigned()
-      table.foreign('product_id').references('finance_products.id')
-    })
-
-    await knex.schema.table('finance_invoices', (table) => {
-      table.dropColumn('discount_amount')
-      table.dropColumn('discount_percent')
-    })
-
-    await knex.schema.table('finance_products', (table) => {
-      table.boolean('is_tax_deductible')
-    })
-
-    await knex.schema.table('finance_line_items', (table) => {
-      table.boolean('is_tax_deductible')
-      table.decimal('discount_amount', 5, 2)
-      table.decimal('discount_percent', 5, 4)
-    })
-
     await knex.raw(`
       create view finance_invoice_line_items as
-      select finance_invoices.id as invoice_id,
-      finance_line_items.id as line_item_id,
-      finance_line_items.quantity * finance_line_items.price as total,
-      finance_line_items.quantity * finance_line_items.price * case when finance_line_items.is_tax_deductible then 1 else 0 end as tax_deductible,
+      select finance_line_items.id as line_item_id,
+      0 as weight,
+      finance_invoices.id as invoice_id,
+      finance_line_items.product_id,
+      finance_line_items.project_id,
+      finance_line_items.revenue_type_id,
+      finance_line_items.description,
+      finance_line_items.quantity,
+      finance_line_items.base_price as price,
+      finance_line_items.quantity * finance_line_items.base_price as total,
+      finance_line_items.quantity * finance_line_items.base_price * case when finance_line_items.is_tax_deductible then 1 else 0 end as tax_deductible,
       round(finance_line_items.quantity * finance_line_items.price * finance_line_items.tax_rate, 2) as tax,
       case
       when finance_line_items.discount_amount is not null then finance_line_items.discount_amount
-      when finance_line_items.discount_percent is not null then finance_line_items.quantity * finance_line_items.price * finance_line_items.discount_percent
+      when finance_line_items.discount_percent is not null then round(finance_line_items.quantity * finance_line_items.price * finance_line_items.discount_percent, 2)
       else 0.00
-      end as discount
+      end as discount,
+      finance_line_items.is_tax_deductible,
+      finance_line_items.created_at
       from finance_invoices
       inner join finance_line_items on finance_line_items.invoice_id = finance_invoices.id
+      union
+      select finance_line_items.id as line_item_id,
+      1 as weight,
+      finance_invoices.id as invoice_id,
+      finance_line_items.product_id,
+      finance_line_items.project_id,
+      finance_line_items.donation_revenue_type_id,
+      concat(finance_line_items.description, ' (amount above base price)') as description,
+      finance_line_items.quantity,
+      finance_line_items.donation as price,
+      finance_line_items.quantity * finance_line_items.donation as total,
+      finance_line_items.quantity * finance_line_items.donation as tax_deductible,
+      0.00 as tax,
+      0.00 as discount,
+      true as is_tax_deductible,
+      finance_line_items.created_at
+      from finance_invoices
+      inner join finance_line_items on finance_line_items.invoice_id = finance_invoices.id
+      where finance_line_items.donation > 0
     `)
 
     await knex.raw(`
@@ -90,22 +111,23 @@ const TaxDeductible = {
       inner join finance_invoice_subtotals on finance_invoice_subtotals.invoice_id = finance_invoices.id
       inner join finance_invoice_payments on finance_invoice_payments.invoice_id = finance_invoices.id;
     `)
+
     await knex.raw(`
-      create view finance_revenues as
+      create or replace view finance_revenues as
       select finance_payments.team_id,
       finance_payments.id as payment_id,
       finance_invoices.customer_id,
-      finance_line_items.description,
+      finance_invoice_line_items.description,
       finance_invoices.program_id,
-      finance_line_items.project_id,
-      finance_line_items.revenue_type_id,
+      finance_invoice_line_items.project_id,
+      finance_invoice_line_items.revenue_type_id,
       round((finance_payments.amount / finance_invoice_totals.total) * (finance_invoice_line_items.total - finance_invoice_line_items.discount), 2) as amount,
+      finance_invoice_line_items.total,
       finance_payments.date,
       finance_payments.created_at
       from finance_payments
       inner join finance_invoice_totals on finance_invoice_totals.invoice_id=finance_payments.invoice_id
-      inner join finance_line_items on finance_line_items.invoice_id=finance_payments.invoice_id
-      inner join finance_invoice_line_items on finance_invoice_line_items.line_item_id=finance_line_items.id
+      inner join finance_invoice_line_items on finance_invoice_line_items.invoice_id=finance_payments.invoice_id
       inner join finance_invoices on finance_invoices.id=finance_payments.invoice_id
       where finance_payments.voided_date is null;
     `)
@@ -117,4 +139,4 @@ const TaxDeductible = {
 
 }
 
-export default TaxDeductible
+export default CreateOverageStrategy

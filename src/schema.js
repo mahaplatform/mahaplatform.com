@@ -811,11 +811,13 @@ const schema = {
       table.string('code', 255)
       table.decimal('amount', 5, 2)
       table.integer('max_uses')
-      table.boolean('is_active')
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.decimal('percent', 5, 4)
       table.integer('product_id').unsigned()
+      table.USER-DEFINED('type')
+      table.date('start_date')
+      table.date('end_date')
     })
 
     await knex.schema.createTable('finance_credits', (table) => {
@@ -903,6 +905,9 @@ const schema = {
       table.boolean('is_tax_deductible')
       table.decimal('discount_amount', 5, 2)
       table.decimal('discount_percent', 5, 4)
+      table.decimal('base_price', 5, 2)
+      table.decimal('donation', 5, 2)
+      table.integer('donation_revenue_type_id').unsigned()
     })
 
     await knex.schema.createTable('finance_members', (table) => {
@@ -990,6 +995,8 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.boolean('is_tax_deductible')
+      table.USER-DEFINED('overage_strategy')
+      table.integer('donation_revenue_type_id').unsigned()
     })
 
     await knex.schema.createTable('finance_projects', (table) => {
@@ -2400,8 +2407,8 @@ const schema = {
     })
 
     await knex.schema.table('finance_coupons', table => {
-      table.foreign('team_id').references('maha_teams.id')
       table.foreign('product_id').references('finance_products.id')
+      table.foreign('team_id').references('maha_teams.id')
     })
 
     await knex.schema.table('finance_credits', table => {
@@ -2428,9 +2435,15 @@ const schema = {
       table.foreign('project_id').references('finance_projects.id')
       table.foreign('revenue_type_id').references('finance_revenue_types.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('donation_revenue_type_id').references('finance_revenue_types.id')
     })
 
     await knex.schema.table('finance_merchants', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('finance_payment_methods', table => {
+      table.foreign('customer_id').references('crm_contacts.id')
       table.foreign('team_id').references('maha_teams.id')
     })
 
@@ -2439,16 +2452,17 @@ const schema = {
       table.foreign('disbursement_id').references('finance_disbursements.id')
       table.foreign('invoice_id').references('finance_invoices.id')
       table.foreign('merchant_id').references('finance_merchants.id')
+      table.foreign('payment_method_id').references('finance_payment_methods.id')
       table.foreign('photo_id').references('maha_assets.id')
       table.foreign('scholarship_id').references('finance_scholarships.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('payment_method_id').references('finance_payment_methods.id')
     })
 
     await knex.schema.table('finance_products', table => {
       table.foreign('project_id').references('finance_projects.id')
       table.foreign('revenue_type_id').references('finance_revenue_types.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('donation_revenue_type_id').references('finance_revenue_types.id')
     })
 
     await knex.schema.table('finance_refunds', table => {
@@ -2491,10 +2505,10 @@ const schema = {
     })
 
     await knex.schema.table('maha_audits', table => {
+      table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('story_id').references('maha_stories.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('contact_id').references('crm_contacts.id')
     })
 
     await knex.schema.table('maha_calls', table => {
@@ -2831,11 +2845,6 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
-    })
-
-    await knex.schema.table('finance_payment_methods', table => {
-      table.foreign('team_id').references('maha_teams.id')
-      table.foreign('customer_id').references('crm_contacts.id')
     })
 
 
@@ -3298,6 +3307,27 @@ union
     `)
 
     await knex.raw(`
+      create view finance_coupon_statuses AS
+      select finance_coupons.id as coupon_id,
+      case
+      when (((finance_coupons.start_date is null) or (finance_coupons.start_date <= now())) and ((finance_coupons.end_date is null) or (finance_coupons.end_date >= now()))) then true
+      else false
+      end as is_active
+      from finance_coupons;
+    `)
+
+    await knex.raw(`
+      create view finance_coupon_uses AS
+      select crm_contacts.id as customer_id,
+      finance_coupons.id as coupon_id,
+      count(finance_invoices.id) as uses
+      from ((crm_contacts
+      left join finance_coupons on (true))
+      join finance_invoices on (((finance_invoices.customer_id = crm_contacts.id) and (finance_invoices.coupon_id = finance_coupons.id))))
+      group by crm_contacts.id, finance_coupons.id;
+    `)
+
+    await knex.raw(`
       create view finance_customers AS
       select distinct on (crm_contacts.id) crm_contacts.id,
       crm_contacts.team_id,
@@ -3337,27 +3367,50 @@ union
 
     await knex.raw(`
       create view finance_invoice_line_items AS
-      select finance_invoices.id as invoice_id,
-      finance_line_items.id as line_item_id,
-      ((finance_line_items.quantity)::numeric * finance_line_items.price) as total,
-      (((finance_line_items.quantity)::numeric * finance_line_items.price) * (
+      select finance_line_items.id as line_item_id,
+      0 as weight,
+      finance_invoices.id as invoice_id,
+      finance_line_items.product_id,
+      finance_line_items.project_id,
+      finance_line_items.revenue_type_id,
+      finance_line_items.description,
+      finance_line_items.quantity,
+      finance_line_items.base_price as price,
+      ((finance_line_items.quantity)::numeric * finance_line_items.base_price) as total,
+      (((finance_line_items.quantity)::numeric * finance_line_items.base_price) * (
       case
       when finance_line_items.is_tax_deductible then 1
       else 0
       end)::numeric) as tax_deductible,
       round((((finance_line_items.quantity)::numeric * finance_line_items.price) * finance_line_items.tax_rate), 2) as tax,
       case
-      when (finance_coupons.id is not null) then
-      case
-      when (finance_coupons.amount is not null) then finance_coupons.amount
-      when (finance_coupons.percent is not null) then (((finance_line_items.quantity)::numeric * finance_line_items.price) * finance_coupons.percent)
-      else null::numeric
-      end
+      when (finance_line_items.discount_amount is not null) then finance_line_items.discount_amount
+      when (finance_line_items.discount_percent is not null) then round((((finance_line_items.quantity)::numeric * finance_line_items.price) * finance_line_items.discount_percent), 2)
       else 0.00
-      end as discount
-      from ((finance_invoices
+      end as discount,
+      finance_line_items.is_tax_deductible,
+      finance_line_items.created_at
+      from (finance_invoices
       join finance_line_items on ((finance_line_items.invoice_id = finance_invoices.id)))
-      left join finance_coupons on (((finance_coupons.id = finance_invoices.coupon_id) and (finance_coupons.product_id = finance_line_items.product_id))));
+union
+      select finance_line_items.id as line_item_id,
+      1 as weight,
+      finance_invoices.id as invoice_id,
+      finance_line_items.product_id,
+      finance_line_items.project_id,
+      finance_line_items.donation_revenue_type_id as revenue_type_id,
+      concat(finance_line_items.description, ' (amount above base price)') as description,
+      finance_line_items.quantity,
+      finance_line_items.donation as price,
+      ((finance_line_items.quantity)::numeric * finance_line_items.donation) as total,
+      ((finance_line_items.quantity)::numeric * finance_line_items.donation) as tax_deductible,
+      0.00 as tax,
+      0.00 as discount,
+      true as is_tax_deductible,
+      finance_line_items.created_at
+      from (finance_invoices
+      join finance_line_items on ((finance_line_items.invoice_id = finance_invoices.id)))
+      where (finance_line_items.donation > (0)::numeric);
     `)
 
     await knex.raw(`
@@ -3571,7 +3624,7 @@ union
       finance_invoices.program_id,
       finance_line_items.project_id,
       finance_line_items.revenue_type_id,
-      round(((finance_payments.amount / finance_invoice_totals.total) * finance_invoice_line_items.total), 2) as amount,
+      round(((finance_payments.amount / finance_invoice_totals.total) * (finance_invoice_line_items.total - finance_invoice_line_items.discount)), 2) as amount,
       finance_payments.date,
       finance_payments.created_at
       from ((((finance_payments

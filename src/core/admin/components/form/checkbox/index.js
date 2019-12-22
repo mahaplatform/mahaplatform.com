@@ -6,6 +6,7 @@ class Checkbox extends React.Component {
   static propTypes = {
     defaultValue: PropTypes.bool,
     disabled: PropTypes.bool,
+    prompt: PropTypes.string,
     tabIndex: PropTypes.number,
     onBusy: PropTypes.func,
     onChange: PropTypes.func,
@@ -29,10 +30,11 @@ class Checkbox extends React.Component {
   _handleChange = this._handleChange.bind(this)
 
   render() {
-    const { disabled, tabIndex } = this.props
+    const { disabled, prompt, tabIndex } = this.props
     return (
       <div className={ `maha-checkbox ${(disabled) ? 'toggle-disabled' : ''}` } tabIndex={ tabIndex }>
         <i className={ `fa fa-fw fa-${this._getIcon()} ${(disabled) ? 'disabled' : ''}` } onClick={ this._handleChange } />
+        { prompt }
       </div>
     )
   }

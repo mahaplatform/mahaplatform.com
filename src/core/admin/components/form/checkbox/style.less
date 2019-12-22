@@ -1,20 +1,24 @@
 .maha-checkbox {
-  display: inline-block;
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.3em;
+  padding: 0.6em;
   &.toggle-disabled {
-    cursor: default;
+    .fa {
+      cursor: default;
+    }
   }
   .fa {
     font-size: 1.8em;
-    height: auto;
-    margin: auto;
+    margin: 0 0.4em 0 0;
+    cursor: pointer;
   }
   .fa-toggle-off {
-    color: lighten(@black, 80);
+    color: fadeout(@black, 80);
   }
   .fa-toggle-on {
     color: @blue;
   }
   .disabled {
-    color:#cccccc;
+    color: fadeout(@black, 90);
   }
 }

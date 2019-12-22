@@ -19,7 +19,10 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load coupon'
   })
 
-  await coupon.save(whitelist(req.body, ['code','product_id','amount','percent','is_active']), {
+  await coupon.save({
+    percent: req.body.percent ? parseInt(req.body.percent) / 100 : null,
+    ...whitelist(req.body, ['code','product_id','type','amount','start_date','end_date','max_uses'])
+  }, {
     patch: true,
     transacting: req.trx
   })

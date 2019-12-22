@@ -10,7 +10,11 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Code', key: 'code', sort: 'code', primary: true },
+      { label: 'Product', key: 'product.title', sort: 'product', primary: true },
       { label: 'Active', key: 'is_active', primary: true, format: 'check' }
+    ],
+    filters: [
+      { label: 'Product', name: 'product_id', type: 'select', multiple: true, endpoint: '/api/admin/finance/products', value: 'id', text: 'title' }
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {
@@ -25,7 +29,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
     recordTasks: (record) => [
       {
         label: 'Edit Coupon',
-        modal: <Edit { ...record } />
+        modal: <Edit coupon={ record } />
       }
     ]
   },

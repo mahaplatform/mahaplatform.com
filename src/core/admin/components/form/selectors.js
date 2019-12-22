@@ -30,24 +30,26 @@ const merged = createSelector(
     return []
   })
 
+const reduce = (fields) => fields.reduce((fields, field) => [
+  ...fields,
+  ...(field.fields) ? field.fields.reduce((fields, field) => [
+    ...fields,
+    ...(field.fields) ? reduce(field.fields) : [field]
+  ], []) : [field]
+], [])
+
 export const fields = createSelector(
   merged,
   (sections) => sections.reduce((fields, section) => [
     ...fields,
-    ...section.fields.reduce((fields, field) => [
-      ...fields,
-      ...(field.type === 'fields') ? field.fields.reduce((fields, field) => [
-        ...fields,
-        field
-      ], []) : [field]
-    ], [])
+    ...reduce(section.fields)
   ], [])
 )
 
 const submittable = createSelector(
   fields,
   (fields) => fields.filter(field => {
-    return field.include !== false && !_.includes(['fields','submit','text'], field.type)
+    return field.include !== false && !_.includes(['fields','segment','submit','text'], field.type)
   })
 )
 

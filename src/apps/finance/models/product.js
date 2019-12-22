@@ -23,6 +23,10 @@ const Product = new Model({
     return this.hasMany(Coupon, 'product_id')
   },
 
+  donation_revenue_type() {
+    return this.belongsTo(RevenueType, 'donation_revenue_type_id')
+  },
+
   project() {
     return this.belongsTo(Project, 'project_id')
   },

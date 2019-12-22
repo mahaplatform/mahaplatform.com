@@ -3,7 +3,7 @@ import Revenue from '../../../models/revenue'
 
 const allocationsRoute = async (req, res) => {
 
-  const revenues = await Revenue.scope(qb => {
+  const revenues = await Revenue.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('payment_id', req.params.payment_id)
   }).fetchAll({

@@ -14,7 +14,7 @@ class NumberField extends React.Component {
     defaultValue: PropTypes.number,
     placeholder: PropTypes.string,
     tabIndex: PropTypes.number,
-    numberType: PropTypes.string,
+    number_type: PropTypes.string,
     units: PropTypes.string,
     onChange: PropTypes.func,
     onReady: PropTypes.func
@@ -101,12 +101,12 @@ class NumberField extends React.Component {
   }
 
   _handleKeyDown(e) {
-    const { numberType } = this.props
+    const { number_type } = this.props
     if(_.includes(SPECIAL_KEYS, e.key)) return
     if(e.ctrlKey || e.metaKey) return
     const value = this.number.value || ''
     const newvalue = value + e.key
-    const regex = numberType === 'integer' ? INTEGER_REGEX : FLOAT_REGEX
+    const regex = number_type === 'integer' ? INTEGER_REGEX : FLOAT_REGEX
     if(newvalue.match(regex)) return
     e.preventDefault()
   }

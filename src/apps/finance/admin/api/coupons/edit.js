@@ -19,10 +19,13 @@ const editRoute = async (req, res) => {
     fields: [
       'id',
       'code',
+      'type',
       'amount',
       'percent',
       'product_id',
-      'is_active'
+      'start_date',
+      'end_date',
+      'max_uses'
     ]
   })
 

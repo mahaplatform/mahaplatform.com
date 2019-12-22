@@ -1,4 +1,4 @@
-import { Search2, ModalPanel } from 'maha-admin'
+import { Search, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -9,7 +9,7 @@ class Coupon extends React.Component {
   }
 
   static propTypes = {
-    line_items: PropTypes.func,
+    line_items: PropTypes.array,
     onChoose: PropTypes.func
   }
 
@@ -19,7 +19,7 @@ class Coupon extends React.Component {
   render() {
     return (
       <ModalPanel { ...this._getPanel() }>
-        <Search2 { ...this._getSearch() } />
+        <Search { ...this._getSearch() } />
       </ModalPanel>
     )
   }
@@ -45,7 +45,7 @@ class Coupon extends React.Component {
       label: 'Coupon',
       value: 'id',
       text: 'code',
-      onChoose: this._handleChoose
+      onChange: this._handleChoose
     }
   }
 
@@ -53,8 +53,8 @@ class Coupon extends React.Component {
     this.context.form.pop()
   }
 
-  _handleChoose(coupon) {
-    this.props.onChoose(coupon.id)
+  _handleChoose(id) {
+    this.props.onChoose(id)
     this.context.form.pop()
   }
 

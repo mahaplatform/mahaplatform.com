@@ -8,6 +8,7 @@ const Allocations = ({ payment, allocations }) =>(
       <tr>
         <th>Description</th>
         <th className="collapsing">Amount</th>
+        <th className="collapsing">Total</th>
       </tr>
     </thead>
     <tbody>
@@ -15,11 +16,15 @@ const Allocations = ({ payment, allocations }) =>(
         <tr key={`payment_${index}`}>
           <td>{ allocation.description }</td>
           <td className="right aligned">{ numeral(allocation.amount).format('0.00') }</td>
+          <td className="right aligned">{ numeral(allocation.total).format('0.00') }</td>
         </tr>
       )) }
       <tr>
         <td>Total</td>
         <td className="right aligned">{ numeral(payment.amount).format('0.00') }</td>
+        <td className="right aligned">{ numeral(allocations.reduce((sum, allocation) => {
+          return sum + Number(allocation.total)
+        }, 0.00)).format('0.00') }</td>
       </tr>
     </tbody>
   </table>

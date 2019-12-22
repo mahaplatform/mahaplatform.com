@@ -13,6 +13,7 @@ class New extends React.Component {
   static propTypes = {}
 
   state = {
+    overage_strategy: 'income',
     price_type: 'fixed'
   }
 
@@ -42,7 +43,7 @@ class New extends React.Component {
             { label: 'Price Type', name: 'price_type', type: 'radiogroup', options: [{value:'fixed',text:'Fixed Price'},{value:'sliding_scale',text:'Sliding Scale'}], required: true, defaultValue: price_type },
             ...this._getPriceType(),
             { label: 'Tax Rate', name: 'tax_rate', type: 'numberfield', placeholder: 'Tax Rate', required: true, defaultValue: '0.000' },
-            { label: 'Tax Deductible?', name: 'is_tax_deductible', type: 'checkbox', defaultValue: false }
+            { label: 'Tax Deductible?', name: 'is_tax_deductible', type: 'checkbox', prompt: 'Is this product tax deductable?', defaultValue: false }
           ]
         }
       ]
@@ -50,17 +51,34 @@ class New extends React.Component {
   }
 
   _getPriceType() {
-    const { price_type } = this.state
+    const { overage_strategy, price_type } = this.state
     if(price_type === 'fixed') {
       return [
         { label: 'Fixed Price', name: 'fixed_price', type: 'moneyfield', placeholder: 'Fixed Price', required: true }
       ]
     } else {
       return [
-        { label: 'Low Price', name: 'low_price', type: 'moneyfield', placeholder: 'Low Price', required: true },
-        { label: 'High Price', name: 'high_price', type: 'moneyfield', placeholder: 'High Price', required: true }
+        { type: 'segment', fields: [
+          { type: 'fields', fields: [
+            { label: 'Low Price', name: 'low_price', type: 'moneyfield', placeholder: 'Low Price', required: true },
+            { label: 'High Price', name: 'high_price', type: 'moneyfield', placeholder: 'High Price', required: true }
+          ] },
+          { label: 'Overage Strategy', name: 'overage_strategy', type: 'radiogroup', options: [
+            { value: 'income', text: 'Treat any amount over the low price as additional income' },
+            { value: 'donation', text: 'Treat any amount over the low price as a donation' }
+          ], required: true, defaultValue: overage_strategy },
+          ...this._getOverageStrategy()
+        ] }
       ]
     }
+  }
+
+  _getOverageStrategy() {
+    const { overage_strategy } = this.state
+    if(overage_strategy === 'income') return []
+    return [
+      { label: 'Donation Revenue Type', name: 'donation_revenue_type_id', type: 'lookup', placeholder: 'Choose a Revenue Type', endpoint: '/api/admin/finance/revenue_types', value: 'id', text: 'title', required: true, format: RevenueTypeToken }
+    ]
   }
 
   _handleCancel() {
@@ -71,6 +89,10 @@ class New extends React.Component {
     if(key === 'price_type') {
       this.setState({
         price_type: value
+      })
+    } else if(key === 'overage_strategy') {
+      this.setState({
+        overage_strategy: value
       })
     }
   }

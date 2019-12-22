@@ -56,13 +56,34 @@ const updateRoute = async (req, res) => {
 
     if(item) {
 
+      const product = await Product.scope(qb => {
+        qb.where('team_id', req.team.get('id'))
+      }).query(qb => {
+        qb.where('id', line_item.get('product_id'))
+      }).fetch({
+        transacting: req.trx
+      })
+
       return await line_item.save({
-        ...(coupon && line_item.get('product_id') === coupon.get('product_id')) ? {
+        product_id: product.get('id'),
+        project_id: product.get('project_id'),
+        revenue_type_id: product.get('revenue_type_id'),
+        is_tax_deductible: product.get('is_tax_deductible'),
+        description: line_item.description,
+        quantity: line_item.quantity,
+        price: line_item.price,
+        tax_rate: line_item.tax_rate,
+        ...(coupon && product.get('id') === coupon.get('product_id')) ? {
           discount_amount: coupon.get('amount'),
           discount_percent: coupon.get('percent')
+        } : {},
+        ...(product.get('overage_strategy') === 'donation') ? {
+          base_price: product.get('low_price'),
+          donation: line_item.price - product.get('low_price'),
+          donation_revenue_type_id: product.get('donation_revenue_type_id')
         } : {
-          discount_amount: null,
-          discount_percent: null
+          base_price: line_item.price,
+          donation: 0.00
         }
       }, {
         patch: true,

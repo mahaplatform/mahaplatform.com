@@ -34,7 +34,8 @@ class Search extends React.Component {
     filter: {},
     format: Token,
     label: 'Item',
-    multiple: false
+    multiple: false,
+    onChange: () => {}
   }
 
   state = {
