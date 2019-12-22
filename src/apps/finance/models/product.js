@@ -9,7 +9,15 @@ const Product = new Model({
 
   rules: {},
 
-  virtuals: {},
+  virtuals: {
+    price() {
+      if(this.get('price_type') === 'fixed') {
+        return this.get('fixed_price')
+      } else if(this.get('price_type') === 'sliding_scale') {
+        return `${this.get('low_price')}-${this.get('high_price')}`
+      }
+    }
+  },
 
   coupons() {
     return this.hasMany(Coupon, 'product_id')

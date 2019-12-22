@@ -19,7 +19,7 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load product'
   })
 
-  await product.save(whitelist(req.body, ['title','project_id','revenue_type_id','price','tax_rate','is_tax_deductible']), {
+  await product.save(whitelist(req.body, ['title','project_id','revenue_type_id','price_type','fixed_price','low_price','high_price','tax_rate','is_tax_deductible']), {
     patch: true,
     transacting: req.trx
   })

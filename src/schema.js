@@ -981,12 +981,15 @@ const schema = {
       table.integer('project_id').unsigned()
       table.integer('revenue_type_id').unsigned()
       table.string('title', 255)
+      table.USER-DEFINED('price_type')
+      table.decimal('fixed_price', 6, 2)
+      table.decimal('low_price', 6, 2)
+      table.decimal('high_price', 6, 2)
       table.decimal('tax_rate', 3, 2)
       table.boolean('is_active')
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.boolean('is_tax_deductible')
-      table.decimal('price', 6, 2)
     })
 
     await knex.schema.createTable('finance_projects', (table) => {
@@ -2397,8 +2400,8 @@ const schema = {
     })
 
     await knex.schema.table('finance_coupons', table => {
-      table.foreign('product_id').references('finance_products.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('product_id').references('finance_products.id')
     })
 
     await knex.schema.table('finance_credits', table => {
@@ -2431,20 +2434,15 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
     })
 
-    await knex.schema.table('finance_payment_methods', table => {
-      table.foreign('customer_id').references('crm_contacts.id')
-      table.foreign('team_id').references('maha_teams.id')
-    })
-
     await knex.schema.table('finance_payments', table => {
       table.foreign('credit_id').references('finance_credits.id')
       table.foreign('disbursement_id').references('finance_disbursements.id')
       table.foreign('invoice_id').references('finance_invoices.id')
       table.foreign('merchant_id').references('finance_merchants.id')
-      table.foreign('payment_method_id').references('finance_payment_methods.id')
       table.foreign('photo_id').references('maha_assets.id')
       table.foreign('scholarship_id').references('finance_scholarships.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('payment_method_id').references('finance_payment_methods.id')
     })
 
     await knex.schema.table('finance_products', table => {
@@ -2493,10 +2491,10 @@ const schema = {
     })
 
     await knex.schema.table('maha_audits', table => {
-      table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('story_id').references('maha_stories.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
+      table.foreign('contact_id').references('crm_contacts.id')
     })
 
     await knex.schema.table('maha_calls', table => {
@@ -2833,6 +2831,11 @@ const schema = {
 
     await knex.schema.table('training_trainings', table => {
       table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('finance_payment_methods', table => {
+      table.foreign('team_id').references('maha_teams.id')
+      table.foreign('customer_id').references('crm_contacts.id')
     })
 
 
@@ -3344,12 +3347,17 @@ union
       end)::numeric) as tax_deductible,
       round((((finance_line_items.quantity)::numeric * finance_line_items.price) * finance_line_items.tax_rate), 2) as tax,
       case
-      when (finance_line_items.discount_amount is not null) then finance_line_items.discount_amount
-      when (finance_line_items.discount_percent is not null) then (((finance_line_items.quantity)::numeric * finance_line_items.price) * finance_line_items.discount_percent)
+      when (finance_coupons.id is not null) then
+      case
+      when (finance_coupons.amount is not null) then finance_coupons.amount
+      when (finance_coupons.percent is not null) then (((finance_line_items.quantity)::numeric * finance_line_items.price) * finance_coupons.percent)
+      else null::numeric
+      end
       else 0.00
       end as discount
-      from (finance_invoices
-      join finance_line_items on ((finance_line_items.invoice_id = finance_invoices.id)));
+      from ((finance_invoices
+      join finance_line_items on ((finance_line_items.invoice_id = finance_invoices.id)))
+      left join finance_coupons on (((finance_coupons.id = finance_invoices.coupon_id) and (finance_coupons.product_id = finance_line_items.product_id))));
     `)
 
     await knex.raw(`
@@ -3563,7 +3571,7 @@ union
       finance_invoices.program_id,
       finance_line_items.project_id,
       finance_line_items.revenue_type_id,
-      round(((finance_payments.amount / finance_invoice_totals.total) * (finance_invoice_line_items.total - finance_invoice_line_items.discount)), 2) as amount,
+      round(((finance_payments.amount / finance_invoice_totals.total) * finance_invoice_line_items.total), 2) as amount,
       finance_payments.date,
       finance_payments.created_at
       from ((((finance_payments
