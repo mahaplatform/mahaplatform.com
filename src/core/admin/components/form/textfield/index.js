@@ -113,7 +113,7 @@ class TextField extends React.Component {
       disabled,
       value,
       autoComplete,
-      placeholder: !focused ? placeholder : '',
+      placeholder: !focused ? placeholder : null,
       onBlur: this._handleBlur,
       onChange: this._handleUpdate,
       onFocus: this._handleFocus,

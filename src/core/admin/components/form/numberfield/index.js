@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types'
+import numeral from 'numeral'
 import React from 'react'
 import _ from 'lodash'
-
-const SPECIAL_KEYS = ['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Backspace']
 
 const FLOAT_REGEX = /^-?[0-9]*\.?[0-9]*$/
 
@@ -14,30 +13,35 @@ class NumberField extends React.Component {
     defaultValue: PropTypes.number,
     placeholder: PropTypes.string,
     tabIndex: PropTypes.number,
+    min: PropTypes.number,
+    max: PropTypes.number,
     number_type: PropTypes.string,
+    required: PropTypes.bool,
     units: PropTypes.string,
     onChange: PropTypes.func,
-    onReady: PropTypes.func
+    onReady: PropTypes.func,
+    onValid: PropTypes.func
   }
 
   static defaultProps = {
-    numberType: 'float',
-    placeholder: 'Enter a number'
+    placeholder: 'Enter an amount'
   }
 
-  number = null
-
   state = {
+    focused: false,
     value: ''
   }
 
-  _handleChange = this._handleChange.bind(this)
+  _handleBlur = this._handleBlur.bind(this)
+  _handleChange = _.throttle(this._handleChange.bind(this), 250, { trailing:  true })
   _handleClear = this._handleClear.bind(this)
-  _handleKeyDown = this._handleKeyDown.bind(this)
+  _handleFocus = this._handleFocus.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
+  _handleValidate = this._handleValidate.bind(this)
 
   render() {
-    const { value } = this.state
     const { tabIndex, units } = this.props
+    const { value } = this.state
     return (
       <div className="maha-numberfield" tabIndex={ tabIndex }>
         <div className="maha-input">
@@ -64,34 +68,41 @@ class NumberField extends React.Component {
     if(!_.isNil(defaultValue)) this.setState({
       value: defaultValue
     })
-    onReady()
+    onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if(this.state.value !== prevState.value) {
-      this.props.onChange(Number(this.state.value))
+    const { value } = this.state
+    if(value !== prevState.value) {
+      this._handleChange()
     }
   }
 
   _getInput() {
     const { placeholder, tabIndex } = this.props
-    const { value } = this.state
+    const { focused, value } = this.state
     return {
       tabIndex,
       className: 'ui input',
       type: 'textfield',
-      placeholder,
+      placeholder: !focused ? placeholder : null,
       value,
-      ref: node => this.number = node,
-      onChange: this._handleChange,
-      onKeyDown: this._handleKeyDown
+      onBlur: this._handleBlur,
+      onChange: this._handleUpdate,
+      onFocus: this._handleFocus
     }
   }
 
-  _handleChange() {
+  _handleBlur() {
+    const { value } = this.state
     this.setState({
-      value: this.number.value
+      focused: false,
+      value: value.length > 0 ? numeral(value).format('0.00') : value
     })
+  }
+
+  _handleChange() {
+    this.props.onChange(Number(this.state.value))
   }
 
   _handleClear() {
@@ -100,15 +111,27 @@ class NumberField extends React.Component {
     })
   }
 
-  _handleKeyDown(e) {
+  _handleFocus() {
+    this.setState({
+      focused: true
+    })
+  }
+
+  _handleUpdate(e) {
     const { number_type } = this.props
-    if(_.includes(SPECIAL_KEYS, e.key)) return
-    if(e.ctrlKey || e.metaKey) return
-    const value = this.number.value || ''
-    const newvalue = value + e.key
+    const value = e.target.value
     const regex = number_type === 'integer' ? INTEGER_REGEX : FLOAT_REGEX
-    if(newvalue.match(regex)) return
-    e.preventDefault()
+    if(!value.match(regex)) return
+    this.setState({ value })
+  }
+
+  _handleValidate() {
+    const { min, max, required, onValid } = this.props
+    const { value } = this.state
+    if(required === true && value === '') return onValid(value, ['this field is required'])
+    if(min !== undefined && Number(value) < min) return onValid(value, [`this field must be greater than or equal to  ${min}`])
+    if(max !== undefined && Number(value) > max) return onValid(value, [`this field must be less than or equal to ${max}`])
+    onValid(value)
   }
 
 }
