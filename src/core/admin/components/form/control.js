@@ -37,6 +37,7 @@ import PropTypes from 'prop-types'
 import Checkit from 'checkit'
 import React from 'react'
 import _ from 'lodash'
+import messages from './messages'
 
 class Control extends React.Component {
 
@@ -139,7 +140,7 @@ class Control extends React.Component {
     if(required) rules.unshift('required')
     const results = Checkit({
       [name]: rules
-    }).validateSync({
+    }, { messages }).validateSync({
       [name]: defaultValue
     })
     const errors = results[0] ? results[0].toJSON()[name] : null

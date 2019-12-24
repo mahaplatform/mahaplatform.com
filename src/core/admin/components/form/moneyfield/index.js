@@ -6,7 +6,7 @@ import _ from 'lodash'
 class MoneyField extends React.Component {
 
   static propTypes = {
-    defaultValue: PropTypes.number,
+    defaultValue: PropTypes.string,
     placeholder: PropTypes.string,
     tabIndex: PropTypes.number,
     min: PropTypes.number,
@@ -115,9 +115,9 @@ class MoneyField extends React.Component {
   _handleValidate() {
     const { min, max, required, onValid } = this.props
     const { value } = this.state
-    if(required === true && value === '') return onValid(value, ['this field is required'])
-    if(min !== undefined && Number(value) < min) return onValid(value, [`this field must be greater than or equal to  ${min}`])
-    if(max !== undefined && Number(value) > max) return onValid(value, [`this field must be less than or equal to ${max}`])
+    if(required === true && value === '') return onValid(value, ['This field is required'])
+    if(min !== undefined && Number(value) < min) return onValid(value, [`This field must be greater than or equal to  ${min}`])
+    if(max !== undefined && Number(value) > max) return onValid(value, [`This field must be less than or equal to ${max}`])
     onValid(value)
   }
 
