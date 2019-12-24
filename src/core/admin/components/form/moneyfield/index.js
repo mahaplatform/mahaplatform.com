@@ -6,7 +6,10 @@ import _ from 'lodash'
 class MoneyField extends React.Component {
 
   static propTypes = {
-    defaultValue: PropTypes.string,
+    defaultValue: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.numebr
+    ]),
     placeholder: PropTypes.string,
     tabIndex: PropTypes.number,
     min: PropTypes.number,
