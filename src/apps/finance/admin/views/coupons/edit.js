@@ -73,7 +73,7 @@ class Edit extends React.Component {
       ]
     }
   }
-  
+
   _handleCancel() {
     this.context.modal.close()
   }

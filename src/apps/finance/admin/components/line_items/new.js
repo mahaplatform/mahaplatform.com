@@ -77,13 +77,12 @@ class New extends React.Component {
     const { products } = this.props
     const { product_id, description, price, quantity } = line_item
     const product = _.find(products, { id: product_id })
-    const { price_type, fixed_price, tax_rate } = product
+    const { price_type, fixed_price } = product
     this.props.onSubmit({
       product_id,
       description,
       price: price_type === 'fixed' ? fixed_price : price,
-      quantity,
-      tax_rate
+      quantity
     })
     return true
   }

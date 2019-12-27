@@ -38,10 +38,10 @@ const CreateOverageStrategy = {
       finance_line_items.base_price as price,
       finance_line_items.quantity * finance_line_items.base_price as total,
       finance_line_items.quantity * finance_line_items.base_price * case when finance_line_items.is_tax_deductible then 1 else 0 end as tax_deductible,
-      round(finance_line_items.quantity * finance_line_items.price * finance_line_items.tax_rate, 2) as tax,
+      round(finance_line_items.quantity * finance_line_items.base_price * finance_line_items.tax_rate, 2) as tax,
       case
       when finance_line_items.discount_amount is not null then finance_line_items.discount_amount
-      when finance_line_items.discount_percent is not null then round(finance_line_items.quantity * finance_line_items.price * finance_line_items.discount_percent, 2)
+      when finance_line_items.discount_percent is not null then round(finance_line_items.quantity * finance_line_items.base_price * finance_line_items.discount_percent, 2)
       else 0.00
       end as discount,
       finance_line_items.is_tax_deductible,

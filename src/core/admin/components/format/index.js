@@ -23,6 +23,8 @@ class Format extends React.Component {
         return Status(this.props)
       } else if(style === 'currency') {
         return Currency(this.props)
+      } else if(style === 'percent') {
+        return Percent(this.props)
       } else if(style === 'number') {
         const template = details || '0'
         return Number(this.props, template)
@@ -99,6 +101,10 @@ const YesNo = (props) => {
 
 const Currency = (props) => {
   return <span>{ numeral(props.value).format('$0,0.00') }</span>
+}
+
+const Percent = (props) => {
+  return <span>{ numeral(props.value).format('0.00%') }</span>
 }
 
 const Number = (props, format) => {

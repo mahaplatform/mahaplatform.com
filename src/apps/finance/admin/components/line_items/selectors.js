@@ -9,6 +9,12 @@ const products = (state, props) => state.products.records || []
 
 const coupon_id = (state, props) => state.coupon_id
 
+export const coupon = createSelector(
+  coupons,
+  coupon_id,
+  (coupons, coupon_id) => _.find(coupons.records, { id: coupon_id }) || null
+)
+
 export const status = createSelector(
   coupons,
   products,
@@ -27,17 +33,45 @@ export const status = createSelector(
 export const line_items = createSelector(
   given,
   products,
-  (line_items, products) => products.length > 0 ? line_items.map(line_item => {
-    const product = _.find(products, { id: line_item.product_id })
-    return {
-      ...line_item,
-      product: {
-        id: product.id,
-        title: product.title
-      },
-      total: line_item.quantity * line_item.price
-    }
-  }) : []
+  coupon,
+  (line_items, products, coupon) => {
+    if(products.length === 0) return []
+    return line_items.reduce((line_items, line_item) => {
+      const product = _.find(products, { id: line_item.product_id })
+      if(line_item.price > product.low_price && product.overage_strategy === 'donation') {
+        return [
+          ...line_items,
+          {
+            description: line_item.description,
+            quantity: line_item.quantity,
+            discount: coupon ? (coupon.percent ? Math.round((coupon.percent * line_item.quantity * line_item.low_price) * 100) / 100 : coupon.amount) : 0.00,
+            tax: product.tax_rate * line_item.low_price,
+            price: product.low_price,
+            total: line_item.quantity * product.low_price
+          },
+          {
+            description: `${line_item.description} (amount above base price)`,
+            quantity: line_item.quantity,
+            discount: 0.00,
+            tax: 0.00,
+            price: (line_item.price - product.low_price),
+            total: line_item.quantity * (line_item.price - product.low_price)
+          }
+        ]
+      }
+      return [
+        ...line_items,
+        {
+          description: line_item.description,
+          quantity: line_item.quantity,
+          discount: coupon ? (coupon.percent ? Math.round((coupon.percent * line_item.price) * 100) / 100 : coupon.amount) : 0.00,
+          tax: product.tax_rate * line_item.price,
+          price: product.price,
+          total: line_item.quantity * line_item.price
+        }
+      ]
+    }, [])
+  }
 )
 
 export const subtotal = createSelector(
@@ -49,27 +83,15 @@ export const subtotal = createSelector(
 export const tax = createSelector(
   line_items,
   (line_items) => line_items.reduce((tax, line_item) => {
-    return tax + (line_item.total * line_item.tax_rate)
+    return tax + line_item.tax
   }, 0.00))
 
-export const coupon = createSelector(
-  coupons,
-  coupon_id,
-  (coupons, coupon_id) => _.find(coupons.records, { id: coupon_id }) || null
-)
 
 export const discount = createSelector(
-  coupon,
-  subtotal,
-  (coupon, subtotal) => {
-    if(!coupon) {
-      return 0.00
-    } else if(coupon.percent) {
-      return subtotal * coupon.percent
-    } else if(coupon.amount) {
-      return coupon.amount
-    }
-  })
+  line_items,
+  (line_items) => line_items.reduce((discount, line_item) => {
+    return discount + line_item.discount
+  }, 0.00))
 
 export const total = createSelector(
   subtotal,
@@ -77,18 +99,10 @@ export const total = createSelector(
   discount,
   (subtotal, tax, discount) => subtotal + tax - discount)
 
-
 export const value = createSelector(
   coupon_id,
-  line_items,
+  given,
   (coupon_id, line_items) => ({
     coupon_id,
-    line_items: line_items.map(line_item => ({
-      id: line_item.id,
-      product_id: line_item.product.id,
-      description: line_item.description,
-      quantity: line_item.quantity,
-      price: line_item.price,
-      tax_rate: line_item.tax_rate
-    }))
+    line_items
   }))

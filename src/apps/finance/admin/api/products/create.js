@@ -8,7 +8,8 @@ const createRoute = async (req, res) => {
 
   const product = await Product.forge({
     team_id: req.team.get('id'),
-    ...whitelist(req.body, ['title','project_id','revenue_type_id','price_type','fixed_price','low_price','high_price','overage_strategy','donation_revenue_type_id','tax_rate','is_tax_deductible'])
+    tax_rate: req.body.tax_rate ? parseFloat(req.body.tax_rate) / 100 : null,
+    ...whitelist(req.body, ['title','project_id','revenue_type_id','price_type','fixed_price','low_price','high_price','overage_strategy','donation_revenue_type_id','is_tax_deductible'])
   }).save(null, {
     transacting: req.trx
   })

@@ -990,7 +990,7 @@ const schema = {
       table.decimal('fixed_price', 6, 2)
       table.decimal('low_price', 6, 2)
       table.decimal('high_price', 6, 2)
-      table.decimal('tax_rate', 3, 2)
+      table.decimal('tax_rate', 5, 4)
       table.boolean('is_active')
       table.timestamp('created_at')
       table.timestamp('updated_at')
@@ -3382,10 +3382,10 @@ union
       when finance_line_items.is_tax_deductible then 1
       else 0
       end)::numeric) as tax_deductible,
-      round((((finance_line_items.quantity)::numeric * finance_line_items.price) * finance_line_items.tax_rate), 2) as tax,
+      round((((finance_line_items.quantity)::numeric * finance_line_items.base_price) * finance_line_items.tax_rate), 2) as tax,
       case
       when (finance_line_items.discount_amount is not null) then finance_line_items.discount_amount
-      when (finance_line_items.discount_percent is not null) then round((((finance_line_items.quantity)::numeric * finance_line_items.price) * finance_line_items.discount_percent), 2)
+      when (finance_line_items.discount_percent is not null) then round((((finance_line_items.quantity)::numeric * finance_line_items.base_price) * finance_line_items.discount_percent), 2)
       else 0.00
       end as discount,
       finance_line_items.is_tax_deductible,
@@ -3620,17 +3620,17 @@ union
       select finance_payments.team_id,
       finance_payments.id as payment_id,
       finance_invoices.customer_id,
-      finance_line_items.description,
+      finance_invoice_line_items.description,
       finance_invoices.program_id,
-      finance_line_items.project_id,
-      finance_line_items.revenue_type_id,
+      finance_invoice_line_items.project_id,
+      finance_invoice_line_items.revenue_type_id,
       round(((finance_payments.amount / finance_invoice_totals.total) * (finance_invoice_line_items.total - finance_invoice_line_items.discount)), 2) as amount,
+      finance_invoice_line_items.total,
       finance_payments.date,
       finance_payments.created_at
-      from ((((finance_payments
+      from (((finance_payments
       join finance_invoice_totals on ((finance_invoice_totals.invoice_id = finance_payments.invoice_id)))
-      join finance_line_items on ((finance_line_items.invoice_id = finance_payments.invoice_id)))
-      join finance_invoice_line_items on ((finance_invoice_line_items.line_item_id = finance_line_items.id)))
+      join finance_invoice_line_items on ((finance_invoice_line_items.invoice_id = finance_payments.invoice_id)))
       join finance_invoices on ((finance_invoices.id = finance_payments.invoice_id)))
       where (finance_payments.voided_date is null);
     `)

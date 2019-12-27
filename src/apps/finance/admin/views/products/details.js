@@ -21,7 +21,7 @@ const Details = ({ product }) => {
 
   }
 
-  items.push({ label: 'Tax Rate', content: product.tax_rate })
+  items.push({ label: 'Tax Rate', content: product.tax_rate, format: 'percent' })
   items.push({ label: 'Tax Deducatble?', content: product.is_tax_deductible, format: 'yes_no' })
 
   const list = { items }
