@@ -59,11 +59,11 @@ class New extends React.Component {
     const { type } = this.state
     if(type === 'amount') {
       return [
-        { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount' }
+        { label: 'Amount', name: 'amount', type: 'moneyfield', placeholder: 'Enter an amount', required: true }
       ]
     } else {
       return [
-        { label: 'Percent', name: 'percent', type: 'moneyfield', placeholder: 'Enter a percent' }
+        { label: 'Percent', name: 'percent', type: 'numberfield', number_type: 'float', placeholder: 'Enter a percent', required: true }
       ]
     }
   }

@@ -2,7 +2,7 @@ import _ from 'lodash'
 
 const INITIAL_STATE = {
   q: '',
-  selected: []
+  selected: null
 }
 
 const reducer = (state = INITIAL_STATE, action) => {

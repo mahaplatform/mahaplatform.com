@@ -20,8 +20,9 @@ const updateRoute = async (req, res) => {
   })
 
   await coupon.save({
-    percent: req.body.percent ? parseInt(req.body.percent) / 100 : null,
-    ...whitelist(req.body, ['code','product_id','type','amount','start_date','end_date','max_uses'])
+    percent: req.body.percent ? parseFloat(req.body.percent) / 100 : null,
+    max_uses: req.body.max_uses ? parseInt(req.body.max_uses): null,
+    ...whitelist(req.body, ['code','product_id','type','amount','start_date','end_date'])
   }, {
     patch: true,
     transacting: req.trx

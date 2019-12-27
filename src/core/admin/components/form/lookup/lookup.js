@@ -1,7 +1,5 @@
-import ValueToken from './value_token'
 import PropTypes from 'prop-types'
-import Search from './search'
-import Form from '../../form'
+import Chooser from './chooser'
 import React from 'react'
 import _ from 'lodash'
 
@@ -12,22 +10,17 @@ class Lookup extends React.Component {
   }
 
   static propTypes = {
-    active: PropTypes.bool,
-    adding: PropTypes.bool,
     chosen: PropTypes.object,
     defaultValue: PropTypes.any,
     disabled: PropTypes.bool,
     endpoint: PropTypes.string,
     filter: PropTypes.object,
-    format: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.func
-    ]),
+    format: PropTypes.any,
     form: PropTypes.object,
+    label: PropTypes.string,
     options: PropTypes.array,
     placeholder: PropTypes.string,
     prompt: PropTypes.string,
-    query: PropTypes.string,
     results: PropTypes.array,
     search: PropTypes.bool,
     selected: PropTypes.number,
@@ -36,25 +29,19 @@ class Lookup extends React.Component {
     tabIndex: PropTypes.number,
     text: PropTypes.string,
     value: PropTypes.string,
-    onBegin: PropTypes.func,
     onBusy: PropTypes.func,
     onClear: PropTypes.func,
-    onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onChoose: PropTypes.func,
-    onHideForm: PropTypes.func,
-    onType: PropTypes.func,
     onLoad: PropTypes.func,
-    onLoookup: PropTypes.func,
-    onReady: PropTypes.func,
-    onShowForm: PropTypes.func
+    onReady: PropTypes.func
   }
 
   static defaultProps = {
     defaultValue: null,
     disabled: false,
     filter: {},
-    format: ValueToken,
+    label: 'item',
     options: [],
     prompt: 'Choose an item',
     search: true,
@@ -69,9 +56,7 @@ class Lookup extends React.Component {
   input = null
 
   _handleBegin = this._handleBegin.bind(this)
-  _handleCancel = this._handleCancel.bind(this)
   _handleClear = this._handleClear.bind(this)
-  _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
     const { chosen, prompt, placeholder, tabIndex, text } = this.props
@@ -98,6 +83,41 @@ class Lookup extends React.Component {
     )
   }
 
+  componentDidMount() {
+    const { defaultValue, endpoint, onReady } = this.props
+    if(!defaultValue) return onReady()
+    if(endpoint) return this._handleLoad()
+    this._handleSet()
+  }
+
+  componentDidUpdate(prevProps) {
+    const { chosen, disabled, status, onReady } = this.props
+    if(prevProps.status !== status && status === 'success') {
+      onReady()
+    }
+    if(prevProps.disabled !== disabled) {
+      this._handleClear()
+    }
+    if(!_.isEqual(chosen, prevProps.chosen)) {
+      this._handleChange()
+    }
+  }
+
+  _getChooser() {
+    const { chosen, endpoint, form, format, label, options, text, value, onChoose } = this.props
+    return {
+      chosen,
+      endpoint,
+      form,
+      format,
+      label,
+      options,
+      text,
+      value,
+      onChoose
+    }
+  }
+
   _getClass() {
     const { disabled } = this.props
     const classes = ['maha-input','maha-lookup']
@@ -105,69 +125,36 @@ class Lookup extends React.Component {
     return classes.join(' ')
   }
 
-  componentDidMount() {
-    const { defaultValue, endpoint, value, onChoose, onLoad, onReady } = this.props
-    const options = this._getOptions()
-    if(!defaultValue) return onReady()
-    if(endpoint) return onLoad({ $filter: { id: { $in: [ defaultValue ] } } }, endpoint)
-    const chosen = _.find(options, { [value]: defaultValue })
-    onChoose(chosen)
-    onReady()
-  }
-
-  componentDidUpdate(prevProps) {
-    const { form } = this.context
-    const { active, adding, disabled, status, onClear, onReady } = this.props
-    if(prevProps.status !== status && status === 'success') onReady()
-    if(prevProps.disabled !== disabled) onClear()
-    if(!prevProps.active && active) form.push(Search, this._getSearch.bind(this))
-    if(!prevProps.adding && adding) form.push(Form, this._getForm.bind(this))
-  }
-
-  _getForm() {
-    return {
-      ...this.props.form,
-      onCancel: this._handleCancel,
-      onSuccess: this._handleSuccess
-    }
-  }
-
-  _getOptions() {
-    const { options } = this.props
-    return options.map(option => {
-      return (_.isString(option)) ? { value: option, text: option } : option
-    })
-  }
-
-  _getSearch() {
-    return {
-      ...this.props,
-      options: this._getOptions()
-    }
-  }
-
   _handleBegin() {
+    const { form } = this.context
     const { disabled } = this.props
     if(disabled) return this.input.blur()
-    this.props.onBegin()
+    form.push(Chooser, this._getChooser.bind(this))
   }
 
-  _handleCancel() {
-    this.props.onHideForm()
-    this.context.form.pop()
+  _handleChange() {
+    const { chosen, value, onChange } = this.props
+    onChange(_.get(chosen, value))
   }
 
   _handleClear() {
     this.props.onClear()
-    this.props.onChange()
   }
 
-  _handleSuccess(chosen) {
-    const { value } = this.props
-    this.props.onChoose(chosen)
-    this.props.onHideForm()
-    this.props.onChange(_.get(chosen, value))
-    this.context.form.pop(2)
+  _handleLoad() {
+    const { defaultValue, endpoint, onLoad } = this.props
+    return onLoad(endpoint, {
+      id: {
+        $in: [ defaultValue ]
+      }
+    })
+  }
+
+  _handleSet() {
+    const { defaultValue, options, value, onChoose, onReady } = this.props
+    const chosen = _.find(options, { [value]: defaultValue })
+    onChoose(chosen)
+    onReady()
   }
 
 }

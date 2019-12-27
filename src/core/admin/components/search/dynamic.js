@@ -21,13 +21,16 @@ class Dynamic extends React.Component {
   }
 
   _getOptions() {
-    const { cid, format, multiple, records, selected, text, value, onToggle } = this.props
-    const options = records.map(record => ({
-      value: _.get(record, value),
-      text: _.get(record, text),
-      record
-    }))
-    return { cid, format, multiple, options, selected, onToggle }
+    const { cid, format, multiple, records, selected, text, onToggle } = this.props
+    return {
+      cid,
+      format,
+      multiple,
+      options: records,
+      selected,
+      text,
+      onToggle
+    }
   }
 
 

@@ -38,9 +38,6 @@ class Search extends React.Component {
     onChange: () => {}
   }
 
-  state = {
-    cacheKey: _.random(100000, 999999).toString(36)
-  }
 
   render() {
     const { endpoint } = this.props
@@ -58,25 +55,32 @@ class Search extends React.Component {
   }
 
   componentDidMount() {
-    this._handleSetDefault()
+    const { defaultValue, onSet } = this.props
+    if(defaultValue) onSet(_.castArray(defaultValue))
+    onSet([])
   }
 
   componentDidUpdate(prevProps) {
-    const { defaultValue, multiple, selected } = this.props
-    if(!_.isEqual(defaultValue, prevProps.defaultValue)) {
-      this._handleSetDefault()
-    }
+    const { multiple, selected } = this.props
     if(!_.isEqual(multiple, prevProps.multiple)) {
       this._handleChange(selected)
     }
-    if(!_.isEqual(selected, prevProps.selected)) {
+    if(!_.isEqual(selected, prevProps.selected) && prevProps.selected) {
       this._handleChange(selected)
     }
   }
 
   _getOptions() {
-    const { cid, format, multiple, options, selected, onToggle } = this.props
-    return { cid, format, multiple, options, selected, onToggle }
+    const { cid, format, multiple, options, selected, text, onToggle } = this.props
+    return {
+      cid,
+      format,
+      multiple,
+      options,
+      selected,
+      text,
+      onToggle
+    }
   }
 
   _getSearchbox() {
@@ -88,30 +92,39 @@ class Search extends React.Component {
   }
 
   _getInfinite(){
-    const { cid, endpoint, filter, format, multiple, options, q, selected, sort, text, value, onToggle } = this.props
-    const { cacheKey } = this.state
+    const { endpoint, filter, q, sort } = this.props
     return {
-      cacheKey,
       endpoint,
       filter: {
         ...filter,
         q
       },
       layout: Dynamic,
-      props: { cid, format, multiple, options, selected, text, value, onToggle },
+      props: this._getProps(),
       sort
     }
   }
 
-  _handleChange() {
-    const { multiple, selected, onChange } = this.props
-    const value = multiple ? selected : selected[0]
-    onChange(value)
+  _getProps() {
+    const { cid, format, multiple, options, selected, text, value, onToggle } = this.props
+    return {
+      cid,
+      format,
+      multiple,
+      options,
+      selected,
+      text,
+      value,
+      onToggle
+    }
   }
 
-  _handleSetDefault() {
-    const { defaultValue, onSet } = this.props
-    if(defaultValue) onSet(_.castArray(defaultValue))
+  _handleChange() {
+    const { multiple, value, onChange } = this.props
+    const selected = value ? this.props.selected.map(option => {
+      return _.get(option, value)
+    }) : this.props.selected
+    onChange(multiple ? selected : selected[0])
   }
 
 }

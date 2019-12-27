@@ -11,17 +11,18 @@ class Options extends React.Component{
     multiple: PropTypes.bool,
     options: PropTypes.any,
     selected: PropTypes.array,
+    text: PropTypes.any,
     onToggle: PropTypes.func
   }
 
   render() {
-    const { format, options } = this.props
+    const { format, options, text } = this.props
     return (
       <div className="maha-search-results">
         { options.map((option, index) => (
-          <div key={`filter_${index}`} className="maha-search-item" onClick={ this._handleChoose.bind(this, option.value) }>
+          <div key={`filter_${index}`} className="maha-search-item" onClick={ this._handleChoose.bind(this, option) }>
             <div className="maha-search-item-label">
-              <Format { ...option.record } format={ format } value={ option.text } />
+              <Format { ...option } format={ format } value={ _.get(option, text) } />
             </div>
             <div className="maha-search-item-icon">
               { this._getChecked(option.value) &&
@@ -39,9 +40,9 @@ class Options extends React.Component{
     return _.includes(selected, value)
   }
 
-  _handleChoose(value) {
+  _handleChoose(chosen) {
     const { multiple } = this.props
-    this.props.onToggle(multiple, value)
+    this.props.onToggle(multiple, chosen)
   }
 
 }

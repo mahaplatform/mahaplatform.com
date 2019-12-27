@@ -15,19 +15,16 @@ const editRoute = async (req, res) => {
     message: 'Unable to load coupon'
   })
 
-  res.status(200).respond(coupon, {
-    fields: [
-      'id',
-      'code',
-      'type',
-      'amount',
-      'percent',
-      'product_id',
-      'start_date',
-      'end_date',
-      'max_uses'
-    ]
-  })
+  res.status(200).respond(coupon, (req, coupon) => ({
+    code: coupon.get('code'),
+    type: coupon.get('type'),
+    amount: coupon.get('amount'),
+    percent: coupon.get('percent') ? coupon.get('percent') * 100 : null,
+    product_id: coupon.get('product_id'),
+    start_date: coupon.get('start_date'),
+    end_date: coupon.get('end_date'),
+    max_uses: coupon.get('max_uses')
+  }))
 
 }
 

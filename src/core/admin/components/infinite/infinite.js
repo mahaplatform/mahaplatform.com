@@ -114,8 +114,24 @@ class Infinite extends React.Component {
   }
 
   _getLayout() {
-    const { all, props, records, selected, selectAll, total, onSelect, onSelectAll } = this.props
-    return { all, records, selected, selectAll, total, onSelect, onSelectAll, ...props }
+    const { all, records, selected, selectAll, total, onSelect, onSelectAll } = this.props
+    return {
+      all,
+      records,
+      selected,
+      selectAll,
+      total,
+      onSelect,
+      onSelectAll,
+      ...this._getProps()
+    }
+  }
+
+  _getProps() {
+    const { props } = this.props
+    if(_.isFunction(props)) return props()
+    if(_.isPlainObject(props)) return props
+    return {}
   }
 
   _getScrollpane() {

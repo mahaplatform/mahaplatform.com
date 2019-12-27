@@ -112,6 +112,7 @@ class Control extends React.Component {
     if(type === 'timefield') return TimeField
     if(type === 'togglelist') return ToggleList
     if(type === 'videofield') return VideoField
+    return TextField
   }
 
   _getProps() {
