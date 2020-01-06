@@ -7,15 +7,43 @@ import path from 'path'
 
 const processor = async () => {
 
-  const shipit = new Shipit({ environment: 'production' })
+  const [environment, task] = process.argv.slice(2)
+
+  const shipit = new Shipit({ environment })
 
   shipit.initConfig({
     default: {
-      deployTo: '/var/www/app',
       key: `${process.env.SSH_KEY}`,
       strict: 'no'
     },
+    staging: {
+      deployTo: '/var/www/staging',
+      servers: [
+        {
+          user: 'root',
+          host: 'app1.mahaplatform.com',
+          port: 2244,
+          roles: ['appserver','controller']
+        }, {
+          user: 'root',
+          host: 'app2.mahaplatform.com',
+          port: 2244,
+          roles: 'appserver'
+        }, {
+          user: 'root',
+          host: 'worker1.mahaplatform.com',
+          port: 2244,
+          roles: ['worker','cron']
+        }, {
+          user: 'root',
+          host: 'db5.mahaplatform.com',
+          port: 22,
+          roles: ['database','cache']
+        }
+      ]
+    },
     production: {
+      deployTo: '/var/www/app',
       servers: [
         {
           user: 'root',
@@ -95,12 +123,6 @@ const processor = async () => {
     'sync:passwords'
   ])
 
-  utils.registerTask(shipit, 'servers:all:configure', async () => {
-    await shipit.remoteCopy('.env.production', '/var/www/app/current/.env', {
-      roles: ['appserver','cron','worker']
-    })
-  })
-
   utils.registerTask(shipit, 'servers:appserver:configure', async () => {
     await shipit.remoteCopy('src/servers/app/nginx.conf', '/opt/nginx/conf/nginx.conf', { roles: 'appserver' })
   })
@@ -132,6 +154,21 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy:build', async () => {
     await shipit.local('NODE_ENV=production npm run build')
+  })
+
+  utils.registerTask(shipit, 'deploy:setup', async () => {
+    const commands = [
+      `mkdir -p ${releasesDir}`,
+      `mkdir -m 0777 -p ${sharedDir}/imagecache`,
+      `mkdir -m 0777 -p ${sharedDir}/tmp`,
+      `mkdir -p ${sharedDir}/logs`,
+      `touch ${sharedDir}/logs/access.log`,
+      `touch ${sharedDir}/logs/error.log`,
+      `chown centos.centos -R ${sharedDir}/*`
+    ]
+    await shipit.remote(commands.join(' && '), {
+      roles: ['appserver','cron','worker']
+    })
   })
 
   utils.registerTask(shipit, 'deploy:zip', async () => {
@@ -229,6 +266,13 @@ const processor = async () => {
     })
   })
 
+  utils.registerTask(shipit, 'sync:stage', () => {
+    const commands = 'pg_dump -h localhost -U maha maha | psql -U maha staging'
+    return shipit.remote(commands.join(' && '), {
+      roles: 'database'
+    })
+  })
+
   utils.registerTask(shipit, 'sync:backup', () => {
     return shipit.remote('pg_dump -h localhost -U maha maha | gzip > backup.sql.gz', {
       roles: 'database'
@@ -260,9 +304,7 @@ const processor = async () => {
 
   shipit.on('task_not_found', () => process.exit(1))
 
-  const args = process.argv.slice(2)
-
-  await shipit.start(args[0])
+  await shipit.start(task)
 
 }
 
