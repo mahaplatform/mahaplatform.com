@@ -26,6 +26,13 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: npm test
+  stage:
+    executor: node-postgres
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - 0d:79:bf:2b:27:c2:17:a2:ac:17:89:66:17:66:8a:50
+      - checkout
   deploy:
     executor: node-postgres
     steps:
@@ -60,5 +67,13 @@ workflows:
           filters:
             branches:
               ignore: /.*/
+            tags:
+              only: /.*/
+      - stage:
+          requires:
+            - test
+          filters:
+            branches:
+              only: staging
             tags:
               only: /.*/
