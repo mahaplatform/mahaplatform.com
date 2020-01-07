@@ -7,13 +7,13 @@ const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'FETCH_PROFILES_REQUEST':
+  case 'FETCH_REQUEST':
     return {
       ...state,
       status: 'loading'
     }
 
-  case 'FETCH_PROFILES_SUCCESS':
+  case 'FETCH_SUCCESS':
     return {
       ...state,
       status: 'loaded',

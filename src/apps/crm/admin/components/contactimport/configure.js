@@ -44,7 +44,7 @@ class Configure extends React.PureComponent {
   }
 
   _handleCancel() {
-    this.props.onPop()
+    this.props.onPop(-2)
   }
 
 

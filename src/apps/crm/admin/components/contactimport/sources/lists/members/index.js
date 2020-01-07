@@ -9,6 +9,7 @@ class Contacts extends React.PureComponent {
 
   static propTypes = {
     endpoint: PropTypes.string,
+    onDone: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func
   }
@@ -42,9 +43,6 @@ class Contacts extends React.PureComponent {
     }
   }
 
-  _handleDone() {
-  }
-
   _getInfinite() {
     const { endpoint } = this.props
     const empty = {
@@ -55,15 +53,16 @@ class Contacts extends React.PureComponent {
     return {
       endpoint,
       layout: Results,
-      empty: <Message {...empty} />,
-      props: {
-        selectable: true
-      }
+      empty: <Message {...empty} />
     }
   }
 
   _handleCancel() {
     this.props.onPop()
+  }
+
+  _handleDone() {
+    this.props.onDone()
   }
 
 }

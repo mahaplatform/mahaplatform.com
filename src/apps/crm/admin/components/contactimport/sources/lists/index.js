@@ -8,6 +8,7 @@ class Lists extends React.PureComponent {
 
   static propTypes = {
     source: PropTypes.object,
+    onDone: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func
   }
@@ -58,9 +59,10 @@ class Lists extends React.PureComponent {
   }
 
   _handleChoose(list_id) {
-    const { source, onPop, onPush } = this.props
+    const { source, onDone, onPop, onPush } = this.props
     this.props.onPush(Members, {
       endpoint: `/api/admin/profiles/${source.id}/lists/${list_id}/members`,
+      onDone,
       onPop,
       onPush
     })

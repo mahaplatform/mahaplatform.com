@@ -15,7 +15,7 @@ class File extends React.PureComponent {
 
   static defaultProps = {}
 
-  _handleNext = this._handleNext.bind(this)
+  _handleDone = this._handleDone.bind(this)
 
   render() {
     return <Attachments { ...this._getAttachments() } />
@@ -33,12 +33,12 @@ class File extends React.PureComponent {
       multiple: false,
       onCancel: onPop,
       doneText: 'Next',
-      onDone: this._handleNext
+      onDone: this._handleDone
     }
   }
 
-  _handleNext(asset) {
-    this.props.onPush(Configure, this._getConfigure())
+  _handleDone(asset) {
+    this.props.onDone()
   }
 
 }

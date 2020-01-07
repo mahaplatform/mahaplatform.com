@@ -76,8 +76,8 @@ import chatchat from '../../apps/chat/admin/roots/chat'
 import crmaccess from '../../apps/crm/admin/components/access'
 import crmaddressesfield from '../../apps/crm/admin/components/addressesfield'
 import crmcheckboxesfield from '../../apps/crm/admin/components/checkboxesfield'
-import crmcontactimport from '../../apps/crm/admin/components/contactimport'
 import crmfile from '../../apps/crm/admin/components/contactimport/sources/file'
+import crmsources from '../../apps/crm/admin/components/contactimport/sources'
 import crmdesigner from '../../apps/crm/admin/components/designer'
 import crmemailsfield from '../../apps/crm/admin/components/emailsfield'
 import crmflowchartDesigner from '../../apps/crm/admin/components/flowchart_designer'
@@ -327,8 +327,8 @@ class App extends React.Component {
       crmaccess,
       crmaddressesfield,
       crmcheckboxesfield,
-      crmcontactimport,
       crmfile,
+      crmsources,
       crmdesigner,
       crmemailsfield,
       crmflowchartDesigner,

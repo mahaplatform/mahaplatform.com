@@ -24,7 +24,7 @@ class Import extends React.Component {
 
   _getPanel() {
     // const { status } = this.props
-    const status = 'imoprting'
+    const status = 'ready'
     const panel = {
       title: 'Parsing Import',
       leftItems: [
