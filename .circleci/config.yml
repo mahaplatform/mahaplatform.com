@@ -33,6 +33,18 @@ jobs:
           fingerprints:
             - 0d:79:bf:2b:27:c2:17:a2:ac:17:89:66:17:66:8a:50
       - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - attach_workspace:
+          at: ~/repo/root
+      - run:
+          name: Install rsync
+          command: sudo apt-get install rsync
+      - run:
+          name: Deploy code
+          command: NODE_ENV=staging npm run shipit deploy
   deploy:
     executor: node-postgres
     steps:
@@ -53,7 +65,7 @@ jobs:
           name: Deploy code
           command: NODE_ENV=production npm run shipit deploy
 workflows:
-  test-deploy:
+  test-stage-deploy:
     jobs:
       - test:
           filters:
@@ -70,8 +82,6 @@ workflows:
             tags:
               only: /.*/
       - stage:
-          requires:
-            - test
           filters:
             branches:
               only: staging

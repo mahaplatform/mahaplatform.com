@@ -1,6 +1,11 @@
 import { Message, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Outlook from './outlook'
+import Google from './google'
+import Lists from './lists'
+import File from './file'
 import React from 'react'
+import New from './new'
 
 class Sources extends React.PureComponent {
 
@@ -49,9 +54,12 @@ class Sources extends React.PureComponent {
     )
   }
 
-  componentDidMount() {}
-
-  componentDidUpdate(prevProps) {}
+  _getNew() {
+    const { onPop } = this.props
+    return {
+      onPop
+    }
+  }
 
   _getOverview() {
     return {
@@ -71,6 +79,25 @@ class Sources extends React.PureComponent {
     }
   }
 
+  _getServiceComponent(service) {
+    if(service === 'constantcontact') return Lists
+    if(service === 'googlecontacts') return Google
+    if(service === 'mailchimp') return Lists
+    if(service === 'outlook') return Outlook
+  }
+
+  _getSources() {
+    const { sources } = this.props
+    return [
+      { label: 'Excel or CSV file', service: 'excel', component: File },
+      ...sources.map(source => ({
+        ...source,
+        component: this._getServiceComponent(source.service)
+      })),
+      { label: 'Add a source', icon: 'plus-circle', component: <New { ...this._getNew() } /> }
+    ]
+  }
+
   _getSource(source) {
     const { onPop, onPush } = this.props
     return {
@@ -87,7 +114,6 @@ class Sources extends React.PureComponent {
   _handleClick(source) {
     this.props.onPush(source.component, this._getSource(source))
   }
-
 
 }
 

@@ -1,12 +1,7 @@
 import { Loader, Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Sources from './sources'
-import Outlook from './outlook'
-import Google from './google'
-import Lists from './lists'
 import React from 'react'
-import File from './file'
-import New from './new'
 
 class ContactImport extends React.PureComponent {
 
@@ -64,31 +59,10 @@ class ContactImport extends React.PureComponent {
     }
   }
 
-  _getNew() {
-    return {
-      onPop: this._handlePop
-    }
-  }
-
-  _getServiceComponent(service) {
-    if(service === 'constantcontact') return Lists
-    if(service === 'googlecontacts') return Google
-    if(service === 'mailchimp') return Lists
-    if(service === 'outlook') return Outlook
-  }
-
   _getSources() {
     const { sources } = this.props
     return {
-      sources: [
-        // { label: 'Your Device', service: 'device', component: <div>Foo</div> },
-        { label: 'Excel or CSV file', service: 'excel', component: File },
-        ...sources.map(source => ({
-          ...source,
-          component: this._getServiceComponent(source.service)
-        })),
-        { label: 'Add a source', icon: 'plus-circle', component: () => <New { ...this._getNew() } /> }
-      ],
+      sources,
       onPop: this._handlePop,
       onPush: this._handlePush
     }

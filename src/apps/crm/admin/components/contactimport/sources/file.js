@@ -29,7 +29,7 @@ class File extends React.PureComponent {
         extensions: ['csv','tsv','xls','xlsx'],
         types: ['files']
       },
-      cancelIcon: 'chevron-left',
+      cancelText: <i className="fa fa-chevron-left" />,
       onCancel: onPop,
       doneText: 'Next',
       onDone: this._handleNext
