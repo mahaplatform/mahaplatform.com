@@ -1,24 +1,26 @@
 import { Infinite, Message, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Contacts from './contacts'
-import Configure from './configure'
+import Results from './results'
 import React from 'react'
 
-class Outlook extends React.PureComponent {
+class Contacts extends React.PureComponent {
 
   static contextTypes = {}
 
   static propTypes = {
-    source: PropTypes.object,
+    endpoint: PropTypes.string,
     onPop: PropTypes.func,
     onPush: PropTypes.func
   }
 
   static defaultProps = {}
 
+  state = {
+    conatcts: []
+  }
+
   _handleCancel = this._handleCancel.bind(this)
   _handleDone = this._handleDone.bind(this)
-  _handleUpdateSelected = this._handleUpdateSelected.bind(this)
 
   render() {
     return (
@@ -30,40 +32,30 @@ class Outlook extends React.PureComponent {
 
   _getPanel() {
     return {
-      title: 'Import from Outlook',
+      title: 'Import Contacts',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
       ],
       rightItems: [
-        { label: 'Next', handler: this._handleDone }
+        { label: 'Import', handler: this._handleDone }
       ]
     }
   }
 
-  _getConfigure() {
-    const { onPop, onPush } = this.props
-    return {
-      onPop,
-      onPush
-    }
-  }
-
   _handleDone() {
-    this.props.onPush(Configure, this._getConfigure())
   }
 
   _getInfinite() {
-    const { source } = this.props
+    const { endpoint } = this.props
     const empty = {
       icon: 'user',
       title: 'No Contacts',
       text: 'There are no contacts available'
     }
     return {
-      endpoint: `/api/admin/profiles/${source.id}/contacts`,
-      layout: Contacts,
+      endpoint,
+      layout: Results,
       empty: <Message {...empty} />,
-      onUpdateSelected: this._handleUpdateSelected,
       props: {
         selectable: true
       }
@@ -74,11 +66,6 @@ class Outlook extends React.PureComponent {
     this.props.onPop()
   }
 
-  _handleUpdateSelected(contacts) {
-    this.setState({ contacts })
-  }
-
-
 }
 
-export default Outlook
+export default Contacts

@@ -1,5 +1,4 @@
 import { Attachments } from 'maha-admin'
-import Configure from './configure'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -9,6 +8,7 @@ class File extends React.PureComponent {
 
   static propTypes = {
     source: PropTypes.object,
+    onDone: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func
   }
@@ -30,21 +30,14 @@ class File extends React.PureComponent {
         types: ['files']
       },
       cancelText: <i className="fa fa-chevron-left" />,
+      multiple: false,
       onCancel: onPop,
       doneText: 'Next',
       onDone: this._handleNext
     }
   }
 
-  _getConfigure() {
-    const { onPop, onPush } = this.props
-    return {
-      onPop,
-      onPush
-    }
-  }
-
-  _handleNext() {
+  _handleNext(asset) {
     this.props.onPush(Configure, this._getConfigure())
   }
 

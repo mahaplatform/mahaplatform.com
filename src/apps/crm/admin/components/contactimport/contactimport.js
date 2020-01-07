@@ -52,13 +52,6 @@ class ContactImport extends React.PureComponent {
     this._handleLeave()
   }
 
-  _getFile() {
-    return {
-      onPop: this._handlePop,
-      onPush: this._handlePush
-    }
-  }
-
   _getSources() {
     const { sources } = this.props
     return {

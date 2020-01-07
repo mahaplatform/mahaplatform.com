@@ -1,7 +1,7 @@
 import { Message, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Outlook from './outlook'
-import Google from './google'
+import Contacts from './contacts'
+import Import from './import'
 import Lists from './lists'
 import File from './file'
 import React from 'react'
@@ -15,6 +15,7 @@ class Sources extends React.PureComponent {
 
   static propTypes = {
     sources: PropTypes.array,
+    onDone: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func
   }
@@ -22,9 +23,11 @@ class Sources extends React.PureComponent {
   static defaultProps = {}
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleConfigure = this._handleConfigure.bind(this)
+  _handleImport = this._handleImport.bind(this)
 
   render() {
-    const { sources } = this.props
+    const sources = this._getSources()
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="contactimport-sources-header">
@@ -54,6 +57,14 @@ class Sources extends React.PureComponent {
     )
   }
 
+  _getFile() {
+    const { onPop, onPush } = this.props
+    return {
+      onPop,
+      onPush
+    }
+  }
+
   _getNew() {
     const { onPop } = this.props
     return {
@@ -81,9 +92,9 @@ class Sources extends React.PureComponent {
 
   _getServiceComponent(service) {
     if(service === 'constantcontact') return Lists
-    if(service === 'googlecontacts') return Google
+    if(service === 'googlecontacts') return Contacts
     if(service === 'mailchimp') return Lists
-    if(service === 'outlook') return Outlook
+    if(service === 'outlook') return Contacts
   }
 
   _getSources() {
@@ -102,6 +113,7 @@ class Sources extends React.PureComponent {
     const { onPop, onPush } = this.props
     return {
       source,
+      onDone: this._handleImport,
       onPop,
       onPush
     }
@@ -113,6 +125,14 @@ class Sources extends React.PureComponent {
 
   _handleClick(source) {
     this.props.onPush(source.component, this._getSource(source))
+  }
+
+  _handleImport() {
+    const { onPop, onDone } = this.props
+    this.props.onPush(Import, {
+      onPop,
+      onDone
+    })
   }
 
 }

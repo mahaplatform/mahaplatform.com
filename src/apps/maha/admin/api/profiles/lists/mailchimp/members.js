@@ -9,7 +9,7 @@ const members = async (req, profile) => {
 
   const limit = _.get(req, 'query.$page.limit') || 100
 
-  const response = await client({
+  const result = await client({
     method: 'GET',
     path: `/lists/${req.params.id}/members`,
     query: {
@@ -18,26 +18,27 @@ const members = async (req, profile) => {
     }
   })
 
-  const records = response.members.map(contact => ({
+  const records = result.members.map(contact => ({
     id: contact.id,
     first_name: contact.merge_fields.FNAME,
     last_name: contact.merge_fields.LNAME,
-    email_address: contact.email_address,
+    email_addresses: [
+      { address: contact.email_address }
+    ],
     phone: contact.merge_fields.PHONE,
     organization: null,
     optedin: contact.status,
     optedin_at: contact.timestamp_opt
   }))
 
-  return {
-    all: response.total_items,
+  records.pagination = {
+    all: result.total_items,
     limit,
-    records,
     skip,
-    total: response.total_items
+    total: result.total_items
   }
 
-
+  return records
 
 }
 

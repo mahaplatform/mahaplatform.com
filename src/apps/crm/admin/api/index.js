@@ -5,6 +5,7 @@ import campaigns from './campaigns'
 import programs from './programs'
 import contacts from './contacts'
 import { Router } from 'express'
+import imports from './imports'
 import emails from './emails'
 import fields from './fields'
 import topics from './topics'
@@ -23,6 +24,8 @@ router.use('/emails', emails)
 router.use('/fields', fields)
 
 router.use('/forms', forms)
+
+router.use('/imports', imports)
 
 router.use('/lists', lists)
 

@@ -1,12 +1,10 @@
 import { Infinite, Message, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Configure from './configure'
-import Lists from './lists'
+import Members from './members'
+import Results from './results'
 import React from 'react'
 
-class MailChimp extends React.PureComponent {
-
-  static contextTypes = {}
+class Lists extends React.PureComponent {
 
   static propTypes = {
     source: PropTypes.object,
@@ -14,15 +12,8 @@ class MailChimp extends React.PureComponent {
     onPush: PropTypes.func
   }
 
-  static defaultProps = {}
-
-  state = {
-    conatcts: []
-  }
-
   _handleCancel = this._handleCancel.bind(this)
-  _handleDone = this._handleDone.bind(this)
-  _handleUpdateSelected = this._handleUpdateSelected.bind(this)
+  _handleChoose = this._handleChoose.bind(this)
 
   render() {
     return (
@@ -44,34 +35,20 @@ class MailChimp extends React.PureComponent {
     }
   }
 
-  _getConfigure() {
-    const { onPop, onPush } = this.props
-    const { contacts } = this.state
-    return {
-      contacts,
-      onPop,
-      onPush
-    }
-  }
-
-  _handleDone() {
-    this.props.onPush(Configure, this._getConfigure())
-  }
-
   _getInfinite() {
     const { source } = this.props
     const empty = {
       icon: 'user',
-      title: 'No Contacts',
-      text: 'There are no contacts available'
+      title: 'No Lists',
+      text: 'There are no lists available'
     }
     return {
       endpoint: `/api/admin/profiles/${source.id}/lists`,
-      layout: Lists,
+      layout: Results,
       empty: <Message {...empty} />,
       onUpdateSelected: this._handleUpdateSelected,
       props: {
-        selectable: true
+        onChoose: this._handleChoose
       }
     }
   }
@@ -80,10 +57,15 @@ class MailChimp extends React.PureComponent {
     this.props.onPop()
   }
 
-  _handleUpdateSelected(contacts) {
-    this.setState({ contacts })
+  _handleChoose(list_id) {
+    const { source, onPop, onPush } = this.props
+    this.props.onPush(Members, {
+      endpoint: `/api/admin/profiles/${source.id}/lists/${list_id}/members`,
+      onPop,
+      onPush
+    })
   }
 
 }
 
-export default MailChimp
+export default Lists
