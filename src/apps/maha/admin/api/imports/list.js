@@ -4,6 +4,8 @@ import Import from '../../../models/import'
 const listRoute = async (req, res) => {
 
   const imports = await Import.scope(qb => {
+    qb.select('maha_imports.*','maha_import_counts.*')
+    qb.innerJoin('maha_import_counts', 'maha_import_counts.import_id', 'maha_imports.id')
     qb.where('team_id', req.team.get('id'))
     qb.where('user_id', req.user.get('id'))
   }).filter({

@@ -5,7 +5,7 @@ import Import from '../../../models/import'
 
 const createRoute = async (req, res) => {
 
-  const _import = await Import.forge({
+  const imp = await Import.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
     ...whitelist(req.body, ['object_type','asset_id','stage','delimiter','headers','mapping','name','strategy'])
@@ -13,7 +13,12 @@ const createRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await _import.load(['asset','user.photo'], {
+  const _import = await Import.query(qb => {
+    qb.select('maha_imports.*','maha_import_counts.*')
+    qb.innerJoin('maha_import_counts', 'maha_import_counts.import_id', 'maha_imports.id')
+    qb.where('maha_imports.id', imp.get('id'))
+  }).fetch({
+    withRelated: ['asset','user.photo'],
     transacting: req.trx
   })
 

@@ -4,7 +4,7 @@ import Import from '../../../models/import'
 
 const omiterrorsRoute = async (req, res) => {
 
-  const _import = await Import.scope(qb => {
+  const imp = await Import.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
@@ -12,7 +12,7 @@ const omiterrorsRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  if(!_import) return res.status(404).respond({
+  if(!imp) return res.status(404).respond({
     code: 404,
     message: 'Unable to load import'
   })
@@ -35,11 +35,13 @@ const omiterrorsRoute = async (req, res) => {
     })
   })
 
-  await _import.save({
-    error_count: 0,
-    omit_count: (req.resource.get('error_count') + req.resource.get('omit_count'))
-  }, {
-    patch: true,
+  const _import = await Import.query(qb => {
+    qb.select('maha_imports.*','maha_import_counts.*')
+    qb.innerJoin('maha_import_counts', 'maha_import_counts.import_id', 'maha_imports.id')
+    qb.where('team_id', req.team.get('id'))
+    qb.where('id', req.params.id)
+  }).fetch({
+    withRelated: ['asset','user.photo'],
     transacting: req.trx
   })
 

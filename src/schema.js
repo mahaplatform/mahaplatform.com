@@ -990,7 +990,7 @@ const schema = {
       table.decimal('fixed_price', 6, 2)
       table.decimal('low_price', 6, 2)
       table.decimal('high_price', 6, 2)
-      table.decimal('tax_rate', 5, 4)
+      table.decimal('tax_rate', 3, 2)
       table.boolean('is_active')
       table.timestamp('created_at')
       table.timestamp('updated_at')
@@ -1399,6 +1399,9 @@ const schema = {
       table.boolean('is_omitted').defaultsTo(false)
       table.boolean('is_nonunique').defaultsTo(false)
       table.USER-DEFINED('result')
+      table.boolean('is_merged')
+      table.boolean('is_ignored')
+      table.boolean('is_complete')
     })
 
     await knex.schema.createTable('maha_imports', (table) => {
@@ -1412,18 +1415,8 @@ const schema = {
       table.string('delimiter', 255)
       table.specificType('mapping', 'jsonb[]')
       table.string('primary_key', 255)
-      table.integer('item_count')
-      table.integer('created_count')
-      table.integer('merged_count')
-      table.integer('ignored_count')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.integer('valid_count')
-      table.integer('error_count')
-      table.integer('omit_count')
-      table.integer('duplicate_count')
-      table.integer('nonunique_count')
-      table.integer('completed_count')
       table.USER-DEFINED('stage')
       table.USER-DEFINED('strategy')
     })
@@ -3727,6 +3720,92 @@ union
       from ((maha_users
       join finance_members on (((finance_members.user_id = maha_users.id) and (finance_members.type <> 'member'::finance_members_type))))
       join maha_groupings on ((maha_groupings.id = 4)));
+    `)
+
+    await knex.raw(`
+      create view maha_import_counts AS
+      with items as (
+      select maha_import_items.import_id,
+      count(*) as total
+      from maha_import_items
+      group by maha_import_items.import_id
+      ), valid as (
+      select maha_import_items.import_id,
+      count(*) as total
+      from maha_import_items
+      where ((maha_import_items.is_valid = true) and (maha_import_items.is_duplicate = false) and (maha_import_items.is_nonunique = false))
+      group by maha_import_items.import_id
+      ), errors as (
+      select maha_import_items.import_id,
+      count(*) as total
+      from maha_import_items
+      where ((maha_import_items.is_valid = false) and (maha_import_items.is_omitted = false))
+      group by maha_import_items.import_id
+      ), omitted as (
+      select maha_import_items.import_id,
+      count(*) as total
+      from maha_import_items
+      where ((maha_import_items.is_valid = false) and (maha_import_items.is_omitted = true))
+      group by maha_import_items.import_id
+      ), dupicates as (
+      select maha_import_items.import_id,
+      count(*) as total
+      from maha_import_items
+      where ((maha_import_items.is_valid = true) and (maha_import_items.is_duplicate = true))
+      group by maha_import_items.import_id
+      ), nonunique as (
+      select maha_import_items.import_id,
+      count(*) as total
+      from maha_import_items
+      where (maha_import_items.is_nonunique = true)
+      group by maha_import_items.import_id
+      ), completed as (
+      select maha_import_items.import_id,
+      count(*) as total
+      from maha_import_items
+      where (maha_import_items.is_complete = true)
+      group by maha_import_items.import_id
+      ), created as (
+      select maha_import_items.import_id,
+      count(*) as total
+      from maha_import_items
+      where ((maha_import_items.object_id is not null) and (maha_import_items.is_merged = false) and (maha_import_items.is_ignored = false))
+      group by maha_import_items.import_id
+      ), merged as (
+      select maha_import_items.import_id,
+      count(*) as total
+      from maha_import_items
+      where ((maha_import_items.object_id is not null) and (maha_import_items.is_merged = true) and (maha_import_items.is_ignored = false))
+      group by maha_import_items.import_id
+      ), ignored as (
+      select maha_import_items.import_id,
+      count(*) as total
+      from maha_import_items
+      where (maha_import_items.is_ignored = true)
+      group by maha_import_items.import_id
+      )
+      select items.import_id,
+      coalesce(items.total, (0)::bigint) as item_count,
+      coalesce(valid.total, (0)::bigint) as valid_count,
+      coalesce(errors.total, (0)::bigint) as error_count,
+      coalesce(omitted.total, (0)::bigint) as omit_count,
+      coalesce(dupicates.total, (0)::bigint) as duplicate_count,
+      coalesce(nonunique.total, (0)::bigint) as nonunique_count,
+      coalesce(completed.total, (0)::bigint) as completed_count,
+      coalesce(created.total, (0)::bigint) as created_count,
+      coalesce(merged.total, (0)::bigint) as merged_count,
+      coalesce(ignored.total, (0)::bigint) as ignored_count
+      from (((((((((items
+      left join created on ((created.import_id = items.import_id)))
+      left join merged on ((merged.import_id = items.import_id)))
+      left join ignored on ((ignored.import_id = items.import_id)))
+      left join valid on ((valid.import_id = items.import_id)))
+      left join errors on ((errors.import_id = items.import_id)))
+      left join omitted on ((omitted.import_id = items.import_id)))
+      left join dupicates on ((dupicates.import_id = items.import_id)))
+      left join nonunique on ((nonunique.import_id = items.import_id)))
+      left join completed on ((completed.import_id = items.import_id)))
+      order by items.import_id;
     `)
 
     await knex.raw(`

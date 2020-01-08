@@ -122,6 +122,10 @@ const processor = async (job, trx) => {
 
     let object_id = null
 
+    let is_merged = false
+
+    let is_ignored = false
+
     if(duplicate.length === 0 || strategy == 'create') {
 
       object_id = await knex(table).transacting(trx).insert({
@@ -145,37 +149,45 @@ const processor = async (job, trx) => {
       object_id = await knex(table).where({
         id: duplicate[0].id
       }).update({
-        ...unflatten( _.merge(flatten(duplicate[0]), merged) )
+        ...unflatten(_.merge(flatten(duplicate[0]), merged) )
       }).returning('id')
 
+      is_merged = true
+
+    } else {
+
+      is_ignored = true
+
     }
 
-    if(object_id){
-      await item.save({
-        object_id: parseInt(object_id)
-      }, {
-        patch: true,
-        transacting: trx
-      })
-    }
-
-    await imp.save({
-      completed_count: index + 1
+    await item.save({
+      object_id: object_id ? parseInt(object_id) : null,
+      is_complete: true,
+      is_merged,
+      is_ignored
     }, {
       patch: true,
+      transacting: trx
+    })
+
+    const _import = await Import.query(qb => {
+      qb.select('maha_imports.*','maha_import_counts.*')
+      qb.innerJoin('maha_import_counts', 'maha_import_counts.import_id', 'maha_imports.id')
+      qb.where('maha_imports.id', imp.get('id'))
+    }).fetch({
+      withRelated: ['asset','user.photo'],
       transacting: trx
     })
 
     await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
       target: `/admin/imports/${imp.get('id')}`,
       action: 'progress',
-      data: ImportSerializer(null, imp)
+      data: ImportSerializer(null, _import)
     })
 
   })
 
   await imp.save({
-    created_count: items.length,
     stage: 'complete'
   }, {
     patch: true,

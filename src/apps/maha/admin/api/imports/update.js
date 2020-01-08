@@ -10,7 +10,6 @@ const updateRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['asset','user.photo'],
     transacting: req.trx
   })
 
@@ -31,7 +30,17 @@ const updateRoute = async (req, res) => {
     object: _import
   })
 
-  res.status(200).respond(_import, ImportSerializer)
+  const imp = await Import.query(qb => {
+    qb.select('maha_imports.*','maha_import_counts.*')
+    qb.innerJoin('maha_import_counts', 'maha_import_counts.import_id', 'maha_imports.id')
+    qb.where('team_id', req.team.get('id'))
+    qb.where('id', req.params.id)
+  }).fetch({
+    withRelated: ['asset','user.photo'],
+    transacting: req.trx
+  })
+
+  res.status(200).respond(imp, ImportSerializer)
 
 }
 

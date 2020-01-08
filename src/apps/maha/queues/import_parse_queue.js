@@ -24,7 +24,7 @@ const processor = async (job, trx) => {
     headers: imp.get('headers')
   })
 
-  const result = await Promise.reduce(parsed.rows, async (result, row, i) => {
+  await Promise.reduce(parsed.rows, async (result, row, i) => {
 
     const values = imp.get('mapping').reduce((mapped, mapping, j) => {
       if(!mapping || !mapping.field) return mapped
@@ -66,38 +66,33 @@ const processor = async (job, trx) => {
     })
 
     return {
-      duplicate: (is_valid && is_duplicate) ? result.duplicate + 1 : result.duplicate,
-      valid: (is_valid && !is_duplicate && !is_nonunique) ? result.valid + 1 : result.valid,
-      error: !is_valid ? result.error + 1 : result.error,
-      nonunique: is_nonunique ? result.nonunique + 1 : result.nonunique,
       primarykeys: !is_nonunique ? [...result.primarykeys,values[primary_key]] : result.primarykeys
     }
 
   }, {
-    duplicate: 0,
-    valid: 0,
-    error: 0,
-    nonunique: 0,
     primarykeys: []
   })
 
   await imp.save({
-    item_count: parsed.rows.length,
-    valid_count: result.valid,
-    omit_count: 0,
-    error_count: result.error,
-    nonunique_count: result.nonunique,
-    duplicate_count: result.duplicate,
     stage: 'validating'
   }, {
     patch: true,
     transacting: trx
   })
 
+  const _import = await Import.query(qb => {
+    qb.select('maha_imports.*','maha_import_counts.*')
+    qb.innerJoin('maha_import_counts', 'maha_import_counts.import_id', 'maha_imports.id')
+    qb.where('maha_imports.id', imp.get('id'))
+  }).fetch({
+    withRelated: ['asset','user.photo'],
+    transacting: trx
+  })
+
   await socket.in(`/admin/imports/${imp.get('id')}`).emit('message', {
     target: `/admin/imports/${imp.get('id')}`,
     action: 'success',
-    data: ImportSerializer(null, imp)
+    data: ImportSerializer(null, _import)
   })
 
 }

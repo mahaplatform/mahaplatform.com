@@ -13,26 +13,32 @@ const finalizeRoute = async (req, res) => {
 
   await Promise.mapSeries(items, async (item) => {
 
-    await Promise.mapSeries(req.body.group_ids, async (group_id) => {
-      await req.trx('maha_users_groups').insert({
-        group_id,
-        user_id: item.get('object_id')
+    if(req.body.group_ids) {
+      await Promise.mapSeries(req.body.group_ids, async (group_id) => {
+        await req.trx('maha_users_groups').insert({
+          group_id,
+          user_id: item.get('object_id')
+        })
       })
-    })
+    }
 
-    await Promise.mapSeries(req.body.role_ids, async (role_id) => {
-      await req.trx('maha_users_roles').insert({
-        role_id,
-        user_id: item.get('object_id')
+    if(req.body.role_ids) {
+      await Promise.mapSeries(req.body.role_ids, async (role_id) => {
+        await req.trx('maha_users_roles').insert({
+          role_id,
+          user_id: item.get('object_id')
+        })
       })
-    })
+    }
 
-    await Promise.mapSeries(req.body.supervisor_ids, async (supervisor_id) => {
-      await req.trx('maha_supervisions').insert({
-        supervisor_id,
-        employee_id: item.get('object_id')
+    if(req.body.supervisor_ids) {
+      await Promise.mapSeries(req.body.supervisor_ids, async (supervisor_id) => {
+        await req.trx('maha_supervisions').insert({
+          supervisor_id,
+          employee_id: item.get('object_id')
+        })
       })
-    })
+    }
 
     const user = await User.where({
       id: item.get('object_id')
@@ -49,11 +55,13 @@ const finalizeRoute = async (req, res) => {
     await user.save({
       is_active: true,
       key
-    }).save(null, {
+    }, {
       transacting: req.trx
     })
 
-    await sendUserActivation(req, user)
+    if(!item.get('is_merged')) {
+      await sendUserActivation(req, user)
+    }
 
   })
 

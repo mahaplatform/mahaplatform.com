@@ -3,9 +3,10 @@ import Import from '../../../models/import'
 
 const showRoute = async (req, res) => {
 
-  const _import = await Import.scope(qb => {
+  const _import = await Import.query(qb => {
+    qb.select('maha_imports.*','maha_import_counts.*')
+    qb.innerJoin('maha_import_counts', 'maha_import_counts.import_id', 'maha_imports.id')
     qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['asset','user.photo'],

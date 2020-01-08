@@ -1,23 +1,14 @@
 import { Infinite, Message, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Results from './results'
 import React from 'react'
 
-class Contacts extends React.PureComponent {
-
-  static contextTypes = {}
+class Members extends React.PureComponent {
 
   static propTypes = {
     endpoint: PropTypes.string,
     onDone: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func
-  }
-
-  static defaultProps = {}
-
-  state = {
-    conatcts: []
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -67,4 +58,29 @@ class Contacts extends React.PureComponent {
 
 }
 
-export default Contacts
+class Results extends React.PureComponent {
+
+  static propTypes = {
+    records: PropTypes.array
+  }
+
+  render() {
+    const { records } = this.props
+    return (
+      <div className="contactimport-contacts">
+        { records.map((contact, index) => (
+          <div className="contactimport-contact" key={`contact_${index}`}>
+            <div className="contactimport-contact-label">
+              { contact.first_name } { contact.last_name } (
+              { contact.email_addresses.length > 0 ? contact.email_addresses[0].address: 'no email' }
+              )
+            </div>
+          </div>
+        )) }
+      </div>
+    )
+  }
+
+}
+
+export default Members
