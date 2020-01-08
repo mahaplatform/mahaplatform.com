@@ -66,11 +66,11 @@ const getContacts = async (req, profile) => {
       email_address: contact.email_addresses.length > 0 ? contact.email_addresses[0].address : null,
       phone_number: contact.phone_numbers.length > 0 ? contact.phone_numbers[0].number : null,
       mailing_address: contact.mailing_addresses.length > 0 ? {
-        street_1: contact.mailing_addresses[0].streetAddress,
+        street_1: contact.mailing_addresses[0].street_1,
         city: contact.mailing_addresses[0].city,
-        state_province: contact.mailing_addresses[0].region,
-        postal_code: contact.mailing_addresses[0].postalCode,
-        country: contact.mailing_addresses[0].countryCode
+        state_province: contact.mailing_addresses[0].state_province,
+        postal_code: contact.mailing_addresses[0].postal_code,
+        country: contact.mailing_addresses[0].country
       } : null
     }))
   }
