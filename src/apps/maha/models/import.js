@@ -8,9 +8,7 @@ const Import = new Model({
 
   tableName: 'maha_imports',
 
-  rules: {
-    asset_id: ['required']
-  },
+  rules: {},
 
   virtuals: {
 

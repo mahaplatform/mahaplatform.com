@@ -34,7 +34,7 @@ const members = async (req, profile) => {
   records.pagination = {
     all: result.total_items,
     limit,
-    skip,
+    skip: parseInt(skip),
     total: result.total_items
   }
 
