@@ -4,17 +4,16 @@ import React from 'react'
 
 class File extends React.PureComponent {
 
-  static contextTypes = {}
-
   static propTypes = {
     source: PropTypes.object,
+    onBack: PropTypes.func,
     onDone: PropTypes.func,
-    onPop: PropTypes.func,
     onPush: PropTypes.func
   }
 
   static defaultProps = {}
 
+  _handleBack = this._handleBack.bind(this)
   _handleDone = this._handleDone.bind(this)
 
   render() {
@@ -22,7 +21,6 @@ class File extends React.PureComponent {
   }
 
   _getAttachments() {
-    const { onPop } = this.props
     return {
       allow: {
         content_types: ['application/vnd.google-apps.spreadsheet'],
@@ -31,14 +29,18 @@ class File extends React.PureComponent {
       },
       cancelText: <i className="fa fa-chevron-left" />,
       multiple: false,
-      onCancel: onPop,
+      onCancel: this._handleBack,
       doneText: 'Next',
       onDone: this._handleDone
     }
   }
 
-  _handleDone(asset) {
-    this.props.onDone()
+  _handleBack() {
+    this.props.onBack()
+  }
+
+  _handleDone(assets) {
+    this.props.onDone(assets[0])
   }
 
 }

@@ -1,8 +1,7 @@
 import { Loader, Message, ModalPanel } from 'maha-admin'
+import Contacts from './service/contacts'
+import Lists from './service/lists'
 import PropTypes from 'prop-types'
-import Contacts from './contacts'
-import Import from './import'
-import Lists from './lists'
 import File from './file'
 import React from 'react'
 import New from './new'
@@ -26,8 +25,8 @@ class Sources extends React.PureComponent {
   }
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleDone = this._handleDone.bind(this)
   _handleFetch = this._handleFetch.bind(this)
-  _handleImport = this._handleImport.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
@@ -72,14 +71,6 @@ class Sources extends React.PureComponent {
 
   componentWillUnmount() {
     this._handleLeave()
-  }
-
-  _getImport() {
-    const { onPop, onDone } = this.props
-    return {
-      onBack: onPop,
-      onDone
-    }
   }
 
   _getNew() {
@@ -130,7 +121,8 @@ class Sources extends React.PureComponent {
     const { onPop, onPush } = this.props
     return {
       source,
-      onDone: this._handleImport,
+      onDone: this._handleDone,
+      onBack: onPop,
       onPop,
       onPush
     }
@@ -142,6 +134,10 @@ class Sources extends React.PureComponent {
 
   _handleClick(source) {
     this.props.onPush(source.component, this._getSource(source))
+  }
+
+  _handleDone() {
+    this.props.onDone()
   }
 
   _handleFetch() {
@@ -157,10 +153,6 @@ class Sources extends React.PureComponent {
       },
       onSuccess: this._handleSuccess
     })
-  }
-
-  _handleImport() {
-    this.props.onPush(Import, this._getImport())
   }
 
   _handleJoin() {

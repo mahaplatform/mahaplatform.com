@@ -7,6 +7,7 @@ class Lists extends React.PureComponent {
 
   static propTypes = {
     source: PropTypes.object,
+    onBack: PropTypes.func,
     onDone: PropTypes.func,
     onPop: PropTypes.func,
     onPush: PropTypes.func
@@ -28,9 +29,6 @@ class Lists extends React.PureComponent {
       title: 'Choose List',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
-      ],
-      rightItems: [
-        { label: 'Next', handler: this._handleDone }
       ]
     }
   }
@@ -53,18 +51,21 @@ class Lists extends React.PureComponent {
     }
   }
 
+  _getMembers(list_id) {
+    const { source, onBack, onDone } = this.props
+    return {
+      endpoint: `/api/admin/profiles/${source.id}/lists/${list_id}/members`,
+      onBack,
+      onDone
+    }
+  }
+
   _handleCancel() {
-    this.props.onPop()
+    this.props.onBack()
   }
 
   _handleChoose(list_id) {
-    const { source, onDone, onPop, onPush } = this.props
-    this.props.onPush(Members, {
-      endpoint: `/api/admin/profiles/${source.id}/lists/${list_id}/members`,
-      onDone,
-      onPop,
-      onPush
-    })
+    this.props.onPush(Members, this._getMembers(list_id))
   }
 
 }
