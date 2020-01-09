@@ -136,8 +136,8 @@ class Sources extends React.PureComponent {
     this.props.onPush(source.component, this._getSource(source))
   }
 
-  _handleDone() {
-    this.props.onDone()
+  _handleDone(_import) {
+    this.props.onDone(_import)
   }
 
   _handleFetch() {

@@ -114,7 +114,10 @@ class Preview extends React.PureComponent {
   }
 
   _handleDone() {
-    this.props.onDone()
+    const { parsed, delimiter, headers, quote } = this.state
+    const { asset } = this.props
+    const parse = { delimiter, headers, quote }
+    this.props.onDone(asset, parse, parsed.headers)
   }
 
   _handleFetch() {

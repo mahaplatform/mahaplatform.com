@@ -1,5 +1,6 @@
 import { Infinite, Message, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Import from './import'
 import React from 'react'
 
 class Members extends React.PureComponent {
@@ -51,8 +52,8 @@ class Members extends React.PureComponent {
     this.props.onBack()
   }
 
-  _handleDone() {
-    this.props.onDone()
+  _handleImport() {
+    this.props.onPush(Import, this._getImport())
   }
 
 }

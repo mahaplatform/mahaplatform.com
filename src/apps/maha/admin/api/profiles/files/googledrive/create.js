@@ -45,13 +45,24 @@ const createRoute = async (req, profile) => {
     fields: 'id, name, mimeType, webViewLink'
   })
 
+  const toBuffer = (ab) => {
+    var buf = Buffer.alloc(ab.byteLength)
+    var view = new Uint8Array(ab)
+    for (var i = 0; i < buf.length; ++i) {
+      buf[i] = view[i]
+    }
+    return buf
+  }
+
   const _export = async (fileId, mime_type) => {
-    return await client.files.export({
+    const result = await client.files.export({
       fileId,
       mimeType: _getMime(mime_type)
     }, {
-      responseType: 'buffer'
+      responseType: 'arraybuffer'
     })
+    result.data = toBuffer(result.data)
+    return result
   }
 
   const _get = async (fileId) => {

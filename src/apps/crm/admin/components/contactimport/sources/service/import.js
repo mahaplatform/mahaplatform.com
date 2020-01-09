@@ -9,6 +9,10 @@ class Import extends React.Component {
     onDone: PropTypes.func
   }
 
+  state = {
+    _import: null
+  }
+
   _handleBack = this._handleBack.bind(this)
   _handleDone = this._handleDone.bind(this)
 
@@ -54,7 +58,8 @@ class Import extends React.Component {
   }
 
   _handleDone() {
-    this.props.onDone()
+    const { _import } = this.state
+    this.props.onDone(_import)
   }
 
 }

@@ -1,5 +1,6 @@
 import { Infinite, Message, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Import from './import'
 import React from 'react'
 
 class Contacts extends React.PureComponent {
@@ -31,6 +32,14 @@ class Contacts extends React.PureComponent {
     )
   }
 
+  _getImport() {
+    return {
+      onDone: PropTypes.func,
+      onPop: PropTypes.func,
+      onPush: PropTypes.func
+    }
+  }
+
   _getPanel() {
     return {
       title: 'Import Contacts',
@@ -38,7 +47,7 @@ class Contacts extends React.PureComponent {
         { icon: 'chevron-left', handler: this._handleCancel }
       ],
       rightItems: [
-        { label: 'Import', handler: this._handleDone }
+        { label: 'Next', handler: this._handleImport }
       ]
     }
   }
@@ -61,8 +70,8 @@ class Contacts extends React.PureComponent {
     this.props.onBack()
   }
 
-  _handleDone() {
-    this.props.onDone()
+  _handleImport() {
+    this.props.onPush(Import, this._getImport())
   }
 
 }

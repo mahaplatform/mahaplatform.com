@@ -10,8 +10,14 @@ class Map extends React.PureComponent {
 
   static propTypes = {
     asset: PropTypes.object,
+    parse: PropTypes.object,
+    headers: PropTypes.object,
     onBack: PropTypes.func,
     onDone: PropTypes.func
+  }
+
+  state = {
+    mapping: null
   }
 
   _handleBack = this._handleBack.bind(this)
@@ -56,7 +62,9 @@ class Map extends React.PureComponent {
   }
 
   _handleDone() {
-    this.props.onDone()
+    const { asset, parse } = this.props
+    const { mapping } = this.state
+    this.props.onDone(asset, parse, mapping)
   }
 
   _handleSuccess(result) {

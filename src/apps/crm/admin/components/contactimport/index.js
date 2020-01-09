@@ -54,7 +54,8 @@ class ContactImport extends React.PureComponent {
     }
   }
 
-  _handleConfigure() {
+  _handleConfigure(_import) {
+    console.log('import', _import)
     this._handlePush(Configure, this._getConfigure())
   }
 

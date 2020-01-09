@@ -47,17 +47,21 @@ class File extends React.PureComponent {
     }
   }
 
-  _getImport(asset) {
+  _getImport(asset, parse, mapping) {
     return {
       asset,
+      parse,
+      mapping,
       onBack: this._handlePop,
       onDone: this._handleDone
     }
   }
 
-  _getMap(asset) {
+  _getMap(asset, parse, headers) {
     return {
       asset,
+      parse,
+      headers,
       onBack: this._handlePop,
       onDone: this._handleImport
     }
@@ -83,15 +87,16 @@ class File extends React.PureComponent {
     this.props.onPop()
   }
 
-  _handleImport() {
-    this._handlePush(Import, this._getImport())
+  _handleImport(asset, parse, mapping) {
+    this._handlePush(Import, this._getImport(asset, parse, mapping))
   }
 
-  _handleMap() {
-    this._handlePush(Map, this._getMap())
+  _handleMap(asset, parse, headers) {
+    this._handlePush(Map, this._getMap(asset, parse, headers))
   }
 
-  _handleDone() {
+  _handleDone(_import) {
+    this.props.onDone(_import)
   }
 
   _handlePop(index = -1) {
