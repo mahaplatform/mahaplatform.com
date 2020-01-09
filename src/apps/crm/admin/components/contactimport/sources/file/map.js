@@ -15,7 +15,9 @@ class Map extends React.PureComponent {
   }
 
   _handleBack = this._handleBack.bind(this)
+  _handleFetch = this._handleFetch.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
     return (
@@ -23,6 +25,10 @@ class Map extends React.PureComponent {
         map
       </ModalPanel>
     )
+  }
+
+  componentDidMount() {
+    this._handleFetch()
   }
 
   _getPanel() {
@@ -41,8 +47,20 @@ class Map extends React.PureComponent {
     this.props.onBack()
   }
 
+  _handleFetch() {
+    this.context.network.request({
+      method: 'get',
+      endpoint: '/api/admin/crm/imports/fields',
+      onSuccess: this._handleSuccess
+    })
+  }
+
   _handleDone() {
     this.props.onDone()
+  }
+
+  _handleSuccess(result) {
+    console.log(result.data)
   }
 
 }
