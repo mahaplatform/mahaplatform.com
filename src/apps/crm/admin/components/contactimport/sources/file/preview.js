@@ -1,4 +1,5 @@
 import { Loader, ModalPanel } from 'maha-admin'
+import Chooser from './chooser'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -30,49 +31,62 @@ class Preview extends React.PureComponent {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
+    const { asset } = this.props
     const { index, parsed } = this.state
     if(!parsed) return <Loader />
     const record = this._getRecord()
     const rowNumber = this._getRowNumber()
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="maha-import-preview-result">
-          <div className="maha-import-preview-pager">
-            <div className="maha-import-preview-pager-item">
-              { index > 0 ?
-                <div className="ui green tiny fluid button" onClick={ this._handlePrevious }>
-                  <i className="fa fa-fw fa-chevron-left" />
-                </div> :
-                <div className="ui tiny fluid button disabled">
-                  <i className="fa fa-fw fa-chevron-left" />
-                </div>
-              }
-            </div>
-            <div className="maha-import-preview-pager-item">
-              <label>Row Number: { rowNumber }</label>
-            </div>
-            <div className="maha-import-preview-pager-item">
-              { index < parsed.rows.length - 1 ?
-                <div className="ui green tiny fluid button" onClick={ this._handleNext }>
-                  <i className="fa fa-fw fa-chevron-right" />
-                </div> :
-                <div className="ui tiny fluid button disabled">
-                  <i className="fa fa-fw fa-chevron-right" />
-                </div>
-              }
+        <div className="maha-import-preview">
+          <div className="maha-import-preview-header">
+            { !asset.content_type.match(/xls]/) &&
+              <div className="maha-import-preview-header-item">
+                <Chooser { ...this._getDelimiter() } />
+              </div>
+            }
+            <div className="maha-import-preview-header-item">
+              <Chooser { ...this._getHeaders() } />
             </div>
           </div>
-          <div className="maha-import-preview-body">
-            <table className="maha-import-preview-record">
-              <tbody>
-                { record.map((property, index) => (
-                  <tr key={`property_${index}`}>
-                    <th>{ property.key }</th>
-                    <td>{ property.value }</td>
-                  </tr>
-                )) }
-              </tbody>
-            </table>
+          <div className="maha-import-preview-result">
+            <div className="maha-import-preview-pager">
+              <div className="maha-import-preview-pager-item">
+                { index > 0 ?
+                  <div className="ui green tiny fluid button" onClick={ this._handlePrevious }>
+                    <i className="fa fa-fw fa-chevron-left" />
+                  </div> :
+                  <div className="ui tiny fluid button disabled">
+                    <i className="fa fa-fw fa-chevron-left" />
+                  </div>
+                }
+              </div>
+              <div className="maha-import-preview-pager-item">
+                <label>Row Number: { rowNumber }</label>
+              </div>
+              <div className="maha-import-preview-pager-item">
+                { index < parsed.rows.length - 1 ?
+                  <div className="ui green tiny fluid button" onClick={ this._handleNext }>
+                    <i className="fa fa-fw fa-chevron-right" />
+                  </div> :
+                  <div className="ui tiny fluid button disabled">
+                    <i className="fa fa-fw fa-chevron-right" />
+                  </div>
+                }
+              </div>
+            </div>
+            <div className="maha-import-preview-body">
+              <table className="maha-import-preview-record">
+                <tbody>
+                  { record.map((property, index) => (
+                    <tr key={`property_${index}`}>
+                      <th>{ property.key }</th>
+                      <td>{ property.value }</td>
+                    </tr>
+                  )) }
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </ModalPanel>
@@ -81,6 +95,42 @@ class Preview extends React.PureComponent {
 
   componentDidMount() {
     this._handleFetch()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { delimiter, headers } = this.state
+    if(delimiter !== prevState.delimiter) {
+      this._handleFetch()
+    }
+    if(headers !== prevState.headers) {
+      this._handleFetch()
+    }
+  }
+
+  _getDelimiter() {
+    const { delimiter } = this.state
+    return {
+      defaultValue: delimiter,
+      options: [
+        { key: ',', value: 'Comma' },
+        { key: '\t', value: 'Tab' },
+        { key: ':', value: 'Colon' },
+        { key: '|', value: 'Pipe' }
+      ],
+      onChange: this._handleChange.bind(this, 'delimiter')
+    }
+  }
+
+  _getHeaders() {
+    const { headers } = this.state
+    return {
+      defaultValue: headers,
+      options: [
+        { key: true, value: 'Headers' },
+        { key: false, value: 'No Headers' }
+      ],
+      onChange: this._handleChange.bind(this, 'headers')
+    }
   }
 
   _getPanel() {
@@ -111,6 +161,12 @@ class Preview extends React.PureComponent {
 
   _handleBack() {
     this.props.onBack()
+  }
+
+  _handleChange(key, value) {
+    this.setState({
+      [key]: value
+    })
   }
 
   _handleDone() {
