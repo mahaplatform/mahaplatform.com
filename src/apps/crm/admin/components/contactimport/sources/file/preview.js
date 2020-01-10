@@ -31,16 +31,16 @@ class Preview extends React.PureComponent {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    const { asset } = this.props
+    if(!this.state.parsed) return <Loader />
     const { index, parsed } = this.state
-    if(!parsed) return <Loader />
+    const { asset } = this.props
     const record = this._getRecord()
     const rowNumber = this._getRowNumber()
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-import-preview">
           <div className="maha-import-preview-header">
-            { !asset.content_type.match(/xls]/) &&
+            { !asset.file_name.match(/xls/) &&
               <div className="maha-import-preview-header-item">
                 <Chooser { ...this._getDelimiter() } />
               </div>
@@ -94,6 +94,7 @@ class Preview extends React.PureComponent {
   }
 
   componentDidMount() {
+    this._handleMatch()
     this._handleFetch()
   }
 
@@ -190,6 +191,15 @@ class Preview extends React.PureComponent {
       },
       onSuccess: this._handleSuccess
     })
+  }
+
+  _handleMatch() {
+    const { asset } = this.props
+    if(asset.file_name.match(/\.csv$/)) {
+      this.setState({ delimiter: ',' })
+    } else if(asset.file_name.match(/\.tsv$/)) {
+      this.setState({ delimiter: '\t' })
+    }
   }
 
   _handleNext() {

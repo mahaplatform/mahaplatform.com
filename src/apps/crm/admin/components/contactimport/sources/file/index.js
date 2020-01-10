@@ -1,10 +1,10 @@
 import Attachment from './attachment'
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Mappings from './mappings'
 import Preview from './preview'
 import Import from './import'
 import React from 'react'
-import Map from './map'
 
 class File extends React.PureComponent {
 
@@ -23,7 +23,7 @@ class File extends React.PureComponent {
   _handleBack = this._handleBack.bind(this)
   _handleDone = this._handleDone.bind(this)
   _handleImport = this._handleImport.bind(this)
-  _handleMap = this._handleMap.bind(this)
+  _handleMappings = this._handleMappings.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handlePreview = this._handlePreview.bind(this)
   _handlePush = this._handlePush.bind(this)
@@ -57,11 +57,13 @@ class File extends React.PureComponent {
     }
   }
 
-  _getMap(asset, parse, headers) {
+  _getMappings(asset, parse, headers) {
     return {
       asset,
       parse,
       headers,
+      onPop: this._handlePop,
+      onPush: this._handlePush,
       onBack: this._handlePop,
       onDone: this._handleImport
     }
@@ -71,7 +73,7 @@ class File extends React.PureComponent {
     return {
       asset,
       onBack: this._handlePop,
-      onDone: this._handleMap
+      onDone: this._handleMappings
     }
   }
 
@@ -91,8 +93,8 @@ class File extends React.PureComponent {
     this._handlePush(Import, this._getImport(asset, parse, mapping))
   }
 
-  _handleMap(asset, parse, headers) {
-    this._handlePush(Map, this._getMap(asset, parse, headers))
+  _handleMappings(asset, parse, headers) {
+    this._handlePush(Mappings, this._getMappings(asset, parse, headers))
   }
 
   _handleDone(_import) {

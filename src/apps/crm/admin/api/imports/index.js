@@ -4,6 +4,7 @@ import destroy from './destroy'
 import create from './create'
 import update from './update'
 import fields from './fields'
+import parse from './parse'
 import edit from './edit'
 import list from './list'
 import show from './show'
@@ -17,6 +18,8 @@ router.post('/', create)
 router.post('/preview', preview)
 
 router.get('/fields', fields)
+
+router.post('/parse', parse)
 
 router.get('/:id', show)
 

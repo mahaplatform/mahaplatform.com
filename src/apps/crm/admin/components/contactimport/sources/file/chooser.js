@@ -1,5 +1,6 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import React from 'react'
+import _ from 'lodash'
 
 class Chooser extends React.Component {
 
@@ -31,14 +32,23 @@ class Chooser extends React.Component {
         )) }
       </div>
     )
+  }
 
+  componentDidMount() {
+    const { defaultValue, options } = this.props
+    const active = _.findIndex(options, { key: defaultValue })
+    this._handleChoose(active)
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { options, onChange } = this.props
+    const { defaultValue, options, onChange } = this.props
     const { active } = this.state
     if(active !== prevState.active) {
       onChange(options[active].key)
+    }
+    if(defaultValue !== prevProps.defaultValue) {
+      const active = _.findIndex(options, { key: defaultValue })
+      this._handleChoose(active)
     }
   }
 

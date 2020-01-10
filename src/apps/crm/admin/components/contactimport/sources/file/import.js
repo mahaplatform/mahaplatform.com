@@ -4,7 +4,14 @@ import React from 'react'
 
 class Import extends React.Component {
 
+  static contextTypes = {
+    network: PropTypes.object
+  }
+
   static propTypes = {
+    asset: PropTypes.object,
+    mapping: PropTypes.object,
+    parse: PropTypes.object,
     onBack: PropTypes.func,
     onDone: PropTypes.func
   }
@@ -25,6 +32,11 @@ class Import extends React.Component {
       </ModalPanel>
     )
   }
+
+  componentDidMount() {
+    this._handleCreate()
+  }
+
 
   _getPanel() {
     // const { status } = this.props
@@ -55,6 +67,19 @@ class Import extends React.Component {
 
   _handleBack() {
     this.props.onBack()
+  }
+
+  _handleCreate() {
+    const { asset, parse, mapping } = this.props
+    this.context.network.request({
+      endpoint: '/api/admin/crm/imports/parse',
+      method: 'post',
+      body: {
+        asset_id: asset.id,
+        parse,
+        mapping
+      }
+    })
   }
 
   _handleDone() {

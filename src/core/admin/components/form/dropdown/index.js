@@ -36,11 +36,13 @@ class Dropdown extends React.Component {
     return (
       <div className="maha-dropdown">
         <div className={ this._getDropdownClass() } onClick={ this._handleOpen }>
-          <div className="text" onClick={ this._handleOpen }>{ this._getLabel() }</div>
-          <i className="dropdown icon"></i>
+          <div className="text" onClick={ this._handleOpen }>
+            { this._getLabel() }
+          </div>
+          <i className="dropdown icon" />
           <div className={ this._getMenuClass() }>
             { options.map((option, index) => (
-              <div key={`option_${index}`} {...this._getOption(option)}>
+              <div key={`option_${index}`} className="item" onClick={ this._handleChoose.bind(this, option.value) }>
                 { option.text }
               </div>
             )) }
@@ -49,13 +51,6 @@ class Dropdown extends React.Component {
       </div>
     )
   }
-
-  _getOptions() {
-    return this.props.options.map(option => {
-      return _.isString(option) ? { value: option, text: option } : option
-    })
-  }
-
   componentDidMount() {
     const { defaultValue, onReady } = this.props
     if(defaultValue) this.setValue(defaultValue)
@@ -103,16 +98,16 @@ class Dropdown extends React.Component {
 
   _getLabel() {
     const { value } = this.state
-    const { options, placeholder } = this.props
+    const { placeholder } = this.props
+    const options = this._getOptions()
     const option = _.find(options, { value })
     return option ? option.text : placeholder
   }
 
-  _getOption(option) {
-    return {
-      className: 'item',
-      onClick: this._handleChoose.bind(this, option.value)
-    }
+  _getOptions() {
+    return this.props.options.map(option => {
+      return _.isString(option) ? { value: option, text: option } : option
+    })
   }
 
   _handleOpen(e) {
