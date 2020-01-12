@@ -31,7 +31,10 @@ const token = async ({ code }, scope) => {
     profile_id: profile.encoded_account_id,
     name: `${profile.first_name} ${profile.last_name}`,
     username: profile.organization_name,
-    data
+    data: {
+      code,
+      ...data
+    }
   }]
 
 }

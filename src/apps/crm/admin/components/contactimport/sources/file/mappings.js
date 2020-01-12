@@ -1,4 +1,4 @@
-import { Button, Container, Loader, ModalPanel } from 'maha-admin'
+import { Container, Loader, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Mapping from './mapping'
 import React from 'react'
@@ -63,14 +63,6 @@ class Mappings extends React.PureComponent {
     this._handleInitialMappings()
   }
 
-  _getButton(mapping) {
-    return {
-      label: 'Configure',
-      color: 'blue',
-      handler: this._handleMapping.bind(this, mapping)
-    }
-  }
-
   _getMapping(mapping) {
     const { onPop } = this.props
     return {
@@ -92,14 +84,18 @@ class Mappings extends React.PureComponent {
   }
 
   _getPanel() {
+    const { mappings } = this.state
+    const mapped = mappings.find(mapping => {
+      return mapping.field === null
+    }) === undefined
     return {
       title: 'Map Columns',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
       ],
-      rightItems: [
+      rightItems: mapped ? [
         { label: 'Next', handler: this._handleDone }
-      ]
+      ] : null
     }
   }
 
@@ -127,6 +123,16 @@ class Mappings extends React.PureComponent {
         return { header, field: 'email', type: 'email' }
       } else if(_.includes(['phone','phonenumber'], text)) {
         return { header, field: 'phone', type: 'phone' }
+      } else if(_.includes(['street','street1'], text)) {
+        return { header, field: 'street_1', type: 'text' }
+      } else if(_.includes(['street2'], text)) {
+        return { header, field: 'street_2', type: 'text' }
+      } else if(_.includes(['city'], text)) {
+        return { header, field: 'city', type: 'text' }
+      } else if(_.includes(['state','province','stateprovince'], text)) {
+        return { header, field: 'state_province', type: 'text' }
+      } else if(_.includes(['zip','zipcode','postalcode'], text)) {
+        return { header, field: 'postal_code', type: 'text' }
       } else {
         return { header, field: null, type: null }
       }

@@ -52,7 +52,6 @@ class File extends React.PureComponent {
       asset,
       parse,
       mapping,
-      onBack: this._handlePop,
       onDone: this._handleDone
     }
   }

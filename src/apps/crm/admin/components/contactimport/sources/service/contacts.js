@@ -5,8 +5,6 @@ import React from 'react'
 
 class Contacts extends React.PureComponent {
 
-  static contextTypes = {}
-
   static propTypes = {
     source: PropTypes.object,
     onBack: PropTypes.func,
@@ -14,8 +12,6 @@ class Contacts extends React.PureComponent {
     onPop: PropTypes.func,
     onPush: PropTypes.func
   }
-
-  static defaultProps = {}
 
   state = {
     conatcts: []
@@ -33,10 +29,10 @@ class Contacts extends React.PureComponent {
   }
 
   _getImport() {
+    const { source, onDone } = this.props
     return {
-      onDone: PropTypes.func,
-      onPop: PropTypes.func,
-      onPush: PropTypes.func
+      source,
+      onDone
     }
   }
 
@@ -47,7 +43,7 @@ class Contacts extends React.PureComponent {
         { icon: 'chevron-left', handler: this._handleCancel }
       ],
       rightItems: [
-        { label: 'Next', handler: this._handleImport }
+        { label: 'Next', handler: this._handleDone }
       ]
     }
   }
@@ -70,7 +66,7 @@ class Contacts extends React.PureComponent {
     this.props.onBack()
   }
 
-  _handleImport() {
+  _handleDone() {
     this.props.onPush(Import, this._getImport())
   }
 

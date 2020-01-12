@@ -79,6 +79,7 @@
     "box-node-sdk": "^1.16.1",
     "braintree": "^2.21.0",
     "braintree-web": "^3.55.0",
+    "btoa": "^1.2.1",
     "bull": "^3.7.0",
     "bull-arena": "^2.6.2",
     "bytes": "^3.1.0",

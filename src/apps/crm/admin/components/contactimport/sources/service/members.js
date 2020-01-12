@@ -6,9 +6,11 @@ import React from 'react'
 class Members extends React.PureComponent {
 
   static propTypes = {
-    endpoint: PropTypes.string,
+    source: PropTypes.object,
+    list_id: PropTypes.string,
+    onDone: PropTypes.func,
     onBack: PropTypes.func,
-    onDone: PropTypes.func
+    onPush: PropTypes.func
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -20,6 +22,15 @@ class Members extends React.PureComponent {
         <Infinite { ...this._getInfinite() } />
       </ModalPanel>
     )
+  }
+
+  _getImport() {
+    const { source, list_id, onDone } = this.props
+    return {
+      source,
+      list_id,
+      onDone
+    }
   }
 
   _getPanel() {
@@ -35,14 +46,14 @@ class Members extends React.PureComponent {
   }
 
   _getInfinite() {
-    const { endpoint } = this.props
+    const { source, list_id } = this.props
     const empty = {
       icon: 'user',
       title: 'No Contacts',
       text: 'There are no contacts available'
     }
     return {
-      endpoint,
+      endpoint: `/api/admin/profiles/${source.id}/lists/${list_id}/members`,
       layout: Results,
       empty: <Message {...empty} />
     }
@@ -52,7 +63,7 @@ class Members extends React.PureComponent {
     this.props.onBack()
   }
 
-  _handleImport() {
+  _handleDone() {
     this.props.onPush(Import, this._getImport())
   }
 

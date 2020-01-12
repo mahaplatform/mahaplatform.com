@@ -52,11 +52,13 @@ class Lists extends React.PureComponent {
   }
 
   _getMembers(list_id) {
-    const { source, onBack, onDone } = this.props
+    const { source, onDone, onBack, onPush } = this.props
     return {
-      endpoint: `/api/admin/profiles/${source.id}/lists/${list_id}/members`,
+      source,
+      list_id,
+      onDone,
       onBack,
-      onDone
+      onPush
     }
   }
 

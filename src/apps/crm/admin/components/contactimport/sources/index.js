@@ -25,7 +25,6 @@ class Sources extends React.PureComponent {
   }
 
   _handleCancel = this._handleCancel.bind(this)
-  _handleDone = this._handleDone.bind(this)
   _handleFetch = this._handleFetch.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
@@ -118,10 +117,10 @@ class Sources extends React.PureComponent {
   }
 
   _getSource(source) {
-    const { onPop, onPush } = this.props
+    const { onDone, onPop, onPush } = this.props
     return {
       source,
-      onDone: this._handleDone,
+      onDone,
       onBack: onPop,
       onPop,
       onPush
@@ -134,10 +133,6 @@ class Sources extends React.PureComponent {
 
   _handleClick(source) {
     this.props.onPush(source.component, this._getSource(source))
-  }
-
-  _handleDone(_import) {
-    this.props.onDone(_import)
   }
 
   _handleFetch() {
