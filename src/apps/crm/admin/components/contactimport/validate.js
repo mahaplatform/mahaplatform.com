@@ -7,9 +7,11 @@ class Validate extends React.PureComponent {
 
   static propTypes = {
     _import: PropTypes.object,
+    onBack: PropTypes.func,
     onDone: PropTypes.func
   }
 
+  _handleBack = this._handleBack.bind(this)
   _handleDone = this._handleDone.bind(this)
 
   render() {
@@ -89,7 +91,13 @@ class Validate extends React.PureComponent {
 
   _getPanel() {
     return {
-      title: 'Validating'
+      title: 'Validating',
+      leftItems: [
+        { icon: 'chevron-left', handler: this._handleBack }
+      ],
+      rightItems: [
+        { label: 'Import', handler: this._handleDone }
+      ]
     }
   }
 
@@ -119,6 +127,10 @@ class Validate extends React.PureComponent {
     if(strategy === 'dischard') return 'merged (discharded)'
     if(strategy === 'create') return 'created as new'
     return 'handled'
+  }
+
+  _handleBack() {
+    this.props.onBack()
   }
 
   _handleDone() {

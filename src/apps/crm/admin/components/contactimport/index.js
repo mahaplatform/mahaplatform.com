@@ -1,5 +1,6 @@
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Finalize from './finalize'
 import Validate from './validate'
 import Sources from './sources'
 import Process from './process'
@@ -18,6 +19,7 @@ class ContactImport extends React.PureComponent {
   }
 
   _handleDone = this._handleDone.bind(this)
+  _handleFinalize = this._handleFinalize.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handleProcess = this._handleProcess.bind(this)
   _handlePush = this._handlePush.bind(this)
@@ -35,6 +37,13 @@ class ContactImport extends React.PureComponent {
     this._handlePush(Sources, this._getSources())
   }
 
+  _getFinalize(_import) {
+    return {
+      _import,
+      onDone: this._handleValidate
+    }
+  }
+
   _getProcess(_import) {
     return {
       _import,
@@ -45,7 +54,7 @@ class ContactImport extends React.PureComponent {
   _getSources() {
     return {
       onPop: this._handlePop,
-      onDone: this._handleValidate,
+      onDone: this._handleFinalize,
       onPush: this._handlePush
     }
   }
@@ -61,12 +70,17 @@ class ContactImport extends React.PureComponent {
   _getValidate(_import) {
     return {
       _import: _import,
+      onBack: this._handlePop,
       onDone: this._handleProcess
     }
   }
 
   _handleDone() {
     this.context.modal.close()
+  }
+
+  _handleFinalize(_import) {
+    this._handlePush(Finalize, this._getFinalize(_import))
   }
 
   _handleProcess(_import) {
