@@ -1,21 +1,27 @@
-import Validating from './validating'
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Validate from './validate'
 import Sources from './sources'
+import Process from './process'
 import React from 'react'
 
 class ContactImport extends React.PureComponent {
 
-  static propTypes = {
+  static contextTypes = {
+    modal: PropTypes.object
   }
+
+  static propTypes = {}
 
   state = {
     cards: []
   }
 
-  _handlePush = this._handlePush.bind(this)
+  _handleDone = this._handleDone.bind(this)
   _handlePop = this._handlePop.bind(this)
-  _handleValidating = this._handleValidating.bind(this)
+  _handleProcess = this._handleProcess.bind(this)
+  _handlePush = this._handlePush.bind(this)
+  _handleValidate = this._handleValidate.bind(this)
 
   render() {
     return (
@@ -29,10 +35,17 @@ class ContactImport extends React.PureComponent {
     this._handlePush(Sources, this._getSources())
   }
 
+  _getProcess(_import) {
+    return {
+      _import,
+      onDone: this._handleDone
+    }
+  }
+
   _getSources() {
     return {
       onPop: this._handlePop,
-      onDone: this._handleValidating,
+      onDone: this._handleValidate,
       onPush: this._handlePush
     }
   }
@@ -45,8 +58,19 @@ class ContactImport extends React.PureComponent {
     }
   }
 
-  _getValidating() {
+  _getValidate(_import) {
+    return {
+      _import: _import,
+      onDone: this._handleProcess
+    }
+  }
 
+  _handleDone() {
+    this.context.modal.close()
+  }
+
+  _handleProcess(_import) {
+    this._handlePush(Process, this._getProcess(_import))
   }
 
   _handlePop(index = -1) {
@@ -64,8 +88,8 @@ class ContactImport extends React.PureComponent {
     })
   }
 
-  _handleValidating() {
-    this._handlePush(Validating, this._getValidating())
+  _handleValidate(_import) {
+    this._handlePush(Validate, this._getValidate(_import))
   }
 
 }

@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import _process from './process'
 import preview from './preview'
 import destroy from './destroy'
 import create from './create'
@@ -21,6 +22,8 @@ router.get('/fields', fields)
 router.get('/:id', show)
 
 router.get('/:id/edit', edit)
+
+router.patch('/:id/process', _process)
 
 router.patch('/:id', update)
 
