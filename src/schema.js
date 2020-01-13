@@ -3118,6 +3118,15 @@ union
     `)
 
     await knex.raw(`
+      create view crm_interest_counts AS
+      select crm_topics.id as topic_id,
+      count(crm_interests.*) as interest_count
+      from (crm_topics
+      left join crm_interests on ((crm_interests.topic_id = crm_topics.id)))
+      group by crm_topics.id;
+    `)
+
+    await knex.raw(`
       create view crm_program_user_access AS
       select distinct on (accesses.program_id, accesses.user_id) accesses.program_id,
       accesses.user_id,
@@ -3150,6 +3159,15 @@ union
       from (crm_program_accesses
       join maha_users on ((maha_users.id = crm_program_accesses.user_id)))) accesses
       order by accesses.program_id, accesses.user_id, accesses.type;
+    `)
+
+    await knex.raw(`
+      create view crm_subscription_counts AS
+      select crm_lists.id as list_id,
+      count(crm_subscriptions.*) as subscription_count
+      from (crm_lists
+      left join crm_subscriptions on ((crm_subscriptions.list_id = crm_lists.id)))
+      group by crm_lists.id;
     `)
 
     await knex.raw(`
@@ -3784,28 +3802,28 @@ union
       where (maha_import_items.is_ignored = true)
       group by maha_import_items.import_id
       )
-      select items.import_id,
-      coalesce(items.total, (0)::bigint) as item_count,
-      coalesce(valid.total, (0)::bigint) as valid_count,
-      coalesce(errors.total, (0)::bigint) as error_count,
-      coalesce(omitted.total, (0)::bigint) as omit_count,
-      coalesce(dupicates.total, (0)::bigint) as duplicate_count,
-      coalesce(nonunique.total, (0)::bigint) as nonunique_count,
-      coalesce(completed.total, (0)::bigint) as completed_count,
-      coalesce(created.total, (0)::bigint) as created_count,
-      coalesce(merged.total, (0)::bigint) as merged_count,
-      coalesce(ignored.total, (0)::bigint) as ignored_count
-      from (((((((((items
-      left join created on ((created.import_id = items.import_id)))
-      left join merged on ((merged.import_id = items.import_id)))
-      left join ignored on ((ignored.import_id = items.import_id)))
-      left join valid on ((valid.import_id = items.import_id)))
-      left join errors on ((errors.import_id = items.import_id)))
-      left join omitted on ((omitted.import_id = items.import_id)))
-      left join dupicates on ((dupicates.import_id = items.import_id)))
-      left join nonunique on ((nonunique.import_id = items.import_id)))
-      left join completed on ((completed.import_id = items.import_id)))
-      order by items.import_id;
+      select maha_imports.id as import_id,
+      (coalesce(items.total, (0)::bigint))::integer as item_count,
+      (coalesce(valid.total, (0)::bigint))::integer as valid_count,
+      (coalesce(errors.total, (0)::bigint))::integer as error_count,
+      (coalesce(omitted.total, (0)::bigint))::integer as omit_count,
+      (coalesce(dupicates.total, (0)::bigint))::integer as duplicate_count,
+      (coalesce(nonunique.total, (0)::bigint))::integer as nonunique_count,
+      (coalesce(completed.total, (0)::bigint))::integer as completed_count,
+      (coalesce(created.total, (0)::bigint))::integer as created_count,
+      (coalesce(merged.total, (0)::bigint))::integer as merged_count,
+      (coalesce(ignored.total, (0)::bigint))::integer as ignored_count
+      from ((((((((((maha_imports
+      left join items on ((items.import_id = maha_imports.id)))
+      left join created on ((created.import_id = maha_imports.id)))
+      left join merged on ((merged.import_id = maha_imports.id)))
+      left join ignored on ((ignored.import_id = maha_imports.id)))
+      left join valid on ((valid.import_id = maha_imports.id)))
+      left join errors on ((errors.import_id = maha_imports.id)))
+      left join omitted on ((omitted.import_id = maha_imports.id)))
+      left join dupicates on ((dupicates.import_id = maha_imports.id)))
+      left join nonunique on ((nonunique.import_id = maha_imports.id)))
+      left join completed on ((completed.import_id = maha_imports.id)));
     `)
 
     await knex.raw(`
