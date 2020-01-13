@@ -1,59 +1,83 @@
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { ModalPanel } from 'maha-admin'
 import React from 'react'
+import _ from 'lodash'
 
 class Mapping extends React.PureComponent {
 
   static propTypes = {
+    mappings: PropTypes.array,
     mapping: PropTypes.object,
-    options: PropTypes.array,
+    fields: PropTypes.array,
     onBack: PropTypes.func,
     onDone: PropTypes.func
   }
 
   _handleCancel = this._handleCancel.bind(this)
-  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    return <Form { ...this._getForm() } />
+    const { fields } = this.props
+    return (
+      <ModalPanel { ...this._getPanel() }>
+        <div className="maha-search-options">
+          <div className="maha-search-results">
+            { fields.map((segment, index) => (
+              <div className="maha-search-segment" key={`segment_${index}`}>
+                <div className="maha-search-header">
+                  { segment.label }
+                </div>
+                { segment.fields.map((field, index) => (
+                  <div key={`filter_${index}`} className={ this._getClass(field.name) } onClick={ this._handleChoose.bind(this, field.name) }>
+                    <div className="maha-search-item-label padded">
+                      { field.label }
+                    </div>
+                    <div className="maha-search-item-icon">
+                      { this._getChecked(field.name) &&
+                        <i className="fa fa-fw fa-check" />
+                      }
+                    </div>
+                  </div>
+                )) }
+              </div>
+            )) }
+          </div>
+        </div>
+      </ModalPanel>
+    )
   }
 
-  _getForm() {
-    const { mapping, options } = this.props
+  _getClass(field) {
+    const { mapping, mappings } = this.props
+    const mapped = _.find(mappings, { field })
+    const classes = ['maha-search-item']
+    if(mapped && mapped.header !== mapping.header) classes.push('disabled')
+    return classes.join(' ')
+  }
+
+  _getChecked(field) {
+    const { mapping } = this.props
+    return mapping.field === field
+  }
+
+  _getPanel() {
     return {
-      title: 'Map Field',
-      cancelIcon: 'chevron-left',
-      onCancel: this._handleCancel,
-      onSubmit: this._handleSubmit,
-      sections: [
-        {
-          fields: [
-            { label: 'Field', name: 'field', type: 'dropdown', required: true, options, defaultValue: mapping.field },
-            { label: 'Type', name: 'type', type: 'dropdown', required: true, options: this._getTypes(), defaultValue: mapping.field }
-          ]
-        }
+      title: 'Choose Field',
+      leftItems: [
+        { icon : 'chevron-left', handler: this._handleCancel }
       ]
     }
-  }
-
-  _getTypes() {
-    return [
-      {
-        value: 'text',
-        text: 'Text'
-      }, {
-        value: 'upload',
-        text: 'Image or file upload'
-      }
-    ]
   }
 
   _handleCancel() {
     this.props.onBack()
   }
 
-  _handleSubmit(mapping) {
-    this.props.onDone(mapping)
+  _handleChoose(field) {
+    const { mapping } = this.props
+    this.props.onDone({
+      ...mapping,
+      field
+    })
   }
 
 }

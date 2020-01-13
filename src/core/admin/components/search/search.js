@@ -40,8 +40,13 @@ class Search extends React.Component {
 
 
   render() {
-    const { endpoint } = this.props
-    if(!endpoint) return <Options { ...this._getOptions() }  />
+    if(!this.props.endpoint) {
+      return (
+        <div className="maha-search-options">
+          <Options { ...this._getOptions() }  />
+        </div>
+      )
+    }
     return (
       <div className="maha-search">
         <div className="maha-search-header">

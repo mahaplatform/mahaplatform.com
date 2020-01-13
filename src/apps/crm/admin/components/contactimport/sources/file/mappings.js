@@ -38,7 +38,7 @@ class Mappings extends React.PureComponent {
         <table className="ui unstackable table">
           <thead>
             <tr>
-              <th>Header</th>
+              <th>Column</th>
               <th>Field</th>
               <th className="collapsing"></th>
             </tr>
@@ -49,7 +49,7 @@ class Mappings extends React.PureComponent {
                 <td>
                   { typeof mapping.header === 'number' ? `Column ${mapping.header + 1}` : mapping.header }
                 </td>
-                <td>{ mapping.field }</td>
+                <td>{ this._getFieldLabel(mapping.field) }</td>
                 <td><i className="fa fa-chevron-right" /></td>
               </tr>
             ))}
@@ -63,24 +63,30 @@ class Mappings extends React.PureComponent {
     this._handleInitialMappings()
   }
 
+  _getFields() {
+    const { fields } = this.props
+    return fields.reduce((fields, segments) => [
+      ...fields,
+      ...segments.fields
+    ], [])
+  }
+
+  _getFieldLabel(name) {
+    const fields = this._getFields()
+    const field = _.find(fields, { name })
+    return field.label
+  }
+
   _getMapping(mapping) {
-    const { onPop } = this.props
+    const { fields, onPop } = this.props
+    const { mappings } = this.state
     return {
+      fields,
+      mappings,
       mapping,
-      options: this._getOptions(mapping.field),
       onBack: onPop,
       onDone: this._handleMap.bind(this, mapping.header)
     }
-  }
-
-  _getOptions(current) {
-    const { fields } = this.props
-    const { mappings } = this.state
-    return fields.filter(field => {
-      return Object.values(mappings).find(mapping => {
-        return mapping.field !== current && mapping.field === field
-      }) === undefined
-    })
   }
 
   _getPanel() {
@@ -125,19 +131,19 @@ class Mappings extends React.PureComponent {
       } else if(_.includes(['lastname','lname'], text)) {
         return { header, field: 'last_name', type: 'text' }
       } else if(_.includes(['email','emailaddress'], text)) {
-        return { header, field: 'email', type: 'email' }
+        return { header, field: 'email_1', type: 'email' }
       } else if(_.includes(['phone','phonenumber'], text)) {
-        return { header, field: 'phone', type: 'phone' }
-      } else if(_.includes(['street','street1'], text)) {
-        return { header, field: 'street_1', type: 'text' }
-      } else if(_.includes(['street2'], text)) {
-        return { header, field: 'street_2', type: 'text' }
+        return { header, field: 'phone_1', type: 'phone' }
+      } else if(_.includes(['street','street1','address','address1'], text)) {
+        return { header, field: 'address_1_street_1', type: 'text' }
+      } else if(_.includes(['street2','address2'], text)) {
+        return { header, field: 'address_1_street_2', type: 'text' }
       } else if(_.includes(['city'], text)) {
-        return { header, field: 'city', type: 'text' }
+        return { header, field: 'address_1_city', type: 'text' }
       } else if(_.includes(['state','province','stateprovince'], text)) {
-        return { header, field: 'state_province', type: 'text' }
+        return { header, field: 'address_1_state_province', type: 'text' }
       } else if(_.includes(['zip','zipcode','postalcode'], text)) {
-        return { header, field: 'postal_code', type: 'text' }
+        return { header, field: 'address_1_postal_code', type: 'text' }
       } else {
         return { header, field: null, type: null }
       }

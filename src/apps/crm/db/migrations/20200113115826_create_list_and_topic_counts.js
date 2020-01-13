@@ -3,7 +3,7 @@ const CreateListAndTopicCounts = {
   up: async (knex) => {
 
     await knex.raw(`
-      create or replace view crm_subscription_counts as
+      create view crm_subscription_counts as
       select
       crm_lists.id as list_id,
       cast(count(crm_subscriptions.*) as integer) as subscription_count
@@ -13,7 +13,7 @@ const CreateListAndTopicCounts = {
     `)
 
     await knex.raw(`
-      create or replace view crm_interest_counts as
+      create view crm_interest_counts as
       select
       crm_topics.id as topic_id,
       cast(count(crm_interests.*) as integer) as interest_count
