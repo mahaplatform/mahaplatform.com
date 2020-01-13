@@ -4,18 +4,14 @@ import React from 'react'
 
 class Configure extends React.PureComponent {
 
-  static contextTypes = {}
-
   static propTypes = {
-    contacts: PropTypes.array,
-    onPop: PropTypes.func,
-    onPush: PropTypes.func
+    params: PropTypes.object,
+    onBack: PropTypes.func,
+    onDone: PropTypes.func
   }
 
-  static defaultProps = {}
-
   _handleCancel = this._handleCancel.bind(this)
-  _handleSuccess = this._handleSuccess.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     return <Form { ...this._getForm() } />
@@ -27,7 +23,7 @@ class Configure extends React.PureComponent {
       cancelIcon: 'chevron-left',
       saveText: 'Next',
       onCancel: this._handleCancel,
-      onSuccess: this._handleSuccess,
+      onSubmit: this._handleSubmit,
       sections: [
         {
           fields: [
@@ -39,14 +35,17 @@ class Configure extends React.PureComponent {
     }
   }
 
-  _handleSuccess() {
-
-  }
-
   _handleCancel() {
-    this.props.onPop(-2)
+    this.props.onBack()
   }
 
+  _handleSubmit(result) {
+    const { params } = this.props
+    this.props.onDone({
+      ...params,
+      ...result
+    })
+  }
 
 }
 

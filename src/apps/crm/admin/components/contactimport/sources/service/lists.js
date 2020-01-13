@@ -52,13 +52,12 @@ class Lists extends React.PureComponent {
   }
 
   _getMembers(list_id) {
-    const { source, onDone, onBack, onPush } = this.props
+    const { source, onDone, onBack } = this.props
     return {
       source,
       list_id,
       onDone,
-      onBack,
-      onPush
+      onBack
     }
   }
 

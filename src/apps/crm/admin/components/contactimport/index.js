@@ -1,4 +1,4 @@
-import Configure from './configure'
+import Validating from './validating'
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Sources from './sources'
@@ -9,15 +9,13 @@ class ContactImport extends React.PureComponent {
   static propTypes = {
   }
 
-  static defaultProps = {}
-
   state = {
     cards: []
   }
 
-  _handleConfigure = this._handleConfigure.bind(this)
   _handlePush = this._handlePush.bind(this)
   _handlePop = this._handlePop.bind(this)
+  _handleValidating = this._handleValidating.bind(this)
 
   render() {
     return (
@@ -31,17 +29,10 @@ class ContactImport extends React.PureComponent {
     this._handlePush(Sources, this._getSources())
   }
 
-  _getConfigure() {
-    return {
-      onPop: this._handlePop,
-      onPush: this._handlePush
-    }
-  }
-
   _getSources() {
     return {
       onPop: this._handlePop,
-      onDone: this._handleConfigure,
+      onDone: this._handleValidating,
       onPush: this._handlePush
     }
   }
@@ -54,9 +45,8 @@ class ContactImport extends React.PureComponent {
     }
   }
 
-  _handleConfigure(_import) {
-    console.log('import', _import)
-    this._handlePush(Configure, this._getConfigure())
+  _getValidating() {
+
   }
 
   _handlePop(index = -1) {
@@ -72,6 +62,10 @@ class ContactImport extends React.PureComponent {
         { component, props }
       ]
     })
+  }
+
+  _handleValidating() {
+    this._handlePush(Validating, this._getValidating())
   }
 
 }

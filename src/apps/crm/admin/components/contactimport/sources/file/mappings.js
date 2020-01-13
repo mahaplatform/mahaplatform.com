@@ -106,7 +106,12 @@ class Mappings extends React.PureComponent {
   _handleDone() {
     const { asset, parse } = this.props
     const { mappings } = this.state
-    this.props.onDone(asset, parse, mappings)
+    this.props.onDone({
+      asset_id: asset.id,
+      headers: parse.headers,
+      delimiter: parse.delimiter,
+      mapping: mappings
+    })
   }
 
   _handleInitialMappings() {

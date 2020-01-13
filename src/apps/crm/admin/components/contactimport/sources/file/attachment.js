@@ -11,8 +11,6 @@ class File extends React.PureComponent {
     onPush: PropTypes.func
   }
 
-  static defaultProps = {}
-
   _handleBack = this._handleBack.bind(this)
   _handleDone = this._handleDone.bind(this)
 

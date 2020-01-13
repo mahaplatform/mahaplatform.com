@@ -22,8 +22,6 @@ class New extends React.PureComponent {
     onPop: PropTypes.func
   }
 
-  static defaultProps = {}
-
   _handleBack = this._handleBack.bind(this)
 
   render() {
