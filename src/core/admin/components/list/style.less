@@ -1,6 +1,11 @@
 .maha-list {
   background-color: @white;
   margin-bottom: 0.8em;
+  .maha-list-section:last-child {
+    .maha-list-item:last-child {
+      border-bottom: none;
+    }
+  }
 }
 .maha-list-title {
   background-color: fadeout(@black, 95);
@@ -97,7 +102,7 @@
   padding: 0.8em 0.8em 0.8em 0;
   font-size: 0.8em;
   .fa {
-    margin: 0.8em auto;
+    margin: auto;
     color: fadeout(@black, 80);
     line-height: 1em;
     font-size: 1.2em;

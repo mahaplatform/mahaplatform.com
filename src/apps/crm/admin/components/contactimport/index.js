@@ -86,7 +86,9 @@ class ContactImport extends React.PureComponent {
     return {
       _import: _import,
       onBack: this._handlePop,
-      onDone: this._handleProcess
+      onDone: this._handleProcess,
+      onPop: this._handlePop,
+      onPush: this._handlePush
     }
   }
 

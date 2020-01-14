@@ -1,23 +1,34 @@
-import { Button, ModalPanel } from 'maha-admin'
+import { Button, Container, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
+import Review from './review'
+import Topics from './topics'
+import Lists from './lists'
 import React from 'react'
+import _ from 'lodash'
 
 class Summary extends React.PureComponent {
 
   static propTypes = {
     _import: PropTypes.object,
+    lists: PropTypes.array,
+    topics: PropTypes.array,
     onBack: PropTypes.func,
-    onDone: PropTypes.func
+    onDone: PropTypes.func,
+    onPop: PropTypes.func,
+    onPush: PropTypes.func
   }
 
   _handleBack = this._handleBack.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleEdit = this._handleEdit.bind(this)
+  _handleReview = this._handleReview.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
     const { _import } = this.props
-    const lists = [{ title: 'one' },{ title: 'two' },{ title: 'three' }]
-    const topics = [{ title: 'one' },{ title: 'two' },{ title: 'three' }]
+    const lists = this._getLists()
+    const topics = this._getTopics()
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="import-summary">
@@ -29,7 +40,7 @@ class Summary extends React.PureComponent {
               { pluralize('new contact', _import.valid_count, true) } will be created
             </div>
             <div className="import-summary-item-action">
-              <Button { ...this._getReview() } />
+              <Button { ...this._getReviewButton() } />
             </div>
           </div>
           { _import.strategy === 'ignore' && _import.duplicate_count > 0 &&
@@ -41,7 +52,7 @@ class Summary extends React.PureComponent {
                 { pluralize('record', _import.duplicate_count, true) } will be ignored
               </div>
               <div className="import-summary-item-action">
-                <Button { ...this._getStrategy() } />
+                <Button { ...this._getStrategyButton() } />
               </div>
             </div>
           }
@@ -54,7 +65,7 @@ class Summary extends React.PureComponent {
                 { pluralize('record', _import.duplicate_count, true) } will be merged, { this._getMerge() }
               </div>
               <div className="import-summary-item-action">
-                <Button { ...this._getStrategy() } />
+                <Button { ...this._getStrategyButton() } />
               </div>
             </div>
           }
@@ -67,8 +78,8 @@ class Summary extends React.PureComponent {
                 { pluralize('record', _import.error_count, true) } have errors
               </div>
               <div className="import-summary-item-action">
-                <Button { ...this._getSkip() } />
-                <Button { ...this._getFix() } />
+                <Button { ...this._getSkipButton() } />
+                <Button { ...this._getFixButton() } />
               </div>
             </div>
           }
@@ -81,7 +92,7 @@ class Summary extends React.PureComponent {
                 { pluralize('record', _import.omit_count, true) } with errors will be skipped
               </div>
               <div className="import-summary-item-action">
-                <Button { ...this._getStrategy() } />
+                <Button { ...this._getStrategyButton() } />
               </div>
             </div>
           }
@@ -98,7 +109,7 @@ class Summary extends React.PureComponent {
               </ul>
             </div>
             <div className="import-summary-item-action">
-              <Button { ...this._getLists() } />
+              <Button { ...this._getListsButton() } />
             </div>
           </div>
           <div className="import-summary-item">
@@ -114,7 +125,7 @@ class Summary extends React.PureComponent {
               </ul>
             </div>
             <div className="import-summary-item-action">
-              <Button { ...this._getTopics() } />
+              <Button { ...this._getTopicsButton() } />
             </div>
           </div>
         </div>
@@ -122,7 +133,7 @@ class Summary extends React.PureComponent {
     )
   }
 
-  _getFix() {
+  _getFixButton() {
     return {
       label: 'Fix Errors',
       className: 'ui mini button'
@@ -130,9 +141,17 @@ class Summary extends React.PureComponent {
   }
 
   _getLists() {
+    const { _import, lists } = this.props
+    return _import.config.list_ids.map(id => {
+      return _.find(lists, { id })
+    })
+  }
+
+  _getListsButton() {
     return {
       label: 'Change Lists',
-      className: 'ui mini button'
+      className: 'ui mini button',
+      handler: this._handleEdit.bind(this, Lists, this._getLists.bind(this))
     }
   }
 
@@ -151,21 +170,22 @@ class Summary extends React.PureComponent {
     }
   }
 
-  _getReview() {
+  _getReviewButton() {
     return {
       label: 'Review Records',
-      className: 'ui mini button'
+      className: 'ui mini button',
+      handler: this._handleReview
     }
   }
 
-  _getSkip() {
+  _getSkipButton() {
     return {
       label: 'Skip All',
       className: 'ui mini button'
     }
   }
 
-  _getStrategy() {
+  _getStrategyButton() {
     return {
       label: 'Change Strategy',
       className: 'ui mini button'
@@ -173,9 +193,17 @@ class Summary extends React.PureComponent {
   }
 
   _getTopics() {
+    const { _import, topics } = this.props
+    return _import.config.topic_ids.map(id => {
+      return _.find(topics, { id })
+    })
+  }
+
+  _getTopicsButton() {
     return {
       label: 'Change Topics',
-      className: 'ui mini button'
+      className: 'ui mini button',
+      handler: this._handleEdit.bind(this, Topics, this._getTopics.bind(this))
     }
   }
 
@@ -188,6 +216,32 @@ class Summary extends React.PureComponent {
     this.props.onDone(_import)
   }
 
+  _handleEdit(component, defaultValue) {
+    const { onPop } = this.props
+    this.props.onPush(component, {
+      defaultValue: defaultValue(),
+      onBack: onPop,
+      onDone: this._handleUpdate
+    })
+  }
+
+  _handleReview() {
+    const { onPop } = this.props
+    this.props.onPush(Review, {
+      onBack: onPop,
+      onDone: onPop
+    })
+  }
+
+  _handleUpdate(_import) {
+    this.props.onPop()
+  }
+
 }
 
-export default Summary
+const mapResources = (props, context) => ({
+  lists: '/api/admin/crm/lists',
+  topics: '/api/admin/crm/topics'
+})
+
+export default Container(mapResources)(Summary)

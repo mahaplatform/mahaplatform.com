@@ -19,7 +19,7 @@ const updateRoute = async (req, res) => {
   })
 
   await _import.save({
-    ...whitelist(req.body, ['stage','delimiter','headers','mapping','name','strategy'])
+    ...whitelist(req.body, ['stage','delimiter','headers','mapping','name','strategy','config'])
   }, {
     patch: true,
     transacting: req.trx

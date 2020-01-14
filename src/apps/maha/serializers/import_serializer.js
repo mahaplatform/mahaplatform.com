@@ -8,6 +8,7 @@ const importSerializer = (req, result) => ({
   user: user(result.related('user')),
   name: result.get('name'),
   strategy: result.get('strategy'),
+  config: result.get('config'),
   object_type: result.get('object_type'),
   item_count: result.get('item_count'),
   valid_count: result.get('valid_count'),

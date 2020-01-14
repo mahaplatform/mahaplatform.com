@@ -2,41 +2,43 @@ import { Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Finalize extends React.PureComponent {
+class Organize extends React.PureComponent {
 
   static propTypes = {
     _import: PropTypes.object,
     onDone: PropTypes.func
   }
 
-  _handleSubmit = this._handleSubmit.bind(this)
+  _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
     return <Form { ...this._getForm() } />
   }
 
   _getForm() {
+    const { _import } = this.props
     return {
-      title: 'Oraganize Contacts',
+      title: 'Organize Contacts',
+      action: `/api/admin/imports/${_import.id}`,
+      method: 'patch',
       cancelText: null,
       saveText: 'Next',
-      onSubmit: this._handleSubmit,
+      onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
-            { label: 'Subscribe contacts to the following lists', name: 'list_ids', type: 'lookup', endpoint: '/api/admin/crm/lists', value: 'id', text: 'title', multiple: true },
-            { label: 'Mark contacts as interested in the following topics', name: 'topic_ids', type: 'lookup', endpoint: '/api/admin/crm/topics', value: 'id', text: 'title', multiple: true }
+            { label: 'Subscribe contacts to the following lists', name: 'config.list_ids', type: 'lookup2', endpoint: '/api/admin/crm/lists', multiple: true, value: 'id', text: 'title' },
+            { label: 'Mark contacts as interested in the following topics', name: 'config.topic_ids', type: 'lookup2', endpoint: '/api/admin/crm/topics', multiple: true, value: 'id', text: 'title' }
           ]
         }
       ]
     }
   }
 
-  _handleSubmit(values) {
-    const { _import } = this.props
+  _handleSuccess(_import) {
     this.props.onDone(_import)
   }
 
 }
 
-export default Finalize
+export default Organize

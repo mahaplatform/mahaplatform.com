@@ -1419,6 +1419,7 @@ const schema = {
       table.timestamp('updated_at')
       table.USER-DEFINED('stage')
       table.USER-DEFINED('strategy')
+      table.json('config')
     })
 
     await knex.schema.createTable('maha_installations', (table) => {
