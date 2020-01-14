@@ -18,7 +18,6 @@ const list = async (req, profile) => {
   const records = result.data.connections ? result.data.connections.filter(contact => {
     return contact.names !== undefined
   }).map(contact => ({
-    id: contact.resourceName.replace('people/',''),
     first_name: contact.names ? contact.names[0].givenName || '' : '',
     last_name: contact.names ? contact.names[0].familyName || '' : '',
     photo: contact.photos ? contact.photos[0].url : null,
@@ -26,21 +25,16 @@ const list = async (req, profile) => {
       name: organization.name
     })) : [],
     email_addresses: contact.emailAddresses ? contact.emailAddresses.map(address => ({
-      is_primary: address.metadata.primary,
       address: address.value
     })) : [],
     phone_numbers: contact.phoneNumbers ? contact.phoneNumbers.map(number => ({
-      is_primary: number.metadata.primary,
       number: number.value
     })) : [],
     mailing_addresses: contact.addresses ? contact.addresses.map(address => ({
-      is_primary: address.metadata.primary,
-      description: address.formattedValue,
       street_1: address.streetAddress,
       city: address.city,
       state_province: address.region,
-      postal_code: address.postalCode,
-      country: address.countryCode
+      postal_code: address.postalCode
     })) : []
   })) : []
 

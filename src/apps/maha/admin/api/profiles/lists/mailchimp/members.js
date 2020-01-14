@@ -18,17 +18,27 @@ const members = async (req, profile) => {
     }
   })
 
-  const records = result.members.map(contact => ({
-    id: contact.id,
+  const records = result.members.filter(contact => {
+    return contact.status === 'subscribed'
+  }).map(contact => ({
     first_name: contact.merge_fields.FNAME,
     last_name: contact.merge_fields.LNAME,
+    mailing_addresses: contact.merge_fields.ADDRESS.addr1 ? [
+      {
+        street_1: contact.merge_fields.ADDRESS.addr1,
+        street_2: contact.merge_fields.ADDRESS.addr2,
+        city: contact.merge_fields.ADDRESS.city,
+        state_province: contact.merge_fields.ADDRESS.state,
+        postal_code: contact.merge_fields.ADDRESS.zip
+      }
+    ] : [],
     email_addresses: [
       { address: contact.email_address }
     ],
-    phone: contact.merge_fields.PHONE,
-    organization: null,
-    optedin: contact.status,
-    optedin_at: contact.timestamp_opt
+    phone_numbers: contact.merge_fields.PHONE ? [
+      { number: contact.merge_fields.PHONE }
+    ] : [],
+    organizations: []
   }))
 
   records.pagination = {

@@ -14,7 +14,6 @@ const list = async (req, profile) => {
   const result = await client.api(url).get()
 
   const records = result.value.map(entry => ({
-    id: entry.id,
     first_name: entry.givenName,
     last_name: entry.surname,
     photo: `/api/admin/profiles/${profile.get('id')}/contacts/${entry.id}/preview?token=${req.token}`,
@@ -29,23 +28,18 @@ const list = async (req, profile) => {
     })),
     phone_numbers: [
       ...entry.mobilePhone ? [{
-        is_primary: true,
         number: entry.mobilePhone
       }] : [],
       ...entry.businessPhones.map(number => ({
-        is_primary: false,
         number: number.number
       }))
     ],
     mailing_addresses: [
       ...entry.homeAddress ? [{
-        is_primary: true,
-        description: entry.homeAddress.formattedValue,
         street_1: entry.homeAddress.street,
         city: entry.homeAddress.city,
         state_province: entry.homeAddress.state,
-        postal_code: entry.homeAddress.postalCode,
-        country: entry.homeAddress.countryOrRegion
+        postal_code: entry.homeAddress.postalCode
       }]: []
     ]
   }))

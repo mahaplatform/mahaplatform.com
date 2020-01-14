@@ -11,6 +11,7 @@ const members = async (req, profile) => {
     method: 'GET',
     path: '/contacts',
     query: {
+      include: 'phone_numbers,street_addresses',
       cursor,
       lists: req.params.id,
       limit: 100,
@@ -18,17 +19,26 @@ const members = async (req, profile) => {
     }
   })
 
-  const records = result.contacts.map(contact => ({
-    id: contact.contact_id,
+  const records = result.contacts.filter(contact => {
+    return contact.email_address.permission_to_send
+  }).map(contact => ({
     first_name: contact.first_name,
     last_name: contact.last_name,
     email_addresses: [
       { address: contact.email_address.address }
     ],
-    phone: null,
-    organization: contact.company_name,
-    optedin: contact.email_address.permission_to_send,
-    optedin_at: contact.email_address.opt_in_date
+    mailing_addresses: contact.street_addresses ? contact.street_addresses.map(address => ({
+      street_1: address.street,
+      city: address.city,
+      state_province: address.state,
+      postal_code: address.postal_code
+    })) : [],
+    phone_numbers: contact.phone_numbers ? contact.phone_numbers.map(number => ({
+      number: number.phone_number
+    })) : [],
+    organizations: contact.company_name ? [
+      { name: contact.company_name }
+    ]: []
   }))
 
   const next = _.get(result, '_links.next.href')

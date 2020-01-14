@@ -24,8 +24,8 @@ class Finalize extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Lists', name: 'list_ids', type: 'lookup', endpoint: '/api/admin/crm/lists', key: 'id', value: 'title', multiple: true },
-            { label: 'Interests', name: 'topic_ids', type: 'lookup', endpoint: '/api/admin/crm/topics', key: 'id', value: 'title', multiple: true }
+            { label: 'Lists', name: 'list_ids', type: 'lookup', endpoint: '/api/admin/crm/lists', value: 'id', text: 'title', multiple: true },
+            { label: 'Interests', name: 'topic_ids', type: 'lookup', endpoint: '/api/admin/crm/topics', value: 'id', text: 'title', multiple: true }
           ]
         }
       ]

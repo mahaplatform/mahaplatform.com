@@ -23,7 +23,7 @@ class Mapping extends React.PureComponent {
           <div className="maha-search-results">
             { fields.map((segment, index) => (
               <div className="maha-search-segment" key={`segment_${index}`}>
-                <div className="maha-search-header">
+                <div className="maha-search-segment-title">
                   { segment.label }
                 </div>
                 { segment.fields.map((field, index) => (

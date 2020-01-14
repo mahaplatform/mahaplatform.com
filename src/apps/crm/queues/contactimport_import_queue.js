@@ -52,28 +52,29 @@ const getContacts = async (req, profile) => {
     req.params = { id: req.body.list_id }
     const members = await loadMembers(req, list, profile)
     return members.map(contact => ({
+      photo: contact.photo,
       first_name: contact.first_name,
       last_name: contact.last_name,
-      email_address: contact.email_addresses.length > 0 ? contact.email_addresses[0].address : null,
-      phone_number: contact.phone_number,
-      organization: contact.organization
+      organization_1: _.get(contact, 'organizations[0].name'),
+      email_1: _.get(contact, 'email_addresses[0].address'),
+      phone_1: _.get(contact, 'phone_numbers[0].number'),
+      address_1_street_1: _.get(contact, 'mailing_addresses[0].street_1'),
+      address_1_city: _.get(contact, 'mailing_addresses[0].city'),
+      address_1_state_province: _.get(contact, 'mailing_addresses[0].state_province'),
+      address_1_postal_code: _.get(contact, 'mailing_addresses[0].postal_code')
     }))
   } else {
     const contacts = await loadMembers(req, list, profile)
     return contacts.map(contact => ({
       first_name: contact.first_name,
       last_name: contact.last_name,
-      photo: contact.photo,
-      organization: contact.organizations.length > 0 ? contact.organizations[0].name : null,
-      email_address: contact.email_addresses.length > 0 ? contact.email_addresses[0].address : null,
-      phone_number: contact.phone_numbers.length > 0 ? contact.phone_numbers[0].number : null,
-      mailing_address: contact.mailing_addresses.length > 0 ? {
-        street_1: contact.mailing_addresses[0].street_1,
-        city: contact.mailing_addresses[0].city,
-        state_province: contact.mailing_addresses[0].state_province,
-        postal_code: contact.mailing_addresses[0].postal_code,
-        country: contact.mailing_addresses[0].country
-      } : null
+      organization_1: _.get(contact, 'organizations[0].name'),
+      email_1: _.get(contact, 'email_addresses[0].address'),
+      phone_1: _.get(contact, 'phone_numbers[0].number'),
+      address_1_street_1: _.get(contact, 'mailing_addresses[0].street_1'),
+      address_1_city: _.get(contact, 'mailing_addresses[0].city'),
+      address_1_state_province: _.get(contact, 'mailing_addresses[0].state_province'),
+      address_1_postal_code: _.get(contact, 'mailing_addresses[0].postal_code')
     }))
   }
 
@@ -101,8 +102,23 @@ const processor = async (job, trx) => {
     transacting: trx
   })
 
-
   const contacts = await getContacts(req, profile)
+
+  const _getType = (key) => {
+    if(key.match(/^phone/)) return 'phone'
+    if(key.match(/^photo/)) return 'image'
+    return 'text'
+  }
+
+  await imp.save({
+    mapping: Object.keys(contacts[0]).map(key => ({
+      header: key,
+      field: key,
+      type: _getType(key)
+    }))
+  },{
+    transacting: trx
+  })
 
   await Promise.mapSeries(contacts, async (values, index) => {
 

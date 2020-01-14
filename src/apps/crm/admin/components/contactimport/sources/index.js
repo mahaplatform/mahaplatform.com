@@ -77,9 +77,10 @@ class Sources extends React.PureComponent {
   }
 
   _getConfigure(params) {
+    const { onPop } = this.props
     return {
       params,
-      onBack: this._handlePop,
+      onBack: onPop,
       onDone: this._handleImport
     }
   }
@@ -88,7 +89,6 @@ class Sources extends React.PureComponent {
     const { onDone } = this.props
     return {
       params,
-      onBack: this._handlePop,
       onDone
     }
   }
