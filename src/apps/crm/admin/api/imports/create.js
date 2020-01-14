@@ -15,7 +15,8 @@ const createRoute = async (req, res) => {
     mapping: req.body.mapping,
     name: req.body.name,
     strategy: req.body.strategy,
-    stage: 'parsing'
+    stage: 'parsing',
+    config: {}
   }).save(null, {
     transacting: req.trx
   })

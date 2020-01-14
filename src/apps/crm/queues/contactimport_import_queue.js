@@ -8,6 +8,7 @@ import socket from '../../../core/services/emitter'
 import Queue from '../../../core/objects/queue'
 import Profile from '../../maha/models/profile'
 import Import from '../../maha/models/import'
+import Contact from '../models/contact'
 import _ from 'lodash'
 
 const getList = (service) => {
@@ -122,11 +123,17 @@ const processor = async (job, trx) => {
 
   await Promise.mapSeries(contacts, async (values, index) => {
 
+    const contact = values.email_1 ? await Contact.query(qb => {
+      if(values.email_1) qb.where('email', values.email_1)
+    }).fetch({
+      transacting: trx
+    }) : null
+
     await ImportItem.forge({
       import_id: imp.get('id'),
       values,
       is_valid: true,
-      is_duplicate: false,
+      is_duplicate: contact !== null,
       is_omitted: false,
       is_nonunique: false,
       is_merged: false,

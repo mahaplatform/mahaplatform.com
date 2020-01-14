@@ -8,6 +8,7 @@ const createRoute = async (req, res) => {
   const imp = await Import.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
+    config: {},
     ...whitelist(req.body, ['object_type','asset_id','stage','delimiter','headers','mapping','name','strategy'])
   }).save(null, {
     transacting: req.trx

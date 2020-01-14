@@ -1,6 +1,7 @@
 import { Button, Container, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
+import Strategy from './strategy'
 import Review from './review'
 import Topics from './topics'
 import Lists from './lists'
@@ -53,6 +54,7 @@ class Summary extends React.PureComponent {
               </div>
               <div className="import-summary-item-action">
                 <Button { ...this._getStrategyButton() } />
+                <Button { ...this._getReviewButton() } />
               </div>
             </div>
           }
@@ -100,14 +102,19 @@ class Summary extends React.PureComponent {
             <div className="import-summary-item-icon">
               <i className="fa fa-fw fa-users" />
             </div>
-            <div className="import-summary-item-label">
-              Contacts will be subscribed to the lists:
-              <ul>
-                { lists.map((list, index) => (
-                  <li key={`list_${index}`}>{ list.title }</li>
-                )) }
-              </ul>
-            </div>
+            { lists.length > 0 ?
+              <div className="import-summary-item-label">
+                Contacts will be subscribed to the lists:
+                <ul>
+                  { lists.map((list, index) => (
+                    <li key={`list_${index}`}>{ list.title }</li>
+                  )) }
+                </ul>
+              </div> :
+              <div className="import-summary-item-label">
+                Contacts will be not be subscribed to any lists
+              </div>
+            }
             <div className="import-summary-item-action">
               <Button { ...this._getListsButton() } />
             </div>
@@ -116,14 +123,19 @@ class Summary extends React.PureComponent {
             <div className="import-summary-item-icon">
               <i className="fa fa-fw fa-book" />
             </div>
-            <div className="import-summary-item-label">
-              Contacts will be marked as interested in the topics:
-              <ul>
-                { topics.map((topic, index) => (
-                  <li key={`topic_${index}`}>{ topic.title }</li>
-                )) }
-              </ul>
-            </div>
+            { topics.length > 0 ?
+              <div className="import-summary-item-label">
+                Contacts will be marked as interested in the topics:
+                <ul>
+                  { topics.map((topic, index) => (
+                    <li key={`topic_${index}`}>{ topic.title }</li>
+                  )) }
+                </ul>
+              </div> :
+              <div className="import-summary-item-label">
+                Contacts will not be marked as interested in any topics
+              </div>
+            }
             <div className="import-summary-item-action">
               <Button { ...this._getTopicsButton() } />
             </div>
@@ -136,22 +148,23 @@ class Summary extends React.PureComponent {
   _getFixButton() {
     return {
       label: 'Fix Errors',
-      className: 'ui mini button'
+      className: 'ui mini fluid button'
     }
   }
 
   _getLists() {
     const { _import, lists } = this.props
-    return _import.config.list_ids.map(id => {
+    const { list_ids } = _import.config
+    return list_ids ? list_ids.map(id => {
       return _.find(lists, { id })
-    })
+    }) : []
   }
 
   _getListsButton() {
     return {
-      label: 'Change Lists',
-      className: 'ui mini button',
-      handler: this._handleEdit.bind(this, Lists, this._getLists.bind(this))
+      label: 'Edit',
+      className: 'ui mini fluid button',
+      handler: this._handleEdit.bind(this, Lists)
     }
   }
 
@@ -163,47 +176,49 @@ class Summary extends React.PureComponent {
 
   _getPanel() {
     return {
-      title: 'Summary',
-      buttons: [
-        { label: 'Import Records', color: 'red', handler: this._handleDone  }
+      title: 'Review Import',
+      rightItems: [
+        { label: 'Next', color: 'red', handler: this._handleDone  }
       ]
     }
   }
 
   _getReviewButton() {
     return {
-      label: 'Review Records',
-      className: 'ui mini button',
+      label: 'Review',
+      className: 'ui mini fluid button',
       handler: this._handleReview
     }
   }
 
   _getSkipButton() {
     return {
-      label: 'Skip All',
-      className: 'ui mini button'
+      label: 'Skip',
+      className: 'ui mini fluid button'
     }
   }
 
   _getStrategyButton() {
     return {
-      label: 'Change Strategy',
-      className: 'ui mini button'
+      label: 'Edit',
+      className: 'ui mini fluid button',
+      handler: this._handleEdit.bind(this, Strategy)
     }
   }
 
   _getTopics() {
     const { _import, topics } = this.props
-    return _import.config.topic_ids.map(id => {
+    const { topic_ids } = _import.config
+    return topic_ids ? topic_ids.map(id => {
       return _.find(topics, { id })
-    })
+    }) : []
   }
 
   _getTopicsButton() {
     return {
-      label: 'Change Topics',
-      className: 'ui mini button',
-      handler: this._handleEdit.bind(this, Topics, this._getTopics.bind(this))
+      label: 'Edit',
+      className: 'ui mini fluid button',
+      handler: this._handleEdit.bind(this, Topics)
     }
   }
 
@@ -216,10 +231,10 @@ class Summary extends React.PureComponent {
     this.props.onDone(_import)
   }
 
-  _handleEdit(component, defaultValue) {
-    const { onPop } = this.props
+  _handleEdit(component) {
+    const { _import, onPop } = this.props
     this.props.onPush(component, {
-      defaultValue: defaultValue(),
+      _import,
       onBack: onPop,
       onDone: this._handleUpdate
     })
