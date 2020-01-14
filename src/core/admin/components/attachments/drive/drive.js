@@ -16,6 +16,7 @@ class Drive extends React.Component {
     allow: PropTypes.object,
     files: PropTypes.array,
     folders: PropTypes.array,
+    multiple: PropTypes.bool,
     q: PropTypes.string,
     onAdd: PropTypes.func,
     onBack: PropTypes.func,
@@ -49,13 +50,13 @@ class Drive extends React.Component {
   }
 
   _getPanel() {
-    const { files } = this.props
+    const { files, multiple } = this.props
     return {
       title: 'Choose File(s)',
       leftItems: [
         { icon: 'chevron-left', handler: this.props.onBack  }
       ],
-      rightItems: files.length > 0 ? [
+      rightItems: multiple && files.length > 0 ? [
         { label: 'Next', handler: this._handleNext }
       ] : []
     }

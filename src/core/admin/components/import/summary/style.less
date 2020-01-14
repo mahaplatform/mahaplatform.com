@@ -1,0 +1,56 @@
+.import-summary {
+  flex: 1;
+}
+.import-summary-item {
+  display: flex;
+  border-bottom: 1px solid fadeout(@black, 95);
+}
+.import-summary-item-icon {
+  display: flex;
+  padding: 0.8em;
+  .fa {
+    font-size: 1.6em;
+    margin: 0.2em auto auto;
+  }
+  .fa-check-circle {
+    color: @green;
+  }
+  .fa-compress {
+    color: @blue;
+  }
+  .fa-times-circle {
+    color: @red;
+  }
+  .fa-minus-circle {
+    color: @red;
+  }
+  .fa-warning {
+    color: @orange;
+  }
+  .fa-users {
+    color: @purple;
+  }
+  .fa-book {
+    color: @violet;
+  }
+}
+.import-summary-item-label {
+  line-height: 2em;
+  padding: 0.8em;
+  flex: 1;
+  ul {
+    margin: 0;
+    padding: 0 0 0 1.4em;
+  }
+  li {
+    color: fadeout(@black, 40);
+    line-height: 1.4em;
+  }
+}
+.import-summary-item-action {
+  display: flex;
+  padding: 0.8em;
+  .ui.button {
+    margin: 0.2em 0 auto 0.5em;
+  }
+}

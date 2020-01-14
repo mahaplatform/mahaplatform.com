@@ -17,15 +17,15 @@ class Finalize extends React.PureComponent {
 
   _getForm() {
     return {
-      title: 'Finalize Import',
+      title: 'Oraganize Contacts',
       cancelText: null,
       saveText: 'Next',
       onSubmit: this._handleSubmit,
       sections: [
         {
           fields: [
-            { label: 'Lists', name: 'list_ids', type: 'lookup', endpoint: '/api/admin/crm/lists', value: 'id', text: 'title', multiple: true },
-            { label: 'Interests', name: 'topic_ids', type: 'lookup', endpoint: '/api/admin/crm/topics', value: 'id', text: 'title', multiple: true }
+            { label: 'Subscribe contacts to the following lists', name: 'list_ids', type: 'lookup', endpoint: '/api/admin/crm/lists', value: 'id', text: 'title', multiple: true },
+            { label: 'Mark contacts as interested in the following topics', name: 'topic_ids', type: 'lookup', endpoint: '/api/admin/crm/topics', value: 'id', text: 'title', multiple: true }
           ]
         }
       ]

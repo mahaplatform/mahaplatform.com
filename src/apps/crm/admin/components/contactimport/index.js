@@ -1,7 +1,7 @@
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Finalize from './finalize'
-import Validate from './validate'
+import Organize from './organize'
+import Summary from './summary'
 import Sources from './sources'
 import Process from './process'
 import React from 'react'
@@ -19,11 +19,11 @@ class ContactImport extends React.PureComponent {
   }
 
   _handleDone = this._handleDone.bind(this)
-  _handleFinalize = this._handleFinalize.bind(this)
+  _handleOrganize = this._handleOrganize.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handleProcess = this._handleProcess.bind(this)
   _handlePush = this._handlePush.bind(this)
-  _handleValidate = this._handleValidate.bind(this)
+  _handleSummary = this._handleSummary.bind(this)
 
   render() {
     return (
@@ -37,10 +37,10 @@ class ContactImport extends React.PureComponent {
     this._handlePush(Sources, this._getSources())
   }
 
-  _getFinalize(_import) {
+  _getOrganize(_import) {
     return {
       _import,
-      onDone: this._handleValidate
+      onDone: this._handleSummary
     }
   }
 
@@ -54,7 +54,7 @@ class ContactImport extends React.PureComponent {
   _getSources() {
     return {
       onPop: this._handlePop,
-      onDone: this._handleFinalize,
+      onDone: this._handleOrganize,
       onPush: this._handlePush
     }
   }
@@ -67,7 +67,7 @@ class ContactImport extends React.PureComponent {
     }
   }
 
-  _getValidate(_import) {
+  _getSummary(_import) {
     return {
       _import: _import,
       onBack: this._handlePop,
@@ -79,8 +79,8 @@ class ContactImport extends React.PureComponent {
     this.context.modal.close()
   }
 
-  _handleFinalize(_import) {
-    this._handlePush(Finalize, this._getFinalize(_import))
+  _handleOrganize(_import) {
+    this._handlePush(Organize, this._getOrganize(_import))
   }
 
   _handleProcess(_import) {
@@ -102,8 +102,8 @@ class ContactImport extends React.PureComponent {
     })
   }
 
-  _handleValidate(_import) {
-    this._handlePush(Validate, this._getValidate(_import))
+  _handleSummary(_import) {
+    this._handlePush(Summary, this._getSummary(_import))
   }
 
 }
