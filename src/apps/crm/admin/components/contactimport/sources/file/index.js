@@ -21,6 +21,7 @@ class File extends React.PureComponent {
   }
 
   _handleBack = this._handleBack.bind(this)
+  _handleDone = this._handleDone.bind(this)
   _handleMappings = this._handleMappings.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handlePreview = this._handlePreview.bind(this)
@@ -46,7 +47,6 @@ class File extends React.PureComponent {
   }
 
   _getMappings(asset, parse, headers) {
-    const { onDone } = this.props
     return {
       asset,
       parse,
@@ -54,7 +54,7 @@ class File extends React.PureComponent {
       onPop: this._handlePop,
       onPush: this._handlePush,
       onBack: this._handlePop,
-      onDone
+      onDone: this._handleDone
     }
   }
 
@@ -80,6 +80,13 @@ class File extends React.PureComponent {
 
   _handleConfigure(asset, parse, mapping) {
     this._handlePush(Configure, this._getConfigure(asset, parse, mapping))
+  }
+
+  _handleDone(asset, params) {
+    this.props.onDone({
+      ...params,
+      name: asset.original_file_name
+    })
   }
 
   _handleMappings(asset, parse, headers) {

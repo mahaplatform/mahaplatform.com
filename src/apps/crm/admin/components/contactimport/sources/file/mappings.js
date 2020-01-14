@@ -1,4 +1,4 @@
-import { Container, Loader, ModalPanel } from 'maha-admin'
+import { Button, Container, Loader, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Mapping from './mapping'
 import React from 'react'
@@ -45,12 +45,14 @@ class Mappings extends React.PureComponent {
           </thead>
           <tbody>
             { mappings.map((mapping, index) => (
-              <tr key={`item_${index}`} onClick={ this._handleMapping.bind(this, mapping) }>
+              <tr key={`item_${index}`}>
                 <td>
                   { typeof mapping.header === 'number' ? `Column ${mapping.header + 1}` : mapping.header }
                 </td>
                 <td>{ this._getFieldLabel(mapping.field) }</td>
-                <td><i className="fa fa-chevron-right" /></td>
+                <td>
+                  <Button { ...this._getButton(mapping) } />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -61,6 +63,14 @@ class Mappings extends React.PureComponent {
 
   componentDidMount() {
     this._handleInitialMappings()
+  }
+
+  _getButton(mapping) {
+    return {
+      label: 'Edit',
+      className: 'ui mini fluid button',
+      handler: this._handleMapping.bind(this, mapping)
+    }
   }
 
   _getFields() {
@@ -112,7 +122,7 @@ class Mappings extends React.PureComponent {
   _handleDone() {
     const { asset, parse } = this.props
     const { mappings } = this.state
-    this.props.onDone({
+    this.props.onDone(asset, {
       asset_id: asset.id,
       headers: parse.headers,
       delimiter: parse.delimiter,

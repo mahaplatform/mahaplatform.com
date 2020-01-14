@@ -29,27 +29,12 @@ class Intro extends React.Component {
   _handleDeleteAll = this._handleDeleteAll.bind(this)
 
   render() {
-    const { defaultMapping, imports, status } = this.props
+    const { imports, status } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         { status === 'loading' && <Loader { ...this._getLoader() } /> }
         { status === 'success' &&
           <div className="import-intro">
-            <div className="import-intro-start">
-              <h3>Import Records</h3>
-              <p>To make bulk entry easier, you can import records from a spreadsheet</p>
-              <button className="ui green fluid large button start-new" onClick={ this._handleNew }>
-                Start New Import
-                <i className="fa fa-chevron-right" />
-              </button>
-            </div>
-            { defaultMapping &&
-              <div className="import-intro-template">
-                <h3>Templates</h3>
-                <p>To keeps things simple, download this template and then reupload with your data</p>
-                <Buttons { ...this._getTemplateButtons() } />
-              </div>
-            }
             { imports.length > 0 &&
               <div className="import-intro-incomplete">
                 <div className="import-intro-incomplete-header">
@@ -73,35 +58,6 @@ class Intro extends React.Component {
     onFetch(table)
   }
 
-  _getPanel() {
-    return {
-      title: 'Import Contacts',
-      leftItems: [
-        { label: 'Cancel', handler: this._handleCancel }
-      ]
-    }
-  }
-
-  _getLoader() {
-    return {
-      label: 'Loading previous imports'
-    }
-  }
-
-  _getTemplateButtons() {
-    return {
-      buttons: [
-        {
-          label: 'CSV',
-          handler: this._downloadTemplate.bind(this, 'csv')
-        }, {
-          label: 'XLSX',
-          handler: this._downloadTemplate.bind(this, 'xlsx')
-        }
-      ]
-    }
-  }
-
   _getList() {
     const { imports } = this.props
     return {
@@ -121,6 +77,12 @@ class Intro extends React.Component {
     }
   }
 
+  _getLoader() {
+    return {
+      label: 'Loading previous imports'
+    }
+  }
+
   _getMessage() {
     return {
       icon: 'upload',
@@ -130,6 +92,29 @@ class Intro extends React.Component {
         label: 'Choose File',
         handler:  this._handleNew
       }
+    }
+  }
+
+  _getPanel() {
+    return {
+      title: 'Import Contacts',
+      buttons: [
+        { label: 'Start New Import', color: 'red', handler: this._handleNew }
+      ]
+    }
+  }
+
+  _getTemplateButtons() {
+    return {
+      buttons: [
+        {
+          label: 'CSV',
+          handler: this._downloadTemplate.bind(this, 'csv')
+        }, {
+          label: 'XLSX',
+          handler: this._downloadTemplate.bind(this, 'xlsx')
+        }
+      ]
     }
   }
 

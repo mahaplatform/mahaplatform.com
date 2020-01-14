@@ -18,6 +18,7 @@ class Configure extends React.PureComponent {
   }
 
   _getForm() {
+    const { params } = this.props
     return {
       title: 'Configure Import',
       cancelIcon: 'chevron-left',
@@ -27,7 +28,7 @@ class Configure extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Enter an optional name for this import' },
+            { label: 'Name', name: 'name', type: 'textfield', placeholder: 'Enter an name for this import', defaultValue: params.name },
             { label: 'How should we handle duplicate records?', name: 'strategy', type: 'radiogroup', options: ['ignore','overwrite','discard'], format: ImportStrategyToken, defaultValue: 'ignore' }
           ]
         }

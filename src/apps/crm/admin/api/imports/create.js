@@ -13,6 +13,7 @@ const createRoute = async (req, res) => {
     headers: req.body.headers,
     delimiter: req.body.delimiter,
     mapping: req.body.mapping,
+    name: req.body.name,
     strategy: req.body.strategy,
     stage: 'parsing'
   }).save(null, {

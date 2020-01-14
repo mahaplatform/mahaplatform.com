@@ -1,4 +1,4 @@
-import { Stack } from 'maha-admin'
+import { Container, Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Organize from './organize'
 import Summary from './summary'
@@ -13,17 +13,21 @@ class ContactImport extends React.PureComponent {
     modal: PropTypes.object
   }
 
-  static propTypes = {}
+  static propTypes = {
+    imports: PropTypes.array
+  }
 
   state = {
     cards: []
   }
 
   _handleDone = this._handleDone.bind(this)
+  _handleIntro = this._handleIntro.bind(this)
   _handleOrganize = this._handleOrganize.bind(this)
   _handlePop = this._handlePop.bind(this)
   _handleProcess = this._handleProcess.bind(this)
   _handlePush = this._handlePush.bind(this)
+  _handleResume = this._handleResume.bind(this)
   _handleSources = this._handleSources.bind(this)
   _handleSummary = this._handleSummary.bind(this)
 
@@ -36,12 +40,15 @@ class ContactImport extends React.PureComponent {
   }
 
   componentDidMount() {
-    this._handlePush(Intro, this._getIntro())
+    const { imports } = this.props
+    if(imports.length === 0) return this._handleSources()
+    this._handleIntro()
   }
 
   _getIntro() {
     return {
-      onNew: this._handleSources
+      onNew: this._handleSources,
+      onResume: this._handleResume
     }
   }
 
@@ -61,7 +68,6 @@ class ContactImport extends React.PureComponent {
 
   _getSources() {
     return {
-      onBack: this._handlePop,
       onPop: this._handlePop,
       onDone: this._handleOrganize,
       onPush: this._handlePush
@@ -88,6 +94,10 @@ class ContactImport extends React.PureComponent {
     this.context.modal.close()
   }
 
+  _handleIntro() {
+    this._handlePush(Intro, this._getIntro())
+  }
+
   _handleOrganize(_import) {
     this._handlePush(Organize, this._getOrganize(_import))
   }
@@ -111,6 +121,10 @@ class ContactImport extends React.PureComponent {
     })
   }
 
+  _handleResume(_import) {
+    this._handlePush(Summary, this._getSummary(_import))
+  }
+
   _handleSources() {
     this._handlePush(Sources, this._getSources())
   }
@@ -121,4 +135,20 @@ class ContactImport extends React.PureComponent {
 
 }
 
-export default ContactImport
+const mapResources = (props, context) => ({
+  imports: {
+    endpoint: '/api/admin/imports',
+    query: {
+      $filter: {
+        object_type: {
+          $eq: 'crm_contacts'
+        },
+        stage: {
+          $neq: 'complete'
+        }
+      }
+    }
+  }
+})
+
+export default Container(mapResources)(ContactImport)

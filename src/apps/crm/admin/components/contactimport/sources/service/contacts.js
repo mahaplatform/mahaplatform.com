@@ -1,5 +1,6 @@
 import { Infinite, Message, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
+import moment from 'moment'
 import React from 'react'
 
 class Contacts extends React.PureComponent {
@@ -34,9 +35,14 @@ class Contacts extends React.PureComponent {
     }
   }
 
+  _getName() {
+    const { source } = this.props
+    return source.service === 'googlecontacts' ? 'Google Contacts' : 'Outlook 365'
+  }
+
   _getPanel() {
     return {
-      title: 'Import Contacts',
+      title: 'Preview Contacts',
       leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
       ],
@@ -67,6 +73,7 @@ class Contacts extends React.PureComponent {
   _handleDone() {
     const { source } = this.props
     this.props.onDone({
+      name: this._getName(),
       profile_id: source.id
     })
   }
