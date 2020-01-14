@@ -148,7 +148,7 @@ class Attachments extends React.Component {
   _handleDone() {
     const { assets, multiple, onChooseAssets, onDone } = this.props
     onChooseAssets(assets)
-    if(!multiple) setTimeout(this._handlePop, 250)
+    if(!multiple) setTimeout(this._handlePop, 500)
     if(onDone) return onDone(assets)
     this.context.modal.pop()
   }

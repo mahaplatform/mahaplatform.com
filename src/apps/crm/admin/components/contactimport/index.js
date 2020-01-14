@@ -4,6 +4,7 @@ import Organize from './organize'
 import Summary from './summary'
 import Sources from './sources'
 import Process from './process'
+import Intro from './intro'
 import React from 'react'
 
 class ContactImport extends React.PureComponent {
@@ -23,6 +24,7 @@ class ContactImport extends React.PureComponent {
   _handlePop = this._handlePop.bind(this)
   _handleProcess = this._handleProcess.bind(this)
   _handlePush = this._handlePush.bind(this)
+  _handleSources = this._handleSources.bind(this)
   _handleSummary = this._handleSummary.bind(this)
 
   render() {
@@ -34,7 +36,13 @@ class ContactImport extends React.PureComponent {
   }
 
   componentDidMount() {
-    this._handlePush(Sources, this._getSources())
+    this._handlePush(Intro, this._getIntro())
+  }
+
+  _getIntro() {
+    return {
+      onNew: this._handleSources
+    }
   }
 
   _getOrganize(_import) {
@@ -53,6 +61,7 @@ class ContactImport extends React.PureComponent {
 
   _getSources() {
     return {
+      onBack: this._handlePop,
       onPop: this._handlePop,
       onDone: this._handleOrganize,
       onPush: this._handlePush
@@ -100,6 +109,10 @@ class ContactImport extends React.PureComponent {
         { component, props }
       ]
     })
+  }
+
+  _handleSources() {
+    this._handlePush(Sources, this._getSources())
   }
 
   _handleSummary(_import) {

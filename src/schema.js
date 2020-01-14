@@ -3120,7 +3120,7 @@ union
     await knex.raw(`
       create view crm_interest_counts AS
       select crm_topics.id as topic_id,
-      count(crm_interests.*) as interest_count
+      (count(crm_interests.*))::integer as interest_count
       from (crm_topics
       left join crm_interests on ((crm_interests.topic_id = crm_topics.id)))
       group by crm_topics.id;
@@ -3164,7 +3164,7 @@ union
     await knex.raw(`
       create view crm_subscription_counts AS
       select crm_lists.id as list_id,
-      count(crm_subscriptions.*) as subscription_count
+      (count(crm_subscriptions.*))::integer as subscription_count
       from (crm_lists
       left join crm_subscriptions on ((crm_subscriptions.list_id = crm_lists.id)))
       group by crm_lists.id;

@@ -11,11 +11,11 @@ import New from './new'
 class Sources extends React.PureComponent {
 
   static contextTypes = {
-    modal: PropTypes.object,
     network: PropTypes.object
   }
 
   static propTypes = {
+    onBack: PropTypes.func,
     onDone: PropTypes.func,
     onFetch: PropTypes.func,
     onPop: PropTypes.func,
@@ -26,7 +26,7 @@ class Sources extends React.PureComponent {
     sources: null
   }
 
-  _handleCancel = this._handleCancel.bind(this)
+  _handleBack = this._handleBack.bind(this)
   _handleConfigure = this._handleConfigure.bind(this)
   _handleFetch = this._handleFetch.bind(this)
   _handleImport = this._handleImport.bind(this)
@@ -37,9 +37,6 @@ class Sources extends React.PureComponent {
     const sources = this._getSources()
     return (
       <ModalPanel { ...this._getPanel() }>
-        <div className="contactimport-sources-header">
-          <Message { ...this._getOverview() } />
-        </div>
         <div className="contactimport-sources-body">
           { sources.map((source, index) => (
             <div className="contactimport-source" key={`source_${index}`} onClick={ this._handleClick.bind(this, source) }>
@@ -100,20 +97,11 @@ class Sources extends React.PureComponent {
     }
   }
 
-  _getOverview() {
-    return {
-      backgroundColor: 'red',
-      icon: 'download',
-      title: 'Choose Source',
-      text: 'Import contacts from wherever you keep them.'
-    }
-  }
-
   _getPanel() {
     return {
-      title: 'Import Contacts',
+      title: 'Choose Contact Source',
       leftItems: [
-        { label: 'Cancel', handler: this._handleCancel }
+        { icon: 'chevron-left', handler: this._handleBack }
       ]
     }
   }
@@ -148,8 +136,8 @@ class Sources extends React.PureComponent {
     }
   }
 
-  _handleCancel() {
-    this.context.modal.close()
+  _handleBack() {
+    this.props.onBack()
   }
 
   _handleClick(source) {

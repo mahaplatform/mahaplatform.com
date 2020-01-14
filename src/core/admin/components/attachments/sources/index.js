@@ -85,7 +85,7 @@ class Sources extends React.Component {
   _getPanel() {
     const { cancelText, files } = this.props
     return {
-      title: 'Choose Source',
+      title: 'Choose File Source',
       leftItems: [
         { label: cancelText, handler: this._handleCancel }
       ],
