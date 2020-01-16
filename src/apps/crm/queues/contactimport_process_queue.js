@@ -99,10 +99,7 @@ const processor = async (job, trx) => {
       team_id: req.team.get('id'),
       code,
       first_name: item.get('values').first_name,
-      last_name: item.get('values').last_name,
-      email: email_addresses.length > 0 ? email_addresses[0].address : null,
-      phone: phone_numbers.length > 0 ? phone_numbers[0].number : null,
-      address: mailing_addresses.length > 0 ? mailing_addresses[0].address : null
+      last_name: item.get('values').last_name
     }).save(null, {
       transacting: trx
     })

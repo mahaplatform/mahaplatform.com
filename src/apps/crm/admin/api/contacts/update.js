@@ -17,7 +17,7 @@ const updateRoute = async (req, res) => {
   req.fields = await Field.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
-    qb.where('parent_type', 'crm_contacts')
+    qb.where('parent_type', 'crm_programs')
     qb.orderBy('delta', 'asc')
   }).fetchAll({
     transacting: req.trx
@@ -37,14 +37,17 @@ const updateRoute = async (req, res) => {
     message: 'Unable to load contact'
   })
 
-  const values = null//await processValues(req, {
-  //   parent_type: 'crm_contacts',
-  //   values: req.body.values
-  // })
+  const values = await processValues(req, {
+    parent_type: 'crm_programs',
+    values: req.body.values
+  })
 
   await contact.save({
     ...whitelist(req.body, ['first_name','last_name','photo_id']),
-    values
+    values: {
+      ...contact.get('values'),
+      ...values
+    }
   }, {
     transacting: req.trx
   })

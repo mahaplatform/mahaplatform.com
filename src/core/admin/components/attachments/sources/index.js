@@ -22,7 +22,6 @@ class Sources extends React.Component {
     onRemove: PropTypes.func
   }
 
-  _handleBack = this._handleBack.bind(this)
   _handleCancel = this._handleCancel.bind(this)
   _handleNew = this._handleNew.bind(this)
   _handleNext = this._handleNext.bind(this)
@@ -74,11 +73,11 @@ class Sources extends React.Component {
   }
 
   _getNew() {
-    const { allow } = this.props
+    const { allow, onBack } = this.props
     return {
       allow,
       services: this._getServices(),
-      onBack: this._handleBack
+      onBack
     }
   }
 
@@ -113,20 +112,16 @@ class Sources extends React.Component {
   }
 
   _getSource(source) {
-    const { allow, multiple, onAdd, onRemove } = this.props
+    const { allow, multiple, onAdd, onBack, onNext, onRemove } = this.props
     return {
       allow,
       multiple,
       source,
       onAdd,
-      onRemove,
-      onBack: this._handleBack,
-      onNext: this._handleNext
+      onBack,
+      onNext,
+      onRemove
     }
-  }
-
-  _handleBack() {
-    this.props.onBack()
   }
 
   _handleCancel() {

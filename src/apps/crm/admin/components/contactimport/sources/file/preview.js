@@ -36,6 +36,7 @@ class Preview extends React.PureComponent {
     const { asset } = this.props
     const record = this._getRecord()
     const rowNumber = this._getRowNumber()
+    const total = this._getTotal()
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-import-preview">
@@ -62,7 +63,7 @@ class Preview extends React.PureComponent {
                 }
               </div>
               <div className="maha-import-preview-pager-item">
-                <label>Row Number: { rowNumber }</label>
+                <label>Row { rowNumber } / { total }</label>
               </div>
               <div className="maha-import-preview-pager-item">
                 { index < parsed.rows.length - 1 ?
@@ -157,7 +158,12 @@ class Preview extends React.PureComponent {
 
   _getRowNumber() {
     const { index, headers } = this.state
-    return (headers ? 1 : 0) + index + 1
+    return index + (headers ? 2 : 1)
+  }
+
+  _getTotal() {
+    const { headers, parsed } = this.state
+    return parsed.rows.length + (headers ? 1 : 0)
   }
 
   _handleBack() {

@@ -12,7 +12,7 @@ class New extends React.PureComponent {
   }
 
   static propTypes = {
-    services: PropTypes.func,
+    services: PropTypes.array,
     token: PropTypes.string,
     onBack: PropTypes.func
   }
@@ -62,10 +62,11 @@ class New extends React.PureComponent {
   }
 
   _handleChooseService(service) {
+    const { host } = this.context
     const { token } = this.props
     const type = this._getType(service.name)
     const timestamp = moment().format('x')
-    this.context.host.openWindow(`/admin/${service.name}/authorize?type=${type}&timestamp=${timestamp}&token=${token}`)
+    host.openWindow(`/admin/${service.name}/authorize?type=${type}&timestamp=${timestamp}&token=${token}`)
     this.props.onBack()
   }
 

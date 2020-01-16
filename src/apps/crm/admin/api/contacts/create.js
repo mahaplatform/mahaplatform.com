@@ -16,16 +16,16 @@ const createRoute = async (req, res) => {
   req.fields = await Field.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
-    qb.where('parent_type', 'crm_contacts')
+    qb.where('parent_type', 'crm_programs')
     qb.orderBy('delta', 'asc')
   }).fetchAll({
     transacting: req.trx
   }).then(result => result.toArray())
 
-  const values = null//await processValues(req, {
-  //   parent_type: 'crm_contacts',
-  //   values: req.body.values
-  // })
+  const values = await processValues(req, {
+    parent_type: 'crm_programs',
+    values: req.body.values
+  })
 
   const code = await generateCode(req, {
     table: 'crm_contacts'

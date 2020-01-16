@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Image } from 'maha-admin'
+import { Button, Image } from 'maha-admin'
 import OptOut from './optout'
 import OptIn from './optin'
 import React from 'react'
@@ -49,11 +49,11 @@ class Channels extends React.Component {
                   <td className="collapsing">
                     { channel.type.toUpperCase() }
                   </td>
-                  { program.access === 'manage' ?
+                  { program.access_type === 'manage' ?
                     <td className="collapsing">
                       { channel.has_consented ?
-                        <div className="ui mini red button" onClick={ this._handleOptOut.bind(this, channel, program) }>Opt Out</div> :
-                        <div className="ui mini blue button" onClick={ this._handleOptIn.bind(this, channel, program) }>Opt In</div>
+                        <Button { ...this._getOptOutButton(channel, program) } /> :
+                        <Button { ...this._getOptInButton(channel, program) } />
                       }
                     </td> :
                     <td className="collapsing">
@@ -122,13 +122,27 @@ class Channels extends React.Component {
     }
   }
 
-  _handleOptIn(channel, program, e) {
-    e.stopPropagation()
+  _getOptInButton(channel, program) {
+    return {
+      label: 'Opt In',
+      className: 'ui mini blue button',
+      handler: this._handleOptIn.bind(this, channel, program)
+    }
+  }
+
+  _getOptOutButton(channel, program) {
+    return {
+      label: 'Opt Out',
+      className: 'ui mini red button',
+      handler: this._handleOptOut.bind(this, channel, program)
+    }
+  }
+
+  _handleOptIn(channel, program) {
     this.context.modal.open(<OptIn { ...this._getConsent(channel, program) } />)
   }
 
-  _handleOptOut(channel, program, e) {
-    e.stopPropagation()
+  _handleOptOut(channel, program) {
     this.context.modal.open(<OptOut { ...this._getConsent(channel, program) } />)
   }
 

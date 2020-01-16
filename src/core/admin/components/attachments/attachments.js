@@ -68,8 +68,6 @@ class Attachments extends React.Component {
         <Stack { ...this._getStack() } />
       </Uploader>
     )
-
-
   }
 
   componentDidMount() {

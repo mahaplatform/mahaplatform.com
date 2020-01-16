@@ -175,6 +175,7 @@ class Summary extends React.PureComponent {
   }
 
   componentDidMount() {
+    console.log('mounting')
     this._handleJoin()
     this._handleFetch()
   }

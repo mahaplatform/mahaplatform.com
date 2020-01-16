@@ -14,6 +14,7 @@ const listRoute = async (req, res) => {
   const programs = await Program.query(qb => {
     qb.where('team_id', req.team.get('id'))
   }).fetchAll({
+    withRelated: ['logo'],
     transacting: req.trx
   }).then(results => results.reduce((programs, program) => ({
     ...programs,
@@ -26,7 +27,8 @@ const listRoute = async (req, res) => {
       ...FieldSerializer(req, field),
       program: {
         id: program.get('id'),
-        title: program.get('title')
+        title: program.get('title'),
+        logo: program.related('logo').get('path')
       }
     }
   }

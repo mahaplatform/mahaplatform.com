@@ -21,7 +21,7 @@ const showRoute = async (req, res) => {
   req.fields = await Field.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
-    qb.where('parent_type', 'crm_contacts')
+    qb.where('parent_type', 'crm_programs')
     qb.orderBy('delta', 'asc')
   }).fetchAll({
     transacting: req.trx

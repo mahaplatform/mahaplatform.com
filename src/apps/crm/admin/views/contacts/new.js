@@ -78,7 +78,7 @@ class New extends React.Component {
   }
 
   _getProperties() {
-    const {fields} = this.props
+    const { fields } = this.props
     const programs = fields.reduce((programs, field) => ({
       ...programs,
       [field.program.id]: {

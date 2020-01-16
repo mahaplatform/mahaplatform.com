@@ -63,7 +63,7 @@ const tag = (tag) => {
 
 const values = (req, values) => {
   if(!values) return {}
-  Object.keys(values).reduce((sanitized, code) => {
+  return Object.keys(values).reduce((sanitized, code) => {
     const field = req.fields.find(field => field.get('code') === code)
     const { multiple } = field.get('config')
     return {

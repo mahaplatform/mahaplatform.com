@@ -51,7 +51,7 @@ class Review extends React.PureComponent {
                     }
                   </div>
                   <div className="maha-import-review-pager-item">
-                    <label>Record Number: { index + 1 } / { total }</label>
+                    <label>Record { index + 1 } / { total }</label>
                   </div>
                   <div className="maha-import-review-pager-item">
                     { index < _import.valid_count - 1 ?

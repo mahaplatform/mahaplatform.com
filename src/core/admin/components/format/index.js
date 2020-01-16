@@ -140,6 +140,7 @@ const Email = (props) => {
 }
 
 const Phone = (props) => {
+  if(!props.value) return ''
   const phoneNumber = parsePhoneNumberFromString(props.value, 'US')
   return phoneNumber.formatNational()
 }
