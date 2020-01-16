@@ -24,7 +24,7 @@ const Contact = new Model({
       const parts = []
       if(this.get('first_name')) parts.push(this.get('first_name'))
       if(this.get('last_name')) parts.push(this.get('last_name'))
-      return parts.length > 1 ? parts.join(' ') : null
+      return parts.length > 0 ? parts.join(' ') : null
     },
 
     rfc822: function() {

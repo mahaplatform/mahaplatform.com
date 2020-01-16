@@ -70,8 +70,8 @@ class Timeline extends React.PureComponent {
     const { contact } = this.props
     return {
       label: 'Log Call',
-      className: 'ui button',
-      modal: () => <Call contact={ contact } />
+      className: 'ui blue button',
+      modal: <Call contact={ contact } />
     }
   }
 
@@ -80,7 +80,7 @@ class Timeline extends React.PureComponent {
     return {
       label: 'Import Email',
       className: 'ui button',
-      modal: () => <Note contact={ contact } />
+      modal: <Note contact={ contact } />
     }
   }
 
@@ -89,7 +89,7 @@ class Timeline extends React.PureComponent {
     return {
       label: 'Leave Note',
       className: 'ui button',
-      modal: () => <Note contact={ contact } />
+      modal: <Note contact={ contact } />
     }
   }
 

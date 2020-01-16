@@ -18,7 +18,8 @@ const listRoute = async (req, res) => {
   })
 
   const activities = await Activity.scope(qb => {
-    qb.joinRaw('inner join crm_program_user_access on crm_program_user_access.program_id=crm_activities.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
+    qb.joinRaw('left join crm_program_user_access on crm_program_user_access.program_id=crm_activities.program_id and crm_program_user_access.user_id=?', req.user.get('id'))
+    qb.whereRaw('(crm_activities.program_id is null or crm_program_user_access.program_id is not null)')
     qb.where('crm_activities.team_id', req.team.get('id'))
     qb.where('crm_activities.contact_id', contact.get('id'))
   }).query(qb => {

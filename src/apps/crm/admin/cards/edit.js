@@ -14,6 +14,7 @@ class Edit extends React.PureComponent {
   render() {
     const { activity } = this.props
     const { changes } = activity.data
+    if(!changes) return null
     return (
       <div className="crm-timeline-item-card-edit">
         <ul>

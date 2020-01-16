@@ -57,9 +57,10 @@ class Field extends React.Component {
 
   _getClass() {
     const { field } = this.props
-    const { required } = field
+    const { type, required } = field
     const error = this._getError()
     const classes = ['maha-form-field field']
+    if(_.includes(['hidden'], type)) classes.push('hidden')
     if(required) classes.push('required')
     if(error) classes.push('error')
     return classes.join(' ')

@@ -12,7 +12,7 @@ export const sections = createSelector(
     return {
       ...sections,
       [item.program.id]: {
-        title: item.program.title,
+        ...item.program,
         items: [
           ...sections[item.program.id] ? sections[item.program.id].items : [],
           { id: item.id, title: item.title, checked: _.includes(selected, item.id) }

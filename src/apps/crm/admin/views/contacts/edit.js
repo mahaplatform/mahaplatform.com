@@ -2,8 +2,8 @@ import CheckboxesField from '../../components/checkboxesfield'
 import AddressesField from '../../components/addressesfield'
 import PhonesField from '../../components/phonesfield'
 import EmailsField from '../../components/emailsfield'
+import { Form, Image } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
@@ -81,18 +81,21 @@ class Edit extends React.Component {
 
   _getProperties() {
     const {fields} = this.props
-    console.log(fields)
-    const programs = fields.reduce((programs, field) => ({
+    return Object.values(fields.reduce((programs, field) => ({
       ...programs,
       [field.program.id]: {
-        label: field.program.title,
+        label: (
+          <div className="crm-program-label">
+            <Image src={ field.program.logo } title={ field.program.title } transforms={{ w: 24, h: 24 }} />
+            { field.program.title }
+          </div>
+        ),
         fields: [
           ..._.get(programs, `${field.program.id}.fields`) || [],
           field.config
         ]
       }
-    }), {})
-    return Object.values(programs)
+    }), {}))
   }
 
   _getOrganizationForm() {

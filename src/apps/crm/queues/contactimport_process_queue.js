@@ -3,8 +3,10 @@ import ImportSerializer from '../../maha/serializers/import_serializer'
 import { updateMailingAddresses } from '../services/mailing_addresses'
 import { updateEmailAddresses } from '../services/email_addresses'
 import { updatePhoneNumbers } from '../services/phone_numbers'
+import { refresh } from '../../../core/services/routes/emitter'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import generateCode from '../../../core/utils/generate_code'
+import { contactActivity } from '../services/activities'
 import ImportItem from '../../maha/models/import_item'
 import socket from '../../../core/services/emitter'
 import Queue from '../../../core/objects/queue'
@@ -41,7 +43,7 @@ const getPhoneNumbers = async (values) => {
 const getFullAddress = (address) => {
   const { street_1, street_2, city, state_province, postal_code } = address
   const parts = [street_1,street_2,city,state_province,postal_code]
-  return address || parts.filter(item => {
+  return parts.filter(item => {
     return typeof(item) === 'string' && item.length > 0
   }).join(', ')
 }
@@ -57,6 +59,7 @@ const getMailingAddresses = async (values) => {
       postal_code: values[`address_${i+1}_postal_code`]
     }
     address.description = getFullAddress(address)
+
     return [
       ...addresses,
       {
@@ -72,7 +75,7 @@ const processor = async (job, trx) => {
   const imp = await Import.query(qb => {
     qb.where('id', job.data.id)
   }).fetch({
-    withRelated: ['asset','team'],
+    withRelated: ['asset','team','user'],
     transacting: trx
   })
 
@@ -160,6 +163,16 @@ const processor = async (job, trx) => {
     //   related_foreign_key: 'organization_id'
     // })
 
+    await contactActivity(req, {
+      user: imp.related('user'),
+      contact,
+      type: 'edit',
+      story: 'imported the contact',
+      data: {
+        changes: []
+      }
+    })
+
     const is_merged = false
 
     const is_ignored = false
@@ -206,6 +219,11 @@ const processor = async (job, trx) => {
     action: 'success',
     data: ImportSerializer(null, _import)
   })
+
+
+  await refresh(req, [
+    '/admin/crm/contacts'
+  ])
 
 }
 

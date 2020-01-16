@@ -4,8 +4,16 @@
     padding-left: 2.4em;
   }
   .ui.basic.buttons {
-    background-color: @white;
+    background-color: @blue;
+    color: @white !important;
     margin-bottom: 0.8em;
+    .ui.button {
+      border-left-color: @white;
+      color: @white !important;
+      &:hover {
+        background-color: fadeout(@white, 80) !important;
+      }
+    }
   }
   .crm-timeline-month:first-child {
     .crm-timeline-item:nth-child(1) {

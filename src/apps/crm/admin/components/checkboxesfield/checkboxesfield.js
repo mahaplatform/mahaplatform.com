@@ -1,3 +1,4 @@
+import { Image } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -33,6 +34,7 @@ class CheckboxesField extends React.PureComponent {
         { Object.keys(sections).map((id, index) => (
           <div className="checkboxesfield-section" key={`section_${index}`}>
             <div className="checkboxesfield-header">
+              <Image src={ sections[id].logo } title={ sections[id].title } transforms={{ w: 24, h: 24 }} />
               { sections[id].title }
             </div>
             <div className="checkboxesfield-items">

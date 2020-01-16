@@ -60,7 +60,7 @@ class Sources extends React.Component {
                 <i className="fa fa-fw fa-plus-circle" />
               </div>
               <div className="maha-attachments-source-text">
-                Add a new source
+                Add a source
               </div>
               <div className="maha-attachments-source-proceed">
                 <i className="fa fa-fw fa-chevron-right" />

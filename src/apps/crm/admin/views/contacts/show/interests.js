@@ -6,26 +6,29 @@ const Interests = ({ contact, interests }) => (
   <div className="crm-contact-interests">
     <table className="ui unstackable compact table">
       <tbody>
-        { interests.filter(program => {
-          return program.topics.length > 0
-        }).map((program, i) => [
+        { interests.map((program, i) => [
           <tr key={`program_${i}`} className="crm-contact-interests-program">
-            <td colSpan="2">
+            <td>
               <Image src={ program.logo } title={ program.title } transforms={{ w: 24, h: 24 }} />
               { program.title }
             </td>
           </tr>,
-          ...program.topics.map((topic, j) => (
+          ...program.topics.length > 0 ? program.topics.map((topic, j) => (
             <tr key={`interests_${j}`} className="crm-contact-interests-topic">
               <td className="collapsing">
                 { topic.is_interested ?
                   <i className="fa fa-check-circle" /> :
                   <i className="fa fa-circle-o" />
-                }
+                } { topic.title }
               </td>
-              <td>{ topic.title }</td>
             </tr>
-          ))
+          )) : [(
+            <tr className="crm-contact-interests-empty" key="empty">
+              <td>
+                This program has no topics
+              </td>
+            </tr>
+          )]
         ]) }
       </tbody>
     </table>

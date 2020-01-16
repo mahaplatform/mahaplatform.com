@@ -8,19 +8,27 @@ const Details = ({ contact }) => {
 
   list.items = [
     { label: 'Created', content: contact.created_at, format: 'date' },
-    { label: 'Email', content: contact.email_addresses.map((email_address, index) => (
+    { label: 'Email Addresses', content: contact.email_addresses.map((email_address, index) => (
       <div key={`email_address_${index}`}>
         { email_address.address } { email_address.is_primary && <span className="alert">PRIMARY</span> }
       </div>
     )) },
-    { label: 'Phone', content: contact.phone_numbers.map((phone_number, index) => (
+    { label: 'Phone Numbers', content: contact.phone_numbers.map((phone_number, index) => (
       <div key={`number_${index}`}>
         { phone_number.formatted } { phone_number.is_primary && <span className="alert">PRIMARY</span> }
       </div>
     )) },
-    { label: 'Mailing Address', content: contact.mailing_addresses.map((mailing_address, index) => (
+    { label: 'Mailing Addresses', content: contact.mailing_addresses.map((mailing_address, index) => (
       <div key={`mailing_address_${index}`}>
-        { mailing_address.address.description } { mailing_address.is_primary && <span className="alert">PRIMARY</span> }
+        <div>
+          { mailing_address.address.street_1 } { mailing_address.is_primary && <span className="alert">PRIMARY</span> }
+        </div>
+        { mailing_address.address.street_2 &&
+          <div>{ mailing_address.address.street_2 }</div>
+        }
+        <div>
+          { mailing_address.address.city }, { mailing_address.address.state_province } { mailing_address.address.postal_code }
+        </div>
       </div>
     )) },
     { label: 'Tags', content: (
