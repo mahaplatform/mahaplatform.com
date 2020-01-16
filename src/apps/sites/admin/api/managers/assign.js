@@ -1,4 +1,5 @@
 import ManagerSerializer from '../../../serializers/manager_serializer'
+import socket from '../../../../../core/services/routes/emitter'
 import Manager from '../../../models/manager'
 
 const assignRoute = async (req, res) => {
@@ -22,6 +23,10 @@ const assignRoute = async (req, res) => {
     })
 
   })
+
+  await socket.refresh(req, [
+    `/admin/sites/sites/${req.params.site_id}/managers`
+  ])
 
   res.status(200).respond(managers, ManagerSerializer)
 

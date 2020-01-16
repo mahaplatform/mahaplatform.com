@@ -26,8 +26,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
     entity: 'manager',
     defaultSort: { key: 'created_at', order: 'asc' }
   },
-  tasks: {
-    icon: 'plus',
+  task: {
+    label: 'New Project',
+    icon: 'ellipsis-v',
     modal: <Users site_id={ page.params.site_id } />
   }
 })

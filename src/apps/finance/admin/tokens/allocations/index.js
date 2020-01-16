@@ -24,8 +24,10 @@ class Allocations extends React.Component {
       amount: sums.amount + Number(allocation.amount),
       tax: sums.tax + Number(allocation.tax)
     }), { amount: 0.00, tax: 0.00 })
-    const unassigned = item.total > sums.amount ? item.total - sums.amount : null
-    const overassigned = sums.amount > item.total ? sums.amount - item.total : null
+    const total = Math.ceil(item.total * 100) / 100
+    const amount = Math.ceil(sums.amount * 100) / 100
+    const unassigned = total > amount ? total - amount : null
+    const overassigned = amount > total ? amount - total : null
     return (
       <div className="allocations-token">
         <table className="ui celled compact unstackable table">
