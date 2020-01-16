@@ -295,13 +295,10 @@ const schema = {
       table.integer('photo_id').unsigned()
       table.string('first_name', 255)
       table.string('last_name', 255)
-      table.string('email', 255)
-      table.string('phone', 255)
       table.jsonb('values')
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.string('code', 255)
-      table.jsonb('address')
       table.string('braintree_id', 255)
     })
 
@@ -3035,6 +3032,18 @@ union
     `)
 
     await knex.raw(`
+      create view crm_contact_primaries AS
+      select distinct on (crm_contacts.id) crm_contacts.id as contact_id,
+      crm_email_addresses.address as email,
+      crm_phone_numbers.number as phone,
+      crm_mailing_addresses.address
+      from (((crm_contacts
+      left join crm_email_addresses on (((crm_email_addresses.contact_id = crm_contacts.id) and (crm_email_addresses.is_primary = true))))
+      left join crm_phone_numbers on (((crm_phone_numbers.contact_id = crm_contacts.id) and (crm_phone_numbers.is_primary = true))))
+      left join crm_mailing_addresses on (((crm_mailing_addresses.contact_id = crm_contacts.id) and (crm_mailing_addresses.is_primary = true))));
+    `)
+
+    await knex.raw(`
       create view crm_email_results AS
       with emailables as (
       select maha_emails.team_id,
@@ -3345,14 +3354,15 @@ union
       crm_contacts.team_id,
       crm_contacts.first_name,
       crm_contacts.last_name,
-      crm_contacts.email,
-      crm_contacts.phone,
-      crm_contacts.address,
+      crm_contact_primaries.email,
+      crm_contact_primaries.phone,
+      crm_contact_primaries.address,
       crm_contacts.braintree_id,
       crm_contacts.created_at,
       crm_contacts.updated_at
-      from (crm_contacts
-      join finance_invoices on ((finance_invoices.customer_id = crm_contacts.id)));
+      from ((crm_contacts
+      join finance_invoices on ((finance_invoices.customer_id = crm_contacts.id)))
+      join crm_contact_primaries on ((crm_contact_primaries.contact_id = crm_contacts.id)));
     `)
 
     await knex.raw(`

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Container, ModalPanel } from 'maha-admin'
+import { Container, Image, ModalPanel } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
@@ -30,16 +30,25 @@ class Topics extends React.PureComponent {
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-search-options">
           <div className="maha-search-results">
-            { topics.map((topic, index) => (
-              <div key={`filter_${index}`} className="maha-search-item" onClick={ this._handleChoose.bind(this, topic.id) }>
-                <div className="maha-search-item-label padded">
-                  { topic.title }
+            { topics.map((program, index) => (
+              <div className="maha-search-segment" key={`segment_${index}`}>
+                <div className="maha-search-segment-title">
+                  <Image src={ program.logo } title={ program.title } transforms={{ w: 24, h: 24 }} />
+                  { program.title }
                 </div>
-                <div className="maha-search-item-icon">
-                  { this._getChecked(topic.id) &&
-                    <i className="fa fa-fw fa-check" />
-                  }
-                </div>
+                { program.topics.map((topic, index) => (
+                  <div key={`filter_${index}`} className="maha-search-item" onClick={ this._handleChoose.bind(this, topic.id) }>
+                    <div className="maha-search-item-icon">
+                      { this._getChecked(topic.id) ?
+                        <i className="fa fa-fw fa-check-circle" /> :
+                        <i className="fa fa-fw fa-circle-o" />
+                      }
+                    </div>
+                    <div className="maha-search-item-label padded">
+                      { topic.title }
+                    </div>
+                  </div>
+                )) }
               </div>
             )) }
           </div>
@@ -105,7 +114,7 @@ class Topics extends React.PureComponent {
 }
 
 const mapResources = (props, context) => ({
-  topics: '/api/admin/crm/topics'
+  topics: '/api/admin/crm/imports/topics'
 })
 
 export default Container(mapResources)(Topics)

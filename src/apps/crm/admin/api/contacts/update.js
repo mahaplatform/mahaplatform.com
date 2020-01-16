@@ -42,22 +42,7 @@ const updateRoute = async (req, res) => {
   //   values: req.body.values
   // })
 
-  const email = req.body.email_addresses.find(email => {
-    return email.is_primary
-  })
-
-  const phone = req.body.phone_numbers.find(phone => {
-    return phone.is_primary
-  })
-
-  const mailing = req.body.mailing_addresses.find(mailing_address => {
-    return mailing_address.is_primary
-  })
-
   await contact.save({
-    address: mailing ? mailing.address : null,
-    email: email ? email.address : null,
-    phone: phone ? phone.number : null,
     ...whitelist(req.body, ['first_name','last_name','photo_id']),
     values
   }, {

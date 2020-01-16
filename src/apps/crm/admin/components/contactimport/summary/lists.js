@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Container, ModalPanel } from 'maha-admin'
+import { Container, Image, ModalPanel } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
@@ -30,16 +30,25 @@ class Lists extends React.PureComponent {
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-search-options">
           <div className="maha-search-results">
-            { lists.map((list, index) => (
-              <div key={`filter_${index}`} className="maha-search-item" onClick={ this._handleChoose.bind(this, list.id) }>
-                <div className="maha-search-item-label padded">
-                  { list.title }
+            { lists.map((program, index) => (
+              <div className="maha-search-segment" key={`segment_${index}`}>
+                <div className="maha-search-segment-title">
+                  <Image src={ program.logo } title={ program.title } transforms={{ w: 24, h: 24 }} />
+                  { program.title }
                 </div>
-                <div className="maha-search-item-icon">
-                  { this._getChecked(list.id) &&
-                    <i className="fa fa-fw fa-check" />
-                  }
-                </div>
+                { program.lists.map((list, index) => (
+                  <div key={`filter_${index}`} className="maha-search-item" onClick={ this._handleChoose.bind(this, list.id) }>
+                    <div className="maha-search-item-icon">
+                      { this._getChecked(list.id) ?
+                        <i className="fa fa-fw fa-check-circle" /> :
+                        <i className="fa fa-fw fa-circle-o" />
+                      }
+                    </div>
+                    <div className="maha-search-item-label padded">
+                      { list.title }
+                    </div>
+                  </div>
+                )) }
               </div>
             )) }
           </div>
@@ -105,7 +114,7 @@ class Lists extends React.PureComponent {
 }
 
 const mapResources = (props, context) => ({
-  lists: '/api/admin/crm/lists'
+  lists: '/api/admin/crm/imports/lists'
 })
 
 export default Container(mapResources)(Lists)

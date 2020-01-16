@@ -1,4 +1,5 @@
 import ImportSerializer from '../../../serializers/import_serializer'
+import socket from '../../../../../core/services/routes/emitter'
 import ImportItem from '../../../models/import_item'
 import Import from '../../../models/import'
 
@@ -34,6 +35,10 @@ const omiterrorsRoute = async (req, res) => {
       transacting: req.trx
     })
   })
+
+  await socket.refresh(req, [
+    `/admin/imports/${imp.get('id')}`
+  ])
 
   const _import = await Import.query(qb => {
     qb.select('maha_imports.*','maha_import_counts.*')

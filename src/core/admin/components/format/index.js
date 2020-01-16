@@ -1,8 +1,9 @@
-import React from 'react'
+import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import PropTypes from 'prop-types'
-import _ from 'lodash'
-import moment from 'moment'
 import numeral from 'numeral'
+import moment from 'moment'
+import _ from 'lodash'
+import React from 'react'
 
 class Format extends React.Component {
 
@@ -47,6 +48,8 @@ class Format extends React.Component {
         return Capitalize(this.props)
       } else if(style === 'email') {
         return Email(this.props)
+      } else if(style === 'phone') {
+        return Phone(this.props)
       } else if(style === 'link') {
         return Link(this.props)
       } else if(style === 'raw') {
@@ -134,6 +137,11 @@ const Capitalize = (props) => {
 
 const Email = (props) => {
   return <a href={ `mailto:${ props.value }` }>{ props.value }</a>
+}
+
+const Phone = (props) => {
+  const phoneNumber = parsePhoneNumberFromString(props.value, 'US')
+  return phoneNumber.formatNational()
 }
 
 const Link = (props) => {

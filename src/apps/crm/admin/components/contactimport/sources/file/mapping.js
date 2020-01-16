@@ -64,6 +64,9 @@ class Mapping extends React.PureComponent {
       title: 'Choose Field',
       leftItems: [
         { icon : 'chevron-left', handler: this._handleCancel }
+      ],
+      rightItems: [
+        { label : 'Done', handler: this._handleCancel }
       ]
     }
   }

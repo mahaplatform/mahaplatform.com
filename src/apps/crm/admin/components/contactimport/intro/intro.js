@@ -55,8 +55,8 @@ class Intro extends React.Component {
   }
 
   componentDidMount() {
-    const { table, onFetch } = this.props
-    onFetch(table)
+    const { onFetch } = this.props
+    onFetch()
   }
 
   _getList() {

@@ -1,5 +1,5 @@
+import ContactImportProcessQueue from '../../../queues/contactimport_process_queue'
 import ImportSerializer from '../../../../maha/serializers/import_serializer'
-import ImportProcessQueue from '../../../../maha/queues/import_process_queue'
 import socket from '../../../../../core/services/routes/emitter'
 import Import from '../../../../maha/models/import'
 
@@ -20,9 +20,8 @@ const processRoute = async (req, res) => {
     message: 'Unable to load import'
   })
 
-  ImportProcessQueue.enqueue(req, {
+  ContactImportProcessQueue.enqueue(req, {
     id: _import.get('id'),
-    table: 'crm_contacts',
     primaryKey: 'email'
   })
 

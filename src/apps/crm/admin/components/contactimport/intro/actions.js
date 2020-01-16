@@ -1,11 +1,11 @@
-export const fetch = (table) => ({
+export const fetch = () => ({
   type: 'API_REQUEST',
   method: 'GET',
   endpoint: '/api/admin/imports',
   query: {
     $filter: {
       object_type: {
-        $eq: table
+        $eq: 'crm_contacts'
       },
       stage: {
         $neq: 'complete'

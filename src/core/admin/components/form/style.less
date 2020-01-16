@@ -1,6 +1,26 @@
 .maha-form {
   display: flex;
   flex: 1;
+  .maha-menus-header {
+    background-color: @red;
+    padding-top: 0;
+    .ui.menu {
+      background-color: @red;
+      border-color: @white;
+      box-shadow: none !important;
+      .item {
+        border-color: @white !important;
+        color: @white !important;
+        &:before {
+          background-color: fadeout(@white, 60) !important;
+        }
+        &.active {
+          background-color: @white !important;
+          color: @red !important;
+        }
+      }
+    }
+  }
 }
 .maha-form-segment {
   border: 1px solid fadeout(@black, 90);

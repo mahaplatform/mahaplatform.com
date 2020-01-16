@@ -1,6 +1,7 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import { whitelist } from '../../../../../core/services/routes/params'
 import ImportSerializer from '../../../serializers/import_serializer'
+import socket from '../../../../../core/services/routes/emitter'
 import Import from '../../../models/import'
 
 const updateRoute = async (req, res) => {
@@ -33,6 +34,10 @@ const updateRoute = async (req, res) => {
     story: 'updated {object}',
     object: _import
   })
+
+  await socket.refresh(req, [
+    `/admin/imports/${_import.get('id')}`
+  ])
 
   const imp = await Import.query(qb => {
     qb.select('maha_imports.*','maha_import_counts.*')

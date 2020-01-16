@@ -9,6 +9,7 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
     object_type: 'crm_contacts',
+    primary_key: 'email',
     asset_id: req.body.asset_id,
     headers: req.body.headers,
     delimiter: req.body.delimiter,
