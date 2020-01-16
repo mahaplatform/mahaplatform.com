@@ -12,9 +12,17 @@
 .import-summary-item-icon-circle {
   margin: 0 auto auto;
   display: flex;
-  background-color: @green;
   border-radius: 50%;
   padding: 0.3em;
+  &.green {
+    background-color: @green;
+  }
+  &.red {
+    background-color: @red;
+  }
+  &.teal {
+    background-color: @teal;
+  }
   .fa {
     line-height: 1.4em;
     font-size: 1em;

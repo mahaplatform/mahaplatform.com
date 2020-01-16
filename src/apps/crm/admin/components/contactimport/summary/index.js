@@ -1,6 +1,7 @@
 import { Button, Container, Loader, ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
+import Channels from './channels'
 import Strategy from './strategy'
 import Review from './review'
 import Topics from './topics'
@@ -41,12 +42,13 @@ class Summary extends React.PureComponent {
     if(!_import) return <Loader />
     const lists = this._getLists()
     const topics = this._getTopics()
+    const channels = this._getChannels()
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="import-summary">
           <div className="import-summary-item">
             <div className="import-summary-item-icon">
-              <div className="import-summary-item-icon-circle">
+              <div className="import-summary-item-icon-circle green">
                 <i className="fa fa-fw fa-check" />
               </div>
             </div>
@@ -60,7 +62,7 @@ class Summary extends React.PureComponent {
           { _import.strategy === 'ignore' && _import.duplicate_count > 0 &&
             <div className="import-summary-item">
               <div className="import-summary-item-icon">
-                <div className="import-summary-item-icon-circle">
+                <div className="import-summary-item-icon-circle green">
                   <i className="fa fa-fw fa-times" />
                 </div>
               </div>
@@ -76,7 +78,7 @@ class Summary extends React.PureComponent {
           { _import.strategy !== 'ignore' && _import.duplicate_count > 0 &&
             <div className="import-summary-item">
               <div className="import-summary-item-icon">
-                <div className="import-summary-item-icon-circle">
+                <div className="import-summary-item-icon-circle green">
                   <i className="fa fa-fw fa-compress" />
                 </div>
               </div>
@@ -91,7 +93,7 @@ class Summary extends React.PureComponent {
           { _import.error_count > 0 &&
             <div className="import-summary-item">
               <div className="import-summary-item-icon">
-                <div className="import-summary-item-icon-circle">
+                <div className="import-summary-item-icon-circle green">
                   <i className="fa fa-fw fa-warning" />
                 </div>
               </div>
@@ -107,7 +109,7 @@ class Summary extends React.PureComponent {
           { _import.omit_count > 0 &&
             <div className="import-summary-item">
               <div className="import-summary-item-icon">
-                <div className="import-summary-item-icon-circle">
+                <div className="import-summary-item-icon-circle red">
                   <i className="fa fa-fw fa-minus" />
                 </div>
               </div>
@@ -121,7 +123,7 @@ class Summary extends React.PureComponent {
           }
           <div className="import-summary-item">
             <div className="import-summary-item-icon">
-              <div className="import-summary-item-icon-circle">
+              <div className="import-summary-item-icon-circle teal">
                 <i className="fa fa-fw fa-users" />
               </div>
             </div>
@@ -146,7 +148,7 @@ class Summary extends React.PureComponent {
           </div>
           <div className="import-summary-item">
             <div className="import-summary-item-icon">
-              <div className="import-summary-item-icon-circle">
+              <div className="import-summary-item-icon-circle teal">
                 <i className="fa fa-fw fa-book" />
               </div>
             </div>
@@ -169,19 +171,61 @@ class Summary extends React.PureComponent {
               <Button { ...this._getTopicsButton() } />
             </div>
           </div>
+          <div className="import-summary-item">
+            <div className="import-summary-item-icon">
+              <div className="import-summary-item-icon-circle teal">
+                <i className="fa fa-fw fa-handshake-o" />
+              </div>
+            </div>
+            { channels.length > 0 ?
+              <div className="import-summary-item-label">
+                Contacts will be opted in to the channels:
+                <ul>
+                  { channels.map((channel, index) => (
+                    <li key={`channel_${index}`}>
+                      { channel.program.title } - { channel.type }
+                    </li>
+                  )) }
+                </ul>
+              </div> :
+              <div className="import-summary-item-label">
+                Contacts will not be opted in to any channels
+              </div>
+            }
+            <div className="import-summary-item-action">
+              <Button { ...this._getChannelsButton() } />
+            </div>
+          </div>
         </div>
       </ModalPanel>
     )
   }
 
   componentDidMount() {
-    console.log('mounting')
     this._handleJoin()
     this._handleFetch()
   }
 
   componentWillUnmount() {
     this._handleLeave()
+  }
+
+  _getChannels() {
+    return [
+      { program: { title: 'Primitive Pursuits' }, type: 'postal' },
+      { program: { title: 'Primitive Pursuits' }, type: 'email' },
+      { program: { title: 'Primitive Pursuits' }, type: 'sms' },
+      { program: { title: 'Healthy Food For All' }, type: 'email' },
+      { program: { title: 'Healthy Food For All' }, type: 'sms' }
+    ]
+  }
+
+  _getChannelsButton() {
+    return {
+      label: 'Edit',
+      className: 'ui mini fluid button',
+      handler: this._handleEdit.bind(this, Channels)
+    }
   }
 
   _getFixButton() {

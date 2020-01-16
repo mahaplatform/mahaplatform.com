@@ -17,6 +17,8 @@ const Creator = (mapResourcesToPage, Component) => {
       host: PropTypes.object,
       modal: PropTypes.object,
       network: PropTypes.object,
+      pathname: PropTypes.string,
+      params: PropTypes.object,
       prompt: PropTypes.object,
       router: PropTypes.object,
       tasks: PropTypes.object
@@ -115,6 +117,7 @@ const Creator = (mapResourcesToPage, Component) => {
     _handleJoin() {
       const { pathname } = this.props
       const { network } = this.context
+      if(!pathname) return
       network.join(pathname)
       network.subscribe([
         { target: pathname, action: 'refresh', handler: this._handleRefreshResources }
@@ -124,6 +127,7 @@ const Creator = (mapResourcesToPage, Component) => {
     _handleLeave() {
       const { pathname } = this.props
       const { network } = this.context
+      if(!pathname) return
       network.leave(pathname)
       network.unsubscribe([
         { target: pathname, action: 'refresh', handler: this._handleRefreshResources }
