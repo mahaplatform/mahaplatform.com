@@ -86,4 +86,4 @@ workflows:
             branches:
               only: staging
             tags:
-              only: /.*/
+              ignore: /.*/
