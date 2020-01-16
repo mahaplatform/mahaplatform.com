@@ -7,7 +7,11 @@ import path from 'path'
 
 const processor = async () => {
 
-  const [environment, task] = process.argv.slice(2)
+  const args = process.argv.slice(2)
+
+  const task = args.length === 2 ? args[1] : args[0]
+
+  const environment = args.length === 2 ? args[0] : 'production'
 
   const shipit = new Shipit({ environment })
 
