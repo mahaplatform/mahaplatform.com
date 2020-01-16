@@ -7,7 +7,6 @@ import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import generateCode from '../../../core/utils/generate_code'
 import ImportItem from '../../maha/models/import_item'
 import socket from '../../../core/services/emitter'
-import geocode from '../../maha/services/geocode'
 import Queue from '../../../core/objects/queue'
 import Import from '../../maha/models/import'
 import Contact from '../models/contact'
@@ -39,6 +38,14 @@ const getPhoneNumbers = async (values) => {
   }, [])
 }
 
+const getFullAddress = (address) => {
+  const { street_1, street_2, city, state_province, postal_code } = address
+  const parts = [street_1,street_2,city,state_province,postal_code]
+  return address || parts.filter(item => {
+    return typeof(item) === 'string' && item.length > 0
+  }).join(', ')
+}
+
 const getMailingAddresses = async (values) => {
   return Promise.reduce(Array(3).fill(0), async (addresses, n, i) => {
     if(!values[`address_${i+1}_street_1`]) return addresses
@@ -49,14 +56,11 @@ const getMailingAddresses = async (values) => {
       state_province: values[`address_${i+1}_state_province`],
       postal_code: values[`address_${i+1}_postal_code`]
     }
-    // const geocoded = await geocode(address)
+    address.description = getFullAddress(address)
     return [
       ...addresses,
       {
-        address: {
-          ...address,
-          // ...geocoded
-        },
+        address,
         is_primary: addresses.length === 0
       }
     ]

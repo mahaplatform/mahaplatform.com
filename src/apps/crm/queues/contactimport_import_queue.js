@@ -5,10 +5,10 @@ import outlook from '../../maha/admin/api/profiles/contacts/outlook/list'
 import ImportSerializer from '../../maha/serializers/import_serializer'
 import ImportItem from '../../maha/models/import_item'
 import socket from '../../../core/services/emitter'
+import EmailAddress from '../models/email_address'
 import Queue from '../../../core/objects/queue'
 import Profile from '../../maha/models/profile'
 import Import from '../../maha/models/import'
-import Contact from '../models/contact'
 import _ from 'lodash'
 
 const getList = (service) => {
@@ -123,8 +123,8 @@ const processor = async (job, trx) => {
 
   await Promise.mapSeries(contacts, async (values, index) => {
 
-    const contact = values.email_1 ? await Contact.query(qb => {
-      if(values.email_1) qb.where('email', values.email_1)
+    const email = values.email_1 ? await EmailAddress.query(qb => {
+      if(values.email_1) qb.where('address', values.email_1)
     }).fetch({
       transacting: trx
     }) : null
@@ -133,7 +133,7 @@ const processor = async (job, trx) => {
       import_id: imp.get('id'),
       values,
       is_valid: true,
-      is_duplicate: contact !== null,
+      is_duplicate: email !== null,
       is_omitted: false,
       is_nonunique: false,
       is_merged: false,

@@ -25,12 +25,12 @@ class Lists extends React.PureComponent {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    const { lists } = this.props
+    const programs = this._getPrograms()
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-search-options">
           <div className="maha-search-results">
-            { lists.map((program, index) => (
+            { programs.map((program, index) => (
               <div className="maha-search-segment" key={`segment_${index}`}>
                 <div className="maha-search-segment-title">
                   <Image src={ program.logo } title={ program.title } transforms={{ w: 24, h: 24 }} />
@@ -81,6 +81,20 @@ class Lists extends React.PureComponent {
     }
   }
 
+  _getPrograms() {
+    const { lists } = this.props
+    return Object.values(lists.reduce((programs, list) => ({
+      ...programs,
+      [list.program.id]: {
+        ...list.program,
+        lists: [
+          ...programs[list.program.id] ? programs[list.program.id].lists : [],
+          list
+        ]
+      }
+    }), {}))
+  }
+
   _handleCancel() {
     this.props.onBack()
   }
@@ -114,7 +128,7 @@ class Lists extends React.PureComponent {
 }
 
 const mapResources = (props, context) => ({
-  lists: '/api/admin/crm/imports/lists'
+  lists: '/api/admin/crm/lists'
 })
 
 export default Container(mapResources)(Lists)

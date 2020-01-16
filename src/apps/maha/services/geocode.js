@@ -16,7 +16,6 @@ const getCounty = (result) => {
 }
 
 const getFullAddress = (address) => {
-  if(address.latitude && address.longitude && address.county && address.country) return address
   const { street_1, street_2, city, state_province, postal_code } = address
   const parts = [street_1,street_2,city,state_province,postal_code]
   return address || parts.filter(item => {
@@ -25,6 +24,7 @@ const getFullAddress = (address) => {
 }
 
 const geocode = async (address) => {
+  if(address.latitude && address.longitude && address.county && address.country) return address
   const endpoint = 'https://maps.googleapis.com/maps/api/geocode/json'
   const fulladdress = getFullAddress(address)
   const response = await request({

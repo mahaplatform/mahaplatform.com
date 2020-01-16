@@ -25,12 +25,12 @@ class Topics extends React.PureComponent {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    const { topics } = this.props
+    const programs = this._getPrograms()
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-search-options">
           <div className="maha-search-results">
-            { topics.map((program, index) => (
+            { programs.map((program, index) => (
               <div className="maha-search-segment" key={`segment_${index}`}>
                 <div className="maha-search-segment-title">
                   <Image src={ program.logo } title={ program.title } transforms={{ w: 24, h: 24 }} />
@@ -81,6 +81,20 @@ class Topics extends React.PureComponent {
     }
   }
 
+  _getPrograms() {
+    const { topics } = this.props
+    return Object.values(topics.reduce((programs, topic) => ({
+      ...programs,
+      [topic.program.id]: {
+        ...topic.program,
+        topics: [
+          ...programs[topic.program.id] ? programs[topic.program.id].topics : [],
+          topic
+        ]
+      }
+    }), {}))
+  }
+
   _handleCancel() {
     this.props.onBack()
   }
@@ -114,7 +128,7 @@ class Topics extends React.PureComponent {
 }
 
 const mapResources = (props, context) => ({
-  topics: '/api/admin/crm/imports/topics'
+  topics: '/api/admin/crm/topics'
 })
 
 export default Container(mapResources)(Topics)
