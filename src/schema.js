@@ -2421,12 +2421,12 @@ const schema = {
     })
 
     await knex.schema.table('finance_line_items', table => {
+      table.foreign('donation_revenue_type_id').references('finance_revenue_types.id')
       table.foreign('invoice_id').references('finance_invoices.id')
       table.foreign('product_id').references('finance_products.id')
       table.foreign('project_id').references('finance_projects.id')
       table.foreign('revenue_type_id').references('finance_revenue_types.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('donation_revenue_type_id').references('finance_revenue_types.id')
     })
 
     await knex.schema.table('finance_merchants', table => {
@@ -2450,10 +2450,10 @@ const schema = {
     })
 
     await knex.schema.table('finance_products', table => {
+      table.foreign('donation_revenue_type_id').references('finance_revenue_types.id')
       table.foreign('project_id').references('finance_projects.id')
       table.foreign('revenue_type_id').references('finance_revenue_types.id')
       table.foreign('team_id').references('maha_teams.id')
-      table.foreign('donation_revenue_type_id').references('finance_revenue_types.id')
     })
 
     await knex.schema.table('finance_refunds', table => {

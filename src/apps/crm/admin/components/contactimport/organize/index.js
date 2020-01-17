@@ -1,5 +1,6 @@
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Channels from './channels'
 import Topics from './topics'
 import Lists from './lists'
 import React from 'react'
@@ -15,6 +16,7 @@ class Organize extends React.PureComponent {
     cards: []
   }
 
+  _handleChannels = this._handleChannels.bind(this)
   _handleDone = this._handleDone.bind(this)
   _handleLists = this._handleLists.bind(this)
   _handleTopics = this._handleTopics.bind(this)
@@ -27,10 +29,21 @@ class Organize extends React.PureComponent {
     this._handleLists()
   }
 
+  _getChannels() {
+    const { _import } = this.props
+    return {
+      _import,
+      doneText: 'Next',
+      onBack: this._handlePop,
+      onDone: this._handleDone
+    }
+  }
+
   _getLists() {
     const { _import } = this.props
     return {
       _import,
+      doneText: 'Next',
       onBack: () => {},
       onDone: this._handleTopics
     }
@@ -40,8 +53,9 @@ class Organize extends React.PureComponent {
     const { _import } = this.props
     return {
       _import,
+      doneText: 'Next',
       onBack: this._handlePop,
-      onDone: this._handleDone
+      onDone: this._handleChannels
     }
   }
 
@@ -57,6 +71,10 @@ class Organize extends React.PureComponent {
       cards,
       slideFirst: false
     }
+  }
+
+  _handleChannels() {
+    this._handlePush(Channels, this._getChannels())
   }
 
   _handleDone() {

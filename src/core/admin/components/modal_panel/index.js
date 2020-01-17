@@ -10,6 +10,7 @@ class ModalPanel extends React.Component {
     children: PropTypes.any,
     className: PropTypes.string,
     color: PropTypes.string,
+    instructions: PropTypes.string,
     leftEnabled: PropTypes.bool,
     leftItems: PropTypes.array,
     rightEnabled: PropTypes.bool,
@@ -23,7 +24,7 @@ class ModalPanel extends React.Component {
   }
 
   render() {
-    const { buttons, leftItems, rightItems, showHeader, title } = this.props
+    const { buttons, instructions, leftItems, rightItems, showHeader, title } = this.props
     return (
       <div className={ this._getClass() }>
         { showHeader &&
@@ -49,6 +50,11 @@ class ModalPanel extends React.Component {
                 )) }
               </div>
             }
+          </div>
+        }
+        { instructions &&
+          <div className="maha-modal-panel-instructions">
+            { instructions }
           </div>
         }
         <div className="maha-modal-panel-body">

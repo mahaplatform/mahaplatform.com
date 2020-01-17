@@ -11,6 +11,7 @@ class Lists extends React.PureComponent {
 
   static propTypes = {
     _import: PropTypes.object,
+    doneText: PropTypes.string,
     lists: PropTypes.array,
     onBack: PropTypes.func,
     onDone: PropTypes.func
@@ -30,12 +31,6 @@ class Lists extends React.PureComponent {
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-search-options">
           <div className="maha-search-results">
-            <div className="maha-search-instructions">
-              You can organize your contacts into lists for bulk processing.
-              Your contacts cannot see these lists as they are for internal
-              use and only visible to administrative users. Choose one or more
-              lists from below to which you&apos;d like to add these contacts.
-            </div>
             { programs.map((program, index) => (
               <div className="maha-search-segment" key={`segment_${index}`}>
                 <div className="maha-search-segment-title">
@@ -76,13 +71,18 @@ class Lists extends React.PureComponent {
   }
 
   _getPanel() {
+    const { doneText } = this.props
     return {
       title: 'Choose Lists',
+      instructions: `You can organize your contacts into lists for bulk
+        processing. Your contacts cannot see these lists as they are for
+        internal use and only visible to administrative users. Choose one or
+        more lists from below to which you'd like to add these contacts.`,
       leftItems: [
         { icon : 'chevron-left', handler: this._handleCancel }
       ],
       rightItems: [
-        { label : 'Done', handler: this._handleSave }
+        { label : doneText, handler: this._handleSave }
       ]
     }
   }

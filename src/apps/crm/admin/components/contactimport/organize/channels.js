@@ -3,7 +3,7 @@ import { Container, Image, ModalPanel } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class Lists extends React.PureComponent {
+class Topics extends React.PureComponent {
 
   static contextTypes = {
     network: PropTypes.object
@@ -11,13 +11,16 @@ class Lists extends React.PureComponent {
 
   static propTypes = {
     _import: PropTypes.object,
-    lists: PropTypes.array,
+    doneText: PropTypes.string,
+    programs: PropTypes.array,
     onBack: PropTypes.func,
     onDone: PropTypes.func
   }
 
   state = {
-    list_ids: []
+    channels: [
+      { program_id: 1, type: 'email' }
+    ]
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -25,7 +28,8 @@ class Lists extends React.PureComponent {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    const programs = this._getPrograms()
+    const { programs } = this.props
+    const channels = ['sms','phone','postal','email']
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-search-options">
@@ -36,16 +40,16 @@ class Lists extends React.PureComponent {
                   <Image src={ program.logo } title={ program.title } transforms={{ w: 24, h: 24 }} />
                   { program.title }
                 </div>
-                { program.lists.map((list, index) => (
-                  <div key={`filter_${index}`} className="maha-search-item" onClick={ this._handleChoose.bind(this, list.id) }>
+                { channels.map((type, index) => (
+                  <div key={`filter_${index}`} className="maha-search-item" onClick={ this._handleChoose.bind(this, program.id, type) }>
                     <div className="maha-search-item-icon">
-                      { this._getChecked(list.id) ?
+                      { this._getChecked(program.id, type) ?
                         <i className="fa fa-fw fa-check-circle" /> :
                         <i className="fa fa-fw fa-circle-o" />
                       }
                     </div>
                     <div className="maha-search-item-label padded">
-                      { list.title }
+                      { type }
                     </div>
                   </div>
                 )) }
@@ -60,61 +64,52 @@ class Lists extends React.PureComponent {
   componentDidMount() {
     const { _import } = this.props
     if(_import.config) this.setState({
-      list_ids: _import.config.list_ids || []
+      channels: _import.config.channels || []
     })
   }
 
-  _getChecked(id) {
-    const { list_ids } = this.state
-    return _.includes(list_ids, id)
+  _getChecked(program_id, type) {
+    const { channels } = this.state
+    return _.find(channels, { program_id, type })
   }
 
   _getPanel() {
+    const { doneText } = this.props
     return {
-      title: 'Choose Lists',
+      title: 'Choose Channels',
+      instructions: `Before you can send marketing communications to a contact
+        in your database, you first need his/her consent. If you have received
+        consent from these contacts, you can opt them into one or more
+        communication channels listed below.`,
       leftItems: [
         { icon : 'chevron-left', handler: this._handleCancel }
       ],
       rightItems: [
-        { label : 'Done', handler: this._handleSave }
+        { label : doneText, handler: this._handleSave }
       ]
     }
-  }
-
-  _getPrograms() {
-    const { lists } = this.props
-    return Object.values(lists.reduce((programs, list) => ({
-      ...programs,
-      [list.program.id]: {
-        ...list.program,
-        lists: [
-          ...programs[list.program.id] ? programs[list.program.id].lists : [],
-          list
-        ]
-      }
-    }), {}))
   }
 
   _handleCancel() {
     this.props.onBack()
   }
 
-  _handleChoose(id) {
-    const { list_ids } = this.state
+  _handleChoose(program_id, type) {
+    const { channels } = this.state
     this.setState({
-      list_ids: _.xor(list_ids, [id])
+      channels: _.xor(channels, [{ program_id, type }])
     })
   }
 
   _handleSave() {
-    const { list_ids } = this.state
+    const { channels } = this.state
     const { _import } = this.props
     this.context.network.request({
       endpoint: `/api/admin/imports/${_import.id}`,
       method: 'patch',
       body: {
         config: {
-          list_ids
+          channels
         }
       },
       onSuccess: this._handleDone
@@ -128,7 +123,7 @@ class Lists extends React.PureComponent {
 }
 
 const mapResources = (props, context) => ({
-  lists: '/api/admin/crm/lists'
+  programs: '/api/admin/crm/programs'
 })
 
-export default Container(mapResources)(Lists)
+export default Container(mapResources)(Topics)

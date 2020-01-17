@@ -1,11 +1,11 @@
 import { Button, Container, Loader, ModalPanel } from 'maha-admin'
+import Channels from '../organize/channels'
+import Topics from '../organize/topics'
+import Lists from '../organize/lists'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
-import Channels from './channels'
 import Strategy from './strategy'
 import Review from './review'
-import Topics from './topics'
-import Lists from './lists'
 import React from 'react'
 import _ from 'lodash'
 
@@ -18,6 +18,7 @@ class Summary extends React.PureComponent {
   static propTypes = {
     _import: PropTypes.object,
     lists: PropTypes.array,
+    programs: PropTypes.array,
     topics: PropTypes.array,
     onBack: PropTypes.func,
     onDone: PropTypes.func,
@@ -56,7 +57,7 @@ class Summary extends React.PureComponent {
               { pluralize('new contact', _import.valid_count, true) } will be created
             </div>
             <div className="import-summary-item-action">
-              <Button { ...this._getReviewButton() } />
+              <Button { ...this._getReviewButton(false) } />
             </div>
           </div>
           { _import.strategy === 'ignore' && _import.duplicate_count > 0 &&
@@ -71,7 +72,7 @@ class Summary extends React.PureComponent {
               </div>
               <div className="import-summary-item-action">
                 <Button { ...this._getStrategyButton() } />
-                <Button { ...this._getReviewButton() } />
+                <Button { ...this._getReviewButton(true) } />
               </div>
             </div>
           }
@@ -87,6 +88,7 @@ class Summary extends React.PureComponent {
               </div>
               <div className="import-summary-item-action">
                 <Button { ...this._getStrategyButton() } />
+                <Button { ...this._getReviewButton(true) } />
               </div>
             </div>
           }
@@ -129,7 +131,7 @@ class Summary extends React.PureComponent {
             </div>
             { lists.length > 0 ?
               <div className="import-summary-item-label">
-                Contacts will be subscribed to the lists:
+                Contacts will be subscribed to the following lists:
                 <ul>
                   { lists.map((list, index) => (
                     <li key={`list_${index}`}>
@@ -154,7 +156,7 @@ class Summary extends React.PureComponent {
             </div>
             { topics.length > 0 ?
               <div className="import-summary-item-label">
-                Contacts will be marked as interested in the topics:
+                Contacts will be marked as interested in the following topics:
                 <ul>
                   { topics.map((topic, index) => (
                     <li key={`topic_${index}`}>
@@ -179,7 +181,7 @@ class Summary extends React.PureComponent {
             </div>
             { channels.length > 0 ?
               <div className="import-summary-item-label">
-                Contacts will be opted in to the channels:
+                Contacts will be opted in to the following channels:
                 <ul>
                   { channels.map((channel, index) => (
                     <li key={`channel_${index}`}>
@@ -211,13 +213,16 @@ class Summary extends React.PureComponent {
   }
 
   _getChannels() {
-    return [
-      { program: { title: 'Primitive Pursuits' }, type: 'postal' },
-      { program: { title: 'Primitive Pursuits' }, type: 'email' },
-      { program: { title: 'Primitive Pursuits' }, type: 'sms' },
-      { program: { title: 'Healthy Food For All' }, type: 'email' },
-      { program: { title: 'Healthy Food For All' }, type: 'sms' }
-    ]
+    const { _import } = this.state
+    const { programs } = this.props
+    const { channels } = _import.config
+    return channels ? channels.map(channel => {
+      const program = _.find(programs, { id: channel.program_id })
+      return {
+        program,
+        type: channel.type
+      }
+    }) : []
   }
 
   _getChannelsButton() {
@@ -268,11 +273,11 @@ class Summary extends React.PureComponent {
     }
   }
 
-  _getReviewButton() {
+  _getReviewButton(is_duplicate) {
     return {
       label: 'Review',
       className: 'ui mini fluid button',
-      handler: this._handleReview
+      handler: this._handleReview.bind(this, is_duplicate)
     }
   }
 
@@ -322,6 +327,7 @@ class Summary extends React.PureComponent {
     const { onPop } = this.props
     this.props.onPush(component, {
       _import,
+      doneText: 'Done',
       onBack: onPop,
       onDone: this._handleUpdate
     })
@@ -356,11 +362,12 @@ class Summary extends React.PureComponent {
     ])
   }
 
-  _handleReview() {
+  _handleReview(is_duplicate) {
     const { _import } = this.state
     const { onPop } = this.props
     this.props.onPush(Review, {
       _import,
+      is_duplicate,
       onBack: onPop,
       onDone: onPop
     })
@@ -380,6 +387,7 @@ class Summary extends React.PureComponent {
 
 const mapResources = (props, context) => ({
   lists: '/api/admin/crm/lists',
+  programs: '/api/admin/crm/programs',
   topics: '/api/admin/crm/topics'
 })
 

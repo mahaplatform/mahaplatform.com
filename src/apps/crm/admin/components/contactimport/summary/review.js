@@ -11,6 +11,7 @@ class Review extends React.PureComponent {
 
   static propTypes = {
     _import: PropTypes.object,
+    is_duplicate: PropTypes.bool,
     onBack: PropTypes.func,
     onDone: PropTypes.func
   }
@@ -54,7 +55,7 @@ class Review extends React.PureComponent {
                     <label>Record { index + 1 } / { total }</label>
                   </div>
                   <div className="maha-import-review-pager-item">
-                    { index < _import.valid_count - 1 ?
+                    { index < total - 1 ?
                       <div className="ui green tiny fluid button" onClick={ this._handleNext }>
                         <i className="fa fa-fw fa-chevron-right" />
                       </div> :
@@ -109,14 +110,14 @@ class Review extends React.PureComponent {
   }
 
   _handleFetch() {
-    const { _import } = this.props
+    const { _import, is_duplicate } = this.props
     this.context.network.request({
       endpoint: `/api/admin/imports/${_import.id}/items`,
       method: 'get',
       query: {
         $filter: {
           is_duplicate: {
-            $eq: 'false'
+            $eq: is_duplicate
           },
           is_omitted: {
             $eq: 'false'

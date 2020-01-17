@@ -11,6 +11,7 @@ class Topics extends React.PureComponent {
 
   static propTypes = {
     _import: PropTypes.object,
+    doneText: PropTypes.string,
     topics: PropTypes.array,
     onBack: PropTypes.func,
     onDone: PropTypes.func
@@ -30,13 +31,6 @@ class Topics extends React.PureComponent {
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-search-options">
           <div className="maha-search-results">
-            <div className="maha-search-instructions">
-              Contacts can be organized into groups based on their interest in
-              one or more topics. Each contact has a public interface where
-              they can adjust these interests or opt out of communications
-              entirely. Choose one or more topics from below to which
-              you&apos;d like to add these contacts.
-            </div>
             { programs.map((program, index) => (
               <div className="maha-search-segment" key={`segment_${index}`}>
                 <div className="maha-search-segment-title">
@@ -77,13 +71,19 @@ class Topics extends React.PureComponent {
   }
 
   _getPanel() {
+    const { doneText } = this.props
     return {
       title: 'Choose Topics',
+      instructions: `Contacts can be organized into groups based on their
+        interest in one or more topics. Each contact has a public interface
+        where they can adjust these interests or opt out of communications
+        entirely. Choose one or more topics from below to which you'd like to
+        add these contacts.`,
       leftItems: [
         { icon : 'chevron-left', handler: this._handleCancel }
       ],
       rightItems: [
-        { label : 'Done', handler: this._handleSave }
+        { label : doneText, handler: this._handleSave }
       ]
     }
   }
