@@ -146,7 +146,9 @@ class Mappings extends React.PureComponent {
         return { header, field: 'email_1', type: 'email' }
       } else if(_.includes(['phone','phonenumber'], text)) {
         return { header, field: 'phone_1', type: 'phone' }
-      } else if(_.includes(['street','street1','address','address1'], text)) {
+      } else if(_.includes(['address','address1'], text)) {
+        return { header, field: 'address_1', type: 'address' }
+      } else if(_.includes(['street','street1'], text)) {
         return { header, field: 'address_1_street_1', type: 'text' }
       } else if(_.includes(['street2','address2'], text)) {
         return { header, field: 'address_1_street_2', type: 'text' }

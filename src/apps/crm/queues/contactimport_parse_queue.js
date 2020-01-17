@@ -6,6 +6,7 @@ import Queue from '../../../core/objects/queue'
 import knex from '../../../core/services/knex'
 import parse from '../../../core/utils/parse'
 import Import from '../../maha/models/import'
+import { parseLocation } from 'parse-address'
 import _ from 'lodash'
 
 const processor = async (job, trx) => {
@@ -31,6 +32,15 @@ const processor = async (job, trx) => {
       return {
         first_name: parts[0],
         last_name: parts.slice(1).join(' ')
+      }
+    } else if(mapping.field.match(/^address/)) {
+      const { number, prefix, street, type, sec_unit_type, sec_unit_num, city, state, zip, plus4 } = parseLocation(value)
+      return {
+        [`${mapping.field}_street_1`]: [number,prefix,street,type].filter(val => val !== undefined).join(' '),
+        [`${mapping.field}_street_2`]: [sec_unit_type,sec_unit_num].filter(val => val !== undefined).join(' '),
+        [`${mapping.field}_city`]: city,
+        [`${mapping.field}_state_province`]: state,
+        [`${mapping.field}_postal_code`]: [zip,plus4].filter(val => val !== undefined).join('-')
       }
     } else {
       return {
