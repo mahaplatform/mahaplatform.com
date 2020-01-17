@@ -134,9 +134,11 @@ class Mappings extends React.PureComponent {
     const { headers } = this.props
     const mappings = headers.map(header => {
       const text = header.replace(/[\s-_']/g, '').toLowerCase()
-      if(_.includes(['firstname','fname'], text)) {
+      if(_.includes(['name','fullname'], text)) {
+        return { header, field: 'full_name', type: 'text' }
+      } else if(_.includes(['firstname','fname','givenname'], text)) {
         return { header, field: 'first_name', type: 'text' }
-      } else if(_.includes(['lastname','lname'], text)) {
+      } else if(_.includes(['lastname','lname','surname'], text)) {
         return { header, field: 'last_name', type: 'text' }
       } else if(_.includes(['lastname','lname'], text)) {
         return { header, field: 'last_name', type: 'text' }

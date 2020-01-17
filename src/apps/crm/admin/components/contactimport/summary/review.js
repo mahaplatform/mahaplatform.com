@@ -72,7 +72,7 @@ class Review extends React.PureComponent {
                         <tr key={`property_${index}`}>
                           <th>{ key }</th>
                           <td>
-                            { _.find(_import.mapping, ['field', key]).type == 'upload' &&
+                            { this._getType(key) === 'upload' &&
                               <div className="image-preview">
                                 <img src={record.values[key]} alt="Preview of image to be uploaded" />
                                 <span>Preview</span>
@@ -95,6 +95,13 @@ class Review extends React.PureComponent {
 
   componentDidMount() {
     this._handleFetch()
+  }
+
+  _getType(key) {
+    const { _import } = this.props
+    const mapping = _.find(_import.mapping, ['field', key])
+    if(mapping && mapping.type === 'upload') return 'upload'
+    return 'text'
   }
 
   _getPanel() {

@@ -1,5 +1,5 @@
 import ContactImportImportQueue from '../../../queues/contactimport_import_queue'
-import ImportParseQueue from '../../../../maha/queues/import_parse_queue'
+import ContactImportParseQueue from '../../../queues/contactimport_parse_queue'
 import ImportSerializer from '../../../../maha/serializers/import_serializer'
 import Import from '../../../../maha/models/import'
 
@@ -29,7 +29,7 @@ const createRoute = async (req, res) => {
       list_id: req.body.list_id
     })
   } else {
-    ImportParseQueue.enqueue(req, {
+    ContactImportParseQueue.enqueue(req, {
       id: imp.get('id')
     })
   }
