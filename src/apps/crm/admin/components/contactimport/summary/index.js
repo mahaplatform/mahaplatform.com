@@ -324,9 +324,12 @@ class Summary extends React.PureComponent {
 
   _handleEdit(component) {
     const { _import } = this.state
-    const { onPop } = this.props
+    const { lists, programs, topics, onPop } = this.props
     this.props.onPush(component, {
       _import,
+      lists,
+      programs,
+      topics,
       doneText: 'Done',
       onBack: onPop,
       onDone: this._handleUpdate

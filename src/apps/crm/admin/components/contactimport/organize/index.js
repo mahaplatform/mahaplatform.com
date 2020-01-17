@@ -1,4 +1,4 @@
-import { Stack } from 'maha-admin'
+import { Container, Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Channels from './channels'
 import Topics from './topics'
@@ -9,6 +9,9 @@ class Organize extends React.PureComponent {
 
   static propTypes = {
     _import: PropTypes.object,
+    lists: PropTypes.array,
+    programs: PropTypes.array,
+    topics: PropTypes.array,
     onDone: PropTypes.func
   }
 
@@ -30,9 +33,10 @@ class Organize extends React.PureComponent {
   }
 
   _getChannels() {
-    const { _import } = this.props
+    const { _import, programs } = this.props
     return {
       _import,
+      programs,
       doneText: 'Next',
       onBack: this._handlePop,
       onDone: this._handleDone
@@ -40,9 +44,10 @@ class Organize extends React.PureComponent {
   }
 
   _getLists() {
-    const { _import } = this.props
+    const { _import, lists } = this.props
     return {
       _import,
+      lists,
       doneText: 'Next',
       onBack: () => {},
       onDone: this._handleTopics
@@ -50,9 +55,10 @@ class Organize extends React.PureComponent {
   }
 
   _getTopics() {
-    const { _import } = this.props
+    const { _import, topics } = this.props
     return {
       _import,
+      topics,
       doneText: 'Next',
       onBack: this._handlePop,
       onDone: this._handleChannels
@@ -107,4 +113,10 @@ class Organize extends React.PureComponent {
 
 }
 
-export default Organize
+const mapResources = (props, context) => ({
+  lists: '/api/admin/crm/lists',
+  programs: '/api/admin/crm/programs',
+  topics: '/api/admin/crm/topics'
+})
+
+export default Container(mapResources)(Organize)

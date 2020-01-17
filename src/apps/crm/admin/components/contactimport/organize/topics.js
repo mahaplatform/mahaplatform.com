@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import { Container, Image, ModalPanel } from 'maha-admin'
+import { Image, ModalPanel } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
@@ -134,8 +134,4 @@ class Topics extends React.PureComponent {
 
 }
 
-const mapResources = (props, context) => ({
-  topics: '/api/admin/crm/topics'
-})
-
-export default Container(mapResources)(Topics)
+export default Topics
