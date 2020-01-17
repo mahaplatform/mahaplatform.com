@@ -50,14 +50,22 @@ const mapPropsToPage = (props, context, resources, page) => ({
       ]
     },
     entity: 'contact',
-    onClick: (record) => context.router.history.push(`/admin/crm/contacts/${record.id}`)
+    onClick: (record) => context.router.history.push(`/admin/crm/contacts/${record.id}`),
+    selectable: true,
+    buttons: ({ selected }) => selected.length > 0 ? [{
+      color: 'red',
+      text: 'Add to List'
+    },{
+      color: 'red',
+      text: 'Add to Interest'
+    }] : null
   },
   tasks: {
     icon: 'plus',
     items: [
       {
         label: 'Add Contact',
-        modal: () => <New fields={ resources.fields } />
+        modal: <New fields={ resources.fields } />
       }, {
         label: 'Import Contacts',
         modal: ContactImport

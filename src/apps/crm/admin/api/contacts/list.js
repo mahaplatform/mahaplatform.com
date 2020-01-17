@@ -5,7 +5,7 @@ import Contact from '../../../models/contact'
 const listRoute = async (req, res) => {
 
   const contacts = await Contact.scope(qb => {
-    qb.select(req.trx.raw('distinct on (crm_contacts.id,crm_contacts.first_name,crm_contacts.last_name,crm_contact_primaries.email) crm_contacts.*,crm_contact_primaries.*'))
+    qb.select(req.trx.raw('distinct on (crm_contacts.id,crm_contacts.first_name,crm_contacts.last_name,crm_contact_primaries.email,crm_contact_primaries.phone) crm_contacts.*,crm_contact_primaries.*'))
     qb.leftJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
     qb.leftJoin('crm_email_addresses', 'crm_email_addresses.contact_id', 'crm_contacts.id')
     qb.leftJoin('crm_phone_numbers', 'crm_phone_numbers.contact_id', 'crm_contacts.id')
@@ -15,10 +15,11 @@ const listRoute = async (req, res) => {
   }).filter({
     aliases: {
       email: 'crm_contact_primaries.email',
-      phone: 'crm_contact_primaries.phone'
+      phone: 'crm_contact_primaries.phone',
+      tag_id: 'crm_taggings.tag_id'
     },
     filter: req.query.$filter,
-    filterParams: ['first_name','last_name','email','phone','crm_taggings.tag_id'],
+    filterParams: ['first_name','last_name','email','phone','tag_id'],
     searchParams: ['first_name','last_name','email']
   }).sort({
     aliases: {
