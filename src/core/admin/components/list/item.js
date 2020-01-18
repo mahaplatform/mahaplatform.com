@@ -16,6 +16,7 @@ class Item extends React.Component {
     component: PropTypes.any,
     content: PropTypes.any,
     empty: PropTypes.string,
+    extra: PropTypes.any,
     format: PropTypes.any,
     handler: PropTypes.func,
     icon: PropTypes.string,

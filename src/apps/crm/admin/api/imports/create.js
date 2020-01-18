@@ -2,14 +2,28 @@ import ContactImportImportQueue from '../../../queues/contactimport_import_queue
 import ContactImportParseQueue from '../../../queues/contactimport_parse_queue'
 import ImportSerializer from '../../../../maha/serializers/import_serializer'
 import Import from '../../../../maha/models/import'
+import Profile from '../../../../maha/models/profile'
+
+const getService = async (req, profile_id) => {
+  const profile = await Profile.query(qb => {
+    qb.where('id', profile_id )
+  }).fetch({
+    withRelated: ['source'],
+    transacting: req.trx
+  })
+  return profile ? profile.related('source').get('text') : 'excel'
+}
 
 const createRoute = async (req, res) => {
+
+  const service = await getService(req, req.body.profile_id)
 
   const imp = await Import.forge({
     team_id: req.team.get('id'),
     user_id: req.user.get('id'),
     object_type: 'crm_contacts',
     primary_key: 'email',
+    service,
     asset_id: req.body.asset_id,
     headers: req.body.headers,
     delimiter: req.body.delimiter,

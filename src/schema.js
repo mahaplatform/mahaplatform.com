@@ -1417,6 +1417,8 @@ const schema = {
       table.USER-DEFINED('stage')
       table.USER-DEFINED('strategy')
       table.json('config')
+      table.USER-DEFINED('type')
+      table.USER-DEFINED('service')
     })
 
     await knex.schema.createTable('maha_installations', (table) => {

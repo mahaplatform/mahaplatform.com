@@ -59,17 +59,25 @@ class Intro extends React.Component {
     onFetch()
   }
 
+  _getService() {
+    return 'mailchimp'
+  }
+
   _getList() {
     const { imports } = this.props
     return {
       items: [
         ...imports.map((item, index) => ({
-          icon: 'file-excel-o',
           component: () => (
             <div className="import-item">
-              <strong>{item.name || item.asset.original_file_name}</strong> ({ pluralize('record', item.item_count, true) })<br />
-              { moment(item.created_at).format('MMM DD, YYYY @ h:mm a') }<br />
-              <div className="import-item-remove" onClick={ this._handleRemove.bind(this, item) }>Delete Import</div>
+              <div className="import-item-icon">
+                <img src={ `/images/services/${item.service}.png` } />
+              </div>
+              <div className="import-item-label">
+                <strong>{item.name || item.asset.original_file_name}</strong> ({ pluralize('record', item.item_count, true) })<br />
+                { moment(item.created_at).format('MMM DD, YYYY @ h:mm a') }<br />
+                <div className="import-item-remove" onClick={ this._handleRemove.bind(this, item) }>Delete Import</div>
+              </div>
             </div>
           ),
           handler: this._handleResume.bind(this, item)
