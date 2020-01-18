@@ -118,7 +118,7 @@ const createRoute = async (req, res) => {
   const _contact = await Contact.query(qb => {
     qb.select('crm_contacts.*','crm_contact_primaries.*')
     qb.leftJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
-    qb.where('id', req.params.id)
+    qb.where('id', contact.get('id'))
   }).fetch({
     withRelated: ['email_addresses','mailing_addresses','organizations','phone_numbers','photo','tags'],
     transacting: req.trx

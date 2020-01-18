@@ -2,6 +2,7 @@ import { updateRelated } from '../../../core/services/routes/relations'
 import ImportSerializer from '../../maha/serializers/import_serializer'
 import { updateMailingAddresses } from '../services/mailing_addresses'
 import { updateEmailAddresses } from '../services/email_addresses'
+import { createAssetFromUrl } from '../../maha/services/assets'
 import { updatePhoneNumbers } from '../services/phone_numbers'
 import { refresh } from '../../../core/services/routes/emitter'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
@@ -70,6 +71,15 @@ const getMailingAddresses = async (values) => {
   }, [])
 }
 
+const getPhotoId = async (req, values) => {
+  const { photo } = values
+  if(!photo) return null
+  const asset = await createAssetFromUrl(req, {
+    url: photo 
+  })
+  return asset.get('id')
+}
+
 const processor = async (job, trx) => {
 
   const imp = await Import.query(qb => {
@@ -102,11 +112,14 @@ const processor = async (job, trx) => {
 
     const mailing_addresses = await getMailingAddresses(item.get('values'))
 
+    const photo_id = await getPhotoId(req, item.get('values'))
+
     const contact = await Contact.forge({
       team_id: req.team.get('id'),
       code,
       first_name: item.get('values').first_name,
-      last_name: item.get('values').last_name
+      last_name: item.get('values').last_name,
+      photo_id
     }).save(null, {
       transacting: trx
     })

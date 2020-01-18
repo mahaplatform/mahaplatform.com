@@ -125,11 +125,16 @@ const updateRoute = async (req, res) => {
     `/admin/crm/contacts/${contact.get('id')}`
   ])
 
-  await contact.load(['photo'], {
+  const _contact = await Contact.query(qb => {
+    qb.select('crm_contacts.*','crm_contact_primaries.*')
+    qb.leftJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
+    qb.where('id', contact.get('id'))
+  }).fetch({
+    withRelated: ['email_addresses','mailing_addresses','organizations','phone_numbers','photo','tags'],
     transacting: req.trx
   })
-
-  res.status(200).respond(contact, ContactSerializer)
+  
+  res.status(200).respond(_contact, ContactSerializer)
 
 }
 

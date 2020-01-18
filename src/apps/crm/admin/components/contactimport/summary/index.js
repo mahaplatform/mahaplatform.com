@@ -17,6 +17,7 @@ class Summary extends React.PureComponent {
 
   static propTypes = {
     _import: PropTypes.object,
+    fields: PropTypes.array,
     lists: PropTypes.array,
     programs: PropTypes.array,
     topics: PropTypes.array,
@@ -367,9 +368,10 @@ class Summary extends React.PureComponent {
 
   _handleReview(is_duplicate) {
     const { _import } = this.state
-    const { onPop } = this.props
+    const { fields, onPop } = this.props
     this.props.onPush(Review, {
       _import,
+      fields,
       is_duplicate,
       onBack: onPop,
       onDone: onPop
@@ -389,6 +391,7 @@ class Summary extends React.PureComponent {
 }
 
 const mapResources = (props, context) => ({
+  fields: '/api/admin/crm/imports/fields',
   lists: '/api/admin/crm/lists',
   programs: '/api/admin/crm/programs',
   topics: '/api/admin/crm/topics'

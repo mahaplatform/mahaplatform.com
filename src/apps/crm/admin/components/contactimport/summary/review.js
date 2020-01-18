@@ -11,6 +11,7 @@ class Review extends React.PureComponent {
 
   static propTypes = {
     _import: PropTypes.object,
+    fields: PropTypes.array,
     is_duplicate: PropTypes.bool,
     onBack: PropTypes.func,
     onDone: PropTypes.func
@@ -32,7 +33,6 @@ class Review extends React.PureComponent {
   render() {
     const { index, items, status, total } = this.state
     const record = items ? items[index] : null
-    const { _import } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         { items &&
@@ -72,7 +72,7 @@ class Review extends React.PureComponent {
                         <tr key={`property_${index}`}>
                           <th>{ key }</th>
                           <td>
-                            { this._getType(key) === 'upload' &&
+                            { this._getType(key) === 'imagefield' &&
                               <div className="image-preview">
                                 <img src={record.values[key]} alt="Preview of image to be uploaded" />
                                 <span>Preview</span>
@@ -97,11 +97,14 @@ class Review extends React.PureComponent {
     this._handleFetch()
   }
 
-  _getType(key) {
-    const { _import } = this.props
-    const mapping = _.find(_import.mapping, ['field', key])
-    if(mapping && mapping.type === 'upload') return 'upload'
-    return 'text'
+  _getType(name) {
+    const fields = this.props.fields.reduce((fields, section) => ({
+      ...fields,
+      ...section.fields
+    }), [])
+    const field = _.find(fields, { name })
+    console.log(name, field, fields)
+    return field.type
   }
 
   _getPanel() {

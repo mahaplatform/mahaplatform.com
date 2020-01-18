@@ -20,7 +20,8 @@ const fieldsRoute = async (req, res) => {
       return field.get('parent_id') === program.get('id')
     }).map(field => ({
       label: field.get('label'),
-      name: field.get('name')
+      name: field.get('name'),
+      type: field.get('type')
     }))
   })).filter(program => {
     return program.fields.length > 0
@@ -30,25 +31,26 @@ const fieldsRoute = async (req, res) => {
     {
       label: 'General Fields',
       fields: [
-        { label: 'Full Name', name: 'full_name' },
-        { label: 'First Name', name: 'first_name' },
-        { label: 'Last Name', name: 'last_name' },
+        { label: 'Full Name', name: 'full_name', type: 'textfield' },
+        { label: 'First Name', name: 'first_name', type: 'textfield' },
+        { label: 'Last Name', name: 'last_name', type: 'textfield' },
+        { label: 'Photo', name: 'photo', type: 'imagefield' },
         ...Array(3).fill(0).reduce((fields, i, j) => [
           ...fields,
-          { label: `Email ${j+1}`, name: `email_${j+1}` }
+          { label: `Email ${j+1}`, name: `email_${j+1}`, type: 'emailfield' }
         ], []),
         ...Array(3).fill(0).reduce((fields, i, j) => [
           ...fields,
-          { label: `Phone ${j+1}`, name: `phone_${j+1}` }
+          { label: `Phone ${j+1}`, name: `phone_${j+1}`, type: 'phonefield' }
         ], []),
         ...Array(3).fill(0).reduce((fields, i, j) => [
           ...fields,
-          { label: `Address ${j+1}`, name: `address_${j+1}` },
-          { label: `Address ${j+1} - Street 1`, name: `address_${j+1}_street_1` },
-          { label: `Address ${j+1} - Street 2`, name: `address_${j+1}_street_2` },
-          { label: `Address ${j+1} - City`, name: `address_${j+1}_city` },
-          { label: `Address ${j+1} - State/Province`, name: `address_${j+1}_state_province` },
-          { label: `Address ${j+1} - Postal Code`, name: `address_${j+1}_postal_code` }
+          { label: `Address ${j+1}`, name: `address_${j+1}`, type: 'addressfield' },
+          { label: `Address ${j+1} - Street 1`, name: `address_${j+1}_street_1`, type: 'textfield' },
+          { label: `Address ${j+1} - Street 2`, name: `address_${j+1}_street_2`, type: 'textfield' },
+          { label: `Address ${j+1} - City`, name: `address_${j+1}_city`, type: 'textfield' },
+          { label: `Address ${j+1} - State/Province`, name: `address_${j+1}_state_province`, type: 'textfield' },
+          { label: `Address ${j+1} - Postal Code`, name: `address_${j+1}_postal_code`, type: 'textfield' }
         ], [])
       ]
     },

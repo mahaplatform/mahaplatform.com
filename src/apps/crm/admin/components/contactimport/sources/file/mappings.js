@@ -4,6 +4,21 @@ import Mapping from './mapping'
 import React from 'react'
 import _ from 'lodash'
 
+const fieldmap = [
+  { name: 'full_name', matches: ['name','fullname'] },
+  { name: 'first_name', matches: ['firstname','fname','givenname'] },
+  { name: 'last_name', matches: ['lastname','lname','surname'] },
+  { name: 'photo', matches: ['photo','picture'] },
+  { name: 'email_1', matches: ['email','emailaddress'] },
+  { name: 'phone_1', matches: ['phone','phonenumber'] },
+  { name: 'address_1', matches: ['address','address1'] },
+  { name: 'address_1_street_1', matches: ['street','street1'] },
+  { name: 'address_1_street_2', matches: ['street2'] },
+  { name: 'address_1_city', matches: ['city'] },
+  { name: 'address_1_state_province', matches: ['state','province','stateprovince'] },
+  { name: 'address_1_postal_code', matches: ['zip','zipcode','postalcode'] }
+]
+
 class Mappings extends React.PureComponent {
 
   static contextTypes = {
@@ -134,35 +149,27 @@ class Mappings extends React.PureComponent {
     const { headers } = this.props
     const mappings = headers.map(header => {
       const text = header.replace(/[\s-_']/g, '').toLowerCase()
-      if(_.includes(['name','fullname'], text)) {
-        return { header, field: 'full_name', type: 'text' }
-      } else if(_.includes(['firstname','fname','givenname'], text)) {
-        return { header, field: 'first_name', type: 'text' }
-      } else if(_.includes(['lastname','lname','surname'], text)) {
-        return { header, field: 'last_name', type: 'text' }
-      } else if(_.includes(['lastname','lname'], text)) {
-        return { header, field: 'last_name', type: 'text' }
-      } else if(_.includes(['email','emailaddress'], text)) {
-        return { header, field: 'email_1', type: 'email' }
-      } else if(_.includes(['phone','phonenumber'], text)) {
-        return { header, field: 'phone_1', type: 'phone' }
-      } else if(_.includes(['address','address1'], text)) {
-        return { header, field: 'address_1', type: 'address' }
-      } else if(_.includes(['street','street1'], text)) {
-        return { header, field: 'address_1_street_1', type: 'text' }
-      } else if(_.includes(['street2','address2'], text)) {
-        return { header, field: 'address_1_street_2', type: 'text' }
-      } else if(_.includes(['city'], text)) {
-        return { header, field: 'address_1_city', type: 'text' }
-      } else if(_.includes(['state','province','stateprovince'], text)) {
-        return { header, field: 'address_1_state_province', type: 'text' }
-      } else if(_.includes(['zip','zipcode','postalcode'], text)) {
-        return { header, field: 'address_1_postal_code', type: 'text' }
-      } else {
-        return { header, field: null, type: null }
-      }
+      const field = fieldmap.find(item => {
+        return _.includes(item.matches, text)
+      })
+      return this._getDefaultMapping(header, field.name)
+
     })
     this.setState({ mappings })
+  }
+
+  _getDefaultMapping(header, name) {
+    const fields = this.props.fields.reduce((fields, section) => ({
+      ...fields,
+      ...section.fields
+    }), [])
+    const field = _.find(fields, { name })
+    if(!field) return { header, field: null, type: null }
+    return {
+      header,
+      field: field ? name : null,
+      type: field ? field.type : null
+    }
   }
 
   _handleMapping(mapping) {

@@ -73,10 +73,12 @@ export const uploadChunk = async (req) => {
 
 export const createAssetFromUrl = async (req, params) => {
   const { url, team_id, user_id } = params
+  console.log(url)
   const response = await request.get({
     url,
     resolveWithFullResponse: true,
-    encoding: null
+    encoding: null,
+    strictSSL: false
   }).promise().then(response => response.toJSON())
   const parsed = Url.parse(url)
   const source = await Source.where({

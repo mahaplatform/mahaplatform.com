@@ -67,6 +67,7 @@ const getContacts = async (req, profile) => {
   } else {
     const contacts = await loadMembers(req, list, profile)
     return contacts.map(contact => ({
+      photo: contact.photo,
       first_name: contact.first_name,
       last_name: contact.last_name,
       organization_1: _.get(contact, 'organizations[0].name'),
@@ -106,9 +107,10 @@ const processor = async (job, trx) => {
   const contacts = await getContacts(req, profile)
 
   const _getType = (key) => {
-    if(key.match(/^phone/)) return 'phone'
-    if(key.match(/^photo/)) return 'image'
-    return 'text'
+    if(key.match(/^email/)) return 'emailfield'
+    if(key.match(/^phone/)) return 'phonefield'
+    if(key.match(/^photo/)) return 'imagefield'
+    return 'textfield'
   }
 
   await imp.save({
