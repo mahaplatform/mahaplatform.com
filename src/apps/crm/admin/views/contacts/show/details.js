@@ -31,6 +31,11 @@ const Details = ({ contact }) => {
         </div>
       </div>
     )) },
+    { label: 'Organizations', content: contact.organizations.map((organization, index) => (
+      <div key={`organization_${index}`}>
+        { organization.name }
+      </div>
+    )) },
     { label: 'Tags', content: (
       <div className="links">
         { contact.tags.map((tag, index) => (

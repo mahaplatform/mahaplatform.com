@@ -18,7 +18,7 @@ class Queue {
 
   async start(options) {
     if(this.processor) this.queue.process(wrapped(this.name, this.processor))
-    if(this.failed) this.queue.on('failed', this.failed)
+    if(this.failed) this.fail(this.queue.on('failed', this.failed))
     if(this.completed) this.queue.on('completed', this.completed)
   }
 
@@ -32,6 +32,13 @@ class Queue {
         resolve()
       }, 500)
     })
+  }
+
+  fail(method) {
+    return async(job, err) => {
+      if(process.env !== 'production') console.err(err)
+      await method(job, err)
+    }
   }
 
   async clean(type) {

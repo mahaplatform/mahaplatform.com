@@ -3,7 +3,7 @@ const OrganizationSerializer = (req, result) => ({
   name: result.get('name'),
   logo: result.related('logo') ? result.related('logo').get('path') : null,
   tags: result.related('tags').map(tag),
-  values: values(req, result.get('values')),
+  // values: values(req, result.get('values')),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

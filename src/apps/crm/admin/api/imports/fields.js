@@ -37,6 +37,10 @@ const fieldsRoute = async (req, res) => {
         { label: 'Photo', name: 'photo', type: 'imagefield' },
         ...Array(3).fill(0).reduce((fields, i, j) => [
           ...fields,
+          { label: `Organization ${j+1}`, name: `organization_${j+1}`, type: 'textfield' }
+        ], []),
+        ...Array(3).fill(0).reduce((fields, i, j) => [
+          ...fields,
           { label: `Email ${j+1}`, name: `email_${j+1}`, type: 'emailfield' }
         ], []),
         ...Array(3).fill(0).reduce((fields, i, j) => [

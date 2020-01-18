@@ -10,6 +10,7 @@ import generateCode from '../../../core/utils/generate_code'
 import { contactActivity } from '../services/activities'
 import ImportItem from '../../maha/models/import_item'
 import socket from '../../../core/services/emitter'
+import Organization from '../models/organization'
 import Queue from '../../../core/objects/queue'
 import Import from '../../maha/models/import'
 import Contact from '../models/contact'
@@ -75,9 +76,25 @@ const getPhotoId = async (req, values) => {
   const { photo } = values
   if(!photo) return null
   const asset = await createAssetFromUrl(req, {
-    url: photo 
+    url: photo
   })
   return asset.get('id')
+}
+
+const getOrganizationIds = async (req, values) => {
+  return Promise.reduce(Array(3).fill(0), async (organizations, n, i) => {
+    if(!values[`organization_${i+1}`]) return organizations
+    const organization = await Organization.fetchOrCreate({
+      team_id: req.team.get('id'),
+      name: values[`organization_${i+1}`]
+    }, {
+      transacting: req.trx
+    })
+    return [
+      ...organizations,
+      ...organization ? [organization.get('id')] : []
+    ]
+  }, [])
 }
 
 const processor = async (job, trx) => {
@@ -113,6 +130,10 @@ const processor = async (job, trx) => {
     const mailing_addresses = await getMailingAddresses(item.get('values'))
 
     const photo_id = await getPhotoId(req, item.get('values'))
+
+    const organization_ids = await getOrganizationIds(req, item.get('values'))
+
+    console.log(organization_ids)
 
     const contact = await Contact.forge({
       team_id: req.team.get('id'),
@@ -167,14 +188,16 @@ const processor = async (job, trx) => {
       })
     }
 
-    // await updateRelated(req, {
-    //   object: contact,
-    //   related: 'organizations',
-    //   table: 'crm_contacts_organizations',
-    //   ids: req.body.organization_ids,
-    //   foreign_key: 'contact_id',
-    //   related_foreign_key: 'organization_id'
-    // })
+    if(organization_ids.length > 0) {
+      await updateRelated(req, {
+        object: contact,
+        related: 'organizations',
+        table: 'crm_contacts_organizations',
+        ids: organization_ids,
+        foreign_key: 'contact_id',
+        related_foreign_key: 'organization_id'
+      })
+    }
 
     await contactActivity(req, {
       user: imp.related('user'),
