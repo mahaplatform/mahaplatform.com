@@ -19,7 +19,6 @@ class Process extends React.Component {
     status: 'processing'
   }
 
-  _handleDone = this._handleDone.bind(this)
   _handleFailure = this._handleFailure.bind(this)
   _handleProcessed = this._handleProcessed.bind(this)
   _handleProgress = _.throttle(this._handleProgress.bind(this), 150)
@@ -69,25 +68,6 @@ class Process extends React.Component {
       title: 'Importing Contacts',
       label: progress ? `${progress.completed}/${progress.total}` : ''
     }
-  }
-
-  _getSuccess() {
-    return {
-      title: 'Import Successful!',
-      text: 'Great job! Your data was imported successfully.',
-      icon: 'check',
-      color: 'green',
-      animation: 'tada',
-      button: {
-        label: 'Finish',
-        handler: this._handleDone
-      }
-    }
-  }
-
-  _handleDone() {
-    const { _import } = this.state
-    this.props.onDone(_import)
   }
 
   _handleFailure(err) {
@@ -140,9 +120,7 @@ class Process extends React.Component {
   }
 
   _handleSuccess(imp) {
-    this.setState({
-      status: 'success'
-    })
+    this.props.onDone()
   }
 
 }

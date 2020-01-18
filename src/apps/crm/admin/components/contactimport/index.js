@@ -1,6 +1,7 @@
 import { Container, Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Organize from './organize'
+import Complete from './complete'
 import Summary from './summary'
 import Sources from './sources'
 import Process from './process'
@@ -21,6 +22,7 @@ class ContactImport extends React.PureComponent {
     cards: []
   }
 
+  _handleComplete = this._handleComplete.bind(this)
   _handleDone = this._handleDone.bind(this)
   _handleIntro = this._handleIntro.bind(this)
   _handleOrganize = this._handleOrganize.bind(this)
@@ -45,6 +47,12 @@ class ContactImport extends React.PureComponent {
     this._handleIntro()
   }
 
+  _getComplete() {
+    return {
+      onDone: this._handleDone
+    }
+  }
+
   _getIntro() {
     return {
       onNew: this._handleSources,
@@ -62,7 +70,7 @@ class ContactImport extends React.PureComponent {
   _getProcess(_import) {
     return {
       _import,
-      onDone: this._handleDone
+      onDone: this._handleComplete
     }
   }
 
@@ -90,6 +98,10 @@ class ContactImport extends React.PureComponent {
       onPop: this._handlePop,
       onPush: this._handlePush
     }
+  }
+
+  _handleComplete() {
+    this._handlePush(Complete, this._getComplete())
   }
 
   _handleDone() {
