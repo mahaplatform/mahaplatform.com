@@ -1,4 +1,5 @@
-import { Avatar, Button } from 'maha-admin'
+import ContactAvatarToken from '../../../tokens/contact_avatar'
+import { Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import SMS from './sms'
@@ -18,7 +19,7 @@ class Header extends React.Component {
     return (
       <div className="contact-header">
         <div className="contact-header-avatar">
-          <Avatar user={ contact } width="120" />
+          <ContactAvatarToken { ...contact } />
           <h1>{ contact.display_name }</h1>
         </div>
         <div className="contact-header-controls">

@@ -72,7 +72,7 @@ class Review extends React.PureComponent {
                         <tr key={`property_${index}`}>
                           <th>{ key }</th>
                           <td>
-                            { this._getType(key) === 'imagefield' &&
+                            { record.values[key] && this._getType(key) === 'imagefield' &&
                               <div className="image-preview">
                                 <img src={record.values[key]} alt="Preview of image to be uploaded" />
                                 <span>Preview</span>

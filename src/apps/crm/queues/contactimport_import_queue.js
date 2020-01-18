@@ -66,18 +66,20 @@ const getContacts = async (req, profile) => {
     }))
   } else {
     const contacts = await loadMembers(req, list, profile)
-    return contacts.map(contact => ({
-      photo: contact.photo,
-      first_name: contact.first_name,
-      last_name: contact.last_name,
-      organization_1: _.get(contact, 'organizations[0].name'),
-      email_1: _.get(contact, 'email_addresses[0].address'),
-      phone_1: _.get(contact, 'phone_numbers[0].number'),
-      address_1_street_1: _.get(contact, 'mailing_addresses[0].street_1'),
-      address_1_city: _.get(contact, 'mailing_addresses[0].city'),
-      address_1_state_province: _.get(contact, 'mailing_addresses[0].state_province'),
-      address_1_postal_code: _.get(contact, 'mailing_addresses[0].postal_code')
-    }))
+    return contacts.map(contact => {
+      return {
+        photo: contact.photo.match(/_{11}.*photo\.jpg$/) === null ? contact.photo : null,
+        first_name: contact.first_name,
+        last_name: contact.last_name,
+        organization_1: _.get(contact, 'organizations[0].name'),
+        email_1: _.get(contact, 'email_addresses[0].address'),
+        phone_1: _.get(contact, 'phone_numbers[0].number'),
+        address_1_street_1: _.get(contact, 'mailing_addresses[0].street_1'),
+        address_1_city: _.get(contact, 'mailing_addresses[0].city'),
+        address_1_state_province: _.get(contact, 'mailing_addresses[0].state_province'),
+        address_1_postal_code: _.get(contact, 'mailing_addresses[0].postal_code')
+      }
+    })
   }
 
 }

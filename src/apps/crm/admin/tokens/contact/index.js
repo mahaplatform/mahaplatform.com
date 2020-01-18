@@ -1,11 +1,11 @@
-import { Avatar } from 'maha-admin'
+import ContactAvatar from '../contact_avatar'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 const ContactToken = (contact) => (
   <div className="contact-token">
     <div className="contact-token-avatar">
-      <Avatar user={ contact } />
+      <ContactAvatar { ...contact } />
     </div>
     <div className="contact-token-label">
       { contact.display_name }
