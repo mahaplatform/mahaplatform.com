@@ -71,7 +71,11 @@ const processor = async (job, trx) => {
       address: values.email_1
     })
 
-    const is_valid = await isValid(job.data.rules, values)
+    const rules = {
+      email_1: ['email']
+    }
+
+    const is_valid = await isValid(rules, values)
 
     const is_duplicate =  duplicate.length > 0
 

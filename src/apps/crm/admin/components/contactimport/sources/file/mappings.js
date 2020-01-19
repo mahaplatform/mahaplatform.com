@@ -124,6 +124,11 @@ class Mappings extends React.PureComponent {
     }) === undefined
     return {
       title: 'Map Columns',
+      instructions: `In order to translate your data into valid contact
+        records, you must first map the columns from your data to fields in
+        the CRM. We've done our best to guess the mapping based upon the
+        column names. Please map as many columns as you can below (data from
+        unmapped columns will be ignored)`,
       leftItems: [
         { icon: 'chevron-left', handler: this._handleBack }
       ],

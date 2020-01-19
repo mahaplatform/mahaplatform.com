@@ -36,6 +36,7 @@ class Summary extends React.PureComponent {
   _handleEdit = this._handleEdit.bind(this)
   _handleFetch = this._handleFetch.bind(this)
   _handleReview = this._handleReview.bind(this)
+  _handleSkip = this._handleSkip.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
@@ -58,7 +59,7 @@ class Summary extends React.PureComponent {
               { pluralize('new contact', _import.valid_count, true) } will be created
             </div>
             <div className="import-summary-item-action">
-              <Button { ...this._getReviewButton(false) } />
+              <Button { ...this._getReviewButton({ is_valid: true, is_duplicate: false, is_nonunique: false }) } />
             </div>
           </div>
           { _import.strategy === 'ignore' && _import.duplicate_count > 0 &&
@@ -69,11 +70,11 @@ class Summary extends React.PureComponent {
                 </div>
               </div>
               <div className="import-summary-item-label">
-                { pluralize('record', _import.duplicate_count, true) } will be ignored
+                { pluralize('duplicate contact', _import.duplicate_count, true) } will be ignored
               </div>
               <div className="import-summary-item-action">
                 <Button { ...this._getStrategyButton() } />
-                <Button { ...this._getReviewButton({ is_duplicate: false }) } />
+                <Button { ...this._getReviewButton({ is_valid: true, is_duplicate: true, is_nonunique: false }) } />
               </div>
             </div>
           }
@@ -93,10 +94,25 @@ class Summary extends React.PureComponent {
               </div>
             </div>
           }
-          { _import.error_count > 0 &&
+          { _import.nonunique_count > 0 &&
             <div className="import-summary-item">
               <div className="import-summary-item-icon">
                 <div className="import-summary-item-icon-circle green">
+                  <i className="fa fa-fw fa-times" />
+                </div>
+              </div>
+              <div className="import-summary-item-label">
+                { pluralize('nonunique record', _import.nonunique_count, true) } in your input that will be ignored
+              </div>
+              <div className="import-summary-item-action">
+                <Button { ...this._getReviewButton({ is_nonunique: true}) } />
+              </div>
+            </div>
+          }
+          { _import.error_count > 0 &&
+            <div className="import-summary-item">
+              <div className="import-summary-item-icon">
+                <div className="import-summary-item-icon-circle red">
                   <i className="fa fa-fw fa-warning" />
                 </div>
               </div>
@@ -120,22 +136,7 @@ class Summary extends React.PureComponent {
                 { pluralize('record', _import.omit_count, true) } with errors will be skipped
               </div>
               <div className="import-summary-item-action">
-                <Button { ...this._getStrategyButton() } />
-              </div>
-            </div>
-          }
-          { _import.nonunique_count > 0 &&
-            <div className="import-summary-item">
-              <div className="import-summary-item-icon">
-                <div className="import-summary-item-icon-circle green">
-                  <i className="fa fa-fw fa-minus" />
-                </div>
-              </div>
-              <div className="import-summary-item-label">
-                { pluralize('duplicate record', _import.nonunique_count, true) } in your input that will be ignored
-              </div>
-              <div className="import-summary-item-action">
-                <Button { ...this._getReviewButton({ is_nonunique: true}) } />
+                <Button { ...this._getReviewButton({ is_valid: false, is_omitted: true }) } />
               </div>
             </div>
           }
@@ -251,7 +252,7 @@ class Summary extends React.PureComponent {
 
   _getFixButton() {
     return {
-      label: 'Fix Errors',
+      label: 'Fix',
       className: 'ui mini fluid button'
     }
   }
@@ -300,7 +301,8 @@ class Summary extends React.PureComponent {
   _getSkipButton() {
     return {
       label: 'Skip',
-      className: 'ui mini fluid button'
+      className: 'ui mini fluid button',
+      handler: this._handleSkip
     }
   }
 
@@ -390,6 +392,14 @@ class Summary extends React.PureComponent {
       ...params,
       onBack: onPop,
       onDone: onPop
+    })
+  }
+
+  _handleSkip() {
+    const { _import } = this.state
+    this.context.network.request({
+      endpoint: `/api/admin/imports/${_import.id}/omiterrors`,
+      method: 'post'
     })
   }
 

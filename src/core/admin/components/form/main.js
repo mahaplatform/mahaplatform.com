@@ -62,10 +62,9 @@ class Main extends React.Component {
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className={ this._getClass() }>
-          { (before || instructions) &&
+          { (before) &&
             <div className="maha-form-header">
               { before && <div className="maha-form-before">{ before }</div> }
-              { instructions && <div className="instructions">{ instructions }</div> }
             </div>
           }
           { !isConfiguring && sections &&
@@ -117,10 +116,11 @@ class Main extends React.Component {
   }
 
   _getPanel() {
-    const { buttons, color, inline, showHeader, title } = this.props
+    const { buttons, color, instructions, inline, showHeader, title } = this.props
     return {
       buttons,
       color,
+      instructions,
       showHeader: showHeader && !inline,
       title,
       leftItems: this._getCancel(),

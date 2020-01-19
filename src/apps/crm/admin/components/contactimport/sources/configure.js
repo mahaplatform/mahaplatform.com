@@ -21,6 +21,10 @@ class Configure extends React.PureComponent {
     const { params } = this.props
     return {
       title: 'Choose Strategy',
+      instructions: `Your data may include contacts that already exit in
+        the CRM. Using the contact's email address, we can detect these
+        duplicates and handle them according to your desired duplicate
+        strategy. Choose a duplicate strategy from the list below: `,
       cancelIcon: 'chevron-left',
       saveText: 'Next',
       onCancel: this._handleCancel,
@@ -28,7 +32,7 @@ class Configure extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'How should we handle duplicate records?', name: 'strategy', type: 'radiogroup', options: ['ignore','overwrite','discard'], format: ImportStrategyToken, defaultValue: params.strategy || 'ignore' }
+            { name: 'strategy', type: 'radiogroup', options: ['ignore','overwrite','discard'], format: ImportStrategyToken, defaultValue: params.strategy || 'ignore' }
           ]
         }
       ]

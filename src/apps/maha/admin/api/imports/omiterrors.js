@@ -18,9 +18,7 @@ const omiterrorsRoute = async (req, res) => {
     message: 'Unable to load import'
   })
 
-  const items = await ImportItem.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
+  const items = await ImportItem.query(qb => {
     qb.where('import_id', req.params.id)
     qb.where('is_valid', false)
   }).fetchAll({

@@ -12,16 +12,15 @@ class Review extends React.PureComponent {
   static propTypes = {
     _import: PropTypes.object,
     fields: PropTypes.array,
+    is_valid: PropTypes.bool,
     is_duplicate: PropTypes.bool,
     is_nonunique: PropTypes.bool,
+    is_omitted: PropTypes.bool,
     onBack: PropTypes.func,
     onDone: PropTypes.func
   }
 
-  static defaultProps = {
-    is_duplicate: false,
-    is_nonunique: false
-  }
+  static defaultProps = {}
 
   state = {
     index: 0,
@@ -125,24 +124,16 @@ class Review extends React.PureComponent {
   }
 
   _handleFetch() {
-    const { _import, is_duplicate, is_nonunique } = this.props
+    const { _import, is_duplicate, is_nonunique, is_omitted, is_valid } = this.props
     this.context.network.request({
       endpoint: `/api/admin/imports/${_import.id}/items`,
       method: 'get',
       query: {
         $filter: {
-          is_duplicate: {
-            $eq: is_duplicate
-          },
-          is_omitted: {
-            $eq: false
-          },
-          is_nonunique: {
-            $eq: is_nonunique
-          },
-          is_valid: {
-            $eq: true
-          }
+          ...!_.isNil(is_duplicate) ? { is_duplicate: { $eq: is_duplicate } } : {},
+          ...!_.isNil(is_nonunique) ? { is_nonunique: { $eq: is_nonunique } } : {},
+          ...!_.isNil(is_omitted) ? { is_omitted: { $eq: is_omitted } } : {},
+          ...!_.isNil(is_valid) ? { is_valid: { $eq: is_valid } } : {}
         }
       },
       onSuccess: this._handleSuccess
