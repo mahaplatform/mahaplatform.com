@@ -12,9 +12,11 @@ import React from 'react'
 const getSidebar = (user, { contact, fields }) => {
   if(document.body.clientWidth <= 768) return null
   return (
-    <div>
+    <div className="contact-sidebar">
       <Header contact={ contact} />
-      <Details contact={ contact } fields={ fields } />
+      <div className="contact-sidebar-body">
+        <Details contact={ contact } fields={ fields } />
+      </div>
     </div>
   )
 }

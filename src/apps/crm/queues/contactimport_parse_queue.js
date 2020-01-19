@@ -45,7 +45,7 @@ const processor = async (job, trx) => {
       }
     } else if(mapping.field === 'birthday') {
       return {
-        birthday: moment(value).format('MM/DD')
+        birthday: value ? moment(value).format('MM/DD') : null
       }
     } else {
       return {
@@ -65,17 +65,17 @@ const processor = async (job, trx) => {
       }
     }, {})
 
-    const primary_key = job.data.primaryKey
 
-    const duplicate = (primary_key) ? await knex(job.data.table).transacting(trx).where({
-      [primary_key]: values[primary_key]
-    }) : 0
+
+    const duplicate = await knex('crm_email_addresses').transacting(trx).where({
+      address: values.email_1
+    })
 
     const is_valid = await isValid(job.data.rules, values)
 
-    const is_duplicate = (primary_key) ? duplicate.length > 0 : false
+    const is_duplicate =  duplicate.length > 0
 
-    const is_nonunique = (primary_key) ? _.includes(result.primarykeys, values[primary_key]) : false
+    const is_nonunique = _.includes(result.primarykeys, values.email_1)
 
     await ImportItem.forge({
       import_id: imp.get('id'),
@@ -97,7 +97,7 @@ const processor = async (job, trx) => {
     })
 
     return {
-      primarykeys: !is_nonunique ? [...result.primarykeys,values[primary_key]] : result.primarykeys
+      primarykeys: !is_nonunique ? [...result.primarykeys,values.email_1] : result.primarykeys
     }
 
   }, {

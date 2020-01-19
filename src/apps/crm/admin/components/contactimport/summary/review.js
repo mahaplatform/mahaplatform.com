@@ -13,8 +13,14 @@ class Review extends React.PureComponent {
     _import: PropTypes.object,
     fields: PropTypes.array,
     is_duplicate: PropTypes.bool,
+    is_nonunique: PropTypes.bool,
     onBack: PropTypes.func,
     onDone: PropTypes.func
+  }
+
+  static defaultProps = {
+    is_duplicate: false,
+    is_nonunique: false
   }
 
   state = {
@@ -103,7 +109,6 @@ class Review extends React.PureComponent {
       ...section.fields
     }), [])
     const field = _.find(fields, { name })
-    console.log(name, field, fields)
     return field.type
   }
 
@@ -120,7 +125,7 @@ class Review extends React.PureComponent {
   }
 
   _handleFetch() {
-    const { _import, is_duplicate } = this.props
+    const { _import, is_duplicate, is_nonunique } = this.props
     this.context.network.request({
       endpoint: `/api/admin/imports/${_import.id}/items`,
       method: 'get',
@@ -130,13 +135,13 @@ class Review extends React.PureComponent {
             $eq: is_duplicate
           },
           is_omitted: {
-            $eq: 'false'
+            $eq: false
           },
           is_nonunique: {
-            $eq: 'false'
+            $eq: is_nonunique
           },
           is_valid: {
-            $eq: 'true'
+            $eq: true
           }
         }
       },

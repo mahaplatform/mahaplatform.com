@@ -73,7 +73,7 @@ class Summary extends React.PureComponent {
               </div>
               <div className="import-summary-item-action">
                 <Button { ...this._getStrategyButton() } />
-                <Button { ...this._getReviewButton(true) } />
+                <Button { ...this._getReviewButton({ is_duplicate: false }) } />
               </div>
             </div>
           }
@@ -89,7 +89,7 @@ class Summary extends React.PureComponent {
               </div>
               <div className="import-summary-item-action">
                 <Button { ...this._getStrategyButton() } />
-                <Button { ...this._getReviewButton(true) } />
+                <Button { ...this._getReviewButton({ is_duplicate: true }) } />
               </div>
             </div>
           }
@@ -121,6 +121,21 @@ class Summary extends React.PureComponent {
               </div>
               <div className="import-summary-item-action">
                 <Button { ...this._getStrategyButton() } />
+              </div>
+            </div>
+          }
+          { _import.nonunique_count > 0 &&
+            <div className="import-summary-item">
+              <div className="import-summary-item-icon">
+                <div className="import-summary-item-icon-circle green">
+                  <i className="fa fa-fw fa-minus" />
+                </div>
+              </div>
+              <div className="import-summary-item-label">
+                { pluralize('duplicate record', _import.nonunique_count, true) } in your input that will be ignored
+              </div>
+              <div className="import-summary-item-action">
+                <Button { ...this._getReviewButton({ is_nonunique: true}) } />
               </div>
             </div>
           }
@@ -274,11 +289,11 @@ class Summary extends React.PureComponent {
     }
   }
 
-  _getReviewButton(is_duplicate) {
+  _getReviewButton(params) {
     return {
       label: 'Review',
       className: 'ui mini fluid button',
-      handler: this._handleReview.bind(this, is_duplicate)
+      handler: this._handleReview.bind(this, params)
     }
   }
 
@@ -366,13 +381,13 @@ class Summary extends React.PureComponent {
     ])
   }
 
-  _handleReview(is_duplicate) {
+  _handleReview(params) {
     const { _import } = this.state
     const { fields, onPop } = this.props
     this.props.onPush(Review, {
       _import,
       fields,
-      is_duplicate,
+      ...params,
       onBack: onPop,
       onDone: onPop
     })

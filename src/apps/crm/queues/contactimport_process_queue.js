@@ -97,8 +97,10 @@ const processor = async (job, trx) => {
     transacting: trx
   })
 
-  const items = await ImportItem.where({
-    import_id: imp.get('id')
+  const items = await ImportItem.query(qb => {
+    qb.where('import_id', imp.get('id'))
+    qb.where('is_valid', true)
+    qb.where('is_nonunique', false)
   }).fetchAll({
     transacting: trx
   }).then(results => results.toArray())
