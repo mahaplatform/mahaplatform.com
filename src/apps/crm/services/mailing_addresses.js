@@ -16,32 +16,28 @@ export const updateMailingAddresses = async (req, { contact, mailing_addresses }
     }) === undefined
   })
 
-  if(add.length > 0) {
-    await Promise.mapSeries(add, async (mailing_address) => {
-      await MailingAddress.forge({
-        team_id: req.team.get('id'),
-        contact_id: contact.get('id'),
-        address: mailing_address.address,
-        is_primary: mailing_address.is_primary
-      }).save(null, {
-        transacting: req.trx
-      })
+  const added = await Promise.mapSeries(add, async (mailing_address) => {
+    return await MailingAddress.forge({
+      team_id: req.team.get('id'),
+      contact_id: contact.get('id'),
+      address: mailing_address.address,
+      is_primary: mailing_address.is_primary
+    }).save(null, {
+      transacting: req.trx
     })
-  }
+  })
 
-  if(update.length > 0) {
-    await Promise.mapSeries(update, async (mailing_address) => {
-      const address = contact.related('mailing_addresses').find(item => {
-        return item.get('id') === item.id
-      })
-      await address.save({
-        address: mailing_address.address,
-        is_primary: mailing_address.is_primary
-      }, {
-        transacting: req.trx
-      })
+  const updated = await Promise.mapSeries(update, async (mailing_address) => {
+    const address = contact.related('mailing_addresses').find(item => {
+      return item.get('id') === item.id
     })
-  }
+    return await address.save({
+      address: mailing_address.address,
+      is_primary: mailing_address.is_primary
+    }, {
+      transacting: req.trx
+    })
+  })
 
   if(remove.length > 0) {
     await Promise.mapSeries(remove, async (mailing_address) => {
@@ -50,5 +46,10 @@ export const updateMailingAddresses = async (req, { contact, mailing_addresses }
       })
     })
   }
+
+  return [
+    ...added,
+    ...updated
+  ]
 
 }

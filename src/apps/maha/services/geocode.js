@@ -18,7 +18,7 @@ const getCounty = (result) => {
 const getFullAddress = (address) => {
   const { street_1, street_2, city, state_province, postal_code } = address
   const parts = [street_1,street_2,city,state_province,postal_code]
-  return address || parts.filter(item => {
+  return parts.filter(item => {
     return typeof(item) === 'string' && item.length > 0
   }).join(', ').toLowerCase()
 }

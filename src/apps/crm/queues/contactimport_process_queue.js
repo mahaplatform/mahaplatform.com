@@ -1,8 +1,9 @@
+import ContactImportGeocodeQueue from '../queues/contactimport_geocode_queue'
+import ContactImportPhotoQueue from '../queues/contactimport_photo_queue'
 import { updateRelated } from '../../../core/services/routes/relations'
 import ImportSerializer from '../../maha/serializers/import_serializer'
 import { updateMailingAddresses } from '../services/mailing_addresses'
 import { updateEmailAddresses } from '../services/email_addresses'
-import { createAssetFromUrl } from '../../maha/services/assets'
 import { updatePhoneNumbers } from '../services/phone_numbers'
 import { refresh } from '../../../core/services/routes/emitter'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
@@ -61,7 +62,6 @@ const getMailingAddresses = async (values) => {
       postal_code: values[`address_${i+1}_postal_code`]
     }
     address.description = getFullAddress(address)
-
     return [
       ...addresses,
       {
@@ -70,15 +70,6 @@ const getMailingAddresses = async (values) => {
       }
     ]
   }, [])
-}
-
-const getPhotoId = async (req, values) => {
-  const { photo } = values
-  if(!photo) return null
-  const asset = await createAssetFromUrl(req, {
-    url: photo
-  })
-  return asset.get('id')
 }
 
 const getOrganizationIds = async (req, values) => {
@@ -129,8 +120,6 @@ const processor = async (job, trx) => {
 
     const mailing_addresses = await getMailingAddresses(item.get('values'))
 
-    const photo_id = await getPhotoId(req, item.get('values'))
-
     const organization_ids = await getOrganizationIds(req, item.get('values'))
 
     const contact = await Contact.forge({
@@ -139,11 +128,18 @@ const processor = async (job, trx) => {
       first_name: item.get('values').first_name,
       last_name: item.get('values').last_name,
       birthday: item.get('values').birthday,
-      spouse: item.get('values').spouse,
-      photo_id
+      spouse: item.get('values').spouse
     }).save(null, {
       transacting: trx
     })
+
+    if(item.get('values').photo) {
+      await ContactImportPhotoQueue.enqueue(req, {
+        contact_id: contact.get('id'),
+        user_id: imp.get('user_id'),
+        url: item.get('values').photo
+      })
+    }
 
     if(email_addresses.length > 0) {
       await updateEmailAddresses(req, {
@@ -160,9 +156,14 @@ const processor = async (job, trx) => {
     }
 
     if(mailing_addresses.length > 0) {
-      await updateMailingAddresses(req, {
+      const addresses = await updateMailingAddresses(req, {
         contact,
         mailing_addresses
+      })
+      await Promise.map(addresses, async (address) => {
+        await ContactImportGeocodeQueue.enqueue(req, {
+          id: address.get('id')
+        })
       })
     }
 
