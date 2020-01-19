@@ -26,7 +26,9 @@ class NumberField extends React.Component {
   }
 
   static defaultProps = {
-    placeholder: 'Enter an amount'
+    placeholder: 'Enter an amount',
+    onChange: () => {},
+    onReady: () => {}
   }
 
   state = {

@@ -43,7 +43,7 @@ const updateRoute = async (req, res) => {
   })
 
   await contact.save({
-    ...whitelist(req.body, ['first_name','last_name','photo_id']),
+    ...whitelist(req.body, ['first_name','last_name','photo_id','birthday','spouse']),
     values: {
       ...contact.get('values'),
       ...values
@@ -133,7 +133,7 @@ const updateRoute = async (req, res) => {
     withRelated: ['email_addresses','mailing_addresses','organizations','phone_numbers','photo','tags'],
     transacting: req.trx
   })
-  
+
   res.status(200).respond(_contact, ContactSerializer)
 
 }

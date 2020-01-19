@@ -49,7 +49,9 @@ class Edit extends React.Component {
                 { label: 'Mailing Address', name: 'mailing_addresses', type: AddressesField },
                 { label: 'Photo', name: 'photo_id', type: 'filefield', prompt: 'Choose Photo', multiple: false },
                 { label: 'Organizations', name: 'organization_ids', type: 'lookup2', placeholder: 'Choose organizations', multiple: true, endpoint: '/api/admin/crm/organizations', value: 'id', text: 'name', form: this._getOrganizationForm() },
-                { label: 'Tags', name: 'tag_ids', type: 'lookup2', placeholder: 'Choose tags', multiple: true, endpoint: '/api/admin/crm/tags', value: 'id', text: 'text', form: this._getTagsForm() }
+                { label: 'Tags', name: 'tag_ids', type: 'lookup2', placeholder: 'Choose tags', multiple: true, endpoint: '/api/admin/crm/tags', value: 'id', text: 'text', form: this._getTagsForm() },
+                { label: 'Birthday', name: 'birthday', type: 'textfield', placeholder: 'Enter birthday' },
+                { label: 'Spouse', name: 'spouse', type: 'textfield', placeholder: 'Enter spouse' }
               ]
             }
           ]

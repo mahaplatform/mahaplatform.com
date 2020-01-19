@@ -9,6 +9,8 @@ const fieldmap = [
   { name: 'first_name', matches: ['firstname','fname','givenname'] },
   { name: 'last_name', matches: ['lastname','lname','surname'] },
   { name: 'photo', matches: ['photo','picture'] },
+  { name: 'spouse', matches: ['spouse'] },
+  { name: 'birthday', matches: ['birthday'] },
   { name: 'organization_1', matches: ['organization','company'] },
   { name: 'email_1', matches: ['email','emailaddress'] },
   { name: 'phone_1', matches: ['phone','phonenumber'] },

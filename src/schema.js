@@ -300,6 +300,9 @@ const schema = {
       table.timestamp('updated_at')
       table.string('code', 255)
       table.string('braintree_id', 255)
+      table.string('spouse', 255)
+      table.string('birthday', 255)
+      table.integer('birth_year')
     })
 
     await knex.schema.createTable('crm_contacts_organizations', (table) => {
@@ -1417,7 +1420,6 @@ const schema = {
       table.USER-DEFINED('stage')
       table.USER-DEFINED('strategy')
       table.json('config')
-      table.USER-DEFINED('type')
       table.USER-DEFINED('service')
     })
 
@@ -3036,13 +3038,16 @@ union
     await knex.raw(`
       create view crm_contact_primaries AS
       select distinct on (crm_contacts.id) crm_contacts.id as contact_id,
+      crm_organizations.name as organization,
       crm_email_addresses.address as email,
       crm_phone_numbers.number as phone,
       crm_mailing_addresses.address
-      from (((crm_contacts
+      from (((((crm_contacts
       left join crm_email_addresses on (((crm_email_addresses.contact_id = crm_contacts.id) and (crm_email_addresses.is_primary = true))))
       left join crm_phone_numbers on (((crm_phone_numbers.contact_id = crm_contacts.id) and (crm_phone_numbers.is_primary = true))))
-      left join crm_mailing_addresses on (((crm_mailing_addresses.contact_id = crm_contacts.id) and (crm_mailing_addresses.is_primary = true))));
+      left join crm_mailing_addresses on (((crm_mailing_addresses.contact_id = crm_contacts.id) and (crm_mailing_addresses.is_primary = true))))
+      left join crm_contacts_organizations on ((crm_contacts_organizations.contact_id = crm_contacts.id)))
+      left join crm_organizations on ((crm_organizations.id = crm_contacts_organizations.organization_id)));
     `)
 
     await knex.raw(`

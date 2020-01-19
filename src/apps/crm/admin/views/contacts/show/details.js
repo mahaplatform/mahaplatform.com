@@ -42,7 +42,9 @@ const Details = ({ contact }) => {
           <Button label={ tag.text } route={`/admin/crm/contacts?$filter[crm_taggings.tag_id][$in]=${tag.id}`} className="link" key={`tag_${index}`} />
         )) }
       </div>
-    ) }
+    ) },
+    { label: 'Birthday', content: contact.birthday },
+    { label: 'Spouse', content: contact.spouse }
   ]
 
   return <List { ...list } />

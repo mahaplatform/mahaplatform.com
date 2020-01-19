@@ -133,13 +133,13 @@ const processor = async (job, trx) => {
 
     const organization_ids = await getOrganizationIds(req, item.get('values'))
 
-    console.log(organization_ids)
-
     const contact = await Contact.forge({
       team_id: req.team.get('id'),
       code,
       first_name: item.get('values').first_name,
       last_name: item.get('values').last_name,
+      birthday: item.get('values').birthday,
+      spouse: item.get('values').spouse,
       photo_id
     }).save(null, {
       transacting: trx

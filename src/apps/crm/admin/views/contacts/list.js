@@ -17,7 +17,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Name', key: 'display_name', sort: 'last_name', primary: true, format: ContactToken },
       { label: 'Email', key: 'email' },
-      { label: 'Phone', key: 'phone', format: 'phone' }
+      { label: 'Phone', key: 'phone', format: 'phone' },
+      { label: 'Organization', key: 'organization' }
     ],
     criteria: [
       { label: 'Contact', fields: [

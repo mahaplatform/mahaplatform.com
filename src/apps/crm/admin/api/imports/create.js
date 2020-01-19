@@ -5,6 +5,7 @@ import Import from '../../../../maha/models/import'
 import Profile from '../../../../maha/models/profile'
 
 const getService = async (req, profile_id) => {
+  if(!profile_id) return 'excel'
   const profile = await Profile.query(qb => {
     qb.where('id', profile_id )
   }).fetch({

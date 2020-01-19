@@ -55,7 +55,9 @@ const fieldsRoute = async (req, res) => {
           { label: `Address ${j+1} - City`, name: `address_${j+1}_city`, type: 'textfield' },
           { label: `Address ${j+1} - State/Province`, name: `address_${j+1}_state_province`, type: 'textfield' },
           { label: `Address ${j+1} - Postal Code`, name: `address_${j+1}_postal_code`, type: 'textfield' }
-        ], [])
+        ], []),
+        { label: 'Birthday', name: 'birthday', type: 'birthdayfield' },
+        { label: 'Spouse', name: 'spouse', type: 'textfield' }
       ]
     },
     ...programs

@@ -34,7 +34,7 @@ const createRoute = async (req, res) => {
   const contact = await Contact.forge({
     team_id: req.team.get('id'),
     code,
-    ...whitelist(req.body, ['first_name','last_name','photo_id']),
+    ...whitelist(req.body, ['first_name','last_name','photo_id','birthday','spouse']),
     values
   }).save(null, {
     transacting: req.trx

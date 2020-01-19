@@ -7,6 +7,7 @@ import knex from '../../../core/services/knex'
 import parse from '../../../core/utils/parse'
 import Import from '../../maha/models/import'
 import { parseLocation } from 'parse-address'
+import moment from 'moment'
 import _ from 'lodash'
 
 const processor = async (job, trx) => {
@@ -41,6 +42,10 @@ const processor = async (job, trx) => {
         [`${mapping.field}_city`]: city,
         [`${mapping.field}_state_province`]: state,
         [`${mapping.field}_postal_code`]: [zip,plus4].filter(val => val !== undefined).join('-')
+      }
+    } else if(mapping.field === 'birthday') {
+      return {
+        birthday: moment(value).format('MM/DD')
       }
     } else {
       return {
