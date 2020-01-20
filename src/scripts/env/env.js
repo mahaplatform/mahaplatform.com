@@ -3,6 +3,7 @@ import ejs from 'ejs'
 import fs from 'fs'
 
 const getValue = (environment) => (key) => {
+  console.log(`${environment.toUpperCase()}_${key}`)
   return process.env[`${environment.toUpperCase()}_${key}`] || process.env[key]
 }
 
