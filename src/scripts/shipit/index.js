@@ -103,6 +103,7 @@ const processor = async () => {
   ])
 
   utils.registerTask(shipit, 'deploy', [
+    'deploy:preclean',
     'deploy:build',
     'deploy:zip',
     'deploy:mkdir',
@@ -261,6 +262,13 @@ const processor = async () => {
   utils.registerTask(shipit, 'deploy:cache', () => {
     return shipit.remote('wget -O - http://127.0.0.1/ping', {
       roles: 'appserver'
+    })
+  })
+
+  utils.registerTask(shipit, 'deploy:preclean', () => {
+    if(environment === 'production') return
+    return shipit.remote(`rm -rf ${currentDir} && rm -rf ${releasesDir}/*`, {
+      roles: ['appserver','cron','worker']
     })
   })
 
