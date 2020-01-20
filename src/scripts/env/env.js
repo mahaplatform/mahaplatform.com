@@ -2,13 +2,16 @@ import path from 'path'
 import ejs from 'ejs'
 import fs from 'fs'
 
-const getValue = (key) => {
-  return process.env[`${process.env.NODE_ENV}_${key}`] || process.env[key]
+const getValue = (environment) => (key) => {
+  console.log(`${environment.toUpperCase()}_${key}`)
+  return process.env[`${environment.toUpperCase()}_${key}`] || process.env[key]
 }
 
-const env = async (root) => {
+const env = async (root, environment) => {
   const template = fs.readFileSync(path.join(__dirname, 'env.ejs'), 'utf8')
-  const data = ejs.render(template, { getValue })
+  const data = ejs.render(template, {
+    getValue: getValue(environment)
+  })
   fs.writeFileSync(path.join(root,'.env'), data, 'utf8')
 }
 

@@ -140,9 +140,9 @@ const buildHelp = async() => {
   log('info', 'help', 'Compiled successfully.')
 }
 
-const buildEnv = async() => {
+const buildEnv = async(environment) => {
   log('info', 'environment', 'Compiling...')
-  await env(staged)
+  await env(staged, environment)
   log('info', 'environment', 'Compiled successfully.')
 }
 
@@ -153,7 +153,9 @@ const getDuration = (start) => {
   return `${duration}s`
 }
 
-const build = async (flags, args) => {
+const build = async () => {
+  const args = process.argv.slice(2)
+  const environment = args[0] || 'production'
   const start = process.hrtime()
   rimraf.sync(staged)
   mkdirp.sync(path.join(staged, 'public'))
@@ -161,7 +163,7 @@ const build = async (flags, args) => {
     buildServer(),
     buildClients(),
     buildHelp(),
-    buildEnv()
+    buildEnv(environment)
   ])
   rimraf.sync(dist)
   await move(staged, dist)
