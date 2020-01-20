@@ -44,7 +44,7 @@ jobs:
           command: sudo apt-get install rsync
       - run:
           name: Deploy code
-          command: NODE_ENV=staging npm run shipit production deploy
+          command: NODE_ENV=staging npm run shipit staging deploy
   deploy:
     executor: node-postgres
     steps:
@@ -63,16 +63,22 @@ jobs:
           command: sudo apt-get install rsync
       - run:
           name: Deploy code
-          command: NODE_ENV=production npm run shipit staging deploy
+          command: NODE_ENV=production npm run shipit production deploy
 workflows:
   test-stage-deploy:
     jobs:
       - test:
           filters:
             branches:
-              only: /.*/
+              only: master
             tags:
               only: /.*/
+      - stage:
+          filters:
+            branches:
+              only: staging
+            tags:
+              ignore: /.*/
       - deploy:
           requires:
             - test
@@ -81,11 +87,3 @@ workflows:
               ignore: /.*/
             tags:
               only: /.*/
-      - stage:
-          requires:
-            - test
-          filters:
-            branches:
-              only: staging
-            tags:
-              ignore: /.*/
