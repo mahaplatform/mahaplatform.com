@@ -105,6 +105,7 @@ const buildDir = async (dir) => {
 
 const compile = async (module, config) => {
   log('info', module, 'Compiling...')
+  console.log('warning', process.env.ENVIRONMENT_WARNING, process.env.STAGING_ENVIRONMENT_WARNING)
   await new Promise((resolve, reject) => webpack(config).run((err, stats) => {
     if(err) reject(err)
     const info = stats.toJson()
