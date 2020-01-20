@@ -41,7 +41,7 @@ class Import extends React.Component {
 
   _getPanel() {
     return {
-      title: 'Analyzing Contacts'
+      title: 'Analyzing Data'
     }
   }
 
@@ -49,7 +49,7 @@ class Import extends React.Component {
     const { progress } = this.state
     return {
       percent: progress ? (progress.completed/ progress.total) * 100 : 0,
-      title: 'Analyzing Contacts',
+      title: 'Analyzing Data',
       label: progress ? `${progress.completed}/${progress.total}` : ''
     }
   }

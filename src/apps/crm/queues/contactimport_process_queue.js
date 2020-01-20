@@ -11,36 +11,91 @@ import generateCode from '../../../core/utils/generate_code'
 import { contactActivity } from '../services/activities'
 import ImportItem from '../../maha/models/import_item'
 import socket from '../../../core/services/emitter'
+import EmailAddress from '../models/email_address'
 import Organization from '../models/organization'
 import Queue from '../../../core/objects/queue'
 import Import from '../../maha/models/import'
 import Contact from '../models/contact'
+import Consent from '../models/consent'
+import moment from 'moment'
+import _ from 'lodash'
 
-const getEmailAddresses = async (values) => {
-  return Array(3).fill(0).reduce((addresses, n, i) => [
-    ...addresses,
-    ...values[`email_${i+1}`] ? [{
-      address: values[`email_${i+1}`],
-      is_primary: addresses.length === 0
-    }] : []
-  ], [])
+const getContact = async (req, email) => {
+
+  const email_address = email ? await EmailAddress.query(qb => {
+    qb.where('address', email)
+  }).fetch({
+    withRelated: ['contact.email_addresses','contact.phone_numbers','contact.mailing_addresses'],
+    transacting: req.trx
+  }) : null
+
+  if(email_address) return email_address.related('contact')
+
+  const code = await generateCode(req, {
+    table: 'crm_contacts'
+  })
+
+  return await Contact.forge({
+    team_id: req.team.get('id'),
+    code
+  }).save(null, {
+    transacting: req.trx
+  })
+
 }
 
-const getPhoneNumbers = async (values) => {
+const getValue = (strategy, contact, imp) => {
+  if(strategy === 'overwrite') return imp || contact
+  if(strategy === 'discard') return contact || imp
+  return imp
+}
+
+const getEmailAddresses = async (contact, values) => {
+  const existing = contact.related('email_addresses').map(email => ({
+    id: email.get('id'),
+    address: email.get('address'),
+    is_primary: email.get('is_primary')
+  }))
+  return Array(3).fill(0).reduce((addresses, n, i) => {
+    if(!values[`email_${i+1}`]) return addresses
+    const found = _.find(existing, { address: values[`email_${i+1}`] })
+    if(found) return addresses
+    return [
+      ...addresses,
+      {
+        address: values[`email_${i+1}`],
+        is_primary: (existing.length + addresses.length) === 0
+      }
+    ]
+  }, existing)
+}
+
+const getFormattedNumber = (value) => {
+  const parsed = parsePhoneNumberFromString(value, 'US')
+  const number = [parsed.number]
+  if(parsed.ext) number.push(parsed.ext)
+  return number.join('x')
+}
+
+const getPhoneNumbers = async (contact, values) => {
+  const existing = contact.related('phone_numbers').map(phone => ({
+    id: phone.get('id'),
+    number: phone.get('number'),
+    is_primary: phone.get('is_primary')
+  }))
   return Array(3).fill(0).reduce((numbers, n, i) => {
     if(!values[`phone_${i+1}`]) return numbers
-    const parsed = parsePhoneNumberFromString(values[`phone_${i+1}`], 'US')
-    const number = []
-    number.push(parsed.number)
-    if(parsed.ext) number.push(parsed.ext)
+    const number = getFormattedNumber(values[`phone_${i+1}`])
+    const found = _.find(existing, { number })
+    if(found) return numbers
     return [
       ...numbers,
       {
-        number: number.join('x'),
-        is_primary: numbers.length === 0
+        number,
+        is_primary: (existing.length + numbers.length) === 0
       }
     ]
-  }, [])
+  }, existing)
 }
 
 const getFullAddress = (address) => {
@@ -51,25 +106,37 @@ const getFullAddress = (address) => {
   }).join(', ')
 }
 
-const getMailingAddresses = async (values) => {
+const getFormattedMailingAddress = (values, i) => {
+  const address = {
+    street_1: values[`address_${i}_street_1`],
+    street_2: values[`address_${i}_street_2`],
+    city: values[`address_${i}_city`],
+    state_province: values[`address_${i}_state_province`],
+    postal_code: values[`address_${i}_postal_code`]
+  }
+  address.description = getFullAddress(address)
+  return address
+}
+
+const getMailingAddresses = async (contact, values) => {
+  const existing = contact.related('mailing_addresses').map(email => ({
+    id: email.get('street_1'),
+    address: email.get('address'),
+    street_1: email.get('address').street_1,
+    is_primary: email.get('is_primary')
+  }))
   return Promise.reduce(Array(3).fill(0), async (addresses, n, i) => {
     if(!values[`address_${i+1}_street_1`]) return addresses
-    const address = {
-      street_1: values[`address_${i+1}_street_1`],
-      street_2: values[`address_${i+1}_street_2`],
-      city: values[`address_${i+1}_city`],
-      state_province: values[`address_${i+1}_state_province`],
-      postal_code: values[`address_${i+1}_postal_code`]
-    }
-    address.description = getFullAddress(address)
+    const found = _.find(existing, { street_1: values[`address_${i+1}_street_1`] })
+    if(found) return addresses
     return [
       ...addresses,
       {
-        address,
-        is_primary: addresses.length === 0
+        address: getFormattedMailingAddress(values, i + 1),
+        is_primary: (existing.length + addresses.length) === 0
       }
     ]
-  }, [])
+  }, existing)
 }
 
 const getOrganizationIds = async (req, values) => {
@@ -112,61 +179,92 @@ const processor = async (job, trx) => {
 
   await Promise.mapSeries(items, async (item, index) => {
 
-    const code = await generateCode(req, {
-      table: 'crm_contacts'
-    })
+    const values = item.get('values')
 
-    const email_addresses = await getEmailAddresses(item.get('values'))
+    const { first_name, last_name, birthday, spouse, photo, email_1 } = values
 
-    const phone_numbers = await getPhoneNumbers(item.get('values'))
+    let is_merged = false
 
-    const mailing_addresses = await getMailingAddresses(item.get('values'))
+    let is_ignored = false
 
-    const organization_ids = await getOrganizationIds(req, item.get('values'))
+    const contact = await getContact(req, email_1)
 
-    const contact = await Contact.forge({
-      team_id: req.team.get('id'),
-      code,
-      first_name: item.get('values').first_name,
-      last_name: item.get('values').last_name,
-      birthday: item.get('values').birthday,
-      spouse: item.get('values').spouse
-    }).save(null, {
-      transacting: trx
-    })
+    if(imp.get('strategy') === 'ignore' && item.get('is_duplicate')) {
 
-    if(item.get('values').photo) {
-      await ContactImportPhotoQueue.enqueue(req, {
-        contact_id: contact.get('id'),
-        user_id: imp.get('user_id'),
-        url: item.get('values').photo
+      is_ignored = true
+
+    } else {
+
+      const strategy = imp.get('strategy')
+
+      await contact.save({
+        first_name: getValue(strategy, contact.get('first_name'), first_name),
+        last_name: getValue(strategy, contact.get('last_name'), last_name),
+        birthday: getValue(strategy, contact.get('birthday'), birthday),
+        spouse: getValue(strategy, contact.get('spouse'), spouse)
+      }, {
+        transacting: trx
       })
-    }
 
-    if(email_addresses.length > 0) {
-      await updateEmailAddresses(req, {
-        contact,
-        email_addresses
-      })
-    }
-
-    if(phone_numbers.length > 0) {
-      await updatePhoneNumbers(req, {
-        contact,
-        phone_numbers
-      })
-    }
-
-    if(mailing_addresses.length > 0) {
-      const addresses = await updateMailingAddresses(req, {
-        contact,
-        mailing_addresses
-      })
-      await Promise.map(addresses, async (address) => {
-        await ContactImportGeocodeQueue.enqueue(req, {
-          id: address.get('id')
+      if(photo && (_.isNil(contact.get('photo_id')) || strategy === 'overwrite')) {
+        await ContactImportPhotoQueue.enqueue(req, {
+          contact_id: contact.get('id'),
+          user_id: imp.get('user_id'),
+          url: photo
         })
+      }
+
+      const email_addresses = await getEmailAddresses(contact, values)
+      if(email_addresses.length > 0) {
+        await updateEmailAddresses(req, {
+          contact,
+          email_addresses
+        })
+      }
+
+      const phone_numbers = await getPhoneNumbers(contact, values)
+      if(phone_numbers.length > 0) {
+        await updatePhoneNumbers(req, {
+          contact,
+          phone_numbers
+        })
+      }
+
+      const mailing_addresses = await getMailingAddresses(contact, values)
+      if(mailing_addresses.length > 0) {
+        const addresses = await updateMailingAddresses(req, {
+          contact,
+          mailing_addresses
+        })
+        await Promise.map(addresses, async (address) => {
+          await ContactImportGeocodeQueue.enqueue(req, {
+            id: address.get('id')
+          })
+        })
+      }
+
+      const organization_ids = await getOrganizationIds(req, values)
+      if(organization_ids.length > 0) {
+        await updateRelated(req, {
+          object: contact,
+          related: 'organizations',
+          table: 'crm_contacts_organizations',
+          ids: organization_ids,
+          foreign_key: 'contact_id',
+          related_foreign_key: 'organization_id'
+        })
+      }
+
+      await contactActivity(req, {
+        user: imp.related('user'),
+        contact,
+        type: 'edit',
+        story: is_merged ? 'merged data from an import' : 'imported the contact',
+        data: {
+          changes: []
+        }
       })
+
     }
 
     if(imp.get('config').list_ids) {
@@ -191,30 +289,30 @@ const processor = async (job, trx) => {
       })
     }
 
-    if(organization_ids.length > 0) {
-      await updateRelated(req, {
-        object: contact,
-        related: 'organizations',
-        table: 'crm_contacts_organizations',
-        ids: organization_ids,
-        foreign_key: 'contact_id',
-        related_foreign_key: 'organization_id'
-      })
+    if(imp.get('config').channels) {
+      // const existing = contact.related('consents').map(consent => ({
+      //   program_id: consent.get('program_id'),
+      //   type: consent.get('type')
+      // }))
+      // await Promise.map(imp.get('config').channels, async (channel) => {
+      //   const { program_id, type } = channel
+      //   const found = _.find(existing, { program_id, type })
+      //   if(!found) return
+      //   const code = await generateCode(req, {
+      //     table: 'crm_consents'
+      //   })
+      //   return await Consent.forge({
+      //     team_id: req.team.get('id'),
+      //     code,
+      //     program_id,
+      //     type,
+      //     optin_reason: '',
+      //     optedin_at: moment()
+      //   }).save(null, {
+      //     transacting: req.trx
+      //   })
+      // })
     }
-
-    await contactActivity(req, {
-      user: imp.related('user'),
-      contact,
-      type: 'edit',
-      story: 'imported the contact',
-      data: {
-        changes: []
-      }
-    })
-
-    const is_merged = false
-
-    const is_ignored = false
 
     await item.save({
       object_id: contact.get('id'),

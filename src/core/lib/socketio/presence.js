@@ -74,7 +74,7 @@ const presence = async (io, socket) => {
     const users = await getPresence()
 
     const presence = await setPresence(users.map(item => {
-      if(item.session_id !== auth.session.get('id')) return item
+      if(!auth.session || item.session_id !== auth.session.get('id')) return item
       return {
         ...item,
         status: data.status,
@@ -88,7 +88,7 @@ const presence = async (io, socket) => {
 
   socket.on('disconnect', async () => {
 
-    if(!auth) return
+    if(!auth || !auth.session) return
 
     const presence = await removePresence(auth.session.get('id'))
 

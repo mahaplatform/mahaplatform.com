@@ -77,9 +77,9 @@ const processor = async (job, trx) => {
 
     const is_valid = await isValid(rules, values)
 
-    const is_duplicate =  duplicate.length > 0
-
     const is_nonunique = _.includes(result.primarykeys, values.email_1)
+
+    const is_duplicate = !is_nonunique ? duplicate.length > 0 : false
 
     await ImportItem.forge({
       import_id: imp.get('id'),

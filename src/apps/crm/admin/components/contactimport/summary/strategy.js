@@ -30,7 +30,7 @@ class Strategy extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'How should we handle duplicate records?', name: 'strategy', type: 'radiogroup', options: ['ignore','overwrite','discard'], format: ImportStrategyToken, defaultValue: _import.strategy }
+            { label: 'How should we handle duplicate records?', name: 'strategy', type: 'radiogroup', options: ['overwrite','discard'], format: ImportStrategyToken, defaultValue: _import.strategy }
           ]
         }
       ]

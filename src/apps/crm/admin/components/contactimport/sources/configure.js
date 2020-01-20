@@ -32,7 +32,7 @@ class Configure extends React.PureComponent {
       sections: [
         {
           fields: [
-            { name: 'strategy', type: 'radiogroup', options: ['ignore','overwrite','discard'], format: ImportStrategyToken, defaultValue: params.strategy || 'ignore' }
+            { name: 'strategy', type: 'radiogroup', options: ['overwrite','discard'], format: ImportStrategyToken, defaultValue: params.strategy || 'overwrite' }
           ]
         }
       ]

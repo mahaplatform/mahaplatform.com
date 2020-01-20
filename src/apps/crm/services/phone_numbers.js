@@ -1,4 +1,12 @@
+import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import PhoneNumber from '../models/phone_number'
+
+const getFormattedNumber = (value) => {
+  const parsed = parsePhoneNumberFromString(value, 'US')
+  const number = [parsed.number]
+  if(parsed.ext) number.push(parsed.ext)
+  return number.join('x')
+}
 
 export const updatePhoneNumbers = async (req, { contact, phone_numbers }) => {
 
@@ -21,7 +29,7 @@ export const updatePhoneNumbers = async (req, { contact, phone_numbers }) => {
       await PhoneNumber.forge({
         team_id: req.team.get('id'),
         contact_id: contact.get('id'),
-        number: `+1${phone_number.number.replace(/[^\d]/g,'')}`,
+        number: getFormattedNumber(phone_number.number),
         is_primary: phone_number.is_primary,
         is_valid: true
       }).save(null, {
@@ -36,7 +44,7 @@ export const updatePhoneNumbers = async (req, { contact, phone_numbers }) => {
         return item.get('id') === phone_number.id
       })
       await number.save({
-        number: `+1${phone_number.number.replace(/[^\d]/g,'')}`,
+        number: getFormattedNumber(phone_number.number),
         is_primary: phone_number.is_primary
       }, {
         transacting: req.trx

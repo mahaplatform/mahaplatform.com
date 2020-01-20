@@ -12,6 +12,8 @@ const processor = async (job, trx) => {
 
   const address = await geocode(mailing_address.get('address'))
 
+  if(!address) return 
+
   await mailing_address.save({
     address
   },{
