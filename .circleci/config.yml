@@ -35,8 +35,7 @@ jobs:
       - checkout
       - restore_cache:
           key: staging
-      - attach_workspace:
-          at: ~/repo/staging
+      - run: npm install
       - run:
           name: Install rsync
           command: sudo apt-get install rsync
@@ -72,7 +71,7 @@ workflows:
       - test:
           filters:
             branches:
-              only: /.*/
+              only: master
             tags:
               only: /.*/
       - stage:
