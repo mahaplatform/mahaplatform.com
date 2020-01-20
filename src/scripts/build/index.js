@@ -12,6 +12,7 @@ import rimraf from 'rimraf'
 import mkdirp from 'mkdirp'
 import path from 'path'
 import ncp from 'ncp'
+import ejs from 'ejs'
 import fs from 'fs'
 
 const appsDir = path.resolve('src','apps')
@@ -122,13 +123,15 @@ const buildClients = async () => {
   })
 }
 
-const buildServer = async () => {
+const buildServer = async (environment) => {
   log('info', 'server', 'Compiling...')
   const appDirs = apps.map(app => `apps/${app}`)
   const coreDirs = ['lib','objects','scripts','services','utils'].map(dir => `core/${dir}`)
   await Promise.map([...appDirs, ...coreDirs], buildDir)
   await Promise.map(['cron.js','server.js','worker.js'], buildEntry)
-  await copy(path.join('src','scripts','build','ecosystem.config.js'), path.join(staged,'ecosystem.config.js'))
+  const template = fs.readFileSync(path.join(__dirname, 'ecosystem.config.js.ejs'), 'utf8')
+  const data = ejs.render(template, { environment })
+  fs.writeFileSync(path.join(staged,'ecosystem.config.js'), data, 'utf8')
   await copy(path.join('package.json'), path.join(staged,'package.json'))
   await copy(path.join('package-lock.json'), path.join(staged,'package-lock.json'))
   log('info', 'server', 'Compiled successfully.')
@@ -160,7 +163,7 @@ const build = async () => {
   rimraf.sync(staged)
   mkdirp.sync(path.join(staged, 'public'))
   await Promise.all([
-    buildServer(),
+    buildServer(environment),
     buildClients(),
     buildHelp(),
     buildEnv(environment)

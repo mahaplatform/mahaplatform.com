@@ -1,6 +1,6 @@
 module.exports = {
   apps: [{
-    name: 'worker',
+    name: 'worker_<%= environment %>',
     script: './worker.js',
     instances: 4,
     cwd: process.env.PWD+'/current',
@@ -8,7 +8,7 @@ module.exports = {
     out_file: './logs/worker.out.log',
     exec_mode: 'fork_mode'
   },{
-    name: 'cron',
+    name: 'cron_<%= environment %>',
     script: './cron.js',
     instances: 1,
     cwd: process.env.PWD+'/current',
