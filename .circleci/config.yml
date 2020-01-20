@@ -74,6 +74,8 @@ workflows:
             tags:
               only: /.*/
       - stage:
+          requires:
+            - test
           filters:
             branches:
               only: staging
