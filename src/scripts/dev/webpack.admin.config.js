@@ -74,7 +74,8 @@ const webpackConfig = {
         'DATA_ASSET_CDN_HOST': JSON.stringify(process.env.DATA_ASSET_CDN_HOST),
         'WEB_ASSET_HOST': JSON.stringify(process.env.WEB_ASSET_HOST),
         'DATA_ASSET_HOST': JSON.stringify(process.env.DATA_ASSET_HOST),
-        'ROLLBAR_CLIENT_TOKEN': JSON.stringify(process.env.ROLLBAR_CLIENT_TOKEN)
+        'ROLLBAR_CLIENT_TOKEN': JSON.stringify(process.env.ROLLBAR_CLIENT_TOKEN),
+        'ENVIRONMENT_WARNING': JSON.stringify(process.env.ENVIRONMENT_WARNING)
       }
     })
   ],

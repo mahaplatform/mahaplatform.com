@@ -1,6 +1,7 @@
 import HTML5Backend from 'react-dnd-html5-backend'
 import Notifications from '../notifications'
 import { DndProvider } from 'react-dnd'
+import Environment from './environment'
 import { connect } from 'react-redux'
 import { routes } from './selectors'
 import Analytics from '../analytics'
@@ -28,6 +29,7 @@ class Platform extends React.Component {
     return (
       <DndProvider backend={ HTML5Backend } >
         <div className="maha-platform">
+          <Environment />
           <Analytics>
             <Logger>
               <Router>
