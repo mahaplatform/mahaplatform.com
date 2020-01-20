@@ -44,7 +44,7 @@ jobs:
           command: sudo apt-get install rsync
       - run:
           name: Deploy code
-          command: NODE_ENV=staging npm run shipit staging deploy
+          command: NODE_ENV=production npm run shipit staging deploy
   deploy:
     executor: node-postgres
     steps:
