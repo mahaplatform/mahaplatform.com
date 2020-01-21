@@ -71,7 +71,7 @@ class Intro extends React.Component {
           component: () => (
             <div className="import-item">
               <div className="import-item-icon">
-                <img src={ `/images/services/${item.service}.png` } />
+                <img src={ `/admin/images/services/${item.service}.png` } />
               </div>
               <div className="import-item-label">
                 <strong>{item.name || item.asset.original_file_name}</strong> ({ pluralize('record', item.item_count, true) })<br />
