@@ -28,7 +28,7 @@ class Folder extends React.Component {
             <div className="maha-attachments-drive-header-back">
               { folder.item_id ?
                 <i className="fa fa-fw fa-chevron-left" /> :
-                <img src="/images/services/maha.png" />
+                <img src="/admin/images/services/maha.png" />
               }
             </div>
             <div className="maha-attachments-drive-header-label">

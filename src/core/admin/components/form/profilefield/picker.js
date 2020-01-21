@@ -28,7 +28,7 @@ class Profiles extends React.PureComponent {
           { profiles.map((profile, index) => (
             <div className="profilefield-picker-profile" key={`source_${index}`} onClick={ this._handleChoose.bind(this, index) }>
               <div className="profilefield-picker-profile-logo">
-                <img src={`/images/services/${profile.service}.png`} />
+                <img src={`/admin/images/services/${profile.service}.png`} />
               </div>
               <div className="profilefield-picker-profile-username">
                 { profile.username }

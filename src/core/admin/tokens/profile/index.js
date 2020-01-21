@@ -20,7 +20,7 @@ const ProfileToken = ({ profile }) => {
   return (
     <div className="profile-token">
       <div className="profile-token-icon">
-        <img src={`/images/services/${profile.service}.png`} />
+        <img src={`/admin/images/services/${profile.service}.png`} />
       </div>
       <div className="profile-token-label">
         <strong>{ service }</strong><br />

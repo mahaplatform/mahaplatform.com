@@ -43,7 +43,7 @@ class Sources extends React.PureComponent {
             <div className="contactimport-source" key={`source_${index}`} onClick={ this._handleClick.bind(this, source) }>
               <div className="contactimport-source-service">
                 { (source.service || source.image) &&
-                  <img src={`/images/services/${source.service || source.image}.png`} />
+                  <img src={`/admin/images/services/${source.service || source.image}.png`} />
                 }
                 { source.icon &&
                   <i className={`fa fa-${source.icon}`} />
