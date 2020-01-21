@@ -39,7 +39,9 @@ class Text extends React.Component {
 
   _getCellClass(index) {
     const { columns, split } = this.props.config
-    const classes=[`large-${split[index]}`]
+    const classes=[]
+    if(columns === 1) classes.push('large-12')
+    if(columns === 2) classes.push(`large-${split[index]}`)
     if(index === 0) classes.push('first')
     if(index === columns - 1) classes.push('last')
     classes.push('columns')

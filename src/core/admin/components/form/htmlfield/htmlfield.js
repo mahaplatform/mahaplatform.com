@@ -1,7 +1,4 @@
-import { EditorState, convertToRaw, ContentState, Modifier } from 'draft-js'
-import { Editor } from 'react-draft-wysiwyg'
-import draftToHtml from 'draftjs-to-html'
-import htmlToDraft from 'html-to-draftjs'
+import ReactQuill from 'react-quill'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -28,26 +25,25 @@ class HtmlField extends React.Component {
   }
 
   _handleChange = _.throttle(this._handleChange.bind(this), 150)
-  _handleEditorStateChange = this._handleEditorStateChange.bind(this)
-  _handlePastedText = this._handlePastedText.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
     return (
       <div className="maha-htmlfield">
-        <Editor { ...this._getEditor() } />
+        <ReactQuill { ...this._getEditor() } />
       </div>
     )
   }
 
   componentDidMount() {
     const { defaultValue, onReady } = this.props
-    if(defaultValue) this._handleSet(defaultValue)
+    if(defaultValue) this._handleUpdate(defaultValue)
     onReady()
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { state } = this.state
-    if(!_.isEqual(state, prevState.state)) {
+    if(state !== prevState.state) {
       this._handleChange(state)
     }
   }
@@ -55,58 +51,23 @@ class HtmlField extends React.Component {
   _getEditor() {
     const { state } = this.state
     return {
-      editorState: state,
-      onEditorStateChange: this._handleEditorStateChange,
-      toolbar: {
-        options: ['inline','blockType','list','textAlign'],
-        inline: {
-          inDropdown: false,
-          options: ['bold', 'italic', 'underline']
-        },
-        blockType: {
-          inDropdown: true,
-          options: ['Normal', 'H1', 'H2', 'H3', 'H4']
-        },
-        list: {
-          inDropdown: false,
-          options: ['unordered', 'ordered']
-        }
-      },
-      handlePastedText: this._handlePastedText
+      value: state,
+      onChange: this._handleUpdate,
+      modules: {
+        toolbar: [
+          [{ header: 1 },{ header: 2 },'bold', 'italic', 'underline'],
+          [{ list: 'ordered' },{ list: 'bullet' },'align']
+        ]
+      }
     }
   }
 
-  _handleChange(state) {
-    const html = draftToHtml(convertToRaw(state.getCurrentContent()))
-    this.props.onChange(html)
+  _handleChange(value) {
+    this.props.onChange(value)
   }
 
-  _handleEditorStateChange(state) {
-    this.setState({ state })
-  }
-
-  _handlePastedText(text, html) {
-    const { state } = this.state
-    const newContent = Modifier.insertText(
-      state.getCurrentContent(),
-      state.getSelection(),
-      text
-    )
-    this._handleChange(EditorState.push(
-      state,
-      newContent,
-      'insert-characters'
-    ))
-    return true
-  }
-
-  _handleSet(html) {
-    const contentBlock = htmlToDraft(html)
-    if (contentBlock) {
-      const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks)
-      const state = EditorState.createWithContent(contentState)
-      this.setState({ state })
-    }
+  _handleUpdate(value) {
+    this.setState({ state: value })
   }
 
 }

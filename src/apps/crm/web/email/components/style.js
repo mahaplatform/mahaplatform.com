@@ -101,6 +101,9 @@ class Style extends React.Component {
           { selector: `table.section-${i}-block-${j} td,table.section-${i}-block-${j} p`, styles: [
             ...this._getProp('font-family',`sections[${i}].blocks[${j}].font_family`),
             ...this._getProp('font-size',`sections[${i}].blocks[${j}].font_size`),
+            ...this._getFormat('font-weight', 'bold', `sections[${i}].blocks[${j}].format`, 'normal'),
+            ...this._getFormat('font-style', 'italic', `sections[${i}].blocks[${j}].format`),
+            ...this._getFormat('text-decoration', 'underline', `sections[${i}].blocks[${j}].format`),
             ...this._getProp('color',`sections[${i}].blocks[${j}].color`),
             ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`),
             ...this._getProp('line-height',`sections[${i}].blocks[${j}].line_height`),

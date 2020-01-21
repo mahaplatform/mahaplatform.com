@@ -41,13 +41,15 @@ class FormDesigner extends React.PureComponent {
     this.props.onSet(defaultValue)
   }
 
-  componentDidUpdate(prevProps) {}
-
   _getCanvas() {
     const { config } = this.props
     return {
       config
     }
+  }
+
+  _getDefault() {
+    return {}
   }
 
   _getSidebar() {
