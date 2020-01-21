@@ -16,6 +16,13 @@ const Details = ({ audits, form }) => {
     route: `/admin/crm/forms/${form.id}/responses`
   }
 
+
+  const confirmation = {
+    label: 'Design Confirmation Email',
+    className: 'link',
+    route: `/admin/crm/emails/${form.email.id}/design`
+  }
+
   const list = {}
 
   if(form.status === 'draft') {
@@ -29,6 +36,7 @@ const Details = ({ audits, form }) => {
   list.items = [
     { label: 'Title', content: form.title },
     { label: 'Design', content: <Button { ...design } /> },
+    { label: 'Confirmation', content: <Button { ...confirmation } /> },
     { label: 'Responses', content: <Button { ...responses } /> },
     { component: <Audit entries={ audits } /> }
   ]

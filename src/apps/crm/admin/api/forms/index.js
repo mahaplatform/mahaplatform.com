@@ -6,6 +6,7 @@ import { Router } from 'express'
 import destroy from './destroy'
 import create from './create'
 import update from './update'
+import emails from './emails'
 import edit from './edit'
 import list from './list'
 import show from './show'
@@ -28,8 +29,10 @@ router.patch('/:id', update)
 
 router.delete('/:id', destroy)
 
+router.get('/:form_id/emails', workflows)
+
 router.use('/:form_id/responses', responses)
 
-router.use('/:form_id/workflows', workflows)
+router.get('/:form_id/workflows', workflows)
 
 export default router
