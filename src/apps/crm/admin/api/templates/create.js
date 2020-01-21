@@ -8,7 +8,10 @@ const createRoute = async (req, res) => {
 
   const template = await Template.forge({
     team_id: req.team.get('id'),
-    ...whitelist(req.body, ['program_id','title','type','parent_id'])
+    ...whitelist(req.body, ['program_id','title','type','parent_id']),
+    config: {
+      sections: []
+    }
   }).save(null, {
     transacting: req.trx
   })

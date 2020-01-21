@@ -4,6 +4,7 @@ import generateCode from '../../../../../core/utils/generate_code'
 import FormSerializer from '../../../serializers/form_serializer'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
+import Template from '../../../models/template'
 import Program from '../../../models/program'
 import Email from '../../../models/email'
 import Form from '../../../models/form'
@@ -43,6 +44,13 @@ const createRoute = async (req, res) => {
     auditable: form
   })
 
+  const template = await Template.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('id', req.body.template_id)
+  }).fetch({
+    transacting: req.trx
+  })
+
   const emailCode = await generateCode(req, {
     table: 'crm_emails'
   })
@@ -55,7 +63,7 @@ const createRoute = async (req, res) => {
     code: emailCode,
     subject: req.body.subject,
     reply_to: req.body.reply_to,
-    config: {}
+    config: template.get('config')
   }).save(null, {
     transacting: req.trx
   })
