@@ -32,9 +32,7 @@ class New extends React.Component {
       sections: [
         {
           fields: [
-            { type: 'hidden', name: 'type', defaultValue: type },
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter the title', required: true },
-            { label: 'Type', name: 'type', type: 'radiogroup', options: ['email','web'], required: true, defaultView: 'email' }
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter the title', required: true }
           ]
         }
       ]
@@ -46,7 +44,7 @@ class New extends React.Component {
   }
 
   _handleSuccess(result) {
-    this.context.router.history.push(`/admin/crm/templates/${result.id}`)
+    this.context.router.history.push(`/admin/crm/templates/${result.id}/design`)
     this.context.modal.close()
   }
 

@@ -1,4 +1,4 @@
-import { EditorState, convertToRaw, ContentState } from 'draft-js'
+import { EditorState, convertToRaw, ContentState, Modifier } from 'draft-js'
 import { Editor } from 'react-draft-wysiwyg'
 import draftToHtml from 'draftjs-to-html'
 import htmlToDraft from 'html-to-draftjs'
@@ -29,6 +29,7 @@ class HtmlField extends React.Component {
 
   _handleChange = _.throttle(this._handleChange.bind(this), 150)
   _handleEditorStateChange = this._handleEditorStateChange.bind(this)
+  _handlePastedText = this._handlePastedText.bind(this)
 
   render() {
     return (
@@ -70,7 +71,8 @@ class HtmlField extends React.Component {
           inDropdown: false,
           options: ['unordered', 'ordered']
         }
-      }
+      },
+      handlePastedText: this._handlePastedText
     }
   }
 
@@ -81,6 +83,21 @@ class HtmlField extends React.Component {
 
   _handleEditorStateChange(state) {
     this.setState({ state })
+  }
+
+  _handlePastedText(text, html) {
+    const { state } = this.state
+    const newContent = Modifier.insertText(
+      state.getCurrentContent(),
+      state.getSelection(),
+      text
+    )
+    this._handleChange(EditorState.push(
+      state,
+      newContent,
+      'insert-characters'
+    ))
+    return true
   }
 
   _handleSet(html) {

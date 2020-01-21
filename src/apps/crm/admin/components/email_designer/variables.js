@@ -54,6 +54,7 @@ export const line_heights = [
 export const letter_spacing = [-5,-4,-3,-2,-1,0,1,2,3,4,5].map(value => `${value}px`)
 
 export const splits = [
+  { value: [12], text: 'Full' },
   { value: [6,6], text: 'Half' },
   { value: [4,8], text: 'One Third, Two Thirds' },
   { value: [8,4], text: 'Two Thirds, One Third' }

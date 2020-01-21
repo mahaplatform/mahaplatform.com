@@ -22,6 +22,23 @@
   .maha-modal-panel-header {
     background-color: @grey !important;
   }
+  .maha-menus-header {
+    background-color: @grey !important;
+    .ui.menu {
+      background-color: @grey !important;
+      border-color: @white !important;
+      .item.active {
+        background-color: @white !important;
+        color: @grey !important;
+      }
+      .item {
+        color: @white !important;
+        &:before {
+          background: @white !important;
+        }
+      }
+    }
+  }
   & > * {
     flex: 1;
   }

@@ -51,7 +51,7 @@ class Section extends React.Component {
   _handleRename(label) {
     const { section, index } = this.props
     this.props.onUpdate(`sections[${index}]`, {
-      section,
+      ...section,
       label
     })
   }
