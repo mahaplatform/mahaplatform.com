@@ -105,7 +105,6 @@ const buildDir = async (dir) => {
 
 const compile = async (module, config) => {
   log('info', module, 'Compiling...')
-  console.log('warning', process.env.ENVIRONMENT_WARNING)
   await new Promise((resolve, reject) => webpack(config).run((err, stats) => {
     if(err) reject(err)
     const info = stats.toJson()
@@ -115,8 +114,9 @@ const compile = async (module, config) => {
   log('info', module, 'Compiled successfully.')
 }
 
-const buildClients = async () => {
-  await compile('admin', adminConfig)
+const buildClients = async (environment) => {
+  const warning = environment === 'staging'
+  await compile('admin', adminConfig(warning))
   await Promise.map(subapps, async (item) => {
     const { app, subapp, dir } = item
     const config = webpackConfig(app, subapp, dir)
@@ -163,12 +163,9 @@ const build = async () => {
   const start = process.hrtime()
   rimraf.sync(staged)
   mkdirp.sync(path.join(staged, 'public'))
-  if(environment === 'staging') {
-    process.env.ENVIRONMENT_WARNING = true
-  }
   await Promise.all([
     buildServer(environment),
-    buildClients(),
+    buildClients(environment),
     buildHelp(),
     buildEnv(environment)
   ])
