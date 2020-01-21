@@ -37,14 +37,13 @@ class Channels extends React.Component {
               ...program.channels.map((channel, j) => [
                 <tr key={`channel_${j}_channel`} className="crm-contact-channels-channel" onClick={ this._handleToggle.bind(this, `${i}-${j}`)}>
                   <td>
-                    { false &&
-                      <span>
-                        { `${i}-${j}` === expanded ?
-                          <i className="fa fa-fw fa-caret-down" /> :
-                          <i className="fa fa-fw fa-caret-right" />
-                        }
-                      </span>
-                    } { channel.label }
+                    <span>
+                      { `${i}-${j}` === expanded ?
+                        <i className="fa fa-fw fa-caret-down" /> :
+                        <i className="fa fa-fw fa-caret-right" />
+                      }
+                    </span>
+                    { channel.label }
                   </td>
                   <td className="collapsing">
                     { channel.type.toUpperCase() }

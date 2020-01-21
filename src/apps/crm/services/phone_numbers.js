@@ -24,33 +24,29 @@ export const updatePhoneNumbers = async (req, { contact, phone_numbers }) => {
     }) === undefined
   })
 
-  if(add.length > 0) {
-    await Promise.mapSeries(add, async (phone_number) => {
-      await PhoneNumber.forge({
-        team_id: req.team.get('id'),
-        contact_id: contact.get('id'),
-        number: getFormattedNumber(phone_number.number),
-        is_primary: phone_number.is_primary,
-        is_valid: true
-      }).save(null, {
-        transacting: req.trx
-      })
+  const added = add.length > 0 ? await Promise.mapSeries(add, async (phone_number) => {
+    return await PhoneNumber.forge({
+      team_id: req.team.get('id'),
+      contact_id: contact.get('id'),
+      number: getFormattedNumber(phone_number.number),
+      is_primary: phone_number.is_primary,
+      is_valid: true
+    }).save(null, {
+      transacting: req.trx
     })
-  }
+  }) : []
 
-  if(update.length > 0) {
-    await Promise.mapSeries(update, async (phone_number) => {
-      const number = contact.related('phone_numbers').find(item => {
-        return item.get('id') === phone_number.id
-      })
-      await number.save({
-        number: getFormattedNumber(phone_number.number),
-        is_primary: phone_number.is_primary
-      }, {
-        transacting: req.trx
-      })
+  const updated = update.length > 0 ?await Promise.mapSeries(update, async (phone_number) => {
+    const number = contact.related('phone_numbers').find(item => {
+      return item.get('id') === phone_number.id
     })
-  }
+    return await number.save({
+      number: getFormattedNumber(phone_number.number),
+      is_primary: phone_number.is_primary
+    }, {
+      transacting: req.trx
+    })
+  }) : []
 
   if(remove.length > 0) {
     await Promise.mapSeries(remove, async (phone_number) => {
@@ -59,5 +55,10 @@ export const updatePhoneNumbers = async (req, { contact, phone_numbers }) => {
       })
     })
   }
+
+  return [
+    ...added,
+    ...updated
+  ]
 
 }

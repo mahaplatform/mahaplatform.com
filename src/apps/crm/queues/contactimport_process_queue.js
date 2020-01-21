@@ -10,9 +10,11 @@ import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import generateCode from '../../../core/utils/generate_code'
 import { contactActivity } from '../services/activities'
 import ImportItem from '../../maha/models/import_item'
+import MailingAddress from '../models/mailing_address'
 import socket from '../../../core/services/emitter'
 import EmailAddress from '../models/email_address'
 import Organization from '../models/organization'
+import PhoneNumber from '../models/phone_number'
 import Queue from '../../../core/objects/queue'
 import Import from '../../maha/models/import'
 import Contact from '../models/contact'
@@ -120,7 +122,7 @@ const getFormattedMailingAddress = (values, i) => {
 
 const getMailingAddresses = async (contact, values) => {
   const existing = contact.related('mailing_addresses').map(email => ({
-    id: email.get('street_1'),
+    id: email.get('id'),
     address: email.get('address'),
     street_1: email.get('address').street_1,
     is_primary: email.get('is_primary')
@@ -155,6 +157,102 @@ const getOrganizationIds = async (req, values) => {
   }, [])
 }
 
+const getChannelObjects = async (req, params) => {
+  const { contact, type, email_addresses, phone_numbers, mailing_addresses } = params
+  if(type === 'email' && email_addresses.length > 0) {
+    return EmailAddress.query(qb => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('contact_id', contact.get('id'))
+      qb.whereIn('address', email_addresses.map(item => item.address))
+    }).fetchAll({
+      transacting: req.trx
+    }).then(results => results.toArray())
+  } else if(_.includes(['sms','voice'], type) && phone_numbers.length > 0) {
+    return PhoneNumber.query(qb => {
+      qb.where('team_id', req.team.get('id'))
+      qb.where('contact_id', contact.get('id'))
+      qb.whereIn('number', phone_numbers.map(item => item.number))
+    }).fetchAll({
+      transacting: req.trx
+    }).then(results => results.toArray())
+  } else if(type === 'mail' && mailing_addresses.length > 0) {
+    return MailingAddress.query(qb => {
+      qb.whereRaw(`address->>'street_1' in (${mailing_addresses.map(i => '?').join(',')})`, mailing_addresses.map(item => item.address.street_1))
+      qb.where('team_id', req.team.get('id'))
+      qb.where('contact_id', contact.get('id'))
+    }).fetchAll({
+      transacting: req.trx
+    }).then(results => results.toArray())
+  }
+  return []
+}
+
+const updateChannel = async (req, params) => {
+  const { email_address_id, phone_number_id, mailing_address_id, program_id, type } = params
+  const consent = await Consent.query(qb => {
+    qb.where('team_id', req.team.get('id'))
+    qb.where('email_address_id', email_address_id)
+    qb.where('phone_number_id', phone_number_id)
+    qb.where('mailing_address_id', mailing_address_id)
+    qb.where('program_id', program_id)
+    qb.where('type', type)
+  }).fetch({
+    transacting: req.trx
+  })
+  if(consent) {
+    if(!consent.get('optedout_at')) return consent
+    await consent.save({
+      optin_reason: 'consent',
+      optout_reason: null,
+      optedin_at: moment(),
+      optedout_at: null
+    }, {
+      transacting: req.trx
+    })
+  } else {
+    const code = await generateCode(req, {
+      table: 'crm_consents'
+    })
+    return await Consent.forge({
+      team_id: req.team.get('id'),
+      code,
+      email_address_id,
+      phone_number_id,
+      mailing_address_id,
+      program_id,
+      type,
+      optin_reason: 'consent',
+      optedin_at: moment()
+    }).save(null, {
+      transacting: req.trx
+    })
+  }
+}
+
+const updateChannels = async (req, params) => {
+  const { channels, contact, email_addresses, phone_numbers, mailing_addresses } = params
+  await Promise.mapSeries(channels, async(channel) => {
+    const { program_id, type } = channel
+    const objects = await getChannelObjects(req, {
+      contact,
+      type,
+      email_addresses,
+      phone_numbers,
+      mailing_addresses
+    })
+    if(objects.length === 0) return
+    await Promise.mapSeries(objects, async(object) => {
+      await updateChannel(req, {
+        email_address_id: type === 'email' ? object.get('id') : null,
+        phone_number_id: _.includes(['sms','voice'], type) ? object.get('id') : null,
+        mailing_address_id: type === 'mail' ? object.get('id') : null,
+        program_id,
+        type
+      })
+    })
+  })
+}
+
 const processor = async (job, trx) => {
 
   const imp = await Import.query(qb => {
@@ -180,13 +278,12 @@ const processor = async (job, trx) => {
   await Promise.mapSeries(items, async (item, index) => {
 
     const values = item.get('values')
-
     const { first_name, last_name, birthday, spouse, photo, email_1 } = values
-
     let is_merged = false
-
     let is_ignored = false
-
+    let email_addresses = []
+    let phone_numbers = []
+    let mailing_addresses = []
     const contact = await getContact(req, email_1)
 
     if(imp.get('strategy') === 'ignore' && item.get('is_duplicate')) {
@@ -214,7 +311,7 @@ const processor = async (job, trx) => {
         })
       }
 
-      const email_addresses = await getEmailAddresses(contact, values)
+      email_addresses = await getEmailAddresses(contact, values)
       if(email_addresses.length > 0) {
         await updateEmailAddresses(req, {
           contact,
@@ -222,7 +319,7 @@ const processor = async (job, trx) => {
         })
       }
 
-      const phone_numbers = await getPhoneNumbers(contact, values)
+      phone_numbers = await getPhoneNumbers(contact, values)
       if(phone_numbers.length > 0) {
         await updatePhoneNumbers(req, {
           contact,
@@ -230,7 +327,7 @@ const processor = async (job, trx) => {
         })
       }
 
-      const mailing_addresses = await getMailingAddresses(contact, values)
+      mailing_addresses = await getMailingAddresses(contact, values)
       if(mailing_addresses.length > 0) {
         const addresses = await updateMailingAddresses(req, {
           contact,
@@ -290,28 +387,13 @@ const processor = async (job, trx) => {
     }
 
     if(imp.get('config').channels) {
-      // const existing = contact.related('consents').map(consent => ({
-      //   program_id: consent.get('program_id'),
-      //   type: consent.get('type')
-      // }))
-      // await Promise.map(imp.get('config').channels, async (channel) => {
-      //   const { program_id, type } = channel
-      //   const found = _.find(existing, { program_id, type })
-      //   if(!found) return
-      //   const code = await generateCode(req, {
-      //     table: 'crm_consents'
-      //   })
-      //   return await Consent.forge({
-      //     team_id: req.team.get('id'),
-      //     code,
-      //     program_id,
-      //     type,
-      //     optin_reason: '',
-      //     optedin_at: moment()
-      //   }).save(null, {
-      //     transacting: req.trx
-      //   })
-      // })
+      await updateChannels(req, {
+        channels: imp.get('config').channels,
+        contact,
+        email_addresses,
+        phone_numbers,
+        mailing_addresses
+      })
     }
 
     await item.save({
@@ -356,7 +438,6 @@ const processor = async (job, trx) => {
     action: 'success',
     data: ImportSerializer(null, _import)
   })
-
 
   await refresh(req, [
     '/admin/crm/contacts'

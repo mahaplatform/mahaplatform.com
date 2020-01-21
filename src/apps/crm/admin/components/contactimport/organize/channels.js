@@ -29,7 +29,7 @@ class Topics extends React.PureComponent {
 
   render() {
     const { programs } = this.props
-    const channels = ['sms','phone','postal','email']
+    const channels = ['email','sms','voice','mail']
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-search-options">

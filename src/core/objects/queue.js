@@ -60,6 +60,7 @@ const wrapped = (name, processor) => async (job, done) => {
     await envProcessor()
     done()
   } catch(err) {
+    if(process.env.NODE_ENV !== 'production') console.error(err)
     done(err)
   }
 }
