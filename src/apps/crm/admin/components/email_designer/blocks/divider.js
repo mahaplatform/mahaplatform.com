@@ -56,11 +56,7 @@ class Divider extends React.Component {
           fields: [
             { label: 'Padding Top', name: 'padding_top', type: 'lookup', options: options.paddings, defaultValue: config.padding_top },
             { label: 'Padding Bottom', name: 'padding_bottom', type: 'lookup', options: options.paddings, defaultValue: config.padding_bottom },
-            { label: 'Border', type:'fields', fields: [
-              { name: 'border_width', type: 'lookup', options: options.border_widths, placeholder: 'Width', defaultValue: config.border_width },
-              { name: 'border_style', type: 'lookup', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style },
-              { name: 'border_color', type: 'colorfield', defaultValue: config.border_color }
-            ] },
+            this._getBorder(),
             { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color }
           ]
         }
@@ -77,6 +73,18 @@ class Divider extends React.Component {
       border_color: '#000000',
       background_color: null
     }
+  }
+
+  _getBorder(type) {
+    const { config } = this.state
+    if(!config.border_style) {
+      return { label: 'Border', name: 'border_style', type: 'lookup', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style }
+    }
+    return { label: 'Border', type:'fields', fields: [
+      { name: 'border_style', type: 'lookup', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style },
+      { name: 'border_width', type: 'lookup', options: options.border_widths, placeholder: 'Width', defaultValue: config.border_width },
+      { name: 'border_color', type: 'colorfield', defaultValue: config.border_color }
+    ] }
   }
 
   _handleChange(config) {

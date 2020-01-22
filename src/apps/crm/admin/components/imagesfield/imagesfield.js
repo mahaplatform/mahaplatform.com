@@ -50,7 +50,9 @@ class Imagesfield extends React.PureComponent {
             </div>
           </div>
         )) }
-        <Button { ...this._getAdd() } />
+        { images.length === 0 &&
+          <Button { ...this._getAdd() } />
+        }
       </div>
     )
   }
@@ -78,7 +80,7 @@ class Imagesfield extends React.PureComponent {
 
   _getAdd() {
     return {
-      label: <span><i className="fa fa-plus" />Add Image(s)</span>,
+      label: <span><i className="fa fa-plus" />Add Image</span>,
       className: 'imagesfield-add',
       modal: <Attachments { ...this._getAttachments() } />
     }
@@ -86,7 +88,7 @@ class Imagesfield extends React.PureComponent {
 
   _getAttachments() {
     return {
-      multiple: true,
+      multiple: false,
       type: 'photos',
       onChooseAssets: this._handleAdd
     }

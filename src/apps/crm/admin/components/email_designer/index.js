@@ -2,6 +2,7 @@ import Divider from './blocks/divider'
 import Button from './blocks/button'
 import Images from './blocks/images'
 import Follow from './blocks/follow'
+import Image from './blocks/image'
 import Share from './blocks/share'
 import Video from './blocks/video'
 import PropTypes from 'prop-types'
@@ -34,37 +35,42 @@ class EmailDesigner extends React.Component {
       },
       blocks: [
         {
-          label: 'Text Block',
+          label: 'Text',
           type: 'text',
           icon: 'align-justify',
           component: Text
         }, {
-          label: 'Divider Block',
+          label: 'Divider',
           type: 'divider',
           icon: 'minus',
           component: Divider
         }, {
-          label: 'Image Block',
+          label: 'Image Group',
           type: 'images',
           icon: 'picture-o',
           component: Images
         }, {
-          label: 'Button Block',
+          label: 'Image Card',
+          type: 'image',
+          icon: 'id-card-o',
+          component: Image
+        }, {
+          label: 'Button',
           type: 'button',
           icon: 'mouse-pointer',
           component: Button
         }, {
-          label: 'Social Share Block',
+          label: 'Social Share',
           type: 'share',
           icon: 'share',
           component: Share
         }, {
-          label: 'Social Follow Block',
+          label: 'Social Follow',
           type: 'follow',
           icon: 'plus',
           component: Follow
         }, {
-          label: 'Video Block',
+          label: 'Video',
           type: 'video',
           icon: 'play-circle',
           component: Video

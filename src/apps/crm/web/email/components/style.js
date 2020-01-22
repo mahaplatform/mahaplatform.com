@@ -109,6 +109,23 @@ class Style extends React.Component {
             ...this._getProp('line-height',`sections[${i}].blocks[${j}].line_height`),
             ...this._getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`)
           ] },
+          ...block.type === 'image' ? [
+            {
+              selector: `table.section-${i}-block-${j}`,styles: [
+                ...this._getBorder('border', `sections[${i}].blocks[${j}].card_border`),
+                ...this._getProp('background-color',`sections[${i}].blocks[${j}].card_background_color`)
+              ]
+            }, {
+              selector: `table.section-${i}-block-${j} table.row`,styles: [
+                ...this._getProp('margin-top',`sections[${i}].blocks[${j}].padding_top`, 'px'),
+                ...this._getProp('margin-bottom',`sections[${i}].blocks[${j}].padding_bottom`, 'px')
+              ]
+            }, {
+              selector: `table.section-${i}-block-${j} img`,styles: [
+                ...this._getBorder('border', `sections[${i}].blocks[${j}].image_border`)
+              ]
+            }
+          ] : [],
           ...block.type === 'button' ? [
             {
               selector: `table.section-${i}-block-${j} table.button`,styles: [
@@ -119,9 +136,7 @@ class Style extends React.Component {
               selector: `table.section-${i}-block-${j} table.button table td`,styles: [
                 ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`),
                 ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px'),
-                ...this._getProp('border-width',`sections[${i}].blocks[${j}].border_width`, 'px'),
-                ...this._getProp('border-style',`sections[${i}].blocks[${j}].border_style`),
-                ...this._getProp('border-color',`sections[${i}].blocks[${j}].border_color`),
+                ...this._getBorder('border', `sections[${i}].border`),
                 ...this._getProp('border-radius',`sections[${i}].blocks[${j}].border_radius`, 'px'),
                 ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`),
                 ...this._getProp('font-family',`sections[${i}].blocks[${j}].font_family`),

@@ -16,7 +16,7 @@ class Images extends React.Component {
     if(!images) return null
     const rows = this._getRows()
     return (
-      <table className={`row section-${ sectionIndex }-block-${ blockIndex } image-block block`}>
+      <table className={`row section-${ sectionIndex }-block-${ blockIndex } images-block block`}>
         <tbody>
           <tr>
             <td>

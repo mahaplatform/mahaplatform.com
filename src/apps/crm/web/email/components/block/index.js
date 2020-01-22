@@ -4,6 +4,7 @@ import Button from './button'
 import Footer from './footer'
 import Images from './images'
 import Follow from './follow'
+import Image from './image'
 import Share from './share'
 import Video from './video'
 import Text from './text'
@@ -65,6 +66,7 @@ class Block extends React.Component {
     if(config.type === 'text') return Text
     if(config.type === 'divider') return Divider
     if(config.type === 'images') return Images
+    if(config.type === 'image') return Image
     if(config.type === 'footer') return Footer
     if(config.type === 'video') return Video
     if(config.type === 'code') return Code

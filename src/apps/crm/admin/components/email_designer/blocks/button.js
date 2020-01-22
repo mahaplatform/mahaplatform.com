@@ -75,6 +75,7 @@ class Button extends React.Component {
                   { label: 'Padding Below', name: 'padding_bottom', type: 'lookup', options: options.paddings, defaultValue: config.padding_bottom }
                 ] },
                 { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
+                this._getBorder(),
                 { label: 'Padding', name: 'padding', type: 'lookup', options: options.paddings, defaultValue: config.padding },
                 { label: 'Rounded Corners', name: 'border_radius', type: 'range', min: 0, max: 20, defaultValue: config.border_radius }
               ]
@@ -147,6 +148,18 @@ class Button extends React.Component {
     return [
       { label: 'Align', name: 'align', type: 'lookup', options: options.alignments, defaultValue: config.align }
     ]
+  }
+
+  _getBorder(type) {
+    const { config } = this.state
+    if(!config.border_style) {
+      return { label: 'Border', name: 'border_style', type: 'lookup', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style }
+    }
+    return { label: 'Border', type:'fields', fields: [
+      { name: 'border_style', type: 'lookup', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style },
+      { name: 'border_width', type: 'lookup', options: options.border_widths, placeholder: 'Width', defaultValue: config.border_width },
+      { name: 'border_color', type: 'colorfield', defaultValue: config.border_color }
+    ] }
   }
 
   _getLinkStrategy() {
