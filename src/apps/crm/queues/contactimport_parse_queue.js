@@ -10,6 +10,10 @@ import { parseLocation } from 'parse-address'
 import moment from 'moment'
 import _ from 'lodash'
 
+const PHONE_REGEX = /(?:(?:\+?([1-9]|[0-9][0-9]|[0-9][0-9][0-9])\s*(?:[.-]\s*)?)?(?:\(\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\s*\)|([0-9][1-9]|[0-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\s*(?:[.-]\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\s*(?:[.-]\s*)?([0-9]{4})(?:\s*(?:#|x\.?|ext\.?|extension)\s*(\d+))?/g
+
+const EMAIL_REGEX = /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/g
+
 const processor = async (job, trx) => {
 
   const imp = await Import.where({
@@ -26,7 +30,7 @@ const processor = async (job, trx) => {
     headers: imp.get('headers')
   })
 
-  const getMapped = (mapping, value) => {
+  const getValue = (mapping, value) => {
     if(!value) return null
     if(mapping.field === 'full_name') {
       const parts = value.split(' ')
@@ -54,22 +58,48 @@ const processor = async (job, trx) => {
     }
   }
 
-  await Promise.reduce(parsed.rows, async (result, row, i) => {
+  const extract = (values, prefix, regex) => {
+    return Array(3).fill(0).reduce((all, n, i) => {
+      if(!values[`${prefix}_${i+1}`]) return all
+      const items = values[`${prefix}_${i+1}`].match(regex, values[`${prefix}_${i+1}`])
+      return [
+        ...all,
+        ...items || []
+      ]
+    }, []).reduce((numbers, number, i) => ({
+      ...numbers,
+      [`${prefix}_${i+1}`]: number
+    }), {})
+  }
 
-    const values = imp.get('mapping').reduce((mapped, mapping, j) => {
+  const getMapped = (imp, row) => {
+    return imp.get('mapping').reduce((mapped, mapping, i) => {
       if(!mapping || !mapping.field) return mapped
-
       return {
         ...mapped,
-        ...getMapped(mapping, row[j])
+        ...getValue(mapping, row[i])
       }
     }, {})
 
+  }
 
+  await Promise.reduce(parsed.rows, async (primarykeys, row, i) => {
 
-    const duplicate = await knex('crm_email_addresses').transacting(trx).where({
-      address: values.email_1
+    const mapped = getMapped(imp, row)
+
+    const values = {
+      ...mapped,
+      ...extract(mapped, 'phone', PHONE_REGEX),
+      ...extract(mapped, 'email', EMAIL_REGEX)
+    }
+
+    const addresses = Object.keys(values).filter(key => {
+      return key.match(/^email_/) !== null
+    }).map(key => {
+      return values[key]
     })
+
+    const duplicate = values.email_1 ? await knex('crm_email_addresses').transacting(trx).whereIn('address', addresses) : []
 
     const rules = {
       email_1: ['email']
@@ -77,7 +107,7 @@ const processor = async (job, trx) => {
 
     const is_valid = await isValid(rules, values)
 
-    const is_nonunique = _.includes(result.primarykeys, values.email_1)
+    const is_nonunique = values.email_1 !== undefined && _.includes(primarykeys, values.email_1)
 
     const is_duplicate = !is_nonunique ? duplicate.length > 0 : false
 
@@ -100,13 +130,12 @@ const processor = async (job, trx) => {
       }
     })
 
-    return {
-      primarykeys: !is_nonunique ? [...result.primarykeys,values.email_1] : result.primarykeys
-    }
+    return [
+      ...primarykeys,
+      ...(values.email_1 !== undefined && !is_nonunique) ? [values.email_1] : []
+    ]
 
-  }, {
-    primarykeys: []
-  })
+  }, [])
 
   await imp.save({
     stage: 'validating'

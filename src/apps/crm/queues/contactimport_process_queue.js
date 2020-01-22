@@ -22,10 +22,16 @@ import Consent from '../models/consent'
 import moment from 'moment'
 import _ from 'lodash'
 
-const getContact = async (req, email) => {
+const getContact = async (req, values) => {
 
-  const email_address = email ? await EmailAddress.query(qb => {
-    qb.where('address', email)
+  const addresses = Object.keys(values).filter(key => {
+    return key.match(/^email_/) !== null
+  }).map(key => {
+    return values[key]
+  })
+
+  const email_address = addresses.length > 0 ? await EmailAddress.query(qb => {
+    qb.whereIn('address', addresses)
   }).fetch({
     withRelated: ['contact.email_addresses','contact.phone_numbers','contact.mailing_addresses'],
     transacting: req.trx
@@ -278,13 +284,13 @@ const processor = async (job, trx) => {
   await Promise.mapSeries(items, async (item, index) => {
 
     const values = item.get('values')
-    const { first_name, last_name, birthday, spouse, photo, email_1 } = values
+    const { first_name, last_name, birthday, spouse, photo } = values
     let is_merged = false
     let is_ignored = false
     let email_addresses = []
     let phone_numbers = []
     let mailing_addresses = []
-    const contact = await getContact(req, email_1)
+    const contact = await getContact(req, values)
 
     if(imp.get('strategy') === 'ignore' && item.get('is_duplicate')) {
 
