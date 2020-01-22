@@ -13,6 +13,7 @@ class Share extends React.Component {
     const { blockIndex, sectionIndex } = this.props
     const { config } = this.props
     const { align, icon_style, icon_color, networks } = config
+    if(!networks) return null
     const icons = (
       <table align={ align } className={`menu social float-${align}`}>
         <tbody>

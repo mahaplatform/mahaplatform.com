@@ -105,10 +105,9 @@ class Designer extends React.Component {
   }
 
   _handleAdd(section, index, type) {
-    const { defaults, onAdd } = this.props
+    const { onAdd } = this.props
     onAdd(section, index, {
-      type,
-      ...defaults[type]
+      type
     })
   }
 

@@ -11,7 +11,9 @@ class Images extends React.Component {
   }
 
   render() {
-    const { blockIndex, sectionIndex } = this.props
+    const { blockIndex, config, sectionIndex } = this.props
+    const { images} = config
+    if(!images) return null
     const rows = this._getRows()
     return (
       <table className={`row section-${ sectionIndex }-block-${ blockIndex } image-block block`}>

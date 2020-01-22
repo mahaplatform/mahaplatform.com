@@ -50,7 +50,7 @@ class Style extends React.Component {
       { selector: 'html', styles: [
         ...this._getProp('background-color', 'page.background_color')
       ] },
-      ...['h1','h2','h3','h4','p'].map(selector => ({
+      ...['h1','h2','p'].map(selector => ({
         selector, styles: [
           ...this._getProp('font-family', `page.${selector}_font_family`),
           ...this._getProp('font-size', `page.${selector}_font_size`),
@@ -111,15 +111,19 @@ class Style extends React.Component {
           ] },
           ...block.type === 'button' ? [
             {
+              selector: `table.section-${i}-block-${j} table.button`,styles: [
+                ...this._getProp('margin-top',`sections[${i}].blocks[${j}].padding_top`, 'px'),
+                ...this._getProp('margin-bottom',`sections[${i}].blocks[${j}].padding_bottom`, 'px')
+              ]
+            }, {
               selector: `table.section-${i}-block-${j} table.button table td`,styles: [
                 ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`),
                 ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px'),
-                ...this._getProp('border',`sections[${i}].blocks[${j}].border`),
+                ...this._getProp('border-width',`sections[${i}].blocks[${j}].border_width`, 'px'),
+                ...this._getProp('border-style',`sections[${i}].blocks[${j}].border_style`),
+                ...this._getProp('border-color',`sections[${i}].blocks[${j}].border_color`),
                 ...this._getProp('border-radius',`sections[${i}].blocks[${j}].border_radius`, 'px'),
-                ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`)
-              ]
-            },{
-              selector: `table.section-${i}-block-${j} table.button td`,styles: [
+                ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`),
                 ...this._getProp('font-family',`sections[${i}].blocks[${j}].font_family`),
                 ...this._getProp('font-size',`sections[${i}].blocks[${j}].font_size`),
                 ...this._getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`),
@@ -130,26 +134,40 @@ class Style extends React.Component {
           ] : [],
           ..._.includes(['follow','share'], block.type) ? [
             {
-              selector: `table.section-${i}-block-${j}`,styles: [
+              selector: `table.section-${i}-block-${j}`, styles: [
                 ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`)
               ]
             },{
-              selector: 'table.social table',styles: [
+              selector: `table.section-${i}-block-${j} table.social table`, styles: [
                 ...this._getProp('background-color',`sections[${i}].blocks[${j}].button_background_color`),
                 ...this._getProp('border-radius',`sections[${i}].blocks[${j}].button_border_radius`, 'px')
+              ]
+            },{
+              selector: `table.section-${i}-block-${j} td.social-service td`, styles: [
+                ...this._getProp('font-family',`sections[${i}].blocks[${j}].font_family`),
+                ...this._getProp('font-size',`sections[${i}].blocks[${j}].font_size`),
+                ...this._getFormat('font-weight', 'bold', `sections[${i}].blocks[${j}].format`, 'normal'),
+                ...this._getFormat('font-style', 'italic', `sections[${i}].blocks[${j}].format`),
+                ...this._getFormat('text-decoration', 'underline', `sections[${i}].blocks[${j}].format`),
+                ...this._getProp('color',`sections[${i}].blocks[${j}].color`),
+                ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`),
+                ...this._getProp('line-height',`sections[${i}].blocks[${j}].line_height`),
+                ...this._getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`)
               ]
             }
           ] : [],
           ...block.type === 'divider' ? [
             {
               selector: `table.section-${i}-block-${j} td`,styles: [
-                ...this._getProp('padding-top',`sections[${i}].blocks[${j}].padding_top`),
-                ...this._getProp('padding-bottom',`sections[${i}].blocks[${j}].padding_bottom`),
+                ...this._getProp('padding-top',`sections[${i}].blocks[${j}].padding_top`, 'px'),
+                ...this._getProp('padding-bottom',`sections[${i}].blocks[${j}].padding_bottom`, 'px'),
                 ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`)
               ]
             },{
               selector: `table.section-${i}-block-${j} div.divider`,styles: [
-                ...this._getProp('border',`sections[${i}].blocks[${j}].border`)
+                ...this._getProp('border-width',`sections[${i}].blocks[${j}].border_width`, 'px'),
+                ...this._getProp('border-style',`sections[${i}].blocks[${j}].border_style`),
+                ...this._getProp('border-color',`sections[${i}].blocks[${j}].border_color`)
               ]
             }
           ] : []

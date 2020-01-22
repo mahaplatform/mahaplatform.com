@@ -100,9 +100,11 @@ class Sidebar extends React.Component {
   }
 
   _handleEdit() {
-    const { active, components } = this.props
+    const { active, blocks } = this.props
     const config = this.props.config.sections[active.section].blocks[active.block]
-    this._handlePush(components[config.type], this._getBlock())
+    const { type } = config
+    const block = _.find(blocks, { type })
+    this._handlePush(block.component, this._getBlock())
   }
 
   _handlePop(index = -1) {

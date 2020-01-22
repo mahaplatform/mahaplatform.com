@@ -1,14 +1,13 @@
-import * as options from './variables'
-import AlignmentField from '../alignmentfield'
-import FormatField from '../formatfield'
-import FollowsField from '../followsfield'
+import AlignmentField from '../../alignmentfield'
+import FormatField from '../../formatfield'
+import ImagesField from '../../imagesfield'
+import * as options from '../variables'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
+import _ from 'lodash'
 
-class Follow extends React.Component {
-
-  static contextTypes = {}
+class Images extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
@@ -16,19 +15,38 @@ class Follow extends React.Component {
     onUpdate: PropTypes.func
   }
 
-  static defaultProps = {}
+  state = {
+    config: null
+  }
 
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
 
   render() {
+    if(!this.state.config) return null
     return <Form { ...this._getForm() } />
   }
 
+  componentDidMount() {
+    this.setState({
+      config: {
+        ...this._getDefault(),
+        ...this.props.config
+      }
+    })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { config } = this.state
+    if(!_.isEqual(config, prevState.config)) {
+      this.props.onUpdate(config)
+    }
+  }
+
   _getForm() {
-    const { config } = this.props
+    const { config } = this.state
     return {
-      title: 'Social Share Block',
+      title: 'Images Block',
       onCancel: this._handleDone,
       onChange: this._handleChange,
       cancelIcon: 'chevron-left',
@@ -42,7 +60,7 @@ class Follow extends React.Component {
           sections: [
             {
               fields: [
-                { name: 'networks', type: FollowsField, defaultValue: config.networks }
+                { name: 'images', type: ImagesField, defaultValue: config.images }
               ]
             }
           ]
@@ -50,17 +68,6 @@ class Follow extends React.Component {
           label: 'Style',
           sections: [
             {
-              label: 'Container Style',
-              fields: [
-                { label: 'Background', name: 'background_color', type: 'colorfield', defaultValue: config.background_color }
-              ]
-            }, {
-              label: 'Button Style',
-              fields: [
-                { label: 'Background', name: 'button_background_color', type: 'colorfield', defaultValue: config.button_background_color },
-                { label: 'Rounded Corners', name: 'button_border_radius', type: 'range', min: 0, max: 20, defaultValue: config.button_border_radius }
-              ]
-            }, {
               label: 'Text Style',
               fields: [
                 { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config.font_family },
@@ -77,11 +84,7 @@ class Follow extends React.Component {
           label: 'Settings',
           sections: [
             {
-              fields: [
-                { label: 'Align', name: 'align', type: 'lookup', options: ['left','center','right'], defaultValue: config.align },
-                { label: 'Icon Style', name: 'icon_style', type: 'lookup', options: ['solid','outline'], defaultValue: config.icon_style },
-                { label: 'Icon Color', name: 'icon_color', type: 'lookup', options: ['color','dark','gray','light'], defaultValue: config.icon_color }
-              ]
+              fields: []
             }
           ]
         }
@@ -89,15 +92,36 @@ class Follow extends React.Component {
     }
   }
 
-  _handleChange(data) {
-    this.props.onUpdate(data)
+  _getDefault() {
+    return {
+      images: [],
+      font_family: null,
+      font_size: null,
+      color: null,
+      format: null,
+      alignment: null,
+      line_height: null,
+      letter_spacing: null,
+      border: null,
+      border_radius: null,
+      layout: [1],
+      padding: 0
+    }
+  }
+
+  _handleChange(config) {
+    this.setState({
+      config: {
+        ...this.state.config,
+        ...config
+      }
+    })
   }
 
   _handleDone() {
     this.props.onDone()
   }
 
-
 }
 
-export default Follow
+export default Images

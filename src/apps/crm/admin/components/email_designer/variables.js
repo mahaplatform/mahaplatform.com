@@ -4,11 +4,16 @@ export const alignments = [
   { value: 'right', text: 'Right' }
 ]
 
+const positions = [
+  { value: 'top', text: 'Top' },
+  { value: 'right', text: 'Right' },
+  { value: 'bottom', text: 'Bottom' },
+  { value: 'left', text: 'Left' }
+]
+
 export const block_types = [
   { text: 'Heading 1', value: 'h1' },
   { text: 'Heading 2', value: 'h2' },
-  { text: 'Heading 3', value: 'h3' },
-  { text: 'Heading 4', value: 'h4' },
   { text: 'Text', value: 'p' }
 ]
 
@@ -18,8 +23,8 @@ export const columns = [
 ]
 
 export const displays = [
-  { value: 'inline', text: 'Fit to Text' },
-  { value: 'block', text: 'Full Width' }
+  { value: 'block', text: 'Full Width' },
+  { value: 'inline', text: 'Fit to Text' }
 ]
 
 export const fonts = [
