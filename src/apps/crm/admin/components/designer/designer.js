@@ -1,3 +1,4 @@
+import * as defaults from './defaults'
 import { Preview } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Sidebar from './sidebar'
@@ -5,8 +6,6 @@ import Canvas from './canvas'
 import React from 'react'
 
 class Designer extends React.Component {
-
-  static contextTypes = {}
 
   static propTypes = {
     active: PropTypes.object,
@@ -17,7 +16,6 @@ class Designer extends React.Component {
     components: PropTypes.object,
     config: PropTypes.object,
     defaultValue: PropTypes.object,
-    defaults: PropTypes.object,
     preview: PropTypes.bool,
     title: PropTypes.string,
     onAdd: PropTypes.func,
@@ -65,7 +63,6 @@ class Designer extends React.Component {
   }
 
   _getDefault() {
-    const { defaults } = this.props
     return {
       page: defaults.page,
       sections: []
@@ -106,13 +103,11 @@ class Designer extends React.Component {
 
   _handleAdd(section, index, type) {
     const { onAdd } = this.props
-    onAdd(section, index, {
-      type
-    })
+    onAdd(section, index, { type })
   }
 
   _handleAddSection() {
-    const { defaults, onAddSection } = this.props
+    const { onAddSection } = this.props
     onAddSection(defaults.section)
   }
 
