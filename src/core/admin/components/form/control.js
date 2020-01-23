@@ -9,8 +9,6 @@ import DateField from './datefield'
 import Dropdown from './dropdown'
 import EmailField from './emailfield'
 import FileField from './filefield'
-import FontFamilyField from './fontfamilyfield'
-import FontSizeField from './fontsizefield'
 import Hidden from './hidden'
 import HtmlField from './htmlfield'
 import LinkField from './linkfield'
@@ -88,8 +86,6 @@ class Control extends React.Component {
     if(type === 'dropdown') return Dropdown
     if(type === 'emailfield') return EmailField
     if(type === 'filefield') return FileField
-    if(type === 'fontfamilyfield') return FontFamilyField
-    if(type === 'fontsizefield') return FontSizeField
     if(type === 'hidden') return Hidden
     if(type === 'htmlfield') return HtmlField
     if(type === 'linkfield') return LinkField

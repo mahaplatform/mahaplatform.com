@@ -42,7 +42,9 @@ class Imagesfield extends React.PureComponent {
               <img src={`/imagecache/fit=cover&w=50&h=50/${image.asset.path}`} />
             </div>
             <div className="imagesfield-image-details">
-              { image.asset.original_file_name }<br />
+              <div className="imagesfield-image-details-filename">
+                { image.asset.original_file_name }
+              </div>
               { false &&
                 <Button { ...this._getEdit(image, index) } />
               }
@@ -50,9 +52,7 @@ class Imagesfield extends React.PureComponent {
             </div>
           </div>
         )) }
-        { images.length === 0 &&
-          <Button { ...this._getAdd() } />
-        }
+        <Button { ...this._getAdd() } />
       </div>
     )
   }
@@ -80,7 +80,7 @@ class Imagesfield extends React.PureComponent {
 
   _getAdd() {
     return {
-      label: <span><i className="fa fa-plus" />Add Image</span>,
+      label: <span><i className="fa fa-plus" />Add Image(s)</span>,
       className: 'imagesfield-add',
       modal: <Attachments { ...this._getAttachments() } />
     }
@@ -88,7 +88,7 @@ class Imagesfield extends React.PureComponent {
 
   _getAttachments() {
     return {
-      multiple: false,
+      multiple: true,
       type: 'photos',
       onChooseAssets: this._handleAdd
     }

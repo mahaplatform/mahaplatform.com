@@ -53,14 +53,14 @@ class Style extends React.Component {
       ...['h1','h2','p'].map(selector => ({
         selector, styles: [
           ...this._getProp('font-family', `page.${selector}_font_family`),
-          ...this._getProp('font-size', `page.${selector}_font_size`),
+          ...this._getProp('font-size', `page.${selector}_font_size`, 'px'),
           ...this._getFormat('font-weight', 'bold', `page.${selector}_format`, 'normal'),
           ...this._getFormat('font-style', 'italic', `page.${selector}_format`),
           ...this._getFormat('text-decoration', 'underline', `page.${selector}_format`),
           ...this._getProp('color', `page.${selector}_color`),
           ...this._getProp('text-align', `page.${selector}_text_align`),
           ...this._getProp('line-height', `page.${selector}_line_height`),
-          ...this._getProp('letter-spacing', `page.${selector}_letter_spacing`)
+          ...this._getProp('letter-spacing', `page.${selector}_letter_spacing`, 'px')
         ]
       })),
       { selector: 'table.body', styles: [
@@ -85,11 +85,11 @@ class Style extends React.Component {
         ] },
         { selector: `table.section-${i} td,table.section-${i} p`, styles: [
           ...this._getProp('font-family',`sections[${i}].font_family`),
-          ...this._getProp('font-size',`sections[${i}].font_size`),
+          ...this._getProp('font-size',`sections[${i}].font_size`, 'px'),
           ...this._getProp('color',`sections[${i}].color`),
           ...this._getProp('text-align',`sections[${i}].text_align`),
           ...this._getProp('line-height',`sections[${i}].line_height`),
-          ...this._getProp('letter-spacing',`sections[${i}].letter_spacing`)
+          ...this._getProp('letter-spacing',`sections[${i}].letter_spacing`, 'px')
         ] },
         { selector: `table.section-${i} td a`, styles: [
           ...this._getProp('color',`sections[${i}].color`)
@@ -100,15 +100,27 @@ class Style extends React.Component {
           ...blockStyles,
           { selector: `table.section-${i}-block-${j} td,table.section-${i}-block-${j} p`, styles: [
             ...this._getProp('font-family',`sections[${i}].blocks[${j}].font_family`),
-            ...this._getProp('font-size',`sections[${i}].blocks[${j}].font_size`),
+            ...this._getProp('font-size',`sections[${i}].blocks[${j}].font_size`, 'px'),
             ...this._getFormat('font-weight', 'bold', `sections[${i}].blocks[${j}].format`, 'normal'),
             ...this._getFormat('font-style', 'italic', `sections[${i}].blocks[${j}].format`),
             ...this._getFormat('text-decoration', 'underline', `sections[${i}].blocks[${j}].format`),
             ...this._getProp('color',`sections[${i}].blocks[${j}].color`),
             ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`),
             ...this._getProp('line-height',`sections[${i}].blocks[${j}].line_height`),
-            ...this._getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`)
+            ...this._getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`, 'px')
           ] },
+          ...block.type === 'images' ? [
+            {
+              selector: `table.section-${i}-block-${j} td.image`,styles: [
+                ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px')
+              ]
+            }, {
+              selector: `table.section-${i}-block-${j} img`,styles: [
+                ...this._getBorder('border', `sections[${i}].blocks[${j}].border`),
+                ...this._getProp('border-radius',`sections[${i}].blocks[${j}].border_radius`, 'px')
+              ]
+            }
+          ] : [],
           ...block.type === 'image' ? [
             {
               selector: `table.section-${i}-block-${j}`,styles: [
@@ -140,8 +152,8 @@ class Style extends React.Component {
                 ...this._getProp('border-radius',`sections[${i}].blocks[${j}].border_radius`, 'px'),
                 ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`),
                 ...this._getProp('font-family',`sections[${i}].blocks[${j}].font_family`),
-                ...this._getProp('font-size',`sections[${i}].blocks[${j}].font_size`),
-                ...this._getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`),
+                ...this._getProp('font-size',`sections[${i}].blocks[${j}].font_size`, 'px'),
+                ...this._getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`, 'px'),
                 ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`),
                 ...this._getProp('color',`sections[${i}].blocks[${j}].color`)
               ]
@@ -160,14 +172,14 @@ class Style extends React.Component {
             },{
               selector: `table.section-${i}-block-${j} td.social-service td`, styles: [
                 ...this._getProp('font-family',`sections[${i}].blocks[${j}].font_family`),
-                ...this._getProp('font-size',`sections[${i}].blocks[${j}].font_size`),
+                ...this._getProp('font-size',`sections[${i}].blocks[${j}].font_size`, 'px'),
                 ...this._getFormat('font-weight', 'bold', `sections[${i}].blocks[${j}].format`, 'normal'),
                 ...this._getFormat('font-style', 'italic', `sections[${i}].blocks[${j}].format`),
                 ...this._getFormat('text-decoration', 'underline', `sections[${i}].blocks[${j}].format`),
                 ...this._getProp('color',`sections[${i}].blocks[${j}].color`),
                 ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`),
                 ...this._getProp('line-height',`sections[${i}].blocks[${j}].line_height`),
-                ...this._getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`)
+                ...this._getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`, 'px')
               ]
             }
           ] : [],

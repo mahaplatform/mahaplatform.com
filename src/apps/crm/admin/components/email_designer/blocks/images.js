@@ -1,5 +1,3 @@
-import AlignmentField from '../../alignmentfield'
-import FormatField from '../../formatfield'
 import ImagesField from '../../imagesfield'
 import * as options from '../variables'
 import PropTypes from 'prop-types'
@@ -38,7 +36,9 @@ class Images extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { config } = this.state
-    if(!_.isEqual(config, prevState.config)) {
+    if(!_.isEqual(_.get(config, 'images'), _.get(prevState.config, 'images'))) {
+      this._handleChangeField('layout', this._getLayouts()[0])
+    } else if(!_.isEqual(config, prevState.config)) {
       this.props.onUpdate(config)
     }
   }
@@ -68,21 +68,10 @@ class Images extends React.Component {
           label: 'Style',
           sections: [
             {
-              label: 'Text Style',
               fields: [
-                { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config.font_family },
-                { type: 'fields', fields: [
-                  { label: 'Font Size', name: 'font_size', type: 'lookup', options: options.font_size, defaultValue: config.font_size },
-                  { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color }
-                ] },
-                { type: 'fields', fields: [
-                  { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format },
-                  { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.alignment }
-                ] },
-                { type: 'fields', fields: [
-                  { label: 'Line Height', name: 'line_height', type: 'lookup', options: options.line_heights, defaultValue: config.line_height },
-                  { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: options.letter_spacing, defaultValue: config.letter_spacing }
-                ] }
+                this._getBorder(),
+                { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding },
+                { label: 'Rounded Corners', name: 'border_radius', type: 'range', min: 0, max: 20, defaultValue: config.border_radius }
               ]
             }
           ]
@@ -90,7 +79,9 @@ class Images extends React.Component {
           label: 'Settings',
           sections: [
             {
-              fields: []
+              fields: [
+                { label: 'Layout', name: 'layout', type: 'dropdown', options: this._getLayouts(), defaultValue: config.layout }
+              ]
             }
           ]
         }
@@ -101,13 +92,6 @@ class Images extends React.Component {
   _getDefault() {
     return {
       images: [],
-      font_family: null,
-      font_size: null,
-      color: null,
-      format: null,
-      alignment: null,
-      line_height: null,
-      letter_spacing: null,
       border: null,
       border_radius: null,
       layout: [1],
@@ -115,11 +99,59 @@ class Images extends React.Component {
     }
   }
 
+  _getBorder(type) {
+    const { config } = this.state
+    if(!config.border_style) {
+      return { label: 'Border', name: 'border_style', type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style }
+    }
+    return { label: 'Border', type:'fields', fields: [
+      { name: 'border_style', type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style },
+      { name: 'border_width', type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config.border_width },
+      { name: 'border_color', type: 'colorfield', defaultValue: config.border_color }
+    ] }
+  }
+
+  _getLayouts() {
+    const { config } = this.state
+    if(config.images.length === 1) {
+      return [
+        { value: [1], text: 'Full' }
+      ]
+    } else if(config.images.length === 2) {
+      return [
+        { value: [2], text: 'Side By Side' },
+        { value: [1,1], text: 'Above, Below' }
+      ]
+    } else if(config.images.length === 3) {
+      return [
+        { value: [1,2], text: 'Two Below' },
+        { value: [2,1], text: 'Two Above' },
+        { value: [1,1,1], text: 'List' }
+      ]
+    } else if(config.images.length === 4) {
+      return [
+        { value: [2,2], text: 'Two Below' },
+        { value: [1,2,1], text: 'Two In Middle' },
+        { value: [1,1,1,1], text: 'List' }
+      ]
+    }
+    return []
+  }
+
   _handleChange(config) {
     this.setState({
       config: {
         ...this.state.config,
         ...config
+      }
+    })
+  }
+
+  _handleChangeField(name, value) {
+    this.setState({
+      config: {
+        ...this.state.config,
+        [name]: value
       }
     })
   }

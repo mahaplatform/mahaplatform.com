@@ -20,13 +20,17 @@ class Page extends React.Component {
   }
 
   _getComponent() {
-    const { config, onPop, onPush, onUpdate } = this.props
+    const { config, onPop, onPush } = this.props
     return {
       config,
       onPop,
       onPush,
-      onUpdate
+      onUpdate: this._handleUpdate.bind(this, 'page')
     }
+  }
+
+  _handleUpdate(key, value) {
+    this.props.onUpdate(key, value)
   }
 
 }

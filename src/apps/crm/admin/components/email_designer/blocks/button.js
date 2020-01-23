@@ -1,3 +1,4 @@
+import FontFamilyToken from '../../../tokens/fontfamily'
 import AlignmentField from '../../alignmentfield'
 import FormatField from '../../formatfield'
 import * as options from '../variables'
@@ -60,7 +61,7 @@ class Button extends React.Component {
             {
               fields: [
                 { label: 'Button Text', name: 'content', type: 'textfield', defaultValue: config.content },
-                { label: 'Link To', name: 'link_strategy', type: 'lookup', options: options.link_strategies, defaultValue: config.link_strategy },
+                { label: 'Link To', name: 'link_strategy', type: 'dropdown', options: options.link_strategies, defaultValue: config.link_strategy },
                 ...this._getLinkStrategy()
               ]
             }
@@ -71,21 +72,23 @@ class Button extends React.Component {
             {
               fields: [
                 { type: 'fields', fields: [
-                  { label: 'Padding Above', name: 'padding_top', type: 'lookup', options: options.paddings, defaultValue: config.padding_top },
-                  { label: 'Padding Below', name: 'padding_bottom', type: 'lookup', options: options.paddings, defaultValue: config.padding_bottom }
+                  { label: 'Padding Above', name: 'padding_top', type: 'dropdown', options: options.paddings, defaultValue: config.padding_top },
+                  { label: 'Padding Below', name: 'padding_bottom', type: 'dropdown', options: options.paddings, defaultValue: config.padding_bottom }
                 ] },
-                { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
+                { type: 'fields', fields: [
+                  { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
+                  { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
+                ] },
                 this._getBorder(),
-                { label: 'Padding', name: 'padding', type: 'lookup', options: options.paddings, defaultValue: config.padding },
                 { label: 'Rounded Corners', name: 'border_radius', type: 'range', min: 0, max: 20, defaultValue: config.border_radius }
               ]
             },
             {
               label: 'Button Text Style',
               fields: [
-                { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config.font_family },
+                { label: 'Font Family', name: 'font_family', type: 'dropdown', options: options.font_families, defaultValue: config.font_family, format: FontFamilyToken },
                 { type: 'fields', fields: [
-                  { label: 'Font Size', name: 'font_size', type: 'lookup', options: options.font_size, defaultValue: config.font_size },
+                  { label: 'Font Size', name: 'font_size', type: 'dropdown', options: options.font_sizes, defaultValue: config.font_size },
                   { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color }
                 ] },
                 { type: 'fields', fields: [
@@ -93,8 +96,8 @@ class Button extends React.Component {
                   { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.alignment }
                 ] },
                 { type: 'fields', fields: [
-                  { label: 'Line Height', name: 'line_height', type: 'lookup', options: options.line_heights, defaultValue: config.line_height },
-                  { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: options.letter_spacing, defaultValue: config.letter_spacing }
+                  { label: 'Line Height', name: 'line_height', type: 'dropdown', options: options.line_heights, defaultValue: config.line_height },
+                  { label: 'Letter Spacing', name: 'letter_spacing', type: 'dropdown', options: options.letter_spacing, defaultValue: config.letter_spacing }
                 ] }
               ]
             }
@@ -104,7 +107,7 @@ class Button extends React.Component {
           sections: [
             {
               fields: [
-                { label: 'Width', name: 'display', type: 'lookup', options: options.displays, defaultValue: config.display },
+                { label: 'Width', name: 'display', type: 'dropdown', options: options.displays, defaultValue: config.display },
                 ...this._getAlignment()
               ]
             }
@@ -124,9 +127,6 @@ class Button extends React.Component {
       email_body: null,
       anchor: null,
       asset_id: null,
-      open_in_new_window: true,
-      title: null,
-      class: null,
       border: null,
       border_radius: null,
       background_color: '#2185D0',
@@ -146,18 +146,18 @@ class Button extends React.Component {
     const { config } = this.state
     if(config.display === 'block') return []
     return [
-      { label: 'Align', name: 'align', type: 'lookup', options: options.alignments, defaultValue: config.align }
+      { label: 'Align', name: 'align', type: 'dropdown', options: options.alignments, defaultValue: config.align }
     ]
   }
 
-  _getBorder(type) {
+  _getBorder() {
     const { config } = this.state
     if(!config.border_style) {
-      return { label: 'Border', name: 'border_style', type: 'lookup', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style }
+      return { label: 'Border', name: 'border_style', type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style }
     }
     return { label: 'Border', type:'fields', fields: [
-      { name: 'border_style', type: 'lookup', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style },
-      { name: 'border_width', type: 'lookup', options: options.border_widths, placeholder: 'Width', defaultValue: config.border_width },
+      { name: 'border_style', type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style },
+      { name: 'border_width', type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config.border_width },
       { name: 'border_color', type: 'colorfield', defaultValue: config.border_color }
     ] }
   }
@@ -166,10 +166,7 @@ class Button extends React.Component {
     const { config } = this.state
     if(config.link_strategy === 'web') {
       return [
-        { label: 'Web Address', name: 'url', type: 'textfield' },
-        { label: 'Open in New Winodw', name: 'open_in_new_window', type: 'checkbox' },
-        { label: 'Title Attribute', name: 'title', type: 'textfield' },
-        { label: 'CSS Class', name: 'class', type: 'textfield' }
+        { label: 'Web Address', name: 'url', type: 'textfield' }
       ]
     } else if(config.link_strategy === 'email') {
       return [
@@ -177,10 +174,10 @@ class Button extends React.Component {
         { label: 'Message Subject', name: 'email_subject', type: 'textfield' },
         { label: 'Message Body', name: 'email_body', type: 'textfield' }
       ]
-    } else if(config.link_strategy === 'anchor') {
-      return []
     } else if(config.link_strategy === 'asset') {
-      return []
+      return [
+        { label: 'File', name: 'asset_id', type: 'attachmentfield', prompt: 'Choose File' }
+      ]
     }
   }
 

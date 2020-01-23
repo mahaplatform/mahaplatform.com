@@ -1,3 +1,4 @@
+import FontFamilyToken from '../../../tokens/fontfamily'
 import AlignmentField from '../../alignmentfield'
 import FormatField from '../../formatfield'
 import ImageField from '../../imagefield'
@@ -6,20 +7,6 @@ import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
-
-const caption_positions = [
-  { value: 'bottom', text: 'Bottom' },
-  { value: 'top', text: 'Top' },
-  { value: 'left', text: 'Left' },
-  { value: 'right', text: 'Right' }
-]
-
-const caption_widths = [
-  { value: 4, text: 'One-Third' },
-  { value: 6, text: 'Half' },
-  { value: 8, text: 'Two-Thirds' },
-  { value: 9, text: 'Three-quarters' }
-]
 
 class Image extends React.Component {
 
@@ -85,24 +72,24 @@ class Image extends React.Component {
             {
               fields: [
                 { label: 'Background', name: 'card_background_color', type: 'colorfield', defaultValue: config.card_background },
-                this._getBorder('card'),
+                this._getBorder('card_border'),
                 { type: 'fields', fields: [
-                  { label: 'Padding Top', name: 'padding_top', type: 'lookup', options: options.paddings, defaultValue: config.padding_top },
-                  { label: 'Padding Bottom', name: 'padding_bottom', type: 'lookup', options: options.paddings, defaultValue: config.padding_bottom }
+                  { label: 'Padding Top', name: 'padding_top', type: 'dropdown', options: options.paddings, defaultValue: config.padding_top },
+                  { label: 'Padding Bottom', name: 'padding_bottom', type: 'dropdown', options: options.paddings, defaultValue: config.padding_bottom }
                 ] }
               ]
             }, {
               label: 'Image Style',
               fields: [
-                this._getBorder('image'),
+                this._getBorder('image_border'),
                 { label: 'Rounded Corners', name: 'border_radius', type: 'range', min: 0, max: 20, defaultValue: config.border_radius }
               ]
             }, {
               label: 'Text Style',
               fields: [
-                { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config.font_family },
+                { label: 'Font Family', name: 'font_family', type: 'dropdown', options: options.font_families, defaultValue: config.font_family, format: FontFamilyToken },
                 { type: 'fields', fields: [
-                  { label: 'Font Size', name: 'font_size', type: 'lookup', options: options.font_size, defaultValue: config.font_size },
+                  { label: 'Font Size', name: 'font_size', type: 'dropdown', options: options.font_sizes, defaultValue: config.font_size },
                   { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color }
                 ] },
                 { type: 'fields', fields: [
@@ -110,8 +97,8 @@ class Image extends React.Component {
                   { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.alignment }
                 ] },
                 { type: 'fields', fields: [
-                  { label: 'Line Height', name: 'line_height', type: 'lookup', options: options.line_heights, defaultValue: config.line_height },
-                  { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: options.letter_spacing, defaultValue: config.letter_spacing }
+                  { label: 'Line Height', name: 'line_height', type: 'dropdown', options: options.line_heights, defaultValue: config.line_height },
+                  { label: 'Letter Spacing', name: 'letter_spacing', type: 'dropdown', options: options.letter_spacing, defaultValue: config.letter_spacing }
                 ] }
               ]
             }
@@ -121,7 +108,7 @@ class Image extends React.Component {
           sections: [
             {
               fields: [
-                { label: 'Caption Position', name: 'caption_position', type: 'lookup', options: caption_positions, defaultValue: config.caption_position },
+                { label: 'Image Position', name: 'image_position', type: 'dropdown', options: options.image_positions, defaultValue: config.image_position },
                 ...this._getWidth()
               ]
             }
@@ -133,21 +120,21 @@ class Image extends React.Component {
 
   _getBorder(type) {
     const { config } = this.state
-    if(!config[`${type}_border_style`]) {
-      return { label: 'Border', name: `${type}_border_style`, type: 'lookup', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_border_style`] }
+    if(!config[`${type}_style`]) {
+      return { label: 'Border', name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] }
     }
     return { label: 'Border', type:'fields', fields: [
-      { name: `${type}_border_style`, type: 'lookup', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_border_style`] },
-      { name: `${type}_border_width`, type: 'lookup', options: options.border_widths, placeholder: 'Width', defaultValue: config[`${type}_border_width`] },
-      { name: `${type}_border_color`, type: 'colorfield', defaultValue: config[`${type}_border_color`] }
+      { name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] },
+      { name: `${type}_width`, type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config[`${type}_width`] },
+      { name: `${type}_color`, type: 'colorfield', defaultValue: config[`${type}_color`] }
     ] }
   }
 
   _getWidth() {
     const { config } = this.state
-    if(_.includes(['top','bottom'], config.caption_position)) return []
+    if(_.includes(['top','bottom'], config.image_position)) return []
     return [
-      { label: 'Caption Width', name: 'caption_width', type: 'lookup', options: caption_widths, defaultValue: config.caption_width }
+      { label: 'Image Width', name: 'image_width', type: 'dropdown', options: options.image_widths, defaultValue: config.image_width }
     ]
   }
 
@@ -172,8 +159,8 @@ class Image extends React.Component {
       alignment: null,
       line_height: null,
       letter_spacing: null,
-      caption_position: 'bottom',
-      caption_width: 6
+      image_position: 'bottom',
+      image_width: 6
     }
   }
 

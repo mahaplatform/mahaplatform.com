@@ -1,13 +1,18 @@
-import React from 'react'
+import Token from '../../../tokens/token'
 import PropTypes from 'prop-types'
+import Format from '../../format'
+import React from 'react'
 import _ from 'lodash'
 
 class Dropdown extends React.Component {
 
   static propTypes = {
-    defaultValue: PropTypes.string,
+    defaultValue: PropTypes.any,
+    format: PropTypes.any,
     options: PropTypes.array,
     placeholder: PropTypes.string,
+    text: PropTypes.string,
+    value: PropTypes.string,
     onBusy: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func
@@ -15,15 +20,20 @@ class Dropdown extends React.Component {
 
   static defaultProps = {
     placeholder: 'Select an option...',
-    defaultValue: null,
+    format: Token,
+    text: 'text',
+    value: 'value',
     options: [],
     onBusy: () => {},
     onChange: () => {},
     onReady: () => {}
   }
 
+  dropdown = null
+
   state = {
     active: false,
+    direction: null,
     value: null,
     animating: false
   }
@@ -32,9 +42,10 @@ class Dropdown extends React.Component {
   _handleClose = this._handleClose.bind(this)
 
   render() {
+    const { format, text } = this.props
     const options = this._getOptions()
     return (
-      <div className="maha-dropdown">
+      <div className="maha-dropdown" ref={ node => this.dropdown = node }>
         <div className={ this._getDropdownClass() } onClick={ this._handleOpen }>
           <div className="text" onClick={ this._handleOpen }>
             { this._getLabel() }
@@ -42,8 +53,8 @@ class Dropdown extends React.Component {
           <i className="dropdown icon" />
           <div className={ this._getMenuClass() }>
             { options.map((option, index) => (
-              <div key={`option_${index}`} className="item" onClick={ this._handleChoose.bind(this, option.value) }>
-                { option.text }
+              <div key={`option_${index}`} className="item" onClick={ this._handleChoose.bind(this, option) }>
+                <Format { ...option } format={ format } value={ _.get(option, text) } />
               </div>
             )) }
           </div>
@@ -78,8 +89,9 @@ class Dropdown extends React.Component {
   }
 
   _getDropdownClass() {
-    const { animating, active } = this.state
+    const { animating, active, direction } = this.state
     const classes = ['ui','fluid','selection','dropdown']
+    if(direction) classes.push(direction)
     if(active) classes.push('active')
     if(active && !animating) classes.push('visible')
     if(!active && animating) classes.push('visible')
@@ -89,10 +101,11 @@ class Dropdown extends React.Component {
   _getMenuClass() {
     const { active, animating } = this.state
     const classes = ['menu','transition']
+    const direction = this.state.direction === 'upward' ? 'up' : 'down'
     if(!animating && !active) classes.push('hidden')
     if(animating || active) classes.push('visible')
-    if(animating && active) classes.push('animating slide down in')
-    if(animating && !active) classes.push('animating slide down out')
+    if(animating && active) classes.push(`animating slide ${direction} in`)
+    if(animating && !active) classes.push(`animating slide ${direction} out`)
     return classes.join(' ')
   }
 
@@ -111,23 +124,26 @@ class Dropdown extends React.Component {
   }
 
   _handleOpen(e) {
+    const percent = (e.clientY / window.innerHeight) * 100
     const { active } = this.state
     if(active || e.target.className === 'item') return
     this.setState({
+      direction: percent > 75 ? 'upward' : null,
       active: true
     })
   }
 
   _handleClose(e) {
     const { active } = this.state
-    const reserved = ['item','text','dropdown icon','ui selection dropdown active visible']
+    const reserved = ['item','text','dropdown icon','ui selection dropdown active visible','token']
     if(!active || _.includes(reserved, e.target.className)) return
     this.setState({
       active: false
     })
   }
 
-  _handleChoose(value) {
+  _handleChoose(option) {
+    const value = _.get(option, this.props.value)
     this.setValue(value)
   }
 

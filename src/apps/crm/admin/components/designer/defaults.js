@@ -9,26 +9,26 @@ export const page = {
   email_border_style: null,
   email_border_color: null,
   h1_font_family: 'Arial, Helvetica, sans-serif',
-  h1_font_size: '28px',
+  h1_font_size: 28,
   h1_color: '#222222',
   h1_format: ['bold'],
   h1_text_align: false,
   h1_line_height: 1,
-  h1_letter_spacing: '0px',
+  h1_letter_spacing: 0,
   h2_font_family: 'Arial, Helvetica, sans-serif',
-  h2_font_size: '24px',
+  h2_font_size: 24,
   h2_color: '#222222',
   h2_format: ['bold'],
   h2_text_align: false,
   h2_line_height: 1,
-  h2_letter_spacing: '0px',
+  h2_letter_spacing: 0,
   p_font_family: 'Arial, Helvetica, sans-serif',
-  p_font_size: '18px',
+  p_font_size: 18,
   p_color: '#222222',
   p_format: [],
   p_text_align: false,
   p_line_height: 1.5,
-  p_letter_spacing: '0px'
+  p_letter_spacing: 0
 }
 
 export const section = {

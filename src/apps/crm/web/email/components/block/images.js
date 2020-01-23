@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types'
 import React from 'react'
-import qs from 'qs'
 
 class Images extends React.Component {
 
@@ -25,8 +24,8 @@ class Images extends React.Component {
                   <tbody>
                     <tr>
                       { row.map((image, j) => (
-                        <td key={`image_${j}`}>
-                          <img src={ this._getUrl(image) } />
+                        <td className="image" key={`image_${j}`}>
+                          <img src={ this._getUrl(image, row.length) } />
                         </td>
                       )) }
                       <td className="expander"></td>
@@ -59,29 +58,9 @@ class Images extends React.Component {
     }, [])
   }
 
-  _getUrl({ asset, transforms }) {
-    const args = transforms ? Object.keys(transforms).reduce((args, key) => {
-      if(key === 'crop') {
-        const crop = transforms[key]
-        return {
-          ...args,
-          crop: { w: crop.w, h: crop.h, x: crop.x, y: crop.y }
-        }
-      } else if(key === 'invert') {
-        return {
-          ...args,
-          invert: true
-        }
-      } else {
-        return {
-          ...args,
-          [key]: transforms[key]
-        }
-      }
-    }, {}) : {}
-    const querystring = Object.keys(args).length > 0 ? `/${qs.stringify(args)}` : ''
-    // return `/caman${querystring}${asset.path}`
-    return `/imagecache/${asset.path}`
+  _getUrl({ asset }, items) {
+    const w = items === 2 ? 300 : 600
+    return `/imagecache/w=${w}/${asset.path}`
   }
 
 }

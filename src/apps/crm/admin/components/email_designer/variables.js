@@ -4,7 +4,7 @@ export const alignments = [
   { value: 'right', text: 'Right' }
 ]
 
-const positions = [
+export const positions = [
   { value: 'top', text: 'Top' },
   { value: 'right', text: 'Right' },
   { value: 'bottom', text: 'Bottom' },
@@ -40,12 +40,9 @@ export const fonts = [
   { value: 'Verdana, Geneva, sans-serif', text: 'Verdana' }
 ]
 
-export const font_size = [9,10,11,12,13,14,16,18,20,22,24,28,30,36,48,60,72].map(value => `${value}px`)
-
 export const link_strategies = [
   { value: 'web', text: 'Web Address' },
   { value: 'email', text: 'Email Address' },
-  { value: 'anchor', text: 'Anchor Link' },
   { value: 'asset', text: 'File' }
 ]
 
@@ -56,7 +53,10 @@ export const line_heights = [
   { value: 2, text: 'Double space' }
 ]
 
-export const letter_spacing = [-5,-4,-3,-2,-1,0,1,2,3,4,5].map(value => `${value}px`)
+export const letter_spacing = [-5,-4,-3,-2,-1,0,1,2,3,4,5].map(value => ({
+  value,
+  text: `${value}px`
+}))
 
 export const splits = [
   { value: [6,6], text: 'Half' },
@@ -87,4 +87,37 @@ export const paddings = [
     value: j + 1,
     text: `${j + 1}px`
   }))
+]
+
+export const font_families = [
+  { value: 'Arial, Helvetica, sans-serif', text: 'Arial' },
+  { value: '"Comic Sans MS", cursive, sans-serif', text: 'Comic Sans' },
+  { value: '"Courier New", Courier, monospace', text: 'Courier New' },
+  { value: 'Georgia, serif', text: 'Georgia' },
+  { value: '"Helvetica Neue", Helvetica, Arial, Verdana, sans-serif', text: 'Helvetica' },
+  { value: '"Lucida Sans Unicode", "Lucida Grande", sans-serif', text: 'Lucida' },
+  { value: 'Tahoma, Geneva, sans-serif', text: 'Tahoma' },
+  { value: '"Times New Roman", Times, serif', text: 'Times New Roman' },
+  { value: '"Trebuchet MS", Helvetica, sans-serif', text: 'Trebuchet MS' },
+  { value: 'Verdana, Geneva, sans-serif', text: 'Verdana' }
+]
+
+export const font_sizes = [8,9,10,11,12,14,18,24,30,36,48,60,72,96,108].map(value => ({
+  value,
+  text: `${value}px`
+}))
+
+export const image_positions = [
+  { value: 'bottom', text: 'Bottom' },
+  { value: 'top', text: 'Top' },
+  { value: 'left', text: 'Left' },
+  { value: 'right', text: 'Right' }
+]
+
+export const image_widths = [
+  { value: 3, text: 'One-quarter' },
+  { value: 4, text: 'One-third' },
+  { value: 6, text: 'One-half' },
+  { value: 8, text: 'Two-Thirds' },
+  { value: 9, text: 'Three-quarters' }
 ]

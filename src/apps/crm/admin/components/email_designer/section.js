@@ -1,6 +1,7 @@
-import * as options from './variables'
+import FontFamilyToken from '../../tokens/fontfamily'
 import AlignmentField from '../alignmentfield'
 import FormatField from '../formatfield'
+import * as options from './variables'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -40,27 +41,19 @@ class Section extends React.Component {
         {
           fields: [
             { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
-            { label: 'Border Top', type:'fields', fields: [
-              { name: 'border_top_width', type: 'lookup', options: options.border_widths, placeholder: 'Width', defaultValue: config.border_top_width },
-              { name: 'border_top_style', type: 'lookup', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_top_style },
-              { name: 'border_top_color', type: 'colorfield', defaultValue: config.border_top_color }
-            ] },
-            { label: 'Border Bottom', type:'fields', fields: [
-              { name: 'border_bottom_width', type: 'lookup', options: options.border_widths, placeholder: 'Width', defaultValue: config.border_bottom_width },
-              { name: 'border_bottom_style', type: 'lookup', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_bottom_style },
-              { name: 'border_bottom_color', type: 'colorfield', defaultValue: config.border_bottom_color }
-            ] },
+            this._getBorder('border_top', 'Border Top'),
+            this._getBorder('border_bottom', 'Border Bottom'),
             { type: 'fields', fields: [
-              { label: 'Padding Top', name: 'padding_top', type: 'lookup', options: options.paddings, defaultValue: config.padding_top },
-              { label: 'Padding Bottom', name: 'padding_bottom', type: 'lookup', options: options.paddings, defaultValue: config.padding_bottom }
+              { label: 'Padding Top', name: 'padding_top', type: 'dropdown', options: options.paddings, defaultValue: config.padding_top },
+              { label: 'Padding Bottom', name: 'padding_bottom', type: 'dropdown', options: options.paddings, defaultValue: config.padding_bottom }
             ] }
           ]
         }, {
           label: 'Text',
           fields: [
-            { label: 'Font Family', name: 'font_family', type: 'fontfamilyfield', defaultValue: config.font_family },
+            { label: 'Font Family', name: 'font_family', type: 'dropdown', options: options.font_families, defaultValue: config.font_family, format: FontFamilyToken },
             { type: 'fields', fields: [
-              { label: 'Font Size', name: 'font_size', type: 'lookup', options: options.font_size, defaultValue: config.font_size },
+              { label: 'Font Size', name: 'font_size', type: 'dropdown', options: options.font_sizes, defaultValue: config.font_size },
               { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color }
             ] },
             { type: 'fields', fields: [
@@ -68,13 +61,25 @@ class Section extends React.Component {
               { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.alignment }
             ] },
             { type: 'fields', fields: [
-              { label: 'Line Height', name: 'line_height', type: 'lookup', options: options.line_heights, defaultValue: config.line_height },
-              { label: 'Letter Spacing', name: 'letter_spacing', type: 'lookup', options: options.letter_spacing, defaultValue: config.letter_spacing }
+              { label: 'Line Height', name: 'line_height', type: 'dropdown', options: options.line_heights, defaultValue: config.line_height },
+              { label: 'Letter Spacing', name: 'letter_spacing', type: 'dropdown', options: options.letter_spacing, defaultValue: config.letter_spacing }
             ] }
           ]
         }
       ]
     }
+  }
+
+  _getBorder(type, label) {
+    const { config } = this.state
+    if(!config[`${type}_style`]) {
+      return { label, name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] }
+    }
+    return { label, type:'fields', fields: [
+      { name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] },
+      { name: `${type}_width`, type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config[`${type}_width`] },
+      { name: `${type}_color`, type: 'colorfield', defaultValue: config[`${type}_color`] }
+    ] }
   }
 
   _handleChange(data) {

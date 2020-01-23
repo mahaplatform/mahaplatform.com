@@ -11,26 +11,14 @@ class Images extends React.Component {
 
   render() {
     const { blockIndex, config, sectionIndex } = this.props
-    const { caption_position } = config
+    const { image_position } = config
     return (
       <table className={`row section-${ sectionIndex }-block-${ blockIndex } image-block block`}>
         <tbody>
           <tr>
             <td>
               <table className="row">
-                { caption_position === 'bottom' &&
-                  <tbody>
-                    <tr>
-                      { this._getImageCell(true, 'first last') }
-                      <td className="expander"></td>
-                    </tr>
-                    <tr>
-                      { this._getCaptionCell(true, 'first last') }
-                      <td className="expander"></td>
-                    </tr>
-                  </tbody>
-                }
-                { caption_position === 'top' &&
+                { image_position === 'bottom' &&
                   <tbody>
                     <tr>
                       { this._getCaptionCell(true, 'first last') }
@@ -42,20 +30,32 @@ class Images extends React.Component {
                     </tr>
                   </tbody>
                 }
-                { caption_position === 'left' &&
+                { image_position === 'top' &&
                   <tbody>
                     <tr>
-                      { this._getCaptionCell(false, 'first') }
-                      { this._getImageCell(false, 'last') }
+                      { this._getImageCell(true, 'first last') }
+                      <td className="expander"></td>
+                    </tr>
+                    <tr>
+                      { this._getCaptionCell(true, 'first last') }
                       <td className="expander"></td>
                     </tr>
                   </tbody>
                 }
-                { caption_position === 'right' &&
+                { image_position === 'left' &&
                   <tbody>
                     <tr>
                       { this._getImageCell(false, 'first') }
                       { this._getCaptionCell(false, 'last') }
+                      <td className="expander"></td>
+                    </tr>
+                  </tbody>
+                }
+                { image_position === 'right' &&
+                  <tbody>
+                    <tr>
+                      { this._getCaptionCell(false, 'first') }
+                      { this._getImageCell(false, 'last') }
                       <td className="expander"></td>
                     </tr>
                   </tbody>
@@ -70,9 +70,9 @@ class Images extends React.Component {
   }
 
   _getCaptionCell(vertical, position) {
-    const { caption, caption_width } = this.props.config
+    const { caption, image_width } = this.props.config
     return (
-      <td className={`small-12 large-${vertical ? 12 : caption_width} columns ${position}`}>
+      <td className={`small-12 large-${vertical? 12 : 12 - image_width} columns ${position}`}>
         { caption &&
           <div dangerouslySetInnerHTML={{ __html: caption }} />
         }
@@ -81,12 +81,12 @@ class Images extends React.Component {
   }
 
   _getImageCell(vertical, position) {
-    const { caption_width, image } = this.props.config
+    const { image_width, image } = this.props.config
     return (
-      <td className={`small-12 large-${vertical? 12 : 12 - caption_width} columns ${position}`}>
+      <td className={`small-12 large-${vertical ? 12 : image_width} columns ${position}`}>
         { image ?
           <img src={ `/imagecache/${image}` } /> :
-          <img src="https://via.placeholder.com/500x500.png&text=Choose+Image" />
+          <img src="https://dummyimage.com/1000x600/666666/ffffff&text=Choose+Image" />
         }
       </td>
     )
