@@ -71,7 +71,7 @@ class Text extends React.Component {
           sections: [
             {
               fields: [
-                { label: 'Background', name: 'background_color', type: 'colorfield', defaultValue: config.background },
+                { label: 'Background', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
                 this._getBorder('border'),
                 { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
               ]
@@ -85,7 +85,7 @@ class Text extends React.Component {
                 ] },
                 { type: 'fields', fields: [
                   { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format },
-                  { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.alignment }
+                  { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.text_align }
                 ] },
                 { type: 'fields', fields: [
                   { label: 'Line Height', name: 'line_height', type: 'dropdown', options: options.line_heights, defaultValue: config.line_height },
@@ -100,7 +100,7 @@ class Text extends React.Component {
             {
               fields: [
                 { label: 'Number of Columns', name: 'columns', type: 'dropdown', options: options.columns, defaultValue: config.columns },
-                { label: 'Column Split', name: 'split', type: 'dropdown', options: options.splits, defaultValue: config.split }
+                ...this._getSplit()
               ]
             }
           ]
@@ -109,12 +109,21 @@ class Text extends React.Component {
     }
   }
 
+  _getSplit() {
+    const { config } = this.state
+    if(config.columns === 1) return []
+    return [
+      { label: 'Column Split', name: 'split', type: 'dropdown', options: options.splits, defaultValue: config.split }
+    ]
+  }
+
   _getDefault() {
     return {
       columns: 1,
       split: [6,6],
       content_0: '<p>Messenger bag portland adaptogen food truck pabst, la croix pug vinyl mumblecore chartreuse. Art party schlitz portland, try-hard semiotics tumblr green juice gentrify letterpress tilde gochujang whatever helvetica tote bag. Locavore quinoa man braid cred selvage chambray. Post-ironic everyday carry kale chips umami woke polaroid, meggings organic pork belly air plant.</p>',
       content_1: '<p>Messenger bag portland adaptogen food truck pabst, la croix pug vinyl mumblecore chartreuse. Art party schlitz portland, try-hard semiotics tumblr green juice gentrify letterpress tilde gochujang whatever helvetica tote bag. Locavore quinoa man braid cred selvage chambray. Post-ironic everyday carry kale chips umami woke polaroid, meggings organic pork belly air plant.</p>',
+      background_color: null,
       padding: 16,
       font_family: null,
       font_size: null,
@@ -137,7 +146,7 @@ class Text extends React.Component {
       { name: `${type}_color`, type: 'colorfield', defaultValue: config[`${type}_color`] }
     ] }
   }
-  
+
   _handleChange(config) {
     this.setState({
       config: {

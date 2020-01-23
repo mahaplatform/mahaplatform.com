@@ -94,7 +94,7 @@ class Button extends React.Component {
                 ] },
                 { type: 'fields', fields: [
                   { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format },
-                  { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.alignment }
+                  { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.text_align }
                 ] },
                 { type: 'fields', fields: [
                   { label: 'Line Height', name: 'line_height', type: 'dropdown', options: options.line_heights, defaultValue: config.line_height },
