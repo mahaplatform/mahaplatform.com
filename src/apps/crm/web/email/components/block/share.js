@@ -26,10 +26,9 @@ class Share extends React.Component {
                       <td>
                         <img width="24" height="24" src={`/images/emails/${icon_style}-${icon_color}-${network.service}-96.png`} />
                       </td>
-                      <td>
+                      <td className="social-service-label">
                         { network.text }
                       </td>
-                      <td className="expander"></td>
                     </tr>
                   </tbody>
                 </table>

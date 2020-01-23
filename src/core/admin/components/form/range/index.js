@@ -71,7 +71,7 @@ class Range extends React.Component {
       type: 'range',
       min,
       max,
-      defaultValue: value,
+      value,
       onInput: this._handleInput
     }
   }

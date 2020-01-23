@@ -69,9 +69,9 @@ class Share extends React.Component {
           label: 'Style',
           sections: [
             {
-              label: 'Container Style',
               fields: [
-                { label: 'Background', name: 'background_color', type: 'colorfield', defaultValue: config.background_color }
+                { label: 'Background', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
+                { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
               ]
             }, {
               label: 'Button Style',
@@ -123,6 +123,7 @@ class Share extends React.Component {
         { service: 'forwardtofriend', text: 'Forward' }
       ],
       background_color: null,
+      padding: 0,
       button_background_color: null,
       button_border_radius: 0,
       font_family: null,
