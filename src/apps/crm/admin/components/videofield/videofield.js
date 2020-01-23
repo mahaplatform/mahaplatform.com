@@ -1,7 +1,7 @@
-import { Loader, Message, TextArea } from 'maha-admin'
+import { Buttons, Button} from 'maha-admin'
 import PropTypes from 'prop-types'
+import Picker from './picker'
 import React from 'react'
-import _ from 'lodash'
 
 class VideoField extends React.Component{
 
@@ -10,10 +10,11 @@ class VideoField extends React.Component{
   }
 
   static propTypes = {
-    caption: PropTypes.string,
-    defaultValue: PropTypes.object,
-    status: PropTypes.object,
-    video: PropTypes.object,
+    cid: PropTypes.string,
+    defaultValue: PropTypes.number,
+    src: PropTypes.string,
+    preview: PropTypes.string,
+    prompt: PropTypes.string,
     onFetch: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
@@ -22,111 +23,92 @@ class VideoField extends React.Component{
   }
 
   static defaultProps = {
+    prompt: 'Choose Video',
     onChange: () => {},
     onReady: () => {}
   }
 
-  _handleFetch = this._handleFetch.bind(this)
+  _handlePicker = this._handlePicker.bind(this)
   _handleRemove = this._handleRemove.bind(this)
   _handleSet = this._handleSet.bind(this)
 
   render() {
-    const { status } = this.props
+    const { src } = this.props
+    if(!src) return <Button { ...this._getNewButton() } />
     return (
-      <div className="videofield">
-        <div className="videofield-header">
-          <input { ...this._getInput() } />
+      <div className="maha-videofield">
+        <div className="maha-videofield-player">
+          <iframe { ...this._getIframe()} />
         </div>
-        <div className="videofield-body">
-          { status === 'pending' &&
-            <Message { ...this._getPendingMessage() } />
-          }
-          { status === 'loading' &&
-            <Loader />
-          }
-          { status === 'failure' &&
-            <Message { ...this._getFailureMessage() } />
-          }
-          { status === 'success' &&
-            <div className="videofield-form">
-              <div { ...this._getPlayer() }>
-                <iframe { ...this._getIframe() } />
-              </div>
-              Caption
-              <TextArea { ...this._getCaption() } />
-            </div>
-          }
+        <div className="maha-videofield-footer">
+          <Buttons { ...this._getEditButtons() } />
         </div>
       </div>
     )
   }
 
   componentDidMount() {
-    const { defaultValue, onReady, onSet } = this.props
-    if(defaultValue) onSet(defaultValue)
+    const { defaultValue, onReady, onFetch } = this.props
+    if(defaultValue) onFetch(defaultValue)
     onReady()
   }
 
   componentDidUpdate(prevProps) {
-    const { video, onChange } = this.props
-    if(!_.isEqual(video, prevProps.video)) {
-      onChange(video)
+    const { src } = this.props
+    if(src !== prevProps.src) {
+      this._handleChange()
     }
   }
 
   _getIframe() {
-    const { video } = this.props
+    const { src } = this.props
     return {
-      src: video.video_url,
+      src,
       frameBorder: 0,
       allowFullScreen: true
     }
   }
 
-  _getPlayer() {
-    const { video } = this.props
-    const { video_width, video_height } = video
+  _getPicker() {
+    const { cid, onFetch } = this.props
     return {
-      className: 'videofield-player',
-      style: {
-        paddingTop: `${(video_height / video_width) * 100}%`
-      }
+      cid,
+      onFetch
     }
   }
 
-  _getPendingMessage() {
+  _getEditButtons() {
     return {
-      icon: 'play',
-      title: 'Paste URL',
-      text: 'Paste the url of a video to preiew its contents'
+      buttons: [
+        {
+          label: 'Remove',
+          color: 'red',
+          handler: this._handleRemove
+        },{
+          label: 'Change',
+          color: 'green',
+          handler: this._handlePicker
+        }
+      ]
     }
   }
 
-  _getInput() {
+  _getNewButton() {
+    const { prompt } = this.props
     return {
-      type: 'text',
-      placeholder: 'Paste a YouTube or Vimeo URL',
-      onChange: this._handleFetch
+      className: 'ui button',
+      label: prompt,
+      handler: this._handlePicker
     }
   }
 
-  _getFailureMessage() {
-    return {
-      icon: 'remove',
-      title: 'Unable to load',
-      text: 'We were unable to load your url and play the video'
-    }
+  _handleChange() {
+    const { src, preview } = this.props
+    this.props.onChange({ src, preview })
   }
 
-  _getCaption() {
-    const { caption } = this.props
-    return {
-      defaultValue: caption
-    }
-  }
-
-  _handleFetch(e) {
-    this.props.onFetch(e.target.value)
+  _handlePicker() {
+    this.context.form.push(Picker, this._getPicker.bind(this))
   }
 
   _handleRemove() {

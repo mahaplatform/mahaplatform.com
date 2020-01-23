@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Images extends React.Component {
+class Image extends React.Component {
 
   static propTypes = {
     blockIndex: PropTypes.number,
@@ -17,10 +17,10 @@ class Images extends React.Component {
         <tbody>
           <tr>
             <td className="large-12">
-              <table className="image-block-container">
+              <table className="block-container">
                 <tbody>
                   <tr>
-                    <td className="image-block-container-cell">
+                    <td className="block-container-cell">
                       { show_caption ?
                         <table className="row collapse">
                           { image_position === 'bottom' &&
@@ -90,7 +90,7 @@ class Images extends React.Component {
   _getCaptionCell(vertical, position) {
     const { caption, image_width } = this.props.config
     return (
-      <td className={`small-12 large-${vertical? 12 : 12 - image_width} columns ${position} image-block-caption`}>
+      <td className={`small-12 large-${vertical? 12 : 12 - image_width} columns ${position} block-caption`}>
         { caption &&
           <div dangerouslySetInnerHTML={{ __html: caption }} />
         }
@@ -112,4 +112,4 @@ class Images extends React.Component {
 
 }
 
-export default Images
+export default Image

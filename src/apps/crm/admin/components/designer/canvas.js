@@ -5,7 +5,9 @@ import _ from 'lodash'
 
 class Canvas extends React.Component {
 
-  static contextTypes = {}
+  static contextTypes = {
+    confirm: PropTypes.object
+  }
 
   static propTypes = {
     active: PropTypes.object,
@@ -17,8 +19,6 @@ class Canvas extends React.Component {
     onEdit: PropTypes.func,
     onRemove: PropTypes.func
   }
-
-  static defaultProps = {}
 
   preview = null
 
@@ -97,7 +97,10 @@ class Canvas extends React.Component {
   }
 
   _handleRemove({ section, block }) {
-    this.props.onRemove(section, block)
+    const { confirm } = this.context
+    const { onRemove } = this.props
+    const handler = onRemove.bind(this, section, block)
+    confirm.open('Are you sure you want to delete this block?', handler)
   }
 
 }

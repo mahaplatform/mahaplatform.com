@@ -105,9 +105,9 @@ class Share extends React.Component {
           sections: [
             {
               fields: [
-                { label: 'Align', name: 'align', type: 'lookup', options: ['left','center','right'], defaultValue: config.align },
-                { label: 'Icon Style', name: 'icon_style', type: 'lookup', options: ['solid','outline'], defaultValue: config.icon_style },
-                { label: 'Icon Color', name: 'icon_color', type: 'lookup', options: ['color','dark','gray','light'], defaultValue: config.icon_color }
+                { label: 'Align', name: 'align', type: 'dropdown', options: ['left','center','right'], defaultValue: config.align },
+                { label: 'Icon Style', name: 'icon_style', type: 'dropdown', options: ['solid','outline'], defaultValue: config.icon_style },
+                { label: 'Icon Color', name: 'icon_color', type: 'dropdown', options: ['color','dark','gray','light'], defaultValue: config.icon_color }
               ]
             }
           ]

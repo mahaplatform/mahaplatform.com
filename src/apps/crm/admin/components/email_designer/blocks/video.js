@@ -8,13 +8,6 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-const widths = [
-  { value: 'one_third', text: 'One Third' },
-  { value: 'one_half', text: 'One Half' },
-  { value: 'two_thirds', text: 'Two Thirds' },
-  { value: 'three_quarters', text: 'Three Quarters' }
-]
-
 class Video extends React.Component {
 
   static propTypes = {
@@ -68,7 +61,9 @@ class Video extends React.Component {
           sections: [
             {
               fields: [
-                { name: 'video', type: VideoField, defaultValue: config.video }
+                { label: 'Video', name: 'video', type: VideoField, prompt: 'Choose Video', defaultValue: config.video },
+                { label: 'Caption', name: 'caption', type: 'htmlfield', defaultValue: config.caption },
+                { prompt: 'Show Caption', name: 'show_caption', type: 'checkbox', defaultValue: config.show_caption }
               ]
             }
           ]
@@ -76,6 +71,24 @@ class Video extends React.Component {
           label: 'Style',
           sections: [
             {
+              fields: [
+                { label: 'Background', name: 'card_background_color', type: 'colorfield', defaultValue: config.card_background_color },
+                this._getBorder('card_border', 'Border'),
+                { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
+              ]
+            }, {
+              label: 'Image Style',
+              fields: [
+                this._getBorder('image_border', 'Border'),
+                { label: 'Rounded Corners', name: 'image_border_radius', type: 'range', min: 0, max: 20, defaultValue: config.image_border_radius }
+              ]
+            }, {
+              label: 'Caption Style',
+              fields: [
+                { label: 'Background', name: 'caption_background_color', type: 'colorfield', defaultValue: config.caption_background_color },
+                { label: 'Caption Padding', name: 'caption_padding', type: 'dropdown', options: options.paddings, defaultValue: config.caption_padding }
+              ]
+            }, {
               label: 'Text Style',
               fields: [
                 { label: 'Font Family', name: 'font_family', type: 'dropdown', options: options.font_families, defaultValue: config.font_family, format: FontFamilyToken },
@@ -92,37 +105,15 @@ class Video extends React.Component {
                   { label: 'Letter Spacing', name: 'letter_spacing', type: 'dropdown', options: options.letter_spacing, defaultValue: config.letter_spacing }
                 ] }
               ]
-            }, {
-              label: 'Card Style',
-              fields: [
-                { label: 'Background', name: 'card_background_color', type: 'colorfield', defaultValue: config.card_background_color },
-                { label: 'Border', type:'fields', fields: [
-                  { name: 'card_border_width', type: 'lookup', options: options.border_widths, placeholder: 'Width', defaultValue: config.card_border_width },
-                  { name: 'card_border_style', type: 'lookup', options: options.border_styles, placeholder: 'Style', defaultValue: config.card_border_style },
-                  { name: 'card_border_color', type: 'colorfield', defaultValue: config.card_border_color }
-                ] }
-              ]
-            }, {
-              label: 'Image Style',
-              fields: [
-                { label: 'Border', type:'fields', fields: [
-                  { name: 'image_border_width', type: 'lookup', options: options.border_widths, placeholder: 'Width', defaultValue: config.image_border_width },
-                  { name: 'image_border_style', type: 'lookup', options: options.border_styles, placeholder: 'Style', defaultValue: config.image_border_style },
-                  { name: 'image_border_color', type: 'colorfield', defaultValue: config.image_border_color }
-                ] },
-                { label: 'Rounded Corners', name: 'image_border_radius', type: 'range', min: 0, max: 20, defaultValue: config.image_border_radius }
-              ]
             }
           ]
         }, {
           label: 'Settings',
           sections: [
             {
-              label: 'Video Settings',
               fields: [
-                { label: 'Caption Position', name: 'caption_position', type: 'lookup', options: options.positions, defaultValue: config.caption_position },
-                { label: 'Image Alignment', name: 'image_alignment', type: 'lookup', options: options.alignments, defaultValue: config.image_alignment },
-                { label: 'Caption Width', name: 'caption_width', type: 'lookup', options: widths, defaultValue: config.caption_width }
+                { label: 'Video Position', name: 'video_position', type: 'dropdown', options: options.image_positions, defaultValue: config.video_position },
+                ...this._getWidth()
               ]
             }
           ]
@@ -134,14 +125,49 @@ class Video extends React.Component {
   _getDefault() {
     return {
       video: null,
+      caption: '<p>Messenger bag portland adaptogen food truck pabst, la croix pug vinyl mumblecore chartreuse. Art party schlitz portland, try-hard semiotics tumblr green juice gentrify letterpress tilde gochujang whatever helvetica tote bag. Locavore quinoa man braid cred selvage chambray. Post-ironic everyday carry kale chips umami woke polaroid, meggings organic pork belly air plant.</p>',
+      show_caption: true,
+      caption_background_color: null,
+      caption_padding: 0,
       card_background_color: null,
-      card_border: null,
-      image_border: null,
-      image_border_radius: 0,
-      caption_position: 'top',
-      image_alignment: 'center',
-      caption_width: 'two_thirds'
+      card_border_width: null,
+      card_border_style: null,
+      card_border_color: null,
+      padding: 16,
+      image_border_width: null,
+      image_border_style: null,
+      image_border_color: null,
+      image_border_radius: null,
+      font_family: null,
+      font_size: null,
+      color: null,
+      format: null,
+      alignment: null,
+      line_height: null,
+      letter_spacing: null,
+      video_position: 'top',
+      video_width: 6
     }
+  }
+
+  _getBorder(type, label) {
+    const { config } = this.state
+    if(!config[`${type}_style`]) {
+      return { label, name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] }
+    }
+    return { label, type:'fields', fields: [
+      { name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] },
+      { name: `${type}_width`, type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config[`${type}_width`] },
+      { name: `${type}_color`, type: 'colorfield', defaultValue: config[`${type}_color`] }
+    ] }
+  }
+
+  _getWidth() {
+    const { config } = this.state
+    if(_.includes(['top','bottom'], config.image_position)) return []
+    return [
+      { label: 'Video Width', name: 'video_width', type: 'dropdown', options: options.image_widths, defaultValue: config.video_width }
+    ]
   }
 
   _handleChange(config) {

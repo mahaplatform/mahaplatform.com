@@ -17,22 +17,24 @@ class Share extends React.Component {
     const icons = (
       <table align={ align } className={`menu social float-${align}`}>
         <tbody>
-          { networks.map((network, index) => (
-            <td key={`network_${index}`} className="social-service">
-              <table>
-                <tbody>
-                  <tr>
-                    <td>
-                      <img width="24" height="24" src={`/images/emails/${icon_style}-${icon_color}-${network.service}-96.png`} />
-                    </td>
-                    <td className="social-service-label">
-                      { network.text }
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-          )) }
+          <tr>
+            { networks.map((network, index) => (
+              <td key={`network_${index}`} className="social-service">
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <img width="24" height="24" src={`/images/emails/${icon_style}-${icon_color}-${network.service}-96.png`} />
+                      </td>
+                      <td className="social-service-label">
+                        { network.text }
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            )) }
+          </tr>
         </tbody>
       </table>
     )
@@ -50,7 +52,6 @@ class Share extends React.Component {
                   </tr>
                 </tbody>
               </table>
-
             </td>
             <td className="expander"></td>
           </tr>

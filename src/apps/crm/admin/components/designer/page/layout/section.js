@@ -5,6 +5,10 @@ import React from 'react'
 
 class Section extends React.Component {
 
+  static contextTypes = {
+    confirm: PropTypes.object
+  }
+
   static propTypes = {
     connectDragSource: PropTypes.func,
     connectDropTarget: PropTypes.func,
@@ -44,8 +48,10 @@ class Section extends React.Component {
   }
 
   _handleDelete() {
-    const { index } = this.props
-    this.props.onDeleteSection(index)
+    const { confirm } = this.context
+    const { index, onDeleteSection } = this.props
+    const handler = onDeleteSection.bind(this, index)
+    confirm.open('Are you sure you want to delete this section?', handler)
   }
 
   _handleRename(label) {

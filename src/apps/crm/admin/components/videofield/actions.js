@@ -1,6 +1,6 @@
-export const set = (video) => ({
+export const set = (link_id) => ({
   type: 'SET',
-  video
+  link_id
 })
 
 export const remove = () => ({
@@ -10,8 +10,8 @@ export const remove = () => ({
 export const fetch = (url) => ({
   type: 'API_REQUEST',
   method: 'GET',
-  endpoint: '/api/admin/links/preview',
   query: { url },
+  endpoint: '/api/admin/links/preview',
   request: 'FETCH_REQUEST',
   success: 'FETCH_SUCCESS',
   failure: 'FETCH_FAILURE'

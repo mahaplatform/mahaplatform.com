@@ -47,12 +47,12 @@ class EmailDesigner extends React.Component {
         }, {
           label: 'Image Group',
           type: 'images',
-          icon: 'picture-o',
+          icon: 'th',
           component: Images
         }, {
-          label: 'Image Card',
+          label: 'Image',
           type: 'image',
-          icon: 'id-card-o',
+          icon: 'picture-o',
           component: Image
         }, {
           label: 'Button',

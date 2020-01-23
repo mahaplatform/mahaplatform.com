@@ -47,7 +47,7 @@ class Image extends React.Component {
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Image Card Block',
+      title: 'Image Block',
       onCancel: this._handleDone,
       onChange: this._handleChange,
       cancelIcon: 'chevron-left',
@@ -73,14 +73,14 @@ class Image extends React.Component {
             {
               fields: [
                 { label: 'Background', name: 'card_background_color', type: 'colorfield', defaultValue: config.card_background },
-                this._getBorder('card_border'),
+                this._getBorder('card_border', 'Border'),
                 { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
               ]
             }, {
               label: 'Image Style',
               fields: [
-                this._getBorder('image_border'),
-                { label: 'Rounded Corners', name: 'border_radius', type: 'range', min: 0, max: 20, defaultValue: config.border_radius }
+                this._getBorder('image_border', 'Border'),
+                { label: 'Rounded Corners', name: 'image_border_radius', type: 'range', min: 0, max: 20, defaultValue: config.image_border_radius }
               ]
             }, {
               label: 'Caption Style',
@@ -122,29 +122,9 @@ class Image extends React.Component {
     }
   }
 
-  _getBorder(type) {
-    const { config } = this.state
-    if(!config[`${type}_style`]) {
-      return { label: 'Border', name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] }
-    }
-    return { label: 'Border', type:'fields', fields: [
-      { name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] },
-      { name: `${type}_width`, type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config[`${type}_width`] },
-      { name: `${type}_color`, type: 'colorfield', defaultValue: config[`${type}_color`] }
-    ] }
-  }
-
-  _getWidth() {
-    const { config } = this.state
-    if(_.includes(['top','bottom'], config.image_position)) return []
-    return [
-      { label: 'Image Width', name: 'image_width', type: 'dropdown', options: options.image_widths, defaultValue: config.image_width }
-    ]
-  }
-
   _getDefault() {
     return {
-      images: null,
+      image: null,
       caption: '<p>Messenger bag portland adaptogen food truck pabst, la croix pug vinyl mumblecore chartreuse. Art party schlitz portland, try-hard semiotics tumblr green juice gentrify letterpress tilde gochujang whatever helvetica tote bag. Locavore quinoa man braid cred selvage chambray. Post-ironic everyday carry kale chips umami woke polaroid, meggings organic pork belly air plant.</p>',
       show_caption: true,
       caption_background_color: null,
@@ -157,7 +137,7 @@ class Image extends React.Component {
       image_border_width: null,
       image_border_style: null,
       image_border_color: null,
-      border_radius: null,
+      image_border_radius: null,
       font_family: null,
       font_size: null,
       color: null,
@@ -168,6 +148,26 @@ class Image extends React.Component {
       image_position: 'top',
       image_width: 6
     }
+  }
+
+  _getBorder(type, label) {
+    const { config } = this.state
+    if(!config[`${type}_style`]) {
+      return { label, name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] }
+    }
+    return { label, type:'fields', fields: [
+      { name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] },
+      { name: `${type}_width`, type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config[`${type}_width`] },
+      { name: `${type}_color`, type: 'colorfield', defaultValue: config[`${type}_color`] }
+    ] }
+  }
+
+  _getWidth() {
+    const { config } = this.state
+    if(_.includes(['top','bottom'], config.image_position)) return []
+    return [
+      { label: 'Image Width', name: 'image_width', type: 'dropdown', options: options.image_widths, defaultValue: config.image_width }
+    ]
   }
 
   _handleChange(config) {
