@@ -73,7 +73,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       active: {
         section: action.section,
-        block: state.config.sections[action.section].blocks.length
+        block: action.index
       },
       changes: state.changes + 1,
       config: {

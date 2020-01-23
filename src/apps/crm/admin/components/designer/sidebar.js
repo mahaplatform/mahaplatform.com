@@ -34,6 +34,7 @@ class Sidebar extends React.Component {
   _handlePop = this._handlePop.bind(this)
   _handlePreview = this._handlePreview.bind(this)
   _handlePush = this._handlePush.bind(this)
+  _handleReplace = this._handleReplace.bind(this)
 
   render() {
     return <Stack { ...this._getStack() } />
@@ -46,8 +47,8 @@ class Sidebar extends React.Component {
   componentDidUpdate(prevProps) {
     const { active } = this.props
     if(!_.isEqual(active, prevProps.active)) {
-      if(active.section === null) return this._handlePop()
-      this._handleEdit()
+      if(active.section !== null) this._handleEdit(prevProps.active.section !== null)
+      if(active.section === null) this._handlePop()
     }
   }
 
@@ -99,12 +100,13 @@ class Sidebar extends React.Component {
     this.props.onEdit(null, null)
   }
 
-  _handleEdit() {
+  _handleEdit(replace) {
     const { active, blocks } = this.props
     const config = this.props.config.sections[active.section].blocks[active.block]
     const { type } = config
     const block = _.find(blocks, { type })
-    this._handlePush(block.component, this._getBlock())
+    const push = replace ? this._handleReplace : this._handlePush
+    push(block.component, this._getBlock())
   }
 
   _handlePop(index = -1) {
@@ -115,6 +117,11 @@ class Sidebar extends React.Component {
 
   _handlePreview() {
     this._handlePush(Preview, this._getPreview())
+  }
+
+  _handleReplace(component, props) {
+    this._handlePop()
+    setTimeout(this._handlePush.bind(this, component, props), 300)
   }
 
   _handlePush(component, props) {
