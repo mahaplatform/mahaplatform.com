@@ -17,40 +17,45 @@ class Share extends React.Component {
     const icons = (
       <table align={ align } className={`menu social float-${align}`}>
         <tbody>
-          <tr>
-            { networks.map((network, index) => (
-              <td key={`network_${index}`} className="social-service">
-                <table>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <img width="24" height="24" src={`/images/emails/${icon_style}-${icon_color}-${network.service}-96.png`} />
-                      </td>
-                      <td className="social-service-label">
-                        { network.text }
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </td>
-            )) }
-            <td className="expander"></td>
-          </tr>
+          { networks.map((network, index) => (
+            <td key={`network_${index}`} className="social-service">
+              <table>
+                <tbody>
+                  <tr>
+                    <td>
+                      <img width="24" height="24" src={`/images/emails/${icon_style}-${icon_color}-${network.service}-96.png`} />
+                    </td>
+                    <td className="social-service-label">
+                      { network.text }
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          )) }
         </tbody>
       </table>
     )
     return (
-      <table className={`row section-${ sectionIndex }-block-${ blockIndex } share-block block`}>
+      <table className={`row collapse section-${ sectionIndex }-block-${ blockIndex } share-block block`}>
         <tbody>
           <tr>
             <td className="small-12 large-12 columns first last">
-              { align === 'center' ?<center>{ icons}</center> : icons }
+              <table className="social-block-container">
+                <tbody>
+                  <tr>
+                    <td className="social-block-container-cell">
+                      { align === 'center' ?<center>{ icons}</center> : icons }
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
             </td>
             <td className="expander"></td>
           </tr>
         </tbody>
       </table>
-
     )
   }
 

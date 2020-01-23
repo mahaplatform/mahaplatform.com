@@ -12,11 +12,20 @@ class Divider extends React.Component {
   render() {
     const { blockIndex, sectionIndex } = this.props
     return (
-      <table className={`row section-${ sectionIndex }-block-${ blockIndex } divider-block block`}>
+      <table className={`row collapse section-${ sectionIndex }-block-${ blockIndex } divider-block block`}>
         <tbody>
           <tr>
-            <td className="large-12 first last columns">
-              <div className="divider" />
+            <td className="divider-block-content">
+              <table className="row collapse">
+                <tbody>
+                  <tr>
+                    <td className="large-12 first last columns">
+                      <div className="divider" />
+                    </td>
+                    <td className="expander"></td>
+                  </tr>
+                </tbody>
+              </table>
             </td>
             <td className="expander"></td>
           </tr>

@@ -37,17 +37,25 @@ class Follow extends React.Component {
       </table>
     )
     return (
-      <table className={`row collapse section-${ sectionIndex }-block-${ blockIndex }`}>
+      <table className={`row collapse section-${ sectionIndex }-block-${ blockIndex } share-block block`}>
         <tbody>
           <tr>
             <td className="small-12 large-12 columns first last">
-              { align === 'center' ?<center>{ icons}</center> : icons }
+              <table className="social-block-container">
+                <tbody>
+                  <tr>
+                    <td className="social-block-container-cell">
+                      { align === 'center' ?<center>{ icons}</center> : icons }
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+
             </td>
             <td className="expander"></td>
           </tr>
         </tbody>
       </table>
-
     )
   }
 

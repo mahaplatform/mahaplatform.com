@@ -54,12 +54,9 @@ class Divider extends React.Component {
       sections: [
         {
           fields: [
-            this._getBorder(),
+            this._getBorder('border', 'Border'),
             { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
-            { type: 'fields', fields: [
-              { label: 'Padding Top', name: 'padding_top', type: 'dropdown', options: options.paddings, defaultValue: config.padding_top },
-              { label: 'Padding Bottom', name: 'padding_bottom', type: 'dropdown', options: options.paddings, defaultValue: config.padding_bottom }
-            ] }
+            { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
           ]
         }
       ]
@@ -68,8 +65,7 @@ class Divider extends React.Component {
 
   _getDefault() {
     return {
-      padding_top: 18,
-      padding_bottom: 18,
+      padding: 16,
       border_width: 2,
       border_style: 'solid',
       border_color: '#000000',
@@ -77,15 +73,15 @@ class Divider extends React.Component {
     }
   }
 
-  _getBorder(type) {
+  _getBorder(type, label) {
     const { config } = this.state
-    if(!config.border_style) {
-      return { label: 'Border', name: 'border_style', type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style }
+    if(!config[`${type}_style`]) {
+      return { label, name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] }
     }
-    return { label: 'Border', type:'fields', fields: [
-      { name: 'border_style', type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style },
-      { name: 'border_width', type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config.border_width },
-      { name: 'border_color', type: 'colorfield', defaultValue: config.border_color }
+    return { label, type:'fields', fields: [
+      { name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] },
+      { name: `${type}_width`, type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config[`${type}_width`] },
+      { name: `${type}_color`, type: 'colorfield', defaultValue: config[`${type}_color`] }
     ] }
   }
 

@@ -16,7 +16,7 @@ class Images extends React.Component {
       <table className={`row section-${ sectionIndex }-block-${ blockIndex } image-block block`}>
         <tbody>
           <tr>
-            <td>
+            <td className="large-12">
               <table className="image-block-container">
                 <tbody>
                   <tr>

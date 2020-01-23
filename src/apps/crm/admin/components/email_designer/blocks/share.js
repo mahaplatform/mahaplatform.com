@@ -71,6 +71,7 @@ class Share extends React.Component {
             {
               fields: [
                 { label: 'Background', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
+                this._getBorder('border', 'Border'),
                 { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
               ]
             }, {
@@ -123,6 +124,9 @@ class Share extends React.Component {
         { service: 'forwardtofriend', text: 'Forward' }
       ],
       background_color: null,
+      border_width: null,
+      border_style: null,
+      border_color: null,
       padding: 0,
       button_background_color: null,
       button_border_radius: 0,
@@ -137,6 +141,18 @@ class Share extends React.Component {
       icon_style: 'outline',
       icon_color: 'dark'
     }
+  }
+
+  _getBorder(type, label) {
+    const { config } = this.state
+    if(!config[`${type}_style`]) {
+      return { label, name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] }
+    }
+    return { label, type:'fields', fields: [
+      { name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] },
+      { name: `${type}_width`, type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config[`${type}_width`] },
+      { name: `${type}_color`, type: 'colorfield', defaultValue: config[`${type}_color`] }
+    ] }
   }
 
   _handleChange(config) {

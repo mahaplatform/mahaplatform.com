@@ -70,6 +70,12 @@ class Images extends React.Component {
             {
               fields: [
                 this._getBorder(),
+                { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
+              ]
+            }, {
+              label: 'Image Style',
+              fields: [
+                this._getBorder(),
                 { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding },
                 { label: 'Rounded Corners', name: 'border_radius', type: 'range', min: 0, max: 20, defaultValue: config.border_radius }
               ]

@@ -54,7 +54,9 @@ div.dropzone-marker {
 div.block {
   position: relative;
   cursor: pointer;
-  min-height: 30px;
+  &:hover {
+    min-height: 30px;
+  }
   &.active .block-highlight {
     display: block;
   }

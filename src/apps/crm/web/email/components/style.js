@@ -172,12 +172,13 @@ class Style extends React.Component {
           ] : [],
           ..._.includes(['follow','share'], block.type) ? [
             {
-              selector: `table.section-${i}-block-${j}`, styles: [
+              selector: `table.section-${i}-block-${j} .social-block-container`,styles: [
+                ...this._getBorder('border', `sections[${i}].blocks[${j}].border`),
                 ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`)
               ]
-            },{
-              selector: `table.section-${i}-block-${j} table.social`, styles: [
-                ...this._getProp('margin',`sections[${i}].blocks[${j}].padding`, 'px')
+            }, {
+              selector: `table.section-${i}-block-${j} .social-block-container-cell`,styles: [
+                ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px')
               ]
             },{
               selector: `table.section-${i}-block-${j} table.social table`, styles: [
@@ -200,9 +201,8 @@ class Style extends React.Component {
           ] : [],
           ...block.type === 'divider' ? [
             {
-              selector: `table.section-${i}-block-${j} td`,styles: [
-                ...this._getProp('padding-top',`sections[${i}].blocks[${j}].padding_top`, 'px'),
-                ...this._getProp('padding-bottom',`sections[${i}].blocks[${j}].padding_bottom`, 'px'),
+              selector: `table.section-${i}-block-${j} .divider-block-content`,styles: [
+                ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px'),
                 ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`)
               ]
             },{

@@ -72,7 +72,7 @@ class Text extends React.Component {
             {
               fields: [
                 { label: 'Background', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
-                this._getBorder('border'),
+                this._getBorder('border', 'Border'),
                 { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
               ]
             }, {
@@ -135,12 +135,12 @@ class Text extends React.Component {
     }
   }
 
-  _getBorder(type) {
+  _getBorder(type, label) {
     const { config } = this.state
     if(!config[`${type}_style`]) {
-      return { label: 'Border', name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] }
+      return { label, name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] }
     }
-    return { label: 'Border', type:'fields', fields: [
+    return { label, type:'fields', fields: [
       { name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] },
       { name: `${type}_width`, type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config[`${type}_width`] },
       { name: `${type}_color`, type: 'colorfield', defaultValue: config[`${type}_color`] }
