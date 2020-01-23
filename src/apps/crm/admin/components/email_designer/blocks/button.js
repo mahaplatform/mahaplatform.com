@@ -81,7 +81,6 @@ class Button extends React.Component {
                   { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
                   { label: 'Padding', name: 'button_padding', type: 'dropdown', options: options.paddings, defaultValue: config.button_padding }
                 ] },
-                this._getBorder(),
                 { label: 'Rounded Corners', name: 'border_radius', type: 'range', min: 0, max: 20, defaultValue: config.border_radius }
               ]
             },
@@ -129,7 +128,6 @@ class Button extends React.Component {
       email_body: null,
       anchor: null,
       asset_id: null,
-      border: null,
       border_radius: null,
       background_color: '#2185D0',
       color: '#FFFFFF',
@@ -149,18 +147,6 @@ class Button extends React.Component {
     return [
       { label: 'Align', name: 'align', type: 'dropdown', options: options.alignments, defaultValue: config.align }
     ]
-  }
-
-  _getBorder() {
-    const { config } = this.state
-    if(!config.border_style) {
-      return { label: 'Border', name: 'border_style', type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style }
-    }
-    return { label: 'Border', type:'fields', fields: [
-      { name: 'border_style', type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style },
-      { name: 'border_width', type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config.border_width },
-      { name: 'border_color', type: 'colorfield', defaultValue: config.border_color }
-    ] }
   }
 
   _getLinkStrategy() {

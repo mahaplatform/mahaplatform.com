@@ -153,14 +153,13 @@ class Style extends React.Component {
           ] : [],
           ...block.type === 'button' ? [
             {
-              selector: `table.section-${i}-block-${j} .large-12`,styles: [
+              selector: `table.section-${i}-block-${j} .button-block-content`,styles: [
                 ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px')
               ]
             }, {
               selector: `table.section-${i}-block-${j} table.button table td`,styles: [
                 ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`),
                 ...this._getProp('padding',`sections[${i}].blocks[${j}].button_padding`, 'px'),
-                ...this._getBorder('border', `sections[${i}].border`),
                 ...this._getProp('border-radius',`sections[${i}].blocks[${j}].border_radius`, 'px'),
                 ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`),
                 ...this._getProp('font-family',`sections[${i}].blocks[${j}].font_family`),

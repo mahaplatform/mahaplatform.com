@@ -35,9 +35,19 @@ class Button extends React.Component {
       <table className={`row collapse section-${ sectionIndex }-block-${ blockIndex } button-block block`}>
         <tbody>
           <tr>
-            <td className="large-12 first last columns">
-              { align === 'center' ?<center>{ button }</center> : button }
+            <td className="button-block-content">
+              <table className="row collapse">
+                <tbody>
+                  <tr>
+                    <td className="large-12 first last columns">
+                      { align === 'center' ?<center>{ button }</center> : button }
+                    </td>
+                    <td className="expander"></td>
+                  </tr>
+                </tbody>
+              </table>
             </td>
+            <td className="expander"></td>
           </tr>
         </tbody>
       </table>
