@@ -70,6 +70,12 @@ class Text extends React.Component {
           label: 'Style',
           sections: [
             {
+              fields: [
+                { label: 'Background', name: 'background_color', type: 'colorfield', defaultValue: config.background },
+                this._getBorder('border'),
+                { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
+              ]
+            }, {
               label: 'Text Style',
               fields: [
                 { label: 'Font Family', name: 'font_family', type: 'dropdown', options: options.font_families, defaultValue: config.font_family, format: FontFamilyToken },
@@ -109,6 +115,7 @@ class Text extends React.Component {
       split: [6,6],
       content_0: '<p>Messenger bag portland adaptogen food truck pabst, la croix pug vinyl mumblecore chartreuse. Art party schlitz portland, try-hard semiotics tumblr green juice gentrify letterpress tilde gochujang whatever helvetica tote bag. Locavore quinoa man braid cred selvage chambray. Post-ironic everyday carry kale chips umami woke polaroid, meggings organic pork belly air plant.</p>',
       content_1: '<p>Messenger bag portland adaptogen food truck pabst, la croix pug vinyl mumblecore chartreuse. Art party schlitz portland, try-hard semiotics tumblr green juice gentrify letterpress tilde gochujang whatever helvetica tote bag. Locavore quinoa man braid cred selvage chambray. Post-ironic everyday carry kale chips umami woke polaroid, meggings organic pork belly air plant.</p>',
+      padding: 16,
       font_family: null,
       font_size: null,
       color: null,
@@ -119,6 +126,18 @@ class Text extends React.Component {
     }
   }
 
+  _getBorder(type) {
+    const { config } = this.state
+    if(!config[`${type}_style`]) {
+      return { label: 'Border', name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] }
+    }
+    return { label: 'Border', type:'fields', fields: [
+      { name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] },
+      { name: `${type}_width`, type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config[`${type}_width`] },
+      { name: `${type}_color`, type: 'colorfield', defaultValue: config[`${type}_color`] }
+    ] }
+  }
+  
   _handleChange(config) {
     this.setState({
       config: {

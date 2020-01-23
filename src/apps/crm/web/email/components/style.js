@@ -109,6 +109,15 @@ class Style extends React.Component {
             ...this._getProp('line-height',`sections[${i}].blocks[${j}].line_height`),
             ...this._getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`, 'px')
           ] },
+          ...block.type === 'text' ? [
+            {
+              selector: `table.section-${i}-block-${j} .text-block-content`,styles: [
+                ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px'),
+                ...this._getBorder('border', `sections[${i}].blocks[${j}].border`),
+                ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`)
+              ]
+            }
+          ] : [],
           ...block.type === 'images' ? [
             {
               selector: `table.section-${i}-block-${j} td.image`,styles: [
