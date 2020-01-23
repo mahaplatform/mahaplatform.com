@@ -13,7 +13,7 @@ class Images extends React.Component {
     const { blockIndex, config, sectionIndex } = this.props
     const { image_position, show_caption } = config
     return (
-      <table className={`row section-${ sectionIndex }-block-${ blockIndex } image-block block`}>
+      <table className={`row collapse section-${ sectionIndex }-block-${ blockIndex } image-block block`}>
         <tbody>
           <tr>
             <td className="large-12">

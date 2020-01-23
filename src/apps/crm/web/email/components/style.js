@@ -77,11 +77,11 @@ class Style extends React.Component {
       ...sections.reduce((sectionStyles, section, i) => [
         ...sectionStyles,
         { selector: `table.section-${i}`, styles: [
-          ...this._getProp('background-color', `sections[${i}].background_color`),
-          ...this._getBorder('border-top', `sections[${i}].border_top`),
-          ...this._getBorder('border-bottom', `sections[${i}].border_bottom`),
-          ...this._getProp('padding-top', `sections[${i}].padding_top`, 'px'),
-          ...this._getProp('padding-bottom', `sections[${i}].padding_bottom`, 'px')
+          ...this._getBorder('border', `sections[${i}].border`),
+          ...this._getProp('background-color',`sections[${i}].background_color`)
+        ] },
+        { selector: `table.section-${i} > tbody > tr > td`, styles: [
+          ...this._getProp('padding',`sections[${i}].padding`, 'px')
         ] },
         { selector: `table.section-${i} td,table.section-${i} p`, styles: [
           ...this._getProp('font-family',`sections[${i}].font_family`),
@@ -147,7 +147,8 @@ class Style extends React.Component {
               ]
             }, {
               selector: `table.section-${i}-block-${j} img`,styles: [
-                ...this._getBorder('border', `sections[${i}].blocks[${j}].image_border`)
+                ...this._getBorder('border', `sections[${i}].blocks[${j}].image_border`),
+                ...this._getProp('border-radius',`sections[${i}].blocks[${j}].border_radius`, 'px')
               ]
             }
           ] : [],

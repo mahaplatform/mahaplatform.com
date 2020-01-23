@@ -26,7 +26,7 @@ class Section extends React.Component {
   render() {
     const { hovering, index } = this.state
     const { config, sectionIndex } = this.props
-    const { blocks, padding_top, padding_bottom } = config
+    const { blocks } = config
     return (
       <div { ...this._getDropZone() }>
         { hovering &&
@@ -36,7 +36,6 @@ class Section extends React.Component {
           <tbody>
             <tr>
               <td>
-                { padding_top !== null && <Spacer height={ padding_top } /> }
                 { (blocks.length === 0 || (hovering && index === 0)) &&
                   <Target />
                 }
@@ -48,7 +47,6 @@ class Section extends React.Component {
                     }
                   </div>
                 )) }
-                { padding_bottom !== null && <Spacer height={ padding_bottom } /> }
               </td>
             </tr>
           </tbody>

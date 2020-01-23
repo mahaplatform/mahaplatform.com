@@ -127,7 +127,7 @@ class Share extends React.Component {
       border_width: null,
       border_style: null,
       border_color: null,
-      padding: 0,
+      padding: 16,
       button_background_color: null,
       button_border_radius: 0,
       font_family: null,

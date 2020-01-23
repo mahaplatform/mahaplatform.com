@@ -104,7 +104,7 @@ class Follow extends React.Component {
       border_width: null,
       border_style: null,
       border_color: null,
-      padding: 0,
+      padding: 16,
       icon_style: 'outline',
       icon_color: 'dark',
       button_background_color: null,
