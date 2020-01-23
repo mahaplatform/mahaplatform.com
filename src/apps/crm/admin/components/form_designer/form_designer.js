@@ -6,32 +6,41 @@ import React from 'react'
 
 class FormDesigner extends React.PureComponent {
 
-  static contextTypes = {}
-
   static propTypes = {
     changes: PropTypes.number,
     cid: PropTypes.string,
     config: PropTypes.object,
     defaultValue: PropTypes.object,
+    sidebar: PropTypes.bool,
+    onAdd: PropTypes.func,
     onSave: PropTypes.func,
-    onSet: PropTypes.func
+    onSet: PropTypes.func,
+    onToggle: PropTypes.func
   }
 
-  static defaultProps = {}
+  _handleAdd = this._handleAdd.bind(this)
+  _handleToggle = this._handleToggle.bind(this)
 
   render() {
+    const { sidebar } = this.props
     return (
-      <div className="form-designer">
-        <div className="form-designer-main">
-          <div className="form-designer-canvas">
-            <Preview>
-              <Canvas { ...this._getCanvas() } />
-            </Preview> :
+      <div className={ this._getClass() }>
+        <div className="designer-main">
+          <div className="designer-toggle" onClick={ this._handleToggle }>
+            { sidebar ?
+              <i className="fa fa-times" /> :
+              <i className="fa fa-chevron-left" />
+            }
           </div>
+          <Preview>
+            <Canvas { ...this._getCanvas() } />
+          </Preview>
         </div>
-        <div className="form-designer-sidebar">
-          <Sidebar { ...this._getSidebar() } />
-        </div>
+        { sidebar &&
+          <div className="designer-sidebar">
+            <Sidebar { ...this._getSidebar() } />
+          </div>
+        }
       </div>
     )
   }
@@ -44,8 +53,16 @@ class FormDesigner extends React.PureComponent {
   _getCanvas() {
     const { config } = this.props
     return {
-      config
+      config,
+      onAdd: this._handleAdd
     }
+  }
+
+  _getClass() {
+    const { sidebar } = this.props
+    const classes = ['designer']
+    if(sidebar) classes.push('expanded')
+    return classes.join(' ')
   }
 
   _getDefault() {
@@ -59,6 +76,14 @@ class FormDesigner extends React.PureComponent {
       config,
       onSave
     }
+  }
+
+  _handleAdd(index, type) {
+    this.props.onAdd(index, { type })
+  }
+
+  _handleToggle() {
+    this.props.onToggle()
   }
 
 }

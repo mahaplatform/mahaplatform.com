@@ -1,14 +1,12 @@
 import PropTypes from 'prop-types'
-import Target from './target'
-import Block from './block'
 import React from 'react'
 
-class Section extends React.Component {
+class Form extends React.Component {
 
   static propTypes = {
     active: PropTypes.object,
     config: PropTypes.object,
-    sectionIndex: PropTypes.number,
+    children: PropTypes.any,
     onAction: PropTypes.func
   }
 
@@ -24,45 +22,20 @@ class Section extends React.Component {
 
   render() {
     const { hovering, index } = this.state
-    const { config, sectionIndex } = this.props
-    const { blocks } = config
+    const { fields } = this.props.config
     return (
       <div { ...this._getDropZone() }>
         { hovering &&
-          <div className="dropzone-highlight" data-label={config.label || `Section ${ sectionIndex + 1 }`} />
+          <div className="dropzone-highlight" data-label='Form' />
         }
-        <table className={`section-${sectionIndex} section`}>
-          <tbody>
-            <tr>
-              <td>
-                { (blocks.length === 0 || (hovering && index === 0)) &&
-                  <Target />
-                }
-                { blocks.map((block, blockIndex) => (
-                  <div key={`block_${blockIndex}`} className="dropzone-block" data-index={ blockIndex }>
-                    <Block { ...this._getBlock(block, blockIndex) } />
-                    { hovering && blockIndex + 1 === index &&
-                      <Target key={`target_${blockIndex}`} />
-                    }
-                  </div>
-                )) }
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        { (fields.length === 0 || (hovering && index === 0)) &&
+          <div className="dropzone-target">
+            Drop Block Here
+          </div>
+        }
+        Form
       </div>
     )
-  }
-
-  _getBlock(config, blockIndex) {
-    const { active, sectionIndex, onAction } = this.props
-    return {
-      active,
-      sectionIndex,
-      blockIndex,
-      config,
-      onAction
-    }
   }
 
   _getDropZone() {
@@ -94,11 +67,10 @@ class Section extends React.Component {
 
   _handleDrop(e) {
     const { index } = this.state
-    const { sectionIndex, onAction } = this.props
+    const { onAction } = this.props
     e.preventDefault()
     e.stopPropagation()
     onAction('add', {
-      section: sectionIndex,
       type: e.dataTransfer.getData('type'),
       index
     })
@@ -117,19 +89,19 @@ class Section extends React.Component {
   }
 
   _handleDragOver(target, dropzone, x, y) {
-    const { blocks } = this.props.config
-    const block = this._getParent(target, '.dropzone-block')
+    const { fields } = this.props.config
+    const field = this._getParent(target, '.dropzone-block')
     if(this.timeout) clearTimeout(this.timeout)
     this.timeout = setTimeout(this._handleDragLeave, 100)
-    if(block) {
-      const blockIndex = parseInt(block.dataset.index)
-      const middle = this._getMiddle(block)
+    if(field) {
+      const blockIndex = parseInt(field.dataset.index)
+      const middle = this._getMiddle(field)
       if(y <= middle) return this._handleIndex(blockIndex)
       if(y > middle) return this._handleIndex(blockIndex + 1)
     }
     const middle = this._getMiddle(dropzone)
     if(y <= middle) return this._handleIndex(0)
-    if(y > middle) return this._handleIndex(blocks.length)
+    if(y > middle) return this._handleIndex(fields.length)
   }
 
   _handleHover(hovering) {
@@ -142,4 +114,4 @@ class Section extends React.Component {
 
 }
 
-export default Section
+export default Form

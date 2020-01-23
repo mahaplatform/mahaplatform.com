@@ -41,30 +41,30 @@ class Design extends React.Component {
         {
           fields: [
             { label: 'Page Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
-            { label: 'Form Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.form_background_color }
+            { label: 'Form Background Color', name: 'form_background_color', type: 'colorfield', defaultValue: config.form_background_color }
           ]
         },
         {
           label: 'Header',
           fields: [
-            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.header_background_color },
-            { label: 'Image', name: 'header', type: 'filefield', defaultValue: config.header_image },
-            { label: 'Text', name: 'header', type: 'htmlfield', defaultValue: config.header_text }
+            { label: 'Background Color', name: 'header_background_color', type: 'colorfield', defaultValue: config.header_background_color },
+            { label: 'Image', name: 'header_image', type: 'filefield', defaultValue: config.header_image },
+            { label: 'Text', name: 'header_text', type: 'htmlfield', defaultValue: config.header_text }
           ]
         },
         {
           label: 'Body',
           fields: [
-            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.body_background_color },
-            { label: 'Padding', name: 'padding', type: 'lookup', options: paddings, defaultValue: config.body_padding }
+            { label: 'Background Color', name: 'body_background_color', type: 'colorfield', defaultValue: config.body_background_color },
+            { label: 'Padding', name: 'body_padding', type: 'lookup', options: paddings, defaultValue: config.body_padding }
           ]
         },
         {
           label: 'Footer',
           fields: [
-            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.footer_background_color },
-            { label: 'Padding', name: 'padding', type: 'lookup', options: paddings, defaultValue: config.footer_body_padding },
-            { label: 'Text', name: 'header', type: 'htmlfield', defaultValue: config.footer_text }
+            { label: 'Background Color', name: 'footer_background_color', type: 'colorfield', defaultValue: config.footer_background_color },
+            { label: 'Padding', name: 'footer_body_padding', type: 'lookup', options: paddings, defaultValue: config.footer_body_padding },
+            { label: 'Text', name: 'footer_text', type: 'htmlfield', defaultValue: config.footer_text }
           ]
         }
       ]

@@ -30,7 +30,7 @@ class Fields extends React.Component {
     return (
       <div className="flowchart-designer-blocks">
         { fields.map((field, index) => (
-          <div className="flowchart-designer-block" key={`field_${index}`} { ...this._getField() }>
+          <div className="flowchart-designer-block" key={`field_${index}`} { ...this._getField(field) }>
             <div className="flowchart-designer-block-icon flowchart-designer-icon-action">
               <i className={`fa fa-fw fa-${ field.icon }`} />
             </div>

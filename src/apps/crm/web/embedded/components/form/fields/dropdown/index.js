@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class Dropdown extends React.Component {
 
@@ -19,20 +20,21 @@ class Dropdown extends React.Component {
   control = null
 
   state = {
-    position: 'below',
+    animating: false,
+    direction: null,
     show: false,
     value: null
   }
 
-  _handleBegin = this._handleBegin.bind(this)
-  _handleClickOutside = this._handleClickOutside.bind(this)
+  _handleOpen = this._handleOpen.bind(this)
+  _handleClose = this._handleClose.bind(this)
 
   render() {
     const { code, options, placeholder } = this.props
     const { value } = this.state
     return (
       <div className="maha-dropdown" ref={ node => this.control = node }>
-        <div id={ code } className={ this._getClass() } onClick={ this._handleBegin }>
+        <div id={ code } className={ this._getClass() } onClick={ this._handleOpen }>
           <i className="dropdown icon"></i>
           { value === null ?
             <div className="default text">{ placeholder }</div> :
@@ -51,16 +53,24 @@ class Dropdown extends React.Component {
   }
 
   componentDidMount() {
-    document.addEventListener('mousedown', this._handleClickOutside)
+    document.addEventListener('mousedown', this._handleClose)
     const { onReady } = this.props
     onReady()
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { value } = this.state
+    const { show, value } = this.state
     const { status } = this.props
     if(value !== prevState.value) {
-      this._handleChange()
+      this.props.onChange(value)
+    }
+    if(show !== prevState.show) {
+      this.setState({
+        animating: true
+      })
+      setTimeout(() => this.setState({
+        animating: false
+      }), 250)
     }
     if(status !== prevProps.status) {
       if(status === 'validating') this._handleValidate()
@@ -69,30 +79,28 @@ class Dropdown extends React.Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('mousedown', this._handleClickOutside)
+    document.removeEventListener('mousedown', this._handleClose)
   }
 
   _getClass() {
-    const { position, show } = this.state
-    const classes = ['ui selection dropdown']
-    if(position === 'above') classes.push('upward')
-    if(show) classes.push('active visible')
+    const { animating, active, direction } = this.state
+    const classes = ['ui','selection','dropdown']
+    if(direction) classes.push(direction)
+    if(active) classes.push('active')
+    if(active && !animating) classes.push('visible')
+    if(!active && animating) classes.push('visible')
     return classes.join(' ')
   }
 
   _getMenuClass() {
-    const { show } = this.state
-    const classes = ['menu']
-    if(show) classes.push('transition visible')
+    const { active, animating } = this.state
+    const classes = ['menu','transition']
+    const direction = this.state.direction === 'upward' ? 'up' : 'down'
+    if(!animating && !active) classes.push('hidden')
+    if(animating || active) classes.push('visible')
+    if(animating && active) classes.push(`animating slide ${direction} in`)
+    if(animating && !active) classes.push(`animating slide ${direction} out`)
     return classes.join(' ')
-  }
-
-  _handleBegin(e) {
-    e.stopPropagation()
-    const percent = (e.clientY / window.innerHeight) * 100
-    const show = true
-    const position = percent < 75 ? 'below' : 'above'
-    this.setState({ show, position })
   }
 
   _handleChange() {
@@ -103,16 +111,17 @@ class Dropdown extends React.Component {
 
   _handleChoose(value) {
     this.setState({
-      show: false,
-      value
+      value,
+      active: false
     })
   }
 
-  _handleClickOutside(e) {
-    const { show } = this.state
-    if(!show || this.control.contains(e.target)) return
+  _handleClose(e) {
+    const { active } = this.state
+    const reserved = ['item','text','dropdown icon','ui selection dropdown active visible']
+    if(!active || _.includes(reserved, e.target.className)) return
     this.setState({
-      show: false
+      active: false
     })
   }
 
@@ -120,6 +129,17 @@ class Dropdown extends React.Component {
     this.props.onFinalize('paymentToken')
   }
 
+  _handleOpen(e) {
+    e.stopPropagation()
+    const percent = (e.clientY / window.innerHeight) * 100
+    const { active } = this.state
+    if(active || e.target.className === 'item') return
+    this.setState({
+      direction: percent > 75 ? 'upward' : null,
+      active: true
+    })
+  }
+  
   _handleValidate() {
     this.props.onValidate('valid')
   }

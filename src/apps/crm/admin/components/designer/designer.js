@@ -17,6 +17,7 @@ class Designer extends React.Component {
     config: PropTypes.object,
     defaultValue: PropTypes.object,
     preview: PropTypes.bool,
+    sidebar: PropTypes.bool,
     title: PropTypes.string,
     onAdd: PropTypes.func,
     onAddSection: PropTypes.func,
@@ -28,6 +29,7 @@ class Designer extends React.Component {
     onRemove: PropTypes.func,
     onSave: PropTypes.func,
     onSet: PropTypes.func,
+    onToggle: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -37,12 +39,19 @@ class Designer extends React.Component {
 
   _handleAdd = this._handleAdd.bind(this)
   _handleAddSection = this._handleAddSection.bind(this)
+  _handleToggle = this._handleToggle.bind(this)
 
   render() {
-    const { preview } = this.props
+    const { preview, sidebar } = this.props
     return (
-      <div className="designer">
+      <div className={ this._getClass() }>
         <div className="designer-main">
+          <div className="designer-toggle" onClick={ this._handleToggle }>
+            { sidebar ?
+              <i className="fa fa-times" /> :
+              <i className="fa fa-chevron-left" />
+            }
+          </div>
           { preview ?
             <Preview>
               <Canvas { ...this._getCanvas() } />
@@ -50,9 +59,11 @@ class Designer extends React.Component {
             <Canvas { ...this._getCanvas() } />
           }
         </div>
-        <div className="designer-sidebar">
-          <Sidebar { ...this._getSidebar() } />
-        </div>
+        { sidebar &&
+          <div className="designer-sidebar">
+            <Sidebar { ...this._getSidebar() } />
+          </div>
+        }
       </div>
     )
   }
@@ -60,13 +71,6 @@ class Designer extends React.Component {
   componentDidMount() {
     const defaultValue = this.props.defaultValue || this._getDefault()
     this.props.onSet(defaultValue)
-  }
-
-  _getDefault() {
-    return {
-      page: defaults.page,
-      sections: []
-    }
   }
 
   _getCanvas() {
@@ -80,6 +84,20 @@ class Designer extends React.Component {
       onEdit,
       onRemove,
       onUpdate
+    }
+  }
+
+  _getClass() {
+    const { sidebar } = this.props
+    const classes = ['designer']
+    if(sidebar) classes.push('expanded')
+    return classes.join(' ')
+  }
+
+  _getDefault() {
+    return {
+      page: defaults.page,
+      sections: []
     }
   }
 
@@ -109,6 +127,10 @@ class Designer extends React.Component {
   _handleAddSection() {
     const { onAddSection } = this.props
     onAddSection(defaults.section)
+  }
+
+  _handleToggle() {
+    this.props.onToggle()
   }
 
 }

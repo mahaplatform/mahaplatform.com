@@ -32,10 +32,10 @@ class Dropdown extends React.Component {
   dropdown = null
 
   state = {
+    animating: false,
     active: false,
     direction: null,
-    value: null,
-    animating: false
+    value: null
   }
 
   _handleOpen = this._handleOpen.bind(this)

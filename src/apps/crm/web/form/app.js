@@ -1,7 +1,7 @@
 import { hot } from 'react-hot-loader'
 import Style from '../embedded/components/style'
-import Form from '../embedded/components/form'
 import Root from '../embedded/components/root'
+import Form from './components/form'
 import PropTypes from 'prop-types'
 import Pasteur from 'pasteur'
 import React from 'react'
@@ -25,12 +25,15 @@ class App extends React.Component {
 
   render() {
     if(!this.state.config) return null
-    return [
-      <Style key="style" { ...this._getStyle() } />,
+    return (
       <Root key="root">
-        <Form { ...this._getForm() } />
+        <div>
+          <Style key="style" { ...this._getStyle() } />
+          <Form { ...this._getForm() } />
+        </div>
       </Root>
-    ]
+
+    )
   }
 
   componentDidMount() {

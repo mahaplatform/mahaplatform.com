@@ -72,25 +72,16 @@ class Canvas extends React.Component {
     }
   }
 
-  _handleRender() {
-    const { config } = this.props
-    this.pasteur.send('designer', 'update', { config })
+  _handleAdd({ type, index }) {
+    this.props.onAdd(index, type)
   }
 
-  _handleAdd({ section, type, index }) {
-    const content_type = _.find(types, { type })
-    this.props.onAdd(section, index, {
-      type: content_type.type,
-      ...content_type.config
-    })
+  _handleClone({ field }) {
+    this.props.onClone(field)
   }
 
-  _handleClone({ section, block }) {
-    this.props.onClone(section, block)
-  }
-
-  _handleEdit({ section, block }) {
-    this.props.onEdit(section, block)
+  _handleEdit({ field }) {
+    this.props.onEdit(field)
   }
 
   _handleHighlight() {
@@ -98,8 +89,13 @@ class Canvas extends React.Component {
     this.pasteur.send('designer', 'highlight', { active })
   }
 
-  _handleRemove({ section, block }) {
-    this.props.onRemove(section, block)
+  _handleRemove({ field }) {
+    this.props.onRemove(field)
+  }
+
+  _handleRender() {
+    const { config } = this.props
+    this.pasteur.send('designer', 'update', { config })
   }
 
 }

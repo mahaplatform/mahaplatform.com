@@ -6,7 +6,8 @@ const INITIAL_STATE = {
     block: null
   },
   changes: 0,
-  config: null
+  config: null,
+  sidebar: true
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -172,6 +173,12 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       changes: 0,
       config: action.config
+    }
+
+  case 'TOGGLE':
+    return {
+      ...state,
+      sidebar: !state.sidebar
     }
 
   default:
