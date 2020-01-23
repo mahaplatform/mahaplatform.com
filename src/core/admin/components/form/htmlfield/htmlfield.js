@@ -56,7 +56,8 @@ class HtmlField extends React.Component {
       modules: {
         toolbar: [
           [{ header: 1 },{ header: 2 },'bold', 'italic', 'underline'],
-          [{ list: 'ordered' },{ list: 'bullet' },'align']
+          [{ list: 'ordered' },{ list: 'bullet' },'align'],
+          ['link']
         ]
       }
     }

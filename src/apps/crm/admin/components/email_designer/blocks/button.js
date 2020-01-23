@@ -71,13 +71,15 @@ class Button extends React.Component {
           sections: [
             {
               fields: [
-                { type: 'fields', fields: [
-                  { label: 'Padding Above', name: 'padding_top', type: 'dropdown', options: options.paddings, defaultValue: config.padding_top },
-                  { label: 'Padding Below', name: 'padding_bottom', type: 'dropdown', options: options.paddings, defaultValue: config.padding_bottom }
-                ] },
+                { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
+              ]
+            },
+            {
+              label: 'Button Style',
+              fields: [
                 { type: 'fields', fields: [
                   { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
-                  { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
+                  { label: 'Padding', name: 'button_padding', type: 'dropdown', options: options.paddings, defaultValue: config.button_padding }
                 ] },
                 this._getBorder(),
                 { label: 'Rounded Corners', name: 'border_radius', type: 'range', min: 0, max: 20, defaultValue: config.border_radius }
@@ -134,9 +136,8 @@ class Button extends React.Component {
       letter_spacing: 0,
       font_family: null,
       font_size: null,
-      padding: 10,
-      padding_top: 10,
-      padding_bottom: 10,
+      padding: 16,
+      button_padding: 10,
       align: 'center',
       display: 'block'
     }

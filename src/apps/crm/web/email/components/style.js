@@ -123,14 +123,18 @@ class Style extends React.Component {
           ] : [],
           ...block.type === 'image' ? [
             {
-              selector: `table.section-${i}-block-${j}`,styles: [
+              selector: `table.section-${i}-block-${j} table.image-block-container`,styles: [
                 ...this._getBorder('border', `sections[${i}].blocks[${j}].card_border`),
                 ...this._getProp('background-color',`sections[${i}].blocks[${j}].card_background_color`)
               ]
             }, {
-              selector: `table.section-${i}-block-${j} table.row`,styles: [
-                ...this._getProp('margin-top',`sections[${i}].blocks[${j}].padding_top`, 'px'),
-                ...this._getProp('margin-bottom',`sections[${i}].blocks[${j}].padding_bottom`, 'px')
+              selector: `table.section-${i}-block-${j} .image-block-container-cell`,styles: [
+                ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px')
+              ]
+            }, {
+              selector: `table.section-${i}-block-${j} table.image-block-container .image-block-caption`,styles: [
+                ...this._getProp('background-color',`sections[${i}].blocks[${j}].caption_background_color`),
+                ...this._getProp('padding',`sections[${i}].blocks[${j}].caption_padding`, 'px')
               ]
             }, {
               selector: `table.section-${i}-block-${j} img`,styles: [
@@ -140,14 +144,13 @@ class Style extends React.Component {
           ] : [],
           ...block.type === 'button' ? [
             {
-              selector: `table.section-${i}-block-${j} table.button`,styles: [
-                ...this._getProp('margin-top',`sections[${i}].blocks[${j}].padding_top`, 'px'),
-                ...this._getProp('margin-bottom',`sections[${i}].blocks[${j}].padding_bottom`, 'px')
+              selector: `table.section-${i}-block-${j} .large-12`,styles: [
+                ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px')
               ]
             }, {
               selector: `table.section-${i}-block-${j} table.button table td`,styles: [
                 ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`),
-                ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px'),
+                ...this._getProp('padding',`sections[${i}].blocks[${j}].button_padding`, 'px'),
                 ...this._getBorder('border', `sections[${i}].border`),
                 ...this._getProp('border-radius',`sections[${i}].blocks[${j}].border_radius`, 'px'),
                 ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`),
@@ -163,6 +166,10 @@ class Style extends React.Component {
             {
               selector: `table.section-${i}-block-${j}`, styles: [
                 ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`)
+              ]
+            },{
+              selector: `table.section-${i}-block-${j} table.social`, styles: [
+                ...this._getProp('margin',`sections[${i}].blocks[${j}].padding`, 'px')
               ]
             },{
               selector: `table.section-${i}-block-${j} table.social table`, styles: [
@@ -203,7 +210,7 @@ class Style extends React.Component {
     ]
     return styles.map(item => item.styles.length === 0 ? '' : `
       ${item.selector} {
-        ${ item.styles.map(style => `${style.prop}: ${style.value};`).join('\n') }
+        ${ item.styles.map(style => `${style.prop}: ${style.value} !important;`).join('\n') }
       }`).join('\n')
   }
 

@@ -62,7 +62,8 @@ class Image extends React.Component {
             {
               fields: [
                 { label: 'Image', name: 'image', type: ImageField, defaultValue: config.image },
-                { label: 'Caption', name: 'caption', type: 'htmlfield', defaultValue: config.caption }
+                { label: 'Caption', name: 'caption', type: 'htmlfield', defaultValue: config.caption },
+                { prompt: 'Show Caption', name: 'show_caption', type: 'checkbox', defaultValue: config.show_caption }
               ]
             }
           ]
@@ -73,16 +74,19 @@ class Image extends React.Component {
               fields: [
                 { label: 'Background', name: 'card_background_color', type: 'colorfield', defaultValue: config.card_background },
                 this._getBorder('card_border'),
-                { type: 'fields', fields: [
-                  { label: 'Padding Top', name: 'padding_top', type: 'dropdown', options: options.paddings, defaultValue: config.padding_top },
-                  { label: 'Padding Bottom', name: 'padding_bottom', type: 'dropdown', options: options.paddings, defaultValue: config.padding_bottom }
-                ] }
+                { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
               ]
             }, {
               label: 'Image Style',
               fields: [
                 this._getBorder('image_border'),
                 { label: 'Rounded Corners', name: 'border_radius', type: 'range', min: 0, max: 20, defaultValue: config.border_radius }
+              ]
+            }, {
+              label: 'Caption Style',
+              fields: [
+                { label: 'Background', name: 'caption_background_color', type: 'colorfield', defaultValue: config.caption_background_color },
+                { label: 'Caption Padding', name: 'caption_padding', type: 'dropdown', options: options.paddings, defaultValue: config.caption_padding }
               ]
             }, {
               label: 'Text Style',
@@ -142,12 +146,14 @@ class Image extends React.Component {
     return {
       images: null,
       caption: '<p>Messenger bag portland adaptogen food truck pabst, la croix pug vinyl mumblecore chartreuse. Art party schlitz portland, try-hard semiotics tumblr green juice gentrify letterpress tilde gochujang whatever helvetica tote bag. Locavore quinoa man braid cred selvage chambray. Post-ironic everyday carry kale chips umami woke polaroid, meggings organic pork belly air plant.</p>',
+      show_caption: true,
+      caption_background_color: null,
+      caption_padding: 0,
       card_background_color: null,
       card_border_width: null,
       card_border_style: null,
       card_border_color: null,
-      padding_top: 16,
-      padding_bottom: 16,
+      padding: 16,
       image_border_width: null,
       image_border_style: null,
       image_border_color: null,
@@ -159,7 +165,7 @@ class Image extends React.Component {
       alignment: null,
       line_height: null,
       letter_spacing: null,
-      image_position: 'bottom',
+      image_position: 'top',
       image_width: 6
     }
   }

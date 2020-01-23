@@ -1,4 +1,5 @@
 import FollowsField from '../../followsfield'
+import * as options from '../variables'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -66,7 +67,8 @@ class Follow extends React.Component {
           sections: [
             {
               fields: [
-                { label: 'Background', name: 'background_color', type: 'colorfield', defaultValue: config.background_color }
+                { label: 'Background', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
+                { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
               ]
             }, {
               label: 'Button Style',
@@ -97,6 +99,7 @@ class Follow extends React.Component {
   _getDefault() {
     return {
       align: 'center',
+      padding: 0,
       icon_style: 'outline',
       icon_color: 'dark',
       button_background_color: null,

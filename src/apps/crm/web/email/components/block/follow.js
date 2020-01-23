@@ -37,7 +37,7 @@ class Follow extends React.Component {
       </table>
     )
     return (
-      <table className={`row section-${ sectionIndex }-block-${ blockIndex }`}>
+      <table className={`row collapse section-${ sectionIndex }-block-${ blockIndex }`}>
         <tbody>
           <tr>
             <td className="small-12 large-12 columns first last">

@@ -32,7 +32,7 @@ class Button extends React.Component {
       </table>
     )
     return (
-      <table className={`row section-${ sectionIndex }-block-${ blockIndex } button-block block`}>
+      <table className={`row collapse section-${ sectionIndex }-block-${ blockIndex } button-block block`}>
         <tbody>
           <tr>
             <td className="large-12 first last columns">

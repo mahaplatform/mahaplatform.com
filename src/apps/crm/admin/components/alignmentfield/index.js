@@ -60,6 +60,7 @@ class AlignmentField extends React.Component {
   }
 
   _handleSet(selected) {
+    console.log('alignment', selected)
     this.setState({ selected })
   }
 

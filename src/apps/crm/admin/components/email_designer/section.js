@@ -5,6 +5,7 @@ import * as options from './variables'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
+import _ from 'lodash'
 
 class Section extends React.Component {
 
@@ -18,16 +19,33 @@ class Section extends React.Component {
     onUpdate: PropTypes.func
   }
 
-  _handleDone = this._handleDone.bind(this)
+  state = {
+    config: null
+  }
+
   _handleChange = this._handleChange.bind(this)
+  _handleDone = this._handleDone.bind(this)
 
   render() {
-    if(!this.props.config) return null
+    if(!this.state.config) return null
     return <Form { ...this._getForm() } />
   }
 
+  componentDidMount() {
+    const { config } = this.props
+    this.setState({ config })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { config } = this.state
+    if(!_.isEqual(config, prevState.config)) {
+      this.props.onUpdate(config)
+    }
+  }
+
   _getForm() {
-    const { config, index, label } = this.props
+    const { config } = this.state
+    const { index, label } = this.props
     return {
       title: label || `Section ${index + 1}`,
       onCancel: this._handleDone,
@@ -82,9 +100,13 @@ class Section extends React.Component {
     ] }
   }
 
-  _handleChange(data) {
-    const { index } = this.props
-    this.props.onUpdate(`sections[${index}]`, data)
+  _handleChange(config) {
+    this.setState({
+      config: {
+        ...this.state.config,
+        ...config
+      }
+    })
   }
 
   _handleDone() {

@@ -22,16 +22,21 @@ class Section extends React.Component {
   }
 
   _getComponent() {
-    const { config, label, index, onPop, onPush, onUpdate } = this.props
+    const { config, label, index, onPop, onPush } = this.props
     return {
       config,
       label,
       index,
       onPop,
       onPush,
-      onUpdate
+      onUpdate: this._handleUpdate.bind(this, `sections[${index}]`)
     }
   }
+
+  _handleUpdate(key, value) {
+    this.props.onUpdate(key, value)
+  }
+
 }
 
 const mapStateToProps = (state, props) => ({
