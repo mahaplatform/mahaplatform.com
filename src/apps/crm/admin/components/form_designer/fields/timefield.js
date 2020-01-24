@@ -3,7 +3,7 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class TextField extends React.Component {
+class TimeField extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
@@ -42,7 +42,7 @@ class TextField extends React.Component {
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Text Field',
+      title: 'Time Field',
       onChange: this._handleChange,
       onCancel: this._handleDone,
       cancelIcon: 'chevron-left',
@@ -87,4 +87,4 @@ class TextField extends React.Component {
 
 }
 
-export default TextField
+export default TimeField

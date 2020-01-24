@@ -42,7 +42,7 @@ class ContactField extends React.Component {
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Textfield',
+      title: 'Contact Field',
       onChange: this._handleChange,
       onCancel: this._handleDone,
       cancelIcon: 'chevron-left',
