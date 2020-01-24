@@ -1,5 +1,15 @@
+import ProductField from '../../embedded/components/form/fields/productfield'
+import Checkboxes from '../../embedded/components/form/fields/checkboxes'
+import RadioGroup from '../../embedded/components/form/fields/radiogroup'
+import PhoneField from '../../embedded/components/form/fields/phonefield'
+import FileField from '../../embedded/components/form/fields/filefield'
+import TextField from '../../embedded/components/form/fields/textfield'
+import DateField from '../../embedded/components/form/fields/datefield'
+import TimeField from '../../embedded/components/form/fields/timefield'
+import TextArea from '../../embedded/components/form/fields/textarea'
+import Dropdown from '../../embedded/components/form/fields/dropdown'
+import Text from '../../embedded/components/form/fields/text'
 import PropTypes from 'prop-types'
-import Control from './control'
 import React from 'react'
 
 class Field extends React.Component {
@@ -13,9 +23,15 @@ class Field extends React.Component {
   }
 
   render() {
+    const Component  = this._getComponent()
+    const { field } = this.props
+    const { label } = field
     return (
       <div className={ this._getClass() }>
-        <Control { ...this._getControl() } />
+        <div className={ this._getFieldClass() }>
+          { label && <label>{ label }</label> }
+          <Component { ...this._getField() } />
+        </div>
         <div className="block-highlight" />
         <div className="block-actions">
           <div className="block-spacer"></div>
@@ -41,11 +57,40 @@ class Field extends React.Component {
     return classes.join(' ')
   }
 
+  _getComponent() {
+    const { field } = this.props
+    if(field.type === 'checkboxes') return Checkboxes
+    if(field.type === 'datefield') return DateField
+    if(field.type === 'dropdown') return Dropdown
+    if(field.type === 'filefield') return FileField
+    if(field.type === 'phonefield') return PhoneField
+    if(field.type === 'productfield') return ProductField
+    if(field.type === 'radiogroup') return RadioGroup
+    if(field.type === 'text') return Text
+    if(field.type === 'textfield') return TextField
+    if(field.type === 'textarea') return TextArea
+    if(field.type === 'timefield') return TimeField
+  }
+
   _getControl() {
     const { field  } = this.props
     return {
       field
     }
+  }
+
+  _getField() {
+    const { field  } = this.props
+    return {
+      ...field
+    }
+  }
+
+  _getFieldClass() {
+    const { field } = this.props
+    const classes = ['field']
+    if(field.required) classes.push('required')
+    return classes.join(' ')
   }
 
   _handleAction(action) {

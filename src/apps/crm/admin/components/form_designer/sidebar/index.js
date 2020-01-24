@@ -46,14 +46,14 @@ class Sidebar extends React.Component {
 
   _getField() {
     const { active, config } = this.props
-    const key = `fields[${active.block}]`
+    const key = `fields[${active}]`
     return {
       config: _.get(config, key),
       onDone: this._handleDone,
       onUpdate: this._handleUpdate.bind(this, key)
     }
   }
-  
+
   _getPage() {
     const { cid, fields, onSave } = this.props
     return {

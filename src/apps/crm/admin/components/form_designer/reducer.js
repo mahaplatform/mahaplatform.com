@@ -39,7 +39,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         fields: [
           ...state.config.fields.reduce((fields, field, index) => [
             ...fields,
-            ...(index === action.block) ? [field,field] : [field]
+            ...(index === action.field) ? [field,field] : [field]
           ], [])
         ]
       }

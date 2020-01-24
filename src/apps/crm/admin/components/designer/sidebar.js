@@ -7,8 +7,6 @@ import _ from 'lodash'
 
 class Sidebar extends React.Component {
 
-  static contextTypes = {}
-
   static propTypes = {
     active: PropTypes.object,
     blocks: PropTypes.array,
@@ -23,8 +21,6 @@ class Sidebar extends React.Component {
     onSave: PropTypes.func,
     onUpdate: PropTypes.func
   }
-
-  static defaultProps = {}
 
   state = {
     cards: []

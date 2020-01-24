@@ -3,7 +3,7 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class Text extends React.Component {
+class TextField extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
@@ -42,7 +42,7 @@ class Text extends React.Component {
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Text',
+      title: 'Textfield',
       onChange: this._handleChange,
       onCancel: this._handleDone,
       cancelIcon: 'chevron-left',
@@ -53,7 +53,9 @@ class Text extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Text', name: 'text', type: 'htmlfield', defaultValue: config.text }
+            { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
+            { label: 'Placeholder', name: 'placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
+            { label: 'Required', name: 'required', type: 'checkbox', defaultValue: config.required }
           ]
         }
       ]
@@ -62,7 +64,9 @@ class Text extends React.Component {
 
   _getDefault() {
     return {
-      text: '<p>Messenger bag portland adaptogen food truck pabst, la croix pug vinyl mumblecore chartreuse. Art party schlitz portland, try-hard semiotics tumblr green juice gentrify letterpress tilde gochujang whatever helvetica tote bag. Locavore quinoa man braid cred selvage chambray. Post-ironic everyday carry kale chips umami woke polaroid, meggings organic pork belly air plant.</p>'
+      label: '',
+      placeholder: '',
+      required: false
     }
   }
 
@@ -81,4 +85,4 @@ class Text extends React.Component {
 
 }
 
-export default Text
+export default TextField

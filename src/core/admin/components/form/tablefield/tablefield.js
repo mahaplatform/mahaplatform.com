@@ -13,6 +13,7 @@ class TableField extends React.Component {
     rows: PropTypes.array,
     values: PropTypes.object,
     onAdd: PropTypes.func,
+    onChange: PropTypes.func,
     onSet: PropTypes.func,
     onReady: PropTypes.func,
     onRemove: PropTypes.func,
@@ -21,6 +22,7 @@ class TableField extends React.Component {
   }
 
   static defaultProps = {
+    onChange: () => {},
     onReady: () => {}
   }
 

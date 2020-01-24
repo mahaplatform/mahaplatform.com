@@ -4,7 +4,11 @@ import Sidebar from './sidebar'
 import Canvas from './canvas'
 import React from 'react'
 
+import CheckBoxes from './fields/checkboxes'
+import DropDown from './fields/dropdown'
+import RadioGroup from './fields/radiogroup'
 import Text from './fields/text'
+import TextField from './fields/textfield'
 
 class FormDesigner extends React.PureComponent {
 
@@ -82,10 +86,10 @@ class FormDesigner extends React.PureComponent {
   _getFields() {
     return [
       { label: 'Text', icon: 'align-left', type: 'text', component: Text },
-      { label: 'Textfield', icon: 'font', type: 'text' },
-      { label: 'Radio Group', icon: 'check-circle', type: 'radiogroup' },
-      { label: 'Checkboxes', icon: 'check-square', type: 'checkboxes' },
-      { label: 'Dropdown', icon: 'caret-square-o-down', type: 'dropdown' },
+      { label: 'Textfield', icon: 'font', type: 'textfield', component: TextField },
+      { label: 'Radio Group', icon: 'check-circle', type: 'radiogroup', component: RadioGroup },
+      { label: 'Checkboxes', icon: 'check-square', type: 'checkboxes', component: CheckBoxes },
+      { label: 'Dropdown', icon: 'caret-square-o-down', type: 'dropdown', component: DropDown },
       { label: 'File Upload', icon: 'cloud-upload', type: 'fileupload' },
       { label: 'Datefield', icon: 'calendar', type: 'datefield' },
       { label: 'Timefield', icon: 'clock-o', type: 'timefield' },

@@ -102,7 +102,7 @@ export const font_families = [
   { value: 'Verdana, Geneva, sans-serif', text: 'Verdana' }
 ]
 
-export const font_sizes = [8,9,10,11,12,14,18,24,30,36,48,60,72,96,108].map(value => ({
+export const font_sizes = [8,9,10,11,12,14,16,18,24,30,36,48,60,72,96,108].map(value => ({
   value,
   text: `${value}px`
 }))
