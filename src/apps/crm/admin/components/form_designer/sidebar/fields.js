@@ -1,25 +1,13 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const fields = [
-  { label: 'Text', icon: 'align-left', type: 'text' },
-  { label: 'Textfield', icon: 'font', type: 'text' },
-  { label: 'Radio Group', icon: 'check-circle', type: 'radiogroup' },
-  { label: 'Checkboxes', icon: 'check-square', type: 'checkboxes' },
-  { label: 'Dropdown', icon: 'caret-square-o-down', type: 'dropdown' },
-  { label: 'File Upload', icon: 'cloud-upload', type: 'fileupload' },
-  { label: 'Datefield', icon: 'calendar', type: 'datefield' },
-  { label: 'Timefield', icon: 'clock-o', type: 'timefield' },
-  { label: 'Productfield', icon: 'shopping-bag', type: 'productfield' },
-  { label: 'Paymentfield', icon: 'dollar', type: 'paymentfield' }
-]
-
 class Fields extends React.Component {
 
   static contextTypes = {}
 
   static propTypes = {
-    config: PropTypes.object
+    config: PropTypes.object,
+    fields: PropTypes.array
   }
 
   static defaultProps = {}
@@ -27,6 +15,7 @@ class Fields extends React.Component {
   _handleDragStart = this._handleDragStart.bind(this)
 
   render() {
+    const { fields } = this.props
     return (
       <div className="flowchart-designer-blocks">
         { fields.map((field, index) => (

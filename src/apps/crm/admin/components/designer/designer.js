@@ -74,7 +74,7 @@ class Designer extends React.Component {
   }
 
   _getCanvas() {
-    const { active, canvas, config, onClone, onEdit, onRemove, onUpdate } = this.props
+    const { active, canvas, config, onClone, onEdit, onRemove } = this.props
     return {
       active,
       canvas,
@@ -82,8 +82,7 @@ class Designer extends React.Component {
       onAdd: this._handleAdd,
       onClone,
       onEdit,
-      onRemove,
-      onUpdate
+      onRemove
     }
   }
 

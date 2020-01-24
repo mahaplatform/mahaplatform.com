@@ -16,6 +16,11 @@ class DateField extends React.Component {
     onValidate: PropTypes.func
   }
 
+  static defaultProps = {
+    onChange: () => {},
+    onReady: () => {}
+  }
+
   control = null
 
   state = {

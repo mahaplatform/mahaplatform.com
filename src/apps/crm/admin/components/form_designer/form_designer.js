@@ -4,18 +4,25 @@ import Sidebar from './sidebar'
 import Canvas from './canvas'
 import React from 'react'
 
+import Text from './fields/text'
+
 class FormDesigner extends React.PureComponent {
 
   static propTypes = {
+    active: PropTypes.number,
     changes: PropTypes.number,
     cid: PropTypes.string,
     config: PropTypes.object,
     defaultValue: PropTypes.object,
     sidebar: PropTypes.bool,
     onAdd: PropTypes.func,
+    onClone: PropTypes.func,
+    onEdit: PropTypes.func,
+    onRemove: PropTypes.func,
     onSave: PropTypes.func,
     onSet: PropTypes.func,
-    onToggle: PropTypes.func
+    onToggle: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   _handleAdd = this._handleAdd.bind(this)
@@ -51,10 +58,13 @@ class FormDesigner extends React.PureComponent {
   }
 
   _getCanvas() {
-    const { config } = this.props
+    const { config, onClone, onEdit, onRemove } = this.props
     return {
       config,
-      onAdd: this._handleAdd
+      onAdd: this._handleAdd,
+      onClone,
+      onEdit,
+      onRemove
     }
   }
 
@@ -69,12 +79,31 @@ class FormDesigner extends React.PureComponent {
     return {}
   }
 
+  _getFields() {
+    return [
+      { label: 'Text', icon: 'align-left', type: 'text', component: Text },
+      { label: 'Textfield', icon: 'font', type: 'text' },
+      { label: 'Radio Group', icon: 'check-circle', type: 'radiogroup' },
+      { label: 'Checkboxes', icon: 'check-square', type: 'checkboxes' },
+      { label: 'Dropdown', icon: 'caret-square-o-down', type: 'dropdown' },
+      { label: 'File Upload', icon: 'cloud-upload', type: 'fileupload' },
+      { label: 'Datefield', icon: 'calendar', type: 'datefield' },
+      { label: 'Timefield', icon: 'clock-o', type: 'timefield' },
+      { label: 'Productfield', icon: 'shopping-bag', type: 'productfield' },
+      { label: 'Paymentfield', icon: 'dollar', type: 'paymentfield' }
+    ]
+  }
+
   _getSidebar() {
-    const { cid, config, onSave } = this.props
+    const { active, cid, config, onEdit, onSave, onUpdate } = this.props
     return {
+      active,
       cid,
+      fields: this._getFields(),
       config,
-      onSave
+      onEdit,
+      onSave,
+      onUpdate
     }
   }
 

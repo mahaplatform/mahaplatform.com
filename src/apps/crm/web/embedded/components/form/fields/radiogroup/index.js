@@ -17,6 +17,11 @@ class RadioGroup extends React.Component {
     onValidate: PropTypes.func
   }
 
+  static defaultProps = {
+    onChange: () => {},
+    onReady: () => {}
+  }
+
   state = {
     selected: null
   }

@@ -15,6 +15,11 @@ class TimeField extends React.Component {
     onValidate: PropTypes.func
   }
 
+  static defaultProps = {
+    onChange: () => {},
+    onReady: () => {}
+  }
+
   state = {
     value: null
   }

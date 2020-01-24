@@ -1,3 +1,5 @@
+import _ from 'lodash'
+
 const INITIAL_STATE = {
   active: null,
   changes: 0,
@@ -22,11 +24,48 @@ const reducer = (state = INITIAL_STATE, action) => {
             ...(index === action.index) ? [action.field] : [],
             field
           ], []),
-          ...action.index === state.config.fields.length ? [action.block] : []
+          ...action.index === state.config.fields.length ? [action.field] : []
         ]
       }
     }
 
+  case 'CLONE':
+    return {
+      ...state,
+      active: null,
+      changes: state.changes + 1,
+      config: {
+        ...state.config,
+        fields: [
+          ...state.config.fields.reduce((fields, field, index) => [
+            ...fields,
+            ...(index === action.block) ? [field,field] : [field]
+          ], [])
+        ]
+      }
+    }
+
+  case 'EDIT':
+    return {
+      ...state,
+      changes: state.changes + 1,
+      active: action.field
+    }
+
+  case 'REMOVE':
+    return {
+      ...state,
+      active: null,
+      changes: state.changes + 1,
+      config: {
+        ...state.config,
+        fields: [
+          ...state.config.fields.filter((field, index) => {
+            return index !== action.field
+          })
+        ]
+      }
+    }
   case 'SET':
     return {
       ...state,
@@ -38,6 +77,13 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       sidebar: !state.sidebar
+    }
+
+  case 'UPDATE':
+    return {
+      ...state,
+      changes: state.changes + 1,
+      config: _.set(_.cloneDeep(state.config), action.key, action.value)
     }
 
   default:

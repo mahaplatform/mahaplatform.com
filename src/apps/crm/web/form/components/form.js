@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import Field from './field'
 
 class Form extends React.Component {
 
@@ -25,17 +26,38 @@ class Form extends React.Component {
     const { fields } = this.props.config
     return (
       <div { ...this._getDropZone() }>
-        { hovering &&
-          <div className="dropzone-highlight" data-label='Form' />
-        }
-        { (fields.length === 0 || (hovering && index === 0)) &&
-          <div className="dropzone-target">
-            Drop Block Here
+        <div className="maha-form">
+          <div className="maha-form-fields">
+            <div className="ui form">
+              { hovering &&
+                <div className="dropzone-highlight" data-label='Form' />
+              }
+              { (fields.length === 0 || (hovering && index === 0)) &&
+                <div className="dropzone-target">Drop Block Here</div>
+              }
+              { fields.map((field, fieldIndex) => (
+                <div key={`field_${fieldIndex}`} className="dropzone-block" data-index={ fieldIndex }>
+                  <Field { ...this._getField(field, fieldIndex) } />
+                  { hovering && fieldIndex + 1 === index &&
+                    <div className="dropzone-target">Drop Block Here</div>
+                  }
+                </div>
+              )) }
+            </div>
           </div>
-        }
-        Form
+        </div>
       </div>
     )
+  }
+
+  _getField(field, index) {
+    const { active, onAction } = this.props
+    return {
+      active,
+      field,
+      index,
+      onAction
+    }
   }
 
   _getDropZone() {

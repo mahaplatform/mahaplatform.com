@@ -7,6 +7,11 @@ class Recaptcha extends React.Component {
     onSuccess: PropTypes.func
   }
 
+  static defaultProps = {
+    onChange: () => {},
+    onReady: () => {}
+  }
+
   recaptcha = null
 
   state = {

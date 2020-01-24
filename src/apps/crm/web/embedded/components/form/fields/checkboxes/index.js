@@ -18,6 +18,11 @@ class Checkboxes extends React.Component {
     onValidate: PropTypes.func
   }
 
+  static defaultProps = {
+    onChange: () => {},
+    onReady: () => {}
+  }
+
   state = {
     selected: []
   }

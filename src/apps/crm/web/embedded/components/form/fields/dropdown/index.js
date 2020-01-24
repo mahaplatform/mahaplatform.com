@@ -17,6 +17,11 @@ class Dropdown extends React.Component {
     onValidate: PropTypes.func
   }
 
+  static defaultProps = {
+    onChange: () => {},
+    onReady: () => {}
+  }
+
   control = null
 
   state = {
@@ -139,7 +144,7 @@ class Dropdown extends React.Component {
       active: true
     })
   }
-  
+
   _handleValidate() {
     this.props.onValidate('valid')
   }

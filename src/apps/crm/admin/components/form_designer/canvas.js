@@ -14,7 +14,8 @@ class Canvas extends React.Component {
     onChange: PropTypes.func,
     onClone: PropTypes.func,
     onEdit: PropTypes.func,
-    onRemove: PropTypes.func
+    onRemove: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   static defaultProps = {}
@@ -76,12 +77,12 @@ class Canvas extends React.Component {
     this.props.onAdd(index, type)
   }
 
-  _handleClone({ field }) {
-    this.props.onClone(field)
+  _handleClone({ index }) {
+    this.props.onClone(index)
   }
 
-  _handleEdit({ field }) {
-    this.props.onEdit(field)
+  _handleEdit({ index }) {
+    this.props.onEdit(index)
   }
 
   _handleHighlight() {
@@ -89,8 +90,8 @@ class Canvas extends React.Component {
     this.pasteur.send('designer', 'highlight', { active })
   }
 
-  _handleRemove({ field }) {
-    this.props.onRemove(field)
+  _handleRemove({ index }) {
+    this.props.onRemove(index)
   }
 
   _handleRender() {

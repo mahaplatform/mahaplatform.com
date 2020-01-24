@@ -24,6 +24,11 @@ class ProductField extends React.Component {
     onValidate: PropTypes.func
   }
 
+  static defaultProps = {
+    onChange: () => {},
+    onReady: () => {}
+  }
+
   render() {
     const { products, subtotal, tax, total } = this.props
     return (

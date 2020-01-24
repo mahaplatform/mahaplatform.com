@@ -161,13 +161,6 @@ const reducer = (state = INITIAL_STATE, action) => {
       }
     }
 
-  case 'UPDATE':
-    return {
-      ...state,
-      changes: state.changes + 1,
-      config: _.set(_.cloneDeep(state.config), action.key, action.value)
-    }
-
   case 'SET':
     return {
       ...state,
@@ -179,6 +172,13 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       sidebar: !state.sidebar
+    }
+
+  case 'UPDATE':
+    return {
+      ...state,
+      changes: state.changes + 1,
+      config: _.set(_.cloneDeep(state.config), action.key, action.value)
     }
 
   default:

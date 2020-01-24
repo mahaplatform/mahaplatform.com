@@ -1,9 +1,3 @@
-export const update = (key, value) => ({
-  type: 'UPDATE',
-  key,
-  value
-})
-
 export const addSection = (section) => ({
   type: 'ADD_SECTION',
   section
@@ -52,4 +46,10 @@ export const set = (config) => ({
 
 export const toggle = () => ({
   type: 'TOGGLE'
+})
+
+export const update = (key, value) => ({
+  type: 'UPDATE',
+  key,
+  value
 })

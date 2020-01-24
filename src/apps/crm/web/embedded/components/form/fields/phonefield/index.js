@@ -15,7 +15,9 @@ class PhoneField extends React.Component {
   }
 
   static defaultProps = {
-    placeholder: 'Enter phone number'
+    placeholder: 'Enter phone number',
+    onChange: () => {},
+    onReady: () => {}
   }
 
   phone = null

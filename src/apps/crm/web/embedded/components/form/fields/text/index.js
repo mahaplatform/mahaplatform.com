@@ -12,6 +12,11 @@ class Text extends React.Component {
     onValidate: PropTypes.func
   }
 
+  static defaultProps = {
+    onChange: () => {},
+    onReady: () => {}
+  }
+
   render() {
     const { text } = this.props
     return (

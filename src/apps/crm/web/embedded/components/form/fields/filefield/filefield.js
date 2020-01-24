@@ -25,7 +25,9 @@ class FileField extends React.Component {
 
   static defaultProps = {
     multiple: false,
-    prompt: 'Choose File(s)'
+    prompt: 'Choose File(s)',
+    onChange: () => {},
+    onReady: () => {}
   }
 
   button = null

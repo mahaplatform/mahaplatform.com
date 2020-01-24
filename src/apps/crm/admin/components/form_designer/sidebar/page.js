@@ -10,6 +10,7 @@ class Page extends React.PureComponent {
   static propTypes = {
     cid: PropTypes.string,
     config: PropTypes.object,
+    fields: PropTypes.array,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
     onSave: PropTypes.func
@@ -35,9 +36,10 @@ class Page extends React.PureComponent {
   }
 
   _getFields() {
-    const { cid } = this.props
+    const { cid, fields } = this.props
     return {
-      cid
+      cid,
+      fields
     }
   }
 
