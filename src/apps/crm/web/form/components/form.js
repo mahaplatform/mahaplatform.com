@@ -29,17 +29,14 @@ class Form extends React.Component {
         <div className="maha-form">
           <div className="maha-form-fields">
             <div className="ui form">
-              { hovering &&
-                <div className="dropzone-highlight" data-label='Form' />
-              }
               { (fields.length === 0 || (hovering && index === 0)) &&
-                <div className="dropzone-target">Drop Block Here</div>
+                <div className="dropzone-target">Drop Field Here</div>
               }
               { fields.map((field, fieldIndex) => (
                 <div key={`field_${fieldIndex}`} className="dropzone-block" data-index={ fieldIndex }>
                   <Field { ...this._getField(field, fieldIndex) } />
                   { hovering && fieldIndex + 1 === index &&
-                    <div className="dropzone-target">Drop Block Here</div>
+                    <div className="dropzone-target">Drop Field Here</div>
                   }
                 </div>
               )) }

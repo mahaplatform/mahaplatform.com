@@ -1,59 +1,74 @@
 @import '../embedded/index.less';
-
-.dropzone {
-  margin: -4px -2px;
-  border: 2px solid transparent;
-  &.hover {
-    border-color: @teal;
-    position: relative;
-    &:after {
-      position: absolute;
-      padding: 5px;
-      font-size: 10px;
-      bottom: 0;
-      left: 0;
-      transform: translate(-2px, 100%);
-      background-color: @teal;
-      text-transform: uppercase;
-      color: white;
-      content: attr(data-label);
-    }
-  }
+div.dropzone {
+  position: relative;
   td.first {
     text-align: center;
   }
 }
-.dropzone-target {
+div.dropzone-highlight {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  border: 2px solid @teal;
+  &:after {
+    position: absolute;
+    padding: 5px;
+    font-size: 10px;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 100%);
+    background-color: @teal;
+    text-transform: uppercase;
+    color: white;
+    content: attr(data-label);
+    z-index: 10;
+  }
+}
+div.dropzone-target {
   border: 2px solid fadeout(@black, 90);
   background-color: fadeout(@black, 95);
   color:  fadeout(@black, 90);
   padding: 5px 0;
 }
-.dropzone-marker {
+div.dropzone-marker {
   background-color: blue;
   height: 1px;
 }
-.block {
+div.block {
   position: relative;
   cursor: pointer;
-  border: 2px solid transparent;
-  min-height: 30px;
-  &:active,
   &:hover {
-    border-color: @teal;
+    min-height: 30px;
+  }
+  &.active .block-highlight {
+    display: block;
+  }
+  &:hover .block-highlight {
+    display: block;
   }
   &:hover .block-actions {
     display: flex;
   }
 }
-.block-actions {
+div.block-highlight {
+  display: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  border: 2px solid @teal;
+}
+div.block-actions {
   display: none;
   position: absolute;
   top: 0;
   right: 0;
   background-color: @teal;
 }
-.block-action {
+div.block-action {
   font-size: 16px;
   padding: 3px 8px;
   line-height: 24px;
@@ -66,7 +81,4 @@
       color: @white;
     }
   }
-}
-.divider {
-  height: 0;
 }

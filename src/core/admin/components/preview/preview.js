@@ -3,7 +3,7 @@ import Header from './header'
 import React from 'react'
 import Body from './body'
 
-class Designer extends React.PureComponent {
+class Preview extends React.PureComponent {
 
   static contextTypes = {}
 
@@ -52,4 +52,4 @@ class Designer extends React.PureComponent {
 
 }
 
-export default Designer
+export default Preview

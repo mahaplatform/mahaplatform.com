@@ -18,7 +18,7 @@ const Details = ({ audits, form }) => {
 
 
   const confirmation = {
-    label: 'Design Confirmation Email',
+    label: 'Design Email',
     className: 'link',
     route: `/admin/crm/emails/${form.email.id}/design`
   }

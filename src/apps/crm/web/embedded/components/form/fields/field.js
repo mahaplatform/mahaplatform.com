@@ -32,11 +32,16 @@ class Field extends React.Component {
 
   render() {
     const { error, field } = this.props
-    const { label, type } = field
+    const { instructions, label, type } = field
     const { code } = this.state
     return (
       <div className={ this._getClass() }>
         { label && <label htmlFor={ code }>{ label }</label> }
+        { instructions &&
+          <div className="field-instructions">
+            { instructions }
+          </div>
+        }
         { type === 'checkboxes' && <Checkboxes { ...this._getField() } /> }
         { type === 'datefield' && <DateField { ...this._getField() } /> }
         { type === 'dropdown' && <Dropdown { ...this._getField() } /> }

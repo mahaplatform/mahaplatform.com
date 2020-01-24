@@ -9,7 +9,6 @@ class Checkboxes extends React.Component {
     defaultValue: PropTypes.array,
     name: PropTypes.string,
     options: PropTypes.array,
-    placeholder: PropTypes.string,
     required: PropTypes.bool,
     status: PropTypes.string,
     onChange: PropTypes.func,

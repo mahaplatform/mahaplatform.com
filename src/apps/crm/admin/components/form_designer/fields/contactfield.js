@@ -3,7 +3,7 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class TextField extends React.Component {
+class ContactField extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
@@ -55,7 +55,6 @@ class TextField extends React.Component {
           fields: [
             { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
             { label: 'Instructions', name: 'instructions', type: 'textarea', rows: 2, placeholder: 'Enter instructions', defaultValue: config.instructions },
-            { label: 'Placeholder', name: 'placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
             { label: 'Required', name: 'required', type: 'checkbox', defaultValue: config.required }
           ]
         }
@@ -67,7 +66,6 @@ class TextField extends React.Component {
     return {
       label: '',
       instructions: '',
-      placeholder: '',
       required: false
     }
   }
@@ -87,4 +85,4 @@ class TextField extends React.Component {
 
 }
 
-export default TextField
+export default ContactField

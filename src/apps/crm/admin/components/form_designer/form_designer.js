@@ -4,8 +4,10 @@ import Sidebar from './sidebar'
 import Canvas from './canvas'
 import React from 'react'
 
+import ContactField from './fields/contactfield'
 import CheckBoxes from './fields/checkboxes'
 import DropDown from './fields/dropdown'
+import FileField from './fields/filefield'
 import RadioGroup from './fields/radiogroup'
 import Text from './fields/text'
 import TextField from './fields/textfield'
@@ -62,8 +64,9 @@ class FormDesigner extends React.PureComponent {
   }
 
   _getCanvas() {
-    const { config, onClone, onEdit, onRemove } = this.props
+    const { active, config, onClone, onEdit, onRemove } = this.props
     return {
+      active,
       config,
       onAdd: this._handleAdd,
       onClone,
@@ -85,16 +88,17 @@ class FormDesigner extends React.PureComponent {
 
   _getFields() {
     return [
-      { label: 'Text', icon: 'align-left', type: 'text', component: Text },
+      { label: 'Contactfield', icon: 'user', type: 'contactfield', component: ContactField },
       { label: 'Textfield', icon: 'font', type: 'textfield', component: TextField },
+      { label: 'Dropdown', icon: 'caret-square-o-down', type: 'dropdown', component: DropDown },
       { label: 'Radio Group', icon: 'check-circle', type: 'radiogroup', component: RadioGroup },
       { label: 'Checkboxes', icon: 'check-square', type: 'checkboxes', component: CheckBoxes },
-      { label: 'Dropdown', icon: 'caret-square-o-down', type: 'dropdown', component: DropDown },
-      { label: 'File Upload', icon: 'cloud-upload', type: 'fileupload' },
+      { label: 'File Upload', icon: 'cloud-upload', type: 'filefield', component: FileField },
       { label: 'Datefield', icon: 'calendar', type: 'datefield' },
       { label: 'Timefield', icon: 'clock-o', type: 'timefield' },
       { label: 'Productfield', icon: 'shopping-bag', type: 'productfield' },
-      { label: 'Paymentfield', icon: 'dollar', type: 'paymentfield' }
+      { label: 'Paymentfield', icon: 'dollar', type: 'paymentfield' },
+      { label: 'Text', icon: 'align-left', type: 'text', component: Text }
     ]
   }
 

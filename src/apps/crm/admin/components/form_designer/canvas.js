@@ -27,7 +27,7 @@ class Canvas extends React.Component {
   _handleEdit = this._handleEdit.bind(this)
   _handleHighlight = this._handleHighlight.bind(this)
   _handleRemove = this._handleRemove.bind(this)
-  _handleRender = _.throttle(this._handleRender.bind(this), 250, { leading: true, trailing: false })
+  _handleRender = this._handleRender.bind(this)
 
   render() {
     return <iframe { ...this._getIframe() } />
@@ -53,7 +53,7 @@ class Canvas extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { active, config } = this.props
-    if(!_.isEqual(active, prevProps.active)) {
+    if(active !== prevProps.active) {
       this._handleHighlight()
       this._handleRender()
     }

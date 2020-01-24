@@ -23,13 +23,19 @@ class Field extends React.Component {
   }
 
   render() {
-    const Component  = this._getComponent()
     const { field } = this.props
-    const { label } = field
+    const { label, instructions } = field
+    if(Object.keys(field).length === 1) return null
+    const Component  = this._getComponent()
     return (
       <div className={ this._getClass() }>
         <div className={ this._getFieldClass() }>
           { label && <label>{ label }</label> }
+          { instructions &&
+            <div className="field-instructions">
+              { instructions }
+            </div>
+          }
           <Component { ...this._getField() } />
         </div>
         <div className="block-highlight" />
@@ -51,8 +57,8 @@ class Field extends React.Component {
 
   _getClass() {
     const { active, index } = this.props
-    const is_active = active && active === index
-    const classes=['block']
+    const is_active = active !== null && active === index
+    const classes = ['block']
     if(is_active) classes.push('active')
     return classes.join(' ')
   }
@@ -72,18 +78,9 @@ class Field extends React.Component {
     if(field.type === 'timefield') return TimeField
   }
 
-  _getControl() {
-    const { field  } = this.props
-    return {
-      field
-    }
-  }
-
   _getField() {
     const { field  } = this.props
-    return {
-      ...field
-    }
+    return field
   }
 
   _getFieldClass() {

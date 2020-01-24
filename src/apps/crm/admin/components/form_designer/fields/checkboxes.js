@@ -54,7 +54,7 @@ class CheckBoxes extends React.Component {
         {
           fields: [
             { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
-            { label: 'Placeholder', name: 'placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
+            { label: 'Instructions', name: 'instructions', type: 'textarea', rows: 2, placeholder: 'Enter instructions', defaultValue: config.instructions },
             { label: 'Required', name: 'required', type: 'checkbox', defaultValue: config.required },
             { label: 'Options', name: 'options', type: 'tablefield', columns: [
               { label: 'Value', key: 'value' },
@@ -69,7 +69,7 @@ class CheckBoxes extends React.Component {
   _getDefault() {
     return {
       label: '',
-      placeholder: '',
+      instructions: '',
       required: false,
       options: []
     }
