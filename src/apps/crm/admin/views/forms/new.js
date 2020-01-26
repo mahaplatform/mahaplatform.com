@@ -46,7 +46,7 @@ class New extends React.Component {
         }, {
           label: 'Confirmation Email',
           fields: [
-            { label: 'Template', name: 'template_id', type: 'lookup', placeholder: 'Choose a template', disabled: program_id === null, endpoint: `/api/admin/crm/programs/${program_id}/templates`, value: 'id', text: 'title', required: true },
+            { label: 'Template', name: 'template_id', type: 'lookup', placeholder: 'Choose a template', disabled: program_id === null, endpoint: `/api/admin/crm/programs/${program_id}/templates`, value: 'id', text: 'title' },
             { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', disabled: program_id === null, endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true },
             { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: user.email },
             { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true, defaultValue: 'Thank you for filling out our form' }

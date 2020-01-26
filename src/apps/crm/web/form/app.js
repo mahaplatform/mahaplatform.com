@@ -67,9 +67,7 @@ class App extends React.Component {
 
   _getStyle() {
     const { config } = this.state
-    return {
-      config: config.style
-    }
+    return { config }
   }
 
   _handleAction(action, data) {

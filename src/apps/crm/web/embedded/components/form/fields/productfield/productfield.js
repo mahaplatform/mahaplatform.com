@@ -18,7 +18,6 @@ class ProductField extends React.Component {
     total: PropTypes.number,
     value: PropTypes.array,
     onChange: PropTypes.func,
-    onFinalize: PropTypes.func,
     onReady: PropTypes.func,
     onSet: PropTypes.func,
     onValidate: PropTypes.func
@@ -83,7 +82,6 @@ class ProductField extends React.Component {
     }
     if(status !== prevProps.status) {
       if(status === 'validating') this._handleValidate()
-      if(status === 'finalizing') this._handleFinalize()
     }
   }
 
@@ -97,10 +95,6 @@ class ProductField extends React.Component {
 
   _handleChange() {
     this.props.onChange(this.props.value)
-  }
-
-  _handleFinalize() {
-    this.props.onFinalize(this.props.value)
   }
 
   _handleUpdate(code, e) {

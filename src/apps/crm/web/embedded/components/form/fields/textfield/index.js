@@ -11,7 +11,6 @@ class TextField extends React.Component {
     required: PropTypes.bool,
     status: PropTypes.string,
     onChange: PropTypes.func,
-    onFinalize: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func
   }
@@ -59,7 +58,6 @@ class TextField extends React.Component {
     }
     if(status !== prevProps.status) {
       if(status === 'validating') this._handleValidate()
-      if(status === 'finalizing') this._handleFinalize()
     }
   }
 
@@ -85,11 +83,7 @@ class TextField extends React.Component {
       value: ''
     })
   }
-
-  _handleFinalize() {
-    this.props.onFinalize(this.state.value)
-  }
-
+  
   _handleUpdate(e) {
     if(e.which == 13) return
     this.setState({

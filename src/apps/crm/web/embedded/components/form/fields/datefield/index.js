@@ -11,7 +11,6 @@ class DateField extends React.Component {
     required: PropTypes.bool,
     status: PropTypes.string,
     onChange: PropTypes.func,
-    onFinalize: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func
   }
@@ -83,7 +82,6 @@ class DateField extends React.Component {
     }
     if(status !== prevProps.status) {
       if(status === 'validating') this._handleValidate()
-      if(status === 'finalizing') this._handleFinalize()
     }
   }
 
@@ -132,10 +130,6 @@ class DateField extends React.Component {
     this.setState({
       value: null
     })
-  }
-
-  _handleFinalize() {
-    this.props.onFinalize(this.state.value)
   }
 
   _handleValidate() {

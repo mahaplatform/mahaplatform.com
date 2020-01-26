@@ -34,7 +34,8 @@ const createRoute = async (req, res) => {
     status: 'draft',
     code,
     program_id: program.get('id'),
-    ...whitelist(req.body, ['title'])
+    ...whitelist(req.body, ['title']),
+    config: { fields: [] }
   }).save(null, {
     transacting: req.trx
   })
@@ -44,12 +45,12 @@ const createRoute = async (req, res) => {
     auditable: form
   })
 
-  const template = await Template.query(qb => {
+  const template = req.body.template_id ? await Template.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('id', req.body.template_id)
   }).fetch({
     transacting: req.trx
-  })
+  }) : null
 
   const emailCode = await generateCode(req, {
     table: 'crm_emails'
@@ -63,7 +64,7 @@ const createRoute = async (req, res) => {
     code: emailCode,
     subject: req.body.subject,
     reply_to: req.body.reply_to,
-    config: template.get('config')
+    config: template ? template.get('config') : { sections: [] }
   }).save(null, {
     transacting: req.trx
   })

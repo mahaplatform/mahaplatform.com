@@ -13,7 +13,8 @@ class Page extends React.PureComponent {
     fields: PropTypes.array,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
-    onSave: PropTypes.func
+    onSave: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   _handleSave = this._handleSave.bind(this)
@@ -27,11 +28,12 @@ class Page extends React.PureComponent {
   }
 
   _getDesign() {
-    const { cid, onPop, onPush } = this.props
+    const { cid, onPop, onPush, onUpdate } = this.props
     return {
       cid,
       onPop,
-      onPush
+      onPush,
+      onUpdate
     }
   }
 

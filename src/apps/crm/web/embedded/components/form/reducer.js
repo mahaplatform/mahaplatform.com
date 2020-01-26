@@ -37,19 +37,6 @@ const reducer = (state = INITIAL_STATE, action) => {
       human: true
     }
 
-  case 'SET_FINALIZED':
-    return {
-      ...state,
-      data: {
-        ...state.data,
-        [action.name]: action.value
-      },
-      status: {
-        ...state.status,
-        [action.name]: 'finalized'
-      }
-    }
-
   case 'SET_STATUS':
     return {
       ...state,

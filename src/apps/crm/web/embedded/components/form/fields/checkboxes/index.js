@@ -13,7 +13,6 @@ class Checkboxes extends React.Component {
     status: PropTypes.string,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
-    onFinalize: PropTypes.func,
     onValidate: PropTypes.func
   }
 
@@ -62,7 +61,6 @@ class Checkboxes extends React.Component {
     }
     if(status !== prevProps.status) {
       if(status === 'validating') this._handleValidate()
-      if(status === 'finalizing') this._handleFinalize()
     }
   }
 
@@ -82,10 +80,6 @@ class Checkboxes extends React.Component {
         ..._.xor(selected, [option.value])
       ]
     })
-  }
-
-  _handleFinalize() {
-    this.props.onFinalize(this.state.selected)
   }
 
   _handleValidate() {

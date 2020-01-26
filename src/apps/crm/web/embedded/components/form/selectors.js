@@ -23,22 +23,6 @@ export const requiresPayment = createSelector(
   }) !== undefined
 )
 
-
-export const finalized = createSelector(
-  data,
-  (data) => Object.keys(data).reduce((finalized, key) => ({
-    ...finalized,
-    ...!_.isNil(data[key]) ? { [key]: data[key] } : {}
-  }), {})
-)
-
-export const isFinalized = createSelector(
-  fields,
-  (fields) => fields.find(field => {
-    return field.status !== 'finalized'
-  }) === undefined
-)
-
 export const isReady = createSelector(
   fields,
   (fields) => fields.find(field => {

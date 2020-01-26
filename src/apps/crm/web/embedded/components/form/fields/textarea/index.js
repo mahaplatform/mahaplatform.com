@@ -11,7 +11,6 @@ class TextArea extends React.Component {
     required: PropTypes.bool,
     status: PropTypes.string,
     onChange: PropTypes.func,
-    onFinalize: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func
   }
@@ -55,7 +54,6 @@ class TextArea extends React.Component {
     }
     if(status !== prevProps.status) {
       if(status === 'validating') this._handleValidate()
-      if(status === 'finalizing') this._handleFinalize()
     }
   }
 
@@ -78,10 +76,6 @@ class TextArea extends React.Component {
   _handleKeyUp(e) {
     this.input.style.height = 'auto'
     this.input.style.height = this.input.scrollHeight + this.offset + 'px'
-  }
-
-  _handleFinalize() {
-    this.props.onFinalize(this.state.value)
   }
 
   _handleUpdate(e) {

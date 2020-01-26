@@ -12,7 +12,6 @@ class RadioGroup extends React.Component {
     required: PropTypes.bool,
     status: PropTypes.string,
     onChange: PropTypes.func,
-    onFinalize: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func
   }
@@ -62,7 +61,6 @@ class RadioGroup extends React.Component {
     }
     if(status !== prevProps.status) {
       if(status === 'validating') this._handleValidate()
-      if(status === 'finalizing') this._handleFinalize()
     }
   }
 
@@ -79,10 +77,6 @@ class RadioGroup extends React.Component {
     this.setState({
       selected: option.value
     })
-  }
-
-  _handleFinalize() {
-    this.props.onFinalize(this.state.selected)
   }
 
   _handleValidate() {

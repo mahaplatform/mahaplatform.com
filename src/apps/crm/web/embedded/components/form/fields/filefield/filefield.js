@@ -17,7 +17,6 @@ class FileField extends React.Component {
     onAddFile: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
-    onFinalize: PropTypes.func,
     onRemoveFile: PropTypes.func,
     onUpdateFile: PropTypes.func,
     onValidate: PropTypes.func
@@ -91,7 +90,6 @@ class FileField extends React.Component {
     }
     if(status !== prevProps.status) {
       if(status === 'validating') this._handleValidate()
-      if(status === 'finalizing') this._handleFinalize()
     }
   }
 
@@ -122,10 +120,6 @@ class FileField extends React.Component {
 
   _handleChange() {
     this.props.onChange(this.props.files)
-  }
-
-  _handleFinalize() {
-    this.props.onFinalize(this.props.files)
   }
 
   _handleValidate() {

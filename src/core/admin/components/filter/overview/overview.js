@@ -105,7 +105,7 @@ class Overview extends React.Component {
 
   _getPanel() {
     return {
-      title: 'Filter Results',
+      title: 'Filters',
       color: 'grey'
     }
   }

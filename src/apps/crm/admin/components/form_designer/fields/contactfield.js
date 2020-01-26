@@ -1,5 +1,6 @@
+import ContactFieldItem from '../../contactfield'
+import { Container, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
@@ -7,6 +8,7 @@ class ContactField extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
+    fields: PropTypes.object,
     onDone: PropTypes.func,
     onUpdate: PropTypes.func
   }
@@ -40,6 +42,7 @@ class ContactField extends React.Component {
   }
 
   _getForm() {
+    const { fields } = this.props
     const { config } = this.state
     return {
       title: 'Contact Field',
@@ -55,7 +58,8 @@ class ContactField extends React.Component {
           fields: [
             { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
             { label: 'Instructions', name: 'instructions', type: 'textarea', rows: 2, placeholder: 'Enter instructions', defaultValue: config.instructions },
-            { label: 'Required', name: 'required', type: 'checkbox', defaultValue: config.required }
+            { label: 'Required', name: 'required', type: 'checkbox', defaultValue: config.required },
+            { label: 'Field', name: 'field_id', type: ContactFieldItem, options: fields, value: 'id', text: 'label', placeholder: 'Choose a field', defaultValue: config.field_id }
           ]
         }
       ]
@@ -85,4 +89,8 @@ class ContactField extends React.Component {
 
 }
 
-export default ContactField
+const mapResources = (props, context) => ({
+  fields: '/api/admin/crm/forms/fields'
+})
+
+export default Container(mapResources)(ContactField)

@@ -12,7 +12,6 @@ class Dropdown extends React.Component {
     required: PropTypes.bool,
     status: PropTypes.string,
     onChange: PropTypes.func,
-    onFinalize: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func
   }
@@ -79,7 +78,6 @@ class Dropdown extends React.Component {
     }
     if(status !== prevProps.status) {
       if(status === 'validating') this._handleValidate()
-      if(status === 'finalizing') this._handleFinalize()
     }
   }
 
@@ -128,10 +126,6 @@ class Dropdown extends React.Component {
     this.setState({
       active: false
     })
-  }
-
-  _handleFinalize() {
-    this.props.onFinalize('paymentToken')
   }
 
   _handleOpen(e) {

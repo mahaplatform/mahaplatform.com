@@ -60,6 +60,7 @@ class Sidebar extends React.Component {
       cid,
       fields,
       onSave,
+      onUpdate: this._handleUpdate.bind(this, 'page'),
       onPop: this._handlePop,
       onPush: this._handlePush
     }

@@ -281,6 +281,9 @@ const processor = async (job, trx) => {
     team: imp.related('team')
   }
 
+  const addresses = []
+  const photos = []
+
   await Promise.mapSeries(items, async (item, index) => {
 
     const values = item.get('values')
@@ -310,7 +313,7 @@ const processor = async (job, trx) => {
       })
 
       if(photo && (_.isNil(contact.get('photo_id')) || strategy === 'overwrite')) {
-        await ContactImportPhotoQueue.enqueue(req, {
+        photos.push({
           contact_id: contact.get('id'),
           user_id: imp.get('user_id'),
           url: photo
@@ -340,7 +343,7 @@ const processor = async (job, trx) => {
           mailing_addresses
         })
         await Promise.map(addresses, async (address) => {
-          await ContactImportGeocodeQueue.enqueue(req, {
+          addresses.push({
             id: address.get('id')
           })
         })
@@ -428,6 +431,14 @@ const processor = async (job, trx) => {
   }, {
     patch: true,
     transacting: trx
+  })
+
+  await Promise.map(addresses, async(job) => {
+    await ContactImportGeocodeQueue.enqueue(req, job)
+  })
+
+  await Promise.map(photos, async(job) => {
+    await ContactImportPhotoQueue.enqueue(req, job)
   })
 
   const _import = await Import.query(qb => {

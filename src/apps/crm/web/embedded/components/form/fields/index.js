@@ -20,7 +20,6 @@ class Fields extends React.Component {
     onChange: PropTypes.func,
     onSave: PropTypes.func,
     onSetAllStatus: PropTypes.func,
-    onSetFinalized: PropTypes.func,
     onSetHuman: PropTypes.func,
     onSetStatus: PropTypes.func,
     onSetValidate: PropTypes.func
@@ -29,15 +28,13 @@ class Fields extends React.Component {
   _handleValidate = this._handleValidate.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
 
-
-
   render() {
     const { fields, requiresPayment } = this.props
     return (
       <div className="maha-form-fields">
         <div className="ui form">
           { fields.map((field, index) => (
-            <Field key={`field_${index}`} { ...this._getField(field) } />
+            <Field key={`field_${index}`} { ...this._getField(field, index) } />
           )) }
           <Recaptcha { ...this._getRecaptcha() } />
           <button { ...this._getButton()}>
@@ -56,16 +53,16 @@ class Fields extends React.Component {
     }
   }
 
-  _getField(field) {
+  _getField(field,index) {
     const { errors, status } = this.props
     return {
       field,
+      index,
       error: errors[field.name],
       status: status[field.name],
       onChange: this._handleChange.bind(this, field.name),
       onReady: this.onSetStatus.bind(this, field.name, 'ready'),
-      onValidate: this._handleSetValidate.bind(this, field.name),
-      onFinalize: this._handleSetFinalized.bind(this, field.name)
+      onValidate: this._handleSetValidate.bind(this, field.name)
     }
   }
 
@@ -84,10 +81,6 @@ class Fields extends React.Component {
     this.props.onSetStatus(name, status)
   }
 
-  _handleSetFinalized(name, value) {
-    this.props.onSetFinalized(name, value)
-  }
-
   _handleSetValidate(name, status, error) {
     this.props.onSetValidate(name, status, error)
   }
@@ -98,7 +91,6 @@ class Fields extends React.Component {
 
   _handleSubmit() {
     const { finalized } = this.props
-    console.log('submit', finalized)
   }
 
 }

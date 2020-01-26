@@ -65,6 +65,7 @@ class Field extends React.Component {
 
   _getComponent() {
     const { field } = this.props
+    if(field.type === 'contactfield') return <div>contactfield</div>
     if(field.type === 'checkboxes') return Checkboxes
     if(field.type === 'datefield') return DateField
     if(field.type === 'dropdown') return Dropdown
@@ -84,8 +85,8 @@ class Field extends React.Component {
   }
 
   _getFieldClass() {
-    const { field } = this.props
-    const classes = ['field']
+    const { field, index } = this.props
+    const classes = ['field',`field-${index}`]
     if(field.required) classes.push('required')
     return classes.join(' ')
   }

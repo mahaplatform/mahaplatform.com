@@ -1,3 +1,7 @@
+import FontFamilyToken from '../../../tokens/fontfamily'
+import AlignmentField from '../../alignmentfield'
+import FormatField from '../../formatfield'
+import * as options from '../variables'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -66,6 +70,23 @@ class Design extends React.Component {
             { label: 'Padding', name: 'footer_body_padding', type: 'lookup', options: paddings, defaultValue: config.footer_body_padding },
             { label: 'Text', name: 'footer_text', type: 'htmlfield', defaultValue: config.footer_text }
           ]
+        }, {
+          label: 'Text Style',
+          fields: [
+            { label: 'Font Family', name: 'font_family', type: 'dropdown', options: options.font_families, defaultValue: config.font_family, format: FontFamilyToken },
+            { type: 'fields', fields: [
+              { label: 'Font Size', name: 'font_size', type: 'dropdown', options: options.font_sizes, defaultValue: config.font_size },
+              { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color }
+            ] },
+            { type: 'fields', fields: [
+              { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format },
+              { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.text_align }
+            ] },
+            { type: 'fields', fields: [
+              { label: 'Line Height', name: 'line_height', type: 'dropdown', options: options.line_heights, defaultValue: config.line_height },
+              { label: 'Letter Spacing', name: 'letter_spacing', type: 'dropdown', options: options.letter_spacing, defaultValue: config.letter_spacing }
+            ] }
+          ]
         }
       ]
     }
@@ -76,7 +97,7 @@ class Design extends React.Component {
   }
 
   _handleChange(data) {
-    this.props.onUpdate('page', data)
+    this.props.onUpdate(data)
   }
 
 }

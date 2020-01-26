@@ -49,12 +49,6 @@ export const setAllStatus = (status) => ({
   status
 })
 
-export const setFinalized = (name, value) => ({
-  type: 'SET_FINALIZED',
-  name,
-  value
-})
-
 export const setValidate = (name, status, error) => ({
   type: 'SET_VALIDATE',
   name,

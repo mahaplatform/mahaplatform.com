@@ -7,7 +7,6 @@ class Text extends React.Component {
     code: PropTypes.string,
     status: PropTypes.string,
     text: PropTypes.string,
-    onFinalize: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func
   }
@@ -30,10 +29,9 @@ class Text extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { status, onFinalize, onValidate } = this.props
+    const { status, onValidate } = this.props
     if(status !== prevProps.status) {
       if(status === 'validating') onValidate('valid')
-      if(status === 'finalizing') onFinalize(null)
     }
   }
 

@@ -19,10 +19,10 @@ class Field extends React.Component {
     code: PropTypes.string,
     error: PropTypes.string,
     field: PropTypes.object,
+    index: PropTypes.number,
     status: PropTypes.string,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
-    onFinalize: PropTypes.func,
     onValidate: PropTypes.func
   }
 
@@ -69,15 +69,15 @@ class Field extends React.Component {
   }
 
   _getClass() {
-    const { error, field } = this.props
-    const classes = ['field']
+    const { error, field, index } = this.props
+    const classes = ['field',`field-${index}`]
     if(field.required) classes.push('required')
     if(error) classes.push('error')
     return classes.join(' ')
   }
 
   _getField() {
-    const { field, status, onChange, onReady, onFinalize, onValidate } = this.props
+    const { field, status, onChange, onReady, onValidate } = this.props
     const { code } = this.state
     return {
       code,
@@ -85,7 +85,6 @@ class Field extends React.Component {
       status,
       onChange,
       onReady,
-      onFinalize,
       onValidate
     }
   }

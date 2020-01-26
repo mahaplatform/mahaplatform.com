@@ -17,12 +17,14 @@ class App extends React.Component {
   _handleResize = this._handleResize.bind(this)
 
   render() {
-    return [
-      <Style key="style" { ...this._getStyle() } />,
+    return (
       <Root key="root">
-        <Form { ...this._getForm() } />
+        <div>
+          <Style key="style" { ...this._getStyle() } />,
+          <Form { ...this._getForm() } />
+        </div>
       </Root>
-    ]
+    )
   }
 
   componentDidMount() {
@@ -49,16 +51,12 @@ class App extends React.Component {
 
   _getForm() {
     const { config } = window
-    return {
-      config
-    }
+    return { config }
   }
 
   _getStyle() {
     const { config } = window
-    return {
-      config: config.style
-    }
+    return { config }
   }
 
   _handleResize() {
