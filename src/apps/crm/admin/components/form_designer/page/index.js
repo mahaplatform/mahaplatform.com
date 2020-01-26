@@ -1,6 +1,7 @@
 import { Menu, ModalPanel } from 'maha-admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import Settings from './settings'
 import Design from './design'
 import Fields from './fields'
 import React from 'react'
@@ -9,9 +10,12 @@ class Page extends React.PureComponent {
 
   static propTypes = {
     cid: PropTypes.string,
+    config: PropTypes.object,
+    fields: PropTypes.array,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
-    onSave: PropTypes.func
+    onSave: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   _handleSave = this._handleSave.bind(this)
@@ -25,18 +29,20 @@ class Page extends React.PureComponent {
   }
 
   _getDesign() {
-    const { cid, onPop, onPush } = this.props
+    const { cid, onPop, onPush, onUpdate } = this.props
     return {
       cid,
       onPop,
-      onPush
+      onPush,
+      onUpdate
     }
   }
 
   _getFields() {
-    const { cid } = this.props
+    const { cid, fields } = this.props
     return {
-      cid
+      cid,
+      fields
     }
   }
 
@@ -44,7 +50,8 @@ class Page extends React.PureComponent {
     return {
       items: [
         { label: 'Fields', component: <Fields { ...this._getFields() } /> },
-        { label: 'Design', component: <Design { ...this._getDesign() } /> }
+        { label: 'Design', component: <Design { ...this._getDesign() } /> },
+        { label: 'Settings', component: <Settings { ...this._getSettings() } /> }
       ]
     }
   }
@@ -55,6 +62,16 @@ class Page extends React.PureComponent {
       buttons: [
         { label: 'Save', color: 'red', handler: this._handleSave }
       ]
+    }
+  }
+
+  _getSettings() {
+    const { cid, onPop, onPush, onUpdate } = this.props
+    return {
+      cid,
+      onPop,
+      onPush,
+      onUpdate
     }
   }
 

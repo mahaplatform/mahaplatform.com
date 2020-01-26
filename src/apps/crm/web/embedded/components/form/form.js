@@ -29,6 +29,7 @@ class Form extends React.Component {
   }
 
   _handlePayment = this._handlePayment.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     return (
@@ -42,12 +43,9 @@ class Form extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { isFinalized, isValid, isReady } = this.props
-    if(isFinalized !== prevProps.isFinalized && isFinalized) {
-      this._handleSubmit()
-    }
+    const { isValid, isReady } = this.props
     if(isValid !== prevProps.isValid && isValid) {
-      this.props.onSetAllStatus('finalizing')
+      this._handleSubmit()
     }
     if(isReady !== prevProps.isReady && isReady) {
       console.log('ready')
@@ -83,15 +81,22 @@ class Form extends React.Component {
   }
 
   _getFooter() {
-    return this.props.config.footer
+    const { config } = this.props
+    return { config }
   }
 
   _getHeader() {
-    return this.props.config.header
+    const { config } = this.props
+    return { config }
   }
 
   _handlePayment(method, payment) {
     this.props.onPay({ method, payment })
+  }
+
+  _handleSubmit() {
+    const { data } = this.props
+    console.log('submitting ', data)
   }
 
 }

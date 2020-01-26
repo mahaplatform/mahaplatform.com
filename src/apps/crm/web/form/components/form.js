@@ -1,13 +1,15 @@
+import Recaptcha from '../../embedded/components/form/fields/recaptcha'
+import Header from '../../embedded/components/form/header'
+import Footer from '../../embedded/components/form/footer'
 import PropTypes from 'prop-types'
-import React from 'react'
 import Field from './field'
+import React from 'react'
 
 class Form extends React.Component {
 
   static propTypes = {
     active: PropTypes.object,
     config: PropTypes.object,
-    children: PropTypes.any,
     onAction: PropTypes.func
   }
 
@@ -23,10 +25,14 @@ class Form extends React.Component {
 
   render() {
     const { hovering, index } = this.state
-    const { fields } = this.props.config
+    const { config } = this.props
+    const { settings, fields } = config
     return (
       <div { ...this._getDropZone() }>
         <div className="maha-form">
+          { config.header &&
+            <Header { ...this._getHeader() } />
+          }
           <div className="maha-form-fields">
             <div className="ui form">
               { (fields.length === 0 || (hovering && index === 0)) &&
@@ -40,11 +46,35 @@ class Form extends React.Component {
                   }
                 </div>
               )) }
+              { settings.captcha &&
+                <Recaptcha />
+              }
+              <button { ...this._getButton()}>
+                { settings.submit_text }
+              </button>
             </div>
           </div>
+          { config.footer &&
+            <Footer { ...this._getFooter() } />
+          }
         </div>
       </div>
     )
+  }
+
+  _getButton() {
+    return {
+      className: 'ui blue button'
+    }
+  }
+
+  _getDropZone() {
+    return {
+      className: 'dropzone',
+      onDragEnter: this._handleDrag.bind(this, 'enter'),
+      onDragOver: this._handleDrag.bind(this, 'over'),
+      onDrop: this._handleDrop
+    }
   }
 
   _getField(field, index) {
@@ -57,13 +87,14 @@ class Form extends React.Component {
     }
   }
 
-  _getDropZone() {
-    return {
-      className: 'dropzone',
-      onDragEnter: this._handleDrag.bind(this, 'enter'),
-      onDragOver: this._handleDrag.bind(this, 'over'),
-      onDrop: this._handleDrop
-    }
+  _getFooter() {
+    const { config } = this.props
+    return { config }
+  }
+
+  _getHeader() {
+    const { config } = this.props
+    return { config }
   }
 
   _getMiddle(el) {

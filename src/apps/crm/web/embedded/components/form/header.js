@@ -4,17 +4,17 @@ import React from 'react'
 class Header extends React.Component {
 
   static propTypes = {
-    image: PropTypes.string,
-    text: PropTypes.string
+    config: PropTypes.object
   }
 
   render() {
-    const { image, text } = this.props
+    const { config } = this.props
+    const { image, text } = config.header
     return (
       <div className="maha-form-header">
         { image &&
           <div className="maha-form-header-image">
-            <img src={ image } />
+            <img src={`/imagecache/w=770/${image}`} />
           </div>
         }
         { text &&

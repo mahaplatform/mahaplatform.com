@@ -4,18 +4,6 @@ import Sidebar from './sidebar'
 import Canvas from './canvas'
 import React from 'react'
 
-import CheckBoxes from './fields/checkboxes'
-import ContactField from './fields/contactfield'
-import DateField from './fields/datefield'
-import DropDown from './fields/dropdown'
-import FileField from './fields/filefield'
-import RadioGroup from './fields/radiogroup'
-import ProductField from './fields/productfield'
-import PaymentField from './fields/paymentfield'
-import Text from './fields/text'
-import TextField from './fields/textfield'
-import TimeField from './fields/timefield'
-
 class FormDesigner extends React.PureComponent {
 
   static propTypes = {
@@ -87,23 +75,14 @@ class FormDesigner extends React.PureComponent {
   }
 
   _getDefault() {
-    return {}
-  }
-
-  _getFields() {
-    return [
-      { label: 'Contactfield', icon: 'user', type: 'contactfield', component: ContactField },
-      { label: 'Textfield', icon: 'font', type: 'textfield', component: TextField },
-      { label: 'Dropdown', icon: 'caret-square-o-down', type: 'dropdown', component: DropDown },
-      { label: 'Radio Group', icon: 'check-circle', type: 'radiogroup', component: RadioGroup },
-      { label: 'Checkboxes', icon: 'check-square', type: 'checkboxes', component: CheckBoxes },
-      { label: 'File Upload', icon: 'cloud-upload', type: 'filefield', component: FileField },
-      { label: 'Datefield', icon: 'calendar', type: 'datefield', component: DateField },
-      { label: 'Timefield', icon: 'clock-o', type: 'timefield', component: TimeField },
-      { label: 'Productfield', icon: 'shopping-bag', type: 'productfield', component: ProductField },
-      { label: 'Paymentfield', icon: 'dollar', type: 'paymentfield', component: PaymentField },
-      { label: 'Text', icon: 'align-left', type: 'text', component: Text }
-    ]
+    return {
+      page: null,
+      header: null,
+      body: null,
+      footer: null,
+      settings: null,
+      fields: []
+    }
   }
 
   _getSidebar() {
@@ -111,7 +90,6 @@ class FormDesigner extends React.PureComponent {
     return {
       active,
       cid,
-      fields: this._getFields(),
       config,
       onEdit,
       onSave,

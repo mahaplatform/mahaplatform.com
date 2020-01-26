@@ -8,7 +8,7 @@ class MoneyField extends React.Component {
   static propTypes = {
     defaultValue: PropTypes.oneOfType([
       PropTypes.string,
-      PropTypes.numebr
+      PropTypes.number
     ]),
     placeholder: PropTypes.string,
     tabIndex: PropTypes.number,

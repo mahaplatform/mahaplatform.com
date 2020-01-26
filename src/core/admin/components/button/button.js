@@ -25,7 +25,7 @@ class Button extends React.Component {
     location: PropTypes.string,
     handler: PropTypes.func,
     icon: PropTypes.string,
-    label: PropTypes.string,
+    label: PropTypes.any,
     link: PropTypes.string,
     mobile: PropTypes.bool,
     modal: PropTypes.oneOfType([

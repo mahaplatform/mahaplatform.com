@@ -44,7 +44,6 @@ class Style extends React.Component {
   }
 
   _getStyle() {
-    console.log(this.props)
     const { config } = this.props
     const { fields } = config
     const styles = [
@@ -69,11 +68,27 @@ class Style extends React.Component {
       ] },
       { selector: '.maha-form-header', styles: [
         ...this._getProp('background-color', 'header.background_color'),
-        ...this._getProp('color', 'header.color')
+        ...this._getProp('font-family','header.font_family'),
+        ...this._getProp('font-size','header.font_size', 'px'),
+        ...this._getFormat('font-weight', 'bold', 'header.format', 'normal'),
+        ...this._getFormat('font-style', 'italic', 'header.format'),
+        ...this._getFormat('text-decoration', 'underline', 'header.format'),
+        ...this._getProp('color','header.color'),
+        ...this._getProp('text-align','header.text_align'),
+        ...this._getProp('line-height','header.line_height'),
+        ...this._getProp('letter-spacing','header.letter_spacing', 'px')
       ] },
       { selector: '.maha-form-footer', styles: [
         ...this._getProp('background-color', 'footer.background_color'),
-        ...this._getProp('color', 'footer.color')
+        ...this._getProp('font-family','footer.font_family'),
+        ...this._getProp('font-size','footer.font_size', 'px'),
+        ...this._getFormat('font-weight', 'bold', 'footer.format', 'normal'),
+        ...this._getFormat('font-style', 'italic', 'footer.format'),
+        ...this._getFormat('text-decoration', 'underline', 'footer.format'),
+        ...this._getProp('color','footer.color'),
+        ...this._getProp('text-align','footer.text_align'),
+        ...this._getProp('line-height','footer.line_height'),
+        ...this._getProp('letter-spacing','footer.letter_spacing', 'px')
       ] },
       ...fields.reduce((styles, field, i) => [
         ...styles,

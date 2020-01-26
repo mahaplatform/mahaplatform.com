@@ -4,11 +4,12 @@ import React from 'react'
 class Footer extends React.Component {
 
   static propTypes = {
-    text: PropTypes.string
+    config: PropTypes.object
   }
 
   render() {
-    const { text } = this.props
+    const { config } = this.props
+    const { text } = config.footer
     return (
       <div className="maha-form-footer">
         { text &&

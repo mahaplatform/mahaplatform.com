@@ -54,6 +54,7 @@ class TextField extends React.Component {
         {
           fields: [
             { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
+            { label: 'Name', name: 'name', type: 'textfield', disabled: true, defaultValue: config.name },
             { label: 'Instructions', name: 'instructions', type: 'textarea', rows: 2, placeholder: 'Enter instructions', defaultValue: config.instructions },
             { label: 'Placeholder', name: 'placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
             { label: 'Required', name: 'required', type: 'checkbox', defaultValue: config.required }
@@ -73,6 +74,7 @@ class TextField extends React.Component {
   }
 
   _handleChange(config) {
+    config.name = config.label.replace(/[^a-zA-Z0-9\s]+/g, '').replace(/[\s]+/g, '_').toLowerCase()
     this.setState({
       config: {
         ...this.state.config,
