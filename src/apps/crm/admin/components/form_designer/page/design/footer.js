@@ -24,6 +24,7 @@ class Footer extends React.Component {
 
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleReset = this._handleReset.bind(this)
 
   render() {
     if(!this.state.config) return null
@@ -55,6 +56,7 @@ class Footer extends React.Component {
       cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
+        { label: 'Reset', color: 'red', handler: this._handleReset },
         { label: 'Done', color: 'red', handler: this._handleDone }
       ],
       sections: [
@@ -110,6 +112,12 @@ class Footer extends React.Component {
 
   _handleDone() {
     this.props.onPop()
+  }
+
+  _handleReset() {
+    this.setState({
+      config: this._getDefault()
+    })
   }
 
 }

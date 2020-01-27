@@ -29,16 +29,19 @@ class Fields extends React.Component {
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    const { fields, requiresPayment } = this.props
+    const { config, fields } = this.props
+    const { settings } = config
     return (
-      <div className="maha-form-fields">
+      <div className="maha-form-body">
         <div className="ui form">
           { fields.map((field, index) => (
             <Field key={`field_${index}`} { ...this._getField(field, index) } />
           )) }
-          <Recaptcha { ...this._getRecaptcha() } />
+          { settings.captcha &&
+            <Recaptcha { ...this._getRecaptcha() } />
+          }
           <button { ...this._getButton()}>
-            { requiresPayment ? 'Next' : 'Submit' }
+            { settings.submit_text }
           </button>
         </div>
       </div>

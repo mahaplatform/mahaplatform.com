@@ -33,7 +33,7 @@ class Form extends React.Component {
           { config.header &&
             <Header { ...this._getHeader() } />
           }
-          <div className="maha-form-fields">
+          <div className="maha-form-body">
             <div className="ui form">
               { (fields.length === 0 || (hovering && index === 0)) &&
                 <div className="dropzone-target">Drop Field Here</div>

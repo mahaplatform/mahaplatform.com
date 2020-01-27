@@ -2,6 +2,8 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
+const blocks = ['p','li','input','textarea','.dropdown .item','label','.field-instructions','.maha-checkbox-label','.ui.button']
+
 class Style extends React.Component {
 
   static propTypes = {
@@ -47,20 +49,43 @@ class Style extends React.Component {
     const { config } = this.props
     const { fields } = config
     const styles = [
-      { selector: 'p,li,input,textarea,select,label,.field-instructions,.maha-checkbox-label', styles: [
-        ...this._getProp('font-family', 'page.font_family'),
-        ...this._getProp('font-size', 'page.font_size', 'px'),
-        ...this._getFormat('font-weight', 'bold', 'page.format', 'normal'),
-        ...this._getFormat('font-style', 'italic', 'page.format'),
-        ...this._getFormat('text-decoration', 'underline', 'page.format'),
-        ...this._getProp('color', 'page.color'),
-        ...this._getProp('text-align', 'page.text_align'),
-        ...this._getProp('line-height', 'page.line_height'),
-        ...this._getProp('letter-spacing', 'page.letter_spacing', 'px')
-      ] },
-      { selector: 'body', styles: [
+      { selector: 'html', styles: [
         ...this._getProp('background-color', 'page.background_color')
       ] },
+      ...blocks.map(block => ({
+        selector: block, styles: [
+          ...this._getProp('font-family', 'page.font_family'),
+          ...this._getProp('font-size', 'page.font_size', 'px'),
+          ...this._getFormat('font-weight', 'bold', 'page.format', 'normal'),
+          ...this._getFormat('font-style', 'italic', 'page.format'),
+          ...this._getFormat('text-decoration', 'underline', 'page.format'),
+          ...this._getProp('color', 'page.color'),
+          ...this._getProp('text-align', 'page.text_align'),
+          ...this._getProp('line-height', 'page.line_height'),
+          ...this._getProp('letter-spacing', 'page.letter_spacing', 'px')
+        ]
+      })),
+      ...['header','body','footer'].reduce((styles, section) => [
+        ...styles,
+        ...blocks.map(block => ({
+          selector: `div.maha-form-${section} ${block}`, styles: [
+            ...this._getProp('font-family', `${section}.font_family`),
+            ...this._getProp('font-size', `${section}.font_size`, 'px'),
+            ...this._getFormat('font-weight', 'bold', `${section}.format`, 'normal'),
+            ...this._getFormat('font-style', 'italic', `${section}.format`),
+            ...this._getFormat('text-decoration', 'underline', `${section}.format`),
+            ...this._getProp('color', `${section}.color`),
+            ...this._getProp('text-align', `${section}.text_align`),
+            ...this._getProp('line-height', `${section}.line_height`),
+            ...this._getProp('letter-spacing', `${section}.letter_spacing`, 'px')
+          ]
+        }))
+      ], []),
+      ...['header','body','footer'].map(section => ({
+        selector: `div.maha-form-${section}`, styles: [
+          ...this._getProp('background-color', `${section}.background_color`)
+        ]
+      })),
       { selector: '.maha-form', styles: [
         ...this._getProp('background-color', 'page.form_background_color'),
         ...this._getProp('margin-top', 'page.padding_top', 'px'),

@@ -32,12 +32,17 @@ class Form extends React.Component {
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
+    const { config } = this.props
     return (
       <div className="maha-form">
-        <Header { ...this._getHeader() } />
+        { config.header &&
+          <Header { ...this._getHeader() } />
+        }
         { false && <Payment { ...this._getPayment() } /> }
         <Fields { ...this._getFields() } />
-        <Footer { ...this._getFooter() } />
+        { config.footer &&
+          <Footer { ...this._getFooter() } />
+        }
       </div>
     )
   }

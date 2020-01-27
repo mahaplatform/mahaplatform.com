@@ -91,13 +91,13 @@ class Design extends React.Component {
     return {
       background_color: null,
       form_background_color: null,
-      font_family: null,
-      font_size: null,
-      color: null,
+      font_family: 'Arial, Helvetica, sans-serif',
+      font_size: 14,
+      color: '#000000',
       format: null,
-      text_align: null,
-      line_height: null,
-      letter_spacing: null
+      text_align: 'left',
+      line_height: 1.5,
+      letter_spacing: 0
     }
   }
 

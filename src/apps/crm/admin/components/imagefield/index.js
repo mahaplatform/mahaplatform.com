@@ -20,6 +20,7 @@ class ImageField extends React.Component {
 
   _handleAttachments = this._handleAttachments.bind(this)
   _handleCancel = this._handleCancel.bind(this)
+  _handleClear = this._handleClear.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
@@ -28,7 +29,10 @@ class ImageField extends React.Component {
       <div className="crm-imagefield">
         { value ?
           <div className="crm-imagefield-preview">
-            <img src={`/imagecache/fit=cover&w=250&h=250/${value}`} />
+            <img src={`/imagecache/fit=cover&w=200&h=200/${value}`} />
+            <div className="crm-imagefield-remove" onClick={ this._handleClear }>
+              <i className="fa fa-times" />
+            </div>
           </div> :
           <Button { ...this._getButton() } />
         }
@@ -37,6 +41,12 @@ class ImageField extends React.Component {
   }
 
   componentDidMount() {
+    const { defaultValue } = this.props
+    if(defaultValue) {
+      this.setState({
+        value: defaultValue
+      })
+    }
     this.props.onReady()
   }
 
@@ -73,6 +83,12 @@ class ImageField extends React.Component {
 
   _handleCancel() {
     this.context.form.pop()
+  }
+
+  _handleClear() {
+    this.setState({
+      value: null
+    })
   }
 
   _handleUpdate(assets) {
