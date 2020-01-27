@@ -142,7 +142,7 @@ class Video extends React.Component {
       font_size: null,
       color: null,
       format: null,
-      alignment: null,
+      text_align: null,
       line_height: null,
       letter_spacing: null,
       video_position: 'top',

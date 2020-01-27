@@ -46,7 +46,7 @@ class Images extends React.Component {
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Images Block',
+      title: 'Images Group',
       onCancel: this._handleDone,
       onChange: this._handleChange,
       cancelIcon: 'chevron-left',
@@ -69,15 +69,16 @@ class Images extends React.Component {
           sections: [
             {
               fields: [
-                this._getBorder(),
+                { label: 'Background', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
+                this._getBorder('border', 'Border'),
                 { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
               ]
             }, {
               label: 'Image Style',
               fields: [
-                this._getBorder(),
-                { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding },
-                { label: 'Rounded Corners', name: 'border_radius', type: 'range', min: 0, max: 20, defaultValue: config.border_radius }
+                this._getBorder('image_border', 'Border'),
+                { label: 'Padding', name: 'image_padding', type: 'dropdown', options: options.paddings, defaultValue: config.image_padding },
+                { label: 'Rounded Corners', name: 'image_border_radius', type: 'range', min: 0, max: 20, defaultValue: config.image_border_radius }
               ]
             }
           ]
@@ -98,22 +99,25 @@ class Images extends React.Component {
   _getDefault() {
     return {
       images: [],
+      background_color: null,
       border: null,
-      border_radius: null,
-      layout: [[1]],
-      padding: 0
+      padding: 0,
+      image_border: null,
+      image_padding: 0,
+      image_border_radius: null,
+      layout: [[1]]
     }
   }
 
-  _getBorder(type) {
+  _getBorder(type, label) {
     const { config } = this.state
-    if(!config.border_style) {
-      return { label: 'Border', name: 'border_style', type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style }
+    if(!config[`${type}_style`]) {
+      return { label, name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] }
     }
-    return { label: 'Border', type:'fields', fields: [
-      { name: 'border_style', type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config.border_style },
-      { name: 'border_width', type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config.border_width },
-      { name: 'border_color', type: 'colorfield', defaultValue: config.border_color }
+    return { label, type:'fields', fields: [
+      { name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] },
+      { name: `${type}_width`, type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config[`${type}_width`] },
+      { name: `${type}_color`, type: 'colorfield', defaultValue: config[`${type}_color`] }
     ] }
   }
 

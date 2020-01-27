@@ -10,76 +10,61 @@ class Image extends React.Component {
   }
 
   render() {
-    const { blockIndex, config, sectionIndex } = this.props
+    const { config } = this.props
     const { video_position, show_caption } = config
+    if(show_caption) {
+      return (
+        <table className="row collapse">
+          { video_position === 'bottom' &&
+            <tbody>
+              <tr>
+                { this._getCaptionCell(true, 'first last') }
+                <td className="expander"></td>
+              </tr>
+              <tr>
+                { this._getVideoCell(true, 'first last') }
+                <td className="expander"></td>
+              </tr>
+            </tbody>
+          }
+          { video_position === 'top' &&
+            <tbody>
+              <tr>
+                { this._getVideoCell(true, 'first last') }
+                <td className="expander"></td>
+              </tr>
+              <tr>
+                { this._getCaptionCell(true, 'first last') }
+                <td className="expander"></td>
+              </tr>
+            </tbody>
+          }
+          { video_position === 'left' &&
+            <tbody>
+              <tr>
+                { this._getVideoCell(false, 'first') }
+                { this._getCaptionCell(false, 'last') }
+                <td className="expander"></td>
+              </tr>
+            </tbody>
+          }
+          { video_position === 'right' &&
+            <tbody>
+              <tr>
+                { this._getCaptionCell(false, 'first') }
+                { this._getVideoCell(false, 'last') }
+                <td className="expander"></td>
+              </tr>
+            </tbody>
+          }
+        </table>
+      )
+    }
     return (
-      <table className={`row collapse section-${ sectionIndex }-block-${ blockIndex } video-block block`}>
+      <table className="row collapse">
         <tbody>
           <tr>
-            <td className="large-12">
-              <table className="block-container">
-                <tbody>
-                  <tr>
-                    <td className="block-container-cell">
-                      { show_caption ?
-                        <table className="row collapse">
-                          { video_position === 'bottom' &&
-                            <tbody>
-                              <tr>
-                                { this._getCaptionCell(true, 'first last') }
-                                <td className="expander"></td>
-                              </tr>
-                              <tr>
-                                { this._getVideoCell(true, 'first last') }
-                                <td className="expander"></td>
-                              </tr>
-                            </tbody>
-                          }
-                          { video_position === 'top' &&
-                            <tbody>
-                              <tr>
-                                { this._getVideoCell(true, 'first last') }
-                                <td className="expander"></td>
-                              </tr>
-                              <tr>
-                                { this._getCaptionCell(true, 'first last') }
-                                <td className="expander"></td>
-                              </tr>
-                            </tbody>
-                          }
-                          { video_position === 'left' &&
-                            <tbody>
-                              <tr>
-                                { this._getVideoCell(false, 'first') }
-                                { this._getCaptionCell(false, 'last') }
-                                <td className="expander"></td>
-                              </tr>
-                            </tbody>
-                          }
-                          { video_position === 'right' &&
-                            <tbody>
-                              <tr>
-                                { this._getCaptionCell(false, 'first') }
-                                { this._getVideoCell(false, 'last') }
-                                <td className="expander"></td>
-                              </tr>
-                            </tbody>
-                          }
-                        </table> :
-                        <table className="row collapse">
-                          <tbody>
-                            <tr>
-                              { this._getVideoCell(true, 'first last') }
-                              <td className="expander"></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      }
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
+            { this._getVideoCell(true, 'first last') }
             <td className="expander"></td>
           </tr>
         </tbody>

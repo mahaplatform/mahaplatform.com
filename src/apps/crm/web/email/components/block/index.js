@@ -20,10 +20,27 @@ class Block extends React.Component {
   }
 
   render() {
+    const { config, sectionIndex, blockIndex } = this.props
     const Component  = this._getComponent()
     return (
       <div className={ this._getClass() }>
-        <Component { ...this._getBlock() } />
+        <table className={`row collapse section-${ sectionIndex }-block-${ blockIndex } ${ config.type }-block block`}>
+          <tbody>
+            <tr>
+              <td className="small-12 large-12">
+                <table className="block-container">
+                  <tbody>
+                    <tr>
+                      <td className="block-container-cell">
+                        <Component { ...this._getBlock() } />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+          </tbody>
+        </table>
         <div className="block-highlight" />
         <div className="block-actions">
           <div className="block-spacer"></div>

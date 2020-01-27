@@ -46,7 +46,7 @@ class Style extends React.Component {
   _getStyle() {
     const { config } = this.props
     const { sections } = config
-    const styles = [
+    return [
       { selector: 'html', styles: [
         ...this._getProp('background-color', 'page.background_color')
       ] },
@@ -106,39 +106,30 @@ class Style extends React.Component {
             ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`),
             ...this._getProp('line-height',`sections[${i}].blocks[${j}].line_height`),
             ...this._getProp('letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`, 'px')
-          ] },
-          ...block.type === 'text' ? [
-            {
-              selector: `table.section-${i}-block-${j} .text-block-content`, styles: [
-                ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px'),
-                ...this._getBorder('border', `sections[${i}].blocks[${j}].border`),
-                ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`)
-              ]
-            }
-          ] : [],
+          ] }, {
+            selector: `table.section-${i}-block-${j} table.block-container`, styles: [
+              ...this._getBorder('border', `sections[${i}].blocks[${j}].border`),
+              ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`)
+            ]
+          }, {
+            selector: `table.section-${i}-block-${j} .block-container-cell`, styles: [
+              ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px')
+            ]
+          },
           ...block.type === 'images' ? [
             {
               selector: `table.section-${i}-block-${j} td.image`, styles: [
-                ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px')
+                ...this._getProp('padding',`sections[${i}].blocks[${j}].image_padding`, 'px')
               ]
             }, {
               selector: `table.section-${i}-block-${j} img`, styles: [
-                ...this._getBorder('border', `sections[${i}].blocks[${j}].border`),
-                ...this._getProp('border-radius',`sections[${i}].blocks[${j}].border_radius`, 'px')
+                ...this._getBorder('border', `sections[${i}].blocks[${j}].image_border`),
+                ...this._getProp('border-radius',`sections[${i}].blocks[${j}].image_border_radius`, 'px')
               ]
             }
           ] : [],
           ..._.includes(['image','video'], block.type) ? [
             {
-              selector: `table.section-${i}-block-${j} table.block-container`, styles: [
-                ...this._getBorder('border', `sections[${i}].blocks[${j}].card_border`),
-                ...this._getProp('background-color',`sections[${i}].blocks[${j}].card_background_color`)
-              ]
-            }, {
-              selector: `table.section-${i}-block-${j} .block-container-cell`, styles: [
-                ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px')
-              ]
-            }, {
               selector: `table.section-${i}-block-${j} table.block-container .block-caption`, styles: [
                 ...this._getProp('background-color',`sections[${i}].blocks[${j}].caption_background_color`),
                 ...this._getProp('padding',`sections[${i}].blocks[${j}].caption_padding`, 'px')
@@ -152,14 +143,10 @@ class Style extends React.Component {
           ] : [],
           ...block.type === 'button' ? [
             {
-              selector: `table.section-${i}-block-${j} .button-block-content`, styles: [
-                ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px')
-              ]
-            }, {
               selector: `table.section-${i}-block-${j} table.button table td`, styles: [
-                ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`),
+                ...this._getProp('background-color',`sections[${i}].blocks[${j}].button_background_color`),
                 ...this._getProp('padding',`sections[${i}].blocks[${j}].button_padding`, 'px'),
-                ...this._getProp('border-radius',`sections[${i}].blocks[${j}].border_radius`, 'px'),
+                ...this._getProp('border-radius',`sections[${i}].blocks[${j}].button_border_radius`, 'px'),
                 ...this._getProp('text-align',`sections[${i}].blocks[${j}].text_align`),
                 ...this._getProp('font-family',`sections[${i}].blocks[${j}].font_family`),
                 ...this._getProp('font-size',`sections[${i}].blocks[${j}].font_size`, 'px'),
@@ -171,15 +158,6 @@ class Style extends React.Component {
           ] : [],
           ..._.includes(['follow','share'], block.type) ? [
             {
-              selector: `table.section-${i}-block-${j} .social-block-container`, styles: [
-                ...this._getBorder('border', `sections[${i}].blocks[${j}].border`),
-                ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`)
-              ]
-            }, {
-              selector: `table.section-${i}-block-${j} .social-block-container-cell`, styles: [
-                ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px')
-              ]
-            },{
               selector: `table.section-${i}-block-${j} table.social table`, styles: [
                 ...this._getProp('background-color',`sections[${i}].blocks[${j}].button_background_color`),
                 ...this._getProp('border-radius',`sections[${i}].blocks[${j}].button_border_radius`, 'px')
@@ -214,11 +192,11 @@ class Style extends React.Component {
           ] : []
         ], [])
       ], [])
-    ]
-    return styles.map(item => item.styles.length === 0 ? '' : `
+    ].map(item => item.styles.length === 0 ? '' : `
       ${item.selector} {
         ${ item.styles.map(style => `${style.prop}: ${style.value} !important;`).join('\n') }
-      }`).join('\n')
+      }
+    `).join('\n')
   }
 
 }

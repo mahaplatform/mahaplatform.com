@@ -10,7 +10,7 @@ class Button extends React.Component {
   }
 
   render() {
-    const { blockIndex, sectionIndex, config } = this.props
+    const { config } = this.props
     const { align, content, display } = config
     const button = (
       <table align={ align } className={`button${display === 'block' ? ' expanded' : '' } float-${align}`}>
@@ -32,20 +32,11 @@ class Button extends React.Component {
       </table>
     )
     return (
-      <table className={`row collapse section-${ sectionIndex }-block-${ blockIndex } button-block block`}>
+      <table className="row collapse">
         <tbody>
           <tr>
-            <td className="button-block-content">
-              <table className="row collapse">
-                <tbody>
-                  <tr>
-                    <td className="large-12 first last columns">
-                      { align === 'center' ?<center>{ button }</center> : button }
-                    </td>
-                    <td className="expander"></td>
-                  </tr>
-                </tbody>
-              </table>
+            <td className="large-12 first last columns">
+              { align === 'center' ?<center>{ button }</center> : button }
             </td>
             <td className="expander"></td>
           </tr>

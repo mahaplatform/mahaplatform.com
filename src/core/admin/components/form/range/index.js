@@ -24,7 +24,7 @@ class Range extends React.Component {
   }
 
   _handleChange = _.throttle(this._handleChange.bind(this), 250)
-  _handleInput = this._handleInput.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
     const { min, max } = this.props
@@ -72,7 +72,8 @@ class Range extends React.Component {
       min,
       max,
       value,
-      onInput: this._handleInput
+      onChange: this._handleUpdate,
+      onInput: this._handleUpdate
     }
   }
 
@@ -81,7 +82,7 @@ class Range extends React.Component {
     this.props.onChange(value)
   }
 
-  _handleInput(e) {
+  _handleUpdate(e) {
     this.setState({
       value: parseInt(e.target.value)
     })

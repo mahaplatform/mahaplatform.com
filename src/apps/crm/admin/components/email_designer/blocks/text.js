@@ -126,13 +126,13 @@ class Text extends React.Component {
       background_color: null,
       border_style: null,
       border_width: null,
-      border_color: null,      
+      border_color: null,
       padding: 16,
       font_family: null,
       font_size: null,
       color: null,
       format: null,
-      alignment: null,
+      text_align: null,
       line_height: null,
       letter_spacing: null
     }

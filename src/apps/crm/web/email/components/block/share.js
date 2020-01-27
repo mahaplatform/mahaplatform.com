@@ -10,7 +10,6 @@ class Share extends React.Component {
   }
 
   render() {
-    const { blockIndex, sectionIndex } = this.props
     const { config } = this.props
     const { align, icon_style, icon_color, networks } = config
     if(!networks) return null
@@ -38,26 +37,7 @@ class Share extends React.Component {
         </tbody>
       </table>
     )
-    return (
-      <table className={`row collapse section-${ sectionIndex }-block-${ blockIndex } share-block block`}>
-        <tbody>
-          <tr>
-            <td className="small-12 large-12 columns first last">
-              <table className="social-block-container">
-                <tbody>
-                  <tr>
-                    <td className="social-block-container-cell">
-                      { align === 'center' ?<center>{ icons}</center> : icons }
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
-            <td className="expander"></td>
-          </tr>
-        </tbody>
-      </table>
-    )
+    return align === 'center' ? <center>{ icons }</center> : icons
   }
 
 }

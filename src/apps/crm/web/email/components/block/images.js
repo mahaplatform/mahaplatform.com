@@ -10,38 +10,27 @@ class Images extends React.Component {
   }
 
   render() {
-    const { blockIndex, config, sectionIndex } = this.props
+    const { config } = this.props
     const { images, layout } = config
     if(!images || !layout) return null
     let k = -1
-    return (
-      <table className={`row section-${ sectionIndex }-block-${ blockIndex } images-block block`}>
+    return layout.map((row, i) => (
+      <table className="row collapse" key={`images_${i}`}>
         <tbody>
           <tr>
-            <td>
-              { layout.map((row, i) => (
-                <table className="row collapse" key={`images_${i}`}>
-                  <tbody>
-                    <tr>
-                      { row.map((image, j) => {
-                        k += 1
-                        return (
-                          <td className={this._getClass(row.length, k)} key={`image_${j}`}>
-                            <img src={ this._getUrl(images[k], row.length) } />
-                          </td>
-                        )
-                      }) }
-                      <td className="expander"></td>
-                    </tr>
-                  </tbody>
-                </table>
-              )) }
-            </td>
+            { row.map((image, j) => {
+              k += 1
+              return (
+                <td className={this._getClass(row.length, k)} key={`image_${j}`}>
+                  <img src={ `/imagecache/w=600/${images[k].asset.path}` } />
+                </td>
+              )
+            }) }
             <td className="expander"></td>
           </tr>
         </tbody>
       </table>
-    )
+    ))
   }
 
   _getClass(columns, index) {
@@ -49,11 +38,6 @@ class Images extends React.Component {
     if(index === 0) classes.push('first')
     if(index === columns - 1) classes.push('last')
     return classes.join(' ')
-  }
-
-  _getUrl({ asset }, items) {
-    const w = items === 2 ? 300 : 600
-    return `/imagecache/w=${w}/${asset.path}`
   }
 
 }

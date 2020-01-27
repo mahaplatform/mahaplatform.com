@@ -10,24 +10,15 @@ class Text extends React.Component {
   }
 
   render() {
-    const { blockIndex, config, sectionIndex } = this.props
+    const { config } = this.props
     const { columns } = config
     return (
-      <table className={`row collapse section-${ sectionIndex }-block-${ blockIndex } text-block block`}>
+      <table className="row collapse">
         <tbody>
           <tr>
-            <td className="text-block-content">
-              <table className="row collapse">
-                <tbody>
-                  <tr>
-                    { new Array(columns).fill(0).map((column, index) => (
-                      <td key={`cell_${index}`} { ...this._getCell(index)} />
-                    )) }
-                    <td className="expander"></td>
-                  </tr>
-                </tbody>
-              </table>
-            </td>
+            { new Array(columns).fill(0).map((column, index) => (
+              <td key={`cell_${index}`} { ...this._getCell(index)} />
+            )) }
             <td className="expander"></td>
           </tr>
         </tbody>

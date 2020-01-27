@@ -71,17 +71,17 @@ class Button extends React.Component {
           sections: [
             {
               fields: [
+                { label: 'Background', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
+                this._getBorder('border', 'Border'),
                 { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
               ]
             },
             {
               label: 'Button Style',
               fields: [
-                { type: 'fields', fields: [
-                  { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
-                  { label: 'Padding', name: 'button_padding', type: 'dropdown', options: options.paddings, defaultValue: config.button_padding }
-                ] },
-                { label: 'Rounded Corners', name: 'border_radius', type: 'range', min: 0, max: 20, defaultValue: config.border_radius }
+                { label: 'Background', name: 'button_background_color', type: 'colorfield', defaultValue: config.button_background_color },
+                { label: 'Padding', name: 'button_padding', type: 'dropdown', options: options.paddings, defaultValue: config.button_padding },
+                { label: 'Rounded Corners', name: 'button_border_radius', type: 'range', min: 0, max: 20, defaultValue: config.button_border_radius }
               ]
             },
             {
@@ -126,18 +126,22 @@ class Button extends React.Component {
       email_address: null,
       email_subject: null,
       email_body: null,
-      anchor: null,
       asset_id: null,
-      border_radius: null,
-      background_color: '#2185D0',
-      color: '#FFFFFF',
-      letter_spacing: 0,
+      background_color: null,
+      padding: 16,
+      border: null,
+      button_background_color: '#2185D0',
+      button_padding: 8,
+      button_border_radius: null,
       font_family: null,
       font_size: null,
-      padding: 16,
-      button_padding: 10,
-      align: 'center',
-      display: 'block'
+      color: '#FFFFFF',
+      format: null,
+      text_align: 'center',
+      line_height: null,
+      letter_spacing: null,
+      display: 'block',
+      align: 'center'
     }
   }
 
@@ -147,6 +151,18 @@ class Button extends React.Component {
     return [
       { label: 'Align', name: 'align', type: 'dropdown', options: options.alignments, defaultValue: config.align }
     ]
+  }
+
+  _getBorder(type, label) {
+    const { config } = this.state
+    if(!config[`${type}_style`]) {
+      return { label, name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] }
+    }
+    return { label, type:'fields', fields: [
+      { name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] },
+      { name: `${type}_width`, type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config[`${type}_width`] },
+      { name: `${type}_color`, type: 'colorfield', defaultValue: config[`${type}_color`] }
+    ] }
   }
 
   _getLinkStrategy() {
