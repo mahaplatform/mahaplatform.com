@@ -1,5 +1,6 @@
 import { Audit, Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
+import pluralize from 'pluralize'
 import React from 'react'
 
 const Details = ({ audits, form }) => {
@@ -11,7 +12,7 @@ const Details = ({ audits, form }) => {
   }
 
   const responses = {
-    label: `${form.num_responses} responses`,
+    label: pluralize('response', form.num_responses, true),
     className: 'link',
     route: `/admin/crm/forms/${form.id}/responses`
   }

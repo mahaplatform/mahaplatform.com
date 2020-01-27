@@ -20,7 +20,7 @@ class App extends React.Component {
     return (
       <Root key="root">
         <div>
-          <Style key="style" { ...this._getStyle() } />,
+          <Style key="style" { ...this._getStyle() } />
           <Form { ...this._getForm() } />
         </div>
       </Root>
@@ -50,12 +50,14 @@ class App extends React.Component {
   }
 
   _getForm() {
-    const { config } = window
-    return { config }
+    const { form } = window
+    const { code, config } = form
+    return { code, config }
   }
 
   _getStyle() {
-    const { config } = window
+    const { form } = window
+    const { config } = form
     return { config }
   }
 

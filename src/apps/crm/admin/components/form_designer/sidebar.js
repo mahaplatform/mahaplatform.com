@@ -1,6 +1,5 @@
 import ContactField from './fields/contactfield'
 import ProductField from './fields/productfield'
-import PaymentField from './fields/paymentfield'
 import CheckBoxes from './fields/checkboxes'
 import RadioGroup from './fields/radiogroup'
 import DateField from './fields/datefield'
@@ -66,7 +65,6 @@ class Sidebar extends React.Component {
       { label: 'Datefield', icon: 'calendar', type: 'datefield', component: DateField },
       { label: 'Timefield', icon: 'clock-o', type: 'timefield', component: TimeField },
       { label: 'Productfield', icon: 'shopping-bag', type: 'productfield', component: ProductField },
-      { label: 'Paymentfield', icon: 'dollar', type: 'paymentfield', component: PaymentField },
       { label: 'Text', icon: 'align-left', type: 'text', component: Text }
     ]
   }
@@ -75,7 +73,10 @@ class Sidebar extends React.Component {
     const { active, config } = this.props
     const key = `fields[${active}]`
     return {
-      config: _.get(config, key),
+      config: {
+        name: _.random(100000000, 999999999).toString(36),
+        ..._.get(config, key)
+      },
       onDone: this._handleDone,
       onUpdate: this._handleUpdate.bind(this, key)
     }

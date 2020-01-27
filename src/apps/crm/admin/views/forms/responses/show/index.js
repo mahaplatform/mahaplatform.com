@@ -2,20 +2,21 @@ import { Page } from 'maha-admin'
 import Details from './details'
 import React from 'react'
 
-const getTabs = ({ form }) => ({
+const getTabs = ({ form, response }) => ({
   items: [
-    { label: 'Details', component: <Details form={ form } /> }
+    { label: 'Details', component: <Details form={ form } response={ response } /> }
   ]
 })
 
 const getTasks = ({ form, list }) => {}
 
 const mapResourcesToPage = (props, context) => ({
-  form: `/api/admin/crm/forms/${props.params.id}`
+  form: `/api/admin/crm/forms/${props.params.form_id}`,
+  response: `/api/admin/crm/forms/${props.params.form_id}/responses/${props.params.id}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Form',
+  title: 'Response',
   tabs: getTabs(resources),
   tasks: getTasks(resources)
 })

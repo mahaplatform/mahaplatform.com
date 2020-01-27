@@ -8,6 +8,7 @@ import React from 'react'
 class Form extends React.Component {
 
   static propTypes = {
+    code: PropTypes.string,
     config: PropTypes.object,
     data: PropTypes.object,
     errors: PropTypes.object,
@@ -48,12 +49,9 @@ class Form extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { isValid, isReady } = this.props
+    const { isValid } = this.props
     if(isValid !== prevProps.isValid && isValid) {
       this._handleSubmit()
-    }
-    if(isReady !== prevProps.isReady && isReady) {
-      console.log('ready')
     }
   }
 
@@ -100,8 +98,8 @@ class Form extends React.Component {
   }
 
   _handleSubmit() {
-    const { data } = this.props
-    console.log('submitting ', data)
+    const { code, data } = this.props
+    this.props.onSubmit(code, data)
   }
 
 }

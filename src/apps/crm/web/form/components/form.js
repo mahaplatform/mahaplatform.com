@@ -8,7 +8,7 @@ import React from 'react'
 class Form extends React.Component {
 
   static propTypes = {
-    active: PropTypes.object,
+    active: PropTypes.number,
     config: PropTypes.object,
     onAction: PropTypes.func
   }

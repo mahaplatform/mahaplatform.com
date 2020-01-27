@@ -1,6 +1,7 @@
 const ResponseSerializer = (req, result) => ({
   id: result.get('id'),
   contact: contact(result.related('contact')),
+  data: result.get('data'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
 })

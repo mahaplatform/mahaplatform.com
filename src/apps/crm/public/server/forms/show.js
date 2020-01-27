@@ -20,6 +20,7 @@ const showRoute = async (req, res) => {
 
   const content = ejs.render(template, {
     form: {
+      title: form.get('title'),
       code: form.get('code'),
       config: {
         ...form.get('config'),

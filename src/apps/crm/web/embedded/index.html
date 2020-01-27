@@ -8,11 +8,13 @@
   <link href="/admin/css/font-awesome.min.css" rel="stylesheet" />
   <%= tagify('logo = program.logo || team.logo', false) %>
   <link rel="apple-touch-icon" type="image/jpeg" sizes="180x180" href="/imagecache/fit=cover&w=180&h=180<%= tagify('logo', true) %>">
+  <link id="favicon" rel="shortcut icon" href="/imagecache/fit=cover&w=180&h=180<%= tagify('logo', true) %>">
+  <title> <%= tagify('form.title', true) %> | <%= tagify('program.title', true) %></title>
 </head>
 <body>
   <div id="form" />
   <script>
-    window.config = <%= tagify('JSON.stringify(form.config)', true) %>;
+    window.form = <%= tagify('JSON.stringify(form)', true) %>;
   </script>
 </body>
 </html>

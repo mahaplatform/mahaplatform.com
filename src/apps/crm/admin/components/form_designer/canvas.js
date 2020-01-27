@@ -5,10 +5,8 @@ import _ from 'lodash'
 
 class Canvas extends React.Component {
 
-  static contextTypes = {}
-
   static propTypes = {
-    active: PropTypes.object,
+    active: PropTypes.number,
     config: PropTypes.object,
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
@@ -17,8 +15,6 @@ class Canvas extends React.Component {
     onRemove: PropTypes.func,
     onUpdate: PropTypes.func
   }
-
-  static defaultProps = {}
 
   preview = null
 

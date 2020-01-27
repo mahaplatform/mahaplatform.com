@@ -8,10 +8,10 @@ export const validate = (id, body) => ({
   failure: 'VALIDATE_FAILURE'
 })
 
-export const submit = (id, body) => ({
+export const submit = (code, body) => ({
   type: 'API_REQUEST',
   method: 'POST',
-  endpoint: `/api/crm/forms/${id}`,
+  endpoint: `/api/crm/forms/${code}`,
   body,
   request: 'SUBMIT_REQUEST',
   success: 'SUBMIT_SUCCESS',
