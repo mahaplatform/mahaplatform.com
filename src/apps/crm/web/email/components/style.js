@@ -93,8 +93,6 @@ class Style extends React.Component {
         ] },
         { selector: `table.section-${i} td a`, styles: [
           ...this._getProp('color',`sections[${i}].color`)
-          // bold
-          // underline
         ] },
         ...sections[i].blocks.reduce((blockStyles, block, j) => [
           ...blockStyles,

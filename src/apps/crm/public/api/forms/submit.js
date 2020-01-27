@@ -1,4 +1,5 @@
 import { sendMail } from '../../../../../core/services/email'
+import { renderEmail } from '../../../services/email'
 import Response from '../../../models/response'
 import Form from '../../../models/form'
 
@@ -16,8 +17,6 @@ const submitRoute = async (req, res) => {
     message: 'Unable to load form'
   })
 
-  console.log(req.headers['x-forwarded-for'] || req.connection.remoteAddress)
-
   const response = await Response.forge({
     team_id: form.get('team_id'),
     form_id: form.get('id'),
@@ -29,11 +28,16 @@ const submitRoute = async (req, res) => {
 
   const email = form.related('email')
 
+  const html = renderEmail(req, {
+    config: email.get('config'),
+    data: response.get('data')
+  })
+
   await sendMail({
     from: email.related('sender').get('rfc822'),
     to: 'mochini@gmail.com',
     subject: email.get('subject'),
-    html: 'foobarbaz'
+    html
   })
 
   res.status(200).respond(true)

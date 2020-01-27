@@ -32,7 +32,6 @@ class Text extends React.Component {
           </tr>
         </tbody>
       </table>
-
     )
   }
 

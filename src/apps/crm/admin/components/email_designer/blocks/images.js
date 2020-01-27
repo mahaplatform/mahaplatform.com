@@ -37,7 +37,7 @@ class Images extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { config } = this.state
     if(!_.isEqual(_.get(config, 'images'), _.get(prevState.config, 'images'))) {
-      this._handleChangeField('layout', this._getLayouts()[0])
+      this._handleChangeField('layout', this._getLayouts()[0].value)
     } else if(!_.isEqual(config, prevState.config)) {
       this.props.onUpdate(config)
     }
@@ -100,7 +100,7 @@ class Images extends React.Component {
       images: [],
       border: null,
       border_radius: null,
-      layout: [1],
+      layout: [[1]],
       padding: 0
     }
   }
@@ -119,26 +119,26 @@ class Images extends React.Component {
 
   _getLayouts() {
     const { config } = this.state
-    if(config.images.length === 1) {
+    if(config.images.length <= 1) {
       return [
-        { value: [1], text: 'Full' }
+        { value: [[1]], text: 'Full' }
       ]
     } else if(config.images.length === 2) {
       return [
-        { value: [2], text: 'Side By Side' },
-        { value: [1,1], text: 'Above, Below' }
+        { value: [[1,1]], text: 'Side By Side' },
+        { value: [[1],[1]], text: 'Above, Below' }
       ]
     } else if(config.images.length === 3) {
       return [
-        { value: [1,2], text: 'Two Below' },
-        { value: [2,1], text: 'Two Above' },
-        { value: [1,1,1], text: 'List' }
+        { value: [[1],[1,1]], text: 'Two Below' },
+        { value: [[1,1],[1]], text: 'Two Above' },
+        { value: [[1],[1],[1]], text: 'List' }
       ]
     } else if(config.images.length === 4) {
       return [
-        { value: [2,2], text: 'Two Below' },
-        { value: [1,2,1], text: 'Two In Middle' },
-        { value: [1,1,1,1], text: 'List' }
+        { value: [[1,1],[1,1]], text: 'Two Below' },
+        { value: [[1],[1,1],[1]], text: 'Two In Middle' },
+        { value: [[1],[1],[1],[1]], text: 'List' }
       ]
     }
     return []

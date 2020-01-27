@@ -11,23 +11,26 @@ class Images extends React.Component {
 
   render() {
     const { blockIndex, config, sectionIndex } = this.props
-    const { images} = config
-    if(!images) return null
-    const rows = this._getRows()
+    const { images, layout } = config
+    if(!images || !layout) return null
+    let k = -1
     return (
       <table className={`row section-${ sectionIndex }-block-${ blockIndex } images-block block`}>
         <tbody>
           <tr>
             <td>
-              { rows.map((row, i) => (
-                <table className="row" key={`images_${i}`}>
+              { layout.map((row, i) => (
+                <table className="row collapse" key={`images_${i}`}>
                   <tbody>
                     <tr>
-                      { row.map((image, j) => (
-                        <td className="image" key={`image_${j}`}>
-                          <img src={ this._getUrl(image, row.length) } />
-                        </td>
-                      )) }
+                      { row.map((image, j) => {
+                        k += 1
+                        return (
+                          <td className={this._getClass(row.length, k)} key={`image_${j}`}>
+                            <img src={ this._getUrl(images[k], row.length) } />
+                          </td>
+                        )
+                      }) }
                       <td className="expander"></td>
                     </tr>
                   </tbody>
@@ -41,21 +44,11 @@ class Images extends React.Component {
     )
   }
 
-  _getRows() {
-    const { config } = this.props
-    const { images, layout } = config
-    return images.reduce((rows, image, index) => {
-      const total = rows.reduce((sum, row) => sum + row.length, 0)
-      return total < images.length ? [
-        ...rows,
-        layout[index % layout.length] === 2 ? [
-          images[total],
-          images[total + 1]
-        ] : [
-          images[total]
-        ]
-      ] : rows
-    }, [])
+  _getClass(columns, index) {
+    const classes = ['image','small-12',`large-${12 / columns}`,'columns']
+    if(index === 0) classes.push('first')
+    if(index === columns - 1) classes.push('last')
+    return classes.join(' ')
   }
 
   _getUrl({ asset }, items) {
