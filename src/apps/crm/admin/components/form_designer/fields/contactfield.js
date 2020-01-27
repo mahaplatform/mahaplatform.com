@@ -57,6 +57,7 @@ class ContactField extends React.Component {
         {
           fields: [
             { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
+            { label: 'Token', name: 'token', type: 'textfield', disabled: true, defaultValue: config.token },
             { label: 'Instructions', name: 'instructions', type: 'textarea', rows: 2, placeholder: 'Enter instructions', defaultValue: config.instructions },
             { label: 'Required', name: 'required', type: 'checkbox', defaultValue: config.required },
             { label: 'Field', name: 'field_id', type: ContactFieldItem, options: fields, value: 'id', text: 'label', placeholder: 'Choose a field', defaultValue: config.field_id }
@@ -69,12 +70,14 @@ class ContactField extends React.Component {
   _getDefault() {
     return {
       label: '',
+      token: '',
       instructions: '',
       required: false
     }
   }
 
   _handleChange(config) {
+    config.token = config.label.replace(/[^A-Za-z0-9\s]+/g, '').replace(/[\s]+/g, '_').toLowerCase()
     this.setState({
       config: {
         ...this.state.config,

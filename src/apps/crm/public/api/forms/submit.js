@@ -28,9 +28,16 @@ const submitRoute = async (req, res) => {
 
   const email = form.related('email')
 
+  const data = response.get('data')
+
   const html = renderEmail(req, {
     config: email.get('config'),
-    data: response.get('data')
+    data: {
+      response: form.get('config').fields.reduce((response, field) => ({
+        ...response,
+        [field.token]: data[field.name]
+      }), {})
+    }
   })
 
   await sendMail({

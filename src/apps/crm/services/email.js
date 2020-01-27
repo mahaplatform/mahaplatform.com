@@ -19,7 +19,9 @@ export const renderEmail = (req, { config, data }) => {
     host: 'https://mahaplatform.com'//process.env.WEB_HOST
   })
 
-  return html
+  const interpolated = ejs.render(html.replace(/&lt;%/g,'<%').replace(/%&gt;/g,'%>'), data)
+
+  return interpolated
 
 }
 

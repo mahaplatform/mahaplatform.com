@@ -54,6 +54,7 @@ class FileField extends React.Component {
         {
           fields: [
             { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
+            { label: 'Token', name: 'token', type: 'textfield', disabled: true, defaultValue: config.token },
             { label: 'Instructions', name: 'instructions', type: 'textarea', rows: 2, placeholder: 'Enter instructions', defaultValue: config.instructions },
             { label: 'Prompt', name: 'prompt', type: 'textfield', placeholder: 'Enter prompt text', defaultValue: config.prompt },
             { label: 'Required', prompt: 'This field is required', name: 'required', type: 'checkbox', defaultValue: config.required },
@@ -67,6 +68,7 @@ class FileField extends React.Component {
   _getDefault() {
     return {
       label: '',
+      token: '',
       instructions: '',
       prompt: 'Upload File(s)',
       required: false,
@@ -75,6 +77,7 @@ class FileField extends React.Component {
   }
 
   _handleChange(config) {
+    config.token = config.label.replace(/[^A-Za-z0-9\s]+/g, '').replace(/[\s]+/g, '_').toLowerCase()
     this.setState({
       config: {
         ...this.state.config,

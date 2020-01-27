@@ -2,7 +2,7 @@ import { renderEmail } from '../../../services/email'
 import Form from '../../../models/form'
 import inline from 'inline-css'
 
-const submitRoute = async (req, res) => {
+const previewRoute = async (req, res) => {
 
   const form = await Form.query(qb => {
     qb.where('code', req.params.code)
@@ -21,13 +21,13 @@ const submitRoute = async (req, res) => {
     config: email.get('config')
   })
 
-  // const html = await inline(rendered, {
-  //   url: 'https://mahaplatform.com',
-  //   preserveMediaQueries: true
-  // })
+  const html = await inline(rendered, {
+    url: 'https://mahaplatform.com',
+    preserveMediaQueries: true
+  })
 
-  res.status(200).send(rendered)
+  res.status(200).send(html)
 
 }
 
-export default submitRoute
+export default previewRoute
