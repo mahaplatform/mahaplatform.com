@@ -6,10 +6,14 @@ const Details = ({ form, response }) => {
 
   const list = {}
 
-  list.items = form.config.fields.map(field => ({
-    label: field.label,
-    content: response.data[field.name]
-  }))
+  list.items = [
+    { label: 'Contact', content: 'Greg Kops' },
+    { label: 'IP Address', content: response.ipaddress },
+    ...form.config.fields.map(field => ({
+      label: field.label,
+      content: response.data[field.name]
+    }))
+  ]
 
   return <List { ...list } />
 

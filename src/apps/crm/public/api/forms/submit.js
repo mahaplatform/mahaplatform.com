@@ -16,6 +16,8 @@ const submitRoute = async (req, res) => {
     message: 'Unable to load form'
   })
 
+  console.log(req.headers['x-forwarded-for'] || req.connection.remoteAddress)
+
   const response = await Response.forge({
     team_id: form.get('team_id'),
     form_id: form.get('id'),

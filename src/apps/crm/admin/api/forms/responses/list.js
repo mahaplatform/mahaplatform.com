@@ -17,9 +17,35 @@ const listRoute = async (req, res) => {
     message: 'Unable to load form'
   })
 
+  const fields = form.get('config').fields
+
   const responses = await Response.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('form_id', form.get('id'))
+  }).filter({
+    aliases: {
+      ...fields.reduce((aliases, field) => ({
+        ...aliases,
+        [field.name]: `data->>'${field.name}'`
+      }), {})
+    },
+    filter: req.query.$filter,
+    filterParams: [
+      ...fields.map(field => field.name)
+    ]
+  }).sort({
+    aliases: {
+      ...fields.reduce((aliases, field) => ({
+        ...aliases,
+        [field.name]: `data->>'${field.name}'`
+      }), {})
+    },
+    sort: req.query.$sort,
+    defaultSort: '-created_at',
+    sortParams: [
+      ...fields.map(field => field.name),
+      'created_at'
+    ]
   }).fetchPage({
     withRelated: ['contact.photo'],
     page: req.query.$page,
