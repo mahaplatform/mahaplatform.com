@@ -72,16 +72,19 @@ table.images-block,
 table.image-block img {
   box-sizing: border-box;
 }
-table.button {
-  margin: 0;
-  Margin: 0;
-}
 div.divider {
   height: 0;
 }
-table..video-block .columns p:last-child,
-table..image-block .columns p:last-child,
-table..text-block .columns p:last-child {
+table.button-block table.button {
+  margin: 0;
+  Margin: 0;
+}
+table.button-block a {
+  padding: 0 !important;
+}
+table.video-block .columns p:last-child,
+table.image-block .columns p:last-child,
+table.text-block .columns p:last-child {
   margin-bottom: 0 !important;
 }
 table.images-block img,

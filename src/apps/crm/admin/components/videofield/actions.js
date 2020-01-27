@@ -1,6 +1,6 @@
-export const set = (link_id) => ({
+export const set = (data) => ({
   type: 'SET',
-  link_id
+  data
 })
 
 export const remove = () => ({

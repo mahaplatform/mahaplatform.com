@@ -54,9 +54,10 @@ class Divider extends React.Component {
       sections: [
         {
           fields: [
-            this._getBorder('border', 'Border'),
             { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
-            { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
+            this._getBorder('border', 'Border'),
+            { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding },
+            this._getBorder('divider_border', 'Divider')
           ]
         }
       ]
@@ -65,11 +66,14 @@ class Divider extends React.Component {
 
   _getDefault() {
     return {
+      background_color: null,
       padding: 16,
-      border_width: 2,
-      border_style: 'solid',
-      border_color: '#000000',
-      background_color: null
+      border_width: null,
+      border_style: null,
+      border_color: null,
+      divider_border_width: 2,
+      divider_border_style: 'solid',
+      divider_border_color: '#000000'
     }
   }
 

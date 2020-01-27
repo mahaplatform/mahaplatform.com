@@ -43,7 +43,9 @@
                                                                         <tbody>
                                                                           <tr>
                                                                             <td>
-                                                                              <%= block.content %>
+                                                                              <a href="<%= block.url %>" target="_blank">
+                                                                                <%= block.content %>
+                                                                              </a>
                                                                             </td>
                                                                           </tr>
                                                                         </tbody>
@@ -241,7 +243,9 @@
                                                             </tr>
                                                             <tr>
                                                               <td class="small-12 large-12 columns first last">
-                                                                <img src="<%= block.video.preview %>" />
+                                                                <a href="<%= block.video.src %>" target="_blank">
+                                                                  <img src="<%= block.video.preview %>" />
+                                                                </a>
                                                               </td>
                                                               <td class="expander"></td>
                                                             </tr>
@@ -250,7 +254,9 @@
                                                           <tbody>
                                                             <tr>
                                                               <td class="small-12 large-12 columns first last">
-                                                                <img src="<%= block.video.preview %>" />
+                                                                <a href="<%= block.video.src %>" target="_blank">
+                                                                  <img src="<%= block.video.preview %>" />
+                                                                </a>
                                                               </td>
                                                               <td class="expander"></td>
                                                             </tr>
@@ -265,7 +271,9 @@
                                                           <tbody>
                                                             <tr>
                                                               <td class="small-12 large-<%= block.video_width %> columns first">
-                                                                <img src="<%= block.video.preview %>" />
+                                                                <a href="<%= block.video.src %>" target="_blank">
+                                                                  <img src="<%= block.video.preview %>" />
+                                                                </a>
                                                               </td>
                                                               <td class="small-12 large-<%= 12 - block.video_width %> columns last">
                                                                 <%- block.caption %>
@@ -280,7 +288,9 @@
                                                                 <%- block.caption %>
                                                               </td>
                                                               <td class="small-12 large-<%= block.video_width %> columns last">
-                                                                <img src="<%= block.video.preview %>" />
+                                                                <a href="<%= block.video.src %>" target="_blank">
+                                                                  <img src="<%= block.video.preview %>" />
+                                                                </a>
                                                               </td>
                                                               <td class="expander"></td>
                                                             </tr>
@@ -292,7 +302,9 @@
                                                         <tbody>
                                                           <tr>
                                                             <td class="small-12 large-12 columns first last">
-                                                              <img src="<%= block.video.preview %>" />
+                                                              <a href="<%= block.video.src %>" target="_blank">
+                                                                <img src="<%= block.video.preview %>" />
+                                                              </a>
                                                             </td>
                                                             <td class="expander"></td>
                                                           </tr>

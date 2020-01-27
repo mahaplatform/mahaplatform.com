@@ -12,9 +12,10 @@ class VideoField extends React.Component{
   static propTypes = {
     cid: PropTypes.string,
     defaultValue: PropTypes.number,
-    src: PropTypes.string,
+    embed: PropTypes.string,
     preview: PropTypes.string,
     prompt: PropTypes.string,
+    src: PropTypes.string,
     onFetch: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
@@ -30,7 +31,6 @@ class VideoField extends React.Component{
 
   _handlePicker = this._handlePicker.bind(this)
   _handleRemove = this._handleRemove.bind(this)
-  _handleSet = this._handleSet.bind(this)
 
   render() {
     const { src } = this.props
@@ -48,8 +48,8 @@ class VideoField extends React.Component{
   }
 
   componentDidMount() {
-    const { defaultValue, onReady, onFetch } = this.props
-    if(defaultValue) onFetch(defaultValue)
+    const { defaultValue, onReady, onSet } = this.props
+    if(defaultValue) onSet(defaultValue)
     onReady()
   }
 
@@ -61,9 +61,9 @@ class VideoField extends React.Component{
   }
 
   _getIframe() {
-    const { src } = this.props
+    const { embed } = this.props
     return {
-      src,
+      src: embed,
       frameBorder: 0,
       allowFullScreen: true
     }
@@ -103,8 +103,8 @@ class VideoField extends React.Component{
   }
 
   _handleChange() {
-    const { src, preview } = this.props
-    this.props.onChange({ src, preview })
+    const { embed, preview, src } = this.props
+    this.props.onChange({ embed, preview, src })
   }
 
   _handlePicker() {
@@ -113,10 +113,6 @@ class VideoField extends React.Component{
 
   _handleRemove() {
     this.props.onRemove()
-  }
-
-  _handleSet(src) {
-    this.props.onSet(src)
   }
 
 }

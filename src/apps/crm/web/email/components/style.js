@@ -178,15 +178,10 @@ class Style extends React.Component {
           ] : [],
           ...block.type === 'divider' ? [
             {
-              selector: `table.section-${i}-block-${j} .divider-block-content`, styles: [
-                ...this._getProp('padding',`sections[${i}].blocks[${j}].padding`, 'px'),
-                ...this._getProp('background-color',`sections[${i}].blocks[${j}].background_color`)
-              ]
-            },{
               selector: `table.section-${i}-block-${j} div.divider`, styles: [
-                ...this._getProp('border-width',`sections[${i}].blocks[${j}].border_width`, 'px'),
-                ...this._getProp('border-style',`sections[${i}].blocks[${j}].border_style`),
-                ...this._getProp('border-color',`sections[${i}].blocks[${j}].border_color`)
+                ...this._getProp('border-width',`sections[${i}].blocks[${j}].divider_border_width`, 'px'),
+                ...this._getProp('border-style',`sections[${i}].blocks[${j}].divider_border_style`),
+                ...this._getProp('border-color',`sections[${i}].blocks[${j}].divider_border_color`)
               ]
             }
           ] : []

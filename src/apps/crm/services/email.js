@@ -48,7 +48,6 @@ const getBorder = (config, prop, key) => {
 }
 
 const getStyle = (config) => {
-  console.log(config.sections[0].blocks[0])
   const inline = getInlineStyle(config)
   return [core,overrides,inline].map(sheet => {
     return `<style>${sheet}</style>`
@@ -187,15 +186,10 @@ const getInlineStyle = (config) => [
       ] : [],
       ...block.type === 'divider' ? [
         {
-          selector: `table.section-${i}-block-${j} .divider-block-content`, styles: [
-            ...getProp(config, 'padding',`sections[${i}].blocks[${j}].padding`, 'px'),
-            ...getProp(config, 'background-color',`sections[${i}].blocks[${j}].background_color`)
-          ]
-        },{
           selector: `table.section-${i}-block-${j} div.divider`, styles: [
-            ...getProp(config, 'border-width',`sections[${i}].blocks[${j}].border_width`, 'px'),
-            ...getProp(config, 'border-style',`sections[${i}].blocks[${j}].border_style`),
-            ...getProp(config, 'border-color',`sections[${i}].blocks[${j}].border_color`)
+            ...getProp(config, 'border-width',`sections[${i}].blocks[${j}].divider_border_width`, 'px'),
+            ...getProp(config, 'border-style',`sections[${i}].blocks[${j}].divider_border_style`),
+            ...getProp(config, 'border-color',`sections[${i}].blocks[${j}].divider_border_color`)
           ]
         }
       ] : []

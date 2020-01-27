@@ -10,6 +10,7 @@ class Picker extends React.Component{
   }
 
   static propTypes = {
+    embed: PropTypes.string,
     src: PropTypes.string,
     status: PropTypes.string,
     onFetch: PropTypes.func
@@ -69,9 +70,9 @@ class Picker extends React.Component{
   }
 
   _getIframe() {
-    const { src } = this.props
+    const { embed } = this.props
     return {
-      src,
+      src: embed,
       frameBorder: 0,
       allowFullScreen: true
     }
@@ -108,6 +109,7 @@ class Picker extends React.Component{
 }
 
 const mapStateToProps = (state, props) => ({
+  embed: state.crm.videofield[props.cid].embed,
   src: state.crm.videofield[props.cid].src,
   status: state.crm.videofield[props.cid].status
 })
