@@ -125,7 +125,12 @@ class Style extends React.Component {
               ...this._getProp('padding',`fields[${i}].padding`, 'px')
             ]
           }, {
-            selector: `div.field-${i} p,div.field-${i} li`, styles: [
+            selector: `div.field-${i} a`, styles: [
+              ...this._getProp('color',`fields[${i}].color`),
+              { prop: 'text-decoration', value: 'underline' }
+            ]
+          }, {
+            selector: `div.field-${i} h1,div.field-${i} h2,div.field-${i} p,div.field-${i} li`, styles: [
               ...this._getProp('font-family',`fields[${i}].font_family`),
               ...this._getProp('font-size',`fields[${i}].font_size`, 'px'),
               ...this._getFormat('font-weight', 'bold', `fields[${i}].format`, 'normal'),

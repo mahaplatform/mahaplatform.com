@@ -59,7 +59,7 @@ class Section extends React.Component {
         {
           fields: [
             { label: 'Background', name: 'card_background_color', type: 'colorfield', defaultValue: config.card_background },
-            this._getBorder('border'),
+            this._getBorder('border', 'Border'),
             { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
           ]
         }, {

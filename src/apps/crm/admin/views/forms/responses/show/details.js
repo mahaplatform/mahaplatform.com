@@ -4,18 +4,7 @@ import React from 'react'
 
 const Content = ({ field, data }) => {
   if(field.type === 'productfield') {
-    return (
-      <table className="ui table">
-        <thead>
-          <tr>
-            <th>Product</th>
-            <th>Quantity</th>
-            <th>Price</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-      </table>
-    )
+    return <span>products</span>
   } else if(field.type === 'checkbox') {
     return <span>{ `${data}` }</span>
   }

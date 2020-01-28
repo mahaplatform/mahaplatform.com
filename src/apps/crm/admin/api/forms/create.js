@@ -42,9 +42,9 @@ const createRoute = async (req, res) => {
     ...whitelist(req.body, ['title']),
     config: {
       fields: [
-        { label: 'First Name', name: 'First Name', code: generateName(), required: true, type: 'contactfield', contactfield: { label: 'First Name', name: 'first_name', type: 'textfield'} },
-        { label: 'Last Name', name: 'Last Name', code: generateName(), required: true, type: 'contactfield', contactfield: { label: 'Last Name', name: 'last_name', type: 'textfield'} },
-        { label: 'Email', name: 'Email', code: generateName(), required: true, type: 'contactfield', contactfield: { label: 'Email', name: 'email', type: 'textfield'} }
+        { label: 'First Name', name: generateName(), required: true, type: 'contactfield', contactfield: { label: 'First Name', name: 'first_name', type: 'textfield'} },
+        { label: 'Last Name', name: generateName(), required: true, type: 'contactfield', contactfield: { label: 'Last Name', name: 'last_name', type: 'textfield'} },
+        { label: 'Email', name: generateName(), required: true, type: 'contactfield', contactfield: { label: 'Email', name: 'email', type: 'textfield'} }
       ],
       settings: {
         captcha: true,
