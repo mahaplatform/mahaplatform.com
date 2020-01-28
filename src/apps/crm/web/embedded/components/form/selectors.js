@@ -20,15 +20,22 @@ export const fields = createSelector(
   }))
 )
 
-export const requiresPayment = createSelector(
+const submittable = createSelector(
   fields,
+  (fields) => fields.filter(field => {
+    return !_.includes(['text'], field.type)
+  })
+)
+
+export const requiresPayment = createSelector(
+  submittable,
   (fields) => fields.find(field => {
     return field.type === 'productfield'
   }) !== undefined
 )
 
 export const isReady = createSelector(
-  fields,
+  submittable,
   ready,
   (fields, ready) => fields.find(field => {
     return !_.includes(ready, field.name)
@@ -36,7 +43,7 @@ export const isReady = createSelector(
 )
 
 export const isValid = createSelector(
-  fields,
+  submittable,
   validated,
   errors,
   (fields, validated, errors) => Object.keys(errors).length === 0 && fields.find(field => {

@@ -58,16 +58,16 @@ class Sidebar extends React.Component {
   _getFields() {
     return [
       { label: 'Contactfield', icon: 'user', type: 'contactfield', component: ContactField },
-      { label: 'Textfield', icon: 'font', type: 'textfield', component: TextField },
+      { label: 'Text', icon: 'font', type: 'textfield', component: TextField },
       { label: 'Dropdown', icon: 'caret-square-o-down', type: 'dropdown', component: DropDown },
-      { label: 'Radio Group', icon: 'check-circle', type: 'radiogroup', component: RadioGroup },
-      { label: 'Checkboxes', icon: 'check-square', type: 'checkboxes', component: CheckBoxes },
-      { label: 'Checkbox', icon: 'check-square', type: 'checkbox', component: Checkbox },
+      { label: 'Multiple Choice', icon: 'circle-o', type: 'radiogroup', component: RadioGroup },
+      { label: 'Checkboxes', icon: 'check-square-o', type: 'checkboxes', component: CheckBoxes },
+      { label: 'Confirmation', icon: 'check', type: 'checkbox', component: Checkbox },
       { label: 'File Upload', icon: 'cloud-upload', type: 'filefield', component: FileField },
-      { label: 'Datefield', icon: 'calendar', type: 'datefield', component: DateField },
-      { label: 'Timefield', icon: 'clock-o', type: 'timefield', component: TimeField },
-      { label: 'Productfield', icon: 'shopping-bag', type: 'productfield', component: ProductField },
-      { label: 'Text', icon: 'align-left', type: 'text', component: Text }
+      { label: 'Date', icon: 'calendar', type: 'datefield', component: DateField },
+      { label: 'Time', icon: 'clock-o', type: 'timefield', component: TimeField },
+      { label: 'Products', icon: 'shopping-bag', type: 'productfield', component: ProductField },
+      { label: 'Instructions', icon: 'align-left', type: 'text', component: Text }
     ]
   }
 

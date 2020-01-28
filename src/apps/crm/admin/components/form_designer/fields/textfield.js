@@ -66,7 +66,7 @@ class TextField extends React.Component {
 
   _getDefault() {
     return {
-      label: '',
+      label: 'Untitled',
       token: '',
       instructions: '',
       placeholder: '',

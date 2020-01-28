@@ -60,6 +60,9 @@ class Text extends React.Component {
           sections: [
             {
               fields: [
+                { label: 'Background', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
+                this._getBorder('border', 'Border'),
+                { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding },
                 { label: 'Text', name: 'text', type: 'htmlfield', defaultValue: config.text }
               ]
             }
@@ -94,6 +97,11 @@ class Text extends React.Component {
 
   _getDefault() {
     return {
+      background_color: null,
+      border_style: null,
+      border_width: null,
+      border_color: null,
+      padding: 16,
       text: '<p>Messenger bag portland adaptogen food truck pabst, la croix pug vinyl mumblecore chartreuse. Art party schlitz portland, try-hard semiotics tumblr green juice gentrify letterpress tilde gochujang whatever helvetica tote bag. Locavore quinoa man braid cred selvage chambray. Post-ironic everyday carry kale chips umami woke polaroid, meggings organic pork belly air plant.</p>',
       font_family: null,
       font_size: null,
@@ -103,6 +111,18 @@ class Text extends React.Component {
       line_height: null,
       letter_spacing: null
     }
+  }
+
+  _getBorder(type, label) {
+    const { config } = this.state
+    if(!config[`${type}_style`]) {
+      return { label, name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] }
+    }
+    return { label, type:'fields', fields: [
+      { name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] },
+      { name: `${type}_width`, type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config[`${type}_width`] },
+      { name: `${type}_color`, type: 'colorfield', defaultValue: config[`${type}_color`] }
+    ] }
   }
 
   _handleChange(config) {

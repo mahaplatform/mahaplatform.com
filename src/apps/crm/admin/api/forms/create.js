@@ -8,6 +8,7 @@ import Template from '../../../models/template'
 import Program from '../../../models/program'
 import Email from '../../../models/email'
 import Form from '../../../models/form'
+import _ from 'lodash'
 
 const createRoute = async (req, res) => {
 
@@ -29,13 +30,33 @@ const createRoute = async (req, res) => {
     table: 'crm_forms'
   })
 
+  const generateName = () => {
+    return _.random(100000, 999999).toString(36)
+  }
+
   const form = await Form.forge({
     team_id: req.team.get('id'),
     status: 'draft',
     code,
     program_id: program.get('id'),
     ...whitelist(req.body, ['title']),
-    config: { fields: [] }
+    config: {
+      fields: [
+        { label: 'First Name', name: generateName(), required: true, type: 'contactfield', contactfield: { label: 'First Name', name: 'first_name', type: 'textfield'} },
+        { label: 'Last Name', name: generateName(), required: true, type: 'contactfield', contactfield: { label: 'Last Name', name: 'last_name', type: 'textfield'} },
+        { label: 'Email', name: generateName(), required: true, type: 'contactfield', contactfield: { label: 'Email', name: 'email', type: 'textfield'} }
+      ],
+      settings: {
+        captcha: true,
+        confirmation_strategy: 'message',
+        confirmation_message: 'Thank You!',
+        button_text: 'Submit'
+      },
+      page: {
+        background_color: '#EEEEEE',
+        form_background_color: '#FFFFFF'
+      }
+    }
   }).save(null, {
     transacting: req.trx
   })
@@ -64,7 +85,16 @@ const createRoute = async (req, res) => {
     code: emailCode,
     subject: req.body.subject,
     reply_to: req.body.reply_to,
-    config: template ? template.get('config') : { sections: [] }
+    config: template ? template.get('config') : { sections: [{
+      label: 'Body',
+      blocks: [
+        {
+          type: 'text',
+          content_0: 'Thank you!',
+          padding: 16
+        }
+      ]
+    }] }
   }).save(null, {
     transacting: req.trx
   })

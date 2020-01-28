@@ -118,20 +118,25 @@ class Style extends React.Component {
       ...fields.reduce((styles, field, i) => [
         ...styles,
         ...field.type === 'text' ? [
-          { selector: `div.field-${i}`, styles: [
-            ...this._getProp('background-color',`fields[${i}].background_color`),
-            ...this._getProp('padding',`fields[${i}].button_padding`, 'px'),
-            ...this._getProp('border-radius',`fields[${i}].border_radius`, 'px'),
-            ...this._getProp('font-family',`fields[${i}].font_family`),
-            ...this._getProp('font-size',`fields[${i}].font_size`, 'px'),
-            ...this._getFormat('font-weight', 'bold', `fields[${i}].format`, 'normal'),
-            ...this._getFormat('font-style', 'italic', `fields[${i}].format`),
-            ...this._getFormat('text-decoration', 'underline', `fields[${i}].format`),
-            ...this._getProp('color',`fields[${i}].color`),
-            ...this._getProp('text-align',`fields[${i}].text_align`),
-            ...this._getProp('line-height',`fields[${i}].line_height`),
-            ...this._getProp('letter-spacing',`fields[${i}].letter_spacing`, 'px')
-          ] }
+          {
+            selector: `div.field-${i}`, styles: [
+              ...this._getProp('background-color',`fields[${i}].background_color`),
+              ...this._getBorder('border', `fields[${i}].border`),
+              ...this._getProp('padding',`fields[${i}].padding`, 'px')
+            ]
+          }, {
+            selector: `div.field-${i} p,div.field-${i} li`, styles: [
+              ...this._getProp('font-family',`fields[${i}].font_family`),
+              ...this._getProp('font-size',`fields[${i}].font_size`, 'px'),
+              ...this._getFormat('font-weight', 'bold', `fields[${i}].format`, 'normal'),
+              ...this._getFormat('font-style', 'italic', `fields[${i}].format`),
+              ...this._getFormat('text-decoration', 'underline', `fields[${i}].format`),
+              ...this._getProp('color',`fields[${i}].color`),
+              ...this._getProp('text-align',`fields[${i}].text_align`),
+              ...this._getProp('line-height',`fields[${i}].line_height`),
+              ...this._getProp('letter-spacing',`fields[${i}].letter_spacing`, 'px')
+            ]
+          }
         ] : []
       ], [])
     ]

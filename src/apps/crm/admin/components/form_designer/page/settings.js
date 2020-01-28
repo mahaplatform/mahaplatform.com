@@ -53,7 +53,7 @@ class Settings extends React.Component {
         {
           fields: [
             { label: 'Captcha', name: 'captcha', type: 'checkbox', prompt: 'Include CAPTCHA?', defaultValue: config.captcha },
-            { label: 'Button Text', name: 'submit_text', type: 'textfield', defaultValue: config.submit_text }
+            { label: 'Button Text', name: 'button_text', type: 'textfield', defaultValue: config.button_text }
           ]
         }, {
           label: 'Confirmation',
@@ -96,7 +96,7 @@ class Settings extends React.Component {
   _getDefault() {
     return {
       captcha: null,
-      submit_text: 'Submit',
+      button_text: 'Submit',
       confirmation_strategy: null,
       confirmation_message: null,
       confirmation_redirect: null,

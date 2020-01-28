@@ -9,16 +9,13 @@ class Header extends React.Component {
 
   render() {
     const { config } = this.props
-    const { image, text } = config.header
+    const { image } = config.header
     return (
       <div className="maha-form-header">
         { image &&
           <div className="maha-form-header-image">
             <img src={`/imagecache/w=770/${image}`} />
           </div>
-        }
-        { text &&
-          <div className="maha-form-header-text" dangerouslySetInnerHTML={{ __html: text }} />
         }
       </div>
     )

@@ -26,20 +26,30 @@ html, body {
 }
 .maha-form-header-image {
   img {
+    display: block;
     width: 100%;
   }
 }
-.maha-form-header-text {
-  padding: 0.8em;
-}
 .maha-form-body {
-  padding: 0.8em;
-  .field label {
-    margin: 0 !important;
+  padding: 0;
+  .ui.form {
+    .field {
+      padding: 0.8em;
+      margin: 0 !important;
+    }
+    .field label {
+      margin: 0 !important;
+    }
+    .ui.button {
+      color: @white !important;
+    }
   }
-  .ui.button {
-    color: @white !important;
-  }
+}
+.maha-form-captcha {
+  padding: 0 0.8em 0.8em;
+}
+.maha-form-submit {
+  padding: 0 0.8em 0.8em;
 }
 .maha-form-closed {
   padding: 0.8em;

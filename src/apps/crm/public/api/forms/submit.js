@@ -1,6 +1,7 @@
 import { updateEmailAddresses } from '../../../services/email_addresses'
 import { whitelist } from '../../../../../core/services/routes/params'
 import generateCode from '../../../../../core/utils/generate_code'
+import socket from '../../../../../core/services/routes/emitter'
 import { contactActivity } from '../../../services/activities'
 import { sendMail } from '../../../../../core/services/email'
 import EmailAddress from '../../../models/email_address'
@@ -113,6 +114,12 @@ const submitRoute = async (req, res) => {
     subject: email.get('subject'),
     html
   })
+
+  await socket.refresh(req, [
+    '/admin/crm/forms',
+    `/admin/crm/forms/${form.get('id')}`,
+    `/admin/crm/forms/${form.get('id')}/responses`
+  ])
 
   res.status(200).respond(true)
 

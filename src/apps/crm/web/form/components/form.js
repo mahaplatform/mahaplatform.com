@@ -47,11 +47,15 @@ class Form extends React.Component {
                 </div>
               )) }
               { settings.captcha &&
-                <Recaptcha />
+                <div className="maha-form-captcha">
+                  <Recaptcha />
+                </div>
               }
-              <button { ...this._getButton()}>
-                { settings.submit_text }
-              </button>
+              <div className="maha-form-submit">
+                <button { ...this._getButton()}>
+                  { settings.button_text }
+                </button>
+              </div>
             </div>
           </div>
           { config.footer &&

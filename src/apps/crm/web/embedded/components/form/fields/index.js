@@ -42,16 +42,20 @@ class Fields extends React.Component {
             <Field key={`field_${index}`} { ...this._getField(field, index) } />
           )) }
           { settings.captcha &&
-            <Recaptcha { ...this._getRecaptcha() } />
-          }
-          { status === 'submitting' ?
-            <div { ...this._getButton()}>
-              <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Submitting
-            </div> :
-            <div { ...this._getButton()}>
-              { settings.submit_text }
+            <div className="maha-form-captcha">
+              <Recaptcha { ...this._getRecaptcha() } />
             </div>
           }
+          <div className="maha-form-submit">
+            { status === 'submitting' ?
+              <div { ...this._getButton()}>
+                <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Submitting
+              </div> :
+              <div { ...this._getButton()}>
+                { settings.button_text }
+              </div>
+            }
+          </div>
         </div>
       </div>
     )
