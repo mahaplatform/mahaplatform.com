@@ -76,7 +76,7 @@ class Sidebar extends React.Component {
     const key = `fields[${active}]`
     return {
       config: {
-        name: _.random(100000000, 999999999).toString(36),
+        code: _.random(100000000, 999999999).toString(36),
         ..._.get(config, key)
       },
       onDone: this._handleDone,

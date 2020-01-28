@@ -30,7 +30,7 @@ const Details = ({ form, response }) => {
       title: 'Response Data',
       items: form.config.fields.map(field => ({
         label: field.label,
-        content: <Content field={ field } data={ response.data[field.name] } />
+        content: <Content field={ field } data={ response.data[field.code] } />
       }))
     }]
   }

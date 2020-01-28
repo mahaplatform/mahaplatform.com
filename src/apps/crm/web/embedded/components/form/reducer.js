@@ -18,11 +18,11 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       data: {
         ...state.data,
-        [action.name]: action.value
+        [action.code]: action.value
       },
-      errors: _.omit(state.errors, action.name),
+      errors: _.omit(state.errors, action.code),
       status: 'ready',
-      validated: _.without(state.validated, action.name)
+      validated: _.without(state.validated, action.code)
     }
 
   case 'SET_All_STATUS':
@@ -46,7 +46,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       ready: [
-        ..._.union(state.ready, [action.key])
+        ..._.union(state.ready, [action.code])
       ]
     }
 
@@ -60,16 +60,16 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       validated: [
-        ..._.union(state.validated, [action.name])
+        ..._.union(state.validated, [action.code])
       ],
       data: {
         ...state.data,
-        [action.name]: action.value
+        [action.code]: action.value
       },
       errors: {
         ...state.errors,
         ...action.error ? {
-          [action.name]: action.error
+          [action.code]: action.error
         } : {}
       }
     }

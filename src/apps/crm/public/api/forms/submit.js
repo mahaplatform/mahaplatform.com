@@ -112,7 +112,7 @@ const submitRoute = async (req, res) => {
     return field.type === 'contactfield'
   }).reduce((contactdata, field) => ({
     ...contactdata,
-    [field.contactfield.name]: req.body[field.name]
+    [field.contactfield.name]: req.body[field.code]
   }), {})
 
   const contact = await getContact(req, {
@@ -137,7 +137,7 @@ const submitRoute = async (req, res) => {
   const invoice = productfield ? await createInvoice(req, {
     form,
     contact,
-    data: req.body[productfield.name]
+    data: req.body[productfield.code]
   }) : null
 
   const response = await Response.forge({
@@ -168,7 +168,7 @@ const submitRoute = async (req, res) => {
     data: {
       response: fields.reduce((response, field) => ({
         ...response,
-        [field.token]: data[field.name]
+        [field.token]: data[field.code]
       }), {})
     }
   })

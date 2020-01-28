@@ -8,9 +8,10 @@ class FileField extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
+    defaultValue: PropTypes.any,
     files: PropTypes.array,
     multiple: PropTypes.bool,
-    name: PropTypes.string,
+    name: PropTypes.object,
     prompt: PropTypes.string,
     required: PropTypes.bool,
     status: PropTypes.string,

@@ -18,9 +18,9 @@ export const pay = (body) => ({
   failure: 'PAY_FAILURE'
 })
 
-export const change = (name, value) => ({
+export const change = (code, value) => ({
   type: 'CHANGE',
-  name,
+  code,
   value
 })
 
@@ -28,9 +28,9 @@ export const setHuman = () => ({
   type: 'SET_HUMAN'
 })
 
-export const setReady = (key) => ({
+export const setReady = (code) => ({
   type: 'SET_READY',
-  key
+  code
 })
 
 export const setStatus = (status) => ({
@@ -38,9 +38,9 @@ export const setStatus = (status) => ({
   status
 })
 
-export const setValid = (name, value, error) => ({
+export const setValid = (code, value, error) => ({
   type: 'SET_VALID',
-  name,
+  code,
   value,
   error
 })

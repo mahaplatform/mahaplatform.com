@@ -7,7 +7,8 @@ class ProductField extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
-    name: PropTypes.string,
+    defaultValue: PropTypes.array,
+    name: PropTypes.object,
     placeholder: PropTypes.string,
     products: PropTypes.array,
     quantities: PropTypes.object,

@@ -1,3 +1,4 @@
+import TokenField from '../../tokenfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
@@ -11,12 +12,15 @@ class RadioGroupForm extends React.Component {
     onUpdate: PropTypes.func
   }
 
+  form = null
+
   state = {
     config: null
   }
 
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
     if(!this.state.config) return null
@@ -43,18 +47,19 @@ class RadioGroupForm extends React.Component {
     const { config } = this.state
     return {
       title: 'Radio Group',
+      reference: node => this.form = node,
       onChange: this._handleChange,
-      onCancel: this._handleDone,
-      cancelIcon: 'chevron-left',
+      onSubmit: this._handleDone,
+      cancelText: null,
       saveText: null,
       buttons: [
-        { label: 'Done', color: 'red', handler: this._handleDone }
+        { label: 'Done', color: 'red', handler: this._handleSubmit }
       ],
       sections: [
         {
           fields: [
+            { label: 'Name', name: 'name', type: TokenField, placeholder: 'Enter a name', defaultValue: config.name, required: true },
             { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
-            { label: 'Token', name: 'token', type: 'textfield', disabled: true, defaultValue: config.token },
             { label: 'Instructions', name: 'instructions', type: 'textarea', rows: 2, placeholder: 'Enter instructions', defaultValue: config.instructions },
             { label: 'Placeholder', name: 'placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
             { label: 'Required', name: 'required', type: 'checkbox', defaultValue: config.required },
@@ -80,7 +85,6 @@ class RadioGroupForm extends React.Component {
   }
 
   _handleChange(config) {
-    config.token = config.label.replace(/[^A-Za-z0-9\s]+/g, '').replace(/[\s]+/g, '_').toLowerCase()
     this.setState({
       config: {
         ...this.state.config,
@@ -91,6 +95,10 @@ class RadioGroupForm extends React.Component {
 
   _handleDone() {
     this.props.onDone()
+  }
+
+  _handleSubmit() {
+    this.form.submit()
   }
 
 }

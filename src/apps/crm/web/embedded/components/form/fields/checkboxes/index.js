@@ -7,7 +7,7 @@ class Checkboxes extends React.Component {
   static propTypes = {
     code: PropTypes.string,
     defaultValue: PropTypes.array,
-    name: PropTypes.string,
+    name: PropTypes.object,
     options: PropTypes.array,
     required: PropTypes.bool,
     status: PropTypes.string,

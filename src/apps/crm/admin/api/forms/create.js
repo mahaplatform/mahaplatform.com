@@ -30,7 +30,7 @@ const createRoute = async (req, res) => {
     table: 'crm_forms'
   })
 
-  const generateName = () => {
+  const generateFieldCode = () => {
     return _.random(100000, 999999).toString(36)
   }
 
@@ -42,9 +42,9 @@ const createRoute = async (req, res) => {
     ...whitelist(req.body, ['title']),
     config: {
       fields: [
-        { label: 'First Name', name: generateName(), required: true, type: 'contactfield', contactfield: { label: 'First Name', name: 'first_name', type: 'textfield'} },
-        { label: 'Last Name', name: generateName(), required: true, type: 'contactfield', contactfield: { label: 'Last Name', name: 'last_name', type: 'textfield'} },
-        { label: 'Email', name: generateName(), required: true, type: 'contactfield', contactfield: { label: 'Email', name: 'email', type: 'textfield'} }
+        { label: 'First Name', name: { value: 'First Name', token: 'first_name' }, code: generateFieldCode(), required: true, type: 'contactfield', contactfield: { label: 'First Name', name: 'first_name', type: 'textfield'} },
+        { label: 'Last Name', name: { value: 'Last Name', token: 'last_name' }, code: generateFieldCode(), required: true, type: 'contactfield', contactfield: { label: 'Last Name', name: 'last_name', type: 'textfield'} },
+        { label: 'Email', name: { value: 'Email', token: 'email' }, code: generateFieldCode(), required: true, type: 'contactfield', contactfield: { label: 'Email', name: 'email', type: 'textfield'} }
       ],
       settings: {
         captcha: true,

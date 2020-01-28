@@ -6,7 +6,7 @@ class RadioGroup extends React.Component {
   static propTypes = {
     code: PropTypes.string,
     defaultValue: PropTypes.array,
-    name: PropTypes.string,
+    name: PropTypes.object,
     options: PropTypes.array,
     placeholder: PropTypes.string,
     required: PropTypes.bool,
