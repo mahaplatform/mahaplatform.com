@@ -1,3 +1,4 @@
+import ContactAvatar from '../../tokens/contact_avatar'
 import { Avatar } from 'maha-admin'
 import PropTypes from 'prop-types'
 import moment from 'moment'
@@ -32,7 +33,7 @@ class Activities extends React.PureComponent {
               <div className="crm-timeline-item-card-header-avatar">
                 { activity.user ?
                   <Avatar user={ activity.user } width="28" presence={ false } /> :
-                  <Avatar user={ contact } width="28" presence={ false } />
+                  <ContactAvatar { ...contact } />
                 }
               </div>
               <div className="crm-timeline-item-card-header-details">

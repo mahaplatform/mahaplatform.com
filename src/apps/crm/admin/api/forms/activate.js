@@ -26,7 +26,7 @@ const activateRoute = async (req, res) => {
 
   await socket.refresh(req, [
     '/admin/crm/forms',
-    `/admin/crm/forms/${form.get('code')}`
+    `/admin/crm/forms/${form.get('id')}`
   ])
 
   res.status(200).respond(form, FormSerializer)

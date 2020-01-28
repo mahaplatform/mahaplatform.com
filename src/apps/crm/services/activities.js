@@ -2,7 +2,9 @@ import socket from '../../../core/services/routes/emitter'
 import Story from '../../maha/models/story'
 import Activity from '../models/activity'
 
-export const contactActivity = async (req, { foreign_key, team_id, user, contact, program_id, type, story, object, data }) => {
+export const contactActivity = async (req, params) => {
+
+  const { foreign_key, team_id, user, contact, program_id, type, story, object, data } = params
 
   await Activity.forge({
     team_id: team_id || req.team.get('id'),

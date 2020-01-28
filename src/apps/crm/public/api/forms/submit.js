@@ -1,6 +1,7 @@
 import { updateEmailAddresses } from '../../../services/email_addresses'
 import { whitelist } from '../../../../../core/services/routes/params'
 import generateCode from '../../../../../core/utils/generate_code'
+import { contactActivity } from '../../../services/activities'
 import { sendMail } from '../../../../../core/services/email'
 import EmailAddress from '../../../models/email_address'
 import { renderEmail } from '../../../services/email'
@@ -82,6 +83,14 @@ const submitRoute = async (req, res) => {
     data: req.body
   }).save(null, {
     transacting: req.trx
+  })
+
+  await contactActivity(req, {
+    contact,
+    type: 'form',
+    story: 'filled out a form',
+    program_id: form.get('program_id'),
+    data: {}
   })
 
   const email = form.related('email')
