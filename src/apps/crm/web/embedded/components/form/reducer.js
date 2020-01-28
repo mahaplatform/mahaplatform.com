@@ -1,7 +1,10 @@
+import _ from 'lodash'
+
 export const INITIAL_STATE = {
   data: {},
   errors: {},
   human: false,
+  ready: [],
   status: {}
 }
 
@@ -31,21 +34,6 @@ const reducer = (state = INITIAL_STATE, action) => {
       }
     }
 
-  case 'SET_HUMAN':
-    return {
-      ...state,
-      human: true
-    }
-
-  case 'SET_STATUS':
-    return {
-      ...state,
-      status: {
-        ...state.status,
-        [action.name]: action.status
-      }
-    }
-
   case 'SET_All_STATUS':
     return {
       ...state,
@@ -54,6 +42,29 @@ const reducer = (state = INITIAL_STATE, action) => {
           ...status,
           [name]: action.status
         }), {})
+      }
+    }
+
+  case 'SET_HUMAN':
+    return {
+      ...state,
+      human: true
+    }
+
+  case 'SET_READY':
+    return {
+      ...state,
+      ready: [
+        ..._.union(state.ready, [action.key])
+      ]
+    }
+
+  case 'SET_STATUS':
+    return {
+      ...state,
+      status: {
+        ...state.status,
+        [action.name]: action.status
       }
     }
 

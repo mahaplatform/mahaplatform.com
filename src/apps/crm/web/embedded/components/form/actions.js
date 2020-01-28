@@ -38,6 +38,11 @@ export const setHuman = () => ({
   type: 'SET_HUMAN'
 })
 
+export const setReady = (key) => ({
+  type: 'SET_READY',
+  key
+})
+
 export const setStatus = (name, status) => ({
   type: 'SET_STATUS',
   name,

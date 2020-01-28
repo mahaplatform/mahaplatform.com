@@ -6,23 +6,28 @@ import React from 'react'
 class Fields extends React.Component {
 
   static propTypes = {
+    code: PropTypes.string,
     config: PropTypes.object,
     data: PropTypes.object,
     errors: PropTypes.object,
     fields: PropTypes.array,
-    finalized: PropTypes.object,
-    isFinalized: PropTypes.bool,
     human: PropTypes.bool,
+    isOpen: PropTypes.bool,
     isReady: PropTypes.bool,
     isValid: PropTypes.bool,
+    ready: PropTypes.array,
     requiresPayment: PropTypes.bool,
     status: PropTypes.object,
     onChange: PropTypes.func,
+    onPay: PropTypes.func,
     onSave: PropTypes.func,
     onSetAllStatus: PropTypes.func,
     onSetHuman: PropTypes.func,
+    onSetReady: PropTypes.func,
     onSetStatus: PropTypes.func,
-    onSetValidate: PropTypes.func
+    onSetValidate: PropTypes.func,
+    onValidate: PropTypes.func,
+    onSubmit: PropTypes.func
   }
 
   _handleValidate = this._handleValidate.bind(this)
@@ -64,7 +69,7 @@ class Fields extends React.Component {
       error: errors[field.name],
       status: status[field.name],
       onChange: this._handleChange.bind(this, field.name),
-      onReady: this.onSetStatus.bind(this, field.name, 'ready'),
+      onReady: this._handleSetReady.bind(this, field.name),
       onValidate: this._handleSetValidate.bind(this, field.name)
     }
   }
@@ -78,6 +83,10 @@ class Fields extends React.Component {
 
   _handleChange(name, value) {
     this.props.onChange(name, value)
+  }
+
+  _handleSetReady(name) {
+    this.props.onSetReady(name)
   }
 
   onSetStatus(name, status) {

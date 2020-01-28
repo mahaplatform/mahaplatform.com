@@ -1,6 +1,9 @@
 import { createSelector } from 'reselect'
+import _ from 'lodash'
 
 const config = (state, props) => props.config
+
+const ready = (state, props) => state.ready
 
 const status = (state, props) => state.status
 
@@ -22,8 +25,9 @@ export const requiresPayment = createSelector(
 
 export const isReady = createSelector(
   fields,
-  (fields) => fields.find(field => {
-    return field.status === 'pending'
+  ready,
+  (fields, ready) => fields.find(field => {
+    return !_.includes(ready, field.name)
   }) === undefined
 )
 
