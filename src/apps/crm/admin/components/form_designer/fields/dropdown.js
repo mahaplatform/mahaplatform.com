@@ -3,7 +3,7 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class DropDown extends React.Component {
+class DropDownForm extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
@@ -95,4 +95,4 @@ class DropDown extends React.Component {
 
 }
 
-export default DropDown
+export default DropDownForm

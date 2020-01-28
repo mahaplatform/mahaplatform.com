@@ -3,7 +3,7 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class DateField extends React.Component {
+class DateFieldForm extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
@@ -90,4 +90,4 @@ class DateField extends React.Component {
 
 }
 
-export default DateField
+export default DateFieldForm

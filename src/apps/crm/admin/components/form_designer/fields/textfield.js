@@ -3,7 +3,7 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class TextField extends React.Component {
+class TextFieldForm extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
@@ -90,4 +90,4 @@ class TextField extends React.Component {
 
 }
 
-export default TextField
+export default TextFieldForm

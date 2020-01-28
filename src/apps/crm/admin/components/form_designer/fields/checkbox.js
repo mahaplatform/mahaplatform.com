@@ -3,7 +3,7 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class Checkbox extends React.Component {
+class CheckboxForm extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
@@ -90,4 +90,4 @@ class Checkbox extends React.Component {
 
 }
 
-export default Checkbox
+export default CheckboxForm

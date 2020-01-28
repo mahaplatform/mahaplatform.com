@@ -1,3 +1,4 @@
+import { Container } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Chooser from './chooser'
 import React from 'react'
@@ -104,4 +105,8 @@ class ContactField extends React.Component {
 
 }
 
-export default ContactField
+const mapResources = (props, context) => ({
+  options: '/api/admin/crm/forms/fields'
+})
+
+export default Container(mapResources)(ContactField)

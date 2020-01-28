@@ -11,7 +11,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       quantities: {
         ...state.quantities,
-        [action.code]: action.value
+        [action.id]: action.value
       }
     }
 

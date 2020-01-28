@@ -1,9 +1,10 @@
+import ProductField from '../../productfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class ProductField extends React.Component {
+class ProductFieldForm extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
@@ -57,7 +58,8 @@ class ProductField extends React.Component {
             { label: 'Token', name: 'token', type: 'textfield', disabled: true, defaultValue: config.token },
             { label: 'Instructions', name: 'instructions', type: 'textarea', rows: 2, placeholder: 'Enter instructions', defaultValue: config.instructions },
             { label: 'Placeholder', name: 'placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
-            { label: 'Required', name: 'required', type: 'checkbox', defaultValue: config.required }
+            { label: 'Required', name: 'required', type: 'checkbox', defaultValue: config.required },
+            { label: 'Products', name: 'products', type: ProductField, defaultValue: config.products }
           ]
         }
       ]
@@ -70,7 +72,8 @@ class ProductField extends React.Component {
       token: '',
       instructions: '',
       placeholder: '',
-      required: false
+      required: false,
+      products: []
     }
   }
 
@@ -90,4 +93,4 @@ class ProductField extends React.Component {
 
 }
 
-export default ProductField
+export default ProductFieldForm

@@ -3,7 +3,7 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class FileField extends React.Component {
+class FileFieldForm extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
@@ -92,4 +92,4 @@ class FileField extends React.Component {
 
 }
 
-export default FileField
+export default FileFieldForm

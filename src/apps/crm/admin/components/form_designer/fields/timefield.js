@@ -3,7 +3,7 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class TimeField extends React.Component {
+class TimeFieldForm extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
@@ -90,4 +90,4 @@ class TimeField extends React.Component {
 
 }
 
-export default TimeField
+export default TimeFieldForm

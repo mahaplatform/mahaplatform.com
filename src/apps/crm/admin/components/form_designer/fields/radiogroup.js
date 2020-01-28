@@ -3,7 +3,7 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class RadioGroup extends React.Component {
+class RadioGroupForm extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
@@ -95,4 +95,4 @@ class RadioGroup extends React.Component {
 
 }
 
-export default RadioGroup
+export default RadioGroupForm

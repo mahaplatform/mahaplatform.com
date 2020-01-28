@@ -1,0 +1,52 @@
+.crm-productfield {
+  border: 1px solid fadeout(@black, 90);
+  border-radius: 0.3em;
+  overflow: hidden;
+  &:focus {
+    outline: none !important;
+    border-color: @lightblue;
+    border-radius: .28571429rem;
+    background: @white;
+    box-shadow: none;
+    .phonesfield-number:first-child {
+      outline: none !important;
+      border-color: @lightblue;
+      background: @white;
+      box-shadow: none;
+    }
+  }
+}
+.crm-productfield-product {
+  border-bottom: 1px solid fadeout(@black, 90);
+  display: flex;
+}
+.crm-productfield-product-label {
+  padding: 0.8em;
+  flex: 1;
+}
+.crm-productfield-product-remove {
+  padding: 0.8em;
+  display: flex;
+  cursor: pointer;
+  &:hover .fa {
+    color: fadeout(@black, 40);
+  }
+  .fa {
+    color: fadeout(@black, 60);
+    margin: auto;
+  }
+}
+.crm-productfield-product-add {
+  background-color: fadeout(@black, 98);
+  padding: 0.8em;
+}
+.crm-productfield-chooser-products {
+  flex: 1;
+}
+.crm-productfield-chooser-product {
+  border-bottom: 1px solid fadeout(@black, 90);
+  padding: 0.8em;
+  &:hover {
+    background-color: fadeout(@black, 97);
+  }
+}

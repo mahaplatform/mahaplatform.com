@@ -1,10 +1,10 @@
-import ContactFieldItem from '../../contactfield'
-import { Container, Form } from 'maha-admin'
+import ContactField from '../../contactfield'
 import PropTypes from 'prop-types'
+import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class ContactField extends React.Component {
+class ContactFieldForm extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
@@ -58,7 +58,7 @@ class ContactField extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Field', name: 'contactfield', type: ContactFieldItem, options: fields, defaultValue: config.contactfield },
+            { label: 'Field', name: 'contactfield', type: ContactField, options: fields, defaultValue: config.contactfield },
             ...this._getField()
           ]
         }
@@ -117,8 +117,4 @@ class ContactField extends React.Component {
 
 }
 
-const mapResources = (props, context) => ({
-  fields: '/api/admin/crm/forms/fields'
-})
-
-export default Container(mapResources)(ContactField)
+export default ContactFieldForm

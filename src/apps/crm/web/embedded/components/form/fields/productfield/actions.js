@@ -1,5 +1,5 @@
-export const set = (code, value) => ({
+export const set = (id, value) => ({
   type: 'SET',
-  code,
+  id,
   value
 })
