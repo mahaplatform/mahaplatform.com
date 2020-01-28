@@ -163,19 +163,20 @@ const submitRoute = async (req, res) => {
 
   const data = response.get('data')
 
+
   const html = renderEmail(req, {
     config: email.get('config'),
     data: {
       response: fields.reduce((response, field) => ({
         ...response,
-        [field.token]: data[field.code]
+        [field.name.token]: data[field.code]
       }), {})
     }
   })
 
   await sendMail({
     from: email.related('sender').get('rfc822'),
-    to: 'mochini@gmail.com',
+    to: contact.get('email'),
     subject: email.get('subject'),
     html
   })

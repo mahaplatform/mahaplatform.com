@@ -30,14 +30,12 @@ class Checkbox extends React.Component {
   render() {
     const { prompt } = this.props
     return (
-      <div className="maha-checkboxes">
-        <div className="maha-checkbox" onClick={ this._handleToggle }>
-          <div className="maha-checkbox-icon">
-            <i className={`fa fa-fw fa-${this._getIcon()}`} />
-          </div>
-          <div className="maha-checkbox-label">
-            { prompt }
-          </div>
+      <div className="maha-confirmation" onClick={ this._handleToggle }>
+        <div className="maha-confirmation-icon">
+          <i className={`fa fa-fw fa-${this._getIcon()}`} />
+        </div>
+        <div className="maha-confirmation-label">
+          { prompt }
         </div>
       </div>
     )
@@ -82,7 +80,7 @@ class Checkbox extends React.Component {
     const { required } = this.props
     const { value } = this.state
     if(required && !value) {
-      this.props.onValidate(null, 'You must check this box')
+      this.props.onValidate(null, 'This field is required')
     } else {
       this.props.onValidate(value)
     }

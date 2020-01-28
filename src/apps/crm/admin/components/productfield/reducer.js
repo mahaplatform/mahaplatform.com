@@ -25,6 +25,12 @@ const reducer = (state = INITIAL_STATE, action) => {
       ]
     }
 
+  case 'SET':
+    return {
+      ...state,
+      products: action.products
+    }
+
   default:
     return state
   }

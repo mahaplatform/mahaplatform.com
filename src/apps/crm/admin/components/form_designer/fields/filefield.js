@@ -46,7 +46,7 @@ class FileFieldForm extends React.Component {
   _getForm() {
     const { config } = this.state
     return {
-      title: 'File field',
+      title: 'File Upload',
       reference: node => this.form = node,
       onChange: this._handleChange,
       onSubmit: this._handleDone,

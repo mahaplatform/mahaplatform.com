@@ -58,7 +58,7 @@ class Sidebar extends React.Component {
   _getFields() {
     return [
       { label: 'Checkboxes', icon: 'check-square-o', type: 'checkboxes', component: CheckBoxes },
-      { label: 'Confirmation', icon: 'check', type: 'checkbox', component: Checkbox },
+      { label: 'Confirmation', icon: 'check-square', type: 'checkbox', component: Checkbox },
       { label: 'Contactfield', icon: 'user', type: 'contactfield', component: ContactField },
       { label: 'Date', icon: 'calendar', type: 'datefield', component: DateField },
       { label: 'Dropdown', icon: 'caret-square-o-down', type: 'dropdown', component: DropDown },
