@@ -18,7 +18,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Responses',
       text: 'There are no responses to this form'
     },
-    defaultSort: { key: 'created_at', order: 'asc' },
+    defaultSort: { key: 'created_at', order: 'desc' },
     entity: 'responses',
     onClick: (record) => context.router.history.push(`/admin/crm/forms/${props.params.form_id}/responses/${record.id}`)
   }

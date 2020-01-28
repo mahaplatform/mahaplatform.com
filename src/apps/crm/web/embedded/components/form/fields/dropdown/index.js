@@ -141,11 +141,11 @@ class Dropdown extends React.Component {
 
   _handleValidate() {
     const { options, required } = this.props
-    const value = options[this.state.value].value
-    if(required && !value) {
-      this.props.onValidate(value, 'You must choose at least one value')
-    } else {
-      this.props.onValidate(value)
+    const { value } = this.state
+    if(required && value === null) {
+      this.props.onValidate(null, 'You must choose a value')
+    } else if(value !== null) {
+      this.props.onValidate(options[value].value)
     }
   }
 

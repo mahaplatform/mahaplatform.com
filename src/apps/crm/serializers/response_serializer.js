@@ -12,6 +12,7 @@ const contact = (contact) => {
   return {
     id: contact.get('id'),
     display_name: contact.get('display_name'),
+    initials: contact.get('initials'),
     photo: contact.related('photo') ? contact.related('photo').get('path') : null
   }
 }

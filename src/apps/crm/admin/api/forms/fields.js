@@ -28,7 +28,6 @@ const fieldsRoute = async (req, res) => {
   }))
 
   res.status(200).respond([
-    { label: 'Full Name', name: 'full_name', type: 'textfield' },
     { label: 'First Name', name: 'first_name', type: 'textfield' },
     { label: 'Last Name', name: 'last_name', type: 'textfield' },
     { label: 'Email', name: 'email', type: 'emailfield' },

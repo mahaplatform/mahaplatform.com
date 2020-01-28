@@ -38,7 +38,7 @@ class Form extends React.Component {
   render() {
     const { config, isOpen, status } = this.props
     const { closed_message, confirmation_message } = config.settings
-    const active = _.includes(['ready','validating','submitting'], status)
+    const active = _.includes(['ready','validating','submitting','failure'], status)
     return (
       <div className="maha-form">
         { config.header &&

@@ -1,19 +1,30 @@
-import { List } from 'maha-admin'
+import { Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 const Details = ({ form, response }) => {
 
-  const list = {}
+  const contact = {
+    label: response.contact.display_name,
+    className: 'link',
+    route: `/admin/crm/contacts/${response.contact.id}`
+  }
 
-  list.items = [
-    { label: 'Contact', content: 'Greg Kops' },
-    { label: 'IP Address', content: response.ipaddress },
-    ...form.config.fields.map(field => ({
-      label: field.label,
-      content: response.data[field.name]
-    }))
-  ]
+  const list = {
+    sections: [{
+      items: [
+        { label: 'Contact', content: <Button { ...contact }/> },
+        { label: 'IP Address', content: response.ipaddress },
+        { label: 'Submitted', content: response.created_at, format: 'datetime' }
+      ]
+    }, {
+      title: 'Response Data',
+      items: form.config.fields.map(field => ({
+        label: field.label,
+        content: response.data[field.name]
+      }))
+    }]
+  }
 
   return <List { ...list } />
 

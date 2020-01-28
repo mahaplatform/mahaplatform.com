@@ -32,8 +32,9 @@ class Field extends React.Component {
 
   render() {
     const { error, field } = this.props
-    const { instructions, label, type } = field
+    const { instructions, label } = field
     const { code } = this.state
+    const Component = this._getComponent(field)
     return (
       <div className={ this._getClass() }>
         { label && <label htmlFor={ code }>{ label }</label> }
@@ -42,17 +43,7 @@ class Field extends React.Component {
             { instructions }
           </div>
         }
-        { type === 'checkboxes' && <Checkboxes { ...this._getField() } /> }
-        { type === 'datefield' && <DateField { ...this._getField() } /> }
-        { type === 'dropdown' && <Dropdown { ...this._getField() } /> }
-        { type === 'filefield' && <FileField { ...this._getField() } /> }
-        { type === 'phonefield' && <PhoneField { ...this._getField() } /> }
-        { type === 'productfield' && <ProductField { ...this._getField() } /> }
-        { type === 'radiogroup' && <RadioGroup { ...this._getField() } /> }
-        { type === 'text' && <Text { ...this._getField() } /> }
-        { type === 'textfield' && <TextField { ...this._getField() } /> }
-        { type === 'textarea' && <TextArea{ ...this._getField() } /> }
-        { type === 'timefield' && <TimeField { ...this._getField() } /> }
+        <Component { ...this._getField() } />
         { error &&
           <div className="field-error">
             { error }
@@ -74,6 +65,21 @@ class Field extends React.Component {
     if(field.required) classes.push('required')
     if(error) classes.push('error')
     return classes.join(' ')
+  }
+
+  _getComponent(field) {
+    if(field.type === 'contactfield' && field.contactfield) return this._getComponent(field.contactfield)
+    if(field.type === 'checkboxes') return Checkboxes
+    if(field.type === 'datefield') return DateField
+    if(field.type === 'dropdown') return Dropdown
+    if(field.type === 'filefield') return FileField
+    if(field.type === 'phonefield') return PhoneField
+    if(field.type === 'productfield') return ProductField
+    if(field.type === 'radiogroup') return RadioGroup
+    if(field.type === 'text') return Text
+    if(field.type === 'textarea') return TextArea
+    if(field.type === 'timefield') return TimeField
+    return TextField
   }
 
   _getField() {

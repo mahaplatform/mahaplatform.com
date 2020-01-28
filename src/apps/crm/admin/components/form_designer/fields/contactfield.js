@@ -8,7 +8,7 @@ class ContactField extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
-    fields: PropTypes.object,
+    fields: PropTypes.array,
     onDone: PropTypes.func,
     onUpdate: PropTypes.func
   }
@@ -18,6 +18,7 @@ class ContactField extends React.Component {
   }
 
   _handleChange = this._handleChange.bind(this)
+  _handleChangeField = this._handleChangeField.bind(this)
   _handleDone = this._handleDone.bind(this)
 
   render() {
@@ -47,6 +48,7 @@ class ContactField extends React.Component {
     return {
       title: 'Contact Field',
       onChange: this._handleChange,
+      // onChangeField: this._handleChangeField,
       onCancel: this._handleDone,
       cancelIcon: 'chevron-left',
       saveText: null,
@@ -56,19 +58,28 @@ class ContactField extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
-            { label: 'Token', name: 'token', type: 'textfield', disabled: true, defaultValue: config.token },
-            { label: 'Instructions', name: 'instructions', type: 'textarea', rows: 2, placeholder: 'Enter instructions', defaultValue: config.instructions },
-            { label: 'Required', name: 'required', type: 'checkbox', defaultValue: config.required },
-            { label: 'Field', name: 'field_id', type: ContactFieldItem, options: fields, value: 'id', text: 'label', placeholder: 'Choose a field', defaultValue: config.field_id }
+            { label: 'Field', name: 'contactfield', type: ContactFieldItem, options: fields, defaultValue: config.contactfield },
+            ...this._getField()
           ]
         }
       ]
     }
   }
 
+  _getField() {
+    const { config } = this.state
+    if(config.contactfield === null) return []
+    return [
+      { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
+      { label: 'Token', name: 'token', type: 'textfield', disabled: true, defaultValue: config.token },
+      { label: 'Instructions', name: 'instructions', type: 'textarea', rows: 2, placeholder: 'Enter instructions', defaultValue: config.instructions },
+      { label: 'Required', name: 'required', type: 'checkbox', defaultValue: config.required }
+    ]
+  }
+
   _getDefault() {
     return {
+      contactfield: null,
       label: '',
       token: '',
       instructions: '',
@@ -77,13 +88,27 @@ class ContactField extends React.Component {
   }
 
   _handleChange(config) {
-    config.token = config.label.replace(/[^A-Za-z0-9\s]+/g, '').replace(/[\s]+/g, '_').toLowerCase()
+    config.label = config.label || config.contactfield.label
+    config.token = config.label ? config.label.replace(/[^A-Za-z0-9\s]+/g, '').replace(/[\s]+/g, '_').toLowerCase() : ''
     this.setState({
       config: {
         ...this.state.config,
         ...config
       }
     })
+  }
+
+  _handleChangeField(key, value) {
+    if(key === 'contactfield') {
+      this.setState({
+        config: {
+          ...this.state.config,
+          contactfield: value,
+          label: value.label
+        }
+      })
+    }
+
   }
 
   _handleDone() {

@@ -83,7 +83,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'SUBMIT_FAILURE':
     return {
       ...state,
-      status: 'failed'
+      status: 'failure'
     }
 
   case 'SUBMIT_SUCCESS':

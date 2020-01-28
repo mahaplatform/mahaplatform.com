@@ -26,7 +26,7 @@ class Field extends React.Component {
     const { field } = this.props
     const { label, instructions } = field
     if(Object.keys(field).length === 1) return null
-    const Component  = this._getComponent()
+    const Component  = this._getComponent(field)
     return (
       <div className={ this._getClass() }>
         <div className={ this._getFieldClass() }>
@@ -63,9 +63,8 @@ class Field extends React.Component {
     return classes.join(' ')
   }
 
-  _getComponent() {
-    const { field } = this.props
-    if(field.type === 'contactfield') return <div>contactfield</div>
+  _getComponent(field) {
+    if(field.type === 'contactfield' && field.contactfield) return this._getComponent(field.contactfield)
     if(field.type === 'checkboxes') return Checkboxes
     if(field.type === 'datefield') return DateField
     if(field.type === 'dropdown') return Dropdown
@@ -74,9 +73,9 @@ class Field extends React.Component {
     if(field.type === 'productfield') return ProductField
     if(field.type === 'radiogroup') return RadioGroup
     if(field.type === 'text') return Text
-    if(field.type === 'textfield') return TextField
     if(field.type === 'textarea') return TextArea
     if(field.type === 'timefield') return TimeField
+    return TextField
   }
 
   _getField() {
