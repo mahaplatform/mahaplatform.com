@@ -3137,6 +3137,15 @@ union
     `)
 
     await knex.raw(`
+      create view crm_form_responses AS
+      select crm_forms.id as form_id,
+      count(crm_responses.*) as num_responses
+      from (crm_forms
+      join crm_responses on ((crm_responses.form_id = crm_forms.id)))
+      group by crm_forms.id;
+    `)
+
+    await knex.raw(`
       create view crm_interest_counts AS
       select crm_topics.id as topic_id,
       (count(crm_interests.*))::integer as interest_count

@@ -4,25 +4,17 @@ import ejs from 'ejs'
 import fs from 'fs'
 
 const template  = fs.readFileSync(path.join(__dirname, 'email.ejs'), 'utf8')
-
 const root = path.resolve(__dirname,'..','..','..','core','admin','public','css')
-
 const core = fs.readFileSync(path.join(root,'foundation-emails.min.css')).toString()
-
 const overrides = fs.readFileSync(path.join(root,'foundation-overrides.min.css')).toString()
 
 export const renderEmail = (req, { config, data }) => {
-
   const html = ejs.render(template, {
     config,
     style: getStyle(config),
     host: 'https://mahaplatform.com'//process.env.WEB_HOST
   })
-
-  const interpolated = ejs.render(html.replace(/&lt;%/g,'<%').replace(/%&gt;/g,'%>'), data)
-
-  return interpolated
-
+  return ejs.render(html.replace(/&lt;%/g,'<%').replace(/%&gt;/g,'%>'), data)
 }
 
 const getProp = (config, prop, key, unit = null, defaultValue = null) => {

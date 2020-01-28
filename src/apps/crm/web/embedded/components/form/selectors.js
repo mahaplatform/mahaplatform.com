@@ -1,7 +1,4 @@
 import { createSelector } from 'reselect'
-import _ from 'lodash'
-
-const data = (state, props) => state.data
 
 const config = (state, props) => props.config
 

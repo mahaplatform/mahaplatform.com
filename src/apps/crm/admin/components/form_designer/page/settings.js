@@ -4,6 +4,11 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
+const strategies = [
+  { value: 'message', text: 'Show Message' },
+  { value: 'redirect', text: 'Redirect to URL' }
+]
+
 class Settings extends React.Component {
 
   static propTypes = {
@@ -48,31 +53,23 @@ class Settings extends React.Component {
         {
           fields: [
             { label: 'Captcha', name: 'captcha', type: 'checkbox', prompt: 'Include CAPTCHA?', defaultValue: config.captcha },
-            { label: 'Submit Text', name: 'submit_text', type: 'textfield', defaultValue: config.submit_text }
+            { label: 'Button Text', name: 'submit_text', type: 'textfield', defaultValue: config.submit_text }
           ]
         }, {
           label: 'Confirmation',
           fields: [
-            { name: 'confirmation_strategy', type: 'radiogroup', options: [
-              { value: 'message', text: 'Show Message' },
-              { value: 'redirect', text: 'Redirect to website' }
-            ], defaultValue: config.confirmation_strategy },
+            { name: 'confirmation_strategy', type: 'radiogroup', options: strategies, defaultValue: config.confirmation_strategy },
             this._getConfirmation()
           ]
         }, {
-          label: 'Limits',
+          label: 'Form Limits',
           fields: [
-            { label: 'Max Submissions', name: 'max_submissions', type: 'numberfield', defaultValue: config.max_submissions },
-            { label: 'Start Date', name: 'start_date', type: 'datefield', defaultValue: config.start_date },
-            { label: 'End Date', name: 'end_date', type: 'datefield', defaultValue: config.end_date }
-          ]
-        }, {
-          label: 'Form Closed',
-          fields: [
-            { name: 'closed_strategy', type: 'radiogroup', options: [
-              { value: 'message', text: 'Show Message' },
-              { value: 'redirect', text: 'Redirect to website' }
-            ], defaultValue: config.closed_strategy },
+            { label: 'Max Responses', name: 'max_responses', type: 'numberfield', defaultValue: config.max_responses },
+            { type: 'fields', fields: [
+              { label: 'Start Date', name: 'start_date', type: 'datefield', defaultValue: config.start_date },
+              { label: 'End Date', name: 'end_date', type: 'datefield', defaultValue: config.end_date }
+            ] },
+            { label: 'Once Closed', name: 'closed_strategy', type: 'radiogroup', options: strategies, defaultValue: config.closed_strategy },
             this._getClosed()
           ]
         }
@@ -103,7 +100,7 @@ class Settings extends React.Component {
       confirmation_strategy: null,
       confirmation_message: null,
       confirmation_redirect: null,
-      max_submissions: null,
+      max_responses: null,
       start_date: null,
       end_date: null,
       closed_strategy: null,

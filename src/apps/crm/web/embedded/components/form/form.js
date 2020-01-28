@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types'
-import Payment from './payment'
 import Header from './header'
 import Footer from './footer'
 import Fields from './fields'
@@ -14,6 +13,7 @@ class Form extends React.Component {
     errors: PropTypes.object,
     fields: PropTypes.array,
     human: PropTypes.bool,
+    isOpen: PropTypes.bool,
     isReady: PropTypes.bool,
     isValid: PropTypes.bool,
     requiresPayment: PropTypes.bool,
@@ -33,14 +33,17 @@ class Form extends React.Component {
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    const { config } = this.props
+    const { config, isOpen } = this.props
+    const { closed_strategy, closed_message } = config.settings
     return (
       <div className="maha-form">
         { config.header &&
           <Header { ...this._getHeader() } />
         }
-        { false && <Payment { ...this._getPayment() } /> }
-        <Fields { ...this._getFields() } />
+        { isOpen && <Fields { ...this._getFields() } /> }
+        { !isOpen && closed_strategy === 'message' &&
+          <div className="maha-form-closed" dangerouslySetInnerHTML={{ __html: closed_message }} />
+        }
         { config.footer &&
           <Footer { ...this._getFooter() } />
         }

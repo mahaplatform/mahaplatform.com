@@ -11,8 +11,9 @@ const mapPropsToPage = (props, context, resources, page) => ({
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Title', key: 'title', primary: true },
-      { label: 'Program', key: 'program.title', primary: true },
-      { label: 'Status', key: 'status', primary: true, collapsing: true, format: StatusToken }
+      { label: 'Program', key: 'program.title' },
+      { label: 'Responses', key: 'num_responses', collapsing: true },
+      { label: 'Status', key: 'status', collapsing: true, format: StatusToken }
     ],
     defaultSort: { key: 'title', order: 'asc' },
     empty: {

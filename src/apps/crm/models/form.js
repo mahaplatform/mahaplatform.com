@@ -2,6 +2,7 @@ import Model from '../../../core/objects/model'
 import Response from './response'
 import Program from './program'
 import Email from './email'
+import moment from 'moment'
 
 const Form = new Model({
 
@@ -11,8 +12,17 @@ const Form = new Model({
 
   virtuals: {
 
-    num_responses() {
-      return this.related('responses').length
+    is_open() {
+      const { settings } = this.get('config')
+      const { start_date, end_date, max_responses } = settings
+      const num_responses = this.get('num_responses')
+      const now = moment().startOf('day')
+      const start = moment(start_date).startOf('day')
+      const end = moment(end_date).startOf('day')
+      if(max_responses && num_responses >= max_responses ) return false
+      if(start_date && now.diff(start, 'days') < 0) return false
+      if(end_date && now.diff(end, 'days') > 0) return false
+      return true
     }
 
   },
