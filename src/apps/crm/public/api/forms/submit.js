@@ -4,11 +4,15 @@ import generateCode from '../../../../../core/utils/generate_code'
 import socket from '../../../../../core/services/routes/emitter'
 import { contactActivity } from '../../../services/activities'
 import { sendMail } from '../../../../../core/services/email'
+import LineItem from '../../../../finance/models/line_item'
+import Invoice from '../../../../finance/models/invoice'
+import Product from '../../../../finance/models/product'
 import EmailAddress from '../../../models/email_address'
 import { renderEmail } from '../../../services/email'
 import Response from '../../../models/response'
 import Contact from '../../../models/contact'
 import Form from '../../../models/form'
+import moment from 'moment'
 
 const getContact = async (req, { form, fields, data }) => {
 
@@ -33,6 +37,56 @@ const getContact = async (req, { form, fields, data }) => {
   }).save(null, {
     transacting: req.trx
   })
+
+}
+
+const createInvoice = async (req, { form, contact, data }) => {
+
+  const code = await generateCode(req, {
+    table: 'finance_invoices'
+  })
+
+  const invoice = await Invoice.forge({
+    team_id: req.team.get('id'),
+    code,
+    program_id: form.get('program_id'),
+    customer_id: contact.get('id'),
+    date: moment(),
+    due: moment()
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  await Promise.map(data, async(line_item) => {
+
+    const product = await Product.scope(qb => {
+      qb.where('team_id', req.team.get('id'))
+    }).query(qb => {
+      qb.where('id', line_item.product_id)
+    }).fetch({
+      transacting: req.trx
+    })
+
+    await LineItem.forge({
+      team_id: req.team.get('id'),
+      invoice_id: invoice.get('id'),
+      product_id: product.get('id'),
+      project_id: product.get('project_id'),
+      revenue_type_id: product.get('revenue_type_id'),
+      is_tax_deductible: product.get('is_tax_deductible'),
+      description: product.get('title'),
+      quantity: line_item.quantity,
+      price: line_item.price,
+      tax_rate: line_item.tax_rate,
+      base_price: line_item.price,
+      donation: 0.00
+    }).save(null, {
+      transacting: req.trx
+    })
+
+  })
+
+  return invoice
 
 }
 
@@ -76,10 +130,21 @@ const submitRoute = async (req, res) => {
     })
   }
 
+  const productfield = fields.find(field => {
+    return field.type === 'productfield'
+  })
+
+  const invoice = productfield ? await createInvoice(req, {
+    form,
+    contact,
+    data: req.body[productfield.name]
+  }) : null
+
   const response = await Response.forge({
     team_id: form.get('team_id'),
     form_id: form.get('id'),
     contact_id: contact.get('id'),
+    invoice_id: invoice ? invoice.get('id') : null,
     ipaddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
     data: req.body
   }).save(null, {

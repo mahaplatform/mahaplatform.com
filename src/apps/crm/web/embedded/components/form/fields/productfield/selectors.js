@@ -38,7 +38,7 @@ export const value = createSelector(
   (products) => products.filter(product => {
     return product.quantity > 0
   }).map(product => ({
-    id: product.id,
+    product_id: product.id,
     quantity: product.quantity,
     tax_rate: product.tax_rate,
     price: product.price

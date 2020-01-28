@@ -53,7 +53,7 @@ export default (state = INITIAL_STATE, action) => {
       ]
     }
 
-  case 'READY':
+  case 'SET_READY':
     return {
       ...state,
       ready: true

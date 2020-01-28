@@ -43,7 +43,6 @@ class ContactFieldForm extends React.Component {
   }
 
   _getForm() {
-    const { fields } = this.props
     const { config } = this.state
     return {
       title: 'Contact Field',
@@ -58,7 +57,7 @@ class ContactFieldForm extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Field', name: 'contactfield', type: ContactField, options: fields, defaultValue: config.contactfield },
+            { label: 'Field', name: 'contactfield', type: ContactField, defaultValue: config.contactfield },
             ...this._getField()
           ]
         }

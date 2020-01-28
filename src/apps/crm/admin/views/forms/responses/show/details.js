@@ -2,6 +2,26 @@ import { Button, List } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 
+const Content = ({ field, data }) => {
+  if(field.type === 'productfield') {
+    return (
+      <table className="ui table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+      </table>
+    )
+  } else if(field.type === 'checkbox') {
+    return <span>{ `${data}` }</span>
+  }
+  return <span>{ data }</span>
+}
+
 const Details = ({ form, response }) => {
 
   const contact = {
@@ -13,7 +33,7 @@ const Details = ({ form, response }) => {
   const list = {
     sections: [{
       items: [
-        { label: 'Contact', content: <Button { ...contact }/> },
+        { label: 'Contact', content: <Button { ...contact } /> },
         { label: 'IP Address', content: response.ipaddress },
         { label: 'Submitted', content: response.created_at, format: 'datetime' }
       ]
@@ -21,9 +41,20 @@ const Details = ({ form, response }) => {
       title: 'Response Data',
       items: form.config.fields.map(field => ({
         label: field.label,
-        content: `${response.data[field.name]}`
+        content: <Content field={ field } data={ response.data[field.name] } />
       }))
     }]
+  }
+
+  if(response.invoice_id) {
+    const invoice = {
+      label: 'View Invoice',
+      className: 'link',
+      route: `/admin/finance/invoices/${response.invoice_id}`
+    }
+
+    list.sections[0].items.push({ label: 'Invoice', content: <Button { ...invoice } /> })
+
   }
 
   return <List { ...list } />

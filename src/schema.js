@@ -476,6 +476,7 @@ const schema = {
       table.jsonb('data')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('invoice_id').unsigned()
     })
 
     await knex.schema.createTable('crm_senders', (table) => {
@@ -2192,6 +2193,7 @@ const schema = {
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('form_id').references('crm_forms.id')
       table.foreign('team_id').references('maha_teams.id')
+      table.foreign('invoice_id').references('finance_invoices.id')
     })
 
     await knex.schema.table('crm_senders', table => {

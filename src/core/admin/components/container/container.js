@@ -31,7 +31,7 @@ const Creator = (mapResourcesToPage, Component) => {
       resources: PropTypes.object,
       status: PropTypes.string,
       onFetchResource: PropTypes.func,
-      onReady: PropTypes.func
+      onSetReady: PropTypes.func
     }
 
     state = {
@@ -86,7 +86,7 @@ const Creator = (mapResourcesToPage, Component) => {
       return {
         key: cacheKey,
         ...data,
-        ..._.omit(this.props, ['cid','con','component','data','ready','resources','onFetchResource','onReady'])
+        ..._.omit(this.props, ['cid','con','component','data','ready','resources','onFetchResource','onSetReady'])
       }
     }
 
@@ -140,7 +140,7 @@ const Creator = (mapResourcesToPage, Component) => {
     }
 
     _handleReady() {
-      this.props.onReady()
+      this.props.onSetReady()
     }
 
   }

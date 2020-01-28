@@ -15,6 +15,6 @@ export const clearResource = (prop) => ({
   prop
 })
 
-export const ready = () => ({
-  type: 'READY'
+export const setReady = () => ({
+  type: 'SET_READY'
 })
