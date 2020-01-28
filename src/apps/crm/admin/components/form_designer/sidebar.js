@@ -7,6 +7,7 @@ import FileField from './fields/filefield'
 import TextField from './fields/textfield'
 import TimeField from './fields/timefield'
 import DropDown from './fields/dropdown'
+import Checkbox from './fields/checkbox'
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Text from './fields/text'
@@ -61,6 +62,7 @@ class Sidebar extends React.Component {
       { label: 'Dropdown', icon: 'caret-square-o-down', type: 'dropdown', component: DropDown },
       { label: 'Radio Group', icon: 'check-circle', type: 'radiogroup', component: RadioGroup },
       { label: 'Checkboxes', icon: 'check-square', type: 'checkboxes', component: CheckBoxes },
+      { label: 'Checkbox', icon: 'check-square', type: 'checkbox', component: Checkbox },
       { label: 'File Upload', icon: 'cloud-upload', type: 'filefield', component: FileField },
       { label: 'Datefield', icon: 'calendar', type: 'datefield', component: DateField },
       { label: 'Timefield', icon: 'clock-o', type: 'timefield', component: TimeField },

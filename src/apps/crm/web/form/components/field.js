@@ -8,6 +8,7 @@ import DateField from '../../embedded/components/form/fields/datefield'
 import TimeField from '../../embedded/components/form/fields/timefield'
 import TextArea from '../../embedded/components/form/fields/textarea'
 import Dropdown from '../../embedded/components/form/fields/dropdown'
+import Checkbox from '../../embedded/components/form/fields/checkbox'
 import Text from '../../embedded/components/form/fields/text'
 import PropTypes from 'prop-types'
 import React from 'react'
@@ -66,6 +67,7 @@ class Field extends React.Component {
   _getComponent(field) {
     if(field.type === 'contactfield' && field.contactfield) return this._getComponent(field.contactfield)
     if(field.type === 'checkboxes') return Checkboxes
+    if(field.type === 'checkbox') return Checkbox
     if(field.type === 'datefield') return DateField
     if(field.type === 'dropdown') return Dropdown
     if(field.type === 'filefield') return FileField

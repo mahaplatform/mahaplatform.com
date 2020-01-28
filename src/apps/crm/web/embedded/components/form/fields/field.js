@@ -9,6 +9,7 @@ import TimeField from './timefield'
 import PropTypes from 'prop-types'
 import TextArea from './textarea'
 import Dropdown from './dropdown'
+import Checkbox from './checkbox'
 import Text from './text'
 import React from 'react'
 import _ from 'lodash'
@@ -70,6 +71,7 @@ class Field extends React.Component {
   _getComponent(field) {
     if(field.type === 'contactfield' && field.contactfield) return this._getComponent(field.contactfield)
     if(field.type === 'checkboxes') return Checkboxes
+    if(field.type === 'checkbox') return Checkbox
     if(field.type === 'datefield') return DateField
     if(field.type === 'dropdown') return Dropdown
     if(field.type === 'filefield') return FileField
