@@ -11,6 +11,7 @@ class Text extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
+    tokens: PropTypes.object,
     onDone: PropTypes.func,
     onUpdate: PropTypes.func
   }
@@ -44,6 +45,7 @@ class Text extends React.Component {
   }
 
   _getForm() {
+    const { tokens } = this.props
     const { config } = this.state
     return {
       title: 'Text Block',
@@ -63,7 +65,28 @@ class Text extends React.Component {
                 ...new Array(config.columns).fill(0).map((i, index) => {
                   return { name: `content_${index}`, type: 'htmlfield', defaultValue: config[`content_${index}`] }
                 })
-              ]
+              ],
+              after: (
+                <div className="designer-tokens">
+                  <p>You can use the following variables in this email:</p>
+                  <table className="ui celled compact table">
+                    <tbody>
+                      { tokens.reduce((rows, group, index) => [
+                        ...rows,
+                        <tr key={`group_${index}`}>
+                          <td colSpan="2">{ group.title }</td>
+                        </tr>,
+                        ...group.tokens.map((token, index) => (
+                          <tr key={`token_${index}`}>
+                            <td>{ token.name }</td>
+                            <td>&lt;%= { token.token } %&gt;</td>
+                          </tr>
+                        ))
+                      ], []) }
+                    </tbody>
+                  </table>
+                </div>
+              )
             }
           ]
         }, {

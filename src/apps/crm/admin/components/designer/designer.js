@@ -19,6 +19,7 @@ class Designer extends React.Component {
     preview: PropTypes.bool,
     sidebar: PropTypes.bool,
     title: PropTypes.string,
+    tokens: PropTypes.object,
     onAdd: PropTypes.func,
     onAddSection: PropTypes.func,
     onChange: PropTypes.func,
@@ -101,7 +102,7 @@ class Designer extends React.Component {
   }
 
   _getSidebar() {
-    const { active, blocks, cid, components, config, title, onDeleteSection, onMoveSection, onEdit, onSave, onUpdate } = this.props
+    const { active, blocks, cid, components, config, title, tokens, onDeleteSection, onMoveSection, onEdit, onSave, onUpdate } = this.props
     return {
       active,
       blocks,
@@ -109,6 +110,7 @@ class Designer extends React.Component {
       components,
       config,
       title,
+      tokens,
       onAddSection: this._handleAddSection,
       onDeleteSection,
       onMoveSection,

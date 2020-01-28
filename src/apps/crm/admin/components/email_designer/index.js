@@ -16,6 +16,7 @@ class EmailDesigner extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.object,
+    tokens: PropTypes.object,
     onSave: PropTypes.func
   }
 
@@ -24,7 +25,7 @@ class EmailDesigner extends React.Component {
   }
 
   _getDesigner() {
-    const { defaultValue, onSave } = this.props
+    const { defaultValue, tokens, onSave } = this.props
     return {
       title: 'Email',
       canvas: '/crm/email/index.html',
@@ -33,6 +34,7 @@ class EmailDesigner extends React.Component {
         page: Page,
         section: Section
       },
+      tokens,
       blocks: [
         {
           label: 'Text',

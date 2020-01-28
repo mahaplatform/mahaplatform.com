@@ -29,7 +29,7 @@ class Section extends React.Component {
 
   render() {
     const { section } = this.props
-    const { collapsing, fields, instructions, label } = section
+    const { collapsing, fields, instructions, label, after } = section
     const { collapsed } = this.state
     return (
       <div className={ this._getClass() }>
@@ -53,6 +53,7 @@ class Section extends React.Component {
           { fields.map((field, index) => (
             <Field key={`field_${field.name || index}`} {...this._getField(field, index) } />
           ))}
+          { after }
         </div>
       </div>
     )

@@ -29,7 +29,7 @@
   }
   transform: translateX(1px);
   border-radius: 0.8em 0 0 0.8em;
-  border-right: 1px solid fadeout(@white, 80); 
+  border-right: 1px solid fadeout(@white, 80);
 }
 .designer-sidebar {
   border-left: 1px solid fadeout(@black, 90);
@@ -74,4 +74,17 @@
 }
 .designer-sidebar-panel-body {
   flex: 1;
+}
+.designer-tokens {
+  padding: 0.8em;
+  table {
+    td[colspan="2"] {
+      background-color: fadeout(@black, 30) !important;
+      color: @white;
+      padding: 0.8em;
+    }
+    tr td:first-child {
+      background-color: fadeout(@black, 97);
+    }
+  }
 }

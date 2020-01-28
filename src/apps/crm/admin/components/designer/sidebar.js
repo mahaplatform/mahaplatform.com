@@ -14,6 +14,7 @@ class Sidebar extends React.Component {
     cid: PropTypes.string,
     config: PropTypes.object,
     title: PropTypes.string,
+    tokens: PropTypes.object,
     onAddSection: PropTypes.func,
     onDeleteSection: PropTypes.func,
     onMoveSection: PropTypes.func,
@@ -49,10 +50,11 @@ class Sidebar extends React.Component {
   }
 
   _getBlock() {
-    const { active, config } = this.props
+    const { active, config, tokens } = this.props
     const key = `sections[${active.section}].blocks[${active.block}]`
     return {
       config: _.get(config, key),
+      tokens,
       onDone: this._handleDone,
       onUpdate: this._handleUpdate.bind(this, key)
     }

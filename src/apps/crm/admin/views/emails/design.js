@@ -35,6 +35,18 @@ class Designer extends React.Component {
     const { campaign } = this.state
     return {
       defaultValue: campaign.config,
+      tokens: [
+        { title: 'Response Variables', tokens: [
+          { name: 'First Name', token: 'response.first_name' },
+          { name: 'Last Name', token: 'response.last_name' },
+          { name: 'Email', token: 'response.email' }
+        ] },
+        { title: 'Contact Variables', tokens: [
+          { name: 'First Name', token: 'contact.first_name' },
+          { name: 'Last Name', token: 'contact.last_name' },
+          { name: 'Email', token: 'contact.email' }
+        ] }
+      ],
       onSave: this._handleSave
     }
   }
