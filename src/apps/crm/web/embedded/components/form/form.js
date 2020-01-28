@@ -51,6 +51,12 @@ class Form extends React.Component {
     )
   }
 
+  componentDidMount() {
+    const { config } = this.props
+    const { captcha } = config.settings
+    if(!captcha) this.props.onSetHuman()
+  }
+
   componentDidUpdate(prevProps) {
     const { isValid } = this.props
     if(isValid !== prevProps.isValid && isValid) {
