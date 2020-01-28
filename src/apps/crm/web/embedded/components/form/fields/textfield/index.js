@@ -83,7 +83,7 @@ class TextField extends React.Component {
       value: ''
     })
   }
-  
+
   _handleUpdate(e) {
     if(e.which == 13) return
     this.setState({
@@ -95,9 +95,9 @@ class TextField extends React.Component {
     const { required } = this.props
     const { value } = this.state
     if(required && value.length === 0) {
-      this.props.onValidate('invalid', 'You must enter a value')
+      this.props.onValidate(value, 'You must enter a value')
     } else {
-      this.props.onValidate('valid')
+      this.props.onValidate(value)
     }
   }
 

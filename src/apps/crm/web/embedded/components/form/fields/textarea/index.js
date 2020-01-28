@@ -89,9 +89,9 @@ class TextArea extends React.Component {
     const { required } = this.props
     const { value } = this.state
     if(required && value.length === 0) {
-      this.props.onValidate('invalid', 'You must enter a value')
+      this.props.onValidate(value, 'You must enter a value')
     } else {
-      this.props.onValidate('valid')
+      this.props.onValidate(value)
     }
   }
 

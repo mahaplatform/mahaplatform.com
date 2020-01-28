@@ -122,15 +122,6 @@ class FileField extends React.Component {
     this.props.onChange(this.props.files)
   }
 
-  _handleValidate() {
-    const { files, required } = this.props
-    if(required && files.length === 0) {
-      this.props.onValidate('invalid', 'You must upload at least one file')
-    } else {
-      this.props.onValidate('valid')
-    }
-  }
-
   _handleFileAdded(file) {
     const { name, size, type, uniqueIdentifier } = file.file
     this.props.onAddFile({
@@ -166,6 +157,15 @@ class FileField extends React.Component {
     this.props.onUpdateFile(file.uniqueIdentifier, {
       status: 'failed'
     })
+  }
+
+  _handleValidate() {
+    const { files, required } = this.props
+    if(required && files.length === 0) {
+      this.props.onValidate(files, 'You must upload at least one file')
+    } else {
+      this.props.onValidate(files)
+    }
   }
 
 }

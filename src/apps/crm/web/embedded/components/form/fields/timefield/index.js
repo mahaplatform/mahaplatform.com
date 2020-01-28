@@ -76,7 +76,13 @@ class TimeField extends React.Component {
   }
 
   _handleValidate() {
-    this.props.onValidate('valid')
+    const { required } = this.props
+    const { value } = this.state
+    if(required && value === null) {
+      this.props.onValidate(value, 'You must choose a date')
+    } else {
+      this.props.onValidate(value)
+    }
   }
 
 }

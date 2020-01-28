@@ -136,9 +136,9 @@ class DateField extends React.Component {
     const { required } = this.props
     const { value } = this.state
     if(required && value === null) {
-      this.props.onValidate('invalid', 'You must choose a date')
+      this.props.onValidate(value, 'You must choose a date')
     } else {
-      this.props.onValidate('valid')
+      this.props.onValidate(value)
     }
   }
 

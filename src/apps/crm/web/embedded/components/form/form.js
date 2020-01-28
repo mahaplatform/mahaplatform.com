@@ -3,6 +3,7 @@ import Header from './header'
 import Footer from './footer'
 import Fields from './fields'
 import React from 'react'
+import _ from 'lodash'
 
 class Form extends React.Component {
 
@@ -18,15 +19,15 @@ class Form extends React.Component {
     isValid: PropTypes.bool,
     ready: PropTypes.array,
     requiresPayment: PropTypes.bool,
-    status: PropTypes.object,
+    status: PropTypes.string,
+    validated: PropTypes.array,
     onChange: PropTypes.func,
     onPay: PropTypes.func,
     onSave: PropTypes.func,
-    onSetAllStatus: PropTypes.func,
     onSetHuman: PropTypes.func,
     onSetReady: PropTypes.func,
     onSetStatus: PropTypes.func,
-    onSetValidate: PropTypes.func,
+    onSetValid: PropTypes.func,
     onValidate: PropTypes.func,
     onSubmit: PropTypes.func
   }
@@ -35,15 +36,19 @@ class Form extends React.Component {
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    const { config, isOpen } = this.props
-    const { closed_strategy, closed_message } = config.settings
+    const { config, isOpen, status } = this.props
+    const { closed_message, confirmation_message } = config.settings
+    const active = _.includes(['ready','validating','submitting'], status)
     return (
       <div className="maha-form">
         { config.header &&
           <Header { ...this._getHeader() } />
         }
-        { isOpen && <Fields { ...this._getFields() } /> }
-        { !isOpen && closed_strategy === 'message' &&
+        { active && isOpen && <Fields { ...this._getFields() } /> }
+        { status === 'success' &&
+          <div className="maha-form-closed" dangerouslySetInnerHTML={{ __html: confirmation_message }} />
+        }
+        { !isOpen &&
           <div className="maha-form-closed" dangerouslySetInnerHTML={{ __html: closed_message }} />
         }
         { config.footer &&
@@ -60,38 +65,17 @@ class Form extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { isValid } = this.props
+    const { isValid, status } = this.props
     if(isValid !== prevProps.isValid && isValid) {
       this._handleSubmit()
+    }
+    if(status !== prevProps.status) {
+      if(status === 'success') this._handleSuccess()
     }
   }
 
   _getFields() {
     return this.props
-  }
-
-  _getPayment() {
-    const { config } = this.props
-    return {
-      ...this.props,
-      program: config.program,
-      summary: {
-        products: [
-          {
-            tax: 0.08,
-            code: 'ghijkl',
-            name: '1 Flock (5 Ducks)',
-            price: 5,
-            quantity: 2,
-            total: 10
-          }
-        ],
-        subtotal: 10,
-        total: 10,
-        tax: 0
-      },
-      onPayment: this._handlePayment
-    }
   }
 
   _getFooter() {
@@ -111,6 +95,14 @@ class Form extends React.Component {
   _handleSubmit() {
     const { code, data } = this.props
     this.props.onSubmit(code, data)
+  }
+
+  _handleSuccess() {
+    const { config } = this.props
+    const { confirmation_strategy, confirmation_redirect } = config.settings
+    if(confirmation_strategy === 'redirect') {
+      window.location.href = confirmation_redirect
+    }
   }
 
 }

@@ -17,24 +17,23 @@ class Fields extends React.Component {
     isValid: PropTypes.bool,
     ready: PropTypes.array,
     requiresPayment: PropTypes.bool,
-    status: PropTypes.object,
+    status: PropTypes.string,
+    validated: PropTypes.array,
     onChange: PropTypes.func,
     onPay: PropTypes.func,
     onSave: PropTypes.func,
-    onSetAllStatus: PropTypes.func,
     onSetHuman: PropTypes.func,
     onSetReady: PropTypes.func,
     onSetStatus: PropTypes.func,
-    onSetValidate: PropTypes.func,
+    onSetValid: PropTypes.func,
     onValidate: PropTypes.func,
     onSubmit: PropTypes.func
   }
 
   _handleValidate = this._handleValidate.bind(this)
-  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    const { config, fields } = this.props
+    const { config, fields, status } = this.props
     const { settings } = config
     return (
       <div className="maha-form-body">
@@ -45,19 +44,25 @@ class Fields extends React.Component {
           { settings.captcha &&
             <Recaptcha { ...this._getRecaptcha() } />
           }
-          <button { ...this._getButton()}>
-            { settings.submit_text }
-          </button>
+          { status === 'submitting' ?
+            <div { ...this._getButton()}>
+              <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Submitting
+            </div> :
+            <div { ...this._getButton()}>
+              { settings.submit_text }
+            </div>
+          }
         </div>
       </div>
     )
   }
 
   _getButton() {
-    const { human } = this.props
+    const { human, status } = this.props
+    const submitting = status === 'submitting'
     return {
-      className: human ? 'ui blue button' : 'ui blue disabled button',
-      onClick: human ? this._handleValidate : () => {}
+      className: human && !submitting ? 'ui blue button' : 'ui blue disabled button',
+      onClick: human && !submitting ? this._handleValidate : () => {}
     }
   }
 
@@ -67,10 +72,10 @@ class Fields extends React.Component {
       field,
       index,
       error: errors[field.name],
-      status: status[field.name],
+      status,
       onChange: this._handleChange.bind(this, field.name),
       onReady: this._handleSetReady.bind(this, field.name),
-      onValidate: this._handleSetValidate.bind(this, field.name)
+      onValidate: this._handleSetValid.bind(this, field.name)
     }
   }
 
@@ -89,20 +94,12 @@ class Fields extends React.Component {
     this.props.onSetReady(name)
   }
 
-  onSetStatus(name, status) {
-    this.props.onSetStatus(name, status)
-  }
-
-  _handleSetValidate(name, status, error) {
-    this.props.onSetValidate(name, status, error)
+  _handleSetValid(name, value, error) {
+    this.props.onSetValid(name, value, error)
   }
 
   _handleValidate() {
-    this.props.onSetAllStatus('validating')
-  }
-
-  _handleSubmit() {
-    const { finalized } = this.props
+    this.props.onValidate()
   }
 
 }

@@ -5,7 +5,8 @@ export const INITIAL_STATE = {
   errors: {},
   human: false,
   ready: [],
-  status: {}
+  status: 'ready',
+  validated: []
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -19,19 +20,9 @@ const reducer = (state = INITIAL_STATE, action) => {
         ...state.data,
         [action.name]: action.value
       },
-      errors: {
-        ...Object.keys(state.errors).reduce((errors, name) => {
-          if(name === action.name) return errors
-          return {
-            ...errors,
-            [name]: state.errors[name]
-          }
-        }, {})
-      },
-      status: {
-        ...state.status,
-        [action.name]: 'ready'
-      }
+      errors: _.omit(state.errors, action.name),
+      status: 'ready',
+      validated: _.without(state.validated, action.name)
     }
 
   case 'SET_All_STATUS':
@@ -62,23 +53,50 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'SET_STATUS':
     return {
       ...state,
-      status: {
-        ...state.status,
-        [action.name]: action.status
+      status: state.status
+    }
+
+  case 'SET_VALID':
+    return {
+      ...state,
+      validated: [
+        ..._.union(state.validated, [action.name])
+      ],
+      data: {
+        ...state.data,
+        [action.name]: action.value
+      },
+      errors: {
+        ...state.errors,
+        ...action.error ? {
+          [action.name]: action.error
+        } : {}
       }
     }
 
-  case 'SET_VALIDATE':
+  case 'SUBMIT_REQUEST':
     return {
       ...state,
-      status: {
-        ...state.status,
-        [action.name]: action.status
-      },
-      errors: action.error ? {
-        ...state.errors,
-        [action.name]: action.error
-      } : state.errors
+      status: 'submitting'
+    }
+
+  case 'SUBMIT_FAILURE':
+    return {
+      ...state,
+      status: 'failed'
+    }
+
+  case 'SUBMIT_SUCCESS':
+    return {
+      ...state,
+      status: 'success'
+    }
+
+  case 'VALIDATE':
+    return {
+      ...state,
+      status: 'validating',
+      validated: []
     }
 
   default:

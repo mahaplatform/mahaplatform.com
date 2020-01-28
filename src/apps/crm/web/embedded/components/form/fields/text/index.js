@@ -18,21 +18,11 @@ class Text extends React.Component {
 
   render() {
     const { text } = this.props
-    return (
-      <div className="field" dangerouslySetInnerHTML={{ __html: text }} />
-    )
+    return <div className="field" dangerouslySetInnerHTML={{ __html: text }} />
   }
 
   componentDidMount() {
-    const { onReady } = this.props
-    onReady()
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    const { status, onValidate } = this.props
-    if(status !== prevProps.status) {
-      if(status === 'validating') onValidate('valid')
-    }
+    this.props.onReady()
   }
 
 }

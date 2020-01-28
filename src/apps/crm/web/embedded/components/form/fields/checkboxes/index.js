@@ -86,9 +86,9 @@ class Checkboxes extends React.Component {
     const { required } = this.props
     const { selected } = this.state
     if(required && selected.length === 0) {
-      this.props.onValidate('invalid', 'You must choose at least one value')
+      this.props.onValidate(selected, 'You must choose at least one value')
     } else {
-      this.props.onValidate('valid')
+      this.props.onValidate(selected)
     }
   }
 

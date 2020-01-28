@@ -1,13 +1,3 @@
-export const validate = (id, body) => ({
-  type: 'API_REQUEST',
-  method: 'POST',
-  endpoint: `/api/crm/forms/${id}/validate`,
-  body,
-  request: 'VALIDATE_REQUEST',
-  success: 'VALIDATE_SUCCESS',
-  failure: 'VALIDATE_FAILURE'
-})
-
 export const submit = (code, body) => ({
   type: 'API_REQUEST',
   method: 'POST',
@@ -43,20 +33,18 @@ export const setReady = (key) => ({
   key
 })
 
-export const setStatus = (name, status) => ({
+export const setStatus = (status) => ({
   type: 'SET_STATUS',
-  name,
   status
 })
 
-export const setAllStatus = (status) => ({
-  type: 'SET_All_STATUS',
-  status
-})
-
-export const setValidate = (name, status, error) => ({
-  type: 'SET_VALIDATE',
+export const setValid = (name, value, error) => ({
+  type: 'SET_VALID',
   name,
-  status,
+  value,
   error
+})
+
+export const validate = () => ({
+  type: 'VALIDATE'
 })

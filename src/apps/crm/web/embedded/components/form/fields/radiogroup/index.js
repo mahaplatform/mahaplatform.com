@@ -83,9 +83,9 @@ class RadioGroup extends React.Component {
     const { required } = this.props
     const { selected } = this.state
     if(required && selected === null) {
-      this.props.onValidate('invalid', 'You must choose a value')
+      this.props.onValidate(selected, 'You must choose a value')
     } else {
-      this.props.onValidate('valid')
+      this.props.onValidate(selected)
     }
   }
 
