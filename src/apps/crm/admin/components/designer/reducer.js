@@ -40,7 +40,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         blocks: [
           ...state.config.blocks.reduce((blocks, block, index) => [
             ...blocks,
-            ...(index === action.block) ? [block,block] : [block]
+            ...(index === action.index) ? [block,block] : [block]
           ], [])
         ]
       }
@@ -50,7 +50,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       changes: state.changes + 1,
-      active: action.block
+      active: action.index
     }
 
   case 'REMOVE':
@@ -61,8 +61,8 @@ const reducer = (state = INITIAL_STATE, action) => {
       config: {
         ...state.config,
         blocks: [
-          ...state.config.blocks.filter((block, j) => {
-            return j !== action.block
+          ...state.config.blocks.filter((block, index) => {
+            return index !== action.index
           })
         ]
       }

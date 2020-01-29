@@ -30,22 +30,3 @@ export const page = {
   p_line_height: 1.5,
   p_letter_spacing: 0
 }
-
-export const section = {
-  label: null,
-  background_color: null,
-  background_image: null,
-  border_width: null,
-  border_style: null,
-  border_color: null,
-  padding: 0,
-  font_family: null,
-  font_size: null,
-  color: null,
-  text_align: null,
-  line_height: null,
-  link_color: null,
-  link_bold: null,
-  link_underline: null,
-  blocks: []
-}

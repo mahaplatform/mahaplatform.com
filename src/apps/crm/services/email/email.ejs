@@ -15,312 +15,302 @@
                 <tbody>
                   <tr>
                     <td>
-                      <% config.sections && config.sections.map((section, sectionIndex) => { %>
-                        <table class="<%= `section-${sectionIndex} section` %>">
+                      <% config.blocks.map((block, blockIndex) => { %>
+                        <table class="row collapse block-<%= blockIndex %> <%= block.type %>-block block">
                           <tbody>
                             <tr>
-                              <td>
-                                <% section.blocks.map((block, blockIndex) => { %>
-                                  <table class="row collapse section-<%= sectionIndex %>-block-<%= blockIndex %> <%= block.type %>-block block">
-                                    <tbody>
-                                      <tr>
-                                        <td class="small-12 large-12 columns first last">
-                                          <table class="block-container">
+                              <td class="small-12 large-12 columns first last">
+                                <table class="block-container">
+                                  <tbody>
+                                    <tr>
+                                      <td class="block-container-cell">
+                                        <% if(block.type === 'button') { %>
+                                          <table class="row collapse">
                                             <tbody>
                                               <tr>
-                                                <td class="block-container-cell">
-                                                  <% if(block.type === 'button') { %>
-                                                    <table class="row collapse">
+                                                <td class="large-12 first last columns">
+                                                  <%- block.align === 'center' ? '<center>' : '' %>
+                                                    <table align="<%= block.align %>" class="button<%= block.display === 'block' ? ' expanded' : '' %> float-<%= block.align %>">
                                                       <tbody>
                                                         <tr>
-                                                          <td class="large-12 first last columns">
-                                                            <%- block.align === 'center' ? '<center>' : '' %>
-                                                              <table align="<%= block.align %>" class="button<%= block.display === 'block' ? ' expanded' : '' %> float-<%= block.align %>">
-                                                                <tbody>
-                                                                  <tr>
-                                                                    <td>
-                                                                      <table>
-                                                                        <tbody>
-                                                                          <tr>
-                                                                            <td>
-                                                                              <a href="<%= block.url %>" target="_blank">
-                                                                                <%= block.content %>
-                                                                              </a>
-                                                                            </td>
-                                                                          </tr>
-                                                                        </tbody>
-                                                                      </table>
-                                                                    </td>
-                                                                  </tr>
-                                                                </tbody>
-                                                              </table>
-                                                            <%- block.align === 'center' ? '</center>' : '' %>
+                                                          <td>
+                                                            <table>
+                                                              <tbody>
+                                                                <tr>
+                                                                  <td>
+                                                                    <a href="<%= block.url %>" target="_blank">
+                                                                      <%= block.content %>
+                                                                    </a>
+                                                                  </td>
+                                                                </tr>
+                                                              </tbody>
+                                                            </table>
                                                           </td>
-                                                          <td class="expander"></td>
                                                         </tr>
                                                       </tbody>
                                                     </table>
-                                                  <% } else if(block.type === 'divider') { %>
-                                                    <table class="row collapse">
-                                                      <tbody>
-                                                        <tr>
-                                                          <td class="large-12 first last columns">
-                                                            <div class="divider" />
-                                                          </td>
-                                                          <td class="expander"></td>
-                                                        </tr>
-                                                      </tbody>
-                                                    </table>
-                                                  <% } else if(block.type === 'follow') { %>
-                                                    <%- block.align === 'center' ? '<center>' : '' %>
-                                                      <table align="<%= block.align %>" class="menu social float-<%= block.align %>">
-                                                        <tbody>
-                                                          <tr>
-                                                            <% block.networks.map((network, index) => { %>
-                                                              <td class="social-service">
-                                                                <table>
-                                                                  <tbody>
-                                                                    <tr>
-                                                                      <td>
-                                                                        <a href="<%= network.url %>" target="_blank">
-                                                                          <img width="24" height="24" src="<%= host %>/admin/images/emails/<%= block.icon_style %>-<%= block.icon_color %>-<%= network.service %>-96.png" />
-                                                                        </a>
-                                                                      </td>
-                                                                    </tr>
-                                                                  </tbody>
-                                                                </table>
-                                                              </td>
-                                                            <% }) %>
-                                                            <td class="expander"></td>
-                                                          </tr>
-                                                        </tbody>
-                                                      </table>
-                                                    <%- block.align === 'center' ? '</center>' : '' %>
-                                                  <% } else if(block.type === 'image') { %>
-                                                    <% if(block.show_caption) { %>
-                                                      <table class="row collapse">
-                                                        <% if(block.image_position === 'bottom') { %>
-                                                          <tbody>
-                                                            <tr>
-                                                              <td class="small-12 large-12 columns first last block-caption">
-                                                                <%- block.caption %>
-                                                              </td>
-                                                              <td class="expander"></td>
-                                                            </tr>
-                                                            <tr>
-                                                              <td class="small-12 large-12 columns first last">
-                                                                <img src="<%= `${host}/imagecache${block.image}` %>" />
-                                                              </td>
-                                                              <td class="expander"></td>
-                                                            </tr>
-                                                          </tbody>
-                                                        <% } else if(block.image_position === 'top') { %>
-                                                          <tbody>
-                                                            <tr>
-                                                              <td class="small-12 large-12 columns first last">
-                                                                <img src="<%= `${host}/imagecache${block.image}` %>" />
-                                                              </td>
-                                                              <td class="expander"></td>
-                                                            </tr>
-                                                            <tr>
-                                                              <td class="small-12 large-12 columns first last block-caption">
-                                                                <%- block.caption %>
-                                                              </td>
-                                                              <td class="expander"></td>
-                                                            </tr>
-                                                          </tbody>
-                                                        <% } else if(block.image_position === 'left') { %>
-                                                          <tbody>
-                                                            <tr>
-                                                              <td class="small-12 large-<%= block.image_width %> columns first">
-                                                                <img src="<%= `${host}/imagecache${block.image}` %>" />
-                                                              </td>
-                                                              <td class="small-12 large-<%= 12 - block.image_width %> columns last">
-                                                                <%- block.caption %>
-                                                              </td>
-                                                              <td class="expander"></td>
-                                                            </tr>
-                                                          </tbody>
-                                                        <% } else if(block.image_position === 'right') { %>
-                                                          <tbody>
-                                                            <tr>
-                                                              <td class="small-12 large-<%= 12 - block.image_width %> columns first">
-                                                                <%- block.caption %>
-                                                              </td>
-                                                              <td class="small-12 large-<%= block.image_width %> columns last">
-                                                                <img src="<%= `${host}/imagecache${block.image}` %>" />
-                                                              </td>
-                                                              <td class="expander"></td>
-                                                            </tr>
-                                                          </tbody>
-                                                        <% } %>
-                                                      </table>
-                                                    <% } else { %>
-                                                      <table class="row collapse">
-                                                        <tbody>
-                                                          <tr>
-                                                            <td class="small-12 large-12 columns first last">
-                                                              <img src="<%= `${host}/imagecache${block.image}` %>" />
-                                                            </td>
-                                                            <td class="expander"></td>
-                                                          </tr>
-                                                        </tbody>
-                                                      </table>
-                                                    <% } %>
-                                                  <% } else if(block.type === 'images') { %>
-                                                    <% k = 0 %>
-                                                    <% block.layout.map((row, i) => { %>
-                                                      <table class="row collapse">
-                                                        <tbody>
-                                                          <tr>
-                                                            <% row.map((image, j) => { %>
-                                                              <td class="image small-12 large-<%= 12 / row.length %> <%= j === 0 ? 'first' : '' %> <%= j === row.length - 1 ? 'last' : '' %>">
-                                                                <img src="<%= host %>/imagecache/w=600<%= block.images[k].asset.path %>" />
-                                                              </td>
-                                                              <% k += 1 %>
-                                                            <% }) %>
-                                                            <td class="expander"></td>
-                                                          </tr>
-                                                        </tbody>
-                                                      </table>
-                                                    <% }) %>
-                                                  <% } else if(block.type === 'share') { %>
-                                                    <%- block.align === 'center' ? '<center>' : '' %>
-                                                      <table align="<%= block.align %>" class="menu social float-<%= block.align %>">
-                                                        <tbody>
-                                                          <tr>
-                                                            <% block.networks.map((network, index) => { %>
-                                                              <% if(network.service === 'facebook') share_url = 'https://facebook.com' %>
-                                                              <% if(network.service === 'twitter') share_url = 'https://twitter.com' %>
-                                                              <% if(network.service === 'forwardtofriend') share_url = 'https://mahaplatform.com' %>
-                                                              <% if(network.service === 'linkedin') share_url = 'https://linkedin.com' %>
-                                                              <% if(network.service === 'pinterest') share_url = 'https://pinterest.com' %>
-                                                              <td class="social-service">
-                                                                <a href="<%= share_url %>">
-                                                                  <table>
-                                                                    <tbody>
-                                                                      <tr>
-                                                                        <td>
-                                                                          <img width="24" height="24" src="<%= host %>/admin/images/emails/<%= block.icon_style %>-<%= block.icon_color %>-<%= network.service %>-96.png" />
-                                                                        </td>
-                                                                        <td>
-                                                                          <%= network.text %>
-                                                                        </td>
-                                                                      </tr>
-                                                                    </tbody>
-                                                                  </table>
-                                                                </a>
-                                                              </td>
-                                                            <% }) %>
-                                                            <td class="expander"></td>
-                                                          </tr>
-                                                        </tbody>
-                                                      </table>
-                                                    <%- block.align === 'center' ? '</center>' : '' %>
-                                                  <% } else if(block.type === 'text') { %>
-                                                    <table class="row collapse">
-                                                      <tbody>
-                                                        <tr>
-                                                          <% Array(block.columns).fill(0).map((column, index) => { %>
-                                                            <td class="small-12 large-<%= block.columns === 2 ? block.split[index] : 12 %> columns <%= index === 0 ? 'first' : '' %> <%= index === block.columns - 1 ? 'last' : ''%>">
-                                                              <%- block[`content_${index}`] %>
-                                                            </td>
-                                                          <% }) %>
-                                                          <td class="expander"></td>
-                                                        </tr>
-                                                      </tbody>
-                                                    </table>
-                                                  <% } else if(block.type === 'video') { %>
-                                                    <% if(block.show_caption) { %>
-                                                      <table class="row collapse">
-                                                        <% if(block.video_position === 'bottom') { %>
-                                                          <tbody>
-                                                            <tr>
-                                                              <td class="small-12 large-12 columns first last block-caption">
-                                                                <%- block.caption %>
-                                                              </td>
-                                                              <td class="expander"></td>
-                                                            </tr>
-                                                            <tr>
-                                                              <td class="small-12 large-12 columns first last">
-                                                                <a href="<%= block.video.src %>" target="_blank">
-                                                                  <img src="<%= block.video.preview %>" />
-                                                                </a>
-                                                              </td>
-                                                              <td class="expander"></td>
-                                                            </tr>
-                                                          </tbody>
-                                                        <% } else if(block.video_position === 'top') { %>
-                                                          <tbody>
-                                                            <tr>
-                                                              <td class="small-12 large-12 columns first last">
-                                                                <a href="<%= block.video.src %>" target="_blank">
-                                                                  <img src="<%= block.video.preview %>" />
-                                                                </a>
-                                                              </td>
-                                                              <td class="expander"></td>
-                                                            </tr>
-                                                            <tr>
-                                                              <td class="small-12 large-12 columns first last block-caption">
-                                                                <%- block.caption %>
-                                                              </td>
-                                                              <td class="expander"></td>
-                                                            </tr>
-                                                          </tbody>
-                                                        <% } else if(block.video_position === 'left') { %>
-                                                          <tbody>
-                                                            <tr>
-                                                              <td class="small-12 large-<%= block.video_width %> columns first">
-                                                                <a href="<%= block.video.src %>" target="_blank">
-                                                                  <img src="<%= block.video.preview %>" />
-                                                                </a>
-                                                              </td>
-                                                              <td class="small-12 large-<%= 12 - block.video_width %> columns last">
-                                                                <%- block.caption %>
-                                                              </td>
-                                                              <td class="expander"></td>
-                                                            </tr>
-                                                          </tbody>
-                                                        <% } else if(block.video_position === 'right') { %>
-                                                          <tbody>
-                                                            <tr>
-                                                              <td class="small-12 large-<%= 12 - block.video_width %> columns first">
-                                                                <%- block.caption %>
-                                                              </td>
-                                                              <td class="small-12 large-<%= block.video_width %> columns last">
-                                                                <a href="<%= block.video.src %>" target="_blank">
-                                                                  <img src="<%= block.video.preview %>" />
-                                                                </a>
-                                                              </td>
-                                                              <td class="expander"></td>
-                                                            </tr>
-                                                          </tbody>
-                                                        <% } %>
-                                                      </table>
-                                                    <% } else { %>
-                                                      <table class="row collapse">
-                                                        <tbody>
-                                                          <tr>
-                                                            <td class="small-12 large-12 columns first last">
-                                                              <a href="<%= block.video.src %>" target="_blank">
-                                                                <img src="<%= block.video.preview %>" />
-                                                              </a>
-                                                            </td>
-                                                            <td class="expander"></td>
-                                                          </tr>
-                                                        </tbody>
-                                                      </table>
-                                                    <% } %>
-                                                  <% } %>
+                                                  <%- block.align === 'center' ? '</center>' : '' %>
                                                 </td>
+                                                <td class="expander"></td>
                                               </tr>
                                             </tbody>
                                           </table>
-                                        </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                <% }) %>
+                                        <% } else if(block.type === 'divider') { %>
+                                          <table class="row collapse">
+                                            <tbody>
+                                              <tr>
+                                                <td class="large-12 first last columns">
+                                                  <div class="divider" />
+                                                </td>
+                                                <td class="expander"></td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        <% } else if(block.type === 'follow') { %>
+                                          <%- block.align === 'center' ? '<center>' : '' %>
+                                            <table align="<%= block.align %>" class="menu social float-<%= block.align %>">
+                                              <tbody>
+                                                <tr>
+                                                  <% block.networks.map((network, index) => { %>
+                                                    <td class="social-service">
+                                                      <table>
+                                                        <tbody>
+                                                          <tr>
+                                                            <td>
+                                                              <a href="<%= network.url %>" target="_blank">
+                                                                <img width="24" height="24" src="<%= host %>/admin/images/emails/<%= block.icon_style %>-<%= block.icon_color %>-<%= network.service %>-96.png" />
+                                                              </a>
+                                                            </td>
+                                                          </tr>
+                                                        </tbody>
+                                                      </table>
+                                                    </td>
+                                                  <% }) %>
+                                                  <td class="expander"></td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          <%- block.align === 'center' ? '</center>' : '' %>
+                                        <% } else if(block.type === 'image') { %>
+                                          <% if(block.show_caption) { %>
+                                            <table class="row collapse">
+                                              <% if(block.image_position === 'bottom') { %>
+                                                <tbody>
+                                                  <tr>
+                                                    <td class="small-12 large-12 columns first last block-caption">
+                                                      <%- block.caption %>
+                                                    </td>
+                                                    <td class="expander"></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="small-12 large-12 columns first last">
+                                                      <img src="<%= `${host}/imagecache${block.image}` %>" />
+                                                    </td>
+                                                    <td class="expander"></td>
+                                                  </tr>
+                                                </tbody>
+                                              <% } else if(block.image_position === 'top') { %>
+                                                <tbody>
+                                                  <tr>
+                                                    <td class="small-12 large-12 columns first last">
+                                                      <img src="<%= `${host}/imagecache${block.image}` %>" />
+                                                    </td>
+                                                    <td class="expander"></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="small-12 large-12 columns first last block-caption">
+                                                      <%- block.caption %>
+                                                    </td>
+                                                    <td class="expander"></td>
+                                                  </tr>
+                                                </tbody>
+                                              <% } else if(block.image_position === 'left') { %>
+                                                <tbody>
+                                                  <tr>
+                                                    <td class="small-12 large-<%= block.image_width %> columns first">
+                                                      <img src="<%= `${host}/imagecache${block.image}` %>" />
+                                                    </td>
+                                                    <td class="small-12 large-<%= 12 - block.image_width %> columns last">
+                                                      <%- block.caption %>
+                                                    </td>
+                                                    <td class="expander"></td>
+                                                  </tr>
+                                                </tbody>
+                                              <% } else if(block.image_position === 'right') { %>
+                                                <tbody>
+                                                  <tr>
+                                                    <td class="small-12 large-<%= 12 - block.image_width %> columns first">
+                                                      <%- block.caption %>
+                                                    </td>
+                                                    <td class="small-12 large-<%= block.image_width %> columns last">
+                                                      <img src="<%= `${host}/imagecache${block.image}` %>" />
+                                                    </td>
+                                                    <td class="expander"></td>
+                                                  </tr>
+                                                </tbody>
+                                              <% } %>
+                                            </table>
+                                          <% } else { %>
+                                            <table class="row collapse">
+                                              <tbody>
+                                                <tr>
+                                                  <td class="small-12 large-12 columns first last">
+                                                    <img src="<%= `${host}/imagecache${block.image}` %>" />
+                                                  </td>
+                                                  <td class="expander"></td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          <% } %>
+                                        <% } else if(block.type === 'images') { %>
+                                          <% k = 0 %>
+                                          <% block.layout.map((row, i) => { %>
+                                            <table class="row collapse">
+                                              <tbody>
+                                                <tr>
+                                                  <% row.map((image, j) => { %>
+                                                    <td class="image small-12 large-<%= 12 / row.length %> <%= j === 0 ? 'first' : '' %> <%= j === row.length - 1 ? 'last' : '' %>">
+                                                      <img src="<%= host %>/imagecache/w=600<%= block.images[k].asset.path %>" />
+                                                    </td>
+                                                    <% k += 1 %>
+                                                  <% }) %>
+                                                  <td class="expander"></td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          <% }) %>
+                                        <% } else if(block.type === 'share') { %>
+                                          <%- block.align === 'center' ? '<center>' : '' %>
+                                            <table align="<%= block.align %>" class="menu social float-<%= block.align %>">
+                                              <tbody>
+                                                <tr>
+                                                  <% block.networks.map((network, index) => { %>
+                                                    <% if(network.service === 'facebook') share_url = 'https://facebook.com' %>
+                                                    <% if(network.service === 'twitter') share_url = 'https://twitter.com' %>
+                                                    <% if(network.service === 'forwardtofriend') share_url = 'https://mahaplatform.com' %>
+                                                    <% if(network.service === 'linkedin') share_url = 'https://linkedin.com' %>
+                                                    <% if(network.service === 'pinterest') share_url = 'https://pinterest.com' %>
+                                                    <td class="social-service">
+                                                      <a href="<%= share_url %>">
+                                                        <table>
+                                                          <tbody>
+                                                            <tr>
+                                                              <td>
+                                                                <img width="24" height="24" src="<%= host %>/admin/images/emails/<%= block.icon_style %>-<%= block.icon_color %>-<%= network.service %>-96.png" />
+                                                              </td>
+                                                              <td>
+                                                                <%= network.text %>
+                                                              </td>
+                                                            </tr>
+                                                          </tbody>
+                                                        </table>
+                                                      </a>
+                                                    </td>
+                                                  <% }) %>
+                                                  <td class="expander"></td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          <%- block.align === 'center' ? '</center>' : '' %>
+                                        <% } else if(block.type === 'text') { %>
+                                          <table class="row collapse">
+                                            <tbody>
+                                              <tr>
+                                                <% Array(block.columns).fill(0).map((column, index) => { %>
+                                                  <td class="small-12 large-<%= block.columns === 2 ? block.split[index] : 12 %> columns <%= index === 0 ? 'first' : '' %> <%= index === block.columns - 1 ? 'last' : ''%>">
+                                                    <%- block[`content_${index}`] %>
+                                                  </td>
+                                                <% }) %>
+                                                <td class="expander"></td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        <% } else if(block.type === 'video') { %>
+                                          <% if(block.show_caption) { %>
+                                            <table class="row collapse">
+                                              <% if(block.video_position === 'bottom') { %>
+                                                <tbody>
+                                                  <tr>
+                                                    <td class="small-12 large-12 columns first last block-caption">
+                                                      <%- block.caption %>
+                                                    </td>
+                                                    <td class="expander"></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="small-12 large-12 columns first last">
+                                                      <a href="<%= block.video.src %>" target="_blank">
+                                                        <img src="<%= block.video.preview %>" />
+                                                      </a>
+                                                    </td>
+                                                    <td class="expander"></td>
+                                                  </tr>
+                                                </tbody>
+                                              <% } else if(block.video_position === 'top') { %>
+                                                <tbody>
+                                                  <tr>
+                                                    <td class="small-12 large-12 columns first last">
+                                                      <a href="<%= block.video.src %>" target="_blank">
+                                                        <img src="<%= block.video.preview %>" />
+                                                      </a>
+                                                    </td>
+                                                    <td class="expander"></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="small-12 large-12 columns first last block-caption">
+                                                      <%- block.caption %>
+                                                    </td>
+                                                    <td class="expander"></td>
+                                                  </tr>
+                                                </tbody>
+                                              <% } else if(block.video_position === 'left') { %>
+                                                <tbody>
+                                                  <tr>
+                                                    <td class="small-12 large-<%= block.video_width %> columns first">
+                                                      <a href="<%= block.video.src %>" target="_blank">
+                                                        <img src="<%= block.video.preview %>" />
+                                                      </a>
+                                                    </td>
+                                                    <td class="small-12 large-<%= 12 - block.video_width %> columns last">
+                                                      <%- block.caption %>
+                                                    </td>
+                                                    <td class="expander"></td>
+                                                  </tr>
+                                                </tbody>
+                                              <% } else if(block.video_position === 'right') { %>
+                                                <tbody>
+                                                  <tr>
+                                                    <td class="small-12 large-<%= 12 - block.video_width %> columns first">
+                                                      <%- block.caption %>
+                                                    </td>
+                                                    <td class="small-12 large-<%= block.video_width %> columns last">
+                                                      <a href="<%= block.video.src %>" target="_blank">
+                                                        <img src="<%= block.video.preview %>" />
+                                                      </a>
+                                                    </td>
+                                                    <td class="expander"></td>
+                                                  </tr>
+                                                </tbody>
+                                              <% } %>
+                                            </table>
+                                          <% } else { %>
+                                            <table class="row collapse">
+                                              <tbody>
+                                                <tr>
+                                                  <td class="small-12 large-12 columns first last">
+                                                    <a href="<%= block.video.src %>" target="_blank">
+                                                      <img src="<%= block.video.preview %>" />
+                                                    </a>
+                                                  </td>
+                                                  <td class="expander"></td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+                                          <% } %>
+                                        <% } %>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
                               </td>
                             </tr>
                           </tbody>

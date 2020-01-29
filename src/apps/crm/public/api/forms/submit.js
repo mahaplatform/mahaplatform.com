@@ -201,6 +201,10 @@ const submitRoute = async (req, res) => {
   const html = renderEmail(req, {
     config: email.get('config'),
     data: {
+      contact: {
+        first_name: contact.get('first_name'),
+        last_name: contact.get('last_name')
+      },
       response: fields.reduce((response, field) => ({
         ...response,
         [field.name.token]: data[field.code],

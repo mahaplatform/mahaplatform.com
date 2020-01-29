@@ -8,7 +8,6 @@ import Video from './blocks/video'
 import PropTypes from 'prop-types'
 import Designer from '../designer'
 import Text from './blocks/text'
-import Section from './section'
 import React from 'react'
 import Page from './page'
 

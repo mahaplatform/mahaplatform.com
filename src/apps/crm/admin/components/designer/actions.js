@@ -4,19 +4,19 @@ export const add = (index, block) => ({
   block
 })
 
-export const clone = (block) => ({
+export const clone = (index) => ({
   type: 'CLONE',
-  block
+  index
 })
 
-export const edit = (block) => ({
+export const edit = (index) => ({
   type: 'EDIT',
-  block
+  index
 })
 
-export const remove = (block) => ({
+export const remove = (index) => ({
   type: 'REMOVE',
-  block
+  index
 })
 
 export const set = (config) => ({

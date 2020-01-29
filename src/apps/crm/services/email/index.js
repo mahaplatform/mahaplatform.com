@@ -83,118 +83,97 @@ const getInlineStyle = (config) => [
     ...getProp(config, 'background', 'page.email_background_color', null, 'none'),
     ...getBorder(config, 'border', 'page.email_border')
   ] },
-  ...config.sections.reduce((sectionStyles, section, i) => [
-    ...sectionStyles,
-    { selector: `table.section-${i}`, styles: [
-      ...getBorder(config, 'border', `sections[${i}].border`),
-      ...getProp(config, 'background-color',`sections[${i}].background_color`)
-    ] },
-    { selector: `table.section-${i} > tbody > tr > td`, styles: [
-      ...getProp(config, 'padding',`sections[${i}].padding`, 'px')
-    ] },
-    { selector: `table.section-${i} td,table.section-${i} p`, styles: [
-      ...getProp(config, 'font-family',`sections[${i}].font_family`),
-      ...getProp(config, 'font-size',`sections[${i}].font_size`, 'px'),
-      ...getProp(config, 'color',`sections[${i}].color`),
-      ...getProp(config, 'text-align',`sections[${i}].text_align`),
-      ...getProp(config, 'line-height',`sections[${i}].line_height`),
-      ...getProp(config, 'letter-spacing',`sections[${i}].letter_spacing`, 'px')
-    ] },
-    { selector: `table.section-${i} td a`, styles: [
-      ...getProp(config, 'color',`sections[${i}].color`)
-    ] },
-    ...config.sections[i].blocks.reduce((blockStyles, block, j) => [
-      ...blockStyles,
-      { selector: `table.section-${i}-block-${j} td,table.section-${i}-block-${j} p`, styles: [
-        ...getProp(config, 'font-family',`sections[${i}].blocks[${j}].font_family`),
-        ...getProp(config, 'font-size',`sections[${i}].blocks[${j}].font_size`, 'px'),
-        ...getFormat(config, 'font-weight', 'bold', `sections[${i}].blocks[${j}].format`, 'normal'),
-        ...getFormat(config, 'font-style', 'italic', `sections[${i}].blocks[${j}].format`),
-        ...getFormat(config, 'text-decoration', 'underline', `sections[${i}].blocks[${j}].format`),
-        ...getProp(config, 'color',`sections[${i}].blocks[${j}].color`),
-        ...getProp(config, 'text-align',`sections[${i}].blocks[${j}].text_align`),
-        ...getProp(config, 'line-height',`sections[${i}].blocks[${j}].line_height`),
-        ...getProp(config, 'letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`, 'px')
-      ] }, {
-        selector: `table.section-${i}-block-${j} table.block-container`, styles: [
-          ...getBorder(config, 'border', `sections[${i}].blocks[${j}].border`),
-          ...getProp(config, 'background-color',`sections[${i}].blocks[${j}].background_color`)
+  ...config.blocks.reduce((blockStyles, block, j) => [
+    ...blockStyles,
+    { selector: `table.block-${j} td,table.block-${j} p`, styles: [
+      ...getProp(config, 'font-family',`blocks[${j}].font_family`),
+      ...getProp(config, 'font-size',`blocks[${j}].font_size`, 'px'),
+      ...getFormat(config, 'font-weight', 'bold', `blocks[${j}].format`, 'normal'),
+      ...getFormat(config, 'font-style', 'italic', `blocks[${j}].format`),
+      ...getFormat(config, 'text-decoration', 'underline', `blocks[${j}].format`),
+      ...getProp(config, 'color',`blocks[${j}].color`),
+      ...getProp(config, 'text-align',`blocks[${j}].text_align`),
+      ...getProp(config, 'line-height',`blocks[${j}].line_height`),
+      ...getProp(config, 'letter-spacing',`blocks[${j}].letter_spacing`, 'px')
+    ] }, {
+      selector: `table.block-${j} table.block-container`, styles: [
+        ...getBorder(config, 'border', `blocks[${j}].border`),
+        ...getProp(config, 'background-color',`blocks[${j}].background_color`)
+      ]
+    }, {
+      selector: `table.block-${j} .block-container-cell`, styles: [
+        ...getProp(config, 'padding',`blocks[${j}].padding`, 'px')
+      ]
+    },
+    ...block.type === 'images' ? [
+      {
+        selector: `table.block-${j} td.image`, styles: [
+          ...getProp(config, 'padding',`blocks[${j}].image_padding`, 'px')
         ]
       }, {
-        selector: `table.section-${i}-block-${j} .block-container-cell`, styles: [
-          ...getProp(config, 'padding',`sections[${i}].blocks[${j}].padding`, 'px')
+        selector: `table.block-${j} img`, styles: [
+          ...getBorder(config, 'border', `blocks[${j}].image_border`),
+          ...getProp(config, 'border-radius',`blocks[${j}].image_border_radius`, 'px')
         ]
-      },
-      ...block.type === 'images' ? [
-        {
-          selector: `table.section-${i}-block-${j} td.image`, styles: [
-            ...getProp(config, 'padding',`sections[${i}].blocks[${j}].image_padding`, 'px')
-          ]
-        }, {
-          selector: `table.section-${i}-block-${j} img`, styles: [
-            ...getBorder(config, 'border', `sections[${i}].blocks[${j}].image_border`),
-            ...getProp(config, 'border-radius',`sections[${i}].blocks[${j}].image_border_radius`, 'px')
-          ]
-        }
-      ] : [],
-      ..._.includes(['image','video'], block.type) ? [
-        {
-          selector: `table.section-${i}-block-${j} table.block-container .block-caption`, styles: [
-            ...getProp(config, 'background-color',`sections[${i}].blocks[${j}].caption_background_color`),
-            ...getProp(config, 'padding',`sections[${i}].blocks[${j}].caption_padding`, 'px')
-          ]
-        }, {
-          selector: `table.section-${i}-block-${j} img`, styles: [
-            ...getBorder(config, 'border', `sections[${i}].blocks[${j}].image_border`),
-            ...getProp(config, 'border-radius',`sections[${i}].blocks[${j}].image_border_radius`, 'px')
-          ]
-        }
-      ] : [],
-      ...block.type === 'button' ? [
-        {
-          selector: `table.section-${i}-block-${j} table.button table td`, styles: [
-            ...getProp(config, 'background-color',`sections[${i}].blocks[${j}].button_background_color`),
-            ...getProp(config, 'padding',`sections[${i}].blocks[${j}].button_padding`, 'px'),
-            ...getProp(config, 'border-radius',`sections[${i}].blocks[${j}].button_border_radius`, 'px'),
-            ...getProp(config, 'text-align',`sections[${i}].blocks[${j}].text_align`),
-            ...getProp(config, 'font-family',`sections[${i}].blocks[${j}].font_family`),
-            ...getProp(config, 'font-size',`sections[${i}].blocks[${j}].font_size`, 'px'),
-            ...getProp(config, 'letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`, 'px'),
-            ...getProp(config, 'text-align',`sections[${i}].blocks[${j}].text_align`),
-            ...getProp(config, 'color',`sections[${i}].blocks[${j}].color`)
-          ]
-        }
-      ] : [],
-      ..._.includes(['follow','share'], block.type) ? [
-        {
-          selector: `table.section-${i}-block-${j} table.social table`, styles: [
-            ...getProp(config, 'background-color',`sections[${i}].blocks[${j}].button_background_color`),
-            ...getProp(config, 'border-radius',`sections[${i}].blocks[${j}].button_border_radius`, 'px')
-          ]
-        },{
-          selector: `table.section-${i}-block-${j} td.social-service td`, styles: [
-            ...getProp(config, 'font-family',`sections[${i}].blocks[${j}].font_family`),
-            ...getProp(config, 'font-size',`sections[${i}].blocks[${j}].font_size`, 'px'),
-            ...getFormat(config, 'font-weight', 'bold', `sections[${i}].blocks[${j}].format`, 'normal'),
-            ...getFormat(config, 'font-style', 'italic', `sections[${i}].blocks[${j}].format`),
-            ...getFormat(config, 'text-decoration', 'underline', `sections[${i}].blocks[${j}].format`),
-            ...getProp(config, 'color',`sections[${i}].blocks[${j}].color`),
-            ...getProp(config, 'text-align',`sections[${i}].blocks[${j}].text_align`),
-            ...getProp(config, 'line-height',`sections[${i}].blocks[${j}].line_height`),
-            ...getProp(config, 'letter-spacing',`sections[${i}].blocks[${j}].letter_spacing`, 'px')
-          ]
-        }
-      ] : [],
-      ...block.type === 'divider' ? [
-        {
-          selector: `table.section-${i}-block-${j} div.divider`, styles: [
-            ...getProp(config, 'border-width',`sections[${i}].blocks[${j}].divider_border_width`, 'px'),
-            ...getProp(config, 'border-style',`sections[${i}].blocks[${j}].divider_border_style`),
-            ...getProp(config, 'border-color',`sections[${i}].blocks[${j}].divider_border_color`)
-          ]
-        }
-      ] : []
-    ], [])
+      }
+    ] : [],
+    ..._.includes(['image','video'], block.type) ? [
+      {
+        selector: `table.block-${j} table.block-container .block-caption`, styles: [
+          ...getProp(config, 'background-color',`blocks[${j}].caption_background_color`),
+          ...getProp(config, 'padding',`blocks[${j}].caption_padding`, 'px')
+        ]
+      }, {
+        selector: `table.block-${j} img`, styles: [
+          ...getBorder(config, 'border', `blocks[${j}].image_border`),
+          ...getProp(config, 'border-radius',`blocks[${j}].image_border_radius`, 'px')
+        ]
+      }
+    ] : [],
+    ...block.type === 'button' ? [
+      {
+        selector: `table.block-${j} table.button table td`, styles: [
+          ...getProp(config, 'background-color',`blocks[${j}].button_background_color`),
+          ...getProp(config, 'padding',`blocks[${j}].button_padding`, 'px'),
+          ...getProp(config, 'border-radius',`blocks[${j}].button_border_radius`, 'px'),
+          ...getProp(config, 'text-align',`blocks[${j}].text_align`),
+          ...getProp(config, 'font-family',`blocks[${j}].font_family`),
+          ...getProp(config, 'font-size',`blocks[${j}].font_size`, 'px'),
+          ...getProp(config, 'letter-spacing',`blocks[${j}].letter_spacing`, 'px'),
+          ...getProp(config, 'text-align',`blocks[${j}].text_align`),
+          ...getProp(config, 'color',`blocks[${j}].color`)
+        ]
+      }
+    ] : [],
+    ..._.includes(['follow','share'], block.type) ? [
+      {
+        selector: `table.block-${j} table.social table`, styles: [
+          ...getProp(config, 'background-color',`blocks[${j}].button_background_color`),
+          ...getProp(config, 'border-radius',`blocks[${j}].button_border_radius`, 'px')
+        ]
+      },{
+        selector: `table.block-${j} td.social-service td`, styles: [
+          ...getProp(config, 'font-family',`blocks[${j}].font_family`),
+          ...getProp(config, 'font-size',`blocks[${j}].font_size`, 'px'),
+          ...getFormat(config, 'font-weight', 'bold', `blocks[${j}].format`, 'normal'),
+          ...getFormat(config, 'font-style', 'italic', `blocks[${j}].format`),
+          ...getFormat(config, 'text-decoration', 'underline', `blocks[${j}].format`),
+          ...getProp(config, 'color',`blocks[${j}].color`),
+          ...getProp(config, 'text-align',`blocks[${j}].text_align`),
+          ...getProp(config, 'line-height',`blocks[${j}].line_height`),
+          ...getProp(config, 'letter-spacing',`blocks[${j}].letter_spacing`, 'px')
+        ]
+      }
+    ] : [],
+    ...block.type === 'divider' ? [
+      {
+        selector: `table.block-${j} div.divider`, styles: [
+          ...getProp(config, 'border-width',`blocks[${j}].divider_border_width`, 'px'),
+          ...getProp(config, 'border-style',`blocks[${j}].divider_border_style`),
+          ...getProp(config, 'border-color',`blocks[${j}].divider_border_color`)
+        ]
+      }
+    ] : []
   ], [])
 ].map(item => item.styles.length === 0 ? '' : `
   ${item.selector} {
