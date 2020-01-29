@@ -6,6 +6,11 @@
     <%- style %>
   </head>
   <body>
+    <% if(config.settings.preview_text) { %>
+      <span class="preview-text">
+        <%= config.settings.preview_text %>
+      </span>
+    <% } %>
     <table class="body" id="body">
       <tbody>
         <tr>

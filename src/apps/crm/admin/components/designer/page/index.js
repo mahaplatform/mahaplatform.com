@@ -40,7 +40,7 @@ class Page extends React.Component {
   _getMenu() {
     return {
       items: [
-        { label: 'Content', component: <Content { ...this._getContent() } /> },
+        { label: 'Blocks', component: <Content { ...this._getContent() } /> },
         { label: 'Design', component: <Design { ...this._getDesign() } /> },
         { label: 'Settings', component: <Settings { ...this._getSettings() } /> }
       ]
