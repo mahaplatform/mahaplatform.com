@@ -62,8 +62,8 @@ class FileFieldForm extends React.Component {
             { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
             { label: 'Instructions', name: 'instructions', type: 'textarea', rows: 2, placeholder: 'Enter instructions', defaultValue: config.instructions },
             { label: 'Prompt', name: 'prompt', type: 'textfield', placeholder: 'Enter prompt text', defaultValue: config.prompt },
-            { label: 'Required', prompt: 'This field is required', name: 'required', type: 'checkbox', defaultValue: config.required },
-            { label: 'Multiple', prompt: 'Allow multiple files?', name: 'required', type: 'checkbox', defaultValue: config.multiple }
+            { prompt: 'This field is required', name: 'required', type: 'checkbox', defaultValue: config.required },
+            { prompt: 'Allow multiple files?', name: 'required', type: 'checkbox', defaultValue: config.multiple }
           ]
         }
       ]

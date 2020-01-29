@@ -9,6 +9,9 @@ class Addressfield extends React.Component {
   }
 
   static propTypes = {
+    code: PropTypes.string,
+    htmlFor: PropTypes.string,
+    name: PropTypes.object,
     options: PropTypes.array,
     placeholder: PropTypes.string,
     q: PropTypes.string,
@@ -116,9 +119,10 @@ class Addressfield extends React.Component {
   }
 
   _getInput() {
-    const { placeholder } = this.props
+    const { htmlFor, placeholder } = this.props
     const { focused } = this.state
     return {
+      id: htmlFor,
       type: 'textfield',
       placeholder: !focused ? placeholder : null,
       ref: node => this.input = node,

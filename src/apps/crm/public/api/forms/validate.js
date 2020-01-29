@@ -1,7 +1,12 @@
 import Form from '../../../models/form'
+import { checkToken } from './utils'
 
 const validateRoute = async (req, res) => {
 
+  if(!checkToken(req.headers.authorization, req.params.code)) {
+    return res.status(401).send('Unauthorized')
+  }
+  
   const form = await Form.query(qb => {
     qb.where('code', req.params.code)
   }).fetch({

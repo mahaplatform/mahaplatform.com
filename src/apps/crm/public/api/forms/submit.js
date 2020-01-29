@@ -12,6 +12,7 @@ import { renderEmail } from '../../../services/email'
 import Response from '../../../models/response'
 import Contact from '../../../models/contact'
 import Form from '../../../models/form'
+import { checkToken } from './utils'
 import moment from 'moment'
 
 const getContact = async (req, { form, fields, data }) => {
@@ -90,7 +91,12 @@ const createInvoice = async (req, { form, contact, data }) => {
 
 }
 
+
 const submitRoute = async (req, res) => {
+
+  if(!checkToken(req.headers.authorization, req.params.code)) {
+    return res.status(401).send('Unauthorized')
+  }
 
   const form = await Form.query(qb => {
     qb.where('code', req.params.code)

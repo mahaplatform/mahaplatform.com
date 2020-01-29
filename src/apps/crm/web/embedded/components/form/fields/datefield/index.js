@@ -7,6 +7,7 @@ class DateField extends React.Component {
   static propTypes = {
     code: PropTypes.string,
     defaultValue: PropTypes.string,
+    htmlFor: PropTypes.string,
     name: PropTypes.object,
     placeholder: PropTypes.string,
     required: PropTypes.bool,

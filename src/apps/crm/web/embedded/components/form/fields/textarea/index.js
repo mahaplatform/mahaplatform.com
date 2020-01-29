@@ -7,6 +7,7 @@ class TextArea extends React.Component {
   static propTypes = {
     code: PropTypes.string,
     defaultValue: PropTypes.string,
+    htmlFor: PropTypes.string,
     name: PropTypes.object,
     placeholder: PropTypes.string,
     required: PropTypes.bool,
@@ -59,9 +60,9 @@ class TextArea extends React.Component {
   }
 
   _getTextArea() {
-    const { code, name, placeholder } = this.props
+    const { htmlFor, name, placeholder } = this.props
     return {
-      id: code,
+      id: htmlFor,
       name,
       placeholder,
       rows: 3,

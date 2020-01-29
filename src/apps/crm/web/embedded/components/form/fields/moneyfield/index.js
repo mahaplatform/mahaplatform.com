@@ -8,6 +8,7 @@ class MoneyField extends React.Component {
   static propTypes = {
     code: PropTypes.string,
     name: PropTypes.object,
+    htmlFor: PropTypes.string,
     placeholder: PropTypes.string,
     tabIndex: PropTypes.number,
     min: PropTypes.number,
@@ -69,9 +70,10 @@ class MoneyField extends React.Component {
   }
 
   _getInput() {
-    const { placeholder, tabIndex } = this.props
+    const { htmlFor, placeholder, tabIndex } = this.props
     const { focused, value } = this.state
     return {
+      id: htmlFor,
       tabIndex,
       type: 'text',
       placeholder: !focused ? placeholder : null,

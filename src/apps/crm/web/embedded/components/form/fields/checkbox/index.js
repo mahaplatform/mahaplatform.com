@@ -6,6 +6,7 @@ class Checkbox extends React.Component {
   static propTypes = {
     code: PropTypes.string,
     defaultValue: PropTypes.bool,
+    htmlFor: PropTypes.string,
     name: PropTypes.object,
     prompt: PropTypes.string,
     required: PropTypes.bool,
@@ -30,8 +31,8 @@ class Checkbox extends React.Component {
   render() {
     const { prompt } = this.props
     return (
-      <div className="maha-confirmation">
-        <i className={`fa fa-fw fa-${this._getIcon()}`} onClick={ this._handleToggle } />
+      <div className="maha-confirmation" onClick={ this._handleToggle }>
+        <i className={`fa fa-fw fa-${this._getIcon()}`} />
         { prompt }
       </div>
     )

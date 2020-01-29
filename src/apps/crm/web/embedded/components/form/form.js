@@ -20,6 +20,7 @@ class Form extends React.Component {
     ready: PropTypes.array,
     requiresPayment: PropTypes.bool,
     status: PropTypes.string,
+    token: PropTypes.string,
     validated: PropTypes.array,
     onChange: PropTypes.func,
     onPay: PropTypes.func,
@@ -93,8 +94,8 @@ class Form extends React.Component {
   }
 
   _handleSubmit() {
-    const { code, data } = this.props
-    this.props.onSubmit(code, data)
+    const { code, data, token } = this.props
+    this.props.onSubmit(token, code, data)
   }
 
   _handleSuccess() {

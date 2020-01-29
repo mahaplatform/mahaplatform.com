@@ -7,6 +7,7 @@ class Dropdown extends React.Component {
   static propTypes = {
     code: PropTypes.string,
     defaultValue: PropTypes.string,
+    htmlFor: PropTypes.string,
     name: PropTypes.object,
     options: PropTypes.array,
     placeholder: PropTypes.string,

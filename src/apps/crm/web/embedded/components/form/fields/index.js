@@ -71,8 +71,9 @@ class Fields extends React.Component {
   }
 
   _getField(field,index) {
-    const { errors, status } = this.props
+    const { code, errors, status } = this.props
     return {
+      code,
       field,
       index,
       error: errors[field.code],

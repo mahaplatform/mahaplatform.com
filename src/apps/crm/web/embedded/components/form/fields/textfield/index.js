@@ -6,6 +6,7 @@ class TextField extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
+    htmlFor: PropTypes.string,
     name: PropTypes.object,
     placeholder: PropTypes.string,
     required: PropTypes.bool,
@@ -65,10 +66,10 @@ class TextField extends React.Component {
   }
 
   _getInput() {
-    const { code, name, placeholder } = this.props
+    const { htmlFor, name, placeholder } = this.props
     const { focused, value } = this.state
     return {
-      id: code,
+      id: htmlFor,
       type: 'text',
       name,
       placeholder: !focused ? placeholder : null,

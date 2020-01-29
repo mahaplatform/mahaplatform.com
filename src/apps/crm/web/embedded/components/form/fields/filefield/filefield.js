@@ -10,6 +10,7 @@ class FileField extends React.Component {
     code: PropTypes.string,
     defaultValue: PropTypes.any,
     files: PropTypes.array,
+    htmlFor: PropTypes.string,
     multiple: PropTypes.bool,
     name: PropTypes.object,
     prompt: PropTypes.string,
@@ -69,9 +70,9 @@ class FileField extends React.Component {
   }
 
   componentDidMount() {
-    const { multiple, onReady } = this.props
+    const { code, multiple, onReady } = this.props
     this.resumable = new Resumable({
-      target: '/api/crm/uploads',
+      target: `/api/crm/forms/${code}/uploads`,
       chunkSize: 1024 * 128,
       permanentErrors: [204, 400, 404, 409, 415, 500, 501],
       maxFiles: multiple ? undefined : 1

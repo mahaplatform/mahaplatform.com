@@ -30,17 +30,17 @@ class Field extends React.Component {
   }
 
   state = {
-    code: null
+    htmlFor: null
   }
 
   render() {
     const { error, field } = this.props
     const { instructions, label } = field
-    const { code } = this.state
+    const { htmlFor } = this.state
     const Component = this._getComponent(field)
     return (
       <div className={ this._getClass() }>
-        { label && <label htmlFor={ code }>{ label }</label> }
+        { label && <label htmlFor={ htmlFor }>{ label }</label> }
         { instructions &&
           <div className="field-instructions">
             { instructions }
@@ -58,7 +58,7 @@ class Field extends React.Component {
 
   componentDidMount() {
     this.setState({
-      code: _.random(100000000, 999999999).toString(36)
+      htmlFor: _.random(100000000, 999999999).toString(36)
     })
   }
 
@@ -89,10 +89,11 @@ class Field extends React.Component {
   }
 
   _getField() {
-    const { field, status, onChange, onReady, onValidate } = this.props
-    const { code } = this.state
+    const { code, field, status, onChange, onReady, onValidate } = this.props
+    const { htmlFor } = this.state
     return {
       code,
+      htmlFor,
       ...field,
       status,
       onChange,

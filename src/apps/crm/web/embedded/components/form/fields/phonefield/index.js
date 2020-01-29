@@ -7,6 +7,7 @@ class PhoneField extends React.Component {
   static propTypes = {
     code: PropTypes.string,
     defaultValue: PropTypes.string,
+    htmlFor: PropTypes.string,
     name: PropTypes.object,
     placeholder: PropTypes.string,
     required: PropTypes.bool,
@@ -67,9 +68,10 @@ class PhoneField extends React.Component {
   }
 
   _getInput() {
-    const { placeholder } = this.props
+    const { htmlFor, placeholder } = this.props
     const { focused, value } = this.state
     return {
+      id: htmlFor,
       className: 'ui input',
       type: 'tel',
       placeholder: !focused ? placeholder : null,

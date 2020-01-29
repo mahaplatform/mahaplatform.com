@@ -1,3 +1,4 @@
+import { encode } from '../../../../../core/services/jwt'
 import Form from '../../../models/form'
 import { readFile } from './utils'
 import path from 'path'
@@ -44,7 +45,8 @@ const showRoute = async (req, res) => {
     team: {
       title: team.get('title'),
       logo: team.related('logo') ? team.related('logo').get('path') : null
-    }
+    },
+    token: encode({ code: form.get('code') }, 60 * 30)
   })
 
   res.status(200).send(content)
