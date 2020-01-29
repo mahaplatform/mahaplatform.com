@@ -1,6 +1,23 @@
 import MailingAddress from '../models/mailing_address'
 
-export const updateMailingAddresses = async (req, { contact, mailing_addresses }) => {
+export const updateMailingAddresses = async (req, { contact, mailing_addresses, removing }) => {
+
+  await contact.load(['mailing_addresses'], {
+    transacting: req.trx
+  })
+
+  const existing = contact.related('mailing_addresses').toArray()
+
+  mailing_addresses = mailing_addresses.map(mailing_address => {
+    const found = existing.find(number => {
+      return number.get('address').street_1 === mailing_address.address.street_1
+    })
+    return {
+      ...mailing_address,
+      is_primary: mailing_address.is_primary !== undefined ? mailing_address.is_primary : existing.length === 0,
+      id: found ? found.get('id') : undefined
+    }
+  })
 
   const add = mailing_addresses.filter(mailing_address => {
     return mailing_address.id === undefined
@@ -10,11 +27,11 @@ export const updateMailingAddresses = async (req, { contact, mailing_addresses }
     return mailing_address.id !== undefined
   })
 
-  const remove = contact.related('mailing_addresses').toArray().filter(mailing_address => {
+  const remove = removing !== false ? existing.filter(mailing_address => {
     return mailing_addresses.find(item => {
       return item.id === mailing_address.get('id')
     }) === undefined
-  })
+  }) : []
 
   const added = await Promise.mapSeries(add, async (mailing_address) => {
     return await MailingAddress.forge({

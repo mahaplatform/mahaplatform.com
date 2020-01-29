@@ -1,6 +1,23 @@
 import EmailAddress from '../models/email_address'
 
-export const updateEmailAddresses = async (req, { contact, email_addresses }) => {
+export const updateEmailAddresses = async (req, { contact, email_addresses, removing }) => {
+
+  await contact.load(['email_addresses'], {
+    transacting: req.trx
+  })
+
+  const existing = contact.related('email_addresses').toArray()
+
+  email_addresses = email_addresses.map(email_address => {
+    const found = existing.find(address => {
+      return address.get('address') === email_address.address
+    })
+    return {
+      ...email_address,
+      is_primary: email_address.is_primary !== undefined ? email_address.is_primary : existing.length === 0,
+      id: found ? found.get('id') : undefined
+    }
+  })
 
   const add = email_addresses.filter(email_address => {
     return email_address.id === undefined
@@ -10,11 +27,11 @@ export const updateEmailAddresses = async (req, { contact, email_addresses }) =>
     return email_address.id !== undefined
   })
 
-  const remove = contact.related('email_addresses').toArray().filter(email_address => {
+  const remove = removing !== false ? existing.filter(email_address => {
     return email_addresses.find(address => {
       return address.id === email_address.get('id')
     }) === undefined
-  })
+  }) : []
 
   const added = add.length > 0 ? await Promise.mapSeries(add, async (email_address) => {
     return await EmailAddress.forge({

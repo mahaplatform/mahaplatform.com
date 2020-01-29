@@ -139,8 +139,9 @@ const submitRoute = async (req, res) => {
     await updateEmailAddresses(req, {
       contact,
       email_addresses: [
-        { address: contactdata.email, is_primary: true }
-      ]
+        { address: contactdata.email }
+      ],
+      removing: false
     })
   }
 
@@ -148,8 +149,9 @@ const submitRoute = async (req, res) => {
     await updatePhoneNumbers(req, {
       contact,
       phone_numbers: [
-        { number: contactdata.phone, is_primary: true }
-      ]
+        { number: contactdata.phone }
+      ],
+      removing: false
     })
   }
 
@@ -157,8 +159,9 @@ const submitRoute = async (req, res) => {
     await updateMailingAddresses(req, {
       contact,
       mailing_addresses: [
-        { address: contactdata.address, is_primary: true }
-      ]
+        { address: contactdata.address }
+      ],
+      removing: false
     })
   }
 
