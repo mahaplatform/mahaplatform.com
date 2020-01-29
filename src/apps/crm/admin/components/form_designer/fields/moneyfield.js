@@ -1,15 +1,13 @@
-import ContactField from '../../contactfield'
 import TokenField from '../../tokenfield'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class ContactFieldForm extends React.Component {
+class MoneyFieldForm extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
-    fields: PropTypes.array,
     onDone: PropTypes.func,
     onUpdate: PropTypes.func
   }
@@ -21,7 +19,6 @@ class ContactFieldForm extends React.Component {
   }
 
   _handleChange = this._handleChange.bind(this)
-  _handleChangeField = this._handleChangeField.bind(this)
   _handleDone = this._handleDone.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
 
@@ -49,10 +46,9 @@ class ContactFieldForm extends React.Component {
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Contact Field',
+      title: 'Money',
       reference: node => this.form = node,
       onChange: this._handleChange,
-      onChangeField: this._handleChangeField,
       onSubmit: this._handleDone,
       cancelText: null,
       saveText: null,
@@ -62,31 +58,20 @@ class ContactFieldForm extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Contact Field', name: 'contactfield', type: ContactField, defaultValue: config.contactfield },
-            ...this._getField()
+            { label: 'Name', name: 'name', type: TokenField, placeholder: 'Enter a name', defaultValue: config.name, required: true },
+            { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
+            { label: 'Instructions', name: 'instructions', type: 'textarea', rows: 2, placeholder: 'Enter instructions', defaultValue: config.instructions },
+            { label: 'Placeholder', name: 'placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
+            { label: 'Required', name: 'required', type: 'checkbox', defaultValue: config.required }
           ]
         }
       ]
     }
   }
 
-  _getField() {
-    const { config } = this.state
-    if(config.contactfield === null) return []
-    return [
-      { label: 'Name', name: 'name', type: TokenField, placeholder: 'Enter a name', defaultValue: config.name, required: true },
-      { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
-      { label: 'Instructions', name: 'instructions', type: 'textarea', rows: 2, placeholder: 'Enter instructions', defaultValue: config.instructions },
-      { label: 'Placeholder', name: 'placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
-      { label: 'Required', name: 'required', type: 'checkbox', defaultValue: config.required }
-    ]
-  }
-
   _getDefault() {
     return {
-      contactfield: null,
-      label: '',
-      token: '',
+      label: 'Untitled',
       instructions: '',
       placeholder: '',
       required: false
@@ -102,18 +87,6 @@ class ContactFieldForm extends React.Component {
     })
   }
 
-  _handleChangeField(key, value) {
-    if(key === 'contactfield') {
-      this.setState({
-        config: {
-          ...this.state.config,
-          contactfield: value,
-          label: value.label
-        }
-      })
-    }
-  }
-
   _handleDone() {
     this.props.onDone()
   }
@@ -124,4 +97,4 @@ class ContactFieldForm extends React.Component {
 
 }
 
-export default ContactFieldForm
+export default MoneyFieldForm

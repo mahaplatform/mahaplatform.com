@@ -20,14 +20,17 @@ class TextField extends React.Component {
     onReady: () => {}
   }
 
+  input = null
+
   state = {
+    focused: false,
     value: ''
   }
 
-  input = null
-
+  _handleBlur = this._handleBlur.bind(this)
   _handleChange = _.debounce(this._handleChange.bind(this), 250, { leading: true })
   _handleClear = this._handleClear.bind(this)
+  _handleFocus = this._handleFocus.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
@@ -63,14 +66,16 @@ class TextField extends React.Component {
 
   _getInput() {
     const { code, name, placeholder } = this.props
-    const { value } = this.state
+    const { focused, value } = this.state
     return {
       id: code,
       type: 'text',
       name,
-      placeholder,
+      placeholder: !focused ? placeholder : null,
+      value,
+      onBlur: this._handleBlur,
       onChange: this._handleUpdate,
-      value
+      onFocus: this._handleFocus
     }
   }
 
@@ -78,9 +83,21 @@ class TextField extends React.Component {
     this.props.onChange(this.state.value)
   }
 
+  _handleBlur() {
+    this.setState({
+      focused: false
+    })
+  }
+
   _handleClear() {
     this.setState({
       value: ''
+    })
+  }
+
+  _handleFocus() {
+    this.setState({
+      focused: true
     })
   }
 

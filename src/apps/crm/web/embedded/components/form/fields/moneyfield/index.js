@@ -1,27 +1,26 @@
-import { AsYouType } from 'libphonenumber-js'
 import PropTypes from 'prop-types'
+import numeral from 'numeral'
 import React from 'react'
+import _ from 'lodash'
 
-class PhoneField extends React.Component {
+class MoneyField extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
-    defaultValue: PropTypes.string,
     name: PropTypes.object,
     placeholder: PropTypes.string,
+    tabIndex: PropTypes.number,
+    min: PropTypes.number,
+    max: PropTypes.number,
     required: PropTypes.bool,
-    status: PropTypes.string,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
-    onValidate: PropTypes.func
+    onValid: PropTypes.func
   }
 
   static defaultProps = {
-    onChange: () => {},
-    onReady: () => {}
+    placeholder: 'Enter an amount'
   }
-
-  phone = null
 
   state = {
     focused: false,
@@ -29,19 +28,22 @@ class PhoneField extends React.Component {
   }
 
   _handleBlur = this._handleBlur.bind(this)
+  _handleChange = _.throttle(this._handleChange.bind(this), 250, { trailing:  true })
   _handleClear = this._handleClear.bind(this)
   _handleFocus = this._handleFocus.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
+  _handleValidate = this._handleValidate.bind(this)
 
   render() {
+    const { tabIndex } = this.props
     const { value } = this.state
     return (
-      <div className="maha-phonefield">
+      <div className="maha-moneyfield" tabIndex={ tabIndex }>
         <div className="maha-input">
           <div className="maha-input-field">
-            <input { ...this._getInput() }/>
+            <input { ...this._getInput() } />
           </div>
-          { value && value.length > 0 &&
+          { value !== null && value.length > 0 &&
             <div className="maha-input-clear" onClick={ this._handleClear }>
               <i className="fa fa-times" />
             </div>
@@ -52,28 +54,27 @@ class PhoneField extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onReady()
+    const { defaultValue, onReady } = this.props
+    if(!_.isNil(defaultValue)) this.setState({
+      value: defaultValue
+    })
+    onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { status } = this.props
     const { value } = this.state
     if(value !== prevState.value) {
       this._handleChange()
     }
-    if(status !== prevProps.status) {
-      if(status === 'validating') this._handleValidate()
-    }
   }
 
   _getInput() {
-    const { placeholder } = this.props
+    const { placeholder, tabIndex } = this.props
     const { focused, value } = this.state
     return {
-      className: 'ui input',
-      type: 'tel',
+      tabIndex,
+      type: 'text',
       placeholder: !focused ? placeholder : null,
-      ref: node => this.phone = node,
       value,
       onBlur: this._handleBlur,
       onChange: this._handleUpdate,
@@ -82,13 +83,15 @@ class PhoneField extends React.Component {
   }
 
   _handleBlur() {
+    const { value } = this.state
     this.setState({
-      focused: false
+      focused: false,
+      value: value.length > 0 ? numeral(value).format('0.00') : value
     })
   }
 
   _handleChange() {
-    this.props.onChange(this.state.value)
+    this.props.onChange(Number(this.state.value))
   }
 
   _handleClear() {
@@ -104,22 +107,20 @@ class PhoneField extends React.Component {
   }
 
   _handleUpdate(e) {
-    const asyoutype = new AsYouType('US')
-    this.setState({
-      value: asyoutype.input(e.target.value)
-    })
+    const value = e.target.value
+    if(!value.match(/^-?\d*\.?\d{0,2}$/)) return
+    this.setState({ value })
   }
 
   _handleValidate() {
-    const { required } = this.props
+    const { min, max, required, onValid } = this.props
     const { value } = this.state
-    if(required && value.length === 0) {
-      this.props.onValidate(value, 'You must enter a value')
-    } else {
-      this.props.onValidate(value)
-    }
+    if(required === true && value === '') return onValid(value, ['This field is required'])
+    if(min !== undefined && Number(value) < min) return onValid(value, [`This field must be greater than or equal to  ${min}`])
+    if(max !== undefined && Number(value) > max) return onValid(value, [`This field must be less than or equal to ${max}`])
+    onValid(value)
   }
 
 }
 
-export default PhoneField
+export default MoneyField

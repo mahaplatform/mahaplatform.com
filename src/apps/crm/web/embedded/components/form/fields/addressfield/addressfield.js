@@ -31,6 +31,7 @@ class Addressfield extends React.Component {
 
   state = {
     direction: null,
+    focused: false,
     ready: false
   }
 
@@ -39,9 +40,11 @@ class Addressfield extends React.Component {
   geocoder = null
 
   _handleAutocomplete = this._handleAutocomplete.bind(this)
+  _handleBlur = this._handleBlur.bind(this)
   _handleCheck = this._handleCheck.bind(this)
   _handleChoose = this._handleChoose.bind(this)
   _handleClear = this._handleClear.bind(this)
+  _handleFocus = this._handleFocus.bind(this)
   _handleGeocode = this._handleGeocode.bind(this)
   _handleInit = this._handleInit.bind(this)
   _handleLoad = this._handleLoad.bind(this)
@@ -84,12 +87,6 @@ class Addressfield extends React.Component {
     )
   }
 
-  _getResultClass() {
-    const { direction } = this.state
-    const classes = ['addressfield-results', direction]
-    return classes.join(' ')
-  }
-
   componentDidMount() {
     this._handleLoad()
   }
@@ -120,12 +117,21 @@ class Addressfield extends React.Component {
 
   _getInput() {
     const { placeholder } = this.props
+    const { focused } = this.state
     return {
       type: 'textfield',
-      placeholder,
+      placeholder: !focused ? placeholder : null,
+      ref: node => this.input = node,
+      onBlur: this._handleBlur,
       onChange: this._handleType,
-      ref: node => this.input = node
+      onFocus: this._handleFocus
     }
+  }
+
+  _getResultClass() {
+    const { direction } = this.state
+    const classes = ['addressfield-results', direction]
+    return classes.join(' ')
   }
 
   _getType(result, type) {
@@ -150,6 +156,12 @@ class Addressfield extends React.Component {
     }))
   }
 
+  _handleBlur() {
+    this.setState({
+      focused: false
+    })
+  }
+
   _handleCheck() {
     const ready = typeof window !== 'undefined' && typeof window.google !== 'undefined' && typeof window.google.maps !== 'undefined'
     if(ready) return this._handleInit()
@@ -165,6 +177,12 @@ class Addressfield extends React.Component {
 
   _handleClear() {
     this.props.onClear()
+  }
+
+  _handleFocus() {
+    this.setState({
+      focused: true
+    })
   }
 
   _handleGeocode(results) {

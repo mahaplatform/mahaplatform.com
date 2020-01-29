@@ -1,6 +1,7 @@
 import AddressField from './fields/addressfield'
 import ContactField from './fields/contactfield'
 import ProductField from './fields/productfield'
+import MoneyField from './fields/moneyfield'
 import CheckBoxes from './fields/checkboxes'
 import RadioGroup from './fields/radiogroup'
 import PhoneField from './fields/phonefield'
@@ -67,6 +68,7 @@ class Sidebar extends React.Component {
       { label: 'Dropdown', icon: 'caret-square-o-down', type: 'dropdown', component: DropDown },
       { label: 'File Upload', icon: 'cloud-upload', type: 'filefield', component: FileField },
       { label: 'Instructions', icon: 'align-left', type: 'text', component: Text },
+      { label: 'Money', icon: 'dollar', type: 'moneyfield', component: MoneyField },
       { label: 'Multiple Choice', icon: 'circle-o', type: 'radiogroup', component: RadioGroup },
       { label: 'Phone', icon: 'phone', type: 'phonefield', component: PhoneField },
       { label: 'Products', icon: 'shopping-bag', type: 'productfield', component: ProductField },

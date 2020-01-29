@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types'
-import numeral from 'numeral'
 import React from 'react'
 import _ from 'lodash'
 
-class MoneyField extends React.Component {
+const FLOAT_REGEX = /^-?[0-9]*\.?[0-9]*$/
+
+const INTEGER_REGEX = /^-?[0-9]*$/
+
+class NumberField extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.oneOfType([
@@ -14,15 +17,18 @@ class MoneyField extends React.Component {
     tabIndex: PropTypes.number,
     min: PropTypes.number,
     max: PropTypes.number,
+    number_type: PropTypes.string,
     required: PropTypes.bool,
-    status: PropTypes.string,
+    units: PropTypes.string,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
-    onValidate: PropTypes.func
+    onValid: PropTypes.func
   }
 
   static defaultProps = {
-    placeholder: 'Enter an amount'
+    placeholder: 'Enter an amount',
+    onChange: () => {},
+    onReady: () => {}
   }
 
   state = {
@@ -38,10 +44,10 @@ class MoneyField extends React.Component {
   _handleValidate = this._handleValidate.bind(this)
 
   render() {
-    const { tabIndex } = this.props
+    const { tabIndex, units } = this.props
     const { value } = this.state
     return (
-      <div className="maha-moneyfield" tabIndex={ tabIndex }>
+      <div className="maha-numberfield" tabIndex={ tabIndex }>
         <div className="maha-input">
           <div className="maha-input-field">
             <input { ...this._getInput() } />
@@ -52,26 +58,27 @@ class MoneyField extends React.Component {
             </div>
           }
         </div>
+        { units &&
+          <div className="maha-numberfield-units">
+            { units }
+          </div>
+        }
       </div>
     )
   }
 
   componentDidMount() {
-    const { defaultValue } = this.props
+    const { defaultValue, onReady } = this.props
     if(!_.isNil(defaultValue)) this.setState({
       value: defaultValue
     })
-    this.props.onReady()
+    onReady(this._handleValidate)
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { status } = this.props
     const { value } = this.state
     if(value !== prevState.value) {
       this._handleChange()
-    }
-    if(status !== prevProps.status) {
-      if(status === 'validating') this._handleValidate()
     }
   }
 
@@ -91,10 +98,8 @@ class MoneyField extends React.Component {
   }
 
   _handleBlur() {
-    const { value } = this.state
     this.setState({
-      focused: false,
-      value: value.length > 0 ? numeral(value).format('0.00') : value
+      focused: false
     })
   }
 
@@ -115,25 +120,22 @@ class MoneyField extends React.Component {
   }
 
   _handleUpdate(e) {
+    const { number_type } = this.props
     const value = e.target.value
-    if(!value.match(/^-?\d*\.?\d{0,2}$/)) return
+    const regex = number_type === 'integer' ? INTEGER_REGEX : FLOAT_REGEX
+    if(!value.match(regex)) return
     this.setState({ value })
   }
 
   _handleValidate() {
-    const { min, max, required } = this.props
+    const { min, max, required, onValid } = this.props
     const { value } = this.state
-    if(required === true && value === '') {
-      this.props.onValidate(value, 'This field is required')
-    } else if(min !== undefined && Number(value) < min) {
-      this.props.onValidate(value, `This field must be greater than or equal to  ${min}`)
-    } else if(max !== undefined && Number(value) > max) {
-      this.props.onValidate(value, `This field must be less than or equal to ${max}`)
-    } else {
-      this.props.onValidate(value)
-    }
+    if(required === true && value === '') return onValid(value, ['This field is required'])
+    if(min !== undefined && Number(value) < min) return onValid(value, [`This field must be greater than or equal to  ${min}`])
+    if(max !== undefined && Number(value) > max) return onValid(value, [`This field must be less than or equal to ${max}`])
+    onValid(value)
   }
 
 }
 
-export default MoneyField
+export default NumberField
