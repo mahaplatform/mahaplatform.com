@@ -11,7 +11,7 @@ class Text extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
-    tokens: PropTypes.object,
+    tokens: PropTypes.array,
     onDone: PropTypes.func,
     onUpdate: PropTypes.func
   }
@@ -63,7 +63,7 @@ class Text extends React.Component {
             {
               fields: [
                 ...new Array(config.columns).fill(0).map((i, index) => {
-                  return { name: `content_${index}`, type: 'htmlfield', defaultValue: config[`content_${index}`] }
+                  return { label: config.columns > 1 ? `Column ${index+1}` : null, name: `content_${index}`, type: 'htmlfield', defaultValue: config[`content_${index}`] }
                 })
               ],
               after: (
@@ -71,13 +71,13 @@ class Text extends React.Component {
                   <p>You can use the following variables in this email:</p>
                   <table className="ui celled compact table">
                     <tbody>
-                      { tokens.reduce((rows, group, index) => [
+                      { tokens.reduce((rows, group, i) => [
                         ...rows,
-                        <tr key={`group_${index}`}>
+                        <tr key={`group_${i}`}>
                           <td colSpan="2">{ group.title }</td>
                         </tr>,
-                        ...group.tokens.map((token, index) => (
-                          <tr key={`token_${index}`}>
+                        ...group.tokens.map((token, j) => (
+                          <tr key={`group_${i}_token_${j}`}>
                             <td>{ token.name }</td>
                             <td>&lt;%= { token.token } %&gt;</td>
                           </tr>

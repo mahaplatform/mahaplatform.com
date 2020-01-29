@@ -16,7 +16,7 @@ class EmailDesigner extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.object,
-    tokens: PropTypes.object,
+    tokens: PropTypes.array,
     onSave: PropTypes.func
   }
 

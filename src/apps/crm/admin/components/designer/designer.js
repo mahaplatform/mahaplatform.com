@@ -19,7 +19,7 @@ class Designer extends React.Component {
     preview: PropTypes.bool,
     sidebar: PropTypes.bool,
     title: PropTypes.string,
-    tokens: PropTypes.object,
+    tokens: PropTypes.array,
     onAdd: PropTypes.func,
     onAddSection: PropTypes.func,
     onChange: PropTypes.func,

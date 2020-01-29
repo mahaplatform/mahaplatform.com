@@ -14,7 +14,7 @@ class Sidebar extends React.Component {
     cid: PropTypes.string,
     config: PropTypes.object,
     title: PropTypes.string,
-    tokens: PropTypes.object,
+    tokens: PropTypes.array,
     onAddSection: PropTypes.func,
     onDeleteSection: PropTypes.func,
     onMoveSection: PropTypes.func,
