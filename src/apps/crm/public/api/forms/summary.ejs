@@ -1,0 +1,36 @@
+<table class="product-summary">
+  <thead>
+    <tr>
+      <th width="55%">Item</th>
+      <th width="15%">Qty</th>
+      <th width="15%">Price</th>
+      <th width="15%">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% summary.products.map(product => { %>
+      <tr>
+        <td><%= product.title %></td>
+        <td><%= product.quantity %></td>
+        <td><%= numeral(product.price).format('0.00') %></td>
+        <td><%= numeral(product.total).format('0.00') %></td>
+      </tr>
+    <% }) %>
+  </tbody>
+  <tfoot>
+    <% if(summary.tax > 0) { %>
+      <tr>
+        <th colspan="3">Subtotal</th>
+        <td><%= numeral(summary.subtotal).format('0.00') %></td>
+      </tr>
+      <tr>
+        <td colspan="3">Tax</td>
+        <td><%= numeral(summary.tax).format('0.00') %></td>
+      </tr>
+    <% } %>
+    <tr>
+      <th colspan="3">Total</th>
+      <td><%= numeral(summary.total).format('0.00') %></td>
+    </tr>
+  </tfoot>
+</table>

@@ -17,6 +17,13 @@ import Form from '../../../models/form'
 import { checkToken } from './utils'
 import moment from 'moment'
 
+import numeral from 'numeral'
+import path from 'path'
+import ejs from 'ejs'
+import fs from 'fs'
+
+const summary  = fs.readFileSync(path.join(__dirname, 'summary.ejs'), 'utf8')
+
 const getContact = async (req, { form, fields, data }) => {
 
   const email = await EmailAddress.query(qb => {
@@ -60,7 +67,7 @@ const createInvoice = async (req, { form, contact, data }) => {
     transacting: req.trx
   })
 
-  await Promise.map(data, async(line_item) => {
+  await Promise.map(data.products, async(line_item) => {
 
     const product = await Product.scope(qb => {
       qb.where('team_id', req.team.get('id'))
@@ -92,7 +99,6 @@ const createInvoice = async (req, { form, contact, data }) => {
   return invoice
 
 }
-
 
 const submitRoute = async (req, res) => {
 
@@ -189,13 +195,18 @@ const submitRoute = async (req, res) => {
 
   const data = response.get('data')
 
-
   const html = renderEmail(req, {
     config: email.get('config'),
     data: {
       response: fields.reduce((response, field) => ({
         ...response,
-        [field.name.token]: data[field.code]
+        [field.name.token]: data[field.code],
+        ...field.type === 'productfield' ? {
+          [`${field.name.token}_summary`]: ejs.render(summary, {
+            summary: data[field.code],
+            numeral
+          })
+        } : {}
       }), {})
     }
   })
