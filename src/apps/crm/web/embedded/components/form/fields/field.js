@@ -24,6 +24,7 @@ class Field extends React.Component {
     field: PropTypes.object,
     index: PropTypes.number,
     status: PropTypes.string,
+    token: PropTypes.string,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func
@@ -89,13 +90,14 @@ class Field extends React.Component {
   }
 
   _getField() {
-    const { code, field, status, onChange, onReady, onValidate } = this.props
+    const { code, field, status, token, onChange, onReady, onValidate } = this.props
     const { htmlFor } = this.state
     return {
       code,
       htmlFor,
-      ...field,
+      ..._.omit(field, ['code']),
       status,
+      token,
       onChange,
       onReady,
       onValidate

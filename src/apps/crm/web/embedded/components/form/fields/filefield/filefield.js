@@ -16,6 +16,7 @@ class FileField extends React.Component {
     prompt: PropTypes.string,
     required: PropTypes.bool,
     status: PropTypes.string,
+    token: PropTypes.string,
     onAddFile: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
@@ -70,12 +71,15 @@ class FileField extends React.Component {
   }
 
   componentDidMount() {
-    const { code, multiple, onReady } = this.props
+    const { code, multiple, token, onReady } = this.props
     this.resumable = new Resumable({
       target: `/api/crm/forms/${code}/uploads`,
       chunkSize: 1024 * 128,
       permanentErrors: [204, 400, 404, 409, 415, 500, 501],
-      maxFiles: multiple ? undefined : 1
+      maxFiles: multiple ? undefined : 1,
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
     })
     this.resumable.on('fileAdded', this._handleFileAdded.bind(this))
     this.resumable.on('fileProgress', this._handleUploadProgress.bind(this))

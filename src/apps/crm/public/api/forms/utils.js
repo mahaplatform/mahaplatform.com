@@ -6,4 +6,5 @@ export const checkToken = (token, code) => {
   if(!matches) return false
   const payload = decode(matches[1])
   if(payload.data.code !== code) return false
+  return true
 }

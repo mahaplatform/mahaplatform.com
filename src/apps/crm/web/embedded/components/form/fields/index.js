@@ -18,6 +18,7 @@ class Fields extends React.Component {
     ready: PropTypes.array,
     requiresPayment: PropTypes.bool,
     status: PropTypes.string,
+    token: PropTypes.string,
     validated: PropTypes.array,
     onChange: PropTypes.func,
     onPay: PropTypes.func,
@@ -71,13 +72,14 @@ class Fields extends React.Component {
   }
 
   _getField(field,index) {
-    const { code, errors, status } = this.props
+    const { code, errors, status, token } = this.props
     return {
       code,
       field,
       index,
       error: errors[field.code],
       status,
+      token,
       onChange: this._handleChange.bind(this, field.code),
       onReady: this._handleSetReady.bind(this, field.code),
       onValidate: this._handleSetValid.bind(this, field.code)
