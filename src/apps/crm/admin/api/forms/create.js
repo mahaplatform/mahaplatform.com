@@ -85,16 +85,29 @@ const createRoute = async (req, res) => {
     code: emailCode,
     subject: req.body.subject,
     reply_to: req.body.reply_to,
-    config: template ? template.get('config') : { sections: [{
-      label: 'Body',
-      blocks: [
-        {
-          type: 'text',
-          content_0: 'Thank you!',
-          padding: 16
-        }
-      ]
-    }] }
+    config: template ? template.get('config') : {
+      sections: [{
+        label: 'Header',
+        blocks: []
+      },{
+        label: 'Body',
+        blocks: [
+          {
+            type: 'text',
+            content_0: '<p>&lt;%= contact.first_name %&gt;,</p><p>Thank you for filling out our form</p>',
+            padding: 16
+          }
+        ]
+      }, {
+        label: 'Footer',
+        blocks: []
+      }],
+      settings: {
+        sender_id: req.body.sender_id,
+        subject: req.body.subject,
+        reply_to: req.body.reply_to
+      }
+    }
   }).save(null, {
     transacting: req.trx
   })

@@ -32,6 +32,7 @@ class Sidebar extends React.Component {
   _handlePreview = this._handlePreview.bind(this)
   _handlePush = this._handlePush.bind(this)
   _handleReplace = this._handleReplace.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
     return <Stack { ...this._getStack() } />
@@ -74,7 +75,7 @@ class Sidebar extends React.Component {
       onPop: this._handlePop,
       onPreview: this._handlePreview,
       onSave,
-      onUpdate: this._handleUpdate.bind(this)
+      onUpdate: this._handleUpdate
     }
   }
 

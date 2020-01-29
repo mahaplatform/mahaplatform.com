@@ -29,8 +29,12 @@ class Page extends React.Component {
   }
 
   componentDidMount() {
-    const { config } = this.props
-    this.setState({ config })
+    this.setState({
+      config: {
+        ...this._getDefault(),
+        ...this.props.config
+      }
+    })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -98,6 +102,41 @@ class Page extends React.Component {
       { name: `${type}_width`, type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config[`${type}_width`] },
       { name: `${type}_color`, type: 'colorfield', defaultValue: config[`${type}_color`] }
     ] }
+  }
+
+  _getDefault() {
+    return {
+      background_color: null,
+      border_top_width: null,
+      border_top_style: null,
+      border_top_color: null,
+      padding: 10,
+      email_background_color: null,
+      email_border_width: null,
+      email_border_style: null,
+      email_border_color: null,
+      h1_font_family: 'Arial, Helvetica, sans-serif',
+      h1_font_size: 28,
+      h1_color: '#222222',
+      h1_format: ['bold'],
+      h1_text_align: false,
+      h1_line_height: 1,
+      h1_letter_spacing: 0,
+      h2_font_family: 'Arial, Helvetica, sans-serif',
+      h2_font_size: 24,
+      h2_color: '#222222',
+      h2_format: ['bold'],
+      h2_text_align: false,
+      h2_line_height: 1,
+      h2_letter_spacing: 0,
+      p_font_family: 'Arial, Helvetica, sans-serif',
+      p_font_size: 18,
+      p_color: '#222222',
+      p_format: [],
+      p_text_align: false,
+      p_line_height: 1.5,
+      p_letter_spacing: 0
+    }
   }
 
   _handleChange(config) {

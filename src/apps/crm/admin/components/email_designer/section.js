@@ -32,8 +32,12 @@ class Section extends React.Component {
   }
 
   componentDidMount() {
-    const { config } = this.props
-    this.setState({ config })
+    this.setState({
+      config: {
+        ...this._getDefault(),
+        ...this.props.config
+      }
+    })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -94,6 +98,27 @@ class Section extends React.Component {
       { name: `${type}_width`, type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config[`${type}_width`] },
       { name: `${type}_color`, type: 'colorfield', defaultValue: config[`${type}_color`] }
     ] }
+  }
+
+  _getDefault() {
+    return {
+      label: null,
+      background_color: null,
+      background_image: null,
+      border_width: null,
+      border_style: null,
+      border_color: null,
+      padding: 0,
+      font_family: null,
+      font_size: null,
+      color: null,
+      text_align: null,
+      line_height: null,
+      link_color: null,
+      link_bold: null,
+      link_underline: null,
+      blocks: []
+    }
   }
 
   _handleChange(config) {

@@ -1,6 +1,7 @@
 import { Menu, ModalPanel } from 'maha-admin'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
+import Settings from './settings'
 import Content from './content'
 import Layout from './layout'
 import Design from './design'
@@ -43,9 +44,10 @@ class Page extends React.Component {
   _getMenu() {
     return {
       items: [
-        { label: 'Layout', component: <Layout { ...this._getLayout() } /> },
         { label: 'Content', component: <Content { ...this._getContent() } /> },
-        { label: 'Design', component: <Design { ...this._getDesign() } /> }
+        { label: 'Layout', component: <Layout { ...this._getLayout() } /> },
+        { label: 'Design', component: <Design { ...this._getDesign() } /> },
+        { label: 'Settings', component: <Settings { ...this._getSettings() } /> }
       ]
     }
   }
@@ -101,6 +103,14 @@ class Page extends React.Component {
           handler: this._handlePreview
         }
       ]
+    }
+  }
+
+  _getSettings() {
+    const { cid, onUpdate } = this.props
+    return {
+      cid,
+      onUpdate
     }
   }
 
