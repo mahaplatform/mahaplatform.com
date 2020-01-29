@@ -47,14 +47,8 @@ class Page extends React.Component {
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Page',
-      onCancel: this._handleDone,
       onChange: this._handleChange,
-      cancelIcon: 'chevron-left',
-      saveText: null,
-      buttons: [
-        { label: 'Done', color: 'red', handler: this._handleDone }
-      ],
+      showHeader: false,
       sections: [
         {
           fields: [

@@ -12,19 +12,18 @@ import React from 'react'
 class Block extends React.Component {
 
   static propTypes = {
-    active: PropTypes.object,
+    active: PropTypes.number,
     blockIndex: PropTypes.number,
     config: PropTypes.object,
-    sectionIndex: PropTypes.number,
     onAction: PropTypes.func
   }
 
   render() {
-    const { config, sectionIndex, blockIndex } = this.props
+    const { config, blockIndex } = this.props
     const Component  = this._getComponent()
     return (
       <div className={ this._getClass() }>
-        <table className={`row collapse section-${ sectionIndex }-block-${ blockIndex } ${ config.type }-block block`}>
+        <table className={`row collapse block-${ blockIndex } ${ config.type }-block block`}>
           <tbody>
             <tr>
               <td className="small-12 large-12">
@@ -59,18 +58,17 @@ class Block extends React.Component {
   }
 
   _getClass() {
-    const { active, blockIndex, sectionIndex } = this.props
-    const is_active = active !== null && active.section === sectionIndex && active.block === blockIndex
+    const { active, blockIndex } = this.props
+    const is_active = active !== null && active === blockIndex
     const classes=['block']
     if(is_active) classes.push('active')
     return classes.join(' ')
   }
 
   _getBlock() {
-    const { blockIndex, sectionIndex, config  } = this.props
+    const { blockIndex, config  } = this.props
     return {
       blockIndex,
-      sectionIndex,
       config
     }
   }
@@ -88,9 +86,8 @@ class Block extends React.Component {
   }
 
   _handleAction(action) {
-    const { sectionIndex, blockIndex, onAction } = this.props
+    const { blockIndex, onAction } = this.props
     onAction(action, {
-      section: sectionIndex,
       block: blockIndex
     })
   }

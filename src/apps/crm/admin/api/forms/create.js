@@ -86,22 +86,13 @@ const createRoute = async (req, res) => {
     subject: req.body.subject,
     reply_to: req.body.reply_to,
     config: template ? template.get('config') : {
-      sections: [{
-        label: 'Header',
-        blocks: []
-      },{
-        label: 'Body',
-        blocks: [
-          {
-            type: 'text',
-            content_0: '<p>&lt;%= contact.first_name %&gt;,</p><p>Thank you for filling out our form</p>',
-            padding: 16
-          }
-        ]
-      }, {
-        label: 'Footer',
-        blocks: []
-      }],
+      blocks: [
+        {
+          type: 'text',
+          content_0: '<p>&lt;%= contact.first_name %&gt;,</p><p>Thank you for filling out our form</p>',
+          padding: 16
+        }
+      ],
       settings: {
         sender_id: req.body.sender_id,
         subject: req.body.subject,

@@ -8,16 +8,13 @@ import _ from 'lodash'
 class Sidebar extends React.Component {
 
   static propTypes = {
-    active: PropTypes.object,
+    active: PropTypes.number,
     blocks: PropTypes.array,
     components: PropTypes.object,
     cid: PropTypes.string,
     config: PropTypes.object,
     title: PropTypes.string,
     tokens: PropTypes.array,
-    onAddSection: PropTypes.func,
-    onDeleteSection: PropTypes.func,
-    onMoveSection: PropTypes.func,
     onEdit: PropTypes.func,
     onSave: PropTypes.func,
     onUpdate: PropTypes.func
@@ -45,14 +42,14 @@ class Sidebar extends React.Component {
   componentDidUpdate(prevProps) {
     const { active } = this.props
     if(!_.isEqual(active, prevProps.active)) {
-      if(active.section !== null) this._handleEdit(prevProps.active.section !== null)
-      if(active.section === null) this._handlePop()
+      if(active !== null) this._handleEdit(prevProps.active !== null)
+      if(active === null) this._handlePop()
     }
   }
 
   _getBlock() {
     const { active, config, tokens } = this.props
-    const key = `sections[${active.section}].blocks[${active.block}]`
+    const key = `blocks[${active}]`
     return {
       config: _.get(config, key),
       tokens,
@@ -62,15 +59,12 @@ class Sidebar extends React.Component {
   }
 
   _getPage() {
-    const { blocks, cid, components, title, onAddSection, onDeleteSection, onMoveSection, onSave } = this.props
+    const { blocks, cid, components, title, onSave } = this.props
     return {
       blocks,
       cid,
       components,
       title,
-      onAddSection,
-      onDeleteSection,
-      onMoveSection,
       onPush: this._handlePush,
       onPop: this._handlePop,
       onPreview: this._handlePreview,
@@ -101,7 +95,7 @@ class Sidebar extends React.Component {
 
   _handleEdit(replace) {
     const { active, blocks } = this.props
-    const config = this.props.config.sections[active.section].blocks[active.block]
+    const config = this.props.config.blocks[active]
     const { type } = config
     const block = _.find(blocks, { type })
     const push = replace ? this._handleReplace : this._handlePush

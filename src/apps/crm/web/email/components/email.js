@@ -5,14 +5,13 @@ import React from 'react'
 class Email extends React.Component {
 
   static propTypes = {
-    active: PropTypes.object,
+    active: PropTypes.number,
     config: PropTypes.object,
     children: PropTypes.any,
     onAction: PropTypes.func
   }
 
   render() {
-    const { config } = this.props
     return (
       <table className="body" id="body">
         <tbody>
@@ -23,9 +22,7 @@ class Email extends React.Component {
                   <tbody>
                     <tr>
                       <td>
-                        { config.sections && config.sections.map((section, index) => (
-                          <Section key={`section_${index}`} { ...this._getSection(section, index)} />
-                        )) }
+                        <Section { ...this._getSection()} />
                       </td>
                     </tr>
                   </tbody>
@@ -38,12 +35,13 @@ class Email extends React.Component {
     )
   }
 
-  _getSection(section, index) {
-    const { active, onAction } = this.props
+  _getSection() {
+    const { active, config, onAction } = this.props
     return {
       active,
-      config: section,
-      sectionIndex: index,
+      config: {
+        blocks: config.blocks
+      },
       onAction
     }
   }

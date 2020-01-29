@@ -8,7 +8,7 @@ import React from 'react'
 class Designer extends React.Component {
 
   static propTypes = {
-    active: PropTypes.object,
+    active: PropTypes.number,
     blocks: PropTypes.array,
     changes: PropTypes.number,
     cid: PropTypes.string,
@@ -21,12 +21,9 @@ class Designer extends React.Component {
     title: PropTypes.string,
     tokens: PropTypes.array,
     onAdd: PropTypes.func,
-    onAddSection: PropTypes.func,
     onChange: PropTypes.func,
     onClone: PropTypes.func,
-    onDeleteSection: PropTypes.func,
     onEdit: PropTypes.func,
-    onMoveSection: PropTypes.func,
     onRemove: PropTypes.func,
     onSave: PropTypes.func,
     onSet: PropTypes.func,
@@ -39,7 +36,6 @@ class Designer extends React.Component {
   }
 
   _handleAdd = this._handleAdd.bind(this)
-  _handleAddSection = this._handleAddSection.bind(this)
   _handleToggle = this._handleToggle.bind(this)
 
   render() {
@@ -102,7 +98,7 @@ class Designer extends React.Component {
   }
 
   _getSidebar() {
-    const { active, blocks, cid, components, config, title, tokens, onDeleteSection, onMoveSection, onEdit, onSave, onUpdate } = this.props
+    const { active, blocks, cid, components, config, title, tokens, onEdit, onSave, onUpdate } = this.props
     return {
       active,
       blocks,
@@ -111,24 +107,17 @@ class Designer extends React.Component {
       config,
       title,
       tokens,
-      onAddSection: this._handleAddSection,
-      onDeleteSection,
-      onMoveSection,
       onEdit,
       onUpdate,
       onSave
     }
   }
 
-  _handleAdd(section, index, type) {
+  _handleAdd(index, type) {
     const { onAdd } = this.props
-    onAdd(section, index, { type })
+    onAdd(index, { type })
   }
 
-  _handleAddSection() {
-    const { onAddSection } = this.props
-    onAddSection(defaults.section)
-  }
 
   _handleToggle() {
     this.props.onToggle()

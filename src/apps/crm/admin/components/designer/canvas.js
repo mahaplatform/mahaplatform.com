@@ -79,16 +79,16 @@ class Canvas extends React.Component {
     this.pasteur.send('designer', 'update', { config })
   }
 
-  _handleAdd({ section, type, index }) {
-    this.props.onAdd(section, index, type)
+  _handleAdd({ type, index }) {
+    this.props.onAdd(index, type)
   }
 
-  _handleClone({ section, block }) {
-    this.props.onClone(section, block)
+  _handleClone({ block }) {
+    this.props.onClone(block)
   }
 
-  _handleEdit({ section, block }) {
-    this.props.onEdit(section, block)
+  _handleEdit({ block }) {
+    this.props.onEdit(block)
   }
 
   _handleHighlight() {
@@ -96,10 +96,10 @@ class Canvas extends React.Component {
     this.pasteur.send('designer', 'highlight', { active })
   }
 
-  _handleRemove({ section, block }) {
+  _handleRemove({ block }) {
     const { confirm } = this.context
     const { onRemove } = this.props
-    const handler = onRemove.bind(this, section, block)
+    const handler = onRemove.bind(this, block)
     confirm.open('Are you sure you want to delete this block?', handler)
   }
 

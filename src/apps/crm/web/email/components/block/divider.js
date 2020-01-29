@@ -4,9 +4,7 @@ import React from 'react'
 class Divider extends React.Component {
 
   static propTypes = {
-    blockIndex: PropTypes.number,
-    config: PropTypes.object,
-    sectionIndex: PropTypes.number
+    config: PropTypes.object
   }
 
   render() {

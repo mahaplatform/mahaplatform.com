@@ -1,41 +1,21 @@
-export const addSection = (section) => ({
-  type: 'ADD_SECTION',
-  section
-})
-
-export const deleteSection = (index) => ({
-  type: 'DELETE_SECTION',
-  index
-})
-
-export const moveSection = (from, to) => ({
-  type: 'MOVE_SECTION',
-  from,
-  to
-})
-
-export const add = (section, index, block) => ({
+export const add = (index, block) => ({
   type: 'ADD',
-  section,
   index,
   block
 })
 
-export const clone = (section, block) => ({
+export const clone = (block) => ({
   type: 'CLONE',
-  section,
   block
 })
 
-export const edit = (section, block) => ({
+export const edit = (block) => ({
   type: 'EDIT',
-  section,
   block
 })
 
-export const remove = (section, block) => ({
+export const remove = (block) => ({
   type: 'REMOVE',
-  section,
   block
 })
 

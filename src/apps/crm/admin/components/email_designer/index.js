@@ -31,8 +31,7 @@ class EmailDesigner extends React.Component {
       canvas: '/crm/email/index.html',
       preview: true,
       components: {
-        page: Page,
-        section: Section
+        page: Page
       },
       tokens,
       blocks: [

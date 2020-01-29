@@ -3,7 +3,6 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Settings from './settings'
 import Content from './content'
-import Layout from './layout'
 import Design from './design'
 import React from 'react'
 
@@ -18,9 +17,6 @@ class Page extends React.Component {
     components: PropTypes.object,
     config: PropTypes.object,
     title: PropTypes.string,
-    onAddSection: PropTypes.func,
-    onMoveSection: PropTypes.func,
-    onDeleteSection: PropTypes.func,
     onPop: PropTypes.func,
     onPreview: PropTypes.func,
     onPush: PropTypes.func,
@@ -45,7 +41,6 @@ class Page extends React.Component {
     return {
       items: [
         { label: 'Content', component: <Content { ...this._getContent() } /> },
-        { label: 'Layout', component: <Layout { ...this._getLayout() } /> },
         { label: 'Design', component: <Design { ...this._getDesign() } /> },
         { label: 'Settings', component: <Settings { ...this._getSettings() } /> }
       ]
@@ -75,12 +70,9 @@ class Page extends React.Component {
   }
 
   _getLayout() {
-    const { cid, onAddSection, onDeleteSection, onMoveSection, onPop, onPush, onUpdate } = this.props
+    const { cid, onPop, onPush, onUpdate } = this.props
     return {
       cid,
-      onAddSection,
-      onDeleteSection,
-      onMoveSection,
       onPop,
       onPush,
       onUpdate
