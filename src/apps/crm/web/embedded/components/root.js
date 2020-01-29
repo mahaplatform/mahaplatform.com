@@ -19,6 +19,7 @@ import googlepay from './form/payment/googlepay'
 import ach from './form/payment/ach'
 import card from './form/payment/card'
 
+import addressfield from './form/fields/addressfield'
 import productfield from './form/fields/productfield'
 import filefield from './form/fields/filefield'
 import form from './form'
@@ -41,6 +42,7 @@ class Root extends React.Component {
       card,
       form,
       filefield,
+      addressfield,
       paymentfield,
       productfield
     ])

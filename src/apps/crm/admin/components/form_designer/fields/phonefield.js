@@ -4,7 +4,7 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class TextFieldForm extends React.Component {
+class PhoneFieldForm extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
@@ -46,7 +46,7 @@ class TextFieldForm extends React.Component {
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Text',
+      title: 'Phone',
       reference: node => this.form = node,
       onChange: this._handleChange,
       onSubmit: this._handleDone,
@@ -71,7 +71,11 @@ class TextFieldForm extends React.Component {
 
   _getDefault() {
     return {
-      label: 'Untitled',
+      label: 'Phone',
+      name: {
+        token: 'phone',
+        value: 'Phone'
+      },
       instructions: '',
       placeholder: '',
       required: false
@@ -97,4 +101,4 @@ class TextFieldForm extends React.Component {
 
 }
 
-export default TextFieldForm
+export default PhoneFieldForm

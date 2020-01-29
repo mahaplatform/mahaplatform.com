@@ -1,7 +1,9 @@
+import AddressField from './fields/addressfield'
 import ContactField from './fields/contactfield'
 import ProductField from './fields/productfield'
 import CheckBoxes from './fields/checkboxes'
 import RadioGroup from './fields/radiogroup'
+import PhoneField from './fields/phonefield'
 import DateField from './fields/datefield'
 import FileField from './fields/filefield'
 import TextField from './fields/textfield'
@@ -57,6 +59,7 @@ class Sidebar extends React.Component {
 
   _getFields() {
     return [
+      { label: 'Address', icon: 'map-marker', type: 'addressfield', component: AddressField },
       { label: 'Checkboxes', icon: 'check-square-o', type: 'checkboxes', component: CheckBoxes },
       { label: 'Confirmation', icon: 'check-square', type: 'checkbox', component: Checkbox },
       { label: 'Contactfield', icon: 'user', type: 'contactfield', component: ContactField },
@@ -65,6 +68,7 @@ class Sidebar extends React.Component {
       { label: 'File Upload', icon: 'cloud-upload', type: 'filefield', component: FileField },
       { label: 'Instructions', icon: 'align-left', type: 'text', component: Text },
       { label: 'Multiple Choice', icon: 'circle-o', type: 'radiogroup', component: RadioGroup },
+      { label: 'Phone', icon: 'phone', type: 'phonefield', component: PhoneField },
       { label: 'Products', icon: 'shopping-bag', type: 'productfield', component: ProductField },
       { label: 'Text', icon: 'font', type: 'textfield', component: TextField },
       { label: 'Time', icon: 'clock-o', type: 'timefield', component: TimeField }
