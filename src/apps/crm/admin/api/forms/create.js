@@ -80,11 +80,8 @@ const createRoute = async (req, res) => {
   const email = await Email.forge({
     team_id: req.team.get('id'),
     form_id: form.get('id'),
-    sender_id: req.body.sender_id,
     title: 'Confirmation',
     code: emailCode,
-    subject: req.body.subject,
-    reply_to: req.body.reply_to,
     config: template ? template.get('config') : {
       blocks: [
         {
@@ -96,7 +93,8 @@ const createRoute = async (req, res) => {
       settings: {
         sender_id: req.body.sender_id,
         subject: req.body.subject,
-        reply_to: req.body.reply_to
+        reply_to: req.body.reply_to,
+        preview_text: 'Thank you for filling out our form'
       }
     }
   }).save(null, {

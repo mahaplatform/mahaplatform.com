@@ -14,8 +14,6 @@ const Details = ({ email }) => {
 
   list.items = [
     { label: 'Title', content: email.title },
-    { label: 'From', content: email.sender.rfc822 },
-    { label: 'Subject', content: email.subject },
     { label: 'Content', content: <Button { ...design } /> }
   ]
 

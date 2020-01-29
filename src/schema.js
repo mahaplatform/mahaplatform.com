@@ -344,11 +344,8 @@ const schema = {
       table.increments('id').primary()
       table.integer('team_id').unsigned()
       table.integer('workflow_id').unsigned()
-      table.integer('sender_id').unsigned()
       table.string('title', 255)
       table.string('code', 255)
-      table.string('subject', 255)
-      table.string('reply_to', 255)
       table.jsonb('config')
       table.timestamp('created_at')
       table.timestamp('updated_at')
@@ -2125,7 +2122,6 @@ const schema = {
     })
 
     await knex.schema.table('crm_emails', table => {
-      table.foreign('sender_id').references('crm_senders.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('workflow_id').references('crm_workflows.id')
       table.foreign('form_id').references('crm_forms.id')

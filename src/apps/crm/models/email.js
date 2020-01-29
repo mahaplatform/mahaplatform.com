@@ -1,6 +1,6 @@
 import Model from '../../../core/objects/model'
 import Workflow from './workflow'
-import Sender from './sender'
+import Form from './form'
 
 const Email = new Model({
 
@@ -10,8 +10,8 @@ const Email = new Model({
 
   virtuals: {},
 
-  sender() {
-    return this.belongsTo(Sender, 'sender_id')
+  form() {
+    return this.belongsTo(Form, 'form_id')
   },
 
   workflow() {
