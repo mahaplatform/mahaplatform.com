@@ -68,8 +68,7 @@ class Addressfield extends React.Component {
                     <i className="fa fa-map-marker" />
                   </div>
                   <div className="addressfield-result-details">
-                    <strong>{ option.structured_formatting.main_text }</strong><br />
-                    { option.structured_formatting.secondary_text }
+                    <strong>{ option.match }</strong>{ option.remaining }
                   </div>
                 </div>
               )) }
@@ -136,8 +135,19 @@ class Addressfield extends React.Component {
     return component ? component.short_name : null
   }
 
-  _handleAutocomplete(options) {
-    this.props.onSetOptions(options || [])
+  _handleAutocomplete(result) {
+    const { q } = this.props
+    const options = result || []
+    this.props.onSetOptions(options.map(option => {
+      const { main_text, secondary_text } = option.structured_formatting
+      const full = `${main_text}, ${secondary_text}`
+      const match = full.match(new RegExp(q, 'i'), '')
+      return {
+        ...option,
+        match: match ? q : main_text,
+        remaining: match ? full.replace(new RegExp(q, 'i'), '') : `, ${secondary_text}`
+      }
+    }))
   }
 
   _handleCheck() {

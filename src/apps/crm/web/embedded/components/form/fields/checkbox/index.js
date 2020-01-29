@@ -30,13 +30,9 @@ class Checkbox extends React.Component {
   render() {
     const { prompt } = this.props
     return (
-      <div className="maha-confirmation" onClick={ this._handleToggle }>
-        <div className="maha-confirmation-icon">
-          <i className={`fa fa-fw fa-${this._getIcon()}`} />
-        </div>
-        <div className="maha-confirmation-label">
-          { prompt }
-        </div>
+      <div className="maha-confirmation">
+        <i className={`fa fa-fw fa-${this._getIcon()}`} onClick={ this._handleToggle } />
+        { prompt }
       </div>
     )
   }
