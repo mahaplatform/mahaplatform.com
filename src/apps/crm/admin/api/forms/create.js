@@ -36,7 +36,6 @@ const createRoute = async (req, res) => {
 
   const form = await Form.forge({
     team_id: req.team.get('id'),
-    status: 'draft',
     code,
     program_id: program.get('id'),
     ...whitelist(req.body, ['title']),

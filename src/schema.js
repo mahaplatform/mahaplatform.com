@@ -375,7 +375,6 @@ const schema = {
       table.jsonb('config')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.USER-DEFINED('status')
     })
 
     await knex.schema.createTable('crm_interests', (table) => {

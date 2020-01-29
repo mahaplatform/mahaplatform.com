@@ -26,14 +26,6 @@ const Details = ({ audits, form }) => {
 
   const list = {}
 
-  if(form.status === 'draft') {
-    list.alert = { color: 'grey', message: 'This form is in draft mode' }
-  } else if(form.status === 'active') {
-    list.alert = { color: 'green', message: 'This form is active' }
-  } else if(form.status === 'inactive') {
-    list.alert = { color: 'red', message: 'This form is inactive' }
-  }
-
   list.items = [
     { label: 'Title', content: form.title },
     { label: 'Design', content: <Button { ...design } /> },

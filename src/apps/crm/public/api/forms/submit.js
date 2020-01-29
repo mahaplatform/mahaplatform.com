@@ -13,6 +13,7 @@ import EmailAddress from '../../../models/email_address'
 import { renderEmail } from '../../../services/email'
 import Response from '../../../models/response'
 import Contact from '../../../models/contact'
+import Sender from '../../../models/sender'
 import Form from '../../../models/form'
 import { checkToken } from './utils'
 import moment from 'moment'
@@ -109,7 +110,7 @@ const submitRoute = async (req, res) => {
   const form = await Form.query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
-    withRelated: ['email.sender','team'],
+    withRelated: ['email','team'],
     transacting: req.trx
   })
 
@@ -191,7 +192,15 @@ const submitRoute = async (req, res) => {
     type: 'form',
     story: 'filled out a form',
     program_id: form.get('program_id'),
-    data: {}
+    data: {
+      form: {
+        id: form.get('id'),
+        title: form.get('title')
+      },
+      response: {
+        id: response.get('id')
+      }
+    }
   })
 
   const email = form.related('email')
@@ -218,10 +227,16 @@ const submitRoute = async (req, res) => {
     }
   })
 
+  const sender = await Sender.query(qb => {
+    qb.where('id', email.get('config').settings.sender_id)
+  }).fetch({
+    transacting: req.trx
+  })
+
   await sendMail({
-    from: email.related('sender').get('rfc822'),
+    from: sender.get('rfc822'),
     to: contact.get('email'),
-    subject: email.get('subject'),
+    subject: email.get('config').settings.subject,
     html
   })
 
