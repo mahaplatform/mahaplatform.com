@@ -35,7 +35,7 @@ class RadioGroup extends React.Component {
         { options.map((option, index) => (
           <div className="maha-checkbox" key={`option_${index}`} onClick={ this._handleChoose.bind(this, option) }>
             <div className="maha-checkbox-icon">
-              <i className={`fa fa-fw fa-${this._getIcon(option)}`} />
+              <i className={`fa fa-${this._getIcon(option)}`} />
             </div>
             <div className="maha-checkbox-label">
               { option.text }

@@ -47,7 +47,7 @@ class Checkbox extends React.Component {
   }
 
   _getIcon() {
-    return `toggle-${this.state.value ? 'on' : 'off'}`
+    return this.state.value ? 'check-square' : 'square-o'
   }
 
   _handleChange(value) {

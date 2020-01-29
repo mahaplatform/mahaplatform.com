@@ -4,11 +4,11 @@
   }
 }
 .maha-confirmation {
-  display: inline-block;
+  display: flex;
   cursor: pointer;
   .fa {
     font-size: 1.2em;
-    margin-right: 0.2em;
+    margin-right: 0.5em;
   }
   .fa-square-o {
     color: fadeout(@black, 80);
@@ -16,4 +16,10 @@
   .fa-check-square {
     color: @blue;
   }
+}
+.maha-confirmation-icon {
+  flex: 0 0 1.8em;
+}
+.maha-confirmation-label {
+  flex: 1;
 }

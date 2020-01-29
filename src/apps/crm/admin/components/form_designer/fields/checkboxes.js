@@ -60,8 +60,8 @@ class CheckboxesForm extends React.Component {
           fields: [
             { label: 'Name', name: 'name', type: TokenField, placeholder: 'Enter a name', defaultValue: config.name, required: true },
             { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
-            { label: 'Instructions', name: 'instructions', type: 'textarea', rows: 2, placeholder: 'Enter instructions', defaultValue: config.instructions },
-            { label: 'Required', name: 'required', type: 'checkbox', defaultValue: config.required },
+            { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: config.instructions },
+            { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: config.required },
             { label: 'Options', name: 'options', type: 'tablefield', columns: [
               { label: 'Value', key: 'value' },
               { label: 'Text', key: 'text' }

@@ -32,8 +32,14 @@ class Checkbox extends React.Component {
     const { prompt } = this.props
     return (
       <div className="maha-confirmation" onClick={ this._handleToggle }>
-        <i className={`fa fa-fw fa-${this._getIcon()}`} />
-        { prompt }
+        <div className="maha-confirmation-icon">
+          <i className={`fa fa-${this._getIcon()}`} />
+        </div>
+        <div className="maha-confirmation-label">
+          { prompt &&
+            <span dangerouslySetInnerHTML={{ __html: prompt }} />
+          }
+        </div>
       </div>
     )
   }

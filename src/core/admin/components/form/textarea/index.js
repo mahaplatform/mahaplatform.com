@@ -32,8 +32,12 @@ class TextArea extends React.Component {
     value: ''
   }
 
+  input = null
+  offset = 0
+
+  _handleChange = this._handleChange.bind(this)
+  _handleKeyUp = this._handleKeyUp.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
-  _handleChange = _.throttle(this._handleChange.bind(this), 250, { trailing:  true })
 
   render() {
     const { value } = this.state
@@ -45,7 +49,7 @@ class TextArea extends React.Component {
             { value.length } / { maxLength }
           </div>
         }
-        <textarea { ...this._getTextarea() } />
+        <textarea ref={ node => this.input = node } { ...this._getTextArea() } />
       </div>
     )
   }
@@ -55,6 +59,8 @@ class TextArea extends React.Component {
     if(defaultValue) this.setState({
       value: _.toString(defaultValue)
     })
+    this.input.style.boxSizing = 'border-box'
+    this.offset = this.input.offsetHeight - this.input.clientHeight
     onReady()
   }
 
@@ -75,7 +81,7 @@ class TextArea extends React.Component {
     return classes.join(' ')
   }
 
-  _getTextarea() {
+  _getTextArea() {
     const { placeholder, disabled, rows, tabIndex } = this.props
     const { value } = this.state
     return {
@@ -84,12 +90,18 @@ class TextArea extends React.Component {
       value,
       rows,
       tabIndex,
-      onChange: this._handleUpdate
+      onChange: this._handleUpdate,
+      onKeyUp: this._handleKeyUp
     }
   }
 
   _handleChange() {
     this.props.onChange(this.state.value )
+  }
+
+  _handleKeyUp(e) {
+    this.input.style.height = 'auto'
+    this.input.style.height = this.input.scrollHeight + this.offset + 'px'
   }
 
   _handleUpdate(e) {

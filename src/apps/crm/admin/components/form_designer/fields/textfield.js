@@ -60,9 +60,9 @@ class TextFieldForm extends React.Component {
           fields: [
             { label: 'Name', name: 'name', type: TokenField, placeholder: 'Enter a name', defaultValue: config.name, required: true },
             { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
-            { label: 'Instructions', name: 'instructions', type: 'textarea', rows: 2, placeholder: 'Enter instructions', defaultValue: config.instructions },
+            { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: config.instructions },
             { label: 'Placeholder', name: 'placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
-            { label: 'Required', name: 'required', type: 'checkbox', defaultValue: config.required }
+            { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: config.required }
           ]
         }
       ]

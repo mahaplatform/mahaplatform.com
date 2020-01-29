@@ -34,9 +34,7 @@ class Field extends React.Component {
         <div className={ this._getFieldClass() }>
           { label && <label>{ label }</label> }
           { instructions &&
-            <div className="field-instructions">
-              { instructions }
-            </div>
+            <div className="field-instructions" dangerouslySetInnerHTML={{ __html: instructions }} />
           }
           <Component { ...this._getField() } />
         </div>

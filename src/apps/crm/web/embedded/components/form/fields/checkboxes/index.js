@@ -35,7 +35,7 @@ class Checkboxes extends React.Component {
         { options.map((option, index) => (
           <div className="maha-checkbox" key={`option_${index}`}>
             <div className="maha-checkbox-icon" onClick={ this._handleChoose.bind(this, option) }>
-              <i className={`fa fa-fw fa-${this._getIcon(option)}`} />
+              <i className={`fa fa-${this._getIcon(option)}`} />
             </div>
             <div className="maha-checkbox-label">
               { option.text }
