@@ -15,6 +15,8 @@ class Addressfield extends React.Component {
     options: PropTypes.array,
     placeholder: PropTypes.string,
     q: PropTypes.string,
+    required: PropTypes.object,
+    status: PropTypes.object,
     value: PropTypes.object,
     onBusy: PropTypes.func,
     onChange: PropTypes.func,
@@ -23,7 +25,8 @@ class Addressfield extends React.Component {
     onQuery: PropTypes.func,
     onReady: PropTypes.func,
     onSet: PropTypes.func,
-    onSetOptions: PropTypes.func
+    onSetOptions: PropTypes.func,
+    onValidate: PropTypes.func
   }
 
   static defaultProps = {
@@ -56,14 +59,12 @@ class Addressfield extends React.Component {
   render() {
     const { options, value } = this.props
     return (
-      <div className="addressfield">
-        <div className="addressfield-field" onClick={ this._handleBegin }>
-          { value &&
-            <div className="addressfield-token">
+      <div className="maha-input">
+        <div className="maha-input-field" onClick={ this._handleBegin }>
+          { value ?
+            <div className="maha-input-token">
               { value.description }
-            </div>
-          }
-          { !value &&
+            </div> :
             <input { ...this._getInput() } />
           }
           { options.length > 0 &&
@@ -82,7 +83,7 @@ class Addressfield extends React.Component {
           }
         </div>
         { value &&
-          <div className="addressfield-remove" onClick={ this._handleClear }>
+          <div className="maha-input-clear" onClick={ this._handleClear }>
             <i className="fa fa-times" />
           </div>
         }
@@ -95,7 +96,7 @@ class Addressfield extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { q, value, onChange, onReady } = this.props
+    const { q, status, value, onChange, onReady } = this.props
     const { ready } = this.state
     if(ready !== prevState.ready) {
       onReady()
@@ -109,6 +110,10 @@ class Addressfield extends React.Component {
     if(!_.isEqual(value, prevProps.value)) {
       onChange(value)
     }
+    if(status !== prevProps.status) {
+      if(status === 'validating') this._handleValidate()
+    }
+
   }
 
   _getCounty(result) {
@@ -123,7 +128,7 @@ class Addressfield extends React.Component {
     const { focused } = this.state
     return {
       id: htmlFor,
-      type: 'textfield',
+      type: 'text',
       placeholder: !focused ? placeholder : null,
       ref: node => this.input = node,
       onBlur: this._handleBlur,
@@ -229,6 +234,15 @@ class Addressfield extends React.Component {
     const direction = percent > 75 ? 'up' : 'down'
     this.setState({ direction })
     this.props.onQuery(e.target.value)
+  }
+
+  _handleValidate() {
+    const { required, value } = this.props
+    if(required && !value) {
+      this.props.onValidate(null, 'This field is required')
+    } else {
+      this.props.onValidate(value)
+    }
   }
 
 }

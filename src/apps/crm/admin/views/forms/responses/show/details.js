@@ -3,9 +3,12 @@ import PropTypes from 'prop-types'
 import React from 'react'
 
 const Content = ({ field, data }) => {
-  if(field.type === 'productfield') {
+  const type = field.type === 'contactfield' ? field.contactfield.type : field.type
+  if(type === 'productfield') {
     return <span>products</span>
-  } else if(field.type === 'checkbox') {
+  } else if(type === 'addressfield') {
+    return <span>{ data.description }</span>
+  } else if(type === 'checkbox') {
     return <span>{ `${data}` }</span>
   }
   return <span>{ data }</span>

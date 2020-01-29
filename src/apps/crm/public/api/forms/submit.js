@@ -1,5 +1,7 @@
+import { updateMailingAddresses } from '../../../services/mailing_addresses'
 import { updateEmailAddresses } from '../../../services/email_addresses'
 import { whitelist } from '../../../../../core/services/routes/params'
+import { updatePhoneNumbers } from '../../../services/phone_numbers'
 import generateCode from '../../../../../core/utils/generate_code'
 import socket from '../../../../../core/services/routes/emitter'
 import { contactActivity } from '../../../services/activities'
@@ -132,6 +134,24 @@ const submitRoute = async (req, res) => {
       contact,
       email_addresses: [
         { address: contactdata.email, is_primary: true }
+      ]
+    })
+  }
+
+  if(contactdata.phone) {
+    await updatePhoneNumbers(req, {
+      contact,
+      phone_numbers: [
+        { number: contactdata.phone, is_primary: true }
+      ]
+    })
+  }
+
+  if(contactdata.address) {
+    await updateMailingAddresses(req, {
+      contact,
+      mailing_addresses: [
+        { address: contactdata.address, is_primary: true }
       ]
     })
   }
