@@ -1,3 +1,5 @@
+import numeral from 'numeral'
+import moment from 'moment'
 import path from 'path'
 import _ from 'lodash'
 import ejs from 'ejs'
@@ -14,7 +16,12 @@ export const renderEmail = (req, { config, data }) => {
     style: getStyle(config),
     host: 'https://mahaplatform.com'//process.env.WEB_HOST
   })
-  return ejs.render(html.replace(/&lt;%/g,'<%').replace(/%&gt;/g,'%>'), data)
+  return ejs.render(html.replace(/&lt;%/g,'<%').replace(/%&gt;/g,'%>'), {
+    ...data,
+    moment,
+    numeral,
+    _    
+  })
 }
 
 const getProp = (config, prop, key, unit = null, defaultValue = null) => {
