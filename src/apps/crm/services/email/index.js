@@ -20,7 +20,7 @@ export const renderEmail = (req, { config, data }) => {
   const html = ejs.render(template, {
     config,
     style: getStyle(config),
-    host: 'https://mahaplatform.com'//process.env.WEB_HOST
+    host: process.env.WEB_HOST
   })
   return ejs.render(html.replace(/&lt;%/g,'<%').replace(/%&gt;/g,'%>'), {
     ...data,
