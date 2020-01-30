@@ -29,7 +29,7 @@ class ImageField extends React.Component {
       <div className="crm-imagefield">
         { value ?
           <div className="crm-imagefield-preview">
-            <img src={`/imagecache/fit=cover&w=200&h=200/${value}`} />
+            <img src={`/imagecache/fit=cover&w=200&h=200${value}`} />
             <div className="crm-imagefield-remove" onClick={ this._handleClear }>
               <i className="fa fa-times" />
             </div>

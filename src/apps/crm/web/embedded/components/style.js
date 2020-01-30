@@ -21,7 +21,7 @@ class Style extends React.Component {
   _getImage(prop, key) {
     const { config } = this.props
     const value = _.get(config, key)
-    return !_.isNil(value) ? [{ prop, value: `url('/imagecache/${value}')` }] : []
+    return !_.isNil(value) ? [{ prop, value: `url('/imagecache${value}')` }] : []
   }
 
   _getProp(prop, key, unit = null, defaultValue = null) {

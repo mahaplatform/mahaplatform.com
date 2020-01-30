@@ -61,7 +61,7 @@ const webpackConfig = (app, name, root, port) => ({
     } : {
       filename: path.join('js', '[name].js')
     },
-    publicPath: '/'
+    publicPath: path.join(app, name)
   },
   plugins: [
     ...fs.existsSync(path.resolve(root,'index.less')) ? [
