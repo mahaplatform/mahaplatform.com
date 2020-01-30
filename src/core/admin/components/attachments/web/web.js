@@ -11,6 +11,7 @@ class Web extends React.Component {
 
   static propTypes = {
     cacheKey: PropTypes.string,
+    multiple: PropTypes.bool,
     files: PropTypes.array,
     response: PropTypes.object,
     status: PropTypes.string,
@@ -92,8 +93,9 @@ class Web extends React.Component {
   }
 
   _getImport() {
-    return {
-      label: 'Add to Queue',
+    const { multiple } = this.props
+    return  {
+      label: multiple ? 'Add to Queue' : 'Import',
       color: 'red',
       handler: this._handleAdd
     }
