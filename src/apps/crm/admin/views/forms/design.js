@@ -33,6 +33,7 @@ class Form extends React.Component {
   _getFormDesigner() {
     const { form } = this.state
     return {
+      code: form.code,
       defaultValue: form.config,
       onSave: this._handleSave
     }

@@ -100,19 +100,19 @@ class TextForm extends React.Component {
 
   _getDefault() {
     return {
+      text: '<p>Messenger bag portland adaptogen food truck pabst, la croix pug vinyl mumblecore chartreuse. Art party schlitz portland, try-hard semiotics tumblr green juice gentrify letterpress tilde gochujang whatever helvetica tote bag. Locavore quinoa man braid cred selvage chambray. Post-ironic everyday carry kale chips umami woke polaroid, meggings organic pork belly air plant.</p>',
       background_color: null,
       border_style: null,
       border_width: null,
       border_color: null,
       padding: 16,
-      text: '<p>Messenger bag portland adaptogen food truck pabst, la croix pug vinyl mumblecore chartreuse. Art party schlitz portland, try-hard semiotics tumblr green juice gentrify letterpress tilde gochujang whatever helvetica tote bag. Locavore quinoa man braid cred selvage chambray. Post-ironic everyday carry kale chips umami woke polaroid, meggings organic pork belly air plant.</p>',
-      font_family: null,
-      font_size: null,
-      color: null,
-      format: null,
-      alignment: null,
-      line_height: null,
-      letter_spacing: null
+      font_family: 'Arial, Helvetica, sans-serif',
+      font_size: 18,
+      color: '#222222',
+      format: [],
+      text_align: false,
+      line_height: 1.5,
+      letter_spacing: 0
     }
   }
 

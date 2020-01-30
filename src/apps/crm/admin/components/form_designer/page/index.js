@@ -10,6 +10,7 @@ class Page extends React.PureComponent {
 
   static propTypes = {
     cid: PropTypes.string,
+    code: PropTypes.string,
     config: PropTypes.object,
     fields: PropTypes.array,
     onPop: PropTypes.func,
@@ -57,10 +58,12 @@ class Page extends React.PureComponent {
   }
 
   _getPanel() {
+    const { code } = this.props
     return {
       title: 'Form',
       buttons: [
-        { label: 'Save', color: 'red', handler: this._handleSave }
+        { label: 'Save', color: 'red', handler: this._handleSave },
+        { label: 'Preview', color: 'red', link: `${process.env.WEB_HOST}/crm/forms/${code}` }
       ]
     }
   }

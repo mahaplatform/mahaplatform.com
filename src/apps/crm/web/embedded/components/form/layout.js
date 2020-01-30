@@ -11,7 +11,7 @@ class Layout extends React.Component {
   render() {
     const { config } = this.props
     return (
-      <div className="maha-form-layout">
+      <div className={ this._getClass() }>
         { config.page.cover_image &&
           <div className="maha-form-layout-image" />
         }
@@ -20,6 +20,13 @@ class Layout extends React.Component {
         </div>
       </div>
     )
+  }
+
+  _getClass() {
+    const { config } = this.props
+    const classes = ['maha-form-layout']
+    if(config.page.cover_image) classes.push('covered')
+    return classes.join(' ')
   }
 
 }

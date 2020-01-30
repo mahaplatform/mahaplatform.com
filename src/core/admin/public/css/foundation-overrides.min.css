@@ -103,6 +103,10 @@ table.image-block img,
 table.video-block img {
   width: 100% !important;
 }
+table.text-block p {
+  margin-bottom: 0;
+}
+
 table.product-summary {
   border-top: 1px solid #CCCCCC;
   border-left: 1px solid #CCCCCC;

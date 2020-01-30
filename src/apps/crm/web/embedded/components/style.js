@@ -65,11 +65,10 @@ class Style extends React.Component {
         ...this._getProp('background-color', 'page.background_color')
       ] },
       { selector: 'div.maha-form', styles: [
-        ...this._getProp('background-color', 'page.form_background_color'),
-        ...this._getProp('max-width', 'page.form_width')
+        ...this._getProp('background-color', 'page.form_background_color')
 
       ] },
-      ...['header','body','footer'].reduce((styles, section) => [
+      ...['header','form','footer'].reduce((styles, section) => [
         ...styles,
         ...blocks.map(block => ({
           selector: `div.maha-form-${section} ${block}`, styles: [
@@ -84,7 +83,7 @@ class Style extends React.Component {
           ]
         }))
       ], []),
-      ...['header','body','footer'].map(section => ({
+      ...['header','form','footer'].map(section => ({
         selector: `div.maha-form-${section}`, styles: [
           ...this._getProp('background-color', `${section}.background_color`)
         ]

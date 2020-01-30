@@ -59,34 +59,38 @@ class Page extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color }
-          ]
-        }, {
-          label: 'Form',
-          fields: [
-            { label: 'Background Color', name: 'form_background_color', type: 'colorfield', defaultValue: config.form_background_color },
-            { label: 'Width', name: 'form_width', type: 'dropdown', options: options.form_widths, defaultValue: config.form_width }
+            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
+            { label: 'Form Background Color', name: 'form_background_color', type: 'colorfield', defaultValue: config.form_background_color }
           ]
         }, {
           label: 'Cover',
           fields: [
             { label: 'Image', name: 'cover_image', type: ImageField, defaultValue: config.cover_image },
-            { label: 'Position', name: 'cover_image_position', type: 'dropdown', options: options.cover_positions, defaultValue: config.cover_image_position },
-            { label: 'Justification', name: 'cover_image_justification', type: 'dropdown', options: options.cover_justifications, defaultValue: config.cover_image_justification },
-            { label: 'Width', name: 'cover_image_width', type: 'dropdown', options: options.cover_widths, defaultValue: config.cover_image_width }
+            ...this._getImage()
           ]
         }
       ]
     }
   }
 
+  _getImage() {
+    const { config } = this.props
+    if(!config.cover_image) return []
+    return [
+      { label: 'Position', name: 'cover_image_position', type: 'dropdown', options: options.cover_positions, defaultValue: config.cover_image_position },
+      { label: 'Justification', name: 'cover_image_justification', type: 'dropdown', options: options.cover_justifications, defaultValue: config.cover_image_justification },
+      { label: 'Width', name: 'cover_image_width', type: 'dropdown', options: options.cover_widths, defaultValue: config.cover_image_width }
+    ]
+  }
+
   _getDefault() {
     return {
       background_color: null,
+      form_background_color: null,
       cover_image: null,
-      cover_image_position: 0,
-      cover_image_justification: null,
-      cover_image_width: null
+      cover_image_position: 'left',
+      cover_image_justification: 'center',
+      cover_image_width: 1
     }
   }
 

@@ -10,6 +10,7 @@ class FormDesigner extends React.PureComponent {
     active: PropTypes.number,
     changes: PropTypes.number,
     cid: PropTypes.string,
+    code: PropTypes.string,
     config: PropTypes.object,
     defaultValue: PropTypes.object,
     sidebar: PropTypes.bool,
@@ -86,10 +87,11 @@ class FormDesigner extends React.PureComponent {
   }
 
   _getSidebar() {
-    const { active, cid, config, onEdit, onSave, onUpdate } = this.props
+    const { active, cid, code, config, onEdit, onSave, onUpdate } = this.props
     return {
       active,
       cid,
+      code,
       config,
       onEdit,
       onSave,

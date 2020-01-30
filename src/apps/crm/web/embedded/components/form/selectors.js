@@ -61,6 +61,6 @@ export const summary = createSelector(
     const productfield = fields.find(field => {
       return field.type === 'productfield'
     })
-    return data[productfield.code]
+    return productfield ? data[productfield.code] : null
   }
 )

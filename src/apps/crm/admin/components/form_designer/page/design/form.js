@@ -1,7 +1,6 @@
 import FontFamilyToken from '../../../../tokens/fontfamily'
 import AlignmentField from '../../../alignmentfield'
 import FormatField from '../../../formatfield'
-import ImageField from '../../../imagefield'
 import * as options from '../../variables'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -51,7 +50,7 @@ class Body extends React.Component {
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Body',
+      title: 'Form',
       onCancel: this._handleDone,
       onChange: this._handleChange,
       cancelIcon: 'chevron-left',
