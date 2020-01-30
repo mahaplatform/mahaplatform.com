@@ -4,7 +4,7 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class TextFieldForm extends React.Component {
+class TextAreaForm extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
@@ -46,7 +46,7 @@ class TextFieldForm extends React.Component {
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Single Line Text',
+      title: 'Multi Line Text',
       reference: node => this.form = node,
       onChange: this._handleChange,
       onSubmit: this._handleDone,
@@ -59,9 +59,9 @@ class TextFieldForm extends React.Component {
         {
           fields: [
             { label: 'Name', name: 'name', type: TokenField, placeholder: 'Enter a name', defaultValue: config.name, required: true },
-            { label: 'Label', name: 'label', type: 'textfield', placeholder: 'Enter a label', defaultValue: config.label },
+            { label: 'Label', name: 'label', type: 'TextArea', placeholder: 'Enter a label', defaultValue: config.label },
             { label: 'Instructions', name: 'instructions', type: 'htmlfield', placeholder: 'Enter instructions', defaultValue: config.instructions },
-            { label: 'Placeholder', name: 'placeholder', type: 'textfield', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
+            { label: 'Placeholder', name: 'placeholder', type: 'TextArea', placeholder: 'Enter placeholder text', defaultValue: config.placeholder },
             { label: 'Required', name: 'required', type: 'checkbox', prompt: 'This field is required', defaultValue: config.required }
           ]
         }
@@ -97,4 +97,4 @@ class TextFieldForm extends React.Component {
 
 }
 
-export default TextFieldForm
+export default TextAreaForm

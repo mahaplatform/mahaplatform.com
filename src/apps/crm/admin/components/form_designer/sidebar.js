@@ -8,6 +8,7 @@ import PhoneField from './fields/phonefield'
 import DateField from './fields/datefield'
 import FileField from './fields/filefield'
 import TextField from './fields/textfield'
+import TextArea from './fields/textfield'
 import TimeField from './fields/timefield'
 import DropDown from './fields/dropdown'
 import Checkbox from './fields/checkbox'
@@ -71,9 +72,10 @@ class Sidebar extends React.Component {
       { label: 'Instructions', icon: 'align-left', type: 'text', component: Text },
       { label: 'Money', icon: 'dollar', type: 'moneyfield', component: MoneyField },
       { label: 'Multiple Choice', icon: 'circle-o', type: 'radiogroup', component: RadioGroup },
+      { label: 'Multi Line Text', icon: 'font', type: 'textarea', component: TextArea },
       { label: 'Phone', icon: 'phone', type: 'phonefield', component: PhoneField },
       { label: 'Products', icon: 'shopping-bag', type: 'productfield', component: ProductField },
-      { label: 'Text', icon: 'font', type: 'textfield', component: TextField },
+      { label: 'Single Line Text', icon: 'font', type: 'textfield', component: TextField },
       { label: 'Time', icon: 'clock-o', type: 'timefield', component: TimeField }
     ]
   }

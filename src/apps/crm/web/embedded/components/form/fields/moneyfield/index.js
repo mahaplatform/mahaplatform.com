@@ -14,6 +14,7 @@ class MoneyField extends React.Component {
     min: PropTypes.number,
     max: PropTypes.number,
     required: PropTypes.bool,
+    tabIndex: PropTypes.number,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
     onValid: PropTypes.func
@@ -36,10 +37,9 @@ class MoneyField extends React.Component {
   _handleValidate = this._handleValidate.bind(this)
 
   render() {
-    const { tabIndex } = this.props
     const { value } = this.state
     return (
-      <div className="maha-moneyfield" tabIndex={ tabIndex }>
+      <div className="maha-moneyfield">
         <div className="maha-input">
           <div className="maha-input-field">
             <input { ...this._getInput() } />

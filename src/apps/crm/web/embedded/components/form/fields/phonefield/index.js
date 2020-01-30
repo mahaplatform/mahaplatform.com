@@ -12,6 +12,7 @@ class PhoneField extends React.Component {
     placeholder: PropTypes.string,
     required: PropTypes.bool,
     status: PropTypes.string,
+    tabIndex: PropTypes.number,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func

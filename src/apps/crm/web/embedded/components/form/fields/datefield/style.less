@@ -14,11 +14,17 @@
   border-radius: 0.28em;
   display: inline-flex;
   position: relative;
+  &:focus {
+    outline: -webkit-focus-ring-color auto 2px !important;
+  }
 }
 .maha-datefield-field {
   display: flex;
   flex: 1;
   width: 200px;
+  &:focus {
+    outline: 1px solid @blue;
+  }
   .maha-input {
     border-radius: 0 !important;
     border: none !important;
@@ -50,7 +56,7 @@
     border-radius: 0 0 0.28em 0.28em;
   }
   &.above {
-    bottom: ~"calc(100% - 1px)";
+    bottom: ~"calc(100%)";
     border-radius: 0.28em 0.28em 0 0;
   }
 }

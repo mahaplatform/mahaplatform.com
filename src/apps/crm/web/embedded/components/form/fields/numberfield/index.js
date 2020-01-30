@@ -20,6 +20,7 @@ class NumberField extends React.Component {
     max: PropTypes.number,
     number_type: PropTypes.string,
     required: PropTypes.bool,
+    tabIndex: PropTypes.number,
     units: PropTypes.string,
     onChange: PropTypes.func,
     onReady: PropTypes.func,

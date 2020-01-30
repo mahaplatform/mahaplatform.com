@@ -11,6 +11,7 @@ class Checkbox extends React.Component {
     prompt: PropTypes.string,
     required: PropTypes.bool,
     status: PropTypes.string,
+    tabIndex: PropTypes.number,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func
@@ -26,6 +27,7 @@ class Checkbox extends React.Component {
   }
 
   _handleChange = this._handleChange.bind(this)
+  _handleKeyDown = this._handleKeyDown.bind(this)
   _handleToggle = this._handleToggle.bind(this)
 
   render() {
@@ -33,7 +35,7 @@ class Checkbox extends React.Component {
     return (
       <div className="maha-confirmation" onClick={ this._handleToggle }>
         <div className="maha-confirmation-icon">
-          <i className={`fa fa-${this._getIcon()}`} />
+          <i { ...this._getOption() } />
         </div>
         { prompt &&
           <div className="maha-confirmation-label" dangerouslySetInnerHTML={{ __html: prompt }} />
@@ -61,13 +63,26 @@ class Checkbox extends React.Component {
     }
   }
 
-  _getIcon(option) {
+  _getIcon() {
     const { value } = this.state
     return value ? 'check-square' : 'square-o'
   }
 
+  _getOption() {
+    const { tabIndex } = this.props
+    return {
+      className: `fa fa-${this._getIcon()}`,
+      tabIndex,
+      onKeyDown: this._handleKeyDown
+    }
+  }
+
   _handleChange() {
     this.props.onChange(this.state.value)
+  }
+
+  _handleKeyDown(e) {
+    if(e.which === 32) this._handleToggle(e)
   }
 
   _handleToggle(e) {

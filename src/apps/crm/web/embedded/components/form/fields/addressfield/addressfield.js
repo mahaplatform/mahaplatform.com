@@ -15,8 +15,9 @@ class Addressfield extends React.Component {
     options: PropTypes.array,
     placeholder: PropTypes.string,
     q: PropTypes.string,
-    required: PropTypes.object,
-    status: PropTypes.object,
+    required: PropTypes.bool,
+    status: PropTypes.string,
+    tabIndex: PropTypes.number,
     value: PropTypes.object,
     onBusy: PropTypes.func,
     onChange: PropTypes.func,
@@ -124,13 +125,14 @@ class Addressfield extends React.Component {
   }
 
   _getInput() {
-    const { htmlFor, placeholder } = this.props
+    const { htmlFor, placeholder, tabIndex } = this.props
     const { focused } = this.state
     return {
       id: htmlFor,
       type: 'text',
       placeholder: !focused ? placeholder : null,
       ref: node => this.input = node,
+      tabIndex,
       onBlur: this._handleBlur,
       onChange: this._handleType,
       onFocus: this._handleFocus

@@ -12,6 +12,7 @@ class TextArea extends React.Component {
     placeholder: PropTypes.string,
     required: PropTypes.bool,
     status: PropTypes.string,
+    tabIndex: PropTypes.number,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func
@@ -60,12 +61,13 @@ class TextArea extends React.Component {
   }
 
   _getTextArea() {
-    const { htmlFor, name, placeholder } = this.props
+    const { htmlFor, name, placeholder, tabIndex } = this.props
     return {
       id: htmlFor,
       name,
       placeholder,
       rows: 3,
+      tabIndex,
       onChange: this._handleUpdate,
       onKeyUp: this._handleKeyUp
     }

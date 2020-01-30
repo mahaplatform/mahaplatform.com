@@ -18,6 +18,11 @@
   position: relative;
   display: flex;
   width: 100%;
+  input {
+    &:focus {
+      outline: -webkit-focus-ring-color auto 2px !important;
+    }
+  }
 }
 .maha-input-field {
   display: flex;
@@ -29,6 +34,7 @@
 .maha-input-placeholder {
   display: flex;
   flex: 1;
+  min-height: 2.5em;
   padding: 0.6em 1em;
   color: fadeout(@black, 75);
   cursor: pointer;

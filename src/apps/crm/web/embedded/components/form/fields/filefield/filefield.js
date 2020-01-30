@@ -16,6 +16,7 @@ class FileField extends React.Component {
     prompt: PropTypes.string,
     required: PropTypes.bool,
     status: PropTypes.string,
+    tabIndex: PropTypes.number,
     token: PropTypes.string,
     onAddFile: PropTypes.func,
     onChange: PropTypes.func,

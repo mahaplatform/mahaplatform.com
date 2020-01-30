@@ -12,6 +12,7 @@ class RadioGroup extends React.Component {
     placeholder: PropTypes.string,
     required: PropTypes.bool,
     status: PropTypes.string,
+    tabIndex: PropTypes.number,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func
@@ -21,6 +22,8 @@ class RadioGroup extends React.Component {
     onChange: () => {},
     onReady: () => {}
   }
+
+  options = {}
 
   state = {
     selected: null
@@ -33,9 +36,9 @@ class RadioGroup extends React.Component {
     return (
       <div className="maha-checkboxes">
         { options.map((option, index) => (
-          <div className="maha-checkbox" key={`option_${index}`} onClick={ this._handleChoose.bind(this, option) }>
+          <div className="maha-checkbox" key={`option_${index}`} onClick={ this._handleChoose.bind(this, index) }>
             <div className="maha-checkbox-icon">
-              <i className={`fa fa-${this._getIcon(option)}`} />
+              <i { ...this._getOption(option, index) } />
             </div>
             <div className="maha-checkbox-label">
               { option.text }
@@ -70,14 +73,42 @@ class RadioGroup extends React.Component {
     return option.value === selected ? 'check-circle' : 'circle-o'
   }
 
+  _getOption(option, index) {
+    const { tabIndex } = this.props
+    return {
+      className: `fa fa-${this._getIcon(option)}`,
+      ref: node => this.options[index] = node,
+      tabIndex,
+      onKeyDown: this._handleKeyDown.bind(this, index)
+    }
+  }
+
   _handleChange() {
     this.props.onChange(this.state.selected)
   }
 
-  _handleChoose(option) {
+  _handleChoose(index) {
+    const { options } = this.props
+    const option = options[index]
     this.setState({
       selected: option.value
     })
+  }
+
+  _handleKeyDown(index, e) {
+    const { selected } = this.state
+    const { options } = this.props
+    if(e.which === 38) {
+      const option = this.options[index === 0 ? options.length - 1 : index - 1]
+      if(selected !== null) option.click()
+      option.focus()
+    }
+    if(e.which === 40) {
+      const option = this.options[index === options.length - 1 ? 0 : index + 1]
+      if(selected !== null) option.click()
+      option.focus()
+    }
+    if(e.which === 32) this._handleChoose(index)
   }
 
   _handleValidate() {

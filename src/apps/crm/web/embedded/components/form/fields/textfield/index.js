@@ -11,6 +11,7 @@ class TextField extends React.Component {
     placeholder: PropTypes.string,
     required: PropTypes.bool,
     status: PropTypes.string,
+    tabIndex: PropTypes.number,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func
@@ -39,7 +40,7 @@ class TextField extends React.Component {
     return (
       <div className="maha-input maha-textfield">
         <div className="maha-input-field">
-          <input ref={ node => this.input = node } { ...this._getInput() } />
+          <input { ...this._getInput() } />
         </div>
         { value && value.length > 0 &&
           <div className="maha-input-clear" onClick={ this._handleClear }>
@@ -66,13 +67,15 @@ class TextField extends React.Component {
   }
 
   _getInput() {
-    const { htmlFor, name, placeholder } = this.props
+    const { htmlFor, name, placeholder, tabIndex } = this.props
     const { focused, value } = this.state
     return {
       id: htmlFor,
+      ref: node => this.input = node,
       type: 'text',
       name,
       placeholder: !focused ? placeholder : null,
+      tabIndex,
       value,
       onBlur: this._handleBlur,
       onChange: this._handleUpdate,

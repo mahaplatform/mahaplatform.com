@@ -16,6 +16,7 @@ class ProductField extends React.Component {
     required: PropTypes.bool,
     status: PropTypes.string,
     subtotal: PropTypes.number,
+    tabIndex: PropTypes.number,
     tax: PropTypes.number,
     total: PropTypes.number,
     value: PropTypes.object,

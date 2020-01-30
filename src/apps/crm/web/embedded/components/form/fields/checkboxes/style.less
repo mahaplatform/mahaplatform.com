@@ -13,6 +13,7 @@
   display: flex;
 }
 .maha-checkbox-icon {
+  flex: 0 0 1.6em;
   display: flex;
   padding: 0.4em 0 0.4em 0.4em;
   cursor: pointer;
@@ -20,6 +21,9 @@
     margin: auto;
     cursor: pointer;
     font-size: 1.2em;
+    &:focus {
+      outline: -webkit-focus-ring-color auto 2px !important;
+    }
   }
   .fa-square-o,
   .fa-circle-o {

@@ -12,6 +12,7 @@ class DateField extends React.Component {
     placeholder: PropTypes.string,
     required: PropTypes.bool,
     status: PropTypes.string,
+    tabIndex: PropTypes.number,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
     onValidate: PropTypes.func
@@ -40,8 +41,8 @@ class DateField extends React.Component {
     const { placeholder } = this.props
     const { position, show, value } = this.state
     return (
-      <div className="maha-datefield" ref={ node => this.control = node }>
-        <div className="maha-datefield-field" onClick={ this._handleBegin }>
+      <div { ...this._getInput() }>
+        <div className="maha-datefield-field">
           <div className="maha-input">
             { value ?
               <div className="maha-input-token">
@@ -97,6 +98,17 @@ class DateField extends React.Component {
       value,
       onCancel: this._handleCancel,
       onChoose: this._handleChoose
+    }
+  }
+
+  _getInput() {
+    const { tabIndex } = this.props
+    return {
+      className: 'maha-datefield',
+      ref: node => this.control = node,
+      // onClick: this._handleBegin,
+      onFocus: this._handleBegin,
+      tabIndex
     }
   }
 
