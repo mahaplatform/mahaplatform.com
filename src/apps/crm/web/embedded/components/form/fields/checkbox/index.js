@@ -35,11 +35,9 @@ class Checkbox extends React.Component {
         <div className="maha-confirmation-icon">
           <i className={`fa fa-${this._getIcon()}`} />
         </div>
-        <div className="maha-confirmation-label">
-          { prompt &&
-            <span dangerouslySetInnerHTML={{ __html: prompt }} />
-          }
-        </div>
+        { prompt &&
+          <div className="maha-confirmation-label" dangerouslySetInnerHTML={{ __html: prompt }} />
+        }
       </div>
     )
   }
@@ -72,7 +70,8 @@ class Checkbox extends React.Component {
     this.props.onChange(this.state.value)
   }
 
-  _handleToggle() {
+  _handleToggle(e) {
+    if(e.target.tagName === 'A') return
     const { value } = this.state
     this.setState({
       value: !value

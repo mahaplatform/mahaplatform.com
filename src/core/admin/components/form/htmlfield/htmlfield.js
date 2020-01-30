@@ -21,7 +21,7 @@ class HtmlField extends React.Component {
   }
 
   state = {
-    state: null
+    value: null
   }
 
   _handleChange = _.throttle(this._handleChange.bind(this), 150)
@@ -42,16 +42,16 @@ class HtmlField extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { state } = this.state
-    if(state !== prevState.state) {
-      this._handleChange(state)
+    const { value } = this.state
+    if(value !== prevState.value) {
+      this._handleChange()
     }
   }
 
   _getEditor() {
-    const { state } = this.state
+    const { value } = this.state
     return {
-      value: state,
+      value,
       onChange: this._handleUpdate,
       modules: {
         toolbar: [
@@ -63,12 +63,13 @@ class HtmlField extends React.Component {
     }
   }
 
-  _handleChange(value) {
-    this.props.onChange(value)
+  _handleChange() {
+    const { value } = this.state
+    this.props.onChange(value !== '<p><br></p>' ? value : null)
   }
 
   _handleUpdate(value) {
-    this.setState({ state: value })
+    this.setState({ value })
   }
 
 }
