@@ -3,9 +3,13 @@ import _ from 'lodash'
 
 const config = (state, props) => props.config
 
+const data = (state, props) => state.data
+
 const errors = (state, props) => state.errors
 
 const ready = (state, props) => state.ready
+
+const status = (state, props) => state.status
 
 const validated = (state, props) => state.validated
 
@@ -28,6 +32,11 @@ export const requiresPayment = createSelector(
   }) !== undefined
 )
 
+export const isActive = createSelector(
+  status,
+  (status) => _.includes(['ready','validating','submitting','failure'], status)
+)
+
 export const isReady = createSelector(
   submittable,
   ready,
@@ -43,4 +52,15 @@ export const isValid = createSelector(
   (fields, validated, errors) => Object.keys(errors).length === 0 && fields.find(field => {
     return !_.includes(validated, field.code)
   }) === undefined
+)
+
+export const summary = createSelector(
+  submittable,
+  data,
+  (fields, data) => {
+    const productfield = fields.find(field => {
+      return field.type === 'productfield'
+    })
+    return data[productfield.code]
+  }
 )

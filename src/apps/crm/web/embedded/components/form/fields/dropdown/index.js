@@ -68,7 +68,7 @@ class Dropdown extends React.Component {
     const { show, value } = this.state
     const { status } = this.props
     if(value !== prevState.value) {
-      this.props.onChange(value)
+      this._handleChange()
     }
     if(show !== prevState.show) {
       this.setState({

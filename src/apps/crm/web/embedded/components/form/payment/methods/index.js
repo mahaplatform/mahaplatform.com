@@ -7,6 +7,9 @@ import React from 'react'
 import ACH from '../ach'
 
 const components = {
+  applepay: ApplePay,
+  googlepay: GooglePay,
+  paypal: PayPal,
   card: Card,
   ach: ACH
 }
@@ -24,39 +27,13 @@ class Methods extends React.Component {
   }
 
   state = {
-    selected: null
+    selected: 'card'
   }
 
   render() {
     const { selected } = this.state
     return (
       <div className="maha-payment-item">
-        <div className="maha-payment-header">
-          <strong>Payment Method</strong>
-        </div>
-        <div className="maha-payment-options">
-          <div className="maha-payment-option">
-            <div className="maha-payment-button card" onClick={ this._handleChoose.bind(this, 'card')}>
-              Credit Card
-            </div>
-          </div>
-          <div className="maha-payment-option">
-            <div className="maha-payment-button ach" onClick={ this._handleChoose.bind(this, 'ach')}>
-              Bank Account
-            </div>
-          </div>
-          { window.ApplePaySession && window.ApplePaySession.supportsVersion(3) && window.ApplePaySession.canMakePayments() &&
-            <div className="maha-payment-option">
-              <ApplePay { ...this._getMethod('applepay') } />
-            </div>
-          }
-          <div className="maha-payment-option">
-            <GooglePay { ...this._getMethod('googlepay') } />
-          </div>
-          <div className="maha-payment-option">
-            <PayPal { ...this._getMethod('paypal') } />
-          </div>
-        </div>
         { selected && components[selected] &&
           <div className="ui form">
             { this._getComponent() }

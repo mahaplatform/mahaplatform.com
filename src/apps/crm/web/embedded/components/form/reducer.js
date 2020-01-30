@@ -4,6 +4,7 @@ export const INITIAL_STATE = {
   data: {},
   errors: {},
   human: false,
+  mode: 'fields',
   ready: [],
   status: 'ready',
   validated: []
@@ -40,6 +41,12 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       human: true
+    }
+
+  case 'SET_MODE':
+    return {
+      ...state,
+      mode: action.mode
     }
 
   case 'SET_READY':

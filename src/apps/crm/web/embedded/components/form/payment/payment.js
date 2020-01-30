@@ -10,11 +10,12 @@ class Payment extends React.Component {
     summary: PropTypes.object,
     token: PropTypes.string,
     onFetch: PropTypes.func,
-    onPayment: PropTypes.func
+    onSubmit: PropTypes.func
   }
 
+  _handleSuccess = this._handleSuccess.bind(this)
+
   render() {
-    if(!this.props.token) return null
     return (
       <div className="maha-payment">
         <Summary { ...this._getSummary() } />
@@ -28,17 +29,23 @@ class Payment extends React.Component {
   }
 
   _getMethods() {
-    const { program, summary, token, onPayment } = this.props
+    const { program, summary, token } = this.props
     return {
       program,
       token,
       summary,
-      onSuccess: onPayment
+      onSuccess: this._handleSuccess
     }
   }
 
   _getSummary() {
     return this.props.summary
+  }
+
+  _handleSuccess(method, data) {
+    const { summary } = this.props
+    const amount = summary.total
+    this.props.onSubmit(amount, method, data)
   }
 
 }

@@ -34,7 +34,7 @@ class Fields extends React.Component {
   _handleValidate = this._handleValidate.bind(this)
 
   render() {
-    const { config, fields, status } = this.props
+    const { config, fields, requiresPayment, status } = this.props
     const { settings } = config
     return (
       <div className="maha-form-body">
@@ -50,10 +50,10 @@ class Fields extends React.Component {
           <div className="maha-form-submit">
             { status === 'submitting' ?
               <div { ...this._getButton()}>
-                <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Submitting
+                <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Processing
               </div> :
               <div { ...this._getButton()}>
-                { settings.button_text }
+                { requiresPayment ? 'Proceed to Payment' : settings.button_text }
               </div>
             }
           </div>

@@ -18,7 +18,7 @@ class ProductField extends React.Component {
     subtotal: PropTypes.number,
     tax: PropTypes.number,
     total: PropTypes.number,
-    value: PropTypes.array,
+    value: PropTypes.object,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
     onSet: PropTypes.func,

@@ -1,11 +1,12 @@
+import Confirmation from './confirmation'
 import PropTypes from 'prop-types'
+import Payment from './payment'
+import Layout from './layout'
 import Header from './header'
 import Footer from './footer'
 import Fields from './fields'
+import Closed from './closed'
 import React from 'react'
-import _ from 'lodash'
-
-import Layout from './layout'
 
 class Form extends React.Component {
 
@@ -16,18 +17,22 @@ class Form extends React.Component {
     errors: PropTypes.object,
     fields: PropTypes.array,
     human: PropTypes.bool,
+    isActive: PropTypes.bool,
     isOpen: PropTypes.bool,
     isReady: PropTypes.bool,
     isValid: PropTypes.bool,
+    mode: PropTypes.string,
     ready: PropTypes.array,
     requiresPayment: PropTypes.bool,
     status: PropTypes.string,
+    summary: PropTypes.object,
     token: PropTypes.string,
     validated: PropTypes.array,
     onChange: PropTypes.func,
     onPay: PropTypes.func,
     onSave: PropTypes.func,
     onSetHuman: PropTypes.func,
+    onSetMode: PropTypes.func,
     onSetReady: PropTypes.func,
     onSetStatus: PropTypes.func,
     onSetValid: PropTypes.func,
@@ -36,27 +41,31 @@ class Form extends React.Component {
   }
 
   _handlePayment = this._handlePayment.bind(this)
+  _handleProceed = this._handleProceed.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    const { config, isOpen, status } = this.props
-    const { closed_message, confirmation_message } = config.settings
-    const active = _.includes(['ready','validating','submitting','failure'], status)
+    const { config, isActive, isOpen, mode, status } = this.props
     return (
-      <Layout { ...this._getLayout() }>
+      <Layout { ...this._getSection() }>
         <div className="maha-form">
           { config.header &&
-            <Header { ...this._getHeader() } />
+            <Header { ...this._getSection() } />
           }
-          { active && isOpen && <Fields { ...this._getFields() } /> }
+          { isActive && isOpen && mode === 'fields' &&
+            <Fields { ...this._getFields() } />
+          }
+          { isActive && isOpen && mode === 'payment' &&
+            <Payment { ...this._getPayment() } />
+          }
           { status === 'success' &&
-            <div className="maha-form-closed" dangerouslySetInnerHTML={{ __html: confirmation_message }} />
+            <Confirmation { ...this._getSection() } />
           }
           { !isOpen &&
-            <div className="maha-form-closed" dangerouslySetInnerHTML={{ __html: closed_message }} />
+            <Closed { ...this._getSection() } />
           }
           { config.footer &&
-            <Footer { ...this._getFooter() } />
+            <Footer { ...this._getSection() } />
           }
         </div>
       </Layout>
@@ -72,7 +81,7 @@ class Form extends React.Component {
   componentDidUpdate(prevProps) {
     const { isValid, status } = this.props
     if(isValid !== prevProps.isValid && isValid) {
-      this._handleSubmit()
+      this._handleProceed()
     }
     if(status !== prevProps.status) {
       if(status === 'success') this._handleSuccess()
@@ -83,23 +92,37 @@ class Form extends React.Component {
     return this.props
   }
 
-  _getFooter() {
+  _getPayment() {
+    const { config, summary } = this.props
+    return {
+      ...this.props,
+      program: config.program,
+      summary,
+      onSubmit: this._handlePayment
+    }
+  }
+
+  _getSection() {
     const { config } = this.props
     return { config }
   }
 
-  _getHeader() {
-    const { config } = this.props
-    return { config }
+  _handlePayment(amount, method, payment) {
+    const { code, data, token } = this.props
+    this.props.onSubmit(token, code, {
+      ...data,
+      payment: {
+        amount,
+        method,
+        payment
+      }
+    })
   }
 
-  _getLayout() {
-    const { config } = this.props
-    return { config }
-  }
-
-  _handlePayment(method, payment) {
-    this.props.onPay({ method, payment })
+  _handleProceed() {
+    const { requiresPayment, onSetMode } = this.props
+    if(requiresPayment) return onSetMode('payment')
+    this._handleSubmit()
   }
 
   _handleSubmit() {

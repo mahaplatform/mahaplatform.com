@@ -31,7 +31,9 @@ const Details = ({ form, response }) => {
       ]
     }, {
       title: 'Response Data',
-      items: form.config.fields.map(field => ({
+      items: form.config.fields.filter(field => {
+        return field.type !== 'text'
+      }).map(field => ({
         label: field.name.value,
         content: <Content field={ field } data={ response.data[field.code] } />
       }))

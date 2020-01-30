@@ -2,6 +2,7 @@ import { updateMailingAddresses } from '../../../services/mailing_addresses'
 import { updateEmailAddresses } from '../../../services/email_addresses'
 import { whitelist } from '../../../../../core/services/routes/params'
 import { updatePhoneNumbers } from '../../../services/phone_numbers'
+import { makePayment } from '../../../../finance/services/payments'
 import generateCode from '../../../../../core/utils/generate_code'
 import socket from '../../../../../core/services/routes/emitter'
 import { contactActivity } from '../../../services/activities'
@@ -110,7 +111,7 @@ const submitRoute = async (req, res) => {
   const form = await Form.query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
-    withRelated: ['email','team'],
+    withRelated: ['email','program','team'],
     transacting: req.trx
   })
 
@@ -176,6 +177,15 @@ const submitRoute = async (req, res) => {
     form,
     contact,
     data: req.body[productfield.code]
+  }) : null
+
+
+  const payment = invoice ? await makePayment(req, {
+    invoice,
+    params: {
+      merchant_id: form.get('program_id'),
+      ...req.body.payment
+    }
   }) : null
 
   const response = await Response.forge({

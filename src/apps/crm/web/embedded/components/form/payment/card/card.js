@@ -19,24 +19,27 @@ class Card extends React.Component {
 
   render() {
     return (
-      <div className="maha-payment-form">
-        <div className="field">
-          <label>Card Number</label>
-          <input { ...this._getInput('number', '1111 1111 1111 1111') } />
-        </div>
-        <div className="two fields">
+      <div className="maha-payment-item">
+        <div className="maha-payment-label">Credit Card</div>
+        <div className="maha-payment-form">
           <div className="field">
-            <label>Expiration</label>
-            <input { ...this._getInput('expirationDate', 'MM/YY') } />
+            <label>Card Number</label>
+            <input { ...this._getInput('number', '1111 1111 1111 1111') } />
           </div>
-          <div className="field">
-            <label>CVV</label>
-            <input { ...this._getInput('cvv', '123') } />
+          <div className="two fields">
+            <div className="field">
+              <label>Expiration</label>
+              <input { ...this._getInput('expirationDate', 'MM/YY') } />
+            </div>
+            <div className="field">
+              <label>CVV</label>
+              <input { ...this._getInput('cvv', '123') } />
+            </div>
           </div>
+          <button className="ui fluid blue button" onClick={ this._handleSubmit }>
+            Submit Payment
+          </button>
         </div>
-        <button className="ui fluid blue button" onClick={ this._handleSubmit }>
-          Submit Payment
-        </button>
       </div>
     )
   }

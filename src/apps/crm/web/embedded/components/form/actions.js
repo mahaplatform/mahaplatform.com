@@ -29,6 +29,11 @@ export const setHuman = () => ({
   type: 'SET_HUMAN'
 })
 
+export const setMode = (mode) => ({
+  type: 'SET_MODE',
+  mode
+})
+
 export const setReady = (code) => ({
   type: 'SET_READY',
   code

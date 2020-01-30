@@ -6,9 +6,9 @@ class Summary extends React.Component {
 
   static propTypes = {
     products: PropTypes.array,
-    subtotal: PropTypes.number,
-    tax: PropTypes.number,
-    total: PropTypes.number,
+    subtotal: PropTypes.string,
+    tax: PropTypes.string,
+    total: PropTypes.string,
     onChoose: PropTypes.func
   }
 
@@ -16,6 +16,7 @@ class Summary extends React.Component {
     const { products, subtotal, tax, total } = this.props
     return (
       <div className="maha-payment-summary">
+        <div className="maha-payment-label">Payment Summary</div>
         <table className="ui unstackable celled table">
           <thead>
             <tr>
@@ -28,8 +29,8 @@ class Summary extends React.Component {
           <tbody>
             { products.map((product, index) => (
               <tr key={`product_${index}`}>
-                <td>{ product.name }</td>
-                <td>{ numeral(product.quantity).format('0.00') }</td>
+                <td>{ product.title }</td>
+                <td>{ product.quantity }</td>
                 <td>{ numeral(product.price).format('0.00') }</td>
                 <td>{ numeral(product.total).format('0.00') }</td>
               </tr>

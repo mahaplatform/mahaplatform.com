@@ -41,7 +41,9 @@ const getCustomer = async(req, { customer }) => {
     })
   }
 
-  await customer.load(['contact'])
+  await customer.load(['contact'], {
+    transacting: req.trx
+  })
 
   await customer.related('contact').save({
     braintree_id: result.customer.id
@@ -65,6 +67,10 @@ const chargeCustomer = async (req, { invoice, params }) => {
       ...params
     })
   }
+
+  await invoice.load(['customer'], {
+    transacting: req.trx
+  })
 
   const customer = await getCustomer(req, {
     customer: invoice.related('customer')

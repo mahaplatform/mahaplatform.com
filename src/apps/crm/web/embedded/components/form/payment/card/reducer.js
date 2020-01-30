@@ -1,8 +1,8 @@
 export const INITIAL_STATE = {
   payment: null,
-  number: '4111111111111111',
-  cvv: '123',
-  expirationDate: '10/25'
+  number: '',
+  cvv: '',
+  expirationDate: ''
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -13,9 +13,11 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       payment: {
-        nonce: action.result.nonce,
+        card_type: action.result.details.cardType.toLowerCase(),
         last_four: action.result.details.lastFour,
-        type: action.result.details.cardType.toLowerCase()
+        expiration_month: action.result.details.expirationMonth,
+        expiration_year: action.result.details.expirationYear,
+        nonce: action.result.nonce
       }
     }
 
