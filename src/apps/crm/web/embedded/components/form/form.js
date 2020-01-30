@@ -52,18 +52,20 @@ class Form extends React.Component {
           { config.header &&
             <Header { ...this._getSection() } />
           }
-          { isActive && isOpen && mode === 'fields' &&
-            <Fields { ...this._getFields() } />
-          }
-          { isActive && isOpen && mode === 'payment' &&
-            <Payment { ...this._getPayment() } />
-          }
-          { status === 'success' &&
-            <Confirmation { ...this._getSection() } />
-          }
-          { !isOpen &&
-            <Closed { ...this._getSection() } />
-          }
+          <div className="maha-form-body">
+            { isActive && isOpen && mode === 'fields' &&
+              <Fields { ...this._getFields() } />
+            }
+            { isActive && isOpen && mode === 'payment' &&
+              <Payment { ...this._getPayment() } />
+            }
+            { status === 'success' &&
+              <Confirmation { ...this._getSection() } />
+            }
+            { !isOpen &&
+              <Closed { ...this._getSection() } />
+            }
+          </div>
           { config.footer &&
             <Footer { ...this._getSection() } />
           }

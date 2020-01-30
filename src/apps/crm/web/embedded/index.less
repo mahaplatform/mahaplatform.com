@@ -47,17 +47,10 @@ body {
 }
 .maha-form-layout-image {
   background-size: cover;
-  @media (max-width: 768px) {
-    display: none;
-  }
 }
 .maha-form-layout-content {
-  .scrollable();
   flex: 1;
   order: 1;
-  @media (min-width: 769px) {
-    min-width: 400px;
-  }
 }
 .maha-form {
   width: 100%;
@@ -104,6 +97,30 @@ body {
 }
 .maha-form-footer-text {
   padding: 0.8em;
+}
+
+@media (max-width: 768px) {
+  .maha-form-layout-image {
+    display: none;
+  }
+  .maha-form-layout-content {
+    .scrollable();
+  }
+}
+@media (min-width: 769px) {
+  .maha-form-layout-content {
+    min-width: 400px;
+    display: flex;
+    .maha-form {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .maha-form-body {
+      flex: 1;
+      .scrollable()
+    }
+  }
 }
 
 @import './components/form/style.less';

@@ -37,26 +37,24 @@ class Fields extends React.Component {
     const { config, fields, requiresPayment, status } = this.props
     const { settings } = config
     return (
-      <div className="maha-form-body">
-        <div className="ui form">
-          { fields.map((field, index) => (
-            <Field key={`field_${index}`} { ...this._getField(field, index) } />
-          )) }
-          { settings.captcha &&
-            <div className="maha-form-captcha">
-              <Recaptcha { ...this._getRecaptcha() } />
+      <div className="ui form">
+        { fields.map((field, index) => (
+          <Field key={`field_${index}`} { ...this._getField(field, index) } />
+        )) }
+        { settings.captcha &&
+          <div className="maha-form-captcha">
+            <Recaptcha { ...this._getRecaptcha() } />
+          </div>
+        }
+        <div className="maha-form-submit">
+          { status === 'submitting' ?
+            <div { ...this._getButton()}>
+              <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Processing
+            </div> :
+            <div { ...this._getButton()}>
+              { requiresPayment ? 'Proceed to Payment' : settings.button_text }
             </div>
           }
-          <div className="maha-form-submit">
-            { status === 'submitting' ?
-              <div { ...this._getButton()}>
-                <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Processing
-              </div> :
-              <div { ...this._getButton()}>
-                { requiresPayment ? 'Proceed to Payment' : settings.button_text }
-              </div>
-            }
-          </div>
         </div>
       </div>
     )
