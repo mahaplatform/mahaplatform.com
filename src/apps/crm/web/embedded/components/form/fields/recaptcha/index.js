@@ -4,6 +4,7 @@ import React from 'react'
 class Recaptcha extends React.Component {
 
   static propTypes = {
+    tabIndex: PropTypes.number,
     onSuccess: PropTypes.func
   }
 
@@ -58,12 +59,14 @@ class Recaptcha extends React.Component {
   }
 
   _handleRender() {
+    const { tabIndex } = this.props
     this.id = window.grecaptcha.render(this.recaptcha, {
       badge: 'bottomright',
       callback: this._handleSuccess,
       isolated: false,
       sitekey: process.env.RECAPTCHA_SITE_KEY,
       size: 'normal',
+      tabindex: tabIndex,
       theme: 'light'
     }, true)
   }

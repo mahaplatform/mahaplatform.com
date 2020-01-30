@@ -85,8 +85,9 @@ class Fields extends React.Component {
   }
 
   _getRecaptcha() {
-    const { onSetHuman } = this.props
+    const { fields, onSetHuman } = this.props
     return {
+      tabIndex: fields.length + 1,
       onSuccess: onSetHuman
     }
   }

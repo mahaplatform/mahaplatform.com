@@ -98,7 +98,9 @@ class ProductField extends React.Component {
   }
 
   _getInput(product) {
+    const { tabIndex } = this.props
     return {
+      tabIndex,
       type: 'text',
       value: product.quantity,
       onChange: this._handleUpdate.bind(this, product.id)
