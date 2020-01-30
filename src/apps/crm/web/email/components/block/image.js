@@ -86,7 +86,7 @@ class Image extends React.Component {
     return (
       <td className={`small-12 large-${vertical ? 12 : image_width} columns ${position}`}>
         { image ?
-          <img src={ `/imagecache/${image}` } /> :
+          <img src={ `/imagecache${image}` } /> :
           <img src="https://dummyimage.com/1000x600/666666/ffffff&text=Choose+Image" />
         }
       </td>
