@@ -2,6 +2,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 import autoprefixer from 'autoprefixer'
+import webpack from 'webpack'
 import cssnano from 'cssnano'
 import path from 'path'
 import fs from 'fs'
@@ -74,7 +75,14 @@ const webpackConfig = (app, name, root, port) => ({
         template: path.resolve(root,'index.html'),
         filename: 'index.html'
       })
-    ] : []
+    ] : [],
+    new webpack.DefinePlugin({
+      'process.env': {
+        'GOOGLE_MAPS_API_KEY': JSON.stringify(process.env.GOOGLE_MAPS_API_KEY || ''),
+        'GOOGLE_TRACKING_ID': JSON.stringify(process.env.GOOGLE_TRACKING_ID || ''),
+        'RECAPTCHA_SITE_KEY': JSON.stringify(process.env.RECAPTCHA_SITE_KEY || '')
+      }
+    })
   ],
   resolve: {
     alias: {
