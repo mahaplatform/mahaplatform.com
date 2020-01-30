@@ -1,10 +1,10 @@
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import Footer from './footer'
 import Header from './header'
+import Footer from './footer'
 import React from 'react'
 import Page from './page'
-import Body from './body'
+import Form from './form'
 
 class Design extends React.Component {
 
@@ -38,9 +38,9 @@ class Design extends React.Component {
   _getSections() {
     return [
       { label: 'Page', code: 'page', component: Page, props: this._getSection('page') },
-      { label: 'Header', code: 'header', component: Header, props: this._getSection('header') },
-      { label: 'Body', code: 'body', component: Body, props: this._getSection('body') },
-      { label: 'Footer', code: 'footer', component: Footer, props: this._getSection('footer') }
+      { label: 'Header', code: 'form', component: Header, props: this._getSection('header') },
+      { label: 'Form', code: 'form', component: Form, props: this._getSection('form') },
+      { label: 'Footer', code: 'form', component: Footer, props: this._getSection('footer') }
     ]
   }
 

@@ -121,3 +121,24 @@ export const image_widths = [
   { value: 8, text: 'Two-Thirds' },
   { value: 9, text: 'Three-quarters' }
 ]
+
+export const form_widths = [
+  { value: '100%', text: 'Full' },
+  { value: '770px', text: 'Fixed' }
+]
+
+export const cover_widths = [
+  { value: 1, text: 'One-half' },
+  { value: 2, text: 'Two-Thirds' }
+]
+
+export const cover_positions = [
+  { value: 0, text: 'Left' },
+  { value: 2, text: 'Right' }
+]
+
+export const cover_justifications = [
+  { value: 'left', text: 'Left' },
+  { value: 'center', text: 'Center' },
+  { value: 'right', text: 'Right' }
+]

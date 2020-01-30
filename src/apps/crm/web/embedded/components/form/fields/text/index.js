@@ -18,7 +18,7 @@ class Text extends React.Component {
 
   render() {
     const { text } = this.props
-    return <div dangerouslySetInnerHTML={{ __html: text }} />
+    return <div className="maha-text" dangerouslySetInnerHTML={{ __html: text }} />
   }
 
   componentDidMount() {

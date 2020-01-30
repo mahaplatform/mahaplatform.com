@@ -19,7 +19,7 @@ class App extends React.Component {
   render() {
     return (
       <Root key="root">
-        <div>
+        <div className="maha-form-layout">
           <Style key="style" { ...this._getStyle() } />
           <Form { ...this._getForm() } />
         </div>

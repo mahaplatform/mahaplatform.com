@@ -1,6 +1,7 @@
 import FontFamilyToken from '../../../../tokens/fontfamily'
 import AlignmentField from '../../../alignmentfield'
 import FormatField from '../../../formatfield'
+import ImageField from '../../../imagefield'
 import * as options from '../../variables'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -43,7 +44,7 @@ class Body extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { config } = this.state
     if(!_.isEqual(config, prevState.config)) {
-      this.props.onUpdate('body', config)
+      this.props.onUpdate('form', config)
     }
   }
 
@@ -56,17 +57,12 @@ class Body extends React.Component {
       cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
-        { label: 'Reset', color: 'red', handler: this._handleReset },
         { label: 'Done', color: 'red', handler: this._handleDone }
       ],
       sections: [
         {
           fields: [
-            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color }
-          ]
-        }, {
-          label: 'Text Style',
-          fields: [
+            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
             { label: 'Font Family', name: 'font_family', type: 'dropdown', options: options.font_families, defaultValue: config.font_family, format: FontFamilyToken },
             { type: 'fields', fields: [
               { label: 'Font Size', name: 'font_size', type: 'dropdown', options: options.font_sizes, defaultValue: config.font_size },
@@ -89,13 +85,13 @@ class Body extends React.Component {
   _getDefault() {
     return {
       background_color: null,
-      font_family: null,
-      font_size: null,
-      color: null,
-      format: null,
-      text_align: null,
-      line_height: null,
-      letter_spacing: null
+      font_family: 'Arial, Helvetica, sans-serif',
+      font_size: 18,
+      color: '#222222',
+      format: [],
+      text_align: false,
+      line_height: 1.5,
+      letter_spacing: 0
     }
   }
 

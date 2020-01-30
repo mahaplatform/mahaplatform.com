@@ -1,9 +1,11 @@
 import Recaptcha from '../../embedded/components/form/fields/recaptcha'
 import Header from '../../embedded/components/form/header'
 import Footer from '../../embedded/components/form/footer'
+import Layout from '../../embedded/components/form/layout'
 import PropTypes from 'prop-types'
 import Field from './field'
 import React from 'react'
+
 
 class Form extends React.Component {
 
@@ -28,41 +30,43 @@ class Form extends React.Component {
     const { config } = this.props
     const { settings, fields } = config
     return (
-      <div { ...this._getDropZone() }>
-        <div className="maha-form">
-          { config.header &&
-            <Header { ...this._getHeader() } />
-          }
-          <div className="maha-form-body">
-            <div className="ui form">
-              { (fields.length === 0 || (hovering && index === 0)) &&
-                <div className="dropzone-target">Drop Field Here</div>
-              }
-              { fields.map((field, fieldIndex) => (
-                <div key={`field_${fieldIndex}`} className="dropzone-block" data-index={ fieldIndex }>
-                  <Field { ...this._getField(field, fieldIndex) } />
-                  { hovering && fieldIndex + 1 === index &&
-                    <div className="dropzone-target">Drop Field Here</div>
-                  }
+      <Layout { ...this._getLayout() }>
+        <div { ...this._getDropZone() }>
+          <div className="maha-form">
+            { config.header &&
+              <Header { ...this._getHeader() } />
+            }
+            <div className="maha-form-body">
+              <div className="ui form">
+                { (fields.length === 0 || (hovering && index === 0)) &&
+                  <div className="dropzone-target">Drop Field Here</div>
+                }
+                { fields.map((field, fieldIndex) => (
+                  <div key={`field_${fieldIndex}`} className="dropzone-block" data-index={ fieldIndex }>
+                    <Field { ...this._getField(field, fieldIndex) } />
+                    { hovering && fieldIndex + 1 === index &&
+                      <div className="dropzone-target">Drop Field Here</div>
+                    }
+                  </div>
+                )) }
+                { settings.captcha &&
+                  <div className="maha-form-captcha">
+                    <Recaptcha />
+                  </div>
+                }
+                <div className="maha-form-submit">
+                  <button { ...this._getButton()}>
+                    { settings.button_text }
+                  </button>
                 </div>
-              )) }
-              { settings.captcha &&
-                <div className="maha-form-captcha">
-                  <Recaptcha />
-                </div>
-              }
-              <div className="maha-form-submit">
-                <button { ...this._getButton()}>
-                  { settings.button_text }
-                </button>
               </div>
             </div>
+            { config.footer &&
+              <Footer { ...this._getFooter() } />
+            }
           </div>
-          { config.footer &&
-            <Footer { ...this._getFooter() } />
-          }
         </div>
-      </div>
+      </Layout>
     )
   }
 
@@ -97,6 +101,11 @@ class Form extends React.Component {
   }
 
   _getHeader() {
+    const { config } = this.props
+    return { config }
+  }
+
+  _getLayout() {
     const { config } = this.props
     return { config }
   }

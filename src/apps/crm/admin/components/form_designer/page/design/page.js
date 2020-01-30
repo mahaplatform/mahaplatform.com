@@ -1,6 +1,4 @@
-import FontFamilyToken from '../../../../tokens/fontfamily'
-import AlignmentField from '../../../alignmentfield'
-import FormatField from '../../../formatfield'
+import ImageField from '../../../imagefield'
 import * as options from '../../variables'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -8,7 +6,7 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class Design extends React.Component {
+class Page extends React.Component {
 
   static propTypes = {
     cid: PropTypes.string,
@@ -56,31 +54,26 @@ class Design extends React.Component {
       cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
-        { label: 'Reset', color: 'red', handler: this._handleReset },
         { label: 'Done', color: 'red', handler: this._handleDone }
       ],
       sections: [
         {
           fields: [
-            { label: 'Page Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
-            { label: 'Form Background Color', name: 'form_background_color', type: 'colorfield', defaultValue: config.form_background_color }
+            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color }
           ]
         }, {
-          label: 'Text Style',
+          label: 'Form',
           fields: [
-            { label: 'Font Family', name: 'font_family', type: 'dropdown', options: options.font_families, defaultValue: config.font_family, format: FontFamilyToken },
-            { type: 'fields', fields: [
-              { label: 'Font Size', name: 'font_size', type: 'dropdown', options: options.font_sizes, defaultValue: config.font_size },
-              { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color }
-            ] },
-            { type: 'fields', fields: [
-              { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format },
-              { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.text_align }
-            ] },
-            { type: 'fields', fields: [
-              { label: 'Line Height', name: 'line_height', type: 'dropdown', options: options.line_heights, defaultValue: config.line_height },
-              { label: 'Letter Spacing', name: 'letter_spacing', type: 'dropdown', options: options.letter_spacing, defaultValue: config.letter_spacing }
-            ] }
+            { label: 'Background Color', name: 'form_background_color', type: 'colorfield', defaultValue: config.form_background_color },
+            { label: 'Width', name: 'form_width', type: 'dropdown', options: options.form_widths, defaultValue: config.form_width }
+          ]
+        }, {
+          label: 'Cover',
+          fields: [
+            { label: 'Image', name: 'cover_image', type: ImageField, defaultValue: config.cover_image },
+            { label: 'Position', name: 'cover_image_position', type: 'dropdown', options: options.cover_positions, defaultValue: config.cover_image_position },
+            { label: 'Justification', name: 'cover_image_justification', type: 'dropdown', options: options.cover_justifications, defaultValue: config.cover_image_justification },
+            { label: 'Width', name: 'cover_image_width', type: 'dropdown', options: options.cover_widths, defaultValue: config.cover_image_width }
           ]
         }
       ]
@@ -90,14 +83,10 @@ class Design extends React.Component {
   _getDefault() {
     return {
       background_color: null,
-      form_background_color: null,
-      font_family: 'Arial, Helvetica, sans-serif',
-      font_size: 14,
-      color: '#000000',
-      format: null,
-      text_align: 'left',
-      line_height: 1.5,
-      letter_spacing: 0
+      cover_image: null,
+      cover_image_position: 0,
+      cover_image_justification: null,
+      cover_image_width: null
     }
   }
 
@@ -126,4 +115,4 @@ const mapStateToProps = (state, props) => ({
   config: state.crm.form_designer[props.cid].config.page
 })
 
-export default connect(mapStateToProps)(Design)
+export default connect(mapStateToProps)(Page)

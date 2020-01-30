@@ -18,7 +18,7 @@ class Header extends React.Component {
           </div>
         }
         { text &&
-          <div className="maha-form-footer-text" dangerouslySetInnerHTML={{ __html: text }} />
+          <div className="maha-form-header-text" dangerouslySetInnerHTML={{ __html: text }} />
         }
       </div>
     )

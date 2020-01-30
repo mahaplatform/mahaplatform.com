@@ -5,6 +5,8 @@ import Fields from './fields'
 import React from 'react'
 import _ from 'lodash'
 
+import Layout from './layout'
+
 class Form extends React.Component {
 
   static propTypes = {
@@ -41,21 +43,23 @@ class Form extends React.Component {
     const { closed_message, confirmation_message } = config.settings
     const active = _.includes(['ready','validating','submitting','failure'], status)
     return (
-      <div className="maha-form">
-        { config.header &&
-          <Header { ...this._getHeader() } />
-        }
-        { active && isOpen && <Fields { ...this._getFields() } /> }
-        { status === 'success' &&
-          <div className="maha-form-closed" dangerouslySetInnerHTML={{ __html: confirmation_message }} />
-        }
-        { !isOpen &&
-          <div className="maha-form-closed" dangerouslySetInnerHTML={{ __html: closed_message }} />
-        }
-        { config.footer &&
-          <Footer { ...this._getFooter() } />
-        }
-      </div>
+      <Layout { ...this._getLayout() }>
+        <div className="maha-form">
+          { config.header &&
+            <Header { ...this._getHeader() } />
+          }
+          { active && isOpen && <Fields { ...this._getFields() } /> }
+          { status === 'success' &&
+            <div className="maha-form-closed" dangerouslySetInnerHTML={{ __html: confirmation_message }} />
+          }
+          { !isOpen &&
+            <div className="maha-form-closed" dangerouslySetInnerHTML={{ __html: closed_message }} />
+          }
+          { config.footer &&
+            <Footer { ...this._getFooter() } />
+          }
+        </div>
+      </Layout>
     )
   }
 
@@ -85,6 +89,11 @@ class Form extends React.Component {
   }
 
   _getHeader() {
+    const { config } = this.props
+    return { config }
+  }
+
+  _getLayout() {
     const { config } = this.props
     return { config }
   }

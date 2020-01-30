@@ -27,7 +27,7 @@ class App extends React.Component {
     if(!this.state.config) return null
     return (
       <Root key="root">
-        <div>
+        <div className="maha-form-layout">
           <Style key="style" { ...this._getStyle() } />
           <Form { ...this._getForm() } />
         </div>

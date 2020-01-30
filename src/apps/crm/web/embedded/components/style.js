@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-const blocks = ['p','li','input','textarea','.dropdown .item','label','.field-instructions','.maha-checkbox-label','.ui.button']
+const blocks = ['h1','h2','p','li','input','textarea','.dropdown .item','label','.field-instructions','.maha-checkbox-label','.ui.button']
 
 class Style extends React.Component {
 
@@ -16,6 +16,12 @@ class Style extends React.Component {
         { this._getStyle() }
       </style>
     )
+  }
+
+  _getImage(prop, key) {
+    const { config } = this.props
+    const value = _.get(config, key)
+    return !_.isNil(value) ? [{ prop, value: `url('/imagecache/${value}')` }] : []
   }
 
   _getProp(prop, key, unit = null, defaultValue = null) {
@@ -49,28 +55,25 @@ class Style extends React.Component {
     const { config } = this.props
     const { fields } = config
     const styles = [
-      { selector: 'html', styles: [
+      { selector: 'div.maha-form-layout-image', styles: [
+        ...this._getProp('flex', 'page.cover_image_width'),
+        ...this._getImage('background-image', 'page.cover_image'),
+        ...this._getProp('background-position', 'page.cover_image_justification'),
+        ...this._getProp('order', 'page.cover_image_position')
+      ] },
+      { selector: 'div.maha-form-layout-content', styles: [
         ...this._getProp('background-color', 'page.background_color')
       ] },
-      ...blocks.map(block => ({
-        selector: block, styles: [
-          ...this._getProp('font-family', 'page.font_family'),
-          ...this._getProp('font-size', 'page.font_size', 'px'),
-          ...this._getFormat('font-weight', 'bold', 'page.format', 'normal'),
-          ...this._getFormat('font-style', 'italic', 'page.format'),
-          ...this._getFormat('text-decoration', 'underline', 'page.format'),
-          ...this._getProp('color', 'page.color'),
-          ...this._getProp('text-align', 'page.text_align'),
-          ...this._getProp('line-height', 'page.line_height'),
-          ...this._getProp('letter-spacing', 'page.letter_spacing', 'px')
-        ]
-      })),
+      { selector: 'div.maha-form', styles: [
+        ...this._getProp('background-color', 'page.form_background_color'),
+        ...this._getProp('max-width', 'page.form_width')
+
+      ] },
       ...['header','body','footer'].reduce((styles, section) => [
         ...styles,
         ...blocks.map(block => ({
           selector: `div.maha-form-${section} ${block}`, styles: [
             ...this._getProp('font-family', `${section}.font_family`),
-            ...this._getProp('font-size', `${section}.font_size`, 'px'),
             ...this._getFormat('font-weight', 'bold', `${section}.format`, 'normal'),
             ...this._getFormat('font-style', 'italic', `${section}.format`),
             ...this._getFormat('text-decoration', 'underline', `${section}.format`),
@@ -86,11 +89,6 @@ class Style extends React.Component {
           ...this._getProp('background-color', `${section}.background_color`)
         ]
       })),
-      { selector: '.maha-form', styles: [
-        ...this._getProp('background-color', 'page.form_background_color'),
-        ...this._getProp('margin-top', 'page.padding_top', 'px'),
-        ...this._getProp('margin-bottom', 'page.padding_bottom', 'px')
-      ] },
       { selector: '.maha-form-header', styles: [
         ...this._getProp('background-color', 'header.background_color'),
         ...this._getProp('font-family','header.font_family'),

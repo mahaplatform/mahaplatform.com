@@ -56,7 +56,6 @@ class Footer extends React.Component {
       cancelIcon: 'chevron-left',
       saveText: null,
       buttons: [
-        { label: 'Reset', color: 'red', handler: this._handleReset },
         { label: 'Done', color: 'red', handler: this._handleDone }
       ],
       sections: [

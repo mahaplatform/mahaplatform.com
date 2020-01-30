@@ -60,9 +60,6 @@ class TextForm extends React.Component {
           sections: [
             {
               fields: [
-                { label: 'Background', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
-                this._getBorder('border', 'Border'),
-                { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding },
                 { label: 'Text', name: 'text', type: 'htmlfield', defaultValue: config.text }
               ]
             }
@@ -71,6 +68,12 @@ class TextForm extends React.Component {
           label: 'Style',
           sections: [
             {
+              fields: [
+                { label: 'Background', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
+                this._getBorder('border', 'Border'),
+                { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
+              ]
+            }, {
               label: 'Text Style',
               fields: [
                 { label: 'Font Family', name: 'font_family', type: 'dropdown', options: options.font_families, defaultValue: config.font_family, format: FontFamilyToken },

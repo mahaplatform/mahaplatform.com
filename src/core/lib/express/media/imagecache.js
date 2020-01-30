@@ -8,16 +8,14 @@ import qs from 'qs'
 const router = new Router({ mergeParams: true })
 
 router.get('/*', async (req, res) => {
-  const transformed = await transform(req.originalUrl)
   const type = getType(req.originalUrl)
+  const { transforms, path } = parseUrl(req.originalUrl)
+  const original = await getData(path)
+  if(!transforms) return res.type(type).status(200).send(original)
+  const transformed = await transform(original, transforms)
   const data = await convert(transformed, type)
-  res.type(type).status(200).send(data)
+  return res.type(type).status(200).send(data)
 })
-
-const convert = async (transformed, type) => {
-  if(type === 'jpeg') return await transformed.jpeg({ quality: 70 }).toBuffer()
-  if(type === 'png') return await transformed.png({ quality: 70 }).toBuffer()
-}
 
 const getType = (originalUrl) => {
   const ext = path.extname(originalUrl).substr(1)
@@ -26,26 +24,38 @@ const getType = (originalUrl) => {
   return 'jpeg'
 }
 
-const transform = async(originalUrl) => {
+const parseUrl = (originalUrl) => {
   const uri = url.parse(originalUrl)
   const raw = uri.path.replace('/imagecache/', '')
   const parts = raw.split('/')
   const matches = parts[0].match(/\w*=\w*/)
-  const transform = matches ? qs.parse(parts[0]) : {}
+  const transforms = matches ? qs.parse(parts[0]) : null
   const path = matches ? parts.slice(1).join('/') : parts.join('/')
-  const data = await s3.getObject({
+  return { transforms, path }
+}
+
+const getData = async (path) => {
+  return await s3.getObject({
     Bucket: process.env.AWS_BUCKET,
     Key: path
   }).promise().then(file => file.Body)
+}
+
+const transform = async(data, transforms) => {
   const source = sharp(data)
-  const dpi = transform.dpi ? parseInt(transform.dpi) : 1
-  const fit = transform.fit || 'inside'
-  const w = transform.w ? parseInt(transform.w) * dpi : null
-  const h = transform.h ? parseInt(transform.h) * dpi : null
+  const dpi = transforms.dpi ? parseInt(transforms.dpi) : 1
+  const fit = transforms.fit || 'inside'
+  const w = transforms.w ? parseInt(transforms.w) * dpi : null
+  const h = transforms.h ? parseInt(transforms.h) * dpi : null
   if(w & h) return source.resize(w, h, { fit })
   if(w) return source.resize(w)
   if(h) return source.resize(h)
   return source
+}
+
+const convert = async (transformed, type) => {
+  if(type === 'jpeg') return await transformed.jpeg({ quality: 70 }).toBuffer()
+  if(type === 'png') return await transformed.png({ quality: 70 }).toBuffer()
 }
 
 export default router

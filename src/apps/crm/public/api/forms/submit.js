@@ -121,7 +121,9 @@ const submitRoute = async (req, res) => {
     message: 'Unable to load form'
   })
 
-  const fields = form.get('config').fields
+  const fields = form.get('config').fields.filter(field => {
+    return field.type !== 'text'
+  })
 
   const contactdata = fields.filter(field => {
     return field.type === 'contactfield'

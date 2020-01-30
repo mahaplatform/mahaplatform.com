@@ -11,7 +11,7 @@ const alignments = [
 class AlignmentField extends React.Component {
 
   static propTypes = {
-    defaultValue: PropTypes.array,
+    defaultValue: PropTypes.string,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
