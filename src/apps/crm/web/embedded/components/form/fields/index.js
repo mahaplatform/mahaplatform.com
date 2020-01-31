@@ -1,5 +1,6 @@
 import Recaptcha from './recaptcha'
 import PropTypes from 'prop-types'
+import Button from './button'
 import Field from './field'
 import React from 'react'
 
@@ -34,7 +35,7 @@ class Fields extends React.Component {
   _handleValidate = this._handleValidate.bind(this)
 
   render() {
-    const { config, fields, requiresPayment, status } = this.props
+    const { config, fields } = this.props
     const { settings } = config
     return (
       <div className="maha-form-body">
@@ -48,14 +49,7 @@ class Fields extends React.Component {
             </div>
           }
           <div className="maha-form-submit">
-            { status === 'submitting' ?
-              <div { ...this._getButton()}>
-                <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Processing
-              </div> :
-              <div { ...this._getButton()}>
-                { requiresPayment ? 'Proceed to Payment' : settings.button_text }
-              </div>
-            }
+            <Button { ... this._getButton() } />
           </div>
         </div>
       </div>
@@ -69,13 +63,15 @@ class Fields extends React.Component {
   }
 
   _getButton() {
-    const { config, human, fields, status } = this.props
-    const { settings } = config
-    const submitting = status === 'submitting'
+    const { config, fields, human, requiresPayment, status } = this.props
+    const { button_text, captcha } = config.settings
+    const processing = status === 'submitting'
     return {
-      tabIndex: fields.length + (settings.captcha ? 2 : 1),
-      className: human && !submitting ? 'ui blue button' : 'ui blue disabled button',
-      onClick: human && !submitting ? this._handleValidate : () => {}
+      color: 'blue',
+      label: requiresPayment ? 'Proceed to Payment' : button_text,
+      processing,
+      tabIndex: fields.length + (captcha ? 2 : 1),
+      onClick: human && !processing ? this._handleValidate : () => {}
     }
   }
 

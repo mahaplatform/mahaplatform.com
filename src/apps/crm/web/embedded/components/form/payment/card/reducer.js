@@ -11,7 +11,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'AUTHORIZE_REQUEST':
     return {
       ...state,
-      status: 'loading'
+      status: 'authorizing'
     }
 
   case 'AUTHORIZE_FAILURE':
@@ -24,7 +24,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'AUTHORIZE_SUCCESS':
     return {
       ...state,
-      status: 'success',
+      status: 'authorized',
       payment: {
         card_type: action.result.details.cardType.toLowerCase(),
         last_four: action.result.details.lastFour,
@@ -38,6 +38,25 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       payment: null
+    }
+
+  case 'SUBMIT_REQUEST':
+    return {
+      ...state,
+      status: 'submitting'
+    }
+
+  case 'SUBMIT_FAILURE':
+    return {
+      ...state,
+      error: Object.values(action.result.errors)[0],
+      status: 'failure'
+    }
+
+  case 'SUBMIT_SUCCESS':
+    return {
+      ...state,
+      status: 'success'
     }
 
   default:

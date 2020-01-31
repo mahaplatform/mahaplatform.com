@@ -2,32 +2,24 @@ import creditcard from 'credit-card'
 import { card } from 'creditcards'
 import PropTypes from 'prop-types'
 import React from 'react'
-import _ from 'lodash'
 
 class Card extends React.PureComponent {
 
   static propTypes = {
     error: PropTypes.string,
+    form: PropTypes.object,
+    isProcessing: PropTypes.bool,
     payment: PropTypes.object,
     status: PropTypes.string,
     summary: PropTypes.object,
     token: PropTypes.string,
     onAuthorize: PropTypes.func,
-    onBusy: PropTypes.func,
     onChange: PropTypes.func,
     onClear: PropTypes.func,
-    onFetch: PropTypes.func,
-    onReady: PropTypes.func,
+    onSubmit: PropTypes.func,
     onSuccess: PropTypes.func,
     onUpdate: PropTypes.func,
     onValid: PropTypes.func
-  }
-
-  static defaultProps = {
-    onBusy: () => {},
-    onChange: () => {},
-    onReady: () => {},
-    onValid: () => {}
   }
 
   cvv = null
@@ -44,7 +36,6 @@ class Card extends React.PureComponent {
 
   _handleAuthorize = this._handleAuthorize.bind(this)
   _handleBlur = this._handleBlur.bind(this)
-  _handleChange = _.debounce(this._handleChange.bind(this), 250, { trailing: true })
   _handleClear = this._handleClear.bind(this)
   _handleCVV = this._handleCVV.bind(this)
   _handleExpiration = this._handleExpiration.bind(this)
@@ -54,7 +45,7 @@ class Card extends React.PureComponent {
 
   render() {
     const { error, number, expirationDate, cvv } = this.state
-    const { status } = this.props
+    const { isProcessing } = this.props
     const icon = this._getIcon()
     return (
       <div className="maha-payment-card">
@@ -87,7 +78,7 @@ class Card extends React.PureComponent {
             <div className="maha-payment-error">{ error }</div>
           }
         </div>
-        { status === 'loading' ?
+        { isProcessing ?
           <button className="ui fluid blue disabled button">
             <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Processing
           </button> :
@@ -100,26 +91,17 @@ class Card extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { cvv, expirationDate, number } = this.state
-    const { error, payment, token } = this.props
+    const { error, status } = this.props
     if(error !== prevProps.error && error) {
       this.setState({ error })
-      this.props.onReady(this._handleValidate)
     }
-    if(token !== prevProps.token) {
-      this.props.onReady(this._handleValidate)
-    }
-    if(payment !== prevProps.payment) {
-      this._handleSuccess()
-    }
-    if(cvv !== prevState.cvv) {
-      this.props.onChange(null)
-    }
-    if(expirationDate !== prevState.expirationDate) {
-      this.props.onChange(null)
-    }
-    if(number !== prevState.number) {
-      this.props.onChange(null)
+    if(status !== prevProps.status) {
+      if(status === 'authorized') {
+        this._handleSubmit()
+      }
+      if(status === 'success') {
+        this._handleSuccess()
+      }
     }
   }
 
@@ -188,17 +170,25 @@ class Card extends React.PureComponent {
     this.props.onAuthorize(token, { number, expirationDate, cvv })
   }
 
-  _handleChange() {
-    const { cvv, expirationDate, number } = this.state
-    this.props.onChange({ cvv, expirationDate, number })
+  _handleBlur() {
+    this.setState({
+      focused: null
+    })
   }
 
-  _handleNumber(e) {
-    const number = card.parse(e.target.value)
-    this.setState({ number, error: null })
-    if(card.isValid(number)) {
-      this.expirationDate.focus()
-    }
+  _handleClear() {
+    this.setState({
+      cvv: '',
+      error: null,
+      expirationDate: '',
+      focused: null,
+      number: ''
+    })
+  }
+
+  _handleCVV(e) {
+    const cvv = e.target.value
+    this.setState({ cvv, error: null })
   }
 
   _handleExpiration(e) {
@@ -209,30 +199,30 @@ class Card extends React.PureComponent {
     }
   }
 
-  _handleCVV(e) {
-    const cvv = e.target.value
-    this.setState({ cvv, error: null })
-  }
-
-  _handleClear() {
-    this.setState({
-      cvv: '',
-      expirationDate: '',
-      focused: null,
-      number: ''
-    })
-  }
-
-  _handleBlur() {
-    this.setState({
-      focused: null
-    })
-  }
-
   _handleFocus(focused) {
-    this.setState({
-      focused
-    })
+    this.setState({ focused })
+  }
+
+  _handleNumber(e) {
+    const number = card.parse(e.target.value)
+    this.setState({ number, error: null })
+    if(card.isValid(number)) {
+      this.expirationDate.focus()
+    }
+  }
+
+  _handleSubmit() {
+    const { form, payment, summary } = this.props
+    const { token, code, data } = form
+    const body = {
+      ...data,
+      payment: {
+        amount: summary.total,
+        method: 'card',
+        payment
+      }
+    }
+    this.props.onSubmit(token, code, body)
   }
 
   _handleSuccess() {
@@ -243,14 +233,19 @@ class Card extends React.PureComponent {
   _handleValidate() {
     const { onValid } = this.props
     const { number, expirationDate, cvv } = this.state
-    if(!number) return this.setState({ error: 'Card number is required' })
-    if(!expirationDate) return this.setState({ error: 'Expiration  is required' })
-    if(!cvv) return this.setState({ error: 'CVV  is required' })
-    // if(!creditcard.luhn(number)) return this.setState({ error: 'Invalid credit card number' })
+    if(!number) {
+      return this.setState({ error: 'Card number is required' })
+    } else if(!expirationDate) {
+      return this.setState({ error: 'Expiration  is required' })
+    } else if(!cvv) {
+      return this.setState({ error: 'CVV  is required' })
+    } else if(!creditcard.luhn(number)) {
+      return this.setState({ error: 'Invalid credit card number' })
+    }
     const type = creditcard.determineCardType(number)
-    if(!creditcard.doesCvvMatchType(cvv, type)) return this.setState({ error: 'Invalid CVV number for this card type' })
-
     if(!creditcard.doesCvvMatchType(cvv, type)) {
+      return this.setState({ error: 'Invalid CVV number for this card type' })
+    } else if(!creditcard.doesCvvMatchType(cvv, type)) {
       return onValid(null, ['Invalid CVV number for this card type'])
     }
     const parts = expirationDate.match(/(\d{2})\/(\d{2})/)

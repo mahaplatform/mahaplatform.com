@@ -34,6 +34,10 @@ export const setMode = (mode) => ({
   mode
 })
 
+export const setPaid = () => ({
+  type: 'SET_PAID'
+})
+
 export const setReady = (code) => ({
   type: 'SET_READY',
   code

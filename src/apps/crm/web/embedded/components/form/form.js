@@ -33,6 +33,7 @@ class Form extends React.Component {
     onSave: PropTypes.func,
     onSetHuman: PropTypes.func,
     onSetMode: PropTypes.func,
+    onSetPaid: PropTypes.func,
     onSetReady: PropTypes.func,
     onSetStatus: PropTypes.func,
     onSetValid: PropTypes.func,
@@ -40,7 +41,6 @@ class Form extends React.Component {
     onSubmit: PropTypes.func
   }
 
-  _handlePayment = this._handlePayment.bind(this)
   _handleProceed = this._handleProceed.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
 
@@ -87,24 +87,22 @@ class Form extends React.Component {
   }
 
   _getPayment() {
-    const { config, summary } = this.props
+    const { code, config, data, summary, token, onSetPaid } = this.props
     return {
-      ...this.props,
+      form: {
+        code,
+        data,
+        token
+      },
       program: config.program,
       summary,
-      onSubmit: this._handlePayment
+      onSuccess: onSetPaid
     }
   }
 
   _getSection() {
     const { config } = this.props
     return { config }
-  }
-
-  _handlePayment(payment) {
-    const { code, token } = this.props
-    const data = { ...this.props.data, payment }
-    this.props.onSubmit(token, code, data)
   }
 
   _handleProceed() {

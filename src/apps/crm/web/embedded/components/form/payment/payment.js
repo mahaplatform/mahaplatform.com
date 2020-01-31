@@ -11,13 +11,14 @@ import ACH from './ach'
 class Payment extends React.Component {
 
   static propTypes = {
+    form: PropTypes.object,
     method: PropTypes.string,
     program: PropTypes.object,
     status: PropTypes.string,
     summary: PropTypes.object,
     token: PropTypes.string,
     onFetch: PropTypes.func,
-    onSubmit: PropTypes.func
+    onSuccess: PropTypes.func
   }
 
   _handleSuccess = this._handleSuccess.bind(this)
@@ -63,14 +64,14 @@ class Payment extends React.Component {
     return {
       program,
       token,
-      summary,
-      onSuccess: this._handleSuccess
+      summary
     }
   }
 
   _getMethod(method) {
-    const { program, summary, token } = this.props
+    const { form, program, summary, token } = this.props
     return {
+      form,
       program,
       summary,
       token,
@@ -82,10 +83,8 @@ class Payment extends React.Component {
     return this.props.summary
   }
 
-  _handleSuccess(payment) {
-    const { method, summary } = this.props
-    const amount = summary.total
-    this.props.onSubmit({ amount, method, payment })
+  _handleSuccess() {
+    this.props.onSuccess()
   }
 
 }

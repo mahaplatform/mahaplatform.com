@@ -49,6 +49,12 @@ const reducer = (state = INITIAL_STATE, action) => {
       mode: action.mode
     }
 
+  case 'SET_PAID':
+    return {
+      ...state,
+      status: 'success'
+    }
+
   case 'SET_READY':
     return {
       ...state,
