@@ -1,11 +1,13 @@
-.finance-cardfield {
+.maha-payment-card-field {
+  margin-bottom: 1.6em;
+}
+.maha-payment-card-input {
   flex: 1;
   display: flex;
   border: 1px solid fadeout(@black, 90);
   background-color: @white;
   border-radius: 5px;
   display: flex;
-  margin-bottom: 0.8em;
   &.disabled {
     background-color: fadeout(@black, 97);
     color: fadeout(@black, 90);
@@ -13,19 +15,22 @@
       color: fadeout(@black, 90) !important;
     }
   }
+  &:focus {
+    outline: -webkit-focus-ring-color auto 2px !important;
+  }
   input {
     flex: 1;
     border: none !important;
     border-radius: 0 !important;
     background: none !important;
     padding: 0.8em 0.6em !important;
+    width: 100%;
+    &:focus {
+      outline: none !important;
+    }
   }
 }
-.finance-cardfield-input {
-  flex: 1;
-  display: flex;
-}
-.finance-cardfield-icon {
+.maha-payment-card-icon {
   flex: 0 0 2em;
   padding: 0.6em 0 0.6em 0.6em;
   display: flex;
@@ -40,16 +45,19 @@
   }
 }
 
-.finance-cardfield-number {
+.maha-payment-card-number {
   flex: 1;
+  display: flex;
 }
-.finance-cardfield-expiration {
+.maha-payment-card-expiration {
   flex: 0 0 5em;
+  display: flex;
 }
-.finance-cardfield-cvv {
+.maha-payment-card-cvv {
   flex: 0 0 3.5em;
+  display: flex;
 }
-.finance-cardfield-clear {
+.maha-payment-card-clear {
   display: flex;
   padding: 0.6em;
   flex: 0 0 2em;
@@ -61,4 +69,8 @@
     margin: auto;
     cursor: pointer;
   }
+}
+.maha-payment-error {
+  color: @red;
+  font-style: italic;
 }

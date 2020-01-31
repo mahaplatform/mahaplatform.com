@@ -52,20 +52,18 @@ class Form extends React.Component {
           { config.header &&
             <Header { ...this._getSection() } />
           }
-          <div className="maha-form-body">
-            { isActive && isOpen && mode === 'fields' &&
-              <Fields { ...this._getFields() } />
-            }
-            { isActive && isOpen && mode === 'payment' &&
-              <Payment { ...this._getPayment() } />
-            }
-            { status === 'success' &&
-              <Confirmation { ...this._getSection() } />
-            }
-            { !isOpen &&
-              <Closed { ...this._getSection() } />
-            }
-          </div>
+          { isActive && isOpen && mode === 'fields' &&
+            <Fields { ...this._getFields() } />
+          }
+          { isActive && isOpen && mode === 'payment' &&
+            <Payment { ...this._getPayment() } />
+          }
+          { status === 'success' &&
+            <Confirmation { ...this._getSection() } />
+          }
+          { !isOpen &&
+            <Closed { ...this._getSection() } />
+          }
           { config.footer &&
             <Footer { ...this._getSection() } />
           }
@@ -103,16 +101,10 @@ class Form extends React.Component {
     return { config }
   }
 
-  _handlePayment(amount, method, payment) {
-    const { code, data, token } = this.props
-    this.props.onSubmit(token, code, {
-      ...data,
-      payment: {
-        amount,
-        method,
-        payment
-      }
-    })
+  _handlePayment(payment) {
+    const { code, token } = this.props
+    const data = { ...this.props.data, payment }
+    this.props.onSubmit(token, code, data)
   }
 
   _handleProceed() {

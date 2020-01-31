@@ -1,4 +1,5 @@
 const INITIAL_STATE = {
+  error: null,
   status: 'pending',
   payment: null
 }
@@ -6,6 +7,19 @@ const INITIAL_STATE = {
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
+
+  case 'AUTHORIZE_REQUEST':
+    return {
+      ...state,
+      status: 'loading'
+    }
+
+  case 'AUTHORIZE_FAILURE':
+    return {
+      ...state,
+      error: action.result.details.originalError.error.message,
+      status: 'failed'
+    }
 
   case 'AUTHORIZE_SUCCESS':
     return {
@@ -18,12 +32,6 @@ const reducer = (state = INITIAL_STATE, action) => {
         expiration_year: action.result.details.expirationYear,
         nonce: action.result.nonce
       }
-    }
-
-  case 'AUTHORIZE_REQUEST':
-    return {
-      ...state,
-      status: 'loading'
     }
 
   case 'CLEAR':

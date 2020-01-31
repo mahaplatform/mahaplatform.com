@@ -58,7 +58,7 @@ class Main extends React.Component {
   _handleCancel = this._handleCancel.bind(this)
 
   render() {
-    const { after, before, isConfiguring, instructions, sections, tabs } = this.props
+    const { after, before, isConfiguring, sections, tabs } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className={ this._getClass() }>

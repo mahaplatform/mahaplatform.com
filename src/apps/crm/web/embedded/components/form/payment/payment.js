@@ -13,6 +13,7 @@ class Payment extends React.Component {
   static propTypes = {
     method: PropTypes.string,
     program: PropTypes.object,
+    status: PropTypes.string,
     summary: PropTypes.object,
     token: PropTypes.string,
     onFetch: PropTypes.func,
@@ -22,9 +23,15 @@ class Payment extends React.Component {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
+    const { status } = this.props
     const Method = this._getComponent()
     return (
       <div className="maha-payment">
+        { status === 'loading' &&
+          <div className="ui active inverted dimmer">
+            <div className="ui large text loader">Loading</div>
+          </div>
+        }
         <Summary { ...this._getSummary() } />
         <Methods { ...this._getMethods() } />
         <Method { ...this._getMethod() } />
@@ -34,6 +41,12 @@ class Payment extends React.Component {
 
   componentDidMount() {
     this.props.onFetch()
+  }
+
+  _getForm() {
+    const classes = ['ui','form']
+    classes.push('loading')
+    return classes.join(' ')
   }
 
   _getComponent() {
@@ -69,10 +82,10 @@ class Payment extends React.Component {
     return this.props.summary
   }
 
-  _handleSuccess(data) {
+  _handleSuccess(payment) {
     const { method, summary } = this.props
     const amount = summary.total
-    this.props.onSubmit(amount, method, data)
+    this.props.onSubmit({ amount, method, payment })
   }
 
 }

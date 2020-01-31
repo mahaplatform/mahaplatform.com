@@ -7,6 +7,7 @@ import _ from 'lodash'
 class Card extends React.PureComponent {
 
   static propTypes = {
+    error: PropTypes.string,
     payment: PropTypes.object,
     status: PropTypes.string,
     summary: PropTypes.object,
@@ -34,6 +35,7 @@ class Card extends React.PureComponent {
   number = null
 
   state = {
+    error: null,
     focused: null,
     cvv: '',
     expirationDate: '',
@@ -51,52 +53,59 @@ class Card extends React.PureComponent {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    const { number, expirationDate, cvv } = this.state
+    const { error, number, expirationDate, cvv } = this.state
     const { status } = this.props
     const icon = this._getIcon()
     return (
-      <div className="maha-payment-item">
+      <div className="maha-payment-card">
         <div className="maha-payment-label">Credit Card</div>
-        <div className="maha-payment-form">
-          <div className="finance-cardfield">
-            <div className="finance-cardfield-icon">
+        <div className="maha-payment-card-field" tabIndex="1">
+          <div className="maha-payment-card-input" tabIndex="1">
+            <div className="maha-payment-card-icon">
               { icon ?
                 <img src={`/admin/images/payments/${icon}.png`} /> :
                 <i className="fa fa-credit-card-alt" />
               }
             </div>
-            <div className="finance-cardfield-number">
+            <div className="maha-payment-card-number">
               <input { ...this._getNumber() } />
             </div>
-            <div className="finance-cardfield-expiration">
+            <div className="maha-payment-card-expiration">
               <input { ...this._getExpiration() } />
             </div>
-            <div className="finance-cardfield-cvv">
+            <div className="maha-payment-card-cvv">
               <input { ...this._getCVV() } />
             </div>
             { (number.length + expirationDate.length + cvv.length) > 0 ?
-              <div className="finance-cardfield-clear" onClick={ this._handleClear }>
+              <div className="maha-payment-card-clear" onClick={ this._handleClear }>
                 <i className="fa fa-times" />
               </div> :
-              <div className="finance-cardfield-clear" />
+              <div className="maha-payment-card-clear" />
             }
           </div>
-          { status === 'loading' ?
-            <button className="ui fluid blue disabled button">
-              <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Processing
-            </button> :
-            <button className="ui fluid blue button" onClick={ this._handleAuthorize }>
-              Submit Payment
-            </button>
+          { error &&
+            <div className="maha-payment-error">{ error }</div>
           }
         </div>
+        { status === 'loading' ?
+          <button className="ui fluid blue disabled button">
+            <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Processing
+          </button> :
+          <button className="ui fluid blue button" onClick={ this._handleValidate }>
+            Submit Payment
+          </button>
+        }
       </div>
     )
   }
 
   componentDidUpdate(prevProps, prevState) {
     const { cvv, expirationDate, number } = this.state
-    const { payment, token } = this.props
+    const { error, payment, token } = this.props
+    if(error !== prevProps.error && error) {
+      this.setState({ error })
+      this.props.onReady(this._handleValidate)
+    }
     if(token !== prevProps.token) {
       this.props.onReady(this._handleValidate)
     }
@@ -186,7 +195,7 @@ class Card extends React.PureComponent {
 
   _handleNumber(e) {
     const number = card.parse(e.target.value)
-    this.setState({ number })
+    this.setState({ number, error: null })
     if(card.isValid(number)) {
       this.expirationDate.focus()
     }
@@ -194,16 +203,15 @@ class Card extends React.PureComponent {
 
   _handleExpiration(e) {
     const expirationDate = e.target.value
-    this.setState({ expirationDate })
+    this.setState({ expirationDate, error: null })
     if(expirationDate.match(/^\d{2}\/\d{2}$/)) {
       this.cvv.focus()
     }
   }
 
   _handleCVV(e) {
-    this.setState({
-      cvv: e.target.value
-    })
+    const cvv = e.target.value
+    this.setState({ cvv, error: null })
   }
 
   _handleClear() {
@@ -235,23 +243,23 @@ class Card extends React.PureComponent {
   _handleValidate() {
     const { onValid } = this.props
     const { number, expirationDate, cvv } = this.state
-    if(!number) return onValid(null, ['Card number is required'])
-    if(!expirationDate) return onValid(null, ['Expiration  is required'])
-    if(!cvv) return onValid(null, ['CVV is required'])
-    if(!creditcard.luhn(number)) {
-      return onValid(null, ['Invalid credit card number'])
-    }
+    if(!number) return this.setState({ error: 'Card number is required' })
+    if(!expirationDate) return this.setState({ error: 'Expiration  is required' })
+    if(!cvv) return this.setState({ error: 'CVV  is required' })
+    // if(!creditcard.luhn(number)) return this.setState({ error: 'Invalid credit card number' })
     const type = creditcard.determineCardType(number)
+    if(!creditcard.doesCvvMatchType(cvv, type)) return this.setState({ error: 'Invalid CVV number for this card type' })
+
     if(!creditcard.doesCvvMatchType(cvv, type)) {
       return onValid(null, ['Invalid CVV number for this card type'])
     }
     const parts = expirationDate.match(/(\d{2})\/(\d{2})/)
     if(parts === null) {
-      return onValid(null, ['Invalid date. Must be in the format MM/YY'])
+      return this.setState({ error: 'Invalid date. Must be in the form MM/YY' })
     } else if(creditcard.isExpired(parts[1],`20${parts[2]}`)) {
-      return onValid(null, ['This date is in the past'])
+      return this.setState({ error: 'This date is in the past' })
     }
-    onValid({ number, expirationDate, cvv })
+    this._handleAuthorize()
   }
 
 }
