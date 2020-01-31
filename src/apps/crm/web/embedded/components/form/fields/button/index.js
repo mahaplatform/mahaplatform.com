@@ -37,7 +37,7 @@ class Button extends React.Component {
 
   _getClass() {
     const { color, processing } = this.props
-    const classes = ['ui',color,'button']
+    const classes = ['ui',' large','fluid',color,'button']
     if(processing) classes.push('disabled')
     return classes.join(' ')
   }

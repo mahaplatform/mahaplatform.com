@@ -79,10 +79,10 @@ class Card extends React.PureComponent {
           }
         </div>
         { isProcessing ?
-          <button className="ui fluid blue disabled button">
+          <button className="ui large fluid blue disabled button">
             <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Processing
           </button> :
-          <button className="ui fluid blue button" onClick={ this._handleValidate }>
+          <button className="ui large fluid blue button" onClick={ this._handleValidate }>
             Submit Payment
           </button>
         }
