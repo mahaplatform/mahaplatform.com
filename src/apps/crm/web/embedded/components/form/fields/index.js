@@ -60,6 +60,12 @@ class Fields extends React.Component {
     )
   }
 
+  componentDidMount() {
+    const { config } = this.props
+    const { captcha } = config.settings
+    if(!captcha) this.props.onSetHuman()
+  }
+  
   _getButton() {
     const { config, human, fields, status } = this.props
     const { settings } = config

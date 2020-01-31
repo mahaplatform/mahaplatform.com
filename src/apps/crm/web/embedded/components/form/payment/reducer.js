@@ -1,4 +1,5 @@
 export const INITIAL_STATE = {
+  method: 'card',
   token: null
 }
 
