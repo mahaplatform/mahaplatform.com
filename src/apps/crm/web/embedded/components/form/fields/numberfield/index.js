@@ -15,7 +15,6 @@ class NumberField extends React.Component {
     ]),
     htmlFor: PropTypes.string,
     placeholder: PropTypes.string,
-    tabIndex: PropTypes.number,
     min: PropTypes.number,
     max: PropTypes.number,
     number_type: PropTypes.string,
@@ -89,10 +88,10 @@ class NumberField extends React.Component {
     const { focused, value } = this.state
     return {
       id: htmlFor,
-      tabIndex,
       className: 'ui input',
       type: 'textfield',
       placeholder: !focused ? placeholder : null,
+      tabIndex,
       value,
       onBlur: this._handleBlur,
       onChange: this._handleUpdate,

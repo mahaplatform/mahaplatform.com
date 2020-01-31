@@ -31,6 +31,8 @@ class ProductField extends React.Component {
     onReady: () => {}
   }
 
+  _handleFocus = this._handleFocus.bind(this)
+
   render() {
     const { products, subtotal, tax, total } = this.props
     return (
@@ -103,8 +105,13 @@ class ProductField extends React.Component {
       tabIndex,
       type: 'text',
       value: product.quantity,
+      onFocus: this._handleFocus,
       onChange: this._handleUpdate.bind(this, product.id)
     }
+  }
+
+  _handleFocus(e) {
+    e.target.select()
   }
 
   _handleChange() {

@@ -64,7 +64,7 @@ class FileField extends React.Component {
             ))}
           </div>
         }
-        <div ref={ node => this.button = node } { ...this._getButton() }>
+        <div { ...this._getButton() }>
           { prompt }
         </div>
       </div>
@@ -101,13 +101,15 @@ class FileField extends React.Component {
   }
 
   _getButton() {
-    const { code, files, multiple } = this.props
+    const { code, files, multiple, tabIndex } = this.props
     return {
       id: code,
       className: 'ui button',
+      ref: node => this.button = node,
       style: {
         display: (multiple || files.length === 0) ? 'inline-block' : 'none'
-      }
+      },
+      tabIndex
     }
   }
 

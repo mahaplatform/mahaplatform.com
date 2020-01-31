@@ -69,7 +69,7 @@ class PhoneField extends React.Component {
   }
 
   _getInput() {
-    const { htmlFor, placeholder } = this.props
+    const { htmlFor, placeholder, tabIndex } = this.props
     const { focused, value } = this.state
     return {
       id: htmlFor,
@@ -77,6 +77,7 @@ class PhoneField extends React.Component {
       type: 'tel',
       placeholder: !focused ? placeholder : null,
       ref: node => this.phone = node,
+      tabIndex,
       value,
       onBlur: this._handleBlur,
       onChange: this._handleUpdate,

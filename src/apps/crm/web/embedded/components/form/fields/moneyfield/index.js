@@ -7,10 +7,10 @@ class MoneyField extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
+    defaultValue: PropTypes.string,
     name: PropTypes.object,
     htmlFor: PropTypes.string,
     placeholder: PropTypes.string,
-    tabIndex: PropTypes.number,
     min: PropTypes.number,
     max: PropTypes.number,
     required: PropTypes.bool,
@@ -74,9 +74,9 @@ class MoneyField extends React.Component {
     const { focused, value } = this.state
     return {
       id: htmlFor,
-      tabIndex,
       type: 'text',
       placeholder: !focused ? placeholder : null,
+      tabIndex,
       value,
       onBlur: this._handleBlur,
       onChange: this._handleUpdate,

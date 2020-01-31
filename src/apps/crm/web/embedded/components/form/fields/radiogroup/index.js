@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
 
 class RadioGroup extends React.Component {
 
@@ -26,19 +27,22 @@ class RadioGroup extends React.Component {
   options = {}
 
   state = {
-    selected: null
+    selected: null,
+    focused: false
   }
 
+  _handleBlur = this._handleBlur.bind(this)
   _handleChange = this._handleChange.bind(this)
+  _handleFocus = this._handleFocus.bind(this)
 
   render() {
     const { options } = this.props
     return (
-      <div className="maha-checkboxes">
+      <div { ...this._getInput() }>
         { options.map((option, index) => (
           <div className="maha-checkbox" key={`option_${index}`} onClick={ this._handleChoose.bind(this, index) }>
             <div className="maha-checkbox-icon">
-              <i { ...this._getOption(option, index) } />
+              <i { ...this._getOption(index) } />
             </div>
             <div className="maha-checkbox-label">
               { option.text }
@@ -50,10 +54,13 @@ class RadioGroup extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue, onReady } = this.props
-    if(defaultValue) this.setState({
-      selected: defaultValue
-    })
+    const { defaultValue, options, onReady } = this.props
+    if(defaultValue) {
+      const selected = _.findIndex(options, {
+        value: defaultValue
+      })
+      this.setState({ selected })
+    }
     onReady()
   }
 
@@ -68,47 +75,67 @@ class RadioGroup extends React.Component {
     }
   }
 
-  _getIcon(option) {
+  _getIcon(index) {
     const { selected } = this.state
-    return option.value === selected ? 'check-circle' : 'circle-o'
+    return index === selected ? 'check-circle' : 'circle-o'
   }
 
-  _getOption(option, index) {
+  _getInput() {
     const { tabIndex } = this.props
     return {
-      className: `fa fa-${this._getIcon(option)}`,
-      ref: node => this.options[index] = node,
+      className: 'maha-checkboxes',
       tabIndex,
-      onKeyDown: this._handleKeyDown.bind(this, index)
+      onBlur: this._handleBlur,
+      onFocus: this._handleFocus,
+      onKeyDown: this._handleKeyDown.bind(this)
     }
   }
 
-  _handleChange() {
-    this.props.onChange(this.state.selected)
+  _getOption(index) {
+    return {
+      className: `fa fa-${this._getIcon(index)}`,
+      ref: node => this.options[index] = node
+    }
   }
 
-  _handleChoose(index) {
-    const { options } = this.props
-    const option = options[index]
+  _handleBlur(e) {
     this.setState({
-      selected: option.value
+      focused: false
     })
   }
 
-  _handleKeyDown(index, e) {
+  _handleFocus(e) {
+    this.setState({
+      focused: true
+    })
+  }
+
+  _handleChange() {
     const { selected } = this.state
     const { options } = this.props
+    this.props.onChange(options[selected].value)
+  }
+
+  _handleChoose(selected) {
+    this.setState({ selected })
+  }
+
+  _handleKeyDown(e) {
+    const { selected } = this.state
+    const { options } = this.props
+    if(e.which === 9) return
     if(e.which === 38) {
-      const option = this.options[index === 0 ? options.length - 1 : index - 1]
+      const option = this.options[selected === 0 ? options.length - 1 : selected - 1]
       if(selected !== null) option.click()
       option.focus()
-    }
-    if(e.which === 40) {
-      const option = this.options[index === options.length - 1 ? 0 : index + 1]
+    } else if(e.which === 40) {
+      const option = this.options[selected === options.length - 1 ? 0 : selected + 1]
       if(selected !== null) option.click()
       option.focus()
+    } else if(e.which === 32) {
+      this._handleChoose(0)
     }
-    if(e.which === 32) this._handleChoose(index)
+    e.preventDefault()
   }
 
   _handleValidate() {

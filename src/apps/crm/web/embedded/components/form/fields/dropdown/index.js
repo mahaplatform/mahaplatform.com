@@ -40,7 +40,7 @@ class Dropdown extends React.Component {
     const { code, options, placeholder } = this.props
     const { value } = this.state
     return (
-      <div className="maha-dropdown" ref={ node => this.control = node }>
+      <div { ...this._getDropdown() }>
         <div id={ code } className={ this._getClass() } onClick={ this._handleOpen }>
           <i className="dropdown icon"></i>
           { value === null ?
@@ -90,12 +90,21 @@ class Dropdown extends React.Component {
 
   _getClass() {
     const { animating, active, direction } = this.state
-    const classes = ['ui','selection','dropdown']
+    const classes = ['ui','fluid','selection','dropdown']
     if(direction) classes.push(direction)
     if(active) classes.push('active')
     if(active && !animating) classes.push('visible')
     if(!active && animating) classes.push('visible')
     return classes.join(' ')
+  }
+
+  _getDropdown() {
+    const { tabIndex } = this.props
+    return {
+      className: 'maha-dropdown',
+      ref: node => this.control = node,
+      tabIndex
+    }
   }
 
   _getMenuClass() {

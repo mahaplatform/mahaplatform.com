@@ -1,3 +1,9 @@
 .maha-dropdown {
-  display: inline-flex;
+  &:focus {
+    outline: none;
+    .ui.dropdown {
+      outline: -webkit-focus-ring-color auto 2px !important;
+      outline-offset: -3px;
+    }
+  }
 }

@@ -100,9 +100,15 @@ class Checkboxes extends React.Component {
 
   _handleKeyDown(index, e) {
     const { options } = this.props
-    if(e.which === 38) this.options[index === 0 ? options.length - 1 : index - 1].focus()
-    if(e.which === 40) this.options[index === options.length - 1 ? 0 : index + 1].focus()
-    if(e.which === 32) this._handleChoose(index)
+    if(e.which === 9) return
+    if(e.which === 38) {
+      this.options[index === 0 ? options.length - 1 : index - 1].focus()
+    } else if(e.which === 40) {
+      this.options[index === options.length - 1 ? 0 : index + 1].focus()
+    } else if(e.which === 32) {
+      this._handleChoose(index)
+    }
+    e.preventDefault()
   }
 
   _handleValidate() {
