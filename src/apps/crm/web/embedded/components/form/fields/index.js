@@ -61,9 +61,11 @@ class Fields extends React.Component {
   }
 
   _getButton() {
-    const { human, status } = this.props
+    const { config, human, fields, status } = this.props
+    const { settings } = config
     const submitting = status === 'submitting'
     return {
+      tabIndex: fields.length + (settings.captcha ? 2 : 1),
       className: human && !submitting ? 'ui blue button' : 'ui blue disabled button',
       onClick: human && !submitting ? this._handleValidate : () => {}
     }

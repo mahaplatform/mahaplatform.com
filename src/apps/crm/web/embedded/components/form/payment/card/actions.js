@@ -1,14 +1,12 @@
-export const submit = (token, data) => ({
+export const authorize = (token, data) => ({
   type: 'CARD_REQUEST',
   token,
   data,
-  request: 'SUBMIT_REQUEST',
-  success: 'SUBMIT_SUCCESS',
-  failure: 'SUBMIT_FAILURE'
+  request: 'AUTHORIZE_REQUEST',
+  success: 'AUTHORIZE_SUCCESS',
+  failure: 'AUTHORIZE_FAILURE'
 })
 
-export const update = (key, value) => ({
-  type: 'UPDATE',
-  key,
-  value
+export const clear = () => ({
+  type: 'CLEAR'
 })
