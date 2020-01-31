@@ -32,9 +32,9 @@ const merged = createSelector(
 
 const reduce = (fields) => fields.reduce((fields, field) => [
   ...fields,
-  ...(field.fields) ? field.fields.reduce((fields, field) => [
+  ...(_.includes(['fields','segment'], field.type)) ? field.fields.reduce((fields, field) => [
     ...fields,
-    ...(field.fields) ? reduce(field.fields) : [field]
+    ...(_.includes(['fields','segment'], field.type)) ? reduce(field.fields) : [field]
   ], []) : [field]
 ], [])
 
@@ -101,7 +101,8 @@ export const isValid = createSelector(
   submittable,
   validated,
   errors,
-  (fields, validated, errors) => Object.keys(errors).length === 0 && fields.find(field => {
+  status,
+  (fields, validated, errors, status) => status === 'validating' && Object.keys(errors).length === 0 && fields.find(field => {
     return !_.includes(validated, field.name)
   }) === undefined
 )

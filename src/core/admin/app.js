@@ -87,6 +87,7 @@ import crmnewcampaign from '../../apps/crm/admin/components/newcampaign'
 import crmphonesfield from '../../apps/crm/admin/components/phonesfield'
 import crmproductfield from '../../apps/crm/admin/components/productfield'
 import crmrecordingfield from '../../apps/crm/admin/components/recordingfield'
+import crmrulesfield from '../../apps/crm/admin/components/rulesfield'
 import crmsharesfield from '../../apps/crm/admin/components/sharesfield'
 import crmsocialDesigner from '../../apps/crm/admin/components/social_designer'
 import crmtimeline from '../../apps/crm/admin/components/timeline'
@@ -338,6 +339,7 @@ class App extends React.Component {
       crmphonesfield,
       crmproductfield,
       crmrecordingfield,
+      crmrulesfield,
       crmsharesfield,
       crmsocialDesigner,
       crmtimeline,

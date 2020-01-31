@@ -62,6 +62,7 @@ class Dropdown extends React.Component {
       </div>
     )
   }
+
   componentDidMount() {
     const { defaultValue, onReady } = this.props
     if(defaultValue) this.setValue(defaultValue)
@@ -110,11 +111,12 @@ class Dropdown extends React.Component {
   }
 
   _getLabel() {
-    const { value } = this.state
-    const { placeholder } = this.props
+    const { placeholder, value, text } = this.props
     const options = this._getOptions()
-    const option = _.find(options, { value })
-    return option ? option.text : placeholder
+    const option = _.find(options, {
+      [value]: this.state.value
+    })
+    return option ? _.get(option, text) : placeholder
   }
 
   _getOptions() {

@@ -4,9 +4,14 @@ import PropTypes from 'prop-types'
 import Settings from './settings'
 import Design from './design'
 import Fields from './fields'
+import Rules from './rules'
 import React from 'react'
 
 class Page extends React.PureComponent {
+
+  static childContextTypes = {
+    form: PropTypes.object
+  }
 
   static propTypes = {
     cid: PropTypes.string,
@@ -27,6 +32,16 @@ class Page extends React.PureComponent {
         <Menu { ...this._getMenu() } />
       </ModalPanel>
     )
+  }
+
+  getChildContext() {
+    const { onPop, onPush } = this.props
+    return {
+      form: {
+        push: onPush,
+        pop: onPop
+      }
+    }
   }
 
   _getDesign() {
@@ -52,7 +67,8 @@ class Page extends React.PureComponent {
       items: [
         { label: 'Fields', component: <Fields { ...this._getFields() } /> },
         { label: 'Design', component: <Design { ...this._getDesign() } /> },
-        { label: 'Settings', component: <Settings { ...this._getSettings() } /> }
+        { label: 'Settings', component: <Settings { ...this._getSettings() } /> },
+        { label: 'Rules', component: <Rules { ...this._getRules() } /> }
       ]
     }
   }
@@ -69,6 +85,16 @@ class Page extends React.PureComponent {
   }
 
   _getSettings() {
+    const { cid, onPop, onPush, onUpdate } = this.props
+    return {
+      cid,
+      onPop,
+      onPush,
+      onUpdate
+    }
+  }
+
+  _getRules() {
     const { cid, onPop, onPush, onUpdate } = this.props
     return {
       cid,
