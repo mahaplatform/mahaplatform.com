@@ -1,18 +1,12 @@
-.error {
+.field-invalid {
   .maha-datefield {
-    .maha-input-placeholder {
-      background: #FFF6F6;
-    }
-    .maha-input-token {
-      background: #FFF6F6;
-      color: #9F3A38;
-    }
+    border-color: @red;
   }
 }
 .maha-datefield {
   border: 1px solid fadeout(@black, 90);
   border-radius: 0.28em;
-  display: inline-flex;
+  display: flex;
   position: relative;
   &:focus {
     outline: -webkit-focus-ring-color auto 2px !important;

@@ -62,8 +62,9 @@ class Field extends React.Component {
   }
 
   _getClass() {
-    const { field, index } = this.props
+    const { error, field, index } = this.props
     const classes = ['field',`field-${index}`]
+    if(error) classes.push('field-invalid')
     if(field.required) classes.push('required')
     return classes.join(' ')
   }
