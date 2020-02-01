@@ -3,6 +3,7 @@ const EmailSerializer = (req, result) => ({
   code: result.get('code'),
   title: result.get('title'),
   config: result.get('config'),
+  program: program(result.related('program')),
   sent: 162,
   delivered: 162,
   opened: 121,
@@ -12,4 +13,11 @@ const EmailSerializer = (req, result) => ({
   updated_at: result.get('updated_at')
 })
 
+const program = (program) => {
+  if(!program.id) return
+  return {
+    id: program.get('id'),
+    title: program.get('title')
+  }
+}
 export default EmailSerializer

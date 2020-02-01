@@ -350,6 +350,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('form_id').unsigned()
+      table.integer('program_id').unsigned()
     })
 
     await knex.schema.createTable('crm_enrollments', (table) => {
@@ -2124,6 +2125,7 @@ const schema = {
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('workflow_id').references('crm_workflows.id')
       table.foreign('form_id').references('crm_forms.id')
+      table.foreign('program_id').references('crm_programs.id')
     })
 
     await knex.schema.table('crm_enrollments', table => {

@@ -35,6 +35,7 @@ class Designer extends React.Component {
     const { campaign } = this.state
     return {
       defaultValue: campaign.config,
+      program_id: campaign.program.id,
       tokens: [
         { title: 'Response Variables', tokens: [
           { name: 'First Name', token: 'response.first_name' },

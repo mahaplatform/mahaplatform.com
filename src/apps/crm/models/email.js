@@ -1,5 +1,6 @@
 import Model from '../../../core/objects/model'
 import Workflow from './workflow'
+import Program from './program'
 import Form from './form'
 
 const Email = new Model({
@@ -12,6 +13,10 @@ const Email = new Model({
 
   form() {
     return this.belongsTo(Form, 'form_id')
+  },
+
+  program() {
+    return this.belongsTo(Program, 'program_id')
   },
 
   workflow() {

@@ -9,6 +9,7 @@ class Settings extends React.Component {
   static propTypes = {
     cid: PropTypes.string,
     config: PropTypes.object,
+    program_id: PropTypes.number,
     onUpdate: PropTypes.func
   }
 
@@ -40,8 +41,8 @@ class Settings extends React.Component {
   }
 
   _getForm() {
+    const { program_id } = this.props
     const { config } = this.state
-    const program_id = 1
     return {
       showHeader: false,
       onChange: this._handleChange,

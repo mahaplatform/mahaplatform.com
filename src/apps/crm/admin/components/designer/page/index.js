@@ -16,6 +16,7 @@ class Page extends React.Component {
     cid: PropTypes.string,
     components: PropTypes.object,
     config: PropTypes.object,
+    program_id: PropTypes.number,
     title: PropTypes.string,
     onPop: PropTypes.func,
     onPreview: PropTypes.func,
@@ -99,9 +100,10 @@ class Page extends React.Component {
   }
 
   _getSettings() {
-    const { cid, onUpdate } = this.props
+    const { cid, program_id, onUpdate } = this.props
     return {
       cid,
+      program_id,
       onUpdate
     }
   }
