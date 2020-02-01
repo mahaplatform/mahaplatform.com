@@ -77,9 +77,10 @@ class Page extends React.Component {
     const { config } = this.props
     if(!config.cover_image) return []
     return [
-      { label: 'Position', name: 'cover_image_position', type: 'dropdown', options: options.cover_positions, defaultValue: config.cover_image_position },
+      { label: 'Caption', name: 'cover_caption', type: 'htmlfield', defaultValue: config.cover_caption },
+      { label: 'Position', name: 'cover_position', type: 'dropdown', options: options.cover_positions, defaultValue: config.cover_position },
       { label: 'Justification', name: 'cover_image_justification', type: 'dropdown', options: options.cover_justifications, defaultValue: config.cover_image_justification },
-      { label: 'Width', name: 'cover_image_width', type: 'dropdown', options: options.cover_widths, defaultValue: config.cover_image_width }
+      { label: 'Width', name: 'cover_width', type: 'dropdown', options: options.cover_widths, defaultValue: config.cover_width }
     ]
   }
 
@@ -88,9 +89,10 @@ class Page extends React.Component {
       background_color: null,
       form_background_color: null,
       cover_image: null,
-      cover_image_position: 'left',
       cover_image_justification: 'center',
-      cover_image_width: 1
+      cover_caption: null,
+      cover_position: 'left',
+      cover_width: 1
     }
   }
 

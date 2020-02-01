@@ -13,7 +13,11 @@ class Layout extends React.Component {
     return (
       <div className={ this._getClass() }>
         { config.page.cover_image &&
-          <div className="maha-form-layout-image" />
+          <div className="maha-form-layout-image">
+            { config.page.cover_caption &&
+              <div className="maha-form-layout-image-caption" dangerouslySetInnerHTML={{ __html: config.page.cover_caption }} />
+            }
+          </div>
         }
         <div className="maha-form-layout-content">
           { this.props.children }

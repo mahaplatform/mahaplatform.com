@@ -56,10 +56,10 @@ class Style extends React.Component {
     const { fields } = config
     const styles = [
       { selector: 'div.maha-form-layout-image', styles: [
-        ...this._getProp('flex', 'page.cover_image_width'),
+        ...this._getProp('flex', 'page.cover_width'),
         ...this._getImage('background-image', 'page.cover_image'),
         ...this._getProp('background-position', 'page.cover_image_justification'),
-        ...this._getProp('order', 'page.cover_image_position')
+        ...this._getProp('order', 'page.cover_position')
       ] },
       { selector: 'div.maha-form-layout-content', styles: [
         ...this._getProp('background-color', 'page.background_color')
