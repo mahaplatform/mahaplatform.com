@@ -5,7 +5,7 @@ import * as selectors from './selectors'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'rulesfield',
+  namespace: 'crm.rulesfield',
   component: Rulesfield,
   reducer,
   selectors,

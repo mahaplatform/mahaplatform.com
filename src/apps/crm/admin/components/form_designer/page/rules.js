@@ -25,8 +25,9 @@ class Rules extends React.Component {
   }
 
   componentDidMount() {
+    const { config } = this.props
     this.setState({
-      rules: this.props.config.rules || []
+      rules: _.get(config, 'rules.rules') || []
     })
   }
 
@@ -59,7 +60,8 @@ class Rules extends React.Component {
     }).map(field => ({
       code: field.code,
       name: field.name.value,
-      type: field.type
+      type: _.get(field, 'contactfield.type') || field.type,
+      options: field.options
     }))
   }
 

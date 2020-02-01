@@ -1,6 +1,22 @@
 .maha-filefield {
   .ui.button {
     margin: 0;
+    position: relative;
+    &.hover:after {
+      border: 1px solid @green;
+      border-radius: 0.3em;
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: fadeout(@green, 85);
+      content: ' ';
+    }
+    &:focus {
+      outline: -webkit-focus-ring-color auto 2px !important;
+      outline-offset: -3px;
+    }
   }
 }
 .maha-filefield-file {

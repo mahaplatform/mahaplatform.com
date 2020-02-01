@@ -4,7 +4,7 @@ import select from '../select'
 import * as actions from '../actions'
 
 export default Factory({
-  namespace: 'maha.checkbox_group',
+  namespace: 'maha.checkboxes',
   component: select(true),
   reducer,
   actions

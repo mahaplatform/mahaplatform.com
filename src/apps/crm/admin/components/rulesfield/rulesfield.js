@@ -12,6 +12,7 @@ class RulesField extends React.Component {
   }
 
   static propTypes = {
+    cid: PropTypes.string,
     defaultValue: PropTypes.array,
     fields: PropTypes.array,
     rules: PropTypes.array,
@@ -71,19 +72,28 @@ class RulesField extends React.Component {
     }
   }
 
+  _getComparison(if_field, rule) {
+    return options.comparisons.find(comparison => {
+      return rule.comparison === comparison.value && _.includes(comparison.types, if_field.type)
+    })
+  }
+
   _getDescription(rule) {
     const { fields } = this.props
     const action = _.find(options.actions, { value: rule.action })
-    const comparison = _.find(options.comparisons, { value: rule.comparison })
     const if_field = _.find(fields, { code: rule.if_code })
     const then_field = _.find(fields, { code: rule.then_code })
-    const parts = ['If',if_field.name,comparison.text,rule.value,', then',action.text,then_field.name]
-    return parts.join(' ')
+    const comparison = this._getComparison(if_field, rule)
+    const parts = [`If ${if_field.name} ${comparison.text}`]
+    if(rule.value) parts.push(` '${rule.value}'`)
+    parts.push(`, then ${action.text} ${then_field.name}`)
+    return parts.join('')
   }
 
   _getRule() {
-    const { fields } = this.props
+    const { cid, fields } = this.props
     return {
+      cid,
       fields,
       onDone: this._handleAdd,
       onCancel: this._handleCancel

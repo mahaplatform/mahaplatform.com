@@ -15,7 +15,32 @@ const validated = (state, props) => state.validated
 
 export const fields = createSelector(
   config,
-  (config, status) => config.fields
+  data,
+  (config, data) => config.fields.filter(field => {
+    const rule = config.rules.rules.find(rule => {
+      return rule.then_code === field.code
+    })
+    if(!rule) return true
+    const value = data[rule.if_code]
+    const show = rule.action === 'show'
+    if(!value) {
+      return rule.comparison === '$nl' ? show : !show
+    } else if(rule.comparison === '$nnl') {
+      return value !== null ? show : !show
+    } else if(rule.comparison === '$eq') {
+      return value === rule.value ? show : !show
+    } else if(rule.comparison === '$neq') {
+      return value !== rule.value ? show : !show
+    } else if(rule.comparison === '$ct') {
+      return value.search(rule.value) > -1 ? show : !show
+    } else if(rule.comparison === '$nct') {
+      return value.search(rule.value) < 0 ? show : !show
+    } else if(rule.comparison === '$in') {
+      return _.includes(rule.value, value) ? show : !show
+    } else if(rule.comparison === '$nin') {
+      return !_.includes(rule.value, value) ? show : !show
+    }
+  })
 )
 
 const submittable = createSelector(

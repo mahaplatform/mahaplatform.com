@@ -36,7 +36,14 @@ class FileField extends React.Component {
   button = null
   resumable = null
 
+  state = {
+    hover: false
+  }
+
+  _handleDragEnter = this._handleDragEnter.bind(this)
+  _handleDragLeave = this._handleDragLeave.bind(this)
   _handleFileAdded = this._handleFileAdded.bind(this)
+  _handleKeyPress = this._handleKeyPress.bind(this)
   _handleUploadProgress = this._handleUploadProgress.bind(this)
   _handleUploadSuccess = this._handleUploadSuccess.bind(this)
   _handleUploadFailure = this._handleUploadFailure.bind(this)
@@ -87,6 +94,7 @@ class FileField extends React.Component {
     this.resumable.on('fileSuccess', this._handleUploadSuccess.bind(this))
     this.resumable.on('fileError', this._handleUploadFailure.bind(this))
     this.resumable.assignBrowse(this.button)
+    this.resumable.assignDrop(this.button)
     onReady()
   }
 
@@ -102,15 +110,36 @@ class FileField extends React.Component {
 
   _getButton() {
     const { code, files, multiple, tabIndex } = this.props
+    const { hover } = this.state
     return {
       id: code,
-      className: 'ui button',
+      className: hover ? 'ui hover button' : 'ui button',
       ref: node => this.button = node,
       style: {
         display: (multiple || files.length === 0) ? 'inline-block' : 'none'
       },
-      tabIndex
+      tabIndex,
+      onKeyPress: this._handleKeyPress,
+      onDragEnter: this._handleDragEnter,
+      onDragLeave: this._handleDragLeave
     }
+  }
+
+  _handleDragEnter(e) {
+    this.setState({
+      hover: true
+    })
+  }
+
+  _handleDragLeave(e) {
+    this.setState({
+      hover: false
+    })
+  }
+
+  _handleKeyPress(e) {
+    if(e.which !== 13) return
+    this.button.click()
   }
 
   _getIcon(file) {
@@ -133,6 +162,9 @@ class FileField extends React.Component {
 
   _handleFileAdded(file) {
     const { name, size, type, uniqueIdentifier } = file.file
+    this.setState({
+      hover: false
+    })
     this.props.onAddFile({
       name,
       size,

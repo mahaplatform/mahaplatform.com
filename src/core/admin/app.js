@@ -33,7 +33,7 @@ import adminformLookup2 from './components/form/lookup2'
 import adminformPhonenumberfield from './components/form/phonenumberfield'
 import adminformProfilefield from './components/form/profilefield'
 import adminform from './components/form'
-import adminformSelectCheckboxGroup from './components/form/select/checkbox_group'
+import adminformSelectCheckboxes from './components/form/select/checkboxes'
 import adminformSelectRadioGroup from './components/form/select/radio_group'
 import adminformSelect from './components/form/select'
 import adminformTablefield from './components/form/tablefield'
@@ -285,7 +285,7 @@ class App extends React.Component {
       adminformPhonenumberfield,
       adminformProfilefield,
       adminform,
-      adminformSelectCheckboxGroup,
+      adminformSelectCheckboxes,
       adminformSelectRadioGroup,
       adminformSelect,
       adminformTablefield,
