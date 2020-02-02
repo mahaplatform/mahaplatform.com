@@ -2,7 +2,11 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-const blocks = ['h1','h2','p','li','input','textarea','.dropdown .item','label','.field-instructions','.maha-checkbox-label','.ui.button']
+const selectors = [
+  { selector: 'h1', blocks: ['h1'] },
+  { selector: 'h2', blocks: ['h2'] },
+  { selector: 'p', blocks: ['p','li','input','textarea','.dropdown .item','label','.field-instructions','.maha-checkbox-label'] }
+]
 
 class Style extends React.Component {
 
@@ -61,29 +65,71 @@ class Style extends React.Component {
         ...this._getProp('background-position', 'cover.image_justification'),
         ...this._getProp('order', 'cover.position')
       ] },
+      { selector: 'div.maha-form-layout-image-caption', styles: [
+        ...this._getProp('background-color', 'cover.background_color')
+      ] },
+      { selector: 'div.maha-form-layout-image-caption p', styles: [
+        ...this._getProp('font-family', 'cover.font_family'),
+        ...this._getProp('font-size', 'cover.font_size', 'px'),
+        ...this._getFormat('font-weight', 'bold', 'cover.format', 'normal'),
+        ...this._getFormat('font-style', 'italic', 'cover.format'),
+        ...this._getFormat('text-decoration', 'underline', 'cover.format'),
+        ...this._getProp('color', 'cover.color'),
+        ...this._getProp('text-align', 'cover.text_align'),
+        ...this._getProp('line-height', 'cover.line_height'),
+        ...this._getProp('letter-spacing', 'cover.letter_spacing', 'px')
+      ] },
+      { selector: 'div.maha-form-layout-image-caption a', styles: [
+        ...this._getProp('color', 'cover.color')
+      ] },
       { selector: 'div.maha-form-layout-content', styles: [
         ...this._getProp('background-color', 'page.background_color')
       ] },
       { selector: 'div.maha-form', styles: [
-        ...this._getProp('background-color', 'page.form_background_color')
-
+        ...this._getProp('background-color', 'form.background_color')
       ] },
-      ...['header','body','footer'].reduce((styles, section) => [
-        ...styles,
-        ...blocks.map(block => ({
-          selector: `div.maha-form-${section} ${block}`, styles: [
-            ...this._getProp('font-family', `${section}.font_family`),
-            ...this._getFormat('font-weight', 'bold', `${section}.format`, 'normal'),
-            ...this._getFormat('font-style', 'italic', `${section}.format`),
-            ...this._getFormat('text-decoration', 'underline', `${section}.format`),
-            ...this._getProp('color', `${section}.color`),
-            ...this._getProp('text-align', `${section}.text_align`),
-            ...this._getProp('line-height', `${section}.line_height`),
-            ...this._getProp('letter-spacing', `${section}.letter_spacing`, 'px')
-          ]
-        }))
+      ...selectors.reduce((selectorStyles, style) => [
+        ...selectorStyles,
+        ...style.blocks.reduce((blockStyles, block) => [
+          ...blockStyles,
+          {
+            selector: `div.maha-form ${block}`, styles: [
+              ...this._getProp('font-family', `page.${style.selector}_font_family`),
+              ...this._getProp('font-size', `page.${style.selector}_font_size`, 'px'),
+              ...this._getFormat('font-weight', 'bold', `page.${style.selector}_format`, 'normal'),
+              ...this._getFormat('font-style', 'italic', `page.${style.selector}_format`),
+              ...this._getFormat('text-decoration', 'underline', `page.${style.selector}_format`),
+              ...this._getProp('color', `page.${style.selector}_color`),
+              ...this._getProp('text-align', `page.${style.selector}_text_align`),
+              ...this._getProp('line-height', `page.${style.selector}_line_height`),
+              ...this._getProp('letter-spacing', `page.${style.selector}_letter_spacing`, 'px')
+            ]
+          }
+        ], [])
       ], []),
-      ...['header','form','footer'].map(section => ({
+      ...['header','body','footer'].reduce((sectionStyles, section) => [
+        ...sectionStyles,
+        ...selectors.reduce((selectorStyles, style) => [
+          ...selectorStyles,
+          ...style.blocks.reduce((blockStyles, block) => [
+            ...blockStyles,
+            {
+              selector: `div.maha-form-${section} ${block}`, styles: [
+                ...this._getProp('font-family', `${section}.${style.selector}_font_family`),
+                ...this._getProp('font-size', `${section}.${style.selector}_font_size`, 'px'),
+                ...this._getFormat('font-weight', 'bold', `${section}.${style.selector}_format`, 'normal'),
+                ...this._getFormat('font-style', 'italic', `${section}.${style.selector}_format`),
+                ...this._getFormat('text-decoration', 'underline', `${section}.${style.selector}_format`),
+                ...this._getProp('color', `${section}.${style.selector}_color`),
+                ...this._getProp('text-align', `${section}.${style.selector}_text_align`),
+                ...this._getProp('line-height', `${section}.${style.selector}_line_height`),
+                ...this._getProp('letter-spacing', `${section}.${style.selector}_letter_spacing`, 'px')
+              ]
+            }
+          ], [])
+        ], [])
+      ], []),
+      ...['header','body','footer'].map(section => ({
         selector: `div.maha-form-${section}`, styles: [
           ...this._getProp('background-color', `${section}.background_color`)
         ]

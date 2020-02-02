@@ -17,6 +17,7 @@ export const fields = createSelector(
   config,
   data,
   (config, data) => config.fields.filter(field => {
+    if(!config.rules) return true
     const rule = config.rules.rules.find(rule => {
       return rule.then_code === field.code
     })

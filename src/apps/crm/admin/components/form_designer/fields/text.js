@@ -73,24 +73,25 @@ class TextForm extends React.Component {
                 this._getBorder('border', 'Border'),
                 { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
               ]
-            }, {
-              label: 'Text Style',
+            },
+            ...options.block_types.map(({ value, text }) => ({
+              label: `${text} Style`,
               fields: [
-                { label: 'Font Family', name: 'font_family', type: 'dropdown', options: options.font_families, defaultValue: config.font_family, format: FontFamilyToken },
+                { label: 'Font Family', name: `${value}_font_family`, type: 'dropdown', options: options.font_families, defaultValue: config[`${value}_font_family`], format: FontFamilyToken },
                 { type: 'fields', fields: [
-                  { label: 'Font Size', name: 'font_size', type: 'dropdown', options: options.font_sizes, defaultValue: config.font_size },
-                  { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color }
+                  { label: 'Font Size', name: `${value}_font_size`, type: 'dropdown', options: options.font_sizes, defaultValue: config[`${value}_font_size`] },
+                  { label: 'Color', name: `${value}_color`, type: 'colorfield', defaultValue: config[`${value}_color`] }
                 ] },
                 { type: 'fields', fields: [
-                  { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format },
-                  { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.text_align }
+                  { label: 'Format', name: `${value}_format`, type: FormatField, defaultValue: config[`${value}_format`] },
+                  { label: 'Alignment', name: `${value}_text_align`, type: AlignmentField, defaultValue: config[`${value}_text_align`] }
                 ] },
                 { type: 'fields', fields: [
-                  { label: 'Line Height', name: 'line_height', type: 'dropdown', options: options.line_heights, defaultValue: config.line_height },
-                  { label: 'Letter Spacing', name: 'letter_spacing', type: 'dropdown', options: options.letter_spacing, defaultValue: config.letter_spacing }
+                  { label: 'Line Height', name: `${value}_line_height`, type: 'dropdown', options: options.line_heights, defaultValue: config[`${value}_line_height`] },
+                  { label: 'Letter Spacing', name: `${value}_letter_spacing`, type: 'dropdown', options: options.letter_spacing, defaultValue: config[`${value}_letter_spacing`] }
                 ] }
               ]
-            }
+            }))
           ]
         }
       ]
@@ -110,7 +111,7 @@ class TextForm extends React.Component {
       font_size: 18,
       color: '#222222',
       format: [],
-      text_align: false,
+      text_align: 'left',
       line_height: 1.5,
       letter_spacing: 0
     }

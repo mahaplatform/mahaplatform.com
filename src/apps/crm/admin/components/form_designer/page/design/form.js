@@ -61,19 +61,23 @@ class Body extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
-            { label: 'Font Family', name: 'font_family', type: 'dropdown', options: options.font_families, defaultValue: config.font_family, format: FontFamilyToken },
+            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color }
+          ]
+        }, {
+          label: 'Text Style',
+          fields: [
+            { label: 'Font Family', name: 'p_font_family', type: 'dropdown', options: options.font_families, defaultValue: config.p_font_family, format: FontFamilyToken },
             { type: 'fields', fields: [
-              { label: 'Font Size', name: 'font_size', type: 'dropdown', options: options.font_sizes, defaultValue: config.font_size },
-              { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color }
+              { label: 'Font Size', name: 'p_font_size', type: 'dropdown', options: options.font_sizes, defaultValue: config.p_font_size },
+              { label: 'Color', name: 'p_color', type: 'colorfield', defaultValue: config.p_color }
             ] },
             { type: 'fields', fields: [
-              { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format },
-              { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.text_align }
+              { label: 'Format', name: 'p_format', type: FormatField, defaultValue: config.p_format },
+              { label: 'Alignment', name: 'p_text_align', type: AlignmentField, defaultValue: config.p_text_align }
             ] },
             { type: 'fields', fields: [
-              { label: 'Line Height', name: 'line_height', type: 'dropdown', options: options.line_heights, defaultValue: config.line_height },
-              { label: 'Letter Spacing', name: 'letter_spacing', type: 'dropdown', options: options.letter_spacing, defaultValue: config.letter_spacing }
+              { label: 'Line Height', name: 'p_line_height', type: 'dropdown', options: options.line_heights, defaultValue: config.p_line_height },
+              { label: 'Letter Spacing', name: 'p_letter_spacing', type: 'dropdown', options: options.letter_spacing, defaultValue: config.p_letter_spacing }
             ] }
           ]
         }
@@ -84,13 +88,12 @@ class Body extends React.Component {
   _getDefault() {
     return {
       background_color: null,
-      font_family: 'Arial, Helvetica, sans-serif',
-      font_size: 18,
-      color: '#222222',
-      format: [],
-      text_align: false,
-      line_height: 1.5,
-      letter_spacing: 0
+      p_font_family: null,
+      p_color: null,
+      p_format: [],
+      p_text_align: 'left',
+      p_line_height: null,
+      p_letter_spacing: null
     }
   }
 

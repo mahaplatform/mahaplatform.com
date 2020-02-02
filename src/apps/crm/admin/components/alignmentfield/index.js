@@ -17,7 +17,7 @@ class AlignmentField extends React.Component {
   }
 
   state = {
-    selected: []
+    selected: null
   }
 
   render() {
@@ -34,7 +34,7 @@ class AlignmentField extends React.Component {
 
   componentDidMount() {
     const { defaultValue } = this.props
-    if(defaultValue) this._handleSet(defaultValue)
+    if(defaultValue) this._handleChoose(defaultValue)
     this.props.onReady()
   }
 
@@ -48,7 +48,7 @@ class AlignmentField extends React.Component {
   _getStyle(style) {
     return {
       className: this._getClass(style),
-      onClick: this._handleSet.bind(this, style.code)
+      onClick: this._handleChoose.bind(this, style.code)
     }
   }
 
@@ -59,8 +59,7 @@ class AlignmentField extends React.Component {
     return classes.join(' ')
   }
 
-  _handleSet(selected) {
-    console.log('alignment', selected)
+  _handleChoose(selected) {
     this.setState({ selected })
   }
 

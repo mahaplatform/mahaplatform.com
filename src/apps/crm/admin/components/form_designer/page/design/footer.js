@@ -58,28 +58,42 @@ class Footer extends React.Component {
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleDone }
       ],
-      sections: [
+      tabs: [
         {
-          fields: [
-            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
-            { label: 'Text', name: 'text', type: 'htmlfield', defaultValue: config.text }
+          label: 'Content',
+          sections: [
+            {
+              fields: [
+                { label: 'Text', name: 'text', type: 'htmlfield', defaultValue: config.text }
+              ]
+            }
           ]
         }, {
-          label: 'Text Style',
-          fields: [
-            { label: 'Font Family', name: 'font_family', type: 'dropdown', options: options.font_families, defaultValue: config.font_family, format: FontFamilyToken },
-            { type: 'fields', fields: [
-              { label: 'Font Size', name: 'font_size', type: 'dropdown', options: options.font_sizes, defaultValue: config.font_size },
-              { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color }
-            ] },
-            { type: 'fields', fields: [
-              { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format },
-              { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.text_align }
-            ] },
-            { type: 'fields', fields: [
-              { label: 'Line Height', name: 'line_height', type: 'dropdown', options: options.line_heights, defaultValue: config.line_height },
-              { label: 'Letter Spacing', name: 'letter_spacing', type: 'dropdown', options: options.letter_spacing, defaultValue: config.letter_spacing }
-            ] }
+          label: 'Styles',
+          sections: [
+            {
+              fields: [
+                { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color }
+              ]
+            },
+            ...options.block_types.map(({ value, text }) => ({
+              label: `${text} Style`,
+              fields: [
+                { label: 'Font Family', name: `${value}_font_family`, type: 'dropdown', options: options.font_families, defaultValue: config[`${value}_font_family`], format: FontFamilyToken },
+                { type: 'fields', fields: [
+                  { label: 'Font Size', name: `${value}_font_size`, type: 'dropdown', options: options.font_sizes, defaultValue: config[`${value}_font_size`] },
+                  { label: 'Color', name: `${value}_color`, type: 'colorfield', defaultValue: config[`${value}_color`] }
+                ] },
+                { type: 'fields', fields: [
+                  { label: 'Format', name: `${value}_format`, type: FormatField, defaultValue: config[`${value}_format`] },
+                  { label: 'Alignment', name: `${value}_text_align`, type: AlignmentField, defaultValue: config[`${value}_text_align`] }
+                ] },
+                { type: 'fields', fields: [
+                  { label: 'Line Height', name: `${value}_line_height`, type: 'dropdown', options: options.line_heights, defaultValue: config[`${value}_line_height`] },
+                  { label: 'Letter Spacing', name: `${value}_letter_spacing`, type: 'dropdown', options: options.letter_spacing, defaultValue: config[`${value}_letter_spacing`] }
+                ] }
+              ]
+            }))
           ]
         }
       ]
@@ -93,8 +107,8 @@ class Footer extends React.Component {
       font_family: null,
       font_size: null,
       color: null,
-      format: null,
-      text_align: null,
+      format: [],
+      text_align: 'left',
       line_height: null,
       letter_spacing: null
     }

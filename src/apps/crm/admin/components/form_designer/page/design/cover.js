@@ -1,3 +1,6 @@
+import FontFamilyToken from '../../../../tokens/fontfamily'
+import AlignmentField from '../../../alignmentfield'
+import FormatField from '../../../formatfield'
 import ImageField from '../../../imagefield'
 import * as options from '../../variables'
 import { connect } from 'react-redux'
@@ -56,14 +59,47 @@ class Cover extends React.Component {
       buttons: [
         { label: 'Done', color: 'red', handler: this._handleDone }
       ],
-      sections: [
+      tabs : [
         {
-          fields: [
-            { label: 'Image', name: 'image', type: ImageField, defaultValue: config.image },
-            { label: 'Caption', name: 'caption', type: 'htmlfield', defaultValue: config.caption },
-            { label: 'Position', name: 'position', type: 'dropdown', options: options.cover_positions, defaultValue: config.position },
-            { label: 'Justification', name: 'image_justification', type: 'dropdown', options: options.cover_justifications, defaultValue: config.image_justification },
-            { label: 'Width', name: 'width', type: 'dropdown', options: options.cover_widths, defaultValue: config.width }
+          label: 'Content',
+          sections: [
+            {
+              fields: [
+                { label: 'Image', name: 'image', type: ImageField, defaultValue: config.image },
+                { label: 'Caption', name: 'caption', type: 'htmlfield', headers: false, defaultValue: config.caption }
+              ]
+            }
+          ]
+        }, {
+          label: 'Style',
+          sections: [
+            {
+              label: 'Image Style',
+              fields: [
+                { label: 'Position', name: 'position', type: 'dropdown', options: options.cover_positions, defaultValue: config.position },
+                { label: 'Justification', name: 'image_justification', type: 'dropdown', options: options.cover_justifications, defaultValue: config.image_justification },
+                { label: 'Width', name: 'width', type: 'dropdown', options: options.cover_widths, defaultValue: config.width }
+              ]
+            }, {
+              label: 'Caption Style',
+              fields: [
+                { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
+                { label: 'Font Family', name: 'font_family', type: 'dropdown', options: options.font_families, defaultValue: config.font_family, format: FontFamilyToken },
+                { type: 'fields', fields: [
+                  { label: 'Font Size', name: 'font_size', type: 'dropdown', options: options.font_sizes, defaultValue: config.font_size },
+                  { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color }
+                ] },
+                { type: 'fields', fields: [
+                  { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format },
+                  { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.text_align }
+                ] },
+                { type: 'fields', fields: [
+                  { label: 'Line Height', name: 'line_height', type: 'dropdown', options: options.line_heights, defaultValue: config.line_height },
+                  { label: 'Letter Spacing', name: 'letter_spacing', type: 'dropdown', options: options.letter_spacing, defaultValue: config.letter_spacing }
+                ] }
+
+              ]
+            }
           ]
         }
       ]
@@ -74,9 +110,17 @@ class Cover extends React.Component {
     return {
       image: null,
       image_justification: 'center',
+      position: 0,
+      width: 1,
       caption: null,
-      position: 'left',
-      width: 1
+      background_color: '#000000',
+      font_family: null,
+      font_size: null,
+      color: '#FFFFFF',
+      format: [],
+      text_align: 'left',
+      line_height: null,
+      letter_spacing: null
     }
   }
 

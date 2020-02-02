@@ -54,14 +54,11 @@ body {
   max-width: 340px;
   left: 0.8em;
   bottom: 0.8em;
-  background-color: @black;
-  color: @white;
   padding: 0.8em;
   h1,h2,p {
     margin: 0;
   }
   a {
-    color: @white;
     text-decoration: underline;
   }
 }
@@ -75,6 +72,7 @@ body {
   max-width: 770px;
   h1, h2, p {
     margin: 0;
+    line-height: 1.5 !important;
   }
 }
 .maha-form-header-image {
@@ -143,10 +141,9 @@ body {
         flex: 1;
         display: flex;
         flex-direction: column;
+        max-width: 100%;
       }
       .maha-form-body,
-      .maha-form-confirmation,
-      .maha-form-closed,
       .maha-payment {
         flex: 1;
         .scrollable()

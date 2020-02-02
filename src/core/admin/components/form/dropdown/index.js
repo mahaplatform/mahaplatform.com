@@ -64,9 +64,15 @@ class Dropdown extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue, onReady } = this.props
-    if(defaultValue) this.setValue(defaultValue)
+    const { options } = this.props
     document.addEventListener('mousedown', this._handleClose)
+    const { defaultValue, onReady } = this.props
+    if(!_.isNil(defaultValue)) {
+      const option = options.find(option => {
+        return option.value === defaultValue
+      })
+      this.setValue(option ? option.value : null)
+    }
     onReady()
   }
 

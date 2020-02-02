@@ -134,7 +134,7 @@ class Share extends React.Component {
       font_size: null,
       color: null,
       format: null,
-      text_align: null,
+      text_align: 'left',
       line_height: null,
       letter_spacing: null,
       align: 'center',

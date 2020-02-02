@@ -10,7 +10,11 @@ class Closed extends React.Component {
   render() {
     const { config } = this.props
     const { closed_message } = config.settings
-    return <div className="maha-form-closed" dangerouslySetInnerHTML={{ __html: closed_message }} />
+    return (
+      <div className="maha-form-body">
+        <div className="maha-form-closed" dangerouslySetInnerHTML={{ __html: closed_message }} />
+      </div>
+    )
   }
 
 }

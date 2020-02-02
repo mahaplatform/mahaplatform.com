@@ -7,6 +7,7 @@ class HtmlField extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.string,
+    headers: PropTypes.bool,
     state: PropTypes.object,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
@@ -16,6 +17,7 @@ class HtmlField extends React.Component {
 
   static defaultProps = {
     defaultValue: '',
+    headers: true,
     onChange: (value) => {},
     onReady: () => {}
   }
@@ -49,13 +51,17 @@ class HtmlField extends React.Component {
   }
 
   _getEditor() {
+    const { headers } = this.props
     const { value } = this.state
     return {
       value,
       onChange: this._handleUpdate,
       modules: {
         toolbar: [
-          [{ header: 1 },{ header: 2 },'bold', 'italic', 'underline'],
+          [
+            ...headers ? [{ header: 1 },{ header: 2 }] : [],
+            'bold', 'italic', 'underline'
+          ],
           [{ list: 'ordered' },{ list: 'bullet' },'align'],
           ['link']
         ]

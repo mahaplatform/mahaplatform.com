@@ -52,8 +52,10 @@ const createRoute = async (req, res) => {
         button_text: 'Submit'
       },
       page: {
-        background_color: '#EEEEEE',
-        form_background_color: '#FFFFFF'
+        background_color: '#EEEEEE'
+      },
+      body: {
+        background_color: '#FFFFFF'
       }
     }
   }).save(null, {
@@ -79,6 +81,7 @@ const createRoute = async (req, res) => {
   const email = await Email.forge({
     team_id: req.team.get('id'),
     form_id: form.get('id'),
+    program_id: program.get('id'),
     title: 'Confirmation',
     code: emailCode,
     config: template ? template.get('config') : {
