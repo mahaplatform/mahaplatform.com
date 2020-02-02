@@ -43,7 +43,7 @@ class Body extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { config } = this.state
     if(!_.isEqual(config, prevState.config)) {
-      this.props.onUpdate('form', config)
+      this.props.onUpdate('body', config)
     }
   }
 

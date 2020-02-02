@@ -2,6 +2,7 @@ import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Header from './header'
 import Footer from './footer'
+import Cover from './cover'
 import React from 'react'
 import Page from './page'
 import Form from './form'
@@ -37,14 +38,15 @@ class Design extends React.Component {
 
   _getSections() {
     return [
-      { label: 'Page', code: 'page', component: Page, props: this._getSection('page') },
-      { label: 'Header', code: 'form', component: Header, props: this._getSection('header') },
-      { label: 'Form', code: 'form', component: Form, props: this._getSection('form') },
-      { label: 'Footer', code: 'form', component: Footer, props: this._getSection('footer') }
+      { label: 'Page', code: 'page', component: Page, props: this._getSection() },
+      { label: 'Cover', code: 'cover', component: Cover, props: this._getSection() },
+      { label: 'Header', code: 'form', component: Header, props: this._getSection() },
+      { label: 'Form', code: 'form', component: Form, props: this._getSection() },
+      { label: 'Footer', code: 'form', component: Footer, props: this._getSection() }
     ]
   }
 
-  _getSection(section) {
+  _getSection() {
     const { cid, components, onPop, onPush, onUpdate } = this.props
     return {
       cid,

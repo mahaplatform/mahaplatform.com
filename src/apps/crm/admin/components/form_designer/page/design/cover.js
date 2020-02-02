@@ -6,7 +6,7 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class Page extends React.Component {
+class Cover extends React.Component {
 
   static propTypes = {
     cid: PropTypes.string,
@@ -41,14 +41,14 @@ class Page extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { config } = this.state
     if(!_.isEqual(config, prevState.config)) {
-      this.props.onUpdate('page', config)
+      this.props.onUpdate('cover', config)
     }
   }
 
   _getForm() {
     const { config } = this.state
     return {
-      title: 'Page',
+      title: 'Cover',
       onCancel: this._handleDone,
       onChange: this._handleChange,
       cancelIcon: 'chevron-left',
@@ -59,8 +59,11 @@ class Page extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
-            { label: 'Form Background Color', name: 'form_background_color', type: 'colorfield', defaultValue: config.form_background_color }
+            { label: 'Image', name: 'image', type: ImageField, defaultValue: config.image },
+            { label: 'Caption', name: 'caption', type: 'htmlfield', defaultValue: config.caption },
+            { label: 'Position', name: 'position', type: 'dropdown', options: options.cover_positions, defaultValue: config.position },
+            { label: 'Justification', name: 'image_justification', type: 'dropdown', options: options.cover_justifications, defaultValue: config.image_justification },
+            { label: 'Width', name: 'width', type: 'dropdown', options: options.cover_widths, defaultValue: config.width }
           ]
         }
       ]
@@ -69,8 +72,11 @@ class Page extends React.Component {
 
   _getDefault() {
     return {
-      background_color: null,
-      form_background_color: null
+      image: null,
+      image_justification: 'center',
+      caption: null,
+      position: 'left',
+      width: 1
     }
   }
 
@@ -96,7 +102,7 @@ class Page extends React.Component {
 }
 
 const mapStateToProps = (state, props) => ({
-  config: state.crm.form_designer[props.cid].config.page
+  config: state.crm.form_designer[props.cid].config.cover
 })
 
-export default connect(mapStateToProps)(Page)
+export default connect(mapStateToProps)(Cover)
