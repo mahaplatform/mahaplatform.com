@@ -5,6 +5,7 @@ class Button extends React.Component {
 
   static propTypes = {
     color: PropTypes.string,
+    disabled: PropTypes.bool,
     label: PropTypes.string,
     processing: PropTypes.bool,
     tabIndex: PropTypes.number,
@@ -36,9 +37,9 @@ class Button extends React.Component {
   }
 
   _getClass() {
-    const { color, processing } = this.props
+    const { color, disabled, processing } = this.props
     const classes = ['ui',' large','fluid',color,'button']
-    if(processing) classes.push('disabled')
+    if(disabled || processing) classes.push('disabled')
     return classes.join(' ')
   }
 

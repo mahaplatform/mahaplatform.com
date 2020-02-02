@@ -68,6 +68,7 @@ class Fields extends React.Component {
     const processing = status === 'submitting'
     return {
       color: 'blue',
+      disabled: !human,
       label: requiresPayment ? 'Proceed to Payment' : button_text,
       processing,
       tabIndex: fields.length + (captcha ? 2 : 1),

@@ -36,8 +36,8 @@ class Checkboxes extends React.Component {
     return (
       <div className="maha-checkboxes">
         { options.map((option, index) => (
-          <div className="maha-checkbox" key={`option_${index}`}>
-            <div className="maha-checkbox-icon" onClick={ this._handleChoose.bind(this, index) }>
+          <div className="maha-checkbox" key={`option_${index}`} onClick={ this._handleChoose.bind(this, index) }>
+            <div className="maha-checkbox-icon">
               <i { ...this._getOption(option, index) } />
             </div>
             <div className="maha-checkbox-label">
@@ -68,32 +68,41 @@ class Checkboxes extends React.Component {
     }
   }
 
-  _getIcon(option) {
+  _getIcon(index) {
     const { selected } = this.state
-    return _.includes(selected, option.value) ? 'check-square' : 'square-o'
+    return _.includes(selected, index) ? 'check-square' : 'square-o'
   }
 
   _getOption(option, index) {
     const { tabIndex } = this.props
     return {
-      className: `fa fa-${this._getIcon(option)}`,
+      className: `fa fa-${this._getIcon(index)}`,
       ref: node => this.options[index] = node,
       tabIndex,
       onKeyDown: this._handleKeyDown.bind(this, index)
     }
   }
 
+  _getValue() {
+    const { selected } = this.state
+    const { options } = this.props
+    return options.filter((option, index) => {
+      return _.includes(selected, index)
+    }).map(option => {
+      return option.value
+    })
+  }
+
   _handleChange() {
-    this.props.onChange(this.state.selected)
+    const value = this._getValue()
+    this.props.onChange(value)
   }
 
   _handleChoose(index) {
     const { selected } = this.state
-    const { options } = this.props
-    const option = options[index]
     this.setState({
       selected: [
-        ..._.xor(selected, [option.value])
+        ..._.xor(selected, [index])
       ]
     })
   }
@@ -115,9 +124,10 @@ class Checkboxes extends React.Component {
     const { required } = this.props
     const { selected } = this.state
     if(required && selected.length === 0) {
-      this.props.onValidate(selected, 'You must choose at least one value')
+      this.props.onValidate(null, 'You must choose at least one value')
     } else {
-      this.props.onValidate(selected)
+      const value = this._getValue()
+      this.props.onValidate(value)
     }
   }
 

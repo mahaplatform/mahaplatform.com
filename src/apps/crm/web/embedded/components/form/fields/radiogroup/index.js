@@ -98,6 +98,12 @@ class RadioGroup extends React.Component {
     }
   }
 
+  _getValue() {
+    const { options } = this.props
+    const { selected } = this.state
+    return selected ? options[selected].value : null
+  }
+
   _handleBlur(e) {
     this.setState({
       focused: false
@@ -111,9 +117,8 @@ class RadioGroup extends React.Component {
   }
 
   _handleChange() {
-    const { selected } = this.state
-    const { options } = this.props
-    this.props.onChange(options[selected].value)
+    const value = this._getValue()
+    this.props.onChange(value)
   }
 
   _handleChoose(selected) {
@@ -142,9 +147,10 @@ class RadioGroup extends React.Component {
     const { required } = this.props
     const { selected } = this.state
     if(required && selected === null) {
-      this.props.onValidate(selected, 'You must choose a value')
+      this.props.onValidate(null, 'You must choose a value')
     } else {
-      this.props.onValidate(selected)
+      const value = this._getValue()
+      this.props.onValidate(value)
     }
   }
 

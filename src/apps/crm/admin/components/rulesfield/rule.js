@@ -69,7 +69,7 @@ class Rule extends React.Component {
       { name: 'comparison', type: 'radiogroup', options: comparisons, required: true }
     ]
     if(_.includes(['radiogroup','dropdown','checkboxes'], field.type)) {
-      if(_.includes(['$in','$nin'], rule.comparison)) {
+      if(_.includes(['$in','$nin','$int','$nint'], rule.comparison)) {
         items.push({ name: 'value', type: 'checkboxes', options: field.options, required: true })
       } else if(_.includes(['$eq','$neq'], rule.comparison)) {
         items.push({ name: 'value', type: 'radiogroup', options: field.options, required: true })

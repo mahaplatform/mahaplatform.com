@@ -39,6 +39,10 @@ export const fields = createSelector(
       return _.includes(rule.value, value) ? show : !show
     } else if(rule.comparison === '$nin') {
       return !_.includes(rule.value, value) ? show : !show
+    } else if(rule.comparison === '$int') {
+      return _.intersection(rule.value, value).length > 0 ? show : !show
+    } else if(rule.comparison === '$nint') {
+      return _.intersection(rule.value, value).length === 0 ? show : !show
     }
   })
 )

@@ -30,7 +30,7 @@ class Dropdown extends React.Component {
     animating: false,
     direction: null,
     show: false,
-    value: null
+    selected: null
   }
 
   _handleOpen = this._handleOpen.bind(this)
@@ -38,14 +38,14 @@ class Dropdown extends React.Component {
 
   render() {
     const { code, options, placeholder } = this.props
-    const { value } = this.state
+    const { selected } = this.state
     return (
       <div { ...this._getDropdown() }>
         <div id={ code } className={ this._getClass() } onClick={ this._handleOpen }>
           <i className="dropdown icon"></i>
-          { value === null ?
+          { selected === null ?
             <div className="default text">{ placeholder }</div> :
-            <div className="text">{ options[value].text }</div>
+            <div className="text">{ options[selected].text }</div>
           }
           <div className={ this._getMenuClass() }>
             { options.map((option, index) => (
@@ -66,9 +66,9 @@ class Dropdown extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    const { show, value } = this.state
+    const { show, selected } = this.state
     const { status } = this.props
-    if(value !== prevState.value) {
+    if(selected !== prevState.selected) {
       this._handleChange()
     }
     if(show !== prevState.show) {
@@ -118,15 +118,20 @@ class Dropdown extends React.Component {
     return classes.join(' ')
   }
 
-  _handleChange() {
+  _getValue() {
     const { options } = this.props
-    const { value } = this.state
-    this.props.onChange(options[value].value)
+    const { selected } = this.state
+    return selected ? options[selected].value : null
   }
 
-  _handleChoose(value) {
+  _handleChange() {
+    const value = this._getValue()
+    this.props.onChange(value)
+  }
+
+  _handleChoose(selected) {
     this.setState({
-      value,
+      selected,
       active: false
     })
   }
@@ -152,12 +157,13 @@ class Dropdown extends React.Component {
   }
 
   _handleValidate() {
-    const { options, required } = this.props
-    const { value } = this.state
-    if(required && value === null) {
+    const { required } = this.props
+    const { selected } = this.state
+    if(required && selected === null) {
       this.props.onValidate(null, 'You must choose a value')
-    } else if(value !== null) {
-      this.props.onValidate(options[value].value)
+    } else {
+      const value = this._getValue()
+      this.props.onValidate(value)
     }
   }
 
