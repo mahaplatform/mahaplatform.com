@@ -1,32 +1,42 @@
+import AddressField from '../../fields/addressfield'
+import TextField from '../../fields/textfield'
+import DropDown from '../../fields/dropdown'
 import PropTypes from 'prop-types'
 import React from 'react'
-
-const mandate = 'By clicking "Pay", I authorize Braintree, a service of PayPal, on behalf of [your business name here] (i) to verify my bank account information using bank information and consumer reports and (ii) to debit my bank account.'
 
 class ACH extends React.Component {
 
   static propTypes = {
     accountNumber: PropTypes.string,
     accountType: PropTypes.string,
+    address: PropTypes.object,
+    error: PropTypes.string,
     firstName: PropTypes.string,
+    form: PropTypes.object,
+    isProcessing: PropTypes.bool,
     lastName: PropTypes.string,
     locality: PropTypes.string,
     ownershipType: PropTypes.string,
     payment: PropTypes.object,
     postalCode: PropTypes.string,
+    program: PropTypes.object,
     region: PropTypes.string,
     routingNumber: PropTypes.string,
+    status: PropTypes.string,
     streetAddress: PropTypes.string,
     summary: PropTypes.object,
     token: PropTypes.string,
+    onAuthorize: PropTypes.func,
     onSubmit: PropTypes.func,
     onSuccess: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
+  _handleAuthorize = this._handleAuthorize.bind(this)
   _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
+    const { error, isProcessing } = this.props
     return (
       <div className="maha-payment-ach">
         <div className="maha-payment-label">Bank Account</div>
@@ -35,74 +45,153 @@ class ACH extends React.Component {
             <div className="two fields">
               <div className="field">
                 <label>Routing Number</label>
-                <input { ...this._getInput('routingNumber', '123456789') } />
+                <TextField { ...this._getInput('routingNumber', 'Enter routing number') } />
               </div>
               <div className="field">
                 <label>Account Number</label>
-                <input { ...this._getInput('accountNumber', '123456789') } />
+                <TextField { ...this._getInput('accountNumber', 'Enter account number') } />
               </div>
             </div>
             <div className="two fields">
               <div className="field">
                 <label>Account Type</label>
-                <input { ...this._getInput('accountType', 'Account Type') } />
+                <DropDown { ...this._getAccountType() } />
               </div>
               <div className="field">
                 <label>Ownership Type</label>
-                <input { ...this._getInput('ownershipType', 'Type') } />
+                <DropDown { ...this._getOwnershipType() } />
               </div>
             </div>
             <div className="two fields">
               <div className="field">
                 <label>First Name</label>
-                <input { ...this._getInput('firstName', 'First Name') } />
+                <TextField { ...this._getInput('firstName', 'Enter first name') } />
               </div>
               <div className="field">
                 <label>Last Name</label>
-                <input { ...this._getInput('lastName', 'Last Name') } />
+                <TextField { ...this._getInput('lastName', 'Enter last name') } />
               </div>
             </div>
             <div className="field">
               <label>Address</label>
-              <input { ...this._getInput('address', 'Address') } />
+              <AddressField { ...this._getAddressField() }/>
             </div>
           </div>
         </div>
+        { error &&
+          <div className="maha-payment-error">{ error }</div>
+        }
         <p className="maha-payment-mandate">
-          { mandate }
+          { this._getMandate() }
         </p>
-        <button className="ui large fluid blue button" onClick={ this._handleSubmit }>
-          Submit Payment
-        </button>
+        { isProcessing ?
+          <button className="ui large fluid blue disabled button">
+            <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Processing
+          </button> :
+          <button className="ui large fluid blue button" onClick={ this._handleAuthorize }>
+            Submit Payment
+          </button>
+        }
       </div>
     )
   }
 
-  componentDidUpdate(prevProps) {
-    const { payment, onSuccess } = this.props
-    if(payment !== prevProps.payment) {
-      onSuccess(payment)
+  componentDidUpdate(prevProps, prevState) {
+    const { error, status } = this.props
+    if(error !== prevProps.error && error) {
+      this.setState({ error })
+    }
+    if(status !== prevProps.status) {
+      if(status === 'authorized') {
+        this._handleSubmit()
+      }
+      if(status === 'success') {
+        this._handleSuccess()
+      }
+    }
+  }
+
+  _getMandate() {
+    const { program } = this.props
+    return `
+      By clicking "Pay", I authorize Braintree, a service of PayPal, on behalf
+      of ${program.title} (i) to verify my bank account information using bank
+      information and consumer reports and (ii) to debit my bank account.
+    `
+  }
+
+  _getAccountType() {
+    return {
+      options: [
+        { value: 'checking', text: 'Checking' },
+        { value: 'savings', text: 'Savings' }
+      ],
+      placeholder: 'Choose a type',
+      onChange: this._handleUpdate.bind(this, 'accountType')
+    }
+  }
+
+  _getAddressField() {
+    return {
+      placeholder: 'Enter address',
+      onChange: this._handleUpdate.bind(this, 'address')
+    }
+  }
+
+  _getOwnershipType() {
+    return {
+      options: [
+        { value: 'personal', text: 'Personal' },
+        { value: 'business', text: 'Business' }
+      ],
+      placeholder: 'Choose a type',
+      onChange: this._handleUpdate.bind(this, 'ownershipType')
     }
   }
 
   _getInput(name, placeholder) {
     return {
-      type: 'text',
       placeholder,
       onChange: this._handleUpdate.bind(this, name),
       value: this.props[name]
     }
   }
 
-  _handleSubmit() {
-    const { accountNumber, routingNumber, token, ownershipType, accountType, firstName, lastName, streetAddress, locality, region, postalCode } = this.props
-    const billingAddress = { streetAddress, locality, region, postalCode }
+  _handleAuthorize() {
+    const { accountNumber, routingNumber, token, ownershipType, accountType, firstName, lastName, address } = this.props
+    const billingAddress = {
+      streetAddress: address.street_1,
+      locality: address.city,
+      region: address.state_province,
+      postalCode: address.postal_code
+    }
     const data = { accountNumber, routingNumber, ownershipType, accountType, firstName, lastName, billingAddress }
-    this.props.onSubmit(token, data, mandate)
+    const mandate = this._getMandate()
+    this.props.onAuthorize(token, data, mandate)
   }
 
-  _handleUpdate(name, e) {
-    this.props.onUpdate(name, e.target.value)
+  _handleSubmit() {
+    const { form, payment, summary } = this.props
+    const { token, code, data } = form
+    const body = {
+      ...data,
+      payment: {
+        amount: summary.total,
+        method: 'ach',
+        payment
+      }
+    }
+    this.props.onSubmit(token, code, body)
+  }
+
+  _handleSuccess() {
+    const { payment } = this.props
+    this.props.onSuccess(payment)
+  }
+
+
+  _handleUpdate(name, value) {
+    this.props.onUpdate(name, value)
   }
 
 }

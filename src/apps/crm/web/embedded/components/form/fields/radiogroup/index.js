@@ -101,7 +101,7 @@ class RadioGroup extends React.Component {
   _getValue() {
     const { options } = this.props
     const { selected } = this.state
-    return selected ? options[selected].value : null
+    return !_.isNil(selected) ? options[selected].value : null
   }
 
   _handleBlur(e) {
