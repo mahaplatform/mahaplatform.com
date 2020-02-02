@@ -50,29 +50,31 @@ class Card extends React.PureComponent {
     return (
       <div className="maha-payment-card">
         <div className="maha-payment-label">Credit Card</div>
-        <div className="maha-payment-card-field" tabIndex="1">
-          <div className="maha-payment-card-input" tabIndex="1">
-            <div className="maha-payment-card-icon">
-              { icon ?
-                <img src={`/admin/images/payments/${icon}.png`} /> :
-                <i className="fa fa-credit-card-alt" />
+        <div className="maha-payment-form">
+          <div className="maha-payment-card-field" tabIndex="1">
+            <div className="maha-payment-card-input" tabIndex="1">
+              <div className="maha-payment-card-icon">
+                { icon ?
+                  <img src={`/admin/images/payments/${icon}.png`} /> :
+                  <i className="fa fa-credit-card-alt" />
+                }
+              </div>
+              <div className="maha-payment-card-number">
+                <input { ...this._getNumber() } />
+              </div>
+              <div className="maha-payment-card-expiration">
+                <input { ...this._getExpiration() } />
+              </div>
+              <div className="maha-payment-card-cvv">
+                <input { ...this._getCVV() } />
+              </div>
+              { (number.length + expirationDate.length + cvv.length) > 0 ?
+                <div className="maha-payment-card-clear" onClick={ this._handleClear }>
+                  <i className="fa fa-times" />
+                </div> :
+                <div className="maha-payment-card-clear" />
               }
             </div>
-            <div className="maha-payment-card-number">
-              <input { ...this._getNumber() } />
-            </div>
-            <div className="maha-payment-card-expiration">
-              <input { ...this._getExpiration() } />
-            </div>
-            <div className="maha-payment-card-cvv">
-              <input { ...this._getCVV() } />
-            </div>
-            { (number.length + expirationDate.length + cvv.length) > 0 ?
-              <div className="maha-payment-card-clear" onClick={ this._handleClear }>
-                <i className="fa fa-times" />
-              </div> :
-              <div className="maha-payment-card-clear" />
-            }
           </div>
           { error &&
             <div className="maha-payment-error">{ error }</div>

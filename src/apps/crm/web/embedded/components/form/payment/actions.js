@@ -6,3 +6,8 @@ export const fetch = (types) => ({
   success: 'FETCH_SUCCESS',
   failure: 'FETCH_FAILURE'
 })
+
+export const setMethod = (method) => ({
+  type: 'SET_METHOD',
+  method
+})

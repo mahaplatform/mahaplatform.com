@@ -18,6 +18,7 @@ class Payment extends React.Component {
     summary: PropTypes.object,
     token: PropTypes.string,
     onFetch: PropTypes.func,
+    onSetMethod: PropTypes.func,
     onSuccess: PropTypes.func
   }
 
@@ -27,15 +28,17 @@ class Payment extends React.Component {
     const { status } = this.props
     const Method = this._getComponent()
     return (
-      <div className="maha-payment">
-        { status === 'loading' &&
-          <div className="ui active inverted dimmer">
-            <div className="ui large text loader">Loading</div>
-          </div>
-        }
-        <Summary { ...this._getSummary() } />
-        <Methods { ...this._getMethods() } />
-        <Method { ...this._getMethod() } />
+      <div className="maha-form-body">
+        <div className="maha-payment">
+          { status === 'loading' &&
+            <div className="ui active inverted dimmer">
+              <div className="ui large text loader">Loading</div>
+            </div>
+          }
+          <Summary { ...this._getSummary() } />
+          <Methods { ...this._getMethods() } />
+          <Method { ...this._getMethod() } />
+        </div>
       </div>
     )
   }
@@ -60,11 +63,16 @@ class Payment extends React.Component {
   }
 
   _getMethods() {
-    const { program, summary, token } = this.props
+    const { onSetMethod } = this.props
     return {
-      program,
-      token,
-      summary
+      methods: [
+        { label: 'Credit Card', mark: 'card-mark.png', value: 'card' },
+        { label: 'Bank Account', mark: 'ach-mark.png', value: 'ach' },
+        { label: 'Google Pay', mark: 'googlepay-mark.png', value: 'googlepay' },
+        { label: 'Pay Pal', mark: 'paypal-mark.png', value: 'paypal' },
+        { label: 'Apple Pay', mark: 'applepay-mark.png', value: 'applepay' }
+      ],
+      onChoose: onSetMethod
     }
   }
 

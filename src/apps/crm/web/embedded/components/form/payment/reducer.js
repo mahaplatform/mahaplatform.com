@@ -21,6 +21,12 @@ const reducer = (state = INITIAL_STATE, action) => {
       status: 'ready'
     }
 
+  case 'SET_METHOD':
+    return {
+      ...state,
+      method: action.method
+    }
+
   default:
     return state
 

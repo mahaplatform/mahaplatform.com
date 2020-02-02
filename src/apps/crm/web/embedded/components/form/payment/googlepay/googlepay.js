@@ -20,10 +20,13 @@ class Card extends React.Component {
   _handlePayment = this._handlePayment.bind(this)
 
   render() {
-    if(!this.state.ready) return null
+    const { ready } = this.state
     return (
       <div className="googlepay-button">
-        <button className="gpay-button black short" onClick={ this._handlePayment } />
+        { ready ?
+          <button className="gpay-button black short" onClick={ this._handlePayment } /> :
+          <i className="fa fa-circle-o-notch fa-spin fa-fw" />
+        }
       </div>
     )
   }

@@ -1,15 +1,11 @@
 export const INITIAL_STATE = {
   payment: null,
-  routingNumber: '011000015',
-  accountNumber: '1000000000',
-  ownershipType: 'personal',
-  accountType: 'checking',
-  firstName: 'Greg',
-  lastName: 'Kops',
-  streetAddress: '322 S Geneva St',
-  locality: 'Ithaca',
-  region: 'NY',
-  postalCode: '14850'
+  routingNumber: '',
+  accountNumber: '',
+  ownershipType: '',
+  accountType: '',
+  firstName: '',
+  lastName: ''
 }
 
 const reducer = (state = INITIAL_STATE, action) => {

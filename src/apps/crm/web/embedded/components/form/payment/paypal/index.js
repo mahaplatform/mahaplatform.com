@@ -22,7 +22,11 @@ class PayPal extends React.Component {
   }
 
   render() {
-    return <div id="paypal-button" />
+    return (
+      <div className="paypal-button">
+        <div id="paypal-button" />
+      </div>
+    )
   }
 
   componentDidMount() {
