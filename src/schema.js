@@ -1141,6 +1141,15 @@ const schema = {
       table.string('code', 255)
     })
 
+    await knex.schema.createTable('maha_aliases', (table) => {
+      table.increments('id').primary()
+      table.integer('team_id').unsigned()
+      table.string('src', 255)
+      table.string('destination', 255)
+      table.timestamp('created_at')
+      table.timestamp('updated_at')
+    })
+
     await knex.schema.createTable('maha_apps', (table) => {
       table.increments('id').primary()
       table.string('code', 255)
@@ -2840,6 +2849,10 @@ const schema = {
     })
 
     await knex.schema.table('training_trainings', table => {
+      table.foreign('team_id').references('maha_teams.id')
+    })
+
+    await knex.schema.table('maha_aliases', table => {
       table.foreign('team_id').references('maha_teams.id')
     })
 
