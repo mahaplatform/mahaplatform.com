@@ -154,7 +154,7 @@ const adminWatch = async () => {
         ...apps,
         `/${path}/**`
       ], []),
-      ...'v,c,ns,so'.split(',').reduce((proxies, path) => [
+      ...'v,c,ns,so,foo'.split(',').reduce((proxies, path) => [
         ...proxies,
         `/${path}*`
       ], [])

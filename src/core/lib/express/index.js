@@ -9,6 +9,7 @@ import legacyMiddleware from './legacy'
 import serverMiddleware from './server'
 import staticMiddleware from './static'
 import emailMiddleware from './email'
+import aliasMiddleware from './alias'
 import bodyParser from 'body-parser'
 import homeMiddleware from './home'
 import apiMiddleware from './api'
@@ -51,6 +52,8 @@ server.use('/imagecache', imagecache)
 //server.use('/caman', caman)
 
 server.use('/.well-known', deeplinkMiddleware)
+
+server.use(aliasMiddleware)
 
 server.use(staticMiddleware)
 
