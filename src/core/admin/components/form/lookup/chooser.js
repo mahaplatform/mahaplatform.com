@@ -75,11 +75,12 @@ class Chooser extends React.Component {
   }
 
   _getSearch() {
-    const { chosen, endpoint, format, multiple, options, search, text } = this.props
+    const { chosen, endpoint, format, label, multiple, options, search, text } = this.props
     return {
       defaultValue: chosen,
       endpoint,
       format,
+      label,
       multiple,
       options,
       search,
