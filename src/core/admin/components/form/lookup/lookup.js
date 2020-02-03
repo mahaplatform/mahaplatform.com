@@ -104,7 +104,7 @@ class Lookup extends React.Component {
   }
 
   _getChooser() {
-    const { chosen, endpoint, form, format, label, options, text, value, onChoose } = this.props
+    const { chosen, endpoint, form, format, label, options, search, text, value, onChoose } = this.props
     return {
       chosen,
       endpoint,
@@ -112,6 +112,7 @@ class Lookup extends React.Component {
       format,
       label,
       options,
+      search,
       text,
       value,
       onChoose

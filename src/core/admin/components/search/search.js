@@ -20,6 +20,7 @@ class Search extends React.Component {
     options: PropTypes.any,
     prompt: PropTypes.string,
     q: PropTypes.string,
+    search: PropTypes.bool,
     selected: PropTypes.any,
     sort: PropTypes.object,
     text: PropTypes.string,
@@ -35,25 +36,27 @@ class Search extends React.Component {
     format: Token,
     label: 'Item',
     multiple: false,
+    search: true,
     onChange: () => {}
   }
 
   render() {
-    if(!this.props.endpoint) {
-      return (
-        <div className="maha-search-options">
-          <Options { ...this._getOptions() }  />
-        </div>
-      )
-    }
+    const { endpoint, search } = this.props
     return (
       <div className="maha-search">
-        <div className="maha-search-header">
-          <Searchbox { ...this._getSearchbox() } />
-        </div>
-        <div className="maha-search-body">
-          <Infinite {...this._getInfinite()} />
-        </div>
+        { search &&
+          <div className="maha-search-header">
+            <Searchbox { ...this._getSearchbox() } />
+          </div>
+        }
+        { endpoint ?
+          <div className="maha-search-body">
+            <Infinite {...this._getInfinite()} />
+          </div> :
+          <div className="maha-search-options">
+            <Options { ...this._getOptions() }  />
+          </div>
+        }
       </div>
     )
   }

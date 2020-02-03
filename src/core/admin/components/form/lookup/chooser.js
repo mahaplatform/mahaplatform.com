@@ -20,6 +20,7 @@ class Chooser extends React.Component {
     multiple: PropTypes.bool,
     options: PropTypes.array,
     text: PropTypes.string,
+    search: PropTypes.bool,
     value: PropTypes.string,
     onChoose: PropTypes.func
   }
@@ -74,13 +75,14 @@ class Chooser extends React.Component {
   }
 
   _getSearch() {
-    const { chosen, endpoint, format, multiple, options, text } = this.props
+    const { chosen, endpoint, format, multiple, options, search, text } = this.props
     return {
       defaultValue: chosen,
       endpoint,
       format,
       multiple,
       options,
+      search,
       text,
       onChange: this._handleChoose
     }

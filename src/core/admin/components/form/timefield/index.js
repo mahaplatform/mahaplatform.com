@@ -1,8 +1,8 @@
-import React from 'react'
 import PropTypes from 'prop-types'
+import pluralize from 'pluralize'
 import Lookup from '../lookup'
 import moment from 'moment'
-import pluralize from 'pluralize'
+import React from 'react'
 
 const TimeFieldToken = ({ text, duration, withDuration }) => (
   <div className="maha-timefield-token">
@@ -58,7 +58,7 @@ class TimeField extends React.Component {
     return {
       ...this.props,
       defaultValue: this._getStandardized(this.props.defaultValue),
-      type: 'lookup',
+      label: 'time',
       options: this._getOptions(),
       format: (props) => <TimeFieldToken { ...props } withDuration={ duration } />
     }
