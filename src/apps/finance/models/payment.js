@@ -23,12 +23,12 @@ const Payment = new Model({
     },
 
     activity() {
-      if(this.get('method') === 'googlepay') return `Charged ${this.get('description')} via GooglePay`
-      if(this.get('method') === 'applepay') return `Charged ${this.get('description')} via ApplePay`
-      if(this.get('method') === 'paypal') return `Charged paypal account ${this.get('description')}`
-      if(this.get('method') === 'check') return `Received check ${this.get('description')}`
-      if(this.get('method') === 'card') return `Charged ${this.get('description')}`
-      if(this.get('method') === 'ach') return `Debited ${this.get('description')}`
+      if(this.get('method') === 'googlepay') return `Charged ${this.get('reference')} via GooglePay`
+      if(this.get('method') === 'applepay') return `Charged ${this.get('reference')} via ApplePay`
+      if(this.get('method') === 'paypal') return `Charged paypal account ${this.get('reference')}`
+      if(this.get('method') === 'check') return `Received check ${this.get('reference')}`
+      if(this.get('method') === 'card') return `Charged ${this.get('reference')}`
+      if(this.get('method') === 'ach') return `Debited ${this.get('reference')}`
       if(this.get('method') === 'scholarship') return 'Applied scholarship'
       if(this.get('method') === 'credit') return 'Applied customer credit'
       if(this.get('method') === 'cash') return 'Received cash'

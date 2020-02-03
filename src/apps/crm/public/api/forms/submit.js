@@ -179,7 +179,6 @@ const submitRoute = async (req, res) => {
     data: req.body[productfield.code]
   }) : null
 
-
   const payment = invoice ? await makePayment(req, {
     invoice,
     params: {
@@ -232,7 +231,11 @@ const submitRoute = async (req, res) => {
         ...field.type === 'productfield' ? {
           [`${field.name.token}_summary`]: ejs.render(summary, {
             summary: data[field.code],
-            numeral
+            numeral,
+            payment: {
+              amount: payment.get('amount'),
+              activity: payment.get('activity')
+            }
           })
         } : {}
       }), {})

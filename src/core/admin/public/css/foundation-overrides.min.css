@@ -134,6 +134,6 @@ table.product-summary tbody tr td:nth-child(4) {
 table.product-summary tfoot tr td:nth-child(2) {
   text-align: right;
 }
-table.product-summary tfoot tr td {
+table.product-summary tfoot tr.total td:nth-child(2) {
   font-weight: bold;
 }

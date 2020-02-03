@@ -19,7 +19,7 @@
   </tbody>
   <tfoot>
     <% if(summary.tax > 0) { %>
-      <tr>
+      <tr class="total">
         <th colspan="3">Subtotal</th>
         <td><%= numeral(summary.subtotal).format('0.00') %></td>
       </tr>
@@ -28,9 +28,19 @@
         <td><%= numeral(summary.tax).format('0.00') %></td>
       </tr>
     <% } %>
-    <tr>
+    <tr class="total">
       <th colspan="3">Total</th>
       <td><%= numeral(summary.total).format('0.00') %></td>
+    </tr>
+    <tr>
+      <td colspan="3">
+        <%= payment.activity %>
+      </td>
+      <td>-<%= numeral(payment.amount).format('0.00') %></td>
+    </tr>
+    <tr class="total">
+      <th colspan="3">Balance Due</th>
+      <td><%= numeral(0).format('0.00') %></td>
     </tr>
   </tfoot>
 </table>

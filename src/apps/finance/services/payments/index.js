@@ -68,7 +68,7 @@ const chargeCustomer = async (req, { invoice, params }) => {
     })
   }
 
-  await invoice.load(['customer'], {
+  await invoice.load(['customer','program.merchant'], {
     transacting: req.trx
   })
 

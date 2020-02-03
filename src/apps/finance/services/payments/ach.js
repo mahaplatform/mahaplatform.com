@@ -7,12 +7,15 @@ import moment from 'moment'
 
 const getPaymentMethod = async(req, { customer, payment }) => {
 
-  const { nonce } = payment
+  const { nonce, ownership_type, account_type, last_four } = payment
 
   const ach = await PaymentMethod.query(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('customer_id', customer.get('id'))
     qb.where('method', 'ach')
+    qb.where('ownership_type', ownership_type)
+    qb.where('account_type', account_type)
+    qb.where('last_four', last_four)
   }).fetch({
     transacting: req.trx
   })
@@ -37,14 +40,16 @@ const getPaymentMethod = async(req, { customer, payment }) => {
     })
   }
 
-  const { bankName, last4, token } = result.usBankAccount
+  const { bankName, token } = result.usBankAccount
 
   return await PaymentMethod.forge({
     team_id: req.team.get('id'),
     customer_id: customer.get('id'),
     method: 'ach',
     braintree_id: token,
-    last_four: last4,
+    ownership_type,
+    account_type,
+    last_four,
     bank_name: bankName
   }).save(null, {
     transacting: req.trx
@@ -84,7 +89,6 @@ export const chargeACH = async (req, { invoice, customer, merchant, payment, amo
     merchant_id: merchant.get('id'),
     braintree_id: result.transaction.id,
     payment_method_id: payment_method.get('id'),
-    // rate: payment_method.get('card_type') === 'amex' ? merchant.get('amex_rate') : merchant.get('rate'),
     reference: payment_method.get('description'),
     status: 'captured',
     method: 'ach',

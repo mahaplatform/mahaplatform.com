@@ -49,7 +49,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'SUBMIT_FAILURE':
     return {
       ...state,
-      error: Object.values(action.result.errors)[0],
+      error: action.result.errors ? Object.values(action.result.errors)[0] : action.result.message,
       status: 'failure'
     }
 
