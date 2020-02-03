@@ -39,11 +39,13 @@ class Addressfield extends React.Component {
   state = {
     direction: null,
     focused: false,
-    ready: false
+    ready: false,
+    selected: null
   }
 
   autocomplete = null
   input = null
+  options = {}
   geocoder = null
 
   _handleAutocomplete = this._handleAutocomplete.bind(this)
@@ -54,7 +56,9 @@ class Addressfield extends React.Component {
   _handleFocus = this._handleFocus.bind(this)
   _handleGeocode = this._handleGeocode.bind(this)
   _handleInit = this._handleInit.bind(this)
+  _handleKeyDown = this._handleKeyDown.bind(this)
   _handleLoad = this._handleLoad.bind(this)
+  _handleLookup = this._handleLookup.bind(this)
   _handleType = this._handleType.bind(this)
 
   render() {
@@ -71,7 +75,7 @@ class Addressfield extends React.Component {
           { options.length > 0 &&
             <div className={ this._getResultClass() }>
               { options.map((option, index) => (
-                <div className="addressfield-result" key={`option_${index}`} onClick={ this._handleChoose.bind(this, option) }>
+                <div { ...this._getOption(option, index) } key={`option_${index}`}>
                   <div className="addressfield-result-icon">
                     <i className="fa fa-map-marker" />
                   </div>
@@ -104,9 +108,7 @@ class Addressfield extends React.Component {
     }
     if(q !== prevProps.q) {
       if(q.length === 0) this.props.onSetOptions([])
-      this.autocomplete.getPlacePredictions({
-        input: q
-      }, this._handleAutocomplete)
+      this._handleLookup()
     }
     if(!_.isEqual(value, prevProps.value)) {
       onChange(value)
@@ -115,6 +117,13 @@ class Addressfield extends React.Component {
       if(status === 'validating') this._handleValidate()
     }
 
+  }
+
+  _getClass(index) {
+    const { selected } = this.state
+    const classes = ['addressfield-result']
+    if(index === selected) classes.push('selected')
+    return classes.join(' ')
   }
 
   _getCounty(result) {
@@ -135,14 +144,30 @@ class Addressfield extends React.Component {
       tabIndex,
       onBlur: this._handleBlur,
       onChange: this._handleType,
-      onFocus: this._handleFocus
+      onFocus: this._handleFocus,
+      onKeyDown: this._handleKeyDown
+    }
+  }
+
+  _handleLookup() {
+    const { q } = this.props
+    this.setState({ selected: null })
+    this.autocomplete.getPlacePredictions({
+      input: q
+    }, this._handleAutocomplete)
+  }
+
+  _getOption(option, index) {
+    return {
+      className: this._getClass(index),
+      onClick: this._handleChoose.bind(this, option),
+      ref: node => this.options[index] = node
     }
   }
 
   _getResultClass() {
     const { direction } = this.state
-    const classes = ['addressfield-results', direction]
-    return classes.join(' ')
+    return ['addressfield-results', direction].join(' ')
   }
 
   _getType(result, type) {
@@ -216,6 +241,30 @@ class Addressfield extends React.Component {
     this.setState({ ready: true })
     this.autocomplete = new window.google.maps.places.AutocompleteService()
     this.geocoder = new window.google.maps.Geocoder()
+  }
+
+  _handleKeyDown(e) {
+    const { direction, selected } = this.state
+    const { options } = this.props
+    if(e.which === 38 && direction === 'up') {
+      this.setState({
+        selected: selected !== null ? (selected === 0 ? options.length - 1 : selected - 1) : options.length -1
+      })
+    } else if(e.which === 38 && direction === 'down') {
+      this.setState({
+        selected: selected !== null  ? (selected === 0 ? options.length - 1 : selected - 1) : options.length - 1
+      })
+    } else if(e.which === 40 && direction === 'down') {
+      this.setState({
+        selected: selected !== null  ? (selected === options.length - 1 ? 0 : selected + 1) : 0
+      })
+    } else if(e.which === 40 && direction === 'up') {
+      this.setState({
+        selected: selected !== null  ? (selected === options.length - 1 ? 0 : selected + 1) : 0
+      })
+    } else if(selected !== null && e.which === 13) {
+      this._handleChoose(options[selected])
+    }
   }
 
   _handleLoad() {

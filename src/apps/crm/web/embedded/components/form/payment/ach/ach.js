@@ -45,11 +45,11 @@ class ACH extends React.Component {
             <div className="two fields">
               <div className="field">
                 <label>Routing Number</label>
-                <TextField { ...this._getInput('routingNumber', 'Enter routing number') } />
+                <TextField { ...this._getInput('routingNumber', 'Enter routing number', 1) } />
               </div>
               <div className="field">
                 <label>Account Number</label>
-                <TextField { ...this._getInput('accountNumber', 'Enter account number') } />
+                <TextField { ...this._getInput('accountNumber', 'Enter account number', 2) } />
               </div>
             </div>
             <div className="two fields">
@@ -65,11 +65,11 @@ class ACH extends React.Component {
             <div className="two fields">
               <div className="field">
                 <label>First Name</label>
-                <TextField { ...this._getInput('firstName', 'Enter first name') } />
+                <TextField { ...this._getInput('firstName', 'Enter first name', 5) } />
               </div>
               <div className="field">
                 <label>Last Name</label>
-                <TextField { ...this._getInput('lastName', 'Enter last name') } />
+                <TextField { ...this._getInput('lastName', 'Enter last name', 6) } />
               </div>
             </div>
             <div className="field">
@@ -127,6 +127,7 @@ class ACH extends React.Component {
         { value: 'savings', text: 'Savings' }
       ],
       placeholder: 'Choose a type',
+      tabIndex: 3,
       onChange: this._handleUpdate.bind(this, 'accountType')
     }
   }
@@ -134,6 +135,7 @@ class ACH extends React.Component {
   _getAddressField() {
     return {
       placeholder: 'Enter address',
+      tabIndex: 6,
       onChange: this._handleUpdate.bind(this, 'address')
     }
   }
@@ -145,15 +147,17 @@ class ACH extends React.Component {
         { value: 'business', text: 'Business' }
       ],
       placeholder: 'Choose a type',
+      tabIndex: 4,
       onChange: this._handleUpdate.bind(this, 'ownershipType')
     }
   }
 
-  _getInput(name, placeholder) {
+  _getInput(name, placeholder, tabIndex) {
     return {
       placeholder,
-      onChange: this._handleUpdate.bind(this, name),
-      value: this.props[name]
+      tabIndex,
+      value: this.props[name],
+      onChange: this._handleUpdate.bind(this, name)
     }
   }
 
