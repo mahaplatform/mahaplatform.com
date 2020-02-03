@@ -185,8 +185,7 @@ class ACH extends React.Component {
   }
 
   _handleSuccess() {
-    const { payment } = this.props
-    this.props.onSuccess(payment)
+    this.props.onSuccess()
   }
 
   _handleUpdate(name, value) {

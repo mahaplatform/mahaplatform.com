@@ -16,6 +16,7 @@ import googlepayMiddleware from './form/payment/googlepay/middleware'
 import paymentfield from './form/payment'
 import applepay from './form/payment/applepay'
 import googlepay from './form/payment/googlepay'
+import paypal from './form/payment/paypal'
 import ach from './form/payment/ach'
 import card from './form/payment/card'
 
@@ -38,6 +39,7 @@ class Root extends React.Component {
     const reducer = combineReducers([
       applepay,
       googlepay,
+      paypal,
       ach,
       card,
       form,

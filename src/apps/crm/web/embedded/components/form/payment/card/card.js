@@ -228,8 +228,7 @@ class Card extends React.PureComponent {
   }
 
   _handleSuccess() {
-    const { payment } = this.props
-    this.props.onSuccess(payment)
+    this.props.onSuccess()
   }
 
   _handleValidate() {

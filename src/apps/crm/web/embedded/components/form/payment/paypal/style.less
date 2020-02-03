@@ -1,10 +1,14 @@
 .paypal-button {
   min-height: 40px;
-  background-color: #009CDE;
+  background-color: @paypal;
   border-radius: 0.2em;
-  display: block;
+  display: flex;
   .zoid-outlet {
     max-width: 100% !important;
     width: 100% !important;
+  }
+  & > span {
+    margin: auto;
+    color: @white;
   }
 }
