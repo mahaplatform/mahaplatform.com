@@ -7,6 +7,18 @@ import PayPal from './paypal'
 import Card from './card'
 import React from 'react'
 import ACH from './ach'
+import _ from 'lodash'
+
+const methods = [
+  { label: 'Credit Card', mark: 'card-mark.png', value: 'card', component: Card },
+  { label: 'Bank Account', mark: 'ach-mark.png', value: 'ach', component: ACH },
+  { label: 'Google Pay', mark: 'googlepay-mark.png', value: 'googlepay', component: GooglePay },
+  { label: 'Pay Pal', mark: 'paypal-mark.png', value: 'paypal', component: PayPal }
+]
+
+if(window.ApplePaySession && window.ApplePaySession.supportsVersion(3) && window.ApplePaySession.canMakePayments()) {
+  methods.push({ label: 'Apple Pay', mark: 'applepay-mark.png', value: 'applepay', component: ApplePay })
+}
 
 class Payment extends React.Component {
 
@@ -54,24 +66,14 @@ class Payment extends React.Component {
   }
 
   _getComponent() {
-    const { method } = this.props
-    if(method === 'applepay') return ApplePay
-    if(method === 'googlepay') return GooglePay
-    if(method === 'paypal') return PayPal
-    if(method === 'card') return Card
-    if(method === 'ach') return ACH
+    const method = _.find(methods, { value: this.props.method })
+    return method.component
   }
 
   _getMethods() {
     const { onSetMethod } = this.props
     return {
-      methods: [
-        { label: 'Credit Card', mark: 'card-mark.png', value: 'card' },
-        { label: 'Bank Account', mark: 'ach-mark.png', value: 'ach' },
-        { label: 'Google Pay', mark: 'googlepay-mark.png', value: 'googlepay' },
-        { label: 'Pay Pal', mark: 'paypal-mark.png', value: 'paypal' },
-        { label: 'Apple Pay', mark: 'applepay-mark.png', value: 'applepay' }
-      ],
+      methods,
       onChoose: onSetMethod
     }
   }

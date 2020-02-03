@@ -5,29 +5,48 @@ import React from 'react'
 class ApplePay extends React.Component {
 
   static propTypes = {
+    error: PropTypes.string,
+    form: PropTypes.object,
+    isProcessing: PropTypes.bool,
+    payment: PropTypes.object,
     program: PropTypes.object,
+    status: PropTypes.string,
     summary: PropTypes.object,
     token: PropTypes.string,
-    onChoose: PropTypes.func,
+    onAuthorize: PropTypes.func,
     onSubmit: PropTypes.func,
     onSuccess: PropTypes.func
   }
 
-  static defaultProps = {
-    onChoose: () => {}
-  }
-
-  applePayInstance = null;
+  applePayInstance = null
 
   state = {
     ready: false
   }
 
-  _handleClick = this._handleClick.bind(this)
+  _handleAuthorize = this._handleAuthorize.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
-    if(!this.state.ready) return null
-    return <div className="apple-pay-button apple-pay-button-white" onClick={ this._handleClick } />
+    const { isProcessing } = this.props
+    const { ready }= this.state
+    return (
+      <div className="applepay-button">
+        { !ready &&
+          <span>
+            <i className="fa fa-circle-o-notch fa-spin fa-fw" />
+          </span>
+        }
+        { ready && !isProcessing &&
+          <div className="apple-pay-button apple-pay-button-white" onClick={ this._handleAuthorize } />
+        }
+        { ready && isProcessing &&
+          <span>
+            <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Processing
+          </span>
+        }
+      </div>
+    )
   }
 
   componentDidMount() {
@@ -48,19 +67,15 @@ class ApplePay extends React.Component {
     })
   }
 
-  _handleClick() {
-    const { program, summary, onChoose } = this.props
-    onChoose('applepay')
-
+  _handleAuthorize() {
+    const { program, summary } = this.props
     const paymentRequest = this.applePayInstance.createPaymentRequest({
       total: {
         label: program.title,
         amount: summary.total
       }
     })
-
     const session = new window.ApplePaySession(3, paymentRequest)
-
     session.onvalidatemerchant = (e) => {
       this.applePayInstance.performValidation({
         validationURL: e.validationURL,
@@ -93,6 +108,24 @@ class ApplePay extends React.Component {
 
     session.begin()
 
+  }
+
+  _handleSubmit() {
+    const { form, payment, summary } = this.props
+    const { token, code, data } = form
+    const body = {
+      ...data,
+      payment: {
+        amount: summary.total,
+        method: 'applepay',
+        payment
+      }
+    }
+    this.props.onSubmit(token, code, body)
+  }
+
+  _handleSuccess() {
+    this.props.onSuccess()
   }
 
 }

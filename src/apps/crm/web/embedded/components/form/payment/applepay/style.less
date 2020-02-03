@@ -1,3 +1,16 @@
+.applepay-button {
+  min-height: 40px;
+  background-color: @black;
+  border-radius: 0.2em;
+  display: flex;
+  & > span {
+    margin: auto;
+    color: @white;
+  }
+  .apple-pay-button {
+    flex: 1;
+  }
+}
 @supports (-webkit-appearance: -apple-pay-button) {
     .apple-pay-button {
         // display: inline-block;
