@@ -27,6 +27,7 @@ class Dropdown extends React.Component {
   control = null
 
   state = {
+    active: false,
     animating: false,
     direction: null,
     show: false,
@@ -35,6 +36,7 @@ class Dropdown extends React.Component {
 
   _handleOpen = this._handleOpen.bind(this)
   _handleClose = this._handleClose.bind(this)
+  _handleKeyDown = this._handleKeyDown.bind(this)
 
   render() {
     const { code, options, placeholder } = this.props
@@ -49,7 +51,7 @@ class Dropdown extends React.Component {
           }
           <div className={ this._getMenuClass() }>
             { options.map((option, index) => (
-              <div className="item" key={`option_${index}`} onClick={ this._handleChoose.bind(this, index) }>
+              <div key={`option_${index}`} { ...this._getOption(index) }>
                 { option.text }
               </div>
             ))}
@@ -91,7 +93,7 @@ class Dropdown extends React.Component {
   _getClass() {
     const { animating, active, direction } = this.state
     const classes = ['ui','fluid','selection','dropdown']
-    if(direction) classes.push(direction)
+    if(direction === 'up') classes.push('upward')
     if(active) classes.push('active')
     if(active && !animating) classes.push('visible')
     if(!active && animating) classes.push('visible')
@@ -103,18 +105,32 @@ class Dropdown extends React.Component {
     return {
       className: 'maha-dropdown',
       ref: node => this.control = node,
-      tabIndex
+      tabIndex,
+      onKeyDown: this._handleKeyDown
     }
   }
 
   _getMenuClass() {
-    const { active, animating } = this.state
+    const { active, animating, direction } = this.state
     const classes = ['menu','transition']
-    const direction = this.state.direction === 'upward' ? 'up' : 'down'
     if(!animating && !active) classes.push('hidden')
     if(animating || active) classes.push('visible')
     if(animating && active) classes.push(`animating slide ${direction} in`)
     if(animating && !active) classes.push(`animating slide ${direction} out`)
+    return classes.join(' ')
+  }
+
+  _getOption(index) {
+    return {
+      className: this._getOptionClass(index),
+      onClick: this._handleChoose.bind(this, index)
+    }
+  }
+
+  _getOptionClass(index) {
+    const { selected } = this.state
+    const classes = ['item']
+    if(index === selected) classes.push('active')
     return classes.join(' ')
   }
 
@@ -145,13 +161,42 @@ class Dropdown extends React.Component {
     })
   }
 
+  _handleKeyDown(e) {
+    const { direction, selected } = this.state
+    const { options } = this.props
+    if(e.which === 38 && direction === 'up') {
+      this.setState({
+        active: true,
+        selected: selected !== null ? (selected === 0 ? options.length - 1 : selected - 1) : options.length -1
+      })
+    } else if(e.which === 38 && direction === 'down') {
+      this.setState({
+        active: true,
+        selected: selected !== null  ? (selected === 0 ? options.length - 1 : selected - 1) : options.length - 1
+      })
+    } else if(e.which === 40 && direction === 'down') {
+      this.setState({
+        active: true,
+        selected: selected !== null  ? (selected === options.length - 1 ? 0 : selected + 1) : 0
+      })
+    } else if(e.which === 40 && direction === 'up') {
+      this.setState({
+        active: true,
+        selected: selected !== null  ? (selected === options.length - 1 ? 0 : selected + 1) : 0
+      })
+    } else if(selected !== null && e.which === 13) {
+      this._handleChoose(selected)
+    }
+    e.preventDefault()
+  }
+
   _handleOpen(e) {
     e.stopPropagation()
     const percent = (e.clientY / window.innerHeight) * 100
     const { active } = this.state
     if(active || e.target.className === 'item') return
     this.setState({
-      direction: percent > 75 ? 'upward' : null,
+      direction: percent > 75 ? 'up' : 'down',
       active: true
     })
   }
