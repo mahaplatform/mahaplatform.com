@@ -19,16 +19,20 @@ class Items extends React.Component {
       <div className="drive-items">
         { records.map((item, index) => (
           <div className="drive-item" key={`item_${index}`}>
-            <div className="drive-item-icon" onClick={ this._handleClick.bind(this, item) }>
-              { item.type === 'folder' &&
-                <div className="maha-asset-icon">
-                  <i className="fa fa-fw fa-folder" />
+            <div className="drive-item-meta">
+              <div className="drive-item-token">
+                <div className="drive-item-token-icon" onClick={ this._handleClick.bind(this, item) }>
+                  { item.type === 'folder' &&
+                    <div className="maha-asset-icon">
+                      <i className="fa fa-fw fa-folder" />
+                    </div>
+                  }
+                  { item.type === 'file' && <AssetIcon content_type={ item.asset.content_type } /> }
                 </div>
-              }
-              { item.type === 'file' && <AssetIcon content_type={ item.asset.content_type } /> }
-            </div>
-            <div className="drive-item-name" onClick={ this._handleClick.bind(this, item) }>
-              { item.label }
+                <div className="drive-item-token-name" onClick={ this._handleClick.bind(this, item) }>
+                  { item.label }
+                </div>
+              </div>
             </div>
           </div>
         ))}

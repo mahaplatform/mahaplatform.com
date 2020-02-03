@@ -19,7 +19,8 @@ class Tasks extends React.Component {
 
   static contextTypes = {
     network: PropTypes.object,
-    router: PropTypes.object
+    router: PropTypes.object,
+    tasks: PropTypes.object
   }
 
   static propTypes = {
@@ -163,6 +164,7 @@ class Tasks extends React.Component {
       icon: 'download',
       label: 'Download items',
       className: 'maha-list-item-link',
+      handler: this.context.tasks.close,
       url: `/api/admin/drive/items/archive?token=${token}&${query}`
     }
   }
@@ -172,6 +174,7 @@ class Tasks extends React.Component {
       icon: 'folder',
       label: 'Create New Folder',
       className: 'maha-list-item-link',
+      handler: this.context.tasks.close,
       modal: <NewFolder parent_id={ item ? item.item_id : null } />
     }
   }
@@ -181,6 +184,7 @@ class Tasks extends React.Component {
       icon: 'upload',
       label: 'Upload File(s)',
       className: 'maha-list-item-link',
+      handler: this.context.tasks.close,
       modal: <Attachments { ...this._getAttachments(item) } />
     }
   }
@@ -190,6 +194,7 @@ class Tasks extends React.Component {
       icon: 'exchange',
       label: 'Transfer Ownership',
       className: 'maha-list-item-link',
+      handler: this.context.tasks.close,
       modal: <Transfer />
     }
   }
@@ -207,6 +212,7 @@ class Tasks extends React.Component {
       icon: 'trash-o',
       label: 'Empty Trash',
       className: 'maha-list-item-link',
+      handler: this.context.tasks.close,
       request: {
         method: 'POST',
         endpoint: '/api/admin/drive/trash/empty'
@@ -219,6 +225,7 @@ class Tasks extends React.Component {
       icon: 'rotate-left',
       label: 'Restore all',
       className: 'maha-list-item-link',
+      handler: this.context.tasks.close,
       request: {
         method: 'POST',
         endpoint: '/api/admin/drive/trash/restore_all'
@@ -232,6 +239,7 @@ class Tasks extends React.Component {
       icon: 'rotate-left',
       label: `Restore ${label}`,
       className: 'maha-list-item-link',
+      handler: this.context.tasks.close,
       request: {
         method: 'PATCH',
         endpoint: '/api/admin/drive/items/restore',
@@ -247,6 +255,7 @@ class Tasks extends React.Component {
       icon: 'trash-o',
       label: 'Delete Forever',
       className: 'maha-list-item-link',
+      handler: this.context.tasks.close,
       request: {
         method: 'PATCH',
         endpoint: '/api/admin/drive/items/destroy',
@@ -271,6 +280,7 @@ class Tasks extends React.Component {
       icon: 'share',
       label: `Share ${_.capitalize(item.type)}`,
       className: 'maha-list-item-link',
+      handler: this.context.tasks.close,
       modal: <Share item={ item } />
     }
   }
@@ -289,6 +299,7 @@ class Tasks extends React.Component {
       icon: 'handshake-o',
       label: 'Manage Access',
       className: 'maha-list-item-link',
+      handler: this.context.tasks.close,
       modal: <Access item={ item } />
     }
   }
@@ -299,6 +310,7 @@ class Tasks extends React.Component {
       icon: 'arrows-alt',
       label: `Move ${label}`,
       className: 'maha-list-item-link',
+      handler: this.context.tasks.close,
       modal: <Move items={ items } />
     }
   }
@@ -309,6 +321,7 @@ class Tasks extends React.Component {
       icon: 'i-cursor',
       label: `Rename ${_.capitalize(item.type)}`,
       className: 'maha-list-item-link',
+      handler: this.context.tasks.close,
       modal: <Component item={ item } />
     }
   }
@@ -319,6 +332,7 @@ class Tasks extends React.Component {
       icon: 'download',
       label: 'Download File',
       className: 'maha-list-item-link',
+      handler: this.context.tasks.close,
       url: `/api/admin/assets/${item.asset.id}/download?token=${token}`
     }
   }
@@ -328,6 +342,7 @@ class Tasks extends React.Component {
       icon: 'eye',
       label: 'View File',
       className: 'maha-list-item-link',
+      handler: this.context.tasks.close,
       route: `/admin/drive/files/${item.code}`
     }
   }
@@ -337,6 +352,7 @@ class Tasks extends React.Component {
       icon: 'clone',
       label: 'Manage Versions',
       className: 'maha-list-item-link',
+      handler: this.context.tasks.close,
       modal: <Versions id={ item.code } />
     }
   }
@@ -347,6 +363,7 @@ class Tasks extends React.Component {
       icon: 'trash-o',
       label: `Remove ${label}`,
       className: 'maha-list-item-link',
+      handler: this.context.tasks.close,
       request: {
         method: 'PATCH',
         endpoint: '/api/admin/drive/items/trash',
@@ -372,10 +389,12 @@ class Tasks extends React.Component {
   _handleDetails(item) {
     this.props.onShowDetails(true)
     this.props.onPreview(item)
+    this.context.tasks.close()
   }
 
   _handlePrint(item) {
     print(this._getPrintable(item))
+    this.context.tasks.close()
   }
 
 }

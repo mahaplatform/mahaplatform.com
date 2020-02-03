@@ -25,6 +25,7 @@ class NewFolder extends React.Component {
       title: 'New Folder',
       method: 'post',
       action: '/api/admin/drive/folders',
+      saveText: 'Create',
       onCancel: this._handleCancel,
       onSuccess: this._handleSuccess,
       sections: [
