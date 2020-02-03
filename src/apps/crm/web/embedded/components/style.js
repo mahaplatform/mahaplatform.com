@@ -172,19 +172,26 @@ class Style extends React.Component {
               ...this._getProp('color',`fields[${i}].color`),
               { prop: 'text-decoration', value: 'underline' }
             ]
-          }, {
-            selector: `div.field-${i} h1,div.field-${i} h2,div.field-${i} p,div.field-${i} li`, styles: [
-              ...this._getProp('font-family',`fields[${i}].font_family`),
-              ...this._getProp('font-size',`fields[${i}].font_size`, 'px'),
-              ...this._getFormat('font-weight', 'bold', `fields[${i}].format`, 'normal'),
-              ...this._getFormat('font-style', 'italic', `fields[${i}].format`),
-              ...this._getFormat('text-decoration', 'underline', `fields[${i}].format`),
-              ...this._getProp('color',`fields[${i}].color`),
-              ...this._getProp('text-align',`fields[${i}].text_align`),
-              ...this._getProp('line-height',`fields[${i}].line_height`),
-              ...this._getProp('letter-spacing',`fields[${i}].letter_spacing`, 'px')
-            ]
-          }
+          },
+          ...selectors.reduce((selectorStyles, style) => [
+            ...selectorStyles,
+            ...style.blocks.reduce((blockStyles, block) => [
+              ...blockStyles,
+              {
+                selector: `div.field-${i} ${block}`, styles: [
+                  ...this._getProp('font-family', `fields[${i}].${style.selector}_font_family`),
+                  ...this._getProp('font-size', `fields[${i}].${style.selector}_font_size`, 'px'),
+                  ...this._getFormat('font-weight', 'bold', `fields[${i}].${style.selector}_format`, 'normal'),
+                  ...this._getFormat('font-style', 'italic', `fields[${i}].${style.selector}_format`),
+                  ...this._getFormat('text-decoration', 'underline', `fields[${i}].${style.selector}_format`),
+                  ...this._getProp('color', `fields[${i}].${style.selector}_color`),
+                  ...this._getProp('text-align', `fields[${i}]age.${style.selector}_text_align`),
+                  ...this._getProp('line-height', `fields[${i}].${style.selector}_line_height`),
+                  ...this._getProp('letter-spacing', `fields[${i}].${style.selector}_letter_spacing`, 'px')
+                ]
+              }
+            ], [])
+          ], [])
         ] : []
       ], [])
     ]

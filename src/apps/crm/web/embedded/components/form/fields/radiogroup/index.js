@@ -81,8 +81,9 @@ class RadioGroup extends React.Component {
   }
 
   _getInput() {
-    const { tabIndex } = this.props
+    const { htmlFor, tabIndex } = this.props
     return {
+      id: htmlFor,
       className: 'maha-checkboxes',
       tabIndex,
       onBlur: this._handleBlur,
@@ -137,7 +138,7 @@ class RadioGroup extends React.Component {
       const option = this.options[selected === options.length - 1 ? 0 : selected + 1]
       if(selected !== null) option.click()
       option.focus()
-    } else if(e.which === 32) {
+    } else if(_.includes([32,13], e.which)) {
       this._handleChoose(0)
     }
     e.preventDefault()

@@ -114,7 +114,7 @@ class Checkboxes extends React.Component {
       this.options[index === 0 ? options.length - 1 : index - 1].focus()
     } else if(e.which === 40) {
       this.options[index === options.length - 1 ? 0 : index + 1].focus()
-    } else if(e.which === 32) {
+    } else if(_.includes([32,13], e.which)) {
       this._handleChoose(index)
     }
     e.preventDefault()
