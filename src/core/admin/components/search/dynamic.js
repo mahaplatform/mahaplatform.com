@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types'
 import Options from './options'
 import React from 'react'
-import _ from 'lodash'
 
 class Dynamic extends React.Component {
 
@@ -21,7 +20,7 @@ class Dynamic extends React.Component {
   }
 
   _getOptions() {
-    const { cid, format, multiple, records, selected, text, onToggle } = this.props
+    const { cid, format, multiple, records, selected, text, value, onToggle } = this.props
     return {
       cid,
       format,
@@ -29,10 +28,10 @@ class Dynamic extends React.Component {
       options: records,
       selected,
       text,
+      value,
       onToggle
     }
   }
-
 
 }
 

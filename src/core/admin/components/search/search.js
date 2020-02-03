@@ -38,7 +38,6 @@ class Search extends React.Component {
     onChange: () => {}
   }
 
-
   render() {
     if(!this.props.endpoint) {
       return (
@@ -76,7 +75,7 @@ class Search extends React.Component {
   }
 
   _getOptions() {
-    const { cid, format, multiple, options, selected, text, onToggle } = this.props
+    const { cid, format, multiple, options, selected, text, value, onToggle } = this.props
     return {
       cid,
       format,
@@ -84,6 +83,7 @@ class Search extends React.Component {
       options,
       selected,
       text,
+      value,
       onToggle
     }
   }

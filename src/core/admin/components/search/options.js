@@ -12,6 +12,7 @@ class Options extends React.Component{
     options: PropTypes.any,
     selected: PropTypes.array,
     text: PropTypes.any,
+    value: PropTypes.any,
     onToggle: PropTypes.func
   }
 
@@ -25,7 +26,7 @@ class Options extends React.Component{
               <Format { ...option } format={ format } value={ _.get(option, text) } />
             </div>
             <div className="maha-search-item-icon">
-              { this._getChecked(option.value) &&
+              { this._getChecked(option) &&
                 <i className="fa fa-fw fa-check" />
               }
             </div>
@@ -35,9 +36,11 @@ class Options extends React.Component{
     )
   }
 
-  _getChecked(value) {
-    const { selected } = this.props
-    return _.includes(selected, value)
+  _getChecked(option) {
+    const { selected, value } = this.props
+    return selected ? _.find(selected, {
+      [value]: _.get(option, value)
+    }) !== undefined : false
   }
 
   _handleChoose(chosen) {
