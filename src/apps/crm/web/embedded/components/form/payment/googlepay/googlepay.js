@@ -1,13 +1,17 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Card extends React.Component {
+class GooglePay extends React.Component {
 
   static propTypes = {
+    error: PropTypes.string,
+    form: PropTypes.object,
+    isProcessing: PropTypes.bool,
     payment: PropTypes.object,
+    status: PropTypes.string,
     summary: PropTypes.object,
     token: PropTypes.string,
-    onChoose: PropTypes.func,
+    onAuthorize: PropTypes.func,
     onSubmit: PropTypes.func,
     onSuccess: PropTypes.func
   }
@@ -17,15 +21,26 @@ class Card extends React.Component {
   }
 
   _handleCheck = this._handleCheck.bind(this)
-  _handlePayment = this._handlePayment.bind(this)
+  _handleAuthorize = this._handleAuthorize.bind(this)
+  _handleSubmit = this._handleSubmit.bind(this)
 
   render() {
+    const { isProcessing } = this.props
     const { ready } = this.state
     return (
       <div className="googlepay-button">
-        { ready ?
-          <button className="gpay-button black short" onClick={ this._handlePayment } /> :
-          <i className="fa fa-circle-o-notch fa-spin fa-fw" />
+        { !ready &&
+          <span>
+            <i className="fa fa-circle-o-notch fa-spin fa-fw" />
+          </span>
+        }
+        { ready && !isProcessing &&
+          <button className="gpay-button black short" onClick={ this._handleAuthorize } />
+        }
+        { ready && isProcessing &&
+          <span>
+            <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Processing
+          </span>
         }
       </div>
     )
@@ -35,11 +50,24 @@ class Card extends React.Component {
     this._handleLoad()
   }
 
-  componentDidUpdate(prevProps) {
-    const { payment, onSuccess } = this.props
-    if(payment !== prevProps.payment) {
-      onSuccess(payment)
+  componentDidUpdate(prevProps, prevState) {
+    const { error, status } = this.props
+    if(error !== prevProps.error && error) {
+      this.setState({ error })
     }
+    if(status !== prevProps.status) {
+      if(status === 'authorized') {
+        this._handleSubmit()
+      }
+      if(status === 'success') {
+        this._handleSuccess()
+      }
+    }
+  }
+
+  _handleAuthorize() {
+    const { summary, token } = this.props
+    this.props.onAuthorize(token, summary)
   }
 
   _handleCheck() {
@@ -58,12 +86,25 @@ class Card extends React.Component {
     setTimeout(this._handleCheck, 1000)
   }
 
-  _handlePayment() {
-    const { summary, token, onChoose, onSubmit } = this.props
-    onChoose('googlepay')
-    onSubmit(token, summary)
+  _handleSubmit() {
+    const { form, payment, summary } = this.props
+    const { token, code, data } = form
+    const body = {
+      ...data,
+      payment: {
+        amount: summary.total,
+        method: 'googlepay',
+        payment
+      }
+    }
+    this.props.onSubmit(token, code, body)
+  }
+
+  _handleSuccess() {
+    const { payment } = this.props
+    this.props.onSuccess(payment)
   }
 
 }
 
-export default Card
+export default GooglePay
