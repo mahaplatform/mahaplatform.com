@@ -20,6 +20,7 @@ class IfElse extends React.PureComponent {
 
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
     if(!this.state.config) return null
@@ -34,7 +35,7 @@ class IfElse extends React.PureComponent {
   componentDidUpdate(prevProps, prevState) {
     const { config } = this.state
     if(!_.isEqual(config, prevState.config)) {
-      this.props.onChange(config)
+      this._handleChange()
     }
   }
 
@@ -43,7 +44,7 @@ class IfElse extends React.PureComponent {
     const { fields } = this.props
     return {
       title: 'If / Then',
-      onChange: this._handleChange,
+      onChange: this._handleUpdate,
       onCancel: this._handleDone,
       cancelIcon: 'chevron-left',
       saveText: null,
@@ -53,10 +54,8 @@ class IfElse extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'If', type: 'segment', fields: [
-              { name: 'code', type: 'dropdown', options: fields, value: 'code', text: 'name', defaultValue: config.code },
-              ...this._getComparison()
-            ] }
+            { label: 'Field', name: 'code', type: 'dropdown', options: fields, value: 'code', text: 'name', defaultValue: config.code },
+            ...this._getComparison()
           ]
         }
       ]
@@ -73,7 +72,7 @@ class IfElse extends React.PureComponent {
       return !comparison.types || _.includes(comparison.types, field.type)
     })
     const items = [
-      { name: 'comparison', type: 'radiogroup', options: comparisons, required: true }
+      { label: 'Comparison', name: 'comparison', type: 'radiogroup', options: comparisons, required: true }
     ]
     if(_.includes(['radiogroup','dropdown','checkboxes'], field.type)) {
       if(_.includes(['$in','$nin','$int','$nint'], comparison)) {
@@ -87,12 +86,24 @@ class IfElse extends React.PureComponent {
     return items
   }
 
-  _handleChange(config) {
-    this.setState({ config })
+  _handleChange() {
+    const { config } = this.state
+    this.props.onChange({
+      code: config.code,
+      comparison: config.comparison,
+      options: [
+        { value: config.value, text: config.value },
+        { value: 'else', text: 'Else' }
+      ]
+    })
   }
 
   _handleDone() {
     this.props.onDone()
+  }
+
+  _handleUpdate(config) {
+    this.setState({ config })
   }
 
 }

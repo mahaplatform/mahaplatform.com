@@ -60,7 +60,7 @@ class Box extends React.PureComponent {
         }
         { type === 'conditional' &&
           <div className="flowchart-branches" data-parent={ code }>
-            { options.map((option, index) => (
+            { options.length > 1 ? options.map((option, index) => (
               <div className="flowchart-branch" key={`options_${index}`} data-answer={ option.value }>
                 <div className="flowchart-line">
                   <div className="flowchart-line-label">
@@ -69,7 +69,7 @@ class Box extends React.PureComponent {
                 </div>
                 <Trunk { ...this._getTrunk(option) } />
               </div>
-            )) }
+            )) : <Trunk { ...this._getTrunk(options[0]) } /> }
           </div>
         }
       </div>
