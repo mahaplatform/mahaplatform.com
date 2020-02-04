@@ -64,7 +64,7 @@ class FlowchartDesigner extends React.PureComponent {
     return {
       active,
       blocks: this._getBlocks(),
-      config,
+      boxes: config,
       fields,
       onAdd: this._handleAdd,
       onEdit,

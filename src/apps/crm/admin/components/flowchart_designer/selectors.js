@@ -23,12 +23,7 @@ const segment = (steps, parent, answer) => {
       return step
     }
   })
-  return [
-    ...result,
-    ...result.length == 0 || result[result.length - 1].type !== 'conditional' ? [
-      { parent: null, answer: null, type: 'ending', action: null }
-    ] : []
-  ]
+  return result
 }
 
 export const config = createSelector(

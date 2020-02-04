@@ -91,10 +91,10 @@ class IfElse extends React.PureComponent {
     this.props.onChange({
       code: config.code,
       comparison: config.comparison,
-      options: [
+      options: config.value ? [
         { value: config.value, text: config.value },
         { value: 'else', text: 'Else' }
-      ]
+      ] : []
     })
   }
 

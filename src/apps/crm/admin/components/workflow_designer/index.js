@@ -40,7 +40,7 @@ class WorkflowDesigner extends React.PureComponent {
         { action: 'send_internal_sms' },
         { action: 'goal' },
         {
-          icon: 'phone',
+          icon: 'hand-paper-o',
           label: 'Complete Workflow',
           type: 'ending',
           action: 'ending'
