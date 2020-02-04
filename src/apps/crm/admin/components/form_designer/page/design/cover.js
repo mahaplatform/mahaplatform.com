@@ -65,7 +65,7 @@ class Cover extends React.Component {
           sections: [
             {
               fields: [
-                { label: 'Image', name: 'image', type: ImageField, defaultValue: config.image },
+                { label: 'Image', name: 'image', type: ImageField, defaultValue: config.image, ratio: 1.78 },
                 { label: 'Caption', name: 'caption', type: 'htmlfield', headers: false, defaultValue: config.caption }
               ]
             }
