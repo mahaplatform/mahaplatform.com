@@ -24,8 +24,8 @@ class Sidebar extends React.Component {
   static propTypes = {
     active: PropTypes.number,
     cid: PropTypes.string,
-    code: PropTypes.string,
     config: PropTypes.object,
+    form: PropTypes.object,
     onAddSection: PropTypes.func,
     onDeleteSection: PropTypes.func,
     onMoveSection: PropTypes.func,
@@ -61,7 +61,9 @@ class Sidebar extends React.Component {
   }
 
   _getFields() {
-    return [
+    const { form } = this.props
+    const { program } = form
+    const fields = [
       { label: 'Address', icon: 'map-marker', type: 'addressfield', component: AddressField },
       { label: 'Checkboxes', icon: 'check-square-o', type: 'checkboxes', component: CheckBoxes },
       { label: 'Confirmation', icon: 'check-square', type: 'checkbox', component: Checkbox },
@@ -78,6 +80,9 @@ class Sidebar extends React.Component {
       { label: 'Single Line Text', icon: 'font', type: 'textfield', component: TextField },
       { label: 'Time', icon: 'clock-o', type: 'timefield', component: TimeField }
     ]
+    return fields.filter(field => {
+      return field.type !== 'productfield' || _.get(program, 'merchant.status') === 'active'
+    })
   }
 
   _getField() {
@@ -94,11 +99,11 @@ class Sidebar extends React.Component {
   }
 
   _getPage() {
-    const { cid, code, onSave } = this.props
+    const { cid, form, onSave } = this.props
     return {
       cid,
-      code,
       fields: this._getFields(),
+      form,
       onSave,
       onUpdate: this._handleUpdate,
       onPop: this._handlePop,

@@ -13,7 +13,7 @@ router.get('/*', async (req, res) => {
   const original = await getData(path)
   if(!transforms) return res.type(type).status(200).send(original)
   const transformed = await transform(original, transforms)
-  const data = await convert(transformed, type)
+  const data = await convert(transformed, type, transforms.q)
   return res.type(type).status(200).send(data)
 })
 
@@ -31,6 +31,7 @@ const parseUrl = (originalUrl) => {
   const matches = parts[0].match(/\w*=\w*/)
   const transforms = matches ? qs.parse(parts[0]) : null
   const path = matches ? parts.slice(1).join('/') : parts.join('/')
+  transforms.q = transforms.q ? parseInt(transforms.q) : 70
   return { transforms, path }
 }
 
@@ -53,9 +54,9 @@ const transform = async(data, transforms) => {
   return source
 }
 
-const convert = async (transformed, type) => {
-  if(type === 'jpeg') return await transformed.jpeg({ quality: 70 }).toBuffer()
-  if(type === 'png') return await transformed.png({ quality: 70 }).toBuffer()
+const convert = async (transformed, type, quality) => {
+  if(type === 'jpeg') return await transformed.jpeg({ quality }).toBuffer()
+  if(type === 'png') return await transformed.png({ qualit }).toBuffer()
 }
 
 export default router

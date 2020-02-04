@@ -3,13 +3,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link href="/admin/css/semantic.min.css" rel="stylesheet" />
   <link href="/admin/css/font-awesome.min.css" rel="stylesheet" />
   <%= tagify('logo = program.logo || team.logo', false) %>
   <link rel="apple-touch-icon" type="image/jpeg" sizes="180x180" href="/imagecache/fit=cover&w=180&h=180<%= tagify('logo', true) %>">
   <link id="favicon" rel="shortcut icon" href="/imagecache/fit=cover&w=180&h=180<%= tagify('logo', true) %>">
-  <title> <%= tagify('form.title', true) %> | <%= tagify('program.title', true) %></title>
+  <title><%= tagify('form.title', true) %> | <%= tagify('program.title', true) %></title>
+  <meta property="og:title" content="<%= tagify('form.title', true) %>" />
+  <meta property="og:type" content="article" />
 </head>
 <body>
   <div id="form" />

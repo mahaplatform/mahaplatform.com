@@ -14,7 +14,17 @@ const program = (program) => {
   if(!program.id) return
   return {
     id: program.get('id'),
-    title: program.get('title')
+    title: program.get('title'),
+    merchant: merchant(program.related('merchant'))
+  }
+}
+
+const merchant = (merchant) => {
+  if(!merchant.id) return
+  return {
+    id: merchant.get('id'),
+    title: merchant.get('title'),
+    status: merchant.get('status')
   }
 }
 
@@ -25,4 +35,5 @@ const email = (email) => {
     title: email.get('title')
   }
 }
+
 export default FormSerializer
