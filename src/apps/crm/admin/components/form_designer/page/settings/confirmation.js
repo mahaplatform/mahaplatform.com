@@ -58,7 +58,7 @@ class Security extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Once Form is Submitted', name: 'confirmation_strategy', type: 'radiogroup', options: options.strategies, defaultValue: config.confirmation_strategy },
+            { label: 'Once Form is Submitted', name: 'strategy', type: 'radiogroup', options: options.strategies, defaultValue: config.strategy },
             this._getConfirmation()
           ]
         }
@@ -68,18 +68,18 @@ class Security extends React.Component {
 
   _getDefault() {
     return {
-      confirmation_strategy: 'message',
-      confirmation_message: null,
-      confirmation_redirect: ''
+      strategy: 'message',
+      message: null,
+      redirect: ''
     }
   }
 
   _getConfirmation() {
     const { config } = this.state
-    if(config.confirmation_strategy === 'message') {
-      return { label: 'Message', name: 'confirmation_message', type: 'htmlfield', defaultValue: config.confirmation_message }
+    if(config.strategy === 'message') {
+      return { label: 'Message', name: 'message', type: 'htmlfield', defaultValue: config.message }
     }
-    return { label: 'URL', name: 'confirmation_redirect', type: 'textfield', placeholder: 'http://', defaultValue: config.confirmation_redirect }
+    return { label: 'URL', name: 'redirect', type: 'textfield', placeholder: 'http://', defaultValue: config.redirect }
   }
 
   _handleChange(config) {

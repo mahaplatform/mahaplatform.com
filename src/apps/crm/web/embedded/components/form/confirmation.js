@@ -9,10 +9,10 @@ class Confirmation extends React.Component {
 
   render() {
     const { config } = this.props
-    const { confirmation_message } = config.settings
+    const { message } = config.confirmation
     return (
       <div className="maha-form-body">
-        <div className="maha-form-confirmation" dangerouslySetInnerHTML={{ __html: confirmation_message }} />
+        <div className="maha-form-confirmation" dangerouslySetInnerHTML={{ __html: message }} />
       </div>
     )
   }

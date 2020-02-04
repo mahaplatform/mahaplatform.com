@@ -63,7 +63,7 @@ class Limits extends React.Component {
               { label: 'Start Date', name: 'start_date', type: 'datefield', defaultValue: config.start_date },
               { label: 'End Date', name: 'end_date', type: 'datefield', defaultValue: config.end_date }
             ] },
-            { label: 'Once Closed', name: 'closed_strategy', type: 'radiogroup', options: options.strategies, defaultValue: config.closed_strategy },
+            { label: 'Once Closed', name: 'strategy', type: 'radiogroup', options: options.strategies, defaultValue: config.strategy },
             this._getClosed()
           ]
         }
@@ -76,18 +76,18 @@ class Limits extends React.Component {
       max_responses: null,
       start_date: null,
       end_date: null,
-      closed_strategy: 'message',
-      closed_message: null,
-      closed_redirect: ''
+      strategy: 'message',
+      message: null,
+      redirect: ''
     }
   }
 
   _getClosed() {
     const { config } = this.state
-    if(config.closed_strategy === 'message') {
-      return { label: 'Message', name: 'closed_message', type: 'htmlfield', defaultValue: config.closed_message }
+    if(config.strategy === 'message') {
+      return { label: 'Message', name: 'message', type: 'htmlfield', defaultValue: config.message }
     }
-    return { label: 'URL', name: 'closed_redirect', type: 'textfield', placeholder: 'http://', defaultValue: config.closed_redirect }
+    return { label: 'URL', name: 'redirect', type: 'textfield', placeholder: 'http://', defaultValue: config.redirect }
   }
 
   _handleChange(config) {

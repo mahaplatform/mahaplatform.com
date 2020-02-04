@@ -58,13 +58,14 @@ class Fields extends React.Component {
 
   componentDidMount() {
     const { config } = this.props
-    const { captcha } = config.settings
+    const { captcha } = config.security
     if(!captcha) this.props.onSetHuman()
   }
 
   _getButton() {
     const { config, fields, human, requiresPayment, status } = this.props
-    const { button_text, captcha } = config.settings
+    const { captcha } = config.security
+    const { button_text } = config.body
     const processing = status === 'submitting'
     return {
       color: 'blue',

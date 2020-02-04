@@ -13,8 +13,8 @@ const Form = new Model({
   virtuals: {
 
     is_open() {
-      const { settings } = this.get('config')
-      const { start_date, end_date, max_responses } = settings
+      const { limits } = this.get('config')
+      const { start_date, end_date, max_responses } = limits
       const num_responses = this.get('num_responses')
       const now = moment().startOf('day')
       const start = moment(start_date).startOf('day')

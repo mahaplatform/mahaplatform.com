@@ -28,7 +28,7 @@ class Form extends React.Component {
   render() {
     const { hovering, index } = this.state
     const { config } = this.props
-    const { settings, fields } = config
+    const { body, fields, footer, security } = config
     return (
       <Layout { ...this._getLayout() }>
         <div { ...this._getDropZone() }>
@@ -49,19 +49,19 @@ class Form extends React.Component {
                     }
                   </div>
                 )) }
-                { settings.captcha &&
+                { security.captcha &&
                   <div className="maha-form-captcha">
                     <Recaptcha />
                   </div>
                 }
                 <div className="maha-form-submit">
                   <button className="ui blue fluid button">
-                    { settings.button_text }
+                    { body.button_text }
                   </button>
                 </div>
               </div>
             </div>
-            { config.footer &&
+            { footer &&
               <Footer { ...this._getFooter() } />
             }
           </div>

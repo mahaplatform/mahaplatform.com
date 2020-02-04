@@ -17,10 +17,10 @@ const showRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const { settings } = form.get('config')
-  const { closed_strategy, closed_redirect } = settings
-  if(!form.get('is_open') && closed_strategy === 'redirect') {
-    return res.redirect(301, closed_redirect)
+  const { limits } = form.get('config')
+  const { strategy, redirect } = limits
+  if(!form.get('is_open') && strategy === 'redirect') {
+    return res.redirect(301, redirect)
   }
 
   const program = form.related('program')
