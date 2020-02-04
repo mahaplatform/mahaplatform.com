@@ -3,10 +3,14 @@ import Form from './form'
 
 export default {
   icon: 'random',
-  label: 'If / Then',
+  label: 'Conditional',
   type: 'conditional',
   action: 'ifelse',
-  config: {},
+  config: {
+    options: [
+      { value: 'else', text: 'Else' }
+    ]
+  },
   form: Form,
   token: Token
 }

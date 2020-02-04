@@ -9,6 +9,7 @@ class Box extends React.PureComponent {
     active: PropTypes.string,
     box: PropTypes.object,
     blocks: PropTypes.array,
+    fields: PropTypes.array,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
     onRemove: PropTypes.func
@@ -22,7 +23,7 @@ class Box extends React.PureComponent {
     const block = this._getBlock()
     const { icon, label } = block
     const { active, box } = this.props
-    const { code, type, config } = box
+    const { code, type, config, options } = box
     return (
       <div className="flowchart-box-padding">
         <div { ...this._getBox() }>
@@ -48,7 +49,7 @@ class Box extends React.PureComponent {
           </div>
           { block.token &&
             <div className="flowchart-box-details">
-              <block.token { ...config } />
+              <block.token { ...this._getToken(config) } />
             </div>
           }
         </div>
@@ -59,7 +60,7 @@ class Box extends React.PureComponent {
         }
         { type === 'conditional' &&
           <div className="flowchart-branches" data-parent={ code }>
-            { config.options.map((option, index) => (
+            { options.map((option, index) => (
               <div className="flowchart-branch" key={`options_${index}`} data-answer={ option.value }>
                 <div className="flowchart-line">
                   <div className="flowchart-line-label">
@@ -98,12 +99,21 @@ class Box extends React.PureComponent {
     return classes.join(' ')
   }
 
+  _getToken(config) {
+    const { fields } = this.props
+    return {
+      ...config,
+      fields
+    }
+  }
+
   _getTrunk(option) {
-    const { active, blocks, onAdd, onEdit, onRemove } = this.props
+    const { active, blocks, fields, onAdd, onEdit, onRemove } = this.props
     return {
       active,
       boxes: option.then,
       blocks,
+      fields,
       onAdd,
       onEdit,
       onRemove

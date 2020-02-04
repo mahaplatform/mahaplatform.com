@@ -15,22 +15,34 @@ class IfElse extends React.PureComponent {
   }
 
   state = {
-    code: null,
-    comparison: null,
-    value: null
+    config: null
   }
 
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
 
   render() {
+    if(!this.state.config) return null
     return <Form { ...this._getForm() } />
   }
 
+  componentDidMount() {
+    const { config } = this.props
+    this.setState({ config })
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { config } = this.state
+    if(!_.isEqual(config, prevState.config)) {
+      this.props.onChange(config)
+    }
+  }
+
   _getForm() {
+    const { config } = this.state
     const { fields } = this.props
     return {
-      title: 'Question',
+      title: 'If / Then',
       onChange: this._handleChange,
       onCancel: this._handleDone,
       cancelIcon: 'chevron-left',
@@ -42,7 +54,7 @@ class IfElse extends React.PureComponent {
         {
           fields: [
             { label: 'If', type: 'segment', fields: [
-              { name: 'code', type: 'dropdown', options: fields, value: 'code', text: 'name' },
+              { name: 'code', type: 'dropdown', options: fields, value: 'code', text: 'name', defaultValue: config.code },
               ...this._getComparison()
             ] }
           ]
@@ -53,7 +65,8 @@ class IfElse extends React.PureComponent {
 
   _getComparison() {
     const { fields } = this.props
-    const { code, comparison } = this.state
+    const { config } = this.state
+    const { code, comparison } = config
     if(!code) return []
     const field = _.find(fields, { code })
     const comparisons = options.comparisons.filter(comparison => {
@@ -75,7 +88,7 @@ class IfElse extends React.PureComponent {
   }
 
   _handleChange(config) {
-    this.setState(config)
+    this.setState({ config })
   }
 
   _handleDone() {

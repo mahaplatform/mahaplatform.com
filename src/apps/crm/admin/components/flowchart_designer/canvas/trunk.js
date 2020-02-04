@@ -9,6 +9,7 @@ class Trunk extends React.PureComponent {
     active: PropTypes.string,
     boxes: PropTypes.array,
     blocks: PropTypes.array,
+    fields: PropTypes.array,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
     onMove: PropTypes.func,
@@ -48,12 +49,13 @@ class Trunk extends React.PureComponent {
   }
 
   _getBox(box, index) {
-    const { active, blocks, onAdd, onEdit, onRemove } = this.props
+    const { active, blocks, fields, onAdd, onEdit, onRemove } = this.props
     return {
       box,
       active,
       blocks,
       index,
+      fields,
       onAdd,
       onEdit,
       onRemove

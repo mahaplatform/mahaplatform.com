@@ -7,6 +7,7 @@ class Canvas extends React.PureComponent {
   static propTypes = {
     active: PropTypes.string,
     blocks: PropTypes.array,
+    fields: PropTypes.array,
     config: PropTypes.array,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
@@ -25,11 +26,12 @@ class Canvas extends React.PureComponent {
   }
 
   _getTrunk() {
-    const { active, blocks, config, onAdd, onEdit, onMove, onRemove } = this.props
+    const { active, blocks, config, fields, onAdd, onEdit, onMove, onRemove } = this.props
     return {
       active,
       boxes: config,
       blocks,
+      fields,
       onAdd,
       onEdit,
       onMove,

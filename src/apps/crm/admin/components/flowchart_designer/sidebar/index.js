@@ -9,6 +9,7 @@ class Sidebar extends React.PureComponent {
   static propTypes = {
     active: PropTypes.string,
     blocks: PropTypes.array,
+    fields: PropTypes.array,
     steps: PropTypes.array,
     workflow: PropTypes.object,
     onEdit: PropTypes.func,
@@ -53,11 +54,7 @@ class Sidebar extends React.PureComponent {
   }
 
   _getForm(step) {
-    const fields = [
-      { code: 'abs648', name: 'First Name', type: 'textfield' },
-      { code: 'zac6f4', name: 'Last Name', type: 'textfield' }
-    ]
-    const { workflow } = this.props
+    const { fields, workflow } = this.props
     const { code, config } = step
     return {
       config,

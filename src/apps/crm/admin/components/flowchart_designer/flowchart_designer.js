@@ -5,6 +5,11 @@ import blocks from './blocks'
 import React from 'react'
 import _ from 'lodash'
 
+const fields = [
+  { code: 'abs648', name: 'First Name', type: 'textfield' },
+  { code: 'zac6f4', name: 'Last Name', type: 'textfield' }
+]
+
 class FlowchartDesigner extends React.PureComponent {
 
   static propTypes = {
@@ -60,6 +65,7 @@ class FlowchartDesigner extends React.PureComponent {
       active,
       blocks: this._getBlocks(),
       config,
+      fields,
       onAdd: this._handleAdd,
       onEdit,
       onMove: this._handleMove,
@@ -72,6 +78,7 @@ class FlowchartDesigner extends React.PureComponent {
     return {
       active,
       blocks: this._getBlocks(),
+      fields,
       steps,
       workflow,
       onEdit,

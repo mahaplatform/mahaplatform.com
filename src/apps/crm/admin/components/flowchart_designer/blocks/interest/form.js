@@ -1,12 +1,8 @@
+import { actions } from './variables'
 import { Container, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
-
-const actions = [
-  { value: 'add', text: 'Add Interest' },
-  { value: 'remove', text: 'Remove Interest' }
-]
 
 class AddInterest extends React.PureComponent {
 
@@ -67,6 +63,7 @@ class AddInterest extends React.PureComponent {
     const { topics } = this.props
     const topic = _.find(topics, { id: config.topic_id })
     this.props.onChange({
+      action: config.action,
       topic: topic ? {
         id: topic.id,
         title: topic.title

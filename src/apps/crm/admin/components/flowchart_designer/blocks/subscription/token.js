@@ -9,8 +9,7 @@ const Token = ({ action, list }) => {
     <div>
       { list &&
         <div>
-          { description.text }
-          { list.title }
+          { _.capitalize(description.value) } { list.title }
         </div>
       }
     </div>
