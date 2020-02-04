@@ -5,6 +5,7 @@ import React from 'react'
 class WorkflowDesigner extends React.PureComponent {
 
   static propTypes = {
+    tokens: PropTypes.object,
     workflow: PropTypes.object,
     onSave: PropTypes.func
   }
@@ -14,9 +15,11 @@ class WorkflowDesigner extends React.PureComponent {
   }
 
   _getFlowchartDesigner() {
-    const { workflow, onSave } = this.props
-    const { steps, status } = workflow
+    const { workflow, tokens, onSave } = this.props
+    const { config, status } = workflow
     return {
+      workflow,
+      tokens,
       blocks: [
         {
           icon: 'comment',
@@ -27,90 +30,15 @@ class WorkflowDesigner extends React.PureComponent {
         },
         { action: 'ifelse' },
         { action: 'wait' },
-        {
-          action: 'send_email',
-          mapping: {
-            emails: {
-              endpoint: `/api/admin/crm/workflows/${workflow.id}/emails`
-            }
-          }
-        },
-        {
-          action: 'add_to_list',
-          mapping: {
-            lists: {
-              endpoint: `/api/admin/crm/programs/${workflow.program.id}/lists`,
-              filter: { type: { $eq: 'static' } }
-            }
-          }
-        },
-        {
-          action: 'remove_from_list',
-          mapping: {
-            lists: {
-              endpoint: `/api/admin/crm/programs/${workflow.program.id}/lists`,
-              filter: { type: { $eq: 'static' } }
-            }
-          }
-        },
-        {
-          action: 'add_interest',
-          mapping: {
-            topics: {
-              endpoint: `/api/admin/crm/programs/${workflow.program.id}/topics`
-            }
-          }
-        },
-        {
-          action: 'remove_interest',
-          mapping: {
-            topics: {
-              endpoint: `/api/admin/crm/programs/${workflow.program.id}/topics`
-            }
-          }
-        },
-        {
-          action: 'enroll_in_workflow',
-          mapping: {
-            workflows: {
-              endpoint: '/api/admin/crm/workflows',
-              filter: {
-                $and: [
-                  { program_id: { $eq: workflow.program.id } },
-                  { id: { $neq: workflow.id } }
-                ]
-              }
-            }
-          }
-        },
-        {
-          action: 'update_property',
-          mapping: {
-            fields: {
-              endpoint: `/api/admin/crm/programs/${workflow.program.id}/fields`
-            }
-          }
-        },
-        {
-          action: 'send_internal_email',
-          mapping: {
-            users: {
-              endpoint: '/api/admin/users'
-            },
-            emails: {
-              endpoint: `/api/admin/crm/workflows/${workflow.id}/emails`
-            }
-          }
-        },
-        {
-          action: 'send_internal_sms' ,
-          mapping: {
-            users: {
-              endpoint: '/api/admin/users',
-              filter: { cell_phone: { $neq: 'null' } }
-            }
-          }
-        },
+        { action: 'send_email' },
+        { action: 'add_to_list' },
+        { action: 'remove_from_list' },
+        { action: 'add_interest' },
+        { action: 'remove_interest' },
+        { action: 'enroll_in_workflow' },
+        { action: 'update_property' },
+        { action: 'send_internal_email' },
+        { action: 'send_internal_sms' },
         { action: 'goal' },
         {
           icon: 'phone',
@@ -119,7 +47,7 @@ class WorkflowDesigner extends React.PureComponent {
           action: 'ending'
         }
       ],
-      defaultValue: steps,
+      defaultValue: config.steps,
       status,
       onSave
     }

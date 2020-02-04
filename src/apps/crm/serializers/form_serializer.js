@@ -5,6 +5,7 @@ const FormSerializer = (req, result) => ({
   config: result.get('config'),
   program: program(result.related('program')),
   email: email(result.related('email')),
+  workflow: workflow(result.related('workflow')),
   num_responses: result.get('num_responses'),
   created_at: result.get('created_at'),
   updated_at: result.get('updated_at')
@@ -33,6 +34,14 @@ const email = (email) => {
   return {
     id: email.get('id'),
     title: email.get('title')
+  }
+}
+
+const workflow = (workflow) => {
+  if(!workflow.id) return
+  return {
+    id: workflow.get('id'),
+    title: workflow.get('title')
   }
 }
 

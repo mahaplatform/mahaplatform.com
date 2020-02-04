@@ -1,4 +1,4 @@
-import { Form } from 'maha-admin'
+import { Container, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -58,4 +58,8 @@ class RemoveInterest extends React.PureComponent {
 
 }
 
-export default RemoveInterest
+const mapResources = (props, context) => ({
+  topics: `/api/admin/crm/programs/${props.workflow.program.id}/topics`
+})
+
+export default Container(mapResources)(RemoveInterest)

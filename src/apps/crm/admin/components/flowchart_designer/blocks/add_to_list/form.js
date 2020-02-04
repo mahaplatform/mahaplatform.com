@@ -1,4 +1,4 @@
-import { Form } from 'maha-admin'
+import { Container, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -8,7 +8,7 @@ class AddToList extends React.PureComponent {
   static propTypes = {
     config: PropTypes.object,
     lists: PropTypes.array,
-    program: PropTypes.object,
+    workflow: PropTypes.object,
     onChange: PropTypes.func,
     onDone: PropTypes.func
   }
@@ -34,7 +34,24 @@ class AddToList extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'List', name: 'list_id', type: 'lookup', options: lists, value: 'id', text: 'title', required: true, defaultValue: _.get(config, 'list.id')}
+            { label: 'List', name: 'list_id', type: 'lookup', options: lists, value: 'id', text: 'title', required: true, defaultValue: _.get(config, 'list.id'), form: this._getListForm()}
+          ]
+        }
+      ]
+    }
+  }
+
+  _getListForm() {
+    const { workflow } = this.props
+    return {
+      title: 'New List',
+      method: 'post',
+      action: `/api/admin/crm/programs/${workflow.program.id}/lists`,
+      sections: [
+        {
+          fields: [
+            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a name', required: true },
+            { name: 'type', type: 'hidden', defaultValue: 'static' }
           ]
         }
       ]
@@ -58,4 +75,11 @@ class AddToList extends React.PureComponent {
 
 }
 
-export default AddToList
+const mapResources = (props, context) => ({
+  lists: {
+    endpoint: `/api/admin/crm/programs/${props.workflow.program.id}/lists`,
+    filter: { type: { $eq: 'static' } }
+  }
+})
+
+export default Container(mapResources)(AddToList)

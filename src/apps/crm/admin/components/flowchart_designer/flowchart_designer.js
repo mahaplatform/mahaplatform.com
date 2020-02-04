@@ -14,6 +14,7 @@ class FlowchartDesigner extends React.PureComponent {
     defaultValue: PropTypes.array,
     status: PropTypes.string,
     steps: PropTypes.array,
+    workflow: PropTypes.object,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
     onMove: PropTypes.func,
@@ -69,11 +70,12 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   _getSidebar() {
-    const { active, steps, onEdit, onUpdate } = this.props
+    const { active, steps, workflow, onEdit, onUpdate } = this.props
     return {
       active,
       blocks: this._getBlocks(),
       steps,
+      workflow,
       onEdit,
       onSave: this._handleSave,
       onUpdate

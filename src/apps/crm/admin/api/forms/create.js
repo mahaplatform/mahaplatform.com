@@ -1,9 +1,9 @@
 import { activity } from '../../../../../core/services/routes/activities'
-import { whitelist } from '../../../../../core/services/routes/params'
 import generateCode from '../../../../../core/utils/generate_code'
 import FormSerializer from '../../../serializers/form_serializer'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
+import Workflow from '../../../models/workflow'
 import Template from '../../../models/template'
 import Program from '../../../models/program'
 import Email from '../../../models/email'
@@ -38,24 +38,31 @@ const createRoute = async (req, res) => {
     team_id: req.team.get('id'),
     code,
     program_id: program.get('id'),
-    ...whitelist(req.body, ['title']),
+    title: req.body.title,
     config: {
       fields: [
         { label: 'First Name', name: { value: 'First Name', token: 'first_name' }, code: generateFieldCode(), required: true, type: 'contactfield', contactfield: { label: 'First Name', name: 'first_name', type: 'textfield'} },
         { label: 'Last Name', name: { value: 'Last Name', token: 'last_name' }, code: generateFieldCode(), required: true, type: 'contactfield', contactfield: { label: 'Last Name', name: 'last_name', type: 'textfield'} },
         { label: 'Email', name: { value: 'Email', token: 'email' }, code: generateFieldCode(), required: true, type: 'contactfield', contactfield: { label: 'Email', name: 'email', type: 'textfield'} }
       ],
-      settings: {
-        captcha: true,
-        confirmation_strategy: 'message',
-        confirmation_message: 'Thank You!',
+      body: {
+        background_color: '#FFFFFF',
         button_text: 'Submit'
+      },
+      confirmation: {
+        strategy: 'message',
+        message: 'Thank You!'
       },
       page: {
         background_color: '#EEEEEE'
       },
-      body: {
-        background_color: '#FFFFFF'
+      security: {
+        captcha: true
+      },
+      seo: {
+        title: req.body.title,
+        description: '',
+        permalink: ''
       }
     }
   }).save(null, {
@@ -106,6 +113,29 @@ const createRoute = async (req, res) => {
   await audit(req, {
     story: 'created',
     auditable: email
+  })
+
+  const workflowCode = await generateCode(req, {
+    table: 'crm_workflows'
+  })
+
+  const workflow = await Workflow.forge({
+    team_id: req.team.get('id'),
+    form_id: form.get('id'),
+    program_id: program.get('id'),
+    title: 'Confirmation',
+    code: workflowCode,
+    status: 'active',
+    config: {
+      steps: []
+    }
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  await audit(req, {
+    story: 'created',
+    auditable: workflow
   })
 
   await activity(req, {

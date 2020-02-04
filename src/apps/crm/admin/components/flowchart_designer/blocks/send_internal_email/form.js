@@ -1,4 +1,4 @@
-import { Form, UserToken } from 'maha-admin'
+import { Container, Form, UserToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -64,4 +64,13 @@ class SendInternalEmail extends React.PureComponent {
 
 }
 
-export default SendInternalEmail
+const mapResources = (props, context) => ({
+  users: {
+    endpoint: '/api/admin/users'
+  },
+  emails: {
+    endpoint: `/api/admin/crm/workflows/${props.workflow.id}/emails`
+  }
+})
+
+export default Container(mapResources)(SendInternalEmail)

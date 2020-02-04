@@ -1,4 +1,4 @@
-import { Form } from 'maha-admin'
+import { Container, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -58,4 +58,11 @@ class RemoveFromList extends React.PureComponent {
 
 }
 
-export default RemoveFromList
+const mapResources = (props, context) => ({
+  lists: {
+    endpoint: `/api/admin/crm/programs/${props.workflow.program.id}/lists`,
+    filter: { type: { $eq: 'static' } }
+  }
+})
+
+export default Container(mapResources)(RemoveFromList)

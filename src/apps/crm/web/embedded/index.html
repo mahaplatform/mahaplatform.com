@@ -1,4 +1,4 @@
-<% const tagify = (text,output) => '<'+(output ? '%-' : '%' )+' '+text+' %'+'>' %>
+<% const t = (text,output) => '<'+(output ? '%-' : '%' )+' '+text+' %'+'>' %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -6,24 +6,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
   <link href="/admin/css/semantic.min.css" rel="stylesheet" />
   <link href="/admin/css/font-awesome.min.css" rel="stylesheet" />
-  <%= tagify('logo = program.logo || team.logo', false) %>
-  <link rel="apple-touch-icon" type="image/jpeg" sizes="180x180" href="/imagecache/fit=cover&w=180&h=180<%= tagify('logo', true) %>">
-  <link id="favicon" rel="shortcut icon" href="/imagecache/fit=cover&w=180&h=180<%= tagify('logo', true) %>">
-  <title><%= tagify('form.config.seo.title', true) %></title>
-  <meta property="og:title" content="<%= tagify('form.config.seo.title', true) %>" />
-  <meta property="og:url" content="<%= process.env.WEB_HOST %><%= tagify('form.path', true) %>" />
-  <meta property="og:description" content="<%= tagify('form.config.seo.description', true) %>" />
+  <%= t('logo = program.logo || team.logo', false) %>
+  <link rel="apple-touch-icon" type="image/jpeg" sizes="180x180" href="/imagecache/fit=cover&w=180&h=180<%= t('logo', true) %>">
+  <link id="favicon" rel="shortcut icon" href="/imagecache/fit=cover&w=180&h=180<%= t('logo', true) %>">
+  <title><%= t('form.config.seo.title', true) %></title>
+  <meta property="og:title" content="<%= t('form.config.seo.title', true) %>" />
   <meta property="og:type" content="article" />
-  <meta property="og:image" content="<%= process.env.WEB_HOST %>/imagecache/fit=cover&w=1200&h=630&q=100<%= tagify('form.config.seo.image', true) %>" />
-  <meta property="og:image:secure_url" content="<%= process.env.WEB_HOST %>/imagecache/fit=cover&w=1200&h=630&q=100<%= tagify('form.config.seo.image', true) %>" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
+  <meta property="og:url" content="<%= process.env.WEB_HOST %><%= t('form.path', true) %>" />
+  <%= t('if(form.config.seo.description.length > 0) {') %>
+    <meta property="og:description" content="<%= t('form.config.seo.description', true) %>" />
+  <%= t('}') %>
+  <%= t('if(form.config.seo.image > 0) {') %>
+    <meta property="og:image" content="<%= process.env.WEB_HOST %>/imagecache/fit=cover&w=1200&h=630&q=100<%= t('form.config.seo.image', true) %>" />
+    <meta property="og:image:secure_url" content="<%= process.env.WEB_HOST %>/imagecache/fit=cover&w=1200&h=630&q=100<%= t('form.config.seo.image', true) %>" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+  <%= t('}') %>
 </head>
 <body>
   <div id="form" />
   <script>
-    window.token = <%= tagify('JSON.stringify(token)', true) %>;
-    window.form = <%= tagify('JSON.stringify(form)', true) %>;
+    window.token = <%= t('JSON.stringify(token)', true) %>;
+    window.form = <%= t('JSON.stringify(form)', true) %>;
   </script>
 </body>
 </html>

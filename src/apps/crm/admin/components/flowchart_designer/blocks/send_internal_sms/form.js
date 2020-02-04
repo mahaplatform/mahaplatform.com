@@ -1,4 +1,4 @@
-import { Form, UserToken } from 'maha-admin'
+import { Container, Form, UserToken } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -59,4 +59,11 @@ class SendSMS extends React.PureComponent {
 
 }
 
-export default SendSMS
+const mapResources = (props, context) => ({
+  users: {
+    endpoint: '/api/admin/users',
+    filter: { cell_phone: { $neq: 'null' } }
+  }
+})
+
+export default Container(mapResources)(SendSMS)

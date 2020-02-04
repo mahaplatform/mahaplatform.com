@@ -17,19 +17,26 @@ const Details = ({ audits, form }) => {
     route: `/admin/crm/forms/${form.id}/responses`
   }
 
-
   const confirmation = {
     label: 'Design Email',
     className: 'link',
     route: `/admin/crm/emails/${form.email.id}/design`
   }
 
+  const workflow = {
+    label: 'Design Workflow',
+    className: 'link',
+    route: `/admin/crm/workflows/${form.workflow.id}/design`
+  }
+
   const list = {}
 
   list.items = [
     { label: 'Title', content: form.title },
+    { label: 'Program', content: form.program.title },
     { label: 'Design', content: <Button { ...design } /> },
     { label: 'Confirmation', content: <Button { ...confirmation } /> },
+    { label: 'Workflow', content: <Button { ...workflow } /> },
     { label: 'Responses', content: <Button { ...responses } /> },
     { component: <Audit entries={ audits } /> }
   ]

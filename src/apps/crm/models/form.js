@@ -1,4 +1,5 @@
 import Model from '../../../core/objects/model'
+import Workflow from './workflow'
 import Response from './response'
 import Program from './program'
 import Email from './email'
@@ -37,6 +38,10 @@ const Form = new Model({
 
   responses() {
     return this.hasMany(Response, 'form_id')
+  },
+
+  workflow() {
+    return this.hasOne(Workflow, 'form_id')
   }
 
 })

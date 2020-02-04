@@ -582,7 +582,6 @@ const schema = {
       table.string('code', 255)
       table.string('title', 255)
       table.string('description', 255)
-      table.specificType('steps', 'jsonb[]')
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.USER-DEFINED('trigger_type')
@@ -590,6 +589,7 @@ const schema = {
       table.integer('topic_id').unsigned()
       table.integer('list_id').unsigned()
       table.integer('email_id').unsigned()
+      table.jsonb('config')
     })
 
     await knex.schema.createTable('drive_access', (table) => {

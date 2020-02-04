@@ -1,4 +1,4 @@
-import { Container, Stack } from 'maha-admin'
+import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Content from './content'
 import React from 'react'
@@ -10,6 +10,7 @@ class Sidebar extends React.PureComponent {
     active: PropTypes.string,
     blocks: PropTypes.array,
     steps: PropTypes.array,
+    workflow: PropTypes.object,
     onEdit: PropTypes.func,
     onSave: PropTypes.func,
     onUpdate: PropTypes.func
@@ -52,9 +53,11 @@ class Sidebar extends React.PureComponent {
   }
 
   _getForm(step) {
+    const { workflow } = this.props
     const { code, config } = step
     return {
       config,
+      workflow,
       onChange: this._handleUpdate.bind(this, code),
       onDone: this._handleDone
     }
@@ -79,9 +82,7 @@ class Sidebar extends React.PureComponent {
     const search = action ? { type, action } : { type }
     const block = _.find(blocks, search)
     if(!block.form) return
-    const mapping = block.mapping ? () => block.mapping : null
-    const form = mapping ? Container(mapping)(block.form) : block.form
-    this._handlePush(form, this._getForm(step))
+    this._handlePush(block.form, this._getForm(step))
   }
 
   _handlePop(index = -1) {

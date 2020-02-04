@@ -1,4 +1,4 @@
-import { Form } from 'maha-admin'
+import { Container, Form } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -97,4 +97,10 @@ class UpdateProperty extends React.PureComponent {
 
 }
 
-export default UpdateProperty
+const mapResources = (props, context) => ({
+  fields: {
+    endpoint: `/api/admin/crm/programs/${props.workflow.program.id}/fields`
+  }
+})
+
+export default Container(mapResources)(UpdateProperty)
