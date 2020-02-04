@@ -1,13 +1,13 @@
+import Confirmation from './confirmation'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import Header from './header'
-import Footer from './footer'
-import Cover from './cover'
+import Security from './security'
+import Limits from './limits'
+import Rules from './rules'
 import React from 'react'
-import Page from './page'
-import Form from './form'
+import SEO from './seo'
 
-class Design extends React.Component {
+class Settings extends React.Component {
 
   static propTypes = {
     cid: PropTypes.string,
@@ -38,11 +38,11 @@ class Design extends React.Component {
 
   _getSections() {
     return [
-      { label: 'Page', component: Page, props: this._getSection() },
-      { label: 'Cover', component: Cover, props: this._getSection() },
-      { label: 'Header', component: Header, props: this._getSection() },
-      { label: 'Form', component: Form, props: this._getSection() },
-      { label: 'Footer', component: Footer, props: this._getSection() }
+      { label: 'Confirmation Page', component: Confirmation, props: this._getSection() },
+      { label: 'Limits', component: Limits, props: this._getSection() },
+      { label: 'Rules', component: Rules, props: this._getSection() },
+      { label: 'SEO', component: SEO, props: this._getSection() },
+      { label: 'Security', component: Security, props: this._getSection() }
     ]
   }
 
@@ -69,4 +69,4 @@ const mapStateToProps = (state, props) => ({
   config: state.crm.form_designer[props.cid].config
 })
 
-export default connect(mapStateToProps)(Design)
+export default connect(mapStateToProps)(Settings)

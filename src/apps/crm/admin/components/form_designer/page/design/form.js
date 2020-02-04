@@ -64,6 +64,11 @@ class Body extends React.Component {
             { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color }
           ]
         }, {
+          label: 'Button',
+          fields: [
+            { label: 'Text', name: 'button_text', type: 'textfield', defaultValue: config.button_text }
+          ]
+        }, {
           label: 'Text Style',
           fields: [
             { label: 'Font Family', name: 'p_font_family', type: 'dropdown', options: options.font_families, defaultValue: config.p_font_family, format: FontFamilyToken },
@@ -88,6 +93,7 @@ class Body extends React.Component {
   _getDefault() {
     return {
       background_color: null,
+      button_text: 'Submit',
       p_font_family: null,
       p_color: null,
       p_format: [],

@@ -1,4 +1,4 @@
-import RulesField from '../../rulesfield'
+import RulesField from '../../../rulesfield'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -10,6 +10,8 @@ class Rules extends React.Component {
   static propTypes = {
     cid: PropTypes.string,
     config: PropTypes.object,
+    onPop: PropTypes.func,
+    onPush: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -18,6 +20,7 @@ class Rules extends React.Component {
   }
 
   _handleChange = this._handleChange.bind(this)
+  _handleDone = this._handleDone.bind(this)
 
   render() {
     if(!this.state.rules) return null
@@ -41,8 +44,14 @@ class Rules extends React.Component {
   _getForm() {
     const { rules } = this.state
     return {
-      showHeader: false,
+      title: 'Rules',
+      onCancel: this._handleDone,
       onChange: this._handleChange,
+      cancelIcon: 'chevron-left',
+      saveText: null,
+      buttons: [
+        { label: 'Done', color: 'red', handler: this._handleDone }
+      ],
       sections: [
         {
           fields: [
@@ -67,6 +76,10 @@ class Rules extends React.Component {
 
   _handleChange(rules) {
     this.setState({ rules })
+  }
+
+  _handleDone() {
+    this.props.onPop()
   }
 
 }

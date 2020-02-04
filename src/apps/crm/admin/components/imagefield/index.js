@@ -1,6 +1,7 @@
 import { Attachments, Button } from 'maha-admin'
 import PropTypes from 'prop-types'
 import React from 'react'
+import qs from 'qs'
 
 class ImageField extends React.Component {
 
@@ -10,8 +11,13 @@ class ImageField extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.string,
+    ratio: PropTypes.number,
     onChange: PropTypes.func,
     onReady: PropTypes.func
+  }
+
+  static defaultProps = {
+    ratio: 1
   }
 
   state = {
@@ -25,11 +31,12 @@ class ImageField extends React.Component {
 
   render() {
     const { value } = this.state
+    const transform = this._getTransform()
     return (
       <div className="crm-imagefield">
         { value ?
           <div className="crm-imagefield-preview">
-            <img src={`/imagecache/fit=cover&w=200&h=200${value}`} />
+            <img src={`/imagecache/${transform}${value}`} />
             <div className="crm-imagefield-remove" onClick={ this._handleClear }>
               <i className="fa fa-times" />
             </div>
@@ -75,6 +82,16 @@ class ImageField extends React.Component {
       className: 'ui button',
       handler: this._handleAttachments
     }
+  }
+
+  _getTransform() {
+    const { ratio } = this.props
+    return qs.stringify({
+      fit: 'cover',
+      w: 200 * ratio,
+      h: 200,
+      q: 100
+    })
   }
 
   _handleAttachments() {

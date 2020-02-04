@@ -4,7 +4,6 @@ import PropTypes from 'prop-types'
 import Settings from './settings'
 import Design from './design'
 import Fields from './fields'
-import Rules from './rules'
 import React from 'react'
 
 class Page extends React.PureComponent {
@@ -67,8 +66,7 @@ class Page extends React.PureComponent {
       items: [
         { label: 'Fields', component: <Fields { ...this._getFields() } /> },
         { label: 'Design', component: <Design { ...this._getDesign() } /> },
-        { label: 'Settings', component: <Settings { ...this._getSettings() } /> },
-        { label: 'Rules', component: <Rules { ...this._getRules() } /> }
+        { label: 'Settings', component: <Settings { ...this._getSettings() } /> }
       ]
     }
   }

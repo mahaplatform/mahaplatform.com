@@ -1,8 +1,10 @@
 .crm-imagefield-preview {
   position: relative;
-  display: block;
-  width: 200px;
-  height: 200px;
+  display: inline-block;
+  background-color: fadeout(@black, 80);
+  img {
+    display: block;
+  }
 }
 .crm-imagefield-remove {
   position: absolute;
@@ -10,9 +12,6 @@
   right: 0;
   padding: 0.8em;
   line-height: 1em;
-  img {
-    display: block;
-  }
   .fa {
     cursor: pointer;
     color: @white;

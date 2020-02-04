@@ -142,3 +142,8 @@ export const cover_justifications = [
   { value: 'center', text: 'Center' },
   { value: 'right', text: 'Right' }
 ]
+
+export const strategies = [
+  { value: 'message', text: 'Show Message' },
+  { value: 'redirect', text: 'Redirect to URL' }
+]

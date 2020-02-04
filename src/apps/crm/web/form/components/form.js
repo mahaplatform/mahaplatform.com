@@ -55,7 +55,7 @@ class Form extends React.Component {
                   </div>
                 }
                 <div className="maha-form-submit">
-                  <button { ...this._getButton()}>
+                  <button className="ui blue fluid button">
                     { settings.button_text }
                   </button>
                 </div>
@@ -68,12 +68,6 @@ class Form extends React.Component {
         </div>
       </Layout>
     )
-  }
-
-  _getButton() {
-    return {
-      className: 'ui blue button'
-    }
   }
 
   _getDropZone() {
