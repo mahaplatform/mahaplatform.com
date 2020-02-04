@@ -104,6 +104,7 @@ const processor = async () => {
 
   utils.registerTask(shipit, 'deploy', [
     'deploy:preclean',
+    'deploy:env',
     'deploy:build',
     'deploy:zip',
     'deploy:mkdir',
@@ -155,6 +156,10 @@ const processor = async () => {
   })
 
   utils.registerTask(shipit, 'servers:cron:restart', async () => {
+  })
+
+  utils.registerTask(shipit, 'deploy:env', async () => {
+    await shipit.local(`NODE_ENV=production npm run env ${environment}`)
   })
 
   utils.registerTask(shipit, 'deploy:build', async () => {
