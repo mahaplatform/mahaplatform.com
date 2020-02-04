@@ -48,12 +48,10 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   _getBlocks() {
-    return this.props.blocks.map(block => {
-      return {
-        ...block,
-        ...blocks[block.action]
-      }
-    })
+    return this.props.blocks.map(block => ({
+      ...block,
+      ...blocks[block.action]
+    }))
   }
 
   _getCanvas() {

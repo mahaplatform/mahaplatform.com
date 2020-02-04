@@ -14,16 +14,15 @@ const segment = (steps, parent, answer) => {
     if(step.type === 'conditional') {
       return {
         ...step,
-        options: step.config.options.map(option => ({
-          ...option,
-          then: segment(steps, `${step.code}` , option.value)
-        }))
+        config: {
+          options: [
+            { value: true, text: 'True', then: segment(steps, `${step.code}`, true) },
+            { value: false, text: 'False', then: segment(steps, `${step.code}`, false) }
+          ]
+        }
       }
     } else {
-      return {
-        ...step,
-        ...step.config
-      }
+      return step
     }
   })
   return [

@@ -3,7 +3,7 @@ import Form from './form'
 
 export default {
   icon: 'book',
-  label: 'Add / Remove Interest',
+  label: 'Update Interest',
   type: 'action',
   action: 'interest',
   form: Form,

@@ -22,7 +22,7 @@ class Box extends React.PureComponent {
     const block = this._getBlock()
     const { icon, label } = block
     const { active, box } = this.props
-    const { code, options, type, config } = box
+    const { code, type, config } = box
     return (
       <div className="flowchart-box-padding">
         <div { ...this._getBox() }>
@@ -59,7 +59,7 @@ class Box extends React.PureComponent {
         }
         { type === 'conditional' &&
           <div className="flowchart-branches" data-parent={ code }>
-            { options.map((option, index) => (
+            { config.options.map((option, index) => (
               <div className="flowchart-branch" key={`options_${index}`} data-answer={ option.value }>
                 <div className="flowchart-line">
                   <div className="flowchart-line-label">

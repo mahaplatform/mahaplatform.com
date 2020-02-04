@@ -23,7 +23,7 @@ class AddInterest extends React.PureComponent {
   _getForm() {
     const { config, topics } = this.props
     return {
-      title: 'Add Interest',
+      title: 'Update Consent',
       onChange: this._handleChange,
       onCancel: this._handleDone,
       cancelIcon: 'chevron-left',

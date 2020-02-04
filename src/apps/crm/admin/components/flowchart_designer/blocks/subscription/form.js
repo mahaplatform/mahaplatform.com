@@ -1,4 +1,5 @@
 import { Container, Form } from 'maha-admin'
+import { actions } from './variables'
 import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
@@ -34,6 +35,7 @@ class AddToList extends React.PureComponent {
       sections: [
         {
           fields: [
+            { name: 'action', type: 'radiogroup', options: actions, required: true, defaultValue: 'add' },
             { label: 'List', name: 'list_id', type: 'lookup', options: lists, value: 'id', text: 'title', required: true, defaultValue: _.get(config, 'list.id'), form: this._getListForm()}
           ]
         }
@@ -62,6 +64,7 @@ class AddToList extends React.PureComponent {
     const { lists } = this.props
     const list = _.find(lists, { id: config.list_id })
     this.props.onChange({
+      action: config.action,
       list: list ? {
         id: list.id,
         title: list.title

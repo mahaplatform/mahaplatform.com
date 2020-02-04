@@ -28,7 +28,7 @@ class WorkflowDesigner extends React.PureComponent {
           action: 'trigger',
           token: () => 'Form is completed'
         },
-        { action: 'ifelse' },
+        { action: 'conditional' },
         { action: 'wait' },
         { action: 'send_email' },
         { action: 'subscription' },

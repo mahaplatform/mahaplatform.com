@@ -2,10 +2,11 @@ import Token from './token'
 import Form from './form'
 
 export default {
-  icon: 'users',
-  label: 'Add to List',
-  type: 'action',
-  action: 'add_to_list',
+  icon: 'random',
+  label: 'If / Then',
+  type: 'conditional',
+  action: 'ifelse',
+  config: {},
   form: Form,
   token: Token
 }

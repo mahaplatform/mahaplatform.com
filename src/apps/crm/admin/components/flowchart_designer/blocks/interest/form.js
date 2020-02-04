@@ -3,6 +3,11 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
+const actions = [
+  { value: 'add', text: 'Add Interest' },
+  { value: 'remove', text: 'Remove Interest' }
+]
+
 class AddInterest extends React.PureComponent {
 
   static propTypes = {
@@ -34,6 +39,7 @@ class AddInterest extends React.PureComponent {
       sections: [
         {
           fields: [
+            { name: 'action', type: 'radiogroup', options: actions, required: true, defaultValue: 'add' },
             { label: 'Topic', name: 'topic_id', type: 'lookup', options: topics, value: 'id', text: 'title', required: true, form: this._getTopicForm(), defaultValue: _.get(config, 'topic.id') }
           ]
         }
