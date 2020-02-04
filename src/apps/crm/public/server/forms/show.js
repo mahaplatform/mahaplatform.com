@@ -28,8 +28,9 @@ const showRoute = async (req, res) => {
   const content = ejs.render(template, {
     form: {
       isOpen: form.get('is_open'),
-      title: form.get('title'),
+      title: form.get('config').seo.title || form.get('title'),
       code: form.get('code'),
+      path: form.get('config').seo.permalink || `/crm/forms/${form.get('code')}`,
       config: {
         ...form.get('config'),
         program: {
