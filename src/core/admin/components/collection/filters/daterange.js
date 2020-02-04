@@ -54,10 +54,16 @@ class DaterangePanel extends React.Component {
   }
 
   _getSearch() {
-    const { label, name, include, text, value, results } = this.props
-    const options = this._getOptions(include)
-    const onChange = this._handleChange
-    return { label, name, options, results, text, value, onChange }
+    const { label, name, include, results } = this.props
+    return {
+      label,
+      name,
+      options: this._getOptions(include),
+      results,
+      text: 'text',
+      value: 'value',
+      onChange: this._handleChange
+    }
   }
 
   _getOptions(include) {
