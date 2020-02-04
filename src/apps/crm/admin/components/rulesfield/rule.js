@@ -47,7 +47,7 @@ class Rule extends React.Component {
           fields: [
             { label: 'If', type: 'segment', fields: [
               { name: 'if_code', type: 'dropdown', options: fields, value: 'code', text: 'name' },
-              ...this._getCompariason()
+              ...this._getComparison()
             ] },
             ...this._getThen()
           ]
@@ -56,7 +56,7 @@ class Rule extends React.Component {
     }
   }
 
-  _getCompariason() {
+  _getComparison() {
     const { fields } = this.props
     const { rule } = this.state
     const { if_code } = rule

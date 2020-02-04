@@ -19,7 +19,7 @@ const updateRoute = async (req, res) => {
   })
 
   await workflow.save({
-    ...whitelist(req.body, ['title','steps'])
+    ...whitelist(req.body, ['title','config'])
   }, {
     patch: true,
     transacting: req.trx

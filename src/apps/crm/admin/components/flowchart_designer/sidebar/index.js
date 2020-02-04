@@ -53,10 +53,15 @@ class Sidebar extends React.PureComponent {
   }
 
   _getForm(step) {
+    const fields = [
+      { code: 'abs648', name: 'First Name', type: 'textfield' },
+      { code: 'zac6f4', name: 'Last Name', type: 'textfield' }
+    ]
     const { workflow } = this.props
     const { code, config } = step
     return {
       config,
+      fields,
       workflow,
       onChange: this._handleUpdate.bind(this, code),
       onDone: this._handleDone

@@ -7,7 +7,7 @@ export default {
   type: 'conditional',
   action: 'ifelse',
   config: {
-    options: [{ value: '1', text: '1' }, { value: '2', text: '2' }]
+    options: [{ value: true, text: 'True' }, { value: false, text: 'False' }]
   },
   form: Form,
   token: Token
