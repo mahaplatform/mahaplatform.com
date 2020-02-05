@@ -7,9 +7,6 @@ const Target = () => (
         dropzone
       </div>
     </div>
-    <div className="flowchart-connector">
-      <div className="flowchart-line" />
-    </div>
   </div>
 )
 

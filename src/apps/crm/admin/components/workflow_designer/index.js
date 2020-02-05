@@ -41,9 +41,10 @@ class WorkflowDesigner extends React.PureComponent {
         { action: 'goal' },
         {
           icon: 'hand-paper-o',
-          label: 'Complete Workflow',
+          label: 'Complete',
           type: 'ending',
-          action: 'ending'
+          action: 'ending',
+          token: () => 'Workflow is complete'
         }
       ],
       defaultValue: config.steps,

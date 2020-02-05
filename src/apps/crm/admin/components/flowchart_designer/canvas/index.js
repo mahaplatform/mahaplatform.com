@@ -18,7 +18,7 @@ class Canvas extends React.PureComponent {
   render() {
     return (
       <div className="flowchart-canvas">
-        <div className="workflow">
+        <div className="flowchart">
           <Trunk { ...this._getTrunk() } />
         </div>
       </div>

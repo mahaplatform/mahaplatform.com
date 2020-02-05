@@ -37,13 +37,15 @@ class Trunk extends React.PureComponent {
               <Target key={`dropzone_${index}`} />
             }
             <Box { ...this._getBox(box, index) } />
-            { (index < boxes.length - 1) &&
-              <div className="flowchart-connector" key={`box_connector_${index}`}>
-                <div className="flowchart-line" />
-              </div>
-            }
           </div>
         )) }
+        { (boxes.length === 0 || boxes[boxes.length - 1].type !== 'ending') &&
+          <div className="flowchart-segment" data-delta={ boxes.length }>
+            { hovering && delta === 0 &&
+              <Target />
+            }
+          </div>
+        }
       </div>
     )
   }
