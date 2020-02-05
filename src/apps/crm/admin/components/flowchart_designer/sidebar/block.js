@@ -44,7 +44,8 @@ const source = {
   beginDrag: (props) => ({
     action: props.action,
     type: props.type,
-    icon: props.icon
+    icon: props.icon,
+    label: props.label
   })
 }
 

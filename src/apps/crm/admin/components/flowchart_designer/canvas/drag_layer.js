@@ -15,8 +15,12 @@ class CustomDragLayer extends React.Component {
     if(!isDragging) return null
     return (
       <div className="flowchart-drag-layer" style={ this._getStyle() }>
-        <div className={`flowchart-box-icon flowchart-designer-icon-${item.type}`}>
-          <i className={`fa fa-${item.icon}`} />
+        <div className="flowchart-box-item flowchart-box-verb">
+          <div className={`flowchart-box-icon flowchart-designer-icon-${item.type}`}>
+            <i className={`fa fa-${item.icon}`} />
+          </div>
+          <div className="flowchart-box-label">{ item.label }</div>
+          <div className="flowchart-box-details">&nbsp;</div>
         </div>
       </div>
     )
@@ -25,8 +29,8 @@ class CustomDragLayer extends React.Component {
   _getStyle() {
     const { clientOffset } = this.props
     if(!clientOffset) return {}
-    const x = clientOffset.x - 50
-    const y = clientOffset.y - 50
+    const x = clientOffset.x - 140
+    const y = clientOffset.y - 85
     const transform = `translate(${x}px, ${y}px)`
     return {
       transform,
