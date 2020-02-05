@@ -1,5 +1,6 @@
 const INITIAL_STATE = {
   active: null,
+  hovering: null,
   steps: []
 }
 
@@ -7,11 +8,6 @@ const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'SET':
-    return {
-      ...state,
-      steps: action.steps
-    }
 
   case 'ADD':
     return {
@@ -30,6 +26,13 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       active: action.code
+    }
+
+
+  case 'HOVER':
+    return {
+      ...state,
+      hovering: action.hovering
     }
 
   case 'MOVE':
@@ -55,6 +58,7 @@ const reducer = (state = INITIAL_STATE, action) => {
         })
       ]
     }
+
   case 'REMOVE':
     return {
       ...state,
@@ -67,6 +71,12 @@ const reducer = (state = INITIAL_STATE, action) => {
           delta: step.delta - (step.parent === action.step.parent && step.answer === action.step.answer && step.delta > action.step.delta ? 1 : 0)
         }))
       ]
+    }
+
+  case 'SET':
+    return {
+      ...state,
+      steps: action.steps
     }
 
   case 'UPDATE':

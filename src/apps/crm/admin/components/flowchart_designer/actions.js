@@ -13,6 +13,11 @@ export const edit = (code) => ({
   code
 })
 
+export const hover = (hovering) => ({
+  type: 'HOVER',
+  hovering
+})
+
 export const move = (code, parent, answer, delta) => ({
   type: 'MOVE',
   code,

@@ -1,3 +1,4 @@
+import { DropTarget } from 'react-dnd'
 import PropTypes from 'prop-types'
 import Trunk from './trunk'
 import React from 'react'
@@ -7,25 +8,29 @@ class Box extends React.PureComponent {
 
   static propTypes = {
     active: PropTypes.string,
+    answer: PropTypes.string,
     box: PropTypes.object,
     blocks: PropTypes.array,
+    connectDropTarget: PropTypes.func,
     fields: PropTypes.array,
+    hovering: PropTypes.object,
+    parent: PropTypes.string,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
+    onHover: PropTypes.func,
     onMove: PropTypes.func,
     onRemove: PropTypes.func
   }
 
-  _handleDragStart = this._handleDragStart.bind(this)
   _handleEdit = this._handleEdit.bind(this)
   _handleRemove = this._handleRemove.bind(this)
 
   render() {
+    const { active, box, connectDropTarget } = this.props
     const block = this._getBlock()
     const { icon, label } = block
-    const { active, box } = this.props
     const { code, type, config, options } = box
-    return (
+    return connectDropTarget(
       <div className="flowchart-box-padding">
         <div { ...this._getBox() }>
           { (code === active || !_.includes(['trigger','ending'], type)) &&
@@ -55,9 +60,9 @@ class Box extends React.PureComponent {
           }
         </div>
         { type === 'conditional' &&
-          <div className="flowchart-branches" data-parent={ code }>
+          <div className="flowchart-branches">
             { options.map((option, index) => (
-              <div className="flowchart-branch" key={`options_${index}`} data-answer={ option.value }>
+              <div className="flowchart-branch" key={`options_${index}`}>
                 <div className="flowchart-branch-label">
                   { option.text }
                 </div>
@@ -102,23 +107,21 @@ class Box extends React.PureComponent {
   }
 
   _getTrunk(option) {
-    const { active, blocks, fields, onAdd, onEdit, onMove, onRemove } = this.props
+    const { active, blocks, box, fields, hovering, onAdd, onEdit, onHover, onMove, onRemove } = this.props
     return {
       active,
+      answer:  option.value,
       boxes: option.then,
       blocks,
       fields,
+      parent: box.code,
+      hovering,
       onAdd,
       onEdit,
+      onHover,
       onMove,
       onRemove
     }
-  }
-
-  _handleDragStart(e) {
-    const { box } = this.props
-    e.dataTransfer.dropEffect = 'all'
-    e.dataTransfer.setData('code', box.code)
   }
 
   _handleEdit() {
@@ -132,5 +135,30 @@ class Box extends React.PureComponent {
   }
 
 }
+
+const target = {
+  hover(props, monitor, component) {
+    if(monitor.isOver()) return
+    const { answer, box, delta, parent } = props
+    const hovering = !_.includes(['conditional','ending'], box.type) ? { answer, delta, parent } : null
+    props.onHover(hovering)
+  },
+  drop(props, monitor, component) {
+    if(monitor.didDrop()) return
+    const block = monitor.getItem()
+    const { answer, parent } = props
+    const { type, action } = block
+    const delta = props.delta + 1
+    props.onAdd(type, action, parent, answer, delta)
+  }
+}
+
+const targetCollector = (connect, monitor) => ({
+  connectDropTarget: connect.dropTarget(),
+  isOver: monitor.isOver(),
+  canDrop: monitor.canDrop()
+})
+
+Box = DropTarget('ITEM', target, targetCollector)(Box)
 
 export default Box

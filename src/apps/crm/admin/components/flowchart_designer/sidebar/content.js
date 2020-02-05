@@ -1,11 +1,10 @@
 import { ModalPanel } from 'maha-admin'
 import PropTypes from 'prop-types'
+import Block from './block'
 import React from 'react'
 import _ from 'lodash'
 
 class Content extends React.Component {
-
-  static contextTypes = {}
 
   static propTypes = {
     blocks: PropTypes.array,
@@ -14,9 +13,6 @@ class Content extends React.Component {
     onSave: PropTypes.func
   }
 
-  static defaultProps = {}
-
-  _handleDragStart = this._handleDragStart.bind(this)
   _handleSave = this._handleSave.bind(this)
 
   render() {
@@ -27,25 +23,11 @@ class Content extends React.Component {
           { blocks.filter(block => {
             return !_.includes(['trigger','ending'], block.type)
           }).map((block, index) => (
-            <div className="flowchart-designer-block" key={`type_${index}`} { ...this._getBlockType(block) }>
-              <div className={`flowchart-designer-block-icon flowchart-designer-icon-${block.type}`}>
-                <i className={`fa fa-fw fa-${ block.icon }`} />
-              </div>
-              <div className="flowchart-designer-block-label">
-                { block.label }
-              </div>
-            </div>
+            <Block { ...block } key={`type_${index}`} />
           )) }
         </div>
       </ModalPanel>
     )
-  }
-
-  _getBlockType(block) {
-    return {
-      draggable: true,
-      onDragStart: this._handleDragStart.bind(this, block)
-    }
   }
 
   _getPanel() {
@@ -55,12 +37,6 @@ class Content extends React.Component {
         { label: 'Save', color: 'red', handler: this._handleSave }
       ]
     }
-  }
-
-  _handleDragStart(block, e) {
-    e.dataTransfer.dropEffect = 'all'
-    e.dataTransfer.setData('type', block.type)
-    if(block.action) e.dataTransfer.setData('action', block.action)
   }
 
   _handleSave() {

@@ -13,11 +13,13 @@ class FlowchartDesigner extends React.PureComponent {
     config: PropTypes.array,
     defaultValue: PropTypes.array,
     fields: PropTypes.array,
+    hovering: PropTypes.object,
     status: PropTypes.string,
     steps: PropTypes.array,
     workflow: PropTypes.object,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
+    onHover: PropTypes.func,
     onMove: PropTypes.func,
     onRemove: PropTypes.func,
     onSave: PropTypes.func,
@@ -26,6 +28,7 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   _handleAdd = this._handleAdd.bind(this)
+  _handleHover = _.throttle(this._handleHover.bind(this), 100)
   _handleMove = this._handleMove.bind(this)
   _handleSave = this._handleSave.bind(this)
 
@@ -56,14 +59,16 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   _getCanvas() {
-    const { active, config, fields, onEdit, onRemove } = this.props
+    const { active, config, fields, hovering, onEdit, onRemove } = this.props
     return {
       active,
       blocks: this._getBlocks(),
       boxes: config,
       fields,
+      hovering,
       onAdd: this._handleAdd,
       onEdit,
+      onHover: this._handleHover,
       onMove: this._handleMove,
       onRemove
     }
@@ -112,6 +117,10 @@ class FlowchartDesigner extends React.PureComponent {
       answer,
       config: block.config || {}
     })
+  }
+
+  _handleHover(hovering) {
+    this.props.onHover(hovering)
   }
 
   _handleMove(code, parent, answer, delta) {
