@@ -15,8 +15,8 @@ class Block extends React.Component {
   }
 
   render() {
-    const { connectDragPreview, connectDragSource, label, icon, type } = this.props
-    return connectDragSource(connectDragPreview(
+    const { connectDragSource, label, icon, type } = this.props
+    return connectDragSource(
       <div className="flowchart-designer-block">
         <div className={`flowchart-designer-block-icon flowchart-designer-icon-${type}`}>
           <i className={`fa fa-fw fa-${ icon }`} />
@@ -25,7 +25,17 @@ class Block extends React.Component {
           { label }
         </div>
       </div>
-    ))
+    )
+  }
+
+  componentDidMount() {
+    this.props.connectDragPreview(this._getEmptyImage())
+  }
+
+  _getEmptyImage() {
+    const emptyImage = new Image()
+    emptyImage.src = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=='
+    return emptyImage
   }
 
 }
@@ -33,7 +43,8 @@ class Block extends React.Component {
 const source = {
   beginDrag: (props) => ({
     action: props.action,
-    type: props.type
+    type: props.type,
+    icon: props.icon
   })
 }
 

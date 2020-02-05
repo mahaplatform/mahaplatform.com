@@ -1,3 +1,4 @@
+import DragLayer from './drag_layer'
 import PropTypes from 'prop-types'
 import Trunk from './trunk'
 import React from 'react'
@@ -20,6 +21,7 @@ class Canvas extends React.PureComponent {
   render() {
     return (
       <div className="flowchart-canvas">
+        <DragLayer />
         <div className="flowchart">
           <Trunk { ...this._getTrunk() } />
         </div>

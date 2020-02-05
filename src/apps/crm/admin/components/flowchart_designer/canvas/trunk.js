@@ -1,5 +1,5 @@
+import Placeholder from './placeholder'
 import PropTypes from 'prop-types'
-import Target from './target'
 import React from 'react'
 import Box from './box'
 
@@ -27,6 +27,7 @@ class Trunk extends React.PureComponent {
         { boxes.map((box, index) => (
           <Box { ...this._getBox(box, index) } key={`box_${index}`} />
         )) }
+        <Placeholder { ...this._getPlaceholder(boxes.length) } />
       </div>
     )
   }
@@ -47,6 +48,18 @@ class Trunk extends React.PureComponent {
       onHover,
       onMove,
       onRemove
+    }
+  }
+
+  _getPlaceholder(delta) {
+    const { answer, hovering, parent, onAdd, onHover } = this.props
+    return {
+      answer,
+      delta,
+      hovering,
+      parent,
+      onAdd,
+      onHover
     }
   }
 

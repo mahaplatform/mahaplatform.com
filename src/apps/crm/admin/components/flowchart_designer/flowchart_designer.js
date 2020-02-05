@@ -28,7 +28,7 @@ class FlowchartDesigner extends React.PureComponent {
   }
 
   _handleAdd = this._handleAdd.bind(this)
-  _handleHover = this._handleHover.bind(this)
+  _handleHover = _.throttle(this._handleHover.bind(this), 100)
   _handleMove = this._handleMove.bind(this)
   _handleSave = this._handleSave.bind(this)
 

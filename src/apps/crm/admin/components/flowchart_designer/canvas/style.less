@@ -155,37 +155,40 @@
     height: 2.6em;
     border-left: 2px solid #bfbfbf;
     left: 50%;
-    width: 100%;
-  }
-  .flowchart-branch:first-child {
-    &:after {
-      left: 50%;
-    }
   }
   .flowchart-branch:last-child {
-    &:after {
+    &:before {
+      left: auto;
       right: ~"calc(50% - 2px)";
+      border-left: none;
+      border-right: 2px solid #bfbfbf;
     }
   }
 }
 .flowchart-branch {
   min-width: 190px;
   position: relative;
-  padding: 3em 0 0;
-  &:after, &:before {
+  padding: 0;
+  flex-direction: column;
+  display: flex;
+  .flowchart-segments {
+    flex-direction: column;
+    display: flex;
+    flex: 1;
+    .flowchart-placeholder {
+      flex: 1;
+    }
+  }
+  &:before {
     content: "";
     position: absolute;
     top: 0;
+    width: 100%;
+    left: 50%;
     bottom: 0;
-  }
-  &:after {
+    border-left: 2px solid #bfbfbf;
     border-top: 2px solid #bfbfbf;
     border-bottom: 2px solid #bfbfbf;
-    width: 100%;
-  }
-  &:before {
-    border-left: 2px solid #bfbfbf;
-    left: 50%;
   }
 }
 .flowchart-branch-label {
@@ -206,12 +209,12 @@
   font-weight: bold;
 }
 .flowchart-segment {
-  padding-bottom: 3em;
+  padding-top: 3em;
   position: relative;
   min-height: 40px;
   display: flex;
   flex-direction: column;
-  &.ending {
+  &.trigger {
     padding: 0;
     &:before {
       height: 0;
@@ -225,4 +228,17 @@
     border-left: 2px solid #bfbfbf;
     left: 50%;
   }
+}
+.flowchart-placeholder {
+  padding-top: 3em;
+  overflow: hidden;
+  z-index: 2;
+  min-height: 3em;
+}
+.flowchart-drag-layer {
+  position: absolute;
+  pointer-events: none;
+  z-index: 100;
+  left: 0;
+  top: 0;
 }

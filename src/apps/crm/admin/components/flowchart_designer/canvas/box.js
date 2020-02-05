@@ -33,54 +33,52 @@ class Box extends React.PureComponent {
     const block = this._getBlock()
     const { icon, label } = block
     const { code, type, config, options } = box
-    return (
+    return connectDropTarget(
       <div className={ this._getClass(box) }>
         { hovering && parent === hovering.parent  && answer === hovering.answer && hovering.delta === delta &&
           <Target />
         }
-        { connectDropTarget(
-          <div className="flowchart-box-padding">
-            <div className={ this._getBoxClass() }>
-              { (code === active || !_.includes(['trigger','ending'], type)) &&
-                <div className="flowchart-box-highlight" />
-              }
-              { !_.includes(['trigger','ending'], type) &&
-                <div className="flowchart-box-actions">
-                  <div className="flowchart-box-spacer"></div>
-                  <div className="flowchart-box-action" onClick={ this._handleEdit }>
-                    <i className="fa fa-pencil" />
-                  </div>
-                  <div className="flowchart-box-action" onClick={ this._handleRemove }>
-                    <i className="fa fa-trash" />
-                  </div>
+        <div className="flowchart-box-padding">
+          <div className={ this._getBoxClass() }>
+            { (code === active || !_.includes(['trigger','ending'], type)) &&
+              <div className="flowchart-box-highlight" />
+            }
+            { !_.includes(['trigger','ending'], type) &&
+              <div className="flowchart-box-actions">
+                <div className="flowchart-box-spacer"></div>
+                <div className="flowchart-box-action" onClick={ this._handleEdit }>
+                  <i className="fa fa-pencil" />
                 </div>
-              }
-              <div className={`flowchart-box-icon flowchart-designer-icon-${type}`}>
-                <i className={`fa fa-${icon}`} />
-              </div>
-              <div className="flowchart-box-label">
-                { label }
-              </div>
-              { block.token &&
-                <div className="flowchart-box-details">
-                  <block.token { ...this._getToken(config) } />
+                <div className="flowchart-box-action" onClick={ this._handleRemove }>
+                  <i className="fa fa-trash" />
                 </div>
-              }
+              </div>
+            }
+            <div className={`flowchart-box-icon flowchart-designer-icon-${type}`}>
+              <i className={`fa fa-${icon}`} />
             </div>
-            { type === 'conditional' &&
-              <div className="flowchart-branches">
-                { options.map((option, index) => (
-                  <div className="flowchart-branch" key={`options_${index}`}>
-                    <div className="flowchart-branch-label">
-                      { option.text }
-                    </div>
-                    <Trunk { ...this._getTrunk(option) } />
-                  </div>
-                )) }
+            <div className="flowchart-box-label">
+              { label }
+            </div>
+            { block.token &&
+              <div className="flowchart-box-details">
+                <block.token { ...this._getToken(config) } />
               </div>
             }
           </div>
-        ) }
+          { type === 'conditional' &&
+            <div className="flowchart-branches">
+              { options.map((option, index) => (
+                <div className="flowchart-branch" key={`options_${index}`}>
+                  <div className="flowchart-branch-label">
+                    { option.text }
+                  </div>
+                  <Trunk { ...this._getTrunk(option) } />
+                </div>
+              )) }
+            </div>
+          }
+        </div>
       </div>
     )
   }
@@ -101,8 +99,7 @@ class Box extends React.PureComponent {
   }
 
   _getClass(box) {
-    const classes = ['flowchart-segment']
-    if(box.type === 'ending') classes.push('ending')
+    const classes = ['flowchart-segment', box.type]
     return classes.join(' ')
   }
 
