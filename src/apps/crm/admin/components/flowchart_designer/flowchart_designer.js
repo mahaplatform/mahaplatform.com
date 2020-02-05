@@ -112,8 +112,8 @@ class FlowchartDesigner extends React.PureComponent {
       type: block.type,
       action: block.action,
       delta: parent ? delta : delta - 1,
-      parent: parent ? parent.dataset.parent : null,
-      answer: answer ? answer.dataset.answer : null,
+      parent,
+      answer,
       config: block.config || {}
     })
   }

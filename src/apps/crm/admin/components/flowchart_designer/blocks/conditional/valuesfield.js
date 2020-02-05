@@ -21,6 +21,7 @@ class Values extends React.Component {
 
   _handleAdd = this._handleAdd.bind(this)
   _handleChange = this._handleChange.bind(this)
+  _handleKeyPress = this._handleKeyPress.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
@@ -89,8 +90,6 @@ class Values extends React.Component {
       { value: 'else', text: 'Else'}
     ])
   }
-
-  _handleKeyPress = this._handleKeyPress.bind(this)
 
   _handleKeyPress(e) {
     const { option } = this.state

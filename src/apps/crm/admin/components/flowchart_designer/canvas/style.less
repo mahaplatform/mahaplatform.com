@@ -141,9 +141,10 @@
   }
 }
 .flowchart-branches {
-  display: flex;
+  background-color: lighten(@black, 97);
   padding-top: 2.6em;
   position: relative;
+  display: flex;
   &:before {
     content: "";
     position: absolute;
@@ -155,8 +156,10 @@
   }
   .flowchart-branch:last-child {
     &:before {
-      border-top: none;
-      border-bottom: none;
+      left: auto;
+      right: ~"calc(50% - 2px)";
+      border-left: none;
+      border-right: 2px solid #bfbfbf;
     }
   }
 }
@@ -193,6 +196,13 @@
       width: 100%;
     }
   }
+  .flowchart-segments {
+    .flowchart-segment:last-child {
+      .flowchart-target {
+        margin: 0;
+      }
+    }
+  }
 }
 .flowchart-branch-label {
   position: absolute;
@@ -213,21 +223,20 @@
 }
 .flowchart-segments {
   .flowchart-segment:last-child {
-    padding-bottom: 0;
     &:before {
       height: 0;
     }
   }
 }
 .flowchart-segment {
-  margin-bottom: 3em;
+  padding-bottom: 3em;
   position: relative;
-  min-height: 65px;
+  min-height: 40px;
   &:before {
     content: "";
     position: absolute;
-    top: 100%;
-    height: 3em;
+    top: 0;
+    bottom: 0;
     border-left: 2px solid #bfbfbf;
     left: 50%;
     width: 100%;

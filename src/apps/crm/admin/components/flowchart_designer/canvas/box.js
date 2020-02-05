@@ -12,6 +12,7 @@ class Box extends React.PureComponent {
     fields: PropTypes.array,
     onAdd: PropTypes.func,
     onEdit: PropTypes.func,
+    onMove: PropTypes.func,
     onRemove: PropTypes.func
   }
 
@@ -101,7 +102,7 @@ class Box extends React.PureComponent {
   }
 
   _getTrunk(option) {
-    const { active, blocks, fields, onAdd, onEdit, onRemove } = this.props
+    const { active, blocks, fields, onAdd, onEdit, onMove, onRemove } = this.props
     return {
       active,
       boxes: option.then,
@@ -109,6 +110,7 @@ class Box extends React.PureComponent {
       fields,
       onAdd,
       onEdit,
+      onMove,
       onRemove
     }
   }

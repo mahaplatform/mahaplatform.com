@@ -30,9 +30,9 @@ class Trunk extends React.PureComponent {
     const { delta, hovering } = this.state
     const { boxes } = this.props
     return (
-      <div { ...this._getDropZone()}>
+      <div className="flowchart-segments">
         { boxes.map((box, index) => (
-          <div className="flowchart-segment" key={`box_${index}`} data-delta={ index }>
+          <div { ...this._getSegment(index) } key={`box_${index}`}>
             { !(boxes[0].type === 'trigger' && index === 0) && hovering && index === delta &&
               <Target key={`dropzone_${index}`} />
             }
@@ -40,7 +40,7 @@ class Trunk extends React.PureComponent {
           </div>
         )) }
         { (boxes.length === 0 || boxes[boxes.length - 1].type !== 'ending') &&
-          <div className="flowchart-segment" data-delta={ boxes.length }>
+          <div { ...this._getSegment(boxes.length) }>
             { hovering && delta === boxes.length &&
               <Target />
             }
@@ -51,7 +51,7 @@ class Trunk extends React.PureComponent {
   }
 
   _getBox(box, index) {
-    const { active, blocks, fields, onAdd, onEdit, onRemove } = this.props
+    const { active, blocks, fields, onAdd, onEdit, onMove, onRemove } = this.props
     return {
       box,
       active,
@@ -60,15 +60,17 @@ class Trunk extends React.PureComponent {
       fields,
       onAdd,
       onEdit,
+      onMove,
       onRemove
     }
   }
 
-  _getDropZone() {
+  _getSegment(index) {
     return {
-      className: 'flowchart-segments',
-      onDragEnter: this._handleDrag.bind(this, 'enter'),
-      onDragOver: this._handleDrag.bind(this, 'over'),
+      className: 'flowchart-segment',
+      'data-delta': index,
+      onDragEnter: this._handleDragEnter.bind(this),
+      onDragOver: this._handleDragOver.bind(this),
       onDrop: this._handleDrop
     }
   }
@@ -84,20 +86,16 @@ class Trunk extends React.PureComponent {
     return el
   }
 
-  _handleDrag(action, e) {
+  _handleDrop(e) {
     e.preventDefault()
     e.stopPropagation()
-    if(action === 'enter') this._handleDragEnter()
-    if(action === 'over') this._handleDragOver(e.target, e.currentTarget, e.clientX, e.clientY)
-  }
-
-  _handleDrop(e) {
     const { onAdd, onMove } = this.props
     const { delta } = this.state
-    e.preventDefault()
-    e.stopPropagation()
-    const parent = this._getParent(e.target, '.flowchart-branches')
-    const answer = this._getParent(e.target, '.flowchart-branch')
+    const segment = e.currentTarget
+    const parentEl = this._getParent(segment, '.flowchart-branches')
+    const answerEl = this._getParent(segment, '.flowchart-branch')
+    const parent = parentEl ? parentEl.dataset.parent : null
+    const answer = answerEl ? answerEl.dataset.answer : null
     const code = e.dataTransfer.getData('code')
     const type = e.dataTransfer.getData('type')
     const action = e.dataTransfer.getData('action')
@@ -109,7 +107,9 @@ class Trunk extends React.PureComponent {
     })
   }
 
-  _handleDragEnter() {
+  _handleDragEnter(e) {
+    e.preventDefault()
+    e.stopPropagation()
     this._handleHover(true)
   }
 
@@ -117,18 +117,17 @@ class Trunk extends React.PureComponent {
     this._handleHover(false)
   }
 
-  _handleDragOver(target, dropzone, x, y) {
-    const segment = this._getParent(target, '.flowchart-segment')
+  _handleDragOver(e) {
+    e.preventDefault()
+    e.stopPropagation()
+    const segment = e.currentTarget
+    const y = e.clientY
     if(this.timeout) clearTimeout(this.timeout)
     this.timeout = setTimeout(this._handleDragLeave, 100)
-    if(segment) {
-      const delta = parseInt(segment.dataset.delta)
-      const middle = this._getMiddle(segment)
-      if(y <= middle - 10) return this._handleDelta(delta)
-      if(y > middle + 10) return this._handleDelta(delta + 1)
-    }
-    const middle = this._getMiddle(dropzone)
-    if(y <= middle - 10) return this._handleDelta(0)
+    const delta = parseInt(segment.dataset.delta)
+    const middle = this._getMiddle(segment)
+    if(y <= middle - 10) return this._handleDelta(delta)
+    if(y > middle + 10) return this._handleDelta(delta + 1)
   }
 
   _handleHover(hovering) {

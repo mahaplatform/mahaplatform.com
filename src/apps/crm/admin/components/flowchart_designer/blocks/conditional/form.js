@@ -29,8 +29,12 @@ class IfElse extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { config } = this.props
-    this.setState({ config })
+    this.setState({
+      config: {
+        ...this._getDefault(),
+        ...this.props.config
+      }
+    })
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -88,6 +92,14 @@ class IfElse extends React.PureComponent {
     return items
   }
 
+  _getDefault() {
+    return {
+      type: null,
+      comparison: null,
+      options: []
+    }
+  }
+
   _handleChange() {
     const { config } = this.state
     this.props.onChange(config)
@@ -98,7 +110,12 @@ class IfElse extends React.PureComponent {
   }
 
   _handleUpdate(config) {
-    this.setState({ config })
+    this.setState({
+      config: {
+        ...this.state.config,
+        ...config
+      }
+    })
   }
 
 }
