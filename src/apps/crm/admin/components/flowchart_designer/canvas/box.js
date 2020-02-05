@@ -54,22 +54,23 @@ class Box extends React.PureComponent {
           }
         </div>
         { type === 'conditional' &&
-          <div className="flowchart-connector">
-            <div className="flowchart-line" />
-          </div>
-        }
-        { type === 'conditional' &&
-          <div className="flowchart-branches" data-parent={ code }>
-            { options.map((option, index) => (
-              <div className="flowchart-branch" key={`options_${index}`} data-answer={ option.value }>
-                <div className="flowchart-line">
-                  <div className="flowchart-line-label">
-                    { option.text }
+          <div>
+            <div className="flowchart-connector">
+              <div className="flowchart-line" />
+            </div>
+            <div className="flowchart-branches" data-parent={ code }>
+              { options.map((option, index) => (
+                <div className="flowchart-branch" key={`options_${index}`} data-answer={ option.value }>
+                  <div className="flowchart-line">
+                    <div className="flowchart-line-label">
+                      { option.text }
+                    </div>
                   </div>
+                  <Trunk { ...this._getTrunk(option) } />
+                  <div className="flowchart-line" />
                 </div>
-                <Trunk { ...this._getTrunk(option) } />
-              </div>
-            )) }
+              )) }
+            </div>
           </div>
         }
       </div>

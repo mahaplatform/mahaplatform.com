@@ -1,3 +1,4 @@
+import ValuesFields from './valuesfield'
 import * as options from './variables'
 import PropTypes from 'prop-types'
 import { Form } from 'maha-admin'
@@ -72,30 +73,24 @@ class IfElse extends React.PureComponent {
       return !comparison.types || _.includes(comparison.types, field.type)
     })
     const items = [
-      { label: 'Comparison', name: 'comparison', type: 'radiogroup', options: comparisons, required: true }
+      { label: 'Comparison', name: 'comparison', type: 'radiogroup', options: comparisons, required: true, defaultValue: config.comparison },
+      { label: 'Values', name: 'options', type: ValuesFields, defaultValue: config.options }
     ]
-    if(_.includes(['radiogroup','dropdown','checkboxes'], field.type)) {
-      if(_.includes(['$in','$nin','$int','$nint'], comparison)) {
-        items.push({ name: 'value', type: 'checkboxes', options: field.options, required: true })
-      } else if(_.includes(['$eq','$neq'], comparison)) {
-        items.push({ name: 'value', type: 'radiogroup', options: field.options, required: true })
-      }
-    } else if(!_.includes(['checkbox','filefield'], field.type)) {
-      items.push({ name: 'value', type: 'textfield', required: true })
-    }
+    // if(_.includes(['radiogroup','dropdown','checkboxes'], field.type)) {
+    //   if(_.includes(['$in','$nin','$int','$nint'], comparison)) {
+    //     items.push({ name: 'value', type: 'checkboxes', options: field.options, required: true })
+    //   } else if(_.includes(['$eq','$neq'], comparison)) {
+    //     items.push({ name: 'value', type: 'radiogroup', options: field.options, required: true })
+    //   }
+    // } else if(!_.includes(['checkbox','filefield'], field.type)) {
+    //   items.push({ name: 'value', type: 'textfield', required: true })
+    // }
     return items
   }
 
   _handleChange() {
     const { config } = this.state
-    this.props.onChange({
-      code: config.code,
-      comparison: config.comparison,
-      options: config.value ? [
-        { value: config.value, text: config.value },
-        { value: 'else', text: 'Else' }
-      ] : []
-    })
+    this.props.onChange(config)
   }
 
   _handleDone() {
