@@ -126,8 +126,8 @@ class Trunk extends React.PureComponent {
     this.timeout = setTimeout(this._handleDragLeave, 100)
     const delta = parseInt(segment.dataset.delta)
     const middle = this._getMiddle(segment)
-    if(y <= middle - 10) return this._handleDelta(delta)
-    if(y > middle + 10) return this._handleDelta(delta + 1)
+    if(y <= middle) return this._handleDelta(delta)
+    if(y > middle) return this._handleDelta(delta + 1)
   }
 
   _handleHover(hovering) {

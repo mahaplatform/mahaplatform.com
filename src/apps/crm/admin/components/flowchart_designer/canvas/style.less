@@ -37,7 +37,6 @@
     color: fadeout(@white, 30);
   }
   &:hover {
-    background-color: fadeout(@black, 85);
     .fa {
       color: @white;
     }
@@ -52,6 +51,7 @@
   margin: 0 auto;
   width: 175px;
   cursor: pointer;
+  z-index: 2;
   &.active .flowchart-box-highlight,
   &:hover .flowchart-box-highlight {
     display: block;
@@ -196,13 +196,6 @@
       width: 100%;
     }
   }
-  .flowchart-segments {
-    .flowchart-segment:last-child {
-      .flowchart-target {
-        margin: 0;
-      }
-    }
-  }
 }
 .flowchart-branch-label {
   position: absolute;
@@ -223,6 +216,7 @@
 }
 .flowchart-segments {
   .flowchart-segment:last-child {
+    padding: 0;
     &:before {
       height: 0;
     }
