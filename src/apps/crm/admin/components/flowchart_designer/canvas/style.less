@@ -154,12 +154,14 @@
     left: 50%;
     width: 100%;
   }
+  .flowchart-branch:first-child {
+    &:after {
+      left: 50%;
+    }
+  }
   .flowchart-branch:last-child {
-    &:before {
-      left: auto;
+    &:after {
       right: ~"calc(50% - 2px)";
-      border-left: none;
-      border-right: 2px solid #bfbfbf;
     }
   }
 }
@@ -167,34 +169,20 @@
   min-width: 190px;
   position: relative;
   padding: 3em 0 0;
-  &:before {
+  &:after, &:before {
     content: "";
     position: absolute;
     top: 0;
     bottom: 0;
-    border-top: 2px solid #bfbfbf;
-    border-left: 2px solid #bfbfbf;
-    border-bottom: 2px solid #bfbfbf;
-    left: 50%;
     width: 100%;
   }
-  & > .flowchart-line:first-child {
-    padding: 3em;
-    &:before {
-      border-top: 2px solid lighten(@black, 75);
-      border-left: 2px solid lighten(@black, 75);
-      left: 50%;
-      width: 100%;
-    }
+  &:after {
+    border-top: 2px solid #bfbfbf;
+    border-bottom: 2px solid #bfbfbf;
   }
-  & > .flowchart-line:last-child {
-    padding: 1em;
-    &:before {
-      border-left: 2px solid lighten(@black, 75);
-      border-bottom: 2px solid lighten(@black, 75);
-      left: 50%;
-      width: 100%;
-    }
+  &:before {
+    border-left: 2px solid #bfbfbf;
+    left: 50%;
   }
 }
 .flowchart-branch-label {
