@@ -25,34 +25,36 @@ const folder = (folder) => {
 }
 
 const access = (access) => ({
-  grouping: access.get('grouping'),
+  grouping: grouping(access.related('grouping')),
   group: group(access.related('group')),
   user: user(access.related('user')),
   access_type: access.related('access_type').get('text')
 })
 
 const group = (group) => {
-
   if(!group.id) return null
-
   return {
     id: group.get('id'),
     title: group.get('title')
   }
+}
 
+const grouping = (grouping) => {
+  if(!grouping.id) return null
+  return {
+    id: grouping.get('id'),
+    title: grouping.get('title')
+  }
 }
 
 const user = (user) => {
-
   if(!user.id) return null
-
   return {
     id: user.get('id'),
     full_name: user.get('full_name'),
     initials: user.get('initials'),
     photo: user.related('photo') ? user.related('photo').get('path') : null
   }
-
 }
 
 export default FolderSerializer
