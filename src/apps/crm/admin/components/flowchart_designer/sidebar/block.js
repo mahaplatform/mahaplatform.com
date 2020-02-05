@@ -11,7 +11,7 @@ class Block extends React.Component {
     label: PropTypes.string,
     icon: PropTypes.string,
     type: PropTypes.string,
-    paerent: PropTypes.string
+    parent: PropTypes.string
   }
 
   render() {

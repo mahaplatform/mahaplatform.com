@@ -5,6 +5,8 @@ import Trunk from './trunk'
 import React from 'react'
 import _ from 'lodash'
 
+let timeout = null
+
 class Box extends React.PureComponent {
 
   static propTypes = {
@@ -148,6 +150,13 @@ const target = {
     const { answer, box, delta, parent } = props
     const hovering = box.type !== 'trigger' ? { answer, delta, parent } : null
     props.onHover(hovering)
+    console.log(timeout)
+    if(timeout) clearTimeout(timeout)
+    timeout = setTimeout(() => {
+      if(monitor.isOver()) return
+      console.log('clearing')
+      props.onHover(null)
+    }, 250)
   },
   drop(props, monitor, component) {
     if(monitor.didDrop()) return
