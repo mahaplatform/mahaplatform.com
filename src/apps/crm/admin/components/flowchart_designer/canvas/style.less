@@ -7,7 +7,7 @@
   padding: 0.8em;
   position: absolute;
   top: 0.8em;
-  left: 50%;
+  left: ~"calc(50% + 3.2em)";
   overflow: hidden;
   transform: translateX(-50%);
 }
@@ -158,12 +158,25 @@
     border-left: 2px solid #bfbfbf;
     left: 50%;
   }
+  .flowchart-branch:first-child {
+    &:before {
+      right: ~"calc(50% - 2px)";
+      border-left: none;
+      border-right: 2px solid #bfbfbf;
+    }
+    &:after {
+      left: 50%;
+    }
+  }
   .flowchart-branch:last-child {
     &:before {
       left: auto;
       right: ~"calc(50% - 2px)";
       border-left: none;
       border-right: 2px solid #bfbfbf;
+    }
+    &:after {
+      right: 50%;
     }
   }
 }
@@ -181,14 +194,18 @@
       flex: 1;
     }
   }
-  &:before {
+  &:before, &:after {
     content: "";
     position: absolute;
     top: 0;
-    width: 100%;
-    left: 50%;
     bottom: 0;
+  }
+  &:before {
+    left: 50%;
     border-left: 2px solid #bfbfbf;
+  }
+  &:after {
+    width: 100%;
     border-top: 2px solid #bfbfbf;
     border-bottom: 2px solid #bfbfbf;
   }
