@@ -4,6 +4,9 @@
   padding: 0.8em;
   overflow: scroll;
 }
+.flowchart {
+  margin: 0.8em auto;
+}
 .flowchart-box-padding {
   padding: 0 0.4em;
 }
@@ -137,16 +140,6 @@
     width: 100%;
   }
 }
-.flowchart-connector {
-  display: flex;
-  & > .flowchart-line {
-    padding: 1em;
-    &:before {
-      border-left: 2px solid lighten(@black, 75);
-      left: 50%;
-    }
-  }
-}
 .flowchart-branches {
   display: flex;
   padding-top: 2.6em;
@@ -229,6 +222,7 @@
 .flowchart-segment {
   margin-bottom: 3em;
   position: relative;
+  min-height: 65px;
   &:before {
     content: "";
     position: absolute;

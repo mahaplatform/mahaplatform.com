@@ -41,7 +41,7 @@ class Trunk extends React.PureComponent {
         )) }
         { (boxes.length === 0 || boxes[boxes.length - 1].type !== 'ending') &&
           <div className="flowchart-segment" data-delta={ boxes.length }>
-            { hovering && delta === 0 &&
+            { hovering && delta === boxes.length &&
               <Target />
             }
           </div>
@@ -124,11 +124,11 @@ class Trunk extends React.PureComponent {
     if(segment) {
       const delta = parseInt(segment.dataset.delta)
       const middle = this._getMiddle(segment)
-      if(y <= middle) return this._handleDelta(delta)
-      if(y > middle) return this._handleDelta(delta + 1)
+      if(y <= middle - 10) return this._handleDelta(delta)
+      if(y > middle + 10) return this._handleDelta(delta + 1)
     }
     const middle = this._getMiddle(dropzone)
-    if(y <= middle) return this._handleDelta(0)
+    if(y <= middle - 10) return this._handleDelta(0)
   }
 
   _handleHover(hovering) {
