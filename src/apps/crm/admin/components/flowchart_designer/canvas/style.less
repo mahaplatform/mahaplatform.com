@@ -202,18 +202,16 @@
   text-transform: uppercase;
   font-weight: bold;
 }
-.flowchart-segments {
-  .flowchart-segment:last-child {
+.flowchart-segment {
+  padding-bottom: 3em;
+  position: relative;
+  min-height: 40px;
+  &.ending {
     padding: 0;
     &:before {
       height: 0;
     }
   }
-}
-.flowchart-segment {
-  padding-bottom: 3em;
-  position: relative;
-  min-height: 40px;
   &:before {
     content: "";
     position: absolute;

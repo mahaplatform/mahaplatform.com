@@ -1,5 +1,6 @@
 import { DropTarget } from 'react-dnd'
 import PropTypes from 'prop-types'
+import Target from './target'
 import Trunk from './trunk'
 import React from 'react'
 import _ from 'lodash'
@@ -12,6 +13,7 @@ class Box extends React.PureComponent {
     box: PropTypes.object,
     blocks: PropTypes.array,
     connectDropTarget: PropTypes.func,
+    delta: PropTypes.number,
     fields: PropTypes.array,
     hovering: PropTypes.object,
     parent: PropTypes.string,
@@ -27,60 +29,58 @@ class Box extends React.PureComponent {
 
   render() {
     const { active, box, connectDropTarget } = this.props
+    const { answer, delta, hovering, parent } = this.props
     const block = this._getBlock()
     const { icon, label } = block
     const { code, type, config, options } = box
     return connectDropTarget(
-      <div className="flowchart-box-padding">
-        <div { ...this._getBox() }>
-          { (code === active || !_.includes(['trigger','ending'], type)) &&
-            <div className="flowchart-box-highlight" />
-          }
-          { !_.includes(['trigger','ending'], type) &&
-            <div className="flowchart-box-actions">
-              <div className="flowchart-box-spacer"></div>
-              <div className="flowchart-box-action" onClick={ this._handleEdit }>
-                <i className="fa fa-pencil" />
+      <div className={ this._getClass(box) }>
+        { hovering && parent === hovering.parent  && answer === hovering.answer && hovering.delta === delta &&
+          <Target />
+        }
+        <div className="flowchart-box-padding">
+          <div className={ this._getBoxClass() }>
+            { (code === active || !_.includes(['trigger','ending'], type)) &&
+              <div className="flowchart-box-highlight" />
+            }
+            { !_.includes(['trigger','ending'], type) &&
+              <div className="flowchart-box-actions">
+                <div className="flowchart-box-spacer"></div>
+                <div className="flowchart-box-action" onClick={ this._handleEdit }>
+                  <i className="fa fa-pencil" />
+                </div>
+                <div className="flowchart-box-action" onClick={ this._handleRemove }>
+                  <i className="fa fa-trash" />
+                </div>
               </div>
-              <div className="flowchart-box-action" onClick={ this._handleRemove }>
-                <i className="fa fa-trash" />
-              </div>
+            }
+            <div className={`flowchart-box-icon flowchart-designer-icon-${type}`}>
+              <i className={`fa fa-${icon}`} />
             </div>
-          }
-          <div className={`flowchart-box-icon flowchart-designer-icon-${type}`}>
-            <i className={`fa fa-${icon}`} />
+            <div className="flowchart-box-label">
+              { label }
+            </div>
+            { block.token &&
+              <div className="flowchart-box-details">
+                <block.token { ...this._getToken(config) } />
+              </div>
+            }
           </div>
-          <div className="flowchart-box-label">
-            { label }
-          </div>
-          { block.token &&
-            <div className="flowchart-box-details">
-              <block.token { ...this._getToken(config) } />
+          { type === 'conditional' &&
+            <div className="flowchart-branches">
+              { options.map((option, index) => (
+                <div className="flowchart-branch" key={`options_${index}`}>
+                  <div className="flowchart-branch-label">
+                    { option.text }
+                  </div>
+                  <Trunk { ...this._getTrunk(option) } />
+                </div>
+              )) }
             </div>
           }
         </div>
-        { type === 'conditional' &&
-          <div className="flowchart-branches">
-            { options.map((option, index) => (
-              <div className="flowchart-branch" key={`options_${index}`}>
-                <div className="flowchart-branch-label">
-                  { option.text }
-                </div>
-                <Trunk { ...this._getTrunk(option) } />
-              </div>
-            )) }
-          </div>
-        }
       </div>
     )
-  }
-
-  _getBox() {
-    return {
-      className: this._getClass(),
-      draggable: true,
-      onDragStart: this._handleDragStart
-    }
   }
 
   _getBlock() {
@@ -90,11 +90,17 @@ class Box extends React.PureComponent {
     return _.find(blocks, { type })
   }
 
-  _getClass() {
+  _getBoxClass() {
     const { active, box } = this.props
     const { code, type } = box
     const classes = ['flowchart-box-item', `flowchart-box-${type}`]
     if(active === code) classes.push('active')
+    return classes.join(' ')
+  }
+
+  _getClass(box) {
+    const classes = ['flowchart-segment']
+    if(box.type === 'ending') classes.push('ending')
     return classes.join(' ')
   }
 
@@ -140,15 +146,14 @@ const target = {
   hover(props, monitor, component) {
     if(monitor.isOver()) return
     const { answer, box, delta, parent } = props
-    const hovering = !_.includes(['conditional','ending'], box.type) ? { answer, delta, parent } : null
+    const hovering = box.type !== 'trigger' ? { answer, delta, parent } : null
     props.onHover(hovering)
   },
   drop(props, monitor, component) {
     if(monitor.didDrop()) return
     const block = monitor.getItem()
-    const { answer, parent } = props
+    const { answer, delta, parent } = props
     const { type, action } = block
-    const delta = props.delta + 1
     props.onAdd(type, action, parent, answer, delta)
   }
 }

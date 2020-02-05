@@ -13,6 +13,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       active: action.step.code,
+      hovering: null,
       steps: [
         ...state.steps.map(step => ({
           ...step,
