@@ -11,42 +11,26 @@ class Designer extends React.Component {
 
   static propTypes = {
     page: PropTypes.object,
-    template: PropTypes.object
+    template: PropTypes.object,
+    workflow: PropTypes.object
   }
 
-  state = {
-    workflow: null
-  }
-
-  _handleFetch = this._handleFetch.bind(this)
   _handleSave = this._handleSave.bind(this)
-  _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    if(!this.state.workflow) return null
     return <WorkflowDesigner { ...this._getWorkflowDesigner() } />
   }
 
-  componentDidMount() {
-    this._handleFetch()
-  }
-
   _getWorkflowDesigner() {
-    const { workflow } = this.state
+    const { workflow } = this.props
     return {
+      fields: [
+        { code: 'abs648', name: 'First Name', type: 'textfield' },
+        { code: 'zac6f4', name: 'Last Name', type: 'textfield' }
+      ],
       workflow,
       onSave: this._handleSave
     }
-  }
-
-  _handleFetch() {
-    const { page } = this.props
-    const { id } = page.params
-    this.context.network.request({
-      method: 'get',
-      endpoint: `/api/admin/crm/workflows/${id}`,
-      onSuccess: this._handleSuccess
-    })
   }
 
   _handleSave(steps) {
@@ -55,22 +39,19 @@ class Designer extends React.Component {
     this.context.network.request({
       method: 'patch',
       endpoint: `/api/admin/crm/workflows/${id}`,
-      body: { config: { steps } },
-      onSuccess: this._handleSuccess
-    })
-  }
-
-  _handleSuccess(result) {
-    this.setState({
-      workflow: result.data
+      body: { config: { steps } }
     })
   }
 
 }
+
+const mapResourcesToPage = (props, context) => ({
+  workflow: `/api/admin/crm/workflows/${props.params.id}`
+})
 
 const mapPropsToPage = (props, context, resources, page) => ({
   title: 'Workflow',
   component: Designer
 })
 
-export default Page(null, mapPropsToPage)
+export default Page(mapResourcesToPage, mapPropsToPage)
