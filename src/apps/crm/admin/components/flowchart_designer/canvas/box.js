@@ -5,8 +5,6 @@ import Trunk from './trunk'
 import React from 'react'
 import _ from 'lodash'
 
-let timeout = null
-
 class Box extends React.PureComponent {
 
   static propTypes = {
@@ -35,52 +33,54 @@ class Box extends React.PureComponent {
     const block = this._getBlock()
     const { icon, label } = block
     const { code, type, config, options } = box
-    return connectDropTarget(
+    return (
       <div className={ this._getClass(box) }>
         { hovering && parent === hovering.parent  && answer === hovering.answer && hovering.delta === delta &&
           <Target />
         }
-        <div className="flowchart-box-padding">
-          <div className={ this._getBoxClass() }>
-            { (code === active || !_.includes(['trigger','ending'], type)) &&
-              <div className="flowchart-box-highlight" />
-            }
-            { !_.includes(['trigger','ending'], type) &&
-              <div className="flowchart-box-actions">
-                <div className="flowchart-box-spacer"></div>
-                <div className="flowchart-box-action" onClick={ this._handleEdit }>
-                  <i className="fa fa-pencil" />
+        { connectDropTarget(
+          <div className="flowchart-box-padding">
+            <div className={ this._getBoxClass() }>
+              { (code === active || !_.includes(['trigger','ending'], type)) &&
+                <div className="flowchart-box-highlight" />
+              }
+              { !_.includes(['trigger','ending'], type) &&
+                <div className="flowchart-box-actions">
+                  <div className="flowchart-box-spacer"></div>
+                  <div className="flowchart-box-action" onClick={ this._handleEdit }>
+                    <i className="fa fa-pencil" />
+                  </div>
+                  <div className="flowchart-box-action" onClick={ this._handleRemove }>
+                    <i className="fa fa-trash" />
+                  </div>
                 </div>
-                <div className="flowchart-box-action" onClick={ this._handleRemove }>
-                  <i className="fa fa-trash" />
-                </div>
+              }
+              <div className={`flowchart-box-icon flowchart-designer-icon-${type}`}>
+                <i className={`fa fa-${icon}`} />
               </div>
-            }
-            <div className={`flowchart-box-icon flowchart-designer-icon-${type}`}>
-              <i className={`fa fa-${icon}`} />
+              <div className="flowchart-box-label">
+                { label }
+              </div>
+              { block.token &&
+                <div className="flowchart-box-details">
+                  <block.token { ...this._getToken(config) } />
+                </div>
+              }
             </div>
-            <div className="flowchart-box-label">
-              { label }
-            </div>
-            { block.token &&
-              <div className="flowchart-box-details">
-                <block.token { ...this._getToken(config) } />
+            { type === 'conditional' &&
+              <div className="flowchart-branches">
+                { options.map((option, index) => (
+                  <div className="flowchart-branch" key={`options_${index}`}>
+                    <div className="flowchart-branch-label">
+                      { option.text }
+                    </div>
+                    <Trunk { ...this._getTrunk(option) } />
+                  </div>
+                )) }
               </div>
             }
           </div>
-          { type === 'conditional' &&
-            <div className="flowchart-branches">
-              { options.map((option, index) => (
-                <div className="flowchart-branch" key={`options_${index}`}>
-                  <div className="flowchart-branch-label">
-                    { option.text }
-                  </div>
-                  <Trunk { ...this._getTrunk(option) } />
-                </div>
-              )) }
-            </div>
-          }
-        </div>
+        ) }
       </div>
     )
   }
@@ -150,13 +150,6 @@ const target = {
     const { answer, box, delta, parent } = props
     const hovering = box.type !== 'trigger' ? { answer, delta, parent } : null
     props.onHover(hovering)
-    console.log(timeout)
-    if(timeout) clearTimeout(timeout)
-    timeout = setTimeout(() => {
-      if(monitor.isOver()) return
-      console.log('clearing')
-      props.onHover(null)
-    }, 250)
   },
   drop(props, monitor, component) {
     if(monitor.didDrop()) return
