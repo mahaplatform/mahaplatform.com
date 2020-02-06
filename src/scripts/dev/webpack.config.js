@@ -61,10 +61,13 @@ const webpackConfig = (app, name, root, port) => ({
     ] : [],
     new webpack.DefinePlugin({
       'process.env': {
+        'APPLEPAY_ENABLED': JSON.stringify(process.env.APPLEPAY_ENABLED || ''),
         'GOOGLE_MAPS_API_KEY': JSON.stringify(process.env.GOOGLE_MAPS_API_KEY || ''),
         'GOOGLE_TRACKING_ID': JSON.stringify(process.env.GOOGLE_TRACKING_ID || ''),
+        'GOOGLEPAY_ENABLED': JSON.stringify(process.env.GOOGLEPAY_ENABLED || ''),
         'GOOGLEPAY_ENVIRONMENT': JSON.stringify(process.env.GOOGLEPAY_ENVIRONMENT || ''),
         'GOOGLEPAY_MERCHANTID': JSON.stringify(process.env.GOOGLEPAY_MERCHANTID || ''),
+        'PAYPAL_ENABLED': JSON.stringify(process.env.PAYPAL_ENABLED || ''),
         'RECAPTCHA_SITE_KEY': JSON.stringify(process.env.RECAPTCHA_SITE_KEY || ''),
         'WEB_HOST': JSON.stringify(process.env.WEB_HOST)
       }
