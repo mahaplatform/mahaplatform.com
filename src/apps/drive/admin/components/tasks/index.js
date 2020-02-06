@@ -201,6 +201,7 @@ class Tasks extends React.Component {
 
   _getAttachments(item) {
     return {
+      multiple: true,
       icon: 'upload',
       prompt: 'Upload File(s)',
       onChooseAssets: this._handleUpload.bind(this, item)
@@ -363,6 +364,7 @@ class Tasks extends React.Component {
       icon: 'trash-o',
       label: `Remove ${label}`,
       className: 'maha-list-item-link',
+      confirm: 'Are you sure you want to remove this file?',
       handler: this.context.tasks.close,
       request: {
         method: 'PATCH',

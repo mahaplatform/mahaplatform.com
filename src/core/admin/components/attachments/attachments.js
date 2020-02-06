@@ -1,7 +1,7 @@
-import Uploader from './device/uploader'
 import { connect } from 'react-redux'
 import Importing from './importing'
 import PropTypes from 'prop-types'
+import Uploader from './uploader'
 import Explorer from './explorer'
 import Loader from '../loader'
 import Stack from '../stack'

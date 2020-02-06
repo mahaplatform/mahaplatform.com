@@ -1,6 +1,7 @@
 import { CSSTransition } from 'react-transition-group'
 import PropTypes from 'prop-types'
 import Stack from '../stack'
+import Error from '../error'
 import React from 'react'
 
 class Modal extends React.Component {
@@ -32,7 +33,9 @@ class Modal extends React.Component {
       </CSSTransition>,
       <CSSTransition key="maha-modal-window" in={ cards.length > 0 } classNames="expanded" timeout={ 500 } mountOnEnter={ true } unmountOnExit={ true }>
         <div className="maha-modal-window">
-          <Stack { ...this._getStack() } />
+          <Error { ...this._getError() }>
+            <Stack { ...this._getStack() } />
+          </Error>
         </div>
       </CSSTransition>
     ])
@@ -46,6 +49,12 @@ class Modal extends React.Component {
         pop: this._handlePop,
         push: this._handlePush
       }
+    }
+  }
+
+  _getError() {
+    return {
+      isModal: true
     }
   }
 

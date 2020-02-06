@@ -3,7 +3,7 @@ import Message from '../../message'
 import PropTypes from 'prop-types'
 import React from 'react'
 
-class Processing extends React.Component {
+class Single extends React.Component {
 
   static propTypes = {
     files: PropTypes.array,
@@ -44,4 +44,4 @@ const mapStateToProps = (state, props) => ({
   files: state.maha.attachments.files
 })
 
-export default connect(mapStateToProps)(Processing)
+export default connect(mapStateToProps)(Single)

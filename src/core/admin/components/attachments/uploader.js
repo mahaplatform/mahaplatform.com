@@ -48,14 +48,15 @@ class Uploader extends React.Component {
   }
 
   componentDidMount() {
-    const { token } = this.props
+    const { multiple, token } = this.props
     this.resumable = new Resumable({
       target: '/api/admin/assets/upload',
       chunkSize: 1024 * 128,
       permanentErrors: [204, 400, 404, 409, 415, 500, 501],
       headers: {
         'Authorization': `Bearer ${token}`
-      }
+      },
+      ...!multiple ? { maxFiles: 1 } : {}
     })
     this.resumable.on('fileAdded', this._handleAdd)
     this.resumable.on('fileError', this._handleFailure)

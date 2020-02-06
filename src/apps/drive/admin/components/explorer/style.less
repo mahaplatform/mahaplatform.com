@@ -170,19 +170,18 @@
 }
 .drive-items {
   width: 100%;
-  display: table;
 }
 .drive-head {
-  display: table-row;
+  display: flex;
 }
 .drive-head-item {
-  display: table-cell;
-  padding: 0.8em;
   border-bottom: 1px solid fadeout(@black, 95);
+  &.drive-name {
+    padding: 0.8em;
+  }
 }
 .drive-item {
-  display: table-row;
-  padding: 0.8em;
+  display: flex;
   cursor: pointer;
   overflow: hidden;
   .hover(background-color, fadeout(@black, 97));
@@ -202,9 +201,7 @@
 }
 .drive-item-token-icon {
   display: flex;
-  & > * {
-    margin: auto 0.8em auto 0;
-  }
+  padding: 0.8em 0 0.8em 0.8em;
   .fa-hdd-o { color: @blue; }
   .fa-folder { color: @yellow; }
   .fa-handshake-o { color: @teal; }
@@ -221,32 +218,41 @@
 }
 .drive-item-token-label {
   flex: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+  padding: 0.8em;
 }
-
 .drive-item-meta {
   border-bottom: 1px solid fadeout(@black, 95);
   color: fadeout(@black, 60);
-  display: table-cell;
-  padding: 0.8em;
+  flex: 1;
   text-overflow: ellipsis;
   white-space: nowrap;
+  overflow: hidden;
+  &.drive-size {
+    text-align: right;
+  }
 }
 .drive-name {
   color: @black;
+  flex: 1;
 }
 &.drive-owner {
-  width: 14em;
+  flex: 0 0 14em;
+  padding: 0.8em;
 }
 &.drive-updated {
-  width: 8em;
+  flex: 0 0 8em;
+  padding: 0.8em;
 }
 &.drive-size {
-  text-align: right;
-  width: 6em;
+  flex: 0 0 6em;
+  padding: 0.8em;
 }
 .drive-action {
-  display: table-cell;
-  width: 2em;
+  flex: 0 0 2.4em;
   padding: 0.8em 0.8em 0.8em 0;
   .fa {
     margin: auto;

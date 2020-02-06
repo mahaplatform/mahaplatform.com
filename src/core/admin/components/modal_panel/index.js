@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import Buttons from '../buttons'
+import Error from '../error'
 import React from 'react'
 import _ from 'lodash'
 
