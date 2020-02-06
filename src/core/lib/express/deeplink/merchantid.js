@@ -1,7 +1,9 @@
 import path from 'path'
 import fs from 'fs'
 
-const merchantid = fs.readFileSync(path.join(__dirname, 'apple-developer-merchantid-domain-association.txt'), 'utf8')
+const filepath = path.resolve(__dirname, 'apple-developer-merchantid-domain-association.txt')
+
+const merchantid = fs.readFileSync(filepath, 'utf8')
 
 const merchantidRoute = async (req, res) => {
 

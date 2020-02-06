@@ -26,7 +26,7 @@ export default store => next => action => {
   })
 
   const paymentsClient = new window.google.payments.api.PaymentsClient({
-    environment: 'TEST'
+    environment: process.env.GOOGLEPAY_ENVIRONMENT
   })
 
   let googlePaymentInstance = null
@@ -49,6 +49,7 @@ export default store => next => action => {
   }).then(isReadyToPay => {
     if(!isReadyToPay.result) return
     var paymentDataRequest = googlePaymentInstance.createPaymentDataRequest({
+      merchantId: process.env.GOOGLEPAY_MERCHANTID,
       transactionInfo: {
         currencyCode: 'USD',
         totalPriceStatus: 'FINAL',
