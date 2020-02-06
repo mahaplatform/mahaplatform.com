@@ -3,7 +3,9 @@ import { whitelist } from '../../../../../core/services/routes/params'
 import FormSerializer from '../../../serializers/form_serializer'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
+import { updateAlias } from '../../../../maha/services/aliases'
 import Form from '../../../models/form'
+import _ from 'lodash'
 
 const updateRoute = async (req, res) => {
 
@@ -26,6 +28,15 @@ const updateRoute = async (req, res) => {
     patch: true,
     transacting: req.trx
   })
+
+  const permalink = _.get(req.body, 'config.seo.permalink')
+
+  if(permalink && permalink.length > 0) {
+    await updateAlias(req, {
+      src: permalink,
+      destination: `/crm/forms/${form.get('code')}`
+    })
+  }
 
   await audit(req, {
     story: 'updated',
