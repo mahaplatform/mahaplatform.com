@@ -71,7 +71,9 @@ class Box extends React.PureComponent {
               { options.map((option, index) => (
                 <div className="flowchart-branch" key={`options_${index}`}>
                   <div className="flowchart-branch-label">
-                    { option.text }
+                    <div className="flowchart-branch-label-box">
+                      { option.text }
+                    </div>
                   </div>
                   <Trunk { ...this._getTrunk(option) } />
                 </div>

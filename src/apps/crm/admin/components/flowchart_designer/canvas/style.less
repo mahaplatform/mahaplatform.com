@@ -4,7 +4,7 @@
   position: relative;
 }
 .flowchart {
-  padding: 0.8em;
+  padding: 1em;
   position: absolute;
   top: 0.8em;
   left: ~"calc(50% + 3.2em)";
@@ -14,6 +14,17 @@
 .flowchart-box-padding {
   padding: 0 0.4em;
   margin: 0 auto;
+  position: relative;
+  &:after {
+    content: " ";
+    border: 6px solid transparent;
+    border-top-color: #bfbfbf;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 5.6em;
+    left: ~"calc(50% - 5px)";
+  }
 }
 .flowchart-box-highlight {
   display: none;
@@ -158,6 +169,16 @@
     border-left: 2px solid #bfbfbf;
     left: 50%;
   }
+  &:after {
+    content: " ";
+    border: 6px solid transparent;
+    border-top-color: #bfbfbf;
+    width: 0;
+    height: 0;
+    position: absolute;
+    bottom: -1.8em;
+    left: ~"calc(50% - 5px)";
+  }
   .flowchart-branch:first-child {
     &:before {
       right: ~"calc(50% - 2px)";
@@ -183,9 +204,10 @@
 .flowchart-branch {
   min-width: 190px;
   position: relative;
-  padding: 0;
+  padding: 3em 0 0;
   flex-direction: column;
   display: flex;
+  overflow: hidden;
   .flowchart-segments {
     flex-direction: column;
     display: flex;
@@ -213,9 +235,21 @@
 .flowchart-branch-label {
   position: absolute;
   z-index: 2;
-  top: 0;
+  top: 2.4em;
   left: 50%;
   transform: translate(-50%, -50%);
+  &:after {
+    content: " ";
+    border: 6px solid transparent;
+    border-top-color: #bfbfbf;
+    width: 0;
+    height: 0;
+    position: absolute;
+    top: 2.4em;
+    left: ~"calc(50% - 5px)";
+  }
+}
+.flowchart-branch-label-box {
   display: block;
   border: 2px solid fadeout(@black, 80);
   background-color: @white;
@@ -237,6 +271,13 @@
     padding: 0;
     &:before {
       height: 0;
+    }
+  }
+  &.ending {
+    .flowchart-box-padding {
+      &:after {
+        content: none;
+      }
     }
   }
   &:before {
