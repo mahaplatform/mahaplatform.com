@@ -30,22 +30,6 @@ class Items extends React.Component {
     return (
       <DnD { ...this._getDnD() }>
         <div className="drive-items">
-          <div className="drive-head">
-            <div className="drive-head-item drive-name">
-              Name
-            </div>
-            <div className="drive-head-item drive-owner">
-              Owner
-            </div>
-            <div className="drive-head-item drive-updated">
-              Updated
-            </div>
-            <div className="drive-head-item drive-size">
-              Size
-            </div>
-            <div className="drive-head-item drive-action" />
-            <div className="drive-head-item drive-action" />
-          </div>
           { records.map((item, index) => (
             <Item key={`item_${item.code}`} { ...this._getItem(item) } />
           )) }

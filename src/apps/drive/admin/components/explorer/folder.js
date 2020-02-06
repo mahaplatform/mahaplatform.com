@@ -69,10 +69,20 @@ class Folder extends React.Component {
           }
         </div>
         <div className="drive-results" { ...this._getResults() }>
-          { folder.code === 'root' ?
-            <Root { ...this._getRoot() } /> :
-            <Infinite { ...this._getInfinite() } />
-          }
+          <div className="drive-results-header">
+            <div className="drive-results-header-item drive-name">Name</div>
+            <div className="drive-results-header-item drive-owner">Owner</div>
+            <div className="drive-results-header-item drive-updated">Updated</div>
+            <div className="drive-results-header-item drive-size">Size</div>
+            <div className="drive-results-header-item drive-action" />
+            <div className="drive-results-header-item drive-action" />
+          </div>
+          <div className="drive-results-body">
+            { folder.code === 'root' ?
+              <Root { ...this._getRoot() } /> :
+              <Infinite { ...this._getInfinite() } />
+            }
+          </div>
         </div>
       </div>
     )
