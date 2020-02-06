@@ -11,12 +11,16 @@ import _ from 'lodash'
 
 const methods = [
   { label: 'Credit Card', mark: 'card-mark.png', value: 'card', component: Card },
-  { label: 'Bank Account', mark: 'ach-mark.png', value: 'ach', component: ACH },
-  { label: 'Google Pay', mark: 'googlepay-mark.png', value: 'googlepay', component: GooglePay },
-  { label: 'Pay Pal', mark: 'paypal-mark.png', value: 'paypal', component: PayPal }
+  { label: 'Bank Account', mark: 'ach-mark.png', value: 'ach', component: ACH }
 ]
 
-if(window.ApplePaySession && window.ApplePaySession.supportsVersion(3) && window.ApplePaySession.canMakePayments()) {
+if(process.env.GOOGLEPAY_ENABLED) {
+  methods.push({ label: 'Google Pay', mark: 'googlepay-mark.png', value: 'googlepay', component: GooglePay })
+}
+if(process.env.PAYPAL_ENABLED) {
+  methods.push({ label: 'Pay Pal', mark: 'paypal-mark.png', value: 'paypal', component: PayPal })
+}
+if(process.env.APPLEPAY_ENABLED && window.ApplePaySession && window.ApplePaySession.supportsVersion(3) && window.ApplePaySession.canMakePayments()) {
   methods.push({ label: 'Apple Pay', mark: 'applepay-mark.png', value: 'applepay', component: ApplePay })
 }
 

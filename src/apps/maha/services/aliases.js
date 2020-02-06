@@ -8,6 +8,12 @@ export const updateAlias = async (req, { src, destination }) => {
     transacting: req.trx
   })
 
+  if(alias && (!src || src.length === 0)) {
+    return await alias.destroy(null, {
+      transacting: req.trx
+    })
+  }
+
   if(alias && src === alias.get('src')) {
     return alias
   }
@@ -20,12 +26,14 @@ export const updateAlias = async (req, { src, destination }) => {
     })
   }
 
-  return await Alias.forge({
-    team_id: req.team.get('id'),
-    src,
-    destination
-  }).save(null, {
-    transacting: req.trx
-  })
+  if(src && src.length > 0) {
+    return await Alias.forge({
+      team_id: req.team.get('id'),
+      src,
+      destination
+    }).save(null, {
+      transacting: req.trx
+    })
+  }
 
 }

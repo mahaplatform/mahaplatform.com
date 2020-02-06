@@ -29,14 +29,10 @@ const updateRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const permalink = _.get(req.body, 'config.seo.permalink')
-
-  if(permalink && permalink.length > 0) {
-    await updateAlias(req, {
-      src: permalink,
-      destination: `/crm/forms/${form.get('code')}`
-    })
-  }
+  await updateAlias(req, {
+    src: _.get(req.body, 'config.seo.permalink'),
+    destination: `/crm/forms/${form.get('code')}`
+  })
 
   await audit(req, {
     story: 'updated',
