@@ -121,54 +121,36 @@ const webWatch = async () => {
 }
 
 const adminWatch = async () => {
-  const proxy = {
-    '/socket': {
-      target: `http://localhost:${process.env.SERVER_PORT}`,
-      ws: true
-    },
-    ...subapps.reduce((proxies, proxy) => ({
-      ...proxies,
-      [`/${proxy.app}/${proxy.subapp}/**`]: {
-        target: `https://localhost:${proxy.port}`,
-        secure: false
-      }
-    }), {}),
-    ...[
-      ...'dav,sms,voice,fax,api,forms,templates,jobs,caman,imagecache,.well-known,mailbox_mime'.split(',').reduce((proxies, path) => [
-        ...proxies,
-        `/${path}/*`
-      ], []),
-      ...'html,json'.split(',').reduce((proxies, ext) => [
-        ...proxies,
-        `/admin/*.${ext}`
-      ], []),
-      ...'authorize,token,preview'.split(',').reduce((proxies, path) => [
-        ...proxies,
-        `/admin/*/${path}`
-      ], []),
-      ...'auth,audio,css,fonts,images,js'.split(',').reduce((proxies, path) => [
-        ...proxies,
-        `/admin/${path}/*`
-      ], []),
-      ...'crm,drive,finance'.split(',').reduce((apps, path) => [
-        ...apps,
-        `/${path}/**`
-      ], []),
-      ...'v,c,ns,so,foo'.split(',').reduce((proxies, path) => [
-        ...proxies,
-        `/${path}*`
-      ], [])
-    ].reduce((proxies, proxy) => ({
-      ...proxies,
-      [proxy]: `http://localhost:${process.env.SERVER_PORT}`
-    }), {})
+  const wildcard = {
+    target: `http://localhost:${process.env.SERVER_PORT}`,
+    bypass: (req, res, proxyOptions) => {
+      const root = path.join('src','core','admin','public')
+      const parts = req.url.split('?').pop().split('/').slice(2)
+      if(fs.existsSync(path.join(root,...parts))) return null
+      if(/^\/admin/.test(req.url)) return req.url
+    }
   }
   const devserver = new devServer(webpack(adminConfig), {
     https: true,
     contentBase: path.resolve('src','core','admin','public'),
     hot: true,
     publicPath: '/admin',
-    proxy,
+    proxy: {
+      '/socket': {
+        target: `http://localhost:${process.env.SERVER_PORT}`,
+        ws: true
+      },
+      ...subapps.reduce((proxies, proxy) => ({
+        ...proxies,
+        [`/${proxy.app}/${proxy.subapp}/**`]: {
+          target: `https://localhost:${proxy.port}`,
+          secure: false
+        }
+      }), {}),
+      '**': wildcard,
+      '/.*': wildcard,
+      '/.**/*': wildcard
+    },
     quiet: true,
     historyApiFallback: {
       disableDotRule: true,
