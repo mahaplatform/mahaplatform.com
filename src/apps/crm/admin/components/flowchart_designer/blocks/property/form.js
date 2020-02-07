@@ -3,17 +3,17 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
-class UpdateProperty extends React.PureComponent {
+class Property extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
-    fields: PropTypes.array,
+    properties: PropTypes.array,
     onChange: PropTypes.func,
     onDone: PropTypes.func
   }
 
   state = {
-    field: null,
+    property_id: null,
     overwrite: null,
     value: null,
     ready: false
@@ -28,11 +28,11 @@ class UpdateProperty extends React.PureComponent {
   }
 
   componentDidMount() {
-    const { config, fields } = this.props
-    if(!config.field) return this.setState({ ready: true })
-    const field = _.find(fields, { id: config.field.id })
+    const { config, properties } = this.props
+    if(!config.property) return this.setState({ ready: true })
+    const property = _.find(properties, { id: config.property.id })
     this.setState({
-      field,
+      property,
       overwrite: config.overwrite || 'yes',
       value: config.value,
       ready: true
@@ -40,7 +40,7 @@ class UpdateProperty extends React.PureComponent {
   }
 
   _getForm() {
-    const { config, fields } = this.props
+    const { config, properties } = this.props
     return {
       title: 'Update Property',
       onChange: this._handleChange,
@@ -53,38 +53,41 @@ class UpdateProperty extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Property', name: 'field_id', type: 'lookup', options: fields, value: 'id', text: 'label', defaultValue: _.get(config, 'field.id'), required: true },
-            ...this._getField()
+            { label: 'Property', name: 'property_id', type: 'lookup', options: properties, value: 'id', text: 'label', defaultValue: _.get(config, 'property.id'), required: true },
+            ...this._getProperty()
           ]
         }
       ]
     }
   }
 
-  _getField() {
-    const { field, overwrite, value } = this.state
-    return field ? [
-      { label: 'Overwrite Existing Value', name: 'overwrite', type: 'radiogroup', options: ['yes','no'], defaultValue: overwrite || 'yes', required: true },
+  _getProperty() {
+    const { property, overwrite, value } = this.state
+    return property ? [
       {
-        ...field.config,
+        ...property.config,
         label: 'Value',
         name: 'value',
         required: true,
         defaultValue: value
-      }
+      },
+      { label: 'If contact property is already set', name: 'overwrite', type: 'radiogroup', options: [
+        { value: 'yes', text: 'Overwrite existing value' },
+        { value: 'no', text: 'Do nothing' }
+      ], defaultValue: overwrite || 'yes', required: true }
     ] : []
   }
 
   _handleChange(config) {
-    const { fields } = this.props
-    const field = _.find(fields, { id: config.field_id })
-    const overwrite = field ? config.overwrite : 'yes'
-    const value = field ? config.value : undefined
-    this.setState({ field, overwrite, value })
+    const { properties } = this.props
+    const property = _.find(properties, { id: config.property_id })
+    const overwrite = property ? config.overwrite : 'yes'
+    const value = property ? config.value : undefined
+    this.setState({ property, overwrite, value })
     this.props.onChange({
-      field: field ? {
-        id: field.id,
-        label: field.label
+      property: property ? {
+        id: property.id,
+        label: property.label
       } : null,
       overwrite,
       value
@@ -98,9 +101,9 @@ class UpdateProperty extends React.PureComponent {
 }
 
 const mapResources = (props, context) => ({
-  fields: {
+  properties: {
     endpoint: `/api/admin/crm/programs/${props.workflow.program.id}/fields`
   }
 })
 
-export default Container(mapResources)(UpdateProperty)
+export default Container(mapResources)(Property)

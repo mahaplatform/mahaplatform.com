@@ -45,8 +45,8 @@ class IfElse extends React.PureComponent {
   }
 
   _getForm() {
+    const fields = this._getFields()
     const { config } = this.state
-    const { fields } = this.props
     return {
       title: 'If / Then',
       onChange: this._handleUpdate,
@@ -59,8 +59,10 @@ class IfElse extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Field', name: 'code', type: 'dropdown', options: fields, value: 'code', text: 'name', defaultValue: config.code },
-            ...this._getComparison()
+            { label: 'If', type: 'segment', fields: [
+              { name: 'code', type: 'dropdown', options: fields, value: 'code', text: 'name', defaultValue: config.code },
+              ...this._getComparison()
+            ] }
           ]
         }
       ]
@@ -68,7 +70,7 @@ class IfElse extends React.PureComponent {
   }
 
   _getComparison() {
-    const { fields } = this.props
+    const fields = this._getFields()
     const { config } = this.state
     const { code, comparison } = config
     if(!code) return []
@@ -77,27 +79,51 @@ class IfElse extends React.PureComponent {
       return !comparison.types || _.includes(comparison.types, field.type)
     })
     const items = [
-      { label: 'Comparison', name: 'comparison', type: 'radiogroup', options: comparisons, required: true, defaultValue: config.comparison },
-      { label: 'Values', name: 'options', type: ValuesFields, defaultValue: config.options }
+      { name: 'comparison', type: 'radiogroup', options: comparisons, required: true, defaultValue: config.comparison }
     ]
-    // if(_.includes(['radiogroup','dropdown','checkboxes'], field.type)) {
-    //   if(_.includes(['$in','$nin','$int','$nint'], comparison)) {
-    //     items.push({ name: 'value', type: 'checkboxes', options: field.options, required: true })
-    //   } else if(_.includes(['$eq','$neq'], comparison)) {
-    //     items.push({ name: 'value', type: 'radiogroup', options: field.options, required: true })
-    //   }
-    // } else if(!_.includes(['checkbox','filefield'], field.type)) {
-    //   items.push({ name: 'value', type: 'textfield', required: true })
-    // }
+    if(_.includes(['radiogroup','dropdown','checkboxes'], field.type)) {
+      if(_.includes(['$in','$nin','$int','$nint'], comparison)) {
+        items.push({ name: 'options', type: 'checkboxes', options: field.options, required: true, defaultValue: config.options })
+      } else if(_.includes(['$eq','$neq'], comparison)) {
+        items.push({ name: 'option', type: 'radiogroup', options: field.options, required: true, defaultValue: config.option })
+      }
+    } else if(_.includes(['textfield'], field.type)) {
+      if(_.includes(['$eq','$neq'], comparison)) {
+        items.push({ name: 'option', type: 'textfield', defaultValue: config.option })
+      } else if(_.includes(['$in','$nin'], comparison)) {
+        items.push({ name: 'options', type: ValuesFields, defaultValue: config.options })
+      }
+    } else if(!_.includes(['checkbox','filefield'], field.type)) {
+      items.push({ name: 'value', type: 'textfield', required: true })
+    }
     return items
   }
 
   _getDefault() {
     return {
-      type: null,
+      code: null,
       comparison: null,
-      options: []
+      options: null
     }
+  }
+
+  _getFields() {
+    const { fields } = this.props
+    return fields.filter(field => {
+      return field.type !== 'text' && field.name
+    }).map(field => ({
+      code: field.code,
+      name: field.name.value,
+      type: _.get(field, 'contactfield.type') || field.type,
+      options: field.options
+    }))
+  }
+
+  _getOptions(config) {
+    const options = config.options || (config.option ? [config.option] : [])
+    return options.map(value => {
+      return (typeof(value) === 'string') ? { code: value, value, text: value } : value
+    })
   }
 
   _handleChange() {
@@ -113,7 +139,9 @@ class IfElse extends React.PureComponent {
     this.setState({
       config: {
         ...this.state.config,
-        ...config
+        ...config,
+        options: this._getOptions(config)
+
       }
     })
   }

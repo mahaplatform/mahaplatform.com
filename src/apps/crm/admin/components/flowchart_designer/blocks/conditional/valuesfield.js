@@ -5,6 +5,7 @@ import _ from 'lodash'
 class Values extends React.Component {
 
   static propTypes = {
+    defaultValue: PropTypes.array,
     onChange: PropTypes.func,
     onReady: PropTypes.func
   }
@@ -22,7 +23,7 @@ class Values extends React.Component {
   _handleAdd = this._handleAdd.bind(this)
   _handleChange = this._handleChange.bind(this)
   _handleKeyPress = this._handleKeyPress.bind(this)
-  _handleUpdate = this._handleUpdate.bind(this)
+  _handleType = this._handleType.bind(this)
 
   render() {
     const { options } = this.state
@@ -30,8 +31,8 @@ class Values extends React.Component {
       <div className="conditional-options">
         { options.map((option, index) => (
           <div className="conditional-option" key={`option_${index}`}>
-            <div className="conditional-option-label">
-              { option.text }
+            <div className="conditional-option-input">
+              <input { ...this._getOption(option, index) } />
             </div>
             <div className="conditional-option-icon" onClick={ this._handleRemove.bind(this, index) }>
               <i className="fa fa-remove" />
@@ -51,6 +52,10 @@ class Values extends React.Component {
   }
 
   componentDidMount() {
+    const { defaultValue } = this.props
+    if(defaultValue) this.setState({
+      options: defaultValue
+    })
     this.props.onReady()
   }
 
@@ -67,18 +72,29 @@ class Values extends React.Component {
       type: 'text',
       placeholder: 'Enter a value',
       value: option,
-      onChange: this._handleUpdate,
+      onChange: this._handleType,
       onKeyPress: this._handleKeyPress
+    }
+  }
+
+  _getOption(opton, index) {
+    const { options } = this.state
+    return {
+      type: 'text',
+      placeholder: 'Enter a value',
+      value: options[index].value,
+      onChange: this._handleUpdate.bind(this, index)
     }
   }
 
   _handleAdd() {
     const { options, option } = this.state
+    const code = _.random(Math.pow(36, 9), Math.pow(36, 10) - 1).toString(36)
     this.setState({
       option: '',
       options: [
         ...options,
-        { value: option, text: option }
+        { code, value: option, text: option }
       ]
     })
   }
@@ -108,9 +124,21 @@ class Values extends React.Component {
     })
   }
 
-  _handleUpdate(e) {
+  _handleType(e) {
     this.setState({
       option: e.target.value
+    })
+  }
+
+  _handleUpdate(index, e) {
+    const { options } = this.state
+    this.setState({
+      options: [
+        ...options.map((option, i) => ({
+          value: (i == index) ? e.target.value : option.value,
+          text: (i == index) ? e.target.value : option.text
+        }))
+      ]
     })
   }
 

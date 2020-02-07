@@ -28,13 +28,12 @@ class Token extends React.Component {
   }
 
   _getDescription(rule) {
-    const { code, comparison, fields, value } = this.props
+    const { code, comparison, fields } = this.props
     const field = _.find(fields, { code })
     const comp = this._getComparison(field, { comparison })
     const parts = ['If']
-    if(code) parts.push(field.name)
+    if(code) parts.push(field.name.value)
     if(comp) parts.push(comp.text)
-    if(value) parts.push(value)
     return parts.join(' ')
   }
 

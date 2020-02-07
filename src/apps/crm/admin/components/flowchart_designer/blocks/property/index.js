@@ -5,7 +5,7 @@ export default {
   icon: 'user',
   label: 'Update Property',
   type: 'action',
-  action: 'update_property',
+  action: 'property',
   form: Form,
   token: Token
 }

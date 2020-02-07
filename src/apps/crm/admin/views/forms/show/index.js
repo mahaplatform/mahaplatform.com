@@ -14,16 +14,13 @@ const getTabs = ({ audits, form, workflows }) => ({
 const getTasks = ({ form }) => ({
   items: [
     { label: 'Edit Form', modal: <Edit form={ form } /> },
-    { label: 'Create Workflow' },
     { label: 'View Public Form', link: `${process.env.WEB_HOST}/crm/forms/${form.code}` }
   ]
 })
 
 const mapResourcesToPage = (props, context) => ({
   audits: `/api/admin/crm_forms/${props.params.id}/audits`,
-  form: `/api/admin/crm/forms/${props.params.id}`,
-  emails: `/api/admin/crm/forms/${props.params.id}/emails`,
-  workflows: `/api/admin/crm/forms/${props.params.id}/workflows`
+  form: `/api/admin/crm/forms/${props.params.id}`
 })
 
 const mapPropsToPage = (props, context, resources, page) => ({

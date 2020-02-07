@@ -1,7 +1,7 @@
 import send_internal_email from './send_internal_email'
 import enroll_in_workflow from './enroll_in_workflow'
 import send_internal_sms from './send_internal_sms'
-import update_property from './update_property'
+import property from './property'
 import subscription from './subscription'
 import conditional from './conditional'
 import send_email from './send_email'
@@ -19,7 +19,7 @@ const blocks = {
   wait,
   send_email,
   enroll_in_workflow,
-  update_property,
+  property,
   send_internal_email,
   send_internal_sms,
   goal

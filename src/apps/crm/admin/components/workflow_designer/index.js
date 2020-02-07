@@ -37,7 +37,7 @@ class WorkflowDesigner extends React.PureComponent {
         { action: 'interest' },
         { action: 'consent' },
         { action: 'enroll_in_workflow' },
-        { action: 'update_property' },
+        { action: 'property' },
         { action: 'send_internal_email' },
         { action: 'send_internal_sms' },
         { action: 'goal' },

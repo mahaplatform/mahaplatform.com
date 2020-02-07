@@ -66,12 +66,12 @@ class Box extends React.PureComponent {
               </div>
             }
           </div>
-          { type === 'conditional' &&
+          { type === 'conditional' && options.length > 0 &&
             <div className="flowchart-branches">
               { options.map((option, index) => (
                 <div className="flowchart-branch" key={`options_${index}`}>
                   <div className="flowchart-branch-label">
-                    <div className="flowchart-branch-label-box">
+                    <div className="flowchart-branch-label-box" title={ option.text }>
                       { option.text }
                     </div>
                   </div>
@@ -117,7 +117,7 @@ class Box extends React.PureComponent {
     const { active, blocks, box, fields, hovering, onAdd, onEdit, onHover, onMove, onRemove } = this.props
     return {
       active,
-      answer:  option.value,
+      answer: option.code,
       boxes: option.then,
       blocks,
       fields,

@@ -16,7 +16,7 @@ const segment = (steps, parent, answer) => {
         ...step,
         options: step.config.options.map(option => ({
           ...option,
-          then: segment(steps, `${step.code}` , option.value)
+          then: segment(steps, step.code , option.code)
         }))
       }
     } else {

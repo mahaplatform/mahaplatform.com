@@ -1,11 +1,11 @@
 import performance from './performance'
-import workflows from './workflows'
+import workflow from './workflow'
 import responses from './responses'
 import { Router } from 'express'
 import destroy from './destroy'
 import create from './create'
 import update from './update'
-import emails from './emails'
+import email from './email'
 import fields from './fields'
 import edit from './edit'
 import list from './list'
@@ -25,14 +25,14 @@ router.get('/:id/edit', edit)
 
 router.get('/:id/performance', performance)
 
+router.get('/:id/email', email)
+
+router.get('/:id/workflow', workflow)
+
 router.patch('/:id', update)
 
 router.delete('/:id', destroy)
 
-router.get('/:form_id/emails', emails)
-
 router.use('/:form_id/responses', responses)
-
-router.get('/:form_id/workflows', workflows)
 
 export default router

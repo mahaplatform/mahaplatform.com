@@ -1,18 +1,18 @@
 import PropTypes from 'prop-types'
 import React from 'react'
 
-const Token = ({ field }) => (
+const Token = ({ property }) => (
   <div>
-    { field &&
+    { property &&
       <div>
-        { field.label }
+        { property.label }
       </div>
     }
   </div>
 )
 
 Token.propTypes = {
-  field: PropTypes.object
+  property: PropTypes.object
 }
 
 export default Token

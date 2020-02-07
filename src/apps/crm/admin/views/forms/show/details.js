@@ -20,13 +20,13 @@ const Details = ({ audits, form }) => {
   const confirmation = {
     label: 'Design Email',
     className: 'link',
-    route: `/admin/crm/emails/${form.email.id}/design`
+    route: `/admin/crm/forms/${form.id}/email`
   }
 
   const workflow = {
     label: 'Design Workflow',
     className: 'link',
-    route: `/admin/crm/workflows/${form.workflow.id}/design`
+    route: `/admin/crm/forms/${form.id}/workflow`
   }
 
   const list = {}

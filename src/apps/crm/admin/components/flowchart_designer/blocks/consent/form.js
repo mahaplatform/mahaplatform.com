@@ -1,9 +1,17 @@
-import { Container, Form } from 'maha-admin'
+import OptInToken from '../../../../tokens/optin'
 import PropTypes from 'prop-types'
+import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class AddInterest extends React.PureComponent {
+const channels = [
+  { value: 'email', text: 'Email' },
+  { value: 'voice', text: 'Voice' },
+  { value: 'sms', text: 'SMS' },
+  { value: 'postal', text: 'Postal' }
+]
+
+class Consent extends React.PureComponent {
 
   static propTypes = {
     config: PropTypes.object,
@@ -21,7 +29,7 @@ class AddInterest extends React.PureComponent {
   }
 
   _getForm() {
-    const { config, topics } = this.props
+    const { config } = this.props
     return {
       title: 'Update Consent',
       onChange: this._handleChange,
@@ -34,23 +42,7 @@ class AddInterest extends React.PureComponent {
       sections: [
         {
           fields: [
-            { label: 'Topic', name: 'topic_id', type: 'lookup', options: topics, value: 'id', text: 'title', required: true, form: this._getTopicForm(), defaultValue: _.get(config, 'topic.id') }
-          ]
-        }
-      ]
-    }
-  }
-
-  _getTopicForm() {
-    const { workflow } = this.props
-    return {
-      title: 'New Topic',
-      method: 'post',
-      action: `/api/admin/crm/programs/${workflow.program.id}/topics`,
-      sections: [
-        {
-          fields: [
-            { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a name', required: true }
+            { label: 'Channel', name: 'channel', type: 'radiogroup', options: channels, required: true, defaultValue: config.channel }
           ]
         }
       ]
@@ -58,14 +50,7 @@ class AddInterest extends React.PureComponent {
   }
 
   _handleChange(config) {
-    const { topics } = this.props
-    const topic = _.find(topics, { id: config.topic_id })
-    this.props.onChange({
-      topic: topic ? {
-        id: topic.id,
-        title: topic.title
-      } : null
-    })
+    this.props.onChange(config)
   }
 
   _handleDone() {
@@ -74,8 +59,4 @@ class AddInterest extends React.PureComponent {
 
 }
 
-const mapResources = (props, context) => ({
-  topics: `/api/admin/crm/programs/${props.workflow.program.id}/topics`
-})
-
-export default Container(mapResources)(AddInterest)
+export default Consent

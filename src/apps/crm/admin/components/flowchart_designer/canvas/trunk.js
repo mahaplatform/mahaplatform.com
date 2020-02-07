@@ -21,13 +21,15 @@ class Trunk extends React.PureComponent {
   }
 
   render() {
-    const { boxes } = this.props
+    const { answer, boxes, parent } = this.props
     return (
       <div className="flowchart-segments">
         { boxes.map((box, index) => (
           <Box { ...this._getBox(box, index) } key={`box_${index}`} />
         )) }
-        <Placeholder { ...this._getPlaceholder(boxes.length) } />
+        { (parent !== null || answer !== null) &&
+          <Placeholder { ...this._getPlaceholder(boxes.length) } />
+        }
       </div>
     )
   }
