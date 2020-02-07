@@ -8,27 +8,6 @@ const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'AUTHORIZE_REQUEST':
-    return {
-      ...state,
-      error: null,
-      status: 'authorizing'
-    }
-
-  case 'AUTHORIZE_FAILURE':
-    return {
-      ...state,
-      error: action.result.errors.payment[0],
-      status: 'failed'
-    }
-
-  case 'AUTHORIZE_SUCCESS':
-    return {
-      ...state,
-      status: 'authorized',
-      payment: action.result
-    }
-
   case 'SUBMIT_REQUEST':
     return {
       ...state,

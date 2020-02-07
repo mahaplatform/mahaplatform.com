@@ -6,9 +6,11 @@ import React from 'react'
 class PayPal extends React.Component {
 
   static propTypes = {
+    error: PropTypes.object,
     form: PropTypes.object,
     isProcessing: PropTypes.bool,
     program: PropTypes.object,
+    status: PropTypes.object,
     summary: PropTypes.object,
     token: PropTypes.string,
     onSubmit: PropTypes.func,
@@ -49,9 +51,6 @@ class PayPal extends React.Component {
       this.setState({ error })
     }
     if(status !== prevProps.status) {
-      if(status === 'authorized') {
-        this._handleSubmit()
-      }
       if(status === 'success') {
         this._handleSuccess()
       }

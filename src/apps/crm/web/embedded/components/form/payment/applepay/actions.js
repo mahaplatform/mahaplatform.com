@@ -1,12 +1,3 @@
-export const authorize = (token, data) => ({
-  type: 'APPLEPAY_REQUEST',
-  token,
-  data,
-  request: 'SUBMIT_REQUEST',
-  success: 'SUBMIT_SUCCESS',
-  failure: 'SUBMIT_FAILURE'
-})
-
 export const submit = (token, code, body) => ({
   type: 'API_REQUEST',
   method: 'POST',

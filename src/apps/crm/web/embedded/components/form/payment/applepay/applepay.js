@@ -13,7 +13,6 @@ class ApplePay extends React.Component {
     status: PropTypes.string,
     summary: PropTypes.object,
     token: PropTypes.string,
-    onAuthorize: PropTypes.func,
     onSubmit: PropTypes.func,
     onSuccess: PropTypes.func
   }
@@ -50,7 +49,24 @@ class ApplePay extends React.Component {
   }
 
   componentDidMount() {
+    this._handleInit()
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    const { error, status } = this.props
+    if(error !== prevProps.error && error) {
+      this.setState({ error })
+    }
+    if(status !== prevProps.status) {
+      if(status === 'success') {
+        this._handleSuccess()
+      }
+    }
+  }
+
+  _handleInit() {
     const { token } = this.props
+    const onFailure = this._handleFailure.bind(this)
     client.create({
       authorization: token
     }).then(clientInstance => {
@@ -61,14 +77,18 @@ class ApplePay extends React.Component {
       this.applePayInstance = instance
       return window.ApplePaySession.canMakePaymentsWithActiveCard(instance.merchantIdentifier)
     }).then(canMakePaymentsWithActiveCard => {
-      this.setState({ ready: true })
+      this.setState({
+        ready: true
+      })
     }).catch((err) => {
-      console.log(err)
+      onFailure(err)
     })
   }
 
   _handleAuthorize() {
     const { program, summary } = this.props
+    const onFailure = this._handleFailure.bind(this)
+    const onSuccess = this._handleSubmit.bind(this)
     const paymentRequest = this.applePayInstance.createPaymentRequest({
       total: {
         label: program.title,
@@ -83,35 +103,32 @@ class ApplePay extends React.Component {
       }).then(merchantSession => {
         session.completeMerchantValidation(merchantSession)
       }).catch(err => {
-        console.error('Error validating merchant:', err)
+        onFailure(err)
         session.abort()
       })
     }
-
     session.onpaymentauthorized = (e) => {
-      console.log('Your shipping address is:', e.payment.shippingContact)
-
       this.applePayInstance.tokenize({
         token: e.payment.token
       }).then(payload => {
-        console.log('nonce:', payload.nonce)
-
-        console.log('billingPostalCode:', e.payment.billingContact.postalCode)
-
+        const { nonce } = payload
+        onSuccess({ nonce })
         session.completePayment(window.ApplePaySession.STATUS_SUCCESS)
       }).catch(err => {
-        console.error('Error tokenizing Apple Pay:', err)
+        onFailure(err)
         session.completePayment(window.ApplePaySession.STATUS_FAILURE)
       })
 
     }
-
     session.begin()
-
   }
 
-  _handleSubmit() {
-    const { form, payment, summary } = this.props
+  _handleFailure(err) {
+    console.log('error', err)
+  }
+
+  _handleSubmit(payment) {
+    const { form, summary } = this.props
     const { token, code, data } = form
     const body = {
       ...data,
