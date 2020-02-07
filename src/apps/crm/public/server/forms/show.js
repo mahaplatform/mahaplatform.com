@@ -1,4 +1,5 @@
 import { encode } from '../../../../../core/services/jwt'
+import Setting from '../../../../platform/models/setting'
 import Form from '../../../models/form'
 import { readFile } from './utils'
 import path from 'path'
@@ -7,6 +8,12 @@ import ejs from 'ejs'
 const showRoute = async (req, res) => {
 
   const template = await readFile(path.join('crm','embedded','index.html'))
+
+  const settings = await Setting.query(qb => {
+    qb.where('id', 1)
+  }).fetch({
+    transacting: req.trx
+  })
 
   const form = await Form.query(qb => {
     qb.select('crm_forms.*','crm_form_responses.num_responses')
@@ -28,6 +35,7 @@ const showRoute = async (req, res) => {
   const content = ejs.render(template, {
     form: {
       isOpen: form.get('is_open'),
+      settings: settings.get('values'),
       title: form.get('config').seo.title || form.get('title'),
       code: form.get('code'),
       path: form.get('config').seo.permalink || `/crm/forms/${form.get('code')}`,

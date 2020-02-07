@@ -1742,6 +1742,11 @@ const schema = {
       table.integer('role_id').unsigned()
     })
 
+    await knex.schema.createTable('platform_settings', (table) => {
+      table.increments('id').primary()
+      table.jsonb('values')
+    })
+
     await knex.schema.createTable('schema_migrations', (table) => {
       table.string('migration', 255)
     })

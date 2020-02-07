@@ -92,7 +92,6 @@ const webpackConfig = (warning) => ({
     }),
     new webpack.DefinePlugin({
       'process.env': {
-        'APPLEPAY_ENABLED': process.env.APPLEPAY_ENABLED || false,
         'DATA_ASSET_CDN_HOST': JSON.stringify(process.env.DATA_ASSET_CDN_HOST),
         'DATA_ASSET_HOST': JSON.stringify(process.env.DATA_ASSET_HOST),
         'DEVSERVER_PORT': JSON.stringify(process.env.DEVSERVER_PORT),
@@ -102,10 +101,8 @@ const webpackConfig = (warning) => ({
         'FCM_MESSAGE_SENDER_ID': JSON.stringify(process.env.FCM_MESSAGE_SENDER_ID),
         'GOOGLE_MAPS_API_KEY': JSON.stringify(process.env.GOOGLE_MAPS_API_KEY || ''),
         'GOOGLE_TRACKING_ID': JSON.stringify(process.env.GOOGLE_TRACKING_ID || ''),
-        'GOOGLEPAY_ENABLED': process.env.GOOGLEPAY_ENABLED || false,
         'GOOGLEPAY_ENVIRONMENT': JSON.stringify(process.env.GOOGLEPAY_ENVIRONMENT || ''),
         'GOOGLEPAY_MERCHANTID': JSON.stringify(process.env.GOOGLEPAY_MERCHANTID || ''),
-        'PAYPAL_ENABLED': process.env.PAYPAL_ENABLED || false,
         'ROLLBAR_CLIENT_TOKEN': JSON.stringify(process.env.ROLLBAR_CLIENT_TOKEN),
         'SERVER_PORT': JSON.stringify(process.env.SERVER_PORT),
         'VAPID_PUBLIC_KEY': JSON.stringify(process.env.VAPID_PUBLIC_KEY),

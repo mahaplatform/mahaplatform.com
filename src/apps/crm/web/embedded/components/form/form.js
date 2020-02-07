@@ -24,6 +24,7 @@ class Form extends React.Component {
     mode: PropTypes.string,
     ready: PropTypes.array,
     requiresPayment: PropTypes.bool,
+    settings: PropTypes.object,
     status: PropTypes.string,
     summary: PropTypes.object,
     token: PropTypes.string,
@@ -87,13 +88,14 @@ class Form extends React.Component {
   }
 
   _getPayment() {
-    const { code, config, data, summary, token, onSetPaid } = this.props
+    const { code, config, data, settings, summary, token, onSetPaid } = this.props
     return {
       form: {
         code,
         data,
         token
       },
+      settings,
       program: config.program,
       summary,
       onSuccess: onSetPaid

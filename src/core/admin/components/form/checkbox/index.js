@@ -32,8 +32,8 @@ class Checkbox extends React.Component {
   render() {
     const { disabled, prompt, tabIndex } = this.props
     return (
-      <div className={ `maha-checkbox ${(disabled) ? 'toggle-disabled' : ''}` } tabIndex={ tabIndex }>
-        <i className={ `fa fa-fw fa-${this._getIcon()} ${(disabled) ? 'disabled' : ''}` } onClick={ this._handleChange } />
+      <div className={ `maha-checkbox ${(disabled) ? 'toggle-disabled' : ''}` } onClick={ this._handleChange }>
+        <i className={ `fa fa-fw fa-${this._getIcon()} ${(disabled) ? 'disabled' : ''}` }  tabIndex={ tabIndex } />
         { prompt }
       </div>
     )

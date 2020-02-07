@@ -9,27 +9,13 @@ import React from 'react'
 import ACH from './ach'
 import _ from 'lodash'
 
-const methods = [
-  { label: 'Credit Card', mark: 'card-mark.png', value: 'card', component: Card },
-  { label: 'Bank Account', mark: 'ach-mark.png', value: 'ach', component: ACH }
-]
-
-if(process.env.GOOGLEPAY_ENABLED) {
-  methods.push({ label: 'Google Pay', mark: 'googlepay-mark.png', value: 'googlepay', component: GooglePay })
-}
-if(process.env.PAYPAL_ENABLED) {
-  methods.push({ label: 'Pay Pal', mark: 'paypal-mark.png', value: 'paypal', component: PayPal })
-}
-if(process.env.APPLEPAY_ENABLED && window.ApplePaySession && window.ApplePaySession.supportsVersion(3) && window.ApplePaySession.canMakePayments()) {
-  methods.push({ label: 'Apple Pay', mark: 'applepay-mark.png', value: 'applepay', component: ApplePay })
-}
-
 class Payment extends React.Component {
 
   static propTypes = {
     form: PropTypes.object,
     method: PropTypes.string,
     program: PropTypes.object,
+    settings: PropTypes.object,
     status: PropTypes.string,
     summary: PropTypes.object,
     token: PropTypes.string,
@@ -63,6 +49,24 @@ class Payment extends React.Component {
     this.props.onFetch()
   }
 
+  _getAllowed() {
+    const { settings } = this.props
+    const methods = [
+      { label: 'Credit Card', mark: 'card-mark.png', value: 'card', component: Card },
+      { label: 'Bank Account', mark: 'ach-mark.png', value: 'ach', component: ACH }
+    ]
+    if(settings.googlepay_enabled) {
+      methods.push({ label: 'Google Pay', mark: 'googlepay-mark.png', value: 'googlepay', component: GooglePay })
+    }
+    if(settings.paypal_enabled) {
+      methods.push({ label: 'Pay Pal', mark: 'paypal-mark.png', value: 'paypal', component: PayPal })
+    }
+    if(settings.applepay_enabled && window.ApplePaySession && window.ApplePaySession.supportsVersion(3) && window.ApplePaySession.canMakePayments()) {
+      methods.push({ label: 'Apple Pay', mark: 'applepay-mark.png', value: 'applepay', component: ApplePay })
+    }
+    return methods
+  }
+
   _getForm() {
     const classes = ['ui','form']
     classes.push('loading')
@@ -70,6 +74,7 @@ class Payment extends React.Component {
   }
 
   _getComponent() {
+    const methods = this._getAllowed()
     const method = _.find(methods, { value: this.props.method })
     return method.component
   }
@@ -77,7 +82,7 @@ class Payment extends React.Component {
   _getMethods() {
     const { onSetMethod } = this.props
     return {
-      methods,
+      methods: this._getAllowed(),
       onChoose: onSetMethod
     }
   }
