@@ -125,8 +125,8 @@ class ApplePay extends React.Component {
     session.begin()
   }
 
-  _handleFailure(err) {
-    console.log('error', err)
+  _handleFailure(error) {
+    this.setState({ error })
   }
 
   _handleSubmit(payment) {

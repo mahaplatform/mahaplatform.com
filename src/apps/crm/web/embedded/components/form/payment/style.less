@@ -20,3 +20,15 @@
 .maha-payment-mandate {
   margin: 0.8em 0 !important;
 }
+.maha-payment-method {
+  & > div {
+    display: none;
+  }
+  &.card .maha-payment-card,
+  &.ach .maha-payment-ach,
+  &.googlepay .maha-payment-googlepay,
+  &.paypal .maha-payment-paypal,
+  &.applepay .maha-payment-applepay {
+    display: block;
+  }
+}

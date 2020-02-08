@@ -27,8 +27,8 @@ class Payment extends React.Component {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    const { status } = this.props
-    const Method = this._getComponent()
+    const { status, token } = this.props
+    const methods = this._getAllowed()
     return (
       <div className="maha-form-body">
         <div className="maha-payment">
@@ -39,7 +39,15 @@ class Payment extends React.Component {
           }
           <Summary { ...this._getSummary() } />
           <Methods { ...this._getMethods() } />
-          <Method { ...this._getMethod() } />
+          { token &&
+            <div className={`maha-payment-method ${ this.props.method }`}>
+              { methods.map((method, index) => (
+                <div className={`maha-payment-${ method.value }`} key={`method_${index}`}>
+                  <method.component { ...this._getMethod() } />
+                </div>
+              ))}
+            </div>
+          }
         </div>
       </div>
     )

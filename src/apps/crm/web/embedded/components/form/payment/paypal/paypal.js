@@ -10,7 +10,7 @@ class PayPal extends React.Component {
     form: PropTypes.object,
     isProcessing: PropTypes.bool,
     program: PropTypes.object,
-    status: PropTypes.object,
+    status: PropTypes.string,
     summary: PropTypes.object,
     token: PropTypes.string,
     onSubmit: PropTypes.func,
@@ -67,7 +67,7 @@ class PayPal extends React.Component {
       client: clientInstance
     })).then(paypalCheckoutInstance => {
       return paypal.Button.render({
-        env: 'sandbox',
+        env: process.env.PAYPAL_ENVIRONMENT,
         style: {
           color: 'blue',
           shape: 'rect',
