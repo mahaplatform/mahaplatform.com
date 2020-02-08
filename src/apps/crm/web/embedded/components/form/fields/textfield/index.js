@@ -71,11 +71,11 @@ class TextField extends React.Component {
     const { focused, value } = this.state
     return {
       id: htmlFor,
-      ref: node => this.input = node,
-      type: 'text',
       name,
       placeholder: !focused ? placeholder : null,
+      ref: node => this.input = node,
       tabIndex,
+      type: 'text',
       value,
       onBlur: this._handleBlur,
       onChange: this._handleUpdate,
@@ -83,16 +83,17 @@ class TextField extends React.Component {
     }
   }
 
-  _handleChange() {
-    this.props.onChange(this.state.value)
-  }
-
   _handleBlur() {
     this.setState({
+      value: this.input.value.trim(),
       focused: false
     })
   }
 
+  _handleChange() {
+    this.props.onChange(this.state.value)
+  }
+  
   _handleClear() {
     this.setState({
       value: ''

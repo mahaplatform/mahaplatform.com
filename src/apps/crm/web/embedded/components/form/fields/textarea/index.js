@@ -24,14 +24,17 @@ class TextArea extends React.Component {
   }
 
   state = {
+    focused: false,
     value: ''
   }
 
   input = null
   offset = 0
 
+  _handleBlur = this._handleBlur.bind(this)
   _handleChange = _.debounce(this._handleChange.bind(this), 250, { leading: true })
-  _handleKeyUp = this._handleKeyUp.bind(this)
+  _handleFocus = this._handleFocus.bind(this)
+  _handleResize = this._handleResize.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
@@ -54,6 +57,7 @@ class TextArea extends React.Component {
     const { value } = this.state
     if(value !== prevState.value) {
       this._handleChange()
+      this._handleResize()
     }
     if(status !== prevProps.status) {
       if(status === 'validating') this._handleValidate()
@@ -62,22 +66,40 @@ class TextArea extends React.Component {
 
   _getTextArea() {
     const { htmlFor, name, placeholder, tabIndex } = this.props
+    const { focused, value } = this.state
     return {
       id: htmlFor,
       name,
-      placeholder,
+      placeholder: !focused ? placeholder : null,
+      ref: node => this.input = node,
       rows: 3,
       tabIndex,
+      value,
+      onBlur: this._handleBlur,
       onChange: this._handleUpdate,
-      onKeyUp: this._handleKeyUp
+      onFocus: this._handleFocus,
+      onKeyUp: this._handleResize
     }
+  }
+
+  _handleBlur() {
+    this.setState({
+      value: this.input.value.trim().replace('\n+$','\n'),
+      focused: false
+    })
   }
 
   _handleChange() {
     this.props.onChange(this.state.value)
   }
 
-  _handleKeyUp(e) {
+  _handleFocus() {
+    this.setState({
+      focused: true
+    })
+  }
+
+  _handleResize() {
     this.input.style.height = 'auto'
     this.input.style.height = this.input.scrollHeight + this.offset + 'px'
   }
