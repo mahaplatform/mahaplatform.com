@@ -111,8 +111,9 @@ class ApplePay extends React.Component {
       this.applePayInstance.tokenize({
         token: e.payment.token
       }).then(payload => {
-        const { nonce } = payload
-        onSuccess({ nonce })
+        console.log(payload)
+        // const { nonce } = payload
+        // onSuccess({ nonce })
         session.completePayment(window.ApplePaySession.STATUS_SUCCESS)
       }).catch(err => {
         onFailure(err)

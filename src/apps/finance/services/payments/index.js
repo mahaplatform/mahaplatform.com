@@ -2,6 +2,7 @@ import RouteError from '../../../../core/objects/route_error'
 import braintree from '../../../../core/services/braintree'
 import { chargeScholarship } from './scholarship'
 import { chargeGooglePay } from './googlepay'
+import { chargeApplePay } from './applepay'
 import { chargeCredit } from './credit'
 import { chargePayPal } from './paypal'
 import { chargeCheck } from './check'
@@ -13,6 +14,7 @@ import _ from 'lodash'
 const getPaymentCreator = (method) => {
   if(method === 'scholarship') return chargeScholarship
   if(method === 'googlepay') return chargeGooglePay
+  if(method === 'applepay') return chargeApplePay
   if(method === 'paypal') return chargePayPal
   if(method === 'credit') return chargeCredit
   if(method === 'check') return chargeCheck
