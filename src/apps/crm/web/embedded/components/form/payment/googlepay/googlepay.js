@@ -17,6 +17,7 @@ class GooglePay extends React.Component {
   }
 
   state = {
+    error: null,
     ready: false
   }
 
@@ -26,21 +27,26 @@ class GooglePay extends React.Component {
 
   render() {
     const { isProcessing } = this.props
-    const { ready } = this.state
+    const { error, ready } = this.state
     return (
-      <div className="googlepay-button">
-        { !ready &&
-          <span>
-            <i className="fa fa-circle-o-notch fa-spin fa-fw" />
-          </span>
-        }
-        { ready && !isProcessing &&
-          <button className="gpay-button black short" onClick={ this._handleAuthorize } />
-        }
-        { ready && isProcessing &&
-          <span>
-            <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Processing
-          </span>
+      <div className="maha-payment-googlepay">
+        <div className="googlepay-button">
+          { !ready &&
+            <span>
+              <i className="fa fa-circle-o-notch fa-spin fa-fw" />
+            </span>
+          }
+          { ready && !isProcessing &&
+            <button className="gpay-button black short" onClick={ this._handleAuthorize } />
+          }
+          { ready && isProcessing &&
+            <span>
+              <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Processing
+            </span>
+          }
+        </div>
+        { error &&
+          <div className="maha-payment-error">{ error }</div>
         }
       </div>
     )
@@ -52,7 +58,7 @@ class GooglePay extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { error, status } = this.props
-    if(error !== prevProps.error && error) {
+    if(error !== prevProps.error) {
       this.setState({ error })
     }
     if(status !== prevProps.status) {

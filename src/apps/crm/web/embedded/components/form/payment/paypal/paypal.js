@@ -22,6 +22,7 @@ class PayPal extends React.Component {
   }
 
   state = {
+    error: null,
     selected: null
   }
 
@@ -29,13 +30,19 @@ class PayPal extends React.Component {
 
   render() {
     const { isProcessing } = this.props
+    const { error } = this.state
     return (
-      <div className="paypal-button">
-        { !isProcessing ?
-          <div id="paypal-button" /> :
-          <span>
-            <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Processing
-          </span>
+      <div className="maha-payment-paypal">
+        <div className="paypal-button">
+          { !isProcessing ?
+            <div id="paypal-button" /> :
+            <span>
+              <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Processing
+            </span>
+          }
+        </div>
+        { error &&
+          <div className="maha-payment-error">{ error }</div>
         }
       </div>
     )
@@ -47,7 +54,7 @@ class PayPal extends React.Component {
 
   componentDidUpdate(prevProps, prevState) {
     const { error, status } = this.props
-    if(error !== prevProps.error && error) {
+    if(error !== prevProps.error) {
       this.setState({ error })
     }
     if(status !== prevProps.status) {
@@ -102,8 +109,8 @@ class PayPal extends React.Component {
     })
   }
 
-  _handleFailure(err) {
-    console.log('error', err)
+  _handleFailure(error) {
+    this.setState({ error })
   }
 
   _handleSubmit(payment) {

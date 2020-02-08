@@ -20,6 +20,7 @@ class ApplePay extends React.Component {
   applePayInstance = null
 
   state = {
+    error: null,
     ready: false
   }
 
@@ -28,21 +29,26 @@ class ApplePay extends React.Component {
 
   render() {
     const { isProcessing } = this.props
-    const { ready }= this.state
+    const { error, ready }= this.state
     return (
-      <div className="applepay-button">
-        { !ready &&
-          <span>
-            <i className="fa fa-circle-o-notch fa-spin fa-fw" />
-          </span>
-        }
-        { ready && !isProcessing &&
-          <div className="apple-pay-button apple-pay-button-white" onClick={ this._handleAuthorize } />
-        }
-        { ready && isProcessing &&
-          <span>
-            <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Processing
-          </span>
+      <div className="maha-payment-applepay">
+        <div className="applepay-button">
+          { !ready &&
+            <span>
+              <i className="fa fa-circle-o-notch fa-spin fa-fw" />
+            </span>
+          }
+          { ready && !isProcessing &&
+            <div className="apple-pay-button apple-pay-button-white" onClick={ this._handleAuthorize } />
+          }
+          { ready && isProcessing &&
+            <span>
+              <i className="fa fa-circle-o-notch fa-spin fa-fw" /> Processing
+            </span>
+          }
+        </div>
+        { error &&
+          <div className="maha-payment-error">{ error }</div>
         }
       </div>
     )

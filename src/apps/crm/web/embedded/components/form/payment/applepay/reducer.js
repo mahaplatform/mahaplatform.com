@@ -11,6 +11,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'SUBMIT_REQUEST':
     return {
       ...state,
+      error: null,
       status: 'submitting'
     }
 

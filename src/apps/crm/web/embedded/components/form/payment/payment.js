@@ -42,9 +42,7 @@ class Payment extends React.Component {
           { token &&
             <div className={`maha-payment-method ${ this.props.method }`}>
               { methods.map((method, index) => (
-                <div className={`maha-payment-${ method.value }`} key={`method_${index}`}>
-                  <method.component { ...this._getMethod() } />
-                </div>
+                <method.component { ...this._getMethod() } key={`method_${index}`} />
               ))}
             </div>
           }
