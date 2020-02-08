@@ -1,11 +1,19 @@
-.addressfield-results {
+.maha-addressfield {
+  border: 1px solid fadeout(@black, 90);
+  background-color: @white;
+  border-radius: 0.28em;
+  .maha-input {
+    border: none;
+  }
+}
+.maha-addressfield-results {
   border: 1px solid fadeout(@black, 90);
   background-color: @white;
   position: absolute;
   left: -1px;
   right: -1px;
   z-index: 10;
-  .addressfield-result:last-child {
+  .maha-addressfield-result:last-child {
     border: none;
   }
   &.down {
@@ -17,7 +25,7 @@
     bottom: ~"calc(100% - 2px)";
   }
 }
-.addressfield-result {
+.maha-addressfield-result {
   display: flex;
   border-bottom: 1px solid fadeout(@black, 90);
   cursor: pointer;
@@ -28,7 +36,7 @@
     background-color: fadeout(@black, 95);
   }
 }
-.addressfield-result-icon {
+.maha-addressfield-result-icon {
   padding: 0.8em;
   display: flex;
   .fa {
@@ -37,11 +45,23 @@
     font-size: 1.2em;
   }
 }
-.addressfield-result-details {
+.maha-addressfield-result-details {
   padding: 0.8em 0.8em 0.8em 0;
   color: fadeout(@black, 60);
   line-height: 1.4em;
   strong {
     color: @black;
   }
+}
+.maha-addressfield-street2 {
+  border-top: 1px solid fadeout(@black, 90);
+  input {
+    padding: 0.6em !important;
+    border: none !important;
+  }
+}
+.maha-addressfield-link {
+  color: @blue;
+  font-size: 0.8em;
+  cursor: pointer;
 }

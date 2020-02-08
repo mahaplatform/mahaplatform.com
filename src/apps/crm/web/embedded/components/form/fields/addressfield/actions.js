@@ -17,6 +17,11 @@ export const set = (value) => ({
   value
 })
 
+export const setStreet2 = (value) => ({
+  type: 'SET_STREET2',
+  value
+})
+
 export const setOptions = (options) => ({
   type: 'SET_OPTIONS',
   options

@@ -27,6 +27,7 @@ class Addressfield extends React.Component {
     onReady: PropTypes.func,
     onSet: PropTypes.func,
     onSetOptions: PropTypes.func,
+    onSetStreet2: PropTypes.func,
     onValidate: PropTypes.func
   }
 
@@ -59,37 +60,45 @@ class Addressfield extends React.Component {
   _handleKeyDown = this._handleKeyDown.bind(this)
   _handleLoad = this._handleLoad.bind(this)
   _handleLookup = this._handleLookup.bind(this)
+  _handleSetStreet2 = this._handleSetStreet2.bind(this)
   _handleType = this._handleType.bind(this)
 
   render() {
     const { options, value } = this.props
     return (
-      <div className="maha-input">
-        <div className="maha-input-field" onClick={ this._handleBegin }>
-          { value ?
-            <div className="maha-input-token">
-              { value.description }
-            </div> :
-            <input { ...this._getInput() } />
-          }
-          { options.length > 0 &&
-            <div className={ this._getResultClass() }>
-              { options.map((option, index) => (
-                <div { ...this._getOption(option, index) } key={`option_${index}`}>
-                  <div className="addressfield-result-icon">
-                    <i className="fa fa-map-marker" />
+      <div className="maha-addressfield">
+        <div className="maha-input">
+          <div className="maha-input-field" onClick={ this._handleBegin }>
+            { value ?
+              <div className="maha-input-token">
+                { value.description }
+              </div> :
+              <input { ...this._getInput() } />
+            }
+            { options.length > 0 &&
+              <div className={ this._getResultClass() }>
+                { options.map((option, index) => (
+                  <div { ...this._getOption(option, index) } key={`option_${index}`}>
+                    <div className="maha-addressfield-result-icon">
+                      <i className="fa fa-map-marker" />
+                    </div>
+                    <div className="maha-addressfield-result-details">
+                      <strong>{ option.match }</strong>{ option.remaining }
+                    </div>
                   </div>
-                  <div className="addressfield-result-details">
-                    <strong>{ option.match }</strong>{ option.remaining }
-                  </div>
-                </div>
-              )) }
+                )) }
+              </div>
+            }
+          </div>
+          { value &&
+            <div className="maha-input-clear" onClick={ this._handleClear }>
+              <i className="fa fa-times" />
             </div>
           }
         </div>
         { value &&
-          <div className="maha-input-clear" onClick={ this._handleClear }>
-            <i className="fa fa-times" />
+          <div className="maha-addressfield-street2">
+            <input { ...this._getStreet2() } />
           </div>
         }
       </div>
@@ -121,7 +130,7 @@ class Addressfield extends React.Component {
 
   _getClass(index) {
     const { selected } = this.state
-    const classes = ['addressfield-result']
+    const classes = ['maha-addressfield-result']
     if(index === selected) classes.push('selected')
     return classes.join(' ')
   }
@@ -149,6 +158,17 @@ class Addressfield extends React.Component {
     }
   }
 
+  _getStreet2() {
+    const { value } = this.props
+    const street_2 = value.street_2 || ''
+    return {
+      type: 'text',
+      placeholder: street_2.length === 0 ? 'Apartment number or PO Box' : null,
+      value: street_2,
+      onChange: this._handleSetStreet2
+    }
+  }
+
   _handleLookup() {
     const { q } = this.props
     this.setState({ selected: null })
@@ -167,7 +187,7 @@ class Addressfield extends React.Component {
 
   _getResultClass() {
     const { direction } = this.state
-    return ['addressfield-results', direction].join(' ')
+    return ['maha-addressfield-results', direction].join(' ')
   }
 
   _getType(result, type) {
@@ -276,6 +296,10 @@ class Addressfield extends React.Component {
     script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=places`
     document.body.appendChild(script)
     setTimeout(this._handleCheck, 1000)
+  }
+
+  _handleSetStreet2(e) {
+    this.props.onSetStreet2(e.target.value)
   }
 
   _handleType(e) {
