@@ -192,7 +192,7 @@ const submitRoute = async (req, res) => {
     form_id: form.get('id'),
     contact_id: contact.get('id'),
     invoice_id: invoice ? invoice.get('id') : null,
-    ipaddress: req.headers['x-forwarded-for'] || req.connection.remoteAddress,
+    ipaddress: req.ip.split(':').pop(),
     data: req.body
   }).save(null, {
     transacting: req.trx

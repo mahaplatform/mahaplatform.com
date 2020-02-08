@@ -4,6 +4,7 @@ import PaymentMethod from '../../models/payment_method'
 import { UsBankAccountVerification } from 'braintree'
 import Payment from '../../models/payment'
 import moment from 'moment'
+import _ from 'lodash'
 
 const getPaymentMethod = async(req, { customer, payment }) => {
 
@@ -36,6 +37,16 @@ const getPaymentMethod = async(req, { customer, payment }) => {
       message: 'Unable to process payment',
       errors: {
         payment: ['Processor error (Unable to authorize bank account)']
+      }
+    })
+  }
+
+  if(!result.verified) {
+    throw new RouteError({
+      status: 422,
+      message: 'Unable to process payment',
+      errors: {
+        payment: ['Processor error (Unable to verify bank account)']
       }
     })
   }
@@ -74,11 +85,13 @@ export const chargeACH = async (req, { invoice, customer, merchant, payment, amo
   })
 
   if(!result.success) {
+    const processor = _.get(result, 'transaction.processorResponseText')
+    const error = processor ? `Payment declined (${result.transaction.processorResponseText})` : result.message
     throw new RouteError({
       status: 422,
       message: 'Unable to process payment',
       errors: {
-        payment: [`Payment declined (${result.transaction.processorResponseText})`]
+        payment: [error]
       }
     })
   }
