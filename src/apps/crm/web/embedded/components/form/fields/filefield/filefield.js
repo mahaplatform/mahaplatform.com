@@ -18,6 +18,7 @@ class FileField extends React.Component {
     status: PropTypes.string,
     tabIndex: PropTypes.number,
     token: PropTypes.string,
+    value: PropTypes.array,
     onAddFile: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
@@ -157,7 +158,7 @@ class FileField extends React.Component {
   }
 
   _handleChange() {
-    this.props.onChange(this.props.files)
+    this.props.onChange(this.props.value)
   }
 
   _handleFileAdded(file) {
@@ -188,8 +189,10 @@ class FileField extends React.Component {
     })
   }
 
-  _handleUploadSuccess(file) {
+  _handleUploadSuccess(file, message) {
+    const asset = JSON.parse(message)
     this.props.onUpdateFile(file.uniqueIdentifier, {
+      asset: asset.data,
       status: 'uploaded'
     })
   }
@@ -201,11 +204,11 @@ class FileField extends React.Component {
   }
 
   _handleValidate() {
-    const { files, required } = this.props
-    if(required && files.length === 0) {
-      this.props.onValidate(files, 'You must upload at least one file')
+    const { required, value } = this.props
+    if(required && value.length === 0) {
+      this.props.onValidate(value, 'You must upload at least one file')
     } else {
-      this.props.onValidate(files)
+      this.props.onValidate(value)
     }
   }
 

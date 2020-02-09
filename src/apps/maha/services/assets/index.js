@@ -55,7 +55,7 @@ export const uploadChunk = async (req) => {
   if(!completed) return null
   const asset = await Asset.forge({
     team_id: req.team.get('id'),
-    user_id: req.user.get('id'),
+    user_id: req.user ? req.user.get('id') : null,
     source_id: 1,
     original_file_name: req.body.resumableFilename,
     file_name: _getNormalizedFileName(req.body.resumableFilename),

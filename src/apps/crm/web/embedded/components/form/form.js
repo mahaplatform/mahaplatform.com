@@ -120,9 +120,9 @@ class Form extends React.Component {
 
   _handleSuccess() {
     const { config } = this.props
-    const { confirmation_strategy, confirmation_redirect } = config.settings
-    if(confirmation_strategy === 'redirect') {
-      window.location.href = confirmation_redirect
+    const { strategy, redirect } = config.confirmation
+    if(strategy === 'redirect') {
+      window.location.href = redirect
     }
   }
 

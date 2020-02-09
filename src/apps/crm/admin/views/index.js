@@ -28,6 +28,7 @@ import ProgramsList from './programs/list'
 import ProgramsShow from './programs/show'
 import ResponsesList from './forms/responses/list'
 import ResponsesShow from './forms/responses/show'
+import ResponseUploadShow from './forms/responses/upload'
 import TemplatesDesign from './templates/design'
 import WorkflowsList from './workflows/list'
 import WorkflowsShow from './workflows/show'
@@ -60,6 +61,7 @@ const routes = [
   { path: '/forms/:id/workflow', component: FormWorkflowDesign },
   { path: '/forms/:form_id/responses', component: ResponsesList },
   { path: '/forms/:form_id/responses/:id', component: ResponsesShow },
+  { path: '/forms/:form_id/responses/:response_id/uploads/:id', component: ResponseUploadShow },
   { path: '/lists/:id', component: ListsShow },
   { path: '/lists/:id/contacts', component: ListsContacts },
   { path: '/organizations', component: OrganizationsList },

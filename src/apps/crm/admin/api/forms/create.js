@@ -53,6 +53,7 @@ const createRoute = async (req, res) => {
         strategy: 'message',
         message: 'Thank You!'
       },
+      limits: {},
       page: {
         background_color: '#EEEEEE'
       },
