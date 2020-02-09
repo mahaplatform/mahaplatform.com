@@ -10,6 +10,7 @@ class TextField extends React.Component {
     name: PropTypes.object,
     placeholder: PropTypes.string,
     required: PropTypes.bool,
+    format: PropTypes.object,
     status: PropTypes.string,
     tabIndex: PropTypes.number,
     onChange: PropTypes.func,
@@ -93,7 +94,7 @@ class TextField extends React.Component {
   _handleChange() {
     this.props.onChange(this.state.value)
   }
-  
+
   _handleClear() {
     this.setState({
       value: ''
@@ -114,10 +115,12 @@ class TextField extends React.Component {
   }
 
   _handleValidate() {
-    const { required } = this.props
+    const { format, required } = this.props
     const { value } = this.state
     if(required && value.length === 0) {
       this.props.onValidate(value, 'You must enter a value')
+    } else if(format && !format.regex.test(value)) {
+      this.props.onValidate(value, format.message)
     } else {
       this.props.onValidate(value)
     }

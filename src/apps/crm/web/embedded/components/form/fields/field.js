@@ -4,6 +4,7 @@ import MoneyField from './moneyfield'
 import Checkboxes from './checkboxes'
 import RadioGroup from './radiogroup'
 import PhoneField from './phonefield'
+import EmailField from './emailfield'
 import FileField from './filefield'
 import TextField from './textfield'
 import DateField from './datefield'
@@ -84,6 +85,7 @@ class Field extends React.Component {
     if(field.type === 'text') return Text
     if(field.type === 'textarea') return TextArea
     if(field.type === 'timefield') return TimeField
+    if(field.type === 'emailfield') return EmailField
     return TextField
   }
 

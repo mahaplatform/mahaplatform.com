@@ -36,14 +36,14 @@ class Fields extends React.Component {
 
   render() {
     const { config, fields } = this.props
-    const { settings } = config
+    const { security } = config
     return (
       <div className="maha-form-body">
         <div className="ui form">
           { fields.map((field, index) => (
             <Field key={`field_${index}`} { ...this._getField(field, index) } />
           )) }
-          { settings.captcha &&
+          { security.captcha &&
             <div className="maha-form-captcha">
               <Recaptcha { ...this._getRecaptcha() } />
             </div>
