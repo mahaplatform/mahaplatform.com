@@ -121,9 +121,15 @@ table.text-block h2 {
   margin-bottom: 0;
 }
 table.web-block p,
-table.placeholder-block p,
+table.preferences-block p,
 table.text-block p {
   margin-bottom: 0;
+}
+table.web-block a,
+table.preferences-block a,
+table.text-block a {
+  text-decoration: underline;
+  color: inherit;
 }
 
 table.product-summary {

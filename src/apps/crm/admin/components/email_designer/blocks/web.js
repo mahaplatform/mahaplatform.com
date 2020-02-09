@@ -120,7 +120,7 @@ class Web extends React.Component {
       color: null,
       format: null,
       text_align: 'center',
-      line_height: 1,
+      line_height: 1.5,
       letter_spacing: null
     }
   }
