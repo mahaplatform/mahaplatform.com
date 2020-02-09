@@ -13,6 +13,7 @@ class Productfield extends React.PureComponent {
   static propTypes = {
     products: PropTypes.array,
     defaultValue: PropTypes.array,
+    value: PropTypes.array,
     onAdd: PropTypes.func,
     onChange: PropTypes.func,
     onReady: PropTypes.func,
@@ -85,8 +86,8 @@ class Productfield extends React.PureComponent {
   }
 
   _handleChange() {
-    const { products } = this.props
-    this.props.onChange(products)
+    const { value } = this.props
+    this.props.onChange(value)
   }
 
   _handleRemove(index) {

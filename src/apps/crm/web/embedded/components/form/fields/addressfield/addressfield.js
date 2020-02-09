@@ -159,11 +159,12 @@ class Addressfield extends React.Component {
   }
 
   _getStreet2() {
-    const { value } = this.props
+    const { tabIndex, value } = this.props
     const street_2 = value.street_2 || ''
     return {
       type: 'text',
       placeholder: street_2.length === 0 ? 'Apartment number or PO Box' : null,
+      tabIndex,
       value: street_2,
       onChange: this._handleSetStreet2
     }

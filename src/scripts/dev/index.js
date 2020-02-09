@@ -125,7 +125,7 @@ const adminWatch = async () => {
     target: `http://localhost:${process.env.SERVER_PORT}`,
     bypass: (req, res, proxyOptions) => {
       const root = path.join('src','core','admin','public')
-      const parts = req.url.split('?').pop().split('/').slice(2)
+      const parts = req.url.split('?').shift().split('/').slice(2)
       if(fs.existsSync(path.join(root,...parts))) return null
       if(/^\/admin/.test(req.url)) return req.url
     }

@@ -21,7 +21,28 @@ const mapPropsToPage = (props, context, resources, page) => ({
     defaultSort: { key: 'created_at', order: 'desc' },
     entity: 'responses',
     onClick: (record) => context.router.history.push(`/admin/crm/forms/${props.params.form_id}/responses/${record.id}`)
+  },
+  tasks: {
+    items: [
+      {
+        label: 'Export Data',
+        handler: () => {
+          const { token } = context.admin.team
+          window.location.href = `/api/admin/crm/forms/${props.params.form_id}/responses/download?token=${token}`
+        }
+      }, {
+        label: 'Export Data to Excel',
+        handler: () => {
+          const { token } = context.admin.team
+          window.location.href = `/api/admin/crm/forms/${props.params.form_id}/responses/download.xlsx?filename=form-${resources.form.code}-responses&download=true&token=${token}`
+        }
+      }
+    ]
   }
 })
 
-export default Page(null, mapPropsToPage)
+const mapResourcesToPage = (props, context) => ({
+  form: `/api/admin/crm/forms/${props.params.form_id}`
+})
+
+export default Page(mapResourcesToPage, mapPropsToPage)
