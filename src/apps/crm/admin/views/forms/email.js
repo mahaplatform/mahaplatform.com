@@ -11,6 +11,7 @@ class Designer extends React.Component {
 
   static propTypes = {
     email: PropTypes.object,
+    fields: PropTypes.array,
     form: PropTypes.object
   }
 
@@ -21,17 +22,25 @@ class Designer extends React.Component {
   }
 
   _getEmailDesigner() {
-    const { email } = this.props
+    const { email, form, fields } = this.props
     return {
       defaultValue: email.config,
       program_id: email.program.id,
       tokens: [
-        { title: 'Response Variables', tokens: [
-          { name: 'First Name', token: 'response.first_name' },
-          { name: 'Last Name', token: 'response.last_name' },
-          { name: 'Email', token: 'response.email' }
-        ] },
-        { title: 'Contact Variables', tokens: [
+        { title: 'Response Tokens', tokens: form.config.fields.filter(field => {
+          return field.type !== 'text'
+        }).reduce((tokens, field) => [
+          ...tokens,
+          {
+            name: field.name.value,
+            token: `response.${field.name.token}`
+          },
+          ...field.type === 'productfield' ? [{
+            name: `${field.name.value} Summary`,
+            token: `response.${field.name.token}_summary`
+          }] : []
+        ], []) },
+        { title: 'Contact Tokens', tokens: [
           { name: 'First Name', token: 'contact.first_name' },
           { name: 'Last Name', token: 'contact.last_name' },
           { name: 'Email', token: 'contact.email' }
@@ -56,6 +65,7 @@ class Designer extends React.Component {
 
 const mapResourcesToPage = (props, context) => ({
   email: `/api/admin/crm/forms/${props.params.id}/email`,
+  fields: '/api/admin/crm/fields',
   form: `/api/admin/crm/forms/${props.params.id}`
 })
 

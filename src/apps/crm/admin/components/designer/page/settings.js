@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
+import { Button, Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
@@ -10,6 +10,8 @@ class Settings extends React.Component {
     cid: PropTypes.string,
     config: PropTypes.object,
     program_id: PropTypes.number,
+    onPop: PropTypes.func,
+    onTokens: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -41,8 +43,13 @@ class Settings extends React.Component {
   }
 
   _getForm() {
-    const { program_id } = this.props
+    const { program_id, onTokens } = this.props
     const { config } = this.state
+    const tokens = {
+      label: 'You can the these tokens',
+      className: 'link',
+      handler: onTokens
+    }
     return {
       showHeader: false,
       onChange: this._handleChange,
@@ -51,7 +58,7 @@ class Settings extends React.Component {
           fields: [
             { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, value: 'id', text: 'rfc822', required: true, defaultValue: config.sender_id },
             { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', defaultValue: config.reply_to },
-            { label: 'Subject', name: 'subject', type: 'textfield', placeholder: 'Enter a subject', required: true, defaultValue: config.subject },
+            { label: 'Subject', name: 'subject', type: 'textfield', after: <Button { ...tokens } />, placeholder: 'Enter a subject', required: true, defaultValue: config.subject },
             { label: 'Preview Text', name: 'preview_text', type: 'textarea', maxLength: 150, rows: 1, placeholder: 'Enter preview text', defaultValue: config.preview_text }
           ]
         }

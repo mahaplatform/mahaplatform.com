@@ -22,6 +22,7 @@ class Page extends React.Component {
     onPreview: PropTypes.func,
     onPush: PropTypes.func,
     onSave: PropTypes.func,
+    onTokens: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -100,10 +101,11 @@ class Page extends React.Component {
   }
 
   _getSettings() {
-    const { cid, program_id, onUpdate } = this.props
+    const { cid, program_id, onTokens, onUpdate } = this.props
     return {
       cid,
       program_id,
+      onTokens,
       onUpdate
     }
   }

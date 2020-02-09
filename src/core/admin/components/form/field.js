@@ -8,6 +8,7 @@ import _ from 'lodash'
 class Field extends React.Component {
 
   static propTypes = {
+    after: PropTypes.string,
     data: PropTypes.object,
     errors: PropTypes.object,
     field: PropTypes.object,
@@ -26,7 +27,7 @@ class Field extends React.Component {
 
   render() {
     const { field } = this.props
-    const { include, instructions, label, show, type } = field
+    const { after, include, instructions, label, show, type } = field
     const error = this._getError()
     if(include === false || show === false) return null
     return (
@@ -45,6 +46,7 @@ class Field extends React.Component {
           { type === 'fields' && <Fields { ...this._getFields() } /> }
           { type === 'segment' && <Segment { ...this._getFields() } /> }
           { !_.includes(['fields','segment'], type) && <Control { ...this._getControl() } /> }
+          { after }
           { error &&
             <div className="error-message">
               { error }

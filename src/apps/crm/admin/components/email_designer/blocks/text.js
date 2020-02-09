@@ -1,9 +1,9 @@
 import FontFamilyToken from '../../../tokens/fontfamily'
 import AlignmentField from '../../alignmentfield'
 import FormatField from '../../formatfield'
+import { Button, Form } from 'maha-admin'
 import * as options from '../variables'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
@@ -11,8 +11,8 @@ class Text extends React.Component {
 
   static propTypes = {
     config: PropTypes.object,
-    tokens: PropTypes.array,
     onDone: PropTypes.func,
+    onTokens: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -45,7 +45,6 @@ class Text extends React.Component {
   }
 
   _getForm() {
-    const { tokens } = this.props
     const { config } = this.state
     return {
       title: 'Text Block',
@@ -63,30 +62,9 @@ class Text extends React.Component {
             {
               fields: [
                 ...new Array(config.columns).fill(0).map((i, index) => {
-                  return { label: config.columns > 1 ? `Column ${index+1}` : null, name: `content_${index}`, type: 'htmlfield', defaultValue: config[`content_${index}`] }
+                  return { label: config.columns > 1 ? `Column ${index+1}` : null, name: `content_${index}`, type: 'htmlfield', after: <Button { ...this._getTokens() } />, defaultValue: config[`content_${index}`] }
                 })
-              ],
-              after: (
-                <div className="designer-tokens">
-                  <p>You can use the following variables in this email:</p>
-                  <table className="ui celled compact table">
-                    <tbody>
-                      { tokens.reduce((rows, group, i) => [
-                        ...rows,
-                        <tr key={`group_${i}`}>
-                          <td colSpan="2">{ group.title }</td>
-                        </tr>,
-                        ...group.tokens.map((token, j) => (
-                          <tr key={`group_${i}_token_${j}`}>
-                            <td>{ token.name }</td>
-                            <td>&lt;%= { token.token } %&gt;</td>
-                          </tr>
-                        ))
-                      ], []) }
-                    </tbody>
-                  </table>
-                </div>
-              )
+              ]
             }
           ]
         }, {
@@ -138,6 +116,15 @@ class Text extends React.Component {
     return [
       { label: 'Column Split', name: 'split', type: 'dropdown', options: options.splits, defaultValue: config.split }
     ]
+  }
+
+  _getTokens() {
+    const { onTokens } = this.props
+    return {
+      label: 'You can the these tokens',
+      className: 'link',
+      handler: onTokens
+    }
   }
 
   _getDefault() {

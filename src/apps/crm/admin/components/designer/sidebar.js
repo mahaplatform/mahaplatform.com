@@ -1,6 +1,7 @@
 import { Stack } from 'maha-admin'
 import PropTypes from 'prop-types'
 import Preview from './preview'
+import Tokens from './tokens'
 import React from 'react'
 import Page from './page'
 import _ from 'lodash'
@@ -30,6 +31,7 @@ class Sidebar extends React.Component {
   _handlePreview = this._handlePreview.bind(this)
   _handlePush = this._handlePush.bind(this)
   _handleReplace = this._handleReplace.bind(this)
+  _handleTokens = this._handleTokens.bind(this)
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
@@ -49,12 +51,12 @@ class Sidebar extends React.Component {
   }
 
   _getBlock() {
-    const { active, config, tokens } = this.props
+    const { active, config } = this.props
     const key = `blocks[${active}]`
     return {
       config: _.get(config, key),
-      tokens,
       onDone: this._handleDone,
+      onTokens: this._handleTokens,
       onUpdate: this._handleUpdate.bind(this, key)
     }
   }
@@ -71,6 +73,7 @@ class Sidebar extends React.Component {
       onPop: this._handlePop,
       onPreview: this._handlePreview,
       onSave,
+      onTokens: this._handleTokens,
       onUpdate: this._handleUpdate
     }
   }
@@ -88,6 +91,14 @@ class Sidebar extends React.Component {
     return {
       cards,
       slideFirst: false
+    }
+  }
+
+  _getTokens() {
+    const { tokens } = this.props
+    return {
+      tokens,
+      onPop: this._handlePop
     }
   }
 
@@ -126,6 +137,10 @@ class Sidebar extends React.Component {
         { component, props }
       ]
     })
+  }
+
+  _handleTokens() {
+    this._handlePush(Tokens, this._getTokens())
   }
 
   _handleUpdate(key, value) {

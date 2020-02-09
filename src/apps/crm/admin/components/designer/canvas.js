@@ -10,7 +10,7 @@ class Canvas extends React.Component {
   }
 
   static propTypes = {
-    active: PropTypes.object,
+    active: PropTypes.number,
     canvas: PropTypes.string,
     config: PropTypes.object,
     onAdd: PropTypes.func,

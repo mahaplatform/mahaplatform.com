@@ -2,9 +2,9 @@ import FontFamilyToken from '../../../tokens/fontfamily'
 import AlignmentField from '../../alignmentfield'
 import FormatField from '../../formatfield'
 import ImageField from '../../imagefield'
+import { Button, Form } from 'maha-admin'
 import * as options from '../variables'
 import PropTypes from 'prop-types'
-import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
@@ -13,6 +13,7 @@ class Image extends React.Component {
   static propTypes = {
     config: PropTypes.object,
     onDone: PropTypes.func,
+    onTokens: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -62,7 +63,7 @@ class Image extends React.Component {
             {
               fields: [
                 { label: 'Image', name: 'image', type: ImageField, defaultValue: config.image },
-                { label: 'Caption', name: 'caption', type: 'htmlfield', defaultValue: config.caption },
+                { label: 'Caption', name: 'caption', type: 'htmlfield', after: <Button { ...this._getTokens() } />, defaultValue: config.caption },
                 { prompt: 'Show Caption', name: 'show_caption', type: 'checkbox', defaultValue: config.show_caption }
               ]
             }
@@ -160,6 +161,15 @@ class Image extends React.Component {
       { name: `${type}_width`, type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config[`${type}_width`] },
       { name: `${type}_color`, type: 'colorfield', defaultValue: config[`${type}_color`] }
     ] }
+  }
+
+  _getTokens() {
+    const { onTokens } = this.props
+    return {
+      label: 'You can the these tokens',
+      className: 'link',
+      handler: onTokens
+    }
   }
 
   _getWidth() {
