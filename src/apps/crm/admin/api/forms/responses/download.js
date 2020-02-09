@@ -76,7 +76,7 @@ const downloadRoute = async (req, res) => {
     ...response.get('data').payment ? {
       'Payment (Method)': response.get('data').payment.method,
       'Payment (Reference)': response.get('data').payment.reference,
-      'Payment (Ammount)': response.get('data').payment.amount
+      'Payment (Amount)': response.get('data').payment.amount
     } : {}
   }))
 

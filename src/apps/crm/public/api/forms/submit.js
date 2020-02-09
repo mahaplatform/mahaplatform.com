@@ -227,8 +227,9 @@ const submitRoute = async (req, res) => {
 
   const data = response.get('data')
 
-  const html = renderEmail(req, {
+  const rendered = renderEmail(req, {
     config: email.get('config'),
+    subject: email.get('config').settings.subject,
     data: {
       contact: {
         first_name: contact.get('first_name'),
@@ -260,8 +261,8 @@ const submitRoute = async (req, res) => {
   await sendMail({
     from: sender.get('rfc822'),
     to: contact.get('email'),
-    subject: email.get('config').settings.subject,
-    html
+    subject: rendered.subject,
+    html: rendered.html
   })
 
   await socket.refresh(req, [

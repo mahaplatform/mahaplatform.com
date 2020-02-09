@@ -16,18 +16,23 @@ const template  = fs.readFileSync(path.join(__dirname, 'email.ejs'), 'utf8')
 const core = fs.readFileSync(path.join(root,'foundation-emails.min.css')).toString()
 const overrides = fs.readFileSync(path.join(root,'foundation-overrides.min.css')).toString()
 
-export const renderEmail = (req, { config, data }) => {
-  const html = ejs.render(template, {
+export const renderEmail = (req, params) => {
+  const { config, subject } = params
+  const rendered = ejs.render(template, {
     config,
     style: getStyle(config),
     host: process.env.WEB_HOST
   })
-  return ejs.render(html.replace(/&lt;%/g,'<%').replace(/%&gt;/g,'%>'), {
-    ...data,
+  const data = {
+    ...params.data,
     moment,
     numeral,
     _
-  })
+  }
+  return {
+    subject: ejs.render(subject, data),
+    html: ejs.render(rendered.replace(/&lt;%/g,'<%').replace(/%&gt;/g,'%>'), data)
+  }
 }
 
 const getProp = (config, prop, key, unit = null, defaultValue = null) => {

@@ -21,10 +21,10 @@ class Designer extends React.Component {
   }
 
   _getEmailDesigner() {
-    const { campaign } = this.state
+    const { email } = this.props
     return {
-      defaultValue: campaign.config,
-      program_id: campaign.program.id,
+      defaultValue: email.config,
+      program_id: email.program.id,
       tokens: [
         { title: 'Response Variables', tokens: [
           { name: 'First Name', token: 'response.first_name' },
