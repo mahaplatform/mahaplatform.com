@@ -26,7 +26,12 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       status: 'authorized',
-      payment: action.result
+      payment: {
+        reference: `${action.result.card_type}-${action.result.last_four}`,
+        nonce: action.result.nonce,
+        card_type: action.result.card_type,
+        last_four: action.result.last_four
+      }
     }
 
   case 'SUBMIT_REQUEST':

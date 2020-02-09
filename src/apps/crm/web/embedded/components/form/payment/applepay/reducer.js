@@ -1,6 +1,5 @@
 export const INITIAL_STATE = {
   error: null,
-  payment: null,
   status: 'pending'
 }
 

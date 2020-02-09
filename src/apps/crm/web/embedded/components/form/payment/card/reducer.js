@@ -26,6 +26,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       status: 'authorized',
       payment: {
+        reference: `${action.result.details.cardType.toLowerCase()}-${action.result.details.lastFour}`,
         card_type: action.result.details.cardType.toLowerCase(),
         last_four: action.result.details.lastFour,
         expiration_month: action.result.details.expirationMonth,

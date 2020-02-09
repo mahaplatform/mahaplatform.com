@@ -33,6 +33,7 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       status: 'authorized',
       payment: {
+        reference: action.result.description,
         nonce: action.result.nonce,
         ownership_type: state.ownershipType,
         account_type: state.accountType,

@@ -8,7 +8,6 @@ class ApplePay extends React.Component {
     error: PropTypes.string,
     form: PropTypes.object,
     isProcessing: PropTypes.bool,
-    payment: PropTypes.object,
     program: PropTypes.object,
     status: PropTypes.string,
     summary: PropTypes.object,
@@ -120,7 +119,8 @@ class ApplePay extends React.Component {
         const { details, nonce } = payload
         const { paymentInstrumentName } = details
         const [ card_type, last_four ] = paymentInstrumentName.toLowerCase().split(' ')
-        onSuccess({ nonce, card_type, last_four })
+        const reference = `${card_type}-${last_four}`
+        onSuccess({ nonce, card_type, last_four, reference })
         session.completePayment(window.ApplePaySession.STATUS_SUCCESS)
       }).catch(err => {
         onFailure(err)

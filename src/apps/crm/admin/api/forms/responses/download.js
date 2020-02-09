@@ -30,7 +30,7 @@ const getValue = (field, data) => {
         const p = _.find(data.products, { product_id: product.id })
         return {
           ...items,
-          [`${field.name.value} (${product.title})`]: p ? p.quantity : ''
+          [`${field.name.value} (${product.title})`]: p ? p.quantity : 0
         }
       }, {}),
       [`${field.name.value} (Tax)`]: data.tax,
@@ -66,14 +66,19 @@ const downloadRoute = async (req, res) => {
 
   const { fields } = form.get('config')
 
-  res.status(200).respond(responses, (req, response) => {
-    return fields.filter(field => {
+  res.status(200).respond(responses, (req, response) => ({
+    ...fields.filter(field => {
       return field.type !== 'text'
     }).reduce((row, field) => ({
       ...row,
       ...getValue(field, response.get('data')[field.code])
-    }), {})
-  })
+    }), {}),
+    ...response.get('data').payment ? {
+      'Payment (Method)': response.get('data').payment.method,
+      'Payment (Reference)': response.get('data').payment.reference,
+      'Payment (Ammount)': response.get('data').payment.amount
+    } : {}
+  }))
 
 }
 

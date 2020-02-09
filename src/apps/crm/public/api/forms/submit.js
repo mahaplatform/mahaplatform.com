@@ -193,7 +193,16 @@ const submitRoute = async (req, res) => {
     contact_id: contact.get('id'),
     invoice_id: invoice ? invoice.get('id') : null,
     ipaddress: req.ip.split(':').pop(),
-    data: req.body
+    data: {
+      ...req.body,
+      ...req.body.payment ? {
+        payment: {
+          amount: req.body.payment.amount,
+          method: req.body.payment.method,
+          reference: req.body.payment.payment.reference
+        }
+      } : {}
+    }
   }).save(null, {
     transacting: req.trx
   })

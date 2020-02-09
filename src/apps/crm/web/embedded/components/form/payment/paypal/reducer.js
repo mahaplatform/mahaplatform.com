@@ -26,7 +26,11 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       status: 'authorized',
-      payment: action.result
+      payment: {
+        reference: action.result.email,
+        email: action.result.email,
+        nonce: action.result.nonce
+      }
     }
 
   case 'SUBMIT_REQUEST':
