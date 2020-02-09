@@ -47,7 +47,7 @@ class Style extends React.Component {
     const { config } = this.props
     const { blocks } = config
     return [
-      { selector: 'html', styles: [
+      { selector: 'table.body', styles: [
         ...this._getProp('background-color', 'page.background_color')
       ] },
       ...['h1','h2','p'].map(selector => ({

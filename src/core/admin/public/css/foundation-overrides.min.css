@@ -3,7 +3,11 @@
     width: 100%!important;
   }
 }
+table.body {
+  background-color: #FFFFFF;
+}
 table.container {
+  background: none;
   margin: 0 0 auto;
   Margin: 0 0 auto;
 }
@@ -86,6 +90,9 @@ table.image-block img {
 div.divider {
   height: 0;
 }
+table.block-container {
+  width: 100%;
+}
 table.button-block table.button {
   margin: 0;
   Margin: 0;
@@ -103,6 +110,18 @@ table.image-block img,
 table.video-block img {
   width: 100% !important;
 }
+table.web-block h1,
+table.placeholder-block h1,
+table.text-block h1 {
+  margin-bottom: 0;
+}
+table.web-block h2,
+table.placeholder-block h2,
+table.text-block h2 {
+  margin-bottom: 0;
+}
+table.web-block p,
+table.placeholder-block p,
 table.text-block p {
   margin-bottom: 0;
 }

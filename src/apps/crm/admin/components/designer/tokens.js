@@ -5,7 +5,7 @@ import React from 'react'
 class Tokens extends React.Component {
 
   static propTypes = {
-    tokens: PropTypes.object,
+    tokens: PropTypes.array,
     onPop: PropTypes.func
   }
 

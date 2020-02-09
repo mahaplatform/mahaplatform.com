@@ -28,12 +28,6 @@ const mapPropsToPage = (props, context, resources, page) => ({
         label: 'Export Data',
         handler: () => {
           const { token } = context.admin.team
-          window.location.href = `/api/admin/crm/forms/${props.params.form_id}/responses/download?token=${token}`
-        }
-      }, {
-        label: 'Export Data to Excel',
-        handler: () => {
-          const { token } = context.admin.team
           window.location.href = `/api/admin/crm/forms/${props.params.form_id}/responses/download.xlsx?filename=form-${resources.form.code}-responses&download=true&token=${token}`
         }
       }

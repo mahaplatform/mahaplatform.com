@@ -1,3 +1,4 @@
+import Preferences from './preferences'
 import PropTypes from 'prop-types'
 import Divider from './divider'
 import Button from './button'
@@ -8,6 +9,7 @@ import Share from './share'
 import Video from './video'
 import Text from './text'
 import React from 'react'
+import Web from './web'
 
 class Block extends React.Component {
 
@@ -76,13 +78,15 @@ class Block extends React.Component {
   _getComponent() {
     const { config } = this.props
     if(config.type === 'button') return Button
-    if(config.type === 'text') return Text
     if(config.type === 'divider') return Divider
-    if(config.type === 'images') return Images
-    if(config.type === 'image') return Image
-    if(config.type === 'video') return Video
-    if(config.type === 'share') return Share
     if(config.type === 'follow') return Follow
+    if(config.type === 'image') return Image
+    if(config.type === 'images') return Images
+    if(config.type === 'preferences') return Preferences
+    if(config.type === 'share') return Share
+    if(config.type === 'text') return Text
+    if(config.type === 'video') return Video
+    if(config.type === 'web') return Web
   }
 
   _handleAction(action) {
