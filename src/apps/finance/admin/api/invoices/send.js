@@ -1,8 +1,8 @@
 import InvoiceSerializer from '../../../serializers/invoice_serializer'
 import { activity } from '../../../../../core/services/routes/activities'
-import send_email from '../../../../maha/queues/send_email_queue'
 import { audit } from '../../../../../core/services/routes/audit'
 import socket from '../../../../../core/services/routes/emitter'
+import { send_email } from '../../../../maha/services/emails'
 import Sender from '../../../../crm//models/sender'
 import Invoice from '../../../models/invoice'
 
@@ -30,7 +30,7 @@ const sendRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  await send_email.enqueue(req, {
+  await send_email(req, {
     team_id: req.team.get('id'),
     from: sender.get('rfc822'),
     reply_to: req.body.reply_to,

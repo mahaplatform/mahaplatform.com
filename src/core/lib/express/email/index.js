@@ -8,6 +8,7 @@ import link from './link'
 import open from './open'
 import seen from './seen'
 import view from './view'
+import show from './show'
 
 const router = new Router({ mergeParams: true })
 
@@ -17,9 +18,11 @@ router.use(transaction)
 
 router.use(logger)
 
-router.get('/v:email_code([a-z0-9]{4})', open)
+router.get('/v:email_code([a-z0-9]{10})', open)
 
-router.get('/c:email_code([a-z0-9]{4}):link_code([a-z0-9]{4})', link)
+router.get('/c:email_code([a-z0-9]{10}):link_code([a-z0-9]{10})', link)
+
+router.get('/w:email_code([a-z0-9]{10})', show)
 
 router.get('/ns:codes', seen)
 

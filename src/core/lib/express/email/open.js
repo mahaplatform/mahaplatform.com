@@ -3,7 +3,16 @@ import Email from '../../../../apps/maha/models/email'
 import moment from 'moment'
 import path from 'path'
 
-const trackerFile = path.resolve(__dirname,'..','..','..','admin','public','images','tracker.png')
+const getRoot = () => {
+  if(process.env.NODE_ENV === 'production') {
+    return path.resolve(__dirname,'..','..','..','..','public','admin')
+  }
+  return path.resolve(__dirname,'..','..','..','admin','public')
+}
+
+const root = getRoot()
+
+const trackerFile = path.join(root,'images','tracker.png')
 
 const openRoute = async (req, res) => {
 

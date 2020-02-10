@@ -1,6 +1,6 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import { createUserToken } from '../../../../../core/utils/user_tokens'
-import send_email from '../../../../maha/queues/send_email_queue'
+import { send_email } from '../../../../maha/services/emails'
 import User from '../../../../maha/models/user'
 
 const resetRoute = async (req, res) => {
@@ -20,7 +20,7 @@ const resetRoute = async (req, res) => {
 
   const token = createUserToken(user, 'reset_id')
 
-  await send_email.enqueue(req, {
+  await send_email(req, {
     team_id: req.team.get('id'),
     user,
     template: 'team:reset',

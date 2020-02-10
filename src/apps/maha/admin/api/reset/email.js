@@ -1,7 +1,7 @@
 import { activity } from '../../../../../core/services/routes/activities'
 import { createUserToken } from '../../../../../core/utils/user_tokens'
 import { validate } from '../../../../../core/utils/validation'
-import send_email from '../../../queues/send_email_queue'
+import { send_email } from '../../../services/emails'
 import User from '../../../models/user'
 
 const emailRoute = async (req, res, next) => {
@@ -23,7 +23,7 @@ const emailRoute = async (req, res, next) => {
 
   const token = createUserToken(req.user, 'reset_id')
 
-  await send_email.enqueue(req, {
+  await send_email(req, {
     team_id: req.body.team_id,
     user: req.user,
     template: 'team:reset',

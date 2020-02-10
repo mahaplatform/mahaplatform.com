@@ -1,17 +1,18 @@
 import { updateMailingAddresses } from '../../../services/mailing_addresses'
 import { updateEmailAddresses } from '../../../services/email_addresses'
+import send_email_queue from '../../../../maha/queues/send_email_queue'
 import { whitelist } from '../../../../../core/services/routes/params'
 import { updatePhoneNumbers } from '../../../services/phone_numbers'
 import { makePayment } from '../../../../finance/services/payments'
 import generateCode from '../../../../../core/utils/generate_code'
 import socket from '../../../../../core/services/routes/emitter'
 import { contactActivity } from '../../../services/activities'
-import { sendMail } from '../../../../../core/services/email'
 import LineItem from '../../../../finance/models/line_item'
 import Invoice from '../../../../finance/models/invoice'
 import Product from '../../../../finance/models/product'
 import EmailAddress from '../../../models/email_address'
 import { renderEmail } from '../../../services/email'
+import Email from '../../../../maha/models/email'
 import Response from '../../../models/response'
 import Contact from '../../../models/contact'
 import Sender from '../../../models/sender'
@@ -112,13 +113,13 @@ const sendConfirmation = async(req, { form, fields, payment, response }) => {
     transacting: req.trx
   })
 
-  const email = form.related('email')
-
   const data = response.get('data')
 
+  const config = form.related('email').get('config')
+
   const rendered = renderEmail(req, {
-    config: email.get('config'),
-    subject: email.get('config').settings.subject,
+    config,
+    subject: config.settings.subject,
     data: {
       contact: {
         full_name: contact.get('full_name'),
@@ -148,16 +149,31 @@ const sendConfirmation = async(req, { form, fields, payment, response }) => {
   })
 
   const sender = await Sender.query(qb => {
-    qb.where('id', email.get('config').settings.sender_id)
+    qb.where('id', config.settings.sender_id)
   }).fetch({
     transacting: req.trx
   })
 
-  await sendMail({
+  const code = await generateCode(req, {
+    table: 'maha_emails',
+    length: 4
+  })
+
+  const email = await Email.forge({
+    team_id: req.team.get('id'),
+    contact_id: contact.get('id'),
     from: sender.get('rfc822'),
-    to: contact.get('email'),
+    reply_to: config.settings.reply_to,
+    to: contact.get('rfc822'),
     subject: rendered.subject,
-    html: rendered.html
+    html: rendered.html,
+    code
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  await send_email_queue.enqueue(req, {
+    id: email.get('id')
   })
 
 }
