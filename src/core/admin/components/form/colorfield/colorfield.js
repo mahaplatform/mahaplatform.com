@@ -1,51 +1,49 @@
 import PropTypes from 'prop-types'
 import Color from 'color'
 import React from 'react'
+import _ from 'lodash'
 
-const palette = [
-  '#DB2828',
-  '#F2711C',
-  '#FBBD08',
-  '#B5CC18',
-  '#21BA45',
-  '#00B5AD',
-  '#2185D0',
-  '#6435C9',
-  '#A333C8',
-  '#E03997'
+const COLOR_REGEX = /[0-9A-Fa-f#]/
+
+const RESERVED = [8,9,37,38,39,40]
+
+const palette = ['#DB2828','#F2711C','#FBBD08','#B5CC18','#21BA45','#00B5AD','#2185D0','#6435C9','#A333C8','#E03997']
+
+const colors = [
+  null,
+  ...new Array(9).fill(0).map((i, j) => {
+    const hex = Math.max(Math.min(Math.ceil(255 / 8) * j, 255), 0).toString(16)
+    return `#${hex}${hex}${hex}`
+  }),
+  ...new Array(7).fill(0).reduce((colors, i, j) => [
+    ...colors,
+    ...Object.values(palette).map((color, index) => {
+      const adjustment = ((((400 / 6) * j) - 200) / 200) * -0.5
+      return Color(color).lighten(adjustment).hex().toUpperCase()
+    })
+  ], [])
 ]
 
 class ColorField extends React.Component {
 
   static propTypes = {
-    choosing: PropTypes.bool,
+    open: PropTypes.bool,
     color: PropTypes.string,
-    colors: PropTypes.array,
     defaultValue: PropTypes.string,
     disabled: PropTypes.bool,
     tabIndex: PropTypes.number,
-    onBegin: PropTypes.func,
+    value: PropTypes.string,
     onBusy: PropTypes.func,
     onChange: PropTypes.func,
+    onChoose: PropTypes.func,
+    onClose: PropTypes.func,
     onClear: PropTypes.func,
+    onOpen: PropTypes.func,
     onReady: PropTypes.func,
-    onSet: PropTypes.func
+    onType: PropTypes.func
   }
 
   static defaultProps = {
-    colors: [
-      ...new Array(10).fill(0).map((i, j) => {
-        const hex = Math.max(Math.min(Math.ceil(255 / 9) * j, 255), 0).toString(16)
-        return `#${hex}${hex}${hex}`
-      }),
-      ...new Array(7).fill(0).reduce((colors, i, j) => [
-        ...colors,
-        ...Object.values(palette).map((color, index) => {
-          const adjustment = ((((400 / 6) * j) - 200) / 200) * -0.5
-          return Color(color).lighten(adjustment).hex()
-        })
-      ], [])
-    ],
     defaultValue: null,
     disabled: false,
     tabIndex: 0,
@@ -57,15 +55,18 @@ class ColorField extends React.Component {
 
   input = null
 
-  _handleBegin = this._handleBegin.bind(this)
+  _handleClose = this._handleClose.bind(this)
   _handleClear = this._handleClear.bind(this)
+  _handleKeyDown = this._handleKeyDown.bind(this)
+  _handleOpen = this._handleOpen.bind(this)
+  _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
-    const { choosing, colors, color, tabIndex } = this.props
+    const { color, open, tabIndex } = this.props
     return (
-      <div className="colorfield">
-        <div className="colorfield-input" onClick={ this._handleBegin }>
-          <div className="colorfield-selected" onClick={ this._handleBegin }>
+      <div className="colorfield" ref={ node => this.input = node }>
+        <div className="colorfield-input" onClick={ this._handleOpen }>
+          <div className="colorfield-selected" onClick={ this._handleOpen }>
             { color ?
               <div className="colorfield-color" style={{ backgroundColor: this.props.color }} /> :
               <div className="colorfield-color null" />
@@ -80,12 +81,12 @@ class ColorField extends React.Component {
             </div>
           }
         </div>
-        { choosing &&
-          <div className="colorfield-chooser" tabIndex={ tabIndex }>
+        { open &&
+          <div className="colorfield-chooser">
             <div className="colorfield-chooser-colors">
               { colors.map((color, index) => (
-                <div key={`color_${index}`} className="colorfield-chooser-color" style={{ backgroundColor: color }} onClick={ this._handleSet.bind(this, color) }>
-                  { color === this.props.color && <i className="fa fa-fw fa-check" /> }
+                <div key={`color_${index}`} { ...this._getColor(color, index) } tabIndex={ tabIndex }>
+                  { color && color === this.props.color && <i className="fa fa-fw fa-check" /> }
                 </div>
               )) }
             </div>
@@ -96,8 +97,9 @@ class ColorField extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue, onReady, onSet } = this.props
-    if(defaultValue) onSet(defaultValue)
+    document.addEventListener('mousedown', this._handleClose)
+    const { defaultValue, onReady, onChoose } = this.props
+    if(defaultValue) onChoose(defaultValue)
     onReady()
   }
 
@@ -106,16 +108,36 @@ class ColorField extends React.Component {
     if(prevProps.color !== color) onChange(color)
   }
 
-  _getInput() {
+  componentWillUnmount() {
+    document.removeEventListener('mousedown', this._handleClose)
+  }
+
+  _getColor(color, index) {
+    const classes = ['colorfield-chooser-color']
+    if(color === null) classes.push('null')
     return {
-      type: 'text',
-      ref: node => this.input = node,
-      defaultValue: this.props.color || ''
+      className: classes.join(' '),
+      style: { backgroundColor: color || '#FFFFFF' },
+      onClick: this._handleChoose.bind(this, color)
     }
   }
 
-  _handleBegin() {
-    this.props.onBegin()
+  _getInput() {
+    const { tabIndex, value } = this.props
+    return {
+      ref: node => this.input = node,
+      tabIndex,
+      type: 'text',
+      value: value,
+      onChange: this._handleUpdate,
+      onKeyDown: this._handleKeyDown
+    }
+  }
+
+  _getParent(el, selector) {
+    const matches = (el.matches || el.matchesSelector)
+    while ((el = el.parentElement) && !(matches.call(el, selector))) { null }
+    return el
   }
 
   _handleClear(e) {
@@ -123,8 +145,32 @@ class ColorField extends React.Component {
     this.props.onClear()
   }
 
-  _handleSet(color) {
-    this.props.onSet(color)
+  _handleClose(e) {
+    const { open } = this.props
+    const parent = this._getParent(e.target, '.colorfield')
+    if(!open || parent === this.input) return
+    this.props.onClose()
+  }
+
+  _handleOpen() {
+    this.props.onOpen()
+  }
+
+  _handleChoose(color, e) {
+    e.stopPropagation()
+    this.props.onChoose(color)
+  }
+
+  _handleKeyDown(e) {
+    if(e.ctrlKey || e.metaKey || _.includes(RESERVED, e.which) || COLOR_REGEX.test(e.key)) return
+    e.preventDefault()
+  }
+
+  _handleUpdate(e) {
+    const value = e.target.value.substr(0,7).toUpperCase()
+    this.props.onType(value)
+    if(value.length < 7) return
+    this.props.onChoose(value)
   }
 
 }

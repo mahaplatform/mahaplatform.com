@@ -1,16 +1,19 @@
 const INITIAL_STATE = {
-  choosing: false,
-  color: null
+  color: null,
+  open: false,
+  value: ''
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
 
   switch (action.type) {
 
-  case 'BEGIN':
+  case 'CHOOSE':
     return {
       ...state,
-      choosing: true
+      value: action.color,
+      color: action.color,
+      open: false
     }
 
   case 'CLEAR':
@@ -19,11 +22,22 @@ const reducer = (state = INITIAL_STATE, action) => {
       color: null
     }
 
-  case 'SET':
+  case 'OPEN':
     return {
       ...state,
-      choosing: false,
-      color: action.color
+      open: true
+    }
+
+  case 'CLOSE':
+    return {
+      ...state,
+      open: false
+    }
+
+  case 'TYPE':
+    return {
+      ...state,
+      value: action.value
     }
 
   default:

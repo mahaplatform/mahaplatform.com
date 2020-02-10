@@ -64,18 +64,23 @@
   z-index: 2;
 }
 .colorfield-chooser-colors {
+  width: ~"calc(14em + 2px)";
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  border: 1px solid fadeout(@black, 90);
 }
 .colorfield-chooser-color {
-  flex: 0 10%;
+  flex: 0 1.4em;
   height: 1.4em;
   position: relative;
   color: @white;
   cursor: pointer;
   overflow: hidden;
   display: flex;
+  &.null {
+    background: linear-gradient(135deg, @white 0, @white 45%, @red 45%, @red 55%, @white 55%, @white 100%);
+  }
   &:hover:after {
     position: absolute;
     top: 0;

@@ -125,7 +125,7 @@ class NumberField extends React.Component {
     const { number_type } = this.props
     const value = e.target.value
     const regex = number_type === 'integer' ? INTEGER_REGEX : FLOAT_REGEX
-    if(!value.match(regex)) return
+    if(!regex.test(value)) return
     this.setState({ value })
   }
 
