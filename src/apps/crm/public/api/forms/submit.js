@@ -17,9 +17,8 @@ import Contact from '../../../models/contact'
 import Sender from '../../../models/sender'
 import Form from '../../../models/form'
 import { checkToken } from './utils'
-import moment from 'moment'
-
 import numeral from 'numeral'
+import moment from 'moment'
 import path from 'path'
 import ejs from 'ejs'
 import fs from 'fs'
@@ -99,6 +98,67 @@ const createInvoice = async (req, { form, contact, data }) => {
   })
 
   return invoice
+
+}
+
+const sendConfirmation = async(req, { form, fields, payment, response }) => {
+
+  const contact = await Contact.query(qb => {
+    qb.select(req.trx.raw('crm_contacts.*,crm_contact_primaries.*'))
+    qb.leftJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
+    qb.where('crm_contacts.team_id', req.team.get('id'))
+    qb.where('crm_contacts.id', response.get('contact_id'))
+  }).fetch({
+    transacting: req.trx
+  })
+
+  const email = form.related('email')
+
+  const data = response.get('data')
+
+  const rendered = renderEmail(req, {
+    config: email.get('config'),
+    subject: email.get('config').settings.subject,
+    data: {
+      contact: {
+        full_name: contact.get('full_name'),
+        first_name: contact.get('first_name'),
+        last_name: contact.get('last_name'),
+        email: contact.get('email')
+      },
+      response: fields.reduce((response, field) => ({
+        ...response,
+        [field.name.token]: data[field.code],
+        ...field.type === 'productfield' ? {
+          [`${field.name.token}_summary`]: ejs.render(summary, {
+            summary: data[field.code],
+            numeral,
+            payment: {
+              amount: payment.get('amount'),
+              activity: payment.get('activity')
+            }
+          })
+        } : {}
+      }), {}),
+      email: {
+        web_link: 'http://google.com',
+        preferences_link: 'http://cornell.edu'
+      }
+    }
+  })
+
+  const sender = await Sender.query(qb => {
+    qb.where('id', email.get('config').settings.sender_id)
+  }).fetch({
+    transacting: req.trx
+  })
+
+  await sendMail({
+    from: sender.get('rfc822'),
+    to: contact.get('email'),
+    subject: rendered.subject,
+    html: rendered.html
+  })
 
 }
 
@@ -223,46 +283,11 @@ const submitRoute = async (req, res) => {
     }
   })
 
-  const email = form.related('email')
-
-  const data = response.get('data')
-
-  const rendered = renderEmail(req, {
-    config: email.get('config'),
-    subject: email.get('config').settings.subject,
-    data: {
-      contact: {
-        first_name: contact.get('first_name'),
-        last_name: contact.get('last_name')
-      },
-      response: fields.reduce((response, field) => ({
-        ...response,
-        [field.name.token]: data[field.code],
-        ...field.type === 'productfield' ? {
-          [`${field.name.token}_summary`]: ejs.render(summary, {
-            summary: data[field.code],
-            numeral,
-            payment: {
-              amount: payment.get('amount'),
-              activity: payment.get('activity')
-            }
-          })
-        } : {}
-      }), {})
-    }
-  })
-
-  const sender = await Sender.query(qb => {
-    qb.where('id', email.get('config').settings.sender_id)
-  }).fetch({
-    transacting: req.trx
-  })
-
-  await sendMail({
-    from: sender.get('rfc822'),
-    to: contact.get('email'),
-    subject: rendered.subject,
-    html: rendered.html
+  await sendConfirmation(req, {
+    form,
+    fields,
+    payment,
+    response
   })
 
   await socket.refresh(req, [

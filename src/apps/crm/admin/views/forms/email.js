@@ -41,9 +41,14 @@ class Designer extends React.Component {
           }] : []
         ], []) },
         { title: 'Contact Tokens', tokens: [
+          { name: 'Full Name', token: 'contact.full_name' },
           { name: 'First Name', token: 'contact.first_name' },
           { name: 'Last Name', token: 'contact.last_name' },
           { name: 'Email', token: 'contact.email' }
+        ] },
+        { title: 'Email Tokens', tokens: [
+          { name: 'Preferences Link', token: 'email.preferences_link' },
+          { name: 'Web Link', token: 'email.web_link' }
         ] }
       ],
       onSave: this._handleSave

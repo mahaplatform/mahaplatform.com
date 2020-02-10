@@ -109,7 +109,7 @@ class Preferences extends React.Component {
 
   _getDefault() {
     return {
-      text: '<p>This email was sent to <strong><%= contact.email %></strong>. If you would like to control how much email you recieve from us, you can <a href="http://google.com">adjust your preferences</a></p>',
+      text: '<p>This email was sent to <strong><%- contact.email %></strong>. If you would like to control how much email you recieve from us, you can <a href="<%- email.preferences_link %>">adjust your preferences</a></p>',
       background_color: null,
       border_style: null,
       border_width: null,

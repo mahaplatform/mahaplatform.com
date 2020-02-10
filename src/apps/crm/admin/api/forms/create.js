@@ -95,9 +95,23 @@ const createRoute = async (req, res) => {
     config: template ? template.get('config') : {
       blocks: [
         {
+          type: 'web',
+          text: '<p>Not displaying correctly? <a href="<%- email.web_link %>">View in browser</a></p>',
+          padding: 8,
+          font_size: 12,
+          text_align: 'center',
+          line_height: 1.5
+        }, {
           type: 'text',
-          content_0: '<p>&lt;%= contact.first_name %&gt;,</p><p>Thank you for filling out our form</p>',
+          content_0: '<p>&lt;%- contact.first_name %&gt;,</p><p>Thank you for filling out our form</p>',
           padding: 16
+        }, {
+          type: 'preferences',
+          text: '<p>This email was sent to <strong><%- contact.email %></strong>. If you would like to control how much email you recieve from us, you can <a href="<%- email.preferences_link %>">adjust your preferences</a></p>',
+          padding: 8,
+          font_size: 12,
+          text_align: 'center',
+          line_height: 1.5
         }
       ],
       settings: {

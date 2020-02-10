@@ -8,13 +8,19 @@ export const updateMailingAddresses = async (req, { contact, mailing_addresses, 
 
   const existing = contact.related('mailing_addresses').toArray()
 
+  const getIsPrimary = (mailing_address, existing, found) => {
+    if(mailing_address.is_primary !== undefined) return mailing_address.is_primary
+    if(found && found.get('is_primary')) return true
+    return existing.length === 0
+  }
+
   mailing_addresses = mailing_addresses.map(mailing_address => {
-    const found = existing.find(number => {
-      return number.get('address').street_1 === mailing_address.address.street_1
+    const found = existing.find(address => {
+      return address.get('address').street_1 === address.address.street_1
     })
     return {
       ...mailing_address,
-      is_primary: mailing_address.is_primary !== undefined ? mailing_address.is_primary : existing.length === 0,
+      is_primary: getIsPrimary(mailing_address, existing, found),
       id: found ? found.get('id') : undefined
     }
   })

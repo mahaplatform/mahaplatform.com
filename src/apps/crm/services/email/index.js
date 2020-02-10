@@ -21,7 +21,8 @@ export const renderEmail = (req, params) => {
   const rendered = ejs.render(template, {
     config,
     style: getStyle(config),
-    host: process.env.WEB_HOST
+    host: process.env.WEB_HOST,
+    _
   })
   const data = {
     ...params.data,

@@ -16,6 +16,12 @@ export const updatePhoneNumbers = async (req, { contact, phone_numbers, removing
 
   const existing = contact.related('phone_numbers').toArray()
 
+  const getIsPrimary = (phone_number, existing, found) => {
+    if(phone_number.is_primary !== undefined) return phone_number.is_primary
+    if(found && found.get('is_primary')) return true
+    return existing.length === 0
+  }
+
   phone_numbers = phone_numbers.map(phone_number => {
     const formatted = getFormattedNumber(phone_number.number)
     const found = existing.find(number => {
@@ -23,7 +29,7 @@ export const updatePhoneNumbers = async (req, { contact, phone_numbers, removing
     })
     return {
       ...phone_number,
-      is_primary: phone_number.is_primary !== undefined ? phone_number.is_primary : existing.length === 0,
+      is_primary: getIsPrimary(phone_number, existing, found),
       number: formatted,
       id: found ? found.get('id') : undefined
     }

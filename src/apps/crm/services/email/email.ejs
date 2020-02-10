@@ -230,6 +230,17 @@
                                               </tr>
                                             </tbody>
                                           </table>
+                                        <% } else if(_.includes(['preferences','web'], block.type)) { %>
+                                          <table class="row collapse">
+                                            <tbody>
+                                              <tr>
+                                                <td class="small-12 large-12 columns first last">
+                                                  <%- block.text %>
+                                                </td>
+                                                <td class="expander"></td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
                                         <% } else if(block.type === 'video') { %>
                                           <% if(block.show_caption) { %>
                                             <table class="row collapse">

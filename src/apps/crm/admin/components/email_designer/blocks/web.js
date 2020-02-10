@@ -109,7 +109,7 @@ class Web extends React.Component {
 
   _getDefault() {
     return {
-      text: '<p>Not displaying correctly? <a href="http://google.com">View in browser</a></p>',
+      text: '<p>Not displaying correctly? <a href="<%- email.web_link %>">View in browser</a></p>',
       background_color: null,
       border_style: null,
       border_width: null,
