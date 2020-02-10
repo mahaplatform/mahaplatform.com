@@ -19,7 +19,7 @@ const processor = async (job, trx) => {
   const response = await Response.query(qb => {
     qb.where('id', job.data.id)
   }).fetch({
-    withRelated: ['form.email','team','invoice.payment'],
+    withRelated: ['form.email','team','invoice.payments'],
     transacting: trx
   })
 
@@ -34,7 +34,7 @@ const processor = async (job, trx) => {
     return field.type !== 'text'
   })
 
-  const payment = response.related('invoice').related('payment')
+  const payment = response.related('invoice').related('payments').toArray()[0]
 
   const contact = await Contact.query(qb => {
     qb.select(req.trx.raw('crm_contacts.*,crm_contact_primaries.*'))
