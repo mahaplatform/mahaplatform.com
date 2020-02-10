@@ -1,5 +1,19 @@
 import PropTypes from 'prop-types'
+import Color from 'color'
 import React from 'react'
+
+const palette = [
+  '#DB2828',
+  '#F2711C',
+  '#FBBD08',
+  '#B5CC18',
+  '#21BA45',
+  '#00B5AD',
+  '#2185D0',
+  '#6435C9',
+  '#A333C8',
+  '#E03997'
+]
 
 class ColorField extends React.Component {
 
@@ -20,20 +34,17 @@ class ColorField extends React.Component {
 
   static defaultProps = {
     colors: [
-      { name: 'red', value: '#DB2828' },
-      { name: 'orange', value: '#F2711C' },
-      { name: 'yellow', value: '#FBBD08' },
-      { name: 'olive', value: '#B5CC18' },
-      { name: 'green', value: '#21BA45' },
-      { name: 'teal', value: '#00B5AD' },
-      { name: 'blue', value: '#2185D0' },
-      { name: 'violet', value: '#6435C9' },
-      { name: 'purple', value: '#A333C8' },
-      { name: 'pink', value: '#E03997' },
-      { name: 'brown', value: '#a5673f' },
-      { name: 'black', value: '#000000' },
-      { name: 'grey', value: '#767676' },
-      { name: 'white', value: '#FFFFFF' }
+      ...new Array(10).fill(0).map((i, j) => {
+        const hex = Math.max(Math.min(Math.ceil(255 / 9) * j, 255), 0).toString(16)
+        return `#${hex}${hex}${hex}`
+      }),
+      ...new Array(7).fill(0).reduce((colors, i, j) => [
+        ...colors,
+        ...Object.values(palette).map((color, index) => {
+          const adjustment = ((((400 / 6) * j) - 200) / 200) * -0.5
+          return Color(color).lighten(adjustment).hex()
+        })
+      ], [])
     ],
     defaultValue: null,
     disabled: false,
@@ -53,28 +64,31 @@ class ColorField extends React.Component {
     const { choosing, colors, color, tabIndex } = this.props
     return (
       <div className="colorfield">
-        <div className="colorfield-selected" onClick={ this._handleBegin }>
-          { color ?
-            <div className="colorfield-color" style={{ backgroundColor: this.props.color }} /> :
-            <div className="colorfield-color null" />
+        <div className="colorfield-input" onClick={ this._handleBegin }>
+          <div className="colorfield-selected" onClick={ this._handleBegin }>
+            { color ?
+              <div className="colorfield-color" style={{ backgroundColor: this.props.color }} /> :
+              <div className="colorfield-color null" />
+            }
+          </div>
+          <div className="colorfield-value">
+            <input { ...this._getInput() } />
+          </div>
+          { color !== null &&
+            <div className="colorfield-clear" onClick={ this._handleClear }>
+              <i className="fa fa-times" />
+            </div>
           }
         </div>
-        <div className="colorfield-value">
-          <input { ...this._getInput() } />
-        </div>
-        { color !== null &&
-          <div className="colorfield-clear" onClick={ this._handleClear }>
-            <i className="fa fa-times" />
-          </div>
-        }
-
         { choosing &&
           <div className="colorfield-chooser" tabIndex={ tabIndex }>
-            { colors.map((color, index) => (
-              <div key={`color_${index}`} className="colorfield-color" style={{ backgroundColor: color.value }} onClick={ this._handleSet.bind(this, color.value) }>
-                { color.value === this.props.color && <i className="fa fa-fw fa-check" /> }
-              </div>
-            )) }
+            <div className="colorfield-chooser-colors">
+              { colors.map((color, index) => (
+                <div key={`color_${index}`} className="colorfield-chooser-color" style={{ backgroundColor: color }} onClick={ this._handleSet.bind(this, color) }>
+                  { color === this.props.color && <i className="fa fa-fw fa-check" /> }
+                </div>
+              )) }
+            </div>
           </div>
         }
       </div>
