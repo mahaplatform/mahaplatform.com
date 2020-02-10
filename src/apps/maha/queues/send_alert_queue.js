@@ -67,10 +67,10 @@ const processor = async (job, trx) => {
 
 }
 
-const sendAlertQueue = new Queue({
+const SendAlertQueue = new Queue({
   name: 'send_alert',
   enqueue: async (req, job) => job,
   processor
 })
 
-export default sendAlertQueue
+export default SendAlertQueue

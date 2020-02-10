@@ -1,4 +1,4 @@
-import mailboxQueue from '../../../../apps/maha/queues/mailbox_queue'
+import MailboxQueue from '../../../../apps/maha/queues/mailbox_queue'
 import collectObjects from '../../../utils/collect_objects'
 import User from '../../../../apps/maha/models/user'
 import s3 from '../../../services/s3'
@@ -75,7 +75,7 @@ const mimeRoute = async (req, res) => {
     Key: `emails/${code}`
   }).promise()
 
-  mailboxQueue.enqueue(req, {
+  await MailboxQueue.enqueue(req, {
     filepath: mailbox.filepath,
     meta,
     code,

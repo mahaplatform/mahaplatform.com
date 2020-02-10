@@ -1,4 +1,4 @@
-import send_confirmation_email_queue from '../../../queues/send_confirmation_email_queue'
+import SendConfirmationEmailQueue from '../../../queues/send_confirmation_email_queue'
 import { updateMailingAddresses } from '../../../services/mailing_addresses'
 import { updateEmailAddresses } from '../../../services/email_addresses'
 import { whitelist } from '../../../../../core/services/routes/params'
@@ -216,7 +216,7 @@ const submitRoute = async (req, res) => {
     }
   })
 
-  await send_confirmation_email_queue.enqueue(req, {
+  await SendConfirmationEmailQueue.enqueue(req, {
     id: response.get('id')
   })
 

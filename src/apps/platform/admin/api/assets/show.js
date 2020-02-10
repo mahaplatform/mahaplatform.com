@@ -1,4 +1,4 @@
-import { processAssetQueue } from '../../../../maha/services/assets'
+import ProcessAssetQueue from '../../../../maha/queues/process_asset_queue'
 import AssetSerializer from '../../../serializers/asset_serializer'
 import Asset from '../../../../maha/models/asset'
 
@@ -17,7 +17,9 @@ const showRoute = async (req, res) => {
   })
 
   if(asset.get('status') === 'assembled') {
-    await processAssetQueue.enqueue(req, req.params.id)
+    await ProcessAssetQueue.enqueue(req, {
+      id: req.params.id
+    })
   }
 
   res.status(200).respond(asset, AssetSerializer)

@@ -9,10 +9,10 @@ const processor = async (job, trx) => {
 
 }
 
-const processAssetQueue = new Queue({
+const ProcessAssetQueue = new Queue({
   name: 'scan_asset',
   enqueue,
   processor
 })
 
-export default processAssetQueue
+export default ProcessAssetQueue

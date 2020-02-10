@@ -1,6 +1,6 @@
 import collectObjects from '../../../core/utils/collect_objects'
 import generateCode from '../../../core/utils/generate_code'
-import send_email_queue from '../queues/send_email_queue'
+import SendEmailQueue from '../queues/send_email_queue'
 import EmailLink from '../models/email_link'
 import Email from '../models/email'
 import pluralize from 'pluralize'
@@ -118,7 +118,7 @@ export const send_email = async(req, options) => {
     transacting: req.trx
   })
 
-  await send_email_queue.enqueue(req, {
+  await SendEmailQueue.enqueue(req, {
     id: email.get('id')
   })
 

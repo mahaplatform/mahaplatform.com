@@ -37,10 +37,10 @@ const processor = async (job, trx) => {
 }
 
 
-const mailerQueue = new Queue({
+const MailerQueue = new Queue({
   name: 'send_email',
   enqueue: async (req, job) => job,
   processor
 })
 
-export default mailerQueue
+export default MailerQueue

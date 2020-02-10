@@ -49,10 +49,10 @@ const _sendMessage = async (user, message, trx) => {
 
 }
 
-const chatNotificationQueue = new Queue({
+const ChatNotificationQueue = new Queue({
   name: 'chat_notification',
   enqueue,
   processor
 })
 
-export default chatNotificationQueue
+export default ChatNotificationQueue

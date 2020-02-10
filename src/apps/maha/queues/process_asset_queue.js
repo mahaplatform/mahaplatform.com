@@ -1,18 +1,18 @@
 import { processAsset } from '../services/assets'
 import Queue from '../../../core/objects/queue'
 
-const enqueue = async (req, asset_id) => ({ asset_id })
+const enqueue = async (req, job) => job
 
 const processor = async (job, trx) => {
 
-  await processAsset({ trx }, job.data.asset_id)
+  await processAsset({ trx }, job.data.id)
 
 }
 
-const processAssetQueue = new Queue({
+const ProcessAssetQueue = new Queue({
   name: 'process_asset',
   enqueue,
   processor
 })
 
-export default processAssetQueue
+export default ProcessAssetQueue

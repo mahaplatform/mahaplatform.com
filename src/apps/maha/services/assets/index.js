@@ -107,7 +107,9 @@ export const assembleAsset = async (req, asset) => {
     status: asset.get('has_preview') ? 'assembled' : 'processed',
     ...metadata
   })
-  if(asset.get('has_preview')) await ProcessAssetQueue.enqueue(req, asset.get('id'))
+  if(asset.get('has_preview')) await ProcessAssetQueue.enqueue(req, {
+    id: asset.get('id')
+  })
   await ScanAssetQueue.enqueue(req, asset.id)
 }
 

@@ -49,10 +49,10 @@ const processor = async (job, trx) => {
 
 }
 
-const mailboxQueue = new Queue({
+const MailboxQueue = new Queue({
   name: 'mailbox',
   enqueue,
   processor
 })
 
-export default mailboxQueue
+export default MailboxQueue

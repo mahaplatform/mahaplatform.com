@@ -30,10 +30,10 @@ const processor = async (job, trx) => {
 
 }
 
-const notificationQueue = new Queue({
+const NotificationQueue = new Queue({
   name: 'notification',
   enqueue,
   processor
 })
 
-export default notificationQueue
+export default NotificationQueue
