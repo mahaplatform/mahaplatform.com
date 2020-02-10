@@ -1,5 +1,6 @@
 import Email from '../../../../apps/maha/models/email'
 import request from 'request-promise'
+import moment from 'moment'
 
 const feedbackRoute = async (req, res) => {
 
@@ -28,21 +29,24 @@ const feedbackRoute = async (req, res) => {
     if(!email) return res.status(404).send('not found')
 
     if(type === 'Delivery') await email.save({
-      was_delivered: true
+      was_delivered: true,
+      delivered_at: moment()
     }, {
       patch: true,
       transacting: req.trx
     })
 
     if(type === 'Bounce') await email.save({
-      was_bounced: true
+      was_bounced: true,
+      bounced_at: moment()
     }, {
       patch: true,
       transacting: req.trx
     })
 
     if(type === 'Complaint') await email.save({
-      was_complained: true
+      was_complained: true,
+      complained_at: moment()
     }, {
       patch: true,
       transacting: req.trx

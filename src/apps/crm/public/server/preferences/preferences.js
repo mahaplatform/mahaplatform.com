@@ -121,9 +121,7 @@ const getChannel = (consent) => {
 
 const preferencesRoute = async (req, res) => {
 
-  const consent = await Consent.scope(qb => {
-    qb.where('team_id', req.team.get('id'))
-  }).query(qb => {
+  const consent = await Consent.query(qb => {
     qb.where('code', req.params.code)
   }).fetch({
     withRelated: ['email_address.contact','phone_number.contact','mailing_address.contact','program','team'],

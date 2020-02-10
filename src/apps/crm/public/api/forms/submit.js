@@ -147,7 +147,7 @@ const sendConfirmation = async(req, { form, fields, payment, response }) => {
       }), {}),
       email: {
         web_link: `${process.env.WEB_HOST}/w${code}`,
-        preferences_link: 'http://cornell.edu'
+        preferences_link: `${process.env.WEB_HOST}/crm/preferences/${contact.get('code')}`
       }
     }
   })
@@ -161,6 +161,7 @@ const sendConfirmation = async(req, { form, fields, payment, response }) => {
   const email = await Email.forge({
     team_id: req.team.get('id'),
     contact_id: contact.get('id'),
+    email_id: form.related('email').get('id'),
     from: sender.get('rfc822'),
     reply_to: config.settings.reply_to,
     to: contact.get('rfc822'),

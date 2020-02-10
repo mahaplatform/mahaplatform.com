@@ -1320,6 +1320,12 @@ const schema = {
       table.boolean('is_mobile')
       table.string('from', 255)
       table.string('reply_to', 255)
+      table.integer('email_id').unsigned()
+      table.timestamp('delivered_at')
+      table.timestamp('opened_at')
+      table.timestamp('complained_at')
+      table.timestamp('clicked_at')
+      table.timestamp('bounced_at')
     })
 
     await knex.schema.createTable('maha_faxes', (table) => {
@@ -2568,6 +2574,7 @@ const schema = {
       table.foreign('email_campaign_id').references('crm_email_campaigns.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
+      table.foreign('email_id').references('crm_emails.id')
     })
 
     await knex.schema.table('maha_faxes', table => {

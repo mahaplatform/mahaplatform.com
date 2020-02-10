@@ -25,6 +25,8 @@ const openRoute = async (req, res) => {
   if(!email) return res.status(404).send('not found')
 
   await email.save({
+    delivered_at: email.get('delivered_at') || moment(),
+    opened_at: email.get('opened_at') || moment(),
     was_delivered: true,
     was_opened: true
   }, {

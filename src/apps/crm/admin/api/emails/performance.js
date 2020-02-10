@@ -8,6 +8,7 @@ const performanceRoute = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
+    withRelated: ['email'],
     transacting: req.trx
   })
 
@@ -35,9 +36,9 @@ const performanceRoute = async (req, res) => {
 
   data.sent = await req.trx.raw(`
     ${filled}
-    select filled_dates.date, count(crm_enrollments.*) as count
+    select filled_dates.date, count(maha_emails.*) as count
     from filled_dates
-    left join crm_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_enrollments.workflow_id=?
+    left join maha_emails on date_trunc(?, timezone(?, sent_at::timestamptz)) = filled_dates.date and maha_emails.email_id=?
     group by filled_dates.date
     order by filled_dates.date asc
   `, params).then(results => results.rows.map(segment => ({
@@ -47,9 +48,9 @@ const performanceRoute = async (req, res) => {
 
   data.delivered = await req.trx.raw(`
     ${filled}
-    select filled_dates.date, count(crm_enrollments.*) as count
+    select filled_dates.date, count(maha_emails.*) as count
     from filled_dates
-    left join crm_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_enrollments.workflow_id=?
+    left join maha_emails on date_trunc(?, timezone(?, delivered_at::timestamptz)) = filled_dates.date and maha_emails.email_id=?
     group by filled_dates.date
     order by filled_dates.date asc
   `, params).then(results => results.rows.map(segment => ({
@@ -59,9 +60,9 @@ const performanceRoute = async (req, res) => {
 
   data.opened = await req.trx.raw(`
     ${filled}
-    select filled_dates.date, count(crm_enrollments.*) as count
+    select filled_dates.date, count(maha_emails.*) as count
     from filled_dates
-    left join crm_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_enrollments.workflow_id=?
+    left join maha_emails on date_trunc(?, timezone(?, opened_at::timestamptz)) = filled_dates.date and maha_emails.email_id=?
     group by filled_dates.date
     order by filled_dates.date asc
   `, params).then(results => results.rows.map(segment => ({
@@ -71,9 +72,9 @@ const performanceRoute = async (req, res) => {
 
   data.complained = await req.trx.raw(`
     ${filled}
-    select filled_dates.date, count(crm_enrollments.*) as count
+    select filled_dates.date, count(maha_emails.*) as count
     from filled_dates
-    left join crm_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_enrollments.workflow_id=?
+    left join maha_emails on date_trunc(?, timezone(?, complained_at::timestamptz)) = filled_dates.date and maha_emails.email_id=?
     group by filled_dates.date
     order by filled_dates.date asc
   `, params).then(results => results.rows.map(segment => ({
@@ -83,9 +84,9 @@ const performanceRoute = async (req, res) => {
 
   data.clicked = await req.trx.raw(`
     ${filled}
-    select filled_dates.date, count(crm_enrollments.*) as count
+    select filled_dates.date, count(maha_emails.*) as count
     from filled_dates
-    left join crm_enrollments on date_trunc(?, timezone(?, created_at::timestamptz)) = filled_dates.date and crm_enrollments.workflow_id=?
+    left join maha_emails on date_trunc(?, timezone(?, clicked_at::timestamptz)) = filled_dates.date and maha_emails.email_id=?
     group by filled_dates.date
     order by filled_dates.date asc
   `, params).then(results => results.rows.map(segment => ({
