@@ -48,12 +48,14 @@ class EmailsShow extends React.Component {
                 <div className="team-email-feed-item-icon">
                   <div className="team-email-feed-item-icon-badge">
                     { activity.type === 'open' && <i className="fa fa-fw fa-envelope-open"></i> }
+                    { activity.type === 'webview' && <i className="fa fa-fw fa-globe"></i> }
                     { activity.type === 'click' && <i className="fa fa-fw fa-mouse-pointer"></i> }
                   </div>
                 </div>
                 <div className="team-email-feed-item-content">
                   <strong>{ moment(activity.created_at).format('MMM D, YYYY @ h:mm:ss A') }</strong><br />
                   { activity.type === 'open' && 'opened email' }
+                  { activity.type === 'webview' && 'viewed the email online' }
                   { activity.type === 'click' && `clicked the link ${activity.link.text}` }
                 </div>
               </div>

@@ -117,6 +117,10 @@ const sendConfirmation = async(req, { form, fields, payment, response }) => {
 
   const config = form.related('email').get('config')
 
+  const code = await generateCode(req, {
+    table: 'maha_emails'
+  })
+
   const rendered = renderEmail(req, {
     config,
     subject: config.settings.subject,
@@ -142,7 +146,7 @@ const sendConfirmation = async(req, { form, fields, payment, response }) => {
         } : {}
       }), {}),
       email: {
-        web_link: 'http://google.com',
+        web_link: `${process.env.WEB_HOST}/w${code}`,
         preferences_link: 'http://cornell.edu'
       }
     }
@@ -152,11 +156,6 @@ const sendConfirmation = async(req, { form, fields, payment, response }) => {
     qb.where('id', config.settings.sender_id)
   }).fetch({
     transacting: req.trx
-  })
-
-  const code = await generateCode(req, {
-    table: 'maha_emails',
-    length: 4
   })
 
   const email = await Email.forge({

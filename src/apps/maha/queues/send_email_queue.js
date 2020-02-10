@@ -32,7 +32,8 @@ const processor = async (job, trx) => {
   }
 
   const mapped = await Promise.reduce(links, async (rendered, link) => {
-    const emailLink = await _findOrCreateLink(email, link, trx)
+    if(link.url.search(email.get('code')) >= 0) return rendered
+    const emailLink = await _findOrCreateLink({ trx }, { email, link })
     const newUrl = `${process.env.WEB_HOST}/c${email.get('code')}${emailLink.get('code')}`
     return {
       ...rendered,
@@ -49,15 +50,15 @@ const processor = async (job, trx) => {
 
 }
 
-const _findOrCreateLink = async (email, link, ) => {
+const _findOrCreateLink = async (req, { email, link }) => {
 
   const emailLink = await EmailLink.where(link).fetch({
-    transacting: trx
+    transacting: req.trx
   })
 
   if(emailLink) return emailLink
 
-  const code = await generateCode({ trx }, {
+  const code = await generateCode(req, {
     table: 'maha_email_links'
   })
 
@@ -66,7 +67,7 @@ const _findOrCreateLink = async (email, link, ) => {
     code,
     ...link
   }).save(null, {
-    transacting: trx
+    transacting: req.trx
   })
 
 }
