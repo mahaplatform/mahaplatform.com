@@ -118,7 +118,8 @@ class ColorField extends React.Component {
     this.props.onBegin()
   }
 
-  _handleClear() {
+  _handleClear(e) {
+    e.stopPropagation()
     this.props.onClear()
   }
 
