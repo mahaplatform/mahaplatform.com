@@ -14,7 +14,7 @@ import EmailAddress from '../../../models/email_address'
 import Response from '../../../models/response'
 import Contact from '../../../models/contact'
 import Form from '../../../models/form'
-import { checkToken } from './utils'
+import { checkToken } from '../utils'
 import moment from 'moment'
 
 const getContact = async (req, { form, fields, data }) => {

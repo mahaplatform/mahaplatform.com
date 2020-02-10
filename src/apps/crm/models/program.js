@@ -3,6 +3,7 @@ import Merchant from '../../finance/models/merchant'
 import Model from '../../../core/objects/model'
 import ProgramAccess from './program_access'
 import Asset from '../../maha/models/asset'
+import Topic from './topic'
 
 const Program = new Model({
 
@@ -26,6 +27,10 @@ const Program = new Model({
 
   phone_number() {
     return this.belongsTo(PhoneNumber, 'phone_number_id')
+  },
+
+  topics () {
+    return this.hasMany(Topic, 'program_id')
   }
 
 })

@@ -1,15 +1,8 @@
 import express from 'express'
-import preferences from './preferences'
-import path from 'path'
+import show from './show'
 
 const server = express()
 
-server.set('views', path.join(__dirname))
-
-server.set('view engine', 'ejs')
-
-server.get('/:code', preferences)
-
-server.post('/:code', preferences)
+server.get('/:type/:program_code/:code', show)
 
 export default server

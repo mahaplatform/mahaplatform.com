@@ -100,7 +100,7 @@ const watch = async (module, watchDir, config) => {
 const webWatch = async () => {
   subapps.map((item, index) => {
     const { app, subapp, dir, port } = item
-    const publicPath = `/${app}/${subapp}`
+    const publicPath = `/apps/${app}/${subapp}`
     const config = webpack(webpackConfig(app, subapp, dir, port))
     const devserver = new devServer(config, {
       https: true,
@@ -142,7 +142,7 @@ const adminWatch = async () => {
       },
       ...subapps.reduce((proxies, proxy) => ({
         ...proxies,
-        [`/${proxy.app}/${proxy.subapp}/**`]: {
+        [`/apps/${proxy.app}/${proxy.subapp}/**`]: {
           target: `https://localhost:${proxy.port}`,
           secure: false
         }

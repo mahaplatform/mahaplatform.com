@@ -1,3 +1,4 @@
+import generateCode from '../../../core/utils/generate_code'
 import EmailAddress from '../models/email_address'
 
 export const updateEmailAddresses = async (req, { contact, email_addresses, removing }) => {
@@ -40,9 +41,13 @@ export const updateEmailAddresses = async (req, { contact, email_addresses, remo
   }) : []
 
   const added = add.length > 0 ? await Promise.mapSeries(add, async (email_address) => {
+    const code = await generateCode(req, {
+      table: 'crm_email_addresses'
+    })
     return await EmailAddress.forge({
       team_id: req.team.get('id'),
       contact_id: contact.get('id'),
+      code,
       address: email_address.address,
       is_primary: email_address.is_primary,
       is_valid: true

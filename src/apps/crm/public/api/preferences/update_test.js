@@ -1,7 +1,7 @@
 import { testHandler } from '../../../../../core/utils/test'
 import { expect } from 'chai'
-import create from './create'
+import update from './update'
 
-describe('src/apps/crm/public/api/payments/create.js', () => {
+describe('src/apps/crm/public/api/preferences/update.js', () => {
 
 })

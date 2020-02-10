@@ -1,0 +1,79 @@
+@red: #DB2828;
+@orange: #F2711C;
+@yellow: #FBBD08;
+@olive: #B5CC18;
+@green: #21BA45;
+@teal: #00B5AD;
+@blue: #2185D0;
+@violet: #6435C9;
+@purple: #A333C8;
+@pink: #E03997;
+@brown: #A5673F;
+@black: #000000;
+@white: #FFFFFF;
+@android: #A4C639;
+@paypal: #009CDE;
+
+body {
+  position: relative;
+}
+.overlay  {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0,0,0,.03);
+  padding: 0.8em;
+}
+.panel {
+  border: 1px solid rgba(0,0,0,.05);
+  background-color: rgba(255, 255, 255, 1);
+  margin: 0 auto;
+  width: 100%;
+  max-width: 580px;
+  margin-bottom: 1.8em;
+}
+.panel-header {
+  display: flex;
+}
+.panel-header-logo {
+  padding: 0.8em 0 0.8em 0.8em;
+  img {
+    width: 80px;
+    heoight: 80px;
+    display: block;
+  }
+}
+.panel-header-details {
+  padding: 0.8em;
+  flex: 1;
+}
+.panel-body {
+  padding: 0.8em;
+}
+.panel-footer {
+  background-color: rgba(0, 0, 0, 0.08);
+  padding: 0.8em;
+}
+.channel {
+  margin-bottom: 1.8em;
+}
+.unsubscribe {
+  margin-bottom: 1.8em;
+}
+.copyright {
+  text-align: center;
+  color: rgba(0, 0, 0, 0.6);
+}
+p {
+  line-height: 1.8em !important;
+}
+
+.maha-field {
+  margin: 0 0 1em;
+}
+
+@import './components/form/style.less';
+@import './components/form/checkboxes/style.less';
+@import './components/form/confirmation/style.less';

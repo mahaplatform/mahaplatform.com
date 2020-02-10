@@ -49,7 +49,7 @@ const webpackConfig = (app, name, root, port) => ({
   output: {
     path: path.resolve('src','public'),
     filename: path.join('js','[name].js'),
-    publicPath: `/${app}/${name}/`
+    publicPath: `/apps/${app}/${name}/`
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),

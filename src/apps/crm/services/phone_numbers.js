@@ -1,4 +1,5 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
+import generateCode from '../../../core/utils/generate_code'
 import PhoneNumber from '../models/phone_number'
 
 const getFormattedNumber = (value) => {
@@ -50,9 +51,13 @@ export const updatePhoneNumbers = async (req, { contact, phone_numbers, removing
   }) : []
 
   const added = add.length > 0 ? await Promise.mapSeries(add, async (phone_number) => {
+    const code = await generateCode(req, {
+      table: 'crm_phone_numbers'
+    })
     return await PhoneNumber.forge({
       team_id: req.team.get('id'),
       contact_id: contact.get('id'),
+      code,
       number: phone_number.number,
       is_primary: phone_number.is_primary,
       is_valid: true

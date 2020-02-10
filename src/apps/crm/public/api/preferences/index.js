@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import token from './token'
+import update from './update'
 
 const router = new Router({ mergeParams: true })
 
-router.get('/token', token)
+router.patch('/', update)
 
 export default router

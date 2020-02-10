@@ -1,4 +1,4 @@
-import { decode } from '../../../../../core/services/jwt'
+import { decode } from '../../../../core/services/jwt'
 
 export const checkToken = (token, code) => {
   if(!token) return false

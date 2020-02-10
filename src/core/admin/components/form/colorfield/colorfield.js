@@ -66,7 +66,7 @@ class ColorField extends React.Component {
   render() {
     const { color, open, tabIndex } = this.props
     return (
-      <div className="colorfield" ref={ node => this.input = node }>
+      <div className="colorfield" ref={ node => this.input = node } tabIndex={ tabIndex }>
         <div className="colorfield-input" onClick={ this._handleOpen }>
           <div className="colorfield-selected" onClick={ this._handleOpen }>
             { color ?
@@ -87,7 +87,7 @@ class ColorField extends React.Component {
           <div className="colorfield-chooser">
             <div className="colorfield-chooser-colors">
               { colors.map((color, index) => (
-                <div key={`color_${index}`} { ...this._getColor(color, index) } tabIndex={ tabIndex }>
+                <div key={`color_${index}`} { ...this._getColor(color, index) }>
                   { color && color === this.props.color && <i className="fa fa-fw fa-check" /> }
                 </div>
               )) }

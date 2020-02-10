@@ -319,6 +319,7 @@ const schema = {
       table.boolean('is_valid')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.string('code', 255)
     })
 
     await knex.schema.createTable('crm_email_campaigns', (table) => {
@@ -403,6 +404,7 @@ const schema = {
       table.boolean('is_primary')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.string('code', 255)
     })
 
     await knex.schema.createTable('crm_organizations', (table) => {
@@ -424,6 +426,7 @@ const schema = {
       table.boolean('is_valid')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.string('code', 255)
     })
 
     await knex.schema.createTable('crm_postal_campaigns', (table) => {
@@ -1323,9 +1326,9 @@ const schema = {
       table.integer('email_id').unsigned()
       table.timestamp('delivered_at')
       table.timestamp('opened_at')
+      table.timestamp('bounced_at')
       table.timestamp('complained_at')
       table.timestamp('clicked_at')
-      table.timestamp('bounced_at')
     })
 
     await knex.schema.createTable('maha_faxes', (table) => {
@@ -2572,9 +2575,9 @@ const schema = {
     await knex.schema.table('maha_emails', table => {
       table.foreign('contact_id').references('crm_contacts.id')
       table.foreign('email_campaign_id').references('crm_email_campaigns.id')
+      table.foreign('email_id').references('crm_emails.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('user_id').references('maha_users.id')
-      table.foreign('email_id').references('crm_emails.id')
     })
 
     await knex.schema.table('maha_faxes', table => {
