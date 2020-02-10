@@ -1,8 +1,10 @@
 import collectObjects from '../../../core/utils/collect_objects'
 import generateCode from '../../../core/utils/generate_code'
 import send_email_queue from '../queues/send_email_queue'
+import EmailLink from '../models/email_link'
 import Email from '../models/email'
 import pluralize from 'pluralize'
+import cheerio from 'cheerio'
 import numeral from 'numeral'
 import moment from 'moment'
 import path from 'path'
@@ -21,6 +23,54 @@ const templates = emails.reduce((emails, email) => ({
   }
 }), {})
 
+
+const _findOrCreateLink = async (req, { email, link }) => {
+
+  const emailLink = await EmailLink.where(link).fetch({
+    transacting: req.trx
+  })
+
+  if(emailLink) return emailLink
+
+  const code = await generateCode(req, {
+    table: 'maha_email_links'
+  })
+
+  return await EmailLink.forge({
+    team_id: email.get('team_id'),
+    code,
+    ...link
+  }).save(null, {
+    transacting: req.trx
+  })
+
+}
+
+export const encodeEmail = async(req, { email }) => {
+
+  const parsed = cheerio.load(email.get('html'))
+
+  await parsed(`<img src="${process.env.WEB_HOST}/v${email.get('code')}" />`).appendTo('body')
+
+  const links = await parsed('a').map((i, elem) => ({
+    text: parsed(elem).text(),
+    url: parsed(elem).attr('href')
+  })).get()
+
+  return await Promise.reduce(links, async (rendered, link) => {
+
+    if(link.url.search(email.get('code')) >= 0) return rendered
+
+    const emailLink = await _findOrCreateLink(req, {
+      email,
+      link
+    })
+
+    return rendered.replace(link.url, `${process.env.WEB_HOST}/c${email.get('code')}${emailLink.get('code')}`)
+
+  }, parsed.html())
+
+}
 
 export const send_email = async(req, options) => {
 

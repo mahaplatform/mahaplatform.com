@@ -1,6 +1,6 @@
+import send_confirmation_email_queue from '../../../queues/send_confirmation_email_queue'
 import { updateMailingAddresses } from '../../../services/mailing_addresses'
 import { updateEmailAddresses } from '../../../services/email_addresses'
-import send_email_queue from '../../../../maha/queues/send_email_queue'
 import { whitelist } from '../../../../../core/services/routes/params'
 import { updatePhoneNumbers } from '../../../services/phone_numbers'
 import { makePayment } from '../../../../finance/services/payments'
@@ -11,20 +11,11 @@ import LineItem from '../../../../finance/models/line_item'
 import Invoice from '../../../../finance/models/invoice'
 import Product from '../../../../finance/models/product'
 import EmailAddress from '../../../models/email_address'
-import { renderEmail } from '../../../services/email'
-import Email from '../../../../maha/models/email'
 import Response from '../../../models/response'
 import Contact from '../../../models/contact'
-import Sender from '../../../models/sender'
 import Form from '../../../models/form'
 import { checkToken } from './utils'
-import numeral from 'numeral'
 import moment from 'moment'
-import path from 'path'
-import ejs from 'ejs'
-import fs from 'fs'
-
-const summary  = fs.readFileSync(path.join(__dirname, 'summary.ejs'), 'utf8')
 
 const getContact = async (req, { form, fields, data }) => {
 
@@ -99,82 +90,6 @@ const createInvoice = async (req, { form, contact, data }) => {
   })
 
   return invoice
-
-}
-
-const sendConfirmation = async(req, { form, fields, payment, response }) => {
-
-  const contact = await Contact.query(qb => {
-    qb.select(req.trx.raw('crm_contacts.*,crm_contact_primaries.*'))
-    qb.leftJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
-    qb.where('crm_contacts.team_id', req.team.get('id'))
-    qb.where('crm_contacts.id', response.get('contact_id'))
-  }).fetch({
-    transacting: req.trx
-  })
-
-  const data = response.get('data')
-
-  const config = form.related('email').get('config')
-
-  const code = await generateCode(req, {
-    table: 'maha_emails'
-  })
-
-  const rendered = renderEmail(req, {
-    config,
-    subject: config.settings.subject,
-    data: {
-      contact: {
-        full_name: contact.get('full_name'),
-        first_name: contact.get('first_name'),
-        last_name: contact.get('last_name'),
-        email: contact.get('email')
-      },
-      response: fields.reduce((response, field) => ({
-        ...response,
-        [field.name.token]: data[field.code],
-        ...field.type === 'productfield' ? {
-          [`${field.name.token}_summary`]: ejs.render(summary, {
-            summary: data[field.code],
-            numeral,
-            payment: {
-              amount: payment.get('amount'),
-              activity: payment.get('activity')
-            }
-          })
-        } : {}
-      }), {}),
-      email: {
-        web_link: `${process.env.WEB_HOST}/w${code}`,
-        preferences_link: `${process.env.WEB_HOST}/crm/preferences/${contact.get('code')}`
-      }
-    }
-  })
-
-  const sender = await Sender.query(qb => {
-    qb.where('id', config.settings.sender_id)
-  }).fetch({
-    transacting: req.trx
-  })
-
-  const email = await Email.forge({
-    team_id: req.team.get('id'),
-    contact_id: contact.get('id'),
-    email_id: form.related('email').get('id'),
-    from: sender.get('rfc822'),
-    reply_to: config.settings.reply_to,
-    to: contact.get('rfc822'),
-    subject: rendered.subject,
-    html: rendered.html,
-    code
-  }).save(null, {
-    transacting: req.trx
-  })
-
-  await send_email_queue.enqueue(req, {
-    id: email.get('id')
-  })
 
 }
 
@@ -255,13 +170,15 @@ const submitRoute = async (req, res) => {
     data: req.body[productfield.code]
   }) : null
 
-  const payment = invoice ? await makePayment(req, {
-    invoice,
-    params: {
-      merchant_id: form.get('program_id'),
-      ...req.body.payment
-    }
-  }) : null
+  if(invoice) {
+    await makePayment(req, {
+      invoice,
+      params: {
+        merchant_id: form.get('program_id'),
+        ...req.body.payment
+      }
+    })
+  }
 
   const response = await Response.forge({
     team_id: form.get('team_id'),
@@ -299,11 +216,8 @@ const submitRoute = async (req, res) => {
     }
   })
 
-  await sendConfirmation(req, {
-    form,
-    fields,
-    payment,
-    response
+  await send_confirmation_email_queue.enqueue(req, {
+    id: response.get('id')
   })
 
   await socket.refresh(req, [
