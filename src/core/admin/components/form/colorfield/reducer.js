@@ -11,15 +11,17 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'CHOOSE':
     return {
       ...state,
-      value: action.color,
       color: action.color,
-      open: false
+      open: false,
+      value: action.color
     }
 
   case 'CLEAR':
     return {
       ...state,
-      color: null
+      color: null,
+      open: false,
+      value: ''
     }
 
   case 'OPEN':

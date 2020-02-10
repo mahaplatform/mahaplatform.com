@@ -12,8 +12,10 @@ const palette = ['#DB2828','#F2711C','#FBBD08','#B5CC18','#21BA45','#00B5AD','#2
 const colors = [
   null,
   ...new Array(9).fill(0).map((i, j) => {
-    const hex = Math.max(Math.min(Math.ceil(255 / 8) * j, 255), 0).toString(16)
-    return `#${hex}${hex}${hex}`
+    const color = Color('#000000')
+    const ratio = ((255 / 8) * j) / 255
+    const lightness = color.lightness()
+    return color.lightness(lightness + (100 - lightness) * ratio).hex()
   }),
   ...new Array(7).fill(0).reduce((colors, i, j) => [
     ...colors,
@@ -123,10 +125,9 @@ class ColorField extends React.Component {
   }
 
   _getInput() {
-    const { tabIndex, value } = this.props
+    const { value } = this.props
     return {
       ref: node => this.input = node,
-      tabIndex,
       type: 'text',
       value: value,
       onChange: this._handleUpdate,
