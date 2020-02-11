@@ -91,7 +91,16 @@ class TextForm extends React.Component {
                   { label: 'Letter Spacing', name: `${value}_letter_spacing`, type: 'dropdown', options: options.letter_spacing, defaultValue: config[`${value}_letter_spacing`] }
                 ] }
               ]
-            }))
+            })),
+            {
+              label: 'Link Style',
+              fields: [
+                { type: 'fields', fields: [
+                  { label: 'Color', name: 'a_color', type: 'colorfield', defaultValue: config.a_color },
+                  { label: 'Format', name: 'a_format', type: FormatField, defaultValue: config.a_format }
+                ] }
+              ]
+            }
           ]
         }
       ]
@@ -127,7 +136,9 @@ class TextForm extends React.Component {
       p_format: [],
       p_text_align: 'left',
       p_line_height: null,
-      p_letter_spacing: null
+      p_letter_spacing: null,
+      a_color: null,
+      a_format: []
     }
   }
 

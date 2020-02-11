@@ -107,6 +107,12 @@ class Style extends React.Component {
           }
         ], [])
       ], []),
+      { selector: 'div.maha-form a', styles: [
+        ...this._getFormat('font-weight', 'bold', 'page.a_format', 'normal'),
+        ...this._getFormat('font-style', 'italic', 'page.a_format'),
+        ...this._getFormat('text-decoration', 'underline', 'page.a_format'),
+        ...this._getProp('color', 'page.a_color')
+      ] },
       ...['header','body','footer'].reduce((sectionStyles, section) => [
         ...sectionStyles,
         ...selectors.reduce((selectorStyles, style) => [
@@ -127,7 +133,13 @@ class Style extends React.Component {
               ]
             }
           ], [])
-        ], [])
+        ], []),
+        { selector: `div.maha-form-${section} a`, styles: [
+          ...this._getFormat('font-weight', 'bold', `${section}.a_format`, 'normal'),
+          ...this._getFormat('font-style', 'italic', `${section}.a_format`),
+          ...this._getFormat('text-decoration', 'underline', `${section}.a_format`),
+          ...this._getProp('color', `${section}.a_color`)
+        ] }
       ], []),
       ...['header','body','footer'].map(section => ({
         selector: `div.maha-form-${section}`, styles: [
@@ -167,11 +179,6 @@ class Style extends React.Component {
               ...this._getBorder('border', `fields[${i}].border`),
               ...this._getProp('padding',`fields[${i}].padding`, 'px')
             ]
-          }, {
-            selector: `div.field-${i} a`, styles: [
-              ...this._getProp('color',`fields[${i}].color`),
-              { prop: 'text-decoration', value: 'underline' }
-            ]
           },
           ...selectors.reduce((selectorStyles, style) => [
             ...selectorStyles,
@@ -191,7 +198,14 @@ class Style extends React.Component {
                 ]
               }
             ], [])
-          ], [])
+          ], []),
+          { selector: `div.field-${i} a`, styles: [
+            ...this._getFormat('font-weight', 'bold', `fields[${i}].a_format`, 'normal'),
+            ...this._getFormat('font-style', 'italic', `fields[${i}].a_format`),
+            ...this._getFormat('text-decoration', 'underline', `fields[${i}].a_format`),
+            ...this._getProp('color', `fields[${i}].a_color`)
+          ] }
+
         ] : []
       ], [])
     ]

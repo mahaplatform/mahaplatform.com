@@ -95,7 +95,16 @@ class Header extends React.Component {
                   { label: 'Letter Spacing', name: `${value}_letter_spacing`, type: 'dropdown', options: options.letter_spacing, defaultValue: config[`${value}_letter_spacing`] }
                 ] }
               ]
-            }))
+            })),
+            {
+              label: 'Link Style',
+              fields: [
+                { type: 'fields', fields: [
+                  { label: 'Color', name: 'a_color', type: 'colorfield', defaultValue: config.a_color },
+                  { label: 'Format', name: 'a_format', type: FormatField, defaultValue: config.a_format }
+                ] }
+              ]
+            }
           ]
         }
       ]
@@ -104,16 +113,32 @@ class Header extends React.Component {
 
   _getDefault() {
     return {
-      background_color: null,
       image: null,
       text: null,
-      font_family: null,
-      font_size: null,
-      color: null,
-      format: [],
-      text_align: 'left',
-      line_height: null,
-      letter_spacing: null
+      background_color: null,
+      h1_font_family: null,
+      h1_font_size: null,
+      h1_color: null,
+      h1_format: [],
+      h1_text_align: 'left',
+      h1_line_height: null,
+      h1_letter_spacing: null,
+      h2_font_family: null,
+      h2_font_size: null,
+      h2_color: null,
+      h2_format: [],
+      h2_text_align: 'left',
+      h2_line_height: null,
+      h2_letter_spacing: null,
+      p_font_family: null,
+      p_font_size: null,
+      p_color: null,
+      p_format: null,
+      p_text_align: 'left',
+      p_line_height: null,
+      p_letter_spacing: null,
+      a_format: [],
+      a_color: null
     }
   }
 
