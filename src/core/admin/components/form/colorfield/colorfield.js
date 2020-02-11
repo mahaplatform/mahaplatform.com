@@ -57,6 +57,10 @@ class ColorField extends React.Component {
 
   input = null
 
+  state = {
+    direction: 'down'
+  }
+
   _handleClose = this._handleClose.bind(this)
   _handleClear = this._handleClear.bind(this)
   _handleKeyDown = this._handleKeyDown.bind(this)
@@ -84,7 +88,7 @@ class ColorField extends React.Component {
           }
         </div>
         { open &&
-          <div className="colorfield-chooser">
+          <div className={ this._getClass() }>
             <div className="colorfield-chooser-colors">
               { colors.map((color, index) => (
                 <div key={`color_${index}`} { ...this._getColor(color, index) }>
@@ -112,6 +116,13 @@ class ColorField extends React.Component {
 
   componentWillUnmount() {
     document.removeEventListener('mousedown', this._handleClose)
+  }
+
+  _getClass() {
+    const { direction } = this.state
+    const classes = ['colorfield-chooser']
+    classes.push(direction)
+    return classes.join(' ')
   }
 
   _getColor(color, index) {
@@ -153,8 +164,14 @@ class ColorField extends React.Component {
     this.props.onClose()
   }
 
-  _handleOpen() {
+  _handleOpen(e) {
+    e.stopPropagation()
+    const percent = (e.clientY / window.innerHeight) * 100
+    console.log(e.clientY, window.innerHeight, percent)
     this.props.onOpen()
+    this.setState({
+      direction: percent > 75 ? 'up' : 'down'
+    })
   }
 
   _handleChoose(color, e) {

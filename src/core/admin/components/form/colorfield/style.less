@@ -53,15 +53,21 @@
 }
 .colorfield-chooser {
   position: absolute;
-  top: ~"calc(100% - 0.25em)";
   left: -1px;
   right: -1px;
   background-color: @white;
   border: 1px solid fadeout(@black, 90);
-  border-radius: 0 0 0.3em 0.3em;
   padding: 0.4em;
   overflow: hidden;
   z-index: 2;
+  &.down {
+    top: ~"calc(100% - 0.25em)";
+    border-radius: 0 0 0.3em 0.3em;
+  }
+  &.up {
+    bottom: ~"calc(100% - 0.25em)";
+    border-radius: 0.3em 0.3em 0 0;
+  }
 }
 .colorfield-chooser-colors {
   width: ~"calc(14em + 2px)";
