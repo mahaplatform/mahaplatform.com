@@ -76,21 +76,31 @@ class Text extends React.Component {
                 this._getBorder('border', 'Border'),
                 { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
               ]
-            }, {
-              label: 'Text Style',
+            },
+            ...options.block_types.map(({ value, text }) => ({
+              label: `${text} Style`,
               fields: [
-                { label: 'Font Family', name: 'font_family', type: 'dropdown', options: options.font_families, defaultValue: config.font_family, format: FontFamilyToken },
+                { label: 'Font Family', name: `${value}_font_family`, type: 'dropdown', options: options.font_families, defaultValue: config[`${value}_font_family`], format: FontFamilyToken },
                 { type: 'fields', fields: [
-                  { label: 'Font Size', name: 'font_size', type: 'dropdown', options: options.font_sizes, defaultValue: config.font_size },
-                  { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color }
+                  { label: 'Font Size', name: `${value}_font_size`, type: 'dropdown', options: options.font_sizes, defaultValue: config[`${value}_font_size`] },
+                  { label: 'Color', name: `${value}_color`, type: 'colorfield', defaultValue: config[`${value}_color`] }
                 ] },
                 { type: 'fields', fields: [
-                  { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format },
-                  { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.text_align }
+                  { label: 'Format', name: `${value}_format`, type: FormatField, defaultValue: config[`${value}_format`] },
+                  { label: 'Alignment', name: `${value}_text_align`, type: AlignmentField, defaultValue: config[`${value}_text_align`] }
                 ] },
                 { type: 'fields', fields: [
-                  { label: 'Line Height', name: 'line_height', type: 'dropdown', options: options.line_heights, defaultValue: config.line_height },
-                  { label: 'Letter Spacing', name: 'letter_spacing', type: 'dropdown', options: options.letter_spacing, defaultValue: config.letter_spacing }
+                  { label: 'Line Height', name: `${value}_line_height`, type: 'dropdown', options: options.line_heights, defaultValue: config[`${value}_line_height`] },
+                  { label: 'Letter Spacing', name: `${value}_letter_spacing`, type: 'dropdown', options: options.letter_spacing, defaultValue: config[`${value}_letter_spacing`] }
+                ] }
+              ]
+            })),
+            {
+              label: 'Link Style',
+              fields: [
+                { type: 'fields', fields: [
+                  { label: 'Color', name: 'a_color', type: 'colorfield', defaultValue: config.a_color },
+                  { label: 'Format', name: 'a_format', type: FormatField, defaultValue: config.a_format }
                 ] }
               ]
             }
@@ -138,13 +148,29 @@ class Text extends React.Component {
       border_width: null,
       border_color: null,
       padding: 16,
-      font_family: null,
-      font_size: null,
-      color: null,
-      format: null,
-      text_align: 'left',
-      line_height: null,
-      letter_spacing: null
+      h1_font_family: null,
+      h1_font_size: null,
+      h1_color: null,
+      h1_format: [],
+      h1_text_align: 'left',
+      h1_line_height: null,
+      h1_letter_spacing: null,
+      h2_font_family: null,
+      h2_font_size: null,
+      h2_color: null,
+      h2_format: [],
+      h2_text_align: 'left',
+      h2_line_height: null,
+      h2_letter_spacing: null,
+      p_font_family: null,
+      p_font_size: null,
+      p_color: null,
+      p_format: null,
+      p_text_align: 'left',
+      p_line_height: null,
+      p_letter_spacing: null,
+      a_format: [],
+      a_color: null
     }
   }
 

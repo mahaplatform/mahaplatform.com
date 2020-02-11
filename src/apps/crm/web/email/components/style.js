@@ -2,6 +2,12 @@ import PropTypes from 'prop-types'
 import React from 'react'
 import _ from 'lodash'
 
+const selectors = [
+  { selector: 'h1', blocks: ['h1'] },
+  { selector: 'h2', blocks: ['h2'] },
+  { selector: 'p', blocks: ['p','li','td'] }
+]
+
 class Style extends React.Component {
 
   static propTypes = {
@@ -53,19 +59,31 @@ class Style extends React.Component {
       { selector: 'table.body', styles: [
         ...this._getProp('background-color', 'page.background_color')
       ] },
-      ...['h1','h2','p'].map(selector => ({
-        selector, styles: [
-          ...this._getProp('font-family', `page.${selector}_font_family`),
-          ...this._getProp('font-size', `page.${selector}_font_size`, 'px'),
-          ...this._getFormat('font-weight', 'bold', `page.${selector}_format`, 'normal'),
-          ...this._getFormat('font-style', 'italic', `page.${selector}_format`),
-          ...this._getFormat('text-decoration', 'underline', `page.${selector}_format`),
-          ...this._getProp('color', `page.${selector}_color`),
-          ...this._getProp('text-align', `page.${selector}_text_align`),
-          ...this._getProp('line-height', `page.${selector}_line_height`),
-          ...this._getProp('letter-spacing', `page.${selector}_letter_spacing`, 'px')
-        ]
-      })),
+      ...selectors.reduce((selectorStyles, style) => [
+        ...selectorStyles,
+        ...style.blocks.reduce((blockStyles, block) => [
+          ...blockStyles,
+          {
+            selector: block, styles: [
+              ...this._getProp('font-family', `page.${style.selector}_font_family`),
+              ...this._getProp('font-size', `page.${style.selector}_font_size`, 'px'),
+              ...this._getFormat('font-weight', 'bold', `page.${style.selector}_format`, 'normal'),
+              ...this._getFormat('font-style', 'italic', `page.${style.selector}_format`),
+              ...this._getFormat('text-decoration', 'underline', `page.${style.selector}_format`),
+              ...this._getProp('color', `page.${style.selector}_color`),
+              ...this._getProp('text-align', `page.${style.selector}_text_align`),
+              ...this._getProp('line-height', `page.${style.selector}_line_height`),
+              ...this._getProp('letter-spacing', `page.${style.selector}_letter_spacing`, 'px')
+            ]
+          }
+        ], [])
+      ], []),
+      { selector: 'a', styles: [
+        ...this._getFormat('font-weight', 'bold', 'page.a_format', 'normal'),
+        ...this._getFormat('font-style', 'italic', 'page.a_format'),
+        ...this._getFormat('text-decoration', 'underline', 'page.a_format'),
+        ...this._getProp('color', 'page.a_color')
+      ] },
       { selector: 'table.body', styles: [
         ...this._getProp('background-color', 'page.background_color'),
         ...this._getBorder('border-top', 'page.border_top')
@@ -79,17 +97,32 @@ class Style extends React.Component {
       ] },
       ...blocks.reduce((blockStyles, block, j) => [
         ...blockStyles,
-        { selector: `table.block-${j} td,table.block-${j} p`, styles: [
-          ...this._getProp('font-family',`blocks[${j}].font_family`),
-          ...this._getProp('font-size',`blocks[${j}].font_size`, 'px'),
-          ...this._getFormat('font-weight', 'bold', `blocks[${j}].format`, 'normal'),
-          ...this._getFormat('font-style', 'italic', `blocks[${j}].format`),
-          ...this._getFormat('text-decoration', 'underline', `blocks[${j}].format`),
-          ...this._getProp('color',`blocks[${j}].color`),
-          ...this._getProp('text-align',`blocks[${j}].text_align`),
-          ...this._getProp('line-height',`blocks[${j}].line_height`),
-          ...this._getProp('letter-spacing',`blocks[${j}].letter_spacing`, 'px')
-        ] }, {
+        ...selectors.reduce((selectorStyles, style) => [
+          ...selectorStyles,
+          ...style.blocks.reduce((blockStyles, block) => [
+            ...blockStyles,
+            {
+              selector: `table.block-${j} ${block}`, styles: [
+                ...this._getProp('font-family', `blocks[${j}].${style.selector}_font_family`),
+                ...this._getProp('font-size', `blocks[${j}].${style.selector}_font_size`, 'px'),
+                ...this._getFormat('font-weight', 'bold', `blocks[${j}].${style.selector}_format`, 'normal'),
+                ...this._getFormat('font-style', 'italic', `blocks[${j}].${style.selector}_format`),
+                ...this._getFormat('text-decoration', 'underline', `blocks[${j}].${style.selector}_format`),
+                ...this._getProp('color', `blocks[${j}].${style.selector}_color`),
+                ...this._getProp('text-align', `blocks[${j}].${style.selector}_text_align`),
+                ...this._getProp('line-height', `blocks[${j}].${style.selector}_line_height`),
+                ...this._getProp('letter-spacing', `blocks[${j}].${style.selector}_letter_spacing`, 'px')
+              ]
+            }
+          ], [])
+        ], []),
+        { selector: `table.block-${j} a`, styles: [
+          ...this._getFormat('font-weight', 'bold', `blocks[${j}].a_format`, 'normal'),
+          ...this._getFormat('font-style', 'italic', `blocks[${j}].a_format`),
+          ...this._getFormat('text-decoration', 'underline', `blocks[${j}].a_format`),
+          ...this._getProp('color', `blocks[${j}].a_color`)
+        ] },
+        {
           selector: `table.block-${j} table.block-container`, styles: [
             ...this._getBorder('border', `blocks[${j}].border`),
             ...this._getProp('background-color',`blocks[${j}].background_color`)

@@ -77,18 +77,27 @@ class Web extends React.Component {
             }, {
               label: 'Text Style',
               fields: [
-                { label: 'Font Family', name: 'font_family', type: 'dropdown', options: options.font_families, defaultValue: config.font_family, format: FontFamilyToken },
+                { label: 'Font Family', name: 'p_font_family', type: 'dropdown', options: options.font_families, defaultValue: config.p_font_family, format: FontFamilyToken },
                 { type: 'fields', fields: [
-                  { label: 'Font Size', name: 'font_size', type: 'dropdown', options: options.font_sizes, defaultValue: config.font_size },
-                  { label: 'Color', name: 'color', type: 'colorfield', defaultValue: config.color }
+                  { label: 'Font Size', name: 'p_font_size', type: 'dropdown', options: options.font_sizes, defaultValue: config.p_font_size },
+                  { label: 'Color', name: 'p_color', type: 'colorfield', defaultValue: config.p_color }
                 ] },
                 { type: 'fields', fields: [
-                  { label: 'Format', name: 'format', type: FormatField, defaultValue: config.format },
-                  { label: 'Alignment', name: 'text_align', type: AlignmentField, defaultValue: config.text_align }
+                  { label: 'Format', name: 'p_format', type: FormatField, defaultValue: config.p_format },
+                  { label: 'Alignment', name: 'p_text_align', type: AlignmentField, defaultValue: config.p_text_align }
                 ] },
                 { type: 'fields', fields: [
-                  { label: 'Line Height', name: 'line_height', type: 'dropdown', options: options.line_heights, defaultValue: config.line_height },
-                  { label: 'Letter Spacing', name: 'letter_spacing', type: 'dropdown', options: options.letter_spacing, defaultValue: config.letter_spacing }
+                  { label: 'Line Height', name: 'p_line_height', type: 'dropdown', options: options.line_heights, defaultValue: config.p_line_height },
+                  { label: 'Letter Spacing', name: 'vletter_spacing', type: 'dropdown', options: options.letter_spacing, defaultValue: config.p_letter_spacing }
+                ] }
+              ]
+            },
+            {
+              label: 'Link Style',
+              fields: [
+                { type: 'fields', fields: [
+                  { label: 'Color', name: 'a_color', type: 'colorfield', defaultValue: config.a_color },
+                  { label: 'Format', name: 'a_format', type: FormatField, defaultValue: config.a_format }
                 ] }
               ]
             }
@@ -115,13 +124,15 @@ class Web extends React.Component {
       border_width: null,
       border_color: null,
       padding: 8,
-      font_family: null,
-      font_size: 12,
-      color: null,
-      format: null,
-      text_align: 'center',
-      line_height: 1.5,
-      letter_spacing: null
+      p_font_family: null,
+      p_font_size: 12,
+      p_color: null,
+      p_format: [],
+      p_text_align: 'center',
+      p_line_height: null,
+      p_letter_spacing: null,
+      a_color: null,
+      a_format: []
     }
   }
 
