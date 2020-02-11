@@ -128,7 +128,6 @@ class Sidebar extends React.Component {
     const fields = this._getFields()
     const config = this.props.config.fields[active]
     const { type } = config
-    console.log(type, fields)
     const field = _.find(fields, { type })
     const push = replace ? this._handleReplace : this._handlePush
     push(field.component, this._getField())

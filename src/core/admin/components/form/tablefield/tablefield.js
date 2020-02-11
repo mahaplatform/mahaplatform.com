@@ -18,6 +18,7 @@ class TableField extends React.Component {
     onReady: PropTypes.func,
     onRemove: PropTypes.func,
     onReorder: PropTypes.func,
+    onSetValue: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -66,7 +67,10 @@ class TableField extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onSet, onReady } = this.props
-    if(defaultValue) onSet(defaultValue)
+    if(defaultValue) onSet(defaultValue.map(row => ({
+      ...row,
+      code: _.random(100000000, 999999999).toString(36)
+    })))
     onReady()
   }
 
@@ -90,22 +94,26 @@ class TableField extends React.Component {
   }
 
   _getBody() {
-    const { columns, rows, onRemove, onReorder } = this.props
+    const { columns, rows, onRemove, onReorder, onUpdate } = this.props
     return {
       columns,
       rows,
       onRemove,
-      onReorder
+      onReorder,
+      onUpdate
     }
   }
 
   _handleAdd() {
     const { isValid, row, onAdd } = this.props
-    if(isValid) onAdd(row)
+    if(isValid) onAdd({
+      ...row,
+      code: _.random(100000000, 999999999).toString(36)
+    })
   }
 
   _handleChange(key, e) {
-    this.props.onUpdate(key, e.target.value)
+    this.props.onSetValue(key, e.target.value)
   }
 
   _handleKeyDown(e) {

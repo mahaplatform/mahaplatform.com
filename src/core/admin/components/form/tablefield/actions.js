@@ -19,8 +19,16 @@ export const reorder = (from, to) => ({
   to
 })
 
-export const update = (key, value) => ({
+
+export const setValue = (key, value) => ({
+  type: 'SET_VALUE',
+  key,
+  value
+})
+
+export const update = (index, key, value) => ({
   type: 'UPDATE',
+  index,
   key,
   value
 })

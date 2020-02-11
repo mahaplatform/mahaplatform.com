@@ -23,15 +23,6 @@ export default (state = INITIAL_VALUE, action) => {
       values: {}
     }
 
-  case 'UPDATE':
-    return {
-      ...state,
-      values: {
-        ...state.values,
-        [action.key]: action.value
-      }
-    }
-
   case 'REMOVE':
     return {
       ...state,
@@ -53,6 +44,29 @@ export default (state = INITIAL_VALUE, action) => {
         state.rows[action.from],
         ...state.rows.slice(action.to, action.from),
         ...state.rows.slice(action.from + 1)
+      ]
+    }
+
+  case 'SET_VALUE':
+    return {
+      ...state,
+      values: {
+        ...state.values,
+        [action.key]: action.value
+      }
+    }
+
+  case 'UPDATE':
+    return {
+      ...state,
+      rows: [
+        ...state.rows.map((row, index) => {
+          if(index !== action.index) return row
+          return {
+            ...row,
+            [action.key]: action.value
+          }
+        })
       ]
     }
 

@@ -8,28 +8,30 @@ class Body extends React.Component {
     columns: PropTypes.array,
     rows: PropTypes.array,
     onRemove: PropTypes.func,
-    onReorder: PropTypes.func
+    onReorder: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   render() {
     const { rows} = this.props
     return (
       <div className="maha-tablefield-body">
-        { rows.map((row, i) => (
-          <Row { ...this._getRow(row, i) }  key={`row_${row.code}`} />
+        { rows.map((row, index) => (
+          <Row { ...this._getRow(row, index) }  key={`row_${row.code}`} />
         ))}
       </div>
     )
   }
 
   _getRow(row, index) {
-    const { columns, onRemove, onReorder } = this.props
+    const { columns, onRemove, onReorder, onUpdate } = this.props
     return {
       row,
       columns,
       index,
       onRemove,
-      onReorder
+      onReorder,
+      onUpdate
     }
   }
 

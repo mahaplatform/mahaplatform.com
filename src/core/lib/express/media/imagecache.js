@@ -56,7 +56,7 @@ const transform = async(data, transforms) => {
 const convert = async (transformed, type, transforms) => {
   const quality = transforms.q ? parseInt(transforms.q) : 70
   if(type === 'jpeg') return await transformed.jpeg({ quality }).toBuffer()
-  if(type === 'png') return await transformed.png({ quality }).toBuffer()
+  return await transformed.png({ quality }).toBuffer()
 }
 
 export default router

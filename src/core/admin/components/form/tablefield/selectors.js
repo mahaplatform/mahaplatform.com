@@ -20,5 +20,5 @@ export const row = createSelector(
   (columns, values) => columns.reduce((row, column) => ({
     ...row,
     [column.key]: values[column.key]
-  }), { code: _.random(100000000, 999999999).toString(36) })
+  }), {})
 )

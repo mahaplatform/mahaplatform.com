@@ -13,22 +13,22 @@ class Row extends React.Component {
     isDragging: PropTypes.bool,
     row: PropTypes.object,
     onRemove: PropTypes.func,
-    onReorder: PropTypes.func
+    onReorder: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   _handleRemove = this._handleRemove.bind(this)
 
   render() {
-    const { connectDropTarget, connectDragPreview, connectDragSource, columns, index, row } = this.props
-
+    const { connectDropTarget, connectDragPreview, connectDragSource, columns, index } = this.props
     return connectDragSource(connectDropTarget(connectDragPreview(
       <div className={ this._getClass() }>
         <div className="maha-tablefield-handle">
           <i className="fa fa-fw fa-bars" />
         </div>
-        { columns.map((column, i) => (
-          <div className="maha-tablefield-column" key={`column_${i}`}>
-            <input type="text" defaultValue={ row[column.key] } />
+        { columns.map((column, index) => (
+          <div className="maha-tablefield-column" key={`column_${index}`}>
+            <input { ...this._getInput(column) } />
           </div>
         ))}
         <div className="maha-tablefield-actions" onClick={ this._handleRemove.bind(this, index) }>
@@ -36,6 +36,15 @@ class Row extends React.Component {
         </div>
       </div>
     )))
+  }
+
+  _getInput(column) {
+    const { index, row } = this.props
+    return {
+      type: 'text',
+      value: row[column.key],
+      onChange: this._handleUpdate.bind(this, index, column.key)
+    }
   }
 
   _getClass() {
@@ -47,6 +56,10 @@ class Row extends React.Component {
 
   _handleRemove(index) {
     this.props.onRemove(index)
+  }
+
+  _handleUpdate(index, key, e) {
+    this.props.onUpdate(index, key, e.target.value)
   }
 
 }
