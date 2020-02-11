@@ -1,4 +1,4 @@
-import Preferences from './components/preferences'
+import Forward from './components/forward'
 import { hot } from 'react-hot-loader'
 import Root from './components/root'
 import PropTypes from 'prop-types'
@@ -13,12 +13,12 @@ class App extends React.Component {
   render() {
     return (
       <Root key="root">
-        <Preferences { ...this._getForm() } />
+        <Forward { ...this._getForward() } />
       </Root>
     )
   }
 
-  _getForm() {
+  _getForward() {
     const { form, token } = window
     return { ...form, token }
   }
