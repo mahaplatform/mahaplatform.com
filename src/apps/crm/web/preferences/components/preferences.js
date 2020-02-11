@@ -72,11 +72,11 @@ class Preferences extends React.Component {
       { label: 'Last Name', name: 'last_name', type: 'textfield', defaultValue: contact.last_name }
     ]
     if(email_address) {
-      fields.push({ label: 'Email', name: 'email', type: 'emailfield', defaultValue: email_address.address })
+      fields.push({ label: 'Email', name: 'email', type: 'emailfield', defaultValue: email_address.address, disabled: true })
     } else if (phone_number) {
-      fields.push({ label: 'Phone', name: 'phone', type: 'textfield', defaultValue: phone_number.number })
+      fields.push({ label: 'Phone', name: 'phone', type: 'textfield', defaultValue: phone_number.number, disabled: true })
     } else if (mailing_address) {
-      fields.push({ label: 'Address', name: 'address', type: 'textfield', defaultValue: mailing_address.address.description })
+      fields.push({ label: 'Address', name: 'address', type: 'textfield', defaultValue: mailing_address.address.description, disabled: true })
     }
     fields.push({ label: 'I am interested in the following topics:', name: 'topic_ids', type: 'checkboxes', options })
     if(email_address) {

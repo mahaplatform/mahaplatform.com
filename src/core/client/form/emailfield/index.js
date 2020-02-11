@@ -8,6 +8,7 @@ class EmailField extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
+    disabled: PropTypes.bool,
     htmlFor: PropTypes.string,
     name: PropTypes.string,
     placeholder: PropTypes.string,

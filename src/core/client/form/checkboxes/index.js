@@ -50,9 +50,12 @@ class Checkboxes extends React.Component {
   }
 
   componentDidMount() {
-    const { defaultValue, onReady } = this.props
+    const { defaultValue, options, onReady } = this.props
     if(defaultValue) this.setState({
-      selected: defaultValue
+      selected: options.reduce((selected, option, index) => [
+        ...selected,
+        ..._.includes(defaultValue, option.value) ? [index] : []
+      ], [])
     })
     onReady()
   }

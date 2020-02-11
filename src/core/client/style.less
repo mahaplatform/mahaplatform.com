@@ -65,6 +65,9 @@
   position: relative;
   display: flex;
   width: 100%;
+  &.disabled {
+    background-color: fadeout(@black, 95);
+  }
   input {
     &:focus {
       outline: -webkit-focus-ring-color auto 2px !important;

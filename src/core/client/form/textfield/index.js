@@ -6,6 +6,8 @@ class TextField extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
+    defaultValue: PropTypes.string,
+    disabled: PropTypes.bool,
     htmlFor: PropTypes.string,
     name: PropTypes.string,
     placeholder: PropTypes.string,
@@ -37,13 +39,14 @@ class TextField extends React.Component {
   _handleUpdate = this._handleUpdate.bind(this)
 
   render() {
+    const { disabled } = this.props
     const { value } = this.state
     return (
-      <div className="maha-input maha-textfield">
+      <div className={ this._getClass() }>
         <div className="maha-input-field">
           <input { ...this._getInput() } />
         </div>
-        { value && value.length > 0 &&
+        { !disabled && value && value.length > 0 &&
           <div className="maha-input-clear" onClick={ this._handleClear }>
             <i className="fa fa-times" />
           </div>
@@ -53,7 +56,11 @@ class TextField extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onReady()
+    const { defaultValue, onReady } = this.props
+    if(defaultValue) this.setState({
+      value: defaultValue
+    })
+    onReady()
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -67,11 +74,19 @@ class TextField extends React.Component {
     }
   }
 
+  _getClass() {
+    const { disabled } = this.props
+    const classes = ['maha-input','maha-textfield']
+    if(disabled) classes.push('disabled')
+    return classes.join(' ')
+  }
+
   _getInput() {
-    const { htmlFor, name, placeholder, tabIndex } = this.props
+    const { disabled, htmlFor, name, placeholder, tabIndex } = this.props
     const { focused, value } = this.state
     return {
       id: htmlFor,
+      disabled: disabled === true,
       name,
       placeholder: !focused ? placeholder : null,
       ref: node => this.input = node,

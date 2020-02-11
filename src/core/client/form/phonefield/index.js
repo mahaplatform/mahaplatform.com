@@ -54,7 +54,11 @@ class PhoneField extends React.Component {
   }
 
   componentDidMount() {
-    this.props.onReady()
+    const { defaultValue, onReady } = this.props
+    if(defaultValue) this.setState({
+      value: defaultValue
+    })
+    onReady()
   }
 
   componentDidUpdate(prevProps, prevState) {
