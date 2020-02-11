@@ -18,7 +18,8 @@ class Productfield extends React.PureComponent {
     onChange: PropTypes.func,
     onReady: PropTypes.func,
     onRemove: PropTypes.func,
-    onSet: PropTypes.func
+    onSet: PropTypes.func,
+    onUpdate: PropTypes.func
   }
 
   static defaultProps = {
@@ -36,7 +37,7 @@ class Productfield extends React.PureComponent {
         { products.map((product, index) => (
           <div className="crm-productfield-product" key={`product_${index}`}>
             <div className="crm-productfield-product-label">
-              { product.title }
+              <input { ...this.getInput(product, index) } />
             </div>
             <div className="crm-productfield-product-remove" onClick={ this._handleRemove.bind(this, index) }>
               <i className="fa fa-times" />
@@ -48,6 +49,15 @@ class Productfield extends React.PureComponent {
         </div>
       </div>
     )
+  }
+
+  getInput(product, index) {
+    return {
+      type: 'textfield',
+      placeholder: 'Enter product title',
+      value: product.title,
+      onChange: this._handleUpdate.bind(this, index, 'title')
+    }
   }
 
   componentDidMount() {
@@ -92,6 +102,10 @@ class Productfield extends React.PureComponent {
 
   _handleRemove(index) {
     this.props.onRemove(index)
+  }
+
+  _handleUpdate(index, key, e) {
+    this.props.onUpdate(index, key, e.target.value)
   }
 
 }

@@ -12,3 +12,10 @@ export const set = (products) => ({
   type: 'SET',
   products
 })
+
+export const update = (index, key, value) => ({
+  type: 'UPDATE',
+  index,
+  key,
+  value
+})

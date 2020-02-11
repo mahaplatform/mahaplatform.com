@@ -31,6 +31,20 @@ const reducer = (state = INITIAL_STATE, action) => {
       products: action.products
     }
 
+  case 'UPDATE':
+    return {
+      ...state,
+      products: [
+        ...state.products.map((product, index) => {
+          if(index !== action.index) return product
+          return {
+            ...product,
+            [action.key]: action.value
+          }
+        })
+      ]
+    }
+
   default:
     return state
   }

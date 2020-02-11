@@ -14,7 +14,7 @@ class Header extends React.Component {
       <div className="maha-form-header">
         { image &&
           <div className="maha-form-header-image">
-            <img src={`/imagecache/w=770/${image}`} />
+            <img src={`/imagecache/w=770${image}`} />
           </div>
         }
         { text &&
