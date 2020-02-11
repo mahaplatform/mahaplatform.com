@@ -62,8 +62,8 @@ class Field extends React.Component {
   }
 
   _getClass() {
-    const { error, field } = this.props
-    const classes = ['maha-field']
+    const { error, field, index } = this.props
+    const classes = ['field',`field-${index}`]
     if(error) classes.push('field-invalid')
     if(field.required) classes.push('required')
     return classes.join(' ')
@@ -74,7 +74,7 @@ class Field extends React.Component {
     if(field.type === 'checkboxes') return Checkboxes
     if(field.type === 'checkbox') return Checkbox
     if(field.type === 'datefield') return DateField
-    if(field.type === 'dropdown') return DropDown
+    if(field.type === 'DropDown') return DropDown
     if(field.type === 'filefield') return FileField
     if(field.type === 'moneyfield') return MoneyField
     if(field.type === 'phonefield') return PhoneField
@@ -92,7 +92,8 @@ class Field extends React.Component {
     return {
       code,
       htmlFor,
-      ..._.omit(field, ['code']),
+      ..._.omit(field, ['code','name']),
+      name: _.get(field, 'name.value'),
       status,
       tabIndex: index + 1,
       token,

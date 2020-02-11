@@ -5,31 +5,28 @@ import React from 'react'
 class Forward extends React.Component {
 
   static propTypes = {
-    contact: PropTypes.object,
-    email_address: PropTypes.object,
-    mailing_address: PropTypes.object,
-    phone_number: PropTypes.object,
     program: PropTypes.object,
-    token: PropTypes.string,
-    topics: PropTypes.array
+    token: PropTypes.string
   }
+
+  _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
     const { program } = this.props
     return (
       <div className="overlay">
         <div className="preferences">
-          <div className="panel">
-            <div className="panel-header">
-              <div className="panel-header-logo">
+          <div className="maha-form">
+            <div className="maha-form-header">
+              <div className="maha-form-header-logo">
                 <img src={`/imagecache/fit=cover&w=80&h=80${program.logo}`} />
               </div>
-              <div className="panel-header-details">
+              <div className="maha-form-header-details">
                 <h1>{ program.title }</h1>
                 <p>Forward to a Friend</p>
               </div>
             </div>
-            <div className="panel-body">
+            <div className="maha-form-body">
               <Form { ...this._getForm() } />
             </div>
           </div>
@@ -39,13 +36,25 @@ class Forward extends React.Component {
   }
 
   _getForm() {
+    const { token } = this.props
+    const code = 'abcde'
     return {
+      endpoint: `/api/crm/forward/${code}`,
+      method: 'POST',
+      captcha: false,
+      submitText: 'Forward Email',
+      token,
       fields: [
-        { label: 'Name', name: 'name', type: 'textfield' },
-        { label: 'Email', name: 'email', type: 'emailfield' },
+        { label: 'Name', name: 'name', type: 'textfield', required: true },
+        { label: 'Email', name: 'email', type: 'emailfield', required: true },
         { label: 'Message', name: 'message', type: 'textarea', rows: 5 }
-      ]
+      ],
+      onSuccess: this._handleSuccess
     }
+  }
+
+  _handleSuccess(result) {
+    console.log(result)
   }
 
 }

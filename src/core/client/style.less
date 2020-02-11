@@ -5,6 +5,59 @@
 @import './form/dropdown/style.less';
 @import './form/filefield/style.less';
 
+.maha-form {
+  border: 1px solid rgba(0,0,0,.05);
+  background-color: rgba(255, 255, 255, 1);
+  margin: 0 auto 1.8em;
+  width: 100%;
+  max-width: 770px;
+  h1, h2, p {
+    margin: 0;
+    line-height: 1.5 !important;
+  }
+}
+.maha-form-header {
+  display: flex;
+}
+.maha-form-header-logo {
+  padding: 0.8em 0 0.8em 0.8em;
+  img {
+    width: 80px;
+    heoight: 80px;
+    display: block;
+  }
+}
+.maha-form-header-details {
+  padding: 0.8em;
+  flex: 1;
+}
+.maha-form-body {
+  padding: 0;
+  .ui.form {
+    .field {
+      padding: 0.6em 0.8em;
+      margin: 0 !important;
+    }
+    .field label {
+      margin: 0 !important;
+    }
+  }
+}
+.maha-form-footer {
+  background-color: rgba(0, 0, 0, 0.08);
+  padding: 0.8em;
+}
+.maha-form-captcha {
+  padding: 0.8em;
+  min-height: 100px;
+}
+.maha-form-submit {
+  padding: 0.8em;
+  .ui.button {
+    color: @white !important;
+  }
+}
+
 .maha-input {
   border: 1px solid fadeout(@black, 90);
   background-color: @white;

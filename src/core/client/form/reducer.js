@@ -4,7 +4,6 @@ export const INITIAL_STATE = {
   data: {},
   errors: {},
   human: false,
-  mode: 'fields',
   ready: [],
   status: 'ready',
   validated: []
@@ -19,22 +18,11 @@ const reducer = (state = INITIAL_STATE, action) => {
       ...state,
       data: {
         ...state.data,
-        [action.code]: action.value
+        [action.name]: action.value
       },
-      errors: _.omit(state.errors, action.code),
+      errors: _.omit(state.errors, action.name),
       status: 'ready',
-      validated: _.without(state.validated, action.code)
-    }
-
-  case 'SET_All_STATUS':
-    return {
-      ...state,
-      status: {
-        ...Object.keys(state.status).reduce((status, name) => ({
-          ...status,
-          [name]: action.status
-        }), {})
-      }
+      validated: _.without(state.validated, action.name)
     }
 
   case 'SET_HUMAN':
@@ -43,23 +31,11 @@ const reducer = (state = INITIAL_STATE, action) => {
       human: true
     }
 
-  case 'SET_MODE':
-    return {
-      ...state,
-      mode: action.mode
-    }
-
-  case 'SET_PAID':
-    return {
-      ...state,
-      status: 'success'
-    }
-
   case 'SET_READY':
     return {
       ...state,
       ready: [
-        ..._.union(state.ready, [action.code])
+        ..._.union(state.ready, [action.name])
       ]
     }
 
@@ -73,16 +49,16 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       validated: [
-        ..._.union(state.validated, [action.code])
+        ..._.union(state.validated, [action.name])
       ],
       data: {
         ...state.data,
-        [action.code]: action.value
+        [action.name]: action.value
       },
       errors: {
         ...state.errors,
         ...action.error ? {
-          [action.code]: action.error
+          [action.name]: action.error
         } : {}
       }
     }

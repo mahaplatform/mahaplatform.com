@@ -49,24 +49,24 @@ class Fields extends React.Component {
       code,
       field,
       index,
-      // error: errors[field.code],
+      error: errors[field.name],
       status,
       token,
-      // onChange: this._handleChange.bind(this, field.code),
-      // onReady: this._handleSetReady.bind(this, field.code),
-      // onValidate: this._handleSetValid.bind(this, field.code)
+      onChange: this._handleChange.bind(this, field.name),
+      onReady: this._handleSetReady.bind(this, field.name),
+      onValidate: this._handleSetValid.bind(this, field.name)
     }
   }
-  _handleChange(code, value) {
-    this.props.onChange(code, value)
+  _handleChange(name, value) {
+    this.props.onChange(name, value)
   }
 
-  _handleSetReady(code) {
-    this.props.onSetReady(code)
+  _handleSetReady(name) {
+    this.props.onSetReady(name)
   }
 
-  _handleSetValid(code, value, error) {
-    this.props.onSetValid(code, value, error)
+  _handleSetValid(name, value, error) {
+    this.props.onSetValid(name, value, error)
   }
 
   _handleValidate() {

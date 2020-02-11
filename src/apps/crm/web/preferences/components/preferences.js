@@ -14,25 +14,27 @@ class Preferences extends React.Component {
     topics: PropTypes.array
   }
 
+  _handleSuccess = this._handleSuccess.bind(this)
+
   render() {
     const { contact, email_address, mailing_address, phone_number, program, topics } = this.props
     return (
       <div className="overlay">
         <div className="preferences">
-          <div className="panel">
-            <div className="panel-header">
-              <div className="panel-header-logo">
+          <div className="maha-form">
+            <div className="maha-form-header">
+              <div className="maha-form-header-logo">
                 <img src={`/imagecache/fit=cover&w=80&h=80${program.logo}`} />
               </div>
-              <div className="panel-header-details">
+              <div className="maha-form-header-details">
                 <h1>{ program.title }</h1>
                 <p><strong>Communication Preferences for { contact.full_name }</strong></p>
               </div>
             </div>
-            <div className="panel-body">
+            <div className="maha-form-body">
               <Form { ...this._getForm() } />
             </div>
-            <div className="panel-footer">
+            <div className="maha-form-footer">
               <p><strong>Not your email address?</strong></p>
               <p>
                 An email may have been forwarded to you from a friend or
@@ -47,10 +49,15 @@ class Preferences extends React.Component {
   }
 
   _getForm() {
+    const { token } = this.props
     return {
       endpoint: '/api/crm/preferences',
       method: 'POST',
-      fields: this._getFields()
+      captcha: false,
+      token,
+      fields: this._getFields(),
+      submitText: 'Update Preferences',
+      onSuccess: this._handleSuccess
     }
   }
 
@@ -82,6 +89,11 @@ class Preferences extends React.Component {
     }
     return fields
   }
+
+  _handleSuccess(result) {
+    console.log(result)
+  }
+
 }
 
 export default Preferences

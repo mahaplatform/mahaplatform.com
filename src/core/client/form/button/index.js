@@ -12,6 +12,10 @@ class Button extends React.Component {
     onClick: PropTypes.func
   }
 
+  static defaultProps = {
+    onClick: () => {}
+  }
+
   _handleClick = this._handleClick.bind(this)
   _handleKeyPress = this._handleKeyPress.bind(this)
 

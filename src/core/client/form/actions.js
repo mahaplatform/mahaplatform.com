@@ -9,9 +9,9 @@ export const submit = (endpoint, method, token, body) => ({
   failure: 'SUBMIT_FAILURE'
 })
 
-export const change = (code, value) => ({
+export const change = (name, value) => ({
   type: 'CHANGE',
-  code,
+  name,
   value
 })
 
@@ -19,9 +19,9 @@ export const setHuman = () => ({
   type: 'SET_HUMAN'
 })
 
-export const setReady = (code) => ({
+export const setReady = (name) => ({
   type: 'SET_READY',
-  code
+  name
 })
 
 export const setStatus = (status) => ({
@@ -29,9 +29,9 @@ export const setStatus = (status) => ({
   status
 })
 
-export const setValid = (code, value, error) => ({
+export const setValid = (name, value, error) => ({
   type: 'SET_VALID',
-  code,
+  name,
   value,
   error
 })
