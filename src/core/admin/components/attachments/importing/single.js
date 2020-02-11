@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import Message from '../../message'
 import PropTypes from 'prop-types'
+import numeral from 'numeral'
 import React from 'react'
 
 class Single extends React.Component {
@@ -11,18 +12,35 @@ class Single extends React.Component {
   }
 
   render() {
-    return <Message { ...this._getMessage() } />
+    return (
+      <div className="maha-attachments-single">
+        <Message { ...this._getMessage() } />
+      </div>
+    )
   }
 
   _getMessage() {
     const file = this.props.files[0]
+    const progress = numeral(file.progress).format('0%')
     return {
       icon: this._getIcon(file.content_type),
       title: file.name,
       component: (
-        <span>
-          <i className="fa fa-fw fa-spin fa-circle-o-notch" /> Importing
-        </span>
+        <div className="maha-attachments-single-progress">
+          <div className="maha-filefield-progress">
+            <div className="ui green tiny progress">
+              <div className="bar" style={{ width: progress }} />
+            </div>
+          </div>
+          { file.progress < 1 ?
+            <div className="maha-attachments-single-text">
+              Uploading
+            </div> :
+            <div className="maha-attachments-single-text">
+              <i className="fa fa-fw fa-spin fa-circle-o-notch" /> Processing
+            </div>
+          }
+        </div>
       )
     }
   }
