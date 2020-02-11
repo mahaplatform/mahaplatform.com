@@ -14,7 +14,9 @@ class Sidebar extends React.Component {
     components: PropTypes.object,
     cid: PropTypes.string,
     config: PropTypes.object,
+    endpoint: PropTypes.string,
     program_id: PropTypes.number,
+    status: PropTypes.string,
     title: PropTypes.string,
     tokens: PropTypes.array,
     onEdit: PropTypes.func,
@@ -62,12 +64,14 @@ class Sidebar extends React.Component {
   }
 
   _getPage() {
-    const { blocks, cid, components, program_id, title, onSave } = this.props
+    const { blocks, cid, components, endpoint, program_id, status, title, onSave } = this.props
     return {
       blocks,
       cid,
       components,
+      endpoint,
       program_id,
+      status,
       title,
       onPush: this._handlePush,
       onPop: this._handlePop,

@@ -16,7 +16,9 @@ class Page extends React.Component {
     cid: PropTypes.string,
     components: PropTypes.object,
     config: PropTypes.object,
+    endpoint: PropTypes.string,
     program_id: PropTypes.number,
+    status: PropTypes.string,
     title: PropTypes.string,
     onPop: PropTypes.func,
     onPreview: PropTypes.func,
@@ -82,12 +84,12 @@ class Page extends React.Component {
   }
 
   _getPanel() {
-    const { changes, title } = this.props
+    const { changes, status, title } = this.props
     return {
       title,
       buttons: [
         {
-          label: 'Save',
+          label: status === 'ready' ? 'Save' : <i className="fa fa-circle-o-notch fa-spin" />,
           color: 'red',
           disabled: changes === 0,
           handler: this._handleSave
@@ -115,8 +117,8 @@ class Page extends React.Component {
   }
 
   _handleSave() {
-    const { config } = this.props
-    this.props.onSave(config)
+    const { config, endpoint } = this.props
+    this.props.onSave(endpoint, config)
   }
 
 }

@@ -41,7 +41,7 @@ const getPaymentMethod = async(req, { customer, payment }) => {
     })
   }
 
-  if(!result.verified) {
+  if(result.verified === false) {
     throw new RouteError({
       status: 422,
       message: 'Unable to process payment',

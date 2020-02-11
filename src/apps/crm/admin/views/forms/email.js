@@ -15,8 +15,6 @@ class Designer extends React.Component {
     form: PropTypes.object
   }
 
-  _handleSave = this._handleSave.bind(this)
-
   render() {
     return <EmailDesigner { ...this._getEmailDesigner() } />
   }
@@ -25,6 +23,7 @@ class Designer extends React.Component {
     const { email, form, fields } = this.props
     return {
       defaultValue: email.config,
+      endpoint: `/api/admin/crm/emails/${email.id}`,
       program_id: email.program.id,
       tokens: [
         { title: 'Response Tokens', tokens: form.config.fields.filter(field => {
@@ -50,20 +49,8 @@ class Designer extends React.Component {
           { name: 'Preferences Link', token: 'email.preferences_link' },
           { name: 'Web Link', token: 'email.web_link' }
         ] }
-      ],
-      onSave: this._handleSave
+      ]
     }
-  }
-
-  _handleSave(config) {
-    const { email } = this.props
-    const { id } = email
-    this.context.network.request({
-      method: 'patch',
-      endpoint: `/api/admin/crm/emails/${id}`,
-      body: { config },
-      onSuccess: this._handleSuccess
-    })
   }
 
 }

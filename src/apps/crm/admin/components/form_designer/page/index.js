@@ -14,9 +14,12 @@ class Page extends React.PureComponent {
 
   static propTypes = {
     cid: PropTypes.string,
+    changes: PropTypes.number,
     config: PropTypes.object,
+    endpoint: PropTypes.string,
     fields: PropTypes.array,
     form: PropTypes.object,
+    status: PropTypes.string,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
     onSave: PropTypes.func,
@@ -72,12 +75,20 @@ class Page extends React.PureComponent {
   }
 
   _getPanel() {
-    const { form } = this.props
+    const { changes, form, status } = this.props
     return {
       title: 'Form',
       buttons: [
-        { label: 'Save', color: 'red', handler: this._handleSave },
-        { label: 'Preview', color: 'red', link: `${process.env.WEB_HOST}/crm/forms/${form.code}` }
+        {
+          label: status === 'ready' ? 'Save' : <i className="fa fa-circle-o-notch fa-spin" />,
+          color: 'red',
+          disabled: changes === 0,
+          handler: this._handleSave
+        },{
+          label: 'Preview',
+          color: 'red',
+          link: `${process.env.WEB_HOST}/crm/forms/${form.code}`
+        }
       ]
     }
   }
@@ -103,8 +114,8 @@ class Page extends React.PureComponent {
   }
 
   _handleSave() {
-    const { config } = this.props
-    this.props.onSave(config)
+    const { config, endpoint } = this.props
+    this.props.onSave(endpoint, config)
   }
 
 }

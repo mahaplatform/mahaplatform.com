@@ -4,7 +4,8 @@ const INITIAL_STATE = {
   active: null,
   changes: 0,
   config: null,
-  sidebar: true
+  sidebar: true,
+  status: 'ready'
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -66,11 +67,25 @@ const reducer = (state = INITIAL_STATE, action) => {
         ]
       }
     }
+
   case 'SET':
     return {
       ...state,
       changes: 0,
       config: action.config
+    }
+
+  case 'SAVE_REQUEST':
+    return {
+      ...state,
+      status: 'saving'
+    }
+
+  case 'SAVE_SUCCESS':
+    return {
+      ...state,
+      status: 'ready',
+      changes: 0
     }
 
   case 'TOGGLE':

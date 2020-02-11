@@ -17,9 +17,9 @@ class EmailDesigner extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.object,
+    endpoint: PropTypes.string,
     program_id: PropTypes.number,
-    tokens: PropTypes.array,
-    onSave: PropTypes.func
+    tokens: PropTypes.array
   }
 
   render() {
@@ -27,10 +27,11 @@ class EmailDesigner extends React.Component {
   }
 
   _getDesigner() {
-    const { defaultValue, program_id,  tokens, onSave } = this.props
+    const { defaultValue, endpoint, program_id, tokens } = this.props
     return {
       title: 'Email',
       canvas: '/apps/crm/email/index.html',
+      endpoint,
       preview: true,
       components: {
         page: Page
@@ -49,8 +50,7 @@ class EmailDesigner extends React.Component {
         { label: 'Video', type: 'video', icon: 'play-circle', component: Video },
         { label: 'Web Version', type: 'web', icon: 'globe', component: Web }
       ],
-      defaultValue,
-      onSave
+      defaultValue
     }
   }
 

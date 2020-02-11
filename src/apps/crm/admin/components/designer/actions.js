@@ -1,3 +1,13 @@
+export const save = (endpoint, config) => ({
+  type: 'API_REQUEST',
+  method: 'PATCH',
+  endpoint,
+  body: { config },
+  request: 'SAVE_REQUEST',
+  success: 'SAVE_SUCCESS',
+  failure: 'SAVE_FAILURE'
+})
+
 export const add = (index, block) => ({
   type: 'ADD',
   index,

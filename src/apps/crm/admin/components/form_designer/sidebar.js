@@ -24,8 +24,11 @@ class Sidebar extends React.Component {
   static propTypes = {
     active: PropTypes.number,
     cid: PropTypes.string,
+    changes: PropTypes.number,
     config: PropTypes.object,
+    endpoint: PropTypes.string,
     form: PropTypes.object,
+    status: PropTypes.string,
     onAddSection: PropTypes.func,
     onDeleteSection: PropTypes.func,
     onMoveSection: PropTypes.func,
@@ -99,11 +102,14 @@ class Sidebar extends React.Component {
   }
 
   _getPage() {
-    const { cid, form, onSave } = this.props
+    const { cid, changes, endpoint, form, status, onSave } = this.props
     return {
       cid,
+      changes,
+      endpoint,
       fields: this._getFields(),
       form,
+      status,
       onSave,
       onUpdate: this._handleUpdate,
       onPop: this._handlePop,

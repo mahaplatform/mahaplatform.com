@@ -16,9 +16,11 @@ class Designer extends React.Component {
     components: PropTypes.object,
     config: PropTypes.object,
     defaultValue: PropTypes.object,
+    endpoint: PropTypes.string,
     preview: PropTypes.bool,
     program_id: PropTypes.number,
     sidebar: PropTypes.bool,
+    status: PropTypes.string,
     title: PropTypes.string,
     tokens: PropTypes.array,
     onAdd: PropTypes.func,
@@ -99,13 +101,15 @@ class Designer extends React.Component {
   }
 
   _getSidebar() {
-    const { active, blocks, cid, components, config, program_id, title, tokens, onEdit, onSave, onUpdate } = this.props
+    const { active, blocks, cid, components, config, endpoint, program_id, status, title, tokens, onEdit, onSave, onUpdate } = this.props
     return {
       active,
       blocks,
       cid,
       components,
       config,
+      endpoint,
+      status,
       title,
       program_id,
       tokens,
