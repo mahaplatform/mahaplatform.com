@@ -19,7 +19,7 @@ const processor = async (job, trx) => {
   const response = await Response.query(qb => {
     qb.where('id', job.data.id)
   }).fetch({
-    withRelated: ['form.email','team','invoice.payments'],
+    withRelated: ['form.program','form.email','team','invoice.payments'],
     transacting: trx
   })
 
@@ -41,10 +41,17 @@ const processor = async (job, trx) => {
     qb.leftJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
     qb.where('crm_contacts.id', response.get('contact_id'))
   }).fetch({
+    withRelated: ['email_addresses'],
     transacting: req.trx
   })
 
+  const email_address = contact.related('email_addresses').toArray().find(email_address => {
+    return email_address.get('address') === contact.get('email')
+  })
+
   const data = response.get('data')
+
+  const program = form.related('program')
 
   const config = form.related('email').get('config')
 
@@ -78,7 +85,7 @@ const processor = async (job, trx) => {
       }), {}),
       email: {
         web_link: `${process.env.WEB_HOST}/w${code}`,
-        preferences_link: `${process.env.WEB_HOST}/crm/preferences/${contact.get('code')}`
+        preferences_link: `${process.env.WEB_HOST}/crm/preferences/e/${program.get('code')}/${email_address.get('code')}`
       }
     }
   })
