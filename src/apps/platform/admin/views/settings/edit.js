@@ -29,6 +29,7 @@ class Edit extends React.Component {
         {
           label: 'Payments',
           fields: [
+            { prompt: 'Enable ACH', name: 'ach_enabled', type: 'checkbox' },
             { prompt: 'Enable ApplePay', name: 'applepay_enabled', type: 'checkbox' },
             { prompt: 'Enable GooglePay', name: 'googlepay_enabled', type: 'checkbox' },
             { prompt: 'Enable PayPal', name: 'paypal_enabled', type: 'checkbox' }

@@ -38,7 +38,9 @@ class Payment extends React.Component {
             </div>
           }
           <Summary { ...this._getSummary() } />
-          <Methods { ...this._getMethods() } />
+          { methods.length > 1 &&
+            <Methods { ...this._getMethods() } />
+          }
           { token &&
             <div className={`maha-payment-method ${ this.props.method }`}>
               { methods.map((method, index) => (
@@ -58,9 +60,11 @@ class Payment extends React.Component {
   _getAllowed() {
     const { settings } = this.props
     const methods = [
-      { label: 'Credit Card', mark: 'card-mark.png', value: 'card', component: Card },
-      { label: 'Bank Account', mark: 'ach-mark.png', value: 'ach', component: ACH }
+      { label: 'Credit Card', mark: 'card-mark.png', value: 'card', component: Card }
     ]
+    if(settings.ach_enabled) {
+      methods.push({ label: 'Bank Account', mark: 'ach-mark.png', value: 'ach', component: ACH })
+    }
     if(settings.googlepay_enabled) {
       methods.push({ label: 'Google Pay', mark: 'googlepay-mark.png', value: 'googlepay', component: GooglePay })
     }

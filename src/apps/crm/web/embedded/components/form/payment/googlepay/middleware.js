@@ -49,14 +49,16 @@ export default store => next => action => {
   }).then(isReadyToPay => {
     if(!isReadyToPay.result) return
     var paymentDataRequest = googlePaymentInstance.createPaymentDataRequest({
-      merchantId: process.env.GOOGLEPAY_MERCHANTID,
+      ...process.env.GOOGLEPAY_MERCHANTID ? {
+        merchantId: process.env.GOOGLEPAY_MERCHANTID
+      }: {},
       transactionInfo: {
         currencyCode: 'USD',
         totalPriceStatus: 'FINAL',
         totalPrice: `${action.data.total}`
       }
     })
-    return  paymentsClient.loadPaymentData(paymentDataRequest)
+    return paymentsClient.loadPaymentData(paymentDataRequest)
   }).then(paymentData => {
     const { tokenizationData } = paymentData.paymentMethodData
     const token = JSON.parse(tokenizationData.token)

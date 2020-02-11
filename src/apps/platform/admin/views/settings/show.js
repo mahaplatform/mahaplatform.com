@@ -10,6 +10,7 @@ const Details = ({ settings }) => {
   sections.push({
     label: 'Payments',
     items: [
+      { label: 'ACH ', content: settings.ach_enabled ? 'ENABLED' : 'DISABLED' },
       { label: 'ApplePay ', content: settings.applepay_enabled ? 'ENABLED' : 'DISABLED' },
       { label: 'GooglePay ', content: settings.googlepay_enabled ? 'ENABLED' : 'DISABLED' },
       { label: 'PayPal', content: settings.paypal_enabled ? 'ENABLED' : 'DISABLED' }
