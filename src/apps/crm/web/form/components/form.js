@@ -1,11 +1,10 @@
-import Recaptcha from '../../embedded/components/form/fields/recaptcha'
 import Header from '../../embedded/components/form/header'
 import Footer from '../../embedded/components/form/footer'
 import Layout from '../../embedded/components/form/layout'
+import { Recaptcha } from 'maha-client'
 import PropTypes from 'prop-types'
 import Field from './field'
 import React from 'react'
-
 
 class Form extends React.Component {
 

@@ -1,16 +1,18 @@
-import AddressField from '../../embedded/components/form/fields/addressfield'
+import {
+  AddressField,
+  Checkboxes,
+  RadioGroup,
+  PhoneField,
+  FileField,
+  TextField,
+  DateField,
+  TimeField,
+  TextArea,
+  Dropdown,
+  Checkbox,
+  Text
+} from 'maha-client'
 import ProductField from '../../embedded/components/form/fields/productfield'
-import Checkboxes from '../../embedded/components/form/fields/checkboxes'
-import RadioGroup from '../../embedded/components/form/fields/radiogroup'
-import PhoneField from '../../embedded/components/form/fields/phonefield'
-import FileField from '../../embedded/components/form/fields/filefield'
-import TextField from '../../embedded/components/form/fields/textfield'
-import DateField from '../../embedded/components/form/fields/datefield'
-import TimeField from '../../embedded/components/form/fields/timefield'
-import TextArea from '../../embedded/components/form/fields/textarea'
-import Dropdown from '../../embedded/components/form/fields/dropdown'
-import Checkbox from '../../embedded/components/form/fields/checkbox'
-import Text from '../../embedded/components/form/fields/text'
 import PropTypes from 'prop-types'
 import React from 'react'
 
