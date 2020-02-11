@@ -9,7 +9,7 @@ class ProductField extends React.Component {
     code: PropTypes.string,
     defaultValue: PropTypes.array,
     htmlFor: PropTypes.string,
-    name: PropTypes.object,
+    name: PropTypes.string,
     placeholder: PropTypes.string,
     products: PropTypes.array,
     quantities: PropTypes.object,

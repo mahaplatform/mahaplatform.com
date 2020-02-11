@@ -1,6 +1,5 @@
-import Recaptcha from './recaptcha'
+import { Button, Recaptcha } from 'maha-client'
 import PropTypes from 'prop-types'
-import Button from './button'
 import Field from './field'
 import React from 'react'
 

@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import { Form } from 'maha-client'
 import React from 'react'
 
 class Forward extends React.Component {
@@ -29,7 +30,7 @@ class Forward extends React.Component {
               </div>
             </div>
             <div className="panel-body">
-              foo bar baz
+              <Form { ...this._getForm() } />
             </div>
           </div>
         </div>
@@ -38,7 +39,13 @@ class Forward extends React.Component {
   }
 
   _getForm() {
-    return this.props
+    return {
+      fields: [
+        { label: 'Name', name: 'name', type: 'textfield' },
+        { label: 'Email', name: 'email', type: 'emailfield' },
+        { label: 'Message', name: 'message', type: 'textarea', rows: 5 }
+      ]
+    }
   }
 
 }

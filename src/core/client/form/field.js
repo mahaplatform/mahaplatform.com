@@ -1,22 +1,19 @@
-import {
-  AddressField,
-  MoneyField,
-  Checkboxes,
-  RadioGroup,
-  PhoneField,
-  EmailField,
-  FileField,
-  TextField,
-  DateField,
-  TimeField,
-  TextArea,
-  DropDown,
-  Checkbox,
-  Text
-} from 'maha-client'
-import ProductField from './productfield'
+import AddressField from './addressfield'
+import MoneyField from './moneyfield'
+import Checkboxes from './checkboxes'
+import RadioGroup from './radiogroup'
+import PhoneField from './phonefield'
+import EmailField from './emailfield'
+import FileField from './filefield'
+import TextField from './textfield'
+import DateField from './datefield'
+import TimeField from './timefield'
 import PropTypes from 'prop-types'
+import TextArea from './textarea'
+import DropDown from './DropDown'
+import Checkbox from './checkbox'
 import React from 'react'
+import Text from './text'
 import _ from 'lodash'
 
 class Field extends React.Component {
@@ -65,24 +62,22 @@ class Field extends React.Component {
   }
 
   _getClass() {
-    const { error, field, index } = this.props
-    const classes = ['field',`field-${index}`]
+    const { error, field } = this.props
+    const classes = ['maha-field']
     if(error) classes.push('field-invalid')
     if(field.required) classes.push('required')
     return classes.join(' ')
   }
 
   _getComponent(field) {
-    if(field.type === 'contactfield' && field.contactfield) return this._getComponent(field.contactfield)
     if(field.type === 'addressfield') return AddressField
     if(field.type === 'checkboxes') return Checkboxes
     if(field.type === 'checkbox') return Checkbox
     if(field.type === 'datefield') return DateField
-    if(field.type === 'DropDown') return DropDown
+    if(field.type === 'dropdown') return DropDown
     if(field.type === 'filefield') return FileField
     if(field.type === 'moneyfield') return MoneyField
     if(field.type === 'phonefield') return PhoneField
-    if(field.type === 'productfield') return ProductField
     if(field.type === 'radiogroup') return RadioGroup
     if(field.type === 'text') return Text
     if(field.type === 'textarea') return TextArea
@@ -97,8 +92,7 @@ class Field extends React.Component {
     return {
       code,
       htmlFor,
-      ..._.omit(field, ['code','name']),
-      name: _.get(field, 'name.value'),
+      ..._.omit(field, ['code']),
       status,
       tabIndex: index + 1,
       token,

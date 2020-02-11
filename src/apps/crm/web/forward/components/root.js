@@ -1,3 +1,4 @@
+import { AddressField, FileField, Form } from 'maha-client'
 import { createStore, applyMiddleware } from 'redux'
 import { combineReducers } from 'redux-rubberstamp'
 import createApiRequest from 'redux-api-request'
@@ -20,6 +21,9 @@ class Root extends React.Component {
     super(props)
 
     const reducer = combineReducers([
+      AddressField,
+      FileField,
+      Form
     ])
 
     const loggerMiddleware = createLogger({ collapsed: true })

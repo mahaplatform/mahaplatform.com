@@ -1,3 +1,4 @@
+import { AddressField, FileField } from 'maha-client'
 import { createStore, applyMiddleware } from 'redux'
 import { combineReducers } from 'redux-rubberstamp'
 import createApiRequest from 'redux-api-request'
@@ -12,17 +13,15 @@ import achMiddleware from './form/payment/ach/middleware'
 import cardMiddleware from './form/payment/card/middleware'
 import googlepayMiddleware from './form/payment/googlepay/middleware'
 
-import paymentfield from './form/payment'
-import applepay from './form/payment/applepay'
-import googlepay from './form/payment/googlepay'
-import paypal from './form/payment/paypal'
-import ach from './form/payment/ach'
-import card from './form/payment/card'
+import PaymentField from './form/payment'
+import ApplePay from './form/payment/applepay'
+import GooglePay from './form/payment/googlepay'
+import PayPal from './form/payment/paypal'
+import ACH from './form/payment/ach'
+import Card from './form/payment/card'
 
-import addressfield from './form/fields/addressfield'
-import productfield from './form/fields/productfield'
-import filefield from './form/fields/filefield'
-import form from './form'
+import ProductField from './form/fields/productfield'
+import Form from './form'
 
 class Root extends React.Component {
 
@@ -36,16 +35,16 @@ class Root extends React.Component {
     super(props)
 
     const reducer = combineReducers([
-      applepay,
-      googlepay,
-      paypal,
-      ach,
-      card,
-      form,
-      filefield,
-      addressfield,
-      paymentfield,
-      productfield
+      AddressField,
+      FileField,
+      PaymentField,
+      ProductField,
+      ApplePay,
+      GooglePay,
+      PayPal,
+      ACH,
+      Card,
+      Form
     ])
 
     const loggerMiddleware = createLogger({ collapsed: true })

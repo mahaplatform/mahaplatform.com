@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-import Form from './form'
+import { Form } from 'maha-client'
 import React from 'react'
 
 class Preferences extends React.Component {
@@ -47,9 +47,41 @@ class Preferences extends React.Component {
   }
 
   _getForm() {
-    return this.props
+    return {
+      endpoint: '/api/crm/preferences',
+      method: 'POST',
+      fields: this._getFields()
+    }
   }
 
+  _getFields() {
+    const { contact, email_address, mailing_address, phone_number, topics } = this.props
+    const options = topics.map(topic => ({
+      value: topic.id,
+      text: topic.title
+    }))
+    const fields = [
+      { label: 'First Name', name: 'first_name', type: 'textfield', defaultValue: contact.first_name },
+      { label: 'Last Name', name: 'last_name', type: 'textfield', defaultValue: contact.last_name }
+    ]
+    if(email_address) {
+      fields.push({ label: 'Email', name: 'email', type: 'emailfield', defaultValue: email_address.address })
+    } else if (phone_number) {
+      fields.push({ label: 'Phone', name: 'phone', type: 'textfield', defaultValue: phone_number.number })
+    } else if (mailing_address) {
+      fields.push({ label: 'Address', name: 'address', type: 'textfield', defaultValue: mailing_address.address.description })
+    }
+    fields.push({ label: 'I am interested in the following topics:', name: 'topic_ids', type: 'checkboxes', options })
+    if(email_address) {
+      fields.push({ prompt: 'Please do not send marketing emails to this email address', name: 'consent', type: 'checkbox' })
+    } else if (phone_number) {
+      fields.push({ prompt: 'Please do not send marketing text messages to this phone number', name: 'consent', type: 'checkbox' })
+      fields.push({ prompt: 'Please do make marketing calls to this phone number', name: 'consent', type: 'checkbox' })
+    } else if (mailing_address) {
+      fields.push({ prompt: 'Please do not send marketing materials to this address', name: 'consent', type: 'checkbox' })
+    }
+    return fields
+  }
 }
 
 export default Preferences
