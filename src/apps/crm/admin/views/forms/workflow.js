@@ -24,6 +24,10 @@ class Designer extends React.Component {
     const { form, workflow } = this.props
     return {
       fields: form.config.fields,
+      trigger: {
+        icon: 'check-square-o',
+        text: 'Form is submitted'
+      },
       workflow,
       onSave: this._handleSave
     }

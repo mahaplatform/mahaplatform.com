@@ -24,6 +24,10 @@ class Designer extends React.Component {
     const { campaign, workflow } = this.props
     return {
       fields: [],
+      trigger: {
+        icon: 'paper-plane',
+        text: 'Email is sent'
+      },
       workflow,
       onSave: this._handleSave
     }
