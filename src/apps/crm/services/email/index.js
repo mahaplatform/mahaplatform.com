@@ -85,8 +85,7 @@ const getInlineStyle = (config) => [
     ]
   })),
   { selector: 'table.body', styles: [
-    ...getProp(config, 'background-color', 'page.background_color'),
-    ...getBorder(config, 'border-top', 'page.border_top')
+    ...getProp(config, 'background-color', 'page.background_color')
   ] },
   { selector: 'table.body>tbody>tr>td.float-center', styles: [
     ...getProp(config, 'padding', 'page.padding', 'px')

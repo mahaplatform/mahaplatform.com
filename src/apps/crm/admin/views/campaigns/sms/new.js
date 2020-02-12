@@ -65,7 +65,7 @@ class SMS extends React.PureComponent {
   }
 
   _handleSuccess(campaign) {
-    this.context.router.history.push(`/admin/crm/campaigns/sms/${campaign.code}`)
+    this.context.router.history.push(`/admin/crm/campaigns/sms/${campaign.id}`)
     this.context.modal.close()
   }
 

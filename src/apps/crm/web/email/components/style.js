@@ -85,8 +85,7 @@ class Style extends React.Component {
         ...this._getProp('color', 'page.a_color')
       ] },
       { selector: 'table.body', styles: [
-        ...this._getProp('background-color', 'page.background_color'),
-        ...this._getBorder('border-top', 'page.border_top')
+        ...this._getProp('background-color', 'page.background_color')
       ] },
       { selector: 'table.body>tbody>tr>td.float-center', styles: [
         ...this._getProp('padding', 'page.padding', 'px')

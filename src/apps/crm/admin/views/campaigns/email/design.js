@@ -5,72 +5,46 @@ import React from 'react'
 
 class Designer extends React.Component {
 
-  static contextTypes = {
-    network: PropTypes.object
-  }
-
   static propTypes = {
-    page: PropTypes.object,
-    template: PropTypes.object
+    campaign: PropTypes.object,
+    fields: PropTypes.array
   }
-
-  state = {
-    campaign: null
-  }
-
-  _handleFetch = this._handleFetch.bind(this)
-  _handleSave = this._handleSave.bind(this)
-  _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    if(!this.state.campaign) return null
     return <EmailDesigner { ...this._getEmailDesigner() } />
   }
 
-  componentDidMount() {
-    this._handleFetch()
-  }
-
   _getEmailDesigner() {
-    const { campaign } = this.state
+    const { campaign, fields } = this.props
     return {
       defaultValue: campaign.config,
-      onSave: this._handleSave
+      endpoint: `/api/admin/crm/campaigns/email/${campaign.id}`,
+      program_id: campaign.program.id,
+      tokens: [
+        { title: 'Contact Tokens', tokens: [
+          { name: 'Full Name', token: 'contact.full_name' },
+          { name: 'First Name', token: 'contact.first_name' },
+          { name: 'Last Name', token: 'contact.last_name' },
+          { name: 'Email', token: 'contact.email' }
+        ] },
+        { title: 'Email Tokens', tokens: [
+          { name: 'Preferences Link', token: 'email.preferences_link' },
+          { name: 'Web Link', token: 'email.web_link' }
+        ] }
+      ]
     }
-  }
-
-  _handleFetch() {
-    const { page } = this.props
-    const { id } = page.params
-    this.context.network.request({
-      method: 'get',
-      endpoint: `/api/admin/crm/campaigns/email/${id}`,
-      onSuccess: this._handleSuccess
-    })
-  }
-
-  _handleSave(config) {
-    const { page } = this.props
-    const { id } = page.params
-    this.context.network.request({
-      method: 'patch',
-      endpoint: `/api/admin/crm/campaigns/email/${id}`,
-      body: { config },
-      onSuccess: this._handleSuccess
-    })
-  }
-
-  _handleSuccess(result) {
-    this.setState({
-      campaign: result.data
-    })
   }
 
 }
 
+const mapResourcesToPage = (props, context) => ({
+  campaign: `/api/admin/crm/campaigns/email/${props.params.id}`,
+  fields: '/api/admin/crm/fields'
+})
+
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Email Campaign',
+  title: 'Email',
   component: Designer
 })
 
-export default Page(null, mapPropsToPage)
+export default Page(mapResourcesToPage, mapPropsToPage)

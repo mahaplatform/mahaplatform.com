@@ -53,7 +53,6 @@ class Page extends React.Component {
         {
           fields: [
             { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
-            this._getBorder('border_top', 'Border Top'),
             { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
           ]
         },
@@ -109,7 +108,7 @@ class Page extends React.Component {
 
   _getDefault() {
     return {
-      background_color: null,
+      background_color: '#DFDFDF',
       border_top_width: null,
       border_top_style: null,
       border_top_color: null,
@@ -119,21 +118,21 @@ class Page extends React.Component {
       email_border_style: null,
       email_border_color: null,
       h1_font_family: 'Arial, Helvetica, sans-serif',
-      h1_font_size: 28,
+      h1_font_size: 24,
       h1_color: '#202020',
       h1_format: ['bold'],
       h1_text_align: 'left',
       h1_line_height: 1,
       h1_letter_spacing: 0,
       h2_font_family: 'Arial, Helvetica, sans-serif',
-      h2_font_size: 24,
+      h2_font_size: 18,
       h2_color: '#202020',
       h2_format: ['bold'],
       h2_text_align: 'left',
       h2_line_height: 1,
       h2_letter_spacing: 0,
       p_font_family: 'Arial, Helvetica, sans-serif',
-      p_font_size: 18,
+      p_font_size: 14,
       p_color: '#202020',
       p_format: [],
       p_text_align: 'left',

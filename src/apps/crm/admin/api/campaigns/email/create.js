@@ -39,27 +39,32 @@ const createRoute = async (req, res) => {
           type: 'web',
           text: '<p>Not displaying correctly? <a href="<%- email.web_link %>">View in browser</a></p>',
           padding: 8,
-          font_size: 12,
-          text_align: 'center',
-          line_height: 1.5
+          p_font_size: 12,
+          p_text_align: 'center',
+          p_line_height: 1.5
         }, {
+          background_color: '#FFFFFF',
           type: 'text',
-          content_0: '<p>lalala</p>',
+          content_0: '<p>Messenger bag portland adaptogen food truck pabst, la croix pug vinyl mumblecore chartreuse. Art party schlitz portland, try-hard semiotics tumblr green juice gentrify letterpress tilde gochujang whatever helvetica tote bag. Locavore quinoa man braid cred selvage chambray. Post-ironic everyday carry kale chips umami woke polaroid, meggings organic pork belly air plant.</p>',
           padding: 16
         }, {
           type: 'preferences',
           text: '<p>This email was sent to <strong><%- contact.email %></strong>. If you would like to control how much email you recieve from us, you can <a href="<%- email.preferences_link %>">adjust your preferences</a></p>',
           padding: 8,
-          font_size: 12,
-          text_align: 'center',
-          line_height: 1.5
+          p_font_size: 14,
+          p_text_align: 'center',
+          p_line_height: 1.5
         }
       ],
       settings: {
         sender_id: req.body.sender_id,
         subject: req.body.subject,
         reply_to: req.body.reply_to,
-        preview_text: 'Thank you for filling out our form'
+        preview_text: req.body.subject
+      },
+      page: {
+        background_color: '#DFDFDF',
+        p_font_size: 12
       }
     }
   }).save(null, {
@@ -78,7 +83,24 @@ const createRoute = async (req, res) => {
     code: workflowCode,
     status: 'active',
     config: {
-      steps: []
+      steps: [
+        {
+          code: 'v6k3twzy02',
+          type: 'verb',
+          delta: 0,
+          action: 'wait',
+          answer: null,
+          config: {
+            strategy: 'duration',
+            until_date: null,
+            until_time: null,
+            duration_days: 1,
+            duration_mins: 0,
+            duration_hours: 0
+          },
+          parent: null
+        }
+      ]
     }
   }).save(null, {
     transacting: req.trx

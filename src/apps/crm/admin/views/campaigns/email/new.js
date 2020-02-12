@@ -56,7 +56,7 @@ class Email extends React.PureComponent {
   }
 
   _handleSuccess(campaign) {
-    this.context.router.history.push(`/admin/crm/campaigns/email/${campaign.code}`)
+    this.context.router.history.push(`/admin/crm/campaigns/email/${campaign.id}`)
     this.context.modal.close()
   }
 
