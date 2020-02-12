@@ -9,7 +9,10 @@ class Sidebar extends React.PureComponent {
   static propTypes = {
     active: PropTypes.string,
     blocks: PropTypes.array,
+    changes: PropTypes.number,
+    cid: PropTypes.string,
     fields: PropTypes.array,
+    status: PropTypes.string,
     steps: PropTypes.array,
     workflow: PropTypes.object,
     onEdit: PropTypes.func,
@@ -47,9 +50,13 @@ class Sidebar extends React.PureComponent {
   }
 
   _getContent() {
-    const { blocks, onSave } = this.props
+    const { blocks, changes, cid, status, onSave } = this.props
     return {
-      blocks, onSave
+      blocks,
+      changes,
+      cid,
+      status,
+      onSave
     }
   }
 

@@ -1,4 +1,5 @@
 import { ModalPanel } from 'maha-admin'
+import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Block from './block'
 import React from 'react'
@@ -8,8 +9,10 @@ class Content extends React.Component {
 
   static propTypes = {
     blocks: PropTypes.array,
+    changes: PropTypes.number,
     cid: PropTypes.string,
     config: PropTypes.object,
+    status: PropTypes.string,
     onSave: PropTypes.func
   }
 
@@ -31,10 +34,16 @@ class Content extends React.Component {
   }
 
   _getPanel() {
+    const { changes, status } = this.props
     return {
       title: 'Workflow',
       buttons: [
-        { label: 'Save', color: 'red', handler: this._handleSave }
+        {
+          label: status === 'ready' ? 'Save' : <i className="fa fa-circle-o-notch fa-spin" />,
+          color: 'red',
+          disabled: changes === 0,
+          handler: this._handleSave
+        }
       ]
     }
   }
@@ -45,4 +54,9 @@ class Content extends React.Component {
 
 }
 
-export default Content
+const mapStateToProps = (state, props) => ({
+  changes: state.crm.flowchart_designer[props.cid].changes,
+  config: state.crm.flowchart_designer[props.cid].config
+})
+
+export default connect(mapStateToProps)(Content)

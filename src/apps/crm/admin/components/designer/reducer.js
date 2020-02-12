@@ -50,7 +50,6 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'EDIT':
     return {
       ...state,
-      changes: state.changes + 1,
       active: action.index
     }
 

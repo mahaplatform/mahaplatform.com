@@ -5,16 +5,10 @@ import React from 'react'
 
 class Designer extends React.Component {
 
-  static contextTypes = {
-    network: PropTypes.object
-  }
-
   static propTypes = {
     form: PropTypes.object,
     workflow: PropTypes.object
   }
-
-  _handleSave = this._handleSave.bind(this)
 
   render() {
     return <WorkflowDesigner { ...this._getWorkflowDesigner() } />
@@ -23,6 +17,7 @@ class Designer extends React.Component {
   _getWorkflowDesigner() {
     const { form, workflow } = this.props
     return {
+      endpoint: `/api/admin/crm/workflows/${workflow.id}`,
       fields: form.config.fields,
       trigger: {
         icon: 'check-square-o',
@@ -31,16 +26,6 @@ class Designer extends React.Component {
       workflow,
       onSave: this._handleSave
     }
-  }
-
-  _handleSave(steps) {
-    const { workflow } = this.props
-    const { id } = workflow
-    this.context.network.request({
-      method: 'patch',
-      endpoint: `/api/admin/crm/workflows/${id}`,
-      body: { config: { steps } }
-    })
   }
 
 }

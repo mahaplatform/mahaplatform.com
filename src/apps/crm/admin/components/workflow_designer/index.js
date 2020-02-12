@@ -5,9 +5,10 @@ import React from 'react'
 class WorkflowDesigner extends React.PureComponent {
 
   static propTypes = {
+    endpoint: PropTypes.string,
     fields: PropTypes.array,
     tokens: PropTypes.object,
-    trigger: PropTypes.string,
+    trigger: PropTypes.object,
     workflow: PropTypes.object,
     onSave: PropTypes.func
   }
@@ -17,9 +18,10 @@ class WorkflowDesigner extends React.PureComponent {
   }
 
   _getFlowchartDesigner() {
-    const { fields, workflow, tokens, trigger, onSave } = this.props
+    const { endpoint, fields, workflow, tokens, trigger, onSave } = this.props
     const { config, status } = workflow
     return {
+      endpoint,
       fields,
       workflow,
       tokens,

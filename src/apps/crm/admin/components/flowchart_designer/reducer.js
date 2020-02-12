@@ -1,6 +1,8 @@
 const INITIAL_STATE = {
   active: null,
+  changes: 0,
   hovering: null,
+  status: 'ready',
   steps: []
 }
 
@@ -13,6 +15,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       active: action.step.code,
+      changes: state.changes + 1,
       hovering: null,
       steps: [
         ...state.steps.map(step => ({
@@ -39,6 +42,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'MOVE':
     return {
       ...state,
+      changes: state.changes + 1,
       steps: [
         ...state.steps.map(step => {
           if(step.code === action.code) {
@@ -64,6 +68,7 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       active: state.active !== action.step.code ? state.active : null,
+      changes: state.changes + 1,
       steps: [
         ...state.steps.filter(step => {
           return step.code !== action.step.code && step.parent !== action.step.code
@@ -72,6 +77,19 @@ const reducer = (state = INITIAL_STATE, action) => {
           delta: step.delta - (step.parent === action.step.parent && step.answer === action.step.answer && step.delta > action.step.delta ? 1 : 0)
         }))
       ]
+    }
+
+  case 'SAVE_REQUEST':
+    return {
+      ...state,
+      status: 'saving'
+    }
+
+  case 'SAVE_SUCCESS':
+    return {
+      ...state,
+      status: 'ready',
+      changes: 0
     }
 
   case 'SET':
@@ -83,6 +101,7 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'UPDATE':
     return {
       ...state,
+      changes: state.changes + 1,
       steps: [
         ...state.steps.map(step => {
           if(step.code !== action.code) return step
