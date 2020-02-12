@@ -1,47 +1,8 @@
 import socket from '../../../../../../core/services/routes/emitter'
 import { contactActivity } from '../../../../services/activities'
-import MailingAddress from '../../../../models/mailing_address'
-import EmailAddress from '../../../../models/email_address'
-import PhoneNumber from '../../../../models/phone_number'
+import { updateConsent } from '../../../../services/consents'
 import Contact from '../../../../models/contact'
-import Consent from '../../../../models/consent'
-import moment from 'moment'
-import _ from 'lodash'
-
-const _getKey = (type) => {
-  if(type === 'email') return 'email_address_id'
-  if(type === 'sms') return 'phone_number_id'
-  if(type === 'voice') return 'phone_number_id'
-  if(type === 'mail') return 'mailing_address_id'
-}
-
-const _getChannel = async (req, { type, id }) => {
-  if(type === 'email') {
-    return await EmailAddress.scope(qb => {
-      qb.where('team_id', req.team.get('id'))
-    }).query(qb => {
-      qb.where('id', id)
-    }).fetch({
-      transacting: req.trx
-    }).then(result => result.get('address'))
-  } else if(_.includes(['sms','voice'], type)) {
-    return await PhoneNumber.scope(qb => {
-      qb.where('team_id', req.team.get('id'))
-    }).query(qb => {
-      qb.where('id', id)
-    }).fetch({
-      transacting: req.trx
-    }).then(result => result.get('number'))
-  } else if(type === 'mail') {
-    return await MailingAddress.scope(qb => {
-      qb.where('team_id', req.team.get('id'))
-    }).query(qb => {
-      qb.where('id', id)
-    }).fetch({
-      transacting: req.trx
-    }).then(result => result.get('address').description)
-  }
-}
+import Program from '../../../../models/program'
 
 const destroyRoute = async (req, res) => {
 
@@ -58,30 +19,22 @@ const destroyRoute = async (req, res) => {
     message: 'Unable to load contact'
   })
 
-  const key = _getKey(req.body.channel_type)
-
-  const consent = await Consent.scope(qb => {
+  const program = await Program.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
-    qb.where(key, req.body.channel_id)
-    qb.where('type', req.body.channel_type)
-    qb.where('program_id', req.body.program_id)
+    qb.where('id', req.body.program_id)
   }).fetch({
-    withRelated: ['program'],
     transacting: req.trx
   })
 
-  await consent.save({
-    optedout_at: moment(),
+  const { activity } = await updateConsent(req, {
+    program,
+    channel_type: req.body.channel_type,
+    channel_id: req.body.channel_id,
+    optout: true,
+    optin_reason: null,
     optout_reason: req.body.optout_reason,
     optout_reason_other: req.body.optout_reason_other
-  }, {
-    transacting: req.trx
-  })
-
-  const channel = await _getChannel(req, {
-    type: req.body.channel_type,
-    id: req.body.channel_id
   })
 
   await contactActivity(req, {
@@ -89,12 +42,7 @@ const destroyRoute = async (req, res) => {
     contact,
     type: 'consent',
     story: 'updated communication preferences',
-    data: {
-      program: consent.related('program').get('title'),
-      type: req.body.channel_type,
-      [key.replace('_id','')]: channel,
-      actions: [{ action: 'unconsented' }]
-    }
+    data: activity
   })
 
   await socket.refresh(req, [

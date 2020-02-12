@@ -1,58 +1,13 @@
-import { updateRelated } from '../../../../../core/services/routes/relations'
-import MailingAddress from '../../../models/mailing_address'
-import { decode } from '../../../../../core/services/jwt'
-import EmailAddress from '../../../models/email_address'
-import PhoneNumber from '../../../models/phone_number'
+import socket from '../../../../../core/services/routes/emitter'
+import { contactActivity } from '../../../services/activities'
+import { updateConsent } from '../../../services/consents'
 import Program from '../../../models/program'
 import { checkToken } from '../utils'
 
-import Consent from '../../../models/consent'
-import moment from 'moment'
-
-const updateConsent = async(req, { optout, email_address, program }) => {
-
-  const consent = await Consent.query(qb => {
-    qb.where('email_address_id',  email_address.get('id'))
-    qb.where('program_id',  program.get('id'))
-  }).fetch({
-    transacting: req.trx
-  })
-
-  if(consent && optout) {
-    await consent.save({
-      optedout_at: moment(),
-      optout_reason: null,
-      optout_reason_other: null
-    }, {
-      transacting: req.trx,
-      patch: true
-    })
-  }
-
-  if(consent && !optout) {
-    await consent.save({
-      optedin_at: moment(),
-      optedout_at: null,
-      optout_reason: null,
-      optout_reason_other: null
-    }, {
-      transacting: req.trx,
-      patch: true
-    })
-  }
-
-  if(!consent) {
-    await Consent.forge({
-      team_id: req.team.get('id'),
-      email_address_id: email_address.get('id'),
-      code: 'abcde12345',
-      optedin_at: moment(),
-      optedout_at: optout ? moment() : null,
-      optout_reason: null,
-      optout_reason_other: null
-    })
-  }
-
+const _getChannelType = (type) => {
+  if(type === 'e') return 'email'
+  if(type === 'p') return 'sms'
+  if(type === 'm') return 'mail'
 }
 
 const updateRoute = async (req, res) => {
@@ -64,17 +19,24 @@ const updateRoute = async (req, res) => {
   const program = await Program.query(qb => {
     qb.where('code', req.params.program_code)
   }).fetch({
+    withRelated: ['team'],
     transacting: req.trx
   })
 
-  const email_address = await EmailAddress.query(qb => {
-    qb.where('code', req.params.code)
-  }).fetch({
-    withRelated: ['contact'],
-    transacting: req.trx
-  })
+  req.team = program.related('team')
 
-  const contact = email_address.related('contact')
+  const channel_type = _getChannelType(req.params.type)
+
+  const { contact, activity } = await updateConsent(req, {
+    program,
+    channel_type,
+    channel_code: req.params.code,
+    optout: req.params.optout,
+    optin_reason: 'consent',
+    optout_reason: '',
+    optout_reason_other: null,
+    topic_ids: req.body.topic_ids
+  })
 
   await contact.save({
     first_name: req.body.first_name,
@@ -84,22 +46,18 @@ const updateRoute = async (req, res) => {
     patch: true
   })
 
-  await updateRelated(req, {
-    object: contact,
-    related: 'topics',
-    table: 'crm_interests',
-    ids: req.body.topic_ids,
-    foreign_key: 'contact_id',
-    related_foreign_key: 'topic_id'
+  await contactActivity(req, {
+    contact,
+    type: 'consent',
+    story: 'updated communication preferences',
+    data: activity
   })
 
-  await updateConsent(req, {
-    optout: req.body.consent,
-    email_address,
-    program
-  })
+  await socket.refresh(req, [
+    `/admin/crm/contacts/${contact.get('id')}`
+  ])
 
-  res.status(200).respond(contact)
+  res.status(200).respond(true)
 
 }
 
