@@ -47,14 +47,22 @@ class Preferences extends React.Component {
                 Thank you! We&apos;ve updated your communication preferences!
               </div>
             }
-            { mode === 'form' && type === 'email' &&
+            { mode === 'form' &&
               <div className="maha-form-footer">
-                <p><strong>Not your email address?</strong></p>
                 <p>
-                  An email may have been forwarded to you from a friend or
-                  colleague. Please contact them directly to stop receiving
-                  forwarded emails
+                  <strong>Disclaimer</strong><br />
+                  You may still recieve non-marketing or transactional
+                  communications if you have signed up for one or more of
+                  our services
                 </p>
+                { type === 'email' &&
+                  <p>
+                    <strong>Not your email address?</strong><br />
+                    An email may have been forwarded to you from a friend or
+                    colleague. Please contact them directly to stop receiving
+                    forwarded emails
+                  </p>
+                }
               </div>
             }
           </div>
@@ -85,37 +93,56 @@ class Preferences extends React.Component {
   }
 
   _getFields() {
-    const { contact, email_address, mailing_address, phone_number, topics, type } = this.props
+    const { contact, topics } = this.props
     const options = topics.map(topic => ({
       value: topic.id,
       text: topic.title
     }))
-    const fields = [
+    return [
       { label: 'First Name', name: 'first_name', type: 'textfield', defaultValue: contact.first_name },
-      { label: 'Last Name', name: 'last_name', type: 'textfield', defaultValue: contact.last_name }
+      { label: 'Last Name', name: 'last_name', type: 'textfield', defaultValue: contact.last_name },
+      this._getChannel(),
+      ...topics.length > 0 ? [{ label: 'I am interested in the following topics:', name: 'topic_ids', type: 'checkboxes', options, defaultValue: contact.topic_ids }] : [],
+      this._getConsent()
     ]
+  }
+
+  _getChannel() {
+    const { email_address, mailing_address, phone_number, type } = this.props
     if(type === 'email') {
-      fields.push({ label: 'Email', name: 'email', type: 'emailfield', defaultValue: email_address.address, disabled: true })
+      return { label: 'Email', name: 'email', type: 'emailfield', defaultValue: email_address.address, disabled: true }
     } else if(type === 'voice') {
-      fields.push({ label: 'Phone', name: 'phone', type: 'textfield', defaultValue: phone_number.number, disabled: true })
+      return { label: 'Phone', name: 'phone', type: 'textfield', defaultValue: phone_number.number, disabled: true }
     } else if(type === 'sms') {
-      fields.push({ label: 'Phone', name: 'phone', type: 'textfield', defaultValue: phone_number.number, disabled: true })
+      return { label: 'Phone', name: 'phone', type: 'textfield', defaultValue: phone_number.number, disabled: true }
     } else if(type === 'mail') {
-      fields.push({ label: 'Address', name: 'address', type: 'textfield', defaultValue: mailing_address.address.description, disabled: true })
+      return { label: 'Address', name: 'address', type: 'textfield', defaultValue: mailing_address.address.description, disabled: true }
     }
-    if(topics.length > 0) {
-      fields.push({ label: 'I am interested in the following topics:', name: 'topic_ids', type: 'checkboxes', options, defaultValue: contact.topic_ids })
+  }
+
+  _getConsent() {
+    const { contact, type } = this.props
+    if(contact.optout) {
+      if(type === 'email') {
+        return { prompt: 'Please contact me with marketing information at this email address', name: 'optin', type: 'checkbox' }
+      } else if(type === 'voice') {
+        return { prompt: 'Please call me with marketing information at this phone number', name: 'optin', type: 'checkbox' }
+      } else if(type === 'sms') {
+        return { prompt: 'Please text me with marketing information at this phone number', name: 'optin', type: 'checkbox' }
+      } else if(type === 'mail') {
+        return { prompt: 'Please send marketing materials to this address', name: 'optin', type: 'checkbox' }
+      }
+    } else {
+      if(type === 'email') {
+        return { prompt: 'Please do not send marketing emails to this email address', name: 'optout', type: 'checkbox' }
+      } else if(type === 'voice') {
+        return { prompt: 'Please do make marketing calls to this phone number', name: 'optout', type: 'checkbox' }
+      } else if(type === 'sms') {
+        return { prompt: 'Please do not send marketing text messages to this phone number', name: 'optout', type: 'checkbox' }
+      } else if(type === 'mail') {
+        return { prompt: 'Please do not send marketing materials to this address', name: 'optout', type: 'checkbox' }
+      }
     }
-    if(type === 'email') {
-      fields.push({ prompt: 'Please do not send marketing emails to this email address', name: 'optout', type: 'checkbox', defaultValue: contact.optout })
-    } else if(type === 'voice') {
-      fields.push({ prompt: 'Please do make marketing calls to this phone number', name: 'optout', type: 'checkbox', defaultValue: contact.optout })
-    } else if(type === 'sms') {
-      fields.push({ prompt: 'Please do not send marketing text messages to this phone number', name: 'optout', type: 'checkbox', defaultValue: contact.optout })
-    } else if(type === 'mail') {
-      fields.push({ prompt: 'Please do not send marketing materials to this address', name: 'optout', type: 'checkbox', defaultValue: contact.optout })
-    }
-    return fields
   }
 
   _handleSuccess(result) {

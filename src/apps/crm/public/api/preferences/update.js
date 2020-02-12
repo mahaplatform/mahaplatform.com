@@ -23,7 +23,7 @@ const updateRoute = async (req, res) => {
     program,
     channel_type: req.params.type,
     channel_code: req.params.code,
-    optout: req.body.optout,
+    optout: req.body.optout || req.body.optin !== true,
     optin_reason: 'consent',
     optout_reason: null,
     optout_reason_other: null,

@@ -3,6 +3,6 @@ import show from './show'
 
 const server = express()
 
-server.get('/:type/:program_code/:code', show)
+server.get('/:type/:program_code([a-z0-9]{10}):code([a-z0-9]{10})', show)
 
 export default server
