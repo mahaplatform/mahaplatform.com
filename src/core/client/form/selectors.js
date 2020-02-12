@@ -11,10 +11,10 @@ const status = (state, props) => state.status
 
 const validated = (state, props) => state.validated
 
-const submittable = createSelector(
+export const submittable = createSelector(
   fields,
   (fields) => fields.filter(field => {
-    return !_.includes(['text'], field.type)
+    return !_.includes(['text'], field.type) && field.disabled !== true
   })
 )
 

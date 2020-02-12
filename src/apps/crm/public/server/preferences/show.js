@@ -19,7 +19,7 @@ const getChannel = async(req, { type, code }) => {
     qb.where('team_id', req.team.get('id'))
     qb.where('code', req.params.code)
   }).fetch({
-    withRelated: ['contact'],
+    withRelated: ['contact.topics'],
     transacting: req.trx
   })
 
@@ -66,7 +66,8 @@ const showRoute = async (req, res) => {
         id: contact.get('id'),
         full_name: contact.get('full_name'),
         first_name: contact.get('first_name'),
-        last_name: contact.get('last_name')
+        last_name: contact.get('last_name'),
+        topic_ids: contact.related('topics').map(topic => topic.id)
       },
       program: {
         code: program.get('code'),

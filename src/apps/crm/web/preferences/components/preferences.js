@@ -49,10 +49,10 @@ class Preferences extends React.Component {
   }
 
   _getForm() {
-    const { token } = this.props
+    const { email_address, program, token } = this.props
     return {
-      endpoint: '/api/crm/preferences',
-      method: 'POST',
+      endpoint: `/api/crm/preferences/e/${program.code}/${email_address.code}`,
+      method: 'PATCH',
       captcha: false,
       token,
       fields: this._getFields(),
@@ -78,7 +78,9 @@ class Preferences extends React.Component {
     } else if (mailing_address) {
       fields.push({ label: 'Address', name: 'address', type: 'textfield', defaultValue: mailing_address.address.description, disabled: true })
     }
-    fields.push({ label: 'I am interested in the following topics:', name: 'topic_ids', type: 'checkboxes', options })
+    if(topics.length > 0) {
+      fields.push({ label: 'I am interested in the following topics:', name: 'topic_ids', type: 'checkboxes', options, defaultValue: contact.topic_ids })
+    }
     if(email_address) {
       fields.push({ prompt: 'Please do not send marketing emails to this email address', name: 'consent', type: 'checkbox' })
     } else if (phone_number) {
