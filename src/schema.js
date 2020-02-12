@@ -593,6 +593,7 @@ const schema = {
       table.integer('list_id').unsigned()
       table.integer('email_id').unsigned()
       table.jsonb('config')
+      table.integer('email_campaign_id').unsigned()
     })
 
     await knex.schema.createTable('drive_access', (table) => {
@@ -2272,6 +2273,7 @@ const schema = {
       table.foreign('program_id').references('crm_programs.id')
       table.foreign('team_id').references('maha_teams.id')
       table.foreign('topic_id').references('crm_topics.id')
+      table.foreign('email_campaign_id').references('crm_email_campaigns.id')
     })
 
     await knex.schema.table('drive_access', table => {

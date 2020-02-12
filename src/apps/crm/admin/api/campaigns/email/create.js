@@ -4,6 +4,7 @@ import { whitelist } from '../../../../../../core/services/routes/params'
 import generateCode from '../../../../../../core/utils/generate_code'
 import socket from '../../../../../../core/services/routes/emitter'
 import EmailCampaign from '../../../../models/email_campaign'
+import Workflow from '../../../../models/workflow'
 import Program from '../../../../models/program'
 
 const createRoute = async (req, res) => {
@@ -31,7 +32,54 @@ const createRoute = async (req, res) => {
     code,
     status: 'draft',
     program_id: program.get('id'),
-    ...whitelist(req.body, ['sender_id','title','purpose','reply_to','to','subject'])
+    ...whitelist(req.body, ['title','purpose']),
+    config: {
+      blocks: [
+        {
+          type: 'web',
+          text: '<p>Not displaying correctly? <a href="<%- email.web_link %>">View in browser</a></p>',
+          padding: 8,
+          font_size: 12,
+          text_align: 'center',
+          line_height: 1.5
+        }, {
+          type: 'text',
+          content_0: '<p>lalala</p>',
+          padding: 16
+        }, {
+          type: 'preferences',
+          text: '<p>This email was sent to <strong><%- contact.email %></strong>. If you would like to control how much email you recieve from us, you can <a href="<%- email.preferences_link %>">adjust your preferences</a></p>',
+          padding: 8,
+          font_size: 12,
+          text_align: 'center',
+          line_height: 1.5
+        }
+      ],
+      settings: {
+        sender_id: req.body.sender_id,
+        subject: req.body.subject,
+        reply_to: req.body.reply_to,
+        preview_text: 'Thank you for filling out our form'
+      }
+    }
+  }).save(null, {
+    transacting: req.trx
+  })
+
+  const workflowCode = await generateCode(req, {
+    table: 'crm_workflows'
+  })
+
+  await Workflow.forge({
+    team_id: req.team.get('id'),
+    email_campaign_id: campaign.get('id'),
+    program_id: program.get('id'),
+    title: 'Email Workflow',
+    code: workflowCode,
+    status: 'active',
+    config: {
+      steps: []
+    }
   }).save(null, {
     transacting: req.trx
   })

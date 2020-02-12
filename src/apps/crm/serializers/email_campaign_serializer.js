@@ -2,7 +2,7 @@ const EmailCampaignSerializer = (req, result) => ({
   id: result.get('id'),
   title: result.get('title'),
   program: program(result.related('program')),
-  sender: sender(result.related('sender')),
+  workflow: workflow(result.related('workflow')),
   subject: result.get('subject'),
   reply_to: result.get('reply_to'),
   to: result.get('to'),
@@ -24,14 +24,13 @@ const program = (program) => {
   }
 }
 
-const sender = (sender) => {
-  if(!sender.id) return
+const workflow = (workflow) => {
+  if(!workflow.id) return
   return {
-    id: sender.get('id'),
-    name: sender.get('name'),
-    email: sender.get('email'),
-    rfc822: sender.get('rfc822')
+    id: workflow.get('id'),
+    title: workflow.get('title')
   }
 }
+
 
 export default EmailCampaignSerializer

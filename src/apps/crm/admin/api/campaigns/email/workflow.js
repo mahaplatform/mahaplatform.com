@@ -1,14 +1,14 @@
-import EmailCampaignSerializer from '../../../../serializers/email_campaign_serializer'
+import WorkflowSerializer from '../../../../serializers/workflow_serializer'
 import EmailCampaign from '../../../../models/email_campaign'
 
-const showRoute = async (req, res) => {
+const workflowRoute = async (req, res) => {
 
   const campaign = await EmailCampaign.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['program','workflow'],
+    withRelated: ['workflow.program'],
     transacting: req.trx
   })
 
@@ -17,8 +17,8 @@ const showRoute = async (req, res) => {
     message: 'Unable to load campaign'
   })
 
-  res.status(200).respond(campaign, EmailCampaignSerializer)
+  res.status(200).respond(campaign.related('workflow'), WorkflowSerializer)
 
 }
 
-export default showRoute
+export default workflowRoute

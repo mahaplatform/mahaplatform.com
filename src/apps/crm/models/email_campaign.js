@@ -1,6 +1,6 @@
 import Model from '../../../core/objects/model'
+import Workflow from './workflow'
 import Program from './program'
-import Sender from './sender'
 
 const EmailCampaign = new Model({
 
@@ -14,8 +14,8 @@ const EmailCampaign = new Model({
     return this.belongsTo(Program, 'program_id')
   },
 
-  sender() {
-    return this.belongsTo(Sender, 'sender_id')
+  workflow() {
+    return this.hasOne(Workflow, 'email_campaign_id')
   }
 
 })

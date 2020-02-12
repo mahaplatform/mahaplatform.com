@@ -1,5 +1,5 @@
 const CampaignSerializer = (req, result) => ({
-  id: result.get('id'),
+  id: result.get('item_id'),
   title: result.get('title'),
   program: program(result.related('program')),
   type: result.get('type'),

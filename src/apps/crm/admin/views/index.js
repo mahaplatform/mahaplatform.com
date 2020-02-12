@@ -8,6 +8,7 @@ import CampaignsVoiceDesign from './campaigns/voice/design'
 import CampaignsEmail from './campaigns/email/show'
 import CampaignsEmailDeliveries from './campaigns/email/deliveries'
 import CampaignsEmailDesign from './campaigns/email/design'
+import CampaignsEmailWorkflowDesign from './campaigns/email/workflow'
 import CampaignsSMS from './campaigns/sms/show'
 import CampaignsSMSDesign from './campaigns/sms/design'
 import ContactsList from './contacts/list'
@@ -47,6 +48,7 @@ const routes = [
   { path: '/campaigns/email/:id', component: CampaignsEmail },
   { path: '/campaigns/email/:id/deliveries', component: CampaignsEmailDeliveries },
   { path: '/campaigns/email/:id/design', component: CampaignsEmailDesign },
+  { path: '/campaigns/email/:id/workflow', component: CampaignsEmailWorkflowDesign },
   { path: '/campaigns/sms/:id', component: CampaignsSMS },
   { path: '/campaigns/sms/:id/design', component: CampaignsSMSDesign },
   { path: '/contacts', component: ContactsList },

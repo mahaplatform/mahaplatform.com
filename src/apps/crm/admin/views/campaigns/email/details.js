@@ -9,18 +9,22 @@ const Details = ({ campaign }) => {
   const design = {
     label: 'Design Email',
     className: 'link',
-    route: `/admin/crm/campaigns/email/${campaign.code}/design`
+    route: `/admin/crm/campaigns/email/${campaign.id}/design`
+  }
+
+  const workflow = {
+    label: 'Design Workflow',
+    className: 'link',
+    route: `/admin/crm/campaigns/email/${campaign.id}/workflow`
   }
 
   config.items = [
     { label: 'Title', content: campaign.title },
     { label: 'Program', content: campaign.program.title },
-    { label: 'From', content: campaign.sender.rfc822 },
     { label: 'To', content: campaign.to },
-    { label: 'Reply To', content: campaign.reply_to },
-    { label: 'Subject', content: campaign.subject },
     { label: 'Status', content: campaign.status },
-    { label: 'Content', content: <Button { ...design } /> }
+    { label: 'Content', content: <Button { ...design } /> },
+    { label: 'Workflow', content: <Button { ...workflow } /> }
   ]
 
   return <List { ...config } />
