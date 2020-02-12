@@ -4,12 +4,6 @@ import { updateConsent } from '../../../services/consents'
 import Program from '../../../models/program'
 import { checkToken } from '../utils'
 
-const _getChannelType = (type) => {
-  if(type === 'e') return 'email'
-  if(type === 'p') return 'sms'
-  if(type === 'm') return 'mail'
-}
-
 const updateRoute = async (req, res) => {
 
   if(!checkToken(req.headers.authorization, req.params.code)) {
@@ -25,15 +19,13 @@ const updateRoute = async (req, res) => {
 
   req.team = program.related('team')
 
-  const channel_type = _getChannelType(req.params.type)
-
   const { contact, activity } = await updateConsent(req, {
     program,
-    channel_type,
+    channel_type: req.params.type,
     channel_code: req.params.code,
-    optout: req.params.optout,
+    optout: req.body.optout,
     optin_reason: 'consent',
-    optout_reason: '',
+    optout_reason: null,
     optout_reason_other: null,
     topic_ids: req.body.topic_ids
   })

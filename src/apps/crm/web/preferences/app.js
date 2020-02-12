@@ -6,9 +6,7 @@ import React from 'react'
 
 class App extends React.Component {
 
-  static propTypes = {
-    config: PropTypes.object
-  }
+  static propTypes = {}
 
   render() {
     return (

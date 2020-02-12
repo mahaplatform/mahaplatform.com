@@ -24,17 +24,21 @@ class Form extends React.Component {
     token: PropTypes.string,
     validated: PropTypes.array,
     onChange: PropTypes.func,
+    onFailure: PropTypes.func,
     onSetHuman: PropTypes.func,
     onSetReady: PropTypes.func,
     onSetStatus: PropTypes.func,
     onSetValid: PropTypes.func,
     onValidate: PropTypes.func,
-    onSubmit: PropTypes.func
+    onSubmit: PropTypes.func,
+    onSuccess: PropTypes.func
   }
 
   static defaultProps = {
     captcha: true,
-    submitText: 'Submit'
+    submitText: 'Submit',
+    onFailure: () => {},
+    onSuccess: () => {}
   }
 
   _handleValidate = this._handleValidate.bind(this)
@@ -67,6 +71,7 @@ class Form extends React.Component {
       this._handleSubmit()
     }
     if(status !== prevProps.status) {
+      if(status === 'failure') this._handleFailure()
       if(status === 'success') this._handleSuccess()
     }
   }
@@ -84,6 +89,10 @@ class Form extends React.Component {
     }
   }
 
+  _handleFailure() {
+    this.props.onFailure()
+  }
+
   _getFields() {
     return this.props
   }
@@ -99,11 +108,11 @@ class Form extends React.Component {
   _handleSubmit() {
     const { endpoint, method, data, token } = this.props
     this.props.onSubmit(endpoint, method, token, data)
-
   }
 
   _handleSuccess() {
-
+    const { data } = this.props
+    this.props.onSuccess(data)
   }
 
   _handleValidate() {
