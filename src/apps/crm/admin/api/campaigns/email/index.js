@@ -8,6 +8,7 @@ import update from './update'
 import edit from './edit'
 import show from './show'
 import list from './list'
+import send from './send'
 
 const router = new Router({ mergeParams: true })
 
@@ -24,6 +25,8 @@ router.get('/:id/edit', edit)
 router.get('/:id/performance', performance)
 
 router.get('/:id/workflows', workflows)
+
+router.patch('/:id/send', send)
 
 router.patch('/:id', update)
 

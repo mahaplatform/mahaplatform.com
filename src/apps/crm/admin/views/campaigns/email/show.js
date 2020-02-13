@@ -3,6 +3,7 @@ import Workflows from './workflows'
 import { Page } from 'maha-admin'
 import Details from './details'
 import React from 'react'
+import Send from './send'
 
 const getTabs = ({ campaign, performance, workflows }) => {
 
@@ -16,7 +17,11 @@ const getTabs = ({ campaign, performance, workflows }) => {
 
 }
 
-const getTasks = ({ list }) => {}
+const getTasks = ({ campaign }) =>  ({
+  items: [
+    { label: 'Send Campaign', modal: <Send campaign={ campaign } /> }
+  ]
+})
 
 const mapResourcesToPage = (props, context) => ({
   campaign: `/api/admin/crm/campaigns/email/${props.params.id}`,

@@ -1,6 +1,7 @@
 import { Button, List } from 'maha-admin'
 import Recipients from './recipients'
 import PropTypes from 'prop-types'
+import pluralize from 'pluralize'
 import React from 'react'
 
 const Details = ({ campaign }) => {
@@ -14,7 +15,7 @@ const Details = ({ campaign }) => {
   }
 
   const to = {
-    label: '1542 Contacts',
+    label: pluralize('contact', campaign.recipients, true),
     className: 'link',
     modal: <Recipients campaign={ campaign } />
   }
@@ -24,6 +25,7 @@ const Details = ({ campaign }) => {
     { label: 'Program', content: campaign.program.title },
     { label: 'To', content: <Button { ...to } /> },
     { label: 'Status', content: campaign.status },
+    { label: 'Send At', content: campaign.send_at },
     { label: 'Content', content: <Button { ...design } /> }
   ]
 

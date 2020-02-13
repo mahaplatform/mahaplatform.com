@@ -5,6 +5,7 @@ const EmailCampaignSerializer = (req, result) => ({
   subject: result.get('subject'),
   reply_to: result.get('reply_to'),
   to: result.get('to'),
+  recipients: result.get('recipients'),
   code: result.get('code'),
   type: result.get('type'),
   status: result.get('status'),

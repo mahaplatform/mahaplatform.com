@@ -1,4 +1,5 @@
 import EmailCampaignSerializer from '../../../../serializers/email_campaign_serializer'
+import { getRecipients } from '../../../../services/email_addresses'
 import EmailCampaign from '../../../../models/email_campaign'
 
 const showRoute = async (req, res) => {
@@ -16,6 +17,12 @@ const showRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load campaign'
   })
+
+  const contacts = await getRecipients(req, {
+    to: campaign.get('to')
+  })
+
+  campaign.set('recipients', contacts.length)
 
   res.status(200).respond(campaign, EmailCampaignSerializer)
 

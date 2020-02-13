@@ -339,6 +339,7 @@ const schema = {
       table.timestamp('sent_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('job_id')
     })
 
     await knex.schema.createTable('crm_emails', (table) => {

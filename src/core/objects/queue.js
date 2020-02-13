@@ -22,14 +22,14 @@ class Queue {
     if(this.completed) this.queue.on('completed', this.completed)
   }
 
-  async enqueue(req, options) {
+  async enqueue(req, data, options = {}) {
     const delay = options.until ? options.until.diff(moment()) : 2000
-    const job = await this._enqueue(req, options)
+    const job = await this._enqueue(req, data)
     if(process.env.NODE_ENV === 'test') return
-    await new Promise((resolve, reject) => {
-      setTimeout(() => {
-        this.queue.add(job, { delay, attempts: 3, backoff: 5000 })
-        resolve()
+    return await new Promise(async (resolve, reject) => {
+      setTimeout(async () => {
+        const result = await this.queue.add(job, { delay, attempts: 3, backoff: 5000 })
+        resolve(result)
       }, 500)
     })
   }
