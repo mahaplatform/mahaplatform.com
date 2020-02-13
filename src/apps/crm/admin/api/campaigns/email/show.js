@@ -1,5 +1,5 @@
 import EmailCampaignSerializer from '../../../../serializers/email_campaign_serializer'
-import { getRecipients } from '../../../../services/email_addresses'
+import { getRecipients } from '../../../../services/email_campaigns'
 import EmailCampaign from '../../../../models/email_campaign'
 
 const showRoute = async (req, res) => {

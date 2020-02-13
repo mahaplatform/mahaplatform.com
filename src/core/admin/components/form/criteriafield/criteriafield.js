@@ -1,5 +1,5 @@
-import Designer from '../../criteria/designer'
 import PropTypes from 'prop-types'
+import Designer from './designer'
 import React from 'react'
 import _ from 'lodash'
 
@@ -19,6 +19,7 @@ class CriteriaField extends React.PureComponent {
     fields: PropTypes.array,
     placeholder: PropTypes.string,
     tabIndex: PropTypes.number,
+    title: PropTypes.string,
     onChange: PropTypes.func,
     onClear: PropTypes.func,
     onReady: PropTypes.func,
@@ -68,15 +69,14 @@ class CriteriaField extends React.PureComponent {
   }
 
   _getDesigner() {
-    const { cid, criteria, endpoint, format, fields, onSet } = this.props
+    const { criteria, endpoint, format, fields, title, onSet } = this.props
     return {
-      cid,
       criteria,
       endpoint,
       format,
       fields,
-      onChange: onSet,
-      onEnd: this._handleEnd
+      title,
+      onDone: onSet
     }
   }
 

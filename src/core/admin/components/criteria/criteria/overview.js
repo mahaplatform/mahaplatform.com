@@ -70,12 +70,9 @@ class Overview extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { criteria, test } = this.props
+    const { criteria } = this.props
     if(!_.isEqual(criteria, prevProps.criteria)) {
       this.props.onChange(criteria)
-    }
-    if(!_.isEqual(test, prevProps.test)) {
-      this.props.onChange(test)
     }
   }
 
@@ -102,6 +99,7 @@ class Overview extends React.Component {
     const { panel } = this.props
     return {
       ...panel,
+      showHeader: panel !== undefined,
       color: 'grey'
     }
   }

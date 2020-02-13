@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types'
 import Buttons from '../buttons'
-import Error from '../error'
 import React from 'react'
 import _ from 'lodash'
 
 class ModalPanel extends React.Component {
 
   static propTypes = {
+    alert: PropTypes.any,
     buttons: PropTypes.array,
     children: PropTypes.any,
     className: PropTypes.string,
     color: PropTypes.string,
-    instructions: PropTypes.string,
+    instructions: PropTypes.any,
     leftEnabled: PropTypes.bool,
     leftItems: PropTypes.array,
     rightEnabled: PropTypes.bool,
@@ -25,7 +25,7 @@ class ModalPanel extends React.Component {
   }
 
   render() {
-    const { buttons, instructions, leftItems, rightItems, showHeader, title } = this.props
+    const { alert, buttons, instructions, leftItems, rightItems, showHeader, title } = this.props
     return (
       <div className={ this._getClass() }>
         { showHeader &&
@@ -64,6 +64,11 @@ class ModalPanel extends React.Component {
         { buttons &&
           <div className="maha-modal-panel-footer">
             <Buttons { ...this._getButtons() } />
+          </div>
+        }
+        { alert &&
+          <div className="maha-modal-panel-alert">
+            { alert }
           </div>
         }
       </div>

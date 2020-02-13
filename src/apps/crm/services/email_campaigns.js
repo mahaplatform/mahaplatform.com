@@ -25,6 +25,7 @@ export const getRecipients = async (req, { to }) => {
     filter: to,
     filterParams: ['first_name','last_name','email','phone','tag_id','birthday','spouse','street_1','city','state_province','postal_code','organization_id']
   }).fetchAll({
+    withRelated: ['email_addresses'],
     transacting: req.trx
   })
 

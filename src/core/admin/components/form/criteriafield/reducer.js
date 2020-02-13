@@ -1,5 +1,5 @@
 const INITIAL_STATE = {
-  criteria: { $and: [] },
+  criteria: null,
   status: 'pending'
 }
 

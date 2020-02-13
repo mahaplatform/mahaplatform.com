@@ -32,7 +32,7 @@ const createRoute = async (req, res) => {
     code,
     status: 'draft',
     program_id: program.get('id'),
-    ...whitelist(req.body, ['title','purpose']),
+    ...whitelist(req.body, ['to','title','purpose']),
     config: {
       blocks: [
         {

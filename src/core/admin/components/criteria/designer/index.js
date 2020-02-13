@@ -40,7 +40,6 @@ class Designer extends React.PureComponent {
 
   componentDidMount() {
     const { defaultValue } = this.props
-    console.log('designer', defaultValue)
     if(defaultValue) this.setState({
       filter: defaultValue
     })
@@ -58,9 +57,6 @@ class Designer extends React.PureComponent {
     const { filter } = this.state
     return {
       defaultValue: filter,
-      panel: {
-        title: 'Filters'
-      },
       entity,
       fields,
       onChange: this._handleChange

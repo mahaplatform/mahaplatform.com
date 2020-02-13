@@ -34,7 +34,7 @@ class Recipients extends React.PureComponent {
   componentDidMount() {
     const { campaign } = this.props
     this.setState({
-      to: campaign.to || {}
+      to: campaign.to || { $and: [] }
     })
   }
 
@@ -70,12 +70,14 @@ class Recipients extends React.PureComponent {
       title: 'Select Contacts',
       rightItems: [
         { label: 'Save', handler: this._handleSave }
-      ]
+      ],
+      alert: (
+        <p><strong>NOTE:</strong> Only contacts who have given their consent will receive marketing emails</p>
+      )
     }
   }
 
   _handleChange(to) {
-    console.log('change', to)
     this.setState({ to })
   }
 
