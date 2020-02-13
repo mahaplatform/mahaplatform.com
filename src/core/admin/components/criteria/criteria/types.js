@@ -52,13 +52,12 @@ class Types extends React.PureComponent {
     const { onCancel, onChange, onDone } = this.props
     return {
       field,
-      mode: 'add',
       onCancel,
-      onChange,
+      onChange : () => {},
       onDone
     }
   }
-  
+
   _getPanel() {
     return {
       title: 'Add Criteria',

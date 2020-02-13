@@ -11,16 +11,13 @@ class Criteria extends React.Component {
     criteria: PropTypes.object,
     defaultValue: PropTypes.object,
     fields: PropTypes.array,
-    filter: PropTypes.object,
     panel: PropTypes.object,
-    test: PropTypes.object,
     onChange: PropTypes.func,
     onCreate: PropTypes.func,
     onRemove: PropTypes.func,
     onReset: PropTypes.func,
     onSave: PropTypes.func,
     onSet: PropTypes.func,
-    onTest: PropTypes.func,
     onUpdate: PropTypes.func
   }
 

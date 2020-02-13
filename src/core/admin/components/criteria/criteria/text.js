@@ -10,7 +10,6 @@ class Text extends React.Component {
   static propTypes = {
     defaultValue: PropTypes.object,
     field: PropTypes.object,
-    mode: PropTypes.string,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -63,7 +62,7 @@ class Text extends React.Component {
 
   _getPanel() {
     const { operator, value } = this.state
-    const { mode, field } = this.props
+    const { field } = this.props
     return {
       title: field.name,
       color: 'grey',
@@ -71,7 +70,7 @@ class Text extends React.Component {
         { icon: 'chevron-left', handler: this._handleCancel }
       ],
       buttons: [{
-        label: mode === 'add' ? 'Add Criteria' : 'Update Criteria',
+        label: 'Done',
         color: 'blue',
         disabled: _.includes(['$eq','$nek','$lk','$nlk'], operator) && value.length === 0,
         handler: this._handleDone

@@ -1,7 +1,6 @@
 import RadioGroup from '../../form/select/radio_group'
 import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
-import Buttons from '../../buttons'
 import Search from '../../search'
 import React from 'react'
 import _ from 'lodash'
@@ -11,7 +10,6 @@ class Select extends React.Component {
   static propTypes = {
     defaultValue: PropTypes.object,
     field: PropTypes.object,
-    mode: PropTypes.string,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -36,9 +34,6 @@ class Select extends React.Component {
           <div className="maha-criterion-form-body">
             <Search { ...this._getSearch() } />
           </div>
-          <div className="maha-criterion-form-footer">
-            <Buttons { ...this._getButtons() } />
-          </div>
         </div>
       </ModalPanel>
     )
@@ -59,26 +54,20 @@ class Select extends React.Component {
     }
   }
 
-  _getButtons() {
-    const { mode } = this.props
-    return {
-      buttons: [{
-        label: 'Cancel',
-        color: 'grey',
-        handler: this._handleCancel
-      },{
-        label: mode === 'add' ? 'Add Criteria' : 'Update Criteria',
-        color: 'blue',
-        handler: this._handleDone
-      }]
-    }
-  }
 
   _getPanel() {
     const { field } = this.props
     return {
       title: field.name,
-      color: 'grey'
+      leftItems: [
+        { icon: 'chevron-left', handler: this._handleCancel }
+      ],
+      color: 'grey',
+      buttons: [{
+        label: 'Done',
+        color: 'grey',
+        handler: this._handleDone
+      }]
     }
   }
 

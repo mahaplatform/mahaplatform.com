@@ -13,17 +13,9 @@ export const reset = () => ({
   type: 'RESET'
 })
 
-export const set = (filter, criteria) => ({
+export const set = (criteria) => ({
   type: 'SET',
-  filter,
   criteria
-})
-
-export const test = (mode, cindex, value) => ({
-  type: 'TEST',
-  mode,
-  cindex,
-  value
 })
 
 export const update = (cindex, value) => ({

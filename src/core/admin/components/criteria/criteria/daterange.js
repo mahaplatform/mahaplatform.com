@@ -1,5 +1,4 @@
 import ModalPanel from '../../modal_panel'
-import Buttons from '../../buttons'
 import PropTypes from 'prop-types'
 import Search from '../../search'
 import moment from 'moment'
@@ -11,7 +10,6 @@ class DateRange extends React.Component {
   static propTypes = {
     defaultValue: PropTypes.object,
     field: PropTypes.object,
-    mode: PropTypes.string,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
@@ -33,9 +31,6 @@ class DateRange extends React.Component {
           <div className="maha-criterion-form-body">
             <Search { ...this._getSearch() } />
           </div>
-          <div className="maha-criterion-form-footer">
-            <Buttons { ...this._getButtons() } />
-          </div>
         </div>
       </ModalPanel>
     )
@@ -50,21 +45,6 @@ class DateRange extends React.Component {
     const { value } = this.state
     if(value !== prevState.value) {
       this._handleChange()
-    }
-  }
-
-  _getButtons() {
-    const { mode } = this.props
-    return {
-      buttons: [{
-        label: 'Cancel',
-        color: 'grey',
-        handler: this._handleCancel
-      },{
-        label: mode === 'add' ? 'Add Criteria' : 'Update Criteria',
-        color: 'blue',
-        handler: this._handleDone
-      }]
     }
   }
 
@@ -105,7 +85,15 @@ class DateRange extends React.Component {
     const { field } = this.props
     return {
       title: field.name,
-      color: 'grey'
+      leftItems: [
+        { icon: 'chevron-left', handler: this._handleCancel }
+      ],
+      color: 'grey',
+      buttons: [{
+        label: 'Done',
+        color: 'blue',
+        handler: this._handleDone
+      }]
     }
   }
 

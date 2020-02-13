@@ -19,9 +19,7 @@ class Overview extends React.Component {
     criteria: PropTypes.object,
     defaultValue: PropTypes.object,
     fields: PropTypes.array,
-    filter: PropTypes.object,
     panel: PropTypes.object,
-    test: PropTypes.object,
     onChange: PropTypes.func,
     onCreate: PropTypes.func,
     onPop: PropTypes.func,
@@ -29,7 +27,6 @@ class Overview extends React.Component {
     onRemove: PropTypes.func,
     onReset: PropTypes.func,
     onSet: PropTypes.func,
-    onTest: PropTypes.func,
     onUpdate: PropTypes.func
   }
 
@@ -39,7 +36,6 @@ class Overview extends React.Component {
   }
 
   _handleAdd = this._handleAdd.bind(this)
-  _handleRefresh = this._handleRefresh.bind(this)
 
   render() {
     const { criteria, filter } = this.props
@@ -69,8 +65,8 @@ class Overview extends React.Component {
 
   componentDidMount() {
     const { defaultValue, onSet } = this.props
-    if(!defaultValue) return onSet(null, { $and: [] })
-    onSet(defaultValue, defaultValue)
+    if(!defaultValue) return onSet({ $and: [] })
+    onSet(defaultValue)
   }
 
   componentDidUpdate(prevProps) {
@@ -113,10 +109,8 @@ class Overview extends React.Component {
   _getTypes(cindex) {
     const { fields, onPop, onPush } = this.props
     return {
-      mode: 'add',
       types: fields,
-      onCancel: this._handleRefresh,
-      onChange: this._handleTest.bind(this, 'add', cindex),
+      onCancel: this._handleCancel,
       onDone: this._handleCreate.bind(this, cindex),
       onPop,
       onPush
@@ -134,16 +128,7 @@ class Overview extends React.Component {
 
   _handleCreate(cindex, value) {
     this.props.onCreate(cindex, value)
-  }
-
-  _handleRefresh() {
-    const { criteria } = this.props
-    this.props.onChange(criteria)
-    this.props.onPop(-1)
-  }
-
-  _handleTest(mode, cindex, value) {
-    this.props.onTest(mode, cindex, value)
+    this.props.onPop(-2)
   }
 
 }
