@@ -35,6 +35,11 @@ class Criteria extends React.Component {
     onUpdate: PropTypes.func
   }
 
+  static defaultProps = {
+    fields: [],
+    onChange: () => {}
+  }
+
   _handleAdd = this._handleAdd.bind(this)
   _handleEdit = this._handleEdit.bind(this)
   _handleCancel = this._handleCancel.bind(this)

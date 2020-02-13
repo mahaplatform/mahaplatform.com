@@ -14,8 +14,8 @@ const EmailCampaign = new Model({
     return this.belongsTo(Program, 'program_id')
   },
 
-  workflow() {
-    return this.hasOne(Workflow, 'email_campaign_id')
+  workflows() {
+    return this.hasMany(Workflow, 'email_campaign_id')
   }
 
 })

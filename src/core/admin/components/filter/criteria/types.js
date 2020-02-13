@@ -1,5 +1,4 @@
 import ModalPanel from '../../modal_panel'
-import Buttons from '../../buttons'
 import PropTypes from 'prop-types'
 import React from 'react'
 import Field from './field'
@@ -47,31 +46,17 @@ class Types extends React.PureComponent {
             ))
           ], []) }
         </div>
-        <div className="maha-criterion-footer">
-          <Buttons { ...this._getButtons() } />
-        </div>
       </ModalPanel>
     )
-  }
-
-  _getButtons() {
-    return {
-      buttons: [{
-        label: 'Cancel',
-        color: 'grey',
-        handler: this._handleCancel
-      },{
-        label: 'Add Criteria',
-        color: 'blue',
-        disabled: true
-      }]
-    }
   }
 
   _getPanel() {
     return {
       title: 'Add Criteria',
-      color: 'grey'
+      color: 'grey',
+      leftItems: [
+        { icon: 'chevron-left', handler: this._handleCancel }
+      ]
     }
   }
 

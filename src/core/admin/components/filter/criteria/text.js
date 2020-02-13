@@ -2,7 +2,6 @@ import RadioGroup from '../../form/select/radio_group'
 import ModalPanel from '../../modal_panel'
 import TextField from '../../form/textfield'
 import PropTypes from 'prop-types'
-import Buttons from '../../buttons'
 import React from 'react'
 import _ from 'lodash'
 
@@ -42,9 +41,6 @@ class Text extends React.Component {
               }
             </div>
           </div>
-          <div className="maha-criterion-form-footer">
-            <Buttons { ...this._getButtons() } />
-          </div>
         </div>
       </ModalPanel>
     )
@@ -65,28 +61,21 @@ class Text extends React.Component {
     }
   }
 
-  _getButtons() {
+  _getPanel() {
     const { operator, value } = this.state
-    const { mode } = this.props
+    const { mode, field } = this.props
     return {
+      title: field.name,
+      color: 'grey',
+      leftItems: [
+        { icon: 'chevron-left', handler: this._handleCancel }
+      ],
       buttons: [{
-        label: 'Cancel',
-        color: 'grey',
-        handler: this._handleCancel
-      },{
         label: mode === 'add' ? 'Add Criteria' : 'Update Criteria',
         color: 'blue',
         disabled: _.includes(['$eq','$nek','$lk','$nlk'], operator) && value.length === 0,
         handler: this._handleDone
       }]
-    }
-  }
-
-  _getPanel() {
-    const { field } = this.props
-    return {
-      title: field.name,
-      color: 'grey'
     }
   }
 
