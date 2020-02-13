@@ -185,7 +185,7 @@ const submitRoute = async (req, res) => {
     form_id: form.get('id'),
     contact_id: contact.get('id'),
     invoice_id: invoice ? invoice.get('id') : null,
-    ipaddress: req.ip.split(':').pop(),
+    ipaddress: req.headers['x-forwarded-for'].replace(/\s/,'').split(',').shift(),
     data: {
       ...req.body,
       ...req.body.payment ? {
