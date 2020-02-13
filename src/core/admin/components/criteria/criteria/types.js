@@ -5,15 +5,13 @@ import Field from './field'
 
 class Types extends React.PureComponent {
 
-  static contextTypes = {
-    filter: PropTypes.object
-  }
-
   static propTypes = {
     types: PropTypes.array,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
-    onDone: PropTypes.func
+    onDone: PropTypes.func,
+    onPush: PropTypes.func,
+    onPop: PropTypes.func
   }
 
   static defaultProps = {}
@@ -50,6 +48,17 @@ class Types extends React.PureComponent {
     )
   }
 
+  _getField(field) {
+    const { onCancel, onChange, onDone } = this.props
+    return {
+      field,
+      mode: 'add',
+      onCancel,
+      onChange,
+      onDone
+    }
+  }
+  
   _getPanel() {
     return {
       title: 'Add Criteria',
@@ -61,26 +70,16 @@ class Types extends React.PureComponent {
   }
 
   _handleCancel() {
-    this.context.filter.pop()
+    this.props.onPop()
   }
 
   _handleConditional(type) {
     this.props.onDone({ [type]: [] })
-    this.context.filter.pop(-1)
+    this.props.onPop(-1)
   }
 
   _handleField(field) {
-    const { onCancel, onChange, onDone } = this.props
-    this.context.filter.push({
-      component: Field,
-      props: {
-        field,
-        mode: 'add',
-        onCancel,
-        onChange,
-        onDone
-      }
-    })
+    this.props.onPush(Field, this._getField(field))
   }
 
 }

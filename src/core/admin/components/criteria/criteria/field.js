@@ -50,7 +50,6 @@ class Field extends React.PureComponent {
   _handleCancel() {
     const { mode } = this.props
     this.props.onCancel()
-    this.context.filter.pop(mode == 'edit' ? -1 : -2)
   }
 
   _handleChange(value) {
@@ -61,7 +60,6 @@ class Field extends React.PureComponent {
   _handleDone(value) {
     const { mode, field } = this.props
     this.props.onDone({ [field.key]: value })
-    this.context.filter.pop(mode === 'edit' ? -1 : -2)
   }
 
 }

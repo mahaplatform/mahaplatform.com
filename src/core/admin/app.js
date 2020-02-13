@@ -13,10 +13,10 @@ import admincollectionTable from './components/collection/table'
 import admincomments from './components/comments'
 import admincomposer from './components/composer'
 import admincontainer from './components/container'
+import admincriteriaCriteria from './components/criteria/criteria'
 import admindrawer from './components/drawer'
 import adminemojis from './components/emojis'
 import adminfields from './components/fields'
-import adminfilterCriteria from './components/filter/criteria'
 import adminfilterOverview from './components/filter/overview'
 import adminflash from './components/flash'
 import adminformAddressfield from './components/form/addressfield'
@@ -265,10 +265,10 @@ class App extends React.Component {
       admincomments,
       admincomposer,
       admincontainer,
+      admincriteriaCriteria,
       admindrawer,
       adminemojis,
       adminfields,
-      adminfilterCriteria,
       adminfilterOverview,
       adminflash,
       adminformAddressfield,

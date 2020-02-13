@@ -1,30 +1,30 @@
-import { Criteria, Infinite, ModalPanel } from 'maha-admin'
+import ContactToken from '../../tokens/contact'
+import { CriteriaDesigner } from 'maha-admin'
 import PropTypes from 'prop-types'
-import Results from './results'
 import React from 'react'
 
 class Recipients extends React.PureComponent {
 
-  static propTypes = {}
-
-  render() {
-    return (
-      <ModalPanel { ...this._getPanel() }>
-        <div className="crm-recipients">
-          <div className="crm-recipients-filter">
-            <Criteria { ...this._getCriteria() } />
-          </div>
-          <div className="crm-recipients-results">
-            <Infinite { ...this._getInfinite() } />
-          </div>
-        </div>
-      </ModalPanel>
-    )
+  static contextTypes = {
+    modal: PropTypes.object
   }
 
-  _getCriteria() {
+  static propTypes = {
+    defaultValue: PropTypes.object,
+    onDone: PropTypes.func
+  }
+
+  _handleDone = this._handleDone.bind(this)
+
+  render() {
+    return <CriteriaDesigner { ...this._getCriteriaDesigner() } />
+  }
+
+  _getCriteriaDesigner() {
     return {
+      endpoint: '/api/admin/crm/contacts',
       entity: 'contact',
+      format: ContactToken,
       fields: [
         { label: 'Contact', fields: [
           { name: 'first name', key: 'first_name', type: 'text' },
@@ -40,22 +40,14 @@ class Recipients extends React.PureComponent {
           { name: 'tags', key: 'tag_id', type: 'select', endpoint: '/api/admin/crm/tags', text: 'text', value: 'id' },
           { name: 'organization', key: 'organization_id', type: 'select', endpoint: '/api/admin/crm/organizations', text: 'name', value: 'id' }
         ] }
-      ]
+      ],
+      title: 'Select Contacts',
+      onDone: this._handleDone
     }
   }
 
-  _getInfinite() {
-    return {
-      endpoint: '/api/admin/crm/contacts',
-      layout: Results,
-      props: {}
-    }
-  }
-
-  _getPanel() {
-    return {
-      title: 'Select Contacts'
-    }
+  _handleDone() {
+    this.context.modal.close()
   }
 
 }

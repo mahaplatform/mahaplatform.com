@@ -1,4 +1,4 @@
-import Criteria from '../filter/criteria'
+import Criteria from './criteria'
 import React from 'react'
 
 class CriteriaWrapper extends React.Component {

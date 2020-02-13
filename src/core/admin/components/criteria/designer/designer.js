@@ -1,7 +1,7 @@
 import ModalPanel from '../../modal_panel'
 import { connect } from 'react-redux'
-import Criteria from '../../filter/criteria'
 import Infinite from '../../infinite'
+import Criteria from '../criteria'
 import PropTypes from 'prop-types'
 import Results from './results'
 import React from 'react'

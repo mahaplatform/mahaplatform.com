@@ -5,7 +5,7 @@ import * as selectors from './selectors'
 import * as actions from './actions'
 
 export default Factory({
-  namespace: 'maha.filter.criteria',
+  namespace: 'maha.criteria',
   component: Criteria,
   reducer,
   selectors,

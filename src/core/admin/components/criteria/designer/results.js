@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+import Format from '../../format'
 import React from 'react'
 
 class Results extends React.Component {
@@ -10,13 +11,12 @@ class Results extends React.Component {
   }
 
   render() {
-    const { records } = this.props
-    const Component = this.props.format
+    const { format, records } = this.props
     return (
       <div className="maha-criteria-results">
         { records.map((record, index) => (
           <div className="maha-criteria-result" key={ `result_message_${record.id}`}>
-            <Component { ...record } />
+            <Format format={ format } { ...record } />
           </div>
         )) }
       </div>

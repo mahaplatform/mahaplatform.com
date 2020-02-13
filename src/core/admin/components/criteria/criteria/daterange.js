@@ -1,6 +1,6 @@
 import ModalPanel from '../../modal_panel'
-import PropTypes from 'prop-types'
 import Buttons from '../../buttons'
+import PropTypes from 'prop-types'
 import Search from '../../search'
 import moment from 'moment'
 import React from 'react'

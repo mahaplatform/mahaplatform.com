@@ -1,5 +1,5 @@
+import Designer from '../../criteria/designer'
 import PropTypes from 'prop-types'
-import Designer from './designer'
 import React from 'react'
 import _ from 'lodash'
 

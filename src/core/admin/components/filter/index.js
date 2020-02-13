@@ -1,7 +1,7 @@
 import Stack from '../stack'
 import PropTypes from 'prop-types'
 import Overview from './overview'
-import Criteria from './criteria'
+import Criteria from '../criteria'
 import React from 'react'
 
 class Filter extends React.PureComponent {
@@ -60,6 +60,7 @@ class Filter extends React.PureComponent {
     return {
       code,
       defaultValue: filter,
+      title: filter ? filter.title : 'New Filter',
       fields,
       onChange
     }
