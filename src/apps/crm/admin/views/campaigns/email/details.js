@@ -23,6 +23,7 @@ const Details = ({ campaign }) => {
   config.items = [
     { label: 'Title', content: campaign.title },
     { label: 'Program', content: campaign.program.title },
+    { label: 'Purpose', content: campaign.purpose },
     { label: 'To', content: <Button { ...to } /> },
     { label: 'Status', content: campaign.status },
     { label: 'Send At', content: campaign.send_at },

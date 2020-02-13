@@ -3,6 +3,11 @@ import socket from '../../../../../../core/services/routes/emitter'
 import EmailCampaign from '../../../../models/email_campaign'
 import moment from 'moment'
 
+const getSendAt = ({ strategy, date, time }) => {
+  if(strategy === 'now') return moment()
+  return moment(`${date} ${time}`)
+}
+
 const sendRoute = async (req, res) => {
 
   const campaign = await EmailCampaign.scope(qb => {
@@ -19,16 +24,16 @@ const sendRoute = async (req, res) => {
     message: 'Unable to load campaign'
   })
 
-  console.log(req.body.send_at)
+  const send_at = getSendAt(req.body)
 
   const job = await SendEmailCampaignQueue.enqueue(req, {
     id: campaign.get('id')
   }, {
-    until: moment(req.body.send_at)
+    until: moment(send_at)
   })
 
   await campaign.save({
-    send_at: req.body.send_at,
+    send_at,
     status: 'scheduled',
     job_id: job.id
   }, {

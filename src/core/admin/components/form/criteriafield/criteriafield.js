@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types'
 import Designer from './designer'
+import pluralize from 'pluralize'
 import React from 'react'
 import _ from 'lodash'
 
@@ -14,6 +15,7 @@ class CriteriaField extends React.PureComponent {
     contacts: PropTypes.array,
     criteria: PropTypes.object,
     defaultValue: PropTypes.object,
+    entity: PropTypes.string,
     endpoint: PropTypes.string,
     format: PropTypes.any,
     fields: PropTypes.array,
@@ -27,7 +29,8 @@ class CriteriaField extends React.PureComponent {
   }
 
   static defaultProps = {
-    placeholder: 'Design criteria'
+    placeholder: 'Design criteria',
+    entity: 'item'
   }
 
   _handleBegin = this._handleBegin.bind(this)
@@ -35,20 +38,24 @@ class CriteriaField extends React.PureComponent {
   _handleEnd = this._handleEnd.bind(this)
 
   render() {
-    const { criteria, placeholder, tabIndex } = this.props
+    const { criteria, entity, placeholder, tabIndex } = this.props
     return (
-      <div className="maha-criteriafield" tabIndex={ tabIndex } onClick={ this._handleBegin }>
+      <div className="maha-input" tabIndex={ tabIndex } onClick={ this._handleBegin }>
+        <div className="maha-input-field">
+          { criteria ?
+            <div className="maha-input-tokens">
+              <div className="maha-input-token">
+                { pluralize(entity, 5, true) }
+              </div>
+            </div> :
+            <div className="maha-input-placeholder">
+              { placeholder }
+            </div>
+          }
+        </div>
         { criteria &&
-          <div className="maha-criteriafield-label" />
-        }
-        { criteria &&
-          <div className="maha-criteriafield-clear">
+          <div className="maha-input-clear">
             <i className="fa fa-times" onClick={ this._handleClear } />
-          </div>
-        }
-        { !criteria &&
-          <div className="maha-criteriafield-prompt">
-            { placeholder }
           </div>
         }
       </div>

@@ -66,14 +66,15 @@ class Recipients extends React.PureComponent {
   }
 
   _getPanel() {
+    const { campaign } = this.props
     return {
       title: 'Select Contacts',
       rightItems: [
         { label: 'Save', handler: this._handleSave }
       ],
-      alert: (
+      alert: campaign.purpose === 'marketing' ? (
         <p><strong>NOTE:</strong> Only contacts who have given their consent will receive marketing emails</p>
-      )
+      ) : null
     }
   }
 
