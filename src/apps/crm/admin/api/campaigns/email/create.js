@@ -51,7 +51,7 @@ const createRoute = async (req, res) => {
           type: 'preferences',
           text: '<p>This email was sent to <strong><%- contact.email %></strong>. If you would like to control how much email you recieve from us, you can <a href="<%- email.preferences_link %>">adjust your preferences</a></p>',
           padding: 8,
-          p_font_size: 14,
+          p_font_size: 12,
           p_text_align: 'center',
           p_line_height: 1.5
         }
