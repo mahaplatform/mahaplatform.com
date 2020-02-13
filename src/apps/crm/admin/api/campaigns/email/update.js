@@ -1,4 +1,6 @@
 import EmailCampaignSerializer from '../../../../serializers/email_campaign_serializer'
+import { whitelist } from '../../../../../../core/services/routes/params'
+import socket from '../../../../../../core/services/routes/emitter'
 import EmailCampaign from '../../../../models/email_campaign'
 
 const updateRoute  = async (req, res) => {
@@ -8,7 +10,7 @@ const updateRoute  = async (req, res) => {
   }).query(qb => {
     qb.where('id', req.params.id)
   }).fetch({
-    withRelated: ['program','workflow'],
+    withRelated: ['program'],
     transacting: req.trx
   })
 
@@ -18,10 +20,16 @@ const updateRoute  = async (req, res) => {
   })
 
   await campaign.save({
-    config: req.body.config
+    ...whitelist(req.body, ['config','to'])
   }, {
-    transacting: req.trx
+    transacting: req.trx,
+    patch: true
   })
+
+  await socket.refresh(req, [
+    '/admin/crm/campaigns',
+    `/admin/crm/campaigns/email/${campaign.id}`
+  ])
 
   res.status(200).respond(campaign, EmailCampaignSerializer)
 

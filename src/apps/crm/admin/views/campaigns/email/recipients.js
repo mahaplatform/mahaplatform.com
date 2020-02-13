@@ -1,27 +1,47 @@
-import ContactToken from '../../tokens/contact'
-import { CriteriaDesigner } from 'maha-admin'
+import { CriteriaDesigner, ModalPanel } from 'maha-admin'
+import ContactToken from '../../../tokens/contact'
 import PropTypes from 'prop-types'
 import React from 'react'
 
 class Recipients extends React.PureComponent {
 
   static contextTypes = {
-    modal: PropTypes.object
+    modal: PropTypes.object,
+    network: PropTypes.object
   }
 
   static propTypes = {
-    defaultValue: PropTypes.object,
-    onDone: PropTypes.func
+    campaign: PropTypes.object
   }
 
-  _handleDone = this._handleDone.bind(this)
+  state = {
+    to: null
+  }
+
+  _handleChange = this._handleChange.bind(this)
+  _handleSave = this._handleSave.bind(this)
+  _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    return <CriteriaDesigner { ...this._getCriteriaDesigner() } />
+    if(!this.state.to) return null
+    return (
+      <ModalPanel { ...this._getPanel() }>
+        <CriteriaDesigner { ...this._getCriteriaDesigner() } />
+      </ModalPanel>
+    )
+  }
+
+  componentDidMount() {
+    const { campaign } = this.props
+    this.setState({
+      to: campaign.to || {}
+    })
   }
 
   _getCriteriaDesigner() {
+    const { to } = this.state
     return {
+      defaultValue: to,
       endpoint: '/api/admin/crm/contacts',
       entity: 'contact',
       format: ContactToken,
@@ -41,12 +61,36 @@ class Recipients extends React.PureComponent {
           { name: 'organization', key: 'organization_id', type: 'select', endpoint: '/api/admin/crm/organizations', text: 'name', value: 'id' }
         ] }
       ],
-      title: 'Select Contacts',
-      onDone: this._handleDone
+      onChange: this._handleChange
     }
   }
 
-  _handleDone() {
+  _getPanel() {
+    return {
+      title: 'Select Contacts',
+      rightItems: [
+        { label: 'Save', handler: this._handleSave }
+      ]
+    }
+  }
+
+  _handleChange(to) {
+    console.log('change', to)
+    this.setState({ to })
+  }
+
+  _handleSave() {
+    const { campaign } = this.props
+    const { to } = this.state
+    this.context.network.request({
+      endpoint: `/api/admin/crm/campaigns/email/${campaign.id}`,
+      method: 'PATCH',
+      body: { to },
+      onSuccess: this._handleSuccess
+    })
+  }
+
+  _handleSuccess() {
     this.context.modal.close()
   }
 

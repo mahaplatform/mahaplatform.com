@@ -1,9 +1,9 @@
-import ModalPanel from '../../modal_panel'
 import Infinite from '../../infinite'
 import Criteria from '../criteria'
 import PropTypes from 'prop-types'
 import Results from './results'
 import React from 'react'
+import _ from 'lodash'
 
 class Designer extends React.PureComponent {
 
@@ -16,7 +16,7 @@ class Designer extends React.PureComponent {
     text: PropTypes.string,
     title: PropTypes.string,
     value: PropTypes.string,
-    onDone: PropTypes.func
+    onChange: PropTypes.func
   }
 
   state = {
@@ -24,35 +24,43 @@ class Designer extends React.PureComponent {
   }
 
   _handleChange = this._handleChange.bind(this)
-  _handleDone = this._handleDone.bind(this)
 
   render() {
     return (
-      <ModalPanel { ...this._getPanel() }>
-        <div className="maha-criteria-designer">
-          <div className="maha-criteria-designer-filter">
-            <Criteria { ...this._getCriteria() } />
-          </div>
-          <div className="maha-criteria-designer-results">
-            <Infinite { ...this._getInfinite() } />
-          </div>
+      <div className="maha-criteria-designer">
+        <div className="maha-criteria-designer-filter">
+          <Criteria { ...this._getCriteria() } />
         </div>
-      </ModalPanel>
+        <div className="maha-criteria-designer-results">
+          <Infinite { ...this._getInfinite() } />
+        </div>
+      </div>
     )
   }
 
   componentDidMount() {
     const { defaultValue } = this.props
+    console.log('designer', defaultValue)
     if(defaultValue) this.setState({
       filter: defaultValue
     })
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    const { filter } = this.state
+    if(!_.isEqual(filter, prevState.filter)) {
+      this.props.onChange(filter)
+    }
+  }
+
   _getCriteria() {
     const { fields, entity } = this.props
+    const { filter } = this.state
     return {
-      title: 'Filter',
-      cancelIcon: null,
+      defaultValue: filter,
+      panel: {
+        title: 'Filters'
+      },
       entity,
       fields,
       onChange: this._handleChange
@@ -70,16 +78,6 @@ class Designer extends React.PureComponent {
     }
   }
 
-  _getPanel() {
-    const { title } = this.props
-    return {
-      title,
-      rightItems: [
-        { label: 'Done', handler: this._handleDone }
-      ]
-    }
-  }
-
   _getResults() {
     const { format, text, value } = this.props
     return {
@@ -91,11 +89,6 @@ class Designer extends React.PureComponent {
 
   _handleChange(filter) {
     this.setState({ filter })
-  }
-
-  _handleDone() {
-    const { filter } = this.state
-    this.props.onDone(filter)
   }
 
 }

@@ -1,5 +1,5 @@
-import Recipients from '../../../components/recipients'
 import { Button, List } from 'maha-admin'
+import Recipients from './recipients'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -13,14 +13,10 @@ const Details = ({ campaign }) => {
     route: `/admin/crm/campaigns/email/${campaign.id}/design`
   }
 
-  const recipients = {
-    onDone: (filter) => console.log('filter', filter)
-  }
-
   const to = {
     label: '1542 Contacts',
     className: 'link',
-    modal: <Recipients { ...recipients } />
+    modal: <Recipients campaign={ campaign } />
   }
 
   config.items = [
