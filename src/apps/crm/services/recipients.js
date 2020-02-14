@@ -14,7 +14,7 @@ export const getRecipients = async (req, { filter, page }) => {
 
   const Recipient = Contact.scope(qb => {
     qb.select(req.trx.raw('distinct on (crm_contacts.id,crm_contacts.first_name,crm_contacts.last_name,crm_contact_primaries.email,crm_contact_primaries.phone) crm_contacts.*,crm_contact_primaries.*'))
-    qb.leftJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
+    qb.innerJoin('crm_contact_primaries', 'crm_contact_primaries.contact_id', 'crm_contacts.id')
     qb.leftJoin('crm_email_addresses', 'crm_email_addresses.contact_id', 'crm_contacts.id')
     qb.leftJoin('crm_phone_numbers', 'crm_phone_numbers.contact_id', 'crm_contacts.id')
     qb.leftJoin('crm_mailing_addresses', 'crm_mailing_addresses.contact_id', 'crm_contacts.id')
@@ -33,12 +33,13 @@ export const getRecipients = async (req, { filter, page }) => {
       city: 'crm_mailing_addresses.address->>\'city\'',
       state_province: 'crm_mailing_addresses.address->>\'state_province\'',
       postal_code: 'crm_mailing_addresses.address->>\'postal_code\'',
+      county: 'crm_mailing_addresses.address->>\'county\'',
       tag_id: 'crm_taggings.tag_id',
       list_id: 'crm_subscriptions.list_id',
       topic_id: 'crm_interests.topic_id'
     },
     filter,
-    filterParams: ['first_name','last_name','email','phone','tag_id','birthday','spouse','street_1','city','state_province','postal_code','organization_id','tag_id','list_id','topic_id']
+    filterParams: ['first_name','last_name','email','phone','tag_id','birthday','spouse','street_1','city','state_province','postal_code','county','organization_id','tag_id','list_id','topic_id']
   })
 
   if(page) {

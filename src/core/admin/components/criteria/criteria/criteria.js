@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import Overview from './overview'
 import Stack from '../../stack'
 import React from 'react'
+import _ from 'lodash'
 
 class Criteria extends React.Component {
 
@@ -12,13 +13,14 @@ class Criteria extends React.Component {
     defaultValue: PropTypes.object,
     fields: PropTypes.array,
     panel: PropTypes.object,
+    test: PropTypes.object,
     onChange: PropTypes.func,
     onCreate: PropTypes.func,
     onRemove: PropTypes.func,
     onReset: PropTypes.func,
     onSave: PropTypes.func,
     onSet: PropTypes.func,
-    onUpdate: PropTypes.func
+    onTest: PropTypes.func
   }
 
   static defaultProps = {
@@ -38,19 +40,29 @@ class Criteria extends React.Component {
   }
 
   componentDidMount() {
+    const { defaultValue } = this.props
+    this.props.onSet(defaultValue || { $and: [] })
     this._handlePush(Overview, this._getOverview())
   }
 
+  componentDidUpdate(prevProps) {
+    const { criteria, test } = this.props
+    if(!_.isEqual(criteria, prevProps.criteria)) {
+      this.props.onChange(criteria)
+    }
+    if(!_.isEqual(test, prevProps.test)) {
+      this.props.onChange(test)
+    }
+  }
+
   _getOverview() {
-    const { cid, code, criteria, defaultValue, fields, filter, panel, test } = this.props
-    const { onChange, onCreate, onRemove, onReset, onSet, onTest, onUpdate } = this.props
+    const { cid, code, criteria, fields, panel, test } = this.props
+    const { onChange, onCreate, onRemove, onReset, onSet, onTest } = this.props
     return {
       cid,
       code,
       criteria,
-      defaultValue,
       fields,
-      filter,
       panel,
       test,
       onChange,
@@ -60,8 +72,7 @@ class Criteria extends React.Component {
       onRemove,
       onReset,
       onSet,
-      onTest,
-      onUpdate
+      onTest
     }
   }
 

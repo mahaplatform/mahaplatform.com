@@ -55,8 +55,11 @@ class Recipients extends React.PureComponent {
           { name: 'city', key: 'city', type: 'text' },
           { name: 'state/province', key: 'state_province', type: 'text' },
           { name: 'postal code', key: 'postal_code', type: 'text' },
+          { name: 'county', key: 'county', type: 'text' },
           { name: 'birthday', key: 'birthday', type: 'text' },
-          { name: 'spouse', key: 'spouse', type: 'text' },
+          { name: 'spouse', key: 'spouse', type: 'text' }
+        ] },
+        { label: 'Classifications', fields: [
           { name: 'tags', key: 'tag_id', type: 'select', endpoint: '/api/admin/crm/tags', text: 'text', value: 'id' },
           { name: 'organization', key: 'organization_id', type: 'select', endpoint: '/api/admin/crm/organizations', text: 'name', value: 'id' },
           { name: 'lists', key: 'list_id', type: 'select', endpoint: '/api/admin/crm/lists', text: 'title', value: 'id', comparisons: [
@@ -71,7 +74,6 @@ class Recipients extends React.PureComponent {
             { value: '$in', text: 'is interested in one of' },
             { value: '$nin', text: 'is not interested in one of' }
           ] }
-
         ] }
       ],
       onChange: this._handleChange

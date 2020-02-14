@@ -4,15 +4,8 @@ import PropTypes from 'prop-types'
 import Types from './types'
 import Item from './item'
 import React from 'react'
-import _ from 'lodash'
 
 class Overview extends React.Component {
-
-  static contextTypes = {
-    admin: PropTypes.object,
-    flash: PropTypes.object,
-    network: PropTypes.object
-  }
 
   static propTypes = {
     code: PropTypes.string,
@@ -20,6 +13,7 @@ class Overview extends React.Component {
     defaultValue: PropTypes.object,
     fields: PropTypes.array,
     panel: PropTypes.object,
+    test: PropTypes.object,
     onChange: PropTypes.func,
     onCreate: PropTypes.func,
     onPop: PropTypes.func,
@@ -27,19 +21,14 @@ class Overview extends React.Component {
     onRemove: PropTypes.func,
     onReset: PropTypes.func,
     onSet: PropTypes.func,
-    onUpdate: PropTypes.func
-  }
-
-  static defaultProps = {
-    fields: [],
-    onChange: () => {}
+    onTest: PropTypes.func
   }
 
   _handleAdd = this._handleAdd.bind(this)
+  _handleCancel = this._handleCancel.bind(this)
 
   render() {
-    const { criteria, filter } = this.props
-    const { user } = this.context.admin
+    const { criteria } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         { criteria &&
@@ -51,37 +40,10 @@ class Overview extends React.Component {
                 }
               </div>
             </div>
-            { filter && filter.owner && filter.owner.id !== user.id &&
-              <div className="maha-criteria-alert">
-                <i className="fa fa-lock" />
-                This filter was shared by { filter.owner.full_name }
-              </div>
-            }
           </div>
         }
       </ModalPanel>
     )
-  }
-
-  componentDidMount() {
-    const { defaultValue, onSet } = this.props
-    if(!defaultValue) return onSet({ $and: [] })
-    onSet(defaultValue)
-  }
-
-  componentDidUpdate(prevProps) {
-    const { criteria } = this.props
-    if(!_.isEqual(criteria, prevProps.criteria)) {
-      this.props.onChange(criteria)
-    }
-  }
-
-  _getCancel() {
-    return {
-      label: 'Cancel',
-      color: 'grey',
-      handler: this._handleCancel
-    }
   }
 
   _getItem(criteria) {
@@ -108,6 +70,7 @@ class Overview extends React.Component {
     return {
       types: fields,
       onCancel: this._handleCancel,
+      onChange: this._handleTest.bind(this, cindex),
       onDone: this._handleCreate.bind(this, cindex),
       onPop,
       onPush
@@ -119,13 +82,16 @@ class Overview extends React.Component {
   }
 
   _handleCancel() {
-    this.props.onReset()
-    this.context.filter.pop()
+    this.props.onPop()
   }
 
   _handleCreate(cindex, value) {
     this.props.onCreate(cindex, value)
     this.props.onPop(-2)
+  }
+
+  _handleTest(cindex, value) {
+    this.props.onTest(cindex, value)
   }
 
 }

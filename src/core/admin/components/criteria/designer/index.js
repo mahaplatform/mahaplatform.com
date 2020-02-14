@@ -1,6 +1,7 @@
 import Infinite from '../../infinite'
 import Criteria from '../criteria'
 import PropTypes from 'prop-types'
+import pluralize from 'pluralize'
 import Results from './results'
 import React from 'react'
 import _ from 'lodash'
@@ -59,16 +60,25 @@ class Designer extends React.PureComponent {
       defaultValue: filter,
       entity,
       fields,
+      panel: {
+        title: 'Filter'
+      },
       onChange: this._handleChange
     }
   }
 
   _getInfinite() {
-    const { endpoint } = this.props
+    const { endpoint, entity } = this.props
     const { filter } = this.state
     return {
+      empty: {
+        icon: 'filter',
+        title: 'Add Criteria',
+        text: 'Add criteria to find records that match'
+      },
       endpoint,
       filter,
+      footer: ({ total }) => pluralize(entity, total, true),
       layout: Results,
       props: this._getResults()
     }

@@ -17,7 +17,7 @@ export const updateMailingAddresses = async (req, { contact, mailing_addresses, 
 
   mailing_addresses = mailing_addresses.map(mailing_address => {
     const found = existing.find(address => {
-      return address.get('address').street_1 === address.address.street_1
+      return address.get('address').street_1 === mailing_address.address.street_1
     })
     return {
       ...mailing_address,

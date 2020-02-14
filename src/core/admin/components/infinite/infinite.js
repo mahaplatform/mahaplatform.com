@@ -17,6 +17,7 @@ class Infinite extends React.Component {
     exclude_ids: PropTypes.any,
     failure: PropTypes.any,
     filter: PropTypes.object,
+    footer: PropTypes.any,
     header: PropTypes.any,
     layout: PropTypes.any,
     next: PropTypes.string,
@@ -64,16 +65,16 @@ class Infinite extends React.Component {
   }
 
   render() {
-    const { all, empty, failure, header, next, notFound, records, skip, status, total } = this.props
+    const { all, empty, failure, footer, header, next, notFound, records, skip, status, total } = this.props
     const Layout = this.props.layout
     return (
       <div className="maha-infinite">
-        { status === 'loading' && records && records.length > 0 && <Appending/> }
-        { header &&
+        { status !== 'failed' && records && records.length > 0 && header &&
           <div className="maha-infinite-header">
             { React.createElement(header, this.props) }
           </div>
         }
+        { status === 'loading' && records && records.length > 0 && <Appending/> }
         { status === 'failed' && this._getComponent(failure) }
         { status === 'loading' && records.length === 0 && <Loader /> }
         { status !== 'failed' && records.length === 0 && skip === undefined && total === 0 && all !== 0 &&
@@ -89,6 +90,11 @@ class Infinite extends React.Component {
           <Scrollpane { ...this._getScrollpane() }>
             <Layout { ...this._getLayout() } />
           </Scrollpane>
+        }
+        { status !== 'failed' && records && records.length > 0 && footer &&
+          <div className="maha-infinite-footer">
+            { React.createElement(footer, this.props) }
+          </div>
         }
       </div>
     )

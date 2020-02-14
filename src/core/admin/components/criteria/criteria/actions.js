@@ -18,8 +18,8 @@ export const set = (criteria) => ({
   criteria
 })
 
-export const update = (cindex, value) => ({
-  type: 'UPDATE',
+export const test = (cindex, value) => ({
+  type: 'TEST',
   cindex,
   value
 })

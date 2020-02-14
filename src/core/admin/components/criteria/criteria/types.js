@@ -32,13 +32,13 @@ class Types extends React.PureComponent {
           <div className="maha-criterion-item" onClick={ this._handleConditional.bind(this, '$or') }>
             or
           </div>
-          { types.reduce((items, type, index) => [
+          { types.reduce((items, type, typeIndex) => [
             ...items,
-            <div className="maha-criterion-type" key={`type_${index}`}>
+            <div className="maha-criterion-type" key={`type_${typeIndex}`}>
               { type.label }
             </div>,
-            ...type.fields.map((field, index) => (
-              <div className="maha-criterion-item" key={`field_${index}`} onClick={ this._handleField.bind(this, field)}>
+            ...type.fields.map((field, fieldIndex) => (
+              <div className="maha-criterion-item" key={`type_${typeIndex}_field_${fieldIndex}`} onClick={ this._handleField.bind(this, field)}>
                 { field.name }
               </div>
             ))
@@ -53,7 +53,7 @@ class Types extends React.PureComponent {
     return {
       field,
       onCancel,
-      onChange : () => {},
+      onChange,
       onDone
     }
   }
