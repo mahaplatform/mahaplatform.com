@@ -1,5 +1,5 @@
 import SendEmailCampaignEmailQueue from './send_email_campaign_email_queue'
-import { getRecipients } from '../services/email_campaigns'
+import { getRecipients } from '../services/recipients'
 import EmailCampaign from '../models/email_campaign'
 import Queue from '../../../core/objects/queue'
 
@@ -19,7 +19,7 @@ const processor = async (job, trx) => {
   req.team = campaign.related('team')
 
   const contacts = await getRecipients(req, {
-    to: campaign.get('to')
+    filter: campaign.get('to')
   }).then(result => result.toArray())
 
   await Promise.map(contacts, async (contact) => {

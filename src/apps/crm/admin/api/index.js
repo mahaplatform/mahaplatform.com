@@ -1,4 +1,5 @@
 import organizations from './organizations'
+import recipients from './recipients'
 import templates from './templates'
 import workflows from './workflows'
 import campaigns from './campaigns'
@@ -32,6 +33,8 @@ router.use('/lists', lists)
 router.use('/organizations', organizations)
 
 router.use('/programs', programs)
+
+router.use('/recipients', recipients)
 
 router.use('/tags', tags)
 

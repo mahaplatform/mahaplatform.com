@@ -17,7 +17,7 @@ class Fields extends React.Component {
     endpoint: PropTypes.string,
     fields: PropTypes.array,
     parent_type: PropTypes.string,
-    parent_id: PropTypes.string,
+    parent_id: PropTypes.number,
     status: PropTypes.string,
     onFetch: PropTypes.func,
     onMove: PropTypes.func,

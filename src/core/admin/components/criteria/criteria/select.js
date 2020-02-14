@@ -9,6 +9,7 @@ class Select extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.object,
+    comparisons: PropTypes.array,
     field: PropTypes.object,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
@@ -72,10 +73,11 @@ class Select extends React.Component {
   }
 
   _getRadioGroup() {
+    const { field } = this.props
     const { operator } = this.state
     return {
       defaultValue: operator,
-      options: [
+      options: field.comparisons || [
         { value: '$eq', text: 'is' },
         { value: '$neq', text: 'is not' },
         { value: '$in', text: 'is one of' },

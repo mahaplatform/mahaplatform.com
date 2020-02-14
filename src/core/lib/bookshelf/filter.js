@@ -137,7 +137,7 @@ const filterPlugin = function(bookshelf) {
     if(value === 'not_null') return qb.whereRaw(`${column} is not null`)
     if(value === 'true') return qb.whereRaw(`${column} = ?`, true)
     if(value === 'false') return qb.whereRaw(`${column} = ?`, false)
-    if(value.match(/^\d*$/)) return qb.whereRaw(`${column} = ?`, value)
+    if(`${value}`.match(/^\d*$/)) return qb.whereRaw(`${column} = ?`, value)
     return qb.whereRaw(`lower(${column}::varchar) = ?`, value.toLowerCase())
   }
 

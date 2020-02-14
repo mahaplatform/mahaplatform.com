@@ -90,7 +90,6 @@ class Overview extends React.Component {
       criteria,
       fields,
       onAdd: this._handleAdd,
-      onEdit: this._handleEdit,
       onRemove
     }
   }

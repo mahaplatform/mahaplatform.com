@@ -10,7 +10,6 @@ class Item extends React.Component {
     criteria: PropTypes.object,
     fields: PropTypes.array,
     onAdd: PropTypes.func,
-    onEdit: PropTypes.func,
     onRemove: PropTypes.func
   }
 
@@ -43,7 +42,7 @@ class Item extends React.Component {
     const operator = Object.keys(criteria[key])[0]
     return (
       <div className="maha-criteria-item">
-        <div className="maha-criteria-item-box" onClick={ this._handleEdit.bind(this, cindex, criteria) }>
+        <div className="maha-criteria-item-box">
           { this._getDescription(key, operator) }
           <div className="maha-criteria-item-remove" onClick={ this._handleRemove.bind(this, cindex) }>
             <i className="fa fa-remove" />
@@ -54,13 +53,12 @@ class Item extends React.Component {
   }
 
   _getItem(criteria, cindex, index) {
-    const { fields, onAdd, onEdit, onRemove} = this.props
+    const { fields, onAdd, onRemove} = this.props
     return {
       cindex: [...cindex,...index],
       criteria,
       fields,
       onAdd,
-      onEdit,
       onRemove
     }
   }
@@ -98,10 +96,6 @@ class Item extends React.Component {
 
   _handleNew(cindex, key) {
     this.props.onAdd([...cindex,key])
-  }
-
-  _handleEdit(cindex, criterion) {
-    this.props.onEdit(cindex, criterion)
   }
 
   _handleRemove(cindex, e) {

@@ -1,5 +1,5 @@
 import EmailCampaignSerializer from '../../../../serializers/email_campaign_serializer'
-import { getRecipients } from '../../../../services/email_campaigns'
+import { getRecipients } from '../../../../services/recipients'
 import EmailCampaign from '../../../../models/email_campaign'
 
 const showRoute = async (req, res) => {
@@ -19,7 +19,7 @@ const showRoute = async (req, res) => {
   })
 
   const contacts = await getRecipients(req, {
-    to: campaign.get('to')
+    filter: campaign.get('to')
   })
 
   campaign.set('recipients', contacts.length)

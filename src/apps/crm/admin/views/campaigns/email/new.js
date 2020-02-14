@@ -54,7 +54,7 @@ class Email extends React.PureComponent {
 
   _getCriteriaField() {
     return {
-      endpoint: '/api/admin/crm/contacts',
+      endpoint: '/api/admin/crm/recipients',
       entity: 'contact',
       format: ContactToken,
       fields: [
