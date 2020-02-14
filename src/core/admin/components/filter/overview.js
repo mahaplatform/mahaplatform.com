@@ -17,7 +17,6 @@ class Overview extends React.Component {
     code: PropTypes.string,
     entity: PropTypes.string,
     filters: PropTypes.array,
-    status: PropTypes.string,
     onChange: PropTypes.func,
     onEdit: PropTypes.func,
     onNew: PropTypes.func
@@ -30,8 +29,7 @@ class Overview extends React.Component {
   _handleNew = this._handleNew.bind(this)
 
   render() {
-    const { entity, filters, status } = this.props
-    const loading = _.includes(['pending','loading'], status)
+    const { entity, filters } = this.props
     return (
       <ModalPanel { ...this._getPanel() }>
         <div className="maha-criteria-list-overview">
@@ -46,9 +44,7 @@ class Overview extends React.Component {
                 <div className="maha-criteria-list-item-label">
                   { filter.title }
                 </div>
-                <div className="maha-criteria-list-item-action" onClick={ this._handleEdit.bind(this, filter) }>
-                  <i className="fa fa-pencil" />
-                </div>
+                <Button { ...this._getEdit(filter) } />
                 <Button { ...this._getDelete(filter) } />
               </div>
             )) }
@@ -86,21 +82,6 @@ class Overview extends React.Component {
     return classes.join(' ')
   }
 
-  _getPanel() {
-    return {
-      title: 'Filters',
-      color: 'grey'
-    }
-  }
-
-  _handleChoose(active) {
-    this.setState({ active })
-  }
-
-  _handleNew() {
-    this.props.onNew()
-  }
-
   _getDelete(filter) {
     return {
       label: <i className="fa fa-trash-o" />,
@@ -114,6 +95,29 @@ class Overview extends React.Component {
         }
       }
     }
+  }
+
+  _getEdit(filter) {
+    return {
+      label: <i className="fa fa-pencil" />,
+      className: 'maha-criteria-list-item-action',
+      handler: this._handleEdit.bind(this, filter)
+    }
+  }
+
+  _getPanel() {
+    return {
+      title: 'Filters',
+      color: 'grey'
+    }
+  }
+
+  _handleChoose(active) {
+    this.setState({ active })
+  }
+
+  _handleNew() {
+    this.props.onNew()
   }
 
   _handleEdit(filter, e) {

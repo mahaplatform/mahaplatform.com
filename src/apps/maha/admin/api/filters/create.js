@@ -29,6 +29,10 @@ const createRoute = async (req, res) => {
     })
   }
 
+  await filter.load(['owner'], {
+    transacting: req.trx
+  })
+
   await socket.refresh(req, [
     `/admin/${req.params.code}/filters`
   ])

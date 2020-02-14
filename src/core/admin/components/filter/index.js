@@ -3,7 +3,6 @@ import Overview from './overview'
 import Criteria from './criteria'
 import Stack from '../stack'
 import React from 'react'
-import _ from 'lodash'
 
 class Filter extends React.PureComponent {
 

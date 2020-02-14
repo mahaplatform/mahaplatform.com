@@ -16,7 +16,7 @@ class CriteriaPanel extends React.Component {
     code: PropTypes.string,
     defaultValue: PropTypes.object,
     fields: PropTypes.array,
-    filter: PropTypes.array,
+    filter: PropTypes.object,
     onChange: PropTypes.func,
     onPop: PropTypes.func
   }
@@ -104,6 +104,21 @@ class CriteriaPanel extends React.Component {
     }
   }
 
+  _getNew() {
+    const { code } = this.props
+    const { criteria } = this.state
+    return {
+      code,
+      criteria,
+      onSuccess: this._handleCreate.bind(this)
+    }
+  }
+
+  _handleCreate(filter) {
+    console.log(filter)
+    this.setState({ filter })
+  }
+
   _getSave(filter) {
     const { criteria } = this.state
     const { code } = this.props
@@ -112,7 +127,7 @@ class CriteriaPanel extends React.Component {
       label: 'Save',
       color: 'blue',
       disabled: !(criteria !== null && criteria.$and.length > 0),
-      modal: !id ? <New code={ code } criteria={ criteria } /> : null,
+      modal: !id ? <New { ...this._getNew() } /> : null,
       request: id ? {
         endpoint: `/api/admin/${code}/filters/${id}`,
         method: 'PATCH',

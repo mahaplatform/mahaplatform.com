@@ -10,7 +10,8 @@ class New extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
-    criteria: PropTypes.object
+    criteria: PropTypes.object,
+    onSuccess: PropTypes.func
   }
 
   _handleCancel = this._handleCancel.bind(this)
@@ -50,6 +51,7 @@ class New extends React.Component {
   }
 
   _handleSuccess(result) {
+    this.props.onSuccess(result)
     this.context.modal.close()
   }
 
