@@ -11,6 +11,7 @@ class CriteriaFieldDesigner extends React.PureComponent {
 
   static propTypes = {
     criteria: PropTypes.object,
+    entity: PropTypes.string,
     endpoint: PropTypes.string,
     format: PropTypes.any,
     fields: PropTypes.array,
@@ -43,11 +44,12 @@ class CriteriaFieldDesigner extends React.PureComponent {
   }
 
   _getDesigner() {
-    const { endpoint, format, fields } = this.props
+    const { endpoint, entity, format, fields } = this.props
     const { criteria } = this.state
     return {
       defaultValue: criteria,
       endpoint,
+      entity,
       format,
       fields,
       onChange: this._handleChange

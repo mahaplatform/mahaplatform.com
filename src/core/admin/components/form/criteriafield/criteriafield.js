@@ -76,9 +76,10 @@ class CriteriaField extends React.PureComponent {
   }
 
   _getDesigner() {
-    const { criteria, endpoint, format, fields, title, onSet } = this.props
+    const { criteria, entity, endpoint, format, fields, title, onSet } = this.props
     return {
       criteria,
+      entity,
       endpoint,
       format,
       fields,

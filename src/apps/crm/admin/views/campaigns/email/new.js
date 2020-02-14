@@ -68,9 +68,23 @@ class Email extends React.PureComponent {
           { name: 'state/province', key: 'state_province', type: 'text' },
           { name: 'postal code', key: 'postal_code', type: 'text' },
           { name: 'birthday', key: 'birthday', type: 'text' },
-          { name: 'spouse', key: 'spouse', type: 'text' },
-          { name: 'tags', key: 'tag_id', type: 'select', endpoint: '/api/admin/crm/tags', text: 'text', value: 'id' },
-          { name: 'organization', key: 'organization_id', type: 'select', endpoint: '/api/admin/crm/organizations', text: 'name', value: 'id' }
+          { name: 'spouse', key: 'spouse', type: 'text' }
+        ] },
+        { label: 'Classifications', fields: [
+          { name: 'interests', key: 'topic_id', type: 'select', endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', comparisons: [
+            { value: '$eq', text: 'is interested in' },
+            { value: '$neq', text: 'is not interested in' },
+            { value: '$in', text: 'is interested in one of' },
+            { value: '$nin', text: 'is not interested in one of' }
+          ] },
+          { name: 'lists', key: 'list_id', type: 'select', endpoint: '/api/admin/crm/lists', text: 'title', value: 'id', comparisons: [
+            { value: '$eq', text: 'belongs to' },
+            { value: '$neq', text: 'does not belong to' },
+            { value: '$in', text: 'belongs to one of' },
+            { value: '$nin', text: 'does not belongs to one of' }
+          ] },
+          { name: 'organization', key: 'organization_id', type: 'select', endpoint: '/api/admin/crm/organizations', text: 'name', value: 'id' },
+          { name: 'tags', key: 'tag_id', type: 'select', endpoint: '/api/admin/crm/tags', text: 'text', value: 'id' }
         ] }
       ],
       title: 'Select Contacts'

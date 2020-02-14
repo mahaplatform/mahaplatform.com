@@ -19,6 +19,11 @@ class Designer extends React.PureComponent {
     value: PropTypes.string,
     onChange: PropTypes.func
   }
+  
+  static defaultProps = {
+    entity: 'record',
+    onChange: () => {}
+  }
 
   state = {
     filter: {}
