@@ -90,7 +90,7 @@ class DateRange extends React.Component {
       ],
       color: 'grey',
       buttons: [{
-        label: 'Done',
+        label: 'Add Criteria',
         color: 'blue',
         handler: this._handleDone
       }]

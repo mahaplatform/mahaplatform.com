@@ -70,7 +70,7 @@ class Text extends React.Component {
         { icon: 'chevron-left', handler: this._handleCancel }
       ],
       buttons: [{
-        label: 'Done',
+        label: 'Add Criteria',
         color: 'blue',
         disabled: _.includes(['$eq','$nek','$lk','$nlk'], operator) && value.length === 0,
         handler: this._handleDone

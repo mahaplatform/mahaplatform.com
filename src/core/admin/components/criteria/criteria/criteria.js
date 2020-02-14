@@ -42,7 +42,7 @@ class Criteria extends React.Component {
   componentDidMount() {
     const { defaultValue } = this.props
     this.props.onSet(defaultValue || { $and: [] })
-    this._handlePush(Overview, this._getOverview())
+    this._handlePush(Overview, this._getOverview.bind(this))
   }
 
   componentDidUpdate(prevProps) {

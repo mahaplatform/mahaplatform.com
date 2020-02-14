@@ -65,7 +65,7 @@ class Select extends React.Component {
       ],
       color: 'grey',
       buttons: [{
-        label: 'Done',
+        label: 'Add Criteria',
         color: 'grey',
         handler: this._handleDone
       }]

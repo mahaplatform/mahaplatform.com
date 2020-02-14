@@ -96,8 +96,4 @@ class Overview extends React.Component {
 
 }
 
-const mapStateToProps = (state, props) => ({
-  criteria: state.maha.criteria[props.cid].criteria
-})
-
-export default connect(mapStateToProps)(Overview)
+export default Overview

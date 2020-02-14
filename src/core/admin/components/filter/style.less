@@ -3,3 +3,37 @@
   display: flex;
   position: relative;
 }
+.maha-criteria-list {
+  .scrollable();
+  flex: 1;
+}
+.maha-criteria-list-item {
+  border-bottom: 1px solid fadeout(@black, 95);
+  display: flex;
+  cursor: pointer;
+  &.active {
+    font-weight: bold;
+  }
+  &:hover {
+    background-color: fadeout(@black, 97);
+    .maha-criteria-list-item-action {
+      display: flex;
+    }
+  }
+}
+.maha-criteria-list-item-label {
+  flex: 1;
+  padding: 0.8em;
+}
+.maha-criteria-list-item-action {
+  display: none;
+  padding: 0.8em 0.8em 0.8em 0;
+  .fa {
+    color: fadeout(@black, 80);
+    margin: auto;
+    cursor: pointer;
+    &:hover {
+      color: fadeout(@black, 40);
+    }
+  }
+}

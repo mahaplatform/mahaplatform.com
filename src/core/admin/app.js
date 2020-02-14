@@ -17,7 +17,6 @@ import admincriteriaCriteria from './components/criteria/criteria'
 import admindrawer from './components/drawer'
 import adminemojis from './components/emojis'
 import adminfields from './components/fields'
-import adminfilterOverview from './components/filter/overview'
 import adminflash from './components/flash'
 import adminformAddressfield from './components/form/addressfield'
 import adminformAssignmentfield from './components/form/assignmentfield'
@@ -269,7 +268,6 @@ class App extends React.Component {
       admindrawer,
       adminemojis,
       adminfields,
-      adminfilterOverview,
       adminflash,
       adminformAddressfield,
       adminformAssignmentfield,

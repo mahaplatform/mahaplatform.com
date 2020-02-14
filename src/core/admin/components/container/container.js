@@ -27,6 +27,8 @@ const Creator = (mapResourcesToPage, Component) => {
     static propTypes = {
       component: PropTypes.object,
       data: PropTypes.object,
+      params: PropTypes.object,
+      pathname: PropTypes.string,
       ready: PropTypes.bool,
       resources: PropTypes.object,
       status: PropTypes.string,
@@ -115,23 +117,47 @@ const Creator = (mapResourcesToPage, Component) => {
     }
 
     _handleJoin() {
-      const { pathname } = this.props
+      const { params, pathname } = this.props
+      const page = { params, pathname }
       const { network } = this.context
-      if(!pathname) return
-      network.join(pathname)
-      network.subscribe([
-        { target: pathname, action: 'refresh', handler: this._handleRefreshResources }
-      ])
+      if(pathname) {
+        network.join(pathname)
+        network.subscribe([
+          { target: pathname, action: 'refresh', handler: this._handleRefreshResources }
+        ])
+      }
+      if(mapResourcesToPage) {
+        const resources = mapResourcesToPage(this.props, this.context, page)
+        Object.values(resources).map(resource => {
+          if(!resource.refresh) return
+          network.join(resource.refresh)
+          network.subscribe([
+            { target: resource.refresh, action: 'refresh', handler: this._handleRefreshResources }
+          ])
+        })
+      }
     }
 
     _handleLeave() {
-      const { pathname } = this.props
+      const { params, pathname } = this.props
+      const page = { params, pathname }
       const { network } = this.context
-      if(!pathname) return
-      network.leave(pathname)
-      network.unsubscribe([
-        { target: pathname, action: 'refresh', handler: this._handleRefreshResources }
-      ])
+      if(pathname) {
+        network.leave(pathname)
+        network.unsubscribe([
+          { target: pathname, action: 'refresh', handler: this._handleRefreshResources }
+        ])
+      }
+      if(mapResourcesToPage) {
+        const resources = mapResourcesToPage(this.props, this.context, page)
+        Object.values(resources).map(resource => {
+          if(!resource.refresh) return
+          network.join(resource.refresh)
+          network.subscribe([
+            { target: resource.refresh, action: 'refresh', handler: this._handleRefreshResources }
+          ])
+        })
+      }
     }
 
     _handleRefreshResources() {

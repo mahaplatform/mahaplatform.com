@@ -1,16 +1,11 @@
-import Stack from '../stack'
 import PropTypes from 'prop-types'
 import Overview from './overview'
-import Criteria from '../criteria'
+import Criteria from './criteria'
+import Stack from '../stack'
 import React from 'react'
+import _ from 'lodash'
 
 class Filter extends React.PureComponent {
-
-  static childContextTypes = {
-    filter: PropTypes.object
-  }
-
-  static contextTypes = {}
 
   static propTypes = {
     code: PropTypes.string,
@@ -39,30 +34,17 @@ class Filter extends React.PureComponent {
   }
 
   componentDidMount() {
-    this.setState({
-      cards: [
-        { component: Overview, props: this._getOverview() }
-      ]
-    })
-  }
-
-  getChildContext() {
-    return {
-      filter: {
-        push: this._handlePush,
-        pop: this._handlePop
-      }
-    }
+    this._handlePush(Overview, this._getOverview())
   }
 
   _getCriteria(filter = null) {
     const { code, fields, onChange } = this.props
     return {
       code,
-      defaultValue: filter,
-      title: filter ? filter.title : 'New Filter',
+      filter,
       fields,
-      onChange
+      onChange,
+      onPop: this._handlePop
     }
   }
 
@@ -86,21 +68,11 @@ class Filter extends React.PureComponent {
   }
 
   _handleEdit(filter) {
-    this.setState({
-      cards: [
-        ...this.state.cards,
-        { component: Criteria, props: this._getCriteria(filter) }
-      ]
-    })
+    this._handlePush(Criteria, this._getCriteria.bind(this, filter))
   }
 
   _handleNew() {
-    this.setState({
-      cards: [
-        ...this.state.cards,
-        { component: Criteria, props: this._getCriteria() }
-      ]
-    })
+    this._handlePush(Criteria, this._getCriteria.bind(this))
   }
 
   _handlePop(index = -1) {
@@ -109,11 +81,11 @@ class Filter extends React.PureComponent {
     })
   }
 
-  _handlePush(card) {
+  _handlePush(component, props) {
     this.setState({
       cards: [
         ...this.state.cards,
-        card
+        { component, props }
       ]
     })
   }
