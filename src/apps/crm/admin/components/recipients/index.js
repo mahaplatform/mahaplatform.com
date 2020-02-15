@@ -1,5 +1,5 @@
 import { CriteriaDesigner, ModalPanel } from 'maha-admin'
-import ContactToken from '../../../tokens/contact'
+import RecipientToken from '../../tokens/recipient'
 import PropTypes from 'prop-types'
 import React from 'react'
 
@@ -11,7 +11,8 @@ class Recipients extends React.PureComponent {
   }
 
   static propTypes = {
-    campaign: PropTypes.object
+    campaign: PropTypes.object,
+    type: PropTypes.string
   }
 
   state = {
@@ -39,12 +40,14 @@ class Recipients extends React.PureComponent {
   }
 
   _getCriteriaDesigner() {
+    const { campaign, type } = this.props
+    const { program_id, purpose } = campaign
     const { to } = this.state
     return {
       defaultValue: to,
-      endpoint: '/api/admin/crm/recipients',
+      endpoint: `/api/admin/crm/programs/${program_id}/${purpose}/${type}/recipients`,
       entity: 'contact',
-      format: ContactToken,
+      format: (recipient) => <RecipientToken recipient={recipient} channel={ type } />,
       fields: [
         { label: 'Contact', fields: [
           { name: 'first name', key: 'first_name', type: 'text' },
@@ -55,7 +58,6 @@ class Recipients extends React.PureComponent {
           { name: 'city', key: 'city', type: 'text' },
           { name: 'state/province', key: 'state_province', type: 'text' },
           { name: 'postal code', key: 'postal_code', type: 'text' },
-          { name: 'county', key: 'county', type: 'text' },
           { name: 'birthday', key: 'birthday', type: 'text' },
           { name: 'spouse', key: 'spouse', type: 'text' }
         ] },
@@ -74,6 +76,12 @@ class Recipients extends React.PureComponent {
           ] },
           { name: 'organization', key: 'organization_id', type: 'select', endpoint: '/api/admin/crm/organizations', text: 'name', value: 'id' },
           { name: 'tags', key: 'tag_id', type: 'select', endpoint: '/api/admin/crm/tags', text: 'text', value: 'id' }
+        ] },
+        { label: 'Activities', fields: [
+          { name: 'form', key: 'form_id', type: 'select', endpoint: '/api/admin/crm/forms', text: 'title', value: 'id', comparisons: [
+            { value: '$eq', text: 'filled out' },
+            { value: '$neq', text: 'did not fill out' }
+          ] }
         ] }
       ],
       onChange: this._handleChange
@@ -98,10 +106,10 @@ class Recipients extends React.PureComponent {
   }
 
   _handleSave() {
-    const { campaign } = this.props
+    const { campaign, type } = this.props
     const { to } = this.state
     this.context.network.request({
-      endpoint: `/api/admin/crm/campaigns/email/${campaign.id}`,
+      endpoint: `/api/admin/crm/campaigns/${ type }/${campaign.id}`,
       method: 'PATCH',
       body: { to },
       onSuccess: this._handleSuccess

@@ -1,5 +1,5 @@
+import Recipients from '../../../components/recipients'
 import { Button, List } from 'maha-admin'
-import Recipients from './recipients'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
 import React from 'react'
@@ -17,7 +17,7 @@ const Details = ({ campaign }) => {
   const to = {
     label: pluralize('contact', campaign.recipients, true),
     className: 'link',
-    modal: <Recipients campaign={ campaign } />
+    modal: <Recipients campaign={ campaign } type="email" />
   }
 
   config.items = [

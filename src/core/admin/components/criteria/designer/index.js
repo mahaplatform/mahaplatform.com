@@ -19,7 +19,7 @@ class Designer extends React.PureComponent {
     value: PropTypes.string,
     onChange: PropTypes.func
   }
-  
+
   static defaultProps = {
     entity: 'record',
     onChange: () => {}
@@ -83,7 +83,7 @@ class Designer extends React.PureComponent {
       },
       endpoint,
       filter,
-      footer: ({ total }) => pluralize(entity, total, true),
+      footer: ({ all, total }) => `Matching ${total} of ${pluralize(entity, all, true)}`,
       layout: Results,
       props: this._getResults()
     }

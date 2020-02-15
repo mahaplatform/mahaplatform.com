@@ -12,6 +12,7 @@ class CriteriaField extends React.PureComponent {
 
   static propTypes = {
     cid: PropTypes.string,
+    comment: PropTypes.any,
     contacts: PropTypes.array,
     criteria: PropTypes.object,
     defaultValue: PropTypes.object,
@@ -76,8 +77,9 @@ class CriteriaField extends React.PureComponent {
   }
 
   _getDesigner() {
-    const { criteria, entity, endpoint, format, fields, title, onSet } = this.props
+    const { comment, criteria, entity, endpoint, format, fields, title, onSet } = this.props
     return {
+      comment,
       criteria,
       entity,
       endpoint,

@@ -1,3 +1,4 @@
+import recipients from './recipients'
 import templates from './templates'
 import { Router } from 'express'
 import destroy from './destroy'
@@ -31,6 +32,8 @@ router.use('/:program_id/access', access)
 router.use('/:program_id/fields', fields)
 
 router.use('/:program_id/lists', lists)
+
+router.use('/:program_id/:purpose/:type/recipients', recipients)
 
 router.use('/:program_id/senders', senders)
 

@@ -1,4 +1,5 @@
 import SMSCampaignSerializer from '../../../../serializers/sms_campaign_serializer'
+import { getRecipients } from '../../../../services/recipients'
 import SMSCampaign from '../../../../models/sms_campaign'
 
 const showRoute = async (req, res) => {
@@ -6,7 +7,7 @@ const showRoute = async (req, res) => {
   const campaign = await SMSCampaign.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
-    qb.where('code', req.params.id)
+    qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['phone_number','program'],
     transacting: req.trx
@@ -16,6 +17,14 @@ const showRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load campaign'
   })
+
+  const contacts = await getRecipients(req, {
+    type: 'sms',
+    purpose: campaign.get('purpose'),
+    filter: campaign.get('to')
+  })
+
+  campaign.set('recipients', contacts.length)
 
   res.status(200).respond(campaign, SMSCampaignSerializer)
 

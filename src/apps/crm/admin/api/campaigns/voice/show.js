@@ -6,7 +6,7 @@ const showRoute = async (req, res) => {
   const campaign = await VoiceCampaign.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
-    qb.where('code', req.params.id)
+    qb.where('id', req.params.id)
   }).fetch({
     withRelated: ['phone_number','program'],
     transacting: req.trx

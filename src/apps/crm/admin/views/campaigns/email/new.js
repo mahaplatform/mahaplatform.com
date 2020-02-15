@@ -1,4 +1,4 @@
-import ContactToken from '../../../tokens/contact'
+import RecipientToken from '../../../tokens/recipient'
 import PurposeToken from '../../../tokens/purpose'
 import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
@@ -18,9 +18,12 @@ class Email extends React.PureComponent {
     onBack: PropTypes.func
   }
 
-  static defaultProps = {}
+  state = {
+    purpose: 'marketing'
+  }
 
   _handleBack = this._handleBack.bind(this)
+  _handleChangeField = this._handleChangeField.bind(this)
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
@@ -29,19 +32,21 @@ class Email extends React.PureComponent {
 
   _getForm() {
     const { program_id, user } = this.props
+    const { purpose } = this.state
     return {
       title: 'New Email Blast',
       method: 'post',
       action: '/api/admin/crm/campaigns/email',
       cancelIcon: 'chevron-left',
       onCancel: this._handleBack,
+      onChangeField: this._handleChangeField,
       onSuccess: this._handleSuccess,
       sections: [
         {
           fields: [
             { name: 'program_id', type: 'hidden', defaultValue: program_id },
             { label: 'Title', name: 'title', type: 'textfield', placeholder: 'Enter a title for this campaign', required: true },
-            { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: 'marketing' },
+            { label: 'Purpose', name: 'purpose', type: 'radiogroup', options: ['marketing','transactional'], required: true, format: PurposeToken, defaultValue: purpose },
             { label: 'From', name: 'sender_id', type: 'lookup', placeholder: 'Choose a sender', endpoint: `/api/admin/crm/programs/${program_id}/senders`, filter: { is_verified: { $eq: 'true' } }, value: 'id', text: 'rfc822', required: true },
             { label: 'Reply To', name: 'reply_to', type: 'textfield', placeholder: 'Enter a reply to email address', required: true, defaultValue: user.email },
             { label: 'To', name: 'to', type: 'criteriafield', ...this._getCriteriaField() },
@@ -52,11 +57,30 @@ class Email extends React.PureComponent {
     }
   }
 
+  _getComment(purpose) {
+    if(purpose === 'marketing') {
+      return `
+        Marketing emails can only be sent to contacts who have given their
+        explicit consent. You will only see contacts who match your criteria
+        and have opted in to receive email from this program
+      `
+    }
+    if(purpose === 'transactional') {
+      return `
+        Transactional emails will be sent to the primary email address of each
+        contact that matches your criteria.
+      `
+    }
+  }
+
   _getCriteriaField() {
+    const { program_id } = this.props
+    const { purpose } = this.state
     return {
-      endpoint: '/api/admin/crm/recipients',
+      comment: <p>{ this._getComment(purpose) }</p>,
+      endpoint: `/api/admin/crm/programs/${program_id}/${purpose}/email/recipients`,
       entity: 'contact',
-      format: ContactToken,
+      format: (recipient) => <RecipientToken recipient={recipient} channel="email" />,
       fields: [
         { label: 'Contact', fields: [
           { name: 'first name', key: 'first_name', type: 'text' },
@@ -85,6 +109,12 @@ class Email extends React.PureComponent {
           ] },
           { name: 'organization', key: 'organization_id', type: 'select', endpoint: '/api/admin/crm/organizations', text: 'name', value: 'id' },
           { name: 'tags', key: 'tag_id', type: 'select', endpoint: '/api/admin/crm/tags', text: 'text', value: 'id' }
+        ] },
+        { label: 'Activities', fields: [
+          { name: 'form', key: 'form_id', type: 'select', endpoint: '/api/admin/crm/forms', text: 'title', value: 'id', comparisons: [
+            { value: '$eq', text: 'filled out' },
+            { value: '$neq', text: 'did not fill out' }
+          ] }
         ] }
       ],
       title: 'Select Contacts'
@@ -93,6 +123,14 @@ class Email extends React.PureComponent {
 
   _handleBack() {
     this.props.onBack()
+  }
+
+  _handleChangeField(key, value) {
+    if(key === 'purpose') {
+      this.setState({
+        purpose: value
+      })
+    }
   }
 
   _handleSuccess(campaign) {

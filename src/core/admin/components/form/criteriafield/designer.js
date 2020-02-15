@@ -10,6 +10,7 @@ class CriteriaFieldDesigner extends React.PureComponent {
   }
 
   static propTypes = {
+    comment: PropTypes.any,
     criteria: PropTypes.object,
     entity: PropTypes.string,
     endpoint: PropTypes.string,
@@ -57,9 +58,10 @@ class CriteriaFieldDesigner extends React.PureComponent {
   }
 
   _getPanel() {
-    const { title } = this.props
+    const { comment, title } = this.props
     return {
       title,
+      instructions: comment,
       leftItems: [
         { icon: 'chevron-left', handler: this._handleCancel }
       ],
