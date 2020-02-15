@@ -19,12 +19,14 @@ const processor = async (job, trx) => {
   req.team = campaign.related('team')
 
   const contacts = await getRecipients(req, {
+    type: 'email',
+    purpose: campaign.get('purpose'),
     filter: campaign.get('to')
   }).then(result => result.toArray())
 
   await Promise.map(contacts, async (contact) => {
 
-    const email_address = contact.related('email_addresses').toArray().shift()
+    const email_address = contact.related('email_address')
 
     await SendEmailCampaignEmailQueue.enqueue(req, {
       email_campaign_id: campaign.get('id'),

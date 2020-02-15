@@ -67,23 +67,44 @@ const getStyle = (config) => {
   }).join('')
 }
 
+const selectors = [
+  { selector: 'h1', blocks: ['h1'] },
+  { selector: 'h2', blocks: ['h2'] },
+  { selector: 'p', blocks: ['p','li','td'] }
+]
+
 const getInlineStyle = (config) => [
   { selector: 'html', styles: [
     ...getProp(config, 'background-color', 'page.background_color')
   ] },
-  ...['h1','h2','p'].map(selector => ({
-    selector, styles: [
-      ...getProp(config, 'font-family', `page.${selector}_font_family`),
-      ...getProp(config, 'font-size', `page.${selector}_font_size`, 'px'),
-      ...getFormat(config, 'font-weight', 'bold', `page.${selector}_format`, 'normal'),
-      ...getFormat(config, 'font-style', 'italic', `page.${selector}_format`),
-      ...getFormat(config, 'text-decoration', 'underline', `page.${selector}_format`),
-      ...getProp(config, 'color', `page.${selector}_color`),
-      ...getProp(config, 'text-align', `page.${selector}_text_align`),
-      ...getProp(config, 'line-height', `page.${selector}_line_height`),
-      ...getProp(config, 'letter-spacing', `page.${selector}_letter_spacing`, 'px')
-    ]
-  })),
+  { selector: 'table.body', styles: [
+    ...getProp(config, 'background-color', 'page.background_color')
+  ] },
+  ...selectors.reduce((selectorStyles, style) => [
+    ...selectorStyles,
+    ...style.blocks.reduce((blockStyles, block) => [
+      ...blockStyles,
+      {
+        selector: block, styles: [
+          ...getProp(config, 'font-family', `page.${style.selector}_font_family`),
+          ...getProp(config, 'font-size', `page.${style.selector}_font_size`, 'px'),
+          ...getFormat(config, 'font-weight', 'bold', `page.${style.selector}_format`, 'normal'),
+          ...getFormat(config, 'font-style', 'italic', `page.${style.selector}_format`),
+          ...getFormat(config, 'text-decoration', 'underline', `page.${style.selector}_format`),
+          ...getProp(config, 'color', `page.${style.selector}_color`),
+          ...getProp(config, 'text-align', `page.${style.selector}_text_align`),
+          ...getProp(config, 'line-height', `page.${style.selector}_line_height`),
+          ...getProp(config, 'letter-spacing', `page.${style.selector}_letter_spacing`, 'px')
+        ]
+      }
+    ], [])
+  ], []),
+  { selector: 'a', styles: [
+    ...getFormat(config, 'font-weight', 'bold', 'page.a_format', 'normal'),
+    ...getFormat(config, 'font-style', 'italic', 'page.a_format'),
+    ...getFormat(config, 'text-decoration', 'underline', 'page.a_format'),
+    ...getProp(config, 'color', 'page.a_color')
+  ] },
   { selector: 'table.body', styles: [
     ...getProp(config, 'background-color', 'page.background_color')
   ] },
@@ -96,17 +117,32 @@ const getInlineStyle = (config) => [
   ] },
   ...config.blocks.reduce((blockStyles, block, j) => [
     ...blockStyles,
-    { selector: `table.block-${j} td,table.block-${j} p`, styles: [
-      ...getProp(config, 'font-family',`blocks[${j}].font_family`),
-      ...getProp(config, 'font-size',`blocks[${j}].font_size`, 'px'),
-      ...getFormat(config, 'font-weight', 'bold', `blocks[${j}].format`, 'normal'),
-      ...getFormat(config, 'font-style', 'italic', `blocks[${j}].format`),
-      ...getFormat(config, 'text-decoration', 'underline', `blocks[${j}].format`),
-      ...getProp(config, 'color',`blocks[${j}].color`),
-      ...getProp(config, 'text-align',`blocks[${j}].text_align`),
-      ...getProp(config, 'line-height',`blocks[${j}].line_height`),
-      ...getProp(config, 'letter-spacing',`blocks[${j}].letter_spacing`, 'px')
-    ] }, {
+    ...selectors.reduce((selectorStyles, style) => [
+      ...selectorStyles,
+      ...style.blocks.reduce((blockStyles, block) => [
+        ...blockStyles,
+        {
+          selector: `table.block-${j} ${block}`, styles: [
+            ...getProp(config, 'font-family', `blocks[${j}].${style.selector}_font_family`),
+            ...getProp(config, 'font-size', `blocks[${j}].${style.selector}_font_size`, 'px'),
+            ...getFormat(config, 'font-weight', 'bold', `blocks[${j}].${style.selector}_format`, 'normal'),
+            ...getFormat(config, 'font-style', 'italic', `blocks[${j}].${style.selector}_format`),
+            ...getFormat(config, 'text-decoration', 'underline', `blocks[${j}].${style.selector}_format`),
+            ...getProp(config, 'color', `blocks[${j}].${style.selector}_color`),
+            ...getProp(config, 'text-align', `blocks[${j}].${style.selector}_text_align`),
+            ...getProp(config, 'line-height', `blocks[${j}].${style.selector}_line_height`),
+            ...getProp(config, 'letter-spacing', `blocks[${j}].${style.selector}_letter_spacing`, 'px')
+          ]
+        }
+      ], [])
+    ], []),
+    { selector: `table.block-${j} a`, styles: [
+      ...getFormat(config, 'font-weight', 'bold', `blocks[${j}].a_format`, 'normal'),
+      ...getFormat(config, 'font-style', 'italic', `blocks[${j}].a_format`),
+      ...getFormat(config, 'text-decoration', 'underline', `blocks[${j}].a_format`),
+      ...getProp(config, 'color', `blocks[${j}].a_color`)
+    ] },
+    {
       selector: `table.block-${j} table.block-container`, styles: [
         ...getBorder(config, 'border', `blocks[${j}].border`),
         ...getProp(config, 'background-color',`blocks[${j}].background_color`)
