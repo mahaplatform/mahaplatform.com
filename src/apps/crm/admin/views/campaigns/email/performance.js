@@ -1,6 +1,7 @@
 import { Button, List, ProgressBar } from 'maha-admin'
 import PropTypes from 'prop-types'
 import numeral from 'numeral'
+import moment from 'moment'
 import React from 'react'
 
 class Performance extends React.Component {
@@ -24,79 +25,135 @@ class Performance extends React.Component {
     return {
       sections: [
         {
-          title: 'Delivery',
           items: [
             { component: (
-              <div className="crm-email-campaign-results-header">
-                <strong>Open Rate</strong>
-                <ProgressBar color="blue" percent={ opened / delivered } />
-                <ul>
-                  <li>
-                    Desktop <i className="fa fa-fw fa-desktop" /> { this._getPercent(desktop, opened, 'is_desktop') }
-                  </li>
-                  <li>
-                    Mobile <i className="fa fa-fw fa-tablet" /> { this._getPercent(mobile, opened, 'is_mobile') }
-                  </li>
-                </ul>
+              <div className="crm-report">
+                <div className="crm-report-title">Delivery</div>
+                <div className="crm-report-table">
+                  <div className="crm-email-campaign-results-header">
+                    <div className="crm-email-campaign-results-header-item">
+                      <div className="crm-email-campaign-results-stat">
+                        <div className="crm-email-campaign-results-stat-title">
+                          Open Rate
+                        </div>
+                        <div className="crm-email-campaign-results-stat-percent">
+                          { numeral(opened / delivered).format('0.00%') }
+                        </div>
+                      </div>
+                      <ProgressBar labeled={ false } color="blue" percent={ opened / delivered } />
+                    </div>
+                    <div className="crm-email-campaign-results-header-item">
+                      <div className="crm-email-campaign-results-stat">
+                        <div className="crm-email-campaign-results-stat-title">
+                          Click Rate
+                        </div>
+                        <div className="crm-email-campaign-results-stat-percent">
+                          { numeral(clicked / delivered).format('0.00%') }
+                        </div>
+                      </div>
+                      <ProgressBar labeled={ false } color="blue" percent={ clicked / opened } />
+                    </div>
+                  </div>
+                </div>
+                <div className="crm-report-metrics">
+                  <div className="crm-report-metric">
+                    <div className="crm-report-metric-title">Opened</div>
+                    <div className="crm-report-metric-value">
+                      { this._getButton(opened, 'opened') }
+                    </div>
+                  </div>
+                  <div className="crm-report-metric">
+                    <div className="crm-report-metric-title">Clicked</div>
+                    <div className="crm-report-metric-value">
+                      { this._getButton(clicked, 'clicked') }
+                    </div>
+                  </div>
+                  <div className="crm-report-metric">
+                    <div className="crm-report-metric-title">Bounced</div>
+                    <div className="crm-report-metric-value">
+                      { this._getButton(bounced, 'bounced') }
+                    </div>
+                  </div>
+                  <div className="crm-report-metric">
+                    <div className="crm-report-metric-title">Unsubscribed</div>
+                    <div className="crm-report-metric-value">
+                      { this._getButton(unsubscribed, 'unsubscribed') }
+                    </div>
+                  </div>
+                </div>
+                <div className="crm-report-table">
+                  <table className="ui table">
+                    <tbody>
+                      <tr>
+                        <td>Successful Deliveries</td>
+                        <td className="right aligned">
+                          { this._getButton(delivered, 'delivered') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Total Opens</td>
+                        <td className="right aligned">
+                          { this._getButton(opened, 'opened') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Total Clicks</td>
+                        <td className="right aligned">
+                          { this._getButton(clicked, 'clicked') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Clicked</td>
+                        <td className="right aligned">
+                          { this._getButton(clicked, 'clicked') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Viewed Online</td>
+                        <td className="right aligned">
+                          { this._getButton(clicked, 'clicked') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Forwarded</td>
+                        <td className="right aligned">
+                          { this._getButton(clicked, 'clicked') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Complained</td>
+                        <td className="right aligned">
+                          { this._getButton(complained, 'was_complained') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Unsubscribed</td>
+                        <td className="right aligned">
+                          { this._getButton(unsubscribed, 'was_unsubscribed') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Desktop</td>
+                        <td className="right aligned">
+                          { this._getPercent(desktop, opened, 'is_desktop') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Mobile</td>
+                        <td className="right aligned">
+                          { this._getPercent(mobile, opened, 'is_mobile') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Last Opened</td>
+                        <td className="right aligned">
+                          { moment().format('MM/DD/YY hh:mmA') }
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-            ) },
-            { component: (
-              <table className="ui table">
-                <tbody>
-                  <tr>
-                    <td>Delivered</td>
-                    <td className="right aligned">
-                      { this._getStat(delivered, sent, 'was_delivered') }
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Bounced</td>
-                    <td className="right aligned">
-                      { this._getStat(bounced, sent, 'was_bounced') }
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Opened</td>
-                    <td className="right aligned">
-                      { this._getStat(opened, delivered, 'was_opened') }
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            ) }
-          ]
-        }, {
-          title: 'Performance',
-          items: [
-            { component: (
-              <div className="crm-email-campaign-results-header">
-                <strong>Click Rate</strong>
-                <ProgressBar color="blue" percent={ clicked / opened } />
-              </div>
-            ) },
-            { component: (
-              <table className="ui table">
-                <tbody>
-                  <tr>
-                    <td>Clicked</td>
-                    <td className="right aligned">
-                      { this._getStat(clicked, opened, 'was_clicked') }
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Complained</td>
-                    <td className="right aligned">
-                      { this._getStat(complained, opened, 'was_complained') }
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>Unsubscribed</td>
-                    <td className="right aligned">
-                      { this._getStat(unsubscribed, opened, 'was_unsubscribed') }
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
             ) }
           ]
         }, {
@@ -135,14 +192,8 @@ class Performance extends React.Component {
   }
 
   _getPercent(quantity, total, report) {
-    const { campaign } = this.props
     const percent = quantity / total
-    const button = {
-      label: numeral(percent).format('0.0%'),
-      className: 'link',
-      route: `/admin/crm/campaigns/email/${campaign.code}/deliveries?$filter[${report}][$eq]=true`
-    }
-    return <Button { ...button } />
+    return this._getButton(numeral(percent).format('0.0%'), report)
   }
 
   _getStat(quantity, total, report) {
@@ -153,6 +204,16 @@ class Performance extends React.Component {
         { percent } { portion }
       </div>
     )
+  }
+
+  _getButton(value, report) {
+    const { campaign } = this.props
+    const button = {
+      label: value,
+      className: 'link',
+      route: `/admin/crm/campaigns/email/${campaign.code}/deliveries?$filter[${report}][$eq]=true`
+    }
+    return <Button { ...button } />
   }
 
 }

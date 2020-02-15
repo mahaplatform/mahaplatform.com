@@ -340,6 +340,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('job_id')
+      table.integer('recipient_count')
     })
 
     await knex.schema.createTable('crm_emails', (table) => {
@@ -508,6 +509,7 @@ const schema = {
       table.timestamp('updated_at')
       table.jsonb('to')
       table.jsonb('config')
+      table.integer('recipient_count')
     })
 
     await knex.schema.createTable('crm_social_campaigns', (table) => {
@@ -577,6 +579,7 @@ const schema = {
       table.timestamp('sent_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
+      table.integer('recipient_count')
     })
 
     await knex.schema.createTable('crm_workflows', (table) => {

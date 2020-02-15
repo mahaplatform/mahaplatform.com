@@ -1,5 +1,17 @@
 .maha-progress-bar {
   .ui.progress {
     margin: 0;
+    &[data-percent="0"] .bar {
+      background:transparent;
+    }
+    &[data-percent="0"] .bar .progress {
+      color: rgba(0, 0, 0, 0.87);
+    }
+    &.progress[data-percent="0"] .bar .progress {
+      color: rgba(255, 255, 255, 0.9);
+    }
+    &.indicating.progress .label {
+      color: rgba(255, 255, 255, 0.9);
+    }
   }
 }
