@@ -18,43 +18,52 @@ const feedbackRoute = async (req, res) => {
 
   if(req.body.Type === 'Notification') {
 
-    const type = req.body.Message.notificationType
+    const message = JSON.parse(req.body.Message)
 
     const email = await Email.where({
-      ses_id: req.body.MessageId
+      ses_id: message.mail.messageId
     }).fetch({
       transacting: req.trx
     })
 
     if(!email) return res.status(404).send('not found')
 
-    if(type === 'Delivery') await email.save({
-      was_delivered: true,
-      delivered_at: moment()
-    }, {
-      patch: true,
-      transacting: req.trx
-    })
+    if(message.notificationType === 'Delivery') {
+      await email.save({
+        was_delivered: true,
+        delivered_at: moment(message.delivery.timestamp)
+      }, {
+        patch: true,
+        transacting: req.trx
+      })
+    }
 
-    if(type === 'Bounce') await email.save({
-      was_bounced: true,
-      bounced_at: moment()
-    }, {
-      patch: true,
-      transacting: req.trx
-    })
+    if(message.notificationType === 'Bounce') {
+      await email.save({
+        was_bounced: true,
+        bounce_type: message.bounce.bounceType,
+        bounce_subtype: message.bounce.bounceSubType,
+        bounced_at: moment()
+      }, {
+        patch: true,
+        transacting: req.trx
+      })
+    }
 
-    if(type === 'Complaint') await email.save({
-      was_complained: true,
-      complained_at: moment()
-    }, {
-      patch: true,
-      transacting: req.trx
-    })
+    if(message.notificationType === 'Complaint') {
+      await email.save({
+        was_complained: true,
+        complaint_type: message.complaint.complaintFeedbackType,
+        complained_at: moment()
+      }, {
+        patch: true,
+        transacting: req.trx
+      })
+    }
 
   }
 
-  res.status(200).send('')
+  res.status(200).send(true)
 
 }
 

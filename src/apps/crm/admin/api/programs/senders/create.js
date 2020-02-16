@@ -33,19 +33,19 @@ const createRoute = async (req, res) => {
     await ses.setIdentityNotificationTopic({
       Identity: req.body.email,
       NotificationType: 'Bounce',
-      SnsTopic: 'arn:aws:sns:us-east-1:927906310648:mahaplatform-bounces'
+      SnsTopic: process.env.AWS_SNS_TOPIC
     }).promise()
 
     await ses.setIdentityNotificationTopic({
       Identity: req.body.email,
       NotificationType: 'Complaint',
-      SnsTopic: 'arn:aws:sns:us-east-1:927906310648:mahaplatform-complaints'
+      SnsTopic: process.env.AWS_SNS_TOPIC
     }).promise()
 
     await ses.setIdentityNotificationTopic({
       Identity: req.body.email,
       NotificationType: 'Delivery',
-      SnsTopic: 'arn:aws:sns:us-east-1:927906310648:mahaplatform-deliveries'
+      SnsTopic: process.env.AWS_SNS_TOPIC
     }).promise()
   }
 

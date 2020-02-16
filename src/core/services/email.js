@@ -15,6 +15,7 @@ export const sendMail = async (email) => {
   const result = await new Promise((resolve, reject) => {
     nodemailer.sendMail({
       ...email,
+      from: process.env.EMAIL_SENDER || email.from,
       to: process.env.EMAIL_REDIRECT || email.to,
       html,
       text: htmlToText(email.html)

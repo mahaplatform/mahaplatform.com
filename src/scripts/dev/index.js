@@ -8,6 +8,7 @@ import log from '../../core/utils/log'
 import { spawn } from 'child_process'
 import chokidar from 'chokidar'
 import webpack from 'webpack'
+import ngrok from 'ngrok'
 import path from 'path'
 import _ from 'lodash'
 import fs from 'fs'
@@ -165,6 +166,11 @@ const adminWatch = async () => {
 export const dev = async () => {
   const argv = process.argv.slice(2)
   const services = argv.length > 0 ? argv : ['server','web','desktop','mobile','admin']
+  const url = await ngrok.connect({
+    authtoken:process.env.NGROK_AUTHTOKEN,
+    addr: process.env.SERVER_PORT,
+    subdomain: process.env.NGROK_SUBDOMAIN
+  })
   if(_.includes(services, 'server')) await serverWatch()
   // if(_.includes(services, 'desktop')) await desktopWatch()
   // if(_.includes(services, 'mobile')) await mobileWatch()
