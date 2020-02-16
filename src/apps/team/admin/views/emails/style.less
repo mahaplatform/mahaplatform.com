@@ -41,6 +41,16 @@
 .team-email-feed {
   background: fadeout(@black, 95);
   padding: 0.8em;
+  .team-email-feed-item:last-child {
+    padding-bottom: 0;
+    &:after {
+      content: none;
+    }
+  }
+}
+.team-email-feed-item {
+  display: flex;
+  padding-bottom: 1em;
   position:relative;
   &:after {
     content: "";
@@ -49,12 +59,9 @@
     bottom: 0;
     left: 0;
     border-left: 2px dotted fadeout(@black, 70);
-    transform: translate(2em);
+    transform: translateX(1.2em);
   }
-}
-.team-email-feed-item {
-  display: flex;
-  margin-bottom: 1em;
+
 }
 .team-email-feed-item-icon {
   flex: 0 0 2.5em;
@@ -73,7 +80,7 @@
     margin: auto;
     color: @red;
     width: 1em;
-    font-size: 0.9em;
+    font-size: 1.2em;
   }
 }
 .team-email-feed-item-content {

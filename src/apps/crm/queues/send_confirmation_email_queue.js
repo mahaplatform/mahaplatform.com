@@ -82,8 +82,9 @@ const processor = async (job, trx) => {
         } : {}
       }), {}),
       email: {
+        code,
         web_link: `${process.env.WEB_HOST}/w${code}`,
-        preferences_link: `${process.env.WEB_HOST}/crm/preferences/email/${code}${email_address.get('code')}`
+        preferences_link: `${process.env.WEB_HOST}/crm/p${code}${email_address.get('code')}`
       }
     }
   })

@@ -1,68 +1,75 @@
-import MailingAddress from '../../../models/mailing_address'
-import { encode } from '../../../../../core/services/jwt'
-import EmailAddress from '../../../models/email_address'
-import PhoneNumber from '../../../models/phone_number'
-import Email from '../../../../maha/models/email'
-import Program from '../../../models/program'
-import Consent from '../../../models/consent'
-import { readFile } from '../utils'
+import MailingAddress from '../../models/mailing_address'
+import { encode } from '../../../../core/services/jwt'
+import EmailAddress from '../../models/email_address'
+import PhoneNumber from '../../models/phone_number'
+import Email from '../../../maha/models/email'
+import Program from '../../models/program'
+import Consent from '../../models/consent'
+import { readFile } from './utils'
 import path from 'path'
 import ejs from 'ejs'
 import _ from 'lodash'
 
 const models = {
-  mail: { model: MailingAddress, key: 'mailing_address_id' },
-  email: { model: EmailAddress, key: 'email_address_id' },
-  voice: { model: PhoneNumber, key: 'phone_number_id' },
-  sms: { model: PhoneNumber, key: 'phone_number_id' }
+  m: { model: MailingAddress, key: 'mailing_address_id', type: 'mail' },
+  e: { model: EmailAddress, key: 'email_address_id', type: 'email' },
+  v: { model: PhoneNumber, key: 'phone_number_id', type: 'voice' },
+  s: { model: PhoneNumber, key: 'phone_number_id', type: 'sms' }
 }
 
 const getChannel = async(req, { type, code }) => {
-
   return await models[type].model.query(qb => {
     qb.where('team_id', req.team.get('id'))
-    qb.where('code', req.params.code)
+    qb.where('code', code)
   }).fetch({
     withRelated: ['contact.topics'],
     transacting: req.trx
   })
+}
+
+const getProgram = async (req, { email_code, program_code }) => {
+
+  if(email_code) {
+    const email = await Email.query(qb => {
+      qb.where('code', req.params.email_code)
+    }).fetch({
+      withRelated: ['email_campaign.program.team','email_campaign.program.logo','email_campaign.program.topics'],
+      transacting: req.trx
+    })
+    return email.related('email_campaign').related('program')
+  }
+
+  return await Program.query(qb => {
+    qb.where('code', req.params.program_code)
+  }).fetch({
+    withRelated: ['team','logo','topics'],
+    transacting: req.trx
+  })
 
 }
 
-const showRoute = async (req, res) => {
+const preferencesRoute = async (req, res) => {
 
-  const email = await Email.query(qb => {
-    qb.where('code', req.params.email_code)
-  }).fetch({
-    withRelated: ['email_campaign'],
-    transacting: req.trx
-  })
+  const program = await getProgram(req, req.params)
 
-  const program = await Program.query(qb => {
-    qb.where('id', email.related('email_campaign').get('program_id'))
-  }).fetch({
-    withRelated: ['logo','team.logo','topics'],
-    transacting: req.trx
-  })
+  const team = program.related('team')
 
-  req.team = program.related('team')
+  req.team = team
+
+  const type = req.params.type || 'e'
 
   const channel = await getChannel(req, {
-    type: req.params.type,
-    code: req.params.code
+    code: req.params.channel_code,
+    type
   })
-
-  const key = models[req.params.type].key
 
   const consent = await Consent.scope(qb => {
     qb.where('team_id', req.team.get('id'))
     qb.where('program_id', program.get('id'))
-    qb.where(key, channel.get('id'))
+    qb.where(models[type].key, channel.get('id'))
   }).fetch({
     transacting: req.trx
   })
-
-  const team = program.related('team')
 
   const contact = channel.related('contact')
 
@@ -70,16 +77,16 @@ const showRoute = async (req, res) => {
 
   const content = ejs.render(template, {
     form: {
-      type: req.params.type,
-      email_address: req.params.type === 'email' ? {
+      type: models[type].type,
+      email_address: type === 'e' ? {
         code: channel.get('code'),
         address: channel.get('address')
       } : null,
-      phone_number: _.includes(['sms','voice'], req.params.type) ? {
+      phone_number: _.includes(['s','v'], type) ? {
         code: channel.get('code'),
         number: channel.get('number')
       } : null,
-      mailing_address: req.params.type === 'mail' ? {
+      mailing_address: type === 'm' ? {
         code: channel.get('code'),
         address: channel.get('address')
       } : null,
@@ -116,4 +123,4 @@ const showRoute = async (req, res) => {
 
 }
 
-export default showRoute
+export default preferencesRoute

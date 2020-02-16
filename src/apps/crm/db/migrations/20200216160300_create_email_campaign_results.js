@@ -1,10 +1,7 @@
 const CreateEmailCampaignResult = {
 
   up: async (knex) => {
-    await knex.schema.table('maha_emails', (table) => {
-      table.boolean('was_webviewed')
-    })
-    await knex.raw('drop view crm_email_results')
+    await knex.raw('drop view crm_email_campaign_results')
     await knex.raw(`
       create view crm_email_campaign_results as
       with emailables as (
@@ -89,6 +86,13 @@ const CreateEmailCampaignResult = {
       where email_campaign_id is not null
       group by email_campaign_id
       ),
+      shared as (
+      select maha_emails.email_campaign_id, count(maha_email_activities.*) as count
+      from maha_emails
+      inner join maha_email_activities on maha_email_activities.email_id=maha_emails.id and maha_email_activities.type='social'
+      where email_campaign_id is not null
+      group by email_campaign_id
+      ),
       webviewed as (
       select email_campaign_id, count(*) as count
       from maha_emails
@@ -121,6 +125,7 @@ const CreateEmailCampaignResult = {
       coalesce(clicked.count, 0) as clicked,
       coalesce(total_clicked.count, 0) as total_clicked,
       coalesce(forwarded.count, 0) as forwarded,
+      coalesce(shared.count, 0) as shared,
       coalesce(webviewed.count, 0) as webviewed,
       coalesce(complained.count, 0) as complained,
       coalesce(unsubscribed.count, 0) as unsubscribed
@@ -136,6 +141,7 @@ const CreateEmailCampaignResult = {
       left join clicked on clicked.email_campaign_id = emailables.email_campaign_id
       left join total_clicked on total_clicked.email_campaign_id = emailables.email_campaign_id
       left join forwarded on forwarded.email_campaign_id = emailables.email_campaign_id
+      left join shared on shared.email_campaign_id = emailables.email_campaign_id
       left join webviewed on webviewed.email_campaign_id = emailables.email_campaign_id
       left join complained on complained.email_campaign_id = emailables.email_campaign_id
       left join unsubscribed on unsubscribed.email_campaign_id = emailables.email_campaign_id

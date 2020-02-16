@@ -40,7 +40,7 @@ const ServiceToken = ({ value }) => {
   const service = services[value]
   return (
     <div className="service-token">
-      <img src={`/images/emails/solid-color-${value}-96.png`} />
+      <img src={`/admin/images/emails/solid-color-${value}-96.png`} />
       { service.title }
     </div>
   )

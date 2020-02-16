@@ -21,8 +21,9 @@ class Performance extends React.Component {
 
   _getList() {
     const { performance } = this.props
-    const { sent, delivered, bounced, opened, total_opened, desktop, mobile } = performance
-    const { webviewed, forwarded, complained, clicked, total_clicked, unsubscribed, last_opened_at } = performance
+    const { sent, delivered, bounced, opened, total_opened, desktop } = performance
+    const { mobile, webviewed, shared, forwarded, complained } = performance
+    const { clicked, total_clicked, unsubscribed, last_opened_at } = performance
     return {
       sections: [
         {
@@ -131,6 +132,12 @@ class Performance extends React.Component {
                         <td>Forwarded</td>
                         <td className="right aligned">
                           { this._getButton(forwarded, 'forwarded') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Shared</td>
+                        <td className="right aligned">
+                          { this._getButton(shared, 'shared') }
                         </td>
                       </tr>
                       <tr>

@@ -1,7 +1,7 @@
-import { encode } from '../../../../../core/services/jwt'
-import Email from '../../../../maha/models/email'
-import Program from '../../../models/program'
-import { readFile } from '../utils'
+import { encode } from '../../../../core/services/jwt'
+import Email from '../../../maha/models/email'
+import Program from '../../models/program'
+import { readFile } from './utils'
 import path from 'path'
 import ejs from 'ejs'
 

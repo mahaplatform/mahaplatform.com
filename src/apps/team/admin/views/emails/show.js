@@ -42,6 +42,7 @@ class EmailsShow extends React.Component {
                     { activity.type === 'forward' && <i className="fa fa-fw fa-arrow-pointer"></i> }
                     { activity.type === 'unsubscribe' && <i className="fa fa-fw fa-times"></i> }
                     { activity.type === 'click' && <i className="fa fa-fw fa-mouse-pointer"></i> }
+                    { activity.type === 'social' && <i className={`fa fa-fw fa-${activity.service}`}></i> }
                   </div>
                 </div>
                 <div className="team-email-feed-item-content">
@@ -54,6 +55,7 @@ class EmailsShow extends React.Component {
                   { activity.type === 'forward' && 'forwarded the email' }
                   { activity.type === 'unsubscribe' && 'opted out of future communications' }
                   { activity.type === 'click' && `clicked the link ${activity.link.text}` }
+                  { activity.type === 'social' && `shared on ${activity.service}` }
                 </div>
               </div>
             ))}

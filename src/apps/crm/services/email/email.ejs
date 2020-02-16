@@ -190,11 +190,11 @@
                                               <tbody>
                                                 <tr>
                                                   <% block.networks.map((network, index) => { %>
-                                                    <% if(network.service === 'facebook') share_url = 'https://facebook.com' %>
-                                                    <% if(network.service === 'twitter') share_url = 'https://twitter.com' %>
-                                                    <% if(network.service === 'forwardtofriend') share_url = email.forward_link %>
-                                                    <% if(network.service === 'linkedin') share_url = 'https://linkedin.com' %>
-                                                    <% if(network.service === 'pinterest') share_url = 'https://pinterest.com' %>
+                                                    <% if(network.service === 'facebook') share_url = `${host}/crm/sf${email.code}` %>
+                                                    <% if(network.service === 'twitter') share_url = `${host}/crm/st${email.code}` %>
+                                                    <% if(network.service === 'forwardtofriend') share_url = `${host}/crm/f${email.code}` %>
+                                                    <% if(network.service === 'linkedin') share_url = `${host}/crm/sl${email.code}` %>
+                                                    <% if(network.service === 'pinterest') share_url = `${host}/crm/sp${email.code}` %>
                                                     <td class="social-share-service">
                                                       <a href="<%= share_url %>">
                                                         <table>

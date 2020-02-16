@@ -1281,6 +1281,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.USER-DEFINED('type')
+      table.USER-DEFINED('service')
     })
 
     await knex.schema.createTable('maha_email_links', (table) => {
@@ -3163,6 +3164,13 @@ union
       join maha_email_activities on (((maha_email_activities.email_id = maha_emails.id) and (maha_email_activities.type = 'forward'::maha_email_activities_type))))
       where (maha_emails.email_campaign_id is not null)
       group by maha_emails.email_campaign_id
+      ), shared as (
+      select maha_emails.email_campaign_id,
+      count(maha_email_activities.*) as count
+      from (maha_emails
+      join maha_email_activities on (((maha_email_activities.email_id = maha_emails.id) and (maha_email_activities.type = 'social'::maha_email_activities_type))))
+      where (maha_emails.email_campaign_id is not null)
+      group by maha_emails.email_campaign_id
       ), webviewed as (
       select maha_emails.email_campaign_id,
       count(*) as count
@@ -3195,10 +3203,11 @@ union
       coalesce(clicked.count, (0)::bigint) as clicked,
       coalesce(total_clicked.count, (0)::bigint) as total_clicked,
       coalesce(forwarded.count, (0)::bigint) as forwarded,
+      coalesce(shared.count, (0)::bigint) as shared,
       coalesce(webviewed.count, (0)::bigint) as webviewed,
       coalesce(complained.count, (0)::bigint) as complained,
       coalesce(unsubscribed.count, (0)::bigint) as unsubscribed
-      from ((((((((((((((emailables
+      from (((((((((((((((emailables
       left join sent on ((sent.email_campaign_id = emailables.email_campaign_id)))
       left join delivered on ((delivered.email_campaign_id = emailables.email_campaign_id)))
       left join bounced on ((bounced.email_campaign_id = emailables.email_campaign_id)))
@@ -3210,6 +3219,7 @@ union
       left join clicked on ((clicked.email_campaign_id = emailables.email_campaign_id)))
       left join total_clicked on ((total_clicked.email_campaign_id = emailables.email_campaign_id)))
       left join forwarded on ((forwarded.email_campaign_id = emailables.email_campaign_id)))
+      left join shared on ((shared.email_campaign_id = emailables.email_campaign_id)))
       left join webviewed on ((webviewed.email_campaign_id = emailables.email_campaign_id)))
       left join complained on ((complained.email_campaign_id = emailables.email_campaign_id)))
       left join unsubscribed on ((unsubscribed.email_campaign_id = emailables.email_campaign_id)));

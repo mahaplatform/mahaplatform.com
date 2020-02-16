@@ -10,6 +10,7 @@ const EmailResultSerializer = (req, result) => ({
   clicked: result.get('clicked'),
   total_clicked: result.get('total_clicked'),
   forwarded: result.get('forwarded'),
+  shared: result.get('shared'),
   webviewed: result.get('webviewed'),
   complained: result.get('complained'),
   unsubscribed: result.get('unsubscribed')
