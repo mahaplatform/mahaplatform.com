@@ -340,7 +340,6 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('job_id')
-      table.integer('recipient_count')
     })
 
     await knex.schema.createTable('crm_emails', (table) => {
@@ -509,7 +508,6 @@ const schema = {
       table.timestamp('updated_at')
       table.jsonb('to')
       table.jsonb('config')
-      table.integer('recipient_count')
     })
 
     await knex.schema.createTable('crm_social_campaigns', (table) => {
@@ -579,7 +577,6 @@ const schema = {
       table.timestamp('sent_at')
       table.timestamp('created_at')
       table.timestamp('updated_at')
-      table.integer('recipient_count')
     })
 
     await knex.schema.createTable('crm_workflows', (table) => {
@@ -1335,6 +1332,7 @@ const schema = {
       table.timestamp('bounced_at')
       table.timestamp('complained_at')
       table.timestamp('clicked_at')
+      table.boolean('was_webviewed')
     })
 
     await knex.schema.createTable('maha_faxes', (table) => {
@@ -3087,62 +3085,99 @@ union
     `)
 
     await knex.raw(`
-      create view crm_email_results AS
+      create view crm_email_campaign_results AS
       with emailables as (
       select maha_emails.team_id,
       maha_emails.email_campaign_id
       from maha_emails
+      where (maha_emails.email_campaign_id is not null)
       group by maha_emails.team_id, maha_emails.email_campaign_id
       ), sent as (
-      select count(*) as count,
-      maha_emails.email_campaign_id
+      select maha_emails.email_campaign_id,
+      count(*) as count
       from maha_emails
+      where (maha_emails.email_campaign_id is not null)
       group by maha_emails.email_campaign_id
       ), delivered as (
-      select count(*) as count,
-      maha_emails.email_campaign_id
+      select maha_emails.email_campaign_id,
+      count(*) as count
       from maha_emails
-      where (maha_emails.was_delivered = true)
+      where ((maha_emails.was_delivered = true) and (maha_emails.email_campaign_id is not null))
       group by maha_emails.email_campaign_id
       ), bounced as (
-      select count(*) as count,
-      maha_emails.email_campaign_id
+      select maha_emails.email_campaign_id,
+      count(*) as count
       from maha_emails
-      where (maha_emails.was_bounced = true)
+      where ((maha_emails.was_bounced = true) and (maha_emails.email_campaign_id is not null))
       group by maha_emails.email_campaign_id
       ), opened as (
-      select count(*) as count,
-      maha_emails.email_campaign_id
+      select maha_emails.email_campaign_id,
+      count(*) as count
       from maha_emails
-      where (maha_emails.was_opened = true)
+      where ((maha_emails.was_opened = true) and (maha_emails.email_campaign_id is not null))
       group by maha_emails.email_campaign_id
+      ), total_opened as (
+      select maha_emails.email_campaign_id,
+      count(maha_email_activities.*) as count
+      from (maha_emails
+      join maha_email_activities on (((maha_email_activities.email_id = maha_emails.id) and (maha_email_activities.type = 'open'::maha_email_activities_type))))
+      where (maha_emails.email_campaign_id is not null)
+      group by maha_emails.email_campaign_id
+      ), last_opened as (
+      select maha_emails.email_campaign_id,
+      maha_email_activities.created_at as last_opened_at
+      from (maha_emails
+      join maha_email_activities on (((maha_email_activities.email_id = maha_emails.id) and (maha_email_activities.type = 'open'::maha_email_activities_type))))
+      where (maha_emails.email_campaign_id is not null)
+      order by maha_email_activities.created_at desc
+      limit 1
       ), mobile as (
-      select count(*) as count,
-      maha_emails.email_campaign_id
+      select maha_emails.email_campaign_id,
+      count(*) as count
       from maha_emails
-      where (maha_emails.is_mobile = true)
+      where ((maha_emails.is_mobile = true) and (maha_emails.email_campaign_id is not null))
       group by maha_emails.email_campaign_id
       ), desktop as (
-      select count(*) as count,
-      maha_emails.email_campaign_id
+      select maha_emails.email_campaign_id,
+      count(*) as count
       from maha_emails
-      where (maha_emails.is_mobile = false)
+      where ((maha_emails.is_mobile = false) and (maha_emails.email_campaign_id is not null))
       group by maha_emails.email_campaign_id
       ), clicked as (
-      select count(*) as count,
-      maha_emails.email_campaign_id
+      select maha_emails.email_campaign_id,
+      count(*) as count
       from maha_emails
       where (maha_emails.was_clicked = true)
       group by maha_emails.email_campaign_id
+      ), total_clicked as (
+      select maha_emails.email_campaign_id,
+      count(maha_email_activities.*) as count
+      from (maha_emails
+      join maha_email_activities on (((maha_email_activities.email_id = maha_emails.id) and (maha_email_activities.type = 'click'::maha_email_activities_type))))
+      where (maha_emails.email_campaign_id is not null)
+      group by maha_emails.email_campaign_id
+      ), forwarded as (
+      select maha_emails.email_campaign_id,
+      count(maha_email_activities.*) as count
+      from (maha_emails
+      join maha_email_activities on (((maha_email_activities.email_id = maha_emails.id) and (maha_email_activities.type = 'forward'::maha_email_activities_type))))
+      where (maha_emails.email_campaign_id is not null)
+      group by maha_emails.email_campaign_id
+      ), webviewed as (
+      select maha_emails.email_campaign_id,
+      count(*) as count
+      from maha_emails
+      where (maha_emails.was_webviewed = true)
+      group by maha_emails.email_campaign_id
       ), complained as (
-      select count(*) as count,
-      maha_emails.email_campaign_id
+      select maha_emails.email_campaign_id,
+      count(*) as count
       from maha_emails
       where (maha_emails.was_complained = true)
       group by maha_emails.email_campaign_id
       ), unsubscribed as (
-      select count(*) as count,
-      maha_emails.email_campaign_id
+      select maha_emails.email_campaign_id,
+      count(*) as count
       from maha_emails
       where (maha_emails.was_unsubscribed = true)
       group by maha_emails.email_campaign_id
@@ -3153,19 +3188,29 @@ union
       coalesce(delivered.count, (0)::bigint) as delivered,
       coalesce(bounced.count, (0)::bigint) as bounced,
       coalesce(opened.count, (0)::bigint) as opened,
+      coalesce(total_opened.count, (0)::bigint) as total_opened,
+      last_opened.last_opened_at,
       coalesce(mobile.count, (0)::bigint) as mobile,
       coalesce(desktop.count, (0)::bigint) as desktop,
       coalesce(clicked.count, (0)::bigint) as clicked,
+      coalesce(total_clicked.count, (0)::bigint) as total_clicked,
+      coalesce(forwarded.count, (0)::bigint) as forwarded,
+      coalesce(webviewed.count, (0)::bigint) as webviewed,
       coalesce(complained.count, (0)::bigint) as complained,
       coalesce(unsubscribed.count, (0)::bigint) as unsubscribed
-      from (((((((((emailables
+      from ((((((((((((((emailables
       left join sent on ((sent.email_campaign_id = emailables.email_campaign_id)))
       left join delivered on ((delivered.email_campaign_id = emailables.email_campaign_id)))
       left join bounced on ((bounced.email_campaign_id = emailables.email_campaign_id)))
       left join opened on ((opened.email_campaign_id = emailables.email_campaign_id)))
+      left join total_opened on ((total_opened.email_campaign_id = emailables.email_campaign_id)))
+      left join last_opened on ((last_opened.email_campaign_id = emailables.email_campaign_id)))
       left join mobile on ((mobile.email_campaign_id = emailables.email_campaign_id)))
       left join desktop on ((desktop.email_campaign_id = emailables.email_campaign_id)))
       left join clicked on ((clicked.email_campaign_id = emailables.email_campaign_id)))
+      left join total_clicked on ((total_clicked.email_campaign_id = emailables.email_campaign_id)))
+      left join forwarded on ((forwarded.email_campaign_id = emailables.email_campaign_id)))
+      left join webviewed on ((webviewed.email_campaign_id = emailables.email_campaign_id)))
       left join complained on ((complained.email_campaign_id = emailables.email_campaign_id)))
       left join unsubscribed on ((unsubscribed.email_campaign_id = emailables.email_campaign_id)));
     `)

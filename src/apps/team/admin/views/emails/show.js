@@ -30,32 +30,29 @@ class EmailsShow extends React.Component {
             <iframe border="0" src={ `data:text/html;charset=utf-8,${ encodeURIComponent(email.html) }`} />
           </div>
           <div className="team-email-feed">
-            { email.sent_at &&
-              <div className="team-email-feed-item">
-                <div className="team-email-feed-item-icon">
-                  <div className="team-email-feed-item-icon-badge">
-                    <i className="fa fa-fw fa-paper-plane"></i>
-                  </div>
-                </div>
-                <div className="team-email-feed-item-content">
-                  <strong>{ moment(email.sent_at).format('MMM D, YYYY @ h:mm:ss A') }</strong><br />
-                  email was sent
-                </div>
-              </div>
-            }
             { email.activities.map((activity, index) => (
               <div className="team-email-feed-item" key={`feed_item_${index}`}>
                 <div className="team-email-feed-item-icon">
                   <div className="team-email-feed-item-icon-badge">
+                    { activity.type === 'delivery' && <i className="fa fa-fw fa-paper-plane"></i> }
+                    { activity.type === 'bounce' && <i className="fa fa-fw fa-exclamation-triangle"></i> }
                     { activity.type === 'open' && <i className="fa fa-fw fa-envelope-open"></i> }
+                    { activity.type === 'complaint' && <i className="fa fa-fw fa-bullhorn"></i> }
                     { activity.type === 'webview' && <i className="fa fa-fw fa-globe"></i> }
+                    { activity.type === 'forward' && <i className="fa fa-fw fa-arrow-pointer"></i> }
+                    { activity.type === 'unsubscribe' && <i className="fa fa-fw fa-times"></i> }
                     { activity.type === 'click' && <i className="fa fa-fw fa-mouse-pointer"></i> }
                   </div>
                 </div>
                 <div className="team-email-feed-item-content">
                   <strong>{ moment(activity.created_at).format('MMM D, YYYY @ h:mm:ss A') }</strong><br />
+                  { activity.type === 'delivery' && 'email was delivered' }
+                  { activity.type === 'bounce' && 'email was bounced' }
                   { activity.type === 'open' && 'opened email' }
+                  { activity.type === 'complaint' && 'complained about this email' }
                   { activity.type === 'webview' && 'viewed the email online' }
+                  { activity.type === 'forward' && 'forwarded the email' }
+                  { activity.type === 'unsubscribe' && 'opted out of future communications' }
                   { activity.type === 'click' && `clicked the link ${activity.link.text}` }
                 </div>
               </div>

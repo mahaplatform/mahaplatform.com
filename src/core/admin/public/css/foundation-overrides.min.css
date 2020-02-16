@@ -100,6 +100,8 @@ table.button-block table.button {
 }
 table.button-block a {
   padding: 0 !important;
+  font-weight: normal !important;
+  text-decoration: none !important;
 }
 table.video-block .columns p:last-child,
 table.image-block .columns p:last-child,

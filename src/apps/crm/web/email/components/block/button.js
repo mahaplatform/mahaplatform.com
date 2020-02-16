@@ -19,7 +19,7 @@ class Button extends React.Component {
                 <tbody>
                   <tr>
                     <td>
-                      { content }
+                      <a>{ content }</a>
                     </td>
                   </tr>
                 </tbody>

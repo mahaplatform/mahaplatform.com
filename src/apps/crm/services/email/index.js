@@ -182,12 +182,19 @@ const getInlineStyle = (config) => [
         selector: `table.block-${j} table.button table td`, styles: [
           ...getProp(config, 'background-color',`blocks[${j}].button_background_color`),
           ...getProp(config, 'padding',`blocks[${j}].button_padding`, 'px'),
-          ...getProp(config, 'border-radius',`blocks[${j}].button_border_radius`, 'px'),
-          ...getProp(config, 'text-align',`blocks[${j}].text_align`),
+          ...getProp(config, 'border-radius',`blocks[${j}].button_border_radius`, 'px')
+        ]
+      },
+      {
+        selector: `table.block-${j} table.button table a`, styles: [
           ...getProp(config, 'font-family',`blocks[${j}].font_family`),
           ...getProp(config, 'font-size',`blocks[${j}].font_size`, 'px'),
+          ...getProp(config, 'line-height', `blocks[${j}].line_height`),
           ...getProp(config, 'letter-spacing',`blocks[${j}].letter_spacing`, 'px'),
           ...getProp(config, 'text-align',`blocks[${j}].text_align`),
+          ...getFormat(config, 'font-weight', 'bold', `blocks[${j}].format`, 'normal'),
+          ...getFormat(config, 'font-style', 'italic', `blocks[${j}].format`),
+          ...getFormat(config, 'text-decoration', 'underline', `blocks[${j}].format`),
           ...getProp(config, 'color',`blocks[${j}].color`)
         ]
       }

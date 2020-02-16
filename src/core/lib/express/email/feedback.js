@@ -1,3 +1,4 @@
+import EmailActivity from '../../../../apps/maha/models/email_activity'
 import Email from '../../../../apps/maha/models/email'
 import request from 'request-promise'
 import moment from 'moment'
@@ -29,6 +30,7 @@ const feedbackRoute = async (req, res) => {
     if(!email) return res.status(404).send('not found')
 
     if(message.notificationType === 'Delivery') {
+
       await email.save({
         was_delivered: true,
         delivered_at: moment(message.delivery.timestamp)
@@ -36,6 +38,15 @@ const feedbackRoute = async (req, res) => {
         patch: true,
         transacting: req.trx
       })
+
+      await EmailActivity.forge({
+        team_id: email.get('team_id'),
+        email_id: email.get('id'),
+        type: 'delivery'
+      }).save(null, {
+        transacting: req.trx
+      })
+
     }
 
     if(message.notificationType === 'Bounce') {
@@ -48,9 +59,19 @@ const feedbackRoute = async (req, res) => {
         patch: true,
         transacting: req.trx
       })
+
+      await EmailActivity.forge({
+        team_id: email.get('team_id'),
+        email_id: email.get('id'),
+        type: 'bounce'
+      }).save(null, {
+        transacting: req.trx
+      })
+
     }
 
     if(message.notificationType === 'Complaint') {
+
       await email.save({
         was_complained: true,
         complaint_type: message.complaint.complaintFeedbackType,
@@ -59,6 +80,15 @@ const feedbackRoute = async (req, res) => {
         patch: true,
         transacting: req.trx
       })
+
+      await EmailActivity.forge({
+        team_id: email.get('team_id'),
+        email_id: email.get('id'),
+        type: 'complaint'
+      }).save(null, {
+        transacting: req.trx
+      })
+
     }
 
   }

@@ -136,7 +136,7 @@ class Button extends React.Component {
       font_family: null,
       font_size: null,
       color: '#FFFFFF',
-      format: null,
+      format: ['bold'],
       text_align: 'center',
       line_height: null,
       letter_spacing: null,

@@ -1,6 +1,5 @@
 import EmailActivity from '../../../../apps/maha/models/email_activity'
 import Email from '../../../../apps/maha/models/email'
-import moment from 'moment'
 
 const webviewRoute = async (req, res) => {
 
@@ -14,25 +13,18 @@ const webviewRoute = async (req, res) => {
 
   await email.save({
     was_delivered: true,
-    was_opened: true
+    was_opened: true,
+    was_webviewed: true
   }, {
     patch: true,
     transacting: req.trx
   })
 
-  const activityData = {
+  await EmailActivity.forge({
     team_id: email.get('team_id'),
     email_id: email.get('id'),
     type: 'webview'
-  }
-
-  const emailActivity = await EmailActivity.where(activityData).query(qb => {
-    qb.where('created_at', '>', moment().subtract(5, 'minutes'))
-  }).fetch({
-    transacting: req.trx
-  })
-
-  if(!emailActivity) await EmailActivity.forge(activityData).save(null, {
+  }).save(null, {
     transacting: req.trx
   })
 

@@ -34,19 +34,11 @@ const openRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  const activityData = {
+  await EmailActivity.forge({
     team_id: email.get('team_id'),
     email_id: email.get('id'),
     type: 'open'
-  }
-
-  const emailActivity = await EmailActivity.where(activityData).query(qb => {
-    qb.where('created_at', '>', moment().subtract(5, 'minutes'))
-  }).fetch({
-    transacting: req.trx
-  })
-
-  if(!emailActivity) await EmailActivity.forge(activityData).save(null, {
+  }).save(null, {
     transacting: req.trx
   })
 

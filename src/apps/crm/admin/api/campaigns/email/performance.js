@@ -1,6 +1,6 @@
-import EmailResultSerializer from '../../../../serializers/email_result_serializer'
+import EmailCampaignResultSerializer from '../../../../serializers/email_campaign_result_serializer'
+import EmailCampaignResult from '../../../../models/email_campaign_result'
 import EmailCampaign from '../../../../models/email_campaign'
-import EmailResult from '../../../../models/email_result'
 
 const performanceRoute = async (req, res) => {
 
@@ -17,7 +17,7 @@ const performanceRoute = async (req, res) => {
     message: 'Unable to load campaign'
   })
 
-  const result = await EmailResult.scope(qb => {
+  const result = await EmailCampaignResult.scope(qb => {
     qb.where('team_id', req.team.get('id'))
   }).query(qb => {
     qb.where('email_campaign_id', campaign.get('id'))
@@ -37,7 +37,7 @@ const performanceRoute = async (req, res) => {
     unsubscribed: 2
   })
 
-  res.status(200).respond(result, EmailResultSerializer)
+  res.status(200).respond(result, EmailCampaignResultSerializer)
 
 }
 

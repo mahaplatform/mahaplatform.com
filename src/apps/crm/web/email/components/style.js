@@ -161,12 +161,19 @@ class Style extends React.Component {
             selector: `table.block-${j} table.button table td`, styles: [
               ...this._getProp('background-color',`blocks[${j}].button_background_color`),
               ...this._getProp('padding',`blocks[${j}].button_padding`, 'px'),
-              ...this._getProp('border-radius',`blocks[${j}].button_border_radius`, 'px'),
-              ...this._getProp('text-align',`blocks[${j}].text_align`),
+              ...this._getProp('border-radius',`blocks[${j}].button_border_radius`, 'px')
+            ]
+          },
+          {
+            selector: `table.block-${j} table.button table a`, styles: [
               ...this._getProp('font-family',`blocks[${j}].font_family`),
               ...this._getProp('font-size',`blocks[${j}].font_size`, 'px'),
+              ...this._getProp('line-height', `blocks[${j}].line_height`),
               ...this._getProp('letter-spacing',`blocks[${j}].letter_spacing`, 'px'),
               ...this._getProp('text-align',`blocks[${j}].text_align`),
+              ...this._getFormat('font-weight', 'bold', `blocks[${j}].format`, 'normal'),
+              ...this._getFormat('font-style', 'italic', `blocks[${j}].format`),
+              ...this._getFormat('text-decoration', 'underline', `blocks[${j}].format`),
               ...this._getProp('color',`blocks[${j}].color`)
             ]
           }

@@ -21,7 +21,8 @@ class Performance extends React.Component {
 
   _getList() {
     const { performance } = this.props
-    const { sent, delivered, bounced, opened, desktop, mobile, complained, clicked, unsubscribed } = performance
+    const { sent, delivered, bounced, opened, total_opened, desktop, mobile } = performance
+    const { webviewed, forwarded, complained, clicked, total_clicked, unsubscribed, last_opened_at } = performance
     return {
       sections: [
         {
@@ -103,15 +104,9 @@ class Performance extends React.Component {
                         </td>
                       </tr>
                       <tr>
-                        <td>Total Opens</td>
+                        <td>Total Opened</td>
                         <td className="right aligned">
-                          { this._getButton(opened, 'opened') }
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Total Clicks</td>
-                        <td className="right aligned">
-                          { this._getButton(clicked, 'clicked') }
+                          { this._getButton(total_opened, 'total_opened') }
                         </td>
                       </tr>
                       <tr>
@@ -121,15 +116,21 @@ class Performance extends React.Component {
                         </td>
                       </tr>
                       <tr>
+                        <td>Total Clicked</td>
+                        <td className="right aligned">
+                          { this._getButton(total_clicked, 'total_clicked') }
+                        </td>
+                      </tr>
+                      <tr>
                         <td>Viewed Online</td>
                         <td className="right aligned">
-                          { this._getButton(clicked, 'clicked') }
+                          { this._getButton(webviewed, 'webviewed') }
                         </td>
                       </tr>
                       <tr>
                         <td>Forwarded</td>
                         <td className="right aligned">
-                          { this._getButton(clicked, 'clicked') }
+                          { this._getButton(forwarded, 'forwarded') }
                         </td>
                       </tr>
                       <tr>
@@ -159,43 +160,13 @@ class Performance extends React.Component {
                       <tr>
                         <td>Last Opened</td>
                         <td className="right aligned">
-                          { moment().format('MM/DD/YY hh:mmA') }
+                          { moment(last_opened_at).format('MM/DD/YY hh:mmA') }
                         </td>
                       </tr>
                     </tbody>
                   </table>
                 </div>
               </div>
-            ) }
-          ]
-        }, {
-          title: 'Links',
-          items: [
-            { component: (
-              <table className="ui table">
-                <tbody>
-                  <tr>
-                    <td>
-                      <a href="http://www.ccetompkins.org/baz/bar/foo" target="_blank">
-                        http://www.ccetompkins.org/baz/bar/foo
-                      </a>
-                    </td>
-                    <td className="right aligned">
-                      { this._getStat(unsubscribed, opened, 'was_unsubscribed') }
-                    </td>
-                  </tr>
-                  <tr>
-                    <td>
-                      <a href="http://www.ccetompkins.org/baz/bar/foo" target="_blank">
-                        http://www.ccetompkins.org/baz/bar/foo
-                      </a>
-                    </td>
-                    <td className="right aligned">
-                      { this._getStat(unsubscribed, opened, 'was_unsubscribed') }
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
             ) }
           ]
         }

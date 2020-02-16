@@ -3,10 +3,15 @@ const EmailResultSerializer = (req, result) => ({
   delivered: result.get('delivered'),
   bounced: result.get('bounced'),
   opened: result.get('opened'),
-  desktop: result.get('desktop'),
+  total_opened: result.get('total_opened'),
+  last_opened_at: result.get('last_opened_at'),
   mobile: result.get('mobile'),
-  complained: result.get('complained'),
+  desktop: result.get('desktop'),
   clicked: result.get('clicked'),
+  total_clicked: result.get('total_clicked'),
+  forwarded: result.get('forwarded'),
+  webviewed: result.get('webviewed'),
+  complained: result.get('complained'),
   unsubscribed: result.get('unsubscribed')
 })
 
