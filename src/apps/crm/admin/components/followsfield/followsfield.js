@@ -83,7 +83,7 @@ class FollowsField extends React.PureComponent {
               <i className="fa fa-bars" />
             </div>
             <div className="sharesfield-network-icon">
-              <img src={`/images/emails/solid-color-${ network.service }-96.png`} />
+              <img src={`/admin/images/emails/solid-color-${ network.service }-96.png`} />
             </div>
             <div className="sharesfield-network-details">
               <TextField { ...this._getTextField(network, index) }/>

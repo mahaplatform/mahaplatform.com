@@ -16,12 +16,12 @@ class Follow extends React.Component {
         <tbody>
           <tr>
             { networks.map((network, index) => (
-              <td key={`network_${index}`} className="social-service">
+              <td key={`network_${index}`} className="social-follow-service">
                 <table>
                   <tbody>
                     <tr>
                       <td>
-                        <img width="24" height="24" src={`/images/emails/${icon_style}-${icon_color}-${network.service}-96.png`} />
+                        <img width="24" height="24" src={`/admin/images/emails/${icon_style}-${icon_color}-${network.service}-96.png`} />
                       </td>
                       <td className="expander"></td>
                     </tr>

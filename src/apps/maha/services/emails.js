@@ -108,7 +108,7 @@ export const send_email = async(req, options) => {
   const email = await Email.forge({
     team_id: options.team_id,
     user_id: options.user ? options.user.get('id') : null,
-    from: options.from || 'Maha <mailer@mahaplatform.com>',
+    from: process.env.EMAIL_FROM || options.from || 'Maha <mailer@mahaplatform.com>',
     reply_to: options.reply_to,
     to: options.to || options.user.get('rfc822'),
     subject: ejs.render(subject, options.data),

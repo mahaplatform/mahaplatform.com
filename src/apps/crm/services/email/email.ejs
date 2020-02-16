@@ -77,7 +77,7 @@
                                               <tbody>
                                                 <tr>
                                                   <% block.networks.map((network, index) => { %>
-                                                    <td class="social-service">
+                                                    <td class="social-follow-service">
                                                       <table>
                                                         <tbody>
                                                           <tr>
@@ -195,7 +195,7 @@
                                                     <% if(network.service === 'forwardtofriend') share_url = 'https://mahaplatform.com' %>
                                                     <% if(network.service === 'linkedin') share_url = 'https://linkedin.com' %>
                                                     <% if(network.service === 'pinterest') share_url = 'https://pinterest.com' %>
-                                                    <td class="social-service">
+                                                    <td class="social-share-service">
                                                       <a href="<%= share_url %>">
                                                         <table>
                                                           <tbody>
