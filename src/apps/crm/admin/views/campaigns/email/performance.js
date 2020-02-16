@@ -107,7 +107,7 @@ class Performance extends React.Component {
                       <tr>
                         <td>Total Opened</td>
                         <td className="right aligned">
-                          { this._getButton(total_opened, 'total_opened') }
+                          { this._getActivity(total_opened, 'open') }
                         </td>
                       </tr>
                       <tr>
@@ -119,25 +119,25 @@ class Performance extends React.Component {
                       <tr>
                         <td>Total Clicked</td>
                         <td className="right aligned">
-                          { this._getButton(total_clicked, 'total_clicked') }
+                          { this._getActivity(total_clicked, 'click') }
                         </td>
                       </tr>
                       <tr>
                         <td>Viewed Online</td>
                         <td className="right aligned">
-                          { this._getButton(webviewed, 'webviewed') }
+                          { this._getActivity(webviewed, 'webview') }
                         </td>
                       </tr>
                       <tr>
                         <td>Forwarded</td>
                         <td className="right aligned">
-                          { this._getButton(forwarded, 'forwarded') }
+                          { this._getActivity(forwarded, 'forward') }
                         </td>
                       </tr>
                       <tr>
                         <td>Shared</td>
                         <td className="right aligned">
-                          { this._getButton(shared, 'shared') }
+                          { this._getActivity(shared, 'social') }
                         </td>
                       </tr>
                       <tr>
@@ -194,6 +194,16 @@ class Performance extends React.Component {
         { percent } { portion }
       </div>
     )
+  }
+
+  _getActivity(value, type) {
+    const { campaign } = this.props
+    const button = {
+      label: value,
+      className: 'link',
+      route: `/admin/crm/campaigns/email/${campaign.code}/activities?$filter[$and][0][type][$eq]=${type}`
+    }
+    return <Button { ...button } />
   }
 
   _getButton(value, report) {

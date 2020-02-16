@@ -47,15 +47,7 @@ class EmailsShow extends React.Component {
                 </div>
                 <div className="team-email-feed-item-content">
                   <strong>{ moment(activity.created_at).format('MMM D, YYYY @ h:mm:ss A') }</strong><br />
-                  { activity.type === 'delivery' && 'email was delivered' }
-                  { activity.type === 'bounce' && 'email was bounced' }
-                  { activity.type === 'open' && 'opened email' }
-                  { activity.type === 'complaint' && 'complained about this email' }
-                  { activity.type === 'webview' && 'viewed the email online' }
-                  { activity.type === 'forward' && 'forwarded the email' }
-                  { activity.type === 'unsubscribe' && 'opted out of future communications' }
-                  { activity.type === 'click' && `clicked the link ${activity.link.text}` }
-                  { activity.type === 'social' && `shared on ${activity.service}` }
+                  { activity.description }
                 </div>
               </div>
             ))}

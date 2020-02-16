@@ -1,4 +1,5 @@
 import performance from './performance'
+import activities from './activities'
 import deliveries from './deliveries'
 import workflows from './workflows'
 import { Router } from 'express'
@@ -14,6 +15,8 @@ const router = new Router({ mergeParams: true })
 router.post('/', create)
 
 router.get('/:id', show)
+
+router.get('/:id/activities', activities)
 
 router.get('/:id/deliveries', deliveries)
 

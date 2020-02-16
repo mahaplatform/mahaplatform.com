@@ -17,6 +17,7 @@ const emailSerializer = (req, result) => ({
 const activity = (activity) => ({
   id: activity.get('id'),
   type: activity.get('type'),
+  description: activity.get('description'),
   service: activity.get('service'),
   link: link(activity.related('link')),
   created_at: activity.get('created_at')

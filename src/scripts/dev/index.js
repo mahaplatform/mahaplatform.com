@@ -132,7 +132,7 @@ const adminWatch = async () => {
     }
   }
   const devserver = new devServer(webpack(adminConfig), {
-    https: true,
+    // https: true,
     contentBase: path.resolve('src','core','admin','public'),
     hot: true,
     publicPath: '/admin',
@@ -166,9 +166,10 @@ const adminWatch = async () => {
 export const dev = async () => {
   const argv = process.argv.slice(2)
   const services = argv.length > 0 ? argv : ['server','web','desktop','mobile','admin']
-  const url = await ngrok.connect({
+  await ngrok.connect({
     authtoken:process.env.NGROK_AUTHTOKEN,
-    addr: process.env.SERVER_PORT,
+    addr: process.env.DEVSERVER_PORT,
+    host_header: `rewrite localhost:${process.env.DEVSERVER_PORT}`,
     subdomain: process.env.NGROK_SUBDOMAIN
   })
   if(_.includes(services, 'server')) await serverWatch()
