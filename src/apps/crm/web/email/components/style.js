@@ -185,7 +185,7 @@ class Style extends React.Component {
               ...this._getProp('border-radius',`blocks[${j}].button_border_radius`, 'px')
             ]
           },{
-            selector: `table.block-${j} td.social-service td`, styles: [
+            selector: `table.block-${j} td.social-${block.type}-service td`, styles: [
               ...this._getProp('font-family',`blocks[${j}].font_family`),
               ...this._getProp('font-size',`blocks[${j}].font_size`, 'px'),
               ...this._getFormat('font-weight', 'bold', `blocks[${j}].format`, 'normal'),

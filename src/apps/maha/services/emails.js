@@ -53,8 +53,8 @@ export const encodeEmail = async(req, { email }) => {
   await parsed(`<img src="${process.env.WEB_HOST}/v${email.get('code')}" />`).appendTo('body')
 
   const links = await parsed('a').map((i, elem) => ({
-    text: parsed(elem).text(),
-    url: parsed(elem).attr('href')
+    text: parsed(elem).text().trim(),
+    url: parsed(elem).attr('href').trim()
   })).get()
 
   return await Promise.reduce(links, async (rendered, link) => {

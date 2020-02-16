@@ -1,3 +1,4 @@
+import EmailCampaign from '../../crm/models/email_campaign'
 import Model from '../../../core/objects/model'
 import EmailActivity from './email_activity'
 import User from './user'
@@ -26,6 +27,10 @@ const Email = new Model({
     return this.hasMany(EmailActivity, 'email_id').query(qb => {
       qb.orderBy('created_at','asc')
     })
+  },
+
+  email_campaign() {
+    return this.belongsTo(EmailCampaign, 'email_campaign_id')
   },
 
   user() {

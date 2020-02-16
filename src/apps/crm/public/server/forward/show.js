@@ -1,4 +1,5 @@
 import { encode } from '../../../../../core/services/jwt'
+import Email from '../../../../maha/models/email'
 import Program from '../../../models/program'
 import { readFile } from '../utils'
 import path from 'path'
@@ -6,8 +7,15 @@ import ejs from 'ejs'
 
 const showRoute = async (req, res) => {
 
+  const email = await Email.query(qb => {
+    qb.where('code', req.params.email_code)
+  }).fetch({
+    withRelated: ['email_campaign'],
+    transacting: req.trx
+  })
+
   const program = await Program.query(qb => {
-    qb.where('id', 1)
+    qb.where('id', email.related('email_campaign').get('program_id'))
   }).fetch({
     withRelated: ['logo','team.logo'],
     transacting: req.trx

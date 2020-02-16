@@ -192,7 +192,7 @@
                                                   <% block.networks.map((network, index) => { %>
                                                     <% if(network.service === 'facebook') share_url = 'https://facebook.com' %>
                                                     <% if(network.service === 'twitter') share_url = 'https://twitter.com' %>
-                                                    <% if(network.service === 'forwardtofriend') share_url = 'https://mahaplatform.com' %>
+                                                    <% if(network.service === 'forwardtofriend') share_url = email.forward_link %>
                                                     <% if(network.service === 'linkedin') share_url = 'https://linkedin.com' %>
                                                     <% if(network.service === 'pinterest') share_url = 'https://pinterest.com' %>
                                                     <td class="social-share-service">

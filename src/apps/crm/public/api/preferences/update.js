@@ -1,7 +1,7 @@
 import socket from '../../../../../core/services/routes/emitter'
 import { contactActivity } from '../../../services/activities'
 import { updateConsent } from '../../../services/consents'
-import Program from '../../../models/program'
+import Email from '../../../../maha/models/email'
 import { checkToken } from '../utils'
 
 const updateRoute = async (req, res) => {
@@ -10,17 +10,17 @@ const updateRoute = async (req, res) => {
     return res.status(401).send('Unauthorized')
   }
 
-  const program = await Program.query(qb => {
-    qb.where('code', req.params.program_code)
+  const email = await Email.query(qb => {
+    qb.where('code', req.params.email_code)
   }).fetch({
-    withRelated: ['team'],
+    withRelated: ['team','email_campaign.program'],
     transacting: req.trx
   })
 
-  req.team = program.related('team')
+  req.team = email.related('team')
 
   const { contact, activity } = await updateConsent(req, {
-    program,
+    program: email.related('email_campaign').related('program'),
     channel_type: req.params.type,
     channel_code: req.params.code,
     optout: req.body.optout || req.body.optin !== true,

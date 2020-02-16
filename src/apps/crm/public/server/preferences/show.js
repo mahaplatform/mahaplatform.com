@@ -2,6 +2,7 @@ import MailingAddress from '../../../models/mailing_address'
 import { encode } from '../../../../../core/services/jwt'
 import EmailAddress from '../../../models/email_address'
 import PhoneNumber from '../../../models/phone_number'
+import Email from '../../../../maha/models/email'
 import Program from '../../../models/program'
 import Consent from '../../../models/consent'
 import { readFile } from '../utils'
@@ -30,8 +31,15 @@ const getChannel = async(req, { type, code }) => {
 
 const showRoute = async (req, res) => {
 
+  const email = await Email.query(qb => {
+    qb.where('code', req.params.email_code)
+  }).fetch({
+    withRelated: ['email_campaign'],
+    transacting: req.trx
+  })
+
   const program = await Program.query(qb => {
-    qb.where('code', req.params.program_code)
+    qb.where('id', email.related('email_campaign').get('program_id'))
   }).fetch({
     withRelated: ['logo','team.logo','topics'],
     transacting: req.trx

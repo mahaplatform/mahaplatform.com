@@ -19,6 +19,7 @@ const overrides = fs.readFileSync(path.join(root,'foundation-overrides.min.css')
 export const renderEmail = (req, params) => {
   const { config, subject } = params
   const rendered = ejs.render(template, {
+    ...params.data,
     config,
     style: getStyle(config),
     host: process.env.WEB_HOST,
@@ -206,7 +207,7 @@ const getInlineStyle = (config) => [
           ...getProp(config, 'border-radius',`blocks[${j}].button_border_radius`, 'px')
         ]
       },{
-        selector: `table.block-${j} td.social-service td`, styles: [
+        selector: `table.block-${j} td.social-${block.type}-service td`, styles: [
           ...getProp(config, 'font-family',`blocks[${j}].font_family`),
           ...getProp(config, 'font-size',`blocks[${j}].font_size`, 'px'),
           ...getFormat(config, 'font-weight', 'bold', `blocks[${j}].format`, 'normal'),
