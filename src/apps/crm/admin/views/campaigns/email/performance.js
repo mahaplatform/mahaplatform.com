@@ -40,7 +40,7 @@ class Performance extends React.Component {
                           { numeral(opened / delivered).format('0.00%') }
                         </div>
                       </div>
-                      <ProgressBar labeled={ false } color="blue" percent={ opened / delivered } />
+                      <ProgressBar labeled={ false } color="blue" percent={ delivered > 0 ? (opened / delivered) : 0 } />
                     </div>
                     <div className="crm-email-campaign-results-header-item">
                       <div className="crm-email-campaign-results-stat">
@@ -51,7 +51,7 @@ class Performance extends React.Component {
                           { numeral(clicked / delivered).format('0.00%') }
                         </div>
                       </div>
-                      <ProgressBar labeled={ false } color="blue" percent={ clicked / opened } />
+                      <ProgressBar labeled={ false } color="blue" percent={ opened > 0 ? (clicked / opened) : 0 } />
                     </div>
                   </div>
                 </div>
@@ -85,9 +85,21 @@ class Performance extends React.Component {
                   <table className="ui table">
                     <tbody>
                       <tr>
-                        <td>Successful Deliveries</td>
+                        <td>Sent</td>
+                        <td className="right aligned">
+                          { this._getButton(sent, 'sent') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Deliveried</td>
                         <td className="right aligned">
                           { this._getButton(delivered, 'delivered') }
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>Bounced</td>
+                        <td className="right aligned">
+                          { this._getButton(bounced, 'bounced') }
                         </td>
                       </tr>
                       <tr>
