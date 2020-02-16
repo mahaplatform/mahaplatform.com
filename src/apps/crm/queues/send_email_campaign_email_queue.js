@@ -32,8 +32,6 @@ const processor = async (job, trx) => {
     transacting: req.trx
   })
 
-  const program = campaign.related('program')
-
   const config = campaign.get('config')
 
   const sender = await Sender.query(qb => {
@@ -58,8 +56,8 @@ const processor = async (job, trx) => {
       },
       email: {
         web_link: `${process.env.WEB_HOST}/w${code}`,
-        preferences_link: `${process.env.WEB_HOST}/crm/preferences/email/${code}/${email_address.get('code')}`,
-        forward_link: `${process.env.WEB_HOST}/crm/forward/${code}/${email_address.get('code')}`
+        preferences_link: `${process.env.WEB_HOST}/crm/preferences/email/${code}${email_address.get('code')}`,
+        forward_link: `${process.env.WEB_HOST}/crm/forward/${code}`
       }
     }
   })
