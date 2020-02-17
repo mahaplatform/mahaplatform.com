@@ -11,7 +11,7 @@ class CriteriaFieldDesigner extends React.PureComponent {
 
   static propTypes = {
     comment: PropTypes.any,
-    criteria: PropTypes.object,
+    criteria: PropTypes.array,
     entity: PropTypes.string,
     endpoint: PropTypes.string,
     format: PropTypes.any,
@@ -29,7 +29,6 @@ class CriteriaFieldDesigner extends React.PureComponent {
   _handleDone = this._handleDone.bind(this)
 
   render() {
-    if(!this.state.criteria) return null
     return (
       <ModalPanel { ...this._getPanel() }>
         <Designer { ...this._getDesigner() } />
@@ -39,9 +38,7 @@ class CriteriaFieldDesigner extends React.PureComponent {
 
   componentDidMount() {
     const { criteria } = this.props
-    this.setState({
-      criteria: criteria || { $and: [] }
-    })
+    this.setState({ criteria })
   }
 
   _getDesigner() {

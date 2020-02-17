@@ -1,25 +1,23 @@
-export const create = (cindex, value) => ({
+export const create = (item) => ({
   type: 'CREATE',
-  cindex,
-  value
+  item
 })
 
-export const remove = (cindex) => ({
+export const remove = (index) => ({
   type: 'REMOVE',
-  cindex
+  index
 })
 
 export const reset = () => ({
   type: 'RESET'
 })
 
-export const set = (criteria) => ({
+export const set = (items) => ({
   type: 'SET',
-  criteria
+  items
 })
 
-export const test = (cindex, value) => ({
+export const test = (item) => ({
   type: 'TEST',
-  cindex,
-  value
+  item
 })

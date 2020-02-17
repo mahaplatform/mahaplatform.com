@@ -10,10 +10,12 @@ class Criteria extends React.Component {
     cid: PropTypes.string,
     code: PropTypes.string,
     criteria: PropTypes.object,
-    defaultValue: PropTypes.object,
+    defaultValue: PropTypes.array,
+    display: PropTypes.array,
     fields: PropTypes.array,
+    items: PropTypes.array,
     panel: PropTypes.object,
-    test: PropTypes.object,
+    test: PropTypes.array,
     onChange: PropTypes.func,
     onCreate: PropTypes.func,
     onRemove: PropTypes.func,
@@ -41,14 +43,14 @@ class Criteria extends React.Component {
 
   componentDidMount() {
     const { defaultValue } = this.props
-    this.props.onSet(defaultValue || { $and: [] })
+    if(defaultValue) this.props.onSet(defaultValue)
     this._handlePush(Overview, this._getOverview.bind(this))
   }
 
   componentDidUpdate(prevProps) {
-    const { criteria, test } = this.props
-    if(!_.isEqual(criteria, prevProps.criteria)) {
-      this.props.onChange(criteria)
+    const { items, test } = this.props
+    if(!_.isEqual(items, prevProps.items)) {
+      this.props.onChange(items)
     }
     if(!_.isEqual(test, prevProps.test)) {
       this.props.onChange(test)
@@ -56,12 +58,12 @@ class Criteria extends React.Component {
   }
 
   _getOverview() {
-    const { cid, code, criteria, fields, panel, test } = this.props
+    const { cid, code, display, fields, panel, test } = this.props
     const { onChange, onCreate, onRemove, onReset, onSet, onTest } = this.props
     return {
       cid,
       code,
-      criteria,
+      criteria: display,
       fields,
       panel,
       test,

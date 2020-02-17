@@ -1,6 +1,7 @@
 const INITIAL_STATE = {
   criteria: null,
-  status: 'pending'
+  status: 'pending',
+  total: 0
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
@@ -11,6 +12,12 @@ const reducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       criteria: null
+    }
+
+  case 'FETCH_SUCCESS':
+    return {
+      ...state,
+      total: action.result.pagination.total
     }
 
   case 'SET':

@@ -1,50 +1,57 @@
 import PropTypes from 'prop-types'
 import React from 'react'
+import _ from 'lodash'
+
+const comparisons = {
+  $lk: 'contains',
+  $nlk: 'does not contain',
+  $kn: 'is known',
+  $nkn: 'is not known',
+  $eq: 'equals',
+  $neq: 'does not equal',
+  $gt: 'is greater than',
+  $lt: 'is less than',
+  $gte: 'is greater than or equal to',
+  $lte: 'is less than or equal to',
+  $in: 'is one of',
+  $nin: 'is not one of'
+}
 
 class Item extends React.Component {
 
-  static contextTypes = {}
-
   static propTypes = {
-    cindex: PropTypes.array,
     criteria: PropTypes.object,
     fields: PropTypes.array,
     onAdd: PropTypes.func,
     onRemove: PropTypes.func
   }
 
-  static defaultProps = {
-    cindex: []
-  }
-
   render() {
-    const { cindex, criteria } = this.props
-    const key = Object.keys(criteria)[0]
-    if(key === '$and' || key === '$or') {
+    const { criteria } = this.props
+    if(_.includes(['$and','$or'], criteria.operator)) {
       return (
-        <div className={`maha-criteria-item ${key.replace('$', '')}`}>
+        <div className={`maha-criteria-item ${criteria.operator.replace('$', '')}`}>
           <div className="maha-criteria-item-box">
-            { cindex.length > 0 &&
-              <div className="maha-criteria-item-remove" onClick={ this._handleRemove.bind(this, cindex) }>
+            { criteria.index > 0 &&
+              <div className="maha-criteria-item-remove" onClick={ this._handleRemove.bind(this, criteria) }>
                 <i className="fa fa-remove" />
               </div>
             }
-            { criteria[key].map((item, index) => (
-              <Item { ...this._getItem(item, cindex, [key,index]) } key={`item_${index}`} />
+            { criteria.items.map((item, index) => (
+              <Item { ...this._getItem(item) } key={`item_${index}`} />
             )) }
-            <div className="ui mini compact button" onClick={ this._handleNew.bind(this, cindex, key) }>
+            <div className="ui mini compact button" onClick={ this._handleNew.bind(this, criteria) }>
               <i className="fa fa-plus" /> Add Criteria
             </div>
           </div>
         </div>
       )
     }
-    const operator = Object.keys(criteria[key])[0]
     return (
       <div className="maha-criteria-item">
         <div className="maha-criteria-item-box">
-          { this._getDescription(key, operator) }
-          <div className="maha-criteria-item-remove" onClick={ this._handleRemove.bind(this, cindex) }>
+          <span dangerouslySetInnerHTML={{ __html: this._getDescription(criteria) }} />
+          <div className="maha-criteria-item-remove" onClick={ this._handleRemove.bind(this, criteria) }>
             <i className="fa fa-remove" />
           </div>
         </div>
@@ -52,10 +59,9 @@ class Item extends React.Component {
     )
   }
 
-  _getItem(criteria, cindex, index) {
+  _getItem(criteria) {
     const { fields, onAdd, onRemove} = this.props
     return {
-      cindex: [...cindex,...index],
       criteria,
       fields,
       onAdd,
@@ -63,44 +69,54 @@ class Item extends React.Component {
     }
   }
 
-  _getDescription(key, operator) {
-    const subject = this._getSubject(key)
-    const verb = this._getOperator(operator)
-    const object = this._getObject(key, operator)
-    return `${subject} ${verb} ${object}`
+  _getFields() {
+    const { fields } = this.props
+    return fields.reduce((fields, segment) => [
+      ...fields,
+      ...segment.fields
+    ], [])
   }
 
-  _getSubject(key) {
-    return key
+  _getDescription(item) {
+    const fields = this._getFields()
+    const field = _.find(fields, { key: item.field })
+    const phrase = []
+    if(field.subject !== false) phrase.push(`<strong>${field.name}</strong>`)
+    phrase.push(this._getOperator(field, item.operator))
+    phrase.push(this._getObject(item))
+    return phrase.join(' ')
   }
 
-  _getObject(key, operator) {
-    const { criteria } = this.props
-    return criteria[key][operator]
+  _getOxford(arr, conjunction) {
+    return [
+      arr.slice(0, -1).join(', '),
+      arr.slice(-1)[0]
+    ].join(', or ')
   }
 
-  _getOperator(operator) {
-    if(operator == '$lk') return 'contains'
-    if(operator == '$nlk') return 'does not contain'
-    if(operator == '$kn') return 'is known'
-    if(operator == '$nkn') return 'is not known'
-    if(operator == '$eq') return 'is'
-    if(operator == '$neq') return 'is not'
-    if(operator == '$gt') return 'is greater than'
-    if(operator == '$lt') return 'is less than'
-    if(operator == '$gte') return 'is greater than or equal to'
-    if(operator == '$lte') return 'is less than or equal to'
-    if(operator == '$in') return 'is one of'
-    if(operator == '$nin') return 'is not one of'
+  _getObject(item) {
+    if(item.data) {
+      const items = _.castArray(item.data).map(record => `<strong>${record.text}</strong>`)
+      return items.length > 1 ? `either ${this._getOxford(items)}` : items[0]
+    }
+    return item.value
   }
 
-  _handleNew(cindex, key) {
-    this.props.onAdd([...cindex,key])
+  _getOperator(field, operator) {
+    if(field.comparisons) {
+      const comparison = _.find(field.comparisons, { value: operator })
+      if(comparison) return comparison.text
+    }
+    return comparisons[operator]
   }
 
-  _handleRemove(cindex, e) {
+  _handleNew(criteria) {
+    this.props.onAdd(criteria.code)
+  }
+
+  _handleRemove(criteria, e) {
     e.stopPropagation()
-    this.props.onRemove(cindex)
+    this.props.onRemove(criteria.index)
   }
 }
 

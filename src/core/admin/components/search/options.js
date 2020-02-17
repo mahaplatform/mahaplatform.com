@@ -38,9 +38,11 @@ class Options extends React.Component{
 
   _getChecked(option) {
     const { selected, value } = this.props
-    return selected ? _.find(selected, {
-      [value]: _.get(option, value)
-    }) !== undefined : false
+    if(!selected) return false
+    return selected.find(item => {
+      if(value) return _.get(item, value) === _.get(option, value)
+      return _.isEqual(item, option)
+    }) !== undefined
   }
 
   _handleChoose(chosen) {

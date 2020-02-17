@@ -1,7 +1,9 @@
-import { create, remove, update } from './utils'
+import _ from 'lodash'
 
 const INITIAL_STATE = {
-  criteria: null,
+  items: [
+    { code: _.random(100000, 999999).toString(36), parent: null, field: null, operator: '$and', value: null, data: null }
+  ],
   test: null
 }
 
@@ -12,31 +14,38 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'CREATE':
     return {
       ...state,
-      criteria: create(state.criteria, action.cindex, action.value)
+      items: [
+        ...state.items,
+        action.item
+      ]
     }
 
   case 'REMOVE':
     return {
       ...state,
-      criteria: remove(state.criteria, action.cindex)
+      items: [
+        ...state.items.filter((item, index) => {
+          return index !== action.index
+        })
+      ]
     }
 
   case 'RESET':
-    return {
-      ...state,
-      criteria: { $and: [] }
-    }
+    return INITIAL_STATE
 
   case 'SET':
     return {
       ...state,
-      criteria: action.criteria
+      items: action.items
     }
 
   case 'TEST':
     return {
       ...state,
-      test: create(state.criteria, action.cindex, action.value)
+      test: [
+        ...state.items,
+        action.item
+      ]
     }
 
   default:

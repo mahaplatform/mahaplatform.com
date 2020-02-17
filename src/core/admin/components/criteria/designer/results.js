@@ -15,7 +15,7 @@ class Results extends React.Component {
     return (
       <div className="maha-criteria-results">
         { records.map((record, index) => (
-          <div className="maha-criteria-result" key={ `result_message_${record.id}`}>
+          <div className="maha-criteria-result" key={`result_${index}`}>
             <Format format={ format } { ...record } />
           </div>
         )) }

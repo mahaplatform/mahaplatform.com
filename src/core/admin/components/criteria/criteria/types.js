@@ -1,11 +1,13 @@
 import ModalPanel from '../../modal_panel'
 import PropTypes from 'prop-types'
-import React from 'react'
 import Field from './field'
+import React from 'react'
+import _ from 'lodash'
 
 class Types extends React.PureComponent {
 
   static propTypes = {
+    parent: PropTypes.string,
     types: PropTypes.array,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
@@ -13,8 +15,6 @@ class Types extends React.PureComponent {
     onPush: PropTypes.func,
     onPop: PropTypes.func
   }
-
-  static defaultProps = {}
 
   _handleCancel = this._handleCancel.bind(this)
 
@@ -27,10 +27,10 @@ class Types extends React.PureComponent {
             Conditional
           </div>
           <div className="maha-criterion-item" onClick={ this._handleConditional.bind(this, '$and') }>
-            and
+            AND
           </div>
           <div className="maha-criterion-item" onClick={ this._handleConditional.bind(this, '$or') }>
-            or
+            OR
           </div>
           { types.reduce((items, type, typeIndex) => [
             ...items,
@@ -49,9 +49,10 @@ class Types extends React.PureComponent {
   }
 
   _getField(field) {
-    const { onCancel, onChange, onDone } = this.props
+    const { parent, onCancel, onChange, onDone } = this.props
     return {
       field,
+      parent,
       onCancel,
       onChange,
       onDone
@@ -72,8 +73,16 @@ class Types extends React.PureComponent {
     this.props.onPop()
   }
 
-  _handleConditional(type) {
-    this.props.onDone({ [type]: [] })
+  _handleConditional(operator) {
+    const { parent } = this.props
+    this.props.onDone({
+      code: _.random(100000, 999999).toString(36),
+      parent,
+      field: null,
+      operator,
+      value: null,
+      data: null
+    })
     this.props.onPop(-1)
   }
 

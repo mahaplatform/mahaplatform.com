@@ -35,7 +35,7 @@ class Recipients extends React.PureComponent {
   componentDidMount() {
     const { campaign } = this.props
     this.setState({
-      to: campaign.to || { $and: [] }
+      to: campaign.to
     })
   }
 

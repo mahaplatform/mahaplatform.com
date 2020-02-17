@@ -9,18 +9,21 @@ class Text extends React.Component {
 
   static propTypes = {
     defaultValue: PropTypes.object,
+    code: PropTypes.string,
     field: PropTypes.object,
+    parent: PropTypes.string,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
   }
 
   state = {
-    operator: '$eq',
+    operator: null,
     value: ''
   }
 
   _handleCancel = this._handleCancel.bind(this)
+  _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
 
   render() {
@@ -53,11 +56,23 @@ class Text extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     const { operator, value } = this.state
     if(operator !== prevState.operator) {
-      this.props.onChange({ [operator]: value })
+      this._handleChange()
     }
     if(value !== prevState.value) {
-      this.props.onChange({ [operator]: value })
+      this._handleChange()
     }
+  }
+
+  _getOperators() {
+    const { field } = this.props
+    return field.comparisons || [
+      { value: '$eq', text: 'equals' },
+      { value: '$neq', text: 'does not equal' },
+      { value: '$lk', text: 'contains' },
+      { value: '$nlk', text: 'does not contain' },
+      { value: '$kn', text: 'is known' },
+      { value: '$nkn', text: 'is unknown' }
+    ]
   }
 
   _getPanel() {
@@ -79,18 +94,12 @@ class Text extends React.Component {
   }
 
   _getRadioGroup() {
+    const options = this._getOperators()
     const { operator } = this.state
     return {
-      defaultValue: operator,
-      options: [
-        { value: '$eq', text: 'equals' },
-        { value: '$neq', text: 'does not equal' },
-        { value: '$lk', text: 'contains' },
-        { value: '$nlk', text: 'does not contain' },
-        { value: '$kn', text: 'is known' },
-        { value: '$nkn', text: 'is unknown' }
-      ],
-      onChange: this._handleChange.bind(this, 'operator')
+      defaultValue: operator || options[0].value,
+      options,
+      onChange: this._handleUpdate.bind(this, 'operator')
     }
   }
 
@@ -100,7 +109,7 @@ class Text extends React.Component {
       defaultValue: value,
       disabled: _.includes(['$nkn','$kn'], operator),
       placeholder: 'Enter a value',
-      onChange: this._handleChange.bind(this, 'value')
+      onChange: this._handleUpdate.bind(this, 'value')
     }
   }
 
@@ -108,14 +117,29 @@ class Text extends React.Component {
     this.props.onCancel()
   }
 
-  _handleDone() {
+  _handleChange() {
     const { operator, value } = this.state
-    this.props.onDone({ [operator]: value })
+    const { code, field, parent } = this.props
+    this.props.onChange({
+      code,
+      parent,
+      field: field.key,
+      operator,
+      value,
+      data: null
+    })
   }
 
-  _handleChange(key, value) {
-    this.setState({
-      [key]: value
+  _handleDone() {
+    const { operator, value } = this.state
+    const { code, field, parent } = this.props
+    this.props.onDone({
+      code,
+      parent,
+      field: field.key,
+      operator,
+      value,
+      data: null
     })
   }
 
@@ -123,6 +147,12 @@ class Text extends React.Component {
     const operator = Object.keys(defaultValue)[0]
     const value = defaultValue[operator]
     this.setState({ operator, value })
+  }
+
+  _handleUpdate(key, value) {
+    this.setState({
+      [key]: value
+    })
   }
 
 }

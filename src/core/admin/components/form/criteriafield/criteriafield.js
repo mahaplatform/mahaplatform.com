@@ -1,3 +1,4 @@
+import { toCriteria } from '../../criteria/utils'
 import PropTypes from 'prop-types'
 import Designer from './designer'
 import pluralize from 'pluralize'
@@ -14,7 +15,7 @@ class CriteriaField extends React.PureComponent {
     cid: PropTypes.string,
     comment: PropTypes.any,
     contacts: PropTypes.array,
-    criteria: PropTypes.object,
+    criteria: PropTypes.array,
     defaultValue: PropTypes.object,
     entity: PropTypes.string,
     endpoint: PropTypes.string,
@@ -23,8 +24,10 @@ class CriteriaField extends React.PureComponent {
     placeholder: PropTypes.string,
     tabIndex: PropTypes.number,
     title: PropTypes.string,
+    total: PropTypes.number,
     onChange: PropTypes.func,
     onClear: PropTypes.func,
+    onFetch: PropTypes.func,
     onReady: PropTypes.func,
     onSet: PropTypes.func
   }
@@ -39,14 +42,14 @@ class CriteriaField extends React.PureComponent {
   _handleEnd = this._handleEnd.bind(this)
 
   render() {
-    const { criteria, entity, placeholder, tabIndex } = this.props
+    const { criteria, entity, placeholder, tabIndex, total } = this.props
     return (
       <div className="maha-input" tabIndex={ tabIndex } onClick={ this._handleBegin }>
         <div className="maha-input-field">
           { criteria ?
             <div className="maha-input-tokens">
               <div className="maha-input-token">
-                { pluralize(entity, 5, true) }
+                { pluralize(entity, total, true) }
               </div>
             </div> :
             <div className="maha-input-placeholder">
@@ -70,9 +73,10 @@ class CriteriaField extends React.PureComponent {
   }
 
   componentDidUpdate(prevProps) {
-    const { criteria } = this.props
+    const { criteria, endpoint } = this.props
     if(!_.isEqual(criteria, prevProps.criteria)) {
-      this.props.onChange(criteria)
+      this.props.onFetch(endpoint, toCriteria(criteria, null))
+      this.props.onChange({ criteria })
     }
   }
 

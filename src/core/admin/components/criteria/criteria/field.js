@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Select from './select'
 import React from 'react'
 import Text from './text'
+import _ from 'lodash'
 
 class Field extends React.PureComponent {
 
@@ -13,19 +14,26 @@ class Field extends React.PureComponent {
   static propTypes = {
     defaultValue: PropTypes.any,
     field: PropTypes.object,
+    parent: PropTypes.string,
     onCancel: PropTypes.func,
     onChange: PropTypes.func,
     onDone: PropTypes.func
   }
 
-  _handleCancel = this._handleCancel.bind(this)
-  _handleChange = this._handleChange.bind(this)
-  _handleDone = this._handleDone.bind(this)
+  state = {
+    code: null
+  }
 
   render() {
     const { field } = this.props
     const Component = this._getComponent(field.type)
     return <Component { ...this._getProps() } />
+  }
+
+  componentDidMount() {
+    this.setState({
+      code: _.random(100000, 999999).toString(36)
+    })
   }
 
   _getComponent(type) {
@@ -35,28 +43,17 @@ class Field extends React.PureComponent {
   }
 
   _getProps() {
-    const { defaultValue, field } = this.props
+    const { defaultValue, field, parent, onCancel, onChange, onDone } = this.props
+    const { code } = this.state
     return {
+      code,
       defaultValue,
       field,
-      onCancel: this._handleCancel,
-      onChange: this._handleChange,
-      onDone: this._handleDone
+      parent,
+      onCancel,
+      onChange,
+      onDone
     }
-  }
-
-  _handleCancel() {
-    this.props.onCancel()
-  }
-
-  _handleChange(value) {
-    const { field } = this.props
-    this.props.onChange({ [field.key]: value })
-  }
-
-  _handleDone(value) {
-    const { field } = this.props
-    this.props.onDone({ [field.key]: value })
   }
 
 }

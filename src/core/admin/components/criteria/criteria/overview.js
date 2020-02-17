@@ -1,5 +1,4 @@
 import ModalPanel from '../../modal_panel'
-import { connect } from 'react-redux'
 import PropTypes from 'prop-types'
 import Types from './types'
 import Item from './item'
@@ -9,11 +8,11 @@ class Overview extends React.Component {
 
   static propTypes = {
     code: PropTypes.string,
-    criteria: PropTypes.object,
+    criteria: PropTypes.array,
     defaultValue: PropTypes.object,
     fields: PropTypes.array,
     panel: PropTypes.object,
-    test: PropTypes.object,
+    test: PropTypes.array,
     onChange: PropTypes.func,
     onCreate: PropTypes.func,
     onPop: PropTypes.func,
@@ -35,9 +34,7 @@ class Overview extends React.Component {
           <div className="maha-criteria">
             <div className="maha-criteria-body">
               <div className="maha-criteria-items">
-                { Object.keys(criteria).length > 0 &&
-                  <Item { ...this._getItem(criteria) } />
-                }
+                <Item { ...this._getItem(criteria[0]) } />
               </div>
             </div>
           </div>
@@ -65,33 +62,34 @@ class Overview extends React.Component {
     }
   }
 
-  _getTypes(cindex) {
+  _getTypes(parent) {
     const { fields, onPop, onPush } = this.props
     return {
+      parent,
       types: fields,
       onCancel: this._handleCancel,
-      onChange: this._handleTest.bind(this, cindex),
-      onDone: this._handleCreate.bind(this, cindex),
+      onChange: this._handleTest.bind(this),
+      onDone: this._handleCreate.bind(this),
       onPop,
       onPush
     }
   }
 
-  _handleAdd(cindex) {
-    this.props.onPush(Types, this._getTypes(cindex))
+  _handleAdd(parent) {
+    this.props.onPush(Types, this._getTypes(parent))
   }
 
   _handleCancel() {
     this.props.onPop()
   }
 
-  _handleCreate(cindex, value) {
-    this.props.onCreate(cindex, value)
+  _handleCreate(value) {
+    this.props.onCreate(value)
     this.props.onPop(-2)
   }
 
-  _handleTest(cindex, value) {
-    this.props.onTest(cindex, value)
+  _handleTest(value) {
+    this.props.onTest(value)
   }
 
 }
