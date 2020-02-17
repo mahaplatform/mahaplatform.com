@@ -42,7 +42,7 @@ class EmailsShow extends React.Component {
                     { activity.type === 'forward' && <i className="fa fa-fw fa-arrow-pointer"></i> }
                     { activity.type === 'unsubscribe' && <i className="fa fa-fw fa-times"></i> }
                     { activity.type === 'click' && <i className="fa fa-fw fa-mouse-pointer"></i> }
-                    { activity.type === 'social' && <i className={`fa fa-fw fa-${activity.service}`}></i> }
+                    { activity.type === 'share' && <i className={`fa fa-fw fa-${activity.service}`}></i> }
                   </div>
                 </div>
                 <div className="team-email-feed-item-content">

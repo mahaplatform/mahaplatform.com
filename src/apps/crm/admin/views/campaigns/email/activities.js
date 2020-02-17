@@ -14,7 +14,7 @@ const mapPropsToPage = (props, context, resources, page) => ({
       { label: 'Created At', key: 'created_at', format: 'datetime' }
     ],
     filters: [
-      { label: 'Type', name: 'type', type: 'select', multiple: true, options: ['open','click','social','forward','webview']}
+      { label: 'Type', name: 'type', type: 'select', multiple: true, options: ['open','click','share','forward','webview']}
     ],
     defaultSort: { key: 'created_at', order: 'desc' },
     empty: {

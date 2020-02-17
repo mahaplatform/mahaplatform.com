@@ -22,7 +22,7 @@ const socialRoute = async (req, res) => {
   await EmailActivities.forge({
     team_id: email.get('team_id'),
     email_id: email.get('id'),
-    type: 'social',
+    type: 'share',
     service: service.name
   }).save(null, {
     transacting: req.trx

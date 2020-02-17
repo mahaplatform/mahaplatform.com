@@ -89,7 +89,7 @@ const CreateEmailCampaignResult = {
       shared as (
       select maha_emails.email_campaign_id, count(maha_email_activities.*) as count
       from maha_emails
-      inner join maha_email_activities on maha_email_activities.email_id=maha_emails.id and maha_email_activities.type='social'
+      inner join maha_email_activities on maha_email_activities.email_id=maha_emails.id and maha_email_activities.type='share'
       where email_campaign_id is not null
       group by email_campaign_id
       ),

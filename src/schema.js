@@ -3168,7 +3168,7 @@ union
       select maha_emails.email_campaign_id,
       count(maha_email_activities.*) as count
       from (maha_emails
-      join maha_email_activities on (((maha_email_activities.email_id = maha_emails.id) and (maha_email_activities.type = 'social'::maha_email_activities_type))))
+      join maha_email_activities on (((maha_email_activities.email_id = maha_emails.id) and (maha_email_activities.type = 'share'::maha_email_activities_type))))
       where (maha_emails.email_campaign_id is not null)
       group by maha_emails.email_campaign_id
       ), webviewed as (

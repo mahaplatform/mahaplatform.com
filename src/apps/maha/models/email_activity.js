@@ -17,7 +17,7 @@ const EmailActivity = new Model({
       if(this.get('type') === 'forward') return 'forwarded the email'
       if(this.get('type') === 'unsubscribe') return 'opted out of future communications'
       if(this.get('type') === 'click') return `clicked the link ${this.related('link').get('text')}`
-      if(this.get('type') === 'social') return `shared on ${this.get('service')}`
+      if(this.get('type') === 'share') return `shared on ${this.get('service')}`
     }
 
   },

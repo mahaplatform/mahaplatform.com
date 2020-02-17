@@ -137,7 +137,7 @@ class Performance extends React.Component {
                       <tr>
                         <td>Shared</td>
                         <td className="right aligned">
-                          { this._getActivity(shared, 'social') }
+                          { this._getActivity(shared, 'share') }
                         </td>
                       </tr>
                       <tr>
