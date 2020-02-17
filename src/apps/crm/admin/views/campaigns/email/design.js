@@ -38,7 +38,7 @@ class Designer extends React.Component {
 }
 
 const mapResourcesToPage = (props, context) => ({
-  campaign: `/api/admin/crm/campaigns/email/${props.params.id}`,
+  campaign: `/api/admin/crm/campaigns/email/${props.params.email_id}`,
   fields: '/api/admin/crm/fields'
 })
 

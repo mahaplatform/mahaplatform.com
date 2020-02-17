@@ -1,12 +1,12 @@
-import ContactToken from '../../../tokens/contact'
+import ContactToken from '../../../../tokens/contact'
 import { Page } from 'maha-admin'
 import React from 'react'
 
 const mapPropsToPage = (props, context, resources, page) => ({
-  title: 'Campaigns',
+  title: 'Deliveries',
   rights: [],
   collection: {
-    endpoint: `/api/admin/crm/campaigns/email/${props.params.id}/deliveries`,
+    endpoint: `/api/admin/crm/campaigns/email/${props.params.email_id}/deliveries`,
     table: [
       { label: 'ID', key: 'id', visible: false, collapsing: true },
       { label: 'Contact', key: 'contact.display_name', primary: true, format: (email) => <ContactToken { ...email.contact } /> }
@@ -17,7 +17,8 @@ const mapPropsToPage = (props, context, resources, page) => ({
       title: 'No Deliveries',
       text: 'This email campaign has not yet been sent'
     },
-    entity: 'email'
+    entity: 'email',
+    onClick: (record) => context.router.history.push(`/admin/crm/campaigns/email/${props.params.email_id}/deliveries/${record.id}`)
   }
 })
 

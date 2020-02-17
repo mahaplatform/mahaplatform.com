@@ -7,9 +7,9 @@ import CampaignsVoice from './campaigns/voice/show'
 import CampaignsVoiceDesign from './campaigns/voice/design'
 import CampaignsEmail from './campaigns/email/show'
 import CampaignsEmailActivities from './campaigns/email/activities'
-import CampaignsEmailDeliveries from './campaigns/email/deliveries'
+import CampaignsEmailDeliveriesList from './campaigns/email/deliveries/list'
+import CampaignsEmailDeliveriesShow from './campaigns/email/deliveries/show'
 import CampaignsEmailDesign from './campaigns/email/design'
-import CampaignsEmailWorkflowDesign from './campaigns/email/workflow'
 import CampaignsSMS from './campaigns/sms/show'
 import CampaignsSMSDesign from './campaigns/sms/design'
 import ContactsList from './contacts/list'
@@ -47,10 +47,10 @@ const routes = [
   { path: '/campaigns/voice/:id', component: CampaignsVoice },
   { path: '/campaigns/voice/:id/design', component: CampaignsVoiceDesign },
   { path: '/campaigns/email/:id', component: CampaignsEmail },
-  { path: '/campaigns/email/:id/activities', component: CampaignsEmailActivities },
-  { path: '/campaigns/email/:id/deliveries', component: CampaignsEmailDeliveries },
-  { path: '/campaigns/email/:id/design', component: CampaignsEmailDesign },
-  { path: '/campaigns/email/:id/workflow', component: CampaignsEmailWorkflowDesign },
+  { path: '/campaigns/email/:email_id/activities', component: CampaignsEmailActivities },
+  { path: '/campaigns/email/:email_id/deliveries', component: CampaignsEmailDeliveriesList },
+  { path: '/campaigns/email/:email_id/deliveries/:id', component: CampaignsEmailDeliveriesShow },
+  { path: '/campaigns/email/:email_id/design', component: CampaignsEmailDesign },
   { path: '/campaigns/sms/:id', component: CampaignsSMS },
   { path: '/campaigns/sms/:id/design', component: CampaignsSMSDesign },
   { path: '/contacts', component: ContactsList },
