@@ -76,6 +76,9 @@ table.social img {
 td.social-follow-service {
   padding: 5px !important;
 }
+td.social-share-service a {
+  text-decoration: none !important;
+}
 td.social-share-service td.social-service-label {
   padding: 5px 10px 5px 5px !important;
 }
@@ -97,7 +100,7 @@ table.button-block table.button {
   margin: 0;
   Margin: 0;
 }
-table.button-block a {
+table.button-block table.button table td a {
   padding: 0 !important;
   font-weight: normal !important;
   text-decoration: none !important;
