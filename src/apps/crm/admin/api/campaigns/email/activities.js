@@ -15,7 +15,7 @@ const activitiesRoute = async (req, res) => {
     defaultSort:  '-created_at',
     sortParams: ['created_at']
   }).fetchPage({
-    withRelated: ['email.contact.photo'],
+    withRelated: ['link','email.contact.photo'],
     page: req.query.$page,
     transacting: req.trx
   })

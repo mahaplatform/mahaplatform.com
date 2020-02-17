@@ -26,7 +26,7 @@ const Details = ({ campaign }) => {
     { label: 'Purpose', content: campaign.purpose },
     { label: 'To', content: <Button { ...to } /> },
     { label: 'Status', content: campaign.status },
-    { label: 'Send At', content: campaign.send_at },
+    { label: 'Send At', content: campaign.send_at, format: 'datetime' },
     { label: 'Content', content: <Button { ...design } /> }
   ]
 

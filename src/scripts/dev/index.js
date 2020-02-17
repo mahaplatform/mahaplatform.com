@@ -168,8 +168,7 @@ export const dev = async () => {
   const services = argv.length > 0 ? argv : ['server','web','desktop','mobile','admin']
   await ngrok.connect({
     authtoken:process.env.NGROK_AUTHTOKEN,
-    addr: process.env.DEVSERVER_PORT,
-    host_header: `rewrite localhost:${process.env.DEVSERVER_PORT}`,
+    addr: process.env.SERVER_PORT,
     subdomain: process.env.NGROK_SUBDOMAIN
   })
   if(_.includes(services, 'server')) await serverWatch()

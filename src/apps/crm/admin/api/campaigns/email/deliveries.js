@@ -1,4 +1,4 @@
-import EmailSerializer from '../../../../serializers/email_serializer'
+import EmailDeliverySerializer from '../../../../serializers/email_delivery_serializer'
 import EmailCampaign from '../../../../models/email_campaign'
 import Email from '../../../../../maha/models/email'
 
@@ -29,7 +29,7 @@ const deliveriesRoute = async (req, res) => {
     transacting: req.trx
   })
 
-  res.status(200).respond(emails, EmailSerializer)
+  res.status(200).respond(emails, EmailDeliverySerializer)
 
 }
 

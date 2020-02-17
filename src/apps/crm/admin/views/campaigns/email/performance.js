@@ -59,27 +59,27 @@ class Performance extends React.Component {
                 </div>
                 <div className="crm-report-metrics">
                   <div className="crm-report-metric">
-                    <div className="crm-report-metric-title">Opened</div>
+                    <div className="crm-report-metric-title">Opens</div>
                     <div className="crm-report-metric-value">
-                      { this._getButton(opened, 'opened') }
+                      { this._getButton(opened, 'was_opened') }
                     </div>
                   </div>
                   <div className="crm-report-metric">
-                    <div className="crm-report-metric-title">Clicked</div>
+                    <div className="crm-report-metric-title">Clicks</div>
                     <div className="crm-report-metric-value">
-                      { this._getButton(clicked, 'clicked') }
+                      { this._getButton(clicked, 'was_clicked') }
                     </div>
                   </div>
                   <div className="crm-report-metric">
-                    <div className="crm-report-metric-title">Bounced</div>
+                    <div className="crm-report-metric-title">Bounces</div>
                     <div className="crm-report-metric-value">
-                      { this._getButton(bounced, 'bounced') }
+                      { this._getButton(bounced, 'was_bounced') }
                     </div>
                   </div>
                   <div className="crm-report-metric">
-                    <div className="crm-report-metric-title">Unsubscribed</div>
+                    <div className="crm-report-metric-title">Unsubscribes</div>
                     <div className="crm-report-metric-value">
-                      { this._getButton(unsubscribed, 'unsubscribed') }
+                      { this._getButton(unsubscribed, 'was_unsubscribed') }
                     </div>
                   </div>
                 </div>
@@ -89,19 +89,19 @@ class Performance extends React.Component {
                       <tr>
                         <td>Sent</td>
                         <td className="right aligned">
-                          { this._getButton(sent, 'sent') }
+                          { this._getButton(sent) }
                         </td>
                       </tr>
                       <tr>
                         <td>Deliveried</td>
                         <td className="right aligned">
-                          { this._getButton(delivered, 'delivered') }
+                          { this._getButton(delivered, 'was_delivered') }
                         </td>
                       </tr>
                       <tr>
                         <td>Bounced</td>
                         <td className="right aligned">
-                          { this._getButton(bounced, 'bounced') }
+                          { this._getButton(bounced, 'was_bounced') }
                         </td>
                       </tr>
                       <tr>
@@ -201,17 +201,18 @@ class Performance extends React.Component {
     const button = {
       label: value,
       className: 'link',
-      route: `/admin/crm/campaigns/email/${campaign.code}/activities?$filter[$and][0][type][$eq]=${type}`
+      route: `/admin/crm/campaigns/email/${campaign.id}/activities?$filter[$and][0][type][$eq]=${type}`
     }
     return <Button { ...button } />
   }
 
   _getButton(value, report) {
     const { campaign } = this.props
+    const query = report ? `?$filter[${report}][$eq]=true` : ''
     const button = {
       label: value,
       className: 'link',
-      route: `/admin/crm/campaigns/email/${campaign.code}/deliveries?$filter[${report}][$eq]=true`
+      route: `/admin/crm/campaigns/email/${campaign.id}/deliveries${query}`
     }
     return <Button { ...button } />
   }
