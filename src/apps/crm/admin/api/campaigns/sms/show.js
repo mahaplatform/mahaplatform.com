@@ -1,4 +1,5 @@
 import SMSCampaignSerializer from '../../../../serializers/sms_campaign_serializer'
+import { toCriteria } from '../../../../../../core/utils/criteria'
 import { getRecipients } from '../../../../services/recipients'
 import SMSCampaign from '../../../../models/sms_campaign'
 
@@ -21,7 +22,7 @@ const showRoute = async (req, res) => {
   const contacts = await getRecipients(req, {
     type: 'sms',
     purpose: campaign.get('purpose'),
-    filter: campaign.get('to')
+    filter: toCriteria(campaign.get('to').criteria, null)
   })
 
   campaign.set('recipients', contacts.length)

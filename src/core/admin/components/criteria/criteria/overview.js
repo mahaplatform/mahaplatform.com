@@ -18,7 +18,6 @@ class Overview extends React.Component {
     onPop: PropTypes.func,
     onPush: PropTypes.func,
     onRemove: PropTypes.func,
-    onReset: PropTypes.func,
     onSet: PropTypes.func,
     onTest: PropTypes.func
   }

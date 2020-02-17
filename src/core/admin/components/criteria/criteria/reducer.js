@@ -17,7 +17,8 @@ const reducer = (state = INITIAL_STATE, action) => {
       items: [
         ...state.items,
         action.item
-      ]
+      ],
+      test: null
     }
 
   case 'REMOVE':
@@ -29,9 +30,6 @@ const reducer = (state = INITIAL_STATE, action) => {
         })
       ]
     }
-
-  case 'RESET':
-    return INITIAL_STATE
 
   case 'SET':
     return {

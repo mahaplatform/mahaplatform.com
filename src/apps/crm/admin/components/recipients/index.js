@@ -16,7 +16,7 @@ class Recipients extends React.PureComponent {
   }
 
   state = {
-    to: null
+    criteria: null
   }
 
   _handleChange = this._handleChange.bind(this)
@@ -24,7 +24,7 @@ class Recipients extends React.PureComponent {
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
-    if(!this.state.to) return null
+    if(!this.state.criteria) return null
     return (
       <ModalPanel { ...this._getPanel() }>
         <CriteriaDesigner { ...this._getCriteriaDesigner() } />
@@ -35,50 +35,52 @@ class Recipients extends React.PureComponent {
   componentDidMount() {
     const { campaign } = this.props
     this.setState({
-      to: campaign.to
+      criteria: campaign.to.criteria
     })
   }
 
   _getCriteriaDesigner() {
     const { campaign, type } = this.props
     const { program_id, purpose } = campaign
-    const { to } = this.state
+    const { criteria } = this.state
     return {
-      defaultValue: to,
+      defaultValue: criteria,
       endpoint: `/api/admin/crm/programs/${program_id}/${purpose}/${type}/recipients`,
       entity: 'contact',
       format: (recipient) => <RecipientToken recipient={recipient} channel={ type } />,
       fields: [
         { label: 'Contact', fields: [
-          { name: 'first name', key: 'first_name', type: 'text' },
-          { name: 'last name', key: 'last_name', type: 'text' },
-          { name: 'email', key: 'email', type: 'text' },
-          { name: 'phone', key: 'phone', type: 'text' },
-          { name: 'street_1', key: 'street_1', type: 'text' },
-          { name: 'city', key: 'city', type: 'text' },
-          { name: 'state/province', key: 'state_province', type: 'text' },
-          { name: 'postal code', key: 'postal_code', type: 'text' },
-          { name: 'birthday', key: 'birthday', type: 'text' },
-          { name: 'spouse', key: 'spouse', type: 'text' }
+          { name: 'First Name', key: 'first_name', type: 'text' },
+          { name: 'Last Name', key: 'last_name', type: 'text' },
+          { name: 'Email', key: 'email', type: 'text' },
+          { name: 'Phone', key: 'phone', type: 'text' },
+          { name: 'Street', key: 'street_1', type: 'text' },
+          { name: 'City', key: 'city', type: 'text' },
+          { name: 'State/Province', key: 'state_province', type: 'text' },
+          { name: 'Postal Code', key: 'postal_code', type: 'text' },
+          { name: 'Birthday', key: 'birthday', type: 'text' },
+          { name: 'Spouse', key: 'spouse', type: 'text' }
         ] },
         { label: 'Classifications', fields: [
-          { name: 'interests', key: 'topic_id', type: 'select', endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', comparisons: [
-            { value: '$eq', text: 'is interested in' },
-            { value: '$neq', text: 'is not interested in' },
-            { value: '$in', text: 'is interested in one of' },
-            { value: '$nin', text: 'is not interested in one of' }
+          { name: 'Interest', key: 'topic_id', type: 'select', endpoint: '/api/admin/crm/topics', text: 'title', value: 'id', subject: false, comparisons: [
+            { value: '$in', text: 'is interested in' },
+            { value: '$nin', text: 'is not interested in' }
           ] },
-          { name: 'lists', key: 'list_id', type: 'select', endpoint: '/api/admin/crm/lists', text: 'title', value: 'id', comparisons: [
-            { value: '$eq', text: 'belongs to' },
-            { value: '$neq', text: 'does not belong to' },
-            { value: '$in', text: 'belongs to one of' },
-            { value: '$nin', text: 'does not belongs to one of' }
+          { name: 'List', key: 'list_id', type: 'select', endpoint: '/api/admin/crm/lists', text: 'title', value: 'id', subject: false, comparisons: [
+            { value: '$in', text: 'is subscribed to' },
+            { value: '$nin', text: 'is not subscribed to' }
           ] },
-          { name: 'organization', key: 'organization_id', type: 'select', endpoint: '/api/admin/crm/organizations', text: 'name', value: 'id' },
-          { name: 'tags', key: 'tag_id', type: 'select', endpoint: '/api/admin/crm/tags', text: 'text', value: 'id' }
+          { name: 'Organization', key: 'organization_id', type: 'select', endpoint: '/api/admin/crm/organizations', subject: false, text: 'name', value: 'id', comparisons: [
+            { value: '$in', text: 'belongs to' },
+            { value: '$nin', text: 'does not belong to' }
+          ] },
+          { name: 'Tags', key: 'tag_id', type: 'select', endpoint: '/api/admin/crm/tags', text: 'text', value: 'id', subject: false, comparisons: [
+            { value: '$in', text: 'is tagged with' },
+            { value: '$nin', text: 'id not tagged with' }
+          ] }
         ] },
         { label: 'Activities', fields: [
-          { name: 'form', key: 'form_id', type: 'select', endpoint: '/api/admin/crm/forms', text: 'title', value: 'id', comparisons: [
+          { name: 'Form', key: 'form_id', type: 'select', endpoint: '/api/admin/crm/forms', text: 'title', value: 'id', subject: false, comparisons: [
             { value: '$eq', text: 'filled out' },
             { value: '$neq', text: 'did not fill out' }
           ] }
@@ -101,17 +103,17 @@ class Recipients extends React.PureComponent {
     }
   }
 
-  _handleChange(to) {
-    this.setState({ to })
+  _handleChange(criteria) {
+    this.setState({ criteria })
   }
 
   _handleSave() {
     const { campaign, type } = this.props
-    const { to } = this.state
+    const { criteria } = this.state
     this.context.network.request({
       endpoint: `/api/admin/crm/campaigns/${ type }/${campaign.id}`,
       method: 'PATCH',
-      body: { to },
+      body: { to: { criteria } },
       onSuccess: this._handleSuccess
     })
   }

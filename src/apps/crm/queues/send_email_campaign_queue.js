@@ -1,4 +1,5 @@
 import SendEmailCampaignEmailQueue from './send_email_campaign_email_queue'
+import { toCriteria } from '../../../core/utils/criteria'
 import { getRecipients } from '../services/recipients'
 import EmailCampaign from '../models/email_campaign'
 import Queue from '../../../core/objects/queue'
@@ -22,7 +23,7 @@ const processor = async (job, trx) => {
   const contacts = await getRecipients(req, {
     type: 'email',
     purpose: campaign.get('purpose'),
-    filter: campaign.get('to')
+    filter: toCriteria(campaign.get('to').criteria, null)
   }).then(result => result.toArray())
 
   const html = renderEmail(req, {
