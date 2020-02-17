@@ -37,7 +37,7 @@ const _findOrCreateLink = async (req, { link }) => {
   })
 
   return await EmailLink.forge({
-    team_id: req.related('team').get('id'),
+    team_id: req.team.get('id'),
     code,
     ...link
   }).save(null, {

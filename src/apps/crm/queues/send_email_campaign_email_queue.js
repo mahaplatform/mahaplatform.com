@@ -59,9 +59,13 @@ const processor = async (job, trx) => {
       email: contact.get('email')
     },
     email: {
+      facebook_link: `${process.env.WEB_HOST}/crm/sf${code}`,
+      twitter_link: `${process.env.WEB_HOST}/crm/st${code}`,
+      forward_link: `${process.env.WEB_HOST}/crm/f${code}`,
+      linkedin_link: `${process.env.WEB_HOST}/crm/sl${code}`,
+      pinterest_link: `${process.env.WEB_HOST}/crm/sp${code}`,
       web_link: `${process.env.WEB_HOST}/w${code}`,
-      preferences_link: `${process.env.WEB_HOST}/crm/p${code}${email_address.get('code')}`,
-      forward_link: `${process.env.WEB_HOST}/crm/forward/${code}`
+      preferences_link: `${process.env.WEB_HOST}/crm/p${code}${email_address.get('code')}`
     }
   }
 

@@ -84,7 +84,7 @@ class Preferences extends React.Component {
     return {
       endpoint: this._getEndpoint(),
       method: 'PATCH',
-      captcha: false,
+      captcha: true,
       token,
       fields: this._getFields(),
       submitText: 'Update Preferences',

@@ -190,13 +190,13 @@
                                               <tbody>
                                                 <tr>
                                                   <% block.networks.map((network, index) => { %>
-                                                    <% if(network.service === 'facebook') share_url = `${host}/crm/sf${email.code}` %>
-                                                    <% if(network.service === 'twitter') share_url = `${host}/crm/st${email.code}` %>
-                                                    <% if(network.service === 'forwardtofriend') share_url = `${host}/crm/f${email.code}` %>
-                                                    <% if(network.service === 'linkedin') share_url = `${host}/crm/sl${email.code}` %>
-                                                    <% if(network.service === 'pinterest') share_url = `${host}/crm/sp${email.code}` %>
+                                                    <% if(network.service === 'facebook') share_url = `&lt;%= email.facebook_link %&gt;` %>
+                                                    <% if(network.service === 'twitter') share_url = `&lt;%= email.twitter_link %&gt;` %>
+                                                    <% if(network.service === 'forwardtofriend') share_url = `&lt;%= email.forward_link %&gt;` %>
+                                                    <% if(network.service === 'linkedin') share_url = `&lt;%= email.linkedin_link %&gt;` %>
+                                                    <% if(network.service === 'pinterest') share_url = `&lt;%= email.pinterest_link %&gt;` %>
                                                     <td class="social-share-service">
-                                                      <a href="<%= share_url %>">
+                                                      <a href="<%- share_url %>">
                                                         <table>
                                                           <tbody>
                                                             <tr>
