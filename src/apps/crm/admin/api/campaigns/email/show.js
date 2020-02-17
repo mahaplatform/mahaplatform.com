@@ -1,4 +1,3 @@
-import { toCriteria } from '../../../../../../core/utils/criteria'
 import EmailCampaignSerializer from '../../../../serializers/email_campaign_serializer'
 import { getRecipients } from '../../../../services/recipients'
 import EmailCampaign from '../../../../models/email_campaign'
@@ -22,7 +21,7 @@ const showRoute = async (req, res) => {
   const contacts = await getRecipients(req, {
     type: 'email',
     purpose: campaign.get('purpose'),
-    filter: toCriteria(campaign.get('to').criteria, null)
+    criteria: campaign.get('to').criteria
   })
 
   campaign.set('recipients', contacts.length)

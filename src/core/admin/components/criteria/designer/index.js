@@ -1,5 +1,5 @@
 import Infinite from '../../infinite'
-import { toCriteria } from '../utils'
+import { toFilter } from '../utils'
 import Criteria from '../criteria'
 import PropTypes from 'prop-types'
 import pluralize from 'pluralize'
@@ -83,7 +83,7 @@ class Designer extends React.PureComponent {
         text: 'Add criteria to find records that match'
       },
       endpoint,
-      filter: filter ? toCriteria(filter, null) : null,
+      filter: filter ? toFilter(filter, null) : null,
       footer: ({ all, total }) => `Matching ${total} of ${pluralize(entity, all, true)}`,
       layout: Results,
       props: this._getResults()

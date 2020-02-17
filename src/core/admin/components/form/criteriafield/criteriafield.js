@@ -1,4 +1,4 @@
-import { toCriteria } from '../../criteria/utils'
+import { toFilter } from '../../criteria/utils'
 import PropTypes from 'prop-types'
 import Designer from './designer'
 import pluralize from 'pluralize'
@@ -75,7 +75,7 @@ class CriteriaField extends React.PureComponent {
   componentDidUpdate(prevProps) {
     const { criteria, endpoint } = this.props
     if(!_.isEqual(criteria, prevProps.criteria)) {
-      this.props.onFetch(endpoint, toCriteria(criteria, null))
+      this.props.onFetch(endpoint, toFilter(criteria, null))
       this.props.onChange({ criteria })
     }
   }

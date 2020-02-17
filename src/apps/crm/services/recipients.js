@@ -1,7 +1,18 @@
+import { toFilter } from '../../../core/utils/criteria'
 import Recipient from '../models/recipient'
 import Field from '../../maha/models/field'
 
-export const getRecipients = async (req, { type, purpose, program_id, filter, page }) => {
+const getFilter = ({ filter, criteria }) => {
+  if(filter) return filter
+  if(criteria) return toFilter(criteria, null)
+  return null
+}
+
+export const getRecipients = async (req, params) => {
+
+  const { type, purpose, program_id, page } = params
+
+  const filter = getFilter(params)
 
   req.fields = await Field.scope(qb => {
     qb.where('team_id', req.team.get('id'))

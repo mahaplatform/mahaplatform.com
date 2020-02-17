@@ -1,12 +1,12 @@
 import { createSelector } from 'reselect'
-import { toCriteria, toDisplay} from '../utils'
+import { toFilter, toDisplay} from '../utils'
 
 const items = (state, props) => state.items
 
 export const criteria = createSelector(
   items,
   (items) => {
-    return toCriteria(items, null)
+    return toFilter(items, null)
   }
 )
 
