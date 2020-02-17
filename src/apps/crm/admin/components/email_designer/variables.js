@@ -121,3 +121,10 @@ export const image_widths = [
   { value: 8, text: 'Two-Thirds' },
   { value: 9, text: 'Three-quarters' }
 ]
+
+export const icon_colors = [
+  { value: 'color', text: 'colored' },
+  { value: 'dark', text: 'black' },
+  { value: 'gray', text: 'gray' },
+  { value: 'light', text: 'white' }
+]

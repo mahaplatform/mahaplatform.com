@@ -86,7 +86,7 @@ class Follow extends React.Component {
               fields: [
                 { type: 'fields', fields: [
                   { label: 'Icon Style', name: 'icon_style', type: 'dropdown', options: ['solid','outline'], defaultValue: config.icon_style },
-                  { label: 'Icon Color', name: 'icon_color', type: 'dropdown', options: ['color','dark','gray','light'], defaultValue: config.icon_color }
+                  { label: 'Icon Color', name: 'icon_color', type: 'dropdown', options: options.icon_colors, defaultValue: config.icon_color }
                 ] },
                 { label: 'Align', name: 'align', type: 'dropdown', options: ['left','center','right'], defaultValue: config.align }
               ]
