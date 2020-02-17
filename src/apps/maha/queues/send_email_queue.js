@@ -18,7 +18,8 @@ const processor = async (job, trx) => {
   }
 
   const encoded = await encodeEmail(req, {
-    email
+    html: email.get('html'),
+    code: email.get('code')
   })
 
   const result = await sendMail({

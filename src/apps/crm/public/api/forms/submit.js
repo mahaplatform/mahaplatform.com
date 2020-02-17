@@ -180,12 +180,14 @@ const submitRoute = async (req, res) => {
     })
   }
 
+  const ipaddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+
   const response = await Response.forge({
     team_id: form.get('team_id'),
     form_id: form.get('id'),
     contact_id: contact.get('id'),
     invoice_id: invoice ? invoice.get('id') : null,
-    ipaddress: req.headers['x-forwarded-for'].replace(/\s/,'').split(',').shift(),
+    ipaddress: ipaddress.replace(/\s/,'').split(',').shift(),
     data: {
       ...req.body,
       ...req.body.payment ? {

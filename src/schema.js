@@ -340,6 +340,7 @@ const schema = {
       table.timestamp('created_at')
       table.timestamp('updated_at')
       table.integer('job_id')
+      table.text('html')
     })
 
     await knex.schema.createTable('crm_emails', (table) => {
@@ -1334,6 +1335,7 @@ const schema = {
       table.timestamp('complained_at')
       table.timestamp('clicked_at')
       table.boolean('was_webviewed')
+      table.jsonb('data')
     })
 
     await knex.schema.createTable('maha_faxes', (table) => {

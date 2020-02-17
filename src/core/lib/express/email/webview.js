@@ -1,4 +1,5 @@
 import EmailActivity from '../../../../apps/maha/models/email_activity'
+import { personalizeEmail } from '../../../../apps/crm/services/email'
 import Email from '../../../../apps/maha/models/email'
 
 const webviewRoute = async (req, res) => {
@@ -6,6 +7,7 @@ const webviewRoute = async (req, res) => {
   const email = await Email.query(qb => {
     qb.where('code', req.params.email_code)
   }).fetch({
+    withRelated: ['email_campaign'],
     transacting: req.trx
   })
 
@@ -27,6 +29,17 @@ const webviewRoute = async (req, res) => {
   }).save(null, {
     transacting: req.trx
   })
+
+  if(email.get('email_campaign_id')) {
+    const campaign = email.related('email_campaign')
+    const personalized = personalizeEmail(req, {
+      subject: campaign.get('config').settings.subject,
+      html: campaign.get('html'),
+      data: email.get('data')
+    })
+    email.set('subject', personalized.subject)
+    email.set('html', personalized.html)
+  }
 
   res.status(200).type('text/html').send(email.get('html'))
 

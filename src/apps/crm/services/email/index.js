@@ -17,23 +17,28 @@ const core = fs.readFileSync(path.join(root,'foundation-emails.min.css')).toStri
 const overrides = fs.readFileSync(path.join(root,'foundation-overrides.min.css')).toString()
 
 export const renderEmail = (req, params) => {
-  const { config, subject } = params
+  const { config, data } = params
   const rendered = ejs.render(template, {
-    ...params.data,
+    ...data,
     config,
     style: getStyle(config),
     host: process.env.WEB_HOST,
     _
   })
-  const data = {
-    ...params.data,
+  return rendered.replace(/&lt;%/g,'<%').replace(/%&gt;/g,'%>')
+}
+
+export const personalizeEmail = (req, params) => {
+  const { data, html, subject } = params
+  const variables = {
+    ...data,
     moment,
     numeral,
     _
   }
   return {
-    subject: ejs.render(subject, data),
-    html: ejs.render(rendered.replace(/&lt;%/g,'<%').replace(/%&gt;/g,'%>'), data)
+    subject: ejs.render(subject, variables),
+    html: ejs.render(html, variables)
   }
 }
 

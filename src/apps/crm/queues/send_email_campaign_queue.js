@@ -2,6 +2,7 @@ import SendEmailCampaignEmailQueue from './send_email_campaign_email_queue'
 import { getRecipients } from '../services/recipients'
 import EmailCampaign from '../models/email_campaign'
 import Queue from '../../../core/objects/queue'
+import { renderEmail } from '../services/email'
 
 const processor = async (job, trx) => {
 
@@ -24,6 +25,18 @@ const processor = async (job, trx) => {
     filter: campaign.get('to')
   }).then(result => result.toArray())
 
+  const html = renderEmail(req, {
+    config: campaign.get('config')
+  })
+
+  await campaign.save({
+    status: 'sending',
+    html
+  }, {
+    transacting: req.trx,
+    patch: true
+  })
+
   await Promise.map(contacts, async (contact) => {
 
     const email_address = contact.related('email_address')
@@ -33,13 +46,6 @@ const processor = async (job, trx) => {
       email_address_id: email_address.get('id')
     })
 
-  })
-
-  await campaign.save({
-    status: 'sending'
-  }, {
-    transacting: req.trx,
-    patch: true
   })
 
 }

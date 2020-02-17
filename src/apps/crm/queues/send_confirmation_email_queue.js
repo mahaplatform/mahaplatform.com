@@ -1,7 +1,7 @@
+import { personalizeEmail, renderEmail } from '../services/email'
 import generateCode from '../../../core/utils/generate_code'
 import { encodeEmail } from '../../maha/services/emails'
 import { sendMail } from '../../../core/services/email'
-import { renderEmail } from '../services/email'
 import Queue from '../../../core/objects/queue'
 import Email from '../../maha/models/email'
 import Response from '../models/response'
@@ -57,10 +57,19 @@ const processor = async (job, trx) => {
     table: 'maha_emails'
   })
 
-  const rendered = renderEmail(req, {
-    config,
+  const html = renderEmail(req, {
+    config
+  })
+
+  const rendered = personalizeEmail(req, {
     subject: config.settings.subject,
+    html,
     data: {
+      email: {
+        code,
+        web_link: `${process.env.WEB_HOST}/w${code}`,
+        preferences_link: `${process.env.WEB_HOST}/crm/p${code}${email_address.get('code')}`
+      },
       contact: {
         full_name: contact.get('full_name'),
         first_name: contact.get('first_name'),
@@ -80,12 +89,7 @@ const processor = async (job, trx) => {
             }
           })
         } : {}
-      }), {}),
-      email: {
-        code,
-        web_link: `${process.env.WEB_HOST}/w${code}`,
-        preferences_link: `${process.env.WEB_HOST}/crm/p${code}${email_address.get('code')}`
-      }
+      }), {})
     }
   })
 
@@ -110,7 +114,8 @@ const processor = async (job, trx) => {
   })
 
   const encoded = await encodeEmail(req, {
-    email
+    html: rendered.html,
+    code
   })
 
   const result = await sendMail({

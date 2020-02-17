@@ -1,4 +1,5 @@
 import EmailSerializer from '../../../serializers/email_serializer'
+import { personalizeEmail } from '../../../../crm/services/email'
 import Email from '../../../../maha/models/email'
 
 const showRoute = async (req, res) => {
@@ -6,7 +7,7 @@ const showRoute = async (req, res) => {
   const email = await Email.where({
     id: req.params.id
   }).fetch({
-    withRelated: ['activities.link','user.photo'],
+    withRelated: ['activities.link','user.photo','email_campaign'],
     transacting: req.trx
   })
 
@@ -14,6 +15,17 @@ const showRoute = async (req, res) => {
     code: 404,
     message: 'Unable to load email'
   })
+
+  if(email.get('email_campaign_id')) {
+    const campaign = email.related('email_campaign')
+    const personalized = personalizeEmail(req, {
+      subject: campaign.get('config').settings.subject,
+      html: campaign.get('html'),
+      data: email.get('data')
+    })
+    email.set('subject', personalized.subject)
+    email.set('html', personalized.html)
+  }
 
   res.status(200).respond(email, EmailSerializer)
 

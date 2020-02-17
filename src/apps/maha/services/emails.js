@@ -24,7 +24,7 @@ const templates = emails.reduce((emails, email) => ({
 }), {})
 
 
-const _findOrCreateLink = async (req, { email, link }) => {
+const _findOrCreateLink = async (req, { link }) => {
 
   const emailLink = await EmailLink.where(link).fetch({
     transacting: req.trx
@@ -37,7 +37,7 @@ const _findOrCreateLink = async (req, { email, link }) => {
   })
 
   return await EmailLink.forge({
-    team_id: email.get('team_id'),
+    team_id: req.related('team').get('id'),
     code,
     ...link
   }).save(null, {
@@ -46,11 +46,11 @@ const _findOrCreateLink = async (req, { email, link }) => {
 
 }
 
-export const encodeEmail = async(req, { email }) => {
+export const encodeEmail = async(req, { code, html }) => {
 
-  const parsed = cheerio.load(email.get('html'))
+  const parsed = cheerio.load(html)
 
-  await parsed(`<img src="${process.env.WEB_HOST}/v${email.get('code')}" />`).appendTo('body')
+  await parsed(`<img src="${process.env.WEB_HOST}/v${code}" />`).appendTo('body')
 
   const links = await parsed('a').map((i, elem) => ({
     text: parsed(elem).text().trim(),
@@ -59,14 +59,13 @@ export const encodeEmail = async(req, { email }) => {
 
   return await Promise.reduce(links, async (rendered, link) => {
 
-    if(link.url.search(email.get('code')) >= 0) return rendered
+    if(link.url.search(code) >= 0) return rendered
 
     const emailLink = await _findOrCreateLink(req, {
-      email,
       link
     })
 
-    return rendered.replace(link.url, `${process.env.WEB_HOST}/c${email.get('code')}${emailLink.get('code')}`)
+    return rendered.replace(link.url, `${process.env.WEB_HOST}/c${code}${emailLink.get('code')}`)
 
   }, parsed.html())
 
