@@ -112,10 +112,11 @@ class Card extends React.PureComponent {
       ref: node => this.cvv = node,
       placeholder: 'CVV',
       onChange: this._handleCVV,
+      onKeyDown: this._handleKeyDown.bind(this, 'cvv'),
       value: cvv
     }
   }
-  
+
   _getExpiration() {
     const { expirationDate } = this.state
     return {
@@ -123,6 +124,7 @@ class Card extends React.PureComponent {
       ref: node => this.expirationDate = node,
       placeholder: 'MM/YY',
       onChange: this._handleExpiration,
+      onKeyDown: this._handleKeyDown.bind(this, 'expirationDate'),
       value: this._getFormattedExpiration(expirationDate)
     }
   }
@@ -132,7 +134,6 @@ class Card extends React.PureComponent {
     const month = numbers.substr(0,2)
     const year = numbers.substr(2,2)
     if(year.length > 0) return `${month}/${year}`
-    if(month.length === 2) return `${month}/`
     return month
   }
 
@@ -185,6 +186,14 @@ class Card extends React.PureComponent {
     if(expirationDate.match(/^\d{2}\/\d{2}$/)) {
       this.cvv.focus()
     }
+  }
+
+  _handleKeyDown(field, e) {
+    if(e.which !== 8) return
+    if(e.target.value.length > 1) return
+    this.setState({ [field]: '' })
+    const prev = field === 'cvv' ? 'expirationDate' : 'number'
+    this[prev].focus()
   }
 
   _handleNumber(e) {
