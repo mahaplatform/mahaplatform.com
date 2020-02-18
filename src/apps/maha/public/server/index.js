@@ -1,8 +1,8 @@
 import { Router } from 'express'
-import forward from './forward'
+import email from './email'
 
 const router = new Router({ mergeParams: true })
 
-router.use('/f:email_code([a-z0-9]{10})', forward)
+router.use(email)
 
 export default router

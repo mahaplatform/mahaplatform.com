@@ -1,6 +1,6 @@
-import EmailActivity from '../../../../apps/maha/models/email_activity'
-import EmailLink from '../../../../apps/maha/models/email_link'
-import Email from '../../../../apps/maha/models/email'
+import EmailActivity from '../../../models/email_activity'
+import EmailLink from '../../../models/email_link'
+import Email from '../../../models/email'
 import moment from 'moment'
 
 const linkRoute = async (req, res) => {

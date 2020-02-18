@@ -1,5 +1,5 @@
-import Session from '../../../../apps/maha/models/session'
-import socket from '../../../services/emitter'
+import socket from '../../../../../core/services/emitter'
+import Session from '../../../models/session'
 
 const signoutRoute = async (req, res) => {
 

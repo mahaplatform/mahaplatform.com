@@ -8,7 +8,6 @@ import rollbarMiddleware from './rollbar'
 import legacyMiddleware from './legacy'
 import serverMiddleware from './server'
 import staticMiddleware from './static'
-import emailMiddleware from './email'
 import bodyParser from 'body-parser'
 import homeMiddleware from './home'
 import apiMiddleware from './api'
@@ -61,8 +60,6 @@ server.use('/mailbox_mime', mailboxMiddleware)
 server.use('/admin*', homeMiddleware)
 
 server.use('/api', apiMiddleware)
-
-server.use(emailMiddleware)
 
 server.use(legacyMiddleware)
 

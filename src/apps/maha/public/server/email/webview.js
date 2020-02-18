@@ -1,6 +1,6 @@
-import EmailActivity from '../../../../apps/maha/models/email_activity'
-import { personalizeEmail } from '../../../../apps/crm/services/email'
-import Email from '../../../../apps/maha/models/email'
+import { personalizeEmail } from '../../../../crm/services/email'
+import EmailActivity from '../../../models/email_activity'
+import Email from '../../../models/email'
 
 const webviewRoute = async (req, res) => {
 

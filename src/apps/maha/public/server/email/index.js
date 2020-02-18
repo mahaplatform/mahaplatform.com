@@ -1,10 +1,8 @@
-import transaction from '../transaction'
-import bodyParser from 'body-parser'
 import feedback from './feedback'
 import { Router } from 'express'
+import forward from './forward'
 import webview from './webview'
 import signout from './signout'
-import logger from '../logger'
 import social from './social'
 import link from './link'
 import open from './open'
@@ -13,11 +11,7 @@ import view from './view'
 
 const router = new Router({ mergeParams: true })
 
-router.use(bodyParser.json({ limit: '5mb', type: '*/*' }))
-
-router.use(transaction)
-
-router.use(logger)
+router.use('/f:email_code([a-z0-9]{10})', forward)
 
 router.get('/v:email_code([a-z0-9]{10})', open)
 

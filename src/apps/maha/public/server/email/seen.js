@@ -1,4 +1,4 @@
-import Notification from '../../../../apps/maha/models/notification'
+import Notification from '../../../models/notification'
 import path from 'path'
 
 const trackerFile = path.resolve(__dirname,'..','..','..','admin','public','images','tracker.png')
