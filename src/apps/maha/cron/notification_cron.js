@@ -13,7 +13,7 @@ export const processor = async (trx) => {
     qb.joinRaw('inner join "maha_users" on "maha_users"."id"="maha_notifications"."user_id" and "maha_users"."email_notifications_method"=?', 'digest')
     qb.joinRaw('left join "maha_users_notification_types" on "maha_users_notification_types"."user_id"="maha_notifications"."user_id" and "maha_users_notification_types"."notification_type_id"="maha_notifications"."notification_type_id"')
     qb.whereRaw('maha_notifications.created_at < ?', moment().subtract(5, 'minutes'))
-    qb.whereRaw('maha_users_notification_types.email_enabled is null or maha_users_notification_types.email_enabled=?', true)
+    qb.whereNot('maha_users_notification_types.email_enabled', false)
     qb.where('maha_notifications.is_delivered', false)
     qb.orderBy('created_at', 'desc')
   }).fetchAll({
@@ -21,7 +21,7 @@ export const processor = async (trx) => {
     transacting: trx
   }).then(result => result.toArray())
 
-  if(notifications.length === 0) return
+  if(notifications.length === 0) return []
 
   const users = notifications.reduce((users, notification) => ({
     ...users,
@@ -32,17 +32,16 @@ export const processor = async (trx) => {
         NotificationSerializer(null, notification)
       ]
     }
-  }), [])
+  }), {})
 
-  await Promise.map(Object.keys(users), async (user_id) => {
-    const user = users[user_id].user
-    await sendNotificationEmail(user, users[user_id].notifications.map(notification => ({
+  await Promise.map(Object.values(users), async ({ user, notifications }) => {
+    await sendNotificationEmail(user, notifications.map(notification => ({
       body: notification.description,
       route: notification.url,
       user: notification.subject,
       created_at: notification.created_at
     })))
-    const ids = users[user_id].notifications.map(notification => notification.id)
+    const ids = notifications.map(notification => notification.id)
     await knex('maha_notifications').transacting(trx).whereIn('id', ids).update({
       is_delivered: true
     })
