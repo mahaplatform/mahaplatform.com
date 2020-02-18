@@ -1,7 +1,7 @@
-import { testHandler } from '../../../../utils/test'
+import { testHandler } from '../../../../../core/utils/test'
 import { expect } from 'chai'
 import feedback from './feedback'
 
-describe('src/web/core/lib/express/email/feedback', () => {
+describe('src/apps/crm/public/server/email/feedback.js', () => {
 
 })

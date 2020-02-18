@@ -146,7 +146,6 @@ class Preferences extends React.Component {
   }
 
   _handleSuccess(result) {
-    console.log('here')
     this.setState({
       mode: 'thankyou'
     })

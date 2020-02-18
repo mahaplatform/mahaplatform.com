@@ -10,9 +10,14 @@ class Forward extends React.Component {
     token: PropTypes.string
   }
 
+  state = {
+    mode: 'form'
+  }
+
   _handleSuccess = this._handleSuccess.bind(this)
 
   render() {
+    const { mode } = this.state
     return (
       <div className="overlay">
         <div className="preferences">
@@ -23,9 +28,16 @@ class Forward extends React.Component {
                 <p>Fill in the form below to send a personalized copy of this email to your friend.</p>
               </div>
             </div>
-            <div className="maha-form-body">
-              <Form { ...this._getForm() } />
-            </div>
+            { mode === 'form' &&
+              <div className="maha-form-body">
+                <Form { ...this._getForm() } />
+              </div>
+            }
+            { mode === 'thankyou' &&
+              <div className="maha-form-thankyou">
+                Thank you! We&apos;ve fowarded the email!
+              </div>
+            }
           </div>
         </div>
       </div>
@@ -51,8 +63,11 @@ class Forward extends React.Component {
   }
 
   _handleSuccess(result) {
-    console.log(result)
+    this.setState({
+      mode: 'thankyou'
+    })
   }
+
 
 }
 
