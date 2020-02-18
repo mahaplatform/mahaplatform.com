@@ -104,7 +104,7 @@ const webWatch = async () => {
     const publicPath = `/apps/${app}/${subapp}`
     const config = webpack(webpackConfig(app, subapp, dir, port))
     const devserver = new devServer(config, {
-      https: true,
+      https: /https/.test(process.env.WEB_HOST),
       hot: true,
       publicPath,
       quiet: true,
@@ -132,7 +132,7 @@ const adminWatch = async () => {
     }
   }
   const devserver = new devServer(webpack(adminConfig), {
-    // https: true,
+    https: /https/.test(process.env.WEB_HOST),
     contentBase: path.resolve('src','core','admin','public'),
     hot: true,
     publicPath: '/admin',
