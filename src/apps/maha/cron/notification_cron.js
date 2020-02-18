@@ -21,6 +21,8 @@ export const processor = async (trx) => {
     transacting: trx
   }).then(result => result.toArray())
 
+  if(notifications.length === 0) return
+
   const users = notifications.reduce((users, notification) => ({
     ...users,
     [notification.get('user_id')]: {
@@ -33,22 +35,17 @@ export const processor = async (trx) => {
   }), [])
 
   await Promise.map(Object.keys(users), async (user_id) => {
-
     const user = users[user_id].user
-
     await sendNotificationEmail(user, users[user_id].notifications.map(notification => ({
       body: notification.description,
       route: notification.url,
       user: notification.subject,
       created_at: notification.created_at
     })))
-
     const ids = users[user_id].notifications.map(notification => notification.id)
-
     await knex('maha_notifications').transacting(trx).whereIn('id', ids).update({
       is_delivered: true
     })
-
   })
 
   return notifications.map(notification => notification)
@@ -56,17 +53,13 @@ export const processor = async (trx) => {
 }
 
 export const afterCommit = async (trx, result) => {
-
   await Promise.map(result, async (notification) => {
-
     await socket.in(`/admin/users/${notification.get('user_id')}`).emit('message', {
       target: `/admin/users/${notification.get('user_id')}`,
       action: 'session',
       data: null
     })
-
   })
-
 }
 
 const digestCron = cron({

@@ -8,11 +8,8 @@ import Session from '../models/session'
 import moment from 'moment'
 
 export const sendNotification = async (user, notification, trx) => {
-
   const instructions = await getNotificationInstructions(user, trx)
-
   await deliverNotifications(user, instructions, notification, trx)
-
 }
 
 const getNotificationInstructions = async (user, trx) => {
@@ -41,9 +38,7 @@ const getNotificationInstructions = async (user, trx) => {
   const is_muted = getMuted(user)
 
   return await Promise.reduce(sessions_with_activity, async (results, session) => {
-
     const strategy = getNotificationStrategy(user, session, is_muted)
-
     return {
       ...results,
       [strategy]: [
@@ -52,7 +47,6 @@ const getNotificationInstructions = async (user, trx) => {
       ],
       total: results.total + (strategy !== 'email' ? 1 : 0)
     }
-
   }, { socket: [], firebase: [], email: [], total: 0 })
 
 }
@@ -60,29 +54,19 @@ const getNotificationInstructions = async (user, trx) => {
 const deliverNotifications = async (user, instructions, notification, trx) => {
 
   if(instructions.socket.length > 0) {
-
     await Promise.map(instructions.socket, async (session) => {
-
       await sendViaSocket(session, notification, trx)
-
     })
-
   }
 
   if(instructions.firebase.length > 0) {
-
     await Promise.map(instructions.firebase, async (session) => {
-
       await sendViaFirebase(session, session.related('device'), notification, trx)
-
     })
-
   }
 
-  if(instructions.total === 0 && user.get('email_notifications_method') === 'ondemand') {
-
+  if(instructions.total > 0 && user.get('email_notifications_method') === 'ondemand') {
     return await sendViaEmail(user, notification, trx)
-
   }
 
   if(user.get('email_notifications_method') === 'digest') return
@@ -119,22 +103,16 @@ const getNotificationStrategy = (user, session, muted) => {
 }
 
 const sendViaSocket = async (session, notification, trx) => {
-
   await socket.in(`/admin/sessions/${session.get('id')}`).emit('message', {
     action: 'add_notification',
     data: formatObjectForTransport(notification)
   })
-
 }
 
 export const sendViaFirebase = async (session, device, notification, trx) => {
-
   const { title, body, route, code } = notification
-
   const sound = `${session.get('notification_sound')}.mp3`
-
   try {
-
     await messaging.send({
       data: route ? { title, body, code, route } : { title, body, code },
       token: device.get('push_token'),
@@ -152,19 +130,13 @@ export const sendViaFirebase = async (session, device, notification, trx) => {
         }
       } : {}
     })
-
   } catch(err) {
-
     if(err.errorInfo.code !== 'messaging/registration-token-not-registered') return
-
     await disablePush(session, device, trx)
-
   }
-
 }
 
 const sendViaEmail = async (user, notification, trx) => {
-
   await sendNotificationEmail(user, [
     {
       title: notification.title,
@@ -174,29 +146,29 @@ const sendViaEmail = async (user, notification, trx) => {
       created_at: notification.created_at
     }
   ])
-
 }
 
 const markNotificationAsDelivered = async (user, notification, trx) => {
-
   await knex('maha_notifications').transacting(trx).where({
     id: notification.id
   }).update({
     is_delivered: true
   })
-
 }
 
 const disablePush = async (session, device, trx) => {
-
   await session.save({
     push_notifications_enabled: false
-  }, { patch: true, transacting: trx })
-
+  }, {
+    patch: true,
+    transacting: trx
+  })
   await device.save({
     push_token: null
-  }, { patch: true, transacting: trx })
-
+  }, {
+    patch: true,
+    transacting: trx
+  })
 }
 
 const getMuted = (user) => {

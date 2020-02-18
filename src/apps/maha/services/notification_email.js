@@ -2,6 +2,7 @@ import { sendMail } from '../../../core/services/email'
 import pluralize from 'pluralize'
 import moment from 'moment'
 import path from 'path'
+import _ from 'lodash'
 import ejs from 'ejs'
 import fs from 'fs'
 
@@ -9,22 +10,24 @@ const messageTemplate = fs.readFileSync(path.resolve(__dirname,'..','emails','no
 
 const envelopeTemplate = fs.readFileSync(path.resolve(__dirname,'..','emails','envelope.ejs')).toString()
 
-const host = process.env.WEB_HOST
-
 export const sendNotificationEmail = async (user, notifications) => {
 
   const content = ejs.render(messageTemplate, {
     email_notifications_method: user.get('email_notifications_method'),
     first_name: user.get('first_name'),
-    host,
-    moment,
+    host: process.env.WEB_HOST,
+    notifications,
     pluralize,
-    notifications
+    moment,
+    _
   })
 
   const html = ejs.render(envelopeTemplate, {
+    host: process.env.WEB_HOST,
+    maha: true,
     content,
-    moment
+    moment,
+    _
   })
 
   await sendMail({
@@ -34,7 +37,7 @@ export const sendNotificationEmail = async (user, notifications) => {
     html,
     list: {
       unsubscribe: {
-        url: host+'#preferences',
+        url: `${process.env.WEB_HOST}#preferences`,
         comment: 'Unsubscribe'
       }
     }
