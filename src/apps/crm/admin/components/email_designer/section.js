@@ -7,10 +7,12 @@ import { Form } from 'maha-admin'
 import React from 'react'
 import _ from 'lodash'
 
-class Page extends React.Component {
+class Section extends React.Component {
 
   static propTypes = {
+    cid: PropTypes.string,
     config: PropTypes.object,
+    label: PropTypes.string,
     onPop: PropTypes.func,
     onPush: PropTypes.func,
     onUpdate: PropTypes.func
@@ -22,11 +24,6 @@ class Page extends React.Component {
 
   _handleChange = this._handleChange.bind(this)
   _handleDone = this._handleDone.bind(this)
-
-  render() {
-    if(!this.state.config) return null
-    return <Form { ...this._getForm() } />
-  }
 
   componentDidMount() {
     this.setState({
@@ -44,10 +41,16 @@ class Page extends React.Component {
     }
   }
 
+  render() {
+    if(!this.state.config) return null
+    return <Form { ...this._getForm() } />
+  }
+
   _getForm() {
     const { config } = this.state
+    const { label } = this.props
     return {
-      title: 'Page',
+      title: label,
       onCancel: this._handleDone,
       onChange: this._handleChange,
       cancelIcon: 'chevron-left',
@@ -58,15 +61,7 @@ class Page extends React.Component {
       sections: [
         {
           fields: [
-            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color },
-            { label: 'Padding', name: 'padding', type: 'dropdown', options: options.paddings, defaultValue: config.padding }
-          ]
-        },
-        {
-          label: 'Email Style',
-          fields: [
-            { label: 'Background Color', name: 'email_background_color', type: 'colorfield', defaultValue: config.email_background_color },
-            this._getBorder('email_border', 'Email Border')
+            { label: 'Background Color', name: 'background_color', type: 'colorfield', defaultValue: config.background_color }
           ]
         },
         ...options.block_types.map(({ value, text }) => ({
@@ -100,52 +95,32 @@ class Page extends React.Component {
     }
   }
 
-  _getBorder(type, label) {
-    const { config } = this.state
-    if(!config[`${type}_style`]) {
-      return { label, name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] }
-    }
-    return { label, type:'fields', fields: [
-      { name: `${type}_style`, type: 'dropdown', options: options.border_styles, placeholder: 'Style', defaultValue: config[`${type}_style`] },
-      { name: `${type}_width`, type: 'dropdown', options: options.border_widths, placeholder: 'Width', defaultValue: config[`${type}_width`] },
-      { name: `${type}_color`, type: 'colorfield', defaultValue: config[`${type}_color`] }
-    ] }
-  }
-
   _getDefault() {
     return {
-      background_color: '#DFDFDF',
-      border_top_width: null,
-      border_top_style: null,
-      border_top_color: null,
-      padding: 10,
-      email_background_color: null,
-      email_border_width: null,
-      email_border_style: null,
-      email_border_color: null,
-      h1_font_family: 'Arial, Helvetica, sans-serif',
-      h1_font_size: 24,
-      h1_color: '#202020',
-      h1_format: ['bold'],
+      background_color: null,
+      h1_font_family: null,
+      h1_font_size: null,
+      h1_color: null,
+      h1_format: [],
       h1_text_align: 'left',
-      h1_line_height: 1,
-      h1_letter_spacing: 0,
-      h2_font_family: 'Arial, Helvetica, sans-serif',
-      h2_font_size: 18,
-      h2_color: '#202020',
-      h2_format: ['bold'],
+      h1_line_height: null,
+      h1_letter_spacing: null,
+      h2_font_family: null,
+      h2_font_size: null,
+      h2_color: null,
+      h2_format: [],
       h2_text_align: 'left',
-      h2_line_height: 1,
-      h2_letter_spacing: 0,
-      p_font_family: 'Arial, Helvetica, sans-serif',
-      p_font_size: 14,
-      p_color: '#202020',
+      h2_line_height: null,
+      h2_letter_spacing: null,
+      p_font_family: null,
+      p_font_size: null,
+      p_color: null,
       p_format: [],
       p_text_align: 'left',
-      p_line_height: 1.5,
-      p_letter_spacing: 0,
-      a_format: ['underline'],
-      a_color: '#2185D0'
+      p_line_height: null,
+      p_letter_spacing: null,
+      a_format: [],
+      a_color: null
     }
   }
 
@@ -164,4 +139,4 @@ class Page extends React.Component {
 
 }
 
-export default Page
+export default Section

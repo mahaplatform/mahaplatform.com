@@ -9,7 +9,7 @@ import _ from 'lodash'
 class Sidebar extends React.Component {
 
   static propTypes = {
-    active: PropTypes.number,
+    active: PropTypes.object,
     blocks: PropTypes.array,
     components: PropTypes.object,
     cid: PropTypes.string,
@@ -47,14 +47,14 @@ class Sidebar extends React.Component {
   componentDidUpdate(prevProps) {
     const { active } = this.props
     if(!_.isEqual(active, prevProps.active)) {
-      if(active !== null) this._handleEdit(prevProps.active !== null)
-      if(active === null) this._handlePop()
+      if(active.index !== null) this._handleEdit(prevProps.active.index !== null)
+      if(active.index === null) this._handlePop()
     }
   }
 
   _getBlock() {
     const { active, config } = this.props
-    const key = `blocks[${active}]`
+    const key = `[${active.section}].blocks[${active.index}]`
     return {
       config: _.get(config, key),
       onDone: this._handleDone,
@@ -112,7 +112,7 @@ class Sidebar extends React.Component {
 
   _handleEdit(replace) {
     const { active, blocks } = this.props
-    const config = this.props.config.blocks[active]
+    const config = this.props.config[active.section].blocks[active.index]
     const { type } = config
     const block = _.find(blocks, { type })
     const push = replace ? this._handleReplace : this._handlePush

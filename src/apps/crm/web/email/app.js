@@ -14,7 +14,10 @@ class App extends React.Component {
   pasteur = null
 
   state = {
-    active: null,
+    active: {
+      section: null,
+      index: null
+    },
     config: null
   }
 

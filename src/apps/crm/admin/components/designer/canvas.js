@@ -10,7 +10,7 @@ class Canvas extends React.Component {
   }
 
   static propTypes = {
-    active: PropTypes.number,
+    active: PropTypes.object,
     canvas: PropTypes.string,
     config: PropTypes.object,
     onAdd: PropTypes.func,
@@ -79,16 +79,16 @@ class Canvas extends React.Component {
     this.pasteur.send('designer', 'update', { config })
   }
 
-  _handleAdd({ type, index }) {
-    this.props.onAdd(index, type)
+  _handleAdd({ section, type, index }) {
+    this.props.onAdd(section, index, { type })
   }
 
-  _handleClone({ block }) {
-    this.props.onClone(block)
+  _handleClone({ section, block }) {
+    this.props.onClone(section, block)
   }
 
-  _handleEdit({ block }) {
-    this.props.onEdit(block)
+  _handleEdit({ section, block }) {
+    this.props.onEdit(section, block)
   }
 
   _handleHighlight() {
@@ -96,10 +96,10 @@ class Canvas extends React.Component {
     this.pasteur.send('designer', 'highlight', { active })
   }
 
-  _handleRemove({ block }) {
+  _handleRemove({ section, block }) {
     const { confirm } = this.context
     const { onRemove } = this.props
-    const handler = onRemove.bind(this, block)
+    const handler = onRemove.bind(this, section, block)
     confirm.open('Are you sure you want to delete this block?', handler)
   }
 

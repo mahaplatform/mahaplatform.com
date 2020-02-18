@@ -9,6 +9,7 @@ import Video from './blocks/video'
 import PropTypes from 'prop-types'
 import Designer from '../designer'
 import Text from './blocks/text'
+import Section from './section'
 import Web from './blocks/web'
 import React from 'react'
 import Page from './page'
@@ -34,7 +35,8 @@ class EmailDesigner extends React.Component {
       endpoint,
       preview: true,
       components: {
-        page: Page
+        page: Page,
+        section: Section
       },
       program_id,
       tokens,

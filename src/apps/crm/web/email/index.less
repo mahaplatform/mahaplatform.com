@@ -15,7 +15,7 @@
 div.dropzone {
   position: relative;
   td.first {
-    text-align: center;
+    text-align: center !important;
   }
 }
 div.dropzone-highlight {
@@ -25,6 +25,19 @@ div.dropzone-highlight {
   left: 0;
   bottom: 0;
   border: 2px solid @teal;
+  &:after {
+    position: absolute;
+    padding: 5px;
+    font-size: 10px;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 100%);
+    background-color: @teal;
+    text-transform: uppercase;
+    color: white;
+    content: attr(data-label);
+    z-index: 10;
+  }
 }
 div.dropzone-target {
   border: 2px solid fadeout(@black, 90);

@@ -6,7 +6,8 @@ import React from 'react'
 class Section extends React.Component {
 
   static propTypes = {
-    active: PropTypes.number,
+    active: PropTypes.object,
+    section: PropTypes.string,
     config: PropTypes.object,
     onAction: PropTypes.func
   }
@@ -23,14 +24,14 @@ class Section extends React.Component {
 
   render() {
     const { hovering, index } = this.state
-    const { config } = this.props
+    const { section, config } = this.props
     const { blocks } = config
     return (
       <div { ...this._getDropZone() }>
         { hovering &&
-          <div className="dropzone-highlight" data-label="Foo" />
+          <div className="dropzone-highlight" data-label={section} />
         }
-        <table className="section">
+        <table className={`section-${ section } section`}>
           <tbody>
             <tr>
               <td>
@@ -54,8 +55,9 @@ class Section extends React.Component {
   }
 
   _getBlock(config, blockIndex) {
-    const { active, onAction } = this.props
+    const { section, active, onAction } = this.props
     return {
+      section,
       active,
       blockIndex,
       config,
@@ -92,11 +94,12 @@ class Section extends React.Component {
 
   _handleDrop(e) {
     const { index } = this.state
-    const { onAction } = this.props
+    const { section, onAction } = this.props
     e.preventDefault()
     e.stopPropagation()
     onAction('add', {
       type: e.dataTransfer.getData('type'),
+      section,
       index
     })
     this.setState({

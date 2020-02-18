@@ -8,24 +8,28 @@ export const save = (endpoint, config) => ({
   failure: 'SAVE_FAILURE'
 })
 
-export const add = (index, block) => ({
+export const add = (section, index, block) => ({
   type: 'ADD',
+  section,
   index,
   block
 })
 
-export const clone = (index) => ({
+export const clone = (section, index) => ({
   type: 'CLONE',
+  section,
   index
 })
 
-export const edit = (index) => ({
+export const edit = (section, index) => ({
   type: 'EDIT',
+  section,
   index
 })
 
-export const remove = (index) => ({
+export const remove = (section, index) => ({
   type: 'REMOVE',
+  section,
   index
 })
 

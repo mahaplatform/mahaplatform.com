@@ -1,7 +1,10 @@
 import _ from 'lodash'
 
 const INITIAL_STATE = {
-  active: null,
+  active: {
+    section: null,
+    index: null
+  },
   changes: 0,
   config: null,
   sidebar: true,
@@ -15,56 +18,76 @@ const reducer = (state = INITIAL_STATE, action) => {
   case 'ADD':
     return {
       ...state,
-      active: action.index,
+      active: {
+        section: action.section,
+        index: action.index
+      },
       changes: state.changes + 1,
       config: {
         ...state.config,
-        blocks: [
-          ...state.config.blocks.reduce((blocks, block, index) => [
-            ...blocks,
-            ...(index === action.index) ? [action.block] : [],
-            block
-          ], []),
-          ...action.index === state.config.blocks.length ? [action.block] : []
-        ]
-
+        [action.section]: {
+          ...state.config[action.section],
+          blocks: [
+            ...state.config[action.section].blocks.reduce((blocks, block, index) => [
+              ...blocks,
+              ...(index === action.index) ? [action.block] : [],
+              block
+            ], []),
+            ...action.index === state.config[action.section].blocks.length ? [action.block] : []
+          ]
+        }
       }
     }
 
   case 'CLONE':
     return {
       ...state,
-      active: null,
+      active: {
+        section: null,
+        index: null,
+      },
       changes: state.changes + 1,
       config: {
         ...state.config,
-        blocks: [
-          ...state.config.blocks.reduce((blocks, block, index) => [
-            ...blocks,
-            ...(index === action.index) ? [block,block] : [block]
-          ], [])
-        ]
+        [action.section]: {
+          ...state.config[action.section],
+          blocks: [
+            ...state.config[action.section].blocks.reduce((blocks, block, index) => [
+              ...blocks,
+              ...(index === action.index) ? [block,block] : [block]
+            ], [])
+          ]
+        }
       }
     }
 
   case 'EDIT':
     return {
       ...state,
-      active: action.index
+      active: {
+        section: action.section,
+        index: action.index
+      }
     }
 
   case 'REMOVE':
     return {
       ...state,
-      active: null,
+      active: {
+        section: null,
+        index: null
+      },
       changes: state.changes + 1,
       config: {
         ...state.config,
-        blocks: [
-          ...state.config.blocks.filter((block, index) => {
-            return index !== action.index
-          })
-        ]
+        [action.section]: {
+          ...state.config[action.section],
+          blocks: [
+            ...state.config[action.section].blocks.filter((block, index) => {
+              return index !== action.index
+            })
+          ]
+        }
       }
     }
 

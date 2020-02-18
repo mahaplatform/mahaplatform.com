@@ -8,7 +8,7 @@ import React from 'react'
 class Designer extends React.Component {
 
   static propTypes = {
-    active: PropTypes.number,
+    active: PropTypes.object,
     blocks: PropTypes.array,
     changes: PropTypes.number,
     cid: PropTypes.string,
@@ -38,7 +38,6 @@ class Designer extends React.Component {
     preview: false
   }
 
-  _handleAdd = this._handleAdd.bind(this)
   _handleToggle = this._handleToggle.bind(this)
 
   render() {
@@ -74,12 +73,12 @@ class Designer extends React.Component {
   }
 
   _getCanvas() {
-    const { active, canvas, config, onClone, onEdit, onRemove } = this.props
+    const { active, canvas, config, onAdd, onClone, onEdit, onRemove } = this.props
     return {
       active,
       canvas,
       config,
-      onAdd: this._handleAdd,
+      onAdd,
       onClone,
       onEdit,
       onRemove
@@ -118,12 +117,6 @@ class Designer extends React.Component {
       onSave
     }
   }
-
-  _handleAdd(index, type) {
-    const { onAdd } = this.props
-    onAdd(index, { type })
-  }
-
 
   _handleToggle() {
     this.props.onToggle()

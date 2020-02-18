@@ -14,9 +14,10 @@ import Web from './web'
 class Block extends React.Component {
 
   static propTypes = {
-    active: PropTypes.number,
+    active: PropTypes.object,
     blockIndex: PropTypes.number,
     config: PropTypes.object,
+    section: PropTypes.string,
     onAction: PropTypes.func
   }
 
@@ -60,9 +61,9 @@ class Block extends React.Component {
   }
 
   _getClass() {
-    const { active, blockIndex } = this.props
-    const is_active = active !== null && active === blockIndex
-    const classes=['block']
+    const { active, blockIndex, section } = this.props
+    const is_active = active.index !== null && active.index === blockIndex && active.section === section
+    const classes = ['block']
     if(is_active) classes.push('active')
     return classes.join(' ')
   }
@@ -90,8 +91,9 @@ class Block extends React.Component {
   }
 
   _handleAction(action) {
-    const { blockIndex, onAction } = this.props
+    const { blockIndex, section,onAction } = this.props
     onAction(action, {
+      section,
       block: blockIndex
     })
   }

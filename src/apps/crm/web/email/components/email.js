@@ -5,7 +5,7 @@ import React from 'react'
 class Email extends React.Component {
 
   static propTypes = {
-    active: PropTypes.number,
+    active: PropTypes.object,
     config: PropTypes.object,
     children: PropTypes.any,
     onAction: PropTypes.func
@@ -22,7 +22,9 @@ class Email extends React.Component {
                   <tbody>
                     <tr>
                       <td>
-                        <Section { ...this._getSection()} />
+                        <Section { ...this._getSection('header') } />
+                        <Section { ...this._getSection('body') } />
+                        <Section { ...this._getSection('footer') } />
                       </td>
                     </tr>
                   </tbody>
@@ -35,12 +37,13 @@ class Email extends React.Component {
     )
   }
 
-  _getSection() {
+  _getSection(section) {
     const { active, config, onAction } = this.props
     return {
       active,
+      section,
       config: {
-        blocks: config.blocks
+        blocks: config[section].blocks
       },
       onAction
     }
