@@ -41,6 +41,15 @@ const reducer = (state = INITIAL_STATE, action) => {
       value: action.value
     }
 
+  case 'SET_STREET2':
+    return {
+      ...state,
+      value: {
+        ...state.value,
+        street_2: action.value
+      }
+    }
+
   case 'SET_OPTIONS':
     return {
       ...state,
